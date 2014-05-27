@@ -1,0 +1,65 @@
+Devido as alterações que entrarão em vigor em breve, estou postando aqui um trecho de código demostrando como cancelar uma nota utilizando o ACBrNFe e eventos, adicione a unit pcnConversao ao uses porque foram utilizados alguns conversores dessa unit.
+
+// numero do lote de envio (somente um exemplo, pode-se utilizar seu proprio controle)
+  NumeroLote := StrToInt(FormatDateTime('yymmddhhmm', NOW));
+ 
+  // carregar o xml da nota fiscal eletronica, pode ser omitido
+  ACBrNFe.NotasFiscais.Clear;
+  if not ACBrNFe.NotasFiscais.LoadFromString(XML) then
+    raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!');
+ 
+  // Criar o cancelamento
+  ACBrNFe.EventoNFe.Evento.Clear;
+  ACBrNFe.EventoNFe.idLote := NumeroLote;
+ 
+  with ACBrNFe.EventoNFe.Evento.Add do
+  begin
+    infEvento.chNFe      := ChaveNFE;
+    infEvento.CNPJ       := Cnpj;
+    infEvento.dhEvento   := NOW;
+    infEvento.tpEvento   := teCancelamento;
+    infEvento.detEvento.nProt := Protocolo;
+    infEvento.detEvento.xJust := <Justificativa para o cancelamento, minimo de 15 caracteres>;
+  end;
+ 
+// Enviar o evento de cancelamento
+  if ACBrNFe.EnviarEventoNFe(NumeroLote) then
+  begin
+    with ACBrNFe.WebServices.EnvEvento do
+    begin
+      if EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
+      begin
+        raise Exception.CreateFmt(
+          'Ocorreu o seguinte erro ao cancelar a nota fiscal eletrônica:'  + sLineBreak +
+          'Código:%d' + sLineBreak +
+          'Motivo: %s', [
+            EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
+            EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
+        ]);
+      end;
+ 
+  // retornos 
+      DataHoraEvento  := EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento;
+      NumeroProtocolo := EventoRetorno.retEvento.Items[0].RetInfEvento.nProt;
+      XMLCancelamento := EventoRetorno.retEvento.Items[0].RetInfEvento.XML;
+  CodigoStatus    := EventoRetorno.retEvento.Items[0].RetInfEvento.cStat;
+      MotivoStatus    := EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo;
+    end;
+  end
+  else
+  begin
+    with ACBrNFe.WebServices.EnvEvento do
+    begin
+      raise Exception.Create(
+        'Ocorreram erros ao tentar efetuar o cancelamento:' + sLineBreak +
+        'Lote: '     + IntToStr(EventoRetorno.idLote) + sLineBreak +
+        'Ambiente: ' + TpAmbToStr(EventoRetorno.tpAmb) + sLineBreak +
+        'Orgao: '    + IntToStr(EventoRetorno.cOrgao) + sLineBreak +
+        sLineBreak +
+        'Status: '   + IntToStr(EventoRetorno.cStat) + sLineBreak +
+        'Motivo: '   + EventoRetorno.xMotivo
+      );
+    end;
+  end;
+  
+  

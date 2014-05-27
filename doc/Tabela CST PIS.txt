@@ -1,0 +1,33 @@
+pis01, Operação Tributável com Alíquota Básica
+pis02, Operação Tributável com Alíquota Diferenciada
+pis03, Operação Tributável com Alíquota por Unidade de Medida de Produto
+pis04, Operação Tributável Monofásica - Revenda a Alíquota Zero
+pis05, Operação Tributável por Substituição Tributária
+pis06, Operação Tributável a Alíquota Zero
+pis07, Operação Isenta da Contribuição
+pis08, Operação sem Incidênc ia da Contribuição
+pis09, Operação com Suspensão da Contribuição
+pis49, Outras Operações de Saída
+pis50, Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno
+pis51, Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Não Tributada no Mercado Interno
+pis52, Operação com Direito a Crédito - Vinculada Exclusivamente a Receita de Exportação
+pis53, Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno
+pis54, Operação com Direito a Crédito - Vinculada a Receitas Tributadas no Mercado Interno e de Exportação
+pis55, Operação com Direito a Crédito - Vinculada a Receitas Não-Tributadas no Mercado Interno e de Exportação
+pis56, Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno, e de Exportação
+pis60, Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Tributada no Mercado Interno
+pis61, Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Não-Tributada no Mercado Interno
+pis62, Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita de Exportação
+pis63, Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno
+pis64, Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas no Mercado Interno e de Exportação
+pis65, Crédito Presumido - Operação de Aquisição Vinculada a Receitas Não-Tributadas no Mercado Interno e de Exportação
+pis66, Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno, e de Exportação
+pis67, Crédito Presumido - Outras Operações
+pis70, Operação de Aquisição sem Direito a Crédito
+pis71, Operação de Aquisição com Isenção
+pis72, Operação de Aquisição com Suspensão
+pis73, Operação de Aquisição a Alíquota Zero
+pis74, Operação de Aquisição sem Incidência da Contribuição
+pis75, Operação de Aquisição por Substituição Tributária
+pis98, Outras Operações de Entrada
+pis99, Outras Operações

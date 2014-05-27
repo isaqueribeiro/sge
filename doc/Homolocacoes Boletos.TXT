@@ -1,0 +1,29 @@
+BRADESCO
+================================================================================
+
+Para solicitar a validação de boletos impressos na própria empresa, gere 03 (três) papeletas em formato PDF e encaminhe para o e-mail 4252.validboleto@bradesco.com.br
+Recomendamos aguardar a validação dos boletos impressos antes de distribuí-los aos clientes.
+ 
+- arquivo analisado para impressão e postagem dos boletos pela empresa
+- arquivo analisado com informação de multa
+- arquivo analisado com informação de mora dia (juros)
+- arquivo analisado com instrução de protesto automático
+- só pode ser protestado duplicata mercantil ou duplicata de serviço.
+ 
+ 
+Após correção, gere e envie novo arquivo para análise, favor anexar o pdf exatamente dos títulos constantes no arquivo.
+ 
+Favor gerar um arquivo contendo no mínimo 3 e no máximo 5 registros.
+ 
+Favor gerar arquivo contendo títulos com valores variados.
+ 
+José Luiz Freires de Carvalho
+Scopus Tecnologia Ltda
+Suporte Técnico PJ
+suportepj@scopus.com.br
+Tel.: 55 11 3003-1000
+Fax.:55 11 2089-0629
+www.scopus.com.br
+
+CAIXA ECONÔMICA
+================================================================================

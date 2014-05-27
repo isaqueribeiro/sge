@@ -1,0 +1,130 @@
+Segue uma pequena lista das Prefeituras e seus Provedores:
+Obs: Veja também o layout de sua cidade, como o nosso amigo Italo Jr disse, porque mesmo assim pode mudar.
+
+5100250 Alta Floresta/MT (ISS.NET)
+3501608 Americana/SP (TIPLAN)
+5201108 Anápolis/GO (ISS.NET)
+3502101 Andradina/SP (ISS.NET)
+3300100 Angra dos Reis/RJ (TIPLAN)
+5201405 Aparecida de Goiânia/GO (ISS.NET)
+3503208 Araraquara/SP (GINFES)
+2800308 Aracaju/SE (WebISS)
+3105608 Barbacena/MG (WebISS)
+3300407 Barra Mansa/RJ (TIPLAN)
+1501402 Belém/PA (DSF)
+3300456 Belford Roxo/RJ (GINFES)
+3106200 Belo Horizonte/MG
+4302105 Bento Gonçalves/RS (Abaco)
+5002209 Bonito/MS (ISS.NET)
+3509502 Campinas/SP (DSF)
+5002704 Campo Grande/MS (DSF)
+4106407 Cornélio Procópio/PR (Betha)
+4104808 Cascavel/PR (ISS.NET)
+3115300 Cataguases/MG (GINFES)
+3513009 Cotia/SP (GINFES)
+4306106 Cruz Alta/RS (ISS.NET)
+5103403 Cuiabá/MT (ISS.NET)
+4106902 Curitiba/PR
+4107207 Dois Vizinhos/PR (Equiplano)
+5003702 Dourados/MS (ISS.NET)
+3301702 Duque de Caxias/RJ (TIPLAN)
+4107652 Fazenda Rio Grande/PR (Betha)
+2304400 Fortaleza/CE (GINFES)
+3516200 Franca/SP (GINFES)
+4108403 Francisco Beltrão/PR (Equiplano)
+3127701 Governador Valadares/MG (ISSIntel)
+3518800 Guarulhos/SP (GINFES)
+3519071 Hortolândia/SP (GINFES)
+4109807 Ibiporã/PR (Equiplano)
+3131307 Ipatinga/MG (GINFES)
+3302007 Itaguaí/RJ (TIPLAN)
+3133808 Itaúna/MG (WebISS)
+3523909 Itu/SP (GINFES)
+3524402 Jacareí/SP (ISS.NET)
+3136207 João Monlevade/MG (WebISS)
+2507507 João Pessoa/PB (GINFES)
+3525904 Jundiaí/SP (GINFES)
+3137601 Lagoa Santa/MG (GINFES)
+3302403 Macaé/RJ (TIPLAN)
+2704302 Maceió/AL (GINFES)
+3302601 Mangaratiba/RJ (TIPLAN)
+3530607 Mogi das Cruzes/SP (ISS.NET)
+5005707 Naviraí/MS (ISS.NET)
+5006002 Nova Alvorada do Sul/MS (ISS.NET)
+3303401 Nova Friburgo/RJ (WebISS)
+3303500 Nova Iguacu/RJ (DSF)
+5106232 Nova Olímpia/MT (ISS.NET)
+3533908 Olímpia/SP (GINFES)
+3147105 Pará de Minas/MG (GINFES)
+2208007 Picos/PI (ISSIntel)
+2925303 Porto Seguro/BA (ISSIntel)
+3541000 Praia Grande/SP (ISS.NET)
+3541505 Presidente Venceslau/SP (ISS.NET)
+5107040 Primavera do Leste/MT (Ábaco)
+2611606 Recife/PE
+3304201 Resende/RJ (TIPLAN)
+3543402 Ribeirão Preto/SP (GINFES)
+5007208 Rio Brilhante/MS (ISS.NET)
+3304524 Rio das Ostras/RJ (TIPLAN)
+3304557 Rio de Janeiro/RJ
+4214805 Rio do Sul/SC (Betha)
+3156700 Sabará/MG (WebISS)
+2927408 Salvador/BA
+4316907 Santa Maria/RS (ISS.NET)
+3547809 Santo André/SP (GINFES)
+3548906 São Carlos/SP (GINFES)
+3548708 São Bernardo do Campo/SP (GINFES)
+3549805 São José do Rio Preto/SP (GINFES)
+4125506 São José dos Pinhais/PR (GINFES)
+2111300 São Luís/MA (DSF)
+3550308 São Paulo/SP
+3551504 Serrana/SP (ISS.NET)
+5007901 Sidrolândia/MS (ISS.NET)
+3552205 Sorocaba/SP (DSF)
+5107925 Sorriso/MT (ISS.NET)
+5107958 Tangará da Serra/MT (ISS.NET)
+3554003 Tatuí/SP (GINFES)
+2211001 Teresina/PI (DSF)
+3305802 Teresópolis/RJ (WebISS)
+4127700 Toledo/PR (Equiplano)
+3169307 Três Corações/MG (ISS.NET)
+3170107 Uberaba/MG (WebISS)
+3170206 Uberlandia/MG (DSF)
+4128104 Umuarama/PR (GINFES)
+4128203 União da Vitória/PR (Betha)
+5108402 Varzea Grande/MT (ISS.NET)
+1100304 Vilhena/RO (ISS.NET)
+3557105 Votuporanga/SP (GINFES)
+4219507 Xanxerê/SC (ISS.NET) 
+
+
+Resposta:
+===============================================
+
+Boa noite a todos,
+
+Esta disponivel no branches, os fontes do ACBrNFSe.
+
+No Padrão GINFES já é possível:
+Gerar o XML do RPS;
+Gerar o Lote;
+Assinar o Lote;
+Validar;
+Enviar para o WebServices;
+Obter o retorno com o protocolo de recebimento;
+Realizar a Consulta da Situação do Lote de RPS;
+Obter o retorno com a situação do lote enviado;
+Realizar a Consulta do Lote caso a situação seja 4 = Processado com Sucesso;
+Obter o retorno contendo a lista de NFSe gerada pelo WebService;
+
+Ainda temos que escrever mais 2 rotinas de consulta e a rotina de cancelamento de NFSe.
+
+Acredito que até o final desta primeira quinzena de Setembro vai esta tudo pronto e testado.
+Inclusive a impressão do DANFSe.
+
+Como o Padrão ABRASF é identico, pretendo fazer com que todas as rotinas possam trabalhar com os dois padrões.
+Só que isso vai ficar para a segunda quinzena de Setembro.
+
+Só não vou ter como testar, pois na cidade que moro, o padrão Ginfes.
+
+Quando estiver funcionando tanto no padrão Ginfes quanto no Abrasf vou disponibilizar os fontes no trunk. 

@@ -1,0 +1,4 @@
+>>>>>>
+Abra o painel de controle / Sistema / Aba avançado / Desempenho - Avançado / Aba prevenção de execução de dados - adiciona o exe da sua aplicação. (aqui, o que eu precisei fazer a mais foi deixar o aplicativo com o check box marcado)
+Para o windows 7 manda executar a aplicação como administrador.
+<<<<<<

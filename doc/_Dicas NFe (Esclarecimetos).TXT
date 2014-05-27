@@ -1,0 +1,47 @@
+Paulo,
+
+Se você esta se manifestando sobre uma NFe, essa nota não foi emitida por você.
+Você recebeu essa nota do seu fornecedor ou suposto fornecedor.
+
+A SEFAZ disponibilizou o serviço de Manifestação do Destinatário, veja bem Destinatário e não Emitente.
+Com ele é possível saber as notas que foram emitidas contra o seu CNPJ, mesmo que o emitente não envie a nota por e-mail.
+Desta forma é possível saber se alguem esta emitindo notas sem você ter comprado algo dele.
+É neste momento que você informa a SEFAZ se a operação é verdadeira ou não. 
+
+Fonte: http://www.projetoacbr.com.br/forum/index.php?/topic/7541-confirmar-nota-destinada-de-outra-uf/
+
+================================================================================
+
+O que é um evento da Nota Fiscal Eletrônica - NF-e?
+
+É qualquer fato relacionado com uma NF-e, normalmente ocorrido após a sua respectiva 
+autorização de uso. A Carta de Correção Eletrônica e o Cancelamento são exemplos de 
+eventos da NF-e. 
+
+Os eventos aparecem na consulta da NF-e na Internet e funcionam como se fossem um 
+extrato dos fatos vinculados a este documento. Conforme sua natureza, podem ser 
+visualizados por todos os envolvidos na operação ou somente pelas Administrações 
+Tributárias.
+
+Fonte: http://www.nfe.fazenda.gov.br/portal/perguntasFrequentes.aspx?tipoConteudo=yjOJMwFOkA0%3D
+
+================================================================================
+
+O que é a Manifestação do Destinatário?
+
+Este conjunto de eventos, como o próprio nome já sugere, permite que o destinatário da 
+NF-e possa se manifestar sobre a sua participação comercial descrita na NF-e, 
+confirmando as informações prestadas pelo seu fornecedor e emissor do respectivo 
+documento fiscal.  Este processo é composto de quatro eventos:
+
+1. Ciência da Emissão
+
+2. Confirmação da Operação 
+
+3. Registro de Operação não Realizada
+
+4. Desconhecimento da Operação
+
+Fonte: http://www.nfe.fazenda.gov.br/portal/perguntasFrequentes.aspx?tipoConteudo=yjOJMwFOkA0%3D
+
+================================================================================
