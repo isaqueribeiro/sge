@@ -1,0 +1,5 @@
+GestorEscolar.exe
+GestorEscolar.udl
+fbclient.dll
+rlt\*.frf
+sql\*.sql
