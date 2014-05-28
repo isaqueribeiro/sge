@@ -2756,6 +2756,14 @@ inherited frmGeProduto: TfrmGeProduto
       Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaDISPONIVEL: TIBBCDField
+      DisplayLabel = 'Dispon'#237'vel'
+      FieldName = 'DISPONIVEL'
+      ProviderFlags = []
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
     object IbDtstTabelaPRECO_FRAC: TFMTBCDField
       FieldName = 'PRECO_FRAC'
       ProviderFlags = []
@@ -2776,14 +2784,6 @@ inherited frmGeProduto: TfrmGeProduto
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 5
-    end
-    object IbDtstTabelaDISPONIVEL: TIBBCDField
-      DisplayLabel = 'Dispon'#237'vel'
-      FieldName = 'DISPONIVEL'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
     end
   end
   inherited DtSrcTabela: TDataSource

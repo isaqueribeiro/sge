@@ -232,15 +232,15 @@ type
     lblNVE: TLabel;
     dbNVE: TDBEdit;
     IbDtstTabelaCODIGO_NVE: TIBStringField;
-    IbDtstTabelaPRECO_FRAC: TFMTBCDField;
-    IbDtstTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField;
-    IbDtstTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField;
     IbDtstTabelaQTDE: TIBBCDField;
     IbDtstTabelaDISPONIVEL: TIBBCDField;
     IbDtstTabelaRESERVA: TIBBCDField;
     IbDtstTabelaESTOQMIN: TIBBCDField;
     IbDtstTabelaMOVIMENTA_ESTOQUE: TSmallintField;
     dbMovimentaEstoque: TDBCheckBox;
+    IbDtstTabelaPRECO_FRAC: TFMTBCDField;
+    IbDtstTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField;
+    IbDtstTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);

@@ -6,7 +6,7 @@ object DMBusiness: TDMBusiness
   Height = 426
   Width = 706
   object ibdtbsBusiness: TIBDatabase
-    DatabaseName = 'localhost:BUSINESS'
+    DatabaseName = 'localhost:AGIL_COMERCIO'
     Params.Strings = (
       'user_name=SYSDBA'
       'Password=masterkey'
