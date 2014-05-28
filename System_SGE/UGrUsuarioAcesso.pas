@@ -68,7 +68,7 @@ begin
   if (vSenha.Value = edSenha.Text) or (vSenha.Value = sSenha) then
   begin
     frmPrinc.Enabled := True;
-    frmPrinc.stbMain.Panels[1].Text := 'Usuário: ' + edNome.Text;
+    frmPrinc.stbMain.Panels[1].Text := AnsiLowerCase(edNome.Text + '@' + DMBusiness.ibdtbsBusiness.DatabaseName);
 
     Release;
   end

@@ -1,7 +1,6 @@
 inherited FrmEfetuarLogin: TFrmEfetuarLogin
   Caption = 'Efetuar Login!'
   Color = 14548957
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 19
   object Shape1: TShape [0]

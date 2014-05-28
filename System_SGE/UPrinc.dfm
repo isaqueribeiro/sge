@@ -32,7 +32,9 @@ object frmPrinc: TfrmPrinc
         Width = 350
       end
       item
-        Width = 280
+        Alignment = taCenter
+        Text = 'Usu'#225'rio'
+        Width = 250
       end
       item
         Alignment = taCenter
