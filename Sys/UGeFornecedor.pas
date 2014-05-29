@@ -7,7 +7,7 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, rxToolEdit, RXDBCtrl, ACBrConsultaCPF, ACBrBase,
-  ACBrSocket, ACBrConsultaCNPJ, JPEG;
+  ACBrSocket, ACBrConsultaCNPJ, JPEG, IBQuery;
 
 type
   TfrmGeFornecedor = class(TfrmGrPadraoCadastro)
@@ -81,7 +81,7 @@ type
     dbGrupo: TDBLookupComboBox;
     tbsDadosAdcionais: TTabSheet;
     IbDtstTabelaTRANSPORTADORA: TSmallintField;
-    DBCheckBox1: TDBCheckBox;
+    dbTransportadora: TDBCheckBox;
     tbsConsultarCNPJ: TTabSheet;
     tbsConsultarCPF: TTabSheet;
     pnlConsultarCNPJ: TPanel;
@@ -142,6 +142,24 @@ type
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
     IbDtstTabelaNOMEFANT: TIBStringField;
+    qryBancoFebraban: TIBQuery;
+    dtsBancoFebraban: TDataSource;
+    tbsDadoFinanceiro: TTabSheet;
+    tbsObservacao: TTabSheet;
+    IbDtstTabelaBANCO: TIBStringField;
+    IbDtstTabelaAGENCIA: TIBStringField;
+    IbDtstTabelaCC: TIBStringField;
+    IbDtstTabelaPRACA: TIBStringField;
+    IbDtstTabelaOBSERVACAO: TMemoField;
+    lblBanco: TLabel;
+    dbBanco: TDBLookupComboBox;
+    lblAgencia: TLabel;
+    dbAgencia: TDBEdit;
+    dbContaCorrente: TDBEdit;
+    lblContaCorrente: TLabel;
+    lblPracaoCobranca: TLabel;
+    dbPracaoCobranca: TDBEdit;
+    dbObservacao: TDBMemo;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -258,6 +276,7 @@ begin
   ControlFirstEdit := dbPessoaFisica;
 
   tblGrupo.Open;
+  qryBancoFebraban.Open;
 
   DisplayFormatCodigo := '##0000';
 
@@ -282,7 +301,13 @@ begin
   begin
     Key := #0;
     if ( Sender = dbHome ) then
-      pgcMaisDados.SelectNextPage(False);
+      pgcMaisDados.ActivePage := tbsDadosAdcionais
+    else
+    if ( Sender = dbTransportadora ) then
+      pgcMaisDados.ActivePage := tbsDadoFinanceiro
+    else
+    if ( Sender = dbPracaoCobranca ) then
+      pgcMaisDados.ActivePage := tbsObservacao;
   end;
 end;
 
@@ -367,11 +392,16 @@ procedure TfrmGeFornecedor.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaPESSOA_FISICA.AsInteger  := 0;
-  IbDtstTabelaGRF_COD.AsInteger        := 0;
   IbDtstTabelaPAIS_ID.AsString         := GetPaisIDDefault;
   IbDtstTabelaPAIS_NOME.AsString       := GetPaisNomeDefault;
   IbDtstTabelaTRANSPORTADORA.AsInteger := 0;
   IbDtstTabelaDTCAD.AsDateTime         := GetDateTimeDB;
+  IbDtstTabelaGRF_COD.Clear;
+  IbDtstTabelaBANCO.Clear;
+  IbDtstTabelaAGENCIA.Clear;
+  IbDtstTabelaCC.Clear;
+  IbDtstTabelaPRACA.Clear;
+  IbDtstTabelaOBSERVACAO.Clear;
 end;
 
 procedure TfrmGeFornecedor.DtSrcTabelaStateChange(Sender: TObject);

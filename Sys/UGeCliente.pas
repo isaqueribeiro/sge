@@ -46,7 +46,7 @@ type
     dbEstado: TRxDBComboEdit;
     pgcMaisDados: TPageControl;
     tbsContato: TTabSheet;
-    tbsFinanceiro: TTabSheet;
+    tbsCompra: TTabSheet;
     lblBairro: TLabel;
     dbBairro: TRxDBComboEdit;
     lblLogradouro: TLabel;
@@ -246,6 +246,24 @@ type
     lblTipoCNPJ: TLabel;
     dbTipoCNPJ: TDBLookupComboBox;
     QryEstoqueSateliteCOD_CLIENTE: TIntegerField;
+    IbDtstTabelaBANCO: TIBStringField;
+    IbDtstTabelaAGENCIA: TIBStringField;
+    IbDtstTabelaCC: TIBStringField;
+    IbDtstTabelaPRACA: TIBStringField;
+    IbDtstTabelaOBSERVACAO: TMemoField;
+    dtsBancoFebraban: TDataSource;
+    tbsDadoFinanceiro: TTabSheet;
+    lblBanco: TLabel;
+    dbBanco: TDBLookupComboBox;
+    lblAgencia: TLabel;
+    dbAgencia: TDBEdit;
+    lblContaCorrente: TLabel;
+    dbContaCorrente: TDBEdit;
+    lblPracaoCobranca: TLabel;
+    dbPracaoCobranca: TDBEdit;
+    tbsObservacao: TTabSheet;
+    dbObservacao: TDBMemo;
+    qryBancoFebraban: TIBQuery;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -466,10 +484,13 @@ begin
 
   tblVendedor.Open;
   tblTipoCnpj.Open;
+  qryBancoFebraban.Open;
 
   BloquearClientes;
 
   ControlFirstEdit := dbPessoaFisica;
+
+  DisplayFormatCodigo := '##0000';
 
   NomeTabela     := 'TBCLIENTE';
   CampoCodigo    := 'codigo';
@@ -490,7 +511,7 @@ begin
   dbEntregaFracionada.ReadOnly  := not GetEstoqueSateliteEmpresa(GetEmpresaIDDefault);
 
   tbsDadosAdcionais.TabVisible := (gSistema.Codigo = SISTEMA_GESTAO);
-  tbsFinanceiro.TabVisible     := (gSistema.Codigo = SISTEMA_GESTAO);
+  tbsCompra.TabVisible         := (gSistema.Codigo = SISTEMA_GESTAO);
   BtBtnProcesso.Visible        := (gSistema.Codigo = SISTEMA_GESTAO);
 end;
 
@@ -500,12 +521,14 @@ begin
   if ( Key = #13 ) then
   begin
     Key := #0;
-    //  pgcMaisDados.SelectNextPage(False);
     if ( Sender = dbHome ) then
       pgcMaisDados.ActivePage := tbsDadosAdcionais
     else
     if ( Sender = dbEntregaFracionada ) then
-      pgcMaisDados.ActivePage := tbsFinanceiro;
+      pgcMaisDados.ActivePage := tbsDadoFinanceiro
+    else
+    if ( Sender = dbPracaoCobranca ) then
+      pgcMaisDados.ActivePage := tbsObservacao;
   end;
 end;
 
@@ -597,6 +620,9 @@ begin
   IbDtstTabelaEST_COD.AsInteger          := GetEstadoIDDefault;
   IbDtstTabelaEST_NOME.AsString          := GetEstadoNomeDefault;
   IbDtstTabelaUF.AsString                := GetEstadoUF(GetEstadoIDDefault);
+  IbDtstTabelaCID_COD.AsInteger          := GetCidadeIDDefault;
+  IbDtstTabelaCID_NOME.AsString          := GetCidadeNomeDefault;
+  IbDtstTabelaCIDADE.AsString            := GetCidadeNomeDefault + ' (' + IbDtstTabelaUF.AsString + ')';
   IbDtstTabelaDTCAD.AsDateTime           := GetDateDB;
   IbDtstTabelaBLOQUEADO.AsInteger             := 0; // Ord(False);
   IbDtstTabelaEMITIR_NFE_DEVOLUCAO.AsInteger  := 0; // Ord(False);
@@ -607,6 +633,11 @@ begin
   IbDtstTabelaBLOQUEADO_DATA.Clear;
   IbDtstTabelaBLOQUEADO_MOTIVO.Clear;
   IbDtstTabelaBLOQUEADO_USUARIO.Clear;
+  IbDtstTabelaBANCO.Clear;
+  IbDtstTabelaAGENCIA.Clear;
+  IbDtstTabelaCC.Clear;
+  IbDtstTabelaPRACA.Clear;
+  IbDtstTabelaOBSERVACAO.Clear;
 end;
 
 procedure TfrmGeCliente.DtSrcTabelaStateChange(Sender: TObject);
@@ -1307,6 +1338,7 @@ begin
 
   // inherited;
   FiltarDados(CmbBxFiltrarTipo.ItemIndex);
+  CentralizarCodigo;
 end;
 
 procedure TfrmGeCliente.FiltarDados(const iTipoPesquisa: Integer);

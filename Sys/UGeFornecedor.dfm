@@ -71,7 +71,6 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             Expanded = False
             FieldName = 'INSCEST'
             Title.Caption = 'RG / Ins. Estadual'
-            Width = -1
             Visible = False
           end
           item
@@ -868,7 +867,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
-          Caption = 'Contato'
+          Caption = '&1. Contato'
           object lblFone: TLabel
             Left = 8
             Top = 0
@@ -1016,14 +1015,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             TabOrder = 2
           end
         end
-        object tbsDuplicatas: TTabSheet
-          Caption = 'Duplicatas'
-          ImageIndex = 1
-        end
         object tbsDadosAdcionais: TTabSheet
-          Caption = 'Outras Informa'#231#245'es'
+          Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
-          object DBCheckBox1: TDBCheckBox
+          object dbTransportadora: TDBCheckBox
             Left = 8
             Top = 10
             Width = 121
@@ -1034,7 +1029,130 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             TabOrder = 0
             ValueChecked = '1'
             ValueUnchecked = '0'
+            OnKeyPress = ProximoCampoKeyPress
           end
+        end
+        object tbsDadoFinanceiro: TTabSheet
+          Caption = '&3. Dados Financeiros'
+          ImageIndex = 3
+          object lblBanco: TLabel
+            Left = 8
+            Top = 0
+            Width = 33
+            Height = 13
+            Caption = 'Banco:'
+            FocusControl = dbBanco
+          end
+          object lblAgencia: TLabel
+            Left = 464
+            Top = 0
+            Width = 42
+            Height = 13
+            Caption = 'Ag'#234'ncia:'
+            FocusControl = dbAgencia
+          end
+          object lblContaCorrente: TLabel
+            Left = 640
+            Top = 0
+            Width = 33
+            Height = 13
+            Caption = 'Conta:'
+            FocusControl = dbContaCorrente
+          end
+          object lblPracaoCobranca: TLabel
+            Left = 8
+            Top = 40
+            Width = 95
+            Height = 13
+            Caption = 'Pra'#231'a de Cobran'#231'a:'
+            FocusControl = dbPracaoCobranca
+          end
+          object dbBanco: TDBLookupComboBox
+            Left = 8
+            Top = 16
+            Width = 449
+            Height = 21
+            DataField = 'BANCO'
+            DataSource = DtSrcTabela
+            DropDownRows = 10
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            KeyField = 'CODIGO'
+            ListField = 'NOME_CODIGO'
+            ListSource = dtsBancoFebraban
+            ParentFont = False
+            TabOrder = 0
+          end
+          object dbAgencia: TDBEdit
+            Left = 464
+            Top = 16
+            Width = 169
+            Height = 21
+            CharCase = ecUpperCase
+            DataField = 'AGENCIA'
+            DataSource = DtSrcTabela
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+          object dbContaCorrente: TDBEdit
+            Left = 640
+            Top = 16
+            Width = 169
+            Height = 21
+            CharCase = ecUpperCase
+            DataField = 'CC'
+            DataSource = DtSrcTabela
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 2
+          end
+          object dbPracaoCobranca: TDBEdit
+            Left = 8
+            Top = 56
+            Width = 801
+            Height = 21
+            CharCase = ecUpperCase
+            DataField = 'PRACA'
+            DataSource = DtSrcTabela
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 3
+            OnKeyPress = ProximoCampoKeyPress
+          end
+        end
+        object tbsObservacao: TTabSheet
+          Caption = '&4. Observa'#231#245'es'
+          ImageIndex = 4
+          object dbObservacao: TDBMemo
+            Left = 0
+            Top = 0
+            Width = 828
+            Height = 143
+            Align = alClient
+            DataField = 'OBSERVACAO'
+            DataSource = DtSrcTabela
+            TabOrder = 0
+          end
+        end
+        object tbsDuplicatas: TTabSheet
+          Caption = '&5. Duplicatas'
+          ImageIndex = 1
         end
       end
     end
@@ -1676,6 +1794,11 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       '  , f.Pais_id'
       '  , f.Grf_cod'
       '  , f.Transportadora'
+      '  , f.banco'
+      '  , f.agencia'
+      '  , f.cc'
+      '  , f.praca'
+      '  , f.observacao'
       '  , f.DtCad'
       
         '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
@@ -1857,6 +1980,42 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       FieldName = 'TRANSPORTADORA'
       Origin = '"TBFORNECEDOR"."TRANSPORTADORA"'
     end
+    object IbDtstTabelaBANCO: TIBStringField
+      DisplayLabel = 'Banco'
+      FieldName = 'BANCO'
+      Origin = '"TBFORNECEDOR"."BANCO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object IbDtstTabelaAGENCIA: TIBStringField
+      DisplayLabel = 'Ag'#234'ncia'
+      FieldName = 'AGENCIA'
+      Origin = '"TBFORNECEDOR"."AGENCIA"'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object IbDtstTabelaCC: TIBStringField
+      DisplayLabel = 'C/C'
+      FieldName = 'CC'
+      Origin = '"TBFORNECEDOR"."CC"'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object IbDtstTabelaPRACA: TIBStringField
+      DisplayLabel = 'Pra'#231'a de Cobran'#231'a'
+      FieldName = 'PRACA'
+      Origin = '"TBFORNECEDOR"."PRACA"'
+      ProviderFlags = [pfInUpdate]
+      Size = 250
+    end
+    object IbDtstTabelaOBSERVACAO: TMemoField
+      DisplayLabel = 'Observa'#231#245'es'
+      FieldName = 'OBSERVACAO'
+      Origin = '"TBFORNECEDOR"."OBSERVACAO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
     object IbDtstTabelaDTCAD: TDateField
       FieldName = 'DTCAD'
       Origin = '"TBFORNECEDOR"."DTCAD"'
@@ -1926,6 +2085,11 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       '  PAIS_ID,'
       '  GRF_COD,'
       '  TRANSPORTADORA,'
+      '  BANCO,'
+      '  AGENCIA,'
+      '  CC,'
+      '  PRACA,'
+      '  OBSERVACAO,'
       '  DTCAD,'
       '  CLIENTE_ORIGEM,'
       '  CLIENTE_ORIGEM_COD'
@@ -1935,7 +2099,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     ModifySQL.Strings = (
       'update TBFORNECEDOR'
       'set'
+      '  AGENCIA = :AGENCIA,'
       '  BAI_COD = :BAI_COD,'
+      '  BANCO = :BANCO,'
+      '  CC = :CC,'
       '  CEP = :CEP,'
       '  CID_COD = :CID_COD,'
       '  CIDADE = :CIDADE,'
@@ -1957,8 +2124,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       '  NOMEFANT = :NOMEFANT,'
       '  NOMEFORN = :NOMEFORN,'
       '  NUMERO_END = :NUMERO_END,'
+      '  OBSERVACAO = :OBSERVACAO,'
       '  PAIS_ID = :PAIS_ID,'
       '  PESSOA_FISICA = :PESSOA_FISICA,'
+      '  PRACA = :PRACA,'
       '  SITE = :SITE,'
       '  TLG_TIPO = :TLG_TIPO,'
       '  TRANSPORTADORA = :TRANSPORTADORA,'
@@ -1968,26 +2137,31 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     InsertSQL.Strings = (
       'insert into TBFORNECEDOR'
       
-        '  (BAI_COD, CEP, CID_COD, CIDADE, CNPJ, CODFORN, COMPLEMENTO, CO' +
-        'NTATO, '
+        '  (AGENCIA, BAI_COD, BANCO, CC, CEP, CID_COD, CIDADE, CNPJ, CODF' +
+        'ORN, COMPLEMENTO, '
       
-        '   DTCAD, EMAIL, ENDER, EST_COD, FONE, FONECEL, FONEFAX, GRF_COD' +
-        ', INSCEST, '
+        '   CONTATO, DTCAD, EMAIL, ENDER, EST_COD, FONE, FONECEL, FONEFAX' +
+        ', GRF_COD, '
       
-        '   INSCMUN, LOG_COD, NOMEFANT, NOMEFORN, NUMERO_END, PAIS_ID, PE' +
-        'SSOA_FISICA, '
-      '   SITE, TLG_TIPO, TRANSPORTADORA, UF)'
+        '   INSCEST, INSCMUN, LOG_COD, NOMEFANT, NOMEFORN, NUMERO_END, OB' +
+        'SERVACAO, '
+      
+        '   PAIS_ID, PESSOA_FISICA, PRACA, SITE, TLG_TIPO, TRANSPORTADORA' +
+        ', UF)'
       'values'
       
-        '  (:BAI_COD, :CEP, :CID_COD, :CIDADE, :CNPJ, :CODFORN, :COMPLEME' +
-        'NTO, :CONTATO, '
+        '  (:AGENCIA, :BAI_COD, :BANCO, :CC, :CEP, :CID_COD, :CIDADE, :CN' +
+        'PJ, :CODFORN, '
       
-        '   :DTCAD, :EMAIL, :ENDER, :EST_COD, :FONE, :FONECEL, :FONEFAX, ' +
-        ':GRF_COD, '
+        '   :COMPLEMENTO, :CONTATO, :DTCAD, :EMAIL, :ENDER, :EST_COD, :FO' +
+        'NE, :FONECEL, '
       
-        '   :INSCEST, :INSCMUN, :LOG_COD, :NOMEFANT, :NOMEFORN, :NUMERO_E' +
-        'ND, :PAIS_ID, '
-      '   :PESSOA_FISICA, :SITE, :TLG_TIPO, :TRANSPORTADORA, :UF)')
+        '   :FONEFAX, :GRF_COD, :INSCEST, :INSCMUN, :LOG_COD, :NOMEFANT, ' +
+        ':NOMEFORN, '
+      
+        '   :NUMERO_END, :OBSERVACAO, :PAIS_ID, :PESSOA_FISICA, :PRACA, :' +
+        'SITE, :TLG_TIPO, '
+      '   :TRANSPORTADORA, :UF)')
     DeleteSQL.Strings = (
       'delete from TBFORNECEDOR'
       'where'
@@ -2020,5 +2194,26 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     ProxyPort = '8080'
     Left = 648
     Top = 382
+  end
+  object qryBancoFebraban: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    b.codigo'
+      '  , b.nome'
+      '  , b.codigo_nome'
+      '  , b.nome_codigo'
+      'from VW_BANCO_FEBRABAN b'
+      ''
+      'order by'
+      '    b.nome')
+    Left = 672
+    Top = 217
+  end
+  object dtsBancoFebraban: TDataSource
+    DataSet = qryBancoFebraban
+    Left = 704
+    Top = 216
   end
 end

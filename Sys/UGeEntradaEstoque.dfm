@@ -344,6 +344,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         inherited grpBxFiltro: TGroupBox
           Left = 462
           Width = 625
+          DesignSize = (
+            625
+            54)
           inherited lbltFiltrar: TLabel
             Left = 294
             Width = 47
@@ -514,7 +517,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblNotaFiscal: TLabel [5]
-          Left = 112
+          Left = 128
           Top = 64
           Width = 63
           Height = 13
@@ -528,7 +531,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblSerie: TLabel [6]
-          Left = 240
+          Left = 256
           Top = 64
           Width = 32
           Height = 13
@@ -542,7 +545,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblDataEntrada: TLabel [7]
-          Left = 288
+          Left = 304
           Top = 64
           Width = 68
           Height = 13
@@ -556,7 +559,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblCFOPNF: TLabel [8]
-          Left = 384
+          Left = 416
           Top = 64
           Width = 31
           Height = 13
@@ -703,24 +706,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           TabOrder = 3
           OnButtonClick = dbFornecedorButtonClick
         end
-        object dbDataEmissao: TDBEdit
-          Left = 16
-          Top = 80
-          Width = 89
-          Height = 21
-          Color = clWhite
-          DataField = 'DTEMISS'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 4
-        end
         object dbNotaFiscal: TDBEdit
-          Left = 112
+          Left = 128
           Top = 80
           Width = 121
           Height = 21
@@ -736,7 +723,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           TabOrder = 5
         end
         object dbSerie: TDBEdit
-          Left = 240
+          Left = 256
           Top = 80
           Width = 41
           Height = 21
@@ -751,24 +738,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
           TabOrder = 6
         end
-        object dbDataEntrada: TDBEdit
-          Left = 288
-          Top = 80
-          Width = 89
-          Height = 21
-          Color = clWhite
-          DataField = 'DTENT'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 7
-        end
         object dbCFOPNF: TRxDBComboEdit
-          Left = 384
+          Left = 416
           Top = 80
           Width = 89
           Height = 21
@@ -843,9 +814,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           OnExit = ControlEditExit
         end
         object dbCFOPNFDescricao: TDBEdit
-          Left = 480
+          Left = 512
           Top = 80
-          Width = 329
+          Width = 297
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -952,6 +923,40 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ShowHint = True
           TabOrder = 10
           OnButtonClick = dbAutorizacaoButtonClick
+        end
+        object dbDataEmissao: TDBDateEdit
+          Left = 16
+          Top = 80
+          Width = 105
+          Height = 21
+          DataField = 'DTEMISS'
+          DataSource = DtSrcTabela
+          Color = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          NumGlyphs = 2
+          ParentFont = False
+          TabOrder = 4
+        end
+        object dbDataEntrada: TDBDateEdit
+          Left = 304
+          Top = 80
+          Width = 105
+          Height = 21
+          DataField = 'DTENT'
+          DataSource = DtSrcTabela
+          Color = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          NumGlyphs = 2
+          ParentFont = False
+          TabOrder = 7
         end
       end
       object GrpBxDadosValores: TGroupBox

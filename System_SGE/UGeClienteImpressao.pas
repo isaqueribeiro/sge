@@ -28,6 +28,7 @@ type
     DspRelacaoClienteCredito: TDataSetProvider;
     CdsRelacaoClienteCredito: TClientDataSet;
     FrdsRelacaoClienteCredito: TfrxDBDataset;
+    frFichaCliente: TfrxReport;
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -54,8 +55,9 @@ uses
 
 const
   REPORT_RELACAO_CLIENTE         = 0;
-  REPORT_RELACAO_CLIENTE_CIDADE  = 1;
-  REPORT_RELACAO_CLIENTE_CREDITO = 2;
+  REPORT_RELACAO_CLIENTE_FICHA   = 1;
+  REPORT_RELACAO_CLIENTE_CIDADE  = 2;
+  REPORT_RELACAO_CLIENTE_CREDITO = 3;
 
 {$R *.dfm}
 
@@ -73,6 +75,12 @@ begin
       begin
         MontarRelacaoCliente;
         frReport := frRelacaoCliente;
+      end;
+
+    REPORT_RELACAO_CLIENTE_FICHA:
+      begin
+        MontarRelacaoCliente;
+        frReport := frFichaCliente;
       end;
 
     REPORT_RELACAO_CLIENTE_CIDADE:

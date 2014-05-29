@@ -19,13 +19,11 @@ type
     lblFornecedor: TLabel;
     dbFornecedor: TRxDBComboEdit;
     lblDataEmissao: TLabel;
-    dbDataEmissao: TDBEdit;
     lblNotaFiscal: TLabel;
     dbNotaFiscal: TDBEdit;
     lblSerie: TLabel;
     dbSerie: TDBEdit;
     lblDataEntrada: TLabel;
-    dbDataEntrada: TDBEdit;
     lblCFOPNF: TLabel;
     dbCFOPNF: TRxDBComboEdit;
     dbCFOPNFDescricao: TDBEdit;
@@ -286,6 +284,8 @@ type
     Bevel13: TBevel;
     lblTipoDespesa: TLabel;
     dbTipoDespesa: TDBLookupComboBox;
+    dbDataEmissao: TDBDateEdit;
+    dbDataEntrada: TDBDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -323,6 +323,8 @@ type
     procedure dbAutorizacaoButtonClick(Sender: TObject);
     procedure IbDtstTabelaAUTORIZACAO_CODIGOGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     SQL_Itens   ,
@@ -400,7 +402,7 @@ begin
   SQL_Duplicatas.Clear;
   SQL_Duplicatas.AddStrings( qryDuplicatas.SelectSQL );
 
-  e1Data.Date      := Date;
+  e1Data.Date      := Date - 30;
   e2Data.Date      := Date;
   ControlFirstEdit := dbEmpresa;
 
@@ -453,6 +455,7 @@ begin
   IbDtstTabelaTOTALNF.Value        := 0;
   IbDtstTabelaTOTALPROD.Value      := 0;
   IbDtstTabelaUSUARIO.Value        := GetUserApp;
+  IbDtstTabelaCODFORN.Clear;
   IbDtstTabelaTIPO_DESPESA.Clear;
   IbDtstTabelaAUTORIZACAO_ANO.Clear;
   IbDtstTabelaAUTORIZACAO_CODIGO.Clear;
@@ -1309,6 +1312,32 @@ begin
     IbDtstTabela.Open;
     IbDtstTabela.Locate('CODCONTROL', sID, []);
   end;
+end;
+
+procedure TfrmGeEntradaEstoque.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_RETURN) then
+  begin
+
+    if (IbDtstTabela.State in [dsEdit, dsInsert])  then
+    begin
+
+      { DONE -oIsaque -cEntrada : 28/05/2014 - Verificar Data de Emissão da NF }
+
+      if dbDataEmissao.Focused then
+        if ( dbDataEmissao.Date > GetDateTimeDB ) then
+            ShowWarning('A Data de Emissão da NF está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
+
+      if dbDataEntrada.Focused then
+        if ( dbDataEntrada.Date > GetDateTimeDB ) then
+            ShowWarning('A Data de Entrada da NF está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
+
+    end;
+
+  end;
+
+  inherited;
 end;
 
 initialization

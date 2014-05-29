@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=0
 Release=6
-Build=3
+Build=4
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=Ágil Soluções em Softwares, ME
 FileDescription=Sistema Integrado de Gestão Empresarial/Comercial
-FileVersion=1.0.6.3
+FileVersion=1.0.6.4
 InternalName=SGE
 LegalCopyright=Copyright 2013 - 2014 © Ágil Soluções em Softwares - ME
 LegalTrademarks=

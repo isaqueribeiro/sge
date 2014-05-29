@@ -895,8 +895,9 @@ begin
       or (Trim(FieldByName('email_pop').AsString)   = EmptyStr)
       or (Trim(FieldByName('email_smtp').AsString)  = EmptyStr);
 
-    if bFaltaConfigurado then
-      raise Exception.Create('Configurações da conta de e-mail do sistema não informadas!');
+    if not DelphiIsRunning then
+      if bFaltaConfigurado then
+        raise Exception.Create('Configurações da conta de e-mail do sistema não informadas!');
 
     if (Trim(Mensagem) <> EmptyStr) then
       sMsg := '<p>' + Trim(Mensagem) + '</p>'
@@ -1504,6 +1505,8 @@ begin
     Case GetSegmentoID(GetEmpresaIDDefault)  of
       SEGMENTO_MERCADO_CARRO_ID:
         S := 'Veículos';
+      SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
+        s := 'Produtos/Serviços'  
       else
         S := 'Produtos';
     end;
