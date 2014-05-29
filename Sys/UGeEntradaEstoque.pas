@@ -286,6 +286,16 @@ type
     dbTipoDespesa: TDBLookupComboBox;
     dbDataEmissao: TDBDateEdit;
     dbDataEntrada: TDBDateEdit;
+    lblTipoDocumento: TLabel;
+    dbTipoDocumento: TDBLookupComboBox;
+    tblTipoDocumento: TIBTable;
+    dtsTipoDocumento: TDataSource;
+    IbDtstTabelaTIPO_ENTRADA: TSmallintField;
+    IbDtstTabelaTIPO_DOCUMENTO: TSmallintField;
+    tblTipoEntrada: TIBTable;
+    dtsTipoEntrada: TDataSource;
+    lblTipoEntrada: TLabel;
+    dbTipoEntrada: TDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -402,14 +412,16 @@ begin
   SQL_Duplicatas.Clear;
   SQL_Duplicatas.AddStrings( qryDuplicatas.SelectSQL );
 
-  e1Data.Date      := Date - 30;
-  e2Data.Date      := Date;
+  e1Data.Date      := GetDateDB - 30;
+  e2Data.Date      := GetDateDB;
   ControlFirstEdit := dbEmpresa;
 
   tblEmpresa.Open;
   tblFormaPagto.Open;
   tblCondicaoPagto.Open;
   qryTpDespesa.Open;
+  tblTipoDocumento.Open;
+  tblTipoEntrada.Open;
 
   DisplayFormatCodigo := '###0000000';
   NomeTabela     := 'TBCOMPRAS';
@@ -456,6 +468,8 @@ begin
   IbDtstTabelaTOTALPROD.Value      := 0;
   IbDtstTabelaUSUARIO.Value        := GetUserApp;
   IbDtstTabelaCODFORN.Clear;
+  IbDtstTabelaTIPO_ENTRADA.Clear;
+  IbDtstTabelaTIPO_DOCUMENTO.Clear;
   IbDtstTabelaTIPO_DESPESA.Clear;
   IbDtstTabelaAUTORIZACAO_ANO.Clear;
   IbDtstTabelaAUTORIZACAO_CODIGO.Clear;
@@ -743,6 +757,15 @@ begin
     ShowWarning('Favor informar o(s) produto(s) da compra.')
   else
   begin
+    if (IbDtstTabelaTIPO_DOCUMENTO.AsInteger = TIPO_DOCUMENTO_ENTRADA_AVULSA) then
+    begin
+      IbDtstTabelaNF.Value      := IbDtstTabelaCODCONTROL.AsInteger;
+      IbDtstTabelaNFSERIE.Value := TIPO_DOCUMENTO_SERIE_AVULSO;
+    end;
+
+    IbDtstTabelaNF.Required      := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NF, TIPO_DOCUMENTO_ENTRADA_CUPOM]);
+    IbDtstTabelaNFSERIE.Required := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NF]);
+
     inherited;
 
     if ( not OcorreuErro ) then
@@ -1310,7 +1333,15 @@ begin
 
     IbDtstTabela.Close;
     IbDtstTabela.Open;
-    IbDtstTabela.Locate('CODCONTROL', sID, []);
+
+    if not IbDtstTabela.Locate('CODCONTROL', sID, []) then
+    begin
+      IbDtstTabela.Close;
+
+      ShowInformation('Favor pesquisar novamente o registro de entrada de produtos!');
+      pgcGuias.ActivePage := tbsTabela;
+      edtFiltrar.SetFocus;
+    end;
   end;
 end;
 

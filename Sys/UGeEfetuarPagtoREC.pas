@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, DB,
-  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, IBStoredProc;
+  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, IBStoredProc, rxToolEdit,
+  RXDBCtrl;
 
 type
   TfrmGeEfetuarPagtoREC = class(TfrmGrPadrao)
@@ -39,7 +40,6 @@ type
     tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
     lblDataPagto: TLabel;
-    dbDataPagto: TDBEdit;
     dbValorPago: TDBEdit;
     lblValorPago: TLabel;
     lblFormaPagto: TLabel;
@@ -55,6 +55,7 @@ type
     btnConfirmar: TBitBtn;
     btnCancelar: TBitBtn;
     cdsPagamentosUSUARIO: TIBStringField;
+    dbDataPagto: TDBDateEdit;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -201,11 +202,17 @@ begin
   begin
     if ( cdsPagamentosVALOR_BAIXA.AsCurrency <= 0 ) then
     begin
-      ShowWarning('Favor informar o valor pago!');
+      ShowWarning('Favor informar o valor recebido!');
       dbValorPago.SetFocus;
     end
     else
-    if ( (UpperCase(dbFormaPagto.Text) = 'CHEQUE') and (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) = EmptyStr) ) then
+    if ( cdsPagamentosDATA_PAGTO.AsDateTime > GetDateTimeDB ) then
+    begin
+      ShowWarning('Não é permitido do registro de recebimentos futuros!');
+      dbDataPagto.SetFocus;
+    end
+    else
+    if ( (Pos('CHEQUE', AnsiUpperCase(dbFormaPagto.Text)) > 0) and (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) = EmptyStr) ) then
     begin
       ShowWarning('Favor informar o Número do Cheque!');
       dbNoCheque.SetFocus;
@@ -217,10 +224,19 @@ begin
       dbBanco.SetFocus;
     end
     else
-    if ( ShowConfirm('Confirma a efetuação do pagamento?') ) then
+    if ( Trim(cdsPagamentosHISTORICO.AsString) = EmptyStr ) then
     begin
-      cdsPagamentosHISTORICO.AsString := UpperCase(cdsPagamentosHISTORICO.AsString);
-      
+      ShowWarning('Favor informar histórico (referente à) do recebimento!');
+      dbHistorico.SetFocus;
+    end
+    else
+    if ( ShowConfirm('Confirma a efetuação do recebimento?') ) then
+    begin
+      cdsPagamentosHISTORICO.AsString := AnsiUpperCase(Trim(cdsPagamentosHISTORICO.AsString));
+
+      if (Copy(cdsPagamentosHISTORICO.AsString, Length(cdsPagamentosHISTORICO.AsString), 1) = '.') then
+        cdsPagamentosHISTORICO.AsString := Copy(cdsPagamentosHISTORICO.AsString, 1, Length(cdsPagamentosHISTORICO.AsString) - 1);
+
       cdsPagamentos.Post;
       cdsPagamentos.ApplyUpdates;
       CommitTransaction;

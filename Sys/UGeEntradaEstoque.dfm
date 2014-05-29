@@ -248,19 +248,21 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           item
             Expanded = False
             FieldName = 'DTENT'
+            Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NF'
-            Width = 70
+            Title.Caption = 'No. Documento'
+            Width = 100
             Visible = True
           end
           item
-            Alignment = taCenter
             Expanded = False
-            FieldName = 'S'#233'rie'
+            FieldName = 'NFSERIE'
             Title.Alignment = taCenter
+            Title.Caption = 'S'#233'rie'
             Width = 35
             Visible = True
           end
@@ -495,7 +497,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           FocusControl = dbEmpresa
         end
         object lblFornecedor: TLabel [3]
-          Left = 672
+          Left = 528
           Top = 24
           Width = 59
           Height = 13
@@ -517,11 +519,11 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblNotaFiscal: TLabel [5]
-          Left = 128
+          Left = 240
           Top = 64
-          Width = 63
+          Width = 115
           Height = 13
-          Caption = 'Nota Fiscal:'
+          Caption = 'N'#250'mero Documento:'
           FocusControl = dbNotaFiscal
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -531,7 +533,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblSerie: TLabel [6]
-          Left = 256
+          Left = 368
           Top = 64
           Width = 32
           Height = 13
@@ -545,7 +547,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblDataEntrada: TLabel [7]
-          Left = 304
+          Left = 416
           Top = 64
           Width = 68
           Height = 13
@@ -559,7 +561,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblCFOPNF: TLabel [8]
-          Left = 416
+          Left = 528
           Top = 64
           Width = 31
           Height = 13
@@ -567,7 +569,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           FocusControl = dbCFOPNF
         end
         object lblSituacao: TLabel [9]
-          Left = 944
+          Left = 952
           Top = 64
           Width = 52
           Height = 13
@@ -581,12 +583,30 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
         end
         object lblAutorizacao: TLabel [10]
-          Left = 816
+          Left = 824
           Top = 64
           Width = 57
           Height = 13
           Caption = 'Autoriza'#231#227'o'
           FocusControl = dbAutorizacao
+        end
+        object lblTipoDocumento: TLabel [11]
+          Left = 128
+          Top = 64
+          Width = 81
+          Height = 13
+          Anchors = [akLeft, akBottom]
+          Caption = 'Tipo Documento:'
+          FocusControl = dbTipoDocumento
+        end
+        object lblTipoEntrada: TLabel [12]
+          Left = 904
+          Top = 24
+          Width = 65
+          Height = 13
+          Anchors = [akLeft, akBottom]
+          Caption = 'Tipo Entrada:'
+          FocusControl = dbTipoEntrada
         end
         inherited dbCodigo: TDBEdit
           Width = 89
@@ -615,7 +635,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object dbEmpresa: TDBLookupComboBox
           Left = 240
           Top = 40
-          Width = 425
+          Width = 281
           Height = 21
           DataField = 'CODEMP'
           DataSource = DtSrcTabela
@@ -632,9 +652,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           TabOrder = 2
         end
         object dbFornecedor: TRxDBComboEdit
-          Left = 672
+          Left = 528
           Top = 40
-          Width = 401
+          Width = 369
           Height = 21
           ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
           CharCase = ecUpperCase
@@ -707,7 +727,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           OnButtonClick = dbFornecedorButtonClick
         end
         object dbNotaFiscal: TDBEdit
-          Left = 128
+          Left = 240
           Top = 80
           Width = 121
           Height = 21
@@ -720,10 +740,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 7
         end
         object dbSerie: TDBEdit
-          Left = 256
+          Left = 368
           Top = 80
           Width = 41
           Height = 21
@@ -736,10 +756,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 8
         end
         object dbCFOPNF: TRxDBComboEdit
-          Left = 416
+          Left = 528
           Top = 80
           Width = 89
           Height = 21
@@ -809,14 +829,14 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentFont = False
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 8
+          TabOrder = 10
           OnButtonClick = dbCFOPNFButtonClick
           OnExit = ControlEditExit
         end
         object dbCFOPNFDescricao: TDBEdit
-          Left = 512
+          Left = 624
           Top = 80
-          Width = 297
+          Width = 193
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -829,12 +849,12 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Style = []
           ParentFont = False
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 11
         end
         object dbSituacao: TDBEdit
-          Left = 944
+          Left = 952
           Top = 80
-          Width = 129
+          Width = 124
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -847,10 +867,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 11
+          TabOrder = 13
         end
         object dbAutorizacao: TRxDBComboEdit
-          Left = 816
+          Left = 824
           Top = 80
           Width = 121
           Height = 21
@@ -921,7 +941,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 10
+          TabOrder = 12
           OnButtonClick = dbAutorizacaoButtonClick
         end
         object dbDataEmissao: TDBDateEdit
@@ -939,10 +959,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Style = []
           NumGlyphs = 2
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
         end
         object dbDataEntrada: TDBDateEdit
-          Left = 304
+          Left = 416
           Top = 80
           Width = 105
           Height = 21
@@ -956,7 +976,47 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Style = []
           NumGlyphs = 2
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 9
+        end
+        object dbTipoDocumento: TDBLookupComboBox
+          Left = 128
+          Top = 80
+          Width = 105
+          Height = 21
+          Anchors = [akLeft, akBottom]
+          DataField = 'TIPO_DOCUMENTO'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'TPD_CODIGO'
+          ListField = 'TPD_DESCRICAO'
+          ListSource = dtsTipoDocumento
+          ParentFont = False
+          TabOrder = 6
+        end
+        object dbTipoEntrada: TDBLookupComboBox
+          Left = 904
+          Top = 40
+          Width = 172
+          Height = 21
+          Anchors = [akLeft, akBottom]
+          DataField = 'TIPO_ENTRADA'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'TPE_CODIGO'
+          ListField = 'TPE_DESCRICAO'
+          ListSource = dtsTipoEntrada
+          ParentFont = False
+          TabOrder = 4
         end
       end
       object GrpBxDadosValores: TGroupBox
@@ -1186,7 +1246,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object dbTotalNotaFiscal: TDBEdit
           Left = 952
           Top = 40
-          Width = 121
+          Width = 124
           Height = 21
           DataField = 'TOTALNF'
           DataSource = DtSrcTabela
@@ -2814,7 +2874,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object dbPercRedBC: TDBEdit
           Left = 976
           Top = 40
-          Width = 97
+          Width = 99
           Height = 21
           Color = clMoneyGreen
           DataField = 'PERCENTUAL_REDUCAO_BC'
@@ -2930,6 +2990,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  , c.CODCONTROL'
       '  , c.CODEMP'
       '  , c.CODFORN'
+      '  , c.TIPO_ENTRADA'
+      '  , c.TIPO_DOCUMENTO'
       '  , c.NF'
       '  , c.NFSERIE'
       '  , c.LOTE_NFE_ANO'
@@ -3008,13 +3070,31 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       Origin = 'TBCOMPRAS.CODFORN'
       Required = True
     end
+    object IbDtstTabelaTIPO_ENTRADA: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo Entrada'
+      FieldName = 'TIPO_ENTRADA'
+      Origin = '"TBCOMPRAS"."TIPO_ENTRADA"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object IbDtstTabelaTIPO_DOCUMENTO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo Documento'
+      FieldName = 'TIPO_DOCUMENTO'
+      Origin = '"TBCOMPRAS"."TIPO_DOCUMENTO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
     object IbDtstTabelaNF: TIntegerField
-      DisplayLabel = 'Nota Fiscal'
+      DisplayLabel = 'N'#250'mero do Documento'
       FieldName = 'NF'
       Origin = 'TBCOMPRAS.NF'
       Required = True
     end
     object IbDtstTabelaNFSERIE: TIBStringField
+      Alignment = taCenter
+      DisplayLabel = 'S'#233'rie do Documento'
       FieldName = 'NFSERIE'
       Origin = 'TBCOMPRAS.NFSERIE'
       Size = 4
@@ -3306,6 +3386,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  CODCONTROL,'
       '  CODEMP,'
       '  CODFORN,'
+      '  TIPO_ENTRADA,'
+      '  TIPO_DOCUMENTO,'
       '  NF,'
       '  NFSERIE,'
       '  LOTE_NFE_ANO,'
@@ -3413,6 +3495,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  PRAZO_12 = :PRAZO_12,'
       '  STATUS = :STATUS,'
       '  TIPO_DESPESA = :TIPO_DESPESA,'
+      '  TIPO_DOCUMENTO = :TIPO_DOCUMENTO,'
+      '  TIPO_ENTRADA = :TIPO_ENTRADA,'
       '  TOTALNF = :TOTALNF,'
       '  TOTALPROD = :TOTALPROD,'
       '  USUARIO = :USUARIO'
@@ -3441,8 +3525,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         'RAZO_08, '
       
         '   PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, STATUS, TIPO_DESPESA,' +
-        ' TOTALNF, '
-      '   TOTALPROD, USUARIO)'
+        ' TIPO_DOCUMENTO, '
+      '   TIPO_ENTRADA, TOTALNF, TOTALPROD, USUARIO)'
       'values'
       
         '  (:ANO, :AUTORIZACAO_ANO, :AUTORIZACAO_CODIGO, :AUTORIZACAO_EMP' +
@@ -3465,7 +3549,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       
         '   :PRAZO_06, :PRAZO_07, :PRAZO_08, :PRAZO_09, :PRAZO_10, :PRAZO' +
         '_11, :PRAZO_12, '
-      '   :STATUS, :TIPO_DESPESA, :TOTALNF, :TOTALPROD, :USUARIO)')
+      
+        '   :STATUS, :TIPO_DESPESA, :TIPO_DOCUMENTO, :TIPO_ENTRADA, :TOTA' +
+        'LNF, :TOTALPROD, '
+      '   :USUARIO)')
     DeleteSQL.Strings = (
       'delete from TBCOMPRAS'
       'where'
@@ -3542,8 +3629,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'where p.Codigo = :Codigo')
     ModifySQL.Strings = (
       '')
-    Left = 944
-    Top = 8
+    Left = 896
+    Top = 392
   end
   object qryCFOP: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -3560,8 +3647,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'where c.Cfop_cod = :Cfop_cod')
     ModifySQL.Strings = (
       '')
-    Left = 976
-    Top = 8
+    Left = 928
+    Top = 392
   end
   object tblFormaPagto: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -4108,8 +4195,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     StoredProcName = 'SET_GERAR_DUPLICATAS'
-    Left = 1008
-    Top = 8
+    Left = 960
+    Top = 392
     ParamData = <
       item
         DataType = ftInteger
@@ -4275,8 +4362,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  and n.anocompra = :anoCompra'
       '  and n.numcompra = :numCompra')
     UpdateObject = updNFE
-    Left = 944
-    Top = 40
+    Left = 896
+    Top = 424
     object qryNFEEMPRESA: TIBStringField
       FieldName = 'EMPRESA'
       Origin = '"TBNFE_ENVIADA"."EMPRESA"'
@@ -4415,8 +4502,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  EMPRESA = :OLD_EMPRESA and'
       '  NUMERO = :OLD_NUMERO and'
       '  SERIE = :OLD_SERIE')
-    Left = 976
-    Top = 40
+    Left = 928
+    Top = 424
   end
   object ppImprimir: TPopupMenu
     Left = 144
@@ -4453,5 +4540,31 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     DataSet = qryTpDespesa
     Left = 312
     Top = 472
+  end
+  object tblTipoDocumento: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    TableName = 'VW_TIPO_DOCUMENTO_ENTRADA'
+    TableTypes = [ttView]
+    Left = 280
+    Top = 504
+  end
+  object dtsTipoDocumento: TDataSource
+    DataSet = tblTipoDocumento
+    Left = 312
+    Top = 504
+  end
+  object tblTipoEntrada: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    TableName = 'VW_TIPO_ENTRADA'
+    TableTypes = [ttView]
+    Left = 280
+    Top = 544
+  end
+  object dtsTipoEntrada: TDataSource
+    DataSet = tblTipoEntrada
+    Left = 312
+    Top = 544
   end
 end

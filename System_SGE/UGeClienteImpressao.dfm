@@ -676,6 +676,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       '    c.codigo'
       '  , c.pessoa_fisica'
       '  , c.nome'
+      '  , c.nomefant'
       '  , c.cnpj'
       '  , c.inscest'
       '  , c.inscmun'
@@ -715,6 +716,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       'CODIGO=CODIGO'
       'PESSOA_FISICA=PESSOA_FISICA'
       'NOME=NOME'
+      'NOMEFANT=NOMEFANT'
       'CNPJ=CNPJ'
       'INSCEST=INSCEST'
       'INSCMUN=INSCMUN'
@@ -3606,6 +3608,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop]
           Frame.Width = 0.100000000000000000
+          Memo.UTF8 = (
+            ' [FrdsRelacaoCliente."NOMEFANT"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

@@ -41,9 +41,7 @@ type
     dbParcela: TDBEdit;
     dbQuitado: TDBEdit;
     lblEmissao: TLabel;
-    dbEmissao: TDBEdit;
     lblVencimento: TLabel;
-    dbVencimento: TDBEdit;
     lblValorAPagar: TLabel;
     dbValorAPagar: TDBEdit;
     tblEmpresa: TIBTable;
@@ -133,6 +131,8 @@ type
     IbDtstTabelaVALORSALDO: TIBBCDField;
     lblSaldoAPagar: TLabel;
     dbSaldoAPagar: TDBEdit;
+    dbEmissao: TDBDateEdit;
+    dbVencimento: TDBDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -218,7 +218,7 @@ begin
   SQL_Pagamentos.AddStrings( cdsPagamentos.SelectSQL );
 
   e1Data.Date     := GetMenorVencimentoAPagar;
-  e2Data.Date     := Date;
+  e2Data.Date     := GetDateLastMonth;
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbFornecedor;
 
@@ -623,8 +623,15 @@ begin
 
   IbDtstTabela.Close;
   IbDtstTabela.Open;
-  
-  IbDtstTabela.Locate('ANOLANC;NUMLANC', VarArrayOf([MovAno, MovNumero]), []);
+
+  if not IbDtstTabela.Locate('ANOLANC;NUMLANC', VarArrayOf([MovAno, MovNumero]), []) then
+  begin
+    IbDtstTabela.Close;
+
+    ShowInformation('Favor pesquisar novamente o registro de despesa!');
+    pgcGuias.ActivePage := tbsTabela;
+    edtFiltrar.SetFocus;
+  end;
 end;
 
 procedure TfrmGeContasAPagar.DtSrcTabelaStateChange(Sender: TObject);

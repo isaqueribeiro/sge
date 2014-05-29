@@ -329,8 +329,8 @@ begin
   SQL_Itens.Clear;
   SQL_Itens.AddStrings( cdsTabelaItens.SelectSQL );
 
-  e1Data.Date      := Date - 30;
-  e2Data.Date      := Date;
+  e1Data.Date      := GetDateDB - 30;
+  e2Data.Date      := GetDateDB;
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
   iFornecedor      := 0;

@@ -131,6 +131,11 @@ begin
   begin
     with frReport do
     begin
+      try
+        DMBusiness.ConfigurarEmail(GetEmpresaIDDefault, EmptyStr, TituloRelario, EmptyStr);
+      except
+      end;
+
       SetVariablesDefault(frReport);
 
       ReportOptions.Author := ver.CompanyName;

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, DB,
-  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons;
+  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, rxToolEdit, RXDBCtrl;
 
 type
   TfrmGeEfetuarPagtoPAG = class(TfrmGrPadrao)
@@ -39,7 +39,6 @@ type
     tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
     lblDataPagto: TLabel;
-    dbDataPagto: TDBEdit;
     dbValorPago: TDBEdit;
     lblValorPago: TLabel;
     lblFormaPagto: TLabel;
@@ -55,6 +54,7 @@ type
     btnConfirmar: TBitBtn;
     btnCancelar: TBitBtn;
     cdsPagamentosUSUARIO: TIBStringField;
+    dbDataPagto: TDBDateEdit;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -151,7 +151,13 @@ begin
       dbValorPago.SetFocus;
     end
     else
-    if ( (UpperCase(dbFormaPagto.Text) = 'CHEQUE') and (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) = EmptyStr) ) then
+    if ( cdsPagamentosDATA_PAGTO.AsDateTime > GetDateTimeDB ) then
+    begin
+      ShowWarning('Não é permitido do registro de pagamentos futuros!');
+      dbDataPagto.SetFocus;
+    end
+    else
+    if ( (Pos('CHEQUE', AnsiUpperCase(dbFormaPagto.Text)) > 0) and (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) = EmptyStr) ) then
     begin
       ShowWarning('Favor informar o Número do Cheque!');
       dbNoCheque.SetFocus;
@@ -161,6 +167,12 @@ begin
     begin
       ShowWarning('Favor informar o Banco!');
       dbBanco.SetFocus;
+    end
+    else
+    if ( Trim(cdsPagamentosHISTORICO.AsString) = EmptyStr ) then
+    begin
+      ShowWarning('Favor informar histórico (referente à) do pagamento!');
+      dbHistorico.SetFocus;
     end
     else
     if ( ShowConfirm('Confirma a efetuação do pagamento?') ) then

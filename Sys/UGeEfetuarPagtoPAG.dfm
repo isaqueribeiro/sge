@@ -3,16 +3,19 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
   BorderWidth = 4
   Caption = 'Contas A Pagar - Efetuar Pagamento'
   ClientHeight = 359
-  ClientWidth = 531
+  ClientWidth = 551
   Font.Charset = ANSI_CHARSET
   Font.Name = 'Tahoma'
   OldCreateOrder = True
+  DesignSize = (
+    551
+    359)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 81
-    Width = 531
+    Width = 551
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -20,7 +23,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
   object Bevel2: TBevel
     Left = 0
     Top = 313
-    Width = 531
+    Width = 551
     Height = 4
     Align = alTop
     Anchors = [akLeft, akRight, akBottom]
@@ -29,7 +32,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
   object GrpBxPagamento: TGroupBox
     Left = 0
     Top = 85
-    Width = 531
+    Width = 551
     Height = 228
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -42,7 +45,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     ParentFont = False
     TabOrder = 1
     DesignSize = (
-      531
+      551
       228)
     object lblDataPagto: TLabel
       Left = 16
@@ -59,7 +62,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       ParentFont = False
     end
     object lblValorPago: TLabel
-      Left = 120
+      Left = 136
       Top = 24
       Width = 91
       Height = 13
@@ -73,7 +76,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       ParentFont = False
     end
     object lblFormaPagto: TLabel
-      Left = 240
+      Left = 256
       Top = 24
       Width = 124
       Height = 13
@@ -81,7 +84,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       FocusControl = dbFormaPagto
     end
     object lblDocBaixa: TLabel
-      Left = 400
+      Left = 424
       Top = 24
       Width = 61
       Height = 13
@@ -130,25 +133,8 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object dbDataPagto: TDBEdit
-      Left = 16
-      Top = 40
-      Width = 97
-      Height = 21
-      DataField = 'DATA_PAGTO'
-      DataSource = dtsPagamentos
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 0
-      OnEnter = ControlEditEnter
-      OnExit = ControlEditExit
-    end
     object dbValorPago: TDBEdit
-      Left = 120
+      Left = 136
       Top = 40
       Width = 113
       Height = 21
@@ -165,9 +151,9 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       OnExit = ControlEditExit
     end
     object dbFormaPagto: TDBLookupComboBox
-      Left = 240
+      Left = 256
       Top = 40
-      Width = 153
+      Width = 161
       Height = 21
       DataField = 'FORMA_PAGTO'
       DataSource = dtsPagamentos
@@ -186,7 +172,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       OnExit = ControlEditExit
     end
     object dbDocBaixa: TDBEdit
-      Left = 400
+      Left = 424
       Top = 40
       Width = 113
       Height = 21
@@ -222,7 +208,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     object dbBanco: TDBLookupComboBox
       Left = 136
       Top = 80
-      Width = 377
+      Width = 401
       Height = 21
       DataField = 'BANCO'
       DataSource = dtsPagamentos
@@ -243,7 +229,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     object dbHistorico: TDBMemo
       Left = 16
       Top = 120
-      Width = 497
+      Width = 521
       Height = 89
       Anchors = [akLeft, akTop, akRight, akBottom]
       DataField = 'HISTORICO'
@@ -258,11 +244,29 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       OnEnter = ControlEditEnter
       OnExit = ControlEditExit
     end
+    object dbDataPagto: TDBDateEdit
+      Left = 16
+      Top = 40
+      Width = 113
+      Height = 21
+      DataField = 'DATA_PAGTO'
+      DataSource = dtsPagamentos
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      NumGlyphs = 2
+      ParentFont = False
+      TabOrder = 0
+      OnEnter = ControlEditEnter
+      OnExit = ControlEditExit
+    end
   end
   object GrpBxLancamento: TGroupBox
     Left = 0
     Top = 0
-    Width = 531
+    Width = 551
     Height = 81
     Align = alTop
     Caption = 'Dados do lan'#231'amento (Contas A Pagar)'
@@ -344,7 +348,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     object edFornecedor: TEdit
       Left = 160
       Top = 40
-      Width = 353
+      Width = 377
       Height = 21
       Color = clMoneyGreen
       Font.Charset = ANSI_CHARSET
@@ -359,7 +363,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     end
   end
   object btnConfirmar: TBitBtn
-    Left = 360
+    Left = 380
     Top = 321
     Width = 83
     Height = 33
@@ -421,7 +425,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     NumGlyphs = 2
   end
   object btnCancelar: TBitBtn
-    Left = 448
+    Left = 468
     Top = 321
     Width = 83
     Height = 33

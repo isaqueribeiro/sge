@@ -3,8 +3,8 @@ object DMBusiness: TDMBusiness
   OnCreate = DataModuleCreate
   Left = 405
   Top = 223
-  Height = 426
-  Width = 706
+  Height = 617
+  Width = 812
   object ibdtbsBusiness: TIBDatabase
     DatabaseName = 'localhost:AGIL_COMERCIO'
     Params.Strings = (
@@ -735,5 +735,85 @@ object DMBusiness: TDMBusiness
     Title = 'Carregar arquivo Licen'#231'a'
     Left = 448
     Top = 32
+  end
+  object frxPDF: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    Left = 40
+    Top = 168
+  end
+  object frxXLS: TfrxXLSExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    ExportEMF = True
+    AsText = False
+    Background = True
+    FastExport = True
+    PageBreaks = True
+    EmptyLines = True
+    SuppressPageHeadersFooters = False
+    Left = 40
+    Top = 216
+  end
+  object frxRTF: TfrxRTFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    ExportEMF = True
+    Wysiwyg = True
+    Creator = 'FastReport'
+    SuppressPageHeadersFooters = False
+    HeaderFooterMode = hfText
+    AutoSize = False
+    Left = 40
+    Top = 264
+  end
+  object frxJPEG: TfrxJPEGExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    Left = 40
+    Top = 312
+  end
+  object frxMailExport: TfrxMailExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    Lines.Strings = (
+      'Teste')
+    ShowExportDialog = True
+    SmtpPort = 587
+    UseIniFile = False
+    TimeOut = 60
+    ConfurmReading = False
+    Left = 40
+    Top = 360
+  end
+  object frxRichObject: TfrxRichObject
+    Left = 40
+    Top = 408
+  end
+  object frxCrossObject: TfrxCrossObject
+    Left = 40
+    Top = 456
+  end
+  object frxChartObject: TfrxChartObject
+    Left = 40
+    Top = 504
   end
 end

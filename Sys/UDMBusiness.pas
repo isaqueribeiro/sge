@@ -7,7 +7,8 @@ uses
   ShellApi, Printers, DateUtils, IBQuery, RpDefine, RpRave,
   frxClass, frxDBSet, EMsgDlg, IdBaseComponent, IdComponent, IdIPWatch, IBStoredProc,
   FuncoesFormulario, UConstantesDGE, IBUpdateSQL, EUserAcs, DBClient,
-  Provider, Dialogs, Registry;
+  Provider, Dialogs, Registry, frxChart, frxCross, frxRich, frxExportMail,
+  frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF;
 
 type
   TSistema = record
@@ -111,6 +112,14 @@ type
     cdsLicenca: TIBDataSet;
     cdsLicencaLINHA_CONTROLE: TIBStringField;
     opdLicenca: TOpenDialog;
+    frxPDF: TfrxPDFExport;
+    frxXLS: TfrxXLSExport;
+    frxRTF: TfrxRTFExport;
+    frxJPEG: TfrxJPEGExport;
+    frxMailExport: TfrxMailExport;
+    frxRichObject: TfrxRichObject;
+    frxCrossObject: TfrxCrossObject;
+    frxChartObject: TfrxChartObject;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -135,6 +144,7 @@ type
     procedure CarregarLicenca(const sNomeArquivo : String);
     procedure ValidarLicenca(const sNomeArquivo : String; var CNPJ : String);
     procedure LimparLicenca;
+    procedure ConfigurarEmail(const sCNPJEmitente, sDestinatario, sAssunto, sMensagem: String);
 
     function LiberarUsoLicenca(const dDataMovimento : TDateTime; const Alertar : Boolean = FALSE) : Boolean;
   end;
@@ -258,6 +268,7 @@ var
   function GetSenhaAutorizacao : String;
   function GetDateTimeDB : TDateTime;
   function GetDateDB : TDateTime;
+  function GetDateLastMonth : TDateTime;
   function GetProximoDiaUtil(const Data : TDateTime) : TDateTime;
   function GetTimeDB : TDateTime;
   function GetUserApp : String;
@@ -2017,6 +2028,14 @@ begin
   end;
 end;
 
+function GetDateLastMonth : TDateTime;
+var
+  sData : String;
+begin
+  sData  := FormatFloat('00"/"', DaysInMonth(GetDateDB)) + FormatDateTime('mm/yyyy', GetDateDB);
+  Result := StrToDate(sData);
+end;
+
 function GetProximoDiaUtil(const Data : TDateTime) : TDateTime;
 var
   dData : TDateTime;
@@ -2541,9 +2560,40 @@ begin
   _PermissaoPerfilDiretoria.Clear;
 
   _PermissaoPerfilDiretoria.Add( ROTINA_MENU_CADASTRO_ID );
-  _PermissaoPerfilDiretoria.Add( ROTINA_MENU_ESTOQUE_ID );
+  _PermissaoPerfilDiretoria.Add( ROTINA_MENU_ENTRADA_ID );
 
   _PermissaoPerfilDiretoria.EndUpdate;
+end;
+
+procedure TDMBusiness.ConfigurarEmail(const sCNPJEmitente, sDestinatario,
+  sAssunto, sMensagem: String);
+var
+  sAssinaturaHtml,
+  sAssinaturaTxt : String;
+begin
+  CarregarConfiguracoesEmpresa(sCNPJEmitente, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
+
+  // Configurar conta de e-mail no Fast Report
+  
+  with frxMailExport do
+  begin
+    SmtpHost := gContaEmail.Servidor_SMTP;
+    SmtpPort := gContaEmail.Porta_SMTP;
+    Login    := gContaEmail.Conta;
+    Password := gContaEmail.Senha;
+
+    FromCompany := GetRazaoSocialEmpresa( sCNPJEmitente );
+    FromMail    := gContaEmail.Conta;
+    FromName    := GetNomeFantasiaEmpresa( sCNPJEmitente );
+    Subject     := Trim(sAssunto);
+    Address     := AnsiLowerCase(Trim(sDestinatario));
+
+    Lines.Clear;
+    Lines.Add( sMensagem );
+
+    Signature.Clear;
+    Signature.Add(sAssinaturaTxt);
+  end;
 end;
 
 initialization

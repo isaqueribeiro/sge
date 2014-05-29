@@ -64,10 +64,6 @@ type
     frdVenda: TfrxDBDataset;
     frdItens: TfrxDBDataset;
     frdTitulo: TfrxDBDataset;
-    frxPDF: TfrxPDFExport;
-    frxXLS: TfrxXLSExport;
-    frxRTF: TfrxRTFExport;
-    frxMailExport: TfrxMailExport;
     qryEmitente: TIBDataSet;
     qryEmitenteCODIGO: TIntegerField;
     qryEmitentePESSOA_FISICA: TSmallintField;
@@ -429,13 +425,10 @@ type
     SmallintField2: TSmallintField;
     IntegerField3: TIntegerField;
     frrBoletoEntrega: TfrxReport;
-    frxRichObject: TfrxRichObject;
     frrRequisicaoCliente: TfrxReport;
     FrrECFPoolerRequisicaoCliente: TfrxReport;
     qryRequisicaoCliente: TIBQuery;
     frdRequisicaoCliente: TfrxDBDataset;
-    frxCrossObject: TfrxCrossObject;
-    frxChartObject: TfrxChartObject;
     cdsLOG: TIBDataSet;
     cdsLOGUSUARIO: TIBStringField;
     cdsLOGDATA_HORA: TDateTimeField;
@@ -457,7 +450,6 @@ type
     qryNFeEmitidaEntradaXML_FILE: TMemoField;
     qryNFeEmitidaEntradaLOTE_ANO: TSmallintField;
     qryNFeEmitidaEntradaLOTE_NUM: TIntegerField;
-    frxJPEG: TfrxJPEGExport;
     qryDadosProdutoQTDE: TIBBCDField;
     qryDadosProdutoESTOQUE: TIBBCDField;
     qryDadosProdutoRESERVA: TIBBCDField;
@@ -3914,26 +3906,7 @@ begin
   CarregarConfiguracoesEmpresa(sCNPJEmitente, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
 
   // Configurar conta de e-mail no Fast Report
-  
-  with frxMailExport do
-  begin
-    SmtpHost := gContaEmail.Servidor_SMTP;
-    SmtpPort := gContaEmail.Porta_SMTP;
-    Login    := gContaEmail.Conta;
-    Password := gContaEmail.Senha;
-
-    FromCompany := GetRazaoSocialEmpresa( sCNPJEmitente );
-    FromMail    := gContaEmail.Conta;
-    FromName    := GetNomeFantasiaEmpresa( sCNPJEmitente );
-    Subject     := Trim(sAssunto);
-    Address     := AnsiLowerCase(Trim(sDestinatario));
-
-    Lines.Clear;
-    Lines.Add( sMensagem );
-
-    Signature.Clear;
-    Signature.Add(sAssinaturaTxt);
-  end;
+  DMBusiness.ConfigurarEmail(sCNPJEmitente, sDestinatario, sAssunto, sMensagem);
 end;
 
 procedure TDMNFe.frrAutorizacaoCompraGetValue(const VarName: String;

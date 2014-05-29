@@ -28,7 +28,7 @@ type
     nmProduto: TMenuItem;
     nmVendedor: TMenuItem;
     mnBanco: TMenuItem;
-    menuEstoque: TMenuItem;
+    menuEntrada: TMenuItem;
     menuFinanceiro: TMenuItem;
     nmContasAPagar: TMenuItem;
     nmContasAReceber: TMenuItem;
@@ -38,7 +38,7 @@ type
     N1: TMenuItem;
     N2: TMenuItem;
     nmUsuario: TMenuItem;
-    nmEntrada: TMenuItem;
+    nmEntradaProduto: TMenuItem;
     nmEmpresa: TMenuItem;
     spbBarraAcessoRapido: TSpeedBar;
     btnEmpresa: TRxSpeedButton;
@@ -58,7 +58,7 @@ type
     N3: TMenuItem;
     btnEstoque: TRxSpeedButton;
     ppEstoque: TPopupMenu;
-    popEntrada: TMenuItem;
+    popEntradaProduto: TMenuItem;
     nmAjusteManual: TMenuItem;
     nmKardex: TMenuItem;
     popAjusteEstoque: TMenuItem;
@@ -155,6 +155,10 @@ type
     nmQuitarContaAPagar_Lote: TMenuItem;
     nmQuitarContaAReceber_Lote: TMenuItem;
     nmPerfilAcesso: TMenuItem;
+    N20: TMenuItem;
+    nmEntradaServico: TMenuItem;
+    N21: TMenuItem;
+    popEntradaServico: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -162,7 +166,7 @@ type
     procedure nmFornecedorClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure btnProdutoClick(Sender: TObject);
-    procedure nmEntradaClick(Sender: TObject);
+    procedure nmEntradaProdutoClick(Sender: TObject);
     procedure nmAjusteManualClick(Sender: TObject);
     procedure nmKardexClick(Sender: TObject);
     procedure nmVendaClick(Sender: TObject);
@@ -298,7 +302,7 @@ begin
   MostrarTabelaProdutos(Self, taICMS);
 end;
 
-procedure TfrmPrinc.nmEntradaClick(Sender: TObject);
+procedure TfrmPrinc.nmEntradaProdutoClick(Sender: TObject);
 begin
   MostrarControleCompras(Self);
 end;
@@ -508,7 +512,7 @@ begin
   if not DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
   begin
     menuCadastro.Enabled     := False;
-    menuEstoque.Enabled      := False;
+    menuEntrada.Enabled      := False;
     menuMovimentacao.Enabled := False;
     menuFinanceiro.Enabled   := False;
   end;
@@ -701,7 +705,7 @@ end;
 procedure TfrmPrinc.RegistrarRotinasMenu;
 begin
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CADASTRO_ID,   'Cadastro', EmptyStr);
-  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_ESTOQUE_ID,    'Estoque',  EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_ENTRADA_ID,    'Entradas',  EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_MOVIMENTO_ID,  'Movimentações', EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_NOTAFISCAL_ID, 'Notas Fiscais', EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CONSULTA_ID,   'Consultas',  EmptyStr);

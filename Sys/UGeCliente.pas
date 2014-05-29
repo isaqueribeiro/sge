@@ -264,6 +264,9 @@ type
     tbsObservacao: TTabSheet;
     dbObservacao: TDBMemo;
     qryBancoFebraban: TIBQuery;
+    IbDtstTabelaNOMEFANT: TIBStringField;
+    lblNomeFantasia: TLabel;
+    dbNomeFantasia: TDBEdit;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -1132,6 +1135,7 @@ begin
     begin
       IbDtstTabelaCNPJ.AsString       := StrOnlyNumbers(edCNPJ.Text);
       IbDtstTabelaNOME.AsString       := Copy(Trim(EditRazaoSocial.Text), 1, IbDtstTabelaNOME.Size);
+      IbDtstTabelaNOMEFANT.AsString   := Copy(Trim(EditFantasia.Text),    1, IbDtstTabelaNOMEFANT.Size);
       IbDtstTabelaEST_COD.AsInteger   := GetEstadoID( Trim(EditUF.Text) );
       IbDtstTabelaEST_NOME.AsString   := GetEstadoNome( Trim(EditUF.Text) );
       IbDtstTabelaUF.AsString         := Trim(EditUF.Text);
@@ -1369,8 +1373,12 @@ begin
             if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
               Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
             else
-              Add( 'where (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
+            begin
+              Add( 'where ((upper(cl.Nome) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                   '     or upper(cl.Nome) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+              Add( '   or ((upper(cl.Nomefant) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                   '     or upper(cl.Nomefant) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+            end;
 
           // Por CPF/CNPJ
           1:

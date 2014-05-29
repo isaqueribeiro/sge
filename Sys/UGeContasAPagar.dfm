@@ -229,6 +229,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         inherited grpBxFiltro: TGroupBox
           Left = 328
           Width = 594
+          DesignSize = (
+            594
+            54)
           inherited lbltFiltrar: TLabel
             Left = 310
             Width = 73
@@ -545,7 +548,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
         end
         object lblVencimento: TLabel
-          Left = 272
+          Left = 280
           Top = 24
           Width = 70
           Height = 13
@@ -559,7 +562,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
         end
         object lblValorAPagar: TLabel
-          Left = 376
+          Left = 392
           Top = 24
           Width = 107
           Height = 13
@@ -589,7 +592,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           FocusControl = dbCondicaoPagto
         end
         object lblTipoDespesa: TLabel
-          Left = 496
+          Left = 512
           Top = 24
           Width = 95
           Height = 13
@@ -603,7 +606,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
         end
         object lblSaldoAPagar: TLabel
-          Left = 496
+          Left = 512
           Top = 64
           Width = 109
           Height = 13
@@ -646,38 +649,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
           TabOrder = 1
         end
-        object dbEmissao: TDBEdit
-          Left = 168
-          Top = 40
-          Width = 97
-          Height = 21
-          DataField = 'DTEMISS'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 2
-        end
-        object dbVencimento: TDBEdit
-          Left = 272
-          Top = 40
-          Width = 97
-          Height = 21
-          DataField = 'DTVENC'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 3
-        end
         object dbValorAPagar: TDBEdit
-          Left = 376
+          Left = 392
           Top = 40
           Width = 113
           Height = 21
@@ -713,7 +686,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         object dbCondicaoPagto: TDBLookupComboBox
           Left = 168
           Top = 80
-          Width = 321
+          Width = 337
           Height = 21
           DataField = 'CONDICAO_PAGTO'
           DataSource = DtSrcTabela
@@ -730,9 +703,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           TabOrder = 7
         end
         object dbTipoDespesa: TDBLookupComboBox
-          Left = 496
+          Left = 512
           Top = 40
-          Width = 409
+          Width = 393
           Height = 21
           DataField = 'CODTPDESP'
           DataSource = DtSrcTabela
@@ -749,7 +722,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           TabOrder = 5
         end
         object dbSaldoAPagar: TDBEdit
-          Left = 496
+          Left = 512
           Top = 80
           Width = 113
           Height = 21
@@ -765,6 +738,38 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
+        end
+        object dbEmissao: TDBDateEdit
+          Left = 168
+          Top = 40
+          Width = 105
+          Height = 21
+          DataField = 'DTEMISS'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          NumGlyphs = 2
+          ParentFont = False
+          TabOrder = 2
+        end
+        object dbVencimento: TDBDateEdit
+          Left = 280
+          Top = 40
+          Width = 105
+          Height = 21
+          DataField = 'DTVENC'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          NumGlyphs = 2
+          ParentFont = False
+          TabOrder = 3
         end
       end
       object pgcMaisDados: TPageControl
@@ -1435,7 +1440,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41557.397184305600000000
-    ReportOptions.Name = 'Teste!'
+    ReportOptions.Name = 'Visualizar Recibo (Contas A Pagar)'
     ReportOptions.LastChange = 41787.989329155090000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
