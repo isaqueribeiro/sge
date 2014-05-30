@@ -44,8 +44,6 @@ type
     dbSecao: TRxDBComboEdit;
     lblGrupo: TLabel;
     dbGrupo: TRxDBComboEdit;
-    lblUnidade: TLabel;
-    dbUnidade: TRxDBComboEdit;
     IbDtstTabelaALIQUOTA: TIBBCDField;
     IbDtstTabelaCFOP_DESCRICAO: TIBStringField;
     IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField;
@@ -241,6 +239,12 @@ type
     IbDtstTabelaPRECO_FRAC: TFMTBCDField;
     IbDtstTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField;
     IbDtstTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField;
+    lblUnidade: TLabel;
+    dbUnidade: TRxDBComboEdit;
+    lblTipoCadastro: TLabel;
+    dbTipoCadastro: TDBLookupComboBox;
+    IbDtstTabelaCOMPOR_FATURAMENTO: TSmallintField;
+    dbComporFaturamento: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -275,19 +279,32 @@ var
 
   procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota);
 
+  function SelecionarProdutoParaAjuste(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome : String) : Boolean;
   function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
-  function SelecionarProdutoParaAjuste(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome : String; const TipoAliquota : TAliquota = taICMS) : Boolean;
-  function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome : String; const TipoAliquota : TAliquota = taICMS) : Boolean; overload;
-  function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome, sUnidade, CST : String; var iUnidade, CFOP : Integer; var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
-    var Estoque, Reserva : Currency; const TipoAliquota : TAliquota = taICMS) : Boolean; overload;
-  function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, CodigoEAN, Nome : String; const TipoAliquota : TAliquota = taICMS) : Boolean; overload;
-  function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome, Unidade : String; var ValorVenda, ValorPromocao : Currency; const TipoAliquota : TAliquota = taICMS) : Boolean; overload;
+  function SelecionarProduto(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome : String) : Boolean; overload;
+  function SelecionarProduto(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, CodigoEAN, Nome : String) : Boolean; overload;
+  function SelecionarProduto(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome, sUnidade, CST : String;
+    var iUnidade, CFOP : Integer;
+    var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+    var Estoque, Reserva : Currency) : Boolean; overload;
+  function SelecionarProduto(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome, Unidade : String;
+    var ValorVenda, ValorPromocao : Currency) : Boolean; overload;
   function SelecionarProdutoParaEntrada(const AOwner : TComponent;
     var Codigo : Integer;
     var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
     var iUnidade, CFOP : Integer;
     var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
-    var Estoque, Reserva : Currency; const TipoAliquota : TAliquota = taICMS) : Boolean;
+    var Estoque, Reserva : Currency) : Boolean;
 
 implementation
 
@@ -323,32 +340,65 @@ begin
   end;
 end;
 
-function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
+function SelecionarProdutoParaAjuste(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome : String) : Boolean;
+var
+  frm : TfrmGeProduto;
+  whr : String;
+begin
+  frm := TfrmGeProduto.Create(AOwner);
+  try
+    frm.fAliquota := taICMS;
+
+    frm.chkProdutoComEstoque.Checked := False;
+    frm.lblAliquotaTipo.Enabled      := False;
+    frm.dbAliquotaTipo.Enabled       := False;
+
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    if frm.chkProdutoComEstoque.Checked then
+      whr := whr + ' and p.Qtde > 0';
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+
+    if ( Result ) then
+      CodigoAlfa := frm.IbDtstTabelaCOD.Value;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarProduto(const AOwner : TComponent;
+  var Codigo : Integer;
+  var Nome : String) : Boolean;
 var
   frm : TfrmGeProduto;
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
+    frm.fAliquota := taICMS;
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;
   end;
 end;
 
-function SelecionarProdutoParaAjuste(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome : String; const TipoAliquota : TAliquota = taICMS) : Boolean;
+function SelecionarProduto(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome : String) : Boolean;
 var
   frm : TfrmGeProduto;
   whr : String;
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := TipoAliquota;
+    frm.fAliquota := taICMS;
 
-    frm.chkProdutoComEstoque.Checked := False;
-    frm.lblAliquotaTipo.Enabled      := False;
-    frm.dbAliquotaTipo.Enabled       := False;
+    frm.lblAliquotaTipo.Enabled := False;
+    frm.dbAliquotaTipo.Enabled  := False;
 
-    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(TipoAliquota));
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
@@ -362,19 +412,21 @@ begin
   end;
 end;
 
-function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome : String; const TipoAliquota : TAliquota = taICMS) : Boolean;
+function SelecionarProduto(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, CodigoEAN, Nome : String) : Boolean;
 var
   frm : TfrmGeProduto;
   whr : String;
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := TipoAliquota;
+    frm.fAliquota := taICMS;
 
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(TipoAliquota));
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
@@ -382,26 +434,33 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
+    begin
       CodigoAlfa := frm.IbDtstTabelaCOD.Value;
+      CodigoEAN  := frm.IbDtstTabelaCODBARRA_EAN.Value;
+    end;
   finally
     frm.Destroy;
   end;
 end;
 
-function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome, sUnidade, CST : String; var iUnidade, CFOP : Integer; var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
-  var Estoque, Reserva : Currency; const TipoAliquota : TAliquota = taICMS) : Boolean; overload;
+function SelecionarProduto(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, sUnidade, CST : String;
+  var iUnidade, CFOP : Integer;
+  var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+  var Estoque, Reserva : Currency) : Boolean; overload;
 var
   frm : TfrmGeProduto;
   whr : String;
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := TipoAliquota;
+    frm.fAliquota := taICMS;
 
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(TipoAliquota));
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
@@ -437,20 +496,20 @@ function SelecionarProdutoParaEntrada(const AOwner : TComponent;
   var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
   var iUnidade, CFOP : Integer;
   var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
-  var Estoque, Reserva : Currency; const TipoAliquota : TAliquota = taICMS) : Boolean; overload;
+  var Estoque, Reserva : Currency) : Boolean; overload;
 var
   frm : TfrmGeProduto;
   whr : String;
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := TipoAliquota;
+    frm.fAliquota := taICMS;
 
     frm.chkProdutoComEstoque.Checked := False;
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(TipoAliquota));
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
@@ -482,48 +541,22 @@ begin
   end;
 end;
 
-function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, CodigoEAN, Nome : String; const TipoAliquota : TAliquota = taICMS) : Boolean;
+function SelecionarProduto(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, Unidade : String;
+  var ValorVenda, ValorPromocao : Currency) : Boolean;
 var
   frm : TfrmGeProduto;
   whr : String;
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := TipoAliquota;
+    frm.fAliquota := taICMS;
 
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(TipoAliquota));
-
-    if frm.chkProdutoComEstoque.Checked then
-      whr := whr + ' and p.Qtde > 0';
-
-    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
-
-    if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.Value;
-      CodigoEAN  := frm.IbDtstTabelaCODBARRA_EAN.Value;
-    end;
-  finally
-    frm.Destroy;
-  end;
-end;
-
-function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var CodigoAlfa, Nome, Unidade : String; var ValorVenda, ValorPromocao : Currency; const TipoAliquota : TAliquota = taICMS) : Boolean;
-var
-  frm : TfrmGeProduto;
-  whr : String;
-begin
-  frm := TfrmGeProduto.Create(AOwner);
-  try
-    frm.fAliquota := TipoAliquota;
-
-    frm.lblAliquotaTipo.Enabled := False;
-    frm.dbAliquotaTipo.Enabled  := False;
-
-    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(TipoAliquota));
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
@@ -655,6 +688,9 @@ begin
   if ( IbDtstTabelaMOVIMENTA_ESTOQUE.IsNull ) then
     IbDtstTabelaMOVIMENTA_ESTOQUE.Value := 1;
 
+  if ( IbDtstTabelaCOMPOR_FATURAMENTO.IsNull ) then
+    IbDtstTabelaCOMPOR_FATURAMENTO.Value := 1;
+
   if ( (IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency < 0) or (IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency > 100) ) then
     IbDtstTabelaPERCENTUAL_REDUCAO_BC.Value := 0;
 
@@ -777,9 +813,10 @@ begin
   IbDtstTabelaNCM_SH.AsString     := TRIBUTO_NCM_SH_PADRAO;
   IbDtstTabelaCST_PIS.AsString    := '99';
   IbDtstTabelaCST_COFINS.AsString := '99';
-  IbDtstTabelaALIQUOTA_PIS.AsCurrency     := 0.0;
-  IbDtstTabelaALIQUOTA_COFINS.AsCurrency  := 0.0;
-  IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 1;
+  IbDtstTabelaALIQUOTA_PIS.AsCurrency      := 0.0;
+  IbDtstTabelaALIQUOTA_COFINS.AsCurrency   := 0.0;
+  IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger  := 1;
+  IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger := 1;
 end;
 
 procedure TfrmGeProduto.FormShow(Sender: TObject);
@@ -930,7 +967,7 @@ procedure TfrmGeProduto.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = VK_RETURN then
-    if ( (ActiveControl = dbMovimentaEstoque) and tbsTributacao.TabVisible ) then
+    if ( (ActiveControl = dbComporFaturamento) and tbsTributacao.TabVisible ) then
     begin
       pgcMaisDados.ActivePage := tbsTributacao;
       dbOrigem.SetFocus;
@@ -982,9 +1019,17 @@ procedure TfrmGeProduto.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  begin
+    if ( Field = IbDtstTabelaALIQUOTA_TIPO ) then
+      if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
+        IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 0
+      else
+        IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 1;
+
     if ( Field = IbDtstTabelaPERCENTUAL_MARGEM ) then
       IbDtstTabelaPRECO_SUGERIDO.AsCurrency := IbDtstTabelaCUSTOMEDIO.AsCurrency +
         (IbDtstTabelaCUSTOMEDIO.AsCurrency * IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency / 100);
+  end;
 end;
 
 procedure TfrmGeProduto.FiltarDados(const iTipoPesquisa : Integer);

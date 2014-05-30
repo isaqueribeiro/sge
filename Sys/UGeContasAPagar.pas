@@ -312,6 +312,12 @@ begin
 
   RecarregarRegistro;
 
+  if ( IbDtstTabelaQUITADO.AsInteger = 1 ) then
+  begin
+    ShowWarning('Registro de despesa selecionada já se encontra quitado!' + #13 + 'Favor pesquisar novamente.');
+    Abort;
+  end;
+
   if ( tblCondicaoPagto.Locate('COND_COD', IbDtstTabelaCONDICAO_PAGTO.AsInteger, []) ) then
     if ( tblCondicaoPagto.FieldByName('COND_PRAZO').AsInteger = 0 ) then
       if ( not CaixaAberto(GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
@@ -333,13 +339,13 @@ begin
  }
   if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMEFORN.AsString, DataPagto) then
   begin
+    if ( CxContaCorrente > 0 ) then
+      GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
 
     RecarregarRegistro;
 
     AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
 
-    if ( CxContaCorrente > 0 ) then
-      GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
   end;
 end;
 
@@ -486,6 +492,17 @@ begin
             Exit;
           end;
 
+//    sSenha := InputBox('Favor informar a senha de autorização', 'Senha de Autorização:', '');
+//
+//    if ( Trim(sSenha) = EmptyStr ) then
+//      Exit;
+//
+//    if ( sSenha <> GetSenhaAutorizacao ) then
+//    begin
+//      ShowWarning('Senha de autorização inválida');
+//      Exit;
+//    end;
+
       DataPagto := cdsPagamentosDATA_PAGTO.AsDateTime;
 
       if ShowConfirm('Confirma a exclusão do(s) registro(s) de pagamento(s)?') then
@@ -537,12 +554,12 @@ begin
           CommitTransaction;
         end;
 
+        if ( CxContaCorrente > 0 ) then
+          GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
+          
         RecarregarRegistro;
 
         AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
-
-        if ( CxContaCorrente > 0 ) then
-          GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
       end;
     end;
   end;

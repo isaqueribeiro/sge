@@ -29,6 +29,23 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     Anchors = [akLeft, akRight, akBottom]
     Shape = bsSpacer
   end
+  object lblInforme: TLabel
+    Left = 16
+    Top = 320
+    Width = 320
+    Height = 32
+    Caption = 
+      'Favor verificar os dados do lan'#231'amento antes de confirmar o paga' +
+      'mento.'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clRed
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Transparent = True
+    WordWrap = True
+  end
   object GrpBxPagamento: TGroupBox
     Left = 0
     Top = 85
@@ -682,5 +699,11 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     DataSet = tblFormaPagto
     Left = 432
     Top = 48
+  end
+  object tmrAlerta: TTimer
+    Interval = 500
+    OnTimer = tmrAlertaTimer
+    Left = 72
+    Top = 245
   end
 end

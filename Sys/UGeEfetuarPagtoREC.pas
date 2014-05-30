@@ -56,12 +56,15 @@ type
     btnCancelar: TBitBtn;
     cdsPagamentosUSUARIO: TIBStringField;
     dbDataPagto: TDBDateEdit;
+    lblInforme: TLabel;
+    tmrAlerta: TTimer;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure cdsPagamentosNewRecord(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
+    procedure tmrAlertaTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -104,7 +107,7 @@ begin
 
       cdsPagamentos.Open;
       cdsPagamentos.Append;
-      cdsPagamentosFORMA_PAGTO.AsInteger := FormaPagto;
+      cdsPagamentosFORMA_PAGTO.AsInteger  := FormaPagto;
 
       Result := (ShowModal = mrOk);
 
@@ -274,6 +277,15 @@ end;
 procedure TfrmGeEfetuarPagtoREC.RegistrarRotinaSistema;
 begin
   ;
+end;
+
+procedure TfrmGeEfetuarPagtoREC.tmrAlertaTimer(Sender: TObject);
+begin
+  if (lblInforme.Font.Color = clRed) then
+    lblInforme.Font.Color := clBlue
+  else
+  if (lblInforme.Font.Color = clBlue) then
+    lblInforme.Font.Color := clRed;
 end;
 
 end.

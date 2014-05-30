@@ -1,6 +1,6 @@
 inherited frmGeProduto: TfrmGeProduto
-  Left = 219
-  Top = 114
+  Left = 380
+  Top = 164
   Width = 977
   Height = 648
   ActiveControl = dbCodigo
@@ -294,7 +294,7 @@ inherited frmGeProduto: TfrmGeProduto
         Width = 953
         Height = 113
         object lblDescricao: TLabel [1]
-          Left = 208
+          Left = 400
           Top = 24
           Width = 50
           Height = 13
@@ -302,7 +302,7 @@ inherited frmGeProduto: TfrmGeProduto
           FocusControl = dbDescricao
         end
         object lblReferencia: TLabel [2]
-          Left = 16
+          Left = 208
           Top = 64
           Width = 56
           Height = 13
@@ -310,15 +310,15 @@ inherited frmGeProduto: TfrmGeProduto
           FocusControl = dbReferencia
         end
         object lblModelo: TLabel [3]
-          Left = 752
-          Top = 24
+          Left = 16
+          Top = 64
           Width = 38
           Height = 13
           Caption = 'Modelo:'
           FocusControl = dbModelo
         end
         object lblSecao: TLabel [4]
-          Left = 336
+          Left = 536
           Top = 64
           Width = 33
           Height = 13
@@ -326,22 +326,14 @@ inherited frmGeProduto: TfrmGeProduto
           FocusControl = dbSecao
         end
         object lblGrupo: TLabel [5]
-          Left = 136
+          Left = 336
           Top = 64
           Width = 33
           Height = 13
           Caption = 'Grupo:'
           FocusControl = dbGrupo
         end
-        object lblUnidade: TLabel [6]
-          Left = 752
-          Top = 64
-          Width = 43
-          Height = 13
-          Caption = 'Unidade:'
-          FocusControl = dbUnidade
-        end
-        object lblCodigoEAN: TLabel [7]
+        object lblCodigoEAN: TLabel [6]
           Left = 88
           Top = 24
           Width = 60
@@ -349,28 +341,36 @@ inherited frmGeProduto: TfrmGeProduto
           Caption = 'C'#243'digo EAN:'
           FocusControl = dbCodigoEAN
         end
-        object lblFabricante: TLabel [8]
-          Left = 536
+        object lblFabricante: TLabel [7]
+          Left = 728
           Top = 64
           Width = 55
           Height = 13
           Caption = 'Fabricante:'
           FocusControl = dbFabricante
         end
-        object lblApresentacao: TLabel [9]
-          Left = 536
+        object lblApresentacao: TLabel [8]
+          Left = 728
           Top = 24
           Width = 71
           Height = 13
           Caption = 'Apresenta'#231#227'o:'
           FocusControl = dbApresentacao
         end
+        object lblTipoCadastro: TLabel [9]
+          Left = 208
+          Top = 24
+          Width = 71
+          Height = 13
+          Caption = 'Tipo Cadastro:'
+          FocusControl = dbTipoCadastro
+        end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
           DataField = 'CODIGO'
         end
         object dbDescricao: TDBEdit
-          Left = 208
+          Left = 400
           Top = 40
           Width = 321
           Height = 21
@@ -383,12 +383,12 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 3
         end
         object dbReferencia: TDBEdit
-          Left = 16
+          Left = 208
           Top = 80
-          Width = 113
+          Width = 121
           Height = 21
           CharCase = ecUpperCase
           DataField = 'REFERENCIA'
@@ -399,11 +399,11 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 6
         end
         object dbModelo: TDBEdit
-          Left = 752
-          Top = 40
+          Left = 16
+          Top = 80
           Width = 185
           Height = 21
           CharCase = ecUpperCase
@@ -415,12 +415,12 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
         end
         object dbSecao: TRxDBComboEdit
-          Left = 336
+          Left = 536
           Top = 80
-          Width = 193
+          Width = 185
           Height = 21
           ButtonHint = 'Pesquisar Se'#231#227'o (Ctrl+P)'
           CharCase = ecUpperCase
@@ -489,11 +489,11 @@ inherited frmGeProduto: TfrmGeProduto
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 7
+          TabOrder = 8
           OnButtonClick = dbSecaoButtonClick
         end
         object dbGrupo: TRxDBComboEdit
-          Left = 136
+          Left = 336
           Top = 80
           Width = 193
           Height = 21
@@ -564,83 +564,8 @@ inherited frmGeProduto: TfrmGeProduto
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 6
+          TabOrder = 7
           OnButtonClick = dbGrupoButtonClick
-        end
-        object dbUnidade: TRxDBComboEdit
-          Left = 752
-          Top = 80
-          Width = 185
-          Height = 21
-          ButtonHint = 'Pesquisar Unidade (Ctrl+P)'
-          CharCase = ecUpperCase
-          ClickKey = 16464
-          Color = clMoneyGreen
-          DataField = 'DESCRICAO_UNIDADE'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          Glyph.Data = {
-            36060000424D3606000000000000360000002800000020000000100000000100
-            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
-            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
-            6048306048306048306048306048306048306048306048306048305048403050
-            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
-            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
-            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
-            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
-            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
-            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
-            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
-            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
-            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
-            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
-            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
-            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
-            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
-            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
-            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
-            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
-            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
-            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
-            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
-          NumGlyphs = 2
-          ParentFont = False
-          ParentShowHint = False
-          ReadOnly = True
-          ShowHint = True
-          TabOrder = 9
-          OnButtonClick = dbUnidadeButtonClick
         end
         object dbCodigoEAN: TDBEdit
           Left = 88
@@ -659,7 +584,7 @@ inherited frmGeProduto: TfrmGeProduto
           TabOrder = 1
         end
         object dbFabricante: TRxDBComboEdit
-          Left = 536
+          Left = 728
           Top = 80
           Width = 209
           Height = 21
@@ -730,11 +655,11 @@ inherited frmGeProduto: TfrmGeProduto
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 8
+          TabOrder = 9
           OnButtonClick = dbFabricanteButtonClick
         end
         object dbApresentacao: TDBEdit
-          Left = 536
+          Left = 728
           Top = 40
           Width = 209
           Height = 21
@@ -746,7 +671,26 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 4
+        end
+        object dbTipoCadastro: TDBLookupComboBox
+          Left = 208
+          Top = 40
+          Width = 185
+          Height = 21
+          DataField = 'ALIQUOTA_TIPO'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CODIGO'
+          ListField = 'TIPO'
+          ListSource = dtsAliquota
+          ParentFont = False
+          TabOrder = 2
         end
       end
       object pgcMaisDados: TPageControl
@@ -1079,6 +1023,18 @@ inherited frmGeProduto: TfrmGeProduto
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
+          object dbComporFaturamento: TDBCheckBox
+            Left = 16
+            Top = 176
+            Width = 257
+            Height = 17
+            Caption = 'Produto/Servi'#231'o Comp'#245'e o Faturamento'
+            DataField = 'COMPOR_FATURAMENTO'
+            DataSource = DtSrcTabela
+            TabOrder = 9
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
         end
         object tbsTributacao: TTabSheet
           Caption = 'Tributa'#231#245'es'
@@ -1105,7 +1061,7 @@ inherited frmGeProduto: TfrmGeProduto
             Width = 945
             Height = 116
             Align = alTop
-            Caption = 'Dados fiscais p/ ICMS'
+            Caption = 'Dados fiscais para ICMS/ISS'
             TabOrder = 0
             object lblOrigem: TLabel
               Left = 16
@@ -1159,6 +1115,7 @@ inherited frmGeProduto: TfrmGeProduto
               Width = 43
               Height = 13
               Caption = 'Al'#237'quota:'
+              Enabled = False
               FocusControl = dbAliquotaTipo
             end
             object lblNCM_SH: TLabel
@@ -1366,6 +1323,7 @@ inherited frmGeProduto: TfrmGeProduto
               DataField = 'ALIQUOTA_TIPO'
               DataSource = DtSrcTabela
               DropDownRows = 10
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
               Font.Height = -11
@@ -1950,15 +1908,21 @@ inherited frmGeProduto: TfrmGeProduto
         Caption = 'Dados estoque'
         TabOrder = 1
         object lblEstoqueQtde: TLabel
-          Left = 376
+          Left = 336
           Top = 24
           Width = 60
           Height = 13
           Caption = 'Quantidade:'
           FocusControl = dbEstoqueQtde
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object lblEstoqueMinimo: TLabel
-          Left = 480
+          Left = 552
           Top = 24
           Width = 36
           Height = 13
@@ -1974,7 +1938,7 @@ inherited frmGeProduto: TfrmGeProduto
           FocusControl = dbEmpresa
         end
         object lblReserva: TLabel
-          Left = 840
+          Left = 864
           Top = 24
           Width = 44
           Height = 13
@@ -1983,25 +1947,39 @@ inherited frmGeProduto: TfrmGeProduto
           Visible = False
         end
         object lblFracionador: TLabel
-          Left = 584
+          Left = 632
           Top = 24
           Width = 61
           Height = 13
           Caption = 'Fracionador:'
           FocusControl = dbFracionador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object lblUnidadeFracao: TLabel
-          Left = 688
+          Left = 712
           Top = 24
           Width = 94
           Height = 13
           Caption = 'Unidade da Fra'#231#227'o:'
           FocusControl = dbUnidadeFracao
         end
+        object lblUnidade: TLabel
+          Left = 424
+          Top = 23
+          Width = 43
+          Height = 13
+          Caption = 'Unidade:'
+          FocusControl = dbUnidade
+        end
         object dbEstoqueQtde: TDBEdit
-          Left = 376
+          Left = 336
           Top = 40
-          Width = 97
+          Width = 73
           Height = 21
           CharCase = ecUpperCase
           Color = clMoneyGreen
@@ -2017,9 +1995,9 @@ inherited frmGeProduto: TfrmGeProduto
           TabOrder = 1
         end
         object dbEstoqueMinimo: TDBEdit
-          Left = 480
+          Left = 552
           Top = 40
-          Width = 97
+          Width = 73
           Height = 21
           CharCase = ecUpperCase
           DataField = 'ESTOQMIN'
@@ -2030,12 +2008,12 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 3
         end
         object dbEmpresa: TDBLookupComboBox
           Left = 16
           Top = 40
-          Width = 355
+          Width = 313
           Height = 21
           DataField = 'CODEMP'
           DataSource = DtSrcTabela
@@ -2052,9 +2030,9 @@ inherited frmGeProduto: TfrmGeProduto
           TabOrder = 0
         end
         object dbReserva: TDBEdit
-          Left = 840
+          Left = 864
           Top = 40
-          Width = 97
+          Width = 73
           Height = 21
           CharCase = ecUpperCase
           DataField = 'RESERVA'
@@ -2065,13 +2043,13 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 6
           Visible = False
         end
         object dbFracionador: TDBEdit
-          Left = 584
+          Left = 632
           Top = 40
-          Width = 97
+          Width = 73
           Height = 21
           CharCase = ecUpperCase
           DataField = 'FRACIONADOR'
@@ -2082,10 +2060,10 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 4
         end
         object dbUnidadeFracao: TRxDBComboEdit
-          Left = 688
+          Left = 712
           Top = 40
           Width = 145
           Height = 21
@@ -2156,8 +2134,83 @@ inherited frmGeProduto: TfrmGeProduto
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 4
+          TabOrder = 5
           OnButtonClick = dbUnidadeFracaoButtonClick
+        end
+        object dbUnidade: TRxDBComboEdit
+          Left = 424
+          Top = 39
+          Width = 121
+          Height = 21
+          ButtonHint = 'Pesquisar Unidade (Ctrl+P)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'DESCRICAO_UNIDADE'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 2
+          OnButtonClick = dbUnidadeButtonClick
         end
       end
     end
@@ -2226,6 +2279,7 @@ inherited frmGeProduto: TfrmGeProduto
       '  , p.Percentual_reducao_BC'
       '  , p.Usuario'
       '  , p.Movimenta_estoque'
+      '  , p.Compor_faturamento'
       '  , case when coalesce(p.Reserva, 0) > 0'
       '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
       '      else coalesce(p.Qtde, 0)'
@@ -2756,6 +2810,12 @@ inherited frmGeProduto: TfrmGeProduto
       Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaCOMPOR_FATURAMENTO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'COMPOR_FATURAMENTO'
+      Origin = '"TBPRODUTO"."COMPOR_FATURAMENTO"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaDISPONIVEL: TIBBCDField
       DisplayLabel = 'Dispon'#237'vel'
       FieldName = 'DISPONIVEL'
@@ -3031,11 +3091,13 @@ inherited frmGeProduto: TfrmGeProduto
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     TableName = 'TBEMPRESA'
-    Left = 296
+    Left = 312
+    Top = 400
   end
   object dtsEmpresa: TDataSource
     DataSet = tblEmpresa
-    Left = 328
+    Left = 344
+    Top = 400
   end
   object tblOrigem: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -3065,13 +3127,13 @@ inherited frmGeProduto: TfrmGeProduto
     StoreDefs = True
     TableName = 'VW_ORIGEM_PRODUTO'
     TableTypes = [ttView]
-    Left = 296
-    Top = 32
+    Left = 312
+    Top = 432
   end
   object dtsOrigem: TDataSource
     DataSet = tblOrigem
-    Left = 328
-    Top = 32
+    Left = 344
+    Top = 432
   end
   object tblTributacaoNM: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -3107,11 +3169,13 @@ inherited frmGeProduto: TfrmGeProduto
     StoreDefs = True
     TableName = 'VW_TIPO_TRIBUTACAO'
     TableTypes = [ttView]
-    Left = 360
+    Left = 376
+    Top = 400
   end
   object dtsTributacaoNM: TDataSource
     DataSet = tblTributacaoNM
-    Left = 392
+    Left = 408
+    Top = 400
   end
   object tblAliquota: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -3127,15 +3191,23 @@ inherited frmGeProduto: TfrmGeProduto
         Attributes = [faReadonly]
         DataType = ftString
         Size = 4
+      end
+      item
+        Name = 'TIPO'
+        Attributes = [faReadonly]
+        DataType = ftString
+        Size = 7
       end>
     StoreDefs = True
     TableName = 'VW_TIPO_ALIQUOTA'
     TableTypes = [ttView]
-    Left = 424
+    Left = 440
+    Top = 400
   end
   object dtsAliquota: TDataSource
     DataSet = tblAliquota
-    Left = 456
+    Left = 472
+    Top = 400
   end
   object EvUA: TEvUserAccess
     Consents.Strings = (
@@ -3184,13 +3256,13 @@ inherited frmGeProduto: TfrmGeProduto
     StoreDefs = True
     TableName = 'VW_TIPO_TRIBUTACAO'
     TableTypes = [ttView]
-    Left = 360
-    Top = 32
+    Left = 376
+    Top = 432
   end
   object dtsTributacaoSN: TDataSource
     DataSet = tblTributacaoSN
-    Left = 392
-    Top = 32
+    Left = 408
+    Top = 432
   end
   object tblCor: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -3208,11 +3280,13 @@ inherited frmGeProduto: TfrmGeProduto
       end>
     StoreDefs = True
     TableName = 'RENAVAM_COR'
-    Left = 488
+    Left = 504
+    Top = 400
   end
   object dtsCor: TDataSource
     DataSet = tblCor
-    Left = 520
+    Left = 536
+    Top = 400
   end
   object tblCombustivel: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -3230,13 +3304,13 @@ inherited frmGeProduto: TfrmGeProduto
       end>
     StoreDefs = True
     TableName = 'RENAVAM_COBUSTIVEL'
-    Left = 424
-    Top = 32
+    Left = 440
+    Top = 432
   end
   object dtsCombustivel: TDataSource
     DataSet = tblCombustivel
-    Left = 456
-    Top = 32
+    Left = 472
+    Top = 432
   end
   object tblTipoVeiculo: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -3254,22 +3328,23 @@ inherited frmGeProduto: TfrmGeProduto
       end>
     StoreDefs = True
     TableName = 'RENAVAM_TIPOVEICULO'
-    Left = 488
-    Top = 32
+    Left = 504
+    Top = 432
   end
   object dtsTipoVeiculo: TDataSource
     DataSet = tblTipoVeiculo
-    Left = 520
-    Top = 32
+    Left = 536
+    Top = 432
   end
   object dtsAliquotaPIS: TDataSource
     DataSet = qryAliquotaPIS
-    Left = 584
+    Left = 600
+    Top = 400
   end
   object dtsAliquotaCOFINS: TDataSource
     DataSet = qryAliquotaCOFINS
-    Left = 584
-    Top = 32
+    Left = 600
+    Top = 432
   end
   object qryAliquotaPIS: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -3285,7 +3360,8 @@ inherited frmGeProduto: TfrmGeProduto
       'from VW_ALIQUOTA_PIS')
     ModifySQL.Strings = (
       '')
-    Left = 552
+    Left = 568
+    Top = 400
   end
   object qryAliquotaCOFINS: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -3301,7 +3377,7 @@ inherited frmGeProduto: TfrmGeProduto
       'from VW_ALIQUOTA_PIS')
     ModifySQL.Strings = (
       '')
-    Left = 552
-    Top = 32
+    Left = 568
+    Top = 432
   end
 end

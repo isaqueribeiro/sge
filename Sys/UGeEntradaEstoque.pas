@@ -941,6 +941,12 @@ begin
 
   RecarregarRegistro;
 
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) then
+  begin
+    ShowWarning('Movimento de Entrada já está finalizado!');
+    Abort;
+  end;
+
   IbDtstTabela.Edit;
 
   if ( IbDtstTabelaCODFORN.AsInteger = 0 ) then

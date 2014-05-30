@@ -284,6 +284,12 @@ begin
   CxNumero := 0;
   CxContaCorrente := 0;
 
+  if ( IbDtstTabelaBAIXADO.AsInteger = 1 ) then
+  begin
+    ShowWarning('Registro de recebimento selecionado já se encontra baixado!' + #13 + 'Favor pesquisar novamente.');
+    Abort;
+  end;
+
   if ( tblFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
     if ( not CaixaAberto(GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
     begin
@@ -304,6 +310,9 @@ begin
 
   if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString, DataPagto) then
   begin
+    if ( CxContaCorrente > 0 ) then
+      GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
+
     iNumero := IbDtstTabelaNUMLANC.AsInteger;
 
     IbDtstTabela.Close;
@@ -312,9 +321,6 @@ begin
     IbDtstTabela.Locate('NUMLANC', iNumero, []);
 
     AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
-
-    if ( CxContaCorrente > 0 ) then
-      GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
 
     DesbloquearCliente(IbDtstTabelaCLIENTE.AsInteger, EmptyStr);
   end;
@@ -455,6 +461,17 @@ begin
       MovNumero := IbDtstTabelaNUMLANC.AsInteger;
       DataPagto := cdsPagamentosDATA_PAGTO.AsDateTime;
 
+//    sSenha := InputBox('Favor informar a senha de autorização', 'Senha de Autorização:', '');
+//
+//    if ( Trim(sSenha) = EmptyStr ) then
+//      Exit;
+//
+//    if ( sSenha <> GetSenhaAutorizacao ) then
+//    begin
+//      ShowWarning('Senha de autorização inválida');
+//      Exit;
+//    end;
+
       if ShowConfirm('Confirma a exclusão do(s) registro(s) de pagamento(s)?') then
       begin
 
@@ -504,15 +521,15 @@ begin
           CommitTransaction;
         end;
 
+        if ( CxContaCorrente > 0 ) then
+          GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
+
         IbDtstTabela.Close;
         IbDtstTabela.Open;
 
         IbDtstTabela.Locate('ANOLANC;NUMLANC', VarArrayOf([MovAno, MovNumero]), []);
 
         AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
-
-        if ( CxContaCorrente > 0 ) then
-          GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
       end;
     end;
   end;
