@@ -305,6 +305,17 @@ var
     var iUnidade, CFOP : Integer;
     var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
     var Estoque, Reserva : Currency) : Boolean;
+  function SelecionarServicoParaEntrada(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+    var iUnidade, CNAE : Integer;
+    var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao : Currency) : Boolean;
+  function SelecionarProdutoServicoParaEntrada(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+    var iUnidade, CFOP_CNAE : Integer;
+    var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+    var Estoque, Reserva : Currency) : Boolean;
 
 implementation
 
@@ -331,8 +342,9 @@ begin
     else
       frm.WhereAdditional := '(1 = 1)';
 
+    // Carregar apenas produtos com estoque e serviços em geral  
     if frm.chkProdutoComEstoque.Checked then
-      frm.WhereAdditional := frm.WhereAdditional + ' and (p.Qtde > 0)';
+      frm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
 
     frm.ShowModal;
   finally
@@ -541,6 +553,98 @@ begin
   end;
 end;
 
+function SelecionarServicoParaEntrada(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+  var iUnidade, CNAE : Integer;
+  var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao : Currency) : Boolean;
+var
+  frm : TfrmGeProduto;
+  whr : String;
+begin
+  frm := TfrmGeProduto.Create(AOwner);
+  try
+    frm.fAliquota := taISS;
+
+    frm.chkProdutoComEstoque.Checked := False;
+    frm.chkProdutoComEstoque.Visible := False;
+
+    frm.lblAliquotaTipo.Enabled := False;
+    frm.dbAliquotaTipo.Enabled  := False;
+
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+
+    if ( Result ) then
+    begin
+      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
+      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
+      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
+      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
+      CST        := frm.IbDtstTabelaCST.AsString;
+      CNAE       := 0; //frm.IbDtstTabelaCODCFOP.AsInteger;
+      Aliquota       := frm.IbDtstTabelaALIQUOTA.AsCurrency;
+      AliquotaPIS    := frm.IbDtstTabelaALIQUOTA_PIS.AsCurrency;
+      AliquotaCOFINS := frm.IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
+      ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
+      ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
+    end;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarProdutoServicoParaEntrada(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+  var iUnidade, CFOP_CNAE : Integer;
+  var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+  var Estoque, Reserva : Currency) : Boolean; overload;
+var
+  frm : TfrmGeProduto;
+  whr : String;
+begin
+  frm := TfrmGeProduto.Create(AOwner);
+  try
+    frm.fAliquota := taICMS;
+
+    frm.chkProdutoComEstoque.Checked := False;
+    frm.lblAliquotaTipo.Enabled := False;
+    frm.dbAliquotaTipo.Enabled  := False;
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+
+    if ( Result ) then
+    begin
+      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
+      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
+      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
+      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
+      CST        := frm.IbDtstTabelaCST.AsString;
+
+      if ( TAliquota(frm.IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
+        CFOP_CNAE  := frm.IbDtstTabelaCODCFOP.AsInteger
+      else
+        CFOP_CNAE  := 0;
+
+      Aliquota       := frm.IbDtstTabelaALIQUOTA.AsCurrency;
+      AliquotaPIS    := frm.IbDtstTabelaALIQUOTA_PIS.AsCurrency;
+      AliquotaCOFINS := frm.IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
+      ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
+      ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
+      ValorIPI       := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+
+      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+
+      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
+      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
+    end;
+  finally
+    frm.Destroy;
+  end;
+end;
+
 function SelecionarProduto(const AOwner : TComponent;
   var Codigo : Integer;
   var CodigoAlfa, Nome, Unidade : String;
@@ -698,8 +802,11 @@ begin
 
   IbDtstTabelaCST.Value := IbDtstTabelaCODORIGEM.AsString + IbDtstTabelaCODTRIBUTACAO.AsString;
 
+  if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 0 ) then
+    IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency := 0.0
+  else  
   if ( IbDtstTabelaPERCENTUAL_MARGEM.IsNull and (not IbDtstTabelaPERCENTUAL_MARCKUP.IsNull) ) then
-    IbDtstTabelaPERCENTUAL_MARGEM.Value := IbDtstTabelaPERCENTUAL_MARCKUP.Value;
+    IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency := IbDtstTabelaPERCENTUAL_MARCKUP.Value;
 
   if ( IbDtstTabela.State = dsInsert ) then
     if ( Trim(IbDtstTabelaCOD.AsString) = EmptyStr ) then
@@ -929,23 +1036,25 @@ procedure TfrmGeProduto.dbgDadosDrawColumnCell(Sender: TObject;
   State: TGridDrawState);
 begin
   inherited;
-  // Destacar produtos em Promocao
-  if ( IbDtstTabelaQTDE.AsCurrency <= 0 ) then
-    dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color
-  else
+  // Destacar produtos sem Estoque
+  if ( TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
+    if ( IbDtstTabelaQTDE.AsCurrency <= 0 ) then
+      dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color;
+
   // Destacar produtos em Promocao
   if ( IbDtstTabelaPRECO_PROMOCAO.AsCurrency > 0 ) then
     dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
     
   // Destacar alerta de lucros
-  if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
-  begin
-    if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
-      dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
-    else
-    if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
-      dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
-  end;
+  if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 1 ) then
+    if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
+    begin
+      if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
+        dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
+      else
+      if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
+        dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
+    end;
 
   dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
 end;
@@ -1008,8 +1117,9 @@ begin
   else
     WhereAdditional := '(1 = 1)';
 
-  if chkProdutoComEstoque.Checked then
-    WhereAdditional := WhereAdditional + ' and (p.Qtde > 0)';
+  if chkProdutoComEstoque.Visible then
+    if chkProdutoComEstoque.Checked then
+      WhereAdditional := WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
 
   // inherited;
   FiltarDados(CmbBxFiltrarTipo.ItemIndex);

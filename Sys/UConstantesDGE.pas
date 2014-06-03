@@ -207,6 +207,8 @@ const
   INI_KEY_PAIS_VALUE   = '01058';
   INI_KEY_ESTADO_VALUE = '15';
   INI_KEY_CIDADE_VALUE = '170';
+  INI_SECAO_VENDA      = 'Venda';
+  INI_KEY_CODIGO_EAN   = 'CarregarPeloCodigoEAN';
 
   SYS_PATH_REGISTER = {$IFDEF DGE}'MasterDados\'{$ELSE}'Ágil Soluções em Softwares\'{$ENDIF};
   SYS_PASSWD_KEY    = 'TheLordIsGod';

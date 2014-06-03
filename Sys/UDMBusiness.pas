@@ -262,6 +262,7 @@ var
   function GetClienteNomeDefault : String;
   function GetClienteNome(const iCodigo : Integer) : String;
   function GetClienteEmail(const iCodigo : Integer) : String;
+  function GetFornecedorEmail(const iCodigo : Integer) : String;
   function GetVendedorNomeDefault : String;
   function GetFormaPagtoNomeDefault : String;
   function GetCondicaoPagtoNomeDefault : String;
@@ -283,6 +284,8 @@ var
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
+  function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
+  function GetCarregarProdutoCodigoBarraLocal : Boolean;
 
   function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 
@@ -1939,6 +1942,21 @@ begin
   end;
 end;
 
+function GetFornecedorEmail(const iCodigo : Integer) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select email from TBFORNECEDOR where Codforn = ' + IntToStr(iCodigo));
+    Open;
+
+    Result := AnsiLowerCase(Trim(FieldByName('email').AsString));
+
+    Close;
+  end;
+end;
+
 function GetVendedorNomeDefault : String;
 begin
   with DMBusiness, qryBusca do
@@ -2207,6 +2225,26 @@ begin
 
     Close;
   end;
+end;
+
+function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select venda_carrega_produto_ean from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := (FieldByName('venda_carrega_produto_ean').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetCarregarProdutoCodigoBarraLocal : Boolean;
+begin
+  Result := FileINI.ReadBool(INI_SECAO_VENDA, INI_KEY_CODIGO_EAN, GetCarregarProdutoCodigoBarra(GetEmpresaIDDefault));
 end;
 
 function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;

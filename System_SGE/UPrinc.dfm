@@ -22701,7 +22701,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
-        Caption = 'Autoriza'#231#245'es de Compras'
+        Caption = 'Autoriza'#231#245'es de Compras/Servi'#231'os'
         OnClick = nmAutorizacaoCompraClick
       end
     end

@@ -4,7 +4,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
   Width = 1132
   Height = 724
   ActiveControl = dbCodigo
-  Caption = 'Controle de Autoriza'#231#245'es de Compra'
+  Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
   OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
@@ -561,7 +561,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           Width = 24
           Height = 13
           Caption = 'Tipo:'
-          Enabled = False
           FocusControl = dbTipo
         end
         object lblDataValidade: TLabel [10]
@@ -815,7 +814,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           DataField = 'TIPO'
           DataSource = DtSrcTabela
           DropDownRows = 10
-          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -1137,7 +1135,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
               Width = 1100
               Height = 13
               Align = alTop
-              Caption = 'Endere'#231'o de Entrega:'
+              Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
               FocusControl = dbEnderecoEntrega
             end
             object Bevel5: TBevel

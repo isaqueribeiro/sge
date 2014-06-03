@@ -1006,9 +1006,10 @@ end;
 
 procedure TfrmGeAutorizacaoCompra.dbProdutoButtonClick(Sender: TObject);
 var
-  iCodigo  ,
-  iCFOP    ,
-  iUnidade : Integer;
+  bSelecionado : Boolean;
+  iCodigo    ,
+  iCFOP_CNAE ,
+  iUnidade   : Integer;
   iEstoque ,
   iReserva : Currency;
   sCodigoAlfa,
@@ -1031,8 +1032,26 @@ begin
   end
   else
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarProdutoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP,
-      cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva) ) then
+  begin
+
+    Case IbDtstTabelaTIPO.AsInteger of
+      TIPO_AUTORIZACAO_COMPRA:
+        bSelecionado := SelecionarProdutoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
+                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva);
+
+      TIPO_AUTORIZACAO_SERVICO:
+        bSelecionado := SelecionarServicoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
+                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao);
+
+      TIPO_AUTORIZACAO_COMPRA_SERVICO:
+        bSelecionado := SelecionarProdutoServicoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
+                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva);
+
+      else
+        bSelecionado := False;
+    end;
+
+    if ( bSelecionado ) then
     begin
       cdsTabelaItensPRODUTO.AsString             := sCodigoAlfa;
       cdsTabelaItensDESCRI_APRESENTACAO.AsString := sDescricao;
@@ -1041,6 +1060,8 @@ begin
       if ( iUnidade > 0 ) then
         cdsTabelaItensUNIDADE.AsInteger := iUnidade;
     end;
+    
+  end;
 end;
 
 procedure TfrmGeAutorizacaoCompra.nmImprimirAutorizacaoClick(
@@ -1051,6 +1072,11 @@ begin
 
   with DMNFe do
   begin
+
+    try
+      ConfigurarEmail(GetEmpresaIDDefault, GetFornecedorEmail(IbDtstTabelaFORNECEDOR.AsInteger), dbTipo.Text, EmptyStr);
+    except
+    end;
 
     with qryEmitente do
     begin

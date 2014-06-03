@@ -9866,6 +9866,12 @@ object DMNFe: TDMNFe
       '    a.ano'
       '  , a.codigo'
       '  , a.numero'
+      '  , a.tipo'
+      '  , case a.tipo'
+      '      when 1 then '#39'Compra'#39
+      '      when 2 then '#39'Servi'#231'o'#39
+      '      when 3 then '#39'Compra/Servi'#231'o'#39
+      '    end as tipo_desc'
       '  , a.status'
       '  , case a.status'
       '      when 0 then '#39'Em Edi'#231#227'o'#39
@@ -9956,6 +9962,8 @@ object DMNFe: TDMNFe
       'ANO=ANO'
       'CODIGO=CODIGO'
       'NUMERO=NUMERO'
+      'TIPO=TIPO'
+      'TIPO_DESC=TIPO_DESC'
       'STATUS=STATUS'
       'STATUS_DESC=STATUS_DESC'
       'EMPRESA=EMPRESA'
@@ -10009,7 +10017,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41209.028739675920000000
+    ReportOptions.LastChange = 41793.390262974540000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -10227,7 +10235,7 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -10247,7 +10255,9 @@ object DMNFe: TDMNFe
           Font.Style = [fsBold]
           HAlign = haCenter
           Memo.UTF8 = (
-            'AUTORIZA'#195#8225#195#402'O DE COMPRA')
+            
+              '[Trim('#39'AUTORIZA'#195#8225#195#402'O DE '#39' + Uppercase(<frdAutorizacaoCompra."TIP' +
+              'O_DESC">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -11093,7 +11103,7 @@ object DMNFe: TDMNFe
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop]
           Memo.UTF8 = (
-            ' Local de Entrega:')
+            ' Local de Entrega/Realiza'#195#167#195#163'o:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -11101,7 +11111,7 @@ object DMNFe: TDMNFe
           Left = 37.795300000000000000
           Top = 162.519790000000000000
           Width = 623.622450000000000000
-          Height = 45.354360000000000000
+          Height = 64.252010000000000000
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -11112,8 +11122,9 @@ object DMNFe: TDMNFe
           Memo.UTF8 = (
             
               '                 Autorizamos a [frdFornecedor."NOME"] executar a' +
-              ' presente autoriza'#195#167#195#163'o de compra, na sua totalidade, e na forma' +
-              '/condi'#195#167#195#163'o de pagamentos estabelecida.')
+              ' presente Autoriza'#195#167#195#163'o de [Trim(<frdAutorizacaoCompra."TIPO_DES' +
+              'C">)], na sua totalidade, e na forma/condi'#195#167#195#163'o de pagamentos es' +
+              'tabelecida.')
           ParentFont = False
         end
         object Memo15: TfrxMemoView
