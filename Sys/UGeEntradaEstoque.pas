@@ -3,6 +3,8 @@ unit UGeEntradaEstoque;
 interface
 
 uses
+  UDMBusiness,
+  
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
@@ -296,6 +298,7 @@ type
     dtsTipoEntrada: TDataSource;
     lblTipoEntrada: TLabel;
     dbTipoEntrada: TDBLookupComboBox;
+    IbDtstTabelaTIPO_MOVIMENTO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -335,8 +338,10 @@ type
       var Text: String; DisplayText: Boolean);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    FTipoMovimento : TTipoMovimentoEntrada;
     SQL_Itens   ,
     SQL_Duplicatas : TStringList;
     procedure AbrirTabelaItens(const AnoCompra : Smallint; const ControleCompra : Integer);
@@ -348,17 +353,19 @@ type
     procedure RecarregarRegistro;
   public
     { Public declarations }
+    property TipoMovimento : TTipoMovimentoEntrada read FTipoMovimento write FTipoMovimento;
   end;
 
 var
   frmGeEntradaEstoque: TfrmGeEntradaEstoque;
 
   procedure MostrarControleCompras(const AOwner : TComponent);
+  procedure MostrarControleCompraServicos(const AOwner : TComponent);
 
 implementation
 
 uses
-  UConstantesDGE, DateUtils, UDMBusiness, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
+  UConstantesDGE, DateUtils, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
   UGeFornecedor, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe, UDMNFe;
 
 {$R *.dfm}
@@ -370,7 +377,36 @@ var
 begin
   frm := TfrmGeEntradaEstoque.Create(AOwner);
   try
-    whr := 'cast(c.dtent as date) between ' +
+    frm.TipoMovimento := tmeProduto;
+
+    whr := '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
+              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+
+    with frm, IbDtstTabela do
+    begin
+      Close;
+      SelectSQL.Add('where ' + whr);
+      SelectSQL.Add('order by ' + CampoOrdenacao);
+      Open;
+    end;
+
+    frm.ShowModal;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+procedure MostrarControleCompraServicos(const AOwner : TComponent);
+var
+  frm : TfrmGeEntradaEstoque;
+  whr : String;
+begin
+  frm := TfrmGeEntradaEstoque.Create(AOwner);
+  try
+    frm.TipoMovimento := tmeServico;
+
+    whr := '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
               QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
               QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
 
@@ -402,7 +438,7 @@ begin
 
   inherited;
 
-  AbrirTabelaAuto:= True;
+  AbrirTabelaAuto := True;
 
   SQL_Itens := TStringList.Create;
   SQL_Itens.Clear;
@@ -432,11 +468,13 @@ begin
   UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
 
   btbtnGerarNFe.Visible := GetEstacaoEmitiNFe;
+
+  TipoMovimento := tmeProduto;
 end;
 
 procedure TfrmGeEntradaEstoque.btnFiltrarClick(Sender: TObject);
 begin
-  WhereAdditional := 'cast(c.dtent as date) between ' +
+  WhereAdditional := '(c.tipo_movimento = ' + IntToStr(Ord(TipoMovimento)) + ') and cast(c.dtent as date) between ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
   inherited;
@@ -451,12 +489,25 @@ begin
   IbDtstTabelaCODEMP.Value  := GetEmpresaIDDefault;
   IbDtstTabelaFORMAPAGTO_COD.Value    := GetFormaPagtoIDDefault;
   IbDtstTabelaCONDICAOPAGTO_COD.Value := GetCondicaoPagtoIDDefault;
-  IbDtstTabelaNFCFOP.Value            := GetCfopEntradaIDDefault;
-  IbDtstTabelaCFOP_DESCRICAO.Value    := GetCfopEntradaNomeDefault;
-  IbDtstTabelaNATUREZA.Value          := IntToStr( GetCfopIDDefault );
-  IbDtstTabelaSTATUS.Value       := STATUS_CMP_ABR;
-  IbDtstTabelaCOMPRA_PRAZO.Value := 0;
-  IbDtstTabelaICMSBASE.Value     := 0;
+
+  if ( FTipoMovimento = tmeProduto ) then
+  begin
+    IbDtstTabelaNFCFOP.Value            := GetCfopEntradaIDDefault;
+    IbDtstTabelaCFOP_DESCRICAO.Value    := GetCfopEntradaNomeDefault;
+    IbDtstTabelaNATUREZA.Value          := IntToStr( GetCfopIDDefault );
+  end
+  else
+  if ( FTipoMovimento = tmeServico ) then
+  begin
+    IbDtstTabelaNFCFOP.Clear;
+    IbDtstTabelaCFOP_DESCRICAO.Clear;
+    IbDtstTabelaNATUREZA.Clear;
+  end;
+
+  IbDtstTabelaTIPO_MOVIMENTO.Value := Ord(FTipoMovimento);
+  IbDtstTabelaSTATUS.Value         := STATUS_CMP_ABR;
+  IbDtstTabelaCOMPRA_PRAZO.Value   := 0;
+  IbDtstTabelaICMSBASE.Value       := 0;
   IbDtstTabelaICMSVALOR.Value      := 0;
   IbDtstTabelaICMSSUBSTBASE.Value  := 0;
   IbDtstTabelaICMSSUBSTVALOR.Value := 0;
@@ -609,7 +660,7 @@ begin
       end
       else
       begin
-        ShowWarning('Código de produto não cadastrado');
+        ShowWarning('Código de ' + IfThen(FTipoMovimento = tmeProduto, 'produto', 'serviço') + ' não cadastrado');
         cdsTabelaItensCODPROD.Clear;
         if ( dbProduto.Visible and dbProduto.Enabled ) then
           dbProduto.SetFocus;
@@ -685,7 +736,7 @@ begin
   else
   if ( IbDtstTabelaTOTALPROD.AsCurrency = 0 ) then
   begin
-    ShowWarning('Favor informar valor Total de Produtos');
+    ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produto(s)', 'Serviço(s)') + '.');
     dbTotalProduto.SetFocus;
   end
   else
@@ -754,7 +805,7 @@ end;
 procedure TfrmGeEntradaEstoque.btbtnSalvarClick(Sender: TObject);
 begin
   if ( cdsTabelaItens.IsEmpty ) then
-    ShowWarning('Favor informar o(s) produto(s) da compra.')
+    ShowWarning('Favor informar o(s) ' + IfThen(FTipoMovimento = tmeProduto, 'produto(s)', 'serviço(s)') + ' da entrada.')
   else
   begin
     if (IbDtstTabelaTIPO_DOCUMENTO.AsInteger = TIPO_DOCUMENTO_ENTRADA_AVULSA) then
@@ -764,7 +815,7 @@ begin
     end;
 
     IbDtstTabelaNF.Required      := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NF, TIPO_DOCUMENTO_ENTRADA_CUPOM]);
-    IbDtstTabelaNFSERIE.Required := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NF]);
+    IbDtstTabelaNFSERIE.Required := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NF]) and (TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto);
 
     inherited;
 
@@ -867,9 +918,10 @@ end;
 
 procedure TfrmGeEntradaEstoque.dbProdutoButtonClick(Sender: TObject);
 var
-  iCodigo  ,
-  iCFOP    ,
-  iUnidade : Integer;
+  bSelecionado : Boolean;
+  iCodigo   ,
+  iCFOP_CNAE,
+  iUnidade  : Integer;
   iEstoque ,
   iReserva : Currency;
   sCodigoAlfa,
@@ -886,8 +938,30 @@ var
   cPercRedBC    : Currency;
 begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarProdutoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP,
-      cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva) ) then
+  begin
+
+    cAliquota       := 0.0;
+    cAliquotaPIS    := 0.0;
+    cAliquotaCOFINS := 0.0;
+    cValorVenda     := 0.0;
+    cValorPromocao  := 0.0;
+    cValorIPI       := 0.0;
+    cPercRedBC      := 0.0;
+
+    Case TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) of
+      tmeProduto:
+        bSelecionado := SelecionarProdutoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
+                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva);
+
+      tmeServico:
+        bSelecionado := SelecionarServicoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
+                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao);
+
+      else
+        bSelecionado := False;
+    end;
+
+    if bSelecionado then
     begin
       cdsTabelaItensCODPROD.AsString     := sCodigoAlfa;
       cdsTabelaItensDESCRI.AsString      := sDescricao;
@@ -900,12 +974,20 @@ begin
       cdsTabelaItensALIQUOTA_COFINS.AsCurrency       := cAliquotaCOFINS;
       cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency := cPercRedBC;
 
-      if ( (qryCFOP.FieldByName('Cfop_cst_padrao_entrada').AsString) <> EmptyStr ) then
-        cdsTabelaItensCST.AsString := Trim(qryCFOP.FieldByName('Cfop_cst_padrao_entrada').AsString);
+      if (TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto) then
+      begin
+        if not qryCFOP.Active then
+          CarregarDadosCFOP( IbDtstTabelaNFCFOP.AsInteger );
+
+        if ( (qryCFOP.FieldByName('Cfop_cst_padrao_entrada').AsString) <> EmptyStr ) then
+          cdsTabelaItensCST.AsString := Trim(qryCFOP.FieldByName('Cfop_cst_padrao_entrada').AsString);
+      end;
 
       if ( iUnidade > 0 ) then
         cdsTabelaItensUNID_COD.AsInteger := iUnidade;
     end;
+
+  end;
 end;
 
 procedure TfrmGeEntradaEstoque.cdsTabelaItensNewRecord(DataSet: TDataSet);
@@ -918,10 +1000,16 @@ begin
   cdsTabelaItensNF.Value         := IbDtstTabelaNF.Value;
   cdsTabelaItensSEQ.Value        := cdsTabelaItens.RecordCount + 1;
 
-  if ( IbDtstTabelaNFCFOP.IsNull ) then
-    cdsTabelaItensCFOP.Value := GetCfopIDDefault
+  if ( FTipoMovimento = tmeProduto ) then
+  begin
+    if ( IbDtstTabelaNFCFOP.IsNull ) then
+      cdsTabelaItensCFOP.Value := GetCfopIDDefault
+    else
+      cdsTabelaItensCFOP.Assign( IbDtstTabelaNFCFOP );
+  end
   else
-    cdsTabelaItensCFOP.Assign( IbDtstTabelaNFCFOP );
+  if ( FTipoMovimento = tmeServico ) then
+    cdsTabelaItensCFOP.Clear;
 
   cdsTabelaItensQTDE.Value      := 0;
   cdsTabelaItensQTDEANTES.Value := 0;
@@ -957,7 +1045,7 @@ begin
   else
   if ( IbDtstTabelaTOTALPROD.AsCurrency = 0 ) then
   begin
-    ShowWarning('Favor informar valor Total de Produtos');
+    ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produtos', 'Serviços'));
     dbTotalProduto.SetFocus;
   end
   else
@@ -1073,11 +1161,14 @@ begin
       Close;
       ParamByName('Cfop_cod').AsInteger := iCodigo;
       Open;
+      
       if not IsEmpty then
         IbDtstTabelaCFOP_DESCRICAO.AsString := FieldByName('cfop_descricao').AsString
       else
       begin
-        ShowWarning('Código CFOP não cadastrado');
+        if ( TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto ) then
+          ShowWarning('Código CFOP não cadastrado');
+
         IbDtstTabelaNFCFOP.Clear;
         if ( dbCFOPNF.Visible and dbCFOPNF.Enabled ) then
           dbCFOPNF.SetFocus;
@@ -1344,7 +1435,7 @@ begin
     begin
       IbDtstTabela.Close;
 
-      ShowInformation('Favor pesquisar novamente o registro de entrada de produtos!');
+      ShowInformation('Favor pesquisar novamente o registro de entrada de ' + IfThen(FTipoMovimento = tmeProduto, 'produtos', 'serviços') +'!');
       pgcGuias.ActivePage := tbsTabela;
       edtFiltrar.SetFocus;
     end;
@@ -1375,6 +1466,41 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TfrmGeEntradaEstoque.FormShow(Sender: TObject);
+begin
+  inherited;
+  btbtnGerarNFe.Visible := btbtnGerarNFe.Visible and (FTipoMovimento = tmeProduto);
+
+  if ( FTipoMovimento = tmeServico ) then
+  begin
+    Self.Caption := 'Controle de Entradas de Serviços';
+
+    lblCFOPNF.Caption       := 'CNAE:';
+    lblBaseICMS.Caption     := 'Base ISS:';
+    lblValorICMS.Caption    := 'Valor ISS:';
+    lblTotalProduto.Caption := 'Total Serviço:';
+
+    lblCFOPNF.Enabled := False;
+    dbCFOPNF.Enabled  := False;
+    lblBaseICMSSubs.Enabled  := False;
+    dbBaseICMSSubs.Enabled   := False;
+    lblValorICMSSubs.Enabled := False;
+    dbValorICMSSubs.Enabled  := False;
+    lblValorFrete.Enabled    := False;
+    dbValorFrete.Enabled     := False;
+    lblValorIPI.Enabled      := False;
+    dbValorIPI.Enabled       := False;
+    lblValorIPIProduto.Enabled := False;
+    dbValorIPIProduto.Enabled  := False;
+
+    GrpBxDadosProduto.Caption := 'Dados do serviço';
+    dbgProdutos.Columns[1].Title.Caption := 'Serviço';
+    dbgProdutos.Columns[2].Title.Caption := 'Descrição do Serviço';
+
+    dbgDados.Columns[7].Title.Caption    := 'Total Serviço';
+  end;
 end;
 
 initialization

@@ -338,6 +338,7 @@ begin
 
         if ( DirectoryExists(ExtractFilePath(FileSource)) ) then
         begin
+          flbArquivos.Directory := ExtractFilePath(FileSource);
           flbArquivos.Mask      := Copy(FileSource, Length(flbArquivos.Directory) + 2, (Length(FileSource)) - (Length(flbArquivos.Directory)));
           flbArquivos.Directory := ExtractFilePath(FileSource);
           flbArquivos.Update;

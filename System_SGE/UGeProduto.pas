@@ -269,6 +269,8 @@ type
     { Private declarations }
     fOrdenado : Boolean;
     fAliquota : TAliquota;
+    fApenasProdutos ,
+    fApenasServicos : Boolean;
   public
     { Public declarations }
     procedure FiltarDados(const iTipoPesquisa : Integer); overload;
@@ -515,7 +517,8 @@ var
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := taICMS;
+    frm.fAliquota       := taICMS;
+    frm.fApenasProdutos := True;
 
     frm.chkProdutoComEstoque.Checked := False;
     frm.lblAliquotaTipo.Enabled := False;
@@ -564,7 +567,8 @@ var
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := taISS;
+    frm.fAliquota       := taISS;
+    frm.fApenasServicos := True;
 
     frm.chkProdutoComEstoque.Checked := False;
     frm.chkProdutoComEstoque.Visible := False;
@@ -687,6 +691,9 @@ begin
   fOrdenado := False;
   fAliquota := taICMS;
 
+  fApenasProdutos := False;
+  fApenasServicos := False;
+
   tblEmpresa.Open;
   tblOrigem.Open;
   tblTributacaoNM.Open;
@@ -780,6 +787,9 @@ begin
   IbDtstTabelaDESCRI_APRESENTACAO.AsString := AnsiUpperCase(Trim(IbDtstTabelaDESCRI.AsString + ' ' + IbDtstTabelaAPRESENTACAO.AsString));
   IbDtstTabelaUSUARIO.AsString             := GetUserApp;
 
+  if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
+    IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 0;
+    
   if ( IbDtstTabelaQTDE.AsCurrency < 0 ) then
     IbDtstTabelaQTDE.Value := 0;
 
@@ -803,8 +813,11 @@ begin
   IbDtstTabelaCST.Value := IbDtstTabelaCODORIGEM.AsString + IbDtstTabelaCODTRIBUTACAO.AsString;
 
   if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 0 ) then
-    IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency := 0.0
-  else  
+  begin
+    IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency  := 0.0;
+    IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency := 0.0;
+  end
+  else
   if ( IbDtstTabelaPERCENTUAL_MARGEM.IsNull and (not IbDtstTabelaPERCENTUAL_MARCKUP.IsNull) ) then
     IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency := IbDtstTabelaPERCENTUAL_MARCKUP.Value;
 
@@ -1116,6 +1129,12 @@ begin
     WhereAdditional := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')'
   else
     WhereAdditional := '(1 = 1)';
+
+  if fApenasProdutos then
+    WhereAdditional := WhereAdditional + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taICMS)) + ')'
+  else
+  if fApenasServicos then
+    WhereAdditional := WhereAdditional + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taISS)) + ')';
 
   if chkProdutoComEstoque.Visible then
     if chkProdutoComEstoque.Checked then

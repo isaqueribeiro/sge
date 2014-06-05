@@ -22455,7 +22455,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
         Caption = 'Servi'#231'os'
-        Enabled = False
+        OnClick = nmEntradaServicoClick
       end
     end
     object menuMovimentacao: TMenuItem
@@ -24723,6 +24723,7 @@ object frmPrinc: TfrmPrinc
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
       Caption = 'Servi'#231'os'
+      OnClick = nmEntradaServicoClick
     end
   end
   object dxSkinController: TdxSkinController

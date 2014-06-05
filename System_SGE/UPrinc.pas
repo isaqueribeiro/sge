@@ -224,6 +224,7 @@ type
     procedure nmCarregarLicencaClick(Sender: TObject);
     procedure nmAutorizacaoCompraClick(Sender: TObject);
     procedure nmRelatorioFinanceiroContasAPagarClick(Sender: TObject);
+    procedure nmEntradaServicoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -551,8 +552,8 @@ begin
 
   // (INICIO) Configurar Legendas de acordo com o segmento
 
-  nmProduto.Caption  := Copy(StrDescricaoProduto, 1, Length(StrDescricaoProduto) - 1);
-  btnProduto.Caption := Copy(StrDescricaoProduto, 1, Length(StrDescricaoProduto) - 1);
+  nmProduto.Caption  := StrDescricaoProduto; //Copy(StrDescricaoProduto, 1, Length(StrDescricaoProduto) - 1);
+  btnProduto.Caption := StrDescricaoProduto; //Copy(StrDescricaoProduto, 1, Length(StrDescricaoProduto) - 1);
 
   nmRequisicaoCliente.Visible := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
 
@@ -765,6 +766,11 @@ procedure TfrmPrinc.nmRelatorioFinanceiroContasAPagarClick(
   Sender: TObject);
 begin
   FormFunction.ShowModalForm(Self, 'frmGeContasAPagarImpressao');
+end;
+
+procedure TfrmPrinc.nmEntradaServicoClick(Sender: TObject);
+begin
+  MostrarControleCompraServicos(Self);
 end;
 
 end.

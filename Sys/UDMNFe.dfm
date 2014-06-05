@@ -10017,7 +10017,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41793.390262974540000000
+    ReportOptions.LastChange = 41795.084852557870000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -10986,7 +10986,7 @@ object DMNFe: TDMNFe
           Font.Style = [fsBold]
           HAlign = haRight
           Memo.UTF8 = (
-            ' Total Compra: ')
+            ' Total Bruto: ')
           ParentFont = False
           VAlign = vaCenter
         end

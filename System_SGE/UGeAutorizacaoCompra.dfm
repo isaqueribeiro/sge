@@ -248,6 +248,12 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           end
           item
             Expanded = False
+            FieldName = 'TIPO'
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'EMISSAO_DATA'
             Title.Caption = 'Emiss'#227'o'
             Width = 85
@@ -271,7 +277,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
             Expanded = False
             FieldName = 'NOMEFORN'
             Title.Caption = 'Fornecedor'
-            Width = 350
+            Width = 330
             Visible = True
           end
           item
@@ -1286,14 +1292,14 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         Width = 1108
         Height = 116
         Align = alTop
-        Caption = 'Dados do produto'
+        Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
         object lblProduto: TLabel
           Left = 88
           Top = 24
-          Width = 42
+          Width = 81
           Height = 13
-          Caption = 'Produto:'
+          Caption = 'Produto/Servi'#231'o:'
           FocusControl = dbProduto
         end
         object lblQuantidade: TLabel
@@ -1895,7 +1901,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           item
             Expanded = False
             FieldName = 'PRODUTO'
-            Title.Caption = 'Produto'
+            Title.Caption = 'Codigo'
             Width = 80
             Visible = True
           end
@@ -2038,11 +2044,13 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       Size = 100
     end
     object IbDtstTabelaTIPO: TSmallintField
+      Alignment = taLeftJustify
       DisplayLabel = 'Tipo'
       FieldName = 'TIPO'
       Origin = '"TBAUTORIZA_COMPRA"."TIPO"'
       ProviderFlags = [pfInUpdate]
       Required = True
+      OnGetText = IbDtstTabelaTIPOGetText
     end
     object IbDtstTabelaINSERCAO_DATA: TDateTimeField
       FieldName = 'INSERCAO_DATA'
@@ -2630,7 +2638,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Left = 352
     Top = 376
     object nmImprimirAutorizacao: TMenuItem
-      Caption = 'Autoriza'#231#227'o de Compra'
+      Caption = 'Autoriza'#231#227'o de Compra/Servi'#231'o'
       ImageIndex = 16
       OnClick = nmImprimirAutorizacaoClick
     end

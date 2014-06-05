@@ -50,6 +50,7 @@ type
 
   TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
   TTipoMovimentoCaixa = (tmcxCredito, tmcxDebito);
+  TTipoMovimentoEntrada = (tmeProduto, tmeServico);
   TDMBusiness = class(TDataModule)
     ibdtbsBusiness: TIBDatabase;
     ibtrnsctnBusiness: TIBTransaction;

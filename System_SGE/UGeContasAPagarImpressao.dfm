@@ -1475,8 +1475,8 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         's compra'
       '  , cm.dtent as compra_data'
       
-        '  , right('#39'0000000'#39' || cm.nf, 7) || '#39'-'#39' || trim(cm.nfserie) as N' +
-        'FE'
+        '  , right('#39'0000000'#39' || cm.nf, 7) || coalesce('#39'-'#39' || trim(cm.nfse' +
+        'rie), '#39#39') as NFE'
       '  , cm.nfserie     as nfe_serie'
       '  , cm.nf          as nfe_numero'
       '  , cm.dtemiss     as nfe_emissao'

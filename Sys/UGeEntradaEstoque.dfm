@@ -4,7 +4,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   Width = 1115
   Height = 716
   ActiveControl = nil
-  Caption = 'Controle de Entradas no Estoque'
+  Caption = 'Controle de Entradas de Produtos'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
@@ -2992,6 +2992,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  , c.CODFORN'
       '  , c.TIPO_ENTRADA'
       '  , c.TIPO_DOCUMENTO'
+      '  , c.TIPO_MOVIMENTO'
       '  , c.NF'
       '  , c.NFSERIE'
       '  , c.LOTE_NFE_ANO'
@@ -3085,6 +3086,11 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       Origin = '"TBCOMPRAS"."TIPO_DOCUMENTO"'
       ProviderFlags = [pfInUpdate]
       Required = True
+    end
+    object IbDtstTabelaTIPO_MOVIMENTO: TSmallintField
+      FieldName = 'TIPO_MOVIMENTO'
+      Origin = '"TBCOMPRAS"."TIPO_MOVIMENTO"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaNF: TIntegerField
       DisplayLabel = 'N'#250'mero do Documento'
@@ -3388,6 +3394,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  CODFORN,'
       '  TIPO_ENTRADA,'
       '  TIPO_DOCUMENTO,'
+      '  TIPO_MOVIMENTO,'
       '  NF,'
       '  NFSERIE,'
       '  LOTE_NFE_ANO,'
@@ -3497,6 +3504,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  TIPO_DESPESA = :TIPO_DESPESA,'
       '  TIPO_DOCUMENTO = :TIPO_DOCUMENTO,'
       '  TIPO_ENTRADA = :TIPO_ENTRADA,'
+      '  TIPO_MOVIMENTO = :TIPO_MOVIMENTO,'
       '  TOTALNF = :TOTALNF,'
       '  TOTALPROD = :TOTALPROD,'
       '  USUARIO = :USUARIO'
@@ -3526,7 +3534,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       
         '   PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, STATUS, TIPO_DESPESA,' +
         ' TIPO_DOCUMENTO, '
-      '   TIPO_ENTRADA, TOTALNF, TOTALPROD, USUARIO)'
+      '   TIPO_ENTRADA, TIPO_MOVIMENTO, TOTALNF, TOTALPROD, USUARIO)'
       'values'
       
         '  (:ANO, :AUTORIZACAO_ANO, :AUTORIZACAO_CODIGO, :AUTORIZACAO_EMP' +
@@ -3550,9 +3558,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         '   :PRAZO_06, :PRAZO_07, :PRAZO_08, :PRAZO_09, :PRAZO_10, :PRAZO' +
         '_11, :PRAZO_12, '
       
-        '   :STATUS, :TIPO_DESPESA, :TIPO_DOCUMENTO, :TIPO_ENTRADA, :TOTA' +
-        'LNF, :TOTALPROD, '
-      '   :USUARIO)')
+        '   :STATUS, :TIPO_DESPESA, :TIPO_DOCUMENTO, :TIPO_ENTRADA, :TIPO' +
+        '_MOVIMENTO, '
+      '   :TOTALNF, :TOTALPROD, :USUARIO)')
     DeleteSQL.Strings = (
       'delete from TBCOMPRAS'
       'where'

@@ -209,6 +209,8 @@ type
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure IbDtstTabelaTIPOGetText(Sender: TField; var Text: String;
+      DisplayText: Boolean);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -1034,6 +1036,14 @@ begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
   begin
 
+    cAliquota       := 0.0;
+    cAliquotaPIS    := 0.0;
+    cAliquotaCOFINS := 0.0;
+    cValorVenda     := 0.0;
+    cValorPromocao  := 0.0;
+    cValorIPI       := 0.0;
+    cPercRedBC      := 0.0;
+
     Case IbDtstTabelaTIPO.AsInteger of
       TIPO_AUTORIZACAO_COMPRA:
         bSelecionado := SelecionarProdutoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
@@ -1250,6 +1260,22 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TfrmGeAutorizacaoCompra.IbDtstTabelaTIPOGetText(Sender: TField;
+  var Text: String; DisplayText: Boolean);
+begin
+  if (not Sender.IsNull) then
+    Case Sender.AsInteger of
+      TIPO_AUTORIZACAO_COMPRA :
+        Text := 'Compra';
+
+      TIPO_AUTORIZACAO_SERVICO:
+        Text := 'Serviço';
+
+      TIPO_AUTORIZACAO_COMPRA_SERVICO:
+        Text := 'Compra/Serviço';
+    end;
 end;
 
 initialization
