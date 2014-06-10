@@ -773,6 +773,12 @@ procedure TfrmGeEntradaEstoque.btnProdutoSalvarClick(Sender: TObject);
 begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
   begin
+    if ( Trim(cdsTabelaItensCODPROD.AsString) = EmptyStr ) then
+    begin
+      ShowWarning('Favor selecionar o ' + lblProduto.Caption);
+      dbProduto.SetFocus;
+    end
+    else
     if ( cdsTabelaItensQTDE.AsCurrency <= 0 ) then
     begin
       ShowWarning('Quantidade inválida.');
@@ -1496,6 +1502,7 @@ begin
     dbValorIPIProduto.Enabled  := False;
 
     GrpBxDadosProduto.Caption := 'Dados do serviço';
+    lblProduto.Caption := 'Serviço';
     dbgProdutos.Columns[1].Title.Caption := 'Serviço';
     dbgProdutos.Columns[2].Title.Caption := 'Descrição do Serviço';
 

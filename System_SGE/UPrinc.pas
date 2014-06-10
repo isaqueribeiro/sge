@@ -159,6 +159,8 @@ type
     nmEntradaServico: TMenuItem;
     N21: TMenuItem;
     popEntradaServico: TMenuItem;
+    mnRelatorioEntrada: TMenuItem;
+    mnRelatorioEntradaProduto: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -225,6 +227,7 @@ type
     procedure nmAutorizacaoCompraClick(Sender: TObject);
     procedure nmRelatorioFinanceiroContasAPagarClick(Sender: TObject);
     procedure nmEntradaServicoClick(Sender: TObject);
+    procedure mnRelatorioEntradaProdutoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -552,8 +555,12 @@ begin
 
   // (INICIO) Configurar Legendas de acordo com o segmento
 
-  nmProduto.Caption  := StrDescricaoProduto; //Copy(StrDescricaoProduto, 1, Length(StrDescricaoProduto) - 1);
-  btnProduto.Caption := StrDescricaoProduto; //Copy(StrDescricaoProduto, 1, Length(StrDescricaoProduto) - 1);
+  nmGruposProduto.Caption    := 'Grupos de ' + StrDescricaoProduto;
+  nmSecaoProduto.Caption     := 'Seções de ' + StrDescricaoProduto;
+  nmProduto.Caption          := StrDescricaoProduto;
+  btnProduto.Caption         := StrDescricaoProduto;
+  nmRelatorioProduto.Caption := StrDescricaoProduto;
+  mnRelatorioEntradaProduto.Caption := StrDescricaoProduto;
 
   nmRequisicaoCliente.Visible := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
 
@@ -771,6 +778,11 @@ end;
 procedure TfrmPrinc.nmEntradaServicoClick(Sender: TObject);
 begin
   MostrarControleCompraServicos(Self);
+end;
+
+procedure TfrmPrinc.mnRelatorioEntradaProdutoClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'frmGeEntradaImpressao');
 end;
 
 end.

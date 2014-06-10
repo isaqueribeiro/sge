@@ -111,7 +111,8 @@ uses
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
   UGeAutorizacaoCompra in 'UGeAutorizacaoCompra.pas' {frmGeAutorizacaoCompra},
   UGeAutorizacaoCompraCancelar in 'UGeAutorizacaoCompraCancelar.pas' {frmGeAutorizacaoCompraCancelar},
-  UGeContasAPagarImpressao in 'UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao};
+  UGeContasAPagarImpressao in 'UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao},
+  UGeEntradaImpressao in 'UGeEntradaImpressao.pas' {frmGeEntradaImpressao};
 
 {$R *.res}
 
