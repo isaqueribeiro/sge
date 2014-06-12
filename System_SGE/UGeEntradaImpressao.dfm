@@ -1201,6 +1201,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Top = 177.637910000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
+          Visible = False
           ShowHint = False
           Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
@@ -1224,6 +1225,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Top = 177.637910000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
+          Visible = False
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
@@ -1394,6 +1396,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Top = 158.740260000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
+          Visible = False
           ShowHint = False
           Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
@@ -1417,6 +1420,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Top = 158.740260000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
+          Visible = False
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
@@ -1826,7 +1830,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         Height = 30.236240000000000000
-        Top = 706.772110000000000000
+        Top = 665.197280000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           Width = 910.866730000000000000
@@ -1935,7 +1939,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         DataSetName = 'FrdsRelacaoEntradaGeralAnalitico'
         RowCount = 0
         object Memo13: TfrxMemoView
-          Left = 661.417750000000000000
+          Left = 548.031850000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -1966,8 +1970,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
-          Left = 759.685530000000000000
-          Width = 98.267780000000000000
+          Left = 797.480830000000000000
+          Width = 75.590600000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = DMNFe.frdEmpresa
@@ -1988,6 +1992,10 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Highlight.Condition = 
             '<FrdsRelacaoEntradaGeralAnalitico."STATUS">=<StatusEntradaCancel' +
             'ada>'
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEntradaGeralAnalitico."TOTAL_IP' +
+              'I">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2168,7 +2176,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo29: TfrxMemoView
           Left = 415.748300000000000000
-          Width = 188.976436540000000000
+          Width = 132.283486540000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = DMNFe.frdEmpresa
@@ -2194,67 +2202,106 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
+        object Memo42: TfrxMemoView
+          Left = 873.071430000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -11
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = 
+            '<FrdsRelacaoEntradaGeralAnalitico."STATUS">=<StatusEntradaCancel' +
+            'ada>'
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEntradaGeralAnalitico."TOTAL_DE' +
+              'SCONTO">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo48: TfrxMemoView
+          Left = 646.299630000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -11
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = 
+            '<FrdsRelacaoEntradaGeralAnalitico."STATUS">=<StatusEntradaCancel' +
+            'ada>'
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEntradaGeralAnalitico."TOTAL_FR' +
+              'ETE">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo50: TfrxMemoView
+          Left = 721.890230000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -11
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = 
+            '<FrdsRelacaoEntradaGeralAnalitico."STATUS">=<StatusEntradaCancel' +
+            'ada>'
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEntradaGeralAnalitico."TOTAL_OU' +
+              'TROS">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         Height = 22.677165350000000000
         Top = 521.575140000000000000
         Width = 1046.929810000000000000
-        object SysMemo1: TfrxSysMemoView
-          Left = 956.221090000000000000
-          Width = 90.708720000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
-        object SysMemo5: TfrxSysMemoView
-          Left = 857.953310000000000000
-          Width = 98.267780000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
-        object SysMemo6: TfrxSysMemoView
-          Left = 759.685530000000000000
-          Width = 98.267780000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
         object SysMemo7: TfrxSysMemoView
-          Left = 661.417750000000000000
+          Left = 548.031850000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -2276,7 +2323,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
-          Left = 362.834880000000000000
+          Left = 249.448980000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -2297,14 +2344,124 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
+        object SysMemo1: TfrxSysMemoView
+          Left = 646.299630000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_FRETE">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo6: TfrxSysMemoView
+          Left = 721.890230000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_OUTROS">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo2: TfrxSysMemoView
+          Left = 797.480830000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_IPI">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo8: TfrxSysMemoView
+          Left = 873.071430000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_DESCONTO">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo10: TfrxSysMemoView
+          Left = 948.662030000000000000
+          Width = 98.267780000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_NOTA">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
       end
       object bndReportSummary: TfrxReportSummary
-        Height = 79.370130000000000000
+        Height = 37.795300000000000000
         Top = 604.724800000000000000
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
-          Width = 487.559370000000000000
+          Width = 548.031850000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
@@ -2318,50 +2475,9 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
             ' * Entrada(s) Cancelada(s).')
           ParentFont = False
         end
-        object SysMemo8: TfrxSysMemoView
-          Left = 873.071430000000000000
-          Top = 18.897650000000000000
-          Width = 173.858380000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
-        object Memo10: TfrxMemoView
-          Left = 767.244590000000000000
-          Top = 18.897650000000000000
-          Width = 105.826776540000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Produto/Servi'#195#167'o: ')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo31: TfrxMemoView
-          Left = 487.559370000000000000
-          Width = 559.370376540000000000
+          Left = 548.031850000000000000
+          Width = 498.897896540000000000
           Height = 18.897650000000000000
           ShowHint = False
           Color = clBtnFace
@@ -2381,133 +2497,10 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo32: TfrxMemoView
-          Left = 487.559370000000000000
-          Top = 37.795300000000000000
-          Width = 105.826776540000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Descontos: ')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo33: TfrxMemoView
-          Left = 767.244590000000000000
-          Top = 37.795300000000000000
-          Width = 105.826776540000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          Memo.UTF8 = (
-            'L'#195#173'quido: ')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object SysMemo9: TfrxSysMemoView
-          Left = 593.386210000000000000
-          Top = 37.795300000000000000
-          Width = 173.858380000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
-        object SysMemo10: TfrxSysMemoView
-          Left = 873.071430000000000000
-          Top = 37.795300000000000000
-          Width = 173.858380000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
-        object Memo34: TfrxMemoView
-          Left = 767.244590000000000000
-          Top = 56.692950000000000000
-          Width = 105.826776540000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Comiss'#195#181'es: ')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object SysMemo11: TfrxSysMemoView
-          Left = 873.071430000000000000
-          Top = 56.692950000000000000
-          Width = 173.858380000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
         object SysMemo13: TfrxSysMemoView
-          Left = 593.386210000000000000
+          Left = 548.031850000000000000
           Top = 18.897650000000000000
-          Width = 173.858380000000000000
+          Width = 98.267780000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
@@ -2526,15 +2519,12 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
           WordWrap = False
         end
-        object Memo19: TfrxMemoView
-          Left = 487.559370000000000000
+        object SysMemo14: TfrxSysMemoView
+          Left = 646.299630000000000000
           Top = 18.897650000000000000
-          Width = 105.826776540000000000
+          Width = 75.590600000000000000
           Height = 18.897650000000000000
           ShowHint = False
-          Color = clBtnFace
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -2544,10 +2534,100 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8 = (
-            'Produto/Servi'#195#167'o: ')
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_FRETE">,BndMasterData,2))] ')
           ParentFont = False
-          WordWrap = False
           VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo15: TfrxSysMemoView
+          Left = 721.890230000000000000
+          Top = 18.897650000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_OUTROS">,BndMasterData,2))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo16: TfrxSysMemoView
+          Left = 797.480830000000000000
+          Top = 18.897650000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_IPI">,BndMasterData,2))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo17: TfrxSysMemoView
+          Left = 873.071430000000000000
+          Top = 18.897650000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_DESCONTO">,BndMasterData,2))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo18: TfrxSysMemoView
+          Left = 948.662030000000000000
+          Top = 18.897650000000000000
+          Width = 98.267780000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_NOTA">,BndMasterData,2))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
         end
       end
       object BndGrpHeaderTipoDesp: TfrxGroupHeader
@@ -2600,59 +2680,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         Height = 22.677180000000000000
         Top = 476.220780000000000000
         Width = 1046.929810000000000000
-        object SysMemo2: TfrxSysMemoView
-          Left = 956.221090000000000000
-          Width = 90.708720000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
-        object SysMemo3: TfrxSysMemoView
-          Left = 857.953310000000000000
-          Width = 98.267780000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
-        object SysMemo4: TfrxSysMemoView
-          Left = 759.685530000000000000
-          Width = 98.267780000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
         object SysMemo12: TfrxSysMemoView
-          Left = 661.417750000000000000
+          Left = 548.031850000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -2673,7 +2702,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
-          Left = 362.834880000000000000
+          Left = 249.448980000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -2692,6 +2721,111 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
+        end
+        object SysMemo5: TfrxSysMemoView
+          Left = 646.299630000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_FRETE">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo4: TfrxSysMemoView
+          Left = 721.890230000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_OUTROS">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo3: TfrxSysMemoView
+          Left = 797.480830000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_IPI">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo9: TfrxSysMemoView
+          Left = 873.071430000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_DESCONTO">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo11: TfrxSysMemoView
+          Left = 948.662030000000000000
+          Width = 98.267780000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoEntradaGeralAnalitico."TOTA' +
+              'L_NOTA">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
         end
       end
       object BndGrpHeaderForn: TfrxGroupHeader
@@ -2726,9 +2860,9 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 661.417750000000000000
+          Left = 548.031850000000000000
           Top = 18.897650000000000000
-          Width = 385.512060000000000000
+          Width = 498.897960000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Color = clBtnFace
@@ -2748,7 +2882,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
-          Left = 661.417750000000000000
+          Left = 548.031850000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2768,29 +2902,6 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
             
               '[IIF(<FrdsRelacaoEntradaGeralAnalitico."TIPO_MOVIMENTO">=0,'#39'Prod' +
               'utos'#39', '#39'Servi'#195#167'os'#39')] (R$) ')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo22: TfrxMemoView
-          Left = 759.685530000000000000
-          Top = 37.795300000000000000
-          Width = 98.267780000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Desc. (R$) ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2885,7 +2996,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo39: TfrxMemoView
           Top = 18.897650000000000000
-          Width = 604.724800000000000000
+          Width = 548.031850000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Color = clBtnFace
@@ -2990,7 +3101,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         object Memo27: TfrxMemoView
           Left = 415.748300000000000000
           Top = 37.795300000000000000
-          Width = 188.976436540000000000
+          Width = 132.283486540000000000
           Height = 18.897650000000000000
           ShowHint = False
           Color = clBtnFace
@@ -3005,6 +3116,98 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             ' Tipo Entrada')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo22: TfrxMemoView
+          Left = 873.071430000000000000
+          Top = 37.795300000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            'Desc. (R$) ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo36: TfrxMemoView
+          Left = 797.480830000000000000
+          Top = 37.795300000000000000
+          Width = 75.590551180000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            'IPI (R$) ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo47: TfrxMemoView
+          Left = 721.890230000000000000
+          Top = 37.795300000000000000
+          Width = 75.590551180000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            'Outros (R$) ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo49: TfrxMemoView
+          Left = 646.299630000000000000
+          Top = 37.795300000000000000
+          Width = 75.590551180000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Color = clBtnFace
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8 = (
+            'Frete (R$) ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

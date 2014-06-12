@@ -1,6 +1,6 @@
 object frmRelEstoque: TfrmRelEstoque
-  Left = 285
-  Top = 73
+  Left = 957
+  Top = 354
   BorderStyle = bsToolWindow
   Caption = 'Relat'#243'rio Demanda de Produtos'
   ClientHeight = 159
@@ -2659,8 +2659,6 @@ object frmRelEstoque: TfrmRelEstoque
   object ibqryDemanda: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
     SQL.Strings = (
       'Select p.cod as codpro, p.descri as produto, p.qtde as estoque,'
       
@@ -2775,8 +2773,8 @@ object frmRelEstoque: TfrmRelEstoque
       '  ) PV on (pv.item = p.cod)'
       'where p.codfabricante= :codfab'
       'order by p.descri')
-    Left = 31
-    Top = 220
+    Left = 111
+    Top = 100
     ParamData = <
       item
         DataType = ftUnknown
@@ -2797,8 +2795,6 @@ object frmRelEstoque: TfrmRelEstoque
   object ibdtsFabric: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
     SelectSQL.Strings = (
       'select * from TBFABRICANTE'
       'order by NOME')
@@ -2817,7 +2813,7 @@ object frmRelEstoque: TfrmRelEstoque
   end
   object dtsrcFabric: TDataSource
     DataSet = ibdtsFabric
-    Left = 160
+    Left = 144
     Top = 48
   end
 end
