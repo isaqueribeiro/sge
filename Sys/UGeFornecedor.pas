@@ -198,7 +198,7 @@ var
 implementation
 
 uses UDMBusiness, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
-  UGeLogradouro, UGrPadrao, ChkDgVer;
+  UGeLogradouro, UGrPadrao, ChkDgVer, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -273,6 +273,7 @@ end;
 procedure TfrmGeFornecedor.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_FORNECEDOR_ID;
   ControlFirstEdit := dbPessoaFisica;
 
   tblGrupo.Open;

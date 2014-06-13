@@ -141,7 +141,7 @@ var
 implementation
 
 uses UDMBusiness, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
-  UGeLogradouro, DateUtils, ChkDgVer, UConstantesDGE;
+  UGeLogradouro, DateUtils, ChkDgVer, UConstantesDGE, UGrPadrao;
 
 {$R *.dfm}
 
@@ -174,6 +174,7 @@ begin
   tblTipoRegimeNFe.Open;
   tblSegmento.Open;
 
+  RotinaID         := ROTINA_CAD_EMPRESA_ID;
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbPessoaFisica;
 

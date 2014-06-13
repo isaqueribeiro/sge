@@ -71,6 +71,7 @@ end;
 procedure TfrmGeContaCorrente.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_CONTA_CORRENTE_ID;
   ControlFirstEdit := dbNome;
 
   DisplayFormatCodigo := '000';

@@ -130,6 +130,7 @@ end;
 procedure TfrmGeCondicaoPagto.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID            := ROTINA_CAD_CONDICAO_PAGTO_ID;
   ControlFirstEdit    := dbNome;
   DisplayFormatCodigo := '000';
   

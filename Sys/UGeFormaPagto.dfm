@@ -56,10 +56,8 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
         Top = 145
-        Width = 727
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 727
         Height = 145
         object lblNome: TLabel [1]
           Left = 88

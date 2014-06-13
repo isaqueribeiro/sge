@@ -491,6 +491,7 @@ begin
 
   BloquearClientes;
 
+  RotinaID         := ROTINA_CAD_CLIENTE_ID;
   ControlFirstEdit := dbPessoaFisica;
 
   DisplayFormatCodigo := '##0000';

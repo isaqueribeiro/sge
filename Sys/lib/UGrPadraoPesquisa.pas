@@ -125,7 +125,8 @@ end;
 
 procedure TfrmGrPadraoPesquisa.RegistrarRotinaSistema;
 begin
-  ;
+  if ( Trim(RotinaID) <> EmptyStr ) then
+    SetRotinaSistema(ROTINA_TIPO_TELA, RotinaID, Trim(Self.Caption), RotinaPaiID);
 end;
 
 end.

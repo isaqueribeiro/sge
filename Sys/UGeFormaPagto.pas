@@ -80,6 +80,7 @@ begin
   tblContaCorrente.Open;
   tblFormaPagtoNCFe.Open;
 
+  RotinaID         := ROTINA_CAD_FORMA_PAGTO_ID;
   ControlFirstEdit := dbNome;
 
   DisplayFormatCodigo := '00';

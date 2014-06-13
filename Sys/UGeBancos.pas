@@ -108,7 +108,7 @@ var
 
 implementation
 
-uses UDMBusiness;
+uses UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -156,6 +156,7 @@ end;
 procedure TfrmGeBancos.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_BANCO_ID;
   ControlFirstEdit := dbCodigo;
 
   DisplayFormatCodigo := '0000';

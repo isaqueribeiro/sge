@@ -60,7 +60,6 @@ inherited frmGeBancos: TfrmGeBancos
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
         Top = 201
-        Width = 727
       end
       object Bevel9: TBevel [1]
         Left = 0
@@ -79,7 +78,6 @@ inherited frmGeBancos: TfrmGeBancos
         Shape = bsSpacer
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 727
         object lblNome: TLabel [1]
           Left = 88
           Top = 24

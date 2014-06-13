@@ -31,7 +31,8 @@ var
 
 implementation
 
-uses UDMBusiness;
+uses
+  UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -62,6 +63,7 @@ end;
 procedure TfrmGeTipoDespesa.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID            := ROTINA_CAD_TIPO_DESPESA_ID;
   ControlFirstEdit    := dbDescricao;
   DisplayFormatCodigo := '##00';
   NomeTabela     := 'TBTPDESPESA';
