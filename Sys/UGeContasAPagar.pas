@@ -178,7 +178,8 @@ const
 
 implementation
 
-uses UDMBusiness, UGeFornecedor, DateUtils, UGeEfetuarPagtoPAG;
+uses
+  UConstantesDGE, UDMBusiness, UGeFornecedor, DateUtils, UGeEfetuarPagtoPAG;
 
 {$R *.dfm}
 

@@ -132,7 +132,6 @@ inherited frmGrUsuario: TfrmGrUsuario
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          MaxLength = 12
           ParentFont = False
           TabOrder = 1
         end
@@ -149,7 +148,6 @@ inherited frmGrUsuario: TfrmGrUsuario
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          MaxLength = 16
           ParentFont = False
           PasswordChar = '*'
           TabOrder = 2

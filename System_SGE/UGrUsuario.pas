@@ -64,7 +64,8 @@ const
 
 implementation
 
-uses UDMBusiness;
+uses
+  UConstantesDGE, UDMBusiness;
 
 {$R *.dfm}
 

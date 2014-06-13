@@ -228,6 +228,7 @@ type
     procedure nmRelatorioFinanceiroContasAPagarClick(Sender: TObject);
     procedure nmEntradaServicoClick(Sender: TObject);
     procedure mnRelatorioEntradaProdutoClick(Sender: TObject);
+    procedure nmQuitarContaAPagar_LoteClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -783,6 +784,11 @@ end;
 procedure TfrmPrinc.mnRelatorioEntradaProdutoClick(Sender: TObject);
 begin
   FormFunction.ShowModalForm(Self, 'frmGeEntradaImpressao');
+end;
+
+procedure TfrmPrinc.nmQuitarContaAPagar_LoteClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'frmGeContasAPagarQuitar');
 end;
 
 end.

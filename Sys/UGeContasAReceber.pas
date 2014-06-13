@@ -157,7 +157,8 @@ var
 
 implementation
 
-uses UDMBusiness, UGeCliente, DateUtils, UGeEfetuarPagtoREC;
+uses
+  UConstantesDGE, UDMBusiness, UGeCliente, DateUtils, UGeEfetuarPagtoREC;
 
 {$R *.dfm}
 
