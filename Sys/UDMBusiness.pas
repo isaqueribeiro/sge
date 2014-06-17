@@ -968,6 +968,7 @@ begin
     with DMBusiness, setRotina do
     begin
       Close;
+      ParamByName('Sistema').AsInteger   := gSistema.Codigo;
       ParamByName('Codigo').AsString     := Trim(sCodigo);
       ParamByName('Tipo').AsInteger      := iTipo;
       ParamByName('Descricao').AsString  := Trim(sDescricao);

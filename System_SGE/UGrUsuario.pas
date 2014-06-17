@@ -111,6 +111,7 @@ begin
 
   inherited;
 
+  RotinaID         := ROTINA_CAD_USUARIO_ID;
   ControlFirstEdit := dbLogin;
 
   DisplayFormatCodigo := EmptyStr;

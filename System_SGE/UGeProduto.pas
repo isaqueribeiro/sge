@@ -686,6 +686,7 @@ end;
 procedure TfrmGeProduto.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_PRODUTO_ID;
   ControlFirstEdit := dbCodigoEAN;
 
   fOrdenado := False;

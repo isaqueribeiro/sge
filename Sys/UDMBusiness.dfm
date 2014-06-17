@@ -672,6 +672,11 @@ object DMBusiness: TDMBusiness
     Top = 312
     ParamData = <
       item
+        DataType = ftSmallint
+        Name = 'SISTEMA'
+        ParamType = ptInput
+      end
+      item
         DataType = ftString
         Name = 'CODIGO'
         ParamType = ptInput

@@ -26,7 +26,8 @@ type
 
 implementation
 
-uses UDMBusiness;
+uses
+  UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -57,6 +58,7 @@ end;
 procedure TfrmGeFabricante.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_FABRI_PROD_ID;
   ControlFirstEdit := dbNome;
   
   DisplayFormatCodigo := '000';

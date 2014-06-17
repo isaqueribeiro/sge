@@ -160,6 +160,8 @@ procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
   sFileImage : String;
 begin
+  Self.Tag := SISTEMA_PDV;
+  
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 

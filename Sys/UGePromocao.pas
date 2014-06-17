@@ -96,7 +96,8 @@ var
 
 implementation
 
-uses UDMBusiness, UGeProduto;
+uses
+  UDMBusiness, UGeProduto, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -144,6 +145,7 @@ begin
   Desativar_Promocoes;
   
   DisplayFormatCodigo := '0000';
+  RotinaID            := ROTINA_CAD_PROMOCAO_ID;
   ControlFirstEdit    := dbNome;
 
   NomeTabela     := 'TBPROMOCAO';

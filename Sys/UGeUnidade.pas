@@ -34,7 +34,8 @@ var
 
 implementation
 
-uses UDMBusiness;
+uses
+  UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -77,6 +78,7 @@ end;
 procedure TfrmGeUnidade.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_UNIDA_PROD_ID;
   ControlFirstEdit := dbNome;
 
   DisplayFormatCodigo := '000';

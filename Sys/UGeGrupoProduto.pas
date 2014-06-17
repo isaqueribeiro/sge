@@ -29,7 +29,8 @@ var
 
 implementation
 
-uses UDMBusiness;
+uses
+  UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -60,7 +61,9 @@ end;
 procedure TfrmGeGrupoProduto.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_GRUPO_PROD_ID;
   ControlFirstEdit := dbNome;
+  Self.Caption     := 'Tabela de Grupos de ' + StrDescricaoProduto;
 
   DisplayFormatCodigo := '000';
   NomeTabela     := 'TBGRUPOPROD';

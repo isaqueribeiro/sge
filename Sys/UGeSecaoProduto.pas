@@ -29,7 +29,8 @@ var
 
 implementation
 
-uses UDMBusiness;
+uses
+  UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -60,7 +61,9 @@ end;
 procedure TfrmGeSecaoProduto.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID         := ROTINA_CAD_SECAO_PROD_ID;
   ControlFirstEdit := dbNome;
+  Self.Caption     := 'Tabela de Seções de ' + StrDescricaoProduto;
 
   DisplayFormatCodigo := '000';
   NomeTabela     := 'TBSECAOPROD';
