@@ -85,6 +85,8 @@ begin
   inherited;
   ControlFirstEdit := dbEmpresa;
 
+  DisplayFormatCodigo := EmptyStr;
+  
   NomeTabela      := 'TBCONFIGURACAO';
   CampoCodigo     := 'EMPRESA';
   CampoDescricao  := 'e.RZSOC';

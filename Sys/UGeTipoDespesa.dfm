@@ -42,6 +42,13 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
             FieldName = 'TIPODESP'
             Width = 350
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TIPO_PARTICULAR_DESC'
+            Title.Alignment = taCenter
+            Title.Caption = 'Particular'
+            Visible = True
           end>
       end
       inherited pnlFiltros: TPanel
@@ -99,6 +106,18 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
           ParentFont = False
           TabOrder = 1
         end
+        object dbTipoParticular: TDBCheckBox
+          Left = 432
+          Top = 40
+          Width = 97
+          Height = 17
+          Caption = 'Tipo Particular'
+          DataField = 'TIPO_PARTICULAR'
+          DataSource = DtSrcTabela
+          TabOrder = 2
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
       end
       object GrpBxDadosClassificacao: TGroupBox
         Left = 0
@@ -113,11 +132,16 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
     end
   end
   inherited IbDtstTabela: TIBDataSet
+    BeforePost = IbDtstTabelaBeforePost
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    t.Cod'
       '  , t.Tipodesp'
+      '  , t.Tipo_Particular'
+      
+        '  , Case when t.Tipo_Particular = 1 then '#39'S'#39' else '#39#39' end Tipo_Pa' +
+        'rticular_Desc'
       'from TBTPDESPESA t')
     object IbDtstTabelaCOD: TSmallintField
       DisplayLabel = 'C'#243'digo'
@@ -134,12 +158,26 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
       Required = True
       Size = 50
     end
+    object IbDtstTabelaTIPO_PARTICULAR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'TIPO_PARTICULAR'
+      Origin = '"TBTPDESPESA"."TIPO_PARTICULAR"'
+    end
+    object IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField
+      Alignment = taCenter
+      FieldName = 'TIPO_PARTICULAR_DESC'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 1
+    end
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  COD,'
-      '  TIPODESP'
+      '  TIPODESP,'
+      '  TIPO_PARTICULAR,'
+      '  PLANO_CONTA'
       'from TBTPDESPESA '
       'where'
       '  COD = :COD')
@@ -147,14 +185,15 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
       'update TBTPDESPESA'
       'set'
       '  COD = :COD,'
+      '  TIPO_PARTICULAR = :TIPO_PARTICULAR,'
       '  TIPODESP = :TIPODESP'
       'where'
       '  COD = :OLD_COD')
     InsertSQL.Strings = (
       'insert into TBTPDESPESA'
-      '  (COD, TIPODESP)'
+      '  (COD, TIPO_PARTICULAR, TIPODESP)'
       'values'
-      '  (:COD, :TIPODESP)')
+      '  (:COD, :TIPO_PARTICULAR, :TIPODESP)')
     DeleteSQL.Strings = (
       'delete from TBTPDESPESA'
       'where'

@@ -174,6 +174,7 @@ type
     lblNomeContato: TLabel;
     dbNomeContato: TDBEdit;
     IbDtstTabelaNOME_CONTATO: TIBStringField;
+    lblAutorizacaoEmEdicao: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -997,6 +998,10 @@ begin
   inherited;                            
   if ( Sender = dbgDados ) then
   begin
+    // Destacar autorização em edição
+    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_EDC ) then
+      dbgDados.Canvas.Brush.Color := lblAutorizacaoEmEdicao.Color
+    else
     // Destacar autorização aberta
     if ( IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR ) then
       dbgDados.Canvas.Font.Color := lblAutorizacaoAberta.Font.Color

@@ -10017,7 +10017,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41795.084852557870000000
+    ReportOptions.LastChange = 41808.655458333330000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -10338,9 +10338,7 @@ object DMNFe: TDMNFe
           Font.Style = []
           HAlign = haRight
           Memo.UTF8 = (
-            
-              '[FormatFloat('#39'###,###,##0'#39',<frdAutorizacaoCompra."QUANTIDADE">)]' +
-              ' ')
+            '[FormatFloat('#39',0.###'#39',<frdAutorizacaoCompra."QUANTIDADE">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

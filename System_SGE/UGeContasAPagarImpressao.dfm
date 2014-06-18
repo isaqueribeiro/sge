@@ -143,6 +143,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         ItemIndex = 0
         TabOrder = 3
         Text = '(Todas)'
+        OnChange = edTipoDespesaChange
         Items.Strings = (
           '(Todas)'
           'Baixados'
@@ -161,6 +162,16 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Text = '(Todos)'
         Items.Strings = (
           '(Todos)')
+      end
+      object dbDespesaParticular: TCheckBox
+        Left = 104
+        Top = 120
+        Width = 225
+        Height = 17
+        Caption = 'N'#227'o carregar despesas particulares'
+        Checked = True
+        State = cbChecked
+        TabOrder = 5
       end
     end
   end
@@ -3114,6 +3125,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'Select'
       '    t.cod'
       '  , t.tipodesp'
+      '  , t.tipo_particular'
       'from TBTPDESPESA t'
       'order by'
       '    t.tipodesp')

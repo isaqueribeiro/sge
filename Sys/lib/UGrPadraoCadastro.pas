@@ -643,6 +643,9 @@ procedure TfrmGrPadraoCadastro.CentralizarCodigo;
 var
   sCampoCodigo : String;
 begin
+  if (Trim(DisplayFormatCodigo) = EmptyStr) then
+    Exit;
+
   if ( Trim(CampoCodigo) = EmptyStr ) then
     Exit;
     
@@ -661,7 +664,9 @@ begin
 
     IbDtstTabela.FieldByName(sCampoCodigo).Alignment := taCenter;
     IbDtstTabela.FieldByName(sCampoCodigo).Required  := False;
-    TCurrencyField(IbDtstTabela.FieldByName(sCampoCodigo)).DisplayFormat := DisplayFormatCodigo;
+
+    if (IbDtstTabela.FieldByName(sCampoCodigo).Size < 10) then
+      TCurrencyField(IbDtstTabela.FieldByName(sCampoCodigo)).DisplayFormat := DisplayFormatCodigo;
   end;
 end;
 

@@ -335,6 +335,21 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object lblAutorizacaoEmEdicao: TLabel [2]
+          Left = 2
+          Top = 44
+          Width = 143
+          Height = 13
+          Caption = '* Autoriza'#231#245'es Em Edi'#231#227'o'
+          Color = clYellow
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
         inherited grpBxFiltro: TGroupBox
           Left = 424
           Width = 680

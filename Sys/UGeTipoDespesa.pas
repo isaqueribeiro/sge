@@ -15,8 +15,12 @@ type
     GrpBxDadosClassificacao: TGroupBox;
     IbDtstTabelaCOD: TSmallintField;
     IbDtstTabelaTIPODESP: TIBStringField;
+    IbDtstTabelaTIPO_PARTICULAR: TSmallintField;
+    dbTipoParticular: TDBCheckBox;
+    IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
+    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -74,7 +78,14 @@ end;
 procedure TfrmGeTipoDespesa.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaCOD.Value := GetNextID(NomeTabela, CampoCodigo);
+  IbDtstTabelaCOD.Value                 := GetNextID(NomeTabela, CampoCodigo);
+  IbDtstTabelaTIPO_PARTICULAR.AsInteger := 0;
+end;
+
+procedure TfrmGeTipoDespesa.IbDtstTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
 end;
 
 initialization

@@ -49,10 +49,12 @@ type
     frRelacaoAPagarBAnalitico: TfrxReport;
     frRelacaoAPagarTPDespesaSintetico: TfrxReport;
     frRelacaoAPagarTPDespesaAnalitico: TfrxReport;
+    dbDespesaParticular: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
+    procedure edTipoDespesaChange(Sender: TObject);
   private
     { Private declarations }
     FSQL_RelacaoAPagarAnalit          ,
@@ -335,6 +337,7 @@ var
   I : Integer;
 begin
   X := 0;
+  edTipoDespesa.OnChange := nil;
 
   with CdsTipoDespesa do
   begin
@@ -350,7 +353,7 @@ begin
 
     while not Eof do
     begin
-      edTipoDespesa.Items.Add( FieldByName('tipodesp').AsString );
+      edTipoDespesa.Items.Add( FieldByName('tipodesp').AsString);
       ITipoDespesa[I] := FieldByName('cod').AsInteger;
 
       Inc(I);
@@ -360,6 +363,7 @@ begin
     Close;
   end;
 
+  edTipoDespesa.OnChange  := edTipoDespesaChange;
   edTipoDespesa.ItemIndex := X;
 end;
 
@@ -810,6 +814,15 @@ begin
       btnVisualizar.Enabled := True;
     end;
   end;
+end;
+
+procedure TfrmGeContasAPagarImpressao.edTipoDespesaChange(Sender: TObject);
+begin
+  if not CdsTipoDespesa.Active then
+    CdsTipoDespesa.Open;
+
+  if CdsTipoDespesa.Locate('cod', ITipoDespesa[edTipoDespesa.ItemIndex], []) then
+    dbDespesaParticular.Checked := (CdsTipoDespesa.FieldByName('tipo_particular').AsInteger = 0);
 end;
 
 initialization

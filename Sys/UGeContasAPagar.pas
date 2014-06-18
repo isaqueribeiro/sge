@@ -155,6 +155,8 @@ type
     procedure FrReciboGetValue(const VarName: String; var Value: Variant);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
+    procedure btbtnCancelarClick(Sender: TObject);
+    procedure btbtnIncluirClick(Sender: TObject);
   private
     { Private declarations }
     SQL_Pagamentos : TStringList;
@@ -656,6 +658,20 @@ procedure TfrmGeContasAPagar.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   dbValorAPagar.ReadOnly := (not cdsPagamentos.IsEmpty);
+end;
+
+procedure TfrmGeContasAPagar.btbtnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  if ( not OcorreuErro ) then
+    AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
+end;
+
+procedure TfrmGeContasAPagar.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if ( not OcorreuErro ) then
+    AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
 end;
 
 initialization

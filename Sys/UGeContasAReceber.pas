@@ -139,6 +139,8 @@ type
       Shift: TShiftState);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
+    procedure btbtnCancelarClick(Sender: TObject);
+    procedure btbtnIncluirClick(Sender: TObject);
   private
     { Private declarations }
     SQL_Pagamentos : TStringList;
@@ -547,6 +549,20 @@ procedure TfrmGeContasAReceber.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   dbValorAReceber.ReadOnly := (not cdsPagamentos.IsEmpty);
+end;
+
+procedure TfrmGeContasAReceber.btbtnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  if ( not OcorreuErro ) then
+    AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
+end;
+
+procedure TfrmGeContasAReceber.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if ( not OcorreuErro ) then
+    AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
 end;
 
 initialization
