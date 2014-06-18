@@ -90,6 +90,7 @@ inherited frmGeVenda: TfrmGeVenda
       Visible = False
     end
     object btbtnFinalizar: TBitBtn
+      Tag = 11
       Left = 696
       Top = 2
       Width = 120
@@ -154,6 +155,7 @@ inherited frmGeVenda: TfrmGeVenda
       NumGlyphs = 2
     end
     object btbtnGerarNFe: TBitBtn
+      Tag = 12
       Left = 816
       Top = 2
       Width = 120
@@ -218,6 +220,7 @@ inherited frmGeVenda: TfrmGeVenda
       NumGlyphs = 2
     end
     object btbtnCancelarVND: TBitBtn
+      Tag = 13
       Left = 936
       Top = 2
       Width = 120

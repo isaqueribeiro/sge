@@ -421,8 +421,17 @@ type
     function GetTotalValorFormaPagto_APrazo : Currency;
     function GetGerarEstoqueCliente : Integer;
     function BoletosGerados : Boolean;
+
+    function GetRotinaFinalizarID : String;
+    function GetRotinaGerarNFeID : String;
+    function GetRotinaCancelarVendaID : String;
+
+    procedure RegistrarNovaRotinaSistema;
   public
     { Public declarations }
+    property RotinaFinalizarID     : String read GetRotinaFinalizarID;
+    property RotinaGerarNFeID      : String read GetRotinaGerarNFeID;
+    property RotinaCancelarVendaID : String read GetRotinaCancelarVendaID;
   end;
 
 var
@@ -506,7 +515,9 @@ begin
   tblModalidadeFrete.Open;
 
   pgcMaisDados.Height := 150;
+  RotinaID            := ROTINA_MOV_VENDA_ID;
   DisplayFormatCodigo := '###0000000';
+
   NomeTabela     := 'TBVENDAS';
   CampoCodigo    := 'Codcontrol';
   CampoDescricao := 'c.NOME';
@@ -2526,6 +2537,8 @@ begin
     dbgDados.PopupMenu := popupAuditoria
   else
     dbgDados.PopupMenu := nil;
+
+  RegistrarNovaRotinaSistema;
 end;
 
 procedure TfrmGeVenda.nmPpReciboNFeClick(Sender: TObject);
@@ -2655,6 +2668,57 @@ begin
 
     Close;
   end;
+end;
+
+procedure TfrmGeVenda.RegistrarNovaRotinaSistema;
+begin
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if btbtnFinalizar.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFinalizarID, btbtnFinalizar.Caption, RotinaID);
+
+    if btbtnGerarNFe.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaGerarNFeID, btbtnGerarNFe.Caption, RotinaID);
+
+    if btbtnCancelarVND.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarVendaID, btbtnCancelarVND.Caption, RotinaID);
+  end;
+end;
+
+function TfrmGeVenda.GetRotinaCancelarVendaID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnCancelarVND.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGeVenda.GetRotinaFinalizarID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnFinalizar.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGeVenda.GetRotinaGerarNFeID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnGerarNFe.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
 end;
 
 end.

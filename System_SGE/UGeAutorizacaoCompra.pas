@@ -211,6 +211,7 @@ type
       Shift: TShiftState);
     procedure IbDtstTabelaTIPOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -221,8 +222,17 @@ type
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+
+    function GetRotinaFinalizarID : String;
+    function GetRotinaAutorizarID : String;
+    function GetRotinaCancelarAutorizacaoID : String;
+
+    procedure RegistrarNovaRotinaSistema;
   public
     { Public declarations }
+    property RotinaFinalizarID : String read GetRotinaFinalizarID;
+    property RotinaAutorizarID : String read GetRotinaAutorizarID;
+    property RotinaCancelarAutorizacaoID : String read GetRotinaCancelarAutorizacaoID;
   end;
 
 var
@@ -344,7 +354,9 @@ begin
   cdsTransportador.Open;
 
   pgcMaisDados.Height := 190;
+  RotinaID            := ROTINA_MOV_AUTORIZACAO_ID;
   DisplayFormatCodigo := '###00000';
+
   NomeTabela     := 'TBAUTORIZA_COMPRA';
   CampoCodigo    := 'codigo';
   CampoDescricao := 'f.nomeforn';
@@ -1276,6 +1288,63 @@ begin
       TIPO_AUTORIZACAO_COMPRA_SERVICO:
         Text := 'Compra/Serviço';
     end;
+end;
+
+function TfrmGeAutorizacaoCompra.GetRotinaAutorizarID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btnAutorizarCompra.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGeAutorizacaoCompra.GetRotinaCancelarAutorizacaoID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btnCancelarAutorizacao.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGeAutorizacaoCompra.GetRotinaFinalizarID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btnFinalizarAutorizacao.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+procedure TfrmGeAutorizacaoCompra.RegistrarNovaRotinaSistema;
+begin
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if btnFinalizarAutorizacao.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFinalizarID, btnFinalizarAutorizacao.Caption, RotinaID);
+
+    if btnAutorizarCompra.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaAutorizarID, btnAutorizarCompra.Caption, RotinaID);
+
+    if btnCancelarAutorizacao.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarAutorizacaoID, btnCancelarAutorizacao.Caption, RotinaID);
+  end;
+end;
+
+procedure TfrmGeAutorizacaoCompra.FormShow(Sender: TObject);
+begin
+  inherited;
+  RegistrarNovaRotinaSistema;
 end;
 
 initialization

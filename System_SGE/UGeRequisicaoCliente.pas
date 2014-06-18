@@ -201,7 +201,9 @@ begin
   tblEmpresa.Open;
 
   pgcMaisDados.Height := 150;
+  RotinaID            := ROTINA_MOV_REQUISICAO_ID;
   DisplayFormatCodigo := '###00000';
+
   NomeTabela     := 'TBCLIENTE_REQUISICAO';
   CampoCodigo    := 'numero';
   CampoDescricao := 'c.nOME';

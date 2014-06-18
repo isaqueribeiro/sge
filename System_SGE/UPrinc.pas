@@ -715,6 +715,8 @@ end;
 
 procedure TfrmPrinc.RegistrarRotinasMenu;
 begin
+  // Menus
+
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CADASTRO_ID,   'Cadastro', EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_ENTRADA_ID,    'Entradas',  EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_MOVIMENTO_ID,  'Movimentações', EmptyStr);
@@ -722,16 +724,59 @@ begin
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CONSULTA_ID,   'Consultas',  EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_FINANCEIRO_ID, 'Financeiro', EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_RELATORIO_ID,  'Relatórios', EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_AJUDA_ID,      'Ajuda',      EmptyStr);
 
+  // Sub-menus
+  
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_TAB_AUXILIAR_ID,    'Tabelas Auxiliares',        ROTINA_MENU_CADASTRO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ENTRADA_ID,     'Relatórios de Entradas',    ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FATURAMENTO_ID, 'Relatórios de Faturamento', ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FINANCEIRO_ID,  'Relatórios do Financeiro',  ROTINA_MENU_RELATORIO_ID);
+
+  // Cadastros
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_EMP_ID, Trim(nmConfiguracaoEmpresa.Caption), ROTINA_MENU_CADASTRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_NFE_ID, Trim(nmConfigurarNFeACBr.Caption),   ROTINA_MENU_CADASTRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_AMB_ID, Trim(nmConfigurarAmbiente.Caption),  ROTINA_MENU_CADASTRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_GERAR_SENH_ID, Trim(nmSenhaAutorizacao.Caption),    ROTINA_MENU_CADASTRO_ID);
+
+  // Entradas
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_AJUSTE_ID, Trim(nmAjusteManual.Caption), ROTINA_MENU_ENTRADA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_KARDEX_ID, Trim(nmKardex.Caption),       ROTINA_MENU_ENTRADA_ID);
+
+  // Notas Fiscais
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_INUTILIZAR_NRO_ID,  Trim(nmInutilizarNumeroNFe.Caption),    ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_CONSULTA_RECIBO_ID, Trim(nmConsultarLoteNFe.Caption),       ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_EXPORTAR_NFE_ID,    Trim(nmExportarNFeGerada.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_EXPORTAR_CHAVE_ID,  Trim(nmExportarChaveNFeGerada.Caption), ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_GERAR_ARQUI_NFC_ID, Trim(nmGerarArquivoNFC.Caption),        ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_DOWNLOAD_NFE_ID,    Trim(nmDownloadNFeGerada.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
+
+  // Consultas
+  
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_CNPJ_ID,        Trim(nmConsultarCNPJ.Caption),    ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_VENDA_ID,       Trim(nmVendaIemPesquisa.Caption), ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ROTATIVIDAD_ID, Trim(nmRotatividade.Caption),     ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ESTOQUE_MIN_ID, Trim(nmEstoqueMinimo.Caption),    ROTINA_MENU_CONSULTA_ID);
+
+  // Financeiro
+  
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ABRIR_CAIXA_ID,     Trim(nmAberturaCaixa.Caption),            ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ENCERRAR_CAIXA_ID,  Trim(nmEncerramentoCaixa.Caption),        ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_BOLETO_ID,    Trim(nmGerarBoleto.Caption),              ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_REMESSA_ID,   Trim(nmRemessaBoleto.Caption),            ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_PROCESSA_RETORN_ID, Trim(nmRetornoBoleto.Caption),            ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_APAGAR_ID,   Trim(nmQuitarContaAPagar_Lote.Caption),   ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_ARECEBER_ID, Trim(nmQuitarContaAReceber_Lote.Caption), ROTINA_MENU_FINANCEIRO_ID);
+
+  // Relatórios
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_CLIENTE_ID,    Trim(nmRelatorioCliente.Caption),    ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FORNECEDOR_ID, Trim(nmRelatorioFornecedor.Caption), ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_PRODUTO_ID,    Trim(nmRelatorioProduto.Caption),    ROTINA_MENU_RELATORIO_ID);
 end;
 
 procedure TfrmPrinc.nmGerarArquivoNFCClick(Sender: TObject);

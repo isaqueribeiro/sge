@@ -287,6 +287,7 @@ var
   function GetMenorVencimentoAPagar : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
+  function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
 
   function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 
@@ -971,7 +972,7 @@ begin
       ParamByName('Sistema').AsInteger   := gSistema.Codigo;
       ParamByName('Codigo').AsString     := Trim(sCodigo);
       ParamByName('Tipo').AsInteger      := iTipo;
-      ParamByName('Descricao').AsString  := Trim(sDescricao);
+      ParamByName('Descricao').AsString  := StringReplace(Trim(sDescricao), '&', '', [rfReplaceAll]);
       ParamByName('Rotina_Pai').AsString := Trim(sRotinaPai);
       ExecProc;
 
@@ -2234,6 +2235,41 @@ end;
 function GetCarregarProdutoCodigoBarraLocal : Boolean;
 begin
   Result := FileINI.ReadBool(INI_SECAO_VENDA, INI_KEY_CODIGO_EAN, GetCarregarProdutoCodigoBarra(GetEmpresaIDDefault));
+end;
+
+function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
+var
+  Return : Boolean;
+begin
+  try
+    Return := (gUsuarioLogado.Funcao = FUNCTION_USER_ID_SYSTEM_ADM);
+
+    if Return then
+      Exit;
+      
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  p.acesso');
+      SQL.Add('from SYS_FUNCAO_PERMISSAO p');
+      SQL.Add('where p.sistema = ' + IntToStr(gSistema.Codigo));
+      SQL.Add('  and p.funcao  = ' + IntToStr(gUsuarioLogado.Funcao));
+      SQL.Add('  and p.rotina  = ' + QuotedStr(sRotina));
+      Open;
+
+      Return := (FieldByName('acesso').AsInteger = 1);
+
+      Close;
+    end;
+
+    if not Return then
+      if Alertar then
+        ShowInformation('Permissão de Acesso!', 'Usuário sem permissão para executar a rotina solicitada.');
+  finally
+    Result := Return;
+  end;
 end;
 
 function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;

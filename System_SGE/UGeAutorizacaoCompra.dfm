@@ -24,6 +24,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       OnClick = btbtnListaClick
     end
     object btnFinalizarAutorizacao: TBitBtn
+      Tag = 11
       Left = 726
       Top = 2
       Width = 120
@@ -89,6 +90,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       NumGlyphs = 2
     end
     object btnAutorizarCompra: TBitBtn
+      Tag = 12
       Left = 846
       Top = 2
       Width = 120
@@ -154,6 +156,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       NumGlyphs = 2
     end
     object btnCancelarAutorizacao: TBitBtn
+      Tag = 13
       Left = 966
       Top = 2
       Width = 120

@@ -25,6 +25,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       OnClick = btbtnListaClick
     end
     object btbtnFinalizar: TBitBtn
+      Tag = 11
       Left = 726
       Top = 2
       Width = 120
@@ -89,6 +90,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       NumGlyphs = 2
     end
     object btbtnGerarNFe: TBitBtn
+      Tag = 12
       Left = 846
       Top = 2
       Width = 120
@@ -153,6 +155,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       NumGlyphs = 2
     end
     object btbtnCancelarENT: TBitBtn
+      Tag = 13
       Left = 966
       Top = 2
       Width = 120

@@ -351,9 +351,18 @@ type
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+
+    function GetRotinaFinalizarID : String;
+    function GetRotinaGerarNFeID : String;
+    function GetRotinaCancelarEntradaID : String;
+
+    procedure RegistrarNovaRotinaSistema;
   public
     { Public declarations }
     property TipoMovimento : TTipoMovimentoEntrada read FTipoMovimento write FTipoMovimento;
+    property RotinaFinalizarID       : String read GetRotinaFinalizarID;
+    property RotinaGerarNFeID        : String read GetRotinaGerarNFeID;
+    property RotinaCancelarEntradaID : String read GetRotinaCancelarEntradaID;
   end;
 
 var
@@ -378,6 +387,8 @@ begin
   frm := TfrmGeEntradaEstoque.Create(AOwner);
   try
     frm.TipoMovimento := tmeProduto;
+    frm.Caption       := 'Controle de Entradas de Produtos';
+    frm.RotinaID      := ROTINA_ENT_PRODUTO_ID;
 
     whr := '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
               QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
@@ -405,6 +416,8 @@ begin
   frm := TfrmGeEntradaEstoque.Create(AOwner);
   try
     frm.TipoMovimento := tmeServico;
+    frm.Caption       := 'Controle de Entradas de Serviços';
+    frm.RotinaID      := ROTINA_ENT_SERVICO_ID;
 
     whr := '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
               QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
@@ -460,6 +473,7 @@ begin
   tblTipoEntrada.Open;
 
   DisplayFormatCodigo := '###0000000';
+  
   NomeTabela     := 'TBCOMPRAS';
   CampoCodigo    := 'Codcontrol';
   CampoDescricao := 'f.NomeForn';
@@ -1481,8 +1495,6 @@ begin
 
   if ( FTipoMovimento = tmeServico ) then
   begin
-    Self.Caption := 'Controle de Entradas de Serviços';
-
     lblCFOPNF.Caption       := 'CNAE:';
     lblBaseICMS.Caption     := 'Base ISS:';
     lblValorICMS.Caption    := 'Valor ISS:';
@@ -1507,6 +1519,59 @@ begin
     dbgProdutos.Columns[2].Title.Caption := 'Descrição do Serviço';
 
     dbgDados.Columns[7].Title.Caption    := 'Total Serviço';
+  end;
+
+  RegistrarNovaRotinaSistema;
+end;
+
+function TfrmGeEntradaEstoque.GetRotinaFinalizarID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnFinalizar.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGeEntradaEstoque.GetRotinaGerarNFeID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnGerarNFe.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGeEntradaEstoque.GetRotinaCancelarEntradaID: String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnCancelarENT.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+procedure TfrmGeEntradaEstoque.RegistrarNovaRotinaSistema;
+begin
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if btbtnFinalizar.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFinalizarID, btbtnFinalizar.Caption, RotinaID);
+
+    if btbtnGerarNFe.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaGerarNFeID, btbtnGerarNFe.Caption, RotinaID);
+
+    if btbtnCancelarENT.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarEntradaID, btbtnCancelarENT.Caption, RotinaID);
   end;
 end;
 

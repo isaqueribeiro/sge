@@ -106,6 +106,8 @@ uses
 procedure TfrmGeEstoqueAjusteManual.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID := ROTINA_ENT_AJUSTE_ID;
+
   with qryEmpresa do
   begin
     Close;
