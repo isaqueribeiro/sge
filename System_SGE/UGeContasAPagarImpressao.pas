@@ -241,6 +241,9 @@ begin
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
 
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
       SQL.Add('');
       SQL.Add('order by');
       SQL.Add('    extract(year from cp.dtvenc) || right(''00'' || extract(month from cp.dtvenc), 2)');
@@ -303,6 +306,9 @@ begin
 
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -451,6 +457,9 @@ begin
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
 
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
       SQL.Add('');
       SQL.Add('order by');
       SQL.Add('    extract(year from cp.dtemiss) || right(''00'' || extract(month from cp.dtemiss), 2)');
@@ -513,6 +522,9 @@ begin
 
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -581,6 +593,9 @@ begin
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
 
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
       SQL.Add('');
       SQL.Add('order by');
       SQL.Add('    extract(year from cp.dtpag) || right(''00'' || extract(month from cp.dtpag), 2)');
@@ -643,6 +658,9 @@ begin
 
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -729,6 +747,9 @@ begin
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
 
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
       SQL.Add('');
       SQL.Add('group by');
       SQL.Add('    extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
@@ -795,6 +816,9 @@ begin
 
       if ( edFornecedor.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
 
       SQL.Add('');
       SQL.Add('order by');

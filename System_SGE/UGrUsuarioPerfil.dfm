@@ -1,632 +1,208 @@
-object frmGrPadraoCadastro: TfrmGrPadraoCadastro
-  Left = 397
-  Top = 229
-  Width = 751
-  Height = 440
-  ActiveControl = dbgDados
-  BorderIcons = [biSystemMenu, biMinimize]
-  Caption = 'Tabela Padr'#227'o de Cadastro'
-  Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
-  Font.Style = []
-  KeyPreview = True
-  OldCreateOrder = False
-  Position = poMainFormCenter
-  OnCloseQuery = FormCloseQuery
-  OnCreate = FormCreate
-  OnKeyDown = FormKeyDown
-  OnShow = FormShow
+inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
+  Width = 757
+  Height = 447
+  ActiveControl = dbCodigo
+  Caption = 'Cadastro de Perfis de Acesso'
+  OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
-  object Bevel1: TBevel
-    Left = 0
-    Top = 398
-    Width = 735
-    Height = 4
-    Align = alBottom
-    Shape = bsSpacer
+  inherited Bevel1: TBevel
+    Top = 405
+    Width = 741
   end
-  object Bevel3: TBevel
-    Left = 0
-    Top = 359
-    Width = 735
-    Height = 4
-    Align = alBottom
-    Shape = bsSpacer
+  inherited Bevel3: TBevel
+    Top = 366
+    Width = 741
   end
-  object tlbBotoes: TToolBar
-    Left = 0
-    Top = 363
-    Width = 735
-    Height = 35
-    Align = alBottom
-    ButtonHeight = 31
-    ButtonWidth = 96
-    Caption = #39
-    TabOrder = 1
-    object Bevel2: TBevel
-      Left = 0
-      Top = 2
-      Width = 4
-      Height = 31
-      Shape = bsSpacer
-    end
-    object btbtnIncluir: TBitBtn
-      Tag = 1
-      Left = 4
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Incluir'
-      Caption = '&Incluir'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 0
-      OnClick = btbtnIncluirClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333300000000
-        0000333377777777777733330FFFFFFFFFF033337F3FFF3F3FF733330F000F0F
-        00F033337F777373773733330FFFFFFFFFF033337F3FF3FF3FF733330F00F00F
-        00F033337F773773773733330FFFFFFFFFF033337FF3333FF3F7333300FFFF00
-        F0F03333773FF377F7373330FB00F0F0FFF0333733773737F3F7330FB0BF0FB0
-        F0F0337337337337373730FBFBF0FB0FFFF037F333373373333730BFBF0FB0FF
-        FFF037F3337337333FF700FBFBFB0FFF000077F333337FF37777E0BFBFB000FF
-        0FF077FF3337773F7F37EE0BFB0BFB0F0F03777FF3733F737F73EEE0BFBF00FF
-        00337777FFFF77FF7733EEEE0000000003337777777777777333}
-      NumGlyphs = 2
-    end
-    object btbtnAlterar: TBitBtn
-      Tag = 2
-      Left = 79
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Alterar'
-      Caption = '&Alterar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-      OnClick = btbtnAlterarClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333000000
-        000033333377777777773333330FFFFFFFF03FF3FF7FF33F3FF700300000FF0F
-        00F077F777773F737737E00BFBFB0FFFFFF07773333F7F3333F7E0BFBF000FFF
-        F0F077F3337773F3F737E0FBFBFBF0F00FF077F3333FF7F77F37E0BFBF00000B
-        0FF077F3337777737337E0FBFBFBFBF0FFF077F33FFFFFF73337E0BF0000000F
-        FFF077FF777777733FF7000BFB00B0FF00F07773FF77373377373330000B0FFF
-        FFF03337777373333FF7333330B0FFFF00003333373733FF777733330B0FF00F
-        0FF03333737F37737F373330B00FFFFF0F033337F77F33337F733309030FFFFF
-        00333377737FFFFF773333303300000003333337337777777333}
-      NumGlyphs = 2
-    end
-    object btbtnExcluir: TBitBtn
-      Tag = 3
-      Left = 154
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Excluir'
-      Caption = '&Excluir'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 2
-      OnClick = btbtnExcluirClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00555555555555
-        55555FFFFFFF5F55FFF5777777757559995777777775755777F7555555555550
-        305555555555FF57F7F555555550055BB0555555555775F777F55555550FB000
-        005555555575577777F5555550FB0BF0F05555555755755757F555550FBFBF0F
-        B05555557F55557557F555550BFBF0FB005555557F55575577F555500FBFBFB0
-        B05555577F555557F7F5550E0BFBFB00B055557575F55577F7F550EEE0BFB0B0
-        B05557FF575F5757F7F5000EEE0BFBF0B055777FF575FFF7F7F50000EEE00000
-        B0557777FF577777F7F500000E055550805577777F7555575755500000555555
-        05555777775555557F5555000555555505555577755555557555}
-      NumGlyphs = 2
-    end
-    object bvlTool1: TBevel
-      Left = 229
-      Top = 2
-      Width = 4
-      Height = 31
-      Shape = bsSpacer
-    end
-    object btbtnCancelar: TBitBtn
-      Left = 233
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Cancelar Inser'#231#227'o/Edi'#231#227'o'
-      Caption = '&Cancelar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 5
-      OnClick = btbtnCancelarClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333000000
-        000033333377777777773333330FFFFFFFF03FF3FF7FF33F3FF700300000FF0F
-        00F077F777773F737737E00BFBFB0FFFFFF07773333F7F3333F7E0BFBF000FFF
-        F0F077F3337773F3F737E0FBFBFBF0F00FF077F3333FF7F77F37E0BFBF00000B
-        0FF077F3337777737337E0FBFBFBFBF0FFF077F33FFFFFF73337E0BF0000000F
-        FFF077FF777777733FF7000BFB00B0FF00F07773FF77373377373330000B0FFF
-        FFF03337777373333FF7333330B0FFFF00003333373733FF777733330B0FF00F
-        0FF03333737F37737F373330B00FFFFF0F033337F77F33337F733309030FFFFF
-        00333377737FFFFF773333303300000003333337337777777333}
-      NumGlyphs = 2
-    end
-    object btbtnSalvar: TBitBtn
-      Left = 308
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Salvar Inser'#231#227'o/Edi'#231#227'o'
-      Caption = '&Salvar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 4
-      OnClick = btbtnSalvarClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00555555555555
-        55555FFFFFFF5F55FFF5777777757559995777777775755777F7555555555550
-        305555555555FF57F7F555555550055BB0555555555775F777F55555550FB000
-        005555555575577777F5555550FB0BF0F05555555755755757F555550FBFBF0F
-        B05555557F55557557F555550BFBF0FB005555557F55575577F555500FBFBFB0
-        B05555577F555557F7F5550E0BFBFB00B055557575F55577F7F550EEE0BFB0B0
-        B05557FF575F5757F7F5000EEE0BFBF0B055777FF575FFF7F7F50000EEE00000
-        B0557777FF577777F7F500000E055550805577777F7555575755500000555555
-        05555777775555557F5555000555555505555577755555557555}
-      NumGlyphs = 2
-    end
-    object bvlTool2: TBevel
-      Left = 383
-      Top = 2
-      Width = 4
-      Height = 31
-      Shape = bsSpacer
-    end
-    object btbtnLista: TBitBtn
-      Tag = 4
-      Left = 387
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Imprimir Lista'
-      Caption = '&Lista'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 3
-      Visible = False
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00300000000000
-        0003377777777777777308888888888888807F33333333333337088888888888
-        88807FFFFFFFFFFFFFF7000000000000000077777777777777770F8F8F8F8F8F
-        8F807F333333333333F708F8F8F8F8F8F9F07F333333333337370F8F8F8F8F8F
-        8F807FFFFFFFFFFFFFF7000000000000000077777777777777773330FFFFFFFF
-        03333337F3FFFF3F7F333330F0000F0F03333337F77773737F333330FFFFFFFF
-        03333337F3FF3FFF7F333330F00F000003333337F773777773333330FFFF0FF0
-        33333337F3F37F3733333330F08F0F0333333337F7337F7333333330FFFF0033
-        33333337FFFF7733333333300000033333333337777773333333}
-      NumGlyphs = 2
-    end
-    object bvlTool3: TBevel
-      Left = 462
-      Top = 2
-      Width = 4
-      Height = 31
-      Shape = bsSpacer
-    end
-    object btbtnFechar: TBitBtn
-      Left = 466
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Fechar'
-      Caption = 'Fechar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 6
-      OnClick = btbtnFecharClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033BBBBBBBBBB
-        BB33337777777777777F33BB00BBBBBBBB33337F77333333F37F33BB0BBBBBB0
-        BB33337F73F33337FF7F33BBB0BBBB000B33337F37FF3377737F33BBB00BB00B
-        BB33337F377F3773337F33BBBB0B00BBBB33337F337F7733337F33BBBB000BBB
-        BB33337F33777F33337F33EEEE000EEEEE33337F3F777FFF337F33EE0E80000E
-        EE33337F73F77773337F33EEE0800EEEEE33337F37377F33337F33EEEE000EEE
-        EE33337F33777F33337F33EEEEE00EEEEE33337F33377FF3337F33EEEEEE00EE
-        EE33337F333377F3337F33EEEEEE00EEEE33337F33337733337F33EEEEEEEEEE
-        EE33337FFFFFFFFFFF7F33EEEEEEEEEEEE333377777777777773}
-      NumGlyphs = 2
-    end
-    object bvlToolExpandir: TBevel
-      Left = 541
-      Top = 2
-      Width = 61
-      Height = 31
-      Shape = bsSpacer
-    end
-    object btbtnSelecionar: TBitBtn
-      Left = 602
-      Top = 2
-      Width = 120
-      Height = 31
-      Hint = 'Selecionar registro'
-      Caption = 'Selecionar (F2)'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 7
-      Visible = False
-      OnClick = btbtnSelecionarClick
-      Glyph.Data = {
-        36060000424D3606000000000000360000002800000020000000100000000100
-        180000000000000600000000000000000000000000000000000000FF0000FF00
-        00FF0000FF0000FF0000FF0000FF0000FF0000FF002D2D2D2D2D2D2D2D2D2D2D
-        2D2D2D2D00FF0000FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4
-        D4D4D4D4D4808080808080808080808080808080D4D4D4D4D4D400FF0000FF00
-        00FF0000FF0000FF0000FF0000FF0000FF002D2D2DDDDDDDDDDDDDCEC3B2BCA8
-        7BBCA87B2D2D2D00FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4
-        D4D42D2D2DDDDDDDDDDDDD808080808080808080808080D4D4D400FF007F5B00
-        7F5B0000FF0000FF0000FF0000FF002D2D2DE9DDB7FFFDF3FFFFFFFBF0D7E1CE
-        9BB0995A7569232D2D2DD4D4D4808080808080D4D4D4D4D4D4D4D4D4D4D4D480
-        8080D4D4D4D4D4D4D4D4D48080808080808080808080808080807F5B00EFAD00
-        EFAD007F5B0000FF0000FF0000FF002D2D2DE9DDB4F9F4E8FFFFFFF0E4CCD5C1
-        93A590547569232D2D2D808080808080808080808080D4D4D4D4D4D4D4D4D480
-        8080D4D4D4D4D4D4D4D4D48080808080808080808080808080807F5B00FFFF00
-        EFAD00EFAD007F5B0000FF0000FF002D2D2DE8DAB2F7F1E2FFFFFFF1E5D0D7C3
-        939F8B4F7266222D2D2D808080D4D4D4808080808080808080D4D4D4D4D4D480
-        8080D4D4D4D4D4D4D4D4D480808080808080808080808080808000FF007F5B00
-        FFFF00EFAD00EFAD007F5B0000FF002D2D2DE6DAB1F9F4E6FFFFFFF0E5CED6C4
-        93A68F547265212D2D2DD4D4D4808080D4D4D4808080808080808080D4D4D480
-        8080D4D4D4D4D4D4D4D4D480808080808080808080808080808000FF0000FF00
-        7F5B00FFFF00F6CF6D7F5B0000FF002D2D2DF5EACAFCF8EEFFFFFFEEE2CCD5C1
-        93A88F56796C252D2D2DD4D4D4D4D4D4808080D4D4D4D4D4D4808080D4D4D480
-        8080D4D4D4D4D4D4D4D4D480808080808080808080808080808000FF0000FF00
-        00FF007F5B007F5B00F6CF6DD9A77D7F5B007F5B007F5B007F5B002D2D2D2D2D
-        2D2D2D2D796C252D2D2DD4D4D4D4D4D4D4D4D4808080808080D4D4D48080807F
-        5B0080808080808080808080808080808080808080808080808000FF0000FF00
-        00FF0000FF0000FF00D9A77D7F5B00679A9AABAB6EA8D7CEECE79D7F5B00BDA1
-        665745072D2D2D2D2D2DD4D4D4D4D4D4D4D4D4D4D4D4D4D4D480808080808067
-        9A9AD4D4D4D4D4D4D4D4D4808080D4D4D480808080808080808000FF0000FF00
-        00FF0000FF0000FF007F5B00AAFFFFAAFFFF78ABABC0F0ECCCFFFCFFFFBF7F5B
-        00B1975D2D2D2D00FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4D4D4D4
-        D4D478ABABD4D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4D4D400FF0000FF00
-        00FF0000FF0000FF007F5B00FFFF99AAFEFEAAFFFF78ABAB78ABAB78ABAB7F5B
-        002D2D2D00FF0000FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4D4D4D4
-        D4D4D4D4D478ABAB78ABAB78ABAB808080808080D4D4D4D4D4D400FF0000FF00
-        00FF0000FF0000FF007F5B00AAFFFFAAFFFFAAFFFFAAFFFFAAFFFFFFFF997F5B
-        0000FF0000FF0000FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4D4D4D4
-        D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4D4D4D4D4D4D4D4D400FF0000FF00
-        00FF0000FF0000FF007F5B00FFFF99AAFFFFAAFFFFAAFFFFAAFFFFAAFFFF7F5B
-        0000FF0000FF0000FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4D4D4D4
-        D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4D4D4D4D4D4D4D4D400FF0000FF00
-        00FF0000FF0000FF0000FF007F5B00FFFF99AAFFFFFFFF99AAFFFF7F5B0000FF
-        0000FF0000FF0000FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4808080D4
-        D4D4D4D4D4D4D4D4D4D4D47F5B00D4D4D4D4D4D4D4D4D4D4D4D400FF0000FF00
-        00FF0000FF0000FF0000FF0000FF007F5B007F5B007F5B007F5B0000FF0000FF
-        0000FF0000FF0000FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D480
-        8080808080808080808080D4D4D4D4D4D4D4D4D4D4D4D4D4D4D400FF0000FF00
-        00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-        0000FF0000FF0000FF00D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4
-        D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4}
-      NumGlyphs = 2
-    end
-    object bvlTool4: TBevel
-      Left = 722
-      Top = 2
-      Width = 4
-      Height = 31
-      Shape = bsSpacer
-    end
+  inherited tlbBotoes: TToolBar
+    Top = 370
+    Width = 741
   end
-  object pgcGuias: TPageControl
-    Left = 0
-    Top = 0
-    Width = 735
-    Height = 359
-    ActivePage = tbsTabela
-    Align = alClient
-    Images = ImgList
-    TabOrder = 0
-    object tbsTabela: TTabSheet
-      Caption = '&Lista'
-      ImageIndex = 37
-      object Bevel4: TBevel
-        Left = 0
-        Top = 264
-        Width = 727
-        Height = 4
-        Align = alBottom
-        Shape = bsSpacer
+  inherited pgcGuias: TPageControl
+    Width = 741
+    Height = 366
+    ActivePage = tbsCadastro
+    OnChange = pgcGuiasChange
+    inherited tbsTabela: TTabSheet
+      inherited Bevel4: TBevel
+        Top = 271
+        Width = 733
       end
-      object dbgDados: TDBGrid
+      inherited dbgDados: TDBGrid
+        Width = 733
+        Height = 271
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'COD'
+            Width = 55
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'FUNCAO'
+            Width = 350
+            Visible = True
+          end
+          item
+            Expanded = False
+            Title.Alignment = taCenter
+            Title.Caption = 'Particular'
+            Visible = False
+          end>
+      end
+      inherited pnlFiltros: TPanel
+        Top = 275
+        Width = 733
+        inherited grpBxFiltro: TGroupBox
+          Left = 424
+          Width = 305
+          inherited lbltFiltrar: TLabel
+            Width = 92
+            Caption = 'Perfil de Acesso:'
+          end
+          inherited btnFiltrar: TSpeedButton
+            Left = 260
+          end
+          inherited edtFiltrar: TEdit
+            Left = 104
+            Width = 152
+          end
+        end
+      end
+    end
+    inherited tbsCadastro: TTabSheet
+      inherited Bevel8: TBevel
+        Top = 81
+        Width = 733
+      end
+      inherited GrpBxDadosNominais: TGroupBox
+        Width = 733
+        Height = 81
+        object lblDescricao: TLabel [1]
+          Left = 88
+          Top = 24
+          Width = 50
+          Height = 13
+          Caption = 'Descri'#231#227'o:'
+          FocusControl = dbDescricao
+        end
+        inherited dbCodigo: TDBEdit
+          Color = clMoneyGreen
+          DataField = 'COD'
+        end
+        object dbDescricao: TDBEdit
+          Left = 88
+          Top = 40
+          Width = 337
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'FUNCAO'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+        end
+      end
+      object GrpBxDadosClassificacao: TGroupBox
         Left = 0
-        Top = 0
-        Width = 727
-        Height = 264
+        Top = 85
+        Width = 733
+        Height = 252
         Align = alClient
-        DataSource = DtSrcTabela
+        Caption = 'Permiss'#245'es'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clBlack
+        Font.Color = clWindowText
         Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+        Font.Style = [fsBold]
         ParentFont = False
-        ReadOnly = True
-        TabOrder = 0
-        TitleFont.Charset = ANSI_CHARSET
-        TitleFont.Color = clBlack
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = [fsBold]
-        OnDrawColumnCell = dbgDadosDrawColumnCell
-        OnDblClick = dbgDadosDblClick
-        OnKeyDown = dbgDadosKeyDown
-        OnKeyPress = dbgDadosKeyPress
-      end
-      object pnlFiltros: TPanel
-        Left = 0
-        Top = 268
-        Width = 727
-        Height = 62
-        Align = alBottom
-        BevelOuter = bvNone
-        BorderWidth = 4
         TabOrder = 1
-        object grpBxFiltro: TGroupBox
-          Left = 471
-          Top = 4
-          Width = 252
-          Height = 54
-          Align = alRight
-          Caption = 'Pesquisar ...'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 0
-          DesignSize = (
-            252
-            54)
-          object lbltFiltrar: TLabel
-            Left = 6
-            Top = 25
-            Width = 41
-            Height = 13
-            Caption = 'Tabela:'
-            FocusControl = edtFiltrar
-          end
-          object btnFiltrar: TSpeedButton
-            Tag = 5
-            Left = 207
-            Top = 16
-            Width = 29
-            Height = 27
-            Hint = 'Clique aqui para executar a pesquisa ...'
-            Anchors = [akTop, akRight, akBottom]
-            Flat = True
-            Glyph.Data = {
-              76010000424D7601000000000000760000002800000020000000100000000100
-              0400000000000001000000000000000000001000000000000000000000000000
-              8000008000000080800080000000800080008080000080808000C0C0C0000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
-              333333333333333333FF33333333333330003FF3FFFFF3333777003000003333
-              300077F777773F333777E00BFBFB033333337773333F7F33333FE0BFBF000333
-              330077F3337773F33377E0FBFBFBF033330077F3333FF7FFF377E0BFBF000000
-              333377F3337777773F3FE0FBFBFBFBFB039977F33FFFFFFF7377E0BF00000000
-              339977FF777777773377000BFB03333333337773FF733333333F333000333333
-              3300333777333333337733333333333333003333333333333377333333333333
-              333333333333333333FF33333333333330003333333333333777333333333333
-              3000333333333333377733333333333333333333333333333333}
-            NumGlyphs = 2
-            ParentShowHint = False
-            ShowHint = True
-            OnClick = btnFiltrarClick
-          end
-          object edtFiltrar: TEdit
-            Left = 55
-            Top = 21
-            Width = 148
-            Height = 21
-            Hint = 'Digite aqui a palavra-chave da pesquisa'
-            Anchors = [akLeft, akTop, akRight]
-            CharCase = ecUpperCase
-            ParentShowHint = False
-            ShowHint = True
-            TabOrder = 0
-            OnKeyDown = edtFiltrarKeyDown
-          end
-        end
-      end
-    end
-    object tbsCadastro: TTabSheet
-      Caption = '&Dados'
-      ImageIndex = 39
-      object Bevel8: TBevel
-        Left = 0
-        Top = 121
-        Width = 727
-        Height = 4
-        Align = alTop
-        Shape = bsSpacer
-      end
-      object GrpBxDadosNominais: TGroupBox
-        Left = 0
-        Top = 0
-        Width = 727
-        Height = 121
-        Align = alTop
-        Caption = 'Dados nominais'
-        TabOrder = 0
-        object lblCodigo: TLabel
-          Left = 16
-          Top = 24
-          Width = 41
-          Height = 13
-          Caption = 'C'#243'digo:'
-          FocusControl = dbCodigo
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object dbCodigo: TDBEdit
-          Left = 16
-          Top = 40
-          Width = 65
-          Height = 21
-          DataSource = DtSrcTabela
+        object TreeMenu: TTreeView
+          Left = 2
+          Top = 15
+          Width = 729
+          Height = 235
+          Hint = 
+            'Pressione espa'#231'o para mudar o tipo de acesso ou '#13#10'clique para di' +
+            'reita para selecionar os tipos de acesso'
+          Align = alClient
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
+          Font.Style = []
+          HotTrack = True
+          Images = ImgList
+          Indent = 21
           ParentFont = False
+          ParentShowHint = False
+          PopupMenu = PopMenuTree
           ReadOnly = True
+          RightClickSelect = True
+          RowSelect = True
+          ShowHint = False
           TabOrder = 0
         end
       end
     end
   end
-  object IbDtstTabela: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    OnUpdateError = IbDtstTabelaUpdateError
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
+  inherited IbDtstTabela: TIBDataSet
+    AfterCancel = IbDtstTabelaAfterCancel
+    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
-      '    b.bco_cod'
-      '  , b.bco_carteira'
-      '  , b.bco_nome'
-      '  , b.bco_chave'
-      '  , b.bco_agencia'
-      '  , b.bco_cc'
-      '  , b.bco_nosso_num_inicio'
-      '  , b.bco_nosso_num_final'
-      '  , b.bco_nosso_num_proximo'
-      '  , b.bco_confg_1'
-      '  , b.bco_confg_2'
-      '  , b.bco_diretorio_remessa'
-      '  , b.bco_diretorio_retorno'
-      '  , b.bco_sequencial_rem'
-      'from TBBANCO_BOLETO b')
-    ModifySQL.Strings = (
-      '')
-    GeneratorField.ApplyEvent = gamOnPost
-    UpdateObject = IbUpdTabela
-    Left = 624
-    Top = 8
+      '    f.cod'
+      '  , f.funcao'
+      'from TBFUNCAO f')
+    object IbDtstTabelaCOD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = '"TBFUNCAO"."COD"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object IbDtstTabelaFUNCAO: TIBStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'FUNCAO'
+      Origin = '"TBFUNCAO"."FUNCAO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 25
+    end
   end
-  object DtSrcTabela: TDataSource
-    AutoEdit = False
-    DataSet = IbDtstTabela
-    OnStateChange = DtSrcTabelaStateChange
-    Left = 688
-    Top = 8
-  end
-  object IbUpdTabela: TIBUpdateSQL
+  inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
-      '  BCO_COD,'
-      '  BCO_CARTEIRA,'
-      '  BCO_NOME,'
-      '  BCO_CHAVE,'
-      '  BCO_AGENCIA,'
-      '  BCO_CC,'
-      '  BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_CONFG_1,'
-      '  BCO_CONFG_2,'
-      '  BCO_SEQUENCIAL_REM,'
-      '  BCO_DIRETORIO_REMESSA,'
-      '  BCO_DIRETORIO_RETORNO'
-      'from TBBANCO_BOLETO '
+      '  COD,'
+      '  FUNCAO'
+      'from TBFUNCAO '
       'where'
-      '  BCO_COD = :BCO_COD')
+      '  COD = :COD')
     ModifySQL.Strings = (
-      'update TBBANCO_BOLETO'
+      'update TBFUNCAO'
       'set'
-      '  BCO_COD = :BCO_COD,'
-      '  BCO_CARTEIRA = :BCO_CARTEIRA,'
-      '  BCO_NOME = :BCO_NOME,'
-      '  BCO_CHAVE = :BCO_CHAVE,'
-      '  BCO_AGENCIA = :BCO_AGENCIA,'
-      '  BCO_CC = :BCO_CC,'
-      '  BCO_NOSSO_NUM_INICIO = :BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_FINAL = :BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_PROXIMO = :BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_CONFG_1 = :BCO_CONFG_1,'
-      '  BCO_CONFG_2 = :BCO_CONFG_2,'
-      '  BCO_DIRETORIO_REMESSA = :BCO_DIRETORIO_REMESSA,'
-      '  BCO_DIRETORIO_RETORNO = :BCO_DIRETORIO_RETORNO,'
-      '  BCO_SEQUENCIAL_REM = :BCO_SEQUENCIAL_REM'
+      '  COD = :COD,'
+      '  FUNCAO = :FUNCAO'
       'where'
-      '  BCO_COD = :OLD_BCO_COD')
+      '  COD = :OLD_COD')
     InsertSQL.Strings = (
-      'insert into TBBANCO_BOLETO'
-      
-        '  (BCO_COD, BCO_CARTEIRA, BCO_NOME, BCO_CHAVE, BCO_AGENCIA, BCO_' +
-        'CC, BCO_NOSSO_NUM_INICIO, '
-      
-        '   BCO_NOSSO_NUM_FINAL, BCO_NOSSO_NUM_PROXIMO, BCO_CONFG_1, BCO_' +
-        'CONFG_2, '
-      
-        '   BCO_DIRETORIO_REMESSA, BCO_DIRETORIO_RETORNO, BCO_SEQUENCIAL_' +
-        'REM)'
+      'insert into TBFUNCAO'
+      '  (COD, FUNCAO)'
       'values'
-      
-        '  (:BCO_COD, :BCO_CARTEIRA, :BCO_NOME, :BCO_CHAVE, :BCO_AGENCIA,' +
-        ' :BCO_CC, '
-      
-        '   :BCO_NOSSO_NUM_INICIO, :BCO_NOSSO_NUM_FINAL, :BCO_NOSSO_NUM_P' +
-        'ROXIMO, '
-      
-        '   :BCO_CONFG_1, :BCO_CONFG_2, :BCO_DIRETORIO_REMESSA, :BCO_DIRE' +
-        'TORIO_RETORNO, '
-      '   :BCO_SEQUENCIAL_REM)')
+      '  (:COD, :FUNCAO)')
     DeleteSQL.Strings = (
-      'delete from TBBANCO_BOLETO'
+      'delete from TBFUNCAO'
       'where'
-      '  BCO_COD = :OLD_BCO_COD')
-    Left = 656
-    Top = 8
+      '  COD = :OLD_COD')
   end
-  object ImgList: TImageList
-    Left = 592
-    Top = 8
+  inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2082,6 +1658,232 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       C007C00780018001C007C00780018001C007C00780018001C007C00780018001
       C007C00780018001C007C00780018001C007C00780018001C007C00780018001
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
-      C01FC01F80018001FFFFFFFFFFFFFFFF}
+      C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
+      000000000000}
+  end
+  object PopMenuTree: TPopupMenu
+    Images = ImgList
+    Left = 312
+    Top = 176
+    object miRestrito: TMenuItem
+      Caption = 'Restrito'
+      OnClick = SetPermissaoPopup
+    end
+    object miDisponivel: TMenuItem
+      Tag = 1
+      Caption = 'Dispon'#237'vel'
+      OnClick = SetPermissaoPopup
+    end
+    object miInvisivel: TMenuItem
+      Tag = 2
+      Caption = 'Invis'#237'vel'
+      Visible = False
+      OnClick = SetPermissaoPopup
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object miRestritoTodas: TMenuItem
+      Caption = 'Restrigir Todas'
+      ImageIndex = 41
+      OnClick = SetPermissaoPopupTodas
+    end
+    object miDisponivelTodas: TMenuItem
+      Tag = 1
+      Caption = 'Disponibilizar Todas'
+      ImageIndex = 42
+      OnClick = SetPermissaoPopupTodas
+    end
+    object miInverterMarcacao: TMenuItem
+      Tag = 2
+      Caption = 'Inverter Marca'#231#227'o'
+      OnClick = SetPermissaoPopupTodas
+    end
+  end
+  object qryMenu: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    r.rot_cod'
+      '  , r.rot_tipo'
+      '  , r.rot_descricao'
+      '  , r.rot_cod_pai'
+      'from SYS_ROTINA r'
+      '  inner join SYS_SISTEMA_ROTINA s on (s.rot_cod = r.rot_cod)'
+      ''
+      'where s.sis_cod = :sistema'
+      '  and r.rot_tipo = 0'
+      '  and r.rot_cod_pai is null'
+      ''
+      'order by'
+      '    r.rot_cod')
+    Left = 88
+    Top = 176
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'sistema'
+        ParamType = ptInput
+        Value = 0
+      end>
+  end
+  object dspMenu: TDataSetProvider
+    DataSet = qryMenu
+    Left = 120
+    Top = 176
+  end
+  object cdsMenu: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'sistema'
+        ParamType = ptInput
+        Value = 0
+      end>
+    ProviderName = 'dspMenu'
+    Left = 152
+    Top = 176
+  end
+  object qrySubMenu: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    r.rot_cod'
+      '  , r.rot_tipo'
+      '  , r.rot_descricao'
+      '  , r.rot_cod_pai'
+      'from SYS_ROTINA r'
+      '  inner join SYS_SISTEMA_ROTINA s on (s.rot_cod = r.rot_cod)'
+      ''
+      'where s.sis_cod     = :sistema'
+      '  and r.rot_cod_pai = :rotina'
+      ''
+      'order by'
+      '    r.rot_cod')
+    Left = 88
+    Top = 224
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'sistema'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftString
+        Name = 'rotina'
+        ParamType = ptInput
+        Value = ''
+      end>
+  end
+  object dspSubMenu: TDataSetProvider
+    DataSet = qrySubMenu
+    Left = 120
+    Top = 224
+  end
+  object cdsSubMenu: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'sistema'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftString
+        Name = 'rotina'
+        ParamType = ptInput
+        Value = ''
+      end>
+    ProviderName = 'dspSubMenu'
+    Left = 152
+    Top = 224
+  end
+  object qryPermissao: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    p.sistema'
+      '  , p.funcao'
+      '  , p.rotina'
+      '  , p.acesso'
+      'from SYS_FUNCAO_PERMISSAO p'
+      'where p.sistema = :sistema'
+      '  and p.funcao  = :perfil'
+      ''
+      'order by'
+      '    p.rotina')
+    Left = 88
+    Top = 272
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'sistema'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftSmallint
+        Name = 'perfil'
+        ParamType = ptInput
+        Value = 0
+      end>
+  end
+  object dspPermissao: TDataSetProvider
+    DataSet = qryPermissao
+    Left = 120
+    Top = 272
+  end
+  object cdsPermissao: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'sistema'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftSmallint
+        Name = 'perfil'
+        ParamType = ptInput
+        Value = 0
+      end>
+    ProviderName = 'dspPermissao'
+    Left = 152
+    Top = 272
+  end
+  object stpFuncaoPermissao: TIBStoredProc
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    StoredProcName = 'SET_FUNCAO_PERMISSAO'
+    Left = 624
+    Top = 56
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'SIS_CODIGO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftSmallint
+        Name = 'FUN_CODIGO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'ROT_CODIGO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftSmallint
+        Name = 'ACESSO'
+        ParamType = ptInput
+      end>
   end
 end

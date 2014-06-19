@@ -112,7 +112,8 @@ uses
   UGeAutorizacaoCompraCancelar in 'UGeAutorizacaoCompraCancelar.pas' {frmGeAutorizacaoCompraCancelar},
   UGeContasAPagarImpressao in 'UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao},
   UGeEntradaImpressao in 'UGeEntradaImpressao.pas' {frmGeEntradaImpressao},
-  UGeContasAPagarQuitar in 'UGeContasAPagarQuitar.pas' {frmGeContasAPagarQuitar};
+  UGeContasAPagarQuitar in 'UGeContasAPagarQuitar.pas' {frmGeContasAPagarQuitar},
+  UGrUsuarioPerfil in 'UGrUsuarioPerfil.pas' {frmGrUsuarioPerfil};
 
 {$R *.res}
 

@@ -22116,7 +22116,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
         Caption = 'Perfil de Acesso ao Sistema'
-        Enabled = False
+        OnClick = nmPerfilAcessoClick
       end
       object nmUsuario: TMenuItem
         Bitmap.Data = {

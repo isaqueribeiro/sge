@@ -229,6 +229,7 @@ type
     procedure nmEntradaServicoClick(Sender: TObject);
     procedure mnRelatorioEntradaProdutoClick(Sender: TObject);
     procedure nmQuitarContaAPagar_LoteClick(Sender: TObject);
+    procedure nmPerfilAcessoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -841,6 +842,14 @@ end;
 procedure TfrmPrinc.nmQuitarContaAPagar_LoteClick(Sender: TObject);
 begin
   FormFunction.ShowModalForm(Self, 'frmGeContasAPagarQuitar');
+end;
+
+procedure TfrmPrinc.nmPerfilAcessoClick(Sender: TObject);
+begin
+  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
+    ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
+  else
+    FormFunction.ShowModalForm(Self, 'frmGrUsuarioPerfil');
 end;
 
 end.
