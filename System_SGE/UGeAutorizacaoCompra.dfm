@@ -2453,7 +2453,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  , u.unp_descricao'
       '  , u.unp_sigla'
       'from TBAUTORIZA_COMPRAITEM i'
-      '  inner join TBPRODUTO p on (p.cod = i.produto)'
+      '  left join TBPRODUTO p on (p.cod = i.produto)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
     ModifySQL.Strings = (
       '')
@@ -2490,9 +2490,11 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       ProviderFlags = [pfInUpdate]
     end
     object cdsTabelaItensPRODUTO: TIBStringField
+      DisplayLabel = 'Produto'
       FieldName = 'PRODUTO'
       Origin = '"TBAUTORIZA_COMPRAITEM"."PRODUTO"'
       ProviderFlags = [pfInUpdate]
+      Required = True
       Size = 10
     end
     object cdsTabelaItensQUANTIDADE: TIBBCDField
