@@ -425,6 +425,8 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaGerarNFeID : String;
     function GetRotinaCancelarVendaID : String;
+    function GetRotinaGerarBoletoID : String;
+    function GetRotinaEnviarEmailID : String;
 
     procedure RegistrarNovaRotinaSistema;
   public
@@ -432,6 +434,8 @@ type
     property RotinaFinalizarID     : String read GetRotinaFinalizarID;
     property RotinaGerarNFeID      : String read GetRotinaGerarNFeID;
     property RotinaCancelarVendaID : String read GetRotinaCancelarVendaID;
+    property RotinaGerarBoletoID   : String read GetRotinaGerarBoletoID;
+    property RotinaEnviarEmailID   : String read GetRotinaEnviarEmailID;
   end;
 
 var
@@ -1507,6 +1511,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   CxAno    := 0;
   CxNumero := 0;
   CxContaCorrente := 0;
@@ -1653,6 +1660,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   RecarregarRegistro;
 
   if not DMNFe.GetValidadeCertificado then
@@ -1793,6 +1803,9 @@ var
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
 
   RecarregarRegistro;
 
@@ -2378,6 +2391,9 @@ begin
   if IbDtstTabela.IsEmpty then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   if (IbDtstTabela.State in [dsEdit, dsInsert]) then
     Exit;
 
@@ -2595,6 +2611,9 @@ begin
   if (IbDtstTabela.State in [dsEdit, dsInsert]) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   // Montar identificação do documento para título de e-mail
 
   if ( IbDtstTabelaNFE.AsLargeInt > 0 ) then
@@ -2682,43 +2701,38 @@ begin
 
     if btbtnCancelarVND.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarVendaID, btbtnCancelarVND.Caption, RotinaID);
+
+    if nmGerarImprimirBoletos.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaGerarBoletoID, nmGerarImprimirBoletos.Caption, RotinaID);
+
+    if nmEnviarEmailCliente.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaEnviarEmailID, nmEnviarEmailCliente.Caption, RotinaID);
   end;
 end;
 
 function TfrmGeVenda.GetRotinaCancelarVendaID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnCancelarVND.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnCancelarVND);
 end;
 
 function TfrmGeVenda.GetRotinaFinalizarID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnFinalizar.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnFinalizar);
 end;
 
 function TfrmGeVenda.GetRotinaGerarNFeID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnGerarNFe);
+end;
 
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnGerarNFe.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+function TfrmGeVenda.GetRotinaEnviarEmailID: String;
+begin
+  Result := GetRotinaInternaID(nmEnviarEmailCliente);
+end;
+
+function TfrmGeVenda.GetRotinaGerarBoletoID: String;
+begin
+  Result := GetRotinaInternaID(nmGerarImprimirBoletos);
 end;
 
 end.

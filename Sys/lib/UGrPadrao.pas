@@ -26,8 +26,8 @@ type
   public
     { Public declarations }
     FuncoesString : THopeString;
-    property RotinaID    : String read fRotinaID write SetRotinaID;
-    property RotinaPaiID : String read GetRotinaPaiID;
+    property RotinaID     : String read fRotinaID write SetRotinaID;
+    property RotinaPaiID  : String read GetRotinaPaiID;
 
     procedure RegistrarRotinaSistema; virtual; abstract;
   end;

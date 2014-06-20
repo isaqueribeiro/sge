@@ -46,6 +46,8 @@ type
     miRestritoTodas: TMenuItem;
     miDisponivelTodas: TMenuItem;
     miInverterMarcacao: TMenuItem;
+    N2: TMenuItem;
+    miCopiarPerfil: TMenuItem;
     procedure SetPermissaoPopup(Sender: TObject);
     procedure SetPermissaoPopupTodas(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -58,6 +60,7 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure miCopiarPerfilClick(Sender: TObject);
   private
     { Private declarations }
     procedure MontarListaPermissao(const TreeViewPermissao: TTreeView; const iSistema : Integer; const iPerfil : Integer);
@@ -73,7 +76,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE;
+  UDMBusiness, UConstantesDGE, UGrUsuarioCopiarPerfil;
 
 {$R *.dfm}
 
@@ -499,6 +502,21 @@ begin
 
   TreeMenu.Selected := TreeMenu.Items[0];
   TreeMenu.Update;
+end;
+
+procedure TfrmGrUsuarioPerfil.miCopiarPerfilClick(Sender: TObject);
+var
+  iPerfilIn  ,
+  iPerfilOut : Integer;
+begin
+  if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+    Exit;
+
+  iPerfilIn  := IbDtstTabelaCOD.AsInteger;
+  iPerfilOut := 0;
+
+  if SelecionarPerfil(Self, iPerfilIn, iPerfilOut) then
+    CarregarPermissao(gSistema.Codigo, iPerfilOut);
 end;
 
 initialization

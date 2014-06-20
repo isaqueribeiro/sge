@@ -1296,39 +1296,18 @@ begin
 end;
 
 function TfrmGeAutorizacaoCompra.GetRotinaAutorizarID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btnAutorizarCompra.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btnAutorizarCompra);
 end;
 
 function TfrmGeAutorizacaoCompra.GetRotinaCancelarAutorizacaoID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btnCancelarAutorizacao.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btnCancelarAutorizacao);
 end;
 
 function TfrmGeAutorizacaoCompra.GetRotinaFinalizarID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btnFinalizarAutorizacao.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btnFinalizarAutorizacao);
 end;
 
 procedure TfrmGeAutorizacaoCompra.RegistrarNovaRotinaSistema;

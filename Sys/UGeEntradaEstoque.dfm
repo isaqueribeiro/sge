@@ -22,7 +22,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     inherited btbtnLista: TBitBtn
       Caption = 'Imprimir'
       Visible = True
-      OnClick = btbtnListaClick
     end
     object btbtnFinalizar: TBitBtn
       Tag = 11

@@ -21,7 +21,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Width = 1116
     inherited btbtnLista: TBitBtn
       Visible = True
-      OnClick = btbtnListaClick
     end
     object btnFinalizarAutorizacao: TBitBtn
       Tag = 11

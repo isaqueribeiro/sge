@@ -192,7 +192,7 @@ const
 
 implementation
 
-uses DateUtils, UDMBusiness, UGeCliente, UGeFornecedor, UGeCaixa, UDMNFe;
+uses DateUtils, UDMBusiness, UGeCliente, UGeFornecedor, UGeCaixa, UDMNFe, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -258,6 +258,7 @@ begin
   if ( not tblContaCorrente.IsEmpty ) then
     edContaCorrentePesq.LookupValue := tblContaCorrente.FieldByName('Codigo').AsString;
 
+  RotinaID            := ROTINA_FIN_TESOURARIA_ID;
   DisplayFormatCodigo := '###0000000';
   ControlFirstEdit    := dbDataMov;
   

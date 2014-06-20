@@ -307,6 +307,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btbtnExcluirClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -314,10 +315,14 @@ type
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure HabilitarAbaEstoque;
     procedure EstoqueSateliteFiltarDados(const iTipoPesquisa : Integer);
+    procedure RegistrarNovaRotinaSistema;
 
     function GetUserVisualizaEstoque : Boolean;
+    function GetRotinaBloqueioID : String;
   public
     { Public declarations }
+    property RotinaBloqueioID : String read GetRotinaBloqueioID;
+
     procedure Update(Observeble: IObservable); overload;
     procedure Update(Observeble: IObservable; sMessage: string); overload;
     procedure FiltarDados(const iTipoPesquisa : Integer); overload;
@@ -870,6 +875,9 @@ end;
 
 procedure TfrmGeCliente.BtBtnProcessoClick(Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   popProcesso.Popup(BtBtnProcesso.ClientOrigin.X, BtBtnProcesso.ClientOrigin.Y + BtBtnProcesso.Height);
 end;
 
@@ -1470,6 +1478,26 @@ begin
   end
   else
     inherited;
+end;
+
+procedure TfrmGeCliente.RegistrarNovaRotinaSistema;
+begin
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if BtBtnProcesso.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaBloqueioID, BtBtnProcesso.Hint, RotinaID);
+  end;
+end;
+
+function TfrmGeCliente.GetRotinaBloqueioID: String;
+begin
+  Result := GetRotinaInternaID(BtBtnProcesso);
+end;
+
+procedure TfrmGeCliente.FormShow(Sender: TObject);
+begin
+  inherited;
+  RegistrarNovaRotinaSistema;
 end;
 
 initialization

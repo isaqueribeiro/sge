@@ -23,7 +23,6 @@ inherited frmGeCaixa: TfrmGeCaixa
       Caption = 'Im&primir'
       PopupMenu = ppImprimir
       Visible = True
-      OnClick = btbtnListaClick
     end
     inherited bvlToolExpandir: TBevel
       Width = 12
@@ -35,6 +34,7 @@ inherited frmGeCaixa: TfrmGeCaixa
       Left = 673
     end
     object btbtnEncerrar: TBitBtn
+      Tag = 11
       Left = 677
       Top = 2
       Width = 120
@@ -106,6 +106,7 @@ inherited frmGeCaixa: TfrmGeCaixa
       Shape = bsSpacer
     end
     object btbtnCancelarCaixa: TBitBtn
+      Tag = 12
       Left = 801
       Top = 2
       Width = 120
@@ -116,6 +117,7 @@ inherited frmGeCaixa: TfrmGeCaixa
       ShowHint = True
       TabOrder = 9
       Visible = False
+      OnClick = btbtnCancelarCaixaClick
       Glyph.Data = {
         36060000424D3606000000000000360400002800000020000000100000000100
         08000000000000020000C40E0000C40E00000001000000010000000000000910

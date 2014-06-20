@@ -21,9 +21,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     Width = 934
     inherited btbtnLista: TBitBtn
       Visible = True
-      OnClick = btbtnListaClick
     end
     object btbtnEfetuarPagto: TBitBtn
+      Tag = 11
       Left = 726
       Top = 2
       Width = 120
@@ -795,6 +795,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         end
       end
       object dbgPagamentos: TDBGrid
+        Tag = 12
         Left = 0
         Top = 205
         Width = 926

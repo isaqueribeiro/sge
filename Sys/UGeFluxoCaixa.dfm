@@ -21,7 +21,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     inherited btbtnLista: TBitBtn
       Caption = '&Extrato'
       Visible = True
-      OnClick = btbtnListaClick
     end
   end
   inherited pgcGuias: TPageControl

@@ -71,6 +71,7 @@ type
       Shift: TShiftState);
     procedure IbDtstTabelaUpdateError(DataSet: TDataSet; E: EDatabaseError;
       UpdateKind: TUpdateKind; var UpdateAction: TIBUpdateAction);
+    procedure btbtnListaClick(Sender: TObject);
   private
     { Private declarations }
     fDisplayFormat  ,
@@ -131,6 +132,8 @@ type
     procedure FecharAbrirTabela(const Tabela : TIBDataSet; const Vazia : Boolean = FALSE); overload;
 
     function SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean; overload;
+    function GetRotinaInternaID(const Sender : TObject) : String;
+    function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
   end;
 
 var
@@ -282,6 +285,9 @@ end;
 
 procedure TfrmGrPadraoCadastro.btbtnIncluirClick(Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+    
   if not TBitBtn(Sender).Visible then
     Exit;
 
@@ -296,6 +302,9 @@ end;
 
 procedure TfrmGrPadraoCadastro.btbtnAlterarClick(Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+    
   if not TBitBtn(Sender).Visible then
     Exit;
 
@@ -310,6 +319,9 @@ end;
 
 procedure TfrmGrPadraoCadastro.btbtnExcluirClick(Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+    
   if not TBitBtn(Sender).Visible then
     Exit;
 
@@ -437,6 +449,9 @@ end;
 
 procedure TfrmGrPadraoCadastro.btnFiltrarClick(Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   FiltarDados;
   CentralizarCodigo;  
 end;
@@ -677,6 +692,9 @@ end;
 
 procedure TfrmGrPadraoCadastro.btbtnSelecionarClick(Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   if not TBitBtn(Sender).Visible then
     Exit;
 
@@ -860,54 +878,50 @@ begin
 end;
 
 function TfrmGrPadraoCadastro.GetRotinaEditarID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnAlterar.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnAlterar);
 end;
 
 function TfrmGrPadraoCadastro.GetRotinaExcluirID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnExcluir.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnExcluir);
 end;
 
 function TfrmGrPadraoCadastro.GetRotinaImprimirID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnLista.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnLista);
 end;
 
 function TfrmGrPadraoCadastro.GetRotinaInserirID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnIncluir.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnIncluir);
 end;
 
 function TfrmGrPadraoCadastro.GetRotinaPesquisarID: String;
+begin
+  Result := GetRotinaInternaID(btnFiltrar);
+end;
+
+function TfrmGrPadraoCadastro.GetPermissaoRotinaInterna(
+  const Sender: TObject; const Alertar : Boolean = FALSE): Boolean;
+var
+  sRotinaInternaID : String;
+begin
+  sRotinaInternaID := GetRotinaInternaID(Sender);
+
+  if Trim(sRotinaInternaID) = EmptyStr then
+    Result := True
+  else
+    Result := GetPermissaoRotinaSistema(sRotinaInternaID, Alertar);
+end;
+
+procedure TfrmGrPadraoCadastro.btbtnListaClick(Sender: TObject);
+begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+end;
+
+function TfrmGrPadraoCadastro.GetRotinaInternaID(const Sender : TObject): String;
 var
   sComplemento : String;
 begin
@@ -916,7 +930,7 @@ begin
   if ( Trim(RotinaID) = EmptyStr ) then
     Result := EmptyStr
   else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btnFiltrar.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
 end;
 
 end.

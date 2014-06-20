@@ -3,8 +3,8 @@ unit UPrinc;
 interface
 
 uses
-  EUserAcs, StdCtrls, Buttons,
-  
+  StdCtrls, Buttons,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
 
@@ -141,7 +141,6 @@ type
     N16: TMenuItem;
     nmRequisicaoCliente: TMenuItem;
     N9: TMenuItem;
-    EvAcessUserPrincipal: TEvUserAccess;
     nmOS: TMenuItem;
     nmRelatorioFaturamentoOS: TMenuItem;
     nmExportarChaveNFeGerada: TMenuItem;
@@ -279,22 +278,26 @@ end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeCliente');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CLIENTE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeCliente');
 end;
 
 procedure TfrmPrinc.btnContaAReceberClick(Sender: TObject);
 begin
-  MostrarControleContasAReceber(Self);
+  if GetPermissaoRotinaSistema(ROTINA_FIN_CONTA_ARECEBER_ID, True) then
+    MostrarControleContasAReceber(Self);
 end;
 
 procedure TfrmPrinc.btnContaAPagarClick(Sender: TObject);
 begin
-  MostrarControleContasAPagar(Self);
+  if GetPermissaoRotinaSistema(ROTINA_FIN_CONTA_APAGAR_ID, True) then
+    MostrarControleContasAPagar(Self);
 end;
 
 procedure TfrmPrinc.nmFornecedorClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeFornecedor');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_FORNECEDOR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeFornecedor');
 end;
 
 procedure TfrmPrinc.btnSairClick(Sender: TObject);
@@ -305,42 +308,50 @@ end;
 
 procedure TfrmPrinc.btnProdutoClick(Sender: TObject);
 begin
-  MostrarTabelaProdutos(Self, taICMS);
+  if GetPermissaoRotinaSistema(ROTINA_CAD_PRODUTO_ID, True) then
+    MostrarTabelaProdutos(Self, taICMS);
 end;
 
 procedure TfrmPrinc.nmEntradaProdutoClick(Sender: TObject);
 begin
-  MostrarControleCompras(Self);
+  if GetPermissaoRotinaSistema(ROTINA_ENT_PRODUTO_ID, True) then
+    MostrarControleCompras(Self);
 end;
 
 procedure TfrmPrinc.nmAjusteManualClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeEstoqueAjusteManual');
+  if GetPermissaoRotinaSistema(ROTINA_ENT_AJUSTE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeEstoqueAjusteManual');
 end;
 
 procedure TfrmPrinc.nmKardexClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmKardex');
+  if GetPermissaoRotinaSistema(ROTINA_ENT_KARDEX_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmKardex');
 end;
 
 procedure TfrmPrinc.nmVendaClick(Sender: TObject);
 begin
-  MostrarControleVendas(Self);
+  if GetPermissaoRotinaSistema(ROTINA_MOV_VENDA_ID, True) then
+    MostrarControleVendas(Self);
 end;
 
 procedure TfrmPrinc.nmRelatorioClienteClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeClienteImpressao');
+  if GetPermissaoRotinaSistema(ROTINA_REL_CLIENTE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeClienteImpressao');
 end;
 
 procedure TfrmPrinc.nmRelatorioFornecedorClick(Sender: TObject);
 begin
-  FormFunction.ShowFormReport(Self, 'frmRelFornec', 'qckrp');
+  if GetPermissaoRotinaSistema(ROTINA_REL_FORNECEDOR_ID, True) then
+    FormFunction.ShowFormReport(Self, 'frmRelFornec', 'qckrp');
 end;
 
 procedure TfrmPrinc.nmRelatorioProdutoClick(Sender: TObject);
 begin
-  FormFunction.ShowFormReport(Self, 'frmRelProdutos', 'QuickRep1');
+  if GetPermissaoRotinaSistema(ROTINA_REL_PRODUTO_ID, True) then
+    FormFunction.ShowFormReport(Self, 'frmRelProdutos', 'QuickRep1');
 end;
 
 procedure TfrmPrinc.nmAboutClick(Sender: TObject);
@@ -350,72 +361,86 @@ end;
 
 procedure TfrmPrinc.mnBancoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeBancos');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_BANCO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeBancos');
 end;
 
 procedure TfrmPrinc.nmTiposdeLogradourosClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeTipoLogradouro');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_LOG_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeTipoLogradouro');
 end;
 
 procedure TfrmPrinc.nmEstadosClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeEstado');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_ESTADO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeEstado');
 end;
 
 procedure TfrmPrinc.nmCidadesClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeCidade');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CIDADE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeCidade');
 end;
 
 procedure TfrmPrinc.nmDistritosClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeDistrito');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_DISTRITO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeDistrito');
 end;
 
 procedure TfrmPrinc.nmBairrosClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeBairro');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_BAIRRO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeBairro');
 end;
 
 procedure TfrmPrinc.nmLogradourosClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeLogradouro');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_LOGRADOURO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeLogradouro');
 end;
 
 procedure TfrmPrinc.nmGruposProdutoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeGrupoProduto');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_GRUPO_PROD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeGrupoProduto');
 end;
 
 procedure TfrmPrinc.nmSecaoProdutoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeSecaoProduto');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_SECAO_PROD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeSecaoProduto');
 end;
 
 procedure TfrmPrinc.nmUnidadeClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeUnidade');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_UNIDA_PROD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeUnidade');
 end;
 
 procedure TfrmPrinc.nmTabelaCFOPClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeTabelaCFOP');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CFOP_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeTabelaCFOP');
 end;
 
 procedure TfrmPrinc.nmFormaPagtoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeFormaPagto');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_FORMA_PAGTO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeFormaPagto');
 end;
 
 procedure TfrmPrinc.nmVendedorClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeVendedor');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_VENDEDOR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeVendedor');
 end;
 
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeCondicaoPagto');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CONDICAO_PAGTO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeCondicaoPagto');
 end;
 
 procedure TfrmPrinc.nmConfigurarNFeACBrClick(Sender: TObject);
@@ -428,7 +453,8 @@ end;
 
 procedure TfrmPrinc.nmTipoDespesaClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeTipoDespesa');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_DESPESA_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeTipoDespesa');
 end;
 
 procedure TfrmPrinc.FormActivate(Sender: TObject);
@@ -442,71 +468,6 @@ begin
 
   stbMain.Panels.Items[2].Text  := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
   nmUsuarioAlterarSenha.Caption := Format('Alteração de Senha (%s)', [GetUserApp]);
-
-  EvAcessUserPrincipal.UserID := GetUserFunctionID;
-
-  RegistrarControleAcesso(Self, EvAcessUserPrincipal);
-  GetControleAcesso(Self, EvAcessUserPrincipal);
-
-  Case GetUserFunctionID of
-    FUNCTION_USER_ID_DIRETORIA :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_DIRETORIA;
-
-    FUNCTION_USER_ID_GERENTE_VND :
-      begin
-        EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_GERENTE_VND;
-        btnTesouraria.Enabled    := False;
-        btnContaAReceber.Enabled := False;
-        btnContaAPagar.Enabled   := False;
-      end;
-
-    FUNCTION_USER_ID_GERENTE_FIN :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_GERENTE_FIN;
-
-    FUNCTION_USER_ID_VENDEDOR :
-      begin
-        EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_VENDEDOR;
-
-        mnRelatorioFinanceiro.Enabled := False;
-        nmRelatorioProduto.Enabled    := False;
-        mnRelatorioEstoque.Enabled    := False;
-
-        btnEmpresa.Enabled       := False;
-        btnProduto.Enabled       := False;
-        btnFornecedor.Enabled    := False;
-        btnEstoque.Enabled       := False;
-        btnTesouraria.Enabled    := False;
-        btnContaAReceber.Enabled := False;
-        btnContaAPagar.Enabled   := False;
-      end;
-
-    FUNCTION_USER_ID_GERENTE_ADM :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_GERENTE_ADM;
-
-    FUNCTION_USER_ID_CAIXA       :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_CAIXA;
-
-    FUNCTION_USER_ID_AUX_FINANC1 :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_AUX_FINANC1;
-
-    FUNCTION_USER_ID_AUX_FINANC2 :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_AUX_FINANC2;
-
-    FUNCTION_USER_ID_SUPERV_CX  :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_SUPERV_CX;
-
-    FUNCTION_USER_ID_ESTOQUISTA :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_ESTOQUISTA;
-
-    FUNCTION_USER_ID_SUPORTE_TI :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_SUPORTE_TI;
-
-    FUNCTION_USER_ID_SYSTEM_ADM :
-      EvAcessUserPrincipal.UserID := FUNCTION_USER_ID_SYSTEM_ADM;
-  else
-    ShowWarning('Falta cruzar nova função com UserID!');
-    Application.Terminate;
-  end;
 
   Self.WindowState := wsMaximized;
 
@@ -577,59 +538,70 @@ end;
 
 procedure TfrmPrinc.nmGerarBoletoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeGerarBoleto');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_GERAR_BOLETO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeGerarBoleto');
 end;
 
 procedure TfrmPrinc.nmRemessaBoletoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeRemessaBoleto');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_GERAR_REMESSA_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeRemessaBoleto');
 end;
 
 procedure TfrmPrinc.nmRetornoBoletoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeRetornoBoleto');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_PROCESSA_RETORN_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeRetornoBoleto');
 end;
 
 procedure TfrmPrinc.nmPromocoesClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGePromocao');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_PROMOCAO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGePromocao');
 end;
 
 procedure TfrmPrinc.nmContaCorrenteClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeContaCorrente');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CONTA_CORRENTE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeContaCorrente');
 end;
 
 procedure TfrmPrinc.nmGerenciaCaixaClick(Sender: TObject);
 begin
-  MostrarTabelaCaixa(Self);
+  if GetPermissaoRotinaSistema(ROTINA_FIN_GERENCIAR_CAIXA_ID, True) then
+    MostrarTabelaCaixa(Self);
 end;
 
 procedure TfrmPrinc.nmAberturaCaixaClick(Sender: TObject);
 begin
-  if ( AbrirCaixa(Self, GetUserApp) ) then
-    ShowInformation('Caixa aberto com sucesso!');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_ABRIR_CAIXA_ID, True) then
+    if ( AbrirCaixa(Self, GetUserApp) ) then
+      ShowInformation('Caixa aberto com sucesso!');
 end;
 
 procedure TfrmPrinc.nmEncerramentoCaixaClick(Sender: TObject);
 begin
-  if ( FecharCaixa(Self, GetUserApp) ) then
-    ShowInformation('Caixa encerrado com sucesso!');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_ENCERRAR_CAIXA_ID, True) then
+    if ( FecharCaixa(Self, GetUserApp) ) then
+      ShowInformation('Caixa encerrado com sucesso!');
 end;
 
 procedure TfrmPrinc.nmFluxoDeCaixaClick(Sender: TObject);
 begin
-  MostrarTabelaFluxoCaixas(Self);
+  if GetPermissaoRotinaSistema(ROTINA_FIN_TESOURARIA_ID, True) then
+    MostrarTabelaFluxoCaixas(Self);
 end;
 
 procedure TfrmPrinc.nmRelatorioFaturamentoVendasClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeVendaImpressao');
+  if GetPermissaoRotinaSistema(ROTINA_REL_FATURA_VENDA_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeVendaImpressao');
 end;
 
 procedure TfrmPrinc.nmFabricanteProdutoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeFabricante');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_FABRI_PROD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeFabricante');
 end;
 
 procedure TfrmPrinc.nmUsuarioAlterarSenhaClick(Sender: TObject);
@@ -640,7 +612,8 @@ end;
 
 procedure TfrmPrinc.nmExportarNFeGeradaClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeExportarNFeGerada');
+  if GetPermissaoRotinaSistema(ROTINA_NFE_EXPORTAR_NFE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeExportarNFeGerada');
 end;
 
 procedure TfrmPrinc.mnRelatorioEstoqueProdutoClick(Sender: TObject);
@@ -655,17 +628,20 @@ end;
 
 procedure TfrmPrinc.nmVendaIemPesquisaClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmGeVendaItemPesquisa');
+  if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_VENDA_ID, True) then
+    FormFunction.ShowModalForm(Self, 'FrmGeVendaItemPesquisa');
 end;
 
 procedure TfrmPrinc.nmRotatividadeClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmGeProdutoRotatividadePRC');
+  if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_ROTATIVIDAD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'FrmGeProdutoRotatividadePRC');
 end;
 
 procedure TfrmPrinc.nmInutilizarNumeroNFeClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeInutilizarNumeroNFe');
+  if GetPermissaoRotinaSistema(ROTINA_NFE_INUTILIZAR_NRO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeInutilizarNumeroNFe');
 end;
 
 procedure TfrmPrinc.nmConfiguracaoEmpresaClick(Sender: TObject);
@@ -678,17 +654,20 @@ end;
 
 procedure TfrmPrinc.nmEstoqueMinimoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmGeProdutoEstoqueMinimo');
+  if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_ESTOQUE_MIN_ID, True) then
+    FormFunction.ShowModalForm(Self, 'FrmGeProdutoEstoqueMinimo');
 end;
 
 procedure TfrmPrinc.nmConsultarLoteNFeClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeConsultarLoteNFe_v2');
+  if GetPermissaoRotinaSistema(ROTINA_NFE_CONSULTA_RECIBO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeConsultarLoteNFe_v2');
 end;
 
 procedure TfrmPrinc.nmConsultarCNPJClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGrConsultarCNJP');
+  if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_CNPJ_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGrConsultarCNJP');
 end;
 
 procedure TfrmPrinc.nmUsuarioClick(Sender: TObject);
@@ -701,12 +680,14 @@ end;
 
 procedure TfrmPrinc.nmRequisicaoClienteClick(Sender: TObject);
 begin
-  MostrarControleRequisicaoCliente(Self);
+  if GetPermissaoRotinaSistema(ROTINA_MOV_REQUISICAO_ID, True) then
+    MostrarControleRequisicaoCliente(Self);
 end;
 
 procedure TfrmPrinc.nmExportarChaveNFeGeradaClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeExportarChaveNFeGerada');
+  if GetPermissaoRotinaSistema(ROTINA_NFE_EXPORTAR_CHAVE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeExportarChaveNFeGerada');
 end;
 
 procedure TfrmPrinc.nmDownloadNFeGeradaClick(Sender: TObject);
@@ -775,20 +756,36 @@ begin
 
   // Relatórios
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_CLIENTE_ID,    Trim(nmRelatorioCliente.Caption),    ROTINA_MENU_RELATORIO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FORNECEDOR_ID, Trim(nmRelatorioFornecedor.Caption), ROTINA_MENU_RELATORIO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_PRODUTO_ID,    Trim(nmRelatorioProduto.Caption),    ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_CLIENTE_ID,      Trim(nmRelatorioCliente.Caption),        ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FORNECEDOR_ID,   Trim(nmRelatorioFornecedor.Caption),     ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_PRODUTO_ID,      Trim(nmRelatorioProduto.Caption),        ROTINA_MENU_RELATORIO_ID);
+
+  // Relatórios -> Faturamento
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FATURA_VENDA_ID, Trim(nmRelatorioFaturamentoVendas.Caption), ROTINA_MENU_REL_FATURAMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FATURA_OS_ID,    Trim(nmRelatorioFaturamentoOS.Caption),     ROTINA_MENU_REL_FATURAMENTO_ID);
+
+  // Relatórios -> Entradas
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ENTRADA_PROD_ID, Trim(mnRelatorioEntradaProduto.Caption), ROTINA_MENU_REL_ENTRADA_ID);
+
+  // Relatórios -> Financeiro
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_APAGAR_ID,   Trim(nmRelatorioFinanceiroContasAPagar.Caption),   ROTINA_MENU_REL_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ARECEBER_ID, Trim(nmRelatorioFinanceiroContasAReceber.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
 end;
 
 procedure TfrmPrinc.nmGerarArquivoNFCClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeExportarNFC');
+  if GetPermissaoRotinaSistema(ROTINA_NFE_GERAR_ARQUI_NFC_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeExportarNFC');
 end;
 
 procedure TfrmPrinc.nmRelatorioFinanceiroContasAReceberClick(
   Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeContasAReceberImpressao');
+  if GetPermissaoRotinaSistema(ROTINA_REL_ARECEBER_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeContasAReceberImpressao');
 end;
 
 procedure TfrmPrinc.nmConfigurarAmbienteClick(Sender: TObject);
@@ -826,22 +823,26 @@ end;
 procedure TfrmPrinc.nmRelatorioFinanceiroContasAPagarClick(
   Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeContasAPagarImpressao');
+  if GetPermissaoRotinaSistema(ROTINA_REL_APAGAR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeContasAPagarImpressao');
 end;
 
 procedure TfrmPrinc.nmEntradaServicoClick(Sender: TObject);
 begin
-  MostrarControleCompraServicos(Self);
+  if GetPermissaoRotinaSistema(ROTINA_ENT_SERVICO_ID, True) then
+    MostrarControleCompraServicos(Self);
 end;
 
 procedure TfrmPrinc.mnRelatorioEntradaProdutoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeEntradaImpressao');
+  if GetPermissaoRotinaSistema(ROTINA_REL_ENTRADA_PROD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeEntradaImpressao');
 end;
 
 procedure TfrmPrinc.nmQuitarContaAPagar_LoteClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'frmGeContasAPagarQuitar');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_APAGAR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeContasAPagarQuitar');
 end;
 
 procedure TfrmPrinc.nmPerfilAcessoClick(Sender: TObject);

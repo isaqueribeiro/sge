@@ -276,7 +276,6 @@ var
   function GetUserApp : String;
   function GetUserFullName : String;
   function GetUserFunctionID : Integer;
-  function GetUserPermissao(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
   function GetUserUpdatePassWord : Boolean;
   function GetLimiteDescontoUser : Currency;
   function GetUserPermitirAlterarValorVenda : Boolean;
@@ -2085,15 +2084,6 @@ begin
     Result := ibdtstUsersCODFUNCAO.AsInteger;
 end;
 
-function GetUserPermissao(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
-begin
-  Result := True;
-
-  if not Result then
-    if Alertar then
-      ShowWarning(sRotina + ' - Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.');
-end;
-
 function GetUserUpdatePassWord : Boolean;
 begin
   with DMBusiness, ibdtstUsers do
@@ -2246,7 +2236,7 @@ begin
 
     if Return then
       Exit;
-      
+
     with DMBusiness, qryBusca do
     begin
       Close;
@@ -2266,7 +2256,7 @@ begin
 
     if not Return then
       if Alertar then
-        ShowInformation('Permissão de Acesso!', 'Usuário sem permissão para executar a rotina solicitada.');
+        ShowWarning('Controle de Acesso', sRotina + ' - Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.');
   finally
     Result := Return;
   end;

@@ -4387,6 +4387,7 @@ inherited frmGeVenda: TfrmGeVenda
       OnClick = ImprimirOrcamentoClick
     end
     object nmGerarImprimirBoletos: TMenuItem
+      Tag = 14
       Caption = 'Gerar / Imprimir &Boletos'
       OnClick = nmGerarImprimirBoletosClick
     end
@@ -4407,6 +4408,7 @@ inherited frmGeVenda: TfrmGeVenda
       Caption = '-'
     end
     object nmEnviarEmailCliente: TMenuItem
+      Tag = 15
       Caption = '&Enviar E-mail para o Cliente'
       Enabled = False
       OnClick = nmEnviarEmailClienteClick

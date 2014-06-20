@@ -1047,6 +1047,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+    
   RecarregarRegistro;
 
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) then
@@ -1210,6 +1213,10 @@ procedure TfrmGeEntradaEstoque.btbtnCancelarENTClick(Sender: TObject);
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
 (*
   if ( PossuiTitulosPagos(IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) ) then
   begin
@@ -1262,6 +1269,9 @@ var
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
 
   if not DMNFe.GetValidadeCertificado then
     Exit;
@@ -1525,39 +1535,18 @@ begin
 end;
 
 function TfrmGeEntradaEstoque.GetRotinaFinalizarID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnFinalizar.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnFinalizar);
 end;
 
 function TfrmGeEntradaEstoque.GetRotinaGerarNFeID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnGerarNFe.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnGerarNFe);
 end;
 
 function TfrmGeEntradaEstoque.GetRotinaCancelarEntradaID: String;
-var
-  sComplemento : String;
 begin
-  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
-
-  if ( Trim(RotinaID) = EmptyStr ) then
-    Result := EmptyStr
-  else
-    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', btbtnCancelarENT.Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+  Result := GetRotinaInternaID(btbtnCancelarENT);
 end;
 
 procedure TfrmGeEntradaEstoque.RegistrarNovaRotinaSistema;

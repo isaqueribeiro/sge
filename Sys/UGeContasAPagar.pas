@@ -163,8 +163,15 @@ type
     procedure AbrirPagamentos(const Ano : Smallint; const Numero : Integer);
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+
+    function GetRotinaEfetuarPagtoID : String;
+    function GetRotinaCancelarPagtosID : String;
+
+    procedure RegistrarNovaRotinaSistema;
   public
     { Public declarations }
+    property RotinaEfetuarPagtoID : String read GetRotinaEfetuarPagtoID;
+    property RotinaCancelarPagtosID : String read GetRotinaCancelarPagtosID;
   end;
 
 var
@@ -181,7 +188,8 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UGeFornecedor, DateUtils, UGeEfetuarPagtoPAG;
+  UConstantesDGE, UDMBusiness, UGeFornecedor, DateUtils, UGeEfetuarPagtoPAG,
+  UGrPadrao;
 
 {$R *.dfm}
 
@@ -230,7 +238,9 @@ begin
   tblCondicaoPagto.Open;
   qryTpDespesa.Open;
 
+  RotinaID            := ROTINA_FIN_CONTA_APAGAR_ID;
   DisplayFormatCodigo := '###0000000';
+  
   NomeTabela     := 'TBCONTPAG';
   CampoCodigo    := 'numlanc';
   CampoDescricao := 'NomeForn';
@@ -308,6 +318,9 @@ var
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
 
   CxAno    := 0;
   CxNumero := 0;
@@ -437,6 +450,8 @@ begin
   inherited;
   qryTpDespesa.Prior;
   qryTpDespesa.Last;
+  
+  RegistrarNovaRotinaSistema;
 end;
 
 procedure TfrmGeContasAPagar.dbgDadosDrawColumnCell(Sender: TObject;
@@ -473,13 +488,9 @@ var
 begin
   if (Shift = [ssCtrl]) and (Key = 46) Then
   begin
-    // Diretoria, Gerente Financeiro, Gerente ADM, Masterdados
-
-    if (not (DMBusiness.ibdtstUsersCODFUNCAO.AsInteger in [
-        FUNCTION_USER_ID_DIRETORIA
-      , FUNCTION_USER_ID_GERENTE_ADM
-      , FUNCTION_USER_ID_GERENTE_FIN
-      , FUNCTION_USER_ID_SYSTEM_ADM])) then Exit;
+  
+    if not GetPermissaoRotinaInterna(Sender, True) then
+      Abort;
 
     if ( not cdsPagamentos.IsEmpty ) then
     begin
@@ -672,6 +683,28 @@ begin
   inherited;
   if ( not OcorreuErro ) then
     AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
+end;
+
+function TfrmGeContasAPagar.GetRotinaCancelarPagtosID: String;
+begin
+  Result := GetRotinaInternaID(dbgPagamentos);
+end;
+
+function TfrmGeContasAPagar.GetRotinaEfetuarPagtoID: String;
+begin
+  Result := GetRotinaInternaID(btbtnEfetuarPagto);
+end;
+
+procedure TfrmGeContasAPagar.RegistrarNovaRotinaSistema;
+begin
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if btbtnEfetuarPagto.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaEfetuarPagtoID, btbtnEfetuarPagto.Hint, RotinaID);
+
+    if dbgPagamentos.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarPagtosID, 'Cancelar Pagamentos', RotinaID);
+  end;
 end;
 
 initialization

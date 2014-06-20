@@ -131,6 +131,8 @@ type
     procedure nmImprimirCaixaSinteticoClick(Sender: TObject);
     procedure nmImprimirCaixaAnaliticoClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure btbtnCancelarCaixaClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -144,8 +146,15 @@ type
     procedure AbrirTabelaMovimento(const AnoCaixa : Smallint; const NumeroCaixa : Integer);
     procedure HabilitarDesabilitar_Btns;
     procedure ConsolidarCaixa(const AnoCaixa : Smallint; const NumeroCaixa : Integer);
+
+    function GetRotinaEncerrarCaixaID : String;
+    function GetRotinaCancelarCaixaID : String;
+
+    procedure RegistrarNovaRotinaSistema;
   public
     { Public declarations }
+    property RotinaEncerrarCaixaID : String read GetRotinaEncerrarCaixaID;
+    property RotinaCancelarCaixaID : String read GetRotinaCancelarCaixaID;
   end;
 
 var
@@ -164,7 +173,8 @@ const
 
 implementation
 
-uses DateUtils, UDMBusiness, UDMNFe;
+uses
+  DateUtils, UDMBusiness, UDMNFe, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -187,6 +197,7 @@ begin
       Open;
     end;
 
+    frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_ID;
     frm.ShowModal;
   finally
     frm.Destroy;
@@ -300,6 +311,7 @@ begin
   tblContaCorrente.Open;
 
   DisplayFormatCodigo := '###0000000';
+  
   NomeTabela     := 'TBCAIXA';
   CampoCodigo    := 'Numero';
   CampoDescricao := 'c.Usuario';
@@ -559,6 +571,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   if ( IbDtstTabelaSITUACAO.AsInteger = STATUS_CAIXA_ABERTO ) then
   begin
     AbrirTabelaMovimento(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
@@ -803,6 +818,42 @@ begin
     QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
   inherited;
+end;
+
+function TfrmGeCaixa.GetRotinaCancelarCaixaID: String;
+begin
+  Result := GetRotinaInternaID(btbtnCancelarCaixa);
+end;
+
+function TfrmGeCaixa.GetRotinaEncerrarCaixaID: String;
+begin
+  Result := GetRotinaInternaID(btbtnEncerrar);
+end;
+
+procedure TfrmGeCaixa.RegistrarNovaRotinaSistema;
+begin
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if btbtnEncerrar.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaEncerrarCaixaID, btbtnEncerrar.Caption, RotinaID);
+
+    if btbtnCancelarCaixa.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarCaixaID, btbtnCancelarCaixa.Caption, RotinaID);
+  end;
+end;
+
+procedure TfrmGeCaixa.btbtnCancelarCaixaClick(Sender: TObject);
+begin
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+end;
+
+procedure TfrmGeCaixa.FormShow(Sender: TObject);
+begin
+  inherited;
+  RegistrarNovaRotinaSistema;
 end;
 
 initialization

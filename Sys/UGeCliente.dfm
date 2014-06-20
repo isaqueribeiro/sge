@@ -32,6 +32,7 @@ inherited frmGeCliente: TfrmGeCliente
       Left = 689
     end
     object BtBtnProcesso: TBitBtn
+      Tag = 11
       Left = 693
       Top = 2
       Width = 120
