@@ -2329,6 +2329,7 @@ object DMNFe: TDMNFe
       '  , v.Cancel_motivo'
       '  , v.Cfop'
       '  , cf.Cfop_descricao'
+      '  , cf.cfop_informacao_fisco'
       '  , v.Verificador_nfe'
       '  , v.Xml_nfe_filename'
       '  , v.Xml_nfe'
@@ -2517,6 +2518,12 @@ object DMNFe: TDMNFe
     object qryCalculoImportoCFOP_DESCRICAO: TIBStringField
       FieldName = 'CFOP_DESCRICAO'
       Origin = '"TBCFOP"."CFOP_DESCRICAO"'
+      Size = 250
+    end
+    object qryCalculoImportoCFOP_INFORMACAO_FISCO: TIBStringField
+      FieldName = 'CFOP_INFORMACAO_FISCO'
+      Origin = '"TBCFOP"."CFOP_INFORMACAO_FISCO"'
+      ProviderFlags = []
       Size = 250
     end
     object qryCalculoImportoVERIFICADOR_NFE: TIBStringField
@@ -3957,6 +3964,7 @@ object DMNFe: TDMNFe
       '  , c.Cancel_motivo'
       '  , c.nfcfop as Cfop'
       '  , cf.Cfop_descricao'
+      '  , cf.cfop_informacao_fisco'
       '  , c.Verificador_nfe'
       '  , c.Xml_nfe_filename'
       '  , c.Xml_nfe'
@@ -4113,6 +4121,12 @@ object DMNFe: TDMNFe
     object qryEntradaCalculoImportoCFOP_DESCRICAO: TIBStringField
       FieldName = 'CFOP_DESCRICAO'
       Origin = '"TBCFOP"."CFOP_DESCRICAO"'
+      Size = 250
+    end
+    object qryEntradaCalculoImportoCFOP_INFORMACAO_FISCO: TIBStringField
+      FieldName = 'CFOP_INFORMACAO_FISCO'
+      Origin = '"TBCFOP"."CFOP_INFORMACAO_FISCO"'
+      ProviderFlags = []
       Size = 250
     end
     object qryEntradaCalculoImportoVERIFICADOR_NFE: TIBStringField

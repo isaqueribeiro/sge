@@ -79,9 +79,17 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         object lblEspecificacao: TLabel [2]
           Left = 16
           Top = 64
-          Width = 50
+          Width = 68
           Height = 13
-          Caption = 'Descri'#231#227'o:'
+          Caption = 'Especifica'#231#227'o:'
+        end
+        object lblInformacaoFisco: TLabel [3]
+          Left = 16
+          Top = 176
+          Width = 101
+          Height = 13
+          Caption = 'Informa'#231#227'o ao Fisco:'
+          FocusControl = dbInformacaoFisco
         end
         inherited dbCodigo: TDBEdit
           DataField = 'CFOP_COD'
@@ -107,7 +115,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Left = 16
           Top = 80
           Width = 689
-          Height = 129
+          Height = 89
           DataField = 'CFOP_ESPECIFICACAO'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
@@ -118,6 +126,22 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ParentFont = False
           ScrollBars = ssVertical
           TabOrder = 2
+        end
+        object dbInformacaoFisco: TDBEdit
+          Left = 16
+          Top = 192
+          Width = 689
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'CFOP_INFORMACAO_FISCO'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
         end
       end
       object GrpBxParametros: TGroupBox
@@ -210,6 +234,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '    c.Cfop_cod'
       '  , c.Cfop_descricao'
       '  , c.Cfop_especificacao'
+      '  , c.Cfop_informacao_fisco'
       '  , c.Cfop_altera_custo_produto'
       '  , c.Cfop_cst_padrao_entrada'
       '  , c.Cfop_cst_padrao_saida'
@@ -232,6 +257,13 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       Origin = 'TBCFOP.CFOP_ESPECIFICACAO'
       BlobType = ftMemo
       Size = 8
+    end
+    object IbDtstTabelaCFOP_INFORMACAO_FISCO: TIBStringField
+      DisplayLabel = 'Informa'#231#227'o ao Fisco'
+      FieldName = 'CFOP_INFORMACAO_FISCO'
+      Origin = '"TBCFOP"."CFOP_INFORMACAO_FISCO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 250
     end
     object IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO: TSmallintField
       Alignment = taLeftJustify
@@ -258,6 +290,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  CFOP_COD,'
       '  CFOP_DESCRICAO,'
       '  CFOP_ESPECIFICACAO,'
+      '  CFOP_INFORMACAO_FISCO,'
       '  CFOP_ALTERA_CUSTO_PRODUTO,'
       '  CFOP_CST_PADRAO_ENTRADA,'
       '  CFOP_CST_PADRAO_SAIDA'
@@ -272,7 +305,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  CFOP_CST_PADRAO_ENTRADA = :CFOP_CST_PADRAO_ENTRADA,'
       '  CFOP_CST_PADRAO_SAIDA = :CFOP_CST_PADRAO_SAIDA,'
       '  CFOP_DESCRICAO = :CFOP_DESCRICAO,'
-      '  CFOP_ESPECIFICACAO = :CFOP_ESPECIFICACAO'
+      '  CFOP_ESPECIFICACAO = :CFOP_ESPECIFICACAO,'
+      '  CFOP_INFORMACAO_FISCO = :CFOP_INFORMACAO_FISCO'
       'where'
       '  CFOP_COD = :OLD_CFOP_COD')
     InsertSQL.Strings = (
@@ -280,12 +314,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       
         '  (CFOP_ALTERA_CUSTO_PRODUTO, CFOP_COD, CFOP_CST_PADRAO_ENTRADA,' +
         ' CFOP_CST_PADRAO_SAIDA, '
-      '   CFOP_DESCRICAO, CFOP_ESPECIFICACAO)'
+      '   CFOP_DESCRICAO, CFOP_ESPECIFICACAO, CFOP_INFORMACAO_FISCO)'
       'values'
       
         '  (:CFOP_ALTERA_CUSTO_PRODUTO, :CFOP_COD, :CFOP_CST_PADRAO_ENTRA' +
         'DA, :CFOP_CST_PADRAO_SAIDA, '
-      '   :CFOP_DESCRICAO, :CFOP_ESPECIFICACAO)')
+      '   :CFOP_DESCRICAO, :CFOP_ESPECIFICACAO, :CFOP_INFORMACAO_FISCO)')
     DeleteSQL.Strings = (
       'delete from TBCFOP'
       'where'

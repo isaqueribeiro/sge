@@ -463,6 +463,8 @@ type
     qryAutorizacaoCompra: TIBQuery;
     frdAutorizacaoCompra: TfrxDBDataset;
     frrAutorizacaoCompra: TfrxReport;
+    qryCalculoImportoCFOP_INFORMACAO_FISCO: TIBStringField;
+    qryEntradaCalculoImportoCFOP_INFORMACAO_FISCO: TIBStringField;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -1072,8 +1074,18 @@ begin
 end;
 
 function TDMNFe.GetInformacaoFisco : String;
+var
+  sTexto : String;
 begin
-  Result := ( ConfigACBr.edInfoFisco.Text );
+  sTexto := EmptyStr;
+
+  if qryCalculoImporto.Active then
+    sTexto := Trim(qryCalculoImportoCFOP_INFORMACAO_FISCO.AsString)
+  else
+  if qryEntradaCalculoImporto.Active then
+    sTexto := Trim(qryEntradaCalculoImportoCFOP_INFORMACAO_FISCO.AsString);
+
+  Result := IfThen(sTexto = EmptyStr, ConfigACBr.edInfoFisco.Text, sTexto );
 end;
 
 function TDMNFe.GerarNFeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda: Integer;

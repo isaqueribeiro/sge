@@ -30,6 +30,9 @@ type
     IbDtstTabelaCFOP_CST_PADRAO_SAIDA: TIBStringField;
     lblCSTSaida: TLabel;
     dbCSTSaida: TDBLookupComboBox;
+    IbDtstTabelaCFOP_INFORMACAO_FISCO: TIBStringField;
+    lblInformacaoFisco: TLabel;
+    dbInformacaoFisco: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
