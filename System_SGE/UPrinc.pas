@@ -528,6 +528,7 @@ begin
   mnRelatorioEntradaProduto.Caption := StrDescricaoProduto;
 
   nmRequisicaoCliente.Visible := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
+  nmAutorizacaoCompra.Visible := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
 
   // (FINAL) Configurar Legendas de acordo com o segmento
 

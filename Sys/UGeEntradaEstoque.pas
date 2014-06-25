@@ -438,13 +438,24 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.FormCreate(Sender: TObject);
+
+  procedure OcutarCampoAutorizacao;
+  begin
+    dbCFOPNFDescricao.Width := 457;
+    lblSituacao.Left        := 944;
+    dbSituacao.Left         := 944;
+    lblAutorizacao.Visible  := False;
+    dbAutorizacao.Visible   := False;
+  end;
+
 begin
   {$IFDEF DGE}
-  dbCFOPNFDescricao.Width := 457;
-  lblSituacao.Left        := 944;
-  dbSituacao.Left         := 944;
-  lblAutorizacao.Visible  := False;
-  dbAutorizacao.Visible   := False;
+  OcutarCampoAutorizacao;
+  {$ENDIF}
+
+  {$IFNDEF DGE}
+  if not (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
+    OcutarCampoAutorizacao;
   {$ENDIF}
 
   IbDtstTabela.GeneratorField.Generator := 'GEN_COMPRAS_CONTROLE_' + FormatFloat('0000', YearOf(Date));
