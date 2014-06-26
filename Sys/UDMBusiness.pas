@@ -218,6 +218,7 @@ var
   function GetCalcularCustoOperEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetPermitirVendaEstoqueInsEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetPermitirDuplicarCNPJCliente(const sCNPJEmpresa : String) : Boolean;
+  function GetAutorizacaoInformarCliente(const sCNPJEmpresa : String) : Boolean;
   function GetSimplesNacionalInsEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetEstoqueUnicoEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetEstoqueSateliteEmpresa(const sCNPJEmpresa : String) : Boolean;
@@ -1184,6 +1185,21 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('Select cliente_permitir_duplicar_cnpj as permitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmpresa));
+    Open;
+
+    Result := (FieldByName('permitir').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetAutorizacaoInformarCliente(const sCNPJEmpresa : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select autoriza_informa_cliente as permitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmpresa));
     Open;
 
     Result := (FieldByName('permitir').AsInteger = 1);

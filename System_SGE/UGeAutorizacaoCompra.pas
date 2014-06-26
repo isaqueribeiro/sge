@@ -102,10 +102,6 @@ type
     dtsTipoAutorizacao: TDataSource;
     lblDataValidade: TLabel;
     dbDataValidade: TDBDateEdit;
-    lblMotivo: TLabel;
-    dbMotivo: TDBMemo;
-    lblObservacao: TLabel;
-    dbObservacao: TDBMemo;
     GrpBxPagamento: TGroupBox;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
@@ -175,6 +171,17 @@ type
     dbNomeContato: TDBEdit;
     IbDtstTabelaNOME_CONTATO: TIBStringField;
     lblAutorizacaoEmEdicao: TLabel;
+    PgcTextoAutorizacao: TPageControl;
+    TbsAutorizacaoMotivo: TTabSheet;
+    TbsAutorizacaoObservacao: TTabSheet;
+    dbObservacao: TDBMemo;
+    dbMotivo: TDBMemo;
+    IbDtstTabelaCLIENTE: TIntegerField;
+    lblCliente: TLabel;
+    dbCliente: TRxDBComboEdit;
+    IbDtstTabelaNOMECLIENTE: TIBStringField;
+    TbsAutorizacaoCancelado: TTabSheet;
+    dbMovitoCancelamento: TDBMemo;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -213,6 +220,8 @@ type
     procedure IbDtstTabelaTIPOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
+    procedure dbClienteButtonClick(Sender: TObject);
+    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -247,7 +256,7 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeFornecedor, UGeProduto, UGeAutorizacaoCompraCancelar;
+  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeFornecedor, UGeProduto, UGeAutorizacaoCompraCancelar, UGeCliente;
 
 {$R *.dfm}
 
@@ -368,6 +377,9 @@ begin
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
+
+  lblCliente.Visible := GetAutorizacaoInformarCliente( GetEmpresaIDDefault );
+  dbCliente.Visible  := lblCliente.Visible;
 end;
 
 procedure TfrmGeAutorizacaoCompra.IbDtstTabelaINSERCAO_DATAGetText(
@@ -408,6 +420,7 @@ begin
   IbDtstTabelaCANCELADO_DATA.Clear;
   IbDtstTabelaCANCELADO_USUARIO.Clear;
   IbDtstTabelaCANCELADO_MOTIVO.Clear;
+  IbDtstTabelaCLIENTE.Clear;
 end;
 
 procedure TfrmGeAutorizacaoCompra.btbtnIncluirClick(Sender: TObject);
@@ -804,7 +817,8 @@ end;
 procedure TfrmGeAutorizacaoCompra.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  pgcMaisDados.ActivePageIndex := 0;
+  pgcMaisDados.ActivePageIndex   := 0;
+  PgcTextoAutorizacao.ActivePage := TbsAutorizacaoMotivo;
 
   DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_REQ_AUT );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
@@ -1329,6 +1343,26 @@ procedure TfrmGeAutorizacaoCompra.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
+end;
+
+procedure TfrmGeAutorizacaoCompra.dbClienteButtonClick(Sender: TObject);
+var
+  iCodigo : Integer;
+  sNome : String;
+begin
+  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    if ( SelecionarCliente(Self, iCodigo, sNome) ) then
+    begin
+      IbDtstTabelaCLIENTE.AsInteger    := iCodigo;
+      IbDtstTabelaNOMECLIENTE.AsString := sNome;
+    end;
+end;
+
+procedure TfrmGeAutorizacaoCompra.IbDtstTabelaAfterScroll(
+  DataSet: TDataSet);
+begin
+  inherited;
+  TbsAutorizacaoCancelado.TabVisible := (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_CAN);
 end;
 
 initialization

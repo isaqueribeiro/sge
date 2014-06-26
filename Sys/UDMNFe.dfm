@@ -9912,6 +9912,9 @@ object DMNFe: TDMNFe
       '  , a.recebedor_funcao'
       '  , a.recebedor_cpf'
       '  , a.movito'
+      '  , a.cliente  as cliente_codigo'
+      '  , ci.nome     as cliente_nome'
+      '  , ci.cnpj     as cliente_cnpf'
       '  , a.observacao'
       '  , a.endereco_entrega'
       '  , a.forma_pagto'
@@ -9948,6 +9951,7 @@ object DMNFe: TDMNFe
       
         '  left join VW_CONDICAOPAGTO c on (c.cond_cod = a.condicao_pagto' +
         ')'
+      '  left join TBCLIENTE ci on (ci.codigo = a.cliente)'
       ''
       'where a.ano    = :ano'
       '  and a.codigo = :cod'
@@ -9994,6 +9998,9 @@ object DMNFe: TDMNFe
       'RECEBEDOR_FUNCAO=RECEBEDOR_FUNCAO'
       'RECEBEDOR_CPF=RECEBEDOR_CPF'
       'MOVITO=MOVITO'
+      'CLIENTE_CODIGO=CLIENTE_CODIGO'
+      'CLIENTE_NOME=CLIENTE_NOME'
+      'CLIENTE_CNPF=CLIENTE_CNPF'
       'OBSERVACAO=OBSERVACAO'
       'ENDERECO_ENTREGA=ENDERECO_ENTREGA'
       'FORMA_PAGTO=FORMA_PAGTO'
@@ -10031,7 +10038,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41808.655458333330000000
+    ReportOptions.LastChange = 41816.548476064820000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -10416,7 +10423,7 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         Height = 30.236240000000000000
-        Top = 797.480830000000000000
+        Top = 805.039890000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Left = 589.606680000000000000
@@ -10796,7 +10803,7 @@ object DMNFe: TDMNFe
         end
       end
       object bndReportSummary: TfrxReportSummary
-        Height = 362.834880000000000000
+        Height = 370.393940000000000000
         Top = 411.968770000000000000
         Width = 718.110700000000000000
         Stretched = True
@@ -11142,7 +11149,7 @@ object DMNFe: TDMNFe
         object Memo15: TfrxMemoView
           Top = 317.480520000000000000
           Width = 718.110700000000000000
-          Height = 45.354360000000000000
+          Height = 52.913420000000000000
           ShowHint = False
           StretchMode = smMaxHeight
           DataSet = frdVenda
@@ -11159,7 +11166,11 @@ object DMNFe: TDMNFe
               'Material a ser retirado por: [frdAutorizacaoCompra."RECEBEDOR_NO' +
               'ME"] [IIF(Trim(<frdAutorizacaoCompra."RECEBEDOR_FUNCAO">)='#39#39','#39#39',' +
               #39'('#39'+<frdAutorizacaoCompra."RECEBEDOR_FUNCAO">+'#39')'#39')]'
-            '[frdAutorizacaoCompra."OBSERVACAO"]')
+            '[frdAutorizacaoCompra."OBSERVACAO"]'
+            
+              '[IIF(<frdAutorizacaoCompra."CLIENTE_CODIGO">=0,'#39#39','#39'* * * Cliente' +
+              ' : '#39' + FormatFloat('#39'00000'#39', <frdAutorizacaoCompra."CLIENTE_CODIG' +
+              'O">)) ]')
           ParentFont = False
           VAlign = vaCenter
         end

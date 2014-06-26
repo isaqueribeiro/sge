@@ -411,6 +411,24 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
+          object dbAutorizacaoInformaCliente: TDBCheckBox
+            Left = 16
+            Top = 136
+            Width = 321
+            Height = 17
+            Caption = 'Informar Cliente nas Autoriza'#231#245'es de Compras/Servi'#231'os'
+            DataField = 'AUTORIZA_INFORMA_CLIENTE'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 5
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
         end
       end
     end
@@ -436,6 +454,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.permitir_venda_estoque_ins'
       '  , c.estoque_unico_empresas'
       '  , c.estoque_satelite_cliente'
+      '  , c.autoriza_informa_cliente'
       '  , c.usuario'
       '  , e.rzsoc'
       '  , e.nmfant'
@@ -549,6 +568,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Origin = '"TBCONFIGURACAO"."ESTOQUE_SATELITE_CLIENTE"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'AUTORIZA_INFORMA_CLIENTE'
+      Origin = '"TBCONFIGURACAO"."AUTORIZA_INFORMA_CLIENTE"'
+    end
     object IbDtstTabelaUSUARIO: TIBStringField
       FieldName = 'USUARIO'
       Origin = '"TBCONFIGURACAO"."USUARIO"'
@@ -586,8 +610,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  CLIENTE_PERMITIR_DUPLICAR_CNPJ,'
       '  CUSTO_OPER_CALCULAR,'
       '  PERMITIR_VENDA_ESTOQUE_INS,'
+      '  VENDA_CARREGA_PRODUTO_EAN,'
       '  ESTOQUE_UNICO_EMPRESAS,'
       '  ESTOQUE_SATELITE_CLIENTE,'
+      '  AUTORIZA_INFORMA_CLIENTE,'
       '  USUARIO'
       'from TBCONFIGURACAO '
       'where'
@@ -595,6 +621,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     ModifySQL.Strings = (
       'update TBCONFIGURACAO'
       'set'
+      '  AUTORIZA_INFORMA_CLIENTE = :AUTORIZA_INFORMA_CLIENTE,'
       
         '  CLIENTE_PERMITIR_DUPLICAR_CNPJ = :CLIENTE_PERMITIR_DUPLICAR_CN' +
         'PJ,'
@@ -620,28 +647,28 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     InsertSQL.Strings = (
       'insert into TBCONFIGURACAO'
       
-        '  (CLIENTE_PERMITIR_DUPLICAR_CNPJ, CUSTO_OPER_CALCULAR, EMAIL_AS' +
-        'SUNTO_PADRAO, '
+        '  (AUTORIZA_INFORMA_CLIENTE, CLIENTE_PERMITIR_DUPLICAR_CNPJ, CUS' +
+        'TO_OPER_CALCULAR, '
       
-        '   EMAIL_CONEXAO_SSL, EMAIL_CONTA, EMAIL_MENSAGEM_PADRAO, EMAIL_' +
-        'POP, EMAIL_REQUER_AUTENTICACAO, '
+        '   EMAIL_ASSUNTO_PADRAO, EMAIL_CONEXAO_SSL, EMAIL_CONTA, EMAIL_M' +
+        'ENSAGEM_PADRAO, '
       
-        '   EMAIL_SENHA, EMAIL_SMTP, EMAIL_SMTP_PORTA, EMPRESA, ESTOQUE_S' +
-        'ATELITE_CLIENTE, '
+        '   EMAIL_POP, EMAIL_REQUER_AUTENTICACAO, EMAIL_SENHA, EMAIL_SMTP' +
+        ', EMAIL_SMTP_PORTA, '
       
-        '   ESTOQUE_UNICO_EMPRESAS, NFE_IMPRIMIR_COD_CLIENTE, NFE_SOLICIT' +
-        'A_DH_SAIDA, '
-      '   PERMITIR_VENDA_ESTOQUE_INS, USUARIO)'
+        '   EMPRESA, ESTOQUE_SATELITE_CLIENTE, ESTOQUE_UNICO_EMPRESAS, NF' +
+        'E_IMPRIMIR_COD_CLIENTE, '
+      '   NFE_SOLICITA_DH_SAIDA, PERMITIR_VENDA_ESTOQUE_INS, USUARIO)'
       'values'
       
-        '  (:CLIENTE_PERMITIR_DUPLICAR_CNPJ, :CUSTO_OPER_CALCULAR, :EMAIL' +
-        '_ASSUNTO_PADRAO, '
+        '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
+        'CUSTO_OPER_CALCULAR, '
       
-        '   :EMAIL_CONEXAO_SSL, :EMAIL_CONTA, :EMAIL_MENSAGEM_PADRAO, :EM' +
-        'AIL_POP, '
+        '   :EMAIL_ASSUNTO_PADRAO, :EMAIL_CONEXAO_SSL, :EMAIL_CONTA, :EMA' +
+        'IL_MENSAGEM_PADRAO, '
       
-        '   :EMAIL_REQUER_AUTENTICACAO, :EMAIL_SENHA, :EMAIL_SMTP, :EMAIL' +
-        '_SMTP_PORTA, '
+        '   :EMAIL_POP, :EMAIL_REQUER_AUTENTICACAO, :EMAIL_SENHA, :EMAIL_' +
+        'SMTP, :EMAIL_SMTP_PORTA, '
       
         '   :EMPRESA, :ESTOQUE_SATELITE_CLIENTE, :ESTOQUE_UNICO_EMPRESAS,' +
         ' :NFE_IMPRIMIR_COD_CLIENTE, '

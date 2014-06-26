@@ -682,7 +682,10 @@ procedure TfrmGeContasAPagar.btbtnIncluirClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
+  begin
     AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
+    DtSrcTabelaStateChange( DtSrcTabela );
+  end;
 end;
 
 function TfrmGeContasAPagar.GetRotinaCancelarPagtosID: String;

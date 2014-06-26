@@ -47,6 +47,11 @@ type
     CdsRelacaoAReceberBSintetico: TClientDataSet;
     FrdsRelacaoAReceberBSintetico: TfrxDBDataset;
     frRelacaoAReceberBAnalitico: TfrxReport;
+    frRelacaoAReceberVCliente: TfrxReport;
+    QryRelacaoAReceberVCliente: TIBQuery;
+    DspRelacaoAReceberVCliente: TDataSetProvider;
+    CdsRelacaoAReceberVCliente: TClientDataSet;
+    FrdsRelacaoAReceberVCliente: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -54,10 +59,11 @@ type
     procedure edRelatorioChange(Sender: TObject);
   private
     { Private declarations }
-    FSQL_RelacaoAReceberAnalit          ,
-    FSQL_RelacaoAReceberEmissaoSintet   ,
-    FSQL_RelacaoAReceberVencimentoSintet,
-    FSQL_RelacaoAReceberBaixaSintet     : TStringList;
+    FSQL_RelacaoAReceberAnalit           ,
+    FSQL_RelacaoAReceberEmissaoSintet    ,
+    FSQL_RelacaoAReceberVencimentoSintet ,
+    FSQL_RelacaoAReceberVencimentoCliente,
+    FSQL_RelacaoAReceberBaixaSintet      : TStringList;
     ICompetencia : Array of Integer;
     ICliente     : Array of Integer;
     procedure CarregarCompetencia;
@@ -67,6 +73,7 @@ type
     procedure MontarRelacaoAReceberPorEmissaoAnalitico;
     procedure MontarRelacaoAReceberPorVencimentoSintetico;
     procedure MontarRelacaoAReceberPorVencimentoAnalitico;
+    procedure MontarRelacaoAReceberPorVencimentoCliente;
     procedure MontarRelacaoAReceberPorBaixaSintetico;
     procedure MontarRelacaoAReceberPorBaixaAnalitico;
   public
@@ -79,10 +86,11 @@ var
 const
   REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_SINTETICO = 0;
   REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_ANALITICO = 1;
-  REPORT_RELACAO_ARECEBER_POR_EMISSAO_SINTETICO    = 2;
-  REPORT_RELACAO_ARECEBER_POR_EMISSAO_ANALITICO    = 3;
-  REPORT_RELACAO_ARECEBER_POR_BAIXA_SINTETICO      = 4;
-  REPORT_RELACAO_ARECEBER_POR_BAIXA_ANALITICO      = 5;
+  REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CLIENTE   = 2;
+  REPORT_RELACAO_ARECEBER_POR_EMISSAO_SINTETICO    = 3;
+  REPORT_RELACAO_ARECEBER_POR_EMISSAO_ANALITICO    = 4;
+  REPORT_RELACAO_ARECEBER_POR_BAIXA_SINTETICO      = 5;
+  REPORT_RELACAO_ARECEBER_POR_BAIXA_ANALITICO      = 6;
 
 implementation
 
@@ -112,6 +120,9 @@ begin
 
   FSQL_RelacaoAReceberVencimentoSintet := TStringList.Create;
   FSQL_RelacaoAReceberVencimentoSintet.AddStrings( QryRelacaoAReceberVSintetico.SQL );
+
+  FSQL_RelacaoAReceberVencimentoCliente := TStringList.Create;
+  FSQL_RelacaoAReceberVencimentoCliente.AddStrings( QryRelacaoAReceberVCliente.SQL );
 
   FSQL_RelacaoAReceberEmissaoSintet := TStringList.Create;
   FSQL_RelacaoAReceberEmissaoSintet.AddStrings( QryRelacaoAReceberESintetico.SQL );
@@ -143,6 +154,12 @@ begin
       begin
         MontarRelacaoAReceberPorVencimentoAnalitico;
         frReport := frRelacaoAReceberVAnalitico;
+      end;
+
+    REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CLIENTE:
+      begin
+        MontarRelacaoAReceberPorVencimentoCliente;
+        frReport := frRelacaoAReceberVCliente;
       end;
 
     // Por Data de Emissão
@@ -627,6 +644,72 @@ begin
   begin
     edSituacao.Enabled   := False;
     edSituacao.ItemIndex := TITULO_PENDENTE;
+  end;
+end;
+
+procedure TfrmGeContasAReceberImpressao.MontarRelacaoAReceberPorVencimentoCliente;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    if (edCliente.ItemIndex = 0) then
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edCliente.Text]) + #13;
+
+    CdsRelacaoAReceberVCliente.Close;
+
+    with QryRelacaoAReceberVCliente do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAReceberVencimentoCliente );
+      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('  and (cr.parcela > 0)');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and (cr.baixado = 1)');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and (cr.baixado = 0)');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and cr.situacao = 0');
+      end;
+
+      if ( edCliente.ItemIndex > 0 ) then
+        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+
+      SQL.Add('');
+      SQL.Add('group by');
+      SQL.Add('    extract(year from cr.dtvenc)  || right(''00'' || extract(month from cr.dtvenc),  2)');
+      SQL.Add('  , cr.dtvenc');
+      SQL.Add('  , cv.cmp_desc');
+      SQL.Add('  , cr.situacao');
+      SQL.Add('  , cr.cliente');
+      SQL.Add('  , cl.nome');
+      SQL.Add('  , cr.cnpj');
+      SQL.Add('  , cl.pessoa_fisica');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    extract(year from cr.dtvenc)  || right(''00'' || extract(month from cr.dtvenc),  2)');
+      SQL.Add('  , cr.dtvenc');
+      SQL.Add('  , cl.nome');
+      SQL.Add('  , cr.cnpj');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório sintético de contas a receber por vencimento/cliente.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
   end;
 end;
 

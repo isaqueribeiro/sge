@@ -58,6 +58,8 @@ type
     DBCheckBox2: TDBCheckBox;
     IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField;
     DBCheckBox3: TDBCheckBox;
+    IbDtstTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField;
+    dbAutorizacaoInformaCliente: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
@@ -95,6 +97,8 @@ begin
   tblEmpresa.Open;
 
   pgcConfigurar.ActivePage := tbsContaEmail;
+
+  dbAutorizacaoInformaCliente.Visible := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.DtSrcTabelaStateChange(
@@ -172,6 +176,7 @@ begin
   IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS.AsInteger := 0;
   IbDtstTabelaESTOQUE_UNICO_EMPRESAS.AsInteger     := 0;
   IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger   := 0;
+  IbDtstTabelaAUTORIZA_INFORMA_CLIENTE.AsInteger   := 0;
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.btbtnAlterarClick(Sender: TObject);

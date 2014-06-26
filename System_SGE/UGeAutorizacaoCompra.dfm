@@ -466,12 +466,12 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     end
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
-        Top = 293
+        Top = 309
         Width = 1108
       end
       object Bevel6: TBevel [1]
         Left = 0
-        Top = 420
+        Top = 444
         Width = 1108
         Height = 4
         Align = alBottom
@@ -479,7 +479,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1108
-        Height = 177
+        Height = 193
         inherited lblCodigo: TLabel
           Width = 71
           Caption = 'No. Controle:'
@@ -600,29 +600,21 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           Font.Style = []
           ParentFont = False
         end
-        object lblMotivo: TLabel [11]
-          Left = 240
-          Top = 104
-          Width = 160
-          Height = 13
-          Caption = 'Motivo do pedido de autoriza'#231#227'o:'
-          FocusControl = dbMotivo
-        end
-        object lblObservacao: TLabel [12]
-          Left = 640
-          Top = 104
-          Width = 100
-          Height = 13
-          Caption = 'Observa'#231#245'es Gerais:'
-          FocusControl = dbObservacao
-        end
-        object lblNomeContato: TLabel [13]
+        object lblNomeContato: TLabel [11]
           Left = 16
           Top = 104
           Width = 73
           Height = 13
           Caption = 'Nome Contato:'
           FocusControl = dbNomeContato
+        end
+        object lblCliente: TLabel [12]
+          Left = 16
+          Top = 144
+          Width = 37
+          Height = 13
+          Caption = 'Cliente:'
+          FocusControl = dbCliente
         end
         inherited dbCodigo: TDBEdit
           Width = 89
@@ -865,42 +857,10 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           ParentFont = False
           TabOrder = 10
         end
-        object dbMotivo: TDBMemo
-          Left = 240
-          Top = 120
-          Width = 393
-          Height = 49
-          DataField = 'MOVITO'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          ScrollBars = ssVertical
-          TabOrder = 12
-        end
-        object dbObservacao: TDBMemo
-          Left = 640
-          Top = 120
-          Width = 449
-          Height = 49
-          DataField = 'OBSERVACAO'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          ScrollBars = ssVertical
-          TabOrder = 13
-        end
         object dbNomeContato: TDBEdit
           Left = 16
           Top = 120
-          Width = 217
+          Width = 361
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NOME_CONTATO'
@@ -913,12 +873,160 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           ParentFont = False
           TabOrder = 11
         end
+        object PgcTextoAutorizacao: TPageControl
+          Left = 384
+          Top = 104
+          Width = 705
+          Height = 81
+          ActivePage = TbsAutorizacaoCancelado
+          Style = tsFlatButtons
+          TabOrder = 13
+          object TbsAutorizacaoMotivo: TTabSheet
+            Caption = 'Motivo do pedido de autoriza'#231#227'o'
+            object dbMotivo: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 697
+              Height = 50
+              Align = alClient
+              DataField = 'MOVITO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+          object TbsAutorizacaoObservacao: TTabSheet
+            Caption = 'Observa'#231#245'es Gerais'
+            ImageIndex = 1
+            object dbObservacao: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 697
+              Height = 50
+              Align = alClient
+              DataField = 'OBSERVACAO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+          object TbsAutorizacaoCancelado: TTabSheet
+            Caption = 'Motivo do Cancelamento'
+            ImageIndex = 2
+            object dbMovitoCancelamento: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 697
+              Height = 50
+              TabStop = False
+              Align = alClient
+              DataField = 'CANCELADO_MOTIVO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+        end
+        object dbCliente: TRxDBComboEdit
+          Left = 16
+          Top = 160
+          Width = 361
+          Height = 21
+          ButtonHint = 'Pesquisar Cliente (Ctrl+P)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'NOMECLIENTE'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 12
+          OnButtonClick = dbClienteButtonClick
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 424
+        Top = 448
         Width = 1108
-        Height = 190
+        Height = 166
         ActivePage = tbsFormaPagto
         Align = alBottom
         TabOrder = 3
@@ -1148,7 +1256,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
             Left = 0
             Top = 73
             Width = 1100
-            Height = 89
+            Height = 65
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
@@ -1181,7 +1289,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
               Left = 0
               Top = 21
               Width = 1100
-              Height = 68
+              Height = 44
               Align = alClient
               DataField = 'ENDERECO_ENTREGA'
               DataSource = DtSrcTabela
@@ -1305,7 +1413,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       end
       object GrpBxDadosProduto: TGroupBox
         Left = 0
-        Top = 177
+        Top = 193
         Width = 1108
         Height = 116
         Align = alTop
@@ -1885,9 +1993,9 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       end
       object dbgProdutos: TDBGrid
         Left = 0
-        Top = 297
+        Top = 313
         Width = 1108
-        Height = 123
+        Height = 131
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -1969,6 +2077,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
   end
   inherited IbDtstTabela: TIBDataSet
     AfterCancel = IbDtstTabelaAfterCancel
+    AfterScroll = IbDtstTabelaAfterScroll
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
@@ -1986,6 +2095,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  , a.competencia'
       '  , a.movito'
       '  , a.observacao'
+      '  , a.cliente'
       '  , a.endereco_entrega'
       '  , a.status'
       '  , a.recebedor_nome'
@@ -2014,9 +2124,11 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  , f.pessoa_fisica'
       '  , t.nomeforn as transportador_nome'
       '  , t.cnpj     as transportador_cpf_cnpj'
+      '  , c.nome     as nomecliente'
       'from TBAUTORIZA_COMPRA a'
       '  left join TBFORNECEDOR f on (f.codforn = a.fornecedor)'
-      '  left join TBFORNECEDOR t on (t.codforn = a.transportador)')
+      '  left join TBFORNECEDOR t on (t.codforn = a.transportador)'
+      '  left join TBCLIENTE c on (c.codigo = a.cliente)')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_REQUISICAO_2013'
     Left = 680
@@ -2098,6 +2210,11 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       FieldName = 'COMPETENCIA'
       Origin = '"TBAUTORIZA_COMPRA"."COMPETENCIA"'
       ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaCLIENTE: TIntegerField
+      DisplayLabel = 'Cliente'
+      FieldName = 'CLIENTE'
+      Origin = '"TBAUTORIZA_COMPRA"."CLIENTE"'
     end
     object IbDtstTabelaMOVITO: TMemoField
       FieldName = 'MOVITO'
@@ -2273,6 +2390,12 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       ProviderFlags = []
       Size = 18
     end
+    object IbDtstTabelaNOMECLIENTE: TIBStringField
+      FieldName = 'NOMECLIENTE'
+      Origin = '"TBCLIENTE"."NOME"'
+      ProviderFlags = []
+      Size = 100
+    end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
@@ -2297,6 +2420,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  DATA_FATURA,'
       '  MOVITO,'
       '  OBSERVACAO,'
+      '  CLIENTE,'
       '  ENDERECO_ENTREGA,'
       '  STATUS,'
       '  AUTORIZADO_DATA,'
@@ -2329,6 +2453,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  CANCELADO_DATA = :CANCELADO_DATA,'
       '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
       '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
+      '  CLIENTE = :CLIENTE,'
       '  CODIGO = :CODIGO,'
       '  COMPETENCIA = :COMPETENCIA,'
       '  CONDICAO_PAGTO = :CONDICAO_PAGTO,'
@@ -2366,8 +2491,8 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         '  (ANO, AUTORIZADO_DATA, AUTORIZADO_USUARIO, CANCELADO_DATA, CAN' +
         'CELADO_MOTIVO, '
       
-        '   CANCELADO_USUARIO, CODIGO, COMPETENCIA, CONDICAO_PAGTO, DATA_' +
-        'FATURA, '
+        '   CANCELADO_USUARIO, CLIENTE, CODIGO, COMPETENCIA, CONDICAO_PAG' +
+        'TO, DATA_FATURA, '
       
         '   EMISSAO_DATA, EMISSAO_USUARIO, EMPRESA, ENDERECO_ENTREGA, FOR' +
         'MA_PAGTO, '
@@ -2386,20 +2511,20 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         '  (:ANO, :AUTORIZADO_DATA, :AUTORIZADO_USUARIO, :CANCELADO_DATA,' +
         ' :CANCELADO_MOTIVO, '
       
-        '   :CANCELADO_USUARIO, :CODIGO, :COMPETENCIA, :CONDICAO_PAGTO, :' +
-        'DATA_FATURA, '
+        '   :CANCELADO_USUARIO, :CLIENTE, :CODIGO, :COMPETENCIA, :CONDICA' +
+        'O_PAGTO, '
       
-        '   :EMISSAO_DATA, :EMISSAO_USUARIO, :EMPRESA, :ENDERECO_ENTREGA,' +
-        ' :FORMA_PAGTO, '
+        '   :DATA_FATURA, :EMISSAO_DATA, :EMISSAO_USUARIO, :EMPRESA, :END' +
+        'ERECO_ENTREGA, '
       
-        '   :FORNECEDOR, :INSERCAO_DATA, :MOVITO, :NOME_CONTATO, :NUMERO,' +
-        ' :OBSERVACAO, '
+        '   :FORMA_PAGTO, :FORNECEDOR, :INSERCAO_DATA, :MOVITO, :NOME_CON' +
+        'TATO, :NUMERO, '
       
-        '   :RECEBEDOR_CPF, :RECEBEDOR_FUNCAO, :RECEBEDOR_NOME, :STATUS, ' +
-        ':TIPO, '
+        '   :OBSERVACAO, :RECEBEDOR_CPF, :RECEBEDOR_FUNCAO, :RECEBEDOR_NO' +
+        'ME, :STATUS, '
       
-        '   :TRANSPORTADOR, :VALIDADE, :VALOR_BRUTO, :VALOR_DESCONTO, :VA' +
-        'LOR_TOTAL, '
+        '   :TIPO, :TRANSPORTADOR, :VALIDADE, :VALOR_BRUTO, :VALOR_DESCON' +
+        'TO, :VALOR_TOTAL, '
       '   :VALOR_TOTAL_FRETE, :VALOR_TOTAL_IPI)')
     DeleteSQL.Strings = (
       'delete from TBAUTORIZA_COMPRA'
