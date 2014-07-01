@@ -284,6 +284,7 @@ var
   function SelecionarProdutoParaAjuste(const AOwner : TComponent;
     var Codigo : Integer;
     var CodigoAlfa, Nome : String) : Boolean;
+
   function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
   function SelecionarProduto(const AOwner : TComponent;
     var Codigo : Integer;
@@ -301,6 +302,7 @@ var
     var Codigo : Integer;
     var CodigoAlfa, Nome, Unidade : String;
     var ValorVenda, ValorPromocao : Currency) : Boolean; overload;
+
   function SelecionarProdutoParaEntrada(const AOwner : TComponent;
     var Codigo : Integer;
     var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
@@ -317,6 +319,24 @@ var
     var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
     var iUnidade, CFOP_CNAE : Integer;
     var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+    var Estoque, Reserva : Currency) : Boolean;
+
+  function SelecionarProdutoParaCotacao(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+    var iUnidade, CFOP : Integer;
+    var ValorCusto, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+    var Estoque, Reserva : Currency) : Boolean;
+  function SelecionarServicoParaCotacao(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+    var iUnidade, CNAE : Integer;
+    var ValorCusto, ValorVenda, ValorPromocao : Currency) : Boolean;
+  function SelecionarProdutoServicoParaCotacao(const AOwner : TComponent;
+    var Codigo : Integer;
+    var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+    var iUnidade, CFOP_CNAE : Integer;
+    var ValorCusto, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
     var Estoque, Reserva : Currency) : Boolean;
 
 implementation
@@ -638,6 +658,144 @@ begin
       ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
       ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
       ValorIPI       := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+
+      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+
+      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
+      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
+    end;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarProdutoParaCotacao(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+  var iUnidade, CFOP : Integer;
+  var ValorCusto, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+  var Estoque, Reserva : Currency) : Boolean;
+var
+  frm : TfrmGeProduto;
+  whr : String;
+begin
+  frm := TfrmGeProduto.Create(AOwner);
+  try
+    frm.fAliquota       := taICMS;
+    frm.fApenasProdutos := True;
+
+    frm.chkProdutoComEstoque.Checked := False;
+    frm.lblAliquotaTipo.Enabled := False;
+    frm.dbAliquotaTipo.Enabled  := False;
+
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    if frm.chkProdutoComEstoque.Checked then
+      whr := whr + ' and p.Qtde > 0';
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+
+    if ( Result ) then
+    begin
+      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
+      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
+      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
+      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
+      CST        := frm.IbDtstTabelaCST.AsString;
+      CFOP       := frm.IbDtstTabelaCODCFOP.AsInteger;
+      ValorCusto    := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
+      ValorVenda    := frm.IbDtstTabelaPRECO.AsCurrency;
+      ValorPromocao := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
+      ValorIPI      := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+
+      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+
+      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
+      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
+    end;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarServicoParaCotacao(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+  var iUnidade, CNAE : Integer;
+  var ValorCusto, ValorVenda, ValorPromocao : Currency) : Boolean;
+var
+  frm : TfrmGeProduto;
+  whr : String;
+begin
+  frm := TfrmGeProduto.Create(AOwner);
+  try
+    frm.fAliquota       := taISS;
+    frm.fApenasServicos := True;
+
+    frm.chkProdutoComEstoque.Checked := False;
+    frm.chkProdutoComEstoque.Visible := False;
+
+    frm.lblAliquotaTipo.Enabled := False;
+    frm.dbAliquotaTipo.Enabled  := False;
+
+    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+
+    if ( Result ) then
+    begin
+      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
+      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
+      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
+      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
+      CST        := frm.IbDtstTabelaCST.AsString;
+      CNAE       := 0; //frm.IbDtstTabelaCODCFOP.AsInteger;
+      ValorCusto    := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
+      ValorVenda    := frm.IbDtstTabelaPRECO.AsCurrency;
+      ValorPromocao := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
+    end;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarProdutoServicoParaCotacao(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+  var iUnidade, CFOP_CNAE : Integer;
+  var ValorCusto, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+  var Estoque, Reserva : Currency) : Boolean;
+var
+  frm : TfrmGeProduto;
+  whr : String;
+begin
+  frm := TfrmGeProduto.Create(AOwner);
+  try
+    frm.fAliquota := taICMS;
+
+    frm.chkProdutoComEstoque.Checked := False;
+    frm.lblAliquotaTipo.Enabled := False;
+    frm.dbAliquotaTipo.Enabled  := False;
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+
+    if ( Result ) then
+    begin
+      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
+      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
+      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
+      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
+      CST        := frm.IbDtstTabelaCST.AsString;
+
+      if ( TAliquota(frm.IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
+        CFOP_CNAE  := frm.IbDtstTabelaCODCFOP.AsInteger
+      else
+        CFOP_CNAE  := 0;
+
+      ValorCusto    := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
+      ValorVenda    := frm.IbDtstTabelaPRECO.AsCurrency;
+      ValorPromocao := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
+      ValorIPI      := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
 
       PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
 

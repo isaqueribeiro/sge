@@ -1,9 +1,9 @@
-inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
+inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   Width = 617
   Height = 474
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
-  Caption = 'Cancelar Autoriza'#231#227'o de Compra/Servi'#231'o'
+  Caption = 'Cancelar Cota'#231#227'o de Compra/Servi'#231'o'
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -43,7 +43,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
     Width = 593
     Height = 121
     Align = alTop
-    Caption = 'Controle da Autoriza'#231#227'o'
+    Caption = 'Controle da Cota'#231#227'o'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -54,9 +54,9 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
     object lblCodigo: TLabel
       Left = 16
       Top = 24
-      Width = 91
+      Width = 69
       Height = 13
-      Caption = 'No. Autoriza'#231#227'o:'
+      Caption = 'No. Cota'#231#227'o:'
       FocusControl = dbCodigo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -65,13 +65,13 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblFornecedor: TLabel
+    object lblDescricaoResumo: TLabel
       Left = 112
       Top = 24
-      Width = 67
+      Width = 104
       Height = 13
-      Caption = 'Fornecedor:'
-      FocusControl = dbFornecedor
+      Caption = 'Descri'#231#227'o resumo:'
+      FocusControl = dbDescricaoResumo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -115,7 +115,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'NUMERO'
-      DataSource = dtsAutorizacao
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -125,15 +125,15 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       ReadOnly = True
       TabOrder = 0
     end
-    object dbFornecedor: TDBEdit
+    object dbDescricaoResumo: TDBEdit
       Left = 112
       Top = 40
       Width = 465
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'NOMEFORN'
-      DataSource = dtsAutorizacao
+      DataField = 'DESCRICAO_RESUMO'
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -151,7 +151,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'EMISSAO_DATA'
-      DataSource = dtsAutorizacao
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -169,7 +169,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'VALIDADE'
-      DataSource = dtsAutorizacao
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -417,7 +417,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
     NumGlyphs = 2
   end
-  object cdsAutorizacao: TIBDataSet
+  object cdsCotacao: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
@@ -426,329 +426,149 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       '')
     SelectSQL.Strings = (
       'Select'
-      '    a.ano'
-      '  , a.codigo'
-      '  , a.empresa'
-      '  , a.numero'
-      '  , a.fornecedor'
-      '  , a.nome_contato'
-      '  , a.tipo'
-      '  , a.insercao_data'
-      '  , a.emissao_data'
-      '  , a.emissao_usuario'
-      '  , a.validade'
-      '  , a.competencia'
-      '  , a.movito'
-      '  , a.observacao'
-      '  , a.endereco_entrega'
-      '  , a.status'
-      '  , a.recebedor_nome'
-      '  , a.recebedor_cpf'
-      '  , a.recebedor_funcao'
-      '  , a.forma_pagto'
-      '  , a.condicao_pagto'
-      '  , a.transportador'
-      '  , a.valor_bruto'
-      '  , a.valor_desconto'
-      '  , a.valor_total_frete'
-      '  , a.valor_total_ipi'
-      '  , a.valor_total'
-      '  , a.autorizado_data'
-      '  , a.data_fatura'
-      '  , a.autorizado_usuario'
-      '  , a.cancelado_data'
-      '  , a.cancelado_usuario'
-      '  , a.cancelado_motivo'
-      '  , f.nomeforn'
-      '  , f.cnpj'
-      '  , f.pessoa_fisica'
-      '  , t.nomeforn as transportador_nome'
-      '  , t.cnpj     as transportador_cpf_cnpj'
-      'from TBAUTORIZA_COMPRA a'
-      '  inner join TBFORNECEDOR f on (f.codforn = a.fornecedor)'
-      '  left join TBFORNECEDOR t on (t.codforn = a.transportador)'
-      'where a.ano = :ano'
-      '  and a.codigo = :cod')
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.empresa'
+      '  , c.numero'
+      '  , c.descricao_resumo'
+      '  , c.status'
+      '  , c.cancelado_data'
+      '  , c.cancelado_usuario'
+      '  , c.cancelado_motivo'
+      'from TBCOTACAO_COMPRA c'
+      'where c.ano = :ano'
+      '  and c.codigo = :cod')
     ModifySQL.Strings = (
       '')
     GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updAutorizacao
+    UpdateObject = updCotacao
     Left = 472
     Top = 72
-    object cdsAutorizacaoANO: TSmallintField
+    object cdsCotacaoANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBAUTORIZA_COMPRA"."ANO"'
+      Origin = '"TBCOTACAO_COMPRA"."ANO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsAutorizacaoCODIGO: TIntegerField
+    object cdsCotacaoCODIGO: TIntegerField
       FieldName = 'CODIGO'
-      Origin = '"TBAUTORIZA_COMPRA"."CODIGO"'
+      Origin = '"TBCOTACAO_COMPRA"."CODIGO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsAutorizacaoEMPRESA: TIBStringField
+    object cdsCotacaoEMPRESA: TIBStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBAUTORIZA_COMPRA"."EMPRESA"'
+      Origin = '"TBCOTACAO_COMPRA"."EMPRESA"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 18
     end
-    object cdsAutorizacaoNUMERO: TIBStringField
+    object cdsCotacaoNUMERO: TIBStringField
       FieldName = 'NUMERO'
-      Origin = '"TBAUTORIZA_COMPRA"."NUMERO"'
+      Origin = '"TBCOTACAO_COMPRA"."NUMERO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
-    object cdsAutorizacaoFORNECEDOR: TIntegerField
-      FieldName = 'FORNECEDOR'
-      Origin = '"TBAUTORIZA_COMPRA"."FORNECEDOR"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object cdsAutorizacaoNOME_CONTATO: TIBStringField
-      FieldName = 'NOME_CONTATO'
-      Origin = '"TBAUTORIZA_COMPRA"."NOME_CONTATO"'
+    object cdsCotacaoDESCRICAO_RESUMO: TIBStringField
+      FieldName = 'DESCRICAO_RESUMO'
+      Origin = '"TBCOTACAO_COMPRA"."DESCRICAO_RESUMO"'
       ProviderFlags = [pfInUpdate]
       Size = 100
     end
-    object cdsAutorizacaoTIPO: TSmallintField
-      FieldName = 'TIPO'
-      Origin = '"TBAUTORIZA_COMPRA"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoINSERCAO_DATA: TDateTimeField
-      FieldName = 'INSERCAO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."INSERCAO_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoEMISSAO_DATA: TDateField
-      FieldName = 'EMISSAO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."EMISSAO_DATA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object cdsAutorizacaoEMISSAO_USUARIO: TIBStringField
-      FieldName = 'EMISSAO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."EMISSAO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object cdsAutorizacaoVALIDADE: TDateField
-      FieldName = 'VALIDADE'
-      Origin = '"TBAUTORIZA_COMPRA"."VALIDADE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoCOMPETENCIA: TIntegerField
-      FieldName = 'COMPETENCIA'
-      Origin = '"TBAUTORIZA_COMPRA"."COMPETENCIA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoMOVITO: TMemoField
-      FieldName = 'MOVITO'
-      Origin = '"TBAUTORIZA_COMPRA"."MOVITO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object cdsAutorizacaoOBSERVACAO: TMemoField
-      FieldName = 'OBSERVACAO'
-      Origin = '"TBAUTORIZA_COMPRA"."OBSERVACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object cdsAutorizacaoENDERECO_ENTREGA: TMemoField
-      FieldName = 'ENDERECO_ENTREGA'
-      Origin = '"TBAUTORIZA_COMPRA"."ENDERECO_ENTREGA"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object cdsAutorizacaoSTATUS: TSmallintField
+    object cdsCotacaoSTATUS: TSmallintField
       FieldName = 'STATUS'
-      Origin = '"TBAUTORIZA_COMPRA"."STATUS"'
+      Origin = '"TBCOTACAO_COMPRA"."STATUS"'
       ProviderFlags = [pfInUpdate]
     end
-    object cdsAutorizacaoRECEBEDOR_NOME: TIBStringField
-      FieldName = 'RECEBEDOR_NOME'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_NOME"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object cdsAutorizacaoRECEBEDOR_CPF: TIBStringField
-      FieldName = 'RECEBEDOR_CPF'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_CPF"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object cdsAutorizacaoRECEBEDOR_FUNCAO: TIBStringField
-      FieldName = 'RECEBEDOR_FUNCAO'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_FUNCAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object cdsAutorizacaoFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = '"TBAUTORIZA_COMPRA"."FORMA_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoCONDICAO_PAGTO: TSmallintField
-      FieldName = 'CONDICAO_PAGTO'
-      Origin = '"TBAUTORIZA_COMPRA"."CONDICAO_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoTRANSPORTADOR: TIntegerField
-      FieldName = 'TRANSPORTADOR'
-      Origin = '"TBAUTORIZA_COMPRA"."TRANSPORTADOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoVALOR_BRUTO: TIBBCDField
-      FieldName = 'VALOR_BRUTO'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_BRUTO"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_DESCONTO: TIBBCDField
-      FieldName = 'VALOR_DESCONTO'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_DESCONTO"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_TOTAL_FRETE: TIBBCDField
-      FieldName = 'VALOR_TOTAL_FRETE'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL_FRETE"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_TOTAL_IPI: TIBBCDField
-      FieldName = 'VALOR_TOTAL_IPI'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL_IPI"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_TOTAL: TIBBCDField
-      FieldName = 'VALOR_TOTAL'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoAUTORIZADO_DATA: TDateField
-      FieldName = 'AUTORIZADO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."AUTORIZADO_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoDATA_FATURA: TDateField
-      FieldName = 'DATA_FATURA'
-      Origin = '"TBAUTORIZA_COMPRA"."DATA_FATURA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsAutorizacaoAUTORIZADO_USUARIO: TIBStringField
-      FieldName = 'AUTORIZADO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."AUTORIZADO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object cdsAutorizacaoCANCELADO_DATA: TDateField
+    object cdsCotacaoCANCELADO_DATA: TDateField
       FieldName = 'CANCELADO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_DATA"'
+      Origin = '"TBCOTACAO_COMPRA"."CANCELADO_DATA"'
       ProviderFlags = [pfInUpdate]
     end
-    object cdsAutorizacaoCANCELADO_USUARIO: TIBStringField
+    object cdsCotacaoCANCELADO_USUARIO: TIBStringField
       FieldName = 'CANCELADO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_USUARIO"'
+      Origin = '"TBCOTACAO_COMPRA"."CANCELADO_USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 12
     end
-    object cdsAutorizacaoCANCELADO_MOTIVO: TMemoField
+    object cdsCotacaoCANCELADO_MOTIVO: TMemoField
       FieldName = 'CANCELADO_MOTIVO'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_MOTIVO"'
+      Origin = '"TBCOTACAO_COMPRA"."CANCELADO_MOTIVO"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
-    end
-    object cdsAutorizacaoNOMEFORN: TIBStringField
-      FieldName = 'NOMEFORN'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      ProviderFlags = []
-      Size = 60
-    end
-    object cdsAutorizacaoCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object cdsAutorizacaoPESSOA_FISICA: TSmallintField
-      FieldName = 'PESSOA_FISICA'
-      Origin = '"TBFORNECEDOR"."PESSOA_FISICA"'
-      ProviderFlags = []
-    end
-    object cdsAutorizacaoTRANSPORTADOR_NOME: TIBStringField
-      FieldName = 'TRANSPORTADOR_NOME'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      ProviderFlags = []
-      Size = 60
-    end
-    object cdsAutorizacaoTRANSPORTADOR_CPF_CNPJ: TIBStringField
-      FieldName = 'TRANSPORTADOR_CPF_CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
     end
   end
-  object updAutorizacao: TIBUpdateSQL
+  object updCotacao: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
       '  CODIGO,'
       '  EMPRESA,'
       '  NUMERO,'
-      '  FORNECEDOR,'
-      '  NOME_CONTATO,'
       '  TIPO,'
+      '  DESCRICAO_RESUMO,'
+      '  NOME_CONTATO_INT,'
       '  INSERCAO_DATA,'
       '  EMISSAO_DATA,'
       '  EMISSAO_USUARIO,'
       '  VALIDADE,'
       '  COMPETENCIA,'
-      '  DATA_FATURA,'
       '  MOVITO,'
       '  OBSERVACAO,'
-      '  ENDERECO_ENTREGA,'
+      '  LOG_EVENTO,'
       '  STATUS,'
-      '  AUTORIZADO_DATA,'
-      '  AUTORIZADO_USUARIO,'
+      '  NUMERO_MINIMO_FORNECEDOR,'
+      '  AUTORIZADA_DATA,'
+      '  AUTORIZADA_USUARIO,'
+      '  ENCERRADA_DATA,'
+      '  ENCERRADA_USUARIO,'
       '  CANCELADO_DATA,'
       '  CANCELADO_USUARIO,'
       '  CANCELADO_MOTIVO,'
-      '  RECEBEDOR_NOME,'
-      '  RECEBEDOR_CPF,'
-      '  RECEBEDOR_FUNCAO,'
-      '  FORMA_PAGTO,'
-      '  CONDICAO_PAGTO,'
-      '  TRANSPORTADOR,'
-      '  VALOR_BRUTO,'
-      '  VALOR_DESCONTO,'
-      '  VALOR_TOTAL_FRETE,'
-      '  VALOR_TOTAL_IPI,'
-      '  VALOR_TOTAL'
-      'from TBAUTORIZA_COMPRA '
+      '  VALOR_REF_TOTAL,'
+      '  VALOR_MAX_BRUTO,'
+      '  VALOR_MAX_DESCONTO,'
+      '  VALOR_MAX_TOTAL,'
+      '  VALOR_MIN_BRUTO,'
+      '  VALOR_MIN_DESCONTO,'
+      '  VALOR_MIN_TOTAL,'
+      '  VALOR_MEDIA_BRUTO,'
+      '  VALOR_MEDIA_DESCONTO,'
+      '  VALOR_MEDIA_TOTAL'
+      'from TBCOTACAO_COMPRA '
       'where'
       '  ANO = :ANO and'
       '  CODIGO = :CODIGO and'
       '  EMPRESA = :EMPRESA')
     ModifySQL.Strings = (
-      'update TBAUTORIZA_COMPRA'
+      'update TBCOTACAO_COMPRA'
       'set'
+      '  ANO = :ANO,'
       '  CANCELADO_DATA = :CANCELADO_DATA,'
       '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
       '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
+      '  CODIGO = :CODIGO,'
+      '  DESCRICAO_RESUMO = :DESCRICAO_RESUMO,'
+      '  EMPRESA = :EMPRESA,'
+      '  NUMERO = :NUMERO,'
       '  STATUS = :STATUS'
+      'where'
+      '  ANO = :OLD_ANO and'
+      '  CODIGO = :OLD_CODIGO and'
+      '  EMPRESA = :OLD_EMPRESA')
+    InsertSQL.Strings = (
+      'insert into TBCOTACAO_COMPRA'
+      
+        '  (ANO, CANCELADO_DATA, CANCELADO_MOTIVO, CANCELADO_USUARIO, COD' +
+        'IGO, DESCRICAO_RESUMO, '
+      '   EMPRESA, NUMERO, STATUS)'
+      'values'
+      
+        '  (:ANO, :CANCELADO_DATA, :CANCELADO_MOTIVO, :CANCELADO_USUARIO,' +
+        ' :CODIGO, '
+      '   :DESCRICAO_RESUMO, :EMPRESA, :NUMERO, :STATUS)')
+    DeleteSQL.Strings = (
+      'delete from TBCOTACAO_COMPRA'
       'where'
       '  ANO = :OLD_ANO and'
       '  CODIGO = :OLD_CODIGO and'
@@ -756,9 +576,9 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
     Left = 504
     Top = 72
   end
-  object dtsAutorizacao: TDataSource
+  object dtsCotacao: TDataSource
     AutoEdit = False
-    DataSet = cdsAutorizacao
+    DataSet = cdsCotacao
     Left = 536
     Top = 72
   end

@@ -226,6 +226,7 @@ var
   function GetRazaoSocialEmpresa(const sCNPJEmpresa : String) : String;
   function GetNomeFantasiaEmpresa(const sCNPJEmpresa : String) : String;
   function GetPrazoValidadeAutorizacaoCompra(const sCNPJEmpresa : String) : Integer;
+  function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
 
   function StrIsCNPJ(const Num: string): Boolean;
   function StrIsCPF(const Num: string): Boolean;
@@ -284,6 +285,7 @@ var
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+  function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
@@ -332,6 +334,17 @@ const
   TIPO_AUTORIZACAO_COMPRA         = 1;
   TIPO_AUTORIZACAO_SERVICO        = 2;
   TIPO_AUTORIZACAO_COMPRA_SERVICO = 3;
+
+  TIPO_COTACAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
+  TIPO_COTACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
+  TIPO_COTACAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
+
+  STATUS_COTACAO_EDC = 0;
+  STATUS_COTACAO_ABR = 1;
+  STATUS_COTACAO_AUT = 2;
+  STATUS_COTACAO_COT = 3;
+  STATUS_COTACAO_ENC = 4;
+  STATUS_COTACAO_CAN = 5;
 
   // Mensagens padrões do sistema
   CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado, automaticamente, pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
@@ -1303,6 +1316,11 @@ begin
   Result := 5;
 end;
 
+function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
+begin
+  Result := 15;
+end;
+
 function StrIsCNPJ(const Num: string): Boolean;
 var
   Dig: array [1..14] of Byte;
@@ -2185,6 +2203,33 @@ begin
     SQL.Add('  , a.codigo');
     SQL.Add('  , a.numero');
     SQL.Add('from TBAUTORIZA_COMPRA a');
+    SQL.Add('where a.Numero  = ' + QuotedStr(Trim(sNumero)));
+    SQL.Add('  and (not (');
+    SQL.Add('           a.ano    = ' + IntToStr(iAno));
+    SQL.Add('       and a.codigo = ' + IntToStr(iCodigo));
+    SQL.Add('  ))');
+    Open;
+
+    Result := (FieldByName('codigo').AsInteger > 0);
+
+    if Result then
+      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
+
+    Close;
+  end;
+end;
+
+function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    a.ano');
+    SQL.Add('  , a.codigo');
+    SQL.Add('  , a.numero');
+    SQL.Add('from TBCOTACAO_COMPRA a');
     SQL.Add('where a.Numero  = ' + QuotedStr(Trim(sNumero)));
     SQL.Add('  and (not (');
     SQL.Add('           a.ano    = ' + IntToStr(iAno));

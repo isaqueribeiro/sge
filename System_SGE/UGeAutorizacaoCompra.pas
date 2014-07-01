@@ -820,7 +820,7 @@ begin
   pgcMaisDados.ActivePageIndex   := 0;
   PgcTextoAutorizacao.ActivePage := TbsAutorizacaoMotivo;
 
-  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_REQ_AUT );
+  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_AUTORIZACAO_AUT );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
 end;
 

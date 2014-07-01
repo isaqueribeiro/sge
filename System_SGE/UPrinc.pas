@@ -160,6 +160,7 @@ type
     popEntradaServico: TMenuItem;
     mnRelatorioEntrada: TMenuItem;
     mnRelatorioEntradaProduto: TMenuItem;
+    nmCotacaoCompra: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -229,6 +230,7 @@ type
     procedure mnRelatorioEntradaProdutoClick(Sender: TObject);
     procedure nmQuitarContaAPagar_LoteClick(Sender: TObject);
     procedure nmPerfilAcessoClick(Sender: TObject);
+    procedure nmCotacaoCompraClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -264,7 +266,7 @@ uses
   UGeFluxoCaixa,
 
   // Relatórios
-  UfrmRelEstoque;
+  UfrmRelEstoque, UGeCotacaoCompra;
 
 {$R *.dfm}
 
@@ -528,7 +530,8 @@ begin
   mnRelatorioEntradaProduto.Caption := StrDescricaoProduto;
 
   nmRequisicaoCliente.Visible := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
-  nmAutorizacaoCompra.Visible := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
+  nmCotacaoCompra.Visible     := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
+  nmAutorizacaoCompra.Visible := nmCotacaoCompra.Visible;
 
   // (FINAL) Configurar Legendas de acordo com o segmento
 
@@ -852,6 +855,11 @@ begin
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
     FormFunction.ShowModalForm(Self, 'frmGrUsuarioPerfil');
+end;
+
+procedure TfrmPrinc.nmCotacaoCompraClick(Sender: TObject);
+begin
+  MostrarControleCotacao(Self);
 end;
 
 end.
