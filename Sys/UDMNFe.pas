@@ -465,6 +465,11 @@ type
     frrAutorizacaoCompra: TfrxReport;
     qryCalculoImportoCFOP_INFORMACAO_FISCO: TIBStringField;
     qryEntradaCalculoImportoCFOP_INFORMACAO_FISCO: TIBStringField;
+    qryCotacaoCompra: TIBQuery;
+    frdCotacaoCompra: TfrxDBDataset;
+    frrCotacaoCompra: TfrxReport;
+    qryCotacaoCompraFornecedor: TIBQuery;
+    frdCotacaoCompraFornecedor: TfrxDBDataset;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -551,6 +556,8 @@ type
       var DataEmissao : TDateTime; const Imprimir : Boolean = TRUE) : Boolean;
     function DownloadNFeACBr(const sCNPJEmitente, sCNPJDestinatario, sChaveNFe : String; var FileNameXML : String) : Boolean;
 
+    function EnviarEmail_Generico(const sCNPJEmitente, sNumeroDocumento, sEmailDestinatario : String;
+      const sArquivo : String = '') : Boolean;
   end;
 
 var
@@ -1456,7 +1463,7 @@ begin
     DtHoraEmiss := GetDateTimeDB;
 
     ACBrNFe.NotasFiscais.Clear;
-    
+
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
       Ide.cNF       := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
@@ -3929,6 +3936,104 @@ begin
 
   if ( VarName = VAR_USER ) then
     Value := GetUserApp;
+end;
+
+function TDMNFe.EnviarEmail_Generico(const sCNPJEmitente, sNumeroDocumento, sEmailDestinatario : String;
+  const sArquivo : String = '') : Boolean;
+var
+  sEmailAssunto     ,
+  sEmailEmpresa     ,
+  sMensagem  ,
+  sDocumento : String;
+  sAssinaturaHtml ,
+  sAssinaturaTxt  : String;
+  sANX,
+  sMSG,
+  sCC : TStringList;
+const
+  MSG_REF = 'Referente a Cotação No. %s';
+begin
+
+  try
+
+    sANX := TStringList.Create;
+    sMSG := TStringList.Create;
+    sCC  := TStringList.Create;
+
+    try
+
+      LerConfiguracao( sCNPJEmitente );
+
+      AbrirEmitente( sCNPJEmitente );
+
+      if Trim(sArquivo) <> EmptyStr then
+        if not FilesExists(sArquivo) then
+          raise Exception.Create(Format('Arquivo %s não encontrado.', [QuotedStr(sArquivo)]));
+
+      with ACBrNFe do
+      begin
+        NotasFiscais.Clear;
+        NotasFiscais.Add;
+
+        // Montar identificação do documento para título de e-mail
+
+        sMensagem  := Format(MSG_REF, [sNumeroDocumento]);
+        sDocumento := 'Cotação No. ' + sNumeroDocumento;
+
+        CarregarConfiguracoesEmpresa(sCNPJEmitente, sEmailAssunto, sAssinaturaHtml, sAssinaturaTxt);
+
+        sEmailEmpresa := GetEmailEmpresa( sCNPJEmitente );
+        sEmailAssunto := GetNomeFantasiaEmpresa( sCNPJEmitente ) + ' - ' + sDocumento;
+
+        sCC.Add( sEmailEmpresa );
+
+        sMSG.Add( sMensagem );
+        sMSG.Add('');
+        sMSG.Add( sAssinaturaTxt );
+        sMSG.Add('--');
+        sMSG.Add('FAVOR NÃO RESPONDER ESTE E-MAIL.');
+        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + GetProductName + ' (Versão ' + GetVersion +
+          '), desenvolvido pela empresa ' + GetCompanyName + '.' + #13#13 + GetCopyright);
+
+        if FileExists( sArquivo ) then
+          sANX.Add( sArquivo );
+
+        NotasFiscais.Items[0].EnviarEmail(
+            gContaEmail.Servidor_SMTP
+          , IntToStr(gContaEmail.Porta_SMTP)
+          , gContaEmail.Conta
+          , gContaEmail.Senha
+          , gContaEmail.Conta
+          , sEmailDestinatario
+          , sEmailAssunto
+          , sMSG
+          , gContaEmail.ConexaoSeguraSSL // SSL - Conexão Segura
+          , False                        // Enviar PDF junto
+          , sCC                          // Lista com emails que serão enviado cópias - TStrings
+          , sANX                         // Lista de anexos - TStrings
+          , False                        // Pede confirmação de leitura do email
+          , False                        // Aguarda Envio do Email(não usa thread)
+          , GetNomeFantasiaEmpresa( sCNPJEmitente ) // Nome do Rementente
+          , gContaEmail.ConexaoSeguraSSL );         // Auto TLS
+
+        Result := True;
+      end;
+
+    except
+      On E : Exception do
+      begin
+        ShowError(Format('Erro ao tentar enviar para e-mail para ''%s''.', [sEmailDestinatario]) + #13#13 +
+          'EnviarEmail_Generico() --> ' + e.Message);
+        Result := False;
+      end;
+    end;
+
+  finally
+    sANX.Free;
+    sMSG.Free;
+    sCC.Free;
+  end;
+
 end;
 
 end.

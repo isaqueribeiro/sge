@@ -154,6 +154,58 @@ type
     nmImprimirCotacaoMapa: TMenuItem;
     lblTotalReferencia: TLabel;
     dbTotalReferencia: TDBEdit;
+    lblTotalLiquidoMax: TLabel;
+    dbTotalLiquidoMax: TDBEdit;
+    lblTotalLiquidoMin: TLabel;
+    dbTotalLiquidoMin: TDBEdit;
+    IbDtstTabelaITENS: TIntegerField;
+    lblTotalLiquidoMedio: TLabel;
+    dbTotalLiquidoMedio: TDBEdit;
+    PnlDadosProdutoConsolidado: TPanel;
+    Bevel10: TBevel;
+    lblValorUnMax: TLabel;
+    dbValorUnMax: TDBEdit;
+    lblValorTotalMax: TLabel;
+    dbValorTotalMax: TDBEdit;
+    lblValorUnMin: TLabel;
+    dbValorUnMin: TDBEdit;
+    dbValorTotalMin: TDBEdit;
+    lblValorTotalMin: TLabel;
+    tbsFornecedor: TTabSheet;
+    Bevel11: TBevel;
+    PnlFornecedor: TPanel;
+    BtnFornecedorInserir: TBitBtn;
+    BtnFornecedorEditar: TBitBtn;
+    BtnFornecedorExcluir: TBitBtn;
+    Bevel13: TBevel;
+    qryFornecedor: TIBDataSet;
+    dtsFornecedor: TDataSource;
+    dbgFornecedor: TDBGrid;
+    qryFornecedorANO: TSmallintField;
+    qryFornecedorCODIGO: TIntegerField;
+    qryFornecedorEMPRESA: TIBStringField;
+    qryFornecedorFORNECEDOR: TIntegerField;
+    qryFornecedorNOME_CONTATO: TIBStringField;
+    qryFornecedorEMAIL_ENVIO: TIBStringField;
+    qryFornecedorFORMA_PAGTO: TSmallintField;
+    qryFornecedorCONDICAO_PAGTO: TSmallintField;
+    qryFornecedorPRAZO_ENTREGA_DATA: TDateField;
+    qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField;
+    qryFornecedorOBSERVACAO: TMemoField;
+    qryFornecedorATIVO: TSmallintField;
+    qryFornecedorUSUARIO: TIBStringField;
+    qryFornecedorNOMEFORN: TIBStringField;
+    qryFornecedorCNPJ: TIBStringField;
+    qryFornecedorEMAIL: TIBStringField;
+    qryFornecedorFORMA_PAGTO_DESC: TIBStringField;
+    qryFornecedorCONDICAP_PAGTO_DESC: TIBStringField;
+    updFornecedor: TIBUpdateSQL;
+    qryFornecedorVALOR_TOTAL_BRUTO: TIBBCDField;
+    qryFornecedorVALOR_TOTAL_DESCONTO: TIBBCDField;
+    qryFornecedorVALOR_TOTAL_LIQUIDO: TIBBCDField;
+    qryFornecedorVENCEDOR: TSmallintField;
+    qryFornecedorITENS: TIntegerField;
+    BtnFornecedorArquivoXSL: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -191,13 +243,21 @@ type
       DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
+    procedure BtnFornecedorInserirClick(Sender: TObject);
+    procedure dtsFornecedorStateChange(Sender: TObject);
+    procedure BtnFornecedorEditarClick(Sender: TObject);
+    procedure qryFornecedorITENSGetText(Sender: TField; var Text: String;
+      DisplayText: Boolean);
+    procedure BtnFornecedorArquivoXSLClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
     iSeq : Integer;
-    SQL_Itens : TStringList;
-    iFornecedor : Integer;
-    procedure AbrirTabelaItens(const AnoAutorizacao : Smallint; const CodigoAutorizacao : Integer);
+    SQL_Itens       ,
+    SQL_Fornecedores: TStringList;
+    iFornecedor     : Integer;
+    procedure AbrirTabelaItens(const AnoCotacao : Smallint; const CodigoCotacao : Integer);
+    procedure AbrirTabelaFornecedores(const AnoCotacao : Smallint; const CodigoCotacao : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
@@ -205,6 +265,7 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaAutorizarID : String;
     function GetRotinaCancelarCotacaoID : String;
+    function GetRotinaManterFornecedorID : String;
 
     procedure RegistrarNovaRotinaSistema;
   public
@@ -212,6 +273,7 @@ type
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
     property RotinaAutorizarID : String read GetRotinaAutorizarID;
     property RotinaCancelarCotacaoID : String read GetRotinaCancelarCotacaoID;
+    property RotinaManterFornecedorID : String read GetRotinaManterFornecedorID;
   end;
 
 var
@@ -225,7 +287,8 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeProduto, UGeCotacaoCompraCancelar;
+  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeProduto,
+  UGeCotacaoCompraCancelar, UGeCotacaoCompraFornecedor, UGeFornecedor, UFuncoes;
 
 {$R *.dfm}
 
@@ -308,29 +371,6 @@ begin
 
 end;
 
-procedure GetToTais(var Total_Referencia : Currency);
-var
-  Item : Integer;
-begin
-  with frmGeCotacaoCompra do
-  begin
-    Item := cdsTabelaItensSEQ.AsInteger;
-
-    Total_Referencia := 0.0;
-
-    cdsTabelaItens.First;
-
-    while not cdsTabelaItens.Eof do
-    begin
-      Total_Referencia := Total_Referencia + cdsTabelaItensVALOR_TOTAL_REF.AsCurrency;
-
-      cdsTabelaItens.Next;
-    end;
-
-    cdsTabelaItens.Locate('SEQ', Item, []);
-  end;
-end;
-
 procedure TfrmGeCotacaoCompra.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_COTACAO_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
@@ -342,6 +382,10 @@ begin
   SQL_Itens := TStringList.Create;
   SQL_Itens.Clear;
   SQL_Itens.AddStrings( cdsTabelaItens.SelectSQL );
+
+  SQL_Fornecedores := TStringList.Create;
+  SQL_Fornecedores.Clear;
+  SQL_Fornecedores.AddStrings( qryFornecedor.SelectSQL );
 
   e1Data.Date      := GetDateDB - 30;
   e2Data.Date      := GetDateDB;
@@ -383,13 +427,16 @@ end;
 procedure TfrmGeCotacaoCompra.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.Value          := GetEmpresaIDDefault;
-  IbDtstTabelaTIPO.Value             := TIPO_COTACAO_COMPRA;
-  IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
-  IbDtstTabelaEMISSAO_DATA.Value     := GetDateDB;
-  IbDtstTabelaEMISSAO_USUARIO.Value  := GetUserApp;
-  IbDtstTabelaVALIDADE.Value         := IbDtstTabelaEMISSAO_DATA.Value + GetPrazoValidadeCotacaoCompra(IbDtstTabelaEMPRESA.AsString);
-  IbDtstTabelaSTATUS.AsInteger       := STATUS_COTACAO_EDC;
+  IbDtstTabelaEMPRESA.Value             := GetEmpresaIDDefault;
+  IbDtstTabelaTIPO.Value                := TIPO_COTACAO_COMPRA;
+  IbDtstTabelaINSERCAO_DATA.Value       := GetDateTimeDB;
+  IbDtstTabelaEMISSAO_DATA.Value        := GetDateDB;
+  IbDtstTabelaEMISSAO_USUARIO.Value     := GetUserApp;
+  IbDtstTabelaVALIDADE.Value            := IbDtstTabelaEMISSAO_DATA.Value + GetPrazoValidadeCotacaoCompra(IbDtstTabelaEMPRESA.AsString);
+  IbDtstTabelaSTATUS.AsInteger          := STATUS_COTACAO_EDC;
+  IbDtstTabelaNOME_CONTATO_INT.AsString := GetUserFullName;
+
+  IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.AsInteger := 3;
 
   IbDtstTabelaVALOR_REF_TOTAL.AsCurrency    := 0.0;
 
@@ -406,7 +453,6 @@ begin
   IbDtstTabelaVALOR_MEDIA_TOTAL.AsCurrency    := 0.0;
 
   IbDtstTabelaDESCRICAO_RESUMO.Clear;
-  IbDtstTabelaNOME_CONTATO_INT.Clear;
   IbDtstTabelaAUTORIZADA_DATA.Clear;
   IbDtstTabelaAUTORIZADA_USUARIO.Clear;
   IbDtstTabelaCANCELADO_DATA.Clear;
@@ -431,11 +477,12 @@ begin
     IbDtstTabelaNUMERO.AsString  := FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger) + '/' + Copy(IbDtstTabelaANO.AsString, 3, 2);
 
     AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+    AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
   end;
 end;
 
 procedure TfrmGeCotacaoCompra.AbrirTabelaItens(
-  const AnoAutorizacao: Smallint; const CodigoAutorizacao: Integer);
+  const AnoCotacao: Smallint; const CodigoCotacao: Integer);
 begin
   cdsTabelaItens.Close;
 
@@ -443,8 +490,8 @@ begin
   begin
     Clear;
     AddStrings( SQL_Itens );
-    Add('where i.ano    = ' + IntToStr(AnoAutorizacao));
-    Add('  and i.codigo = ' + IntToStr(CodigoAutorizacao));
+    Add('where i.ano    = ' + IntToStr(AnoCotacao));
+    Add('  and i.codigo = ' + IntToStr(CodigoCotacao));
     Add('order by i.ano, i.codigo, i.seq');
   end;
 
@@ -467,7 +514,7 @@ begin
   else
   begin
     btnFinalizarCotacao.Enabled := False;
-    btnAutorizarCotacao.Enabled      := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnAutorizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
     btnCancelarCotacao.Enabled  := False;
 
     nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_AUT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
@@ -538,6 +585,7 @@ begin
     begin
       IbDtstTabelaSTATUS.Value := STATUS_COTACAO_EDC;
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+      AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
     end;
   end;
 end;
@@ -563,7 +611,10 @@ begin
   begin
     inherited;
     if ( not OcorreuErro ) then
+    begin
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+      AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+    end;  
   end;
 end;
 
@@ -630,6 +681,27 @@ begin
 end;
 
 procedure TfrmGeCotacaoCompra.btnProdutoSalvarClick(Sender: TObject);
+
+  procedure GetToTais(var Total_Referencia : Currency);
+  var
+    Item : Integer;
+  begin
+    Item := cdsTabelaItensSEQ.AsInteger;
+
+    Total_Referencia := 0.0;
+
+    cdsTabelaItens.First;
+
+    while not cdsTabelaItens.Eof do
+    begin
+      Total_Referencia := Total_Referencia + cdsTabelaItensVALOR_TOTAL_REF.AsCurrency;
+
+      cdsTabelaItens.Next;
+    end;
+
+    cdsTabelaItens.Locate('SEQ', Item, []);
+  end;
+
 var
   cTotalReferencia ,
   cTotalMaxBruto   ,
@@ -680,7 +752,16 @@ begin
   cdsTabelaItensEMPRESA.Value    := IbDtstTabelaEMPRESA.Value;
   cdsTabelaItensQUANTIDADE.Value := 1;
   cdsTabelaItensVALOR_UNITARIO_REF.AsCurrency := 0.0;
+  cdsTabelaItensVALOR_TOTAL_REF.AsCurrency    := 0.0;
   cdsTabelaItensUSUARIO.Value                 := GetUserApp;
+
+  cdsTabelaItensVALOR_UNITARIO_MAX.AsCurrency   := 0.0;
+  cdsTabelaItensVALOR_UNITARIO_MIN.AsCurrency   := 0.0;
+  cdsTabelaItensVALOR_UNITARIO_MEDIA.AsCurrency := 0.0;
+  cdsTabelaItensVALOR_TOTAL_MAX.AsCurrency      := 0.0;
+  cdsTabelaItensVALOR_TOTAL_MIN.AsCurrency      := 0.0;
+  cdsTabelaItensVALOR_TOTAL_MEDIA.AsCurrency    := 0.0;
+
   cdsTabelaItensPRODUTO.Clear;
   cdsTabelaItensDESCRI_APRESENTACAO.Clear;
   cdsTabelaItensUNIDADE.Clear;
@@ -696,6 +777,7 @@ begin
   RecarregarRegistro;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
+  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
   if ( ShowConfirm('Confirma a autorização do cotação selecionada?') ) then
   begin
@@ -726,6 +808,9 @@ begin
 
   DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_AUT );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+
+  dtsFornecedor.AutoEdit := (IbDtstTabela.State = dsBrowse) and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC);
+  dtsFornecedorStateChange( dtsFornecedor );
 end;
 
 procedure TfrmGeCotacaoCompra.DtSrcTabelaItensStateChange(
@@ -745,6 +830,7 @@ procedure TfrmGeCotacaoCompra.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
   AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
   pgcMaisDados.ActivePage := tbsFormaPagto;
   HabilitarDesabilitar_Btns;
@@ -807,6 +893,7 @@ procedure TfrmGeCotacaoCompra.IbDtstTabelaAfterCancel(
 begin
   inherited;
   AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 end;
 
 procedure TfrmGeCotacaoCompra.btbtnSalvarClick(Sender: TObject);
@@ -857,6 +944,7 @@ begin
       IbDtstTabela.Locate(CampoCodigo, iCodigo, []);
 
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+      AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
     end;
 
@@ -923,6 +1011,15 @@ begin
 //      dbgProdutos.Canvas.Font.Color := lblAutorizacaoCancelada.Font.Color;
 //
 //    dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);
+  end
+  else
+  // Destacar fornecedores
+  if ( Sender = dbgFornecedor ) then
+  begin
+    if (qryFornecedorATIVO.AsInteger = 0) then
+      dbgFornecedor.Canvas.Font.Color := lblCotacaoCancelada.Font.Color;
+
+    dbgFornecedor.DefaultDrawDataCell(Rect, dbgFornecedor.Columns[DataCol].Field, State);
   end;
 end;
 
@@ -1006,7 +1103,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(GetEmpresaIDDefault), dbTipo.Text, EmptyStr);
+      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
     except
     end;
 
@@ -1016,24 +1113,27 @@ begin
       ParamByName('Cnpj').AsString := IbDtstTabelaEMPRESA.AsString;
       Open;
     end;
-(*
-    with qryFornecedorDestinatario do
-    begin
-      Close;
-      ParamByName('codigo').AsInteger := IbDtstTabelaFORNECEDOR.AsInteger;
-      Open;
-    end;
 
-    with qryAutorizacaoCompra do
+    with qryCotacaoCompra do
     begin
       Close;
       ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
       ParamByName('cod').AsInteger := IbDtstTabelaCODIGO.AsInteger;
+      ParamByName('emp').AsString  := IbDtstTabelaEMPRESA.AsString;
       Open;
     end;
 
-    frrAutorizacaoCompra.ShowReport;
-*)    
+    with qryCotacaoCompraFornecedor do
+    begin
+      Close;
+      ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
+      ParamByName('cod').AsInteger := IbDtstTabelaCODIGO.AsInteger;
+      ParamByName('emp').AsString  := IbDtstTabelaEMPRESA.AsString;
+      ParamByName('frn').AsInteger := 0;
+      Open;
+    end;
+
+    frrCotacaoCompra.ShowReport;
   end;
 end;
 
@@ -1045,6 +1145,7 @@ begin
 
   RecarregarRegistro;
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
+  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
   if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_AUTORIZACAO_AUT ) then
     ShowInformation('Apenas registros autorizados podem ser cancelados!')
@@ -1104,6 +1205,7 @@ begin
   RecarregarRegistro;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
+  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
   if ( ShowConfirm('Confirma a finalização da edição do cotação?') ) then
   begin
@@ -1207,6 +1309,9 @@ begin
 
     if btnCancelarCotacao.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarCotacaoID, btnCancelarCotacao.Caption, RotinaID);
+
+    if PnlFornecedor.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaManterFornecedorID, PnlFornecedor.Hint, RotinaID);
   end;
 end;
 
@@ -1221,6 +1326,151 @@ procedure TfrmGeCotacaoCompra.IbDtstTabelaAfterScroll(
 begin
   inherited;
   TbsCotacaoCancelado.TabVisible := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_CAN);
+end;
+
+procedure TfrmGeCotacaoCompra.AbrirTabelaFornecedores(
+  const AnoCotacao: Smallint; const CodigoCotacao: Integer);
+begin
+  qryFornecedor.Close;
+
+  with qryFornecedor, SelectSQL do
+  begin
+    Clear;
+    AddStrings( SQL_Fornecedores );
+    Add('where c.ano    = ' + IntToStr(AnoCotacao));
+    Add('  and c.codigo = ' + IntToStr(CodigoCotacao));
+  end;
+
+  qryFornecedor.Open;
+
+  HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeCotacaoCompra.BtnFornecedorInserirClick(Sender: TObject);
+var
+  iCodigo : Integer;
+  sNome   : String;
+begin
+  if GetPermissaoRotinaInterna(PnlFornecedor, True) then
+  begin
+    iCodigo := 0;
+    if SelecionarFornecedor(Self, iCodigo, sNome) then
+    begin
+      if qryFornecedor.Locate('FORNECEDOR', iCodigo, []) then
+      begin
+        ShowWarning('Fornecedor selecionado já inserido na Cotação!');
+        Abort;
+      end;
+
+      CotacaoFornecedor(Self,
+        cfoInserir, IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value, iCodigo,
+        IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value);
+
+      AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+    end;
+  end;
+end;
+
+function TfrmGeCotacaoCompra.GetRotinaManterFornecedorID: String;
+begin
+  Result := GetRotinaInternaID(PnlFornecedor);
+end;
+
+procedure TfrmGeCotacaoCompra.dtsFornecedorStateChange(Sender: TObject);
+begin
+  btnFornecedorInserir.Enabled    := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) );
+  btnFornecedorEditar.Enabled     := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  btnFornecedorExcluir.Enabled    := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  BtnFornecedorArquivoXSL.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+end;
+
+procedure TfrmGeCotacaoCompra.BtnFornecedorEditarClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaInterna(PnlFornecedor, True) then
+  begin
+    CotacaoFornecedor(Self,
+      cfoEditar, qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
+      IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value);
+
+    AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.qryFornecedorITENSGetText(Sender: TField;
+  var Text: String; DisplayText: Boolean);
+begin
+  if ( not Sender.IsNull ) then
+    Case Sender.AsInteger of
+      0 : Text := EmptyStr;
+      1 : Text := 'X';
+    end;
+end;
+
+procedure TfrmGeCotacaoCompra.BtnFornecedorArquivoXSLClick(
+  Sender: TObject);
+var
+  sID       ,
+  sMensagem ,
+  sFileName : String;
+begin
+  if ( qryFornecedor.IsEmpty ) then
+    Exit;
+
+  sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
+  sFileName := Path_MeusDocumentos + '\' + 
+    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' + StringReplace(IbDtstTabelaNUMERO.AsString, '/', '-', [rfReplaceAll]) + '.xls';
+
+  with DMNFe do
+  begin
+
+    try
+      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(qryFornecedorEMPRESA.AsString), dbTipo.Text, EmptyStr);
+    except
+    end;
+
+    with qryEmitente do
+    begin
+      Close;
+      ParamByName('Cnpj').AsString := qryFornecedorEMPRESA.AsString;
+      Open;
+    end;
+
+    with qryCotacaoCompra do
+    begin
+      Close;
+      ParamByName('ano').AsInteger := qryFornecedorANO.AsInteger;
+      ParamByName('cod').AsInteger := qryFornecedorCODIGO.AsInteger;
+      ParamByName('emp').AsString  := qryFornecedorEMPRESA.AsString;
+      Open;
+    end;
+
+    with qryCotacaoCompraFornecedor do
+    begin
+      Close;
+      ParamByName('ano').AsInteger := qryFornecedorANO.AsInteger;
+      ParamByName('cod').AsInteger := qryFornecedorCODIGO.AsInteger;
+      ParamByName('emp').AsString  := qryFornecedorEMPRESA.AsString;
+      ParamByName('frn').AsInteger := qryFornecedorFORNECEDOR.AsInteger;
+      Open;
+    end;
+
+    ExportarFR3_ToXSL(frrCotacaoCompra, sFileName);
+
+    if FileExists(sFileName) then
+    begin
+      sMensagem := 'Arquivo gerado com sucesso:' + #13 + sFileName + #13#13 +
+        'Deseja que este arquivo seja enviado por e-mail para o fornecedor?';
+
+      if ShowConfirm(sMensagem) then
+      begin
+        // Travar arquivo XLS e elaborar formulas aqui
+        // ....
+        
+        if DMNFe.EnviarEmail_Generico(qryFornecedorEMPRESA.AsString, IbDtstTabelaNUMERO.Value, qryFornecedorEMAIL_ENVIO.AsString, sFileName) then
+          ShowInformation(Format('E-mail enviado com sucesso para ''%s''', [qryFornecedorEMAIL_ENVIO.AsString]));
+      end;
+    end;
+  end;
 end;
 
 initialization

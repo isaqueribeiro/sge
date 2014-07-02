@@ -1983,7 +1983,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 424
         Width = 1108
         Height = 190
-        ActivePage = tbsRecebimento
+        ActivePage = tbsITitulos
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet

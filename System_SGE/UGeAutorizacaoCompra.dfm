@@ -878,7 +878,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           Top = 104
           Width = 705
           Height = 81
-          ActivePage = TbsAutorizacaoCancelado
+          ActivePage = TbsAutorizacaoMotivo
           Style = tsFlatButtons
           TabOrder = 13
           object TbsAutorizacaoMotivo: TTabSheet
@@ -891,10 +891,10 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
               Align = alClient
               DataField = 'MOVITO'
               DataSource = DtSrcTabela
-              Font.Charset = DEFAULT_CHARSET
+              Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
               Font.Height = -11
-              Font.Name = 'MS Sans Serif'
+              Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
               ScrollBars = ssVertical
@@ -912,10 +912,10 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
               Align = alClient
               DataField = 'OBSERVACAO'
               DataSource = DtSrcTabela
-              Font.Charset = DEFAULT_CHARSET
+              Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
               Font.Height = -11
-              Font.Name = 'MS Sans Serif'
+              Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
               ScrollBars = ssVertical
@@ -934,10 +934,10 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
               Align = alClient
               DataField = 'CANCELADO_MOTIVO'
               DataSource = DtSrcTabela
-              Font.Charset = DEFAULT_CHARSET
+              Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
               Font.Height = -11
-              Font.Name = 'MS Sans Serif'
+              Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
               ReadOnly = True

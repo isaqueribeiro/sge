@@ -1314,6 +1314,9 @@ begin
       else
         IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 1;
 
+    if ( Field = IbDtstTabelaPERCENTUAL_MARCKUP ) then
+      IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency := IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency;
+
     if ( Field = IbDtstTabelaPERCENTUAL_MARGEM ) then
       IbDtstTabelaPRECO_SUGERIDO.AsCurrency := IbDtstTabelaCUSTOMEDIO.AsCurrency +
         (IbDtstTabelaCUSTOMEDIO.AsCurrency * IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency / 100);

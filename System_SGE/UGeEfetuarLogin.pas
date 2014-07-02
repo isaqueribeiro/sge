@@ -39,7 +39,7 @@ begin
 
   try
 
-    if not DMBusiness.ibdtstUsers.Locate('NOME',edNome.Text,[]) then
+    if not DMBusiness.ibdtstUsers.Locate('NOME', edNome.Text, []) then
     begin
       pnlMensagem.Caption:='Entrada recusada ... USUÁRIO DESCONHECIDO!';
 

@@ -179,6 +179,8 @@ var
 
   procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
 
+  procedure ExportarFR3_ToXSL(const FrrLayout: TfrxReport; var sFileName : String);
+
   procedure Desativar_Promocoes;
   procedure GerarSaldoContaCorrente(const ContaCorrente : Integer; const Data : TDateTime);
   procedure BloquearClientes;
@@ -266,6 +268,8 @@ var
   function GetClienteNome(const iCodigo : Integer) : String;
   function GetClienteEmail(const iCodigo : Integer) : String;
   function GetFornecedorEmail(const iCodigo : Integer) : String;
+  function GetFornecedorRazao(const iCodigo : Integer) : String;
+  function GetFornecedorContato(const iCodigo : Integer) : String;
   function GetVendedorNomeDefault : String;
   function GetFormaPagtoNomeDefault : String;
   function GetCondicaoPagtoNomeDefault : String;
@@ -699,6 +703,24 @@ begin
     cds.Free;
     dsp.Free;
     qry.Free;
+  end;
+end;
+
+procedure ExportarFR3_ToXSL(const FrrLayout: TfrxReport; var sFileName : String);
+begin
+  with DMBusiness, FrrLayout, PrintOptions do
+  begin
+    if FileExists(sFileName) then
+      DeleteFile(sFileName);
+
+    ForceDirectories( ExtractFilePath(sFileName) );
+    PrepareReport;
+    frxXLS.FileName := sFileName;
+    frxXLS.Report   := FrrLayout;
+
+    Export(frxXLS);
+
+    sFileName := frxXLS.FileName;
   end;
 end;
 
@@ -1975,6 +1997,36 @@ begin
     Open;
 
     Result := AnsiLowerCase(Trim(FieldByName('email').AsString));
+
+    Close;
+  end;
+end;
+
+function GetFornecedorRazao(const iCodigo : Integer) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select nomeforn from TBFORNECEDOR where Codforn = ' + IntToStr(iCodigo));
+    Open;
+
+    Result := AnsiLowerCase(Trim(FieldByName('nomeforn').AsString));
+
+    Close;
+  end;
+end;
+
+function GetFornecedorContato(const iCodigo : Integer) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select contato from TBFORNECEDOR where Codforn = ' + IntToStr(iCodigo));
+    Open;
+
+    Result := AnsiLowerCase(Trim(FieldByName('contato').AsString));
 
     Close;
   end;
