@@ -205,7 +205,10 @@ type
     qryFornecedorVALOR_TOTAL_LIQUIDO: TIBBCDField;
     qryFornecedorVENCEDOR: TSmallintField;
     qryFornecedorITENS: TIntegerField;
-    BtnFornecedorArquivoXSL: TBitBtn;
+    BtnFornecedorOpcoes: TBitBtn;
+    ppCotacaoFornecedor: TPopupMenu;
+    nmGerarArquivoXLS: TMenuItem;
+    nmProcessarArquivoXLS: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -246,9 +249,10 @@ type
     procedure BtnFornecedorInserirClick(Sender: TObject);
     procedure dtsFornecedorStateChange(Sender: TObject);
     procedure BtnFornecedorEditarClick(Sender: TObject);
-    procedure qryFornecedorITENSGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
-    procedure BtnFornecedorArquivoXSLClick(Sender: TObject);
+    procedure BtnFornecedorOpcoesClick(Sender: TObject);
+    procedure qryFornecedorVENCEDORGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
+    procedure nmGerarArquivoXLSClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -261,6 +265,7 @@ type
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+    procedure SetEventoLOG(sEvento : String);
 
     function GetRotinaFinalizarID : String;
     function GetRotinaAutorizarID : String;
@@ -334,7 +339,7 @@ begin
     frm.btnAutorizarCotacao.Visible := False;
     frm.btnCancelarCotacao.Visible  := False;
 
-    frm.RdgStatusCotacao.ItemIndex := STATUS_COTACAO_AUT + 1;
+    frm.RdgStatusCotacao.ItemIndex := STATUS_COTACAO_COT + 1;
 
     for I := 0 to frm.RdgStatusCotacao.Items.Count - 1 do
       frm.RdgStatusCotacao.Controls[I].Enabled := False;
@@ -505,19 +510,19 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btnFinalizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_EDC) and (not cdsTabelaItens.IsEmpty);
-    btnAutorizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ABR) and (not cdsTabelaItens.IsEmpty);
-    btnCancelarCotacao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_AUT);
+    btnAutorizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) and (not cdsTabelaItens.IsEmpty);
+    btnCancelarCotacao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT);
 
-    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_AUT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
+    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
     nmImprimirCotacaoMapa.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
   end
   else
   begin
     btnFinalizarCotacao.Enabled := False;
-    btnAutorizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnAutorizarCotacao.Enabled := False; //(not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_COT) and (not cdsTabelaItens.IsEmpty);
     btnCancelarCotacao.Enabled  := False;
 
-    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_AUT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
+    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
     nmImprimirCotacaoMapa.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
   end;
 end;
@@ -562,11 +567,11 @@ var
 begin
   RecarregarRegistro;
 
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_AUTORIZACAO_ABR ) then
+  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_COTACAO_ABR ) then
   begin
     Case IbDtstTabelaSTATUS.AsInteger of
-      STATUS_COTACAO_AUT : sMsg := 'Esta cotação não pode ser alterada porque já está autorizada.';
       STATUS_COTACAO_COT : sMsg := 'Esta cotação não pode ser alterada porque já está aguardando encerramento.';
+      STATUS_COTACAO_ENC : sMsg := 'Esta cotação não pode ser alterada por já está autorizada/encerrada.';
       STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser alterada porque está cancelada.';
     end;
 
@@ -596,12 +601,12 @@ var
 begin
   RecarregarRegistro;
 
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_AUTORIZACAO_ABR ) then
+  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_COTACAO_ABR ) then
   begin
     Case IbDtstTabelaSTATUS.AsInteger of
-      STATUS_COTACAO_AUT : sMsg := 'Esta cotação não pode ser alterada porque já está autorizada.';
-      STATUS_COTACAO_COT : sMsg := 'Esta cotação não pode ser alterada porque já está aguardando encerramento.';
-      STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser alterada porque está cancelada.';
+      STATUS_COTACAO_COT : sMsg := 'Esta cotação não pode ser excluída porque já está aguardando encerramento.';
+      STATUS_COTACAO_ENC : sMsg := 'Esta cotação não pode ser excluída por já está autorizada/encerrada.';
+      STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser excluída porque está cancelada.';
     end;
 
     ShowWarning(sMsg);
@@ -779,11 +784,19 @@ begin
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
   AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
+  if not (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) then
+    ShowInformation('Apenas cotações que já possuem respostas de fornecedores poder ser autorizadas/encerradas!')
+  else
+  if (qryFornecedor.RecordCount < IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.Value) then
+    ShowInformation(
+      Format('Para que a cotação possa ser autorizada/encerrada, esta deve possuir resposta de, no mínimo, %s fornecedor(es).',
+        [IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.AsString]))
+  else
   if ( ShowConfirm('Confirma a autorização do cotação selecionada?') ) then
   begin
     IbDtstTabela.Edit;
 
-    IbDtstTabelaSTATUS.Value             := STATUS_COTACAO_AUT;
+    IbDtstTabelaSTATUS.Value             := STATUS_COTACAO_ENC;
     IbDtstTabelaAUTORIZADA_DATA.Value    := GetDateDB;
     IbDtstTabelaAUTORIZADA_USUARIO.Value := GetUserApp;
 
@@ -792,7 +805,7 @@ begin
 
     CommitTransaction;
 
-    ShowInformation('Autorização realizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
+    ShowInformation('Cotação Autorizada/Encerrada realizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
 
     HabilitarDesabilitar_Btns;
 
@@ -806,10 +819,10 @@ begin
   pgcMaisDados.ActivePageIndex := 0;
   PgcTextoCotacao.ActivePage   := TbsCotacaoMotivo;
 
-  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_AUT );
+  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
 
-  dtsFornecedor.AutoEdit := (IbDtstTabela.State = dsBrowse) and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC);
+  dtsFornecedor.AutoEdit := (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse) and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC);
   dtsFornecedorStateChange( dtsFornecedor );
 end;
 
@@ -1170,9 +1183,8 @@ begin
   Case Sender.AsInteger of
     STATUS_COTACAO_EDC : Text := 'Em Edição';
     STATUS_COTACAO_ABR : Text := 'Aberta';
-    STATUS_COTACAO_AUT : Text := 'Autorizada';
     STATUS_COTACAO_COT : Text := 'Em Cotação';
-    STATUS_COTACAO_ENC : Text := 'Encerrada';
+    STATUS_COTACAO_ENC : Text := 'Autorizada/Encerrada';
     STATUS_COTACAO_CAN : Text := 'Cancelada';
   end;
 end;
@@ -1362,11 +1374,10 @@ begin
         Abort;
       end;
 
-      CotacaoFornecedor(Self,
-        cfoInserir, IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value, iCodigo,
-        IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value);
-
-      AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+      if CotacaoFornecedor(Self, cfoInserir,
+        IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value, iCodigo,
+        IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+        AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
     end;
   end;
 end;
@@ -1378,25 +1389,35 @@ end;
 
 procedure TfrmGeCotacaoCompra.dtsFornecedorStateChange(Sender: TObject);
 begin
-  btnFornecedorInserir.Enabled    := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) );
-  btnFornecedorEditar.Enabled     := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
-  btnFornecedorExcluir.Enabled    := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
-  BtnFornecedorArquivoXSL.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  btnFornecedorInserir.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) );
+  btnFornecedorEditar.Enabled  := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  btnFornecedorExcluir.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+
+  BtnFornecedorOpcoes.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  nmGerarArquivoXLS.Enabled   := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
 end;
 
 procedure TfrmGeCotacaoCompra.BtnFornecedorEditarClick(Sender: TObject);
 begin
   if GetPermissaoRotinaInterna(PnlFornecedor, True) then
   begin
-    CotacaoFornecedor(Self,
-      cfoEditar, qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
-      IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value);
-
-    AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+    if CotacaoFornecedor(Self, cfoEditar,
+      qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
+      IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+      AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
   end;
 end;
 
-procedure TfrmGeCotacaoCompra.qryFornecedorITENSGetText(Sender: TField;
+procedure TfrmGeCotacaoCompra.BtnFornecedorOpcoesClick(
+  Sender: TObject);
+begin
+  if ( qryFornecedor.IsEmpty ) then
+    Exit;
+
+  ppCotacaoFornecedor.Popup(BtnFornecedorOpcoes.ClientOrigin.X, BtnFornecedorOpcoes.ClientOrigin.Y + BtnFornecedorOpcoes.Height);
+end;
+
+procedure TfrmGeCotacaoCompra.qryFornecedorVENCEDORGetText(Sender: TField;
   var Text: String; DisplayText: Boolean);
 begin
   if ( not Sender.IsNull ) then
@@ -1406,8 +1427,15 @@ begin
     end;
 end;
 
-procedure TfrmGeCotacaoCompra.BtnFornecedorArquivoXSLClick(
-  Sender: TObject);
+procedure TfrmGeCotacaoCompra.SetEventoLOG(sEvento: String);
+var
+  sMensagem : String;
+begin
+  sMensagem := FormatDateTime('dd/mm/yyyy', Now) + ' - ' + sEvento + '( por ' + gUsuarioLogado.Login + ').';
+  
+end;
+
+procedure TfrmGeCotacaoCompra.nmGerarArquivoXLSClick(Sender: TObject);
 var
   sID       ,
   sMensagem ,
@@ -1456,19 +1484,25 @@ begin
 
     ExportarFR3_ToXSL(frrCotacaoCompra, sFileName);
 
+    ElaborarFormulaTravarCelulasXLS(Self,
+      qryFornecedorEMPRESA.AsString, qryFornecedorANO.AsInteger, qryFornecedorCODIGO.AsInteger, qryFornecedorFORNECEDOR.AsInteger,
+      qryFornecedorEMAIL_ENVIO.AsString, sFileName);
+
     if FileExists(sFileName) then
     begin
+
       sMensagem := 'Arquivo gerado com sucesso:' + #13 + sFileName + #13#13 +
         'Deseja que este arquivo seja enviado por e-mail para o fornecedor?';
 
       if ShowConfirm(sMensagem) then
       begin
-        // Travar arquivo XLS e elaborar formulas aqui
-        // ....
-        
         if DMNFe.EnviarEmail_Generico(qryFornecedorEMPRESA.AsString, IbDtstTabelaNUMERO.Value, qryFornecedorEMAIL_ENVIO.AsString, sFileName) then
+        begin
+          SetEventoLOG('Planilha de cotação enviada por e-mail para o Fornecedor ' + qryFornecedorNOMEFORN.AsString);
           ShowInformation(Format('E-mail enviado com sucesso para ''%s''', [qryFornecedorEMAIL_ENVIO.AsString]));
+        end;
       end;
+
     end;
   end;
 end;

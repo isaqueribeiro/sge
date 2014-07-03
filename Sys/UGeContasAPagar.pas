@@ -369,7 +369,7 @@ procedure TfrmGeContasAPagar.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btbtnEfetuarPagto.Enabled := (IbDtstTabelaQUITADO.AsInteger = STATUS_APAGAR_PENDENTE) and (not IbDtstTabela.IsEmpty);
+    btbtnEfetuarPagto.Enabled := (IbDtstTabelaQUITADO.AsInteger = STATUS_APAGAR_PENDENTE) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse);
     popGerarRecibo.Enabled    := (not cdsPagamentos.IsEmpty);
   end
   else
@@ -669,6 +669,7 @@ procedure TfrmGeContasAPagar.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   dbValorAPagar.ReadOnly := (not cdsPagamentos.IsEmpty);
+  HabilitarDesabilitar_Btns;
 end;
 
 procedure TfrmGeContasAPagar.btbtnCancelarClick(Sender: TObject);

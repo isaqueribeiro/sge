@@ -3190,23 +3190,6 @@ inherited frmGeProduto: TfrmGeProduto
     Left = 472
     Top = 400
   end
-  object EvUA: TEvUserAccess
-    Consents.Strings = (
-      'btbtnAlterar=H'
-      'btbtnCancelar=D'
-      'btbtnExcluir=D'
-      'btbtnIncluir=H'
-      'btbtnSalvar=D'
-      'dbCusto=H'
-      'lblCusto=H'
-      'dbPercentualMarckup=D'
-      'dbLucroValor=D'
-      'lblPercentualMarckup=H'
-      'lblLucroValor=H'
-      'dbgDados=H')
-    Left = 692
-    Top = 9
-  end
   object tblTributacaoSN: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness

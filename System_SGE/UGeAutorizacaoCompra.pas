@@ -368,7 +368,7 @@ begin
   DisplayFormatCodigo := '###00000';
 
   NomeTabela     := 'TBAUTORIZA_COMPRA';
-  CampoCodigo    := 'codigo';
+  CampoCodigo    := 'a.codigo';
   CampoDescricao := 'f.nomeforn';
   CampoOrdenacao := 'a.emissao_data, f.nomeforn';
 

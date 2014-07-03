@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, EUserAcs, rxCurrEdit;
+  ToolWin, IBTable, rxToolEdit, RXDBCtrl, rxCurrEdit;
 
 type
   TAliquota = (taICMS, taISS);
@@ -76,7 +76,6 @@ type
     lblReserva: TLabel;
     dbReserva: TDBEdit;
     IbDtstTabelaNCM_SH: TIBStringField;
-    EvUA: TEvUserAccess;
     tblTributacaoSN: TIBTable;
     dtsTributacaoSN: TDataSource;
     IbDtstTabelaCSOSN: TIBStringField;
@@ -1162,6 +1161,7 @@ end;
 procedure TfrmGeProduto.FormActivate(Sender: TObject);
 begin
   inherited;
+  {$IFDEF DGE}
   EvUA.UserID := GetUserFunctionID;
 
   Case GetUserFunctionID of
@@ -1189,7 +1189,7 @@ begin
         dbLucroValor.Visible  := False;
       end;
   end;
-
+  {$ENDIF}
 
   if pgcGuias.ActivePage = tbsTabela then
   begin
@@ -1198,7 +1198,7 @@ begin
       edtFiltrar.SetFocus;
   end;
 
-  dbgDados.Columns[COLUMN_LUCRO].Visible := ( DMBusiness.ibdtstUsersCODFUNCAO.AsInteger in [FUNCTION_USER_ID_DIRETORIA..FUNCTION_USER_ID_GERENTE_FIN,
+  dbgDados.Columns[COLUMN_LUCRO].Visible := ( gUsuarioLogado.Funcao in [FUNCTION_USER_ID_DIRETORIA..FUNCTION_USER_ID_GERENTE_FIN,
     FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM] )
     and (gSistema.Codigo = SISTEMA_GESTAO);
 end;

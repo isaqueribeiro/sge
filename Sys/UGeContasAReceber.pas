@@ -345,7 +345,7 @@ end;
 procedure TfrmGeContasAReceber.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
-    btbtnEfetuarPagto.Enabled := (IbDtstTabelaBAIXADO.AsInteger = 0) and (not IbDtstTabela.IsEmpty)
+    btbtnEfetuarPagto.Enabled := (IbDtstTabelaBAIXADO.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse)
   else
     btbtnEfetuarPagto.Enabled := False;
 end;
@@ -558,6 +558,7 @@ procedure TfrmGeContasAReceber.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   dbValorAReceber.ReadOnly := (not cdsPagamentos.IsEmpty);
+  HabilitarDesabilitar_Btns;
 end;
 
 procedure TfrmGeContasAReceber.btbtnCancelarClick(Sender: TObject);

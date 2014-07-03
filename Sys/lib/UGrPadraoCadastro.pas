@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, UGrPadrao, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
-  DBClient, EUserAcs, frxClass;
+  DBClient, frxClass;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
@@ -769,12 +769,14 @@ procedure TfrmGrPadraoCadastro.CarregarControleAcesso;
 var
   I : Integer;
 begin
+{$IFDEF DGE}
   for I := 0 to ComponentCount - 1 do
     if Components[I] is TEvUserAccess then
     begin
       RegistrarControleAcesso(Self, TEvUserAccess(Components[I]));
       GetControleAcesso(Self, TEvUserAccess(Components[I]));
     end;
+{$ENDIF}    
 end;
 
 procedure TfrmGrPadraoCadastro.SetVariablesDefault(

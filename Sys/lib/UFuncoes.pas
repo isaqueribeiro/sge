@@ -325,6 +325,15 @@ end;
 function Path_MeusDocumentos : String;
 begin
   Result := GetEnvironmentVariable('USERPROFILE');
+
+  if Pos('Documents', Result) = 0 then
+    Result := GetEnvironmentVariable('USERPROFILE') + '\Documents';
+
+  if not DirectoryExists(Result) then
+    Result := GetEnvironmentVariable('USERPROFILE') + '\Documentos';
+
+  if not DirectoryExists(Result) then
+    Result := GetEnvironmentVariable('USERPROFILE') + '\Meus Documentos';
 end;
 
 function Path_Windows : String;

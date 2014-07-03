@@ -933,4 +933,17 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Left = 464
     Top = 64
   end
+  object XLApp: TExcelApplication
+    AutoConnect = False
+    ConnectKind = ckRunningOrNew
+    AutoQuit = False
+    Left = 216
+    Top = 309
+  end
+  object XLBook: TExcelWorkbook
+    AutoConnect = False
+    ConnectKind = ckRunningOrNew
+    Left = 248
+    Top = 309
+  end
 end

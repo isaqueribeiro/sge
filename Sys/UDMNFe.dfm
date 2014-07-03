@@ -11248,10 +11248,9 @@ object DMNFe: TDMNFe
       '  , case c.status'
       '      when 0 then '#39'Em Edi'#231#227'o'#39
       '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Autorizada'#39
-      '      when 3 then '#39'Em Cota'#231#227'o'#39
-      '      when 4 then '#39'Encerrada'#39
-      '      when 5 then '#39'Cancelada'#39
+      '      when 2 then '#39'Em Cota'#231#227'o'#39
+      '      when 3 then '#39'Autorizada/Encerrada'#39
+      '      when 4 then '#39'Cancelada'#39
       '    end as status_desc'
       '  , c.empresa'
       '  , c.emissao_data'

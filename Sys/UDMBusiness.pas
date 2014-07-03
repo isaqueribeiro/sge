@@ -6,7 +6,7 @@ uses
   Windows, Forms, SysUtils, Classes, IBDatabase, DB, IBCustomDataSet, IniFIles,
   ShellApi, Printers, DateUtils, IBQuery, RpDefine, RpRave,
   frxClass, frxDBSet, EMsgDlg, IdBaseComponent, IdComponent, IdIPWatch, IBStoredProc,
-  FuncoesFormulario, UConstantesDGE, IBUpdateSQL, EUserAcs, DBClient,
+  FuncoesFormulario, UConstantesDGE, IBUpdateSQL, DBClient,
   Provider, Dialogs, Registry, frxChart, frxCross, frxRich, frxExportMail,
   frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF;
 
@@ -187,7 +187,9 @@ var
   procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
+  {$IFDEF DGE}
   procedure RegistrarControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess);
+  {$ENDIF}
   procedure CarregarConfiguracoesEmpresa(CNPJ : String; Mensagem : String; var AssinaturaHtml, AssinaturaTXT : String);
   procedure SetEmpresaIDDefault(CNPJ : String);
   procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
@@ -215,7 +217,9 @@ var
   function GetEmitirCupom : Boolean;
   function GetModeloEmissaoCupom : Integer;
   function GetSegmentoID(const CNPJ : String) : Integer;
+  {$IFDEF DGE}
   function GetControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess) : Boolean;
+  {$ENDIF}
   function GetEmailEmpresa(const sCNPJEmpresa : String) : String;
   function GetCalcularCustoOperEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetPermitirVendaEstoqueInsEmpresa(const sCNPJEmpresa : String) : Boolean;
@@ -345,10 +349,9 @@ const
 
   STATUS_COTACAO_EDC = 0;
   STATUS_COTACAO_ABR = 1;
-  STATUS_COTACAO_AUT = 2;
-  STATUS_COTACAO_COT = 3;
-  STATUS_COTACAO_ENC = 4;
-  STATUS_COTACAO_CAN = 5;
+  STATUS_COTACAO_COT = 2;
+  STATUS_COTACAO_ENC = 3;
+  STATUS_COTACAO_CAN = 4;
 
   // Mensagens padrões do sistema
   CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado, automaticamente, pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
@@ -846,6 +849,7 @@ begin
   end;
 end;
 
+{$IFDEF DGE}
 procedure RegistrarControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess);
 begin
   with DMBusiness, qryEvAcessUser do
@@ -868,6 +872,7 @@ begin
     CommitTransaction;
   end;
 end;
+{$ENDIF}
 
 procedure CarregarConfiguracoesEmpresa(CNPJ : String; Mensagem : String; var AssinaturaHtml, AssinaturaTXT : String);
 var
@@ -1149,6 +1154,7 @@ begin
   end;
 end;
 
+{$IFDEF DGE}
 function GetControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess) : Boolean;
 begin
   with DMBusiness, qryEvAcessUser do
@@ -1167,6 +1173,7 @@ begin
     end;
   end;
 end;
+{$ENDIF}
 
 function GetEmailEmpresa(const sCNPJEmpresa : String) : String;
 begin
