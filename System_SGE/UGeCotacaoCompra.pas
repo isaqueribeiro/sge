@@ -1486,7 +1486,7 @@ begin
 
     ElaborarFormulaTravarCelulasXLS(Self,
       qryFornecedorEMPRESA.AsString, qryFornecedorANO.AsInteger, qryFornecedorCODIGO.AsInteger, qryFornecedorFORNECEDOR.AsInteger,
-      qryFornecedorEMAIL_ENVIO.AsString, sFileName);
+      qryFornecedorCNPJ.AsString, sFileName);
 
     if FileExists(sFileName) then
     begin

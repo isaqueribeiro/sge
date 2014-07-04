@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
   IBCustomDataSet, IBUpdateSQL, rxToolEdit, RXDBCtrl, IBTable, OleServer,
-  ExcelXP;
+  ExcelXP, ComObj;
 
 type
   TCotacaoFornecedorOpercao = (cfoInserir, cfoEditar, cfoVisualizar);
@@ -103,6 +103,9 @@ type
   function ElaborarFormulaTravarCelulasXLS(const AOwer : TComponent; cEmpresa : String; Ano : Smallint; Numero, Fornecedor : Integer;
     const SenhaXLS, ArquivoXLS : String) : Boolean;
 
+  function TravarCelulasXLS(const Ranges : TStringList; const SenhaXLS, ArquivoXLS : String;
+    const ListaSuspensaEndereco, ListaSuspensaValores : TStringList) : Boolean;
+
 implementation
 
 uses
@@ -197,6 +200,34 @@ const
     'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
     'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ');
 
+  PLANILHA_1     = 'Plan1';
+  PLANILHA_2     = 'Plan2';
+  PLANILHA_3     = 'Plan3';
+
+  NOME_VENDEDOR  = 'Att.:';
+  ENDERECO_FORNE = 'Endereço:';
+  TOTAL_GERAL    = 'T O T A L    G E R A L';
+  TOTAL_BRUTO    = 'Total Bruto';
+  TOTAL_DESCONTO = 'Desconto';
+  TOTAL_LIQUIDO  = 'Total Líquido';
+  FORMA_PAGTO    = 'Forma de Pagamento:';
+  CONDICAO_PAGTO = 'Condição de Pagamento:';
+  OBSERVACOES    = 'Observações Gerais:';
+
+  COLUNA_NOME_VEND = COLUNA_A;
+  COLUNA_END_FORNE = COLUNA_A;
+  COLUNA_QTDE      = COLUNA_L;
+  COLUNA_VALOR     = COLUNA_Q;
+  COLUNA_TOTAL     = COLUNA_U;
+  COLUNA_TOTAL_GT  = COLUNA_J;
+  COLUNA_TOTAL_GV  = COLUNA_T;
+  COLUNA_TOTAL_BR  = COLUNA_H;
+  COLUNA_TOTAL_DS  = COLUNA_M;
+  COLUNA_TOTAL_LQ  = COLUNA_S;
+  COLUNA_FORMA_PAGTO    = COLUNA_A;
+  COLUNA_CONDICAO_PAGTO = COLUNA_G;
+  COLUNA_OBSERVACOES    = COLUNA_A;
+
 function CotacaoFornecedor(const AOwer : TComponent; const TipoOperacao : TCotacaoFornecedorOpercao;
   Empresa : String; Ano : Smallint; Numero, Fornecedor : Integer;
   const Descricao : String; const Emissao, Validade : TDateTime) : Boolean;
@@ -241,36 +272,36 @@ var
 var
   I,
   iLinha      ,
+  iLinha_Nome_Vendedor ,
+  iLinha_End_Fornecedor,
   iLinha_Total_Geral   ,
   iLinha_Total_Bruto   ,
   iLinha_Total_Desconto,
   iLinha_Total_Liquido ,
+  iLinha_Forma_Pagto   ,
+  iLinha_Condicao_Pagto,
+  iLinha_Observacoes   ,
   iColuna,
   LCID   : Integer;
 
   MyXLWorkbook  ,
   MyXLWorksheet : OleVariant;
 
+  sListaFormaPagto   ,
+  sListaCondicaoPagto,
+  
   sSoma  ,
   sValor : String;
-
-const
-  PLANILHA_1     = 'Plan1';
-  TOTAL_GERAL    = 'T O T A L    G E R A L';
-  TOTAL_BRUTO    = 'Total Bruto';
-  TOTAL_DESCONTO = 'Desconto';
-  TOTAL_LIQUIDO  = 'Total Líquido';
-
-  COLUNA_QTDE     = COLUNA_L;
-  COLUNA_VALOR    = COLUNA_Q;
-  COLUNA_TOTAL    = COLUNA_U;
-  COLUNA_TOTAL_GT = COLUNA_J;
-  COLUNA_TOTAL_GV = COLUNA_T;
-  COLUNA_TOTAL_BR = COLUNA_H;
-  COLUNA_TOTAL_DS = COLUNA_M;
-  COLUNA_TOTAL_LQ = COLUNA_S;
+  RangesLocked : TStringList;
+  ListaEndereco   ,
+  ListaReferencia : TStringList;
 begin
   frm := TfrmGeCotacaoCompraFornecedor.Create(AOwer);
+
+  RangesLocked    := TStringList.Create;
+  ListaEndereco   := TStringList.Create;
+  ListaReferencia := TStringList.Create;
+  Screen.Cursor   := crHourGlass;
 
   with frm do
   begin
@@ -323,16 +354,8 @@ begin
       iLinha  := XLApp.ActiveCell.Row;
       iColuna := XLApp.ActiveCell.Column;
 
-      // Proteger todas as células (Rotina funcionando mas comentada provisoriamente até se desconbrir uma forma de liberar apenas as células de quantidade)
-
-      //MyXLWorksheet.Cells.Locked        := True; // Ativar Proteção de valores
-      //MyXLWorksheet.Cells.FormulaHidden := True; // Ativar Proteção de fórmulas
-
-      // Desproteger campo DATA
-
-      MyXLWorksheet.Range[REFERENCIA[COLUNA_T] + '19'].Select;
-      //MyXLWorksheet.Selection.Locked        := False;
-      //MyXLWorksheet.Selection.FormulaHidden := False;
+      // Remover proteção do campo DATA
+      RangesLocked.Add(REFERENCIA[COLUNA_T] + '19');
 
       iLinha_Total_Geral    := 0;
       iLinha_Total_Bruto    := 0;
@@ -344,8 +367,16 @@ begin
       for I := 1 to iLinha do
       begin
 
+        // Recuperar referências de campos liberados e/ou de controles
+        
         if ( Pos(TOTAL_GERAL, MyXLWorksheet.Cells[I, COLUNA_TOTAL_GT]) > 0 ) then
           iLinha_Total_Geral := I;
+
+        if ( Pos(NOME_VENDEDOR, MyXLWorksheet.Cells[I, COLUNA_NOME_VEND]) > 0 ) then
+          iLinha_Nome_Vendedor := I + 1;
+
+        if ( Pos(ENDERECO_FORNE, MyXLWorksheet.Cells[I, COLUNA_END_FORNE]) > 0 ) then
+          iLinha_End_Fornecedor := I + 1;
 
         if ( Pos(TOTAL_BRUTO, MyXLWorksheet.Cells[I, COLUNA_TOTAL_BR]) > 0 ) then
           iLinha_Total_Bruto := I + 1;
@@ -356,8 +387,17 @@ begin
         if ( Pos(TOTAL_LIQUIDO, MyXLWorksheet.Cells[I, COLUNA_TOTAL_LQ]) > 0 ) then
           iLinha_Total_Liquido := I + 1;
 
+        if ( Pos(FORMA_PAGTO, MyXLWorksheet.Cells[I, COLUNA_FORMA_PAGTO]) > 0 ) then
+          iLinha_Forma_Pagto := I + 1;
+
+        if ( Pos(CONDICAO_PAGTO, MyXLWorksheet.Cells[I, COLUNA_CONDICAO_PAGTO]) > 0 ) then
+          iLinha_Condicao_Pagto := I + 1;
+
+        if ( Pos(OBSERVACOES, MyXLWorksheet.Cells[I, COLUNA_OBSERVACOES]) > 0 ) then
+          iLinha_Observacoes := I + 1;
+
         // Recuperar valor/conteúdo da célula
-           
+
         sValor := StringReplace(Trim(MyXLWorksheet.Cells[I, COLUNA_QTDE]), '''', '', [rfReplaceAll]);
 
         if sValor = EmptyStr then
@@ -375,10 +415,7 @@ begin
           MyXLWorksheet.Cells[I, COLUNA_TOTAL].NumberFormat := '#.##0,00_);(#.##0,00)';
 
           // Remover Proteção
-
-          //MyXLWorksheet.Range[REFERENCIA[COLUNA_VALOR] + IntToStr(I)].Select;
-          //MyXLWorksheet.Selection.Locked        := False;
-          //MyXLWorksheet.Selection.FormulaHidden := False;
+          RangesLocked.Add(REFERENCIA[COLUNA_VALOR] + IntToStr(I));
 
           sSoma := sSoma + REFERENCIA[COLUNA_TOTAL] + IntToStr(I) + '+';
         end;
@@ -408,6 +445,9 @@ begin
         MyXLWorksheet.Range[REFERENCIA[COLUNA_TOTAL_DS] + IntToStr(iLinha_Total_Desconto)].Select;
         MyXLWorksheet.Range[REFERENCIA[COLUNA_TOTAL_DS] + IntToStr(iLinha_Total_Desconto)].NumberFormat := '#.##0,00_);(#.##0,00)';
         MyXLWorksheet.Range[REFERENCIA[COLUNA_TOTAL_DS] + IntToStr(iLinha_Total_Desconto)] := EmptyStr;
+
+        // Remover proteção do campo DESCONTO
+        RangesLocked.Add(REFERENCIA[COLUNA_TOTAL_DS] + IntToStr(iLinha_Total_Desconto));
       end;
 
       if ( iLinha_Total_Liquido > 0 ) then
@@ -418,14 +458,69 @@ begin
           '=' + REFERENCIA[COLUNA_TOTAL_BR] + IntToStr(iLinha_Total_Bruto) + '-' + REFERENCIA[COLUNA_TOTAL_DS] + IntToStr(iLinha_Total_Desconto);
       end;
 
-      // Inserir senha de proteção da célula
-      
-      if not DelphiIsRunning then
-        MyXLWorksheet.Protect(SenhaXLS, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True);
+      // Remover proteção do campo VENDEDOR (ATT.)
+      if ( iLinha_Nome_Vendedor > 0 ) then
+        RangesLocked.Add(REFERENCIA[COLUNA_NOME_VEND] + IntToStr(iLinha_Nome_Vendedor));
+
+      // Remover proteção do campo ENDERECO DO FORNECEDOR
+      if ( iLinha_End_Fornecedor > 0 ) then
+        RangesLocked.Add(REFERENCIA[COLUNA_END_FORNE] + IntToStr(iLinha_End_Fornecedor));
+
+      // Remover proteção do campo FORMA DE PAGAMENTO
+      if ( iLinha_Forma_Pagto > 0 ) then
+        RangesLocked.Add(REFERENCIA[COLUNA_FORMA_PAGTO] + IntToStr(iLinha_Forma_Pagto));
+
+      // Remover proteção do campo CONDIÇÃO DE PAGAMENTO
+      if ( iLinha_Condicao_Pagto > 0 ) then
+        RangesLocked.Add(REFERENCIA[COLUNA_CONDICAO_PAGTO] + IntToStr(iLinha_Condicao_Pagto));
+
+      // Remover proteção do campo OBSERVAÇÔES GERAIS
+      if ( iLinha_Observacoes > 0 ) then
+        RangesLocked.Add(REFERENCIA[COLUNA_OBSERVACOES] + IntToStr(iLinha_Observacoes));
+
+      // Montar Lista de Formas de Pagamento na Planilha 2
+
+      I := 1;
+      sListaFormaPagto := EmptyStr;
+      tblFormaPagto.First;
+      while not tblFormaPagto.Eof do
+      begin
+        MyXLWorkbook.Worksheets.Item[PLANILHA_2].Range['A' + IntToStr(I)].Value := Trim(tblFormaPagto.FieldByName('DESCRI').AsString);
+        sListaFormaPagto := sListaFormaPagto + Trim(tblFormaPagto.FieldByName('DESCRI').AsString) + ';';
+        tblFormaPagto.Next;
+        Inc(I);
+      end;
+
+      if (iLinha_Forma_Pagto > 0) and (Trim(sListaFormaPagto) <> EmptyStr) then
+      begin
+        ListaEndereco.Add(REFERENCIA[COLUNA_FORMA_PAGTO] + IntToStr(iLinha_Forma_Pagto));
+        ListaReferencia.Add(Copy(sListaFormaPagto, 1, Length(sListaFormaPagto) - 1));
+      end;
+
+      // Montar Lista de Formas de Pagamento na Planilha 2
+
+      I := 1;
+      sListaCondicaoPagto := EmptyStr;
+      tblCondicaoPagto.First;
+      while not tblCondicaoPagto.Eof do
+      begin
+        MyXLWorkbook.Worksheets.Item[PLANILHA_3].Range['A' + IntToStr(I)].Value := Trim(tblCondicaoPagto.FieldByName('COND_DESCRICAO').AsString);
+        sListaCondicaoPagto := sListaCondicaoPagto + Trim(tblCondicaoPagto.FieldByName('COND_DESCRICAO').AsString) + ';';
+        tblCondicaoPagto.Next;
+        Inc(I);
+      end;
+
+      if (iLinha_Condicao_Pagto > 0) and (Trim(sListaCondicaoPagto) <> EmptyStr) then
+      begin
+        ListaEndereco.Add(REFERENCIA[COLUNA_CONDICAO_PAGTO] + IntToStr(iLinha_Condicao_Pagto));
+        ListaReferencia.Add(Copy(sListaCondicaoPagto, 1, Length(sListaCondicaoPagto) - 1));
+      end;
 
       // Ativar célula A11 da PLAN1 e salvar
 
       MyXLWorkbook.Worksheets.Item[PLANILHA_1].Range[REFERENCIA[COLUNA_A] + '11'].Select;
+      MyXLWorkbook.Worksheets.Item[PLANILHA_2].Visible := False;
+      MyXLWorkbook.Worksheets.Item[PLANILHA_3].Visible := False;
       MyXLWorkbook.Save;
     finally
       XLApp.DisplayAlerts[LCID] := True;
@@ -435,8 +530,112 @@ begin
       XLApp.Disconnect;
 
       Free;
+
+      if FileExists(ArquivoXLS) then
+        TravarCelulasXLS(RangesLocked, SenhaXLS, ArquivoXLS, ListaEndereco, ListaReferencia);
+
+      RangesLocked.Free;
+      ListaEndereco.Free;
+      ListaReferencia.Free;
+      
+      Screen.Cursor := crDefault;
     end;
 
+  end;
+end;
+
+function TravarCelulasXLS(const Ranges : TStringList; const SenhaXLS, ArquivoXLS : String;
+  const ListaSuspensaEndereco, ListaSuspensaValores : TStringList) : Boolean;
+var
+  Excel : OleVariant;
+  I     ,
+  LCID  : Integer;
+begin
+  Excel := CreateOleObject('Excel.Application');
+
+  Excel.Visible       := False;
+  Excel.DisplayAlerts := False;
+
+  LCID := GetUserDefaultLCID;
+
+  Screen.Cursor := crHourGlass;
+
+  try
+
+    Excel.Workbooks.Open(
+      ArquivoXLS,
+      EmptyParam, // UpdateLinks : OleVariant
+      EmptyParam, // ReadOnly    : OleVariant
+      EmptyParam, // Format      : OleVariant
+      EmptyParam, // Password    : OleVariant
+      EmptyParam, // WriteResPassword          : OleVariant
+      EmptyParam, // IgnoreReadOnlyRecommended : OleVariant
+      EmptyParam, // Orign     : OleVariant
+      EmptyParam, // Delimiter : OleVariant
+      EmptyParam, // Editable  : OleVariant
+      EmptyParam, // Notify    : OleVariant
+      EmptyParam, // Converter : OleVariant
+      EmptyParam, // AddToMru  : OleVariant
+      EmptyParam  // LCID
+    );
+
+    Excel.Cells.Select;                // Seleciona a planilha
+    Excel.Cells.Locked        := True; // Ativar a proteção de conteúdo
+    Excel.Cells.FormulaHidden := True; // Ativar a proteção de fórmula
+
+    // Remover proteção
+
+    for I := 0 to Ranges.Count - 1 do
+    begin
+      Excel.Range[ Ranges[I] ].Select;        // Seleciona a Célula
+      Excel.Selection.Locked        := False; // Remover Proteção de Conteúdo
+      Excel.Selection.FormulaHidden := False; // Remover Proteção de Fórmula
+    end;
+
+    // Montar lista suspensa
+
+    for I := 0 to ListaSuspensaEndereco.Count - 1 do
+    begin
+      Excel.Range[ ListaSuspensaEndereco[I] ].Select; // Seleciona a Célula
+      Excel.Selection.Validation.Delete;
+      Excel.Selection.Validation.Add(
+          xlValidateList
+        , xlValidAlertStop
+        , xlBetween
+        , ListaSuspensaValores[I] // Fórmula para montar a lista suspensa
+      );
+      Excel.Selection.Validation.IgnoreBlank    := True;
+      Excel.Selection.Validation.InCellDropdown := True;
+      Excel.Selection.Validation.ShowError      := False;
+
+      (******* Script VB
+
+      Range("C1").Select
+      With Selection.Validation
+          .Delete
+          .Add Type:=xlValidateList, AlertStyle := xlValidAlertWarning, Operator := xlBetween, Formula1:="=Plan3!$A$1:$A$17"
+          .IgnoreBlank = True
+          .InCellDropdown = True
+          .InputTitle = ""
+          .ErrorTitle = "Título"
+          .InputMessage = ""
+          .ErrorMessage = "Teste"
+          .ShowInput = True
+          .ShowError = True
+      End With
+      *)
+    end;
+
+    Excel.Range['A1'].Select;
+
+    Excel.ActiveSheet.Protect(SenhaXLS, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True);
+    Excel.ActiveWorkBook.SaveAs(ArquivoXLS);
+
+  finally
+    Excel.DisplayAlerts := True;
+    Excel.ActiveWorkBook.Close;
+    
+    Screen.Cursor := crDefault;
   end;
 end;
 
