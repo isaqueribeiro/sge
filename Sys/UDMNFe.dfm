@@ -12663,4 +12663,9 @@ object DMNFe: TDMNFe
     Left = 568
     Top = 304
   end
+  object ACBrValidador: TACBrValidador
+    IgnorarChar = './-'
+    Left = 616
+    Top = 64
+  end
 end

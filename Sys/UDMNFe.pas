@@ -11,7 +11,7 @@ uses
 
   ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
   IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
-  ACBrBoleto, ACBrBoletoFCFR, frxExportImage;
+  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador;
 
 type
   TDMNFe = class(TDataModule)
@@ -470,6 +470,7 @@ type
     frrCotacaoCompra: TfrxReport;
     qryCotacaoCompraFornecedor: TIBQuery;
     frdCotacaoCompraFornecedor: TfrxDBDataset;
+    ACBrValidador: TACBrValidador;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -1631,7 +1632,7 @@ begin
           Prod.EXTIPI   := '';
           Prod.CFOP     := qryDadosProdutoCFOP_COD.AsString;
 
-          if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then
+          if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEAN   := qryDadosProdutoCODBARRA_EAN.AsString
           else
             Prod.cEAN   := EmptyStr;
@@ -1646,7 +1647,7 @@ begin
 
           Prod.vProd    := qryDadosProdutoTOTAL_BRUTO.AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Serviços
 
-          if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then
+          if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEANTrib := qryDadosProdutoCODBARRA_EAN.AsString
           else
             Prod.cEANTrib := EmptyStr;
@@ -2813,7 +2814,7 @@ begin
           Prod.EXTIPI   := '';
           Prod.CFOP     := qryEntradaDadosProdutoCFOP_COD.AsString;
 
-          if EAN13Valido(qryEntradaDadosProdutoCODBARRA_EAN.AsString) then
+          if EAN13Valido(qryEntradaDadosProdutoCODBARRA_EAN.AsString) then  // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEAN   := qryEntradaDadosProdutoCODBARRA_EAN.AsString
           else
             Prod.cEAN   := EmptyStr;
@@ -2825,7 +2826,7 @@ begin
 
           Prod.vProd    := qryEntradaDadosProdutoTOTAL_BRUTO.AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Serviços
 
-          if EAN13Valido(qryEntradaDadosProdutoCODBARRA_EAN.AsString) then
+          if EAN13Valido(qryEntradaDadosProdutoCODBARRA_EAN.AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEANTrib := qryEntradaDadosProdutoCODBARRA_EAN.AsString
           else
             Prod.cEANTrib := EmptyStr;
