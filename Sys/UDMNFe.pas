@@ -1631,7 +1631,11 @@ begin
           Prod.EXTIPI   := '';
           Prod.CFOP     := qryDadosProdutoCFOP_COD.AsString;
 
-          Prod.cEAN     := qryDadosProdutoCODBARRA_EAN.AsString;
+          if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then
+            Prod.cEAN   := qryDadosProdutoCODBARRA_EAN.AsString
+          else
+            Prod.cEAN   := EmptyStr;
+
           Prod.uCom     := qryDadosProdutoUNP_SIGLA.AsString;
           Prod.qCom     := qryDadosProdutoQTDE.AsCurrency;
 
@@ -1642,7 +1646,11 @@ begin
 
           Prod.vProd    := qryDadosProdutoTOTAL_BRUTO.AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Serviços
 
-          Prod.cEANTrib  := qryDadosProdutoCODBARRA_EAN.AsString;
+          if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then
+            Prod.cEANTrib := qryDadosProdutoCODBARRA_EAN.AsString
+          else
+            Prod.cEANTrib := EmptyStr;
+            
           Prod.uTrib     := qryDadosProdutoUNP_SIGLA.AsString;
           Prod.qTrib     := qryDadosProdutoQTDE.AsCurrency;
 
@@ -2805,7 +2813,11 @@ begin
           Prod.EXTIPI   := '';
           Prod.CFOP     := qryEntradaDadosProdutoCFOP_COD.AsString;
 
-          Prod.cEAN     := qryEntradaDadosProdutoCODBARRA_EAN.AsString;
+          if EAN13Valido(qryEntradaDadosProdutoCODBARRA_EAN.AsString) then
+            Prod.cEAN   := qryEntradaDadosProdutoCODBARRA_EAN.AsString
+          else
+            Prod.cEAN   := EmptyStr;
+
           Prod.uCom     := qryEntradaDadosProdutoUNP_SIGLA.AsString;
           Prod.qCom     := qryEntradaDadosProdutoQTDE.AsCurrency;
 
@@ -2813,7 +2825,11 @@ begin
 
           Prod.vProd    := qryEntradaDadosProdutoTOTAL_BRUTO.AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Serviços
 
-          Prod.cEANTrib  := qryEntradaDadosProdutoCODBARRA_EAN.AsString;
+          if EAN13Valido(qryEntradaDadosProdutoCODBARRA_EAN.AsString) then
+            Prod.cEANTrib := qryEntradaDadosProdutoCODBARRA_EAN.AsString
+          else
+            Prod.cEANTrib := EmptyStr;
+              
           Prod.uTrib     := qryEntradaDadosProdutoUNP_SIGLA.AsString;
           Prod.qTrib     := qryEntradaDadosProdutoQTDE.AsCurrency;
 
