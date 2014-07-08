@@ -884,10 +884,10 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         Top = 448
         Width = 1108
         Height = 166
-        ActivePage = tbsFornecedor
+        ActivePage = tbsDadoConsolidado
         Align = alBottom
         TabOrder = 3
-        object tbsFormaPagto: TTabSheet
+        object tbsDadoConsolidado: TTabSheet
           Caption = 'Dados Consolidados'
           ImageIndex = 1
           object GrpBxPagamento: TGroupBox
@@ -1433,6 +1433,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = [fsBold]
             OnDrawColumnCell = dbgDadosDrawColumnCell
+            OnDblClick = dbgFornecedorDblClick
             Columns = <
               item
                 Expanded = False
@@ -5098,6 +5099,71 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     end
     object nmProcessarArquivoXLS: TMenuItem
       Caption = '2. Processar Retorno XLS (Planilha em Excel)'
+      OnClick = nmProcessarArquivoXLSClick
     end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object nmProcessarRespostas: TMenuItem
+      Caption = 'Processar Respostas'
+      ImageIndex = 39
+      OnClick = nmProcessarRespostasClick
+    end
+  end
+  object opdCotacaoFornecedor: TOpenDialog
+    Filter = 'Arquivos XLS (*.xls)|*.xls'
+    Left = 272
+    Top = 553
+  end
+  object stpSetCotacaoFornecedorItem: TIBStoredProc
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    StoredProcName = 'SET_COTACAO_COMPRAFORN_ITEM'
+    Left = 976
+    Top = 544
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'ANO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'EMPRESA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'FORNECEDOR'
+        ParamType = ptInput
+      end>
+  end
+  object stpSetCotacaoFornecedorProcessa: TIBStoredProc
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    StoredProcName = 'SET_COTACAO_COMPRAFORN_PROCESSA'
+    Left = 976
+    Top = 576
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'ANO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'EMPRESA'
+        ParamType = ptInput
+      end>
   end
 end

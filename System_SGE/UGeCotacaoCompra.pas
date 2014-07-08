@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus;
+  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, IBStoredProc;
 
 type
   TfrmGeCotacaoCompra = class(TfrmGrPadraoCadastro)
@@ -60,7 +60,7 @@ type
     dbValorTotal: TDBEdit;
     lblNumero: TLabel;
     dbNumero: TDBEdit;
-    tbsFormaPagto: TTabSheet;
+    tbsDadoConsolidado: TTabSheet;
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
     tblTipoCotacao: TIBTable;
@@ -209,6 +209,11 @@ type
     ppCotacaoFornecedor: TPopupMenu;
     nmGerarArquivoXLS: TMenuItem;
     nmProcessarArquivoXLS: TMenuItem;
+    opdCotacaoFornecedor: TOpenDialog;
+    N1: TMenuItem;
+    nmProcessarRespostas: TMenuItem;
+    stpSetCotacaoFornecedorItem: TIBStoredProc;
+    stpSetCotacaoFornecedorProcessa: TIBStoredProc;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -253,6 +258,9 @@ type
     procedure qryFornecedorVENCEDORGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
     procedure nmGerarArquivoXLSClick(Sender: TObject);
+    procedure nmProcessarArquivoXLSClick(Sender: TObject);
+    procedure dbgFornecedorDblClick(Sender: TObject);
+    procedure nmProcessarRespostasClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -266,6 +274,8 @@ type
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
     procedure SetEventoLOG(sEvento : String);
+    procedure SetCotacaoFornecedorItem;
+    procedure SetCotacaoFornecedorProcessa(Empresa : String; Ano : Smallint; Codigo : Integer);
 
     function GetRotinaFinalizarID : String;
     function GetRotinaAutorizarID : String;
@@ -789,7 +799,7 @@ begin
   else
   if (qryFornecedor.RecordCount < IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.Value) then
     ShowInformation(
-      Format('Para que a cotação possa ser autorizada/encerrada, esta deve possuir resposta de, no mínimo, %s fornecedor(es).',
+      Format('Para que a cotação possa ser autorizada/encerrada, esta deve possuir respostas de, no mínimo, %s fornecedor(es).',
         [IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.AsString]))
   else
   if ( ShowConfirm('Confirma a autorização do cotação selecionada?') ) then
@@ -845,7 +855,7 @@ begin
   AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
   AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
-  pgcMaisDados.ActivePage := tbsFormaPagto;
+  pgcMaisDados.ActivePage := tbsDadoConsolidado;
   HabilitarDesabilitar_Btns;
 end;
 
@@ -959,6 +969,7 @@ begin
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
       AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
+      SetCotacaoFornecedorItem;
     end;
 
     HabilitarDesabilitar_Btns;
@@ -1376,7 +1387,7 @@ begin
 
       if CotacaoFornecedor(Self, cfoInserir,
         IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value, iCodigo,
-        IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+        IbDtstTabelaDESCRICAO_RESUMO.Value, EmptyStr, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
         AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
     end;
   end;
@@ -1403,7 +1414,7 @@ begin
   begin
     if CotacaoFornecedor(Self, cfoEditar,
       qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
-      IbDtstTabelaDESCRICAO_RESUMO.Value, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+      IbDtstTabelaDESCRICAO_RESUMO.Value, EmptyStr, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
       AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
   end;
 end;
@@ -1504,6 +1515,104 @@ begin
       end;
 
     end;
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.nmProcessarArquivoXLSClick(Sender: TObject);
+var
+  sID       ,
+  sMensagem ,
+  sFileName : String;
+begin
+  if ( qryFornecedor.IsEmpty ) then
+    Exit;
+
+  sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
+  sFileName := Path_MeusDocumentos + '\' +
+    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' + StringReplace(IbDtstTabelaNUMERO.AsString, '/', '-', [rfReplaceAll]) + '.xls';
+
+  opdCotacaoFornecedor.FileName := sFileName;
+
+  if opdCotacaoFornecedor.Execute then
+    sFileName := opdCotacaoFornecedor.FileName
+  else
+    Exit;
+
+  if CotacaoFornecedor(Self, cfoCarregarPlanilha,
+    qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
+    IbDtstTabelaDESCRICAO_RESUMO.Value, sFileName, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+  begin
+    SetEventoLOG(Format('Arquivo ''%s'' de resposta do fornecedor %s processado por %s.', [sFileName, qryFornecedorNOMEFORN.AsString, gUsuarioLogado.Login]));
+    AbrirTabelaFornecedores( qryFornecedorANO.Value, qryFornecedorCODIGO.Value );
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.dbgFornecedorDblClick(Sender: TObject);
+begin
+  if ( qryFornecedor.IsEmpty ) then
+    Exit;
+
+  if CotacaoFornecedor(Self, cfoVisualizar,
+    qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
+    IbDtstTabelaDESCRICAO_RESUMO.Value, EmptyStr, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+end;
+
+procedure TfrmGeCotacaoCompra.nmProcessarRespostasClick(Sender: TObject);
+begin
+  if ( qryFornecedor.IsEmpty ) then
+    Exit;
+
+  if (qryFornecedor.RecordCount < IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.Value) then
+    ShowInformation(
+      Format('Para que a cotação possa ser processada, esta deve possuir respostas de, no mínimo, %s fornecedor(es).',
+        [IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.AsString]))
+  else
+  if ShowConfirm('Deseja executar processamento da(s) resposta(s) do(s) fornecedor(es)?') then
+  begin
+    SetCotacaoFornecedorProcessa(IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value);
+    AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+
+    RecarregarRegistro;
+
+    pgcMaisDados.ActivePage := tbsDadoConsolidado;
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.SetCotacaoFornecedorItem;
+begin
+  qryFornecedor.First;
+
+  while not qryFornecedor.Eof do
+  begin
+    with stpSetCotacaoFornecedorItem do
+    begin
+      ParamByName('ano').AsInteger        := qryFornecedorANO.AsInteger;
+      ParamByName('codigo').AsInteger     := qryFornecedorCODIGO.AsInteger;
+      ParamByName('empresa').AsString     := qryFornecedorEMPRESA.AsString;
+      ParamByName('fornecedor').AsInteger := qryFornecedorFORNECEDOR.AsInteger;
+
+      ExecProc;
+    end;
+
+    qryFornecedor.Next;
+  end;
+  CommitTransaction;
+
+  qryFornecedor.Close;
+  qryFornecedor.Open;
+end;
+
+procedure TfrmGeCotacaoCompra.SetCotacaoFornecedorProcessa(Empresa: String;
+  Ano: Smallint; Codigo: Integer);
+begin
+  with stpSetCotacaoFornecedorProcessa do
+  begin
+    ParamByName('ano').AsInteger    := Ano;
+    ParamByName('codigo').AsInteger := Codigo;
+    ParamByName('empresa').AsString := Empresa;
+
+    ExecProc;
+    CommitTransaction;
   end;
 end;
 

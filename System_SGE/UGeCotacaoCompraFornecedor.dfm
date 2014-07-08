@@ -1,28 +1,28 @@
 inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
-  Width = 727
-  Height = 474
+  Width = 780
+  Height = 508
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cota'#231#227'o de Compra/Servi'#231'o'
   Font.Charset = ANSI_CHARSET
   Font.Name = 'Tahoma'
   DesignSize = (
-    703
-    428)
+    756
+    462)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 121
-    Width = 703
+    Width = 756
     Height = 4
     Align = alTop
     Shape = bsSpacer
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 389
-    Width = 703
+    Top = 423
+    Width = 756
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -30,7 +30,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 703
+    Width = 756
     Height = 121
     Align = alTop
     Caption = 'Controle da Cota'#231#227'o'
@@ -42,7 +42,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     ParentFont = False
     TabOrder = 0
     DesignSize = (
-      703
+      756
       121)
     object lblCodigo: TLabel
       Left = 16
@@ -100,6 +100,20 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object lblDataResposta: TLabel
+      Left = 208
+      Top = 64
+      Width = 58
+      Height = 13
+      Caption = 'Data Resp.:'
+      FocusControl = dbDataResposta
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object dbCodigo: TDBEdit
       Left = 16
       Top = 40
@@ -121,7 +135,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     object dbDescricaoResumo: TDBEdit
       Left = 112
       Top = 40
-      Width = 575
+      Width = 628
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -173,241 +187,12 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       ReadOnly = True
       TabOrder = 3
     end
-  end
-  object GrpBxImposto: TGroupBox
-    Left = 0
-    Top = 125
-    Width = 703
-    Height = 264
-    Align = alTop
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Caption = 'Dados do Fornecedor'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
-    DesignSize = (
-      703
-      264)
-    object lblFornecedor: TLabel
-      Left = 16
-      Top = 24
-      Width = 59
-      Height = 13
-      Caption = 'Fornecedor:'
-      FocusControl = dbFornecedor
-    end
-    object lblNomeContato: TLabel
-      Left = 16
-      Top = 64
-      Width = 130
-      Height = 13
-      Caption = 'Nome Contato (Vendedor):'
-      FocusControl = dbNomeContato
-    end
-    object lblEmail: TLabel
-      Left = 296
-      Top = 64
-      Width = 32
-      Height = 13
-      Caption = 'E-mail:'
-      FocusControl = dbEmail
-    end
-    object lblFormaPagto: TLabel
-      Left = 16
-      Top = 107
-      Width = 106
-      Height = 13
-      Caption = 'Forma de Pagamento:'
-      FocusControl = dbFormaPagto
-    end
-    object lblCondicaoPagto: TLabel
-      Left = 192
-      Top = 107
-      Width = 120
-      Height = 13
-      Caption = 'Condi'#231#227'o de Pagamento:'
-      FocusControl = dbCondicaoPagto
-    end
-    object lblDataEntrega: TLabel
-      Left = 566
-      Top = 107
-      Width = 68
-      Height = 13
-      Anchors = [akTop, akRight]
-      Caption = 'Data Entrega:'
-      FocusControl = dbDataEntrega
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lblObservacoes: TLabel
-      Left = 16
-      Top = 152
-      Width = 67
-      Height = 13
-      Caption = 'Observa'#231#245'es:'
-      FocusControl = dbObservacoes
-    end
-    object dbFornecedor: TRxDBComboEdit
-      Left = 16
-      Top = 40
-      Width = 671
-      Height = 21
-      ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
-      CharCase = ecUpperCase
-      ClickKey = 16464
-      Color = clMoneyGreen
-      DataField = 'NOMEFORN'
-      DataSource = dtsFornecedor
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      Glyph.Data = {
-        36060000424D3606000000000000360000002800000020000000100000000100
-        18000000000000060000000000000000000000000000000000001DE6B51DE6B5
-        1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
-        AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-        C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
-        6048306048306048306048306048306048306048306048306048305048403050
-        604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-        7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
-        FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
-        D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
-        C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
-        FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
-        E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
-        7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
-        FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
-        B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
-        7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
-        FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
-        8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-        F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
-        FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
-        5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-        F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
-        FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
-        6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-        FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
-        FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
-        951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-        FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
-        FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
-        B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
-        7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
-        FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
-        B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
-        7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
-        B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
-        B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
-        B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-        E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
-        B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-        7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
-        1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
-        B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-        C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
-      Anchors = [akLeft, akTop, akRight]
-      NumGlyphs = 2
-      ParentFont = False
-      ParentShowHint = False
-      ReadOnly = True
-      ShowHint = True
-      TabOrder = 0
-      OnButtonClick = dbFornecedorButtonClick
-    end
-    object dbNomeContato: TDBEdit
-      Left = 16
+    object dbDataResposta: TDBDateEdit
+      Left = 208
       Top = 80
-      Width = 273
-      Height = 21
-      CharCase = ecUpperCase
-      DataField = 'NOME_CONTATO'
-      DataSource = dtsFornecedor
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-    end
-    object dbEmail: TDBEdit
-      Left = 296
-      Top = 80
-      Width = 391
-      Height = 21
-      Anchors = [akLeft, akTop, akRight]
-      CharCase = ecLowerCase
-      DataField = 'EMAIL_ENVIO'
-      DataSource = dtsFornecedor
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 2
-    end
-    object dbFormaPagto: TDBLookupComboBox
-      Left = 16
-      Top = 123
-      Width = 169
-      Height = 21
-      DataField = 'FORMA_PAGTO'
-      DataSource = dtsFornecedor
-      DropDownRows = 10
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      KeyField = 'COD'
-      ListField = 'DESCRI'
-      ListSource = dtsFormaPagto
-      ParentFont = False
-      TabOrder = 3
-    end
-    object dbCondicaoPagto: TDBLookupComboBox
-      Left = 192
-      Top = 123
-      Width = 369
-      Height = 21
-      DataField = 'CONDICAO_PAGTO'
-      DataSource = dtsFornecedor
-      DropDownRows = 10
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      KeyField = 'COND_COD'
-      ListField = 'COND_DESCRICAO'
-      ListSource = dtsCondicaoPagto
-      ParentFont = False
-      TabOrder = 4
-    end
-    object dbDataEntrega: TDBDateEdit
-      Left = 566
-      Top = 123
       Width = 121
       Height = 21
-      DataField = 'PRAZO_ENTREGA_DATA'
+      DataField = 'DATA_RESPOSTA'
       DataSource = dtsFornecedor
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -415,37 +200,19 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
-      Anchors = [akTop, akRight]
       NumGlyphs = 2
       ParentFont = False
-      TabOrder = 5
-    end
-    object dbObservacoes: TDBMemo
-      Left = 16
-      Top = 168
-      Width = 671
-      Height = 81
-      Anchors = [akLeft, akTop, akRight, akBottom]
-      DataField = 'OBSERVACAO'
-      DataSource = dtsFornecedor
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      ScrollBars = ssVertical
-      TabOrder = 6
+      TabOrder = 4
     end
   end
   object btnSalvar: TBitBtn
-    Left = 515
-    Top = 395
+    Left = 568
+    Top = 429
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Salvar'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = btnSalvarClick
     Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
@@ -501,14 +268,14 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     NumGlyphs = 2
   end
   object btFechar: TBitBtn
-    Left = 611
-    Top = 395
+    Left = 664
+    Top = 429
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Fechar'
-    TabOrder = 3
+    TabOrder = 2
     OnClick = btFecharClick
     Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
@@ -561,6 +328,382 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
+    NumGlyphs = 2
+  end
+  object PgcResposta: TPageControl
+    Left = 0
+    Top = 125
+    Width = 756
+    Height = 298
+    ActivePage = TbsFornecedor
+    Align = alTop
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    TabOrder = 3
+    object TbsFornecedor: TTabSheet
+      Caption = '&Fornecedor'
+      DesignSize = (
+        748
+        270)
+      object lblFornecedor: TLabel
+        Left = 16
+        Top = 8
+        Width = 59
+        Height = 13
+        Caption = 'Fornecedor:'
+        FocusControl = dbFornecedor
+      end
+      object lblNomeContato: TLabel
+        Left = 16
+        Top = 48
+        Width = 130
+        Height = 13
+        Caption = 'Nome Contato (Vendedor):'
+        FocusControl = dbNomeContato
+      end
+      object lblEmail: TLabel
+        Left = 296
+        Top = 48
+        Width = 32
+        Height = 13
+        Caption = 'E-mail:'
+        FocusControl = dbEmail
+      end
+      object lblFormaPagto: TLabel
+        Left = 16
+        Top = 91
+        Width = 106
+        Height = 13
+        Caption = 'Forma de Pagamento:'
+        FocusControl = dbFormaPagto
+      end
+      object lblCondicaoPagto: TLabel
+        Left = 192
+        Top = 91
+        Width = 120
+        Height = 13
+        Caption = 'Condi'#231#227'o de Pagamento:'
+        FocusControl = dbCondicaoPagto
+      end
+      object lblObservacoes: TLabel
+        Left = 16
+        Top = 136
+        Width = 67
+        Height = 13
+        Caption = 'Observa'#231#245'es:'
+        FocusControl = dbObservacoes
+      end
+      object dbFornecedor: TRxDBComboEdit
+        Left = 16
+        Top = 24
+        Width = 718
+        Height = 21
+        ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
+        CharCase = ecUpperCase
+        ClickKey = 16464
+        Color = clMoneyGreen
+        DataField = 'NOMEFORN'
+        DataSource = dtsFornecedor
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Glyph.Data = {
+          36060000424D3606000000000000360000002800000020000000100000000100
+          18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+          1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+          AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+          C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+          6048306048306048306048306048306048306048306048306048305048403050
+          604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+          7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+          FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+          D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+          C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+          FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+          E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+          7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+          FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+          B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+          7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+          FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+          8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+          FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+          5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+          FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+          6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+          FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+          951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+          FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+          7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+          FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+          7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+          E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+          7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+          1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+          C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+        Anchors = [akLeft, akTop, akRight]
+        NumGlyphs = 2
+        ParentFont = False
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
+        TabOrder = 0
+        OnButtonClick = dbFornecedorButtonClick
+      end
+      object dbNomeContato: TDBEdit
+        Left = 16
+        Top = 64
+        Width = 273
+        Height = 21
+        CharCase = ecUpperCase
+        DataField = 'NOME_CONTATO'
+        DataSource = dtsFornecedor
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object dbEmail: TDBEdit
+        Left = 296
+        Top = 64
+        Width = 438
+        Height = 21
+        Anchors = [akLeft, akTop, akRight]
+        CharCase = ecLowerCase
+        DataField = 'EMAIL_ENVIO'
+        DataSource = dtsFornecedor
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+      end
+      object dbFormaPagto: TDBLookupComboBox
+        Left = 16
+        Top = 107
+        Width = 169
+        Height = 21
+        DataField = 'FORMA_PAGTO'
+        DataSource = dtsFornecedor
+        DropDownRows = 10
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        KeyField = 'COD'
+        ListField = 'DESCRI'
+        ListSource = dtsFormaPagto
+        ParentFont = False
+        TabOrder = 3
+      end
+      object dbCondicaoPagto: TDBLookupComboBox
+        Left = 192
+        Top = 107
+        Width = 369
+        Height = 21
+        DataField = 'CONDICAO_PAGTO'
+        DataSource = dtsFornecedor
+        DropDownRows = 10
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        KeyField = 'COND_COD'
+        ListField = 'COND_DESCRICAO'
+        ListSource = dtsCondicaoPagto
+        ParentFont = False
+        TabOrder = 4
+      end
+      object dbObservacoes: TDBMemo
+        Left = 16
+        Top = 152
+        Width = 718
+        Height = 101
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        DataField = 'OBSERVACAO'
+        DataSource = dtsFornecedor
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        ScrollBars = ssVertical
+        TabOrder = 5
+      end
+    end
+    object TbsFornecedorItem: TTabSheet
+      Caption = '&Itens'
+      ImageIndex = 1
+      object dbgProdutos: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 748
+        Height = 270
+        Align = alClient
+        DataSource = dtsItem
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        TitleFont.Charset = ANSI_CHARSET
+        TitleFont.Color = clBlack
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = [fsBold]
+        OnDrawColumnCell = dbgProdutosDrawColumnCell
+        OnEnter = dbgProdutosEnter
+        OnExit = dbgProdutosExit
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'ITEM'
+            ReadOnly = True
+            Title.Alignment = taCenter
+            Title.Caption = '#'
+            Width = 25
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'PRODUTO'
+            ReadOnly = True
+            Title.Caption = 'Codigo'
+            Width = 80
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRI_APRESENTACAO'
+            ReadOnly = True
+            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o'
+            Width = 280
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QUANTIDADE'
+            ReadOnly = True
+            Title.Caption = 'Quantidade'
+            Width = 80
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'UNP_SIGLA'
+            ReadOnly = True
+            Title.Caption = 'Und.'
+            Width = 40
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALOR_UNITARIO'
+            Title.Caption = 'Valor Un. (R$)'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALOR_TOTAL'
+            Title.Caption = 'Valor Total (R$)'
+            Width = 100
+            Visible = True
+          end>
+      end
+    end
+  end
+  object BtnCarregarXLS: TBitBtn
+    Left = 0
+    Top = 429
+    Width = 92
+    Height = 33
+    Hint = 'Carregar/Processar Retorno XLS (Planilha em Excel)'
+    Anchors = [akLeft, akBottom]
+    Caption = '&Carregar'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    Visible = False
+    Glyph.Data = {
+      36060000424D3606000000000000360000002800000020000000100000000100
+      18000000000000060000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+      FFFFFF6349356349356349356349356349356349356349356349356349356349
+      35634935634935634935FFFFFFFFFFFFFFFFFF35455935455935455935455935
+      4559354559354559354559354559354559354559354559354559FFFFFFFFFFFF
+      FFFFFFB7A293FAE2D2DFB89EE0B699E2B495E2B191E4AF8CE5AD88E6AB84E7A7
+      7FE8A57AEBA377634935FFFFFFFFFFFFFFFFFF909FAED9DFE5A7B4C0A5B2BFA2
+      AFBCA0ADBA9CAAB89AA8B698A6B493A2B1909FAE8F9EAD354559FFFFFFFFFFFF
+      FFFFFFB9A495FBE6DAFBE7DAFBE6D9FAE5D8FBE4D6FBE2D3F9E0D0F8DDCCF9DB
+      C9F8DAC7E9A47B634935FFFFFFFFFFFFFFFFFF92A1B0DEE4E9E0E5E9DEE4E9DD
+      E3E8DCE2E7DAE0E5D7DEE4D3DAE0D2D9E0CFD7DE909FAE354559FFFFFFFFFFFF
+      FFFFFFBBA696FBECE2D6AE90D6AE90D6AE90D6AE90FAE7DAD6AE90D6AE90D6AE
+      90F8DBCAE7A780634935FFFFFFFFFFFFFFFFFF95A3B2E6EAEE9BA9B79BA9B79B
+      A9B79BA9B7E0E5E99BA9B79BA9B79BA9B7D2D9E093A2B1354559FFFFFFFFFFFF
+      FFFFFFBEA899FDF0E8FDF0E9FDF0E8FCEFE7FCEDE5FBEBE1D6AE90FAE5D7D6AE
+      90F9DECEE6AC85634935FFFFFFFFFFFFFFFFFF98A6B4EBEFF2EBEFF2EBEFF2EA
+      EEF1E8ECEFE4E9ED9BA9B7DDE3E89BA9B7D5DCE298A6B43545591876390C6F32
+      0D6C330E6832116333125D33145733165233184C33194834FCECE2FBE8DDD6AE
+      90FAE1D2E4AE8A63493548596D4051653F50643C4D613A4B5F36475B34445831
+      41552E3E522C3C50E6EAEEE1E6EA9BA9B7D9DFE59BA9B7354559207C3EFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF174C34FCEFE8FCECE2FBE8
+      DCFAE4D6E3B18F6349354C5E72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFF2E3E52EAEEF1E6EAEEE1E6EADCE2E79EACBA3545592B8445FFFFFF
+      FFFFFFFFFFFFFFFFFF85A9871D6F38195D345B7D5F165133D6AE90D6AE90D6AE
+      90FBE6DAE2B39563493555677BFFFFFFFFFFFFFFFFFFFFFFFF8B9AAA44556937
+      485C5F70843141559BA9B79BA9B79BA9B7DEE4E9A2AFBC354559388E4E8BBD90
+      1E763B1D6E391A62358BBD903E92471D673A9FB3A1145733FDF4EFFDF1EAD6AE
+      90FBE9DDE0B6996349356071849BA9B7495A6E4354683B4C609BA9B760718440
+      51659DABB9344458F0F3F5EDF0F29BA9B7E2E7EBA5B2BF354559469857FFFFFF
+      8BBD90519E5791C49657A25A21703A6C9B6FDFE9DF135D33D6AE90D6AE90D6AE
+      90FBEADFDEB89D6349356A7B8EFFFFFF9BA9B76E7F91A3B0BD72839545566A77
+      889ADEE4E937485C9BA9B79BA9B79BA9B7E3E8ECA7B4C035455953A260FFFFFF
+      CFDDCF96C69A57A25A267C39276731C0D1C0FFFFFF106233FEF8F3FDF4EFD6AE
+      90FCECE1DDBAA1634935748597FFFFFFCFD7DEA6B3C07283954C5E723E4F63BF
+      C9D2FFFFFF394A5EF5F7F8F0F3F59BA9B7E6EAEEAAB6C23545595EAA66E5ECE5
+      8DC49364AC693489416FA57357A0603A8846D6E2D60E6832D6AE90D6AE90D6AE
+      90DCBCA5DDBBA4644A367D8D9EE4E9EDA2AFBC7F8FA057697D7F8FA073849659
+      6B7FD6DDE33C4D619BA9B79BA9B79BA9B7ACB8C4ABB7C336465A66B06C8EC293
+      5FA863479751FFFFFFCBDACC54985D54985D9BB09C0D6C32FDF8F4FDF5EFB7A2
+      93644A36644A36644A368393A4A1AEBB7B8B9C67788BFFFFFFCCD4DB6D7E916D
+      7E9199A7B53E4F63F5F7F8F1F4F6909FAE36465A36465A36465A66B06CFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0C6F32FEF7F4FDF4EFB9A4
+      95D4C5BA644A36FFFFFF8393A4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFF405165F4F6F7F0F3F592A1B0B8C3CD36465AFFFFFF66B06C61AD68
+      5AA76452A15E489A593F9352358C4C2C8546247F411D7A3DFEF7F3FDF4EDC0AB
+      9C644A36FFFFFFFFFFFF8393A47F8FA07A8A9C7283956C7D906475885C6E8256
+      687C5062764C5D71F4F6F7EFF2F49AA8B636465AFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFD8C2B2D7C1B1D6C0B0D4BEAED2BDADD1BAABCFB9AACDB6A8CBB6A6CAB4
+      A5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB4BFCAB3BEC9B2BDC8AFBBC6AE
+      BAC6ACB8C4ABB7C3A7B4C0A6B3C0A5B2BFFFFFFFFFFFFFFFFFFF}
     NumGlyphs = 2
   end
   object qryFornecedor: TIBDataSet
@@ -617,8 +760,8 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     ModifySQL.Strings = (
       '')
     UpdateObject = updFornecedor
-    Left = 264
-    Top = 64
+    Left = 256
+    Top = 16
     object qryFornecedorANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBCOTACAO_COMPRAFORN"."ANO"'
@@ -864,15 +1007,15 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA and'
       '  FORNECEDOR = :OLD_FORNECEDOR')
-    Left = 296
-    Top = 64
+    Left = 288
+    Top = 16
   end
   object dtsFornecedor: TDataSource
     AutoEdit = False
     DataSet = qryFornecedor
     OnStateChange = dtsFornecedorStateChange
-    Left = 328
-    Top = 64
+    Left = 320
+    Top = 16
   end
   object tblFormaPagto: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -937,13 +1080,208 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     AutoConnect = False
     ConnectKind = ckRunningOrNew
     AutoQuit = False
-    Left = 216
-    Top = 309
+    Left = 616
+    Top = 69
   end
   object XLBook: TExcelWorkbook
     AutoConnect = False
     ConnectKind = ckRunningOrNew
-    Left = 248
-    Top = 309
+    Left = 648
+    Top = 69
+  end
+  object qryItem: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BeforePost = qryItemBeforePost
+    CachedUpdates = True
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'select'
+      '    ci.ano'
+      '  , ci.codigo'
+      '  , ci.empresa'
+      '  , ci.seq'
+      '  , ci.produto'
+      '  , ci.quantidade'
+      '  , ci.unidade'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      '  , i.fornecedor'
+      '  , i.item'
+      '  , i.valor_unitario'
+      '  , i.valor_total'
+      'from TBCOTACAO_COMPRAITEM ci'
+      '  left join TBPRODUTO p on (p.cod = ci.produto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = ci.unidade)'
+      
+        '  left join TBCOTACAO_COMPRAFORN_ITEM i on (i.ano = ci.ano and i' +
+        '.codigo = ci.codigo and i.empresa = ci.empresa and i.item = ci.s' +
+        'eq and i.fornecedor = :for)'
+      ''
+      'where ci.ano        = :ano'
+      '  and ci.codigo     = :cod')
+    ModifySQL.Strings = (
+      '')
+    UpdateObject = updItem
+    Left = 256
+    Top = 48
+    object qryItemANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = '"TBCOTACAO_COMPRAITEM"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object qryItemCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = '"TBCOTACAO_COMPRAITEM"."CODIGO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryItemEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBCOTACAO_COMPRAITEM"."EMPRESA"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object qryItemSEQ: TSmallintField
+      FieldName = 'SEQ'
+      Origin = '"TBCOTACAO_COMPRAITEM"."SEQ"'
+      ProviderFlags = []
+    end
+    object qryItemPRODUTO: TIBStringField
+      FieldName = 'PRODUTO'
+      Origin = '"TBCOTACAO_COMPRAITEM"."PRODUTO"'
+      ProviderFlags = []
+      Size = 10
+    end
+    object qryItemQUANTIDADE: TIBBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = '"TBCOTACAO_COMPRAITEM"."QUANTIDADE"'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object qryItemUNIDADE: TSmallintField
+      FieldName = 'UNIDADE'
+      Origin = '"TBCOTACAO_COMPRAITEM"."UNIDADE"'
+      ProviderFlags = []
+    end
+    object qryItemDESCRI_APRESENTACAO: TIBStringField
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
+      ProviderFlags = []
+      Size = 100
+    end
+    object qryItemUNP_DESCRICAO: TIBStringField
+      FieldName = 'UNP_DESCRICAO'
+      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
+      ProviderFlags = []
+      Size = 50
+    end
+    object qryItemUNP_SIGLA: TIBStringField
+      FieldName = 'UNP_SIGLA'
+      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
+      ProviderFlags = []
+      Size = 5
+    end
+    object qryItemFORNECEDOR: TIntegerField
+      FieldName = 'FORNECEDOR'
+      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."FORNECEDOR"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object qryItemITEM: TSmallintField
+      FieldName = 'ITEM'
+      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."ITEM"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object qryItemVALOR_UNITARIO: TIBBCDField
+      FieldName = 'VALOR_UNITARIO'
+      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."VALOR_UNITARIO"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object qryItemVALOR_TOTAL: TIBBCDField
+      FieldName = 'VALOR_TOTAL'
+      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."VALOR_TOTAL"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object updItem: TIBUpdateSQL
+    RefreshSQL.Strings = (
+      'Select '
+      '  ANO,'
+      '  CODIGO,'
+      '  EMPRESA,'
+      '  FORNECEDOR,'
+      '  ITEM,'
+      '  VALOR_UNITARIO,'
+      '  VALOR_TOTAL'
+      'from TBCOTACAO_COMPRAFORN_ITEM '
+      'where'
+      '  ANO = :ANO and'
+      '  CODIGO = :CODIGO and'
+      '  EMPRESA = :EMPRESA and'
+      '  FORNECEDOR = :FORNECEDOR and'
+      '  ITEM = :ITEM')
+    ModifySQL.Strings = (
+      'update TBCOTACAO_COMPRAFORN_ITEM'
+      'set'
+      '  ANO = :ANO,'
+      '  CODIGO = :CODIGO,'
+      '  EMPRESA = :EMPRESA,'
+      '  FORNECEDOR = :FORNECEDOR,'
+      '  ITEM = :ITEM,'
+      '  VALOR_TOTAL = :VALOR_TOTAL,'
+      '  VALOR_UNITARIO = :VALOR_UNITARIO'
+      'where'
+      '  ANO = :OLD_ANO and'
+      '  CODIGO = :OLD_CODIGO and'
+      '  EMPRESA = :OLD_EMPRESA and'
+      '  FORNECEDOR = :OLD_FORNECEDOR and'
+      '  ITEM = :OLD_ITEM')
+    Left = 288
+    Top = 48
+  end
+  object dtsItem: TDataSource
+    AutoEdit = False
+    DataSet = qryItem
+    OnStateChange = dtsFornecedorStateChange
+    Left = 320
+    Top = 48
+  end
+  object stpSetCotacaoFornecedorItem: TIBStoredProc
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    StoredProcName = 'SET_COTACAO_COMPRAFORN_ITEM'
+    Left = 240
+    Top = 320
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'ANO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'EMPRESA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'FORNECEDOR'
+        ParamType = ptInput
+      end>
   end
 end
