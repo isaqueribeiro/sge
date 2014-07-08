@@ -12,8 +12,6 @@ uses
 type
   TfrmGeFluxoCaixa = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
-    e1Data: TDateTimePicker;
-    e2Data: TDateTimePicker;
     lblContaCorrentePesq: TLabel;
     edContaCorrentePesq: TRxLookupEdit;
     tblContaCorrente: TIBTable;
@@ -149,6 +147,8 @@ type
     frrFluxoAnalitico: TfrxReport;
     qryFluxoSaldos: TIBQuery;
     frdFluxoSaldos: TfrxDBDataset;
+    e1Data: TDateEdit;
+    e2Data: TDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -263,7 +263,7 @@ begin
   ControlFirstEdit    := dbDataMov;
   
   NomeTabela     := 'TBCAIXA_MOVIMENTO';
-  CampoCodigo    := 'Numero';
+  CampoCodigo    := 'm.Numero';
   CampoDescricao := 'm.Historico';
   CampoOrdenacao := 'm.Ano, m.Numero';
 
@@ -628,8 +628,8 @@ begin
     begin
       Close;
       ParamByName('Conta').AsInteger := tblContaCorrente.FieldByName('Codigo').AsInteger;
-      ParamByName('DataInicial').AsDateTime  := e1Data.DateTime;
-      ParamByName('DataFinal').AsDateTime    := e2Data.DateTime;
+      ParamByName('DataInicial').AsDateTime  := e1Data.Date;
+      ParamByName('DataFinal').AsDateTime    := e2Data.Date;
       Open;
     end;
 
@@ -637,8 +637,8 @@ begin
     begin
       Close;
       ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('Codigo').AsInteger;
-      ParamByName('Data_Inicial').AsDateTime  := e1Data.DateTime;
-      ParamByName('Data_Final').AsDateTime    := e2Data.DateTime;
+      ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
+      ParamByName('Data_Final').AsDateTime    := e2Data.Date;
       Open;
     end;
 
@@ -646,8 +646,8 @@ begin
     begin
       Close;
       ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('Codigo').AsInteger;
-      ParamByName('Data_Inicial').AsDateTime  := e1Data.DateTime;
-      ParamByName('Data_Final').AsDateTime    := e2Data.DateTime;
+      ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
+      ParamByName('Data_Final').AsDateTime    := e2Data.Date;
       Open;
     end;
 

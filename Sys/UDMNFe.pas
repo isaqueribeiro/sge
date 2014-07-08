@@ -471,6 +471,9 @@ type
     qryCotacaoCompraFornecedor: TIBQuery;
     frdCotacaoCompraFornecedor: TfrxDBDataset;
     ACBrValidador: TACBrValidador;
+    qryCotacaoCompraFornecedorItem: TIBQuery;
+    frdCotacaoCompraFornecedorItem: TfrxDBDataset;
+    frrCotacaoCompraMapaPreco: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);

@@ -4700,6 +4700,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     end
     object nmImprimirCotacaoMapa: TMenuItem
       Caption = 'Cota'#231#227'o de Compra/Servi'#231'o (Mapa de Pre'#231'os)'
+      OnClick = nmImprimirCotacaoMapaClick
     end
   end
   object qryProduto: TIBDataSet

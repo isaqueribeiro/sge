@@ -405,7 +405,27 @@ begin
   end
   else
   begin
+    // Eliminar Movimento do Caixa quando o lançamento for excluído pelo SYSTEM ADM
+
+    if (gUsuarioLogado.Funcao = FUNCTION_USER_ID_SYSTEM_ADM) then
+    begin
+
+      with DMBusiness, qryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Delete from TBCAIXA_MOVIMENTO');
+        SQL.Add('where ARECEBER_ANO = ' + IbDtstTabelaANOLANC.AsString);
+        SQL.Add('  and ARECEBER_NUM = ' + IbDtstTabelaNUMLANC.AsString);
+        ExecSQL;
+
+        CommitTransaction;
+      end;
+
+    end;
+
     inherited;
+
     if ( not OcorreuErro ) then
       AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
   end;

@@ -261,6 +261,7 @@ type
     procedure nmProcessarArquivoXLSClick(Sender: TObject);
     procedure dbgFornecedorDblClick(Sender: TObject);
     procedure nmProcessarRespostasClick(Sender: TObject);
+    procedure nmImprimirCotacaoMapaClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -532,7 +533,7 @@ begin
     btnAutorizarCotacao.Enabled := False; //(not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_COT) and (not cdsTabelaItens.IsEmpty);
     btnCancelarCotacao.Enabled  := False;
 
-    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
+    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ABR) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
     nmImprimirCotacaoMapa.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
   end;
 end;
@@ -1150,10 +1151,11 @@ begin
     with qryCotacaoCompraFornecedor do
     begin
       Close;
-      ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
-      ParamByName('cod').AsInteger := IbDtstTabelaCODIGO.AsInteger;
-      ParamByName('emp').AsString  := IbDtstTabelaEMPRESA.AsString;
-      ParamByName('frn').AsInteger := 0;
+      ParamByName('ano').AsInteger   := IbDtstTabelaANO.AsInteger;
+      ParamByName('cod').AsInteger   := IbDtstTabelaCODIGO.AsInteger;
+      ParamByName('emp').AsString    := IbDtstTabelaEMPRESA.AsString;
+      ParamByName('frn').AsInteger   := 0;
+      ParamByName('todos').AsInteger := 0;
       Open;
     end;
 
@@ -1349,6 +1351,7 @@ procedure TfrmGeCotacaoCompra.IbDtstTabelaAfterScroll(
 begin
   inherited;
   TbsCotacaoCancelado.TabVisible := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_CAN);
+  HabilitarDesabilitar_Btns;
 end;
 
 procedure TfrmGeCotacaoCompra.AbrirTabelaFornecedores(
@@ -1442,8 +1445,21 @@ procedure TfrmGeCotacaoCompra.SetEventoLOG(sEvento: String);
 var
   sMensagem : String;
 begin
-  sMensagem := FormatDateTime('dd/mm/yyyy', Now) + ' - ' + sEvento + '( por ' + gUsuarioLogado.Login + ').';
-  
+  sMensagem := FormatDateTime('dd/mm/yyyy hh:mm', Now) + ' - ' + sEvento + ' (por ' + gUsuarioLogado.Login + ').';
+  try
+    if ( not IbDtstTabela.IsEmpty ) then
+    begin
+      IbDtstTabela.Edit;
+
+      dbEventoLOG.Lines.Add(sMensagem);
+
+      IbDtstTabela.Post;
+      IbDtstTabela.ApplyUpdates;
+
+      CommitTransaction;
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmGeCotacaoCompra.nmGerarArquivoXLSClick(Sender: TObject);
@@ -1486,10 +1502,11 @@ begin
     with qryCotacaoCompraFornecedor do
     begin
       Close;
-      ParamByName('ano').AsInteger := qryFornecedorANO.AsInteger;
-      ParamByName('cod').AsInteger := qryFornecedorCODIGO.AsInteger;
-      ParamByName('emp').AsString  := qryFornecedorEMPRESA.AsString;
-      ParamByName('frn').AsInteger := qryFornecedorFORNECEDOR.AsInteger;
+      ParamByName('ano').AsInteger   := qryFornecedorANO.AsInteger;
+      ParamByName('cod').AsInteger   := qryFornecedorCODIGO.AsInteger;
+      ParamByName('emp').AsString    := qryFornecedorEMPRESA.AsString;
+      ParamByName('frn').AsInteger   := qryFornecedorFORNECEDOR.AsInteger;
+      ParamByName('todos').AsInteger := 0;
       Open;
     end;
 
@@ -1501,6 +1518,8 @@ begin
 
     if FileExists(sFileName) then
     begin
+
+      SetEventoLOG('Planilha de cotação gerada para o Fornecedor ' + qryFornecedorNOMEFORN.AsString);
 
       sMensagem := 'Arquivo gerado com sucesso:' + #13 + sFileName + #13#13 +
         'Deseja que este arquivo seja enviado por e-mail para o fornecedor?';
@@ -1542,7 +1561,7 @@ begin
     qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
     IbDtstTabelaDESCRICAO_RESUMO.Value, sFileName, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
   begin
-    SetEventoLOG(Format('Arquivo ''%s'' de resposta do fornecedor %s processado por %s.', [sFileName, qryFornecedorNOMEFORN.AsString, gUsuarioLogado.Login]));
+    SetEventoLOG(Format('Arquivo ''%s'' de resposta do fornecedor %s processado', [sFileName, qryFornecedorNOMEFORN.AsString]));
     AbrirTabelaFornecedores( qryFornecedorANO.Value, qryFornecedorCODIGO.Value );
   end;
 end;
@@ -1614,6 +1633,61 @@ begin
     ExecProc;
     CommitTransaction;
   end;
+end;
+
+procedure TfrmGeCotacaoCompra.nmImprimirCotacaoMapaClick(Sender: TObject);
+begin
+  if ( IbDtstTabelaVALOR_MAX_TOTAL.AsCurrency = 0.0 ) then
+    ShowWarning('Não é possível montar ainda o mapa de preços por não haver respostas de fornecedores!')
+  else
+    with DMNFe do
+    begin
+
+      try
+        ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
+      except
+      end;
+
+      with qryEmitente do
+      begin
+        Close;
+        ParamByName('Cnpj').AsString := IbDtstTabelaEMPRESA.AsString;
+        Open;
+      end;
+
+      with qryCotacaoCompra do
+      begin
+        Close;
+        ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
+        ParamByName('cod').AsInteger := IbDtstTabelaCODIGO.AsInteger;
+        ParamByName('emp').AsString  := IbDtstTabelaEMPRESA.AsString;
+        Open;
+      end;
+
+      with qryCotacaoCompraFornecedor do
+      begin
+        Close;
+        ParamByName('ano').AsInteger   := IbDtstTabelaANO.AsInteger;
+        ParamByName('cod').AsInteger   := IbDtstTabelaCODIGO.AsInteger;
+        ParamByName('emp').AsString    := IbDtstTabelaEMPRESA.AsString;
+        ParamByName('frn').AsInteger   := 0;
+        ParamByName('todos').AsInteger := 1;
+        Open;
+      end;
+
+      with qryCotacaoCompraFornecedorItem do
+      begin
+        Close;
+        ParamByName('ano').AsInteger   := IbDtstTabelaANO.AsInteger;
+        ParamByName('cod').AsInteger   := IbDtstTabelaCODIGO.AsInteger;
+        ParamByName('emp').AsString    := IbDtstTabelaEMPRESA.AsString;
+        ParamByName('frn').AsInteger   := 0;
+        ParamByName('todos').AsInteger := 1;
+        Open;
+      end;
+
+      frrCotacaoCompraMapaPreco.ShowReport;
+    end;
 end;
 
 initialization
