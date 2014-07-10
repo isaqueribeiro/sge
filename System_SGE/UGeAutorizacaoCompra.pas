@@ -965,7 +965,7 @@ begin
       IbDtstTabela.Close;
       IbDtstTabela.Open;
 
-      IbDtstTabela.Locate(CampoCodigo, iCodigo, []);
+      IbDtstTabela.Locate(GetCampoCodigoLimpo, iCodigo, []);
 
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 

@@ -134,6 +134,7 @@ type
     function SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean; overload;
     function GetRotinaInternaID(const Sender : TObject) : String;
     function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
+    function GetCampoCodigoLimpo : String;
   end;
 
 var
@@ -933,6 +934,14 @@ begin
     Result := EmptyStr
   else
     Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGrPadraoCadastro.GetCampoCodigoLimpo: String;
+begin
+  if ( pos('.', CampoCodigo) > 0 ) then
+    Result := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
+  else
+    Result := Trim(CampoCodigo);
 end;
 
 end.

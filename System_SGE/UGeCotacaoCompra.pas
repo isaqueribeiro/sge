@@ -578,10 +578,9 @@ var
 begin
   RecarregarRegistro;
 
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_COTACAO_ABR ) then
+  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_COTACAO_COT ) then
   begin
     Case IbDtstTabelaSTATUS.AsInteger of
-      STATUS_COTACAO_COT : sMsg := 'Esta cotação não pode ser alterada porque já está aguardando encerramento.';
       STATUS_COTACAO_ENC : sMsg := 'Esta cotação não pode ser alterada por já está autorizada/encerrada.';
       STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser alterada porque está cancelada.';
     end;
@@ -591,15 +590,14 @@ begin
   end
   else
   begin
-    if (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ABR) then
-      if not ShowConfirm('A edição da cotação selecionada está finalizada.' + #13 + 'Deseja colocá-la em edição novamente?') then
+    if (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) then
+      if not ShowConfirm('A edição da cotação selecionada está em andamento.' + #13 + 'Deseja colocá-la em edição novamente?') then
         Abort;
 
     inherited;
 
     if ( not OcorreuErro ) then
     begin
-      IbDtstTabelaSTATUS.Value := STATUS_COTACAO_EDC;
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
       AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
     end;
@@ -965,7 +963,7 @@ begin
       IbDtstTabela.Close;
       IbDtstTabela.Open;
 
-      IbDtstTabela.Locate(CampoCodigo, iCodigo, []);
+      IbDtstTabela.Locate(GetCampoCodigoLimpo, iCodigo, []);
 
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
       AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
@@ -1407,8 +1405,9 @@ begin
   btnFornecedorEditar.Enabled  := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
   btnFornecedorExcluir.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
 
-  BtnFornecedorOpcoes.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
-  nmGerarArquivoXLS.Enabled   := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  BtnFornecedorOpcoes.Enabled   := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  nmGerarArquivoXLS.Enabled     := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) ) and ( IbDtstTabelaSTATUS.AsInteger in [STATUS_COTACAO_ABR, STATUS_COTACAO_COT] );
+  nmProcessarArquivoXLS.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) ) and ( IbDtstTabelaSTATUS.AsInteger in [STATUS_COTACAO_ABR, STATUS_COTACAO_COT] );
 end;
 
 procedure TfrmGeCotacaoCompra.BtnFornecedorEditarClick(Sender: TObject);
@@ -1562,6 +1561,9 @@ begin
     IbDtstTabelaDESCRICAO_RESUMO.Value, sFileName, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
   begin
     SetEventoLOG(Format('Arquivo ''%s'' de resposta do fornecedor %s processado', [sFileName, qryFornecedorNOMEFORN.AsString]));
+
+    RecarregarRegistro;
+
     AbrirTabelaFornecedores( qryFornecedorANO.Value, qryFornecedorCODIGO.Value );
   end;
 end;
