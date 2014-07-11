@@ -262,6 +262,7 @@ type
     procedure dbgFornecedorDblClick(Sender: TObject);
     procedure nmProcessarRespostasClick(Sender: TObject);
     procedure nmImprimirCotacaoMapaClick(Sender: TObject);
+    procedure BtnFornecedorExcluirClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -524,8 +525,11 @@ begin
     btnAutorizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) and (not cdsTabelaItens.IsEmpty);
     btnCancelarCotacao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT);
 
-    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
+    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ABR) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
     nmImprimirCotacaoMapa.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
+
+    dtsFornecedor.AutoEdit := (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse) and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC);
+    dtsFornecedorStateChange( dtsFornecedor );
   end
   else
   begin
@@ -1591,11 +1595,13 @@ begin
   if ShowConfirm('Deseja executar processamento da(s) resposta(s) do(s) fornecedor(es)?') then
   begin
     SetCotacaoFornecedorProcessa(IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value);
+
+    AbrirTabelaItens( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
     AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
 
     RecarregarRegistro;
 
-    pgcMaisDados.ActivePage := tbsDadoConsolidado;
+    pgcMaisDados.ActivePage := tbsFornecedor;
   end;
 end;
 
@@ -1689,6 +1695,19 @@ begin
       end;
 
       frrCotacaoCompraMapaPreco.ShowReport;
+    end;
+end;
+
+procedure TfrmGeCotacaoCompra.BtnFornecedorExcluirClick(Sender: TObject);
+begin
+  if ( not qryFornecedor.IsEmpty ) then
+    if ( ShowConfirm('Deseja excluir o fornecedor selecionado?') ) then
+    begin
+      qryFornecedor.Delete;
+      //qryFornecedor.ApplyUpdates;
+
+      RecarregarRegistro;
+      pgcMaisDados.ActivePage := tbsFornecedor;
     end;
 end;
 

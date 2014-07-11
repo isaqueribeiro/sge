@@ -884,7 +884,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         Top = 448
         Width = 1108
         Height = 166
-        ActivePage = tbsDadoConsolidado
+        ActivePage = tbsFornecedor
         Align = alBottom
         TabOrder = 3
         object tbsDadoConsolidado: TTabSheet
@@ -1288,6 +1288,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
               ParentShowHint = False
               ShowHint = True
               TabOrder = 2
+              OnClick = BtnFornecedorExcluirClick
               Glyph.Data = {
                 36060000424D3606000000000000360000002800000020000000100000000100
                 1800000000000006000000000000000000000000000000000000FF00FFFF00FF

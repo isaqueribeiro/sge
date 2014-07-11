@@ -11489,7 +11489,7 @@ object DMNFe: TDMNFe
           Frame.Width = 0.100000000000000000
           HAlign = haCenter
           Memo.UTF8 = (
-            '[frdCotacaoCompra."STATUS_DESC"]')
+            '[Trim(<frdCotacaoCompra."STATUS_DESC">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
