@@ -1587,6 +1587,9 @@ begin
   if ( qryFornecedor.IsEmpty ) then
     Exit;
 
+  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_COTACAO_COT ) then
+    ShowInformation('Apenas Cotações com situação "Em Cotação" podem ser processadas')
+  else
   if (qryFornecedor.RecordCount < IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.Value) then
     ShowInformation(
       Format('Para que a cotação possa ser processada, esta deve possuir respostas de, no mínimo, %s fornecedor(es).',
