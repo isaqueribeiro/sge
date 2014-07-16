@@ -123,7 +123,6 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Height = 17
     Alignment = taRightJustify
     Caption = 'Data Bloqueio:'
-    Enabled = False
     FocusControl = edDataBloqueio
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -220,14 +219,12 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Top = 240
     Width = 121
     Height = 25
-    Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
-    ReadOnly = True
     TabOrder = 8
   end
   object XPManifest: TXPManifest
