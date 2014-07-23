@@ -275,8 +275,11 @@ var
   function GetFornecedorRazao(const iCodigo : Integer) : String;
   function GetFornecedorContato(const iCodigo : Integer) : String;
   function GetVendedorNomeDefault : String;
+  function GetVendedorNome(const iCodigo : Integer) : String;
   function GetFormaPagtoNomeDefault : String;
+  function GetFormaPagtoNome(const iCodigo : Integer) : String;
   function GetCondicaoPagtoNomeDefault : String;
+  function GetCondicaoPagtoNome(const iCodigo : Integer) : String;
   function GetSenhaAutorizacao : String;
   function GetDateTimeDB : TDateTime;
   function GetDateDB : TDateTime;
@@ -289,6 +292,7 @@ var
   function GetUserUpdatePassWord : Boolean;
   function GetLimiteDescontoUser : Currency;
   function GetUserPermitirAlterarValorVenda : Boolean;
+  function GetPermititEmissaoNFe(const sCNPJEmitente : String) : Boolean;
   function GetSolicitaDHSaidaNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
@@ -1101,17 +1105,17 @@ end;
 
 function GetVendedorIDDefault : Integer;
 begin
-  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, 'VendedorID', 1);
+  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_VENDEDOR, 1);
 end;
 
 function GetFormaPagtoIDDefault : Integer;
 begin
-  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, 'FormaPagtoID', 1);
+  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_FORMA_PGTO, 1);
 end;
 
 function GetCondicaoPagtoIDDefault : Integer;
 begin
-  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, 'CondicaoPagtoID', 1);
+  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_COND_PGTO, 1);
 end;
 
 function GetEstacaoEmitiBoleto : Boolean;
@@ -1121,22 +1125,22 @@ end;
 
 function GetEstacaoEmitiNFe : Boolean;
 begin
-  Result := (Trim(FileINI.ReadString('Certificado', 'NumSerie', EmptyStr)) <> EmptyStr);
+  Result := GetPermititEmissaoNFe(GetEmpresaIDDefault) and (Trim(FileINI.ReadString(INI_SECAO_CERTIFICADO, 'NumSerie', EmptyStr)) <> EmptyStr);
 end;
 
 function GetCondicaoPagtoIDBoleto_Descontinuada : Integer; // Descontinuada
 begin
-  Result := FileINI.ReadInteger('Boleto', 'FormaPagtoID', 1);
+  Result := FileINI.ReadInteger('Boleto', INI_KEY_FORMA_PGTO, 1);
 end;
 
 function GetEmitirCupom : Boolean;
 begin
-  Result := FileINI.ReadBool('Cupom', 'EmitirCupom', False);
+  Result := FileINI.ReadBool(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
 end;
 
 function GetModeloEmissaoCupom : Integer;
 begin
-  Result := FileINI.ReadInteger('Cupom', 'ModeloEmissaoCupom', 0);
+  Result := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_MODELO_CUPOM, 0);
 end;
 
 function GetSegmentoID(const CNPJ : String) : Integer;
@@ -1690,17 +1694,7 @@ end;
 
 function GetEstadoNomeDefault : String;
 begin
-  with DMBusiness, qryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select est_nome from TBESTADO where est_cod = ' + IntToStr(GetEstadoIDDefault));
-    Open;
-
-    Result := FieldByName('est_nome').AsString;
-
-    Close;
-  end;
+  Result := GetEstadoNome( GetEstadoIDDefault );
 end;
 
 function GetEstadoNome(const iEstado : Integer) : String;
@@ -1765,17 +1759,7 @@ end;
 
 function GetCidadeNomeDefault : String;
 begin
-  with DMBusiness, qryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select cid_nome from TBCIDADE where cid_cod = ' + IntToStr(GetCidadeIDDefault));
-    Open;
-
-    Result := FieldByName('cid_nome').AsString;
-
-    Close;
-  end;
+  Result := GetCidadeNome( GetCidadeIDDefault );
 end;
 
 function GetCidadeNome(const iCidade : Integer) : String;
@@ -1951,17 +1935,7 @@ end;
 
 function GetClienteNomeDefault : String;
 begin
-  with DMBusiness, qryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select nome from TBCLIENTE where Codigo = ' + IntToStr(GetClienteIDDefault));
-    Open;
-
-    Result := FieldByName('nome').AsString;
-
-    Close;
-  end;
+  Result := GetClienteNome( GetClienteIDDefault );
 end;
 
 function GetClienteNome(const iCodigo : Integer) : String;
@@ -2041,11 +2015,16 @@ end;
 
 function GetVendedorNomeDefault : String;
 begin
+  Result := GetVendedorNome( GetVendedorIDDefault );
+end;
+
+function GetVendedorNome(const iCodigo : Integer) : String;
+begin
   with DMBusiness, qryBusca do
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select nome from TBVENDEDOR where cod = ' + IntToStr(GetVendedorIDDefault));
+    SQL.Add('Select nome from TBVENDEDOR where cod = ' + IntToStr(iCodigo));
     Open;
 
     Result := FieldByName('nome').AsString;
@@ -2056,11 +2035,16 @@ end;
 
 function GetFormaPagtoNomeDefault : String;
 begin
+  Result := GetFormaPagtoNome( GetFormaPagtoIDDefault );
+end;
+
+function GetFormaPagtoNome(const iCodigo : Integer) : String;
+begin
   with DMBusiness, qryBusca do
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select descri from TBFORMPAGTO where cod = ' + IntToStr(GetFormaPagtoIDDefault));
+    SQL.Add('Select descri from TBFORMPAGTO where cod = ' + IntToStr(iCodigo));
     Open;
 
     Result := FieldByName('descri').AsString;
@@ -2071,11 +2055,16 @@ end;
 
 function GetCondicaoPagtoNomeDefault : String;
 begin
+  Result := GetCondicaoPagtoNome( GetCondicaoPagtoIDDefault );
+end;
+
+function GetCondicaoPagtoNome(const iCodigo : Integer) : String;
+begin
   with DMBusiness, qryBusca do
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select cond_descricao_full from VW_CONDICAOPAGTO where cond_cod = ' + IntToStr(GetCondicaoPagtoIDDefault));
+    SQL.Add('Select cond_descricao_full from VW_CONDICAOPAGTO where cond_cod = ' + IntToStr(iCodigo));
     Open;
 
     Result := FieldByName('cond_descricao_full').AsString;
@@ -2193,6 +2182,21 @@ function GetUserPermitirAlterarValorVenda : Boolean;
 begin
   with DMBusiness, ibdtstUsers do
     Result := (ibdtstUsersPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
+end;
+
+function GetPermititEmissaoNFe(const sCNPJEmitente : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select nfe_emitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := (FieldByName('nfe_emitir').AsInteger = 1);
+
+    Close;
+  end;
 end;
 
 function GetSolicitaDHSaidaNFe(const sCNPJEmitente : String) : Boolean;

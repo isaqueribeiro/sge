@@ -60,6 +60,8 @@ type
     DBCheckBox3: TDBCheckBox;
     IbDtstTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField;
     dbAutorizacaoInformaCliente: TDBCheckBox;
+    chkNFE_Emitir: TDBCheckBox;
+    IbDtstTabelaNFE_EMITIR: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;

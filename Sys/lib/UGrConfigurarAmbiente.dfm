@@ -171,13 +171,13 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         Left = 0
         Top = 0
         Width = 414
-        Height = 113
-        Align = alTop
+        Height = 452
+        Align = alClient
         Caption = ' Dados Padr'#245'es '
         TabOrder = 0
         object lblPais: TLabel
           Left = 41
-          Top = 28
+          Top = 52
           Width = 23
           Height = 13
           Alignment = taRightJustify
@@ -188,7 +188,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object lblEstado: TLabel
           Left = 27
-          Top = 52
+          Top = 76
           Width = 37
           Height = 13
           Alignment = taRightJustify
@@ -198,7 +198,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object lblCidade: TLabel
           Left = 27
-          Top = 76
+          Top = 100
           Width = 37
           Height = 13
           Alignment = taRightJustify
@@ -206,9 +206,115 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           FocusControl = edCidade
           Transparent = True
         end
-        object edPais: TEdit
+        object lblFormaPagto: TLabel
+          Left = 30
+          Top = 156
+          Width = 34
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Forma:'
+          FocusControl = edFormaPagto
+          Transparent = True
+        end
+        object Label2: TLabel
           Left = 72
           Top = 24
+          Width = 55
+          Height = 13
+          Caption = 'Endere'#231'o:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
+        object Label3: TLabel
+          Left = 72
+          Top = 128
+          Width = 134
+          Height = 13
+          Caption = 'Vendedor/Pagamentos:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
+        object lblCondicaoPagto: TLabel
+          Left = 16
+          Top = 180
+          Width = 48
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Condi'#231#227'o:'
+          FocusControl = edCondicaoPagto
+          Transparent = True
+        end
+        object lblVendedor: TLabel
+          Left = 14
+          Top = 204
+          Width = 50
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Vendedor:'
+          FocusControl = edVendedor
+          Transparent = True
+        end
+        object Label1: TLabel
+          Left = 71
+          Top = 232
+          Width = 40
+          Height = 13
+          Caption = 'CFOP'#39's:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
+        object lblCFOPEntrada: TLabel
+          Left = 22
+          Top = 260
+          Width = 42
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Entrada:'
+          FocusControl = edCFOPEntrada
+          Transparent = True
+        end
+        object lblCFOPSaida: TLabel
+          Left = 34
+          Top = 284
+          Width = 30
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Sa'#237'da:'
+          FocusControl = edCFOPSaida
+          Transparent = True
+        end
+        object Label6: TLabel
+          Left = 71
+          Top = 312
+          Width = 41
+          Height = 13
+          Caption = 'Outros:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
+        object edPais: TEdit
+          Left = 72
+          Top = 48
           Width = 65
           Height = 21
           Enabled = False
@@ -217,7 +323,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object edPaisNome: TEdit
           Left = 140
-          Top = 24
+          Top = 48
           Width = 249
           Height = 21
           Enabled = False
@@ -226,7 +332,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object edEstado: TEdit
           Left = 72
-          Top = 48
+          Top = 72
           Width = 65
           Height = 21
           TabOrder = 2
@@ -234,7 +340,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object edEstadoNome: TEdit
           Left = 140
-          Top = 48
+          Top = 72
           Width = 249
           Height = 21
           ReadOnly = True
@@ -242,7 +348,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object edCidade: TEdit
           Left = 72
-          Top = 72
+          Top = 96
           Width = 65
           Height = 21
           TabOrder = 4
@@ -250,11 +356,179 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object edCidadeNome: TEdit
           Left = 140
-          Top = 72
+          Top = 96
           Width = 249
           Height = 21
           ReadOnly = True
           TabOrder = 5
+        end
+        object edFormaPagto: TEdit
+          Left = 72
+          Top = 152
+          Width = 65
+          Height = 21
+          TabOrder = 6
+          OnKeyPress = ApenasNumerosKeyPress
+        end
+        object edFormaPagtoNome: TEdit
+          Left = 140
+          Top = 152
+          Width = 249
+          Height = 21
+          ReadOnly = True
+          TabOrder = 7
+        end
+        object edCondicaoPagto: TEdit
+          Left = 72
+          Top = 176
+          Width = 65
+          Height = 21
+          TabOrder = 8
+          OnKeyPress = ApenasNumerosKeyPress
+        end
+        object edCondicaoPagtoNome: TEdit
+          Left = 140
+          Top = 176
+          Width = 249
+          Height = 21
+          ReadOnly = True
+          TabOrder = 9
+        end
+        object edVendedor: TEdit
+          Left = 72
+          Top = 200
+          Width = 65
+          Height = 21
+          TabOrder = 10
+          OnKeyPress = ApenasNumerosKeyPress
+        end
+        object edVendedorNome: TEdit
+          Left = 140
+          Top = 200
+          Width = 249
+          Height = 21
+          ReadOnly = True
+          TabOrder = 11
+        end
+        object edCFOPEntrada: TEdit
+          Left = 72
+          Top = 256
+          Width = 65
+          Height = 21
+          TabOrder = 12
+          OnKeyPress = ApenasNumerosKeyPress
+        end
+        object edCFOPEntradaNome: TEdit
+          Left = 140
+          Top = 256
+          Width = 249
+          Height = 21
+          ReadOnly = True
+          TabOrder = 13
+        end
+        object edCFOPSaida: TEdit
+          Left = 72
+          Top = 280
+          Width = 65
+          Height = 21
+          TabOrder = 14
+          OnKeyPress = ApenasNumerosKeyPress
+        end
+        object edCFOPSaidaNome: TEdit
+          Left = 140
+          Top = 280
+          Width = 249
+          Height = 21
+          ReadOnly = True
+          TabOrder = 15
+        end
+        object chkCarregarPeloEAN: TCheckBox
+          Left = 72
+          Top = 336
+          Width = 321
+          Height = 17
+          Caption = 'Carregar pelo C'#243'digo EAN do Produto (Or'#231'amento/Venda)'
+          TabOrder = 16
+        end
+      end
+    end
+    object TbsPDV: TTabSheet
+      Caption = 'PDV'
+      ImageIndex = 1
+      object GrpBxImpressaoCupomNFiscal: TGroupBox
+        Left = 0
+        Top = 65
+        Width = 422
+        Height = 89
+        Align = alTop
+        Caption = ' Impress'#227'o Cupons N'#227'o-Fiscais '
+        TabOrder = 1
+        object lblCupomNaoFiscalPorta: TLabel
+          Left = 34
+          Top = 53
+          Width = 30
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Porta:'
+          Enabled = False
+          FocusControl = edCupomNaoFiscalPorta
+          Transparent = True
+        end
+        object chkCupomNaoFiscal: TCheckBox
+          Left = 72
+          Top = 24
+          Width = 209
+          Height = 17
+          Caption = 'Esta'#231#227'o emite CUPOM N'#195'O FISCAL'
+          Enabled = False
+          TabOrder = 0
+          OnClick = chkCupomNaoFiscalClick
+        end
+        object edCupomNaoFiscalPorta: TComboBox
+          Left = 72
+          Top = 49
+          Width = 313
+          Height = 21
+          Enabled = False
+          ItemHeight = 13
+          ItemIndex = 0
+          TabOrder = 1
+          Text = 'Impressora padr'#227'o do Windows'
+          Items.Strings = (
+            'Impressora padr'#227'o do Windows'
+            'LPT1'
+            'LPT2'
+            'LPT3'
+            'LPT4'
+            'LPT5'
+            'C:\CUPOM.TXT')
+        end
+      end
+      object PnlCupom: TPanel
+        Left = 0
+        Top = 0
+        Width = 422
+        Height = 65
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 0
+        object chkCupomAutomatico: TCheckBox
+          Left = 72
+          Top = 34
+          Width = 329
+          Height = 17
+          Caption = 'Emitir cupom automaticamente ap'#243's a finaliza'#231#227'o da venda'
+          Enabled = False
+          TabOrder = 1
+        end
+        object chkCupomEmitir: TCheckBox
+          Left = 72
+          Top = 10
+          Width = 145
+          Height = 17
+          Caption = 'Emitir Cupom (Geral)'
+          TabOrder = 0
+          OnClick = chkCupomEmitirClick
         end
       end
     end

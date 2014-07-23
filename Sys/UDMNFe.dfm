@@ -824,7 +824,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41209.028739675920000000
+    ReportOptions.LastChange = 41842.970309340280000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -984,7 +984,7 @@ object DMNFe: TDMNFe
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1005,7 +1005,7 @@ object DMNFe: TDMNFe
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1024,7 +1024,7 @@ object DMNFe: TDMNFe
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1053,11 +1053,11 @@ object DMNFe: TDMNFe
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

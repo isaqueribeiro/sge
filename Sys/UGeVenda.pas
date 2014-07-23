@@ -1844,15 +1844,6 @@ begin
   inherited;
   HabilitarDesabilitar_Btns;
 
-  case GetUserFunctionID of
-    FUNCTION_USER_ID_GERENTE_ADM, FUNCTION_USER_ID_GERENTE_VND, FUNCTION_USER_ID_ESTOQUISTA, FUNCTION_USER_ID_VENDEDOR:
-      begin
-        btbtnFinalizar.Visible   := False;
-        btbtnGerarNFe.Visible    := False;
-        btbtnCancelarVND.Visible := False;
-      end;
-  end;
-
   dbgDados.Columns[COLUMN_LUCRO].Visible := ( DMBusiness.ibdtstUsersCODFUNCAO.AsInteger in [FUNCTION_USER_ID_DIRETORIA..FUNCTION_USER_ID_GERENTE_FIN,
     FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM] );
 end;

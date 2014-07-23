@@ -128,7 +128,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 300
-        ActivePage = TabSheet1
+        ActivePage = TbsNFe
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -282,7 +282,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           ImageIndex = 1
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
-            Top = 16
+            Top = 40
             Width = 377
             Height = 17
             Caption = 'Solicitar Data/Hora de sa'#237'da da NF-e para impress'#227'o no DANFE'
@@ -294,13 +294,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 0
+            TabOrder = 1
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object chkImprimirCodCliente: TDBCheckBox
             Left = 16
-            Top = 40
+            Top = 64
             Width = 377
             Height = 17
             Caption = 'Imprimir C'#243'digo Interno do Cliente no DANFE da NF-e'
@@ -313,7 +313,25 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 1
+            TabOrder = 2
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object chkNFE_Emitir: TDBCheckBox
+            Left = 16
+            Top = 16
+            Width = 169
+            Height = 17
+            Caption = 'Permitir Emiss'#227'o de NF-e'
+            DataField = 'NFE_EMITIR'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
@@ -447,6 +465,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.email_conexao_ssl'
       '  , c.email_assunto_padrao'
       '  , c.email_mensagem_padrao'
+      '  , c.nfe_emitir'
       '  , c.nfe_solicita_dh_saida'
       '  , c.nfe_imprimir_cod_cliente'
       '  , c.cliente_permitir_duplicar_cnpj'
@@ -525,6 +544,12 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Origin = '"TBCONFIGURACAO"."EMAIL_MENSAGEM_PADRAO"'
       ProviderFlags = [pfInUpdate]
       Size = 250
+    end
+    object IbDtstTabelaNFE_EMITIR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'NFE_EMITIR'
+      Origin = '"TBCONFIGURACAO"."NFE_EMITIR"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaNFE_SOLICITA_DH_SAIDA: TSmallintField
       Alignment = taLeftJustify
@@ -605,6 +630,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  EMAIL_CONEXAO_SSL,'
       '  EMAIL_ASSUNTO_PADRAO,'
       '  EMAIL_MENSAGEM_PADRAO,'
+      '  NFE_EMITIR,'
       '  NFE_SOLICITA_DH_SAIDA,'
       '  NFE_IMPRIMIR_COD_CLIENTE,'
       '  CLIENTE_PERMITIR_DUPLICAR_CNPJ,'
@@ -638,6 +664,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  EMPRESA = :EMPRESA,'
       '  ESTOQUE_SATELITE_CLIENTE = :ESTOQUE_SATELITE_CLIENTE,'
       '  ESTOQUE_UNICO_EMPRESAS = :ESTOQUE_UNICO_EMPRESAS,'
+      '  NFE_EMITIR = :NFE_EMITIR,'
       '  NFE_IMPRIMIR_COD_CLIENTE = :NFE_IMPRIMIR_COD_CLIENTE,'
       '  NFE_SOLICITA_DH_SAIDA = :NFE_SOLICITA_DH_SAIDA,'
       '  PERMITIR_VENDA_ESTOQUE_INS = :PERMITIR_VENDA_ESTOQUE_INS,'
@@ -657,8 +684,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         ', EMAIL_SMTP_PORTA, '
       
         '   EMPRESA, ESTOQUE_SATELITE_CLIENTE, ESTOQUE_UNICO_EMPRESAS, NF' +
-        'E_IMPRIMIR_COD_CLIENTE, '
-      '   NFE_SOLICITA_DH_SAIDA, PERMITIR_VENDA_ESTOQUE_INS, USUARIO)'
+        'E_EMITIR, '
+      
+        '   NFE_IMPRIMIR_COD_CLIENTE, NFE_SOLICITA_DH_SAIDA, PERMITIR_VEN' +
+        'DA_ESTOQUE_INS, '
+      '   USUARIO)'
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
@@ -671,10 +701,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         'SMTP, :EMAIL_SMTP_PORTA, '
       
         '   :EMPRESA, :ESTOQUE_SATELITE_CLIENTE, :ESTOQUE_UNICO_EMPRESAS,' +
-        ' :NFE_IMPRIMIR_COD_CLIENTE, '
+        ' :NFE_EMITIR, '
       
-        '   :NFE_SOLICITA_DH_SAIDA, :PERMITIR_VENDA_ESTOQUE_INS, :USUARIO' +
-        ')')
+        '   :NFE_IMPRIMIR_COD_CLIENTE, :NFE_SOLICITA_DH_SAIDA, :PERMITIR_' +
+        'VENDA_ESTOQUE_INS, '
+      '   :USUARIO)')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'

@@ -25,6 +25,34 @@ type
     lblCidade: TLabel;
     edCidade: TEdit;
     edCidadeNome: TEdit;
+    TbsPDV: TTabSheet;
+    GrpBxImpressaoCupomNFiscal: TGroupBox;
+    lblCupomNaoFiscalPorta: TLabel;
+    chkCupomNaoFiscal: TCheckBox;
+    edCupomNaoFiscalPorta: TComboBox;
+    lblFormaPagto: TLabel;
+    edFormaPagto: TEdit;
+    edFormaPagtoNome: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    lblCondicaoPagto: TLabel;
+    edCondicaoPagto: TEdit;
+    edCondicaoPagtoNome: TEdit;
+    PnlCupom: TPanel;
+    chkCupomAutomatico: TCheckBox;
+    chkCupomEmitir: TCheckBox;
+    lblVendedor: TLabel;
+    edVendedor: TEdit;
+    edVendedorNome: TEdit;
+    Label1: TLabel;
+    lblCFOPEntrada: TLabel;
+    edCFOPEntrada: TEdit;
+    edCFOPEntradaNome: TEdit;
+    lblCFOPSaida: TLabel;
+    edCFOPSaida: TEdit;
+    edCFOPSaidaNome: TEdit;
+    Label6: TLabel;
+    chkCarregarPeloEAN: TCheckBox;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -32,6 +60,8 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure chkCupomNaoFiscalClick(Sender: TObject);
+    procedure chkCupomEmitirClick(Sender: TObject);
   private
     { Private declarations }
     procedure CarregarDadosINI;
@@ -70,6 +100,8 @@ end;
 
 procedure TfrmGrConfigurarAmbiente.CarregarDadosINI;
 begin
+  // Geral
+  
   edPais.Text   := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_PAIS,   INI_KEY_PAIS_VALUE);
   edEstado.Text := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_ESTADO, INI_KEY_ESTADO_VALUE);
   edCidade.Text := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_CIDADE, INI_KEY_CIDADE_VALUE);
@@ -77,6 +109,22 @@ begin
   edPaisNome.Text   := GetPaisNomeDefault;
   edEstadoNome.Text := GetEstadoNome( StrToIntDef(edEstado.Text, 0) );
   edCidadeNome.Text := GetCidadeNome( StrToIntDef(edCidade.Text, 0) );
+
+  edFormaPagto.Text    := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_FORMA_PGTO, INI_KEY_FORMA_PGTO_VALUE);
+  edCondicaoPagto.Text := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_COND_PGTO,  INI_KEY_COND_PGTO_VALUE);
+  edVendedor.Text      := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_VENDEDOR,   INI_KEY_VENDEDOR_VALUE);
+
+  edFormaPagtoNome.Text    := GetFormaPagtoNome   ( StrToIntDef(edFormaPagto.Text, 0) );
+  edCondicaoPagtoNome.Text := GetCondicaoPagtoNome( StrToIntDef(edCondicaoPagto.Text, 0) );
+  edVendedorNome.Text      := GetVendedorNome     ( StrToIntDef(edVendedor.Text, 0) );
+
+  // PDV
+
+  chkCupomEmitir.Checked          := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
+  chkCupomAutomatico.Checked      := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, False);
+  chkCupomNaoFiscal.Checked       := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
+  edCupomNaoFiscalPorta.ItemIndex := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', 0);
+  edCupomNaoFiscalPorta.Text      := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'Impressora padrão do Windows');
 end;
 
 procedure TfrmGrConfigurarAmbiente.FormShow(Sender: TObject);
@@ -87,9 +135,22 @@ end;
 
 procedure TfrmGrConfigurarAmbiente.GravarDadosINI;
 begin
+  // Geral
+
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_PAIS,   edPais.Text);
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_ESTADO, edEstado.Text);
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_CIDADE, edCidade.Text);
+
+  FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_FORMA_PGTO, edFormaPagto.Text);
+  FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_COND_PGTO,  edCondicaoPagto.Text);
+
+  // PDV
+  
+  FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, chkCupomEmitir.Checked);
+  FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, chkCupomAutomatico.Checked);
+  FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, chkCupomNaoFiscal.Checked);
+  FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', edCupomNaoFiscalPorta.ItemIndex);
+  FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', edCupomNaoFiscalPorta.Text);
 end;
 
 procedure TfrmGrConfigurarAmbiente.btnSalvarClick(Sender: TObject);
@@ -113,6 +174,8 @@ procedure TfrmGrConfigurarAmbiente.FormKeyDown(Sender: TObject;
 begin
   if ( Key in [VK_RETURN, VK_TAB] ) then
   begin
+    // Endereços
+
     if edEstado.Focused then
     begin
       edEstadoNome.Text := GetEstadoNome( StrToIntDef(edEstado.Text, 0) );
@@ -123,10 +186,45 @@ begin
     begin
       edCidadeNome.Text := GetCidadeNome( StrToIntDef(edCidade.Text, 0) );
       Perform(WM_NEXTDLGCTL, 0, 0);
+    end
+
+    // Pagamentos
+    
+    else
+    if edFormaPagto.Focused then
+    begin
+      edFormaPagtoNome.Text := GetFormaPagtoNome( StrToIntDef(edFormaPagto.Text, 0) );
+      Perform(WM_NEXTDLGCTL, 0, 0);
+    end
+    else
+    if edCondicaoPagto.Focused then
+    begin
+      edCondicaoPagtoNome.Text := GetCondicaoPagtoNome( StrToIntDef(edCondicaoPagto.Text, 0) );
+      Perform(WM_NEXTDLGCTL, 0, 0);
+    end
+    else
+    if edVendedor.Focused then
+    begin
+      edVendedorNome.Text := GetVendedorNome( StrToIntDef(edVendedor.Text, 0) );
+      Perform(WM_NEXTDLGCTL, 0, 0);
     end;
   end;
 
   inherited;
+end;
+
+procedure TfrmGrConfigurarAmbiente.chkCupomNaoFiscalClick(Sender: TObject);
+begin
+  lblCupomNaoFiscalPorta.Enabled := chkCupomNaoFiscal.Checked;
+  edCupomNaoFiscalPorta.Enabled  := chkCupomNaoFiscal.Checked;
+end;
+
+procedure TfrmGrConfigurarAmbiente.chkCupomEmitirClick(Sender: TObject);
+begin
+  chkCupomAutomatico.Enabled := chkCupomEmitir.Checked;
+  chkCupomNaoFiscal.Enabled  := chkCupomEmitir.Checked;
+  lblCupomNaoFiscalPorta.Enabled  := chkCupomEmitir.Checked;
+  edCupomNaoFiscalPorta.Enabled   := chkCupomEmitir.Checked;
 end;
 
 initialization

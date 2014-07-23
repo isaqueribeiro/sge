@@ -161,6 +161,9 @@ type
     mnRelatorioEntrada: TMenuItem;
     mnRelatorioEntradaProduto: TMenuItem;
     nmCotacaoCompra: TMenuItem;
+    N22: TMenuItem;
+    nmPlanoConta: TMenuItem;
+    nmCentroCusto: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -449,6 +452,9 @@ procedure TfrmPrinc.nmConfigurarNFeACBrClick(Sender: TObject);
 begin
   if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
+  else
+  if not GetPermititEmissaoNFe( GetEmpresaIDDefault ) then
+    ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.')
   else
     ConfigurarNFeACBr;
 end;

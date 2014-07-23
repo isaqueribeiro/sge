@@ -772,10 +772,10 @@ begin
 
     with ConfigACBr, FileINI do
     begin
-//      WriteString( sPrefixoSecao + 'Certificado', 'Caminho' , edtCaminho.Text) ;
-      WriteString( 'Certificado', 'Caminho' , edtCaminho.Text) ;
-      WriteString( 'Certificado', 'Senha'   , edtSenha.Text) ;
-      WriteString( 'Certificado', 'NumSerie', edtNumSerie.Text) ;
+//      WriteString( sPrefixoSecao + INI_SECAO_CERTIFICADO, 'Caminho' , edtCaminho.Text) ;
+      WriteString( INI_SECAO_CERTIFICADO, 'Caminho' , edtCaminho.Text) ;
+      WriteString( INI_SECAO_CERTIFICADO, 'Senha'   , edtSenha.Text) ;
+      WriteString( INI_SECAO_CERTIFICADO, 'NumSerie', edtNumSerie.Text) ;
 
       WriteInteger( 'Geral', 'DANFE'       , rgTipoDanfe.ItemIndex) ;
       WriteInteger( 'Geral', 'FormaEmissao', rgFormaEmissao.ItemIndex) ;
@@ -846,17 +846,17 @@ begin
     begin
 
       {$IFDEF ACBrNFeOpenSSL}
-//         edtCaminho.Text  := ReadString( sPrefixoSecao + 'Certificado', 'Caminho' , '') ;
-         edtCaminho.Text  := ReadString( 'Certificado', 'Caminho' , '') ;
-         edtSenha.Text    := ReadString( 'Certificado', 'Senha'   , '') ;
+//         edtCaminho.Text  := ReadString( sPrefixoSecao + INI_SECAO_CERTIFICADO, 'Caminho' , '') ;
+         edtCaminho.Text  := ReadString( INI_SECAO_CERTIFICADO, 'Caminho' , '') ;
+         edtSenha.Text    := ReadString( INI_SECAO_CERTIFICADO, 'Senha'   , '') ;
          ACBrNFe.Configuracoes.Certificados.Certificado  := edtCaminho.Text;
          ACBrNFe.Configuracoes.Certificados.Senha        := edtSenha.Text;
          edtNumSerie.Visible := False;
          Label25.Visible     := False;
          sbtnGetCert.Visible := False;
       {$ELSE}
-//         edtNumSerie.Text := ReadString( sPrefixoSecao + 'Certificado', 'NumSerie', '') ;
-         edtNumSerie.Text := ReadString( 'Certificado', 'NumSerie', '') ;
+//         edtNumSerie.Text := ReadString( sPrefixoSecao + INI_SECAO_CERTIFICADO, 'NumSerie', '') ;
+         edtNumSerie.Text := ReadString( INI_SECAO_CERTIFICADO, 'NumSerie', '') ;
          ACBrNFe.Configuracoes.Certificados.NumeroSerie := edtNumSerie.Text;
          edtNumSerie.Text := ACBrNFe.Configuracoes.Certificados.NumeroSerie;
          lbltCaminho.Caption := 'Informe o número de série do certificado'#13+

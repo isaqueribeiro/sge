@@ -395,6 +395,12 @@ begin
   IbDtstTabelaPESSOA_FISICA.AsInteger  := 0;
   IbDtstTabelaPAIS_ID.AsString         := GetPaisIDDefault;
   IbDtstTabelaPAIS_NOME.AsString       := GetPaisNomeDefault;
+  IbDtstTabelaEST_COD.AsInteger        := GetEstadoIDDefault;
+  IbDtstTabelaEST_NOME.AsString        := GetEstadoNomeDefault;
+  IbDtstTabelaUF.AsString              := GetEstadoUF(GetEstadoIDDefault);
+  IbDtstTabelaCID_COD.AsInteger        := GetCidadeIDDefault;
+  IbDtstTabelaCID_NOME.AsString        := GetCidadeNomeDefault;
+  IbDtstTabelaCIDADE.AsString          := IbDtstTabelaCID_NOME.AsString + ' (' + Trim(IbDtstTabelaUF.AsString) + ')';
   IbDtstTabelaTRANSPORTADORA.AsInteger := 0;
   IbDtstTabelaDTCAD.AsDateTime         := GetDateTimeDB;
   IbDtstTabelaGRF_COD.Clear;
