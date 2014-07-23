@@ -128,7 +128,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 300
-        ActivePage = TbsNFe
+        ActivePage = TabSheet1
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet

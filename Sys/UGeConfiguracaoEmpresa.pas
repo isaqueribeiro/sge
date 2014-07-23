@@ -202,6 +202,11 @@ end;
 
 procedure TfrmGeConfiguracaoEmpresa.Aplicar_ModeloEstoque;
 begin
+(*
+  IMR - 23/07/2014 :
+    Rotina descontinuada por entender que outras empresas podem são ser habilitadas para ver o estoque desta empresa,
+    mas esta empresa está habilitada para visualizar o estoque de todas.
+
   with DMBusiness, qryBusca do
   begin
     Close;
@@ -212,6 +217,7 @@ begin
 
     CommitTransaction;
   end;
+*)
 end;
 
 initialization
