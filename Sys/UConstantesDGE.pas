@@ -300,15 +300,19 @@ const
   // Chaves e campos de controle do arquivo INI
   
   INI_SECAO_DEFAULT = 'Default';
+  INI_KEY_CFOP_SAI  = 'CfopID';
+  INI_KEY_CFOP_ENT  = 'CfopEntradaID';
   INI_KEY_PAIS      = 'PaisID';
   INI_KEY_ESTADO    = 'EstadoID';
   INI_KEY_CIDADE    = 'CidadeID';
   INI_KEY_FORMA_PGTO = 'FormaPagtoID';
   INI_KEY_COND_PGTO  = 'CondicaoPagtoID';
   INI_KEY_VENDEDOR   = 'VendedorID';
-  INI_KEY_PAIS_VALUE   = '01058';
-  INI_KEY_ESTADO_VALUE = '15';
-  INI_KEY_CIDADE_VALUE = '170';
+  INI_KEY_CFOP_SAI_VALUE = '5102';
+  INI_KEY_CFOP_ENT_VALUE = '5102';
+  INI_KEY_PAIS_VALUE     = '01058';
+  INI_KEY_ESTADO_VALUE   = '15';
+  INI_KEY_CIDADE_VALUE   = '170';
   INI_KEY_FORMA_PGTO_VALUE = '1';
   INI_KEY_COND_PGTO_VALUE  = '1';
   INI_KEY_VENDEDOR_VALUE   = '1';
@@ -326,6 +330,8 @@ const
   INI_KEY_MODELO_CUPOM         = 'ModeloEmissaoCupom';
 
   INI_SECAO_CERTIFICADO = 'Certificado';
+  INI_SECAO_GERAL       = 'Geral';
+  INI_SECAO_EMITENTE    = 'Emitente';
 
   SYS_PATH_REGISTER = {$IFDEF DGE}'MasterDados\'{$ELSE}'Ágil Soluções em Softwares\'{$ENDIF};
   SYS_PASSWD_KEY    = 'TheLordIsGod';

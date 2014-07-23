@@ -118,6 +118,14 @@ begin
   edCondicaoPagtoNome.Text := GetCondicaoPagtoNome( StrToIntDef(edCondicaoPagto.Text, 0) );
   edVendedorNome.Text      := GetVendedorNome     ( StrToIntDef(edVendedor.Text, 0) );
 
+  edCFOPEntrada.Text := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_CFOP_ENT, INI_KEY_CFOP_ENT_VALUE);
+  edCFOPSaida.Text   := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_CFOP_SAI, INI_KEY_CFOP_SAI_VALUE);
+
+  edCFOPEntradaNome.Text := GetCfopNome( StrToIntDef(edCFOPEntrada.Text, 0) );
+  edCFOPSaidaNome.Text   := GetCfopNome( StrToIntDef(edCFOPSaida.Text, 0) );
+
+  chkCarregarPeloEAN.Checked := FileINI.ReadBool(INI_SECAO_VENDA, INI_KEY_CODIGO_EAN, GetCarregarProdutoCodigoBarra(GetEmpresaIDDefault));
+
   // PDV
 
   chkCupomEmitir.Checked          := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
@@ -143,9 +151,15 @@ begin
 
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_FORMA_PGTO, edFormaPagto.Text);
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_COND_PGTO,  edCondicaoPagto.Text);
+  FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_VENDEDOR,   edVendedor.Text);
+
+  FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_CFOP_ENT, edCFOPEntrada.Text);
+  FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_CFOP_SAI, edCFOPSaida.Text);
+
+  FileINI.WriteBool(INI_SECAO_VENDA, INI_KEY_CODIGO_EAN, chkCarregarPeloEAN.Checked);
 
   // PDV
-  
+
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, chkCupomEmitir.Checked);
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, chkCupomAutomatico.Checked);
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, chkCupomNaoFiscal.Checked);

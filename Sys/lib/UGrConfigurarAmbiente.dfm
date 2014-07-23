@@ -161,7 +161,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     Top = 0
     Width = 430
     Height = 488
-    ActivePage = TbsGeral
+    ActivePage = TbsPDV
     Align = alClient
     TabOrder = 0
     object TbsGeral: TTabSheet
@@ -447,7 +447,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Top = 336
           Width = 321
           Height = 17
-          Caption = 'Carregar pelo C'#243'digo EAN do Produto (Or'#231'amento/Venda)'
+          Caption = 'Or'#231'amento/Venda - Carregar pelo C'#243'digo EAN do Produto'
           TabOrder = 16
         end
       end

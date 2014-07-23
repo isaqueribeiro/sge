@@ -456,7 +456,7 @@ begin
   if not GetPermititEmissaoNFe( GetEmpresaIDDefault ) then
     ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.')
   else
-    ConfigurarNFeACBr;
+    ConfigurarNFeACBr( GetEmpresaIDDefault );
 end;
 
 procedure TfrmPrinc.nmTipoDespesaClick(Sender: TObject);

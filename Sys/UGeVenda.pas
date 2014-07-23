@@ -1643,6 +1643,12 @@ begin
       GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
 
     RdgStatusVenda.ItemIndex := 0;
+
+    // Imprimir Cupom
+
+    if GetEmitirCupom then
+      if GetEmitirCupomAutomatico then
+        ;
   end;
 end;
 
@@ -1667,6 +1673,12 @@ begin
 
   if not DMNFe.GetValidadeCertificado then
     Exit;
+
+  if not GetPermititEmissaoNFe( IbDtstTabelaCODEMP.AsString ) then
+  begin
+    ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.');
+    Exit;
+  end;
 
   if ( IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0 ) then
   begin
@@ -2523,16 +2535,18 @@ begin
       Open;
     end;
 
-    if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
-    begin
-      if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
+    if GetEmitirCupom then
+      if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin
-        FrECFPooler.PrepareReport;
-        FrECFPooler.Print;
+        if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
+        begin
+          FrECFPooler.PrepareReport;
+          FrECFPooler.Print;
+        end;
+        Exit;
       end;
-    end
-    else
-      frrVenda.ShowReport;
+
+    frrVenda.ShowReport;
 
   end;
 end;

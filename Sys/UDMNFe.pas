@@ -765,24 +765,36 @@ procedure TDMNFe.GravarConfiguracao(const sCNPJEmitente : String);
 Var
   sPrefixoSecao : String;
   StreamMemo    : TMemoryStream;
+
+  sSecaoCertificado,
+  sSecaoGeral      ,
+  sSecaoEmitente   : String;
 begin
   try
 
-    sPrefixoSecao := Trim(sCNPJEmitente) + '_';
+    AbrirEmitente(sCNPJEmitente);
+    
+    if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
+      sPrefixoSecao := Trim(sCNPJEmitente) + '_'
+    else
+      sPrefixoSecao := EmptyStr;
+
+    sSecaoCertificado := sPrefixoSecao + INI_SECAO_CERTIFICADO;
+    sSecaoGeral       := sPrefixoSecao + INI_SECAO_GERAL;
+    sSecaoEmitente    := sPrefixoSecao + INI_SECAO_EMITENTE;
 
     with ConfigACBr, FileINI do
     begin
-//      WriteString( sPrefixoSecao + INI_SECAO_CERTIFICADO, 'Caminho' , edtCaminho.Text) ;
-      WriteString( INI_SECAO_CERTIFICADO, 'Caminho' , edtCaminho.Text) ;
-      WriteString( INI_SECAO_CERTIFICADO, 'Senha'   , edtSenha.Text) ;
-      WriteString( INI_SECAO_CERTIFICADO, 'NumSerie', edtNumSerie.Text) ;
+      WriteString( sSecaoCertificado, 'Caminho' , edtCaminho.Text) ;
+      WriteString( sSecaoCertificado, 'Senha'   , edtSenha.Text) ;
+      WriteString( sSecaoCertificado, 'NumSerie', edtNumSerie.Text) ;
 
-      WriteInteger( 'Geral', 'DANFE'       , rgTipoDanfe.ItemIndex) ;
-      WriteInteger( 'Geral', 'FormaEmissao', rgFormaEmissao.ItemIndex) ;
-      WriteString ( 'Geral', 'LogoMarca'   , edtLogoMarca.Text) ;
-      WriteBool   ( 'Geral', 'Salvar'      , ckSalvar.Checked) ;
-      WriteString ( 'Geral', 'PathSalvar'  , edtPathLogs.Text) ;
-      WriteInteger( 'Geral', 'ModoGerarNFe', rgModoGerarNFe.ItemIndex) ;
+      WriteInteger( sSecaoGeral, 'DANFE'       , rgTipoDanfe.ItemIndex) ;
+      WriteInteger( sSecaoGeral, 'FormaEmissao', rgFormaEmissao.ItemIndex) ;
+      WriteString ( sSecaoGeral, 'LogoMarca'   , edtLogoMarca.Text) ;
+      WriteBool   ( sSecaoGeral, 'Salvar'      , ckSalvar.Checked) ;
+      WriteString ( sSecaoGeral, 'PathSalvar'  , edtPathLogs.Text) ;
+      WriteInteger( sSecaoGeral, 'ModoGerarNFe', rgModoGerarNFe.ItemIndex) ;
 
       WriteString ( 'WebService', 'UF'        ,cbUF.Text) ;
       WriteInteger( 'WebService', 'Ambiente'  ,rgTipoAmb.ItemIndex) ;
@@ -793,20 +805,20 @@ begin
       WriteString( 'Proxy', 'User'   , edtProxyUser.Text) ;
       WriteString( 'Proxy', 'Pass'   , edtProxySenha.Text) ;
 
-      WriteString( 'Emitente', 'CNPJ'       , edtEmitCNPJ.Text) ;
-      WriteString( 'Emitente', 'IE'         , edtEmitIE.Text) ;
-      WriteString( 'Emitente', 'RazaoSocial', edtEmitRazao.Text) ;
-      WriteString( 'Emitente', 'Fantasia'   , edtEmitFantasia.Text) ;
-      WriteString( 'Emitente', 'Fone'       , edtEmitFone.Text) ;
-      WriteString( 'Emitente', 'CEP'        , edtEmitCEP.Text) ;
-      WriteString( 'Emitente', 'Logradouro' , edtEmitLogradouro.Text) ;
-      WriteString( 'Emitente', 'Numero'     , edtEmitNumero.Text) ;
-      WriteString( 'Emitente', 'Complemento', edtEmitComp.Text) ;
-      WriteString( 'Emitente', 'Bairro'     , edtEmitBairro.Text) ;
-      WriteString( 'Emitente', 'CodCidade'  , edtEmitCodCidade.Text) ;
-      WriteString( 'Emitente', 'Cidade'     , edtEmitCidade.Text) ;
-      WriteString( 'Emitente', 'UF'         , edtEmitUF.Text) ;
-      WriteString( 'Emitente', 'InfoFisco'  , edInfoFisco.Text) ;
+      WriteString( sSecaoEmitente, 'CNPJ'       , edtEmitCNPJ.Text) ;
+      WriteString( sSecaoEmitente, 'IE'         , edtEmitIE.Text) ;
+      WriteString( sSecaoEmitente, 'RazaoSocial', edtEmitRazao.Text) ;
+      WriteString( sSecaoEmitente, 'Fantasia'   , edtEmitFantasia.Text) ;
+      WriteString( sSecaoEmitente, 'Fone'       , edtEmitFone.Text) ;
+      WriteString( sSecaoEmitente, 'CEP'        , edtEmitCEP.Text) ;
+      WriteString( sSecaoEmitente, 'Logradouro' , edtEmitLogradouro.Text) ;
+      WriteString( sSecaoEmitente, 'Numero'     , edtEmitNumero.Text) ;
+      WriteString( sSecaoEmitente, 'Complemento', edtEmitComp.Text) ;
+      WriteString( sSecaoEmitente, 'Bairro'     , edtEmitBairro.Text) ;
+      WriteString( sSecaoEmitente, 'CodCidade'  , edtEmitCodCidade.Text) ;
+      WriteString( sSecaoEmitente, 'Cidade'     , edtEmitCidade.Text) ;
+      WriteString( sSecaoEmitente, 'UF'         , edtEmitUF.Text) ;
+      WriteString( sSecaoEmitente, 'InfoFisco'  , edInfoFisco.Text) ;
 
       WriteString( 'Email', 'Host'    ,edtSmtpHost.Text) ;
       WriteString( 'Email', 'Port'    ,edtSmtpPort.Text) ;
@@ -837,26 +849,37 @@ Var
   sAssinaturaHtml,
   sAssinaturaTxt ,
   sFileNFE       : String;
+
+  sSecaoCertificado,
+  sSecaoGeral      ,
+  sSecaoEmitente   : String;
 begin
   try
 
-    sPrefixoSecao := Trim(sCNPJEmitente) + '_';
+    AbrirEmitente(sCNPJEmitente);
+    
+    if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
+      sPrefixoSecao := Trim(sCNPJEmitente) + '_'
+    else
+      sPrefixoSecao := EmptyStr;
+
+    sSecaoCertificado := sPrefixoSecao + INI_SECAO_CERTIFICADO;
+    sSecaoGeral       := sPrefixoSecao + INI_SECAO_GERAL;
+    sSecaoEmitente    := sPrefixoSecao + INI_SECAO_EMITENTE;
 
     with ConfigACBr, FileINI do
     begin
 
       {$IFDEF ACBrNFeOpenSSL}
-//         edtCaminho.Text  := ReadString( sPrefixoSecao + INI_SECAO_CERTIFICADO, 'Caminho' , '') ;
-         edtCaminho.Text  := ReadString( INI_SECAO_CERTIFICADO, 'Caminho' , '') ;
-         edtSenha.Text    := ReadString( INI_SECAO_CERTIFICADO, 'Senha'   , '') ;
+         edtCaminho.Text  := ReadString( sSecaoCertificado, 'Caminho' , '') ;
+         edtSenha.Text    := ReadString( sSecaoCertificado, 'Senha'   , '') ;
          ACBrNFe.Configuracoes.Certificados.Certificado  := edtCaminho.Text;
          ACBrNFe.Configuracoes.Certificados.Senha        := edtSenha.Text;
          edtNumSerie.Visible := False;
          Label25.Visible     := False;
          sbtnGetCert.Visible := False;
       {$ELSE}
-//         edtNumSerie.Text := ReadString( sPrefixoSecao + INI_SECAO_CERTIFICADO, 'NumSerie', '') ;
-         edtNumSerie.Text := ReadString( INI_SECAO_CERTIFICADO, 'NumSerie', '') ;
+         edtNumSerie.Text := ReadString( sSecaoCertificado, 'NumSerie', '') ;
          ACBrNFe.Configuracoes.Certificados.NumeroSerie := edtNumSerie.Text;
          edtNumSerie.Text := ACBrNFe.Configuracoes.Certificados.NumeroSerie;
          lbltCaminho.Caption := 'Informe o número de série do certificado'#13+
@@ -870,17 +893,17 @@ begin
          sbtnCaminhoCert.Visible := False;
       {$ENDIF}
 
-      rgFormaEmissao.ItemIndex := ReadInteger( 'Geral', 'FormaEmissao', 0) ;
+      rgFormaEmissao.ItemIndex := ReadInteger(sSecaoGeral, 'FormaEmissao', 0) ;
       rgModoGerarNFe.ItemIndex := 1; NetWorkActive; // ReadInteger( 'Geral', 'ModoGerarNFe', 1) ;
 
-      ckSalvar.Checked := ReadBool  ( 'Geral', 'Salvar'      ,True) ;
-      edtPathLogs.Text := ReadString( 'Geral', 'PathSalvar'  ,'') ;
+      ckSalvar.Checked := ReadBool  ( sSecaoGeral, 'Salvar'      ,True) ;
+      edtPathLogs.Text := ReadString( sSecaoGeral, 'PathSalvar'  ,'') ;
 
       ACBrNFe.Configuracoes.Geral.FormaEmissao := StrToTpEmis(OK, IntToStr(rgFormaEmissao.ItemIndex + 1));
       ACBrNFe.Configuracoes.Geral.Salvar       := ckSalvar.Checked;
       ACBrNFe.Configuracoes.Geral.PathSalvar   := edtPathLogs.Text;
 
-      cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( 'WebService','UF','SP')) ;
+      cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( 'WebService', 'UF', 'PA')) ;
       rgTipoAmb.ItemIndex  := ReadInteger( 'WebService', 'Ambiente'  , 0) ;
       ckVisualizar.Checked := ReadBool   ( 'WebService', 'Visualizar', False) ;
 
@@ -898,8 +921,8 @@ begin
       ACBrNFe.Configuracoes.WebServices.ProxyUser := edtProxyUser.Text;
       ACBrNFe.Configuracoes.WebServices.ProxyPass := edtProxySenha.Text;
 
-      rgTipoDanfe.ItemIndex := ReadInteger( 'Geral', 'DANFE'     , 0) ;
-      edtLogoMarca.Text     := ReadString ( 'Geral', 'LogoMarca' , '') ;
+      rgTipoDanfe.ItemIndex := ReadInteger( sSecaoGeral, 'DANFE'     , 0) ;
+      edtLogoMarca.Text     := ReadString ( sSecaoGeral, 'LogoMarca' , '') ;
 
       if ACBrNFe.DANFE <> nil then
       begin
@@ -911,20 +934,20 @@ begin
           ACBrNFe.DANFE.Logo := EmptyStr;
       end;
 
-      edtEmitCNPJ.Text       := ReadString( 'Emitente', 'CNPJ'       , '' ) ;
-      edtEmitIE.Text         := ReadString( 'Emitente', 'IE'         , '' ) ;
-      edtEmitRazao.Text      := ReadString( 'Emitente', 'RazaoSocial', '' ) ;
-      edtEmitFantasia.Text   := ReadString( 'Emitente', 'Fantasia'   , '' ) ;
-      edtEmitFone.Text       := ReadString( 'Emitente', 'Fone'       , '' ) ;
-      edtEmitCEP.Text        := ReadString( 'Emitente', 'CEP'        , '' ) ;
-      edtEmitLogradouro.Text := ReadString( 'Emitente', 'Logradouro' , '' ) ;
-      edtEmitNumero.Text     := ReadString( 'Emitente', 'Numero'     , '' ) ;
-      edtEmitComp.Text       := ReadString( 'Emitente', 'Complemento', '' ) ;
-      edtEmitBairro.Text     := ReadString( 'Emitente', 'Bairro'     , '' ) ;
-      edtEmitCodCidade.Text  := ReadString( 'Emitente', 'CodCidade'  , '' ) ;
-      edtEmitCidade.Text     := ReadString( 'Emitente', 'Cidade'     , '' ) ;
-      edtEmitUF.Text         := ReadString( 'Emitente', 'UF'         , '' ) ;
-      edInfoFisco.Text       := ReadString( 'Emitente', 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
+      edtEmitCNPJ.Text       := ReadString( sSecaoEmitente, 'CNPJ'       , '' ) ;
+      edtEmitIE.Text         := ReadString( sSecaoEmitente, 'IE'         , '' ) ;
+      edtEmitRazao.Text      := ReadString( sSecaoEmitente, 'RazaoSocial', '' ) ;
+      edtEmitFantasia.Text   := ReadString( sSecaoEmitente, 'Fantasia'   , '' ) ;
+      edtEmitFone.Text       := ReadString( sSecaoEmitente, 'Fone'       , '' ) ;
+      edtEmitCEP.Text        := ReadString( sSecaoEmitente, 'CEP'        , '' ) ;
+      edtEmitLogradouro.Text := ReadString( sSecaoEmitente, 'Logradouro' , '' ) ;
+      edtEmitNumero.Text     := ReadString( sSecaoEmitente, 'Numero'     , '' ) ;
+      edtEmitComp.Text       := ReadString( sSecaoEmitente, 'Complemento', '' ) ;
+      edtEmitBairro.Text     := ReadString( sSecaoEmitente, 'Bairro'     , '' ) ;
+      edtEmitCodCidade.Text  := ReadString( sSecaoEmitente, 'CodCidade'  , '' ) ;
+      edtEmitCidade.Text     := ReadString( sSecaoEmitente, 'Cidade'     , '' ) ;
+      edtEmitUF.Text         := ReadString( sSecaoEmitente, 'UF'         , '' ) ;
+      edInfoFisco.Text       := ReadString( sSecaoEmitente, 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
 
       // Configuração para envio de e-mails
 

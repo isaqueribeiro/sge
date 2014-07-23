@@ -215,6 +215,7 @@ var
   function GetEstacaoEmitiNFe : Boolean;
   function GetCondicaoPagtoIDBoleto_Descontinuada : Integer;  // Descontinuada
   function GetEmitirCupom : Boolean;
+  function GetEmitirCupomAutomatico : Boolean;
   function GetModeloEmissaoCupom : Integer;
   function GetSegmentoID(const CNPJ : String) : Integer;
   {$IFDEF DGE}
@@ -264,6 +265,7 @@ var
   function GetLogradouroNome(const iLogradouro : Integer) : String;
   function GetLogradouroTipo(const iLogradouro : Integer) : String;
   function GetCfopNomeDefault : String;
+  function GetCfopNome(const iCodigo : Integer) : String;
   function GetCfopEntradaNomeDefault : String;
   function GetEmpresaNomeDefault : String;
   function GetEmpresaEnderecoDefault : String;
@@ -302,6 +304,7 @@ var
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
   function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
+  function GetQuantidadeEmpresasEmiteNFe : Integer;
 
   function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 
@@ -1085,12 +1088,12 @@ end;
 
 function GetCfopIDDefault : Integer;
 begin
-  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, 'CfopID', 5102);
+  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_CFOP_SAI, StrToInt(INI_KEY_CFOP_SAI_VALUE));
 end;
 
 function GetCfopEntradaIDDefault : Integer;
 begin
-  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, 'CfopEntradaID', GetCfopIDDefault);
+  Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_CFOP_ENT, StrToInt(INI_KEY_CFOP_ENT_VALUE));
 end;
 
 function GetEmpresaIDDefault : String;
@@ -1136,6 +1139,11 @@ end;
 function GetEmitirCupom : Boolean;
 begin
   Result := FileINI.ReadBool(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
+end;
+
+function GetEmitirCupomAutomatico : Boolean;
+begin
+  Result := FileINI.ReadBool(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, False);
 end;
 
 function GetModeloEmissaoCupom : Integer;
@@ -1858,11 +1866,16 @@ end;
 
 function GetCfopNomeDefault : String;
 begin
+  Result := GetCfopNome( GetCfopIDDefault );
+end;
+
+function GetCfopNome(const iCodigo : Integer) : String;
+begin
   with DMBusiness, qryBusca do
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select cfop_descricao from TBCFOP where cfop_cod = ' + IntToStr(GetCfopIDDefault));
+    SQL.Add('Select cfop_descricao from TBCFOP where cfop_cod = ' + IntToStr(iCodigo));
     Open;
 
     Result := FieldByName('cfop_descricao').AsString;
@@ -2385,6 +2398,32 @@ begin
     Result := Return;
   end;
 end;
+
+function GetQuantidadeEmpresasEmiteNFe : Integer;
+var
+  Return : Integer;
+begin
+  try
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  count(c.empresa) as empresas');
+      SQL.Add('from TBCONFIGURACAO c');
+      SQL.Add('where c.nfe_emitir = 1');
+      Open;
+
+      Return := FieldByName('empresas').AsInteger;
+
+      Close;
+    end;
+
+  finally
+    Result := Return;
+  end;
+end;
+
 
 function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 begin

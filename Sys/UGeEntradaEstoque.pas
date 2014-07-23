@@ -1289,6 +1289,12 @@ begin
 
   RecarregarRegistro;
     
+  if not GetPermititEmissaoNFe( IbDtstTabelaCODEMP.AsString ) then
+  begin
+    ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.');
+    Exit;
+  end;
+
   if ( IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0 ) then
   begin
     ShowWarning('O processo de geração de NF-e para esta venda já foi solicitado, mas não fora concluído.' + #13 +
