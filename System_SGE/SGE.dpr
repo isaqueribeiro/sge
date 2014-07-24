@@ -10,6 +10,8 @@ uses
   SysUtils,
   MidasLIB,
   HPL_Strings in '..\Sys\lib\HPL_Strings.pas',
+  EcfAgil in '..\Sys\lib\EcfAgil.pas',
+  EcfGenerico in '..\Sys\lib\EcfGenerico.pas',
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UDMBusiness in '..\Sys\UDMBusiness.pas' {DMBusiness: TDataModule},
   USobre in '..\Sys\USobre.pas' {frmSobre},
