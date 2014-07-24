@@ -1,0 +1,475 @@
+procedure Tf_pdv_vendas.Emitir_Cupom;
+var
+  ecf_g  : TEcf_generica;
+  cds_c  : TClientDataSet;
+  i      : Integer;
+begin
+  try
+    {i := 0;
+    if (Length(Trim(edt_nome_cliente.Text)) <> 0) then begin
+      cds_c := TClientDataSet(ds_conveniado.DataSet);
+
+      cds_c.Close;
+      cds_c.Params[0].AsInteger := cds_vnd.FieldByName('id_cliente').AsInteger;
+      cds_c.Params[1].Clear;
+      cds_c.Params[2].Clear;
+      cds_c.Params[3].AsInteger := 0;
+      cds_c.Params[4].Clear;
+      cds_c.Open;
+      if (cds_c.FieldByName('vlr_compras').AsCurrency <= 0) or
+         (cds_c.FieldByName('vlr_compras').AsCurrency < StrToFloat(Str_Valor_Conv)) then begin
+        Aviso('Limite de Crédito Excedido pelo Cliente !!!');
+        Exit;
+      end
+      else begin
+        cds_c.Edit;
+        cds_c.FieldByName('vlr_compras').AsCurrency := cds_c.FieldByName('vlr_compras').AsCurrency - StrToFloat(Str_Valor_Conv);
+        cds_c.Post;
+        cds_c.ApplyUpdates(0);
+      end;
+      cds_c.Close;
+    end;
+
+    cds_vnd.Edit;
+    cds_vnd.FieldByName('orc_liberado_sn').AsString   := 'S';
+    cds_vnd.FieldByName('fechada_sn').AsString        := 'S';
+    cds_vnd.Post;
+    cds_vnd.ApplyUpdates(0);
+
+    if UpperCase(Ini_confgs.ReadString('PDV', 'ECF', '')) = 'GENERICA' then begin
+      dm_pdv_relatorios.cds_dados_empresa.Open;
+      ecf_g := TEcf_generica.Criar(Ini_confgs.ReadInteger('PDV', 'Colunas', 80),
+                                   cds_ecf.FieldByName('desc_dll').AsString,
+                                   cds_ecf.FieldByName('desc_dll').AsString,
+                                   dm_pdv_relatorios.cds_dados_empresarazao_social.AsString,
+                                   dm_pdv_relatorios.cds_dados_empresadesc_endereco.AsString + ' - ' + dm_pdv_relatorios.cds_dados_empresadesc_bairro.AsString,
+                                   'FONE: ' + dm_pdv_relatorios.cds_dados_empresanr_telefone.AsString + ' CEP: ' + dm_pdv_relatorios.cds_dados_empresanr_cep.AsString,
+                                   dm_pdv_relatorios.cds_dados_empresaLocalidade.AsString,
+                                   'CNPJ: ' + dm_pdv_relatorios.cds_dados_empresanr_cnpj.AsString + ' IE: ' + dm_pdv_relatorios.cds_dados_empresanr_insc_estadual.AsString,
+                                   FormatFloat('000000', cds_vnd.FieldByName('ID').AsInteger),
+                                   True);
+      cds_its.First;
+      while not cds_its.Eof do begin
+        Abater_Estoque(cds_its.FieldByName('id_produto').AsInteger, cds_its.FieldByName('qtd_produto').AsInteger);
+        ecf_g.Incluir_Item(FormatFloat('000', cds_its.FieldByName('id').AsInteger),
+                           FormatFloat('000', cds_its.FieldByName('id_produto').AsInteger),
+                           cds_its.FieldByName('produto').AsString,
+                           FormatFloat('00', cds_its.FieldByName('qtd_produto').AsInteger),
+                           FormatFloat('###,###,##0.00', cds_its.FieldByName('vlr_venda_desc').AsCurrency),
+                           cds_its.FieldByName('st').AsString,
+                           FormatFloat('###,###,##0.00', cds_its.FieldByName('vlr_total_item').AsCurrency));
+        cds_its.Next;
+        Inc(i);
+      end;
+      ecf_g.Pular_Linha(1);
+      ecf_g.Desconto(FormatFloat('###,###,##0.00', dbe_vlr_desconto_adcional.Field.AsCurrency));
+      ecf_g.Incluir_TotalVenda(FormatFloat('###,###,##0.00', dbl_vlr_total_liquido.Field.AsCurrency));
+      ecf_g.Incluir_Forma_Pgto(dbe_desc_forma_pgto1.Field.AsString,
+                               FormatFloat('###,###,##0.00', dbe_vlr_forma_pgto1.Field.AsCurrency));
+      ecf_g.Incluir_Forma_Pgto(dbe_desc_forma_pgto2.Field.AsString,
+                               FormatFloat('###,###,##0.00', dbe_vlr_forma_pgto2.Field.AsCurrency));
+      ecf_g.Valor_Recebido(FormatFloat('###,###,##0.00', dbe_vlr_dinheiro.Field.AsCurrency));
+      ecf_g.Troco(FormatFloat('###,###,##0.00', dbe_vlr_trono.Field.AsCurrency));
+      ecf_g.Linha;
+      ecf_g.MSG_Cupom(Ini_confgs.ReadString('PDV', 'Msg1', ''), Ini_confgs.ReadString('PDV', 'Msg2', ''), Ini_confgs.ReadString('PDV', 'Msg3', ''));
+      ecf_g.Pular_Linha(5);
+      Sleep(i * 1000);
+      if (Length(Trim(edt_nome_cliente.Text)) > 0) then
+        Gerar_Debito_Cliente;
+      ecf_g.Emitir_Cupom_Conv((Length(Trim(edt_nome_cliente.Text)) > 0),
+                              Str_Convenio,
+                              edt_rg_cliente.Text + ' ' + edt_nome_cliente.Text,
+                              Str_Valor_Conv);
+      ecf_g.Finalizar;
+    end;
+    tmp_frm.Close;
+
+    cds_vnd.Close;
+
+    cds_its.Close;
+    cds_its.Params[0].AsInteger := 0;
+    cds_its.Params[1].AsInteger := 0;
+    cds_its.Open;
+
+    edt_descricao.Text    := '';
+    edt_apresentacao.Text := '';
+    lbl_custo.Caption     := '0,00'; }
+   except
+  end;
+end;
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+unit u_pdv_ecf_generica;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, u_pdv_matriz, ExtCtrls, ComCtrls, Grids, DBGrids, StdCtrls, Buttons,
+  DB, Mask, DBCtrls, ImgList, DBClient, Menus, ShellApi, SqlExpr, Provider,
+  DBXpress, IniFiles, Spin, RpDefine, RpRave;
+
+type
+  TEcf_generica  = class(TObject)
+  private
+    { Private declarations }
+    f_retorno,
+    f_colunas          : Integer;
+    f_dll,
+    f_porta_saida,
+    f_empresa,
+    f_endereco,
+    f_fone_cep,
+    f_cidade,
+    f_cnpf_insc_est,
+    f_id_venda         : String;
+    f_conteudo_imp     : TextFile;
+    f_porta            : Boolean;
+
+  public
+    { Public declarations }
+    property Num_Colunas  : Integer read f_colunas write f_colunas;
+    property Dll          : String read f_dll write f_dll;
+    property Porta        : String read f_porta_saida write f_porta_saida;
+    property Nome_Empresa : String read f_empresa write f_empresa;
+    property Endereco     : String read f_endereco write f_endereco;
+    property Fone_CEP     : String read f_fone_cep write f_fone_cep;
+    property Cidade       : String read f_cidade write f_cidade;
+    property CNPJ_Insc_Es : String read f_cnpf_insc_est write f_cnpf_insc_est;
+    property ID_Venda     : String read f_id_venda write f_id_venda;
+    property Corpo_Cupom  : TextFile read f_conteudo_imp write f_conteudo_imp;
+    property Int_Retorno  : Integer read f_retorno write f_retorno;
+    property Porta_Aberta : Boolean read f_porta write f_porta;
+
+    function Centralizar(Esp : Integer; Str : String) : String;
+    function Alinhar_Direita(Esp : Integer; Str : String) : String;
+    function Alinhar_Esquerda(Esp : Integer; Str : String) : String;
+    function Divisor(Str : String) : String;
+    procedure Compactar_Fonte;
+    procedure Descompactar_Fonte;
+
+    Constructor Criar(Colunas : Integer; Dll, Porta, Emp, Ender, FoneCep, Cid, Cnpj_Insc, ID : String; Imp_Gliche : Boolean);
+    procedure Gliche(Imprimir : Boolean);
+    procedure Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario, ST, Total_Item : String);
+    procedure Incluir_TotalVenda(Valor : String);
+    procedure Incluir_TotalCaixa(Valor : String);
+    procedure Incluir_Forma_Pgto(Descricao, Valor : String);
+    procedure Desconto(Valor : String);
+    procedure Valor_Recebido(Valor : String);
+    procedure Troco(Valor : String);
+    procedure MSG_Cupom(Msg1, Msg2, Msg3 : String);
+    procedure Emitir_Cupom_Conv(Emitir : Boolean; Convenio, Conveniado, Valor : String);
+    procedure Titulo_Cupom(Str : String);
+    procedure Identifica_Cupom(Data : TDateTime; ID : String);
+    procedure Linha;
+    procedure Pular_Linha(Num : Integer);
+    procedure Finalizar;
+    procedure Abrir_Gaveta; virtual; abstract;
+    procedure Assinar_Vendedor(Nome : String);
+    procedure Titulo_Livre(Str : String);
+    procedure Texto_Livre(Str : String);
+  end;
+
+const
+  cMargem = ' ';
+  cJustif = #27#97#51;
+  cEject = #12;
+  { Tamanho da fonte }
+  c10cpi = #18;
+  c12cpi = #27#77;
+  c17cpi = #15;
+  cIExpandido = #14;
+  cFExpandido = #20;
+  { Formatação da fonte }
+  cINegrito = #27#71;
+  cFNegrito = #27#72;
+  cIItalico = #27#52;
+  cFItalico = #27#53;
+
+implementation
+
+uses u_pdv_funcoes;
+
+function TEcf_generica.Centralizar(Esp : Integer; Str : String) : String;
+var
+  i,
+  tam,
+  res : Integer;
+  cmp : String;
+begin
+  tam := Length(Trim(Str));
+  res := Round((Esp - tam) / 2) - 1;
+  cmp := ' ';
+  for i := 1 to res do
+    cmp := cmp + ' ';
+  Result := cmp + Trim(Str);
+end;
+
+function TEcf_generica.Alinhar_Direita(Esp : Integer; Str : String) : String;
+var
+  i,
+  tam,
+  res : Integer;
+  cmp : String;
+begin
+  tam := Length(Trim(Str));
+  res := Esp - tam - 1;
+  cmp := ' ';
+  for i := 1 to res do
+    cmp := cmp + ' ';
+  Result := cmp + Trim(Str);
+end;
+
+function TEcf_generica.Alinhar_Esquerda(Esp : Integer; Str : String) : String;
+var
+  i,
+  tam,
+  res : Integer;
+  cmp : String;
+begin
+  tam := Length(Trim(Str));
+  res := Esp - tam - 1;
+  cmp := ' ';
+  for i := 1 to res do
+    cmp := cmp + ' ';
+  Result:= Trim(Str) + cmp;
+end;
+
+function TEcf_generica.Divisor(Str : String) : String;
+var
+  d : String;
+  i : Integer;
+begin
+  d   := Str;
+  Str := '';
+  for i := 1 to Num_Colunas do
+    Str := Str + d;
+  Result := Str;
+end;
+
+procedure TEcf_generica.Compactar_Fonte;
+begin
+  Write(Corpo_Cupom, c17cpi);
+end;
+
+procedure TEcf_generica.Descompactar_Fonte;
+begin
+  Write(Corpo_Cupom, c10cpi);
+end;
+
+Constructor TEcf_generica.Criar(Colunas : Integer; Dll, Porta, Emp, Ender,
+                                FoneCep, Cid, Cnpj_Insc, ID : String; Imp_Gliche : Boolean);
+begin
+  Self.Create;
+  Num_Colunas  := Colunas;
+  Dll          := Dll;
+  Porta        := Porta;
+  Nome_Empresa := Emp;
+  Endereco     := Ender;
+  Fone_CEP     := FoneCep;
+  Cidade       := Cid;
+  CNPJ_Insc_Es := Cnpj_Insc;
+  ID_Venda     := ID;
+
+  AssignFile(Corpo_Cupom, Porta);
+  Rewrite(Corpo_Cupom);
+
+  Gliche(Imp_Gliche);
+end;
+
+procedure TEcf_generica.Gliche(Imprimir : Boolean);
+begin
+  Compactar_Fonte;
+  if Imprimir then begin
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, RemoveAcento(Nome_Empresa)));
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, RemoveAcento(Endereco)));
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, RemoveAcento(Fone_CEP + ' ' + Cidade)));
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, CNPJ_Insc_Es));
+  end;
+end;
+
+procedure TEcf_generica.Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario,
+           ST, Total_Item : String);
+var
+  esp_desc : Integer;
+begin
+  esp_desc := Num_Colunas - 15;
+  Write  (Corpo_Cupom, cMargem + Alinhar_Esquerda(3, Item));
+  Write  (Corpo_Cupom, Alinhar_Esquerda(10, Codigo));
+  Writeln(Corpo_Cupom, Alinhar_Esquerda(esp_desc, Copy(RemoveAcento(Descricao), 1, esp_desc)));
+
+  Write  (Corpo_Cupom, cMargem + Alinhar_Direita(6, Quant));
+  Write  (Corpo_Cupom, ' x ');
+  Write  (Corpo_Cupom, Alinhar_Direita(6, V_Unitario));
+  Write  (Corpo_Cupom, Alinhar_Direita(15, ST));
+  Writeln(Corpo_Cupom, Alinhar_Direita(Num_Colunas - 31, Total_Item));
+end;
+
+procedure TEcf_generica.Incluir_TotalVenda(Valor : String);
+begin
+  Write  (Corpo_Cupom, c12cpi + cINegrito + cIExpandido + cMargem +
+                       'TOTAL R$ ' +
+                       cFExpandido + cFNegrito);
+  Writeln(Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
+                       Alinhar_Direita(Round(Num_Colunas / 2) - 10, Valor)  +
+                       cFExpandido + cFNegrito);
+  Self.Compactar_Fonte;
+end;
+
+procedure TEcf_generica.Incluir_TotalCaixa(Valor : String);
+begin
+  Write  (Corpo_Cupom, c12cpi + cINegrito + cIExpandido + cMargem +
+                       'CAIXA R$ ' +
+                       cFExpandido + cFNegrito);
+  Writeln(Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
+                       Alinhar_Direita(Round(Num_Colunas / 2) - 10, Valor)  +
+                       cFExpandido + cFNegrito);
+  Self.Compactar_Fonte;
+end;
+
+procedure TEcf_generica.Incluir_Forma_Pgto(Descricao, Valor : String);
+begin
+  if (Length(Trim(Descricao)) <> 0) then begin
+    Write  (Corpo_Cupom, cMargem + Alinhar_Esquerda(24, Descricao));
+    Writeln(Corpo_Cupom, Alinhar_Direita(Num_Colunas - 25, Valor));
+  end;
+end;
+
+procedure TEcf_generica.Desconto(Valor : String);
+begin
+  Writeln(Corpo_Cupom, cMargem + 'Desconto: ' + Alinhar_Direita(Num_Colunas - 11, Valor));
+end;
+
+procedure TEcf_generica.Valor_Recebido(Valor : String);
+begin
+  Writeln(Corpo_Cupom, cMargem + 'VALOR RECEBIDO: ' + Alinhar_Direita(Num_Colunas - 17, Valor));
+end;
+
+procedure TEcf_generica.Troco(Valor : String);
+begin
+  Writeln(Corpo_Cupom, cMargem + 'TROCO         : ' + Alinhar_Direita(Num_Colunas - 17, Valor));
+end;
+
+procedure TEcf_generica.MSG_Cupom(Msg1, Msg2, Msg3 : String);
+begin
+  if (Length(Trim(Msg1)) <> 0) then
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, Msg1));
+  if (Length(Trim(Msg2)) <> 0) then
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, Msg2));
+  if (Length(Trim(Msg3)) <> 0) then
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, Msg3));
+end;
+
+procedure TEcf_generica.Emitir_Cupom_Conv(Emitir : Boolean; Convenio, Conveniado, Valor : String);
+var
+  dh : String;
+begin
+  if Emitir then begin
+    //Aviso('PICOTE O CUPOM !!!');
+    Self.Gliche(True);
+
+    dh := FormatDateTime('dd/MM/yy hh:mm:ss', Now);
+    Write  (Corpo_Cupom, cMargem + dh);
+    Writeln(Corpo_Cupom, Alinhar_Direita(Num_Colunas - Length(dh + cMargem), 'COD: ' + ID_Venda));
+    Writeln(Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
+                         Centralizar(Round(Num_Colunas / 2), 'VENDA CONVENIO')  +
+                         cFExpandido + cFNegrito);
+    Self.Compactar_Fonte;
+
+    Self.Linha;
+    Writeln(Corpo_Cupom, cMargem + 'Convenio:   ' + Alinhar_Esquerda(Num_Colunas - 13, RemoveAcento(Convenio)));
+    Writeln(Corpo_Cupom, cMargem + 'Conveniado: ' + Alinhar_Esquerda(Num_Colunas - 13, RemoveAcento(Conveniado)));
+    Self.Pular_Linha(2);
+    Write  (Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
+                         cMargem + 'TOTAL DEBITO R$ ' +
+                         cFExpandido + cFNegrito);
+    Writeln(Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
+                         Alinhar_Direita(Round(Num_Colunas / 2) - 17, Valor)  +
+                         cFExpandido + cFNegrito);
+    Self.Compactar_Fonte;
+    Self.Pular_Linha(3);
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, '----------------------------------------'));
+    Writeln(Corpo_Cupom, cMargem + Centralizar(Num_Colunas, Conveniado));
+    Self.Pular_Linha(5);
+  end;
+end;
+
+procedure TEcf_generica.Titulo_Cupom(Str : String);
+var
+  dh : String;
+begin
+  dh := FormatDateTime('dd/MM/yy hh:mm:ss', Now);
+  Write  (Corpo_Cupom, cMargem + dh);
+  //Write  (Corpo_Cupom, 'GNF:000000');
+  Writeln(Corpo_Cupom, Alinhar_Direita(Num_Colunas - Length(dh + cMargem), 'COD: ' + ID_Venda));
+  Writeln(Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), Str)  +
+                       cFExpandido + cFNegrito);
+  Self.Compactar_Fonte;
+
+  Write  (Corpo_Cupom, cMargem + Alinhar_Esquerda(7, 'ITEM'));
+  Write  (Corpo_Cupom, Alinhar_Esquerda(10, 'CODIGO'));
+  Writeln(Corpo_Cupom, Alinhar_Esquerda(20, 'DESCRICAO'));
+
+  Write  (Corpo_Cupom, cMargem + Alinhar_Direita(17, 'QTD x UNITARIO'));
+  Write  (Corpo_Cupom, Alinhar_Direita(13, 'ST'));
+  Writeln(Corpo_Cupom, Alinhar_Direita(Num_Colunas - 31, 'VALOR (R$)'));
+  Self.Linha;
+end;
+
+procedure TEcf_generica.Identifica_Cupom(Data : TDateTime; ID : String);
+var
+  dh : String;
+begin
+  dh := FormatDateTime('dd/MM/yy hh:mm:ss', Data);
+  Write  (Corpo_Cupom, cMargem + dh);
+  Writeln(Corpo_Cupom, Alinhar_Direita(Num_Colunas - Length(dh + cMargem), 'COD: ' + ID));
+end;
+
+procedure TEcf_generica.Linha;
+begin
+  Writeln(Corpo_Cupom, cMargem + Divisor('-'));
+end;
+
+procedure TEcf_generica.Pular_Linha(Num : Integer);
+var
+  i : Integer;
+begin
+  for i := 1 to Num do
+    Writeln(Corpo_Cupom, '');
+end;
+
+procedure TEcf_generica.Finalizar;
+begin
+  Self.Linha;
+  Writeln(Corpo_Cupom, ' *');
+  Writeln(Corpo_Cupom, ' *');
+  Writeln(Corpo_Cupom, ' *');
+  CloseFile(Corpo_Cupom);
+end;
+
+procedure TEcf_generica.Assinar_Vendedor(Nome : String);
+const
+   ln : String = '.............................................................';
+begin
+  Self.Pular_Linha(1);
+  Writeln(Corpo_Cupom, cMargem + 'Vendedor: ' + RemoveAcento(Copy(ln, 1, Num_Colunas - Length(cMargem) - 10)));
+  Writeln(Corpo_Cupom, cMargem + '          ' + Centralizar(Num_Colunas - Length(cMargem) - 10, RemoveAcento(Nome)));
+end;
+
+procedure TEcf_generica.Titulo_Livre(Str : String);
+begin
+  Writeln(Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), Str)  +
+                       cFExpandido + cFNegrito);
+  Self.Compactar_Fonte;
+end;
+
+procedure TEcf_generica.Texto_Livre(Str : String);
+begin
+  Self.Compactar_Fonte;
+  Writeln(Corpo_Cupom, cMargem + Str);
+end;
+
+end.
