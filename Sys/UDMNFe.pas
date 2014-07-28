@@ -562,6 +562,10 @@ type
 
     function EnviarEmail_Generico(const sCNPJEmitente, sNumeroDocumento, sEmailDestinatario : String;
       const sArquivo : String = '') : Boolean;
+
+    function ImprimirCupomNaoFiscal(const sCNPJEmitente : String; iCodigoCliente : Integer;
+      const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean;
+
   end;
 
 var
@@ -593,9 +597,10 @@ const
 
 implementation
 
-uses UDMBusiness, Forms, FileCtrl, ACBrNFeConfiguracoes,
+uses
+  UDMBusiness, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
-  UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe;
+  UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory;
 
 {$R *.dfm}
 
@@ -4077,6 +4082,88 @@ begin
     sCC.Free;
   end;
 
+end;
+
+function TDMNFe.ImprimirCupomNaoFiscal(const sCNPJEmitente: String;
+  iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoVenda,
+  iNumVenda: Integer): Boolean;
+var
+  aEcfTipo   : TEcfTipo;
+  aEcfConfig : TEcfConfiguracao;
+  aEcf : TEcfFactory;
+begin
+  if GetCupomNaoFiscalPortaID = -1 then
+    aEcfTipo := ecfTEXTO
+  else
+    aEcfTipo := TEcfTipo(GetCupomNaoFiscalPortaID);
+
+  AbrirEmitente(sCNPJEmitente);
+  AbrirDestinatario(iCodigoCliente);
+  AbrirVenda(iAnoVenda, iNumVenda);
+
+  aEcfConfig.Colunas  := 80;
+  aEcfConfig.Porta    := GetCupomNaoFiscalPortaDS;
+  aEcfConfig.Empresa  := AnsiUpperCase( qryEmitenteNMFANT.AsString );
+  aEcfConfig.Endereco := Trim(qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString + ' - ' + qryEmitenteBAI_NOME.AsString);
+  aEcfConfig.Fone     := StrFormatarFONE(qryEmitenteFONE.AsString);
+  aEcfConfig.Cep      := StrFormatarCEP(qryEmitenteCEP.AsString);
+  aEcfConfig.Cidade   := qryEmitenteCID_NOME.AsString + '/' + qryEmitenteEST_SIGLA.AsString;
+  aEcfConfig.Cnpj     := StrFormatarCnpj( sCNPJEmitente );
+  aEcfConfig.InscEstadual   := qryEmitenteIE.AsString;
+  aEcfConfig.ID             := FormatFloat('###0000000', iNumVenda);
+  aEcfConfig.ImprimirGliche := True;
+
+  aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
+  try
+  
+    with aEcf do
+    begin
+      Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
+
+      if ( qryDestinatarioCODIGO.AsInteger <> CONSUMIDOR_FINAL_CODIGO ) then
+        Ecf.Identifica_Consumidor( IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString), StrFormatarCpf(qryDestinatarioCNPJ.AsString), StrFormatarCnpj(qryDestinatarioCNPJ.AsString))
+          , AnsiUpperCase(qryDestinatarioNOME.AsString)
+          , Trim(qryDestinatarioTLG_SIGLA.AsString + ' ' + qryDestinatarioLOG_NOME.AsString + ', ' +
+            qryDestinatarioNUMERO_END.AsString + ' - ' + qryDestinatarioBAI_NOME.AsString) + ' (' + qryDestinatarioCID_NOME.AsString + ')' 
+        );
+
+      Ecf.Titulo_Cupom('CUPOM NAO FISCAL');
+
+      qryDadosProduto.First;
+
+      while not qryDadosProduto.Eof do
+      begin
+        Ecf.Incluir_Item(FormatFloat('00', qryDadosProdutoSEQ.AsInteger)
+          , qryDadosProdutoCODPROD.AsString
+          , AnsiUpperCase(qryDadosProdutoDESCRI_APRESENTACAO.AsString)
+          , FormatFloat(',0.###', qryDadosProdutoQTDE.AsCurrency)
+          , FormatFloat(',0.00',  qryDadosProdutoPFINAL.AsCurrency)
+          , 'T0'
+          , FormatFloat(',0.00',  (qryDadosProdutoQTDE.AsCurrency * qryDadosProdutoPFINAL.AsCurrency))
+        );
+
+        qryDadosProduto.Next;
+      end;
+
+      Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency) );
+      Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency) );
+      Ecf.Linha;
+      Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDA.AsCurrency)  );
+
+      qryFormaPagtos.First;
+
+      while not qryFormaPagtos.Eof do
+      begin
+        Ecf.Incluir_Forma_Pgto(qryFormaPagtosDESCRI.AsString, FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
+        qryFormaPagtos.Next;
+      end;
+      Ecf.Pular_Linha(5);
+    end;
+
+  finally
+    aEcf.Ecf.Finalizar;
+    aEcf.Free;
+  end;
 end;
 
 end.

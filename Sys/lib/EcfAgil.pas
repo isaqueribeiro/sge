@@ -6,7 +6,6 @@ Uses
   SysUtils, StrUtils, Classes;
   
   Type
-    TEcfTipo = (ecfPadraoWindows, ecfLPT1, ecfLPT2, ecfLPT3, ecfLPT4, ecfLPT5, ecfTEXTO, ecfDaruma, ecfBematech);
     TEcfAgil = class(TObject)
     private
       { Private declarations }

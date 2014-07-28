@@ -217,6 +217,9 @@ var
   function GetEmitirCupom : Boolean;
   function GetEmitirCupomAutomatico : Boolean;
   function GetModeloEmissaoCupom : Integer;
+  function GetCupomNaoFiscalPortaID : Integer;
+  function GetCupomNaoFiscalPortaDS : String;
+  function GetCupomNaoFiscalEmitir : Boolean;
   function GetSegmentoID(const CNPJ : String) : Integer;
   {$IFDEF DGE}
   function GetControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess) : Boolean;
@@ -1149,6 +1152,21 @@ end;
 function GetModeloEmissaoCupom : Integer;
 begin
   Result := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_MODELO_CUPOM, 0);
+end;
+
+function GetCupomNaoFiscalPortaID : Integer;
+begin
+  Result := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', 0)
+end;
+
+function GetCupomNaoFiscalPortaDS : String;
+begin
+  Result := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'C:\CUPOM.TXT')
+end;
+
+function GetCupomNaoFiscalEmitir : Boolean;
+begin
+  Result := FileINI.ReadBool(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
 end;
 
 function GetSegmentoID(const CNPJ : String) : Integer;

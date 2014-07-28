@@ -4,17 +4,17 @@ interface
 
 uses Classes, Forms;
 
-type
-  TFormFactory = class
-  private
-    FList: TStrings;
-  public
-    constructor Create;
-    destructor Destroy; override;
-    function FormFactory: TFormFactory;
-    function CreateForm(const AOnwer : TComponent; const aFormName: string): TForm;
-    procedure RegisterForm(const aFormName: string; aFormClass: TComponentClass);
-end;
+  type
+    TFormFactory = class
+    private
+      FList: TStrings;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      function FormFactory: TFormFactory;
+      function CreateForm(const AOnwer : TComponent; const aFormName: string): TForm;
+      procedure RegisterForm(const aFormName: string; aFormClass: TComponentClass);
+  end;
 
 var
   _FormFactory: TFormFactory;

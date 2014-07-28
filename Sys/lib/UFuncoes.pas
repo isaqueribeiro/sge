@@ -23,6 +23,7 @@ uses
   function Path_Temporario : String;
   function Path_Comando : String;
   function Path_DiretorioWindows : String;
+  function RemoveAcentos(Str : String) : String;
 
 implementation
 
@@ -358,5 +359,18 @@ begin
   Result := GetEnvironmentVariable('Windir');
 end;
 
+function RemoveAcentos(Str : String) : String;
+const
+  COM_ACENTO = '‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹';
+  SEM_ACENTO = 'aaeouaoaeioucuAAEOUAOAEIOUCU';
+var
+  X : Integer;
+begin
+  for x := 1 to Length(Str) do
+    if Pos(Str[x],COM_ACENTO) <> 0 then
+      Str[x] := SEM_ACENTO[Pos(Str[x], COM_ACENTO)];
+      
+  Result := Str;
+end;
 
 end.

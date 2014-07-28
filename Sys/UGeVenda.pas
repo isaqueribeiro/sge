@@ -1648,7 +1648,13 @@ begin
 
     if GetEmitirCupom then
       if GetEmitirCupomAutomatico then
-        ;
+        if GetCupomNaoFiscalEmitir then
+          DMNFe.ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
+            , IbDtstTabelaCODCLIENTE.AsInteger
+            , FormatDateTime('dd/mm/yy hh:mm', Now)
+            , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
+        else
+          ; // Emitir Cupom Fiscal
   end;
 end;
 
@@ -2538,6 +2544,12 @@ begin
     if GetEmitirCupom then
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin
+        if GetCupomNaoFiscalEmitir then
+          ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
+            , IbDtstTabelaCODCLIENTE.AsInteger
+            , FormatDateTime('dd/mm/yy hh:mm', Now)
+            , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
+        else  
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
         begin
           FrECFPooler.PrepareReport;
