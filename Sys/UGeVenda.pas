@@ -336,6 +336,7 @@ type
     qryProduto: TIBDataSet;
     qryCFOP: TIBDataSet;
     cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
+    nmImprimirNotaEntrega: TMenuItem;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -394,6 +395,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure nmPpArquivoNFeClick(Sender: TObject);
     procedure nmEnviarEmailClienteClick(Sender: TObject);
+    procedure nmImprimirNotaEntregaClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -884,9 +886,10 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled      := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmGerarDANFEXML.Enabled      := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmEnviarEmailCliente.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirDANFE.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmGerarDANFEXML.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmEnviarEmailCliente.Enabled  := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
   end
   else
   begin
@@ -898,9 +901,10 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled      := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmGerarDANFEXML.Enabled      := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmEnviarEmailCliente.Enabled := False;
+    nmImprimirDANFE.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmGerarDANFEXML.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmEnviarEmailCliente.Enabled  := False;
   end;
 end;
 
@@ -2511,35 +2515,9 @@ begin
   with DMNFe do
   begin
 
-    with qryEmitente do
-    begin
-      Close;
-      ParamByName('Cnpj').AsString := IbDtstTabelaCODEMP.AsString;
-      Open;
-    end;
-
-    with qryDestinatario do
-    begin
-      Close;
-      ParamByName('codigo').AsInteger := IbDtstTabelaCODCLIENTE.AsInteger;
-      Open;
-    end;
-
-    with qryCalculoImporto do
-    begin
-      Close;
-      ParamByName('anovenda').AsInteger := IbDtstTabelaANO.AsInteger;
-      ParamByName('numvenda').AsInteger := IbDtstTabelaCODCONTROL.AsInteger;
-      Open;
-    end;
-
-    with qryDadosProduto do
-    begin
-      Close;
-      ParamByName('anovenda').AsInteger := IbDtstTabelaANO.AsInteger;
-      ParamByName('numvenda').AsInteger := IbDtstTabelaCODCONTROL.AsInteger;
-      Open;
-    end;
+    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
+    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
+    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     if GetEmitirCupom then
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
@@ -2549,7 +2527,7 @@ begin
             , IbDtstTabelaCODCLIENTE.AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', Now)
             , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
-        else  
+        else
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
         begin
           FrECFPooler.PrepareReport;
@@ -2750,6 +2728,23 @@ end;
 function TfrmGeVenda.GetRotinaGerarBoletoID: String;
 begin
   Result := GetRotinaInternaID(nmGerarImprimirBoletos);
+end;
+
+procedure TfrmGeVenda.nmImprimirNotaEntregaClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  with DMNFe do
+  begin
+
+    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
+    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
+    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    frrNotaEntrega.ShowReport;
+
+  end;
 end;
 
 end.

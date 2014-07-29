@@ -4399,6 +4399,10 @@ inherited frmGeVenda: TfrmGeVenda
       Enabled = False
       OnClick = nmImprimirDANFEClick
     end
+    object nmImprimirNotaEntrega: TMenuItem
+      Caption = 'Nota de Entrega (Termo de Recebimento)'
+      OnClick = nmImprimirNotaEntregaClick
+    end
     object nmGerarDANFEXML: TMenuItem
       Caption = '&Gerar/Salvar XML da NF-e'
       Enabled = False

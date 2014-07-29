@@ -474,6 +474,7 @@ type
     qryCotacaoCompraFornecedorItem: TIBQuery;
     frdCotacaoCompraFornecedorItem: TfrxDBDataset;
     frrCotacaoCompraMapaPreco: TfrxReport;
+    frrNotaEntrega: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
