@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, IniFiles, DB,
-  DBClient;
+  DBClient, Printers;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)
@@ -53,6 +53,8 @@ type
     edCFOPSaidaNome: TEdit;
     Label6: TLabel;
     chkCarregarPeloEAN: TCheckBox;
+    lblCupomNaoFiscalImpressora: TLabel;
+    edCupomNaoFiscalImpressora: TComboBox;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -62,6 +64,7 @@ type
       Shift: TShiftState);
     procedure chkCupomNaoFiscalClick(Sender: TObject);
     procedure chkCupomEmitirClick(Sender: TObject);
+    procedure edCupomNaoFiscalPortaChange(Sender: TObject);
   private
     { Private declarations }
     procedure CarregarDadosINI;
@@ -96,6 +99,9 @@ procedure TfrmGrConfigurarAmbiente.FormCreate(Sender: TObject);
 begin
   inherited;
   PgcConfiguracao.ActivePage := TbsGeral;
+
+  edCupomNaoFiscalImpressora.Items     := Printer.Printers;
+  edCupomNaoFiscalImpressora.ItemIndex := Printer.PrinterIndex;
 end;
 
 procedure TfrmGrConfigurarAmbiente.CarregarDadosINI;
@@ -133,6 +139,9 @@ begin
   chkCupomNaoFiscal.Checked       := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
   edCupomNaoFiscalPorta.ItemIndex := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', 0);
   edCupomNaoFiscalPorta.Text      := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'Impressora padrão do Windows');
+  edCupomNaoFiscalImpressora.Text := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', Printer.Printers.Strings[Printer.PrinterIndex]);
+
+  edCupomNaoFiscalPortaChange( edCupomNaoFiscalPorta );
 end;
 
 procedure TfrmGrConfigurarAmbiente.FormShow(Sender: TObject);
@@ -165,6 +174,7 @@ begin
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, chkCupomNaoFiscal.Checked);
   FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', edCupomNaoFiscalPorta.ItemIndex);
   FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', edCupomNaoFiscalPorta.Text);
+  FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', edCupomNaoFiscalImpressora.Text);
 end;
 
 procedure TfrmGrConfigurarAmbiente.btnSalvarClick(Sender: TObject);
@@ -231,6 +241,8 @@ procedure TfrmGrConfigurarAmbiente.chkCupomNaoFiscalClick(Sender: TObject);
 begin
   lblCupomNaoFiscalPorta.Enabled := chkCupomNaoFiscal.Checked;
   edCupomNaoFiscalPorta.Enabled  := chkCupomNaoFiscal.Checked;
+  lblCupomNaoFiscalImpressora.Enabled :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
+  edCupomNaoFiscalImpressora.Enabled  :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.chkCupomEmitirClick(Sender: TObject);
@@ -239,6 +251,15 @@ begin
   chkCupomNaoFiscal.Enabled  := chkCupomEmitir.Checked;
   lblCupomNaoFiscalPorta.Enabled  := chkCupomEmitir.Checked;
   edCupomNaoFiscalPorta.Enabled   := chkCupomEmitir.Checked;
+  lblCupomNaoFiscalImpressora.Enabled :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
+  edCupomNaoFiscalImpressora.Enabled  :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
+end;
+
+procedure TfrmGrConfigurarAmbiente.edCupomNaoFiscalPortaChange(
+  Sender: TObject);
+begin
+  lblCupomNaoFiscalImpressora.Enabled :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
+  edCupomNaoFiscalImpressora.Enabled  :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
 end;
 
 initialization

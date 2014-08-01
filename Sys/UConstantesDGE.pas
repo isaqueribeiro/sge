@@ -298,8 +298,9 @@ const
   STR_TAMANHO_NCMSH = 8;
 
   // Chaves e campos de controle do arquivo INI
-  
+
   INI_SECAO_DEFAULT = 'Default';
+  INI_KEY_EMPRESA   = 'EmpresaID';
   INI_KEY_CFOP_SAI  = 'CfopID';
   INI_KEY_CFOP_ENT  = 'CfopEntradaID';
   INI_KEY_PAIS      = 'PaisID';
@@ -308,6 +309,7 @@ const
   INI_KEY_FORMA_PGTO = 'FormaPagtoID';
   INI_KEY_COND_PGTO  = 'CondicaoPagtoID';
   INI_KEY_VENDEDOR   = 'VendedorID';
+  INI_KEY_CLIENTE    = 'ClienteID';
   INI_KEY_CFOP_SAI_VALUE = '5102';
   INI_KEY_CFOP_ENT_VALUE = '5102';
   INI_KEY_PAIS_VALUE     = '01058';

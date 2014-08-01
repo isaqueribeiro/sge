@@ -219,6 +219,7 @@ var
   function GetModeloEmissaoCupom : Integer;
   function GetCupomNaoFiscalPortaID : Integer;
   function GetCupomNaoFiscalPortaDS : String;
+  function GetCupomNaoFiscalPortaNM : String;
   function GetCupomNaoFiscalEmitir : Boolean;
   function GetSegmentoID(const CNPJ : String) : Integer;
   {$IFDEF DGE}
@@ -990,7 +991,7 @@ end;
 
 procedure SetEmpresaIDDefault(CNPJ : String);
 begin
-  FileINI.WriteString('Default', 'EmpresaID', CNPJ);
+  FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_EMPRESA, CNPJ);
   FileINI.UpdateFile;
 end;
 
@@ -1101,12 +1102,12 @@ end;
 
 function GetEmpresaIDDefault : String;
 begin
-  Result := FileINI.ReadString(INI_SECAO_DEFAULT, 'EmpresaID', EmptyStr);
+  Result := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_EMPRESA, EmptyStr);
 end;
 
 function GetClienteIDDefault : Integer;
 begin
-  Result := StrToIntDef( FileINI.ReadString(INI_SECAO_DEFAULT, 'ClienteID', EmptyStr), CONSUMIDOR_FINAL_CODIGO);
+  Result := StrToIntDef( FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_CLIENTE, EmptyStr), CONSUMIDOR_FINAL_CODIGO);
 end;
 
 function GetVendedorIDDefault : Integer;
@@ -1162,6 +1163,11 @@ end;
 function GetCupomNaoFiscalPortaDS : String;
 begin
   Result := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'C:\CUPOM.TXT')
+end;
+
+function GetCupomNaoFiscalPortaNM : String;
+begin
+  Result := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', Printer.Printers.Strings[Printer.PrinterIndex])
 end;
 
 function GetCupomNaoFiscalEmitir : Boolean;

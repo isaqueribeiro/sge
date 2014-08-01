@@ -61,7 +61,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness;
+  UConstantesDGE, UDMBusiness, UDMNFe;
 
 {$R *.dfm}
 
@@ -180,6 +180,8 @@ begin
     edRelatorio.ItemIndex := 0
   else
     edRelatorio.ItemIndex := -1;
+
+  DMNFe.AbrirEmitente( GetEmpresaIDDefault );
 end;
 
 procedure TfrmGrPadraoImpressao.SetVariablesDefault(

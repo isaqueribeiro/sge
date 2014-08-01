@@ -120,7 +120,8 @@ uses
   UGrUsuarioCopiarPerfil in 'UGrUsuarioCopiarPerfil.pas' {frmGrUsuarioCopiarPerfil},
   UGeCotacaoCompra in 'UGeCotacaoCompra.pas' {frmGeCotacaoCompra},
   UGeCotacaoCompraCancelar in 'UGeCotacaoCompraCancelar.pas' {frmGeCotacaoCompraCancelar},
-  UGeCotacaoCompraFornecedor in 'UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor};
+  UGeCotacaoCompraFornecedor in 'UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor},
+  EcfWindowsPrinter in '..\Sys\lib\EcfWindowsPrinter.pas';
 
 {$R *.res}
 

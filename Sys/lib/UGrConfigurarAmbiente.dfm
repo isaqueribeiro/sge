@@ -459,12 +459,12 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         Left = 0
         Top = 65
         Width = 422
-        Height = 89
+        Height = 112
         Align = alTop
         Caption = ' Impress'#227'o Cupons N'#227'o-Fiscais '
         TabOrder = 1
         object lblCupomNaoFiscalPorta: TLabel
-          Left = 34
+          Left = 50
           Top = 53
           Width = 30
           Height = 13
@@ -474,8 +474,19 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           FocusControl = edCupomNaoFiscalPorta
           Transparent = True
         end
+        object lblCupomNaoFiscalImpressora: TLabel
+          Left = 22
+          Top = 77
+          Width = 58
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Impressora:'
+          Enabled = False
+          FocusControl = edCupomNaoFiscalImpressora
+          Transparent = True
+        end
         object chkCupomNaoFiscal: TCheckBox
-          Left = 72
+          Left = 88
           Top = 24
           Width = 209
           Height = 17
@@ -485,7 +496,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           OnClick = chkCupomNaoFiscalClick
         end
         object edCupomNaoFiscalPorta: TComboBox
-          Left = 72
+          Left = 88
           Top = 49
           Width = 313
           Height = 21
@@ -493,6 +504,26 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           ItemHeight = 13
           ItemIndex = 0
           TabOrder = 1
+          Text = 'Impressora padr'#227'o do Windows'
+          OnChange = edCupomNaoFiscalPortaChange
+          Items.Strings = (
+            'Impressora padr'#227'o do Windows'
+            'LPT1'
+            'LPT2'
+            'LPT3'
+            'LPT4'
+            'LPT5'
+            'C:\CUPOM.TXT')
+        end
+        object edCupomNaoFiscalImpressora: TComboBox
+          Left = 88
+          Top = 73
+          Width = 313
+          Height = 21
+          Enabled = False
+          ItemHeight = 13
+          ItemIndex = 0
+          TabOrder = 2
           Text = 'Impressora padr'#227'o do Windows'
           Items.Strings = (
             'Impressora padr'#227'o do Windows'
@@ -513,7 +544,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         BevelOuter = bvNone
         TabOrder = 0
         object chkCupomAutomatico: TCheckBox
-          Left = 72
+          Left = 88
           Top = 34
           Width = 329
           Height = 17
@@ -522,7 +553,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           TabOrder = 1
         end
         object chkCupomEmitir: TCheckBox
-          Left = 72
+          Left = 88
           Top = 10
           Width = 145
           Height = 17

@@ -4102,10 +4102,11 @@ begin
   AbrirDestinatario(iCodigoCliente);
   AbrirVenda(iAnoVenda, iNumVenda);
 
-  aEcfConfig.Colunas  := 80;
-  aEcfConfig.Porta    := GetCupomNaoFiscalPortaDS;
+  aEcfConfig.Impressora := GetCupomNaoFiscalPortaNM;
+  aEcfConfig.Porta      := GetCupomNaoFiscalPortaDS;
   aEcfConfig.Empresa  := AnsiUpperCase( qryEmitenteNMFANT.AsString );
-  aEcfConfig.Endereco := Trim(qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString + ' - ' + qryEmitenteBAI_NOME.AsString);
+  aEcfConfig.Endereco := Trim(qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString);
+  aEcfConfig.Bairro   := Trim(qryEmitenteBAI_NOME.AsString);
   aEcfConfig.Fone     := StrFormatarFONE(qryEmitenteFONE.AsString);
   aEcfConfig.Cep      := StrFormatarCEP(qryEmitenteCEP.AsString);
   aEcfConfig.Cidade   := qryEmitenteCID_NOME.AsString + '/' + qryEmitenteEST_SIGLA.AsString;
