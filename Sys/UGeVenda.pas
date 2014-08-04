@@ -549,6 +549,9 @@ begin
     dbValorUnit.Color    := dbProduto.Color;
   end;
 
+  nmGerarImprimirBoletos.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
+  nmEnviarEmailCliente.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
+
   btbtnFinalizar.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
   btbtnCancelarVND.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
 
@@ -559,7 +562,7 @@ begin
 
   if (gSistema.Codigo = SISTEMA_PDV) then
   begin
-    Self.Caption       := 'Controle de Orçamentos';
+    Self.Caption       := 'Controle de Orçamentos/Vendas';
     btbtnLista.OnClick := ImprimirOrcamentoClick;
   end
   else

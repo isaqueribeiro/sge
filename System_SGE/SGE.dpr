@@ -121,7 +121,7 @@ uses
   UGeCotacaoCompra in 'UGeCotacaoCompra.pas' {frmGeCotacaoCompra},
   UGeCotacaoCompraCancelar in 'UGeCotacaoCompraCancelar.pas' {frmGeCotacaoCompraCancelar},
   UGeCotacaoCompraFornecedor in 'UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor},
-  EcfWindowsPrinter in '..\Sys\lib\EcfWindowsPrinter.pas';
+  UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas';
 
 {$R *.res}
 

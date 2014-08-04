@@ -73,6 +73,7 @@ type
     N9: TMenuItem;
     nmVenda: TMenuItem;
     nmOrcamento: TMenuItem;
+    nmPerfilAcesso: TMenuItem;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -100,9 +101,12 @@ type
     procedure nmUsuarioAlterarSenhaClick(Sender: TObject);
     procedure nmVendaClick(Sender: TObject);
     procedure nmOrcamentoClick(Sender: TObject);
+    procedure nmPerfilAcessoClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
     FAcesso : Boolean;
+    procedure RegistrarRotinasMenu;
   public
     { Public declarations }
   end;
@@ -191,6 +195,7 @@ begin
 
   FAcesso := False;
   SetSistema(gSistema.Codigo, gSistema.Nome, GetVersion);
+  RegistrarRotinasMenu;
 end;
 
 procedure TfrmPrinc.nmGerenciaCaixaClick(Sender: TObject);
@@ -236,46 +241,46 @@ end;
 
 procedure TfrmPrinc.nmTributacaoClick(Sender: TObject);
 begin
-  if GetUserPermissao(TAB_TRIBUTACAO, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_TRIBUTACAO_ID, True) then
     ShowInformation('Rotina não disponível nesta versão!');
 end;
 
 procedure TfrmPrinc.nmContaCorrenteClick(Sender: TObject);
 begin
-  if GetUserPermissao(TAB_CONTA_CORR, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CONTA_CORRENTE_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeContaCorrente');
 end;
 
 procedure TfrmPrinc.nmFormaPagtoClick(Sender: TObject);
 begin
-  if GetUserPermissao(TAB_FORMA_PGTO, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_FORMA_PAGTO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeFormaPagto');
 end;
 
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
 begin
-  if GetUserPermissao(TAB_COND_PGTO, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CONDICAO_PAGTO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeCondicaoPagto');
 end;
 
 procedure TfrmPrinc.nmEmpresaClick(Sender: TObject);
 begin
-//  if GetUserPermissao(CAD_EMPRESA, True) then
-  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
-    ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
-  else
-    FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_EMPRESA_ID, True) then
+    if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
+      ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
+    else
+      FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
 end;
 
 procedure TfrmPrinc.nmClienteClick(Sender: TObject);
 begin
-  if GetUserPermissao(CAD_CLIENTE, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CLIENTE_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeCliente');
 end;
 
 procedure TfrmPrinc.nmVendedorClick(Sender: TObject);
 begin
-  if GetUserPermissao(CAD_VENDEDOR, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_VENDEDOR_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeVendedor');
 end;
 
@@ -286,7 +291,7 @@ end;
 
 procedure TfrmPrinc.nmConfiguracaoEmpresaClick(Sender: TObject);
 begin
-  if GetUserPermissao(CONFIG_EMPRESA, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CONFIG_EMP_ID, True) then
     if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
       ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
     else
@@ -295,7 +300,7 @@ end;
 
 procedure TfrmPrinc.nmConfigurarNFeACBrClick(Sender: TObject);
 begin
-  if GetUserPermissao(CONFIG_NFE, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CONFIG_NFE_ID, True) then
     if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
       ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
     else
@@ -304,7 +309,10 @@ end;
 
 procedure TfrmPrinc.nmConfigurarAmbienteClick(Sender: TObject);
 begin
-  ShowInformation('Configurar Ambiente', 'Opção ainda não disponível nesta versão!');
+  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
+    ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
+  else
+    FormFunction.ShowModalForm(Self, 'frmGrConfigurarAmbiente');
 end;
 
 procedure TfrmPrinc.nmSenhaAutorizacaoClick(Sender: TObject);
@@ -314,7 +322,7 @@ end;
 
 procedure TfrmPrinc.nmUsuarioClick(Sender: TObject);
 begin
-  if GetUserPermissao(CAD_USUARIO, True) then
+  if GetPermissaoRotinaSistema(ROTINA_CAD_USUARIO_ID, True) then
     if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
       ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
     else
@@ -329,13 +337,66 @@ end;
 
 procedure TfrmPrinc.nmVendaClick(Sender: TObject);
 begin
-  ;
+  if GetPermissaoRotinaSistema(ROTINA_MOV_VENDA_PDV_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeVendaPDV');
 end;
 
 procedure TfrmPrinc.nmOrcamentoClick(Sender: TObject);
 begin
-  if GetUserPermissao(MOV_ORCAMENTO, True) then
+  if GetPermissaoRotinaSistema(ROTINA_MOV_ORCAMENTO_PDV_ID, True) then
     MostrarControleVendas(Self);
+end;
+
+procedure TfrmPrinc.nmPerfilAcessoClick(Sender: TObject);
+begin
+  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
+    ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
+  else
+    FormFunction.ShowModalForm(Self, 'frmGrUsuarioPerfil');
+end;
+
+procedure TfrmPrinc.RegistrarRotinasMenu;
+begin
+  // Menus
+
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CADASTRO_ID,  'Cadastro',      EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_MOVIMENTO_ID, 'Movimentações', EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CAIXA_PDV_ID, 'Caixa',         EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_AJUDA_ID,     'Ajuda',         EmptyStr);
+
+  // Sub-menus
+  
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_TAB_AUXILIAR_ID, 'Tabelas Auxiliares', ROTINA_MENU_CADASTRO_ID);
+
+  // Cadastros
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_EMP_ID, Trim(nmConfiguracaoEmpresa.Caption), ROTINA_MENU_CADASTRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_NFE_ID, Trim(nmConfigurarNFeACBr.Caption),   ROTINA_MENU_CADASTRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_AMB_ID, Trim(nmConfigurarAmbiente.Caption),  ROTINA_MENU_CADASTRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_GERAR_SENH_ID, Trim(nmSenhaAutorizacao.Caption),    ROTINA_MENU_CADASTRO_ID);
+
+  // Cadastros -> Tabelas Auxiliares
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_TRIBUTACAO_ID,     Trim(nmTributacao.Caption),    ROTINA_MENU_TAB_AUXILIAR_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONTA_CORRENTE_ID, Trim(nmContaCorrente.Caption), ROTINA_MENU_TAB_AUXILIAR_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_FORMA_PAGTO_ID,    Trim(nmFormaPagto.Caption),    ROTINA_MENU_TAB_AUXILIAR_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONDICAO_PAGTO_ID, Trim(nmCondicaoPagto.Caption), ROTINA_MENU_TAB_AUXILIAR_ID);
+
+  // Movimentações
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_VENDA_PDV_ID,     Trim(nmVenda.Caption),     ROTINA_MENU_MOVIMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_ORCAMENTO_PDV_ID, Trim(nmOrcamento.Caption), ROTINA_MENU_MOVIMENTO_ID);
+
+  // Caixa
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ABRIR_CAIXA_PDV_ID,     Trim(nmAberturaCaixa.Caption),      ROTINA_MENU_CAIXA_PDV_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ENCERRAR_CAIXA_PDV_ID,  Trim(nmEncerramentoCaixa.Caption),  ROTINA_MENU_CAIXA_PDV_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERENCIAR_CAIXA_PDV_ID, Trim(nmGerenciaCaixa.Caption),      ROTINA_MENU_CAIXA_PDV_ID);
+end;
+
+procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  CanClose := ShowConfirm('Deseja SAIR do Sistema?');
 end;
 
 end.

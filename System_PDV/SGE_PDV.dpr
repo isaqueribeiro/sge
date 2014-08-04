@@ -57,7 +57,7 @@ uses
   UBaseObject in '..\Sys\lib\UBaseObject.pas',
   UCliente in '..\Sys\lib\UCliente.pas',
   UGrPadraoImpressao in '..\System_SGE\lib\UGrPadraoImpressao.pas' {frmGrPadraoImpressao},
-  UGeProduto in '..\Sys\UGeProduto.pas' {frmGeProduto},
+  UGeProduto in '..\System_SGE\UGeProduto.pas' {frmGeProduto},
   UGeEstoqueAjusteManual in '..\System_SGE\UGeEstoqueAjusteManual.pas' {frmGeEstoqueAjusteManual},
   UGrUsuario in '..\System_SGE\UGrUsuario.pas' {frmGrUsuario},
   UGeEfetuarLogin in '..\System_SGE\UGeEfetuarLogin.pas' {FrmEfetuarLogin},
@@ -68,7 +68,15 @@ uses
   UGeVendaGerarNFe in '..\Sys\UGeVendaGerarNFe.pas' {frmGeVendaGerarNFe},
   UGeEfetuarPagtoREC in '..\Sys\UGeEfetuarPagtoREC.pas' {frmGeEfetuarPagtoREC},
   UGeVendaTransporte in '..\Sys\UGeVendaTransporte.pas' {frmGeVendaTransporte},
-  UGrMessage in '..\Sys\lib\UGrMessage.pas' {frmGeMessage};
+  UGrMessage in '..\Sys\lib\UGrMessage.pas' {frmGeMessage},
+  UEcfAgil in '..\Sys\lib\UEcfAgil.pas',
+  UEcfFactory in '..\Sys\lib\UEcfFactory.pas',
+  UEcfGenerico in '..\Sys\lib\UEcfGenerico.pas',
+  UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas',
+  UGrUsuarioPerfil in '..\System_SGE\UGrUsuarioPerfil.pas' {frmGrUsuarioPerfil},
+  UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
+  UGrUsuarioCopiarPerfil in '..\System_SGE\UGrUsuarioCopiarPerfil.pas' {frmGrUsuarioCopiarPerfil},
+  UGeVendaPDV in 'UGeVendaPDV.pas' {frmGeVendaPDV};
 
 {$R *.res}
 
