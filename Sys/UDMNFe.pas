@@ -475,6 +475,9 @@ type
     frdCotacaoCompraFornecedorItem: TfrxDBDataset;
     frrCotacaoCompraMapaPreco: TfrxReport;
     frrNotaEntrega: TfrxReport;
+    qryVendaCartaCredito: TIBQuery;
+    frdVendaCartaCredito: TfrxDBDataset;
+    frrVendaCartaCredito: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -514,6 +517,7 @@ type
     procedure AbrirDestinatario(iCodigo : Integer);
     procedure AbrirDestinatarioFornecedor(iCodigo : Integer);
     procedure AbrirVenda(AnoVenda, NumeroVenda : Integer);
+    procedure AbrirVendaCartaCredito(AnoVenda, NumeroVenda : Integer);
     procedure AbrirCompra(AnoCompra, NumeroCompra : Integer);
     procedure AbrirNFeEmitida(AnoVenda, NumeroVenda : Integer);
     procedure AbrirNFeEmitidaEntrada(AnoCompra, NumeroCompra : Integer);
@@ -4165,6 +4169,26 @@ begin
   finally
     aEcf.Ecf.Finalizar;
     aEcf.Free;
+  end;
+end;
+
+procedure TDMNFe.AbrirVendaCartaCredito(AnoVenda, NumeroVenda: Integer);
+begin
+  if (not qryCalculoImporto.Active) or qryCalculoImporto.IsEmpty then
+    with qryCalculoImporto do
+    begin
+      Close;
+      ParamByName('anovenda').AsInteger := AnoVenda;
+      ParamByName('numvenda').AsInteger := NumeroVenda;
+      Open;
+    end;
+
+  with qryVendaCartaCredito do
+  begin
+    Close;
+    ParamByName('anovenda').AsInteger := AnoVenda;
+    ParamByName('numvenda').AsInteger := NumeroVenda;
+    Open;
   end;
 end;
 

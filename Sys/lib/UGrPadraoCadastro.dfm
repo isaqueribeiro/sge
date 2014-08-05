@@ -208,7 +208,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       Width = 75
       Height = 31
       Hint = 'Imprimir Lista'
-      Caption = '&Lista'
+      Caption = 'Im&primir'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3

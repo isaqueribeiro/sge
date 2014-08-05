@@ -19,7 +19,6 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
     Width = 1116
     inherited btbtnLista: TBitBtn
       Visible = True
-      OnClick = btbtnListaClick
     end
     object btnAutorizarRequisicao: TBitBtn
       Left = 726
@@ -1341,7 +1340,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         '  , (Select count(i.item) from TBCLIENTE_REQUISICAO_ITEM i where' +
         ' i.ano = r.ano and i.numero = r.numero) as Itens'
       'from TBCLIENTE_REQUISICAO r'
-      '  inner join TBCLIENTE c on (r.codcliente = c.cnpj)')
+      '  inner join TBCLIENTE c on (r.codcliente = c.codigo)')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_REQUISICAO_2013'
     Left = 976
@@ -1662,11 +1661,13 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       ProviderFlags = []
       Size = 5
     end
-    object cdsTabelaItensESTOQUE_SATELITE: TIntegerField
+    object cdsTabelaItensESTOQUE_SATELITE: TIBBCDField
       DisplayLabel = 'Dispon'#237'vel'
       FieldName = 'ESTOQUE_SATELITE'
       ProviderFlags = []
-      DisplayFormat = ',0'
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
     end
   end
   object IbUpdTabelaItens: TIBUpdateSQL

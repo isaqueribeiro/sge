@@ -91,7 +91,6 @@ type
     cdsTabelaItensUSUARIO: TIBStringField;
     cdsTabelaItensDESCRI: TIBStringField;
     cdsTabelaItensUNP_SIGLA: TIBStringField;
-    cdsTabelaItensESTOQUE_SATELITE: TIntegerField;
     ppImprimir: TPopupMenu;
     nmImprimirRequisicao: TMenuItem;
     qryProduto: TIBDataSet;
@@ -101,6 +100,7 @@ type
     IbDtstTabelaRECEBEDOR_RG: TIBStringField;
     IbDtstTabelaCODCLIENTE: TIntegerField;
     cdsTabelaItensCODCLIENTE: TIntegerField;
+    cdsTabelaItensESTOQUE_SATELITE: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -656,7 +656,7 @@ begin
   if ( RdgStatusRequisicao.ItemIndex > 0 ) then
     WhereAdditional := WhereAdditional + ' and (r.situacao = ' + IntToStr(RdgStatusRequisicao.ItemIndex) + ')';
 
-  inherited;
+  inherited; 
 end;
 
 procedure TfrmGeRequisicaoCliente.dbClienteButtonClick(Sender: TObject);
@@ -845,19 +845,8 @@ begin
   with DMNFe do
   begin
 
-    with qryEmitente do
-    begin
-      Close;
-      ParamByName('Cnpj').AsString := IbDtstTabelaCODEMPRESA.AsString;
-      Open;
-    end;
-
-    with qryDestinatario do
-    begin
-      Close;
-      ParamByName('codigo').AsInteger := IbDtstTabelaCODCLIENTE.AsInteger;
-      Open;
-    end;
+    AbrirEmitente(IbDtstTabelaCODEMPRESA.AsString);
+    AbrirDestinatario(IbDtstTabelaCODCLIENTE.AsInteger);
 
     with QryRequisicaoCliente do
     begin

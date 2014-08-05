@@ -220,7 +220,6 @@ type
     UpdEstoqueSatelite: TIBUpdateSQL;
     DtsEstoqueSatelite: TDataSource;
     QryEstoqueSateliteCOD_PRODUTO: TIBStringField;
-    QryEstoqueSateliteQUANTIDADE: TIntegerField;
     QryEstoqueSateliteUSUARIO: TIBStringField;
     QryEstoqueSateliteANO_VENDA_ULT: TSmallintField;
     QryEstoqueSateliteCOD_VENDA_ULT: TIntegerField;
@@ -267,6 +266,7 @@ type
     IbDtstTabelaNOMEFANT: TIBStringField;
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
+    QryEstoqueSateliteQUANTIDADE: TIBBCDField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -1284,9 +1284,9 @@ begin
       end;
 
       if ( Pos('where', SelectSQL.Text) > 0 ) then
-        Add( '  and (e.cod_cliente = ' + IbDtstTabelaCNPJ.AsString + ')' )
+        Add( '  and (e.cod_cliente = ' + IbDtstTabelaCODIGO.AsString + ')' )
       else
-        Add( 'where (e.cod_cliente = ' + IbDtstTabelaCNPJ.AsString + ')' );
+        Add( 'where (e.cod_cliente = ' + IbDtstTabelaCODIGO.AsString + ')' );
 
       if chkProdutoComEstoque.Checked then
         Add('  and (e.quantidade > 0)');

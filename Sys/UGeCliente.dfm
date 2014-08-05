@@ -3,7 +3,7 @@ inherited frmGeCliente: TfrmGeCliente
   Top = 230
   Width = 860
   Height = 536
-  ActiveControl = dbCodigo
+  ActiveControl = edFiltrarTipoEstoqueSatelite
   Caption = 'Cadastro de Clientes'
   OldCreateOrder = True
   OnClose = FormClose
@@ -109,7 +109,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 455
-    ActivePage = tbsCadastro
+    ActivePage = tbsEstoqueSatelite
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
@@ -2474,6 +2474,13 @@ inherited frmGeCliente: TfrmGeCliente
           end
           item
             Expanded = False
+            FieldName = 'VALOR_MEDIO'
+            Title.Caption = 'Valor M'#233'dio (R$)'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'NOME_FABRICANTE'
             Title.Caption = 'Fabricante'
             Width = 150
@@ -3398,15 +3405,19 @@ inherited frmGeCliente: TfrmGeCliente
       Required = True
       Size = 10
     end
-    object QryEstoqueSateliteQUANTIDADE: TIntegerField
+    object QryEstoqueSateliteQUANTIDADE: TIBBCDField
       FieldName = 'QUANTIDADE'
       Origin = '"TBCLIENTE_ESTOQUE"."QUANTIDADE"'
       ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
     end
     object QryEstoqueSateliteVALOR_MEDIO: TIBBCDField
       FieldName = 'VALOR_MEDIO'
       Origin = '"TBCLIENTE_ESTOQUE"."VALOR_MEDIO"'
       ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 4
     end

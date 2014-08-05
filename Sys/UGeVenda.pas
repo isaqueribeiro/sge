@@ -337,6 +337,7 @@ type
     qryCFOP: TIBDataSet;
     cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
     nmImprimirNotaEntrega: TMenuItem;
+    nmImprimirCartaCredito: TMenuItem;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -396,6 +397,8 @@ type
     procedure nmPpArquivoNFeClick(Sender: TObject);
     procedure nmEnviarEmailClienteClick(Sender: TObject);
     procedure nmImprimirNotaEntregaClick(Sender: TObject);
+    procedure nmImprimirCartaCreditoClick(Sender: TObject);
+    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -421,7 +424,7 @@ type
     function PossuiTitulosPagos(AnoVenda : Smallint; NumVenda : Integer) : Boolean;
     function GetTotalValorFormaPagto : Currency;
     function GetTotalValorFormaPagto_APrazo : Currency;
-    function GetGerarEstoqueCliente : Integer;
+    function GetGerarEstoqueCliente(const Alertar : Boolean = TRUE) : Boolean;
     function BoletosGerados : Boolean;
 
     function GetRotinaFinalizarID : String;
@@ -889,10 +892,11 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmImprimirNotaEntrega.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmGerarDANFEXML.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmEnviarEmailCliente.Enabled  := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirDANFE.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmImprimirCartaCredito.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
+    nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmEnviarEmailCliente.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
   end
   else
   begin
@@ -904,10 +908,11 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmImprimirNotaEntrega.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmGerarDANFEXML.Enabled       := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmEnviarEmailCliente.Enabled  := False;
+    nmImprimirDANFE.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmImprimirCartaCredito.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
+    nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmEnviarEmailCliente.Enabled   := False;
   end;
 end;
 
@@ -1606,7 +1611,10 @@ begin
       end;
     end;
 
-    iGerarEstoqueCliente := GetGerarEstoqueCliente;
+    if GetGerarEstoqueCliente then
+      iGerarEstoqueCliente := 1
+    else
+      iGerarEstoqueCliente := 0;
 
     IbDtstTabela.Edit;
 
@@ -2474,11 +2482,11 @@ begin
   end;
 end;
 
-function TfrmGeVenda.GetGerarEstoqueCliente: Integer;
+function TfrmGeVenda.GetGerarEstoqueCliente(const Alertar : Boolean = TRUE) : Boolean;
 var
-  iReturn : Integer;
+  iReturn : Boolean;
 begin
-  iReturn := 0;
+  iReturn := False;
   try
     if GetEstoqueSateliteEmpresa(GetEmpresaIDDefault) then
       with DMBusiness, qryBusca do
@@ -2491,12 +2499,12 @@ begin
         SQL.Add('where Codigo = ' + IbDtstTabelaCODCLIENTE.AsString);
         Open;
 
-        iReturn := FieldByName('gerar_estoque').AsInteger;
+        iReturn := (FieldByName('gerar_estoque').AsInteger = 1);
 
-        if ( iReturn = 1 ) then
+        if iReturn and Alertar then
           if not ShowConfirm('Cliente trabalha com recebimento fracionado de produtos comprados nesta empresa.' + #13#13 +
-            'Deseja gerar um estoque satélite para o cliente para entregas fracionadas a partir de requisições?', 'Estoque Cliente') then
-            iReturn := 0;
+            'Deseja gerar um estoque satélite para o cliente para entregas fracionadas a partir de requisições e geração de Cartas de Créditos?', 'Estoque Cliente') then
+            iReturn := False;
 
         Close;
       end;
@@ -2748,6 +2756,29 @@ begin
     frrNotaEntrega.ShowReport;
 
   end;
+end;
+
+procedure TfrmGeVenda.nmImprimirCartaCreditoClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  with DMNFe do
+  begin
+
+    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
+    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
+    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirVendaCartaCredito( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    frrVendaCartaCredito.ShowReport;
+
+  end;
+end;
+
+procedure TfrmGeVenda.IbDtstTabelaAfterScroll(DataSet: TDataSet);
+begin
+  HabilitarDesabilitar_Btns;
 end;
 
 end.
