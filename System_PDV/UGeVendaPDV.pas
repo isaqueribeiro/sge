@@ -4,12 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, ExtCtrls, dxGDIPlusClasses;
+  Dialogs, UGrPadrao, ExtCtrls, dxGDIPlusClasses, StdCtrls;
 
 type
   TfrmGeVendaPDV = class(TfrmGrPadrao)
     PnlInformeGeral: TPanel;
     imgEmpresa: TImage;
+    PnlCabecalhoVenda: TPanel;
+    Label1: TLabel;
+    Image1: TImage;
+    Image2: TImage;
+    Label2: TLabel;
   private
     { Private declarations }
   public

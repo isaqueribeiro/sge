@@ -1,25 +1,27 @@
 inherited frmGeVendaPDV: TfrmGeVendaPDV
   Left = 422
   Top = 267
-  Width = 978
-  Height = 577
+  Width = 807
+  Height = 544
   Caption = 'Vendas PDV'
+  Font.Charset = ANSI_CHARSET
+  Font.Name = 'Tahoma'
   WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object PnlInformeGeral: TPanel
     Left = 0
-    Top = 0
-    Width = 962
-    Height = 110
-    Align = alTop
+    Top = 447
+    Width = 791
+    Height = 59
+    Align = alBottom
     BevelOuter = bvNone
-    TabOrder = 0
+    TabOrder = 1
     object imgEmpresa: TImage
       Left = 0
       Top = 0
-      Width = 110
-      Height = 110
+      Width = 57
+      Height = 59
       Align = alLeft
       Center = True
       Picture.Data = {
@@ -4289,6 +4291,63 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Stretch = True
       Transparent = True
       IsControl = True
+    end
+  end
+  object PnlCabecalhoVenda: TPanel
+    Left = 0
+    Top = 0
+    Width = 791
+    Height = 57
+    Align = alTop
+    BevelInner = bvLowered
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 56
+      Top = 10
+      Width = 74
+      Height = 13
+      Caption = 'Vendedor(a):'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Image1: TImage
+      Left = 10
+      Top = 10
+      Width = 39
+      Height = 39
+      Proportional = True
+      Stretch = True
+      Transparent = True
+      IsControl = True
+    end
+    object Image2: TImage
+      Left = 266
+      Top = 10
+      Width = 39
+      Height = 39
+      Proportional = True
+      Stretch = True
+      Transparent = True
+      IsControl = True
+    end
+    object Label2: TLabel
+      Left = 312
+      Top = 10
+      Width = 42
+      Height = 13
+      Caption = 'Cliente:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
     end
   end
 end
