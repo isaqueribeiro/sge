@@ -4381,9 +4381,9 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     object lblNomeVendedor: TLabel
       Left = 48
       Top = 10
-      Width = 74
+      Width = 100
       Height = 13
-      Caption = 'Vendedor(a):'
+      Caption = 'F2 | Vendedor(a):'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -4615,40 +4615,12 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     object lblNomeCliente: TLabel
       Left = 368
       Top = 10
-      Width = 42
+      Width = 68
       Height = 13
-      Caption = 'Cliente:'
+      Caption = 'F3 | Cliente:'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      Transparent = True
-    end
-    object dbNomeVendedor: TDBText
-      Left = 48
-      Top = 30
-      Width = 273
-      Height = 19
-      AutoSize = True
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      Transparent = True
-    end
-    object dbNomeCliente: TDBText
-      Left = 368
-      Top = 30
-      Width = 273
-      Height = 19
-      AutoSize = True
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
@@ -4769,24 +4741,10 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Top = 10
       Width = 118
       Height = 13
-      Caption = 'F7 | Forma de Pagto.'
+      Caption = 'F4 | Forma de Pagto.'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      Transparent = True
-    end
-    object dbNomeFormaPagto: TDBText
-      Left = 688
-      Top = 30
-      Width = 273
-      Height = 19
-      AutoSize = True
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
@@ -4916,6 +4874,51 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       ParentFont = False
       Transparent = True
     end
+    object edNomeVendedor: TLabel
+      Left = 48
+      Top = 30
+      Width = 273
+      Height = 19
+      AutoSize = False
+      Caption = 'edNomeVendedor'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object edNomeCliente: TLabel
+      Left = 368
+      Top = 30
+      Width = 273
+      Height = 19
+      AutoSize = False
+      Caption = 'edNomeCliente'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object edNomeFormaPagto: TLabel
+      Left = 688
+      Top = 30
+      Width = 273
+      Height = 19
+      AutoSize = False
+      Caption = 'edNomeFormaPagto'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
   end
   object PnlVendaProduto: TPanel
     Left = 0
@@ -4956,45 +4959,251 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Width = 361
       Height = 57
       Anchors = [akLeft, akTop, akRight]
-      Color = cl3DLight
+      Color = 12171705
       ParentColor = False
       Transparent = False
       WordWrap = True
     end
     object dbValorProduto: TDBText
       Left = 16
-      Top = 160
+      Top = 200
       Width = 361
       Height = 33
       Alignment = taRightJustify
       Anchors = [akLeft, akTop, akRight]
-      Color = cl3DLight
+      Color = 12171705
       ParentColor = False
+    end
+    object dbQuantidade: TDBText
+      Left = 16
+      Top = 160
+      Width = 113
+      Height = 33
+      Alignment = taRightJustify
+      Anchors = [akLeft, akTop, akRight]
+      Color = 12171705
+      ParentColor = False
+    end
+    object dbUnidade: TDBText
+      Left = 136
+      Top = 160
+      Width = 241
+      Height = 33
+      Anchors = [akLeft, akTop, akRight]
+      Color = 12171705
+      ParentColor = False
+    end
+    object dbTotalProduto: TDBText
+      Left = 136
+      Top = 240
+      Width = 241
+      Height = 33
+      Alignment = taRightJustify
+      Anchors = [akLeft, akTop, akRight]
+      Color = 12171705
+      ParentColor = False
+    end
+    object Label9: TLabel
+      Left = 16
+      Top = 244
+      Width = 106
+      Height = 25
+      Caption = 'Sub-total:'
+      Transparent = True
     end
     object edProdutoCodigo: TEdit
       Left = 136
       Top = 48
       Width = 241
       Height = 33
+      BorderStyle = bsNone
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
-      Text = '12345678901234567'
+      Text = '123456789012345678'
     end
     object edProdutoQtde: TEdit
       Left = 16
       Top = 48
       Width = 89
       Height = 33
+      BorderStyle = bsNone
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       Text = '01'
     end
     object Panel1: TPanel
       Left = 2
-      Top = 282
+      Top = 297
       Width = 389
-      Height = 242
+      Height = 227
       Align = alBottom
       BevelInner = bvLowered
       TabOrder = 2
+      object Label6: TLabel
+        Left = 2
+        Top = 6
+        Width = 385
+        Height = 25
+        Align = alTop
+        Alignment = taRightJustify
+        Caption = 'Valor Total (R$)'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object DBText1: TDBText
+        Left = 2
+        Top = 35
+        Width = 385
+        Height = 40
+        Align = alTop
+        Alignment = taRightJustify
+        AutoSize = True
+        Color = 12171705
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBlue
+        Font.Height = -35
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel1: TBevel
+        Left = 2
+        Top = 221
+        Width = 385
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+      end
+      object Label7: TLabel
+        Left = 2
+        Top = 79
+        Width = 385
+        Height = 25
+        Align = alTop
+        Alignment = taRightJustify
+        Caption = 'Desconto (R$)'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object DBText2: TDBText
+        Left = 2
+        Top = 108
+        Width = 385
+        Height = 40
+        Align = alTop
+        Alignment = taRightJustify
+        AutoSize = True
+        Color = 12171705
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBlue
+        Font.Height = -35
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel2: TBevel
+        Left = 2
+        Top = 148
+        Width = 385
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+      end
+      object Label8: TLabel
+        Left = 2
+        Top = 152
+        Width = 385
+        Height = 25
+        Align = alTop
+        Alignment = taRightJustify
+        Caption = 'Total A Pagar (R$)'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object DBText3: TDBText
+        Left = 2
+        Top = 181
+        Width = 385
+        Height = 40
+        Align = alTop
+        Alignment = taRightJustify
+        AutoSize = True
+        Color = 12171705
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBlue
+        Font.Height = -35
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel3: TBevel
+        Left = 2
+        Top = 31
+        Width = 385
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+      end
+      object Bevel4: TBevel
+        Left = 2
+        Top = 104
+        Width = 385
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+      end
+      object Bevel5: TBevel
+        Left = 2
+        Top = 177
+        Width = 385
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+      end
+      object Bevel6: TBevel
+        Left = 2
+        Top = 75
+        Width = 385
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+      end
+      object Bevel7: TBevel
+        Left = 2
+        Top = 2
+        Width = 385
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+      end
     end
   end
   object dbgDados: TDBGrid
@@ -5058,7 +5267,27 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   end
   object tmrContador: TTimer
     OnTimer = tmrContadorTimer
-    Left = 536
-    Top = 415
+    Left = 416
+    Top = 527
+  end
+  object dtsVenda: TDataSource
+    Left = 576
+    Top = 224
+  end
+  object actVenda: TActionList
+    Left = 424
+    Top = 128
+    object actCarregarVendedor: TAction
+      Category = 'Cabe'#231'alho Venda'
+      Caption = 'actCarregarVendedor'
+    end
+    object actCarregarCliente: TAction
+      Category = 'Cabe'#231'alho Venda'
+      Caption = 'actCarregarCliente'
+    end
+    object actCarregarFormaPagto: TAction
+      Category = 'Cabe'#231'alho Venda'
+      Caption = 'actCarregarFormaPagto'
+    end
   end
 end
