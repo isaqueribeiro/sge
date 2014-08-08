@@ -446,9 +446,6 @@ type
 var
   frmGeVenda: TfrmGeVenda;
 
-const
-  MODALIDADE_FRETE_SEMFRETE = 3;
-
   procedure MostrarControleVendas(const AOwner : TComponent);
 
 implementation
@@ -1307,7 +1304,7 @@ begin
       cdsTabelaItensPFINAL.AsCurrency         := cPrecoVND - cdsTabelaItensDESCONTO_VALOR.AsCurrency;
       cdsTabelaItensTOTAL_BRUTO.AsCurrency    := cdsTabelaItensQTDE.AsCurrency * cPrecoVND;
       cdsTabelaItensTOTAL_DESCONTO.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensDESCONTO_VALOR.AsCurrency;
-      cdsTabelaItensTOTAL_LIQUIDO.AsCurrency  := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensTOTAL_DESCONTO.AsCurrency;;
+      cdsTabelaItensTOTAL_LIQUIDO.AsCurrency  := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensTOTAL_DESCONTO.AsCurrency;
     end;
 
   if ( Sender = dbValorLiq ) then
@@ -2213,6 +2210,7 @@ begin
 
   if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
     IbDtstTabela.Edit;
+    
   IbDtstTabelaVENDA_PRAZO.AsInteger := 1;
 end;
 

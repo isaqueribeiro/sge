@@ -522,6 +522,9 @@ begin
   tbsDadosAdcionais.TabVisible := (gSistema.Codigo = SISTEMA_GESTAO);
   tbsCompra.TabVisible         := (gSistema.Codigo = SISTEMA_GESTAO);
   BtBtnProcesso.Visible        := (gSistema.Codigo = SISTEMA_GESTAO);
+
+  if ( gSistema.Codigo = SISTEMA_PDV ) then
+    CmbBxFiltrarTipo.ItemIndex := 1; // Pesquisar por CPF/CNPJ
 end;
 
 procedure TfrmGeCliente.ProximoCampoKeyPress(Sender: TObject;

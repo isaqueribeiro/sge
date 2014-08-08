@@ -21,7 +21,6 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 647
     Width = 1116
     inherited btbtnLista: TBitBtn
-      Caption = 'Im&primir'
       Visible = True
     end
     inherited bvlToolExpandir: TBevel

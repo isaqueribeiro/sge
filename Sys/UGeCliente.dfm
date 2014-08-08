@@ -3,7 +3,7 @@ inherited frmGeCliente: TfrmGeCliente
   Top = 230
   Width = 860
   Height = 536
-  ActiveControl = edFiltrarTipoEstoqueSatelite
+  ActiveControl = dbCodigo
   Caption = 'Cadastro de Clientes'
   OldCreateOrder = True
   OnClose = FormClose
@@ -109,7 +109,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 455
-    ActivePage = tbsEstoqueSatelite
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel

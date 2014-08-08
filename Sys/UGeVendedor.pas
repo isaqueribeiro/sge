@@ -39,7 +39,9 @@ var
   frmGeVendedor: TfrmGeVendedor;
 
   procedure MostrarTabelaVendedores(const AOwner : TComponent);
+
   function SelecionarVendedor(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
+  function SelecionarVendedorPDV(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
 
 implementation
 
@@ -65,6 +67,26 @@ var
 begin
   frm := TfrmGeVendedor.Create(AOwner);
   try
+    Result := frm.SelecionarRegistro(Codigo, Nome);
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarVendedorPDV(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
+var
+  frm : TfrmGeVendedor;
+begin
+  frm := TfrmGeVendedor.Create(AOwner);
+  try
+    frm.btbtnIncluir.Visible  := False;
+    frm.btbtnAlterar.Visible  := False;
+    frm.btbtnExcluir.Visible  := False;
+    frm.btbtnCancelar.Visible := False;
+    frm.btbtnSalvar.Visible   := False;
+    frm.btbtnLista.Visible    := False;
+    frm.btbtnFechar.Visible   := False;
+
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;

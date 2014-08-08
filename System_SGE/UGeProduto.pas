@@ -290,7 +290,8 @@ var
     var CodigoAlfa, Nome : String) : Boolean; overload;
   function SelecionarProduto(const AOwner : TComponent;
     var Codigo : Integer;
-    var CodigoAlfa, CodigoEAN, Nome : String) : Boolean; overload;
+    var CodigoAlfa, CodigoEAN, Nome, Unidade : String;
+    var ValorVenda : Currency) : Boolean; overload;
   function SelecionarProduto(const AOwner : TComponent;
     var Codigo : Integer;
     var CodigoAlfa, Nome, sUnidade, CST : String;
@@ -447,7 +448,8 @@ end;
 
 function SelecionarProduto(const AOwner : TComponent;
   var Codigo : Integer;
-  var CodigoAlfa, CodigoEAN, Nome : String) : Boolean;
+  var CodigoAlfa, CodigoEAN, Nome, Unidade : String;
+  var ValorVenda : Currency) : Boolean;
 var
   frm : TfrmGeProduto;
   whr : String;
@@ -470,6 +472,12 @@ begin
     begin
       CodigoAlfa := frm.IbDtstTabelaCOD.Value;
       CodigoEAN  := frm.IbDtstTabelaCODBARRA_EAN.Value;
+      Unidade    := frm.IbDtstTabelaUNIDADE.Value;
+      
+      if ( frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency = 0 ) then
+        ValorVenda := frm.IbDtstTabelaPRECO.AsCurrency
+      else
+        ValorVenda := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
     end;
   finally
     frm.Destroy;

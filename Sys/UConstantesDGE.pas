@@ -234,6 +234,10 @@ const
   TIPO_DOCUMENTO_ENTRADA_CONTRATO = 4;
   TIPO_DOCUMENTO_SERIE_AVULSO     = '99';
 
+  // Valores padrões para vendas
+  
+  MODALIDADE_FRETE_SEMFRETE = 3;
+
   // Relação de TAG'S FEET
 
   NFE_TAG_PROTNFE_ERROR = '</protNFe></protNFe>';

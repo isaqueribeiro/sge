@@ -76,7 +76,8 @@ uses
   UGrUsuarioPerfil in '..\System_SGE\UGrUsuarioPerfil.pas' {frmGrUsuarioPerfil},
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
   UGrUsuarioCopiarPerfil in '..\System_SGE\UGrUsuarioCopiarPerfil.pas' {frmGrUsuarioCopiarPerfil},
-  UGeVendaPDV in 'UGeVendaPDV.pas' {frmGeVendaPDV};
+  UGeVendaPDV in 'UGeVendaPDV.pas' {frmGeVendaPDV},
+  UDMCupom in '..\Sys\UDMCupom.pas' {DMCupom: TDataModule};
 
 {$R *.res}
 
