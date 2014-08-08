@@ -580,7 +580,17 @@ begin
         begin
           Close;
           SQL.Clear;
-          SQL.Add('Update TBCONTPAG Set Quitado = 0, Historic = '''', Dtpag = null, Docbaix = null, Tippag = null, Numchq = null, Banco = null');
+          SQL.Add('Update TBCONTPAG Set');
+          SQL.Add('    QUITADO      = 0');
+          SQL.Add('  , VALORMULTA   = 0.0');
+          SQL.Add('  , VALORPAGTOT  = 0.0');
+          SQL.Add('  , VALORSALDO   = VALORPAG');
+          SQL.Add('  , HISTORIC = ''''');
+          SQL.Add('  , DTPAG    = null');
+          SQL.Add('  , DOCBAIX  = null');
+          SQL.Add('  , TIPPAG   = null');
+          SQL.Add('  , NUMCHQ   = null');
+          SQL.Add('  , BANCO    = null');
           SQL.Add('where ANOLANC = ' + cdsPagamentosANOLANC.AsString);
           SQL.Add('  and NUMLANC = ' + cdsPagamentosNUMLANC.AsString);
           ExecSQL;

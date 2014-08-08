@@ -8,6 +8,7 @@ object DMCupom: TDMCupom
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
+    OnCalcFields = cdsVendaCalcFields
     CachedUpdates = True
     RefreshSQL.Strings = (
       '')
@@ -22,6 +23,7 @@ object DMCupom: TDMCupom
       '  , v.Status'
       '  , v.Totalvenda_bruta'
       '  , v.Desconto'
+      '  , v.Desconto_cupom'
       '  , v.Totalvenda'
       '  , v.Dtfinalizacao_venda'
       '  , v.Obs'
@@ -148,6 +150,13 @@ object DMCupom: TDMCupom
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 4
+    end
+    object cdsVendaDESCONTO_CUPOM: TIBBCDField
+      FieldName = 'DESCONTO_CUPOM'
+      Origin = '"TBVENDAS"."DESCONTO_CUPOM"'
+      ProviderFlags = [pfInUpdate]
+      Precision = 18
+      Size = 2
     end
     object cdsVendaTOTALVENDA: TIBBCDField
       DisplayLabel = 'Valor Total (R$)'
@@ -418,6 +427,12 @@ object DMCupom: TDMCupom
       Precision = 18
       Size = 4
     end
+    object cdsVendaDESCONTO_TOTAL: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'DESCONTO_TOTAL'
+      DisplayFormat = ',0.00'
+      Calculated = True
+    end
   end
   object updVenda: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -504,6 +519,7 @@ object DMCupom: TDMCupom
       '  CONDICAOPAGTO_COD = :CONDICAOPAGTO_COD,'
       '  DATAEMISSAO = :DATAEMISSAO,'
       '  DESCONTO = :DESCONTO,'
+      '  DESCONTO_CUPOM = :DESCONTO_CUPOM,'
       '  DTFINALIZACAO_VENDA = :DTFINALIZACAO_VENDA,'
       '  DTVENDA = :DTVENDA,'
       '  FATDIAS = :FATDIAS,'
@@ -552,33 +568,33 @@ object DMCupom: TDMCupom
         '  (ANO, CANCEL_DATAHORA, CANCEL_MOTIVO, CFOP, CODCLIENTE, CODCLI' +
         ', CODCONTROL, CODEMP, '
       
-        '   CONDICAOPAGTO_COD, DATAEMISSAO, DESCONTO, DTFINALIZACAO_VENDA' +
-        ', DTVENDA, '
+        '   CONDICAOPAGTO_COD, DATAEMISSAO, DESCONTO, DESCONTO_CUPOM, DTF' +
+        'INALIZACAO_VENDA, DTVENDA,'
       
         '   FATDIAS, FORMAPAG, FORMAPAGTO_COD, HORAEMISSAO, LOTE_NFE_ANO,' +
-        ' LOTE_NFE_NUMERO, '
+        ' LOTE_NFE_NUMERO,'
       
         '   NFE, NFE_ENVIADA, NFE_MODALIDADE_FRETE, NFE_PLACA_RNTC, NFE_P' +
-        'LACA_UF, '
+        'LACA_UF,'
       
         '   NFE_PLACA_VEICULO, NFE_TRANSPORTADORA, OBS, GERAR_ESTOQUE_CLI' +
-        'ENTE, PRAZO_01, PRAZO_02, PRAZO_03, '
+        'ENTE, PRAZO_01, PRAZO_02, PRAZO_03,'
       
         '   PRAZO_04, PRAZO_05, PRAZO_06, PRAZO_07, PRAZO_08, PRAZO_09, P' +
-        'RAZO_10, '
+        'RAZO_10,'
       
         '   PRAZO_11, PRAZO_12, SERIE, STATUS, TOTALVENDA, TOTALVENDA_BRU' +
-        'TA, USUARIO, '
+        'TA, USUARIO,'
       
         '   VENDA_PRAZO, VENDEDOR_COD, VERIFICADOR_NFE, XML_NFE, XML_NFE_' +
         'FILENAME)'
       'values'
       
         '  (:ANO, :CANCEL_DATAHORA, :CANCEL_MOTIVO, :CFOP, :CODCLIENTE, :' +
-        'CODCLI, :CODCONTROL, '
+        'CODCLI, :CODCONTROL,'
       
-        '   :CODEMP, :CONDICAOPAGTO_COD, :DATAEMISSAO, :DESCONTO, :DTFINA' +
-        'LIZACAO_VENDA, '
+        '   :CODEMP, :CONDICAOPAGTO_COD, :DATAEMISSAO, :DESCONTO, :DESCON' +
+        'TO_CUPOM, :DTFINALIZACAO_VENDA, '
       
         '   :DTVENDA, :FATDIAS, :FORMAPAG, :FORMAPAGTO_COD, :HORAEMISSAO,' +
         ' :LOTE_NFE_ANO, '

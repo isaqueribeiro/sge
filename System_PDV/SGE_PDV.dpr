@@ -77,7 +77,8 @@ uses
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
   UGrUsuarioCopiarPerfil in '..\System_SGE\UGrUsuarioCopiarPerfil.pas' {frmGrUsuarioCopiarPerfil},
   UGeVendaPDV in 'UGeVendaPDV.pas' {frmGeVendaPDV},
-  UDMCupom in '..\Sys\UDMCupom.pas' {DMCupom: TDataModule};
+  UDMCupom in '..\Sys\UDMCupom.pas' {DMCupom: TDataModule},
+  UGeVendaPDVDesconto in 'UGeVendaPDVDesconto.pas' {frmGeVendaPDVDesconto};
 
 {$R *.res}
 

@@ -545,7 +545,15 @@ begin
         begin
           Close;
           SQL.Clear;
-          SQL.Add('Update TBCONTREC Set Baixado = 0, Historic = '''', Dtrec = null, Docbaix = null, Tippag = null, Valorrectot = null');
+          SQL.Add('Update TBCONTREC Set');
+          SQL.Add('    BAIXADO      = 0');
+          SQL.Add('  , VALORMULTA   = Null');
+          SQL.Add('  , VALORRECTOT  = Null');
+          SQL.Add('  , VALORSALDO   = VALORREC');
+          SQL.Add('  , HISTORIC = ''''');
+          SQL.Add('  , DTREC    = null');
+          SQL.Add('  , DOCBAIX  = null');
+          SQL.Add('  , TIPPAG   = null');
           SQL.Add('where ANOLANC = ' + cdsPagamentosANOLANC.AsString);
           SQL.Add('  and NUMLANC = ' + cdsPagamentosNUMLANC.AsString);
           ExecSQL;

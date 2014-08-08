@@ -67,6 +67,7 @@ type
     actCarregarProduto: TAction;
     dtsCFOP: TDataSource;
     dtsProduto: TDataSource;
+    actDescontoCupom: TAction;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -84,6 +85,7 @@ type
     procedure actCarregarProdutoExecute(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure actDescontoCupomExecute(Sender: TObject);
   private
     { Private declarations }
     sNomeTabela    ,
@@ -103,6 +105,7 @@ type
     function DataSetItens : TDataSet;
     function DataSetFormaPagto : TDataSet;
     function EstaEditando : Boolean;
+    function VendaEstaAberta : Boolean;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -115,7 +118,7 @@ implementation
 
 uses
   UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom,
-  UGeCliente, UGeVendedor, UGeProduto;
+  UGeCliente, UGeVendedor, UGeProduto, UGeVendaPDVDesconto;
 
 {$R *.dfm}
 
@@ -177,6 +180,9 @@ end;
 procedure TfrmGeVendaPDV.edProdutoCodigoKeyPress(Sender: TObject;
   var Key: Char);
 begin
+  if not EstaEditando then
+    Abort
+  else  
   if not (Key in [',', '0'..'9', '*', #8, #13]) then
   begin
     Key := #0;
@@ -207,7 +213,10 @@ begin
   if ( Key = VK_F7 ) then
     actIniciarVenda.Execute
   else
-  if ( Key = VK_F10 ) then
+  if ( Key = VK_F9 ) then
+    actDescontoCupom.Execute
+  else
+  if ( Key = VK_F11 ) then
     actCancelar.Execute
   else
   if ( (Key = VK_RETURN) and edProdutoCodigo.Focused ) then
@@ -339,18 +348,18 @@ begin
 
       FieldByName('DTVENDA').Value        := GetDateTimeDB;
       FieldByName('CFOP').Value           := GetCfopIDDefault;
-      FieldByName('VENDA_PRAZO').Value := 0;
-      FieldByName('STATUS').Value      := STATUS_VND_AND;
+      FieldByName('VENDA_PRAZO').Value    := 0;
+      FieldByName('STATUS').Value         := STATUS_VND_AND;
       FieldByName('TOTALVENDA_BRUTA').Value  := 0;
       FieldByName('DESCONTO').Value          := 0;
+      FieldByName('DESCONTO_CUPOM').Value    := 0;
       FieldByName('TOTALVENDA').Value        := 0;
       FieldByName('GERAR_ESTOQUE_CLIENTE').Value := 0;
       FieldByName('NFE_ENVIADA').Value           := 0;
       FieldByName('NFE_MODALIDADE_FRETE').Value  := MODALIDADE_FRETE_SEMFRETE;
-      FieldByName('USUARIO').Value     := GetUserApp;
+      FieldByName('USUARIO').Value               := GetUserApp;
 
       FieldByName('VENDEDOR_COD').Value   := edNomeVendedor.Tag;
-      FieldByName('FORMAPAGTO_COD').Value := edNomeFormaPagto.Tag;
       FieldByName('FORMAPAG').Value       := edNomeFormaPagto.Caption;
 
       FieldByName('CODCLIENTE').Value := edNomeCliente.Tag;
@@ -364,6 +373,7 @@ begin
         FieldByName('NOME').Clear;
       end;
 
+      FieldByName('FORMAPAGTO_COD').Clear;
       FieldByName('CONDICAOPAGTO_COD').Clear;
       FieldByName('SERIE').Clear;
       FieldByName('NFE').Clear;
@@ -383,6 +393,7 @@ begin
         FieldByName('CODCONTROL').AsInteger );
 
       ZerarFormaPagto;
+      IniciarCupomProduto;
     end;
 end;
 
@@ -399,7 +410,7 @@ begin
 
     Append;
 
-    FieldByName('FORMAPAGTO_COD').Value    := GetFormaPagtoIDDefault;
+    FieldByName('FORMAPAGTO_COD').Value    := edNomeFormaPagto.Tag;
     FieldByName('CONDICAOPAGTO_COD').Value := GetCondicaoPagtoIDDefault;
     FieldByName('VALOR_FPAGTO').Value      := dbValorAPagar.Field.AsCurrency;
     FieldByName('VENDA_PRAZO').Value       := 0;
@@ -467,7 +478,7 @@ begin
     end
     else
     begin
-      if ( FieldByName('STATUS').AsInteger = STATUS_VND_AND ) then
+      if VendaEstaAberta then
       begin
         TIBDataSet(DataSetVenda).Delete;
         TIBDataSet(DataSetVenda).ApplyUpdates;
@@ -713,7 +724,7 @@ begin
 
       DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
       DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
-      DataSetVenda.FieldByName('TOTALVENDA').AsCurrency       := cTotalLiquido;
+      DataSetVenda.FieldByName('TOTALVENDA').AsCurrency       := cTotalLiquido - DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
 
       if ( DataSetFormaPagto.RecordCount <= 1 ) then
       begin
@@ -745,6 +756,38 @@ begin
     end;
 
   TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+end;
+
+procedure TfrmGeVendaPDV.actDescontoCupomExecute(Sender: TObject);
+var
+  AForm : TfrmGeVendaPDVDesconto;
+begin
+  if not VendaEstaAberta then
+    Exit;
+
+  if not EstaEditando then
+    DataSetVenda.Edit;
+
+  AForm := TfrmGeVendaPDVDesconto.Create(Self);
+  try
+    AForm.DescontoCupomOLD := DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
+
+    if (AForm.ShowModal = mrOk) then
+      DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency := AForm.DescontoAcrestimo
+    else
+      DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency := AForm.DescontoCupomOLD;
+
+    DataSetVenda.FieldByName('TOTALVENDA').AsCurrency := DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency +
+      DataSetVenda.FieldByName('DESCONTO').AsCurrency -
+      DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
+  finally
+    AForm.Free;
+  end;
+end;
+
+function TfrmGeVendaPDV.VendaEstaAberta: Boolean;
+begin
+  Result := (DataSetVenda.FieldByName('STATUS').AsInteger = STATUS_VND_AND);
 end;
 
 initialization

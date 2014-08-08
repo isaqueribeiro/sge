@@ -4337,7 +4337,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Width = 150
       Height = 19
       AutoSize = False
-      Caption = 'F9 | Finalizar'
+      Caption = 'F10 | Finalizar'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -4352,7 +4352,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Width = 150
       Height = 19
       AutoSize = False
-      Caption = 'F10 | Cancelar'
+      Caption = 'F11 | Cancelar'
       Font.Charset = ANSI_CHARSET
       Font.Color = clRed
       Font.Height = -16
@@ -5110,7 +5110,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Height = 25
         Align = alTop
         Alignment = taRightJustify
-        Caption = 'Desconto (R$)'
+        Caption = 'F9 | Desconto / Acr'#233'scimo (R$)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -21
@@ -5128,7 +5128,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Alignment = taRightJustify
         AutoSize = True
         Color = 12171705
-        DataField = 'DESCONTO'
+        DataField = 'DESCONTO_TOTAL'
         DataSource = dtsVenda
         Font.Charset = ANSI_CHARSET
         Font.Color = clBlue
@@ -5327,6 +5327,11 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Category = 'Processo Venda'
       Caption = 'actIniciarVenda'
       OnExecute = actIniciarVendaExecute
+    end
+    object actDescontoCupom: TAction
+      Category = 'Processo Venda'
+      Caption = 'actDescontoCupom'
+      OnExecute = actDescontoCupomExecute
     end
     object actCancelar: TAction
       Category = 'Processo Venda'

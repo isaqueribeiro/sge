@@ -147,6 +147,9 @@ type
     updVendaVolume: TIBUpdateSQL;
     qryCFOP: TIBDataSet;
     qryProduto: TIBDataSet;
+    cdsVendaDESCONTO_CUPOM: TIBBCDField;
+    cdsVendaDESCONTO_TOTAL: TCurrencyField;
+    procedure cdsVendaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -162,5 +165,10 @@ uses
   UDMBusiness, UDMNFe;
 
 {$R *.dfm}
+
+procedure TDMCupom.cdsVendaCalcFields(DataSet: TDataSet);
+begin
+  cdsVendaDESCONTO_TOTAL.AsCurrency := cdsVendaDESCONTO.AsCurrency + (cdsVendaDESCONTO_CUPOM.AsCurrency * -1); 
+end;
 
 end.
