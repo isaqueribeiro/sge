@@ -68,6 +68,10 @@ type
     dtsCFOP: TDataSource;
     dtsProduto: TDataSource;
     actDescontoCupom: TAction;
+    actCarregarOrcamento: TAction;
+    Label10: TLabel;
+    pnlCaixaLivre: TPanel;
+    actGravarOrcamento: TAction;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -86,6 +90,9 @@ type
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure actDescontoCupomExecute(Sender: TObject);
+    procedure actCarregarOrcamentoExecute(Sender: TObject);
+    procedure dtsVendaStateChange(Sender: TObject);
+    procedure actGravarOrcamentoExecute(Sender: TObject);
   private
     { Private declarations }
     sNomeTabela    ,
@@ -106,6 +113,7 @@ type
     function DataSetFormaPagto : TDataSet;
     function EstaEditando : Boolean;
     function VendaEstaAberta : Boolean;
+    function VendaEstaFinalizada : Boolean;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -118,7 +126,7 @@ implementation
 
 uses
   UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom,
-  UGeCliente, UGeVendedor, UGeProduto, UGeVendaPDVDesconto;
+  UGeCliente, UGeVendedor, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento;
 
 {$R *.dfm}
 
@@ -153,6 +161,12 @@ procedure TfrmGeVendaPDV.tmrContadorTimer(Sender: TObject);
 begin
   lblData.Caption := FormatDateTime('dd/mm/yyyy', Date);
   lblHora.Caption := FormatDateTime('hh:mm:ss', Time);
+
+  Case pnlCaixaLivre.Font.Color of
+    clBlack : pnlCaixaLivre.Font.Color := clBlue;
+    clBlue  : pnlCaixaLivre.Font.Color := clRed;
+    clRed   : pnlCaixaLivre.Font.Color := clBlack;
+  end;
 end;
 
 procedure TfrmGeVendaPDV.IniciarCupomProduto;
@@ -213,11 +227,17 @@ begin
   if ( Key = VK_F7 ) then
     actIniciarVenda.Execute
   else
+  if ( Key = VK_F8 ) then
+    actCarregarOrcamento.Execute
+  else
   if ( Key = VK_F9 ) then
     actDescontoCupom.Execute
   else
   if ( Key = VK_F11 ) then
     actCancelar.Execute
+  else
+  if ( Key = VK_F12 ) then
+    actGravarOrcamento.Execute
   else
   if ( (Key = VK_RETURN) and edProdutoCodigo.Focused ) then
     InserirProduto
@@ -260,6 +280,19 @@ begin
   CarregarItens(Empresa, Ano, Controle);
   CarregarFormaPagto(Empresa, Ano, Controle);
 
+  if ( DataSetVenda.FieldByName('ano').AsInteger > 0 ) then
+  begin
+    edNomeVendedor.Tag     := DataSetVenda.FieldByName('VENDEDOR_COD').AsInteger;
+    edNomeVendedor.Caption := GetVendedorNome( edNomeVendedor.Tag );
+
+    edNomeCliente.Tag     := DataSetVenda.FieldByName('CODCLIENTE').AsInteger;
+    edNomeCliente.Caption := GetClienteNome( edNomeCliente.Tag );
+    edNomeCliente.Hint    := DataSetVenda.FieldByName('CODCLI').AsString;
+
+    edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
+    edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
+  end;
+
   if ( DataSetVenda.FieldByName('CODCONTROL').AsInteger > 0 ) then
     Self.Caption := 'Vendas PDV | No. ' + DataSetVenda.FieldByName('ANO').AsString + '/' + FormatFloat('###00000', DataSetVenda.FieldByName('CODCONTROL').AsInteger)
   else
@@ -299,6 +332,9 @@ begin
     edNomeCliente.Caption := sNome;
     edNomeCliente.Hint    := sCNPJ;
     edNomeCliente.Enabled := not bBloqueado;
+
+    if VendaEstaAberta and (not EstaEditando) then
+      DataSetVenda.Edit;
 
     if EstaEditando then
       with DataSetVenda do
@@ -410,6 +446,8 @@ begin
 
     Append;
 
+    FieldByName('ANO_VENDA').Value         := DataSetVenda.FieldByName('ANO').Value;
+    FieldByName('CONTROLE_VENDA').Value    := DataSetVenda.FieldByName('CODCONTROL').Value;
     FieldByName('FORMAPAGTO_COD').Value    := edNomeFormaPagto.Tag;
     FieldByName('CONDICAOPAGTO_COD').Value := GetCondicaoPagtoIDDefault;
     FieldByName('VALOR_FPAGTO').Value      := dbValorAPagar.Field.AsCurrency;
@@ -479,15 +517,15 @@ begin
     else
     begin
       if VendaEstaAberta then
-      begin
-        TIBDataSet(DataSetVenda).Delete;
-        TIBDataSet(DataSetVenda).ApplyUpdates;
-        
-        CarregarVenda(GetEmpresaIDDefault, 0, 0);
-        IniciarCupomCabecalho;
-        IniciarCupomProduto;
-      end;
+        if ShowConfirmation('Confirma o cancelamento do orçamento?') then
+        begin
+          TIBDataSet(DataSetVenda).Delete;
+          TIBDataSet(DataSetVenda).ApplyUpdates;
+        end;
 
+      CarregarVenda(GetEmpresaIDDefault, 0, 0);
+      IniciarCupomCabecalho;
+      IniciarCupomProduto;
     end;
 end;
 
@@ -500,6 +538,9 @@ begin
   begin
     edNomeVendedor.Tag     := iCodigo;
     edNomeVendedor.Caption := sNome;
+
+    if VendaEstaAberta and (not EstaEditando) then
+      DataSetVenda.Edit;
 
     if EstaEditando then
       DataSetVenda.FieldByName('VENDEDOR_COD').AsInteger := iCodigo;
@@ -552,6 +593,9 @@ procedure TfrmGeVendaPDV.InserirProduto;
 
   procedure GerarSequencial(var Seq : Integer);
   begin
+    if (DataSetItens.State in [dsEdit, dsInsert]) then
+      DataSetItens.Cancel;
+
     Seq := DataSetItens.RecordCount + 1;
     if ( DataSetItens.Locate('SEQ', Seq, []) ) then
       Seq := Seq + 1;
@@ -600,6 +644,7 @@ begin
   if EstaEditando then
     with DataSetItens do
     begin
+
       // Iniciar Csmpos com valores padrões
 
       GerarSequencial(Sequencial);
@@ -638,15 +683,23 @@ begin
 
       // Carregar dados do Produto
 
-      if Length(Trim(Copy(edProdutoCodigo.Text, Pos(COD_MLT, edProdutoCodigo.Text) + 1, Length(edProdutoCodigo.Text)))) <= 7 then
-      begin
-        iCodigo := StrToInt( Copy(edProdutoCodigo.Text, Pos(COD_MLT, edProdutoCodigo.Text) + 1, Length(edProdutoCodigo.Text)) );
-        sCodigo := 'XXXXXXXXXXXXX'
-      end
-      else
-      begin
-        iCodigo := 0;
-        sCodigo := Copy(edProdutoCodigo.Text, Pos(COD_MLT, edProdutoCodigo.Text) + 1, Length(edProdutoCodigo.Text));
+      try
+        if Length(Trim(Copy(edProdutoCodigo.Text, Pos(COD_MLT, edProdutoCodigo.Text) + 1, Length(edProdutoCodigo.Text)))) <= 7 then
+        begin
+          iCodigo := StrToInt( Copy(edProdutoCodigo.Text, Pos(COD_MLT, edProdutoCodigo.Text) + 1, Length(edProdutoCodigo.Text)) );
+          sCodigo := 'XXXXXXXXXXXXX'
+        end
+        else
+        begin
+          iCodigo := 0;
+          sCodigo := Copy(edProdutoCodigo.Text, Pos(COD_MLT, edProdutoCodigo.Text) + 1, Length(edProdutoCodigo.Text));
+        end;
+      except
+        if (DataSetItens.State in [dsEdit, dsInsert]) then
+          DataSetItens.Cancel;
+          
+        ShowWarning('Favor informar código do produto!');
+        Abort;
       end;
 
       TIBDataSet(dtsProduto.DataSet).Close;
@@ -768,6 +821,12 @@ begin
   if not EstaEditando then
     DataSetVenda.Edit;
 
+  if ( DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency = 0 ) then
+  begin
+    ShowWarning('Venda ainda não possui ítens para poder se aplicar descontos!');
+    Exit;
+  end;
+
   AForm := TfrmGeVendaPDVDesconto.Create(Self);
   try
     AForm.DescontoCupomOLD := DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
@@ -787,7 +846,86 @@ end;
 
 function TfrmGeVendaPDV.VendaEstaAberta: Boolean;
 begin
-  Result := (DataSetVenda.FieldByName('STATUS').AsInteger = STATUS_VND_AND);
+  Result := (DataSetVenda.FieldByName('STATUS').AsInteger in [STATUS_VND_AND, STATUS_VND_ABR]);
+end;
+
+procedure TfrmGeVendaPDV.actCarregarOrcamentoExecute(Sender: TObject);
+var
+  AForm : TfrmGeVendaPDVOrcamento;
+begin
+  if EstaEditando then
+  begin
+    ShowWarning('Existe uma venda iniciada!' + #13 + 'Favor finalizá-la.');
+    Exit;
+  end;
+
+  AForm := TfrmGeVendaPDVOrcamento.Create(Self);
+  try
+    AForm.OrcamentoCod := DMCupom.GetUltimaVenda(GetEmpresaIDDefault
+      , gUsuarioLogado.Login
+      , AForm.OrcamentoAno
+      , STATUS_VND_ABR);
+
+    if AForm.OrcamentoCod = 0 then
+      AForm.e2NumeroOrcamento.Text := EmptyStr;
+
+    if ( AForm.ShowModal = mrOk ) then
+      CarregarVenda(GetEmpresaIDDefault, AForm.OrcamentoAno, AForm.OrcamentoCod);
+  finally
+    AForm.Free;
+  end;
+end;
+
+procedure TfrmGeVendaPDV.dtsVendaStateChange(Sender: TObject);
+begin
+  pnlCaixaLivre.Visible := dtsVenda.DataSet.IsEmpty and (not VendaEstaAberta);
+end;
+
+function TfrmGeVendaPDV.VendaEstaFinalizada: Boolean;
+begin
+  Result := (DataSetVenda.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]);
+end;
+
+procedure TfrmGeVendaPDV.actGravarOrcamentoExecute(Sender: TObject);
+begin
+  if VendaEstaAberta and (not EstaEditando) then
+    DataSetVenda.Edit;
+    
+  if not EstaEditando then
+    Exit;
+
+  if ( DataSetItens.RecordCount = 0 ) then
+  begin
+    ShowWarning('Orçamento sem ítens não pode ser gravado!!!');
+    Exit;
+  end;
+
+  if VendaEstaAberta then
+    if ShowConfirmation('Gravar', 'Deseja gravar o orçamento para carregá-lo futuramente?') then
+    begin
+      with DataSetVenda do
+      begin
+        if ( FieldByName('STATUS').AsInteger = STATUS_VND_AND ) then
+          FieldByName('STATUS').Value := STATUS_VND_ABR;
+
+        FieldByName('CODCLIENTE').Value := edNomeCliente.Tag;
+        FieldByName('CODCLI').Value     := edNomeCliente.Hint;
+        FieldByName('NOME').Value       := edNomeCliente.Caption;
+      end;
+
+      TIBDataSet(DataSetVenda).Post;
+      TIBDataSet(DataSetVenda).ApplyUpdates;
+
+      TIBDataSet(DataSetItens).ApplyUpdates;
+      TIBDataSet(DataSetFormaPagto).ApplyUpdates;
+
+      ShowInformation('Orçamento gravado com sucesso. Favor anotar número:' + #13#13 +
+        'No. ' + DataSetVenda.FieldByName('ANO').AsString + '/' + FormatFloat('###00000', DataSetVenda.FieldByName('CODCONTROL').AsInteger));
+
+      CarregarVenda(GetEmpresaIDDefault, 0, 0);
+      IniciarCupomCabecalho;
+      IniciarCupomProduto;
+    end;
 end;
 
 initialization

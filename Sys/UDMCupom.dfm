@@ -96,13 +96,11 @@ object DMCupom: TDMCupom
     object cdsVendaANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'TBVENDAS.ANO'
-      Required = True
     end
     object cdsVendaCODCONTROL: TIntegerField
       DisplayLabel = 'No. Venda'
       FieldName = 'CODCONTROL'
       Origin = 'TBVENDAS.CODCONTROL'
-      Required = True
     end
     object cdsVendaCODEMP: TIBStringField
       DisplayLabel = 'Empresa'
@@ -114,7 +112,6 @@ object DMCupom: TDMCupom
       DisplayLabel = 'Cliente'
       FieldName = 'CODCLIENTE'
       Origin = '"TBVENDAS"."CODCLIENTE"'
-      Required = True
     end
     object cdsVendaCODCLI: TIBStringField
       DisplayLabel = 'Cliente'
@@ -133,7 +130,6 @@ object DMCupom: TDMCupom
       DisplayLabel = 'Status'
       FieldName = 'STATUS'
       Origin = 'TBVENDAS.STATUS'
-      Required = True
     end
     object cdsVendaTOTALVENDA_BRUTA: TIBBCDField
       DisplayLabel = 'Total Bruto (R$)'
@@ -218,7 +214,6 @@ object DMCupom: TDMCupom
     object cdsVendaNFE_ENVIADA: TSmallintField
       FieldName = 'NFE_ENVIADA'
       Origin = 'TBVENDAS.NFE_ENVIADA'
-      Required = True
     end
     object cdsVendaDATAEMISSAO: TDateField
       DisplayLabel = 'D. Emiss'#227'o'
@@ -289,7 +284,6 @@ object DMCupom: TDMCupom
       DisplayLabel = 'A Prazo?'
       FieldName = 'VENDA_PRAZO'
       Origin = 'TBVENDAS.VENDA_PRAZO'
-      Required = True
     end
     object cdsVendaPRAZO_01: TSmallintField
       DisplayLabel = 'Prazo 01'
@@ -681,26 +675,22 @@ object DMCupom: TDMCupom
     object cdsVendaItemANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'TVENDASITENS.ANO'
-      Required = True
     end
     object cdsVendaItemCODCONTROL: TIntegerField
       FieldName = 'CODCONTROL'
       Origin = 'TVENDASITENS.CODCONTROL'
-      Required = True
     end
     object cdsVendaItemSEQ: TSmallintField
       Alignment = taCenter
       DisplayLabel = '#'
       FieldName = 'SEQ'
       Origin = 'TVENDASITENS.SEQ'
-      Required = True
       DisplayFormat = '00'
     end
     object cdsVendaItemCODPROD: TIBStringField
       DisplayLabel = 'Produto'
       FieldName = 'CODPROD'
       Origin = 'TVENDASITENS.CODPROD'
-      Required = True
       Size = 10
     end
     object cdsVendaItemCODEMP: TIBStringField
@@ -1061,20 +1051,17 @@ object DMCupom: TDMCupom
       FieldName = 'CONTROLE_VENDA'
       Origin = '"TBVENDAS_FORMAPAGTO"."CONTROLE_VENDA"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object cdsVendaFormaPagtoFORMAPAGTO_COD: TSmallintField
       DisplayLabel = 'Forma de Pagamento'
       FieldName = 'FORMAPAGTO_COD'
       Origin = '"TBVENDAS_FORMAPAGTO"."FORMAPAGTO_COD"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object cdsVendaFormaPagtoCONDICAOPAGTO_COD: TSmallintField
       DisplayLabel = 'Condi'#231#227'o de Pagamento'
       FieldName = 'CONDICAOPAGTO_COD'
       Origin = '"TBVENDAS_FORMAPAGTO"."CONDICAOPAGTO_COD"'
-      Required = True
     end
     object cdsVendaFormaPagtoVENDA_PRAZO: TSmallintField
       FieldName = 'VENDA_PRAZO'
@@ -1084,7 +1071,6 @@ object DMCupom: TDMCupom
       DisplayLabel = 'Valor (R$)'
       FieldName = 'VALOR_FPAGTO'
       Origin = '"TBVENDAS_FORMAPAGTO"."VALOR_FPAGTO"'
-      Required = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -1251,7 +1237,6 @@ object DMCupom: TDMCupom
       FieldName = 'CONTROLE_VENDA'
       Origin = '"TBVENDAS_VOLUME"."CONTROLE_VENDA"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object cdsVendaVolumeSEQUENCIAL: TSmallintField
       FieldName = 'SEQUENCIAL'
@@ -1428,5 +1413,23 @@ object DMCupom: TDMCupom
       '')
     Left = 384
     Top = 104
+  end
+  object qryUltimoVenda: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '  max(v.codcontrol) as orcamento'
+      'from TBVENDAS v'
+      'where v.codemp  = :empresa'
+      '  and v.usuario = :usuario'
+      '  and v.ano     = :ano'
+      '  and v.status  = :status')
+    ModifySQL.Strings = (
+      '')
+    Left = 384
+    Top = 152
   end
 end

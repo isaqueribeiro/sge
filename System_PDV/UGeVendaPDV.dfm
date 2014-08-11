@@ -4336,6 +4336,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Top = 8
       Width = 150
       Height = 19
+      Hint = 'Finalizar Venda'
       AutoSize = False
       Caption = 'F10 | Finalizar'
       Font.Charset = ANSI_CHARSET
@@ -4351,6 +4352,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Top = 8
       Width = 150
       Height = 19
+      Hint = 'Cancelar Venda'
       AutoSize = False
       Caption = 'F11 | Cancelar'
       Font.Charset = ANSI_CHARSET
@@ -4366,6 +4368,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Top = 8
       Width = 150
       Height = 19
+      Hint = 'Carregar Or'#231'amento'
       AutoSize = False
       Caption = 'F8 | Or'#231'amento'
       Font.Charset = ANSI_CHARSET
@@ -4381,10 +4384,27 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Top = 8
       Width = 150
       Height = 19
+      Hint = 'Iniciar Venda'
       AutoSize = False
       Caption = 'F7 | Iniciar Venda'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label10: TLabel
+      Left = 897
+      Top = 32
+      Width = 150
+      Height = 19
+      Hint = 'Gravar Or'#231'amento'
+      AutoSize = False
+      Caption = 'F12 | Gravar'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
       Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
@@ -4924,6 +4944,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       Transparent = True
     end
     object edNomeFormaPagto: TLabel
@@ -5290,6 +5312,23 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Visible = True
       end>
   end
+  object pnlCaixaLivre: TPanel
+    Left = 226
+    Top = 232
+    Width = 609
+    Height = 145
+    Anchors = []
+    BevelInner = bvLowered
+    BevelWidth = 4
+    Caption = 'C A I X A   L I V R E'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -48
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+  end
   object tmrContador: TTimer
     OnTimer = tmrContadorTimer
     Left = 416
@@ -5297,9 +5336,10 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   end
   object dtsVenda: TDataSource
     DataSet = DMCupom.cdsVenda
+    OnStateChange = dtsVendaStateChange
     OnDataChange = dtsVendaDataChange
-    Left = 576
-    Top = 224
+    Left = 864
+    Top = 184
   end
   object actVenda: TActionList
     Left = 424
@@ -5328,6 +5368,11 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Caption = 'actIniciarVenda'
       OnExecute = actIniciarVendaExecute
     end
+    object actCarregarOrcamento: TAction
+      Category = 'Processo Venda'
+      Caption = 'actCarregarOrcamento'
+      OnExecute = actCarregarOrcamentoExecute
+    end
     object actDescontoCupom: TAction
       Category = 'Processo Venda'
       Caption = 'actDescontoCupom'
@@ -5343,25 +5388,30 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Caption = 'actCarregarProduto'
       OnExecute = actCarregarProdutoExecute
     end
+    object actGravarOrcamento: TAction
+      Category = 'Processo Venda'
+      Caption = 'actGravarOrcamento'
+      OnExecute = actGravarOrcamentoExecute
+    end
   end
   object dtsItem: TDataSource
     DataSet = DMCupom.cdsVendaItem
-    Left = 576
-    Top = 272
+    Left = 864
+    Top = 232
   end
   object dtsFormaPagto: TDataSource
     DataSet = DMCupom.cdsVendaFormaPagto
-    Left = 576
-    Top = 320
+    Left = 864
+    Top = 280
   end
   object dtsCFOP: TDataSource
     DataSet = DMCupom.qryCFOP
-    Left = 792
+    Left = 960
     Top = 184
   end
   object dtsProduto: TDataSource
     DataSet = DMCupom.qryProduto
-    Left = 792
+    Left = 960
     Top = 232
   end
 end

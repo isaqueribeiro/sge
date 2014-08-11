@@ -78,7 +78,8 @@ uses
   UGrUsuarioCopiarPerfil in '..\System_SGE\UGrUsuarioCopiarPerfil.pas' {frmGrUsuarioCopiarPerfil},
   UGeVendaPDV in 'UGeVendaPDV.pas' {frmGeVendaPDV},
   UDMCupom in '..\Sys\UDMCupom.pas' {DMCupom: TDataModule},
-  UGeVendaPDVDesconto in 'UGeVendaPDVDesconto.pas' {frmGeVendaPDVDesconto};
+  UGeVendaPDVDesconto in 'UGeVendaPDVDesconto.pas' {frmGeVendaPDVDesconto},
+  UGeVendaPDVOrcamento in 'UGeVendaPDVOrcamento.pas' {frmGeVendaPDVOrcamento};
 
 {$R *.res}
 

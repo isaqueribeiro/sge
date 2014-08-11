@@ -24,6 +24,7 @@ type
     procedure Alerta(sTitulo, sMensagem : String);
     procedure Erro(sTitulo, sMensagem : String);
     procedure Parar(sTitulo, sMensagem : String);
+    procedure Confirmar(sTitulo, sMensagem : String);
 
     procedure RegistrarRotinaSistema; override;
   end;
@@ -52,6 +53,20 @@ begin
   btnNao.Visible := False;
 
   MessageBeep(MB_ICONWARNING);
+end;
+
+procedure TfrmGeMessage.Confirmar(sTitulo, sMensagem: String);
+begin
+  Caption := sTitulo;
+  memoMensagem.Lines.Text := sMensagem;
+
+  ImgConsulta.Visible := True;
+
+  btnOk.Visible  := False;
+  btnSim.Visible := True;
+  btnNao.Visible := True;
+
+  MessageBeep(MB_ICONQUESTION);
 end;
 
 procedure TfrmGeMessage.Erro(sTitulo, sMensagem: String);

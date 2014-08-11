@@ -156,6 +156,14 @@ begin
 
   Self.WindowState := wsMaximized;
 
+  if not DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
+  begin
+    menuCadastro.Enabled     := False;
+    menuMovimentacao.Enabled := False;
+    menuCaixa.Enabled        := False;
+    btnVenda.Enabled         := False;
+  end;
+
   if GetUserUpdatePassWord then
     nmUsuarioAlterarSenhaClick( nmUsuarioAlterarSenha );
 end;

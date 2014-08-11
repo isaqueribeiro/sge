@@ -3,7 +3,7 @@ unit UDMBusiness;
 interface
 
 uses
-  Windows, Forms, SysUtils, Classes, IBDatabase, DB, IBCustomDataSet, IniFIles,
+  Windows, Forms, SysUtils, Classes, Controls, IBDatabase, DB, IBCustomDataSet, IniFIles,
   ShellApi, Printers, DateUtils, IBQuery, RpDefine, RpRave,
   frxClass, frxDBSet, EMsgDlg, IdBaseComponent, IdComponent, IdIPWatch, IBStoredProc,
   FuncoesFormulario, UConstantesDGE, IBUpdateSQL, DBClient,
@@ -166,6 +166,9 @@ var
   function IfThen(AValue: Boolean; const ATrue: string; AFalse: string = ''): string; overload;
   function IfThen(AValue: Boolean; const ATrue: TDateTime; AFalse: TDateTime = 0): TDateTime; overload;
   function NetWorkActive(const Alertar : Boolean = FALSE) : Boolean;
+
+  function ShowConfirmation(sTitle, sMsg : String) : Boolean; overload;
+  function ShowConfirmation(sMsg : String) : Boolean; overload;
 
   procedure ShowInformation(sTitle, sMsg : String); overload;
   procedure ShowInformation(sMsg : String); overload;
@@ -528,6 +531,28 @@ begin
 
     Result := Return;
   end;
+end;
+
+function ShowConfirmation(sTitle, sMsg : String) : Boolean;
+var
+  fMsg : TfrmGeMessage;
+begin
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    try
+      fMsg := TfrmGeMessage.Create(Application);
+      fMsg.Confirmar(sTitle, sMsg);
+      
+      Result := (fMsg.ShowModal = mrYes);
+    finally
+      fMsg.Free;
+    end
+  else
+    Result := (Application.MessageBox(PChar(sMsg), PChar(sTitle), MB_ICONQUESTION + MB_YESNO + MB_DEFBUTTON2) = ID_YES);
+end;
+
+function ShowConfirmation(sMsg : String) : Boolean;
+begin
+  Result := ShowConfirmation('Confirmar', sMsg);
 end;
 
 procedure ShowInformation(sTitle, sMsg : String);
