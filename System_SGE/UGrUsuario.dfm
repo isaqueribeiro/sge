@@ -211,7 +211,7 @@ inherited frmGrUsuario: TfrmGrUsuario
           ParentFont = False
           TabOrder = 0
         end
-        object DBCheckBox1: TDBCheckBox
+        object dbUsuarioAtivo: TDBCheckBox
           Left = 504
           Top = 40
           Width = 105
@@ -264,6 +264,14 @@ inherited frmGrUsuario: TfrmGrUsuario
           Caption = '% Desconto:'
           FocusControl = dbPercentualDesc
         end
+        object lblVendedor: TLabel
+          Left = 104
+          Top = 24
+          Width = 64
+          Height = 13
+          Caption = 'Vendedor(a):'
+          FocusControl = dbVendedor
+        end
         object dbPercentualDesc: TDBEdit
           Left = 16
           Top = 40
@@ -280,7 +288,7 @@ inherited frmGrUsuario: TfrmGrUsuario
           ParentFont = False
           TabOrder = 0
         end
-        object DBCheckBox2: TDBCheckBox
+        object dbAlterarValorVendaItem: TDBCheckBox
           Left = 16
           Top = 72
           Width = 257
@@ -294,9 +302,27 @@ inherited frmGrUsuario: TfrmGrUsuario
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 2
           ValueChecked = '1'
           ValueUnchecked = '0'
+        end
+        object dbVendedor: TDBLookupComboBox
+          Left = 104
+          Top = 40
+          Width = 393
+          Height = 21
+          DataField = 'VENDEDOR'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'COD'
+          ListField = 'FUNCAO'
+          ListSource = DtsFuncao
+          ParentFont = False
+          TabOrder = 1
         end
       end
     end
@@ -314,6 +340,7 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  , u.ativo'
       '  , u.alterar_senha'
       '  , u.perm_alterar_valor_venda'
+      '  , u.vendedor'
       '  , f.funcao as perfil'
       'from TBUSERS u'
       '  left join TBFUNCAO f on (f.cod = u.codfuncao)')
@@ -375,6 +402,12 @@ inherited frmGrUsuario: TfrmGrUsuario
       Origin = '"TBUSERS"."PERM_ALTERAR_VALOR_VENDA"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaVENDEDOR: TIntegerField
+      DisplayLabel = 'Vendedor'
+      FieldName = 'VENDEDOR'
+      Origin = '"TBUSERS"."VENDEDOR"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaPERFIL: TIBStringField
       FieldName = 'PERFIL'
       Origin = '"TBFUNCAO"."FUNCAO"'
@@ -392,7 +425,8 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  LIMIDESC,'
       '  ATIVO,'
       '  ALTERAR_SENHA,'
-      '  PERM_ALTERAR_VALOR_VENDA'
+      '  PERM_ALTERAR_VALOR_VENDA,'
+      '  VENDEDOR'
       'from TBUSERS '
       'where'
       '  NOME = :NOME')
@@ -406,7 +440,8 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  NOME = :NOME,'
       '  NOMECOMPLETO = :NOMECOMPLETO,'
       '  PERM_ALTERAR_VALOR_VENDA = :PERM_ALTERAR_VALOR_VENDA,'
-      '  SENHA = :SENHA'
+      '  SENHA = :SENHA,'
+      '  VENDEDOR = :VENDEDOR'
       'where'
       '  NOME = :OLD_NOME')
     InsertSQL.Strings = (
@@ -414,12 +449,12 @@ inherited frmGrUsuario: TfrmGrUsuario
       
         '  (ALTERAR_SENHA, ATIVO, CODFUNCAO, LIMIDESC, NOME, NOMECOMPLETO' +
         ', PERM_ALTERAR_VALOR_VENDA, '
-      '   SENHA)'
+      '   SENHA, VENDEDOR)'
       'values'
       
         '  (:ALTERAR_SENHA, :ATIVO, :CODFUNCAO, :LIMIDESC, :NOME, :NOMECO' +
         'MPLETO, '
-      '   :PERM_ALTERAR_VALOR_VENDA, :SENHA)')
+      '   :PERM_ALTERAR_VALOR_VENDA, :SENHA, :VENDEDOR)')
     DeleteSQL.Strings = (
       'delete from TBUSERS'
       'where'

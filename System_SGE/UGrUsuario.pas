@@ -28,7 +28,7 @@ type
     lblNomeCompleto: TLabel;
     lblFuncao: TLabel;
     dbNomeCompleto: TDBEdit;
-    DBCheckBox1: TDBCheckBox;
+    dbUsuarioAtivo: TDBCheckBox;
     QryFuncao: TIBQuery;
     dbFuncao: TDBLookupComboBox;
     DtsFuncao: TDataSource;
@@ -36,7 +36,10 @@ type
     GrpBxParametros: TGroupBox;
     lblPercentualDesc: TLabel;
     dbPercentualDesc: TDBEdit;
-    DBCheckBox2: TDBCheckBox;
+    dbAlterarValorVendaItem: TDBCheckBox;
+    IbDtstTabelaVENDEDOR: TIntegerField;
+    lblVendedor: TLabel;
+    dbVendedor: TDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);

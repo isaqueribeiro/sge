@@ -149,10 +149,11 @@ begin
   begin
     SetEmpresaIDDefault( Empresa );
 
-    gUsuarioLogado.Login   := GetUserApp;
-    gUsuarioLogado.Nome    := GetUserFullName;
-    gUsuarioLogado.Funcao  := GetUserFunctionID;
-    gUsuarioLogado.Empresa := Empresa;
+    gUsuarioLogado.Login    := GetUserApp;
+    gUsuarioLogado.Nome     := GetUserFullName;
+    gUsuarioLogado.Funcao   := GetUserFunctionID;
+    gUsuarioLogado.Empresa  := Empresa;
+    gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
 
     ModalResult := mrOk;
   end

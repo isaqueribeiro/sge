@@ -17,10 +17,11 @@ type
   end;
 
   TUsuarioLogado = record
-    Login  : String;
-    Nome   : String;
-    Funcao : Integer;
-    Empresa: String;
+    Login    : String;
+    Nome     : String;
+    Funcao   : Integer;
+    Empresa  : String;
+    Vendedor : Integer;
   end;
 
   TContaEmail = record
@@ -121,6 +122,7 @@ type
     frxRichObject: TfrxRichObject;
     frxCrossObject: TfrxCrossObject;
     frxChartObject: TfrxChartObject;
+    ibdtstUsersVENDEDOR: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -298,6 +300,7 @@ var
   function GetUserApp : String;
   function GetUserFullName : String;
   function GetUserFunctionID : Integer;
+  function GetUserCodigoVendedorID : Integer;
   function GetUserUpdatePassWord : Boolean;
   function GetLimiteDescontoUser : Currency;
   function GetUserPermitirAlterarValorVenda : Boolean;
@@ -2226,6 +2229,12 @@ function GetUserFunctionID : Integer;
 begin
   with DMBusiness, ibdtstUsers do
     Result := ibdtstUsersCODFUNCAO.AsInteger;
+end;
+
+function GetUserCodigoVendedorID : Integer;
+begin
+  with DMBusiness, ibdtstUsers do
+    Result := ibdtstUsersVENDEDOR.AsInteger;
 end;
 
 function GetUserUpdatePassWord : Boolean;

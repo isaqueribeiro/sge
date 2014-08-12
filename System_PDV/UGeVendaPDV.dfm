@@ -4395,7 +4395,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       ParentFont = False
       Transparent = True
     end
-    object Label10: TLabel
+    object lblGravar: TLabel
       Left = 897
       Top = 32
       Width = 150
@@ -5328,6 +5328,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 4
+    Visible = False
   end
   object tmrContador: TTimer
     OnTimer = tmrContadorTimer
@@ -5336,7 +5337,6 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   end
   object dtsVenda: TDataSource
     DataSet = DMCupom.cdsVenda
-    OnStateChange = dtsVendaStateChange
     OnDataChange = dtsVendaDataChange
     Left = 864
     Top = 184
@@ -5357,6 +5357,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     object actCarregarFormaPagto: TAction
       Category = 'Cabe'#231'alho Venda'
       Caption = 'actCarregarFormaPagto'
+      OnExecute = actCarregarFormaPagtoExecute
     end
     object actSair: TAction
       Category = 'Cabe'#231'alho Venda'

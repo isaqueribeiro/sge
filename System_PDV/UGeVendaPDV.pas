@@ -69,7 +69,7 @@ type
     dtsProduto: TDataSource;
     actDescontoCupom: TAction;
     actCarregarOrcamento: TAction;
-    Label10: TLabel;
+    lblGravar: TLabel;
     pnlCaixaLivre: TPanel;
     actGravarOrcamento: TAction;
     procedure tmrContadorTimer(Sender: TObject);
@@ -91,8 +91,8 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure actDescontoCupomExecute(Sender: TObject);
     procedure actCarregarOrcamentoExecute(Sender: TObject);
-    procedure dtsVendaStateChange(Sender: TObject);
     procedure actGravarOrcamentoExecute(Sender: TObject);
+    procedure actCarregarFormaPagtoExecute(Sender: TObject);
   private
     { Private declarations }
     sNomeTabela    ,
@@ -126,7 +126,7 @@ implementation
 
 uses
   UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom,
-  UGeCliente, UGeVendedor, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento;
+  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento;
 
 {$R *.dfm}
 
@@ -143,9 +143,17 @@ end;
 procedure TfrmGeVendaPDV.IniciarCupomCabecalho;
 begin
   Self.Caption := 'Vendas PDV';
-  
-  edNomeVendedor.Tag     := GetVendedorIDDefault;
-  edNomeVendedor.Caption := GetVendedorNomeDefault;
+
+  if (gUsuarioLogado.Vendedor = 0) then
+  begin
+    edNomeVendedor.Tag     := GetVendedorIDDefault;
+    edNomeVendedor.Caption := GetVendedorNomeDefault;
+  end
+  else
+  begin
+    edNomeVendedor.Tag     := gUsuarioLogado.Vendedor;
+    edNomeVendedor.Caption := GetVendedorNome( edNomeVendedor.Tag );
+  end;
 
   edNomeCliente.Tag     := CONSUMIDOR_FINAL_CODIGO;
   edNomeCliente.Caption := CONSUMIDOR_FINAL_NOME;
@@ -167,6 +175,11 @@ begin
     clBlue  : pnlCaixaLivre.Font.Color := clRed;
     clRed   : pnlCaixaLivre.Font.Color := clBlack;
   end;
+
+  pnlCaixaLivre.Visible := (pnlCaixaLivre.Tag > 180) and dtsVenda.DataSet.IsEmpty and (not VendaEstaAberta);
+
+  if not pnlCaixaLivre.Visible then
+    pnlCaixaLivre.Tag := (pnlCaixaLivre.Tag + 1);
 end;
 
 procedure TfrmGeVendaPDV.IniciarCupomProduto;
@@ -194,7 +207,7 @@ end;
 procedure TfrmGeVendaPDV.edProdutoCodigoKeyPress(Sender: TObject;
   var Key: Char);
 begin
-  if not EstaEditando then
+  if not VendaEstaAberta then
     Abort
   else  
   if not (Key in [',', '0'..'9', '*', #8, #13]) then
@@ -242,6 +255,18 @@ begin
   if ( (Key = VK_RETURN) and edProdutoCodigo.Focused ) then
     InserirProduto
   else
+  if ( (Key = VK_UP) and VendaEstaAberta ) then
+  begin
+    Key := 0;
+    DataSetItens.Prior;
+  end
+  else
+  if ( (Key = VK_DOWN) and VendaEstaAberta ) then
+  begin
+    Key := 0;
+    DataSetItens.Next;
+  end
+  else
   if ( Key = 83 ) then // Tela S
     actSair.Execute
   else
@@ -258,6 +283,8 @@ begin
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
 
   inherited;
+
+  lblGravar.Visible := GetEmitirCupom and GetCupomNaoFiscalEmitir;
 end;
 
 function TfrmGeVendaPDV.DataSetVenda: TDataSet;
@@ -291,6 +318,8 @@ begin
 
     edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
     edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
+
+    CarregarDadosCFOP( DataSetVenda.FieldByName('CFOP').AsInteger );
   end;
 
   if ( DataSetVenda.FieldByName('CODCONTROL').AsInteger > 0 ) then
@@ -334,9 +363,9 @@ begin
     edNomeCliente.Enabled := not bBloqueado;
 
     if VendaEstaAberta and (not EstaEditando) then
+    begin
       DataSetVenda.Edit;
-
-    if EstaEditando then
+      
       with DataSetVenda do
       begin
         if bBloqueado then
@@ -354,6 +383,7 @@ begin
         FieldByName('CODCLI').AsString      := sCNPJ;
         FieldByName('NOME').AsString        := sNome;
       end;
+    end;
 
   end;
 end;
@@ -373,6 +403,9 @@ begin
   else
     with DataSetVenda do
     begin
+      pnlCaixaLivre.Visible := False;
+      pnlCaixaLivre.Tag     := 0;
+
       iAno := YearOf(GetDateDB);
       iNum := GetGeneratorID(sGeneratorName);
 
@@ -540,12 +573,11 @@ begin
     edNomeVendedor.Caption := sNome;
 
     if VendaEstaAberta and (not EstaEditando) then
+    begin
       DataSetVenda.Edit;
-
-    if EstaEditando then
       DataSetVenda.FieldByName('VENDEDOR_COD').AsInteger := iCodigo;
+    end;  
   end;
-
 end;
 
 procedure TfrmGeVendaPDV.actCarregarProdutoExecute(Sender: TObject);
@@ -638,7 +670,7 @@ var
   cQuantidade,
   cPrecoVND  : Currency;
 begin
-  if (not EstaEditando) and (DataSetVenda.FieldByName('STATUS').AsInteger = STATUS_VND_AND) then
+  if VendaEstaAberta and (not EstaEditando) then
     DataSetVenda.Edit;
 
   if EstaEditando then
@@ -859,6 +891,9 @@ begin
     Exit;
   end;
 
+  pnlCaixaLivre.Visible := False;
+  pnlCaixaLivre.Tag     := 0;
+
   AForm := TfrmGeVendaPDVOrcamento.Create(Self);
   try
     AForm.OrcamentoCod := DMCupom.GetUltimaVenda(GetEmpresaIDDefault
@@ -876,11 +911,6 @@ begin
   end;
 end;
 
-procedure TfrmGeVendaPDV.dtsVendaStateChange(Sender: TObject);
-begin
-  pnlCaixaLivre.Visible := dtsVenda.DataSet.IsEmpty and (not VendaEstaAberta);
-end;
-
 function TfrmGeVendaPDV.VendaEstaFinalizada: Boolean;
 begin
   Result := (DataSetVenda.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]);
@@ -888,6 +918,9 @@ end;
 
 procedure TfrmGeVendaPDV.actGravarOrcamentoExecute(Sender: TObject);
 begin
+  if not lblGravar.Visible then
+    Exit;
+    
   if VendaEstaAberta and (not EstaEditando) then
     DataSetVenda.Edit;
     
@@ -916,7 +949,14 @@ begin
       TIBDataSet(DataSetVenda).Post;
       TIBDataSet(DataSetVenda).ApplyUpdates;
 
+      if (DataSetItens.State in [dsEdit, dsInsert]) then
+        TIBDataSet(DataSetItens).Post;
+
       TIBDataSet(DataSetItens).ApplyUpdates;
+
+      if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
+        TIBDataSet(DataSetFormaPagto).Post;
+
       TIBDataSet(DataSetFormaPagto).ApplyUpdates;
 
       ShowInformation('Orçamento gravado com sucesso. Favor anotar número:' + #13#13 +
@@ -926,6 +966,25 @@ begin
       IniciarCupomCabecalho;
       IniciarCupomProduto;
     end;
+end;
+
+procedure TfrmGeVendaPDV.actCarregarFormaPagtoExecute(Sender: TObject);
+var
+  iCodigo : Integer;
+  sNome   : String;
+begin
+  if SelecionarFormaPagtoPDV(Self, iCodigo, sNome) then
+  begin
+    edNomeFormaPagto.Tag     := iCodigo;
+    edNomeFormaPagto.Caption := sNome;
+
+    if VendaEstaAberta and (not EstaEditando) then
+    begin
+      DataSetVenda.Edit;
+      DataSetFormaPagto.Edit;
+      DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger := iCodigo;
+    end;  
+  end;
 end;
 
 initialization

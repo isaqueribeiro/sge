@@ -1,6 +1,6 @@
 inherited frmGrPadraoLogin: TfrmGrPadraoLogin
-  Left = 597
-  Top = 352
+  Left = 590
+  Top = 344
   ActiveControl = edNome
   BorderStyle = bsNone
   Caption = ' Efetuar Login!'

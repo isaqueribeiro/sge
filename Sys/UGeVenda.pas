@@ -588,7 +588,6 @@ begin
   inherited;
   IbDtstTabelaDTVENDA.Value := GetDateTimeDB;
   IbDtstTabelaCODEMP.Value  := GetEmpresaIDDefault;
-  IbDtstTabelaVENDEDOR_COD.Value      := GetVendedorIDDefault;
   IbDtstTabelaFORMAPAG.Value          := GetFormaPagtoNomeDefault;
   IbDtstTabelaCFOP.Value              := GetCfopIDDefault;
   IbDtstTabelaVENDA_PRAZO.Value := 0;
@@ -604,6 +603,11 @@ begin
   IbDtstTabelaCODCLIENTE.Value := CONSUMIDOR_FINAL_CODIGO;
   IbDtstTabelaCODCLI.Value     := CONSUMIDOR_FINAL_CNPJ;
   IbDtstTabelaNOME.Value       := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
+
+  if ( gUsuarioLogado.Vendedor = 0 ) then
+    IbDtstTabelaVENDEDOR_COD.Value := GetVendedorIDDefault
+  else
+    IbDtstTabelaVENDEDOR_COD.Value := gUsuarioLogado.Vendedor;
 
   if (AnsiUpperCase(Trim(IbDtstTabelaNOME.AsString)) <> CONSUMIDOR_FINAL_NOME) then
   begin

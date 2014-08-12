@@ -55,10 +55,10 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     end
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
-        Top = 145
+        Top = 177
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Height = 145
+        Height = 177
         object lblNome: TLabel [1]
           Left = 88
           Top = 24
@@ -144,7 +144,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
           ParentFont = False
           TabOrder = 4
         end
-        object dbcDecrementarLimite: TDBCheckBox
+        object dbDecrementarLimite: TDBCheckBox
           Left = 16
           Top = 112
           Width = 377
@@ -181,6 +181,24 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
           ParentFont = False
           TabOrder = 3
         end
+        object dbFormaPagtoPDV: TDBCheckBox
+          Left = 16
+          Top = 136
+          Width = 225
+          Height = 17
+          Caption = 'Usar Forma de Pagamento no PDV'
+          DataField = 'FORMAPAGTO_PDV'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 6
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
       end
     end
   end
@@ -192,6 +210,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       '  , p.Descri'
       '  , p.Acrescimo'
       '  , p.FormaPagto_NFCe'
+      '  , p.FormaPagto_PDV'
       '  , p.Conta_corrente'
       '  , p.Debitar_limite_cliente'
       'from TBFORMPAGTO p')
@@ -225,6 +244,11 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       ProviderFlags = [pfInUpdate]
       Required = True
       Size = 2
+    end
+    object IbDtstTabelaFORMAPAGTO_PDV: TSmallintField
+      FieldName = 'FORMAPAGTO_PDV'
+      Origin = '"TBFORMPAGTO"."FORMAPAGTO_PDV"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaCONTA_CORRENTE: TIntegerField
       DisplayLabel = 'Conta Corrente'
@@ -261,7 +285,8 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       '  ACRESCIMO,'
       '  CONTA_CORRENTE,'
       '  DEBITAR_LIMITE_CLIENTE,'
-      '  FORMAPAGTO_NFCE'
+      '  FORMAPAGTO_NFCE,'
+      '  FORMAPAGTO_PDV'
       'from TBFORMPAGTO '
       'where'
       '  COD = :COD')
@@ -273,19 +298,21 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       '  CONTA_CORRENTE = :CONTA_CORRENTE,'
       '  DEBITAR_LIMITE_CLIENTE = :DEBITAR_LIMITE_CLIENTE,'
       '  DESCRI = :DESCRI,'
-      '  FORMAPAGTO_NFCE = :FORMAPAGTO_NFCE'
+      '  FORMAPAGTO_NFCE = :FORMAPAGTO_NFCE,'
+      '  FORMAPAGTO_PDV = :FORMAPAGTO_PDV'
       'where'
       '  COD = :OLD_COD')
     InsertSQL.Strings = (
       'insert into TBFORMPAGTO'
       
         '  (ACRESCIMO, COD, CONTA_CORRENTE, DEBITAR_LIMITE_CLIENTE, DESCR' +
-        'I, FORMAPAGTO_NFCE)'
+        'I, FORMAPAGTO_NFCE, '
+      '   FORMAPAGTO_PDV)'
       'values'
       
         '  (:ACRESCIMO, :COD, :CONTA_CORRENTE, :DEBITAR_LIMITE_CLIENTE, :' +
         'DESCRI, '
-      '   :FORMAPAGTO_NFCE)')
+      '   :FORMAPAGTO_NFCE, :FORMAPAGTO_PDV)')
     DeleteSQL.Strings = (
       'delete from TBFORMPAGTO'
       'where'

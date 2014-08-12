@@ -225,6 +225,7 @@ object DMBusiness: TDMBusiness
       '  , u.ativo'
       '  , u.alterar_senha'
       '  , u.perm_alterar_valor_venda'
+      '  , u.vendedor'
       'from TBUSERS u'
       ''
       'where coalesce(u.ativo, 1) = 1'
@@ -291,6 +292,10 @@ object DMBusiness: TDMBusiness
       FieldName = 'PERM_ALTERAR_VALOR_VENDA'
       Origin = '"TBUSERS"."PERM_ALTERAR_VALOR_VENDA"'
       ProviderFlags = [pfInUpdate]
+    end
+    object ibdtstUsersVENDEDOR: TIntegerField
+      FieldName = 'VENDEDOR'
+      Origin = '"TBUSERS"."VENDEDOR"'
     end
   end
   object EvMsgDialog: TEvMsgDlg
