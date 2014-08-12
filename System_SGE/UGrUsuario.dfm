@@ -319,8 +319,8 @@ inherited frmGrUsuario: TfrmGrUsuario
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'COD'
-          ListField = 'FUNCAO'
-          ListSource = DtsFuncao
+          ListField = 'NOME'
+          ListSource = DtsVendedor
           ParentFont = False
           TabOrder = 1
         end
@@ -483,5 +483,25 @@ inherited frmGrUsuario: TfrmGrUsuario
     DataSet = QryFuncao
     Left = 652
     Top = 41
+  end
+  object QryVendedor: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    v.cod'
+      '  , v.nome'
+      '  , v.ativo'
+      'from TBVENDEDOR v'
+      ''
+      'order by'
+      '    v.nome')
+    Left = 620
+    Top = 89
+  end
+  object DtsVendedor: TDataSource
+    DataSet = QryVendedor
+    Left = 652
+    Top = 89
   end
 end

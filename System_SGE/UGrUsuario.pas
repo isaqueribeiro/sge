@@ -40,6 +40,8 @@ type
     IbDtstTabelaVENDEDOR: TIntegerField;
     lblVendedor: TLabel;
     dbVendedor: TDBLookupComboBox;
+    QryVendedor: TIBQuery;
+    DtsVendedor: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -101,6 +103,7 @@ end;
 procedure TfrmGrUsuario.FormCreate(Sender: TObject);
 begin
   QryFuncao.Close;
+  QryVendedor.Close;
 
   if ( GetUserFunctionID = FUNCTION_USER_ID_SYSTEM_ADM ) then
     QryFuncao.ParamByName('perfil').AsInteger := 99
@@ -111,6 +114,7 @@ begin
   end;
 
   QryFuncao.Open;
+  QryVendedor.Open;
 
   inherited;
 
