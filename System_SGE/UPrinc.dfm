@@ -21270,7 +21270,7 @@ object frmPrinc: TfrmPrinc
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
-          Caption = 'Centros de Custo'
+          Caption = 'Departamentos / Centros de Custo'
           Enabled = False
         end
       end

@@ -232,6 +232,7 @@ type
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+    procedure ValidarToTais(var Total_Bruto, Total_IPI, Total_Desconto, Total_Liquido: Currency);
 
     function GetRotinaFinalizarID : String;
     function GetRotinaAutorizarID : String;
@@ -953,7 +954,7 @@ begin
     if ( not OcorreuErro ) then
     begin
 
-      // Salvar Itens
+      // Salvar Itens da Base
 
       if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
         cdsTabelaItens.Post;
@@ -1204,6 +1205,11 @@ procedure TfrmGeAutorizacaoCompra.btnFinalizarAutorizacaoClick(
     Result := Return;
   end;
 *)
+var
+  cTotalBruto   ,
+  cTotalIPI     ,
+  cTotalDesconto,
+  cTotalLiquido : Currency;
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
@@ -1212,11 +1218,17 @@ begin
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
 
-  if ( ShowConfirm('Confirma a finalização da edição do autorização?') ) then
+  if ShowConfirm('Confirma a finalização da edição do autorização?') then
   begin
+    ValidarToTais(cTotalBruto, cTotalIPI, cTotalDesconto, cTotalLiquido);
+
     IbDtstTabela.Edit;
 
-    IbDtstTabelaSTATUS.Value := STATUS_AUTORIZACAO_ABR;
+    IbDtstTabelaSTATUS.Value               := STATUS_AUTORIZACAO_ABR;
+    IbDtstTabelaVALOR_BRUTO.AsCurrency     := cTotalBruto;
+    IbDtstTabelaVALOR_TOTAL_IPI.AsCurrency := cTotalIPI;
+    IbDtstTabelaVALOR_DESCONTO.AsCurrency  := cTotalDesconto;
+    IbDtstTabelaVALOR_TOTAL.AsCurrency     := cTotalLiquido;
 
     IbDtstTabela.Post;
     IbDtstTabela.ApplyUpdates;
@@ -1363,6 +1375,33 @@ procedure TfrmGeAutorizacaoCompra.IbDtstTabelaAfterScroll(
 begin
   inherited;
   TbsAutorizacaoCancelado.TabVisible := (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_CAN);
+end;
+
+procedure TfrmGeAutorizacaoCompra.ValidarToTais(var Total_Bruto, Total_IPI,
+  Total_Desconto, Total_Liquido: Currency);
+var
+  Item : Integer;
+begin
+  Item := cdsTabelaItensSEQ.AsInteger;
+
+  Total_Bruto    := 0.0;
+  Total_IPI      := 0.0;
+  Total_Liquido  := 0.0;
+  Total_Desconto := IbDtstTabelaVALOR_DESCONTO.AsCurrency;
+
+  cdsTabelaItens.First;
+
+  while not cdsTabelaItens.Eof do
+  begin
+    Total_Bruto := Total_Bruto + cdsTabelaItensVALOR_TOTAL.AsCurrency;
+    Total_IPI   := Total_IPI   + cdsTabelaItensIPI_VALOR_TOTAL.AsCurrency;
+
+    cdsTabelaItens.Next;
+  end;
+
+  Total_Liquido  := (Total_Bruto + Total_IPI) - Total_Desconto;
+
+  cdsTabelaItens.Locate('SEQ', Item, []);
 end;
 
 initialization

@@ -10039,7 +10039,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41856.455205057870000000
+    ReportOptions.LastChange = 41863.913688182870000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -10504,6 +10504,7 @@ object DMNFe: TDMNFe
           Memo.UTF8 = (
             ' [frdFornecedor."NOME"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo2: TfrxMemoView
@@ -11386,7 +11387,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41821.992115636570000000
+    ReportOptions.LastChange = 41863.914008553240000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -11873,6 +11874,7 @@ object DMNFe: TDMNFe
           Memo.UTF8 = (
             ' [frdCotacaoCompraFornecedor."NOMEFORN"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo2: TfrxMemoView

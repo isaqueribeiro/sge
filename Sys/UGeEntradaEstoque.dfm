@@ -2983,6 +2983,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     end
   end
   inherited IbDtstTabela: TIBDataSet
+    AfterCancel = IbDtstTabelaAfterCancel
     AfterScroll = IbDtstTabelaAfterScroll
     BeforeCancel = IbDtstTabelaBeforeCancel
     OnNewRecord = IbDtstTabelaNewRecord

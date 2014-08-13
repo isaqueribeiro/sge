@@ -878,7 +878,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           Top = 104
           Width = 705
           Height = 81
-          ActivePage = TbsAutorizacaoMotivo
+          ActivePage = TbsAutorizacaoObservacao
           Style = tsFlatButtons
           TabOrder = 13
           object TbsAutorizacaoMotivo: TTabSheet

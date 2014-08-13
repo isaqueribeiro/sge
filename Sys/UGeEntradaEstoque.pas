@@ -339,6 +339,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
   private
     { Private declarations }
     FTipoMovimento : TTipoMovimentoEntrada;
@@ -719,8 +720,8 @@ end;
 procedure TfrmGeEntradaEstoque.IbDtstTabelaBeforeCancel(DataSet: TDataSet);
 begin
   inherited;
-  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+//  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+//  AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 end;
 
 procedure TfrmGeEntradaEstoque.btbtnExcluirClick(Sender: TObject);
@@ -1579,6 +1580,13 @@ begin
     if btbtnCancelarENT.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarEntradaID, btbtnCancelarENT.Caption, RotinaID);
   end;
+end;
+
+procedure TfrmGeEntradaEstoque.IbDtstTabelaAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 end;
 
 initialization

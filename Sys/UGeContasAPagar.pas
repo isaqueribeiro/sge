@@ -441,7 +441,7 @@ begin
   begin
     // Eliminar Movimento do Caixa quando o lançamento for excluído pelo SYSTEM ADM
 
-    if (gUsuarioLogado.Funcao = FUNCTION_USER_ID_SYSTEM_ADM) then
+    if (gUsuarioLogado.Funcao in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_SYSTEM_ADM]) then
     begin
 
       with DMBusiness, qryBusca do

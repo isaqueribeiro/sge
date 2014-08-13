@@ -1,29 +1,29 @@
-inherited frmGeClienteImpressao: TfrmGeClienteImpressao
-  Caption = 'Relat'#243'rio de Clientes'
+inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
+  Caption = 'Relat'#243'rio de Fornecedores'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
         Items.Strings = (
-          'Rela'#231#227'o de Clientes Cadastrados'
-          'Ficha Cadastral dos Clientes'
-          'Rela'#231#227'o de Clientes por Cidades'
-          'Rela'#231#227'o de Cr'#233'ditos/Custo Operacional por Cliente')
+          'Rela'#231#227'o de Fornecedores Cadastrados'
+          'Ficha Cadastral dos Fornecedores'
+          'Rela'#231#227'o de Fornecedores por Cidades'
+          'Rela'#231#227'o de Cr'#233'ditos/Custo Operacional por Fornecedor')
       end
     end
     inherited GrpBxFiltro: TGroupBox
-      object lblTipoCliente: TLabel
-        Left = 24
+      object lblTipoFornecedor: TLabel
+        Left = 15
         Top = 28
-        Width = 69
+        Width = 94
         Height = 13
         Alignment = taRightJustify
-        Caption = 'Tipo Cliente:'
-        FocusControl = edTipoCliente
+        Caption = 'Tipo Fornecedor:'
+        FocusControl = edTipoFornecedor
       end
       object lblCidade: TLabel
-        Left = 52
+        Left = 68
         Top = 52
         Width = 41
         Height = 13
@@ -31,10 +31,10 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Caption = 'Cidade:'
         FocusControl = edCidade
       end
-      object edTipoCliente: TComboBox
-        Left = 104
+      object edTipoFornecedor: TComboBox
+        Left = 112
         Top = 24
-        Width = 313
+        Width = 305
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
@@ -47,9 +47,9 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           'Pessoa Jur'#237'dica')
       end
       object edCidade: TComboBox
-        Left = 104
+        Left = 112
         Top = 48
-        Width = 313
+        Width = 305
         Height = 21
         CharCase = ecUpperCase
         ItemHeight = 13
@@ -63,7 +63,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
     end
   end
-  object frRelacaoCliente: TfrxReport
+  object frRelacaoFornecedor: TfrxReport
     Version = '4.9.72'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -88,8 +88,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         DataSetName = 'frdEmpresa'
       end
       item
-        DataSet = FrdsRelacaoCliente
-        DataSetName = 'FrdsRelacaoCliente'
+        DataSet = FrdsRelacaoFornecedor
+        DataSetName = 'FrdsRelacaoFornecedor'
       end>
     Variables = <
       item
@@ -322,7 +322,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 37.795300000000000000
         Top = 204.094620000000000000
         Width = 718.110700000000000000
-        Condition = 'FrdsRelacaoCliente."PESSOA_FISICA"'
+        Condition = 'FrdsRelacaoFornecedor."PESSOA_FISICA"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
           Left = 113.385900000000000000
@@ -340,8 +340,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,'#39'Pessoa F'#195#173'sica'#39', '#39 +
-              'Pessoa Jur'#195#173'dica'#39')]')
+              ' [IIF(<FrdsRelacaoFornecedor."PESSOA_FISICA">=1,'#39'Pessoa F'#195#173'sica'#39 +
+              ', '#39'Pessoa Jur'#195#173'dica'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -474,8 +474,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 18.897650000000000000
         Top = 264.567100000000000000
         Width = 718.110700000000000000
-        DataSet = FrdsRelacaoCliente
-        DataSetName = 'FrdsRelacaoCliente'
+        DataSet = FrdsRelacaoFornecedor
+        DataSetName = 'FrdsRelacaoFornecedor'
         RowCount = 0
         object Memo7: TfrxMemoView
           Left = 668.976810000000000000
@@ -493,13 +493,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haCenter
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 10485760
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            '[FormatFloat('#39'00000'#39',<FrdsRelacaoCliente."CODIGO">)]')
+            '[FormatFloat('#39'00000'#39',<FrdsRelacaoFornecedor."CODIGO">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -518,16 +518,16 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 10485760
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
             
-              ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,FormatMaskText('#39'###' +
-              '.###.###-##;0;'#39',<FrdsRelacaoCliente."CNPJ">),FormatMaskText('#39'##.' +
-              '###.###/####-##;0;'#39',<FrdsRelacaoCliente."CNPJ">))]')
+              ' [IIF(<FrdsRelacaoFornecedor."PESSOA_FISICA">=1,FormatMaskText('#39 +
+              '###.###.###-##;0;'#39',<FrdsRelacaoFornecedor."CNPJ">),FormatMaskTex' +
+              't('#39'##.###.###/####-##;0;'#39',<FrdsRelacaoFornecedor."CNPJ">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -547,13 +547,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 10485760
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."NOME"]')
+            ' [FrdsRelacaoFornecedor."NOME"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -573,13 +573,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 10485760
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."INSCEST"]')
+            ' [FrdsRelacaoFornecedor."INSCEST"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -599,13 +599,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 10485760
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."CIDADE"]')
+            ' [FrdsRelacaoFornecedor."CIDADE"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -627,7 +627,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [COUNT(BndMasterData)] cliente(s) relacionado(s).')
+            ' [COUNT(BndMasterData)] fornecedor(es) relacionado(s).')
           ParentFont = False
         end
       end
@@ -641,13 +641,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Height = 18.897650000000000000
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
+          Font.Color = clBlue
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' * Clientes bloqueados')
+            ' * Fornecedores cadastrados originalmente como clientes.')
           ParentFont = False
         end
         object Memo19: TfrxMemoView
@@ -662,56 +662,57 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [COUNT(BndMasterData,2)] cliente(s) cadastrados(s).')
+            ' [COUNT(BndMasterData,2)] fornecedor(es) cadastrados(s).')
           ParentFont = False
         end
       end
     end
   end
-  object QryRelacaoCliente: TIBQuery
+  object QryRelacaoFornecedor: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     SQL.Strings = (
       'Select'
-      '    c.codigo'
-      '  , c.pessoa_fisica'
-      '  , c.nome'
-      '  , c.nomefant'
-      '  , c.cnpj'
-      '  , c.inscest'
-      '  , c.inscmun'
-      '  , c.ender'
-      '  , c.numero_end'
-      '  , c.bairro'
-      '  , c.complemento'
-      '  , c.cep'
-      '  , c.cidade'
-      '  , c.uf'
-      '  , c.fone'
-      '  , c.fonecel'
-      '  , c.fonecomerc'
-      '  , c.email'
-      '  , c.cid_cod'
-      '  , c.bai_cod'
-      '  , c.bloqueado'
+      '    f.codforn as codigo'
+      '  , f.pessoa_fisica'
+      '  , f.nomeforn as nome'
+      '  , f.nomefant'
+      '  , f.cnpj'
+      '  , f.inscest'
+      '  , f.inscmun'
+      '  , f.ender'
+      '  , f.numero_end'
+      '  , br.bai_nome as bairro'
+      '  , f.complemento'
+      '  , f.cep'
+      '  , f.cidade'
+      '  , f.uf'
+      '  , f.fone'
+      '  , f.fonecel'
+      '  , f.fonefax'
+      '  , f.email'
+      '  , f.cid_cod'
+      '  , f.bai_cod'
+      '  , f.cliente_origem_cod as cliente'
       '  , cd.cid_nome'
       '  , es.est_nome'
       '  , es.est_sigla'
-      '  , c.banco'
+      '  , f.banco'
       '  , bn.nome   as banco_nome'
-      '  , c.agencia as banco_agencia'
-      '  , c.cc    as banco_conta'
-      '  , c.praca as banco_praca'
-      '  , c.observacao'
-      'from TBCLIENTE c'
-      '  left join TBCIDADE cd on (cd.cid_cod = c.cid_cod)'
-      '  left join TBESTADO es on (es.est_cod = c.est_cod)'
-      '  left join TBBANCO bn on (bn.cod = c.banco)')
+      '  , f.agencia as banco_agencia'
+      '  , f.cc    as banco_conta'
+      '  , f.praca as banco_praca'
+      '  , f.observacao'
+      'from TBFORNECEDOR f'
+      '  left join TBESTADO es on (es.est_cod = f.est_cod)'
+      '  left join TBCIDADE cd on (cd.cid_cod = f.cid_cod)'
+      '  left join TBBAIRRO br on (br.bai_cod = f.bai_cod)'
+      '  left join TBBANCO bn on (bn.cod = f.banco)')
     Left = 40
     Top = 8
   end
-  object FrdsRelacaoCliente: TfrxDBDataset
-    UserName = 'FrdsRelacaoCliente'
+  object FrdsRelacaoFornecedor: TfrxDBDataset
+    UserName = 'FrdsRelacaoFornecedor'
     CloseDataSource = True
     FieldAliases.Strings = (
       'CODIGO=CODIGO'
@@ -730,11 +731,11 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       'UF=UF'
       'FONE=FONE'
       'FONECEL=FONECEL'
-      'FONECOMERC=FONECOMERC'
+      'FONEFAX=FONEFAX'
       'EMAIL=EMAIL'
       'CID_COD=CID_COD'
       'BAI_COD=BAI_COD'
-      'BLOQUEADO=BLOQUEADO'
+      'CLIENTE=CLIENTE'
       'CID_NOME=CID_NOME'
       'EST_NOME=EST_NOME'
       'EST_SIGLA=EST_SIGLA'
@@ -744,20 +745,20 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       'BANCO_CONTA=BANCO_CONTA'
       'BANCO_PRACA=BANCO_PRACA'
       'OBSERVACAO=OBSERVACAO')
-    DataSet = CdsRelacaoCliente
+    DataSet = CdsRelacaoFornecedor
     BCDToCurrency = True
     Left = 136
     Top = 8
   end
-  object DspRelacaoCliente: TDataSetProvider
-    DataSet = QryRelacaoCliente
+  object DspRelacaoFornecedor: TDataSetProvider
+    DataSet = QryRelacaoFornecedor
     Left = 72
     Top = 8
   end
-  object CdsRelacaoCliente: TClientDataSet
+  object CdsRelacaoFornecedor: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'DspRelacaoCliente'
+    ProviderName = 'DspRelacaoFornecedor'
     Left = 104
     Top = 8
   end
@@ -783,7 +784,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     ProviderName = 'DpsCidades'
     Left = 424
   end
-  object frRelacaoClienteCidade: TfrxReport
+  object frRelacaoFornecedorCidade: TfrxReport
     Version = '4.9.72'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -808,8 +809,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         DataSetName = 'frdEmpresa'
       end
       item
-        DataSet = FrdsRelacaoCliente
-        DataSetName = 'FrdsRelacaoCliente'
+        DataSet = FrdsRelacaoFornecedor
+        DataSetName = 'FrdsRelacaoFornecedor'
       end>
     Variables = <
       item
@@ -1043,7 +1044,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 37.795300000000000000
         Top = 249.448980000000000000
         Width = 1046.929810000000000000
-        Condition = 'FrdsRelacaoCliente."PESSOA_FISICA"'
+        Condition = 'FrdsRelacaoFornecedor."PESSOA_FISICA"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
           Left = 113.385900000000000000
@@ -1061,8 +1062,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,'#39'Pessoa F'#195#173'sica'#39', '#39 +
-              'Pessoa Jur'#195#173'dica'#39')]')
+              ' [IIF(<FrdsRelacaoFornecedor."PESSOA_FISICA">=1,'#39'Pessoa F'#195#173'sica'#39 +
+              ', '#39'Pessoa Jur'#195#173'dica'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -1216,8 +1217,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 18.897650000000000000
         Top = 309.921460000000000000
         Width = 1046.929810000000000000
-        DataSet = FrdsRelacaoCliente
-        DataSetName = 'FrdsRelacaoCliente'
+        DataSet = FrdsRelacaoFornecedor
+        DataSetName = 'FrdsRelacaoFornecedor'
         RowCount = 0
         object Memo7: TfrxMemoView
           Left = 997.795920000000000000
@@ -1235,13 +1236,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haCenter
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 8404992
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            '[FormatFloat('#39'00000'#39',<FrdsRelacaoCliente."CODIGO">)]')
+            '[FormatFloat('#39'00000'#39',<FrdsRelacaoFornecedor."CODIGO">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1260,16 +1261,16 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 8404992
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
             
-              ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,FormatMaskText('#39'###' +
-              '.###.###-##;0;'#39',<FrdsRelacaoCliente."CNPJ">),FormatMaskText('#39'##.' +
-              '###.###/####-##;0;'#39',<FrdsRelacaoCliente."CNPJ">))]')
+              ' [IIF(<FrdsRelacaoFornecedor."PESSOA_FISICA">=1,FormatMaskText('#39 +
+              '###.###.###-##;0;'#39',<FrdsRelacaoFornecedor."CNPJ">),FormatMaskTex' +
+              't('#39'##.###.###/####-##;0;'#39',<FrdsRelacaoFornecedor."CNPJ">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1289,13 +1290,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 8404992
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."NOME"]')
+            ' [FrdsRelacaoFornecedor."NOME"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1315,13 +1316,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 8404992
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."INSCEST"]')
+            ' [FrdsRelacaoFornecedor."INSCEST"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1341,13 +1342,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 8404992
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."BAIRRO"]')
+            ' [FrdsRelacaoFornecedor."BAIRRO"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1367,13 +1368,15 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 8404992
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."ENDER"], [FrdsRelacaoCliente."NUMERO_END"]')
+            
+              ' [FrdsRelacaoFornecedor."ENDER"], [FrdsRelacaoFornecedor."NUMERO' +
+              '_END"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1395,7 +1398,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [COUNT(BndMasterData)] cliente(s) relacionado(s).')
+            ' [COUNT(BndMasterData)] fornecedor(es) relacionado(s).')
           ParentFont = False
         end
       end
@@ -1409,13 +1412,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Height = 18.897650000000000000
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
+          Font.Color = clBlue
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' * Clientes bloqueados')
+            ' * Fornecedores cadastrados originalmente como clientes.')
           ParentFont = False
         end
         object Memo19: TfrxMemoView
@@ -1430,7 +1433,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [COUNT(BndMasterData,2)] cliente(s) cadastrados(s).')
+            ' [COUNT(BndMasterData,2)] fornecedor(es) cadastrados(s).')
           ParentFont = False
         end
       end
@@ -1438,7 +1441,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 1046.929810000000000000
-        Condition = 'FrdsRelacaoCliente."CID_COD"'
+        Condition = 'FrdsRelacaoFornecedor."CID_COD"'
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Width = 933.543910000000000000
@@ -1455,8 +1458,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [FrdsRelacaoCliente."CID_NOME"] / [FrdsRelacaoCliente."EST_SIGL' +
-              'A"]')
+              ' [FrdsRelacaoFornecedor."CID_NOME"] / [FrdsRelacaoFornecedor."ES' +
+              'T_SIGLA"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -1497,9 +1500,9 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [COUNT(BndMasterData)] cliente(s) relacionado(s) para a cidade ' +
-              'de [FrdsRelacaoCliente."CID_NOME"] / [FrdsRelacaoCliente."EST_SI' +
-              'GLA"].')
+              ' [COUNT(BndMasterData)] fornecedor(es) relacionado(s) para a cid' +
+              'ade de [FrdsRelacaoFornecedor."CID_NOME"] / [FrdsRelacaoForneced' +
+              'or."EST_SIGLA"].')
           ParentFont = False
         end
       end
@@ -2914,7 +2917,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     Left = 136
     Top = 152
   end
-  object frFichaCliente: TfrxReport
+  object frFichaFornecedor: TfrxReport
     Version = '4.9.72'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -2939,8 +2942,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         DataSetName = 'frdEmpresa'
       end
       item
-        DataSet = FrdsRelacaoCliente
-        DataSetName = 'FrdsRelacaoCliente'
+        DataSet = FrdsRelacaoFornecedor
+        DataSetName = 'FrdsRelacaoFornecedor'
       end>
     Variables = <
       item
@@ -3173,7 +3176,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 718.110700000000000000
-        Condition = 'FrdsRelacaoCliente."PESSOA_FISICA"'
+        Condition = 'FrdsRelacaoFornecedor."PESSOA_FISICA"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
           Left = 113.385900000000000000
@@ -3191,8 +3194,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,'#39'Pessoa F'#195#173'sica'#39', '#39 +
-              'Pessoa Jur'#195#173'dica'#39')]')
+              ' [IIF(<FrdsRelacaoFornecedor."PESSOA_FISICA">=1,'#39'Pessoa F'#195#173'sica'#39 +
+              ', '#39'Pessoa Jur'#195#173'dica'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3220,8 +3223,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 192.756030000000000000
         Top = 249.448980000000000000
         Width = 718.110700000000000000
-        DataSet = FrdsRelacaoCliente
-        DataSetName = 'FrdsRelacaoCliente'
+        DataSet = FrdsRelacaoFornecedor
+        DataSetName = 'FrdsRelacaoFornecedor'
         RowCount = 0
         Stretched = True
         object Memo9: TfrxMemoView
@@ -3239,16 +3242,16 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
+          Highlight.Font.Color = 8404992
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = [fsBold]
-          Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<FrdsRelacaoFornecedor."CLIENTE"> > 0'
           Memo.UTF8 = (
             
-              ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,FormatMaskText('#39'###' +
-              '.###.###-##;0;'#39',<FrdsRelacaoCliente."CNPJ">),FormatMaskText('#39'##.' +
-              '###.###/####-##;0;'#39',<FrdsRelacaoCliente."CNPJ">))]')
+              ' [IIF(<FrdsRelacaoFornecedor."PESSOA_FISICA">=1,FormatMaskText('#39 +
+              '###.###.###-##;0;'#39',<FrdsRelacaoFornecedor."CNPJ">),FormatMaskTex' +
+              't('#39'##.###.###/####-##;0;'#39',<FrdsRelacaoFornecedor."CNPJ">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3268,7 +3271,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."NOME"]')
+            ' [FrdsRelacaoFornecedor."NOME"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3328,7 +3331,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."INSCEST"]')
+            ' [FrdsRelacaoFornecedor."INSCEST"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3369,7 +3372,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."INSCMUN"]')
+            ' [FrdsRelacaoFornecedor."INSCMUN"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3412,10 +3415,10 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              '[FormatMaskText('#39'(##)####.####;0;'#39',<FrdsRelacaoCliente."FONE">)]' +
-              ', [FormatMaskText('#39'(##)####.####;0;'#39',<FrdsRelacaoCliente."FONECE' +
-              'L">)], [FormatMaskText('#39'(##)####.####;0;'#39',<FrdsRelacaoCliente."F' +
-              'ONECOMERC">)]')
+              '[FormatMaskText('#39'(##)####.####;0;'#39',<FrdsRelacaoFornecedor."FONE"' +
+              '>)], [FormatMaskText('#39'(##)####.####;0;'#39',<FrdsRelacaoFornecedor."' +
+              'FONECEL">)], [FormatMaskText('#39'(##)####.####;0;'#39',<FrdsRelacaoForn' +
+              'ecedor."FONEFAX">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3457,9 +3460,9 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [FrdsRelacaoCliente."ENDER"], [FrdsRelacaoCliente."NUMERO_END"]' +
-              ' [IIF(Trim(<FrdsRelacaoCliente."COMPLEMENTO">)='#39#39','#39#39','#39'('#39' + <Frds' +
-              'RelacaoCliente."COMPLEMENTO"> + '#39')'#39')]')
+              ' [FrdsRelacaoFornecedor."ENDER"], [FrdsRelacaoFornecedor."NUMERO' +
+              '_END"] [IIF(Trim(<FrdsRelacaoFornecedor."COMPLEMENTO">)='#39#39','#39#39','#39'(' +
+              #39' + <FrdsRelacaoFornecedor."COMPLEMENTO"> + '#39')'#39')]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3500,9 +3503,9 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [FrdsRelacaoCliente."BAIRRO"] - CEP [FormatMaskText('#39'##.###-###' +
-              ';0;'#39',<FrdsRelacaoCliente."CEP">)] - [FrdsRelacaoCliente."CIDADE"' +
-              ']')
+              ' [FrdsRelacaoFornecedor."BAIRRO"] - CEP [FormatMaskText('#39'##.###-' +
+              '###;0;'#39',<FrdsRelacaoFornecedor."CEP">)] - [FrdsRelacaoFornecedor' +
+              '."CIDADE"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3524,8 +3527,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [FrdsRelacaoCliente."BANCO"] - [FrdsRelacaoCliente."BANCO_NOME"' +
-              ']')
+              ' [FrdsRelacaoFornecedor."BANCO"] - [FrdsRelacaoFornecedor."BANCO' +
+              '_NOME"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3567,8 +3570,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [FrdsRelacaoCliente."BANCO_AGENCIA"] / [FrdsRelacaoCliente."BAN' +
-              'CO_CONTA"]')
+              ' [FrdsRelacaoFornecedor."BANCO_AGENCIA"] / [FrdsRelacaoFornecedo' +
+              'r."BANCO_CONTA"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3610,7 +3613,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftRight, ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."NOMEFANT"]')
+            ' [FrdsRelacaoFornecedor."NOMEFANT"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3651,7 +3654,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."OBSERVACAO"]')
+            ' [FrdsRelacaoFornecedor."OBSERVACAO"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3671,7 +3674,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftLeft, ftRight, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."BANCO_PRACA"]')
+            ' [FrdsRelacaoFornecedor."BANCO_PRACA"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3692,7 +3695,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoCliente."EMAIL"]')
+            ' [FrdsRelacaoFornecedor."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3732,13 +3735,13 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Height = 18.897650000000000000
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
+          Font.Color = clBlue
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' * Clientes bloqueados')
+            ' * Fornecedores cadastrados originalmente como clientes.')
           ParentFont = False
         end
       end
