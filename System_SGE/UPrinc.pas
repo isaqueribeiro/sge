@@ -164,6 +164,7 @@ type
     N22: TMenuItem;
     nmPlanoConta: TMenuItem;
     nmCentroCusto: TMenuItem;
+    nmRegistroEstacao: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
