@@ -531,7 +531,8 @@ begin
 
   WhereAdditional :=  'cast(v.dtvenda as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );// + ' and ' +
+                        //'v.codemp = ' + QuotedStr(GetEmpresaIDDefault);
 
   UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
 
@@ -576,7 +577,8 @@ procedure TfrmGeVenda.btnFiltrarClick(Sender: TObject);
 begin
   WhereAdditional :=  'cast(v.dtvenda as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );// + ' and ' +
+                        //'v.codemp = ' + QuotedStr(GetEmpresaIDDefault);
   if ( RdgStatusVenda.ItemIndex > 0 ) then
     WhereAdditional := WhereAdditional + ' and (v.status = ' + IntToStr(RdgStatusVenda.ItemIndex) + ')';
 

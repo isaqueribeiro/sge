@@ -778,12 +778,13 @@ Var
 
   sSecaoCertificado,
   sSecaoGeral      ,
-  sSecaoEmitente   : String;
+  sSecaoEmitente   ,
+  sSecaoWebService : String;
 begin
   try
 
     AbrirEmitente(sCNPJEmitente);
-    
+
     if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
       sPrefixoSecao := Trim(sCNPJEmitente) + '_'
     else
@@ -792,6 +793,7 @@ begin
     sSecaoCertificado := sPrefixoSecao + INI_SECAO_CERTIFICADO;
     sSecaoGeral       := sPrefixoSecao + INI_SECAO_GERAL;
     sSecaoEmitente    := sPrefixoSecao + INI_SECAO_EMITENTE;
+    sSecaoWebService  := sPrefixoSecao + INI_SECAO_WEBSERVICE;
 
     with ConfigACBr, FileINI do
     begin
@@ -806,9 +808,9 @@ begin
       WriteString ( sSecaoGeral, 'PathSalvar'  , edtPathLogs.Text) ;
       WriteInteger( sSecaoGeral, 'ModoGerarNFe', rgModoGerarNFe.ItemIndex) ;
 
-      WriteString ( 'WebService', 'UF'        ,cbUF.Text) ;
-      WriteInteger( 'WebService', 'Ambiente'  ,rgTipoAmb.ItemIndex) ;
-      WriteBool   ( 'WebService', 'Visualizar',ckVisualizar.Checked) ;
+      WriteString ( sSecaoWebService, 'UF'        ,cbUF.Text) ;
+      WriteInteger( sSecaoWebService, 'Ambiente'  ,rgTipoAmb.ItemIndex) ;
+      WriteBool   ( sSecaoWebService, 'Visualizar',ckVisualizar.Checked) ;
 
       WriteString( 'Proxy', 'Host'   , edtProxyHost.Text) ;
       WriteString( 'Proxy', 'Porta'  , edtProxyPorta.Text) ;
@@ -862,7 +864,8 @@ Var
 
   sSecaoCertificado,
   sSecaoGeral      ,
-  sSecaoEmitente   : String;
+  sSecaoEmitente   ,
+  sSecaoWebService : String;
 begin
   try
 
@@ -876,6 +879,7 @@ begin
     sSecaoCertificado := sPrefixoSecao + INI_SECAO_CERTIFICADO;
     sSecaoGeral       := sPrefixoSecao + INI_SECAO_GERAL;
     sSecaoEmitente    := sPrefixoSecao + INI_SECAO_EMITENTE;
+    sSecaoWebService  := sPrefixoSecao + INI_SECAO_WEBSERVICE;
 
     with ConfigACBr, FileINI do
     begin
@@ -913,9 +917,9 @@ begin
       ACBrNFe.Configuracoes.Geral.Salvar       := ckSalvar.Checked;
       ACBrNFe.Configuracoes.Geral.PathSalvar   := edtPathLogs.Text;
 
-      cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( 'WebService', 'UF', 'PA')) ;
-      rgTipoAmb.ItemIndex  := ReadInteger( 'WebService', 'Ambiente'  , 0) ;
-      ckVisualizar.Checked := ReadBool   ( 'WebService', 'Visualizar', False) ;
+      cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
+      rgTipoAmb.ItemIndex  := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
+      ckVisualizar.Checked := ReadBool   ( sSecaoWebService, 'Visualizar', False) ;
 
       ACBrNFe.Configuracoes.WebServices.UF         := cbUF.Text;
       ACBrNFe.Configuracoes.WebServices.Ambiente   := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
