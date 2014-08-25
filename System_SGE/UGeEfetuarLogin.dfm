@@ -3,14 +3,13 @@ inherited FrmEfetuarLogin: TFrmEfetuarLogin
   Color = 14548957
   PixelsPerInch = 96
   TextHeight = 19
-  object Shape1: TShape [0]
+  object shpBackgroud: TShape [0]
     Left = 0
     Top = 0
     Width = 475
     Height = 285
     Align = alClient
     Brush.Color = 14548957
-    Brush.Style = bsDiagCross
     Pen.Color = clGreen
     Pen.Width = 2
   end

@@ -488,7 +488,7 @@ type
   private
     { Private declarations }
     ver : TInfoVersao;
-    
+
     frmACBr : TfrmGeConfigurarNFeACBr;
     fr3Designer: TfrxDesigner;
 
@@ -1145,6 +1145,13 @@ var
 begin
 
   try
+
+    LerConfiguracao(sCNPJEmitente);
+
+    Result := ACBrNFe.WebServices.StatusServico.Executar;
+
+    if not Result then
+      Exit;
 
     GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML);
 
@@ -2473,6 +2480,13 @@ var
 begin
 
   try
+
+    LerConfiguracao(sCNPJEmitente);
+
+    Result := ACBrNFe.WebServices.StatusServico.Executar;
+
+    if not Result then
+      Exit;
 
     GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML);
 

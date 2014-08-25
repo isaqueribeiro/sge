@@ -9,7 +9,7 @@ uses
 
 type
   TFrmEfetuarLogin = class(TfrmGrPadraoLogin)
-    Shape1: TShape;
+    shpBackgroud: TShape;
     procedure FormShow(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
   private
@@ -41,7 +41,7 @@ begin
 
     if not DMBusiness.ibdtstUsers.Locate('NOME', edNome.Text, []) then
     begin
-      pnlMensagem.Caption:='Entrada recusada ... USUÁRIO DESCONHECIDO!';
+      pnlMensagem.Caption := 'Entrada recusada ... USUÁRIO DESCONHECIDO!';
 
       if ( Contador >= 3 ) then
         frmPrinc.Close;
