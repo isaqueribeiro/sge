@@ -235,6 +235,7 @@ type
     procedure nmQuitarContaAPagar_LoteClick(Sender: TObject);
     procedure nmPerfilAcessoClick(Sender: TObject);
     procedure nmCotacaoCompraClick(Sender: TObject);
+    procedure nmRegistroEstacaoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -351,7 +352,7 @@ end;
 procedure TfrmPrinc.nmRelatorioFornecedorClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_FORNECEDOR_ID, True) then
-    FormFunction.ShowFormReport(Self, 'frmRelFornec', 'qckrp');
+    FormFunction.ShowModalForm(Self, 'frmGeFornecedorImpressao');
 end;
 
 procedure TfrmPrinc.nmRelatorioProdutoClick(Sender: TObject);
@@ -491,6 +492,19 @@ begin
     menuEntrada.Enabled      := False;
     menuMovimentacao.Enabled := False;
     menuFinanceiro.Enabled   := False;
+  end;
+
+  if not SetAcessoEstacao(DMBusiness.IdIPWatch.LocalName) then
+  begin
+    ShowError('Estação de trabalho não registrada no sistema!');
+    menuCadastro.Enabled     := False;
+    menuEntrada.Enabled      := False;
+    menuMovimentacao.Enabled := False;
+    menuNotaFiscal.Enabled   := False;
+    menuConsulta.Enabled     := False;
+    menuFinanceiro.Enabled   := False;
+    menuRelatorio.Enabled    := False;
+    spbBarraAcessoRapido.Enabled := False;
   end;
 end;
 
@@ -867,6 +881,11 @@ end;
 procedure TfrmPrinc.nmCotacaoCompraClick(Sender: TObject);
 begin
   MostrarControleCotacao(Self);
+end;
+
+procedure TfrmPrinc.nmRegistroEstacaoClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
 end;
 
 end.

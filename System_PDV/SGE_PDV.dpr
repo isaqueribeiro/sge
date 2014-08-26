@@ -79,7 +79,8 @@ uses
   UGeVendaPDV in 'UGeVendaPDV.pas' {frmGeVendaPDV},
   UDMCupom in '..\Sys\UDMCupom.pas' {DMCupom: TDataModule},
   UGeVendaPDVDesconto in 'UGeVendaPDVDesconto.pas' {frmGeVendaPDVDesconto},
-  UGeVendaPDVOrcamento in 'UGeVendaPDVOrcamento.pas' {frmGeVendaPDVOrcamento};
+  UGeVendaPDVOrcamento in 'UGeVendaPDVOrcamento.pas' {frmGeVendaPDVOrcamento},
+  UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao};
 
 {$R *.res}
 

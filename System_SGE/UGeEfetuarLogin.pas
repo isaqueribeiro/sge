@@ -9,7 +9,6 @@ uses
 
 type
   TFrmEfetuarLogin = class(TfrmGrPadraoLogin)
-    shpBackgroud: TShape;
     procedure FormShow(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
   private

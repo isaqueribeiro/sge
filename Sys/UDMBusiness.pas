@@ -316,6 +316,8 @@ var
   function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
   function GetQuantidadeEmpresasEmiteNFe : Integer;
 
+  function SetAcessoEstacao(const sHostName : String) : Boolean;
+
   function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 
   function SetMovimentoCaixa(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint;
@@ -1159,8 +1161,18 @@ begin
 end;
 
 function GetEstacaoEmitiNFe : Boolean;
+Var
+  sPrefixoSecao     ,
+  sSecaoCertificado : String;
 begin
-  Result := GetPermititEmissaoNFe(GetEmpresaIDDefault) and (Trim(FileINI.ReadString(INI_SECAO_CERTIFICADO, 'NumSerie', EmptyStr)) <> EmptyStr);
+  if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
+    sPrefixoSecao := Trim(GetEmpresaIDDefault) + '_'
+  else
+    sPrefixoSecao := EmptyStr;
+
+  sSecaoCertificado := sPrefixoSecao + INI_SECAO_CERTIFICADO;
+
+  Result := GetPermititEmissaoNFe(GetEmpresaIDDefault) and (Trim(FileINI.ReadString(sSecaoCertificado, 'NumSerie', EmptyStr)) <> EmptyStr);
 end;
 
 function GetCondicaoPagtoIDBoleto_Descontinuada : Integer; // Descontinuada
@@ -2482,6 +2494,43 @@ begin
   end;
 end;
 
+function SetAcessoEstacao(const sHostName : String) : Boolean;
+var
+  Return : Boolean;
+begin
+  try
+    Return := False;
+
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  e.est_registro');
+      SQL.Add('from SYS_ESTACAO e');
+      SQL.Add('where coalesce(e.est_nome, e.est_ip) = ' + QuotedStr(Trim(sHostName)));
+      Open;
+
+      Return := (FieldByName('est_registro').AsString <> EmptyStr);
+
+      Close;
+
+      if Return then
+      begin
+        SQL.Clear;
+        SQL.Add('Update SYS_ESTACAO e Set');
+        SQL.Add('  e.est_ultimo_acesso = ' + QuotedStr(FormatDateTime('dd.mm.yyyy hh:mm:ss', Now)));
+        SQL.Add('where coalesce(e.est_nome, e.est_ip) = ' + QuotedStr(Trim(sHostName)));
+        ExecSQL;
+
+        CommitTransaction;
+      end;
+    end;
+
+  finally
+    Result := Return;
+  end;
+end;
 
 function CaixaAberto(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 begin

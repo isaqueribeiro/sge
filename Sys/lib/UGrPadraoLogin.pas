@@ -27,6 +27,7 @@ type
     edEmpresa: TComboBox;
     pnlMensagem: TLabel;
     BtnFechar: TSpeedButton;
+    ImgBackgroud: TImage;
     procedure FormCreate(Sender: TObject);
     procedure BtnFecharClick(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);

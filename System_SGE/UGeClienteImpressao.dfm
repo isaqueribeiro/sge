@@ -3114,7 +3114,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndPageFooter: TfrxPageFooter
         Height = 30.236240000000000000
-        Top = 589.606680000000000000
+        Top = 616.063390000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -3220,6 +3220,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Height = 192.756030000000000000
         Top = 249.448980000000000000
         Width = 718.110700000000000000
+        Child = frFichaCliente.FilhaEspaco
         DataSet = FrdsRelacaoCliente
         DataSetName = 'FrdsRelacaoCliente'
         RowCount = 0
@@ -3264,7 +3265,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
+          Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
@@ -3720,12 +3721,12 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         Height = 22.677180000000000000
-        Top = 464.882190000000000000
+        Top = 491.338900000000000000
         Width = 718.110700000000000000
       end
       object BndFooter: TfrxFooter
         Height = 18.897650000000000000
-        Top = 510.236550000000000000
+        Top = 536.693260000000000000
         Width = 718.110700000000000000
         object Memo18: TfrxMemoView
           Width = 718.110700000000000000
@@ -3741,6 +3742,11 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
             ' * Clientes bloqueados')
           ParentFont = False
         end
+      end
+      object FilhaEspaco: TfrxChild
+        Height = 3.779527560000000000
+        Top = 464.882190000000000000
+        Width = 718.110700000000000000
       end
     end
   end

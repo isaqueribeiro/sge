@@ -63,43 +63,47 @@ const
 
 procedure TfrmGeFornecedorImpressao.btnVisualizarClick(Sender: TObject);
 begin
-  Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: ' + #13 +
-    Format('- Tipo Fornecedor  : %s', [edTipoFornecedor.Text]) + #13 +
-    Format('- Cidade           : %s', [edCidade.Text]);
+  try
+    Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: ' + #13 +
+      Format('- Tipo Fornecedor  : %s', [edTipoFornecedor.Text]) + #13 +
+      Format('- Cidade           : %s', [edCidade.Text]);
 
-  Screen.Cursor         := crSQLWait;
-  btnVisualizar.Enabled := False;
+    Screen.Cursor         := crSQLWait;
+    btnVisualizar.Enabled := False;
 
-  Case edRelatorio.ItemIndex of
-    REPORT_RELACAO_FORNECEDOR:
-      begin
-        MontarRelacaoFornecedor;
-        frReport := frRelacaoFornecedor;
-      end;
+    Case edRelatorio.ItemIndex of
+      REPORT_RELACAO_FORNECEDOR:
+        begin
+          MontarRelacaoFornecedor;
+          frReport := frRelacaoFornecedor;
+        end;
 
-    REPORT_RELACAO_FORNECEDOR_FICHA:
-      begin
-        MontarRelacaoFornecedor;
-        frReport := frFichaFornecedor;
-      end;
+      REPORT_RELACAO_FORNECEDOR_FICHA:
+        begin
+          MontarRelacaoFornecedor;
+          frReport := frFichaFornecedor;
+        end;
 
-    REPORT_RELACAO_FORNECEDOR_CIDADE:
-      begin
-        MontarRelacaoFornecedorPorCidade;
-        frReport := frRelacaoFornecedorCidade;
-      end;
+      REPORT_RELACAO_FORNECEDOR_CIDADE:
+        begin
+          MontarRelacaoFornecedorPorCidade;
+          frReport := frRelacaoFornecedorCidade;
+        end;
+      (*
+      REPORT_RELACAO_CLIENTE_CREDITO: // Relação de Créditos/Custo Operacional por Fornecedor
+        begin
+          MontarRelacaoClienteCredito;
+          frReport := frRelacaoClienteCredito;
+        end; *)
+      else
+        Exit;
+    end;
 
-    REPORT_RELACAO_CLIENTE_CREDITO:
-      begin
-        MontarRelacaoClienteCredito;
-        frReport := frRelacaoClienteCredito;
-      end;
+    inherited;
+  finally
+    Screen.Cursor         := crDefault;
+    btnVisualizar.Enabled := True;
   end;
-
-  inherited;
-
-  Screen.Cursor         := crDefault;
-  btnVisualizar.Enabled := True;
 end;
 
 procedure TfrmGeFornecedorImpressao.MontarRelacaoFornecedor;
@@ -143,9 +147,9 @@ begin
   inherited;
   FSQL_RelacaoFornecedor := TStringList.Create;
   FSQL_RelacaoFornecedor.AddStrings( QryRelacaoFornecedor.SQL );
-
+  (*
   FSQL_RelacaoCredito := TStringList.Create;
-  FSQL_RelacaoCredito.AddStrings( QryRelacaoClienteCredito.SQL );
+  FSQL_RelacaoCredito.AddStrings( QryRelacaoClienteCredito.SQL ); *)
 end;
 
 procedure TfrmGeFornecedorImpressao.CarregarCidades;
@@ -195,7 +199,7 @@ begin
       SQL.AddStrings( FSQL_RelacaoFornecedor );
       SQL.Add('where 1=1');
 
-      Case edTipoCliente.ItemIndex of
+      Case edTipoFornecedor.ItemIndex of
         1:
           SQL.Add('  and f.pessoa_fisica = 1');
         2:
@@ -223,7 +227,7 @@ begin
 end;
 
 procedure TfrmGeFornecedorImpressao.MontarRelacaoClienteCredito;
-begin
+begin (*
   try
     CdsRelacaoClienteCredito.Close;
 
@@ -259,7 +263,7 @@ begin
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
     end;
-  end;
+  end; *)
 end;
 
 initialization

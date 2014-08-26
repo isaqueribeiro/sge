@@ -8,8 +8,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
         Items.Strings = (
           'Rela'#231#227'o de Fornecedores Cadastrados'
           'Ficha Cadastral dos Fornecedores'
-          'Rela'#231#227'o de Fornecedores por Cidades'
-          'Rela'#231#227'o de Cr'#233'ditos/Custo Operacional por Fornecedor')
+          'Rela'#231#227'o de Fornecedores por Cidades')
       end
     end
     inherited GrpBxFiltro: TGroupBox
@@ -2928,7 +2927,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41557.397184305600000000
     ReportOptions.Name = 'Teste!'
-    ReportOptions.LastChange = 41863.935069340280000000
+    ReportOptions.LastChange = 41876.992225937500000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -3117,7 +3116,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
       end
       object BndPageFooter: TfrxPageFooter
         Height = 30.236240000000000000
-        Top = 589.606680000000000000
+        Top = 616.063390000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -3223,6 +3222,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
         Height = 192.756030000000000000
         Top = 249.448980000000000000
         Width = 718.110700000000000000
+        Child = frFichaFornecedor.FilhaEspaco
         DataSet = FrdsRelacaoFornecedor
         DataSetName = 'FrdsRelacaoFornecedor'
         RowCount = 0
@@ -3267,7 +3267,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
+          Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
@@ -3316,6 +3316,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 113.385900000000000000
           Top = 18.897650000000000000
           Width = 105.826840000000000000
@@ -3337,6 +3338,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 18.897650000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -3357,6 +3359,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 343.937230000000000000
           Top = 18.897650000000000000
           Width = 374.173470000000000000
@@ -3378,6 +3381,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 219.212740000000000000
           Top = 18.897650000000000000
           Width = 124.724490000000000000
@@ -3399,6 +3403,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 113.385900000000000000
           Top = 37.795300000000000000
           Width = 604.724800000000000000
@@ -3424,6 +3429,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 37.795300000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -3444,6 +3450,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 113.385900000000000000
           Top = 75.590600000000000000
           Width = 604.724800000000000000
@@ -3468,6 +3475,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 75.590600000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -3488,6 +3496,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -3511,6 +3520,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 113.385900000000000000
           Top = 113.385900000000000000
           Width = 343.937230000000000000
@@ -3534,6 +3544,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 113.385900000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -3554,6 +3565,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 521.575140000000000000
           Top = 113.385900000000000000
           Width = 196.535560000000000000
@@ -3577,6 +3589,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 457.323130000000000000
           Top = 113.385900000000000000
           Width = 64.252010000000000000
@@ -3598,6 +3611,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 113.385900000000000000
           Top = 151.181200000000000000
           Width = 604.724800000000000000
@@ -3619,6 +3633,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 151.181200000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -3639,6 +3654,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 170.078850000000000000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -3660,6 +3676,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 132.283550000000000000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -3680,6 +3697,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724800000000000000
@@ -3701,6 +3719,7 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          ShiftMode = smWhenOverlapped
           Top = 56.692950000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -3723,12 +3742,12 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         Height = 22.677180000000000000
-        Top = 464.882190000000000000
+        Top = 491.338900000000000000
         Width = 718.110700000000000000
       end
       object BndFooter: TfrxFooter
         Height = 18.897650000000000000
-        Top = 510.236550000000000000
+        Top = 536.693260000000000000
         Width = 718.110700000000000000
         object Memo18: TfrxMemoView
           Width = 718.110700000000000000
@@ -3744,6 +3763,11 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
             ' * Fornecedores cadastrados originalmente como clientes.')
           ParentFont = False
         end
+      end
+      object FilhaEspaco: TfrxChild
+        Height = 3.779527560000000000
+        Top = 464.882190000000000000
+        Width = 718.110700000000000000
       end
     end
   end

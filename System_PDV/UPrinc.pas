@@ -74,6 +74,7 @@ type
     nmVenda: TMenuItem;
     nmOrcamento: TMenuItem;
     nmPerfilAcesso: TMenuItem;
+    mnRegistroEstacao: TMenuItem;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -103,6 +104,7 @@ type
     procedure nmOrcamentoClick(Sender: TObject);
     procedure nmPerfilAcessoClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure mnRegistroEstacaoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -162,6 +164,15 @@ begin
     menuMovimentacao.Enabled := False;
     menuCaixa.Enabled        := False;
     btnVenda.Enabled         := False;
+  end;
+
+  if not SetAcessoEstacao(DMBusiness.IdIPWatch.LocalName) then
+  begin
+    ShowError('Estação de trabalho não registrada no sistema!');
+    menuCadastro.Enabled     := False;
+    menuMovimentacao.Enabled := False;
+    menuCaixa.Enabled        := False;
+    spbBarraAcessoRapido.Enabled := False;
   end;
 
   if GetUserUpdatePassWord then
@@ -405,6 +416,11 @@ end;
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
+end;
+
+procedure TfrmPrinc.mnRegistroEstacaoClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
 end;
 
 end.
