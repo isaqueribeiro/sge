@@ -399,6 +399,7 @@ type
     procedure nmImprimirNotaEntregaClick(Sender: TObject);
     procedure nmImprimirCartaCreditoClick(Sender: TObject);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
+    procedure nmPpLimparDadosNFeClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -2783,6 +2784,41 @@ end;
 procedure TfrmGeVenda.IbDtstTabelaAfterScroll(DataSet: TDataSet);
 begin
   HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeVenda.nmPpLimparDadosNFeClick(Sender: TObject);
+begin
+  if not IbDtstTabela.IsEmpty then
+  begin
+    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
+      Exit;
+
+    if ( IbDtstTabelaNFE.AsCurrency > 0 ) then
+      Exit;
+
+    if not ShowConfirmation('Limpar LOG', 'Confirma a limpeza do LOG de envio de NF-e para que esta seja enviada novamente?') then
+      Exit;
+
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Update TBVENDAS Set ');
+      SQL.Add('    LOTE_NFE_ANO    = null');
+      SQL.Add('  , LOTE_NFE_NUMERO = null');
+      SQL.Add('  , LOTE_NFE_RECIBO = null');
+      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
+      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+
+    RecarregarRegistro;
+
+    ShowInformation('Dados NF-e', 'LOG de envio de recibo NF-e limpo com sucesso!');
+  end;
 end;
 
 end.

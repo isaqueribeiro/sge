@@ -5285,7 +5285,7 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 313
     object nmPpLimparDadosNFe: TMenuItem
       Caption = 'Limpar LOG de Envio de NF-e'
-      Enabled = False
+      OnClick = nmPpLimparDadosNFeClick
     end
     object N2: TMenuItem
       Caption = '-'
