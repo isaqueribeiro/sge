@@ -1,4 +1,6 @@
 inherited frmGeMessage: TfrmGeMessage
+  Left = 638
+  Top = 322
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'frmGeMessage'

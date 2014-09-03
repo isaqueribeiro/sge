@@ -1258,6 +1258,8 @@ begin
 
   try
 
+    LerConfiguracao(sCNPJEmitente);
+
     if ( ACBrNFe.Configuracoes.WebServices.Ambiente = taHomologacao ) then
       if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGAÇÃO não tem validade nenhuma para a SEFA.' + #13#13 +
         'Deseja continuar assim mesmo?', 'Cancelar NF-e')) then
@@ -3528,6 +3530,8 @@ begin
   sLOG := TStringList.Create;
 
   try
+
+    LerConfiguracao(sCNPJEmitente);
 
     if ( ACBrNFe.Configuracoes.WebServices.Ambiente = taHomologacao ) then
       if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGAÇÃO não tem validade nenhuma para a SEFA.' + #13#13 +

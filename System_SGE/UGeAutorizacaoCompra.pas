@@ -714,9 +714,16 @@ begin
       dbQuantidade.SetFocus;
     end
     else
+    if ( cdsTabelaItensVALOR_UNITARIO.AsCurrency <= 0 ) then
+    begin
+      ShowWarning('Valor Unitário inválido.');
+      dbValorUn.SetFocus;
+    end
+    else
     if ( (cdsTabelaItensIPI_PERCENTUAL.AsCurrency < 0) or (cdsTabelaItensIPI_PERCENTUAL.AsCurrency > 100) ) then
     begin
       ShowWarning('Percentual do IPI inválido.');
+      dbPercentualIPI.Field.AsCurrency := 0.0;
       dbPercentualIPI.SetFocus;
     end
     else
@@ -748,6 +755,7 @@ begin
   cdsTabelaItensFORNECEDOR.Value := IbDtstTabelaFORNECEDOR.Value;
   cdsTabelaItensQUANTIDADE.Value := 1;
   cdsTabelaItensCONFIRMADO_RECEBIMENTO.Value := 0;
+  cdsTabelaItensVALOR_UNITARIO.AsCurrency    := 0.0;
   cdsTabelaItensIPI_PERCENTUAL.AsCurrency    := 0.0;
   cdsTabelaItensIPI_VALOR_TOTAL.AsCurrency   := 0.0;
   cdsTabelaItensUSUARIO.Value                := GetUserApp;
@@ -759,25 +767,11 @@ end;
 
 procedure TfrmGeAutorizacaoCompra.btnAutorizarCompraClick(
   Sender: TObject);
-(*
-  function QuantidadeInvalida : Boolean;
-  var
-    Return : Boolean;
-  begin
-    Return := False;
-
-    cdsTabelaItens.First;
-    while not cdsTabelaItens.Eof do
-    begin
-      Return := ( (cdsTabelaItensQUANTIDADE.AsInteger > cdsTabelaItensESTOQUE_SATELITE.AsInteger) or (cdsTabelaItensESTOQUE_SATELITE.AsInteger <= 0) );
-      if ( Return ) then
-        Break;
-      cdsTabelaItens.Next;
-    end;
-
-    Result := Return;
-  end;
-*)
+var
+  cTotalBruto   ,
+  cTotalIPI     ,
+  cTotalDesconto,
+  cTotalLiquido : Currency;
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
@@ -785,15 +779,21 @@ begin
   RecarregarRegistro;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
-(*
-  if ( QuantidadeInvalida ) then
+
+  ValidarToTais(cTotalBruto, cTotalIPI, cTotalDesconto, cTotalLiquido);
+
+  if ( IbDtstTabelaVALOR_TOTAL.AsCurrency <> cTotalLiquido ) then
   begin
-    ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', cdsTabelaItensITEM.AsInteger) + ' está acima da quantidade disponível no estoque satélite do cliente.');
-    if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
-      btnProdutoEditar.SetFocus;
-  end
-  else
-*)
+    ShowWarning('A soma dos valores totais dos itens (' +
+      FormatFloat('"R$ ",0.00', cTotalLiquido) +
+      ') não confere com o Valor Total da Autorização.' + #13#13 +
+      'Favor excute os seguintes procedimentos:' + #13 +
+      '1. Altere o registro para correção.'      + #13 +
+      '2. Salve a alteração realizada.'          + #13 +
+      '3. Finalize-o novamente.');
+    Abort;
+  end;
+
   if ( ShowConfirm('Confirma a autorização do registro selecionado?') ) then
   begin
     IbDtstTabela.Edit;
@@ -832,6 +832,8 @@ begin
   btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
   btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
   btnProdutoSalvar.Enabled  := ( cdsTabelaItens.State in [dsEdit, dsInsert] );
+
+  dbgProdutos.Enabled       := not (cdsTabelaItens.State in [dsEdit, dsInsert]);
 
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
     if ( dbProduto.Visible and dbProduto.Enabled ) then
@@ -1186,25 +1188,6 @@ end;
 
 procedure TfrmGeAutorizacaoCompra.btnFinalizarAutorizacaoClick(
   Sender: TObject);
-(*
-  function QuantidadeInvalida : Boolean;
-  var
-    Return : Boolean;
-  begin
-    Return := False;
-
-    cdsTabelaItens.First;
-    while not cdsTabelaItens.Eof do
-    begin
-      Return := ( (cdsTabelaItensQUANTIDADE.AsInteger > cdsTabelaItensESTOQUE_SATELITE.AsInteger) or (cdsTabelaItensESTOQUE_SATELITE.AsInteger <= 0) );
-      if ( Return ) then
-        Break;
-      cdsTabelaItens.Next;
-    end;
-
-    Result := Return;
-  end;
-*)
 var
   cTotalBruto   ,
   cTotalIPI     ,
@@ -1391,17 +1374,21 @@ begin
 
   cdsTabelaItens.First;
 
-  while not cdsTabelaItens.Eof do
-  begin
-    Total_Bruto := Total_Bruto + cdsTabelaItensVALOR_TOTAL.AsCurrency;
-    Total_IPI   := Total_IPI   + cdsTabelaItensIPI_VALOR_TOTAL.AsCurrency;
+  try
+    cdsTabelaItens.DisableControls;
+    while not cdsTabelaItens.Eof do
+    begin
+      Total_Bruto := Total_Bruto + cdsTabelaItensVALOR_TOTAL.AsCurrency;
+      Total_IPI   := Total_IPI   + cdsTabelaItensIPI_VALOR_TOTAL.AsCurrency;
 
-    cdsTabelaItens.Next;
+      cdsTabelaItens.Next;
+    end;
+
+    Total_Liquido  := (Total_Bruto + Total_IPI) - Total_Desconto;
+  finally
+    cdsTabelaItens.Locate('SEQ', Item, []);
+    cdsTabelaItens.EnableControls;
   end;
-
-  Total_Liquido  := (Total_Bruto + Total_IPI) - Total_Desconto;
-
-  cdsTabelaItens.Locate('SEQ', Item, []);
 end;
 
 initialization

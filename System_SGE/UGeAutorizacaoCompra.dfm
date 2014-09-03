@@ -2132,7 +2132,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_REQUISICAO_2013'
     Left = 680
-    Top = 368
+    Top = 392
     object IbDtstTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBAUTORIZA_COMPRA"."ANO"'
@@ -2400,7 +2400,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
     Left = 744
-    Top = 368
+    Top = 392
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2533,23 +2533,23 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA')
     Left = 712
-    Top = 368
+    Top = 392
   end
   inherited ImgList: TImageList
-    Left = 896
-    Top = 352
+    Left = 912
+    Top = 272
   end
   object tblEmpresa: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     TableName = 'TBEMPRESA'
-    Left = 928
-    Top = 352
+    Left = 944
+    Top = 272
   end
   object dtsEmpresa: TDataSource
     DataSet = tblEmpresa
-    Left = 960
-    Top = 352
+    Left = 976
+    Top = 272
   end
   object cdsTabelaItens: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -2584,7 +2584,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '')
     UpdateObject = IbUpdTabelaItens
     Left = 680
-    Top = 400
+    Top = 424
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBAUTORIZA_COMPRAITEM"."ANO"'
@@ -2767,7 +2767,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  EMPRESA = :OLD_EMPRESA and'
       '  SEQ = :OLD_SEQ')
     Left = 712
-    Top = 400
+    Top = 424
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
@@ -2775,7 +2775,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
     Left = 744
-    Top = 400
+    Top = 424
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
@@ -2813,13 +2813,13 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Transaction = DMBusiness.ibtrnsctnBusiness
     TableName = 'VW_TIPO_AUTORIZACAO'
     TableTypes = [ttView]
-    Left = 928
-    Top = 384
+    Left = 944
+    Top = 304
   end
   object dtsTipoAutorizacao: TDataSource
     DataSet = tblTipoAutorizacao
-    Left = 960
-    Top = 384
+    Left = 976
+    Top = 304
   end
   object tblFormaPagto: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -2864,26 +2864,26 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       end>
     StoreDefs = True
     TableName = 'TBFORMPAGTO'
-    Left = 928
-    Top = 416
+    Left = 944
+    Top = 336
   end
   object dtsFormaPagto: TDataSource
     DataSet = tblFormaPagto
-    Left = 960
-    Top = 416
+    Left = 976
+    Top = 336
   end
   object tblCondicaoPagto: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     TableName = 'VW_CONDICAOPAGTO'
     TableTypes = [ttView]
-    Left = 928
-    Top = 448
+    Left = 944
+    Top = 368
   end
   object dtsCondicaoPagto: TDataSource
     DataSet = tblCondicaoPagto
-    Left = 960
-    Top = 448
+    Left = 976
+    Top = 368
   end
   object cdsTransportador: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -2901,12 +2901,12 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '    f.nomeforn')
     ModifySQL.Strings = (
       '')
-    Left = 928
-    Top = 480
+    Left = 944
+    Top = 400
   end
   object dtsTransportador: TDataSource
     DataSet = cdsTransportador
-    Left = 960
-    Top = 480
+    Left = 976
+    Top = 400
   end
 end

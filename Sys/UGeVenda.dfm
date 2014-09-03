@@ -1982,7 +1982,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 424
         Width = 1108
         Height = 190
-        ActivePage = tbsITitulos
+        ActivePage = TbsInformeNFe
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet
@@ -2906,6 +2906,411 @@ inherited frmGeVenda: TfrmGeVenda
               end>
           end
         end
+        object TbsInformeNFe: TTabSheet
+          Caption = 'Informa'#231#245'es de Envio NF-e'
+          ImageIndex = 3
+          object lblLogNFeLote: TLabel
+            Left = 8
+            Top = 0
+            Width = 78
+            Height = 13
+            Caption = 'Lote de Envio:'
+            FocusControl = dbLogNFeLote
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeLoteDataEmissao: TLabel
+            Left = 112
+            Top = 0
+            Width = 112
+            Height = 13
+            Caption = 'Data/Hora Emiss'#227'o:'
+            FocusControl = d1LogNFeLoteDataEmissao
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeLoteChave: TLabel
+            Left = 728
+            Top = 0
+            Width = 38
+            Height = 13
+            Caption = 'Chave:'
+            FocusControl = dbLogNFeLoteChave
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeLoteRecibo: TLabel
+            Left = 264
+            Top = 0
+            Width = 41
+            Height = 13
+            Caption = 'Recibo:'
+            FocusControl = dbLogNFeLoteRecibo
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeLoteProtocolo: TLabel
+            Left = 408
+            Top = 0
+            Width = 57
+            Height = 13
+            Caption = 'Protocolo:'
+            FocusControl = dbLogNFeLoteProtocolo
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeLoteArquivo: TLabel
+            Left = 200
+            Top = 40
+            Width = 124
+            Height = 13
+            Caption = 'Nome do arquivo XML:'
+            FocusControl = dbLogNFeLoteArquivo
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeCancelMotivo: TLabel
+            Left = 728
+            Top = 40
+            Width = 142
+            Height = 13
+            Caption = 'Motivo de cancelamento:'
+            FocusControl = dbLogNFeCancelMotivo
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeCancelUsuario: TLabel
+            Left = 568
+            Top = 40
+            Width = 83
+            Height = 13
+            Caption = 'Cancelada por:'
+            FocusControl = dbLogNFeCancelUsuario
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeCancelData: TLabel
+            Left = 568
+            Top = 80
+            Width = 82
+            Height = 13
+            Caption = 'Cancelada em:'
+            FocusControl = dbLogNFeCancelData
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblLogNFeUsuario: TLabel
+            Left = 568
+            Top = 0
+            Width = 66
+            Height = 13
+            Caption = 'Gerada por:'
+            FocusControl = dbLogNFeUsuario
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object BtnLimparDadosNFe: TSpeedButton
+            Left = 8
+            Top = 48
+            Width = 185
+            Height = 30
+            Hint = 'Limpar LOG de Envio'
+            Caption = 'Limpar LOG de Envio'
+            Flat = True
+            Glyph.Data = {
+              36060000424D3606000000000000360000002800000020000000100000000100
+              18000000000000060000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A090604830
+              604830604830604830604830604830604830604830604830604830604830FFFF
+              FFFFFFFFFFFFFFFFFFFF8F9EAD33435733435733435733435733435733435733
+              4357334357334357334357334357FFFFFFFFFFFFFFFFFFFFFFFFC0A890FFF8F0
+              FFF0E0F0E8E0F0E0D0F0D0C0F0C8B0E0C0A0E0B8A0E0B090E0A890604830FFFF
+              FFFFFFFFFFFFFFFFFFFF95A3B2F4F6F7E8ECEFE1E6EAD6DDE3C5CED6BBC5CFAE
+              BAC6A9B5C19DABB999A7B5334357FFFFFFFFFFFFFFFFFFFFFFFFC0A8A0FFFFF0
+              C0A8A0B0A0A0F0E8E0B0A090B09890B09890B09890B09890E0B090604830FFFF
+              FFFFFFFFFFFFFFFFFFFF9AA8B6F9FAFA9AA8B692A1B0E1E6EA8E9DAC8998A889
+              98A88998A88998A89DABB9334357FFFFFFFFFFFFFFFFFFFFFFFFC0A8A0FFFFF0
+              FFFFF0FFF8F0FFF0E0F0E8E0F0E0D0F0D0C0F0C8B0E0C0A0E0B8A0604830FFFF
+              FFFFFFFFFFFFFFFFFFFF9AA8B6F9FAFAF9FAFAF4F6F7E8ECEFE1E6EAD6DDE3C5
+              CED6BBC5CFAEBAC6A9B5C1334357FFFFFFFFFFFFFFFFFFFFFFFFC0A8A0FFFFF0
+              B0A8A0B0A0A0FFF8F0B0A090B09890B09890B09890B09890E0C0A0604830FFFF
+              FFFFFFFFFFFFFFFFFFFF9AA8B6F9FAFA98A6B492A1B0F4F6F78E9DAC8998A889
+              98A88998A88998A8AEBAC6334357FFFFFFFFFFFFFFFFFFFFFFFFC0B0A0FFFFF0
+              FFFFF0FFFFF0FFFFF0FFF8F0FFF0E0F0E8E0F0E0D0F0D0C0F0C8B0604830FFFF
+              FFFFFFFFFFFFFFFFFFFFA0ADBAF9FAFAF9FAFAF9FAFAF9FAFAF4F6F7E8ECEFE1
+              E6EAD6DDE3C5CED6BBC5CF334357FFFFFFFFFFFFFFFFFFFFFFFFC0B0A0FFFFF0
+              FFFFF0FFFFF0FFFFF0FFFFF0FFF8F0C0C8C0406070F0E0D0F0D0C0604830FFFF
+              FFFFFFFFFFFFFFFFFFFFA0ADBAF9FAFAF9FAFAF9FAFAF9FAFAF9FAFAF4F6F7B9
+              C4CE4F6175D6DDE3C5CED6334357FFFFFFFFFFFFFFFFFFFFFFFFC0B0A0FFFFFF
+              E0E8F0607880E0E0E0FFFFF0C0C8D050607030A8D0203840B0A0A0604830FFFF
+              FFFFFFFFA0B39A408050A0ADBAFFFFFFE4E9ED66778ADAE0E5F9FAFABFC9D250
+              627698A6B428374A92A1B0334357FFFFFFFFFFFF9BA9B7586A7ED0B0A0FFFFFF
+              90A8B080D0E0506070B0B8C050607060C0E050607030B8F01028301030401028
+              3070747D40784050A860A1AEBBFFFFFF99A7B5C1CBD4506276ADB9C5506276B3
+              BEC9506276ADB9C51A27382331441A27386576894E607477889AD0B8A0FFFFFF
+              E0E8F090A8B080E0F050607080D0E050607060D0F040607030B0E02098D02088
+              B020507050886050B060A6B3C0FFFFFFE4E9ED99A7B5D2D9E0506276C1CBD450
+              6276C3CCD54F6175A2AFBC8C9BAB77889A4354686475887D8D9ED0B8A0D0B8A0
+              D0B8A0C0B0A090A8B080E0F050607080E0F040587060D0F050C8F040C0F020B0
+              E020A0D060987050B870A6B3C0A6B3C0A6B3C0A0ADBA99A7B5D2D9E0506276D2
+              D9E04B5C70C3CCD5BCC6D0B4BFCAA0ADBA909FAE7485978696A6FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFF90A8B080E0F040587080E0F070D8F060D0F050C8F040C0
+              F030B8F070A88060C080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF99A7B5D2D9E04B
+              5C70D2D9E0CBD3DBC3CCD5BCC6D0B4BFCAADB9C58595A592A1B0FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFF90A8B080E0F080E0F080E0F070D8F060D0F060B0
+              D0808890B0C0A090D0A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF99A7B5D2
+              D9E0D2D9E0D2D9E0CBD3DBC3CCD5A3B0BD78899BA7B4C0AEBAC6FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF90A8B090A0B090A0A08098A08090A08088
+              90B9B9BDA0B8A0B0C0A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF99
+              A7B593A2B18F9EAD8797A78292A378899BAEBAC6A1AEBBA7B4C0FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+            NumGlyphs = 2
+            OnClick = nmPpLimparDadosNFeClick
+          end
+          object dbLogNFeLote: TDBEdit
+            Left = 8
+            Top = 16
+            Width = 97
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'LOTE_NFE_NUMERO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+          end
+          object d1LogNFeLoteDataEmissao: TDBEdit
+            Left = 112
+            Top = 16
+            Width = 81
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'DATAEMISSAO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 1
+          end
+          object d2LogNFeLoteDataEmissao: TDBEdit
+            Left = 200
+            Top = 16
+            Width = 57
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'HORAEMISSAO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object dbLogNFeLoteChave: TDBEdit
+            Left = 728
+            Top = 16
+            Width = 361
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'CHAVE'
+            DataSource = dtsNFE
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 6
+          end
+          object dbLogNFeLoteRecibo: TDBEdit
+            Left = 264
+            Top = 16
+            Width = 137
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'LOTE_NFE_RECIBO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 3
+          end
+          object dbLogNFeLoteProtocolo: TDBEdit
+            Left = 408
+            Top = 16
+            Width = 153
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'PROTOCOLO'
+            DataSource = dtsNFE
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 4
+          end
+          object dbLogNFeLoteArquivo: TDBEdit
+            Left = 200
+            Top = 56
+            Width = 361
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'XML_FILENAME'
+            DataSource = dtsNFE
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 7
+          end
+          object dbLogNFeCancelMotivo: TDBMemo
+            Left = 728
+            Top = 56
+            Width = 361
+            Height = 61
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'CANCEL_MOTIVO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            ScrollBars = ssVertical
+            TabOrder = 10
+          end
+          object dbLogNFeCancelUsuario: TDBEdit
+            Left = 568
+            Top = 56
+            Width = 153
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'CANCEL_USUARIO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 8
+          end
+          object dbLogNFeCancelData: TDBEdit
+            Left = 568
+            Top = 96
+            Width = 153
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'CANCEL_DATAHORA'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 9
+          end
+          object dbLogNFeUsuario: TDBEdit
+            Left = 568
+            Top = 16
+            Width = 153
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'USUARIO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 5
+          end
+        end
       end
       object dbgProdutos: TDBGrid
         Left = 0
@@ -3062,6 +3467,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , v.Nfe_enviada'
       '  , v.Dataemissao'
       '  , v.Horaemissao'
+      '  , v.Cancel_usuario'
       '  , v.Cancel_datahora'
       '  , v.Cancel_motivo'
       '  , v.Cfop'
@@ -3249,13 +3655,21 @@ inherited frmGeVenda: TfrmGeVenda
       FieldName = 'CFOP'
       Origin = 'TBVENDAS.CFOP'
     end
+    object IbDtstTabelaCANCEL_USUARIO: TIBStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = '"TBVENDAS"."CANCEL_USUARIO"'
+      ProviderFlags = []
+      Size = 50
+    end
     object IbDtstTabelaCANCEL_DATAHORA: TDateTimeField
       FieldName = 'CANCEL_DATAHORA'
       Origin = 'TBVENDAS.CANCEL_DATAHORA'
+      ProviderFlags = []
     end
     object IbDtstTabelaCANCEL_MOTIVO: TMemoField
       FieldName = 'CANCEL_MOTIVO'
       Origin = 'TBVENDAS.CANCEL_MOTIVO'
+      ProviderFlags = []
       BlobType = ftMemo
       Size = 8
     end
@@ -5379,5 +5793,10 @@ inherited frmGeVenda: TfrmGeVenda
       '')
     Left = 960
     Top = 512
+  end
+  object dtsNFE: TDataSource
+    DataSet = qryNFE
+    Left = 1056
+    Top = 176
   end
 end

@@ -338,6 +338,31 @@ type
     cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
     nmImprimirNotaEntrega: TMenuItem;
     nmImprimirCartaCredito: TMenuItem;
+    TbsInformeNFe: TTabSheet;
+    dbLogNFeLote: TDBEdit;
+    lblLogNFeLote: TLabel;
+    d1LogNFeLoteDataEmissao: TDBEdit;
+    lblLogNFeLoteDataEmissao: TLabel;
+    d2LogNFeLoteDataEmissao: TDBEdit;
+    lblLogNFeLoteChave: TLabel;
+    dbLogNFeLoteChave: TDBEdit;
+    lblLogNFeLoteRecibo: TLabel;
+    dbLogNFeLoteRecibo: TDBEdit;
+    dtsNFE: TDataSource;
+    lblLogNFeLoteProtocolo: TLabel;
+    dbLogNFeLoteProtocolo: TDBEdit;
+    lblLogNFeLoteArquivo: TLabel;
+    dbLogNFeLoteArquivo: TDBEdit;
+    lblLogNFeCancelMotivo: TLabel;
+    dbLogNFeCancelMotivo: TDBMemo;
+    lblLogNFeCancelUsuario: TLabel;
+    dbLogNFeCancelUsuario: TDBEdit;
+    lblLogNFeCancelData: TLabel;
+    dbLogNFeCancelData: TDBEdit;
+    lblLogNFeUsuario: TLabel;
+    dbLogNFeUsuario: TDBEdit;
+    IbDtstTabelaCANCEL_USUARIO: TIBStringField;
+    BtnLimparDadosNFe: TSpeedButton;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -412,6 +437,7 @@ type
     procedure AbrirTabelaFormasPagto(const AnoVenda : Smallint; const ControleVenda : Integer);
     procedure AbrirTabelaVolume(const AnoVenda : Smallint; const ControleVenda : Integer);
     procedure AbrirTabelaTitulos(const AnoVenda : Smallint; const ControleVenda : Integer);
+    procedure AbrirNotaFiscal(const Empresa : String; const AnoVenda : Smallint; const ControleVenda : Integer);
     procedure GerarTitulos(const AnoVenda : Smallint; const ControleVenda : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure CarregarDadosCFOP( iCodigo : Integer );
@@ -901,6 +927,10 @@ begin
     nmImprimirCartaCredito.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
     nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+
+    TbsInformeNFe.TabVisible   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
+    nmPpLimparDadosNFe.Enabled := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
   end
   else
   begin
@@ -917,6 +947,10 @@ begin
     nmImprimirCartaCredito.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
     nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled   := False;
+
+    TbsInformeNFe.TabVisible   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
+    nmPpLimparDadosNFe.Enabled := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
   end;
 end;
 
@@ -954,6 +988,7 @@ begin
   AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 end;
 
 procedure TfrmGeVenda.btbtnExcluirClick(Sender: TObject);
@@ -982,6 +1017,7 @@ begin
       AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     end;
   end;
 end;
@@ -1082,24 +1118,28 @@ procedure TfrmGeVenda.btnProdutoSalvarClick(Sender: TObject);
   var
     Item : Integer;
   begin
-    Item         := cdsTabelaItensSEQ.AsInteger;
-    Total_Bruto    := 0.0;
-    Total_desconto := 0.0;
-    Total_Liquido  := 0.0;
+    try
+      Item         := cdsTabelaItensSEQ.AsInteger;
+      Total_Bruto    := 0.0;
+      Total_desconto := 0.0;
+      Total_Liquido  := 0.0;
 
-    cdsTabelaItens.First;
+      cdsTabelaItens.DisableControls;
+      cdsTabelaItens.First;
 
-    while not cdsTabelaItens.Eof do
-    begin
-      Total_Bruto    := Total_Bruto    + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
-      Total_desconto := Total_desconto + cdsTabelaItensTOTAL_DESCONTO.AsCurrency;
+      while not cdsTabelaItens.Eof do
+      begin
+        Total_Bruto    := Total_Bruto    + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
+        Total_desconto := Total_desconto + cdsTabelaItensTOTAL_DESCONTO.AsCurrency;
 
-      cdsTabelaItens.Next;
+        cdsTabelaItens.Next;
+      end;
+
+      Total_Liquido  := Total_Bruto - Total_desconto;
+    finally
+      cdsTabelaItens.Locate('SEQ', Item, []);
+      cdsTabelaItens.EnableControls;
     end;
-
-    Total_Liquido  := Total_Bruto - Total_desconto;
-
-    cdsTabelaItens.Locate('SEQ', Item, []);
   end;
 
 var
@@ -1254,6 +1294,7 @@ begin
       AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
       // Corrigir Total Forma Pagto
       
@@ -1327,6 +1368,7 @@ begin
   AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
   pgcMaisDados.ActivePage := tbsRecebimento;
   HabilitarDesabilitar_Btns;
@@ -1350,6 +1392,7 @@ begin
     AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     ZerarFormaPagto;
 
@@ -1383,6 +1426,7 @@ begin
       AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     end;
   end;
 end;
@@ -1495,27 +1539,31 @@ procedure TfrmGeVenda.btbtnFinalizarClick(Sender: TObject);
   var
     Return : Boolean;
   begin
-    Return := not GetPermitirVendaEstoqueInsEmpresa(IbDtstTabelaCODEMP.AsString); // Permitir vendas de produtos com estoque insuficiente
+    try
+      Return := not GetPermitirVendaEstoqueInsEmpresa(IbDtstTabelaCODEMP.AsString); // Permitir vendas de produtos com estoque insuficiente
 
-    if Return then
-    begin
-
-      cdsTabelaItens.First;
-      while not cdsTabelaItens.Eof do
+      if Return then
       begin
-        if ( cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger = 0 ) then // Produto não movimenta estoque
-          Return := False
-        else
-          Return := ( (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensESTOQUE.AsCurrency - cdsTabelaItensRESERVA.AsCurrency)) or (cdsTabelaItensESTOQUE.AsCurrency <= 0) );
 
-        if ( Return ) then
-          Break;
-        cdsTabelaItens.Next;
+        cdsTabelaItens.First;
+        cdsTabelaItens.DisableControls;
+        while not cdsTabelaItens.Eof do
+        begin
+          if ( cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger = 0 ) then // Produto não movimenta estoque
+            Return := False
+          else
+            Return := ( (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensESTOQUE.AsCurrency - cdsTabelaItensRESERVA.AsCurrency)) or (cdsTabelaItensESTOQUE.AsCurrency <= 0) );
+
+          if ( Return ) then
+            Break;
+          cdsTabelaItens.Next;
+        end;
+
       end;
-
+    finally
+      cdsTabelaItens.EnableControls;
+      Result := Return;
     end;
-
-    Result := Return;
   end;
 
 var
@@ -1727,11 +1775,7 @@ begin
 
       with qryNFE do
       begin
-        Close;
-        ParamByName('empresa').AsString   := IbDtstTabelaCODEMP.AsString;
-        ParamByName('anovenda').AsInteger := IbDtstTabelaANO.Value;
-        ParamByName('numvenda').AsInteger := IbDtstTabelaCODCONTROL.Value;
-        Open;
+        AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
         Append;
 
@@ -2816,8 +2860,22 @@ begin
     end;
 
     RecarregarRegistro;
+    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     ShowInformation('Dados NF-e', 'LOG de envio de recibo NF-e limpo com sucesso!');
+  end;
+end;
+
+procedure TfrmGeVenda.AbrirNotaFiscal(const Empresa : String ;const AnoVenda: Smallint;
+  const ControleVenda: Integer);
+begin
+  with qryNFE do
+  begin
+    Close;
+    ParamByName('empresa').AsString   := Empresa;
+    ParamByName('anovenda').AsInteger := AnoVenda;
+    ParamByName('numvenda').AsInteger := ControleVenda;
+    Open;
   end;
 end;
 
