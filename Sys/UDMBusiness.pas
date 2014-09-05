@@ -277,6 +277,7 @@ var
   function GetCfopNome(const iCodigo : Integer) : String;
   function GetCfopEntradaNomeDefault : String;
   function GetEmpresaNomeDefault : String;
+  function GetEmpresaNome(const sCNPJEmpresa : String) : String;
   function GetEmpresaEnderecoDefault : String;
   function GetEmpresaEndereco(const sCNPJEmitente : String) : String;
   function GetClienteNomeDefault : String;
@@ -1963,19 +1964,24 @@ begin
   end;
 end;
 
-function GetEmpresaNomeDefault : String;
+function GetEmpresaNome(const sCNPJEmpresa : String) : String;
 begin
   with DMBusiness, qryBusca do
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select rzsoc from TBEMPRESA where Cnpj = ' + QuotedStr(GetEmpresaIDDefault));
+    SQL.Add('Select rzsoc from TBEMPRESA where Cnpj = ' + QuotedStr(sCNPJEmpresa));
     Open;
 
     Result := FieldByName('rzsoc').AsString;
 
     Close;
   end;
+end;
+
+function GetEmpresaNomeDefault : String;
+begin
+  Result := GetEmpresaNome(GetEmpresaIDDefault);
 end;
 
 function GetEmpresaEnderecoDefault : String;

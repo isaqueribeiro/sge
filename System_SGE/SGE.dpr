@@ -60,7 +60,6 @@ uses
   UGeEntradaEstoqueCancelar in '..\Sys\UGeEntradaEstoqueCancelar.pas' {frmGeEntradaEstoqueCancelar},
   UEnviarLoteNFe in '..\Sys\UEnviarLoteNFe.pas' {frmEnviarLoteNFe},
   UGeTipoDespesa in '..\Sys\UGeTipoDespesa.pas' {frmGeTipoDespesa},
-  UGrUsuarioAcesso in 'UGrUsuarioAcesso.pas' {frmGrUsuarioAcesso},
   UGeVendaCancelar in '..\Sys\UGeVendaCancelar.pas' {frmGeVendaCancelar},
   ChkDgVer in '..\Sys\lib\ChkDgVer.pas',
   UGrCampoRequisitado in '..\Sys\lib\UGrCampoRequisitado.pas' {frmCampoRequisitado},

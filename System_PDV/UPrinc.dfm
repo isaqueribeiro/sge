@@ -21168,6 +21168,9 @@ object frmPrinc: TfrmPrinc
         Caption = 'Registros de Esta'#231#245'es de Trabalho'
         OnClick = mnRegistroEstacaoClick
       end
+      object N1: TMenuItem
+        Caption = '-'
+      end
       object nmAbout: TMenuItem
         Bitmap.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100

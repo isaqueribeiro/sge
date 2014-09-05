@@ -418,6 +418,7 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
         '    (:entradas = 1 and nfe.anocompra is not null) or (:saidas = ' +
         '1 and nfe.anovenda is not null)'
       '  ))'
+      '  and (nfe.empresa = :empresa)'
       '  and (1 = 1)'
       ''
       'order by'

@@ -169,7 +169,7 @@ begin
 
     Clear;
     AddStrings( FSQLChaveNFE );
-    Add('where (1 = 1)');
+    Add('where (nf.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
     Add('and nf.dataemissao between ' +
       QuotedStr(FormatDateTime('yyyy-mm-dd', edDataInicial.Date)) + ' and ' +
       QuotedStr(FormatDateTime('yyyy-mm-dd', edDataFinal.Date)) );

@@ -91,8 +91,16 @@ begin
 end;
 
 procedure TFrmEfetuarLogin.BtnEntrarClick(Sender: TObject);
+var
+  sCNPJ : String;
 begin
+  if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
+    sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
+  else
+    sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
+
 //  inherited;
+
   if EfetuarLogin then
   begin
     SetEmpresaIDDefault( Empresa );
@@ -102,6 +110,8 @@ begin
     gUsuarioLogado.Funcao   := GetUserFunctionID;
     gUsuarioLogado.Empresa  := Empresa;
     gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
+
+    frmPrinc.stbMain.Panels.Items[2].Text  := Format('[%s] Licenciado a empresa %s, %s', [GetEmpresaNomeDefault, gLicencaSistema.Empresa, sCNPJ]);
 
     ModalResult := mrOk;
   end

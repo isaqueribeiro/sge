@@ -140,16 +140,3 @@ Contacts=(91) 9146.0444 / 3295.3390
 Owner=Isaque Marinho Ribeiro
 SplashName=
 SplashDescription=
-Todos os direitos reservados.
-[HistoryLists\hlConditionals]
-Count=1
-Item0=ACBR
-[HistoryLists\hlUnitAliases]
-Count=1
-Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
-[HistoryLists\hlUnitOutputDirectory]
-Count=1
-Item0=..\_dcu\
-[HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=..\Bin\

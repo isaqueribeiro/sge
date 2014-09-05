@@ -588,9 +588,18 @@ const
   DIRECTORY_PRINT  = 'NFe\Imprimir\';
   DIRECTORY_CLIENT = 'NFe\Clientes\';
 
-  PROCESSO_NFE_AUTORIZADA  = 100;
-  PROCESSO_NFE_LOTE_PROCES = 103; // Processo: Lote recebido com Sucesso
+  PROCESSO_NFE_AUTORIZADA   = 100;
+  PROCESSO_NFE_LOTE_PROCES  = 103; // Processo: Lote recebido com Sucesso
+  PROCESSO_NFE_USO_DENEGADO = 110; // Processo: Uso denegado
+
   REJEICAO_NFE_DUPLICIDADE = 204;
+
+  REJEICAO_NFE_NOTA_DENEGADA     = 205; // Rejeicao: NF-e esta denegada na base de dados da SEFAZ
+  REJEICAO_NFE_IE_NAO_CADASTRADO = 233; // Rejeicao: IE do destinatario nao cadastrada
+  REJEICAO_NFE_IE_NAO_VINCULADO  = 234; // Rejeicao: IE do destinatario nao vinculada ao CNPJ
+  REJEICAO_NFE_IRREG_FISCO_EMIT  = 301; // Rejeição: Uso Denegado: Irregularidade fiscal do emitente
+  REJEICAO_NFE_IRREG_FISCO_DEST  = 302; // Rejeição: Uso Denegado: Irregularidade fiscal do destinatario
+
   REJEICAO_NFE_DESCOMPACT  = 416; // Rejeição: Falha na descompactação da área de dados
   REJEICAO_NFE_BC_ICMS_ERR = 531; // Rejeição: Total da BC ICMS difere do somatório dos itens
   REJEICAO_NFE_TO_ICMS_ERR = 532; // Rejeição: Total do ICMS difere do somatório dos itens
@@ -1184,7 +1193,7 @@ begin
 
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
-          REJEICAO_NFE_DUPLICIDADE:
+          REJEICAO_NFE_DUPLICIDADE, REJEICAO_NFE_NOTA_DENEGADA:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
               UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
@@ -2520,7 +2529,7 @@ begin
 
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
-          REJEICAO_NFE_DUPLICIDADE:
+          REJEICAO_NFE_DUPLICIDADE, REJEICAO_NFE_NOTA_DENEGADA:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
               UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);

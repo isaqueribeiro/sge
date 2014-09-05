@@ -363,6 +363,8 @@ type
     dbLogNFeUsuario: TDBEdit;
     IbDtstTabelaCANCEL_USUARIO: TIBStringField;
     BtnLimparDadosNFe: TSpeedButton;
+    IbDtstTabelaNFE_DENEGADA: TSmallintField;
+    IbDtstTabelaNFE_DENEGADA_MOTIVO: TIBStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -626,6 +628,7 @@ begin
   IbDtstTabelaTOTALVENDA.Value        := 0;
   IbDtstTabelaGERAR_ESTOQUE_CLIENTE.Value := 0;
   IbDtstTabelaNFE_ENVIADA.Value           := 0;
+  IbDtstTabelaNFE_DENEGADA.Value          := 0;
   IbDtstTabelaNFE_MODALIDADE_FRETE.Value  := MODALIDADE_FRETE_SEMFRETE;
   IbDtstTabelaUSUARIO.Value     := GetUserApp;
 
@@ -653,6 +656,7 @@ begin
   IbDtstTabelaLOTE_NFE_ANO.Clear;
   IbDtstTabelaLOTE_NFE_NUMERO.Clear;
   IbDtstTabelaNFE_TRANSPORTADORA.Clear;
+  IbDtstTabelaNFE_DENEGADA_MOTIVO.Clear;
 
   IbDtstTabelaNFE_TRANSPORTADORA.Required := False;
   IbDtstTabelaNFE_PLACA_VEICULO.Required  := False;

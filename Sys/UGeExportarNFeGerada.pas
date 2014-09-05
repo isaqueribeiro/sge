@@ -98,6 +98,7 @@ begin
       ParamByName('todas').AsInteger     := 0;
       ParamByName('entradas').AsInteger  := 0;
       ParamByName('saidas').AsInteger    := 0;
+      ParamByName('empresa').AsString    := GetEmpresaIDDefault;
 
       Case GrpBxTipoNFe.ItemIndex of
         0 : ParamByName('todas').AsInteger    := 1;

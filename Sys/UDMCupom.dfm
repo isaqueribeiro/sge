@@ -35,6 +35,8 @@ object DMCupom: TDMCupom
       '  , v.Lote_nfe_numero'
       '  , v.Lote_nfe_Recibo'
       '  , v.Nfe_enviada'
+      '  , v.Nfe_denegada'
+      '  , v.Nfe_denegada_motivo'
       '  , v.Dataemissao'
       '  , v.Horaemissao'
       '  , v.Cancel_datahora'
@@ -214,6 +216,17 @@ object DMCupom: TDMCupom
     object cdsVendaNFE_ENVIADA: TSmallintField
       FieldName = 'NFE_ENVIADA'
       Origin = 'TBVENDAS.NFE_ENVIADA'
+    end
+    object cdsVendaNFE_DENEGADA: TSmallintField
+      FieldName = 'NFE_DENEGADA'
+      Origin = '"TBVENDAS"."NFE_DENEGADA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField
+      FieldName = 'NFE_DENEGADA_MOTIVO'
+      Origin = '"TBVENDAS"."NFE_DENEGADA_MOTIVO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
     end
     object cdsVendaDATAEMISSAO: TDateField
       DisplayLabel = 'D. Emiss'#227'o'
@@ -437,10 +450,13 @@ object DMCupom: TDMCupom
       '  CODCLIENTE,'
       '  CODCLI,'
       '  DTVENDA,'
+      '  COMPETENCIA,'
       '  STATUS,'
       '  TOTALVENDA_BRUTA,'
       '  DESCONTO,'
+      '  DESCONTO_CUPOM,'
       '  TOTALVENDA,'
+      '  TOTALCUSTO,'
       '  DTFINALIZACAO_VENDA,'
       '  OBS,'
       '  FORMAPAG,'
@@ -471,7 +487,10 @@ object DMCupom: TDMCupom
       '  PRAZO_12,'
       '  LOTE_NFE_ANO,'
       '  LOTE_NFE_NUMERO,'
+      '  LOTE_NFE_RECIBO,'
       '  NFE_ENVIADA,'
+      '  NFE_DENEGADA,'
+      '  NFE_DENEGADA_MOTIVO,'
       '  CANCEL_USUARIO,'
       '  CANCEL_DATAHORA,'
       '  CANCEL_MOTIVO,'
@@ -494,7 +513,11 @@ object DMCupom: TDMCupom
       '  NFE_VALOR_PIS,'
       '  NFE_VALOR_COFINS,'
       '  NFE_VALOR_OUTROS,'
-      '  NFE_VALOR_TOTAL_NOTA'
+      '  NFE_VALOR_TOTAL_NOTA,'
+      '  CUSTO_OPER_PERCENTUAL,'
+      '  CUSTO_OPER_FRETE,'
+      '  CUSTO_OPER_OUTROS,'
+      '  GERAR_ESTOQUE_CLIENTE'
       'from TBVENDAS '
       'where'
       '  ANO = :ANO and'
@@ -506,8 +529,8 @@ object DMCupom: TDMCupom
       '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
       '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
       '  CFOP = :CFOP,'
-      '  CODCLIENTE = :CODCLIENTE,'
       '  CODCLI = :CODCLI,'
+      '  CODCLIENTE = :CODCLIENTE,'
       '  CODCONTROL = :CODCONTROL,'
       '  CODEMP = :CODEMP,'
       '  CONDICAOPAGTO_COD = :CONDICAOPAGTO_COD,'
@@ -519,10 +542,14 @@ object DMCupom: TDMCupom
       '  FATDIAS = :FATDIAS,'
       '  FORMAPAG = :FORMAPAG,'
       '  FORMAPAGTO_COD = :FORMAPAGTO_COD,'
+      '  GERAR_ESTOQUE_CLIENTE = :GERAR_ESTOQUE_CLIENTE,'
       '  HORAEMISSAO = :HORAEMISSAO,'
       '  LOTE_NFE_ANO = :LOTE_NFE_ANO,'
       '  LOTE_NFE_NUMERO = :LOTE_NFE_NUMERO,'
+      '  LOTE_NFE_RECIBO = :LOTE_NFE_RECIBO,'
       '  NFE = :NFE,'
+      '  NFE_DENEGADA = :NFE_DENEGADA,'
+      '  NFE_DENEGADA_MOTIVO = :NFE_DENEGADA_MOTIVO,'
       '  NFE_ENVIADA = :NFE_ENVIADA,'
       '  NFE_MODALIDADE_FRETE = :NFE_MODALIDADE_FRETE,'
       '  NFE_PLACA_RNTC = :NFE_PLACA_RNTC,'
@@ -551,63 +578,68 @@ object DMCupom: TDMCupom
       '  VENDEDOR_COD = :VENDEDOR_COD,'
       '  VERIFICADOR_NFE = :VERIFICADOR_NFE,'
       '  XML_NFE = :XML_NFE,'
-      '  XML_NFE_FILENAME = :XML_NFE_FILENAME,'
-      '  GERAR_ESTOQUE_CLIENTE =:GERAR_ESTOQUE_CLIENTE'
+      '  XML_NFE_FILENAME = :XML_NFE_FILENAME'
       'where'
       '  ANO = :OLD_ANO and'
       '  CODCONTROL = :OLD_CODCONTROL')
     InsertSQL.Strings = (
       'insert into TBVENDAS'
       
-        '  (ANO, CANCEL_DATAHORA, CANCEL_MOTIVO, CFOP, CODCLIENTE, CODCLI' +
-        ', CODCONTROL, CODEMP, '
+        '  (ANO, CANCEL_DATAHORA, CANCEL_MOTIVO, CFOP, CODCLI, CODCLIENTE' +
+        ', CODCONTROL, '
       
-        '   CONDICAOPAGTO_COD, DATAEMISSAO, DESCONTO, DESCONTO_CUPOM, DTF' +
-        'INALIZACAO_VENDA, DTVENDA,'
+        '   CODEMP, CONDICAOPAGTO_COD, DATAEMISSAO, DESCONTO, DESCONTO_CU' +
+        'POM, DTFINALIZACAO_VENDA, '
       
-        '   FATDIAS, FORMAPAG, FORMAPAGTO_COD, HORAEMISSAO, LOTE_NFE_ANO,' +
-        ' LOTE_NFE_NUMERO,'
+        '   DTVENDA, FATDIAS, FORMAPAG, FORMAPAGTO_COD, GERAR_ESTOQUE_CLI' +
+        'ENTE, HORAEMISSAO, '
       
-        '   NFE, NFE_ENVIADA, NFE_MODALIDADE_FRETE, NFE_PLACA_RNTC, NFE_P' +
-        'LACA_UF,'
+        '   LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_RECIBO, NFE, NFE_DENE' +
+        'GADA, NFE_DENEGADA_MOTIVO, '
       
-        '   NFE_PLACA_VEICULO, NFE_TRANSPORTADORA, OBS, GERAR_ESTOQUE_CLI' +
-        'ENTE, PRAZO_01, PRAZO_02, PRAZO_03,'
+        '   NFE_ENVIADA, NFE_MODALIDADE_FRETE, NFE_PLACA_RNTC, NFE_PLACA_' +
+        'UF, NFE_PLACA_VEICULO, '
       
-        '   PRAZO_04, PRAZO_05, PRAZO_06, PRAZO_07, PRAZO_08, PRAZO_09, P' +
-        'RAZO_10,'
+        '   NFE_TRANSPORTADORA, OBS, PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_' +
+        '04, PRAZO_05, '
       
-        '   PRAZO_11, PRAZO_12, SERIE, STATUS, TOTALVENDA, TOTALVENDA_BRU' +
-        'TA, USUARIO,'
+        '   PRAZO_06, PRAZO_07, PRAZO_08, PRAZO_09, PRAZO_10, PRAZO_11, P' +
+        'RAZO_12, '
       
-        '   VENDA_PRAZO, VENDEDOR_COD, VERIFICADOR_NFE, XML_NFE, XML_NFE_' +
-        'FILENAME)'
+        '   SERIE, STATUS, TOTALVENDA, TOTALVENDA_BRUTA, USUARIO, VENDA_P' +
+        'RAZO, VENDEDOR_COD, '
+      '   VERIFICADOR_NFE, XML_NFE, XML_NFE_FILENAME)'
       'values'
       
-        '  (:ANO, :CANCEL_DATAHORA, :CANCEL_MOTIVO, :CFOP, :CODCLIENTE, :' +
-        'CODCLI, :CODCONTROL,'
+        '  (:ANO, :CANCEL_DATAHORA, :CANCEL_MOTIVO, :CFOP, :CODCLI, :CODC' +
+        'LIENTE, '
       
-        '   :CODEMP, :CONDICAOPAGTO_COD, :DATAEMISSAO, :DESCONTO, :DESCON' +
-        'TO_CUPOM, :DTFINALIZACAO_VENDA, '
+        '   :CODCONTROL, :CODEMP, :CONDICAOPAGTO_COD, :DATAEMISSAO, :DESC' +
+        'ONTO, :DESCONTO_CUPOM, '
       
-        '   :DTVENDA, :FATDIAS, :FORMAPAG, :FORMAPAGTO_COD, :HORAEMISSAO,' +
-        ' :LOTE_NFE_ANO, '
+        '   :DTFINALIZACAO_VENDA, :DTVENDA, :FATDIAS, :FORMAPAG, :FORMAPA' +
+        'GTO_COD, '
       
-        '   :LOTE_NFE_NUMERO, :NFE, :NFE_ENVIADA, :NFE_MODALIDADE_FRETE, ' +
-        ':NFE_PLACA_RNTC, '
+        '   :GERAR_ESTOQUE_CLIENTE, :HORAEMISSAO, :LOTE_NFE_ANO, :LOTE_NF' +
+        'E_NUMERO, '
       
-        '   :NFE_PLACA_UF, :NFE_PLACA_VEICULO, :NFE_TRANSPORTADORA, :OBS,' +
-        ' :GERAR_ESTOQUE_CLIENTE, :PRAZO_01, '
+        '   :LOTE_NFE_RECIBO, :NFE, :NFE_DENEGADA, :NFE_DENEGADA_MOTIVO, ' +
+        ':NFE_ENVIADA, '
       
-        '   :PRAZO_02, :PRAZO_03, :PRAZO_04, :PRAZO_05, :PRAZO_06, :PRAZO' +
-        '_07, :PRAZO_08, '
+        '   :NFE_MODALIDADE_FRETE, :NFE_PLACA_RNTC, :NFE_PLACA_UF, :NFE_P' +
+        'LACA_VEICULO, '
       
-        '   :PRAZO_09, :PRAZO_10, :PRAZO_11, :PRAZO_12, :SERIE, :STATUS, ' +
-        ':TOTALVENDA, '
+        '   :NFE_TRANSPORTADORA, :OBS, :PRAZO_01, :PRAZO_02, :PRAZO_03, :' +
+        'PRAZO_04, '
       
-        '   :TOTALVENDA_BRUTA, :USUARIO, :VENDA_PRAZO, :VENDEDOR_COD, :VE' +
-        'RIFICADOR_NFE, '
-      '   :XML_NFE, :XML_NFE_FILENAME)')
+        '   :PRAZO_05, :PRAZO_06, :PRAZO_07, :PRAZO_08, :PRAZO_09, :PRAZO' +
+        '_10, :PRAZO_11, '
+      
+        '   :PRAZO_12, :SERIE, :STATUS, :TOTALVENDA, :TOTALVENDA_BRUTA, :' +
+        'USUARIO, '
+      
+        '   :VENDA_PRAZO, :VENDEDOR_COD, :VERIFICADOR_NFE, :XML_NFE, :XML' +
+        '_NFE_FILENAME)')
     DeleteSQL.Strings = (
       'delete from TBVENDAS'
       'where'

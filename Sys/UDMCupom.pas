@@ -150,6 +150,8 @@ type
     cdsVendaDESCONTO_CUPOM: TIBBCDField;
     cdsVendaDESCONTO_TOTAL: TCurrencyField;
     qryUltimoVenda: TIBDataSet;
+    cdsVendaNFE_DENEGADA: TSmallintField;
+    cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }

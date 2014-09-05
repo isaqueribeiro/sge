@@ -75,6 +75,7 @@ type
     nmOrcamento: TMenuItem;
     nmPerfilAcesso: TMenuItem;
     mnRegistroEstacao: TMenuItem;
+    N1: TMenuItem;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);

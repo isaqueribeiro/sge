@@ -72,6 +72,7 @@ type
     lblGravar: TLabel;
     pnlCaixaLivre: TPanel;
     actGravarOrcamento: TAction;
+    ImgLogoCanto: TImage;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -132,6 +133,7 @@ uses
 
 const
   COD_MLT = '*';
+  TIMER_CAIXA_LIVRE = 120;
 
 { TfrmGeVendaPDV }
 
@@ -168,7 +170,7 @@ end;
 procedure TfrmGeVendaPDV.tmrContadorTimer(Sender: TObject);
 begin
   lblData.Caption := FormatDateTime('dd/mm/yyyy', Date);
-  lblHora.Caption := FormatDateTime('hh:mm:ss', Time);
+  lblHora.Caption := FormatDateTime('hh:mm:ss', Time) + ' (' + IntToStr(pnlCaixaLivre.Tag) + ')';
 
   Case pnlCaixaLivre.Font.Color of
     clBlack : pnlCaixaLivre.Font.Color := clBlue;
@@ -176,7 +178,7 @@ begin
     clRed   : pnlCaixaLivre.Font.Color := clBlack;
   end;
 
-  pnlCaixaLivre.Visible := (pnlCaixaLivre.Tag > 180) and dtsVenda.DataSet.IsEmpty and (not VendaEstaAberta);
+  pnlCaixaLivre.Visible := (pnlCaixaLivre.Tag > TIMER_CAIXA_LIVRE) and dtsVenda.DataSet.IsEmpty and (not VendaEstaAberta);
 
   if not pnlCaixaLivre.Visible then
     pnlCaixaLivre.Tag := (pnlCaixaLivre.Tag + 1);
@@ -425,6 +427,7 @@ begin
       FieldByName('TOTALVENDA').Value        := 0;
       FieldByName('GERAR_ESTOQUE_CLIENTE').Value := 0;
       FieldByName('NFE_ENVIADA').Value           := 0;
+      FieldByName('NFE_DENEGADA').AsInteger      := 0;
       FieldByName('NFE_MODALIDADE_FRETE').Value  := MODALIDADE_FRETE_SEMFRETE;
       FieldByName('USUARIO').Value               := GetUserApp;
 
@@ -449,6 +452,7 @@ begin
       FieldByName('LOTE_NFE_ANO').Clear;
       FieldByName('LOTE_NFE_NUMERO').Clear;
       FieldByName('NFE_TRANSPORTADORA').Clear;
+      FieldByName('NFE_DENEGADA_MOTIVO').Clear;
 
       CarregarDadosCFOP( FieldByName('CFOP').AsInteger );
 
@@ -946,14 +950,20 @@ begin
         FieldByName('NOME').Value       := edNomeCliente.Caption;
       end;
 
+      // Grava Venda
+
       TIBDataSet(DataSetVenda).Post;
       TIBDataSet(DataSetVenda).ApplyUpdates;
+
+      // Gravar Itens da Venda
 
       if (DataSetItens.State in [dsEdit, dsInsert]) then
         TIBDataSet(DataSetItens).Post;
 
       TIBDataSet(DataSetItens).ApplyUpdates;
 
+      // Gravar Forma de Pagamento da Venda
+      
       if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
         TIBDataSet(DataSetFormaPagto).Post;
 
@@ -978,11 +988,14 @@ begin
     edNomeFormaPagto.Tag     := iCodigo;
     edNomeFormaPagto.Caption := sNome;
 
-    if VendaEstaAberta and (not EstaEditando) then
+    if VendaEstaAberta then
     begin
-      DataSetVenda.Edit;
+      if (not EstaEditando) then
+        DataSetVenda.Edit;
+      
       DataSetFormaPagto.Edit;
       DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger := iCodigo;
+      DataSetFormaPagto.Post;
     end;  
   end;
 end;
