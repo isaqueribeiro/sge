@@ -511,6 +511,7 @@ inherited frmGeVendaCancelar: TfrmGeVendaCancelar
       '  , v.Lote_nfe_ano'
       '  , v.Lote_nfe_numero'
       '  , v.Nfe_enviada'
+      '  , v.Nfe_denegada'
       '  , v.Dataemissao'
       '  , v.Horaemissao'
       '  , v.Cancel_usuario'
@@ -602,6 +603,11 @@ inherited frmGeVendaCancelar: TfrmGeVendaCancelar
       FieldName = 'NFE_ENVIADA'
       Origin = 'TBVENDAS.NFE_ENVIADA'
       Required = True
+    end
+    object cdsVendaNFE_DENEGADA: TSmallintField
+      FieldName = 'NFE_DENEGADA'
+      Origin = '"TBVENDAS"."NFE_DENEGADA"'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsVendaDATAEMISSAO: TDateField
       FieldName = 'DATAEMISSAO'

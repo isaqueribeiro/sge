@@ -1295,6 +1295,11 @@ begin
 
     LerConfiguracao(sCNPJEmitente);
 
+    Result := ACBrNFe.WebServices.StatusServico.Executar;
+
+    if not Result then
+      Exit;
+
     if ( ACBrNFe.Configuracoes.WebServices.Ambiente = taHomologacao ) then
       if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGAÇÃO não tem validade nenhuma para a SEFA.' + #13#13 +
         'Deseja continuar assim mesmo?', 'Cancelar NF-e')) then
@@ -3567,6 +3572,11 @@ begin
   try
 
     LerConfiguracao(sCNPJEmitente);
+
+    Result := ACBrNFe.WebServices.StatusServico.Executar;
+
+    if not Result then
+      Exit;
 
     if ( ACBrNFe.Configuracoes.WebServices.Ambiente = taHomologacao ) then
       if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGAÇÃO não tem validade nenhuma para a SEFA.' + #13#13 +

@@ -60,6 +60,7 @@ type
     lblInforme: TLabel;
     cdsVendaDESCONTO: TIBBCDField;
     cdsVendaCODCLIENTE: TIntegerField;
+    cdsVendaNFE_DENEGADA: TSmallintField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -131,6 +132,14 @@ begin
   end
   else
   begin
+    (*
+      IMR - 09/09/2014 :
+        Tratamento de excessão para notas fiscal emitidas, mas de forma denegada. Com  este bloco de código alterado, as vendas associdas a
+        NF-e denegadas poderão ser canceladas, mas suas respectivas notas permanecerão ativas na SEFA.
+    *)
+    if ( cdsVendaNFE_DENEGADA.AsInteger = 1 ) then
+      sMsg := 'Esta venda possui Nota Fiscal de Saída Denegada e ao cancelar a venda a NF-e denegada permanecerá ativa na SEFA.'#13#13'Confirma o cancelamento da venda?'
+    else
     if ( cdsVendaSTATUS.AsInteger = STATUS_VND_NFE ) then
       sMsg := 'Esta venda possui Nota Fiscal de Saída Emitida e ao cancelar a venda a NF-e será cancelada.'#13#13'Confirma o cancelamento da venda?'
     else
@@ -139,29 +148,30 @@ begin
     Cont := ShowConfirm(sMsg);
 
     if ( Cont ) then
-      if ( cdsVendaSTATUS.AsInteger = STATUS_VND_NFE ) then
-      begin
-        if not GetConectedInternet then
+      if ( cdsVendaNFE_DENEGADA.AsInteger = 0 ) then
+        if ( cdsVendaSTATUS.AsInteger = STATUS_VND_NFE ) then
         begin
-          ShowWarning('Estação de trabalho sem acesso a Internet!');
-          Exit;
+          if not GetConectedInternet then
+          begin
+            ShowWarning('Estação de trabalho sem acesso a Internet!');
+            Exit;
+          end;
+
+          if not GetEstacaoEmitiNFe then
+          begin
+            ShowWarning('Estação de trabalho não habilitada para cancelar Venda/NFe!');
+            Exit;
+          end;
+
+          if not DMNFe.GetValidadeCertificado then
+            Exit;
+
+          lblInforme.Caption := 'Cancelando NF-e junto a SEFA. Aguarde . . . ';
+          Application.ProcessMessages;
+
+          Cont := DMNFe.CancelarNFeACBr( cdsVendaCODEMP.AsString, cdsVendaCODCLIENTE.AsInteger,
+                  cdsVendaANO.AsInteger, cdsVendaCODCONTROL.AsInteger, UpperCase(Trim(dbMotivo.Lines.Text)) );
         end;
-
-        if not GetEstacaoEmitiNFe then
-        begin
-          ShowWarning('Estação de trabalho não habilitada para cancelar Venda/NFe!');
-          Exit;
-        end;
-
-        if not DMNFe.GetValidadeCertificado then
-          Exit;
-
-        lblInforme.Caption := 'Cancelando NF-e junto a SEFA. Aguarde . . . ';
-        Application.ProcessMessages;
-
-        Cont := DMNFe.CancelarNFeACBr( cdsVendaCODEMP.AsString, cdsVendaCODCLIENTE.AsInteger,
-                cdsVendaANO.AsInteger, cdsVendaCODCONTROL.AsInteger, UpperCase(Trim(dbMotivo.Lines.Text)) );
-      end;
 
     if ( Cont ) then
       with cdsVenda do
