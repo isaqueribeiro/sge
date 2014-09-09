@@ -915,6 +915,8 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       '  , v.Totalvenda'
       '  , v.Serie'
       '  , v.Nfe'
+      '  , v.Nfe_denegada'
+      '  , v.Nfe_denegada_motivo'
       '  , v.Status'
       '  , v.Nfe_valor_base_icms'
       '  , v.Nfe_valor_icms'
@@ -997,6 +999,8 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       '  , v.Totalvenda'
       '  , v.Serie'
       '  , v.Nfe'
+      '  , v.Nfe_denegada'
+      '  , v.Nfe_denegada_motivo'
       '  , v.Status'
       '  , v.Nfe_valor_base_icms'
       '  , v.Nfe_valor_icms'
@@ -1109,6 +1113,17 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       FieldName = 'NFE'
       Origin = 'TBVENDAS.NFE'
       ProviderFlags = [pfInUpdate]
+    end
+    object cdsVendaNFE_DENEGADA: TSmallintField
+      FieldName = 'NFE_DENEGADA'
+      Origin = '"TBVENDAS"."NFE_DENEGADA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField
+      FieldName = 'NFE_DENEGADA_MOTIVO'
+      Origin = '"TBVENDAS"."NFE_DENEGADA_MOTIVO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
     end
     object cdsVendaSTATUS: TSmallintField
       FieldName = 'STATUS'

@@ -3111,6 +3111,20 @@ inherited frmGeVenda: TfrmGeVenda
             NumGlyphs = 2
             OnClick = nmPpLimparDadosNFeClick
           end
+          object lblLogNFeDenegada: TLabel
+            Left = 8
+            Top = 80
+            Width = 87
+            Height = 13
+            Caption = 'NF-e denegada:'
+            FocusControl = dbLogNFeDenegada
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
           object dbLogNFeLote: TDBEdit
             Left = 8
             Top = 16
@@ -3254,7 +3268,7 @@ inherited frmGeVenda: TfrmGeVenda
             ParentFont = False
             ReadOnly = True
             ScrollBars = ssVertical
-            TabOrder = 10
+            TabOrder = 11
           end
           object dbLogNFeCancelUsuario: TDBEdit
             Left = 568
@@ -3272,7 +3286,7 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Style = [fsBold]
             ParentFont = False
             ReadOnly = True
-            TabOrder = 8
+            TabOrder = 9
           end
           object dbLogNFeCancelData: TDBEdit
             Left = 568
@@ -3290,7 +3304,7 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Style = [fsBold]
             ParentFont = False
             ReadOnly = True
-            TabOrder = 9
+            TabOrder = 10
           end
           object dbLogNFeUsuario: TDBEdit
             Left = 568
@@ -3309,6 +3323,24 @@ inherited frmGeVenda: TfrmGeVenda
             ParentFont = False
             ReadOnly = True
             TabOrder = 5
+          end
+          object dbLogNFeDenegada: TDBEdit
+            Left = 8
+            Top = 96
+            Width = 553
+            Height = 21
+            TabStop = False
+            Color = clMoneyGreen
+            DataField = 'NFE_DENEGADA_MOTIVO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 8
           end
         end
       end
