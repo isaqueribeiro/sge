@@ -173,7 +173,7 @@ begin
   IbDtstTabelaEMAIL_REQUER_AUTENTICACAO.AsInteger := 0;
   IbDtstTabelaEMAIL_CONEXAO_SSL.AsInteger         := 0;
 
-  IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA.AsInteger := 0;
+  IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA.AsInteger := 1;
   IbDtstTabelaNFE_SOLICITA_DH_SAIDA.AsInteger     := 0;
   IbDtstTabelaNFE_IMPRIMIR_COD_CLIENTE.AsInteger  := 0;
   IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ.AsInteger := 0;

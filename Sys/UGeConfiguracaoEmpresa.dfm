@@ -343,6 +343,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Caption = 'Aceitar/Salvar NF-e Denegada'
             DataField = 'NFE_ACEITAR_NOTA_DENEGADA'
             DataSource = DtSrcTabela
+            Enabled = False
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -11

@@ -1765,11 +1765,6 @@ begin
     ShowWarning('O processo de geração de NF-e para esta venda já foi solicitado, mas não fora concluído.' + #13 +
       'Favor consultar junto a SEFA e processar o Recibo de número ' +
         IbDtstTabelaLOTE_NFE_RECIBO.AsString);
-(*
-      'Favor consultar junto a SEFA e processar o Recibo/Lote de número ' +
-        IbDtstTabelaLOTE_NFE_RECIBO.AsString + '/' +
-        FormatFloat('#########0', IbDtstTabelaLOTE_NFE_NUMERO.AsInteger));
-*)
     Exit;
   end;
 

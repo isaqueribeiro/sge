@@ -1154,7 +1154,12 @@ var
   DtHoraEmiss : TDateTime;
   sErrorMsg   : String;
 begin
-
+(*
+  IMR - 09/09/2014 :
+    Tratamento de excessão para notas fiscal emitidas, mas de forma denegada. Com este bloco de código este função retornará
+    TRUE para que o XML da NF-e seja gravada na base de dados e o registro de venda receba a informação de que a NF-e fora
+    denegada.
+*)
   try
 
     LerConfiguracao(sCNPJEmitente);
@@ -1197,28 +1202,32 @@ begin
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
           REJEICAO_NFE_NOTA_DENEGADA:
             begin
-              (*
-                IMR - 09/09/2014 :
-                  Tratamento de excessão para notas fiscal emitidas, mas de forma denegada. Com este bloco de código este função retornará
-                  TRUE para que o XML da NF-e seja gravada na base de dados e o registro de venda receba a informação de que a NF-e fora
-                  denegada.
-              *)
-
-              Result := True;
-
-              Denegada       := True;
-              DenegadaMotivo := 'NF-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
-
-              ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
-              ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
-              ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
-
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
               UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
 
-              Exit;
+              if GetPermititNFeDenegada(sCNPJEmitente) then
+              begin
+                Result := True;
+
+                Denegada       := True;
+                DenegadaMotivo := 'NF-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
+
+                ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
+                ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
+                ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
+
+                Exit;
+              end
+              else
+              begin
+                // Remover Lote da Venda
+                GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+                sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                  'Favor gerar NF-e novamente!';
+              end;
             end;
-            
+
           REJEICAO_NFE_DUPLICIDADE:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);

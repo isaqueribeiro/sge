@@ -116,6 +116,11 @@ var
   sMsg : String;
   Cont : Boolean;
 begin
+  (*
+    IMR - 09/09/2014 :
+      Tratamento de excessão para notas fiscal emitidas, mas de forma denegada. Com  este bloco de código alterado, as vendas associdas a
+      NF-e denegadas poderão ser canceladas, mas suas respectivas notas permanecerão ativas na SEFA.
+  *)
   if ( cdsVenda.IsEmpty ) then
     Exit;
 
@@ -132,11 +137,6 @@ begin
   end
   else
   begin
-    (*
-      IMR - 09/09/2014 :
-        Tratamento de excessão para notas fiscal emitidas, mas de forma denegada. Com  este bloco de código alterado, as vendas associdas a
-        NF-e denegadas poderão ser canceladas, mas suas respectivas notas permanecerão ativas na SEFA.
-    *)
     if ( cdsVendaNFE_DENEGADA.AsInteger = 1 ) then
       sMsg := 'Esta venda possui Nota Fiscal de Saída Denegada e ao cancelar a venda a NF-e denegada permanecerá ativa na SEFA.'#13#13'Confirma o cancelamento da venda?'
     else

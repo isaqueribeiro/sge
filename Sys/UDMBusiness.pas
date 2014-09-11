@@ -306,6 +306,7 @@ var
   function GetLimiteDescontoUser : Currency;
   function GetUserPermitirAlterarValorVenda : Boolean;
   function GetPermititEmissaoNFe(const sCNPJEmitente : String) : Boolean;
+  function GetPermititNFeDenegada(const sCNPJEmitente : String) : Boolean;
   function GetSolicitaDHSaidaNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
@@ -2283,6 +2284,21 @@ begin
     Open;
 
     Result := (FieldByName('nfe_emitir').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetPermititNFeDenegada(const sCNPJEmitente : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select nfe_aceitar_nota_denegada from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := (FieldByName('nfe_aceitar_nota_denegada').AsInteger = 1);
 
     Close;
   end;
