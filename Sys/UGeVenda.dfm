@@ -5178,6 +5178,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  , n.HORAEMISSAO'
       '  , n.SERIE'
       '  , n.NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
       '  , n.CHAVE'
       '  , n.PROTOCOLO'
       '  , n.RECIBO'
@@ -5225,6 +5227,16 @@ inherited frmGeVenda: TfrmGeVenda
       Origin = 'TBNFE_ENVIADA.NUMERO'
       Required = True
     end
+    object qryNFEMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = '"TBNFE_ENVIADA"."MODELO"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object qryNFEVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = '"TBNFE_ENVIADA"."VERSAO"'
+      ProviderFlags = [pfInUpdate]
+    end
     object qryNFECHAVE: TIBStringField
       FieldName = 'CHAVE'
       Origin = 'TBNFE_ENVIADA.CHAVE'
@@ -5267,6 +5279,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  EMPRESA,'
       '  SERIE,'
       '  NUMERO,'
+      '  MODELO,'
+      '  VERSAO,'
       '  ANOVENDA,'
       '  NUMVENDA,'
       '  ANOCOMPRA,'
@@ -5295,11 +5309,13 @@ inherited frmGeVenda: TfrmGeVenda
       '  HORAEMISSAO = :HORAEMISSAO,'
       '  LOTE_ANO = :LOTE_ANO,'
       '  LOTE_NUM = :LOTE_NUM,'
+      '  MODELO = :MODELO,'
       '  NUMERO = :NUMERO,'
       '  NUMVENDA = :NUMVENDA,'
       '  PROTOCOLO = :PROTOCOLO,'
       '  RECIBO = :RECIBO,'
       '  SERIE = :SERIE,'
+      '  VERSAO = :VERSAO,'
       '  XML_FILE = :XML_FILE,'
       '  XML_FILENAME = :XML_FILENAME'
       'where'
@@ -5312,16 +5328,17 @@ inherited frmGeVenda: TfrmGeVenda
         '  (ANOVENDA, CHAVE, DATAEMISSAO, EMPRESA, HORAEMISSAO, LOTE_ANO,' +
         ' LOTE_NUM, '
       
-        '   NUMERO, NUMVENDA, PROTOCOLO, RECIBO, SERIE, XML_FILE, XML_FIL' +
-        'ENAME)'
+        '   MODELO, NUMERO, NUMVENDA, PROTOCOLO, RECIBO, SERIE, VERSAO, X' +
+        'ML_FILE, '
+      '   XML_FILENAME)'
       'values'
       
         '  (:ANOVENDA, :CHAVE, :DATAEMISSAO, :EMPRESA, :HORAEMISSAO, :LOT' +
         'E_ANO, '
       
-        '   :LOTE_NUM, :NUMERO, :NUMVENDA, :PROTOCOLO, :RECIBO, :SERIE, :' +
-        'XML_FILE, '
-      '   :XML_FILENAME)')
+        '   :LOTE_NUM, :MODELO, :NUMERO, :NUMVENDA, :PROTOCOLO, :RECIBO, ' +
+        ':SERIE, '
+      '   :VERSAO, :XML_FILE, :XML_FILENAME)')
     DeleteSQL.Strings = (
       'delete from TBNFE_ENVIADA'
       'where'

@@ -478,6 +478,12 @@ type
     qryVendaCartaCredito: TIBQuery;
     frdVendaCartaCredito: TfrxDBDataset;
     frrVendaCartaCredito: TfrxReport;
+    qryNFeEmitidaEMPRESA: TIBStringField;
+    qryNFeEmitidaMODELO: TSmallintField;
+    qryNFeEmitidaVERSAO: TSmallintField;
+    qryNFeEmitidaEntradaEMPRESA: TIBStringField;
+    qryNFeEmitidaEntradaMODELO: TSmallintField;
+    qryNFeEmitidaEntradaVERSAO: TSmallintField;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -572,6 +578,8 @@ type
     function ImprimirCupomNaoFiscal(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean;
 
+    function GetModeloDF : Integer;
+    function GetVersaoDF : Integer;
   end;
 
 var
@@ -927,6 +935,9 @@ begin
       ACBrNFe.Configuracoes.Geral.Salvar       := ckSalvar.Checked;
       ACBrNFe.Configuracoes.Geral.PathSalvar   := edtPathLogs.Text;
 
+      ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
+      ACBrNFe.Configuracoes.Geral.VersaoDF := ve310;
+
       cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
       rgTipoAmb.ItemIndex  := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
       ckVisualizar.Checked := ReadBool   ( sSecaoWebService, 'Visualizar', False) ;
@@ -946,12 +957,15 @@ begin
       ACBrNFe.Configuracoes.WebServices.ProxyPass := edtProxySenha.Text;
 
       rgTipoDanfe.ItemIndex := ReadInteger( sSecaoGeral, 'DANFE'     , 0) ;
-      edtLogoMarca.Text     := ReadString ( sSecaoGeral, 'LogoMarca' , '') ;
+      edtLogoMarca.Text     := ReadString ( sSecaoGeral, 'LogoMarca' , ExtractFilePath(ParamStr(0)) + sCNPJEmitente + '.bmp') ;
 
       if ACBrNFe.DANFE <> nil then
       begin
         ACBrNFe.DANFE.TipoDANFE := StrToTpImp(OK, IntToStr(rgTipoDanfe.ItemIndex + 1));
 
+        if ( FilesExists(ExtractFilePath(ParamStr(0)) + sCNPJEmitente + '.bmp')) then
+          ACBrNFe.DANFE.Logo := ExtractFilePath(ParamStr(0)) + sCNPJEmitente + '.bmp'
+        else
         if ( FilesExists(Trim(edtLogoMarca.Text)) ) then
           ACBrNFe.DANFE.Logo := Trim(edtLogoMarca.Text)
         else
@@ -1330,6 +1344,9 @@ begin
 
     with ACBrNFe do
     begin
+      Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger);
+      Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger);
+
       NotasFiscais.Clear;
 
       (* Linhas de Cancelamento da NF-e em 09/04/2013
@@ -1452,9 +1469,12 @@ begin
 
   try
 
+    LerConfiguracao(sCNPJEmitente);
+
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatario( iCodigoCliente );
     AbrirVenda( iAnoVenda, iNumVenda );
+    AbrirNFeEmitida( iAnoVenda, iNumVenda );
 
     if ( IsPDF ) then
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryCalculoImportoXML_NFE_FILENAME.AsString
@@ -1472,6 +1492,9 @@ begin
 
     with ACBrNFe do
     begin
+      Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger);
+      Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger);
+
       NotasFiscais.Clear;
       NotasFiscais.LoadFromFile( FileNameXML );
 
@@ -1945,7 +1968,6 @@ begin
               else
               begin
 
-//                Case qryDadosProdutoCODTRIBUTACAO.AsInteger of
                 Case StrToInt(Copy(qryDadosProdutoCST.AsString, 2, 2)) of
                    0 : CST := cst00;
                   10 : CST := cst10;
@@ -1974,7 +1996,6 @@ begin
 
               end;
 
-//              ICMS.orig    := TpcnOrigemMercadoria( qryDadosProdutoCODORIGEM.AsInteger );
               ICMS.orig    := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProdutoCST.AsString, 1, 1)) );
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
@@ -2650,6 +2671,7 @@ begin
       AbrirEmitente( sCNPJEmitente );
       AbrirDestinatario( iCodigoCliente );
       AbrirVenda( iAnoVenda, iNumVenda );
+      AbrirNFeEmitida( iAnoVenda, iNumVenda );
 
       if ( EnviarPDF ) then
         sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryCalculoImportoXML_NFE_FILENAME.AsString
@@ -2667,6 +2689,9 @@ begin
 
       with ACBrNFe do
       begin
+        Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger);
+        Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger);
+
         NotasFiscais.Clear;
         NotasFiscais.LoadFromFile( sFileNameXML );
 
@@ -3487,9 +3512,12 @@ begin
 
   try
 
+    LerConfiguracao(sCNPJEmitente);
+
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatarioFornecedor( CodFornecedor );
     AbrirCompra( iAnoCompra, iNumCompra );
+    AbrirNFeEmitidaEntrada( iAnoCompra, iNumCompra );
 
     if ( IsPDF ) then
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryEntradaCalculoImportoXML_NFE_FILENAME.AsString
@@ -3502,6 +3530,9 @@ begin
 
     with ACBrNFe do
     begin
+      Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeEmitidaEntradaMODELO.AsInteger);
+      Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeEmitidaEntradaVERSAO.AsInteger);
+
       NotasFiscais.Clear;
       NotasFiscais.LoadFromFile( FileNameXML );
 
@@ -3608,6 +3639,9 @@ begin
 
     with ACBrNFe do
     begin
+      Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeEmitidaEntradaMODELO.AsInteger);
+      Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeEmitidaEntradaVERSAO.AsInteger);
+
       NotasFiscais.Clear;
 
       (* Linhas de Cancelamento da NF-e em 09/04/2013
@@ -4181,6 +4215,7 @@ begin
   AbrirEmitente(sCNPJEmitente);
   AbrirDestinatario(iCodigoCliente);
   AbrirVenda(iAnoVenda, iNumVenda);
+  AbrirNFeEmitida(iAnoVenda, iNumVenda);
 
   aEcfConfig.Impressora := GetCupomNaoFiscalPortaNM;
   aEcfConfig.Porta      := GetCupomNaoFiscalPortaDS;
@@ -4266,6 +4301,16 @@ begin
     ParamByName('numvenda').AsInteger := NumeroVenda;
     Open;
   end;
+end;
+
+function TDMNFe.GetModeloDF: Integer;
+begin
+  Result := Ord(moNFe);
+end;
+
+function TDMNFe.GetVersaoDF: Integer;
+begin
+  Result := Ord(ve310);
 end;
 
 end.

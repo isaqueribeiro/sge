@@ -1,6 +1,6 @@
 inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
-  Left = 420
-  Top = 178
+  Left = 390
+  Top = 216
   Width = 767
   Height = 495
   ActiveControl = nil

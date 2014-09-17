@@ -20,7 +20,8 @@
 					<xs:documentation>Serviço Solicitado</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
-					<xs:restriction base="TServ">
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="preserve"/>
 						<xs:enumeration value="DOWNLOAD NFE"/>
 					</xs:restriction>
 				</xs:simpleType>
@@ -112,6 +113,22 @@
 								<xs:annotation>
 									<xs:documentation>XML do procNFe compactado no padrão gZIP</xs:documentation>
 								</xs:annotation>
+							</xs:element>
+							<xs:element name="procNFe">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:any processContents="skip">
+											<xs:annotation>
+												<xs:documentation>XML do procNFe</xs:documentation>
+											</xs:annotation>
+										</xs:any>
+									</xs:sequence>
+									<xs:attribute name="schema" type="xs:string" use="required">
+										<xs:annotation>
+											<xs:documentation>Identificação do Schema XML de validação do proc, Ex. procNFe_v2.00.xsd.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
 							</xs:element>
 						</xs:choice>
 					</xs:sequence>

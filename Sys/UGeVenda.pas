@@ -367,6 +367,8 @@ type
     IbDtstTabelaNFE_DENEGADA_MOTIVO: TIBStringField;
     lblLogNFeDenegada: TLabel;
     dbLogNFeDenegada: TDBEdit;
+    qryNFEMODELO: TSmallintField;
+    qryNFEVERSAO: TSmallintField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -1786,6 +1788,8 @@ begin
         qryNFENUMVENDA.Value    := IbDtstTabelaCODCONTROL.Value;
         qryNFESERIE.Value       := FormatFloat('#00', iSerieNFe);
         qryNFENUMERO.Value      := iNumeroNFe;
+        qryNFEMODELO.Value      := DMNFe.GetModeloDF;
+        qryNFEVERSAO.Value      := DMNFe.GetVersaoDF;
         qryNFEDATAEMISSAO.Value := GetDateDB;
         qryNFEHORAEMISSAO.Value := GetTimeDB;
         qryNFECHAVE.Value     := sChaveNFE;

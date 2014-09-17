@@ -1,6 +1,6 @@
 object frmPrinc: TfrmPrinc
-  Left = 408
-  Top = 124
+  Left = 385
+  Top = 213
   Width = 943
   Height = 556
   Caption = 'SGE | Sistema Integrado Compacto de Gest'#227'o Empresarial'
