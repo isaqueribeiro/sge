@@ -915,7 +915,7 @@ begin
     end;
   end;
 end;
-
+                                               
 procedure TfrmGeVenda.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then

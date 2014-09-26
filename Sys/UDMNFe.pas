@@ -888,7 +888,7 @@ begin
   try
 
     AbrirEmitente(sCNPJEmitente);
-    
+
     if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
       sPrefixoSecao := Trim(sCNPJEmitente) + '_'
     else
@@ -936,7 +936,7 @@ begin
       ACBrNFe.Configuracoes.Geral.PathSalvar   := edtPathLogs.Text;
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
-      ACBrNFe.Configuracoes.Geral.VersaoDF := ve310;
+      ACBrNFe.Configuracoes.Geral.VersaoDF := ve200; // ve310;
 
       cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
       rgTipoAmb.ItemIndex  := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
@@ -1691,11 +1691,17 @@ begin
 
       if ( qryDestinatarioPESSOA_FISICA.AsInteger = 0 ) then
       begin
+        if (AnsiUpperCase(Trim(qryDestinatarioINSCEST.AsString)) = 'ISENTO') or (Trim(qryDestinatarioINSCEST.AsString) = EmptyStr) then
+          Dest.indIEDest     := inIsento
+        else
+          Dest.indIEDest     := inContribuinte;
+          
         Dest.IE              := Trim(qryDestinatarioINSCEST.AsString);
         Dest.ISUF            := EmptyStr;
       end
       else
       begin
+        Dest.indIEDest       := inNaoContribuinte;
         Dest.IE              := EmptyStr;
         Dest.ISUF            := EmptyStr;
       end;
@@ -2882,11 +2888,17 @@ begin
 
       if ( qryFornecedorDestinatarioPESSOA_FISICA.AsInteger = 0 ) then
       begin
+        if (AnsiUpperCase(Trim(qryFornecedorDestinatarioINSCEST.AsString)) = 'ISENTO') or (Trim(qryFornecedorDestinatarioINSCEST.AsString) = EmptyStr) then
+          Dest.indIEDest     := inIsento
+        else
+          Dest.indIEDest     := inContribuinte;
+
         Dest.IE              := Trim(qryFornecedorDestinatarioINSCEST.AsString);
         Dest.ISUF            := EmptyStr;
       end
       else
       begin
+        Dest.indIEDest       := inNaoContribuinte; 
         Dest.IE              := EmptyStr;
         Dest.ISUF            := EmptyStr;
       end;
@@ -4305,12 +4317,12 @@ end;
 
 function TDMNFe.GetModeloDF: Integer;
 begin
-  Result := Ord(moNFe);
+  Result := Ord(ACBrNFe.Configuracoes.Geral.ModeloDF);
 end;
 
 function TDMNFe.GetVersaoDF: Integer;
 begin
-  Result := Ord(ve310);
+  Result := Ord(ACBrNFe.Configuracoes.Geral.VersaoDF);
 end;
 
 end.

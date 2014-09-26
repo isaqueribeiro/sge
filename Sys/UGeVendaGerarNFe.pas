@@ -235,6 +235,8 @@ var
   bOK : Boolean;
   sDH : String;
 begin
+  bOK := False;
+  
   if not GetConectedInternet then
   begin
     ShowWarning('Estação de trabalho sem acesso a Internet!');
