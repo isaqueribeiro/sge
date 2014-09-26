@@ -165,6 +165,7 @@ type
     nmPlanoConta: TMenuItem;
     nmCentroCusto: TMenuItem;
     nmRegistroEstacao: TMenuItem;
+    nmCartaCorrecaoNFe: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
