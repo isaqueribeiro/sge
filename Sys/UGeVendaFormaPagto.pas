@@ -78,7 +78,8 @@ type
 
 implementation
 
-uses UDMBusiness, UDMNFe, UGeVenda, UGeCondicaoPagto, UGrCampoRequisitado;
+uses
+  UConstantesDGE, UDMBusiness, UDMNFe, UGeVenda, UGeCondicaoPagto, UGrCampoRequisitado;
 
 {$R *.dfm}
 

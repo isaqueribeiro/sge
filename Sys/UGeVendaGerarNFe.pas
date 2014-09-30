@@ -235,6 +235,12 @@ var
   bOK : Boolean;
   sDH : String;
 begin
+(*
+  IMR - 09/09/2014 :
+    Declaração dos campos referidos a NF-e DENEGADA para que estas informações possam ser gravadas na tabela de venda a apartir dela
+    bloquear o cancelamento da venda/nota.
+*)
+
   bOK := False;
   
   if not GetConectedInternet then
@@ -283,12 +289,6 @@ begin
       sDH := edDataHoraSaida.Text
     else
       sDH := EmptyStr;
-
-    (*
-      IMR - 09/09/2014 :
-        Declaração dos campos referidos a NF-e DENEGADA para que estas informações possam ser gravadas na tabela de venda a apartir dela
-        bloquear o cancelamento da venda/nota.
-    *)
 
     bDenegada       := False;
     sDenegadaMotivo := EmptyStr;

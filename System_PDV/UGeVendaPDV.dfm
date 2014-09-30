@@ -4329,7 +4329,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       ParentFont = False
       Transparent = True
     end
-    object Label3: TLabel
+    object lblFinalizarVenda: TLabel
       Left = 619
       Top = 8
       Width = 150
@@ -4345,7 +4345,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       ParentFont = False
       Transparent = True
     end
-    object Label4: TLabel
+    object lblCancelar: TLabel
       Left = 897
       Top = 8
       Width = 150
@@ -4377,7 +4377,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       ParentFont = False
       Transparent = True
     end
-    object Label2: TLabel
+    object lblIniciarVenda: TLabel
       Left = 65
       Top = 8
       Width = 150
@@ -4398,7 +4398,9 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Top = 32
       Width = 150
       Height = 19
-      Hint = 'Gravar Or'#231'amento'
+      Hint = 
+        'Gravar Or'#231'amento'#13#10#13#10'Obs.: Apenas esta'#231#245'es habilitadas para emiti' +
+        'r cupons n'#227'o-fiscais t'#234'm esta'#13#10'funcionalizade disponibilizada.'
       AutoSize = False
       Caption = 'F12 | Gravar'
       Font.Charset = ANSI_CHARSET
@@ -5336,7 +5338,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Picture.Data = {
         0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000052
         0000003A0806000000238B0EAC0000000467414D410000B18F0BFC6105000000
-        097048597300000EC200000EC20115284A800000001A74455874536F66747761
+        097048597300000EC100000EC101B8916BED0000001A74455874536F66747761
         7265005061696E742E4E45542076332E352E313147F342370000068849444154
         785ED59B695714471486E7BF4593984545914550248A82488E8AE2868A1A54C4
         15152382125C628C4BDC351A957D5804875DD941117FC54DDDF634A7A7E715BB
@@ -5429,23 +5431,27 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       OnExecute = actSairExecute
     end
     object actIniciarVenda: TAction
+      Tag = 1
       Category = 'Processo Venda'
-      Caption = 'actIniciarVenda'
+      Caption = 'Iniciar Or'#231'amento/Venda'
       OnExecute = actIniciarVendaExecute
     end
     object actCarregarOrcamento: TAction
+      Tag = 2
       Category = 'Processo Venda'
       Caption = 'actCarregarOrcamento'
       OnExecute = actCarregarOrcamentoExecute
     end
     object actDescontoCupom: TAction
+      Tag = 3
       Category = 'Processo Venda'
       Caption = 'actDescontoCupom'
       OnExecute = actDescontoCupomExecute
     end
     object actCancelar: TAction
+      Tag = 4
       Category = 'Processo Venda'
-      Caption = 'actCancelar'
+      Caption = 'Cancelar Venda/Item'
       OnExecute = actCancelarExecute
     end
     object actCarregarProduto: TAction
@@ -5454,9 +5460,16 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       OnExecute = actCarregarProdutoExecute
     end
     object actGravarOrcamento: TAction
+      Tag = 5
       Category = 'Processo Venda'
       Caption = 'actGravarOrcamento'
       OnExecute = actGravarOrcamentoExecute
+    end
+    object actFinalizarVenda: TAction
+      Tag = 6
+      Category = 'Processo Venda'
+      Caption = 'Finalizar Venda'
+      OnExecute = actFinalizarVendaExecute
     end
   end
   object dtsItem: TDataSource
@@ -5478,5 +5491,54 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     DataSet = DMCupom.qryProduto
     Left = 960
     Top = 232
+  end
+  object tblFormaPagto: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    FieldDefs = <
+      item
+        Name = 'COD'
+        Attributes = [faRequired]
+        DataType = ftSmallint
+      end
+      item
+        Name = 'DESCRI'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'ACRESCIMO'
+        DataType = ftFloat
+      end
+      item
+        Name = 'CONTA_CORRENTE'
+        DataType = ftInteger
+      end
+      item
+        Name = 'DEBITAR_LIMITE_CLIENTE'
+        DataType = ftSmallint
+      end>
+    IndexDefs = <
+      item
+        Name = 'PK_TBFORMPAGTO'
+        Fields = 'COD'
+        Options = [ixUnique]
+      end
+      item
+        Name = 'FK_TBFORMPAGTO_CCORRENTE'
+        Fields = 'CONTA_CORRENTE'
+      end>
+    StoreDefs = True
+    TableName = 'TBFORMPAGTO'
+    Left = 832
+    Top = 464
+  end
+  object tblCondicaoPagto: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    TableName = 'VW_CONDICAOPAGTO'
+    TableTypes = [ttView]
+    Left = 832
+    Top = 512
   end
 end

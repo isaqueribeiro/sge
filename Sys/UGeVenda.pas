@@ -859,6 +859,8 @@ begin
         if ( Trim(FieldByName('Csosn').AsString) <> EmptyStr ) then
           cdsTabelaItensCSOSN.AsString     := FieldByName('Csosn').AsString;
 
+        CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
+          
         if ( Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString) <> EmptyStr ) then
           cdsTabelaItensCST.AsString := Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString);
 
@@ -906,12 +908,7 @@ begin
       if not IsEmpty then
         cdsTabelaItensCFOP_DESCRICAO.AsString := FieldByName('cfop_descricao').AsString
       else
-      begin
         ShowWarning('Código CFOP não cadastrado');
-        cdsTabelaItensCFOP_COD.Clear;
-        if ( dbCFOP.Visible and dbCFOP.Enabled ) then
-          dbCFOP.SetFocus;
-      end;
     end;
   end;
 end;
@@ -1334,13 +1331,13 @@ begin
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
       CarregarDadosProduto( StrToIntDef(cdsTabelaItensCODPROD.AsString, 0) );
 
-  if ( Sender = dbCFOP ) then
-    if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-      CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
-
   if ( Sender = dbCFOPVenda ) then
     if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
       CarregarDadosCFOP( IbDtstTabelaCFOP.AsInteger );
+
+  if ( Sender = dbCFOP ) then
+    if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+      CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
 
   if ( (Sender = dbQuantidade) or (Sender = dbValorUnit) or (Sender = dbDesconto) ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
@@ -1580,7 +1577,7 @@ var
   CxNumero ,
   CxContaCorrente : Integer;
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( IbDtstTabela.IsEmpty or cdsTabelaItens.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then

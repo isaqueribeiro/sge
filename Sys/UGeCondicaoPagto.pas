@@ -66,10 +66,6 @@ type
 var
   frmGeCondicaoPagto: TfrmGeCondicaoPagto;
 
-const
-  COND_PARCELA_MIN = 1;
-  COND_PARCELA_MAX = 12;
-
   procedure MostrarTabelaCondicoesPagto(const AOwner : TComponent);
   function SelecionarCondicaoPagto(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
   function SelecionarCondicaoPagto(const AOwner : TComponent; var Codigo : Integer; var Nome : String; var Prazos : IntegerArray) : Boolean; overload;

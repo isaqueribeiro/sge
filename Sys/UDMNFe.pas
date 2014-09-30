@@ -885,6 +885,14 @@ Var
   sSecaoEmitente   ,
   sSecaoWebService : String;
 begin
+(*
+  IMR - 30/09/2014 :
+    Retorno a versão 2.0 da NF-e por a versão 3.10 ainda apresentar inconsistências segundo a SEFA em determinados processos. A reativação
+    da versão 3.10 e sua liberação para uso está agora para 30/10/2014.
+
+    Atenção: Prazo final de uso da Versão 2.00, até 30/11/2014. Sendo, até esta data, recepcionado as duas versões. A desativação da versão
+    "2.00" será no dia 01/12/2014. (Fonte: http://portalnfe.fazenda.mg.gov.br/)
+*)
   try
 
     AbrirEmitente(sCNPJEmitente);
@@ -1568,6 +1576,11 @@ procedure TDMNFe.GerarNFEACBr(const sCNPJEmitente : String; iCodigoCliente : Int
   const iAnoVenda, iNumVenda : Integer;
   var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
 begin
+(*
+  IMR - 20/09/2014 :
+    Inseção de nova TAG na Nota Fiscal referente a IE do destinatário para informa se este é Isento, Contribuinte ou Não-contribuinte de acordo
+    com as regras estabelecidas pela SEFA para a versão 3.10 da NF-e.
+*)
 
   try
 
@@ -2773,6 +2786,11 @@ end;
 procedure TDMNFe.GerarNFEEntradaACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
   var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
 begin
+(*
+  IMR - 20/09/2014 :
+    Inseção de nova TAG na Nota Fiscal referente a IE do destinatário para informa se este é Isento, Contribuinte ou Não-contribuinte de acordo
+    com as regras estabelecidas pela SEFA para a versão 3.10 da NF-e.
+*)
 
   try
 

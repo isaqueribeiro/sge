@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, dxGDIPlusClasses, StdCtrls, DBCtrls, Grids,
-  DBGrids, DB, ActnList, IBCustomDataSet, IBUpdateSQL;
+  DBGrids, DB, ActnList, IBCustomDataSet, IBUpdateSQL, IBTable;
 
 type
   TfrmGeVendaPDV = class(TfrmGrPadrao)
@@ -29,8 +29,8 @@ type
     Panel1: TPanel;
     Image1: TImage;
     Label1: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
+    lblFinalizarVenda: TLabel;
+    lblCancelar: TLabel;
     Label5: TLabel;
     dbgDados: TDBGrid;
     Label6: TLabel;
@@ -61,7 +61,7 @@ type
     actSair: TAction;
     dtsItem: TDataSource;
     dtsFormaPagto: TDataSource;
-    Label2: TLabel;
+    lblIniciarVenda: TLabel;
     actIniciarVenda: TAction;
     actCancelar: TAction;
     actCarregarProduto: TAction;
@@ -73,6 +73,9 @@ type
     pnlCaixaLivre: TPanel;
     actGravarOrcamento: TAction;
     ImgLogoCanto: TImage;
+    actFinalizarVenda: TAction;
+    tblFormaPagto: TIBTable;
+    tblCondicaoPagto: TIBTable;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -94,6 +97,7 @@ type
     procedure actCarregarOrcamentoExecute(Sender: TObject);
     procedure actGravarOrcamentoExecute(Sender: TObject);
     procedure actCarregarFormaPagtoExecute(Sender: TObject);
+    procedure actFinalizarVendaExecute(Sender: TObject);
   private
     { Private declarations }
     sNomeTabela    ,
@@ -109,6 +113,12 @@ type
     procedure ZerarFormaPagto;
     procedure InserirProduto;
 
+    function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
+    function GetRotinaInternaID(const Sender : TObject) : String;
+    function GetRotinaIniciarVendaID : String;
+    function GetRotinaFinalizarID : String;
+    function GetRotinaCancelarVendaID : String;
+
     function DataSetVenda : TDataSet;
     function DataSetItens : TDataSet;
     function DataSetFormaPagto : TDataSet;
@@ -117,6 +127,10 @@ type
     function VendaEstaFinalizada : Boolean;
   public
     { Public declarations }
+    property RotinaIniciarVendaID  : String read GetRotinaIniciarVendaID;
+    property RotinaFinalizarID     : String read GetRotinaFinalizarID;
+    property RotinaCancelarVendaID : String read GetRotinaCancelarVendaID;
+
     procedure RegistrarRotinaSistema; override;
   end;
 
@@ -127,7 +141,8 @@ implementation
 
 uses
   UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom,
-  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento;
+  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento,
+  UDMNFe;
 
 {$R *.dfm}
 
@@ -139,7 +154,17 @@ const
 
 procedure TfrmGeVendaPDV.RegistrarRotinaSistema;
 begin
-  ;
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if lblIniciarVenda.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaIniciarVendaID, actIniciarVenda.Caption, RotinaID);
+
+    if lblFinalizarVenda.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFinalizarID, actFinalizarVenda.Caption, RotinaID);
+
+    if lblCancelar.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarVendaID, actCancelar.Caption, RotinaID);
+  end;
 end;
 
 procedure TfrmGeVendaPDV.IniciarCupomCabecalho;
@@ -248,6 +273,9 @@ begin
   if ( Key = VK_F9 ) then
     actDescontoCupom.Execute
   else
+  if ( Key = VK_F10 ) then
+    actFinalizarVenda.Execute
+  else
   if ( Key = VK_F11 ) then
     actCancelar.Execute
   else
@@ -280,6 +308,7 @@ begin
   if not Assigned(DMCupom) then
     DMCupom := TDMCupom.Create(Application);
 
+  RotinaID       := ROTINA_MOV_VENDA_PDV_ID;  
   sNomeTabela    := 'TBVENDAS';
   sCampoCodigo   := 'Codcontrol';
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
@@ -419,7 +448,6 @@ begin
 
       FieldByName('DTVENDA').Value        := GetDateTimeDB;
       FieldByName('CFOP').Value           := GetCfopIDDefault;
-      FieldByName('VENDA_PRAZO').Value    := 0;
       FieldByName('STATUS').Value         := STATUS_VND_AND;
       FieldByName('TOTALVENDA_BRUTA').Value  := 0;
       FieldByName('DESCONTO').Value          := 0;
@@ -433,6 +461,7 @@ begin
 
       FieldByName('VENDEDOR_COD').Value   := edNomeVendedor.Tag;
       FieldByName('FORMAPAG').Value       := edNomeFormaPagto.Caption;
+      FieldByName('VENDA_PRAZO').Value    := 0;
 
       FieldByName('CODCLIENTE').Value := edNomeCliente.Tag;
       FieldByName('CODCLI').Value     := edNomeCliente.Hint;
@@ -471,6 +500,8 @@ begin
 end;
 
 procedure TfrmGeVendaPDV.ZerarFormaPagto;
+var
+  I : Integer;
 begin
   with DataSetFormaPagto do
   begin
@@ -489,6 +520,9 @@ begin
     FieldByName('CONDICAOPAGTO_COD').Value := GetCondicaoPagtoIDDefault;
     FieldByName('VALOR_FPAGTO').Value      := dbValorAPagar.Field.AsCurrency;
     FieldByName('VENDA_PRAZO').Value       := 0;
+
+    for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
+      FieldByName('PRAZO_' + FormatFloat('00', I)).Clear;
 
     if not EstaEditando then
       DataSetVenda.Edit;
@@ -537,6 +571,14 @@ begin
     ParamByName('controle').AsInteger := Controle;
     Open;
   end;
+
+  tblFormaPagto.Close;
+  tblFormaPagto.Open;
+  tblFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
+
+  tblCondicaoPagto.Close;
+  tblCondicaoPagto.Open;
+  tblCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
 end;
 
 procedure TfrmGeVendaPDV.actCancelarExecute(Sender: TObject);
@@ -794,6 +836,8 @@ begin
         FieldByName('DESCONTO').AsCurrency       := FieldByName('DESCONTO_VALOR').AsCurrency / FieldByName('PUNIT').AsCurrency * 100;
       end;
 
+      CarregarDadosCFOP( FieldByName('CFOP_COD').AsInteger );
+
       if ( Trim(dtsCFOP.DataSet.FieldByName('Cfop_cst_padrao_saida').AsString) <> EmptyStr ) then
         FieldByName('CST').AsString := Trim(dtsCFOP.DataSet.FieldByName('Cfop_cst_padrao_saida').AsString);
 
@@ -980,6 +1024,7 @@ end;
 
 procedure TfrmGeVendaPDV.actCarregarFormaPagtoExecute(Sender: TObject);
 var
+  I ,
   iCodigo : Integer;
   sNome   : String;
 begin
@@ -992,12 +1037,240 @@ begin
     begin
       if (not EstaEditando) then
         DataSetVenda.Edit;
-      
+
       DataSetFormaPagto.Edit;
       DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger := iCodigo;
       DataSetFormaPagto.Post;
-    end;  
+    end;
   end;
+end;
+
+procedure TfrmGeVendaPDV.actFinalizarVendaExecute(Sender: TObject);
+
+  function QuantidadeInvalida : Boolean;
+  var
+    Return : Boolean;
+  begin
+    try
+      Return := not GetPermitirVendaEstoqueInsEmpresa(dtsVenda.DataSet.FieldByName('CODEMP').AsString); // Permitir vendas de produtos com estoque insuficiente
+
+      if Return then
+      begin
+
+        with DataSetItens do
+        begin
+          First;
+          DisableControls;
+          while not Eof do
+          begin
+            if ( FieldByName('MOVIMENTA_ESTOQUE').AsInteger = 0 ) then // Produto não movimenta estoque
+              Return := False
+            else
+              Return := ( (FieldByName('QTDE').AsCurrency > (FieldByName('ESTOQUE').AsCurrency - FieldByName('RESERVA').AsCurrency)) or (FieldByName('ESTOQUE').AsCurrency <= 0) );
+
+            if ( Return ) then
+              Break;
+            Next;
+          end;
+        end;
+
+      end;
+    finally
+      dtsItem.DataSet.EnableControls;
+      Result := Return;
+    end;
+  end;
+
+var
+  iGerarEstoqueCliente,
+  CxAno    ,
+  CxNumero ,
+  CxContaCorrente : Integer;
+begin
+  if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
+    Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+  CxAno    := 0;
+  CxNumero := 0;
+  CxContaCorrente := 0;
+
+  with DataSetVenda do
+  begin
+    CarregarVenda(FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger);
+
+    // Verificar se cliente está bloqueado, caso a venda seja a prazo
+
+    if ( FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+      if ( FieldByName('BLOQUEADO').AsInteger = 1 ) then
+      begin
+        ShowWarning('Cliente bloqueado!' + #13#13 + 'Motivo:' + #13 + FieldByName('BLOQUEADO_MOTIVO').AsString);
+        Exit;
+      end;
+  end;
+
+  // Verificar se existe caixa aberto para o usuário do sistema
+
+  if DataSetFormaPagto.Locate('VENDA_PRAZO', 0, []) then
+    if ( not CaixaAberto(GetUserApp, GetDateDB, DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+    begin
+      ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento ' + QuotedStr(DataSetFormaPagto.FieldByName('FormaPagto').AsString) + '.');
+      Exit;
+    end;
+
+  DataSetVenda.Edit;
+
+  if ( DataSetVenda.FieldByName('VENDEDOR_COD').AsInteger = 0 ) then
+    ShowWarning('Favor informar o vendedor')
+  else
+  if ( QuantidadeInvalida ) then
+  begin
+    ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', DataSetItens.FieldByName('SEQ').AsInteger) + ' está acima da quantidade disponível no estoque.');
+    if ( dbgDados.Visible and dbgDados.Enabled ) then
+      dbgDados.SetFocus;
+  end
+  else
+
+  // Verificar dados da(s) Forma(s) de Pagamento(s)
+
+  if ( DataSetFormaPagto.RecordCount = 0 ) then
+    ShowWarning('Favor informar a forma e/ou condição de pagamento')
+  else
+  if ( GetTotalValorFormaPagto <= 0 ) then
+  begin
+    ShowWarning('Favor informar corretamente o valor de cada forma/condição de pagamento');
+    pgcMaisDados.ActivePage := tbsRecebimento;
+    dbgFormaPagto.SetFocus;
+  end
+  else
+  if ( GetTotalValorFormaPagto > IbDtstTabelaTOTALVENDA.AsCurrency ) then
+  begin
+    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
+    pgcMaisDados.ActivePage := tbsRecebimento;
+    dbgFormaPagto.SetFocus;
+  end
+  else
+  if ( GetTotalValorFormaPagto < IbDtstTabelaTOTALVENDA.AsCurrency ) then
+  begin
+    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
+    pgcMaisDados.ActivePage := tbsRecebimento;
+    dbgFormaPagto.SetFocus;
+  end
+  else
+  if ( ShowConfirm('Confirma a finalização da venda selecionada?') ) then
+  begin
+    if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+    begin
+      GetComprasAbertas( IbDtstTabelaCODCLIENTE.AsInteger );
+      if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
+      begin
+        ShowWarning('O Valor Total A Parzo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
+        Exit;
+      end;
+    end;
+
+    if GetGerarEstoqueCliente then
+      iGerarEstoqueCliente := 1
+    else
+      iGerarEstoqueCliente := 0;
+
+    IbDtstTabela.Edit;
+
+    IbDtstTabelaSTATUS.Value                := STATUS_VND_FIN;
+    IbDtstTabelaDTVENDA.Value               := GetDateTimeDB;
+    IbDtstTabelaDTFINALIZACAO_VENDA.Value   := GetDateTimeDB;
+    IbDtstTabelaGERAR_ESTOQUE_CLIENTE.Value := iGerarEstoqueCliente;
+
+    IbDtstTabela.Post;
+    IbDtstTabela.ApplyUpdates;
+
+    CommitTransaction;
+
+    GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODCONTROL.AsInteger));
+
+    // Confirmar vencimentos de cada parcela
+
+    if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+      if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+        AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    HabilitarDesabilitar_Btns;
+
+    // Formas de Pagamento que nao seja a prazo
+
+    cdsVendaFormaPagto.First;
+    while not cdsVendaFormaPagto.Eof do
+    begin
+      if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
+        if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
+          RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
+            cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
+
+      cdsVendaFormaPagto.Next;
+    end;
+
+    if ( CxContaCorrente > 0 ) then
+      GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
+
+    RdgStatusVenda.ItemIndex := 0;
+
+    // Imprimir Cupom
+
+    if GetEmitirCupom then
+      if GetEmitirCupomAutomatico then
+        if GetCupomNaoFiscalEmitir then
+          DMNFe.ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
+            , IbDtstTabelaCODCLIENTE.AsInteger
+            , FormatDateTime('dd/mm/yy hh:mm', Now)
+            , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
+        else
+          ; // Emitir Cupom Fiscal
+  end;
+end;
+
+function TfrmGeVendaPDV.GetPermissaoRotinaInterna(const Sender: TObject;
+  const Alertar: Boolean): Boolean;
+var
+  sRotinaInternaID : String;
+begin
+  sRotinaInternaID := GetRotinaInternaID(Sender);
+
+  if Trim(sRotinaInternaID) = EmptyStr then
+    Result := True
+  else
+    Result := GetPermissaoRotinaSistema(sRotinaInternaID, Alertar);
+end;
+
+function TfrmGeVendaPDV.GetRotinaCancelarVendaID: String;
+begin
+  Result := GetRotinaInternaID(actVenda);
+end;
+
+function TfrmGeVendaPDV.GetRotinaFinalizarID: String;
+begin
+  Result := GetRotinaInternaID(actFinalizarVenda);
+end;
+
+function TfrmGeVendaPDV.GetRotinaInternaID(const Sender: TObject): String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGeVendaPDV.GetRotinaIniciarVendaID: String;
+begin
+  Result := GetRotinaInternaID(actIniciarVenda);
 end;
 
 initialization

@@ -1281,12 +1281,15 @@ object DMNFe: TDMNFe
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            ' [frdCliente."NOME"]')
+            
+              ' [FormatFloat('#39'##0000'#39',<frdCliente."CODIGO">)] - [frdCliente."NO' +
+              'ME"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo2: TfrxMemoView
@@ -1301,6 +1304,7 @@ object DMNFe: TDMNFe
           Memo.UTF8 = (
             ' Cliente:')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
@@ -1316,6 +1320,7 @@ object DMNFe: TDMNFe
           Memo.UTF8 = (
             ' CPF/CNPJ.:')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
@@ -1328,7 +1333,7 @@ object DMNFe: TDMNFe
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1367,7 +1372,7 @@ object DMNFe: TDMNFe
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
           HAlign = haRight
@@ -1446,7 +1451,7 @@ object DMNFe: TDMNFe
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1471,6 +1476,7 @@ object DMNFe: TDMNFe
           Memo.UTF8 = (
             ' Endere'#195#167'o:')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
