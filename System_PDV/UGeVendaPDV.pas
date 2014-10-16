@@ -125,6 +125,8 @@ type
     function EstaEditando : Boolean;
     function VendaEstaAberta : Boolean;
     function VendaEstaFinalizada : Boolean;
+
+    function GetTotalValorFormaPagto : Currency;
   public
     { Public declarations }
     property RotinaIniciarVendaID  : String read GetRotinaIniciarVendaID;
@@ -1139,31 +1141,19 @@ begin
     ShowWarning('Favor informar a forma e/ou condição de pagamento')
   else
   if ( GetTotalValorFormaPagto <= 0 ) then
-  begin
-    ShowWarning('Favor informar corretamente o valor de cada forma/condição de pagamento');
-    pgcMaisDados.ActivePage := tbsRecebimento;
-    dbgFormaPagto.SetFocus;
-  end
+    ShowWarning('Favor informar corretamente o valor de cada forma/condição de pagamento')
   else
-  if ( GetTotalValorFormaPagto > IbDtstTabelaTOTALVENDA.AsCurrency ) then
-  begin
-    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
-    pgcMaisDados.ActivePage := tbsRecebimento;
-    dbgFormaPagto.SetFocus;
-  end
+  if ( GetTotalValorFormaPagto > dbValorAPagar.Field.AsCurrency ) then
+    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.')
   else
-  if ( GetTotalValorFormaPagto < IbDtstTabelaTOTALVENDA.AsCurrency ) then
-  begin
-    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
-    pgcMaisDados.ActivePage := tbsRecebimento;
-    dbgFormaPagto.SetFocus;
-  end
+  if ( GetTotalValorFormaPagto < dbValorAPagar.Field.AsCurrency ) then
+    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.')
   else
   if ( ShowConfirm('Confirma a finalização da venda selecionada?') ) then
   begin
-    if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+    if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
     begin
-      GetComprasAbertas( IbDtstTabelaCODCLIENTE.AsInteger );
+      GetComprasAbertas( DataSetVenda.FieldByName('CODCLIENTE').AsInteger );
       if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
       begin
         ShowWarning('O Valor Total A Parzo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
@@ -1271,6 +1261,33 @@ end;
 function TfrmGeVendaPDV.GetRotinaIniciarVendaID: String;
 begin
   Result := GetRotinaInternaID(actIniciarVenda);
+end;
+
+function TfrmGeVendaPDV.GetTotalValorFormaPagto: Currency;
+var
+  cReturn : Currency;
+begin
+  cReturn := 0;
+
+  with DataSetFormaPagto do
+  begin
+    DisableControls;
+
+    if (State in [dsEdit, dsInsert]) then
+      Post;
+
+
+    First;
+    while not Eof do
+    begin
+      cReturn := cReturn + FieldByName('VALOR_FPAGTO').AsCurrency;
+      Next;
+    end;
+    First;
+
+    EnableControls;
+  end;
+  Result := cReturn;
 end;
 
 initialization

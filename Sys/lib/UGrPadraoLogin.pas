@@ -34,6 +34,7 @@ type
     procedure edNomeChange(Sender: TObject);
   private
     { Private declarations }
+    fFinalizarAplicacao : Boolean;
     fCNPJ : Array of String;
     fContador : Integer;
     procedure CarregarEmpresa;
@@ -46,6 +47,7 @@ type
     function GetEmpresa : String;
   public
     { Public declarations }
+    property FinalizarAplicacao : Boolean read fFinalizarAplicacao write fFinalizarAplicacao;
     property Usuario : String read GetUsuario write SetUsuario;
     property Senha   : String read GetSenha write SetSenha;
     property Empresa : String read GetEmpresa write SetEmpresa;
@@ -90,6 +92,8 @@ end;
 procedure TfrmGrPadraoLogin.FormCreate(Sender: TObject);
 begin
   inherited;
+  fFinalizarAplicacao := False;
+
   lblSystemName.Caption        := GetInternalName;
   lblSystemDescription.Caption := GetFileDescription;
   lblSystemVersion.Caption     := 'Versão ' + GetExeVersion;
@@ -141,7 +145,10 @@ end;
 
 procedure TfrmGrPadraoLogin.BtnFecharClick(Sender: TObject);
 begin
-  Application.Terminate;
+  if fFinalizarAplicacao then
+    Application.Terminate
+  else
+    Self.Close;  
 end;
 
 procedure TfrmGrPadraoLogin.BtnEntrarClick(Sender: TObject);

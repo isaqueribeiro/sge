@@ -336,7 +336,7 @@ begin
 
   if ( tblCondicaoPagto.Locate('COND_COD', IbDtstTabelaCONDICAO_PAGTO.AsInteger, []) ) then
     if ( tblCondicaoPagto.FieldByName('COND_PRAZO').AsInteger = 0 ) then
-      if ( not CaixaAberto(GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+      if ( not CaixaAberto(IbDtstTabelaEMPRESA.AsString, GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
       begin
         ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
         Exit;
@@ -520,7 +520,7 @@ begin
 
       if ( tblFormaPagto.Locate('cod', IbDtstTabelaFORMA_PAGTO.AsInteger, []) ) then
         if ( tblFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
-          if ( not CaixaAberto(GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+          if ( not CaixaAberto(IbDtstTabelaEMPRESA.AsString, GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
           begin
             ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
             Exit;

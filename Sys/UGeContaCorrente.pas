@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl;
+  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl, IBTable;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
@@ -21,6 +21,11 @@ type
     dbBanco: TRxDBComboEdit;
     dbTipo: TDBRadioGroup;
     IbDtstTabelaTIPO_DESC: TIBStringField;
+    IbDtstTabelaEMPRESA: TIBStringField;
+    tblEmpresa: TIBTable;
+    dtsEmpresa: TDataSource;
+    lblEmpresa: TLabel;
+    dbEmpresa: TDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -84,6 +89,8 @@ begin
   btbtnExcluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
   btbtnCancelar.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
   btbtnSalvar.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
+
+  tblEmpresa.Open;
 end;
 
 procedure TfrmGeContaCorrente.IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -92,27 +99,31 @@ begin
   IbDtstTabelaCODIGO.Value := GetNextID(NomeTabela, CampoCodigo);
   IbDtstTabelaTIPO.Value   := CONTA_CORRENTE_TIPO_CAIXA;
   IbDtstTabelaCONTA_BANCO_BOLETO.Clear;
+  IbDtstTabelaEMPRESA.Clear;
 end;
 
 procedure TfrmGeContaCorrente.btbtnSalvarClick(Sender: TObject);
 begin
   IbDtstTabelaCONTA_BANCO_BOLETO.Required := (IbDtstTabelaTIPO.AsInteger = CONTA_CORRENTE_TIPO_BANCO);
+
   IbDtstTabelaTIPO_DESC.AsString := dbTipo.Items[ dbTipo.ItemIndex ];
   inherited;
 end;
 
 procedure TfrmGeContaCorrente.dbBancoButtonClick(Sender: TObject);
 var
-  iCodigo : Integer;
-  sNome   ,
-  sAgencia,
-  sConta  : String;
+  iCodigo  : Integer;
+  sNome    ,
+  sAgencia ,
+  sConta   ,
+  sEmpresa : String;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarBanco(Self, iCodigo, sNome, sAgencia, sConta) ) then
+    if ( SelecionarBanco(Self, iCodigo, sNome, sAgencia, sConta, sEmpresa) ) then
     begin
       IbDtstTabelaCONTA_BANCO_BOLETO.AsInteger := iCodigo;
-      IbDtstTabelaBANCO.AsString := sNome + ' AG.: ' + sAgencia + ' C/C.: ' + sConta;
+      IbDtstTabelaBANCO.AsString   := sNome + ' AG.: ' + sAgencia + ' C/C.: ' + sConta;
+      IbDtstTabelaEMPRESA.AsString := sEmpresa
     end;
 end;
 
@@ -120,7 +131,10 @@ procedure TfrmGeContaCorrente.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
   if ( Field = IbDtstTabela.FieldByName('TIPO') ) then
+  begin
     dbBanco.Button.Enabled := (IbDtstTabela.FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
+    dbEmpresa.ReadOnly     := (IbDtstTabela.FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
+  end;
 end;
 
 initialization

@@ -166,6 +166,8 @@ type
     nmCentroCusto: TMenuItem;
     nmRegistroEstacao: TMenuItem;
     nmCartaCorrecaoNFe: TMenuItem;
+    nmEfetuarLogoff: TMenuItem;
+    N110: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -237,6 +239,7 @@ type
     procedure nmPerfilAcessoClick(Sender: TObject);
     procedure nmCotacaoCompraClick(Sender: TObject);
     procedure nmRegistroEstacaoClick(Sender: TObject);
+    procedure nmEfetuarLogoffClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -887,6 +890,11 @@ end;
 procedure TfrmPrinc.nmRegistroEstacaoClick(Sender: TObject);
 begin
   FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
+end;
+
+procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
 end;
 
 end.

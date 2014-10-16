@@ -359,7 +359,9 @@ object DMBusiness: TDMBusiness
       '  , c.Conta_corrente'
       '  , c.Valor_total_credito'
       '  , c.Valor_total_debito'
-      'from GET_CAIXA_ABERTO_DETALHE(:Usuario, :Data, :FormaPagto) c')
+      
+        'from GET_CAIXA_ABERTO_DETALHE(:Empresa, :Usuario, :Data, :FormaP' +
+        'agto) c')
     ModifySQL.Strings = (
       'update TBUSERS'
       'set'

@@ -835,7 +835,7 @@ begin
     CxContaCorrente := 0;
     sTotalAPagar    := CdsTitulosTotalAPagar.AsString;
 
-    if ( not CaixaAberto(GetUserApp, GetDateDB, edFormaPagto.Tag, CxAno, CxNumero, CxContaCorrente) ) then
+    if ( not CaixaAberto(GetEmpresaIDDefault, GetUserApp, GetDateDB, edFormaPagto.Tag, CxAno, CxNumero, CxContaCorrente) ) then
     begin
       ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento BOLETO.');
       Exit;

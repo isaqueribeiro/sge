@@ -84,12 +84,12 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     end
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
-        Top = 113
+        Top = 161
         Width = 735
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 735
-        Height = 113
+        Height = 161
         object lblNome: TLabel [1]
           Left = 88
           Top = 24
@@ -104,6 +104,14 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
           Height = 13
           Caption = 'Banco:'
           FocusControl = dbBanco
+        end
+        object lblEmpresa: TLabel [3]
+          Left = 16
+          Top = 104
+          Width = 45
+          Height = 13
+          Caption = 'Empresa:'
+          FocusControl = dbEmpresa
         end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
@@ -217,6 +225,25 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
             '1'
             '2')
         end
+        object dbEmpresa: TDBLookupComboBox
+          Left = 16
+          Top = 120
+          Width = 705
+          Height = 21
+          DataField = 'EMPRESA'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CNPJ'
+          ListField = 'RZSOC'
+          ListSource = dtsEmpresa
+          ParentFont = False
+          TabOrder = 4
+        end
       end
     end
   end
@@ -227,6 +254,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       '    cc.Codigo'
       '  , cc.Descricao'
       '  , cc.Tipo'
+      '  , cc.Empresa'
       '  , cc.Conta_banco_boleto'
       
         '  , Case when cc.Tipo = 1 then '#39'Caixa'#39' when cc.Tipo = 2 then '#39'Ba' +
@@ -264,6 +292,14 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       FieldName = 'CONTA_BANCO_BOLETO'
       Origin = 'TBCONTA_CORRENTE.CONTA_BANCO_BOLETO'
     end
+    object IbDtstTabelaEMPRESA: TIBStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = '"TBCONTA_CORRENTE"."EMPRESA"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 18
+    end
     object IbDtstTabelaTIPO_DESC: TIBStringField
       DisplayLabel = 'Tipo'
       FieldName = 'TIPO_DESC'
@@ -286,6 +322,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     RefreshSQL.Strings = (
       'Select '
       '  CODIGO,'
+      '  EMPRESA,'
       '  DESCRICAO,'
       '  TIPO,'
       '  CONTA_BANCO_BOLETO'
@@ -296,16 +333,17 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       'update TBCONTA_CORRENTE'
       'set'
       '  CODIGO = :CODIGO,'
+      '  CONTA_BANCO_BOLETO = :CONTA_BANCO_BOLETO,'
       '  DESCRICAO = :DESCRICAO,'
-      '  TIPO = :TIPO,'
-      '  CONTA_BANCO_BOLETO = :CONTA_BANCO_BOLETO'
+      '  EMPRESA = :EMPRESA,'
+      '  TIPO = :TIPO'
       'where'
       '  CODIGO = :OLD_CODIGO')
     InsertSQL.Strings = (
       'insert into TBCONTA_CORRENTE'
-      '  (CODIGO, DESCRICAO, TIPO, CONTA_BANCO_BOLETO)'
+      '  (CODIGO, CONTA_BANCO_BOLETO, DESCRICAO, EMPRESA, TIPO)'
       'values'
-      '  (:CODIGO, :DESCRICAO, :TIPO, :CONTA_BANCO_BOLETO)')
+      '  (:CODIGO, :CONTA_BANCO_BOLETO, :DESCRICAO, :EMPRESA, :TIPO)')
     DeleteSQL.Strings = (
       'delete from TBCONTA_CORRENTE'
       'where'
@@ -314,5 +352,17 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   end
   inherited ImgList: TImageList
     Left = 568
+  end
+  object tblEmpresa: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    TableName = 'TBEMPRESA'
+    Left = 344
+    Top = 264
+  end
+  object dtsEmpresa: TDataSource
+    DataSet = tblEmpresa
+    Left = 376
+    Top = 264
   end
 end

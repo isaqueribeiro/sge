@@ -2329,9 +2329,11 @@ inherited frmGeProduto: TfrmGeProduto
     GeneratorField.Generator = 'GEN_PRODUTO_ID'
     Left = 752
     object IbDtstTabelaCODIGO: TIntegerField
+      Alignment = taCenter
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
       Origin = 'TBPRODUTO.CODIGO'
+      DisplayFormat = '###0000000'
     end
     object IbDtstTabelaCOD: TIBStringField
       DisplayLabel = 'C'#243'digo'

@@ -43,6 +43,7 @@ begin
   frmPrinc.Enabled := False;
 
   FrmEfetuarLogin := TFrmEfetuarLogin.Create(Self);
+  FrmEfetuarLogin.FinalizarAplicacao := True;
   FrmEfetuarLogin.ShowModal;
 end;
 

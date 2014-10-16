@@ -141,7 +141,12 @@ begin
   try
     if TFormularios.EstaAberto(NomeForm) then
       FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
-    Result := (FForm.ShowModal = mrOk);
+    try
+      Result := (FForm.ShowModal = mrOk);
+    except
+      FForm  := _FormFactory.CreateForm(AOnwer, NomeForm);
+      Result := (FForm.ShowModal = mrOk);
+    end;
   finally
     FForm.Free;
   end;

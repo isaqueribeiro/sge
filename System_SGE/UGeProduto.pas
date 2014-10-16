@@ -1434,7 +1434,7 @@ procedure TfrmGeProduto.btbtnSalvarClick(Sender: TObject);
 begin
   // Validações de Dados
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( Length(Trim(IbDtstTabelaNCM_SH.AsString)) <> STR_TAMANHO_NCMSH ) then
+    if ( Length(Trim(IbDtstTabelaNCM_SH.AsString)) < STR_TAMANHO_NCMSH ) then
     begin
       ShowWarning('Favor informar um código válido para o campo "NCM/SH"!');
       Exit;
