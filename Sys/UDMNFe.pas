@@ -488,6 +488,9 @@ type
     qryDadosProdutoNCM_ALIQUOTA_IMP: TIBBCDField;
     qryEntradaDadosProdutoNCM_ALIQUOTA_NAC: TIBBCDField;
     qryEntradaDadosProdutoNCM_ALIQUOTA_IMP: TIBBCDField;
+    qryRequisicaoCompra: TIBQuery;
+    frdRequisicaoCompra: TfrxDBDataset;
+    frrRequisicaoCompra: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);

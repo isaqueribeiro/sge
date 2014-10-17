@@ -168,6 +168,7 @@ type
     nmCartaCorrecaoNFe: TMenuItem;
     nmEfetuarLogoff: TMenuItem;
     N110: TMenuItem;
+    nmRequisicaoCompra: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -240,6 +241,7 @@ type
     procedure nmCotacaoCompraClick(Sender: TObject);
     procedure nmRegistroEstacaoClick(Sender: TObject);
     procedure nmEfetuarLogoffClick(Sender: TObject);
+    procedure nmRequisicaoCompraClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -267,6 +269,7 @@ uses
   UGeEntradaEstoque,
   UGeRequisicaoCliente,
   UGeAutorizacaoCompra,
+  UGeRequisicaoCompra,
 
   // Financeiro
   UGeContasAPagar,
@@ -275,7 +278,8 @@ uses
   UGeFluxoCaixa,
 
   // Relatórios
-  UfrmRelEstoque, UGeCotacaoCompra;
+  UfrmRelEstoque,
+  UGeCotacaoCompra;
 
 {$R *.dfm}
 
@@ -895,6 +899,11 @@ end;
 procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);
 begin
   FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
+end;
+
+procedure TfrmPrinc.nmRequisicaoCompraClick(Sender: TObject);
+begin
+  MostrarControleRequisicao(Self);
 end;
 
 end.

@@ -2314,7 +2314,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2333,7 +2333,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2351,7 +2351,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2372,7 +2372,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2393,7 +2393,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2414,7 +2414,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2704,8 +2704,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop]
           Frame.Width = 0.100000000000000000
@@ -2722,8 +2722,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight]
           Frame.Width = 0.100000000000000000
@@ -2741,8 +2741,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2762,8 +2762,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2782,8 +2782,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2803,8 +2803,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2824,8 +2824,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2845,8 +2845,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2871,8 +2871,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2892,8 +2892,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2912,8 +2912,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2933,8 +2933,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2954,8 +2954,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -2975,8 +2975,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 14211288
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3002,7 +3002,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3021,7 +3021,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3040,7 +3040,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3058,7 +3058,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3079,7 +3079,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3100,7 +3100,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3131,7 +3131,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
-          Font.Name = 'Lucida Console'
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
@@ -3156,8 +3156,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Color = 15000804
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Lucida Console'
+          Font.Height = -9
+          Font.Name = 'Calibri'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000

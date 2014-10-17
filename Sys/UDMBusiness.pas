@@ -312,6 +312,7 @@ var
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+  function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
@@ -360,9 +361,19 @@ const
   STATUS_AUTORIZACAO_FAT = 3;
   STATUS_AUTORIZACAO_CAN = 4;
 
+  STATUS_REQUISICAO_EDC = STATUS_AUTORIZACAO_EDC;
+  STATUS_REQUISICAO_ABR = STATUS_AUTORIZACAO_ABR;
+  STATUS_REQUISICAO_REQ = STATUS_AUTORIZACAO_AUT;
+  STATUS_REQUISICAO_FAT = STATUS_AUTORIZACAO_FAT;
+  STATUS_REQUISICAO_CAN = STATUS_AUTORIZACAO_CAN;
+
   TIPO_AUTORIZACAO_COMPRA         = 1;
   TIPO_AUTORIZACAO_SERVICO        = 2;
   TIPO_AUTORIZACAO_COMPRA_SERVICO = 3;
+
+  TIPO_REQUISICAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
+  TIPO_REQUISICAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
+  TIPO_REQUISICAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
 
   TIPO_COTACAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
   TIPO_COTACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
@@ -2402,6 +2413,33 @@ begin
     SQL.Add('  and (not (');
     SQL.Add('           a.ano    = ' + IntToStr(iAno));
     SQL.Add('       and a.codigo = ' + IntToStr(iCodigo));
+    SQL.Add('  ))');
+    Open;
+
+    Result := (FieldByName('codigo').AsInteger > 0);
+
+    if Result then
+      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
+
+    Close;
+  end;
+end;
+
+function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    r.ano');
+    SQL.Add('  , r.codigo');
+    SQL.Add('  , r.numero');
+    SQL.Add('from TBREQUISITA_COMPRA r');
+    SQL.Add('where r.Numero  = ' + QuotedStr(Trim(sNumero)));
+    SQL.Add('  and (not (');
+    SQL.Add('           r.ano    = ' + IntToStr(iAno));
+    SQL.Add('       and r.codigo = ' + IntToStr(iCodigo));
     SQL.Add('  ))');
     Open;
 

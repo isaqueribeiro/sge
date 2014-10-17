@@ -128,7 +128,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 300
-        ActivePage = TbsNFe
+        ActivePage = TabSheet1
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -451,9 +451,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           object dbAutorizacaoInformaCliente: TDBCheckBox
             Left = 16
             Top = 136
-            Width = 321
+            Width = 417
             Height = 17
-            Caption = 'Informar Cliente nas Autoriza'#231#245'es de Compras/Servi'#231'os'
+            Caption = 
+              'Informar Cliente nas Autoriza'#231#245'es/Requisi'#231#245'es de Compras/Servi'#231'o' +
+              's'
             DataField = 'AUTORIZA_INFORMA_CLIENTE'
             DataSource = DtSrcTabela
             Font.Charset = ANSI_CHARSET
