@@ -1,6 +1,6 @@
 inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
-  Left = 126
-  Top = 78
+  Left = 467
+  Top = 217
   Width = 1132
   Height = 724
   ActiveControl = e1Data
@@ -166,7 +166,6 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unid_cod)'
       '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
       '')
-    ParamData = <>
     object QryPesquisaCODPROD: TIBStringField
       FieldName = 'CODPROD'
       Origin = '"TVENDASITENS"."CODPROD"'

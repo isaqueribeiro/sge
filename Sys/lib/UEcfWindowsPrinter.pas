@@ -36,6 +36,7 @@ Uses
       procedure Assinar_Vendedor(Nome : String); override;
       procedure Titulo_Livre(Str : String); override;
       procedure Texto_Livre(Str : String); override;
+      procedure Texto_Livre_Negrito(Str : String); override;
   end;
 
 implementation
@@ -173,8 +174,8 @@ end;
 procedure TEcfWindowsPrinter.Identifica_Consumidor(sCNPJ_CPF, sNome,
   sEndereco: String);
 begin
-  Texto_Cupom.Add( Alinhar_Esquerda(21, 'CNPJ/CPF Consumidor: ') +
-    Alinhar_Esquerda(Num_Colunas - 21, sCNPJ_CPF) );
+  Texto_Cupom.Add( Alinhar_Esquerda(10, 'CNPJ/CPF: ') +
+    Alinhar_Esquerda(Num_Colunas - 10, sCNPJ_CPF) );
 
   Texto_Cupom.Add( Alinhar_Esquerda(06, 'NOME: ') +
     Alinhar_Esquerda(Num_Colunas - 06, sNome) );
@@ -297,6 +298,11 @@ end;
 procedure TEcfWindowsPrinter.Titulo_Livre(Str: String);
 begin
   Texto_Cupom.Add( '\n' + Centralizar(Num_Colunas, Str) );
+end;
+
+procedure TEcfWindowsPrinter.Texto_Livre_Negrito(Str: String);
+begin
+  Self.Texto_Livre( '\n' + Str );
 end;
 
 end.

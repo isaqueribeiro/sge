@@ -330,7 +330,7 @@ begin
     Exit;
   try
     fOcorreuErro := False;
-    if ( Application.MessageBox('Deseja excluir o registro selecionado?', 'Excluir', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES ) then
+    if ShowConfirmation('Excluir', 'Deseja excluir o registro selecionado?') then
     begin
       IbDtstTabela.Delete;
       IbDtstTabela.ApplyUpdates;
@@ -351,7 +351,7 @@ begin
     Exit;
 
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( Application.MessageBox('Deseja cancelar a inserção/edição do registro?', 'Cancelar', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES ) then
+    if ShowConfirmation('Cancelar', 'Deseja cancelar a inserção/edição do registro?') then
       IbDtstTabela.Cancel;
 end;
 

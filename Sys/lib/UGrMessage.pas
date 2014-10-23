@@ -66,6 +66,8 @@ begin
   btnSim.Visible := True;
   btnNao.Visible := True;
 
+  Self.ActiveControl := btnNao;
+  
   MessageBeep(MB_ICONQUESTION);
 end;
 

@@ -112,7 +112,8 @@ begin
     frm.btbtnSalvar.Visible   := False;
     frm.btbtnLista.Visible    := False;
 
-    frm.WhereAdditional := '(p.FormaPagto_PDV = 1)';
+    frm.WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
+      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;
@@ -142,6 +143,10 @@ begin
   NomeTabela     := 'TBFORMPAGTO';
   CampoCodigo    := 'COD';
   CampoDescricao := 'DESCRI';
+
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
+      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
 
   dbDecrementarLimite.Enabled := (GetUserFunctionID in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_ADM, FUNCTION_USER_ID_GERENTE_VND,
     FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SYSTEM_ADM]);

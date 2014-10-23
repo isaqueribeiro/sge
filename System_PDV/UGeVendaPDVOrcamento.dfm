@@ -139,7 +139,7 @@ inherited frmGeVendaPDVOrcamento: TfrmGeVendaPDVOrcamento
   object Label2: TLabel
     Left = 136
     Top = 52
-    Width = 17
+    Width = 12
     Height = 25
     Alignment = taCenter
     Caption = '/'

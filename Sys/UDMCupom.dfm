@@ -1464,4 +1464,41 @@ object DMCupom: TDMCupom
     Left = 384
     Top = 152
   end
+  object cdsVendaTitulo: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '    r.Anolanc'
+      '  , r.numlanc'
+      '  , r.parcela'
+      '  , r.codbanco'
+      '  , r.nossonumero'
+      '  , r.cnpj'
+      '  , r.tippag'
+      '  , r.dtemiss'
+      '  , r.dtvenc'
+      '  , r.valorrec'
+      '  , r.percentjuros'
+      '  , r.percentmulta'
+      '  , r.percentdesconto'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.dataprocessoboleto'
+      '  , r.Baixado'
+      '  , Case when r.Baixado = 1 then '#39'X'#39' else '#39'.'#39' end as Baixado_'
+      '  , r.Dtrec'
+      '  , r.forma_pagto'
+      '  , r.status'
+      'from TBCONTREC r'
+      ''
+      'where r.anovenda = :anovenda'
+      '  and r.numvenda = :numvenda')
+    ModifySQL.Strings = (
+      '')
+    Left = 80
+    Top = 272
+  end
 end

@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, dxGDIPlusClasses, StdCtrls, DBCtrls, Grids,
-  DBGrids, DB, ActnList, IBCustomDataSet, IBUpdateSQL, IBTable;
+  DBGrids, DB, ActnList, IBCustomDataSet, IBUpdateSQL, IBTable, IBQuery,
+  IBStoredProc;
 
 type
   TfrmGeVendaPDV = class(TfrmGrPadrao)
@@ -76,6 +77,15 @@ type
     actFinalizarVenda: TAction;
     tblFormaPagto: TIBTable;
     tblCondicaoPagto: TIBTable;
+    qryTotalComprasAbertas: TIBQuery;
+    qryTotalComprasAbertasVALOR_LIMITE: TIBBCDField;
+    qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TIBBCDField;
+    qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TIBBCDField;
+    cdsTotalComprasAbertas: TDataSource;
+    IbStrPrcGerarTitulos: TIBStoredProc;
+    dtsTitulos: TDataSource;
+    actExcluirProduto: TAction;
+    actCancelarProduto: TAction;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -108,10 +118,13 @@ type
     procedure CarregarVenda(const Empresa : String; const Ano, Controle : Integer);
     procedure CarregarItens(const Empresa : String; const Ano, Controle : Integer);
     procedure CarregarFormaPagto(const Empresa : String; const Ano, Controle : Integer);
+    procedure CarregarTitulos(const Empresa : String; const Ano, Controle : Integer);
     procedure CarregarDadosCFOP( iCodigo : Integer );
 
     procedure ZerarFormaPagto;
     procedure InserirProduto;
+    procedure GetComprasAbertas(iCodigoCliente : Integer);
+    procedure GerarTitulos(const AnoVenda : Smallint; const ControleVenda : Integer);
 
     function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
     function GetRotinaInternaID(const Sender : TObject) : String;
@@ -122,11 +135,14 @@ type
     function DataSetVenda : TDataSet;
     function DataSetItens : TDataSet;
     function DataSetFormaPagto : TDataSet;
+    function DataSetTitulo : TDataSet;
     function EstaEditando : Boolean;
     function VendaEstaAberta : Boolean;
     function VendaEstaFinalizada : Boolean;
 
     function GetTotalValorFormaPagto : Currency;
+    function GetTotalValorFormaPagto_APrazo : Currency;
+    function GetGerarEstoqueCliente(const Alertar : Boolean = TRUE) : Boolean;
   public
     { Public declarations }
     property RotinaIniciarVendaID  : String read GetRotinaIniciarVendaID;
@@ -143,8 +159,8 @@ implementation
 
 uses
   UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom,
-  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento,
-  UDMNFe;
+  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento, UGeVendaPDVFinalizar,
+  UGeEfetuarPagtoREC, UGeVendaConfirmaTitulos, UDMNFe;
 
 {$R *.dfm}
 
@@ -339,6 +355,7 @@ begin
 
   CarregarItens(Empresa, Ano, Controle);
   CarregarFormaPagto(Empresa, Ano, Controle);
+  CarregarTitulos(Empresa, Ano, Controle);
 
   if ( DataSetVenda.FieldByName('ano').AsInteger > 0 ) then
   begin
@@ -395,9 +412,10 @@ begin
     edNomeCliente.Hint    := sCNPJ;
     edNomeCliente.Enabled := not bBloqueado;
 
-    if VendaEstaAberta and (not EstaEditando) then
+    if VendaEstaAberta then
     begin
-      DataSetVenda.Edit;
+      if not EstaEditando then
+        DataSetVenda.Edit;
       
       with DataSetVenda do
       begin
@@ -543,6 +561,11 @@ begin
   Result := dtsItem.DataSet;
 end;
 
+function TfrmGeVendaPDV.DataSetTitulo: TDataSet;
+begin
+  Result := dtsTitulos.DataSet;
+end;
+
 procedure TfrmGeVendaPDV.dtsVendaDataChange(Sender: TObject;
   Field: TField);
 begin
@@ -620,9 +643,11 @@ begin
     edNomeVendedor.Tag     := iCodigo;
     edNomeVendedor.Caption := sNome;
 
-    if VendaEstaAberta and (not EstaEditando) then
+    if VendaEstaAberta then
     begin
-      DataSetVenda.Edit;
+      if not EstaEditando then
+        DataSetVenda.Edit;
+        
       DataSetVenda.FieldByName('VENDEDOR_COD').AsInteger := iCodigo;
     end;  
   end;
@@ -718,8 +743,9 @@ var
   cQuantidade,
   cPrecoVND  : Currency;
 begin
-  if VendaEstaAberta and (not EstaEditando) then
-    DataSetVenda.Edit;
+  if VendaEstaAberta then
+    if not EstaEditando then
+      DataSetVenda.Edit;
 
   if EstaEditando then
     with DataSetItens do
@@ -921,6 +947,11 @@ begin
     DataSetVenda.FieldByName('TOTALVENDA').AsCurrency := DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency +
       DataSetVenda.FieldByName('DESCONTO').AsCurrency -
       DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
+
+    if not (DataSetFormaPagto.State in [dsEdit, dsINsert]) then
+      DataSetFormaPagto.Edit;
+
+    DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency := dbValorAPagar.Field.AsCurrency;
   finally
     AForm.Free;
   end;
@@ -971,8 +1002,9 @@ begin
   if not lblGravar.Visible then
     Exit;
     
-  if VendaEstaAberta and (not EstaEditando) then
-    DataSetVenda.Edit;
+  if VendaEstaAberta then
+    if not EstaEditando then
+      DataSetVenda.Edit;
     
   if not EstaEditando then
     Exit;
@@ -1018,6 +1050,8 @@ begin
       ShowInformation('Orçamento gravado com sucesso. Favor anotar número:' + #13#13 +
         'No. ' + DataSetVenda.FieldByName('ANO').AsString + '/' + FormatFloat('###00000', DataSetVenda.FieldByName('CODCONTROL').AsInteger));
 
+      // Limpar Tela
+      
       CarregarVenda(GetEmpresaIDDefault, 0, 0);
       IniciarCupomCabecalho;
       IniciarCupomProduto;
@@ -1037,7 +1071,7 @@ begin
 
     if VendaEstaAberta then
     begin
-      if (not EstaEditando) then
+      if not EstaEditando then
         DataSetVenda.Edit;
 
       DataSetFormaPagto.Edit;
@@ -1084,6 +1118,9 @@ procedure TfrmGeVendaPDV.actFinalizarVendaExecute(Sender: TObject);
   end;
 
 var
+  AForm : TfrmGeVendaPDVFinalizar;
+  bConfirmado : Boolean;
+
   iGerarEstoqueCliente,
   CxAno    ,
   CxNumero ,
@@ -1101,8 +1138,6 @@ begin
 
   with DataSetVenda do
   begin
-    CarregarVenda(FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger);
-
     // Verificar se cliente está bloqueado, caso a venda seja a prazo
 
     if ( FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
@@ -1116,9 +1151,15 @@ begin
   // Verificar se existe caixa aberto para o usuário do sistema
 
   if DataSetFormaPagto.Locate('VENDA_PRAZO', 0, []) then
-    if ( not CaixaAberto(GetUserApp, GetDateDB, DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+    if ( not CaixaAberto(DataSetVenda.FieldByName('CODEMP').AsString
+      , GetUserApp
+      , GetDateDB
+      , DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger
+      , CxAno
+      , CxNumero
+      , CxContaCorrente) ) then
     begin
-      ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento ' + QuotedStr(DataSetFormaPagto.FieldByName('FormaPagto').AsString) + '.');
+      ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento ' + QuotedStr(edNomeFormaPagto.Caption) + '.');
       Exit;
     end;
 
@@ -1135,6 +1176,33 @@ begin
   end
   else
 
+  // Chamar tela para inserir dados de Finalização de Venda
+
+  AForm := TfrmGeVendaPDVFinalizar.Create(Self);
+  try
+    if not (DataSetFormaPagto.State in [dsEdit, dsINsert]) then
+      DataSetFormaPagto.Edit;
+
+    if (DataSetFormaPagto.RecordCount = 1) then
+      DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency := dbValorAPagar.Field.AsCurrency;
+
+    AForm.TotalAPagar := dbValorAPagar.Field.AsCurrency;
+    bConfirmado := (AForm.ShowModal = mrOk);
+    if not bConfirmado then
+      Exit;
+  finally
+    AForm.Free;
+
+    if bConfirmado then
+    begin
+      tblFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
+      tblCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
+
+      edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
+      edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
+    end;
+  end;
+
   // Verificar dados da(s) Forma(s) de Pagamento(s)
 
   if ( DataSetFormaPagto.RecordCount = 0 ) then
@@ -1149,14 +1217,14 @@ begin
   if ( GetTotalValorFormaPagto < dbValorAPagar.Field.AsCurrency ) then
     ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.')
   else
-  if ( ShowConfirm('Confirma a finalização da venda selecionada?') ) then
   begin
+
     if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
     begin
       GetComprasAbertas( DataSetVenda.FieldByName('CODCLIENTE').AsInteger );
       if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
       begin
-        ShowWarning('O Valor Total A Parzo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
+        ShowWarning('O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
         Exit;
       end;
     end;
@@ -1166,60 +1234,87 @@ begin
     else
       iGerarEstoqueCliente := 0;
 
-    IbDtstTabela.Edit;
+    DataSetVenda.Edit;
 
-    IbDtstTabelaSTATUS.Value                := STATUS_VND_FIN;
-    IbDtstTabelaDTVENDA.Value               := GetDateTimeDB;
-    IbDtstTabelaDTFINALIZACAO_VENDA.Value   := GetDateTimeDB;
-    IbDtstTabelaGERAR_ESTOQUE_CLIENTE.Value := iGerarEstoqueCliente;
+    DataSetVenda.FieldByName('STATUS').Value                := STATUS_VND_FIN;
+    DataSetVenda.FieldByName('DTVENDA').Value               := GetDateTimeDB;
+    DataSetVenda.FieldByName('DTFINALIZACAO_VENDA').Value   := GetDateTimeDB;
+    DataSetVenda.FieldByName('GERAR_ESTOQUE_CLIENTE').Value := iGerarEstoqueCliente;
 
-    IbDtstTabela.Post;
-    IbDtstTabela.ApplyUpdates;
+    TIBDataSet(DataSetVenda).Post;
+    TIBDataSet(DataSetVenda).ApplyUpdates;
+
+    // Gravar Itens da Venda
+
+    if (DataSetItens.State in [dsEdit, dsInsert]) then
+      TIBDataSet(DataSetItens).Post;
+
+    TIBDataSet(DataSetItens).ApplyUpdates;
+
+    // Gravar Forma de Pagamento
+
+    if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
+      TIBDataSet(DataSetFormaPagto).Post;
+
+    TIBDataSet(DataSetFormaPagto).ApplyUpdates;
 
     CommitTransaction;
 
-    GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    GerarTitulos( DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
+    CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
 
-    ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODCONTROL.AsInteger));
+    ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DataSetVenda.FieldByName('ANO').AsString + '/' +
+      FormatFloat('##0000000', DataSetVenda.FieldByName('CODCONTROL').AsInteger));
 
     // Confirmar vencimentos de cada parcela
 
-    if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
-      if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, GetTotalValorFormaPagto_APrazo) ) then
-        AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-
-    HabilitarDesabilitar_Btns;
+    if ( gSistema.Codigo = SISTEMA_GESTAO ) then
+      if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+        if ( TitulosConfirmados(Self, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+          CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
 
     // Formas de Pagamento que nao seja a prazo
 
-    cdsVendaFormaPagto.First;
-    while not cdsVendaFormaPagto.Eof do
+    DataSetFormaPagto.First;
+    while not DataSetFormaPagto.Eof do
     begin
-      if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
-        if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
-          RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
-            cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
+      if ( DataSetFormaPagto.FieldByName('VENDA_PRAZO').AsInteger = 0 ) then
+        if ( DataSetTitulo.Locate('FORMA_PAGTO', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []) ) then
+          RegistrarPagamento(
+              DataSetTitulo.FieldByName('ANOLANC').AsInteger
+            , DataSetTitulo.FieldByName('NUMLANC').AsInteger
+            , GetDateDB
+            , DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger
+            , DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency
+            , DataSetVenda.FieldByName('ANO').AsInteger
+            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
 
-      cdsVendaFormaPagto.Next;
+      DataSetFormaPagto.Next;
     end;
 
     if ( CxContaCorrente > 0 ) then
       GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
-
-    RdgStatusVenda.ItemIndex := 0;
 
     // Imprimir Cupom
 
     if GetEmitirCupom then
       if GetEmitirCupomAutomatico then
         if GetCupomNaoFiscalEmitir then
-          DMNFe.ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
-            , IbDtstTabelaCODCLIENTE.AsInteger
+          DMNFe.ImprimirCupomNaoFiscal(
+              DataSetVenda.FieldByName('CODEMP').AsString
+            , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', Now)
-            , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
+            , DataSetVenda.FieldByName('ANO').AsInteger
+            , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
         else
           ; // Emitir Cupom Fiscal
+
+    // Limpar Tela
+    
+    CarregarVenda(GetEmpresaIDDefault, 0, 0);
+    IniciarCupomCabecalho;
+    IniciarCupomProduto;
+
   end;
 end;
 
@@ -1288,6 +1383,116 @@ begin
     EnableControls;
   end;
   Result := cReturn;
+end;
+
+procedure TfrmGeVendaPDV.GetComprasAbertas(iCodigoCliente: Integer);
+begin
+  with qryTotalComprasAbertas do
+  begin
+    Close;
+    ParamByName('codigo').AsInteger := iCodigoCliente;
+    Open;
+  end;
+end;
+
+function TfrmGeVendaPDV.GetTotalValorFormaPagto_APrazo: Currency;
+var
+  cReturn : Currency;
+begin
+  cReturn := 0;
+
+  with DataSetFormaPagto do
+  begin
+    DisableControls;
+
+    if (State in [dsEdit, dsInsert]) then
+      Post;
+
+    First;
+    while not Eof do
+    begin
+      if ( FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+        cReturn := cReturn + FieldByName('VALOR_FPAGTO').AsCurrency;
+      Next;
+    end;
+    First;
+
+    EnableControls;
+  end;
+  Result := cReturn;
+end;
+
+function TfrmGeVendaPDV.GetGerarEstoqueCliente(
+  const Alertar: Boolean): Boolean;
+var
+  iReturn : Boolean;
+begin
+  iReturn := False;
+  try
+    if GetEstoqueSateliteEmpresa(GetEmpresaIDDefault) then
+      with DMBusiness, qryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Select');
+        SQL.Add('  coalesce(entrega_fracionada_venda, 0) as gerar_estoque');
+        SQL.Add('from TBCLIENTE');
+        SQL.Add('where Codigo = ' + DataSetVenda.FieldByName('CODCLIENTE').AsString);
+        Open;
+
+        iReturn := (FieldByName('gerar_estoque').AsInteger = 1);
+
+        if iReturn and Alertar then
+          if not ShowConfirm('Cliente trabalha com recebimento fracionado de produtos comprados nesta empresa.' + #13#13 +
+            'Deseja gerar um estoque satélite para o cliente para entregas fracionadas a partir de requisições e geração de Cartas de Créditos?', 'Estoque Cliente') then
+            iReturn := False;
+
+        Close;
+      end;
+  finally
+    Result := iReturn;
+  end;
+end;
+
+procedure TfrmGeVendaPDV.GerarTitulos(const AnoVenda: Smallint;
+  const ControleVenda: Integer);
+begin
+  try
+
+    try
+
+      UpdateSequence('GEN_CONTAREC_NUM_' + IntToStr(AnoVenda), 'TBCONTREC', 'NUMLANC', 'where ANOLANC = ' + IntToStr(AnoVenda));
+
+      with IbStrPrcGerarTitulos do
+      begin
+        ParamByName('anovenda').AsInteger := AnoVenda;
+        ParamByName('numvenda').AsInteger := ControleVenda;
+        ExecProc;
+        CommitTransaction;
+      end;
+
+    except
+      On E : Exception do
+      begin
+        DMBusiness.ibtrnsctnBusiness.Rollback;
+        ShowError('Erro ao tentar gerar títulos de recebimento.' + #13#13 + E.Message);
+      end;
+    end;
+
+  finally
+  end;
+end;
+
+procedure TfrmGeVendaPDV.CarregarTitulos(const Empresa: String; const Ano,
+  Controle: Integer);
+begin
+  with TIBDataSet(DataSetTitulo) do
+  begin
+    Close;
+    ParamByName('anovenda').AsInteger := Ano;
+    ParamByName('numvenda').AsInteger := Controle;
+    Open;
+  end;
 end;
 
 initialization

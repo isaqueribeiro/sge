@@ -166,7 +166,7 @@ const
   STATUS_CAIXA_CANCELADO = 2;
 
   procedure MostrarTabelaCaixa(const AOwner : TComponent);
-  
+
   function SelecionarCaixa(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
   function AbrirCaixa(const AOwner : TComponent; const Usuario : String) : Boolean;
   function FecharCaixa(const AOwner : TComponent; const Usuario : String) : Boolean;
@@ -191,8 +191,13 @@ begin
 
     with frm, IbDtstTabela do
     begin
+      if (gSistema.Codigo = SISTEMA_PDV) then
+        frm.WhereAdditional := '(cc.tipo = 1)'
+      else
+        frm.WhereAdditional := '(1 = 1)';
+
       Close;
-      SelectSQL.Add('where ' + whr);
+      SelectSQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
       SelectSQL.Add('order by ' + CampoOrdenacao);
       Open;
     end;
@@ -235,8 +240,13 @@ begin
 
     with frm, IbDtstTabela do
     begin
+      if (gSistema.Codigo = SISTEMA_PDV) then
+        frm.WhereAdditional := '(cc.tipo = 1)'
+      else
+        frm.WhereAdditional := '(1 = 1)';
+
       Close;
-      SelectSQL.Add('where ' + whr);
+      SelectSQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
       Open;
     end;
 
@@ -262,8 +272,13 @@ begin
 
     with frm, IbDtstTabela do
     begin
+      if (gSistema.Codigo = SISTEMA_PDV) then
+        frm.WhereAdditional := '(cc.tipo = 1)'
+      else
+        frm.WhereAdditional := '(1 = 1)';
+
       Close;
-      SelectSQL.Add('where ' + whr);
+      SelectSQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
       Open;
       
       AbrirTabelaConsolidado(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
@@ -316,6 +331,13 @@ begin
   CampoCodigo    := 'Numero';
   CampoDescricao := 'c.Usuario';
   CampoOrdenacao := 'c.Data_abertura, c.Usuario';
+
+  if (gSistema.Codigo = SISTEMA_PDV) then
+  begin
+    WhereAdditional := '(cc.tipo = 1)';
+    tblContaCorrente.Filter   := 'TIPO = 1';
+    tblContaCorrente.Filtered := True;
+  end;
 
   with IbDtstTabela, GeneratorField do
   begin
@@ -816,6 +838,9 @@ begin
   WhereAdditional := 'c.Data_abertura between ' +
     QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
     QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    WhereAdditional := '(cc.tipo = 1) and (' + WhereAdditional + ')';
 
   inherited;
 end;

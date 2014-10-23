@@ -25,8 +25,9 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
           end
           item
             Expanded = False
-            FieldName = 'COND_PRAZO'
+            FieldName = 'APrazo'
             Title.Alignment = taCenter
+            Title.Caption = 'A Prazo?'
             Width = 60
             Visible = True
           end>
@@ -51,10 +52,10 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
     end
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
-        Top = 153
+        Top = 185
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Height = 153
+        Height = 185
         object lblNome: TLabel [1]
           Left = 88
           Top = 24
@@ -384,17 +385,38 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
           ParentFont = False
           TabOrder = 14
         end
+        object dbFormaPagtoPDV: TDBCheckBox
+          Left = 88
+          Top = 152
+          Width = 225
+          Height = 17
+          Caption = 'Usar Condi'#231#227'o de Pagamento no PDV'
+          DataField = 'COND_PDV'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 15
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
       end
     end
   end
   inherited IbDtstTabela: TIBDataSet
     BeforePost = IbDtstTabelaBeforePost
+    OnCalcFields = IbDtstTabelaCalcFields
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    c.Cond_cod'
       '  , c.Cond_descricao'
       '  , c.Cond_prazo'
+      '  , c.Cond_pdv'
+      '  , c.Cond_qtde_parcelas'
       '  , c.Cond_prazo_01'
       '  , c.Cond_prazo_02'
       '  , c.Cond_prazo_03'
@@ -448,6 +470,8 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       'from TBCONDICAOPAGTO c')
     GeneratorField.Field = 'COND_COD'
     GeneratorField.Generator = 'GEN_CONDICAOPAGTO_COD'
+    Left = 608
+    Top = 192
     object IbDtstTabelaCOND_COD: TSmallintField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'COND_COD'
@@ -466,6 +490,16 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       FieldName = 'COND_PRAZO'
       Origin = 'TBCONDICAOPAGTO.COND_PRAZO'
       Required = True
+    end
+    object IbDtstTabelaCOND_PDV: TSmallintField
+      FieldName = 'COND_PDV'
+      Origin = '"TBCONDICAOPAGTO"."COND_PDV"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaCOND_QTDE_PARCELAS: TSmallintField
+      FieldName = 'COND_QTDE_PARCELAS'
+      Origin = '"TBCONDICAOPAGTO"."COND_QTDE_PARCELAS"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaCOND_PRAZO_01: TSmallintField
       DisplayLabel = 'Prazo 1'
@@ -532,9 +566,19 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       FieldName = 'COND_DESCRICAO_FULL'
       Size = 175
     end
+    object IbDtstTabelaAPrazo: TStringField
+      Alignment = taCenter
+      FieldKind = fkCalculated
+      FieldName = 'APrazo'
+      ProviderFlags = []
+      Size = 1
+      Calculated = True
+    end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
+    Left = 672
+    Top = 192
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -542,6 +586,8 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       '  COND_COD,'
       '  COND_DESCRICAO,'
       '  COND_PRAZO,'
+      '  COND_PDV,'
+      '  COND_QTDE_PARCELAS,'
       '  COND_PRAZO_01,'
       '  COND_PRAZO_02,'
       '  COND_PRAZO_03,'
@@ -562,6 +608,7 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       'set'
       '  COND_COD = :COND_COD,'
       '  COND_DESCRICAO = :COND_DESCRICAO,'
+      '  COND_PDV = :COND_PDV,'
       '  COND_PRAZO = :COND_PRAZO,'
       '  COND_PRAZO_01 = :COND_PRAZO_01,'
       '  COND_PRAZO_02 = :COND_PRAZO_02,'
@@ -574,33 +621,42 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       '  COND_PRAZO_09 = :COND_PRAZO_09,'
       '  COND_PRAZO_10 = :COND_PRAZO_10,'
       '  COND_PRAZO_11 = :COND_PRAZO_11,'
-      '  COND_PRAZO_12 = :COND_PRAZO_12'
+      '  COND_PRAZO_12 = :COND_PRAZO_12,'
+      '  COND_QTDE_PARCELAS = :COND_QTDE_PARCELAS'
       'where'
       '  COND_COD = :OLD_COND_COD')
     InsertSQL.Strings = (
       'insert into TBCONDICAOPAGTO'
       
-        '  (COND_COD, COND_DESCRICAO, COND_PRAZO, COND_PRAZO_01, COND_PRA' +
-        'ZO_02, '
+        '  (COND_COD, COND_DESCRICAO, COND_PDV, COND_PRAZO, COND_PRAZO_01' +
+        ', COND_PRAZO_02, '
       
         '   COND_PRAZO_03, COND_PRAZO_04, COND_PRAZO_05, COND_PRAZO_06, C' +
         'OND_PRAZO_07, '
       
         '   COND_PRAZO_08, COND_PRAZO_09, COND_PRAZO_10, COND_PRAZO_11, C' +
-        'OND_PRAZO_12)'
+        'OND_PRAZO_12, '
+      '   COND_QTDE_PARCELAS)'
       'values'
       
-        '  (:COND_COD, :COND_DESCRICAO, :COND_PRAZO, :COND_PRAZO_01, :CON' +
-        'D_PRAZO_02, '
+        '  (:COND_COD, :COND_DESCRICAO, :COND_PDV, :COND_PRAZO, :COND_PRA' +
+        'ZO_01, '
       
-        '   :COND_PRAZO_03, :COND_PRAZO_04, :COND_PRAZO_05, :COND_PRAZO_0' +
-        '6, :COND_PRAZO_07, '
+        '   :COND_PRAZO_02, :COND_PRAZO_03, :COND_PRAZO_04, :COND_PRAZO_0' +
+        '5, :COND_PRAZO_06, '
       
-        '   :COND_PRAZO_08, :COND_PRAZO_09, :COND_PRAZO_10, :COND_PRAZO_1' +
-        '1, :COND_PRAZO_12)')
+        '   :COND_PRAZO_07, :COND_PRAZO_08, :COND_PRAZO_09, :COND_PRAZO_1' +
+        '0, :COND_PRAZO_11, '
+      '   :COND_PRAZO_12, :COND_QTDE_PARCELAS)')
     DeleteSQL.Strings = (
       'delete from TBCONDICAOPAGTO'
       'where'
       '  COND_COD = :OLD_COND_COD')
+    Left = 640
+    Top = 192
+  end
+  inherited ImgList: TImageList
+    Left = 576
+    Top = 192
   end
 end

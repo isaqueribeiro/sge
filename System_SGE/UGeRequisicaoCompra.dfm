@@ -559,9 +559,9 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
         object lblAutorizador: TLabel [7]
           Left = 944
           Top = 64
-          Width = 70
+          Width = 97
           Height = 13
-          Caption = 'Autorizador:'
+          Caption = 'Requisitador por:'
           FocusControl = dbAutorizador
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -794,7 +794,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           Height = 21
           TabStop = False
           Color = clMoneyGreen
-          DataField = 'AUTORIZADO_USUARIO'
+          DataField = 'REQUISITADO_USUARIO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -2081,158 +2081,159 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
-      '    a.ano'
-      '  , a.codigo'
-      '  , a.empresa'
-      '  , a.numero'
-      '  , a.fornecedor'
-      '  , a.nome_contato'
-      '  , a.tipo'
-      '  , a.insercao_data'
-      '  , a.emissao_data'
-      '  , a.emissao_usuario'
-      '  , a.validade'
-      '  , a.competencia'
-      '  , a.movito'
-      '  , a.observacao'
-      '  , a.cliente'
-      '  , a.endereco_entrega'
-      '  , a.status'
-      '  , a.recebedor_nome'
-      '  , a.recebedor_cpf'
-      '  , a.recebedor_funcao'
-      '  , a.forma_pagto'
-      '  , a.condicao_pagto'
-      '  , a.transportador'
-      '  , a.valor_bruto'
-      '  , a.valor_desconto'
-      '  , a.valor_total_frete'
-      '  , a.valor_total_ipi'
-      '  , a.valor_total'
-      '  , a.autorizado_data'
-      '  , a.data_fatura'
-      '  , a.autorizado_usuario'
-      '  , a.cancelado_data'
-      '  , a.cancelado_usuario'
-      '  , a.cancelado_motivo'
+      '    r.ano'
+      '  , r.codigo'
+      '  , r.empresa'
+      '  , r.numero'
+      '  , r.fornecedor'
+      '  , r.nome_contato'
+      '  , r.tipo'
+      '  , r.insercao_data'
+      '  , r.emissao_data'
+      '  , r.emissao_usuario'
+      '  , r.validade'
+      '  , r.competencia'
+      '  , r.movito'
+      '  , r.observacao'
+      '  , r.cliente'
+      '  , r.endereco_entrega'
+      '  , r.status'
+      '  , r.recebedor_nome'
+      '  , r.recebedor_cpf'
+      '  , r.recebedor_funcao'
+      '  , r.forma_pagto'
+      '  , r.condicao_pagto'
+      '  , r.transportador'
+      '  , r.valor_bruto'
+      '  , r.valor_desconto'
+      '  , r.valor_total_frete'
+      '  , r.valor_total_ipi'
+      '  , r.valor_total'
+      '  , r.requisitado_data'
+      '  , r.data_fatura'
+      '  , r.requisitado_usuario'
+      '  , r.cancelado_data'
+      '  , r.cancelado_usuario'
+      '  , r.cancelado_motivo'
       
-        '  , (Select count(x.seq) from TBAUTORIZA_COMPRAITEM x WHERE x.an' +
-        'o = a.ano and x.codigo = a.codigo and x.empresa = a.empresa) as ' +
-        'itens'
+        '  , (Select count(x.seq) from TBREQUISITA_COMPRAITEM x WHERE x.a' +
+        'no = r.ano and x.codigo = r.codigo and x.empresa = r.empresa) as' +
+        ' itens'
       '  , f.nomeforn'
       '  , f.cnpj'
       '  , f.pessoa_fisica'
       '  , t.nomeforn as transportador_nome'
       '  , t.cnpj     as transportador_cpf_cnpj'
       '  , c.nome     as nomecliente'
-      'from TBAUTORIZA_COMPRA a'
-      '  left join TBFORNECEDOR f on (f.codforn = a.fornecedor)'
-      '  left join TBFORNECEDOR t on (t.codforn = a.transportador)'
-      '  left join TBCLIENTE c on (c.codigo = a.cliente)')
+      'from TBREQUISITA_COMPRA r'
+      '  left join TBFORNECEDOR f on (f.codforn = r.fornecedor)'
+      '  left join TBFORNECEDOR t on (t.codforn = r.transportador)'
+      '  left join TBCLIENTE c on (c.codigo = r.cliente)')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_REQUISICAO_2013'
     Left = 680
     Top = 392
     object IbDtstTabelaANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBAUTORIZA_COMPRA"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInKey]
+      Origin = '"TBREQUISITA_COMPRA"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
     object IbDtstTabelaCODIGO: TIntegerField
       FieldName = 'CODIGO'
-      Origin = '"TBAUTORIZA_COMPRA"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInKey]
+      Origin = '"TBREQUISITA_COMPRA"."CODIGO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
-      DisplayFormat = '###0000000'
     end
     object IbDtstTabelaEMPRESA: TIBStringField
+      DisplayLabel = 'Empresa'
       FieldName = 'EMPRESA'
-      Origin = '"TBAUTORIZA_COMPRA"."EMPRESA"'
-      ProviderFlags = [pfInUpdate, pfInKey]
+      Origin = '"TBREQUISITA_COMPRA"."EMPRESA"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 18
     end
     object IbDtstTabelaNUMERO: TIBStringField
       DisplayLabel = 'N'#250'mero'
       FieldName = 'NUMERO'
-      Origin = '"TBAUTORIZA_COMPRA"."NUMERO"'
+      Origin = '"TBREQUISITA_COMPRA"."NUMERO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
     object IbDtstTabelaFORNECEDOR: TIntegerField
       DisplayLabel = 'Fornecedor'
       FieldName = 'FORNECEDOR'
-      Origin = '"TBAUTORIZA_COMPRA"."FORNECEDOR"'
+      Origin = '"TBREQUISITA_COMPRA"."FORNECEDOR"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
     object IbDtstTabelaNOME_CONTATO: TIBStringField
-      DisplayLabel = 'Nome Contato'
       FieldName = 'NOME_CONTATO'
-      Origin = '"TBAUTORIZA_COMPRA"."NOME_CONTATO"'
+      Origin = '"TBREQUISITA_COMPRA"."NOME_CONTATO"'
+      ProviderFlags = [pfInUpdate]
       Size = 100
     end
     object IbDtstTabelaTIPO: TSmallintField
       Alignment = taLeftJustify
       DisplayLabel = 'Tipo'
       FieldName = 'TIPO'
-      Origin = '"TBAUTORIZA_COMPRA"."TIPO"'
+      Origin = '"TBREQUISITA_COMPRA"."TIPO"'
       ProviderFlags = [pfInUpdate]
       Required = True
       OnGetText = IbDtstTabelaTIPOGetText
     end
     object IbDtstTabelaINSERCAO_DATA: TDateTimeField
       FieldName = 'INSERCAO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."INSERCAO_DATA"'
+      Origin = '"TBREQUISITA_COMPRA"."INSERCAO_DATA"'
       ProviderFlags = [pfInUpdate]
       OnGetText = IbDtstTabelaINSERCAO_DATAGetText
     end
     object IbDtstTabelaEMISSAO_DATA: TDateField
-      DisplayLabel = 'Data de Emiss'#227'o'
+      DisplayLabel = 'Data Emiss'#227'o'
       FieldName = 'EMISSAO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."EMISSAO_DATA"'
+      Origin = '"TBREQUISITA_COMPRA"."EMISSAO_DATA"'
       ProviderFlags = [pfInUpdate]
       Required = True
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object IbDtstTabelaEMISSAO_USUARIO: TIBStringField
       FieldName = 'EMISSAO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."EMISSAO_USUARIO"'
+      Origin = '"TBREQUISITA_COMPRA"."EMISSAO_USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 12
     end
     object IbDtstTabelaVALIDADE: TDateField
-      DisplayLabel = 'Data de Validade'
       FieldName = 'VALIDADE'
-      Origin = '"TBAUTORIZA_COMPRA"."VALIDADE"'
+      Origin = '"TBREQUISITA_COMPRA"."VALIDADE"'
       ProviderFlags = [pfInUpdate]
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object IbDtstTabelaCOMPETENCIA: TIntegerField
       FieldName = 'COMPETENCIA'
-      Origin = '"TBAUTORIZA_COMPRA"."COMPETENCIA"'
+      Origin = '"TBREQUISITA_COMPRA"."COMPETENCIA"'
       ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCLIENTE: TIntegerField
-      DisplayLabel = 'Cliente'
-      FieldName = 'CLIENTE'
-      Origin = '"TBAUTORIZA_COMPRA"."CLIENTE"'
     end
     object IbDtstTabelaMOVITO: TMemoField
       FieldName = 'MOVITO'
-      Origin = '"TBAUTORIZA_COMPRA"."MOVITO"'
+      Origin = '"TBREQUISITA_COMPRA"."MOVITO"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
     end
     object IbDtstTabelaOBSERVACAO: TMemoField
       FieldName = 'OBSERVACAO'
-      Origin = '"TBAUTORIZA_COMPRA"."OBSERVACAO"'
+      Origin = '"TBREQUISITA_COMPRA"."OBSERVACAO"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
     end
+    object IbDtstTabelaCLIENTE: TIntegerField
+      FieldName = 'CLIENTE'
+      Origin = '"TBREQUISITA_COMPRA"."CLIENTE"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaENDERECO_ENTREGA: TMemoField
       FieldName = 'ENDERECO_ENTREGA'
-      Origin = '"TBAUTORIZA_COMPRA"."ENDERECO_ENTREGA"'
+      Origin = '"TBREQUISITA_COMPRA"."ENDERECO_ENTREGA"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
@@ -2240,52 +2241,50 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     object IbDtstTabelaSTATUS: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'STATUS'
-      Origin = '"TBAUTORIZA_COMPRA"."STATUS"'
+      Origin = '"TBREQUISITA_COMPRA"."STATUS"'
       ProviderFlags = [pfInUpdate]
       OnGetText = IbDtstTabelaSTATUSGetText
     end
     object IbDtstTabelaRECEBEDOR_NOME: TIBStringField
       FieldName = 'RECEBEDOR_NOME'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_NOME"'
+      Origin = '"TBREQUISITA_COMPRA"."RECEBEDOR_NOME"'
       ProviderFlags = [pfInUpdate]
       Size = 100
     end
     object IbDtstTabelaRECEBEDOR_CPF: TIBStringField
       FieldName = 'RECEBEDOR_CPF'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_CPF"'
+      Origin = '"TBREQUISITA_COMPRA"."RECEBEDOR_CPF"'
       ProviderFlags = [pfInUpdate]
       Size = 18
     end
     object IbDtstTabelaRECEBEDOR_FUNCAO: TIBStringField
       FieldName = 'RECEBEDOR_FUNCAO'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_FUNCAO"'
+      Origin = '"TBREQUISITA_COMPRA"."RECEBEDOR_FUNCAO"'
       ProviderFlags = [pfInUpdate]
       Size = 50
     end
     object IbDtstTabelaFORMA_PAGTO: TSmallintField
       DisplayLabel = 'Forma de Pagamento'
       FieldName = 'FORMA_PAGTO'
-      Origin = '"TBAUTORIZA_COMPRA"."FORMA_PAGTO"'
+      Origin = '"TBREQUISITA_COMPRA"."FORMA_PAGTO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
     object IbDtstTabelaCONDICAO_PAGTO: TSmallintField
       DisplayLabel = 'Condi'#231#227'o de Pagamento'
       FieldName = 'CONDICAO_PAGTO'
-      Origin = '"TBAUTORIZA_COMPRA"."CONDICAO_PAGTO"'
+      Origin = '"TBREQUISITA_COMPRA"."CONDICAO_PAGTO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
     object IbDtstTabelaTRANSPORTADOR: TIntegerField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Transportador'
       FieldName = 'TRANSPORTADOR'
-      Origin = '"TBAUTORIZA_COMPRA"."TRANSPORTADOR"'
+      Origin = '"TBREQUISITA_COMPRA"."TRANSPORTADOR"'
       ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaVALOR_BRUTO: TIBBCDField
       FieldName = 'VALOR_BRUTO'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_BRUTO"'
+      Origin = '"TBREQUISITA_COMPRA"."VALOR_BRUTO"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
@@ -2293,7 +2292,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     end
     object IbDtstTabelaVALOR_DESCONTO: TIBBCDField
       FieldName = 'VALOR_DESCONTO'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_DESCONTO"'
+      Origin = '"TBREQUISITA_COMPRA"."VALOR_DESCONTO"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
@@ -2301,7 +2300,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     end
     object IbDtstTabelaVALOR_TOTAL_FRETE: TIBBCDField
       FieldName = 'VALOR_TOTAL_FRETE'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL_FRETE"'
+      Origin = '"TBREQUISITA_COMPRA"."VALOR_TOTAL_FRETE"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
@@ -2309,7 +2308,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     end
     object IbDtstTabelaVALOR_TOTAL_IPI: TIBBCDField
       FieldName = 'VALOR_TOTAL_IPI'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL_IPI"'
+      Origin = '"TBREQUISITA_COMPRA"."VALOR_TOTAL_IPI"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
@@ -2317,42 +2316,43 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     end
     object IbDtstTabelaVALOR_TOTAL: TIBBCDField
       FieldName = 'VALOR_TOTAL'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL"'
+      Origin = '"TBREQUISITA_COMPRA"."VALOR_TOTAL"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object IbDtstTabelaAUTORIZADO_DATA: TDateField
-      FieldName = 'AUTORIZADO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."AUTORIZADO_DATA"'
+    object IbDtstTabelaREQUISITADO_DATA: TDateField
+      DisplayLabel = 'Data'
+      FieldName = 'REQUISITADO_DATA'
+      Origin = '"TBREQUISITA_COMPRA"."REQUISITADO_DATA"'
       ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaDATA_FATURA: TDateField
       FieldName = 'DATA_FATURA'
-      Origin = '"TBAUTORIZA_COMPRA"."DATA_FATURA"'
+      Origin = '"TBREQUISITA_COMPRA"."DATA_FATURA"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaAUTORIZADO_USUARIO: TIBStringField
-      FieldName = 'AUTORIZADO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."AUTORIZADO_USUARIO"'
+    object IbDtstTabelaREQUISITADO_USUARIO: TIBStringField
+      FieldName = 'REQUISITADO_USUARIO'
+      Origin = '"TBREQUISITA_COMPRA"."REQUISITADO_USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 12
     end
     object IbDtstTabelaCANCELADO_DATA: TDateField
       FieldName = 'CANCELADO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_DATA"'
+      Origin = '"TBREQUISITA_COMPRA"."CANCELADO_DATA"'
       ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaCANCELADO_USUARIO: TIBStringField
       FieldName = 'CANCELADO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_USUARIO"'
+      Origin = '"TBREQUISITA_COMPRA"."CANCELADO_USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 12
     end
     object IbDtstTabelaCANCELADO_MOTIVO: TMemoField
       FieldName = 'CANCELADO_MOTIVO'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_MOTIVO"'
+      Origin = '"TBREQUISITA_COMPRA"."CANCELADO_MOTIVO"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
@@ -2365,7 +2365,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       FieldName = 'NOMEFORN'
       Origin = '"TBFORNECEDOR"."NOMEFORN"'
       ProviderFlags = []
-      Size = 60
+      Size = 100
     end
     object IbDtstTabelaCNPJ: TIBStringField
       FieldName = 'CNPJ'
@@ -2382,7 +2382,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       FieldName = 'TRANSPORTADOR_NOME'
       Origin = '"TBFORNECEDOR"."NOMEFORN"'
       ProviderFlags = []
-      Size = 60
+      Size = 100
     end
     object IbDtstTabelaTRANSPORTADOR_CPF_CNPJ: TIBStringField
       FieldName = 'TRANSPORTADOR_CPF_CNPJ'
@@ -2423,8 +2423,8 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  CLIENTE,'
       '  ENDERECO_ENTREGA,'
       '  STATUS,'
-      '  AUTORIZADO_DATA,'
-      '  AUTORIZADO_USUARIO,'
+      '  REQUISITADO_DATA,'
+      '  REQUISITADO_USUARIO,'
       '  CANCELADO_DATA,'
       '  CANCELADO_USUARIO,'
       '  CANCELADO_MOTIVO,'
@@ -2439,17 +2439,15 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  VALOR_TOTAL_FRETE,'
       '  VALOR_TOTAL_IPI,'
       '  VALOR_TOTAL'
-      'from TBAUTORIZA_COMPRA '
+      'from TBREQUISITA_COMPRA '
       'where'
       '  ANO = :ANO and'
       '  CODIGO = :CODIGO and'
       '  EMPRESA = :EMPRESA')
     ModifySQL.Strings = (
-      'update TBAUTORIZA_COMPRA'
+      'update TBREQUISITA_COMPRA'
       'set'
       '  ANO = :ANO,'
-      '  AUTORIZADO_DATA = :AUTORIZADO_DATA,'
-      '  AUTORIZADO_USUARIO = :AUTORIZADO_USUARIO,'
       '  CANCELADO_DATA = :CANCELADO_DATA,'
       '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
       '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
@@ -2472,6 +2470,8 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  RECEBEDOR_CPF = :RECEBEDOR_CPF,'
       '  RECEBEDOR_FUNCAO = :RECEBEDOR_FUNCAO,'
       '  RECEBEDOR_NOME = :RECEBEDOR_NOME,'
+      '  REQUISITADO_DATA = :REQUISITADO_DATA,'
+      '  REQUISITADO_USUARIO = :REQUISITADO_USUARIO,'
       '  STATUS = :STATUS,'
       '  TIPO = :TIPO,'
       '  TRANSPORTADOR = :TRANSPORTADOR,'
@@ -2486,48 +2486,48 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA')
     InsertSQL.Strings = (
-      'insert into TBAUTORIZA_COMPRA'
+      'insert into TBREQUISITA_COMPRA'
       
-        '  (ANO, AUTORIZADO_DATA, AUTORIZADO_USUARIO, CANCELADO_DATA, CAN' +
-        'CELADO_MOTIVO, '
+        '  (ANO, CANCELADO_DATA, CANCELADO_MOTIVO, CANCELADO_USUARIO, CLI' +
+        'ENTE, CODIGO, '
       
-        '   CANCELADO_USUARIO, CLIENTE, CODIGO, COMPETENCIA, CONDICAO_PAG' +
-        'TO, DATA_FATURA, '
+        '   COMPETENCIA, CONDICAO_PAGTO, DATA_FATURA, EMISSAO_DATA, EMISS' +
+        'AO_USUARIO, '
       
-        '   EMISSAO_DATA, EMISSAO_USUARIO, EMPRESA, ENDERECO_ENTREGA, FOR' +
-        'MA_PAGTO, '
+        '   EMPRESA, ENDERECO_ENTREGA, FORMA_PAGTO, FORNECEDOR, INSERCAO_' +
+        'DATA, MOVITO, '
       
-        '   FORNECEDOR, INSERCAO_DATA, MOVITO, NOME_CONTATO, NUMERO, OBSE' +
-        'RVACAO, '
+        '   NOME_CONTATO, NUMERO, OBSERVACAO, RECEBEDOR_CPF, RECEBEDOR_FU' +
+        'NCAO, RECEBEDOR_NOME, '
       
-        '   RECEBEDOR_CPF, RECEBEDOR_FUNCAO, RECEBEDOR_NOME, STATUS, TIPO' +
-        ', TRANSPORTADOR, '
+        '   REQUISITADO_DATA, REQUISITADO_USUARIO, STATUS, TIPO, TRANSPOR' +
+        'TADOR, '
       
         '   VALIDADE, VALOR_BRUTO, VALOR_DESCONTO, VALOR_TOTAL, VALOR_TOT' +
         'AL_FRETE, '
       '   VALOR_TOTAL_IPI)'
       'values'
       
-        '  (:ANO, :AUTORIZADO_DATA, :AUTORIZADO_USUARIO, :CANCELADO_DATA,' +
-        ' :CANCELADO_MOTIVO, '
+        '  (:ANO, :CANCELADO_DATA, :CANCELADO_MOTIVO, :CANCELADO_USUARIO,' +
+        ' :CLIENTE, '
       
-        '   :CANCELADO_USUARIO, :CLIENTE, :CODIGO, :COMPETENCIA, :CONDICA' +
-        'O_PAGTO, '
+        '   :CODIGO, :COMPETENCIA, :CONDICAO_PAGTO, :DATA_FATURA, :EMISSA' +
+        'O_DATA, '
       
-        '   :DATA_FATURA, :EMISSAO_DATA, :EMISSAO_USUARIO, :EMPRESA, :END' +
-        'ERECO_ENTREGA, '
+        '   :EMISSAO_USUARIO, :EMPRESA, :ENDERECO_ENTREGA, :FORMA_PAGTO, ' +
+        ':FORNECEDOR, '
       
-        '   :FORMA_PAGTO, :FORNECEDOR, :INSERCAO_DATA, :MOVITO, :NOME_CON' +
-        'TATO, :NUMERO, '
+        '   :INSERCAO_DATA, :MOVITO, :NOME_CONTATO, :NUMERO, :OBSERVACAO,' +
+        ' :RECEBEDOR_CPF, '
       
-        '   :OBSERVACAO, :RECEBEDOR_CPF, :RECEBEDOR_FUNCAO, :RECEBEDOR_NO' +
-        'ME, :STATUS, '
+        '   :RECEBEDOR_FUNCAO, :RECEBEDOR_NOME, :REQUISITADO_DATA, :REQUI' +
+        'SITADO_USUARIO, '
       
-        '   :TIPO, :TRANSPORTADOR, :VALIDADE, :VALOR_BRUTO, :VALOR_DESCON' +
-        'TO, :VALOR_TOTAL, '
-      '   :VALOR_TOTAL_FRETE, :VALOR_TOTAL_IPI)')
+        '   :STATUS, :TIPO, :TRANSPORTADOR, :VALIDADE, :VALOR_BRUTO, :VAL' +
+        'OR_DESCONTO, '
+      '   :VALOR_TOTAL, :VALOR_TOTAL_FRETE, :VALOR_TOTAL_IPI)')
     DeleteSQL.Strings = (
-      'delete from TBAUTORIZA_COMPRA'
+      'delete from TBREQUISITA_COMPRA'
       'where'
       '  ANO = :OLD_ANO and'
       '  CODIGO = :OLD_CODIGO and'
@@ -2577,7 +2577,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  , p.descri_apresentacao'
       '  , u.unp_descricao'
       '  , u.unp_sigla'
-      'from TBAUTORIZA_COMPRAITEM i'
+      'from TBREQUISITA_COMPRAITEM i'
       '  left join TBPRODUTO p on (p.cod = i.produto)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
     ModifySQL.Strings = (
@@ -2714,14 +2714,14 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  VALOR_TOTAL,'
       '  CONFIRMADO_RECEBIMENTO,'
       '  USUARIO'
-      'from TBAUTORIZA_COMPRAITEM '
+      'from TBREQUISITA_COMPRAITEM '
       'where'
       '  ANO = :ANO and'
       '  CODIGO = :CODIGO and'
       '  EMPRESA = :EMPRESA and'
       '  SEQ = :SEQ')
     ModifySQL.Strings = (
-      'update TBAUTORIZA_COMPRAITEM'
+      'update TBREQUISITA_COMPRAITEM'
       'set'
       '  ANO = :ANO,'
       '  CODIGO = :CODIGO,'
@@ -2743,7 +2743,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  EMPRESA = :OLD_EMPRESA and'
       '  SEQ = :OLD_SEQ')
     InsertSQL.Strings = (
-      'insert into TBAUTORIZA_COMPRAITEM'
+      'insert into TBREQUISITA_COMPRAITEM'
       
         '  (ANO, CODIGO, CONFIRMADO_RECEBIMENTO, EMPRESA, FORNECEDOR, IPI' +
         '_PERCENTUAL, '
@@ -2760,7 +2760,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
         'ARIO, :VALOR_TOTAL, '
       '   :VALOR_UNITARIO)')
     DeleteSQL.Strings = (
-      'delete from TBAUTORIZA_COMPRAITEM'
+      'delete from TBREQUISITA_COMPRAITEM'
       'where'
       '  ANO = :OLD_ANO and'
       '  CODIGO = :OLD_CODIGO and'

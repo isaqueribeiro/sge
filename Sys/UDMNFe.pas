@@ -11,7 +11,7 @@ uses
 
   ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
   IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
-  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador;
+  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR;
 
 type
   TDMNFe = class(TDataModule)
@@ -491,6 +491,8 @@ type
     qryRequisicaoCompra: TIBQuery;
     frdRequisicaoCompra: TfrxDBDataset;
     frrRequisicaoCompra: TfrxReport;
+    qryCalculoImportoDESCONTO_CUPOM: TIBBCDField;
+    frDANFE: TACBrNFeDANFEFR;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -787,6 +789,7 @@ begin
   ConfigACBr.btnServico.OnClick  := TestarServico;
 
   rvDANFE.Sistema := GetCompanyName + ' - Contato(s): ' + GetContacts;
+  frDANFE.Sistema := GetCompanyName + ' - Contato(s): ' + GetContacts;
 
   LerConfiguracao(GetEmpresaIDDefault);
 
@@ -953,6 +956,8 @@ begin
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
       ACBrNFe.Configuracoes.Geral.VersaoDF := ve310; // ve200;
 
+      ACBrNFe.DANFE := rvDANFE;
+
       cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
       rgTipoAmb.ItemIndex  := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
       ckVisualizar.Checked := ReadBool   ( sSecaoWebService, 'Visualizar', False) ;
@@ -1055,10 +1060,17 @@ begin
     if ( not FileExists(sFileNFE) ) then
       ShowError( 'Arquivo ' + QuotedStr(sFileNFE) + ' não encontrado!' );
 
-    rvDANFE.Email := qryEmitenteEMAIL.AsString;
-    rvDANFE.Site  := qryEmitenteHOME_PAGE.AsString;
-    rvDANFE.TamanhoFonte_RazaoSocial := 10;
-    rvDANFE.RavFile                  := sFileNFE;
+    ACBrNFe.DANFE.Email := qryEmitenteEMAIL.AsString;
+    ACBrNFe.DANFE.Site  := qryEmitenteHOME_PAGE.AsString;
+
+    if ACBrNFe.DANFE is TACBrNFeDANFERave then
+    begin
+      TACBrNFeDANFERave(ACBrNFe.DANFE).TamanhoFonte_RazaoSocial := 10;
+      TACBrNFeDANFERave(ACBrNFe.DANFE).RavFile                  := sFileNFE;
+    end
+    else
+    if ACBrNFe.DANFE is TACBrNFeDANFEFR then
+      TACBrNFeDANFEFR(ACBrNFe.DANFE).FastFile := sFileNFE;
   end;
 end;
 
@@ -4311,6 +4323,14 @@ var
   aEcfTipo   : TEcfTipo;
   aEcfConfig : TEcfConfiguracao;
   aEcf : TEcfFactory;
+
+  cPercentualTributoAprox,
+  cValorTributoAprox     ,
+  cValorTotalTributoAprox: Currency;
+const
+  TEXTO_TRIB_APROX_1 = '* Valor Total Aprox. Trib.:';
+  TEXTO_TRIB_APROX_2 = '* R$ %s (%s)';
+  TEXTO_TRIB_APROX_3 = '* Fonte IBPT';
 begin
   if GetCupomNaoFiscalPortaID = -1 then
     aEcfTipo := ecfTEXTO
@@ -4338,6 +4358,10 @@ begin
   aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
   try
   
+    cPercentualTributoAprox := 0.0;
+    cValorTributoAprox      := 0.0;
+    cValorTotalTributoAprox := 0.0;
+
     with aEcf do
     begin
       Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
@@ -4346,7 +4370,7 @@ begin
         Ecf.Identifica_Consumidor( IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString), StrFormatarCpf(qryDestinatarioCNPJ.AsString), StrFormatarCnpj(qryDestinatarioCNPJ.AsString))
           , AnsiUpperCase(qryDestinatarioNOME.AsString)
           , Trim(qryDestinatarioTLG_SIGLA.AsString + ' ' + qryDestinatarioLOG_NOME.AsString + ', ' +
-            qryDestinatarioNUMERO_END.AsString + ' - ' + qryDestinatarioBAI_NOME.AsString) + ' (' + qryDestinatarioCID_NOME.AsString + ')' 
+            qryDestinatarioNUMERO_END.AsString + ' - ' + qryDestinatarioBAI_NOME.AsString) + ' (' + qryDestinatarioCID_NOME.AsString + ')'
         );
 
       Ecf.Titulo_Cupom('CUPOM NAO FISCAL');
@@ -4355,6 +4379,12 @@ begin
 
       while not qryDadosProduto.Eof do
       begin
+        cPercentualTributoAprox := qryDadosProdutoNCM_ALIQUOTA_NAC.AsCurrency;
+        if (cPercentualTributoAprox > 0.0) then
+          cValorTributoAprox := qryDadosProdutoTOTAL_BRUTO.AsCurrency * cPercentualTributoAprox / 100
+        else
+          cValorTributoAprox := 0.0; 
+
         Ecf.Incluir_Item(FormatFloat('00', qryDadosProdutoSEQ.AsInteger)
           , qryDadosProdutoCODPROD.AsString
           , AnsiUpperCase(qryDadosProdutoDESCRI_APRESENTACAO.AsString)
@@ -4364,11 +4394,12 @@ begin
           , FormatFloat(',0.00',  (qryDadosProdutoQTDE.AsCurrency * qryDadosProdutoPFINAL.AsCurrency))
         );
 
+        cValorTotalTributoAprox := cValorTotalTributoAprox + cValorTributoAprox;
         qryDadosProduto.Next;
       end;
 
       Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency) );
-      Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency) );
+      Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) );
       Ecf.Linha;
       Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDA.AsCurrency)  );
 
@@ -4379,6 +4410,18 @@ begin
         Ecf.Incluir_Forma_Pgto(qryFormaPagtosDESCRI.AsString, FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
         qryFormaPagtos.Next;
       end;
+
+      if (cValorTotalTributoAprox > 0.0) then
+      begin
+        Ecf.Linha;
+        Ecf.Texto_Livre_Negrito(TEXTO_TRIB_APROX_1);
+        Ecf.Texto_Livre_Negrito(Format(TEXTO_TRIB_APROX_2, [
+          FormatFloat(',0.00', cValorTotalTributoAprox),
+          FormatFloat(',0.##"%"', cValorTotalTributoAprox / qryCalculoImportoTOTALVENDABRUTA.AsCurrency * 100)]));
+        Ecf.Texto_Livre_Negrito(TEXTO_TRIB_APROX_3);
+        Ecf.Linha;
+      end;
+
       Ecf.Pular_Linha(5);
     end;
 

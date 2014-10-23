@@ -624,7 +624,26 @@ end;
 procedure TfrmGeCliente.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaPESSOA_FISICA.AsInteger    := 1;
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    if (Trim(edtFiltrar.Text) <> EmptyStr) then
+      if StrIsCPF(Trim(edtFiltrar.Text)) then
+      begin
+        IbDtstTabelaPESSOA_FISICA.AsInteger := 1;
+        IbDtstTabelaCNPJ.AsString           := Trim(edtFiltrar.Text);
+      end
+      else
+      if StrIsCNPJ(Trim(edtFiltrar.Text)) then
+      begin
+        IbDtstTabelaPESSOA_FISICA.AsInteger := 0;
+        IbDtstTabelaCNPJ.AsString           := Trim(edtFiltrar.Text);
+      end
+      else
+        IbDtstTabelaPESSOA_FISICA.AsInteger := 1
+    else
+      IbDtstTabelaPESSOA_FISICA.AsInteger := 1
+  else
+    IbDtstTabelaPESSOA_FISICA.AsInteger  := 1;
+
   IbDtstTabelaTIPO.AsInteger             := 0;
   IbDtstTabelaVALOR_LIMITE_COMPRA.Value  := 0;
   IbDtstTabelaPAIS_ID.AsString           := GetPaisIDDefault;

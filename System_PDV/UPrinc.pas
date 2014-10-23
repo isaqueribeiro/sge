@@ -76,6 +76,8 @@ type
     nmPerfilAcesso: TMenuItem;
     mnRegistroEstacao: TMenuItem;
     N1: TMenuItem;
+    nmEfetuarLogoff: TMenuItem;
+    N5: TMenuItem;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -106,6 +108,7 @@ type
     procedure nmPerfilAcessoClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure mnRegistroEstacaoClick(Sender: TObject);
+    procedure nmEfetuarLogoffClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -422,6 +425,11 @@ end;
 procedure TfrmPrinc.mnRegistroEstacaoClick(Sender: TObject);
 begin
   FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
+end;
+
+procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
 end;
 
 end.

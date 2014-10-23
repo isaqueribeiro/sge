@@ -53,10 +53,15 @@ type
     lblPrazo11: TLabel;
     dbPrazo12: TDBEdit;
     lblPrazo12: TLabel;
+    dbFormaPagtoPDV: TDBCheckBox;
+    IbDtstTabelaCOND_PDV: TSmallintField;
+    IbDtstTabelaCOND_QTDE_PARCELAS: TSmallintField;
+    IbDtstTabelaAPrazo: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
+    procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -134,6 +139,9 @@ begin
   CampoCodigo    := 'Cond_cod';
   CampoDescricao := 'Cond_descricao';
 
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    WhereAdditional := '(c.Cond_pdv = 1)';
+
   UpdateGenerator;
 
   btbtnIncluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
@@ -168,6 +176,8 @@ procedure TfrmGeCondicaoPagto.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaCOND_PRAZO.AsInteger := 0;
+  IbDtstTabelaCOND_PDV.AsInteger   := 0;
+  IbDtstTabelaCOND_QTDE_PARCELAS.AsInteger := 0;
   IbDtstTabelaCOND_PRAZO_01.Clear;
   IbDtstTabelaCOND_PRAZO_02.Clear;
   IbDtstTabelaCOND_PRAZO_03.Clear;
@@ -184,9 +194,30 @@ end;
 
 procedure TfrmGeCondicaoPagto.IbDtstTabelaBeforePost(DataSet: TDataSet);
 var
-  Str : String;
+  I     ,
+  iQtde : Integer;
+  sCmp  ,
+  Str   : String;
 begin
   inherited;
+(*
+  IMR - 22/10/2014 :
+    Inserção da variável QTDE para que esta defina o número de parcelas da condição de pagamento a prazo a partir dos prazos de vencimentos.
+*)
+
+
+  iQtde := 0;
+
+  // limpar campos de prazos vazios
+
+  for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
+  begin
+    sCmp := 'COND_PRAZO_' + FormatFloat('00', I);
+    if IbDtstTabela.Fields.FindField(sCmp) <> nil then
+      if Trim(IbDtstTabela.FieldByName(sCmp).AsString) = EmptyStr then
+        IbDtstTabela.FieldByName(sCmp).Clear;
+  end;
+
   if ( IbDtstTabelaCOND_PRAZO.AsInteger = 0 ) then
     Str := Trim(IbDtstTabelaCOND_DESCRICAO.AsString)
   else
@@ -194,44 +225,87 @@ begin
     Str := Trim(IbDtstTabelaCOND_DESCRICAO.AsString) + ' [';
 
     if ( not IbDtstTabelaCOND_PRAZO_01.IsNull ) then
-      Str := Str + IbDtstTabelaCOND_PRAZO_01.AsString;
+    begin
+      Str   := Str + IbDtstTabelaCOND_PRAZO_01.AsString;
+      iQtde := 1;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_02.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_02.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_02.AsString;
+      iQtde := 2;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_03.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_03.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_03.AsString;
+      iQtde := 3;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_04.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_04.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_04.AsString;
+      iQtde := 4;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_05.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_05.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_05.AsString;
+      iQtde := 5;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_06.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_06.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_06.AsString;
+      iQtde := 6;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_07.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_07.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_07.AsString;
+      iQtde := 7;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_08.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_08.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_08.AsString;
+      iQtde := 8;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_09.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_09.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_09.AsString;
+      iQtde := 9;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_10.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_10.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_10.AsString;
+      iQtde := 10;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_11.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_11.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_11.AsString;
+      iQtde := 11;
+    end;
 
     if ( not IbDtstTabelaCOND_PRAZO_12.IsNull ) then
-      Str := Str + ', ' + IbDtstTabelaCOND_PRAZO_12.AsString;
+    begin
+      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_12.AsString;
+      iQtde := 12;
+    end;
 
     Str := Str + ']';
   end;
+
+  IbDtstTabelaCOND_QTDE_PARCELAS.AsInteger := iQtde;
   IbDtstTabelaCOND_DESCRICAO_FULL.AsString := Str;
+end;
+
+procedure TfrmGeCondicaoPagto.IbDtstTabelaCalcFields(DataSet: TDataSet);
+begin
+  IbDtstTabelaAPrazo.AsString := IfThen(IbDtstTabelaCOND_PRAZO.AsInteger = 1, 'X', '.');
 end;
 
 initialization

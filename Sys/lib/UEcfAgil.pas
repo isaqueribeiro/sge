@@ -81,6 +81,7 @@ Uses
       procedure Assinar_Vendedor(Nome : String); virtual; abstract;
       procedure Titulo_Livre(Str : String); virtual; abstract;
       procedure Texto_Livre(Str : String); virtual; abstract;
+      procedure Texto_Livre_Negrito(Str : String); virtual; abstract;
 
       procedure ImprimirComCanvas_Spooler(const Memo: TStringList);
   end;
@@ -195,7 +196,8 @@ begin
   Y := cMargemSuperior;
   for I := 0 to Memo.Count - 1 do begin
 
-    if Y > myPrinter.PageHeight then begin
+    if Y > myPrinter.PageHeight then
+    begin
       myPrinter.NewPage;
       Y := cMargemSuperior;
     end;

@@ -63,39 +63,6 @@ type
     lblNumero: TLabel;
     dbNumero: TDBEdit;
     tbsFormaPagto: TTabSheet;
-    IbDtstTabelaANO: TSmallintField;
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaEMPRESA: TIBStringField;
-    IbDtstTabelaNUMERO: TIBStringField;
-    IbDtstTabelaFORNECEDOR: TIntegerField;
-    IbDtstTabelaTIPO: TSmallintField;
-    IbDtstTabelaEMISSAO_DATA: TDateField;
-    IbDtstTabelaEMISSAO_USUARIO: TIBStringField;
-    IbDtstTabelaVALIDADE: TDateField;
-    IbDtstTabelaCOMPETENCIA: TIntegerField;
-    IbDtstTabelaMOVITO: TMemoField;
-    IbDtstTabelaOBSERVACAO: TMemoField;
-    IbDtstTabelaENDERECO_ENTREGA: TMemoField;
-    IbDtstTabelaSTATUS: TSmallintField;
-    IbDtstTabelaRECEBEDOR_NOME: TIBStringField;
-    IbDtstTabelaRECEBEDOR_CPF: TIBStringField;
-    IbDtstTabelaRECEBEDOR_FUNCAO: TIBStringField;
-    IbDtstTabelaFORMA_PAGTO: TSmallintField;
-    IbDtstTabelaCONDICAO_PAGTO: TSmallintField;
-    IbDtstTabelaVALOR_BRUTO: TIBBCDField;
-    IbDtstTabelaVALOR_DESCONTO: TIBBCDField;
-    IbDtstTabelaVALOR_TOTAL: TIBBCDField;
-    IbDtstTabelaAUTORIZADO_DATA: TDateField;
-    IbDtstTabelaDATA_FATURA: TDateField;
-    IbDtstTabelaAUTORIZADO_USUARIO: TIBStringField;
-    IbDtstTabelaCANCELADO_DATA: TDateField;
-    IbDtstTabelaCANCELADO_USUARIO: TIBStringField;
-    IbDtstTabelaCANCELADO_MOTIVO: TMemoField;
-    IbDtstTabelaITENS: TIntegerField;
-    IbDtstTabelaNOMEFORN: TIBStringField;
-    IbDtstTabelaCNPJ: TIBStringField;
-    IbDtstTabelaPESSOA_FISICA: TSmallintField;
-    IbDtstTabelaINSERCAO_DATA: TDateTimeField;
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
     tblTipoRequisicao: TIBTable;
@@ -133,11 +100,6 @@ type
     dbTotalDesconto: TDBEdit;
     dbTotalLiquido: TDBEdit;
     lblTotalLiquido: TLabel;
-    IbDtstTabelaTRANSPORTADOR: TIntegerField;
-    IbDtstTabelaVALOR_TOTAL_FRETE: TIBBCDField;
-    IbDtstTabelaVALOR_TOTAL_IPI: TIBBCDField;
-    IbDtstTabelaTRANSPORTADOR_NOME: TIBStringField;
-    IbDtstTabelaTRANSPORTADOR_CPF_CNPJ: TIBStringField;
     lblTotalFrete: TLabel;
     dbTotalFrete: TDBEdit;
     lblTotalIPI: TLabel;
@@ -169,19 +131,57 @@ type
     dtsTransportador: TDataSource;
     lblNomeContato: TLabel;
     dbNomeContato: TDBEdit;
-    IbDtstTabelaNOME_CONTATO: TIBStringField;
     lblRequisicaoEmEdicao: TLabel;
     PgcTextoRequisicao: TPageControl;
     TbsRequisicaoMotivo: TTabSheet;
     TbsRequisicaoObservacao: TTabSheet;
     dbObservacao: TDBMemo;
     dbMotivo: TDBMemo;
-    IbDtstTabelaCLIENTE: TIntegerField;
     lblCliente: TLabel;
     dbCliente: TRxDBComboEdit;
-    IbDtstTabelaNOMECLIENTE: TIBStringField;
     TbsRequisicaoCancelado: TTabSheet;
     dbMovitoCancelamento: TDBMemo;
+    IbDtstTabelaANO: TSmallintField;
+    IbDtstTabelaCODIGO: TIntegerField;
+    IbDtstTabelaEMPRESA: TIBStringField;
+    IbDtstTabelaNUMERO: TIBStringField;
+    IbDtstTabelaFORNECEDOR: TIntegerField;
+    IbDtstTabelaNOME_CONTATO: TIBStringField;
+    IbDtstTabelaTIPO: TSmallintField;
+    IbDtstTabelaINSERCAO_DATA: TDateTimeField;
+    IbDtstTabelaEMISSAO_DATA: TDateField;
+    IbDtstTabelaEMISSAO_USUARIO: TIBStringField;
+    IbDtstTabelaVALIDADE: TDateField;
+    IbDtstTabelaCOMPETENCIA: TIntegerField;
+    IbDtstTabelaMOVITO: TMemoField;
+    IbDtstTabelaOBSERVACAO: TMemoField;
+    IbDtstTabelaCLIENTE: TIntegerField;
+    IbDtstTabelaENDERECO_ENTREGA: TMemoField;
+    IbDtstTabelaSTATUS: TSmallintField;
+    IbDtstTabelaRECEBEDOR_NOME: TIBStringField;
+    IbDtstTabelaRECEBEDOR_CPF: TIBStringField;
+    IbDtstTabelaRECEBEDOR_FUNCAO: TIBStringField;
+    IbDtstTabelaFORMA_PAGTO: TSmallintField;
+    IbDtstTabelaCONDICAO_PAGTO: TSmallintField;
+    IbDtstTabelaTRANSPORTADOR: TIntegerField;
+    IbDtstTabelaVALOR_BRUTO: TIBBCDField;
+    IbDtstTabelaVALOR_DESCONTO: TIBBCDField;
+    IbDtstTabelaVALOR_TOTAL_FRETE: TIBBCDField;
+    IbDtstTabelaVALOR_TOTAL_IPI: TIBBCDField;
+    IbDtstTabelaVALOR_TOTAL: TIBBCDField;
+    IbDtstTabelaREQUISITADO_DATA: TDateField;
+    IbDtstTabelaDATA_FATURA: TDateField;
+    IbDtstTabelaREQUISITADO_USUARIO: TIBStringField;
+    IbDtstTabelaCANCELADO_DATA: TDateField;
+    IbDtstTabelaCANCELADO_USUARIO: TIBStringField;
+    IbDtstTabelaCANCELADO_MOTIVO: TMemoField;
+    IbDtstTabelaITENS: TIntegerField;
+    IbDtstTabelaNOMEFORN: TIBStringField;
+    IbDtstTabelaCNPJ: TIBStringField;
+    IbDtstTabelaPESSOA_FISICA: TSmallintField;
+    IbDtstTabelaTRANSPORTADOR_NOME: TIBStringField;
+    IbDtstTabelaTRANSPORTADOR_CPF_CNPJ: TIBStringField;
+    IbDtstTabelaNOMECLIENTE: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -268,12 +268,12 @@ var
 begin
   frm := TfrmGeRequisicaoCompra.Create(AOwner);
   try
-    whr := 'cast(a.emissao_data as date) between ' +
+    whr := 'cast(r.emissao_data as date) between ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
 
     if (frm.RdgStatusRequisicao.ItemIndex > 0) then
-      whr := whr + ' and (a.status = ' + IntToStr(frm.RdgStatusRequisicao.ItemIndex - 1) + ')';
+      whr := whr + ' and (r.status = ' + IntToStr(frm.RdgStatusRequisicao.ItemIndex - 1) + ')';
 
     with frm, IbDtstTabela do
     begin
@@ -310,13 +310,13 @@ begin
 
     frm.iFornecedor := Fornecedor;
     frm.e1Data.Date := DataInicial;
-    frm.WhereAdditional := '(a.fornecedor = ' + IntToStr(Fornecedor) + ') and ' +
-            'cast(a.emissao_data as date) between ' +
+    frm.WhereAdditional := '(r.fornecedor = ' + IntToStr(Fornecedor) + ') and ' +
+            'cast(r.emissao_data as date) between ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
 
     if (frm.RdgStatusRequisicao.ItemIndex > 0) then
-      frm.WhereAdditional := frm.WhereAdditional + ' and (a.status = ' + IntToStr(frm.RdgStatusRequisicao.ItemIndex - 1) + ')';
+      frm.WhereAdditional := frm.WhereAdditional + ' and (r.status = ' + IntToStr(frm.RdgStatusRequisicao.ItemIndex - 1) + ')';
 
     with frm, IbDtstTabela do
     begin
@@ -342,7 +342,7 @@ end;
 
 procedure TfrmGeRequisicaoCompra.FormCreate(Sender: TObject);
 begin
-  sGeneratorName := 'GEN_AUTORIZA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
+  sGeneratorName := 'GEN_REQUISITA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
   IbDtstTabela.GeneratorField.Generator := sGeneratorName;
   IbDtstTabela.GeneratorField.Field     := 'codigo';
 
@@ -365,15 +365,15 @@ begin
   cdsTransportador.Open;
 
   pgcMaisDados.Height := 190;
-  RotinaID            := ROTINA_MOV_Requisicao_ID;
+  RotinaID            := ROTINA_MOV_REQUISICAO_ID;
   DisplayFormatCodigo := '###00000';
 
-  NomeTabela     := 'TBAUTORIZA_COMPRA';
-  CampoCodigo    := 'a.codigo';
+  NomeTabela     := 'TBREQUISITA_COMPRA';
+  CampoCodigo    := 'r.codigo';
   CampoDescricao := 'f.nomeforn';
-  CampoOrdenacao := 'a.emissao_data, f.nomeforn';
+  CampoOrdenacao := 'r.emissao_data, f.nomeforn';
 
-  WhereAdditional :=  'cast(a.emissao_data as date) between ' +
+  WhereAdditional :=  'cast(r.emissao_data as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
@@ -416,8 +416,8 @@ begin
   IbDtstTabelaRECEBEDOR_NOME.Clear;
   IbDtstTabelaRECEBEDOR_FUNCAO.Clear;
   IbDtstTabelaRECEBEDOR_CPF.Clear;
-  IbDtstTabelaAUTORIZADO_DATA.Clear;
-  IbDtstTabelaAUTORIZADO_USUARIO.Clear;
+  IbDtstTabelaREQUISITADO_DATA.Clear;
+  IbDtstTabelaREQUISITADO_USUARIO.Clear;
   IbDtstTabelaCANCELADO_DATA.Clear;
   IbDtstTabelaCANCELADO_USUARIO.Clear;
   IbDtstTabelaCANCELADO_MOTIVO.Clear;
@@ -595,7 +595,7 @@ var
 begin
   if ( IbDtstTabelaFORNECEDOR.AsInteger = 0 ) then
   begin
-    ShowWarning('Favor selecionar o fornecedor para a autorização!');
+    ShowWarning('Favor selecionar o fornecedor para a requisição!');
     dbFornecedor.SetFocus;
   end
   else
@@ -786,7 +786,7 @@ begin
   begin
     ShowWarning('A soma dos valores totais dos itens (' +
       FormatFloat('"R$ ",0.00', cTotalLiquido) +
-      ') não confere com o Valor Total da Autorização.' + #13#13 +
+      ') não confere com o Valor Total da Requisição.' + #13#13 +
       'Favor excute os seguintes procedimentos:' + #13 +
       '1. Altere o registro para correção.'      + #13 +
       '2. Salve a alteração realizada.'          + #13 +
@@ -798,16 +798,16 @@ begin
   begin
     IbDtstTabela.Edit;
 
-    IbDtstTabelaSTATUS.Value             := STATUS_REQUISICAO_REQ;
-    IbDtstTabelaAUTORIZADO_DATA.Value    := GetDateDB;
-    IbDtstTabelaAUTORIZADO_USUARIO.Value := GetUserApp;
+    IbDtstTabelaSTATUS.Value              := STATUS_REQUISICAO_REQ;
+    IbDtstTabelaREQUISITADO_DATA.Value    := GetDateDB;
+    IbDtstTabelaREQUISITADO_USUARIO.Value := GetUserApp;
 
     IbDtstTabela.Post;
     IbDtstTabela.ApplyUpdates;
 
     CommitTransaction;
 
-    ShowInformation('Autorização realizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
+    ShowInformation('Requisição realizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
 
     HabilitarDesabilitar_Btns;
 
@@ -851,13 +851,13 @@ end;
 
 procedure TfrmGeRequisicaoCompra.btnFiltrarClick(Sender: TObject);
 begin
-  WhereAdditional := IfThen(iFornecedor = 0, '', '(a.fornecedor = ' + IntToStr(iFornecedor) + ') and ') + 
-    'cast(a.emissao_data as date) between ' +
+  WhereAdditional := IfThen(iFornecedor = 0, '', '(r.fornecedor = ' + IntToStr(iFornecedor) + ') and ') +
+    'cast(r.emissao_data as date) between ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
   if ( RdgStatusRequisicao.ItemIndex > 0 ) then
-    WhereAdditional := WhereAdditional + ' and (a.status = ' + IntToStr(RdgStatusRequisicao.ItemIndex - 1) + ')';
+    WhereAdditional := WhereAdditional + ' and (r.status = ' + IntToStr(RdgStatusRequisicao.ItemIndex - 1) + ')';
 
   inherited;
 end;
@@ -928,11 +928,11 @@ var
   sControle : String;
 begin
   if ( cdsTabelaItens.IsEmpty ) then
-    ShowWarning('Favor informar o(s) produto(s) da autorização.')
+    ShowWarning('Favor informar o(s) produto(s) da requisição.')
   else
   if ( btnProdutoSalvar.Enabled ) then
   begin
-    ShowWarning('Favor salvar ou cancelar alteração em andamento no ítem da autorização!');
+    ShowWarning('Favor salvar ou cancelar alteração em andamento no ítem da requisição!');
     btnProdutoSalvar.SetFocus;
   end
   else
@@ -943,7 +943,7 @@ begin
 
     if GetExisteNumeroRequisicao(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger, IbDtstTabelaNUMERO.AsString, sControle) then
     begin
-      ShowWarning('Número de autorização já existe!');
+      ShowWarning('Número de requisição já existe!');
       Abort;
     end;
 
@@ -1063,7 +1063,7 @@ var
 begin
   if ( IbDtstTabelaFORNECEDOR.AsInteger = 0 ) then
   begin
-    ShowWarning('Favor selecionar o fornecedor para a autorização!');
+    ShowWarning('Favor selecionar o fornecedor para a requisição!');
     dbFornecedor.SetFocus;
   end
   else
@@ -1201,7 +1201,7 @@ begin
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
 
-  if ShowConfirm('Confirma a finalização da edição do autorização?') then
+  if ShowConfirm('Confirma a finalização da edição do requisição?') then
   begin
     ValidarToTais(cTotalBruto, cTotalIPI, cTotalDesconto, cTotalLiquido);
 
@@ -1218,7 +1218,7 @@ begin
 
     CommitTransaction;
 
-    ShowInformation('Autorização finalizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
+    ShowInformation('Requisição finalizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
 
     HabilitarDesabilitar_Btns;
 
@@ -1273,13 +1273,13 @@ begin
       if dbNumero.Focused then
         if ( Length(Trim(dbNumero.Text)) > 0 ) then
           if GetExisteNumeroRequisicao(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger, Trim(dbNumero.Text), sControle) then
-            ShowWarning('Número de autorização já existe!' + #13 + 'Controle: ' + sControle);
+            ShowWarning('Número de requisição já existe!' + #13 + 'Controle: ' + sControle);
 
-      { DONE -oIsaque -cRequisicao : 22/05/2014 - Verificar Data de Emissão da Autorização }
+      { DONE -oIsaque -cRequisicao : 20/10/2014 - Verificar Data de Emissão da Autorização }
 
       if dbDataEmissao.Focused then
         if ( dbDataEmissao.Date > GetDateTimeDB ) then
-            ShowWarning('A Data de Emissão da autorização está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
+            ShowWarning('A Data de Emissão da requisição está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
 
     end;
 

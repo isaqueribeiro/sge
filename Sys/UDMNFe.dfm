@@ -2350,6 +2350,7 @@ object DMNFe: TDMNFe
       '  , v.Status'
       '  , v.totalvenda_bruta as TotalvendaBruta'
       '  , v.Desconto'
+      '  , v.Desconto_Cupom'
       '  , v.Totalvenda'
       '  , v.Dtfinalizacao_venda'
       '  , v.Obs'
@@ -2484,6 +2485,13 @@ object DMNFe: TDMNFe
       Origin = '"TBVENDAS"."DESCONTO"'
       Precision = 18
       Size = 4
+    end
+    object qryCalculoImportoDESCONTO_CUPOM: TIBBCDField
+      FieldName = 'DESCONTO_CUPOM'
+      Origin = '"TBVENDAS"."DESCONTO_CUPOM"'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
     end
     object qryCalculoImportoTOTALVENDA: TIBBCDField
       FieldName = 'TOTALVENDA'
@@ -16333,8 +16341,8 @@ object DMNFe: TDMNFe
       '  , i.valor_total'
       'from TBREQUISITA_COMPRA r'
       
-        '  inner join TBAUTORIZA_COMPRAITEM i on (i.ano = r.ano and i.cod' +
-        'igo = r.codigo and i.empresa = r.empresa)'
+        '  inner join TBREQUISITA_COMPRAITEM i on (i.ano = r.ano and i.co' +
+        'digo = r.codigo and i.empresa = r.empresa)'
       '  inner join TBPRODUTO p on (p.cod = i.produto)'
       '  left join TBFORNECEDOR t on (t.codforn = r.transportador)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
@@ -17008,8 +17016,8 @@ object DMNFe: TDMNFe
           HAlign = haRight
           Memo.UTF8 = (
             
-              ' [FormatDateTime('#39'dd/mm/yyyy'#39',<frdAutorizacaoCompra."EMISSAO_DAT' +
-              'A">)] ')
+              ' [FormatDateTime('#39'dd/mm/yyyy'#39',<frdRequisicaoCompra."EMISSAO_DATA' +
+              '">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -17679,5 +17687,38 @@ object DMNFe: TDMNFe
         end
       end
     end
+  end
+  object frDANFE: TACBrNFeDANFEFR
+    Sistema = 'Masterdados - Contatos: (91) 8717-1057/8129-1567'
+    PathPDF = '..\Bin\'
+    MostrarPreview = True
+    MostrarStatus = True
+    TipoDANFE = tiRetrato
+    NumCopias = 1
+    ImprimirDescPorc = False
+    ImprimirTotalLiquido = False
+    MargemInferior = 0.800000000000000000
+    MargemSuperior = 0.800000000000000000
+    MargemEsquerda = 0.600000000000000000
+    MargemDireita = 0.510000000000000000
+    CasasDecimais._qCom = 2
+    CasasDecimais._vUnCom = 2
+    ExibirResumoCanhoto = False
+    FormularioContinuo = False
+    TamanhoFonte_DemaisCampos = 10
+    ProdutosPorPagina = 0
+    ImprimirDetalhamentoEspecifico = True
+    NFeCancelada = False
+    LocalImpCanhoto = 0
+    ImprimeItens = True
+    EspessuraBorda = 1
+    ExibirTotalTributosItem = False
+    ExibeCampoFatura = True
+    TributosPercentual = ptValorProdutos
+    ImprimirUnQtVlComercial = False
+    Detalhado = False
+    DescricaoViaEstabelec = 'Via do Consumidor'
+    Left = 56
+    Top = 72
   end
 end

@@ -80,7 +80,8 @@ uses
   UDMCupom in '..\Sys\UDMCupom.pas' {DMCupom: TDataModule},
   UGeVendaPDVDesconto in 'UGeVendaPDVDesconto.pas' {frmGeVendaPDVDesconto},
   UGeVendaPDVOrcamento in 'UGeVendaPDVOrcamento.pas' {frmGeVendaPDVOrcamento},
-  UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao};
+  UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
+  UGeVendaPDVFinalizar in 'UGeVendaPDVFinalizar.pas' {frmGeVendaPDVFinalizar};
 
 {$R *.res}
 

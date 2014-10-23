@@ -152,6 +152,7 @@ type
     qryUltimoVenda: TIBDataSet;
     cdsVendaNFE_DENEGADA: TSmallintField;
     cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField;
+    cdsVendaTitulo: TIBDataSet;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
