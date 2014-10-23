@@ -3,6 +3,9 @@ unit UDMBusiness;
 interface
 
 uses
+  {$IFDEF DGE}
+  EUserAcs,
+  {$ENDIF}
   Windows, Forms, SysUtils, Classes, Controls, IBDatabase, DB, IBCustomDataSet, IniFIles,
   ShellApi, Printers, DateUtils, IBQuery, RpDefine, RpRave,
   frxClass, frxDBSet, EMsgDlg, IdBaseComponent, IdComponent, IdIPWatch, IBStoredProc,

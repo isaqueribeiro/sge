@@ -11,7 +11,7 @@ uses
 
   ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
   IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
-  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR;
+  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador;
 
 type
   TDMNFe = class(TDataModule)
@@ -492,7 +492,6 @@ type
     frdRequisicaoCompra: TfrxDBDataset;
     frrRequisicaoCompra: TfrxReport;
     qryCalculoImportoDESCONTO_CUPOM: TIBBCDField;
-    frDANFE: TACBrNFeDANFEFR;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -789,7 +788,7 @@ begin
   ConfigACBr.btnServico.OnClick  := TestarServico;
 
   rvDANFE.Sistema := GetCompanyName + ' - Contato(s): ' + GetContacts;
-  frDANFE.Sistema := GetCompanyName + ' - Contato(s): ' + GetContacts;
+//  frDANFE.Sistema := GetCompanyName + ' - Contato(s): ' + GetContacts;
 
   LerConfiguracao(GetEmpresaIDDefault);
 
@@ -1067,10 +1066,10 @@ begin
     begin
       TACBrNFeDANFERave(ACBrNFe.DANFE).TamanhoFonte_RazaoSocial := 10;
       TACBrNFeDANFERave(ACBrNFe.DANFE).RavFile                  := sFileNFE;
-    end
-    else
-    if ACBrNFe.DANFE is TACBrNFeDANFEFR then
-      TACBrNFeDANFEFR(ACBrNFe.DANFE).FastFile := sFileNFE;
+    end;
+//    else
+//    if ACBrNFe.DANFE is TACBrNFeDANFEFR then
+//      TACBrNFeDANFEFR(ACBrNFe.DANFE).FastFile := sFileNFE;
   end;
 end;
 

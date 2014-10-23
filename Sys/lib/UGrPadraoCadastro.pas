@@ -3,6 +3,9 @@ unit UGrPadraoCadastro;
 interface
 
 uses
+  {$IFDEF DGE}
+  EUserAcs,
+  {$ENDIF}
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, UGrPadrao, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
@@ -777,7 +780,7 @@ begin
       RegistrarControleAcesso(Self, TEvUserAccess(Components[I]));
       GetControleAcesso(Self, TEvUserAccess(Components[I]));
     end;
-{$ENDIF}    
+{$ENDIF}
 end;
 
 procedure TfrmGrPadraoCadastro.SetVariablesDefault(

@@ -14,7 +14,6 @@ object DMNFe: TDMNFe
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.IntervaloTentativas = 0
     Configuracoes.WebServices.AjustaAguardaConsultaRet = False
-    DANFE = rvDANFE
     Left = 24
     Top = 24
   end
@@ -17687,38 +17686,5 @@ object DMNFe: TDMNFe
         end
       end
     end
-  end
-  object frDANFE: TACBrNFeDANFEFR
-    Sistema = 'Masterdados - Contatos: (91) 8717-1057/8129-1567'
-    PathPDF = '..\Bin\'
-    MostrarPreview = True
-    MostrarStatus = True
-    TipoDANFE = tiRetrato
-    NumCopias = 1
-    ImprimirDescPorc = False
-    ImprimirTotalLiquido = False
-    MargemInferior = 0.800000000000000000
-    MargemSuperior = 0.800000000000000000
-    MargemEsquerda = 0.600000000000000000
-    MargemDireita = 0.510000000000000000
-    CasasDecimais._qCom = 2
-    CasasDecimais._vUnCom = 2
-    ExibirResumoCanhoto = False
-    FormularioContinuo = False
-    TamanhoFonte_DemaisCampos = 10
-    ProdutosPorPagina = 0
-    ImprimirDetalhamentoEspecifico = True
-    NFeCancelada = False
-    LocalImpCanhoto = 0
-    ImprimeItens = True
-    EspessuraBorda = 1
-    ExibirTotalTributosItem = False
-    ExibeCampoFatura = True
-    TributosPercentual = ptValorProdutos
-    ImprimirUnQtVlComercial = False
-    Detalhado = False
-    DescricaoViaEstabelec = 'Via do Consumidor'
-    Left = 56
-    Top = 72
   end
 end
