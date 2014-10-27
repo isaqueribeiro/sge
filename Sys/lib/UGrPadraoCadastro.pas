@@ -498,7 +498,7 @@ begin
             Add( 'where (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
                  '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
 
-        if ( fWhereAdditional <> EmptyStr ) then
+        if (WhereAdditional <> EmptyStr ) then
           if ( Pos('where', SelectSQL.Text) > 0 ) then
             Add( '  and (' + WhereAdditional + ')' )
           else
@@ -510,15 +510,16 @@ begin
 
         try
 
-          if ( not IsEmpty ) then
-            dbgDados.SetFocus
-          else
-          begin
-            ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+          if Showing then
+            if ( not IsEmpty ) then
+              dbgDados.SetFocus
+            else
+            begin
+              ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
 
-            edtFiltrar.SetFocus;
-            edtFiltrar.SelectAll;
-          end;
+              edtFiltrar.SetFocus;
+              edtFiltrar.SelectAll;
+            end;
 
         except
         end;

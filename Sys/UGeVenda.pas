@@ -542,8 +542,8 @@ begin
   SQL_Titulos.Clear;
   SQL_Titulos.AddStrings( qryTitulos.SelectSQL );
 
-  e1Data.Date      := Date;
-  e2Data.Date      := Date;
+  e1Data.Date      := GetDateDB;
+  e2Data.Date      := GetDateDB;
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
 
@@ -567,7 +567,7 @@ begin
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );// + ' and ' +
                         //'v.codemp = ' + QuotedStr(GetEmpresaIDDefault);
 
-  UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
+  UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
 
   // Configurar Legendas de acordo com o segmento
   btnConsultarProduto.Caption := StrDescricaoProduto;
@@ -1723,7 +1723,7 @@ begin
         if GetCupomNaoFiscalEmitir then
           DMNFe.ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
             , IbDtstTabelaCODCLIENTE.AsInteger
-            , FormatDateTime('dd/mm/yy hh:mm', Now)
+            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
             , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
         else
           ; // Emitir Cupom Fiscal
@@ -2588,16 +2588,29 @@ begin
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin
         if GetCupomNaoFiscalEmitir then
-          ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
+          ImprimirCupomNaoFiscal(
+              IbDtstTabelaCODEMP.AsString
             , IbDtstTabelaCODCLIENTE.AsInteger
-            , FormatDateTime('dd/mm/yy hh:mm', Now)
-            , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
+            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+            , IbDtstTabelaANO.Value
+            , IbDtstTabelaCODCONTROL.Value)
         else
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
         begin
           FrECFPooler.PrepareReport;
           FrECFPooler.Print;
+        end
+        else
+        if ( GetModeloEmissaoCupom = MODELO_CUPOM_ORCAMENTO ) then
+        begin
+          ImprimirCupomOrcamento(
+              IbDtstTabelaCODEMP.AsString
+            , IbDtstTabelaCODCLIENTE.AsInteger
+            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+            , IbDtstTabelaANO.Value
+            , IbDtstTabelaCODCONTROL.Value)
         end;
+        
         Exit;
       end;
 

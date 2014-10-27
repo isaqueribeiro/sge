@@ -9,6 +9,7 @@ uses
   IBStoredProc;
 
 type
+  TTipoAlteraItem = (alterarQuantidade, alterarValor, excluirProduto);
   TfrmGeVendaPDV = class(TfrmGrPadrao)
     PnlInformeGeral: TPanel;
     imgEmpresa: TImage;
@@ -84,8 +85,10 @@ type
     cdsTotalComprasAbertas: TDataSource;
     IbStrPrcGerarTitulos: TIBStoredProc;
     dtsTitulos: TDataSource;
-    actExcluirProduto: TAction;
     actCancelarProduto: TAction;
+    actProdutoValor: TAction;
+    actProdutoQuantidade: TAction;
+    actProdutoExcluir: TAction;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -108,6 +111,9 @@ type
     procedure actGravarOrcamentoExecute(Sender: TObject);
     procedure actCarregarFormaPagtoExecute(Sender: TObject);
     procedure actFinalizarVendaExecute(Sender: TObject);
+    procedure actProdutoValorExecute(Sender: TObject);
+    procedure actProdutoQuantidadeExecute(Sender: TObject);
+    procedure actProdutoExcluirExecute(Sender: TObject);
   private
     { Private declarations }
     sNomeTabela    ,
@@ -125,6 +131,7 @@ type
     procedure InserirProduto;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure GerarTitulos(const AnoVenda : Smallint; const ControleVenda : Integer);
+    procedure ProdutoAlterar(const TipoAlteracao : TTipoAlteraItem);
 
     function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
     function GetRotinaInternaID(const Sender : TObject) : String;
@@ -160,13 +167,13 @@ implementation
 uses
   UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom,
   UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento, UGeVendaPDVFinalizar,
-  UGeEfetuarPagtoREC, UGeVendaConfirmaTitulos, UDMNFe;
+  UGeVendaPDVItem, UGeEfetuarPagtoREC, UGeVendaConfirmaTitulos, UDMNFe;
 
 {$R *.dfm}
 
 const
   COD_MLT = '*';
-  TIMER_CAIXA_LIVRE = 120;
+  TIMER_CAIXA_LIVRE = 5; //120;
 
 { TfrmGeVendaPDV }
 
@@ -241,7 +248,7 @@ end;
 procedure TfrmGeVendaPDV.FormShow(Sender: TObject);
 begin
   if ( (sGeneratorName <> EmptyStr) and (sNomeTabela <> EmptyStr) and (sCampoCodigo <> EmptyStr) ) then
-    UpdateSequence(sGeneratorName, sNomeTabela, sCampoCodigo, 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
+    UpdateSequence(sGeneratorName, sNomeTabela, sCampoCodigo, 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
 
   inherited;
 
@@ -255,7 +262,7 @@ begin
   if not VendaEstaAberta then
     Abort
   else  
-  if not (Key in [',', '0'..'9', '*', #8, #13]) then
+  if not (Key in [',', '0'..'9', COD_MLT, #8, #13]) then
   begin
     Key := #0;
     Abort;
@@ -333,7 +340,14 @@ begin
 
   inherited;
 
-  lblGravar.Visible := GetEmitirCupom and GetCupomNaoFiscalEmitir;
+  lblFinalizarVenda.Visible := not GetEmitirApenasOrcamento;
+  lblGravar.Visible         := GetEmitirApenasOrcamento or (GetEmitirCupom and GetCupomNaoFiscalEmitir);
+
+  if not lblFinalizarVenda.Visible then
+  begin
+    lblGravar.Top  := lblFinalizarVenda.Top;
+    lblGravar.Left := lblFinalizarVenda.Left;
+  end;
 end;
 
 function TfrmGeVendaPDV.DataSetVenda: TDataSet;
@@ -454,6 +468,8 @@ begin
   else
     with DataSetVenda do
     begin
+      CarregarVenda(GetEmpresaIDDefault, 0, 0);
+      
       pnlCaixaLivre.Visible := False;
       pnlCaixaLivre.Tag     := 0;
 
@@ -625,6 +641,7 @@ begin
         begin
           TIBDataSet(DataSetVenda).Delete;
           TIBDataSet(DataSetVenda).ApplyUpdates;
+          CommitTransaction;
         end;
 
       CarregarVenda(GetEmpresaIDDefault, 0, 0);
@@ -1041,14 +1058,25 @@ begin
       TIBDataSet(DataSetItens).ApplyUpdates;
 
       // Gravar Forma de Pagamento da Venda
-      
+
       if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
         TIBDataSet(DataSetFormaPagto).Post;
 
       TIBDataSet(DataSetFormaPagto).ApplyUpdates;
 
+      CommitTransaction;
+
       ShowInformation('Orçamento gravado com sucesso. Favor anotar número:' + #13#13 +
         'No. ' + DataSetVenda.FieldByName('ANO').AsString + '/' + FormatFloat('###00000', DataSetVenda.FieldByName('CODCONTROL').AsInteger));
+
+      if GetEmitirApenasOrcamento then
+        if ShowConfirmation('Orçamento', 'Deseja imprimir cupom de orçamento?') then
+          DMNFe.ImprimirCupomOrcamento(
+              DataSetVenda.FieldByName('CODEMP').AsString
+            , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+            , DataSetVenda.FieldByName('ANO').AsInteger
+            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
 
       // Limpar Tela
       
@@ -1303,7 +1331,7 @@ begin
           DMNFe.ImprimirCupomNaoFiscal(
               DataSetVenda.FieldByName('CODEMP').AsString
             , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-            , FormatDateTime('dd/mm/yy hh:mm', Now)
+            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
             , DataSetVenda.FieldByName('ANO').AsInteger
             , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
         else
@@ -1493,6 +1521,364 @@ begin
     ParamByName('numvenda').AsInteger := Controle;
     Open;
   end;
+end;
+
+procedure TfrmGeVendaPDV.actProdutoValorExecute(Sender: TObject);
+(*
+  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_Liquido: Currency);
+  var
+    Item : Integer;
+  begin
+    Item := DataSetItens.FieldByName('SEQ').AsInteger;
+    Total_Bruto    := 0.0;
+    Total_desconto := 0.0;
+    Total_Liquido  := 0.0;
+
+    DataSetItens.First;
+
+    while not DataSetItens.Eof do
+    begin
+      Total_Bruto    := Total_Bruto    + DataSetItens.FieldByName('TOTAL_BRUTO').AsCurrency;
+      Total_desconto := Total_desconto + DataSetItens.FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+      DataSetItens.Next;
+    end;
+
+    Total_Liquido  := Total_Bruto - Total_desconto;
+
+    DataSetItens.Locate('SEQ', Item, []);
+  end;
+
+var
+  AForm : TfrmGeVendaPDVItem;
+
+  cPrecoVND     ,
+  cTotalBruto   ,
+  cTotalDesconto,
+  cTotalLiquido : Currency;
+*)
+begin
+  if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
+    Exit;
+
+  ProdutoAlterar( alterarValor );  
+(*
+  if VendaEstaAberta then
+  begin
+    if not GetUserPermitirAlterarValorVenda then
+    begin
+      ShowWarning('Usuário sem permissão para alterar valor unitário de venda!');
+      Exit;
+    end;
+
+    try
+      with DataSetItens do
+      begin
+        AForm := TfrmGeVendaPDVItem.Create(Self);
+        AForm.Titulo  := 'Valor Unitário (R$):';
+        AForm.Formato := ',0.00';
+        AForm.ValorAterar := DataSetItens.FieldByName('PUNIT').AsCurrency;
+
+        if ( AForm.ShowModal = mrOk ) then
+        begin
+
+          if not (State in [dsEdit, dsInsert]) then
+            DataSetItens.Edit;
+
+          FieldByName('PUNIT').AsCurrency := AForm.ValorAterar;
+
+          if ( FieldByName('PUNIT_PROMOCAO').AsCurrency > 0 ) then
+          begin
+            FieldByName('DESCONTO_VALOR').AsCurrency := FieldByName('PUNIT').AsCurrency - FieldByName('PUNIT_PROMOCAO').AsCurrency;
+            FieldByName('DESCONTO').AsCurrency       := FieldByName('DESCONTO_VALOR').AsCurrency / FieldByName('PUNIT').AsCurrency * 100;
+          end;
+
+          cPrecoVND := FieldByName('PUNIT').AsCurrency;
+
+          FieldByName('DESCONTO_VALOR').AsCurrency := cPrecoVND * FieldByName('DESCONTO').AsCurrency / 100;
+          FieldByName('PFINAL').AsCurrency         := cPrecoVND - FieldByName('DESCONTO_VALOR').AsCurrency;
+          FieldByName('TOTAL_BRUTO').AsCurrency    := FieldByName('QTDE').AsCurrency * cPrecoVND;
+          FieldByName('TOTAL_DESCONTO').AsCurrency := FieldByName('QTDE').AsCurrency * FieldByName('DESCONTO_VALOR').AsCurrency;
+          FieldByName('TOTAL_LIQUIDO').AsCurrency  := FieldByName('TOTAL_BRUTO').AsCurrency - FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+          DataSetItens.Post;
+
+          GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
+
+          if not (DataSetVenda.State in [dsEdit, dsInsert]) then
+            DataSetVenda.Edit;
+
+          DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
+          DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
+          DataSetVenda.FieldByName('TOTALVENDA').AsCurrency       := cTotalLiquido - DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
+
+          if ( DataSetFormaPagto.RecordCount <= 1 ) then
+          begin
+            if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
+              DataSetFormaPagto.Edit;
+
+            DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
+          end;
+        end;
+      end;
+    finally
+      AForm.Free;
+      IniciarCupomProduto;
+    end;
+
+  end;
+*)  
+end;
+
+procedure TfrmGeVendaPDV.actProdutoQuantidadeExecute(Sender: TObject);
+(*
+  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_Liquido: Currency);
+  var
+    Item : Integer;
+  begin
+    Item := DataSetItens.FieldByName('SEQ').AsInteger;
+    Total_Bruto    := 0.0;
+    Total_desconto := 0.0;
+    Total_Liquido  := 0.0;
+
+    DataSetItens.First;
+
+    while not DataSetItens.Eof do
+    begin
+      Total_Bruto    := Total_Bruto    + DataSetItens.FieldByName('TOTAL_BRUTO').AsCurrency;
+      Total_desconto := Total_desconto + DataSetItens.FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+      DataSetItens.Next;
+    end;
+
+    Total_Liquido  := Total_Bruto - Total_desconto;
+
+    DataSetItens.Locate('SEQ', Item, []);
+  end;
+
+var
+  AForm : TfrmGeVendaPDVItem;
+
+  cPrecoVND     ,
+  cTotalBruto   ,
+  cTotalDesconto,
+  cTotalLiquido : Currency;
+*)
+begin
+  if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
+    Exit;
+
+  ProdutoAlterar( alterarQuantidade );
+(*
+  if VendaEstaAberta then
+  begin
+
+    try
+      with DataSetItens do
+      begin
+        AForm := TfrmGeVendaPDVItem.Create(Self);
+        AForm.Titulo  := 'Quantidade:';
+        AForm.Formato := ',0.###';
+        AForm.ValorAterar := DataSetItens.FieldByName('QTDE').AsCurrency;
+
+        if ( AForm.ShowModal = mrOk ) then
+        begin
+
+          if not (State in [dsEdit, dsInsert]) then
+            DataSetItens.Edit;
+
+          FieldByName('QTDE').AsCurrency := AForm.ValorAterar;
+
+          if ( FieldByName('PUNIT_PROMOCAO').AsCurrency > 0 ) then
+          begin
+            FieldByName('DESCONTO_VALOR').AsCurrency := FieldByName('PUNIT').AsCurrency - FieldByName('PUNIT_PROMOCAO').AsCurrency;
+            FieldByName('DESCONTO').AsCurrency       := FieldByName('DESCONTO_VALOR').AsCurrency / FieldByName('PUNIT').AsCurrency * 100;
+          end;
+
+          cPrecoVND := FieldByName('PUNIT').AsCurrency;
+
+          FieldByName('DESCONTO_VALOR').AsCurrency := cPrecoVND * FieldByName('DESCONTO').AsCurrency / 100;
+          FieldByName('PFINAL').AsCurrency         := cPrecoVND - FieldByName('DESCONTO_VALOR').AsCurrency;
+          FieldByName('TOTAL_BRUTO').AsCurrency    := FieldByName('QTDE').AsCurrency * cPrecoVND;
+          FieldByName('TOTAL_DESCONTO').AsCurrency := FieldByName('QTDE').AsCurrency * FieldByName('DESCONTO_VALOR').AsCurrency;
+          FieldByName('TOTAL_LIQUIDO').AsCurrency  := FieldByName('TOTAL_BRUTO').AsCurrency - FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+          DataSetItens.Post;
+
+          GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
+
+          if not (DataSetVenda.State in [dsEdit, dsInsert]) then
+            DataSetVenda.Edit;
+
+          DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
+          DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
+          DataSetVenda.FieldByName('TOTALVENDA').AsCurrency       := cTotalLiquido - DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
+
+          if ( DataSetFormaPagto.RecordCount <= 1 ) then
+          begin
+            if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
+              DataSetFormaPagto.Edit;
+
+            DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
+          end;
+        end;
+      end;
+    finally
+      AForm.Free;
+      IniciarCupomProduto;
+    end;
+
+  end;
+*)  
+end;
+
+procedure TfrmGeVendaPDV.ProdutoAlterar(
+  const TipoAlteracao: TTipoAlteraItem);
+
+  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_Liquido: Currency);
+  var
+    Item : Integer;
+  begin
+    Item := DataSetItens.FieldByName('SEQ').AsInteger;
+    Total_Bruto    := 0.0;
+    Total_desconto := 0.0;
+    Total_Liquido  := 0.0;
+
+    DataSetItens.First;
+
+    while not DataSetItens.Eof do
+    begin
+      Total_Bruto    := Total_Bruto    + DataSetItens.FieldByName('TOTAL_BRUTO').AsCurrency;
+      Total_desconto := Total_desconto + DataSetItens.FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+      DataSetItens.Next;
+    end;
+
+    Total_Liquido  := Total_Bruto - Total_desconto;
+
+    DataSetItens.Locate('SEQ', Item, []);
+  end;
+
+var
+  AForm : TfrmGeVendaPDVItem;
+
+  cPrecoVND     ,
+  cTotalBruto   ,
+  cTotalDesconto,
+  cTotalLiquido : Currency;
+begin
+  if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
+    Exit;
+
+  if VendaEstaAberta then
+  begin
+
+    try
+      with DataSetItens do
+      begin
+        AForm := TfrmGeVendaPDVItem.Create(Self);
+
+        Case TipoAlteracao of
+          alterarQuantidade:
+            begin
+              AForm.Titulo  := 'Quantidade:';
+              AForm.Formato := ',0.###';
+              AForm.ValorAterar := DataSetItens.FieldByName('QTDE').AsCurrency;
+            end;
+
+          alterarValor:
+            begin
+              AForm.Titulo  := 'Valor Unitário (R$):';
+              AForm.Formato := ',0.00';
+              AForm.ValorAterar := DataSetItens.FieldByName('PUNIT').AsCurrency;
+            end;
+
+          excluirProduto:
+            if ShowConfirmation('Excluir Item', 'Confirma a exclusão do item selecionado?') then
+            begin
+              DataSetItens.Delete;
+
+              GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
+
+              if not (DataSetVenda.State in [dsEdit, dsInsert]) then
+                DataSetVenda.Edit;
+
+              DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
+              DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
+              DataSetVenda.FieldByName('TOTALVENDA').AsCurrency       := cTotalLiquido - DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
+
+              if ( DataSetFormaPagto.RecordCount <= 1 ) then
+              begin
+                if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
+                  DataSetFormaPagto.Edit;
+
+                DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
+              end;
+
+              Exit;
+            end;
+
+        end;
+
+        if ( AForm.ShowModal = mrOk ) then
+        begin
+
+          if not (State in [dsEdit, dsInsert]) then
+            DataSetItens.Edit;
+
+          Case TipoAlteracao of
+            alterarQuantidade : FieldByName('QTDE').AsCurrency  := AForm.ValorAterar;
+            alterarValor      : FieldByName('PUNIT').AsCurrency := AForm.ValorAterar;
+          end;
+
+          if ( FieldByName('PUNIT_PROMOCAO').AsCurrency > 0 ) then
+          begin
+            FieldByName('DESCONTO_VALOR').AsCurrency := FieldByName('PUNIT').AsCurrency - FieldByName('PUNIT_PROMOCAO').AsCurrency;
+            FieldByName('DESCONTO').AsCurrency       := FieldByName('DESCONTO_VALOR').AsCurrency / FieldByName('PUNIT').AsCurrency * 100;
+          end;
+
+          cPrecoVND := FieldByName('PUNIT').AsCurrency;
+
+          FieldByName('DESCONTO_VALOR').AsCurrency := cPrecoVND * FieldByName('DESCONTO').AsCurrency / 100;
+          FieldByName('PFINAL').AsCurrency         := cPrecoVND - FieldByName('DESCONTO_VALOR').AsCurrency;
+          FieldByName('TOTAL_BRUTO').AsCurrency    := FieldByName('QTDE').AsCurrency * cPrecoVND;
+          FieldByName('TOTAL_DESCONTO').AsCurrency := FieldByName('QTDE').AsCurrency * FieldByName('DESCONTO_VALOR').AsCurrency;
+          FieldByName('TOTAL_LIQUIDO').AsCurrency  := FieldByName('TOTAL_BRUTO').AsCurrency - FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+          DataSetItens.Post;
+
+          GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
+
+          if not (DataSetVenda.State in [dsEdit, dsInsert]) then
+            DataSetVenda.Edit;
+
+          DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
+          DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
+          DataSetVenda.FieldByName('TOTALVENDA').AsCurrency       := cTotalLiquido - DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
+
+          if ( DataSetFormaPagto.RecordCount <= 1 ) then
+          begin
+            if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
+              DataSetFormaPagto.Edit;
+
+            DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
+          end;
+        end;
+      end;
+    finally
+      AForm.Free;
+      IniciarCupomProduto;
+    end;
+
+  end;
+end;
+
+procedure TfrmGeVendaPDV.actProdutoExcluirExecute(Sender: TObject);
+begin
+  if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
+    Exit;
+
+  ProdutoAlterar( excluirProduto );
 end;
 
 initialization

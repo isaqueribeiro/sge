@@ -87,6 +87,8 @@ begin
     frm.btbtnLista.Visible    := False;
     frm.btbtnFechar.Visible   := False;
 
+    frm.AbrirTabelaAuto := True;
+
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;

@@ -201,8 +201,8 @@ begin
   frm := TfrmGeContasAPagar.Create(AOwner);
   try
     whr :=
-      '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ') and ' +
-      '(cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) +
+      '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')' +
+      ' and (cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) +
       ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ')';
 
     with frm, IbDtstTabela do
@@ -247,8 +247,8 @@ begin
   CampoOrdenacao := 'p.dtvenc, f.NomeForn';
 
   WhereAdditional :=
-    '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ') and ' +
-    '(cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
+    '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')' +
+    ' and (cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
 
   UpdateGenerator( 'where anolanc = ' + FormatFloat('0000', YearOf(Date)) );
@@ -274,8 +274,8 @@ end;
 procedure TfrmGeContasAPagar.btnFiltrarClick(Sender: TObject);
 begin
   WhereAdditional :=
-    '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ') and ' +
-    '(cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
+    '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')' +
+    ' and (cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
 
   inherited;

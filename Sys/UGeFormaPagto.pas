@@ -42,6 +42,8 @@ type
     cdsContaCorrenteListaDESCRICAO: TStringField;
     cdsContaCorrenteListaTIPO: TStringField;
     cdsContaCorrenteListaRZSOC: TStringField;
+    IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField;
+    dbFormaPagtoPDVRelatorio: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
@@ -53,6 +55,7 @@ type
       var Text: String; DisplayText: Boolean);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
     procedure CarregarContaCorrente;
@@ -114,6 +117,17 @@ begin
 
     frm.WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
       '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
+
+    with frm, IbDtstTabela do
+    begin
+      Close;
+      SelectSQL.Add('where ' + frm.WhereAdditional);
+      SelectSQL.Add('order by p.Cod');  
+      Open;
+    end;
+
+    frm.AbrirTabelaAuto := True;
+
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;
@@ -158,7 +172,8 @@ begin
   IbDtstTabelaCOD.Value       := GetNextID(NomeTabela, CampoCodigo);
   IbDtstTabelaACRESCIMO.Value := 0;
   IbDtstTabelaDEBITAR_LIMITE_CLIENTE.Value := 1;
-  IbDtstTabelaFORMAPAGTO_PDV.Value         := 1;
+  IbDtstTabelaFORMAPAGTO_PDV.Value         := 0;
+  IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA.Value := 0;
   IbDtstTabelaFORMAPAGTO_NFCE.Clear;
   IbDtstTabelaCONTA_CORRENTE.Clear;
 end;
@@ -261,6 +276,18 @@ begin
   inherited;
   if ( not OcorreuErro ) then
     CarregarContaCorrente;
+end;
+
+procedure TfrmGeFormaPagto.btnFiltrarClick(Sender: TObject);
+begin
+  if (gSistema.Codigo = SISTEMA_PDV) then
+  begin
+    CampoDescricao  := 'p.cod';
+    WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
+      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
+  end;
+
+  inherited;
 end;
 
 initialization

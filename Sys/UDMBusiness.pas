@@ -126,6 +126,7 @@ type
     frxCrossObject: TfrxCrossObject;
     frxChartObject: TfrxChartObject;
     ibdtstUsersVENDEDOR: TIntegerField;
+    fastReport: TfrxReport;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -170,7 +171,9 @@ var
 
   function IfThen(AValue: Boolean; const ATrue: string; AFalse: string = ''): string; overload;
   function IfThen(AValue: Boolean; const ATrue: TDateTime; AFalse: TDateTime = 0): TDateTime; overload;
+  function IfThen(AValue: Boolean; const ATrue: Integer; AFalse: Integer = 0): Integer; overload;
   function NetWorkActive(const Alertar : Boolean = FALSE) : Boolean;
+  function DataBaseOnLine : Boolean;
 
   function ShowConfirmation(sTitle, sMsg : String) : Boolean; overload;
   function ShowConfirmation(sMsg : String) : Boolean; overload;
@@ -183,6 +186,7 @@ var
   procedure ShowStop(sTitulo, sMsg : String); overload;
   procedure ShowError(sMsg : String);
   procedure UpdateSequence(GeneratorName, NomeTabela, CampoChave : String; const sWhr : String = '');
+  procedure ExecuteScriptSQL(sScriptSQL : String);
   procedure CommitTransaction;
 
   procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
@@ -222,6 +226,7 @@ var
   function GetEstacaoEmitiBoleto : Boolean;
   function GetEstacaoEmitiNFe : Boolean;
   function GetCondicaoPagtoIDBoleto_Descontinuada : Integer;  // Descontinuada
+  function GetEmitirApenasOrcamento : Boolean;
   function GetEmitirCupom : Boolean;
   function GetEmitirCupomAutomatico : Boolean;
   function GetModeloEmissaoCupom : Integer;
@@ -336,7 +341,8 @@ const
   DB_USER_PASSWORD = 'masterkey';
   DB_LC_CTYPE      = 'ISO8859_2';
 
-  MODELO_CUPOM_POOLER = 0;
+  MODELO_CUPOM_POOLER    = 0;
+  MODELO_CUPOM_ORCAMENTO = 0;
 
   BOLETO_ARQUIVO_LOGOTIPO = 'Imagens\Emitente.gif'; //gif
   BOLETO_IMAGENS          = 'Imagens\';
@@ -408,6 +414,14 @@ begin
 end;
 
 function IfThen(AValue: Boolean; const ATrue: TDateTime; AFalse: TDateTime = 0): TDateTime; 
+begin
+  if AValue then
+    Result := ATrue
+  else
+    Result := AFalse;
+end;
+
+function IfThen(AValue: Boolean; const ATrue: Integer; AFalse: Integer = 0): Integer;
 begin
   if AValue then
     Result := ATrue
@@ -554,6 +568,11 @@ begin
   end;
 end;
 
+function DataBaseOnLine : Boolean;
+begin
+  Result := DMBusiness.ibdtbsBusiness.Connected;
+end;
+
 function ShowConfirmation(sTitle, sMsg : String) : Boolean;
 var
   fMsg : TfrmGeMessage;
@@ -562,7 +581,7 @@ begin
     try
       fMsg := TfrmGeMessage.Create(Application);
       fMsg.Confirmar(sTitle, sMsg);
-      
+
       Result := (fMsg.ShowModal = mrYes);
     finally
       fMsg.Free;
@@ -711,6 +730,19 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('ALTER SEQUENCE ' + GeneratorName + ' RESTART WITH ' + IntToStr(ID));
+    ExecSQL;
+
+    CommitTransaction;
+  end;
+end;
+
+procedure ExecuteScriptSQL(sScriptSQL : String);
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add( Trim(sScriptSQL) );
     ExecSQL;
 
     CommitTransaction;
@@ -1194,6 +1226,11 @@ end;
 function GetCondicaoPagtoIDBoleto_Descontinuada : Integer; // Descontinuada
 begin
   Result := FileINI.ReadInteger('Boleto', INI_KEY_FORMA_PGTO, 1);
+end;
+
+function GetEmitirApenasOrcamento : Boolean;
+begin
+  Result := FileINI.ReadBool(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_ORCAM, False);
 end;
 
 function GetEmitirCupom : Boolean;

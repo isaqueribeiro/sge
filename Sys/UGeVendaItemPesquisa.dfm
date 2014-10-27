@@ -2,7 +2,7 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
   Left = 467
   Top = 217
   Width = 1132
-  Height = 724
+  Height = 677
   ActiveControl = e1Data
   Caption = 'Consultar Vendas de Produtos'
   PixelsPerInch = 96
@@ -66,10 +66,10 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
   end
   inherited PnlTabela: TPanel
     Width = 1116
-    Height = 605
+    Height = 558
     inherited dbgDados: TDBGrid
       Width = 1108
-      Height = 597
+      Height = 550
       Columns = <
         item
           Expanded = False

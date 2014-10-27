@@ -151,6 +151,7 @@ inherited frmGeVendaPDVOrcamento: TfrmGeVendaPDVOrcamento
     Height = 41
     Anchors = [akRight, akBottom]
     Caption = 'Confirmar'
+    Default = True
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -210,5 +211,6 @@ inherited frmGeVendaPDVOrcamento: TfrmGeVendaPDVOrcamento
     Height = 33
     TabOrder = 1
     Text = '2014'
+    OnKeyPress = ApenasNumeroKeyPress
   end
 end

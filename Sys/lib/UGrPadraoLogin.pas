@@ -32,6 +32,7 @@ type
     procedure BtnFecharClick(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
     procedure edNomeChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     fFinalizarAplicacao : Boolean;
@@ -97,10 +98,12 @@ begin
   lblSystemName.Caption        := GetInternalName;
   lblSystemDescription.Caption := GetFileDescription;
   lblSystemVersion.Caption     := 'Versão ' + GetExeVersion;
-  
-  CarregarEmpresa;
+
+  if DataBaseOnLine then
+    CarregarEmpresa;
+
   Empresa := GetEmpresaIDDefault;
-  
+
   if ( ImgLogo.Picture.Height = 0 ) then
     ImgLogo.Picture.Icon := Application.Icon;
 
@@ -182,6 +185,14 @@ end;
 procedure TfrmGrPadraoLogin.RegistrarRotinaSistema;
 begin
   ;
+end;
+
+procedure TfrmGrPadraoLogin.FormShow(Sender: TObject);
+begin
+  inherited;
+  if not DataBaseOnLine then
+    Application.Terminate;
+
 end;
 
 end.

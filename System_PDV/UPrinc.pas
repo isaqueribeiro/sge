@@ -69,7 +69,7 @@ type
     nmConfiguracaoEmpresa: TMenuItem;
     nmConfigurarAmbiente: TMenuItem;
     N16: TMenuItem;
-    RxSpeedButton1: TRxSpeedButton;
+    btnOrcamento: TRxSpeedButton;
     N9: TMenuItem;
     nmVenda: TMenuItem;
     nmOrcamento: TMenuItem;
@@ -86,7 +86,7 @@ type
     procedure nmAberturaCaixaClick(Sender: TObject);
     procedure nmEncerramentoCaixaClick(Sender: TObject);
     procedure btnVendaClick(Sender: TObject);
-    procedure RxSpeedButton1Click(Sender: TObject);
+    procedure btnOrcamentoClick(Sender: TObject);
     procedure btnProdutoClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure nmTributacaoClick(Sender: TObject);
@@ -139,7 +139,7 @@ uses
 
 procedure TfrmPrinc.btnSairClick(Sender: TObject);
 begin
-  if Application.MessageBox('Deseja SAIR do Sistema?', 'Confirmação ...', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON1) = ID_YES then
+  if ShowConfirm('Deseja SAIR do Sistema?') then
     Application.Terminate;
 end;
 
@@ -152,6 +152,9 @@ procedure TfrmPrinc.FormActivate(Sender: TObject);
 var
   sCNPJ : String;
 begin
+  if not DataBaseOnLine then
+    Exit;
+
   if ( StrIsCNPJ(GetEmpresaIDDefault) ) then
     sCNPJ := ' CPF.: ' + StrFormatarCnpj(GetEmpresaIDDefault)
   else
@@ -173,10 +176,15 @@ begin
   if not SetAcessoEstacao(DMBusiness.IdIPWatch.LocalName) then
   begin
     ShowError('Estação de trabalho não registrada no sistema!');
+
     menuCadastro.Enabled     := False;
     menuMovimentacao.Enabled := False;
     menuCaixa.Enabled        := False;
-    spbBarraAcessoRapido.Enabled := False;
+
+    btnVenda.Enabled     := False;
+    btnOrcamento.Enabled := False;
+    btnProduto.Enabled   := False;
+    btnCliente.Enabled   := False;
   end;
 
   if GetUserUpdatePassWord then
@@ -188,7 +196,7 @@ var
   sFileImage : String;
 begin
   Self.Tag := SISTEMA_PDV;
-  
+
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 
@@ -216,6 +224,9 @@ begin
     Copyright.Visible       := False;
   end;
 
+  if not DataBaseOnLine then
+    Exit;
+
   FAcesso := False;
   SetSistema(gSistema.Codigo, gSistema.Nome, GetVersion);
   RegistrarRotinasMenu;
@@ -223,19 +234,22 @@ end;
 
 procedure TfrmPrinc.nmGerenciaCaixaClick(Sender: TObject);
 begin
-  MostrarTabelaCaixa(Self);
+  if GetPermissaoRotinaSistema(ROTINA_FIN_GERENCIAR_CAIXA_ID, True) then
+    MostrarTabelaCaixa(Self);
 end;
 
 procedure TfrmPrinc.nmAberturaCaixaClick(Sender: TObject);
 begin
-  if ( AbrirCaixa(Self, GetUserApp) ) then
-    ShowInformation('Caixa aberto com sucesso!');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_ABRIR_CAIXA_ID, True) then
+    if ( AbrirCaixa(Self, GetUserApp) ) then
+      ShowInformation('Caixa aberto com sucesso!');
 end;
 
 procedure TfrmPrinc.nmEncerramentoCaixaClick(Sender: TObject);
 begin
-  if ( FecharCaixa(Self, GetUserApp) ) then
-    ShowInformation('Caixa encerrado com sucesso!');
+  if GetPermissaoRotinaSistema(ROTINA_FIN_ENCERRAR_CAIXA_ID, True) then
+    if ( FecharCaixa(Self, GetUserApp) ) then
+      ShowInformation('Caixa encerrado com sucesso!');
 end;
 
 procedure TfrmPrinc.btnVendaClick(Sender: TObject);
@@ -244,7 +258,7 @@ begin
     nmVenda.Click;
 end;
 
-procedure TfrmPrinc.RxSpeedButton1Click(Sender: TObject);
+procedure TfrmPrinc.btnOrcamentoClick(Sender: TObject);
 begin
   if ( nmOrcamento.Visible and nmOrcamento.Enabled ) then
     nmOrcamento.Click;

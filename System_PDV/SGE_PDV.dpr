@@ -81,7 +81,8 @@ uses
   UGeVendaPDVDesconto in 'UGeVendaPDVDesconto.pas' {frmGeVendaPDVDesconto},
   UGeVendaPDVOrcamento in 'UGeVendaPDVOrcamento.pas' {frmGeVendaPDVOrcamento},
   UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
-  UGeVendaPDVFinalizar in 'UGeVendaPDVFinalizar.pas' {frmGeVendaPDVFinalizar};
+  UGeVendaPDVFinalizar in 'UGeVendaPDVFinalizar.pas' {frmGeVendaPDVFinalizar},
+  UGeVendaPDVItem in 'UGeVendaPDVItem.pas' {frmGeVendaPDVItem};
 
 {$R *.res}
 

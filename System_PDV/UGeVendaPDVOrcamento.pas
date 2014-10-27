@@ -46,7 +46,7 @@ uses
 procedure TfrmGeVendaPDVOrcamento.ApenasNumeroKeyPress(Sender: TObject;
   var Key: Char);
 begin
-  if not (Key in ['0'..'9', #8, #13]) then
+  if not (Key in ['0'..'9', #8]) then
   begin
     Key := #0;
     Abort;
@@ -56,7 +56,7 @@ end;
 procedure TfrmGeVendaPDVOrcamento.FormCreate(Sender: TObject);
 begin
   inherited;
-  e1NumeroOrcamento.Text := FormatDateTime('yyyy', Date);
+  e1NumeroOrcamento.Text := FormatDateTime('yyyy', GetDateDB);
   e2NumeroOrcamento.Text := EmptyStr;
 end;
 

@@ -18,7 +18,7 @@ Uses
       procedure Gliche(Imprimir : Boolean); override;
       procedure Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario, ST, Total_Item : String); override;
       procedure Incluir_Forma_Pgto(Descricao, Valor : String); override;
-      procedure SubTotalVenda(Valor : String); override;
+      procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); override;
       procedure Desconto(Valor : String); override;
       procedure TotalVenda(Valor : String); override;
       procedure TotalCaixa(Valor : String); override;
@@ -48,7 +48,7 @@ constructor TEcfWindowsPrinter.Criar(sDll, sNomeImpressora, sPorta, sEmp, sEnder
 begin
   Self.Create;
 
-  Num_Colunas    := 40;
+  Num_Colunas    := 50;
   NomeImpressora := sNomeImpressora;
   Dll            := sDll;
   Porta          := sPorta;
@@ -195,8 +195,10 @@ begin
   ID_Venda := sID;
   Texto_Cupom.Add( '\n' + dh + Alinhar_Direita(Num_Colunas - 18, 'COD: ' + ID_Venda) );
 
-  if Trim(sNomeVendedor) <> EmptyStr then
-    Texto_Cupom.Add( 'Vendedor(a) : ' + Alinhar_Esquerda(Num_Colunas - 15, sNomeVendedor) );
+  NomeVendedor := RemoveAcentos(Trim(sNomeVendedor));
+
+  if NomeVendedor <> EmptyStr then
+    Texto_Cupom.Add( 'Vendedor(a) : ' + Alinhar_Esquerda(Num_Colunas - 15, NomeVendedor) );
 
   Self.Linha;
 end;
@@ -213,9 +215,11 @@ begin
     Texto_Cupom.Add( Centralizar(Num_Colunas, Msg3) );
 end;
 
-procedure TEcfWindowsPrinter.SubTotalVenda(Valor: String);
+procedure TEcfWindowsPrinter.SubTotalVenda(Valor: String; const LinhaSobre : Boolean);
 begin
-  Texto_Cupom.Add( '\n' + Alinhar_Direita(Num_Colunas, '----------------') );
+  if LinhaSobre then
+    Texto_Cupom.Add( '\n' + Alinhar_Direita(Num_Colunas, '----------------') );
+    
   Texto_Cupom.Add( '\n' + 'Subtotal R$' + Alinhar_Direita(Num_Colunas - 12, Valor) );
 end;
 

@@ -182,6 +182,7 @@ type
     IbDtstTabelaNOMECLIENTE: TIBStringField;
     TbsAutorizacaoCancelado: TTabSheet;
     dbMovitoCancelamento: TDBMemo;
+    IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -796,6 +797,13 @@ begin
 
   if ( ShowConfirm('Confirma a autorização do registro selecionado?') ) then
   begin
+    if ( cTotalLiquido < IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency ) then
+    begin
+      ShowWarning(Format('O Faturamento Mínimo (%s) deste fornecedor não permite que essa autorização de compra/serviço seja autorizada!',
+        [FormatFloat('"R$ ",0.00', IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency)]));
+      Exit;
+    end;
+
     IbDtstTabela.Edit;
 
     IbDtstTabelaSTATUS.Value             := STATUS_AUTORIZACAO_AUT;
@@ -1204,6 +1212,14 @@ begin
   if ShowConfirm('Confirma a finalização da edição do autorização?') then
   begin
     ValidarToTais(cTotalBruto, cTotalIPI, cTotalDesconto, cTotalLiquido);
+
+    if ( cTotalLiquido < IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency ) then
+    begin
+      ShowWarning(Format('O Faturamento Mínimo (%s) deste fornecedor não permite que essa autorização de compra/serviço seja emitida!',
+        [FormatFloat('"R$ ",0.00', IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency)]) + #13 +
+        'Apenas autorizações com valores iguais ou acima do faturamento mínimo poderão ser emitidas.');
+      Exit;
+    end;
 
     IbDtstTabela.Edit;
 

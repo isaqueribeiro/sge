@@ -1680,7 +1680,7 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     Font.Name = 'Tahoma'
     Font.Style = []
     KeyField = 'COND_COD'
-    ListField = 'COND_DESCRICAO_PDV'
+    ListField = 'COND_DESCRICAO_FULL'
     ListSource = dtsCondicaoPagtoLista
     ParentFont = False
     TabOrder = 1

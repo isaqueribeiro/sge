@@ -457,7 +457,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       ImageIndex = 1
       object GrpBxImpressaoCupomNFiscal: TGroupBox
         Left = 0
-        Top = 65
+        Top = 89
         Width = 422
         Height = 112
         Align = alTop
@@ -539,27 +539,36 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         Left = 0
         Top = 0
         Width = 422
-        Height = 65
+        Height = 89
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
         object chkCupomAutomatico: TCheckBox
           Left = 88
-          Top = 34
+          Top = 58
           Width = 329
           Height = 17
           Caption = 'Emitir cupom automaticamente ap'#243's a finaliza'#231#227'o da venda'
           Enabled = False
-          TabOrder = 1
+          TabOrder = 2
         end
         object chkCupomEmitir: TCheckBox
           Left = 88
-          Top = 10
+          Top = 34
           Width = 145
           Height = 17
           Caption = 'Emitir Cupom (Geral)'
-          TabOrder = 0
+          TabOrder = 1
           OnClick = chkCupomEmitirClick
+        end
+        object chkOrcamentoEmitir: TCheckBox
+          Left = 88
+          Top = 10
+          Width = 225
+          Height = 17
+          Caption = 'Esta'#231#227'o emite apenas or'#231'amentos'
+          TabOrder = 0
+          OnClick = chkOrcamentoEmitirClick
         end
       end
     end

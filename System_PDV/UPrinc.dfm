@@ -566,7 +566,7 @@ object frmPrinc: TfrmPrinc
       Transparent = True
       OnClick = btnVendaClick
     end
-    object RxSpeedButton1: TRxSpeedButton
+    object btnOrcamento: TRxSpeedButton
       Left = 98
       Top = 3
       Width = 95
@@ -670,7 +670,7 @@ object frmPrinc: TfrmPrinc
       ParentFont = False
       Spacing = 3
       Transparent = True
-      OnClick = RxSpeedButton1Click
+      OnClick = btnOrcamentoClick
     end
     object SpeedbarSection1: TSpeedbarSection
       Caption = 'sn01'

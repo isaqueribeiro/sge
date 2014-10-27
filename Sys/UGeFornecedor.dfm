@@ -863,7 +863,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         Top = 237
         Width = 836
         Height = 171
-        ActivePage = tbsContato
+        ActivePage = tbsDadoFinanceiro
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
@@ -1036,7 +1036,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
           Caption = '&3. Dados Financeiros'
           ImageIndex = 3
           object lblBanco: TLabel
-            Left = 8
+            Left = 168
             Top = 0
             Width = 33
             Height = 13
@@ -1044,7 +1044,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             FocusControl = dbBanco
           end
           object lblAgencia: TLabel
-            Left = 464
+            Left = 544
             Top = 0
             Width = 42
             Height = 13
@@ -1067,10 +1067,18 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             Caption = 'Pra'#231'a de Cobran'#231'a:'
             FocusControl = dbPracaoCobranca
           end
-          object dbBanco: TDBLookupComboBox
+          object lblFaturaMinima: TLabel
             Left = 8
+            Top = 0
+            Width = 95
+            Height = 13
+            Caption = 'Fatura M'#237'nima (R$):'
+            FocusControl = dbFaturaMinima
+          end
+          object dbBanco: TDBLookupComboBox
+            Left = 168
             Top = 16
-            Width = 449
+            Width = 369
             Height = 21
             DataField = 'BANCO'
             DataSource = DtSrcTabela
@@ -1084,12 +1092,12 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             ListField = 'NOME_CODIGO'
             ListSource = dtsBancoFebraban
             ParentFont = False
-            TabOrder = 0
+            TabOrder = 1
           end
           object dbAgencia: TDBEdit
-            Left = 464
+            Left = 544
             Top = 16
-            Width = 169
+            Width = 89
             Height = 21
             CharCase = ecUpperCase
             DataField = 'AGENCIA'
@@ -1100,7 +1108,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 1
+            TabOrder = 2
           end
           object dbContaCorrente: TDBEdit
             Left = 640
@@ -1116,7 +1124,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 3
           end
           object dbPracaoCobranca: TDBEdit
             Left = 8
@@ -1132,8 +1140,24 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 4
             OnKeyPress = ProximoCampoKeyPress
+          end
+          object dbFaturaMinima: TDBEdit
+            Left = 8
+            Top = 16
+            Width = 153
+            Height = 21
+            CharCase = ecUpperCase
+            DataField = 'FONE'
+            DataSource = DtSrcTabela
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
           end
         end
         object tbsObservacao: TTabSheet
@@ -1800,6 +1824,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       '  , f.praca'
       '  , f.observacao'
       '  , f.DtCad'
+      '  , f.Faturamento_minimo'
       
         '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
         'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), f.Ender ) as Logr' +
@@ -2021,6 +2046,13 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       Origin = '"TBFORNECEDOR"."DTCAD"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField
+      FieldName = 'FATURAMENTO_MINIMO'
+      Origin = '"TBFORNECEDOR"."FATURAMENTO_MINIMO"'
+      ProviderFlags = [pfInUpdate]
+      Precision = 18
+      Size = 2
+    end
     object IbDtstTabelaLOGRADOURO: TIBStringField
       DisplayLabel = 'Logradouro'
       FieldName = 'LOGRADOURO'
@@ -2092,7 +2124,8 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       '  OBSERVACAO,'
       '  DTCAD,'
       '  CLIENTE_ORIGEM,'
-      '  CLIENTE_ORIGEM_COD'
+      '  CLIENTE_ORIGEM_COD,'
+      '  FATURAMENTO_MINIMO'
       'from TBFORNECEDOR '
       'where'
       '  CODFORN = :CODFORN')
@@ -2114,6 +2147,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       '  EMAIL = :EMAIL,'
       '  ENDER = :ENDER,'
       '  EST_COD = :EST_COD,'
+      '  FATURAMENTO_MINIMO = :FATURAMENTO_MINIMO,'
       '  FONE = :FONE,'
       '  FONECEL = :FONECEL,'
       '  FONEFAX = :FONEFAX,'
@@ -2140,28 +2174,29 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         '  (AGENCIA, BAI_COD, BANCO, CC, CEP, CID_COD, CIDADE, CNPJ, CODF' +
         'ORN, COMPLEMENTO, '
       
-        '   CONTATO, DTCAD, EMAIL, ENDER, EST_COD, FONE, FONECEL, FONEFAX' +
-        ', GRF_COD, '
+        '   CONTATO, DTCAD, EMAIL, ENDER, EST_COD, FATURAMENTO_MINIMO, FO' +
+        'NE, FONECEL, '
       
-        '   INSCEST, INSCMUN, LOG_COD, NOMEFANT, NOMEFORN, NUMERO_END, OB' +
-        'SERVACAO, '
+        '   FONEFAX, GRF_COD, INSCEST, INSCMUN, LOG_COD, NOMEFANT, NOMEFO' +
+        'RN, NUMERO_END, '
       
-        '   PAIS_ID, PESSOA_FISICA, PRACA, SITE, TLG_TIPO, TRANSPORTADORA' +
-        ', UF)'
+        '   OBSERVACAO, PAIS_ID, PESSOA_FISICA, PRACA, SITE, TLG_TIPO, TR' +
+        'ANSPORTADORA, '
+      '   UF)'
       'values'
       
         '  (:AGENCIA, :BAI_COD, :BANCO, :CC, :CEP, :CID_COD, :CIDADE, :CN' +
         'PJ, :CODFORN, '
       
-        '   :COMPLEMENTO, :CONTATO, :DTCAD, :EMAIL, :ENDER, :EST_COD, :FO' +
-        'NE, :FONECEL, '
+        '   :COMPLEMENTO, :CONTATO, :DTCAD, :EMAIL, :ENDER, :EST_COD, :FA' +
+        'TURAMENTO_MINIMO, '
       
-        '   :FONEFAX, :GRF_COD, :INSCEST, :INSCMUN, :LOG_COD, :NOMEFANT, ' +
-        ':NOMEFORN, '
+        '   :FONE, :FONECEL, :FONEFAX, :GRF_COD, :INSCEST, :INSCMUN, :LOG' +
+        '_COD, :NOMEFANT, '
       
-        '   :NUMERO_END, :OBSERVACAO, :PAIS_ID, :PESSOA_FISICA, :PRACA, :' +
-        'SITE, :TLG_TIPO, '
-      '   :TRANSPORTADORA, :UF)')
+        '   :NOMEFORN, :NUMERO_END, :OBSERVACAO, :PAIS_ID, :PESSOA_FISICA' +
+        ', :PRACA, '
+      '   :SITE, :TLG_TIPO, :TRANSPORTADORA, :UF)')
     DeleteSQL.Strings = (
       'delete from TBFORNECEDOR'
       'where'

@@ -1,7 +1,7 @@
 inherited frmGeVendaPDV: TfrmGeVendaPDV
-  Left = 422
-  Top = 267
-  Width = 1076
+  Left = 443
+  Top = 230
+  Width = 1071
   Height = 680
   ActiveControl = edProdutoCodigo
   BorderIcons = [biMinimize, biMaximize]
@@ -14,13 +14,13 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   object PnlInformeGeral: TPanel
     Left = 0
     Top = 583
-    Width = 1060
+    Width = 1055
     Height = 59
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
     DesignSize = (
-      1060
+      1055
       59)
     object imgEmpresa: TImage
       Left = 0
@@ -4394,7 +4394,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Transparent = True
     end
     object lblGravar: TLabel
-      Left = 897
+      Left = 619
       Top = 32
       Width = 150
       Height = 19
@@ -4415,7 +4415,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   object PnlVendaCabecalho: TPanel
     Left = 0
     Top = 0
-    Width = 1060
+    Width = 1055
     Height = 57
     Align = alTop
     BevelInner = bvLowered
@@ -4545,7 +4545,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       IsControl = True
     end
     object imgNomeCliente: TImage
-      Left = 330
+      Left = 322
       Top = 10
       Width = 39
       Height = 39
@@ -4655,7 +4655,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       IsControl = True
     end
     object lblNomeCliente: TLabel
-      Left = 368
+      Left = 360
       Top = 10
       Width = 78
       Height = 16
@@ -4669,7 +4669,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Transparent = True
     end
     object imgNomeFormaPagto: TImage
-      Left = 650
+      Left = 642
       Top = 10
       Width = 39
       Height = 39
@@ -4779,7 +4779,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       IsControl = True
     end
     object lblNomeFormaPagto: TLabel
-      Left = 688
+      Left = 680
       Top = 10
       Width = 134
       Height = 16
@@ -4793,7 +4793,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Transparent = True
     end
     object Image1: TImage
-      Left = 970
+      Left = 962
       Top = 10
       Width = 39
       Height = 39
@@ -4903,7 +4903,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       IsControl = True
     end
     object Label1: TLabel
-      Left = 1008
+      Left = 1000
       Top = 10
       Width = 48
       Height = 16
@@ -4919,7 +4919,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     object edNomeVendedor: TLabel
       Left = 48
       Top = 30
-      Width = 273
+      Width = 265
       Height = 19
       AutoSize = False
       Caption = 'edNomeVendedor'
@@ -4932,7 +4932,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Transparent = True
     end
     object edNomeCliente: TLabel
-      Left = 368
+      Left = 360
       Top = 30
       Width = 273
       Height = 19
@@ -4949,7 +4949,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Transparent = True
     end
     object edNomeFormaPagto: TLabel
-      Left = 688
+      Left = 680
       Top = 30
       Width = 273
       Height = 19
@@ -5248,8 +5248,12 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   object dbgDados: TDBGrid
     Left = 393
     Top = 57
-    Width = 667
+    Width = 662
     Height = 526
+    Hint = 
+      'Dicas:'#13#10'CTRL + V - Alterar Valor Unit'#225'rio do item selecionado'#13#10'C' +
+      'TRL + Q - Alterar Quantidade do item selecionado'#13#10'CTRL + E - Exc' +
+      'luir item selecionado'
     Align = alClient
     DataSource = dtsItem
     Font.Charset = ANSI_CHARSET
@@ -5259,7 +5263,9 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     Font.Style = []
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
     ParentFont = False
+    ParentShowHint = False
     ReadOnly = True
+    ShowHint = True
     TabOrder = 3
     TitleFont.Charset = ANSI_CHARSET
     TitleFont.Color = clNavy
@@ -5313,7 +5319,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       end>
   end
   object pnlCaixaLivre: TPanel
-    Left = 226
+    Left = 224
     Top = 232
     Width = 609
     Height = 145
@@ -5338,7 +5344,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Picture.Data = {
         0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000052
         0000003A0806000000238B0EAC0000000467414D410000B18F0BFC6105000000
-        097048597300000EBE00000EBE01EA42B1C00000001A74455874536F66747761
+        097048597300000EBC00000EBC0195BC72490000001A74455874536F66747761
         7265005061696E742E4E45542076332E352E313147F342370000068849444154
         785ED59B695714471486E7BF4593984545914550248A82488E8AE2868A1A54C4
         15152382125C628C4BDC351A957D5804875DD941117FC54DDDF634A7A7E715BB
@@ -5463,10 +5469,6 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Category = 'Processo Venda'
       Caption = 'actCancelarProduto'
     end
-    object actExcluirProduto: TAction
-      Category = 'Processo Venda'
-      Caption = 'actExcluirProduto'
-    end
     object actGravarOrcamento: TAction
       Tag = 5
       Category = 'Processo Venda'
@@ -5478,6 +5480,24 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       Category = 'Processo Venda'
       Caption = 'Finalizar Venda'
       OnExecute = actFinalizarVendaExecute
+    end
+    object actProdutoValor: TAction
+      Category = 'Itens'
+      Caption = 'actProdutoValor'
+      ShortCut = 16470
+      OnExecute = actProdutoValorExecute
+    end
+    object actProdutoQuantidade: TAction
+      Category = 'Itens'
+      Caption = 'actProdutoQuantidade'
+      ShortCut = 16465
+      OnExecute = actProdutoQuantidadeExecute
+    end
+    object actProdutoExcluir: TAction
+      Category = 'Itens'
+      Caption = 'actProdutoExcluir'
+      ShortCut = 16453
+      OnExecute = actProdutoExcluirExecute
     end
   end
   object dtsItem: TDataSource

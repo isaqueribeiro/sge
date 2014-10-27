@@ -55,10 +55,10 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     end
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
-        Top = 129
+        Top = 153
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Height = 129
+        Height = 153
         object lblNome: TLabel [1]
           Left = 88
           Top = 24
@@ -201,12 +201,30 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
+        object dbFormaPagtoPDVRelatorio: TDBCheckBox
+          Left = 16
+          Top = 120
+          Width = 265
+          Height = 17
+          Caption = 'Emitir Relat'#243'rio Gerencial no PDV (P'#243's Venda)'
+          DataField = 'FORMAPAGTO_PDV_CUPOM_EXTRA'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 7
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
       end
       object dbgContaCorrente: TDBGrid
         Left = 0
-        Top = 133
+        Top = 157
         Width = 727
-        Height = 197
+        Height = 173
         Hint = 
           'Dica:'#13#10#13#10'Pressione a tecla "Espa'#231'o" para marcar o desmarcar a Co' +
           'nta Corrente'#13#10'selecionada. E atente para o fato de que a conta c' +
@@ -278,6 +296,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       '  , p.Acrescimo'
       '  , p.FormaPagto_NFCe'
       '  , p.FormaPagto_PDV'
+      '  , p.Formapagto_PDV_Cupom_Extra'
       '  , p.Conta_corrente'
       '  , p.Debitar_limite_cliente'
       'from TBFORMPAGTO p')
@@ -317,6 +336,11 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       Origin = '"TBFORMPAGTO"."FORMAPAGTO_PDV"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField
+      FieldName = 'FORMAPAGTO_PDV_CUPOM_EXTRA'
+      Origin = '"TBFORMPAGTO"."FORMAPAGTO_PDV_CUPOM_EXTRA"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaCONTA_CORRENTE: TIntegerField
       DisplayLabel = 'Conta Corrente'
       FieldName = 'CONTA_CORRENTE'
@@ -353,7 +377,8 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       '  CONTA_CORRENTE,'
       '  DEBITAR_LIMITE_CLIENTE,'
       '  FORMAPAGTO_NFCE,'
-      '  FORMAPAGTO_PDV'
+      '  FORMAPAGTO_PDV,'
+      '  FORMAPAGTO_PDV_CUPOM_EXTRA'
       'from TBFORMPAGTO '
       'where'
       '  COD = :COD')
@@ -366,7 +391,8 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       '  DEBITAR_LIMITE_CLIENTE = :DEBITAR_LIMITE_CLIENTE,'
       '  DESCRI = :DESCRI,'
       '  FORMAPAGTO_NFCE = :FORMAPAGTO_NFCE,'
-      '  FORMAPAGTO_PDV = :FORMAPAGTO_PDV'
+      '  FORMAPAGTO_PDV = :FORMAPAGTO_PDV,'
+      '  FORMAPAGTO_PDV_CUPOM_EXTRA = :FORMAPAGTO_PDV_CUPOM_EXTRA'
       'where'
       '  COD = :OLD_COD')
     InsertSQL.Strings = (
@@ -374,12 +400,14 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       
         '  (ACRESCIMO, COD, CONTA_CORRENTE, DEBITAR_LIMITE_CLIENTE, DESCR' +
         'I, FORMAPAGTO_NFCE, '
-      '   FORMAPAGTO_PDV)'
+      '   FORMAPAGTO_PDV, FORMAPAGTO_PDV_CUPOM_EXTRA)'
       'values'
       
         '  (:ACRESCIMO, :COD, :CONTA_CORRENTE, :DEBITAR_LIMITE_CLIENTE, :' +
         'DESCRI, '
-      '   :FORMAPAGTO_NFCE, :FORMAPAGTO_PDV)')
+      
+        '   :FORMAPAGTO_NFCE, :FORMAPAGTO_PDV, :FORMAPAGTO_PDV_CUPOM_EXTR' +
+        'A)')
     DeleteSQL.Strings = (
       'delete from TBFORMPAGTO'
       'where'

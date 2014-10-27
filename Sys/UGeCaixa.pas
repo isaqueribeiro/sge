@@ -97,8 +97,6 @@ type
     nmImprimirCaixaSintetico: TMenuItem;
     nmImprimirCaixaAnalitico: TMenuItem;
     lblData: TLabel;
-    e1Data: TDateTimePicker;
-    e2Data: TDateTimePicker;
     btbtnCancelarCaixa: TBitBtn;
     Bevel7: TBevel;
     IBStrPrcCaixaConsolidar: TIBStoredProc;
@@ -109,6 +107,8 @@ type
     qryCaixaAnalitico: TIBQuery;
     frdCaixaAnalitico: TfrxDBDataset;
     Label2: TLabel;
+    e1Data: TDateEdit;
+    e2Data: TDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -400,7 +400,7 @@ end;
 procedure TfrmGeCaixa.AbrirTabelaConsolidado(const AnoCaixa: Smallint;
   const NumeroCaixa: Integer);
 begin
-  if ( FFecharCaixa and (IbDtstTabelaSITUACAO.AsInteger = 0) ) then
+  if ( FFecharCaixa and (IbDtstTabelaSITUACAO.AsInteger = STATUS_CAIXA_ABERTO) ) then
     ConsolidarCaixa(AnoCaixa, NumeroCaixa);
 
   cdsCosolidado.Close;
@@ -562,13 +562,13 @@ procedure TfrmGeCaixa.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btbtnEncerrar.Enabled      := False;
-    btbtnCancelarCaixa.Enabled := False;
+    btbtnEncerrar.Enabled      := (IbDtstTabelaSITUACAO.AsInteger < STATUS_CAIXA_FECHADO) and (not qryMovimento.IsEmpty);
+    btbtnCancelarCaixa.Enabled := (IbDtstTabelaSITUACAO.AsInteger < STATUS_CAIXA_FECHADO) and qryMovimento.IsEmpty;
   end
   else
   begin
-    btbtnEncerrar.Enabled      := (IbDtstTabelaSITUACAO.AsInteger < STATUS_CAIXA_FECHADO) and (not cdsCosolidado.IsEmpty);
-    btbtnCancelarCaixa.Enabled := (IbDtstTabelaSITUACAO.AsInteger < STATUS_CAIXA_FECHADO) and (not cdsCosolidado.IsEmpty) and (qryMovimento.IsEmpty);
+    btbtnEncerrar.Enabled      := False;
+    btbtnCancelarCaixa.Enabled := False;
   end;
 end;
 
@@ -599,16 +599,22 @@ begin
   if ( IbDtstTabelaSITUACAO.AsInteger = STATUS_CAIXA_ABERTO ) then
   begin
     AbrirTabelaMovimento(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+
+    // Consolidar Movimentacao
+    
+    if ( not qryMovimento.IsEmpty ) then
+    begin
+      ConsolidarCaixa(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+      AbrirTabelaConsolidado(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+    end;  
+
     if ( qryMovimento.IsEmpty ) then
-      sMsg := 'Não existe movimentação para o Caixa selecionado!' + #13#13 + 'Deseja encerrar mesmo desta forma o Caixa selecionado?'
+      sMsg := 'Não existe movimentação para o Caixa selecionado!' + #13#13 + 'Deseja encerrá-lo mesmo assim?'
     else
       sMsg := 'Deseja encerrar o Caixa selecionado?';
 
-    if ( ShowConfirm(sMsg, 'Encerrar Caixa') ) then
+    if ( ShowConfirmation('Encerrar Caixa', sMsg) ) then
     begin
-      // Consolidar Movimentacao
-      ConsolidarCaixa(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
-
       // Recalcular Saldo da Conta Corrente
       Data := IbDtstTabelaDATA_ABERTURA.AsDateTime;
       while Data <= GetDateDB do

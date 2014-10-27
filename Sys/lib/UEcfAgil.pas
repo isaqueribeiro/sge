@@ -22,7 +22,8 @@ Uses
       f_cidade       ,
       f_cnpf         ,
       f_insc_estadual,
-      f_id_venda     : String;
+      f_id_venda     ,
+      f_vendedor     : String;
       f_conteudo_imp : TextFile;
       f_texto_cumpo  : TStringList;
       f_myPrinter    : TPrinter;
@@ -36,13 +37,14 @@ Uses
       property Porta         : String   read f_porta_saida write f_porta_saida;
       property Nome_Empresa  : String   read f_empresa     write f_empresa;
       property Endereco      : String   read f_endereco    write f_endereco;
-      property Bairro        : String   read f_bairro      write f_bairro; 
+      property Bairro        : String   read f_bairro      write f_bairro;
       property Fone          : String   read f_fone        write f_fone;
       property Cep           : String   read f_cep         write f_cep;
       property Cidade        : String   read f_cidade      write f_cidade;
       property CNPJ          : String   read f_cnpf        write f_cnpf;
       property Insc_Estadual : String   read f_insc_estadual write f_insc_estadual;
       property ID_Venda      : String   read f_id_venda      write f_id_venda;
+      property NomeVendedor  : String   read f_vendedor      write f_vendedor;
       property Corpo_Cupom   : TextFile read f_conteudo_imp  write f_conteudo_imp;
       property Texto_Cupom   : TStringList read f_texto_cumpo   write f_texto_cumpo;
       property myPrinter     : TPrinter read f_myPrinter     write f_myPrinter;
@@ -63,7 +65,7 @@ Uses
       procedure Gliche(Imprimir : Boolean); virtual; abstract;
       procedure Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario, ST, Total_Item : String); virtual; abstract;
       procedure Incluir_Forma_Pgto(Descricao, Valor : String); virtual; abstract;
-      procedure SubTotalVenda(Valor : String); virtual; abstract;
+      procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); virtual; abstract;
       procedure Desconto(Valor : String); virtual; abstract;
       procedure TotalVenda(Valor : String); virtual; abstract;
       procedure TotalCaixa(Valor : String); virtual; abstract;

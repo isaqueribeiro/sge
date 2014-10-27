@@ -359,7 +359,7 @@ begin
   try
     frm.fAliquota := TipoAliquota;
 
-    if GetEstoqueUnicoEmpresa(GetEmpresaIDDefault) then
+    if not GetEstoqueUnicoEmpresa(GetEmpresaIDDefault) then
       frm.WhereAdditional := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')'
     else
       frm.WhereAdditional := '(1 = 1)';
@@ -969,7 +969,7 @@ begin
     IbDtstTabelaMOVIMENTA_ESTOQUE.Value := 1;
 
   if ( IbDtstTabelaCOMPOR_FATURAMENTO.IsNull ) then
-    IbDtstTabelaCOMPOR_FATURAMENTO.Value := 1;
+    IbDtstTabelaCOMPOR_FATURAMENTO.Value := StrToInt(IfThen(GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
 
   if ( (IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency < 0) or (IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency > 100) ) then
     IbDtstTabelaPERCENTUAL_REDUCAO_BC.Value := 0;
@@ -1102,7 +1102,7 @@ begin
   IbDtstTabelaALIQUOTA_PIS.AsCurrency      := 0.0;
   IbDtstTabelaALIQUOTA_COFINS.AsCurrency   := 0.0;
   IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger  := 1;
-  IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger := 1;
+  IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger := StrToInt(IfThen(GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
 end;
 
 procedure TfrmGeProduto.FormShow(Sender: TObject);
@@ -1292,7 +1292,7 @@ end;
 
 procedure TfrmGeProduto.btnFiltrarClick(Sender: TObject);
 begin
-  if GetEstoqueUnicoEmpresa(GetEmpresaIDDefault) then
+  if not GetEstoqueUnicoEmpresa(GetEmpresaIDDefault) then
     WhereAdditional := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')'
   else
     WhereAdditional := '(1 = 1)';
@@ -1433,6 +1433,7 @@ end;
 procedure TfrmGeProduto.btbtnSalvarClick(Sender: TObject);
 begin
   // Validações de Dados
+  
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
     if ( Length(Trim(IbDtstTabelaNCM_SH.AsString)) < STR_TAMANHO_NCMSH ) then
     begin

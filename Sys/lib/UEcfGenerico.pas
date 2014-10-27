@@ -18,7 +18,7 @@ Uses
       procedure Gliche(Imprimir : Boolean); override;
       procedure Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario, ST, Total_Item : String); override;
       procedure Incluir_Forma_Pgto(Descricao, Valor : String); override;
-      procedure SubTotalVenda(Valor : String); override;
+      procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); override;
       procedure Desconto(Valor : String); override;
       procedure TotalVenda(Valor : String); override;
       procedure TotalCaixa(Valor : String); override;
@@ -174,10 +174,12 @@ begin
   Write  ( Corpo_Cupom, cMargem + dh);
   Writeln( Corpo_Cupom, Alinhar_Direita(Num_Colunas - Length(dh + cMargem), 'COD: ' + ID_Venda) );
 
-  if Trim(sNomeVendedor) <> EmptyStr then
+  NomeVendedor := RemoveAcentos(Trim(sNomeVendedor));
+
+  if NomeVendedor <> EmptyStr then
   begin
     Write  ( Corpo_Cupom, cMargem + 'Vendedor(a) : ');
-    Writeln( Corpo_Cupom, Alinhar_Esquerda(Num_Colunas - 15, sNomeVendedor) );
+    Writeln( Corpo_Cupom, Alinhar_Esquerda(Num_Colunas - 15, NomeVendedor) );
   end;
   Self.Linha;
 end;
@@ -208,11 +210,13 @@ begin
   Writeln( Corpo_Cupom, Alinhar_Direita(Num_Colunas - 31, Total_Item) );
 end;
 
-procedure TEcfGenerico.SubTotalVenda(Valor: String);
+procedure TEcfGenerico.SubTotalVenda(Valor: String; const LinhaSobre : Boolean);
 begin
-  Writeln( Corpo_Cupom, c12cpi + cINegrito + 
-                        Alinhar_Direita(Num_Colunas - 2, '----------------')  +
-                        cFNegrito );
+  if LinhaSobre then
+    Writeln( Corpo_Cupom, c12cpi + cINegrito +
+                          Alinhar_Direita(Num_Colunas - 2, '----------------')  +
+                          cFNegrito );
+                          
   Write  ( Corpo_Cupom, c12cpi + cINegrito + cMargem +
                         'Subtotal R$ ' +
                         cFNegrito );

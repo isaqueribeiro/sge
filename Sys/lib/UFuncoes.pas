@@ -361,8 +361,8 @@ end;
 
 function RemoveAcentos(Str : String) : String;
 const
-  COM_ACENTO = 'ΰβκτϋγυαινσϊηόΐΒΚΤΫΓΥΑΙΝΣΪΗά';
-  SEM_ACENTO = 'aaeouaoaeioucuAAEOUAOAEIOUCU';
+  COM_ACENTO = 'ΰβκτϋγυαινσϊηόΐΒΚΤΫΓΥΑΙΝΣΪΗάͺΊ';
+  SEM_ACENTO = 'aaeouaoaeioucuAAEOUAOAEIOUCUao';
 var
   X : Integer;
 begin

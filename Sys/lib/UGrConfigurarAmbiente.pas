@@ -55,6 +55,7 @@ type
     chkCarregarPeloEAN: TCheckBox;
     lblCupomNaoFiscalImpressora: TLabel;
     edCupomNaoFiscalImpressora: TComboBox;
+    chkOrcamentoEmitir: TCheckBox;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -65,6 +66,7 @@ type
     procedure chkCupomNaoFiscalClick(Sender: TObject);
     procedure chkCupomEmitirClick(Sender: TObject);
     procedure edCupomNaoFiscalPortaChange(Sender: TObject);
+    procedure chkOrcamentoEmitirClick(Sender: TObject);
   private
     { Private declarations }
     procedure CarregarDadosINI;
@@ -134,6 +136,7 @@ begin
 
   // PDV
 
+  chkOrcamentoEmitir.Checked      := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_ORCAM, False);
   chkCupomEmitir.Checked          := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
   chkCupomAutomatico.Checked      := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, False);
   chkCupomNaoFiscal.Checked       := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
@@ -169,6 +172,7 @@ begin
 
   // PDV
 
+  FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_ORCAM, chkOrcamentoEmitir.Checked);
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, chkCupomEmitir.Checked);
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, chkCupomAutomatico.Checked);
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, chkCupomNaoFiscal.Checked);
@@ -260,6 +264,14 @@ procedure TfrmGrConfigurarAmbiente.edCupomNaoFiscalPortaChange(
 begin
   lblCupomNaoFiscalImpressora.Enabled :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
   edCupomNaoFiscalImpressora.Enabled  :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
+end;
+
+procedure TfrmGrConfigurarAmbiente.chkOrcamentoEmitirClick(
+  Sender: TObject);
+begin
+  chkCupomEmitir.Checked := not chkOrcamentoEmitir.Checked;
+  chkCupomEmitir.Enabled := not chkOrcamentoEmitir.Checked;
+  chkCupomEmitirClick( chkCupomEmitir );
 end;
 
 initialization

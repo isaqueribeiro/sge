@@ -169,6 +169,7 @@ type
     nmEfetuarLogoff: TMenuItem;
     N110: TMenuItem;
     nmRequisicaoCompra: TMenuItem;
+    nmConverterReqAutCompra: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -242,6 +243,8 @@ type
     procedure nmRegistroEstacaoClick(Sender: TObject);
     procedure nmEfetuarLogoffClick(Sender: TObject);
     procedure nmRequisicaoCompraClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure nmConverterReqAutCompraClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -317,7 +320,7 @@ end;
 
 procedure TfrmPrinc.btnSairClick(Sender: TObject);
 begin
-  if Application.MessageBox('Deseja SAIR do Sistema?', 'Confirmação ...', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON1) = ID_YES then
+  if ShowConfirm('Deseja SAIR do Sistema?') then
     Application.Terminate;
 end;
 
@@ -484,6 +487,9 @@ begin
   else
     sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
 
+  if not DataBaseOnLine then
+    Exit;
+
   stbMain.Panels.Items[2].Text  := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
   nmUsuarioAlterarSenha.Caption := Format('Alteração de Senha (%s)', [GetUserApp]);
 
@@ -505,6 +511,7 @@ begin
   if not SetAcessoEstacao(DMBusiness.IdIPWatch.LocalName) then
   begin
     ShowError('Estação de trabalho não registrada no sistema!');
+
     menuCadastro.Enabled     := False;
     menuEntrada.Enabled      := False;
     menuMovimentacao.Enabled := False;
@@ -512,7 +519,16 @@ begin
     menuConsulta.Enabled     := False;
     menuFinanceiro.Enabled   := False;
     menuRelatorio.Enabled    := False;
-    spbBarraAcessoRapido.Enabled := False;
+
+    btnEmpresa.Enabled := False;
+    btnCliente.Enabled := False;
+    btnProduto.Enabled := False;
+    btnFornecedor.Enabled := False;
+    btnEstoque.Enabled    := False;
+    btnVenda.Enabled      := False;
+    btnTesouraria.Enabled    := False;
+    btnContaAPagar.Enabled   := False;
+    btnContaAReceber.Enabled := False;
   end;
 end;
 
@@ -521,7 +537,7 @@ var
   sFileImage : String;
 begin
   Self.Tag := SISTEMA_GESTAO;
-  
+
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 
@@ -548,6 +564,9 @@ begin
     FileDescription.Visible := False;
     Copyright.Visible       := False;
   end;
+
+  if not DataBaseOnLine then
+    Exit;
 
   // (INICIO) Configurar Legendas de acordo com o segmento
 
@@ -850,7 +869,8 @@ end;
 
 procedure TfrmPrinc.nmAutorizacaoCompraClick(Sender: TObject);
 begin
-  MostrarControleAutorizacao(Self);
+  if GetPermissaoRotinaSistema(ROTINA_MOV_AUTORIZACAO_ID, True) then
+    MostrarControleAutorizacao(Self);
 end;
 
 procedure TfrmPrinc.nmRelatorioFinanceiroContasAPagarClick(
@@ -888,7 +908,8 @@ end;
 
 procedure TfrmPrinc.nmCotacaoCompraClick(Sender: TObject);
 begin
-  MostrarControleCotacao(Self);
+  if GetPermissaoRotinaSistema(ROTINA_MOV_COTACAO_ID, True) then
+    MostrarControleCotacao(Self);
 end;
 
 procedure TfrmPrinc.nmRegistroEstacaoClick(Sender: TObject);
@@ -903,7 +924,19 @@ end;
 
 procedure TfrmPrinc.nmRequisicaoCompraClick(Sender: TObject);
 begin
-  MostrarControleRequisicao(Self);
+  if GetPermissaoRotinaSistema(ROTINA_MOV_REQUISICAO_CMP_ID, True) then
+    MostrarControleRequisicao(Self);
+end;
+
+procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  CanClose := ShowConfirm('Deseja SAIR do Sistema?');
+end;
+
+procedure TfrmPrinc.nmConverterReqAutCompraClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_MOV_CONVERT_REQ_AUT_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeRequisicaoCompraPesquisa');
 end;
 
 end.

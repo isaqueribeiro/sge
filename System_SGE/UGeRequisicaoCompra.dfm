@@ -663,7 +663,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           Top = 40
           Width = 417
           Height = 21
-          ButtonHint = 'Pesquisar Cliente (Ctrl+P)'
+          ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clMoneyGreen
@@ -2122,6 +2122,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  , f.nomeforn'
       '  , f.cnpj'
       '  , f.pessoa_fisica'
+      '  , f.faturamento_minimo'
       '  , t.nomeforn as transportador_nome'
       '  , t.cnpj     as transportador_cpf_cnpj'
       '  , c.nome     as nomecliente'
@@ -2377,6 +2378,13 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       FieldName = 'PESSOA_FISICA'
       Origin = '"TBFORNECEDOR"."PESSOA_FISICA"'
       ProviderFlags = []
+    end
+    object IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField
+      FieldName = 'FATURAMENTO_MINIMO'
+      Origin = '"TBFORNECEDOR"."FATURAMENTO_MINIMO"'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
     end
     object IbDtstTabelaTRANSPORTADOR_NOME: TIBStringField
       FieldName = 'TRANSPORTADOR_NOME'

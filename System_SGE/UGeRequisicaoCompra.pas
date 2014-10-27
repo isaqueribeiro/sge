@@ -182,6 +182,7 @@ type
     IbDtstTabelaTRANSPORTADOR_NOME: TIBStringField;
     IbDtstTabelaTRANSPORTADOR_CPF_CNPJ: TIBStringField;
     IbDtstTabelaNOMECLIENTE: TIBStringField;
+    IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -365,7 +366,7 @@ begin
   cdsTransportador.Open;
 
   pgcMaisDados.Height := 190;
-  RotinaID            := ROTINA_MOV_REQUISICAO_ID;
+  RotinaID            := ROTINA_MOV_REQUISICAO_CMP_ID;
   DisplayFormatCodigo := '###00000';
 
   NomeTabela     := 'TBREQUISITA_COMPRA';
@@ -796,6 +797,13 @@ begin
 
   if ( ShowConfirm('Confirma a autorização do registro selecionado?') ) then
   begin
+    if ( cTotalLiquido > IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency ) then
+    begin
+      ShowWarning(Format('O Faturamento Mínimo (%s) deste fornecedor não permite que essa requisição de compra/serviço seja requisitadas!',
+        [FormatFloat('"R$ ",0.00', IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency)]));
+      Exit;
+    end;
+
     IbDtstTabela.Edit;
 
     IbDtstTabelaSTATUS.Value              := STATUS_REQUISICAO_REQ;
@@ -1204,6 +1212,14 @@ begin
   if ShowConfirm('Confirma a finalização da edição do requisição?') then
   begin
     ValidarToTais(cTotalBruto, cTotalIPI, cTotalDesconto, cTotalLiquido);
+
+    if ( cTotalLiquido > IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency ) then
+    begin
+      ShowWarning(Format('O Faturamento Mínimo (%s) deste fornecedor não permite que essa requisição de compra/serviço seja emitida!',
+        [FormatFloat('"R$ ",0.00', IbDtstTabelaFATURAMENTO_MINIMO.AsCurrency)]) + #13 +
+        'Apenas requisições com valores abaixo de mínimo poderão ser emitidas.');
+      Exit;
+    end;
 
     IbDtstTabela.Edit;
 

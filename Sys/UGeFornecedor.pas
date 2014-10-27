@@ -160,6 +160,9 @@ type
     lblPracaoCobranca: TLabel;
     dbPracaoCobranca: TDBEdit;
     dbObservacao: TDBMemo;
+    IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField;
+    lblFaturaMinima: TLabel;
+    dbFaturaMinima: TDBEdit;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -403,6 +406,7 @@ begin
   IbDtstTabelaCIDADE.AsString          := IbDtstTabelaCID_NOME.AsString + ' (' + Trim(IbDtstTabelaUF.AsString) + ')';
   IbDtstTabelaTRANSPORTADORA.AsInteger := 0;
   IbDtstTabelaDTCAD.AsDateTime         := GetDateTimeDB;
+  IbDtstTabelaFATURAMENTO_MINIMO.Value := 0.0;
   IbDtstTabelaGRF_COD.Clear;
   IbDtstTabelaBANCO.Clear;
   IbDtstTabelaAGENCIA.Clear;
