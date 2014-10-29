@@ -369,6 +369,9 @@ type
     dbLogNFeDenegada: TDBEdit;
     qryNFEMODELO: TSmallintField;
     qryNFEVERSAO: TSmallintField;
+    BtnCorrigirDadosNFe: TSpeedButton;
+    ppCorrigirDadosNFe: TPopupMenu;
+    nmPpCorrigirDadosNFeCFOP: TMenuItem;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -431,6 +434,8 @@ type
     procedure nmImprimirCartaCreditoClick(Sender: TObject);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure nmPpLimparDadosNFeClick(Sender: TObject);
+    procedure BtnCorrigirDadosNFeClick(Sender: TObject);
+    procedure nmPpCorrigirDadosNFeCFOPClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -933,9 +938,10 @@ begin
     nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
 
-    TbsInformeNFe.TabVisible   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
-    nmPpLimparDadosNFe.Enabled := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    TbsInformeNFe.TabVisible    := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
+    nmPpLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
   end
   else
   begin
@@ -953,9 +959,10 @@ begin
     nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled   := False;
 
-    TbsInformeNFe.TabVisible   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
-    nmPpLimparDadosNFe.Enabled := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    TbsInformeNFe.TabVisible    := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
+    nmPpLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
   end;
 end;
 
@@ -1750,8 +1757,9 @@ begin
 
   RecarregarRegistro;
 
-  if not DMNFe.GetValidadeCertificado then
-    Exit;
+  if ( not DelphiIsRunning ) then
+    if not DMNFe.GetValidadeCertificado then
+      Exit;
 
   if not GetPermititEmissaoNFe( IbDtstTabelaCODEMP.AsString ) then
   begin
@@ -2894,6 +2902,53 @@ begin
     ParamByName('anovenda').AsInteger := AnoVenda;
     ParamByName('numvenda').AsInteger := ControleVenda;
     Open;
+  end;
+end;
+
+procedure TfrmGeVenda.BtnCorrigirDadosNFeClick(Sender: TObject);
+begin
+  if not BtnLimparDadosNFe.Enabled then
+    ppCorrigirDadosNFe.Popup(BtnCorrigirDadosNFe.ClientOrigin.X, BtnCorrigirDadosNFe.ClientOrigin.Y + BtnCorrigirDadosNFe.Height);
+end;
+
+procedure TfrmGeVenda.nmPpCorrigirDadosNFeCFOPClick(Sender: TObject);
+var
+  iCodigo    : Integer;
+  sCFOP      ,
+  sDescricao : String;
+begin
+  if not BtnCorrigirDadosNFe.Enabled then
+    Exit;
+
+  if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+  begin
+    sCFOP := IntToStr(iCodigo);
+
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Update TBVENDAS Set ');
+      SQL.Add('  CFOP = ' + sCFOP);
+      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
+      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      ExecSQL;
+
+      CommitTransaction;
+
+      SQL.Clear;
+      SQL.Add('Update TVENDASITENS Set ');
+      SQL.Add('  CFOP_COD = ' + sCFOP);
+      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
+      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+
+    RecarregarRegistro;
   end;
 end;
 

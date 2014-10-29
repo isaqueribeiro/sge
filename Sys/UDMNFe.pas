@@ -1252,7 +1252,10 @@ begin
 
     LerConfiguracao(sCNPJEmitente);
 
-    Result := ACBrNFe.WebServices.StatusServico.Executar;
+    if ( DelphiIsRunning ) then
+      Result := True
+    else
+      Result := ACBrNFe.WebServices.StatusServico.Executar;
 
     if not Result then
       Exit;
@@ -2437,13 +2440,16 @@ begin
       compra.xCont := '';
 
       ACBrNFe.NotasFiscais.GerarNFe;
-      ACBrNFe.NotasFiscais.Assinar;
+
+      if ( not DelphiIsRunning ) then
+        ACBrNFe.NotasFiscais.Assinar;
 
       if GetSolicitaDHSaidaNFe( sCNPJEmitente ) then
         if not ACBrNFe.NotasFiscais.ValidaRegrasdeNegocios then
           raise Exception.Create( ACBrNFe.NotasFiscais.Items[0].RegrasdeNegocios );
 
-      ACBrNFe.NotasFiscais.Valida;
+      if ( not DelphiIsRunning ) then
+        ACBrNFe.NotasFiscais.Valida;
 
       ACBrNFe.NotasFiscais.Items[0].SaveToFile( EmptyStr );
 
@@ -2679,7 +2685,11 @@ begin
 
     LerConfiguracao(sCNPJEmitente);
 
-    Result := ACBrNFe.WebServices.StatusServico.Executar;
+    if ( DelphiIsRunning ) then
+      Result := True
+    else
+      Result := ACBrNFe.WebServices.StatusServico.Executar;
+
 
     if not Result then
       Exit;
@@ -3657,14 +3667,17 @@ begin
       compra.xCont := '';
 
       ACBrNFe.NotasFiscais.GerarNFe;
-      ACBrNFe.NotasFiscais.Assinar;
+
+      if ( not DelphiIsRunning ) then
+        ACBrNFe.NotasFiscais.Assinar;
 
 //      if GetSolicitaDHSaidaNFe( sCNPJEmitente ) then
 //        if not ACBrNFe.NotasFiscais.ValidaRegrasdeNegocios then
 //          raise Exception.Create( ACBrNFe.NotasFiscais.Items[0].RegrasdeNegocios );
 
 
-      ACBrNFe.NotasFiscais.Valida;
+      if ( not DelphiIsRunning ) then
+        ACBrNFe.NotasFiscais.Valida;
 
       ACBrNFe.NotasFiscais.Items[0].SaveToFile( EmptyStr );
 

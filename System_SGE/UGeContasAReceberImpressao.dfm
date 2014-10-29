@@ -8746,8 +8746,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       item
         Name = 'ValorAReceber'
         Value = 
-          '(<FrdsRelacaoAReceberVSintetico."VALORSALDO">-<FrdsRelacaoAReceb' +
-          'erVSintetico."VALORSALDO_CANCEL">)'
+          '(<FrdsRelacaoAReceberVCliente."VALORSALDO">-<FrdsRelacaoAReceber' +
+          'VCliente."VALORSALDO_CANCEL">)'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -9014,7 +9014,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
-        Condition = 'FrdsRelacaoAReceberVSintetico."COMPETENCIA_VENCIMENTO"'
+        Condition = 'FrdsRelacaoAReceberVCliente."COMPETENCIA_VENCIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
           Left = 83.149660000000000000
@@ -9031,7 +9031,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' [FrdsRelacaoAReceberVSintetico."COMPETENCIA_VENCIMENTO_DESC"]')
+            ' [FrdsRelacaoAReceberVCliente."COMPETENCIA_VENCIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9185,7 +9185,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haCenter
           Memo.UTF8 = (
-            ' Forma de Pagto.')
+            'Cliente')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9292,8 +9292,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
           Memo.UTF8 = (
             
-              ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVSintetico."D' +
-              'TVENC">)]')
+              ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVCliente."DTV' +
+              'ENC">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9320,9 +9320,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
           Memo.UTF8 = (
-            
-              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVSintetico."VALORREC">)' +
-              '] ')
+            '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORREC">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9350,8 +9348,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVSintetico."VALORMULTA"' +
-              '>)] ')
+              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORMULTA">)' +
+              '] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9379,8 +9377,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVSintetico."VALORRECTOT' +
-              '">)] ')
+              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORRECTOT">' +
+              ')] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9406,7 +9404,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoAReceberVSintetico."FORMA_PAGTO"]')
+            ' [FrdsRelacaoAReceberVCliente."CLIENTE_NOME"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9433,9 +9431,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
           Memo.UTF8 = (
-            
-              '[FormatFloat('#39',0'#39',<FrdsRelacaoAReceberVSintetico."QUANTIDADE">)]' +
-              ' ')
+            '[FormatFloat('#39',0'#39',<FrdsRelacaoAReceberVCliente."QUANTIDADE">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9481,8 +9477,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVSintetico."VALORRE' +
-              'CTOT">,BndMasterData))] ')
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVCliente."VALORRECT' +
+              'OT">,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -9503,8 +9499,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVSintetico."VALORMU' +
-              'LTA">,BndMasterData))] ')
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVCliente."VALORMULT' +
+              'A">,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -9525,8 +9521,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVSintetico."VALORRE' +
-              'C">,BndMasterData))] ')
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVCliente."VALORREC"' +
+              '>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -9547,8 +9543,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0'#39',SUM(<FrdsRelacaoAReceberVSintetico."QUANTIDADE' +
-              '">,BndMasterData))] ')
+              '[FormatFloat('#39',0'#39',SUM(<FrdsRelacaoAReceberVCliente."QUANTIDADE">' +
+              ',BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -9592,9 +9588,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVSintetico."VALORR' +
-              'EC">-<FrdsRelacaoAReceberVSintetico."VALORREC_CANCEL">),BndMaste' +
-              'rData,2))] ')
+              '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVCliente."VALORREC' +
+              '">-<FrdsRelacaoAReceberVCliente."VALORREC_CANCEL">),BndMasterDat' +
+              'a,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -9707,9 +9703,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVSintetico."VALORM' +
-              'ULTA">-<FrdsRelacaoAReceberVSintetico."VALORMULTA_CANCEL">),BndM' +
-              'asterData,2))] ')
+              '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVCliente."VALORMUL' +
+              'TA">-<FrdsRelacaoAReceberVCliente."VALORMULTA_CANCEL">),BndMaste' +
+              'rData,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -9730,9 +9726,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVSintetico."VALORR' +
-              'ECTOT">-<FrdsRelacaoAReceberVSintetico."VALORRECTOT_CANCEL">),Bn' +
-              'dMasterData,2))] ')
+              '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVCliente."VALORREC' +
+              'TOT">-<FrdsRelacaoAReceberVCliente."VALORRECTOT_CANCEL">),BndMas' +
+              'terData,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -9792,7 +9788,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
-            ' ** Valores de t'#195#173'trulos cancelados')
+            ' ** Valores de t'#195#173'tulos cancelados')
           ParentFont = False
           WordWrap = False
         end

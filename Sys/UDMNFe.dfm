@@ -339,8 +339,8 @@ object DMNFe: TDMNFe
       
         '  , coalesce(nullif(trim(p.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39') as ' +
         'Ncm_sh'
-      '  , ib.aliqnacional_ibpt as Ncm_aliquota_nac'
-      '  , ib.aliqinternacional_ibpt as Ncm_aliquota_imp'
+      '  , coalesce(ib.ncm_aliquota_nac, 0.0) as Ncm_aliquota_nac'
+      '  , coalesce(ib.ncm_aliquota_imp, 0.0) as Ncm_aliquota_imp'
       '  , p.Codorigem'
       '  , p.Codtributacao'
       '  , p.Cst_pis'
@@ -408,8 +408,8 @@ object DMNFe: TDMNFe
       '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
       '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
       
-        '  left join SYS_IBPT ib on (ib.ncm_ibpt = coalesce(nullif(trim(p' +
-        '.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39'))'
+        '  left join VW_TABELA_IBPT ib on (ib.ncm_sh = coalesce(nullif(tr' +
+        'im(p.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39'))'
       ''
       'where i.Ano = :anovenda'
       '  and i.Codcontrol = :numvenda'

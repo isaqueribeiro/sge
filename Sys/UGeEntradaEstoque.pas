@@ -1287,8 +1287,9 @@ begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  if not DMNFe.GetValidadeCertificado then
-    Exit;
+  if ( not DelphiIsRunning ) then
+    if not DMNFe.GetValidadeCertificado then
+      Exit;
 
   RecarregarRegistro;
     
