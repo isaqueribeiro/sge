@@ -203,7 +203,12 @@ begin
       Open;
     end;
 
-    frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_ID;
+
+    Case gSistema.Codigo of
+      SISTEMA_GESTAO : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_ID;
+      SISTEMA_PDV    : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_PDV_ID;
+    end;
+
     frm.ShowModal;
   finally
     frm.Destroy;

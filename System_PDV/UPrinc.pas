@@ -234,20 +234,20 @@ end;
 
 procedure TfrmPrinc.nmGerenciaCaixaClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_FIN_GERENCIAR_CAIXA_ID, True) then
+  if GetPermissaoRotinaSistema(ROTINA_FIN_GERENCIAR_CAIXA_PDV_ID, True) then
     MostrarTabelaCaixa(Self);
 end;
 
 procedure TfrmPrinc.nmAberturaCaixaClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_FIN_ABRIR_CAIXA_ID, True) then
+  if GetPermissaoRotinaSistema(ROTINA_FIN_ABRIR_CAIXA_PDV_ID, True) then
     if ( AbrirCaixa(Self, GetUserApp) ) then
       ShowInformation('Caixa aberto com sucesso!');
 end;
 
 procedure TfrmPrinc.nmEncerramentoCaixaClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_FIN_ENCERRAR_CAIXA_ID, True) then
+  if GetPermissaoRotinaSistema(ROTINA_FIN_ENCERRAR_CAIXA_PDV_ID, True) then
     if ( FecharCaixa(Self, GetUserApp) ) then
       ShowInformation('Caixa encerrado com sucesso!');
 end;
