@@ -109,6 +109,7 @@ type
     Label2: TLabel;
     e1Data: TDateEdit;
     e2Data: TDateEdit;
+    IbDtstTabelaEMPRESA: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -808,7 +809,7 @@ begin
     with qryEmitente do
     begin
       Close;
-      ParamByName('Cnpj').AsString := GetEmpresaIDDefault;
+      ParamByName('Cnpj').AsString := IfThen(Trim(IbDtstTabelaEMPRESA.AsString) = EmptyStr, GetEmpresaIDDefault, Trim(IbDtstTabelaEMPRESA.AsString));
       Open;
     end;
 

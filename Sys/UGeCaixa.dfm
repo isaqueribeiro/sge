@@ -886,10 +886,14 @@ inherited frmGeCaixa: TfrmGeCaixa
       '      when cc.Tipo = 2 then '#39'Banco'#39
       '      else '#39'* Indefinido'#39
       '    end as Tipo'
+      '  , coalesce(cc.empresa, bb.empresa) as empresa'
       'from TBCAIXA c'
       
         '  left join TBCONTA_CORRENTE cc on (cc.Codigo = c.Conta_corrente' +
-        ')')
+        ')'
+      
+        '  left join TBBANCO_BOLETO bb on (bb.bco_cod = cc.conta_banco_bo' +
+        'leto)')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_CAIXA_2012'
     object IbDtstTabelaANO: TSmallintField
@@ -985,6 +989,12 @@ inherited frmGeCaixa: TfrmGeCaixa
       ProviderFlags = []
       FixedChar = True
       Size = 12
+    end
+    object IbDtstTabelaEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBCONTA_CORRENTE"."EMPRESA"'
+      ProviderFlags = []
+      Size = 18
     end
   end
   inherited IbUpdTabela: TIBUpdateSQL

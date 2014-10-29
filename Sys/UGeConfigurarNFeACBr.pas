@@ -98,6 +98,8 @@ type
     lblInfoFisco: TLabel;
     edInfoFisco: TEdit;
     btnValidadeCertificado: TBitBtn;
+    lblVersaoNFe: TLabel;
+    cbVersaoNFe: TComboBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);

@@ -158,7 +158,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       Top = 15
       Width = 280
       Height = 367
-      ActivePage = TabSheet1
+      ActivePage = TabSheet3
       Align = alClient
       MultiLine = True
       TabOrder = 0
@@ -169,9 +169,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           339)
         object GroupBox2: TGroupBox
           Left = 0
-          Top = 4
-          Width = 265
+          Top = 0
+          Width = 272
           Height = 144
+          Align = alTop
           Caption = 'Certificado'
           TabOrder = 0
           object lbltCaminho: TLabel
@@ -262,7 +263,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         end
         object btnValidadeCertificado: TBitBtn
           Left = 0
-          Top = 154
+          Top = 146
           Width = 83
           Height = 33
           Hint = 'Verificar validade do Certificado'
@@ -329,9 +330,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         ImageIndex = 1
         object GroupBox3: TGroupBox
           Left = 0
-          Top = 4
-          Width = 265
+          Top = 0
+          Width = 272
           Height = 269
+          Align = alTop
           Caption = 'Geral'
           TabOrder = 0
           object lbltLogoMarca: TLabel
@@ -412,9 +414,9 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             TabOrder = 3
           end
           object rgTipoDanfe: TRadioGroup
-            Left = 8
-            Top = 16
-            Width = 249
+            Left = 7
+            Top = 19
+            Width = 251
             Height = 49
             Caption = 'DANFE'
             Columns = 2
@@ -443,9 +445,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         end
         object rgModoGerarNFe: TRadioGroup
           Left = 0
-          Top = 280
-          Width = 265
+          Top = 269
+          Width = 272
           Height = 49
+          Align = alTop
           Caption = 'Modo de Gerar a NF-e'
           Columns = 2
           Enabled = False
@@ -461,9 +464,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         ImageIndex = 2
         object GroupBox4: TGroupBox
           Left = 0
-          Top = 4
-          Width = 265
-          Height = 141
+          Top = 0
+          Width = 272
+          Height = 193
+          Align = alTop
           Caption = 'WebService'
           TabOrder = 0
           object lblUF: TLabel
@@ -479,9 +483,22 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Font.Style = []
             ParentFont = False
           end
+          object lblVersaoNFe: TLabel
+            Left = 8
+            Top = 120
+            Width = 62
+            Height = 13
+            Caption = 'Vers'#227'o NF-e:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+          end
           object ckVisualizar: TCheckBox
             Left = 8
-            Top = 118
+            Top = 166
             Width = 153
             Height = 17
             Caption = 'Visualizar Mensagem'
@@ -549,14 +566,36 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Items.Strings = (
               'Produ'#231#227'o'
               'Homologa'#231#227'o')
+            TabOrder = 3
+          end
+          object cbVersaoNFe: TComboBox
+            Left = 8
+            Top = 136
+            Width = 249
+            Height = 22
+            Style = csOwnerDrawFixed
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ItemHeight = 16
+            ItemIndex = 0
+            ParentFont = False
             TabOrder = 2
+            Text = 'v2.00'
+            Items.Strings = (
+              'v2.00'
+              'v3.00'
+              'v3.10')
           end
         end
         object gbProxy: TGroupBox
           Left = 0
-          Top = 152
-          Width = 265
+          Top = 193
+          Width = 272
           Height = 105
+          Align = alTop
           Caption = 'Proxy'
           TabOrder = 1
           object lbltProxyHost: TLabel
@@ -840,10 +879,11 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Caption = 'Email'
         ImageIndex = 4
         object GroupBox5: TGroupBox
-          Left = 1
-          Top = 4
-          Width = 264
+          Left = 0
+          Top = 0
+          Width = 272
           Height = 324
+          Align = alTop
           Caption = 'Email'
           TabOrder = 0
           object lbltSmtpHost: TLabel

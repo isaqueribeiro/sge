@@ -1941,7 +1941,7 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
-  isPDF := ( Sender = nmGerarDANFEXML );
+  isPDF := (Sender = nmGerarDANFEXML); // Pare gerar PDF e XML de envio ao cliente
 
   DMNFe.ImprimirDANFEACBr( IbDtstTabelaCODEMP.AsString, IbDtstTabelaCODCLIENTE.AsInteger, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, isPDF);
 end;

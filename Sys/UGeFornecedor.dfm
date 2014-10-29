@@ -1149,7 +1149,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
             Width = 153
             Height = 21
             CharCase = ecUpperCase
-            DataField = 'FONE'
+            DataField = 'FATURAMENTO_MINIMO'
             DataSource = DtSrcTabela
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
@@ -2050,6 +2050,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       FieldName = 'FATURAMENTO_MINIMO'
       Origin = '"TBFORNECEDOR"."FATURAMENTO_MINIMO"'
       ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end

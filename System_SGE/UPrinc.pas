@@ -577,9 +577,11 @@ begin
   nmRelatorioProduto.Caption := StrDescricaoProduto;
   mnRelatorioEntradaProduto.Caption := StrDescricaoProduto;
 
-  nmRequisicaoCliente.Visible := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
-  nmCotacaoCompra.Visible     := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
-  nmAutorizacaoCompra.Visible := nmCotacaoCompra.Visible;
+  nmRequisicaoCliente.Visible     := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
+  nmCotacaoCompra.Visible         := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
+  nmRequisicaoCompra.Visible      := nmCotacaoCompra.Visible;
+  nmConverterReqAutCompra.Visible := nmCotacaoCompra.Visible;
+  nmAutorizacaoCompra.Visible     := nmCotacaoCompra.Visible;
 
   // (FINAL) Configurar Legendas de acordo com o segmento
 

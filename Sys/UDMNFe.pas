@@ -855,9 +855,10 @@ begin
       WriteString ( sSecaoGeral, 'PathSalvar'  , edtPathLogs.Text) ;
       WriteInteger( sSecaoGeral, 'ModoGerarNFe', rgModoGerarNFe.ItemIndex) ;
 
-      WriteString ( sSecaoWebService, 'UF'        ,cbUF.Text) ;
-      WriteInteger( sSecaoWebService, 'Ambiente'  ,rgTipoAmb.ItemIndex) ;
-      WriteBool   ( sSecaoWebService, 'Visualizar',ckVisualizar.Checked) ;
+      WriteString ( sSecaoWebService, 'UF'        , cbUF.Text) ;
+      WriteInteger( sSecaoWebService, 'Ambiente'  , rgTipoAmb.ItemIndex) ;
+      WriteInteger( sSecaoWebService, 'VersaoNFe' , cbVersaoNFe.ItemIndex) ;
+      WriteBool   ( sSecaoWebService, 'Visualizar', ckVisualizar.Checked) ;
 
       WriteString( 'Proxy', 'Host'   , edtProxyHost.Text) ;
       WriteString( 'Proxy', 'Porta'  , edtProxyPorta.Text) ;
@@ -923,6 +924,9 @@ begin
 
     Atenção: Prazo final de uso da Versão 2.00, até 30/11/2014. Sendo, até esta data, recepcionado as duas versões. A desativação da versão
     "2.00" será no dia 01/12/2014. (Fonte: http://portalnfe.fazenda.mg.gov.br/)
+
+  IMR - 28/10/2014 :
+    Inserção do campo "Versão NF-e:" para definir na tela de configurações a versão de emissão da NF-e
 *)
   if not DataBaseOnLine then
     Exit;
@@ -978,7 +982,10 @@ begin
       ACBrNFe.Configuracoes.Geral.PathSalvar   := edtPathLogs.Text;
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
-      ACBrNFe.Configuracoes.Geral.VersaoDF := ve310; // ve200;
+      ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoNFE.ItemIndex); // ve310;
+
+      rvDANFE.PathPDF := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT;
+      frDANFE.PathPDF := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT;
 
       if ( tipoDANFE = tipoDANFERave ) then
         ACBrNFe.DANFE := rvDANFE
@@ -986,9 +993,10 @@ begin
       if ( tipoDANFE = tipoDANFEFast ) then
         ACBrNFe.DANFE := frDANFE;
 
-      cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
-      rgTipoAmb.ItemIndex  := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
-      ckVisualizar.Checked := ReadBool   ( sSecaoWebService, 'Visualizar', False) ;
+      cbUF.ItemIndex        := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
+      rgTipoAmb.ItemIndex   := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
+      cbVersaoNFe.ItemIndex := ReadInteger( sSecaoWebService, 'VersaoNFe' , 0) ;
+      ckVisualizar.Checked  := ReadBool   ( sSecaoWebService, 'Visualizar', False) ;
 
       ACBrNFe.Configuracoes.WebServices.UF         := cbUF.Text;
       ACBrNFe.Configuracoes.WebServices.Ambiente   := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
@@ -1543,7 +1551,7 @@ begin
     AbrirVenda( iAnoVenda, iNumVenda );
     AbrirNFeEmitida( iAnoVenda, iNumVenda );
 
-    if ( IsPDF ) then
+    if ( IsPDF ) then // Para exportação em envio
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryCalculoImportoXML_NFE_FILENAME.AsString
     else
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT  + qryCalculoImportoXML_NFE_FILENAME.AsString;
@@ -1574,7 +1582,10 @@ begin
       end;
 
       if ( IsPDF ) then
-        NotasFiscais.ImprimirPDF
+      begin
+        NotasFiscais.ImprimirPDF;
+        ShowInformation('Arquivo Gerado', 'Arquivo XML da NF-e gerado em:' + #13#13 + FileNameXML);
+      end
       else
         NotasFiscais.Imprimir;
 
@@ -1669,6 +1680,7 @@ begin
     begin
       Ide.cNF       := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
       Ide.natOp     := qryCalculoImportoCFOP_DESCRICAO.AsString;
+      Ide.idDest    := TpcnDestinoOperacao( IfThen(Trim(qryEmitenteEST_SIGLA.AsString) = Trim(qryDestinatarioEST_SIGLA.AsString), 0, 1) );
 
       if ( qryCalculoImportoVENDA_PRAZO.AsInteger = 0 ) then
         Ide.indPag  := ipVista
@@ -1743,9 +1755,9 @@ begin
       Emit.EnderEmit.cMun    := qryEmitenteCID_IBGE.AsInteger;
       Emit.EnderEmit.xMun    := qryEmitenteCID_NOME.AsString;
       Emit.EnderEmit.UF      := qryEmitenteEST_SIGLA.AsString;
-      Emit.enderEmit.cPais   := qryEmitentePAIS_ID.AsInteger;
-      Emit.enderEmit.xPais   := qryEmitentePAIS_NOME.AsString;
-      
+      Emit.EnderEmit.cPais   := qryEmitentePAIS_ID.AsInteger;
+      Emit.EnderEmit.xPais   := qryEmitentePAIS_NOME.AsString;
+
       Emit.IEST              := '';
       Emit.IM                := ''; // Preencher no caso de existir serviços na nota
       Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se é permitido
@@ -1774,7 +1786,7 @@ begin
           Dest.indIEDest     := inIsento
         else
           Dest.indIEDest     := inContribuinte;
-          
+
         Dest.IE              := Trim(qryDestinatarioINSCEST.AsString);
         Dest.ISUF            := EmptyStr;
       end
@@ -1822,7 +1834,7 @@ begin
       vTotalTributoAprox := 0.0;
 
       qryDadosProduto.First;
-      
+
       while not qryDadosProduto.Eof do
       begin
 
@@ -2786,9 +2798,9 @@ begin
       AbrirNFeEmitida( iAnoVenda, iNumVenda );
 
       if ( EnviarPDF ) then
-        sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryCalculoImportoXML_NFE_FILENAME.AsString
+        sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT  + qryCalculoImportoXML_NFE_FILENAME.AsString
       else
-        sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT  + qryCalculoImportoXML_NFE_FILENAME.AsString;
+        sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryCalculoImportoXML_NFE_FILENAME.AsString;
 
       ForceDirectories( ExtractFilePath(sFileNameXML) );
 
@@ -2839,6 +2851,8 @@ begin
         if FileExists( sArquivoBoleto ) then
           sANX.Add( sArquivoBoleto );
 
+        CopyFileTo( sFileNameXML, ExtractFilePath(ParamStr(0)) + ExtractFileName(sFileNameXML) );
+
         NotasFiscais.Items[0].EnviarEmail(
             gContaEmail.Servidor_SMTP
           , IntToStr(gContaEmail.Porta_SMTP)
@@ -2872,6 +2886,9 @@ begin
     sANX.Free;
     sMSG.Free;
     sCC.Free;
+
+    DeleteFile( sFileNameXML );
+    DeleteFile( ExtractFilePath(ParamStr(0)) + ExtractFileName(sFileNameXML) );
   end;
 
 end;
@@ -2908,11 +2925,12 @@ begin
     DtHoraEmiss := GetDateTimeDB;
 
     ACBrNFe.NotasFiscais.Clear;
-    
+
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
       Ide.cNF       := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
       Ide.natOp     := qryEntradaCalculoImportoCFOP_DESCRICAO.AsString;
+      Ide.idDest    := TpcnDestinoOperacao( IfThen(Trim(qryEmitenteEST_SIGLA.AsString) = Trim(qryFornecedorDestinatarioEST_SIGLA.AsString), 0, 1) );
 
       if ( qryEntradaCalculoImportoCOMPRA_PRAZO.AsInteger = 0 ) then
         Ide.indPag  := ipVista
@@ -2982,7 +3000,7 @@ begin
       Emit.EnderEmit.UF      := qryEmitenteEST_SIGLA.AsString;
       Emit.enderEmit.cPais   := qryEmitentePAIS_ID.AsInteger;
       Emit.enderEmit.xPais   := qryEmitentePAIS_NOME.AsString;
-      
+
       Emit.IEST              := '';
       Emit.IM                := ''; // Preencher no caso de existir serviços na nota
       Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se é permitido
@@ -3016,7 +3034,7 @@ begin
       end
       else
       begin
-        Dest.indIEDest       := inNaoContribuinte; 
+        Dest.indIEDest       := inNaoContribuinte;
         Dest.IE              := EmptyStr;
         Dest.ISUF            := EmptyStr;
       end;
@@ -3702,7 +3720,10 @@ begin
       end;
 
       if ( IsPDF ) then
-        NotasFiscais.ImprimirPDF
+      begin
+        NotasFiscais.ImprimirPDF;
+        ShowInformation('Arquivo Gerado', 'Arquivo XML da NF-e gerado em:' + #13#13 + FileNameXML);
+      end
       else
         NotasFiscais.Imprimir;
 
