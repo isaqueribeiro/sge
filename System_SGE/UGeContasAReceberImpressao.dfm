@@ -9244,11 +9244,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         DataSet = FrdsRelacaoAReceberVCliente
         DataSetName = 'FrdsRelacaoAReceberVCliente'
         RowCount = 0
+        Stretched = True
         object Memo7: TfrxMemoView
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
           ShowHint = False
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9264,7 +9266,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
@@ -9275,6 +9277,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           ShowHint = False
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9289,7 +9292,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVCliente."DTV' +
@@ -9303,6 +9306,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Width = 102.047246540000000000
           Height = 18.897650000000000000
           ShowHint = False
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9318,7 +9322,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORREC">)] ')
           ParentFont = False
@@ -9330,6 +9334,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Width = 102.047310000000000000
           Height = 18.897650000000000000
           ShowHint = False
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9345,7 +9350,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORMULTA">)' +
@@ -9359,6 +9364,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Width = 102.047246540000000000
           Height = 18.897650000000000000
           ShowHint = False
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9374,7 +9380,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORRECTOT">' +
@@ -9388,6 +9394,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Width = 173.858380000000000000
           Height = 18.897650000000000000
           ShowHint = False
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9402,11 +9409,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
             ' [FrdsRelacaoAReceberVCliente."CLIENTE_NOME"]')
           ParentFont = False
-          WordWrap = False
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
@@ -9414,6 +9420,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Width = 52.913356540000000000
           Height = 18.897650000000000000
           ShowHint = False
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9429,7 +9436,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAReceberVCliente."QUANTIDADE">)] ')
           ParentFont = False

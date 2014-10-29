@@ -14,7 +14,7 @@ uses
   dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinscxPCPainter, dxSkinsForm, cxLabel, dxSkinDarkRoom, dxSkinFoggy,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinSeven, dxSkinSharp, dxSkinSpringTime;
+  dxSkinSeven, dxSkinSharp, dxSkinSpringTime, dxGDIPlusClasses;
 
 
 type
@@ -55,6 +55,7 @@ type
     Bevel1: TBevel;
     imgIcon: TImage;
     cdsFileRunTargetClientPath: TStringField;
+    imgLogoEmpresa: TImage;
     procedure FormShow(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -108,6 +109,15 @@ begin
 end;
 
 function TFrmMain.CopyFile( const Source, Target: string ) : boolean;
+
+  procedure Copia(sOrigem, sDestino: String);
+  var
+    sParametros: PChar;
+  begin
+     sParametros := PChar('"' + sOrigem + '" "' + sDestino + '" /S /Y');
+     ShellExecute(Handle, '', 'xCopy', sParametros, '', SW_HIDE);
+  end;
+  
 var
   FromF,
   ToF  : file of byte;
@@ -173,6 +183,8 @@ begin
     CloseFile(FromF);
     CloseFile(ToF);
 
+    if NeedUpdate(Target, Source) then
+      Copia(Source, Target);
   except
     On E : Exception do
       log.Add( 'Erro ao tentar copiar arquivo ' + QuotedStr(Source) + ' para ' + QuotedStr(Target) + ' - System message: ' + E.Message );
@@ -310,6 +322,7 @@ begin
 
   ExecuteBAT;
 
+
   SystemModule := Format(FileExecute,  [ExtractSystemNameModule + '.exe']);
 
   Update;
@@ -356,7 +369,7 @@ begin
             begin
               FileTargetClient := IncludeTrailingPathDelimiter(cdsFileRunTargetClientPath.AsString);
               FileTargetClient := StringReplace(FileTargetClient, flbArquivos.Mask, '', [rfReplaceAll]) +  flbArquivos.Items.Strings[I];
-              
+
               cdsFileRunStatus.Value := CopyFile(FileSource, FileTargetClient);
             end;
 
@@ -400,7 +413,7 @@ end;
 procedure TFrmMain.FormActivate(Sender: TObject);
 begin
   {$IFDEF HABIL}
-  CopiarArquivoHABIL
+  CopiarArquivoHABIL;
   {$ELSE}
   CopiarArquivo;
   {$ENDIF}

@@ -364,7 +364,10 @@ begin
     else
       frm.WhereAdditional := '(1 = 1)';
 
-    // Carregar apenas produtos com estoque e serviços em geral  
+    if (GetPermitirVendaEstoqueInsEmpresa(GetEmpresaIDDefault) and (gSistema.Codigo = SISTEMA_PDV)) then
+       frm.chkProdutoComEstoque.Checked := False;
+
+    // Carregar apenas produtos com estoque e serviços em geral
     if frm.chkProdutoComEstoque.Checked then
       frm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
 
@@ -434,6 +437,9 @@ begin
 
     whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
 
+    if (GetPermitirVendaEstoqueInsEmpresa(GetEmpresaIDDefault) and (gSistema.Codigo = SISTEMA_PDV)) then
+       frm.chkProdutoComEstoque.Checked := False;
+
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
 
@@ -462,6 +468,9 @@ begin
     frm.dbAliquotaTipo.Enabled  := False;
 
     whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    if (GetPermitirVendaEstoqueInsEmpresa(GetEmpresaIDDefault) and (gSistema.Codigo = SISTEMA_PDV)) then
+       frm.chkProdutoComEstoque.Checked := False;
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
@@ -502,6 +511,9 @@ begin
     frm.dbAliquotaTipo.Enabled  := False;
 
     whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    if (GetPermitirVendaEstoqueInsEmpresa(GetEmpresaIDDefault) and (gSistema.Codigo = SISTEMA_PDV)) then
+       frm.chkProdutoComEstoque.Checked := False;
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';

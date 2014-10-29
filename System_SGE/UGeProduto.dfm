@@ -249,10 +249,10 @@ inherited frmGeProduto: TfrmGeProduto
           object chkProdutoComEstoque: TCheckBox
             Left = 68
             Top = -1
-            Width = 194
+            Width = 213
             Height = 17
             TabStop = False
-            Caption = 'A&penas produtos com estoque'
+            Caption = '&0 - Apenas produtos com estoque'
             Checked = True
             State = cbChecked
             TabOrder = 0

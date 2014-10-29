@@ -2247,7 +2247,7 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-                infAdProd := Trim(Trim(infAdProd) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                infAdProd := Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                   FormatFloat(',0.00', vTotTrib),
                   FormatFloat(',0.##"%"', cPercentualTributoAprox)
                   ]));
@@ -3492,7 +3492,7 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-                infAdProd := Trim(Trim(infAdProd) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                infAdProd := Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                   FormatFloat(',0.00', vTotTrib),
                   FormatFloat(',0.##"%"', cPercentualTributoAprox)
                   ]));
