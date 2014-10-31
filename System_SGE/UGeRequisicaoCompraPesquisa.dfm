@@ -2,7 +2,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
   Left = 467
   Top = 217
   Width = 1132
-  Height = 677
+  Height = 615
   ActiveControl = edTipoRequisicao
   Caption = 'Conerverter Requisi'#231#245'es em Autoriza'#231#245'es de Compras/Servi'#231'os'
   OnKeyPress = FormKeyPress
@@ -232,10 +232,10 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
   end
   inherited PnlTabela: TPanel
     Width = 1116
-    Height = 558
+    Height = 496
     inherited dbgDados: TDBGrid
       Width = 1108
-      Height = 550
+      Height = 488
       OnDblClick = dbgDadosDblClick
       OnKeyDown = dbgDadosKeyDown
       Columns = <
@@ -306,7 +306,6 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         item
           Expanded = False
           Title.Caption = 'XXX'
-          Width = -1
           Visible = False
         end>
     end

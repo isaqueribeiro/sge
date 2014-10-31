@@ -239,7 +239,8 @@ begin
     frm.btbtnIncluir.Caption := 'A&brir';
     frm.btbtnIncluir.Hint    := 'Abrir Caixa para Usuário logado.';
 
-    frm.FAbrirCaixa := True;
+    frm.FAbrirCaixa  := True;
+    frm.FFecharCaixa := False;
 
     whr := 'c.Situacao = 0 and ' +
            'c.Usuario = ' + QuotedStr(Usuario);
@@ -271,6 +272,7 @@ begin
   try
     frm.Caption := 'E N C E R R A R   C A I X A   .    .   .';
 
+    frm.FAbrirCaixa  := False;
     frm.FFecharCaixa := True;
 
     whr := 'c.Situacao = 0 and ' +
@@ -286,11 +288,10 @@ begin
       Close;
       SelectSQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
       Open;
-      
+
+      ConsolidarCaixa(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
       AbrirTabelaConsolidado(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
       AbrirTabelaMovimento(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
-
-      HabilitarDesabilitar_Btns;
     end;
 
     Result := (frm.ShowModal = mrOk);
@@ -655,6 +656,7 @@ begin
 
   if ( FFecharCaixa ) then
   begin
+
     pnlFiltros.Visible      := False;
     tbsTabela.TabVisible    := not IbDtstTabela.IsEmpty;
 
@@ -670,7 +672,16 @@ begin
     end
     else
     if ( IbDtstTabela.RecordCount = 1 ) then
-      pgcGuias.ActivePage := tbsCadastro
+    begin
+      pgcGuias.ActivePage := tbsCadastro;
+      HabilitarDesabilitar_Btns;
+
+      pnlFiltros.Visible      := False;
+      tbsTabela.TabVisible    := False;
+
+      lblOperador.Enabled := False;
+      dbOperador.Enabled  := False;
+    end
     else
     begin
       ShowWarning('Existe(m) mais de um caixa(s) aberto(s) para o usuário logado.' + #13#13 +
@@ -679,10 +690,12 @@ begin
       if ( tbsTabela.TabVisible ) then
         dbgDados.SetFocus;
     end;
+
   end
   else
   if ( FAbrirCaixa and btbtnIncluir.Enabled ) then
   begin
+
     pnlFiltros.Visible      := False;
     tbsTabela.TabVisible    := not IbDtstTabela.IsEmpty;
     btbtnEncerrar.Visible   := False;
@@ -696,6 +709,7 @@ begin
     else
       ShowWarning('Existe(m) caixa(s) aberto(s) para o usuário logado.' + #13#13 +
                   'Caso deseje abrir um novo caixa para uma conta corrente diferente, favor ir para a guia DADOS e clicar no botão ABRIR.');
+                  
   end;
 end;
 

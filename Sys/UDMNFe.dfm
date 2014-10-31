@@ -19186,4 +19186,265 @@ object DMNFe: TDMNFe
       end
     end
   end
+  object qryNFe: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    n.ANOVENDA'
+      '  , n.NUMVENDA'
+      '  , n.EMPRESA'
+      '  , n.DATAEMISSAO'
+      '  , n.HORAEMISSAO'
+      '  , n.SERIE'
+      '  , n.NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
+      '  , n.CHAVE'
+      '  , n.PROTOCOLO'
+      '  , n.RECIBO'
+      '  , n.XML_FILENAME'
+      '  , n.XML_FILE'
+      '  , n.LOTE_ANO'
+      '  , n.LOTE_NUM'
+      'from TBNFE_ENVIADA n'
+      'where n.empresa = :empresa'
+      '  and n.modelo  = :modelo'
+      '  and n.serie   = :serie'
+      '  and n.numero  = :numero'
+      '')
+    Left = 144
+    Top = 504
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'empresa'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = 'modelo'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftString
+        Name = 'serie'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = 'numero'
+        ParamType = ptInput
+        Value = 0
+      end>
+    object qryNFeANOVENDA: TSmallintField
+      FieldName = 'ANOVENDA'
+      Origin = '"TBNFE_ENVIADA"."ANOVENDA"'
+    end
+    object qryNFeNUMVENDA: TIntegerField
+      FieldName = 'NUMVENDA'
+      Origin = '"TBNFE_ENVIADA"."NUMVENDA"'
+    end
+    object qryNFeEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBNFE_ENVIADA"."EMPRESA"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object qryNFeDATAEMISSAO: TDateField
+      FieldName = 'DATAEMISSAO'
+      Origin = '"TBNFE_ENVIADA"."DATAEMISSAO"'
+    end
+    object qryNFeHORAEMISSAO: TTimeField
+      FieldName = 'HORAEMISSAO'
+      Origin = '"TBNFE_ENVIADA"."HORAEMISSAO"'
+    end
+    object qryNFeSERIE: TIBStringField
+      FieldName = 'SERIE'
+      Origin = '"TBNFE_ENVIADA"."SERIE"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 4
+    end
+    object qryNFeNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = '"TBNFE_ENVIADA"."NUMERO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryNFeMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = '"TBNFE_ENVIADA"."MODELO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object qryNFeVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = '"TBNFE_ENVIADA"."VERSAO"'
+    end
+    object qryNFeCHAVE: TIBStringField
+      FieldName = 'CHAVE'
+      Origin = '"TBNFE_ENVIADA"."CHAVE"'
+      Size = 250
+    end
+    object qryNFePROTOCOLO: TIBStringField
+      FieldName = 'PROTOCOLO'
+      Origin = '"TBNFE_ENVIADA"."PROTOCOLO"'
+      Size = 250
+    end
+    object qryNFeRECIBO: TIBStringField
+      FieldName = 'RECIBO'
+      Origin = '"TBNFE_ENVIADA"."RECIBO"'
+      Size = 250
+    end
+    object qryNFeXML_FILENAME: TIBStringField
+      FieldName = 'XML_FILENAME'
+      Origin = '"TBNFE_ENVIADA"."XML_FILENAME"'
+      Size = 250
+    end
+    object qryNFeXML_FILE: TMemoField
+      FieldName = 'XML_FILE'
+      Origin = '"TBNFE_ENVIADA"."XML_FILE"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object qryNFeLOTE_ANO: TSmallintField
+      FieldName = 'LOTE_ANO'
+      Origin = '"TBNFE_ENVIADA"."LOTE_ANO"'
+    end
+    object qryNFeLOTE_NUM: TIntegerField
+      FieldName = 'LOTE_NUM'
+      Origin = '"TBNFE_ENVIADA"."LOTE_NUM"'
+      Required = True
+    end
+  end
+  object qryCartaCorrecaoNFe: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    ForcedRefresh = True
+    CachedUpdates = True
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '    cce.CCE_NUMERO'
+      '  , cce.CCE_EMPRESA'
+      '  , cce.CCE_DATA'
+      '  , cce.CCE_HORA'
+      '  , cce.CCE_ENVIADA'
+      '  , cce.NFE_SERIE'
+      '  , cce.NFE_NUMERO'
+      '  , cce.NFE_MODELO'
+      '  , cce.NUMERO'
+      '  , cce.PROTOCOLO'
+      '  , cce.XML'
+      'from TBNFE_CARTA_CORRECAO cce'
+      'where cce.cce_empresa = :empresa'
+      '  and cce.cce_numero  = :codigo')
+    ModifySQL.Strings = (
+      '')
+    GeneratorField.Field = 'CODCONTROL'
+    UpdateObject = updCartaCorrecaoNFe
+    Left = 144
+    Top = 552
+    object qryCartaCorrecaoNFeCCE_NUMERO: TIntegerField
+      FieldName = 'CCE_NUMERO'
+      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_NUMERO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryCartaCorrecaoNFeCCE_EMPRESA: TIBStringField
+      FieldName = 'CCE_EMPRESA'
+      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_EMPRESA"'
+      Required = True
+      Size = 18
+    end
+    object qryCartaCorrecaoNFeCCE_DATA: TDateField
+      FieldName = 'CCE_DATA'
+      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_DATA"'
+    end
+    object qryCartaCorrecaoNFeCCE_HORA: TTimeField
+      FieldName = 'CCE_HORA'
+      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_HORA"'
+    end
+    object qryCartaCorrecaoNFeCCE_ENVIADA: TSmallintField
+      FieldName = 'CCE_ENVIADA'
+      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_ENVIADA"'
+    end
+    object qryCartaCorrecaoNFeNFE_SERIE: TIBStringField
+      FieldName = 'NFE_SERIE'
+      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_SERIE"'
+      Required = True
+      Size = 3
+    end
+    object qryCartaCorrecaoNFeNFE_NUMERO: TIntegerField
+      FieldName = 'NFE_NUMERO'
+      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_NUMERO"'
+      Required = True
+    end
+    object qryCartaCorrecaoNFeNFE_MODELO: TSmallintField
+      FieldName = 'NFE_MODELO'
+      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_MODELO"'
+    end
+    object qryCartaCorrecaoNFeNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = '"TBNFE_CARTA_CORRECAO"."NUMERO"'
+    end
+    object qryCartaCorrecaoNFePROTOCOLO: TIBStringField
+      FieldName = 'PROTOCOLO'
+      Origin = '"TBNFE_CARTA_CORRECAO"."PROTOCOLO"'
+      Size = 250
+    end
+    object qryCartaCorrecaoNFeXML: TMemoField
+      FieldName = 'XML'
+      Origin = '"TBNFE_CARTA_CORRECAO"."XML"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+  end
+  object updCartaCorrecaoNFe: TIBUpdateSQL
+    RefreshSQL.Strings = (
+      'Select '
+      '  CCE_NUMERO,'
+      '  CCE_EMPRESA,'
+      '  CCE_DATA,'
+      '  CCE_HORA,'
+      '  CCE_ENVIADA,'
+      '  NFE_SERIE,'
+      '  NFE_NUMERO,'
+      '  NFE_MODELO,'
+      '  NUMERO,'
+      '  PROTOCOLO,'
+      '  XML'
+      'from TBNFE_CARTA_CORRECAO '
+      'where'
+      '  CCE_EMPRESA = :CCE_EMPRESA and'
+      '  CCE_NUMERO = :CCE_NUMERO')
+    ModifySQL.Strings = (
+      'update TBNFE_CARTA_CORRECAO'
+      'set'
+      '  CCE_DATA = :CCE_DATA,'
+      '  CCE_EMPRESA = :CCE_EMPRESA,'
+      '  CCE_ENVIADA = :CCE_ENVIADA,'
+      '  CCE_HORA = :CCE_HORA,'
+      '  CCE_NUMERO = :CCE_NUMERO,'
+      '  NFE_MODELO = :NFE_MODELO,'
+      '  NFE_NUMERO = :NFE_NUMERO,'
+      '  NFE_SERIE = :NFE_SERIE,'
+      '  NUMERO = :NUMERO,'
+      '  PROTOCOLO = :PROTOCOLO,'
+      '  XML = :XML'
+      'where'
+      '  CCE_EMPRESA = :OLD_CCE_EMPRESA and'
+      '  CCE_NUMERO = :OLD_CCE_NUMERO')
+    InsertSQL.Strings = (
+      '')
+    Left = 176
+    Top = 552
+  end
 end

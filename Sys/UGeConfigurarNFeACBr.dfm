@@ -158,7 +158,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       Top = 15
       Width = 280
       Height = 367
-      ActivePage = TabSheet3
+      ActivePage = TabSheet2
       Align = alClient
       MultiLine = True
       TabOrder = 0

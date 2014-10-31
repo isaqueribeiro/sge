@@ -9245,6 +9245,31 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         DataSetName = 'FrdsRelacaoAReceberVCliente'
         RowCount = 0
         Stretched = True
+        object Memo28: TfrxMemoView
+          Left = 83.149660000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
         object Memo7: TfrxMemoView
           Left = 616.063390000000000000
           Width = 102.047310000000000000
@@ -9255,7 +9280,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -9263,7 +9288,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
@@ -9282,14 +9307,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
@@ -9311,7 +9336,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -9319,7 +9344,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
@@ -9339,7 +9364,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -9347,7 +9372,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
@@ -9369,7 +9394,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -9377,7 +9402,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
@@ -9390,8 +9415,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
-          Left = 83.149660000000000000
-          Width = 173.858380000000000000
+          Left = 86.929190000000000000
+          Width = 170.078850000000000000
           Height = 18.897650000000000000
           ShowHint = False
           StretchMode = smMaxHeight
@@ -9399,19 +9424,19 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
           Memo.UTF8 = (
-            ' [FrdsRelacaoAReceberVCliente."CLIENTE_NOME"]')
+            '[FrdsRelacaoAReceberVCliente."CLIENTE_NOME"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -9425,7 +9450,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -9433,7 +9458,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'

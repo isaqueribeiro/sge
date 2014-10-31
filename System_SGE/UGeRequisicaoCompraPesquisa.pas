@@ -313,6 +313,7 @@ var
   bRetorno : Boolean;
   iAno ,
   iNum : Integer;
+  sTextoMotivo   ,
   sInsertSQL     ,
   sGeneratorName : String;
   iFormaPagto    ,
@@ -328,6 +329,7 @@ begin
     try
       GetValorTotal(iFormaPagto, iCondicaoPagto, cTotalBruto, cTotalDesconto, cTotalFrete, cTotalIPI, cTotalLiquido);
 
+      sTextoMotivo   := EmptyStr;
       sGeneratorName := 'GEN_AUTORIZA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
 
       cdsAutorizacao.GeneratorField.Generator := sGeneratorName;
@@ -393,7 +395,8 @@ begin
         begin
           if (CdsPesquisaSELECIONAR.AsInteger = 1) then
           begin
-            sInsertSQL := 'Insert Into TBAUTORIZA_REQUISITA (AUTORIZACAO_ANO, AUTORIZACAO_COD, AUTORIZACAO_EMP, REQUISICAO_ANO, REQUISICAO_COD, REQUISICAO_EMP) values (' +
+            sTextoMotivo := sTextoMotivo + CdsPesquisaANO.AsString + FormatFloat('"/"##00000', CdsPesquisaCODIGO.AsInteger) + ', ';
+            sInsertSQL   := 'Insert Into TBAUTORIZA_REQUISITA (AUTORIZACAO_ANO, AUTORIZACAO_COD, AUTORIZACAO_EMP, REQUISICAO_ANO, REQUISICAO_COD, REQUISICAO_EMP) values (' +
               cdsAutorizacaoANO.AsString     + ', ' +
               cdsAutorizacaoCODIGO.AsString  + ', ' +
               QuotedStr(cdsAutorizacaoEMPRESA.AsString) + ', ' +
@@ -407,6 +410,9 @@ begin
         end;
         EnableConstraints;
       end;
+
+      sTextoMotivo := Trim(sTextoMotivo);
+      sTextoMotivo := 'Autorização gerada para agrupar as requisições de compras/serviços : ' + Copy(sTextoMotivo, 1, Length(sTextoMotivo) - 1) + '.';
 
       // Gerar Itens da autorização
 
@@ -423,6 +429,7 @@ begin
 
       cdsAutorizacao.Edit;
 
+      cdsAutorizacaoMOVITO.AsString          := AnsiUpperCase(sTextoMotivo);
       cdsAutorizacaoSTATUS.Value             := STATUS_AUTORIZACAO_AUT;
       cdsAutorizacaoAUTORIZADO_DATA.Value    := GetDateDB;
       cdsAutorizacaoAUTORIZADO_USUARIO.Value := GetUserApp;
@@ -432,7 +439,7 @@ begin
 
       CommitTransaction;
 
-      ShowInformation('Autorização finalizada com sucesso !' + #13#13 + 'Ano/Número: ' + cdsAutorizacaoANO.AsString + '/' + FormatFloat('##0000000', cdsAutorizacaoCODIGO.AsInteger));
+      ShowInformation('Autorização gerada e finalizada com sucesso !' + #13#13 + 'Ano/Número: ' + cdsAutorizacaoANO.AsString + '/' + FormatFloat('##0000000', cdsAutorizacaoCODIGO.AsInteger));
 
       bRetorno := True;
     except

@@ -20099,7 +20099,7 @@ object frmPrinc: TfrmPrinc
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
-          Caption = 'Tributa'#231#245'es'
+          Caption = 'Tributa'#231#245'es IBPT'
           Enabled = False
           OnClick = nmTributacaoClick
         end

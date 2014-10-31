@@ -499,6 +499,36 @@ type
     qryFormaPagtosFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField;
     qryFormaPagtosCOND_DESCRICAO_PDV: TIBStringField;
     frrCartaCorrecaoE: TfrxReport;
+    qryNFe: TIBQuery;
+    qryNFeANOVENDA: TSmallintField;
+    qryNFeNUMVENDA: TIntegerField;
+    qryNFeEMPRESA: TIBStringField;
+    qryNFeDATAEMISSAO: TDateField;
+    qryNFeHORAEMISSAO: TTimeField;
+    qryNFeSERIE: TIBStringField;
+    qryNFeNUMERO: TIntegerField;
+    qryNFeMODELO: TSmallintField;
+    qryNFeVERSAO: TSmallintField;
+    qryNFeCHAVE: TIBStringField;
+    qryNFePROTOCOLO: TIBStringField;
+    qryNFeRECIBO: TIBStringField;
+    qryNFeXML_FILENAME: TIBStringField;
+    qryNFeXML_FILE: TMemoField;
+    qryNFeLOTE_ANO: TSmallintField;
+    qryNFeLOTE_NUM: TIntegerField;
+    qryCartaCorrecaoNFe: TIBDataSet;
+    updCartaCorrecaoNFe: TIBUpdateSQL;
+    qryCartaCorrecaoNFeCCE_NUMERO: TIntegerField;
+    qryCartaCorrecaoNFeCCE_EMPRESA: TIBStringField;
+    qryCartaCorrecaoNFeCCE_DATA: TDateField;
+    qryCartaCorrecaoNFeCCE_HORA: TTimeField;
+    qryCartaCorrecaoNFeCCE_ENVIADA: TSmallintField;
+    qryCartaCorrecaoNFeNFE_SERIE: TIBStringField;
+    qryCartaCorrecaoNFeNFE_NUMERO: TIntegerField;
+    qryCartaCorrecaoNFeNFE_MODELO: TSmallintField;
+    qryCartaCorrecaoNFeNUMERO: TIntegerField;
+    qryCartaCorrecaoNFePROTOCOLO: TIBStringField;
+    qryCartaCorrecaoNFeXML: TMemoField;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -517,6 +547,7 @@ type
     procedure GerarTabela_CST_COFINS;
 
     procedure UpdateNumeroNFe(const sCNPJEmitente : String; const Serie, Numero : Integer);
+    procedure UpdateNumeroCCe(const sCNPJEmitente : String; const Numero : Integer);
     procedure UpdateLoteNFe(const sCNPJEmitente : String; const Ano, Numero : Integer);
     procedure GuardarLoteNFeVenda(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
     procedure GuardarLoteNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
@@ -542,6 +573,8 @@ type
     procedure AbrirCompra(AnoCompra, NumeroCompra : Integer);
     procedure AbrirNFeEmitida(AnoVenda, NumeroVenda : Integer);
     procedure AbrirNFeEmitidaEntrada(AnoCompra, NumeroCompra : Integer);
+    procedure AbrirNFe(const sCNPJEmitente : String; const Modelo : Smallint; Serie : String; Numero : Integer);
+    procedure AbrirCartaCorrecao(const sCNPJEmitente : String; const ControleCCe : Integer); virtual; abstract;
 
     function ReciboNaoExisteNaVenda(const sRecibo : String) : Boolean;
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
@@ -596,6 +629,8 @@ type
     function ImprimirCupomOrcamento(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean;
 
+    function GerarEnviarCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer) : Boolean;
+
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
   end;
@@ -645,7 +680,8 @@ implementation
 uses
   UDMBusiness, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
-  UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory;
+  UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
+  pcnEnvEventoNFe, pcnEventoNFe;
 
 {$R *.dfm}
 
@@ -986,6 +1022,17 @@ begin
 
       rvDANFE.PathPDF := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT;
       frDANFE.PathPDF := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT;
+
+      with ACBrNFe.Configuracoes do
+      begin
+        Arquivos.PathNFe    := StringReplace(Geral.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
+        Arquivos.PathCan    := StringReplace(Geral.PathSalvar + '\NFeCancelar', '\\', '\', [rfReplaceAll]);
+        Arquivos.PathInu    := StringReplace(Geral.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
+        Arquivos.PathEvento := StringReplace(Geral.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
+        Arquivos.PathCCe    := StringReplace(Geral.PathSalvar + '\CCe',         '\\', '\', [rfReplaceAll]);
+        Arquivos.PathMDe    := StringReplace(Geral.PathSalvar + '\MDe',         '\\', '\', [rfReplaceAll]);
+        Arquivos.PathDPEC   := StringReplace(Geral.PathSalvar + '\DPEC',        '\\', '\', [rfReplaceAll]);
+      end;
 
       if ( tipoDANFE = tipoDANFERave ) then
         ACBrNFe.DANFE := rvDANFE
@@ -1480,6 +1527,7 @@ begin
           sLOG.Clear;
           sLOG.Add('Ambiente  : ' + IntToStr( Ord(ACBrNFe.Configuracoes.WebServices.Ambiente) ));
           sLOG.Add('-');
+          sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CANCELAR_NFE_SD));
           sLOG.Add('Emitente  : ' + sCNPJEmitente);
           sLOG.Add('Chave NF-e: ' + qryNFeEmitidaCHAVE.AsString);
           sLOG.Add('-');
@@ -1634,6 +1682,25 @@ begin
       SQL.Add('Update TBEMPRESA Set');
       SQL.Add('    SERIE_NFE  = ' + FormatFloat('####', Serie));
       SQL.Add('  , NUMERO_NFE = ' + FormatFloat('#########', Numero));
+      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+
+      ExecQuery;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      raise Exception.Create('UpdateNumeroNFe > ' + E.Message);
+  end;
+end;
+
+procedure TDMNFe.UpdateNumeroCCe(const sCNPJEmitente : String; const Numero : Integer);
+begin
+  try
+    with IBSQL do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBEMPRESA Set');
+      SQL.Add('  CARTA_CORRECAO_NFE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
 
       ExecQuery;
@@ -3835,12 +3902,6 @@ begin
 
       NotasFiscais.Clear;
 
-      (* Linhas de Cancelamento da NF-e em 09/04/2013
-      NotasFiscais.LoadFromFile( FileNameXML );
-
-      Result := Cancelamento( Motivo );
-      *)
-
       // Numero do Lote de Envio
       iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
       if not NotasFiscais.LoadFromFile( FileNameXML ) then
@@ -3888,6 +3949,7 @@ begin
           sLOG.Clear;
           sLOG.Add('Ambiente  : ' + IntToStr( Ord(ACBrNFe.Configuracoes.WebServices.Ambiente) ));
           sLOG.Add('-');
+          sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CANCELAR_NFE_ET));
           sLOG.Add('Emitente  : ' + sCNPJEmitente);
           sLOG.Add('Chave NF-e: ' + qryNFeEmitidaEntradaCHAVE.AsString);
           sLOG.Add('-');
@@ -4691,6 +4753,190 @@ begin
   finally
     aEcf.Ecf.Finalizar;
     aEcf.Free;
+  end;
+end;
+
+function TDMNFe.GerarEnviarCCeACBr(const sCNPJEmitente: String;
+  const ControleCCe: Integer): Boolean;
+var
+  bRetorno    : Boolean;
+  sFileNameXML,
+  sErrorMsg   ,
+  sCorrecao   ,
+  sRetornoXML ,
+  sProtocolo  : String;
+  iNumeroLote  ,
+  iNumeroCarta : Integer;
+  sLOG : TStringList;
+begin
+  sLOG := TStringList.Create;
+
+  try
+    try
+
+      LerConfiguracao(sCNPJEmitente, tipoDANFEFast);
+
+      AbrirEmitente(sCNPJEmitente);
+      AbrirCartaCorrecao(sCNPJEmitente, ControleCCe);
+      AbrirNFe(sCNPJEmitente, qryCartaCorrecaoNFeNFE_MODELO.AsInteger, qryCartaCorrecaoNFeNFE_SERIE.AsString, qryCartaCorrecaoNFeNFE_NUMERO.AsInteger);
+
+      with ACBrNFe do
+      begin
+
+        if ( DelphiIsRunning ) then
+          bRetorno := True
+        else
+          bRetorno := ACBrNFe.WebServices.StatusServico.Executar;
+
+        if not bRetorno then
+          Exit;
+
+        iNumeroCarta := GetNextID('TBEMPRESA', 'CARTA_CORRECAO_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente));
+
+        Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeMODELO.AsInteger);
+        Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeVERSAO.AsInteger);
+
+        sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryNFeXML_FILENAME.AsString;
+        ForceDirectories( ExtractFilePath(sFileNameXML) );
+
+        NotasFiscais.Clear;
+        if not NotasFiscais.LoadFromFile( sFileNameXML ) then
+          raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + sFileNameXML);
+
+        // Numero do Lote de Envio
+        iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+
+        EventoNFe.Evento.Clear;
+        EventoNFe.idLote := iNumeroLote;
+
+        with EventoNFe.Evento.Add do
+        begin
+          //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
+          //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
+
+          infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
+          infEvento.chNFe  := qryNFeCHAVE.AsString;
+          infEvento.CNPJ   := sCNPJEmitente;
+          infEvento.dhEvento   := GetDateTimeDB;
+          infEvento.tpEvento   := teCCe;
+          infEvento.nSeqEvento := iNumeroCarta;
+          infEvento.detEvento.descEvento := AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE);
+          infEvento.detEvento.xCorrecao  := sCorrecao;
+          infEvento.detEvento.xCondUso   := '';
+        end;
+
+        // Enviar o evento de CC-e
+
+        if EnviarEventoNFe(iNumeroLote) then
+        begin
+          with WebServices.EnvEvento do
+          begin
+            bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
+
+            // Montar LOG de Retorno
+
+            sLOG.BeginUpdate;
+            sLOG.Clear;
+            sLOG.Add('Ambiente  : ' + IntToStr( Ord(Configuracoes.WebServices.Ambiente) ));
+            sLOG.Add('-');
+            sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE));
+            sLOG.Add('Emitente  : ' + sCNPJEmitente);
+            sLOG.Add('Chave NF-e: ' + qryNFeCHAVE.AsString);
+            sLOG.Add('-');
+            sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
+            sLOG.Add('Número Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('Código Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
+            sLOG.Add('-');
+            sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
+            sLOG.EndUpdate;
+
+            if bRetorno then
+            begin
+              EventoNFe.GerarXML;
+              sRetornoXML := EventoRetorno.retEvento.Items[0].RetInfEvento.XML;
+              sProtocolo  := EventoRetorno.retEvento.Items[0].RetInfEvento.nProt;
+
+              // Gravar dados de retorno no resgitro da CC-e
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              // ...
+              //
+              UpdateNumeroCCe(sCNPJEmitente, iNumeroCarta);
+            end
+            else
+            begin
+              raise Exception.CreateFmt(
+                'Ocorreu o seguinte erro ao enviar a CC-e da Nota Fiscal Eletrônica:'  + sLineBreak +
+                'Código: %d' + sLineBreak +
+                'Motivo: %s', [
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
+              ]);
+            end;
+
+          end;
+
+          if bRetorno then
+            ImprimirEvento;
+
+        end;
+
+      end;
+
+    except
+      On E : Exception do
+      begin
+        bRetorno := False;
+
+        sErrorMsg := E.Message;
+        ShowError('Erro ao tentar gerar/enviar CC-e.' + #13#13 + 'GerarEnviarCCeACBr() --> ' + sErrorMsg);
+      end;
+    end;
+  finally
+    // Gravar LOG
+
+    with cdsLOG do
+    begin
+      Open;
+      Append;
+
+      cdsLOGUSUARIO.AsString       := GetUserApp;
+      cdsLOGDATA_HORA.AsDateTime   := Now;
+      cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+      cdsLOGDESCRICAO.AsString     := AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE);
+      cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+      Post;
+      ApplyUpdates;
+      CommitTransaction;
+    end;
+
+    sLOG.Free;
+    Result := bRetorno;
+  end;
+end;
+
+procedure TDMNFe.AbrirNFe(const sCNPJEmitente: String;
+  const Modelo: Smallint; Serie: String; Numero: Integer);
+begin
+  with qryNFe do
+  begin
+    Close;
+    ParamByName('empresa').AsString := sCNPJEmitente;
+    ParamByName('numero').AsInteger := Numero;
+    ParamByName('serie').AsString   := Serie;
+    ParamByName('modelo').AsInteger := Modelo;
+    Open;
   end;
 end;
 
