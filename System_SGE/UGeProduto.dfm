@@ -33,6 +33,7 @@ inherited frmGeProduto: TfrmGeProduto
       inherited dbgDados: TDBGrid
         Width = 953
         Height = 472
+        PopupMenu = popFerramentas
         Columns = <
           item
             Expanded = False
@@ -698,7 +699,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 197
         Width = 953
         Height = 341
-        ActivePage = tbsValores
+        ActivePage = TbsEspecificacao
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -1840,6 +1841,44 @@ inherited frmGeProduto: TfrmGeProduto
               end
             end
           end
+          object pnlEspecificacao: TPanel
+            Left = 0
+            Top = 177
+            Width = 945
+            Height = 136
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 2
+            TabOrder = 2
+            object lblEspecificacao: TLabel
+              Left = 2
+              Top = 2
+              Width = 941
+              Height = 13
+              Align = alTop
+              Caption = 'Especifica'#231#227'o textual:'
+              FocusControl = dbEspecificacao
+              Transparent = True
+            end
+            object Bevel9: TBevel
+              Left = 2
+              Top = 15
+              Width = 941
+              Height = 4
+              Align = alTop
+              Shape = bsSpacer
+            end
+            object dbEspecificacao: TDBMemo
+              Left = 2
+              Top = 19
+              Width = 941
+              Height = 115
+              Align = alClient
+              DataField = 'ESPECIFICACAO'
+              DataSource = DtSrcTabela
+              TabOrder = 0
+            end
+          end
         end
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
@@ -2225,11 +2264,13 @@ inherited frmGeProduto: TfrmGeProduto
       '  , p.Descri'
       '  , p.Apresentacao'
       '  , p.Descri_apresentacao'
+      '  , p.Metafonema'
       '  , p.Modelo'
       '  , p.Preco'
       '  , p.Preco_Promocao'
       '  , p.Preco_Sugerido'
       '  , p.Referencia'
+      '  , p.Especificacao'
       '  , p.Secao'
       '  , p.Qtde'
       '  , p.Unidade'
@@ -2360,6 +2401,12 @@ inherited frmGeProduto: TfrmGeProduto
       Origin = 'TBPRODUTO.DESCRI_APRESENTACAO'
       Size = 100
     end
+    object IbDtstTabelaMETAFONEMA: TIBStringField
+      FieldName = 'METAFONEMA'
+      Origin = '"TBPRODUTO"."METAFONEMA"'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
     object IbDtstTabelaMODELO: TIBStringField
       DisplayLabel = 'Modelo'
       FieldName = 'MODELO'
@@ -2398,6 +2445,12 @@ inherited frmGeProduto: TfrmGeProduto
       DisplayLabel = 'Se'#231#227'o'
       FieldName = 'SECAO'
       Origin = 'TBPRODUTO.SECAO'
+    end
+    object IbDtstTabelaESPECIFICACAO: TBlobField
+      FieldName = 'ESPECIFICACAO'
+      Origin = '"TBPRODUTO"."ESPECIFICACAO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 8
     end
     object IbDtstTabelaQTDE: TIBBCDField
       DisplayLabel = 'Quantidade'
@@ -2860,10 +2913,12 @@ inherited frmGeProduto: TfrmGeProduto
       '  DESCRI,'
       '  APRESENTACAO,'
       '  DESCRI_APRESENTACAO,'
+      '  METAFONEMA,'
       '  MODELO,'
       '  PRECO,'
       '  PRECO_PROMOCAO,'
       '  REFERENCIA,'
+      '  ESPECIFICACAO,'
       '  SECAO,'
       '  QTDE,'
       '  FRACIONADOR,'
@@ -2961,9 +3016,11 @@ inherited frmGeProduto: TfrmGeProduto
       '  CUSTOMEDIO = :CUSTOMEDIO,'
       '  DESCRI = :DESCRI,'
       '  DESCRI_APRESENTACAO = :DESCRI_APRESENTACAO,'
+      '  ESPECIFICACAO = :ESPECIFICACAO,'
       '  ESTOQMIN = :ESTOQMIN,'
       '  FRACIONADOR = :FRACIONADOR,'
       '  KILOMETRAGEM_VEICULO = :KILOMETRAGEM_VEICULO,'
+      '  METAFONEMA = :METAFONEMA,'
       '  MODELO = :MODELO,'
       '  MOVIMENTA_ESTOQUE = :MOVIMENTA_ESTOQUE,'
       '  NCM_SH = :NCM_SH,'
@@ -3009,19 +3066,19 @@ inherited frmGeProduto: TfrmGeProduto
         'CST, CST_COFINS, '
       
         '   CST_PIS, CUBAGEM, CUSTOMEDIO, DESCRI, DESCRI_APRESENTACAO, ES' +
-        'TOQMIN, '
+        'PECIFICACAO, '
       
-        '   FRACIONADOR, KILOMETRAGEM_VEICULO, MODELO, MOVIMENTA_ESTOQUE,' +
-        ' NCM_SH, '
+        '   ESTOQMIN, FRACIONADOR, KILOMETRAGEM_VEICULO, METAFONEMA, MODE' +
+        'LO, MOVIMENTA_ESTOQUE, '
       
-        '   PERCENTUAL_MARCKUP, PERCENTUAL_MARGEM, PERCENTUAL_REDUCAO_BC,' +
-        ' PESO_BRUTO, '
+        '   NCM_SH, PERCENTUAL_MARCKUP, PERCENTUAL_MARGEM, PERCENTUAL_RED' +
+        'UCAO_BC, '
       
-        '   PESO_LIQUIDO, PRECO, PRECO_PROMOCAO, PRECO_SUGERIDO, PRODUTO_' +
-        'NOVO, QTDE, '
+        '   PESO_BRUTO, PESO_LIQUIDO, PRECO, PRECO_PROMOCAO, PRECO_SUGERI' +
+        'DO, PRODUTO_NOVO, '
       
-        '   REFERENCIA, RENAVAM_VEICULO, RESERVA, SECAO, SITUACAO_ATUAL_V' +
-        'EICULO, '
+        '   QTDE, REFERENCIA, RENAVAM_VEICULO, RESERVA, SECAO, SITUACAO_A' +
+        'TUAL_VEICULO, '
       
         '   SITUACAO_HISTORICO_VEICULO, TIPO_VEICULO, UNIDADE, USUARIO, V' +
         'ALOR_IPI, '
@@ -3046,21 +3103,23 @@ inherited frmGeProduto: TfrmGeProduto
         '   :CST_COFINS, :CST_PIS, :CUBAGEM, :CUSTOMEDIO, :DESCRI, :DESCR' +
         'I_APRESENTACAO, '
       
-        '   :ESTOQMIN, :FRACIONADOR, :KILOMETRAGEM_VEICULO, :MODELO, :MOV' +
-        'IMENTA_ESTOQUE, '
+        '   :ESPECIFICACAO, :ESTOQMIN, :FRACIONADOR, :KILOMETRAGEM_VEICUL' +
+        'O, :METAFONEMA, '
       
-        '   :NCM_SH, :PERCENTUAL_MARCKUP, :PERCENTUAL_MARGEM, :PERCENTUAL' +
-        '_REDUCAO_BC, '
+        '   :MODELO, :MOVIMENTA_ESTOQUE, :NCM_SH, :PERCENTUAL_MARCKUP, :P' +
+        'ERCENTUAL_MARGEM, '
       
-        '   :PESO_BRUTO, :PESO_LIQUIDO, :PRECO, :PRECO_PROMOCAO, :PRECO_S' +
-        'UGERIDO, '
+        '   :PERCENTUAL_REDUCAO_BC, :PESO_BRUTO, :PESO_LIQUIDO, :PRECO, :' +
+        'PRECO_PROMOCAO, '
       
-        '   :PRODUTO_NOVO, :QTDE, :REFERENCIA, :RENAVAM_VEICULO, :RESERVA' +
-        ', :SECAO, '
+        '   :PRECO_SUGERIDO, :PRODUTO_NOVO, :QTDE, :REFERENCIA, :RENAVAM_' +
+        'VEICULO, '
       
-        '   :SITUACAO_ATUAL_VEICULO, :SITUACAO_HISTORICO_VEICULO, :TIPO_V' +
-        'EICULO, '
-      '   :UNIDADE, :USUARIO, :VALOR_IPI, :VENDA_FRACIONADA)')
+        '   :RESERVA, :SECAO, :SITUACAO_ATUAL_VEICULO, :SITUACAO_HISTORIC' +
+        'O_VEICULO, '
+      
+        '   :TIPO_VEICULO, :UNIDADE, :USUARIO, :VALOR_IPI, :VENDA_FRACION' +
+        'ADA)')
     DeleteSQL.Strings = (
       'delete from TBPRODUTO'
       'where'
@@ -3345,5 +3404,13 @@ inherited frmGeProduto: TfrmGeProduto
       '')
     Left = 568
     Top = 432
+  end
+  object popFerramentas: TPopupMenu
+    Left = 312
+    Top = 463
+    object ppMnAtualizarMetafonema: TMenuItem
+      Caption = 'Atualizar C'#243'digo Metaf'#244'nico'
+      OnClick = ppMnAtualizarMetafonemaClick
+    end
   end
 end

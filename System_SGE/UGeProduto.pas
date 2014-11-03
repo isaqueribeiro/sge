@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, rxCurrEdit;
+  ToolWin, IBTable, rxToolEdit, RXDBCtrl, rxCurrEdit, Menus;
 
 type
   TAliquota = (taICMS, taISS);
@@ -244,6 +244,14 @@ type
     dbTipoCadastro: TDBLookupComboBox;
     IbDtstTabelaCOMPOR_FATURAMENTO: TSmallintField;
     dbComporFaturamento: TDBCheckBox;
+    IbDtstTabelaMETAFONEMA: TIBStringField;
+    IbDtstTabelaESPECIFICACAO: TBlobField;
+    pnlEspecificacao: TPanel;
+    lblEspecificacao: TLabel;
+    dbEspecificacao: TDBMemo;
+    Bevel9: TBevel;
+    popFerramentas: TPopupMenu;
+    ppMnAtualizarMetafonema: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -264,6 +272,7 @@ type
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure dbUnidadeFracaoButtonClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
+    procedure ppMnAtualizarMetafonemaClick(Sender: TObject);
   private
     { Private declarations }
     fOrdenado : Boolean;
@@ -343,7 +352,7 @@ implementation
 
 uses
   UDMBusiness, UGeSecaoProduto, UGeGrupoProduto, UGeUnidade,
-  UGeTabelaCFOP, UGeFabricante, UConstantesDGE;
+  UGeTabelaCFOP, UGeFabricante, UConstantesDGE, UFuncoes;
 
 {$R *.dfm}
 
@@ -963,6 +972,7 @@ begin
   inherited;
 
   IbDtstTabelaDESCRI_APRESENTACAO.AsString := AnsiUpperCase(Trim(IbDtstTabelaDESCRI.AsString + ' ' + IbDtstTabelaAPRESENTACAO.AsString));
+  IbDtstTabelaMETAFONEMA.AsString          := Metafonema(IbDtstTabelaDESCRI_APRESENTACAO.AsString);
   IbDtstTabelaUSUARIO.AsString             := GetUserApp;
 
   if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
@@ -1371,8 +1381,9 @@ begin
             if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
               Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
             else
-              Add( 'where (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
+              Add( 'where (upper(' + CampoDescricao +  ') like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                   '    or upper(' + CampoDescricao +  ') like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') +
+                   '    or upper(p.metafonema) like ' + QuotedStr(Metafonema(edtFiltrar.Text) + '%') + ')');
 
           // Por Referência
           1:
@@ -1383,14 +1394,14 @@ begin
             if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
               Add( 'where p.Codfabricante = ' + Trim(edtFiltrar.Text) )
             else
-              Add( 'where (upper(f.Nome) like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') + ')' );
+              Add( 'where (upper(f.Nome) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') + ')' );
 
           // Por Grupo
           3:
             if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
               Add( 'where p.Codgrupo = ' + Trim(edtFiltrar.Text) )
             else
-              Add( 'where (upper(g.Descri) like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') + ')' );
+              Add( 'where (upper(g.Descri) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') + ')' );
         end;
 
       end;
@@ -1472,6 +1483,36 @@ begin
     end;
       
   inherited;
+end;
+
+procedure TfrmGeProduto.ppMnAtualizarMetafonemaClick(Sender: TObject);
+var
+  sUpdate : String;
+begin
+  if IbDtstTabela.IsEmpty then
+    Exit;
+
+  IbDtstTabela.First;
+  IbDtstTabela.DisableControls;
+  Screen.Cursor := crSQLWait;
+  try
+    while not IbDtstTabela.Eof do
+    begin
+      sUpdate := 'Update TBPRODUTO Set metafonema = %s where cod = %s';
+      sUpdate := Format(sUpdate, [
+        QuotedStr(Metafonema(IbDtstTabelaDESCRI_APRESENTACAO.AsString)),
+        QuotedStr(IbDtstTabelaCOD.AsString)]);
+      ExecuteScriptSQL( sUpdate );
+
+      IbDtstTabela.Next;
+    end;
+  finally
+    IbDtstTabela.First;
+    IbDtstTabela.EnableControls;
+    Screen.Cursor := crDefault;
+
+    ShowInformation('Atualização', 'Código metafônico dos registros atualizados com sucesso!');
+  end;
 end;
 
 end.

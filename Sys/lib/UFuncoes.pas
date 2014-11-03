@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers,
-  Graphics, IniFiles, PSApi, Winsock, WinSvc, WinInet;
+  Graphics, IniFiles, PSApi, Winsock, WinSvc, WinInet, StrUtils;
 
   function GetExeVersion(const FileName : TFileName) : String; overload;
   function GetExeVersion : String; overload;
@@ -23,7 +23,11 @@ uses
   function Path_Temporario : String;
   function Path_Comando : String;
   function Path_DiretorioWindows : String;
+
+  function Espaco(ALen : Integer = 1) : String;
   function RemoveAcentos(Str : String) : String;
+  function LimpaNomePessoa(Value : String) : String;
+  function Metafonema(Value : String) : String;
 
 implementation
 
@@ -359,6 +363,11 @@ begin
   Result := GetEnvironmentVariable('Windir');
 end;
 
+function Espaco(ALen : Integer = 1) : String;
+begin
+  Result := StringOfChar(#32, ALen);
+end;
+
 function RemoveAcentos(Str : String) : String;
 const
   COM_ACENTO = '‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹™∫';
@@ -369,8 +378,183 @@ begin
   for x := 1 to Length(Str) do
     if Pos(Str[x],COM_ACENTO) <> 0 then
       Str[x] := SEM_ACENTO[Pos(Str[x], COM_ACENTO)];
-      
+
   Result := Str;
+end;
+
+function LimpaNomePessoa(Value : String) : String;
+begin
+  Result := Trim(Value);
+  if Value <> Espaco(Length(Value)) then
+  begin
+    Result := RemoveAcentos(Value);
+    Result := StringReplace(Result, '.', '',      [rfReplaceAll]);
+    Result := StringReplace(Result, Chr(39), ' ', [rfReplaceAll]);  // Apostrofo
+    Result := StringReplace(Result, '-', ' ',     [rfReplaceAll]);  // HifÈn
+    Result := StringReplace(Result, '  ', ' ',    [rfReplaceAll]);  // Espaco duplo
+  end;
+end;
+
+function Metafonema(Value : String) : String;
+var
+  i, p: Integer;
+  novo, aux: string;
+const
+  DELIMITER = '.';
+begin
+
+  try
+
+    aux  := LimpaNomePessoa(AnsiUpperCase(Value));
+    novo := EmptyStr;
+
+    // Tira acentos que porventura ficaram para tr·s
+    for i := 1 to Length(aux) do
+    begin
+      case aux[i] of
+        '¡', '¬', '√', '¿', 'ƒ', '≈': aux[i] := 'A';
+        '…', ' ', '»', 'À': aux[i] := 'E';
+        'Õ', 'Œ', 'Ã', 'œ': aux[i] := 'I';
+        '”', '‘', '’', '“', '÷': aux[i] := 'O';
+        '⁄', '€', 'Ÿ', '‹': aux[i] := 'U';
+        '«': aux[i] := 'C';
+        '—': aux[i] := 'N';
+        '›', 'ü', 'Y': aux[i] := 'I';
+      else
+        if Ord(aux[i]) > 127 then
+          aux[i] := #32;
+      end;
+    end;
+
+    aux := StringReplace(aux, ' ', DELIMITER, [rfReplaceAll]);
+
+    // Retira E , DA, DE e DO do nome
+    // JosÈ da Silva = JosÈ Silva
+    // Jo„o Costa e Silva = Jo„o Costa Silva
+    p := Pos(' DA ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DA ', aux);
+    end;
+
+    p := Pos(' DAS ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 4);
+      p := Pos(' DAS ', aux);
+    end;
+
+    p := Pos(' DE ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DE ', aux);
+    end;
+
+    p := Pos(' DI ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DI ', aux);
+    end;
+
+    p := Pos(' DO ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DO ', aux);
+    end;
+
+    p := Pos(' DOS ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 4);
+      p := Pos(' DOS ', aux);
+    end;
+
+    p := Pos(' E ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 2);
+      p := Pos(' E ', aux);
+    end;
+
+    // Retira letras duplicadas
+    // Elizabette = Elizabete
+
+    for i := 1 to Length(aux)-1 do
+      if aux[i] = aux[i + 1] then
+        Delete(aux, i, 1);
+
+    for i := 1 to Length(aux) do
+    begin
+      case aux[i] of
+        // 'A','E','I','O','U','Y','H' e espaÁos: ignora
+
+        'B','D','F','J','K','L','M','N','R','T','V','X', DELIMITER:
+          novo := novo + aux[i];
+
+        'C':  // CH = X
+          if aux[i+1] = 'H' then
+            novo := novo + 'X'
+          else // Carol = Karol
+          if (aux[i+1] in ['A','O','U']) then // CharInSet(aux[i+1], ['A','O','U']) then
+            novo := novo + 'K'
+          else // Celina = Selina
+          if (aux[i+1] in ['E','I']) then // CharInSet(aux[i+1], ['E','I']) then
+            novo := novo + 'S'
+          else // Isaac = Isaque, Isac
+          if (aux[i-1] = 'A') and (aux[i-2] = 'A') or ( (aux[i-1] = 'A') and (aux[i+1] = ' ')) then
+            novo := novo + 'K';
+
+        'G': // Jeferson = Geferson
+          if aux[i+i] = 'E' then
+            novo := novo + 'J'
+          else
+            novo := novo + 'G';
+
+        'P': // Phelipe = Felipe
+           if aux[i+1] = 'H' then
+             novo := novo + 'F'
+           else
+             novo := novo + 'P';
+
+        'Q': // Keila = Queila
+           if aux[i+1] = 'U' then
+             novo := novo + 'K'
+           else
+             novo := novo + 'Q';
+
+        'S':
+           case aux[i+1] of
+             'H': // SH = X
+               novo := novo + 'X';
+
+             'A','E','I','O','U':
+               if (aux[i-1] in ['A','E','I','O','U']) then // CharInSet(aux[i-1], ['A','E','I','O','U']) then
+                 novo := novo + 'Z' // S entre duas vogais = Z
+               else
+                 novo := novo + 'S';
+           end;
+
+        'W': // Walter = Valter
+           novo := novo + 'V';
+
+        'Z': // no final do nome tem som de S -> Luiz = Luis
+           if (i = Length(aux)) or (aux[i+1] = ' ') then
+             novo := novo + 'S'
+           else
+             novo := novo + 'Z';
+      end;
+    end;
+
+    Result := novo + DELIMITER;
+
+  except
+    Result := EmptyStr;
+  end;
+
 end;
 
 end.
