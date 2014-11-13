@@ -529,6 +529,7 @@ type
     qryCartaCorrecaoNFeNUMERO: TIntegerField;
     qryCartaCorrecaoNFePROTOCOLO: TIBStringField;
     qryCartaCorrecaoNFeXML: TMemoField;
+    qryCartaCorrecaoNFeCCE_TEXTO: TMemoField;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -574,7 +575,7 @@ type
     procedure AbrirNFeEmitida(AnoVenda, NumeroVenda : Integer);
     procedure AbrirNFeEmitidaEntrada(AnoCompra, NumeroCompra : Integer);
     procedure AbrirNFe(const sCNPJEmitente : String; const Modelo : Smallint; Serie : String; Numero : Integer);
-    procedure AbrirCartaCorrecao(const sCNPJEmitente : String; const ControleCCe : Integer); virtual; abstract;
+    procedure AbrirCartaCorrecao(const sCNPJEmitente : String; const ControleCCe : Integer);
 
     function ReciboNaoExisteNaVenda(const sRecibo : String) : Boolean;
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
@@ -629,7 +630,7 @@ type
     function ImprimirCupomOrcamento(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean;
 
-    function GerarEnviarCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer) : Boolean;
+    function GerarEnviarCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer; sCondicaoUso : String) : Boolean;
 
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
@@ -4757,7 +4758,7 @@ begin
 end;
 
 function TDMNFe.GerarEnviarCCeACBr(const sCNPJEmitente: String;
-  const ControleCCe: Integer): Boolean;
+  const ControleCCe: Integer; sCondicaoUso : String): Boolean;
 var
   bRetorno    : Boolean;
   sFileNameXML,
@@ -4798,6 +4799,7 @@ begin
 
         sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryNFeXML_FILENAME.AsString;
         ForceDirectories( ExtractFilePath(sFileNameXML) );
+        qryNFeEmitidaXML_FILE.SaveToFile( sFileNameXML );
 
         NotasFiscais.Clear;
         if not NotasFiscais.LoadFromFile( sFileNameXML ) then
@@ -4805,6 +4807,7 @@ begin
 
         // Numero do Lote de Envio
         iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+        sCorrecao   := Trim(qryCartaCorrecaoNFeCCE_TEXTO.AsString);
 
         EventoNFe.Evento.Clear;
         EventoNFe.idLote := iNumeroLote;
@@ -4822,7 +4825,7 @@ begin
           infEvento.nSeqEvento := iNumeroCarta;
           infEvento.detEvento.descEvento := AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE);
           infEvento.detEvento.xCorrecao  := sCorrecao;
-          infEvento.detEvento.xCondUso   := '';
+          infEvento.detEvento.xCondUso   := Trim(sCondicaoUso);
         end;
 
         // Enviar o evento de CC-e
@@ -4858,19 +4861,17 @@ begin
               sProtocolo  := EventoRetorno.retEvento.Items[0].RetInfEvento.nProt;
 
               // Gravar dados de retorno no resgitro da CC-e
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              // ...
-              //
+              qryCartaCorrecaoNFe.Edit;
+              qryCartaCorrecaoNFeCCE_DATA.Value  := GetDateDB;
+              qryCartaCorrecaoNFeCCE_HORA.Value  := GetTimeDB;
+              qryCartaCorrecaoNFeNUMERO.Value    := iNumeroCarta;
+              qryCartaCorrecaoNFePROTOCOLO.Value := EventoRetorno.retEvento.Items[0].RetInfEvento.nProt;
+              qryCartaCorrecaoNFeXML.LoadFromFile( EventoNFe.ObterNomeArquivo(teCCe) );
+              qryCartaCorrecaoNFe.Post;
+              qryCartaCorrecaoNFe.ApplyUpdates;
+
+              CommitTransaction;
+
               UpdateNumeroCCe(sCNPJEmitente, iNumeroCarta);
             end
             else
@@ -4936,6 +4937,18 @@ begin
     ParamByName('numero').AsInteger := Numero;
     ParamByName('serie').AsString   := Serie;
     ParamByName('modelo').AsInteger := Modelo;
+    Open;
+  end;
+end;
+
+procedure TDMNFe.AbrirCartaCorrecao(const sCNPJEmitente: String;
+  const ControleCCe: Integer);
+begin
+  with qryCartaCorrecaoNFe do
+  begin
+    Close;
+    ParamByName('empresa').AsString := sCNPJEmitente;
+    ParamByName('codigo').AsInteger := ControleCCe;
     Open;
   end;
 end;

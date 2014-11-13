@@ -230,6 +230,9 @@ procedure TfrmGrPadraoCadastro.dbgDadosKeyPress(Sender: TObject; var Key: Char);
 begin
   if ( Key = #13 ) then
   begin
+    if not tbsCadastro.TabVisible then
+      Exit;
+      
     Key := #0;
     pgcGuias.ActivePage := tbsCadastro;
 

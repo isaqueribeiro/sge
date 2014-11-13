@@ -125,7 +125,9 @@ uses
   UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
   UGeRequisicaoCompra in 'UGeRequisicaoCompra.pas' {frmGeRequisicaoCompra},
   UGeRequisicaoCompraCancelar in 'UGeRequisicaoCompraCancelar.pas' {frmGeRequisicaoCompraCancelar},
-  UGeRequisicaoCompraPesquisa in 'UGeRequisicaoCompraPesquisa.pas' {frmGeRequisicaoCompraPesquisa};
+  UGeRequisicaoCompraPesquisa in 'UGeRequisicaoCompraPesquisa.pas' {frmGeRequisicaoCompraPesquisa},
+  UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
+  UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida};
 
 {$R *.res}
 

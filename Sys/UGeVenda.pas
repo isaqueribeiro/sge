@@ -569,8 +569,7 @@ begin
 
   WhereAdditional :=  'cast(v.dtvenda as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );// + ' and ' +
-                        //'v.codemp = ' + QuotedStr(GetEmpresaIDDefault);
+                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
   UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
 

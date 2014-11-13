@@ -19336,6 +19336,7 @@ object DMNFe: TDMNFe
       '  , cce.CCE_DATA'
       '  , cce.CCE_HORA'
       '  , cce.CCE_ENVIADA'
+      '  , cce.CCE_TEXTO'
       '  , cce.NFE_SERIE'
       '  , cce.NFE_NUMERO'
       '  , cce.NFE_MODELO'
@@ -19374,6 +19375,13 @@ object DMNFe: TDMNFe
     object qryCartaCorrecaoNFeCCE_ENVIADA: TSmallintField
       FieldName = 'CCE_ENVIADA'
       Origin = '"TBNFE_CARTA_CORRECAO"."CCE_ENVIADA"'
+    end
+    object qryCartaCorrecaoNFeCCE_TEXTO: TMemoField
+      FieldName = 'CCE_TEXTO'
+      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_TEXTO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
     end
     object qryCartaCorrecaoNFeNFE_SERIE: TIBStringField
       FieldName = 'NFE_SERIE'
@@ -19415,6 +19423,7 @@ object DMNFe: TDMNFe
       '  CCE_DATA,'
       '  CCE_HORA,'
       '  CCE_ENVIADA,'
+      '  CCE_TEXTO,'
       '  NFE_SERIE,'
       '  NFE_NUMERO,'
       '  NFE_MODELO,'
@@ -19423,7 +19432,6 @@ object DMNFe: TDMNFe
       '  XML'
       'from TBNFE_CARTA_CORRECAO '
       'where'
-      '  CCE_EMPRESA = :CCE_EMPRESA and'
       '  CCE_NUMERO = :CCE_NUMERO')
     ModifySQL.Strings = (
       'update TBNFE_CARTA_CORRECAO'
@@ -19433,6 +19441,7 @@ object DMNFe: TDMNFe
       '  CCE_ENVIADA = :CCE_ENVIADA,'
       '  CCE_HORA = :CCE_HORA,'
       '  CCE_NUMERO = :CCE_NUMERO,'
+      '  CCE_TEXTO = :CCE_TEXTO,'
       '  NFE_MODELO = :NFE_MODELO,'
       '  NFE_NUMERO = :NFE_NUMERO,'
       '  NFE_SERIE = :NFE_SERIE,'
@@ -19440,10 +19449,7 @@ object DMNFe: TDMNFe
       '  PROTOCOLO = :PROTOCOLO,'
       '  XML = :XML'
       'where'
-      '  CCE_EMPRESA = :OLD_CCE_EMPRESA and'
       '  CCE_NUMERO = :OLD_CCE_NUMERO')
-    InsertSQL.Strings = (
-      '')
     Left = 176
     Top = 552
   end

@@ -244,7 +244,7 @@ type
     procedure nmEfetuarLogoffClick(Sender: TObject);
     procedure nmRequisicaoCompraClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure nmConverterReqAutCompraClick(Sender: TObject);
+    procedure nmCartaCorrecaoNFeClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -935,10 +935,10 @@ begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
 end;
 
-procedure TfrmPrinc.nmConverterReqAutCompraClick(Sender: TObject);
+procedure TfrmPrinc.nmCartaCorrecaoNFeClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_MOV_CONVERT_REQ_AUT_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeRequisicaoCompraPesquisa');
+  if GetPermissaoRotinaSistema(ROTINA_NFE_CARTA_CORRECAO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeCartaCorrecao');
 end;
 
 end.

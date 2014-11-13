@@ -22940,7 +22940,6 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
         Caption = 'Converter Requisi'#231#245'es em Autoriza'#231#245'es'
-        OnClick = nmConverterReqAutCompraClick
       end
       object nmAutorizacaoCompra: TMenuItem
         Bitmap.Data = {
@@ -23272,6 +23271,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
         Caption = 'Carta de Corre'#231#227'o Eletr'#244'nica (CC-e)'
+        OnClick = nmCartaCorrecaoNFeClick
       end
       object N13: TMenuItem
         Caption = '-'
