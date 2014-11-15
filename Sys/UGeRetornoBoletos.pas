@@ -264,12 +264,12 @@ begin
   if ( IbQryBancos.Locate('BCO_COD', StrToIntDef(Copy(edBanco.Text, 1, 3), 0), []) ) then
     edBanco.Tag := IbQryBancosBCO_COD.AsInteger;
 
+  CarregarFormaPagto(IbQryBancosBCO_COD.AsInteger);
+  edFormaPagtoChange(edFormaPagto);
+
   DefinirDiretorioArquivo( edBanco.Tag );
 
   ListarArquivosRetorno( edDiretorioRetorno.Text, FILTRO_ARQUIVO_RETORNO, lstBxRetorno.Items);
-
-  CarregarFormaPagto(IbQryBancosBCO_COD.AsInteger);
-  edFormaPagtoChange(edFormaPagto);
 end;
 
 procedure TfrmGeRetornoBoleto.FormShow(Sender: TObject);

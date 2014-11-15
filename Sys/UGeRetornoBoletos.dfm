@@ -131,11 +131,10 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
         ItemHeight = 13
         ItemIndex = 0
         TabOrder = 0
-        Text = '001 - Banco do Brasil'
+        Text = '000 - Configurar Boleto em Cadastro/Bancos'
         OnChange = edBancoChange
         Items.Strings = (
-          '001 - Banco do Brasil'
-          '341 - Ita'#250)
+          '000 - Configurar Boleto em Cadastro/Bancos')
       end
       object edDiretorioRetorno: TEdit
         Left = 8
@@ -193,11 +192,10 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
         ItemHeight = 13
         ItemIndex = 0
         TabOrder = 2
-        Text = '001 - Banco do Brasil'
+        Text = '000 - Configurar Forma de Pagamento'
         OnChange = edFormaPagtoChange
         Items.Strings = (
-          '001 - Banco do Brasil'
-          '341 - Ita'#250)
+          '000 - Configurar Forma de Pagamento')
       end
     end
   end
@@ -1040,7 +1038,10 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
       
         '  inner join TBCONTA_CORRENTE cc on (cc.conta_banco_boleto = bb.' +
         'bco_cod)'
-      '  inner join TBFORMPAGTO fp on (fp.conta_corrente = cc.codigo)'
+      
+        '  inner join TBFORMPAGTO_CONTACOR fc on (fc.conta_corrente = cc.' +
+        'codigo)'
+      '  inner join TBFORMPAGTO fp on (fp.cod = fc.forma_pagto)'
       'where bb.bco_cod = :banco')
     Left = 112
     Top = 216
