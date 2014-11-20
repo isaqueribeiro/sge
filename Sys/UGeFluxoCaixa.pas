@@ -739,9 +739,18 @@ end;
 
 
 procedure TfrmGeFluxoCaixa.nmImprimirExtratoClick(Sender: TObject);
+var
+  Data : TDateTime;
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
+
+  Data := e1Data.Date;
+  while Data <= e2Data.Date do
+  begin
+    GerarSaldoContaCorrente(IbDtstTabela.FieldByName('CONTA_CORRENTE').AsInteger, Data);
+    Data := Data + 1;
+  end;
 
   with DMNFe do
   begin

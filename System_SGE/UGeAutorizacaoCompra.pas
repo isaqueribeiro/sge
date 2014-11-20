@@ -183,6 +183,10 @@ type
     TbsAutorizacaoCancelado: TTabSheet;
     dbMovitoCancelamento: TDBMemo;
     IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField;
+    lblCentroCusto: TLabel;
+    dbCentroCusto: TRxDBComboEdit;
+    IbDtstTabelaCENTRO_CUSTO: TIntegerField;
+    IbDtstTabelaDESCRICAO_CENTRO_CUSTO: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -223,6 +227,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
+    procedure dbCentroCustoButtonClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -258,7 +263,8 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeFornecedor, UGeProduto, UGeAutorizacaoCompraCancelar, UGeCliente;
+  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeFornecedor, UGeProduto, UGeAutorizacaoCompraCancelar, UGeCliente,
+  UGeCentroCusto;
 
 {$R *.dfm}
 
@@ -423,6 +429,7 @@ begin
   IbDtstTabelaCANCELADO_USUARIO.Clear;
   IbDtstTabelaCANCELADO_MOTIVO.Clear;
   IbDtstTabelaCLIENTE.Clear;
+  IbDtstTabelaCENTRO_CUSTO.Clear;
 end;
 
 procedure TfrmGeAutorizacaoCompra.btbtnIncluirClick(Sender: TObject);
@@ -1299,6 +1306,24 @@ begin
 
     end;
 
+  end
+  else
+  if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
+  begin
+
+    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+      if ( dbCliente.Focused ) then
+      begin
+        IbDtstTabelaCLIENTE.Clear;
+        IbDtstTabelaNOMECLIENTE.Clear;
+      end
+      else
+      if ( dbCentroCusto.Focused ) then
+      begin
+        IbDtstTabelaCENTRO_CUSTO.Clear;
+        IbDtstTabelaDESCRICAO_CENTRO_CUSTO.Clear;
+      end;
+      
   end;
 
   inherited;
@@ -1405,6 +1430,20 @@ begin
     cdsTabelaItens.Locate('SEQ', Item, []);
     cdsTabelaItens.EnableControls;
   end;
+end;
+
+procedure TfrmGeAutorizacaoCompra.dbCentroCustoButtonClick(
+  Sender: TObject);
+var
+  iCodigo : Integer;
+  sNome : String;
+begin
+  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    if ( SelecionarDepartamento(Self, iCodigo, sNome) ) then
+    begin
+      IbDtstTabelaCENTRO_CUSTO.AsInteger          := iCodigo;
+      IbDtstTabelaDESCRICAO_CENTRO_CUSTO.AsString := sNome;
+    end;
 end;
 
 initialization

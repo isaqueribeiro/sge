@@ -116,6 +116,8 @@ type
     edFinal: TDateEdit;
     CdsTitulosSITUACAO: TSmallintField;
     chkEnviarCancelados: TCheckBox;
+    btnHistorico: TBitBtn;
+    Bevel7: TBevel;
     procedure FormShow(Sender: TObject);
     procedure edBancoChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);

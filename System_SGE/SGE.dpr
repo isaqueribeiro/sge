@@ -127,7 +127,8 @@ uses
   UGeRequisicaoCompraCancelar in 'UGeRequisicaoCompraCancelar.pas' {frmGeRequisicaoCompraCancelar},
   UGeRequisicaoCompraPesquisa in 'UGeRequisicaoCompraPesquisa.pas' {frmGeRequisicaoCompraPesquisa},
   UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
-  UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida};
+  UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
+  UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto};
 
 {$R *.res}
 

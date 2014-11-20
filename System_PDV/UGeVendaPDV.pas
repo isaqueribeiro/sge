@@ -322,7 +322,7 @@ begin
     DataSetItens.Next;
   end
   else
-  if ( Key = 83 ) then // Tela S
+  if ( Key = SYS_KEY_S ) then // Tela S
     actSair.Execute
   else
     inherited;

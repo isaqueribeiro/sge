@@ -245,6 +245,8 @@ type
     procedure nmRequisicaoCompraClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure nmCartaCorrecaoNFeClick(Sender: TObject);
+    procedure nmCentroCustoClick(Sender: TObject);
+    procedure nmConverterReqAutCompraClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -939,6 +941,18 @@ procedure TfrmPrinc.nmCartaCorrecaoNFeClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_NFE_CARTA_CORRECAO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeCartaCorrecao');
+end;
+
+procedure TfrmPrinc.nmCentroCustoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CENTRO_CUSTO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeCentroCusto');
+end;
+
+procedure TfrmPrinc.nmConverterReqAutCompraClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_MOV_CONVERT_REQ_AUT_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeRequisicaoCompraPesquisa');
 end;
 
 end.

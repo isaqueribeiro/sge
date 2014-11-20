@@ -101,6 +101,8 @@ type
     CdsPesquisaSELECIONAR: TIntegerField;
     BtnConverter: TSpeedButton;
     stpGerarAutorizacaoItens: TIBStoredProc;
+    cdsAutorizacaoCENTRO_CUSTO: TIntegerField;
+    CdsPesquisaCENTRO_CUSTO: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -379,6 +381,7 @@ begin
       cdsAutorizacaoCANCELADO_MOTIVO.Clear;
       cdsAutorizacaoTRANSPORTADOR.Clear;
       cdsAutorizacaoCLIENTE.Clear;
+      cdsAutorizacaoCENTRO_CUSTO.Clear;
 
       cdsAutorizacao.Post;
       cdsAutorizacao.ApplyUpdates;

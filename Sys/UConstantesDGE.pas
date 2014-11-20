@@ -6,7 +6,7 @@ Uses
   SysUtils, Classes, ExtCtrls;
 
   Type
-    TPermissaoLista = Array [0..43] of String;
+    TPermissaoLista = Array [0..44] of String;
 
 const
   VERSION_NUMBER = '1.0.8.0';
@@ -19,6 +19,16 @@ const
   ROTINA_TIPO_TELA     = 1;
   ROTINA_TIPO_FUNCAO   = 2;
   ROTINA_TIPO_PROCESSO = 3;
+
+  // Códigos de Teclas
+
+  SYS_KEY_A = 65;
+  SYS_KEY_B = 66;
+  SYS_KEY_L = 76;
+  SYS_KEY_M = 77;
+  SYS_KEY_R = 82;
+  SYS_KEY_S = 83;
+  SYS_KEY_T = 84;
 
   // Constantes FR3
 
@@ -198,6 +208,7 @@ const
     , ROTINA_CAD_TRIBUTACAO_ID
     , ROTINA_CAD_CONTA_CORRENTE_ID
     , ROTINA_CAD_TIPO_DESPESA_ID
+    , ROTINA_CAD_CENTRO_CUSTO_ID
     , ROTINA_CAD_FORMA_PAGTO_ID
     , ROTINA_CAD_CONDICAO_PAGTO_ID
 

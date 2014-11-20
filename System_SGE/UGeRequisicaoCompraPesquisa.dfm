@@ -329,6 +329,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       '  , r.movito'
       '  , r.observacao'
       '  , r.cliente'
+      '  , r.centro_custo'
       '  , r.endereco_entrega'
       '  , r.status'
       '  , r.recebedor_nome'
@@ -533,6 +534,9 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     object CdsPesquisaCLIENTE: TIntegerField
       FieldName = 'CLIENTE'
     end
+    object CdsPesquisaCENTRO_CUSTO: TIntegerField
+      FieldName = 'CENTRO_CUSTO'
+    end
     object CdsPesquisaENDERECO_ENTREGA: TMemoField
       FieldName = 'ENDERECO_ENTREGA'
       BlobType = ftMemo
@@ -681,6 +685,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       '  , a.movito'
       '  , a.observacao'
       '  , a.cliente'
+      '  , a.centro_custo'
       '  , a.endereco_entrega'
       '  , a.status'
       '  , a.recebedor_nome'
@@ -792,6 +797,11 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       DisplayLabel = 'Cliente'
       FieldName = 'CLIENTE'
       Origin = '"TBAUTORIZA_COMPRA"."CLIENTE"'
+    end
+    object cdsAutorizacaoCENTRO_CUSTO: TIntegerField
+      FieldName = 'CENTRO_CUSTO'
+      Origin = '"TBAUTORIZA_COMPRA"."CENTRO_CUSTO"'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsAutorizacaoMOVITO: TMemoField
       FieldName = 'MOVITO'
@@ -953,6 +963,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       '  MOVITO,'
       '  OBSERVACAO,'
       '  CLIENTE,'
+      '  CENTRO_CUSTO,'
       '  ENDERECO_ENTREGA,'
       '  STATUS,'
       '  AUTORIZADO_DATA,'
@@ -985,6 +996,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       '  CANCELADO_DATA = :CANCELADO_DATA,'
       '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
       '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
+      '  CENTRO_CUSTO = :CENTRO_CUSTO,'
       '  CLIENTE = :CLIENTE,'
       '  CODIGO = :CODIGO,'
       '  COMPETENCIA = :COMPETENCIA,'
@@ -1023,41 +1035,43 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         '  (ANO, AUTORIZADO_DATA, AUTORIZADO_USUARIO, CANCELADO_DATA, CAN' +
         'CELADO_MOTIVO, '
       
-        '   CANCELADO_USUARIO, CLIENTE, CODIGO, COMPETENCIA, CONDICAO_PAG' +
-        'TO, DATA_FATURA, '
+        '   CANCELADO_USUARIO, CENTRO_CUSTO, CLIENTE, CODIGO, COMPETENCIA' +
+        ', CONDICAO_PAGTO, '
       
-        '   EMISSAO_DATA, EMISSAO_USUARIO, EMPRESA, ENDERECO_ENTREGA, FOR' +
-        'MA_PAGTO, '
+        '   DATA_FATURA, EMISSAO_DATA, EMISSAO_USUARIO, EMPRESA, ENDERECO' +
+        '_ENTREGA, '
       
-        '   FORNECEDOR, INSERCAO_DATA, MOVITO, NOME_CONTATO, NUMERO, OBSE' +
-        'RVACAO, '
+        '   FORMA_PAGTO, FORNECEDOR, INSERCAO_DATA, MOVITO, NOME_CONTATO,' +
+        ' NUMERO, '
       
-        '   RECEBEDOR_CPF, RECEBEDOR_FUNCAO, RECEBEDOR_NOME, STATUS, TIPO' +
-        ', TRANSPORTADOR, '
+        '   OBSERVACAO, RECEBEDOR_CPF, RECEBEDOR_FUNCAO, RECEBEDOR_NOME, ' +
+        'STATUS, '
       
-        '   VALIDADE, VALOR_BRUTO, VALOR_DESCONTO, VALOR_TOTAL, VALOR_TOT' +
-        'AL_FRETE, '
-      '   VALOR_TOTAL_IPI)'
+        '   TIPO, TRANSPORTADOR, VALIDADE, VALOR_BRUTO, VALOR_DESCONTO, V' +
+        'ALOR_TOTAL, '
+      '   VALOR_TOTAL_FRETE, VALOR_TOTAL_IPI)'
       'values'
       
         '  (:ANO, :AUTORIZADO_DATA, :AUTORIZADO_USUARIO, :CANCELADO_DATA,' +
         ' :CANCELADO_MOTIVO, '
       
-        '   :CANCELADO_USUARIO, :CLIENTE, :CODIGO, :COMPETENCIA, :CONDICA' +
-        'O_PAGTO, '
+        '   :CANCELADO_USUARIO, :CENTRO_CUSTO, :CLIENTE, :CODIGO, :COMPET' +
+        'ENCIA, '
       
-        '   :DATA_FATURA, :EMISSAO_DATA, :EMISSAO_USUARIO, :EMPRESA, :END' +
-        'ERECO_ENTREGA, '
+        '   :CONDICAO_PAGTO, :DATA_FATURA, :EMISSAO_DATA, :EMISSAO_USUARI' +
+        'O, :EMPRESA, '
       
-        '   :FORMA_PAGTO, :FORNECEDOR, :INSERCAO_DATA, :MOVITO, :NOME_CON' +
-        'TATO, :NUMERO, '
+        '   :ENDERECO_ENTREGA, :FORMA_PAGTO, :FORNECEDOR, :INSERCAO_DATA,' +
+        ' :MOVITO, '
       
-        '   :OBSERVACAO, :RECEBEDOR_CPF, :RECEBEDOR_FUNCAO, :RECEBEDOR_NO' +
-        'ME, :STATUS, '
+        '   :NOME_CONTATO, :NUMERO, :OBSERVACAO, :RECEBEDOR_CPF, :RECEBED' +
+        'OR_FUNCAO, '
       
-        '   :TIPO, :TRANSPORTADOR, :VALIDADE, :VALOR_BRUTO, :VALOR_DESCON' +
-        'TO, :VALOR_TOTAL, '
-      '   :VALOR_TOTAL_FRETE, :VALOR_TOTAL_IPI)')
+        '   :RECEBEDOR_NOME, :STATUS, :TIPO, :TRANSPORTADOR, :VALIDADE, :' +
+        'VALOR_BRUTO, '
+      
+        '   :VALOR_DESCONTO, :VALOR_TOTAL, :VALOR_TOTAL_FRETE, :VALOR_TOT' +
+        'AL_IPI)')
     DeleteSQL.Strings = (
       'delete from TBAUTORIZA_COMPRA'
       'where'

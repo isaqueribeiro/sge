@@ -77,7 +77,8 @@ var
 
 implementation
 
-uses UDMBusiness, UConstantesDGE;
+uses
+  UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
