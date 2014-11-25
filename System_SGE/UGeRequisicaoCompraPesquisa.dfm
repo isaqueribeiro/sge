@@ -4,7 +4,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
   Width = 1132
   Height = 615
   ActiveControl = edTipoRequisicao
-  Caption = 'Conerverter Requisi'#231#245'es em Autoriza'#231#245'es de Compras/Servi'#231'os'
+  Caption = 'Conrverter Requisi'#231#245'es em Autoriza'#231#245'es de Compras/Servi'#231'os'
   OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 13
