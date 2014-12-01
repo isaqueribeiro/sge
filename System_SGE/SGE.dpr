@@ -128,7 +128,8 @@ uses
   UGeRequisicaoCompraPesquisa in 'UGeRequisicaoCompraPesquisa.pas' {frmGeRequisicaoCompraPesquisa},
   UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
   UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
-  UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto};
+  UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto},
+  UGePlanoContas in '..\Sys\UGePlanoContas.pas' {frmGePlanoContas};
 
 {$R *.res}
 
