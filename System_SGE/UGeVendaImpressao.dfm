@@ -1,8 +1,25 @@
 inherited frmGeVendaImpressao: TfrmGeVendaImpressao
   Caption = 'Relat'#243'rio de Vendas'
+  ClientHeight = 320
   PixelsPerInch = 96
   TextHeight = 13
+  inherited Bevel1: TBevel
+    Top = 316
+  end
+  inherited Bevel3: TBevel
+    Top = 277
+  end
+  inherited tlbBotoes: TToolBar
+    Top = 281
+  end
+  inherited pnlBanner: TPanel
+    Height = 277
+    inherited imgBanner: TImage
+      Height = 277
+    end
+  end
   inherited pnlRelatorio: TPanel
+    Height = 277
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
         Items.Strings = (
@@ -15,9 +32,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
     inherited GrpBxFiltro: TGroupBox
+      Height = 196
       object lblSituacao: TLabel
         Left = 41
-        Top = 52
+        Top = 76
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -26,7 +44,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object lblData: TLabel
         Left = 47
-        Top = 27
+        Top = 51
         Width = 46
         Height = 13
         Alignment = taRightJustify
@@ -35,7 +53,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object lblVendedor: TLabel
         Left = 36
-        Top = 76
+        Top = 100
         Width = 57
         Height = 13
         Alignment = taRightJustify
@@ -44,7 +62,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object lblCidade: TLabel
         Left = 52
-        Top = 100
+        Top = 124
         Width = 41
         Height = 13
         Alignment = taRightJustify
@@ -53,7 +71,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object lblCliente: TLabel
         Left = 51
-        Top = 124
+        Top = 148
         Width = 42
         Height = 13
         Alignment = taRightJustify
@@ -61,15 +79,24 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FocusControl = edCliente
         Visible = False
       end
+      object lblEmpresa: TLabel
+        Left = 49
+        Top = 28
+        Width = 52
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Empresa:'
+        FocusControl = edEmpresa
+      end
       object edSituacao: TComboBox
         Left = 104
-        Top = 48
+        Top = 72
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 2
+        TabOrder = 3
         Text = '(Todas)'
         OnChange = edSituacaoChange
         Items.Strings = (
@@ -81,7 +108,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object e1Data: TDateEdit
         Left = 104
-        Top = 23
+        Top = 47
         Width = 101
         Height = 21
         GlyphKind = gkCustom
@@ -131,32 +158,19 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           FF00FF00FF008080800080808000808080008080800080808000808080008080
           80008080800080808000808080008080800080808000FF00FF00}
         NumGlyphs = 2
-        TabOrder = 0
+        TabOrder = 1
         Text = '01/01/2012'
       end
       object e2Data: TDateEdit
         Left = 208
-        Top = 23
+        Top = 47
         Width = 104
         Height = 21
         NumGlyphs = 2
-        TabOrder = 1
+        TabOrder = 2
         Text = '01/01/2012'
       end
       object edVendedor: TComboBox
-        Left = 104
-        Top = 72
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        ItemIndex = 0
-        TabOrder = 3
-        Text = '(Todos)'
-        Items.Strings = (
-          '(Todos)')
-      end
-      object edCidade: TComboBox
         Left = 104
         Top = 96
         Width = 313
@@ -169,7 +183,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Items.Strings = (
           '(Todos)')
       end
-      object edCliente: TComboBox
+      object edCidade: TComboBox
         Left = 104
         Top = 120
         Width = 313
@@ -179,18 +193,40 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         ItemIndex = 0
         TabOrder = 5
         Text = '(Todos)'
+        Items.Strings = (
+          '(Todos)')
+      end
+      object edCliente: TComboBox
+        Left = 104
+        Top = 144
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        TabOrder = 6
+        Text = '(Todos)'
         Visible = False
         Items.Strings = (
           '(Todos)')
       end
       object chkNFeEmitida: TCheckBox
         Left = 104
-        Top = 144
+        Top = 168
         Width = 185
         Height = 17
         Caption = 'Apenas com NF-e emitida(s)'
-        TabOrder = 6
+        TabOrder = 7
         Visible = False
+      end
+      object edEmpresa: TComboBox
+        Left = 104
+        Top = 24
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemHeight = 13
+        TabOrder = 0
       end
     end
   end
@@ -349,7 +385,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -370,7 +406,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -389,7 +425,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -418,11 +454,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1665,7 +1701,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1686,7 +1722,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1705,7 +1741,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1734,11 +1770,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3210,7 +3246,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3231,7 +3267,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3250,7 +3286,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3279,11 +3315,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3795,7 +3831,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3816,7 +3852,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3835,7 +3871,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3864,11 +3900,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -5068,7 +5104,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -5089,7 +5125,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -5108,7 +5144,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -5137,11 +5173,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -6610,7 +6646,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -6631,7 +6667,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -6650,7 +6686,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -6679,11 +6715,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -7742,5 +7778,30 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     BCDToCurrency = True
     Left = 400
     Top = 248
+  end
+  object QryEmpresas: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.rzsoc'
+      '  , e.cnpj'
+      'from TBEMPRESA e'
+      'order by 2')
+    Left = 360
+    Top = 64
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = QryEmpresas
+    Left = 392
+    Top = 64
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 424
+    Top = 64
   end
 end

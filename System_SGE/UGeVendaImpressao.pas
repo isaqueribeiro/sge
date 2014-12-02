@@ -54,6 +54,11 @@ type
     CdsVendaCompetencia: TClientDataSet;
     FrdsVendaCompetencia: TfrxDBDataset;
     chkNFeEmitida: TCheckBox;
+    lblEmpresa: TLabel;
+    edEmpresa: TComboBox;
+    QryEmpresas: TIBQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -68,6 +73,9 @@ type
     FSQL_RelacaoVendaClienteAnalit : TStringList;
     ICidade   : Array of Integer;
     IVendedor : Array of Integer;
+    IEmpresa : Array of String;
+    procedure CarregarDadosEmpresa; override;
+    procedure CarregarEmpresa;
     procedure CarregarCidades;
     procedure CarregarVendedores;
     procedure MontarVendaCompetencia;
@@ -87,7 +95,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness;
+  UConstantesDGE, UDMBusiness, UDMNFe;
 
 const
   REPORT_RELACAO_VENDA_VENDEDOR_SINTETICO = 0;
@@ -158,6 +166,7 @@ end;
 
 procedure TfrmGeVendaImpressao.FormShow(Sender: TObject);
 begin
+  CarregarEmpresa;
   CarregarVendedores;
   CarregarCidades;
 end;
@@ -178,7 +187,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoVendaSintet );
-      SQL.Add('where v.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
@@ -345,7 +354,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoVendaAnalit );
-      SQL.Add('where v.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
@@ -436,7 +445,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoVendaSintet );
-      SQL.Add('where v.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
       SQL.Add('  and v.status between ' + IntToStr(STATUS_VND_FIN) + ' and ' + IntToStr(STATUS_VND_NFE));
 
       if StrIsDateTime(e1Data.Text) then
@@ -511,7 +520,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoVendaClienteAnalit );
-      SQL.Add('where v.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
@@ -580,7 +589,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoVendaClienteSintet );
-      SQL.Add('where v.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
@@ -655,7 +664,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoVendaClienteSintet );
-      SQL.Add('where v.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
@@ -731,7 +740,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_VendaCompetencia );
-      SQL.Add('where v.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
@@ -788,6 +797,49 @@ procedure TfrmGeVendaImpressao.edSituacaoChange(Sender: TObject);
 begin
   inherited;
   chkNFeEmitida.Visible := (edSituacao.ItemIndex = 4); // Vendas canceladas
+end;
+
+procedure TfrmGeVendaImpressao.CarregarDadosEmpresa;
+begin
+  with frReport do
+    try
+      DMNFe.AbrirEmitente(IEmpresa[edEmpresa.ItemIndex]);
+      DMBusiness.ConfigurarEmail(IEmpresa[edEmpresa.ItemIndex], EmptyStr, TituloRelario, EmptyStr);
+    except
+    end;
+end;
+
+procedure TfrmGeVendaImpressao.CarregarEmpresa;
+var
+  P ,
+  I : Integer;
+begin
+  with CdsEmpresas do
+  begin
+    Open;
+
+    edEmpresa.Clear;
+    SetLength(IEmpresa, RecordCount);
+
+    P := 0;
+    I := 0;
+
+    while not Eof do
+    begin
+      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
+
+      if ( IEmpresa[I] = GetEmpresaIDDefault ) then
+        P := I;
+        
+      Inc(I);
+      Next;
+    end;
+
+    Close;
+  end;
+
+  edEmpresa.ItemIndex := P;
 end;
 
 initialization

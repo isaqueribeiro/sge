@@ -53,6 +53,7 @@ type
     property Filtros : String read _Filtros write _Filtros;
 
     procedure RegistrarRotinaSistema; override;
+    procedure CarregarDadosEmpresa; virtual;
   end;
 
 var
@@ -131,10 +132,7 @@ begin
   begin
     with frReport do
     begin
-      try
-        DMBusiness.ConfigurarEmail(GetEmpresaIDDefault, EmptyStr, TituloRelario, EmptyStr);
-      except
-      end;
+      CarregarDadosEmpresa;
 
       SetVariablesDefault(frReport);
 
@@ -142,7 +140,7 @@ begin
       ReportOptions.Name   := TituloRelario;
 
       OnGetValue := frGetValue;
-      
+
       PrepareReport;
       ShowReport;
     end;
@@ -253,6 +251,16 @@ procedure TfrmGrPadraoImpressao.RegistrarRotinaSistema;
 begin
   if ( Trim(RotinaID) <> EmptyStr ) then
     SetRotinaSistema(ROTINA_TIPO_TELA, RotinaID, Trim(Self.Caption), RotinaPaiID);
+end;
+
+procedure TfrmGrPadraoImpressao.CarregarDadosEmpresa;
+begin
+  with frReport do
+    try
+      DMNFe.AbrirEmitente(GetEmpresaIDDefault);
+      DMBusiness.ConfigurarEmail(GetEmpresaIDDefault, EmptyStr, TituloRelario, EmptyStr);
+    except
+    end;
 end;
 
 end.

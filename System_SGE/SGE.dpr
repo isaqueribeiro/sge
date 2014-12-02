@@ -129,7 +129,8 @@ uses
   UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
   UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
   UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto},
-  UGePlanoContas in '..\Sys\UGePlanoContas.pas' {frmGePlanoContas};
+  UGePlanoContas in '..\Sys\UGePlanoContas.pas' {frmGePlanoContas},
+  UGeProdutoImpressao in 'UGeProdutoImpressao.pas' {frmGeProdutoImpressao};
 
 {$R *.res}
 

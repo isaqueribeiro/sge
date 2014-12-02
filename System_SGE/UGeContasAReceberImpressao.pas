@@ -52,6 +52,11 @@ type
     DspRelacaoAReceberVCliente: TDataSetProvider;
     CdsRelacaoAReceberVCliente: TClientDataSet;
     FrdsRelacaoAReceberVCliente: TfrxDBDataset;
+    QryEmpresas: TIBQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
+    lblEmpresa: TLabel;
+    edEmpresa: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -64,8 +69,11 @@ type
     FSQL_RelacaoAReceberVencimentoSintet ,
     FSQL_RelacaoAReceberVencimentoCliente,
     FSQL_RelacaoAReceberBaixaSintet      : TStringList;
+    IEmpresa : Array of String;
     ICompetencia : Array of Integer;
     ICliente     : Array of Integer;
+    procedure CarregarDadosEmpresa; override;
+    procedure CarregarEmpresa;
     procedure CarregarCompetencia;
     procedure CarregarCliente;
 
@@ -95,7 +103,7 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, DateUtils;
+  UConstantesDGE, UDMBusiness, DateUtils, UDMNFe;
 
 {$R *.dfm}
 
@@ -209,7 +217,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAReceberAnalit );
-      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
       if StrIsDateTime(e1Data.Text) then
@@ -265,7 +273,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAReceberVencimentoSintet );
-      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
       if StrIsDateTime(e1Data.Text) then
@@ -351,6 +359,7 @@ end;
 procedure TfrmGeContasAReceberImpressao.FormShow(Sender: TObject);
 begin
   inherited;
+  CarregarEmpresa;
   CarregarCompetencia;
   CarregarCliente;
 end;
@@ -416,7 +425,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAReceberAnalit );
-      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
       if StrIsDateTime(e1Data.Text) then
@@ -472,7 +481,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAReceberEmissaoSintet );
-      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
       if StrIsDateTime(e1Data.Text) then
@@ -530,7 +539,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAReceberAnalit );
-      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
       if StrIsDateTime(e1Data.Text) then
@@ -586,7 +595,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAReceberBaixaSintet );
-      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
       if StrIsDateTime(e1Data.Text) then
@@ -662,7 +671,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAReceberVencimentoCliente );
-      SQL.Add('where (cr.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
       if StrIsDateTime(e1Data.Text) then
@@ -711,6 +720,49 @@ begin
       btnVisualizar.Enabled := True;
     end;
   end;
+end;
+
+procedure TfrmGeContasAReceberImpressao.CarregarDadosEmpresa;
+begin
+  with frReport do
+    try
+      DMNFe.AbrirEmitente(IEmpresa[edEmpresa.ItemIndex]);
+      DMBusiness.ConfigurarEmail(IEmpresa[edEmpresa.ItemIndex], EmptyStr, TituloRelario, EmptyStr);
+    except
+    end;
+end;
+
+procedure TfrmGeContasAReceberImpressao.CarregarEmpresa;
+var
+  P ,
+  I : Integer;
+begin
+  with CdsEmpresas do
+  begin
+    Open;
+
+    edEmpresa.Clear;
+    SetLength(IEmpresa, RecordCount);
+
+    P := 0;
+    I := 0;
+
+    while not Eof do
+    begin
+      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
+
+      if ( IEmpresa[I] = GetEmpresaIDDefault ) then
+        P := I;
+        
+      Inc(I);
+      Next;
+    end;
+
+    Close;
+  end;
+
+  edEmpresa.ItemIndex := P;
 end;
 
 initialization

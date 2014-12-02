@@ -55,6 +55,11 @@ type
     DspRelacaoAPagarVFornecedor: TDataSetProvider;
     CdsRelacaoAPagarVFornecedor: TClientDataSet;
     FrdsRelacaoAPagarVFornecedor: TfrxDBDataset;
+    QryEmpresas: TIBQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
+    lblEmpresa: TLabel;
+    edEmpresa: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -67,8 +72,11 @@ type
     FSQL_RelacaoAPagarVencimentoSintet,
     FSQL_RelacaoAPagarVencimentoFornec,
     FSQL_RelacaoAPagarBaixaSintet     : TStringList;
+    IEmpresa : Array of String;
     ITipoDespesa : Array of Integer;
     IFornecedor  : Array of Integer;
+    procedure CarregarDadosEmpresa; override;
+    procedure CarregarEmpresa;
     procedure CarregarTipoDespesa;
     procedure CarregarCliente;
 
@@ -102,7 +110,7 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, DateUtils;
+  UConstantesDGE, UDMBusiness, DateUtils, UDMNFe;
 
 {$R *.dfm}
 
@@ -233,7 +241,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarAnalit );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -299,7 +307,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarVencimentoSintet );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -393,6 +401,7 @@ end;
 procedure TfrmGeContasAPagarImpressao.FormShow(Sender: TObject);
 begin
   inherited;
+  CarregarEmpresa;
   CarregarTipoDespesa;
   CarregarCliente;
 end;
@@ -449,7 +458,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarAnalit );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtemiss >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -515,7 +524,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarEmissaoSintet );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtemiss >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -585,7 +594,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarAnalit );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtpag >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -651,7 +660,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarBaixaSintet );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtpag >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -739,7 +748,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarVencimentoSintet );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -809,7 +818,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarAnalit );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -884,7 +893,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoAPagarVencimentoFornec );
-      SQL.Add('where (cp.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
 
       if StrIsDateTime(e1Data.Text) then
         SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
@@ -938,6 +947,49 @@ begin
       btnVisualizar.Enabled := True;
     end;
   end;
+end;
+
+procedure TfrmGeContasAPagarImpressao.CarregarDadosEmpresa;
+begin
+  with frReport do
+    try
+      DMNFe.AbrirEmitente(IEmpresa[edEmpresa.ItemIndex]);
+      DMBusiness.ConfigurarEmail(IEmpresa[edEmpresa.ItemIndex], EmptyStr, TituloRelario, EmptyStr);
+    except
+    end;
+end;
+
+procedure TfrmGeContasAPagarImpressao.CarregarEmpresa;
+var
+  P ,
+  I : Integer;
+begin
+  with CdsEmpresas do
+  begin
+    Open;
+
+    edEmpresa.Clear;
+    SetLength(IEmpresa, RecordCount);
+
+    P := 0;
+    I := 0;
+
+    while not Eof do
+    begin
+      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
+
+      if ( IEmpresa[I] = GetEmpresaIDDefault ) then
+        P := I;
+        
+      Inc(I);
+      Next;
+    end;
+
+    Close;
+  end;
+
+  edEmpresa.ItemIndex := P;
 end;
 
 initialization

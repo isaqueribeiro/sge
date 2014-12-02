@@ -21180,7 +21180,7 @@ object frmPrinc: TfrmPrinc
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
             3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
           Caption = 'Planos de Contas'
-          Enabled = False
+          OnClick = nmPlanoContaClick
         end
         object nmTipoDespesa: TMenuItem
           Bitmap.Data = {

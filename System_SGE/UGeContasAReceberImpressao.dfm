@@ -18,7 +18,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     inherited GrpBxFiltro: TGroupBox
       object lblData: TLabel
         Left = 45
-        Top = 99
+        Top = 123
         Width = 46
         Height = 13
         Alignment = taRightJustify
@@ -28,7 +28,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object lblSituacao: TLabel
         Left = 41
-        Top = 52
+        Top = 76
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -37,7 +37,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object lblCompetencia: TLabel
         Left = 16
-        Top = 28
+        Top = 52
         Width = 77
         Height = 13
         Alignment = taRightJustify
@@ -46,16 +46,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object lblCliente: TLabel
         Left = 51
-        Top = 76
+        Top = 100
         Width = 42
         Height = 13
         Alignment = taRightJustify
         Caption = 'Cliente:'
         FocusControl = edCliente
       end
+      object lblEmpresa: TLabel
+        Left = 49
+        Top = 28
+        Width = 52
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Empresa:'
+        FocusControl = edEmpresa
+      end
       object e1Data: TDateEdit
         Left = 104
-        Top = 95
+        Top = 119
         Width = 100
         Height = 21
         GlyphKind = gkCustom
@@ -105,29 +114,29 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           FF00FF00FF008080800080808000808080008080800080808000808080008080
           80008080800080808000808080008080800080808000FF00FF00}
         NumGlyphs = 2
-        TabOrder = 1
+        TabOrder = 2
         Text = '01/01/2012'
         Visible = False
       end
       object e2Data: TDateEdit
         Left = 208
-        Top = 95
+        Top = 119
         Width = 104
         Height = 21
         NumGlyphs = 2
-        TabOrder = 2
+        TabOrder = 3
         Text = '01/01/2012'
         Visible = False
       end
       object edSituacao: TComboBox
         Left = 104
-        Top = 48
+        Top = 72
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 2
-        TabOrder = 3
+        TabOrder = 4
         Text = 'Pendentes'
         Items.Strings = (
           '(Todos)'
@@ -137,13 +146,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object edCompetencia: TComboBox
         Left = 104
-        Top = 24
+        Top = 48
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 0
+        TabOrder = 1
         Text = '(Todas)'
         OnChange = edCompetenciaChange
         Items.Strings = (
@@ -154,16 +163,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object edCliente: TComboBox
         Left = 104
-        Top = 72
+        Top = 96
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 4
+        TabOrder = 5
         Text = '(Todos)'
         Items.Strings = (
           '(Todos)')
+      end
+      object edEmpresa: TComboBox
+        Left = 104
+        Top = 24
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemHeight = 13
+        TabOrder = 0
       end
     end
   end
@@ -301,7 +319,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -322,7 +340,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -341,7 +359,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -370,11 +388,11 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1714,7 +1732,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1735,7 +1753,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1754,7 +1772,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -1783,11 +1801,11 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3289,7 +3307,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3310,7 +3328,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3329,7 +3347,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -3358,11 +3376,11 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -4535,7 +4553,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -4556,7 +4574,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -4575,7 +4593,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -4604,11 +4622,11 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -6057,7 +6075,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -6078,7 +6096,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -6097,7 +6115,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -6126,11 +6144,11 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8824,7 +8842,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -8845,7 +8863,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -8864,7 +8882,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
@@ -8893,11 +8911,11 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9957,5 +9975,30 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     BCDToCurrency = True
     Left = 136
     Top = 104
+  end
+  object QryEmpresas: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.rzsoc'
+      '  , e.cnpj'
+      'from TBEMPRESA e'
+      'order by 2')
+    Left = 424
+    Top = 72
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = QryEmpresas
+    Left = 456
+    Top = 72
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 488
+    Top = 72
   end
 end

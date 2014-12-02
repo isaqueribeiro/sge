@@ -247,6 +247,7 @@ type
     procedure nmCartaCorrecaoNFeClick(Sender: TObject);
     procedure nmCentroCustoClick(Sender: TObject);
     procedure nmConverterReqAutCompraClick(Sender: TObject);
+    procedure nmPlanoContaClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -370,6 +371,8 @@ end;
 
 procedure TfrmPrinc.nmRelatorioProdutoClick(Sender: TObject);
 begin
+//  if GetPermissaoRotinaSistema(ROTINA_REL_PRODUTO_ID, True) then
+//    FormFunction.ShowModalForm(Self, 'frmGeProdutoImpressao');
   if GetPermissaoRotinaSistema(ROTINA_REL_PRODUTO_ID, True) then
     FormFunction.ShowFormReport(Self, 'frmRelProdutos', 'QuickRep1');
 end;
@@ -953,6 +956,12 @@ procedure TfrmPrinc.nmConverterReqAutCompraClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_MOV_CONVERT_REQ_AUT_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeRequisicaoCompraPesquisa');
+end;
+
+procedure TfrmPrinc.nmPlanoContaClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CAD_PLANO_CONTAS_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGePlanoContas');
 end;
 
 end.

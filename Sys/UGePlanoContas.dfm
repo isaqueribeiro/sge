@@ -3,7 +3,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
   Top = 194
   Width = 812
   Height = 521
-  ActiveControl = dbExercicio
+  ActiveControl = dbNivel
   Caption = 'Tabela de Planos de Contas'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -35,22 +35,32 @@ inherited frmGePlanoContas: TfrmGePlanoContas
         Columns = <
           item
             Expanded = False
-            FieldName = 'BCO_COD'
+            FieldName = 'CODIGO'
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'BCO_NOME'
+            FieldName = 'DESCRICAO_RESUMIDA'
+            Width = 400
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'BCO_AGENCIA'
+            FieldName = 'TIPO_DESCRICAO'
+            Width = 120
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'BCO_CC'
+            FieldName = 'EXERCICIO'
+            Width = 60
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Ativo'
+            Title.Alignment = taCenter
+            Width = 45
             Visible = True
           end>
       end
@@ -76,33 +86,34 @@ inherited frmGePlanoContas: TfrmGePlanoContas
     end
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
-        Top = 185
+        Top = 225
         Width = 788
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 788
-        Height = 185
+        Height = 225
         object lblDescricaoResumida: TLabel [1]
-          Left = 416
-          Top = 24
+          Left = 16
+          Top = 64
           Width = 99
           Height = 13
           Caption = 'Descri'#231#227'o Resumida:'
         end
         object lblGrupo: TLabel [2]
           Left = 288
-          Top = 64
+          Top = 104
           Width = 33
           Height = 13
           Caption = 'Grupo:'
           FocusControl = dbGrupo
         end
         object lblExercicio: TLabel [3]
-          Left = 88
+          Left = 288
           Top = 24
           Width = 46
           Height = 13
           Caption = 'Exerc'#237'cio:'
+          Enabled = False
           FocusControl = dbExercicio
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -112,7 +123,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           ParentFont = False
         end
         object lblCodigoContabil: TLabel [4]
-          Left = 160
+          Left = 360
           Top = 24
           Width = 79
           Height = 13
@@ -126,7 +137,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           ParentFont = False
         end
         object lblCodigoResumido: TLabel [5]
-          Left = 288
+          Left = 496
           Top = 24
           Width = 86
           Height = 13
@@ -141,29 +152,39 @@ inherited frmGePlanoContas: TfrmGePlanoContas
         end
         object lblDescricaoCompleta: TLabel [6]
           Left = 16
-          Top = 104
+          Top = 144
           Width = 98
           Height = 13
           Caption = 'Descri'#231#227'o Completa:'
         end
         object lblTipo: TLabel [7]
           Left = 16
-          Top = 64
+          Top = 104
           Width = 24
           Height = 13
           Caption = 'Tipo:'
           FocusControl = dbTipo
         end
+        object lblNivel: TLabel [8]
+          Left = 88
+          Top = 24
+          Width = 105
+          Height = 13
+          Caption = 'N'#237'vel de agrupamento'
+          FocusControl = dbNivel
+        end
         inherited dbCodigo: TDBEdit
           TabStop = False
           Color = clMoneyGreen
+          DataField = 'CODIGO'
         end
         object dbDescricaoResumida: TDBEdit
-          Left = 416
-          Top = 40
-          Width = 353
+          Left = 16
+          Top = 80
+          Width = 753
           Height = 21
           CharCase = ecUpperCase
+          DataField = 'DESCRICAO_RESUMIDA'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -171,14 +192,15 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
         end
         object dbSituacao: TDBCheckBox
           Left = 16
-          Top = 152
+          Top = 192
           Width = 65
           Height = 17
           Caption = 'Ativo'
+          DataField = 'SITUACAO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -186,15 +208,17 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 9
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
         object dbGrupo: TDBLookupComboBox
           Left = 288
-          Top = 80
+          Top = 120
           Width = 481
           Height = 21
+          Hint = 'Limpar Campo (Ctrl + L)'
+          DataField = 'GRUPO'
           DataSource = DtSrcTabela
           DropDownRows = 10
           Font.Charset = DEFAULT_CHARSET
@@ -202,32 +226,22 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          KeyField = 'CODIGO'
+          ListField = 'DESCRICAO_RESUMIDA_GERAL'
           ListSource = dtsGrupo
           ParentFont = False
-          TabOrder = 6
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 7
         end
         object dbExercicio: TDBEdit
-          Left = 88
+          Left = 288
           Top = 40
           Width = 65
           Height = 21
+          DataField = 'EXERCICIO'
           DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 1
-        end
-        object dbCodigoContabil: TDBEdit
-          Left = 160
-          Top = 40
-          Width = 121
-          Height = 21
-          DataSource = DtSrcTabela
+          Enabled = False
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -236,11 +250,12 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           ParentFont = False
           TabOrder = 2
         end
-        object dbCodigoResumido: TDBEdit
-          Left = 288
+        object dbCodigoContabil: TDBEdit
+          Left = 360
           Top = 40
-          Width = 121
+          Width = 129
           Height = 21
+          DataField = 'CODIGO_CONTABIL'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -250,12 +265,28 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           ParentFont = False
           TabOrder = 3
         end
+        object dbCodigoResumido: TDBEdit
+          Left = 496
+          Top = 40
+          Width = 129
+          Height = 21
+          DataField = 'CODIGO_RESUMIDO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+        end
         object dbDescricaoCompleta: TDBEdit
           Left = 16
-          Top = 120
+          Top = 160
           Width = 753
           Height = 21
           CharCase = ecUpperCase
+          DataField = 'DESCRICAO_COMPLETA'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -263,13 +294,15 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 8
         end
         object dbTipo: TDBLookupComboBox
           Left = 16
-          Top = 80
+          Top = 120
           Width = 265
           Height = 21
+          Hint = 'Limpar Campo (Ctrl + L)'
+          DataField = 'TIPO'
           DataSource = DtSrcTabela
           DropDownRows = 10
           Font.Charset = DEFAULT_CHARSET
@@ -277,286 +310,203 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          KeyField = 'CNPJ'
-          ListField = 'RZSOC'
-          ListSource = dtsGrupo
+          KeyField = 'CODIGO'
+          ListField = 'DESCRICAO'
+          ListSource = dtsTipo
           ParentFont = False
-          TabOrder = 5
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 6
+        end
+        object dbNivel: TDBLookupComboBox
+          Left = 88
+          Top = 40
+          Width = 193
+          Height = 21
+          Hint = 'Limpar Campo (Ctrl + L)'
+          DataField = 'NIVEL'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CODIGO'
+          ListField = 'DESCRICAO'
+          ListSource = dtsNivel
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 1
         end
       end
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    BeforePost = IbDtstTabelaBeforePost
+    OnCalcFields = IbDtstTabelaCalcFields
+    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
-      '    b.bco_cod'
-      '  , b.empresa'
-      '  , b.bco_carteira'
-      '  , b.bco_nome'
-      '  , b.bco_agencia'
-      '  , b.bco_cc'
-      '  , b.bco_codigo_cedente'
-      '  , b.bco_chave'
-      '  , b.bco_gerar_boleto'
-      '  , b.bco_nosso_num_inicio'
-      '  , b.bco_nosso_num_final'
-      '  , b.bco_nosso_num_proximo'
-      '  , b.bco_confg_1'
-      '  , b.bco_confg_2'
-      '  , b.bco_diretorio_remessa'
-      '  , b.bco_diretorio_retorno'
-      '  , b.bco_sequencial_rem'
-      '  , b.bco_percentual_juros'
-      '  , b.bco_percentual_mora'
-      '  , b.bco_dia_protesto'
-      '  , b.bco_msg_instrucao'
-      '  , b.bco_layout_remessa'
-      '  , b.bco_layout_retorno'
-      'from TBBANCO_BOLETO b')
+      '    p.codigo'
+      '  , p.exercicio'
+      '  , p.grupo'
+      '  , p.nivel'
+      '  , p.tipo'
+      '  , p.codigo_contabil'
+      '  , p.codigo_resumido'
+      '  , p.descricao_resumida'
+      '  , p.descricao_completa'
+      '  , p.situacao'
+      '  , t.descricao as tipo_descricao'
+      'from TBPLANO_CONTA p'
+      '  left join VW_TIPO_PLANO_CONTA t on (t.codigo = p.tipo)')
+    GeneratorField.Field = 'CODIGO'
+    GeneratorField.Generator = 'GEN_PLANO_CONTA'
+    GeneratorField.ApplyEvent = gamOnNewRecord
     Left = 56
     Top = 376
-    object IbDtstTabelaBCO_COD: TSmallintField
+    object IbDtstTabelaCODIGO: TIntegerField
       DisplayLabel = 'C'#243'digo'
-      FieldName = 'BCO_COD'
-      Origin = 'TBBANCO_BOLETO.BCO_COD'
+      FieldName = 'CODIGO'
+      Origin = '"TBPLANO_CONTA"."CODIGO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
+      DisplayFormat = '0000'
     end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBBANCO_BOLETO"."EMPRESA"'
+    object IbDtstTabelaEXERCICIO: TSmallintField
+      DisplayLabel = 'Exerc'#237'cio'
+      FieldName = 'EXERCICIO'
+      Origin = '"TBPLANO_CONTA"."EXERCICIO"'
       ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 18
+      ReadOnly = True
     end
-    object IbDtstTabelaBCO_CARTEIRA: TIBStringField
-      DisplayLabel = 'Carteira'
-      FieldName = 'BCO_CARTEIRA'
-      Origin = 'TBBANCO_BOLETO.BCO_CARTEIRA'
-      Required = True
-      Size = 10
-    end
-    object IbDtstTabelaBCO_NOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'BCO_NOME'
-      Origin = 'TBBANCO_BOLETO.BCO_NOME'
-      Size = 50
-    end
-    object IbDtstTabelaBCO_AGENCIA: TIBStringField
-      DisplayLabel = 'Ag'#234'ncia'
-      FieldName = 'BCO_AGENCIA'
-      Origin = 'TBBANCO_BOLETO.BCO_AGENCIA'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CC: TIBStringField
-      DisplayLabel = 'C/C'
-      FieldName = 'BCO_CC'
-      Origin = 'TBBANCO_BOLETO.BCO_CC'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CODIGO_CEDENTE: TIBStringField
-      DisplayLabel = 'C'#243'digo Cedente'
-      FieldName = 'BCO_CODIGO_CEDENTE'
-      Origin = '"TBBANCO_BOLETO"."BCO_CODIGO_CEDENTE"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CHAVE: TIBStringField
-      DisplayLabel = 'Conv'#234'nio / Contrato'
-      FieldName = 'BCO_CHAVE'
-      Origin = 'TBBANCO_BOLETO.BCO_CHAVE'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_GERAR_BOLETO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'BCO_GERAR_BOLETO'
-      Origin = '"TBBANCO_BOLETO"."BCO_GERAR_BOLETO"'
+    object IbDtstTabelaGRUPO: TIntegerField
+      DisplayLabel = 'Grupo'
+      FieldName = 'GRUPO'
+      Origin = '"TBPLANO_CONTA"."GRUPO"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaBCO_NOSSO_NUM_INICIO: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_INICIO'
-      Origin = 'TBBANCO_BOLETO.BCO_NOSSO_NUM_INICIO'
+    object IbDtstTabelaNIVEL: TSmallintField
+      DisplayLabel = 'N'#237'vel'
+      FieldName = 'NIVEL'
+      Origin = '"TBPLANO_CONTA"."NIVEL"'
+      ProviderFlags = [pfInUpdate]
+      ReadOnly = True
+    end
+    object IbDtstTabelaTIPO: TSmallintField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = '"TBPLANO_CONTA"."TIPO"'
+      ProviderFlags = [pfInUpdate]
+      ReadOnly = True
+    end
+    object IbDtstTabelaCODIGO_CONTABIL: TIBStringField
+      DisplayLabel = 'C'#243'digo Cont'#225'bil'
+      FieldName = 'CODIGO_CONTABIL'
+      Origin = '"TBPLANO_CONTA"."CODIGO_CONTABIL"'
+      ProviderFlags = [pfInUpdate]
+      Size = 30
+    end
+    object IbDtstTabelaCODIGO_RESUMIDO: TIBStringField
+      DisplayLabel = 'C'#243'digo Resumido'
+      FieldName = 'CODIGO_RESUMIDO'
+      Origin = '"TBPLANO_CONTA"."CODIGO_RESUMIDO"'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
-    object IbDtstTabelaBCO_NOSSO_NUM_FINAL: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_FINAL'
-      Origin = 'TBBANCO_BOLETO.BCO_NOSSO_NUM_FINAL'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_NOSSO_NUM_PROXIMO: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_PROXIMO'
-      Origin = 'TBBANCO_BOLETO.BCO_NOSSO_NUM_PROXIMO'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CONFG_1: TIBStringField
-      FieldName = 'BCO_CONFG_1'
-      Origin = 'TBBANCO_BOLETO.BCO_CONFG_1'
-    end
-    object IbDtstTabelaBCO_CONFG_2: TIBStringField
-      FieldName = 'BCO_CONFG_2'
-      Origin = 'TBBANCO_BOLETO.BCO_CONFG_2'
-    end
-    object IbDtstTabelaBCO_DIRETORIO_REMESSA: TIBStringField
-      FieldName = 'BCO_DIRETORIO_REMESSA'
-      Origin = 'TBBANCO_BOLETO.BCO_DIRETORIO_REMESSA'
+    object IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField
+      DisplayLabel = 'Descri'#231#227'o resumida'
+      FieldName = 'DESCRICAO_RESUMIDA'
+      Origin = '"TBPLANO_CONTA"."DESCRICAO_RESUMIDA"'
+      ProviderFlags = [pfInUpdate]
+      ReadOnly = True
       Size = 100
     end
-    object IbDtstTabelaBCO_DIRETORIO_RETORNO: TIBStringField
-      FieldName = 'BCO_DIRETORIO_RETORNO'
-      Origin = 'TBBANCO_BOLETO.BCO_DIRETORIO_RETORNO'
-      Size = 100
-    end
-    object IbDtstTabelaBCO_SEQUENCIAL_REM: TIntegerField
-      FieldName = 'BCO_SEQUENCIAL_REM'
-      Origin = 'TBBANCO_BOLETO.BCO_SEQUENCIAL_REM'
-      Required = True
-    end
-    object IbDtstTabelaBCO_PERCENTUAL_JUROS: TIBBCDField
-      FieldName = 'BCO_PERCENTUAL_JUROS'
-      Origin = '"TBBANCO_BOLETO"."BCO_PERCENTUAL_JUROS"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaBCO_PERCENTUAL_MORA: TIBBCDField
-      FieldName = 'BCO_PERCENTUAL_MORA'
-      Origin = '"TBBANCO_BOLETO"."BCO_PERCENTUAL_MORA"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaBCO_DIA_PROTESTO: TSmallintField
-      FieldName = 'BCO_DIA_PROTESTO'
-      Origin = '"TBBANCO_BOLETO"."BCO_DIA_PROTESTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaBCO_MSG_INSTRUCAO: TIBStringField
-      FieldName = 'BCO_MSG_INSTRUCAO'
-      Origin = '"TBBANCO_BOLETO"."BCO_MSG_INSTRUCAO"'
+    object IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField
+      DisplayLabel = 'Descri'#231#227'o completa'
+      FieldName = 'DESCRICAO_COMPLETA'
+      Origin = '"TBPLANO_CONTA"."DESCRICAO_COMPLETA"'
       ProviderFlags = [pfInUpdate]
       Size = 250
     end
-    object IbDtstTabelaBCO_LAYOUT_REMESSA: TSmallintField
-      DisplayLabel = 'Layout de Remessa'
-      FieldName = 'BCO_LAYOUT_REMESSA'
-      Origin = '"TBBANCO_BOLETO"."BCO_LAYOUT_REMESSA"'
+    object IbDtstTabelaSITUACAO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Ativo'
+      FieldName = 'SITUACAO'
+      Origin = '"TBPLANO_CONTA"."SITUACAO"'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
-    object IbDtstTabelaBCO_LAYOUT_RETORNO: TSmallintField
-      DisplayLabel = 'Layout de Retorno'
-      FieldName = 'BCO_LAYOUT_RETORNO'
-      Origin = '"TBBANCO_BOLETO"."BCO_LAYOUT_RETORNO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
+    object IbDtstTabelaTIPO_DESCRICAO: TIBStringField
+      DisplayLabel = 'Tipo'
+      FieldKind = fkInternalCalc
+      FieldName = 'TIPO_DESCRICAO'
+      Origin = '"VW_TIPO_PLANO_CONTA"."DESCRICAO"'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 10
+    end
+    object IbDtstTabelaAtivo: TStringField
+      Alignment = taCenter
+      DisplayLabel = 'Ativo?'
+      FieldKind = fkCalculated
+      FieldName = 'Ativo'
+      ProviderFlags = []
+      Size = 1
+      Calculated = True
     end
   end
   inherited DtSrcTabela: TDataSource
+    OnDataChange = DtSrcTabelaDataChange
     Left = 120
     Top = 376
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
-      '  BCO_COD,'
-      '  EMPRESA,'
-      '  BCO_CARTEIRA,'
-      '  BCO_NOME,'
-      '  BCO_AGENCIA,'
-      '  BCO_CC,'
-      '  BCO_CODIGO_CEDENTE,'
-      '  BCO_CHAVE,'
-      '  BCO_GERAR_BOLETO,'
-      '  BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_CONFG_1,'
-      '  BCO_CONFG_2,'
-      '  BCO_SEQUENCIAL_REM,'
-      '  BCO_DIRETORIO_REMESSA,'
-      '  BCO_DIRETORIO_RETORNO,'
-      '  BCO_PERCENTUAL_JUROS,'
-      '  BCO_PERCENTUAL_MORA,'
-      '  BCO_DIA_PROTESTO,'
-      '  BCO_MSG_INSTRUCAO,'
-      '  BCO_LAYOUT_REMESSA,'
-      '  BCO_LAYOUT_RETORNO'
-      'from TBBANCO_BOLETO '
+      '  CODIGO,'
+      '  EXERCICIO,'
+      '  GRUPO,'
+      '  NIVEL,'
+      '  TIPO,'
+      '  CODIGO_CONTABIL,'
+      '  CODIGO_RESUMIDO,'
+      '  DESCRICAO_RESUMIDA,'
+      '  DESCRICAO_COMPLETA,'
+      '  SITUACAO'
+      'from TBPLANO_CONTA '
       'where'
-      '  BCO_COD = :BCO_COD and'
-      '  EMPRESA = :EMPRESA')
+      '  CODIGO = :CODIGO')
     ModifySQL.Strings = (
-      'update TBBANCO_BOLETO'
+      'update TBPLANO_CONTA'
       'set'
-      '  BCO_AGENCIA = :BCO_AGENCIA,'
-      '  BCO_CARTEIRA = :BCO_CARTEIRA,'
-      '  BCO_CC = :BCO_CC,'
-      '  BCO_CHAVE = :BCO_CHAVE,'
-      '  BCO_COD = :BCO_COD,'
-      '  BCO_CODIGO_CEDENTE = :BCO_CODIGO_CEDENTE,'
-      '  BCO_CONFG_1 = :BCO_CONFG_1,'
-      '  BCO_CONFG_2 = :BCO_CONFG_2,'
-      '  BCO_DIA_PROTESTO = :BCO_DIA_PROTESTO,'
-      '  BCO_DIRETORIO_REMESSA = :BCO_DIRETORIO_REMESSA,'
-      '  BCO_DIRETORIO_RETORNO = :BCO_DIRETORIO_RETORNO,'
-      '  BCO_GERAR_BOLETO = :BCO_GERAR_BOLETO,'
-      '  BCO_LAYOUT_REMESSA = :BCO_LAYOUT_REMESSA,'
-      '  BCO_LAYOUT_RETORNO = :BCO_LAYOUT_RETORNO,'
-      '  BCO_MSG_INSTRUCAO = :BCO_MSG_INSTRUCAO,'
-      '  BCO_NOME = :BCO_NOME,'
-      '  BCO_NOSSO_NUM_FINAL = :BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_INICIO = :BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_PROXIMO = :BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_PERCENTUAL_JUROS = :BCO_PERCENTUAL_JUROS,'
-      '  BCO_PERCENTUAL_MORA = :BCO_PERCENTUAL_MORA,'
-      '  BCO_SEQUENCIAL_REM = :BCO_SEQUENCIAL_REM,'
-      '  EMPRESA = :EMPRESA'
+      '  CODIGO = :CODIGO,'
+      '  CODIGO_CONTABIL = :CODIGO_CONTABIL,'
+      '  CODIGO_RESUMIDO = :CODIGO_RESUMIDO,'
+      '  DESCRICAO_COMPLETA = :DESCRICAO_COMPLETA,'
+      '  DESCRICAO_RESUMIDA = :DESCRICAO_RESUMIDA,'
+      '  EXERCICIO = :EXERCICIO,'
+      '  GRUPO = :GRUPO,'
+      '  NIVEL = :NIVEL,'
+      '  SITUACAO = :SITUACAO,'
+      '  TIPO = :TIPO'
       'where'
-      '  BCO_COD = :OLD_BCO_COD and'
-      '  EMPRESA = :OLD_EMPRESA')
+      '  CODIGO = :OLD_CODIGO')
     InsertSQL.Strings = (
-      'insert into TBBANCO_BOLETO'
+      'insert into TBPLANO_CONTA'
       
-        '  (BCO_AGENCIA, BCO_CARTEIRA, BCO_CC, BCO_CHAVE, BCO_COD, BCO_CO' +
-        'DIGO_CEDENTE, '
-      
-        '   BCO_CONFG_1, BCO_CONFG_2, BCO_DIA_PROTESTO, BCO_DIRETORIO_REM' +
-        'ESSA, BCO_DIRETORIO_RETORNO, '
-      
-        '   BCO_GERAR_BOLETO, BCO_LAYOUT_REMESSA, BCO_LAYOUT_RETORNO, BCO' +
-        '_MSG_INSTRUCAO, '
-      
-        '   BCO_NOME, BCO_NOSSO_NUM_FINAL, BCO_NOSSO_NUM_INICIO, BCO_NOSS' +
-        'O_NUM_PROXIMO, '
-      
-        '   BCO_PERCENTUAL_JUROS, BCO_PERCENTUAL_MORA, BCO_SEQUENCIAL_REM' +
-        ', EMPRESA)'
+        '  (CODIGO, CODIGO_CONTABIL, CODIGO_RESUMIDO, DESCRICAO_COMPLETA,' +
+        ' DESCRICAO_RESUMIDA, '
+      '   EXERCICIO, GRUPO, NIVEL, SITUACAO, TIPO)'
       'values'
       
-        '  (:BCO_AGENCIA, :BCO_CARTEIRA, :BCO_CC, :BCO_CHAVE, :BCO_COD, :' +
-        'BCO_CODIGO_CEDENTE, '
-      
-        '   :BCO_CONFG_1, :BCO_CONFG_2, :BCO_DIA_PROTESTO, :BCO_DIRETORIO' +
-        '_REMESSA, '
-      
-        '   :BCO_DIRETORIO_RETORNO, :BCO_GERAR_BOLETO, :BCO_LAYOUT_REMESS' +
-        'A, :BCO_LAYOUT_RETORNO, '
-      
-        '   :BCO_MSG_INSTRUCAO, :BCO_NOME, :BCO_NOSSO_NUM_FINAL, :BCO_NOS' +
-        'SO_NUM_INICIO, '
-      
-        '   :BCO_NOSSO_NUM_PROXIMO, :BCO_PERCENTUAL_JUROS, :BCO_PERCENTUA' +
-        'L_MORA, '
-      '   :BCO_SEQUENCIAL_REM, :EMPRESA)')
+        '  (:CODIGO, :CODIGO_CONTABIL, :CODIGO_RESUMIDO, :DESCRICAO_COMPL' +
+        'ETA, :DESCRICAO_RESUMIDA, '
+      '   :EXERCICIO, :GRUPO, :NIVEL, :SITUACAO, :TIPO)')
     DeleteSQL.Strings = (
-      'delete from TBBANCO_BOLETO'
+      'delete from TBPLANO_CONTA'
       'where'
-      '  BCO_COD = :OLD_BCO_COD and'
-      '  EMPRESA = :OLD_EMPRESA')
+      '  CODIGO = :OLD_CODIGO')
     Left = 88
     Top = 376
   end
@@ -567,12 +517,57 @@ inherited frmGePlanoContas: TfrmGePlanoContas
   object dtsGrupo: TDataSource
     DataSet = qryGrupo
     Left = 344
-    Top = 272
+    Top = 304
   end
   object qryGrupo: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    p.codigo'
+      '  , p.descricao_resumida'
+      '  , p.codigo_contabil'
+      
+        '  , coalesce(nullif(trim(p.codigo_contabil), '#39#39') || '#39' - '#39', '#39#39') |' +
+        '| p.descricao_resumida as descricao_resumida_geral'
+      '  , p.nivel'
+      'from TBPLANO_CONTA p'
+      ''
+      'order by'
+      '    4')
     Left = 312
+    Top = 304
+  end
+  object qryTipo: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    t.codigo'
+      '  , t.descricao'
+      'from VW_TIPO_PLANO_CONTA t')
+    Left = 312
+    Top = 240
+  end
+  object dtsTipo: TDataSource
+    DataSet = qryTipo
+    Left = 344
+    Top = 240
+  end
+  object qryNivel: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    n.codigo'
+      '  , n.descricao'
+      'from VW_NIVEL_PLANO_CONTA n')
+    Left = 312
+    Top = 272
+  end
+  object dtsNivel: TDataSource
+    DataSet = qryNivel
+    Left = 344
     Top = 272
   end
 end

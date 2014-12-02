@@ -33,6 +33,11 @@ type
     cdsRelacaoEntradaGeralAnalitico: TClientDataSet;
     frdsRelacaoEntradaGeralAnalitico: TfrxDBDataset;
     frRelacaoEntradaNotaFiscal: TfrxReport;
+    lblEmpresa: TLabel;
+    edEmpresa: TComboBox;
+    QryEmpresas: TIBQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure chkNFInformadaClick(Sender: TObject);
@@ -41,8 +46,11 @@ type
     { Private declarations }
     FSQL_EntradaGeralS ,
     FSQL_EntradaGeralA : TStringList;
+    IEmpresa : Array of String;
   public
     { Public declarations }
+    procedure CarregarDadosEmpresa; override;
+    procedure CarregarEmpresa;
     procedure CarregarTipoEntrada;
     procedure CarregarTipoDocumento;
     procedure MontarEntradaGeralSintetico;
@@ -56,7 +64,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness;
+  UConstantesDGE, UDMBusiness, UDMNFe;
 
 {$R *.dfm}
 
@@ -112,6 +120,7 @@ begin
   edSituacao.ItemIndex := SITUACAO_ENTRADA_PADRAO; // Entradas finalizadas e com NF-e emitidas
 
   inherited;
+  CarregarEmpresa;
   CarregarTipoEntrada;
   CarregarTipoDocumento;
 
@@ -139,7 +148,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_EntradaGeralS );
-      SQL.Add('where c.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where c.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
       SQL.Add('  and c.status > 1');
 
       if StrIsDateTime(e1Data.Text) then
@@ -269,7 +278,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_EntradaGeralA );
-      SQL.Add('where c.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where c.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
       SQL.Add('  and c.status > 1');
 
       if StrIsDateTime(e1Data.Text) then
@@ -350,7 +359,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_EntradaGeralA );
-      SQL.Add('where c.codemp = ' + QuotedStr(GetEmpresaIDDefault));
+      SQL.Add('where c.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
       SQL.Add('  and c.status > 1');
 
       if StrIsDateTime(e1Data.Text) then
@@ -403,6 +412,49 @@ begin
       btnVisualizar.Enabled := True;
     end;
   end;
+end;
+
+procedure TfrmGeEntradaImpressao.CarregarEmpresa;
+var
+  P ,
+  I : Integer;
+begin
+  with CdsEmpresas do
+  begin
+    Open;
+
+    edEmpresa.Clear;
+    SetLength(IEmpresa, RecordCount);
+
+    P := 0;
+    I := 0;
+
+    while not Eof do
+    begin
+      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
+
+      if ( IEmpresa[I] = GetEmpresaIDDefault ) then
+        P := I;
+        
+      Inc(I);
+      Next;
+    end;
+
+    Close;
+  end;
+
+  edEmpresa.ItemIndex := P;
+end;
+
+procedure TfrmGeEntradaImpressao.CarregarDadosEmpresa;
+begin
+  with frReport do
+    try
+      DMNFe.AbrirEmitente(IEmpresa[edEmpresa.ItemIndex]);
+      DMBusiness.ConfigurarEmail(IEmpresa[edEmpresa.ItemIndex], EmptyStr, TituloRelario, EmptyStr);
+    except
+    end;
 end;
 
 initialization

@@ -249,6 +249,7 @@ var
   function GetRegimeEmpresa(const sCNPJEmpresa : String) : TTipoRegime;
   function GetRazaoSocialEmpresa(const sCNPJEmpresa : String) : String;
   function GetNomeFantasiaEmpresa(const sCNPJEmpresa : String) : String;
+  function GetCnpjEmpresa(const iCodigo : Integer) : String;
   function GetPrazoValidadeAutorizacaoCompra(const sCNPJEmpresa : String) : Integer;
   function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
 
@@ -1464,6 +1465,21 @@ begin
     Open;
 
     Result := AnsiUpperCase( Trim(FieldByName('fantasia').AsString) );
+
+    Close;
+  end;
+end;
+
+function GetCnpjEmpresa(const iCodigo : Integer) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cnpj from TBEMPRESA where codigo = ' + IntToStr(iCodigo));
+    Open;
+
+    Result := AnsiUpperCase( Trim(FieldByName('cnpj').AsString) );
 
     Close;
   end;

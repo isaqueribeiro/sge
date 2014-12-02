@@ -20,7 +20,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     inherited GrpBxFiltro: TGroupBox
       object lblData: TLabel
         Left = 45
-        Top = 27
+        Top = 51
         Width = 46
         Height = 13
         Alignment = taRightJustify
@@ -29,7 +29,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object lblSituacao: TLabel
         Left = 41
-        Top = 52
+        Top = 76
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -38,7 +38,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object lblTipoDespesa: TLabel
         Left = 15
-        Top = 76
+        Top = 100
         Width = 78
         Height = 13
         Alignment = taRightJustify
@@ -47,16 +47,25 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object lblFornecedor: TLabel
         Left = 26
-        Top = 100
+        Top = 124
         Width = 67
         Height = 13
         Alignment = taRightJustify
         Caption = 'Fornecedor:'
         FocusControl = edFornecedor
       end
+      object lblEmpresa: TLabel
+        Left = 49
+        Top = 28
+        Width = 52
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Empresa:'
+        FocusControl = edEmpresa
+      end
       object e1Data: TDateEdit
         Left = 104
-        Top = 23
+        Top = 47
         Width = 100
         Height = 21
         GlyphKind = gkCustom
@@ -106,27 +115,27 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           FF00FF00FF008080800080808000808080008080800080808000808080008080
           80008080800080808000808080008080800080808000FF00FF00}
         NumGlyphs = 2
-        TabOrder = 0
+        TabOrder = 1
         Text = '01/01/2012'
       end
       object e2Data: TDateEdit
         Left = 208
-        Top = 23
+        Top = 47
         Width = 104
         Height = 21
         NumGlyphs = 2
-        TabOrder = 1
+        TabOrder = 2
         Text = '01/01/2012'
       end
       object edSituacao: TComboBox
         Left = 104
-        Top = 48
+        Top = 72
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 2
+        TabOrder = 3
         Text = '(Todos)'
         Items.Strings = (
           '(Todos)'
@@ -136,13 +145,13 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object edTipoDespesa: TComboBox
         Left = 104
-        Top = 72
+        Top = 96
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 3
+        TabOrder = 4
         Text = '(Todas)'
         OnChange = edTipoDespesaChange
         Items.Strings = (
@@ -153,26 +162,35 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object edFornecedor: TComboBox
         Left = 104
-        Top = 96
+        Top = 120
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 4
+        TabOrder = 5
         Text = '(Todos)'
         Items.Strings = (
           '(Todos)')
       end
       object dbDespesaParticular: TCheckBox
         Left = 104
-        Top = 120
+        Top = 144
         Width = 225
         Height = 17
         Caption = 'N'#227'o carregar despesas particulares'
         Checked = True
         State = cbChecked
-        TabOrder = 5
+        TabOrder = 6
+      end
+      object edEmpresa: TComboBox
+        Left = 104
+        Top = 24
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemHeight = 13
+        TabOrder = 0
       end
     end
   end
@@ -372,7 +390,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object Memo44: TfrxMemoView
           Left = 113.385900000000000000
           Top = 71.811070000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 15.118120000000000000
           ShowHint = False
           DataSet = DMNFe.frdCliente
@@ -383,7 +401,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1805,7 +1823,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3380,7 +3398,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -4629,7 +4647,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -6150,7 +6168,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8839,7 +8857,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaNMFANT: TfrxMemoView
           Left = 113.385900000000000000
           Top = 26.456710000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 15.118120000000000000
           ShowHint = False
           DataSet = DMNFe.frdCliente
@@ -8908,7 +8926,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object Memo44: TfrxMemoView
           Left = 113.385900000000000000
           Top = 71.811070000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 15.118120000000000000
           ShowHint = False
           DataSet = DMNFe.frdCliente
@@ -8919,7 +8937,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -10032,7 +10050,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -11542,7 +11560,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object Memo44: TfrxMemoView
           Left = 113.385900000000000000
           Top = 71.811070000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 15.118120000000000000
           ShowHint = False
           DataSet = DMNFe.frdCliente
@@ -11553,7 +11571,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8 = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -12588,5 +12606,30 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     BCDToCurrency = True
     Left = 136
     Top = 104
+  end
+  object QryEmpresas: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.rzsoc'
+      '  , e.cnpj'
+      'from TBEMPRESA e'
+      'order by 2')
+    Left = 424
+    Top = 72
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = QryEmpresas
+    Left = 456
+    Top = 72
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 488
+    Top = 72
   end
 end

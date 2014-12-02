@@ -14,7 +14,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
     inherited GrpBxFiltro: TGroupBox
       object lblData: TLabel
         Left = 45
-        Top = 27
+        Top = 51
         Width = 46
         Height = 13
         Alignment = taRightJustify
@@ -23,7 +23,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       end
       object lblSituacao: TLabel
         Left = 41
-        Top = 52
+        Top = 76
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -32,7 +32,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       end
       object lblTipoEntrada: TLabel
         Left = 19
-        Top = 76
+        Top = 100
         Width = 74
         Height = 13
         Alignment = taRightJustify
@@ -41,16 +41,25 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       end
       object lblTipoDocumento: TLabel
         Left = 25
-        Top = 100
+        Top = 124
         Width = 68
         Height = 13
         Alignment = taRightJustify
         Caption = 'Documento:'
         FocusControl = edTipoDocumento
       end
+      object lblEmpresa: TLabel
+        Left = 49
+        Top = 28
+        Width = 52
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Empresa:'
+        FocusControl = edEmpresa
+      end
       object e1Data: TDateEdit
         Left = 104
-        Top = 23
+        Top = 47
         Width = 100
         Height = 21
         GlyphKind = gkCustom
@@ -100,36 +109,19 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           FF00FF00FF008080800080808000808080008080800080808000808080008080
           80008080800080808000808080008080800080808000FF00FF00}
         NumGlyphs = 2
-        TabOrder = 0
+        TabOrder = 1
         Text = '01/01/2012'
       end
       object e2Data: TDateEdit
         Left = 208
-        Top = 23
+        Top = 47
         Width = 104
         Height = 21
         NumGlyphs = 2
-        TabOrder = 1
+        TabOrder = 2
         Text = '01/01/2012'
       end
       object edSituacao: TComboBox
-        Left = 104
-        Top = 48
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        ItemIndex = 1
-        TabOrder = 2
-        Text = 'Finalizado'
-        Items.Strings = (
-          '(Todas)'
-          'Finalizado'
-          'NF Emitida'
-          'Finalizada / NF Emitida'
-          'Cancelado')
-      end
-      object edTipoEntrada: TComboBox
         Left = 104
         Top = 72
         Width = 313
@@ -146,7 +138,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           'Finalizada / NF Emitida'
           'Cancelado')
       end
-      object edTipoDocumento: TComboBox
+      object edTipoEntrada: TComboBox
         Left = 104
         Top = 96
         Width = 313
@@ -163,14 +155,40 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           'Finalizada / NF Emitida'
           'Cancelado')
       end
+      object edTipoDocumento: TComboBox
+        Left = 104
+        Top = 120
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 1
+        TabOrder = 5
+        Text = 'Finalizado'
+        Items.Strings = (
+          '(Todas)'
+          'Finalizado'
+          'NF Emitida'
+          'Finalizada / NF Emitida'
+          'Cancelado')
+      end
       object chkNFInformada: TCheckBox
         Left = 104
         Top = 144
         Width = 185
         Height = 17
         Caption = 'Apenas com NF informada(s)'
-        TabOrder = 5
+        TabOrder = 6
         OnClick = chkNFInformadaClick
+      end
+      object edEmpresa: TComboBox
+        Left = 104
+        Top = 24
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemHeight = 13
+        TabOrder = 0
       end
     end
   end
@@ -4328,5 +4346,27 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
       end
     end
+  end
+  object QryEmpresas: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.rzsoc'
+      '  , e.cnpj'
+      'from TBEMPRESA e'
+      'order by 2')
+    Left = 360
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = QryEmpresas
+    Left = 392
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 424
   end
 end
