@@ -371,10 +371,8 @@ end;
 
 procedure TfrmPrinc.nmRelatorioProdutoClick(Sender: TObject);
 begin
-//  if GetPermissaoRotinaSistema(ROTINA_REL_PRODUTO_ID, True) then
-//    FormFunction.ShowModalForm(Self, 'frmGeProdutoImpressao');
   if GetPermissaoRotinaSistema(ROTINA_REL_PRODUTO_ID, True) then
-    FormFunction.ShowFormReport(Self, 'frmRelProdutos', 'QuickRep1');
+    FormFunction.ShowModalForm(Self, 'frmGeProdutoImpressao');
 end;
 
 procedure TfrmPrinc.nmAboutClick(Sender: TObject);
