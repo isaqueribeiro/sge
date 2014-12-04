@@ -32,16 +32,24 @@ type
     DspDemandaProduto: TDataSetProvider;
     CdsDemandaProduto: TClientDataSet;
     FrdsDemandaProduto: TfrxDBDataset;
+    QryAno: TIBQuery;
+    DspAno: TDataSetProvider;
+    CdsAno: TClientDataSet;
+    lblAno: TLabel;
+    edAno: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure edRelatorioChange(Sender: TObject);
   private
     { Private declarations }
-    FSQL_RelacaoProduto : TStringList;
+    FSQL_RelacaoProduto ,
+    FSQL_DemandaProduto : TStringList;
     IGrupo ,
     IFabricante : Array of Integer;
     procedure CarregarGrupo;
     procedure CarregarFabricante;
+    procedure CarregarAno;
     procedure MontarRelacaoProduto;
     procedure MontarDemandaProduto;
   public
@@ -63,12 +71,21 @@ const
 {$R *.dfm}
 
 procedure TfrmGeProdutoImpressao.FormCreate(Sender: TObject);
+var
+  I : Integer;
 begin
+  for I := 0 to edRelatorio.Items.Count - 1 do
+    edRelatorio.Items.Strings[I] := Format(edRelatorio.Items.Strings[I], [StrDescricaoProduto]);
+
   inherited;
+
   Self.Caption := 'Relatório de ' + StrDescricaoProduto;
 
   FSQL_RelacaoProduto := TStringList.Create;
   FSQL_RelacaoProduto.AddStrings( QryRelacaoProduto.SQL );
+
+  FSQL_DemandaProduto := TStringList.Create;
+  FSQL_DemandaProduto.AddStrings( QryDemandaProduto.SQL );
 end;
 
 procedure TfrmGeProdutoImpressao.MontarRelacaoProduto;
@@ -114,8 +131,10 @@ end;
 
 procedure TfrmGeProdutoImpressao.btnVisualizarClick(Sender: TObject);
 begin
-  Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: ' + #13 +
-    Format('- Tipo Registro : %s', [edTipoRegistro.Text]);
+  Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '  + #13 +
+    Format('- Tipo Registro : %s', [edTipoRegistro.Text]) + #13 +
+    Format('- Grupo         : %s', [edGrupo.Text])        + #13 +
+    Format('- Fabricante    : %s', [edFabricante.Text]);
 
   Screen.Cursor         := crSQLWait;
   btnVisualizar.Enabled := False;
@@ -123,8 +142,16 @@ begin
   Case edRelatorio.ItemIndex of
     REPORT_RELACAO_PRODUTO:
       begin
+        SubTituloRelario := EmptyStr;
         MontarRelacaoProduto;
         frReport := frRelacaoProduto;
+      end;
+
+    REPORT_DEMANDA_PRODUTO:
+      begin
+        SubTituloRelario := '- ANO ' + edAno.Text;
+        MontarDemandaProduto;
+        frReport := frDemandaProduto;
       end;
   end;
 
@@ -170,6 +197,7 @@ begin
   inherited;
   CarregarGrupo;
   CarregarFabricante;
+  CarregarAno;
 end;
 
 procedure TfrmGeProdutoImpressao.CarregarFabricante;
@@ -201,6 +229,80 @@ begin
   end;
 
   edFabricante.ItemIndex := 0;
+end;
+
+procedure TfrmGeProdutoImpressao.MontarDemandaProduto;
+begin
+  try
+    CdsDemandaProduto.Close;
+
+    with QryDemandaProduto do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_DemandaProduto );
+      SQL.Text := StringReplace(SQL.Text, '9999', edAno.Text, [rfReplaceAll]);
+      SQL.Add('where 1=1');
+
+      Case edTipoRegistro.ItemIndex of
+        1:
+          SQL.Add('  and p.aliquota_tipo = 0');
+        2:
+          SQL.Add('  and p.aliquota_tipo = 1');
+      end;
+
+      if ( edGrupo.ItemIndex > 0 ) then
+        SQL.Add('  and p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
+
+      if ( edFabricante.ItemIndex > 0 ) then
+        SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
+
+      SQL.Add('order by');
+      SQL.Add('    e.rzsoc');
+      SQL.Add('  , p.aliquota_tipo');
+      SQL.Add('  , coalesce(g.descri, ''* Indefinido'')');
+      SQL.Add('  , coalesce(f.nome, ''* Indefinido'')');
+      SQL.Add('  , p.descri_apresentacao');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a demanda de ' + StrDescricaoProduto + '.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeProdutoImpressao.CarregarAno;
+begin
+  with CdsAno do
+  begin
+    Open;
+
+    edAno.Clear;
+
+    while not Eof do
+    begin
+      if (FieldByName('ano').AsInteger > 0) then
+        edAno.Items.Add( FieldByName('ano').AsString );
+      Next;
+    end;
+
+    Close;
+  end;
+
+  if (edGrupo.Items.Count = 0) then
+    edAno.Items.Add( FormatDateTime('yyyy', GetDateDB) );
+
+  edAno.ItemIndex := 0;
+end;
+
+procedure TfrmGeProdutoImpressao.edRelatorioChange(Sender: TObject);
+begin
+  inherited;
+  lblAno.Enabled := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
+  edAno.Enabled  := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
 end;
 
 initialization

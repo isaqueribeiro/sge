@@ -1,5 +1,6 @@
 inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
-  Height = 294
+  Width = 566
+  Height = 419
   ActiveControl = dbCondicaoPagto
   Caption = 'Vendas PDV | Finalizar'
   Font.Charset = ANSI_CHARSET
@@ -10,7 +11,7 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
   object Bevel4: TBevel
     Left = 0
     Top = 0
-    Width = 539
+    Width = 550
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -1582,11 +1583,11 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     FocusControl = dbCondicaoPagto
   end
   object Label2: TLabel
-    Left = 333
-    Top = 121
-    Width = 90
+    Left = 344
+    Top = 129
+    Width = 179
     Height = 19
-    Caption = 'Valor (R$):'
+    Caption = 'Valor A Receber (R$):'
     FocusControl = dbValorFormaPagto
     Font.Charset = ANSI_CHARSET
     Font.Color = clBlue
@@ -1595,9 +1596,37 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label1: TLabel
+    Left = 341
+    Top = 193
+    Width = 122
+    Height = 19
+    Caption = 'Recebido (R$):'
+    FocusControl = dbValorRecebidoFormaPagto
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 344
+    Top = 257
+    Width = 105
+    Height = 19
+    Caption = 'TROCO (R$):'
+    FocusControl = dbValorTrocoFormaPagto
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object btnOk: TBitBtn
-    Left = 278
-    Top = 205
+    Left = 289
+    Top = 330
     Width = 124
     Height = 41
     Anchors = [akRight, akBottom]
@@ -1608,7 +1637,7 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 5
     OnClick = btnOkClick
     Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
@@ -1630,8 +1659,8 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     NumGlyphs = 2
   end
   object btnNao: TBitBtn
-    Left = 406
-    Top = 205
+    Left = 417
+    Top = 330
     Width = 124
     Height = 41
     Anchors = [akRight, akBottom]
@@ -1642,14 +1671,15 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 6
     Kind = bkCancel
   end
   object dbFormaPagto: TDBLookupComboBox
     Left = 144
     Top = 33
-    Width = 385
+    Width = 396
     Height = 27
+    Anchors = [akLeft, akTop, akRight]
     DataField = 'FORMAPAGTO_COD'
     DataSource = dtsFormaPagto
     DropDownRows = 10
@@ -1669,8 +1699,9 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
   object dbCondicaoPagto: TDBLookupComboBox
     Left = 144
     Top = 89
-    Width = 385
+    Width = 396
     Height = 27
+    Anchors = [akLeft, akTop, akRight]
     DataField = 'CONDICAOPAGTO_COD'
     DataSource = dtsFormaPagto
     DropDownRows = 10
@@ -1687,8 +1718,8 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     OnClick = dbCondicaoPagtoClick
   end
   object dbValorFormaPagto: TDBEdit
-    Left = 336
-    Top = 145
+    Left = 344
+    Top = 153
     Width = 193
     Height = 37
     Color = clMoneyGreen
@@ -1702,6 +1733,38 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     ParentFont = False
     ReadOnly = True
     TabOrder = 2
+  end
+  object dbValorRecebidoFormaPagto: TDBEdit
+    Left = 344
+    Top = 217
+    Width = 193
+    Height = 37
+    DataField = 'VALOR_RECEBIDO'
+    DataSource = dtsFormaPagto
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -24
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+  end
+  object dbValorTrocoFormaPagto: TDBEdit
+    Left = 344
+    Top = 281
+    Width = 193
+    Height = 37
+    Color = clYellow
+    DataField = 'VALOR_FPAGTO'
+    DataSource = dtsFormaPagto
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -24
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 4
   end
   object dtsFormaPagto: TDataSource
     DataSet = DMCupom.cdsVendaFormaPagto

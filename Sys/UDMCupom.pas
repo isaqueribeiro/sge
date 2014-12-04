@@ -153,7 +153,10 @@ type
     cdsVendaNFE_DENEGADA: TSmallintField;
     cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField;
     cdsVendaTitulo: TIBDataSet;
+    cdsVendaFormaPagtoVALOR_RECEBIDO: TIBBCDField;
+    cdsVendaFormaPagtoValorTroco: TCurrencyField;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
+    procedure cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -189,6 +192,14 @@ begin
 
     Result := FieldByName('orcamento').AsInteger;
   end;
+end;
+
+procedure TDMCupom.cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
+begin
+  if ( cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency > cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency ) then
+    cdsVendaFormaPagtoValorTroco.AsCurrency := cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency - cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency
+  else
+    cdsVendaFormaPagtoValorTroco.AsCurrency := 0.0;
 end;
 
 end.

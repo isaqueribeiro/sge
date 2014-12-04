@@ -24,6 +24,10 @@ type
     dbCondicaoPagto: TDBLookupComboBox;
     Label2: TLabel;
     dbValorFormaPagto: TDBEdit;
+    Label1: TLabel;
+    dbValorRecebidoFormaPagto: TDBEdit;
+    Label3: TLabel;
+    dbValorTrocoFormaPagto: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbCondicaoPagtoClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);

@@ -269,6 +269,9 @@ uses
   UConstantesDGE,
   UGeSobre,
 
+  // Movimentação
+  UGeCotacaoCompra,
+
   // Estoque, Entrada e Saída
   UGeProduto,
   UGeVenda,
@@ -281,11 +284,7 @@ uses
   UGeContasAPagar,
   UGeContasAReceber,
   UGeCaixa,
-  UGeFluxoCaixa,
-
-  // Relatórios
-  UfrmRelEstoque,
-  UGeCotacaoCompra;
+  UGeFluxoCaixa;
 
 {$R *.dfm}
 

@@ -1042,6 +1042,7 @@ object DMCupom: TDMCupom
   object cdsVendaFormaPagto: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    OnCalcFields = cdsVendaFormaPagtoCalcFields
     CachedUpdates = True
     RefreshSQL.Strings = (
       '')
@@ -1053,6 +1054,7 @@ object DMCupom: TDMCupom
       '  , f.condicaopagto_cod'
       '  , f.venda_prazo'
       '  , f.valor_fpagto'
+      '  , f.valor_recebido'
       '  , f.prazo_01'
       '  , f.prazo_02'
       '  , f.prazo_03'
@@ -1107,6 +1109,14 @@ object DMCupom: TDMCupom
       Precision = 18
       Size = 2
     end
+    object cdsVendaFormaPagtoVALOR_RECEBIDO: TIBBCDField
+      FieldName = 'VALOR_RECEBIDO'
+      Origin = '"TBVENDAS_FORMAPAGTO"."VALOR_RECEBIDO"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
     object cdsVendaFormaPagtoPRAZO_01: TSmallintField
       FieldName = 'PRAZO_01'
       Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_01"'
@@ -1155,6 +1165,12 @@ object DMCupom: TDMCupom
       FieldName = 'PRAZO_12'
       Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_12"'
     end
+    object cdsVendaFormaPagtoValorTroco: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'ValorTroco'
+      DisplayFormat = ',0.00'
+      Calculated = True
+    end
   end
   object updVendaFormaPagto: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1165,6 +1181,7 @@ object DMCupom: TDMCupom
       '  CONDICAOPAGTO_COD,'
       '  VENDA_PRAZO,'
       '  VALOR_FPAGTO,'
+      '  VALOR_RECEBIDO,'
       '  PRAZO_01,'
       '  PRAZO_02,'
       '  PRAZO_03,'
@@ -1202,6 +1219,7 @@ object DMCupom: TDMCupom
       '  PRAZO_11 = :PRAZO_11,'
       '  PRAZO_12 = :PRAZO_12,'
       '  VALOR_FPAGTO = :VALOR_FPAGTO,'
+      '  VALOR_RECEBIDO = :VALOR_RECEBIDO,'
       '  VENDA_PRAZO = :VENDA_PRAZO'
       'where'
       '  ANO_VENDA = :OLD_ANO_VENDA and'
@@ -1216,8 +1234,9 @@ object DMCupom: TDMCupom
         '   PRAZO_02, PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_06, PRAZO_07, P' +
         'RAZO_08, '
       
-        '   PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, VALOR_FPAGTO, VENDA_P' +
-        'RAZO)'
+        '   PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, VALOR_FPAGTO, VALOR_R' +
+        'ECEBIDO, '
+      '   VENDA_PRAZO)'
       'values'
       
         '  (:ANO_VENDA, :CONDICAOPAGTO_COD, :CONTROLE_VENDA, :FORMAPAGTO_' +
@@ -1227,7 +1246,8 @@ object DMCupom: TDMCupom
         '_07, :PRAZO_08, '
       
         '   :PRAZO_09, :PRAZO_10, :PRAZO_11, :PRAZO_12, :VALOR_FPAGTO, :V' +
-        'ENDA_PRAZO)')
+        'ALOR_RECEBIDO, '
+      '   :VENDA_PRAZO)')
     DeleteSQL.Strings = (
       'delete from TBVENDAS_FORMAPAGTO'
       'where'

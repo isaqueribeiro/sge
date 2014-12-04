@@ -11,7 +11,9 @@ uses
 
   ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
   IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
-  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR;
+  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR,
+  ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
+  ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal;
 
 type
   TTipoDANFE = (tipoDANFERave, tipoDANFEFast);
@@ -530,6 +532,12 @@ type
     qryCartaCorrecaoNFePROTOCOLO: TIBStringField;
     qryCartaCorrecaoNFeXML: TMemoField;
     qryCartaCorrecaoNFeCCE_TEXTO: TMemoField;
+    ACBrECF: TACBrECF;
+    ACBrRFD: TACBrRFD;
+    ACBrAAC: TACBrAAC;
+    ACBrEAD: TACBrEAD;
+    ACBrECFVirtualNaoFiscal: TACBrECFVirtualNaoFiscal;
+    qryFormaPagtosVALOR_RECEBIDO: TIBBCDField;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -971,6 +979,9 @@ begin
 
   IMR - 28/10/2014 :
     Inserção do campo "Versão NF-e:" para definir na tela de configurações a versão de emissão da NF-e
+
+  IMR - 04/12/2014 :
+    Definir configurações do RFD - Registro do Fisco CAT 52/07. Configuração importante para emissão de CUPOM  
 *)
   if not DataBaseOnLine then
     Exit;
@@ -1143,6 +1154,39 @@ begin
         edtEmitCidade.Text     := qryEmitenteCID_NOME.AsString;
         edtEmitUF.Text         := qryEmitenteEST_SIGLA.AsString;
       end;
+    end;
+
+    // Definir configurações do RFD - Registro do Fisco CAT 52/07
+
+    with ACBrRFD do
+    begin
+      DirRFD := ExtractFilePath(ParamStr(0)) + Trim(sCNPJEmitente) + '\rfd';
+
+      if Trim(DirECF)    <> EmptyStr then ForceDirectories(DirECF);
+      if Trim(DirECFLog) <> EmptyStr then ForceDirectories(DirECFLog);
+      if Trim(DirECFMes) <> EmptyStr then ForceDirectories(DirECFMes);
+      if Trim(DirRFD)    <> EmptyStr then ForceDirectories(DirRFD);
+
+      SH_CNPJ := StrFormatarCnpj(qryEmitenteCNPJ.AsString);
+      SH_IE   := qryEmitenteIE.AsString;
+      SH_IM   := qryEmitenteIM.AsString;
+      SH_RazaoSocial      := qryEmitenteRZSOC.AsString;
+      SH_NomeAplicativo   := GetProductName;
+      SH_VersaoAplicativo := GetVersion;
+    end;
+
+    with ACBrAAC, IdentPAF do
+    begin
+      Empresa.CNPJ := qryEmitenteCNPJ.AsString;
+      Empresa.IE   := qryEmitenteIE.AsString;
+      Empresa.IM   := qryEmitenteIM.AsString;
+      Empresa.RazaoSocial := qryEmitenteRZSOC.AsString;
+      Empresa.Telefone    := qryEmitenteFONE.AsString;
+      Empresa.Cep         := qryEmitenteCEP.AsString;
+      Empresa.Endereco    := qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString + ' (' + qryEmitenteBAI_NOME.AsString + ')';
+      Empresa.Cidade      := qryEmitenteCID_NOME.AsString;
+      Empresa.Uf          := qryEmitenteEST_SIGLA.AsString;
+      Empresa.Email       := qryEmitenteEMAIL.AsString;
     end;
 
   finally
@@ -4470,6 +4514,7 @@ var
   aEcf : TEcfFactory;
 
   bEmitirCumpoExtra : Boolean;
+  cValorTroco,
   cPercentualTributoAprox,
   cValorTributoAprox     ,
   cValorTotalTributoAprox: Currency;
@@ -4506,13 +4551,14 @@ begin
   aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
   try
 
+    cValorTroco := 0.0;
     cPercentualTributoAprox := 0.0;
     cValorTributoAprox      := 0.0;
     cValorTotalTributoAprox := 0.0;
 
     with aEcf do
     begin
-      Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
+      Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);  
 
       if ( qryDestinatarioCODIGO.AsInteger <> CONSUMIDOR_FINAL_CODIGO ) then
         Ecf.Identifica_Consumidor( IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString), StrFormatarCpf(qryDestinatarioCNPJ.AsString), StrFormatarCnpj(qryDestinatarioCNPJ.AsString))
@@ -4606,11 +4652,17 @@ begin
 
         while not qryFormaPagtos.Eof do
         begin
+          cValorTroco := qryFormaPagtosVALOR_RECEBIDO.AsCurrency - qryFormaPagtosVALOR_FPAGTO.AsCurrency;
+
           Ecf.Incluir_Forma_Pgto(RemoveAcentos(qryFormaPagtosDESCRI.AsString), FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
           Ecf.Texto_Livre('* ' + RemoveAcentos(
             IfThen(Trim(qryFormaPagtosCOND_DESCRICAO_PDV.AsString) = EmptyStr
               , qryFormaPagtosCOND_DESCRICAO_FULL.Text
               , qryFormaPagtosCOND_DESCRICAO_PDV.AsString)));
+
+          if ( cValorTroco > 0.0 ) then
+            Ecf.Incluir_Forma_Pgto('* Troco', FormatFloat(',0.00',  cValorTroco));
+
           qryFormaPagtos.Next;
         end;
 

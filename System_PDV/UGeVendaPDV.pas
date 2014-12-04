@@ -236,7 +236,7 @@ end;
 
 procedure TfrmGeVendaPDV.IniciarCupomProduto;
 begin
-  edProdutoCodigo.Text := '1' + COD_MLT;
+  edProdutoCodigo.Text := EmptyStr; // '1' + COD_MLT;
 
   if edProdutoCodigo.Visible and edProdutoCodigo.Enabled then
   begin
@@ -555,6 +555,7 @@ begin
     FieldByName('FORMAPAGTO_COD').Value    := edNomeFormaPagto.Tag;
     FieldByName('CONDICAOPAGTO_COD').Value := GetCondicaoPagtoIDDefault;
     FieldByName('VALOR_FPAGTO').Value      := dbValorAPagar.Field.AsCurrency;
+    FieldByName('VALOR_RECEBIDO').Value    := dbValorAPagar.Field.AsCurrency;
     FieldByName('VENDA_PRAZO').Value       := 0;
 
     for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
@@ -909,7 +910,8 @@ begin
         if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
           DataSetFormaPagto.Edit;
 
-        DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
+        DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value   := cTotalLiquido;
+        DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').Value := cTotalLiquido;
       end;
     end;
 end;
@@ -968,7 +970,8 @@ begin
     if not (DataSetFormaPagto.State in [dsEdit, dsINsert]) then
       DataSetFormaPagto.Edit;
 
-    DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency := dbValorAPagar.Field.AsCurrency;
+    DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency   := dbValorAPagar.Field.AsCurrency;
+    DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').AsCurrency := dbValorAPagar.Field.AsCurrency;
   finally
     AForm.Free;
   end;
@@ -1212,7 +1215,10 @@ begin
       DataSetFormaPagto.Edit;
 
     if (DataSetFormaPagto.RecordCount = 1) then
-      DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency := dbValorAPagar.Field.AsCurrency;
+    begin
+      DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency   := dbValorAPagar.Field.AsCurrency;
+      DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').AsCurrency := dbValorAPagar.Field.AsCurrency;
+    end;
 
     AForm.TotalAPagar := dbValorAPagar.Field.AsCurrency;
     bConfirmado := (AForm.ShowModal = mrOk);
@@ -1812,7 +1818,8 @@ begin
                 if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
                   DataSetFormaPagto.Edit;
 
-                DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
+                DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value   := cTotalLiquido;
+                DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').Value := cTotalLiquido;
               end;
 
               Exit;
@@ -1861,7 +1868,8 @@ begin
             if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
               DataSetFormaPagto.Edit;
 
-            DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
+            DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value   := cTotalLiquido;
+            DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').Value := cTotalLiquido;
           end;
         end;
       end;
