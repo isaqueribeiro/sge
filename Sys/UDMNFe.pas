@@ -7,13 +7,14 @@ uses
 
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFeDANFERave, ACBrNFe, DB,
   IBCustomDataSet, IBQuery, frxClass, frxDBSet, frxExportRTF, frxExportXLS,
-  frxExportPDF, frxExportMail, UGeConfigurarNFeACBr,
+  frxExportPDF, frxExportMail, UGeConfigurarNFeACBr, TypInfo,
 
   ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
   IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
   ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR,
   ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
-  ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal;
+  ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal, ACBrSATExtratoClass,
+  ACBrSATExtratoESCPOS, ACBrNFeDANFeESCPOS, ACBrSAT;
 
 type
   TTipoDANFE = (tipoDANFERave, tipoDANFEFast);
@@ -538,6 +539,9 @@ type
     ACBrEAD: TACBrEAD;
     ACBrECFVirtualNaoFiscal: TACBrECFVirtualNaoFiscal;
     qryFormaPagtosVALOR_RECEBIDO: TIBBCDField;
+    ACBrNFeDANFeESCPOS: TACBrNFeDANFeESCPOS;
+    ACBrSATExtratoESCPOS: TACBrSATExtratoESCPOS;
+    ACBrSAT: TACBrSAT;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -697,7 +701,7 @@ uses
   UDMBusiness, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
-  pcnEnvEventoNFe, pcnEventoNFe;
+  pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass;
 
 {$R *.dfm}
 
@@ -901,15 +905,19 @@ begin
       WriteString( sSecaoCertificado, 'NumSerie', edtNumSerie.Text) ;
 
       WriteInteger( sSecaoGeral, 'DANFE'       , rgTipoDanfe.ItemIndex) ;
-      WriteInteger( sSecaoGeral, 'FormaEmissao', rgFormaEmissao.ItemIndex) ;
+      WriteInteger( sSecaoGeral, 'FormaEmissao', cbFormaEmissao.ItemIndex) ;
+      WriteString ( sSecaoGeral, 'IdToken'     , edIdToken.Text) ;
+      WriteString ( sSecaoGeral, 'Token'       , edToken.Text) ;
       WriteString ( sSecaoGeral, 'LogoMarca'   , edtLogoMarca.Text) ;
-      WriteBool   ( sSecaoGeral, 'Salvar'      , ckSalvar.Checked) ;
-      WriteString ( sSecaoGeral, 'PathSalvar'  , edtPathLogs.Text) ;
+      WriteBool   ( sSecaoGeral, 'RetirarAcentos', ckRetirarAcentos.Checked) ;
+      WriteBool   ( sSecaoGeral, 'Salvar'      ,   ckSalvar.Checked) ;
+      WriteString ( sSecaoGeral, 'PathSalvar'  , edPathLogs.Text) ;
+      WriteString ( sSecaoGeral, 'PathSchemas' , edPathSchemas.Text) ;
       WriteInteger( sSecaoGeral, 'ModoGerarNFe', rgModoGerarNFe.ItemIndex) ;
 
       WriteString ( sSecaoWebService, 'UF'        , cbUF.Text) ;
       WriteInteger( sSecaoWebService, 'Ambiente'  , rgTipoAmb.ItemIndex) ;
-      WriteInteger( sSecaoWebService, 'VersaoNFe' , cbVersaoNFe.ItemIndex) ;
+      WriteInteger( sSecaoWebService, 'VersaoNFe' , cbVersaoDF.ItemIndex) ;
       WriteBool   ( sSecaoWebService, 'Visualizar', ckVisualizar.Checked) ;
 
       WriteString( 'Proxy', 'Host'   , edtProxyHost.Text) ;
@@ -980,8 +988,9 @@ begin
   IMR - 28/10/2014 :
     Inserção do campo "Versão NF-e:" para definir na tela de configurações a versão de emissão da NF-e
 
-  IMR - 04/12/2014 :
-    Definir configurações do RFD - Registro do Fisco CAT 52/07. Configuração importante para emissão de CUPOM  
+  IMR - 05/12/2014 :
+    Definir configurações do RFD   - Registro do Fisco CAT 52/07. Configuração importante para emissão de CUPOM
+    Definir configurações do NFC-e - Inserção/configuração dos componentes necessários a Emissão de Cupons de NFC-e
 *)
   if not DataBaseOnLine then
     Exit;
@@ -1026,18 +1035,24 @@ begin
          sbtnCaminhoCert.Visible := False;
       {$ENDIF}
 
-      rgFormaEmissao.ItemIndex := ReadInteger(sSecaoGeral, 'FormaEmissao', 0) ;
+      cbFormaEmissao.ItemIndex := ReadInteger(sSecaoGeral, 'FormaEmissao', 0) ;
       rgModoGerarNFe.ItemIndex := 1; NetWorkActive; // ReadInteger( 'Geral', 'ModoGerarNFe', 1) ;
+      edIdToken.Text := ReadString( sSecaoGeral, 'IdToken', EmptyStr);
+      edToken.Text   := ReadString( sSecaoGeral, 'Token'  , EmptyStr);
 
-      ckSalvar.Checked := ReadBool  ( sSecaoGeral, 'Salvar'      ,True) ;
-      edtPathLogs.Text := ReadString( sSecaoGeral, 'PathSalvar'  ,'') ;
+      ckRetirarAcentos.Checked := ReadBool( sSecaoGeral, 'RetirarAcentos', True) ;
+      ckSalvar.Checked         := ReadBool( sSecaoGeral, 'Salvar'        , True) ;
+      edPathLogs.Text    := ReadString( sSecaoGeral, 'PathSalvar'  , '') ;
+      edPathSchemas.Text := ReadString( sSecaoGeral, 'PathSchemas' , PathWithDelim(ExtractFilePath(Application.ExeName)) + 'Schemas\' + GetEnumName(TypeInfo(TpcnVersaoDF), Integer(cbVersaoDF.ItemIndex))) ;
 
-      ACBrNFe.Configuracoes.Geral.FormaEmissao := StrToTpEmis(OK, IntToStr(rgFormaEmissao.ItemIndex + 1));
+      ACBrNFe.Configuracoes.Geral.FormaEmissao := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
+      ACBrNFe.Configuracoes.Geral.IdToken      := edIdToken.Text;
+      ACBrNFe.Configuracoes.Geral.Token        := edToken.Text;
       ACBrNFe.Configuracoes.Geral.Salvar       := ckSalvar.Checked;
-      ACBrNFe.Configuracoes.Geral.PathSalvar   := edtPathLogs.Text;
+      ACBrNFe.Configuracoes.Geral.PathSalvar   := edPathLogs.Text;
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
-      ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoNFE.ItemIndex); // ve310;
+      ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoDF.ItemIndex); // ve310;
 
       rvDANFE.PathPDF := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT;
       frDANFE.PathPDF := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT;
@@ -1059,10 +1074,10 @@ begin
       if ( tipoDANFE = tipoDANFEFast ) then
         ACBrNFe.DANFE := frDANFE;
 
-      cbUF.ItemIndex        := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
-      rgTipoAmb.ItemIndex   := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
-      cbVersaoNFe.ItemIndex := ReadInteger( sSecaoWebService, 'VersaoNFe' , 0) ;
-      ckVisualizar.Checked  := ReadBool   ( sSecaoWebService, 'Visualizar', False) ;
+      cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
+      rgTipoAmb.ItemIndex  := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
+      cbVersaoDF.ItemIndex := ReadInteger( sSecaoWebService, 'VersaoNFe' , 0) ;
+      ckVisualizar.Checked := ReadBool   ( sSecaoWebService, 'Visualizar', False) ;
 
       ACBrNFe.Configuracoes.WebServices.UF         := cbUF.Text;
       ACBrNFe.Configuracoes.WebServices.Ambiente   := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
@@ -1158,7 +1173,7 @@ begin
 
     // Definir configurações do RFD - Registro do Fisco CAT 52/07
 
-    with ACBrRFD do
+    with ACBrRFD, ConfigACBr  do
     begin
       DirRFD := ExtractFilePath(ParamStr(0)) + Trim(sCNPJEmitente) + '\rfd';
 
@@ -1167,27 +1182,52 @@ begin
       if Trim(DirECFMes) <> EmptyStr then ForceDirectories(DirECFMes);
       if Trim(DirRFD)    <> EmptyStr then ForceDirectories(DirRFD);
 
-      SH_CNPJ := StrFormatarCnpj(qryEmitenteCNPJ.AsString);
-      SH_IE   := qryEmitenteIE.AsString;
+      SH_CNPJ := StrFormatarCnpj(edtEmitCNPJ.Text);
+      SH_IE   := edtEmitIE.Text;
       SH_IM   := qryEmitenteIM.AsString;
-      SH_RazaoSocial      := qryEmitenteRZSOC.AsString;
+      SH_RazaoSocial      := edtEmitRazao.Text;
       SH_NomeAplicativo   := GetProductName;
       SH_VersaoAplicativo := GetVersion;
     end;
 
-    with ACBrAAC, IdentPAF do
+    with ACBrAAC, IdentPAF, ConfigACBr do
     begin
-      Empresa.CNPJ := qryEmitenteCNPJ.AsString;
-      Empresa.IE   := qryEmitenteIE.AsString;
+      Empresa.CNPJ := edtEmitCNPJ.Text;
+      Empresa.IE   := edtEmitIE.Text;
       Empresa.IM   := qryEmitenteIM.AsString;
-      Empresa.RazaoSocial := qryEmitenteRZSOC.AsString;
-      Empresa.Telefone    := qryEmitenteFONE.AsString;
-      Empresa.Cep         := qryEmitenteCEP.AsString;
-      Empresa.Endereco    := qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString + ' (' + qryEmitenteBAI_NOME.AsString + ')';
-      Empresa.Cidade      := qryEmitenteCID_NOME.AsString;
-      Empresa.Uf          := qryEmitenteEST_SIGLA.AsString;
+      Empresa.RazaoSocial := edtEmitRazao.Text;
+      Empresa.Telefone    := edtEmitFone.Text;
+      Empresa.Cep         := edtEmitCEP.Text;
+      Empresa.Endereco    := edtEmitLogradouro.Text + ', ' + edtEmitNumero.Text + ' (' + edtEmitBairro.Text + ')';
+      Empresa.Cidade      := edtEmitCidade.Text;
+      Empresa.Uf          := edtEmitUF.Text;
       Empresa.Email       := qryEmitenteEMAIL.AsString;
     end;
+
+    // Configurações necessárias e Emissão da NFC-e
+
+    with ACBrSAT, Config, ConfigACBr do
+    begin
+      emit_CNPJ := ConfigACBr.edtEmitCNPJ.Text;
+      emit_IE   := ConfigACBr.edtEmitIE.Text;
+      emit_IM   := qryEmitenteIM.AsString;
+      if (qryEmitenteTIPO_REGIME_NFE.AsInteger = 0) then
+        emit_cRegTrib := RTSimplesNacional
+      else
+        emit_cRegTrib := RTRegimeNormal;
+      ide_CNPJ        := ConfigACBr.edtEmitCNPJ.Text;
+      ide_numeroCaixa := FileIni.ReadInteger(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, 1);
+      ide_tpAmb       := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
+    end;
+
+    ACBrNFeDANFeESCPOS.Sistema := GetCompanyName;
+    ACBrNFeDANFeESCPOS.Usuario := GetUserApp;
+
+    ACBrSATExtratoESCPOS.SoftwareHouse := GetCompanyName;
+    ACBrSATExtratoESCPOS.NumCopias     := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
+
+    if FilesExists(ConfigACBr.edtLogoMarca.Text) then
+      ACBrSATExtratoESCPOS.PictureLogo.LoadFromFile(ConfigACBr.edtLogoMarca.Text);
 
   finally
     sFileNFERave   := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_RAVE;
@@ -4355,7 +4395,7 @@ begin
       DownloadNFe.Download.CNPJ             := sCNPJDestinatario;
 
       if ( WebServices.DownloadNFe.Executar ) then
-        FileNameXML := WebServices.DownloadNFe.PathArqResp
+        FileNameXML := WebServices.DownloadNFe.retDownloadNFe.GetNamePath
       else
         raise Exception.Create('Erro ao tentar fazer download do arquivo XML do servidor da SEFA.' + #13 + WebServices.DownloadNFe.RetornoWS);
 (*
@@ -5041,7 +5081,7 @@ begin
     LerConfiguracao(sCNPJEmitente);
 
     ACBrNFe.Configuracoes.Geral.ModeloDF := moNFCe;
-    ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(ConfigACBr.cbVersaoNFe.ItemIndex);
+    ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(ConfigACBr.cbVersaoDF.ItemIndex);
 
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatario( iCodigoCliente );

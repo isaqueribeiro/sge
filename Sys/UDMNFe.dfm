@@ -9,17 +9,18 @@ object DMNFe: TDMNFe
     Configuracoes.Geral.PathSalvar = '..\Bin\'
     Configuracoes.Geral.ExibirErroSchema = True
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Geral.RetirarAcentos = True
     Configuracoes.Geral.VersaoDF = ve310
+    Configuracoes.Geral.ValidarDigest = False
     Configuracoes.WebServices.UF = 'PA'
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.IntervaloTentativas = 0
     Configuracoes.WebServices.AjustaAguardaConsultaRet = False
-    DANFE = rvDANFE
+    DANFE = ACBrNFeDANFeESCPOS
     Left = 24
     Top = 24
   end
   object rvDANFE: TACBrNFeDANFERave
-    ACBrNFe = ACBrNFe
     Sistema = 'Masterdados - Contatos: (91) 8717-1057/8129-1567'
     PathPDF = '..\Bin\'
     MostrarPreview = True
@@ -42,6 +43,7 @@ object DMNFe: TDMNFe
     NFeCancelada = False
     LocalImpCanhoto = 0
     ImprimeItens = True
+    ViaConsumidor = True
     EspessuraBorda = 1
     TamanhoFonte_RazaoSocial = 12
     TamanhoFonte_ANTT = 10
@@ -17750,6 +17752,7 @@ object DMNFe: TDMNFe
     NFeCancelada = False
     LocalImpCanhoto = 0
     ImprimeItens = True
+    ViaConsumidor = True
     EspessuraBorda = 1
     ExibirTotalTributosItem = False
     ExibeCampoFatura = True
@@ -19522,6 +19525,7 @@ object DMNFe: TDMNFe
     ConfigBarras.MostrarCodigo = True
     ConfigBarras.LarguraLinha = 3
     ConfigBarras.Altura = 10
+    InfoRodapeCupom.Imposto.ModoCompacto = False
     Left = 736
     Top = 104
   end
@@ -19574,6 +19578,7 @@ object DMNFe: TDMNFe
   end
   object ACBrECFVirtualNaoFiscal: TACBrECFVirtualNaoFiscal
     ECF = ACBrECF
+    ExibeAvisoLegal = True
     Colunas = 48
     NumECF = 1
     NumCRO = 1
@@ -19598,8 +19603,59 @@ object DMNFe: TDMNFe
     MascaraItem = 
       'III CCCCCCCCCCCCC DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD QQQQQQQQ U' +
       'UxVVVVVVVVV AAAAAAA TTTTTTTTTTT'
-    ExibeAvisoLegal = True
     Left = 800
     Top = 56
+  end
+  object ACBrNFeDANFeESCPOS: TACBrNFeDANFeESCPOS
+    ACBrNFe = ACBrNFe
+    PathPDF = '..\Bin\'
+    MostrarPreview = True
+    MostrarStatus = True
+    TipoDANFE = tiRetrato
+    NumCopias = 1
+    ImprimirDescPorc = False
+    ImprimirTotalLiquido = True
+    MargemInferior = 0.800000000000000000
+    MargemSuperior = 0.800000000000000000
+    MargemEsquerda = 0.600000000000000000
+    MargemDireita = 0.510000000000000000
+    CasasDecimais._qCom = 2
+    CasasDecimais._vUnCom = 2
+    ExibirResumoCanhoto = False
+    FormularioContinuo = False
+    TamanhoFonte_DemaisCampos = 10
+    ProdutosPorPagina = 0
+    ImprimirDetalhamentoEspecifico = True
+    NFeCancelada = False
+    LocalImpCanhoto = 0
+    ImprimeItens = True
+    ViaConsumidor = True
+    ConfigBarras.MostrarCodigo = False
+    ConfigBarras.LarguraLinha = 0
+    ConfigBarras.Altura = 0
+    ImprimeEmUmaLinha = False
+    ImprimeDescAcrescItem = False
+    Left = 88
+    Top = 72
+  end
+  object ACBrSATExtratoESCPOS: TACBrSATExtratoESCPOS
+    ACBrSAT = ACBrSAT
+    Mask_qCom = '0.0000'
+    Mask_vUnCom = '0.000'
+    Left = 800
+    Top = 152
+  end
+  object ACBrSAT: TACBrSAT
+    Extrato = ACBrSATExtratoESCPOS
+    Config.infCFe_versaoDadosEnt = 0.050000000000000000
+    Config.ide_numeroCaixa = 0
+    Config.ide_tpAmb = taHomologacao
+    Config.emit_cRegTrib = RTSimplesNacional
+    Config.emit_cRegTribISSQN = RTISSMicroempresaMunicipal
+    Config.emit_indRatISSQN = irSim
+    Config.EhUTF8 = False
+    Config.PaginaDeCodigo = 0
+    Left = 800
+    Top = 104
   end
 end

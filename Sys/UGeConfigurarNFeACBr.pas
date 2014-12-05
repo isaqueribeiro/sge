@@ -5,7 +5,9 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, OleCtrls,
-  SHDocVw;
+  SHDocVw, TypInfo,
+
+  pcnConversao;
 
 type
   TfrmGeConfigurarNFeACBr = class(TfrmGrPadrao)
@@ -30,10 +32,9 @@ type
     sbtnLogoMarca: TSpeedButton;
     sbtnPathSalvar: TSpeedButton;
     edtLogoMarca: TEdit;
-    edtPathLogs: TEdit;
+    edPathLogs: TEdit;
     ckSalvar: TCheckBox;
     rgTipoDanfe: TRadioGroup;
-    rgFormaEmissao: TRadioGroup;
     TabSheet3: TTabSheet;
     GroupBox4: TGroupBox;
     lblUF: TLabel;
@@ -98,8 +99,18 @@ type
     lblInfoFisco: TLabel;
     edInfoFisco: TEdit;
     btnValidadeCertificado: TBitBtn;
-    lblVersaoNFe: TLabel;
-    cbVersaoNFe: TComboBox;
+    lblPathSchemas: TLabel;
+    edPathSchemas: TEdit;
+    spPathSchemas: TSpeedButton;
+    Label29: TLabel;
+    cbFormaEmissao: TComboBox;
+    lblVersaoDF: TLabel;
+    cbVersaoDF: TComboBox;
+    ckRetirarAcentos: TCheckBox;
+    lblIdToken: TLabel;
+    edIdToken: TEdit;
+    lblToken: TLabel;
+    edToken: TEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -108,6 +119,8 @@ type
     procedure sbtnPathSalvarClick(Sender: TObject);
     procedure edtNumSerieChange(Sender: TObject);
     procedure btnValidadeCertificadoClick(Sender: TObject);
+    procedure PathClick(Sender: TObject);
+    procedure spPathSchemasClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -130,8 +143,25 @@ begin
 end;
 
 procedure TfrmGeConfigurarNFeACBr.FormCreate(Sender: TObject);
+var
+ I : TpcnTipoEmissao;
+ J : TpcnModeloDF;
+ K : TpcnVersaoDF;
 begin
+  cbFormaEmissao.Items.Clear ;
+  For I := Low(TpcnTipoEmissao) to High(TpcnTipoEmissao) do
+     cbFormaEmissao.Items.Add( GetEnumName(TypeInfo(TpcnTipoEmissao), integer(I) ) ) ;
+  cbFormaEmissao.Items[0] := 'teNormal' ;
+  cbFormaEmissao.ItemIndex := 0 ;
+
+  cbVersaoDF.Items.Clear ;
+  For K := Low(TpcnVersaoDF) to High(TpcnVersaoDF) do
+     cbVersaoDF.Items.Add( GetEnumName(TypeInfo(TpcnVersaoDF), integer(K) ) ) ;
+  cbVersaoDF.Items[0] := 've200' ;
+  cbVersaoDF.ItemIndex := 0 ;
+
   inherited;
+
   pgcGuias.ActivePageIndex := 0;
 end;
 
@@ -172,13 +202,13 @@ procedure TfrmGeConfigurarNFeACBr.sbtnPathSalvarClick(Sender: TObject);
 var
   Dir : String;
 begin
-  if Length(edtPathLogs.Text) <= 0 then
+  if Length(edPathLogs.Text) <= 0 then
      Dir := ExtractFileDir(application.ExeName)
   else
-     Dir := edtPathLogs.Text;
+     Dir := edPathLogs.Text;
 
   if SelectDirectory(Dir, [sdAllowCreate, sdPerformCreate, sdPrompt], SELDIRHELP) then
-    edtPathLogs.Text := Dir;
+    edPathLogs.Text := Dir;
 end;
 
 procedure TfrmGeConfigurarNFeACBr.edtNumSerieChange(Sender: TObject);
@@ -195,6 +225,24 @@ end;
 procedure TfrmGeConfigurarNFeACBr.RegistrarRotinaSistema;
 begin
   ;
+end;
+
+procedure TfrmGeConfigurarNFeACBr.PathClick(Sender: TObject);
+var
+  Dir : String;
+begin
+  if Length(TEdit(Sender).Text) <= 0 then
+     Dir := ExtractFileDir(Application.ExeName)
+  else
+     Dir := TEdit(Sender).Text;
+
+  if SelectDirectory(Dir, [sdAllowCreate, sdPerformCreate, sdPrompt], SELDIRHELP) then
+    TEdit(Sender).Text := Dir;
+end;
+
+procedure TfrmGeConfigurarNFeACBr.spPathSchemasClick(Sender: TObject);
+begin
+  PathClick( edPathSchemas );
 end;
 
 end.

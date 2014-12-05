@@ -37,6 +37,11 @@ type
     CdsAno: TClientDataSet;
     lblAno: TLabel;
     edAno: TComboBox;
+    QryEmpresas: TIBQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
+    lblEmpresa: TLabel;
+    edEmpresa: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -47,6 +52,9 @@ type
     FSQL_DemandaProduto : TStringList;
     IGrupo ,
     IFabricante : Array of Integer;
+    IEmpresa : Array of String;
+    procedure CarregarDadosEmpresa; override;
+    procedure CarregarEmpresa;
     procedure CarregarGrupo;
     procedure CarregarFabricante;
     procedure CarregarAno;
@@ -62,7 +70,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness;
+  UConstantesDGE, UDMBusiness, UDMNFe;
 
 const
   REPORT_RELACAO_PRODUTO = 0;
@@ -111,6 +119,9 @@ begin
 
       if ( edFabricante.ItemIndex > 0 ) then
         SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
+
+      if ( edEmpresa.ItemIndex > 0 ) then
+        SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       SQL.Add('order by');
       SQL.Add('    e.rzsoc');
@@ -195,6 +206,7 @@ end;
 procedure TfrmGeProdutoImpressao.FormShow(Sender: TObject);
 begin
   inherited;
+  CarregarEmpresa;
   CarregarGrupo;
   CarregarFabricante;
   CarregarAno;
@@ -256,6 +268,13 @@ begin
       if ( edFabricante.ItemIndex > 0 ) then
         SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
 
+      if ( edEmpresa.ItemIndex > 0 ) then
+      begin
+        SQL.Text := StringReplace(SQL.Text, '<> ''0''', '= ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
+        SQL.Add('  and coalesce(pc.item, pv.item, pa.item) is not null');
+        SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+      end;
+
       SQL.Add('order by');
       SQL.Add('    e.rzsoc');
       SQL.Add('  , p.aliquota_tipo');
@@ -303,6 +322,47 @@ begin
   inherited;
   lblAno.Enabled := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
   edAno.Enabled  := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
+end;
+
+procedure TfrmGeProdutoImpressao.CarregarDadosEmpresa;
+begin
+  with frReport do
+    try
+      DMNFe.AbrirEmitente(IfThen(edEmpresa.ItemIndex = 0, GetEmpresaIDDefault, IEmpresa[edEmpresa.ItemIndex]));
+      DMBusiness.ConfigurarEmail(IfThen(edEmpresa.ItemIndex = 0, GetEmpresaIDDefault, IEmpresa[edEmpresa.ItemIndex]), EmptyStr, TituloRelario, EmptyStr);
+    except
+    end;
+end;
+
+procedure TfrmGeProdutoImpressao.CarregarEmpresa;
+var
+  I : Integer;
+begin
+  with CdsEmpresas do
+  begin
+    Open;
+
+    edEmpresa.Clear;
+    SetLength(IEmpresa, RecordCount + 1);
+
+    edEmpresa.Items.Add('(Todas)');
+    IEmpresa[0] := EmptyStr;
+
+    I := 1;
+
+    while not Eof do
+    begin
+      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
+
+      Inc(I);
+      Next;
+    end;
+
+    Close;
+  end;
+
+  edEmpresa.ItemIndex := 0;
 end;
 
 initialization

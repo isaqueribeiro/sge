@@ -111,7 +111,10 @@ begin
     gUsuarioLogado.Empresa  := Empresa;
     gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
 
-    frmPrinc.stbMain.Panels.Items[2].Text  := Format('[%s] Licenciado a empresa %s, %s', [GetEmpresaNomeDefault, gLicencaSistema.Empresa, sCNPJ]);
+    if (StrFormatarCnpj(GetEmpresaIDDefault) = StrFormatarCnpj(gLicencaSistema.CNPJ)) then
+      frmPrinc.stbMain.Panels.Items[2].Text  := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ])
+    else
+      frmPrinc.stbMain.Panels.Items[2].Text  := Format('[%s] Licenciado a empresa %s, %s', [GetEmpresaNomeDefault, gLicencaSistema.Empresa, sCNPJ]);
 
     ModalResult := mrOk;
   end

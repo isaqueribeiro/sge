@@ -11,26 +11,32 @@ File_8=SourceModule,'E:\Projetos\Hospital AD\HAM\Sistemas Hope 2011\Hope Samuel\
 File_9=SourceModule,'E:\Projetos\Hospital AD\HAM\Sistemas Hope 2011\Hope Samuel\Hope Library\Forms\UFormBaseMDI.pas',0,1,1,1,1,0,0
 
 [Modules]
-Module0=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_PDV\UPrinc.pas
-Module1=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_SGE\UPrinc.pas
-Module2=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\GerarLicenca\UGrGerarLicenca.pas
-Count=3
+Module0=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\Sys\UConstantesDGE.pas
+Module1=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\GerarLicenca\UGrGerarLicenca.pas
+Module2=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_PDV\UPrinc.pas
+Module3=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_SGE\UPrinc.pas
+Count=4
 EditWindowCount=1
 
-[E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_PDV\UPrinc.pas]
+[E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\Sys\UConstantesDGE.pas]
 ModuleType=SourceModule
-FormState=1
-FormOnTop=1
-
-[E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_SGE\UPrinc.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=1
+FormState=0
+FormOnTop=0
 
 [E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\GerarLicenca\UGrGerarLicenca.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
+
+[E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_PDV\UPrinc.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
+[E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_SGE\UPrinc.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=1
 
 [E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\GrupoProjeto_SGX.bpg]
 FormState=0
@@ -53,24 +59,25 @@ FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=3
-CurrentView=2
+ViewCount=4
+CurrentView=0
 View0=0
 View1=1
 View2=2
+View3=3
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
 State=0
 Left=200
-Top=155
+Top=146
 Width=1718
-Height=883
+Height=892
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1702
-ClientHeight=845
+ClientHeight=854
 LeftPanelSize=140
 LeftPanelClients=CodeExplorer@EditWindow0
 LeftPanelData=000004000000000000000000000000000000000000000000000100000000000000000C000000436F64654578706C6F726572FFFFFFFF
@@ -80,20 +87,27 @@ BottomPanelClients=MessageView@EditWindow0
 BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
 
 [View0]
-Module=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\GerarLicenca\UGrGerarLicenca.pas
+Module=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\Sys\UConstantesDGE.pas
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
 [View1]
-Module=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_SGE\UPrinc.pas
+Module=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\GerarLicenca\UGrGerarLicenca.pas
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
 [View2]
+Module=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_SGE\UPrinc.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+
+[View3]
 Module=E:\Projetos\Agil Solucoes em Softwares\SGE\trunk\System_PDV\UPrinc.pas
 CursorX=1
 CursorY=1
@@ -128,8 +142,8 @@ ClientHeight=84
 Create=1
 Visible=1
 State=0
-Left=215
-Top=130
+Left=369
+Top=372
 Width=446
 Height=313
 MaxLeft=-1
@@ -229,11 +243,11 @@ State=0
 Left=0
 Top=12
 Width=140
-Height=833
+Height=842
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=140
-ClientHeight=833
+ClientHeight=842
 TBDockHeight=305
 LRDockWidth=140
 Dockable=1
@@ -258,5 +272,5 @@ Dockable=1
 DockHostCount=0
 
 [ActiveProject]
-ActiveProject=3
+ActiveProject=2
 

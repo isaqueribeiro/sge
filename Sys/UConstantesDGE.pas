@@ -352,6 +352,7 @@ const
 
   INI_SECAO_VENDA      = 'Venda';
   INI_KEY_CODIGO_EAN   = 'CarregarPeloCodigoEAN';
+  INI_KEY_NUMERO_CAIXA = 'NumeroCaixa';
 
   INI_SECAO_CUMPO_PDV          = 'Cupom';
   INI_KEY_EMITIR_ORCAM         = 'EmitirApenasOrcamento';
@@ -362,6 +363,7 @@ const
   INI_KEY_PORTA_CUPOM_NFISCAL  = 'PortaCupomNaoFiscal';
   INI_KEY_PORTA_CUPOM_FISCAL   = 'PortaCupomFiscal';
   INI_KEY_MODELO_CUPOM         = 'ModeloEmissaoCupom';
+  INI_KEY_CUPOM_NFISCAL_QTDE   = 'CupomNaoFiscalQtde';
 
   INI_SECAO_CERTIFICADO = 'Certificado';
   INI_SECAO_GERAL       = 'Geral';

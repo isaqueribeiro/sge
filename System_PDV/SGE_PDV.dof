@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=0
 Release=1
-Build=0
+Build=1
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=Ágil Soluções em Softwares, ME
 FileDescription=Controle do Ponto de Venda do SGE
-FileVersion=1.0.1.0
+FileVersion=1.0.1.1
 InternalName=PDV
 LegalCopyright=Copyright 2013 - 2014 © Ágil Soluções em Softwares - ME
 LegalTrademarks=

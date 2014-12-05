@@ -161,7 +161,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     Top = 0
     Width = 430
     Height = 488
-    ActivePage = TbsPDV
+    ActivePage = TbsGeral
     Align = alClient
     TabOrder = 0
     object TbsGeral: TTabSheet
@@ -312,6 +312,16 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           ParentFont = False
           Transparent = True
         end
+        object lblNumeroCaixa: TLabel
+          Left = 73
+          Top = 364
+          Width = 71
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'N'#250'mero Caixa:'
+          FocusControl = edNumeroCaixa
+          Transparent = True
+        end
         object edPais: TEdit
           Left = 72
           Top = 48
@@ -449,6 +459,14 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Height = 17
           Caption = 'Or'#231'amento/Venda - Carregar pelo C'#243'digo EAN do Produto'
           TabOrder = 16
+        end
+        object edNumeroCaixa: TEdit
+          Left = 152
+          Top = 360
+          Width = 65
+          Height = 21
+          TabOrder = 17
+          OnKeyPress = ApenasNumerosKeyPress
         end
       end
     end

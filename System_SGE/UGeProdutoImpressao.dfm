@@ -13,7 +13,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
     inherited GrpBxFiltro: TGroupBox
       object lblTipoRegistro: TLabel
         Left = 15
-        Top = 28
+        Top = 52
         Width = 78
         Height = 13
         Alignment = taRightJustify
@@ -22,7 +22,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       end
       object lblGrupo: TLabel
         Left = 56
-        Top = 52
+        Top = 76
         Width = 37
         Height = 13
         Alignment = taRightJustify
@@ -31,7 +31,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       end
       object lblFabricante: TLabel
         Left = 30
-        Top = 76
+        Top = 100
         Width = 63
         Height = 13
         Alignment = taRightJustify
@@ -40,7 +40,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       end
       object lblAno: TLabel
         Left = 68
-        Top = 100
+        Top = 124
         Width = 25
         Height = 13
         Alignment = taRightJustify
@@ -48,15 +48,25 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         Enabled = False
         FocusControl = edAno
       end
+      object lblEmpresa: TLabel
+        Left = 49
+        Top = 28
+        Width = 52
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Empresa:'
+        Enabled = False
+        FocusControl = edEmpresa
+      end
       object edTipoRegistro: TComboBox
         Left = 104
-        Top = 24
+        Top = 48
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 0
+        TabOrder = 1
         Text = '(Todos)'
         Items.Strings = (
           '(Todos)'
@@ -64,21 +74,6 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           'Servi'#231'os')
       end
       object edGrupo: TComboBox
-        Left = 104
-        Top = 48
-        Width = 313
-        Height = 21
-        CharCase = ecUpperCase
-        ItemHeight = 13
-        ItemIndex = 0
-        TabOrder = 1
-        Text = '(TODOS)'
-        Items.Strings = (
-          '(TODOS)'
-          'PESSOA F'#205'SICA'
-          'PESSOA JUR'#205'DICA')
-      end
-      object edFabricante: TComboBox
         Left = 104
         Top = 72
         Width = 313
@@ -93,9 +88,24 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           'PESSOA F'#205'SICA'
           'PESSOA JUR'#205'DICA')
       end
-      object edAno: TComboBox
+      object edFabricante: TComboBox
         Left = 104
         Top = 96
+        Width = 313
+        Height = 21
+        CharCase = ecUpperCase
+        ItemHeight = 13
+        ItemIndex = 0
+        TabOrder = 3
+        Text = '(TODOS)'
+        Items.Strings = (
+          '(TODOS)'
+          'PESSOA F'#205'SICA'
+          'PESSOA JUR'#205'DICA')
+      end
+      object edAno: TComboBox
+        Left = 104
+        Top = 120
         Width = 65
         Height = 21
         Style = csDropDownList
@@ -103,10 +113,20 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         Enabled = False
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 3
+        TabOrder = 4
         Text = '2014'
         Items.Strings = (
           '2014')
+      end
+      object edEmpresa: TComboBox
+        Left = 104
+        Top = 24
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        Enabled = False
+        ItemHeight = 13
+        TabOrder = 0
       end
     end
   end
@@ -2117,6 +2137,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         Top = 287.244280000000000000
         Width = 1084.725110000000000000
         Condition = 'FrdsDemandaProduto."FABRICANTE_COD"'
+        ReprintOnNewPage = True
         object Memo6: TfrxMemoView
           Left = 294.803340000000000000
           Top = 15.118120000000000000
@@ -3048,6 +3069,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         '  , case when p.aliquota_tipo = 0 then '#39'Produto(s)'#39' else '#39'Servi'#231 +
         'o(s)'#39' end as tipo_desc'
       '  , p.cod'
+      '  , coalesce(pc.item, pv.item, pa.item) as cod_x'
       '  , p.descri'
       '  , p.apresentacao'
       '  , p.descri_apresentacao'
@@ -3211,6 +3233,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         'ontrol = ci.codcontrol and c.codemp = ci.codemp)'
       '    where c.status in (2,4)'
       '      and ci.ano = 9999'
+      '      and ci.codemp <> '#39'0'#39
       '    group by'
       '        ci.codprod'
       '  ) PC on (pc.item = p.cod)'
@@ -3261,6 +3284,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         'trol = vi.codcontrol and v.codemp = vi.codemp)'
       '    where v.status in (3, 4)'
       '      and vi.ano = 9999'
+      '      and vi.codemp <> '#39'0'#39
       '    group by'
       '        vi.codprod'
       '  ) PV on (pv.item = p.cod)'
@@ -3307,6 +3331,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         'qtdeatual else 0 end) as DEZ'
       '    from TBAJUSTESTOQ a'
       '    where extract(year from a.dtajust) = 9999'
+      '      and a.codempresa <> '#39'0'#39
       '    group by'
       '        a.codprod'
       '  ) pa on (pa.item = p.cod)')
@@ -3432,5 +3457,30 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
     ProviderName = 'DspAno'
     Left = 480
     Top = 80
+  end
+  object QryEmpresas: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.rzsoc'
+      '  , e.cnpj'
+      'from TBEMPRESA e'
+      'order by 2')
+    Left = 416
+    Top = 112
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = QryEmpresas
+    Left = 448
+    Top = 112
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 480
+    Top = 112
   end
 end

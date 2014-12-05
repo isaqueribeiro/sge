@@ -1,10 +1,9 @@
 inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
-  Left = 461
-  Top = 154
+  Top = 190
   BorderStyle = bsDialog
   BorderWidth = 4
-  Caption = 'Configurar NF-e (ACBr)'
-  ClientHeight = 425
+  Caption = 'Configurar NF-e / NFC-e (ACBr)'
+  ClientHeight = 586
   ClientWidth = 284
   Font.Charset = ANSI_CHARSET
   Font.Name = 'Tahoma'
@@ -13,7 +12,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 384
+    Top = 545
     Width = 284
     Height = 4
     Align = alTop
@@ -21,7 +20,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnSalvar: TBitBtn
     Left = 113
-    Top = 389
+    Top = 550
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -83,7 +82,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnCancelar: TBitBtn
     Left = 201
-    Top = 389
+    Top = 550
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -148,7 +147,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
     Left = 0
     Top = 0
     Width = 284
-    Height = 384
+    Height = 545
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Configura'#231#245'es'
@@ -157,7 +156,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       Left = 2
       Top = 15
       Width = 280
-      Height = 367
+      Height = 528
       ActivePage = TabSheet2
       Align = alClient
       MultiLine = True
@@ -166,7 +165,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Caption = 'Certificado'
         DesignSize = (
           272
-          339)
+          500)
         object GroupBox2: TGroupBox
           Left = 0
           Top = 0
@@ -263,7 +262,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         end
         object btnValidadeCertificado: TBitBtn
           Left = 0
-          Top = 146
+          Top = 459
           Width = 83
           Height = 33
           Hint = 'Verificar validade do Certificado'
@@ -332,22 +331,27 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           Left = 0
           Top = 0
           Width = 272
-          Height = 269
+          Height = 449
           Align = alTop
           Caption = 'Geral'
           TabOrder = 0
+          DesignSize = (
+            272
+            449)
           object lbltLogoMarca: TLabel
             Left = 8
-            Top = 176
+            Top = 296
             Width = 55
             Height = 13
+            Anchors = [akLeft, akBottom]
             Caption = 'Logo Marca'
           end
           object sbtnLogoMarca: TSpeedButton
-            Left = 235
-            Top = 188
+            Left = 241
+            Top = 308
             Width = 23
             Height = 24
+            Anchors = [akLeft, akBottom]
             Glyph.Data = {
               76010000424D7601000000000000760000002800000020000000100000000100
               04000000000000010000130B0000130B00001000000000000000000000000000
@@ -365,10 +369,11 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             OnClick = sbtnLogoMarcaClick
           end
           object sbtnPathSalvar: TSpeedButton
-            Left = 235
-            Top = 236
+            Left = 241
+            Top = 372
             Width = 23
             Height = 24
+            Anchors = [akLeft, akBottom]
             Glyph.Data = {
               76010000424D7601000000000000760000002800000020000000100000000100
               04000000000000010000130B0000130B00001000000000000000000000000000
@@ -385,25 +390,90 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             NumGlyphs = 2
             OnClick = sbtnPathSalvarClick
           end
+          object lblPathSchemas: TLabel
+            Left = 8
+            Top = 399
+            Width = 198
+            Height = 13
+            Anchors = [akLeft, akBottom]
+            Caption = 'Diret'#243'rios com os arquivos XSD(Schemas)'
+            FocusControl = edPathSchemas
+          end
+          object spPathSchemas: TSpeedButton
+            Left = 241
+            Top = 412
+            Width = 23
+            Height = 24
+            Anchors = [akLeft, akBottom]
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = spPathSchemasClick
+          end
+          object Label29: TLabel
+            Left = 8
+            Top = 72
+            Width = 86
+            Height = 13
+            Caption = 'Forma de Emiss'#227'o'
+          end
+          object lblVersaoDF: TLabel
+            Left = 8
+            Top = 117
+            Width = 119
+            Height = 13
+            Caption = 'Vers'#227'o Documento Fiscal'
+            FocusControl = cbVersaoDF
+          end
+          object lblIdToken: TLabel
+            Left = 8
+            Top = 163
+            Width = 85
+            Height = 13
+            Caption = 'Id Token / Id CSC'
+            FocusControl = edIdToken
+          end
+          object lblToken: TLabel
+            Left = 8
+            Top = 201
+            Width = 59
+            Height = 13
+            Caption = 'Token / CSC'
+            FocusControl = edToken
+          end
           object edtLogoMarca: TEdit
             Left = 8
-            Top = 192
-            Width = 228
+            Top = 312
+            Width = 232
             Height = 21
-            TabOrder = 2
+            Anchors = [akLeft, akBottom]
+            TabOrder = 5
           end
-          object edtPathLogs: TEdit
+          object edPathLogs: TEdit
             Left = 8
-            Top = 240
-            Width = 228
+            Top = 376
+            Width = 232
             Height = 21
-            TabOrder = 4
+            Anchors = [akLeft, akBottom]
+            TabOrder = 8
           end
           object ckSalvar: TCheckBox
             Left = 8
-            Top = 224
+            Top = 360
             Width = 249
             Height = 15
+            Anchors = [akLeft, akBottom]
             Caption = 'Salvar Arquivos de Envio e Resposta'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
@@ -411,12 +481,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 7
           end
           object rgTipoDanfe: TRadioGroup
             Left = 7
             Top = 19
-            Width = 251
+            Width = 256
             Height = 49
             Caption = 'DANFE'
             Columns = 2
@@ -426,26 +496,60 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               'Paisagem')
             TabOrder = 0
           end
-          object rgFormaEmissao: TRadioGroup
+          object edPathSchemas: TEdit
             Left = 8
-            Top = 72
-            Width = 249
-            Height = 97
-            Caption = 'Forma de Emiss'#227'o'
-            Columns = 2
-            ItemIndex = 0
-            Items.Strings = (
-              'Normal'
-              'Conting'#234'ncia'
-              'SCAN'
-              'DPEC'
-              'FSDA')
+            Top = 415
+            Width = 232
+            Height = 21
+            Anchors = [akLeft, akBottom]
+            TabOrder = 9
+          end
+          object cbFormaEmissao: TComboBox
+            Left = 8
+            Top = 88
+            Width = 256
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
             TabOrder = 1
+          end
+          object cbVersaoDF: TComboBox
+            Left = 8
+            Top = 133
+            Width = 256
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            TabOrder = 2
+          end
+          object ckRetirarAcentos: TCheckBox
+            Left = 8
+            Top = 336
+            Width = 193
+            Height = 17
+            Anchors = [akLeft, akBottom]
+            Caption = 'Retirar Acentos dos XMLs enviados'
+            Enabled = False
+            TabOrder = 6
+          end
+          object edIdToken: TEdit
+            Left = 8
+            Top = 179
+            Width = 256
+            Height = 21
+            TabOrder = 3
+          end
+          object edToken: TEdit
+            Left = 8
+            Top = 217
+            Width = 256
+            Height = 21
+            TabOrder = 4
           end
         end
         object rgModoGerarNFe: TRadioGroup
           Left = 0
-          Top = 269
+          Top = 449
           Width = 272
           Height = 49
           Align = alTop
@@ -466,10 +570,13 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           Left = 0
           Top = 0
           Width = 272
-          Height = 193
+          Height = 153
           Align = alTop
           Caption = 'WebService'
           TabOrder = 0
+          DesignSize = (
+            272
+            153)
           object lblUF: TLabel
             Left = 8
             Top = 16
@@ -483,24 +590,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Font.Style = []
             ParentFont = False
           end
-          object lblVersaoNFe: TLabel
-            Left = 8
-            Top = 120
-            Width = 62
-            Height = 13
-            Caption = 'Vers'#227'o NF-e:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-          end
           object ckVisualizar: TCheckBox
             Left = 8
-            Top = 166
+            Top = 126
             Width = 153
             Height = 17
+            Anchors = [akLeft, akBottom]
             Caption = 'Visualizar Mensagem'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
@@ -566,33 +661,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Items.Strings = (
               'Produ'#231#227'o'
               'Homologa'#231#227'o')
-            TabOrder = 3
-          end
-          object cbVersaoNFe: TComboBox
-            Left = 8
-            Top = 136
-            Width = 249
-            Height = 22
-            Style = csOwnerDrawFixed
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -13
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ItemHeight = 16
-            ItemIndex = 0
-            ParentFont = False
             TabOrder = 2
-            Text = 'v2.00'
-            Items.Strings = (
-              'v2.00'
-              'v3.00'
-              'v3.10')
           end
         end
         object gbProxy: TGroupBox
           Left = 0
-          Top = 193
+          Top = 153
           Width = 272
           Height = 105
           Align = alTop
@@ -658,7 +732,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         end
         object WBResposta: TWebBrowser
           Left = 0
-          Top = 304
+          Top = 465
           Width = 272
           Height = 35
           Align = alBottom
@@ -882,10 +956,13 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           Left = 0
           Top = 0
           Width = 272
-          Height = 324
+          Height = 489
           Align = alTop
           Caption = 'Email'
           TabOrder = 0
+          DesignSize = (
+            272
+            489)
           object lbltSmtpHost: TLabel
             Left = 8
             Top = 16
@@ -976,7 +1053,8 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Left = 8
             Top = 184
             Width = 249
-            Height = 130
+            Height = 295
+            Anchors = [akLeft, akTop, akBottom]
             TabOrder = 6
           end
         end
@@ -985,7 +1063,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnServico: TBitBtn
     Left = 1
-    Top = 389
+    Top = 550
     Width = 83
     Height = 33
     Hint = 'Verificar Status do Servi'#231'o'
@@ -1051,7 +1129,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       'Arquivos NFE (*-nfe.XML)|*-nfe.XML|Arquivos XML (*.XML)|*.XML|To' +
       'dos os Arquivos (*.*)|*.*'
     Title = 'Selecione a NFe'
-    Left = 40
-    Top = 352
+    Left = 232
+    Top = 472
   end
 end
