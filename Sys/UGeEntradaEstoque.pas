@@ -444,9 +444,10 @@ procedure TfrmGeEntradaEstoque.FormCreate(Sender: TObject);
 
   procedure OcutarCampoAutorizacao;
   begin
-    dbCFOPNFDescricao.Width := 457;
-    lblSituacao.Left        := 944;
-    dbSituacao.Left         := 944;
+    dbCFOPNFDescricao.Width := 273;
+    lblSituacao.Left        := dbTipoEntrada.Left;
+    dbSituacao.Left         := dbTipoEntrada.Left;
+    dbSituacao.Width        := dbTipoEntrada.Width;
     lblAutorizacao.Visible  := False;
     dbAutorizacao.Visible   := False;
   end;

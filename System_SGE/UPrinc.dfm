@@ -22074,7 +22074,7 @@ object frmPrinc: TfrmPrinc
           00FF00C9C6C5C4B3A3E8D9C4F5F1E6F8F6ECF7F8F8F8F8F8F7F7F7CECCCBF4F1
           F000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00F4ECE9EF
           CCC7F4CCBEE6D0C3EEDACCF0EDEB00FF0000FF0000FF0000FF00}
-        Caption = 'Configurar NF-e (ACBr)'
+        Caption = 'Configurar NF-e / NFC-e (ACBr)'
         OnClick = nmConfigurarNFeACBrClick
       end
       object nmConfigurarAmbiente: TMenuItem

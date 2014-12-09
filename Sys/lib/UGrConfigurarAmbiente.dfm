@@ -161,7 +161,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     Top = 0
     Width = 430
     Height = 488
-    ActivePage = TbsGeral
+    ActivePage = TbsPDV
     Align = alClient
     TabOrder = 0
     object TbsGeral: TTabSheet
@@ -477,7 +477,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         Left = 0
         Top = 89
         Width = 422
-        Height = 112
+        Height = 136
         Align = alTop
         Caption = ' Impress'#227'o Cupons N'#227'o-Fiscais '
         TabOrder = 1
@@ -501,6 +501,17 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Caption = 'Impressora:'
           Enabled = False
           FocusControl = edCupomNaoFiscalImpressora
+          Transparent = True
+        end
+        object lblCupomNaoFiscalModelo: TLabel
+          Left = 42
+          Top = 101
+          Width = 38
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Modelo:'
+          Enabled = False
+          FocusControl = edCupomNaoFiscalModelo
           Transparent = True
         end
         object chkCupomNaoFiscal: TCheckBox
@@ -552,6 +563,20 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
             'LPT5'
             'C:\CUPOM.TXT')
         end
+        object edCupomNaoFiscalModelo: TComboBox
+          Left = 88
+          Top = 97
+          Width = 313
+          Height = 21
+          Style = csDropDownList
+          Enabled = False
+          ItemHeight = 13
+          ItemIndex = 0
+          TabOrder = 3
+          Text = 'Nenhum'
+          Items.Strings = (
+            'Nenhum')
+        end
       end
       object PnlCupom: TPanel
         Left = 0
@@ -590,5 +615,35 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
       end
     end
+  end
+  object ACBrNFeDANFeESCPOS: TACBrNFeDANFeESCPOS
+    MostrarPreview = True
+    MostrarStatus = True
+    TipoDANFE = tiSemGeracao
+    NumCopias = 1
+    ImprimirDescPorc = False
+    ImprimirTotalLiquido = True
+    MargemInferior = 0.800000000000000000
+    MargemSuperior = 0.800000000000000000
+    MargemEsquerda = 0.600000000000000000
+    MargemDireita = 0.510000000000000000
+    CasasDecimais._qCom = 2
+    CasasDecimais._vUnCom = 2
+    ExibirResumoCanhoto = False
+    FormularioContinuo = False
+    TamanhoFonte_DemaisCampos = 10
+    ProdutosPorPagina = 0
+    ImprimirDetalhamentoEspecifico = True
+    NFeCancelada = False
+    LocalImpCanhoto = 0
+    ImprimeItens = True
+    ViaConsumidor = True
+    ConfigBarras.MostrarCodigo = False
+    ConfigBarras.LarguraLinha = 0
+    ConfigBarras.Altura = 0
+    ImprimeEmUmaLinha = False
+    ImprimeDescAcrescItem = False
+    Left = 332
+    Top = 416
   end
 end

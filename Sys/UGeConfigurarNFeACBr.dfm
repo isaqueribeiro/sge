@@ -421,12 +421,13 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             NumGlyphs = 2
             OnClick = spPathSchemasClick
           end
-          object Label29: TLabel
+          object lblFormaEmissao: TLabel
             Left = 8
             Top = 72
             Width = 86
             Height = 13
             Caption = 'Forma de Emiss'#227'o'
+            FocusControl = cbFormaEmissao
           end
           object lblVersaoDF: TLabel
             Left = 8
@@ -442,6 +443,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 85
             Height = 13
             Caption = 'Id Token / Id CSC'
+            Enabled = False
             FocusControl = edIdToken
           end
           object lblToken: TLabel
@@ -450,6 +452,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 59
             Height = 13
             Caption = 'Token / CSC'
+            Enabled = False
             FocusControl = edToken
           end
           object edtLogoMarca: TEdit
@@ -458,7 +461,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 232
             Height = 21
             Anchors = [akLeft, akBottom]
-            TabOrder = 5
+            TabOrder = 6
           end
           object edPathLogs: TEdit
             Left = 8
@@ -466,7 +469,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 232
             Height = 21
             Anchors = [akLeft, akBottom]
-            TabOrder = 8
+            TabOrder = 9
           end
           object ckSalvar: TCheckBox
             Left = 8
@@ -481,7 +484,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 7
+            TabOrder = 8
           end
           object rgTipoDanfe: TRadioGroup
             Left = 7
@@ -502,7 +505,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 232
             Height = 21
             Anchors = [akLeft, akBottom]
-            TabOrder = 9
+            TabOrder = 10
           end
           object cbFormaEmissao: TComboBox
             Left = 8
@@ -530,13 +533,14 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Anchors = [akLeft, akBottom]
             Caption = 'Retirar Acentos dos XMLs enviados'
             Enabled = False
-            TabOrder = 6
+            TabOrder = 7
           end
           object edIdToken: TEdit
             Left = 8
             Top = 179
             Width = 256
             Height = 21
+            Enabled = False
             TabOrder = 3
           end
           object edToken: TEdit
@@ -544,7 +548,24 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Top = 217
             Width = 256
             Height = 21
+            Enabled = False
             TabOrder = 4
+          end
+          object ckEmitirNFCe: TCheckBox
+            Left = 8
+            Top = 240
+            Width = 233
+            Height = 17
+            Anchors = [akLeft, akBottom]
+            Caption = 'Esta esta'#231#227'o emite e imprime NFC-e '
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 5
           end
         end
         object rgModoGerarNFe: TRadioGroup

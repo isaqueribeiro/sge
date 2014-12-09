@@ -360,7 +360,8 @@ const
   INI_KEY_EMITIR_CUPOM_AUTOMAT = 'CupomAutomatico';
   INI_KEY_EMITIR_CUPOM_NFISCAL = 'EmitirCupomNaoFiscal';
   INI_KEY_EMITIR_CUPOM_FISCAL  = 'EmitirCupomFiscal';
-  INI_KEY_PORTA_CUPOM_NFISCAL  = 'PortaCupomNaoFiscal';
+  INI_KEY_PORTA_CUPOM_NFISCAL     = 'PortaCupomNaoFiscal';
+  INI_KEY_PORTA_CUPOM_NFISCAL_MOD = 'ModeloCupomNaoFiscal';
   INI_KEY_PORTA_CUPOM_FISCAL   = 'PortaCupomFiscal';
   INI_KEY_MODELO_CUPOM         = 'ModeloEmissaoCupom';
   INI_KEY_CUPOM_NFISCAL_QTDE   = 'CupomNaoFiscalQtde';

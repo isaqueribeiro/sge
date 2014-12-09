@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=0
 Release=9
-Build=1
+Build=2
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=Ágil Soluções em Softwares, ME
 FileDescription=Sistema Integrado de Gestão Empresarial/Comercial
-FileVersion=1.0.9.1
+FileVersion=1.0.9.2
 InternalName=SGE
 LegalCopyright=Copyright 2013 - 2014 © Ágil Soluções em Softwares - ME
 LegalTrademarks=
@@ -135,22 +135,9 @@ ProductName=SGE - Sistema de Gestão Empresarial/Comercial
 ProductVersion=1.0
 Comments=
 Systems Analyst=Isaque Marinho Ribeiro
-ReleaseDate=04/12/2014
+ReleaseDate=09/12/2014
 Contacts=(91) 9146.0444 / 3295.3390
 Owner=Isaque Marinho Ribeiro
 SplashName=
 SplashDescription=
 Todos os direitos reservados.
-[HistoryLists\hlConditionals]
-Count=1
-Item0=ACBR
-[HistoryLists\hlUnitAliases]
-Count=1
-Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
-[HistoryLists\hlUnitOutputDirectory]
-Count=2
-Item0=..\_dcu\
-Item1=..\dcu\
-[HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=..\Bin\

@@ -17,7 +17,7 @@ uses
   ACBrSATExtratoESCPOS, ACBrNFeDANFeESCPOS, ACBrSAT;
 
 type
-  TTipoDANFE = (tipoDANFERave, tipoDANFEFast);
+  TTipoDANFE = (tipoDANFERave, tipoDANFEFast, tipoDANFE_ESCPOS);
   TDMNFe = class(TDataModule)
     ACBrNFe: TACBrNFe;
     rvDANFE: TACBrNFeDANFERave;
@@ -539,7 +539,7 @@ type
     ACBrEAD: TACBrEAD;
     ACBrECFVirtualNaoFiscal: TACBrECFVirtualNaoFiscal;
     qryFormaPagtosVALOR_RECEBIDO: TIBBCDField;
-    ACBrNFeDANFeESCPOS: TACBrNFeDANFeESCPOS;
+    nfcDANFE: TACBrNFeDANFeESCPOS;
     ACBrSATExtratoESCPOS: TACBrSATExtratoESCPOS;
     ACBrSAT: TACBrSAT;
     procedure SelecionarCertificado(Sender : TObject);
@@ -617,6 +617,8 @@ type
 
     function ImprimirDANFEACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer;
       const IsPDF : Boolean = FALSE) : Boolean;
+
+    function ImprimirDANFE_ESCPOSACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer) : Boolean;
 
     function ImprimirDANFEEntradaACBr(const sCNPJEmitente : String; const CodFornecedor: Integer; const iAnoCompra, iNumCompra : Integer;
       const IsPDF : Boolean = FALSE) : Boolean;
@@ -730,6 +732,10 @@ procedure ConfigurarNFeACBr(const sCNPJEmitente : String = '');
 var
  I : Integer;
 begin
+(*
+  IMR - 09/12/2014 :
+    Disponiblizar configuração para emissão e impressão de NFC-e.
+*)
   try
 
     I := ID_ABORT;
@@ -739,6 +745,20 @@ begin
 
       if ( not Assigned(ConfigACBr) ) then
         ConfigACBr := TfrmGeConfigurarNFeACBr.Create(Application);
+
+      {$IFDEF DGE}
+      ConfigACBr.lblIdToken.Enabled   := True;
+      ConfigACBr.edIdToken.Enabled    := True;
+      ConfigACBr.lblToken.Enabled     := True;
+      ConfigACBr.edToken.Enabled      := True;
+      ConfigACBr.ckEmitirNFCe.Enabled := True;
+      {$ELSE}
+      ConfigACBr.lblIdToken.Enabled   := (gSistema.Codigo = SISTEMA_PDV);
+      ConfigACBr.edIdToken.Enabled    := (gSistema.Codigo = SISTEMA_PDV);
+      ConfigACBr.lblToken.Enabled     := (gSistema.Codigo = SISTEMA_PDV);
+      ConfigACBr.edToken.Enabled      := (gSistema.Codigo = SISTEMA_PDV);
+      ConfigACBr.ckEmitirNFCe.Enabled := (gSistema.Codigo = SISTEMA_PDV);
+      {$ENDIF}
 
       LerConfiguracao(sCNPJEmitente);
 
@@ -1072,7 +1092,10 @@ begin
         ACBrNFe.DANFE := rvDANFE
       else
       if ( tipoDANFE = tipoDANFEFast ) then
-        ACBrNFe.DANFE := frDANFE;
+        ACBrNFe.DANFE := frDANFE
+      else
+      if ( tipoDANFE = tipoDANFE_ESCPOS ) then
+        ACBrNFe.DANFE := nfcDANFE;
 
       cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
       rgTipoAmb.ItemIndex  := ReadInteger( sSecaoWebService, 'Ambiente'  , 0) ;
@@ -1220,11 +1243,18 @@ begin
       ide_tpAmb       := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
     end;
 
-    ACBrNFeDANFeESCPOS.Sistema := GetCompanyName;
-    ACBrNFeDANFeESCPOS.Usuario := GetUserApp;
+    nfcDANFE.Sistema := GetCompanyName;
+    nfcDANFE.Usuario := GetUserApp;
 
     ACBrSATExtratoESCPOS.SoftwareHouse := GetCompanyName;
     ACBrSATExtratoESCPOS.NumCopias     := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
+
+    nfcDANFE.MarcaImpressora       := TACBrNFeMarcaImpressora(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0));
+    nfcDANFE.Device.Porta          := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'COM1');
+    nfcDANFE.Device.Baud           := 9600;   // StrToInt(cbxVelocidade.Text);
+    nfcDANFE.ImprimeEmUmaLinha     := False;  // chkImprimirItem1Linha.Checked;
+    nfcDANFE.ImprimeDescAcrescItem := False;  // chkImprimirDescAcresItem.Checked;
+    nfcDANFE.IgnorarTagsFormatacao := False;  // chkIgnorarTagsFormatacao.Checked;
 
     if FilesExists(ConfigACBr.edtLogoMarca.Text) then
       ACBrSATExtratoESCPOS.PictureLogo.LoadFromFile(ConfigACBr.edtLogoMarca.Text);
@@ -1577,7 +1607,7 @@ begin
         raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + FileNameXML);
 
       // Criar o Cancelamento
-      
+
       EventoNFe.Evento.Clear;
       EventoNFe.idLote := iNumeroLote;
 
@@ -5059,8 +5089,115 @@ function TDMNFe.GerarNFCeOnLineACBr(const sCNPJEmitente: String;
   var FileNameXML, ChaveNFCe, ProtocoloNFCe, ReciboNFCe: String;
   var iNumeroLote: Int64; var Denegada: Boolean;
   var DenegadaMotivo: String; const Imprimir: Boolean): Boolean;
+var
+  DtHoraEmiss : TDateTime;
+  sErrorMsg   : String;
 begin
-  ;
+(*
+  IMR - 09/12/2014 :
+    Desenvolvimento da função.
+*)
+  try
+
+    LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
+
+    if ( DelphiIsRunning ) then
+      Result := True
+    else
+      Result := ACBrNFe.WebServices.StatusServico.Executar;
+
+    if not Result then
+      Exit;
+
+    GerarNFCEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFCe, iNumeroNFCe, FileNameXML);
+
+    iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+
+    Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
+(*
+    if ( Result ) then
+    begin
+      ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
+      ProtocoloNFCE := ACBrNFe.WebServices.Retorno.Protocolo;
+      ReciboNFCE    := ACBrNFe.WebServices.Retorno.Recibo;
+
+      UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
+    end;
+*)
+  except
+    On E : Exception do
+    begin
+      sErrorMsg := E.Message;
+(*
+      // Diretrizes de tomada de decisão quando a NFe enviada não é aceita
+
+      if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
+        if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
+          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFCe.WebServices.Retorno.Recibo);
+
+      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
+        Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
+          REJEICAO_NFE_NOTA_DENEGADA:
+            begin
+              UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
+
+              if GetPermititNFeDenegada(sCNPJEmitente) then
+              begin
+                Result := True;
+
+                Denegada       := True;
+                DenegadaMotivo := 'NFC-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
+
+                ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
+                ProtocoloNFCE := ACBrNFe.WebServices.Retorno.Protocolo;
+                ReciboNFCE    := ACBrNFe.WebServices.Retorno.Recibo;
+
+                Exit;
+              end
+              else
+              begin
+                // Remover Lote da Venda
+                GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+                sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                  'Favor gerar NFC-e novamente!';
+              end;
+            end;
+
+          REJEICAO_NFE_DUPLICIDADE:
+            begin
+              UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
+
+              // Remover Lote da Venda
+              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                'Favor gerar NFC-e novamente!';
+            end;
+
+          REJEICAO_NFE_BC_ICMS_ERR, REJEICAO_NFE_TO_ICMS_ERR, REJEICAO_NFE_TO_PROD_ERR:
+            begin
+              // Remover Lote da Venda
+              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                'Favor validar dados e NFC-e novamente!';
+            end;
+
+          else
+            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
+              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
+              'Favor entrar em contato com suporte e apresentar esta mensagem!';
+        end;
+*)
+      ShowError('Erro ao tentar gerar NFC-e.' +
+        IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+        #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);
+
+      Result := False;
+    end;
+  end;
+
 end;
 
 procedure TDMNFe.GerarNFCEACBr(const sCNPJEmitente: String;
@@ -5078,7 +5215,7 @@ begin
 
   try
 
-    LerConfiguracao(sCNPJEmitente);
+    LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
 
     ACBrNFe.Configuracoes.Geral.ModeloDF := moNFCe;
     ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(ConfigACBr.cbVersaoDF.ItemIndex);
@@ -5759,9 +5896,80 @@ begin
 
     end;
 
+{
+  Imprimir
+
+    nfcDANFE.Device.Ativar;
+    try
+      ACBrNFe.DANFE.ViaConsumidor := True; // chkViaConsumidor.Checked;
+      ACBrNFe.DANFE.ImprimeItens  := True; // not chkDanfeResumido.Checked;
+
+      ACBrNFe.NotasFiscais[0].Imprimir;
+    finally
+      nfcDANFE.Device.Desativar;
+    end;
+
+}
   except
     On E : Exception do
       ShowError('Erro ao tentar gerar NFC-e.' + #13#13 + 'GerarNFCEACBr() --> ' + e.Message);
+  end;
+
+end;
+
+function TDMNFe.ImprimirDANFE_ESCPOSACBr(const sCNPJEmitente: String;
+  iCodigoCliente: Integer; const iAnoVenda, iNumVenda: Integer): Boolean;
+var
+  FileNameXML : String;
+begin
+
+  try
+
+    LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
+
+    AbrirEmitente( sCNPJEmitente );
+    AbrirDestinatario( iCodigoCliente );
+    AbrirVenda( iAnoVenda, iNumVenda );
+    AbrirNFeEmitida( iAnoVenda, iNumVenda );
+
+    FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT  + qryCalculoImportoXML_NFE_FILENAME.AsString;
+
+    ForceDirectories( ExtractFilePath(FileNameXML) );
+
+    qryCalculoImportoXML_NFE.SaveToFile( FileNameXML );
+
+    CorrigirXML_NFe( FileNameXML );
+
+    if not FilesExists(FileNameXML) then
+      raise Exception.Create(Format('Arquivo %s não encontrado.', [QuotedStr(FileNameXML)]));
+
+    with ACBrNFe do
+    begin
+      Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger);
+      Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger);
+
+      NotasFiscais.Clear;
+      NotasFiscais.LoadFromFile( FileNameXML );
+
+      nfcDANFE.Device.Ativar;
+      try
+        DANFE.ViaConsumidor := True; // chkViaConsumidor.Checked;
+        DANFE.ImprimeItens  := True; // not chkDanfeResumido.Checked;
+
+        NotasFiscais[0].Imprimir;
+      finally
+        nfcDANFE.Device.Desativar;
+      end;
+
+      Result := True;
+    end;
+
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar imprimir DANFE da Saída da NFC-e.' + #13#13 + 'ImprimirDANFE_ESCPOSACBr() --> ' + e.Message);
+      Result := False;
+    end;
   end;
 
 end;

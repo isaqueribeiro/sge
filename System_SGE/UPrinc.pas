@@ -347,7 +347,7 @@ end;
 procedure TfrmPrinc.nmKardexClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_ENT_KARDEX_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmKardex');
+    FormFunction.ShowModalForm(Self, 'frmGeProdutoKardex');
 end;
 
 procedure TfrmPrinc.nmVendaClick(Sender: TObject);

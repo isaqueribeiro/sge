@@ -17,7 +17,6 @@ uses
   UDMBusiness in '..\Sys\UDMBusiness.pas' {DMBusiness: TDataModule},
   USobre in '..\Sys\USobre.pas' {frmSobre},
   UPesqProd in '..\Sys\UPesqProd.pas' {frmPesqProd},
-  uKardex in '..\Sys\uKardex.pas' {frmKardex},
   UfrmRelVendas in '..\Sys\UfrmRelVendas.pas' {frmRelVendas},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
@@ -121,7 +120,8 @@ uses
   UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
   UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto},
   UGePlanoContas in '..\Sys\UGePlanoContas.pas' {frmGePlanoContas},
-  UGeProdutoImpressao in 'UGeProdutoImpressao.pas' {frmGeProdutoImpressao};
+  UGeProdutoImpressao in 'UGeProdutoImpressao.pas' {frmGeProdutoImpressao},
+  UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex};
 
 {$R *.res}
 

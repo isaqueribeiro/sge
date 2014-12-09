@@ -252,35 +252,23 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_DemandaProduto );
-      SQL.Text := StringReplace(SQL.Text, '9999', edAno.Text, [rfReplaceAll]);
-      SQL.Add('where 1=1');
+      SQL.Add('where p.ano = ' + edAno.Text);
 
       Case edTipoRegistro.ItemIndex of
         1:
-          SQL.Add('  and p.aliquota_tipo = 0');
+          SQL.Add('  and p.tipo = ''P''');
         2:
-          SQL.Add('  and p.aliquota_tipo = 1');
+          SQL.Add('  and p.tipo = ''S''');
       end;
 
       if ( edGrupo.ItemIndex > 0 ) then
-        SQL.Add('  and p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
+        SQL.Add('  and p.grupo_cod = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
 
       if ( edFabricante.ItemIndex > 0 ) then
-        SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
+        SQL.Add('  and p.fabricante_cod = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
 
       if ( edEmpresa.ItemIndex > 0 ) then
-      begin
-        SQL.Text := StringReplace(SQL.Text, '<> ''0''', '= ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
-        SQL.Add('  and coalesce(pc.item, pv.item, pa.item) is not null');
-        SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
-      end;
-
-      SQL.Add('order by');
-      SQL.Add('    e.rzsoc');
-      SQL.Add('  , p.aliquota_tipo');
-      SQL.Add('  , coalesce(g.descri, ''* Indefinido'')');
-      SQL.Add('  , coalesce(f.nome, ''* Indefinido'')');
-      SQL.Add('  , p.descri_apresentacao');
+        SQL.Add('  and p.empresa_cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
     end;
   except
     On E : Exception do

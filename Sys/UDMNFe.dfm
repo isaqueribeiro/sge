@@ -16,11 +16,12 @@ object DMNFe: TDMNFe
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.IntervaloTentativas = 0
     Configuracoes.WebServices.AjustaAguardaConsultaRet = False
-    DANFE = ACBrNFeDANFeESCPOS
+    DANFE = rvDANFE
     Left = 24
     Top = 24
   end
   object rvDANFE: TACBrNFeDANFERave
+    ACBrNFe = ACBrNFe
     Sistema = 'Masterdados - Contatos: (91) 8717-1057/8129-1567'
     PathPDF = '..\Bin\'
     MostrarPreview = True
@@ -19606,12 +19607,11 @@ object DMNFe: TDMNFe
     Left = 800
     Top = 56
   end
-  object ACBrNFeDANFeESCPOS: TACBrNFeDANFeESCPOS
-    ACBrNFe = ACBrNFe
+  object nfcDANFE: TACBrNFeDANFeESCPOS
     PathPDF = '..\Bin\'
     MostrarPreview = True
     MostrarStatus = True
-    TipoDANFE = tiRetrato
+    TipoDANFE = tiNFCe
     NumCopias = 1
     ImprimirDescPorc = False
     ImprimirTotalLiquido = True

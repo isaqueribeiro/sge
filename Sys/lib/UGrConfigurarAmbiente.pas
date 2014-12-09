@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, IniFiles, DB,
-  DBClient, Printers;
+  DBClient, Printers, ACBrNFeDANFEClass, ACBrNFeDANFeESCPOS, TypInfo;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)
@@ -58,6 +58,9 @@ type
     chkOrcamentoEmitir: TCheckBox;
     edNumeroCaixa: TEdit;
     lblNumeroCaixa: TLabel;
+    ACBrNFeDANFeESCPOS: TACBrNFeDANFeESCPOS;
+    lblCupomNaoFiscalModelo: TLabel;
+    edCupomNaoFiscalModelo: TComboBox;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -100,12 +103,29 @@ begin
 end;
 
 procedure TfrmGrConfigurarAmbiente.FormCreate(Sender: TObject);
+var
+  ModeloImpressora : TACBrNFeMarcaImpressora;
 begin
   inherited;
   PgcConfiguracao.ActivePage := TbsGeral;
 
   edCupomNaoFiscalImpressora.Items     := Printer.Printers;
   edCupomNaoFiscalImpressora.ItemIndex := Printer.PrinterIndex;
+
+  // Portas COM disponíveis
+
+  edCupomNaoFiscalImpressora.Items.BeginUpdate;
+  try
+    ACBrNFeDANFeESCPOS.Device.AcharPortasSeriais(edCupomNaoFiscalImpressora.Items);
+  finally
+    edCupomNaoFiscalImpressora.Items.EndUpdate;
+  end;
+
+  // Listar de Impressoras suportadas para o ESC POS (NFC-e)
+
+  edCupomNaoFiscalModelo.Items.Clear ;
+  For ModeloImpressora := Low(TACBrNFeMarcaImpressora) to High(TACBrNFeMarcaImpressora) do
+    edCupomNaoFiscalModelo.Items.Add(GetEnumName(TypeInfo(TACBrNFeMarcaImpressora), Integer(ModeloImpressora)));
 end;
 
 procedure TfrmGrConfigurarAmbiente.CarregarDadosINI;
@@ -139,13 +159,15 @@ begin
 
   // PDV
 
-  chkOrcamentoEmitir.Checked      := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_ORCAM, False);
-  chkCupomEmitir.Checked          := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
-  chkCupomAutomatico.Checked      := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, False);
-  chkCupomNaoFiscal.Checked       := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
-  edCupomNaoFiscalPorta.ItemIndex := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', 0);
-  edCupomNaoFiscalPorta.Text      := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'Impressora padrão do Windows');
-  edCupomNaoFiscalImpressora.Text := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', Printer.Printers.Strings[Printer.PrinterIndex]);
+  chkOrcamentoEmitir.Checked       := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_ORCAM, False);
+  chkCupomEmitir.Checked           := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
+  chkCupomAutomatico.Checked       := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, False);
+  chkCupomNaoFiscal.Checked        := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
+  edCupomNaoFiscalPorta.ItemIndex  := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', 0);
+  edCupomNaoFiscalPorta.Text       := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'Impressora padrão do Windows');
+  edCupomNaoFiscalImpressora.Text  := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', Printer.Printers.Strings[Printer.PrinterIndex]);
+  edCupomNaoFiscalModelo.ItemIndex := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0);
+  edCupomNaoFiscalModelo.Text      := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_DS', 'Nenhum');
 
   edCupomNaoFiscalPortaChange( edCupomNaoFiscalPorta );
 end;
@@ -183,6 +205,8 @@ begin
   FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', edCupomNaoFiscalPorta.ItemIndex);
   FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', edCupomNaoFiscalPorta.Text);
   FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', edCupomNaoFiscalImpressora.Text);
+  FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', edCupomNaoFiscalModelo.ItemIndex);
+  FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_DS', edCupomNaoFiscalModelo.Text);
 end;
 
 procedure TfrmGrConfigurarAmbiente.btnSalvarClick(Sender: TObject);
@@ -251,6 +275,8 @@ begin
   edCupomNaoFiscalPorta.Enabled  := chkCupomNaoFiscal.Checked;
   lblCupomNaoFiscalImpressora.Enabled :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
   edCupomNaoFiscalImpressora.Enabled  :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
+  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
+  edCupomNaoFiscalModelo.Enabled      :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.chkCupomEmitirClick(Sender: TObject);

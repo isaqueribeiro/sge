@@ -102,7 +102,7 @@ type
     lblPathSchemas: TLabel;
     edPathSchemas: TEdit;
     spPathSchemas: TSpeedButton;
-    Label29: TLabel;
+    lblFormaEmissao: TLabel;
     cbFormaEmissao: TComboBox;
     lblVersaoDF: TLabel;
     cbVersaoDF: TComboBox;
@@ -111,6 +111,7 @@ type
     edIdToken: TEdit;
     lblToken: TLabel;
     edToken: TEdit;
+    ckEmitirNFCe: TCheckBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
