@@ -62,6 +62,7 @@ type
     procedure dbCondicaoPagtoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FTotalAPagar : Currency;
@@ -182,6 +183,13 @@ end;
 procedure TfrmGeVendaFormaPagto.RegistrarRotinaSistema;
 begin
   ;
+end;
+
+procedure TfrmGeVendaFormaPagto.FormShow(Sender: TObject);
+begin
+  inherited;
+  if (dbCondicaoPagto.Field.AsInteger > 0) then
+    dbCondicaoPagtoClick( dbCondicaoPagto );
 end;
 
 end.

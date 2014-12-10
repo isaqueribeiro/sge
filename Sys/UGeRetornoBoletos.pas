@@ -233,6 +233,7 @@ begin
 
   FileListBox.Directory := sDiretorio;
   FileListBox.Mask      := sMascara;
+  FileListBox.Update;
 
   Lista.Clear;
   for I := 0 to FileListBox.Items.Count - 1 do

@@ -105,6 +105,8 @@ end;
 procedure TfrmGrConfigurarAmbiente.FormCreate(Sender: TObject);
 var
   ModeloImpressora : TACBrNFeMarcaImpressora;
+  postasCOM : TStringList;
+  I : Integer;
 begin
   inherited;
   PgcConfiguracao.ActivePage := TbsGeral;
@@ -114,11 +116,15 @@ begin
 
   // Portas COM disponíveis
 
-  edCupomNaoFiscalImpressora.Items.BeginUpdate;
+  postasCOM := TStringList.Create;
+  postasCOM.BeginUpdate;
+  postasCOM.Clear;
   try
-    ACBrNFeDANFeESCPOS.Device.AcharPortasSeriais(edCupomNaoFiscalImpressora.Items);
+    ACBrNFeDANFeESCPOS.Device.AcharPortasSeriais(postasCOM);
+    for I := 0 to postasCOM.Count - 1 do
+      edCupomNaoFiscalPorta.Items.Add( postasCOM.Strings[I] );
   finally
-    edCupomNaoFiscalImpressora.Items.EndUpdate;
+    postasCOM.EndUpdate;
   end;
 
   // Listar de Impressoras suportadas para o ESC POS (NFC-e)
@@ -275,8 +281,8 @@ begin
   edCupomNaoFiscalPorta.Enabled  := chkCupomNaoFiscal.Checked;
   lblCupomNaoFiscalImpressora.Enabled :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
   edCupomNaoFiscalImpressora.Enabled  :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
-  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
-  edCupomNaoFiscalModelo.Enabled      :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
+  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
+  edCupomNaoFiscalModelo.Enabled      :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.chkCupomEmitirClick(Sender: TObject);
@@ -287,6 +293,8 @@ begin
   edCupomNaoFiscalPorta.Enabled   := chkCupomEmitir.Checked;
   lblCupomNaoFiscalImpressora.Enabled :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
   edCupomNaoFiscalImpressora.Enabled  :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
+  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
+  edCupomNaoFiscalModelo.Enabled      :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.edCupomNaoFiscalPortaChange(
@@ -294,6 +302,8 @@ procedure TfrmGrConfigurarAmbiente.edCupomNaoFiscalPortaChange(
 begin
   lblCupomNaoFiscalImpressora.Enabled :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
   edCupomNaoFiscalImpressora.Enabled  :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
+  lblCupomNaoFiscalModelo.Enabled     :=  (edCupomNaoFiscalPorta.ItemIndex > 0);
+  edCupomNaoFiscalModelo.Enabled      :=  (edCupomNaoFiscalPorta.ItemIndex > 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.chkOrcamentoEmitirClick(
