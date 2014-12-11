@@ -618,7 +618,8 @@ type
     function ImprimirDANFEACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer;
       const IsPDF : Boolean = FALSE) : Boolean;
 
-    function ImprimirDANFE_ESCPOSACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer) : Boolean;
+    function ImprimirDANFE_ESCPOSACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer;
+      const ImprimirItens : Boolean = TRUE) : Boolean;
 
     function ImprimirDANFEEntradaACBr(const sCNPJEmitente : String; const CodFornecedor: Integer; const iAnoCompra, iNumCompra : Integer;
       const IsPDF : Boolean = FALSE) : Boolean;
@@ -1205,6 +1206,7 @@ begin
       if Trim(DirECFMes) <> EmptyStr then ForceDirectories(DirECFMes);
       if Trim(DirRFD)    <> EmptyStr then ForceDirectories(DirRFD);
 
+      SH_COO  := EmptyStr; // Contador de Operação Fiscal
       SH_CNPJ := StrFormatarCnpj(edtEmitCNPJ.Text);
       SH_IE   := edtEmitIE.Text;
       SH_IM   := qryEmitenteIM.AsString;
@@ -5224,11 +5226,14 @@ begin
     AbrirDestinatario( iCodigoCliente );
     AbrirVenda( iAnoVenda, iNumVenda );
 
+    if ( GetSegmentoID(qryEmitenteCNPJ.AsString) = SEGMENTO_MERCADO_CARRO_ID ) then
+      raise Exception.Create('O segmento da empresa não permite a emissão de NFC-e!');
+
     if not NetWorkActive(True) then
       Exit;
 
     iSerieNFCe  := qryEmitenteSERIE_NFE.AsInteger;
-    iNumeroNFCe := 0; //GetNextID('TBEMPRESA', 'NUMERO_NFCE',   'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFCE = ' + qryEmitenteSERIE_NFCE.AsString);
+    iNumeroNFCe := GetNextID('TBEMPRESA', 'NUMERO_NFCE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFCE = ' + qryEmitenteSERIE_NFCE.AsString);
     DtHoraEmiss := GetDateTimeDB;
 
     ACBrNFe.NotasFiscais.Clear;
@@ -5398,7 +5403,7 @@ begin
 
           Prod.NCM      := qryDadosProdutoNCM_SH.AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.EXTIPI   := EmptyStr;
-          Prod.CFOP     := qryDadosProdutoCFOP_COD.AsString;
+          Prod.CFOP     := 5101; // qryDadosProdutoCFOP_COD.AsString;
 
           if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEAN   := qryDadosProdutoCODBARRA_EAN.AsString
@@ -5443,16 +5448,10 @@ begin
 
           // Informação Adicional do Produto
 
-          if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
-            if ( Trim(qryDadosProdutoREFERENCIA.AsString) <> EmptyStr ) then
-              infAdProd    := 'Ref.: ' + qryDadosProdutoREFERENCIA.AsString
-            else
-              infAdProd    := EmptyStr
+          if ( Trim(qryDadosProdutoREFERENCIA.AsString) <> EmptyStr ) then
+            infAdProd    := 'Ref.: ' + qryDadosProdutoREFERENCIA.AsString
           else
-            infAdProd      := 'Cor: '         + qryDadosProdutoCOR_VEICULO_DESCRICAO.AsString + #13 +
-                              'Placa: '       + qryDadosProdutoREFERENCIA.AsString      + #13 +
-                              'Renavam: '     + qryDadosProdutoRENAVAM_VEICULO.AsString + #13 +
-                              'Combustivel: ' + qryDadosProdutoCOMBUSTIVEL_VEICULO_DESCRICAO.AsString;
+            infAdProd    := EmptyStr;
 
   //Declaração de Importação. Pode ser adicionada várias através do comando Prod.DI.Add
 
@@ -5474,42 +5473,6 @@ begin
                end;
             end;
   }
-
-  //Campos para venda de veículos novos
-
-          if ( (GetSegmentoID(qryEmitenteCNPJ.AsString) = SEGMENTO_MERCADO_CARRO_ID) and (qryDadosProdutoPRODUTO_NOVO.AsInteger = 1) ) then
-          begin
-
-            with Prod.veicProd do
-              begin
-                tpOP     := toVendaConcessionaria; // J02 - Tipo da operação
-                                                   //    (1) = toVendaConcessionaria
-                                                   //    (2) = toFaturamentoDireto
-                                                   //    (3) = toVendaDireta
-                                                   //    (0) = toOutros
-                chassi   := qryDadosProdutoCHASSI_VEICULO.AsString;        // J03 - Chassi do veículo
-                cCor     := qryDadosProdutoCOR_VEICULO.AsString;           // J04 - Cor
-                xCor     := qryDadosProdutoCOR_VEICULO_DESCRICAO.AsString; // J05 - Descrição da Cor
-                pot      := ''; // J06 - Potência Motor
-                Cilin    := '';
-                pesoL    := ''; // J08 - Peso Líquido
-                pesoB    := ''; // J09 - Peso Bruto
-                nSerie   := ''; // J10 - Serial (série)
-                tpComb   := qryDadosProdutoCOMBUSTIVEL_VEICULO_DESCRICAO.AsString; // J11 - Tipo de combustível
-                nMotor   := ''; // J12 - Número de Motor
-                CMT      := '';
-                dist     := '';        // J14 - Distância entre eixos
-                anoMod   := qryDadosProdutoANO_MODELO_VEICULO.AsInteger;         // J16 - Ano Modelo de Fabricação
-                anoFab   := qryDadosProdutoANO_FABRICACAO_VEICULO.AsInteger;     // J17 - Ano de Fabricação
-                tpPint   := '';        // J18 - Tipo de Pintura
-                tpVeic   := StrToIntDef(qryDadosProdutoTIPO_VEICULO.AsString, 0); // J19 - Tipo de Veículo    (Utilizar Tabela RENAVAM)
-                espVeic  := 0;         // J20 - Espécie de Veículo (Utilizar Tabela RENAVAM)
-                VIN      := '';        // J21 - Condição do VIN
-                condVeic := cvAcabado; // J22 - Condição do Veículo (1 - Acabado; 2 - Inacabado; 3 - Semi-acabado)
-                cMod     := '';        // J23 - Código Marca Modelo (Utilizar Tabela RENAVAM)
-              end;
-
-          end;
 
 {
     property tpOP: TpcnTipoOperacao read FtpOP write FtpOP;
@@ -5839,7 +5802,7 @@ begin
         qryFormaPagtos.First;
         while not qryFormaPagtos.Eof do
         begin
-          with pag.Add do //PAGAMENTOS apenas para NFC-e
+          with pag.Add do // Formas de Pagamentos apenas para NFC-e
            begin
              Case qryFormaPagtosFORMAPAGTO_NFCE.AsInteger of
                01 : tPag := fpDinheiro;
@@ -5880,7 +5843,7 @@ begin
       compra.xCont := EmptyStr;
 
       ACBrNFe.NotasFiscais.GerarNFe;
-
+      
       if ( not DelphiIsRunning ) then
         ACBrNFe.NotasFiscais.Assinar;
 
@@ -5896,20 +5859,6 @@ begin
 
     end;
 
-{
-  Imprimir
-
-    nfcDANFE.Device.Ativar;
-    try
-      ACBrNFe.DANFE.ViaConsumidor := True; // chkViaConsumidor.Checked;
-      ACBrNFe.DANFE.ImprimeItens  := True; // not chkDanfeResumido.Checked;
-
-      ACBrNFe.NotasFiscais[0].Imprimir;
-    finally
-      nfcDANFE.Device.Desativar;
-    end;
-
-}
   except
     On E : Exception do
       ShowError('Erro ao tentar gerar NFC-e.' + #13#13 + 'GerarNFCEACBr() --> ' + e.Message);
@@ -5918,7 +5867,8 @@ begin
 end;
 
 function TDMNFe.ImprimirDANFE_ESCPOSACBr(const sCNPJEmitente: String;
-  iCodigoCliente: Integer; const iAnoVenda, iNumVenda: Integer): Boolean;
+  iCodigoCliente: Integer; const iAnoVenda, iNumVenda: Integer;
+  const ImprimirItens : Boolean = TRUE): Boolean;
 var
   FileNameXML : String;
 begin
@@ -5951,10 +5901,16 @@ begin
       NotasFiscais.Clear;
       NotasFiscais.LoadFromFile( FileNameXML );
 
+      if ACBrNFe.NotasFiscais.Count <= 0 then
+        raise Exception.Create('Nenhuma Nota Fiscal de Consumidor foi selecionada!');
+
+      if ACBrNFe.NotasFiscais[0].NFe.Ide.modelo <> MODELO_NFCE then
+        raise Exception.Create('Nota Fiscal não é do tipo NFC-e!');
+
       nfcDANFE.Device.Ativar;
       try
         DANFE.ViaConsumidor := True; // chkViaConsumidor.Checked;
-        DANFE.ImprimeItens  := True; // not chkDanfeResumido.Checked;
+        DANFE.ImprimeItens  := ImprimirItens; // Obs.: Esta propriedade ao receber FALSE, permite apenas a impressão resumo do DANFE da NFC-e
 
         NotasFiscais[0].Imprimir;
       finally
