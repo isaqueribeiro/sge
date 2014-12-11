@@ -542,6 +542,8 @@ type
     nfcDANFE: TACBrNFeDANFeESCPOS;
     ACBrSATExtratoESCPOS: TACBrSATExtratoESCPOS;
     ACBrSAT: TACBrSAT;
+    qryEmitenteSERIE_NFCE: TSmallintField;
+    qryEmitenteNUMERO_NFCE: TIntegerField;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -560,6 +562,7 @@ type
     procedure GerarTabela_CST_COFINS;
 
     procedure UpdateNumeroNFe(const sCNPJEmitente : String; const Serie, Numero : Integer);
+    procedure UpdateNumeroNFCe(const sCNPJEmitente : String; const Serie, Numero : Integer);
     procedure UpdateNumeroCCe(const sCNPJEmitente : String; const Numero : Integer);
     procedure UpdateLoteNFe(const sCNPJEmitente : String; const Ano, Numero : Integer);
     procedure GuardarLoteNFeVenda(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
@@ -605,7 +608,7 @@ type
     function GerarNFCeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var iSerieNFCe, iNumeroNFCe  : Integer; var FileNameXML, ChaveNFCe, ProtocoloNFCe, ReciboNFCe : String; var iNumeroLote  : Int64;
       var Denegada : Boolean; var DenegadaMotivo : String;
-      const Imprimir : Boolean = TRUE) : Boolean;
+      const Imprimir : Boolean = FALSE) : Boolean;
 
     function GerarNFeOffLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE : String;
@@ -1806,6 +1809,26 @@ begin
       SQL.Add('Update TBEMPRESA Set');
       SQL.Add('    SERIE_NFE  = ' + FormatFloat('####', Serie));
       SQL.Add('  , NUMERO_NFE = ' + FormatFloat('#########', Numero));
+      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+
+      ExecQuery;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      raise Exception.Create('UpdateNumeroNFe > ' + E.Message);
+  end;
+end;
+
+procedure TDMNFe.UpdateNumeroNFCe(const sCNPJEmitente : String; const Serie, Numero: Integer);
+begin
+  try
+    with IBSQL do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBEMPRESA Set');
+      SQL.Add('    SERIE_NFCE  = ' + FormatFloat('####', Serie));
+      SQL.Add('  , NUMERO_NFCE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
 
       ExecQuery;
@@ -5116,7 +5139,7 @@ begin
     iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
-(*
+
     if ( Result ) then
     begin
       ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
@@ -5125,18 +5148,18 @@ begin
 
       UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
     end;
-*)
+
   except
     On E : Exception do
     begin
       sErrorMsg := E.Message;
-(*
-      // Diretrizes de tomada de decisão quando a NFe enviada não é aceita
+
+      // Diretrizes de tomada de decisão quando a NFCe enviada não é aceita
 
       if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
-          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFCe.WebServices.Retorno.Recibo);
-
+          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, ACBrNFe.WebServices.Retorno.Recibo);
+(*
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
           REJEICAO_NFE_NOTA_DENEGADA:
@@ -5403,7 +5426,7 @@ begin
 
           Prod.NCM      := qryDadosProdutoNCM_SH.AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.EXTIPI   := EmptyStr;
-          Prod.CFOP     := 5101; // qryDadosProdutoCFOP_COD.AsString;
+          Prod.CFOP     := '5101'; // qryDadosProdutoCFOP_COD.AsString;
 
           if EAN13Valido(qryDadosProdutoCODBARRA_EAN.AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEAN   := qryDadosProdutoCODBARRA_EAN.AsString

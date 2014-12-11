@@ -7,17 +7,13 @@ uses
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters,
+  
+  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, cxLookAndFeels, dxSkinsForm;
 
-  dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinPumpkin, dxSkinSeven, dxSkinSharp, dxSkinSpringTime,
-  dxSkinSummer2008, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel,
-  dxSkinCoffee, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
-  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinSilver,
-  dxSkinStardust, dxSkinsDefaultPainters, dxSkinValentine,
-  dxSkinXmas2008Blue, cxLookAndFeels, dxSkinsForm, dxGDIPlusClasses;
 
 type
   TfrmPrinc = class(TForm)
@@ -559,14 +555,6 @@ begin
   begin
     imgFundo.Picture.LoadFromFile(sFileImage);
     imgFundo.Center := True;
-  end
-  else
-  begin
-    imgEmpresa.Visible  := False;
-    ProductName.Visible := False;
-    Version.Visible     := False;
-    FileDescription.Visible := False;
-    Copyright.Visible       := False;
   end;
 
   if not DataBaseOnLine then
@@ -582,10 +570,6 @@ begin
   mnRelatorioEntradaProduto.Caption := StrDescricaoProduto;
 
   nmRequisicaoCliente.Visible     := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
-  nmCotacaoCompra.Visible         := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
-  nmRequisicaoCompra.Visible      := nmCotacaoCompra.Visible;
-  nmConverterReqAutCompra.Visible := nmCotacaoCompra.Visible;
-  nmAutorizacaoCompra.Visible     := nmCotacaoCompra.Visible;
 
   // (FINAL) Configurar Legendas de acordo com o segmento
 
@@ -767,7 +751,7 @@ begin
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_AJUDA_ID,      'Ajuda',      EmptyStr);
 
   // Sub-menus
-
+  
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_TAB_AUXILIAR_ID,    'Tabelas Auxiliares',        ROTINA_MENU_CADASTRO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ENTRADA_ID,     'Relatórios de Entradas',    ROTINA_MENU_RELATORIO_ID);
@@ -775,11 +759,6 @@ begin
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FINANCEIRO_ID,  'Relatórios do Financeiro',  ROTINA_MENU_RELATORIO_ID);
 
   // Cadastros
-
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_EMPRESA_ID,    'Cadastro da Empresa(s)',   ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CLIENTE_ID,    'Cadastro da Clientes',     ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_FORNECEDOR_ID, 'Cadastro da Fornecedores', ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_VENDEDOR_ID,   'Cadastro da Vendedores',   ROTINA_MENU_CADASTRO_ID);
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_EMP_ID, Trim(nmConfiguracaoEmpresa.Caption), ROTINA_MENU_CADASTRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_NFE_ID, Trim(nmConfigurarNFeACBr.Caption),   ROTINA_MENU_CADASTRO_ID);
@@ -801,14 +780,14 @@ begin
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_DOWNLOAD_NFE_ID,    Trim(nmDownloadNFeGerada.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
 
   // Consultas
-
+  
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_CNPJ_ID,        Trim(nmConsultarCNPJ.Caption),    ROTINA_MENU_CONSULTA_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_VENDA_ID,       Trim(nmVendaIemPesquisa.Caption), ROTINA_MENU_CONSULTA_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ROTATIVIDAD_ID, Trim(nmRotatividade.Caption),     ROTINA_MENU_CONSULTA_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ESTOQUE_MIN_ID, Trim(nmEstoqueMinimo.Caption),    ROTINA_MENU_CONSULTA_ID);
 
   // Financeiro
-
+  
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ABRIR_CAIXA_ID,     Trim(nmAberturaCaixa.Caption),            ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ENCERRAR_CAIXA_ID,  Trim(nmEncerramentoCaixa.Caption),        ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_BOLETO_ID,    Trim(nmGerarBoleto.Caption),              ROTINA_MENU_FINANCEIRO_ID);
@@ -836,7 +815,6 @@ begin
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_APAGAR_ID,   Trim(nmRelatorioFinanceiroContasAPagar.Caption),   ROTINA_MENU_REL_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ARECEBER_ID, Trim(nmRelatorioFinanceiroContasAReceber.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
-
 end;
 
 procedure TfrmPrinc.nmGerarArquivoNFCClick(Sender: TObject);

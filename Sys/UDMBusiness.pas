@@ -326,6 +326,7 @@ var
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
   function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
+  function GetRotinaPaiIDSistema(const RotinaID : String): String;
   function GetQuantidadeEmpresasEmiteNFe : Integer;
 
   function SetAcessoEstacao(const sHostName : String) : Boolean;
@@ -2583,6 +2584,18 @@ begin
   finally
     Result := Return;
   end;
+end;
+
+function GetRotinaPaiIDSistema(const RotinaID : String): String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 3) + sComplemento, 1, ROTINA_LENGTH_ID);
 end;
 
 function GetQuantidadeEmpresasEmiteNFe : Integer;

@@ -113,6 +113,15 @@ type
     lblFone2: TLabel;
     dbFone2: TDBEdit;
     IbDtstTabelaUSUARIO: TIBStringField;
+    lblSerieNFCe: TLabel;
+    dbSerieNFCe: TDBEdit;
+    dbNumeroNFCe: TDBEdit;
+    lblNumeroNFCe: TLabel;
+    IbDtstTabelaSERIE_NFCE: TSmallintField;
+    IbDtstTabelaNUMERO_NFCE: TIntegerField;
+    IbDtstTabelaCARTA_CORRECAO_NFE: TIntegerField;
+    lblNumeroCCe: TLabel;
+    dbNumeroCCe: TDBEdit;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -160,6 +169,7 @@ end;
 procedure TfrmGeEmpresa.FormCreate(Sender: TObject);
 begin
   { DONE -oIsaque -cEmpresa : 22/05/2014 - Inserção automática do segmento INDÚSTRIA para atender meu novo cliente }
+  { DONE -oIsaque -cEmpresa : 11/12/2014 - Inserção dos campos para controle sequencial de NFC-e e CC-e }
 
   RegistrarSegmentos(SEGMENTO_PADRAO_ID,          SEGMENTO_PADRAO_DS);
   RegistrarSegmentos(SEGMENTO_VAREJO_ATACADO_ID,  SEGMENTO_VAREJO_ATACADO_DS);
@@ -185,6 +195,23 @@ begin
   UpdateGenerator;
 
   pgcMaisDados.ActivePageIndex := 0;
+
+  if (gUsuarioLogado.Funcao in [FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM]) then
+  begin
+    dbSerieNFe.ReadOnly   := False;
+    dbNumeroNFe.ReadOnly  := False;
+    dbLoteNumero.ReadOnly := False;
+    dbSerieNFCe.ReadOnly  := False;
+    dbNumeroNFCe.ReadOnly := False;
+    dbNumeroCCe.ReadOnly  := False;
+
+    dbSerieNFe.Color   := clWindow;
+    dbNumeroNFe.Color  := clWindow;
+    dbLoteNumero.Color := clWindow;
+    dbSerieNFCe.Color  := clWindow;
+    dbNumeroNFCe.Color := clWindow;
+    dbNumeroCCe.Color  := clWindow;
+  end;
 end;
 
 procedure TfrmGeEmpresa.ProximoCampoKeyPress(Sender: TObject;
@@ -284,8 +311,11 @@ begin
   
   IbDtstTabelaSERIE_NFE.Value    := 1;
   IbDtstTabelaNUMERO_NFE.Value   := 0;
+  IbDtstTabelaSERIE_NFCE.Value   := 1;
+  IbDtstTabelaNUMERO_NFCE.Value  := 0;
   IbDtstTabelaLOTE_ANO_NFE.Value := YearOf(Date);
   IbDtstTabelaLOTE_NUM_NFE.Value := 0;
+  IbDtstTabelaCARTA_CORRECAO_NFE.Value := 0;
   IbDtstTabelaSEGMENTO.Value     := SEGMENTO_PADRAO_ID;
 end;
 

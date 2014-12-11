@@ -2144,6 +2144,8 @@ object DMNFe: TDMNFe
       '  , e.Lote_Ano_nfe'
       '  , e.Lote_Num_nfe'
       '  , e.Pais_id'
+      '  , e.Serie_nfce'
+      '  , e.Numero_nfce'
       '  , pa.Pais_nome'
       'from TBEMPRESA e'
       '  left join TBESTADO uf on (uf.Est_cod = e.Est_cod)'
@@ -2326,6 +2328,16 @@ object DMNFe: TDMNFe
     object qryEmitenteLOTE_NUM_NFE: TIntegerField
       FieldName = 'LOTE_NUM_NFE'
       Origin = 'TBEMPRESA.LOTE_NUM_NFE'
+    end
+    object qryEmitenteSERIE_NFCE: TSmallintField
+      FieldName = 'SERIE_NFCE'
+      Origin = '"TBEMPRESA"."SERIE_NFCE"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object qryEmitenteNUMERO_NFCE: TIntegerField
+      FieldName = 'NUMERO_NFCE'
+      Origin = '"TBEMPRESA"."NUMERO_NFCE"'
+      ProviderFlags = [pfInUpdate]
     end
     object qryEmitentePAIS_ID: TIBStringField
       FieldName = 'PAIS_ID'

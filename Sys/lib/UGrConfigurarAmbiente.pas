@@ -132,6 +132,8 @@ begin
   edCupomNaoFiscalModelo.Items.Clear ;
   For ModeloImpressora := Low(TACBrNFeMarcaImpressora) to High(TACBrNFeMarcaImpressora) do
     edCupomNaoFiscalModelo.Items.Add(GetEnumName(TypeInfo(TACBrNFeMarcaImpressora), Integer(ModeloImpressora)));
+
+  TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO, SISTEMA_PDV];   
 end;
 
 procedure TfrmGrConfigurarAmbiente.CarregarDadosINI;

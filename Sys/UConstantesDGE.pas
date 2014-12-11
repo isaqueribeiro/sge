@@ -11,8 +11,9 @@ Uses
 const
   VERSION_NUMBER = '1.0.8.0';
 
-  SISTEMA_GESTAO = 0;
-  SISTEMA_PDV    = 1;
+  SISTEMA_GESTAO     = 0;
+  SISTEMA_PDV        = 1;
+  SISTEMA_GESTAO_IND = 2;
 
   ROTINA_LENGTH_ID     = 10;
   ROTINA_TIPO_MENU     = 0;

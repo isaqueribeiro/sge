@@ -3,7 +3,7 @@ object frmPrinc: TfrmPrinc
   Top = 213
   Width = 943
   Height = 556
-  Caption = 'SGE | Sistema Integrado Compacto de Gest'#227'o Empresarial'
+  Caption = 'SGE | Sistema Integrado de Gest'#227'o Empresarial'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20512,10 +20512,10 @@ object frmPrinc: TfrmPrinc
     object ProductName: TLabel
       Left = 128
       Top = 312
-      Width = 38
+      Width = 138
       Height = 23
       Anchors = [akLeft, akBottom]
-      Caption = 'SGE'
+      Caption = 'Internal Name'
       Font.Charset = ANSI_CHARSET
       Font.Color = clGreen
       Font.Height = -19
@@ -20546,10 +20546,10 @@ object frmPrinc: TfrmPrinc
     object FileDescription: TLabel
       Left = 128
       Top = 334
-      Width = 296
+      Width = 298
       Height = 13
       Anchors = [akLeft, akBottom]
-      Caption = 'Sistema Integrado Compacto de Gest'#227'o Empresarial'
+      Caption = 'Sistema Integrado de Gest'#227'o Empresarial/Comercial'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -11
@@ -20560,7 +20560,7 @@ object frmPrinc: TfrmPrinc
       IsControl = True
     end
     object Version: TLabel
-      Left = 352
+      Left = 354
       Top = 316
       Width = 72
       Height = 13
