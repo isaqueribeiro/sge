@@ -4,7 +4,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   Width = 1071
   Height = 680
   ActiveControl = edProdutoCodigo
-  BorderIcons = [biMinimize, biMaximize]
+  BorderIcons = [biMaximize]
   Caption = 'Vendas PDV'
   Font.Charset = ANSI_CHARSET
   Font.Name = 'Tahoma'
@@ -5696,5 +5696,10 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     DataSet = DMCupom.cdsVendaTitulo
     Left = 864
     Top = 328
+  end
+  object dtsNotaFiscal: TDataSource
+    DataSet = DMCupom.cdsVendaNFCe
+    Left = 864
+    Top = 376
   end
 end

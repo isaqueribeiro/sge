@@ -128,7 +128,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 300
-        ActivePage = TabSheet1
+        ActivePage = TbsNFe
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -278,7 +278,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
         end
         object TbsNFe: TTabSheet
-          Caption = 'NF-e'
+          Caption = 'NF-e / NFC-e'
           ImageIndex = 1
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
@@ -353,6 +353,60 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             TabOrder = 1
             ValueChecked = '1'
             ValueUnchecked = '0'
+          end
+          object grpBxToken: TGroupBox
+            Left = 16
+            Top = 112
+            Width = 257
+            Height = 121
+            Caption = 'Token Principal p/ emiss'#227'o de NFC-e'
+            TabOrder = 4
+            object lblTokenId: TLabel
+              Left = 16
+              Top = 24
+              Width = 89
+              Height = 13
+              Caption = 'Id Token / Id CSC:'
+              FocusControl = edTokenId
+            end
+            object lblToken: TLabel
+              Left = 16
+              Top = 64
+              Width = 63
+              Height = 13
+              Caption = 'Token / CSC:'
+              FocusControl = edToken
+            end
+            object edTokenId: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 225
+              Height = 21
+              DataField = 'NFCE_TOKEN_ID'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object edToken: TDBEdit
+              Left = 16
+              Top = 80
+              Width = 225
+              Height = 21
+              DataField = 'NFCE_TOKEN_ID'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
           end
         end
         object TabSheet1: TTabSheet
@@ -490,6 +544,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.nfe_aceitar_nota_denegada'
       '  , c.nfe_solicita_dh_saida'
       '  , c.nfe_imprimir_cod_cliente'
+      '  , c.nfce_token_id'
+      '  , c.nfce_token'
       '  , c.cliente_permitir_duplicar_cnpj'
       '  , c.custo_oper_calcular'
       '  , c.permitir_venda_estoque_ins'
@@ -591,6 +647,18 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Origin = '"TBCONFIGURACAO"."NFE_IMPRIMIR_COD_CLIENTE"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaNFCE_TOKEN_ID: TIBStringField
+      FieldName = 'NFCE_TOKEN_ID'
+      Origin = '"TBCONFIGURACAO"."NFCE_TOKEN_ID"'
+      ProviderFlags = [pfInUpdate]
+      Size = 250
+    end
+    object IbDtstTabelaNFCE_TOKEN: TIBStringField
+      FieldName = 'NFCE_TOKEN'
+      Origin = '"TBCONFIGURACAO"."NFCE_TOKEN"'
+      ProviderFlags = [pfInUpdate]
+      Size = 250
+    end
     object IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'CLIENTE_PERMITIR_DUPLICAR_CNPJ'
@@ -662,6 +730,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFE_ACEITAR_NOTA_DENEGADA,'
       '  NFE_SOLICITA_DH_SAIDA,'
       '  NFE_IMPRIMIR_COD_CLIENTE,'
+      '  NFCE_TOKEN_ID,'
+      '  NFCE_TOKEN,'
       '  CLIENTE_PERMITIR_DUPLICAR_CNPJ,'
       '  CUSTO_OPER_CALCULAR,'
       '  PERMITIR_VENDA_ESTOQUE_INS,'
@@ -669,7 +739,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  ESTOQUE_UNICO_EMPRESAS,'
       '  ESTOQUE_SATELITE_CLIENTE,'
       '  AUTORIZA_INFORMA_CLIENTE,'
-      '  USUARIO'
+      '  USUARIO,'
+      '  NFE_EMITIR_NFE'
       'from TBCONFIGURACAO '
       'where'
       '  EMPRESA = :EMPRESA')
@@ -693,6 +764,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  EMPRESA = :EMPRESA,'
       '  ESTOQUE_SATELITE_CLIENTE = :ESTOQUE_SATELITE_CLIENTE,'
       '  ESTOQUE_UNICO_EMPRESAS = :ESTOQUE_UNICO_EMPRESAS,'
+      '  NFCE_TOKEN = :NFCE_TOKEN,'
+      '  NFCE_TOKEN_ID = :NFCE_TOKEN_ID,'
       '  NFE_ACEITAR_NOTA_DENEGADA = :NFE_ACEITAR_NOTA_DENEGADA,'
       '  NFE_EMITIR = :NFE_EMITIR,'
       '  NFE_IMPRIMIR_COD_CLIENTE = :NFE_IMPRIMIR_COD_CLIENTE,'
@@ -714,11 +787,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         ', EMAIL_SMTP_PORTA, '
       
         '   EMPRESA, ESTOQUE_SATELITE_CLIENTE, ESTOQUE_UNICO_EMPRESAS, NF' +
-        'E_ACEITAR_NOTA_DENEGADA, '
+        'CE_TOKEN, '
       
-        '   NFE_EMITIR, NFE_IMPRIMIR_COD_CLIENTE, NFE_SOLICITA_DH_SAIDA, ' +
-        'PERMITIR_VENDA_ESTOQUE_INS, '
-      '   USUARIO)'
+        '   NFCE_TOKEN_ID, NFE_ACEITAR_NOTA_DENEGADA, NFE_EMITIR, NFE_IMP' +
+        'RIMIR_COD_CLIENTE, '
+      '   NFE_SOLICITA_DH_SAIDA, PERMITIR_VENDA_ESTOQUE_INS, USUARIO)'
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
@@ -731,11 +804,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         'SMTP, :EMAIL_SMTP_PORTA, '
       
         '   :EMPRESA, :ESTOQUE_SATELITE_CLIENTE, :ESTOQUE_UNICO_EMPRESAS,' +
-        ' :NFE_ACEITAR_NOTA_DENEGADA, '
+        ' :NFCE_TOKEN, '
       
-        '   :NFE_EMITIR, :NFE_IMPRIMIR_COD_CLIENTE, :NFE_SOLICITA_DH_SAID' +
-        'A, :PERMITIR_VENDA_ESTOQUE_INS, '
-      '   :USUARIO)')
+        '   :NFCE_TOKEN_ID, :NFE_ACEITAR_NOTA_DENEGADA, :NFE_EMITIR, :NFE' +
+        '_IMPRIMIR_COD_CLIENTE, '
+      
+        '   :NFE_SOLICITA_DH_SAIDA, :PERMITIR_VENDA_ESTOQUE_INS, :USUARIO' +
+        ')')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'

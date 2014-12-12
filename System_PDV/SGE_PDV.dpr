@@ -90,7 +90,7 @@ begin
   FileINI := TIniFile.Create( ExtractFilePath(ParamStr(0)) + 'Conexao.ini' );
 
   Application.Initialize;
-  Application.Title := 'PDV | Ponto de Venda do SGE';
+  Application.Title := 'PDV | Ponto de Venda do SGE/SGI';
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
   Application.CreateForm(TfrmPrinc, frmPrinc);

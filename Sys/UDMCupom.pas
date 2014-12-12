@@ -155,6 +155,24 @@ type
     cdsVendaTitulo: TIBDataSet;
     cdsVendaFormaPagtoVALOR_RECEBIDO: TIBBCDField;
     cdsVendaFormaPagtoValorTroco: TCurrencyField;
+    cdsVendaNFCe: TIBDataSet;
+    cdsVendaNFCeEMPRESA: TIBStringField;
+    cdsVendaNFCeANOVENDA: TSmallintField;
+    cdsVendaNFCeNUMVENDA: TIntegerField;
+    cdsVendaNFCeDATAEMISSAO: TDateField;
+    cdsVendaNFCeHORAEMISSAO: TTimeField;
+    cdsVendaNFCeSERIE: TIBStringField;
+    cdsVendaNFCeNUMERO: TIntegerField;
+    cdsVendaNFCeMODELO: TSmallintField;
+    cdsVendaNFCeVERSAO: TSmallintField;
+    cdsVendaNFCeCHAVE: TIBStringField;
+    cdsVendaNFCePROTOCOLO: TIBStringField;
+    cdsVendaNFCeRECIBO: TIBStringField;
+    cdsVendaNFCeXML_FILENAME: TIBStringField;
+    cdsVendaNFCeXML_FILE: TMemoField;
+    cdsVendaNFCeLOTE_ANO: TSmallintField;
+    cdsVendaNFCeLOTE_NUM: TIntegerField;
+    updVendaNFCe: TIBUpdateSQL;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
   private

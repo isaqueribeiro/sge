@@ -89,6 +89,7 @@ type
     actProdutoValor: TAction;
     actProdutoQuantidade: TAction;
     actProdutoExcluir: TAction;
+    dtsNotaFiscal: TDataSource;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -126,6 +127,7 @@ type
     procedure CarregarFormaPagto(const Empresa : String; const Ano, Controle : Integer);
     procedure CarregarTitulos(const Empresa : String; const Ano, Controle : Integer);
     procedure CarregarDadosCFOP( iCodigo : Integer );
+    procedure CarregarNotaFiscal(const Empresa : String; const Ano : Smallint; const Controle : Integer);
 
     procedure ZerarFormaPagto;
     procedure InserirProduto;
@@ -143,6 +145,7 @@ type
     function DataSetItens : TDataSet;
     function DataSetFormaPagto : TDataSet;
     function DataSetTitulo : TDataSet;
+    function DataSetNotaFiscal : TDataSet;
     function EstaEditando : Boolean;
     function VendaEstaAberta : Boolean;
     function VendaEstaFinalizada : Boolean;
@@ -370,6 +373,7 @@ begin
   CarregarItens(Empresa, Ano, Controle);
   CarregarFormaPagto(Empresa, Ano, Controle);
   CarregarTitulos(Empresa, Ano, Controle);
+  CarregarNotaFiscal(Empresa, Ano, Controle);
 
   if ( DataSetVenda.FieldByName('ano').AsInteger > 0 ) then
   begin
@@ -1156,6 +1160,18 @@ var
   CxAno    ,
   CxNumero ,
   CxContaCorrente : Integer;
+
+  iNumero     ,
+  iSerieNFCe  ,
+  iNumeroNFCe : Integer;
+  sFileNameXML ,
+  sChaveNFE    ,
+  sProtocoloNFE,
+  sReciboNFE   ,
+  sMensagem    ,
+  sDenegadaMotivo : String;
+  iNumeroLote  : Int64;
+  bDenegada    : Boolean;
 begin
   if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
     Exit;
@@ -1333,13 +1349,110 @@ begin
 
     if GetEmitirCupom then
       if GetEmitirCupomAutomatico then
+        if DMNFe.IsEstacaoEmiteNFCe then
+        begin
+          // (INICIO) - Emissão de NFC-e
+
+          bConfirmado := not DataSetNotaFiscal.IsEmpty;
+          bDenegada   := False;
+
+          // -- 1. Gerar e enviar para SEFA o arquivo XML da NFC-e
+
+          if not bConfirmado then
+            bConfirmado := DMNFe.GerarNFCeOnLineACBr(
+                DataSetVenda.FieldByName('CODEMP').AsString
+              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+              , FormatDateTime('dd/mm/yyyy hh:mm:ss', GetDateTimeDB)
+              , DataSetVenda.FieldByName('ANO').AsInteger
+              , DataSetVenda.FieldByName('CODCONTROL').AsInteger
+              , iSerieNFCe
+              , iNumeroNFCe
+              , sFileNameXML
+              , sChaveNFE
+              , sProtocoloNFE
+              , sReciboNFE
+              , iNumeroLote
+              , bDenegada
+              , sDenegadaMotivo
+              , False);
+
+          if bDenegada then
+          begin
+            DataSetVenda.Edit;
+
+            DataSetVenda.FieldByName('NFE_DENEGADA').AsInteger       := 1;
+            DataSetVenda.FieldByName('NFE_DENEGADA_MOTIVO').AsString := AnsiUpperCase(Trim(sDenegadaMotivo));
+
+            TIBDataSet(DataSetVenda).Post;
+            TIBDataSet(DataSetVenda).ApplyUpdates;
+
+            CommitTransaction;
+          end;
+
+          CarregarNotaFiscal(
+              DataSetVenda.FieldByName('CODEMP').AsString
+            , DataSetVenda.FieldByName('ANO').AsInteger
+            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+
+          // -- 2. Salvar na base o arquivo XML da NFC-e
+
+          if bConfirmado and DataSetNotaFiscal.IsEmpty then
+          begin
+            DataSetNotaFiscal.Append;
+
+            DataSetNotaFiscal.FieldByName('EMPRESA').Value     := DataSetVenda.FieldByName('CODEMP').AsString;
+            DataSetNotaFiscal.FieldByName('ANOVENDA').Value    := DataSetVenda.FieldByName('ANO').Value;
+            DataSetNotaFiscal.FieldByName('NUMVENDA').Value    := DataSetVenda.FieldByName('CODCONTROL').Value;
+            DataSetNotaFiscal.FieldByName('SERIE').Value       := FormatFloat('#00', iSerieNFCe);
+            DataSetNotaFiscal.FieldByName('NUMERO').Value      := iNumeroNFCe;
+            DataSetNotaFiscal.FieldByName('MODELO').Value      := DMNFe.GetModeloDF;
+            DataSetNotaFiscal.FieldByName('VERSAO').Value      := DMNFe.GetVersaoDF;
+            DataSetNotaFiscal.FieldByName('DATAEMISSAO').Value := GetDateDB;
+            DataSetNotaFiscal.FieldByName('HORAEMISSAO').Value := GetTimeDB;
+            DataSetNotaFiscal.FieldByName('CHAVE').Value     := sChaveNFE;
+            DataSetNotaFiscal.FieldByName('PROTOCOLO').Value := sProtocoloNFE;
+            DataSetNotaFiscal.FieldByName('RECIBO').Value    := sReciboNFE;
+            DataSetNotaFiscal.FieldByName('LOTE_ANO').Clear;
+            DataSetNotaFiscal.FieldByName('LOTE_NUM').Clear;
+
+            if ( FileExists(sFileNameXML) ) then
+            begin
+              CorrigirXML_NFe(sFileNameXML);
+
+              DataSetNotaFiscal.FieldByName('XML_FILENAME').Value := ExtractFileName( sFileNameXML );
+              TMemoField(DataSetNotaFiscal.FieldByName('XML_FILE')).LoadFromFile( sFileNameXML );
+            end;
+
+            TIBDataSet(DataSetNotaFiscal).Post;
+            TIBDataSet(DataSetNotaFiscal).ApplyUpdates;
+
+            CommitTransaction;
+          end;
+
+          // -- 3. Carregar o arquivo XML da NFC-e para impressão
+
+          if bConfirmado then
+            DMNFe.ImprimirDANFE_ESCPOSACBr(
+                DataSetVenda.FieldByName('CODEMP').AsString
+              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+              , DataSetVenda.FieldByName('ANO').AsInteger
+              , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+
+          // (FINAL) - Emissão de NFC-e    
+        end
+        else
         if GetCupomNaoFiscalEmitir then
+        begin
           DMNFe.ImprimirCupomNaoFiscal(
               DataSetVenda.FieldByName('CODEMP').AsString
             , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
             , DataSetVenda.FieldByName('ANO').AsInteger
-            , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
+            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+
+          if DMNFe.IsEstacaoEmiteNFCeResumido then
+            ;
+        end
         else
           ; // Emitir Cupom Fiscal
 
@@ -1887,6 +2000,24 @@ begin
     Exit;
 
   ProdutoAlterar( excluirProduto );
+end;
+
+procedure TfrmGeVendaPDV.CarregarNotaFiscal(const Empresa: String;
+  const Ano: Smallint; const Controle: Integer);
+begin
+  with TIBDataSet(DataSetNotaFiscal) do
+  begin
+    Close;
+    ParamByName('empresa').AsString   := Empresa;
+    ParamByName('ano').AsInteger      := Ano;
+    ParamByName('controle').AsInteger := Controle;
+    Open;
+  end;
+end;
+
+function TfrmGeVendaPDV.DataSetNotaFiscal: TDataSet;
+begin
+  Result := dtsNotaFiscal.DataSet;
 end;
 
 initialization

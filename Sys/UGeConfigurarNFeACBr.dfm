@@ -449,9 +449,9 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           object lblToken: TLabel
             Left = 8
             Top = 201
-            Width = 59
+            Width = 249
             Height = 13
-            Caption = 'Token / CSC'
+            Caption = 'Token / CSC (C'#243'digo de Seguran'#231'a do Contribuinte)'
             Enabled = False
             FocusControl = edToken
           end

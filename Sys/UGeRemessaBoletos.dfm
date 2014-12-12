@@ -478,12 +478,12 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
     object Bevel7: TBevel
       Left = 465
       Top = 2
-      Width = 368
+      Width = 371
       Height = 31
       Shape = bsSpacer
     end
     object btnHistorico: TBitBtn
-      Left = 833
+      Left = 836
       Top = 2
       Width = 75
       Height = 31

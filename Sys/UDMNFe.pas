@@ -659,6 +659,8 @@ type
 
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
+    function IsEstacaoEmiteNFCe : Boolean;
+    function IsEstacaoEmiteNFCeResumido : Boolean;
   end;
 
 var
@@ -707,7 +709,7 @@ uses
   UDMBusiness, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
-  pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass;
+  pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, IniFiles;
 
 {$R *.dfm}
 
@@ -932,6 +934,7 @@ begin
       WriteInteger( sSecaoGeral, 'FormaEmissao', cbFormaEmissao.ItemIndex) ;
       WriteString ( sSecaoGeral, 'IdToken'     , edIdToken.Text) ;
       WriteString ( sSecaoGeral, 'Token'       , edToken.Text) ;
+      WriteBool   ( sSecaoGeral, 'GerarNFCe'   , ckEmitirNFCe.Checked);
       WriteString ( sSecaoGeral, 'LogoMarca'   , edtLogoMarca.Text) ;
       WriteBool   ( sSecaoGeral, 'RetirarAcentos', ckRetirarAcentos.Checked) ;
       WriteBool   ( sSecaoGeral, 'Salvar'      ,   ckSalvar.Checked) ;
@@ -1061,8 +1064,9 @@ begin
 
       cbFormaEmissao.ItemIndex := ReadInteger(sSecaoGeral, 'FormaEmissao', 0) ;
       rgModoGerarNFe.ItemIndex := 1; NetWorkActive; // ReadInteger( 'Geral', 'ModoGerarNFe', 1) ;
-      edIdToken.Text := ReadString( sSecaoGeral, 'IdToken', EmptyStr);
-      edToken.Text   := ReadString( sSecaoGeral, 'Token'  , EmptyStr);
+      edIdToken.Text       := ReadString( sSecaoGeral, 'IdToken',   GetTokenID_NFCe(sCNPJEmitente));
+      edToken.Text         := ReadString( sSecaoGeral, 'Token'  ,   GetToken_NFCe(sCNPJEmitente));
+      ckEmitirNFCe.Checked := ReadBool  ( sSecaoGeral, 'GerarNFCe', False);
 
       ckRetirarAcentos.Checked := ReadBool( sSecaoGeral, 'RetirarAcentos', True) ;
       ckSalvar.Checked         := ReadBool( sSecaoGeral, 'Salvar'        , True) ;
@@ -1195,6 +1199,9 @@ begin
         edtEmitCodCidade.Text  := qryEmitenteCID_IBGE.AsString;
         edtEmitCidade.Text     := qryEmitenteCID_NOME.AsString;
         edtEmitUF.Text         := qryEmitenteEST_SIGLA.AsString;
+
+        edIdToken.Text       := GetTokenID_NFCe(sCNPJEmitente);
+        edToken.Text         := GetToken_NFCe(sCNPJEmitente);
       end;
     end;
 
@@ -4827,6 +4834,16 @@ begin
   Result := Ord(ACBrNFe.Configuracoes.Geral.VersaoDF);
 end;
 
+function TDMNFe.IsEstacaoEmiteNFCe : Boolean;
+begin
+  Result := ConfigACBr.ckEmitirNFCe.Checked;
+end;
+
+function TDMNFe.IsEstacaoEmiteNFCeResumido : Boolean;
+begin
+  Result := ConfigACBr.ckEmitirNFCe.Checked and False;
+end;
+
 function TDMNFe.ImprimirCupomOrcamento(const sCNPJEmitente: String;
   iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoVenda,
   iNumVenda: Integer): Boolean;
@@ -5159,7 +5176,7 @@ begin
       if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, ACBrNFe.WebServices.Retorno.Recibo);
-(*
+
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
           REJEICAO_NFE_NOTA_DENEGADA:
@@ -5214,7 +5231,7 @@ begin
               ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
         end;
-*)
+
       ShowError('Erro ao tentar gerar NFC-e.' +
         IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
         #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);

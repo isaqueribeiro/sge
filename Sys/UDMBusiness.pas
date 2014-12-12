@@ -328,6 +328,8 @@ var
   function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
   function GetRotinaPaiIDSistema(const RotinaID : String): String;
   function GetQuantidadeEmpresasEmiteNFe : Integer;
+  function GetTokenID_NFCe(const Empresa : String) : String;
+  function GetToken_NFCe(const Empresa : String) : String;
 
   function SetAcessoEstacao(const sHostName : String) : Boolean;
 
@@ -626,7 +628,7 @@ begin
       fMsg.Free;
     end
   else
-    Application.MessageBox(PChar(sMsg), 'Informação', MB_ICONINFORMATION);
+    MessageDlg(PChar(sMsg), mtInformation, [mbOK], 0);
 end;
 
 procedure ShowWarning(sMsg : String);
@@ -642,7 +644,7 @@ begin
       fMsg.Free;
     end
   else
-    Application.MessageBox(PChar(sMsg), 'Alerta', MB_ICONWARNING);
+    MessageDlg(PChar(sMsg), mtWarning, [mbOK], 0);
 end;
 
 procedure ShowWarning(sTitulo, sMsg : String);
@@ -710,7 +712,7 @@ begin
     ForceDirectories(ExtractFilePath(Application.ExeName) + '_logError\');
     sLOG_Error.SaveToFile(ExtractFilePath(Application.ExeName) + '_logError\' + FormatDateTime('yyyy-mm-dd.hhmmss".log"', Now));
 
-    Application.MessageBox(PChar(sMsg), 'Erro', MB_ICONERROR);
+    MessageDlg(PChar(sMsg), mtError, [mbOK], 0);
   finally
     sLOG_Error.Free;
   end;
@@ -1152,7 +1154,8 @@ end;
 
 function ShowConfirm(sMsg : String; const sTitle : String = ''; const DefaultButton : Integer = MB_DEFBUTTON2) : Boolean;
 begin
-  Result := ( Application.MessageBox(PChar(sMsg), 'Confirmar', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES );
+  Result := ( MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0) = ID_YES );
+//  Result := ( Application.MessageBox(PChar(sMsg), 'Confirmar', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES );
 end;
 
 function GetPaisIDDefault : String;
@@ -2620,6 +2623,56 @@ begin
 
   finally
     Result := Return;
+  end;
+end;
+
+function GetTokenID_NFCe(const Empresa : String) : String;
+var
+  sReturn : String;
+begin
+  try
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  c.nfce_token_id');
+      SQL.Add('from TBCONFIGURACAO c');
+      SQL.Add('where c.empresa = ' + QuotedStr(Empresa));
+      Open;
+
+      sReturn := Trim(FieldByName('nfce_token_id').AsString);
+
+      Close;
+    end;
+
+  finally
+    Result := sReturn;
+  end;
+end;
+
+function GetToken_NFCe(const Empresa : String) : String;
+var
+  sReturn : String;
+begin
+  try
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  c.nfce_token');
+      SQL.Add('from TBCONFIGURACAO c');
+      SQL.Add('where c.empresa = ' + QuotedStr(Empresa));
+      Open;
+
+      sReturn := Trim(FieldByName('nfce_token').AsString);
+
+      Close;
+    end;
+
+  finally
+    Result := sReturn;
   end;
 end;
 

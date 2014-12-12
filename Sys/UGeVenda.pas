@@ -525,6 +525,11 @@ end;
 
 procedure TfrmGeVenda.FormCreate(Sender: TObject);
 begin
+(*
+  IMR - 12/12/2014 :
+    Ajustes da verificação do antamento do processo de emissão de Nota Fiscal, trocando o campo de validaçaõ de "LOTE_NFE_NUMERO"
+    para "LOTE_NFE_RECIBO"
+*)
   Desativar_Promocoes;
 
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
@@ -937,9 +942,9 @@ begin
     nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
 
-    TbsInformeNFe.TabVisible    := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
-    nmPpLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnLimparDadosNFe.Enabled   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
     BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
   end
   else
@@ -958,9 +963,9 @@ begin
     nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled   := False;
 
-    TbsInformeNFe.TabVisible    := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0);
-    nmPpLimparDadosNFe.Enabled  := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnLimparDadosNFe.Enabled   := (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsCurrency = 0);
+    TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
     BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
   end;
 end;
@@ -1766,7 +1771,7 @@ begin
     Exit;
   end;
 
-  if ( IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0 ) then
+  if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr ) then
   begin
     ShowWarning('O processo de geração de NF-e para esta venda já foi solicitado, mas não fora concluído.' + #13 +
       'Favor consultar junto a SEFA e processar o Recibo de número ' +
@@ -1902,7 +1907,7 @@ begin
 
   RecarregarRegistro;
 
-  if ( (IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0) and (IbDtstTabelaNFE.AsLargeInt = 0) ) then
+  if ( (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsLargeInt = 0) ) then
   begin
     ShowWarning('O processo de geração de NF-e para esta venda já foi solicitado, mas não fora concluído.' + #13 +
       'Desta forma não seré perdida o cancelamento da venda.' + #13#13 + 'Favor consultar junto a SEFA e processar o Recibo de número ' +

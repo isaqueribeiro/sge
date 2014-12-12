@@ -2,8 +2,8 @@ object DMCupom: TDMCupom
   OldCreateOrder = False
   Left = 544
   Top = 307
-  Height = 414
-  Width = 793
+  Height = 631
+  Width = 1015
   object cdsVenda: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -1520,5 +1520,188 @@ object DMCupom: TDMCupom
       '')
     Left = 80
     Top = 272
+  end
+  object cdsVendaNFCe: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    CachedUpdates = True
+    SelectSQL.Strings = (
+      'Select'
+      '    n.EMPRESA'
+      '  , n.ANOVENDA'
+      '  , n.NUMVENDA'
+      '  , n.DATAEMISSAO'
+      '  , n.HORAEMISSAO'
+      '  , n.SERIE'
+      '  , n.NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
+      '  , n.CHAVE'
+      '  , n.PROTOCOLO'
+      '  , n.RECIBO'
+      '  , n.XML_FILENAME'
+      '  , n.XML_FILE'
+      '  , n.LOTE_ANO'
+      '  , n.LOTE_NUM'
+      'from TBNFE_ENVIADA n'
+      'where n.EMPRESA = :empresa'
+      '  and n.ANOVENDA = :ano'
+      '  and n.NUMVENDA = :controle')
+    UpdateObject = updVendaNFCe
+    Left = 80
+    Top = 320
+    object cdsVendaNFCeEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBNFE_ENVIADA"."EMPRESA"'
+      Size = 18
+    end
+    object cdsVendaNFCeANOVENDA: TSmallintField
+      FieldName = 'ANOVENDA'
+      Origin = 'TBNFE_ENVIADA.ANOVENDA'
+      Required = True
+    end
+    object cdsVendaNFCeNUMVENDA: TIntegerField
+      FieldName = 'NUMVENDA'
+      Origin = 'TBNFE_ENVIADA.NUMVENDA'
+    end
+    object cdsVendaNFCeDATAEMISSAO: TDateField
+      FieldName = 'DATAEMISSAO'
+      Origin = 'TBNFE_ENVIADA.DATAEMISSAO'
+    end
+    object cdsVendaNFCeHORAEMISSAO: TTimeField
+      FieldName = 'HORAEMISSAO'
+      Origin = 'TBNFE_ENVIADA.HORAEMISSAO'
+    end
+    object cdsVendaNFCeSERIE: TIBStringField
+      FieldName = 'SERIE'
+      Origin = 'TBNFE_ENVIADA.SERIE'
+      Required = True
+      Size = 4
+    end
+    object cdsVendaNFCeNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'TBNFE_ENVIADA.NUMERO'
+      Required = True
+    end
+    object cdsVendaNFCeMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = '"TBNFE_ENVIADA"."MODELO"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsVendaNFCeVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = '"TBNFE_ENVIADA"."VERSAO"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsVendaNFCeCHAVE: TIBStringField
+      FieldName = 'CHAVE'
+      Origin = 'TBNFE_ENVIADA.CHAVE'
+      Size = 250
+    end
+    object cdsVendaNFCePROTOCOLO: TIBStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'TBNFE_ENVIADA.PROTOCOLO'
+      Size = 250
+    end
+    object cdsVendaNFCeRECIBO: TIBStringField
+      FieldName = 'RECIBO'
+      Origin = 'TBNFE_ENVIADA.RECIBO'
+      Size = 250
+    end
+    object cdsVendaNFCeXML_FILENAME: TIBStringField
+      FieldName = 'XML_FILENAME'
+      Origin = 'TBNFE_ENVIADA.XML_FILENAME'
+      Size = 250
+    end
+    object cdsVendaNFCeXML_FILE: TMemoField
+      FieldName = 'XML_FILE'
+      Origin = 'TBNFE_ENVIADA.XML_FILE'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object cdsVendaNFCeLOTE_ANO: TSmallintField
+      FieldName = 'LOTE_ANO'
+      Origin = 'TBNFE_ENVIADA.LOTE_ANO'
+    end
+    object cdsVendaNFCeLOTE_NUM: TIntegerField
+      FieldName = 'LOTE_NUM'
+      Origin = 'TBNFE_ENVIADA.LOTE_NUM'
+      Required = True
+    end
+  end
+  object updVendaNFCe: TIBUpdateSQL
+    RefreshSQL.Strings = (
+      'Select '
+      '  EMPRESA,'
+      '  SERIE,'
+      '  NUMERO,'
+      '  MODELO,'
+      '  VERSAO,'
+      '  ANOVENDA,'
+      '  NUMVENDA,'
+      '  ANOCOMPRA,'
+      '  NUMCOMPRA,'
+      '  DATAEMISSAO,'
+      '  HORAEMISSAO,'
+      '  CHAVE,'
+      '  PROTOCOLO,'
+      '  RECIBO,'
+      '  XML_FILENAME,'
+      '  XML_FILE,'
+      '  LOTE_ANO,'
+      '  LOTE_NUM'
+      'from TBNFE_ENVIADA '
+      'where'
+      '  EMPRESA = :EMPRESA and'
+      '  NUMERO = :NUMERO and'
+      '  SERIE = :SERIE')
+    ModifySQL.Strings = (
+      'update TBNFE_ENVIADA'
+      'set'
+      '  ANOVENDA = :ANOVENDA,'
+      '  CHAVE = :CHAVE,'
+      '  DATAEMISSAO = :DATAEMISSAO,'
+      '  EMPRESA = :EMPRESA,'
+      '  HORAEMISSAO = :HORAEMISSAO,'
+      '  LOTE_ANO = :LOTE_ANO,'
+      '  LOTE_NUM = :LOTE_NUM,'
+      '  MODELO = :MODELO,'
+      '  NUMERO = :NUMERO,'
+      '  NUMVENDA = :NUMVENDA,'
+      '  PROTOCOLO = :PROTOCOLO,'
+      '  RECIBO = :RECIBO,'
+      '  SERIE = :SERIE,'
+      '  VERSAO = :VERSAO,'
+      '  XML_FILE = :XML_FILE,'
+      '  XML_FILENAME = :XML_FILENAME'
+      'where'
+      '  EMPRESA = :OLD_EMPRESA and'
+      '  NUMERO = :OLD_NUMERO and'
+      '  SERIE = :OLD_SERIE')
+    InsertSQL.Strings = (
+      'insert into TBNFE_ENVIADA'
+      
+        '  (ANOVENDA, CHAVE, DATAEMISSAO, EMPRESA, HORAEMISSAO, LOTE_ANO,' +
+        ' LOTE_NUM, '
+      
+        '   MODELO, NUMERO, NUMVENDA, PROTOCOLO, RECIBO, SERIE, VERSAO, X' +
+        'ML_FILE, '
+      '   XML_FILENAME)'
+      'values'
+      
+        '  (:ANOVENDA, :CHAVE, :DATAEMISSAO, :EMPRESA, :HORAEMISSAO, :LOT' +
+        'E_ANO, '
+      
+        '   :LOTE_NUM, :MODELO, :NUMERO, :NUMVENDA, :PROTOCOLO, :RECIBO, ' +
+        ':SERIE, '
+      '   :VERSAO, :XML_FILE, :XML_FILENAME)')
+    DeleteSQL.Strings = (
+      'delete from TBNFE_ENVIADA'
+      'where'
+      '  EMPRESA = :OLD_EMPRESA and'
+      '  NUMERO = :OLD_NUMERO and'
+      '  SERIE = :OLD_SERIE')
+    Left = 112
+    Top = 320
   end
 end
