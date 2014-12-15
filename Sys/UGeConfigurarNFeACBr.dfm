@@ -432,9 +432,9 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           object lblVersaoDF: TLabel
             Left = 8
             Top = 117
-            Width = 119
+            Width = 134
             Height = 13
-            Caption = 'Vers'#227'o Documento Fiscal'
+            Caption = 'Vers'#227'o do Documento Fiscal'
             FocusControl = cbVersaoDF
           end
           object lblIdToken: TLabel

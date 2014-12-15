@@ -12,7 +12,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, cxLookAndFeels, dxSkinsForm;
+  dxSkinOffice2010Silver, cxLookAndFeels, dxSkinsForm, cxButtons;
 
 
 type
@@ -50,7 +50,6 @@ type
     nmFornecedor: TMenuItem;
     imgFundo: TImage;
     nmTipoDespesa: TMenuItem;
-    btnSair: TRxSpeedButton;
     N3: TMenuItem;
     btnEstoque: TRxSpeedButton;
     ppEstoque: TPopupMenu;
@@ -166,6 +165,7 @@ type
     N110: TMenuItem;
     nmRequisicaoCompra: TMenuItem;
     nmConverterReqAutCompra: TMenuItem;
+    btnSair: TcxButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
