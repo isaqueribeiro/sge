@@ -729,6 +729,22 @@ begin
   end;
 end;
 
+procedure RemoverAcentos_ArquivoTexto (sFileName : String);
+var
+  ArquivoXML : TStringList;
+begin
+  if ( FileExists(sFileName) ) then
+  begin
+    ArquivoXML := TStringList.Create;
+    ArquivoXML.LoadFromFile( sFileName );
+
+    ArquivoXML.Text := RemoveAcentos(ArquivoXML.Text);
+
+    ArquivoXML.SaveToFile(sFileName);
+    ArquivoXML.Free;
+  end;
+end;
+
 function GetDiretorioNFe : String;
 begin
   Result := StringReplace(DMNFe.ACBrNFe.Configuracoes.Geral.PathSalvar + '\', '\\', '\', [rfReplaceAll]);
@@ -1073,11 +1089,12 @@ begin
       edPathLogs.Text    := ReadString( sSecaoGeral, 'PathSalvar'  , '') ;
       edPathSchemas.Text := ReadString( sSecaoGeral, 'PathSchemas' , PathWithDelim(ExtractFilePath(Application.ExeName)) + 'Schemas\' + GetEnumName(TypeInfo(TpcnVersaoDF), Integer(cbVersaoDF.ItemIndex))) ;
 
-      ACBrNFe.Configuracoes.Geral.FormaEmissao := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
-      ACBrNFe.Configuracoes.Geral.IdToken      := edIdToken.Text;
-      ACBrNFe.Configuracoes.Geral.Token        := edToken.Text;
-      ACBrNFe.Configuracoes.Geral.Salvar       := ckSalvar.Checked;
-      ACBrNFe.Configuracoes.Geral.PathSalvar   := edPathLogs.Text;
+      ACBrNFe.Configuracoes.Geral.FormaEmissao   := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
+      ACBrNFe.Configuracoes.Geral.IdToken        := edIdToken.Text;
+      ACBrNFe.Configuracoes.Geral.Token          := edToken.Text;
+      ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked;
+      ACBrNFe.Configuracoes.Geral.PathSalvar     := edPathLogs.Text;
+      ACBrNFe.Configuracoes.Geral.RetirarAcentos := ckRetirarAcentos.Checked;
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
       ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoDF.ItemIndex); // ve310;
@@ -1255,11 +1272,11 @@ begin
       ide_tpAmb       := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
     end;
 
-    nfcDANFE.Sistema := GetCompanyName;
-    nfcDANFE.Usuario := GetUserApp;
-
-    ACBrSATExtratoESCPOS.SoftwareHouse := GetCompanyName;
+    ACBrSATExtratoESCPOS.SoftwareHouse := RemoveAcentos( GetCompanyName );
     ACBrSATExtratoESCPOS.NumCopias     := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
+
+    nfcDANFE.Sistema   := RemoveAcentos( GetCompanyName );
+    nfcDANFE.Usuario   := RemoveAcentos( GetUserApp );
 
     nfcDANFE.MarcaImpressora       := TACBrNFeMarcaImpressora(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0));
     nfcDANFE.Device.Porta          := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'COM1');
@@ -1267,9 +1284,13 @@ begin
     nfcDANFE.ImprimeEmUmaLinha     := False;  // chkImprimirItem1Linha.Checked;
     nfcDANFE.ImprimeDescAcrescItem := False;  // chkImprimirDescAcresItem.Checked;
     nfcDANFE.IgnorarTagsFormatacao := False;  // chkIgnorarTagsFormatacao.Checked;
+    nfcDANFE.NumCopias             := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
 
     if FilesExists(ConfigACBr.edtLogoMarca.Text) then
+    begin
       ACBrSATExtratoESCPOS.PictureLogo.LoadFromFile(ConfigACBr.edtLogoMarca.Text);
+     // nfcDANFE.Logo := ConfigACBr.edtLogoMarca.Text; // -- Esta chamada ao arquivo de logotipo da empresa gera erro na impressão
+    end;
 
   finally
     sFileNFERave   := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_RAVE;
@@ -5259,6 +5280,7 @@ begin
 
     LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
 
+    ACBrNFe.Configuracoes.Geral.RetirarAcentos := True;
     ACBrNFe.Configuracoes.Geral.ModeloDF := moNFCe;
     ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(ConfigACBr.cbVersaoDF.ItemIndex);
 
@@ -5864,10 +5886,10 @@ begin
         end;
       end;
 
-      InfAdic.infCpl := ' * * * ' + #13 +
+      InfAdic.infCpl := '* ' + #13 +
         'Venda: ' + qryCalculoImportoANO.AsString + '/' + FormatFloat('###0000000', qryCalculoImportoCODCONTROL.AsInteger)  +
-        ' - Forma/Cond. Pgto.: ' + qryCalculoImportoLISTA_FORMA_PAGO.AsString + '/' + qryCalculoImportoLISTA_COND_PAGO_FULL.AsString + ' * * * ' + #13 +
-        'Vendedor: ' + qryCalculoImportoVENDEDOR_NOME.AsString + ' * * * ' + #13 +
+        ' - Forma/Cond. Pgto.: ' + qryCalculoImportoLISTA_FORMA_PAGO.AsString + '/' + qryCalculoImportoLISTA_COND_PAGO_FULL.AsString + ' * ' + #13 +
+        'Vendedor: ' + qryCalculoImportoVENDEDOR_NOME.AsString + ' * ' + #13 +
         'Observações: ' + qryCalculoImportoOBS.AsString +
         IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
           FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
@@ -5929,6 +5951,7 @@ begin
     qryCalculoImportoXML_NFE.SaveToFile( FileNameXML );
 
     CorrigirXML_NFe( FileNameXML );
+    RemoverAcentos_ArquivoTexto( FileNameXML );
 
     if not FilesExists(FileNameXML) then
       raise Exception.Create(Format('Arquivo %s não encontrado.', [QuotedStr(FileNameXML)]));
@@ -5944,9 +5967,10 @@ begin
       if ACBrNFe.NotasFiscais.Count <= 0 then
         raise Exception.Create('Nenhuma Nota Fiscal de Consumidor foi selecionada!');
 
-      if ACBrNFe.NotasFiscais[0].NFe.Ide.modelo <> MODELO_NFCE then
-        raise Exception.Create('Nota Fiscal não é do tipo NFC-e!');
-
+      if ( not DelphiIsRunning ) then
+        if ACBrNFe.NotasFiscais[0].NFe.Ide.modelo <> MODELO_NFCE then
+          raise Exception.Create('Nota Fiscal não é do tipo NFC-e!');
+      
       nfcDANFE.Device.Ativar;
       try
         DANFE.ViaConsumidor := True; // chkViaConsumidor.Checked;

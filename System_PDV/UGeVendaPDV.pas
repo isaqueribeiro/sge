@@ -1291,6 +1291,10 @@ begin
     DataSetVenda.FieldByName('DTFINALIZACAO_VENDA').Value   := GetDateTimeDB;
     DataSetVenda.FieldByName('GERAR_ESTOQUE_CLIENTE').Value := iGerarEstoqueCliente;
 
+    DataSetVenda.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency := dbValorTotal.Field.AsCurrency;
+    DataSetVenda.FieldByName('NFE_VALOR_DESCONTO').AsCurrency      := dbValorDesconto.Field.AsCurrency;
+    DataSetVenda.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency    := dbValorAPagar.Field.AsCurrency;
+
     TIBDataSet(DataSetVenda).Post;
     TIBDataSet(DataSetVenda).ApplyUpdates;
 

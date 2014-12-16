@@ -19645,6 +19645,8 @@ object DMNFe: TDMNFe
     ConfigBarras.MostrarCodigo = False
     ConfigBarras.LarguraLinha = 0
     ConfigBarras.Altura = 0
+    MarcaImpressora = iBematech
+    LinhasEntreCupons = 10
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
     Left = 88
@@ -19654,6 +19656,8 @@ object DMNFe: TDMNFe
     ACBrSAT = ACBrSAT
     Mask_qCom = '0.0000'
     Mask_vUnCom = '0.000'
+    MarcaImpressora = iBematech
+    LinhasEntreCupons = 10
     Left = 800
     Top = 152
   end

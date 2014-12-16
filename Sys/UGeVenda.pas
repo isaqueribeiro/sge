@@ -2599,6 +2599,15 @@ begin
     if GetEmitirCupom then
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin
+        if DMNFe.IsEstacaoEmiteNFCe and ( ((IbDtstTabelaNFE.AsCurrency > 0) and (IbDtstTabelaLOTE_NFE_ANO.AsInteger = 0)) or DelphiIsRunning ) then
+        begin
+          DMNFe.ImprimirDANFE_ESCPOSACBr(
+              IbDtstTabela.FieldByName('CODEMP').AsString
+            , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
+            , IbDtstTabela.FieldByName('ANO').AsInteger
+            , IbDtstTabela.FieldByName('CODCONTROL').AsInteger);
+        end
+        else
         if GetCupomNaoFiscalEmitir then
           ImprimirCupomNaoFiscal(
               IbDtstTabelaCODEMP.AsString

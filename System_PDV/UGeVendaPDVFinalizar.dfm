@@ -1755,7 +1755,7 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     Width = 193
     Height = 37
     Color = clYellow
-    DataField = 'VALOR_FPAGTO'
+    DataField = 'ValorTroco'
     DataSource = dtsFormaPagto
     Font.Charset = ANSI_CHARSET
     Font.Color = clBlue
