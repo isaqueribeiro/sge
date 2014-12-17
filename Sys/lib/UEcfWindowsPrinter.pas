@@ -10,7 +10,8 @@ Uses
     private
 
     public
-      constructor Criar(sDll, sNomeImpressora, sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID : String; bImp_Gliche : Boolean); override;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
+        sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
 
       procedure Compactar_Fonte; override;
       procedure Descompactar_Fonte; override;
@@ -43,12 +44,14 @@ implementation
 
 { TEcfWindowsPrinter }
 
-constructor TEcfWindowsPrinter.Criar(sDll, sNomeImpressora, sPorta, sEmp, sEndereco, sBairro, sFone,
-  sCep, sCid, sCnpj, sInscEstadual, sID: String; bImp_Gliche: Boolean);
+constructor TEcfWindowsPrinter.Criar(sDll, sNomeImpressora: String;
+  iModeloEspecifico: Integer; sPorta, sEmp, sEndereco, sBairro, sFone, sCep,
+  sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche: Boolean);
 begin
   Self.Create;
 
-  Num_Colunas    := 50;
+  Num_Colunas      := 50;
+  ModeloEspecifico := iModeloEspecifico;
   NomeImpressora := sNomeImpressora;
   Dll            := sDll;
   Porta          := sPorta;
@@ -61,6 +64,8 @@ begin
   CNPJ           := sCnpj;
   Insc_Estadual  := sInscEstadual;
   ID_Venda       := sID;
+  Logotipo       := sArquivoLogotipo;
+  QRCode         := EmptyStr;
 
   // Definir a impressora de acordo com a configuração
   myPrinter.PrinterIndex := myPrinter.Printers.IndexOf(PChar(NomeImpressora));

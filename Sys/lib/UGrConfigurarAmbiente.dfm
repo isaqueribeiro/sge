@@ -5,7 +5,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
   BorderWidth = 4
   Caption = 'Configurar Ambiente (Esta'#231#227'o)'
   ClientHeight = 534
-  ClientWidth = 430
+  ClientWidth = 498
   Font.Charset = ANSI_CHARSET
   Font.Name = 'Tahoma'
   PixelsPerInch = 96
@@ -13,25 +13,25 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
   object PnlBotoes: TPanel
     Left = 0
     Top = 488
-    Width = 430
+    Width = 498
     Height = 46
     Align = alBottom
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 1
     DesignSize = (
-      430
+      498
       46)
     object Bevel3: TBevel
       Left = 4
       Top = 4
-      Width = 422
+      Width = 490
       Height = 4
       Align = alTop
       Shape = bsTopLine
     end
     object btnSalvar: TBitBtn
-      Left = 243
+      Left = 311
       Top = 8
       Width = 92
       Height = 33
@@ -93,7 +93,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       NumGlyphs = 2
     end
     object btnCancelar: TBitBtn
-      Left = 338
+      Left = 406
       Top = 8
       Width = 92
       Height = 33
@@ -159,7 +159,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
   object PgcConfiguracao: TPageControl
     Left = 0
     Top = 0
-    Width = 430
+    Width = 498
     Height = 488
     ActivePage = TbsPDV
     Align = alClient
@@ -170,11 +170,14 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       object GrpBxPadrao: TGroupBox
         Left = 0
         Top = 0
-        Width = 414
+        Width = 482
         Height = 452
         Align = alClient
         Caption = ' Dados Padr'#245'es '
         TabOrder = 0
+        DesignSize = (
+          482
+          452)
         object lblPais: TLabel
           Left = 41
           Top = 52
@@ -334,8 +337,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edPaisNome: TEdit
           Left = 140
           Top = 48
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           Enabled = False
           ReadOnly = True
           TabOrder = 1
@@ -351,8 +355,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edEstadoNome: TEdit
           Left = 140
           Top = 72
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           ReadOnly = True
           TabOrder = 3
         end
@@ -367,8 +372,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edCidadeNome: TEdit
           Left = 140
           Top = 96
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           ReadOnly = True
           TabOrder = 5
         end
@@ -383,8 +389,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edFormaPagtoNome: TEdit
           Left = 140
           Top = 152
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           ReadOnly = True
           TabOrder = 7
         end
@@ -399,8 +406,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edCondicaoPagtoNome: TEdit
           Left = 140
           Top = 176
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           ReadOnly = True
           TabOrder = 9
         end
@@ -415,8 +423,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edVendedorNome: TEdit
           Left = 140
           Top = 200
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           ReadOnly = True
           TabOrder = 11
         end
@@ -431,8 +440,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edCFOPEntradaNome: TEdit
           Left = 140
           Top = 256
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           ReadOnly = True
           TabOrder = 13
         end
@@ -447,8 +457,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object edCFOPSaidaNome: TEdit
           Left = 140
           Top = 280
-          Width = 249
+          Width = 317
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           ReadOnly = True
           TabOrder = 15
         end
@@ -476,24 +487,26 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       object GrpBxImpressaoCupomNFiscal: TGroupBox
         Left = 0
         Top = 89
-        Width = 422
-        Height = 136
+        Width = 490
+        Height = 184
         Align = alTop
         Caption = ' Impress'#227'o Cupons N'#227'o-Fiscais '
         TabOrder = 1
-        object lblCupomNaoFiscalPorta: TLabel
-          Left = 50
+        DesignSize = (
+          490
+          184)
+        object lblCupomNaoFiscalTipo: TLabel
+          Left = 39
           Top = 53
-          Width = 30
+          Width = 65
           Height = 13
           Alignment = taRightJustify
-          Caption = 'Porta:'
-          Enabled = False
-          FocusControl = edCupomNaoFiscalPorta
+          Caption = 'Tipo Emiss'#227'o:'
+          FocusControl = edCupomNaoFiscalTipo
           Transparent = True
         end
         object lblCupomNaoFiscalImpressora: TLabel
-          Left = 22
+          Left = 46
           Top = 77
           Width = 58
           Height = 13
@@ -504,18 +517,40 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Transparent = True
         end
         object lblCupomNaoFiscalModelo: TLabel
-          Left = 42
+          Left = 20
           Top = 101
-          Width = 38
+          Width = 84
           Height = 13
           Alignment = taRightJustify
-          Caption = 'Modelo:'
+          Caption = 'Modelo p/ NFC-e:'
           Enabled = False
           FocusControl = edCupomNaoFiscalModelo
           Transparent = True
         end
+        object lblCupomNaoFiscalPorta: TLabel
+          Left = 74
+          Top = 149
+          Width = 30
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Porta:'
+          Enabled = False
+          FocusControl = edCupomNaoFiscalPorta
+          Transparent = True
+        end
+        object lblCupomNaoFiscalModeloEsp: TLabel
+          Left = 36
+          Top = 125
+          Width = 68
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Especifica'#231#227'o:'
+          Enabled = False
+          FocusControl = edCupomNaoFiscalModeloEsp
+          Transparent = True
+        end
         object chkCupomNaoFiscal: TCheckBox
-          Left = 88
+          Left = 112
           Top = 24
           Width = 209
           Height = 17
@@ -524,31 +559,30 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           TabOrder = 0
           OnClick = chkCupomNaoFiscalClick
         end
-        object edCupomNaoFiscalPorta: TComboBox
-          Left = 88
+        object edCupomNaoFiscalTipo: TComboBox
+          Left = 112
           Top = 49
-          Width = 313
+          Width = 357
           Height = 21
-          Enabled = False
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 13
           ItemIndex = 0
           TabOrder = 1
           Text = 'Impressora padr'#227'o do Windows'
-          OnChange = edCupomNaoFiscalPortaChange
+          OnChange = edCupomNaoFiscalTipoChange
           Items.Strings = (
             'Impressora padr'#227'o do Windows'
-            'LPT1'
-            'LPT2'
-            'LPT3'
-            'LPT4'
-            'LPT5'
-            'C:\CUPOM.TXT')
+            'Impressora Matricial (LPT1..LPT5)'
+            'C:\CUPOM.TXT'
+            'Daruma'
+            'Bematech')
         end
         object edCupomNaoFiscalImpressora: TComboBox
-          Left = 88
+          Left = 112
           Top = 73
-          Width = 313
+          Width = 357
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           Enabled = False
           ItemHeight = 13
           ItemIndex = 0
@@ -564,11 +598,12 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
             'C:\CUPOM.TXT')
         end
         object edCupomNaoFiscalModelo: TComboBox
-          Left = 88
+          Left = 112
           Top = 97
-          Width = 313
+          Width = 357
           Height = 21
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           Enabled = False
           ItemHeight = 13
           ItemIndex = 0
@@ -577,17 +612,57 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Items.Strings = (
             'Nenhum')
         end
+        object edCupomNaoFiscalPorta: TComboBox
+          Left = 112
+          Top = 145
+          Width = 357
+          Height = 21
+          Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
+          Enabled = False
+          ItemHeight = 13
+          ItemIndex = 0
+          TabOrder = 4
+          Text = 'Nenhum'
+          Items.Strings = (
+            'Nenhum'
+            'C:\CUPOM.TXT')
+        end
+        object edCupomNaoFiscalModeloEsp: TComboBox
+          Left = 112
+          Top = 121
+          Width = 357
+          Height = 21
+          Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
+          Enabled = False
+          ItemHeight = 13
+          ItemIndex = 0
+          TabOrder = 5
+          Text = 'Nenhum'
+          Items.Strings = (
+            'Nenhum'
+            'MP 20 CI'
+            'MP 20 MI'
+            'MP 20 TH'
+            'MP 2000 CI'
+            'MP 2000 TH'
+            'MP 2100 TH'
+            'MP 4000 TH'
+            'MP 4200 TH'
+            'MP 2500 TH')
+        end
       end
       object PnlCupom: TPanel
         Left = 0
         Top = 0
-        Width = 422
+        Width = 490
         Height = 89
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
         object chkCupomAutomatico: TCheckBox
-          Left = 88
+          Left = 112
           Top = 58
           Width = 329
           Height = 17
@@ -596,7 +671,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           TabOrder = 2
         end
         object chkCupomEmitir: TCheckBox
-          Left = 88
+          Left = 112
           Top = 34
           Width = 145
           Height = 17
@@ -605,7 +680,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           OnClick = chkCupomEmitirClick
         end
         object chkOrcamentoEmitir: TCheckBox
-          Left = 88
+          Left = 112
           Top = 10
           Width = 225
           Height = 17

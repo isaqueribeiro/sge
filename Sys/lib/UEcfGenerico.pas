@@ -10,7 +10,8 @@ Uses
     private
 
     public
-      constructor Criar(sDll, sNomeImpressora, sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID : String; bImp_Gliche : Boolean); override;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
+        sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
 
       procedure Compactar_Fonte; override;
       procedure Descompactar_Fonte; override;
@@ -63,12 +64,13 @@ begin
   Write(Corpo_Cupom, c17cpi);
 end;
 
-constructor TEcfGenerico.Criar(sDll, sNomeImpressora, sPorta, sEmp, sEndereco, sBairro,
-  sFone, sCep, sCid, sCnpj, sInscEstadual, sID: String; bImp_Gliche: Boolean);
+constructor TEcfGenerico.Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer; sPorta, sEmp, sEndereco, sBairro,
+  sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo: String; bImp_Gliche: Boolean);
 begin
   Self.Create;
 
-  Num_Colunas    := 80;
+  Num_Colunas      := 80;
+  ModeloEspecifico := iModeloEspecifico;
   NomeImpressora := sNomeImpressora;
   Dll            := sDll;
   Porta          := sPorta;
@@ -81,6 +83,8 @@ begin
   CNPJ           := sCnpj;
   Insc_Estadual  := sInscEstadual;
   ID_Venda       := sID;
+  Logotipo       := sArquivoLogotipo;
+  QRCode         := EmptyStr;
 
   AssignFile(Corpo_Cupom, Porta);
   Rewrite(Corpo_Cupom);

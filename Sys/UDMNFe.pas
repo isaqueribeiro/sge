@@ -4648,18 +4648,20 @@ const
   TEXTO_TRIB_APROX_2 = '* R$ %s (%s)';
   TEXTO_TRIB_APROX_3 = '* Fonte IBPT';
 begin
-  if GetCupomNaoFiscalPortaID = -1 then
+  if GetCupomNaoFiscalTipoEmissaoID = -1 then
     aEcfTipo := ecfTEXTO
   else
-    aEcfTipo := TEcfTipo(GetCupomNaoFiscalPortaID);
+    aEcfTipo := TEcfTipo(GetCupomNaoFiscalTipoEmissaoID);
 
   AbrirEmitente(sCNPJEmitente);
   AbrirDestinatario(iCodigoCliente);
   AbrirVenda(iAnoVenda, iNumVenda);
   AbrirNFeEmitida(iAnoVenda, iNumVenda);
 
-  aEcfConfig.Impressora := GetCupomNaoFiscalPortaNM;
-  aEcfConfig.Porta      := GetCupomNaoFiscalPortaDS;
+  aEcfConfig.Dll              := EmptyStr;
+  aEcfConfig.Impressora       := GetCupomNaoFiscalPortaNM;
+  aEcfConfig.ModeloEspecifico := GetCupomNaoFiscalModeloEspID;
+  aEcfConfig.Porta            := GetCupomNaoFiscalPortaDS;
   aEcfConfig.Empresa  := AnsiUpperCase( qryEmitenteNMFANT.AsString );
   aEcfConfig.Endereco := RemoveAcentos( Trim(qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString) );
   aEcfConfig.Bairro   := RemoveAcentos( Trim(qryEmitenteBAI_NOME.AsString) );
@@ -4670,6 +4672,9 @@ begin
   aEcfConfig.InscEstadual   := qryEmitenteIE.AsString;
   aEcfConfig.ID             := FormatFloat('###0000000', iNumVenda);
   aEcfConfig.ImprimirGliche := True;
+
+  aEcfConfig.ArquivoLogo   := Trim(ConfigACBr.edtLogoMarca.Text);
+  aEcfConfig.ArquivoQRCode := EmptyStr;
 
   aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
   try
@@ -4753,7 +4758,7 @@ begin
 
   // Emitir Cupom Relatório Gerencial
 
-  if bEmitirCumpoExtra and (aEcfTipo in [ecfPadraoWindows, ecfLPT1, ecfLPT2, ecfLPT3, ecfLPT4, ecfLPT5, ecfTEXTO]) then
+  if bEmitirCumpoExtra and (aEcfTipo in [ecfPadraoWindows, ecfLPTX, ecfTEXTO]) then
   begin
     aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
     try

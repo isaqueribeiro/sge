@@ -3,6 +3,8 @@ unit UGrConfigurarAmbiente;
 interface
 
 uses
+  UEcfFactory,
+  
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, IniFiles, DB,
   DBClient, Printers, ACBrNFeDANFEClass, ACBrNFeDANFeESCPOS, TypInfo;
@@ -27,9 +29,9 @@ type
     edCidadeNome: TEdit;
     TbsPDV: TTabSheet;
     GrpBxImpressaoCupomNFiscal: TGroupBox;
-    lblCupomNaoFiscalPorta: TLabel;
+    lblCupomNaoFiscalTipo: TLabel;
     chkCupomNaoFiscal: TCheckBox;
-    edCupomNaoFiscalPorta: TComboBox;
+    edCupomNaoFiscalTipo: TComboBox;
     lblFormaPagto: TLabel;
     edFormaPagto: TEdit;
     edFormaPagtoNome: TEdit;
@@ -61,6 +63,10 @@ type
     ACBrNFeDANFeESCPOS: TACBrNFeDANFeESCPOS;
     lblCupomNaoFiscalModelo: TLabel;
     edCupomNaoFiscalModelo: TComboBox;
+    lblCupomNaoFiscalPorta: TLabel;
+    edCupomNaoFiscalPorta: TComboBox;
+    lblCupomNaoFiscalModeloEsp: TLabel;
+    edCupomNaoFiscalModeloEsp: TComboBox;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -70,7 +76,7 @@ type
       Shift: TShiftState);
     procedure chkCupomNaoFiscalClick(Sender: TObject);
     procedure chkCupomEmitirClick(Sender: TObject);
-    procedure edCupomNaoFiscalPortaChange(Sender: TObject);
+    procedure edCupomNaoFiscalTipoChange(Sender: TObject);
     procedure chkOrcamentoEmitirClick(Sender: TObject);
   private
     { Private declarations }
@@ -111,6 +117,12 @@ begin
   inherited;
   PgcConfiguracao.ActivePage := TbsGeral;
 
+  // Listar Tipo de Emissões
+
+  edCupomNaoFiscalTipo.Items.Clear;
+  For I := Ord(Low(TEcfTipo)) to Ord(High(TEcfTipo)) do
+    edCupomNaoFiscalTipo.Items.Add(GetEnumName(TypeInfo(TEcfTipo), I));
+
   edCupomNaoFiscalImpressora.Items     := Printer.Printers;
   edCupomNaoFiscalImpressora.ItemIndex := Printer.PrinterIndex;
 
@@ -133,7 +145,13 @@ begin
   For ModeloImpressora := Low(TACBrNFeMarcaImpressora) to High(TACBrNFeMarcaImpressora) do
     edCupomNaoFiscalModelo.Items.Add(GetEnumName(TypeInfo(TACBrNFeMarcaImpressora), Integer(ModeloImpressora)));
 
-  TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO, SISTEMA_PDV];   
+  // Listar Modelos Específicos
+
+  edCupomNaoFiscalModeloEsp.Items.Clear;
+  For I := Ord(Low(TEcfBematech)) to Ord(High(TEcfBematech)) do
+    edCupomNaoFiscalModeloEsp.Items.Add(GetEnumName(TypeInfo(TEcfBematech), I));
+
+  TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO, SISTEMA_PDV];
 end;
 
 procedure TfrmGrConfigurarAmbiente.CarregarDadosINI;
@@ -171,13 +189,15 @@ begin
   chkCupomEmitir.Checked           := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, False);
   chkCupomAutomatico.Checked       := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, False);
   chkCupomNaoFiscal.Checked        := FileINI.ReadBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
+  edCupomNaoFiscalTipo.ItemIndex   := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_TP', 0);
   edCupomNaoFiscalPorta.ItemIndex  := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', 0);
-  edCupomNaoFiscalPorta.Text       := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'Impressora padrão do Windows');
+  edCupomNaoFiscalPorta.Text       := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'Nenhum');
   edCupomNaoFiscalImpressora.Text  := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', Printer.Printers.Strings[Printer.PrinterIndex]);
-  edCupomNaoFiscalModelo.ItemIndex := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0);
-  edCupomNaoFiscalModelo.Text      := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_DS', 'Nenhum');
+  edCupomNaoFiscalModelo.ItemIndex    := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0);
+  edCupomNaoFiscalModelo.Text         := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_DS', 'Nenhum');
+  edCupomNaoFiscalModeloEsp.ItemIndex := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ES', 0);
 
-  edCupomNaoFiscalPortaChange( edCupomNaoFiscalPorta );
+  edCupomNaoFiscalTipoChange( edCupomNaoFiscalTipo );
 end;
 
 procedure TfrmGrConfigurarAmbiente.FormShow(Sender: TObject);
@@ -210,11 +230,13 @@ begin
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM, chkCupomEmitir.Checked);
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_AUTOMAT, chkCupomAutomatico.Checked);
   FileINI.WriteBool   (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, chkCupomNaoFiscal.Checked);
+  FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_TP', edCupomNaoFiscalTipo.ItemIndex);
   FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_ID', edCupomNaoFiscalPorta.ItemIndex);
   FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', edCupomNaoFiscalPorta.Text);
   FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', edCupomNaoFiscalImpressora.Text);
   FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', edCupomNaoFiscalModelo.ItemIndex);
   FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_DS', edCupomNaoFiscalModelo.Text);
+  FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ES', edCupomNaoFiscalModeloEsp.ItemIndex);
 end;
 
 procedure TfrmGrConfigurarAmbiente.btnSalvarClick(Sender: TObject);
@@ -281,31 +303,43 @@ procedure TfrmGrConfigurarAmbiente.chkCupomNaoFiscalClick(Sender: TObject);
 begin
   lblCupomNaoFiscalPorta.Enabled := chkCupomNaoFiscal.Checked;
   edCupomNaoFiscalPorta.Enabled  := chkCupomNaoFiscal.Checked;
-  lblCupomNaoFiscalImpressora.Enabled :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
-  edCupomNaoFiscalImpressora.Enabled  :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
-  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
-  edCupomNaoFiscalModelo.Enabled      :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
+  lblCupomNaoFiscalImpressora.Enabled :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex = 0);
+  edCupomNaoFiscalImpressora.Enabled  :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex = 0);
+  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex > 0);
+  edCupomNaoFiscalModelo.Enabled      :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex > 0);
+  lblCupomNaoFiscalModeloEsp.Enabled  :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex > 0);
+  edCupomNaoFiscalModeloEsp.Enabled   :=  chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex > 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.chkCupomEmitirClick(Sender: TObject);
 begin
+  if not chkCupomEmitir.Checked then
+  begin
+    chkCupomAutomatico.Checked := False;
+    chkCupomNaoFiscal.Checked  := False;
+  end;
+
   chkCupomAutomatico.Enabled := chkCupomEmitir.Checked;
   chkCupomNaoFiscal.Enabled  := chkCupomEmitir.Checked;
   lblCupomNaoFiscalPorta.Enabled  := chkCupomEmitir.Checked;
   edCupomNaoFiscalPorta.Enabled   := chkCupomEmitir.Checked;
-  lblCupomNaoFiscalImpressora.Enabled :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
-  edCupomNaoFiscalImpressora.Enabled  :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex = 0);
-  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
-  edCupomNaoFiscalModelo.Enabled      :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalPorta.ItemIndex > 0);
+  lblCupomNaoFiscalImpressora.Enabled :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex = 0);
+  edCupomNaoFiscalImpressora.Enabled  :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex = 0);
+  lblCupomNaoFiscalModelo.Enabled     :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex > 0);
+  edCupomNaoFiscalModelo.Enabled      :=  chkCupomEmitir.Checked and chkCupomNaoFiscal.Checked and (edCupomNaoFiscalTipo.ItemIndex > 0);
 end;
 
-procedure TfrmGrConfigurarAmbiente.edCupomNaoFiscalPortaChange(
+procedure TfrmGrConfigurarAmbiente.edCupomNaoFiscalTipoChange(
   Sender: TObject);
 begin
-  lblCupomNaoFiscalImpressora.Enabled :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
-  edCupomNaoFiscalImpressora.Enabled  :=  (edCupomNaoFiscalPorta.ItemIndex = 0);
-  lblCupomNaoFiscalModelo.Enabled     :=  (edCupomNaoFiscalPorta.ItemIndex > 0);
-  edCupomNaoFiscalModelo.Enabled      :=  (edCupomNaoFiscalPorta.ItemIndex > 0);
+  lblCupomNaoFiscalImpressora.Enabled :=  (edCupomNaoFiscalTipo.ItemIndex = 0);
+  edCupomNaoFiscalImpressora.Enabled  :=  (edCupomNaoFiscalTipo.ItemIndex = 0);
+  lblCupomNaoFiscalModelo.Enabled     :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
+  edCupomNaoFiscalModelo.Enabled      :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
+  lblCupomNaoFiscalModeloEsp.Enabled  :=  (TEcfTipo(edCupomNaoFiscalTipo.ItemIndex) = ecfBematech);
+  edCupomNaoFiscalModeloEsp.Enabled   :=  (TEcfTipo(edCupomNaoFiscalTipo.ItemIndex) = ecfBematech);
+  lblCupomNaoFiscalPorta.Enabled      :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
+  edCupomNaoFiscalPorta.Enabled       :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.chkOrcamentoEmitirClick(

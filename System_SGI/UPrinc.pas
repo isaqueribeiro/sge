@@ -37,13 +37,11 @@ type
     nmEntradaProduto: TMenuItem;
     nmEmpresa: TMenuItem;
     spbBarraAcessoRapido: TSpeedBar;
-    btnEmpresa: TRxSpeedButton;
     btnContaAReceber: TRxSpeedButton;
     btnFornecedor: TRxSpeedButton;
     btnTesouraria: TRxSpeedButton;
     btnContaAPagar: TRxSpeedButton;
     btnProduto: TRxSpeedButton;
-    btnCliente: TRxSpeedButton;
     SpeedbarSection1: TSpeedbarSection;
     menuSobre: TMenuItem;
     pnlMain: TPanel;
@@ -166,6 +164,9 @@ type
     nmRequisicaoCompra: TMenuItem;
     nmConverterReqAutCompra: TMenuItem;
     btnSair: TcxButton;
+    btnEmpresa: TcxButton;
+    btnCliente: TcxButton;
+    cxButton1: TcxButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);

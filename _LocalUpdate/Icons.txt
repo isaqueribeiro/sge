@@ -1,5 +1,6 @@
 ATUALIZAR_ICON ICON "..\..\_diversos\Imagens\Icones\Atualizar.ico"
 GESTOR_SGE_ICON ICON "..\..\_diversos\Imagens\Icones\Estoque.ico"
+GESTOR_SGI_ICON ICON "..\..\_diversos\Imagens\Icones\Industria.ico"
 GESTOR_PDV_ICON ICON "..\..\_diversos\Imagens\Icones\pdv.ico"
 GESTOR_INF_ICON ICON "..\..\_diversos\Imagens\Icones\Information.ico"
 GESTOR_QUE_ICON ICON "..\..\_diversos\Imagens\Icones\Confirmation.ico"

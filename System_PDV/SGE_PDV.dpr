@@ -73,6 +73,7 @@ uses
   UEcfFactory in '..\Sys\lib\UEcfFactory.pas',
   UEcfGenerico in '..\Sys\lib\UEcfGenerico.pas',
   UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas',
+  UEcfBematechNaoFiscal in '..\Sys\lib\UEcfBematechNaoFiscal.pas',
   UGrUsuarioPerfil in '..\System_SGE\UGrUsuarioPerfil.pas' {frmGrUsuarioPerfil},
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
   UGrUsuarioCopiarPerfil in '..\System_SGE\UGrUsuarioCopiarPerfil.pas' {frmGrUsuarioCopiarPerfil},

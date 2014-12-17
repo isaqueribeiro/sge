@@ -10,7 +10,8 @@ Uses
     private
       { Private declarations }
       f_retorno ,
-      f_colunas : Integer;
+      f_colunas ,
+      f_modeloEspecifico : Integer;
       f_impressora   ,
       f_dll          ,
       f_porta_saida  ,
@@ -28,10 +29,13 @@ Uses
       f_texto_cumpo  : TStringList;
       f_myPrinter    : TPrinter;
       f_porta_aberta : Boolean;
+      f_logotipo ,
+      f_qrcode   : String;
     protected
       Constructor Create;
     public
-      property Num_Colunas   : Integer  read f_colunas     write f_colunas;
+      property Num_Colunas      : Integer  read f_colunas           write f_colunas;
+      property ModeloEspecifico : Integer  read f_modeloEspecifico  write f_modeloEspecifico;
       property NomeImpressora: String   read f_impressora  write f_impressora;
       property Dll           : String   read f_dll         write f_dll;
       property Porta         : String   read f_porta_saida write f_porta_saida;
@@ -50,8 +54,11 @@ Uses
       property myPrinter     : TPrinter read f_myPrinter     write f_myPrinter;
       property Int_Retorno   : Integer  read f_retorno       write f_retorno;
       property Porta_Aberta  : Boolean  read f_porta_aberta  write f_porta_aberta;
+      property Logotipo : String read f_logotipo write f_logotipo;
+      property QRCode   : String read f_qrcode   write f_qrcode;
 
-      constructor Criar(sDll, sNomeImpressora, sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID : String; bImp_Gliche : Boolean); virtual; abstract;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
+        sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); virtual; abstract;
       destructor Destroy; override;
 
       procedure Compactar_Fonte; virtual; abstract;
