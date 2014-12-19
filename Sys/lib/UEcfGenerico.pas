@@ -8,7 +8,7 @@ Uses
   Type
     TEcfGenerico = class(TEcfAgil)
     private
-
+      procedure ImprimirCabecalho;
     public
       constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
@@ -19,6 +19,7 @@ Uses
       procedure Gliche(Imprimir : Boolean); override;
       procedure Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario, ST, Total_Item : String); override;
       procedure Incluir_Forma_Pgto(Descricao, Valor : String); override;
+      procedure Incluir_Texto_Valor(Descricao, Valor : String); override;
       procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); override;
       procedure Desconto(Valor : String); override;
       procedure TotalVenda(Valor : String); override;
@@ -28,6 +29,7 @@ Uses
       procedure MSG_Cupom(Msg1, Msg2, Msg3 : String); override;
       procedure Emitir_Cupom_Conv(Emitir : Boolean; Convenio, Conveniado, Valor : String); override;
       procedure Titulo_Cupom(Str : String); override;
+      procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); override;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); override;
       procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco : String); override;
       procedure Linha; override;
@@ -145,6 +147,10 @@ procedure TEcfGenerico.Finalizar;
 begin
   Self.Linha;
 
+  Writeln( Corpo_Cupom, cMargem + Centralizar(Num_Colunas, RemoveAcentos(SoftHouse)) );
+  Writeln( Corpo_Cupom, cMargem + Centralizar(Num_Colunas, RemoveAcentos(Sistema)) );
+  Writeln( Corpo_Cupom, cMargem + Centralizar(Num_Colunas, 'Versao ' + Versao) );
+
   Writeln( Corpo_Cupom, ' *' );
   Writeln( Corpo_Cupom, ' *' );
   Writeln( Corpo_Cupom, ' *' );
@@ -201,10 +207,10 @@ procedure TEcfGenerico.Incluir_Item(Item, Codigo, Descricao, Quant,
 var
   esp_desc : Integer;
 begin
-  esp_desc := Num_Colunas - 15;
+  esp_desc := Num_Colunas - 18;
 
   Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(3, Item) );
-  Write  ( Corpo_Cupom, Alinhar_Esquerda(10, Codigo) );
+  Write  ( Corpo_Cupom, Alinhar_Esquerda(14, Codigo) );
   Writeln( Corpo_Cupom, Alinhar_Esquerda(esp_desc, Copy(RemoveAcentos(Descricao), 1, esp_desc)) );
 
   Write  ( Corpo_Cupom, cMargem + Alinhar_Direita(9, Quant) );
@@ -288,15 +294,7 @@ begin
   Writeln( Corpo_Cupom, c12cpi + cINegrito + cIExpandido +
                        cMargem + Centralizar(Round(Num_Colunas / 2), Str)  +
                        cFExpandido + cFNegrito );
-  Self.Compactar_Fonte;
-
-  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(7, 'ITEM') );
-  Write  ( Corpo_Cupom, Alinhar_Esquerda(10, 'CODIGO') );
-  Writeln( Corpo_Cupom, Alinhar_Esquerda(20, 'DESCRICAO') );
-
-  Write  ( Corpo_Cupom, cMargem + Alinhar_Direita(20, 'QTD x UNITARIO') );
-  Write  ( Corpo_Cupom, Alinhar_Direita(10, 'ST') );
-  Writeln( Corpo_Cupom, Alinhar_Direita(Num_Colunas - 31, 'VALOR (R$)') );
+  Self.ImprimirCabecalho;
   Self.Linha;
 end;
 
@@ -323,6 +321,9 @@ procedure TEcfGenerico.Identifica_Consumidor(sCNPJ_CPF, sNome,
 begin
   Self.Compactar_Fonte;
 
+  Writeln( Corpo_Cupom, c12cpi + cIExpandido +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), 'CONSUMIDOR')  +
+                       cFExpandido );
   Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'CNPJ/CPF: ') );
   Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sCNPJ_CPF) );
   Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(06, 'NOME: ') );
@@ -336,6 +337,48 @@ procedure TEcfGenerico.Texto_Livre_Negrito(Str: String);
 begin
   Self.Compactar_Fonte;
   Writeln( Corpo_Cupom, cINegrito + cMargem + Str + cFNegrito);
+end;
+
+procedure TEcfGenerico.Incluir_Texto_Valor(Descricao, Valor: String);
+begin
+  if (Length(Trim(Descricao)) <> 0) then begin
+    Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(24, Descricao) );
+    Writeln( Corpo_Cupom, Alinhar_Direita(Num_Colunas - 25, Valor) );
+  end;
+end;
+
+procedure TEcfGenerico.ImprimirCabecalho;
+begin
+  Self.Compactar_Fonte;
+
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(7, 'ITEM') );
+  Write  ( Corpo_Cupom, Alinhar_Esquerda(10, 'CODIGO') );
+  Writeln( Corpo_Cupom, Alinhar_Esquerda(20, 'DESCRICAO') );
+
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Direita(20, 'QTD x UNITARIO') );
+  Write  ( Corpo_Cupom, Alinhar_Direita(10, 'ST') );
+  Writeln( Corpo_Cupom, Alinhar_Direita(Num_Colunas - 31, 'VALOR (R$)') );
+end;
+
+procedure TEcfGenerico.Titulo_Cupom_DANFE(sTitulo1, sTitulo2,
+  sTitulo3, sTitulo4: String);
+begin
+  Writeln( Corpo_Cupom, c12cpi + cIExpandido +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), sTitulo1)  +
+                       cFExpandido );
+  Writeln( Corpo_Cupom, c12cpi + cINegrito +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), sTitulo2)  +
+                       cFNegrito );
+  Writeln( Corpo_Cupom, c12cpi + cINegrito +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), sTitulo3)  +
+                       cFNegrito );
+  Writeln( Corpo_Cupom, c12cpi + cINegrito +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), sTitulo4)  +
+                       cFNegrito );
+
+  Self.Linha;
+  Self.ImprimirCabecalho;
+  Self.Linha;
 end;
 
 end.

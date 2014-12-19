@@ -96,7 +96,7 @@ PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=
 Packages=vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;dbexpress;dbxcds;indy;dclOffice2k;BcBarMenus60;Instalar;FIBDBMidas6;LabelPack;WinSkinD6R;PackageXPMenu;RxCtl6;RxDB6;RxBDE6
-Conditionals=ACBR
+Conditionals=ACBR;PDV
 DebugSourceDirs=
 UsePackages=0
 [Parameters]
@@ -141,8 +141,9 @@ Owner=Isaque Marinho Ribeiro
 SplashName=
 SplashDescription=
 [HistoryLists\hlConditionals]
-Count=1
-Item0=ACBR
+Count=2
+Item0=ACBR;PDV
+Item1=ACBR
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;

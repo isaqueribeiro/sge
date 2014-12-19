@@ -4636,7 +4636,7 @@ var
   aEcfConfig : TEcfConfiguracao;
   aEcf : TEcfFactory;
 
-  bEmitirCumpoExtra : Boolean;
+  bEmitirCumpoExtraParcelas : Boolean;
   cValorTroco,
   cPercentualTributoAprox,
   cValorTributoAprox     ,
@@ -4686,7 +4686,11 @@ begin
 
     with aEcf do
     begin
-      Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);  
+      Ecf.SoftHouse := GetCompanyName;
+      Ecf.Sistema   := GetProductName;
+      Ecf.Versao    := GetProductVersion;
+
+      Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
 
       if ( qryDestinatarioCODIGO.AsInteger <> CONSUMIDOR_FINAL_CODIGO ) then
         Ecf.Identifica_Consumidor( IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString), StrFormatarCpf(qryDestinatarioCNPJ.AsString), StrFormatarCnpj(qryDestinatarioCNPJ.AsString))
@@ -4695,7 +4699,13 @@ begin
             qryDestinatarioNUMERO_END.AsString + ' - ' + qryDestinatarioBAI_NOME.AsString) + ' (' + qryDestinatarioCID_NOME.AsString + ')'
         );
 
-      Ecf.Titulo_Cupom('CUPOM NAO FISCAL');
+      if qryNFeEmitida.IsEmpty then
+        Ecf.Titulo_Cupom('CUPOM NAO FISCAL')
+      else
+        Ecf.Titulo_Cupom_DANFE('DANFE NFC-e'
+          , 'Documento Auxiliar da Nota Fiscal'
+          , 'Eletronica para Consumidor Final'
+          , 'Nao permite aprovimento de credito de ICMS');
 
       qryDadosProduto.First;
 
@@ -4709,7 +4719,7 @@ begin
 
         Ecf.Incluir_Item(FormatFloat('00', qryDadosProdutoSEQ.AsInteger)
           , qryDadosProdutoCODPROD.AsString
-          , RemoveAcentos( AnsiUpperCase(qryDadosProdutoDESCRI_APRESENTACAO.AsString) )
+          , RemoveAcentos( Copy(AnsiUpperCase(qryDadosProdutoDESCRI_APRESENTACAO.AsString), 1, 45) )
           , Trim(FormatFloat(',0.###', qryDadosProdutoQTDE.AsCurrency) + ' ' + Copy(Trim(qryDadosProdutoUNP_SIGLA.AsString), 1, 2))
           , FormatFloat(',0.00',  qryDadosProdutoPFINAL.AsCurrency)
           , 'T0'
@@ -4720,20 +4730,31 @@ begin
         qryDadosProduto.Next;
       end;
 
-      Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency), True );
-      Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) );
+      if (qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) <> 0 then
+      begin
+        Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency), True );
+        Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) );
+      end;
+      
       Ecf.Linha;
+      Ecf.Incluir_Texto_Valor('QTDE. TOTAL DE ITENS', FormatFloat(',000.##',  qryDadosProduto.RecordCount));
       Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDA.AsCurrency)  );
 
       qryFormaPagtos.First;
-      bEmitirCumpoExtra := False;
+      bEmitirCumpoExtraParcelas := False;
 
       while not qryFormaPagtos.Eof do
       begin
-        if not bEmitirCumpoExtra then
-          bEmitirCumpoExtra := (qryFormaPagtosFORMAPAGTO_PDV_CUPOM_EXTRA.AsInteger = 1);
+        if not bEmitirCumpoExtraParcelas then
+          bEmitirCumpoExtraParcelas := (qryFormaPagtosFORMAPAGTO_PDV_CUPOM_EXTRA.AsInteger = 1) and (qryCalculoImportoVENDA_PRAZO.AsInteger = 1);
+
+        cValorTroco := qryFormaPagtosVALOR_RECEBIDO.AsCurrency - qryFormaPagtosVALOR_FPAGTO.AsCurrency;
 
         Ecf.Incluir_Forma_Pgto(RemoveAcentos(qryFormaPagtosDESCRI.AsString), FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
+
+        if ( cValorTroco > 0.0 ) then
+          Ecf.Incluir_Texto_Valor('* Troco', FormatFloat(',0.00',  cValorTroco));
+
         qryFormaPagtos.Next;
       end;
 
@@ -4745,10 +4766,15 @@ begin
           FormatFloat(',0.00', cValorTotalTributoAprox),
           FormatFloat(',0.##"%"', cValorTotalTributoAprox / qryCalculoImportoTOTALVENDABRUTA.AsCurrency * 100)]));
         Ecf.Texto_Livre_Negrito(TEXTO_TRIB_APROX_3);
-        Ecf.Linha;
       end;
 
-      Ecf.Pular_Linha(PULAR_LINHA_FINAL);
+      if (Trim(qryCalculoImportoOBS.AsString) <> EmptyStr) then
+      begin
+        Ecf.Linha;
+        Ecf.Texto_Livre( '* ' +  'Venda: ' + qryCalculoImportoANO.AsString + '/' + FormatFloat('###0000000', qryCalculoImportoCODCONTROL.AsInteger) );
+        Ecf.Texto_Livre( '* Forma/Cond. Pgto.: ' + qryCalculoImportoLISTA_FORMA_PAGO.AsString + '/' + qryCalculoImportoLISTA_COND_PAGO_FULL.AsString);
+        Ecf.Texto_Livre( '* ' + Trim(qryCalculoImportoOBS.AsString) );
+      end;
     end;
 
   finally
@@ -4756,15 +4782,19 @@ begin
     aEcf.Free;
   end;
 
-  // Emitir Cupom Relatório Gerencial
+  // Emitir Cupom Relatório Gerencial com parcelas para consumidor
 
-  if bEmitirCumpoExtra and (aEcfTipo in [ecfPadraoWindows, ecfLPTX, ecfTEXTO]) then
+  if bEmitirCumpoExtraParcelas and (aEcfTipo in [ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfBematech]) then
   begin
     aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
     try
 
       with aEcf do
       begin
+        Ecf.SoftHouse := GetCompanyName;
+        Ecf.Sistema   := GetProductName;
+        Ecf.Versao    := GetVersion;
+
         Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
         Ecf.Titulo_Livre( 'RELATORIO GERENCIAL' );
         Ecf.Compactar_Fonte;
@@ -4789,7 +4819,7 @@ begin
               , qryFormaPagtosCOND_DESCRICAO_PDV.AsString)));
 
           if ( cValorTroco > 0.0 ) then
-            Ecf.Incluir_Forma_Pgto('* Troco', FormatFloat(',0.00',  cValorTroco));
+            Ecf.Incluir_Texto_Valor('* Troco', FormatFloat(',0.00',  cValorTroco));
 
           qryFormaPagtos.Next;
         end;
@@ -4805,7 +4835,7 @@ begin
             FormatFloat('###00000"."', qryDuplicatasNUMLANC.AsInteger) +
             FormatFloat('00', qryDuplicatasPARCELA.AsInteger) + ' ' +
             FormatDateTime('dd/mm/yyyy', qryDuplicatasDTVENC.AsDateTime);
-          Ecf.Incluir_Forma_Pgto(Trim(sDuplicata), FormatFloat(',0.00',  qryDuplicatasVALORREC.AsCurrency));
+          Ecf.Incluir_Texto_Valor(Trim(sDuplicata), FormatFloat(',0.00',  qryDuplicatasVALORREC.AsCurrency));
 
           qryDuplicatas.Next;
         end;
@@ -4818,8 +4848,6 @@ begin
           IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString)
             , StrFormatarCpf(qryDestinatarioCNPJ.AsString)
             , StrFormatarCnpj(qryDestinatarioCNPJ.AsString))) );
-
-        Ecf.Pular_Linha(PULAR_LINHA_FINAL);
       end;
 
     finally

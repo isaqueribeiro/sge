@@ -30,7 +30,10 @@ Uses
       f_myPrinter    : TPrinter;
       f_porta_aberta : Boolean;
       f_logotipo ,
-      f_qrcode   : String;
+      f_qrcode   ,
+      f_softHouse,
+      f_sistena  ,
+      f_versao   : String;
     protected
       Constructor Create;
     public
@@ -54,8 +57,11 @@ Uses
       property myPrinter     : TPrinter read f_myPrinter     write f_myPrinter;
       property Int_Retorno   : Integer  read f_retorno       write f_retorno;
       property Porta_Aberta  : Boolean  read f_porta_aberta  write f_porta_aberta;
-      property Logotipo : String read f_logotipo write f_logotipo;
-      property QRCode   : String read f_qrcode   write f_qrcode;
+      property Logotipo  : String read f_logotipo write f_logotipo;
+      property QRCode    : String read f_qrcode   write f_qrcode;
+      property SoftHouse : String read f_softHouse   write f_softHouse;
+      property Sistema   : String read f_sistena   write f_sistena;
+      property Versao    : String read f_versao   write f_versao;
 
       constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); virtual; abstract;
@@ -72,6 +78,7 @@ Uses
       procedure Gliche(Imprimir : Boolean); virtual; abstract;
       procedure Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario, ST, Total_Item : String); virtual; abstract;
       procedure Incluir_Forma_Pgto(Descricao, Valor : String); virtual; abstract;
+      procedure Incluir_Texto_Valor(Descricao, Valor : String); virtual; abstract;
       procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); virtual; abstract;
       procedure Desconto(Valor : String); virtual; abstract;
       procedure TotalVenda(Valor : String); virtual; abstract;
@@ -81,6 +88,7 @@ Uses
       procedure MSG_Cupom(Msg1, Msg2, Msg3 : String); virtual; abstract;
       procedure Emitir_Cupom_Conv(Emitir : Boolean; Convenio, Conveniado, Valor : String); virtual; abstract;
       procedure Titulo_Cupom(Str : String); virtual; abstract;
+      procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); virtual; abstract;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); virtual; abstract;
       procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco : String); virtual; abstract;
       procedure Linha; virtual; abstract;
@@ -96,9 +104,10 @@ Uses
   end;
 
 const
-  cMargem = ' ';
-  cJustif = #27#97#51;
-  cEject = #12;
+  cMargem     = ' ';
+  cJustif     = #27#97#51;
+  cCentraliza = #27#97#1;
+  cEject      = #12;
 
   { Tamanho da fonte }
   c10cpi = #18;
@@ -106,12 +115,17 @@ const
   c17cpi = #15;
   cIExpandido = #14;
   cFExpandido = #20;
-  
+
   { Formatação da fonte }
   cINegrito = #27#71;
   cFNegrito = #27#72;
   cIItalico = #27#52;
   cFItalico = #27#53;
+
+  { Tipo da fonte Bematech }
+  cTipoLetraComprimido = 1;
+  cTipoLetraNormal     = 2;
+  cTipoLetraElite      = 3;
 
 implementation
 

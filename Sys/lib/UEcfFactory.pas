@@ -3,7 +3,7 @@ unit UEcfFactory;
 interface
 
 Uses
-  Classes, UEcfAgil, UEcfWindowsPrinter, Printers;
+  Classes, UInfoVersao, UEcfAgil, UEcfWindowsPrinter{$IFDEF PDV}, UEcfBematechNaoFiscal{$ENDIF}, Printers;
 
   Type
     TEcfConfiguracao = record
@@ -22,7 +22,10 @@ Uses
       ID       : String;
       ImprimirGliche : Boolean;
       ArquivoLogo   ,
-      ArquivoQRCode : String;
+      ArquivoQRCode ,
+      SoftHouse ,
+      Sistema   ,
+      Versao    : String;
     end;
 
     TEcfTipo = (ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfDaruma, ecfBematech);
@@ -50,8 +53,12 @@ uses
 { TEcfFactory }
 
 constructor TEcfFactory.Create;
+var
+  ver : TInfoVersao;
 begin
   inherited Create;
+
+  ver := TInfoVersao.GetInstance;
 
   with aConfiguracao do
   begin
@@ -69,6 +76,11 @@ begin
     InscEstadual   := 'ISENTO';
     ID             := FormatFloat('##00000', RandomRange(1, 99999));
     ImprimirGliche := False;
+    ArquivoLogo    := EmptyStr;
+    ArquivoQRCode  := EmptyStr;
+    SoftHouse      := ver.getPropertyValue(ivCOMPANY_NAME);
+    Sistema        := ver.getPropertyValue(ivPRODUCT_NAME);
+    Versao         := ver.getPropertyValue(ivPRODUCT_VERSION);
   end;
 end;
 
@@ -113,6 +125,25 @@ begin
         aConfiguracao.ID,
         aConfiguracao.ArquivoLogo,
         aConfiguracao.ImprimirGliche);
+
+    ecfBematech:
+      aEcf := TEcfBematechNaoFiscal.Criar(
+        aConfiguracao.Dll,
+        aConfiguracao.Impressora,
+        aConfiguracao.ModeloEspecifico,
+        aConfiguracao.Porta,
+        aConfiguracao.Empresa,
+        aConfiguracao.Endereco,
+        aConfiguracao.Bairro,
+        aConfiguracao.Fone,
+        aConfiguracao.Cep,
+        aConfiguracao.Cidade,
+        aConfiguracao.Cnpj,
+        aConfiguracao.InscEstadual,
+        aConfiguracao.ID,
+        aConfiguracao.ArquivoLogo,
+        aConfiguracao.ImprimirGliche);
+
   end;
 
   aEcf.QRCode   := aConfiguracao.ArquivoQRCode;

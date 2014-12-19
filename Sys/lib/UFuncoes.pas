@@ -12,6 +12,7 @@ uses
   function GetCopyright : String;
   function GetInternalName : String;
   function GetProductName : String;
+  function GetProductVersion : String;
   function GetFileDescription : String;
   function GetCompanyName : String;
   function GetContacts : String;
@@ -133,6 +134,11 @@ end;
 function GetProductName : String;
 begin
   Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_NAME);
+end;
+
+function GetProductVersion : String;
+begin
+  Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_VERSION);
 end;
 
 function GetFileDescription : String;
