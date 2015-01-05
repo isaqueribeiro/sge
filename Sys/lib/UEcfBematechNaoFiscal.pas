@@ -16,6 +16,7 @@ Uses
 
       procedure Compactar_Fonte; override;
       procedure Descompactar_Fonte; override;
+      procedure CentralzarElementos; override;
 
       procedure Gliche(Imprimir : Boolean); override;
       procedure Incluir_Item(Item, Codigo, Descricao, Quant, V_Unitario, ST, Total_Item : String); override;
@@ -41,6 +42,9 @@ Uses
       procedure Titulo_Livre(Str : String); override;
       procedure Texto_Livre(Str : String); override;
       procedure Texto_Livre_Negrito(Str : String); override;
+      procedure Texto_Livre_Centralizado(Str : String); override;
+
+      procedure ImprimirQRCode(const ArquivoBmpQRCode : String); override;
   end;
 
 implementation
@@ -120,6 +124,11 @@ begin
   Int_Retorno := FormataTX(PChar(cMargem + '          ' + Centralizar(Num_Colunas - 10, RemoveAcentos(Nome))) + #10, cTipoLetraComprimido, 0, 0, 0, 0);
 end;
 
+procedure TEcfBematechNaoFiscal.CentralzarElementos;
+begin
+  Int_Retorno := BematechTX(PChar(cCentraliza));
+end;
+
 procedure TEcfBematechNaoFiscal.Compactar_Fonte;
 begin
   ;
@@ -190,7 +199,10 @@ begin
 
     Int_Retorno := FormataTX( PChar(cMargem + dh), cTipoLetraComprimido, 0, 0, 0, 0);
     Int_Retorno := FormataTX( PChar(Alinhar_Direita(Num_Colunas - Length(dh + cMargem), 'COD: ' + ID_Venda)) + #10, cTipoLetraComprimido, 0, 0, 0, 1);
-    Int_Retorno := FormataTX( PChar(Centralizar(Round(Num_Colunas / 2), 'VENDA CONVENIO') ) + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+
+    Int_Retorno := BematechTX(PChar(cCentraliza));
+    Int_Retorno := FormataTX( PChar('VENDA CONVENIO') + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+    Int_Retorno := BematechTX(PChar(cEsquerda));
 
     Self.Compactar_Fonte;
 
@@ -222,6 +234,8 @@ begin
   Int_Retorno := FormataTX( PChar(Centralizar(Num_Colunas, RemoveAcentos(Sistema)))   + #10, cTipoLetraComprimido, 0, 0, 0, 0);
   Int_Retorno := FormataTX( PChar(Centralizar(Num_Colunas, 'Versao ' + Versao))       + #10, cTipoLetraComprimido, 0, 0, 0, 0);
 
+  Self.Pular_Linha(PULAR_LINHA_FINAL);
+  
   Int_Retorno := AcionaGuilhotina(1);
   Int_Retorno := PrinterReset;
   Int_Retorno := FechaPorta;
@@ -265,16 +279,18 @@ begin
     if FileExists(Logotipo) then
     begin
       Int_Retorno := BematechTX(PChar(cCentraliza));
-      Int_Retorno := ImprimeBmpEspecial(PChar(Logotipo), 100, 100, 0);
-      Int_Retorno := PrinterReset;
+      Int_Retorno := ImprimeBmpEspecial(PChar(Logotipo), 90, 90, 0);
+      Int_Retorno := BematechTX(PChar(cEsquerda));
     end;
 
-    Int_Retorno := FormataTX( PChar(Centralizar(Round(Num_Colunas / 2), RemoveAcentos(Nome_Empresa)))     + #10, cTipoLetraComprimido, 0, 0, 1, 1);
-    Int_Retorno := FormataTX( PChar(Centralizar(Num_Colunas, RemoveAcentos(Endereco)))                    + #10, cTipoLetraComprimido, 0, 0, 0, 0);
-    Int_Retorno := FormataTX( PChar(Centralizar(Num_Colunas, RemoveAcentos(Bairro)))                      + #10, cTipoLetraComprimido, 0, 0, 0, 0);
-    Int_Retorno := FormataTX( PChar(Centralizar(Num_Colunas, RemoveAcentos(Cep + ' - ' + Cidade)))        + #10, cTipoLetraComprimido, 0, 0, 0, 0);
-    Int_Retorno := FormataTX( PChar(Centralizar(Num_Colunas, RemoveAcentos(Fone)))                        + #10, cTipoLetraComprimido, 0, 0, 0, 0);
-    Int_Retorno := FormataTX( PChar(Centralizar(Num_Colunas, Format(EMP_IDENTIF, [CNPJ, Insc_Estadual]))) + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+    Int_Retorno := BematechTX(PChar(cCentraliza));
+    Int_Retorno := FormataTX( PChar(RemoveAcentos(Nome_Empresa))                + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+    Int_Retorno := FormataTX( PChar(RemoveAcentos(Endereco))                    + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+    Int_Retorno := FormataTX( PChar(RemoveAcentos(Bairro))                      + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+    Int_Retorno := FormataTX( PChar(RemoveAcentos(Cep + ' - ' + Cidade))        + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+    Int_Retorno := FormataTX( PChar(RemoveAcentos(Fone))                        + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+    Int_Retorno := FormataTX( PChar(Format(EMP_IDENTIF, [CNPJ, Insc_Estadual])) + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+    Int_Retorno := BematechTX(PChar(cEsquerda));
     Self.Linha;
   end;
 end;
@@ -335,6 +351,14 @@ begin
   Int_Retorno := FormataTX(PChar( cMargem + Alinhar_Direita(20, 'QTD x UNITARIO') ),       cTipoLetraComprimido, 0, 0, 0, 0);
   Int_Retorno := FormataTX(PChar( Alinhar_Direita(10, 'ST') ),                             cTipoLetraComprimido, 0, 0, 0, 0);
   Int_Retorno := FormataTX(PChar( Alinhar_Direita(Num_Colunas - 31, 'VALOR (R$)') + #10 ), cTipoLetraComprimido, 0, 0, 0, 0);
+end;
+
+procedure TEcfBematechNaoFiscal.ImprimirQRCode(
+  const ArquivoBmpQRCode: String);
+begin
+  Int_Retorno := BematechTX(PChar(cCentraliza));
+  Int_Retorno := ImprimeBmpEspecial(PChar(ArquivoBmpQRCode), 90, 90, 0);
+  Int_Retorno := BematechTX(PChar(cEsquerda));
 end;
 
 procedure TEcfBematechNaoFiscal.Incluir_Forma_Pgto(Descricao,
@@ -412,6 +436,14 @@ begin
   Int_Retorno := FormataTX(PChar(cMargem + Str) + #10, cTipoLetraComprimido, 0, 0, 0, 0);
 end;
 
+procedure TEcfBematechNaoFiscal.Texto_Livre_Centralizado(Str: String);
+begin
+  Int_Retorno := BematechTX(PChar(cCentraliza));
+  Int_Retorno := FormataTX(PChar(Str) + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+  Int_Retorno := BematechTX(PChar(cEsquerda));
+  Self.Compactar_Fonte;
+end;
+
 procedure TEcfBematechNaoFiscal.Texto_Livre_Negrito(Str: String);
 begin
   Self.Compactar_Fonte;
@@ -420,7 +452,9 @@ end;
 
 procedure TEcfBematechNaoFiscal.Titulo_Cupom(Str: String);
 begin
-  Int_Retorno := FormataTX(PChar( Centralizar(Round(Num_Colunas / 2), Str) ) + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+  Int_Retorno := BematechTX(PChar(cCentraliza));
+  Int_Retorno := FormataTX(PChar(Str) + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+  Int_Retorno := BematechTX(PChar(cEsquerda));
 
   Self.ImprimirCabecalho;
 
@@ -430,10 +464,12 @@ end;
 procedure TEcfBematechNaoFiscal.Titulo_Cupom_DANFE(sTitulo1, sTitulo2,
   sTitulo3, sTitulo4: String);
 begin
-  Int_Retorno := FormataTX(PChar( Centralizar(Round(Num_Colunas / 2), sTitulo1) ) + #10, cTipoLetraComprimido, 0, 0, 1, 1);
-  Int_Retorno := FormataTX(PChar( Centralizar(Round(Num_Colunas / 2), sTitulo2) ) + #10, cTipoLetraNormal, 0, 0, 0, 1);
-  Int_Retorno := FormataTX(PChar( Centralizar(Round(Num_Colunas / 2), sTitulo3) ) + #10, cTipoLetraNormal, 0, 0, 0, 1);
-  Int_Retorno := FormataTX(PChar( Centralizar(Round(Num_Colunas / 2), sTitulo4) ) + #10, cTipoLetraNormal, 0, 0, 0, 1);
+  Int_Retorno := BematechTX(PChar(cCentraliza));
+  Int_Retorno := FormataTX(PChar( cMargem + sTitulo1 ) + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+  Int_Retorno := FormataTX(PChar( cMargem + sTitulo2 ) + #10, cTipoLetraComprimido, 0, 0, 0, 1);
+  Int_Retorno := FormataTX(PChar( cMargem + sTitulo3 ) + #10, cTipoLetraComprimido, 0, 0, 0, 1);
+  Int_Retorno := FormataTX(PChar( cMargem + sTitulo4 ) + #10, cTipoLetraComprimido, 0, 0, 0, 1);
+  Int_Retorno := BematechTX(PChar(cEsquerda));
 
   Self.Linha;
   Self.ImprimirCabecalho;
@@ -442,7 +478,9 @@ end;
 
 procedure TEcfBematechNaoFiscal.Titulo_Livre(Str: String);
 begin
-  Int_Retorno := FormataTX(PChar( Centralizar(Round(Num_Colunas / 2), Str) ) + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+  Int_Retorno := BematechTX(PChar(cCentraliza));
+  Int_Retorno := FormataTX(PChar(Str) + #10, cTipoLetraComprimido, 0, 0, 1, 1);
+  Int_Retorno := BematechTX(PChar(cEsquerda));
 
   Self.Compactar_Fonte;
 end;

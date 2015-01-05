@@ -8,6 +8,7 @@ Uses
   Type
     TEcfWindowsPrinter = class(TEcfAgil)
     private
+      fArquivoQRCODE : TBitmap;
       procedure ImprimirCabecalho;
     public
       constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
@@ -40,6 +41,9 @@ Uses
       procedure Titulo_Livre(Str : String); override;
       procedure Texto_Livre(Str : String); override;
       procedure Texto_Livre_Negrito(Str : String); override;
+      procedure Texto_Livre_Centralizado(Str : String); override;
+
+      procedure ImprimirQRCode(const ArquivoBmpQRCode : String); override;
   end;
 
 implementation
@@ -344,6 +348,24 @@ begin
   Texto_Cupom.Add( Alinhar_Direita(20, 'QTD x UNITARIO') +
     Alinhar_Direita(10, 'ST') +
     Alinhar_Direita(Num_Colunas - 30, 'VALOR(R$)') );
+end;
+
+procedure TEcfWindowsPrinter.Texto_Livre_Centralizado(Str: String);
+begin
+  Texto_Cupom.Add( Centralizar(Num_Colunas, Str) );
+end;
+
+procedure TEcfWindowsPrinter.ImprimirQRCode(
+  const ArquivoBmpQRCode: String);
+begin
+  fArquivoQRCODE := TBitmap.Create;
+  fArquivoQRCODE.LoadFromFile( ArquivoBmpQRCode );
+
+  if (fArquivoQRCODE.Height > 0) then
+  begin
+    QRCode := Trim(ArquivoBmpQRCode);
+    Texto_Cupom.Add( cTagQRCode );
+  end;
 end;
 
 end.

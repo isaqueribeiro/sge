@@ -126,6 +126,7 @@ begin
         aConfiguracao.ArquivoLogo,
         aConfiguracao.ImprimirGliche);
 
+    {$IFDEF PDV}
     ecfBematech:
       aEcf := TEcfBematechNaoFiscal.Criar(
         aConfiguracao.Dll,
@@ -143,7 +144,7 @@ begin
         aConfiguracao.ID,
         aConfiguracao.ArquivoLogo,
         aConfiguracao.ImprimirGliche);
-
+    {$ENDIF}
   end;
 
   aEcf.QRCode   := aConfiguracao.ArquivoQRCode;

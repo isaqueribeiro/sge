@@ -17773,6 +17773,7 @@ object DMNFe: TDMNFe
     ImprimirUnQtVlComercial = False
     Detalhado = False
     DescricaoViaEstabelec = 'Via do Consumidor'
+    ExpandirDadosAdicionaisAuto = False
     Left = 56
     Top = 72
   end
@@ -19671,6 +19672,11 @@ object DMNFe: TDMNFe
     Config.emit_indRatISSQN = irSim
     Config.EhUTF8 = False
     Config.PaginaDeCodigo = 0
+    Rede.tipoInter = infETHE
+    Rede.seg = segNONE
+    Rede.tipoLan = lanDHCP
+    Rede.proxy = 0
+    Rede.proxy_porta = 0
     Left = 800
     Top = 104
   end

@@ -119,7 +119,8 @@ uses
   UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto},
   UGePlanoContas in '..\Sys\UGePlanoContas.pas' {frmGePlanoContas},
   UGeProdutoImpressao in '..\System_SGE\UGeProdutoImpressao.pas' {frmGeProdutoImpressao},
-  UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex};
+  UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
+  UGeApropriacaoEstoque in 'UGeApropriacaoEstoque.pas' {frmGeApropriacaoEstoque};
 
 {$R *.res}
 

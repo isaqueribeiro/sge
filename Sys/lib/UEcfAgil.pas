@@ -3,7 +3,8 @@ unit UEcfAgil;
 interface
 
 Uses
-  SysUtils, StrUtils, Classes, Printers;
+  UConstantesDGE,
+  Windows, SysUtils, StrUtils, Classes, Printers, ExtCtrls, Graphics;
 
   Type
     TEcfAgil = class(TObject)
@@ -69,6 +70,7 @@ Uses
 
       procedure Compactar_Fonte; virtual; abstract;
       procedure Descompactar_Fonte; virtual; abstract;
+      procedure CentralzarElementos; virtual; abstract;
 
       function Centralizar(Esp : Integer; Str : String) : String; 
       function Alinhar_Direita(Esp : Integer; Str : String) : String; 
@@ -99,13 +101,16 @@ Uses
       procedure Titulo_Livre(Str : String); virtual; abstract;
       procedure Texto_Livre(Str : String); virtual; abstract;
       procedure Texto_Livre_Negrito(Str : String); virtual; abstract;
+      procedure Texto_Livre_Centralizado(Str : String); virtual; abstract;
 
       procedure ImprimirComCanvas_Spooler(const Memo: TStringList);
+      procedure ImprimirQRCode(const ArquivoBmpQRCode : String); virtual; abstract;
   end;
 
 const
   cMargem     = ' ';
   cJustif     = #27#97#51;
+  cEsquerda   = #27#97#48;
   cCentraliza = #27#97#1;
   cEject      = #12;
 
@@ -127,6 +132,48 @@ const
   cTipoLetraNormal     = 2;
   cTipoLetraElite      = 3;
 
+  cTagLogotipo = 'LOGOTIPO_BMP';
+  cTagQRCode   = 'QRCODE';
+
+(*
+
+  ANALISAR ESSAS CONSTANTES
+
+  Inicializa = #27#64; // Inicializa a Impressora
+  Justifica  = #27#97#51; // Justifica o Texto a Ser impresso
+  Draft      = #27#120#0; // Aciona Modo Draft
+  Imediato   = #27#105#1; // Aciona Modo Imediato
+  Caracter   = #27#77; // Aciona Modo Caracter Rápido.
+  Centro     = #27#97#49; // Centraliza a Impressão
+  Esquerda   = #27#97#48; // Posiciona na Margem Esquerda
+  MEsquerda  = #27#108#5; // Define a Margem Esquerda
+  MDireita   = #27#81+#78; // Define a Margem Direita
+  Tab1 = #27#68#32; // Define a Tabulação 1 = 32;
+  Tab2 = #27#68#41#50; // Define a Tabulação 2 = 50;
+  Tab3 = #27#68#27; // Define a Tabulação 3 = 27;
+  Tab4 = #27#68#37; // Define a Tabulação 4 = 37;
+  Tab5 = #27#68#45; // Define a Tabulação 5 = 45;
+  Tab6 = #27#68#10; // Define a Tabulação 6 = 10;
+  Tab7 = #27#68#46; // Define a Tabulação 7 = 46;
+  Tab8 = #27#68#20; // Define a Tabulação 8 = 20;
+  Normal = #20; // Define Caracter 20 Tamanho Normal;
+  Condensado = #15; // Define Caracter 15 Modo Condensado;
+  Expandido = #14; // Define Caracter 14 Modo Expandido;
+  CNegrito = #27#71; // Define Caracter Negrito;
+  SNegrito = #27#72; // Define Caracter Não Negrito;
+  CSublinha = #27#49;
+  SSublinha = #27#48;
+  Ass = #27#9; // Tabulação Assume a Posição;
+  Saltar = #27#102#49#5; // Nº de Linhas a Saltar;
+  TabEXP0 = #27#68#0;
+  TabEXP1 = #27#68#7;
+  TabEXP2 = #27#68#38;
+  TabEXP3 = #27#68#49;
+  TabEXP4 = #27#68#44;
+  TabEXP5 = #27#68#25;
+  TabEXP6 = #27#68#20;
+
+*)
 implementation
 
 { TEcfAgil }
@@ -212,11 +259,17 @@ const
   TAG_NEGRITO = '\n';
 var
   AlturaLinha, Y, I: integer;
+  ScaleX ,
+  ScaleY : Integer;
+  Rec    : TRect;
   sLinha : Array[0..1] of String;
+  ImageSource ,
+  ImageTarget : TBitmap;
 begin
   AlturaLinha := Printer.Canvas.TextHeight('Tg');
 
   Y := cMargemSuperior;
+
   for I := 0 to Memo.Count - 1 do begin
 
     if Y > myPrinter.PageHeight then
@@ -237,21 +290,68 @@ begin
       Self.Descompactar_Fonte;
 
     // Quebrar de linha
-    
+
     if Length(Trim(sLinha[0])) > Num_Colunas then
     begin
       sLinha[1] := Copy(Trim(sLinha[0]), Num_Colunas, Num_Colunas);
       sLinha[0] := Copy(Trim(sLinha[0]), 1, Num_Colunas - 1) + '-';
     end;
 
-    myPrinter.Canvas.TextOut(cMargemEsquerda, Y, sLinha[0]);
-    Y := Y + AlturaLinha + cEspacoLinha;
-
-    if (Trim(sLinha[1]) <> EmptyStr) then
+    if (sLinha[0] = cTagQRCode) then
     begin
-      myPrinter.Canvas.TextOut(cMargemEsquerda, Y, sLinha[1]);
+      // Imprimir QR Code
+
+      with myPrinter do
+        try
+          ImageSource := TBitmap.Create;
+          ImageSource.LoadFromFile( QRCode );
+
+          ScaleX := GetDeviceCaps(Handle, logPixelsX) div LOGPIXELSY; //PixelsPerInch;
+          ScaleY := GetDeviceCaps(Handle, logPixelsY) div LOGPIXELSY; //PixelsPerInch;
+          Rec    := Rect(0, 0, ImageSource.Width * ScaleX, ImageSource.Height * ScaleY);
+
+          ImageTarget := TBitmap.Create;
+          ImageTarget.Height := ImageSource.Height * ScaleY;
+          ImageTarget.Width  := ImageSource.Width  * ScaleX;
+
+          ImageTarget.Canvas.StretchDraw(Rec, ImageSource);
+
+          Canvas.Draw(cMargemEsquerda * (Num_Colunas div 3), Y, ImageTarget);
+        finally
+          Case ImageSource.Height of
+            LENGTH_QRCODE_150 ,
+            LENGTH_QRCODE_160 : Y := Y + ((AlturaLinha + cEspacoLinha) * 12);
+            LENGTH_QRCODE_175 : Y := Y + ((AlturaLinha + cEspacoLinha) * 13);
+            LENGTH_QRCODE_180 : Y := Y + ((AlturaLinha + cEspacoLinha) * 14);
+            LENGTH_QRCODE_200 : Y := Y + ((AlturaLinha + cEspacoLinha) * 15);
+          end;
+
+          ImageTarget.Free;
+          ImageSource.Free;
+        end;
+
+    end
+    else
+    if (sLinha[0] = cTagLogotipo) then
+    begin
+      // Imprimir Logotipo Empresa
+
+    end
+    else
+    begin
+      // Imprimir Texto
+
+      myPrinter.Canvas.TextOut(cMargemEsquerda, Y, sLinha[0]);
       Y := Y + AlturaLinha + cEspacoLinha;
+
+      if (Trim(sLinha[1]) <> EmptyStr) then
+      begin
+        myPrinter.Canvas.TextOut(cMargemEsquerda, Y, sLinha[1]);
+        Y := Y + AlturaLinha + cEspacoLinha;
+      end;
+
     end;
+
   end;
 
 end;

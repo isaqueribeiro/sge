@@ -4,10 +4,12 @@ interface
 
 uses
   UInfoVersao,
+  PngImage,
 
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFeDANFERave, ACBrNFe, DB,
   IBCustomDataSet, IBQuery, frxClass, frxDBSet, frxExportRTF, frxExportXLS,
   frxExportPDF, frxExportMail, UGeConfigurarNFeACBr, TypInfo,
+  HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg,
 
   ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
   IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
@@ -18,6 +20,8 @@ uses
 
 type
   TTipoDANFE = (tipoDANFERave, tipoDANFEFast, tipoDANFE_ESCPOS);
+  TQrImage_ErrCorrLevel = (L, M, Q, H);
+  TTamanhoQrCode = (tamQrCode150, tamQrCode160, tamQrCode175, tamQrCode180, tamQrCode200, tamQrCode300);
   TDMNFe = class(TDataModule)
     ACBrNFe: TACBrNFe;
     rvDANFE: TACBrNFeDANFERave;
@@ -574,6 +578,13 @@ type
       var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
     procedure GerarNFCEACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var DtHoraEmiss : TDateTime; var iSerieNFCe, iNumeroNFCe : Integer; var FileNameXML : String);
+
+    function ImprimirCupomNaoFiscal_PORTA(const sCNPJEmitente : String; iCodigoCliente : Integer;
+      const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean;
+
+    function ImprimirCupomNaoFiscal_ESCPOS(const sCNPJEmitente : String; iCodigoCliente : Integer;
+      const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean; virtual; abstract;
+
   public
     { Public declarations }
     property ConfigACBr : TfrmGeConfigurarNFeACBr read frmACBr write frmACBr;
@@ -582,6 +593,7 @@ type
     procedure LerConfiguracao(const sCNPJEmitente : String; const tipoDANFE : TTipoDANFE = tipoDANFERave);
     procedure GravarConfiguracao(const sCNPJEmitente : String);
     procedure ConfigurarEmail(const sCNPJEmitente, sDestinatario, sAssunto, sMensagem : String);
+    procedure GerarArquivoQRCODE(const FileNameQRCODE, StringQRCODE : String; const tamanhoQrCode : TTamanhoQrCode);
 
     procedure AbrirEmitente(sCNPJ : String);
     procedure AbrirDestinatario(iCodigo : Integer);
@@ -671,6 +683,9 @@ var
   function GetDiretorioNFe : String;
 
 const
+  UrlGoogleQrCode = 'http://chart.apis.google.com/chart?chs=%dx%d&cht=qr&chld=%s&chl=%s';
+  QrImgCorrStr    : Array [TQrImage_ErrCorrLevel] of string = ('L', 'M', 'Q', 'H');
+
   SELDIRHELP   = 1000;
   FILENAME_NFE_RAVE   = 'Report\NotaFiscalEletronica.rav';
   FILENAME_NFE_FAST   = 'Report\NotaFiscalEletronica.fr3';
@@ -799,6 +814,48 @@ begin
 
   finally
   end;
+end;
+
+procedure WinInet_HttpGet(const Url: string; Stream: TStream);
+const
+  BuffSize = 1024 * 1024;
+var
+  hInter: HINTERNET;
+  UrlHandle: HINTERNET;
+  BytesRead: DWORD;
+  Buffer: Pointer;
+begin
+  hInter := InternetOpen('', INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
+  if Assigned(hInter) then
+  begin
+    Stream.Seek(0, 0);
+    GetMem(Buffer, BuffSize);
+    try
+      UrlHandle := InternetOpenUrl(hInter, PChar(Url), nil, 0, INTERNET_FLAG_RELOAD, 0);
+      if Assigned(UrlHandle) then
+      begin
+        repeat
+          InternetReadFile(UrlHandle, Buffer, BuffSize, BytesRead);
+          if BytesRead > 0 then
+            Stream.WriteBuffer(Buffer^, BytesRead);
+        until BytesRead = 0;
+        InternetCloseHandle(UrlHandle);
+      end;
+    finally
+      FreeMem(Buffer);
+    end;
+
+    InternetCloseHandle(hInter);
+  end
+end;
+
+procedure GetQrCode(Width, Height: Word; Correction_Level: TQrImage_ErrCorrLevel;
+  const Data: string; StreamImage: TMemoryStream);
+Var
+  EncodedURL: string;
+begin
+  EncodedURL := Format(UrlGoogleQrCode, [Width, Height, QrImgCorrStr[Correction_Level], HTTPEncode(Data)]);
+  WinInet_HttpGet(EncodedURL, StreamImage);
 end;
 
 procedure TDMNFe.AbrirEmitente(sCNPJ: String);
@@ -1263,13 +1320,16 @@ begin
       emit_CNPJ := ConfigACBr.edtEmitCNPJ.Text;
       emit_IE   := ConfigACBr.edtEmitIE.Text;
       emit_IM   := qryEmitenteIM.AsString;
+      ide_CNPJ        := ConfigACBr.edtEmitCNPJ.Text;
+      ide_numeroCaixa := FileIni.ReadInteger(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, 1);
+      ide_tpAmb       := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
       if (qryEmitenteTIPO_REGIME_NFE.AsInteger = 0) then
         emit_cRegTrib := RTSimplesNacional
       else
         emit_cRegTrib := RTRegimeNormal;
-      ide_CNPJ        := ConfigACBr.edtEmitCNPJ.Text;
-      ide_numeroCaixa := FileIni.ReadInteger(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, 1);
-      ide_tpAmb       := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
+
+      PastaCFeVenda        := StringReplace(ExtractFilePath(ParamStr(0)) + '\CFe\Venda',        '\\', '\', [rfReplaceAll]);
+      PastaCFeCancelamento := StringReplace(ExtractFilePath(ParamStr(0)) + '\CFe\Cancelamento', '\\', '\', [rfReplaceAll]);
     end;
 
     ACBrSATExtratoESCPOS.SoftwareHouse := RemoveAcentos( GetCompanyName );
@@ -4631,231 +4691,8 @@ end;
 function TDMNFe.ImprimirCupomNaoFiscal(const sCNPJEmitente: String;
   iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoVenda,
   iNumVenda: Integer): Boolean;
-var
-  aEcfTipo   : TEcfTipo;
-  aEcfConfig : TEcfConfiguracao;
-  aEcf : TEcfFactory;
-
-  bEmitirCumpoExtraParcelas : Boolean;
-  cValorTroco,
-  cPercentualTributoAprox,
-  cValorTributoAprox     ,
-  cValorTotalTributoAprox: Currency;
-
-  sDuplicata : String;
-const
-  TEXTO_TRIB_APROX_1 = '* Valor Total Aprox. Trib.:';
-  TEXTO_TRIB_APROX_2 = '* R$ %s (%s)';
-  TEXTO_TRIB_APROX_3 = '* Fonte IBPT';
 begin
-  if GetCupomNaoFiscalTipoEmissaoID = -1 then
-    aEcfTipo := ecfTEXTO
-  else
-    aEcfTipo := TEcfTipo(GetCupomNaoFiscalTipoEmissaoID);
-
-  AbrirEmitente(sCNPJEmitente);
-  AbrirDestinatario(iCodigoCliente);
-  AbrirVenda(iAnoVenda, iNumVenda);
-  AbrirNFeEmitida(iAnoVenda, iNumVenda);
-
-  aEcfConfig.Dll              := EmptyStr;
-  aEcfConfig.Impressora       := GetCupomNaoFiscalPortaNM;
-  aEcfConfig.ModeloEspecifico := GetCupomNaoFiscalModeloEspID;
-  aEcfConfig.Porta            := GetCupomNaoFiscalPortaDS;
-  aEcfConfig.Empresa  := AnsiUpperCase( qryEmitenteNMFANT.AsString );
-  aEcfConfig.Endereco := RemoveAcentos( Trim(qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString) );
-  aEcfConfig.Bairro   := RemoveAcentos( Trim(qryEmitenteBAI_NOME.AsString) );
-  aEcfConfig.Fone     := StrFormatarFONE(qryEmitenteFONE.AsString);
-  aEcfConfig.Cep      := StrFormatarCEP(qryEmitenteCEP.AsString);
-  aEcfConfig.Cidade   := RemoveAcentos( qryEmitenteCID_NOME.AsString + '/' + qryEmitenteEST_SIGLA.AsString );
-  aEcfConfig.Cnpj     := StrFormatarCnpj( sCNPJEmitente );
-  aEcfConfig.InscEstadual   := qryEmitenteIE.AsString;
-  aEcfConfig.ID             := FormatFloat('###0000000', iNumVenda);
-  aEcfConfig.ImprimirGliche := True;
-
-  aEcfConfig.ArquivoLogo   := Trim(ConfigACBr.edtLogoMarca.Text);
-  aEcfConfig.ArquivoQRCode := EmptyStr;
-
-  aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
-  try
-
-    cValorTroco := 0.0;
-    cPercentualTributoAprox := 0.0;
-    cValorTributoAprox      := 0.0;
-    cValorTotalTributoAprox := 0.0;
-
-    with aEcf do
-    begin
-      Ecf.SoftHouse := GetCompanyName;
-      Ecf.Sistema   := GetProductName;
-      Ecf.Versao    := GetProductVersion;
-
-      Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
-
-      if ( qryDestinatarioCODIGO.AsInteger <> CONSUMIDOR_FINAL_CODIGO ) then
-        Ecf.Identifica_Consumidor( IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString), StrFormatarCpf(qryDestinatarioCNPJ.AsString), StrFormatarCnpj(qryDestinatarioCNPJ.AsString))
-          , RemoveAcentos(AnsiUpperCase(qryDestinatarioNOME.AsString))
-          , Trim(qryDestinatarioTLG_SIGLA.AsString + ' ' + qryDestinatarioLOG_NOME.AsString + ', ' +
-            qryDestinatarioNUMERO_END.AsString + ' - ' + qryDestinatarioBAI_NOME.AsString) + ' (' + qryDestinatarioCID_NOME.AsString + ')'
-        );
-
-      if qryNFeEmitida.IsEmpty then
-        Ecf.Titulo_Cupom('CUPOM NAO FISCAL')
-      else
-        Ecf.Titulo_Cupom_DANFE('DANFE NFC-e'
-          , 'Documento Auxiliar da Nota Fiscal'
-          , 'Eletronica para Consumidor Final'
-          , 'Nao permite aprovimento de credito de ICMS');
-
-      qryDadosProduto.First;
-
-      while not qryDadosProduto.Eof do
-      begin
-        cPercentualTributoAprox := qryDadosProdutoNCM_ALIQUOTA_NAC.AsCurrency;
-        if (cPercentualTributoAprox > 0.0) then
-          cValorTributoAprox := qryDadosProdutoTOTAL_BRUTO.AsCurrency * cPercentualTributoAprox / 100
-        else
-          cValorTributoAprox := 0.0;
-
-        Ecf.Incluir_Item(FormatFloat('00', qryDadosProdutoSEQ.AsInteger)
-          , qryDadosProdutoCODPROD.AsString
-          , RemoveAcentos( Copy(AnsiUpperCase(qryDadosProdutoDESCRI_APRESENTACAO.AsString), 1, 45) )
-          , Trim(FormatFloat(',0.###', qryDadosProdutoQTDE.AsCurrency) + ' ' + Copy(Trim(qryDadosProdutoUNP_SIGLA.AsString), 1, 2))
-          , FormatFloat(',0.00',  qryDadosProdutoPFINAL.AsCurrency)
-          , 'T0'
-          , FormatFloat(',0.00',  (qryDadosProdutoQTDE.AsCurrency * qryDadosProdutoPFINAL.AsCurrency))
-        );
-
-        cValorTotalTributoAprox := cValorTotalTributoAprox + cValorTributoAprox;
-        qryDadosProduto.Next;
-      end;
-
-      if (qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) <> 0 then
-      begin
-        Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency), True );
-        Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) );
-      end;
-      
-      Ecf.Linha;
-      Ecf.Incluir_Texto_Valor('QTDE. TOTAL DE ITENS', FormatFloat(',000.##',  qryDadosProduto.RecordCount));
-      Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDA.AsCurrency)  );
-
-      qryFormaPagtos.First;
-      bEmitirCumpoExtraParcelas := False;
-
-      while not qryFormaPagtos.Eof do
-      begin
-        if not bEmitirCumpoExtraParcelas then
-          bEmitirCumpoExtraParcelas := (qryFormaPagtosFORMAPAGTO_PDV_CUPOM_EXTRA.AsInteger = 1) and (qryCalculoImportoVENDA_PRAZO.AsInteger = 1);
-
-        cValorTroco := qryFormaPagtosVALOR_RECEBIDO.AsCurrency - qryFormaPagtosVALOR_FPAGTO.AsCurrency;
-
-        Ecf.Incluir_Forma_Pgto(RemoveAcentos(qryFormaPagtosDESCRI.AsString), FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
-
-        if ( cValorTroco > 0.0 ) then
-          Ecf.Incluir_Texto_Valor('* Troco', FormatFloat(',0.00',  cValorTroco));
-
-        qryFormaPagtos.Next;
-      end;
-
-      if (cValorTotalTributoAprox > 0.0) then
-      begin
-        Ecf.Linha;
-        Ecf.Texto_Livre_Negrito(TEXTO_TRIB_APROX_1);
-        Ecf.Texto_Livre_Negrito(Format(TEXTO_TRIB_APROX_2, [
-          FormatFloat(',0.00', cValorTotalTributoAprox),
-          FormatFloat(',0.##"%"', cValorTotalTributoAprox / qryCalculoImportoTOTALVENDABRUTA.AsCurrency * 100)]));
-        Ecf.Texto_Livre_Negrito(TEXTO_TRIB_APROX_3);
-      end;
-
-      if (Trim(qryCalculoImportoOBS.AsString) <> EmptyStr) then
-      begin
-        Ecf.Linha;
-        Ecf.Texto_Livre( '* ' +  'Venda: ' + qryCalculoImportoANO.AsString + '/' + FormatFloat('###0000000', qryCalculoImportoCODCONTROL.AsInteger) );
-        Ecf.Texto_Livre( '* Forma/Cond. Pgto.: ' + qryCalculoImportoLISTA_FORMA_PAGO.AsString + '/' + qryCalculoImportoLISTA_COND_PAGO_FULL.AsString);
-        Ecf.Texto_Livre( '* ' + Trim(qryCalculoImportoOBS.AsString) );
-      end;
-    end;
-
-  finally
-    aEcf.Ecf.Finalizar;
-    aEcf.Free;
-  end;
-
-  // Emitir Cupom Relatório Gerencial com parcelas para consumidor
-
-  if bEmitirCumpoExtraParcelas and (aEcfTipo in [ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfBematech]) then
-  begin
-    aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
-    try
-
-      with aEcf do
-      begin
-        Ecf.SoftHouse := GetCompanyName;
-        Ecf.Sistema   := GetProductName;
-        Ecf.Versao    := GetVersion;
-
-        Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
-        Ecf.Titulo_Livre( 'RELATORIO GERENCIAL' );
-        Ecf.Compactar_Fonte;
-
-        Ecf.Linha;
-
-        Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency), False );
-        Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) );
-        Ecf.Linha;
-        Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDA.AsCurrency)  );
-
-        qryFormaPagtos.First;
-
-        while not qryFormaPagtos.Eof do
-        begin
-          cValorTroco := qryFormaPagtosVALOR_RECEBIDO.AsCurrency - qryFormaPagtosVALOR_FPAGTO.AsCurrency;
-
-          Ecf.Incluir_Forma_Pgto(RemoveAcentos(qryFormaPagtosDESCRI.AsString), FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
-          Ecf.Texto_Livre('* ' + RemoveAcentos(
-            IfThen(Trim(qryFormaPagtosCOND_DESCRICAO_PDV.AsString) = EmptyStr
-              , qryFormaPagtosCOND_DESCRICAO_FULL.Text
-              , qryFormaPagtosCOND_DESCRICAO_PDV.AsString)));
-
-          if ( cValorTroco > 0.0 ) then
-            Ecf.Incluir_Texto_Valor('* Troco', FormatFloat(',0.00',  cValorTroco));
-
-          qryFormaPagtos.Next;
-        end;
-
-        Ecf.Linha;
-        Ecf.Titulo_Livre( 'VENCIMENTO(S)' );
-
-        qryDuplicatas.First;
-
-        while not qryDuplicatas.Eof do
-        begin
-          sDuplicata := qryDuplicatasANOLANC.AsString + '/' + 
-            FormatFloat('###00000"."', qryDuplicatasNUMLANC.AsInteger) +
-            FormatFloat('00', qryDuplicatasPARCELA.AsInteger) + ' ' +
-            FormatDateTime('dd/mm/yyyy', qryDuplicatasDTVENC.AsDateTime);
-          Ecf.Incluir_Texto_Valor(Trim(sDuplicata), FormatFloat(',0.00',  qryDuplicatasVALORREC.AsCurrency));
-
-          qryDuplicatas.Next;
-        end;
-
-        Ecf.Pular_Linha(PULAR_LINHA_FINAL);
-
-        Ecf.Texto_Livre( Ecf.Centralizar(Ecf.Num_Colunas, '----------------------------------------') );
-        Ecf.Texto_Livre( Ecf.Centralizar(Ecf.Num_Colunas, RemoveAcentos(AnsiUpperCase(qryDestinatarioNOME.AsString))) );
-        Ecf.Texto_Livre( Ecf.Centralizar(Ecf.Num_Colunas,
-          IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString)
-            , StrFormatarCpf(qryDestinatarioCNPJ.AsString)
-            , StrFormatarCnpj(qryDestinatarioCNPJ.AsString))) );
-      end;
-
-    finally
-      aEcf.Ecf.Finalizar;
-      aEcf.Free;
-    end;
-  end;
-
+  Result := ImprimirCupomNaoFiscal_PORTA(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda);
 end;
 
 procedure TDMNFe.AbrirVendaCartaCredito(AnoVenda, NumeroVenda: Integer);
@@ -6022,6 +5859,410 @@ begin
     begin
       ShowError('Erro ao tentar imprimir DANFE da Saída da NFC-e.' + #13#13 + 'ImprimirDANFE_ESCPOSACBr() --> ' + e.Message);
       Result := False;
+    end;
+  end;
+
+end;
+
+procedure TDMNFe.GerarArquivoQRCODE(const FileNameQRCODE,
+  StringQRCODE: String; const tamanhoQrCode : TTamanhoQrCode);
+var
+  ImageStream : TMemoryStream;
+  CmpImage    : TImage;
+  PngImage    : TPngImage;
+  BmpImage    : TBitmap;
+  iTamQrCode  : Integer;
+begin
+  ImageStream := TMemoryStream.Create;
+  CmpImage := TImage.Create(nil);
+  PngImage := TPngImage.Create;
+  BmpImage := TBitmap.Create;
+  try
+    CmpImage.Picture := nil;
+    try
+      Case tamanhoQrCode of
+        tamQrCode150 : iTamQrCode := LENGTH_QRCODE_150;
+        tamQrCode160 : iTamQrCode := LENGTH_QRCODE_160;
+        tamQrCode175 : iTamQrCode := LENGTH_QRCODE_175;
+        tamQrCode180 : iTamQrCode := LENGTH_QRCODE_180;
+        tamQrCode200 : iTamQrCode := LENGTH_QRCODE_200;
+        tamQrCode300 : iTamQrCode := LENGTH_QRCODE_300;
+      end;
+
+      GetQrCode(iTamQrCode, iTamQrCode, TQrImage_ErrCorrLevel(0), StringQRCODE, ImageStream);
+      
+      if ImageStream.Size > 0 then
+      begin
+        ImageStream.Position := 0;
+        PngImage.LoadFromStream(ImageStream);
+        CmpImage.Picture.Assign(PngImage);
+
+        BmpImage.Assign( CmpImage.Picture.Graphic );
+        BmpImage.SaveToFile(FileNameQRCODE);
+      end;
+    except
+    end;
+  finally
+    BmpImage.Free;
+    CmpImage.Free;
+    PngImage.Free;
+    ImageStream.Free;
+  end;
+end;
+
+function TDMNFe.ImprimirCupomNaoFiscal_PORTA(const sCNPJEmitente: String;
+  iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoVenda,
+  iNumVenda: Integer): Boolean;
+var
+  aEcfTipo   : TEcfTipo;
+  aEcfConfig : TEcfConfiguracao;
+  aEcf : TEcfFactory;
+
+  bEmitirCumpoExtraParcelas : Boolean;
+  cValorTroco,
+  cPercentualTributoAprox,
+  cValorTributoAprox     ,
+  cValorTotalTributoAprox: Currency;
+
+  sUrlConsultaNFCe  ,
+  sDuplicata        ,
+  sFileNameXML      ,
+  sStringQrCode     ,
+  sArquivoBmpQrCode : String;
+  cTamQrCode        : TTamanhoQrCode;
+const
+  TEXTO_TRIB_APROX_1 = '* Valor Total Aprox. Trib.:';
+  TEXTO_TRIB_APROX_2 = '* R$ %s (%s)';
+  TEXTO_TRIB_APROX_3 = '* Fonte IBPT';
+  TEXTO_NUMERO_DANFE = 'Numero %s Serie %s Emissao %s';
+begin
+  LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
+
+  if GetCupomNaoFiscalTipoEmissaoID = -1 then
+    aEcfTipo := ecfTEXTO
+  else
+    aEcfTipo := TEcfTipo(GetCupomNaoFiscalTipoEmissaoID);
+
+  AbrirEmitente(sCNPJEmitente);
+  AbrirDestinatario(iCodigoCliente);
+  AbrirVenda(iAnoVenda, iNumVenda);
+  AbrirNFeEmitida(iAnoVenda, iNumVenda);
+
+  // Carregar XML da NF quando este existir
+
+  if Trim(qryCalculoImportoXML_NFE_FILENAME.AsString) <> EmptyStr then
+  begin
+    sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT  + qryCalculoImportoXML_NFE_FILENAME.AsString;
+    ForceDirectories( ExtractFilePath(sFileNameXML) );
+    qryCalculoImportoXML_NFE.SaveToFile( sFileNameXML );
+
+    CorrigirXML_NFe( sFileNameXML );
+    RemoverAcentos_ArquivoTexto( sFileNameXML );
+
+    if FilesExists(sFileNameXML) then
+      with ACBrNFe do
+      begin
+        Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger);
+        Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger);
+
+        NotasFiscais.Clear;
+        NotasFiscais.LoadFromFile( sFileNameXML );
+      end;
+  end;
+
+  aEcfConfig.Dll              := EmptyStr;
+  aEcfConfig.Impressora       := GetCupomNaoFiscalPortaNM;
+  aEcfConfig.ModeloEspecifico := GetCupomNaoFiscalModeloEspID;
+  aEcfConfig.Porta            := GetCupomNaoFiscalPortaDS;
+  aEcfConfig.Empresa  := AnsiUpperCase( qryEmitenteNMFANT.AsString );
+  aEcfConfig.Endereco := RemoveAcentos( Trim(qryEmitenteTLG_SIGLA.AsString + ' ' + qryEmitenteLOG_NOME.AsString + ', ' + qryEmitenteNUMERO_END.AsString) );
+  aEcfConfig.Bairro   := RemoveAcentos( Trim(qryEmitenteBAI_NOME.AsString) );
+  aEcfConfig.Fone     := StrFormatarFONE(qryEmitenteFONE.AsString);
+  aEcfConfig.Cep      := StrFormatarCEP(qryEmitenteCEP.AsString);
+  aEcfConfig.Cidade   := RemoveAcentos( qryEmitenteCID_NOME.AsString + '/' + qryEmitenteEST_SIGLA.AsString );
+  aEcfConfig.Cnpj     := StrFormatarCnpj( sCNPJEmitente );
+  aEcfConfig.InscEstadual   := qryEmitenteIE.AsString;
+  aEcfConfig.ID             := FormatFloat('###0000000', iNumVenda);
+  aEcfConfig.ImprimirGliche := True;
+
+  aEcfConfig.ArquivoLogo   := Trim(ConfigACBr.edtLogoMarca.Text);
+  aEcfConfig.ArquivoQRCode := EmptyStr;
+
+  aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
+  try
+
+    cValorTroco := 0.0;
+    cPercentualTributoAprox := 0.0;
+    cValorTributoAprox      := 0.0;
+    cValorTotalTributoAprox := 0.0;
+
+    with aEcf do
+    begin
+      Ecf.SoftHouse := GetCompanyName;
+      Ecf.Sistema   := GetProductName;
+      Ecf.Versao    := GetProductVersion;
+
+      Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
+
+      if ( qryDestinatarioCODIGO.AsInteger <> CONSUMIDOR_FINAL_CODIGO ) then
+        Ecf.Identifica_Consumidor( IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString), StrFormatarCpf(qryDestinatarioCNPJ.AsString), StrFormatarCnpj(qryDestinatarioCNPJ.AsString))
+          , RemoveAcentos(AnsiUpperCase(qryDestinatarioNOME.AsString))
+          , Trim(qryDestinatarioTLG_SIGLA.AsString + ' ' + qryDestinatarioLOG_NOME.AsString + ', ' +
+            qryDestinatarioNUMERO_END.AsString + ' - ' + qryDestinatarioBAI_NOME.AsString) + ' (' + qryDestinatarioCID_NOME.AsString + ')'
+        );
+
+      if qryNFeEmitida.IsEmpty then
+        Ecf.Titulo_Cupom('NOTA DE ENTREGA')
+      else
+        Ecf.Titulo_Cupom_DANFE('DANFE NFC-e'
+          , 'Documento Auxiliar da Nota Fiscal'
+          , 'Eletronica para Consumidor Final'
+          , 'Nao permite aprovimento de credito de ICMS');
+
+      qryDadosProduto.First;
+
+      while not qryDadosProduto.Eof do
+      begin
+        cPercentualTributoAprox := qryDadosProdutoNCM_ALIQUOTA_NAC.AsCurrency;
+        if (cPercentualTributoAprox > 0.0) then
+          cValorTributoAprox := qryDadosProdutoTOTAL_BRUTO.AsCurrency * cPercentualTributoAprox / 100
+        else
+          cValorTributoAprox := 0.0;
+
+        Ecf.Incluir_Item(FormatFloat('00', qryDadosProdutoSEQ.AsInteger)
+          , qryDadosProdutoCODPROD.AsString
+          , RemoveAcentos( Copy(AnsiUpperCase(qryDadosProdutoDESCRI_APRESENTACAO.AsString), 1, 45) )
+          , Trim(FormatFloat(',0.###', qryDadosProdutoQTDE.AsCurrency) + ' ' + Copy(Trim(qryDadosProdutoUNP_SIGLA.AsString), 1, 2))
+          , FormatFloat(',0.00',  qryDadosProdutoPFINAL.AsCurrency)
+          , 'T0'
+          , FormatFloat(',0.00',  (qryDadosProdutoQTDE.AsCurrency * qryDadosProdutoPFINAL.AsCurrency))
+        );
+
+        cValorTotalTributoAprox := cValorTotalTributoAprox + cValorTributoAprox;
+        qryDadosProduto.Next;
+      end;
+
+      if (qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) <> 0 then
+      begin
+        Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency), True );
+        Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) );
+      end;
+
+      Ecf.Linha;
+      Ecf.Incluir_Texto_Valor('QTDE. TOTAL DE ITENS', FormatFloat(',000.##',  qryDadosProduto.RecordCount));
+      Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDA.AsCurrency)  );
+
+      qryFormaPagtos.First;
+      bEmitirCumpoExtraParcelas := False;
+
+      while not qryFormaPagtos.Eof do
+      begin
+        if not bEmitirCumpoExtraParcelas then
+          bEmitirCumpoExtraParcelas := (qryFormaPagtosFORMAPAGTO_PDV_CUPOM_EXTRA.AsInteger = 1) and (qryCalculoImportoVENDA_PRAZO.AsInteger = 1);
+
+        cValorTroco := qryFormaPagtosVALOR_RECEBIDO.AsCurrency - qryFormaPagtosVALOR_FPAGTO.AsCurrency;
+
+        Ecf.Incluir_Forma_Pgto(RemoveAcentos(qryFormaPagtosDESCRI.AsString), FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
+
+        if ( cValorTroco > 0.0 ) then
+          Ecf.Incluir_Texto_Valor('* Troco', FormatFloat(',0.00',  cValorTroco));
+
+        qryFormaPagtos.Next;
+      end;
+
+      if (cValorTotalTributoAprox > 0.0) then
+      begin
+        Ecf.Linha;
+        Ecf.Texto_Livre_Negrito(TEXTO_TRIB_APROX_1);
+        Ecf.Texto_Livre_Negrito(Format(TEXTO_TRIB_APROX_2, [
+          FormatFloat(',0.00', cValorTotalTributoAprox),
+          FormatFloat(',0.##"%"', cValorTotalTributoAprox / qryCalculoImportoTOTALVENDABRUTA.AsCurrency * 100)]));
+        Ecf.Texto_Livre_Negrito(TEXTO_TRIB_APROX_3);
+      end;
+
+      if (Trim(qryCalculoImportoOBS.AsString) <> EmptyStr) then
+      begin
+        Ecf.Linha;
+        Ecf.Texto_Livre( '* Venda: ' + qryCalculoImportoANO.AsString + '/' + FormatFloat('###0000000', qryCalculoImportoCODCONTROL.AsInteger) );
+        Ecf.Texto_Livre( '* Cond. Pgto.: ' + qryCalculoImportoLISTA_COND_PAGO_FULL.AsString);
+        Ecf.Texto_Livre( '* ' + Trim(qryCalculoImportoOBS.AsString) );
+      end;
+
+      if not qryNFeEmitida.IsEmpty then
+      begin
+        Ecf.Linha;
+        Ecf.Texto_Livre_Centralizado( Format(TEXTO_NUMERO_DANFE, [FormatFloat('###0000000', qryNFeEmitidaNUMERO.AsInteger)
+          , FormatFloat('000', qryNFeEmitidaSERIE.AsInteger)
+          , FormatDateTime('dd/mm/yyyy', qryNFeEmitidaDATAEMISSAO.AsDateTime)]) );
+        Ecf.Texto_Livre_Centralizado( 'Via Consumidor' );
+        Ecf.Texto_Livre_Centralizado( 'Consulte pela Chave de Acesso em:' );
+
+        if (TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger) = moNFCe) then
+          sUrlConsultaNFCe :=
+            NotaUtil.GetURLConsultaNFCe(ACBrNFe.Configuracoes.WebServices.UFCodigo
+              , ACBrNFe.Configuracoes.WebServices.Ambiente
+            )
+        else
+          sUrlConsultaNFCe :=
+            NotaUtil.GetURL(ACBrNFe.Configuracoes.WebServices.UFCodigo
+              , ACBrNFe.Configuracoes.WebServices.AmbienteCodigo
+              , ACBrNFe.Configuracoes.Geral.FormaEmissaoCodigo
+              , LayNfeConsulta
+              , TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger)
+              , TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger)
+            );
+
+        Ecf.Texto_Livre_Centralizado( sUrlConsultaNFCe );
+
+        Ecf.Texto_Livre_Centralizado( 'CHAVE DE ACESSO' );
+        Ecf.Texto_Livre_Centralizado( NotaUtil.FormatarChaveAcesso(qryNFeEmitidaCHAVE.AsString) );
+        Ecf.Linha;
+        Ecf.Texto_Livre_Centralizado( 'Consulta via leitor de QR Code' );
+
+        // Gerar Arquivo QRCODE
+
+        sArquivoBmpQRCode := ExtractFilePath(ParamStr(0)) + 'Temp\' + qryNFeEmitidaCHAVE.AsString + '.bmp';
+        ForceDirectories( ExtractFilePath(sArquivoBmpQRCode) );
+
+        if (ACBrNFe.NotasFiscais.Count = 0) then
+          sStringQRCode := NotaUtil.GetURLQRCode(
+              NotaUtil.UFtoCUF(qryEmitenteEST_SIGLA.AsString)    // Código UF
+            , ACBrNFe.Configuracoes.WebServices.Ambiente         // Ambiente do WebService
+            , 'NFe' + qryNFeEmitidaCHAVE.AsString                // ID da Nota Fiscal (NFe + Chave)
+            , qryDestinatarioCNPJ.AsString                       // CPJ/CNPJ do Consumidor
+            , qryCalculoImportoDATAEMISSAO.AsDateTime            // Data de Emissão
+            , qryCalculoImportoNFE_VALOR_TOTAL_NOTA.AsCurrency   // Valor da Nota Fiscal
+            , qryCalculoImportoNFE_VALOR_ICMS.AsCurrency         // Valor do ICMS da Nota Fiscal
+            , EmptyStr                                           // Assinatura Digital (A1 ou A3)
+            , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdToken      // ID do Código de Segurança do Contribuinte (CSC)
+            , TACBrNFe(ACBrNFe).Configuracoes.Geral.Token        // Token / CSC
+          )
+        else
+          sStringQRCode := NotaUtil.GetURLQRCode(
+              ACBrNFe.NotasFiscais[0].NFe.ide.cUF
+            , ACBrNFe.NotasFiscais[0].NFe.ide.tpAmb
+            , ACBrNFe.NotasFiscais[0].NFe.infNFe.ID
+            , IfThen(ACBrNFe.NotasFiscais[0].NFe.Dest.idEstrangeiro <> EmptyStr
+              , ACBrNFe.NotasFiscais[0].NFe.Dest.idEstrangeiro
+              , ACBrNFe.NotasFiscais[0].NFe.Dest.CNPJCPF)
+            , ACBrNFe.NotasFiscais[0].NFe.ide.dEmi
+            , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vNF
+            , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vICMS
+            , ACBrNFe.NotasFiscais[0].NFe.signature.DigestValue
+            , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdToken
+            , TACBrNFe(ACBrNFe).Configuracoes.Geral.Token
+          );
+
+        if Copy(sStringQRCode, 1, 1) = '?' then
+          sStringQRCode := sUrlConsultaNFCe + sStringQRCode;
+
+        Case aEcfTipo of
+          ecfPadraoWindows, ecfLPTX, ecfTEXTO:
+            cTamQrCode := tamQrCode200;
+
+          ecfDaruma, ecfBematech:
+            cTamQrCode := tamQrCode160;
+
+          else
+            cTamQrCode := tamQrCode300;
+        end;
+
+        GerarArquivoQRCODE(sArquivoBmpQrCode, sStringQrCode, cTamQrCode);
+
+        if FileExists(sArquivoBmpQRCode) then
+          Ecf.ImprimirQRCode( sArquivoBmpQRCode );
+
+        Ecf.Texto_Livre_Centralizado( 'Protocolo de Autorizacao' );
+        Ecf.Texto_Livre_Centralizado( qryNFeEmitidaPROTOCOLO.AsString         + ' '
+          + FormatDateTime('dd/mm/yyyy', qryNFeEmitidaDATAEMISSAO.AsDateTime) + ' '
+          + FormatDateTime('hh:mm:ss',   qryNFeEmitidaHORAEMISSAO.AsDateTime) );
+      end;
+    end;
+
+  finally
+    aEcf.Ecf.Finalizar;
+    aEcf.Free;
+
+    DeleteFiles(sArquivoBmpQRCode);
+  end;
+
+  // Emitir Cupom Relatório Gerencial com parcelas para consumidor
+
+  if bEmitirCumpoExtraParcelas and (aEcfTipo in [ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfBematech]) then
+  begin
+    aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
+    try
+
+      with aEcf do
+      begin
+        Ecf.SoftHouse := GetCompanyName;
+        Ecf.Sistema   := GetProductName;
+        Ecf.Versao    := GetVersion;
+
+        Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImportoVENDEDOR_NOME.AsString);
+        Ecf.Titulo_Livre( 'RELATORIO GERENCIAL' );
+        Ecf.Compactar_Fonte;
+
+        Ecf.Linha;
+
+        Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDABRUTA.AsCurrency), False );
+        Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImportoDESCONTO.AsCurrency + qryCalculoImportoDESCONTO_CUPOM.AsCurrency) );
+        Ecf.Linha;
+        Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImportoTOTALVENDA.AsCurrency)  );
+
+        qryFormaPagtos.First;
+
+        while not qryFormaPagtos.Eof do
+        begin
+          cValorTroco := qryFormaPagtosVALOR_RECEBIDO.AsCurrency - qryFormaPagtosVALOR_FPAGTO.AsCurrency;
+
+          Ecf.Incluir_Forma_Pgto(RemoveAcentos(qryFormaPagtosDESCRI.AsString), FormatFloat(',0.00',  qryFormaPagtosVALOR_FPAGTO.AsCurrency));
+          Ecf.Texto_Livre('* ' + RemoveAcentos(
+            IfThen(Trim(qryFormaPagtosCOND_DESCRICAO_PDV.AsString) = EmptyStr
+              , qryFormaPagtosCOND_DESCRICAO_FULL.Text
+              , qryFormaPagtosCOND_DESCRICAO_PDV.AsString)));
+
+          if ( cValorTroco > 0.0 ) then
+            Ecf.Incluir_Texto_Valor('* Troco', FormatFloat(',0.00',  cValorTroco));
+
+          qryFormaPagtos.Next;
+        end;
+
+        Ecf.Linha;
+        Ecf.Titulo_Livre( 'VENCIMENTO(S)' );
+
+        qryDuplicatas.First;
+
+        while not qryDuplicatas.Eof do
+        begin
+          sDuplicata := qryDuplicatasANOLANC.AsString + '/' +
+            FormatFloat('###00000"."', qryDuplicatasNUMLANC.AsInteger) +
+            FormatFloat('00', qryDuplicatasPARCELA.AsInteger) + ' ' +
+            FormatDateTime('dd/mm/yyyy', qryDuplicatasDTVENC.AsDateTime);
+          Ecf.Incluir_Texto_Valor(Trim(sDuplicata), FormatFloat(',0.00',  qryDuplicatasVALORREC.AsCurrency));
+
+          qryDuplicatas.Next;
+        end;
+
+        Ecf.Texto_Livre('.');
+        Ecf.Texto_Livre('.');
+        Ecf.Texto_Livre('.');
+        Ecf.Texto_Livre('.');
+        Ecf.Texto_Livre('.');
+        Ecf.Texto_Livre('.');
+        Ecf.Pular_Linha(PULAR_LINHA_FINAL);
+
+        Ecf.Texto_Livre( Ecf.Centralizar(Ecf.Num_Colunas, '----------------------------------------') );
+        Ecf.Texto_Livre( Ecf.Centralizar(Ecf.Num_Colunas, RemoveAcentos(AnsiUpperCase(qryDestinatarioNOME.AsString))) );
+        Ecf.Texto_Livre( Ecf.Centralizar(Ecf.Num_Colunas,
+          IfThen(StrIsCPF(qryDestinatarioCNPJ.AsString)
+            , StrFormatarCpf(qryDestinatarioCNPJ.AsString)
+            , StrFormatarCnpj(qryDestinatarioCNPJ.AsString))) );
+      end;
+
+    finally
+      aEcf.Ecf.Finalizar;
+      aEcf.Free;
     end;
   end;
 

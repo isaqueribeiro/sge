@@ -41,7 +41,6 @@ type
     btnFornecedor: TRxSpeedButton;
     btnTesouraria: TRxSpeedButton;
     btnContaAPagar: TRxSpeedButton;
-    btnProduto: TRxSpeedButton;
     SpeedbarSection1: TSpeedbarSection;
     menuSobre: TMenuItem;
     pnlMain: TPanel;
@@ -166,7 +165,10 @@ type
     btnSair: TcxButton;
     btnEmpresa: TcxButton;
     btnCliente: TcxButton;
-    cxButton1: TcxButton;
+    btnProduto: TcxButton;
+    nmApropriacaoEstoque: TMenuItem;
+    N23: TMenuItem;
+    nmRequisicaoAlmox: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);

@@ -40,6 +40,9 @@ Uses
       procedure Titulo_Livre(Str : String); override;
       procedure Texto_Livre(Str : String); override;
       procedure Texto_Livre_Negrito(Str : String); override;
+      procedure Texto_Livre_Centralizado(Str : String); override;
+
+      procedure ImprimirQRCode(const ArquivoBmpQRCode : String); override;
   end;
 
 implementation
@@ -379,6 +382,17 @@ begin
   Self.Linha;
   Self.ImprimirCabecalho;
   Self.Linha;
+end;
+
+procedure TEcfGenerico.Texto_Livre_Centralizado(Str: String);
+begin
+  Self.Compactar_Fonte;
+  Writeln( Corpo_Cupom, Centralizar(Num_Colunas, Str) );
+end;
+
+procedure TEcfGenerico.ImprimirQRCode(const ArquivoBmpQRCode: String);
+begin
+  ;
 end;
 
 end.

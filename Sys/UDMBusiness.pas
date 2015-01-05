@@ -400,6 +400,11 @@ const
   STATUS_COTACAO_ENC = 3;
   STATUS_COTACAO_CAN = 4;
 
+  STATUS_APROPRIACAO_ESTOQUE_EDC = 0;
+  STATUS_APROPRIACAO_ESTOQUE_ABR = 1;
+  STATUS_APROPRIACAO_ESTOQUE_ENC = 2;
+  STATUS_APROPRIACAO_ESTOQUE_CAN = 3;
+
   // Mensagens padrões do sistema
   CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado, automaticamente, pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
 

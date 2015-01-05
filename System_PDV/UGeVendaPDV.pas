@@ -1237,7 +1237,9 @@ begin
     end;
 
     AForm.TotalAPagar := dbValorAPagar.Field.AsCurrency;
+
     bConfirmado := (AForm.ShowModal = mrOk);
+
     if not bConfirmado then
       Exit;
   finally
@@ -1332,6 +1334,9 @@ begin
     DataSetFormaPagto.First;
     while not DataSetFormaPagto.Eof do
     begin
+      if ( DataSetFormaPagto.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+        DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger := 1
+      else
       if ( DataSetFormaPagto.FieldByName('VENDA_PRAZO').AsInteger = 0 ) then
         if ( DataSetTitulo.Locate('FORMA_PAGTO', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []) ) then
           RegistrarPagamento(
