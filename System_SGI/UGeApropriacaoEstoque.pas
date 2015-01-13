@@ -218,10 +218,10 @@ uses
 
 procedure MostrarControleAutorizacao(const AOwner : TComponent);
 var
-  frm : TfrmGeAutorizacaoCompra;
+  frm : TfrmGeApropriacaoEstoque;
   whr : String;
-begin
-  frm := TfrmGeAutorizacaoCompra.Create(AOwner);
+begin   (*
+  frm := TfrmGeApropriacaoEstoque.Create(AOwner);
   try
     whr := 'cast(a.emissao_data as date) between ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
@@ -241,16 +241,16 @@ begin
     frm.ShowModal;
   finally
     frm.Destroy;
-  end;
+  end;  *)
 end;
 
 function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
   var Ano, Codigo : Integer; var Empresa : String) : Boolean;
 var
-  frm : TfrmGeAutorizacaoCompra;
+//  frm : TfrmGeAutorizacaoCompra;
   sNome : String;
   I : Integer;
-begin
+begin (*
   frm := TfrmGeAutorizacaoCompra.Create(AOwner);
   try
     frm.btbtnIncluir.Visible            := False;
@@ -292,11 +292,11 @@ begin
   finally
     frm.Destroy;
   end;
-
+       *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.FormCreate(Sender: TObject);
-begin
+begin               (*
   sGeneratorName := 'GEN_AUTORIZA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
   IbDtstTabela.GeneratorField.Generator := sGeneratorName;
   IbDtstTabela.GeneratorField.Field     := 'codigo';
@@ -335,7 +335,7 @@ begin
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 
   lblCliente.Visible := GetAutorizacaoInformarCliente( GetEmpresaIDDefault );
-  dbCliente.Visible  := lblCliente.Visible;
+  dbCliente.Visible  := lblCliente.Visible;    *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.IbDtstTabelaINSERCAO_DATAGetText(
@@ -548,7 +548,7 @@ procedure TfrmGeApropriacaoEstoque.btnProdutoInserirClick(Sender: TObject);
 
 var
   Sequencial : Integer;
-begin
+begin           (*
   if ( IbDtstTabelaFORNECEDOR.AsInteger = 0 ) then
   begin
     ShowWarning('Favor selecionar o fornecedor para a autorização!');
@@ -562,7 +562,7 @@ begin
     cdsTabelaItens.Append;
     cdsTabelaItensSEQ.Value := Sequencial;
     dbProduto.SetFocus;
-  end;
+  end;          *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.btnProdutoEditarClick(Sender: TObject);
@@ -728,7 +728,7 @@ var
   cTotalIPI     ,
   cTotalDesconto,
   cTotalLiquido : Currency;
-begin
+begin                   (*
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -775,22 +775,22 @@ begin
     HabilitarDesabilitar_Btns;
 
     RdgStatusAutorizacao.ItemIndex := 0;
-  end;
+  end;                  *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.DtSrcTabelaStateChange(Sender: TObject);
-begin
+begin  (*
   inherited;
   pgcMaisDados.ActivePageIndex   := 0;
   PgcTextoAutorizacao.ActivePage := TbsAutorizacaoMotivo;
 
   DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_AUTORIZACAO_AUT );
-  DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+  DtSrcTabelaItensStateChange( DtSrcTabelaItens ); *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.DtSrcTabelaItensStateChange(
   Sender: TObject);
-begin
+begin (*
   btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
   btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
   btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
@@ -800,21 +800,21 @@ begin
 
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
     if ( dbProduto.Visible and dbProduto.Enabled ) then
-      dbProduto.SetFocus;
+      dbProduto.SetFocus; *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.pgcGuiasChange(Sender: TObject);
-begin
+begin (*
   inherited;
   AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
   pgcMaisDados.ActivePage := tbsFormaPagto;
-  HabilitarDesabilitar_Btns;
+  HabilitarDesabilitar_Btns; *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.btnFiltrarClick(Sender: TObject);
-begin
-  WhereAdditional := IfThen(iFornecedor = 0, '', '(a.fornecedor = ' + IntToStr(iFornecedor) + ') and ') + 
+begin (*
+  WhereAdditional := IfThen(iFornecedor = 0, '', '(a.fornecedor = ' + IntToStr(iFornecedor) + ') and ') +
     'cast(a.emissao_data as date) between ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
@@ -822,7 +822,7 @@ begin
   if ( RdgStatusAutorizacao.ItemIndex > 0 ) then
     WhereAdditional := WhereAdditional + ' and (a.status = ' + IntToStr(RdgStatusAutorizacao.ItemIndex - 1) + ')';
 
-  inherited;
+  inherited; *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.CarregarDadosProduto(Codigo: Integer);
@@ -960,8 +960,8 @@ end;
 procedure TfrmGeApropriacaoEstoque.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
-begin
-  inherited;                            
+begin (*
+  inherited;
   if ( Sender = dbgDados ) then
   begin
     // Destacar autorização em edição
@@ -986,7 +986,7 @@ begin
       dbgProdutos.Canvas.Font.Color := lblAutorizacaoCancelada.Font.Color;
 
     dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);
-  end;
+  end;  *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.dbProdutoButtonClick(Sender: TObject);
@@ -1009,7 +1009,7 @@ var
   cValorPromocao,
   cValorIPI     ,
   cPercRedBC    : Currency;
-begin
+begin (*
   if ( IbDtstTabelaFORNECEDOR.AsInteger = 0 ) then
   begin
     ShowWarning('Favor selecionar o fornecedor para a autorização!');
@@ -1054,12 +1054,12 @@ begin
         cdsTabelaItensUNIDADE.AsInteger := iUnidade;
     end;
     
-  end;
+  end; *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.nmImprimirAutorizacaoClick(
   Sender: TObject);
-begin
+begin  (*
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -1094,12 +1094,12 @@ begin
     end;
 
     frrAutorizacaoCompra.ShowReport;
-  end;
+  end; *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.btnCancelarAutorizacaoClick(
   Sender: TObject);
-begin
+begin (*
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -1117,12 +1117,12 @@ begin
       ShowInformation('Autorização cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
 
       HabilitarDesabilitar_Btns;
-    end;
+    end;   *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.IbDtstTabelaSTATUSGetText(Sender: TField;
   var Text: String; DisplayText: Boolean);
-begin
+begin (*
   if ( Sender.IsNull ) then
     Exit;
 
@@ -1132,7 +1132,7 @@ begin
     STATUS_AUTORIZACAO_AUT : Text := 'Autorizada';
     STATUS_AUTORIZACAO_FAT : Text := 'Faturada';
     STATUS_AUTORIZACAO_CAN : Text := 'Cancelada';
-  end;
+  end;  *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.btnFinalizarAutorizacaoClick(
@@ -1142,7 +1142,7 @@ var
   cTotalIPI     ,
   cTotalDesconto,
   cTotalLiquido : Currency;
-begin
+begin   (*
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -1180,7 +1180,7 @@ begin
     HabilitarDesabilitar_Btns;
 
     RdgStatusAutorizacao.ItemIndex := 0;
-  end;
+  end;  *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.DtSrcTabelaItensDataChange(
@@ -1220,7 +1220,7 @@ procedure TfrmGeApropriacaoEstoque.FormKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 var
   sControle : String;
-begin
+begin (*
   if (Key = VK_RETURN) then
   begin
 
@@ -1260,7 +1260,7 @@ begin
       
   end;
 
-  inherited;
+  inherited;  *)
 end;
 
 procedure TfrmGeApropriacaoEstoque.IbDtstTabelaTIPOGetText(Sender: TField;
@@ -1319,7 +1319,7 @@ procedure TfrmGeApropriacaoEstoque.IbDtstTabelaAfterScroll(
   DataSet: TDataSet);
 begin
   inherited;
-  TbsAutorizacaoCancelado.TabVisible := (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_CAN);
+//  TbsAutorizacaoCancelado.TabVisible := (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_CAN);
 end;
 
 procedure TfrmGeApropriacaoEstoque.ValidarToTais(var Total_Bruto, Total_IPI,

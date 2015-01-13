@@ -38,7 +38,6 @@ type
     nmEmpresa: TMenuItem;
     spbBarraAcessoRapido: TSpeedBar;
     btnContaAReceber: TRxSpeedButton;
-    btnFornecedor: TRxSpeedButton;
     btnTesouraria: TRxSpeedButton;
     btnContaAPagar: TRxSpeedButton;
     SpeedbarSection1: TSpeedbarSection;
@@ -48,7 +47,6 @@ type
     imgFundo: TImage;
     nmTipoDespesa: TMenuItem;
     N3: TMenuItem;
-    btnEstoque: TRxSpeedButton;
     ppEstoque: TPopupMenu;
     popEntradaProduto: TMenuItem;
     nmAjusteManual: TMenuItem;
@@ -63,7 +61,6 @@ type
     mnRelatorioFinanceiro: TMenuItem;
     nmRelatorioFinanceiroContasAPagar: TMenuItem;
     nmRelatorioFinanceiroContasAReceber: TMenuItem;
-    btnVenda: TRxSpeedButton;
     nmAbout: TMenuItem;
     nmRelatorioFaturamentoVendas: TMenuItem;
     mnTabelasAuxiliares: TMenuItem;
@@ -169,6 +166,9 @@ type
     nmApropriacaoEstoque: TMenuItem;
     N23: TMenuItem;
     nmRequisicaoAlmox: TMenuItem;
+    btnFornecedor: TcxButton;
+    btnEstoque: TcxButton;
+    btnVenda: TcxButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
