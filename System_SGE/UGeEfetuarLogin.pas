@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons,
-  ExtCtrls, UGrPadraoLogin, dxGDIPlusClasses;
+  ExtCtrls, UGrPadraoLogin, dxGDIPlusClasses, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TFrmEfetuarLogin = class(TfrmGrPadraoLogin)

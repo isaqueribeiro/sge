@@ -1074,7 +1074,8 @@ var
   cValorVenda,
   cValorPromocao,
   cValorIPI     ,
-  cPercRedBC    : Currency;
+  cPercRedBC    ,
+  cValorCusto   : Currency;
 begin
   if ( IbDtstTabelaFORNECEDOR.AsInteger = 0 ) then
   begin
@@ -1096,7 +1097,8 @@ begin
     Case IbDtstTabelaTIPO.AsInteger of
       TIPO_Requisicao_COMPRA:
         bSelecionado := SelecionarProdutoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
-                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva);
+                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, cValorCusto,
+                          iEstoque, iReserva);
 
       TIPO_Requisicao_SERVICO:
         bSelecionado := SelecionarServicoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
@@ -1438,7 +1440,7 @@ var
   sNome : String;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarDepartamento(Self, iCodigo, sNome) ) then
+    if ( SelecionarDepartamento(Self, IbDtstTabelaCLIENTE.AsInteger, IbDtstTabelaEMPRESA.AsString, iCodigo, sNome) ) then
     begin
       IbDtstTabelaCENTRO_CUSTO.AsInteger          := iCodigo;
       IbDtstTabelaDESCRICAO_CENTRO_CUSTO.AsString := sNome;

@@ -683,7 +683,7 @@ var
   function GetDiretorioNFe : String;
 
 const
-  UrlGoogleQrCode = 'http://chart.apis.google.com/chart?chs=%dx%d&cht=qr&chld=%s&chl=%s';
+  UrlGoogleQrCode = 'http://chart.apis.google.com/chart?chs=%dx%d&cht=qr&chld=%s&chl=%s'; // Exemplo: http://chart.apis.google.com/chart?chs=150x150&cht=qr&chl=Isaque%20Marinho%20Ribeiro
   QrImgCorrStr    : Array [TQrImage_ErrCorrLevel] of string = ('L', 'M', 'Q', 'H');
 
   SELDIRHELP   = 1000;

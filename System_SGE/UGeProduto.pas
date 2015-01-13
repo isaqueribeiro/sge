@@ -316,7 +316,7 @@ var
     var Codigo : Integer;
     var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
     var iUnidade, CFOP : Integer;
-    var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+    var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC, ValorCusto : Currency;
     var Estoque, Reserva : Currency) : Boolean;
   function SelecionarServicoParaEntrada(const AOwner : TComponent;
     var Codigo : Integer;
@@ -557,7 +557,7 @@ function SelecionarProdutoParaEntrada(const AOwner : TComponent;
   var Codigo : Integer;
   var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
   var iUnidade, CFOP : Integer;
-  var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
+  var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC, ValorCusto : Currency;
   var Estoque, Reserva : Currency) : Boolean; overload;
 var
   frm : TfrmGeProduto;
@@ -593,6 +593,7 @@ begin
       ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
       ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
       ValorIPI       := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+      ValorCusto     := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
 
       PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
 

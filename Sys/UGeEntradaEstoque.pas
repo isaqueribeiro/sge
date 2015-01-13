@@ -970,7 +970,8 @@ var
   cValorVenda,
   cValorPromocao,
   cValorIPI     ,
-  cPercRedBC    : Currency;
+  cPercRedBC    ,
+  cValorCusto   : Currency;
 begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
   begin
@@ -986,7 +987,8 @@ begin
     Case TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) of
       tmeProduto:
         bSelecionado := SelecionarProdutoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
-                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva);
+                          cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, cValorCusto,
+                          iEstoque, iReserva);
 
       tmeServico:
         bSelecionado := SelecionarServicoParaEntrada(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,

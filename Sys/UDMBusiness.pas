@@ -324,6 +324,7 @@ var
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+  function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
@@ -393,6 +394,9 @@ const
   TIPO_COTACAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
   TIPO_COTACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
   TIPO_COTACAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
+
+  TIPO_APROPRIACAO_GERAL   = 0;
+  TIPO_APROPRIACAO_ENTRADA = 1;
 
   STATUS_COTACAO_EDC = 0;
   STATUS_COTACAO_ABR = 1;
@@ -2524,6 +2528,33 @@ begin
 
     if Result then
       sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
+
+    Close;
+  end;
+end;
+
+function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    a.ano');
+    SQL.Add('  , a.controle');
+    SQL.Add('  , a.numero');
+    SQL.Add('from TBAPROPRIACAO_ALMOX a');
+    SQL.Add('where a.Numero  = ' + QuotedStr(Trim(sNumero)));
+    SQL.Add('  and (not (');
+    SQL.Add('           a.ano      = ' + IntToStr(iAno));
+    SQL.Add('       and a.controle = ' + IntToStr(iCodigo));
+    SQL.Add('  ))');
+    Open;
+
+    Result := (FieldByName('controle').AsInteger > 0);
+
+    if Result then
+      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('controle').AsInteger);
 
     Close;
   end;

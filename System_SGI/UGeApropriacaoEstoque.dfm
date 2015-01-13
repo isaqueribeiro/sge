@@ -22,19 +22,19 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     inherited btbtnLista: TBitBtn
       Visible = True
     end
-    object btnFinalizarAutorizacao: TBitBtn
+    object btnFinalizarLancamento: TBitBtn
       Tag = 11
       Left = 726
       Top = 2
       Width = 120
       Height = 31
-      Hint = 'Finalizar Autoriza'#231#227'o'
-      Caption = 'Finalizar'
+      Hint = 'Finalizar Lan'#231'amento da Apropria'#231#227'o'
+      Caption = 'Finalizar Lanc.'
       Enabled = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 10
-      OnClick = btnFinalizarAutorizacaoClick
+      OnClick = btnFinalizarLancamentoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -88,19 +88,19 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnAutorizarCompra: TBitBtn
+    object btnEncerrarApropriacao: TBitBtn
       Tag = 12
       Left = 846
       Top = 2
       Width = 120
       Height = 31
-      Hint = 'Autorizar Compra'
-      Caption = 'Autorizar'
+      Hint = 'Encerrar Apropria'#231#227'o de Estoque'
+      Caption = 'Encerrar'
       Enabled = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 8
-      OnClick = btnAutorizarCompraClick
+      OnClick = btnEncerrarApropriacaoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         18000000000000060000000000000000000000000000000000000000FF0000FF
@@ -154,19 +154,19 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnCancelarAutorizacao: TBitBtn
+    object btnCancelarApropriacao: TBitBtn
       Tag = 13
       Left = 966
       Top = 2
       Width = 120
       Height = 31
-      Hint = 'Cancelar Autoriza'#231#227'o Selecionada'
-      Caption = 'Cancelar Aut.'
+      Hint = 'Cancelar Apropria'#231#227'o selecionada'
+      Caption = 'Cancelar Aprop.'
       Enabled = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 9
-      OnClick = btnCancelarAutorizacaoClick
+      OnClick = btnCancelarApropriacaoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -503,7 +503,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           FocusControl = dbEmpresa
         end
         object lblSituacao: TLabel [3]
-          Left = 672
+          Left = 704
           Top = 64
           Width = 52
           Height = 13
@@ -516,13 +516,13 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblDataEmissao: TLabel [4]
+        object lblDataApropriacao: TLabel [4]
           Left = 384
           Top = 64
-          Width = 68
+          Width = 88
           Height = 13
-          Caption = 'Data Emiss'#227'o:'
-          FocusControl = dbDataEmissao
+          Caption = 'Data Apropria'#231#227'o:'
+          FocusControl = dbDataApropriacao
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -531,7 +531,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
         end
         object lblUsuario: TLabel [5]
-          Left = 824
+          Left = 856
           Top = 64
           Width = 46
           Height = 13
@@ -553,17 +553,33 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           FocusControl = dbNumero
         end
         object lblCentroCusto: TLabel [7]
-          Left = 672
+          Left = 704
           Top = 24
           Width = 162
           Height = 13
           Caption = 'Departamento / Centro de Custo:'
           FocusControl = dbCentroCusto
         end
+        object lblEntrada: TLabel [8]
+          Left = 512
+          Top = 64
+          Width = 42
+          Height = 13
+          Caption = 'Entrada:'
+          FocusControl = dbEntrada
+        end
+        object lblTipo: TLabel [9]
+          Left = 16
+          Top = 64
+          Width = 24
+          Height = 13
+          Caption = 'Tipo:'
+          FocusControl = dbTipo
+        end
         inherited dbCodigo: TDBEdit
           Width = 89
           Color = clMoneyGreen
-          DataField = 'CODIGO'
+          DataField = 'CONTROLE'
         end
         object dbDataHora: TDBEdit
           Left = 112
@@ -586,7 +602,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         object dbEmpresa: TDBLookupComboBox
           Left = 240
           Top = 40
-          Width = 425
+          Width = 457
           Height = 21
           DataField = 'EMPRESA'
           DataSource = DtSrcTabela
@@ -603,7 +619,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 2
         end
         object dbSituacao: TDBEdit
-          Left = 672
+          Left = 704
           Top = 80
           Width = 145
           Height = 21
@@ -618,14 +634,14 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 6
+          TabOrder = 8
         end
-        object dbDataEmissao: TDBDateEdit
+        object dbDataApropriacao: TDBDateEdit
           Left = 384
           Top = 80
           Width = 121
           Height = 21
-          DataField = 'EMISSAO_DATA'
+          DataField = 'DATA_APROPRIACAO'
           DataSource = DtSrcTabela
           Color = clWhite
           Font.Charset = ANSI_CHARSET
@@ -635,17 +651,17 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           NumGlyphs = 2
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 6
           OnExit = ControlEditExit
         end
         object dbUsuario: TDBEdit
-          Left = 824
+          Left = 856
           Top = 80
-          Width = 265
+          Width = 233
           Height = 21
           TabStop = False
           Color = clMoneyGreen
-          DataField = 'EMISSAO_USUARIO'
+          DataField = 'USUARIO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -654,7 +670,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 7
+          TabOrder = 9
         end
         object dbNumero: TDBEdit
           Left = 240
@@ -670,16 +686,16 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
         end
-        object PgcTextoAutorizacao: TPageControl
+        object PgcTextoApropriacao: TPageControl
           Left = 16
           Top = 112
           Width = 1073
           Height = 114
           ActivePage = TbsApropriacaoMotivo
           Style = tsFlatButtons
-          TabOrder = 8
+          TabOrder = 10
           object TbsApropriacaoMotivo: TTabSheet
             Caption = 'Motivo da apropria'#231#227'o'
             object dbMotivo: TDBMemo
@@ -688,7 +704,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
               Width = 1065
               Height = 83
               Align = alClient
-              DataField = 'MOVITO'
+              DataField = 'MOTIVO'
               DataSource = DtSrcTabela
               Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
@@ -701,7 +717,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             end
           end
           object TbsApropriacaoCancelado: TTabSheet
-            Caption = 'Motivo do Cancelamento'
+            Caption = 'Motivo do cancelamento'
             ImageIndex = 2
             object dbMovitoCancelamento: TDBMemo
               Left = 0
@@ -710,7 +726,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
               Height = 83
               TabStop = False
               Align = alClient
-              DataField = 'CANCELADO_MOTIVO'
+              DataField = 'CANCEL_MOTIVO'
               DataSource = DtSrcTabela
               Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
@@ -725,15 +741,15 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
         end
         object dbCentroCusto: TRxDBComboEdit
-          Left = 672
+          Left = 704
           Top = 40
-          Width = 417
+          Width = 385
           Height = 21
           ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clMoneyGreen
-          DataField = 'DESCRICAO_CENTRO_CUSTO'
+          DataField = 'CC_DESCRICAO'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -799,6 +815,99 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 3
           OnButtonClick = dbCentroCustoButtonClick
         end
+        object dbEntrada: TRxDBComboEdit
+          Left = 512
+          Top = 80
+          Width = 185
+          Height = 21
+          ButtonHint = 'Pesquisar Movimento de Entrada (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'ENTRADA'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 7
+          OnButtonClick = dbEntradaButtonClick
+        end
+        object dbTipo: TDBLookupComboBox
+          Left = 16
+          Top = 80
+          Width = 217
+          Height = 21
+          DataField = 'TIPO'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CODIGO'
+          ListField = 'DESCRICAO'
+          ParentFont = False
+          TabOrder = 4
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
@@ -823,9 +932,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
               Left = 0
               Top = 0
               Width = 1100
-              Height = 138
+              Height = 88
               Align = alClient
-              DataField = 'OBSERVACAO'
+              DataField = 'OBS'
               DataSource = DtSrcTabela
               Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
@@ -835,6 +944,85 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
               ParentFont = False
               ScrollBars = ssVertical
               TabOrder = 0
+            end
+            object PnlValores: TPanel
+              Left = 0
+              Top = 88
+              Width = 1100
+              Height = 50
+              Align = alBottom
+              BevelOuter = bvNone
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              TabOrder = 1
+              object lblCompetencia: TLabel
+                Left = 8
+                Top = 8
+                Width = 77
+                Height = 13
+                Caption = 'Compet'#234'ncia:'
+                FocusControl = dbCompetencia
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+              end
+              object lblValorTotalAprop: TLabel
+                Left = 160
+                Top = 8
+                Width = 92
+                Height = 13
+                Caption = 'Valor Total (R$):'
+                FocusControl = dbValorTotalAprop
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+              end
+              object dbCompetencia: TDBEdit
+                Left = 8
+                Top = 24
+                Width = 145
+                Height = 21
+                TabStop = False
+                Color = clMoneyGreen
+                DataField = 'COMPETENCIA'
+                DataSource = DtSrcTabela
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clBlack
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+                ReadOnly = True
+                TabOrder = 0
+              end
+              object dbValorTotalAprop: TDBEdit
+                Left = 160
+                Top = 24
+                Width = 145
+                Height = 21
+                TabStop = False
+                Color = clMoneyGreen
+                DataField = 'VALOR_TOTAL'
+                DataSource = DtSrcTabela
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clBlack
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+                ReadOnly = True
+                TabOrder = 1
+              end
             end
           end
         end
@@ -847,7 +1035,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
-        Visible = False
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -892,61 +1079,51 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Align = alLeft
           Shape = bsSpacer
         end
-        object lblValorTotal: TLabel
-          Left = 488
-          Top = 64
-          Width = 79
-          Height = 13
-          Caption = 'Valor Total (R$):'
-          FocusControl = dbValorTotal
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object lblValorUn: TLabel
-          Left = 184
-          Top = 64
-          Width = 72
-          Height = 13
-          Caption = 'Valor Un. (R$):'
-          FocusControl = dbValorUn
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object lblValorTotalIPI: TLabel
-          Left = 368
-          Top = 64
-          Width = 69
-          Height = 13
-          Caption = 'Total IPI (R$):'
-          FocusControl = dbValorTotalIPI
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object lblPercentualIPI: TLabel
+        object lblCustoTotal: TLabel
           Left = 304
           Top = 64
-          Width = 32
+          Width = 83
           Height = 13
-          Caption = '% IPI:'
-          FocusControl = dbPercentualIPI
+          Caption = 'Custo Total (R$):'
+          FocusControl = dbCustoTotal
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+        end
+        object lblCustoUn: TLabel
+          Left = 184
+          Top = 64
+          Width = 76
+          Height = 13
+          Caption = 'Custo Un. (R$):'
+          FocusControl = dbCustoUn
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object LblAjuda: TLabel
+          Left = 852
+          Top = 16
+          Width = 237
+          Height = 65
+          Alignment = taRightJustify
+          Caption = 
+            'IMPORTANTE:'#13#10#13#10'Apenas nas Apropria'#231#245'es Gerais se tem a liberdade' +
+            ' de inserir manualmente'#13#10'os produtos desejados.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+          WordWrap = True
         end
         object dbProduto: TRxDBComboEdit
           Left = 88
@@ -1047,7 +1224,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Width = 89
           Height = 21
           Color = clWhite
-          DataField = 'QUANTIDADE'
+          DataField = 'QTDE'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1056,6 +1233,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           ParentFont = False
           TabOrder = 4
+          OnExit = ControlEditExit
         end
         object dbUnidade: TDBEdit
           Left = 656
@@ -1351,13 +1529,13 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             NumGlyphs = 2
           end
         end
-        object dbValorTotal: TDBEdit
-          Left = 488
+        object dbCustoTotal: TDBEdit
+          Left = 304
           Top = 80
           Width = 113
           Height = 21
           Color = clMoneyGreen
-          DataField = 'VALOR_TOTAL'
+          DataField = 'CUSTO_TOTAL'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1366,16 +1544,16 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           ParentFont = False
           ReadOnly = True
-          TabOrder = 8
+          TabOrder = 6
           OnExit = ControlEditExit
         end
-        object dbValorUn: TDBEdit
+        object dbCustoUn: TDBEdit
           Left = 184
           Top = 80
           Width = 113
           Height = 21
           Color = clWhite
-          DataField = 'VALOR_UNITARIO'
+          DataField = 'CUSTO_UNITARIO'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1384,40 +1562,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           ParentFont = False
           TabOrder = 5
-        end
-        object dbValorTotalIPI: TDBEdit
-          Left = 368
-          Top = 80
-          Width = 113
-          Height = 21
-          Color = clMoneyGreen
-          DataField = 'IPI_VALOR_TOTAL'
-          DataSource = DtSrcTabelaItens
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 7
           OnExit = ControlEditExit
-        end
-        object dbPercentualIPI: TDBEdit
-          Left = 304
-          Top = 80
-          Width = 57
-          Height = 21
-          Color = clWhite
-          DataField = 'IPI_PERCENTUAL'
-          DataSource = DtSrcTabelaItens
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 6
         end
       end
       object dbgProdutos: TDBGrid
@@ -1446,7 +1591,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         Columns = <
           item
             Expanded = False
-            FieldName = 'SEQ'
+            FieldName = 'ITEM'
             Title.Alignment = taCenter
             Title.Caption = '#'
             Width = 25
@@ -1468,8 +1613,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
           item
             Expanded = False
-            FieldName = 'QUANTIDADE'
-            Title.Caption = 'Quantidade'
+            FieldName = 'QTDE'
             Width = 80
             Visible = True
           end
@@ -1482,22 +1626,15 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
           item
             Expanded = False
-            FieldName = 'VALOR_UNITARIO'
-            Title.Caption = 'Valor Un. (R$)'
+            FieldName = 'CUSTO_UNITARIO'
+            Title.Caption = 'Custo Un. (R$)'
             Width = 100
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'IPI_VALOR_TOTAL'
-            Title.Caption = 'Total IPI (R$)'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VALOR_TOTAL'
-            Title.Caption = 'Valor Total (R$)'
+            FieldName = 'CUSTO_TOTAL'
+            Title.Caption = 'Custo Total (R$)'
             Width = 100
             Visible = True
           end>
@@ -1511,501 +1648,330 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     SelectSQL.Strings = (
       'Select'
       '    a.ano'
-      '  , a.codigo'
-      '  , a.empresa'
+      '  , a.controle'
       '  , a.numero'
-      '  , a.fornecedor'
-      '  , a.nome_contato'
-      '  , a.tipo'
-      '  , a.insercao_data'
-      '  , a.emissao_data'
-      '  , a.emissao_usuario'
-      '  , a.validade'
-      '  , a.competencia'
-      '  , a.movito'
-      '  , a.observacao'
-      '  , a.cliente'
+      '  , a.empresa'
       '  , a.centro_custo'
-      '  , a.endereco_entrega'
+      '  , a.tipo'
+      '  , a.compra_ano'
+      '  , a.compra_num'
+      '  , a.compra_emp'
+      '  , a.insercao_data'
+      '  , a.data_apropriacao'
+      '  , a.competencia'
+      '  , a.usuario'
       '  , a.status'
-      '  , a.recebedor_nome'
-      '  , a.recebedor_cpf'
-      '  , a.recebedor_funcao'
-      '  , a.forma_pagto'
-      '  , a.condicao_pagto'
-      '  , a.transportador'
-      '  , a.valor_bruto'
-      '  , a.valor_desconto'
-      '  , a.valor_total_frete'
-      '  , a.valor_total_ipi'
+      '  , a.motivo'
+      '  , a.obs'
       '  , a.valor_total'
-      '  , a.autorizado_data'
-      '  , a.data_fatura'
-      '  , a.autorizado_usuario'
-      '  , a.cancelado_data'
-      '  , a.cancelado_usuario'
-      '  , a.cancelado_motivo'
+      '  , a.cancel_usuario'
+      '  , a.cancel_datahora'
+      '  , a.cancel_motivo'
+      ''
       
-        '  , (Select count(x.seq) from TBAUTORIZA_COMPRAITEM x WHERE x.an' +
-        'o = a.ano and x.codigo = a.codigo and x.empresa = a.empresa) as ' +
-        'itens'
-      '  , f.nomeforn'
-      '  , f.cnpj'
-      '  , f.pessoa_fisica'
-      '  , f.faturamento_minimo'
-      '  , t.nomeforn  as transportador_nome'
-      '  , t.cnpj      as transportador_cpf_cnpj'
-      '  , c.nome      as nomecliente'
-      '  , u.descricao as descricao_centro_custo'
-      'from TBAUTORIZA_COMPRA a'
-      '  left join TBFORNECEDOR f on (f.codforn = a.fornecedor)'
-      '  left join TBFORNECEDOR t on (t.codforn = a.transportador)'
-      '  left join TBCLIENTE c on (c.codigo = a.cliente)'
-      '  left join TBCENTRO_CUSTO u on (u.codigo = a.centro_custo)')
+        '  , (Select count(ai.item) from TBAPROPRIACAO_ALMOX_ITEM ai wher' +
+        'e ai.ano = a.ano and ai.controle = a.controle) as Itens'
+      ''
+      '  , e.rzsoc     as empresa_nome'
+      '  , c.descricao as cc_descricao'
+      '  , c.codcliente as cc_cliente_codigo'
+      '  , ci.nome     as cc_cliente_nome'
+      '  , ci.cnpj     as cc_cliente_cnpj'
+      '  , ci.pessoa_fisica as cc_cliente_tipo'
+      ''
+      '  , a.compra_ano || '#39'/'#39' || lpad(a.compra_num, 7, '#39'0'#39') as entrada'
+      'from TBAPROPRIACAO_ALMOX a'
+      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
+      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_REQUISICAO_2013'
-    Left = 680
-    Top = 392
+    Top = 512
     object IbDtstTabelaANO: TSmallintField
+      DisplayLabel = 'Ano'
       FieldName = 'ANO'
-      Origin = '"TBAUTORIZA_COMPRA"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInKey]
+      Origin = '"TBAPROPRIACAO_ALMOX"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object IbDtstTabelaCODIGO: TIntegerField
-      FieldName = 'CODIGO'
-      Origin = '"TBAUTORIZA_COMPRA"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInKey]
+    object IbDtstTabelaCONTROLE: TIntegerField
+      Alignment = taCenter
+      DisplayLabel = 'Controle'
+      FieldName = 'CONTROLE'
+      Origin = '"TBAPROPRIACAO_ALMOX"."CONTROLE"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBAUTORIZA_COMPRA"."EMPRESA"'
-      ProviderFlags = [pfInUpdate, pfInKey]
-      Required = True
-      Size = 18
     end
     object IbDtstTabelaNUMERO: TIBStringField
       DisplayLabel = 'N'#250'mero'
       FieldName = 'NUMERO'
-      Origin = '"TBAUTORIZA_COMPRA"."NUMERO"'
+      Origin = '"TBAPROPRIACAO_ALMOX"."NUMERO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
-    object IbDtstTabelaFORNECEDOR: TIntegerField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'FORNECEDOR'
-      Origin = '"TBAUTORIZA_COMPRA"."FORNECEDOR"'
+    object IbDtstTabelaEMPRESA: TIBStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = '"TBAPROPRIACAO_ALMOX"."EMPRESA"'
       ProviderFlags = [pfInUpdate]
       Required = True
+      Size = 18
     end
-    object IbDtstTabelaNOME_CONTATO: TIBStringField
-      DisplayLabel = 'Nome Contato'
-      FieldName = 'NOME_CONTATO'
-      Origin = '"TBAUTORIZA_COMPRA"."NOME_CONTATO"'
-      Size = 100
+    object IbDtstTabelaCENTRO_CUSTO: TIntegerField
+      DisplayLabel = 'Centro de Custo / Departamento'
+      FieldName = 'CENTRO_CUSTO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."CENTRO_CUSTO"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaTIPO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo'
+      DisplayLabel = 'Tipo Apropria'#231#227'o'
       FieldName = 'TIPO'
-      Origin = '"TBAUTORIZA_COMPRA"."TIPO"'
+      Origin = '"TBAPROPRIACAO_ALMOX"."TIPO"'
       ProviderFlags = [pfInUpdate]
       Required = True
-      OnGetText = IbDtstTabelaTIPOGetText
+    end
+    object IbDtstTabelaCOMPRA_ANO: TSmallintField
+      DisplayLabel = 'Entrada - Ano'
+      FieldName = 'COMPRA_ANO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."COMPRA_ANO"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaCOMPRA_NUM: TIntegerField
+      DisplayLabel = 'Entrada - N'#250'mero'
+      FieldName = 'COMPRA_NUM'
+      Origin = '"TBAPROPRIACAO_ALMOX"."COMPRA_NUM"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaCOMPRA_EMP: TIBStringField
+      DisplayLabel = 'Entrada - Empresa'
+      FieldName = 'COMPRA_EMP'
+      Origin = '"TBAPROPRIACAO_ALMOX"."COMPRA_EMP"'
+      ProviderFlags = [pfInUpdate]
+      Size = 18
     end
     object IbDtstTabelaINSERCAO_DATA: TDateTimeField
       FieldName = 'INSERCAO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."INSERCAO_DATA"'
+      Origin = '"TBAPROPRIACAO_ALMOX"."INSERCAO_DATA"'
       ProviderFlags = [pfInUpdate]
-      OnGetText = IbDtstTabelaINSERCAO_DATAGetText
     end
-    object IbDtstTabelaEMISSAO_DATA: TDateField
-      DisplayLabel = 'Data de Emiss'#227'o'
-      FieldName = 'EMISSAO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."EMISSAO_DATA"'
+    object IbDtstTabelaDATA_APROPRIACAO: TDateField
+      DisplayLabel = 'Data da Apropria'#231#227'o'
+      FieldName = 'DATA_APROPRIACAO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."DATA_APROPRIACAO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
-    object IbDtstTabelaEMISSAO_USUARIO: TIBStringField
-      FieldName = 'EMISSAO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."EMISSAO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object IbDtstTabelaVALIDADE: TDateField
-      DisplayLabel = 'Data de Validade'
-      FieldName = 'VALIDADE'
-      Origin = '"TBAUTORIZA_COMPRA"."VALIDADE"'
-      ProviderFlags = [pfInUpdate]
-    end
     object IbDtstTabelaCOMPETENCIA: TIntegerField
       FieldName = 'COMPETENCIA'
-      Origin = '"TBAUTORIZA_COMPRA"."COMPETENCIA"'
+      Origin = '"TBAPROPRIACAO_ALMOX"."COMPETENCIA"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaCLIENTE: TIntegerField
-      DisplayLabel = 'Cliente'
-      FieldName = 'CLIENTE'
-      Origin = '"TBAUTORIZA_COMPRA"."CLIENTE"'
-    end
-    object IbDtstTabelaCENTRO_CUSTO: TIntegerField
-      DisplayLabel = 'Departamento / Centro de Custo'
-      FieldName = 'CENTRO_CUSTO'
-      Origin = '"TBAUTORIZA_COMPRA"."CENTRO_CUSTO"'
+    object IbDtstTabelaUSUARIO: TIBStringField
+      FieldName = 'USUARIO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."USUARIO"'
       ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaMOVITO: TMemoField
-      FieldName = 'MOVITO'
-      Origin = '"TBAUTORIZA_COMPRA"."MOVITO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaOBSERVACAO: TMemoField
-      FieldName = 'OBSERVACAO'
-      Origin = '"TBAUTORIZA_COMPRA"."OBSERVACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaENDERECO_ENTREGA: TMemoField
-      FieldName = 'ENDERECO_ENTREGA'
-      Origin = '"TBAUTORIZA_COMPRA"."ENDERECO_ENTREGA"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
+      Required = True
+      Size = 12
     end
     object IbDtstTabelaSTATUS: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'STATUS'
-      Origin = '"TBAUTORIZA_COMPRA"."STATUS"'
+      Origin = '"TBAPROPRIACAO_ALMOX"."STATUS"'
       ProviderFlags = [pfInUpdate]
+      Required = True
       OnGetText = IbDtstTabelaSTATUSGetText
     end
-    object IbDtstTabelaRECEBEDOR_NOME: TIBStringField
-      FieldName = 'RECEBEDOR_NOME'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_NOME"'
+    object IbDtstTabelaMOTIVO: TMemoField
+      DisplayLabel = 'Motivo'
+      FieldName = 'MOTIVO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."MOTIVO"'
       ProviderFlags = [pfInUpdate]
-      Size = 100
+      BlobType = ftMemo
+      Size = 8
     end
-    object IbDtstTabelaRECEBEDOR_CPF: TIBStringField
-      FieldName = 'RECEBEDOR_CPF'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_CPF"'
+    object IbDtstTabelaOBS: TMemoField
+      DisplayLabel = 'Observa'#231#245'es'
+      FieldName = 'OBS'
+      Origin = '"TBAPROPRIACAO_ALMOX"."OBS"'
       ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object IbDtstTabelaRECEBEDOR_FUNCAO: TIBStringField
-      FieldName = 'RECEBEDOR_FUNCAO'
-      Origin = '"TBAUTORIZA_COMPRA"."RECEBEDOR_FUNCAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object IbDtstTabelaFORMA_PAGTO: TSmallintField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMA_PAGTO'
-      Origin = '"TBAUTORIZA_COMPRA"."FORMA_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaCONDICAO_PAGTO: TSmallintField
-      DisplayLabel = 'Condi'#231#227'o de Pagamento'
-      FieldName = 'CONDICAO_PAGTO'
-      Origin = '"TBAUTORIZA_COMPRA"."CONDICAO_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaTRANSPORTADOR: TIntegerField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Transportador'
-      FieldName = 'TRANSPORTADOR'
-      Origin = '"TBAUTORIZA_COMPRA"."TRANSPORTADOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaVALOR_BRUTO: TIBBCDField
-      FieldName = 'VALOR_BRUTO'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_BRUTO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaVALOR_DESCONTO: TIBBCDField
-      FieldName = 'VALOR_DESCONTO'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_DESCONTO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaVALOR_TOTAL_FRETE: TIBBCDField
-      FieldName = 'VALOR_TOTAL_FRETE'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL_FRETE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaVALOR_TOTAL_IPI: TIBBCDField
-      FieldName = 'VALOR_TOTAL_IPI'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL_IPI"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
+      BlobType = ftMemo
+      Size = 8
     end
     object IbDtstTabelaVALOR_TOTAL: TIBBCDField
       FieldName = 'VALOR_TOTAL'
-      Origin = '"TBAUTORIZA_COMPRA"."VALOR_TOTAL"'
+      Origin = '"TBAPROPRIACAO_ALMOX"."VALOR_TOTAL"'
       ProviderFlags = [pfInUpdate]
+      Required = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object IbDtstTabelaAUTORIZADO_DATA: TDateField
-      FieldName = 'AUTORIZADO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."AUTORIZADO_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaDATA_FATURA: TDateField
-      FieldName = 'DATA_FATURA'
-      Origin = '"TBAUTORIZA_COMPRA"."DATA_FATURA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaAUTORIZADO_USUARIO: TIBStringField
-      FieldName = 'AUTORIZADO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."AUTORIZADO_USUARIO"'
+    object IbDtstTabelaCANCEL_USUARIO: TIBStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 12
     end
-    object IbDtstTabelaCANCELADO_DATA: TDateField
-      FieldName = 'CANCELADO_DATA'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_DATA"'
+    object IbDtstTabelaCANCEL_DATAHORA: TDateTimeField
+      FieldName = 'CANCEL_DATAHORA'
+      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_DATAHORA"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaCANCELADO_USUARIO: TIBStringField
-      FieldName = 'CANCELADO_USUARIO'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object IbDtstTabelaCANCELADO_MOTIVO: TMemoField
-      FieldName = 'CANCELADO_MOTIVO'
-      Origin = '"TBAUTORIZA_COMPRA"."CANCELADO_MOTIVO"'
+    object IbDtstTabelaCANCEL_MOTIVO: TMemoField
+      FieldName = 'CANCEL_MOTIVO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_MOTIVO"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
     end
     object IbDtstTabelaITENS: TIntegerField
+      DisplayLabel = 'Produto(s)'
       FieldName = 'ITENS'
       ProviderFlags = []
+      Required = True
     end
-    object IbDtstTabelaNOMEFORN: TIBStringField
-      FieldName = 'NOMEFORN'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
+    object IbDtstTabelaEMPRESA_NOME: TIBStringField
+      FieldName = 'EMPRESA_NOME'
+      Origin = '"TBEMPRESA"."RZSOC"'
       ProviderFlags = []
       Size = 60
     end
-    object IbDtstTabelaCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object IbDtstTabelaPESSOA_FISICA: TSmallintField
-      FieldName = 'PESSOA_FISICA'
-      Origin = '"TBFORNECEDOR"."PESSOA_FISICA"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField
-      FieldName = 'FATURAMENTO_MINIMO'
-      Origin = '"TBFORNECEDOR"."FATURAMENTO_MINIMO"'
-      ProviderFlags = []
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaTRANSPORTADOR_NOME: TIBStringField
-      FieldName = 'TRANSPORTADOR_NOME'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      ProviderFlags = []
-      Size = 60
-    end
-    object IbDtstTabelaTRANSPORTADOR_CPF_CNPJ: TIBStringField
-      FieldName = 'TRANSPORTADOR_CPF_CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object IbDtstTabelaNOMECLIENTE: TIBStringField
-      FieldName = 'NOMECLIENTE'
-      Origin = '"TBCLIENTE"."NOME"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaDESCRICAO_CENTRO_CUSTO: TIBStringField
-      FieldName = 'DESCRICAO_CENTRO_CUSTO'
+    object IbDtstTabelaCC_DESCRICAO: TIBStringField
+      FieldName = 'CC_DESCRICAO'
       Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
       ProviderFlags = []
       Size = 100
     end
+    object IbDtstTabelaCC_CLIENTE_CODIGO: TIntegerField
+      FieldName = 'CC_CLIENTE_CODIGO'
+      Origin = '"TBCENTRO_CUSTO"."CODCLIENTE"'
+      ProviderFlags = []
+    end
+    object IbDtstTabelaCC_CLIENTE_NOME: TIBStringField
+      FieldName = 'CC_CLIENTE_NOME'
+      Origin = '"TBCLIENTE"."NOME"'
+      ProviderFlags = []
+      Size = 100
+    end
+    object IbDtstTabelaCC_CLIENTE_CNPJ: TIBStringField
+      FieldName = 'CC_CLIENTE_CNPJ'
+      Origin = '"TBCLIENTE"."CNPJ"'
+      ProviderFlags = []
+      Size = 18
+    end
+    object IbDtstTabelaCC_CLIENTE_TIPO: TSmallintField
+      FieldName = 'CC_CLIENTE_TIPO'
+      Origin = '"TBCLIENTE"."PESSOA_FISICA"'
+      ProviderFlags = []
+    end
+    object IbDtstTabelaENTRADA: TIBStringField
+      DisplayLabel = 'Entrada'
+      FieldName = 'ENTRADA'
+      ProviderFlags = []
+      Size = 14
+    end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
-    Left = 744
-    Top = 392
+    Top = 512
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
-      '  CODIGO,'
-      '  EMPRESA,'
+      '  CONTROLE,'
       '  NUMERO,'
-      '  FORNECEDOR,'
-      '  NOME_CONTATO,'
-      '  TIPO,'
-      '  INSERCAO_DATA,'
-      '  EMISSAO_DATA,'
-      '  EMISSAO_USUARIO,'
-      '  VALIDADE,'
-      '  COMPETENCIA,'
-      '  DATA_FATURA,'
-      '  MOVITO,'
-      '  OBSERVACAO,'
-      '  CLIENTE,'
+      '  EMPRESA,'
       '  CENTRO_CUSTO,'
-      '  ENDERECO_ENTREGA,'
+      '  TIPO,'
+      '  COMPRA_ANO,'
+      '  COMPRA_NUM,'
+      '  COMPRA_EMP,'
+      '  INSERCAO_DATA,'
+      '  DATA_APROPRIACAO,'
+      '  COMPETENCIA,'
+      '  USUARIO,'
       '  STATUS,'
-      '  AUTORIZADO_DATA,'
-      '  AUTORIZADO_USUARIO,'
-      '  CANCELADO_DATA,'
-      '  CANCELADO_USUARIO,'
-      '  CANCELADO_MOTIVO,'
-      '  RECEBEDOR_NOME,'
-      '  RECEBEDOR_CPF,'
-      '  RECEBEDOR_FUNCAO,'
-      '  FORMA_PAGTO,'
-      '  CONDICAO_PAGTO,'
-      '  TRANSPORTADOR,'
-      '  VALOR_BRUTO,'
-      '  VALOR_DESCONTO,'
-      '  VALOR_TOTAL_FRETE,'
-      '  VALOR_TOTAL_IPI,'
-      '  VALOR_TOTAL'
-      'from TBAUTORIZA_COMPRA '
+      '  MOTIVO,'
+      '  OBS,'
+      '  VALOR_TOTAL,'
+      '  CANCEL_USUARIO,'
+      '  CANCEL_DATAHORA,'
+      '  CANCEL_MOTIVO'
+      'from TBAPROPRIACAO_ALMOX '
       'where'
       '  ANO = :ANO and'
-      '  CODIGO = :CODIGO and'
-      '  EMPRESA = :EMPRESA')
+      '  CONTROLE = :CONTROLE')
     ModifySQL.Strings = (
-      'update TBAUTORIZA_COMPRA'
+      'update TBAPROPRIACAO_ALMOX'
       'set'
       '  ANO = :ANO,'
-      '  AUTORIZADO_DATA = :AUTORIZADO_DATA,'
-      '  AUTORIZADO_USUARIO = :AUTORIZADO_USUARIO,'
-      '  CANCELADO_DATA = :CANCELADO_DATA,'
-      '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
-      '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
+      '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
+      '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
+      '  CANCEL_USUARIO = :CANCEL_USUARIO,'
       '  CENTRO_CUSTO = :CENTRO_CUSTO,'
-      '  CLIENTE = :CLIENTE,'
-      '  CODIGO = :CODIGO,'
       '  COMPETENCIA = :COMPETENCIA,'
-      '  CONDICAO_PAGTO = :CONDICAO_PAGTO,'
-      '  DATA_FATURA = :DATA_FATURA,'
-      '  EMISSAO_DATA = :EMISSAO_DATA,'
-      '  EMISSAO_USUARIO = :EMISSAO_USUARIO,'
+      '  COMPRA_ANO = :COMPRA_ANO,'
+      '  COMPRA_EMP = :COMPRA_EMP,'
+      '  COMPRA_NUM = :COMPRA_NUM,'
+      '  CONTROLE = :CONTROLE,'
+      '  DATA_APROPRIACAO = :DATA_APROPRIACAO,'
       '  EMPRESA = :EMPRESA,'
-      '  ENDERECO_ENTREGA = :ENDERECO_ENTREGA,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  FORNECEDOR = :FORNECEDOR,'
       '  INSERCAO_DATA = :INSERCAO_DATA,'
-      '  MOVITO = :MOVITO,'
-      '  NOME_CONTATO = :NOME_CONTATO,'
+      '  MOTIVO = :MOTIVO,'
       '  NUMERO = :NUMERO,'
-      '  OBSERVACAO = :OBSERVACAO,'
-      '  RECEBEDOR_CPF = :RECEBEDOR_CPF,'
-      '  RECEBEDOR_FUNCAO = :RECEBEDOR_FUNCAO,'
-      '  RECEBEDOR_NOME = :RECEBEDOR_NOME,'
+      '  OBS = :OBS,'
       '  STATUS = :STATUS,'
       '  TIPO = :TIPO,'
-      '  TRANSPORTADOR = :TRANSPORTADOR,'
-      '  VALIDADE = :VALIDADE,'
-      '  VALOR_BRUTO = :VALOR_BRUTO,'
-      '  VALOR_DESCONTO = :VALOR_DESCONTO,'
-      '  VALOR_TOTAL = :VALOR_TOTAL,'
-      '  VALOR_TOTAL_FRETE = :VALOR_TOTAL_FRETE,'
-      '  VALOR_TOTAL_IPI = :VALOR_TOTAL_IPI'
+      '  USUARIO = :USUARIO,'
+      '  VALOR_TOTAL = :VALOR_TOTAL'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA')
+      '  CONTROLE = :OLD_CONTROLE')
     InsertSQL.Strings = (
-      'insert into TBAUTORIZA_COMPRA'
+      'insert into TBAPROPRIACAO_ALMOX'
       
-        '  (ANO, AUTORIZADO_DATA, AUTORIZADO_USUARIO, CANCELADO_DATA, CAN' +
-        'CELADO_MOTIVO, '
+        '  (ANO, CANCEL_DATAHORA, CANCEL_MOTIVO, CANCEL_USUARIO, CENTRO_C' +
+        'USTO, COMPETENCIA, '
       
-        '   CANCELADO_USUARIO, CENTRO_CUSTO, CLIENTE, CODIGO, COMPETENCIA' +
-        ', CONDICAO_PAGTO, '
+        '   COMPRA_ANO, COMPRA_EMP, COMPRA_NUM, CONTROLE, DATA_APROPRIACA' +
+        'O, EMPRESA, '
       
-        '   DATA_FATURA, EMISSAO_DATA, EMISSAO_USUARIO, EMPRESA, ENDERECO' +
-        '_ENTREGA, '
-      
-        '   FORMA_PAGTO, FORNECEDOR, INSERCAO_DATA, MOVITO, NOME_CONTATO,' +
-        ' NUMERO, '
-      
-        '   OBSERVACAO, RECEBEDOR_CPF, RECEBEDOR_FUNCAO, RECEBEDOR_NOME, ' +
-        'STATUS, '
-      
-        '   TIPO, TRANSPORTADOR, VALIDADE, VALOR_BRUTO, VALOR_DESCONTO, V' +
-        'ALOR_TOTAL, '
-      '   VALOR_TOTAL_FRETE, VALOR_TOTAL_IPI)'
+        '   INSERCAO_DATA, MOTIVO, NUMERO, OBS, STATUS, TIPO, USUARIO, VA' +
+        'LOR_TOTAL)'
       'values'
       
-        '  (:ANO, :AUTORIZADO_DATA, :AUTORIZADO_USUARIO, :CANCELADO_DATA,' +
-        ' :CANCELADO_MOTIVO, '
+        '  (:ANO, :CANCEL_DATAHORA, :CANCEL_MOTIVO, :CANCEL_USUARIO, :CEN' +
+        'TRO_CUSTO, '
       
-        '   :CANCELADO_USUARIO, :CENTRO_CUSTO, :CLIENTE, :CODIGO, :COMPET' +
-        'ENCIA, '
+        '   :COMPETENCIA, :COMPRA_ANO, :COMPRA_EMP, :COMPRA_NUM, :CONTROL' +
+        'E, :DATA_APROPRIACAO, '
       
-        '   :CONDICAO_PAGTO, :DATA_FATURA, :EMISSAO_DATA, :EMISSAO_USUARI' +
-        'O, :EMPRESA, '
-      
-        '   :ENDERECO_ENTREGA, :FORMA_PAGTO, :FORNECEDOR, :INSERCAO_DATA,' +
-        ' :MOVITO, '
-      
-        '   :NOME_CONTATO, :NUMERO, :OBSERVACAO, :RECEBEDOR_CPF, :RECEBED' +
-        'OR_FUNCAO, '
-      
-        '   :RECEBEDOR_NOME, :STATUS, :TIPO, :TRANSPORTADOR, :VALIDADE, :' +
-        'VALOR_BRUTO, '
-      
-        '   :VALOR_DESCONTO, :VALOR_TOTAL, :VALOR_TOTAL_FRETE, :VALOR_TOT' +
-        'AL_IPI)')
+        '   :EMPRESA, :INSERCAO_DATA, :MOTIVO, :NUMERO, :OBS, :STATUS, :T' +
+        'IPO, :USUARIO, '
+      '   :VALOR_TOTAL)')
     DeleteSQL.Strings = (
-      'delete from TBAUTORIZA_COMPRA'
+      'delete from TBAPROPRIACAO_ALMOX'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA')
-    Left = 712
-    Top = 392
+      '  CONTROLE = :OLD_CONTROLE')
+    Top = 512
   end
   inherited ImgList: TImageList
     Left = 912
-    Top = 272
+    Top = 176
   end
   object tblEmpresa: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     TableName = 'TBEMPRESA'
     Left = 944
-    Top = 272
+    Top = 176
   end
   object dtsEmpresa: TDataSource
     DataSet = tblEmpresa
     Left = 976
-    Top = 272
+    Top = 176
   end
   object cdsTabelaItens: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -2017,122 +1983,102 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     SelectSQL.Strings = (
       'Select'
       '    i.ano'
-      '  , i.codigo'
-      '  , i.empresa'
-      '  , i.seq'
-      '  , i.fornecedor'
+      '  , i.controle'
+      '  , i.item'
       '  , i.produto'
-      '  , i.quantidade'
+      '  , i.qtde'
       '  , i.unidade'
-      '  , i.valor_unitario'
-      '  , i.ipi_percentual'
-      '  , i.ipi_valor_total'
-      '  , i.valor_total'
-      '  , i.confirmado_recebimento'
-      '  , i.usuario'
+      '  , i.custo_unitario'
+      '  , i.custo_total'
+      ''
+      '  , p.descri'
+      '  , p.apresentacao'
       '  , p.descri_apresentacao'
       '  , u.unp_descricao'
       '  , u.unp_sigla'
-      'from TBAUTORIZA_COMPRAITEM i'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3) unidade_sigla'
+      'from TBAPROPRIACAO_ALMOX_ITEM i'
       '  left join TBPRODUTO p on (p.cod = i.produto)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
     ModifySQL.Strings = (
       '')
     UpdateObject = IbUpdTabelaItens
-    Left = 680
-    Top = 424
+    Left = 624
+    Top = 544
     object cdsTabelaItensANO: TSmallintField
+      DisplayLabel = 'Ano'
       FieldName = 'ANO'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInKey]
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsTabelaItensCODIGO: TIntegerField
-      FieldName = 'CODIGO'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInKey]
+    object cdsTabelaItensCONTROLE: TIntegerField
+      DisplayLabel = 'Controle'
+      FieldName = 'CONTROLE'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."CONTROLE"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsTabelaItensEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."EMPRESA"'
-      ProviderFlags = [pfInUpdate, pfInKey]
-      Required = True
-      Size = 18
-    end
-    object cdsTabelaItensSEQ: TSmallintField
+    object cdsTabelaItensITEM: TSmallintField
       Alignment = taCenter
-      FieldName = 'SEQ'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."SEQ"'
-      ProviderFlags = [pfInUpdate, pfInKey]
-    end
-    object cdsTabelaItensFORNECEDOR: TIntegerField
-      FieldName = 'FORNECEDOR'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."FORNECEDOR"'
-      ProviderFlags = [pfInUpdate]
+      DisplayLabel = 'Item'
+      FieldName = 'ITEM'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."ITEM"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      DisplayFormat = '000'
     end
     object cdsTabelaItensPRODUTO: TIBStringField
       DisplayLabel = 'Produto'
       FieldName = 'PRODUTO'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."PRODUTO"'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."PRODUTO"'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 10
     end
-    object cdsTabelaItensQUANTIDADE: TIBBCDField
-      FieldName = 'QUANTIDADE'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."QUANTIDADE"'
+    object cdsTabelaItensQTDE: TIBBCDField
+      DisplayLabel = 'Quantidade'
+      FieldName = 'QTDE'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."QTDE"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.###'
       Precision = 18
-      Size = 3
+      Size = 2
     end
     object cdsTabelaItensUNIDADE: TSmallintField
+      DisplayLabel = 'Unidade'
       FieldName = 'UNIDADE'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."UNIDADE"'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."UNIDADE"'
       ProviderFlags = [pfInUpdate]
     end
-    object cdsTabelaItensVALOR_UNITARIO: TIBBCDField
-      FieldName = 'VALOR_UNITARIO'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."VALOR_UNITARIO"'
+    object cdsTabelaItensCUSTO_UNITARIO: TIBBCDField
+      DisplayLabel = 'Custo Unit'#225'rio'
+      FieldName = 'CUSTO_UNITARIO'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."CUSTO_UNITARIO"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensCUSTO_TOTAL: TIBBCDField
+      DisplayLabel = 'Custo Total'
+      FieldName = 'CUSTO_TOTAL'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."CUSTO_TOTAL"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsTabelaItensIPI_PERCENTUAL: TIBBCDField
-      FieldName = 'IPI_PERCENTUAL'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."IPI_PERCENTUAL"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
+    object cdsTabelaItensDESCRI: TIBStringField
+      FieldName = 'DESCRI'
+      Origin = '"TBPRODUTO"."DESCRI"'
+      ProviderFlags = []
+      Size = 50
     end
-    object cdsTabelaItensIPI_VALOR_TOTAL: TIBBCDField
-      FieldName = 'IPI_VALOR_TOTAL'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."IPI_VALOR_TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_TOTAL: TIBBCDField
-      FieldName = 'VALOR_TOTAL'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."VALOR_TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensCONFIRMADO_RECEBIMENTO: TSmallintField
-      FieldName = 'CONFIRMADO_RECEBIMENTO'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."CONFIRMADO_RECEBIMENTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsTabelaItensUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBAUTORIZA_COMPRAITEM"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
+    object cdsTabelaItensAPRESENTACAO: TIBStringField
+      FieldName = 'APRESENTACAO'
+      Origin = '"TBPRODUTO"."APRESENTACAO"'
+      ProviderFlags = []
+      Size = 50
     end
     object cdsTabelaItensDESCRI_APRESENTACAO: TIBStringField
       FieldName = 'DESCRI_APRESENTACAO'
@@ -2152,95 +2098,78 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = []
       Size = 5
     end
+    object cdsTabelaItensUNIDADE_SIGLA: TIBStringField
+      FieldName = 'UNIDADE_SIGLA'
+      ProviderFlags = []
+      Size = 50
+    end
   end
   object IbUpdTabelaItens: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
-      '  CODIGO,'
-      '  EMPRESA,'
-      '  SEQ,'
-      '  FORNECEDOR,'
+      '  CONTROLE,'
+      '  ITEM,'
       '  PRODUTO,'
-      '  QUANTIDADE,'
+      '  QTDE,'
       '  UNIDADE,'
-      '  VALOR_UNITARIO,'
-      '  IPI_PERCENTUAL,'
-      '  IPI_VALOR_TOTAL,'
-      '  VALOR_TOTAL,'
-      '  CONFIRMADO_RECEBIMENTO,'
-      '  USUARIO'
-      'from TBAUTORIZA_COMPRAITEM '
+      '  CUSTO_UNITARIO,'
+      '  CUSTO_TOTAL'
+      'from TBAPROPRIACAO_ALMOX_ITEM '
       'where'
       '  ANO = :ANO and'
-      '  CODIGO = :CODIGO and'
-      '  EMPRESA = :EMPRESA and'
-      '  SEQ = :SEQ')
+      '  CONTROLE = :CONTROLE and'
+      '  ITEM = :ITEM')
     ModifySQL.Strings = (
-      'update TBAUTORIZA_COMPRAITEM'
+      'update TBAPROPRIACAO_ALMOX_ITEM'
       'set'
       '  ANO = :ANO,'
-      '  CODIGO = :CODIGO,'
-      '  CONFIRMADO_RECEBIMENTO = :CONFIRMADO_RECEBIMENTO,'
-      '  EMPRESA = :EMPRESA,'
-      '  FORNECEDOR = :FORNECEDOR,'
-      '  IPI_PERCENTUAL = :IPI_PERCENTUAL,'
-      '  IPI_VALOR_TOTAL = :IPI_VALOR_TOTAL,'
+      '  CONTROLE = :CONTROLE,'
+      '  CUSTO_TOTAL = :CUSTO_TOTAL,'
+      '  CUSTO_UNITARIO = :CUSTO_UNITARIO,'
+      '  ITEM = :ITEM,'
       '  PRODUTO = :PRODUTO,'
-      '  QUANTIDADE = :QUANTIDADE,'
-      '  SEQ = :SEQ,'
-      '  UNIDADE = :UNIDADE,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_TOTAL = :VALOR_TOTAL,'
-      '  VALOR_UNITARIO = :VALOR_UNITARIO'
+      '  QTDE = :QTDE,'
+      '  UNIDADE = :UNIDADE'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  SEQ = :OLD_SEQ')
+      '  CONTROLE = :OLD_CONTROLE and'
+      '  ITEM = :OLD_ITEM')
     InsertSQL.Strings = (
-      'insert into TBAUTORIZA_COMPRAITEM'
+      'insert into TBAPROPRIACAO_ALMOX_ITEM'
       
-        '  (ANO, CODIGO, CONFIRMADO_RECEBIMENTO, EMPRESA, FORNECEDOR, IPI' +
-        '_PERCENTUAL, '
-      
-        '   IPI_VALOR_TOTAL, PRODUTO, QUANTIDADE, SEQ, UNIDADE, USUARIO, ' +
-        'VALOR_TOTAL, '
-      '   VALOR_UNITARIO)'
+        '  (ANO, CONTROLE, CUSTO_TOTAL, CUSTO_UNITARIO, ITEM, PRODUTO, QT' +
+        'DE, UNIDADE)'
       'values'
       
-        '  (:ANO, :CODIGO, :CONFIRMADO_RECEBIMENTO, :EMPRESA, :FORNECEDOR' +
-        ', :IPI_PERCENTUAL, '
-      
-        '   :IPI_VALOR_TOTAL, :PRODUTO, :QUANTIDADE, :SEQ, :UNIDADE, :USU' +
-        'ARIO, :VALOR_TOTAL, '
-      '   :VALOR_UNITARIO)')
+        '  (:ANO, :CONTROLE, :CUSTO_TOTAL, :CUSTO_UNITARIO, :ITEM, :PRODU' +
+        'TO, :QTDE, '
+      '   :UNIDADE)')
     DeleteSQL.Strings = (
-      'delete from TBAUTORIZA_COMPRAITEM'
+      'delete from TBAPROPRIACAO_ALMOX_ITEM'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  SEQ = :OLD_SEQ')
-    Left = 712
-    Top = 424
+      '  CONTROLE = :OLD_CONTROLE and'
+      '  ITEM = :OLD_ITEM')
+    Left = 656
+    Top = 544
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
-    Left = 744
-    Top = 424
+    Left = 688
+    Top = 544
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
-    Left = 352
-    Top = 376
-    object nmImprimirAutorizacao: TMenuItem
-      Caption = 'Autoriza'#231#227'o de Compra/Servi'#231'o'
+    Left = 16
+    Top = 512
+    object nmImprimirApropriacao: TMenuItem
+      Caption = 'Apropria'#231#227'o de Estoque (Almoxarifado)'
       ImageIndex = 16
-      OnClick = nmImprimirAutorizacaoClick
+      OnClick = nmImprimirApropriacaoClick
     end
   end
   object qryProduto: TIBDataSet
@@ -2262,6 +2191,19 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     ModifySQL.Strings = (
       '')
     Left = 1008
-    Top = 272
+    Top = 176
+  end
+  object tblTipoApropriacao: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    TableName = 'VW_TIPO_APROPRIACAO'
+    TableTypes = [ttView]
+    Left = 944
+    Top = 208
+  end
+  object dtsTipoApropriacao: TDataSource
+    DataSet = tblTipoApropriacao
+    Left = 976
+    Top = 208
   end
 end

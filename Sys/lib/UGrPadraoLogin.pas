@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, DB,
-  IBCustomDataSet, IBQuery;
+  IBCustomDataSet, IBQuery, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGrPadraoLogin = class(TfrmGrPadrao)
@@ -20,7 +21,6 @@ type
     lblSenha: TLabel;
     edSenha: TEdit;
     lblEmpresa: TLabel;
-    BtnEntrar: TBitBtn;
     QryEmpresa: TIBQuery;
     QryEmpresaCNPJ: TIBStringField;
     QryEmpresaNMFANT: TIBStringField;
@@ -28,6 +28,7 @@ type
     pnlMensagem: TLabel;
     BtnFechar: TSpeedButton;
     ImgBackgroud: TImage;
+    BtnEntrar: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnFecharClick(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);

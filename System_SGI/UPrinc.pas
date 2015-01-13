@@ -37,9 +37,6 @@ type
     nmEntradaProduto: TMenuItem;
     nmEmpresa: TMenuItem;
     spbBarraAcessoRapido: TSpeedBar;
-    btnContaAReceber: TRxSpeedButton;
-    btnTesouraria: TRxSpeedButton;
-    btnContaAPagar: TRxSpeedButton;
     SpeedbarSection1: TSpeedbarSection;
     menuSobre: TMenuItem;
     pnlMain: TPanel;
@@ -169,6 +166,10 @@ type
     btnFornecedor: TcxButton;
     btnEstoque: TcxButton;
     btnVenda: TcxButton;
+    btnTesouraria: TcxButton;
+    btnContaAPagar: TcxButton;
+    btnContaAReceber: TcxButton;
+    popApropriacaoEstoque: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -247,6 +248,7 @@ type
     procedure nmCentroCustoClick(Sender: TObject);
     procedure nmConverterReqAutCompraClick(Sender: TObject);
     procedure nmPlanoContaClick(Sender: TObject);
+    procedure nmApropriacaoEstoqueClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -278,6 +280,7 @@ uses
   UGeRequisicaoCliente,
   UGeAutorizacaoCompra,
   UGeRequisicaoCompra,
+  UGeApropriacaoEstoque,
 
   // Financeiro
   UGeContasAPagar,
@@ -948,6 +951,12 @@ procedure TfrmPrinc.nmPlanoContaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_PLANO_CONTAS_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGePlanoContas');
+end;
+
+procedure TfrmPrinc.nmApropriacaoEstoqueClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_ENT_APROPRIACAO_ESTOQ_ID, True) then
+    MostrarControleApropriacao(Self);
 end;
 
 end.

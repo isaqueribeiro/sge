@@ -120,7 +120,8 @@ uses
   UGePlanoContas in '..\Sys\UGePlanoContas.pas' {frmGePlanoContas},
   UGeProdutoImpressao in '..\System_SGE\UGeProdutoImpressao.pas' {frmGeProdutoImpressao},
   UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
-  UGeApropriacaoEstoque in 'UGeApropriacaoEstoque.pas' {frmGeApropriacaoEstoque};
+  UGeApropriacaoEstoque in 'UGeApropriacaoEstoque.pas' {frmGeApropriacaoEstoque},
+  UGeApropriacaoEstoqueCancelar in 'UGeApropriacaoEstoqueCancelar.pas' {frmGeApropriacaoEstoqueCancelar};
 
 {$R *.res}
 

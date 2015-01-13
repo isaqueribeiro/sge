@@ -46,8 +46,11 @@ type
       var Text: String; DisplayText: Boolean);
     procedure dbgEmpresaListaKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
+    fCodigoCliente : Integer;
+    fEmpresaDepartamento : String;
     procedure CarregarEmpresa;
     procedure GravarRelacaoCentroCustoEmpresa;
   public
@@ -57,7 +60,8 @@ type
 var
   frmGeCentroCusto: TfrmGeCentroCusto;
 
-  function SelecionarDepartamento(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
+  function SelecionarDepartamento(const AOwner : TComponent;
+    const ClienteID : Integer; const EmpresaID : String; var Codigo : Integer; var Nome : String) : Boolean;
 
 implementation
 
@@ -66,12 +70,28 @@ uses
 
 {$R *.dfm}
 
-function SelecionarDepartamento(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
+function SelecionarDepartamento(const AOwner : TComponent;
+  const ClienteID : Integer; const EmpresaID : String; var Codigo : Integer; var Nome : String) : Boolean;
 var
   frm : TfrmGeCentroCusto;
 begin
   frm := TfrmGeCentroCusto.Create(AOwner);
   try
+    frm.fCodigoCliente       := ClienteID;
+    frm.fEmpresaDepartamento := Trim(EmpresaID);
+    frm.AbrirTabelaAuto      := True;
+
+    if ( frm.fCodigoCliente > 0 ) then
+      frm.WhereAdditional := '(c.codcliente = ' + IntToStr(frm.fCodigoCliente) + ')'
+    else
+    if ( Trim(frm.fEmpresaDepartamento) <> EmptyStr ) then
+      frm.WhereAdditional := '(c.codigo in (Select ce.centro_custo from TBCENTRO_CUSTO_EMPRESA ce where ce.empresa = ' +
+        QuotedStr(frm.fEmpresaDepartamento) + '))'
+    else
+      frm.WhereAdditional := EmptyStr;
+
+    frm.IbDtstTabela.SelectSQL.Add('where 1=1 ' + IfThen(frm.WhereAdditional = EmptyStr, '', ' and ' + frm.WhereAdditional));
+
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;
@@ -89,6 +109,8 @@ begin
   NomeTabela     := 'TBCENTRO_CUSTO';
   CampoCodigo    := 'c.codigo';
   CampoDescricao := 'c.descricao';
+
+  fEmpresaDepartamento := EmptyStr;
 
   UpdateGenerator;
 end;
@@ -237,6 +259,20 @@ procedure TfrmGeCentroCusto.dbgEmpresaListaKeyDown(Sender: TObject;
 begin
   if ( Key = VK_SPACE ) then
     dbgEmpresaListaDblClick(Sender);
+end;
+
+procedure TfrmGeCentroCusto.btnFiltrarClick(Sender: TObject);
+begin
+  if ( fCodigoCliente > 0 ) then
+    WhereAdditional := '(c.codcliente = ' + IntToStr(fCodigoCliente) + ')'
+  else
+  if ( Trim(fEmpresaDepartamento) <> EmptyStr ) then
+    WhereAdditional := '(c.codigo in (Select ce.centro_custo from TBCENTRO_CUSTO_EMPRESA ce where ce.empresa = ' +
+      QuotedStr(fEmpresaDepartamento) + '))'
+  else
+    WhereAdditional := EmptyStr;
+
+  inherited;
 end;
 
 initialization
