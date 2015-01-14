@@ -5,13 +5,13 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ToolWin, ComCtrls,
-  Grids, DBGrids, ImgList, DB, IBCustomDataSet, IBUpdateSQL;
+  Grids, DBGrids, ImgList, DB, IBCustomDataSet, IBUpdateSQL, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TFrmGrRegistroEstacao = class(TfrmGrPadrao)
     tlbBotoes: TToolBar;
     Bevel2: TBevel;
-    btbtnIncluir: TBitBtn;
     Bevel3: TBevel;
     Bevel1: TBevel;
     pgcGuia: TPageControl;
@@ -27,7 +27,8 @@ type
     cdsRegistroEST_REGISTRO: TIBStringField;
     cdsRegistroEST_ULTIMO_ACESSO: TDateTimeField;
     cdsRegistroSEQ: TIntegerField;
-    btbtnExcluir: TBitBtn;
+    btbtnIncluir: TcxButton;
+    btbtnExcluir: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);

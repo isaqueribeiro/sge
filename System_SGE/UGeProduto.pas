@@ -252,6 +252,10 @@ type
     Bevel9: TBevel;
     popFerramentas: TPopupMenu;
     ppMnAtualizarMetafonema: TMenuItem;
+    ppImprimir: TPopupMenu;
+    nmProdutoLista: TMenuItem;
+    nmProdutoFicha: TMenuItem;
+    nmProdutoEtiqueta: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -273,6 +277,7 @@ type
     procedure dbUnidadeFracaoButtonClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure ppMnAtualizarMetafonemaClick(Sender: TObject);
+    procedure btbtnListaClick(Sender: TObject);
   private
     { Private declarations }
     fOrdenado : Boolean;
@@ -930,6 +935,10 @@ begin
   ShpLucroNegativo.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
   lblLucroNegativo.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
 
+  nmProdutoLista.Caption    := 'Lista de ' + StrDescricaoProduto;
+  nmProdutoFicha.Caption    := 'Ficha de ' + StrDescricaoProduto;
+  nmProdutoEtiqueta.Caption := 'Etiqueta de ' + StrDescricaoProduto;
+
 (*
   lblTipoTributacaoSN.Enabled := GetSimplesNacionalInsEmpresa(GetEmpresaIDDefault);
   dbTipoTributacaoSN.Enabled  := GetSimplesNacionalInsEmpresa(GetEmpresaIDDefault);
@@ -1514,6 +1523,12 @@ begin
 
     ShowInformation('Atualização', 'Código metafônico dos registros atualizados com sucesso!');
   end;
+end;
+
+procedure TfrmGeProduto.btbtnListaClick(Sender: TObject);
+begin
+  inherited;
+  ppImprimir.Popup(btbtnLista.ClientOrigin.X, btbtnLista.ClientOrigin.Y + btbtnLista.Height);
 end;
 
 end.

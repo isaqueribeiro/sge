@@ -41,7 +41,7 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnIncluir: TBitBtn
+    object btbtnIncluir: TcxButton
       Tag = 1
       Left = 4
       Top = 2
@@ -68,7 +68,7 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
         00337777FFFF77FF7733EEEE0000000003337777777777777333}
       NumGlyphs = 2
     end
-    object btbtnExcluir: TBitBtn
+    object btbtnExcluir: TcxButton
       Tag = 3
       Left = 89
       Top = 2
@@ -164,7 +164,6 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
             Expanded = False
             FieldName = 'EST_ULTIMO_ACESSO'
             Title.Caption = #218'ltimo acesso'
-            Width = -1
             Visible = False
           end>
       end

@@ -170,6 +170,8 @@ type
     btnContaAPagar: TcxButton;
     btnContaAReceber: TcxButton;
     popApropriacaoEstoque: TMenuItem;
+    nmEstoqueApropriado: TMenuItem;
+    nmTabelaCNAE: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);

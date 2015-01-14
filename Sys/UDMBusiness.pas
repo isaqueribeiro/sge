@@ -1742,7 +1742,7 @@ begin
       SEGMENTO_MERCADO_CARRO_ID:
         S := 'Veículos';
       SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
-        s := 'Produtos/Serviços'  
+        s := 'Produto/Serviço'  
       else
         S := 'Produtos';
     end;

@@ -311,7 +311,7 @@ begin
 
   NomeTabela     := 'TBAPROPRIACAO_ALMOX';
   CampoCodigo    := 'a.controle';
-  CampoDescricao := 'c.descricao'; // Centro de Custo
+  CampoDescricao := 'c.descricao';                      // Descrição do centro de custo
   CampoOrdenacao := 'a.data_apropriacao, c.descricao';
 
   WhereAdditional :=  'cast(a.data_apropriacao as date) between ' +

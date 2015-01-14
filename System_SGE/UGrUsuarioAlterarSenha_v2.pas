@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   UGrPadrao, Dialogs, ExtCtrls, StdCtrls, Mask, DBCtrls, DB, IBCustomDataSet, Buttons,
-  IBUpdateSQL, DBClient;
+  IBUpdateSQL, DBClient, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons;
 
 type
   TfrmGrUsuarioAlterarSenha = class(TfrmGrPadrao)
@@ -20,8 +21,6 @@ type
     tblUsers: TIBDataSet;
     dtsUsers: TDataSource;
     pnlBotoes: TPanel;
-    btbtnSalvar: TBitBtn;
-    btbtnFechar: TBitBtn;
     BvlBotoes: TBevel;
     dbSenhaConfirmar: TDBEdit;
     updUsers: TIBUpdateSQL;
@@ -31,6 +30,8 @@ type
     tblUsersSENHA_ATUAL: TIBStringField;
     tblUsersSENHA_NOVA: TIBStringField;
     tblUsersSENHA_CONFIRMAR: TIBStringField;
+    btbtnSalvar: TcxButton;
+    btbtnFechar: TcxButton;
     procedure btbtnFecharClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

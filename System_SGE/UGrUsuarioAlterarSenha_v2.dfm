@@ -182,7 +182,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       Align = alTop
       Shape = bsTopLine
     end
-    object btbtnSalvar: TBitBtn
+    object btbtnSalvar: TcxButton
       Left = 210
       Top = 5
       Width = 75
@@ -209,7 +209,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
         05555777775555557F5555000555555505555577755555557555}
       NumGlyphs = 2
     end
-    object btbtnFechar: TBitBtn
+    object btbtnFechar: TcxButton
       Left = 288
       Top = 5
       Width = 75

@@ -357,10 +357,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           object grpBxToken: TGroupBox
             Left = 16
             Top = 112
-            Width = 257
+            Width = 321
             Height = 121
             Caption = 'Token Principal p/ emiss'#227'o de NFC-e'
             TabOrder = 4
+            DesignSize = (
+              321
+              121)
             object lblTokenId: TLabel
               Left = 16
               Top = 24
@@ -380,8 +383,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             object edTokenId: TDBEdit
               Left = 16
               Top = 40
-              Width = 225
+              Width = 289
               Height = 21
+              Anchors = [akLeft, akTop, akRight]
               DataField = 'NFCE_TOKEN_ID'
               DataSource = DtSrcTabela
               Font.Charset = DEFAULT_CHARSET
@@ -395,8 +399,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             object edToken: TDBEdit
               Left = 16
               Top = 80
-              Width = 225
+              Width = 289
               Height = 21
+              Anchors = [akLeft, akTop, akRight]
               DataField = 'NFCE_TOKEN_ID'
               DataSource = DtSrcTabela
               Font.Charset = DEFAULT_CHARSET
