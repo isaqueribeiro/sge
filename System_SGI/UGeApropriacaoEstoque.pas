@@ -127,6 +127,10 @@ type
     btnFinalizarLancamento: TcxButton;
     btnEncerrarApropriacao: TcxButton;
     btnCancelarApropriacao: TcxButton;
+    cdsTabelaItensESTOQUE: TIBBCDField;
+    cdsTabelaItensRESERVA: TIBBCDField;
+    cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
+    qryEntradaProduto: TIBDataSet;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -175,6 +179,7 @@ type
     iCentroCusto : Integer;
     procedure AbrirTabelaItens(const AnoApropriacao : Smallint; const CodigoApropriacao : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
+    procedure CarregarProdutosEntrada(const iEntradaAno, iEntradaCod : Integer; sEntradaEmp : String);
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
     procedure ValidarToTais(var Total_Custo : Currency);
@@ -189,6 +194,7 @@ type
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
     property RotinaEncerrarID  : String read GetRotinaEncerrarID;
     property RotinaCancelarApropriacaoID : String read GetRotinaCancelarApropriacaoID;
+    procedure pgcGuiasOnChange; override;
   end;
 
 var
@@ -203,7 +209,7 @@ implementation
 
 uses
   DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeProduto, UGeApropriacaoEstoqueCancelar, 
-  UGeCentroCusto;
+  UGeCentroCusto, UGeEntradaEstoque;
 
 {$R *.dfm}
 
@@ -313,7 +319,7 @@ begin
   NomeTabela     := 'TBAPROPRIACAO_ALMOX';
   CampoCodigo    := 'a.controle';
   CampoDescricao := 'c.descricao';                      // Descrição do centro de custo
-  CampoOrdenacao := 'a.data_apropriacao, c.descricao';
+  CampoOrdenacao := 'a.ano, a.controle, c.descricao';
 
   WhereAdditional :=  'cast(a.data_apropriacao as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
@@ -407,7 +413,7 @@ begin
   else
   begin
     btnFinalizarLancamento.Enabled := False;
-    btnEncerrarApropriacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnEncerrarApropriacao.Enabled := False;
     btnCancelarApropriacao.Enabled := False;
 
     nmImprimirApropriacao.Enabled  := (IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_ENC);
@@ -617,8 +623,14 @@ begin
       IbDtstTabelaVALOR_TOTAL.AsCurrency := cTotalCusto;
 
       if ( btnProdutoInserir.Visible and btnProdutoInserir.Enabled ) then
-        btnProdutoInserir.SetFocus;
-
+        btnProdutoInserir.SetFocus
+      else
+      if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
+      begin
+        btnProdutoEditar.SetFocus;
+        if (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_ENTRADA) then
+          cdsTabelaItens.Next;
+      end;
     end;
   end;
 end;
@@ -640,6 +652,33 @@ end;
 
 procedure TfrmGeApropriacaoEstoque.btnEncerrarApropriacaoClick(
   Sender: TObject);
+
+  function QuantidadeInvalida : Boolean;
+  var
+    Return : Boolean;
+  begin
+    try
+
+      cdsTabelaItens.First;
+      cdsTabelaItens.DisableControls;
+      while not cdsTabelaItens.Eof do
+      begin
+        if ( cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger = 0 ) then // Produto não movimenta estoque
+          Return := False
+        else
+          Return := ( (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensESTOQUE.AsCurrency - cdsTabelaItensRESERVA.AsCurrency)) or (cdsTabelaItensESTOQUE.AsCurrency <= 0) );
+
+        if ( Return ) then
+          Break;
+        cdsTabelaItens.Next;
+      end;
+
+    finally
+      cdsTabelaItens.EnableControls;
+      Result := Return;
+    end;
+  end;
+
 var
   cTotalCusto : Currency;
 begin
@@ -649,6 +688,14 @@ begin
   RecarregarRegistro;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
+
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_ENC) then
+  begin
+    ShowWarning('Lançamento de Apropriação já está encerrado!');
+    Abort;
+  end;
 
   ValidarToTais(cTotalCusto);
 
@@ -664,6 +711,13 @@ begin
     Abort;
   end;
 
+  if ( QuantidadeInvalida ) then
+  begin
+    ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', cdsTabelaItensITEM.AsInteger) + ' está acima da quantidade disponível no estoque.');
+    if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
+      btnProdutoEditar.SetFocus;
+  end
+  else
   if ( ShowConfirm('Confirma o encerramento da apropriação selecionada?') ) then
   begin
     IbDtstTabela.Edit;
@@ -808,7 +862,7 @@ begin
     IbDtstTabelaOBS.AsString     := Trim(AnsiUpperCase(IbDtstTabelaOBS.AsString));
     IbDtstTabelaENTRADA.Required := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_ENTRADA);
 
-    if (IbDtstTabelaCOMPRA_ANO.AsInteger = 0) then
+    if (IbDtstTabelaCOMPRA_ANO.AsInteger = 0) or (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_GERAL) then
     begin
       IbDtstTabelaCOMPRA_ANO.Clear;
       IbDtstTabelaCOMPRA_NUM.Clear;
@@ -853,7 +907,8 @@ begin
   inherited;
   if ( Sender = dbProduto ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-      CarregarDadosProduto( StrToIntDef(cdsTabelaItensPRODUTO.AsString, 0) );
+      if ( IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_GERAL ) then
+          CarregarDadosProduto( StrToIntDef(cdsTabelaItensPRODUTO.AsString, 0) );
 
   if ( (Sender = dbQuantidade) or (Sender = dbCustoUn) ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
@@ -936,7 +991,7 @@ begin
     dbCentroCusto.SetFocus;
   end
   else
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+  if ( dbProduto.Button.Enabled and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
   begin
 
     cAliquota       := 0.0;
@@ -993,16 +1048,16 @@ begin
       ParamByName('codigo').AsInteger := IbDtstTabelaCC_CLIENTE_CODIGO.AsInteger;
       Open;
     end;
-    (*
-    with qryAutorizacaoCompra do
+
+    with qryApropriacaoEstoque do
     begin
       Close;
       ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
-      ParamByName('cod').AsInteger := IbDtstTabelaCODIGO.AsInteger;
+      ParamByName('cod').AsInteger := IbDtstTabelaCONTROLE.AsInteger;
       Open;
     end;
 
-    frrAutorizacaoCompra.ShowReport; *)
+    frrApropriacaoEstoque.ShowReport;
   end;
 end;
 
@@ -1015,8 +1070,16 @@ begin
   RecarregarRegistro;
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
 
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_APROPRIACAO_ESTOQUE_ABR ) then
-    ShowInformation('Apenas registros abertos podem ser cancelados!')
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_CAN) then
+  begin
+    ShowWarning('Lançamento de Apropriação já está cancelado!');
+    Abort;
+  end;
+
+  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_APROPRIACAO_ESTOQUE_ENC ) then
+    ShowInformation('Apenas registros encerrados podem ser cancelados!')
   else
   if ( CancelarAPROP(Self, IbDtstTabelaANO.Value, IbDtstTabelaCONTROLE.Value) ) then
     with IbDtstTabela do
@@ -1054,6 +1117,14 @@ begin
   RecarregarRegistro;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
+
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_ABR) then
+  begin
+    ShowWarning('Lançamento de Apropriação já está finalizado!');
+    Abort;
+  end;
 
   if ShowConfirm('Confirma a finalização do lançamento da apropriação de estoque?') then
   begin
@@ -1140,14 +1211,14 @@ procedure TfrmGeApropriacaoEstoque.IbDtstTabelaTIPOGetText(Sender: TField;
 begin
   if (not Sender.IsNull) then
     Case Sender.AsInteger of
-      TIPO_AUTORIZACAO_COMPRA :
-        Text := 'Compra';
+      TIPO_APROPRIACAO_GERAL :
+        Text := 'Geral';
 
-      TIPO_AUTORIZACAO_SERVICO:
-        Text := 'Serviço';
+      TIPO_APROPRIACAO_ENTRADA:
+        Text := 'Por Entrada';
 
-      TIPO_AUTORIZACAO_COMPRA_SERVICO:
-        Text := 'Compra/Serviço';
+      else
+        Text := Sender.AsString;
     end;
 end;
 
@@ -1222,14 +1293,16 @@ end;
 procedure TfrmGeApropriacaoEstoque.dbCentroCustoButtonClick(
   Sender: TObject);
 var
-  iCodigo : Integer;
+  iCodigo  ,
+  iCliente : Integer;
   sNome : String;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarDepartamento(Self, 0, IbDtstTabelaEMPRESA.AsString, iCodigo, sNome) ) then
+    if ( SelecionarDepartamento(Self, 0, IbDtstTabelaEMPRESA.AsString, iCodigo, sNome, iCliente) ) then
     begin
-      IbDtstTabelaCENTRO_CUSTO.AsInteger := iCodigo;
-      IbDtstTabelaCC_DESCRICAO.AsString  := sNome;
+      IbDtstTabelaCENTRO_CUSTO.AsInteger      := iCodigo;
+      IbDtstTabelaCC_DESCRICAO.AsString       := sNome;
+      IbDtstTabelaCC_CLIENTE_CODIGO.AsInteger := iCliente;
     end;
 end;
 
@@ -1237,17 +1310,102 @@ procedure TfrmGeApropriacaoEstoque.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
   if ( Field = IbDtstTabelaTIPO ) then
+  begin
     dbEntrada.Button.Enabled := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_ENTRADA);
+    dbProduto.Button.Enabled := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_GERAL);
+    dbProduto.ReadOnly       := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_ENTRADA);
+
+    DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+  end;
 end;
 
 procedure TfrmGeApropriacaoEstoque.dbEntradaButtonClick(Sender: TObject);
 var
   iEntradaAno ,
   iEntradaCod : Integer;
-  iEntradaEmp : String;
+  sEntradaEmp : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    ShowMessage('Teste!');
+  if ( dbEntrada.Button.Enabled and (IbDtstTabela.State in [dsEdit, dsInsert]) ) then
+    if SelecionarEntrada(Self, iEntradaAno, iEntradaCod, sEntradaEmp) then
+    begin
+      IbDtstTabelaCOMPRA_ANO.AsInteger := iEntradaAno;
+      IbDtstTabelaCOMPRA_NUM.AsInteger := iEntradaCod;
+      IbDtstTabelaCOMPRA_EMP.AsString  := sEntradaEmp;
+      IbDtstTabelaENTRADA.AsString     := FormatFloat('0000"/"', iEntradaAno) + FormatFloat('0000000', iEntradaCod);
+
+      CarregarProdutosEntrada(iEntradaAno, iEntradaCod, sEntradaEmp);
+      cdsTabelaItens.First;
+      
+      dbEntrada.SetFocus;
+    end;
+end;
+
+procedure TfrmGeApropriacaoEstoque.CarregarProdutosEntrada(
+  const iEntradaAno, iEntradaCod: Integer; sEntradaEmp: String);
+var
+  I : Integer;
+  cTotalCusto : Currency;
+begin
+  with qryEntradaProduto do
+  begin
+    Close;
+    ParamByName('ano').AsInteger := iEntradaAno;
+    ParamByName('cod').AsInteger := iEntradaCod;
+    ParamByName('emp').AsString  := sEntradaEmp;
+    Open;
+
+    if not IsEmpty then
+    begin
+      AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
+      cdsTabelaItens.First;
+      while not cdsTabelaItens.Eof do
+        cdsTabelaItens.Delete;
+    end;
+
+    cTotalCusto := 0.0;
+    I := 1;
+
+    First;
+    while not Eof do
+    begin
+      if ( FieldByName('quantidade').AsCurrency > 0.0 ) then
+      begin
+        cdsTabelaItens.Append;
+
+        cdsTabelaItensITEM.AsInteger := I;
+        cdsTabelaItensPRODUTO.Assign       ( FieldByName('produto') );
+        cdsTabelaItensQTDE.Assign          ( FieldByName('quantidade') );
+        cdsTabelaItensUNIDADE.Assign       ( FieldByName('unidade') );
+        cdsTabelaItensCUSTO_UNITARIO.Assign( FieldByName('custo_medio') );
+
+        cdsTabelaItensDESCRI.Assign             ( FieldByName('DESCRI') );
+        cdsTabelaItensAPRESENTACAO.Assign       ( FieldByName('apresentacao') );
+        cdsTabelaItensDESCRI_APRESENTACAO.Assign( FieldByName('DESCRI_APRESENTACAO') );
+        cdsTabelaItensUNP_DESCRICAO.Assign      ( FieldByName('UNP_DESCRICAO') );
+        cdsTabelaItensUNP_SIGLA.Assign        ( FieldByName('UNP_SIGLA') );
+        cdsTabelaItensUNIDADE_SIGLA.Assign    ( FieldByName('UNIDADE_SIGLA') );
+        cdsTabelaItensESTOQUE.Assign          ( FieldByName('ESTOQUE') );
+        cdsTabelaItensRESERVA.Assign          ( FieldByName('RESERVA') );
+        cdsTabelaItensMOVIMENTA_ESTOQUE.Assign( FieldByName('MOVIMENTA_ESTOQUE') );
+
+        cdsTabelaItensCUSTO_TOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
+
+        cdsTabelaItens.Post;
+
+        cTotalCusto := cTotalCusto + cdsTabelaItensCUSTO_TOTAL.AsCurrency;
+        Inc(I);
+      end;
+
+      Next;
+    end;
+
+    IbDtstTabelaVALOR_TOTAL.AsCurrency := cTotalCusto;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoque.pgcGuiasOnChange;
+begin
+  HabilitarDesabilitar_Btns;
 end;
 
 initialization

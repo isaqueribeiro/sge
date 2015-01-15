@@ -3101,7 +3101,7 @@ begin
   else
     dData := dDataMovimento;
 
-  Result := (gLicencaSistema.DataBloqueio > dData);
+  Result := {$IFDEF DGE}True{$ELSE}(gLicencaSistema.DataBloqueio > dData){$ENDIF};
 
   if not Result then
     if Alertar then

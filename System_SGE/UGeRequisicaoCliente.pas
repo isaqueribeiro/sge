@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus;
+  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeRequisicaoCliente = class(TfrmGrPadraoCadastro)
@@ -52,8 +53,6 @@ type
     dbUsuario: TDBEdit;
     lblAutorizador: TLabel;
     dbAutorizador: TDBEdit;
-    btnAutorizarRequisicao: TBitBtn;
-    btnCancelarRequisicao: TBitBtn;
     Bevel12: TBevel;
     cdsTabelaItens: TIBDataSet;
     IbUpdTabelaItens: TIBUpdateSQL;
@@ -101,6 +100,8 @@ type
     IbDtstTabelaCODCLIENTE: TIntegerField;
     cdsTabelaItensCODCLIENTE: TIntegerField;
     cdsTabelaItensESTOQUE_SATELITE: TIBBCDField;
+    btnAutorizarRequisicao: TcxButton;
+    btnCancelarRequisicao: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);

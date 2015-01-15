@@ -346,6 +346,7 @@ type
   private
     { Private declarations }
     FTipoMovimento : TTipoMovimentoEntrada;
+    FApenasFinalizadas : Boolean;
     SQL_Itens   ,
     SQL_Duplicatas : TStringList;
     procedure AbrirTabelaItens(const AnoCompra : Smallint; const ControleCompra : Integer);
@@ -363,7 +364,10 @@ type
     procedure RegistrarNovaRotinaSistema;
   public
     { Public declarations }
+    procedure pgcGuiasOnChange; override;
+
     property TipoMovimento : TTipoMovimentoEntrada read FTipoMovimento write FTipoMovimento;
+    property ApenasFinalizadas : Boolean read FApenasFinalizadas write FApenasFinalizadas;
     property RotinaFinalizarID       : String read GetRotinaFinalizarID;
     property RotinaGerarNFeID        : String read GetRotinaGerarNFeID;
     property RotinaCancelarEntradaID : String read GetRotinaCancelarEntradaID;
@@ -374,6 +378,8 @@ var
 
   procedure MostrarControleCompras(const AOwner : TComponent);
   procedure MostrarControleCompraServicos(const AOwner : TComponent);
+
+  function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var Empresa : String) : Boolean;
 
 implementation
 
@@ -441,6 +447,58 @@ begin
   end;
 end;
 
+function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var Empresa : String) : Boolean;
+var
+  frm : TfrmGeEntradaEstoque;
+  whr : String;
+begin
+  frm := TfrmGeEntradaEstoque.Create(AOwner);
+  try
+    frm.btbtnSelecionar.Visible := True;
+
+    frm.TipoMovimento     := tmeProduto;
+    frm.ApenasFinalizadas := True;
+    frm.Caption           := 'Controle de Entradas de Produtos';
+    frm.RotinaID          := ROTINA_ENT_PRODUTO_ID;
+
+    frm.btbtnIncluir.Visible  := False;
+    frm.btbtnAlterar.Visible  := False;
+    frm.btbtnExcluir.Visible  := False;
+    frm.btbtnFinalizar.Visible   := False;
+    frm.btbtnCancelarENT.Visible := False;
+    frm.btbtnGerarNFe.Visible    := False;
+
+    if frm.ApenasFinalizadas then
+      whr := '(c.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + ')) and '
+    else
+      whr := EmptyStr;
+
+    whr := whr +
+      '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+
+    with frm, IbDtstTabela do
+    begin
+      Close;
+      SelectSQL.Add('where ' + whr);
+      SelectSQL.Add('order by ' + CampoOrdenacao);
+      Open;
+    end;
+
+    Result := (frm.ShowModal = mrOk);
+
+    if Result then
+    begin
+      Ano      := frm.IbDtstTabelaANO.AsInteger;
+      Controle := frm.IbDtstTabelaCODCONTROL.AsInteger;
+      Empresa  := frm.IbDtstTabelaCODEMP.AsString;
+    end;
+  finally
+    frm.Destroy;
+  end;
+end;
+
 procedure TfrmGeEntradaEstoque.FormCreate(Sender: TObject);
 
   procedure OcutarCampoAutorizacao;
@@ -499,14 +557,22 @@ begin
 
   btbtnGerarNFe.Visible := GetEstacaoEmitiNFe;
 
-  TipoMovimento := tmeProduto;
+  TipoMovimento     := tmeProduto;
+  ApenasFinalizadas := False;
 end;
 
 procedure TfrmGeEntradaEstoque.btnFiltrarClick(Sender: TObject);
 begin
-  WhereAdditional := '(c.tipo_movimento = ' + IntToStr(Ord(TipoMovimento)) + ') and cast(c.dtent as date) between ' +
-                       QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                       QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+  if ApenasFinalizadas then
+    WhereAdditional := '(c.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + ')) and '
+  else
+    WhereAdditional := EmptyStr;  
+
+  WhereAdditional := WhereAdditional +
+    '(c.tipo_movimento = ' + IntToStr(Ord(TipoMovimento)) + ') and cast(c.dtent as date) between ' +
+    QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+    QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+    
   inherited;
 end;
 
@@ -1067,8 +1133,10 @@ begin
 
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
-    
+
   RecarregarRegistro;
+
+  pgcGuias.ActivePage := tbsCadastro;
 
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) then
   begin
@@ -1244,6 +1312,14 @@ begin
 *)
   RecarregarRegistro;
 
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_CAN) then
+  begin
+    ShowWarning('Movimento de Entrada já está cancelado!');
+    Abort;
+  end;
+
   if ( CancelarENT(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) ) then
     with IbDtstTabela do
     begin
@@ -1296,7 +1372,15 @@ begin
       Exit;
 
   RecarregarRegistro;
-    
+
+  pgcGuias.ActivePage := tbsCadastro;
+  
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE) then
+  begin
+    ShowWarning('Movimento de Entrada já está com NF-e gerada!');
+    Abort;
+  end;
+
   if not GetPermititEmissaoNFe( IbDtstTabelaCODEMP.AsString ) then
   begin
     ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.');
@@ -1596,6 +1680,11 @@ begin
   inherited;
   AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+end;
+
+procedure TfrmGeEntradaEstoque.pgcGuiasOnChange;
+begin
+  HabilitarDesabilitar_Btns;
 end;
 
 initialization

@@ -548,6 +548,9 @@ type
     ACBrSAT: TACBrSAT;
     qryEmitenteSERIE_NFCE: TSmallintField;
     qryEmitenteNUMERO_NFCE: TIntegerField;
+    qryApropriacaoEstoque: TIBQuery;
+    frdApropriacaoEstoque: TfrxDBDataset;
+    frrApropriacaoEstoque: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);

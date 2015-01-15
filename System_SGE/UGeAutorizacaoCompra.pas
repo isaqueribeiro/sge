@@ -787,6 +787,14 @@ begin
 
   RecarregarRegistro;
 
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_AUT) then
+  begin
+    ShowWarning('A Autorização já foi realizada!');
+    Abort;
+  end;
+
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
 
   ValidarToTais(cTotalBruto, cTotalIPI, cTotalDesconto, cTotalLiquido);
@@ -1173,6 +1181,15 @@ begin
     Exit;
 
   RecarregarRegistro;
+
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_CAN) then
+  begin
+    ShowWarning('Lançamento de Autorização já está cancelado!');
+    Abort;
+  end;
+
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
 
   if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_AUTORIZACAO_AUT ) then
@@ -1216,6 +1233,14 @@ begin
     Exit;
 
   RecarregarRegistro;
+
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) then
+  begin
+    ShowWarning('Lançamento de Autorização já está finalizado!');
+    Abort;
+  end;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
 
@@ -1438,11 +1463,12 @@ end;
 procedure TfrmGeAutorizacaoCompra.dbCentroCustoButtonClick(
   Sender: TObject);
 var
-  iCodigo : Integer;
+  iCodigo  ,
+  iCliente : Integer;
   sNome : String;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarDepartamento(Self, IbDtstTabelaCLIENTE.AsInteger, IbDtstTabelaEMPRESA.AsString, iCodigo, sNome) ) then
+    if ( SelecionarDepartamento(Self, IbDtstTabelaCLIENTE.AsInteger, IbDtstTabelaEMPRESA.AsString, iCodigo, sNome, iCliente) ) then
     begin
       IbDtstTabelaCENTRO_CUSTO.AsInteger          := iCodigo;
       IbDtstTabelaDESCRICAO_CENTRO_CUSTO.AsString := sNome;

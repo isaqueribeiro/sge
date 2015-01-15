@@ -473,6 +473,7 @@ type
     function GetRotinaEnviarEmailID : String;
 
     procedure RegistrarNovaRotinaSistema;
+    procedure pgcGuiasOnChange; override;
   public
     { Public declarations }
     property RotinaFinalizarID     : String read GetRotinaFinalizarID;
@@ -1604,6 +1605,14 @@ begin
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
   AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
+  pgcGuias.ActivePage := tbsCadastro;
+  
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) then
+  begin
+    ShowWarning('Movimento de Venda já finalizada!');
+    Abort;
+  end;
+
   // Verificar se cliente está bloqueado, caso a venda seja a prazo
 
   if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
@@ -1762,6 +1771,14 @@ begin
 
   RecarregarRegistro;
 
+  pgcGuias.ActivePage := tbsCadastro;
+  
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) then
+  begin
+    ShowWarning('Movimento de Venda já com NF-e gerada!');
+    Abort;
+  end;
+
   if ( not DelphiIsRunning ) then
     if not DMNFe.GetValidadeCertificado then
       Exit;
@@ -1907,6 +1924,14 @@ begin
     Abort;
 
   RecarregarRegistro;
+
+  pgcGuias.ActivePage := tbsCadastro;
+  
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN) then
+  begin
+    ShowWarning('Movimento de Venda já cancelada!');
+    Abort;
+  end;
 
   if ( (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsLargeInt = 0) ) then
   begin
@@ -2972,6 +2997,11 @@ begin
 
     ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar venda novamente.');
   end;
+end;
+
+procedure TfrmGeVenda.pgcGuiasOnChange;
+begin
+  HabilitarDesabilitar_Btns;
 end;
 
 end.

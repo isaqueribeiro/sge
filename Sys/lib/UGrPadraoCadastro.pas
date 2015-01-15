@@ -129,6 +129,7 @@ type
     procedure UpdateGenerator(const sWhr : String = '');
     procedure RedimencionarBevel(const ToolBar : TToolBar; const bvl : TBevel);
     procedure RegistrarRotinaSistema; override;
+    procedure pgcGuiasOnChange; virtual; 
   protected
     procedure CentralizarCodigo;
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
@@ -440,6 +441,9 @@ begin
                     pgcGuias.ActivePageIndex := iPage;
                   if ( pgcGuias.ActivePageIndex = 0 ) then
                     dbgDados.SetFocus;
+
+                  if Assigned(pgcGuias.OnChange) then
+                    pgcGuiasOnChange;
                 end
                 else
                 if ( pgcGuias.ActivePageIndex = 0 ) then
@@ -954,6 +958,11 @@ begin
     Result := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
   else
     Result := Trim(CampoCodigo);
+end;
+
+procedure TfrmGrPadraoCadastro.pgcGuiasOnChange;
+begin
+  ;
 end;
 
 end.

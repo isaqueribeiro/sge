@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, DBClient, Provider;
+  ToolWin, rxToolEdit, RXDBCtrl, DBClient, Provider, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeCentroCusto = class(TfrmGrPadraoCadastro)
@@ -61,7 +62,8 @@ var
   frmGeCentroCusto: TfrmGeCentroCusto;
 
   function SelecionarDepartamento(const AOwner : TComponent;
-    const ClienteID : Integer; const EmpresaID : String; var Codigo : Integer; var Nome : String) : Boolean;
+    const ClienteID : Integer; const EmpresaID : String; var Codigo : Integer; var Nome : String;
+    var ClienteIDRetorno : Integer) : Boolean;
 
 implementation
 
@@ -71,7 +73,8 @@ uses
 {$R *.dfm}
 
 function SelecionarDepartamento(const AOwner : TComponent;
-  const ClienteID : Integer; const EmpresaID : String; var Codigo : Integer; var Nome : String) : Boolean;
+  const ClienteID : Integer; const EmpresaID : String; var Codigo : Integer; var Nome : String;
+  var ClienteIDRetorno : Integer) : Boolean;
 var
   frm : TfrmGeCentroCusto;
 begin
@@ -86,13 +89,16 @@ begin
     else
     if ( Trim(frm.fEmpresaDepartamento) <> EmptyStr ) then
       frm.WhereAdditional := '(c.codigo in (Select ce.centro_custo from TBCENTRO_CUSTO_EMPRESA ce where ce.empresa = ' +
-        QuotedStr(frm.fEmpresaDepartamento) + '))'
+        QuotedStr(frm.fEmpresaDepartamento) + ')) or (c.codcliente is not null)'
     else
       frm.WhereAdditional := EmptyStr;
 
     frm.IbDtstTabela.SelectSQL.Add('where 1=1 ' + IfThen(frm.WhereAdditional = EmptyStr, '', ' and ' + frm.WhereAdditional));
 
     Result := frm.SelecionarRegistro(Codigo, Nome);
+
+    if Result then
+      ClienteIDRetorno := frm.IbDtstTabelaCODCLIENTE.AsInteger;
   finally
     frm.Destroy;
   end;
@@ -268,7 +274,7 @@ begin
   else
   if ( Trim(fEmpresaDepartamento) <> EmptyStr ) then
     WhereAdditional := '(c.codigo in (Select ce.centro_custo from TBCENTRO_CUSTO_EMPRESA ce where ce.empresa = ' +
-      QuotedStr(fEmpresaDepartamento) + '))'
+      QuotedStr(fEmpresaDepartamento) + ')) or (c.codcliente is not null)'
   else
     WhereAdditional := EmptyStr;
 

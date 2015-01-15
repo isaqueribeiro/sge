@@ -36,6 +36,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     end
     inherited btbtnLista: TcxButton
       TabOrder = 10
+      Visible = True
     end
     inherited btbtnFechar: TcxButton
       TabOrder = 3
@@ -271,8 +272,15 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
           item
             Expanded = False
-            FieldName = 'EMISSAO_DATA'
-            Title.Caption = 'Emiss'#227'o'
+            FieldName = 'TIPO'
+            Title.Caption = 'Tipo'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DATA_APROPRIACAO'
+            Title.Caption = 'Data'
             Width = 85
             Visible = True
           end
@@ -285,8 +293,8 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
           item
             Expanded = False
-            FieldName = 'NOMEFORN'
-            Title.Caption = 'Fornecedor'
+            FieldName = 'CC_DESCRICAO'
+            Title.Caption = 'Centro de Custo'
             Width = 330
             Visible = True
           end
@@ -306,19 +314,15 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
           item
             Expanded = False
-            FieldName = 'EMISSAO_USUARIO'
-            Title.Caption = 'Emissor / Solicitante'
-            Width = 130
+            FieldName = 'USUARIO'
+            Title.Caption = 'Respons'#225'vel'
+            Width = 100
             Visible = True
           end
           item
             Expanded = False
-            Width = 85
-            Visible = True
-          end
-          item
-            Expanded = False
-            Width = 70
+            FieldName = 'ENTRADA'
+            Width = 90
             Visible = True
           end>
       end
@@ -926,6 +930,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           KeyField = 'CODIGO'
           ListField = 'DESCRICAO'
+          ListSource = dtsTipoApropriacao
           ParentFont = False
           TabOrder = 4
         end
@@ -1745,11 +1750,13 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaTIPO: TSmallintField
+      Alignment = taLeftJustify
       DisplayLabel = 'Tipo Apropria'#231#227'o'
       FieldName = 'TIPO'
       Origin = '"TBAPROPRIACAO_ALMOX"."TIPO"'
       ProviderFlags = [pfInUpdate]
       Required = True
+      OnGetText = IbDtstTabelaTIPOGetText
     end
     object IbDtstTabelaCOMPRA_ANO: TSmallintField
       DisplayLabel = 'Entrada - Ano'
@@ -2020,6 +2027,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       
         '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
         'ricao) from 1 for 3) unidade_sigla'
+      '  , coalesce(p.qtde, 0.0) as estoque'
+      '  , coalesce(p.reserva, 0.0) as reserva'
+      '  , p.movimenta_estoque'
       'from TBAPROPRIACAO_ALMOX_ITEM i'
       '  left join TBPRODUTO p on (p.cod = i.produto)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
@@ -2124,6 +2134,23 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = []
       Size = 50
     end
+    object cdsTabelaItensESTOQUE: TIBBCDField
+      FieldName = 'ESTOQUE'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensRESERVA: TIBBCDField
+      FieldName = 'RESERVA'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField
+      FieldName = 'MOVIMENTA_ESTOQUE'
+      Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
+      ProviderFlags = []
+    end
   end
   object IbUpdTabelaItens: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2225,6 +2252,68 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   object dtsTipoApropriacao: TDataSource
     DataSet = tblTipoApropriacao
     Left = 976
+    Top = 208
+  end
+  object qryEntradaProduto: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '    i.codprod    as produto'
+      '  , i.unid_cod   as unidade'
+      '  , p.customedio as custo_medio'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3) unidade_sigla'
+      '  , coalesce(p.qtde, 0.0) as estoque'
+      '  , coalesce(p.reserva, 0.0) as reserva'
+      '  , p.movimenta_estoque'
+      ''
+      '  , sum(i.qtde) - sum(coalesce(ai.qtde, 0.0)) as quantidade'
+      ''
+      'from TBCOMPRAS c'
+      
+        '  inner join TBCOMPRASITENS i on (i.ano = c.ano and i.codcontrol' +
+        ' = c.codcontrol and i.codemp = c.codemp)'
+      '  inner join TBPRODUTO p on (p.cod = i.codprod)'
+      
+        '  left join TBAPROPRIACAO_ALMOX a on (a.compra_ano = c.ano and a' +
+        '.compra_num = c.codcontrol and a.compra_emp = c.codemp and a.sta' +
+        'tus <> 3)'
+      
+        '  left join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and a' +
+        'i.controle = a.controle and ai.produto = i.codprod)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = ai.unidade)'
+      ''
+      'where c.ano        = :ano'
+      '  and c.codcontrol = :cod'
+      '  and c.codemp     = :emp'
+      ''
+      'group by'
+      '    i.codprod'
+      '  , i.unid_cod'
+      '  , p.customedio'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3)'
+      '  , coalesce(p.qtde, 0.0)'
+      '  , coalesce(p.reserva, 0.0)'
+      '  , p.movimenta_estoque')
+    ModifySQL.Strings = (
+      '')
+    Left = 1008
     Top = 208
   end
 end

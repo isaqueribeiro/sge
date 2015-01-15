@@ -17,10 +17,10 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
   inherited tlbBotoes: TToolBar
     Top = 647
     Width = 1116
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       Visible = True
     end
-    object btnAutorizarRequisicao: TBitBtn
+    object btnAutorizarRequisicao: TcxButton
       Left = 726
       Top = 2
       Width = 120
@@ -85,7 +85,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnCancelarRequisicao: TBitBtn
+    object btnCancelarRequisicao: TcxButton
       Left = 846
       Top = 2
       Width = 120
