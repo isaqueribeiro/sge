@@ -7,7 +7,8 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, rxToolEdit, RXDBCtrl, DBClient, Provider, IBStoredProc,
-  frxClass, frxDBSet, Menus, IBQuery, ClipBrd;
+  frxClass, frxDBSet, Menus, IBQuery, ClipBrd, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -117,8 +118,6 @@ type
     cdsTabelaItens: TIBDataSet;
     IbUpdTabelaItens: TIBUpdateSQL;
     DtSrcTabelaItens: TDataSource;
-    btbtnFinalizar: TBitBtn;
-    btbtnGerarNFe: TBitBtn;
     Bevel11: TBevel;
     Bevel12: TBevel;
     IbDtstTabelaANO: TSmallintField;
@@ -172,7 +171,6 @@ type
     IbDtstTabelaNFE_ENVIADA: TSmallintField;
     IbDtstTabelaCANCEL_DATAHORA: TDateTimeField;
     IbDtstTabelaCANCEL_MOTIVO: TMemoField;
-    btbtnCancelarVND: TBitBtn;
     ppImprimir: TPopupMenu;
     nmImprimirVenda: TMenuItem;
     nmImprimirDANFE: TMenuItem;
@@ -196,7 +194,6 @@ type
     qryNFEXML_FILE: TMemoField;
     qryNFELOTE_ANO: TSmallintField;
     qryNFELOTE_NUM: TIntegerField;
-    btnConsultarProduto: TBitBtn;
     Bevel13: TBevel;
     dbTotalDesconto: TRxDBComboEdit;
     lblTotalDesconto: TLabel;
@@ -372,6 +369,10 @@ type
     BtnCorrigirDadosNFe: TSpeedButton;
     ppCorrigirDadosNFe: TPopupMenu;
     nmPpCorrigirDadosNFeCFOP: TMenuItem;
+    btnConsultarProduto: TcxButton;
+    btbtnFinalizar: TcxButton;
+    btbtnGerarNFe: TcxButton;
+    btbtnCancelarVND: TcxButton;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus;
+  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeApropriacaoEstoque = class(TfrmGrPadraoCadastro)
@@ -28,8 +29,6 @@ type
     dbDataApropriacao: TDBDateEdit;
     lblUsuario: TLabel;
     dbUsuario: TDBEdit;
-    btnEncerrarApropriacao: TBitBtn;
-    btnCancelarApropriacao: TBitBtn;
     Bevel12: TBevel;
     cdsTabelaItens: TIBDataSet;
     IbUpdTabelaItens: TIBUpdateSQL;
@@ -61,7 +60,6 @@ type
     tbsObservacoes: TTabSheet;
     lblCustoUn: TLabel;
     dbCustoUn: TDBEdit;
-    btnFinalizarLancamento: TBitBtn;
     PnlObservacoes: TPanel;
     lblApropriacaoEmEdicao: TLabel;
     PgcTextoApropriacao: TPageControl;
@@ -126,6 +124,9 @@ type
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
     LblAjuda: TLabel;
+    btnFinalizarLancamento: TcxButton;
+    btnEncerrarApropriacao: TcxButton;
+    btnCancelarApropriacao: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);

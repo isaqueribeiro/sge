@@ -8,7 +8,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, IBStoredProc, Menus, IBQuery;
+  ToolWin, IBTable, rxToolEdit, RXDBCtrl, IBStoredProc, Menus, IBQuery,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeEntradaEstoque = class(TfrmGrPadraoCadastro)
@@ -180,7 +181,6 @@ type
     IbDtstTabelaNOMEFORN: TIBStringField;
     IbDtstTabelaCNPJ: TIBStringField;
     IbDtstTabelaCFOP_DESCRICAO: TIBStringField;
-    btbtnFinalizar: TBitBtn;
     Bevel12: TBevel;
     cdsTabelaItensANO: TSmallintField;
     cdsTabelaItensCODCONTROL: TIntegerField;
@@ -227,14 +227,12 @@ type
     cdsTabelaItensNCM_SH: TIBStringField;
     cdsTabelaItensCST: TIBStringField;
     cdsTabelaItensCFOP: TIntegerField;
-    btbtnCancelarENT: TBitBtn;
     lblEntradaAberta: TLabel;
     lblEntradaCancelada: TLabel;
     Label1: TLabel;
     lblData: TLabel;
     e1Data: TDateEdit;
     e2Data: TDateEdit;
-    btbtnGerarNFe: TBitBtn;
     lblAliquota: TLabel;
     dbAliquota: TDBEdit;
     lblPercRedBC: TLabel;
@@ -301,6 +299,9 @@ type
     IbDtstTabelaTIPO_MOVIMENTO: TSmallintField;
     qryNFEMODELO: TSmallintField;
     qryNFEVERSAO: TSmallintField;
+    btbtnFinalizar: TcxButton;
+    btbtnGerarNFe: TcxButton;
+    btbtnCancelarENT: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);

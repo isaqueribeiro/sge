@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, IBStoredProc;
+  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, IBStoredProc, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeCotacaoCompra = class(TfrmGrPadraoCadastro)
@@ -30,8 +31,6 @@ type
     dbUsuario: TDBEdit;
     lblAutorizador: TLabel;
     dbAutorizador: TDBEdit;
-    btnAutorizarCotacao: TBitBtn;
-    btnCancelarCotacao: TBitBtn;
     Bevel12: TBevel;
     cdsTabelaItens: TIBDataSet;
     IbUpdTabelaItens: TIBUpdateSQL;
@@ -74,7 +73,6 @@ type
     dtsCondicaoPagto: TDataSource;
     lblValorUn: TLabel;
     dbValorUn: TDBEdit;
-    btnFinalizarCotacao: TBitBtn;
     tbsEventoLOG: TTabSheet;
     pnlRetiradaEntrega: TPanel;
     lblEnderecoEntrega: TLabel;
@@ -214,6 +212,9 @@ type
     nmProcessarRespostas: TMenuItem;
     stpSetCotacaoFornecedorItem: TIBStoredProc;
     stpSetCotacaoFornecedorProcessa: TIBStoredProc;
+    btnFinalizarCotacao: TcxButton;
+    btnAutorizarCotacao: TcxButton;
+    btnCancelarCotacao: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);

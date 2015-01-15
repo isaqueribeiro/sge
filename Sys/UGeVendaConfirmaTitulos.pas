@@ -5,13 +5,12 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
-  ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider;
+  ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeVendaConfirmaTitulos = class(TfrmGrPadrao)
     GrpBxControle: TGroupBox;
-    btnConfirmar: TBitBtn;
-    btFechar: TBitBtn;
     Bevel1: TBevel;
     qryTitulos: TIBDataSet;
     dtsTitulos: TDataSource;
@@ -51,6 +50,8 @@ type
     cdsTitulosDiaSemana: TSmallintField;
     cdsTitulosCNPJ: TStringField;
     cdsTitulosVALORREC: TBCDField;
+    btnConfirmar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

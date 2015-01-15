@@ -19,10 +19,10 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
   inherited tlbBotoes: TToolBar
     Top = 647
     Width = 1116
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       Visible = True
     end
-    object btnFinalizarCotacao: TBitBtn
+    object btnFinalizarCotacao: TcxButton
       Tag = 11
       Left = 726
       Top = 2
@@ -88,7 +88,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnAutorizarCotacao: TBitBtn
+    object btnAutorizarCotacao: TcxButton
       Tag = 12
       Left = 846
       Top = 2
@@ -154,7 +154,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnCancelarCotacao: TBitBtn
+    object btnCancelarCotacao: TcxButton
       Tag = 13
       Left = 966
       Top = 2

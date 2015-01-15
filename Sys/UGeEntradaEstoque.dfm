@@ -19,11 +19,11 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited tlbBotoes: TToolBar
     Top = 639
     Width = 1099
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       Caption = 'Imprimir'
       Visible = True
     end
-    object btbtnFinalizar: TBitBtn
+    object btbtnFinalizar: TcxButton
       Tag = 11
       Left = 726
       Top = 2
@@ -88,7 +88,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btbtnGerarNFe: TBitBtn
+    object btbtnGerarNFe: TcxButton
       Tag = 12
       Left = 846
       Top = 2
@@ -153,7 +153,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btbtnCancelarENT: TBitBtn
+    object btbtnCancelarENT: TcxButton
       Tag = 13
       Left = 966
       Top = 2
@@ -472,6 +472,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Width = 1091
         Height = 113
         Caption = 'Dados nominais da NF'
+        DesignSize = (
+          1091
+          113)
         inherited lblCodigo: TLabel
           Width = 67
           Caption = 'No. Entrada:'

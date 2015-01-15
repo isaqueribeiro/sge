@@ -9,7 +9,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, UGrPadrao, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
-  DBClient, frxClass;
+  DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
@@ -17,13 +18,8 @@ type
     tlbBotoes: TToolBar;
     Bevel2: TBevel;
     Bevel3: TBevel;
-    btbtnIncluir: TBitBtn;
-    btbtnAlterar: TBitBtn;
-    btbtnExcluir: TBitBtn;
     bvlTool3: TBevel;
-    btbtnLista: TBitBtn;
     bvlTool2: TBevel;
-    btbtnFechar: TBitBtn;
     pgcGuias: TPageControl;
     tbsTabela: TTabSheet;
     Bevel4: TBevel;
@@ -36,8 +32,6 @@ type
     tbsCadastro: TTabSheet;
     IbDtstTabela: TIBDataSet;
     DtSrcTabela: TDataSource;
-    btbtnCancelar: TBitBtn;
-    btbtnSalvar: TBitBtn;
     bvlTool1: TBevel;
     GrpBxDadosNominais: TGroupBox;
     Bevel8: TBevel;
@@ -46,8 +40,15 @@ type
     IbUpdTabela: TIBUpdateSQL;
     ImgList: TImageList;
     bvlToolExpandir: TBevel;
-    btbtnSelecionar: TBitBtn;
     bvlTool4: TBevel;
+    btbtnFechar: TcxButton;
+    btbtnSelecionar: TcxButton;
+    btbtnIncluir: TcxButton;
+    btbtnAlterar: TcxButton;
+    btbtnExcluir: TcxButton;
+    btbtnCancelar: TcxButton;
+    btbtnSalvar: TcxButton;
+    btbtnLista: TcxButton;
     procedure dbgDadosKeyPressENTER(Sender: TObject; var Key: Char);
     procedure dbgDadosKeyPressNO_ENTER(Sender: TObject; var Key: Char);
     procedure btbtnFecharClick(Sender: TObject);
@@ -650,6 +651,10 @@ begin
         if ( Components[I] is TBitBtn ) then
           if ( TBitBtn(Components[I]).Visible ) then
             T := T + TBitBtn(Components[I]).Width;
+
+        if ( Components[I] is TcxButton ) then
+          if ( TcxButton(Components[I]).Visible ) then
+            T := T + TcxButton(Components[I]).Width;
 
         if ( Components[I] is TBevel ) then
           if ( TBevel(Components[I]).Visible ) then

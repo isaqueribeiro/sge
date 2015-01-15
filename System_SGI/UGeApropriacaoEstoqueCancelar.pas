@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL;
+  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeApropriacaoEstoqueCancelar = class(TfrmGrPadrao)
@@ -26,8 +27,6 @@ type
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    btnCancelar: TBitBtn;
-    btFechar: TBitBtn;
     cdsApropriacao: TIBDataSet;
     updApropriacao: TIBUpdateSQL;
     dtsApropriacao: TDataSource;
@@ -47,6 +46,8 @@ type
     cdsApropriacaoCC_DESCRICAO: TIBStringField;
     cdsApropriacaoENTRADA: TIBStringField;
     cdsApropriacaoNOMEFORN: TIBStringField;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private

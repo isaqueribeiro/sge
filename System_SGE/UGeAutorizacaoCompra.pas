@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus;
+  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeAutorizacaoCompra = class(TfrmGrPadraoCadastro)
@@ -32,8 +33,6 @@ type
     dbUsuario: TDBEdit;
     lblAutorizador: TLabel;
     dbAutorizador: TDBEdit;
-    btnAutorizarCompra: TBitBtn;
-    btnCancelarAutorizacao: TBitBtn;
     Bevel12: TBevel;
     cdsTabelaItens: TIBDataSet;
     IbUpdTabelaItens: TIBUpdateSQL;
@@ -127,7 +126,6 @@ type
     cdsTabelaItensUNP_SIGLA: TIBStringField;
     lblValorUn: TLabel;
     dbValorUn: TDBEdit;
-    btnFinalizarAutorizacao: TBitBtn;
     cdsTabelaItensUSUARIO: TIBStringField;
     lblTotalDesconto: TLabel;
     dbTotalDesconto: TDBEdit;
@@ -187,6 +185,9 @@ type
     dbCentroCusto: TRxDBComboEdit;
     IbDtstTabelaCENTRO_CUSTO: TIntegerField;
     IbDtstTabelaDESCRICAO_CENTRO_CUSTO: TIBStringField;
+    btnFinalizarAutorizacao: TcxButton;
+    btnAutorizarCompra: TcxButton;
+    btnCancelarAutorizacao: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);

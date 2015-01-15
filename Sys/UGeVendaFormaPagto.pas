@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls,
-  IBUpdateSQL, ExtCtrls, Buttons;
+  IBUpdateSQL, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeVendaFormaPagto = class(TfrmGrPadrao)
@@ -55,8 +56,8 @@ type
     dbValorFormaPagto: TDBEdit;
     Label2: TLabel;
     Bevel2: TBevel;
-    btnConfirmar: TBitBtn;
-    btnCancelar: TBitBtn;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure dbFormaPagtoClick(Sender: TObject);
     procedure dbCondicaoPagtoClick(Sender: TObject);

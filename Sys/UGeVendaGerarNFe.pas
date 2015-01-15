@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, StdCtrls, Mask,
-  DBCtrls, ExtCtrls, Buttons;
+  DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeVendaGerarNFe = class(TfrmGrPadrao)
@@ -28,8 +29,6 @@ type
     Bevel1: TBevel;
     GrpBxImposto: TGroupBox;
     Bevel2: TBevel;
-    btnConfirmar: TBitBtn;
-    btnCancelar: TBitBtn;
     lblBaseICMS: TLabel;
     dbBaseICMS: TDBEdit;
     lblValorICMS: TLabel;
@@ -66,7 +65,6 @@ type
     cdsVendaSERIE: TIBStringField;
     cdsVendaNFE: TLargeintField;
     cdsVendaSTATUS: TSmallintField;
-    btnCalcular: TBitBtn;
     cdsVendaCODEMP: TIBStringField;
     cdsVendaCODCLI: TIBStringField;
     lblInforme: TLabel;
@@ -103,6 +101,9 @@ type
     cdsVendaVALOR_TOTAL_COFINS: TIBBCDField;
     cdsVendaNFE_DENEGADA: TSmallintField;
     cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField;
+    btnCalcular: TcxButton;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);

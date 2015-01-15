@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, ExtCtrls, StdCtrls,
-  Mask, DBCtrls, Buttons;
+  Mask, DBCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeVendaCancelar = class(TfrmGrPadrao)
@@ -28,8 +29,6 @@ type
     Bevel1: TBevel;
     GrpBxImposto: TGroupBox;
     Bevel2: TBevel;
-    btnCancelar: TBitBtn;
-    btFechar: TBitBtn;
     lblCancelUsuario: TLabel;
     lblCancelDataHora: TLabel;
     lblMotivo: TLabel;
@@ -61,6 +60,8 @@ type
     cdsVendaDESCONTO: TIBBCDField;
     cdsVendaCODCLIENTE: TIntegerField;
     cdsVendaNFE_DENEGADA: TSmallintField;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

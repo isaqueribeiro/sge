@@ -696,7 +696,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       ReadOnly = True
       TabOrder = 13
     end
-    object btnCalcular: TBitBtn
+    object btnCalcular: TcxButton
       Left = 216
       Top = 232
       Width = 169
@@ -767,7 +767,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       NumGlyphs = 2
     end
   end
-  object btnConfirmar: TBitBtn
+  object btnConfirmar: TcxButton
     Left = 408
     Top = 377
     Width = 92
@@ -829,7 +829,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
     NumGlyphs = 2
   end
-  object btnCancelar: TBitBtn
+  object btnCancelar: TcxButton
     Left = 504
     Top = 377
     Width = 92

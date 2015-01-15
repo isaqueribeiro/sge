@@ -362,7 +362,7 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
       Text = 'DBCANCELDATAHORA'
     end
   end
-  object btnCancelar: TBitBtn
+  object btnCancelar: TcxButton
     Left = 405
     Top = 395
     Width = 92
@@ -424,8 +424,8 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
     NumGlyphs = 2
   end
-  object btFechar: TBitBtn
-    Left = 501
+  object btFechar: TcxButton
+    Left = 500
     Top = 395
     Width = 92
     Height = 33

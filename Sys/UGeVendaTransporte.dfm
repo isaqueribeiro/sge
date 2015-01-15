@@ -6,6 +6,9 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
   Caption = 'Controle de Vendas - Dados Transportadora'
   ClientHeight = 396
   ClientWidth = 603
+  DesignSize = (
+    603
+    396)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -1085,7 +1088,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         end>
     end
   end
-  object btnConfirmar: TBitBtn
+  object btnConfirmar: TcxButton
     Left = 415
     Top = 363
     Width = 92
@@ -1147,7 +1150,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
     NumGlyphs = 2
   end
-  object btnCancelar: TBitBtn
+  object btnCancelar: TcxButton
     Left = 511
     Top = 363
     Width = 92

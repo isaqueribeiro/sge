@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL;
+  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeCotacaoCompraCancelar = class(TfrmGrPadrao)
@@ -28,8 +29,6 @@ type
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    btnCancelar: TBitBtn;
-    btFechar: TBitBtn;
     cdsCotacao: TIBDataSet;
     updCotacao: TIBUpdateSQL;
     dtsCotacao: TDataSource;
@@ -42,6 +41,8 @@ type
     cdsCotacaoCANCELADO_USUARIO: TIBStringField;
     cdsCotacaoCANCELADO_MOTIVO: TMemoField;
     cdsCotacaoSTATUS: TSmallintField;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private

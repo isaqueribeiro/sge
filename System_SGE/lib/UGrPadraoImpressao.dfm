@@ -589,7 +589,7 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
       Height = 31
       Shape = bsSpacer
     end
-    object btnVisualizar: TBitBtn
+    object btnVisualizar: TcxButton
       Left = 4
       Top = 2
       Width = 93

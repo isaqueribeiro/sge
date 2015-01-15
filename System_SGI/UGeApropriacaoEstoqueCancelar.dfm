@@ -4,6 +4,9 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cancelar Apropria'#231#227'o de Estoque'
+  DesignSize = (
+    593
+    428)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -310,7 +313,7 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       Text = 'DBCANCELDATAHORA'
     end
   end
-  object btnCancelar: TBitBtn
+  object btnCancelar: TcxButton
     Left = 405
     Top = 395
     Width = 92
@@ -372,8 +375,8 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
     NumGlyphs = 2
   end
-  object btFechar: TBitBtn
-    Left = 501
+  object btFechar: TcxButton
+    Left = 500
     Top = 395
     Width = 92
     Height = 33

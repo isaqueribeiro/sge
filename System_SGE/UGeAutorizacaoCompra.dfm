@@ -19,10 +19,10 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
   inherited tlbBotoes: TToolBar
     Top = 647
     Width = 1116
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       Visible = True
     end
-    object btnFinalizarAutorizacao: TBitBtn
+    object btnFinalizarAutorizacao: TcxButton
       Tag = 11
       Left = 726
       Top = 2
@@ -88,7 +88,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnAutorizarCompra: TBitBtn
+    object btnAutorizarCompra: TcxButton
       Tag = 12
       Left = 846
       Top = 2
@@ -154,7 +154,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnCancelarAutorizacao: TBitBtn
+    object btnCancelarAutorizacao: TcxButton
       Tag = 13
       Left = 966
       Top = 2

@@ -19,10 +19,31 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   inherited tlbBotoes: TToolBar
     Top = 647
     Width = 1116
-    inherited btbtnLista: TBitBtn
-      Visible = True
+    inherited btbtnIncluir: TcxButton
+      TabOrder = 5
     end
-    object btnFinalizarLancamento: TBitBtn
+    inherited btbtnAlterar: TcxButton
+      TabOrder = 6
+    end
+    inherited btbtnExcluir: TcxButton
+      TabOrder = 7
+    end
+    inherited btbtnCancelar: TcxButton
+      TabOrder = 8
+    end
+    inherited btbtnSalvar: TcxButton
+      TabOrder = 9
+    end
+    inherited btbtnLista: TcxButton
+      TabOrder = 10
+    end
+    inherited btbtnFechar: TcxButton
+      TabOrder = 3
+    end
+    inherited btbtnSelecionar: TcxButton
+      TabOrder = 4
+    end
+    object btnFinalizarLancamento: TcxButton
       Tag = 11
       Left = 726
       Top = 2
@@ -33,7 +54,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       Enabled = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 10
+      TabOrder = 2
       OnClick = btnFinalizarLancamentoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
@@ -88,7 +109,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnEncerrarApropriacao: TBitBtn
+    object btnEncerrarApropriacao: TcxButton
       Tag = 12
       Left = 846
       Top = 2
@@ -99,7 +120,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       Enabled = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 8
+      TabOrder = 0
       OnClick = btnEncerrarApropriacaoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
@@ -154,7 +175,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnCancelarApropriacao: TBitBtn
+    object btnCancelarApropriacao: TcxButton
       Tag = 13
       Left = 966
       Top = 2
@@ -165,7 +186,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       Enabled = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 9
+      TabOrder = 1
       OnClick = btnCancelarApropriacaoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100

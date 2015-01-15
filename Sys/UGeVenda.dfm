@@ -20,20 +20,20 @@ inherited frmGeVenda: TfrmGeVenda
   inherited tlbBotoes: TToolBar
     Top = 647
     Width = 1116
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       Visible = True
     end
     inherited bvlToolExpandir: TBevel
       Width = 12
     end
-    inherited btbtnSelecionar: TBitBtn
+    inherited btbtnSelecionar: TcxButton
       Left = 553
       Width = 32
     end
     inherited bvlTool4: TBevel
       Left = 585
     end
-    object btnConsultarProduto: TBitBtn
+    object btnConsultarProduto: TcxButton
       Left = 589
       Top = 2
       Width = 75
@@ -88,7 +88,7 @@ inherited frmGeVenda: TfrmGeVenda
       Shape = bsSpacer
       Visible = False
     end
-    object btbtnFinalizar: TBitBtn
+    object btbtnFinalizar: TcxButton
       Tag = 11
       Left = 696
       Top = 2
@@ -153,7 +153,7 @@ inherited frmGeVenda: TfrmGeVenda
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btbtnGerarNFe: TBitBtn
+    object btbtnGerarNFe: TcxButton
       Tag = 12
       Left = 816
       Top = 2
@@ -218,7 +218,7 @@ inherited frmGeVenda: TfrmGeVenda
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btbtnCancelarVND: TBitBtn
+    object btbtnCancelarVND: TcxButton
       Tag = 13
       Left = 936
       Top = 2

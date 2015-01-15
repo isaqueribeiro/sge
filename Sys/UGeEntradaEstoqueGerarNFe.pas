@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, StdCtrls, Mask,
-  DBCtrls, ExtCtrls, Buttons;
+  DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeEntradaEstoqueGerarNFe = class(TfrmGrPadrao)
@@ -28,8 +29,6 @@ type
     Bevel1: TBevel;
     GrpBxImposto: TGroupBox;
     Bevel2: TBevel;
-    btnConfirmar: TBitBtn;
-    btnCancelar: TBitBtn;
     lblBaseICMS: TLabel;
     dbBaseICMS: TDBEdit;
     lblValorICMS: TLabel;
@@ -56,7 +55,6 @@ type
     dbValorCOFINS: TDBEdit;
     lblTotalNota: TLabel;
     dbTotalNota: TDBEdit;
-    btnCalcular: TBitBtn;
     lblInforme: TLabel;
     cdsCompraANO: TSmallintField;
     cdsCompraCODCONTROL: TIntegerField;
@@ -96,6 +94,9 @@ type
     cdsCompraVALOR_TOTAL_COFINS: TIBBCDField;
     cdsCompraNFSERIE: TIBStringField;
     TmrAlerta: TTimer;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
+    btnCalcular: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);

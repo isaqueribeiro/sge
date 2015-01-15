@@ -10,6 +10,9 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
   Font.Charset = ANSI_CHARSET
   Font.Name = 'Tahoma'
   OldCreateOrder = True
+  DesignSize = (
+    596
+    410)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -660,7 +663,7 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       ParentFont = False
       TabOrder = 13
     end
-    object btnCalcular: TBitBtn
+    object btnCalcular: TcxButton
       Left = 216
       Top = 232
       Width = 169
@@ -732,7 +735,7 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       NumGlyphs = 2
     end
   end
-  object btnConfirmar: TBitBtn
+  object btnConfirmar: TcxButton
     Left = 408
     Top = 377
     Width = 92
@@ -794,7 +797,7 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
     NumGlyphs = 2
   end
-  object btnCancelar: TBitBtn
+  object btnCancelar: TcxButton
     Left = 504
     Top = 377
     Width = 92

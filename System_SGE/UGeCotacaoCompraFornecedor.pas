@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
   IBCustomDataSet, IBUpdateSQL, rxToolEdit, RXDBCtrl, IBTable, OleServer,
-  ExcelXP, ComObj, ComCtrls, IBStoredProc, Grids, DBGrids;
+  ExcelXP, ComObj, ComCtrls, IBStoredProc, Grids, DBGrids, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TCotacaoFornecedorOpercao = (cfoInserir, cfoCarregarPlanilha, cfoEditar, cfoVisualizar);
@@ -22,8 +23,6 @@ type
     dbValidade: TDBEdit;
     Bevel1: TBevel;
     Bevel2: TBevel;
-    btnSalvar: TBitBtn;
-    btFechar: TBitBtn;
     qryFornecedor: TIBDataSet;
     qryFornecedorANO: TSmallintField;
     qryFornecedorCODIGO: TIntegerField;
@@ -93,10 +92,12 @@ type
     qryItemITEM: TSmallintField;
     qryItemVALOR_UNITARIO: TIBBCDField;
     qryItemVALOR_TOTAL: TIBBCDField;
-    BtnCarregarXLS: TBitBtn;
     dbgProdutos: TDBGrid;
     lblDataResposta: TLabel;
     dbDataResposta: TDBDateEdit;
+    BtnCarregarXLS: TcxButton;
+    btnSalvar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure qryFornecedorNewRecord(DataSet: TDataSet);

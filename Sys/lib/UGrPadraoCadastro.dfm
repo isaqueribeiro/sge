@@ -54,7 +54,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnIncluir: TBitBtn
+    object btbtnIncluir: TcxButton
       Tag = 1
       Left = 4
       Top = 2
@@ -81,7 +81,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
         00337777FFFF77FF7733EEEE0000000003337777777777777333}
       NumGlyphs = 2
     end
-    object btbtnAlterar: TBitBtn
+    object btbtnAlterar: TcxButton
       Tag = 2
       Left = 79
       Top = 2
@@ -108,7 +108,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
         00333377737FFFFF773333303300000003333337337777777333}
       NumGlyphs = 2
     end
-    object btbtnExcluir: TBitBtn
+    object btbtnExcluir: TcxButton
       Tag = 3
       Left = 154
       Top = 2
@@ -142,7 +142,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnCancelar: TBitBtn
+    object btbtnCancelar: TcxButton
       Left = 233
       Top = 2
       Width = 75
@@ -168,7 +168,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
         00333377737FFFFF773333303300000003333337337777777333}
       NumGlyphs = 2
     end
-    object btbtnSalvar: TBitBtn
+    object btbtnSalvar: TcxButton
       Left = 308
       Top = 2
       Width = 75
@@ -201,7 +201,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnLista: TBitBtn
+    object btbtnLista: TcxButton
       Tag = 4
       Left = 387
       Top = 2
@@ -236,7 +236,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnFechar: TBitBtn
+    object btbtnFechar: TcxButton
       Left = 466
       Top = 2
       Width = 75
@@ -269,7 +269,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnSelecionar: TBitBtn
+    object btbtnSelecionar: TcxButton
       Tag = 5
       Left = 602
       Top = 2

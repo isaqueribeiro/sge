@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, DBCtrls, ExtCtrls, Mask,
   rxToolEdit, RXDBCtrl, DB, IBCustomDataSet, IBUpdateSQL, Grids, DBGrids,
-  IBQuery;
+  IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  cxButtons;
 
 type
   TfrmGeVendaTransporte = class(TfrmGrPadrao)
@@ -28,8 +29,6 @@ type
     lblModalidadeFrete: TLabel;
     dbModalidadeFrete: TDBLookupComboBox;
     Bevel2: TBevel;
-    btnConfirmar: TBitBtn;
-    btnCancelar: TBitBtn;
     lblTransportadora: TLabel;
     dbTransportadora: TRxDBComboEdit;
     lblPlacaVeiculo: TLabel;
@@ -61,6 +60,8 @@ type
     dtsVendaVolume: TDataSource;
     btnVolumeCancelar: TBitBtn;
     qryVolume: TIBQuery;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbTransportadoraButtonClick(Sender: TObject);
