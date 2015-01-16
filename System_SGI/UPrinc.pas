@@ -7,12 +7,13 @@ uses
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
-  cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters,
-  
+  cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons,
+  cxLookAndFeels, dxSkinsForm,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, cxLookAndFeels, dxSkinsForm, cxButtons;
+  dxSkinOffice2010Silver;
 
 
 type
@@ -172,6 +173,8 @@ type
     popApropriacaoEstoque: TMenuItem;
     nmEstoqueApropriado: TMenuItem;
     nmTabelaCNAE: TMenuItem;
+    mnRelatorioAutorizacao: TMenuItem;
+    mnRelatorioEstoqueApropriacao: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -251,6 +254,7 @@ type
     procedure nmConverterReqAutCompraClick(Sender: TObject);
     procedure nmPlanoContaClick(Sender: TObject);
     procedure nmApropriacaoEstoqueClick(Sender: TObject);
+    procedure nmEstoqueApropriadoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -761,8 +765,8 @@ begin
   // Sub-menus
   
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_TAB_AUXILIAR_ID,    'Tabelas Auxiliares',        ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ENTRADA_ID,     'Relatórios de Entradas',    ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FATURAMENTO_ID, 'Relatórios de Faturamento', ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FINANCEIRO_ID,  'Relatórios do Financeiro',  ROTINA_MENU_RELATORIO_ID);
 
@@ -789,10 +793,11 @@ begin
 
   // Consultas
   
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_CNPJ_ID,        Trim(nmConsultarCNPJ.Caption),    ROTINA_MENU_CONSULTA_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_VENDA_ID,       Trim(nmVendaIemPesquisa.Caption), ROTINA_MENU_CONSULTA_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ROTATIVIDAD_ID, Trim(nmRotatividade.Caption),     ROTINA_MENU_CONSULTA_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ESTOQUE_MIN_ID, Trim(nmEstoqueMinimo.Caption),    ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_CNPJ_ID,        Trim(nmConsultarCNPJ.Caption),     ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_VENDA_ID,       Trim(nmVendaIemPesquisa.Caption),  ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ROTATIVIDAD_ID, Trim(nmRotatividade.Caption),      ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ESTOQUE_MIN_ID, Trim(nmEstoqueMinimo.Caption),     ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ESTOQUE_APR_ID, Trim(nmEstoqueApropriado.Caption), ROTINA_MENU_CONSULTA_ID);
 
   // Financeiro
   
@@ -959,6 +964,12 @@ procedure TfrmPrinc.nmApropriacaoEstoqueClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_ENT_APROPRIACAO_ESTOQ_ID, True) then
     MostrarControleApropriacao(Self);
+end;
+
+procedure TfrmPrinc.nmEstoqueApropriadoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_ESTOQUE_APR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeApropriacaoEstoquePesquisa');
 end;
 
 end.

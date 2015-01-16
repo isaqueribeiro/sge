@@ -166,6 +166,7 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unid_cod)'
       '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
       '')
+    ParamData = <>
     object QryPesquisaCODPROD: TIBStringField
       FieldName = 'CODPROD'
       Origin = '"TVENDASITENS"."CODPROD"'
@@ -187,10 +188,12 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       ProviderFlags = []
       Size = 50
     end
-    object QryPesquisaQUANTIDADE: TLargeintField
+    object QryPesquisaQUANTIDADE: TIBBCDField
       FieldName = 'QUANTIDADE'
       ProviderFlags = []
       DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
     end
     object QryPesquisaTOTAL_BRUTO: TIBBCDField
       FieldName = 'TOTAL_BRUTO'

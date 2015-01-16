@@ -1,10 +1,9 @@
-inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
-  Left = 450
-  Top = 225
+inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
+  Left = 479
+  Top = 235
   Width = 1057
   Height = 686
-  Caption = 'Estoque M'#237'nimo de Produtos'
-  OldCreateOrder = True
+  Caption = 'Consultar Apropria'#231#227'o de Estoque Atual'
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -89,7 +88,7 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
         OnClick = BtnPesquisarClick
       end
       object lblPesquisar: TLabel
-        Left = 216
+        Left = 560
         Top = 24
         Width = 55
         Height = 13
@@ -104,14 +103,22 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
         Caption = '&Definir filtro'
         FocusControl = edTipoFiltro
       end
-      object edPesquisar: TEdit
+      object lblCentroCusto: TLabel
         Left = 216
+        Top = 24
+        Width = 90
+        Height = 13
+        Caption = '&Centro de Custo'
+        FocusControl = edCentroCusto
+      end
+      object edPesquisar: TEdit
+        Left = 560
         Top = 40
-        Width = 773
+        Width = 429
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         CharCase = ecUpperCase
-        TabOrder = 1
+        TabOrder = 2
       end
       object edTipoFiltro: TComboBox
         Left = 16
@@ -127,6 +134,70 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
           'Por Fabricante'
           'Por Produto')
       end
+      object edCentroCusto: TComboEdit
+        Left = 216
+        Top = 40
+        Width = 337
+        Height = 21
+        ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+        ClickKey = 16464
+        Glyph.Data = {
+          36060000424D3606000000000000360000002800000020000000100000000100
+          18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+          1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+          AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+          C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+          6048306048306048306048306048306048306048306048306048305048403050
+          604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+          7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+          FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+          D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+          C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+          FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+          E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+          7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+          FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+          B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+          7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+          FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+          8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+          FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+          5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+          FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+          6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+          FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+          951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+          FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+          FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+          7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+          FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+          7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+          E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+          7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+          1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+          B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+          C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+        NumGlyphs = 2
+        TabOrder = 1
+        Text = '(Todos)'
+        OnButtonClick = edCentroCustoButtonClick
+        OnKeyPress = edCentroCustoKeyPress
+      end
     end
   end
   object tlbBotoes: TToolBar
@@ -138,7 +209,7 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     ButtonHeight = 31
     ButtonWidth = 96
     Caption = #39
-    TabOrder = 1
+    TabOrder = 2
     object Bevel2: TBevel
       Left = 0
       Top = 2
@@ -157,7 +228,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       ShowHint = True
       TabOrder = 0
       TabStop = False
-      OnClick = btBtnExportarClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         18000000000000030000C20E0000C20E00000000000000000000FFFFFFFFFFFF
@@ -197,7 +267,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       ShowHint = True
       TabOrder = 1
       TabStop = False
-      OnClick = btBtnEnviarEmailClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         180000000000000300000000000000000000000000000000000000FF00B29B96
@@ -240,7 +309,7 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
     object TbsGrupo: TTabSheet
       Caption = 'TbsGrupo'
       ImageIndex = 1
@@ -255,8 +324,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
         Align = alClient
         TabOrder = 0
         object dbgGrupoTbl: TcxGridDBBandedTableView
-          OnDblClick = dbgGrupoTblDblClick
-          OnKeyPress = NovaPesquisaKeyPress
           NavigatorButtons.ConfirmDelete = False
           DataController.DataSource = dsGrupo
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -510,8 +577,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
         Align = alClient
         TabOrder = 0
         object dbgFabTbl: TcxGridDBBandedTableView
-          OnDblClick = dbgFabTblDblClick
-          OnKeyPress = NovaPesquisaKeyPress
           NavigatorButtons.ConfirmDelete = False
           DataController.DataSource = dsFabricante
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -767,7 +832,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
         Align = alClient
         TabOrder = 0
         object dbgProdutoTbl: TcxGridDBBandedTableView
-          OnKeyPress = NovaPesquisaKeyPress
           NavigatorButtons.ConfirmDelete = False
           DataController.DataSource = dsProduto
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -975,6 +1039,145 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       end
     end
   end
+  object svdArquivo: TSaveDialog
+    DefaultExt = '.xls'
+    Filter = 'Planilha Excel (*.xls)|*.xls'
+    Title = 'Salvar arquivo'
+    Left = 280
+    Top = 200
+  end
+  object smtpEmail: TIdSMTP
+    MaxLineAction = maException
+    Port = 25
+    AuthenticationType = atNone
+    Left = 312
+    Top = 200
+  end
+  object msgEmail: TIdMessage
+    AttachmentEncoding = 'MIME'
+    BccList = <>
+    CCList = <>
+    DeleteTempFiles = False
+    Encoding = meMIME
+    Priority = mpHigh
+    Recipients = <>
+    ReplyTo = <>
+    Left = 344
+    Top = 200
+  end
+  object IdSSLIOHandlerSocket: TIdSSLIOHandlerSocket
+    SSLOptions.Method = sslvSSLv2
+    SSLOptions.Mode = sslmClient
+    SSLOptions.VerifyMode = []
+    SSLOptions.VerifyDepth = 0
+    Left = 376
+    Top = 200
+  end
+  object StyleRepository: TcxStyleRepository
+    Left = 408
+    Top = 200
+    PixelsPerInch = 96
+    object StyleSelecao: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clMoneyGreen
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object StyleContent: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clMenuBar
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = clBlack
+    end
+    object StyleContentEven: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 10930928
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = clBlack
+    end
+  end
+  object QryGrupo: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'select'
+      '    p.codgrupo as Codigo'
+      '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
+      '  , sum( coalesce(p.qtde, 0) ) as estoque'
+      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
+      '  , count( p.cod ) as itens'
+      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
+      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
+      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
+      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
+      '  , max( r.data_ultima_compra ) as data_ultima_compra'
+      '  , max( r.data_ultima_venda ) as data_ultima_venda'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      ''
+      
+        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
+        'lesce(p.estoqmin, 0))'
+      '  and (1=1)'
+      ''
+      'group by 1, 2'
+      ''
+      'order by 2')
+    Left = 56
+    Top = 288
+  end
+  object QryFabricante: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    SQL.Strings = (
+      'select'
+      '    p.codfabricante as Codigo'
+      '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
+      '  , sum( coalesce(p.qtde, 0) ) as estoque'
+      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
+      '  , count( p.cod ) as itens'
+      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
+      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
+      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
+      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
+      '  , max( r.data_ultima_compra ) as data_ultima_compra'
+      '  , max( r.data_ultima_venda ) as data_ultima_venda'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
+      'from TBPRODUTO p'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      ''
+      
+        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
+        'lesce(p.estoqmin, 0))'
+      '  and (1=1)'
+      ''
+      'group by 1, 2'
+      ''
+      'order by 2')
+    Left = 56
+    Top = 320
+  end
   object QryProduto: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -1019,496 +1222,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       '  , f.nome')
     Left = 56
     Top = 352
-  end
-  object DspProduto: TDataSetProvider
-    DataSet = QryProduto
-    Left = 88
-    Top = 352
-  end
-  object CdsProduto: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspProduto'
-    Left = 120
-    Top = 352
-    object CdsProdutoCODEMP: TStringField
-      FieldName = 'CODEMP'
-      Origin = '"TBPRODUTO"."CODEMP"'
-      Size = 18
-    end
-    object CdsProdutoCOD: TStringField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = '"TBPRODUTO"."COD"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object CdsProdutoCODIGO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = '"TBPRODUTO"."CODIGO"'
-    end
-    object CdsProdutoDESCRI: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRI'
-      Origin = '"TBPRODUTO"."DESCRI"'
-      Size = 50
-    end
-    object CdsProdutoAPRESENTACAO: TStringField
-      DisplayLabel = 'Apresenta'#231#227'o'
-      FieldName = 'APRESENTACAO'
-      Origin = '"TBPRODUTO"."APRESENTACAO"'
-      Size = 50
-    end
-    object CdsProdutoDESCRI_APRESENTACAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o / Apresenta'#231#227'o'
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
-      Size = 100
-    end
-    object CdsProdutoCODGRUPO: TSmallintField
-      FieldName = 'CODGRUPO'
-      Origin = '"TBPRODUTO"."CODGRUPO"'
-    end
-    object CdsProdutoGRUPO: TStringField
-      DisplayLabel = 'Grupo'
-      FieldName = 'GRUPO'
-      Origin = '"TBGRUPOPROD"."DESCRI"'
-      Size = 30
-    end
-    object CdsProdutoCODFABRICANTE: TIntegerField
-      FieldName = 'CODFABRICANTE'
-      Origin = '"TBPRODUTO"."CODFABRICANTE"'
-    end
-    object CdsProdutoFABRICANTE: TStringField
-      DisplayLabel = 'Fabricante'
-      FieldName = 'FABRICANTE'
-      Origin = '"TBFABRICANTE"."NOME"'
-      Size = 50
-    end
-    object CdsProdutoQTDE: TBCDField
-      DisplayLabel = 'Atual'
-      FieldName = 'QTDE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsProdutoESTOQMIN: TBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQMIN'
-      DisplayFormat = ',0'
-      Precision = 18
-      Size = 3
-    end
-    object CdsProdutoCODUNIDADE: TSmallintField
-      FieldName = 'CODUNIDADE'
-      Origin = '"TBPRODUTO"."CODUNIDADE"'
-    end
-    object CdsProdutoUNIDADE: TStringField
-      DisplayLabel = 'Und.'
-      FieldName = 'UNIDADE'
-      ProviderFlags = []
-      Size = 50
-    end
-    object CdsProdutoCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_01"'
-      DisplayFormat = ',0.###'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_01"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_01"'
-      DisplayFormat = ',0.###'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_01"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoDATA_ULTIMA_COMPRA: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Compra'
-      FieldName = 'DATA_ULTIMA_COMPRA'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."DATA_ULTIMA_COMPRA"'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object CdsProdutoDATA_ULTIMA_VENDA: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Venda'
-      FieldName = 'DATA_ULTIMA_VENDA'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."DATA_ULTIMA_VENDA"'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-  end
-  object dsProduto: TDataSource
-    DataSet = CdsProduto
-    Left = 152
-    Top = 352
-  end
-  object QryGrupo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    SQL.Strings = (
-      'select'
-      '    p.codgrupo as Codigo'
-      '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as estoque'
-      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
-      '  , count( p.cod ) as itens'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda ) as data_ultima_venda'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      ''
-      
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
-      '  and (1=1)'
-      ''
-      'group by 1, 2'
-      ''
-      'order by 2')
-    Left = 56
-    Top = 288
-  end
-  object DspGrupo: TDataSetProvider
-    DataSet = QryGrupo
-    Left = 88
-    Top = 288
-  end
-  object CdsGrupo: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspGrupo'
-    Left = 120
-    Top = 288
-    object CdsGrupoCODIGO: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      DisplayFormat = '##000'
-    end
-    object CdsGrupoDESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRICAO'
-      Size = 30
-    end
-    object CdsGrupoESTOQUE: TBCDField
-      DisplayLabel = 'Atual'
-      FieldName = 'ESTOQUE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsGrupoESTOQUE_MINIMO: TBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQUE_MINIMO'
-      DisplayFormat = ',0'
-      Precision = 18
-      Size = 3
-    end
-    object CdsGrupoITENS: TIntegerField
-      DisplayLabel = 'Itens'
-      FieldName = 'ITENS'
-      DisplayFormat = ',0'
-    end
-    object CdsGrupoCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsGrupoCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsGrupoVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsGrupoVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsGrupoDATA_ULTIMA_COMPRA: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Compra'
-      FieldName = 'DATA_ULTIMA_COMPRA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object CdsGrupoDATA_ULTIMA_VENDA: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Venda'
-      FieldName = 'DATA_ULTIMA_VENDA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object CdsGrupoPERCENT_CQ01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_CQ01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-    object CdsGrupoPERCENT_CV01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_CV01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-    object CdsGrupoPERCENT_VQ01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_VQ01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-    object CdsGrupoPERCENT_VV01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_VV01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-  end
-  object dsGrupo: TDataSource
-    DataSet = CdsGrupo
-    Left = 152
-    Top = 288
-  end
-  object QryFabricante: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    SQL.Strings = (
-      'select'
-      '    p.codfabricante as Codigo'
-      '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as estoque'
-      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
-      '  , count( p.cod ) as itens'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda ) as data_ultima_venda'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      'from TBPRODUTO p'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      ''
-      
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
-      '  and (1=1)'
-      ''
-      'group by 1, 2'
-      ''
-      'order by 2')
-    Left = 56
-    Top = 320
-  end
-  object DspFabricante: TDataSetProvider
-    DataSet = QryFabricante
-    Left = 88
-    Top = 320
-  end
-  object CdsFabricante: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspFabricante'
-    Left = 120
-    Top = 320
-    object CdsFabricanteCODIGO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      DisplayFormat = '###0000'
-    end
-    object CdsFabricanteDESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRICAO'
-      Size = 50
-    end
-    object CdsFabricanteESTOQUE: TBCDField
-      DisplayLabel = 'Atual'
-      FieldName = 'ESTOQUE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsFabricanteESTOQUE_MINIMO: TBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQUE_MINIMO'
-      DisplayFormat = ',0'
-      Precision = 18
-      Size = 3
-    end
-    object CdsFabricanteITENS: TIntegerField
-      DisplayLabel = 'Itens'
-      FieldName = 'ITENS'
-      DisplayFormat = ',0'
-    end
-    object CdsFabricanteCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsFabricanteCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsFabricanteVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsFabricanteVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsFabricanteDATA_ULTIMA_COMPRA: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Compra'
-      FieldName = 'DATA_ULTIMA_COMPRA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object CdsFabricanteDATA_ULTIMA_VENDA: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Venda'
-      FieldName = 'DATA_ULTIMA_VENDA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object CdsFabricantePERCENT_CQ01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_CQ01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-    object CdsFabricantePERCENT_CV01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_CV01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-    object CdsFabricantePERCENT_VQ01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_VQ01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-    object CdsFabricantePERCENT_VV01: TBCDField
-      DisplayLabel = '%'
-      FieldName = 'PERCENT_VV01'
-      DisplayFormat = ',0.0#'
-      Precision = 18
-    end
-  end
-  object dsFabricante: TDataSource
-    DataSet = CdsFabricante
-    Left = 152
-    Top = 320
-  end
-  object StyleRepository: TcxStyleRepository
-    Left = 408
-    Top = 200
-    PixelsPerInch = 96
-    object StyleSelecao: TcxStyle
-      AssignedValues = [svColor, svFont, svTextColor]
-      Color = clMoneyGreen
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      TextColor = clBlack
-    end
-    object StyleContent: TcxStyle
-      AssignedValues = [svColor, svFont, svTextColor]
-      Color = clMenuBar
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      TextColor = clBlack
-    end
-    object StyleContentEven: TcxStyle
-      AssignedValues = [svColor, svFont, svTextColor]
-      Color = 10930928
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      TextColor = clBlack
-    end
-  end
-  object svdArquivo: TSaveDialog
-    DefaultExt = '.xls'
-    Filter = 'Planilha Excel (*.xls)|*.xls'
-    Title = 'Salvar arquivo'
-    Left = 280
-    Top = 200
-  end
-  object smtpEmail: TIdSMTP
-    MaxLineAction = maException
-    Port = 25
-    AuthenticationType = atNone
-    Left = 312
-    Top = 200
-  end
-  object msgEmail: TIdMessage
-    AttachmentEncoding = 'MIME'
-    BccList = <>
-    CCList = <>
-    DeleteTempFiles = False
-    Encoding = meMIME
-    Priority = mpHigh
-    Recipients = <>
-    ReplyTo = <>
-    Left = 344
-    Top = 200
-  end
-  object IdSSLIOHandlerSocket: TIdSSLIOHandlerSocket
-    SSLOptions.Method = sslvSSLv2
-    SSLOptions.Mode = sslmClient
-    SSLOptions.VerifyMode = []
-    SSLOptions.VerifyDepth = 0
-    Left = 376
-    Top = 200
   end
   object QryTotal: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
@@ -1555,6 +1268,42 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     Left = 88
     Top = 400
   end
+  object DspProduto: TDataSetProvider
+    DataSet = QryProduto
+    Left = 88
+    Top = 352
+  end
+  object DspFabricante: TDataSetProvider
+    DataSet = QryFabricante
+    Left = 88
+    Top = 320
+  end
+  object DspGrupo: TDataSetProvider
+    DataSet = QryGrupo
+    Left = 88
+    Top = 288
+  end
+  object CdsGrupo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspGrupo'
+    Left = 120
+    Top = 288
+  end
+  object CdsFabricante: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspFabricante'
+    Left = 120
+    Top = 320
+  end
+  object CdsProduto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspProduto'
+    Left = 120
+    Top = 352
+  end
   object CdsTotal: TClientDataSet
     Aggregates = <>
     Params = <>
@@ -1566,5 +1315,20 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     DataSet = CdsTotal
     Left = 152
     Top = 400
+  end
+  object dsProduto: TDataSource
+    DataSet = CdsProduto
+    Left = 152
+    Top = 352
+  end
+  object dsFabricante: TDataSource
+    DataSet = CdsFabricante
+    Left = 152
+    Top = 320
+  end
+  object dsGrupo: TDataSource
+    DataSet = CdsGrupo
+    Left = 152
+    Top = 288
   end
 end

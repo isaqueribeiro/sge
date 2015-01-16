@@ -6,6 +6,9 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
   Caption = 'Consultar Recibo/Lote NF-e'
   ClientHeight = 512
   ClientWidth = 593
+  DesignSize = (
+    593
+    512)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -508,7 +511,7 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
       TabOrder = 5
     end
   end
-  object btnConfirmar: TBitBtn
+  object btnConfirmar: TcxButton
     Left = 405
     Top = 479
     Width = 92
@@ -570,7 +573,7 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
       00FFFF00FFCBCBCB8C8C8C888888939393B5B5B5FF00FFFF00FF}
     NumGlyphs = 2
   end
-  object btFechar: TBitBtn
+  object btFechar: TcxButton
     Left = 501
     Top = 479
     Width = 92

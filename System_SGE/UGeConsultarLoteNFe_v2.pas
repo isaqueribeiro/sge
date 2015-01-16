@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons,
-  ExtCtrls, Mask, DBCtrls, IBUpdateSQL, ClipBrd;
+  ExtCtrls, Mask, DBCtrls, IBUpdateSQL, ClipBrd, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TTipoMovimento = (tmNFeEntrada, tmNFeSaida, tmNull);
@@ -56,8 +57,6 @@ type
     edNumeroRecibo: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    btnConfirmar: TBitBtn;
-    btFechar: TBitBtn;
     qryLotesPendentesNFeANO: TSmallintField;
     qryLotesPendentesNFeNUMERO: TIntegerField;
     qryLotesPendentesNFeTIPONFE: TIntegerField;
@@ -86,6 +85,8 @@ type
     edChaveNFe: TEdit;
     lblProtocoloTMP: TLabel;
     edProtocoloTMP: TEdit;
+    btnConfirmar: TcxButton;
+    btFechar: TcxButton;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure btFecharClick(Sender: TObject);

@@ -16,13 +16,13 @@ type
     QryPesquisaPRODUTO: TIBStringField;
     QryPesquisaGRUPO: TIBStringField;
     QryPesquisaUNIDADE: TIBStringField;
-    QryPesquisaQUANTIDADE: TLargeintField;
     QryPesquisaTOTAL_BRUTO: TIBBCDField;
     QryPesquisaTOTAL_DESCONTO: TIBBCDField;
     QryPesquisaTOTAL_FINAL: TIBBCDField;
     QryPesquisaVENDEDOR: TIBStringField;
     QryPesquisaCLIENTE_CPF: TIBStringField;
     QryPesquisaCLIENTE_NOME: TIBStringField;
+    QryPesquisaQUANTIDADE: TIBBCDField;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

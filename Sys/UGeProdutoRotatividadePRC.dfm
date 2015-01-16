@@ -9,6 +9,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
   Font.Name = 'Tahoma'
   OldCreateOrder = True
   WindowState = wsMaximized
+  DesignSize = (
+    1011
+    590)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -2958,7 +2961,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnIncluir: TBitBtn
+    object btbtnIncluir: TcxButton
       Left = 4
       Top = 2
       Width = 75
@@ -2998,7 +3001,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         9C644A36FAFAFAFFFFFFFFFFFFFFFFFFFFFFFFD8C2B2D7C1B1D6C0B0D4BEAED2
         BDADD1BAABCFB9AACDB6A8CBB6A6CAB4A5FBFAFAFFFFFFFFFFFF}
     end
-    object btBtnEnviarEmail: TBitBtn
+    object btBtnEnviarEmail: TcxButton
       Left = 79
       Top = 2
       Width = 75

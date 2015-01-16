@@ -3,25 +3,24 @@ unit UGeProdutoRotatividadePRC;
 interface
 
 uses
+  UGrPadrao,
+  
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ToolWin, ComCtrls,
-  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles,
-  dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
-  dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy, dxSkinGlassOceans,
-  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
-  dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters,
+  cxControls, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, IdIOHandler,
+  IdIOHandlerSocket, IdSSLOpenSSL, IdMessage, IdBaseComponent, IdComponent,
+  IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP, IBStoredProc,
+  DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, ToolWin,
+  cxGridLevel, cxGridCustomTableView, cxGridTableView,
+  cxGridBandedTableView, cxGridDBBandedTableView, cxClasses,
+  cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons, dxSkinsForm, 
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
-  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
-  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
-  dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage,
-  cxEdit, DB, cxDBData, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridBandedTableView, cxGridDBBandedTableView,
-  cxClasses, cxGridLevel, cxGrid, DBClient, Provider, IBCustomDataSet,
-  IBQuery, IBStoredProc, DBCtrls, Gauges, Grids, DBGrids, IdBaseComponent,
-  IdComponent, IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
-  IdMessage, IdIOHandler, IdIOHandlerSocket, IdSSLOpenSSL;
+  dxSkinOffice2010Silver;
 
 type
   TFrmGeProdutoRotatividadePRC = class(TfrmGrPadrao)
@@ -39,7 +38,6 @@ type
     Bevel1: TBevel;
     tlbBotoes: TToolBar;
     Bevel2: TBevel;
-    btbtnIncluir: TBitBtn;
     Bevel3: TBevel;
     PgcTabelas: TPageControl;
     TbsProduto: TTabSheet;
@@ -429,7 +427,6 @@ type
     cxGridDBBandedColumn112: TcxGridDBBandedColumn;
     dbgFabLvl: TcxGridLevel;
     CdsFabricanteCODIGO: TIntegerField;
-    btBtnEnviarEmail: TBitBtn;
     smtpEmail: TIdSMTP;
     msgEmail: TIdMessage;
     IdSSLIOHandlerSocket: TIdSSLIOHandlerSocket;
@@ -437,6 +434,8 @@ type
     CdsGrupoQTDE: TBCDField;
     CdsFabricanteQTDE: TBCDField;
     CdsTotalQTDE: TBCDField;
+    btbtnIncluir: TcxButton;
+    btBtnEnviarEmail: TcxButton;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure edTipoProcessoChange(Sender: TObject);
