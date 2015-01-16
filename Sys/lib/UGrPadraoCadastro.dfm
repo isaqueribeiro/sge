@@ -1,9 +1,9 @@
 object frmGrPadraoCadastro: TfrmGrPadraoCadastro
-  Left = 397
-  Top = 229
+  Left = 393
+  Top = 217
   Width = 751
   Height = 440
-  ActiveControl = dbgDados
+  ActiveControl = dbCodigo
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Tabela Padr'#227'o de Cadastro'
   Color = clBtnFace
@@ -15,6 +15,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
   KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
@@ -348,7 +349,7 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
     Top = 0
     Width = 735
     Height = 359
-    ActivePage = tbsTabela
+    ActivePage = tbsCadastro
     Align = alClient
     Images = ImgList
     TabOrder = 0

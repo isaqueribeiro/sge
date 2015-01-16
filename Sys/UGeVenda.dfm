@@ -1,6 +1,6 @@
 inherited frmGeVenda: TfrmGeVenda
-  Left = 302
-  Top = 122
+  Left = 386
+  Top = 212
   Width = 1132
   Height = 724
   ActiveControl = nil
@@ -295,7 +295,6 @@ inherited frmGeVenda: TfrmGeVenda
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 643
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
@@ -1984,7 +1983,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 424
         Width = 1108
         Height = 190
-        ActivePage = TbsInformeNFe
+        ActivePage = tbsRecebimento
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet

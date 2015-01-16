@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, DB,
-  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, rxToolEdit, RXDBCtrl;
+  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, rxToolEdit, RXDBCtrl,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeEfetuarPagtoPAG = class(TfrmGrPadrao)
@@ -51,12 +52,12 @@ type
     dbBanco: TDBLookupComboBox;
     lblHistorico: TLabel;
     dbHistorico: TDBMemo;
-    btnConfirmar: TBitBtn;
-    btnCancelar: TBitBtn;
     cdsPagamentosUSUARIO: TIBStringField;
     dbDataPagto: TDBDateEdit;
     lblInforme: TLabel;
     tmrAlerta: TTimer;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);

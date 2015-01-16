@@ -96,7 +96,7 @@ PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=
 Packages=vcl;rtl;dbrtl;inet;inetdb;dsnap;bdertl;vclx;vcldb;vcldbx;visualclx;visualdbclx;vclactnband;vclshlctrls;vclie;xmlrtl;inetdbbde;inetdbxpress;webdsnap;soaprtl;websnap;adortl;dbexpress;dsnapcon;dbxcds;ibxpress;teeui;teedb;tee;dss;indy;VclSmp;dclOfficeXP;qrpt;teeqr;Rave50CLX;Rave50VCL;IntrawebDB_50_70;Intraweb_50_70;VclNewlyext;AbkStdD7;AbkLibD7;AbkDBStdD7;frx7;frxADO7;frxBDE7;frxcs7;frxDB7;frxDBX7;frxe7;frxIBX7;frxTee7;fs7;fsADO7;fsBDE7;fsDB7;fsIBX7;fsTee7;SqlDir70
-Conditionals=
+Conditionals=ACBR
 DebugSourceDirs=
 UsePackages=0
 [Parameters]
@@ -115,7 +115,7 @@ AutoIncBuild=0
 MajorVer=1
 MinorVer=0
 Release=0
-Build=0
+Build=1
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=Ágil Soluções em Softwares, ME
 FileDescription=Sistema Integrado de Gestão Empresarial/Industrial
-FileVersion=1.0.0.0
+FileVersion=1.0.0.1
 InternalName=SGI
 LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
 LegalTrademarks=
@@ -135,7 +135,7 @@ ProductName=SGI - Sistema de Gestão Empresarial/Industrial
 ProductVersion=1.0
 Comments=
 Systems Analyst=Isaque Marinho Ribeiro
-ReleaseDate=09/12/2014
+ReleaseDate=19/01/2015
 Contacts=(91) 9146.0444 / 3295.3390
 Owner=Isaque Marinho Ribeiro
 SplashName=
@@ -143,6 +143,9 @@ SplashDescription=
 Todos os direitos reservados.
 [Excluded Packages]
 c:\program files (x86)\borland\delphi7\Projects\Bpl\RVDBPkgD7.bpl=RichView DataAware
+[HistoryLists\hlConditionals]
+Count=1
+Item0=ACBR
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;

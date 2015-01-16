@@ -1,4 +1,6 @@
 inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
+  Left = 386
+  Top = 208
   Width = 1132
   Height = 724
   ActiveControl = dbCodigo

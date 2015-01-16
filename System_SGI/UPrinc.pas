@@ -546,7 +546,7 @@ procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
   sFileImage : String;
 begin
-  Self.Tag := SISTEMA_GESTAO;
+  Self.Tag := SISTEMA_GESTAO_IND;
 
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;

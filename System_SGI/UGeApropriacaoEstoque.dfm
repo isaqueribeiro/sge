@@ -1,6 +1,6 @@
 inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
-  Left = 388
-  Top = 210
+  Left = 391
+  Top = 211
   Width = 1132
   Height = 724
   ActiveControl = dbCodigo

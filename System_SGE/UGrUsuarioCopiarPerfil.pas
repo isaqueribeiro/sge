@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DBClient, Provider, DB, IBCustomDataSet, IBQuery,
-  StdCtrls;
+  StdCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  cxButtons;
 
 type
   TfrmGrUsuarioCopiarPerfil = class(TfrmGrPadrao)
@@ -14,7 +15,7 @@ type
     cdsPerfil: TClientDataSet;
     lblPerfil: TLabel;
     edPerfil: TComboBox;
-    btnSelecionar: TButton;
+    btnSelecionar: TcxButton;
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnSelecionarClick(Sender: TObject);

@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, IBCustomDataSet, IBUpdateSQL, DB, IBQuery, StdCtrls,
-  Buttons, ExtCtrls, Mask, DBCtrls, rxToolEdit, RXDBCtrl;
+  Buttons, ExtCtrls, Mask, DBCtrls, rxToolEdit, RXDBCtrl, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeEstoqueAjusteManual = class(TfrmGrPadrao)
@@ -19,14 +20,11 @@ type
     lblMotivo: TLabel;
     dbMotivo: TMemo;
     Bevel2: TBevel;
-    btnConfirmar: TBitBtn;
-    btnCancelar: TBitBtn;
     qryEmpresa: TIBQuery;
     qryAjuste: TIBDataSet;
     updAjuste: TIBUpdateSQL;
     qryProduto: TIBDataSet;
     updProduto: TIBUpdateSQL;
-    btnNovoAjuste: TBitBtn;
     lblProduto: TLabel;
     dbProduto: TRxDBComboEdit;
     lblProdutoDesc: TLabel;
@@ -69,6 +67,9 @@ type
     qryAjusteQTDENOVA: TIBBCDField;
     qryAjusteQTDEFINAL: TIBBCDField;
     qryProdutoQTDE: TIBBCDField;
+    btnNovoAjuste: TcxButton;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
     procedure ControlEditExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;

@@ -1,4 +1,6 @@
 inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
+  Left = 535
+  Top = 258
   ActiveControl = dbCodigo
   BorderStyle = bsDialog
   BorderWidth = 4

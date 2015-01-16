@@ -3,7 +3,8 @@ unit USobre;
 interface
 
 uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
-  Buttons, ExtCtrls;
+  Buttons, ExtCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons;
 
 type
   TfrmSobre = class(TForm)
@@ -12,10 +13,10 @@ type
     Version: TLabel;
     Copyright: TLabel;
     Comments: TLabel;
-    OKButton: TButton;
     FileDescription: TLabel;
     ImgLogo: TImage;
     Bevel1: TBevel;
+    OKButton: TcxButton;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

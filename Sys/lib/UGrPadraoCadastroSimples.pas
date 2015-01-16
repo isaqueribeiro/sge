@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, ToolWin, ComCtrls;
+  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, ToolWin, ComCtrls,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGrPadraoCadastroSimples = class(TfrmGrPadrao)
@@ -13,15 +14,15 @@ type
     Bevel2: TBevel;
     tlbBotoes: TToolBar;
     Bevel3: TBevel;
-    btbtnIncluir: TBitBtn;
-    btbtnAlterar: TBitBtn;
-    btbtnExcluir: TBitBtn;
     bvlTool1: TBevel;
-    btbtnCancelar: TBitBtn;
-    btbtnSalvar: TBitBtn;
     bvlTool2: TBevel;
-    btbtnFechar: TBitBtn;
     Bevel4: TBevel;
+    btbtnIncluir: TcxButton;
+    btbtnAlterar: TcxButton;
+    btbtnExcluir: TcxButton;
+    btbtnCancelar: TcxButton;
+    btbtnSalvar: TcxButton;
+    btbtnFechar: TcxButton;
   private
     { Private declarations }
   public

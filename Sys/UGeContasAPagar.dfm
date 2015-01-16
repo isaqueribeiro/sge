@@ -1,6 +1,6 @@
 inherited frmGeContasAPagar: TfrmGeContasAPagar
-  Left = 341
-  Top = 138
+  Left = 396
+  Top = 216
   Width = 950
   Height = 600
   ActiveControl = dbCodigo
@@ -19,10 +19,10 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
   inherited tlbBotoes: TToolBar
     Top = 523
     Width = 934
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       Visible = True
     end
-    object btbtnEfetuarPagto: TBitBtn
+    object btbtnEfetuarPagto: TcxButton
       Tag = 11
       Left = 726
       Top = 2

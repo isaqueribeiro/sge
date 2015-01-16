@@ -1,6 +1,6 @@
 inherited frmGePlanoContas: TfrmGePlanoContas
-  Left = 403
-  Top = 194
+  Left = 396
+  Top = 214
   Width = 812
   Height = 521
   ActiveControl = dbNivel

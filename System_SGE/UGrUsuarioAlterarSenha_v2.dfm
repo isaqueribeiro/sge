@@ -1,6 +1,6 @@
 object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
-  Left = 1012
-  Top = 305
+  Left = 388
+  Top = 221
   ActiveControl = dbNome
   BorderStyle = bsDialog
   Caption = 'Altera'#231#227'o de Senha'

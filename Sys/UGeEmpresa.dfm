@@ -1,6 +1,5 @@
 inherited frmGeEmpresa: TfrmGeEmpresa
-  Left = 538
-  Top = 278
+  Top = 219
   Width = 763
   Height = 465
   ActiveControl = dbCodigo
@@ -23,7 +22,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
     inherited bvlToolExpandir: TBevel
       Width = 81
     end
-    inherited btbtnSelecionar: TBitBtn
+    inherited btbtnSelecionar: TcxButton
       Left = 622
     end
     inherited bvlTool4: TBevel

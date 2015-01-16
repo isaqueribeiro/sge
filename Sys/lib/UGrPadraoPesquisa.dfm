@@ -1,6 +1,6 @@
 inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
-  Left = 497
-  Top = 249
+  Left = 390
+  Top = 217
   Width = 793
   Height = 469
   ActiveControl = edPesquisar

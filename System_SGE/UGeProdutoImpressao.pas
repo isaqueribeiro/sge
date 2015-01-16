@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   Buttons, ToolWin, ComCtrls, frxClass, frxDBSet, DBClient, Provider, DB,
-  IBCustomDataSet, IBQuery;
+  IBCustomDataSet, IBQuery, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeProdutoImpressao = class(TfrmGrPadraoImpressao)
@@ -82,6 +83,17 @@ procedure TfrmGeProdutoImpressao.FormCreate(Sender: TObject);
 var
   I : Integer;
 begin
+  // VW_PRODUTO_DEMANDA_ANUAL     -- Para Comércio
+  // VW_PRODUTO_DEMANDA_ANUAL_IND -- Para Indústria
+
+  Case gSistema.Codigo of
+    SISTEMA_GESTAO_COM:
+      QryDemandaProduto.SQL.Text := 'Select p.* from VW_PRODUTO_DEMANDA_ANUAL p';
+
+    SISTEMA_GESTAO_IND:
+      QryDemandaProduto.SQL.Text := 'Select p.* from VW_PRODUTO_DEMANDA_ANUAL_IND p';
+  end;
+
   for I := 0 to edRelatorio.Items.Count - 1 do
     edRelatorio.Items.Strings[I] := Format(edRelatorio.Items.Strings[I], [StrDescricaoProduto]);
 
@@ -268,7 +280,7 @@ begin
         SQL.Add('  and p.fabricante_cod = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
 
       if ( edEmpresa.ItemIndex > 0 ) then
-        SQL.Add('  and p.empresa_cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+        SQL.Add('  and p.empresa_cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));        
     end;
   except
     On E : Exception do

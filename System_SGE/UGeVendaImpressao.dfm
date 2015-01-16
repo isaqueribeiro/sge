@@ -1,4 +1,6 @@
 inherited frmGeVendaImpressao: TfrmGeVendaImpressao
+  Left = 532
+  Top = 279
   Caption = 'Relat'#243'rio de Vendas'
   ClientHeight = 320
   PixelsPerInch = 96

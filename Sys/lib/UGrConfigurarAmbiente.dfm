@@ -30,7 +30,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       Align = alTop
       Shape = bsTopLine
     end
-    object btnSalvar: TBitBtn
+    object btnSalvar: TcxButton
       Left = 311
       Top = 8
       Width = 92
@@ -92,7 +92,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnCancelar: TBitBtn
+    object btnCancelar: TcxButton
       Left = 406
       Top = 8
       Width = 92

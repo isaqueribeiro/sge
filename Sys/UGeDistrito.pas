@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, DB, IBCustomDataSet, ImgList, IBUpdateSQL,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin;
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  cxButtons;
 
 type
   TfrmGeDistrito = class(TfrmGrPadraoCadastro)

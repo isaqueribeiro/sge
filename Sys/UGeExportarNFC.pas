@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, rxToolEdit, ExtCtrls, Buttons, DB,
-  IBCustomDataSet;
+  IBCustomDataSet, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons;
 
 type
   TfrmGeExportarNFC = class(TfrmGrPadrao)
@@ -19,8 +20,6 @@ type
     PnlBotoes: TPanel;
     Bevel3: TBevel;
     lblInforme: TLabel;
-    btnExportar: TBitBtn;
-    btnCancelar: TBitBtn;
     cdsCompetencia: TIBDataSet;
     edCompetencia: TComboBox;
     cdsCompetenciaCMP_NUM: TIntegerField;
@@ -34,6 +33,8 @@ type
     cdsNFC: TIBDataSet;
     cdsNFCTIPO: TIBStringField;
     cdsNFCLINHA: TIBStringField;
+    btnExportar: TcxButton;
+    btnCancelar: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure MontarPeriodoClick(Sender: TObject);

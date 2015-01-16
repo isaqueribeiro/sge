@@ -7,7 +7,8 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, rxToolEdit, RXDBCtrl, IBTable, IBQuery, frxClass, frxDBSet,
-  DBClient, Provider, Menus, ACBrBase, ACBrExtenso;
+  DBClient, Provider, Menus, ACBrBase, ACBrExtenso, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeContasAPagar = class(TfrmGrPadraoCadastro)
@@ -29,7 +30,6 @@ type
     IbDtstTabelaNUMCHQ: TIBStringField;
     IbDtstTabelaPAGO_: TIBStringField;
     IbDtstTabelaDOCBAIX: TIBStringField;
-    btbtnEfetuarPagto: TBitBtn;
     IbDtstTabelaNOMEEMP: TIBStringField;
     Bevel5: TBevel;
     GrpBxDadosValores: TGroupBox;
@@ -133,6 +133,7 @@ type
     dbSaldoAPagar: TDBEdit;
     dbEmissao: TDBDateEdit;
     dbVencimento: TDBDateEdit;
+    btbtnEfetuarPagto: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);

@@ -1,4 +1,6 @@
 inherited frmGrUsuario: TfrmGrUsuario
+  Left = 391
+  Top = 219
   Width = 767
   Height = 495
   ActiveControl = nil

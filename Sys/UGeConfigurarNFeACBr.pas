@@ -7,13 +7,12 @@ uses
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, OleCtrls,
   SHDocVw, TypInfo,
 
-  pcnConversao;
+  pcnConversao, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  cxButtons;
 
 type
   TfrmGeConfigurarNFeACBr = class(TfrmGrPadrao)
     Bevel1: TBevel;
-    btnSalvar: TBitBtn;
-    btnCancelar: TBitBtn;
     grpBxConfigurar: TGroupBox;
     pgcGuias: TPageControl;
     TabSheet1: TTabSheet;
@@ -93,12 +92,10 @@ type
     cbEmailSSL: TCheckBox;
     mmEmailMsg: TMemo;
     opnDialog: TOpenDialog;
-    btnServico: TBitBtn;
     WBResposta: TWebBrowser;
     rgModoGerarNFe: TRadioGroup;
     lblInfoFisco: TLabel;
     edInfoFisco: TEdit;
-    btnValidadeCertificado: TBitBtn;
     lblPathSchemas: TLabel;
     edPathSchemas: TEdit;
     spPathSchemas: TSpeedButton;
@@ -112,6 +109,10 @@ type
     lblToken: TLabel;
     edToken: TEdit;
     ckEmitirNFCe: TCheckBox;
+    btnServico: TcxButton;
+    btnSalvar: TcxButton;
+    btnCancelar: TcxButton;
+    btnValidadeCertificado: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);

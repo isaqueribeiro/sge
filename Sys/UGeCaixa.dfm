@@ -1,9 +1,8 @@
 inherited frmGeCaixa: TfrmGeCaixa
-  Left = 557
-  Top = 195
+  Left = 402
+  Top = 222
   Width = 966
   Height = 542
-  ActiveControl = dbCodigo
   Caption = 'Gerenciar Caixas'
   OldCreateOrder = True
   OnActivate = FormActivate
@@ -20,20 +19,20 @@ inherited frmGeCaixa: TfrmGeCaixa
   inherited tlbBotoes: TToolBar
     Top = 465
     Width = 950
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       PopupMenu = ppImprimir
       Visible = True
     end
     inherited bvlToolExpandir: TBevel
       Width = 12
     end
-    inherited btbtnSelecionar: TBitBtn
+    inherited btbtnSelecionar: TcxButton
       Left = 553
     end
     inherited bvlTool4: TBevel
       Left = 673
     end
-    object btbtnEncerrar: TBitBtn
+    object btbtnEncerrar: TcxButton
       Tag = 11
       Left = 677
       Top = 2
@@ -105,7 +104,7 @@ inherited frmGeCaixa: TfrmGeCaixa
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnCancelarCaixa: TBitBtn
+    object btbtnCancelarCaixa: TcxButton
       Tag = 12
       Left = 801
       Top = 2
@@ -120,7 +119,7 @@ inherited frmGeCaixa: TfrmGeCaixa
       OnClick = btbtnCancelarCaixaClick
       Glyph.Data = {
         36060000424D3606000000000000360400002800000020000000100000000100
-        08000000000000020000C40E0000C40E00000001000000010000000000000910
+        08000000000000020000C40E0000C40E00000001000000000000000000000910
         1B0010101000604830002E3E52003343570036475B0050585000755E4A007760
         4C004051650043546800495A6E004B5C70004C5E72004D5F7300516377007070
         700080605000806850008070600000FF00008980770095827300998377003038
@@ -183,7 +182,6 @@ inherited frmGeCaixa: TfrmGeCaixa
   inherited pgcGuias: TPageControl
     Width = 950
     Height = 461
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
@@ -291,6 +289,9 @@ inherited frmGeCaixa: TfrmGeCaixa
         inherited grpBxFiltro: TGroupBox
           Left = 384
           Width = 554
+          DesignSize = (
+            554
+            54)
           inherited lbltFiltrar: TLabel
             Left = 286
             Width = 73

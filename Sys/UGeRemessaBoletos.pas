@@ -7,7 +7,8 @@ uses
   Dialogs, ExtCtrls, StdCtrls, DB, IBCustomDataSet, IBTable, ComCtrls,
   IBSQL, DBClient, Provider, IBUpdateSQL, IBQuery, Buttons, ToolWin, Grids,
   DBGrids, ComObj, frxClass, frxDBSet, UGrPadrao, ACBrBoleto,
-  ACBrBoletoFCFR, ACBrBase, Mask, rxToolEdit;
+  ACBrBoletoFCFR, ACBrBase, Mask, rxToolEdit, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeRemessaBoleto = class(TfrmGrPadrao)
@@ -45,9 +46,7 @@ type
     Bevel1: TBevel;
     tlbBotoes: TToolBar;
     Bevel3: TBevel;
-    btnFechar: TBitBtn;
     Bevel4: TBevel;
-    btnGerarRemessa: TBitBtn;
     Bevel5: TBevel;
     Bevel6: TBevel;
     dbgTitulos: TDBGrid;
@@ -116,8 +115,10 @@ type
     edFinal: TDateEdit;
     CdsTitulosSITUACAO: TSmallintField;
     chkEnviarCancelados: TCheckBox;
-    btnHistorico: TBitBtn;
     Bevel7: TBevel;
+    btnFechar: TcxButton;
+    btnGerarRemessa: TcxButton;
+    btnHistorico: TcxButton;
     procedure FormShow(Sender: TObject);
     procedure edBancoChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);

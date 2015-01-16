@@ -1,8 +1,9 @@
 inherited frmGePromocao: TfrmGePromocao
-  Left = 706
-  Top = 240
+  Left = 460
+  Top = 254
   Width = 770
   Height = 520
+  ActiveControl = dbCodigo
   Caption = 'Cadastro de Promo'#231#245'es'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -22,6 +23,7 @@ inherited frmGePromocao: TfrmGePromocao
   inherited pgcGuias: TPageControl
     Width = 754
     Height = 439
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel

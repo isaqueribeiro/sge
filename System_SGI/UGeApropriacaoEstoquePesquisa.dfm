@@ -1,6 +1,6 @@
 inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
-  Left = 479
-  Top = 235
+  Left = 400
+  Top = 213
   Width = 1057
   Height = 686
   Caption = 'Consultar Apropria'#231#227'o de Estoque Atual'

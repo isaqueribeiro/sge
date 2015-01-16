@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, rxCurrEdit, Menus;
+  ToolWin, IBTable, rxToolEdit, RXDBCtrl, rxCurrEdit, Menus, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TAliquota = (taICMS, taISS);
@@ -373,7 +374,7 @@ begin
   try
     frm.fAliquota := TipoAliquota;
 
-    if not GetEstoqueUnicoEmpresa(GetEmpresaIDDefault) then
+    if not GetEstoqueUnificadoEmpresa(GetEmpresaIDDefault) then
       frm.WhereAdditional := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')'
     else
       frm.WhereAdditional := '(1 = 1)';
@@ -924,16 +925,16 @@ begin
   dbPrecoVendaSugestao.Visible  := True;
   {$ENDIF}
 
-  btbtnIncluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnAlterar.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnExcluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnCancelar.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnSalvar.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
+  btbtnIncluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnAlterar.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnExcluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnCancelar.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnSalvar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
-  ShpLucroZerado.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
-  lblLucroZerado.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
-  ShpLucroNegativo.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
-  lblLucroNegativo.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
+  ShpLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  lblLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  ShpLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  lblLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   nmProdutoLista.Caption    := 'Lista de ' + StrDescricaoProduto;
   nmProdutoFicha.Caption    := 'Ficha de ' + StrDescricaoProduto;
@@ -1240,7 +1241,7 @@ begin
 
   dbgDados.Columns[COLUMN_LUCRO].Visible := ( gUsuarioLogado.Funcao in [FUNCTION_USER_ID_DIRETORIA..FUNCTION_USER_ID_GERENTE_FIN,
     FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM] )
-    and (gSistema.Codigo = SISTEMA_GESTAO);
+    and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 end;
 
 procedure TfrmGeProduto.dbgDadosDrawColumnCell(Sender: TObject;
@@ -1324,7 +1325,7 @@ end;
 
 procedure TfrmGeProduto.btnFiltrarClick(Sender: TObject);
 begin
-  if not GetEstoqueUnicoEmpresa(GetEmpresaIDDefault) then
+  if not GetEstoqueUnificadoEmpresa(GetEmpresaIDDefault) then
     WhereAdditional := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')'
   else
     WhereAdditional := '(1 = 1)';

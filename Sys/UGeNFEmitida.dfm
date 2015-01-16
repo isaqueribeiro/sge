@@ -1,6 +1,6 @@
 inherited frmGeNFEmitida: TfrmGeNFEmitida
-  Left = 700
-  Top = 273
+  Left = 422
+  Top = 223
   Height = 510
   ActiveControl = dbCodigo
   Caption = 'Notas Fiscais Emitidas'
@@ -15,22 +15,22 @@ inherited frmGeNFEmitida: TfrmGeNFEmitida
   end
   inherited tlbBotoes: TToolBar
     Top = 433
-    inherited btbtnIncluir: TBitBtn
+    inherited btbtnIncluir: TcxButton
       Visible = False
     end
-    inherited btbtnAlterar: TBitBtn
+    inherited btbtnAlterar: TcxButton
       Visible = False
     end
-    inherited btbtnExcluir: TBitBtn
+    inherited btbtnExcluir: TcxButton
       Visible = False
     end
-    inherited btbtnCancelar: TBitBtn
+    inherited btbtnCancelar: TcxButton
       Visible = False
     end
-    inherited btbtnSalvar: TBitBtn
+    inherited btbtnSalvar: TcxButton
       Visible = False
     end
-    inherited btbtnSelecionar: TBitBtn
+    inherited btbtnSelecionar: TcxButton
       Visible = True
     end
   end

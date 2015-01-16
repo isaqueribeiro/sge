@@ -7,7 +7,8 @@ uses
   Dialogs, ToolWin, ComCtrls, ExtCtrls, StdCtrls, Buttons, ImgList, Grids,
   DBGrids, DB, IBCustomDataSet, IBQuery, Mask, DBCtrls, DBClient, Provider,
   ComObj, IBUpdateSQL, IBTable, IBSQL, UGrPadrao, ACBrBoleto,
-  ACBrBoletoFCFR, ACBrBase, ACBrUtil;
+  ACBrBoletoFCFR, ACBrBase, ACBrUtil, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeGerarBoleto = class(TfrmGrPadrao)
@@ -58,7 +59,6 @@ type
     dbCEP: TDBEdit;
     Bevel4: TBevel;
     Bevel5: TBevel;
-    btnFechar: TBitBtn;
     Shape1: TShape;
     Label11: TLabel;
     Bevel6: TBevel;
@@ -84,7 +84,6 @@ type
     CdsTitulosPERCENTDESCONTO: TBCDField;
     CdsTitulosVALORRECTOT: TBCDField;
     CdsTitulosVALORSALDO: TBCDField;
-    btnGerarBoleto: TBitBtn;
     lbltDemonstrativo: TLabel;
     lbltMsgInstrucoes: TLabel;
     lblbBanco: TLabel;
@@ -145,6 +144,8 @@ type
     IbQryBancosBCO_LAYOUT_RETORNO: TSmallintField;
     CdsTitulosPARCELA_MAXIMA: TSmallintField;
     IbQryClientesCODIGO: TIntegerField;
+    btnFechar: TcxButton;
+    btnGerarBoleto: TcxButton;
     procedure edtFiltrarKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;

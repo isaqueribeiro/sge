@@ -1,6 +1,6 @@
 inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
-  Left = 450
-  Top = 225
+  Left = 399
+  Top = 215
   Width = 1057
   Height = 686
   Caption = 'Estoque M'#237'nimo de Produtos'

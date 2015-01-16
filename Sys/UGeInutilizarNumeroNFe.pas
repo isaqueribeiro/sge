@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, Mask, DBCtrls, DB,
-  IBCustomDataSet, IBUpdateSQL, IBQuery;
+  IBCustomDataSet, IBUpdateSQL, IBQuery, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeInutilizarNumeroNFe = class(TfrmGrPadrao)
@@ -30,8 +31,6 @@ type
     dbDataHora: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    btnConfirmar: TBitBtn;
-    btFechar: TBitBtn;
     cdsLOG: TIBDataSet;
     updLOG: TIBUpdateSQL;
     qryEmpresa: TIBQuery;
@@ -57,6 +56,8 @@ type
     cdsLOGTIPO: TSmallintField;
     cdsLOGDESCRICAO: TIBStringField;
     cdsLOGESPECIFICACAO: TMemoField;
+    btnConfirmar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;

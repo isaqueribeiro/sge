@@ -6,11 +6,11 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, IBTable;
+  ToolWin, rxToolEdit, RXDBCtrl, IBTable, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeContasAReceber = class(TfrmGrPadraoCadastro)
-    btbtnEfetuarPagto: TBitBtn;
     Bevel5: TBevel;
     GrpBxDadosValores: TGroupBox;
     lblCliente: TLabel;
@@ -122,6 +122,7 @@ type
     dbNFe: TDBEdit;
     IbDtstTabelaEMPRESA: TIBStringField;
     IbDtstTabelaCLIENTE: TIntegerField;
+    btbtnEfetuarPagto: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);

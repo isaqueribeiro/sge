@@ -246,7 +246,7 @@ var
   function GetPermitirDuplicarCNPJCliente(const sCNPJEmpresa : String) : Boolean;
   function GetAutorizacaoInformarCliente(const sCNPJEmpresa : String) : Boolean;
   function GetSimplesNacionalInsEmpresa(const sCNPJEmpresa : String) : Boolean;
-  function GetEstoqueUnicoEmpresa(const sCNPJEmpresa : String) : Boolean;
+  function GetEstoqueUnificadoEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetEstoqueSateliteEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetRegimeEmpresa(const sCNPJEmpresa : String) : TTipoRegime;
   function GetRazaoSocialEmpresa(const sCNPJEmpresa : String) : String;
@@ -1420,7 +1420,7 @@ begin
   end;
 end;
 
-function GetEstoqueUnicoEmpresa(const sCNPJEmpresa : String) : Boolean;
+function GetEstoqueUnificadoEmpresa(const sCNPJEmpresa : String) : Boolean;
 begin
   with DMBusiness, qryBusca do
   begin
@@ -2972,7 +2972,7 @@ end;
 
 procedure TDMBusiness.DataModuleCreate(Sender: TObject);
 begin
-  gSistema.Codigo := SISTEMA_GESTAO;
+  gSistema.Codigo := SISTEMA_GESTAO_COM;
   gSistema.Nome   := Application.Title;
 
   try

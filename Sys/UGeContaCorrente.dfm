@@ -1,9 +1,8 @@
 inherited frmGeContaCorrente: TfrmGeContaCorrente
-  Left = 538
-  Top = 151
+  Left = 401
+  Top = 224
   Width = 759
   Height = 478
-  ActiveControl = dbCodigo
   Caption = 'Controle de Conta Corrente'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -23,7 +22,6 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   inherited pgcGuias: TPageControl
     Width = 743
     Height = 397
-    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
         Top = 302

@@ -1,4 +1,6 @@
 inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
+  Left = 445
+  Top = 222
   ActiveControl = edDataInicial
   BorderStyle = bsDialog
   BorderWidth = 4
@@ -191,7 +193,7 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object btnExportar: TBitBtn
+    object btnExportar: TcxButton
       Left = 344
       Top = 7
       Width = 92
@@ -253,7 +255,7 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnCancelar: TBitBtn
+    object btnCancelar: TcxButton
       Left = 439
       Top = 7
       Width = 92

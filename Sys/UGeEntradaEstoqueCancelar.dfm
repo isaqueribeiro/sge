@@ -1,6 +1,6 @@
 inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
-  Left = 400
-  Top = 166
+  Left = 393
+  Top = 219
   Width = 617
   Height = 474
   ActiveControl = dbMotivo

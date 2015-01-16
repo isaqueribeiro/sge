@@ -8861,6 +8861,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
         Caption = 'Estoque Apropriado'
+        Visible = False
         OnClick = nmEstoqueApropriadoClick
       end
     end
@@ -10236,7 +10237,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
         Caption = 'Autoriza'#231#245'es / Requisi'#231#245'es'
-        Enabled = False
+        Visible = False
       end
     end
     object menuSobre: TMenuItem

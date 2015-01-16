@@ -7,7 +7,8 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, rxToolEdit, RXDBCtrl, Menus, IBStoredProc, frxClass,
-  frxDBSet, IBQuery;
+  frxDBSet, IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  cxButtons;
 
 type
   TfrmGeCaixa = class(TfrmGrPadraoCadastro)
@@ -71,7 +72,6 @@ type
     lblCaixaAberto: TLabel;
     lblCaixaCancelado: TLabel;
     Label1: TLabel;
-    btbtnEncerrar: TBitBtn;
     Bevel6: TBevel;
     qryMovimentoANO: TSmallintField;
     qryMovimentoNUMERO: TIntegerField;
@@ -97,7 +97,6 @@ type
     nmImprimirCaixaSintetico: TMenuItem;
     nmImprimirCaixaAnalitico: TMenuItem;
     lblData: TLabel;
-    btbtnCancelarCaixa: TBitBtn;
     Bevel7: TBevel;
     IBStrPrcCaixaConsolidar: TIBStoredProc;
     qryCaixaSintetico: TIBQuery;
@@ -110,6 +109,8 @@ type
     e1Data: TDateEdit;
     e2Data: TDateEdit;
     IbDtstTabelaEMPRESA: TIBStringField;
+    btbtnEncerrar: TcxButton;
+    btbtnCancelarCaixa: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -205,8 +206,9 @@ begin
 
 
     Case gSistema.Codigo of
-      SISTEMA_GESTAO : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_ID;
-      SISTEMA_PDV    : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_PDV_ID;
+      SISTEMA_GESTAO_COM ,
+      SISTEMA_GESTAO_IND : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_ID;
+      SISTEMA_PDV        : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_PDV_ID;
     end;
 
     frm.ShowModal;

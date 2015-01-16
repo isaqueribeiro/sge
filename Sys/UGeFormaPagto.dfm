@@ -1,6 +1,6 @@
 inherited frmGeFormaPagto: TfrmGeFormaPagto
-  Left = 444
-  Top = 235
+  Left = 403
+  Top = 212
   ActiveControl = dbCodigo
   Caption = 'Tabela de Formas de Pagamento'
   OldCreateOrder = True

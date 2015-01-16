@@ -1,4 +1,6 @@
 inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
+  Left = 422
+  Top = 216
   ActiveControl = edDataInicial
   BorderStyle = bsDialog
   BorderWidth = 4
@@ -177,7 +179,7 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
       ParentFont = False
       Visible = False
     end
-    object btnExportar: TBitBtn
+    object btnExportar: TcxButton
       Left = 344
       Top = 7
       Width = 92
@@ -239,7 +241,7 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnCancelar: TBitBtn
+    object btnCancelar: TcxButton
       Left = 439
       Top = 7
       Width = 92

@@ -1,4 +1,6 @@
 inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
+  Left = 416
+  Top = 220
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Contas A Pagar - Efetuar Pagamento'
@@ -379,7 +381,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       Text = 'dbCodigo'
     end
   end
-  object btnConfirmar: TBitBtn
+  object btnConfirmar: TcxButton
     Left = 380
     Top = 321
     Width = 83
@@ -441,7 +443,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
     NumGlyphs = 2
   end
-  object btnCancelar: TBitBtn
+  object btnCancelar: TcxButton
     Left = 468
     Top = 321
     Width = 83

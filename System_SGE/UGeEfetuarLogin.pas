@@ -6,10 +6,11 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons,
   ExtCtrls, UGrPadraoLogin, dxGDIPlusClasses, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, pngimage;
 
 type
   TFrmEfetuarLogin = class(TfrmGrPadraoLogin)
+    ImgLogoIndustria: TImage;
     procedure FormShow(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
   private
@@ -25,7 +26,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UPrinc, UFuncoes, UGrUsuario;
+  UDMBusiness, UPrinc, UFuncoes, UGrUsuario, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -82,6 +83,9 @@ end;
 procedure TFrmEfetuarLogin.FormShow(Sender: TObject);
 begin
   inherited;
+  ImgLogo.Visible          := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]);
+  ImgLogoIndustria.Visible := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+
   if ( DelphiIsRunning ) then
   begin
     Usuario := 'ISAQUE';

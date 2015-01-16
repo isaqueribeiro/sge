@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl, IBTable;
+  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl, IBTable, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeCartaCorrecao = class(TfrmGrPadraoCadastro)
@@ -40,12 +41,12 @@ type
     dbProtocolo: TDBEdit;
     dbEnviada: TDBCheckBox;
     mmCondicaoUso: TMemo;
-    BtnEnviarCCe: TBitBtn;
     IbDtstTabelaDataHora: TDateTimeField;
     IbDtstTabelaNotaFiscalEletronica: TStringField;
     IbDtstTabelaNFE_DESTINATARIO: TIBStringField;
     lblCartaPendente: TLabel;
     Bevel5: TBevel;
+    BtnEnviarCCe: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure dbNFeButtonClick(Sender: TObject);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
@@ -100,7 +101,7 @@ begin
   
   tblEmpresa.Open;
 
-  BtnEnviarCCe.Visible := GetEstacaoEmitiNFe and (gSistema.Codigo = SISTEMA_GESTAO);
+  BtnEnviarCCe.Visible := GetEstacaoEmitiNFe and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 end;
 
 procedure TfrmGeCartaCorrecao.dbNFeButtonClick(Sender: TObject);

@@ -8,7 +8,8 @@ uses
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, rxToolEdit, RXDBCtrl, IBQuery, Menus, JPEG,
   UObserverInterface, UCliente, ACBrBase, ACBrSocket, ACBrConsultaCNPJ,
-  ACBrConsultaCPF;
+  ACBrConsultaCPF, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  cxButtons;
 
 type
   TfrmGeCliente = class(TfrmGrPadraoCadastro, IObserver) // Observador
@@ -127,7 +128,6 @@ type
     dbcBloqueio: TDBCheckBox;
     IbDtstTabelaDESBLOQUEADO_DATA: TDateField;
     Bevel10: TBevel;
-    BtBtnProcesso: TBitBtn;
     IbDtstTabelaFONECEL: TIBStringField;
     IbDtstTabelaFONECOMERC: TIBStringField;
     lblFoneCelular: TLabel;
@@ -156,7 +156,6 @@ type
     ImgCaptcha: TImage;
     LabAtualizarCaptcha: TLabel;
     ckRemoverEspacosDuplos: TCheckBox;
-    btnConsultarCNPJ: TButton;
     BvlConsultar: TBevel;
     pnlRetornoCNPJ: TPanel;
     lblTipoX: TLabel;
@@ -183,12 +182,9 @@ type
     EditCEP: TEdit;
     EditSituacao: TEdit;
     EditFantasia: TEdit;
-    btnVoltar: TButton;
-    btnRecuperarCNPJ: TButton;
     ACBrConsultaCPF: TACBrConsultaCPF;
     pnlConsultarCPF: TPanel;
     edCPF: TMaskEdit;
-    btnConsultarCPF: TButton;
     lblCPFX: TLabel;
     tbsDadosAdcionais: TTabSheet;
     dbNFeDevolucao: TDBCheckBox;
@@ -236,7 +232,6 @@ type
     QryEstoqueSateliteDESCRICAO_SECAO: TIBStringField;
     QryEstoqueSateliteDESCRICAO_UNIDADE: TIBStringField;
     QryEstoqueSateliteUNP_SIGLA: TIBStringField;
-    BtnRequisicoes: TBitBtn;
     CmbBxFiltrarTipo: TComboBox;
     QryEstoqueSateliteVALOR_MEDIO: TIBBCDField;
     tblTipoCnpj: TIBTable;
@@ -267,6 +262,12 @@ type
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
     QryEstoqueSateliteQUANTIDADE: TIBBCDField;
+    BtBtnProcesso: TcxButton;
+    btnConsultarCNPJ: TcxButton;
+    btnVoltar: TcxButton;
+    btnRecuperarCNPJ: TcxButton;
+    btnConsultarCPF: TcxButton;
+    BtnRequisicoes: TcxButton;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -519,9 +520,9 @@ begin
   GrpBxCustosOper.Enabled       := GetCalcularCustoOperEmpresa(GetEmpresaIDDefault);
   dbEntregaFracionada.ReadOnly  := not GetEstoqueSateliteEmpresa(GetEmpresaIDDefault);
 
-  tbsDadosAdcionais.TabVisible := (gSistema.Codigo = SISTEMA_GESTAO);
-  tbsCompra.TabVisible         := (gSistema.Codigo = SISTEMA_GESTAO);
-  BtBtnProcesso.Visible        := (gSistema.Codigo = SISTEMA_GESTAO);
+  tbsDadosAdcionais.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  tbsCompra.TabVisible         := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  BtBtnProcesso.Visible        := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   if ( gSistema.Codigo = SISTEMA_PDV ) then
     CmbBxFiltrarTipo.ItemIndex := 1; // Pesquisar por CPF/CNPJ

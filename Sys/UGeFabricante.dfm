@@ -1,4 +1,6 @@
 inherited frmGeFabricante: TfrmGeFabricante
+  Left = 387
+  Top = 209
   Width = 767
   Height = 495
   ActiveControl = dbCodigo

@@ -1,9 +1,8 @@
 inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
-  Left = 525
-  Top = 363
+  Left = 389
+  Top = 221
   Width = 879
   Height = 542
-  ActiveControl = dbCodigo
   Caption = 'Carta de Corre'#231#227'o Eletr'#244'nica (CC-e)'
   OldCreateOrder = True
   OnActivate = FormActivate
@@ -20,9 +19,9 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
   inherited tlbBotoes: TToolBar
     Top = 465
     Width = 863
-    object BtnEnviarCCe: TBitBtn [12]
+    object BtnEnviarCCe: TcxButton
       Tag = 6
-      Left = 602
+      Left = 726
       Top = 2
       Width = 120
       Height = 31
@@ -88,24 +87,17 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       NumGlyphs = 2
     end
-    object Bevel5: TBevel [13]
-      Left = 722
+    object Bevel5: TBevel
+      Left = 846
       Top = 2
       Width = 4
       Height = 31
       Shape = bsSpacer
     end
-    inherited btbtnSelecionar: TBitBtn
-      Left = 726
-    end
-    inherited bvlTool4: TBevel
-      Left = 846
-    end
   end
   inherited pgcGuias: TPageControl
     Width = 863
     Height = 461
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
@@ -148,7 +140,7 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
         object lblCartaPendente: TLabel [0]
           Left = 2
           Top = 4
-          Width = 191
+          Width = 169
           Height = 13
           Caption = '* Carta de Corre'#231#227'o pendente'
           Font.Charset = ANSI_CHARSET
@@ -187,6 +179,9 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
       inherited GrpBxDadosNominais: TGroupBox
         Width = 855
         Height = 265
+        DesignSize = (
+          855
+          265)
         object lblNFe: TLabel [1]
           Left = 16
           Top = 104

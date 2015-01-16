@@ -1,6 +1,6 @@
 inherited frmGeProdutoKardex: TfrmGeProdutoKardex
-  Left = 394
-  Top = 217
+  Left = 384
+  Top = 211
   Width = 1099
   Height = 648
   Caption = 'Pesquisa Kardex (Hist'#243'rico de Produtos/Servi'#231'os)'

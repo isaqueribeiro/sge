@@ -585,7 +585,7 @@ begin
   btnConsultarProduto.Hint    := 'Consultar ' + StrDescricaoProduto;
 
   RdgStatusVenda.Controls[2].Enabled := False;
-  btbtnGerarNFe.Visible              := GetEstacaoEmitiNFe and (gSistema.Codigo = SISTEMA_GESTAO);
+  btbtnGerarNFe.Visible              := GetEstacaoEmitiNFe and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   if GetUserPermitirAlterarValorVenda then
   begin
@@ -594,16 +594,16 @@ begin
     dbValorUnit.Color    := dbProduto.Color;
   end;
 
-  nmGerarImprimirBoletos.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
-  nmEnviarEmailCliente.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
+  nmGerarImprimirBoletos.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  nmEnviarEmailCliente.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
-  btbtnFinalizar.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnCancelarVND.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
+  btbtnFinalizar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnCancelarVND.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
-  ShpLucroZerado.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
-  lblLucroZerado.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
-  ShpLucroNegativo.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
-  lblLucroNegativo.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
+  ShpLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  lblLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  ShpLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  lblLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   if (gSistema.Codigo = SISTEMA_PDV) then
   begin

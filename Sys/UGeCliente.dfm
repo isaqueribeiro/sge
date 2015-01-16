@@ -1,9 +1,8 @@
 inherited frmGeCliente: TfrmGeCliente
-  Left = 499
-  Top = 230
+  Left = 412
+  Top = 221
   Width = 860
   Height = 536
-  ActiveControl = dbCodigo
   Caption = 'Cadastro de Clientes'
   OldCreateOrder = True
   OnClose = FormClose
@@ -24,14 +23,14 @@ inherited frmGeCliente: TfrmGeCliente
     inherited bvlToolExpandir: TBevel
       Width = 28
     end
-    inherited btbtnSelecionar: TBitBtn
+    inherited btbtnSelecionar: TcxButton
       Left = 569
       TabOrder = 8
     end
     inherited bvlTool4: TBevel
       Left = 689
     end
-    object BtBtnProcesso: TBitBtn
+    object BtBtnProcesso: TcxButton
       Tag = 11
       Left = 693
       Top = 2
@@ -109,7 +108,6 @@ inherited frmGeCliente: TfrmGeCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 455
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
@@ -1809,7 +1807,7 @@ inherited frmGeCliente: TfrmGeCliente
           ParentFont = False
           TabOrder = 4
         end
-        object btnConsultarCNPJ: TButton
+        object btnConsultarCNPJ: TcxButton
           Left = 248
           Top = 256
           Width = 115
@@ -2176,7 +2174,7 @@ inherited frmGeCliente: TfrmGeCliente
           ReadOnly = True
           TabOrder = 4
         end
-        object btnVoltar: TButton
+        object btnVoltar: TcxButton
           Left = 8
           Top = 256
           Width = 115
@@ -2191,7 +2189,7 @@ inherited frmGeCliente: TfrmGeCliente
           TabOrder = 12
           OnClick = btnVoltarClick
         end
-        object btnRecuperarCNPJ: TButton
+        object btnRecuperarCNPJ: TcxButton
           Left = 328
           Top = 256
           Width = 115
@@ -2258,7 +2256,7 @@ inherited frmGeCliente: TfrmGeCliente
           Text = '   .   .   -  '
           OnKeyPress = edCNPJKeyPress
         end
-        object btnConsultarCPF: TButton
+        object btnConsultarCPF: TcxButton
           Left = 248
           Top = 256
           Width = 115
@@ -2517,7 +2515,7 @@ inherited frmGeCliente: TfrmGeCliente
         BevelOuter = bvNone
         TabOrder = 2
         Visible = False
-        object BtnRequisicoes: TBitBtn
+        object BtnRequisicoes: TcxButton
           Left = 1
           Top = 0
           Width = 223

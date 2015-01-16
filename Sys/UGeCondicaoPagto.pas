@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin;
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  cxButtons;
 
 type
   TfrmGeCondicaoPagto = class(TfrmGrPadraoCadastro)
@@ -145,11 +146,11 @@ begin
 
   UpdateGenerator;
 
-  btbtnIncluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnAlterar.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnExcluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnCancelar.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnSalvar.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
+  btbtnIncluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnAlterar.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnExcluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnCancelar.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnSalvar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 end;
 
 procedure TfrmGeCondicaoPagto.DtSrcTabelaDataChange(Sender: TObject;

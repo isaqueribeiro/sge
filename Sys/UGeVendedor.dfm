@@ -1,6 +1,6 @@
 inherited frmGeVendedor: TfrmGeVendedor
-  Left = 268
-  Top = 180
+  Left = 385
+  Top = 221
   Width = 746
   ActiveControl = dbCodigo
   Caption = 'Cadastro de Vendedores'
@@ -18,7 +18,7 @@ inherited frmGeVendedor: TfrmGeVendedor
     inherited bvlToolExpandir: TBevel
       Width = 36
     end
-    inherited btbtnSelecionar: TBitBtn
+    inherited btbtnSelecionar: TcxButton
       Left = 577
     end
     inherited bvlTool4: TBevel

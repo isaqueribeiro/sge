@@ -489,7 +489,7 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
       ParentFont = False
       TabOrder = 4
     end
-    object btnBuscar: TButton
+    object btnBuscar: TcxButton
       Left = 504
       Top = 80
       Width = 123

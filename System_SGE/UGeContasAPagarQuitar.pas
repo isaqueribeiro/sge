@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
   StdCtrls, Buttons, ExtCtrls, Mask, rxToolEdit, DBClient, Provider,
-  IBTable, RXDBCtrl, DBCtrls, IBUpdateSQL;
+  IBTable, RXDBCtrl, DBCtrls, IBUpdateSQL, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeContasAPagarQuitar = class(TfrmGrPadraoPesquisa)
@@ -55,7 +56,6 @@ type
     dbFormaPagto: TDBLookupComboBox;
     lblHistorico: TLabel;
     dbHistorico: TDBMemo;
-    BtnQuitar: TBitBtn;
     cdsPagamentos: TIBDataSet;
     cdsPagamentosANOLANC: TSmallintField;
     cdsPagamentosNUMLANC: TIntegerField;
@@ -71,6 +71,7 @@ type
     cdsPagamentosDOCUMENTO_BAIXA: TIBStringField;
     cdsPagamentosUSUARIO: TIBStringField;
     updPagamentos: TIBUpdateSQL;
+    BtnQuitar: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);

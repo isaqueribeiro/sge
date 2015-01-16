@@ -1,6 +1,6 @@
 inherited frmGeBancos: TfrmGeBancos
-  Left = 334
-  Top = 159
+  Left = 394
+  Top = 213
   Height = 510
   ActiveControl = dbCodigo
   Caption = 'Tabela de Bancos'

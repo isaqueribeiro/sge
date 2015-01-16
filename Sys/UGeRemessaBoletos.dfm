@@ -1,6 +1,6 @@
 object frmGeRemessaBoleto: TfrmGeRemessaBoleto
-  Left = 418
-  Top = 194
+  Left = 394
+  Top = 214
   Width = 928
   Height = 480
   BorderIcons = [biSystemMenu]
@@ -323,7 +323,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       Height = 31
       Shape = bsSpacer
     end
-    object btnFechar: TBitBtn
+    object btnFechar: TcxButton
       Left = 4
       Top = 2
       Width = 75
@@ -392,7 +392,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       Height = 31
       Shape = bsSpacer
     end
-    object btnGerarRemessa: TBitBtn
+    object btnGerarRemessa: TcxButton
       Left = 83
       Top = 2
       Width = 118
@@ -478,12 +478,12 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
     object Bevel7: TBevel
       Left = 465
       Top = 2
-      Width = 371
+      Width = 369
       Height = 31
       Shape = bsSpacer
     end
-    object btnHistorico: TBitBtn
-      Left = 836
+    object btnHistorico: TcxButton
+      Left = 834
       Top = 2
       Width = 75
       Height = 31

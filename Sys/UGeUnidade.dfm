@@ -1,6 +1,6 @@
 inherited frmGeUnidade: TfrmGeUnidade
-  Left = 549
-  Top = 268
+  Left = 450
+  Top = 230
   ActiveControl = dbCodigo
   Caption = 'Tabela de Unidades'
   OldCreateOrder = True

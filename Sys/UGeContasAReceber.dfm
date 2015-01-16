@@ -1,6 +1,5 @@
 inherited frmGeContasAReceber: TfrmGeContasAReceber
-  Left = 400
-  Top = 104
+  Top = 218
   Width = 950
   Height = 600
   ActiveControl = dbCodigo
@@ -19,7 +18,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited tlbBotoes: TToolBar
     Top = 523
     Width = 934
-    object btbtnEfetuarPagto: TBitBtn
+    object btbtnEfetuarPagto: TcxButton
       Tag = 11
       Left = 726
       Top = 2

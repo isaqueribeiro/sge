@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, USobre, StdCtrls, ExtCtrls, dxGDIPlusClasses;
+  Dialogs, USobre, StdCtrls, ExtCtrls, dxGDIPlusClasses, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeSobre = class(TfrmSobre)

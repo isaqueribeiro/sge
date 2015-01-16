@@ -1,4 +1,6 @@
 inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
+  Left = 396
+  Top = 229
   Caption = 'Relat'#243'rios de Contas A Pagar'
   PixelsPerInch = 96
   TextHeight = 13

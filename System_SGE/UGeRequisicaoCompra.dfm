@@ -1,6 +1,6 @@
 inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
-  Left = 388
-  Top = 210
+  Left = 396
+  Top = 223
   Width = 1132
   Height = 724
   ActiveControl = dbCodigo

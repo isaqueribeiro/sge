@@ -7,7 +7,8 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, rxToolEdit, RxLookup, IBTable, IBQuery, RXDBCtrl, frxClass,
-  frxDBSet, Menus, DBClient, Provider, ACBrBase, ACBrExtenso;
+  frxDBSet, Menus, DBClient, Provider, ACBrBase, ACBrExtenso, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   TfrmGeFluxoCaixa = class(TfrmGrPadraoCadastro)

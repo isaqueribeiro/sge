@@ -1,6 +1,6 @@
 inherited frmGeVendaTransporte: TfrmGeVendaTransporte
-  Left = 610
-  Top = 236
+  Left = 505
+  Top = 235
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Controle de Vendas - Dados Transportadora'

@@ -1,6 +1,6 @@
 inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
-  Left = 467
-  Top = 217
+  Left = 411
+  Top = 228
   Width = 1132
   Height = 615
   ActiveControl = edTipoRequisicao

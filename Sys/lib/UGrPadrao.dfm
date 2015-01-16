@@ -1,6 +1,6 @@
 object frmGrPadrao: TfrmGrPadrao
-  Left = 663
-  Top = 310
+  Left = 393
+  Top = 219
   Width = 555
   Height = 332
   Caption = 'Form Padr'#227'o'

@@ -1,4 +1,6 @@
 inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
+  Left = 402
+  Top = 226
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Contas A Receber - Efetuar Pagamento'
@@ -378,7 +380,7 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
       TabOrder = 2
     end
   end
-  object btnConfirmar: TBitBtn
+  object btnConfirmar: TcxButton
     Left = 380
     Top = 321
     Width = 83
@@ -440,7 +442,7 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
     NumGlyphs = 2
   end
-  object btnCancelar: TBitBtn
+  object btnCancelar: TcxButton
     Left = 468
     Top = 321
     Width = 83

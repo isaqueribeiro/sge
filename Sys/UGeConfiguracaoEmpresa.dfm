@@ -1,6 +1,5 @@
 inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
-  Left = 390
-  Top = 216
+  Top = 209
   Width = 767
   Height = 495
   ActiveControl = nil
@@ -23,7 +22,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   inherited pgcGuias: TPageControl
     Width = 751
     Height = 414
-    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
         Top = 319
@@ -128,7 +126,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 300
-        ActivePage = TbsNFe
+        ActivePage = TabSheet1
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -458,7 +456,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Top = 64
             Width = 257
             Height = 17
-            Caption = 'Trabalhar com estoque '#250'nico de produtos'
+            Caption = 'Trabalhar com estoque unificado de produtos'
             DataField = 'ESTOQUE_UNICO_EMPRESAS'
             DataSource = DtSrcTabela
             Font.Charset = ANSI_CHARSET

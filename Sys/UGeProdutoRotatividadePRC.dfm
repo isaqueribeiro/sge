@@ -1,6 +1,6 @@
 inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
-  Left = 232
-  Top = 110
+  Left = 386
+  Top = 213
   Width = 1027
   Height = 628
   ActiveControl = edTipoProcesso

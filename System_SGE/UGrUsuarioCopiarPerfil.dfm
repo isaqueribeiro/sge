@@ -1,10 +1,15 @@
 inherited frmGrUsuarioCopiarPerfil: TfrmGrUsuarioCopiarPerfil
+  Left = 407
+  Top = 230
   BorderStyle = bsToolWindow
   Caption = 'Copiar Perfil de . . .'
   ClientHeight = 93
   ClientWidth = 471
   Font.Charset = ANSI_CHARSET
   Font.Name = 'Tahoma'
+  DesignSize = (
+    471
+    93)
   PixelsPerInch = 96
   TextHeight = 13
   object lblPerfil: TLabel
@@ -25,7 +30,7 @@ inherited frmGrUsuarioCopiarPerfil: TfrmGrUsuarioCopiarPerfil
     ItemHeight = 13
     TabOrder = 0
   end
-  object btnSelecionar: TButton
+  object btnSelecionar: TcxButton
     Left = 16
     Top = 56
     Width = 99

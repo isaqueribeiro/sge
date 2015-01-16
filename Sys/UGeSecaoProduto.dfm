@@ -1,11 +1,13 @@
 inherited frmGeSecaoProduto: TfrmGeSecaoProduto
-  Left = 549
-  Top = 277
+  Left = 434
+  Top = 241
+  ActiveControl = dbCodigo
   Caption = 'Tabela de Se'#231#245'es de Produtos'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
+    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <

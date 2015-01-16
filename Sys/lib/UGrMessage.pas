@@ -4,18 +4,19 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons;
+  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeMessage = class(TfrmGrPadrao)
     ImgAlerta: TImage;
     memoMensagem: TMemo;
-    btnOk: TBitBtn;
-    btnSim: TBitBtn;
-    btnNao: TBitBtn;
     ImgInforme: TImage;
     ImgErro: TImage;
     ImgConsulta: TImage;
+    btnOk: TcxButton;
+    btnSim: TcxButton;
+    btnNao: TcxButton;
   private
     { Private declarations }
   public

@@ -7,7 +7,8 @@ uses
   Dialogs, StdCtrls, ExtCtrls, DB, IBCustomDataSet, IBTable, CheckLst,
   Buttons, ToolWin, ComCtrls, Grids, DBGrids, ComObj, IBSQL, DBClient,
   IBQuery, UGrPadrao, IBUpdateSQL, ACBrBoleto, ACBrBoletoFCFR, ACBrBase,
-  FileCtrl;
+  FileCtrl, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  cxButtons;
 
 type
   TfrmGeRetornoBoleto = class(TfrmGrPadrao)
@@ -22,9 +23,7 @@ type
     Bevel1: TBevel;
     tlbBotoes: TToolBar;
     Bevel2: TBevel;
-    btnFechar: TBitBtn;
     Bevel3: TBevel;
-    btnCarregarRetorno: TBitBtn;
     Bevel4: TBevel;
     Bevel5: TBevel;
     pnlTitulos: TPanel;
@@ -33,7 +32,6 @@ type
     Label3: TLabel;
     dbgTitulos: TDBGrid;
     UpdateLanc: TIBSQL;
-    btnConfirmarBaixa: TBitBtn;
     CdsTitulos: TClientDataSet;
     DtsTitulos: TDataSource;
     CdsTitulosQuitar: TStringField;
@@ -96,6 +94,9 @@ type
     CdsTitulosNumVenda: TIntegerField;
     CdsTitulosArquivo: TStringField;
     FileListBox: TFileListBox;
+    btnFechar: TcxButton;
+    btnCarregarRetorno: TcxButton;
+    btnConfirmarBaixa: TcxButton;
     procedure edBancoChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);

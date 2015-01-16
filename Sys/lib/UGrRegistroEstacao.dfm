@@ -1,4 +1,6 @@
 inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
+  Left = 395
+  Top = 223
   ActiveControl = dbgRegistro
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle

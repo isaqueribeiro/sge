@@ -1,6 +1,6 @@
 inherited frmGeCidade: TfrmGeCidade
-  Left = 497
-  Top = 273
+  Left = 400
+  Top = 223
   ActiveControl = dbCodigo
   Caption = 'Tabela de Cidades (Munic'#237'pios)'
   OldCreateOrder = True
@@ -47,7 +47,6 @@ inherited frmGeCidade: TfrmGeCidade
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
         Top = 225
-        Width = 727
       end
       object Bevel5: TBevel [1]
         Left = 0
@@ -58,7 +57,6 @@ inherited frmGeCidade: TfrmGeCidade
         Shape = bsSpacer
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 727
         object lblNome: TLabel [1]
           Left = 88
           Top = 24

@@ -1,11 +1,13 @@
 inherited frmGeTipoLogradouro: TfrmGeTipoLogradouro
-  Left = 552
-  Top = 272
+  Left = 418
+  Top = 212
+  ActiveControl = dbCodigo
   Caption = 'Tabela de Tipos de Logradouros'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
+    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <

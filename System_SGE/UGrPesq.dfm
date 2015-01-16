@@ -1,5 +1,5 @@
 object frmPesq: TfrmPesq
-  Left = 395
+  Left = 387
   Top = 212
   Width = 433
   Height = 272

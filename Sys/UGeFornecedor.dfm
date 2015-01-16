@@ -1,6 +1,6 @@
 inherited frmGeFornecedor: TfrmGeFornecedor
-  Left = 618
-  Top = 314
+  Left = 434
+  Top = 217
   Width = 860
   Height = 518
   ActiveControl = dbCodigo
@@ -23,7 +23,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     inherited bvlToolExpandir: TBevel
       Width = 81
     end
-    inherited btbtnSelecionar: TBitBtn
+    inherited btbtnSelecionar: TcxButton
       Left = 622
     end
     inherited bvlTool4: TBevel
@@ -87,6 +87,9 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         inherited grpBxFiltro: TGroupBox
           Left = 561
           Width = 271
+          DesignSize = (
+            271
+            54)
           inherited lbltFiltrar: TLabel
             Width = 67
             Caption = 'Fornecedor:'
@@ -1320,7 +1323,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
           ParentFont = False
           TabOrder = 4
         end
-        object btnConsultarCNPJ: TButton
+        object btnConsultarCNPJ: TcxButton
           Left = 248
           Top = 256
           Width = 115
@@ -1687,7 +1690,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
           ReadOnly = True
           TabOrder = 4
         end
-        object btnVoltar: TButton
+        object btnVoltar: TcxButton
           Left = 8
           Top = 256
           Width = 115
@@ -1702,7 +1705,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
           TabOrder = 12
           OnClick = btnVoltarClick
         end
-        object btnRecuperarCNPJ: TButton
+        object btnRecuperarCNPJ: TcxButton
           Left = 328
           Top = 256
           Width = 115
@@ -1769,7 +1772,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
           Text = '   .   .   -  '
           OnKeyPress = edCNPJKeyPress
         end
-        object btnConsultarCPF: TButton
+        object btnConsultarCPF: TcxButton
           Left = 248
           Top = 256
           Width = 115

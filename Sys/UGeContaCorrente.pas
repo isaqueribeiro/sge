@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl, IBTable;
+  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl, IBTable, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
@@ -84,11 +85,11 @@ begin
   CampoCodigo    := 'Codigo';
   CampoDescricao := 'Descricao';
 
-  btbtnIncluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnAlterar.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnExcluir.Visible  := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnCancelar.Visible := (gSistema.Codigo = SISTEMA_GESTAO);
-  btbtnSalvar.Visible   := (gSistema.Codigo = SISTEMA_GESTAO);
+  btbtnIncluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnAlterar.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnExcluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnCancelar.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnSalvar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   tblEmpresa.Open;
 end;

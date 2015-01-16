@@ -1,6 +1,6 @@
 inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
-  Left = 388
-  Top = 210
+  Left = 391
+  Top = 217
   Width = 1132
   Height = 724
   ActiveControl = dbCodigo

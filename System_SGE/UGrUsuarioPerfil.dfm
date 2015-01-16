@@ -1,4 +1,6 @@
 inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
+  Left = 386
+  Top = 212
   Width = 757
   Height = 447
   ActiveControl = dbCodigo

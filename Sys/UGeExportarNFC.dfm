@@ -1,4 +1,6 @@
 inherited frmGeExportarNFC: TfrmGeExportarNFC
+  Left = 389
+  Top = 236
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Gerar Arquivo NFC (Nota Fiscal Cidad'#227')'
@@ -197,7 +199,7 @@ inherited frmGeExportarNFC: TfrmGeExportarNFC
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object btnExportar: TBitBtn
+    object btnExportar: TcxButton
       Left = 344
       Top = 7
       Width = 92
@@ -259,7 +261,7 @@ inherited frmGeExportarNFC: TfrmGeExportarNFC
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnCancelar: TBitBtn
+    object btnCancelar: TcxButton
       Left = 439
       Top = 7
       Width = 92

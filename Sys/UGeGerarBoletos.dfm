@@ -1,6 +1,6 @@
 object frmGeGerarBoleto: TfrmGeGerarBoleto
-  Left = 517
-  Top = 186
+  Left = 445
+  Top = 240
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Gerar Boletos'
@@ -762,7 +762,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       Height = 31
       Shape = bsSpacer
     end
-    object btnFechar: TBitBtn
+    object btnFechar: TcxButton
       Left = 4
       Top = 2
       Width = 75
@@ -831,7 +831,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       Height = 31
       Shape = bsSpacer
     end
-    object btnGerarBoleto: TBitBtn
+    object btnGerarBoleto: TcxButton
       Left = 83
       Top = 2
       Width = 118

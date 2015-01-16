@@ -1,4 +1,6 @@
 inherited frmGeRequisicaoCompraCancelar: TfrmGeRequisicaoCompraCancelar
+  Left = 420
+  Top = 218
   Width = 617
   Height = 474
   BorderIcons = [biSystemMenu]

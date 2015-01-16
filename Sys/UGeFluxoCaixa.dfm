@@ -18,7 +18,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited tlbBotoes: TToolBar
     Top = 613
     Width = 1132
-    inherited btbtnLista: TBitBtn
+    inherited btbtnLista: TcxButton
       Visible = True
     end
   end

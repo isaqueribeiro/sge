@@ -7,7 +7,8 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, rxToolEdit, RXDBCtrl, ACBrConsultaCPF, ACBrBase,
-  ACBrSocket, ACBrConsultaCNPJ, JPEG, IBQuery;
+  ACBrSocket, ACBrConsultaCNPJ, JPEG, IBQuery, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeFornecedor = class(TfrmGrPadraoCadastro)
@@ -93,7 +94,6 @@ type
     ImgCaptcha: TImage;
     LabAtualizarCaptcha: TLabel;
     ckRemoverEspacosDuplos: TCheckBox;
-    btnConsultarCNPJ: TButton;
     BvlConsultar: TBevel;
     pnlRetornoCNPJ: TPanel;
     lblTipoX: TLabel;
@@ -120,12 +120,9 @@ type
     EditCEP: TEdit;
     EditSituacao: TEdit;
     EditFantasia: TEdit;
-    btnVoltar: TButton;
-    btnRecuperarCNPJ: TButton;
     pnlConsultarCPF: TPanel;
     lblCPFX: TLabel;
     edCPF: TMaskEdit;
-    btnConsultarCPF: TButton;
     lblCNPJ: TLabel;
     dbCNPJ: TRxDBComboEdit;
     ACBrConsultaCNPJ: TACBrConsultaCNPJ;
@@ -163,6 +160,10 @@ type
     IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField;
     lblFaturaMinima: TLabel;
     dbFaturaMinima: TDBEdit;
+    btnConsultarCNPJ: TcxButton;
+    btnVoltar: TcxButton;
+    btnRecuperarCNPJ: TcxButton;
+    btnConsultarCPF: TcxButton;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);

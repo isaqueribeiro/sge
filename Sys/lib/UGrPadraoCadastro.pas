@@ -76,6 +76,7 @@ type
     procedure IbDtstTabelaUpdateError(DataSet: TDataSet; E: EDatabaseError;
       UpdateKind: TUpdateKind; var UpdateAction: TIBUpdateAction);
     procedure btbtnListaClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
     fDisplayFormat  ,
@@ -652,10 +653,11 @@ begin
     begin
       if ( TControl(Components[I]).Parent = ToolBar ) then
       begin
+        {$IFDEF DGE}
         if ( Components[I] is TBitBtn ) then
           if ( TBitBtn(Components[I]).Visible ) then
             T := T + TBitBtn(Components[I]).Width;
-
+        {$ENDIF}
         if ( Components[I] is TcxButton ) then
           if ( TcxButton(Components[I]).Visible ) then
             T := T + TcxButton(Components[I]).Width;
@@ -963,6 +965,12 @@ end;
 procedure TfrmGrPadraoCadastro.pgcGuiasOnChange;
 begin
   ;
+end;
+
+procedure TfrmGrPadraoCadastro.FormActivate(Sender: TObject);
+begin
+  inherited;
+  SetEmpresaIDDefault( gUsuarioLogado.Empresa );
 end;
 
 end.

@@ -1,6 +1,6 @@
 inherited frmGeEstado: TfrmGeEstado
-  Left = 547
-  Top = 262
+  Left = 400
+  Top = 235
   ActiveControl = dbCodigo
   Caption = 'Tabela de Estados (UF)'
   OldCreateOrder = True
@@ -39,10 +39,8 @@ inherited frmGeEstado: TfrmGeEstado
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
         Top = 81
-        Width = 727
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 727
         Height = 81
         object lblNome: TLabel [1]
           Left = 88

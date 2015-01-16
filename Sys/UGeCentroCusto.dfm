@@ -1,6 +1,6 @@
 inherited frmGeCentroCusto: TfrmGeCentroCusto
-  Left = 770
-  Top = 302
+  Left = 395
+  Top = 212
   ActiveControl = dbCodigo
   Caption = 'Tabela de Departamentos / Centros de Custos'
   PixelsPerInch = 96

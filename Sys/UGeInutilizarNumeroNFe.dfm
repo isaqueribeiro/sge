@@ -1,6 +1,6 @@
 inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
-  Left = 580
-  Top = 296
+  Left = 434
+  Top = 224
   ActiveControl = edAno
   BorderStyle = bsDialog
   BorderWidth = 4
@@ -455,7 +455,7 @@ inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
       OnExit = ControlEditExit
     end
   end
-  object btnConfirmar: TBitBtn
+  object btnConfirmar: TcxButton
     Left = 405
     Top = 395
     Width = 92
@@ -517,7 +517,7 @@ inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
       00FFFF00FFCBCBCB8C8C8C888888939393B5B5B5FF00FFFF00FF}
     NumGlyphs = 2
   end
-  object btFechar: TBitBtn
+  object btFechar: TcxButton
     Left = 501
     Top = 395
     Width = 92

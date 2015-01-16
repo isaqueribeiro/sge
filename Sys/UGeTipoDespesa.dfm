@@ -1,4 +1,6 @@
 inherited frmGeTipoDespesa: TfrmGeTipoDespesa
+  Left = 385
+  Top = 217
   Width = 757
   Height = 447
   ActiveControl = dbCodigo

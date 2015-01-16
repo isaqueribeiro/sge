@@ -1,4 +1,6 @@
 inherited frmEnviarLoteNFe: TfrmEnviarLoteNFe
+  Left = 410
+  Top = 229
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Enviar Lote NF-e'

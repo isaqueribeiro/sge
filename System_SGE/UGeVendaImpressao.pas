@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   Buttons, ToolWin, ComCtrls, DBClient, Provider, DB, IBCustomDataSet,
-  IBQuery, frxClass, frxDBSet, Mask, rxToolEdit;
+  IBQuery, frxClass, frxDBSet, Mask, rxToolEdit, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeVendaImpressao = class(TfrmGrPadraoImpressao)

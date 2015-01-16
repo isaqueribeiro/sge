@@ -3,22 +3,21 @@ unit UGeExportarChaveNFeGerada;
 interface
 
 uses
+  UGrPadrao,
+  
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, rxToolEdit, StdCtrls, Buttons, ExtCtrls, Mask,
-  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles,
-  dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
-  dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy, dxSkinGlassOceans,
-  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
-  dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons,
+  cxControls, cxStyles, dxSkinscxPCPainter,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData,
+  cxMemo, StdCtrls, DBClient, Provider, IBCustomDataSet, IBQuery,
+  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxClasses, cxGridCustomView, cxGrid, rxToolEdit, Mask, cxLookAndFeels, dxSkinsForm,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
-  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
-  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
-  dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage,
-  cxEdit, DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
-  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
-  DBClient, Provider, IBCustomDataSet, IBQuery, cxMemo;
+  dxSkinOffice2010Silver;
 
 type
   TfrmGeExportarChaveNFeGerada = class(TfrmGrPadrao)
@@ -32,8 +31,6 @@ type
     PnlBotoes: TPanel;
     Bevel3: TBevel;
     lblInforme: TLabel;
-    btnExportar: TBitBtn;
-    btnCancelar: TBitBtn;
     edDiretorioExportacao: TDirectoryEdit;
     Bevel2: TBevel;
     lblDiretorioExportacao: TLabel;
@@ -55,6 +52,8 @@ type
     GrdExpTBLEMISSAO: TcxGridDBColumn;
     GrdExpTBLCHAVENFE: TcxGridDBColumn;
     GrdExpTBLXML: TcxGridDBColumn;
+    btnExportar: TcxButton;
+    btnCancelar: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnExportarClick(Sender: TObject);

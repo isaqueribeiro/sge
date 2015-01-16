@@ -30,6 +30,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     ver : TInfoVersao;
@@ -262,6 +263,12 @@ begin
       DMBusiness.ConfigurarEmail(GetEmpresaIDDefault, EmptyStr, TituloRelario, EmptyStr);
     except
     end;
+end;
+
+procedure TfrmGrPadraoImpressao.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  SetEmpresaIDDefault(gUsuarioLogado.Empresa);
 end;
 
 end.

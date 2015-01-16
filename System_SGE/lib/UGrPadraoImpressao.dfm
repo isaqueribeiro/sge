@@ -1,4 +1,6 @@
 inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
+  Left = 390
+  Top = 214
   ActiveControl = edRelatorio
   BorderStyle = bsDialog
   Caption = 'Padr'#227'o Impress'#227'o'
@@ -554,6 +556,7 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
     000000010000F800000000010000FE00000000030000FFC03F80000F0000FFF9
     FFF8001F0000FFFFFFFF003F0000FFFFFFFFF0FF0000FFFFFFFFFFFF0000FFFF
     FFFFFFFF0000}
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel

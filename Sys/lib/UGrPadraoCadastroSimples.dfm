@@ -1,6 +1,6 @@
 inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
-  Left = 588
-  Top = 262
+  Left = 390
+  Top = 212
   Width = 593
   Height = 408
   Caption = 'Padr'#227'o Cadastro Simples'
@@ -66,7 +66,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnIncluir: TBitBtn
+    object btbtnIncluir: TcxButton
       Left = 4
       Top = 2
       Width = 75
@@ -91,7 +91,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         00337777FFFF77FF7733EEEE0000000003337777777777777333}
       NumGlyphs = 2
     end
-    object btbtnAlterar: TBitBtn
+    object btbtnAlterar: TcxButton
       Left = 79
       Top = 2
       Width = 75
@@ -116,7 +116,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         00333377737FFFFF773333303300000003333337337777777333}
       NumGlyphs = 2
     end
-    object btbtnExcluir: TBitBtn
+    object btbtnExcluir: TcxButton
       Left = 154
       Top = 2
       Width = 75
@@ -148,7 +148,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnCancelar: TBitBtn
+    object btbtnCancelar: TcxButton
       Left = 233
       Top = 2
       Width = 75
@@ -173,7 +173,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         00333377737FFFFF773333303300000003333337337777777333}
       NumGlyphs = 2
     end
-    object btbtnSalvar: TBitBtn
+    object btbtnSalvar: TcxButton
       Left = 308
       Top = 2
       Width = 75
@@ -205,7 +205,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Height = 31
       Shape = bsSpacer
     end
-    object btbtnFechar: TBitBtn
+    object btbtnFechar: TcxButton
       Left = 500
       Top = 2
       Width = 75

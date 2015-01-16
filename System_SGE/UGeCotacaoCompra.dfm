@@ -884,7 +884,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         Top = 448
         Width = 1108
         Height = 166
-        ActivePage = tbsFornecedor
+        ActivePage = tbsDadoConsolidado
         Align = alBottom
         TabOrder = 3
         object tbsDadoConsolidado: TTabSheet

@@ -1,6 +1,6 @@
 inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
-  Left = 554
-  Top = 267
+  Left = 408
+  Top = 219
   Width = 744
   Height = 485
   ActiveControl = dbCodigo

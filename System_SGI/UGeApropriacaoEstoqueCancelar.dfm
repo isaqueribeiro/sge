@@ -1,4 +1,6 @@
 inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
+  Left = 384
+  Top = 216
   Width = 617
   Height = 474
   BorderIcons = [biSystemMenu]

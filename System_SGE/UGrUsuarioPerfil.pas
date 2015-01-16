@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, Menus, DBClient, Provider, IBQuery, IBStoredProc;
+  ToolWin, Menus, DBClient, Provider, IBQuery, IBStoredProc, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
 
 type
   PNodeDataPermissao = ^TNodeDataPermissao;

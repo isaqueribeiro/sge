@@ -1,6 +1,6 @@
 inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
-  Left = 376
-  Top = 173
+  Left = 403
+  Top = 220
   ActiveControl = dbBaseICMS
   BorderStyle = bsDialog
   BorderWidth = 4

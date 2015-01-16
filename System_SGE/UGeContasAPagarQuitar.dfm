@@ -1,5 +1,6 @@
 inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
-  Left = 456
+  Left = 398
+  Top = 213
   Width = 1071
   Height = 554
   Caption = 'Quitar Contas A Pagar (por Lote)'
@@ -9,6 +10,9 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     Width = 1055
     inherited GrpBxPesquisar: TGroupBox
       Width = 827
+      DesignSize = (
+        827
+        73)
       inherited BrnPesquisar: TSpeedButton
         Left = 790
       end
@@ -306,7 +310,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
           ParentFont = False
           TabOrder = 2
         end
-        object BtnQuitar: TBitBtn
+        object BtnQuitar: TcxButton
           Left = 939
           Top = 64
           Width = 99

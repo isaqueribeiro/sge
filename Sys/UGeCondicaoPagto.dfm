@@ -1,13 +1,12 @@
 inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
-  Left = 408
-  Top = 232
+  Left = 388
+  Top = 209
   ActiveControl = nil
   Caption = 'Tabela de Condi'#231#245'es de Pagamento'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
-    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <

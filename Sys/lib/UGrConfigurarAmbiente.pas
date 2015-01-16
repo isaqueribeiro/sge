@@ -7,14 +7,13 @@ uses
   
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, IniFiles, DB,
-  DBClient, Printers, ACBrNFeDANFEClass, ACBrNFeDANFeESCPOS, TypInfo;
+  DBClient, Printers, ACBrNFeDANFEClass, ACBrNFeDANFeESCPOS, TypInfo,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)
     PnlBotoes: TPanel;
     Bevel3: TBevel;
-    btnSalvar: TBitBtn;
-    btnCancelar: TBitBtn;
     PgcConfiguracao: TPageControl;
     TbsGeral: TTabSheet;
     GrpBxPadrao: TGroupBox;
@@ -67,6 +66,8 @@ type
     edCupomNaoFiscalPorta: TComboBox;
     lblCupomNaoFiscalModeloEsp: TLabel;
     edCupomNaoFiscalModeloEsp: TComboBox;
+    btnSalvar: TcxButton;
+    btnCancelar: TcxButton;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -151,7 +152,7 @@ begin
   For I := Ord(Low(TEcfBematech)) to Ord(High(TEcfBematech)) do
     edCupomNaoFiscalModeloEsp.Items.Add(GetEnumName(TypeInfo(TEcfBematech), I));
 
-  TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO, SISTEMA_PDV];
+  TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV];
 end;
 
 procedure TfrmGrConfigurarAmbiente.CarregarDadosINI;

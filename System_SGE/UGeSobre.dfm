@@ -1,4 +1,6 @@
 inherited frmGeSobre: TfrmGeSobre
+  Left = 492
+  Top = 312
   Caption = 'frmGeSobre'
   ClientHeight = 190
   PixelsPerInch = 96
@@ -4309,7 +4311,7 @@ inherited frmGeSobre: TfrmGeSobre
         0049454E44AE426082}
     end
   end
-  inherited OKButton: TButton
-    Top = 153
+  inherited OKButton: TcxButton
+    Top = 152
   end
 end

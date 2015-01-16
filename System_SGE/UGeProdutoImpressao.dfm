@@ -1,4 +1,6 @@
 inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
+  Left = 411
+  Top = 231
   Caption = 'Relat'#243'rio de Produtos'
   PixelsPerInch = 96
   TextHeight = 13

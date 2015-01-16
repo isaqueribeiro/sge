@@ -1,11 +1,13 @@
 inherited frmGeDistrito: TfrmGeDistrito
-  Left = 531
-  Top = 273
+  Left = 388
+  Top = 223
+  ActiveControl = dbCodigo
   Caption = 'Tabela de Distritos'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
+    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <

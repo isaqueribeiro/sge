@@ -1,6 +1,6 @@
 object frmGeRetornoBoleto: TfrmGeRetornoBoleto
-  Left = 668
-  Top = 262
+  Left = 437
+  Top = 226
   Width = 928
   Height = 480
   BorderIcons = [biSystemMenu]
@@ -215,7 +215,7 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
       Height = 31
       Shape = bsSpacer
     end
-    object btnFechar: TBitBtn
+    object btnFechar: TcxButton
       Left = 4
       Top = 2
       Width = 75
@@ -284,7 +284,7 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
       Height = 31
       Shape = bsSpacer
     end
-    object btnCarregarRetorno: TBitBtn
+    object btnCarregarRetorno: TcxButton
       Left = 83
       Top = 2
       Width = 118
@@ -345,7 +345,7 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnConfirmarBaixa: TBitBtn
+    object btnConfirmarBaixa: TcxButton
       Left = 201
       Top = 2
       Width = 118

@@ -1,11 +1,13 @@
 inherited frmGeGrupoProduto: TfrmGeGrupoProduto
-  Left = 548
-  Top = 271
+  Left = 416
+  Top = 233
+  ActiveControl = dbCodigo
   Caption = 'Tabela de Grupos de Produtos'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
+    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <

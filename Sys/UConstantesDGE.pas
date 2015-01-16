@@ -11,7 +11,7 @@ Uses
 const
   VERSION_NUMBER = '1.0.8.0';
 
-  SISTEMA_GESTAO     = 0;
+  SISTEMA_GESTAO_COM = 0;
   SISTEMA_PDV        = 1;
   SISTEMA_GESTAO_IND = 2;
 

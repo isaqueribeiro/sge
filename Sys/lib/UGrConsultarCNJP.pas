@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics,
   Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons,
   ACBrBase, ACBrSocket, ACBrConsultaCNPJ, JPEG, Mask,
-  UObserverInterface, UCliente;
+  UObserverInterface, UCliente, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 
 type
@@ -48,7 +49,7 @@ type
     LabAtualizarCaptcha: TLabel;
     ckRemoverEspacosDuplos: TCheckBox;
     BvlConsultar: TBevel;
-    btnBuscar: TButton;
+    btnBuscar: TcxButton;
     procedure FormDestroy(Sender: TObject);
     procedure LabAtualizarCaptchaClick(Sender: TObject);
     procedure btnBuscarClick(Sender: TObject);

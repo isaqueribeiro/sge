@@ -1,4 +1,6 @@
 inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
+  Left = 410
+  Top = 221
   Caption = 'Relat'#243'rio de Entradas'
   PixelsPerInch = 96
   TextHeight = 13
