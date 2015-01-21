@@ -221,8 +221,6 @@ type
     procedure nmFabricanteProdutoClick(Sender: TObject);
     procedure nmUsuarioAlterarSenhaClick(Sender: TObject);
     procedure nmExportarNFeGeradaClick(Sender: TObject);
-    procedure mnRelatorioEstoqueProdutoClick(Sender: TObject);
-    procedure mnRelatorioEstoqueDemandaClick(Sender: TObject);
     procedure nmVendaIemPesquisaClick(Sender: TObject);
     procedure nmRotatividadeClick(Sender: TObject);
     procedure nmInutilizarNumeroNFeClick(Sender: TObject);
@@ -668,16 +666,6 @@ procedure TfrmPrinc.nmExportarNFeGeradaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_NFE_EXPORTAR_NFE_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeExportarNFeGerada');
-end;
-
-procedure TfrmPrinc.mnRelatorioEstoqueProdutoClick(Sender: TObject);
-begin
-  FormFunction.ShowFormReport(Self, 'frmRelProdutos', 'qckrp');
-end;
-
-procedure TfrmPrinc.mnRelatorioEstoqueDemandaClick(Sender: TObject);
-begin
-  FormFunction.ShowModalForm(Self, 'frmRelEstoque');
 end;
 
 procedure TfrmPrinc.nmVendaIemPesquisaClick(Sender: TObject);

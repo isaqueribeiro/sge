@@ -141,17 +141,3 @@ Owner=Isaque Marinho Ribeiro
 SplashName=
 SplashDescription=
 Todos os direitos reservados.
-[Excluded Packages]
-c:\program files (x86)\borland\delphi7\Projects\Bpl\RVDBPkgD7.bpl=RichView DataAware
-[HistoryLists\hlConditionals]
-Count=1
-Item0=ACBR
-[HistoryLists\hlUnitAliases]
-Count=1
-Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
-[HistoryLists\hlUnitOutputDirectory]
-Count=1
-Item0=..\_dcu\
-[HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=..\Bin\

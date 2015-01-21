@@ -15,14 +15,15 @@ uses
   DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, ToolWin,
   cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridBandedTableView, cxGridDBBandedTableView, cxClasses,
-  cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons, dxSkinsForm, 
+  cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons,
+  dxSkinsForm, Mask, rxToolEdit,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, Mask, rxToolEdit;
+  dxSkinOffice2010Silver;
 
-type
+type        
   TfrmGeApropriacaoEstoquePesquisa = class(TfrmGrPadrao)
     pnlPesquisa: TPanel;
     GrpBxPesquisar: TGroupBox;

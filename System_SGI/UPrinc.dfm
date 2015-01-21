@@ -9867,11 +9867,9 @@ object frmPrinc: TfrmPrinc
         Visible = False
         object mnRelatorioEstoqueProduto: TMenuItem
           Caption = 'Produtos'
-          OnClick = mnRelatorioEstoqueProdutoClick
         end
         object mnRelatorioEstoqueDemanda: TMenuItem
           Caption = 'Demanda Compra x Venda'
-          OnClick = mnRelatorioEstoqueDemandaClick
         end
         object mnRelatorioEstoqueApropriacao: TMenuItem
           Bitmap.Data = {

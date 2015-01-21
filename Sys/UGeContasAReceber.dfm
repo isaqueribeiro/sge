@@ -2,7 +2,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   Top = 218
   Width = 950
   Height = 600
-  ActiveControl = dbCodigo
   Caption = 'Controle de Contas A Receber'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -25,7 +24,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       Width = 120
       Height = 31
       Hint = 'Efetuar Pagamento'
-      Caption = 'Efetuar &Pagto.'
+      Caption = 'E&fetuar Pagto.'
       Enabled = False
       ParentShowHint = False
       ShowHint = True
@@ -95,7 +94,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited pgcGuias: TPageControl
     Width = 934
     Height = 519
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel

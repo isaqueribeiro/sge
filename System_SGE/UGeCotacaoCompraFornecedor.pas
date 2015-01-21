@@ -578,7 +578,7 @@ begin
         ListaReferencia.Add(Copy(sListaFormaPagto, 1, Length(sListaFormaPagto) - 1));
       end;
 
-      // Montar Lista de Formas de Pagamento na Planilha 2
+      // Montar Lista de Formas de Pagamento na Planilha 3
 
       I := 1;
       sListaCondicaoPagto := EmptyStr;

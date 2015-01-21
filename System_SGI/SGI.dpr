@@ -122,7 +122,9 @@ uses
   UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
   UGeApropriacaoEstoque in 'UGeApropriacaoEstoque.pas' {frmGeApropriacaoEstoque},
   UGeApropriacaoEstoqueCancelar in 'UGeApropriacaoEstoqueCancelar.pas' {frmGeApropriacaoEstoqueCancelar},
-  UGeApropriacaoEstoquePesquisa in 'UGeApropriacaoEstoquePesquisa.pas' {frmGeApropriacaoEstoquePesquisa};
+  UGeApropriacaoEstoquePesquisa in 'UGeApropriacaoEstoquePesquisa.pas' {frmGeApropriacaoEstoquePesquisa},
+  UGeRequisicaoAlmox in 'UGeRequisicaoAlmox.pas' {frmGeRequisicaoAlmox},
+  UGeRequisicaoAlmoxCancelar in 'UGeRequisicaoAlmoxCancelar.pas' {frmGeRequisicaoAlmoxCancelar};
 
 {$R *.res}
 

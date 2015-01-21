@@ -1,6 +1,5 @@
 inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
   Left = 389
-  Top = 219
   Width = 780
   Height = 508
   BorderIcons = [biSystemMenu]
