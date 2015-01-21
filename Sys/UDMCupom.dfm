@@ -717,6 +717,7 @@ object DMCupom: TDMCupom
       DisplayLabel = '#'
       FieldName = 'SEQ'
       Origin = 'TVENDASITENS.SEQ'
+      OnGetText = cdsVendaItemSEQGetText
       DisplayFormat = '00'
     end
     object cdsVendaItemCODPROD: TIBStringField

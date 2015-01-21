@@ -175,6 +175,8 @@ type
     updVendaNFCe: TIBUpdateSQL;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
+    procedure cdsVendaItemSEQGetText(Sender: TField; var Text: String;
+      DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -218,6 +220,13 @@ begin
     cdsVendaFormaPagtoValorTroco.AsCurrency := cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency - cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency
   else
     cdsVendaFormaPagtoValorTroco.AsCurrency := 0.0;
+end;
+
+procedure TDMCupom.cdsVendaItemSEQGetText(Sender: TField; var Text: String;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Text := IntToStr(Sender.DataSet.RecNo);
 end;
 
 end.

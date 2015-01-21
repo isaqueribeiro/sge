@@ -58,9 +58,9 @@ uses
 
 function CancelarAPROP(const AOwer : TComponent; Ano : Smallint; Numero : Integer) : Boolean;
 var
-  frm : TfrmGeApropriacaoEstoqueCancelar;
+  frm : TfrmGeRequisicaoAlmoxCancelar;
 begin
-  frm := TfrmGeApropriacaoEstoqueCancelar.Create(AOwer);
+  frm := TfrmGeRequisicaoAlmoxCancelar.Create(AOwer);
   try
     with frm do
     begin

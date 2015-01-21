@@ -19934,7 +19934,7 @@ object frmPrinc: TfrmPrinc
     end
     object ProductName: TLabel
       Left = 128
-      Top = 312
+      Top = 304
       Width = 38
       Height = 23
       Anchors = [akLeft, akBottom]
@@ -19950,13 +19950,13 @@ object frmPrinc: TfrmPrinc
     end
     object Copyright: TLabel
       Left = 128
-      Top = 351
-      Width = 245
+      Top = 342
+      Width = 279
       Height = 26
       Anchors = [akLeft, akBottom]
       Caption = 
-        'Copyright 2013 '#169' '#193'gil Solu'#231#245'es em Softwares - ME'#13#10'Todos os direi' +
-        'tos reservados.'
+        'Copyright 2013 - 2015 '#169' '#193'gil Solu'#231#245'es em Softwares - ME'#13#10'Todos o' +
+        's direitos reservados.'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -11
@@ -19968,7 +19968,7 @@ object frmPrinc: TfrmPrinc
     end
     object FileDescription: TLabel
       Left = 128
-      Top = 334
+      Top = 327
       Width = 296
       Height = 13
       Anchors = [akLeft, akBottom]
@@ -19983,11 +19983,10 @@ object frmPrinc: TfrmPrinc
       IsControl = True
     end
     object Version: TLabel
-      Left = 352
-      Top = 316
+      Left = 128
+      Top = 373
       Width = 72
       Height = 13
-      Alignment = taRightJustify
       Anchors = [akLeft, akBottom]
       Caption = 'Vers'#227'o 1.0.0.0'
       Font.Charset = ANSI_CHARSET
@@ -21256,7 +21255,7 @@ object frmPrinc: TfrmPrinc
   end
   object dxSkinController: TdxSkinController
     NativeStyle = False
-    SkinName = 'McSkin'
+    SkinName = 'MoneyTwins'
     Left = 344
     Top = 216
   end

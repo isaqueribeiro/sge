@@ -193,26 +193,28 @@ end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
-  sFileImage : String;
+  sFileImageWallPaper : String;
 begin
   Self.Tag := SISTEMA_PDV;
 
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 
-  Self.Caption           := Application.Title + ' [ v' + GetExeVersion + ' ]';
-  Self.Version.Caption   := 'Versão ' + GetExeVersion;
-  Self.Copyright.Caption := GetCopyright;
+  Self.Caption             := Application.Title + ' [ v' + GetExeVersion + ' ]';
+  Self.ProductName.Caption := GetInternalName;
+  Self.FileDescription.Caption := GetFileDescription;
+  Self.Version.Caption     := 'Versão ' + GetExeVersion;
+  Self.Copyright.Caption   := GetCopyright;
 
   BrMainMenu.Bar.BarCaption.Caption := Application.Title;
 
   // Carregar Imagem de Fundo da Tele Principal
 
-  sFileImage := ExtractFilePath(Application.ExeName) + 'Logo_Principal.jpg';
+  sFileImageWallPaper := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
 
-  if ( FileExists(sFileImage) ) then
+  if ( FileExists(sFileImageWallPaper) ) then
   begin
-    imgFundo.Picture.LoadFromFile(sFileImage);
+    imgFundo.Picture.LoadFromFile(sFileImageWallPaper);
     imgFundo.Center := True;
   end
   else

@@ -5545,7 +5545,7 @@ object frmPrinc: TfrmPrinc
     end
     object ProductName: TLabel
       Left = 128
-      Top = 312
+      Top = 304
       Width = 138
       Height = 23
       Anchors = [akLeft, akBottom]
@@ -5561,7 +5561,7 @@ object frmPrinc: TfrmPrinc
     end
     object Copyright: TLabel
       Left = 128
-      Top = 351
+      Top = 341
       Width = 279
       Height = 26
       Anchors = [akLeft, akBottom]
@@ -5579,7 +5579,7 @@ object frmPrinc: TfrmPrinc
     end
     object FileDescription: TLabel
       Left = 128
-      Top = 334
+      Top = 326
       Width = 297
       Height = 13
       Anchors = [akLeft, akBottom]
@@ -5594,11 +5594,10 @@ object frmPrinc: TfrmPrinc
       IsControl = True
     end
     object Version: TLabel
-      Left = 353
-      Top = 316
+      Left = 129
+      Top = 372
       Width = 72
       Height = 13
-      Alignment = taRightJustify
       Anchors = [akLeft, akBottom]
       Caption = 'Vers'#227'o 1.0.0.0'
       Font.Charset = ANSI_CHARSET

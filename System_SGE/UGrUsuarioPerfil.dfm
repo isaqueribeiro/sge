@@ -3,7 +3,7 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
   Top = 212
   Width = 757
   Height = 447
-  ActiveControl = dbCodigo
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize]
   Caption = 'Cadastro de Perfis de Acesso'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -23,7 +23,6 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
   inherited pgcGuias: TPageControl
     Width = 741
     Height = 366
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel

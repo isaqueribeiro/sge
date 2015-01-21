@@ -332,11 +332,13 @@ begin
 end;
 
 procedure TfrmGeVendaPDV.FormCreate(Sender: TObject);
+var
+  sFileImageLogotipo : String;
 begin
   if not Assigned(DMCupom) then
     DMCupom := TDMCupom.Create(Application);
 
-  RotinaID       := ROTINA_MOV_VENDA_PDV_ID;  
+  RotinaID       := ROTINA_MOV_VENDA_PDV_ID;
   sNomeTabela    := 'TBVENDAS';
   sCampoCodigo   := 'Codcontrol';
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
@@ -351,6 +353,10 @@ begin
     lblGravar.Top  := lblFinalizarVenda.Top;
     lblGravar.Left := lblFinalizarVenda.Left;
   end;
+
+  sFileImageLogotipo := ExtractFilePath(Application.ExeName) + FILE_COMPANY_LOGO;
+  if FileExists(sFileImageLogotipo) then
+    imgEmpresa.Picture.LoadFromFile( sFileImageLogotipo );
 end;
 
 function TfrmGeVendaPDV.DataSetVenda: TDataSet;
@@ -1324,7 +1330,7 @@ begin
 
     // Confirmar vencimentos de cada parcela
 
-    if ( gSistema.Codigo = SISTEMA_GESTAO ) then
+    if ( gSistema.Codigo = SISTEMA_GESTAO_COM ) then
       if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
         if ( TitulosConfirmados(Self, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger, GetTotalValorFormaPagto_APrazo) ) then
           CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );

@@ -311,7 +311,8 @@ const
   LAYOUT_BOLETO_ENTREGA = 'Boleto\Boleto.fr3';
   LAYOUT_BOLETO_CARNE   = 'Boleto\BoletoCarne.fr3';
 
-  FILE_WALLPAPER = 'PapelDeParede.jpg';
+  FILE_WALLPAPER    = 'PapelDeParede.jpg';
+  FILE_COMPANY_LOGO = 'LogotipoEmpresa.png';
 
   COND_PARCELA_MIN = 1;
   COND_PARCELA_MAX = 12;

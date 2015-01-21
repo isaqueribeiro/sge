@@ -135,11 +135,12 @@ ProductName=PDV - Controle do Ponto de Venda do SGE/SGI
 ProductVersion=1.0.3
 Comments=
 Systems Analyst=Isaque Marinho Ribeiro
-ReleaseDate=05/01/2015
+ReleaseDate=21/01/2015
 Contacts=(91) 9146.0444 / 3295.3390
 Owner=Isaque Marinho Ribeiro
 SplashName=
 SplashDescription=
+Todos os direitos reservados.
 [HistoryLists\hlConditionals]
 Count=2
 Item0=ACBR;PDV
