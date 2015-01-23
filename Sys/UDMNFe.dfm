@@ -20066,7 +20066,9 @@ object DMNFe: TDMNFe
           Frame.Width = 0.100000000000000000
           HAlign = haCenter
           Memo.UTF8 = (
-            'APROPRIA'#195#8225#195#402'O DE ESTOQUE ([frdApropriacaoEstoque."TIPO_DESC"])')
+            
+              'APROPRIA'#195#8225#195#402'O DE ESTOQUE ([Trim(<frdApropriacaoEstoque."TIPO_DES' +
+              'C">)])')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -20351,10 +20353,11 @@ object DMNFe: TDMNFe
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [IIF(<frdApropriacaoEstoque."CLIENTE_PF">=1,FormatMaskText('#39'###' +
-              '.###.###-##;0;'#39',<frdApropriacaoEstoque."CLIENTE_CPF_CNPJ">),Form' +
-              'atMaskText('#39'##.###.###/####-##;0;'#39',<frdApropriacaoEstoque."CLIEN' +
-              'TE_CPF_CNPJ">))]')
+              ' [IIF(<frdApropriacaoEstoque."CLIENTE_CODIGO">=0,'#39#39',IIF(<frdApro' +
+              'priacaoEstoque."CLIENTE_PF">=1,FormatMaskText('#39'###.###.###-##;0;' +
+              #39',<frdApropriacaoEstoque."CLIENTE_CPF_CNPJ">),FormatMaskText('#39'##' +
+              '.###.###/####-##;0;'#39',<frdApropriacaoEstoque."CLIENTE_CPF_CNPJ">)' +
+              '))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -20645,10 +20648,11 @@ object DMNFe: TDMNFe
           Frame.Width = 0.100000000000000000
           Memo.UTF8 = (
             
-              ' [IIF(<frdApropriacaoEstoque."FORNECEDOR_PF">=1,FormatMaskText('#39 +
-              '###.###.###-##;0;'#39',<frdApropriacaoEstoque."FORNECEDOR_CPF_CNPJ">' +
-              '),FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdApropriacaoEstoque.' +
-              '"FORNECEDOR_CPF_CNPJ">))]')
+              ' [IIF(Trim(<frdApropriacaoEstoque."FORNECEDOR_NOME">)='#39#39','#39#39',IIF(' +
+              '<frdApropriacaoEstoque."FORNECEDOR_PF">=1,FormatMaskText('#39'###.##' +
+              '#.###-##;0;'#39',<frdApropriacaoEstoque."FORNECEDOR_CPF_CNPJ">),Form' +
+              'atMaskText('#39'##.###.###/####-##;0;'#39',<frdApropriacaoEstoque."FORNE' +
+              'CEDOR_CPF_CNPJ">)))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -20689,8 +20693,10 @@ object DMNFe: TDMNFe
           HAlign = haRight
           Memo.UTF8 = (
             
-              '[frdApropriacaoEstoque."COMPRA_ANO"]/[FormatFloat('#39'###0000000'#39',<' +
-              'frdApropriacaoEstoque."COMPRA_NUM">)] ')
+              '[IIF(<frdApropriacaoEstoque."COMPRA_ANO">=0,'#39#39',<frdApropriacaoEs' +
+              'toque."COMPRA_ANO">)][IIF(<frdApropriacaoEstoque."COMPRA_ANO">=0' +
+              ','#39#39','#39'/'#39')][IIF(<frdApropriacaoEstoque."COMPRA_ANO">=0,'#39#39',FormatFl' +
+              'oat('#39'###0000000'#39',<frdApropriacaoEstoque."COMPRA_NUM">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

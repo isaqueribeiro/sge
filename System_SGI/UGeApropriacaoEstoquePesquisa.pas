@@ -21,7 +21,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver;
+  dxSkinOffice2010Silver, cxCurrencyEdit;
 
 type        
   TfrmGeApropriacaoEstoquePesquisa = class(TfrmGrPadrao)
@@ -108,22 +108,19 @@ type
     TbsProduto: TTabSheet;
     dbgProduto: TcxGrid;
     dbgProdutoTbl: TcxGridDBBandedTableView;
-    dbgProdutoTblColumn1: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn2: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn3: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn4: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn5: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn6: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn7: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn8: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn29: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn30: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn31: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn32: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn9: TcxGridDBBandedColumn;
+    dbgProdutoTblPRODUTO: TcxGridDBBandedColumn;
+    dbgProdutoTblDESCRI_APRESENTACAO: TcxGridDBBandedColumn;
+    dbgProdutoTblCUSTO_TOTAL: TcxGridDBBandedColumn;
+    dbgProdutoTblCUSTO_DISPONIVEL: TcxGridDBBandedColumn;
+    dbgProdutoTblDISPONIVEL: TcxGridDBBandedColumn;
+    dbgProdutoTblUND: TcxGridDBBandedColumn;
+    dbgProdutoTblGRUPO_DES: TcxGridDBBandedColumn;
+    dbgProdutoTblFABRICANTE_NOME: TcxGridDBBandedColumn;
+    dbgProdutoTblESTOQUE: TcxGridDBBandedColumn;
     dbgProdutoLvl: TcxGridLevel;
     btbtnSelecionar: TcxButton;
     Bevel4: TBevel;
+    dbgProdutoTblPERCENTUAL: TcxGridDBBandedColumn;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -139,7 +136,8 @@ type
     FSQLFabricante,
     FSQLProduto : TStringList;
     procedure HabilitarGuia(const TipoFiltro : Integer);
-    procedure ExecutarPesquisa(const TipoFiltro : Integer); virtual; abstract;
+    procedure ExecutarPesquisa(const TipoFiltro : Integer);
+    procedure CalcularPercentuais( cdsTabela : TClientDataSet ); 
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -161,6 +159,9 @@ const
   TIPO_PRD = 2;
 
   WHR_DEFAULT = '1=1';
+
+  XXX_S = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'' as lote_id--';
+  XXX_G = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx''--';
 
 { TfrmGeApropriacaoEstoquePesquisa }
 
@@ -287,6 +288,179 @@ begin
 
   edTipoFiltro.ItemIndex := TIPO_PRD;
   HabilitarGuia(edTipoFiltro.ItemIndex);
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.ExecutarPesquisa(
+  const TipoFiltro: Integer);
+var
+  sWhr : String;
+begin
+  sWhr := '(1=1)';
+
+  CdsTotal.Close;
+
+  with QryTotal do
+  begin
+    SQL.Clear;
+    SQL.AddStrings( FSQLTotal );
+
+    SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+    SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
+  end;
+
+  CdsTotal.Open;
+
+  Case TipoFiltro of
+    TIPO_PRD:
+      begin
+        CdsProduto.Close;
+        with QryProduto do
+        begin
+          SQL.Clear;
+          SQL.AddStrings( FSQLProduto );
+
+          if ( Trim(edPesquisar.Text) <> EmptyStr ) then
+            if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
+              sWhr := sWhr + ' and (p.cod like ' + QuotedStr('%' + edPesquisar.Text + '%') + ')'
+            else
+              sWhr := sWhr + ' and (upper(p.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
+
+          SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
+
+          if btbtnSelecionar.Visible then
+          begin
+            SQL.Text := StringReplace(SQL.Text, XXX_S, EmptyStr, [rfReplaceAll]);
+            SQL.Text := StringReplace(SQL.Text, XXX_G, EmptyStr, [rfReplaceAll]);
+          end;
+        end;      
+
+        CdsProduto.Open;
+
+        if ( CdsProduto.IsEmpty ) then
+          ShowWarning('Dados não encontados de acordo com o filtro informado!')
+        else
+        begin
+          CalcularPercentuais( CdsProduto );
+          if (PgcTabelas.ActivePage = TbsProduto) then
+            dbgProduto.SetFocus;
+        end
+      end;
+
+    TIPO_GRP: ;
+
+    TIPO_FAB: ;
+  end;
+(*
+  sWhr := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+
+  Case TipoFiltro of
+    TIPO_PRD:
+      begin
+        CdsProduto.Close;
+        with QryProduto do
+        begin
+          SQL.Clear;
+          SQL.AddStrings( FSQLProduto );
+
+          if ( Trim(edPesquisar.Text) <> EmptyStr ) then
+            if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
+              sWhr := sWhr + ' and (p.cod like ' + QuotedStr('%' + edPesquisar.Text + '%') + ')'
+            else
+              sWhr := sWhr + ' and (upper(p.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
+
+          SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
+        end;
+        CdsProduto.Open;
+
+        if ( CdsProduto.IsEmpty ) then
+          ShowWarning('Dados não encontados de acordo com o filtro informado!');
+      end;
+
+    TIPO_GRP:
+      begin
+        CdsGrupo.Close;
+        with QryGrupo do
+        begin
+          SQL.Clear;
+          SQL.AddStrings( FSQLGrupo );
+
+          if ( Trim(edPesquisar.Text) <> EmptyStr ) then
+            if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
+              sWhr := sWhr + ' and (p.codgrupo = ' + edPesquisar.Text + ')'
+            else
+              sWhr := sWhr + ' and (upper(g.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
+
+          SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
+        end;
+        CdsGrupo.Open;
+
+        if ( CdsGrupo.IsEmpty ) then
+          ShowWarning('Dados não encontados de acordo com o filtro informado!')
+        else
+          CalcularPercentuais( CdsGrupo );
+      end;
+
+    TIPO_FAB:
+      begin
+        CdsFabricante.Close;
+        with QryFabricante do
+        begin
+          SQL.Clear;
+          SQL.AddStrings( FSQLFabricante );
+
+          if ( Trim(edPesquisar.Text) <> EmptyStr ) then
+            if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
+              sWhr := sWhr + ' and (p.codfabricante = ' + edPesquisar.Text + ')'
+            else
+              sWhr := sWhr + ' and (upper(f.nome) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
+
+          SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
+        end;
+        CdsFabricante.Open;
+
+        if ( CdsFabricante.IsEmpty ) then
+          ShowWarning('Dados não encontados de acordo com o filtro informado!')
+        else
+          CalcularPercentuais( CdsFabricante );
+      end;
+  end;
+*)
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.CalcularPercentuais(
+  cdsTabela: TClientDataSet);
+begin
+
+  with cdsTabela do
+  begin
+
+    if ( IsEmpty ) then
+      Exit;
+
+    DisableControls;
+    First;
+
+    while not Eof do
+    begin
+      Edit;
+
+      if ( CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency = 0 ) then
+        FieldByName('PERCENTUAL').AsCurrency := 0
+      else
+        FieldByName('PERCENTUAL').AsCurrency := (FieldByName('CUSTO_DISPONIVEL').AsCurrency / CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency) * 100;
+
+      Post;
+
+      Next;
+    end;
+
+    First;
+    EnableControls;
+
+  end;
+
 end;
 
 initialization
