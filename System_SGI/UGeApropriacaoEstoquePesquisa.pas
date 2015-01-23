@@ -122,6 +122,8 @@ type
     dbgProdutoTblColumn32: TcxGridDBBandedColumn;
     dbgProdutoTblColumn9: TcxGridDBBandedColumn;
     dbgProdutoLvl: TcxGridLevel;
+    btbtnSelecionar: TcxButton;
+    Bevel4: TBevel;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);

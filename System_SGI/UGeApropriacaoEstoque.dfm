@@ -3,9 +3,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   Top = 211
   Width = 1132
   Height = 724
-  ActiveControl = dbCodigo
   Caption = 'Controle de Apropria'#231#245'es de Estoque'
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
@@ -253,7 +251,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 643
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
@@ -2073,7 +2070,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.###'
       Precision = 18
-      Size = 2
+      Size = 3
     end
     object cdsTabelaItensUNIDADE: TSmallintField
       DisplayLabel = 'Unidade'

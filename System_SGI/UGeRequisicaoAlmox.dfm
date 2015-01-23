@@ -49,7 +49,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       Width = 120
       Height = 31
       Hint = 'Finalizar Lan'#231'amento da Apropria'#231#227'o'
-      Caption = 'Finalizar Lanc.'
+      Caption = 'Finalizar Req.'
       Enabled = False
       ParentShowHint = False
       ShowHint = True
@@ -108,19 +108,19 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object btnEncerrarApropriacao: TcxButton
+    object btnEnviarRequisicao: TcxButton
       Tag = 12
       Left = 846
       Top = 2
       Width = 120
       Height = 31
-      Hint = 'Encerrar Apropria'#231#227'o de Estoque'
-      Caption = 'Encerrar'
+      Hint = 'Enviar Requisi'#231#227'o'
+      Caption = 'Enviar Req.'
       Enabled = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      OnClick = btnEncerrarApropriacaoClick
+      OnClick = btnEnviarRequisicaoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         18000000000000060000000000000000000000000000000000000000FF0000FF
@@ -174,19 +174,19 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
       NumGlyphs = 2
     end
-    object btnCancelarApropriacao: TcxButton
+    object btnCancelarRequisicao: TcxButton
       Tag = 13
       Left = 966
       Top = 2
       Width = 120
       Height = 31
       Hint = 'Cancelar Apropria'#231#227'o selecionada'
-      Caption = 'Cancelar Aprop.'
+      Caption = 'Cancelar Req.'
       Enabled = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
-      OnClick = btnCancelarApropriacaoClick
+      OnClick = btnCancelarRequisicaoClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -270,7 +270,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           item
             Expanded = False
             FieldName = 'TIPO'
-            Title.Caption = 'Tipo'
             Width = 100
             Visible = True
           end
@@ -284,7 +283,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           item
             Expanded = False
             FieldName = 'STATUS'
-            Title.Caption = 'Situa'#231#227'o'
             Width = 100
             Visible = True
           end
@@ -327,12 +325,12 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         Top = 544
         Width = 1108
         Height = 70
-        object lblApropriacaoAberta: TLabel [0]
+        object lblRequisicaoAberta: TLabel [0]
           Left = 2
           Top = 4
-          Width = 133
+          Width = 125
           Height = 13
-          Caption = '* Apropria'#231#245'es Abertas'
+          Caption = '* Requisi'#231#245'es Abertas'
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -340,12 +338,12 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblApropriacaoCancelada: TLabel [1]
+        object lblRequisicaoCancelada: TLabel [1]
           Left = 2
-          Top = 24
-          Width = 152
+          Top = 36
+          Width = 144
           Height = 13
-          Caption = '* Apropria'#231#245'es Canceladas'
+          Caption = '* Requisi'#231#245'es Canceladas'
           Font.Charset = ANSI_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -353,12 +351,12 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblApropriacaoEmEdicao: TLabel [2]
+        object lblRequisicaoEmEdicao: TLabel [2]
           Left = 2
-          Top = 44
-          Width = 144
+          Top = 52
+          Width = 136
           Height = 13
-          Caption = '* Apropria'#231#245'es Em Edi'#231#227'o'
+          Caption = '* Requisi'#231#245'es Em Edi'#231#227'o'
           Color = clYellow
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -368,13 +366,26 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ParentColor = False
           ParentFont = False
         end
+        object lblRequisicaoRecebida: TLabel [3]
+          Left = 2
+          Top = 20
+          Width = 194
+          Height = 13
+          Caption = '* Requisi'#231#245'es Enviadas/Recebidas'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clGreen
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         inherited grpBxFiltro: TGroupBox
-          Left = 424
-          Width = 680
+          Left = 432
+          Width = 672
           Height = 62
           TabOrder = 1
           DesignSize = (
-            680
+            672
             62)
           inherited lbltFiltrar: TLabel
             Left = 294
@@ -382,7 +393,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Caption = 'Centro de Custo:'
           end
           inherited btnFiltrar: TSpeedButton
-            Left = 635
+            Left = 627
             Height = 35
           end
           object lblData: TLabel [2]
@@ -395,7 +406,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           end
           inherited edtFiltrar: TEdit
             Left = 392
-            Width = 239
+            Width = 231
             TabOrder = 2
           end
           object e1Data: TDateEdit
@@ -463,20 +474,22 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Text = '01/01/2012'
           end
         end
-        object RdgStatusApropriacao: TRadioGroup
-          Left = 198
+        object RdgStatusRequisicao: TRadioGroup
+          Left = 206
           Top = 4
           Width = 226
           Height = 62
           Align = alRight
-          Caption = '&Status Autoriza'#231#227'o'
-          Columns = 2
+          Caption = '&Status Requisi'#231#227'o'
+          Columns = 3
           ItemIndex = 0
           Items.Strings = (
             '(Todas)'
-            'Em Edi'#231#227'o'
+            'Em edi'#231#227'o'
             'Aberta'
-            'Encerrada'
+            'Enviada'
+            'Recebida'
+            'Atendida'
             'Cancelada')
           TabOrder = 0
         end
@@ -484,12 +497,12 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     end
     inherited tbsCadastro: TTabSheet
       inherited Bevel8: TBevel
-        Top = 349
+        Top = 373
         Width = 1108
       end
       object Bevel6: TBevel [1]
         Left = 0
-        Top = 444
+        Top = 484
         Width = 1108
         Height = 4
         Align = alBottom
@@ -497,7 +510,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1108
-        Height = 233
+        Height = 257
         inherited lblCodigo: TLabel
           Width = 71
           Caption = 'No. Controle:'
@@ -525,8 +538,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           FocusControl = dbEmpresa
         end
         object lblSituacao: TLabel [3]
-          Left = 704
-          Top = 64
+          Left = 240
+          Top = 104
           Width = 52
           Height = 13
           Caption = 'Situa'#231#227'o:'
@@ -538,13 +551,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblDataApropriacao: TLabel [4]
+        object lblDataEmissao: TLabel [4]
           Left = 384
           Top = 64
-          Width = 88
+          Width = 68
           Height = 13
-          Caption = 'Data Apropria'#231#227'o:'
-          FocusControl = dbDataApropriacao
+          Caption = 'Data Emiss'#227'o:'
+          FocusControl = dbDataEmissao
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -552,13 +565,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = []
           ParentFont = False
         end
-        object lblUsuario: TLabel [5]
-          Left = 856
-          Top = 64
-          Width = 46
+        object lblUsuarioCadastro: TLabel [5]
+          Left = 384
+          Top = 104
+          Width = 90
           Height = 13
-          Caption = 'Usu'#225'rio:'
-          FocusControl = dbUsuario
+          Caption = 'Cadastrada por:'
+          FocusControl = dbUsuarioCadastro
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -574,21 +587,21 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Caption = 'N'#250'mero:'
           FocusControl = dbNumero
         end
-        object lblCentroCusto: TLabel [7]
+        object lblCentroCustoRequisitante: TLabel [7]
           Left = 704
           Top = 24
-          Width = 162
+          Width = 267
           Height = 13
-          Caption = 'Departamento / Centro de Custo:'
+          Caption = 'Departamento / Centro de Custo requisitante (Origem):'
           FocusControl = dbCentroCustoRequisitante
         end
-        object lblEntrada: TLabel [8]
+        object lblUsuarioRequisitante: TLabel [8]
           Left = 512
           Top = 64
-          Width = 42
+          Width = 139
           Height = 13
-          Caption = 'Entrada:'
-          FocusControl = dbEntrada
+          Caption = 'Respons'#225'vel pela requisi'#231#227'o:'
+          FocusControl = dbUsuarioRequisitante
         end
         object lblTipo: TLabel [9]
           Left = 16
@@ -597,6 +610,42 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Height = 13
           Caption = 'Tipo:'
           FocusControl = dbTipo
+        end
+        object lblCentroCustoAtendente: TLabel [10]
+          Left = 704
+          Top = 64
+          Width = 262
+          Height = 13
+          Caption = 'Departamento / Centro de Custo atendente (Destino):'
+          FocusControl = dbCentroCustoAtendente
+        end
+        object lblUsuarioAtendente: TLabel [11]
+          Left = 616
+          Top = 104
+          Width = 76
+          Height = 13
+          Caption = 'Atendida por:'
+          FocusControl = dbUsuarioAtendente
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblUsuarioCancelamento: TLabel [12]
+          Left = 856
+          Top = 104
+          Width = 83
+          Height = 13
+          Caption = 'Cancelada por:'
+          FocusControl = dbUsuarioCancelamento
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
         end
         inherited dbCodigo: TDBEdit
           Width = 89
@@ -641,9 +690,9 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           TabOrder = 2
         end
         object dbSituacao: TDBEdit
-          Left = 704
-          Top = 80
-          Width = 145
+          Left = 240
+          Top = 120
+          Width = 137
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -656,14 +705,14 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 8
+          TabOrder = 9
         end
-        object dbDataApropriacao: TDBDateEdit
+        object dbDataEmissao: TDBDateEdit
           Left = 384
           Top = 80
           Width = 121
           Height = 21
-          DataField = 'DATA_APROPRIACAO'
+          DataField = 'DATA_EMISSAO'
           DataSource = DtSrcTabela
           Color = clWhite
           Font.Charset = ANSI_CHARSET
@@ -676,14 +725,14 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           TabOrder = 6
           OnExit = ControlEditExit
         end
-        object dbUsuario: TDBEdit
-          Left = 856
-          Top = 80
-          Width = 233
+        object dbUsuarioCadastro: TDBEdit
+          Left = 384
+          Top = 120
+          Width = 225
           Height = 21
           TabStop = False
           Color = clMoneyGreen
-          DataField = 'USUARIO'
+          DataField = 'INSERCAO_USUARIO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -692,7 +741,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 10
         end
         object dbNumero: TDBEdit
           Left = 240
@@ -710,21 +759,21 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ParentFont = False
           TabOrder = 5
         end
-        object PgcTextoApropriacao: TPageControl
+        object PgcTextoRequisicao: TPageControl
           Left = 16
-          Top = 112
+          Top = 152
           Width = 1073
-          Height = 114
-          ActivePage = TbsApropriacaoMotivo
+          Height = 97
+          ActivePage = TbsRequisicaoMotivo
           Style = tsFlatButtons
-          TabOrder = 10
-          object TbsApropriacaoMotivo: TTabSheet
-            Caption = 'Motivo da apropria'#231#227'o'
+          TabOrder = 13
+          object TbsRequisicaoMotivo: TTabSheet
+            Caption = 'Motivo da requisi'#231#227'o'
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
               Width = 1065
-              Height = 83
+              Height = 66
               Align = alClient
               DataField = 'MOTIVO'
               DataSource = DtSrcTabela
@@ -738,14 +787,14 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
               TabOrder = 0
             end
           end
-          object TbsApropriacaoCancelado: TTabSheet
+          object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
               Width = 1065
-              Height = 83
+              Height = 66
               TabStop = False
               Align = alClient
               DataField = 'CANCEL_MOTIVO'
@@ -771,7 +820,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clMoneyGreen
-          DataField = 'CC_DESCRICAO'
+          DataField = 'CC_ORIGEM_DESC'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -835,18 +884,18 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ReadOnly = True
           ShowHint = True
           TabOrder = 3
-          OnButtonClick = dbCentroCustoRequisitanteButtonClick
+          OnButtonClick = dbCentroCustoSelecionar
         end
-        object dbEntrada: TRxDBComboEdit
+        object dbUsuarioRequisitante: TRxDBComboEdit
           Left = 512
           Top = 80
           Width = 185
           Height = 21
-          ButtonHint = 'Pesquisar Movimento de Entrada (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+          ButtonHint = 'Pesquisar Usu'#225'rio (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clMoneyGreen
-          DataField = 'ENTRADA'
+          DataField = 'REQUISITANTE'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -910,7 +959,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ReadOnly = True
           ShowHint = True
           TabOrder = 7
-          OnButtonClick = dbEntradaButtonClick
+          OnButtonClick = dbUsuarioRequisitanteButtonClick
         end
         object dbTipo: TDBLookupComboBox
           Left = 16
@@ -931,12 +980,123 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ParentFont = False
           TabOrder = 4
         end
+        object dbCentroCustoAtendente: TRxDBComboEdit
+          Left = 704
+          Top = 80
+          Width = 385
+          Height = 21
+          ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'CC_DESTINO_DESC'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 8
+          OnButtonClick = dbCentroCustoSelecionar
+        end
+        object dbUsuarioAtendente: TDBEdit
+          Left = 616
+          Top = 120
+          Width = 233
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'ATENDIMENTO_USUARIO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 11
+        end
+        object dbUsuarioCancelamento: TDBEdit
+          Left = 856
+          Top = 120
+          Width = 233
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'ATENDIMENTO_USUARIO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 12
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 448
+        Top = 488
         Width = 1108
-        Height = 166
+        Height = 126
         ActivePage = tbsObservacoes
         Align = alBottom
         TabOrder = 3
@@ -947,7 +1107,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Left = 0
             Top = 0
             Width = 1100
-            Height = 138
+            Height = 98
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 0
@@ -955,7 +1115,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
               Left = 0
               Top = 0
               Width = 1100
-              Height = 88
+              Height = 48
               Align = alClient
               DataField = 'OBS'
               DataSource = DtSrcTabela
@@ -970,7 +1130,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             end
             object PnlValores: TPanel
               Left = 0
-              Top = 88
+              Top = 48
               Width = 1100
               Height = 50
               Align = alBottom
@@ -996,13 +1156,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
                 Font.Style = [fsBold]
                 ParentFont = False
               end
-              object lblValorTotalAprop: TLabel
+              object lblValorTotalCusto: TLabel
                 Left = 160
                 Top = 8
-                Width = 92
+                Width = 95
                 Height = 13
-                Caption = 'Valor Total (R$):'
-                FocusControl = dbValorTotalAprop
+                Caption = 'Custo Total (R$):'
+                FocusControl = dbValorTotalCusto
                 Font.Charset = ANSI_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -1028,7 +1188,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
                 ReadOnly = True
                 TabOrder = 0
               end
-              object dbValorTotalAprop: TDBEdit
+              object dbValorTotalCusto: TDBEdit
                 Left = 160
                 Top = 24
                 Width = 145
@@ -1052,7 +1212,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       end
       object GrpBxDadosProduto: TGroupBox
         Left = 0
-        Top = 233
+        Top = 257
         Width = 1108
         Height = 116
         Align = alTop
@@ -1066,13 +1226,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Caption = 'Produto:'
           FocusControl = dbProduto
         end
-        object lblQuantidade: TLabel
+        object lblQtde: TLabel
           Left = 88
           Top = 64
           Width = 60
           Height = 13
           Caption = 'Quantidade:'
-          FocusControl = dbQuantidade
+          FocusControl = dbQtde
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -1103,7 +1263,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Shape = bsSpacer
         end
         object lblCustoTotal: TLabel
-          Left = 304
+          Left = 424
           Top = 64
           Width = 83
           Height = 13
@@ -1117,7 +1277,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ParentFont = False
         end
         object lblCustoUn: TLabel
-          Left = 184
+          Left = 304
           Top = 64
           Width = 76
           Height = 13
@@ -1131,14 +1291,15 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ParentFont = False
         end
         object LblAjuda: TLabel
-          Left = 852
+          Left = 881
           Top = 16
-          Width = 237
-          Height = 65
+          Width = 208
+          Height = 78
           Alignment = taRightJustify
           Caption = 
-            'IMPORTANTE:'#13#10#13#10'Apenas nas Apropria'#231#245'es Gerais se tem a liberdade' +
-            ' de inserir manualmente'#13#10'os produtos desejados.'
+            'IMPORTANTE:'#13#10#13#10'Apenas os produtos pertencentes ao'#13#10'Centro de Cus' +
+            'to de atendimento que'#13#10'possuem estoque ser'#227'o exibidos na'#13#10'pesqui' +
+            'sa.'
           Font.Charset = ANSI_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -1148,12 +1309,54 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Transparent = True
           WordWrap = True
         end
+        object lblQtdeDisponivel: TLabel
+          Left = 720
+          Top = 24
+          Width = 83
+          Height = 13
+          Caption = 'Qtde. Dispon'#237'vel:'
+          FocusControl = dbQtdeDisponivel
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblQtdeAtendida: TLabel
+          Left = 184
+          Top = 64
+          Width = 78
+          Height = 13
+          Caption = 'Qtde. Atendida:'
+          FocusControl = dbQtdeAtendida
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblSituacaoProduto: TLabel
+          Left = 656
+          Top = 64
+          Width = 52
+          Height = 13
+          Caption = 'Situa'#231#227'o:'
+          FocusControl = dbSituacaoProduto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object dbProduto: TRxDBComboEdit
           Left = 88
           Top = 40
           Width = 89
           Height = 21
-          ButtonHint = 'Pesquisar Produto (Ctrl+P)'
+          ButtonHint = 'Pesquisar Produto no Estoque (Ctrl+P)'
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clWhite
@@ -1241,7 +1444,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ReadOnly = True
           TabOrder = 2
         end
-        object dbQuantidade: TDBEdit
+        object dbQtde: TDBEdit
           Left = 88
           Top = 80
           Width = 89
@@ -1255,7 +1458,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
           OnExit = ControlEditExit
         end
         object dbUnidade: TDBEdit
@@ -1553,12 +1756,66 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           end
         end
         object dbCustoTotal: TDBEdit
+          Left = 424
+          Top = 80
+          Width = 113
+          Height = 21
+          Color = clMoneyGreen
+          DataField = 'TOTAL'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 8
+          OnExit = ControlEditExit
+        end
+        object dbCustoUn: TDBEdit
           Left = 304
           Top = 80
           Width = 113
           Height = 21
           Color = clMoneyGreen
-          DataField = 'CUSTO_TOTAL'
+          DataField = 'CUSTO'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 7
+          OnExit = ControlEditExit
+        end
+        object dbQtdeDisponivel: TDBEdit
+          Left = 720
+          Top = 40
+          Width = 97
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'DISPONIVEL'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 4
+        end
+        object dbQtdeAtendida: TDBEdit
+          Left = 184
+          Top = 80
+          Width = 113
+          Height = 21
+          Color = clMoneyGreen
+          DataField = 'QTDE_ATENDIDA'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1570,29 +1827,30 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           TabOrder = 6
           OnExit = ControlEditExit
         end
-        object dbCustoUn: TDBEdit
-          Left = 184
+        object dbSituacaoProduto: TDBEdit
+          Left = 656
           Top = 80
-          Width = 113
+          Width = 161
           Height = 21
-          Color = clWhite
-          DataField = 'CUSTO_UNITARIO'
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'STATUS'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 5
-          OnExit = ControlEditExit
+          ReadOnly = True
+          TabOrder = 9
         end
       end
       object dbgProdutos: TDBGrid
         Left = 0
-        Top = 353
+        Top = 377
         Width = 1108
-        Height = 91
+        Height = 107
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -1631,12 +1889,27 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
             Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o'
-            Width = 450
+            Width = 380
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTDE'
+            Title.Caption = 'Solicitado'
+            Width = 80
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTDE_ATENDIDA'
+            Title.Caption = 'Atendido'
+            Width = 80
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DISPONIVEL'
+            Title.Caption = 'Estoque (D)'
             Width = 80
             Visible = True
           end
@@ -1649,16 +1922,23 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           end
           item
             Expanded = False
-            FieldName = 'CUSTO_UNITARIO'
+            FieldName = 'CUSTO'
             Title.Caption = 'Custo Un. (R$)'
             Width = 100
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'CUSTO_TOTAL'
+            FieldName = 'TOTAL'
             Title.Caption = 'Custo Total (R$)'
             Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'STATUS'
+            Title.Caption = 'Situa'#231#227'o'
+            Width = 90
             Visible = True
           end>
       end
@@ -1670,49 +1950,215 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
-      '    a.ano'
-      '  , a.controle'
-      '  , a.numero'
-      '  , a.empresa'
-      '  , a.centro_custo'
-      '  , a.tipo'
-      '  , a.compra_ano'
-      '  , a.compra_num'
-      '  , a.compra_emp'
-      '  , a.insercao_data'
-      '  , a.data_apropriacao'
-      '  , a.competencia'
-      '  , a.usuario'
-      '  , a.status'
-      '  , a.motivo'
-      '  , a.obs'
-      '  , a.valor_total'
-      '  , a.cancel_usuario'
-      '  , a.cancel_datahora'
-      '  , a.cancel_motivo'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.empresa'
+      '  , r.tipo'
+      '  , r.ccusto_origem'
+      '  , r.ccusto_destino'
+      '  , r.insercao_data'
+      '  , r.insercao_usuario'
+      '  , r.data_emissao'
+      '  , r.requisitante'
+      '  , r.competencia'
+      '  , r.status'
+      '  , r.motivo'
+      '  , r.obs'
+      '  , r.valor_total'
+      '  , r.atendimento_usuario'
+      '  , r.atendimento_data'
+      '  , r.cancel_usuario'
+      '  , r.cancel_data'
+      '  , r.cancel_motivo'
       ''
       
-        '  , (Select count(ai.item) from TBAPROPRIACAO_ALMOX_ITEM ai wher' +
-        'e ai.ano = a.ano and ai.controle = a.controle) as Itens'
+        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where' +
+        ' ri.ano = r.ano and ri.controle = r.controle) as Itens'
       ''
-      '  , e.rzsoc     as empresa_nome'
-      '  , c.descricao as cc_descricao'
-      '  , c.codcliente as cc_cliente_codigo'
-      '  , ci.nome     as cc_cliente_nome'
-      '  , ci.cnpj     as cc_cliente_cnpj'
-      '  , ci.pessoa_fisica as cc_cliente_tipo'
+      '  , e.rzsoc       as empresa_nome'
+      '  , co.descricao  as cc_origem_desc'
+      '  , co.codcliente as cc_origem_codcliente'
+      '  , cd.descricao  as cc_destino_desc'
       ''
-      '  , a.compra_ano || '#39'/'#39' || lpad(a.compra_num, 7, '#39'0'#39') as entrada'
-      'from TBAPROPRIACAO_ALMOX a'
-      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
-      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)')
-    GeneratorField.Field = 'NUMERO'
-    GeneratorField.Generator = 'GEN_REQUISICAO_2013'
+      'from TBREQUISICAO_ALMOX r'
+      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
+      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)')
+    GeneratorField.Field = 'CONTROLE'
+    GeneratorField.Generator = 'GEN_REQUISICAO_ALMOX_2015'
     Top = 512
+    object IbDtstTabelaANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = '"TBREQUISICAO_ALMOX"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object IbDtstTabelaCONTROLE: TIntegerField
+      DisplayLabel = 'Controle'
+      FieldName = 'CONTROLE'
+      Origin = '"TBREQUISICAO_ALMOX"."CONTROLE"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      DisplayFormat = '###0000000'
+    end
+    object IbDtstTabelaNUMERO: TIBStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'NUMERO'
+      Origin = '"TBREQUISICAO_ALMOX"."NUMERO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object IbDtstTabelaEMPRESA: TIBStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = '"TBREQUISICAO_ALMOX"."EMPRESA"'
+      ProviderFlags = [pfInUpdate]
+      Size = 18
+    end
+    object IbDtstTabelaTIPO: TSmallintField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = '"TBREQUISICAO_ALMOX"."TIPO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object IbDtstTabelaCCUSTO_ORIGEM: TIntegerField
+      DisplayLabel = 'Centro de Custo requisitante (Origem)'
+      FieldName = 'CCUSTO_ORIGEM'
+      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_ORIGEM"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object IbDtstTabelaCCUSTO_DESTINO: TIntegerField
+      DisplayLabel = 'Centro de Custo de atendimento (Destino)'
+      FieldName = 'CCUSTO_DESTINO'
+      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_DESTINO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object IbDtstTabelaINSERCAO_DATA: TDateTimeField
+      FieldName = 'INSERCAO_DATA'
+      Origin = '"TBREQUISICAO_ALMOX"."INSERCAO_DATA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaINSERCAO_USUARIO: TIBStringField
+      FieldName = 'INSERCAO_USUARIO'
+      Origin = '"TBREQUISICAO_ALMOX"."INSERCAO_USUARIO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 12
+    end
+    object IbDtstTabelaDATA_EMISSAO: TDateField
+      DisplayLabel = 'Data Emiss'#227'o'
+      FieldName = 'DATA_EMISSAO'
+      Origin = '"TBREQUISICAO_ALMOX"."DATA_EMISSAO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object IbDtstTabelaREQUISITANTE: TIBStringField
+      DisplayLabel = 'Respons'#225'vel pela requisi'#231#227'o'
+      FieldName = 'REQUISITANTE'
+      Origin = '"TBREQUISICAO_ALMOX"."REQUISITANTE"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 12
+    end
+    object IbDtstTabelaCOMPETENCIA: TIntegerField
+      DisplayLabel = 'Compet'#234'ncia'
+      FieldName = 'COMPETENCIA'
+      Origin = '"TBREQUISICAO_ALMOX"."COMPETENCIA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaSTATUS: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Situa'#231#227'o'
+      FieldName = 'STATUS'
+      Origin = '"TBREQUISICAO_ALMOX"."STATUS"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      OnGetText = IbDtstTabelaSTATUSGetText
+    end
+    object IbDtstTabelaMOTIVO: TMemoField
+      DisplayLabel = 'Motivo'
+      FieldName = 'MOTIVO'
+      Origin = '"TBREQUISICAO_ALMOX"."MOTIVO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaOBS: TMemoField
+      DisplayLabel = 'Observa'#231#245'es'
+      FieldName = 'OBS'
+      Origin = '"TBREQUISICAO_ALMOX"."OBS"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaVALOR_TOTAL: TIBBCDField
+      DisplayLabel = 'Custo Total (R$)'
+      FieldName = 'VALOR_TOTAL'
+      Origin = '"TBREQUISICAO_ALMOX"."VALOR_TOTAL"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object IbDtstTabelaATENDIMENTO_USUARIO: TIBStringField
+      FieldName = 'ATENDIMENTO_USUARIO'
+      Origin = '"TBREQUISICAO_ALMOX"."ATENDIMENTO_USUARIO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 12
+    end
+    object IbDtstTabelaATENDIMENTO_DATA: TDateTimeField
+      FieldName = 'ATENDIMENTO_DATA'
+      Origin = '"TBREQUISICAO_ALMOX"."ATENDIMENTO_DATA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaCANCEL_USUARIO: TIBStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_USUARIO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 12
+    end
+    object IbDtstTabelaCANCEL_DATA: TDateTimeField
+      FieldName = 'CANCEL_DATA'
+      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_DATA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaCANCEL_MOTIVO: TMemoField
+      FieldName = 'CANCEL_MOTIVO'
+      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_MOTIVO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaITENS: TIntegerField
+      DisplayLabel = 'Produtos'
+      FieldName = 'ITENS'
+    end
+    object IbDtstTabelaEMPRESA_NOME: TIBStringField
+      FieldName = 'EMPRESA_NOME'
+      Origin = '"TBEMPRESA"."RZSOC"'
+      Size = 60
+    end
+    object IbDtstTabelaCC_ORIGEM_DESC: TIBStringField
+      FieldName = 'CC_ORIGEM_DESC'
+      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+      Size = 100
+    end
+    object IbDtstTabelaCC_ORIGEM_CODCLIENTE: TIntegerField
+      FieldName = 'CC_ORIGEM_CODCLIENTE'
+      Origin = '"TBCENTRO_CUSTO"."CODCLIENTE"'
+      ProviderFlags = []
+    end
+    object IbDtstTabelaCC_DESTINO_DESC: TIBStringField
+      FieldName = 'CC_DESTINO_DESC'
+      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+      Size = 100
+    end
   end
   inherited DtSrcTabela: TDataSource
-    OnDataChange = DtSrcTabelaDataChange
     Top = 512
   end
   inherited IbUpdTabela: TIBUpdateSQL
@@ -1746,16 +2192,10 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       'update TBAPROPRIACAO_ALMOX'
       'set'
       '  ANO = :ANO,'
-      '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
       '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
       '  CANCEL_USUARIO = :CANCEL_USUARIO,'
-      '  CENTRO_CUSTO = :CENTRO_CUSTO,'
       '  COMPETENCIA = :COMPETENCIA,'
-      '  COMPRA_ANO = :COMPRA_ANO,'
-      '  COMPRA_EMP = :COMPRA_EMP,'
-      '  COMPRA_NUM = :COMPRA_NUM,'
       '  CONTROLE = :CONTROLE,'
-      '  DATA_APROPRIACAO = :DATA_APROPRIACAO,'
       '  EMPRESA = :EMPRESA,'
       '  INSERCAO_DATA = :INSERCAO_DATA,'
       '  MOTIVO = :MOTIVO,'
@@ -1763,7 +2203,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  OBS = :OBS,'
       '  STATUS = :STATUS,'
       '  TIPO = :TIPO,'
-      '  USUARIO = :USUARIO,'
       '  VALOR_TOTAL = :VALOR_TOTAL'
       'where'
       '  ANO = :OLD_ANO and'
@@ -1771,25 +2210,18 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     InsertSQL.Strings = (
       'insert into TBAPROPRIACAO_ALMOX'
       
-        '  (ANO, CANCEL_DATAHORA, CANCEL_MOTIVO, CANCEL_USUARIO, CENTRO_C' +
-        'USTO, COMPETENCIA, '
+        '  (ANO, CANCEL_MOTIVO, CANCEL_USUARIO, COMPETENCIA, CONTROLE, EM' +
+        'PRESA, '
       
-        '   COMPRA_ANO, COMPRA_EMP, COMPRA_NUM, CONTROLE, DATA_APROPRIACA' +
-        'O, EMPRESA, '
-      
-        '   INSERCAO_DATA, MOTIVO, NUMERO, OBS, STATUS, TIPO, USUARIO, VA' +
-        'LOR_TOTAL)'
+        '   INSERCAO_DATA, MOTIVO, NUMERO, OBS, STATUS, TIPO, VALOR_TOTAL' +
+        ')'
       'values'
       
-        '  (:ANO, :CANCEL_DATAHORA, :CANCEL_MOTIVO, :CANCEL_USUARIO, :CEN' +
-        'TRO_CUSTO, '
+        '  (:ANO, :CANCEL_MOTIVO, :CANCEL_USUARIO, :COMPETENCIA, :CONTROL' +
+        'E, :EMPRESA, '
       
-        '   :COMPETENCIA, :COMPRA_ANO, :COMPRA_EMP, :COMPRA_NUM, :CONTROL' +
-        'E, :DATA_APROPRIACAO, '
-      
-        '   :EMPRESA, :INSERCAO_DATA, :MOTIVO, :NUMERO, :OBS, :STATUS, :T' +
-        'IPO, :USUARIO, '
-      '   :VALOR_TOTAL)')
+        '   :INSERCAO_DATA, :MOTIVO, :NUMERO, :OBS, :STATUS, :TIPO, :VALO' +
+        'R_TOTAL)')
     DeleteSQL.Strings = (
       'delete from TBAPROPRIACAO_ALMOX'
       'where'
@@ -1827,9 +2259,14 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  , i.item'
       '  , i.produto'
       '  , i.qtde'
+      '  , i.qtde_atendida'
       '  , i.unidade'
-      '  , i.custo_unitario'
-      '  , i.custo_total'
+      '  , i.custo'
+      '  , i.fracionador'
+      '  , i.total'
+      '  , i.status'
+      '  , i.lote_atendimento'
+      '  , i.lote_requisitante'
       ''
       '  , p.descri'
       '  , p.apresentacao'
@@ -1839,17 +2276,173 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       
         '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
         'ricao) from 1 for 3) unidade_sigla'
-      '  , coalesce(p.qtde, 0.0) as estoque'
-      '  , coalesce(p.reserva, 0.0) as reserva'
-      '  , p.movimenta_estoque'
-      'from TBAPROPRIACAO_ALMOX_ITEM i'
+      '  , ea.estoque'
+      '  , ea.reserva'
+      '  , ea.disponivel'
+      'from TBREQUISICAO_ALMOX_ITEM i'
       '  left join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      '      , e.estoque'
+      '      , e.reserva'
+      '      , e.disponivel'
+      
+        '    from GET_ESTOQUE_ALMOX_DISPONIVEL(:empresa, :centro_custo, :' +
+        'produto, :lote, :lote_guid, :requisicao_ano,  :requisicao_cod) e'
+      '  ) ea on (ea.produto = i.produto)')
     ModifySQL.Strings = (
       '')
     UpdateObject = IbUpdTabelaItens
     Left = 624
     Top = 544
+    object cdsTabelaItensANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensCONTROLE: TIntegerField
+      FieldName = 'CONTROLE'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."CONTROLE"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensITEM: TSmallintField
+      FieldName = 'ITEM'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."ITEM"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensPRODUTO: TIBStringField
+      FieldName = 'PRODUTO'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."PRODUTO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object cdsTabelaItensQTDE: TIBBCDField
+      FieldName = 'QTDE'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."QTDE"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensQTDE_ATENDIDA: TIBBCDField
+      FieldName = 'QTDE_ATENDIDA'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."QTDE_ATENDIDA"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensUNIDADE: TSmallintField
+      FieldName = 'UNIDADE'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."UNIDADE"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsTabelaItensCUSTO: TIBBCDField
+      FieldName = 'CUSTO'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."CUSTO"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00##'
+      Precision = 18
+      Size = 4
+    end
+    object cdsTabelaItensFRACIONADOR: TIBBCDField
+      FieldName = 'FRACIONADOR'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."FRACIONADOR"'
+      ProviderFlags = [pfInUpdate]
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensTOTAL: TIBBCDField
+      FieldName = 'TOTAL'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."TOTAL"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00##'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensSTATUS: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'STATUS'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."STATUS"'
+      ProviderFlags = [pfInUpdate]
+      OnGetText = cdsTabelaItensSTATUSGetText
+    end
+    object cdsTabelaItensLOTE_ATENDIMENTO: TIBStringField
+      FieldName = 'LOTE_ATENDIMENTO'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."LOTE_ATENDIMENTO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 38
+    end
+    object cdsTabelaItensLOTE_REQUISITANTE: TIBStringField
+      FieldName = 'LOTE_REQUISITANTE'
+      Origin = '"TBREQUISICAO_ALMOX_ITEM"."LOTE_REQUISITANTE"'
+      ProviderFlags = [pfInUpdate]
+      Size = 38
+    end
+    object cdsTabelaItensDESCRI: TIBStringField
+      FieldName = 'DESCRI'
+      Origin = '"TBPRODUTO"."DESCRI"'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsTabelaItensAPRESENTACAO: TIBStringField
+      FieldName = 'APRESENTACAO'
+      Origin = '"TBPRODUTO"."APRESENTACAO"'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsTabelaItensDESCRI_APRESENTACAO: TIBStringField
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
+      ProviderFlags = []
+      Size = 100
+    end
+    object cdsTabelaItensUNP_DESCRICAO: TIBStringField
+      FieldName = 'UNP_DESCRICAO'
+      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsTabelaItensUNP_SIGLA: TIBStringField
+      FieldName = 'UNP_SIGLA'
+      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
+      ProviderFlags = []
+      Size = 5
+    end
+    object cdsTabelaItensUNIDADE_SIGLA: TIBStringField
+      FieldName = 'UNIDADE_SIGLA'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsTabelaItensESTOQUE: TIBBCDField
+      FieldName = 'ESTOQUE'
+      Origin = '"GET_ESTOQUE_ALMOX_DISPONIVEL"."ESTOQUE"'
+      ProviderFlags = []
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensRESERVA: TIBBCDField
+      FieldName = 'RESERVA'
+      Origin = '"GET_ESTOQUE_ALMOX_DISPONIVEL"."RESERVA"'
+      ProviderFlags = []
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensDISPONIVEL: TIBBCDField
+      FieldName = 'DISPONIVEL'
+      Origin = '"GET_ESTOQUE_ALMOX_DISPONIVEL"."DISPONIVEL"'
+      ProviderFlags = []
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
   end
   object IbUpdTabelaItens: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1859,41 +2452,52 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  ITEM,'
       '  PRODUTO,'
       '  QTDE,'
+      '  QTDE_ATENDIDA,'
       '  UNIDADE,'
-      '  CUSTO_UNITARIO,'
-      '  CUSTO_TOTAL'
-      'from TBAPROPRIACAO_ALMOX_ITEM '
+      '  CUSTO,'
+      '  FRACIONADOR,'
+      '  TOTAL,'
+      '  STATUS,'
+      '  LOTE_ATENDIMENTO,'
+      '  LOTE_REQUISITANTE'
+      'from TBREQUISICAO_ALMOX_ITEM '
       'where'
       '  ANO = :ANO and'
       '  CONTROLE = :CONTROLE and'
       '  ITEM = :ITEM')
     ModifySQL.Strings = (
-      'update TBAPROPRIACAO_ALMOX_ITEM'
+      'update TBREQUISICAO_ALMOX_ITEM'
       'set'
       '  ANO = :ANO,'
       '  CONTROLE = :CONTROLE,'
-      '  CUSTO_TOTAL = :CUSTO_TOTAL,'
-      '  CUSTO_UNITARIO = :CUSTO_UNITARIO,'
+      '  CUSTO = :CUSTO,'
+      '  FRACIONADOR = :FRACIONADOR,'
       '  ITEM = :ITEM,'
+      '  LOTE_ATENDIMENTO = :LOTE_ATENDIMENTO,'
+      '  LOTE_REQUISITANTE = :LOTE_REQUISITANTE,'
       '  PRODUTO = :PRODUTO,'
       '  QTDE = :QTDE,'
+      '  QTDE_ATENDIDA = :QTDE_ATENDIDA,'
+      '  STATUS = :STATUS,'
+      '  TOTAL = :TOTAL,'
       '  UNIDADE = :UNIDADE'
       'where'
       '  ANO = :OLD_ANO and'
       '  CONTROLE = :OLD_CONTROLE and'
       '  ITEM = :OLD_ITEM')
     InsertSQL.Strings = (
-      'insert into TBAPROPRIACAO_ALMOX_ITEM'
+      'insert into TBREQUISICAO_ALMOX_ITEM'
       
-        '  (ANO, CONTROLE, CUSTO_TOTAL, CUSTO_UNITARIO, ITEM, PRODUTO, QT' +
-        'DE, UNIDADE)'
+        '  (ANO, CONTROLE, CUSTO, FRACIONADOR, ITEM, LOTE_ATENDIMENTO, LO' +
+        'TE_REQUISITANTE, '
+      '   PRODUTO, QTDE, QTDE_ATENDIDA, STATUS, TOTAL, UNIDADE)'
       'values'
       
-        '  (:ANO, :CONTROLE, :CUSTO_TOTAL, :CUSTO_UNITARIO, :ITEM, :PRODU' +
-        'TO, :QTDE, '
-      '   :UNIDADE)')
+        '  (:ANO, :CONTROLE, :CUSTO, :FRACIONADOR, :ITEM, :LOTE_ATENDIMEN' +
+        'TO, :LOTE_REQUISITANTE, '
+      '   :PRODUTO, :QTDE, :QTDE_ATENDIDA, :STATUS, :TOTAL, :UNIDADE)')
     DeleteSQL.Strings = (
-      'delete from TBAPROPRIACAO_ALMOX_ITEM'
+      'delete from TBREQUISICAO_ALMOX_ITEM'
       'where'
       '  ANO = :OLD_ANO and'
       '  CONTROLE = :OLD_CONTROLE and'
@@ -1912,14 +2516,14 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
   object ppImprimir: TPopupMenu
     Images = ImgList
     Left = 16
-    Top = 512
+    Top = 448
     object nmImprimirApropriacao: TMenuItem
-      Caption = 'Apropria'#231#227'o de Estoque (Almoxarifado)'
+      Caption = 'Requisi'#231#227'o ao Estoque (Almoxarifado)'
       ImageIndex = 16
       OnClick = nmImprimirApropriacaoClick
     end
   end
-  object qryProduto: TIBDataSet
+  object qryProdutoAlmox: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     RefreshSQL.Strings = (
@@ -1932,87 +2536,35 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  , p.codunidade'
       '  , u.unp_descricao'
       '  , u.unp_sigla'
-      'from TBPRODUTO p'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
-      'where p.codigo = :produto')
+      '  , g.lote_id'
+      '  , g.estoque'
+      '  , g.reserva'
+      '  , g.disponivel'
+      
+        'from GET_ESTOQUE_ALMOX_DISPONIVEL (:empresa, :centro_custo, null' +
+        ', :lote, :lote_guid, :req_ano, :req_cod) g'
+      '  inner join TBPRODUTO p on (p.cod = g.produto)'
+      
+        '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade_fracion' +
+        'ada)'
+      ''
+      'where p.codigo = :codigo')
     ModifySQL.Strings = (
       '')
     Left = 1008
     Top = 176
   end
-  object tblTipoApropriacao: TIBTable
+  object tblTipoRequisicao: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
-    TableName = 'VW_TIPO_APROPRIACAO'
+    TableName = 'VW_TIPO_REQUISICAO_ALMOX'
     TableTypes = [ttView]
     Left = 944
     Top = 208
   end
   object dtsTipoApropriacao: TDataSource
-    DataSet = tblTipoApropriacao
+    DataSet = tblTipoRequisicao
     Left = 976
-    Top = 208
-  end
-  object qryEntradaProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.codprod    as produto'
-      '  , i.unid_cod   as unidade'
-      '  , p.customedio as custo_medio'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3) unidade_sigla'
-      '  , coalesce(p.qtde, 0.0) as estoque'
-      '  , coalesce(p.reserva, 0.0) as reserva'
-      '  , p.movimenta_estoque'
-      ''
-      '  , sum(i.qtde) - sum(coalesce(ai.qtde, 0.0)) as quantidade'
-      ''
-      'from TBCOMPRAS c'
-      
-        '  inner join TBCOMPRASITENS i on (i.ano = c.ano and i.codcontrol' +
-        ' = c.codcontrol and i.codemp = c.codemp)'
-      '  inner join TBPRODUTO p on (p.cod = i.codprod)'
-      
-        '  left join TBAPROPRIACAO_ALMOX a on (a.compra_ano = c.ano and a' +
-        '.compra_num = c.codcontrol and a.compra_emp = c.codemp and a.sta' +
-        'tus <> 3)'
-      
-        '  left join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and a' +
-        'i.controle = a.controle and ai.produto = i.codprod)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = ai.unidade)'
-      ''
-      'where c.ano        = :ano'
-      '  and c.codcontrol = :cod'
-      '  and c.codemp     = :emp'
-      ''
-      'group by'
-      '    i.codprod'
-      '  , i.unid_cod'
-      '  , p.customedio'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3)'
-      '  , coalesce(p.qtde, 0.0)'
-      '  , coalesce(p.reserva, 0.0)'
-      '  , p.movimenta_estoque')
-    ModifySQL.Strings = (
-      '')
-    Left = 1008
     Top = 208
   end
 end

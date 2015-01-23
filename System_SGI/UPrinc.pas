@@ -175,6 +175,7 @@ type
     nmTabelaCNAE: TMenuItem;
     mnRelatorioAutorizacao: TMenuItem;
     mnRelatorioEstoqueApropriacao: TMenuItem;
+    nmRequisicaoAlmoxMonitor: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -739,6 +740,10 @@ end;
 
 procedure TfrmPrinc.RegistrarRotinasMenu;
 begin
+  (*
+  Neste procedimento utiliza-se apenas rotinas que não vem da matriz "Padrão Cadastro".
+  *)
+
   // Menus
 
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CADASTRO_ID,   'Cadastro', EmptyStr);
@@ -769,6 +774,8 @@ begin
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_AJUSTE_ID, Trim(nmAjusteManual.Caption), ROTINA_MENU_ENTRADA_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_KARDEX_ID, Trim(nmKardex.Caption),       ROTINA_MENU_ENTRADA_ID);
+
+  // Movimento
 
   // Notas Fiscais
 

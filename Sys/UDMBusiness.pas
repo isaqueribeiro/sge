@@ -325,6 +325,7 @@ var
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+  function GetExisteNumeroRequisicaoAlmox(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
@@ -398,6 +399,10 @@ const
   TIPO_APROPRIACAO_GERAL   = 0;
   TIPO_APROPRIACAO_ENTRADA = 1;
 
+  TIPO_REQUISICAO_ALMOX_CI = 0;
+  TIPO_REQUISICAO_ALMOX_CP = 1;
+  TIPO_REQUISICAO_ALMOX_TE = 2;
+
   STATUS_COTACAO_EDC = 0;
   STATUS_COTACAO_ABR = 1;
   STATUS_COTACAO_COT = 2;
@@ -408,6 +413,19 @@ const
   STATUS_APROPRIACAO_ESTOQUE_ABR = 1;
   STATUS_APROPRIACAO_ESTOQUE_ENC = 2;
   STATUS_APROPRIACAO_ESTOQUE_CAN = 3;
+
+  STATUS_REQUISICAO_ALMOX_EDC = 0;
+  STATUS_REQUISICAO_ALMOX_ABR = 1;
+  STATUS_REQUISICAO_ALMOX_ENV = 2;
+  STATUS_REQUISICAO_ALMOX_REC = 3;
+  STATUS_REQUISICAO_ALMOX_ATD = 4;
+  STATUS_REQUISICAO_ALMOX_CAN = 5;
+
+  STATUS_ITEM_REQUISICAO_ALMOX_PEN = 0;
+  STATUS_ITEM_REQUISICAO_ALMOX_AGU = 1;
+  STATUS_ITEM_REQUISICAO_ALMOX_ATE = 2;
+  STATUS_ITEM_REQUISICAO_ALMOX_ENT = 3;
+  STATUS_ITEM_REQUISICAO_ALMOX_CAN = 4;
 
   // Mensagens padrões do sistema
   CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado, automaticamente, pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
@@ -2548,6 +2566,33 @@ begin
     SQL.Add('  and (not (');
     SQL.Add('           a.ano      = ' + IntToStr(iAno));
     SQL.Add('       and a.controle = ' + IntToStr(iCodigo));
+    SQL.Add('  ))');
+    Open;
+
+    Result := (FieldByName('controle').AsInteger > 0);
+
+    if Result then
+      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('controle').AsInteger);
+
+    Close;
+  end;
+end;
+
+function GetExisteNumeroRequisicaoAlmox(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    r.ano');
+    SQL.Add('  , r.controle');
+    SQL.Add('  , r.numero');
+    SQL.Add('from TBREQUISICAO_ALMOX r');
+    SQL.Add('where r.Numero  = ' + QuotedStr(Trim(sNumero)));
+    SQL.Add('  and (not (');
+    SQL.Add('           r.ano      = ' + IntToStr(iAno));
+    SQL.Add('       and r.controle = ' + IntToStr(iCodigo));
     SQL.Add('  ))');
     Open;
 

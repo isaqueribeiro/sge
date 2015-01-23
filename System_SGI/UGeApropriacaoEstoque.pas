@@ -107,7 +107,6 @@ type
     cdsTabelaItensCONTROLE: TIntegerField;
     cdsTabelaItensITEM: TSmallintField;
     cdsTabelaItensPRODUTO: TIBStringField;
-    cdsTabelaItensQTDE: TIBBCDField;
     cdsTabelaItensUNIDADE: TSmallintField;
     cdsTabelaItensCUSTO_UNITARIO: TIBBCDField;
     cdsTabelaItensCUSTO_TOTAL: TIBBCDField;
@@ -131,6 +130,7 @@ type
     cdsTabelaItensRESERVA: TIBBCDField;
     cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
     qryEntradaProduto: TIBDataSet;
+    cdsTabelaItensQTDE: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -343,7 +343,7 @@ begin
   IbDtstTabelaEMPRESA.Value          := GetEmpresaIDDefault;
   IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
   IbDtstTabelaDATA_APROPRIACAO.Value := GetDateDB;
-  IbDtstTabelaUSUARIO.Value          := GetUserApp;
+  IbDtstTabelaUSUARIO.Value          := gUsuarioLogado.Login;
   IbDtstTabelaSTATUS.AsInteger       := STATUS_APROPRIACAO_ESTOQUE_EDC;
   IbDtstTabelaTIPO.AsInteger         := TIPO_APROPRIACAO_ENTRADA;
 
@@ -495,8 +495,8 @@ begin
   if ( IbDtstTabelaSTATUS.AsInteger > STATUS_APROPRIACAO_ESTOQUE_ABR ) then
   begin
     Case IbDtstTabelaSTATUS.AsInteger of
-      STATUS_APROPRIACAO_ESTOQUE_ENC : sMsg := 'Esta apropriação não pode ser alterada porque já está encerrada.';
-      STATUS_APROPRIACAO_ESTOQUE_CAN : sMsg := 'Esta apropriação não pode ser alterada porque está cancelada.';
+      STATUS_APROPRIACAO_ESTOQUE_ENC : sMsg := 'Esta apropriação não pode ser excluída porque já está encerrada.';
+      STATUS_APROPRIACAO_ESTOQUE_CAN : sMsg := 'Esta apropriação não pode ser excluída porque está cancelada.';
     end;
 
     ShowWarning(sMsg);
@@ -723,7 +723,7 @@ begin
     IbDtstTabela.Edit;
 
     IbDtstTabelaSTATUS.Value  := STATUS_APROPRIACAO_ESTOQUE_ENC;
-    IbDtstTabelaUSUARIO.Value := GetUserApp;
+    IbDtstTabelaUSUARIO.Value := gUsuarioLogado.Login;
 
     IbDtstTabela.Post;
     IbDtstTabela.ApplyUpdates;
@@ -1133,7 +1133,7 @@ begin
     IbDtstTabela.Edit;
 
     IbDtstTabelaSTATUS.Value  := STATUS_APROPRIACAO_ESTOQUE_ABR;
-    IbDtstTabelaUSUARIO.Value := GetUserApp;
+    IbDtstTabelaUSUARIO.Value := gUsuarioLogado.Login;
     IbDtstTabelaVALOR_TOTAL.AsCurrency := cTotalCusto;
 
     IbDtstTabela.Post;

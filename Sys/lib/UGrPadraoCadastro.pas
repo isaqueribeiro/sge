@@ -253,9 +253,12 @@ end;
 
 procedure TfrmGrPadraoCadastro.dbgDadosDblClick(Sender: TObject);
 begin
-  pgcGuias.ActivePage := tbsCadastro;
-  if Assigned(pgcGuias.OnChange) then
-    pgcGuias.OnChange(pgcGuias);
+  if tbsCadastro.TabVisible then
+  begin
+    pgcGuias.ActivePage := tbsCadastro;
+    if Assigned(pgcGuias.OnChange) then
+      pgcGuias.OnChange(pgcGuias);
+  end;
 end;
 
 procedure TfrmGrPadraoCadastro.DtSrcTabelaStateChange(Sender: TObject);
@@ -406,7 +409,10 @@ procedure TfrmGrPadraoCadastro.FormKeyDown(Sender: TObject; var Key: Word;
   begin
     I := (pgcGuias.ActivePageIndex - 1);
     if (I = 0) then
-      Result := I
+    begin
+      if pgcGuias.Pages[I].TabVisible then
+        Result := I;
+    end
     else
     begin
       while not pgcGuias.Pages[I].TabVisible do

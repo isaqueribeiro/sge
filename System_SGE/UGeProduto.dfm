@@ -5,7 +5,6 @@ inherited frmGeProduto: TfrmGeProduto
   Height = 648
   Caption = 'Cadastro de Produtos/Servi'#231'os'
   OldCreateOrder = True
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel

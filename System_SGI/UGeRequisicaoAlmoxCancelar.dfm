@@ -1,6 +1,6 @@
 inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
-  Left = 384
-  Top = 216
+  Left = 755
+  Top = 304
   Width = 617
   Height = 474
   BorderIcons = [biSystemMenu]
@@ -59,9 +59,9 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     object lblCodigo: TLabel
       Left = 16
       Top = 24
-      Width = 92
+      Width = 84
       Height = 13
-      Caption = 'No. Apropria'#231#227'o:'
+      Caption = 'No. Requisi'#231#227'o:'
       FocusControl = dbCodigo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -70,13 +70,13 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblCentroCusto: TLabel
+    object lblCentroCustoOrigem: TLabel
       Left = 120
       Top = 24
-      Width = 188
+      Width = 314
       Height = 13
-      Caption = 'Departamento / Centro de Custo:'
-      FocusControl = dbCentroCusto
+      Caption = 'Departamento / Centro de Custo requisitante (Origem):'
+      FocusControl = dbCentroCustoOrigem
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -98,13 +98,13 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblEntrada: TLabel
-      Left = 119
+    object lblCentroCustoDestino: TLabel
+      Left = 120
       Top = 64
-      Width = 47
+      Width = 337
       Height = 13
-      Caption = 'Entrada:'
-      FocusControl = dbEntrada
+      Caption = 'Departamento / Centro de Custo de atendimento (Destino):'
+      FocusControl = dbCentroCustoDestino
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -120,7 +120,7 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'NUMERO'
-      DataSource = dtsApropriacao
+      DataSource = dtsRequisicao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -130,15 +130,15 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       ReadOnly = True
       TabOrder = 0
     end
-    object dbCentroCusto: TDBEdit
+    object dbCentroCustoOrigem: TDBEdit
       Left = 120
       Top = 40
       Width = 457
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'CC_DESCRICAO'
-      DataSource = dtsApropriacao
+      DataField = 'CC_ORIGEM_DESC'
+      DataSource = dtsRequisicao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -155,8 +155,8 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'DATA_APROPRIACAO'
-      DataSource = dtsApropriacao
+      DataField = 'DATA_EMISSAO'
+      DataSource = dtsRequisicao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -166,15 +166,15 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       ReadOnly = True
       TabOrder = 2
     end
-    object dbEntrada: TDBEdit
+    object dbCentroCustoDestino: TDBEdit
       Left = 120
       Top = 80
-      Width = 113
+      Width = 457
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'ENTRADA'
-      DataSource = dtsApropriacao
+      DataField = 'CC_DESTINO_DESC'
+      DataSource = dtsRequisicao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -183,24 +183,6 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       ParentFont = False
       ReadOnly = True
       TabOrder = 3
-    end
-    object dbFornecedor: TDBEdit
-      Left = 240
-      Top = 80
-      Width = 337
-      Height = 21
-      TabStop = False
-      Color = clMoneyGreen
-      DataField = 'NOMEFORN'
-      DataSource = dtsApropriacao
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      ReadOnly = True
-      TabOrder = 4
     end
   end
   object GrpBxImposto: TGroupBox
@@ -440,7 +422,7 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
     NumGlyphs = 2
   end
-  object cdsApropriacao: TIBDataSet
+  object cdsRequisicao: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
@@ -449,41 +431,115 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       '')
     SelectSQL.Strings = (
       'Select'
-      '    a.ano'
-      '  , a.controle'
-      '  , a.numero'
-      '  , a.empresa'
-      '  , a.centro_custo'
-      '  , a.status'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.empresa'
+      '  , r.ccusto_origem'
+      '  , r.ccusto_destino'
+      '  , r.status'
       ''
-      '  , a.data_apropriacao'
+      '  , r.data_emissao'
       ''
-      '  , a.cancel_usuario'
-      '  , a.cancel_datahora'
-      '  , a.cancel_motivo'
+      '  , r.cancel_usuario'
+      '  , r.cancel_data'
+      '  , r.cancel_motivo'
       ''
-      '  , c.descricao as cc_descricao'
+      '  , co.descricao as cc_origem_desc'
+      '  , cd.descricao as cc_destino_desc'
+      'from TBREQUISICAO_ALMOX r'
+      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
+      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
       ''
-      '  , a.compra_ano || '#39'/'#39' || lpad(a.compra_num, 7, '#39'0'#39') as entrada'
-      '  , f.nomeforn'
-      'from TBAPROPRIACAO_ALMOX a'
-      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
-      
-        '  left join TBCOMPRAS co on (co.ano = a.compra_ano and co.codcon' +
-        'trol = a.compra_num and co.codemp = a.compra_emp)'
-      '  left join TBFORNECEDOR f on (f.codforn = co.codforn)'
-      ''
-      'where a.ano      = :ano'
-      '  and a.controle = :controle')
+      'where r.ano      = :ano'
+      '  and r.controle = :controle')
     ModifySQL.Strings = (
       '')
     GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updApropriacao
+    UpdateObject = updRequisicao
     Left = 472
     Top = 72
+    object cdsRequisicaoANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = '"TBREQUISICAO_ALMOX"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsRequisicaoCONTROLE: TIntegerField
+      FieldName = 'CONTROLE'
+      Origin = '"TBREQUISICAO_ALMOX"."CONTROLE"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsRequisicaoNUMERO: TIBStringField
+      FieldName = 'NUMERO'
+      Origin = '"TBREQUISICAO_ALMOX"."NUMERO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsRequisicaoEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBREQUISICAO_ALMOX"."EMPRESA"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 18
+    end
+    object cdsRequisicaoCCUSTO_ORIGEM: TIntegerField
+      FieldName = 'CCUSTO_ORIGEM'
+      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_ORIGEM"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsRequisicaoCCUSTO_DESTINO: TIntegerField
+      FieldName = 'CCUSTO_DESTINO'
+      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_DESTINO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsRequisicaoSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = '"TBREQUISICAO_ALMOX"."STATUS"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsRequisicaoDATA_EMISSAO: TDateField
+      FieldName = 'DATA_EMISSAO'
+      Origin = '"TBREQUISICAO_ALMOX"."DATA_EMISSAO"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsRequisicaoCANCEL_USUARIO: TIBStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_USUARIO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 12
+    end
+    object cdsRequisicaoCANCEL_DATA: TDateTimeField
+      FieldName = 'CANCEL_DATA'
+      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_DATA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsRequisicaoCANCEL_MOTIVO: TMemoField
+      FieldName = 'CANCEL_MOTIVO'
+      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_MOTIVO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object cdsRequisicaoCC_ORIGEM_DESC: TIBStringField
+      FieldName = 'CC_ORIGEM_DESC'
+      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+      ProviderFlags = []
+      Size = 100
+    end
+    object cdsRequisicaoCC_DESTINO_DESC: TIBStringField
+      FieldName = 'CC_DESTINO_DESC'
+      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+      ProviderFlags = []
+      Size = 100
+    end
   end
-  object updApropriacao: TIBUpdateSQL
+  object updRequisicao: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
@@ -525,9 +581,9 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     Left = 504
     Top = 72
   end
-  object dtsApropriacao: TDataSource
+  object dtsRequisicao: TDataSource
     AutoEdit = False
-    DataSet = cdsApropriacao
+    DataSet = cdsRequisicao
     Left = 536
     Top = 72
   end
