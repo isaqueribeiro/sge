@@ -298,13 +298,13 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     object Bevel4: TBevel
       Left = 154
       Top = 2
-      Width = 764
+      Width = 840
       Height = 31
       Shape = bsSpacer
     end
     object btbtnSelecionar: TcxButton
       Tag = 5
-      Left = 918
+      Left = 994
       Top = 2
       Width = 120
       Height = 31
@@ -373,7 +373,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     Top = 81
     Width = 1116
     Height = 562
-    ActivePage = TbsProduto
+    ActivePage = TbsGrupo
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -401,18 +401,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <
             item
-              Format = ',0.00'
-              Kind = skSum
-              FieldName = 'COMPRA_VALOR_01'
-              Column = cxGridDBBandedColumn34
-            end
-            item
-              Format = ',0.00'
-              Kind = skSum
-              FieldName = 'VENDA_VALOR_01'
-              Column = cxGridDBBandedColumn36
-            end
-            item
               Format = ',0'
               Kind = skSum
               FieldName = 'ITENS'
@@ -438,48 +426,33 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             item
               Caption = 'Grupo'
               Options.Moving = False
-              Width = 336
+              Width = 450
             end
             item
               Caption = 'Estoque'
               Options.Moving = False
-              Width = 140
-            end
-            item
-              Caption = #218'ltimo Movimento'
-              Options.Moving = False
-              Width = 150
-            end
-            item
-              Caption = 'Rotatividade [0 - 1]'
-              Options.Moving = False
-              Width = 400
-            end
-            item
-              Caption = 'Compra'
-              Options.Moving = False
-              Position.BandIndex = 3
-              Position.ColIndex = 0
               Width = 200
             end
             item
-              Caption = 'Venda'
+              Caption = 'Custo (R$)'
               Options.Moving = False
-              Position.BandIndex = 3
-              Position.ColIndex = 1
-              Width = 200
+              Width = 250
             end>
           object cxGridDBBandedColumn1: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'CODIGO'
+            Caption = 'C'#243'digo'
+            DataBinding.FieldName = 'GRUPO_COD'
+            MinWidth = 70
             Options.Filtering = False
+            Options.HorzSizing = False
             Options.Moving = False
-            Width = 50
+            Width = 70
             Position.BandIndex = 0
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn2: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'DESCRICAO'
+            Caption = 'Descri'#231#227'o'
+            DataBinding.FieldName = 'GRUPO_DES'
             Options.Filtering = False
             Options.Moving = False
             Width = 178
@@ -487,146 +460,79 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn31: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'DATA_ULTIMA_COMPRA'
-            HeaderAlignmentHorz = taCenter
+          object cxGridDBBandedColumn58: TcxGridDBBandedColumn
+            Caption = 'Itens'
+            DataBinding.FieldName = 'ITENS'
+            MinWidth = 50
+            Options.Filtering = False
+            Options.HorzSizing = False
             Options.Moving = False
-            Width = 75
+            Options.Sorting = False
+            Width = 50
+            Position.BandIndex = 0
+            Position.ColIndex = 2
+            Position.RowIndex = 0
+          end
+          object dbgGrupoTblColumn5: TcxGridDBBandedColumn
+            Caption = 'Quantidade'
+            DataBinding.FieldName = 'ESTOQUE'
+            MinWidth = 100
+            Options.Filtering = False
+            Options.Moving = False
+            Options.Sorting = False
+            Width = 100
+            Position.BandIndex = 1
+            Position.ColIndex = 0
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedColumn57: TcxGridDBBandedColumn
+            Caption = 'Dispon'#237'vel'
+            DataBinding.FieldName = 'DISPONIVEL'
+            MinWidth = 100
+            Options.Filtering = False
+            Options.Moving = False
+            Options.Sorting = False
+            Width = 100
+            Position.BandIndex = 1
+            Position.ColIndex = 1
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedColumn31: TcxGridDBBandedColumn
+            Caption = 'Total'
+            DataBinding.FieldName = 'CUSTO_TOTAL'
+            HeaderAlignmentHorz = taCenter
+            MinWidth = 100
+            Options.Filtering = False
+            Options.HorzSizing = False
+            Options.Sorting = False
+            Width = 100
             Position.BandIndex = 2
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn32: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'DATA_ULTIMA_VENDA'
+            Caption = 'Dispon'#237'vel'
+            DataBinding.FieldName = 'CUSTO_DISPONIVEL'
             HeaderAlignmentHorz = taCenter
-            Options.Moving = False
-            Width = 75
+            MinWidth = 100
+            Options.Filtering = False
+            Options.HorzSizing = False
+            Options.Sorting = False
+            Width = 100
             Position.BandIndex = 2
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn33: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'COMPRA_QTDE_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 60
-            Position.BandIndex = 4
-            Position.ColIndex = 0
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn34: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'COMPRA_VALOR_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 90
-            Position.BandIndex = 4
-            Position.ColIndex = 2
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn35: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'VENDA_QTDE_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 60
-            Position.BandIndex = 5
-            Position.ColIndex = 0
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn36: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'VENDA_VALOR_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 90
-            Position.BandIndex = 5
-            Position.ColIndex = 2
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn56: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'VENDA_VALOR_99'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 90
-            Position.BandIndex = -1
-            Position.ColIndex = -1
-            Position.RowIndex = -1
-          end
-          object cxGridDBBandedColumn57: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'ESTOQUE_MINIMO'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 70
-            Position.BandIndex = 1
-            Position.ColIndex = 1
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn58: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'ITENS'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 0
-            Position.ColIndex = 2
-            Position.RowIndex = 0
-          end
           object dbgGrupoTblColumn1: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_CQ01'
+            Caption = '%'
+            DataBinding.FieldName = 'PERCENTUAL'
             HeaderAlignmentHorz = taCenter
+            MinWidth = 50
             Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 4
-            Position.ColIndex = 1
-            Position.RowIndex = 0
-          end
-          object dbgGrupoTblColumn2: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_CV01'
-            HeaderAlignmentHorz = taCenter
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 4
-            Position.ColIndex = 3
-            Position.RowIndex = 0
-          end
-          object dbgGrupoTblColumn3: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_VQ01'
-            HeaderAlignmentHorz = taCenter
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 5
-            Position.ColIndex = 1
-            Position.RowIndex = 0
-          end
-          object dbgGrupoTblColumn4: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_VV01'
-            HeaderAlignmentHorz = taCenter
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 5
-            Position.ColIndex = 3
-            Position.RowIndex = 0
-          end
-          object dbgGrupoTblColumn5: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'ESTOQUE'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 70
-            Position.BandIndex = 1
-            Position.ColIndex = 0
+            Options.HorzSizing = False
+            Width = 50
+            Position.BandIndex = 2
+            Position.ColIndex = 2
             Position.RowIndex = 0
           end
         end
@@ -654,22 +560,28 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <
             item
-              Format = ',0.00'
-              Kind = skSum
-              FieldName = 'COMPRA_VALOR_01'
-              Column = cxGridDBBandedColumn8
-            end
-            item
-              Format = ',0.00'
-              Kind = skSum
-              FieldName = 'VENDA_VALOR_01'
-              Column = cxGridDBBandedColumn10
-            end
-            item
               Format = ',0'
               Kind = skSum
               FieldName = 'ITENS'
-              Column = cxGridDBBandedColumn13
+              Column = dbgFabTblITENS
+            end
+            item
+              Format = ',0.00'
+              Kind = skSum
+              FieldName = 'CUSTO_TOTAL'
+              Column = dbgFabTblCUSTO_TOTAL
+            end
+            item
+              Format = ',0.00'
+              Kind = skSum
+              FieldName = 'CUSTO_DISPONIVEL'
+              Column = dbgFabTblCUSTO_DISPONIVEL
+            end
+            item
+              Format = ',0.##'
+              Kind = skSum
+              FieldName = 'PERCENTUAL'
+              Column = dbgFabTblPERCENTUAL
             end>
           DataController.Summary.SummaryGroups = <>
           OptionsBehavior.CellHints = True
@@ -691,48 +603,36 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             item
               Caption = 'Fabricante'
               Options.Moving = False
-              Width = 336
+              Width = 450
             end
             item
               Caption = 'Estoque'
               Options.Moving = False
-              Width = 140
+              Width = 160
             end
             item
-              Caption = #218'ltimo Movimento'
+              Caption = 'Custos (R$)'
               Options.Moving = False
-              Width = 150
-            end
-            item
-              Caption = 'Rotatividade [0 - 1]'
-              Options.Moving = False
-              Width = 400
-            end
-            item
-              Caption = 'Compra'
-              Options.Moving = False
-              Position.BandIndex = 3
-              Position.ColIndex = 0
-              Width = 200
-            end
-            item
-              Caption = 'Venda'
-              Options.Moving = False
-              Position.BandIndex = 3
-              Position.ColIndex = 1
               Width = 200
             end>
-          object cxGridDBBandedColumn3: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'CODIGO'
+          object dbgFabTblFABRICANTE_COD: TcxGridDBBandedColumn
+            Caption = 'C'#243'digo'
+            DataBinding.FieldName = 'FABRICANTE_COD'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.Alignment.Horz = taLeftJustify
+            Properties.DisplayFormat = '###00000'
+            MinWidth = 70
             Options.Filtering = False
+            Options.HorzSizing = False
             Options.Moving = False
-            Width = 50
+            Width = 70
             Position.BandIndex = 0
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn4: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'DESCRICAO'
+          object dbgFabTblFABRICANTE_NOME: TcxGridDBBandedColumn
+            Caption = 'Nome'
+            DataBinding.FieldName = 'FABRICANTE_NOME'
             Options.Filtering = False
             Options.Moving = False
             Width = 178
@@ -740,146 +640,95 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn5: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'DATA_ULTIMA_COMPRA'
-            HeaderAlignmentHorz = taCenter
-            Options.Moving = False
-            Width = 75
-            Position.BandIndex = 2
-            Position.ColIndex = 0
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn6: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'DATA_ULTIMA_VENDA'
-            HeaderAlignmentHorz = taCenter
-            Options.Moving = False
-            Width = 75
-            Position.BandIndex = 2
-            Position.ColIndex = 1
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn7: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'COMPRA_QTDE_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 60
-            Position.BandIndex = 4
-            Position.ColIndex = 0
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn8: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'COMPRA_VALOR_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 90
-            Position.BandIndex = 4
-            Position.ColIndex = 2
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn9: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'VENDA_QTDE_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 60
-            Position.BandIndex = 5
-            Position.ColIndex = 0
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn10: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'VENDA_VALOR_01'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 90
-            Position.BandIndex = 5
-            Position.ColIndex = 2
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn11: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'VENDA_VALOR_99'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 90
-            Position.BandIndex = -1
-            Position.ColIndex = -1
-            Position.RowIndex = -1
-          end
-          object cxGridDBBandedColumn12: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'ESTOQUE_MINIMO'
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 70
-            Position.BandIndex = 1
-            Position.ColIndex = 1
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn13: TcxGridDBBandedColumn
+          object dbgFabTblITENS: TcxGridDBBandedColumn
+            Caption = 'Itens'
             DataBinding.FieldName = 'ITENS'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
+            MinWidth = 50
             Options.Filtering = False
+            Options.HorzSizing = False
             Options.Moving = False
             Options.Sorting = False
-            Width = 45
+            Width = 50
             Position.BandIndex = 0
             Position.ColIndex = 2
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn14: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_CQ01'
-            HeaderAlignmentHorz = taCenter
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 4
-            Position.ColIndex = 1
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn15: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_CV01'
-            HeaderAlignmentHorz = taCenter
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 4
-            Position.ColIndex = 3
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn16: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_VQ01'
-            HeaderAlignmentHorz = taCenter
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 5
-            Position.ColIndex = 1
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn17: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'PERCENT_VV01'
-            HeaderAlignmentHorz = taCenter
-            Options.Filtering = False
-            Options.Moving = False
-            Options.Sorting = False
-            Width = 45
-            Position.BandIndex = 5
-            Position.ColIndex = 3
-            Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn18: TcxGridDBBandedColumn
+          object dbgFabTblESTOQUE: TcxGridDBBandedColumn
+            Caption = 'Quantidade'
             DataBinding.FieldName = 'ESTOQUE'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
+            MinWidth = 80
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
-            Width = 70
+            Width = 80
             Position.BandIndex = 1
             Position.ColIndex = 0
+            Position.RowIndex = 0
+          end
+          object dbgFabTblDISPONIVEL: TcxGridDBBandedColumn
+            Caption = 'Dispon'#237'vel'
+            DataBinding.FieldName = 'DISPONIVEL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
+            MinWidth = 80
+            Options.Filtering = False
+            Options.Moving = False
+            Options.Sorting = False
+            Width = 80
+            Position.BandIndex = 1
+            Position.ColIndex = 1
+            Position.RowIndex = 0
+          end
+          object dbgFabTblCUSTO_TOTAL: TcxGridDBBandedColumn
+            Caption = 'Total'
+            DataBinding.FieldName = 'CUSTO_TOTAL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
+            HeaderAlignmentHorz = taCenter
+            MinWidth = 100
+            Options.Editing = False
+            Options.Filtering = False
+            Options.HorzSizing = False
+            Options.Moving = False
+            Width = 100
+            Position.BandIndex = 2
+            Position.ColIndex = 0
+            Position.RowIndex = 0
+          end
+          object dbgFabTblCUSTO_DISPONIVEL: TcxGridDBBandedColumn
+            Caption = 'Dispon'#237'vel'
+            DataBinding.FieldName = 'CUSTO_DISPONIVEL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
+            HeaderAlignmentHorz = taCenter
+            MinWidth = 100
+            Options.Editing = False
+            Options.Filtering = False
+            Options.HorzSizing = False
+            Options.Moving = False
+            Width = 100
+            Position.BandIndex = 2
+            Position.ColIndex = 1
+            Position.RowIndex = 0
+          end
+          object dbgFabTblPERCENTUAL: TcxGridDBBandedColumn
+            Caption = '%'
+            DataBinding.FieldName = 'PERCENTUAL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.##'
+            HeaderAlignmentHorz = taCenter
+            MinWidth = 50
+            Options.Editing = False
+            Options.Filtering = False
+            Options.HorzSizing = False
+            Options.Moving = False
+            Width = 50
+            Position.BandIndex = 2
+            Position.ColIndex = 2
             Position.RowIndex = 0
           end
         end
@@ -1090,7 +939,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             MinWidth = 40
             Options.Filtering = False
             Options.Moving = False
-            Options.Sorting = False
             Position.BandIndex = 2
             Position.ColIndex = 2
             Position.RowIndex = 0
@@ -1175,34 +1023,42 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     SQL.Strings = (
-      'select'
-      '    p.codgrupo as Codigo'
-      '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as estoque'
-      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
-      '  , count( p.cod ) as itens'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda ) as data_ultima_venda'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      'Select'
+      '    p.codgrupo as grupo_cod'
+      '  , coalesce(g.descri, '#39'* A Definir'#39') as grupo_des'
+      ''
+      '  , count(e.lote_id) as itens'
+      '  , sum(r.compra_qtde_01) as compra_qtde_01'
+      '  , sum(r.compra_valor_01) as compra_valor_01'
+      '  , sum(r.venda_qtde_01) as venda_qtde_01'
+      '  , sum(r.venda_valor_01) as venda_valor_01'
+      '  , max(r.data_ultima_compra) as data_ultima_compra'
+      '  , max(r.data_ultima_venda) as data_ultima_venda'
+      ''
+      '  , sum(e.estoque) as estoque'
+      '  , sum(e.reserva) as reserva'
+      '  , sum(e.disponivel) as disponivel'
+      '  , sum(e.custo_total) as custo_total'
+      '  , sum(e.custo_reserva) as custo_reserva'
+      '  , sum(e.custo_disponivel) as custo_disponivel'
+      ''
+      '  , cast(0.0 as numeric(18,4)) as percentual'
       ''
       
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
-      '  and (1=1)'
+        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'e=e'#39', c=c, null, null, null, ' +
+        'null, null) e'
+      '  inner join TBPRODUTO p on (p.cod = e.produto)'
       ''
-      'group by 1, 2'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      
+        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
+        'to)'
       ''
-      'order by 2')
+      'where (1=1)'
+      ''
+      'group by'
+      '    1'
+      '  , 2')
     Left = 56
     Top = 288
   end
@@ -1210,34 +1066,42 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     SQL.Strings = (
-      'select'
-      '    p.codfabricante as Codigo'
-      '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as estoque'
-      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
-      '  , count( p.cod ) as itens'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda ) as data_ultima_venda'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      'from TBPRODUTO p'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      'Select'
+      '    p.codfabricante as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* A Definir'#39') as fabricante_nome'
+      ''
+      '  , count(e.lote_id) as itens'
+      '  , sum(r.compra_qtde_01) as compra_qtde_01'
+      '  , sum(r.compra_valor_01) as compra_valor_01'
+      '  , sum(r.venda_qtde_01) as venda_qtde_01'
+      '  , sum(r.venda_valor_01) as venda_valor_01'
+      '  , max(r.data_ultima_compra) as data_ultima_compra'
+      '  , max(r.data_ultima_venda) as data_ultima_venda'
+      ''
+      '  , sum(e.estoque) as estoque'
+      '  , sum(e.reserva) as reserva'
+      '  , sum(e.disponivel) as disponivel'
+      '  , sum(e.custo_total) as custo_total'
+      '  , sum(e.custo_reserva) as custo_reserva'
+      '  , sum(e.custo_disponivel) as custo_disponivel'
+      ''
+      '  , cast(0.0 as numeric(18,4)) as percentual'
       ''
       
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
-      '  and (1=1)'
+        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'e=e'#39', c=c, null, null, null, ' +
+        'null, null) e'
+      '  inner join TBPRODUTO p on (p.cod = e.produto)'
       ''
-      'group by 1, 2'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      
+        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
+        'to)'
       ''
-      'order by 2')
+      'where (1=1)'
+      ''
+      'group by'
+      '    1'
+      '  , 2')
     Left = 56
     Top = 320
   end
