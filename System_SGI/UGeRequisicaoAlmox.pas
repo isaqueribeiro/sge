@@ -51,7 +51,7 @@ type
     Bevel6: TBevel;
     dbgProdutos: TDBGrid;
     ppImprimir: TPopupMenu;
-    nmImprimirApropriacao: TMenuItem;
+    nmImprimirRequisicaoAlmox: TMenuItem;
     qryProdutoAlmox: TIBDataSet;
     lblCustoTotal: TLabel;
     dbCustoTotal: TDBEdit;
@@ -146,6 +146,8 @@ type
     cdsTabelaItensRESERVA: TIBBCDField;
     cdsTabelaItensDISPONIVEL: TIBBCDField;
     IbDtstTabelaCC_ORIGEM_CODCLIENTE: TIntegerField;
+    nmImprimirManifesto: TMenuItem;
+    cdsTabelaItensDISPONIVEL_TMP: TCurrencyField;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
@@ -172,7 +174,7 @@ type
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure dbProdutoButtonClick(Sender: TObject);
-    procedure nmImprimirApropriacaoClick(Sender: TObject);
+    procedure nmImprimirRequisicaoAlmoxClick(Sender: TObject);
     procedure btnCancelarRequisicaoClick(Sender: TObject);
     procedure IbDtstTabelaSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -187,6 +189,7 @@ type
     procedure dbUsuarioRequisitanteButtonClick(Sender: TObject);
     procedure cdsTabelaItensSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
+    procedure cdsTabelaItensCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -194,7 +197,7 @@ type
     SQL_Itens : TStringList;
     iCentroCustoOrigem  ,
     iCentroCustoDestino : Integer;
-    procedure AbrirTabelaItens(const AnoApropriacao : Smallint; const CodigoApropriacao : Integer);
+    procedure AbrirTabelaItens(const AnoRequisicao : Smallint; const CodigoRequisicao : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
@@ -210,35 +213,36 @@ type
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
     property RotinaEnviarID  : String read GetRotinaEnviarID;
     property RotinaCancelarRequisicaoID : String read GetRotinaCancelarRequisicaoID;
+    
     procedure pgcGuiasOnChange; override;
   end;
 
 var
   frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox;
 
-  procedure MostrarControleApropriacao(const AOwner : TComponent);
+  procedure MostrarControleRequisicaoAlmox(const AOwner : TComponent);
 
 implementation
 
 uses
   DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeRequisicaoAlmoxCancelar, UGeCentroCusto,
-  UGeApropriacaoEstoquePesquisa;
+  UGeApropriacaoEstoquePesquisa, RTLConsts;
 
 {$R *.dfm}
 
-procedure MostrarControleApropriacao(const AOwner : TComponent);
+procedure MostrarControleRequisicaoAlmox(const AOwner : TComponent);
 var
   frm : TfrmGeRequisicaoAlmox;
   whr : String;
 begin
   frm := TfrmGeRequisicaoAlmox.Create(AOwner);
   try
-    whr := 'cast(a.data_emissao as date) between ' +
+    whr := 'cast(r.data_emissao as date) between ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
 
     if (frm.RdgStatusRequisicao.ItemIndex > 0) then
-      whr := whr + ' and (a.status = ' + IntToStr(frm.RdgStatusRequisicao.ItemIndex - 1) + ')';
+      whr := whr + ' and (r.status = ' + IntToStr(frm.RdgStatusRequisicao.ItemIndex - 1) + ')';
 
     with frm, IbDtstTabela do
     begin
@@ -309,6 +313,8 @@ begin
   IbDtstTabelaDATA_EMISSAO.Value  := GetDateDB;
   IbDtstTabelaREQUISITANTE.Value  := gUsuarioLogado.Login;
   IbDtstTabelaSTATUS.AsInteger    := STATUS_REQUISICAO_ALMOX_EDC;
+  IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
+  IbDtstTabelaINSERCAO_USUARIO.Value := GetUserApp;
 
   IbDtstTabelaVALOR_TOTAL.AsCurrency := 0.0;
 
@@ -346,7 +352,7 @@ begin
 end;
 
 procedure TfrmGeRequisicaoAlmox.AbrirTabelaItens(
-  const AnoApropriacao : Smallint; const CodigoApropriacao : Integer);
+  const AnoRequisicao : Smallint; const CodigoRequisicao : Integer);
 begin
   cdsTabelaItens.Close;
 
@@ -354,9 +360,14 @@ begin
   begin
     Clear;
     AddStrings( SQL_Itens );
-    Add('where i.ano      = ' + IntToStr(AnoApropriacao));
-    Add('  and i.controle = ' + IntToStr(CodigoApropriacao));
+    Add('where i.ano      = ' + IntToStr(AnoRequisicao));
+    Add('  and i.controle = ' + IntToStr(CodigoRequisicao));
     Add('order by i.ano, i.controle, i.item');
+
+    ParamByName('empresa').Value      := IbDtstTabelaEMPRESA.AsString;
+    ParamByName('centro_custo').Value := IbDtstTabelaCCUSTO_DESTINO.AsInteger;
+    ParamByName('requisicao_ano').Value := IbDtstTabelaANO.AsInteger;
+    ParamByName('requisicao_cod').Value := IbDtstTabelaCONTROLE.AsInteger;
   end;
 
   cdsTabelaItens.Open;
@@ -372,7 +383,8 @@ begin
     btnEnviarRequisicao.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_ABR) and (not cdsTabelaItens.IsEmpty);
     btnCancelarRequisicao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC]);
 
-    nmImprimirApropriacao.Enabled   := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirRequisicaoAlmox.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirManifesto.Enabled       := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
   end
   else
   begin
@@ -380,7 +392,8 @@ begin
     btnEnviarRequisicao.Enabled    := False;
     btnCancelarRequisicao.Enabled  := False;
 
-    nmImprimirApropriacao.Enabled  := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirRequisicaoAlmox.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirManifesto.Enabled       := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
   end;
 end;
 
@@ -576,12 +589,6 @@ begin
       dbQtde.SetFocus;
     end
     else
-    if ( cdsTabelaItensCUSTO.AsCurrency <= 0 ) then
-    begin
-      ShowWarning('Valor de Custo Unitário inválido.');
-      dbCustoUn.SetFocus;
-    end
-    else
     begin
 
       cdsTabelaItens.Post;
@@ -592,13 +599,6 @@ begin
 
       if ( btnProdutoInserir.Visible and btnProdutoInserir.Enabled ) then
         btnProdutoInserir.SetFocus;
-(*      else
-      if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
-      begin
-        btnProdutoEditar.SetFocus;
-        if (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_ENTRADA) then
-          cdsTabelaItens.Next;
-      end; *)
     end;
   end;
 end;
@@ -610,7 +610,8 @@ begin
   cdsTabelaItensANO.Value      := IbDtstTabelaANO.Value;
   cdsTabelaItensCONTROLE.Value := IbDtstTabelaCONTROLE.Value;
   cdsTabelaItensQTDE.Value     := 1;
-  cdsTabelaItensSTATUS.Value   := STATUS_ITEM_REQUISICAO_ALMOX_PEN;
+  cdsTabelaItensQTDE_ATENDIDA.Value := 0.0;
+  cdsTabelaItensSTATUS.Value        := STATUS_ITEM_REQUISICAO_ALMOX_PEN;
   cdsTabelaItensCUSTO.AsCurrency := 0.0;
   cdsTabelaItensTOTAL.AsCurrency := 0.0;
   cdsTabelaItensPRODUTO.Clear;
@@ -635,7 +636,7 @@ procedure TfrmGeRequisicaoAlmox.btnEnviarRequisicaoClick(
       cdsTabelaItens.DisableControls;
       while not cdsTabelaItens.Eof do
       begin
-        Return := (cdsTabelaItensQTDE.AsCurrency > cdsTabelaItensDISPONIVEL.AsCurrency);
+        Return := (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensQTDE.AsCurrency + cdsTabelaItensDISPONIVEL.AsCurrency));
 
         if ( Return ) then
           Break;
@@ -743,8 +744,12 @@ begin
                          QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) )
   else
   if (iCentroCustoDestino > 0) then
-  else
     WhereAdditional := '(r.ccusto_destino = ' + IntToStr(iCentroCustoDestino) + ') and ' +
+      'cast(r.data_emissao as date) between ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) )
+  else
+    WhereAdditional := 
       'cast(r.data_emissao as date) between ' +
                          QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                          QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
@@ -752,7 +757,7 @@ begin
   if ( RdgStatusRequisicao.ItemIndex > 0 ) then
     WhereAdditional := WhereAdditional + ' and (r.status = ' + IntToStr(RdgStatusRequisicao.ItemIndex - 1) + ')';
 
-  inherited;
+  inherited;  
 end;
 
 procedure TfrmGeRequisicaoAlmox.CarregarDadosProduto(Codigo: Integer);
@@ -786,6 +791,7 @@ begin
         cdsTabelaItensDESCRI_APRESENTACAO.AsString := FieldByName('descri_apresentacao').AsString;
         cdsTabelaItensUNP_SIGLA.AsString           := FieldByName('Unp_sigla').AsString;
         cdsTabelaItensLOTE_ATENDIMENTO.AsString    := FieldByName('lote_id').AsString;
+        cdsTabelaItensFRACIONADOR.AsCurrency       := FieldByName('fracionador').AsCurrency;
         cdsTabelaItensESTOQUE.AsCurrency           := FieldByName('estoque').AsCurrency;
         cdsTabelaItensRESERVA.AsCurrency           := FieldByName('reserva').AsCurrency;
         cdsTabelaItensDISPONIVEL.AsCurrency        := FieldByName('disponivel').AsCurrency;
@@ -938,24 +944,15 @@ end;
 procedure TfrmGeRequisicaoAlmox.dbProdutoButtonClick(Sender: TObject);
 var
   bSelecionado : Boolean;
-  iCodigo    ,
-  iCFOP_CNAE ,
-  iUnidade   : Integer;
-  iEstoque ,
-  iReserva : Currency;
-  sCodigoAlfa,
-  sDescricao ,
-  sUnidade   ,
-  sNCM_SH    ,
-  sCST       : String;
-  cAliquota      ,
-  cAliquotaPIS   ,
-  cAliquotaCOFINS,
-  cValorVenda,
-  cValorPromocao,
-  cValorIPI     ,
-  cPercRedBC    ,
-  cValorCusto   : Currency;
+  sProdutoID,
+  sLoteID   ,
+  sProdutoDescricao,
+  sUnidade  : String;
+  iUnidade  : Integer;
+
+  cEstoque    ,
+  cReserva    ,
+  cDisponivel : Currency;
 begin
   if (IbDtstTabelaCCUSTO_ORIGEM.AsInteger = 0) then
   begin
@@ -971,35 +968,32 @@ begin
   else
   if ( dbProduto.Button.Enabled and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
   begin
-    (*
-    cAliquota       := 0.0;
-    cAliquotaPIS    := 0.0;
-    cAliquotaCOFINS := 0.0;
-    cValorVenda     := 0.0;
-    cValorPromocao  := 0.0;
-    cValorIPI       := 0.0;
-    cPercRedBC      := 0.0;
 
-    bSelecionado := SelecionarProdutoParaEntrada(Self,
-      iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
-      cAliquota, cAliquotaPIS, cAliquotaCOFINS, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, cValorCusto,
-      iEstoque, iReserva);
+    cEstoque    := 0.0;
+    cReserva    := 0.0;
+    cDisponivel := 0.0;
+
+    bSelecionado := SelecionarProdutoLoteAlmox(Self, IbDtstTabelaCCUSTO_DESTINO.AsInteger, dbCentroCustoAtendente.Text,
+      sProdutoID, sProdutoDescricao, sLoteID, sUnidade, iUnidade, cEstoque, cReserva, cDisponivel);
 
     if ( bSelecionado ) then
     begin
-      cdsTabelaItensPRODUTO.AsString             := sCodigoAlfa;
-      cdsTabelaItensDESCRI_APRESENTACAO.AsString := sDescricao;
+      cdsTabelaItensPRODUTO.AsString             := sProdutoID;
+      cdsTabelaItensLOTE_ATENDIMENTO.AsString    := sLoteID;
+      cdsTabelaItensDESCRI_APRESENTACAO.AsString := sProdutoDescricao;
       cdsTabelaItensUNP_SIGLA.AsString           := sUnidade;
-      cdsTabelaItensCUSTO_UNITARIO.AsCurrency    := cValorCusto;
+      cdsTabelaItensESTOQUE.AsCurrency           := cEstoque;
+      cdsTabelaItensRESERVA.AsCurrency           := cReserva;
+      cdsTabelaItensDISPONIVEL.AsCurrency        := cDisponivel;
 
       if ( iUnidade > 0 ) then
         cdsTabelaItensUNIDADE.AsInteger := iUnidade;
     end;
-    *)
+
   end;
 end;
 
-procedure TfrmGeRequisicaoAlmox.nmImprimirApropriacaoClick(
+procedure TfrmGeRequisicaoAlmox.nmImprimirRequisicaoAlmoxClick(
   Sender: TObject);
 begin
   if ( IbDtstTabela.IsEmpty ) then
@@ -1026,8 +1020,8 @@ begin
       ParamByName('codigo').AsInteger := IbDtstTabelaCC_ORIGEM_CODCLIENTE.AsInteger;
       Open;
     end;
-    (*
-    with qryApropriacaoEstoque do
+
+    with qryRequisicaoAlmox do
     begin
       Close;
       ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
@@ -1035,7 +1029,7 @@ begin
       Open;
     end;
 
-    frrApropriacaoEstoque.ShowReport; *)
+    frrRequisicaoAlmox.ShowReport; 
   end;
 end;
 
@@ -1168,7 +1162,7 @@ begin
   if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
   begin
 
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    if ( IbDtstTabela.State in [dsInsert] ) then
       if ( dbCentroCustoRequisitante.Focused ) then
       begin
         IbDtstTabelaCCUSTO_ORIGEM.Clear;
@@ -1195,11 +1189,14 @@ procedure TfrmGeRequisicaoAlmox.IbDtstTabelaTIPOGetText(Sender: TField;
 begin
   if (not Sender.IsNull) then
     Case Sender.AsInteger of
-      TIPO_APROPRIACAO_GERAL :
-        Text := 'Geral';
+      TIPO_REQUISICAO_ALMOX_CI:
+        Text := 'Consumo Interno';
 
-      TIPO_APROPRIACAO_ENTRADA:
-        Text := 'Por Entrada';
+      TIPO_REQUISICAO_ALMOX_CP:
+        Text := 'Consumo Produção';
+
+      TIPO_REQUISICAO_ALMOX_TE:
+        Text := 'Transf. Estoque/Equipamentos';
 
       else
         Text := Sender.AsString;
@@ -1335,6 +1332,15 @@ begin
     STATUS_ITEM_REQUISICAO_ALMOX_ENT : Text := 'Entregue';
     STATUS_ITEM_REQUISICAO_ALMOX_CAN : Text := 'Cancelado';
   end;
+end;
+
+procedure TfrmGeRequisicaoAlmox.cdsTabelaItensCalcFields(
+  DataSet: TDataSet);
+begin
+  if ( cdsTabelaItensSTATUS.AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU] ) then
+    cdsTabelaItensDISPONIVEL_TMP.AsCurrency := (cdsTabelaItensDISPONIVEL.AsCurrency + cdsTabelaItensQTDE.AsCurrency)
+  else
+    cdsTabelaItensDISPONIVEL_TMP.AsCurrency := cdsTabelaItensDISPONIVEL.AsCurrency;
 end;
 
 initialization

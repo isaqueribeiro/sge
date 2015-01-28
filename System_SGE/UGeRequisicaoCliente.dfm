@@ -3,9 +3,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
   Top = 208
   Width = 1132
   Height = 724
-  ActiveControl = dbCodigo
   Caption = 'Controle de Requisi'#231#245'es de Clientes'
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
@@ -163,7 +161,6 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 643
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
@@ -1339,7 +1336,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       '  , r.cancelado_motivo'
       '  , c.nome'
       
-        '  , (Select count(i.item) from TBCLIENTE_REQUISICAO_ITEM i where' +
+        '  , (Select count(i.item) from TBCLIENTE_REQUISICAO_ITEM i WHERE' +
         ' i.ano = r.ano and i.numero = r.numero) as Itens'
       'from TBCLIENTE_REQUISICAO r'
       '  inner join TBCLIENTE c on (r.codcliente = c.codigo)')

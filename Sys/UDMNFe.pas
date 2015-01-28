@@ -551,6 +551,9 @@ type
     qryApropriacaoEstoque: TIBQuery;
     frdApropriacaoEstoque: TfrxDBDataset;
     frrApropriacaoEstoque: TfrxReport;
+    qryRequisicaoAlmox: TIBQuery;
+    frdRequisicaoAlmox: TfrxDBDataset;
+    frrRequisicaoAlmox: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);

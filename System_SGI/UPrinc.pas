@@ -176,6 +176,8 @@ type
     mnRelatorioAutorizacao: TMenuItem;
     mnRelatorioEstoqueApropriacao: TMenuItem;
     nmRequisicaoAlmoxMonitor: TMenuItem;
+    PnlDockReqAlmox: TPanel;
+    SptDockReqAlmox: TSplitter;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -254,6 +256,8 @@ type
     procedure nmPlanoContaClick(Sender: TObject);
     procedure nmApropriacaoEstoqueClick(Sender: TObject);
     procedure nmEstoqueApropriadoClick(Sender: TObject);
+    procedure nmRequisicaoAlmoxClick(Sender: TObject);
+    procedure nmRequisicaoAlmoxMonitorClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -277,14 +281,16 @@ uses
 
   // Movimentação
   UGeCotacaoCompra,
+  UGeRequisicaoCliente,
+  UGeAutorizacaoCompra,
+  UGeRequisicaoCompra,
+  UGeRequisicaoAlmox,
+  UGeRequisicaoAlmoxMonitor,
 
   // Estoque, Entrada e Saída
   UGeProduto,
   UGeVenda,
   UGeEntradaEstoque,
-  UGeRequisicaoCliente,
-  UGeAutorizacaoCompra,
-  UGeRequisicaoCompra,
   UGeApropriacaoEstoque,
 
   // Financeiro
@@ -965,6 +971,18 @@ procedure TfrmPrinc.nmEstoqueApropriadoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_ESTOQUE_APR_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeApropriacaoEstoquePesquisa');
+end;
+
+procedure TfrmPrinc.nmRequisicaoAlmoxClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_MOV_REQUISICAO_ALMOX_ID, True) then
+    MostrarControleRequisicaoAlmox(Self);
+end;
+
+procedure TfrmPrinc.nmRequisicaoAlmoxMonitorClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_MOV_MONITOR_REQ_ALMOX_ID, True) then
+    MonitorarRequisicaoAlmox(Self, PnlDockReqAlmox, True);
 end;
 
 end.

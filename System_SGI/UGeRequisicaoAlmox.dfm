@@ -1,6 +1,6 @@
 inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
-  Left = 391
-  Top = 211
+  Left = 392
+  Top = 212
   Width = 1132
   Height = 724
   Caption = 'Controle de Requisi'#231#245'es ao Almoxarifado'
@@ -270,12 +270,12 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           item
             Expanded = False
             FieldName = 'TIPO'
-            Width = 100
+            Width = 150
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'DATA_APROPRIACAO'
+            FieldName = 'DATA_EMISSAO'
             Title.Caption = 'Data'
             Width = 85
             Visible = True
@@ -288,8 +288,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           end
           item
             Expanded = False
-            FieldName = 'CC_DESCRICAO'
-            Title.Caption = 'Centro de Custo'
+            FieldName = 'CC_ORIGEM_DESC'
+            Title.Caption = 'Centro de Custo origem'
             Width = 330
             Visible = True
           end
@@ -309,15 +309,23 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           end
           item
             Expanded = False
-            FieldName = 'USUARIO'
+            FieldName = 'REQUISITANTE'
             Title.Caption = 'Respons'#225'vel'
-            Width = 100
+            Width = 120
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'ENTRADA'
-            Width = 90
+            FieldName = 'ATENDIMENTO_USUARIO'
+            Title.Caption = 'Atendente'
+            Width = 120
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'CC_DESTINO_DESC'
+            Title.Caption = 'Centro de Custo destino'
+            Width = 330
             Visible = True
           end>
       end
@@ -337,6 +345,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          Transparent = True
         end
         object lblRequisicaoCancelada: TLabel [1]
           Left = 2
@@ -350,6 +359,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          Transparent = True
         end
         object lblRequisicaoEmEdicao: TLabel [2]
           Left = 2
@@ -378,6 +388,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          Transparent = True
         end
         inherited grpBxFiltro: TGroupBox
           Left = 432
@@ -1798,7 +1809,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Height = 21
           TabStop = False
           Color = clMoneyGreen
-          DataField = 'DISPONIVEL'
+          DataField = 'DISPONIVEL_TMP'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1908,8 +1919,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           end
           item
             Expanded = False
-            FieldName = 'DISPONIVEL'
-            Title.Caption = 'Estoque (D)'
+            FieldName = 'DISPONIVEL_TMP'
+            Title.Caption = 'Dispon'#237'vel'
             Width = 80
             Visible = True
           end
@@ -1973,7 +1984,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  , r.cancel_motivo'
       ''
       
-        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where' +
+        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri WHERE' +
         ' ri.ano = r.ano and ri.controle = r.controle) as Itens'
       ''
       '  , e.rzsoc       as empresa_nome'
@@ -1984,7 +1995,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       'from TBREQUISICAO_ALMOX r'
       '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
       '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
-      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)')
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
+      '')
     GeneratorField.Field = 'CONTROLE'
     GeneratorField.Generator = 'GEN_REQUISICAO_ALMOX_2015'
     Top = 512
@@ -2017,11 +2029,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       Size = 18
     end
     object IbDtstTabelaTIPO: TSmallintField
+      Alignment = taLeftJustify
       DisplayLabel = 'Tipo'
       FieldName = 'TIPO'
       Origin = '"TBREQUISICAO_ALMOX"."TIPO"'
       ProviderFlags = [pfInUpdate]
       Required = True
+      OnGetText = IbDtstTabelaTIPOGetText
     end
     object IbDtstTabelaCCUSTO_ORIGEM: TIntegerField
       DisplayLabel = 'Centro de Custo requisitante (Origem)'
@@ -2168,39 +2182,48 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  CONTROLE,'
       '  NUMERO,'
       '  EMPRESA,'
-      '  CENTRO_CUSTO,'
       '  TIPO,'
-      '  COMPRA_ANO,'
-      '  COMPRA_NUM,'
-      '  COMPRA_EMP,'
+      '  CCUSTO_ORIGEM,'
+      '  CCUSTO_DESTINO,'
       '  INSERCAO_DATA,'
-      '  DATA_APROPRIACAO,'
+      '  INSERCAO_USUARIO,'
+      '  DATA_EMISSAO,'
+      '  REQUISITANTE,'
       '  COMPETENCIA,'
-      '  USUARIO,'
       '  STATUS,'
       '  MOTIVO,'
       '  OBS,'
       '  VALOR_TOTAL,'
+      '  ATENDIMENTO_USUARIO,'
+      '  ATENDIMENTO_DATA,'
       '  CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA,'
+      '  CANCEL_DATA,'
       '  CANCEL_MOTIVO'
-      'from TBAPROPRIACAO_ALMOX '
+      'from TBREQUISICAO_ALMOX '
       'where'
       '  ANO = :ANO and'
       '  CONTROLE = :CONTROLE')
     ModifySQL.Strings = (
-      'update TBAPROPRIACAO_ALMOX'
+      'update TBREQUISICAO_ALMOX'
       'set'
       '  ANO = :ANO,'
+      '  ATENDIMENTO_DATA = :ATENDIMENTO_DATA,'
+      '  ATENDIMENTO_USUARIO = :ATENDIMENTO_USUARIO,'
+      '  CANCEL_DATA = :CANCEL_DATA,'
       '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
       '  CANCEL_USUARIO = :CANCEL_USUARIO,'
+      '  CCUSTO_DESTINO = :CCUSTO_DESTINO,'
+      '  CCUSTO_ORIGEM = :CCUSTO_ORIGEM,'
       '  COMPETENCIA = :COMPETENCIA,'
       '  CONTROLE = :CONTROLE,'
+      '  DATA_EMISSAO = :DATA_EMISSAO,'
       '  EMPRESA = :EMPRESA,'
       '  INSERCAO_DATA = :INSERCAO_DATA,'
+      '  INSERCAO_USUARIO = :INSERCAO_USUARIO,'
       '  MOTIVO = :MOTIVO,'
       '  NUMERO = :NUMERO,'
       '  OBS = :OBS,'
+      '  REQUISITANTE = :REQUISITANTE,'
       '  STATUS = :STATUS,'
       '  TIPO = :TIPO,'
       '  VALOR_TOTAL = :VALOR_TOTAL'
@@ -2208,22 +2231,30 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  ANO = :OLD_ANO and'
       '  CONTROLE = :OLD_CONTROLE')
     InsertSQL.Strings = (
-      'insert into TBAPROPRIACAO_ALMOX'
+      'insert into TBREQUISICAO_ALMOX'
       
-        '  (ANO, CANCEL_MOTIVO, CANCEL_USUARIO, COMPETENCIA, CONTROLE, EM' +
-        'PRESA, '
+        '  (ANO, ATENDIMENTO_DATA, ATENDIMENTO_USUARIO, CANCEL_DATA, CANC' +
+        'EL_MOTIVO, '
       
-        '   INSERCAO_DATA, MOTIVO, NUMERO, OBS, STATUS, TIPO, VALOR_TOTAL' +
-        ')'
+        '   CANCEL_USUARIO, CCUSTO_DESTINO, CCUSTO_ORIGEM, COMPETENCIA, C' +
+        'ONTROLE, '
+      
+        '   DATA_EMISSAO, EMPRESA, INSERCAO_DATA, INSERCAO_USUARIO, MOTIV' +
+        'O, NUMERO, '
+      '   OBS, REQUISITANTE, STATUS, TIPO, VALOR_TOTAL)'
       'values'
       
-        '  (:ANO, :CANCEL_MOTIVO, :CANCEL_USUARIO, :COMPETENCIA, :CONTROL' +
-        'E, :EMPRESA, '
+        '  (:ANO, :ATENDIMENTO_DATA, :ATENDIMENTO_USUARIO, :CANCEL_DATA, ' +
+        ':CANCEL_MOTIVO, '
       
-        '   :INSERCAO_DATA, :MOTIVO, :NUMERO, :OBS, :STATUS, :TIPO, :VALO' +
-        'R_TOTAL)')
+        '   :CANCEL_USUARIO, :CCUSTO_DESTINO, :CCUSTO_ORIGEM, :COMPETENCI' +
+        'A, :CONTROLE, '
+      
+        '   :DATA_EMISSAO, :EMPRESA, :INSERCAO_DATA, :INSERCAO_USUARIO, :' +
+        'MOTIVO, '
+      '   :NUMERO, :OBS, :REQUISITANTE, :STATUS, :TIPO, :VALOR_TOTAL)')
     DeleteSQL.Strings = (
-      'delete from TBAPROPRIACAO_ALMOX'
+      'delete from TBREQUISICAO_ALMOX'
       'where'
       '  ANO = :OLD_ANO and'
       '  CONTROLE = :OLD_CONTROLE')
@@ -2248,6 +2279,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
   object cdsTabelaItens: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    OnCalcFields = cdsTabelaItensCalcFields
     OnNewRecord = cdsTabelaItensNewRecord
     CachedUpdates = True
     RefreshSQL.Strings = (
@@ -2289,8 +2321,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '      , e.reserva'
       '      , e.disponivel'
       
-        '    from GET_ESTOQUE_ALMOX_DISPONIVEL(:empresa, :centro_custo, :' +
-        'produto, :lote, :lote_guid, :requisicao_ano,  :requisicao_cod) e'
+        '    from GET_ESTOQUE_ALMOX_DISPONIVEL(:empresa, :centro_custo, n' +
+        'ull, null, null, :requisicao_ano,  :requisicao_cod) e'
       '  ) ea on (ea.produto = i.produto)')
     ModifySQL.Strings = (
       '')
@@ -2443,6 +2475,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       Precision = 18
       Size = 3
     end
+    object cdsTabelaItensDISPONIVEL_TMP: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'DISPONIVEL_TMP'
+      ProviderFlags = []
+      DisplayFormat = ',0.###'
+      Calculated = True
+    end
   end
   object IbUpdTabelaItens: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2517,10 +2556,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     Images = ImgList
     Left = 16
     Top = 448
-    object nmImprimirApropriacao: TMenuItem
+    object nmImprimirRequisicaoAlmox: TMenuItem
       Caption = 'Requisi'#231#227'o ao Estoque (Almoxarifado)'
       ImageIndex = 16
-      OnClick = nmImprimirApropriacaoClick
+      OnClick = nmImprimirRequisicaoAlmoxClick
+    end
+    object nmImprimirManifesto: TMenuItem
+      Caption = 'Manifesto'
     end
   end
   object qryProdutoAlmox: TIBDataSet
@@ -2534,12 +2576,17 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  , p.descri'
       '  , p.descri_apresentacao'
       '  , p.codunidade'
+      '  , p.codunidade_fracionada'
       '  , u.unp_descricao'
       '  , u.unp_sigla'
       '  , g.lote_id'
+      '  , g.fracionador'
       '  , g.estoque'
       '  , g.reserva'
       '  , g.disponivel'
+      '  , g.custo_total'
+      '  , g.custo_reserva'
+      '  , g.custo_disponivel'
       
         'from GET_ESTOQUE_ALMOX_DISPONIVEL (:empresa, :centro_custo, null' +
         ', :lote, :lote_guid, :req_ano, :req_cod) g'
@@ -2548,7 +2595,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade_fracion' +
         'ada)'
       ''
-      'where p.codigo = :codigo')
+      'where p.codigo = :produto')
     ModifySQL.Strings = (
       '')
     Left = 1008

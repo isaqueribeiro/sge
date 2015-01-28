@@ -18,6 +18,14 @@ object frmPrinc: TfrmPrinc
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  object SptDockReqAlmox: TSplitter
+    Left = 923
+    Top = 64
+    Height = 415
+    Align = alRight
+    Color = clBtnFace
+    ParentColor = False
+  end
   object stbMain: TStatusBar
     Left = 0
     Top = 479
@@ -1250,19 +1258,19 @@ object frmPrinc: TfrmPrinc
   object pnlMain: TPanel
     Left = 0
     Top = 64
-    Width = 927
+    Width = 923
     Height = 415
     Align = alClient
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 2
     DesignSize = (
-      927
+      923
       415)
     object imgFundo: TImage
       Left = 1
       Top = 1
-      Width = 925
+      Width = 921
       Height = 413
       Align = alClient
       AutoSize = True
@@ -5610,6 +5618,16 @@ object frmPrinc: TfrmPrinc
       IsControl = True
     end
   end
+  object PnlDockReqAlmox: TPanel
+    Left = 926
+    Top = 64
+    Width = 1
+    Height = 415
+    Align = alRight
+    BevelOuter = bvNone
+    DockSite = True
+    TabOrder = 3
+  end
   object BcBarMainMenu: TBcBarMainMenu
     OwnerDraw = True
     Bar.Border = clWindow
@@ -8145,6 +8163,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
         Caption = 'Requisi'#231#245'es ao Almoxarifado'
+        OnClick = nmRequisicaoAlmoxClick
       end
       object nmRequisicaoAlmoxMonitor: TMenuItem
         Bitmap.Data = {
@@ -8175,6 +8194,7 @@ object frmPrinc: TfrmPrinc
           0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
           FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
         Caption = 'Monitorar Requisi'#231#245'es ao Almoxarifado'
+        OnClick = nmRequisicaoAlmoxMonitorClick
       end
     end
     object menuNotaFiscal: TMenuItem

@@ -1692,8 +1692,8 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  , a.cancel_motivo'
       ''
       
-        '  , (Select count(ai.item) from TBAPROPRIACAO_ALMOX_ITEM ai wher' +
-        'e ai.ano = a.ano and ai.controle = a.controle) as Itens'
+        '  , (Select count(ai.item) from TBAPROPRIACAO_ALMOX_ITEM ai WHER' +
+        'E ai.ano = a.ano and ai.controle = a.controle) as Itens'
       ''
       '  , e.rzsoc     as empresa_nome'
       '  , c.descricao as cc_descricao'

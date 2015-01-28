@@ -228,6 +228,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       ShowHint = True
       TabOrder = 0
       TabStop = False
+      OnClick = btBtnExportarClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         18000000000000030000C20E0000C20E00000000000000000000FFFFFFFFFFFF
@@ -267,6 +268,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       ShowHint = True
       TabOrder = 1
       TabStop = False
+      OnClick = btBtnEnviarEmailClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         180000000000000300000000000000000000000000000000000000FF00B29B96
@@ -314,6 +316,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       ShowHint = True
       TabOrder = 2
       Visible = False
+      OnClick = btbtnSelecionarClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -373,7 +376,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     Top = 81
     Width = 1116
     Height = 562
-    ActivePage = TbsGrupo
+    ActivePage = TbsProduto
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -396,6 +399,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         Align = alClient
         TabOrder = 0
         object dbgGrupoTbl: TcxGridDBBandedTableView
+          OnDblClick = dbgGrupoTblDblClick
           NavigatorButtons.ConfirmDelete = False
           DataController.DataSource = dsGrupo
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -404,7 +408,25 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
               Format = ',0'
               Kind = skSum
               FieldName = 'ITENS'
-              Column = cxGridDBBandedColumn58
+              Column = dbgGrupoTblITENS
+            end
+            item
+              Format = ',0.00'
+              Kind = skSum
+              FieldName = 'CUSTO_TOTAL'
+              Column = dbgGrupoTblCUSTO_TOTAL
+            end
+            item
+              Format = ',0.00'
+              Kind = skSum
+              FieldName = 'CUSTO_DISPONIVEL'
+              Column = dbgGrupoTblCUSTO_DISPONIVEL
+            end
+            item
+              Format = ',0.##'
+              Kind = skSum
+              FieldName = 'PERCENTUAL'
+              Column = dbgGrupoTblPERCENTUAL
             end>
           DataController.Summary.SummaryGroups = <>
           OptionsBehavior.CellHints = True
@@ -438,9 +460,12 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
               Options.Moving = False
               Width = 250
             end>
-          object cxGridDBBandedColumn1: TcxGridDBBandedColumn
+          object dbgGrupoTblGRUPO_COD: TcxGridDBBandedColumn
             Caption = 'C'#243'digo'
             DataBinding.FieldName = 'GRUPO_COD'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.Alignment.Horz = taLeftJustify
+            Properties.DisplayFormat = '###00000'
             MinWidth = 70
             Options.Filtering = False
             Options.HorzSizing = False
@@ -450,7 +475,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn2: TcxGridDBBandedColumn
+          object dbgGrupoTblGRUPO_DESC: TcxGridDBBandedColumn
             Caption = 'Descri'#231#227'o'
             DataBinding.FieldName = 'GRUPO_DES'
             Options.Filtering = False
@@ -460,9 +485,11 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn58: TcxGridDBBandedColumn
-            Caption = 'Itens'
+          object dbgGrupoTblITENS: TcxGridDBBandedColumn
+            Caption = 'Lotes'
             DataBinding.FieldName = 'ITENS'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.##'
             MinWidth = 50
             Options.Filtering = False
             Options.HorzSizing = False
@@ -473,9 +500,11 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 2
             Position.RowIndex = 0
           end
-          object dbgGrupoTblColumn5: TcxGridDBBandedColumn
+          object dbgGrupoTblESTOQUE: TcxGridDBBandedColumn
             Caption = 'Quantidade'
             DataBinding.FieldName = 'ESTOQUE'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.##'
             MinWidth = 100
             Options.Filtering = False
             Options.Moving = False
@@ -485,9 +514,11 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn57: TcxGridDBBandedColumn
+          object dbgGrupoTblDISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'DISPONIVEL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.##'
             MinWidth = 100
             Options.Filtering = False
             Options.Moving = False
@@ -497,9 +528,11 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn31: TcxGridDBBandedColumn
+          object dbgGrupoTblCUSTO_TOTAL: TcxGridDBBandedColumn
             Caption = 'Total'
             DataBinding.FieldName = 'CUSTO_TOTAL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
             MinWidth = 100
             Options.Filtering = False
@@ -510,9 +543,11 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn32: TcxGridDBBandedColumn
+          object dbgGrupoTblCUSTO_DISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'CUSTO_DISPONIVEL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
             MinWidth = 100
             Options.Filtering = False
@@ -523,9 +558,11 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
-          object dbgGrupoTblColumn1: TcxGridDBBandedColumn
+          object dbgGrupoTblPERCENTUAL: TcxGridDBBandedColumn
             Caption = '%'
             DataBinding.FieldName = 'PERCENTUAL'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.##'
             HeaderAlignmentHorz = taCenter
             MinWidth = 50
             Options.Filtering = False
@@ -555,6 +592,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         Align = alClient
         TabOrder = 0
         object dbgFabTbl: TcxGridDBBandedTableView
+          OnDblClick = dbgFabTblDblClick
           NavigatorButtons.ConfirmDelete = False
           DataController.DataSource = dsFabricante
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -641,7 +679,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
             Position.RowIndex = 0
           end
           object dbgFabTblITENS: TcxGridDBBandedColumn
-            Caption = 'Itens'
+            Caption = 'Lotes'
             DataBinding.FieldName = 'ITENS'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.###'
@@ -1141,8 +1179,8 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       '  , sum(e.custo_reserva) as custo_reserva'
       '  , sum(e.custo_disponivel) as custo_disponivel'
       
-        '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39' as lote_id--, e.l' +
-        'ote_id'
+        '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39' as lote_id--e.lot' +
+        'e_id'
       ''
       '  , cast(0.0 as numeric(18,4)) as percentual'
       ''
@@ -1178,7 +1216,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
         'ricao) from 1 for 3)'
       '  , e.fracionador'
-      '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39'--, e.lote_id')
+      '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39'--e.lote_id')
     Left = 56
     Top = 352
   end
