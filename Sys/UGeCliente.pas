@@ -785,7 +785,7 @@ begin
       'Deseja salvar este registro assim mesmo?') then
       Abort;
 
-  IbDtstTabelaUSUARIO.AsString := GetUserApp;
+  IbDtstTabelaUSUARIO.AsString := gUsuarioLogado.Login;
 
   if ( IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger = 1 ) then
   begin
@@ -947,7 +947,7 @@ begin
       if Trim(sMotivo) <> EmptyStr then
       begin
         iCodigo := IbDtstTabelaCODIGO.AsInteger;
-        DesbloquearCliente(iCodigo, GetUserApp + ' -> ' + AnsiUpperCase(sMotivo));
+        DesbloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
 
         IbDtstTabela.Close;
         IbDtstTabela.Open;
@@ -971,7 +971,7 @@ begin
       if Trim(sMotivo) <> EmptyStr then
       begin
         iCodigo := IbDtstTabelaCODIGO.AsInteger;
-        BloquearCliente(iCodigo, GetUserApp + ' -> ' + AnsiUpperCase(sMotivo));
+        BloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
 
         IbDtstTabela.Close;
         IbDtstTabela.Open;

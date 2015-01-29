@@ -23,7 +23,6 @@ inherited frmGrUsuario: TfrmGrUsuario
   inherited pgcGuias: TPageControl
     Width = 751
     Height = 414
-    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel
         Top = 319

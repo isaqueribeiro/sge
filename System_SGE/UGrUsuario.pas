@@ -64,6 +64,8 @@ const
   USER_PASSWD_KEY     = 'ADONAI';
 
 
+  function SelecionarUsuarioRequisitante(const AOnwer : TComponent; var Login, Nome : String) : Boolean;
+
   function EncriptSenha(const Value, Key : String) : String;
   function DecriptarSenha(const Value, Key : String) : String;
   function GetSenhaFormatada(const Value : String) : String;
@@ -74,6 +76,13 @@ uses
   UConstantesDGE, UDMBusiness;
 
 {$R *.dfm}
+
+function SelecionarUsuarioRequisitante(const AOnwer : TComponent; var Login, Nome : String) : Boolean;
+var
+  AForm : TfrmGrUsuario;
+begin
+  ;
+end;
 
 function EncriptSenha(const Value, Key : String) : String;
 var

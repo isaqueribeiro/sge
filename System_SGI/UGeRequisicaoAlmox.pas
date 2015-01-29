@@ -239,7 +239,7 @@ implementation
 
 uses
   DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeRequisicaoAlmoxCancelar, UGeCentroCusto,
-  UGeApropriacaoEstoquePesquisa, RTLConsts;
+  UGeApropriacaoEstoquePesquisa, UGrUsuario, RTLConsts;
 
 {$R *.dfm}
 
@@ -413,10 +413,10 @@ begin
   IbDtstTabelaEMPRESA.Value       := GetEmpresaIDDefault;
   IbDtstTabelaINSERCAO_DATA.Value := GetDateTimeDB;
   IbDtstTabelaDATA_EMISSAO.Value  := GetDateDB;
-  IbDtstTabelaREQUISITANTE.Value  := gUsuarioLogado.Login;
+  IbDtstTabelaREQUISITANTE.Value  := gUsuarioLogado.Login; 
   IbDtstTabelaSTATUS.AsInteger    := STATUS_REQUISICAO_ALMOX_EDC;
   IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
-  IbDtstTabelaINSERCAO_USUARIO.Value := GetUserApp;
+  IbDtstTabelaINSERCAO_USUARIO.Value := gUsuarioLogado.Login;
 
   IbDtstTabelaVALOR_TOTAL.AsCurrency := 0.0;
 
@@ -1378,22 +1378,13 @@ begin
 end;
 
 procedure TfrmGeRequisicaoAlmox.dbUsuarioRequisitanteButtonClick(Sender: TObject);
+var
+  sLogin,
+  sNome : String;
 begin
-(*
-  if ( dbEntrada.Button.Enabled and (IbDtstTabela.State in [dsEdit, dsInsert]) ) then
-    if SelecionarEntrada(Self, iEntradaAno, iEntradaCod, sEntradaEmp) then
-    begin
-      IbDtstTabelaCOMPRA_ANO.AsInteger := iEntradaAno;
-      IbDtstTabelaCOMPRA_NUM.AsInteger := iEntradaCod;
-      IbDtstTabelaCOMPRA_EMP.AsString  := sEntradaEmp;
-      IbDtstTabelaENTRADA.AsString     := FormatFloat('0000"/"', iEntradaAno) + FormatFloat('0000000', iEntradaCod);
-
-      CarregarProdutosEntrada(iEntradaAno, iEntradaCod, sEntradaEmp);
-      cdsTabelaItens.First;
-
-      dbEntrada.SetFocus;
-    end;
-*)
+  if ( dbUsuarioRequisitante.Button.Enabled and (IbDtstTabela.State in [dsEdit, dsInsert]) ) then
+    if SelecionarUsuarioRequisitante(Self, sLogin, sNome) then
+      IbDtstTabelaREQUISITANTE.Value := sLogin;
 end;
 
 procedure TfrmGeRequisicaoAlmox.pgcGuiasOnChange;

@@ -1158,7 +1158,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Height = 21
           TabStop = False
           Color = clMoneyGreen
-          DataField = 'ATENDIMENTO_USUARIO'
+          DataField = 'CANCEL_USUARIO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack

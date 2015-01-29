@@ -506,7 +506,7 @@ begin
     Exit;
 
   stbMain.Panels.Items[2].Text  := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
-  nmUsuarioAlterarSenha.Caption := Format('Alteração de Senha (%s)', [GetUserApp]);
+  nmUsuarioAlterarSenha.Caption := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
 
   Self.WindowState := wsMaximized;
 
@@ -641,7 +641,7 @@ end;
 procedure TfrmPrinc.nmEncerramentoCaixaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_ENCERRAR_CAIXA_ID, True) then
-    if ( FecharCaixa(Self, GetUserApp) ) then
+    if ( FecharCaixa(Self, gUsuarioLogado.Login) ) then
       ShowInformation('Caixa encerrado com sucesso!');
 end;
 

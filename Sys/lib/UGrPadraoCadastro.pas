@@ -383,7 +383,7 @@ begin
       if ShowConfirmation('Salvar', 'Deseja salvar a inserção/edição do registro?') then
       begin
         if Assigned( IbDtstTabela.Fields.FindField(CAMPO_USUARIO) ) then
-          IbDtstTabela.FieldByName(CAMPO_USUARIO).AsString := GetUserApp;
+          IbDtstTabela.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
           
         IbDtstTabela.Post;
         IbDtstTabela.ApplyUpdates;
@@ -817,7 +817,7 @@ begin
       frReport.ReportOptions.Name := Application.Title;
 
     if (frReport.ReportOptions.Author) = EmptyStr then
-      frReport.ReportOptions.Author := GetUserApp;
+      frReport.ReportOptions.Author := gUsuarioLogado.Login;
 
     if ( not VariableExist(CATEGORY_VAR) ) then
       frReport.Variables.AddVariable(EmptyStr, CATEGORY_VAR, null);
@@ -835,7 +835,7 @@ begin
       frReport.Variables.AddVariable(CATEGORY_VAR, VAR_EMPRESA, GetEmpresaNomeDefault);
 
     if ( not VariableExist(VAR_USER) ) then
-      frReport.Variables.AddVariable(CATEGORY_VAR, VAR_USER, GetUserApp);
+      frReport.Variables.AddVariable(CATEGORY_VAR, VAR_USER, gUsuarioLogado.Login);
 
     if ( not VariableExist(VAR_DEPARTAMENTO) ) then
       frReport.Variables.AddVariable(CATEGORY_VAR, VAR_DEPARTAMENTO, EmptyStr);

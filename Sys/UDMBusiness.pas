@@ -924,7 +924,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('Update TBCLIENTE Set Dtcad = coalesce(Dtcad, Current_date), Desbloqueado_data = Current_date, Bloqueado = 0, Bloqueado_data = Null, Bloqueado_usuario = Null,');
-    SQL.Add('  Usuario = ' + QuotedStr(GetUserApp) + ',');
+    SQL.Add('  Usuario = ' + QuotedStr(gUsuarioLogado.Login) + ',');
 
     if Trim(Motivo) = EmptyStr then
       SQL.Add('  Bloqueado_motivo = Null')
@@ -944,8 +944,8 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Update TBCLIENTE Set Dtcad = coalesce(Dtcad, Current_date), Desbloqueado_data = Null, Bloqueado = 1, Bloqueado_data = Current_date, Bloqueado_usuario = ' + QuotedStr(GetUserApp) + ',');
-    SQL.Add('  Usuario = ' + QuotedStr(GetUserApp) + ',');
+    SQL.Add('Update TBCLIENTE Set Dtcad = coalesce(Dtcad, Current_date), Desbloqueado_data = Null, Bloqueado = 1, Bloqueado_data = Current_date, Bloqueado_usuario = ' + QuotedStr(gUsuarioLogado.Login) + ',');
+    SQL.Add('  Usuario = ' + QuotedStr(gUsuarioLogado.Login) + ',');
 
     if Trim(Motivo) = EmptyStr then
       SQL.Add('  Bloqueado_motivo = Null')

@@ -985,7 +985,7 @@ begin
 
   IbDtstTabelaDESCRI_APRESENTACAO.AsString := AnsiUpperCase(Trim(IbDtstTabelaDESCRI.AsString + ' ' + IbDtstTabelaAPRESENTACAO.AsString));
   IbDtstTabelaMETAFONEMA.AsString          := Metafonema(IbDtstTabelaDESCRI_APRESENTACAO.AsString);
-  IbDtstTabelaUSUARIO.AsString             := GetUserApp;
+  IbDtstTabelaUSUARIO.AsString             := gUsuarioLogado.Login;
 
   if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
     IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 0;
@@ -1030,7 +1030,7 @@ begin
       IbDtstTabelaSITUACAO_HISTORICO_VEICULO.AsString :=
         FormatDateTime('dd/mm/yyyy hh:mm', GetDateTimeDB)           + ' - '  +
         Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.OldValue)) + ' -> ' +
-        Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.NewValue)) + ' (' + GetUserApp + ')' + #13 +
+        Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.NewValue)) + ' (' + gUsuarioLogado.Login + ')' + #13 +
         Trim(IbDtstTabelaSITUACAO_HISTORICO_VEICULO.AsString);
 
   IbDtstTabelaDESCRICAO_COR.AsString         := dbCorVeiculo.Text;
