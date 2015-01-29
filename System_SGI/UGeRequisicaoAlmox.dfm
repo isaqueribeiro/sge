@@ -3,7 +3,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
   Top = 212
   Width = 1132
   Height = 724
-  Caption = 'Controle de Requisi'#231#245'es ao Almoxarifado'
+  Caption = 'Controle de Requisi'#231#245'es de Materiais'
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
@@ -35,6 +35,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     inherited btbtnLista: TcxButton
       TabOrder = 10
       Visible = True
+      DropDownMenu = ppImprimir
+      Kind = cxbkDropDown
     end
     inherited btbtnFechar: TcxButton
       TabOrder = 3
@@ -240,8 +242,73 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
       NumGlyphs = 2
     end
-    object Bevel12: TBevel
+    object btnConfirmarAtendimento: TcxButton
       Left = 1086
+      Top = 2
+      Width = 120
+      Height = 31
+      Hint = 'Confirmar Atendimento da requisi'#231#227'o de materiais'
+      Caption = 'Confirmar Atend.'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 11
+      Visible = False
+      OnClick = btnConfirmarAtendimentoClick
+      Glyph.Data = {
+        36060000424D3606000000000000360000002800000020000000100000000100
+        18000000000000060000000000000000000000000000000000000000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FFCDA187E5BC9E0000FF0000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF9D9D9DB7B7B700
+        00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+        0000FF0000FFAA7457904820B47657F0CEB30000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF707070434343727272C9
+        C9C90000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+        0000FFA55839D07850D07040B06030CB91730000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF5656567474746B6B6B5959598D
+        8D8D0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+        A05030D07850F09060E19C75D08860B96F42D3A4860000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF4E4E4E7474748B8B8B97979783838368
+        68689F9F9F0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FFA56039
+        E08050F09060F3AF8E0000FFF2AA86D08860B46739EBC9AF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF5B5B5B7B7B7B8B8B8BABABAB0000FFA6A6A683
+        8383606060C4C4C40000FF0000FF0000FF0000FF0000FF0000FF0000FFF1B698
+        F0A890F2AC820000FF0000FF0000FFE6AA86D08860AA6841F2C7B40000FF0000
+        FF0000FF0000FF0000FF0000FFB2B2B2A8A8A8A6A6A60000FF0000FF0000FFA5
+        A5A5838383626262C5C5C50000FF0000FF0000FF0000FF0000FF0000FFFDE0CD
+        F7CEB60000FF0000FF0000FF0000FF0000FFE19C75D07850B47D56F2CCB30000
+        FF0000FF0000FF0000FF0000FFDDDDDDCACACA0000FF0000FF0000FF0000FF00
+        00FF979797747474767676C8C8C80000FF0000FF0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FFE19C74C07040C38C74F1CA
+        B00000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF9696966969698A8A8AC6C6C60000FF0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FFE29F79C07040D29B
+        82EBC3A80000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF9A9A9A696969999999BEBEBE0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FFF1AF91C070
+        50E4B99B0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF0000FFACACAC6E6E6EB4B4B40000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FFF1C1
+        A7D291720000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF0000FF0000FFBEBEBE8E8E8E0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+        0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+        00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
+      NumGlyphs = 2
+    end
+    object Bevel12: TBevel
+      Left = 1206
       Top = 2
       Width = 4
       Height = 31
@@ -987,7 +1054,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = []
           KeyField = 'CODIGO'
           ListField = 'DESCRICAO'
-          ListSource = dtsTipoApropriacao
+          ListSource = dtsTipoRequisicao
           ParentFont = False
           TabOrder = 4
         end
@@ -1166,6 +1233,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
                 Font.Name = 'Tahoma'
                 Font.Style = [fsBold]
                 ParentFont = False
+                Transparent = True
               end
               object lblValorTotalCusto: TLabel
                 Left = 160
@@ -1180,6 +1248,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
                 Font.Name = 'Tahoma'
                 Font.Style = [fsBold]
                 ParentFont = False
+                Transparent = True
               end
               object dbCompetencia: TDBEdit
                 Left = 8
@@ -1855,6 +1924,82 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           ParentFont = False
           ReadOnly = True
           TabOrder = 9
+        end
+        object btnProdutoAtender: TBitBtn
+          Left = 1024
+          Top = 17
+          Width = 75
+          Height = 25
+          Caption = '&1. Atender  '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 10
+          Visible = False
+          OnClick = btnProdutoAtenderClick
+          NumGlyphs = 2
+        end
+        object btnProdutoAtenderTodos: TBitBtn
+          Left = 1024
+          Top = 41
+          Width = 75
+          Height = 25
+          Caption = '&2. Atend. T.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 11
+          Visible = False
+          OnClick = btnProdutoAtenderTodosClick
+          NumGlyphs = 2
+        end
+        object btnProdutoAguarda: TBitBtn
+          Left = 1024
+          Top = 65
+          Width = 75
+          Height = 25
+          Caption = '&3. Aguardar'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clGreen
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 12
+          Visible = False
+          OnClick = btnProdutoAguardaClick
+          NumGlyphs = 2
+        end
+        object btnProdutoCancelar: TBitBtn
+          Left = 1024
+          Top = 89
+          Width = 75
+          Height = 25
+          Caption = '&4. Cancelar '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 13
+          Visible = False
+          OnClick = btnProdutoCancelarClick
+          NumGlyphs = 2
         end
       end
       object dbgProdutos: TDBGrid
@@ -2563,6 +2708,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     end
     object nmImprimirManifesto: TMenuItem
       Caption = 'Manifesto'
+      OnClick = nmImprimirManifestoClick
     end
   end
   object qryProdutoAlmox: TIBDataSet
@@ -2609,7 +2755,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     Left = 944
     Top = 208
   end
-  object dtsTipoApropriacao: TDataSource
+  object dtsTipoRequisicao: TDataSource
     DataSet = tblTipoRequisicao
     Left = 976
     Top = 208

@@ -785,6 +785,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   RecarregarRegistro;
 
   pgcGuias.ActivePage := tbsCadastro;
@@ -1180,6 +1183,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   RecarregarRegistro;
 
   pgcGuias.ActivePage := tbsCadastro;
@@ -1231,6 +1237,9 @@ var
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
 
   RecarregarRegistro;
 

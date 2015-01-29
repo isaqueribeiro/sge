@@ -30,6 +30,9 @@ type
     property RotinaPaiID  : String read GetRotinaPaiID;
 
     procedure RegistrarRotinaSistema; virtual; abstract;
+
+    function GetRotinaInternaID(const Sender : TObject) : String;
+    function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
   end;
 
 var
@@ -45,7 +48,7 @@ var
 implementation
 
 uses
-  UConstantesDGE;
+  UConstantesDGE, UDMBusiness;
 
 {$R *.dfm}
 
@@ -511,6 +514,31 @@ begin
     Result := EmptyStr
   else
     Result := Copy(Copy(RotinaID, 1, 3) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGrPadrao.GetRotinaInternaID(const Sender: TObject): String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGrPadrao.GetPermissaoRotinaInterna(const Sender: TObject;
+  const Alertar: Boolean): Boolean;
+var
+  sRotinaInternaID : String;
+begin
+  sRotinaInternaID := GetRotinaInternaID(Sender);
+
+  if Trim(sRotinaInternaID) = EmptyStr then
+    Result := True
+  else
+    Result := GetPermissaoRotinaSistema(sRotinaInternaID, Alertar);
 end;
 
 end.

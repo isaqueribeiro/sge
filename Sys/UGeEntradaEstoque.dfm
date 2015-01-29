@@ -229,7 +229,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited pgcGuias: TPageControl
     Width = 1099
     Height = 635
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel

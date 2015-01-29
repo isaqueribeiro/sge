@@ -682,6 +682,9 @@ procedure TfrmGeApropriacaoEstoque.btnEncerrarApropriacaoClick(
 var
   cTotalCusto : Currency;
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -1064,6 +1067,9 @@ end;
 procedure TfrmGeApropriacaoEstoque.btnCancelarApropriacaoClick(
   Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -1111,6 +1117,9 @@ procedure TfrmGeApropriacaoEstoque.btnFinalizarLancamentoClick(
 var
   cTotalCusto : Currency;
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 

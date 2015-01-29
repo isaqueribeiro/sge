@@ -554,6 +554,7 @@ type
     qryRequisicaoAlmox: TIBQuery;
     frdRequisicaoAlmox: TfrxDBDataset;
     frrRequisicaoAlmox: TfrxReport;
+    frrManifestoAlmox: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);

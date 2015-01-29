@@ -1,11 +1,8 @@
 inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
   Left = 391
-  Top = 217
   Width = 1132
   Height = 724
-  ActiveControl = dbCodigo
   Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
@@ -231,7 +228,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 643
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited Bevel4: TBevel

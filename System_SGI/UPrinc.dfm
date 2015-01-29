@@ -8162,7 +8162,7 @@ object frmPrinc: TfrmPrinc
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
           3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
-        Caption = 'Requisi'#231#245'es ao Almoxarifado'
+        Caption = 'Requisi'#231#245'es de Materiais'
         OnClick = nmRequisicaoAlmoxClick
       end
       object nmRequisicaoAlmoxMonitor: TMenuItem
@@ -8193,7 +8193,8 @@ object frmPrinc: TfrmPrinc
           00FF0000FF0000FF0000FF00DCE3E180B0C080A0B07090A0D8DDD900FF0000FF
           0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
           FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-        Caption = 'Monitorar Requisi'#231#245'es ao Almoxarifado'
+        Caption = 'Monitorar Requisi'#231#245'es de Materiais'
+        ShortCut = 16461
         OnClick = nmRequisicaoAlmoxMonitorClick
       end
     end

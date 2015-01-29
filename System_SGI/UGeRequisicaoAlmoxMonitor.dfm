@@ -1,11 +1,11 @@
 inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
-  Left = 1206
-  Top = 140
+  Left = 1029
+  Top = 137
   Width = 367
   Height = 724
   ActiveControl = e1Data
   BorderWidth = 4
-  Caption = 'Monitor de Requisi'#231#245'es ao Estoque'
+  Caption = 'Monitor de Requisi'#231#245'es de Materiais'
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
@@ -30,7 +30,7 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       Tag = 4
       Left = 4
       Top = 2
-      Width = 75
+      Width = 87
       Height = 31
       Hint = 'Imprimir Lista'
       Caption = 'Im&primir'
@@ -54,12 +54,52 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       Kind = cxbkDropDown
       NumGlyphs = 2
     end
+    object BtnOpcoes: TcxButton
+      Tag = 4
+      Left = 91
+      Top = 2
+      Width = 87
+      Height = 31
+      Caption = 'Op'#231#245'es'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      DropDownMenu = ppOpcoes
+      Glyph.Data = {
+        36030000424D3603000000000000360000002800000010000000100000000100
+        18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFC0A09060483060483060483060483060483060483060
+        4830604830604830604830604830FFFFFFFFFFFFFFFFFFFFFFFFC0A890FFF8F0
+        FFF0E0F0E8E0F0E0D0F0D0C0F0C8B0E0C0A0E0B8A0E0B090E0A890604830FFFF
+        FFFFFFFFFFFFFFFFFFFFC0A8A0FFFFF0C0A8A0B0A0A0F0E8E0B0A090B09890B0
+        9890B09890B09890E0B090604830FFFFFFFFFFFFFFFFFFFFFFFFC0A8A0FFFFF0
+        FFFFF0FFF8F0FFF0E0F0E8E0F0E0D0F0D0C0F0C8B0E0C0A0E0B8A0604830FFFF
+        FFFFFFFFFFFFFFFFFFFFC0A8A0FFFFF0B0A8A0B0A0A0FFF8F0B0A090B09890B0
+        9890B09890B09890E0C0A0604830FFFFFFFFFFFFFFFFFFFFFFFFC0B0A0FFFFF0
+        FFFFF0FFFFF0FFFFF0FFF8F0FFF0E0F0E8E0F0E0D0F0D0C0F0C8B0604830FFFF
+        FFFFFFFFFFFFFFFFFFFFC0B0A0FFFFF0FFFFF0FFFFF0FFFFF0FFFFF0FFF8F0C0
+        C8C0406070F0E0D0F0D0C0604830FFFFFFFFFFFFFFFFFFFFFFFFC0B0A0FFFFFF
+        E0E8F0607880E0E0E0FFFFF0C0C8D050607030A8D0203840B0A0A0604830FFFF
+        FFFFFFFFA0B39A408050D0B0A0FFFFFF90A8B080D0E0506070B0B8C050607060
+        C0E050607030B8F010283010304010283070747D40784050A860D0B8A0FFFFFF
+        E0E8F090A8B080E0F050607080D0E050607060D0F040607030B0E02098D02088
+        B020507050886050B060D0B8A0D0B8A0D0B8A0C0B0A090A8B080E0F050607080
+        E0F040587060D0F050C8F040C0F020B0E020A0D060987050B870FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFF90A8B080E0F040587080E0F070D8F060D0F050C8F040C0
+        F030B8F070A88060C080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF90A8B080
+        E0F080E0F080E0F070D8F060D0F060B0D0808890B0C0A090D0A0FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF90A8B090A0B090A0A08098A08090A08088
+        90B9B9BDA0B8A0B0C0A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      Kind = cxbkDropDownButton
+    end
   end
   object GrpBxFiltro: TcxGroupBox
     Left = 0
     Top = 0
     Align = alTop
-    Caption = 'Centro de Custo p/ Atendimento'
+    Caption = 'Par'#226'metros de filtro'
     TabOrder = 0
     DesignSize = (
       343
@@ -187,15 +227,17 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
     end
     object BtnPesquisar: TcxButton
       Tag = 4
-      Left = 224
+      Left = 240
       Top = 146
-      Width = 103
+      Width = 87
       Height = 31
       Hint = 'Executar Pesquisa'
+      Anchors = [akTop, akRight]
       Caption = 'P&esquisar'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 4
+      OnClick = BtnPesquisarClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -261,9 +303,17 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
     Align = alClient
     TabOrder = 2
     object dbgReqTbl: TcxGridDBBandedTableView
+      OnDblClick = dbgReqTblDblClick
       NavigatorButtons.ConfirmDelete = False
+      DataController.DataSource = dtsRequisicaoAlmox
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Format = ',0'
+          Kind = skCount
+          FieldName = 'NUMERO'
+          Column = dbgReqTblNUMERO
+        end>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.CellHints = True
       OptionsData.CancelOnExit = False
@@ -277,72 +327,87 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       OptionsView.ColumnAutoWidth = True
       OptionsView.Footer = True
       OptionsView.GroupByBox = False
+      Styles.Content = StyleContent
+      Styles.ContentEven = StyleContentEven
+      Styles.Selection = StyleSelecao
+      Styles.Indicator = StyleSelecao
       Bands = <
         item
           Caption = 'Identifica'#231#227'o'
           Options.Moving = False
           Width = 336
         end>
-      object dbgReqTblColumn1: TcxGridDBBandedColumn
+      object dbgReqTblNUMERO: TcxGridDBBandedColumn
         Caption = 'N'#250'mero'
+        DataBinding.FieldName = 'NUMERO'
         MinWidth = 80
         Width = 80
         Position.BandIndex = 0
         Position.ColIndex = 0
         Position.RowIndex = 0
       end
-      object dbgReqTblColumn2: TcxGridDBBandedColumn
+      object dbgReqTblDATA_EMISSAO: TcxGridDBBandedColumn
         Caption = 'Emiss'#227'o'
+        DataBinding.FieldName = 'DATA_EMISSAO'
         MinWidth = 80
         Width = 80
         Position.BandIndex = 0
         Position.ColIndex = 1
         Position.RowIndex = 0
       end
-      object dbgReqTblColumn3: TcxGridDBBandedColumn
+      object dbgReqTblCC_ORIGEM_DESC: TcxGridDBBandedColumn
         Caption = 'Origem'
+        DataBinding.FieldName = 'CC_ORIGEM_DESC'
         Width = 181
         Position.BandIndex = 0
         Position.ColIndex = 2
         Position.RowIndex = 0
       end
-      object dbgReqTblColumn4: TcxGridDBBandedColumn
+      object dbgReqTblSTATUS: TcxGridDBBandedColumn
         Caption = 'S'
+        DataBinding.FieldName = 'STATUS'
         PropertiesClassName = 'TcxImageComboBoxProperties'
         Properties.Images = ImgStatus
         Properties.Items = <
           item
+            Description = 'Editando'
             ImageIndex = 0
             Value = 0
           end
           item
+            Description = 'Aberta'
             ImageIndex = 1
             Value = 1
           end
           item
+            Description = 'Enviada'
             ImageIndex = 2
             Value = 2
           end
           item
+            Description = 'Recebida'
             ImageIndex = 3
             Value = 3
           end
           item
+            Description = 'Entregue'
             ImageIndex = 4
             Value = 4
           end
           item
+            Description = 'Cancelada'
             ImageIndex = 5
             Value = 5
           end>
-        Properties.ShowDescriptions = False
         FooterAlignmentHorz = taCenter
         HeaderAlignmentHorz = taCenter
+        MinWidth = 30
         Options.Editing = False
         Options.Filtering = False
         Options.HorzSizing = False
+        Options.Moving = False
         Options.Sorting = False
-        Width = 20
+        Width = 30
         Position.BandIndex = 0
         Position.ColIndex = 3
         Position.RowIndex = 0
@@ -439,12 +504,19 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
       '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
       ''
-      'where r.data_emissao between :data_inicial and :data_final'
+      'where r.empresa = :empresa'
+      '  and r.data_emissao between :data_inicial and :data_final'
       '  and r.ccusto_destino = :centro_custo'
       '  and ((r.status = :status) or (:todos = 1 and r.status > 1))')
     Left = 128
     Top = 392
     ParamData = <
+      item
+        DataType = ftString
+        Name = 'empresa'
+        ParamType = ptInput
+        Value = ''
+      end
       item
         DataType = ftDateTime
         Name = 'data_inicial'
@@ -484,6 +556,12 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
   object cdsRequisicaoAlmox: TClientDataSet
     Aggregates = <>
     Params = <
+      item
+        DataType = ftString
+        Name = 'empresa'
+        ParamType = ptInput
+        Value = ''
+      end
       item
         DataType = ftDateTime
         Name = 'data_inicial'
@@ -527,28 +605,19 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
     Images = ImgStatus
     Left = 16
     Top = 552
-    object nmRequisicaoReceber: TMenuItem
-      Caption = 'Marca requisi'#231#227'o como Recebida'
-      ImageIndex = 3
-    end
-    object nmRequisicaoAtender: TMenuItem
-      Caption = 'Atender Requisi'#231#227'o'
-      ImageIndex = 4
-    end
-    object N1: TMenuItem
-      Caption = '-'
-    end
     object nmImprimirRequisicaoAlmox: TMenuItem
       Caption = 'Requisi'#231#227'o ao Estoque (Almoxarifado)'
+      OnClick = nmImprimirRequisicaoAlmoxClick
     end
     object nmImprimirManifesto: TMenuItem
       Caption = 'Manifesto (Documento de Sa'#237'da)'
       ImageIndex = 6
+      OnClick = nmImprimirManifestoClick
     end
   end
   object ImgStatus: TcxImageList
     FormatVersion = 1
-    DesignInfo = 36175920
+    DesignInfo = 34078736
     ImageInfo = <
       item
         Image.Data = {
@@ -816,5 +885,66 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
           8000B09080001DE6B5001DE6B5001DE6B5001DE6B5001DE6B500}
         MaskColor = 1959605
       end>
+  end
+  object StyleRepository: TcxStyleRepository
+    Left = 48
+    Top = 520
+    PixelsPerInch = 96
+    object StyleSelecao: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clMoneyGreen
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object StyleContent: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clMenuBar
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = clBlack
+    end
+    object StyleContentEven: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 10930928
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = clBlack
+    end
+  end
+  object ppOpcoes: TPopupMenu
+    Images = ImgStatus
+    Left = 48
+    Top = 552
+    object nmRequisicaoReceber: TMenuItem
+      Tag = 1
+      Caption = 'Marca requisi'#231#227'o como Recebida'
+      ImageIndex = 3
+      OnClick = nmRequisicaoReceberClick
+    end
+    object nmRequisicaoAtender: TMenuItem
+      Tag = 2
+      Caption = 'Atender Requisi'#231#227'o'
+      ImageIndex = 4
+      OnClick = nmRequisicaoAtenderClick
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object nmRequisicaoCancelar: TMenuItem
+      Tag = 3
+      Caption = 'Cancelar Requisi'#231#227'o'
+      ImageIndex = 5
+      OnClick = nmRequisicaoCancelarClick
+    end
   end
 end

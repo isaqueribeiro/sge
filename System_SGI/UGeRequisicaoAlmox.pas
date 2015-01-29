@@ -78,7 +78,7 @@ type
     lblValorTotalCusto: TLabel;
     dbValorTotalCusto: TDBEdit;
     tblTipoRequisicao: TIBTable;
-    dtsTipoApropriacao: TDataSource;
+    dtsTipoRequisicao: TDataSource;
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
     LblAjuda: TLabel;
@@ -148,6 +148,11 @@ type
     IbDtstTabelaCC_ORIGEM_CODCLIENTE: TIntegerField;
     nmImprimirManifesto: TMenuItem;
     cdsTabelaItensDISPONIVEL_TMP: TCurrencyField;
+    btnProdutoAtender: TBitBtn;
+    btnProdutoAguarda: TBitBtn;
+    btnProdutoCancelar: TBitBtn;
+    btnProdutoAtenderTodos: TBitBtn;
+    btnConfirmarAtendimento: TcxButton;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
@@ -156,7 +161,6 @@ type
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
-    procedure btbtnListaClick(Sender: TObject);
     procedure btnProdutoInserirClick(Sender: TObject);
     procedure btnProdutoEditarClick(Sender: TObject);
     procedure btnProdutoExcluirClick(Sender: TObject);
@@ -190,6 +194,12 @@ type
     procedure cdsTabelaItensSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure cdsTabelaItensCalcFields(DataSet: TDataSet);
+    procedure btnProdutoAtenderClick(Sender: TObject);
+    procedure btnProdutoAtenderTodosClick(Sender: TObject);
+    procedure btnProdutoAguardaClick(Sender: TObject);
+    procedure btnProdutoCancelarClick(Sender: TObject);
+    procedure btnConfirmarAtendimentoClick(Sender: TObject);
+    procedure nmImprimirManifestoClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -221,6 +231,9 @@ var
   frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox;
 
   procedure MostrarControleRequisicaoAlmox(const AOwner : TComponent);
+  procedure CarregarRequisicaoAlmoxMonitor(const AOwner : TComponent; const Ano, Controle : Integer);
+
+  function AtenderRequisicaoAlmoxMonitor(const AOwner : TComponent; const Ano, Controle : Integer) : Boolean;
 
 implementation
 
@@ -255,6 +268,95 @@ begin
     frm.ShowModal;
   finally
     frm.Destroy;
+  end;
+end;
+
+procedure CarregarRequisicaoAlmoxMonitor(const AOwner : TComponent; const Ano, Controle : Integer);
+var
+  AForm : TfrmGeRequisicaoAlmox;
+begin
+  AForm := TfrmGeRequisicaoAlmox.Create(AOwner);
+  try
+    with AForm, IbDtstTabela do
+    begin
+      SelectSQL.Add('where r.ano      = ' + IntToStr(Ano));
+      SelectSQL.Add('  and r.controle = ' + IntToStr(Controle));
+      Open;
+
+      if not IbDtstTabela.IsEmpty then
+      begin
+        AbrirTabelaItens(Ano, Controle);
+
+        btbtnIncluir.Visible  := False;
+        btbtnAlterar.Visible  := False;
+        btbtnExcluir.Visible  := False;
+        btbtnSalvar.Visible   := False;
+        btbtnCancelar.Visible := False;
+        btbtnLista.Visible    := False;
+
+        btnFinalizarLancamento.Visible := False;
+        btnEnviarRequisicao.Visible    := False;
+        btnCancelarRequisicao.Visible  := False;
+
+        pgcGuias.ActivePage  := tbsCadastro;
+        tbsTabela.TabVisible := False;
+
+        ShowModal;
+      end;
+    end;
+  finally
+    AForm.Free;
+  end;
+end;
+
+function AtenderRequisicaoAlmoxMonitor(const AOwner : TComponent; const Ano, Controle : Integer) : Boolean;
+var
+  AForm : TfrmGeRequisicaoAlmox;
+begin
+  AForm := TfrmGeRequisicaoAlmox.Create(AOwner);
+  try
+    with AForm, IbDtstTabela do
+    begin
+      SelectSQL.Add('where r.ano      = ' + IntToStr(Ano));
+      SelectSQL.Add('  and r.controle = ' + IntToStr(Controle));
+      Open;
+
+      if not IbDtstTabela.IsEmpty then
+      begin
+        AbrirTabelaItens(Ano, Controle);
+
+        btbtnIncluir.Visible  := False;
+        btbtnAlterar.Visible  := False;
+        btbtnExcluir.Visible  := False;
+        btbtnSalvar.Visible   := False;
+        btbtnCancelar.Visible := False;
+        btbtnLista.Visible    := False;
+
+        btnFinalizarLancamento.Visible  := False;
+        btnEnviarRequisicao.Visible     := False;
+        btnCancelarRequisicao.Visible   := False;
+        btnConfirmarAtendimento.Visible := True;
+
+        pgcGuias.ActivePage  := tbsCadastro;
+        tbsTabela.TabVisible := False;
+
+        pnlBotoesProduto.Visible := False;
+
+        btnProdutoAtender.Left      := pnlBotoesProduto.Left;
+        btnProdutoAtenderTodos.Left := pnlBotoesProduto.Left;
+        btnProdutoAguarda.Left      := pnlBotoesProduto.Left;
+        btnProdutoCancelar.Left     := pnlBotoesProduto.Left;
+
+        btnProdutoAtender.Visible      := True;
+        btnProdutoAtenderTodos.Visible := True;
+        btnProdutoAguarda.Visible      := True;
+        btnProdutoCancelar.Visible     := True;
+
+        Result := (ShowModal = mrOk);
+      end;
+    end;
+  finally
+    AForm.Free;
   end;
 end;
 
@@ -381,7 +483,7 @@ begin
   begin
     btnFinalizarLancamento.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_EDC) and (not cdsTabelaItens.IsEmpty);
     btnEnviarRequisicao.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_ABR) and (not cdsTabelaItens.IsEmpty);
-    btnCancelarRequisicao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC]);
+    btnCancelarRequisicao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
 
     nmImprimirRequisicaoAlmox.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
     nmImprimirManifesto.Enabled       := (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
@@ -489,12 +591,6 @@ begin
     if ( not OcorreuErro ) then
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
   end;
-end;
-
-procedure TfrmGeRequisicaoAlmox.btbtnListaClick(Sender: TObject);
-begin
-  inherited;
-  ppImprimir.Popup(btbtnLista.ClientOrigin.X, btbtnLista.ClientOrigin.Y + btbtnLista.Height);
 end;
 
 procedure TfrmGeRequisicaoAlmox.btnProdutoInserirClick(Sender: TObject);
@@ -655,6 +751,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   RecarregarRegistro;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
@@ -663,7 +762,7 @@ begin
 
   if (IbDtstTabelaSTATUS.AsInteger > STATUS_REQUISICAO_ALMOX_ABR) then
   begin
-    ShowWarning('Lançamento de Requisição já está em mãos do almoxarifado!');
+    ShowWarning('Lançamento de Requisição já está em mãos do almoxarifado (Centro de Custo atendente)!');
     Abort;
   end;
 
@@ -674,7 +773,7 @@ begin
       btnProdutoEditar.SetFocus;
   end
   else
-  if ShowConfirm('Confirma o encerramento da apropriação selecionada?') then
+  if ShowConfirm('Confirma o encerramento da requisição selecionada?') then
   begin
     IbDtstTabela.Edit;
 
@@ -838,7 +937,7 @@ begin
 
     if GetExisteNumeroRequisicaoAlmox(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, IbDtstTabelaNUMERO.AsString, sControle) then
     begin
-      ShowWarning('Número de requisiçaõ ao almoxarifado já existe!');
+      ShowWarning('Número de requisiçaõ de materiais já existe!');
       Abort;
     end;
 
@@ -1003,7 +1102,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Apropriação de Estoque', EmptyStr);
+      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Requisição de Materiais', EmptyStr);
     except
     end;
 
@@ -1026,10 +1125,11 @@ begin
       Close;
       ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
       ParamByName('cod').AsInteger := IbDtstTabelaCONTROLE.AsInteger;
+      ParamByName('todos_itens').AsInteger := 1;
       Open;
     end;
 
-    frrRequisicaoAlmox.ShowReport; 
+    frrRequisicaoAlmox.ShowReport;
   end;
 end;
 
@@ -1039,19 +1139,22 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   RecarregarRegistro;
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
 
   pgcGuias.ActivePage := tbsCadastro;
 
-  if (IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_CAN) then
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_CAN) then
   begin
-    ShowWarning('Lançamento de Apropriação já está cancelado!');
+    ShowWarning('Lançamento de Requisição já está cancelado!');
     Abort;
   end;
 
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_APROPRIACAO_ESTOQUE_ENC ) then
-    ShowInformation('Apenas registros encerrados podem ser cancelados!')
+  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_REQUISICAO_ALMOX_ATD ) then
+    ShowInformation('Apenas registros atendidos/encerrados podem ser cancelados!')
   else
   if ( CancelarRequisicaoAlmox(Self, IbDtstTabelaANO.Value, IbDtstTabelaCONTROLE.Value) ) then
     with IbDtstTabela do
@@ -1088,6 +1191,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
   RecarregarRegistro;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
@@ -1100,7 +1206,7 @@ begin
     Abort;
   end;
 
-  if ShowConfirm('Confirma a finalização do lançamento da requisição ao almoxarifado?') then
+  if ShowConfirm('Confirma a finalização do lançamento da requisição de materiais?') then
   begin
     ValidarToTais(cTotalCusto);
 
@@ -1147,9 +1253,9 @@ begin
       if dbNumero.Focused then
         if ( Length(Trim(dbNumero.Text)) > 0 ) then
           if GetExisteNumeroRequisicaoAlmox(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, Trim(dbNumero.Text), sControle) then
-            ShowWarning('Número de requisição ao almoxarifado já existe!' + #13 + 'Controle: ' + sControle);
+            ShowWarning('Número de requisição de materiais já existe!' + #13 + 'Controle: ' + sControle);
 
-      { DONE -oIsaque -cApropriação : 13/01/2015 - Verificar a Data da Requisição }
+      { DONE -oIsaque -cRequsição de Materiais : 13/01/2015 - Verificar a Data da Requisição }
 
       if dbDataEmissao.Focused then
         if ( dbDataEmissao.Date > GetDateTimeDB ) then
@@ -1341,6 +1447,213 @@ begin
     cdsTabelaItensDISPONIVEL_TMP.AsCurrency := (cdsTabelaItensDISPONIVEL.AsCurrency + cdsTabelaItensQTDE.AsCurrency)
   else
     cdsTabelaItensDISPONIVEL_TMP.AsCurrency := cdsTabelaItensDISPONIVEL.AsCurrency;
+end;
+
+procedure TfrmGeRequisicaoAlmox.btnProdutoAtenderClick(Sender: TObject);
+var
+  sQuantidade : String;
+begin
+  dbgProdutos.SetFocus;
+  
+  if cdsTabelaItens.IsEmpty then
+    Exit;
+
+  sQuantidade := cdsTabelaItensQTDE.AsString;
+
+  if InputQuery('Atender', 'Informe a quantidade a ser atendida:', sQuantidade) then
+    if StrToCurrDef(sQuantidade, 0) <= 0 then
+      ShowWarning('Quantidade informada é inválida para atendimento!')
+    else
+    begin
+      if (StrToCurrDef(sQuantidade, 0) > cdsTabelaItensDISPONIVEL_TMP.AsCurrency) then
+      begin
+        ShowWarning('Quantidade para atendimento informada é superior a disponível em estoque!');
+        Exit;
+      end
+      else
+      if (StrToCurrDef(sQuantidade, 0) > cdsTabelaItensQTDE.AsCurrency) then
+      begin
+        ShowWarning('Quantidade para atendimento informada é superior a quantidade solicitada!');
+        Exit;
+      end;
+
+
+      cdsTabelaItens.Edit;
+      cdsTabelaItensQTDE_ATENDIDA.AsCurrency := StrToCurrDef(sQuantidade, 0);
+      cdsTabelaItens.Post;
+
+      dbgProdutos.SetFocus;
+    end;
+end;
+
+procedure TfrmGeRequisicaoAlmox.btnProdutoAtenderTodosClick(
+  Sender: TObject);
+begin
+  if cdsTabelaItens.IsEmpty then
+    Exit;
+
+  if not ShowConfirmation('Deseja atender todos os ítens da requisição de materiais?') then
+    Exit;
+
+  cdsTabelaItens.First;
+  while not cdsTabelaItens.Eof do
+  begin
+    if ( cdsTabelaItensSTATUS.AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU] ) then
+    begin
+      cdsTabelaItens.Edit;
+
+      if (cdsTabelaItensDISPONIVEL_TMP.AsCurrency <= 0) then
+        cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_AGU
+      else
+      if (cdsTabelaItensQTDE.AsCurrency > cdsTabelaItensDISPONIVEL_TMP.AsCurrency) then
+        cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensDISPONIVEL_TMP.AsCurrency
+      else
+        cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensQTDE.AsCurrency;
+
+      cdsTabelaItens.Post;
+    end;
+
+    cdsTabelaItens.Next;
+  end;
+
+  dbgProdutos.SetFocus;
+end;
+
+procedure TfrmGeRequisicaoAlmox.btnProdutoAguardaClick(Sender: TObject);
+begin
+  if cdsTabelaItens.IsEmpty then
+    Exit;
+
+  if not ShowConfirmation('Deseja colocar o item selecionado como "Aguardando"?') then
+    Exit;
+
+  cdsTabelaItens.Edit;
+  cdsTabelaItensQTDE_ATENDIDA.AsCurrency := 0;
+  cdsTabelaItensSTATUS.AsInteger         := STATUS_ITEM_REQUISICAO_ALMOX_AGU;
+  cdsTabelaItens.Post;
+
+  dbgProdutos.SetFocus;
+end;
+
+procedure TfrmGeRequisicaoAlmox.btnProdutoCancelarClick(Sender: TObject);
+begin
+  if cdsTabelaItens.IsEmpty then
+    Exit;
+
+  if not ShowConfirmation('Deseja cancelar o atendimento do item selecionado?') then
+    Exit;
+
+  cdsTabelaItens.Edit;
+  cdsTabelaItensQTDE_ATENDIDA.AsCurrency := 0;
+  cdsTabelaItensSTATUS.AsInteger         := STATUS_ITEM_REQUISICAO_ALMOX_CAN;
+  cdsTabelaItens.Post;
+
+  dbgProdutos.SetFocus;
+end;
+
+procedure TfrmGeRequisicaoAlmox.btnConfirmarAtendimentoClick(
+  Sender: TObject);
+var
+  bAtendido : Boolean;
+begin
+  if not ShowConfirmation('Confirma o atendimento da requisição de materiais selecionada?') then
+    Exit;
+
+  // Buscar iten não atendidos e sinalizar os atendidos
+
+  bAtendido := False;
+
+  cdsTabelaItens.DisableControls;
+  cdsTabelaItens.First;
+
+  while not cdsTabelaItens.Eof do
+  begin
+    if (cdsTabelaItensQTDE_ATENDIDA.AsCurrency > 0) then
+    begin
+      cdsTabelaItens.Edit;
+      cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_ATE;
+      cdsTabelaItens.Post;
+
+      if not bAtendido then
+        bAtendido := True;
+    end;
+
+    cdsTabelaItens.Next;
+  end;
+
+  cdsTabelaItens.EnableControls;
+  cdsTabelaItens.First;
+
+  if not bAtendido then
+  begin
+    ShowWarning('Nenhum item fora atendido nesta requisição de materiais.' + #13 + 'Favor verificar!');
+    dbgProdutos.SetFocus;
+    Exit;
+  end;
+
+  // Posta na base os atendimentos
+
+  cdsTabelaItens.ApplyUpdates;
+
+  IbDtstTabela.Edit;
+  IbDtstTabelaSTATUS.AsInteger          := STATUS_REQUISICAO_ALMOX_ATD;
+  IbDtstTabelaATENDIMENTO_USUARIO.Value := gUsuarioLogado.Login;
+  IbDtstTabelaATENDIMENTO_DATA.Value    := GetDateTimeDB;
+  IbDtstTabela.Post;
+  IbDtstTabela.ApplyUpdates;
+
+  CommitTransaction;
+
+  ExecuteScriptSQL('Execute Procedure SET_REQUISICAO_ALMOX_CUSTO(' +
+    IbDtstTabelaANO.AsString + ', ' + IbDtstTabelaCONTROLE.AsString + ', ' + QuotedStr(IbDtstTabelaEMPRESA.AsString) + ')');
+
+  ModalResult := mrOk;
+end;
+
+procedure TfrmGeRequisicaoAlmox.nmImprimirManifestoClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  if (IbDtstTabelaSTATUS.AsInteger <> STATUS_REQUISICAO_ALMOX_ATD) then
+  begin
+    ShowWarning('Apenas requisição de materiais já atendidas possuem impressão de Manifesto!');
+    Abort;
+  end;
+
+  with DMNFe do
+  begin
+
+    try
+      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Requisição de Materiais', EmptyStr);
+    except
+    end;
+
+    with qryEmitente do
+    begin
+      Close;
+      ParamByName('Cnpj').AsString := IbDtstTabelaEMPRESA.AsString;
+      Open;
+    end;
+
+    with qryDestinatario do
+    begin
+      Close;
+      ParamByName('codigo').AsInteger := IbDtstTabelaCC_ORIGEM_CODCLIENTE.AsInteger;
+      Open;
+    end;
+
+    with qryRequisicaoAlmox do
+    begin
+      Close;
+      ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
+      ParamByName('cod').AsInteger := IbDtstTabelaCONTROLE.AsInteger;
+      ParamByName('todos_itens').AsInteger := 0;
+      Open;
+    end;
+
+    frrManifestoAlmox.ShowReport;
+  end;
 end;
 
 initialization

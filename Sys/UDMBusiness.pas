@@ -327,6 +327,7 @@ var
   function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroRequisicaoAlmox(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
+  function GetMenorDataEmissaoReqAlmoxEnviada : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
   function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
@@ -2620,6 +2621,28 @@ begin
 
     if not IsEmpty then
       Result := FieldByName('vencimento').AsDateTime
+    else
+      Result := GetDateDB;
+
+    Close;
+  end;
+end;
+
+function GetMenorDataEmissaoReqAlmoxEnviada : TDateTime;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  min(r.data_emissao) as data_emissao');
+    SQL.Add('from TBREQUISICAO_ALMOX r');
+    SQL.Add('where r.empresa = ' + QuotedStr(GetEmpresaIDDefault));
+    SQL.Add('  and r.status in (' + IntToStr(STATUS_REQUISICAO_ALMOX_ENV) + ', ' + IntToStr(STATUS_REQUISICAO_ALMOX_REC) + ')');
+    Open;
+
+    if not FieldByName('data_emissao').IsNull then
+      Result := FieldByName('data_emissao').AsDateTime
     else
       Result := GetDateDB;
 

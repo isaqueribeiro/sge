@@ -783,6 +783,8 @@ begin
 
   // Movimento
 
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_MONITOR_REQ_ALMOX_ID, Trim(nmRequisicaoAlmoxMonitor.Caption), ROTINA_MENU_MOVIMENTO_ID);
+
   // Notas Fiscais
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_INUTILIZAR_NRO_ID,  Trim(nmInutilizarNumeroNFe.Caption),    ROTINA_MENU_NOTAFISCAL_ID);

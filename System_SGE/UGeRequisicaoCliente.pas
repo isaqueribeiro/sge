@@ -580,8 +580,8 @@ procedure TfrmGeRequisicaoCliente.btnAutorizarRequisicaoClick(
   end;
 
 begin
-  if ( IbDtstTabela.IsEmpty ) then
-    Exit;
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
 
   RecarregarRegistro;
 
