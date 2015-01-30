@@ -234,6 +234,7 @@ type
     sGeneratorName : String;
     iSeq : Integer;
     SQL_Itens : TStringList;
+    iTipoAutorizacao : Integer;
     iFornecedor : Integer;
     procedure AbrirTabelaItens(const AnoAutorizacao : Smallint; const CodigoAutorizacao : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
@@ -259,6 +260,8 @@ var
   procedure MostrarControleAutorizacao(const AOwner : TComponent);
 
   function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
+    var Ano, Codigo : Integer; var Empresa : String) : Boolean;
+  function SelecionarAutorizacaoParaApropriacao(const AOwner : TComponent; DataInicial : TDateTime;
     var Ano, Codigo : Integer; var Empresa : String) : Boolean;
 
 implementation
@@ -348,6 +351,57 @@ begin
 
 end;
 
+function SelecionarAutorizacaoParaApropriacao(const AOwner : TComponent; DataInicial : TDateTime;
+  var Ano, Codigo : Integer; var Empresa : String) : Boolean;
+var
+  frm : TfrmGeAutorizacaoCompra;
+  sNome : String;
+  I : Integer;
+begin
+  frm := TfrmGeAutorizacaoCompra.Create(AOwner);
+  try
+    frm.btbtnIncluir.Visible            := False;
+    frm.btnFinalizarAutorizacao.Visible := False;
+    frm.btnAutorizarCompra.Visible      := False;
+    frm.btnCancelarAutorizacao.Visible  := False;
+
+    frm.RdgStatusAutorizacao.ItemIndex := STATUS_AUTORIZACAO_AUT + 1;
+
+    for I := 0 to frm.RdgStatusAutorizacao.Items.Count - 1 do
+      frm.RdgStatusAutorizacao.Controls[I].Enabled := False;
+
+    frm.iTipoAutorizacao := TIPO_AUTORIZACAO_COMPRA;
+    frm.e1Data.Date      := DataInicial;
+    frm.WhereAdditional  := '(a.tipo in (' + IntToStr(TIPO_AUTORIZACAO_COMPRA) + ', ' + IntToStr(TIPO_AUTORIZACAO_COMPRA_SERVICO) + ')) and ' +
+            'cast(a.emissao_data as date) between ' +
+            QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+            QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+
+    if (frm.RdgStatusAutorizacao.ItemIndex > 0) then
+      frm.WhereAdditional := frm.WhereAdditional + ' and (a.status = ' + IntToStr(frm.RdgStatusAutorizacao.ItemIndex - 1) + ')';
+
+    with frm, IbDtstTabela do
+    begin
+      Close;
+      SelectSQL.Add('where ' + WhereAdditional);
+      SelectSQL.Add('order by ' + CampoDescricao);
+      Open;
+    end;
+
+    Result := frm.SelecionarRegistro(Codigo, sNome, frm.WhereAdditional);
+
+    if ( Result ) then
+    begin
+      Ano     := frm.IbDtstTabelaANO.AsInteger;
+      Codigo  := frm.IbDtstTabelaCODIGO.AsInteger;
+      Empresa := frm.IbDtstTabelaEMPRESA.AsString;
+    end;
+  finally
+    frm.Destroy;
+  end;
+
+end;
+
 procedure TfrmGeAutorizacaoCompra.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_AUTORIZA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
@@ -364,6 +418,7 @@ begin
   e2Data.Date      := GetDateDB;
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
+  iTipoAutorizacao := -1;
   iFornecedor      := 0;
 
   tblEmpresa.Open;
@@ -878,7 +933,12 @@ end;
 
 procedure TfrmGeAutorizacaoCompra.btnFiltrarClick(Sender: TObject);
 begin
-  WhereAdditional := IfThen(iFornecedor = 0, '', '(a.fornecedor = ' + IntToStr(iFornecedor) + ') and ') + 
+  WhereAdditional :=
+    IfThen(iTipoAutorizacao = -1, '',
+      IfThen(iTipoAutorizacao = TIPO_AUTORIZACAO_SERVICO,
+        '(a.tipo = ' + IntToStr(TIPO_AUTORIZACAO_SERVICO) + ') and ',
+        '(a.tipo in (' + IntToStr(TIPO_AUTORIZACAO_COMPRA) + ', ' + IntToStr(TIPO_AUTORIZACAO_COMPRA_SERVICO) + ')) and ')) +
+    IfThen(iFornecedor = 0, '', '(a.fornecedor = ' + IntToStr(iFornecedor) + ') and ') +
     'cast(a.emissao_data as date) between ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );

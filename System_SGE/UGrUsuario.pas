@@ -81,7 +81,31 @@ function SelecionarUsuarioRequisitante(const AOnwer : TComponent; var Login, Nom
 var
   AForm : TfrmGrUsuario;
 begin
-  ;
+  AForm := TfrmGrUsuario.Create(AOnwer);
+  try
+    with AForm do
+    begin
+      btbtnIncluir.Visible  := False;
+      btbtnAlterar.Visible  := False;
+      btbtnExcluir.Visible  := False;
+      btbtnCancelar.Visible := False;
+      btbtnSalvar.Visible   := False;
+
+      btbtnSelecionar.Visible := True;
+      AbrirTabelaAuto         := True;
+
+      tbsCadastro.TabVisible  := False;
+
+      Result := (AForm.ShowModal = mrOk);
+      if Result then
+      begin
+        Login := IbDtstTabelaNOME.AsString;
+        Nome  := IbDtstTabelaNOMECOMPLETO.AsString;
+      end;
+    end;
+  finally
+    AForm.Free;
+  end;
 end;
 
 function EncriptSenha(const Value, Key : String) : String;
@@ -136,6 +160,7 @@ begin
   NomeTabela     := 'TBUSERS';
   CampoCodigo    := 'CODFUNCAO';
   CampoDescricao := 'nome';
+  CampoOrdenacao := 'nomecompleto';
 end;
 
 procedure TfrmGrUsuario.DtSrcTabelaStateChange(Sender: TObject);

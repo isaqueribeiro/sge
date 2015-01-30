@@ -19707,6 +19707,9 @@ object DMNFe: TDMNFe
       '  , a.compra_ano'
       '  , a.compra_num'
       '  , a.compra_emp'
+      '  , a.autorizacao_ano'
+      '  , a.autorizacao_num'
+      '  , a.autorizacao_emp'
       '  , f.nomeforn      as fornecedor_nome'
       '  , f.pessoa_fisica as fornecedor_pf'
       '  , f.cnpj          as fornecedor_cpf_cnpj'
@@ -19743,7 +19746,13 @@ object DMNFe: TDMNFe
       
         '  left join TBCOMPRAS cm on (cm.ano = a.compra_ano and cm.codcon' +
         'trol = a.compra_num and cm.codemp = a.compra_emp)'
-      '  left join TBFORNECEDOR f on (f.codforn = cm.codforn)'
+      
+        '  left join TBAUTORIZA_COMPRA ac on (ac.ano = a.autorizacao_ano ' +
+        'and ac.codigo = a.autorizacao_num and ac.empresa = a.autorizacao' +
+        '_emp)'
+      
+        '  left join TBFORNECEDOR f on (f.codforn = coalesce(cm.codforn, ' +
+        'ac.fornecedor))'
       ''
       'where a.ano      = :ano'
       '  and a.controle = :cod')
@@ -19784,6 +19793,9 @@ object DMNFe: TDMNFe
       'COMPRA_ANO=COMPRA_ANO'
       'COMPRA_NUM=COMPRA_NUM'
       'COMPRA_EMP=COMPRA_EMP'
+      'AUTORIZACAO_ANO=AUTORIZACAO_ANO'
+      'AUTORIZACAO_NUM=AUTORIZACAO_NUM'
+      'AUTORIZACAO_EMP=AUTORIZACAO_EMP'
       'FORNECEDOR_NOME=FORNECEDOR_NOME'
       'FORNECEDOR_PF=FORNECEDOR_PF'
       'FORNECEDOR_CPF_CNPJ=FORNECEDOR_CPF_CNPJ'

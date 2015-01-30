@@ -525,7 +525,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           FocusControl = dbEmpresa
         end
         object lblSituacao: TLabel [3]
-          Left = 704
+          Left = 792
           Top = 64
           Width = 52
           Height = 13
@@ -539,7 +539,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
         end
         object lblDataApropriacao: TLabel [4]
-          Left = 384
+          Left = 360
           Top = 64
           Width = 88
           Height = 13
@@ -553,7 +553,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
         end
         object lblUsuario: TLabel [5]
-          Left = 856
+          Left = 920
           Top = 64
           Width = 46
           Height = 13
@@ -583,7 +583,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           FocusControl = dbCentroCusto
         end
         object lblEntrada: TLabel [8]
-          Left = 512
+          Left = 488
           Top = 64
           Width = 42
           Height = 13
@@ -597,6 +597,14 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Height = 13
           Caption = 'Tipo:'
           FocusControl = dbTipo
+        end
+        object lblAutorizacao: TLabel [10]
+          Left = 640
+          Top = 64
+          Width = 61
+          Height = 13
+          Caption = 'Autoriza'#231#227'o:'
+          FocusControl = dbAutorizacao
         end
         inherited dbCodigo: TDBEdit
           Width = 89
@@ -641,9 +649,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 2
         end
         object dbSituacao: TDBEdit
-          Left = 704
+          Left = 792
           Top = 80
-          Width = 145
+          Width = 121
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -656,10 +664,10 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 8
+          TabOrder = 9
         end
         object dbDataApropriacao: TDBDateEdit
-          Left = 384
+          Left = 360
           Top = 80
           Width = 121
           Height = 21
@@ -677,9 +685,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           OnExit = ControlEditExit
         end
         object dbUsuario: TDBEdit
-          Left = 856
+          Left = 920
           Top = 80
-          Width = 233
+          Width = 169
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -692,12 +700,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 10
         end
         object dbNumero: TDBEdit
           Left = 240
           Top = 80
-          Width = 137
+          Width = 113
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NUMERO'
@@ -717,7 +725,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Height = 114
           ActivePage = TbsApropriacaoMotivo
           Style = tsFlatButtons
-          TabOrder = 10
+          TabOrder = 11
           object TbsApropriacaoMotivo: TTabSheet
             Caption = 'Motivo da apropria'#231#227'o'
             object dbMotivo: TDBMemo
@@ -838,9 +846,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           OnButtonClick = dbCentroCustoButtonClick
         end
         object dbEntrada: TRxDBComboEdit
-          Left = 512
+          Left = 488
           Top = 80
-          Width = 185
+          Width = 145
           Height = 21
           ButtonHint = 'Pesquisar Movimento de Entrada (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
           CharCase = ecUpperCase
@@ -930,6 +938,81 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ListSource = dtsTipoApropriacao
           ParentFont = False
           TabOrder = 4
+        end
+        object dbAutorizacao: TRxDBComboEdit
+          Left = 640
+          Top = 80
+          Width = 145
+          Height = 21
+          ButtonHint = 'Pesquisar Autoriza'#231#227'o de Compras (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'AUTORIZACAO'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 8
+          OnButtonClick = dbAutorizacaoButtonClick
         end
       end
       object pgcMaisDados: TPageControl
@@ -1679,6 +1762,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  , a.compra_ano'
       '  , a.compra_num'
       '  , a.compra_emp'
+      '  , a.autorizacao_ano'
+      '  , a.autorizacao_num'
+      '  , a.autorizacao_emp'
       '  , a.insercao_data'
       '  , a.data_apropriacao'
       '  , a.competencia'
@@ -1703,6 +1789,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  , ci.pessoa_fisica as cc_cliente_tipo'
       ''
       '  , a.compra_ano || '#39'/'#39' || lpad(a.compra_num, 7, '#39'0'#39') as entrada'
+      
+        '  , a.autorizacao_ano || '#39'/'#39' || lpad(a.autorizacao_num, 7, '#39'0'#39') ' +
+        'as autorizacao'
       'from TBAPROPRIACAO_ALMOX a'
       '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
       '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
@@ -1771,6 +1860,22 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       DisplayLabel = 'Entrada - Empresa'
       FieldName = 'COMPRA_EMP'
       Origin = '"TBAPROPRIACAO_ALMOX"."COMPRA_EMP"'
+      ProviderFlags = [pfInUpdate]
+      Size = 18
+    end
+    object IbDtstTabelaAUTORIZACAO_ANO: TSmallintField
+      FieldName = 'AUTORIZACAO_ANO'
+      Origin = '"TBAPROPRIACAO_ALMOX"."AUTORIZACAO_ANO"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaAUTORIZACAO_NUM: TIntegerField
+      FieldName = 'AUTORIZACAO_NUM'
+      Origin = '"TBAPROPRIACAO_ALMOX"."AUTORIZACAO_NUM"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaAUTORIZACAO_EMP: TIBStringField
+      FieldName = 'AUTORIZACAO_EMP'
+      Origin = '"TBAPROPRIACAO_ALMOX"."AUTORIZACAO_EMP"'
       ProviderFlags = [pfInUpdate]
       Size = 18
     end
@@ -1895,6 +2000,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = []
       Size = 14
     end
+    object IbDtstTabelaAUTORIZACAO: TIBStringField
+      DisplayLabel = 'Autoriza'#231#227'o'
+      FieldName = 'AUTORIZACAO'
+      ProviderFlags = []
+      Size = 14
+    end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
@@ -1912,6 +2023,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  COMPRA_ANO,'
       '  COMPRA_NUM,'
       '  COMPRA_EMP,'
+      '  AUTORIZACAO_ANO,'
+      '  AUTORIZACAO_NUM,'
+      '  AUTORIZACAO_EMP,'
       '  INSERCAO_DATA,'
       '  DATA_APROPRIACAO,'
       '  COMPETENCIA,'
@@ -1931,6 +2045,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       'update TBAPROPRIACAO_ALMOX'
       'set'
       '  ANO = :ANO,'
+      '  AUTORIZACAO_ANO = :AUTORIZACAO_ANO,'
+      '  AUTORIZACAO_EMP = :AUTORIZACAO_EMP,'
+      '  AUTORIZACAO_NUM = :AUTORIZACAO_NUM,'
       '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
       '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
       '  CANCEL_USUARIO = :CANCEL_USUARIO,'
@@ -1956,25 +2073,28 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     InsertSQL.Strings = (
       'insert into TBAPROPRIACAO_ALMOX'
       
-        '  (ANO, CANCEL_DATAHORA, CANCEL_MOTIVO, CANCEL_USUARIO, CENTRO_C' +
-        'USTO, COMPETENCIA, '
+        '  (ANO, AUTORIZACAO_ANO, AUTORIZACAO_EMP, AUTORIZACAO_NUM, CANCE' +
+        'L_DATAHORA, '
       
-        '   COMPRA_ANO, COMPRA_EMP, COMPRA_NUM, CONTROLE, DATA_APROPRIACA' +
-        'O, EMPRESA, '
+        '   CANCEL_MOTIVO, CANCEL_USUARIO, CENTRO_CUSTO, COMPETENCIA, COM' +
+        'PRA_ANO, '
       
-        '   INSERCAO_DATA, MOTIVO, NUMERO, OBS, STATUS, TIPO, USUARIO, VA' +
-        'LOR_TOTAL)'
+        '   COMPRA_EMP, COMPRA_NUM, CONTROLE, DATA_APROPRIACAO, EMPRESA, ' +
+        'INSERCAO_DATA, '
+      '   MOTIVO, NUMERO, OBS, STATUS, TIPO, USUARIO, VALOR_TOTAL)'
       'values'
       
-        '  (:ANO, :CANCEL_DATAHORA, :CANCEL_MOTIVO, :CANCEL_USUARIO, :CEN' +
-        'TRO_CUSTO, '
+        '  (:ANO, :AUTORIZACAO_ANO, :AUTORIZACAO_EMP, :AUTORIZACAO_NUM, :' +
+        'CANCEL_DATAHORA, '
       
-        '   :COMPETENCIA, :COMPRA_ANO, :COMPRA_EMP, :COMPRA_NUM, :CONTROL' +
-        'E, :DATA_APROPRIACAO, '
+        '   :CANCEL_MOTIVO, :CANCEL_USUARIO, :CENTRO_CUSTO, :COMPETENCIA,' +
+        ' :COMPRA_ANO, '
       
-        '   :EMPRESA, :INSERCAO_DATA, :MOTIVO, :NUMERO, :OBS, :STATUS, :T' +
-        'IPO, :USUARIO, '
-      '   :VALOR_TOTAL)')
+        '   :COMPRA_EMP, :COMPRA_NUM, :CONTROLE, :DATA_APROPRIACAO, :EMPR' +
+        'ESA, :INSERCAO_DATA, '
+      
+        '   :MOTIVO, :NUMERO, :OBS, :STATUS, :TIPO, :USUARIO, :VALOR_TOTA' +
+        'L)')
     DeleteSQL.Strings = (
       'delete from TBAPROPRIACAO_ALMOX'
       'where'
@@ -2312,5 +2432,74 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '')
     Left = 1008
     Top = 208
+  end
+  object qryAutorizacaoProduto: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '    i.produto'
+      '  , i.unidade'
+      
+        '  , coalesce(nullif(p.customedio, 0), i.valor_unitario) as custo' +
+        '_medio'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3) unidade_sigla'
+      '  , coalesce(p.qtde, 0.0) as estoque'
+      '  , coalesce(p.reserva, 0.0) as reserva'
+      '  , p.movimenta_estoque'
+      ''
+      
+        '  , sum(i.quantidade) - sum(coalesce(ai.qtde, 0.0)) as quantidad' +
+        'e'
+      ''
+      'from TBAUTORIZA_COMPRA c'
+      
+        '  inner join TBAUTORIZA_COMPRAITEM i on (i.ano = c.ano and i.cod' +
+        'igo = c.codigo and i.empresa = c.empresa)'
+      
+        '  inner join TBPRODUTO p on (p.cod = i.produto and p.aliquota_ti' +
+        'po = 0)'
+      
+        '  left join TBAPROPRIACAO_ALMOX a on (a.autorizacao_ano = c.ano ' +
+        'and a.autorizacao_num = c.codigo and a.autorizacao_emp = c.empre' +
+        'sa and a.status <> 3)'
+      
+        '  left join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and a' +
+        'i.controle = a.controle and ai.produto = i.produto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      ''
+      'where c.ano     = :ano'
+      '  and c.codigo  = :cod'
+      '  and c.empresa = :emp'
+      ''
+      'group by'
+      '    i.produto'
+      '  , i.unidade'
+      '  , ai.unidade'
+      '  , coalesce(nullif(p.customedio, 0), i.valor_unitario)'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3)'
+      '  , coalesce(p.qtde, 0.0)'
+      '  , coalesce(p.reserva, 0.0)'
+      '  , p.movimenta_estoque')
+    ModifySQL.Strings = (
+      '')
+    Left = 1008
+    Top = 240
   end
 end

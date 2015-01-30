@@ -126,7 +126,6 @@ type
     N13: TMenuItem;
     nmExportarNFeGerada: TMenuItem;
     mnRelatorioEstoque: TMenuItem;
-    mnRelatorioEstoqueDemanda: TMenuItem;
     mnRelatorioEstoqueProduto: TMenuItem;
     nmVendaIemPesquisa: TMenuItem;
     menuConsulta: TMenuItem;

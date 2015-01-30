@@ -113,7 +113,6 @@ type
     N13: TMenuItem;
     nmExportarNFeGerada: TMenuItem;
     mnRelatorioEstoque: TMenuItem;
-    mnRelatorioEstoqueDemanda: TMenuItem;
     mnRelatorioEstoqueProduto: TMenuItem;
     nmVendaIemPesquisa: TMenuItem;
     menuConsulta: TMenuItem;
@@ -178,6 +177,7 @@ type
     nmRequisicaoAlmoxMonitor: TMenuItem;
     PnlDockReqAlmox: TPanel;
     SptDockReqAlmox: TSplitter;
+    nmInventarioMaterial: TMenuItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -390,6 +390,7 @@ end;
 procedure TfrmPrinc.nmAboutClick(Sender: TObject);
 begin
   ShowAbout(Self);
+  Application.BringToFront;
 end;
 
 procedure TfrmPrinc.mnBancoClick(Sender: TObject);
@@ -721,9 +722,7 @@ end;
 
 procedure TfrmPrinc.nmUsuarioClick(Sender: TObject);
 begin
-  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
-    ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
-  else
+  if GetPermissaoRotinaSistema(ROTINA_CAD_USUARIO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGrUsuario');
 end;
 
