@@ -1,0 +1,28 @@
+Criador de link para download de arquivos compartilhados no Google Drive:
+https://sites.google.com/site/gdocs2direct/
+
+/************************************************************************************
+ * How to get your sharing URL
+ * 
+ * Step 1: Go on to Google Drive and right click the file that you want to share.
+ * Now move your mouse over "Share..." and then click on the "Share.." that appears.
+ * 
+ * Step 2: On the window that comes up, click the "Change..." link beside the part 
+ * that says "Who has access".
+ * 
+ * Step 3: Set it to "Public on the web" or "Anyone with the link" and hit save.
+ * 
+ * Step 4: Now copy the "Link to share". This is your sharing URL. Paste it in to 
+ * the text box above and then create your direct link. Enjoy!
+ * 
+ ************************************************************************************/
+
+1). Link para visualizar arquivos compartilhados no Google Drive:
+
+https://drive.google.com/file/d/0B-sA8UJ9iK-QUS1PV0RSa2hvbWM/view?usp=sharing
+				0B-sA8UJ9iK-QUS1PV0RSa2hvbWM                  <-- ID do arquivo
+
+2). Link para download do arquivo compartilhado no Google Drive
+
+https://drive.google.com/uc?export=download&id=0B-sA8UJ9iK-QUS1PV0RSa2hvbWM
+					       0B-sA8UJ9iK-QUS1PV0RSa2hvbWM  <-- ID do arquivo	
