@@ -1,0 +1,72 @@
+object frmAutenticacao: TfrmAutenticacao
+  Left = 342
+  Top = 357
+  BorderStyle = bsDialog
+  Caption = 'Autentica'#231#227'o'
+  ClientHeight = 122
+  ClientWidth = 241
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 16
+  object Label1: TLabel
+    Left = 78
+    Top = 33
+    Width = 41
+    Height = 16
+    Caption = 'Senha:'
+  end
+  object Bevel1: TBevel
+    Left = 72
+    Top = 15
+    Width = 108
+    Height = 50
+    Shape = bsFrame
+  end
+  object btnOk: TBitBtn
+    Left = 54
+    Top = 76
+    Width = 66
+    Height = 25
+    Caption = '&Ok'
+    Default = True
+    DoubleBuffered = True
+    ParentDoubleBuffered = False
+    TabOrder = 1
+    OnClick = btnOkClick
+  end
+  object BitBtn4: TBitBtn
+    Left = 134
+    Top = 76
+    Width = 66
+    Height = 25
+    Cancel = True
+    Caption = '&Cancelar'
+    DoubleBuffered = True
+    ParentDoubleBuffered = False
+    TabOrder = 2
+    OnClick = BitBtn4Click
+  end
+  object txtSenha: TMaskEdit
+    Left = 121
+    Top = 32
+    Width = 50
+    Height = 21
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 0
+    Text = 'txtSenha'
+  end
+end

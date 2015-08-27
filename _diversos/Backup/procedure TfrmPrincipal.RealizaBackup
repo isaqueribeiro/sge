@@ -1,0 +1,49 @@
+procedure TfrmPrincipal.RealizaBackup;
+Var
+   sParams: string;
+   iTemp: integer;
+   sIdOperador: string[3];
+   sNomeOperador: string[20];
+   sPermiteRestaurar,
+   sBackupDireto: string[1];
+   sNomeArqIni,
+   sAplicativoPrincipal,
+   sPastaFTP: string[40];
+begin
+   sIdOperador   := IntToStr(glb_iIdOperLogado);
+   sNomeOperador := Pesquisa('USUARIO','ID',IntToStr(glb_iIdOperLogado),
+      'NOME_CURTO','');
+   sNomeOperador := Trim(Criptografa(sNomeOperador,'2',20));
+   iTemp := pos(' ',sNomeOperador);
+   if iTemp > 0 then
+      sNomeOperador := LeftStr(sNomeOperador,iTemp-1);
+
+   sPermiteRestaurar := Pesquisa('USUARIO','ID',IntToStr(glb_iIdOperLogado),
+      'REST_BACKUP','');
+   sBackupDireto := iIf(pv_sPerguntaBackup='-','S',pv_sPerguntaBackup);
+   sNomeArqIni   := 'REMUNERATUS.INI';
+   sAplicativoPrincipal:= 'REMUNERATUS';
+   sPastaFTP := sAplicativoPrincipal;
+   {
+   sParams := '-'+IntToStr(glb_iIdOperLogado)+'%'+sNomeOperador+'%'+
+      Pesquisa('USUARIO','ID',IntToStr(glb_iIdOperLogado),
+      'REST_BACKUP','');
+   }
+   sParams := '-'+Trim(sIdOperador)+'%'+
+              Trim(sNomeOperador)+'%'+
+              sPermiteRestaurar+'%'+
+              sBackupDireto+'%'+
+              sNomeArqIni+'%'+
+              sAplicativoPrincipal+'%'+
+              sPastaFTP;
+      {
+-[id_operador]%[nome_operador]%[permite_rest]%[backup_direto]%
+ [nome_arq_ini]%[aplicativo_principal]%[nome_pasta_ftp]
+      }
+   dmPrincipal.SConPrincipal.Connected := False;
+   ExecAndWait(ExtractFilePath(Application.ExeName)+'BACKUP.exe '+
+      sParams,' ',SW_SHOW);
+   Screen.Cursor := crHourGlass;
+   dmPrincipal.SConPrincipal.Connected := True;
+   Screen.Cursor := crDefault;
+end;
