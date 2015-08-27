@@ -1,0 +1,56 @@
+[SGE_PDV]
+CompanyName=Ágil Soluções em Softwares, ME
+FileDescription=Controle do Ponto de Venda do SGE/SGI
+FileVersion=1.0.4.0
+InternalName=PDV
+LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.
+LegalTrademarks=
+OriginalFilename=SGE_PDV.EXE
+ProductName=PDV - Controle do Ponto de Venda do SGE/SGI
+ProductVersion=1.0.4
+Comments=
+Systems Analyst=Isaque Marinho Ribeiro
+ReleaseDate=25/03/2015
+Contacts=(91) 9146.0444 / 3295.3390
+Owner=Isaque Marinho Ribeiro
+SplashName=
+SplashDescription=
+
+[SGI]
+CompanyName=Ágil Soluções em Softwares, ME
+FileDescription=Sistema Integrado de Gestão Empresarial/Industrial
+FileVersion=1.0.1.0
+InternalName=SGI
+LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.
+LegalTrademarks=
+OriginalFilename=SGI.EXE
+ProductName=SGI - Sistema de Gestão Empresarial/Industrial
+ProductVersion=1.0.1
+Comments=
+Systems Analyst=Isaque Marinho Ribeiro
+ReleaseDate=25/03/2015
+Contacts=(91) 9146.0444 / 3295.3390
+Owner=Isaque Marinho Ribeiro
+SplashName=
+SplashDescription=
+
+[SGE]
+CompanyName=Ágil Soluções em Softwares, ME
+FileDescription=Sistema Integrado de Gestão Empresarial/Comercial
+FileVersion=1.0.1.0
+InternalName=SGE
+LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.
+LegalTrademarks=
+OriginalFilename=SGE.EXE
+ProductName=SGI - Sistema de Gestão Empresarial/Comercial
+ProductVersion=1.0.2
+Comments=
+Systems Analyst=Isaque Marinho Ribeiro
+ReleaseDate=25/03/2015
+Contacts=(91) 9146.0444 / 3295.3390
+Owner=Isaque Marinho Ribeiro
+SplashName=
+SplashDescription=

@@ -1,0 +1,30 @@
+Carta de Correção:
+
+  ACBrNFe1.EnvEvento.EnvEventoNFe.Evento.Clear;
+  ACBrNFe1.EnvEvento.EnvEventoNFe.idLote := StrToInt(idLote) ;
+  with ACBrNFe1.Evento.Eventos.Evento.Add do
+   begin
+     infEvento.chNFe := Chave; //se carregar o XML antes, não precisa especificar este campo
+     infEvento.CNPJ   := CNPJ; //se carregar o XML antes, não precisa especificar este campo
+     infEvento.dhEvento := now;
+     infEvento.tpEvento := teCCe;
+     infEvento.nSeqEvento := StrToInt(nSeqEvento); //se não especificar será 1
+     infEvento.detEvento.xCorrecao := Correcao;
+   end;
+  ACBrNFe1.EnviarEventoNFe(StrToInt(idLote));
+
+
+
+
+Valeu...
+
+Lembrando que o Retorno se lê +/- assim:
+
+     cStat := AcbrNFe1.WebServices.Eventos.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat;
+      tpAmb := AcbrNFe1.WebServices.Eventos.EventoRetorno.tpAmb;
+      lStr := String(AcbrNFe1.WebServices.Eventos.EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
+      protCanc := AcbrNFe1.WebServices.Eventos.EventoRetorno.retEvento.Items[0].RetInfEvento.nProt;
+      dhRectoCanc := AcbrNFe1.WebServices.Eventos.EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento;
+      Chave := AcbrNFe1.WebServices.Eventos.EventoRetorno.retEvento.Items[0].RetInfEvento.chNFe;
+      lXMLCanc := AcbrNFe1.WebServices.Eventos.EventoRetorno.retEvento.Items[0].RetInfEvento.XML;
+
