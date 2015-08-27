@@ -50,6 +50,10 @@ type
     ckRemoverEspacosDuplos: TCheckBox;
     BvlConsultar: TBevel;
     btnBuscar: TcxButton;
+    Label15: TLabel;
+    Label16: TLabel;
+    ListCNAE2: TListBox;
+    EditCNAE1: TEdit;
     procedure FormDestroy(Sender: TObject);
     procedure LabAtualizarCaptchaClick(Sender: TObject);
     procedure btnBuscarClick(Sender: TObject);
@@ -95,6 +99,8 @@ begin
 end;
 
 procedure TfrmGrConsultarCNJP.btnBuscarClick(Sender: TObject);
+var
+  I : Integer;
 begin
   if Trim(edCaptcha.Text) <> EmptyStr then
   begin
@@ -113,6 +119,10 @@ begin
       EditUF.Text          := ACBrConsultaCNPJ.UF;
       EditCEP.Text         := ACBrConsultaCNPJ.CEP;
       EditSituacao.Text    := ACBrConsultaCNPJ.Situacao;
+      EditCNAE1.Text       := ACBrConsultaCNPJ.CNAE1;
+
+      for I := 0 to ACBrConsultaCNPJ.CNAE2.Count - 1 do
+        ListCNAE2.Items.Add(ACBrConsultaCNPJ.CNAE2[I]);
 //
 //      btnRecuperar.Enabled := True;
     end;
@@ -143,20 +153,20 @@ end;
 procedure TfrmGrConsultarCNJP.LabAtualizarCaptchaClick(Sender: TObject);
 var
   Stream : TMemoryStream;
-  Jpg : TJPEGImage;
+  ImgArq : String;
 begin
   Stream := TMemoryStream.Create;
-  Jpg    := TJPEGImage.Create;
   try
     ACBrConsultaCNPJ.Captcha(Stream);
-    Jpg.LoadFromStream(Stream);
-    ImgCaptcha.Picture.Assign(Jpg);
+
+    ImgArq := ExtractFilePath(ParamStr(0)) + PathDelim + 'captch.png';
+    Stream.SaveToFile( ImgArq );
+    ImgCaptcha.Picture.LoadFromFile( ImgArq );
 
     edCaptcha.Clear;
     edCaptcha.SetFocus;
   finally
     Stream.Free;
-    Jpg.Free;
   end;
 end;
 

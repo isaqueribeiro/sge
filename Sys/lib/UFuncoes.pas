@@ -4,8 +4,10 @@ interface
 
 uses
   Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers,
-  Graphics, IniFiles, PSApi, Winsock, WinSvc, WinInet, StrUtils;
+  Graphics, IniFiles, PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer,
+  ExcelXP, ComObj, TLHelp32;
 
+  function GetHostNameLocal : String;
   function GetExeVersion(const FileName : TFileName) : String; overload;
   function GetExeVersion : String; overload;
   function GetVersion : String;
@@ -30,6 +32,8 @@ uses
   function LimpaNomePessoa(Value : String) : String;
   function Metafonema(Value : String) : String;
 
+  function KillTask(ExeFileName : String): Integer;
+
 implementation
 
 uses
@@ -41,7 +45,20 @@ var
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
     'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
     'u', 'v', 'w', 'x', 'y', 'z');
-    
+
+function GetHostNameLocal : String;
+var
+  Buffer     : array[0..255] of AnsiChar;
+  RemoteHost : PHostEnt;
+begin
+  Winsock.GetHostName(@Buffer, 255);
+  RemoteHost := Winsock.GetHostByName(Buffer);
+  if (RemoteHost = nil) then
+    Result := EmptyStr
+  else
+    Result := RemoteHost.h_name;
+end;
+
 function GetExeVersion(const FileName : TFileName) : String;
 type
   PFFI = ^vs_FixedFileInfo;
@@ -561,6 +578,37 @@ begin
     Result := EmptyStr;
   end;
 
+end;
+
+function KillTask(ExeFileName : String): Integer;
+const
+  PROCESS_TERMINATE = $0001;
+var
+  ContinueLoop    : BOOL;
+  FSnapshotHandle : THandle;
+  FProcessEntry32 : TProcessEntry32;
+begin
+  try
+    Result := 0;
+
+    FSnapshotHandle        := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    FProcessEntry32.dwSize := SizeOf(FProcessEntry32);
+    ContinueLoop           := Process32First(FSnapshotHandle, FProcessEntry32);
+
+    while Integer(ContinueLoop) <> 0 do
+    begin
+      if ((UpperCase(ExtractFileName(FProcessEntry32.szExeFile)) = UpperCase(ExeFileName)) or
+        (UpperCase(FProcessEntry32.szExeFile) = UpperCase(ExeFileName))) then
+        Result := Integer(TerminateProcess(
+                          OpenProcess(PROCESS_TERMINATE,
+                                      BOOL(0),
+                                      FProcessEntry32.th32ProcessID),
+                                      0));
+       ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
+    end;
+    CloseHandle(FSnapshotHandle);
+  except
+  end;
 end;
 
 end.

@@ -37,7 +37,7 @@ var
   Caracter: array[0..255] of Byte absolute Senha;
 begin
   Senha := S;
-  for I := 1 to Length(Senha) do Senha[I] := Char(23 xor Ord(Caracter[I]));
+  for I := 1 to Length(Senha) do Senha[I] := AnsiChar(23 xor Ord(Caracter[I]));
   Result := Senha;
 end;
 

@@ -145,6 +145,24 @@ begin
         aConfiguracao.ArquivoLogo,
         aConfiguracao.ImprimirGliche);
     {$ENDIF}
+
+    else
+      aEcf := TEcfWindowsPrinter.Criar(
+        aConfiguracao.Dll,
+        aConfiguracao.Impressora,
+        aConfiguracao.ModeloEspecifico,
+        aConfiguracao.Porta,
+        aConfiguracao.Empresa,
+        aConfiguracao.Endereco,
+        aConfiguracao.Bairro,
+        aConfiguracao.Fone,
+        aConfiguracao.Cep,
+        aConfiguracao.Cidade,
+        aConfiguracao.Cnpj,
+        aConfiguracao.InscEstadual,
+        aConfiguracao.ID,
+        aConfiguracao.ArquivoLogo,
+        aConfiguracao.ImprimirGliche);
   end;
 
   aEcf.QRCode   := aConfiguracao.ArquivoQRCode;

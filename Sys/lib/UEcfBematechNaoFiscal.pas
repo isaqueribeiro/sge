@@ -33,7 +33,7 @@ Uses
       procedure Titulo_Cupom(Str : String); override;
       procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); override;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); override;
-      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco : String); override;
+      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco, sFones : String); override;
       procedure Linha; override;
       procedure Pular_Linha(Num : Integer); override;
       procedure Finalizar; override;
@@ -296,11 +296,12 @@ begin
 end;
 
 procedure TEcfBematechNaoFiscal.Identifica_Consumidor(sCNPJ_CPF, sNome,
-  sEndereco: String);
+  sEndereco, sFones : String);
 begin
   sCNPJ_CPF := Trim(Copy(Trim(sCNPJ_CPF), 1, Num_Colunas - 2));
   sNome     := Trim(Copy(Trim(sNome),     1, Num_Colunas - 2));
   sEndereco := Trim(Copy(Trim(sEndereco), 1, Num_Colunas - 2));
+  sFones    := Trim(Copy(Trim(sFones),    1, Num_Colunas - 2));
 
   Self.Compactar_Fonte;
 
@@ -314,6 +315,9 @@ begin
 
   Int_Retorno := FormataTX(PChar(cMargem + Alinhar_Esquerda(10, 'Endereco: ')),                  cTipoLetraComprimido, 0, 0, 0, 0);
   Int_Retorno := FormataTX(PChar(cMargem + Alinhar_Esquerda(Num_Colunas - 12, sEndereco)) + #10, cTipoLetraComprimido, 0, 0, 0, 0);
+
+  Int_Retorno := FormataTX(PChar(cMargem + Alinhar_Esquerda(10, 'Fone(s) : ')),                  cTipoLetraComprimido, 0, 0, 0, 0);
+  Int_Retorno := FormataTX(PChar(cMargem + Alinhar_Esquerda(Num_Colunas - 12, sFones))    + #10, cTipoLetraComprimido, 0, 0, 0, 0);
 
   Self.Linha;
 end;

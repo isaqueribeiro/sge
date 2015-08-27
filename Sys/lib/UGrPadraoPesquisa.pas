@@ -5,7 +5,15 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, Buttons, StdCtrls, DB, IBCustomDataSet,
-  IBQuery, Grids, DBGrids;
+  IBQuery, Grids, DBGrids, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGrPadraoPesquisa = class(TfrmGrPadrao)
@@ -13,7 +21,6 @@ type
     GrpBxTipoPesquisa: TGroupBox;
     BvlTipoPesquisa: TBevel;
     GrpBxPesquisar: TGroupBox;
-    BrnPesquisar: TSpeedButton;
     edTipoPesquisa: TComboBox;
     lblTipoPesquisa: TLabel;
     lblPesquisar: TLabel;
@@ -22,6 +29,7 @@ type
     DtsPesquisa: TDataSource;
     PnlTabela: TPanel;
     dbgDados: TDBGrid;
+    BrnPesquisar: TcxButton;
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormCreate(Sender: TObject);
@@ -47,7 +55,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE;
+  UConstantesDGE, UDMBusiness, UDMRecursos;
 
 {$R *.dfm}
 

@@ -29,6 +29,9 @@ interface
 
 Uses SysUtils;
 
+  Type
+    StringChar = String[1];
+
 Function CHKIEMG(const iemg : string):boolean;
 Function CHKCGC(const cgc : string):boolean;
 Function CHKCPF(const cpf : string):boolean;
@@ -90,7 +93,7 @@ Function CHKIEMG(const iemg : string):boolean;
 var
   npos,i : byte;
   ptotal, psoma : Integer;
-  dig1, dig2 : string[1];
+  dig1, dig2 : String[1];
   ie, insc : string;
   nresto : SmallInt;
 begin
@@ -98,17 +101,18 @@ begin
   Result := true;
   ie := alltrim(iemg);
   if (empty(ie))  then exit;
-  if copy(ie,1,2) = 'PR' then exit;
-  if copy(ie,1,5) = 'ISENT' then exit;
+  if AnsiUpperCase( copy(ie, 1, 2) ) = 'PR'    then exit;
+  if AnsiUpperCase( copy(ie, 1, 5) ) = 'ISENT' then exit;
 
   Result := false;
   If (Trim(iemg)='.') Then Exit;
   if (length(ie) <> 13) then Exit;
   if not IsNumero(ie) then Exit;
 
-  dig1 := copy(ie,12,1);
-  dig2 := copy(ie,13,1);
-  insc := copy(ie,1,3) + '0' + copy(ie,4,8);
+  dig1 := Copy(ie, 12, 1);
+  dig2 := Copy(ie, 13, 1);
+  insc := Copy(ie, 1, 3) + '0' + Copy(ie, 4, 8);
+
   //  CALCULA DIGITO 1
   npos := 12;
   i := 1;
@@ -141,7 +145,7 @@ begin
   nResto := ptotal mod 11;
   if (nResto = 0) or (nResto = 1) then nResto := 11;
   nResto := 11 - nResto;
-  if nResto <> CharToInt(dig2[1]) then exit;
+  if nResto <> CharToInt(pchar(dig2[1])) then exit;
   Result := true;
 end; // ChkMG
 
@@ -808,9 +812,7 @@ begin
    x := 0;    z := 0;
    j := 0;
    for j := 1 to length(trim(sie))do
-       if sie[j] in
-['0','1','2','3','4','5','6','7'
-,'8','9','0'] then
+       if sie[j] in ['0','1','2','3','4','5','6','7','8','9','0'] then
           s := s + sie[j];
    if not length(s)  <> 14 then begin
       for i := 1 to (14 - length(Trim(s))) do

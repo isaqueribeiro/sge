@@ -10,16 +10,19 @@ uses
   Dialogs, DB, UGrPadrao, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
   DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, cxButtons;
+  Menus, cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
     Bevel1: TBevel;
-    tlbBotoes: TToolBar;
-    Bevel2: TBevel;
     Bevel3: TBevel;
-    bvlTool3: TBevel;
-    bvlTool2: TBevel;
     pgcGuias: TPageControl;
     tbsTabela: TTabSheet;
     Bevel4: TBevel;
@@ -27,28 +30,31 @@ type
     pnlFiltros: TPanel;
     grpBxFiltro: TGroupBox;
     lbltFiltrar: TLabel;
-    btnFiltrar: TSpeedButton;
     edtFiltrar: TEdit;
     tbsCadastro: TTabSheet;
     IbDtstTabela: TIBDataSet;
     DtSrcTabela: TDataSource;
-    bvlTool1: TBevel;
     GrpBxDadosNominais: TGroupBox;
     Bevel8: TBevel;
     lblCodigo: TLabel;
     dbCodigo: TDBEdit;
     IbUpdTabela: TIBUpdateSQL;
     ImgList: TImageList;
-    bvlToolExpandir: TBevel;
-    bvlTool4: TBevel;
-    btbtnFechar: TcxButton;
-    btbtnSelecionar: TcxButton;
+    btnFiltrar: TcxButton;
+    tlbBotoes: TPanel;
+    Bevel2: TBevel;
     btbtnIncluir: TcxButton;
     btbtnAlterar: TcxButton;
     btbtnExcluir: TcxButton;
+    bvlTool1: TBevel;
     btbtnCancelar: TcxButton;
     btbtnSalvar: TcxButton;
+    bvlTool2: TBevel;
     btbtnLista: TcxButton;
+    bvlTool3: TBevel;
+    btbtnFechar: TcxButton;
+    btbtnSelecionar: TcxButton;
+    bvlTool4: TBevel;
     procedure dbgDadosKeyPressENTER(Sender: TObject; var Key: Char);
     procedure dbgDadosKeyPressNO_ENTER(Sender: TObject; var Key: Char);
     procedure btbtnFecharClick(Sender: TObject);
@@ -80,11 +86,8 @@ type
   private
     { Private declarations }
     fDisplayFormat  ,
-    fNomeTabela     ,
-    fCampoCodigo    ,
-    fCampoDescricao ,
-    fCampoOrdenacao ,
     fWhereAdditional: String;
+    fManterDados    ,
     fLiberarUso     ,
     fOcorreuErro    ,
     fAbrirTabelaAuto: Boolean;
@@ -98,9 +101,11 @@ type
     _ApenasConsolidado : Boolean;
 
     procedure SetWhereAdditional(Value : String);
+    procedure SetManterDados(Value : Boolean);
     procedure ClearFieldEmptyStr;
     procedure CarregarControleAcesso;
 
+    function GetManterDados : Boolean;
     function GetRotinaInserirID   : String;
     function GetRotinaEditarID    : String;
     function GetRotinaExcluirID   : String;
@@ -110,16 +115,13 @@ type
     { Public declarations }
     property ver : TInfoVersao read _ver;
     property DisplayFormatCodigo : String read fDisplayFormat write fDisplayFormat;
-    property NomeTabela : String read fNomeTabela write fNomeTabela;
-    property CampoCodigo : String read fCampoCodigo write fCampoCodigo;
-    property CampoDescricao : String read fCampoDescricao write fCampoDescricao;
-    property CampoOrdenacao : String read fCampoOrdenacao write fCampoOrdenacao;
     property WhereAdditional : String read fWhereAdditional write SetWhereAdditional;
     property OcorreuErro : Boolean read fOcorreuErro;
     property AbrirTabelaAuto : Boolean read fAbrirTabelaAuto write fAbrirTabelaAuto;
     property SQLTabela : TStringList read sSQL;
     property ControlFirstEdit : TWinControl read fControlFirst write fControlFirst;
     property frReport : TfrxReport read _frReport write _frReport;
+    property ManterDados : Boolean read GetManterDados write SetManterDados;
 
     property RotinaInserirID   : String read GetRotinaInserirID;
     property RotinaEditarID    : String read GetRotinaEditarID;
@@ -127,7 +129,7 @@ type
     property RotinaImprimirID  : String read GetRotinaImprimirID;
     property RotinaPesquisarID : String read GetRotinaPesquisarID;
 
-    procedure UpdateGenerator(const sWhr : String = '');
+    procedure UpdateGenerator(const sWhr : String = ''); override;
     procedure RedimencionarBevel(const ToolBar : TToolBar; const bvl : TBevel);
     procedure RegistrarRotinaSistema; override;
     procedure pgcGuiasOnChange; virtual; 
@@ -160,7 +162,7 @@ const
 implementation
 
 uses
-  UDMBusiness, UGrCampoRequisitado, UConstantesDGE;
+  UConstantesDGE, UFuncoes, UGrCampoRequisitado, UDMBusiness, UDMRecursos, UDMNFe;
 
 {$R *.dfm}
 
@@ -181,6 +183,7 @@ begin
   CampoCodigo     := EmptyStr;
   CampoDescricao  := EmptyStr;
   CampoOrdenacao  := EmptyStr;
+  fManterDados    := True;
   fOcorreuErro    := False;
   AbrirTabelaAuto := False;    //True; alterado em 11-01-2013 Dorivaldo
 
@@ -614,7 +617,6 @@ end;
 procedure TfrmGrPadraoCadastro.FormShow(Sender: TObject);
 begin
   inherited;
-  RedimencionarBevel(tlbBotoes, bvlToolExpandir);
   CentralizarCodigo;
 
   if ( not IbDtstTabela.Active ) then
@@ -714,6 +716,8 @@ begin
 end;
 
 procedure TfrmGrPadraoCadastro.btbtnSelecionarClick(Sender: TObject);
+var
+  sCampoCadastroAtivo : String;
 begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
@@ -723,7 +727,22 @@ begin
 
   if ( not IbDtstTabela.Active ) then
     Exit;
-    
+
+  if Trim(CampoCadastroAtivo) <> EmptyStr then
+  begin
+    if ( pos('.', CampoCadastroAtivo) > 0 ) then
+      sCampoCadastroAtivo := Copy(CampoCadastroAtivo, pos('.', CampoCadastroAtivo) + 1, Length(CampoCadastroAtivo))
+    else
+      sCampoCadastroAtivo := Trim(CampoCadastroAtivo);
+
+    if Assigned(IbDtstTabela.Fields.FindField(sCampoCadastroAtivo)) then
+      if (IbDtstTabela.FieldByName(sCampoCadastroAtivo).AsInteger = FLAG_NAO) then
+      begin
+        ShowWarning('O Cadastro selecionado não está ativo!');
+        Exit;
+      end;
+  end;
+
   ModalResult := mrOk;
 end;
 
@@ -950,6 +969,19 @@ procedure TfrmGrPadraoCadastro.FormActivate(Sender: TObject);
 begin
   inherited;
   SetEmpresaIDDefault( gUsuarioLogado.Empresa );
+end;
+
+function TfrmGrPadraoCadastro.GetManterDados: Boolean;
+begin
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := fManterDados
+  else
+    Result := fManterDados and (GetPermissaoRotinaInterna(btbtnIncluir, False) or GetPermissaoRotinaInterna(btbtnAlterar, False));
+end;
+
+procedure TfrmGrPadraoCadastro.SetManterDados(Value: Boolean);
+begin
+  fManterDados := Value;
 end;
 
 end.

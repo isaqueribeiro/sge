@@ -92,7 +92,7 @@ Uses
       procedure Titulo_Cupom(Str : String); virtual; abstract;
       procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); virtual; abstract;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); virtual; abstract;
-      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco : String); virtual; abstract;
+      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco, sFones : String); virtual; abstract;
       procedure Linha; virtual; abstract;
       procedure Pular_Linha(Num : Integer); virtual; abstract;
       procedure Finalizar; virtual; abstract;

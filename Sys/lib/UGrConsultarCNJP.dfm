@@ -6,8 +6,8 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Consultar CNPJ'
-  ClientHeight = 413
-  ClientWidth = 644
+  ClientHeight = 582
+  ClientWidth = 636
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
   object BvlConsultar: TBevel
     Left = 0
     Top = 187
-    Width = 644
+    Width = 636
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -31,8 +31,8 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
   object pnlRetorno: TPanel
     Left = 0
     Top = 191
-    Width = 644
-    Height = 211
+    Width = 636
+    Height = 386
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
@@ -190,6 +190,32 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
       Font.Color = clWindowText
       Font.Height = -13
       Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label15: TLabel
+      Left = 8
+      Top = 201
+      Width = 83
+      Height = 16
+      Caption = 'CNAE Principal'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label16: TLabel
+      Left = 10
+      Top = 250
+      Width = 115
+      Height = 16
+      Caption = 'CNAE Secund'#225'rio(s)'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
     end
@@ -361,11 +387,33 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
       ReadOnly = True
       TabOrder = 3
     end
+    object ListCNAE2: TListBox
+      Left = 8
+      Top = 269
+      Width = 617
+      Height = 108
+      ItemHeight = 13
+      TabOrder = 12
+    end
+    object EditCNAE1: TEdit
+      Left = 8
+      Top = 220
+      Width = 617
+      Height = 24
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 13
+    end
   end
   object pnlConsultar: TPanel
     Left = 0
     Top = 0
-    Width = 644
+    Width = 636
     Height = 187
     Align = alTop
     BevelInner = bvRaised
@@ -453,7 +501,6 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
         Align = alClient
         Center = True
         Proportional = True
-        Stretch = True
       end
       object LabAtualizarCaptcha: TLabel
         Left = 1

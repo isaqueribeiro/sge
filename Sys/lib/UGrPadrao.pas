@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, HPL_Strings, StdCtrls, DBCtrls, IBCustomDataSet, DB, DBClient,
-  ExtCtrls, Mask, Grids, DBGrids, TypInfo, StrUtils, RXDBCtrl, 
-  ComCtrls, RxLookup, rxToolEdit, rxCurrEdit;
+  ExtCtrls, Mask, Grids, DBGrids, TypInfo, StrUtils,  ComCtrls,
+  JvExMask, JvToolEdit, JvDBControls;
 
 type
   TfrmGrPadrao = class(TForm)
@@ -18,7 +18,13 @@ type
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
-    fRotinaID : String;
+    fNomeTabela     ,
+    fCampoCodigo    ,
+    fCampoDescricao ,
+    fCampoOrdenacao ,
+    fCampoCadastroAtivo,
+    fGeneratorName  ,
+    fRotinaID       : String;
     procedure SetRotinaID(Value : String);
     procedure SetOnEnterExit( const Win : TWinControl );
 
@@ -29,10 +35,20 @@ type
     property RotinaID     : String read fRotinaID write SetRotinaID;
     property RotinaPaiID  : String read GetRotinaPaiID;
 
+    property NomeTabela : String read fNomeTabela write fNomeTabela;
+    property CampoCodigo : String read fCampoCodigo write fCampoCodigo;
+    property CampoDescricao : String read fCampoDescricao write fCampoDescricao;
+    property CampoOrdenacao : String read fCampoOrdenacao write fCampoOrdenacao;
+    property CampoCadastroAtivo : String read fCampoCadastroAtivo write fCampoCadastroAtivo;
+    property GeneratorName  : String read fGeneratorName write fGeneratorName;
+
     procedure RegistrarRotinaSistema; virtual; abstract;
 
     function GetRotinaInternaID(const Sender : TObject) : String;
+    function GetRotinaSubInternaID(const Sender : TObject) : String;
     function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
+
+    procedure UpdateGenerator(const sWhr : String = ''); virtual;
   end;
 
 var
@@ -48,7 +64,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness;
+  UConstantesDGE, UDMBusiness, UDMRecursos;
 
 {$R *.dfm}
 
@@ -68,9 +84,9 @@ begin
       or (Frm.ActiveControl is TComboBox)
       or (Frm.ActiveControl is TMaskEdit)
       or (Frm.ActiveControl is TLabeledEdit)
-      or (Frm.ActiveControl is TRxLookupEdit)
-      or (Frm.ActiveControl is TDateEdit)
-      or (Frm.ActiveControl is TDirectoryEdit)
+      or (Frm.ActiveControl is TJvComboEdit)
+      or (Frm.ActiveControl is TJvDateEdit)
+      or (Frm.ActiveControl is TJvDirectoryEdit)
       // DB Controls
       or (Frm.ActiveControl is TDBEdit)
       or (Frm.ActiveControl is TDBCheckBox)
@@ -78,15 +94,64 @@ begin
       or (Frm.ActiveControl is TDBComboBox)
       or (Frm.ActiveControl is TDBLookupComboBox)
       or (Frm.ActiveControl is TDBLookupListBox)
-      // DB Controls RXLIB
-      or (Frm.ActiveControl is TDBDateEdit)
-      or (Frm.ActiveControl is TRxDBCalcEdit)
-      or (Frm.ActiveControl is TRxDBComboEdit)
-      or (Frm.ActiveControl is TDBDateEdit)
+      // DB Controls Jedi
+      or (Frm.ActiveControl is TJvDBDateEdit)
+      or (Frm.ActiveControl is TJvDBCalcEdit)
+      or (Frm.ActiveControl is TJvDBComboEdit)
     ) then
 
-      if ( Assigned(TEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TEdit(Frm.ActiveControl).OnKeyDown) ) then
-        Result := False
+      if (Frm.ActiveControl is TEdit) then
+        Result := not ( Assigned(TEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TCheckBox) then
+        Result := not ( Assigned(TCheckBox(Frm.ActiveControl).OnKeyPress) or Assigned(TCheckBox(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TRadioButton) then
+        Result := not ( Assigned(TRadioButton(Frm.ActiveControl).OnKeyPress) or Assigned(TRadioButton(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TComboBox) then
+        Result := not ( Assigned(TComboBox(Frm.ActiveControl).OnKeyPress) or Assigned(TComboBox(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TMaskEdit) then
+        Result := not ( Assigned(TMaskEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TMaskEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TLabeledEdit) then
+        Result := not ( Assigned(TLabeledEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TLabeledEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TJvComboEdit) then
+        Result := not ( Assigned(TJvComboEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TJvComboEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TJvDateEdit) then
+        Result := not ( Assigned(TJvDateEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TJvDateEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TJvDirectoryEdit) then
+        Result := not ( Assigned(TJvDirectoryEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TJvDirectoryEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      // DB Controls
+      if (Frm.ActiveControl is TDBEdit) then
+        Result := not ( Assigned(TDBEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TDBEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TDBCheckBox) then
+        Result := not ( Assigned(TDBCheckBox(Frm.ActiveControl).OnKeyPress) or Assigned(TDBCheckBox(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TDBComboBox) then
+        Result := not ( Assigned(TDBComboBox(Frm.ActiveControl).OnKeyPress) or Assigned(TDBComboBox(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TDBLookupComboBox) then
+        Result := not ( Assigned(TDBLookupComboBox(Frm.ActiveControl).OnKeyPress) or Assigned(TDBLookupComboBox(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TDBLookupListBox) then
+        Result := not ( Assigned(TDBLookupListBox(Frm.ActiveControl).OnKeyPress) or Assigned(TDBLookupListBox(Frm.ActiveControl).OnKeyDown) )
+      else
+      // DB Controls Jedi
+      if (Frm.ActiveControl is TJvDBDateEdit) then
+        Result := not ( Assigned(TJvDBDateEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TJvDBDateEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TJvDBCalcEdit) then
+        Result := not ( Assigned(TJvDBCalcEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TJvDBCalcEdit(Frm.ActiveControl).OnKeyDown) )
+      else
+      if (Frm.ActiveControl is TJvDBComboEdit) then
+        Result := not ( Assigned(TJvDBComboEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TJvDBComboEdit(Frm.ActiveControl).OnKeyDown) )
       else
         Result := True
 
@@ -308,8 +373,15 @@ procedure TfrmGrPadrao.FormCreate(Sender: TObject);
 begin
   FuncoesString := THopeString.Create;
   fRotinaID     := EmptyStr;
-  
+
   SetOnEnterExit(Self);
+
+  CampoCodigo        := EmptyStr;
+  CampoDescricao     := EmptyStr;
+  CampoOrdenacao     := EmptyStr;
+  CampoCadastroAtivo := EmptyStr;
+  NomeTabela     := EmptyStr;
+  GeneratorName  := EmptyStr;
 end;
 
 procedure TfrmGrPadrao.FormKeyDown(Sender: TObject; var Key: Word;
@@ -376,21 +448,29 @@ begin
         TDateTimePicker(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
-    if ( Win.Components[i] is TDateEdit ) then
+    if ( Win.Components[i] is TJvComboEdit ) then
     begin
-      if ( not Assigned(TDateEdit(Win.Components[i]).OnEnter) ) then
-        TDateEdit(Win.Components[i]).OnEnter := ControlEditEnter;
-      if ( not Assigned(TDateEdit(Win.Components[i]).OnExit) ) then
-        TDateEdit(Win.Components[i]).OnExit  := ControlEditExit;
+      if ( not Assigned(TJvComboEdit(Win.Components[i]).OnEnter) ) then
+        TJvComboEdit(Win.Components[i]).OnEnter := ControlEditEnter;
+      if ( not Assigned(TJvComboEdit(Win.Components[i]).OnExit) ) then
+        TJvComboEdit(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
-    if ( Win.Components[i] is TRxLookupEdit ) then
+    if ( Win.Components[i] is TJvDateEdit ) then
     begin
-      if ( not Assigned(TRxLookupEdit(Win.Components[i]).OnEnter) ) then
-        TRxLookupEdit(Win.Components[i]).OnEnter := ControlEditEnter;
-      if ( not Assigned(TRxLookupEdit(Win.Components[i]).OnExit) ) then
-        TRxLookupEdit(Win.Components[i]).OnExit  := ControlEditExit;
+      if ( not Assigned(TJvDateEdit(Win.Components[i]).OnEnter) ) then
+        TJvDateEdit(Win.Components[i]).OnEnter := ControlEditEnter;
+      if ( not Assigned(TJvDateEdit(Win.Components[i]).OnExit) ) then
+        TJvDateEdit(Win.Components[i]).OnExit  := ControlEditExit;
     end;
+
+    //if ( Win.Components[i] is TJvLookupEdit ) then
+    //begin
+    //  if ( not Assigned(TRxLookupEdit(Win.Components[i]).OnEnter) ) then
+    //    TRxLookupEdit(Win.Components[i]).OnEnter := ControlEditEnter;
+    //  if ( not Assigned(TRxLookupEdit(Win.Components[i]).OnExit) ) then
+    //    TRxLookupEdit(Win.Components[i]).OnExit  := ControlEditExit;
+    //end;
 
     // Controls DB
 
@@ -450,38 +530,30 @@ begin
         TDBLookupComboBox(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
-    if ( Win.Components[i] is TRxDBComboEdit ) then
+    // Controls DB Jedi
+
+    if ( Win.Components[i] is TJvDBDateEdit ) then
     begin
-      if ( not Assigned(TRxDBComboEdit(Win.Components[i]).OnEnter) ) then
-        TRxDBComboEdit(Win.Components[i]).OnEnter := ControlEditEnter;
-      if ( not Assigned(TRxDBComboEdit(Win.Components[i]).OnExit) ) then
-        TRxDBComboEdit(Win.Components[i]).OnExit  := ControlEditExit;
+      if ( not Assigned(TJvDBDateEdit(Win.Components[i]).OnEnter) ) then
+        TJvDBDateEdit(Win.Components[i]).OnEnter := ControlEditEnter;
+      if ( not Assigned(TJvDBDateEdit(Win.Components[i]).OnExit) ) then
+        TJvDBDateEdit(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
-    // Controls DB RXLIB
-
-    if ( Win.Components[i] is TDBDateEdit ) then
+    if ( Win.Components[i] is TJvDBCalcEdit ) then
     begin
-      if ( not Assigned(TDBDateEdit(Win.Components[i]).OnEnter) ) then
-        TDBDateEdit(Win.Components[i]).OnEnter := ControlEditEnter;
-      if ( not Assigned(TDBDateEdit(Win.Components[i]).OnExit) ) then
-        TDBDateEdit(Win.Components[i]).OnExit  := ControlEditExit;
+      if ( not Assigned(TJvDBCalcEdit(Win.Components[i]).OnEnter) ) then
+        TJvDBCalcEdit(Win.Components[i]).OnEnter := ControlEditEnter;
+      if ( not Assigned(TJvDBCalcEdit(Win.Components[i]).OnExit) ) then
+        TJvDBCalcEdit(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
-    if ( Win.Components[i] is TRxDBCalcEdit ) then
+    if ( Win.Components[i] is TJvDBComboEdit ) then
     begin
-      if ( not Assigned(TRxDBCalcEdit(Win.Components[i]).OnEnter) ) then
-        TRxDBCalcEdit(Win.Components[i]).OnEnter := ControlEditEnter;
-      if ( not Assigned(TRxDBCalcEdit(Win.Components[i]).OnExit) ) then
-        TRxDBCalcEdit(Win.Components[i]).OnExit  := ControlEditExit;
-    end;
-
-    if ( Win.Components[i] is TRxDBComboEdit ) then
-    begin
-      if ( not Assigned(TRxDBComboEdit(Win.Components[i]).OnEnter) ) then
-        TRxDBComboEdit(Win.Components[i]).OnEnter := ControlEditEnter;
-      if ( not Assigned(TRxDBComboEdit(Win.Components[i]).OnExit) ) then
-        TRxDBComboEdit(Win.Components[i]).OnExit  := ControlEditExit;
+      if ( not Assigned(TJvDBComboEdit(Win.Components[i]).OnEnter) ) then
+        TJvDBComboEdit(Win.Components[i]).OnEnter := ControlEditEnter;
+      if ( not Assigned(TJvDBComboEdit(Win.Components[i]).OnExit) ) then
+        TJvDBComboEdit(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
   end;
@@ -539,6 +611,25 @@ begin
     Result := True
   else
     Result := GetPermissaoRotinaSistema(sRotinaInternaID, Alertar);
+end;
+
+function TfrmGrPadrao.GetRotinaSubInternaID(
+  const Sender: TObject): String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(RotinaID) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(RotinaID, 1, 8) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+procedure TfrmGrPadrao.UpdateGenerator(const sWhr: String);
+begin
+  if ( (GeneratorName <> EmptyStr) and (NomeTabela <> EmptyStr) and (CampoCodigo <> EmptyStr) ) then
+    UpdateSequence(GeneratorName, NomeTabela, CampoCodigo, sWhr);
 end;
 
 end.

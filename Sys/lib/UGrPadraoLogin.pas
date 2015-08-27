@@ -6,29 +6,44 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, DB,
   IBCustomDataSet, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, cxControls, cxContainer, cxEdit,
+  cxLabel, cxMaskEdit, cxDropDownEdit, cxTextEdit,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinBlack, dxSkinBlue, dxSkinCaramel,
+  dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
+  dxSkinLondonLiquidSky, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
+  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGrPadraoLogin = class(TfrmGrPadrao)
     ImgLogo: TImage;
-    lblSystemName: TLabel;
     lblSystemDescription: TLabel;
     lblSystemVersion: TLabel;
     BvlSystemBanner: TBevel;
     ShpLogo: TShape;
-    lblNome: TLabel;
-    edNome: TEdit;
-    lblSenha: TLabel;
-    edSenha: TEdit;
-    lblEmpresa: TLabel;
     QryEmpresa: TIBQuery;
     QryEmpresaCNPJ: TIBStringField;
     QryEmpresaNMFANT: TIBStringField;
-    edEmpresa: TComboBox;
     pnlMensagem: TLabel;
     BtnFechar: TSpeedButton;
     ImgBackgroud: TImage;
     BtnEntrar: TcxButton;
+    edNome: TcxTextEdit;
+    edSenha: TcxTextEdit;
+    edEmpresa: TcxComboBox;
+    lblNome: TcxLabel;
+    lblSenha: TcxLabel;
+    lblEmpresa: TcxLabel;
+    lblSystemName: TcxLabel;
     procedure FormCreate(Sender: TObject);
     procedure BtnFecharClick(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
@@ -65,7 +80,8 @@ var
 
 implementation
 
-uses UDMBusiness, UFuncoes;
+uses
+  UConstantesDGE, UFuncoes, UDMBusiness, UDMRecursos;
 
 {$R *.dfm}
 
@@ -103,7 +119,13 @@ begin
   if DataBaseOnLine then
     CarregarEmpresa;
 
-  Empresa := GetEmpresaIDDefault;
+  if ( Trim(GetEmpresaIDDefault) = EmptyStr ) then
+    Empresa := StrOnlyNumbers(gLicencaSistema.CNPJ)
+  else
+    Empresa := GetEmpresaIDDefault;
+
+  if (edEmpresa.ItemIndex = -1) then
+    SetEmpresa(StrOnlyNumbers(gLicencaSistema.CNPJ));
 
   if ( ImgLogo.Picture.Height = 0 ) then
     ImgLogo.Picture.Icon := Application.Icon;
@@ -113,7 +135,7 @@ end;
 
 procedure TfrmGrPadraoLogin.CarregarEmpresa;
 begin
-  edEmpresa.Items.Clear;
+  edEmpresa.Properties.Items.Clear;
 
   QryEmpresa.Open;
   QryEmpresa.Last;
@@ -122,8 +144,8 @@ begin
   QryEmpresa.First;
   while not QryEmpresa.Eof do
   begin
-    edEmpresa.Items.Add(QryEmpresaNMFANT.AsString);
-    fCNPJ[ edEmpresa.Items.Count - 1 ] := QryEmpresaCNPJ.AsString;
+    edEmpresa.Properties.Items.Add(QryEmpresaNMFANT.AsString);
+    fCNPJ[ edEmpresa.Properties.Items.Count - 1 ] := QryEmpresaCNPJ.AsString;
 
     QryEmpresa.Next;
   end;
@@ -157,6 +179,13 @@ end;
 
 procedure TfrmGrPadraoLogin.BtnEntrarClick(Sender: TObject);
 begin
+  if Trim(edEmpresa.Text) = EmptyStr then
+  begin
+    ShowWarning('Favor selecionar a empresa!');
+    if edEmpresa.Visible and edEmpresa.Enabled then
+      edEmpresa.SetFocus;
+  end
+  else
   if EfetuarLogin then
   begin
     SetEmpresaIDDefault( Empresa );
@@ -193,7 +222,6 @@ begin
   inherited;
   if not DataBaseOnLine then
     Application.Terminate;
-
 end;
 
 end.

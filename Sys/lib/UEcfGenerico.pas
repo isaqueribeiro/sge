@@ -31,7 +31,7 @@ Uses
       procedure Titulo_Cupom(Str : String); override;
       procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); override;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); override;
-      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco : String); override;
+      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco, sFones : String); override;
       procedure Linha; override;
       procedure Pular_Linha(Num : Integer); override;
       procedure Finalizar; override;
@@ -320,7 +320,7 @@ begin
 end;
 
 procedure TEcfGenerico.Identifica_Consumidor(sCNPJ_CPF, sNome,
-  sEndereco: String);
+  sEndereco, sFones: String);
 begin
   Self.Compactar_Fonte;
 
@@ -329,10 +329,12 @@ begin
                        cFExpandido );
   Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'CNPJ/CPF: ') );
   Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sCNPJ_CPF) );
-  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(06, 'NOME: ') );
-  Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 06, sNome) );
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'NOME    : ') );
+  Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sNome) );
   Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'Endereco: ') );
   Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sEndereco) );
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'Fone(s) : ') );
+  Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sFones) );
   Self.Linha;
 end;
 

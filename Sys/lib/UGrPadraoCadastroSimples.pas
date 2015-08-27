@@ -12,16 +12,16 @@ type
     Panel1: TPanel;
     Bevel1: TBevel;
     Bevel2: TBevel;
-    tlbBotoes: TToolBar;
-    Bevel3: TBevel;
-    bvlTool1: TBevel;
-    bvlTool2: TBevel;
     Bevel4: TBevel;
+    tlbBotoes: TPanel;
+    Bevel3: TBevel;
     btbtnIncluir: TcxButton;
     btbtnAlterar: TcxButton;
     btbtnExcluir: TcxButton;
+    bvlTool1: TBevel;
     btbtnCancelar: TcxButton;
     btbtnSalvar: TcxButton;
+    bvlTool2: TBevel;
     btbtnFechar: TcxButton;
   private
     { Private declarations }
@@ -36,6 +36,9 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  UConstantesDGE, UFuncoes, UDMBusiness, UDMRecursos;
 
 { TfrmGrPadraoCadastroSimples }
 

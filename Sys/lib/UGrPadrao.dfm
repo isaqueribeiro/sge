@@ -1,18 +1,18 @@
 object frmGrPadrao: TfrmGrPadrao
   Left = 393
   Top = 219
-  Width = 555
-  Height = 332
   Caption = 'Form Padr'#227'o'
+  ClientHeight = 293
+  ClientWidth = 539
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poMainFormCenter
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnShow = FormShow

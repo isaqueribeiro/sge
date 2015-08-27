@@ -68,17 +68,25 @@ begin
 end;
 
 function TInfoVersao.getPropertyValue(propName: String): String;
+type
+  PLandCodepage = ^TLandCodepage;
+  TLandCodepage = record
+    wLanguage,
+    wCodePage: word;
+  end;
 var
+  Pntr      : Pointer;
   infoSize  : Cardinal;
   buffer    ,
   valorLido : PChar;
   tamanhoValorLido : Cardinal;
-  appName : String;
+  appName  ,
+  Language : String;
 begin
 
   appName  := ParamStr(0);
   Result   := EmptyStr;
-  infoSize := GetFileVersionInfoSize(PAnsiChar(appName), infoSize);
+  infoSize := GetFileVersionInfoSize(PChar(appName), infoSize);
 
   if ( infoSize > 0 ) then
   begin
@@ -88,7 +96,12 @@ begin
 
       GetFileVersionInfo(PChar(appName), 0, infoSize, buffer);
 
-      if VerQueryValue(buffer, PChar('StringFileInfo\041604E4\' + propName), Pointer(valorLido), tamanhoValorLido) then
+      if not VerQueryValue(buffer, '\VarFileInfo\Translation\', Pntr, infoSize) then
+        RaiseLastOSError;
+
+      Language := Format('%.4x%.4x', [PLandCodepage(Pntr)^.wLanguage, PLandCodepage(Pntr)^.wCodePage]);
+
+      if VerQueryValue(buffer, PChar('StringFileInfo\' + Language + '\' + propName), Pointer(valorLido), tamanhoValorLido) then
       begin
 
        valorLido := PChar(Trim(valorLido));

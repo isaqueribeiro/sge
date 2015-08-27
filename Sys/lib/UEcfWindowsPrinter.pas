@@ -32,7 +32,7 @@ Uses
       procedure Titulo_Cupom(Str : String); override;
       procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); override;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); override;
-      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco : String); override;
+      procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco, sFones : String); override;
       procedure Linha; override;
       procedure Pular_Linha(Num : Integer); override;
       procedure Finalizar; override;
@@ -183,18 +183,21 @@ begin
 end;
 
 procedure TEcfWindowsPrinter.Identifica_Consumidor(sCNPJ_CPF, sNome,
-  sEndereco: String);
+  sEndereco, sFones: String);
 begin
   Texto_Cupom.Add( '\n' + Centralizar(Num_Colunas, 'CONSUMIDOR') );
 
   Texto_Cupom.Add( Alinhar_Esquerda(10, 'CNPJ/CPF: ') +
     Alinhar_Esquerda(Num_Colunas - 10, sCNPJ_CPF) );
 
-  Texto_Cupom.Add( Alinhar_Esquerda(06, 'NOME: ') +
-    Alinhar_Esquerda(Num_Colunas - 06, sNome) );
+  Texto_Cupom.Add( Alinhar_Esquerda(10, 'NOME    : ') +
+    Alinhar_Esquerda(Num_Colunas - 10, sNome) );
 
   Texto_Cupom.Add( Alinhar_Esquerda(10, 'Endereco: ') +
     Alinhar_Esquerda(Num_Colunas - 10, sEndereco) );
+
+  Texto_Cupom.Add( Alinhar_Esquerda(10, 'Fone(s) : ') +
+    Alinhar_Esquerda(Num_Colunas - 10, sFones) );
 
   Self.Linha;
 end;

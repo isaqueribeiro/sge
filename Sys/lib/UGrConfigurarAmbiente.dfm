@@ -6,8 +6,8 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
   Caption = 'Configurar Ambiente (Esta'#231#227'o)'
   ClientHeight = 534
   ClientWidth = 498
-  Font.Charset = ANSI_CHARSET
-  Font.Name = 'Tahoma'
+  ExplicitWidth = 512
+  ExplicitHeight = 571
   PixelsPerInch = 96
   TextHeight = 13
   object PnlBotoes: TPanel
@@ -37,9 +37,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       Height = 33
       Anchors = [akRight, akBottom]
       Caption = '&Salvar'
-      TabOrder = 0
-      OnClick = btnSalvarClick
-      Glyph.Data = {
+      OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         18000000000000060000000000000000000000000000000000000000FF0000FF
         0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
@@ -90,7 +88,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      TabOrder = 0
+      OnClick = btnSalvarClick
     end
     object btnCancelar: TcxButton
       Left = 406
@@ -100,9 +100,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       Anchors = [akRight, akBottom]
       Cancel = True
       Caption = 'Cancelar'
-      TabOrder = 1
-      OnClick = btnCancelarClick
-      Glyph.Data = {
+      OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         180000000000000600000000000000000000000000000000000000FF0000FF00
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -153,7 +151,9 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         00FF00E0C0B0E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0BEAA00FF
         0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
         BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      TabOrder = 1
+      OnClick = btnCancelarClick
     end
   end
   object PgcConfiguracao: TPageControl
@@ -161,7 +161,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     Top = 0
     Width = 498
     Height = 488
-    ActivePage = TbsPDV
+    ActivePage = TbsGeral
     Align = alClient
     TabOrder = 0
     object TbsGeral: TTabSheet
@@ -316,8 +316,8 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Transparent = True
         end
         object lblNumeroCaixa: TLabel
-          Left = 73
-          Top = 364
+          Left = 72
+          Top = 388
           Width = 71
           Height = 13
           Alignment = taRightJustify
@@ -464,20 +464,33 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           TabOrder = 15
         end
         object chkCarregarPeloEAN: TCheckBox
-          Left = 72
-          Top = 336
+          Left = 71
+          Top = 360
           Width = 321
           Height = 17
           Caption = 'Or'#231'amento/Venda - Carregar pelo C'#243'digo EAN do Produto'
-          TabOrder = 16
+          TabOrder = 17
         end
         object edNumeroCaixa: TEdit
-          Left = 152
-          Top = 360
+          Left = 151
+          Top = 384
           Width = 65
           Height = 21
-          TabOrder = 17
+          TabOrder = 18
           OnKeyPress = ApenasNumerosKeyPress
+        end
+        object chkCarregarPapelParede: TCheckBox
+          Left = 72
+          Top = 337
+          Width = 202
+          Height = 17
+          Hint = 
+            'Marque esta op'#231#227'o para que o arquivo "PapelDeParede.jpg" seja ca' +
+            'rregado.'
+          Caption = 'Carregar Papel de Parede do Cliente'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 16
         end
       end
     end
@@ -565,7 +578,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Width = 357
           Height = 21
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
           ItemIndex = 0
           TabOrder = 1
           Text = 'Impressora padr'#227'o do Windows'
@@ -584,7 +596,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Height = 21
           Anchors = [akLeft, akTop, akRight]
           Enabled = False
-          ItemHeight = 13
           ItemIndex = 0
           TabOrder = 2
           Text = 'Impressora padr'#227'o do Windows'
@@ -605,7 +616,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
           Enabled = False
-          ItemHeight = 13
           ItemIndex = 0
           TabOrder = 3
           Text = 'Nenhum'
@@ -620,7 +630,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
           Enabled = False
-          ItemHeight = 13
           ItemIndex = 0
           TabOrder = 4
           Text = 'Nenhum'
@@ -636,7 +645,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
           Enabled = False
-          ItemHeight = 13
           ItemIndex = 0
           TabOrder = 5
           Text = 'Nenhum'
@@ -713,12 +721,15 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     LocalImpCanhoto = 0
     ImprimeItens = True
     ViaConsumidor = True
+    TributosSeparadamente = False
+    TimeOut = 3
     ConfigBarras.MostrarCodigo = False
     ConfigBarras.LarguraLinha = 0
     ConfigBarras.Altura = 0
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
-    Left = 332
-    Top = 416
+    IntervaloBuffer = 0
+    Left = 436
+    Top = 432
   end
 end

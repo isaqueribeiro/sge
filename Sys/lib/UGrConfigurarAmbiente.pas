@@ -8,7 +8,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, IniFiles, DB,
   DBClient, Printers, ACBrNFeDANFEClass, ACBrNFeDANFeESCPOS, TypInfo,
-  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)
@@ -68,6 +76,7 @@ type
     edCupomNaoFiscalModeloEsp: TComboBox;
     btnSalvar: TcxButton;
     btnCancelar: TcxButton;
+    chkCarregarPapelParede: TCheckBox;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -93,7 +102,8 @@ var
 
 implementation
 
-uses UDMBusiness, UConstantesDGE, UFuncoes;
+uses
+  UDMBusiness, UConstantesDGE, UFuncoes;
 
 {$R *.dfm}
 
@@ -181,8 +191,9 @@ begin
   edCFOPEntradaNome.Text := GetCfopNome( StrToIntDef(edCFOPEntrada.Text, 0) );
   edCFOPSaidaNome.Text   := GetCfopNome( StrToIntDef(edCFOPSaida.Text, 0) );
 
-  chkCarregarPeloEAN.Checked := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_CODIGO_EAN, GetCarregarProdutoCodigoBarra(GetEmpresaIDDefault));
-  edNumeroCaixa.Text         := FileINI.ReadString(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, '1');
+  chkCarregarPapelParede.Checked := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, True);
+  chkCarregarPeloEAN.Checked     := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_CODIGO_EAN,   GetCarregarProdutoCodigoBarra(gUsuarioLogado.Empresa));
+  edNumeroCaixa.Text             := FileINI.ReadString(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, '1');
 
   // PDV
 
@@ -222,6 +233,7 @@ begin
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_CFOP_ENT, edCFOPEntrada.Text);
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_CFOP_SAI, edCFOPSaida.Text);
 
+  FileINI.WriteBool (INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, chkCarregarPapelParede.Checked);
   FileINI.WriteBool (INI_SECAO_VENDA, INI_KEY_CODIGO_EAN,   chkCarregarPeloEAN.Checked);
   FileINI.ReadString(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, edNumeroCaixa.Text);
 

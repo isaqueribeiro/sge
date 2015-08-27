@@ -6,12 +6,18 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ToolWin, ComCtrls,
   Grids, DBGrids, ImgList, DB, IBCustomDataSet, IBUpdateSQL, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
+  dxSkinMoneyTwins, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, cxControls, cxContainer, cxEdit, cxLabel;
 
 type
   TFrmGrRegistroEstacao = class(TfrmGrPadrao)
-    tlbBotoes: TToolBar;
-    Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel1: TBevel;
     pgcGuia: TPageControl;
@@ -22,13 +28,18 @@ type
     updRegistro: TIBUpdateSQL;
     dtsRegistro: TDataSource;
     cdsRegistroEST_LOCAL: TIBStringField;
-    cdsRegistroEST_NOME: TIBStringField;
     cdsRegistroEST_IP: TIBStringField;
-    cdsRegistroEST_REGISTRO: TIBStringField;
     cdsRegistroEST_ULTIMO_ACESSO: TDateTimeField;
     cdsRegistroSEQ: TIntegerField;
+    tlbBotoes: TPanel;
+    Bevel2: TBevel;
     btbtnIncluir: TcxButton;
     btbtnExcluir: TcxButton;
+    cdsRegistroEST_NOME: TIBStringField;
+    cdsRegistroEST_REGISTRO: TIBStringField;
+    Bevel4: TBevel;
+    Bevel5: TBevel;
+    lblHostName: TcxLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -53,14 +64,15 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGrUsuario, IdIPWatch;
+  UDMBusiness, UConstantesDGE, UGrUsuario, IdIPWatch, UFuncoes;
 
 {$R *.dfm}
 
 procedure TFrmGrRegistroEstacao.FormCreate(Sender: TObject);
 begin
   inherited;
-  pgcGuia.ActivePage   := TbsLista;
+  pgcGuia.ActivePage  := TbsLista;
+  lblHostName.Caption := Trim(GetHostNameLocal);
 end;
 
 procedure TFrmGrRegistroEstacao.RegistrarRotinaSistema;
@@ -80,17 +92,17 @@ var
 begin
   if not btbtnIncluir.Enabled then
     Exit;
-    
+
   if ShowConfirmation('Registro', 'Deseja registrar na base do sistema esta estação de trabalho?') then
   begin
     if not cdsRegistro.Active then
       cdsRegistro.Open;
 
-    if cdsRegistro.Locate('EST_NOME', DMBusiness.IdIPWatch.LocalName, []) then
+    if cdsRegistro.Locate('EST_NOME', lblHostName.Caption, []) then
     begin
       sLocal := Trim(cdsRegistroEST_LOCAL.AsString);
       cdsRegistro.Edit;
-    end  
+    end
     else
     begin
       sLocal := EmptyStr;
@@ -100,7 +112,7 @@ begin
     if InputQuery('Local', 'Favor informar o Local da Estação de Trabalho:', sLocal) then
     begin
       cdsRegistroEST_LOCAL.AsString    := Trim(sLocal);
-      cdsRegistroEST_NOME.AsString     := DMBusiness.IdIPWatch.LocalName;
+      cdsRegistroEST_NOME.AsString     := lblHostName.Caption;
       cdsRegistroEST_IP.AsString       := DMBusiness.IdIPWatch.LocalIP;
       cdsRegistroEST_REGISTRO.AsString := EncriptSenha(gUsuarioLogado.Login + DateTimeToStr(Now), USER_PASSWD_KEY);
       cdsRegistroEST_ULTIMO_ACESSO.AsDateTime := Now;

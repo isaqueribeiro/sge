@@ -4,8 +4,6 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
   Width = 593
   Height = 408
   Caption = 'Padr'#227'o Cadastro Simples'
-  Font.Charset = ANSI_CHARSET
-  Font.Name = 'Tahoma'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
@@ -19,7 +17,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 327
+    Top = 366
     Width = 577
     Height = 4
     Align = alBottom
@@ -27,7 +25,7 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
   end
   object Bevel4: TBevel
     Left = 0
-    Top = 366
+    Top = 327
     Width = 577
     Height = 4
     Align = alBottom
@@ -49,33 +47,50 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
     ParentFont = False
     TabOrder = 0
   end
-  object tlbBotoes: TToolBar
+  object tlbBotoes: TPanel
     Left = 0
     Top = 331
     Width = 577
     Height = 35
     Align = alBottom
-    ButtonHeight = 31
-    ButtonWidth = 96
-    Caption = #39
+    BevelOuter = bvNone
+    ParentColor = True
     TabOrder = 1
     object Bevel3: TBevel
       Left = 0
-      Top = 2
+      Top = 0
       Width = 4
-      Height = 31
+      Height = 35
+      Align = alLeft
+      Shape = bsSpacer
+    end
+    object bvlTool1: TBevel
+      Left = 229
+      Top = 0
+      Width = 4
+      Height = 35
+      Align = alLeft
+      Shape = bsSpacer
+    end
+    object bvlTool2: TBevel
+      Left = 573
+      Top = 0
+      Width = 4
+      Height = 35
+      Align = alRight
       Shape = bsSpacer
     end
     object btbtnIncluir: TcxButton
       Left = 4
-      Top = 2
+      Top = 0
       Width = 75
-      Height = 31
+      Height = 35
       Hint = 'Incluir'
       Caption = '&Incluir'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      Align = alLeft
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
@@ -93,14 +108,15 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
     end
     object btbtnAlterar: TcxButton
       Left = 79
-      Top = 2
+      Top = 0
       Width = 75
-      Height = 31
+      Height = 35
       Hint = 'Alterar'
       Caption = '&Alterar'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
+      Align = alLeft
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
@@ -118,14 +134,15 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
     end
     object btbtnExcluir: TcxButton
       Left = 154
-      Top = 2
+      Top = 0
       Width = 75
-      Height = 31
+      Height = 35
       Hint = 'Excluir'
       Caption = '&Excluir'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
+      Align = alLeft
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
@@ -141,23 +158,17 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         05555777775555557F5555000555555505555577755555557555}
       NumGlyphs = 2
     end
-    object bvlTool1: TBevel
-      Left = 229
-      Top = 2
-      Width = 4
-      Height = 31
-      Shape = bsSpacer
-    end
     object btbtnCancelar: TcxButton
       Left = 233
-      Top = 2
+      Top = 0
       Width = 75
-      Height = 31
+      Height = 35
       Hint = 'Cancelar Inser'#231#227'o/Edi'#231#227'o'
       Caption = '&Cancelar'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 4
+      Align = alLeft
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
@@ -175,14 +186,15 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
     end
     object btbtnSalvar: TcxButton
       Left = 308
-      Top = 2
+      Top = 0
       Width = 75
-      Height = 31
+      Height = 35
       Hint = 'Salvar Inser'#231#227'o/Edi'#231#227'o'
       Caption = '&Salvar'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
+      Align = alLeft
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
@@ -198,23 +210,17 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         05555777775555557F5555000555555505555577755555557555}
       NumGlyphs = 2
     end
-    object bvlTool2: TBevel
-      Left = 383
-      Top = 2
-      Width = 117
-      Height = 31
-      Shape = bsSpacer
-    end
     object btbtnFechar: TcxButton
-      Left = 500
-      Top = 2
+      Left = 498
+      Top = 0
       Width = 75
-      Height = 31
+      Height = 35
       Hint = 'Fechar'
       Caption = 'Fechar'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 5
+      Align = alRight
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
