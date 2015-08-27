@@ -7,7 +7,13 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons, DBClient, Provider, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeCondicaoPagto = class(TfrmGrPadraoCadastro)
@@ -58,15 +64,35 @@ type
     IbDtstTabelaCOND_PDV: TSmallintField;
     IbDtstTabelaCOND_QTDE_PARCELAS: TSmallintField;
     IbDtstTabelaAPrazo: TStringField;
+    qryFormaPagtoLista: TIBDataSet;
+    dspFormaPagtoLista: TDataSetProvider;
+    cdsFormaPagtoLista: TClientDataSet;
+    dtsFormaPagtoLista: TDataSource;
+    cdsFormaPagtoListaSELECIONAR: TIntegerField;
+    cdsFormaPagtoListaCODIGO: TSmallintField;
+    dbgFormaPagto: TDBGrid;
+    cdsFormaPagtoListaDESCRICAO: TWideStringField;
+    cdsFormaPagtoListaUSAR_PDV: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
+    procedure dbgFormaPagtoDblClick(Sender: TObject);
+    procedure dbgFormaPagtoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
+    procedure btbtnCancelarClick(Sender: TObject);
+    procedure btbtnSalvarClick(Sender: TObject);
+    procedure DtSrcTabelaStateChange(Sender: TObject);
+    procedure cdsFormaPagtoListaSELECIONARGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
   private
     { Private declarations }
+    procedure CarregarFormaPagto;
   public
     { Public declarations }
+    procedure GravarRelacaoFormaCondicao;
   end;
 
 var
@@ -308,6 +334,117 @@ end;
 procedure TfrmGeCondicaoPagto.IbDtstTabelaCalcFields(DataSet: TDataSet);
 begin
   IbDtstTabelaAPrazo.AsString := IfThen(IbDtstTabelaCOND_PRAZO.AsInteger = 1, 'X', '.');
+end;
+
+procedure TfrmGeCondicaoPagto.CarregarFormaPagto;
+begin
+  with cdsFormaPagtoLista, Params do
+  begin
+    Close;
+    ParamByName('condicao_pagto').AsInteger := IbDtstTabelaCOND_COD.AsInteger;
+    Open;
+  end;
+end;
+
+procedure TfrmGeCondicaoPagto.GravarRelacaoFormaCondicao;
+var
+  sSQL : String;
+const
+  SQL_INSERT = 'Insert Into TBFORMPAGTO_CONDICAO (FORMA_PAGTO, CONDICAO_PAGTO) values (%s, %s)';
+  SQL_DELETE = 'Delete from TBFORMPAGTO_CONDICAO where FORMA_PAGTO = %s and CONDICAO_PAGTO = %s';
+begin
+(*
+  IMR - 11/03/2015 :
+    Rotina que permite a gravação de várias formas de pagamento para a mesma condição de pagamento.
+*)
+  cdsFormaPagtoLista.First;
+  while not cdsFormaPagtoLista.Eof do
+  begin
+    if cdsFormaPagtoListaSELECIONAR.AsInteger = 1 then
+      sSQL := SQL_INSERT
+    else
+      sSQL := SQL_DELETE;
+
+    with DMBusiness, qryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add( Format(SQL_DELETE, [cdsFormaPagtoListaCODIGO.AsString, IbDtstTabelaCOND_COD.AsString]) );
+      ExecSQL;
+
+      SQL.Clear;
+      SQL.Add( Format(sSQL, [cdsFormaPagtoListaCODIGO.AsString, IbDtstTabelaCOND_COD.AsString]) );
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+
+    cdsFormaPagtoLista.Next;
+  end;
+  cdsFormaPagtoLista.First;
+end;
+
+procedure TfrmGeCondicaoPagto.dbgFormaPagtoDblClick(Sender: TObject);
+begin
+  if dtsFormaPagtoLista.AutoEdit then
+    if ( not cdsFormaPagtoLista.IsEmpty ) then
+    begin
+      cdsFormaPagtoLista.Edit;
+      if ( cdsFormaPagtoListaSELECIONAR.AsInteger = 0 ) then
+        cdsFormaPagtoListaSELECIONAR.AsInteger := 1
+      else
+        cdsFormaPagtoListaSELECIONAR.AsInteger := 0;
+      cdsFormaPagtoLista.Post;
+    end;
+end;
+
+procedure TfrmGeCondicaoPagto.dbgFormaPagtoKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if ( Key = VK_SPACE ) then
+    dbgFormaPagtoDblClick(Sender);
+end;
+
+procedure TfrmGeCondicaoPagto.IbDtstTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  CarregarFormaPagto;
+end;
+
+procedure TfrmGeCondicaoPagto.btbtnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  if ( not OcorreuErro ) then
+    CarregarFormaPagto;
+end;
+
+procedure TfrmGeCondicaoPagto.btbtnSalvarClick(Sender: TObject);
+begin
+(*
+  IMR - 11/03/2015 :
+    Rotina que permite a gravação de várias formas de pagamentos para a mesma condição de pagamento.
+*)
+  IbDtstTabela.AfterScroll := nil;
+  inherited;
+  IbDtstTabela.AfterScroll := IbDtstTabelaAfterScroll;
+
+  if ( not OcorreuErro ) then
+    GravarRelacaoFormaCondicao;
+end;
+
+procedure TfrmGeCondicaoPagto.DtSrcTabelaStateChange(Sender: TObject);
+begin
+  inherited;
+  dtsFormaPagtoLista.AutoEdit := (IbDtstTabela.State in [dsEdit, dsInsert]);
+end;
+
+procedure TfrmGeCondicaoPagto.cdsFormaPagtoListaSELECIONARGetText(
+  Sender: TField; var Text: String; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Case Sender.AsInteger of
+      0 : Text := '.';
+      1 : Text := 'X';
+    end;
 end;
 
 initialization

@@ -8,14 +8,20 @@ uses
   SHDocVw, TypInfo,
 
   pcnConversao, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeConfigurarNFeACBr = class(TfrmGrPadrao)
     Bevel1: TBevel;
-    grpBxConfigurar: TGroupBox;
-    pgcGuias: TPageControl;
-    TabSheet1: TTabSheet;
+    opnDialog: TOpenDialog;
+    btnServico: TcxButton;
+    btnSalvar: TcxButton;
+    btnCancelar: TcxButton;
+    pgcGuiasGerais: TPageControl;
+    TbsConfiguracoes: TTabSheet;
+    pgcGuiasConfiguracoes: TPageControl;
+    TbsCertificado: TTabSheet;
     GroupBox2: TGroupBox;
     lbltCaminho: TLabel;
     lbltSenha: TLabel;
@@ -25,22 +31,32 @@ type
     edtCaminho: TEdit;
     edtSenha: TEdit;
     edtNumSerie: TEdit;
-    TabSheet2: TTabSheet;
-    GroupBox3: TGroupBox;
-    lbltLogoMarca: TLabel;
-    sbtnLogoMarca: TSpeedButton;
+    TbsGeral: TTabSheet;
+    GrpBxGeral: TGroupBox;
     sbtnPathSalvar: TSpeedButton;
-    edtLogoMarca: TEdit;
+    lblPathSchemas: TLabel;
+    spPathSchemas: TSpeedButton;
+    lblFormaEmissao: TLabel;
+    lblVersaoDF: TLabel;
+    lblIdToken: TLabel;
+    lblToken: TLabel;
     edPathLogs: TEdit;
     ckSalvar: TCheckBox;
-    rgTipoDanfe: TRadioGroup;
-    TabSheet3: TTabSheet;
-    GroupBox4: TGroupBox;
+    edPathSchemas: TEdit;
+    cbFormaEmissao: TComboBox;
+    cbVersaoDF: TComboBox;
+    ckRetirarAcentos: TCheckBox;
+    edIdToken: TEdit;
+    edToken: TEdit;
+    ckEmitirNFCe: TCheckBox;
+    rgModoGerarNFe: TRadioGroup;
+    TbsWebService: TTabSheet;
+    GrpBxWebService: TGroupBox;
     lblUF: TLabel;
     ckVisualizar: TCheckBox;
     cbUF: TComboBox;
     rgTipoAmb: TRadioGroup;
-    gbProxy: TGroupBox;
+    GrpBxProxy: TGroupBox;
     lbltProxyHost: TLabel;
     lbltProxyPorta: TLabel;
     lbltProxyUser: TLabel;
@@ -49,7 +65,8 @@ type
     edtProxyPorta: TEdit;
     edtProxyUser: TEdit;
     edtProxySenha: TEdit;
-    TabSheet4: TTabSheet;
+    WBResposta: TWebBrowser;
+    TbsEmitente: TTabSheet;
     lbltEmitCNPJ: TLabel;
     lbltEmitIE: TLabel;
     lbltEmitRazao: TLabel;
@@ -63,6 +80,7 @@ type
     lbltEmitUF: TLabel;
     lbltEmitCEP: TLabel;
     lbltEmitFone: TLabel;
+    lblInfoFisco: TLabel;
     edtEmitCNPJ: TEdit;
     edtEmitIE: TEdit;
     edtEmitRazao: TEdit;
@@ -76,8 +94,13 @@ type
     edtEmitCodCidade: TEdit;
     edtEmitCidade: TEdit;
     edtEmitUF: TEdit;
-    TabSheet5: TTabSheet;
-    GroupBox5: TGroupBox;
+    edInfoFisco: TEdit;
+    TbsDanfe: TTabSheet;
+    lbltLogoMarca: TLabel;
+    sbtnLogoMarca: TSpeedButton;
+    rgTipoDanfe: TRadioGroup;
+    TbsEmail: TTabSheet;
+    GrpBxEmail: TGroupBox;
     lbltSmtpHost: TLabel;
     lbltSmtpPort: TLabel;
     lbltSmtpUser: TLabel;
@@ -91,28 +114,47 @@ type
     edtEmailAssunto: TEdit;
     cbEmailSSL: TCheckBox;
     mmEmailMsg: TMemo;
-    opnDialog: TOpenDialog;
-    WBResposta: TWebBrowser;
-    rgModoGerarNFe: TRadioGroup;
-    lblInfoFisco: TLabel;
-    edInfoFisco: TEdit;
-    lblPathSchemas: TLabel;
-    edPathSchemas: TEdit;
-    spPathSchemas: TSpeedButton;
-    lblFormaEmissao: TLabel;
-    cbFormaEmissao: TComboBox;
-    lblVersaoDF: TLabel;
-    cbVersaoDF: TComboBox;
-    ckRetirarAcentos: TCheckBox;
-    lblIdToken: TLabel;
-    edIdToken: TEdit;
-    lblToken: TLabel;
-    edToken: TEdit;
-    ckEmitirNFCe: TCheckBox;
-    btnServico: TcxButton;
-    btnSalvar: TcxButton;
-    btnCancelar: TcxButton;
+    edtLogoMarca: TEdit;
+    ckAtualizarXML: TCheckBox;
+    ckExibirErroSchema: TCheckBox;
+    lblFormatoAlerta: TLabel;
+    edFormatoAlerta: TEdit;
     btnValidadeCertificado: TcxButton;
+    ckSalvarSOAP: TCheckBox;
+    GrpBxRetornoEnvio: TGroupBox;
+    lblTentativas: TLabel;
+    lblIntervalo: TLabel;
+    lblAguardar: TLabel;
+    ckAjustarAut: TCheckBox;
+    edTentativas: TEdit;
+    edIntervalo: TEdit;
+    edAguardar: TEdit;
+    TbsArquivos: TTabSheet;
+    ckSalvarArqs: TCheckBox;
+    ckPastaMensal: TCheckBox;
+    ckAdicionaLiteral: TCheckBox;
+    ckEmissaoPathNFe: TCheckBox;
+    ckSalvaCCeCancelamentoPathEvento: TCheckBox;
+    ckSepararPorCNPJ: TCheckBox;
+    ckSepararPorModelo: TCheckBox;
+    lblPathNFe: TLabel;
+    edPathNFe: TEdit;
+    sbPathNFe: TSpeedButton;
+    lblPathCan: TLabel;
+    edPathCan: TEdit;
+    sbPathCan: TSpeedButton;
+    lblPathCCe: TLabel;
+    edPathCCe: TEdit;
+    sbPathCCe: TSpeedButton;
+    lblPathInu: TLabel;
+    edPathInu: TEdit;
+    sbPathInu: TSpeedButton;
+    lblPathDPEC: TLabel;
+    edPathDPEC: TEdit;
+    sbPathDPEC: TSpeedButton;
+    lblPathEvento: TLabel;
+    edPathEvento: TEdit;
+    sbPathEvento: TSpeedButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -123,6 +165,13 @@ type
     procedure btnValidadeCertificadoClick(Sender: TObject);
     procedure PathClick(Sender: TObject);
     procedure spPathSchemasClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure sbPathNFeClick(Sender: TObject);
+    procedure sbPathCanClick(Sender: TObject);
+    procedure sbPathCCeClick(Sender: TObject);
+    procedure sbPathInuClick(Sender: TObject);
+    procedure sbPathDPECClick(Sender: TObject);
+    procedure sbPathEventoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -151,25 +200,64 @@ var
  K : TpcnVersaoDF;
 begin
   cbFormaEmissao.Items.Clear ;
+
   For I := Low(TpcnTipoEmissao) to High(TpcnTipoEmissao) do
-     cbFormaEmissao.Items.Add( GetEnumName(TypeInfo(TpcnTipoEmissao), integer(I) ) ) ;
-  cbFormaEmissao.Items[0] := 'teNormal' ;
+     cbFormaEmissao.Items.Add( GetEnumName(TypeInfo(TpcnTipoEmissao), Integer(I) ) ) ;
+
+  cbFormaEmissao.Items[0]  := 'teNormal' ;
   cbFormaEmissao.ItemIndex := 0 ;
 
   cbVersaoDF.Items.Clear ;
+
   For K := Low(TpcnVersaoDF) to High(TpcnVersaoDF) do
-     cbVersaoDF.Items.Add( GetEnumName(TypeInfo(TpcnVersaoDF), integer(K) ) ) ;
-  cbVersaoDF.Items[0] := 've200' ;
+     cbVersaoDF.Items.Add( GetEnumName(TypeInfo(TpcnVersaoDF), Integer(K) ) ) ;
+
+  cbVersaoDF.Items[0]  := 've200' ;
   cbVersaoDF.ItemIndex := 0 ;
 
   inherited;
+end;
 
-  pgcGuias.ActivePageIndex := 0;
+procedure TfrmGeConfigurarNFeACBr.FormShow(Sender: TObject);
+begin
+  inherited;
+  pgcGuiasGerais.ActivePage        := TbsConfiguracoes;
+  pgcGuiasConfiguracoes.ActivePage := TbsGeral;
 end;
 
 procedure TfrmGeConfigurarNFeACBr.btnSalvarClick(Sender: TObject);
 begin
   ModalResult := mrOk;
+end;
+
+procedure TfrmGeConfigurarNFeACBr.sbPathCanClick(Sender: TObject);
+begin
+  PathClick(edPathCan);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.sbPathCCeClick(Sender: TObject);
+begin
+  PathClick(edPathCCe);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.sbPathDPECClick(Sender: TObject);
+begin
+  PathClick(edPathDPEC);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.sbPathEventoClick(Sender: TObject);
+begin
+  PathClick(edPathEvento);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.sbPathInuClick(Sender: TObject);
+begin
+  PathClick(edPathInu);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.sbPathNFeClick(Sender: TObject);
+begin
+  PathClick(edPathNFe);
 end;
 
 procedure TfrmGeConfigurarNFeACBr.sbtnCaminhoCertClick(Sender: TObject);
@@ -221,7 +309,7 @@ end;
 procedure TfrmGeConfigurarNFeACBr.btnValidadeCertificadoClick(
   Sender: TObject);
 begin
-  DMNFe.GetValidadeCertificado(True);
+  DMNFe.GetValidadeCertificado(EmptyStr, True);
 end;
 
 procedure TfrmGeConfigurarNFeACBr.RegistrarRotinaSistema;

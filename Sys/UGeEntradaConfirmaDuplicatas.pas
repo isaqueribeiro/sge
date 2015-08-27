@@ -6,7 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
   ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
+  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeEntradaConfirmaDuplicatas = class(TfrmGrPadrao)
@@ -32,12 +40,9 @@ type
     cdsDuplicatasNUMLANC: TIntegerField;
     cdsDuplicatasPARCELA: TSmallintField;
     cdsDuplicatasCODFORN: TSmallintField;
-    cdsDuplicatasNOTFISC: TStringField;
-    cdsDuplicatasTIPPAG: TStringField;
     cdsDuplicatasDTEMISS: TDateField;
     cdsDuplicatasDTVENC: TDateField;
     cdsDuplicatasVALORPAG: TBCDField;
-    cdsDuplicatasLancamento: TStringField;
     cdsDuplicatasTotalParcelas: TAggregateField;
     cdsDuplicatasTotalEntrada: TCurrencyField;
     dbTotalEntrada: TDBEdit;
@@ -53,6 +58,9 @@ type
     cdsDuplicatasDiaSemana: TSmallintField;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
+    cdsDuplicatasNOTFISC: TWideStringField;
+    cdsDuplicatasTIPPAG: TWideStringField;
+    cdsDuplicatasLancamento: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

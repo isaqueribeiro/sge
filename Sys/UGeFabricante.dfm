@@ -1,6 +1,6 @@
 inherited frmGeFabricante: TfrmGeFabricante
-  Left = 387
-  Top = 209
+  Left = 393
+  Top = 227
   Width = 767
   Height = 495
   ActiveControl = dbCodigo
@@ -14,10 +14,6 @@ inherited frmGeFabricante: TfrmGeFabricante
   end
   inherited Bevel3: TBevel
     Top = 414
-    Width = 751
-  end
-  inherited tlbBotoes: TToolBar
-    Top = 418
     Width = 751
   end
   inherited pgcGuias: TPageControl
@@ -64,12 +60,12 @@ inherited frmGeFabricante: TfrmGeFabricante
             Width = 63
             Caption = 'Fabricante:'
           end
-          inherited btnFiltrar: TSpeedButton
-            Left = 277
-          end
           inherited edtFiltrar: TEdit
             Left = 88
             Width = 185
+          end
+          inherited btnFiltrar: TcxButton
+            Left = 277
           end
         end
       end
@@ -110,6 +106,22 @@ inherited frmGeFabricante: TfrmGeFabricante
           TabOrder = 1
         end
       end
+    end
+  end
+  inherited tlbBotoes: TPanel
+    Top = 418
+    Width = 751
+    inherited bvlTool3: TBevel
+      Left = 668
+    end
+    inherited bvlTool4: TBevel
+      Left = 747
+    end
+    inherited btbtnFechar: TcxButton
+      Left = 672
+    end
+    inherited btbtnSelecionar: TcxButton
+      Left = 548
     end
   end
   inherited IbDtstTabela: TIBDataSet

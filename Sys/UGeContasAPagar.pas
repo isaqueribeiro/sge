@@ -6,9 +6,17 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, IBTable, IBQuery, frxClass, frxDBSet,
+  ToolWin, IBTable, IBQuery, frxClass, frxDBSet,
   DBClient, Provider, Menus, ACBrBase, ACBrExtenso, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvToolEdit,
+  JvDBControls, JvExMask, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeContasAPagar = class(TfrmGrPadraoCadastro)
@@ -30,13 +38,11 @@ type
     IbDtstTabelaNUMCHQ: TIBStringField;
     IbDtstTabelaPAGO_: TIBStringField;
     IbDtstTabelaDOCBAIX: TIBStringField;
-    IbDtstTabelaNOMEEMP: TIBStringField;
     Bevel5: TBevel;
     GrpBxDadosValores: TGroupBox;
     lblNotaFiscal: TLabel;
     dbNotaFiscal: TDBEdit;
     lblFornecedor: TLabel;
-    dbFornecedor: TRxDBComboEdit;
     lblParcela: TLabel;
     dbParcela: TDBEdit;
     dbQuitado: TDBEdit;
@@ -84,46 +90,16 @@ type
     dbTipoDespesa: TDBLookupComboBox;
     IbDtstTabelaCODTPDESP: TSmallintField;
     dtsTpDespesa: TDataSource;
-    qryTpDespesa: TIBQuery;
     lblLancamentoAberto: TLabel;
-    lblCaixaCancelado: TLabel;
+    lblLancamentoVencido: TLabel;
     Label1: TLabel;
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     FrdRecibo: TfrxDBDataset;
     FrRecibo: TfrxReport;
     QryRecibo: TIBQuery;
     DspRecibo: TDataSetProvider;
     CdsRecibo: TClientDataSet;
-    CdsReciboANOLANC: TSmallintField;
-    CdsReciboNUMLANC: TIntegerField;
-    CdsReciboPARCELA: TSmallintField;
-    CdsReciboCODFORN: TSmallintField;
-    CdsReciboNOMEEMP: TStringField;
-    CdsReciboNOMEFORN: TStringField;
-    CdsReciboPESSOA_FISICA: TSmallintField;
-    CdsReciboCNPJ: TStringField;
-    CdsReciboNOTFISC: TStringField;
-    CdsReciboTIPPAG: TStringField;
-    CdsReciboDTEMISS: TDateField;
-    CdsReciboDTVENC: TDateField;
-    CdsReciboDTPAG: TDateField;
-    CdsReciboVALORPAG: TBCDField;
-    CdsReciboBANCO: TSmallintField;
-    CdsReciboBCO_NOME: TStringField;
-    CdsReciboNUMCHQ: TStringField;
-    CdsReciboPAGO_: TStringField;
-    CdsReciboDOCBAIX: TStringField;
-    CdsReciboQUITADO: TSmallintField;
-    CdsReciboCODTPDESP: TSmallintField;
-    CdsReciboDATA_PAGTO: TDateField;
-    CdsReciboFORMA_PAGTO_DESC: TStringField;
-    CdsReciboHISTORICO: TMemoField;
-    CdsReciboVALOR_BAIXA: TBCDField;
     CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
-    CdsReciboFORMA_PAGTO: TSmallintField;
-    CdsReciboSEQ: TSmallintField;
     popImprimir: TPopupMenu;
     popGerarRecibo: TMenuItem;
     ACBrExtenso: TACBrExtenso;
@@ -131,9 +107,44 @@ type
     IbDtstTabelaVALORSALDO: TIBBCDField;
     lblSaldoAPagar: TLabel;
     dbSaldoAPagar: TDBEdit;
-    dbEmissao: TDBDateEdit;
-    dbVencimento: TDBDateEdit;
     btbtnEfetuarPagto: TcxButton;
+    dbEmissao: TJvDBDateEdit;
+    dbVencimento: TJvDBDateEdit;
+    dbFornecedor: TJvDBComboEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    CdsReciboANOLANC: TSmallintField;
+    CdsReciboNUMLANC: TIntegerField;
+    CdsReciboPARCELA: TSmallintField;
+    CdsReciboCODFORN: TSmallintField;
+    CdsReciboNOMEEMP: TWideStringField;
+    CdsReciboNOMEFORN: TWideStringField;
+    CdsReciboPESSOA_FISICA: TSmallintField;
+    CdsReciboCNPJ: TWideStringField;
+    CdsReciboNOTFISC: TWideStringField;
+    CdsReciboTIPPAG: TWideStringField;
+    CdsReciboDTEMISS: TDateField;
+    CdsReciboDTVENC: TDateField;
+    CdsReciboDTPAG: TDateField;
+    CdsReciboVALORPAG: TBCDField;
+    CdsReciboBANCO: TSmallintField;
+    CdsReciboBCO_NOME: TWideStringField;
+    CdsReciboNUMCHQ: TWideStringField;
+    CdsReciboPAGO_: TWideStringField;
+    CdsReciboDOCBAIX: TWideStringField;
+    CdsReciboQUITADO: TSmallintField;
+    CdsReciboCODTPDESP: TSmallintField;
+    CdsReciboSEQ: TSmallintField;
+    CdsReciboDATA_PAGTO: TDateField;
+    CdsReciboFORMA_PAGTO: TSmallintField;
+    CdsReciboFORMA_PAGTO_DESC: TWideStringField;
+    CdsReciboHISTORICO: TWideMemoField;
+    CdsReciboVALOR_BAIXA: TBCDField;
+    IbDtstTabelaNOMEEMP: TIBStringField;
+    Bevel9: TBevel;
+    btbtnIncluirLote: TcxButton;
+    IbDtstTabelaLOTE: TIBStringField;
+    qryTipoDespesa: TIBQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -158,12 +169,17 @@ type
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
+    procedure btbtnIncluirLoteClick(Sender: TObject);
   private
     { Private declarations }
+    FDataAtual     : TDateTime;
+    FLoteParcelas  : String;
     SQL_Pagamentos : TStringList;
+    FImprimirCabecalho : Boolean;
     procedure AbrirPagamentos(const Ano : Smallint; const Numero : Integer);
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+    procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
 
     function GetRotinaEfetuarPagtoID : String;
     function GetRotinaCancelarPagtosID : String;
@@ -173,6 +189,7 @@ type
     { Public declarations }
     property RotinaEfetuarPagtoID : String read GetRotinaEfetuarPagtoID;
     property RotinaCancelarPagtosID : String read GetRotinaCancelarPagtosID;
+    property DataAtual : TDateTime read FDataAtual;
   end;
 
 var
@@ -190,7 +207,7 @@ implementation
 
 uses
   UConstantesDGE, UDMBusiness, UGeFornecedor, DateUtils, UGeEfetuarPagtoPAG,
-  UGrPadrao;
+  UGrPadrao, UGeContasAPagarLoteParcela;
 
 {$R *.dfm}
 
@@ -202,7 +219,7 @@ begin
   frm := TfrmGeContasAPagar.Create(AOwner);
   try
     whr :=
-      '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')' +
+      '(p.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')' +
       ' and (cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) +
       ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ')';
 
@@ -229,15 +246,20 @@ begin
   SQL_Pagamentos := TStringList.Create;
   SQL_Pagamentos.AddStrings( cdsPagamentos.SelectSQL );
 
+  FDataAtual      := GetDateTimeDB;
   e1Data.Date     := GetMenorVencimentoAPagar;
   e2Data.Date     := GetDateLastMonth;
+
+  if (e1Data.Date > GetDateDB) then
+    e1Data.Date   := GetDateDB;
+
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbFornecedor;
 
   tblEmpresa.Open;
   tblFormaPagto.Open;
   tblCondicaoPagto.Open;
-  qryTpDespesa.Open;
+  CarregarTipoDespesa(False);
 
   RotinaID            := ROTINA_FIN_CONTA_APAGAR_ID;
   DisplayFormatCodigo := '###0000000';
@@ -246,9 +268,10 @@ begin
   CampoCodigo    := 'numlanc';
   CampoDescricao := 'NomeForn';
   CampoOrdenacao := 'p.dtvenc, f.NomeForn';
+  FLoteParcelas  := EmptyStr;
 
   WhereAdditional :=
-    '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')' +
+    '(p.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')' +
     ' and (cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
 
@@ -275,11 +298,46 @@ end;
 procedure TfrmGeContasAPagar.btnFiltrarClick(Sender: TObject);
 begin
   WhereAdditional :=
-    '(p.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')' +
+    '(p.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')' +
     ' and (cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
 
+  if Trim(FLoteParcelas) <> EmptyStr then
+    WhereAdditional := '(' + WhereAdditional + ' and (p.lote = ' + QuotedStr(FLoteParcelas) + '))';
+
   inherited;
+end;
+
+procedure TfrmGeContasAPagar.btbtnIncluirLoteClick(Sender: TObject);
+var
+  sEmpresa,
+  sLote   : String;
+  iFornecedor : Integer;
+  dDataEmissao    ,
+  dVencimentoFirst,
+  dVencimentoLast : TDateTime;
+begin
+  if btbtnIncluir.Enabled then
+  begin
+    sEmpresa     := gUsuarioLogado.Empresa;
+    sLote        := EmptyStr;
+    iFornecedor  := 0;
+    dDataEmissao := GetDateDB;
+    dVencimentoFirst := dDataEmissao + 30;
+    dVencimentoLast  := dDataEmissao + 60;
+
+    if GerarLoteParcelas(Self, sEmpresa, sLote, iFornecedor, dDataEmissao, dVencimentoFirst, dVencimentoLast)  then
+    begin
+      pgcGuias.ActivePage := tbsTabela;
+      e1Data.Date     := dVencimentoFirst;
+      e2Data.Date     := dVencimentoLast;
+      edtFiltrar.Text := GetFornecedorRazao(iFornecedor);
+      FLoteParcelas   := sLote;
+      btnFiltrar.Click;
+
+      FLoteParcelas := EmptyStr;
+    end;
+  end;
 end;
 
 procedure TfrmGeContasAPagar.IbDtstTabelaQUITADOGetText(Sender: TField;
@@ -300,11 +358,12 @@ procedure TfrmGeContasAPagar.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaANOLANC.Value := YearOf(Date);
-  IbDtstTabelaEMPRESA.Value := GetEmpresaIDDefault;
-  IbDtstTabelaNOMEEMP.Value := GetEmpresaNomeDefault;
+  IbDtstTabelaEMPRESA.Value := gUsuarioLogado.Empresa;
+  IbDtstTabelaNOMEEMP.Value := Copy(GetEmpresaNome(gUsuarioLogado.Empresa), 1, IbDtstTabelaNOMEEMP.Size);
   IbDtstTabelaPARCELA.Value := 0;
   IbDtstTabelaDTEMISS.Value := Date;
   IbDtstTabelaQUITADO.Value := STATUS_APAGAR_PENDENTE;
+  IbDtstTabelaLOTE.AsString := EmptyStr;
   IbDtstTabelaFORMA_PAGTO.Value    := GetFormaPagtoIDDefault;
   IbDtstTabelaCONDICAO_PAGTO.Value := GetCondicaoPagtoIDDefault;
 end;
@@ -316,6 +375,7 @@ var
   CxNumero ,
   CxContaCorrente : Integer;
   DataPagto : TDateTime;
+  cAPagar   : Currency;
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
@@ -328,6 +388,9 @@ begin
   CxContaCorrente := 0;
 
   RecarregarRegistro;
+
+  if ( not IbDtstTabela.Active ) then
+    Exit;
 
   if ( IbDtstTabelaQUITADO.AsInteger = 1 ) then
   begin
@@ -354,7 +417,9 @@ begin
     Exit;
   end;
  }
-  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMEFORN.AsString, DataPagto) then
+  cAPagar := IbDtstTabelaVALORSALDO.AsCurrency;
+
+  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMEFORN.AsString, DataPagto, cAPagar) then
   begin
     if ( CxContaCorrente > 0 ) then
       GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
@@ -424,7 +489,7 @@ begin
     if ( not OcorreuErro ) then
     begin
       if ( Trim(IbDtstTabelaNOMEEMP.AsString) = EmptyStr ) then
-        IbDtstTabelaNOMEEMP.Value := GetEmpresaNomeDefault;
+        IbDtstTabelaNOMEEMP.Value := Copy(GetEmpresaNome(gUsuarioLogado.Empresa), 1, IbDtstTabelaNOMEEMP.Size);
         
       AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
     end;
@@ -457,6 +522,24 @@ begin
         CommitTransaction;
       end;
 
+    end
+    else
+    begin
+
+      with DMBusiness, qryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Update TBCAIXA_MOVIMENTO Set');
+        SQL.Add('    APAGAR_ANO = null');
+        SQL.Add('  , APAGAR_NUM = null');
+        SQL.Add('where APAGAR_ANO = ' + IbDtstTabelaANOLANC.AsString);
+        SQL.Add('  and APAGAR_NUM = ' + IbDtstTabelaNUMLANC.AsString);
+        ExecSQL;
+
+        CommitTransaction;
+      end;
+
     end;
 
     inherited;
@@ -469,9 +552,6 @@ end;
 procedure TfrmGeContasAPagar.FormShow(Sender: TObject);
 begin
   inherited;
-  qryTpDespesa.Prior;
-  qryTpDespesa.Last;
-  
   RegistrarNovaRotinaSistema;
 end;
 
@@ -482,9 +562,16 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    // Destacar Caixas Abertos
-    if ( IbDtstTabelaQUITADO.AsInteger = STATUS_APAGAR_PENDENTE ) then
-      dbgDados.Canvas.Font.Color := lblLancamentoAberto.Font.Color;
+    // Destacar Títulos A Pagar em aberto
+    if (not IbDtstTabelaQUITADO.IsNull) then
+      if ( IbDtstTabelaQUITADO.AsInteger = STATUS_APAGAR_PENDENTE ) then
+        if IbDtstTabelaDTVENC.AsDateTime >= DataAtual then
+          dbgDados.Canvas.Font.Color := lblLancamentoAberto.Font.Color
+        else
+        begin
+          dbgDados.Canvas.Font.Color  := lblLancamentoVencido.Font.Color;
+          dbgDados.Canvas.Brush.Color := lblLancamentoVencido.Color;
+        end;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -627,6 +714,8 @@ begin
       Exit;
   end;
 
+  FImprimirCabecalho := ShowConfirmation('Recibo', 'Deseja imprimir no recibo o Cabeçalho com informações da empresa?');
+
   frReport := FrRecibo;
   SetVariablesDefault(frReport);
 
@@ -637,6 +726,20 @@ end;
 procedure TfrmGeContasAPagar.btbtnListaClick(Sender: TObject);
 begin
   popImprimir.Popup(btbtnLista.ClientOrigin.X, btbtnLista.ClientOrigin.Y + btbtnLista.Height);
+end;
+
+procedure TfrmGeContasAPagar.CarregarTipoDespesa(const ApenasAtivos: Boolean);
+begin
+  with qryTipoDespesa, Params do
+  begin
+    Close;
+    ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
+    ParamByName('todos').AsInteger := IfThen(ApenasAtivos, 0, 1);
+    Open;
+
+    Prior;
+    Last;
+  end;
 end;
 
 procedure TfrmGeContasAPagar.CdsReciboCalcFields(DataSet: TDataSet);
@@ -658,6 +761,9 @@ begin
 
   if ( VarName = VAR_SYSTEM ) then
     Value := Application.Title + ' - versão ' + ver.FileVersion;
+
+  if ( VarName = 'Imprimir_Cabecalho' ) then
+    Value := IfThen(FImprimirCabecalho, 1, 0);
 end;
 
 procedure TfrmGeContasAPagar.IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -699,8 +805,11 @@ end;
 procedure TfrmGeContasAPagar.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  dbValorAPagar.ReadOnly := (not cdsPagamentos.IsEmpty);
+  dbValorAPagar.ReadOnly   := (not cdsPagamentos.IsEmpty);
+  btbtnIncluirLote.Enabled := btbtnIncluir.Enabled;
   HabilitarDesabilitar_Btns;
+
+  CarregarTipoDespesa( (IbDtstTabela.State in [dsEdit, dsInsert]) );
 end;
 
 procedure TfrmGeContasAPagar.btbtnCancelarClick(Sender: TObject);

@@ -6,8 +6,16 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, Menus, ExtDlgs, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  ToolWin, IBTable, Menus, ExtDlgs, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit,
+  JvDBControls, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeEmpresa = class(TfrmGrPadraoCadastro)
@@ -49,17 +57,13 @@ type
     dbIM: TDBEdit;
     GroupBox1: TGroupBox;
     lblCidade: TLabel;
-    dbCidade: TRxDBComboEdit;
     Bevel5: TBevel;
     lblEstado: TLabel;
-    dbEstado: TRxDBComboEdit;
     pgcMaisDados: TPageControl;
     tbsContato: TTabSheet;
     tbsParametros: TTabSheet;
     lblBairro: TLabel;
-    dbBairro: TRxDBComboEdit;
     lblLogradouro: TLabel;
-    dbLogradouro: TRxDBComboEdit;
     lblCEP: TLabel;
     dbCEP: TDBEdit;
     lblNumero: TLabel;
@@ -74,7 +78,6 @@ type
     dbHome: TDBEdit;
     IbDtstTabelaPAIS_ID: TIBStringField;
     lblPais: TLabel;
-    dbPais: TRxDBComboEdit;
     lblChave: TLabel;
     dbChave: TDBEdit;
     IbDtstTabelaEST_NOME: TIBStringField;
@@ -123,6 +126,11 @@ type
     IbDtstTabelaCARTA_CORRECAO_NFE: TIntegerField;
     lblNumeroCCe: TLabel;
     dbNumeroCCe: TDBEdit;
+    dbEstado: TJvDBComboEdit;
+    dbCidade: TJvDBComboEdit;
+    dbBairro: TJvDBComboEdit;
+    dbLogradouro: TJvDBComboEdit;
+    dbPais: TJvDBComboEdit;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -151,7 +159,7 @@ var
 implementation
 
 uses UDMBusiness, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
-  UGeLogradouro, DateUtils, ChkDgVer, UConstantesDGE, UGrPadrao;
+  UGeLogradouro, DateUtils, UConstantesDGE, UGrPadrao;
 
 {$R *.dfm}
 
@@ -367,11 +375,17 @@ begin
       Abort;
     end;
 
-    if ( not ChkInscEstadual(Trim(IbDtstTabelaIE.AsString), Trim(IbDtstTabelaUF.AsString)) ) then
+    if ( not StrInscricaoEstadual(Trim(IbDtstTabelaIE.AsString), Trim(IbDtstTabelaUF.AsString)) ) then
     begin
       ShowWarning('Favor informar uma Inscrição Estadual válida.');
       Abort;
     end;
+  end;
+
+  if IbDtstTabelaPAIS_ID.IsNull then
+  begin
+    IbDtstTabelaPAIS_ID.AsString   := GetPaisIDDefault;
+    IbDtstTabelaPAIS_NOME.AsString := GetPaisNomeDefault;
   end;
 
   inherited;

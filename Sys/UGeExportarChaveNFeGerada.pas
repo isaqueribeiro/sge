@@ -6,32 +6,34 @@ uses
   UGrPadrao,
   
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons,
   cxControls, cxStyles, dxSkinscxPCPainter,
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData,
   cxMemo, StdCtrls, DBClient, Provider, IBCustomDataSet, IBQuery,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxClasses, cxGridCustomView, cxGrid, rxToolEdit, Mask, cxLookAndFeels, dxSkinsForm,
+  cxClasses, cxGridCustomView, cxGrid, Mask, cxLookAndFeels, dxSkinsForm,
+  JvExMask, JvToolEdit, 
 
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver;
+  dxSkinOffice2010Silver, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator;
 
 type
   TfrmGeExportarChaveNFeGerada = class(TfrmGrPadrao)
     GrpBxPeriodo: TGroupBox;
     lblDataInicial: TLabel;
     lblDataFinal: TLabel;
-    edDataInicial: TDateEdit;
-    edDataFinal: TDateEdit;
     chkNFeCancelada: TCheckBox;
     Bevel8: TBevel;
     PnlBotoes: TPanel;
     Bevel3: TBevel;
     lblInforme: TLabel;
-    edDiretorioExportacao: TDirectoryEdit;
     Bevel2: TBevel;
     lblDiretorioExportacao: TLabel;
     Bevel1: TBevel;
@@ -42,10 +44,6 @@ type
     dspChaveNFe: TDataSetProvider;
     cdsChaveNFe: TClientDataSet;
     cdsChaveNFeNUMERONFE: TIntegerField;
-    cdsChaveNFeSERIE: TStringField;
-    cdsChaveNFeEMISSAO: TDateField;
-    cdsChaveNFeCHAVENFE: TStringField;
-    cdsChaveNFeXML: TMemoField;
     dtsChaveNFe: TDataSource;
     GrdExpTBLNUMERONFE: TcxGridDBColumn;
     GrdExpTBLSERIE: TcxGridDBColumn;
@@ -54,6 +52,13 @@ type
     GrdExpTBLXML: TcxGridDBColumn;
     btnExportar: TcxButton;
     btnCancelar: TcxButton;
+    edDataInicial: TJvDateEdit;
+    edDataFinal: TJvDateEdit;
+    edDiretorioExportacao: TJvDirectoryEdit;
+    cdsChaveNFeSERIE: TWideStringField;
+    cdsChaveNFeEMISSAO: TDateField;
+    cdsChaveNFeCHAVENFE: TWideStringField;
+    cdsChaveNFeXML: TWideMemoField;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnExportarClick(Sender: TObject);
@@ -75,7 +80,7 @@ var
 implementation
 
 uses
-  UDMBusiness, DateUtils, IniFiles, cxGridExportLink;
+  UDMBusiness, DateUtils, IniFiles, cxGridExportLink, UDMRecursos;
 
 {$R *.dfm}
 
@@ -168,7 +173,7 @@ begin
 
     Clear;
     AddStrings( FSQLChaveNFE );
-    Add('where (nf.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')');
+    Add('where (nf.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')');
     Add('and nf.dataemissao between ' +
       QuotedStr(FormatDateTime('yyyy-mm-dd', edDataInicial.Date)) + ' and ' +
       QuotedStr(FormatDateTime('yyyy-mm-dd', edDataFinal.Date)) );
@@ -191,7 +196,7 @@ procedure TfrmGeExportarChaveNFeGerada.edDataInicialChange(
 var
   D : TDateTime;
 begin
-  if TryStrToDate(TDateEdit(Sender).Text, D) then
+  if TryStrToDate(TJvDateEdit(Sender).Text, D) then
     CarregarChaveNFe;
 end;
 

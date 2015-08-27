@@ -6,8 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvToolEdit, JvDBControls, JvExMask;
 
 type
   TfrmGePromocao = class(TfrmGrPadraoCadastro)
@@ -18,10 +18,8 @@ type
     IbDtstTabelaDATA_INICIO: TDateField;
     IbDtstTabelaDATA_FINAL: TDateField;
     IbDtstTabelaPERCENTUAL_DESCONTO: TIBBCDField;
-    dbDataInicio: TDBDateEdit;
     lblDataInicio: TLabel;
     lblDataFinal: TLabel;
-    dbDataFinal: TDBDateEdit;
     lblDescontoProm: TLabel;
     dbDescontoProm: TDBEdit;
     cdsProdutos: TIBDataSet;
@@ -34,7 +32,6 @@ type
     lblUnidade: TLabel;
     Bevel5: TBevel;
     lblValorPromocao: TLabel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbValorUnit: TDBEdit;
     dbDesconto: TDBEdit;
@@ -44,7 +41,6 @@ type
     btnProdutoEditar: TBitBtn;
     btnProdutoExcluir: TBitBtn;
     btnProdutoSalvar: TBitBtn;
-    dbValorPromocao: TRxDBComboEdit;
     Bevel6: TBevel;
     dbgProdutos: TDBGrid;
     cdsProdutosCODIGO_PROM: TIntegerField;
@@ -59,6 +55,10 @@ type
     dbAtiva: TDBCheckBox;
     qryProduto: TIBDataSet;
     cdsProdutosSequencial: TIntegerField;
+    dbProduto: TJvDBComboEdit;
+    dbValorPromocao: TJvDBComboEdit;
+    dbDataInicio: TJvDBDateEdit;
+    dbDataFinal: TJvDBDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnExcluirClick(Sender: TObject);

@@ -6,8 +6,9 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+  JvDBControls;
 
 type
   TfrmGeCidade = class(TfrmGrPadraoCadastro)
@@ -25,7 +26,6 @@ type
     lblSIAFI: TLabel;
     dbSIAFI: TDBEdit;
     lblEstado: TLabel;
-    dbEstado: TRxDBComboEdit;
     IbDtstTabelaCID_DDD: TSmallintField;
     IbDtstTabelaCID_CEP_INICIAL: TIntegerField;
     IbDtstTabelaCID_CEP_FINAL: TIntegerField;
@@ -45,6 +45,7 @@ type
     lblOutros: TLabel;
     dbOutros: TDBEdit;
     Bevel5: TBevel;
+    dbEstado: TJvDBComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -130,7 +131,7 @@ begin
 
   UpdateGenerator;
 
-  GrpBxCustosOper.Enabled := GetCalcularCustoOperEmpresa(GetEmpresaIDDefault);
+  GrpBxCustosOper.Enabled := GetCalcularCustoOperEmpresa(gUsuarioLogado.Empresa);
 end;
 
 procedure TfrmGeCidade.dbEstadoButtonClick(Sender: TObject);
@@ -154,7 +155,7 @@ begin
     IbDtstTabelaEST_COD.AsInteger := GetEstadoIDDefault;
     IbDtstTabelaEST_NOME.AsString := GetEstadoNomeDefault;
   end;
-  
+
   IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 0; // Ord(False);
   IbDtstTabelaCUSTO_OPER_FRETE.Clear;
   IbDtstTabelaCUSTO_OPER_OUTROS.Clear;

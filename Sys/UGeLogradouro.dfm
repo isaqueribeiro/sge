@@ -1,13 +1,11 @@
 inherited frmGeLogradouro: TfrmGeLogradouro
-  Left = 423
-  Top = 239
-  ActiveControl = dbCodigo
+  Left = 403
+  Top = 260
   Caption = 'Tabela de Logradouros'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
-    ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <
@@ -92,7 +90,7 @@ inherited frmGeLogradouro: TfrmGeLogradouro
           ParentFont = False
           TabOrder = 1
         end
-        object dbCidade: TRxDBComboEdit
+        object dbCidade: TJvDBComboEdit
           Left = 16
           Top = 80
           Width = 273

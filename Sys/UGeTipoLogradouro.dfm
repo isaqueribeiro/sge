@@ -1,6 +1,6 @@
 inherited frmGeTipoLogradouro: TfrmGeTipoLogradouro
-  Left = 418
-  Top = 212
+  Left = 387
+  Top = 215
   ActiveControl = dbCodigo
   Caption = 'Tabela de Tipos de Logradouros'
   OldCreateOrder = True
@@ -35,12 +35,12 @@ inherited frmGeTipoLogradouro: TfrmGeTipoLogradouro
             Width = 95
             Caption = 'Tipo Logradouro:'
           end
-          inherited btnFiltrar: TSpeedButton
-            Left = 255
-          end
           inherited edtFiltrar: TEdit
             Left = 111
             Width = 140
+          end
+          inherited btnFiltrar: TcxButton
+            Left = 255
           end
         end
       end

@@ -4,16 +4,21 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, rxToolEdit, ExtCtrls, DB, IBCustomDataSet,
+  Dialogs, UGrPadrao, StdCtrls, Mask, ExtCtrls, DB, IBCustomDataSet,
   Buttons, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons, JvToolEdit, JvExMask, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeExportarNFeGerada = class(TfrmGrPadrao)
     GrpBxPeriodo: TGroupBox;
     lblDataInicial: TLabel;
-    edDataInicial: TDateEdit;
-    edDataFinal: TDateEdit;
     lblDataFinal: TLabel;
     Bevel8: TBevel;
     GrpBxTipoNFe: TRadioGroup;
@@ -36,10 +41,12 @@ type
     cdsNFeNUMCOMPRA: TIntegerField;
     cdsNFeSAIDA: TIntegerField;
     cdsNFeENTRADA: TIntegerField;
-    edDiretorioExportacao: TDirectoryEdit;
     chkNFeCancelada: TCheckBox;
     btnExportar: TcxButton;
     btnCancelar: TcxButton;
+    edDataInicial: TJvDateEdit;
+    edDataFinal: TJvDateEdit;
+    edDiretorioExportacao: TJvDirectoryEdit;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnExportarClick(Sender: TObject);
@@ -58,7 +65,8 @@ var
 implementation
 
 uses
-  UDMBusiness, DateUtils, IniFiles, xmldom, XMLIntf, msxmldom, XMLDoc, UConstantesDGE;
+  UDMBusiness, DateUtils, IniFiles, xmldom, XMLIntf, msxmldom, XMLDoc, UConstantesDGE,
+  UDMRecursos;
 
 {$R *.dfm}
 
@@ -99,7 +107,7 @@ begin
       ParamByName('todas').AsInteger     := 0;
       ParamByName('entradas').AsInteger  := 0;
       ParamByName('saidas').AsInteger    := 0;
-      ParamByName('empresa').AsString    := GetEmpresaIDDefault;
+      ParamByName('empresa').AsString    := gUsuarioLogado.Empresa;
 
       Case GrpBxTipoNFe.ItemIndex of
         0 : ParamByName('todas').AsInteger    := 1;

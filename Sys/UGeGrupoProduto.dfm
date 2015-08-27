@@ -1,6 +1,6 @@
 inherited frmGeGrupoProduto: TfrmGeGrupoProduto
-  Left = 416
-  Top = 233
+  Left = 394
+  Top = 220
   ActiveControl = dbCodigo
   Caption = 'Tabela de Grupos de Produtos'
   OldCreateOrder = True

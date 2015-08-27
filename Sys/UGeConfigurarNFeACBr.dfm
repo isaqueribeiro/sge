@@ -1,976 +1,37 @@
 inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
-  Left = 414
-  Top = 223
+  Left = 491
+  Top = 208
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Configurar NF-e / NFC-e (ACBr)'
-  ClientHeight = 586
-  ClientWidth = 284
-  Font.Charset = ANSI_CHARSET
-  Font.Name = 'Tahoma'
+  ClientHeight = 581
+  ClientWidth = 383
   OldCreateOrder = True
+  ExplicitWidth = 397
+  ExplicitHeight = 618
   DesignSize = (
-    284
-    586)
+    383
+    581)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 545
-    Width = 284
-    Height = 4
-    Align = alTop
+    Top = 542
+    Width = 383
+    Height = 39
+    Align = alBottom
     Shape = bsSpacer
-  end
-  object grpBxConfigurar: TGroupBox
-    Left = 0
-    Top = 0
-    Width = 284
-    Height = 545
-    Align = alTop
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Caption = 'Configura'#231#245'es'
-    TabOrder = 2
-    object pgcGuias: TPageControl
-      Left = 2
-      Top = 15
-      Width = 280
-      Height = 528
-      ActivePage = TabSheet1
-      Align = alClient
-      MultiLine = True
-      TabOrder = 0
-      object TabSheet1: TTabSheet
-        Caption = 'Certificado'
-        DesignSize = (
-          272
-          500)
-        object GroupBox2: TGroupBox
-          Left = 0
-          Top = 0
-          Width = 272
-          Height = 144
-          Align = alTop
-          Caption = 'Certificado'
-          TabOrder = 0
-          object lbltCaminho: TLabel
-            Left = 8
-            Top = 16
-            Width = 41
-            Height = 13
-            Caption = 'Caminho'
-          end
-          object lbltSenha: TLabel
-            Left = 8
-            Top = 56
-            Width = 30
-            Height = 13
-            Caption = 'Senha'
-          end
-          object sbtnCaminhoCert: TSpeedButton
-            Left = 235
-            Top = 32
-            Width = 23
-            Height = 24
-            Glyph.Data = {
-              76010000424D7601000000000000760000002800000020000000100000000100
-              04000000000000010000130B0000130B00001000000000000000000000000000
-              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-              3BB33773333773333773B333333B3333333B7333333733333337}
-            NumGlyphs = 2
-            OnClick = sbtnCaminhoCertClick
-          end
-          object lbltNumSerie: TLabel
-            Left = 8
-            Top = 96
-            Width = 79
-            Height = 13
-            Caption = 'N'#250'mero de S'#233'rie'
-          end
-          object sbtnGetCert: TSpeedButton
-            Left = 235
-            Top = 110
-            Width = 23
-            Height = 24
-            Glyph.Data = {
-              76010000424D7601000000000000760000002800000020000000100000000100
-              04000000000000010000130B0000130B00001000000000000000000000000000
-              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-              3BB33773333773333773B333333B3333333B7333333733333337}
-            NumGlyphs = 2
-          end
-          object edtCaminho: TEdit
-            Left = 8
-            Top = 32
-            Width = 225
-            Height = 21
-            TabOrder = 0
-          end
-          object edtSenha: TEdit
-            Left = 8
-            Top = 72
-            Width = 249
-            Height = 21
-            PasswordChar = '*'
-            TabOrder = 1
-          end
-          object edtNumSerie: TEdit
-            Left = 8
-            Top = 112
-            Width = 225
-            Height = 21
-            TabOrder = 2
-            OnChange = edtNumSerieChange
-          end
-        end
-        object btnValidadeCertificado: TcxButton
-          Left = 0
-          Top = 459
-          Width = 83
-          Height = 33
-          Hint = 'Verificar validade do Certificado'
-          Anchors = [akLeft, akBottom]
-          Caption = 'Validade'
-          TabOrder = 1
-          OnClick = btnValidadeCertificadoClick
-          Glyph.Data = {
-            36060000424D3606000000000000360000002800000020000000100000000100
-            180000000000000600000000000000000000000000000000000000FF0000FF00
-            00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-            0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-            FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
-            00FF0000FF0000FF0000FF0000FF009A8F8C2030405F686900FF0000FF0000FF
-            0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF008F
-            8F8F33333367676700FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
-            00FF0000FF0000FF0000FF008C8C884050602098C03038405F6D7200FF0000FF
-            0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF008A8A8A53
-            53539898983939396D6D6D00FF0000FF0000FF0000FF0000FF0000FF0000FF00
-            E1C0A7D1AC93D5B8A17F828550607020A0D030B8F060A0B05068708068507058
-            4060483060483000FF0000FF0000FF00BBBBBBA8A8A8B4B4B4828282636363A1
-            A1A1BBBBBB9E9E9E68686863636353535343434343434300FF0000FF0000FF00
-            7068606050406050406068604088A040C0F060B0D0708890A09890C0B0A0B0A0
-            90B0A09060483000FF0000FF0000FF006666664C4C4C4C4C4C646464888888C1
-            C1C1B1B1B1888888969696ACACAC9C9C9C9C9C9C43434300FF0000FF00776E65
-            C0A080F0E0A0F0D8A0B0A8906070706098B07088909098A0D0F0E0B0E8D0B0E8
-            C0B0A09060483000FF0000FF006C6C6C999999CECECEC9C9C9A1A1A16E6E6E99
-            9999888888999999E8E8E8DBDBDBD6D6D69C9C9C43434300FF00968372B09880
-            FFFFC0FFF8C0FFF0C0FFF0D0B0A89070707090A0A0F0F8F0E0F8F0C0F0D0C0E8
-            D0C0A89060483000FF007F7F7F939393ECECECE7E7E7E3E3E3E7E7E7A1A1A170
-            70709E9E9EF4F4F4F3F3F3E1E1E1DCDCDCA3A3A343434300FF00968575E0D0B0
-            FFFFE0FFFFE0FFFFD0FFF0C0F0D8B0605040E0D8C0E0C8B0D0B0A0D0A890C0E8
-            D0C0A89060483000FF00818181C8C8C8F5F5F5F5F5F5F0F0F0E3E3E3CECECE4C
-            4C4CD1D1D1C3C3C3AEAEAEA4A4A4DCDCDCA3A3A343434300FF00BCA997E0D0B0
-            FFFFF0FFFFF0FFFFE0FFF8C0F0D8A0705850FFFFFFFFFFFFFFFFFFE0F8F0D0F0
-            E0C0A8A060483000FF00A5A5A5C8C8C8FAFAFAFAFAFAF5F5F5E7E7E7C9C9C958
-            5858FFFFFFFFFFFFFFFFFFF3F3F3E8E8E8A8A8A843434300FF00D5C0ADC0A8A0
-            FFFFFFFFFFFFFFFFE0FFFFD0C0B080908070F0E0D0E0C8B0D0B0A0D0A890E0F8
-            F0C0A8A060483000FF00BCBCBCA8A8A8FFFFFFFFFFFFF5F5F5F0F0F0A3A3A37C
-            7C7CDCDCDCC3C3C3AEAEAEA4A4A4F3F3F3A8A8A843434300FF0000FF00B4ABA2
-            C0B0B0F0E8D0F0E8C0C0B090807860D0D0D0FFFFFFFFFFFFFFFFFFFFFFFFF0F8
-            F0C0B0A060483000FF0000FF00A9A9A9B1B1B1E1E1E1DCDCDCA8A8A8717171D0
-            D0D0FFFFFFFFFFFFFFFFFFFFFFFFF4F4F4ACACAC43434300FF0000FF0000FF00
-            C0B0A0B0A090A09080B0A0A0B0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFC0B0A060483000FF0000FF0000FF00ACACAC9C9C9C8C8C8CA1A1A1A6A6A6FF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFACACAC43434300FF0000FF0000FF00
-            F0A890F0A890F0A890F0A880F0A080E09870E09060E08850E08050E07040E070
-            40E07040D0603000FF0000FF0000FF00A8A8A8A8A8A8A8A8A8A3A3A39E9E9E93
-            93938989898080807B7B7B6C6C6C6C6C6C6C6C6C5C5C5C00FF0000FF0000FF00
-            F0A890FFC0A0FFC0A0FFC0A0FFB890FFB890FFB090FFA880FFA880F0A070F098
-            70F09860D0683000FF0000FF0000FF00A8A8A8BCBCBCBCBCBCBCBCBCB3B3B3B3
-            B3B3AEAEAEA4A4A4A4A4A499999994949490909061616100FF0000FF0000FF00
-            F0A890F0A890F0A890F0A890F0A880F0A080F09870E09870E09060E08050E078
-            40E07840E0704000FF0000FF0000FF00A8A8A8A8A8A8A8A8A8A8A8A8A3A3A39E
-            9E9E9494949393938989897B7B7B7171717171716C6C6C00FF0000FF0000FF00
-            00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-            0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-            FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-          NumGlyphs = 2
-        end
-      end
-      object TabSheet2: TTabSheet
-        Caption = 'Geral'
-        ImageIndex = 1
-        object GroupBox3: TGroupBox
-          Left = 0
-          Top = 0
-          Width = 272
-          Height = 449
-          Align = alTop
-          Caption = 'Geral'
-          TabOrder = 0
-          DesignSize = (
-            272
-            449)
-          object lbltLogoMarca: TLabel
-            Left = 8
-            Top = 296
-            Width = 55
-            Height = 13
-            Anchors = [akLeft, akBottom]
-            Caption = 'Logo Marca'
-          end
-          object sbtnLogoMarca: TSpeedButton
-            Left = 241
-            Top = 308
-            Width = 23
-            Height = 24
-            Anchors = [akLeft, akBottom]
-            Glyph.Data = {
-              76010000424D7601000000000000760000002800000020000000100000000100
-              04000000000000010000130B0000130B00001000000000000000000000000000
-              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-              3BB33773333773333773B333333B3333333B7333333733333337}
-            NumGlyphs = 2
-            OnClick = sbtnLogoMarcaClick
-          end
-          object sbtnPathSalvar: TSpeedButton
-            Left = 241
-            Top = 372
-            Width = 23
-            Height = 24
-            Anchors = [akLeft, akBottom]
-            Glyph.Data = {
-              76010000424D7601000000000000760000002800000020000000100000000100
-              04000000000000010000130B0000130B00001000000000000000000000000000
-              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-              3BB33773333773333773B333333B3333333B7333333733333337}
-            NumGlyphs = 2
-            OnClick = sbtnPathSalvarClick
-          end
-          object lblPathSchemas: TLabel
-            Left = 8
-            Top = 399
-            Width = 198
-            Height = 13
-            Anchors = [akLeft, akBottom]
-            Caption = 'Diret'#243'rios com os arquivos XSD(Schemas)'
-            FocusControl = edPathSchemas
-          end
-          object spPathSchemas: TSpeedButton
-            Left = 241
-            Top = 412
-            Width = 23
-            Height = 24
-            Anchors = [akLeft, akBottom]
-            Glyph.Data = {
-              76010000424D7601000000000000760000002800000020000000100000000100
-              04000000000000010000130B0000130B00001000000000000000000000000000
-              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-              3BB33773333773333773B333333B3333333B7333333733333337}
-            NumGlyphs = 2
-            OnClick = spPathSchemasClick
-          end
-          object lblFormaEmissao: TLabel
-            Left = 8
-            Top = 72
-            Width = 86
-            Height = 13
-            Caption = 'Forma de Emiss'#227'o'
-            FocusControl = cbFormaEmissao
-          end
-          object lblVersaoDF: TLabel
-            Left = 8
-            Top = 117
-            Width = 134
-            Height = 13
-            Caption = 'Vers'#227'o do Documento Fiscal'
-            FocusControl = cbVersaoDF
-          end
-          object lblIdToken: TLabel
-            Left = 8
-            Top = 163
-            Width = 85
-            Height = 13
-            Caption = 'Id Token / Id CSC'
-            Enabled = False
-            FocusControl = edIdToken
-          end
-          object lblToken: TLabel
-            Left = 8
-            Top = 201
-            Width = 249
-            Height = 13
-            Caption = 'Token / CSC (C'#243'digo de Seguran'#231'a do Contribuinte)'
-            Enabled = False
-            FocusControl = edToken
-          end
-          object edtLogoMarca: TEdit
-            Left = 8
-            Top = 312
-            Width = 232
-            Height = 21
-            Anchors = [akLeft, akBottom]
-            TabOrder = 6
-          end
-          object edPathLogs: TEdit
-            Left = 8
-            Top = 376
-            Width = 232
-            Height = 21
-            Anchors = [akLeft, akBottom]
-            TabOrder = 9
-          end
-          object ckSalvar: TCheckBox
-            Left = 8
-            Top = 360
-            Width = 249
-            Height = 15
-            Anchors = [akLeft, akBottom]
-            Caption = 'Salvar Arquivos de Envio e Resposta'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 8
-          end
-          object rgTipoDanfe: TRadioGroup
-            Left = 7
-            Top = 19
-            Width = 256
-            Height = 49
-            Caption = 'DANFE'
-            Columns = 2
-            ItemIndex = 0
-            Items.Strings = (
-              'Retrato'
-              'Paisagem')
-            TabOrder = 0
-          end
-          object edPathSchemas: TEdit
-            Left = 8
-            Top = 415
-            Width = 232
-            Height = 21
-            Anchors = [akLeft, akBottom]
-            TabOrder = 10
-          end
-          object cbFormaEmissao: TComboBox
-            Left = 8
-            Top = 88
-            Width = 256
-            Height = 21
-            Style = csDropDownList
-            ItemHeight = 13
-            TabOrder = 1
-          end
-          object cbVersaoDF: TComboBox
-            Left = 8
-            Top = 133
-            Width = 256
-            Height = 21
-            Style = csDropDownList
-            ItemHeight = 13
-            TabOrder = 2
-          end
-          object ckRetirarAcentos: TCheckBox
-            Left = 8
-            Top = 336
-            Width = 193
-            Height = 17
-            Anchors = [akLeft, akBottom]
-            Caption = 'Retirar Acentos dos XMLs enviados'
-            Enabled = False
-            TabOrder = 7
-          end
-          object edIdToken: TEdit
-            Left = 8
-            Top = 179
-            Width = 256
-            Height = 21
-            Enabled = False
-            TabOrder = 3
-          end
-          object edToken: TEdit
-            Left = 8
-            Top = 217
-            Width = 256
-            Height = 21
-            Enabled = False
-            TabOrder = 4
-          end
-          object ckEmitirNFCe: TCheckBox
-            Left = 8
-            Top = 240
-            Width = 233
-            Height = 17
-            Anchors = [akLeft, akBottom]
-            Caption = 'Esta esta'#231#227'o emite e imprime NFC-e '
-            Enabled = False
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 5
-          end
-        end
-        object rgModoGerarNFe: TRadioGroup
-          Left = 0
-          Top = 449
-          Width = 272
-          Height = 49
-          Align = alTop
-          Caption = 'Modo de Gerar a NF-e'
-          Columns = 2
-          Enabled = False
-          ItemIndex = 1
-          Items.Strings = (
-            'Off Line'
-            'On Line')
-          TabOrder = 1
-        end
-      end
-      object TabSheet3: TTabSheet
-        Caption = 'WebService'
-        ImageIndex = 2
-        object GroupBox4: TGroupBox
-          Left = 0
-          Top = 0
-          Width = 272
-          Height = 153
-          Align = alTop
-          Caption = 'WebService'
-          TabOrder = 0
-          DesignSize = (
-            272
-            153)
-          object lblUF: TLabel
-            Left = 8
-            Top = 16
-            Width = 121
-            Height = 13
-            Caption = 'Selecione UF de Destino:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-          end
-          object ckVisualizar: TCheckBox
-            Left = 8
-            Top = 126
-            Width = 153
-            Height = 17
-            Anchors = [akLeft, akBottom]
-            Caption = 'Visualizar Mensagem'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-          end
-          object cbUF: TComboBox
-            Left = 8
-            Top = 32
-            Width = 249
-            Height = 24
-            Style = csDropDownList
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -13
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ItemHeight = 16
-            ItemIndex = 24
-            ParentFont = False
-            TabOrder = 1
-            Text = 'SP'
-            Items.Strings = (
-              'AC'
-              'AL'
-              'AP'
-              'AM'
-              'BA'
-              'CE'
-              'DF'
-              'ES'
-              'GO'
-              'MA'
-              'MT'
-              'MS'
-              'MG'
-              'PA'
-              'PB'
-              'PR'
-              'PE'
-              'PI'
-              'RJ'
-              'RN'
-              'RS'
-              'RO'
-              'RR'
-              'SC'
-              'SP'
-              'SE'
-              'TO')
-          end
-          object rgTipoAmb: TRadioGroup
-            Left = 8
-            Top = 61
-            Width = 249
-            Height = 52
-            Caption = 'Selecione o Ambiente de Destino'
-            Columns = 2
-            ItemIndex = 0
-            Items.Strings = (
-              'Produ'#231#227'o'
-              'Homologa'#231#227'o')
-            TabOrder = 2
-          end
-        end
-        object gbProxy: TGroupBox
-          Left = 0
-          Top = 153
-          Width = 272
-          Height = 105
-          Align = alTop
-          Caption = 'Proxy'
-          TabOrder = 1
-          object lbltProxyHost: TLabel
-            Left = 8
-            Top = 16
-            Width = 22
-            Height = 13
-            Caption = 'Host'
-          end
-          object lbltProxyPorta: TLabel
-            Left = 208
-            Top = 16
-            Width = 26
-            Height = 13
-            Caption = 'Porta'
-          end
-          object lbltProxyUser: TLabel
-            Left = 8
-            Top = 56
-            Width = 36
-            Height = 13
-            Caption = 'Usu'#225'rio'
-          end
-          object lbltProxySenha: TLabel
-            Left = 138
-            Top = 56
-            Width = 30
-            Height = 13
-            Caption = 'Senha'
-          end
-          object edtProxyHost: TEdit
-            Left = 8
-            Top = 32
-            Width = 193
-            Height = 21
-            TabOrder = 0
-          end
-          object edtProxyPorta: TEdit
-            Left = 208
-            Top = 32
-            Width = 50
-            Height = 21
-            TabOrder = 1
-          end
-          object edtProxyUser: TEdit
-            Left = 8
-            Top = 72
-            Width = 123
-            Height = 21
-            TabOrder = 2
-          end
-          object edtProxySenha: TEdit
-            Left = 135
-            Top = 72
-            Width = 123
-            Height = 21
-            PasswordChar = '*'
-            TabOrder = 3
-          end
-        end
-        object WBResposta: TWebBrowser
-          Left = 0
-          Top = 465
-          Width = 272
-          Height = 35
-          Align = alBottom
-          TabOrder = 2
-          ControlData = {
-            4C0000001D1C00009E0300000000000000000000000000000000000000000000
-            000000004C000000000000000000000001000000E0D057007335CF11AE690800
-            2B2E126208000000000000004C0000000114020000000000C000000000000046
-            8000000000000000000000000000000000000000000000000000000000000000
-            00000000000000000100000000000000000000000000000000000000}
-        end
-      end
-      object TabSheet4: TTabSheet
-        Caption = 'Emitente'
-        ImageIndex = 3
-        object lbltEmitCNPJ: TLabel
-          Left = 8
-          Top = 4
-          Width = 25
-          Height = 13
-          Caption = 'CNPJ'
-        end
-        object lbltEmitIE: TLabel
-          Left = 136
-          Top = 4
-          Width = 43
-          Height = 13
-          Caption = 'Insc.Est.'
-        end
-        object lbltEmitRazao: TLabel
-          Left = 8
-          Top = 44
-          Width = 60
-          Height = 13
-          Caption = 'Raz'#227'o Social'
-        end
-        object lbltEmitFantasia: TLabel
-          Left = 8
-          Top = 84
-          Width = 41
-          Height = 13
-          Caption = 'Fantasia'
-        end
-        object lbltEmitLogradouro: TLabel
-          Left = 8
-          Top = 164
-          Width = 55
-          Height = 13
-          Caption = 'Logradouro'
-        end
-        object lbltEmitNumero: TLabel
-          Left = 208
-          Top = 164
-          Width = 37
-          Height = 13
-          Caption = 'N'#250'mero'
-        end
-        object lbltEmitComp: TLabel
-          Left = 8
-          Top = 204
-          Width = 65
-          Height = 13
-          Caption = 'Complemento'
-        end
-        object lbltEmitBairro: TLabel
-          Left = 136
-          Top = 204
-          Width = 28
-          Height = 13
-          Caption = 'Bairro'
-        end
-        object lbltEmitCodCidade: TLabel
-          Left = 8
-          Top = 244
-          Width = 62
-          Height = 13
-          Caption = 'C'#243'd. Cidade '
-        end
-        object lbltEmitCidade: TLabel
-          Left = 76
-          Top = 244
-          Width = 33
-          Height = 13
-          Caption = 'Cidade'
-        end
-        object lbltEmitUF: TLabel
-          Left = 225
-          Top = 244
-          Width = 13
-          Height = 13
-          Caption = 'UF'
-        end
-        object lbltEmitCEP: TLabel
-          Left = 136
-          Top = 124
-          Width = 19
-          Height = 13
-          Caption = 'CEP'
-        end
-        object lbltEmitFone: TLabel
-          Left = 8
-          Top = 124
-          Width = 24
-          Height = 13
-          Caption = 'Fone'
-        end
-        object lblInfoFisco: TLabel
-          Left = 8
-          Top = 284
-          Width = 101
-          Height = 13
-          Caption = 'Informa'#231#227'o ao Fisco:'
-        end
-        object edtEmitCNPJ: TEdit
-          Left = 8
-          Top = 20
-          Width = 123
-          Height = 21
-          TabOrder = 0
-        end
-        object edtEmitIE: TEdit
-          Left = 137
-          Top = 20
-          Width = 123
-          Height = 21
-          TabOrder = 1
-        end
-        object edtEmitRazao: TEdit
-          Left = 8
-          Top = 60
-          Width = 252
-          Height = 21
-          TabOrder = 2
-        end
-        object edtEmitFantasia: TEdit
-          Left = 8
-          Top = 100
-          Width = 252
-          Height = 21
-          TabOrder = 3
-        end
-        object edtEmitFone: TEdit
-          Left = 8
-          Top = 140
-          Width = 125
-          Height = 21
-          TabOrder = 4
-        end
-        object edtEmitCEP: TEdit
-          Left = 137
-          Top = 140
-          Width = 123
-          Height = 21
-          TabOrder = 5
-        end
-        object edtEmitLogradouro: TEdit
-          Left = 8
-          Top = 180
-          Width = 196
-          Height = 21
-          TabOrder = 6
-        end
-        object edtEmitNumero: TEdit
-          Left = 210
-          Top = 180
-          Width = 50
-          Height = 21
-          TabOrder = 7
-        end
-        object edtEmitComp: TEdit
-          Left = 8
-          Top = 220
-          Width = 123
-          Height = 21
-          TabOrder = 8
-        end
-        object edtEmitBairro: TEdit
-          Left = 137
-          Top = 220
-          Width = 123
-          Height = 21
-          TabOrder = 9
-        end
-        object edtEmitCodCidade: TEdit
-          Left = 8
-          Top = 260
-          Width = 61
-          Height = 21
-          TabOrder = 10
-        end
-        object edtEmitCidade: TEdit
-          Left = 76
-          Top = 260
-          Width = 142
-          Height = 21
-          TabOrder = 11
-        end
-        object edtEmitUF: TEdit
-          Left = 225
-          Top = 260
-          Width = 35
-          Height = 21
-          TabOrder = 12
-        end
-        object edInfoFisco: TEdit
-          Left = 8
-          Top = 300
-          Width = 249
-          Height = 21
-          CharCase = ecUpperCase
-          TabOrder = 13
-          Text = 
-            'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 12' +
-            '3, DE DEZEMBRO DE 2006'
-        end
-      end
-      object TabSheet5: TTabSheet
-        Caption = 'Email'
-        ImageIndex = 4
-        object GroupBox5: TGroupBox
-          Left = 0
-          Top = 0
-          Width = 272
-          Height = 489
-          Align = alTop
-          Caption = 'Email'
-          TabOrder = 0
-          DesignSize = (
-            272
-            489)
-          object lbltSmtpHost: TLabel
-            Left = 8
-            Top = 16
-            Width = 69
-            Height = 13
-            Caption = 'Servidor SMTP'
-          end
-          object lbltSmtpPort: TLabel
-            Left = 206
-            Top = 16
-            Width = 26
-            Height = 13
-            Caption = 'Porta'
-          end
-          object lbltSmtpUser: TLabel
-            Left = 8
-            Top = 56
-            Width = 36
-            Height = 13
-            Caption = 'Usu'#225'rio'
-          end
-          object lbltSmtpPass: TLabel
-            Left = 137
-            Top = 56
-            Width = 30
-            Height = 13
-            Caption = 'Senha'
-          end
-          object lbltEmailAssunto: TLabel
-            Left = 8
-            Top = 96
-            Width = 122
-            Height = 13
-            Caption = 'Assunto do email enviado'
-          end
-          object lblEmailMsg: TLabel
-            Left = 8
-            Top = 168
-            Width = 93
-            Height = 13
-            Caption = 'Mensagem do Email'
-          end
-          object edtSmtpHost: TEdit
-            Left = 8
-            Top = 32
-            Width = 193
-            Height = 21
-            TabOrder = 0
-          end
-          object edtSmtpPort: TEdit
-            Left = 206
-            Top = 32
-            Width = 51
-            Height = 21
-            TabOrder = 1
-          end
-          object edtSmtpUser: TEdit
-            Left = 8
-            Top = 72
-            Width = 120
-            Height = 21
-            TabOrder = 2
-          end
-          object edtSmtpPass: TEdit
-            Left = 137
-            Top = 72
-            Width = 120
-            Height = 21
-            PasswordChar = '*'
-            TabOrder = 3
-          end
-          object edtEmailAssunto: TEdit
-            Left = 8
-            Top = 112
-            Width = 249
-            Height = 21
-            TabOrder = 4
-          end
-          object cbEmailSSL: TCheckBox
-            Left = 10
-            Top = 144
-            Width = 167
-            Height = 17
-            Caption = 'SMTP exige conex'#227'o segura'
-            TabOrder = 5
-          end
-          object mmEmailMsg: TMemo
-            Left = 8
-            Top = 184
-            Width = 249
-            Height = 295
-            Anchors = [akLeft, akTop, akBottom]
-            TabOrder = 6
-          end
-        end
-      end
-    end
+    ExplicitTop = 581
   end
   object btnServico: TcxButton
     Left = 1
-    Top = 550
+    Top = 545
     Width = 83
     Height = 33
     Hint = 'Verificar Status do Servi'#231'o'
     Anchors = [akLeft, akBottom]
     Caption = 'Servi'#231'o'
-    TabOrder = 3
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       18000000000000060000000000000000000000000000000000000000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
@@ -1021,18 +82,17 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
   end
   object btnSalvar: TcxButton
-    Left = 113
-    Top = 550
+    Left = 212
+    Top = 545
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = 'Salvar'
-    TabOrder = 0
-    OnClick = btnSalvarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       18000000000000060000000000000000000000000000000000000000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
@@ -1083,19 +143,19 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 0
+    OnClick = btnSalvarClick
   end
   object btnCancelar: TcxButton
-    Left = 201
-    Top = 550
+    Left = 300
+    Top = 545
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancelar'
-    TabOrder = 1
-    OnClick = btnCancelarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -1146,7 +206,1369 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       00FF00E0C0B0E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0BEAA00FF
       0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 1
+    OnClick = btnCancelarClick
+  end
+  object pgcGuiasGerais: TPageControl
+    Left = 0
+    Top = 0
+    Width = 383
+    Height = 542
+    ActivePage = TbsConfiguracoes
+    Align = alClient
+    TabOrder = 3
+    object TbsConfiguracoes: TTabSheet
+      Caption = 'Configura'#231#245'es'
+      object pgcGuiasConfiguracoes: TPageControl
+        Left = 0
+        Top = 0
+        Width = 375
+        Height = 514
+        ActivePage = TbsGeral
+        Align = alClient
+        MultiLine = True
+        TabOrder = 0
+        object TbsGeral: TTabSheet
+          BorderWidth = 4
+          Caption = 'Geral'
+          ImageIndex = 1
+          object GrpBxGeral: TGroupBox
+            Left = 0
+            Top = 0
+            Width = 359
+            Height = 436
+            Align = alClient
+            Caption = 'Geral'
+            TabOrder = 0
+            DesignSize = (
+              359
+              436)
+            object sbtnPathSalvar: TSpeedButton
+              Left = 327
+              Top = 360
+              Width = 23
+              Height = 24
+              Anchors = [akLeft, akBottom]
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+              OnClick = sbtnPathSalvarClick
+              ExplicitTop = 357
+            end
+            object lblPathSchemas: TLabel
+              Left = 8
+              Top = 390
+              Width = 201
+              Height = 13
+              Anchors = [akLeft, akBottom]
+              Caption = 'Diret'#243'rios com os arquivos XSD (Schemas)'
+              FocusControl = edPathSchemas
+              ExplicitTop = 387
+            end
+            object spPathSchemas: TSpeedButton
+              Left = 327
+              Top = 406
+              Width = 23
+              Height = 24
+              Anchors = [akLeft, akBottom]
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+              OnClick = spPathSchemasClick
+              ExplicitTop = 403
+            end
+            object lblFormaEmissao: TLabel
+              Left = 8
+              Top = 112
+              Width = 86
+              Height = 13
+              Caption = 'Forma de Emiss'#227'o'
+              FocusControl = cbFormaEmissao
+            end
+            object lblVersaoDF: TLabel
+              Left = 8
+              Top = 157
+              Width = 134
+              Height = 13
+              Caption = 'Vers'#227'o do Documento Fiscal'
+              FocusControl = cbVersaoDF
+            end
+            object lblIdToken: TLabel
+              Left = 8
+              Top = 203
+              Width = 85
+              Height = 13
+              Caption = 'Id Token / Id CSC'
+              Enabled = False
+              FocusControl = edIdToken
+            end
+            object lblToken: TLabel
+              Left = 8
+              Top = 247
+              Width = 249
+              Height = 13
+              Caption = 'Token / CSC (C'#243'digo de Seguran'#231'a do Contribuinte)'
+              Enabled = False
+              FocusControl = edToken
+            end
+            object lblFormatoAlerta: TLabel
+              Left = 8
+              Top = 66
+              Width = 72
+              Height = 13
+              Caption = 'Formato Alerta'
+              FocusControl = edFormatoAlerta
+            end
+            object edPathLogs: TEdit
+              Left = 8
+              Top = 363
+              Width = 313
+              Height = 21
+              Anchors = [akLeft, akBottom]
+              TabOrder = 10
+            end
+            object ckSalvar: TCheckBox
+              Left = 8
+              Top = 342
+              Width = 249
+              Height = 15
+              Anchors = [akLeft, akBottom]
+              Caption = 'Salvar Arquivos de Envio e Resposta'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 9
+            end
+            object edPathSchemas: TEdit
+              Left = 8
+              Top = 409
+              Width = 313
+              Height = 21
+              Anchors = [akLeft, akBottom]
+              TabOrder = 11
+            end
+            object cbFormaEmissao: TComboBox
+              Left = 8
+              Top = 128
+              Width = 342
+              Height = 21
+              Style = csDropDownList
+              TabOrder = 3
+            end
+            object cbVersaoDF: TComboBox
+              Left = 8
+              Top = 173
+              Width = 342
+              Height = 21
+              Style = csDropDownList
+              TabOrder = 4
+            end
+            object ckRetirarAcentos: TCheckBox
+              Left = 8
+              Top = 318
+              Width = 249
+              Height = 17
+              Anchors = [akLeft, akBottom]
+              Caption = 'Retirar Acentos dos XMLs enviados'
+              Enabled = False
+              TabOrder = 8
+            end
+            object edIdToken: TEdit
+              Left = 8
+              Top = 219
+              Width = 342
+              Height = 21
+              Enabled = False
+              TabOrder = 5
+            end
+            object edToken: TEdit
+              Left = 8
+              Top = 263
+              Width = 342
+              Height = 21
+              Enabled = False
+              TabOrder = 6
+            end
+            object ckEmitirNFCe: TCheckBox
+              Left = 8
+              Top = 295
+              Width = 249
+              Height = 17
+              Anchors = [akLeft, akBottom]
+              Caption = 'Esta esta'#231#227'o emite e imprime NFC-e  pelo PDV'
+              Enabled = False
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 7
+            end
+            object ckAtualizarXML: TCheckBox
+              Left = 8
+              Top = 20
+              Width = 97
+              Height = 17
+              Caption = 'Atualizar XML'
+              TabOrder = 0
+            end
+            object ckExibirErroSchema: TCheckBox
+              Left = 8
+              Top = 43
+              Width = 129
+              Height = 17
+              Caption = 'Exibir Erro Schema'
+              TabOrder = 1
+            end
+            object edFormatoAlerta: TEdit
+              Left = 8
+              Top = 85
+              Width = 342
+              Height = 21
+              Anchors = [akLeft, akTop, akRight]
+              TabOrder = 2
+            end
+          end
+          object rgModoGerarNFe: TRadioGroup
+            Left = 0
+            Top = 436
+            Width = 359
+            Height = 42
+            Align = alBottom
+            Caption = 'Modo de Gerar a NF-e'
+            Columns = 2
+            Enabled = False
+            ItemIndex = 1
+            Items.Strings = (
+              'Off Line'
+              'On Line')
+            TabOrder = 1
+          end
+        end
+        object TbsCertificado: TTabSheet
+          BorderWidth = 4
+          Caption = 'Certificado'
+          object GroupBox2: TGroupBox
+            Left = 0
+            Top = 0
+            Width = 359
+            Height = 177
+            Align = alTop
+            Caption = 'Certificado'
+            TabOrder = 0
+            object lbltCaminho: TLabel
+              Left = 8
+              Top = 16
+              Width = 41
+              Height = 13
+              Caption = 'Caminho'
+            end
+            object lbltSenha: TLabel
+              Left = 8
+              Top = 56
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object sbtnCaminhoCert: TSpeedButton
+              Left = 328
+              Top = 29
+              Width = 23
+              Height = 24
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+              OnClick = sbtnCaminhoCertClick
+            end
+            object lbltNumSerie: TLabel
+              Left = 8
+              Top = 96
+              Width = 79
+              Height = 13
+              Caption = 'N'#250'mero de S'#233'rie'
+            end
+            object sbtnGetCert: TSpeedButton
+              Left = 328
+              Top = 109
+              Width = 23
+              Height = 24
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+            end
+            object edtCaminho: TEdit
+              Left = 8
+              Top = 32
+              Width = 316
+              Height = 21
+              TabOrder = 0
+            end
+            object edtSenha: TEdit
+              Left = 8
+              Top = 72
+              Width = 343
+              Height = 21
+              PasswordChar = '*'
+              TabOrder = 1
+            end
+            object edtNumSerie: TEdit
+              Left = 8
+              Top = 112
+              Width = 316
+              Height = 21
+              TabOrder = 2
+              OnChange = edtNumSerieChange
+            end
+            object btnValidadeCertificado: TcxButton
+              Left = 8
+              Top = 139
+              Width = 83
+              Height = 33
+              Hint = 'Verificar validade do Certificado'
+              Caption = 'Validade'
+              OptionsImage.Glyph.Data = {
+                36060000424D3606000000000000360000002800000020000000100000000100
+                180000000000000600000000000000000000000000000000000000FF0000FF00
+                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+                FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+                00FF0000FF0000FF0000FF0000FF009A8F8C2030405F686900FF0000FF0000FF
+                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF008F
+                8F8F33333367676700FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+                00FF0000FF0000FF0000FF008C8C884050602098C03038405F6D7200FF0000FF
+                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF008A8A8A53
+                53539898983939396D6D6D00FF0000FF0000FF0000FF0000FF0000FF0000FF00
+                E1C0A7D1AC93D5B8A17F828550607020A0D030B8F060A0B05068708068507058
+                4060483060483000FF0000FF0000FF00BBBBBBA8A8A8B4B4B4828282636363A1
+                A1A1BBBBBB9E9E9E68686863636353535343434343434300FF0000FF0000FF00
+                7068606050406050406068604088A040C0F060B0D0708890A09890C0B0A0B0A0
+                90B0A09060483000FF0000FF0000FF006666664C4C4C4C4C4C646464888888C1
+                C1C1B1B1B1888888969696ACACAC9C9C9C9C9C9C43434300FF0000FF00776E65
+                C0A080F0E0A0F0D8A0B0A8906070706098B07088909098A0D0F0E0B0E8D0B0E8
+                C0B0A09060483000FF0000FF006C6C6C999999CECECEC9C9C9A1A1A16E6E6E99
+                9999888888999999E8E8E8DBDBDBD6D6D69C9C9C43434300FF00968372B09880
+                FFFFC0FFF8C0FFF0C0FFF0D0B0A89070707090A0A0F0F8F0E0F8F0C0F0D0C0E8
+                D0C0A89060483000FF007F7F7F939393ECECECE7E7E7E3E3E3E7E7E7A1A1A170
+                70709E9E9EF4F4F4F3F3F3E1E1E1DCDCDCA3A3A343434300FF00968575E0D0B0
+                FFFFE0FFFFE0FFFFD0FFF0C0F0D8B0605040E0D8C0E0C8B0D0B0A0D0A890C0E8
+                D0C0A89060483000FF00818181C8C8C8F5F5F5F5F5F5F0F0F0E3E3E3CECECE4C
+                4C4CD1D1D1C3C3C3AEAEAEA4A4A4DCDCDCA3A3A343434300FF00BCA997E0D0B0
+                FFFFF0FFFFF0FFFFE0FFF8C0F0D8A0705850FFFFFFFFFFFFFFFFFFE0F8F0D0F0
+                E0C0A8A060483000FF00A5A5A5C8C8C8FAFAFAFAFAFAF5F5F5E7E7E7C9C9C958
+                5858FFFFFFFFFFFFFFFFFFF3F3F3E8E8E8A8A8A843434300FF00D5C0ADC0A8A0
+                FFFFFFFFFFFFFFFFE0FFFFD0C0B080908070F0E0D0E0C8B0D0B0A0D0A890E0F8
+                F0C0A8A060483000FF00BCBCBCA8A8A8FFFFFFFFFFFFF5F5F5F0F0F0A3A3A37C
+                7C7CDCDCDCC3C3C3AEAEAEA4A4A4F3F3F3A8A8A843434300FF0000FF00B4ABA2
+                C0B0B0F0E8D0F0E8C0C0B090807860D0D0D0FFFFFFFFFFFFFFFFFFFFFFFFF0F8
+                F0C0B0A060483000FF0000FF00A9A9A9B1B1B1E1E1E1DCDCDCA8A8A8717171D0
+                D0D0FFFFFFFFFFFFFFFFFFFFFFFFF4F4F4ACACAC43434300FF0000FF0000FF00
+                C0B0A0B0A090A09080B0A0A0B0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFC0B0A060483000FF0000FF0000FF00ACACAC9C9C9C8C8C8CA1A1A1A6A6A6FF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFACACAC43434300FF0000FF0000FF00
+                F0A890F0A890F0A890F0A880F0A080E09870E09060E08850E08050E07040E070
+                40E07040D0603000FF0000FF0000FF00A8A8A8A8A8A8A8A8A8A3A3A39E9E9E93
+                93938989898080807B7B7B6C6C6C6C6C6C6C6C6C5C5C5C00FF0000FF0000FF00
+                F0A890FFC0A0FFC0A0FFC0A0FFB890FFB890FFB090FFA880FFA880F0A070F098
+                70F09860D0683000FF0000FF0000FF00A8A8A8BCBCBCBCBCBCBCBCBCB3B3B3B3
+                B3B3AEAEAEA4A4A4A4A4A499999994949490909061616100FF0000FF0000FF00
+                F0A890F0A890F0A890F0A890F0A880F0A080F09870E09870E09060E08050E078
+                40E07840E0704000FF0000FF0000FF00A8A8A8A8A8A8A8A8A8A8A8A8A3A3A39E
+                9E9E9494949393938989897B7B7B7171717171716C6C6C00FF0000FF0000FF00
+                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+                FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
+              OptionsImage.NumGlyphs = 2
+              TabOrder = 3
+              OnClick = btnValidadeCertificadoClick
+            end
+          end
+        end
+        object TbsWebService: TTabSheet
+          BorderWidth = 4
+          Caption = 'WebService'
+          ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object GrpBxWebService: TGroupBox
+            Left = 0
+            Top = 0
+            Width = 359
+            Height = 169
+            Align = alTop
+            Caption = 'WebService'
+            TabOrder = 0
+            object lblUF: TLabel
+              Left = 8
+              Top = 16
+              Width = 121
+              Height = 13
+              Caption = 'Selecione UF de Destino:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+            end
+            object ckVisualizar: TCheckBox
+              Left = 8
+              Top = 119
+              Width = 153
+              Height = 17
+              Caption = 'Visualizar Mensagem'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object cbUF: TComboBox
+              Left = 8
+              Top = 32
+              Width = 342
+              Height = 24
+              Style = csDropDownList
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -13
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ItemIndex = 24
+              ParentFont = False
+              TabOrder = 1
+              Text = 'SP'
+              Items.Strings = (
+                'AC'
+                'AL'
+                'AP'
+                'AM'
+                'BA'
+                'CE'
+                'DF'
+                'ES'
+                'GO'
+                'MA'
+                'MT'
+                'MS'
+                'MG'
+                'PA'
+                'PB'
+                'PR'
+                'PE'
+                'PI'
+                'RJ'
+                'RN'
+                'RS'
+                'RO'
+                'RR'
+                'SC'
+                'SP'
+                'SE'
+                'TO')
+            end
+            object rgTipoAmb: TRadioGroup
+              Left = 8
+              Top = 61
+              Width = 342
+              Height = 52
+              Caption = 'Selecione o Ambiente de Destino'
+              Columns = 2
+              ItemIndex = 0
+              Items.Strings = (
+                'Produ'#231#227'o'
+                'Homologa'#231#227'o')
+              TabOrder = 2
+            end
+            object ckSalvarSOAP: TCheckBox
+              Left = 8
+              Top = 142
+              Width = 153
+              Height = 17
+              Caption = 'Salvar envelope SOAP'
+              TabOrder = 3
+            end
+          end
+          object GrpBxProxy: TGroupBox
+            Left = 0
+            Top = 257
+            Width = 359
+            Height = 105
+            Align = alTop
+            Caption = 'Proxy'
+            TabOrder = 2
+            object lbltProxyHost: TLabel
+              Left = 8
+              Top = 16
+              Width = 22
+              Height = 13
+              Caption = 'Host'
+            end
+            object lbltProxyPorta: TLabel
+              Left = 293
+              Top = 16
+              Width = 26
+              Height = 13
+              Caption = 'Porta'
+            end
+            object lbltProxyUser: TLabel
+              Left = 8
+              Top = 56
+              Width = 36
+              Height = 13
+              Caption = 'Usu'#225'rio'
+            end
+            object lbltProxySenha: TLabel
+              Left = 205
+              Top = 56
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object edtProxyHost: TEdit
+              Left = 8
+              Top = 32
+              Width = 279
+              Height = 21
+              TabOrder = 0
+            end
+            object edtProxyPorta: TEdit
+              Left = 293
+              Top = 32
+              Width = 57
+              Height = 21
+              TabOrder = 1
+            end
+            object edtProxyUser: TEdit
+              Left = 8
+              Top = 72
+              Width = 188
+              Height = 21
+              TabOrder = 2
+            end
+            object edtProxySenha: TEdit
+              Left = 202
+              Top = 72
+              Width = 148
+              Height = 21
+              PasswordChar = '*'
+              TabOrder = 3
+            end
+          end
+          object WBResposta: TWebBrowser
+            Left = 0
+            Top = 443
+            Width = 359
+            Height = 35
+            Align = alBottom
+            TabOrder = 3
+            ExplicitTop = 437
+            ExplicitWidth = 363
+            ControlData = {
+              4C0000001B2500009E0300000000000000000000000000000000000000000000
+              000000004C000000000000000000000001000000E0D057007335CF11AE690800
+              2B2E126208000000000000004C0000000114020000000000C000000000000046
+              8000000000000000000000000000000000000000000000000000000000000000
+              00000000000000000100000000000000000000000000000000000000}
+          end
+          object GrpBxRetornoEnvio: TGroupBox
+            Left = 0
+            Top = 169
+            Width = 359
+            Height = 88
+            Align = alTop
+            Caption = 'Retorno de Envio de NFe'
+            TabOrder = 1
+            object lblTentativas: TLabel
+              Left = 102
+              Top = 43
+              Width = 51
+              Height = 13
+              Caption = 'Tentativas'
+              FocusControl = edTentativas
+            end
+            object lblIntervalo: TLabel
+              Left = 193
+              Top = 43
+              Width = 44
+              Height = 13
+              Caption = 'Intervalo'
+              FocusControl = edIntervalo
+            end
+            object lblAguardar: TLabel
+              Left = 8
+              Top = 43
+              Width = 45
+              Height = 13
+              Hint = 
+                'Aguardar quantos segundos para primeira consulta de retorno de e' +
+                'nvio'
+              Caption = 'Aguardar'
+              FocusControl = edAguardar
+            end
+            object ckAjustarAut: TCheckBox
+              Left = 8
+              Top = 20
+              Width = 311
+              Height = 17
+              Caption = 'Ajustar Automaticamente a propriedade "Aguardar"'
+              TabOrder = 0
+            end
+            object edTentativas: TEdit
+              Left = 102
+              Top = 59
+              Width = 85
+              Height = 21
+              TabOrder = 2
+            end
+            object edIntervalo: TEdit
+              Left = 193
+              Top = 59
+              Width = 85
+              Height = 21
+              TabOrder = 3
+            end
+            object edAguardar: TEdit
+              Left = 8
+              Top = 59
+              Width = 85
+              Height = 21
+              Hint = 
+                'Aguardar quantos segundos para primeira consulta de retorno de e' +
+                'nvio'
+              TabOrder = 1
+            end
+          end
+        end
+        object TbsEmitente: TTabSheet
+          Caption = 'Emitente'
+          ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object lbltEmitCNPJ: TLabel
+            Left = 8
+            Top = 4
+            Width = 25
+            Height = 13
+            Caption = 'CNPJ'
+          end
+          object lbltEmitIE: TLabel
+            Left = 136
+            Top = 4
+            Width = 43
+            Height = 13
+            Caption = 'Insc.Est.'
+          end
+          object lbltEmitRazao: TLabel
+            Left = 8
+            Top = 44
+            Width = 60
+            Height = 13
+            Caption = 'Raz'#227'o Social'
+          end
+          object lbltEmitFantasia: TLabel
+            Left = 8
+            Top = 84
+            Width = 41
+            Height = 13
+            Caption = 'Fantasia'
+          end
+          object lbltEmitLogradouro: TLabel
+            Left = 8
+            Top = 164
+            Width = 55
+            Height = 13
+            Caption = 'Logradouro'
+          end
+          object lbltEmitNumero: TLabel
+            Left = 308
+            Top = 164
+            Width = 37
+            Height = 13
+            Caption = 'N'#250'mero'
+          end
+          object lbltEmitComp: TLabel
+            Left = 8
+            Top = 204
+            Width = 65
+            Height = 13
+            Caption = 'Complemento'
+          end
+          object lbltEmitBairro: TLabel
+            Left = 136
+            Top = 204
+            Width = 28
+            Height = 13
+            Caption = 'Bairro'
+          end
+          object lbltEmitCodCidade: TLabel
+            Left = 8
+            Top = 244
+            Width = 62
+            Height = 13
+            Caption = 'C'#243'd. Cidade '
+          end
+          object lbltEmitCidade: TLabel
+            Left = 76
+            Top = 244
+            Width = 33
+            Height = 13
+            Caption = 'Cidade'
+          end
+          object lbltEmitUF: TLabel
+            Left = 323
+            Top = 244
+            Width = 13
+            Height = 13
+            Caption = 'UF'
+          end
+          object lbltEmitCEP: TLabel
+            Left = 235
+            Top = 124
+            Width = 19
+            Height = 13
+            Caption = 'CEP'
+          end
+          object lbltEmitFone: TLabel
+            Left = 8
+            Top = 124
+            Width = 24
+            Height = 13
+            Caption = 'Fone'
+          end
+          object lblInfoFisco: TLabel
+            Left = 8
+            Top = 284
+            Width = 101
+            Height = 13
+            Caption = 'Informa'#231#227'o ao Fisco:'
+          end
+          object edtEmitCNPJ: TEdit
+            Left = 8
+            Top = 20
+            Width = 123
+            Height = 21
+            TabOrder = 0
+          end
+          object edtEmitIE: TEdit
+            Left = 137
+            Top = 20
+            Width = 123
+            Height = 21
+            TabOrder = 1
+          end
+          object edtEmitRazao: TEdit
+            Left = 8
+            Top = 60
+            Width = 350
+            Height = 21
+            TabOrder = 2
+          end
+          object edtEmitFantasia: TEdit
+            Left = 8
+            Top = 100
+            Width = 350
+            Height = 21
+            TabOrder = 3
+          end
+          object edtEmitFone: TEdit
+            Left = 8
+            Top = 140
+            Width = 221
+            Height = 21
+            TabOrder = 4
+          end
+          object edtEmitCEP: TEdit
+            Left = 235
+            Top = 140
+            Width = 123
+            Height = 21
+            TabOrder = 5
+          end
+          object edtEmitLogradouro: TEdit
+            Left = 8
+            Top = 180
+            Width = 294
+            Height = 21
+            TabOrder = 6
+          end
+          object edtEmitNumero: TEdit
+            Left = 308
+            Top = 180
+            Width = 50
+            Height = 21
+            TabOrder = 7
+          end
+          object edtEmitComp: TEdit
+            Left = 8
+            Top = 220
+            Width = 123
+            Height = 21
+            TabOrder = 8
+          end
+          object edtEmitBairro: TEdit
+            Left = 137
+            Top = 220
+            Width = 221
+            Height = 21
+            TabOrder = 9
+          end
+          object edtEmitCodCidade: TEdit
+            Left = 8
+            Top = 260
+            Width = 61
+            Height = 21
+            TabOrder = 10
+          end
+          object edtEmitCidade: TEdit
+            Left = 76
+            Top = 260
+            Width = 241
+            Height = 21
+            TabOrder = 11
+          end
+          object edtEmitUF: TEdit
+            Left = 323
+            Top = 260
+            Width = 35
+            Height = 21
+            TabOrder = 12
+          end
+          object edInfoFisco: TEdit
+            Left = 8
+            Top = 303
+            Width = 350
+            Height = 21
+            CharCase = ecUpperCase
+            TabOrder = 13
+            Text = 
+              'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 12' +
+              '3, DE DEZEMBRO DE 2006'
+          end
+        end
+        object TbsArquivos: TTabSheet
+          Caption = 'Arquivos'
+          ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object lblPathNFe: TLabel
+            Left = 16
+            Top = 180
+            Width = 94
+            Height = 13
+            Caption = 'Pasta Arquivos NFe'
+            FocusControl = edPathNFe
+          end
+          object sbPathNFe: TSpeedButton
+            Left = 330
+            Top = 193
+            Width = 23
+            Height = 24
+            Enabled = False
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = sbPathNFeClick
+          end
+          object lblPathCan: TLabel
+            Left = 16
+            Top = 223
+            Width = 143
+            Height = 13
+            Caption = 'Pasta Arquivos Cancelamento'
+            FocusControl = edPathCan
+          end
+          object sbPathCan: TSpeedButton
+            Left = 330
+            Top = 236
+            Width = 23
+            Height = 24
+            Enabled = False
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = sbPathCanClick
+          end
+          object lblPathCCe: TLabel
+            Left = 16
+            Top = 266
+            Width = 198
+            Height = 13
+            Caption = 'Pasta Arquivos CC-e - Carta de Corre'#231#227'o'
+            FocusControl = edPathCCe
+          end
+          object sbPathCCe: TSpeedButton
+            Left = 330
+            Top = 279
+            Width = 23
+            Height = 24
+            Enabled = False
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = sbPathCCeClick
+          end
+          object lblPathInu: TLabel
+            Left = 16
+            Top = 309
+            Width = 129
+            Height = 13
+            Caption = 'Pasta Arquivos Inutiliza'#231#227'o'
+            FocusControl = edPathInu
+          end
+          object sbPathInu: TSpeedButton
+            Left = 330
+            Top = 322
+            Width = 23
+            Height = 24
+            Enabled = False
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = sbPathInuClick
+          end
+          object lblPathDPEC: TLabel
+            Left = 16
+            Top = 352
+            Width = 101
+            Height = 13
+            Caption = 'Pasta Arquivos DPEC'
+            FocusControl = edPathDPEC
+          end
+          object sbPathDPEC: TSpeedButton
+            Left = 330
+            Top = 365
+            Width = 23
+            Height = 24
+            Enabled = False
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = sbPathDPECClick
+          end
+          object lblPathEvento: TLabel
+            Left = 16
+            Top = 395
+            Width = 109
+            Height = 13
+            Caption = 'Pasta Arquivos Evento'
+            FocusControl = edPathEvento
+          end
+          object sbPathEvento: TSpeedButton
+            Left = 330
+            Top = 408
+            Width = 23
+            Height = 24
+            Enabled = False
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = sbPathEventoClick
+          end
+          object ckSalvarArqs: TCheckBox
+            Left = 16
+            Top = 11
+            Width = 337
+            Height = 17
+            Caption = 'Salvar Arquivos em Pastas Separadas'
+            TabOrder = 0
+          end
+          object ckPastaMensal: TCheckBox
+            Left = 16
+            Top = 34
+            Width = 337
+            Height = 17
+            Caption = 'Criar Pastas Mensalmente'
+            TabOrder = 1
+          end
+          object ckAdicionaLiteral: TCheckBox
+            Left = 16
+            Top = 57
+            Width = 337
+            Height = 17
+            Caption = 'Adicionar Literal no nome das pastas'
+            TabOrder = 2
+          end
+          object ckEmissaoPathNFe: TCheckBox
+            Left = 16
+            Top = 80
+            Width = 337
+            Height = 17
+            Caption = 'Salvar NFe pelo campo Data de Emiss'#227'o'
+            TabOrder = 3
+          end
+          object ckSalvaCCeCancelamentoPathEvento: TCheckBox
+            Left = 16
+            Top = 103
+            Width = 337
+            Height = 17
+            Caption = 'Salvar arquivos Canc./CCe na pasta Eventos'
+            TabOrder = 4
+          end
+          object ckSepararPorCNPJ: TCheckBox
+            Left = 16
+            Top = 126
+            Width = 337
+            Height = 17
+            Caption = 'Separar arquivos pelo CNPJ do Certificado'
+            TabOrder = 5
+          end
+          object ckSepararPorModelo: TCheckBox
+            Left = 16
+            Top = 149
+            Width = 337
+            Height = 17
+            Caption = 'Separar Arqs pelo Modelo do Documento'
+            TabOrder = 6
+          end
+          object edPathNFe: TEdit
+            Left = 16
+            Top = 196
+            Width = 308
+            Height = 21
+            ReadOnly = True
+            TabOrder = 7
+          end
+          object edPathCan: TEdit
+            Left = 16
+            Top = 239
+            Width = 308
+            Height = 21
+            ReadOnly = True
+            TabOrder = 8
+          end
+          object edPathCCe: TEdit
+            Left = 16
+            Top = 282
+            Width = 308
+            Height = 21
+            ReadOnly = True
+            TabOrder = 9
+          end
+          object edPathInu: TEdit
+            Left = 16
+            Top = 325
+            Width = 308
+            Height = 21
+            ReadOnly = True
+            TabOrder = 10
+          end
+          object edPathDPEC: TEdit
+            Left = 16
+            Top = 368
+            Width = 308
+            Height = 21
+            ReadOnly = True
+            TabOrder = 11
+          end
+          object edPathEvento: TEdit
+            Left = 16
+            Top = 411
+            Width = 308
+            Height = 21
+            ReadOnly = True
+            TabOrder = 12
+          end
+        end
+      end
+    end
+    object TbsDanfe: TTabSheet
+      BorderWidth = 4
+      Caption = 'Danfe'
+      ImageIndex = 1
+      DesignSize = (
+        367
+        506)
+      object lbltLogoMarca: TLabel
+        Left = 0
+        Top = 55
+        Width = 55
+        Height = 13
+        Caption = 'Logo Marca'
+      end
+      object sbtnLogoMarca: TSpeedButton
+        Left = 344
+        Top = 71
+        Width = 23
+        Height = 24
+        Anchors = [akTop, akRight]
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          04000000000000010000130B0000130B00001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+          333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+          0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+          07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+          07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+          0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+          33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+          B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+          3BB33773333773333773B333333B3333333B7333333733333337}
+        NumGlyphs = 2
+        OnClick = sbtnLogoMarcaClick
+      end
+      object edtLogoMarca: TEdit
+        Left = 0
+        Top = 74
+        Width = 338
+        Height = 21
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 1
+      end
+      object rgTipoDanfe: TRadioGroup
+        Left = 0
+        Top = 0
+        Width = 367
+        Height = 49
+        Align = alTop
+        Caption = 'DANFE'
+        Columns = 2
+        ItemIndex = 0
+        Items.Strings = (
+          'Retrato'
+          'Paisagem')
+        TabOrder = 0
+      end
+    end
+    object TbsEmail: TTabSheet
+      BorderWidth = 4
+      Caption = 'E-mail'
+      ImageIndex = 2
+      object GrpBxEmail: TGroupBox
+        Left = 0
+        Top = 0
+        Width = 367
+        Height = 489
+        Align = alTop
+        Caption = 'Configura'#231#245'es'
+        TabOrder = 0
+        DesignSize = (
+          367
+          489)
+        object lbltSmtpHost: TLabel
+          Left = 8
+          Top = 16
+          Width = 69
+          Height = 13
+          Caption = 'Servidor SMTP'
+        end
+        object lbltSmtpPort: TLabel
+          Left = 290
+          Top = 16
+          Width = 26
+          Height = 13
+          Anchors = [akTop, akRight]
+          Caption = 'Porta'
+        end
+        object lbltSmtpUser: TLabel
+          Left = 8
+          Top = 56
+          Width = 36
+          Height = 13
+          Caption = 'Usu'#225'rio'
+        end
+        object lbltSmtpPass: TLabel
+          Left = 196
+          Top = 56
+          Width = 30
+          Height = 13
+          Caption = 'Senha'
+        end
+        object lbltEmailAssunto: TLabel
+          Left = 8
+          Top = 96
+          Width = 122
+          Height = 13
+          Caption = 'Assunto do email enviado'
+        end
+        object lblEmailMsg: TLabel
+          Left = 8
+          Top = 168
+          Width = 93
+          Height = 13
+          Caption = 'Mensagem do Email'
+        end
+        object edtSmtpHost: TEdit
+          Left = 8
+          Top = 32
+          Width = 276
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 0
+        end
+        object edtSmtpPort: TEdit
+          Left = 290
+          Top = 32
+          Width = 66
+          Height = 21
+          Anchors = [akTop, akRight]
+          TabOrder = 1
+        end
+        object edtSmtpUser: TEdit
+          Left = 8
+          Top = 72
+          Width = 182
+          Height = 21
+          TabOrder = 2
+        end
+        object edtSmtpPass: TEdit
+          Left = 196
+          Top = 72
+          Width = 160
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          PasswordChar = '*'
+          TabOrder = 3
+        end
+        object edtEmailAssunto: TEdit
+          Left = 8
+          Top = 112
+          Width = 348
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 4
+        end
+        object cbEmailSSL: TCheckBox
+          Left = 10
+          Top = 144
+          Width = 167
+          Height = 17
+          Caption = 'SMTP exige conex'#227'o segura'
+          TabOrder = 5
+        end
+        object mmEmailMsg: TMemo
+          Left = 8
+          Top = 184
+          Width = 348
+          Height = 295
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          TabOrder = 6
+        end
+      end
+    end
   end
   object opnDialog: TOpenDialog
     DefaultExt = '*-nfe.XML'
@@ -1154,7 +1576,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       'Arquivos NFE (*-nfe.XML)|*-nfe.XML|Arquivos XML (*.XML)|*.XML|To' +
       'dos os Arquivos (*.*)|*.*'
     Title = 'Selecione a NFe'
-    Left = 232
-    Top = 472
+    Left = 120
+    Top = 496
   end
 end

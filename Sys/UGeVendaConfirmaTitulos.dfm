@@ -8,6 +8,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
   ClientHeight = 403
   ClientWidth = 534
   OldCreateOrder = True
+  ExplicitWidth = 548
+  ExplicitHeight = 440
   DesignSize = (
     534
     403)
@@ -229,6 +231,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       item
         Expanded = False
         FieldName = 'Lancamento'
+        Title.Caption = 'Lan'#231'amento'
         Width = 80
         Visible = True
       end
@@ -421,9 +424,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Confirmar'
-    TabOrder = 4
-    OnClick = btnConfirmarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       18000000000000060000000000000000000000000000000000000000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
@@ -474,7 +475,9 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 4
+    OnClick = btnConfirmarClick
   end
   object btFechar: TcxButton
     Left = 442
@@ -484,9 +487,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Fechar'
-    TabOrder = 5
-    OnClick = btFecharClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -537,11 +538,15 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 5
+    OnClick = btFecharClick
   end
   object qryTitulos: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
     RefreshSQL.Strings = (
       '')
     SelectSQL.Strings = (
@@ -557,6 +562,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       'from TBCONTREC')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
     UniDirectional = True
     Left = 16
     Top = 120
@@ -600,14 +606,12 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ProviderFlags = [pfInUpdate]
       DisplayFormat = '00'
     end
-    object cdsTitulosCNPJ: TStringField
+    object cdsTitulosCNPJ: TWideStringField
       FieldName = 'CNPJ'
-      ProviderFlags = [pfInUpdate]
       Size = 18
     end
-    object cdsTitulosTIPPAG: TStringField
+    object cdsTitulosTIPPAG: TWideStringField
       FieldName = 'TIPPAG'
-      ProviderFlags = [pfInUpdate]
       Size = 35
     end
     object cdsTitulosVALORREC: TBCDField
@@ -631,12 +635,6 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object cdsTitulosLancamento: TStringField
-      Alignment = taCenter
-      FieldKind = fkInternalCalc
-      FieldName = 'Lancamento'
-      ProviderFlags = []
-    end
     object cdsTitulosTotalEntrada: TCurrencyField
       FieldKind = fkInternalCalc
       FieldName = 'TotalEntrada'
@@ -650,12 +648,17 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ProviderFlags = []
       OnGetText = cdsTitulosDiaSemanaGetText
     end
+    object cdsTitulosLancamento: TStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'Lancamento'
+    end
     object cdsTitulosTotalParcelas: TAggregateField
       Alignment = taRightJustify
       FieldName = 'TotalParcelas'
       ProviderFlags = []
       Active = True
       currency = True
+      DisplayName = ''
       DisplayFormat = ',0.00'
       Expression = 'SUM(VALORREC)'
     end
@@ -663,6 +666,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
   object updParcela: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
     RefreshSQL.Strings = (
       '')
     SelectSQL.Strings = (
@@ -675,6 +680,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       '')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
+    UniDirectional = False
     Left = 16
     Top = 248
   end

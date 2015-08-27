@@ -4,17 +4,22 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, rxToolEdit, ExtCtrls, Buttons, DB,
+  Dialogs, UGrPadrao, StdCtrls, Mask, ExtCtrls, Buttons, DB,
   IBCustomDataSet, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, cxButtons;
+  Menus, cxButtons, JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeExportarNFC = class(TfrmGrPadrao)
     GrpBxPeriodo: TGroupBox;
     lblDataInicial: TLabel;
     lblDataFinal: TLabel;
-    edDataInicial: TDateEdit;
-    edDataFinal: TDateEdit;
     chkNFeAtiva: TCheckBox;
     Bevel8: TBevel;
     PnlBotoes: TPanel;
@@ -29,12 +34,14 @@ type
     Bevel1: TBevel;
     lblDiretorioExportacao: TLabel;
     Bevel2: TBevel;
-    edDiretorioExportacao: TDirectoryEdit;
     cdsNFC: TIBDataSet;
     cdsNFCTIPO: TIBStringField;
     cdsNFCLINHA: TIBStringField;
     btnExportar: TcxButton;
     btnCancelar: TcxButton;
+    edDiretorioExportacao: TJvDirectoryEdit;
+    edDataInicial: TJvDateEdit;
+    edDataFinal: TJvDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure MontarPeriodoClick(Sender: TObject);
@@ -58,7 +65,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, DateUtils, IniFiles;
+  UConstantesDGE, UDMBusiness, DateUtils, IniFiles, UDMRecursos;
 
 {$R *.dfm}
 
@@ -86,7 +93,7 @@ begin
   with cdsCompetencia do
   begin
     Close;
-    ParamByName('empresa').AsString := GetEmpresaIDDefault;
+    ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
     Open;
 
     edCompetencia.Items.Clear;
@@ -121,7 +128,7 @@ begin
 
   Arquivo  := TStringList.Create;
   sArquivo := edDiretorioExportacao.Text +
-    GetEmpresaIDDefault + '_' +
+    gUsuarioLogado.Empresa + '_' +
     StringReplace(StringReplace(edCompetencia.Text, '/', '-', [rfReplaceAll]), '\', '-', [rfReplaceAll]) +
     '.txt';
 
@@ -213,7 +220,7 @@ begin
       ParamByName('data_inicial').AsDate    := edDataInicial.Date;
       ParamByName('data_final').AsDate      := edDataFinal.Date;
       ParamByName('tipo_arquivo').AsInteger := TipoArquivo;
-      ParamByName('empresa').AsString       := GetEmpresaIDDefault;
+      ParamByName('empresa').AsString       := gUsuarioLogado.Empresa;
       ParamByName('status_venda').AsInteger := STATUS_VND_NFE;
 
       Open;

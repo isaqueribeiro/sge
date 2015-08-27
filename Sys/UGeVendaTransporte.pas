@@ -5,9 +5,9 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, DBCtrls, ExtCtrls, Mask,
-  rxToolEdit, RXDBCtrl, DB, IBCustomDataSet, IBUpdateSQL, Grids, DBGrids,
-  IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  DB, IBCustomDataSet, IBUpdateSQL, Grids, DBGrids, IBQuery, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, JvDBControls;
 
 type
   TfrmGeVendaTransporte = class(TfrmGrPadrao)
@@ -30,11 +30,9 @@ type
     dbModalidadeFrete: TDBLookupComboBox;
     Bevel2: TBevel;
     lblTransportadora: TLabel;
-    dbTransportadora: TRxDBComboEdit;
     lblPlacaVeiculo: TLabel;
     dbPlacaVeiculo: TDBEdit;
     lblPlacaUF: TLabel;
-    dbPlacaUF: TRxDBComboEdit;
     lblPlacaRNTC: TLabel;
     dbPlacaRNTC: TDBEdit;
     GrpBxDadosProduto: TGroupBox;
@@ -62,6 +60,8 @@ type
     qryVolume: TIBQuery;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
+    dbTransportadora: TJvDBComboEdit;
+    dbPlacaUF: TJvDBComboEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbTransportadoraButtonClick(Sender: TObject);

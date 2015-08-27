@@ -7,9 +7,9 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
   Caption = 'Gerar NF-e de Sa'#237'da'
   ClientHeight = 410
   ClientWidth = 596
-  Font.Charset = ANSI_CHARSET
-  Font.Name = 'Tahoma'
   OldCreateOrder = True
+  ExplicitWidth = 610
+  ExplicitHeight = 447
   DesignSize = (
     596
     410)
@@ -703,17 +703,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       Height = 33
       Hint = 'Calcular Valor Total da Nota Fiscal'
       Caption = 'Calcular o Valor Total da NF'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlue
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 12
-      OnClick = btnCalcularClick
-      Glyph.Data = {
+      OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         180000000000000600000000000000000000000000000000000000FF0000FF00
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -764,7 +754,17 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
         0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 12
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = btnCalcularClick
     end
   end
   object btnConfirmar: TcxButton
@@ -774,9 +774,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Gerar NF-e'
-    TabOrder = 2
-    OnClick = btnConfirmarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF00C0A8A06048306048306048
@@ -827,7 +825,9 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       C0B0A0C0B0A0C0B0A0C0A8A0C0A8A000FF0000FF0000FF0000FF0000FF0000FF
       0000FF0000FF0000FF00ACACACACACACACACACACACACACACACA8A8A8A8A8A800
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
+    OnClick = btnConfirmarClick
   end
   object btnCancelar: TcxButton
     Left = 504
@@ -837,9 +837,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancelar'
-    TabOrder = 3
-    OnClick = btnCancelarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -890,12 +888,15 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       00FF00E0C0B0E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0BEAA00FF
       0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 3
+    OnClick = btnCancelarClick
   end
   object cdsVenda: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
+    BufferChunks = 1000
     CachedUpdates = True
     RefreshSQL.Strings = (
       '')
@@ -1018,6 +1019,8 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       '  , v.Nfe_valor_total_nota')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
+    UniDirectional = False
     GeneratorField.Field = 'CODCONTROL'
     UpdateObject = updVenda
     Left = 40

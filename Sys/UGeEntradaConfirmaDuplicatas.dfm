@@ -8,6 +8,8 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
   ClientHeight = 403
   ClientWidth = 534
   OldCreateOrder = True
+  ExplicitWidth = 548
+  ExplicitHeight = 440
   DesignSize = (
     534
     403)
@@ -229,6 +231,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       item
         Expanded = False
         FieldName = 'Lancamento'
+        Title.Caption = 'Lan'#231'amento'
         Width = 80
         Visible = True
       end
@@ -421,9 +424,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Confirmar'
-    TabOrder = 4
-    OnClick = btnConfirmarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       18000000000000060000000000000000000000000000000000000000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
@@ -474,7 +475,9 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 4
+    OnClick = btnConfirmarClick
   end
   object btFechar: TcxButton
     Left = 442
@@ -484,9 +487,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Fechar'
-    TabOrder = 5
-    OnClick = btFecharClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -537,11 +538,15 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 5
+    OnClick = btFecharClick
   end
   object qryDuplicatas: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
     RefreshSQL.Strings = (
       '')
     SelectSQL.Strings = (
@@ -558,6 +563,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       'from TBCONTPAG')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
     UniDirectional = True
     Left = 16
     Top = 120
@@ -605,14 +611,12 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       FieldName = 'CODFORN'
       ProviderFlags = [pfInUpdate]
     end
-    object cdsDuplicatasNOTFISC: TStringField
+    object cdsDuplicatasNOTFISC: TWideStringField
       FieldName = 'NOTFISC'
-      ProviderFlags = [pfInUpdate]
       Size = 15
     end
-    object cdsDuplicatasTIPPAG: TStringField
+    object cdsDuplicatasTIPPAG: TWideStringField
       FieldName = 'TIPPAG'
-      ProviderFlags = [pfInUpdate]
       Size = 35
     end
     object cdsDuplicatasDTEMISS: TDateField
@@ -636,12 +640,6 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       Precision = 18
       Size = 2
     end
-    object cdsDuplicatasLancamento: TStringField
-      Alignment = taCenter
-      FieldKind = fkInternalCalc
-      FieldName = 'Lancamento'
-      ProviderFlags = []
-    end
     object cdsDuplicatasTotalEntrada: TCurrencyField
       FieldKind = fkInternalCalc
       FieldName = 'TotalEntrada'
@@ -655,12 +653,17 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       ProviderFlags = []
       OnGetText = cdsDuplicatasDiaSemanaGetText
     end
+    object cdsDuplicatasLancamento: TStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'Lancamento'
+    end
     object cdsDuplicatasTotalParcelas: TAggregateField
       Alignment = taRightJustify
       FieldName = 'TotalParcelas'
       ProviderFlags = []
       Active = True
       currency = True
+      DisplayName = ''
       DisplayFormat = ',0.00'
       Expression = 'SUM(VALORPAG)'
     end
@@ -668,6 +671,8 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
   object updParcela: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
     RefreshSQL.Strings = (
       '')
     SelectSQL.Strings = (
@@ -680,6 +685,8 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       '')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
+    UniDirectional = False
     Left = 16
     Top = 248
   end

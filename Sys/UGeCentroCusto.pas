@@ -5,9 +5,16 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, DBClient, Provider, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, DBClient, 
+  Provider, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeCentroCusto = class(TfrmGrPadraoCadastro)
@@ -20,7 +27,6 @@ type
     dbDesricao: TDBEdit;
     IbDtstTabelaATIVO_TEMP: TStringField;
     lblCliente: TLabel;
-    dbCliente: TRxDBComboEdit;
     dbAtivo: TDBCheckBox;
     qryEmpresaLista: TIBDataSet;
     dspEmpresaLista: TDataSetProvider;
@@ -28,10 +34,11 @@ type
     dtsEmpresaLista: TDataSource;
     dbgEmpresaLista: TDBGrid;
     cdsEmpresaListaSELECIONAR: TIntegerField;
-    cdsEmpresaListaRZSOC: TStringField;
+    dbCliente: TJvDBComboEdit;
+    cdsEmpresaListaCNPJ: TWideStringField;
+    cdsEmpresaListaRZSOC: TWideStringField;
     cdsEmpresaListaCENTRO_CUSTO: TIntegerField;
-    cdsEmpresaListaEMPRESA: TStringField;
-    cdsEmpresaListaCNPJ: TStringField;
+    cdsEmpresaListaEMPRESA: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
     procedure dbClienteButtonClick(Sender: TObject);
@@ -54,6 +61,8 @@ type
     fEmpresaDepartamento : String;
     procedure CarregarEmpresa;
     procedure GravarRelacaoCentroCustoEmpresa;
+
+    function EmpresaSelecionada : Boolean;
   public
     { Public declarations }
   end;
@@ -115,6 +124,7 @@ begin
   NomeTabela     := 'TBCENTRO_CUSTO';
   CampoCodigo    := 'c.codigo';
   CampoDescricao := 'c.descricao';
+  CampoOrdenacao := CampoDescricao;
 
   fEmpresaDepartamento := EmptyStr;
 
@@ -222,6 +232,13 @@ begin
   IMR - 19/11/2014 :
     Rotina que permite a gravação de várias Empresas para o mesmo Centro de Custo.
 *)
+  if (IbDtstTabelaCODCLIENTE.AsInteger = 0) then
+    if not EmpresaSelecionada then
+    begin
+      ShowWarning('Favor selecionar a empresa, caso o Departamento/Centro de Custo seja interno.');
+      Exit;
+    end;
+
   IbDtstTabela.AfterScroll := nil;
   inherited;
   IbDtstTabela.AfterScroll := IbDtstTabelaAfterScroll;
@@ -248,6 +265,32 @@ procedure TfrmGeCentroCusto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   dtsEmpresaLista.AutoEdit := (IbDtstTabela.State in [dsEdit, dsInsert]);
+end;
+
+function TfrmGeCentroCusto.EmpresaSelecionada: Boolean;
+var
+  bRetorno : Boolean;
+begin
+  bRetorno := False;
+  try
+    if cdsEmpresaLista.Active then
+    begin
+      cdsEmpresaLista.First;
+      while not cdsEmpresaLista.Eof do
+      begin
+        bRetorno := (cdsEmpresaListaSELECIONAR.AsInteger = 1);
+        if bRetorno then
+          Break;
+
+        cdsEmpresaLista.Next;
+      end;
+    end;
+  finally
+    if cdsEmpresaLista.Active then
+      cdsEmpresaLista.First;
+
+    Result := bRetorno;
+  end;
 end;
 
 procedure TfrmGeCentroCusto.cdsEmpresaListaSELECIONARGetText(

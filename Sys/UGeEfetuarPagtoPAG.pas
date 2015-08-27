@@ -4,9 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, DB,
-  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, rxToolEdit, RXDBCtrl,
-  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, DB, IBCustomDataSet, IBUpdateSQL,
+  IBTable, Buttons, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin,
+  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeEfetuarPagtoPAG = class(TfrmGrPadrao)
@@ -53,11 +61,11 @@ type
     lblHistorico: TLabel;
     dbHistorico: TDBMemo;
     cdsPagamentosUSUARIO: TIBStringField;
-    dbDataPagto: TDBDateEdit;
     lblInforme: TLabel;
     tmrAlerta: TTimer;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
+    dbDataPagto: TJvDBDateEdit;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -75,7 +83,8 @@ type
 var
   frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG;
 
-  function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Fornecedor : String; var DataPagto : TDateTime) : Boolean;
+  function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Fornecedor : String;
+    var DataPagto : TDateTime; var APagar : Currency) : Boolean;
 
 implementation
 
@@ -83,7 +92,8 @@ uses UDMBusiness;
 
 {$R *.dfm}
 
-function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Fornecedor : String; var DataPagto : TDateTime) : Boolean;
+function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Fornecedor : String;
+  var DataPagto : TDateTime; var APagar : Currency) : Boolean;
 var
   frm : TfrmGeEfetuarPagtoPAG;
 begin
@@ -106,7 +116,8 @@ begin
 
       cdsPagamentos.Open;
       cdsPagamentos.Append;
-      cdsPagamentosFORMA_PAGTO.AsInteger := FormaPagto;
+      cdsPagamentosFORMA_PAGTO.AsInteger  := FormaPagto;
+      cdsPagamentosVALOR_BAIXA.AsCurrency := APagar;
 
       Result := (ShowModal = mrOk);
 

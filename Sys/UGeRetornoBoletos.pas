@@ -8,7 +8,14 @@ uses
   Buttons, ToolWin, ComCtrls, Grids, DBGrids, ComObj, IBSQL, DBClient,
   IBQuery, UGrPadrao, IBUpdateSQL, ACBrBoleto, ACBrBoletoFCFR, ACBrBase,
   FileCtrl, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeRetornoBoleto = class(TfrmGrPadrao)
@@ -21,10 +28,6 @@ type
     Label2: TLabel;
     lstBxRetorno: TCheckListBox;
     Bevel1: TBevel;
-    tlbBotoes: TToolBar;
-    Bevel2: TBevel;
-    Bevel3: TBevel;
-    Bevel4: TBevel;
     Bevel5: TBevel;
     pnlTitulos: TPanel;
     Shape1: TShape;
@@ -34,17 +37,12 @@ type
     UpdateLanc: TIBSQL;
     CdsTitulos: TClientDataSet;
     DtsTitulos: TDataSource;
-    CdsTitulosQuitar: TStringField;
-    CdsTitulosNossoNumero: TStringField;
     CdsTitulosDataPagamento: TDateField;
     CdsTitulosValorPago: TCurrencyField;
-    CdsTitulosNumeroDocumento: TStringField;
     CdsTitulosLancamento: TLargeintField;
     CdsTitulosParcela: TIntegerField;
     CdsTitulosBanco: TIntegerField;
     CdsTitulosAPagar: TCurrencyField;
-    CdsTitulosSacado: TStringField;
-    CdsTitulosCnpj: TStringField;
     gFind: TIBQuery;
     CdsTitulosAno: TSmallintField;
     IbQryBancos: TIBQuery;
@@ -92,11 +90,20 @@ type
     CdsTitulosTotalAPagar: TAggregateField;
     CdsTitulosAnoVenda: TIntegerField;
     CdsTitulosNumVenda: TIntegerField;
-    CdsTitulosArquivo: TStringField;
     FileListBox: TFileListBox;
+    tlbBotoes: TPanel;
+    Bevel2: TBevel;
     btnFechar: TcxButton;
+    Bevel3: TBevel;
     btnCarregarRetorno: TcxButton;
     btnConfirmarBaixa: TcxButton;
+    Bevel4: TBevel;
+    CdsTitulosQuitar: TStringField;
+    CdsTitulosNossoNumero: TStringField;
+    CdsTitulosNumeroDocumento: TStringField;
+    CdsTitulosSacado: TStringField;
+    CdsTitulosCnpj: TStringField;
+    CdsTitulosArquivo: TStringField;
     procedure edBancoChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
@@ -112,7 +119,9 @@ type
     procedure edFormaPagtoChange(Sender: TObject);
   private
     { Private declarations }
+    {$IFNDEF ACBR}
     CobreBemX : Variant;
+    {$ENDIF}
     procedure CarregarBancos;
     procedure CarregarFormaPagto(const iBanco : Integer);
     procedure DefinirDiretorioArquivo( iBanco : Integer );
@@ -123,10 +132,13 @@ type
     function GetContaNumero : String;
     function GetContaDigito : String;
 
-    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
+    {$IFDEF ACBR}
     function DefinirCedenteACBr(iBanco : Integer; sCarteira : String) : Boolean;
-    function CarregarRetorno( sArquivo : String; var Objeto : Variant ) : Boolean;
     function CarregarRetornoACBr( sArquivo : String ) : Boolean;
+    {$ELSE}
+    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
+    function CarregarRetorno( sArquivo : String; var Objeto : Variant ) : Boolean;
+    {$ENDIF}
     function ArquivoSelecionado : Boolean;
     function LancamentoIdentificado( Banco : Integer; sNossoNumero, sDocumento : String;
       var Ano, Lancamento : Integer; var Parcela : Integer; var APagar : Currency; var Sacado, Cnpj : String; var Quidado : Boolean;
@@ -140,6 +152,7 @@ type
 var
   frmGeRetornoBoleto: TfrmGeRetornoBoleto;
 
+{$IFNDEF ACBR}
 const
   feeSMTPBoletoHTML              = $00000000;
   feeSMTPMensagemBoletoHTMLAnexo = $00000001;
@@ -157,12 +170,13 @@ const
   scpOK       = $00000001;
   scpInvalido = $00000002;
   scpErro     = $00000003;
+{$ENDIF}
 
   procedure ProcessarRetorno(const AOwer : TComponent);
 
 implementation
 
-uses UDMBusiness, UConstantesDGE, UFuncoes, Contnrs, StrUtils;
+uses UDMBusiness, UConstantesDGE, UFuncoes, Contnrs, StrUtils, UDMRecursos;
 
 {$R *.dfm}
 
@@ -189,7 +203,7 @@ begin
   with IbQryBancos, edBanco do
   begin
     Close;
-    ParamByName('empresa').AsString := GetEmpresaIDDefault;
+    ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
     Open;
     
     if ( not IsEmpty ) then
@@ -293,7 +307,9 @@ end;
 
 procedure TfrmGeRetornoBoleto.FormCreate(Sender: TObject);
 begin
+  {$IFNDEF ACBR}
   CobreBemX := CreateOleObject('CobreBemX.ContaCorrente');
+  {$ENDIF}
 end;
 
 procedure TfrmGeRetornoBoleto.dbgTitulosDrawColumnCell(Sender: TObject;
@@ -318,6 +334,7 @@ begin
   TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).Columns[DataCol].Field, State);
 end;
 
+{$IFNDEF ACBR}
 function TfrmGeRetornoBoleto.DefinirCedente(Banco, Carteira: Integer; var Objeto: Variant): Boolean;
 var
   sAppPath     ,
@@ -429,6 +446,7 @@ begin
     end;
   end;
 end;
+{$ENDIF}
 
 function TfrmGeRetornoBoleto.CarregarRetornoACBr(
   sArquivo: String): Boolean;
@@ -837,7 +855,7 @@ begin
     CxContaCorrente := 0;
     sTotalAPagar    := CdsTitulosTotalAPagar.AsString;
 
-    if ( not CaixaAberto(GetEmpresaIDDefault, GetUserApp, GetDateDB, edFormaPagto.Tag, CxAno, CxNumero, CxContaCorrente) ) then
+    if ( not CaixaAberto(gUsuarioLogado.Empresa, GetUserApp, GetDateDB, edFormaPagto.Tag, CxAno, CxNumero, CxContaCorrente) ) then
     begin
       ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento BOLETO.');
       Exit;
@@ -968,7 +986,9 @@ end;
 
 procedure TfrmGeRetornoBoleto.FormDestroy(Sender: TObject);
 begin
+  {$IFNDEF ACBR}
   CobreBemX := Unassigned;
+  {$ENDIF}
 end;
 
 procedure TfrmGeRetornoBoleto.FormKeyDown(Sender: TObject; var Key: Word;

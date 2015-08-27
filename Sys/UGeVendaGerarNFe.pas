@@ -6,7 +6,9 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, StdCtrls, Mask,
   DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2007Green;
 
 type
   TfrmGeVendaGerarNFe = class(TfrmGrPadrao)
@@ -294,7 +296,7 @@ begin
     bDenegada       := False;
     sDenegadaMotivo := EmptyStr;
 
-    if ( DMNFe.GerarNFeOnLine ) then
+    if ( DMNFe.GerarNFeOnLine(cdsVendaCODEMP.AsString) ) then
       bOK := DMNFe.GerarNFeOnLineACBr ( cdsVendaCODEMP.AsString, cdsVendaCODCLIENTE.AsInteger, sDH,
                cdsVendaANO.AsInteger, cdsVendaCODCONTROL.AsInteger,
                iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote, bDenegada, sDenegadaMotivo, False)

@@ -7,7 +7,8 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEstado = class(TfrmGrPadraoCadastro)
@@ -21,7 +22,12 @@ type
     dbSigla: TDBEdit;
     lblSiafi: TLabel;
     dbSiafi: TDBEdit;
+    GrpBxTributacoes: TGroupBox;
+    lblAliquotaICMS: TLabel;
+    dbAliquotaICMS: TDBEdit;
+    IbDtstTabelaALIQUOTA_ICMS: TIBBCDField;
     procedure FormCreate(Sender: TObject);
+    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -86,8 +92,18 @@ begin
   ControlFirstEdit := dbCodigo;
 
   DisplayFormatCodigo := '00';
-  CampoCodigo    := 'est_cod';
-  CampoDescricao := 'est_nome';
+
+  CampoCodigo     := 'est_cod';
+  CampoDescricao  := 'est_nome';
+
+  AbrirTabelaAuto := True;
+end;
+
+procedure TfrmGeEstado.IbDtstTabelaNewRecord(DataSet: TDataSet);
+begin
+  IbDtstTabelaEST_SIGLA.Clear;
+  IbDtstTabelaEST_SIAFI.Clear;
+  IbDtstTabelaALIQUOTA_ICMS.Clear;
 end;
 
 function TfrmGeEstado.SelecionarRegistro(var Codigo: Integer;

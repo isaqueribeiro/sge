@@ -6,8 +6,16 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, DB, IBCustomDataSet, ImgList, IBUpdateSQL,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeBairro = class(TfrmGrPadraoCadastro)
@@ -18,11 +26,11 @@ type
     IbDtstTabelaCID_NOME: TIBStringField;
     IbDtstTabelaDIS_NOME: TIBStringField;
     lblCidade: TLabel;
-    dbCidade: TRxDBComboEdit;
     lblDistrito: TLabel;
-    dbDistrito: TRxDBComboEdit;
     lblNome: TLabel;
     dbNome: TDBEdit;
+    dbCidade: TJvDBComboEdit;
+    dbDistrito: TJvDBComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbCidadeButtonClick(Sender: TObject);
     procedure dbDistritoButtonClick(Sender: TObject);

@@ -6,9 +6,16 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, DB, IBCustomDataSet, IBTable, ComCtrls,
   IBSQL, DBClient, Provider, IBUpdateSQL, IBQuery, Buttons, ToolWin, Grids,
-  DBGrids, ComObj, frxClass, frxDBSet, UGrPadrao, ACBrBoleto,
-  ACBrBoletoFCFR, ACBrBase, Mask, rxToolEdit, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  DBGrids, ComObj, frxClass, frxDBSet, UGrPadrao, ACBrBoleto, ACBrBoletoFCFR,
+  ACBrBase, Mask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeRemessaBoleto = class(TfrmGrPadrao)
@@ -26,9 +33,6 @@ type
     CdsTitulos: TClientDataSet;
     CdsTitulosPARCELA: TSmallintField;
     CdsTitulosCODBANCO: TIntegerField;
-    CdsTitulosNOSSONUMERO: TStringField;
-    CdsTitulosCNPJ: TStringField;
-    CdsTitulosTIPPAG: TStringField;
     CdsTitulosDTEMISS: TDateField;
     CdsTitulosDTVENC: TDateField;
     CdsTitulosVALORREC: TBCDField;
@@ -44,16 +48,9 @@ type
     Shape1: TShape;
     Bevel2: TBevel;
     Bevel1: TBevel;
-    tlbBotoes: TToolBar;
-    Bevel3: TBevel;
-    Bevel4: TBevel;
     Bevel5: TBevel;
-    Bevel6: TBevel;
     dbgTitulos: TDBGrid;
     Label5: TLabel;
-    CdsTitulosINSCEST: TStringField;
-    CdsTitulosNOME: TStringField;
-    CdsTitulosFONE: TStringField;
     frrRemessa: TfrxReport;
     frdRemessa: TfrxDBDataset;
     CdsTitulosANOLANC: TSmallintField;
@@ -62,9 +59,7 @@ type
     CdsTitulosNUMLANC: TIntegerField;
     ACBrBoleto: TACBrBoleto;
     ACBrBoletoFCFR: TACBrBoletoFCFR;
-    CdsTitulosSERIE: TStringField;
     CdsTitulosNFE: TLargeintField;
-    CdsTitulosNumeroDocumento: TStringField;
     IbQryBancos: TIBQuery;
     IbQryBancosBCO_COD: TSmallintField;
     IbQryBancosEMPRESA: TIBStringField;
@@ -103,22 +98,34 @@ type
     IbQryBancosEMAIL: TIBStringField;
     IbUpdBancos: TIBUpdateSQL;
     CdsTitulosPARCELA_MAXIMA: TSmallintField;
-    CdsTitulosENDER: TStringField;
-    CdsTitulosENDER_DESC: TStringField;
-    CdsTitulosENDER_NUM: TStringField;
-    CdsTitulosBAIRRO: TStringField;
-    CdsTitulosCIDADE: TStringField;
-    CdsTitulosUF: TStringField;
-    CdsTitulosCEP: TStringField;
-    CdsTitulosEMAIL: TStringField;
-    edInicio: TDateEdit;
-    edFinal: TDateEdit;
     CdsTitulosSITUACAO: TSmallintField;
+    edInicio: TJvDateEdit;
+    edFinal: TJvDateEdit;
+    tlbBotoes: TPanel;
+    Bevel3: TBevel;
+    btnFechar: TcxButton;
+    Bevel4: TBevel;
+    btnGerarRemessa: TcxButton;
+    Bevel6: TBevel;
     chkEnviarCancelados: TCheckBox;
     Bevel7: TBevel;
-    btnFechar: TcxButton;
-    btnGerarRemessa: TcxButton;
     btnHistorico: TcxButton;
+    CdsTitulosNOSSONUMERO: TWideStringField;
+    CdsTitulosCNPJ: TWideStringField;
+    CdsTitulosTIPPAG: TWideStringField;
+    CdsTitulosINSCEST: TWideStringField;
+    CdsTitulosNOME: TWideStringField;
+    CdsTitulosFONE: TWideStringField;
+    CdsTitulosSERIE: TWideStringField;
+    CdsTitulosNumeroDocumento: TStringField;
+    CdsTitulosENDER: TWideStringField;
+    CdsTitulosENDER_DESC: TWideStringField;
+    CdsTitulosENDER_NUM: TWideStringField;
+    CdsTitulosBAIRRO: TWideStringField;
+    CdsTitulosCIDADE: TWideStringField;
+    CdsTitulosUF: TWideStringField;
+    CdsTitulosCEP: TWideStringField;
+    CdsTitulosEMAIL: TWideStringField;
     procedure FormShow(Sender: TObject);
     procedure edBancoChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -136,7 +143,9 @@ type
     procedure CdsTitulosCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
+    {$IFNDEF ACBR}
     CobreBemX : Variant;
+    {$ENDIF}
     procedure CarregarBancos;
     procedure DefinirNomeArquivo( iBanco : Integer );
     procedure CarregarTitulos( iBanco : Integer; DataInicial, DataFinal : TDate);
@@ -148,10 +157,13 @@ type
     function GetContaDigito : String;
     function GetNossoNumeroRepetido : Boolean;
 
-    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
+    {$IFDEF ACBR}
     function DefinirCedenteACBr(iBanco : Integer; sCarteira : String) : Boolean;
-    function InserirBoleto( var Objeto : Variant ) : Boolean;
     function InserirBoletoACBr : Boolean;
+    {$ELSE}
+    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
+    function InserirBoleto( var Objeto : Variant ) : Boolean;
+    {$ENDIF}
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -160,6 +172,7 @@ type
 var
   frmGeRemessaBoleto: TfrmGeRemessaBoleto;
 
+{$IFNDEF ACBR}
 const
   feeSMTPBoletoHTML              = $00000000;
   feeSMTPMensagemBoletoHTMLAnexo = $00000001;
@@ -177,12 +190,13 @@ const
   scpOK       = $00000001;
   scpInvalido = $00000002;
   scpErro     = $00000003;
+{$ENDIF}
 
   procedure GerarArquivoRemessa(const AOwer : TComponent);
 
 implementation
 
-uses UDMBusiness, UConstantesDGE, UFuncoes;
+uses UDMBusiness, UConstantesDGE, UFuncoes, UDMRecursos;
 
 {$R *.dfm}
 
@@ -205,7 +219,7 @@ begin
   with IbQryBancos, edBanco do
   begin
     Close;
-    ParamByName('empresa').AsString := GetEmpresaIDDefault;
+    ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
     Open;
     
     if ( not IsEmpty ) then
@@ -249,7 +263,9 @@ begin
   inherited;
   edInicio.Date := Date;
   edFinal.Date  := Date;
+  {$IFNDEF ACBR}
   CobreBemX := CreateOleObject('CobreBemX.ContaCorrente');
+  {$ENDIF}
 end;
 
 procedure TfrmGeRemessaBoleto.DefinirNomeArquivo(iBanco: Integer);
@@ -352,7 +368,7 @@ begin
   with CdsTitulos, Params do
   begin
     Close;
-    ParamByName('empresa').AsString   := GetEmpresaIDDefault;
+    ParamByName('empresa').AsString   := gUsuarioLogado.Empresa;
     ParamByName('banco').Value        := iBanco;
     ParamByName('dataInicial').AsDate := DataInicial;
     ParamByName('dataFinal').AsDate   := DataFinal;
@@ -387,6 +403,7 @@ begin
   TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
 end;
 
+{$IFNDEF ACBR}
 function TfrmGeRemessaBoleto.DefinirCedente(Banco, Carteira: Integer;
   var Objeto: Variant): Boolean;
 var
@@ -504,6 +521,7 @@ begin
     end;
   end;
 end;
+{$ENDIF}
 
 procedure TfrmGeRemessaBoleto.GravarHistoricoRemessa;
 var
@@ -554,7 +572,9 @@ end;
 
 procedure TfrmGeRemessaBoleto.FormDestroy(Sender: TObject);
 begin
+  {$IFNDEF ACBR}
   CobreBemX := Unassigned;
+  {$ENDIF}
 end;
 
 procedure TfrmGeRemessaBoleto.FormKeyDown(Sender: TObject; var Key: Word;

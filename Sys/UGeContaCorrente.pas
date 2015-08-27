@@ -4,10 +4,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl, IBTable, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
+  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery, IBTable,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, JvDBControls;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
@@ -19,7 +19,6 @@ type
     IbDtstTabelaCONTA_BANCO_BOLETO: TSmallintField;
     IbDtstTabelaBANCO: TIBStringField;
     lblBanco: TLabel;
-    dbBanco: TRxDBComboEdit;
     dbTipo: TDBRadioGroup;
     IbDtstTabelaTIPO_DESC: TIBStringField;
     IbDtstTabelaEMPRESA: TIBStringField;
@@ -27,6 +26,7 @@ type
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
+    dbBanco: TJvDBComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);

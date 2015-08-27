@@ -6,7 +6,14 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, ExtCtrls, StdCtrls,
   Mask, DBCtrls, Buttons, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeVendaCancelar = class(TfrmGrPadrao)
@@ -158,13 +165,13 @@ begin
             Exit;
           end;
 
-          if not GetEstacaoEmitiNFe then
+          if not GetEstacaoEmitiNFe(cdsVendaCODEMP.AsString) then
           begin
             ShowWarning('Estação de trabalho não habilitada para cancelar Venda/NFe!');
             Exit;
           end;
 
-          if not DMNFe.GetValidadeCertificado then
+          if not DMNFe.GetValidadeCertificado(cdsVendaCODEMP.AsString) then
             Exit;
 
           lblInforme.Caption := 'Cancelando NF-e junto a SEFA. Aguarde . . . ';

@@ -1,39 +1,43 @@
 inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
   Left = 386
   Top = 213
-  Width = 1027
-  Height = 628
   ActiveControl = edTipoProcesso
   Caption = 'Rotatividade de Produtos'
-  Font.Charset = ANSI_CHARSET
-  Font.Name = 'Tahoma'
+  ClientHeight = 589
+  ClientWidth = 1014
   OldCreateOrder = True
   WindowState = wsMaximized
+  ExplicitWidth = 1030
+  ExplicitHeight = 628
   DesignSize = (
-    1011
-    590)
+    1014
+    589)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 586
-    Width = 1011
+    Top = 585
+    Width = 1014
     Height = 4
     Align = alBottom
     Shape = bsSpacer
+    ExplicitTop = 586
+    ExplicitWidth = 1011
   end
   object Bevel3: TBevel
     Left = 0
-    Top = 547
-    Width = 1011
+    Top = 546
+    Width = 1014
     Height = 4
     Align = alBottom
     Shape = bsSpacer
+    ExplicitTop = 547
+    ExplicitWidth = 1011
   end
   object pnlPesquisa: TPanel
     Left = 0
     Top = 0
-    Width = 1011
+    Width = 1014
     Height = 81
     Align = alTop
     BevelOuter = bvNone
@@ -118,7 +122,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         Height = 21
         Style = csDropDownList
         Anchors = [akLeft, akTop, akRight]
-        ItemHeight = 13
         ItemIndex = 0
         TabOrder = 0
         Text = 'Por Grupo'
@@ -132,7 +135,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     object GrpBxPesquisar: TGroupBox
       Left = 269
       Top = 4
-      Width = 738
+      Width = 741
       Height = 73
       Align = alClient
       Caption = 'Filtrar'
@@ -144,47 +147,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       ParentFont = False
       TabOrder = 1
       DesignSize = (
-        738
+        741
         73)
-      object BtnPesquisar: TSpeedButton
-        Left = 701
-        Top = 40
-        Width = 23
-        Height = 22
-        Hint = 'Executar Pesquisa'
-        Anchors = [akTop, akRight]
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000FF00FF314B62
-          AC7D7EFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-          FFFF00FFFF00FFFF00FF5084B20F6FE1325F8CB87E7AFF00FFFF00FFFF00FFFF
-          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF32A0FE37A1FF
-          106FE2325F8BB67D79FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-          FFFF00FFFF00FFFF00FFFF00FF37A4FE379FFF0E6DDE355F89BB7F79FF00FFFF
-          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-          37A4FE359EFF0F6FDE35608BA67B7FFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF38A5FE329DFF156DCE444F5BFF
-          00FF9C6B65AF887BAF887EAA8075FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-          FF00FFFF00FF3BABFFA1CAE7AD8679A98373E0CFB1FFFFDAFFFFDDFCF8CFCCB2
-          9FA1746BFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0917DFC
-          E9ACFFFFCCFFFFCFFFFFD0FFFFDEFFFFFAE3D3D1996965FF00FFFF00FFFF00FF
-          FF00FFFF00FFFF00FFFF00FFB08978FAD192FEF4C2FFFFD0FFFFDAFFFFF6FFFF
-          FCFFFFFCB69384FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFB08978FEDA97ED
-          B478FBEEBBFFFFD3FFFFDCFFFFF4FFFFF4FFFFE2E9DDBCA67B73FF00FFFF00FF
-          FF00FFFF00FFFF00FFB18A78FFDE99E9A167F4D199FEFCCCFFFFD5FFFFDAFFFF
-          DCFFFFD7EFE6C5A97E75FF00FFFF00FFFF00FFFF00FFFF00FFAA7F73FAE0A4F0
-          B778EEBA7BF6DDA6FEFBCCFFFFD3FFFFD1FFFFD7D9C5A7A3756CFF00FFFF00FF
-          FF00FFFF00FFFF00FFFF00FFCEB293FFFEDDF4D1A5EEBA7BF2C78FF8E1ABFCF0
-          BAFCFACAA3776FFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1746BE1
-          D4D3FFFEEEF7CC8CF0B473F7C788FCE3A5C2A088A5776CFF00FFFF00FFFF00FF
-          FF00FFFF00FFFF00FFFF00FFFF00FF986865BA9587EAD7A4EAD59EE0C097A577
-          6CA5776CFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-          00FFFF00FFA77E70A98073A4786EFF00FFFF00FFFF00FFFF00FF}
-        ParentShowHint = False
-        ShowHint = True
-        OnClick = BtnPesquisarClick
-      end
       object lblPesquisar: TLabel
         Left = 424
         Top = 24
@@ -204,7 +168,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       object edPesquisar: TEdit
         Left = 424
         Top = 40
-        Width = 270
+        Width = 273
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         CharCase = ecUpperCase
@@ -216,7 +180,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         Width = 401
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
         TabOrder = 0
         Items.Strings = (
           '(Todos)'
@@ -231,13 +194,63 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
           'Produtos s/ movimenta'#231#227'o de Venda a 1 ano'
           'Produtos s/ movimenta'#231#227'o de Venda a mais de 1 ano')
       end
+      object BtnPesquisar: TcxButton
+        Left = 704
+        Top = 40
+        Width = 23
+        Height = 22
+        Hint = 'Executar Pesquisa'
+        Anchors = [akTop, akRight]
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          20000000000000040000C30E0000C30E00000000000000000000000000000000
+          00000000000000000000000000000000000000000000AC6B2CBAAC6B2CCC0000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B
+          2CD1B5712F29B87330BDB87330CAB974306B0000000000000000000000000000
+          000000000000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B
+          2CFFAC6B2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF00000000000000000000
+          000000000000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B
+          2CFFAC6B2C830000000000000000AC6B2C22AC6B2CFFB16F2EA3000000000000
+          000000000000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B
+          2CFF00000000000000000000000000000000AC6B2CA9AF6D2DFF000000000000
+          000000000000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B
+          2CFF00000000000000000000000000000000AD6C2C93AF6D2DFF000000000000
+          000000000000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B
+          2CFFAD6C2C31000000000000000000000000AC6B2CFFB06D2DCB000000000000
+          000000000000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B
+          2CFCAC6B2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF00000000000000000000
+          0000000000006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C666000000000000
+          0000AE6C2C9BAC6B2CFFAC6B2CFFAD6C2CCA0000000000000000000000000000
+          0000000000006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A
+          7A1E000000000000000000000000000000000000000000000000000000000000
+          00006E6E6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDF
+          DFFF727272FE6E6E6E5C00000000000000000000000000000000000000006E6E
+          6E3B6E6E6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFC
+          FCFFCECECEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E
+          6EE86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3
+          C3FFFFFFFFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C
+          7CFFFAFAFAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E
+          6EFF707070FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D00000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000}
+        ParentShowHint = False
+        ShowHint = True
+        SpeedButtonOptions.CanBeFocused = False
+        SpeedButtonOptions.Flat = True
+        SpeedButtonOptions.Transparent = True
+        TabOrder = 2
+        OnClick = BtnPesquisarClick
+      end
     end
   end
   object pnlDados: TPanel
     Left = 0
     Top = 81
-    Width = 1011
-    Height = 466
+    Width = 1014
+    Height = 465
     Align = alClient
     BevelOuter = bvNone
     Font.Charset = ANSI_CHARSET
@@ -250,8 +263,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     object PgcTabelas: TPageControl
       Left = 0
       Top = 0
-      Width = 1011
-      Height = 466
+      Width = 1014
+      Height = 465
       ActivePage = TbsGrupo
       Align = alClient
       Font.Charset = ANSI_CHARSET
@@ -266,8 +279,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         ImageIndex = 1
         object pnlTotal: TPanel
           Left = 0
-          Top = 328
-          Width = 1003
+          Top = 327
+          Width = 1006
           Height = 110
           Align = alBottom
           BevelOuter = bvNone
@@ -275,13 +288,13 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
           object dbgTotal: TcxGrid
             Left = 0
             Top = 0
-            Width = 1003
+            Width = 1006
             Height = 110
             Align = alClient
             TabOrder = 0
             object dbgTotalTbl: TcxGridDBBandedTableView
               OnKeyPress = NovaPesquisaKeyPress
-              NavigatorButtons.ConfirmDelete = False
+              Navigator.Buttons.CustomButtons = <>
               DataController.DataSource = dsTotal
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
@@ -713,8 +726,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         object dbgGrupo: TcxGrid
           Left = 0
           Top = 0
-          Width = 1003
-          Height = 328
+          Width = 1006
+          Height = 327
           Hint = 
             'Para carregar os produtos do grupo, basta'#13#10'executar "dois clique' +
             's" no registro.'
@@ -723,7 +736,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
           object dbgGrupoTbl: TcxGridDBBandedTableView
             OnDblClick = dbgGrupoTblDblClick
             OnKeyPress = NovaPesquisaKeyPress
-            NavigatorButtons.ConfirmDelete = False
+            Navigator.Buttons.CustomButtons = <>
             DataController.DataSource = dsGrupo
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <
@@ -950,6 +963,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn2: TcxGridDBBandedColumn
+              Caption = 'Descri'#231#227'o'
               DataBinding.FieldName = 'DESCRICAO'
               Options.Filtering = False
               Options.Moving = False
@@ -1550,8 +1564,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         object dbgFab: TcxGrid
           Left = 0
           Top = 0
-          Width = 1003
-          Height = 438
+          Width = 1006
+          Height = 437
           Hint = 
             'Para carregar os produtos do fabricante, basta'#13#10'executar "dois c' +
             'liques" no registro.'
@@ -1560,7 +1574,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
           object dbgFabTbl: TcxGridDBBandedTableView
             OnDblClick = dbgFabTblDblClick
             OnKeyPress = NovaPesquisaKeyPress
-            NavigatorButtons.ConfirmDelete = False
+            Navigator.Buttons.CustomButtons = <>
             DataController.DataSource = dsFabricante
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <
@@ -1787,6 +1801,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn60: TcxGridDBBandedColumn
+              Caption = 'Descri'#231#227'o'
               DataBinding.FieldName = 'DESCRICAO'
               Options.Filtering = False
               Options.Moving = False
@@ -2392,13 +2407,13 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         object dbgProduto: TcxGrid
           Left = 0
           Top = 0
-          Width = 1003
-          Height = 438
+          Width = 1006
+          Height = 437
           Align = alClient
           TabOrder = 0
           object dbgProdutoTbl: TcxGridDBBandedTableView
             OnKeyPress = NovaPesquisaKeyPress
-            NavigatorButtons.ConfirmDelete = False
+            Navigator.Buttons.CustomButtons = <>
             DataController.DataSource = dsProduto
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <
@@ -2907,6 +2922,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn30: TcxGridDBBandedColumn
+              Caption = 'Und.'
               DataBinding.FieldName = 'UNP_SIGLA'
               Options.Filtering = False
               Options.Moving = False
@@ -2917,6 +2933,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn31: TcxGridDBBandedColumn
+              Caption = 'Grupo'
               DataBinding.FieldName = 'GRUPO'
               MinWidth = 150
               Options.HorzSizing = False
@@ -2927,6 +2944,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn32: TcxGridDBBandedColumn
+              Caption = 'Fabricante'
               DataBinding.FieldName = 'FABRICANTE'
               MinWidth = 150
               Options.HorzSizing = False
@@ -2944,107 +2962,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       end
     end
   end
-  object tlbBotoes: TToolBar
-    Left = 0
-    Top = 551
-    Width = 1011
-    Height = 35
-    Align = alBottom
-    ButtonHeight = 31
-    ButtonWidth = 96
-    Caption = #39
-    TabOrder = 2
-    object Bevel2: TBevel
-      Left = 0
-      Top = 2
-      Width = 4
-      Height = 31
-      Shape = bsSpacer
-    end
-    object btbtnIncluir: TcxButton
-      Left = 4
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Exportar dados para planilha'
-      Caption = 'Exportar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 0
-      TabStop = False
-      OnClick = btbtnIncluirClick
-      Glyph.Data = {
-        36030000424D3603000000000000360000002800000010000000100000000100
-        18000000000000030000C20E0000C20E00000000000000000000FFFFFFFFFFFF
-        FFFFFF6349356349356349356349356349356349356349356349356349356349
-        35634935634935634935FFFFFFFFFFFFFFFFFFB7A293FAE2D2DFB89EE0B699E2
-        B495E2B191E4AF8CE5AD88E6AB84E7A77FE8A57AEBA377634935FFFFFFFFFFFF
-        FFFFFFB9A495FBE6DAFBE7DAFBE6D9FAE5D8FBE4D6FBE2D3F9E0D0F8DDCCF9DB
-        C9F8DAC7E9A47B634935FFFFFFFFFFFFFFFFFFBBA696FBECE2D6AE90D6AE90D6
-        AE90D6AE90FAE7DAD6AE90D6AE90D6AE90F8DBCAE7A780634935FFFFFFFFFFFF
-        FFFFFFBEA899FDF0E8FDF0E9FDF0E8FCEFE7FCEDE5FBEBE1D6AE90FAE5D7D6AE
-        90F9DECEE6AC856349351876390C6F320D6C330E6832116333125D3314573316
-        5233184C33194834FCECE2FBE8DDD6AE90FAE1D2E4AE8A634935207C3EFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF174C34FCEFE8FCECE2FBE8
-        DCFAE4D6E3B18F6349352B8445FFFFFFFFFFFFFFFFFFFFFFFF85A9871D6F3819
-        5D345B7D5F165133D6AE90D6AE90D6AE90FBE6DAE2B395634935388E4E8BBD90
-        1E763B1D6E391A62358BBD903E92471D673A9FB3A1145733FDF4EFFDF1EAD6AE
-        90FBE9DDE0B699634935469857FFFFFF8BBD90519E5791C49657A25A21703A6C
-        9B6FDFE9DF135D33D6AE90D6AE90D6AE90FBEADFDEB89D63493553A260FFFFFF
-        CFDDCF96C69A57A25A267C39276731C0D1C0FFFFFF106233FEF8F3FDF4EFD6AE
-        90FCECE1DDBAA16349355EAA66E5ECE58DC49364AC693489416FA57357A0603A
-        8846D6E2D60E6832D6AE90D6AE90D6AE90DCBCA5DDBBA4644A3666B06C8EC293
-        5FA863479751FFFFFFCBDACC54985D54985D9BB09C0D6C32FDF8F4FDF5EFB7A2
-        93644A36644A36644A3666B06CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFF0C6F32FEF7F4FDF4EFB9A495D4C5BA644A36FAFAFA66B06C61AD68
-        5AA76452A15E489A593F9352358C4C2C8546247F411D7A3DFEF7F3FDF4EDC0AB
-        9C644A36FAFAFAFFFFFFFFFFFFFFFFFFFFFFFFD8C2B2D7C1B1D6C0B0D4BEAED2
-        BDADD1BAABCFB9AACDB6A8CBB6A6CAB4A5FBFAFAFFFFFFFFFFFF}
-    end
-    object btBtnEnviarEmail: TcxButton
-      Left = 79
-      Top = 2
-      Width = 75
-      Height = 31
-      Hint = 'Enviar e-mail'
-      Caption = 'E-mail'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-      TabStop = False
-      OnClick = btBtnEnviarEmailClick
-      Glyph.Data = {
-        36030000424D3603000000000000360000002800000010000000100000000100
-        180000000000000300000000000000000000000000000000000000FF00B29B96
-        604830604830605040A7908700FF0000FF0000FF0000FF0000FF0000FF0000FF
-        0000FF0000FF0000FF00B09A93705040B6A09BCEB9BAC2ACAA705040B0989300
-        FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00705840C0ACA7
-        B39C97605040BDAAA7C0AAA760483000FF0000FF0000FF0000FF0000FF0000FF
-        0000FF0000FF0000FF0070584000FF00705040AA9086604840AA978E604830AA
-        978E60483060483060483060483060483060483060483060483080605000FF00
-        705840D2BFBC705040E4D1CE604830DED1CEE0D0C0E0C8C0E0C0B0E0B8B0D0B0
-        A0D0A890D0A89060483080685000FF00706050D5C6C0705840ECE4E4605040EC
-        E1DEFFF0F0F0E8E0F0E0E0F0D8D0F0D0C0E0D0C0D0A89060483080706000FF00
-        806850D8CAC4705850D8CAC4705040D8C7BEB0A090B09890F0E8E0F0E0E0F0D8
-        D0F0D0C0D0B0A060483090786000FF00807060DBCFC8806050DBCFC8705840DB
-        CCC8C0A890B0A090B0A090F0E8E0F0E0E0F0D8D0E0B8B060483090807000FF00
-        907860DBCFC8806850F3ECEC806050F3ECECFFFFFFFFF8FFFFF8F0FFF0F02048
-        D02040A0E0C0B0604830A0807000FF00907870DCCFC9907060F3EDEC806850F3
-        EDECFFFFFFFFFFFFFFF8FFFFF8F04060F02048D0E0C8C060483000FF0000FF00
-        908070DCD1CAF4EEEEF4EEEE807060F4EEEEFFFFFFFFFFFFFFFFFFFFF8FFFFF8
-        F0FFF0F0F0E8E060483000FF0000FF00A08870C7B5A6F0E0DDD1BFB0908070F0
-        E0DDE0D8D0E0D0C0E0C8C0E0C0B0E0B8A0D0B0A0D0A890B0989000FF0000FF00
-        D2C3BAA08870A08870908070D2C9C4F6EEEAFFF0F0F0E8E0F0E8E0F0E0D0F0D8
-        D0F0D8D0B09890DCCECB00FF0000FF0000FF0000FF00EEE6E4E5D7D3F1ECEBFA
-        F7F6FFF8FFFFF8F0F0F0F0F0E8E0F0D8D0B0A090DDD0CD00FF0000FF0000FF00
-        00FF0000FF0000FF00EDE3E1D0B8B0F0F0F0FFFFFFFFFFFFFFF8F0F0F0F0B0A0
-        90DED0CE00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00EEE5E3C0
-        B0A0C0B0A0C0B0A0C0B0A0C0B0A0E8DDDB00FF0000FF0000FF00}
-    end
-  end
   object pnlProcesso: TPanel
-    Left = 312
-    Top = 264
+    Left = 314
+    Top = 263
     Width = 449
     Height = 65
     Anchors = []
@@ -3070,6 +2990,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitWidth = 137
     end
     object gagProcesso: TGauge
       Left = 5
@@ -3105,9 +3026,59 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       DataSource = dsListaProduto
     end
   end
+  object tlbBotoes: TPanel
+    Left = 0
+    Top = 550
+    Width = 1014
+    Height = 35
+    Align = alBottom
+    BevelOuter = bvNone
+    ParentColor = True
+    TabOrder = 2
+    object Bevel2: TBevel
+      Left = 0
+      Top = 2
+      Width = 4
+      Height = 31
+      Shape = bsSpacer
+    end
+    object btbtnIncluir: TcxButton
+      Left = 4
+      Top = 2
+      Width = 75
+      Height = 31
+      Hint = 'Exportar dados para planilha'
+      Caption = 'Exportar'
+      OptionsImage.ImageIndex = 23
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      TabStop = False
+      OnClick = btbtnIncluirClick
+    end
+    object btBtnEnviarEmail: TcxButton
+      Left = 79
+      Top = 2
+      Width = 75
+      Height = 31
+      Hint = 'Enviar e-mail'
+      Caption = 'E-mail'
+      OptionsImage.ImageIndex = 25
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      TabStop = False
+      OnClick = btBtnEnviarEmailClick
+    end
+  end
   object QryListaProduto: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       '    p.codigo as Sequencial'
@@ -3149,6 +3120,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
   object QryProduto: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'select'
       '    p.cod as Codigo'
@@ -3281,43 +3255,12 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ProviderName = 'DspProduto'
     Left = 88
     Top = 248
-    object CdsProdutoCODIGO: TStringField
-      FieldName = 'CODIGO'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COD_PRODUTO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object CdsProdutoDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      ProviderFlags = []
-      Size = 100
-    end
-    object CdsProdutoGRUPO: TStringField
-      DisplayLabel = 'Grupo'
-      FieldName = 'GRUPO'
-      Size = 30
-    end
-    object CdsProdutoFABRICANTE: TStringField
-      DisplayLabel = 'Fabricante'
-      FieldName = 'FABRICANTE'
-      Size = 50
-    end
     object CdsProdutoQTDE: TBCDField
       DisplayLabel = 'Estoque'
       FieldName = 'QTDE'
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
-    end
-    object CdsProdutoUNP_DESCRICAO: TStringField
-      FieldName = 'UNP_DESCRICAO'
-      Size = 50
-    end
-    object CdsProdutoUNP_SIGLA: TStringField
-      DisplayLabel = 'Und.'
-      FieldName = 'UNP_SIGLA'
-      Size = 5
     end
     object CdsProdutoDATA_ULTIMA_COMPRA: TDateField
       Alignment = taCenter
@@ -3509,15 +3452,42 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'PROCESSO_HORA'
       Origin = '"TBPRODUTO_ROTATIVIDADE"."PROCESSO_HORA"'
     end
-    object CdsProdutoPROCESSO_USUARIO: TStringField
+    object CdsProdutoPROCESSO_USUARIO: TWideStringField
       FieldName = 'PROCESSO_USUARIO'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."PROCESSO_USUARIO"'
       Size = 50
+    end
+    object CdsProdutoCODIGO: TWideStringField
+      FieldName = 'CODIGO'
+      Required = True
+      Size = 10
+    end
+    object CdsProdutoDESCRICAO: TWideStringField
+      FieldName = 'DESCRICAO'
+      Size = 100
+    end
+    object CdsProdutoGRUPO: TWideStringField
+      FieldName = 'GRUPO'
+      Size = 30
+    end
+    object CdsProdutoFABRICANTE: TWideStringField
+      FieldName = 'FABRICANTE'
+      Size = 50
+    end
+    object CdsProdutoUNP_DESCRICAO: TWideStringField
+      FieldName = 'UNP_DESCRICAO'
+      Size = 50
+    end
+    object CdsProdutoUNP_SIGLA: TWideStringField
+      FieldName = 'UNP_SIGLA'
+      Size = 5
     end
   end
   object QryGrupo: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'select'
       '    p.codgrupo as Codigo'
@@ -3602,8 +3572,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'CODIGO'
       DisplayFormat = '##000'
     end
-    object CdsGrupoDESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
+    object CdsGrupoDESCRICAO: TWideStringField
       FieldName = 'DESCRICAO'
       Size = 30
     end
@@ -3963,6 +3932,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
   object QryTotal: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'select'
       '    sum( coalesce(p.qtde, 0) ) as qtde'
@@ -4195,6 +4167,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
   object QryFabricante: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       '    p.codfabricante as Codigo'
@@ -4279,8 +4254,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'CODIGO'
       DisplayFormat = '###000'
     end
-    object CdsFabricanteDESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
+    object CdsFabricanteDESCRICAO: TWideStringField
       FieldName = 'DESCRICAO'
       Size = 50
     end
@@ -4603,9 +4577,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     Top = 312
   end
   object smtpEmail: TIdSMTP
-    MaxLineAction = maException
-    Port = 25
-    AuthenticationType = atNone
+    SASLMechanisms = <>
     Left = 312
     Top = 200
   end
@@ -4613,20 +4585,15 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     AttachmentEncoding = 'MIME'
     BccList = <>
     CCList = <>
-    DeleteTempFiles = False
     Encoding = meMIME
+    FromList = <
+      item
+      end>
     Priority = mpHigh
     Recipients = <>
     ReplyTo = <>
+    ConvertPreamble = True
     Left = 344
-    Top = 200
-  end
-  object IdSSLIOHandlerSocket: TIdSSLIOHandlerSocket
-    SSLOptions.Method = sslvSSLv2
-    SSLOptions.Mode = sslmClient
-    SSLOptions.VerifyMode = []
-    SSLOptions.VerifyDepth = 0
-    Left = 376
     Top = 200
   end
 end

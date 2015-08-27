@@ -6,8 +6,16 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, DBClient, Provider, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, DBClient, Provider, IBQuery, cxGraphics, cxLookAndFeels, Menus, cxButtons,
+
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeTabelaCFOP = class(TfrmGrPadraoCadastro)
@@ -34,6 +42,8 @@ type
     IbDtstTabelaCFOP_INFORMACAO_FISCO: TIBStringField;
     lblInformacaoFisco: TLabel;
     dbInformacaoFisco: TDBEdit;
+    IbDtstTabelaCFOP_DEVOLUCAO: TSmallintField;
+    DBCheckBox1: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -99,6 +109,7 @@ procedure TfrmGeTabelaCFOP.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
+  IbDtstTabelaCFOP_DEVOLUCAO.AsInteger            := 0;
   IbDtstTabelaCFOP_CST_PADRAO_ENTRADA.Clear;
   IbDtstTabelaCFOP_CST_PADRAO_SAIDA.Clear;
 end;

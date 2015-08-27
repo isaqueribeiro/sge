@@ -1,13 +1,11 @@
 inherited frmGeCidade: TfrmGeCidade
-  Left = 400
-  Top = 223
-  ActiveControl = dbCodigo
+  Left = 390
+  Top = 215
   Caption = 'Tabela de Cidades (Munic'#237'pios)'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
@@ -158,7 +156,55 @@ inherited frmGeCidade: TfrmGeCidade
           ParentFont = False
           TabOrder = 3
         end
-        object dbEstado: TRxDBComboEdit
+        object dbDDD: TDBEdit
+          Left = 640
+          Top = 40
+          Width = 49
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'CID_DDD'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+        end
+        object dbCEPInicial: TDBEdit
+          Left = 432
+          Top = 80
+          Width = 97
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'CID_CEP_INICIAL'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 6
+        end
+        object dbCEPFinal: TDBEdit
+          Left = 536
+          Top = 80
+          Width = 97
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'CID_CEP_FINAL'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 7
+        end
+        object dbEstado: TJvDBComboEdit
           Left = 16
           Top = 80
           Width = 409
@@ -232,54 +278,6 @@ inherited frmGeCidade: TfrmGeCidade
           ShowHint = True
           TabOrder = 5
           OnButtonClick = dbEstadoButtonClick
-        end
-        object dbDDD: TDBEdit
-          Left = 640
-          Top = 40
-          Width = 49
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'CID_DDD'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 4
-        end
-        object dbCEPInicial: TDBEdit
-          Left = 432
-          Top = 80
-          Width = 97
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'CID_CEP_INICIAL'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 6
-        end
-        object dbCEPFinal: TDBEdit
-          Left = 536
-          Top = 80
-          Width = 97
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'CID_CEP_FINAL'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 7
         end
       end
       object GrpBxCustosOper: TGroupBox

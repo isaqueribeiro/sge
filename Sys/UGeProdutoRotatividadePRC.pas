@@ -6,7 +6,7 @@ uses
   UGrPadrao,
   
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters,
   cxControls, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, IdIOHandler,
@@ -20,7 +20,12 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver;
+  dxSkinOffice2010Silver, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator,
+  IdExplicitTLSClientServerBase, IdSMTPBase;
 
 type
   TFrmGeProdutoRotatividadePRC = class(TfrmGrPadrao)
@@ -30,14 +35,11 @@ type
     lblTipoProcesso: TLabel;
     edTipoProcesso: TComboBox;
     GrpBxPesquisar: TGroupBox;
-    BtnPesquisar: TSpeedButton;
     lblPesquisar: TLabel;
     edPesquisar: TEdit;
     BtnProcessar: TSpeedButton;
     pnlDados: TPanel;
     Bevel1: TBevel;
-    tlbBotoes: TToolBar;
-    Bevel2: TBevel;
     Bevel3: TBevel;
     PgcTabelas: TPageControl;
     TbsProduto: TTabSheet;
@@ -61,8 +63,6 @@ type
     dsListaProduto: TDataSource;
     DspProduto: TDataSetProvider;
     CdsProduto: TClientDataSet;
-    CdsProdutoCODIGO: TStringField;
-    CdsProdutoDESCRICAO: TStringField;
     CdsProdutoDATA_ULTIMA_COMPRA: TDateField;
     CdsProdutoDATA_ULTIMA_VENDA: TDateField;
     CdsProdutoCOMPRA_QTDE_01: TBCDField;
@@ -92,7 +92,6 @@ type
     CdsProdutoMOVIMENTADO: TSmallintField;
     CdsProdutoPROCESSO_DATA: TDateField;
     CdsProdutoPROCESSO_HORA: TTimeField;
-    CdsProdutoPROCESSO_USUARIO: TStringField;
     dbgProdutoTblColumn1: TcxGridDBBandedColumn;
     dbgProdutoTblColumn2: TcxGridDBBandedColumn;
     dbgProdutoTblColumn3: TcxGridDBBandedColumn;
@@ -121,8 +120,6 @@ type
     dbgProdutoTblColumn26: TcxGridDBBandedColumn;
     dbgProdutoTblColumn27: TcxGridDBBandedColumn;
     dbgProdutoTblColumn28: TcxGridDBBandedColumn;
-    CdsProdutoUNP_DESCRICAO: TStringField;
-    CdsProdutoUNP_SIGLA: TStringField;
     dbgProdutoTblColumn29: TcxGridDBBandedColumn;
     dbgProdutoTblColumn30: TcxGridDBBandedColumn;
     QryGrupo: TIBQuery;
@@ -130,7 +127,6 @@ type
     CdsGrupo: TClientDataSet;
     dsGrupo: TDataSource;
     CdsGrupoCODIGO: TSmallintField;
-    CdsGrupoDESCRICAO: TStringField;
     CdsGrupoITENS: TIntegerField;
     CdsGrupoDATA_ULTIMA_COMPRA: TDateField;
     CdsGrupoDATA_ULTIMA_VENDA: TDateField;
@@ -309,8 +305,6 @@ type
     svdArquivo: TSaveDialog;
     lblTipoFiltro: TLabel;
     edTipoFiltro: TComboBox;
-    CdsProdutoGRUPO: TStringField;
-    CdsProdutoFABRICANTE: TStringField;
     dbgProdutoTblColumn31: TcxGridDBBandedColumn;
     dbgProdutoTblColumn32: TcxGridDBBandedColumn;
     QryFabricante: TIBQuery;
@@ -368,7 +362,6 @@ type
     BCDField47: TBCDField;
     BCDField48: TBCDField;
     dsFabricante: TDataSource;
-    CdsFabricanteDESCRICAO: TStringField;
     dbgFab: TcxGrid;
     dbgFabTbl: TcxGridDBBandedTableView;
     cxGridDBBandedColumn59: TcxGridDBBandedColumn;
@@ -429,13 +422,24 @@ type
     CdsFabricanteCODIGO: TIntegerField;
     smtpEmail: TIdSMTP;
     msgEmail: TIdMessage;
-    IdSSLIOHandlerSocket: TIdSSLIOHandlerSocket;
     CdsProdutoQTDE: TBCDField;
     CdsGrupoQTDE: TBCDField;
     CdsFabricanteQTDE: TBCDField;
     CdsTotalQTDE: TBCDField;
+    tlbBotoes: TPanel;
+    Bevel2: TBevel;
     btbtnIncluir: TcxButton;
     btBtnEnviarEmail: TcxButton;
+    BtnPesquisar: TcxButton;
+    CdsProdutoCODIGO: TWideStringField;
+    CdsProdutoDESCRICAO: TWideStringField;
+    CdsProdutoGRUPO: TWideStringField;
+    CdsProdutoFABRICANTE: TWideStringField;
+    CdsProdutoUNP_DESCRICAO: TWideStringField;
+    CdsProdutoUNP_SIGLA: TWideStringField;
+    CdsProdutoPROCESSO_USUARIO: TWideStringField;
+    CdsGrupoDESCRICAO: TWideStringField;
+    CdsFabricanteDESCRICAO: TWideStringField;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure edTipoProcessoChange(Sender: TObject);
@@ -467,7 +471,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, cxGridExportLink;
+  UDMBusiness, UConstantesDGE, cxGridExportLink, UDMRecursos;
 
 {$R *.dfm}
 
@@ -558,7 +562,7 @@ begin
     Application.ProcessMessages;
 
     CdsListaProduto.Close;
-    CdsListaProduto.Params.ParamByName('empresa').AsString := GetEmpresaIDDefault;
+    CdsListaProduto.Params.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
     CdsListaProduto.Open;
 
     gagProcesso.MaxValue := CdsListaProduto.RecordCount;
@@ -626,7 +630,7 @@ procedure TFrmGeProdutoRotatividadePRC.ExecutarPesquisa(
 var
   sWhr : String;
 begin
-  sWhr := 'where (p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ') and (p.qtde > 0)';
+  sWhr := 'where (p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (p.qtde > 0)';
 
   Case edTipoFiltro.ItemIndex of
     1 : sWhr := sWhr + ' and (r.movimentado = 1)';
@@ -854,7 +858,7 @@ procedure TFrmGeProdutoRotatividadePRC.dbgGrupoTblDblClick(Sender: TObject);
 var
   sWhr : String;
 begin
-  sWhr := 'where (p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+  sWhr := 'where (p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
   Case edTipoFiltro.ItemIndex of
     1 : sWhr := sWhr + ' and (r.movimentado = 1)';
@@ -934,7 +938,7 @@ procedure TFrmGeProdutoRotatividadePRC.dbgFabTblDblClick(Sender: TObject);
 var
   sWhr : String;
 begin
-  sWhr := 'where (p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+  sWhr := 'where (p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
   Case edTipoFiltro.ItemIndex of
     1 : sWhr := sWhr + ' and (r.movimentado = 1)';
@@ -1044,8 +1048,9 @@ begin
   try
     try
       sAssunto := FormatDateTime('dd/mm/yyyy', Date) + ' - Rotatividade de Produtos (' + edTipoProcesso.Text + ')';;
-      CarregarConfiguracoesEmpresa(GetEmpresaIDDefault, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
+      CarregarConfiguracoesEmpresa(gUsuarioLogado.Empresa, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
 
+      (* Bloco de código descontinuado por sua compilação integral ser possível apenas no Delpi 7
       smtpEmail.Username    := gContaEmail.Conta;
       smtpEmail.Password    := gContaEmail.Senha;
       smtpEmail.Host        := gContaEmail.Servidor_SMTP;
@@ -1076,6 +1081,15 @@ begin
       smtpEmail.Connect;
       smtpEmail.Authenticate;
       smtpEmail.Send(msgEmail);
+      *)
+
+      with DMBusiness, ACBrMail do
+      begin
+        ConfigurarEmail(gUsuarioLogado.Empresa, sEmailTo, sAssunto, gContaEmail.Mensagem_Padrao);
+        AddAttachment(sFileNameHtml);
+        AddAttachment(sFileNameXls);
+        Send;
+      end;
 
       ShowInformation('E-mail enviado com sucesso!' + #13 + 'Arquivo(s) anexo(s) : ' + #13 + sFileNameHtml + #13 + sFileNameXls);
     except

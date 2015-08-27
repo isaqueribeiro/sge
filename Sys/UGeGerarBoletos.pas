@@ -8,12 +8,18 @@ uses
   DBGrids, DB, IBCustomDataSet, IBQuery, Mask, DBCtrls, DBClient, Provider,
   ComObj, IBUpdateSQL, IBTable, IBSQL, UGrPadrao, ACBrBoleto,
   ACBrBoletoFCFR, ACBrBase, ACBrUtil, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeGerarBoleto = class(TfrmGrPadrao)
     pnlGuias: TPanel;
-    tlbBotoes: TToolBar;
     pgcGuias: TPageControl;
     tbsClientes: TTabSheet;
     tbsTitulos: TTabSheet;
@@ -58,11 +64,9 @@ type
     Label10: TLabel;
     dbCEP: TDBEdit;
     Bevel4: TBevel;
-    Bevel5: TBevel;
     Shape1: TShape;
     Label11: TLabel;
     Bevel6: TBevel;
-    Bevel7: TBevel;
     dbgTitulos: TDBGrid;
     Bevel8: TBevel;
     IbQryTitulos: TIBQuery;
@@ -73,9 +77,6 @@ type
     CdsTitulos: TClientDataSet;
     CdsTitulosPARCELA: TSmallintField;
     CdsTitulosCODBANCO: TIntegerField;
-    CdsTitulosNOSSONUMERO: TStringField;
-    CdsTitulosCNPJ: TStringField;
-    CdsTitulosTIPPAG: TStringField;
     CdsTitulosDTEMISS: TDateField;
     CdsTitulosDTVENC: TDateField;
     CdsTitulosVALORREC: TBCDField;
@@ -94,7 +95,6 @@ type
     edtDemonstrativo: TEdit;
     UpdateLanc: TIBSQL;
     IbUpdTitulos: TIBUpdateSQL;
-    CdsTitulosGERAR: TStringField;
     CdsTitulosANOLANC: TSmallintField;
     CdsTitulosNUMLANC: TIntegerField;
     CdsTitulosANOVENDA: TSmallintField;
@@ -138,14 +138,21 @@ type
     IbQryBancosBCO_PERCENTUAL_MORA: TIBBCDField;
     IbQryBancosBCO_DIA_PROTESTO: TSmallintField;
     IbQryBancosBCO_MSG_INSTRUCAO: TIBStringField;
-    CdsTitulosSERIE: TStringField;
-    CdsTitulosNFE: TLargeintField;
     IbQryBancosBCO_LAYOUT_REMESSA: TSmallintField;
     IbQryBancosBCO_LAYOUT_RETORNO: TSmallintField;
     CdsTitulosPARCELA_MAXIMA: TSmallintField;
     IbQryClientesCODIGO: TIntegerField;
+    tlbBotoes: TPanel;
+    Bevel5: TBevel;
     btnFechar: TcxButton;
+    Bevel7: TBevel;
     btnGerarBoleto: TcxButton;
+    CdsTitulosNOSSONUMERO: TWideStringField;
+    CdsTitulosCNPJ: TWideStringField;
+    CdsTitulosTIPPAG: TWideStringField;
+    CdsTitulosSERIE: TWideStringField;
+    CdsTitulosNFE: TLargeintField;
+    CdsTitulosGERAR: TWideStringField;
     procedure edtFiltrarKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -171,11 +178,16 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
+    {$IFNDEF ACBR}
     CobreBemX : Variant;
+    {$ENDIF}
     FFecharAoGerar : Boolean;
     procedure CarregarBancos;
-    procedure GravarBoletosGerados;
+    {$IFDEF ACBR}
     procedure GravarBoletosGeradosACBr(const iProximoNossoNumero : Integer);
+    {$ELSE}
+    procedure GravarBoletosGerados;
+    {$ENDIF}
     procedure UpdateTitulo( iAno : Smallint; iLancamento : Int64; iBanco : Integer; sNossoNumero : String; Data : TDateTime;
       const cJuros : Currency = 0.0; const cMulta : Currency = 0.0);
 
@@ -185,10 +197,13 @@ type
     function GetContaDigito : String;
 
     function CarregarTitulos(iCodigoCliente: Integer; iBanco : Integer) : Boolean;
-    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
+    {$IFDEF ACBR}
     function DefinirCedenteACBr(iBanco : Integer; sCarteira : String) : Boolean;
-    function InserirBoleto( var Objeto : Variant) : Boolean;
     function InserirBoletoACBr(var iProximoNossoNumero : Integer; const NovosBoletos : Boolean = TRUE) : Boolean;
+    {$ELSE}
+    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
+    function InserirBoleto( var Objeto : Variant) : Boolean;
+    {$ENDIF}
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -197,6 +212,7 @@ type
 var
   frmGeGerarBoleto : TfrmGeGerarBoleto;
 
+{$IFNDEF ACBR}
 const
   feeSMTPBoletoHTML              = $00000000;
   feeSMTPMensagemBoletoHTMLAnexo = $00000001;
@@ -214,6 +230,7 @@ const
   scpOK       = $00000001;
   scpInvalido = $00000002;
   scpErro     = $00000003;
+{$ENDIF}
 
   procedure GerarBoleto(const AOwer : TComponent); overload;
   procedure GerarBoleto(const AOwer : TComponent; const NomeCliente : String; const iCodigoCliente : Integer; iAno, iVenda : Integer); overload;
@@ -223,7 +240,8 @@ const
 
 implementation
 
-uses UDMBusiness, StrUtils, TypInfo, DateUtils, UConstantesDGE, UFuncoes;
+uses UDMBusiness, StrUtils, TypInfo, DateUtils, UConstantesDGE, UFuncoes,
+  UDMRecursos;
 
 {$R *.dfm}
 
@@ -447,7 +465,9 @@ procedure TfrmGeGerarBoleto.FormCreate(Sender: TObject);
 begin
   inherited;
   pgcGuias.ActivePageIndex := 0;
+  {$IFNDEF ACBR}
   CobreBemX      := CreateOleObject('CobreBemX.ContaCorrente');
+  {$ENDIF}
   FFecharAoGerar := False;
 end;
 
@@ -511,6 +531,7 @@ begin
     dbgTitulosDblClick(Sender);
 end;
 
+{$IFNDEF ACBR}
 function TfrmGeGerarBoleto.DefinirCedente(Banco, Carteira : Integer; var Objeto: Variant): Boolean;
 var
   sAppPath     ,
@@ -552,6 +573,7 @@ begin
     end;
   end;
 end;
+{$ENDIF}
 
 procedure TfrmGeGerarBoleto.btnGerarBoletoClick(Sender: TObject);
 var
@@ -628,7 +650,7 @@ begin
   with IbQryBancos, cmbBanco do
   begin
     Close;
-    ParamByName('empresa').AsString := GetEmpresaIDDefault;
+    ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
     Open;
     
     if ( not IsEmpty ) then
@@ -660,6 +682,7 @@ begin
   end;
 end;
 
+{$IFNDEF ACBR}
 function TfrmGeGerarBoleto.InserirBoleto(var Objeto: Variant): Boolean;
 var
   sAppPath   ,
@@ -740,7 +763,9 @@ begin
     end;
   end;
 end;
+{$ENDIF}
 
+{$IFNDEF ACBR}
 procedure TfrmGeGerarBoleto.GravarBoletosGerados;
 var
   Ano  ,
@@ -783,6 +808,7 @@ begin
     CommitTransaction;
   end;
 end;
+{$ENDIF}
 
 procedure TfrmGeGerarBoleto.GravarBoletosGeradosACBr(const iProximoNossoNumero : Integer);
 var
@@ -837,7 +863,7 @@ begin
 
   cmbBancoChange(cmbBanco);
 
-  if ( IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString <> CobreBemX.ProximoNossoNumero ) then
+  if ( StrToIntDef(Trim(IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString), 0) < iProximoNossoNumero ) then
   begin
     IbQryBancos.Edit;
     IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString := RightStr( FormatFloat('0000000', iProximoNossoNumero), 6 );
@@ -912,7 +938,9 @@ end;
 
 procedure TfrmGeGerarBoleto.FormDestroy(Sender: TObject);
 begin
+  {$IFNDEF ACBR}
   CobreBemX := Unassigned;
+  {$ENDIF}
 end;
 
 function TfrmGeGerarBoleto.DefinirCedenteACBr(iBanco : Integer; sCarteira : String): Boolean;

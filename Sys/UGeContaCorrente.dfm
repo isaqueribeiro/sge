@@ -1,6 +1,6 @@
 inherited frmGeContaCorrente: TfrmGeContaCorrente
-  Left = 401
-  Top = 224
+  Left = 393
+  Top = 212
   Width = 759
   Height = 478
   Caption = 'Controle de Conta Corrente'
@@ -13,10 +13,6 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   end
   inherited Bevel3: TBevel
     Top = 397
-    Width = 743
-  end
-  inherited tlbBotoes: TToolBar
-    Top = 401
     Width = 743
   end
   inherited pgcGuias: TPageControl
@@ -70,12 +66,12 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
             Width = 89
             Caption = 'Conta Corrente:'
           end
-          inherited btnFiltrar: TSpeedButton
-            Left = 277
-          end
           inherited edtFiltrar: TEdit
             Left = 112
             Width = 161
+          end
+          inherited btnFiltrar: TcxButton
+            Left = 277
           end
         end
       end
@@ -131,7 +127,43 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
           ParentFont = False
           TabOrder = 1
         end
-        object dbBanco: TRxDBComboEdit
+        object dbTipo: TDBRadioGroup
+          Left = 512
+          Top = 16
+          Width = 209
+          Height = 44
+          Caption = 'Tipo'
+          Columns = 2
+          DataField = 'TIPO'
+          DataSource = DtSrcTabela
+          Items.Strings = (
+            'Caixa'
+            'Banco')
+          TabOrder = 2
+          Values.Strings = (
+            '1'
+            '2')
+        end
+        object dbEmpresa: TDBLookupComboBox
+          Left = 16
+          Top = 120
+          Width = 705
+          Height = 21
+          DataField = 'EMPRESA'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CNPJ'
+          ListField = 'RZSOC'
+          ListSource = dtsEmpresa
+          ParentFont = False
+          TabOrder = 4
+        end
+        object dbBanco: TJvDBComboEdit
           Left = 16
           Top = 80
           Width = 705
@@ -206,43 +238,23 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
           TabOrder = 3
           OnButtonClick = dbBancoButtonClick
         end
-        object dbTipo: TDBRadioGroup
-          Left = 512
-          Top = 16
-          Width = 209
-          Height = 44
-          Caption = 'Tipo'
-          Columns = 2
-          DataField = 'TIPO'
-          DataSource = DtSrcTabela
-          Items.Strings = (
-            'Caixa'
-            'Banco')
-          TabOrder = 2
-          Values.Strings = (
-            '1'
-            '2')
-        end
-        object dbEmpresa: TDBLookupComboBox
-          Left = 16
-          Top = 120
-          Width = 705
-          Height = 21
-          DataField = 'EMPRESA'
-          DataSource = DtSrcTabela
-          DropDownRows = 10
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          KeyField = 'CNPJ'
-          ListField = 'RZSOC'
-          ListSource = dtsEmpresa
-          ParentFont = False
-          TabOrder = 4
-        end
       end
+    end
+  end
+  inherited tlbBotoes: TPanel
+    Top = 401
+    Width = 743
+    inherited bvlTool3: TBevel
+      Left = 660
+    end
+    inherited bvlTool4: TBevel
+      Left = 739
+    end
+    inherited btbtnFechar: TcxButton
+      Left = 664
+    end
+    inherited btbtnSelecionar: TcxButton
+      Left = 540
     end
   end
   inherited IbDtstTabela: TIBDataSet

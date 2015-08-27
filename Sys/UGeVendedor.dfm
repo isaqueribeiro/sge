@@ -1,6 +1,6 @@
 inherited frmGeVendedor: TfrmGeVendedor
-  Left = 385
-  Top = 221
+  Left = 396
+  Top = 231
   Width = 746
   ActiveControl = dbCodigo
   Caption = 'Cadastro de Vendedores'
@@ -12,18 +12,6 @@ inherited frmGeVendedor: TfrmGeVendedor
   end
   inherited Bevel3: TBevel
     Width = 730
-  end
-  inherited tlbBotoes: TToolBar
-    Width = 730
-    inherited bvlToolExpandir: TBevel
-      Width = 36
-    end
-    inherited btbtnSelecionar: TcxButton
-      Left = 577
-    end
-    inherited bvlTool4: TBevel
-      Left = 697
-    end
   end
   inherited pgcGuias: TPageControl
     Width = 730
@@ -81,12 +69,12 @@ inherited frmGeVendedor: TfrmGeVendedor
             Width = 57
             Caption = 'Vendedor:'
           end
-          inherited btnFiltrar: TSpeedButton
-            Left = 245
-          end
           inherited edtFiltrar: TEdit
             Left = 72
             Width = 169
+          end
+          inherited btnFiltrar: TcxButton
+            Left = 245
           end
         end
       end
@@ -211,6 +199,21 @@ inherited frmGeVendedor: TfrmGeVendedor
           ValueUnchecked = '0'
         end
       end
+    end
+  end
+  inherited tlbBotoes: TPanel
+    Width = 730
+    inherited bvlTool3: TBevel
+      Left = 647
+    end
+    inherited bvlTool4: TBevel
+      Left = 726
+    end
+    inherited btbtnFechar: TcxButton
+      Left = 651
+    end
+    inherited btbtnSelecionar: TcxButton
+      Left = 527
     end
   end
   inherited IbDtstTabela: TIBDataSet

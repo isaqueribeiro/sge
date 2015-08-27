@@ -4,14 +4,15 @@ interface
 
 uses
   {$IFDEF DGE}
-  EUserAcs,
+  EUserAcs, EMsgDlg,
   {$ENDIF}
   Windows, Forms, SysUtils, Classes, Controls, IBDatabase, DB, IBCustomDataSet, IniFIles,
-  ShellApi, Printers, DateUtils, IBQuery, RpDefine, RpRave,
-  frxClass, frxDBSet, EMsgDlg, IdBaseComponent, IdComponent, IdIPWatch, IBStoredProc,
+  ShellApi, Printers, DateUtils, IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
+  frxClass, frxDBSet, IdBaseComponent, IdComponent, IdIPWatch, IBStoredProc,
   FuncoesFormulario, UConstantesDGE, IBUpdateSQL, DBClient,
   Provider, Dialogs, Registry, frxChart, frxCross, frxRich, frxExportMail,
-  frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF;
+  frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF, ACBrBase,
+  ACBrValidador, ACBrMail;
 
 type
   TSistema = record
@@ -50,6 +51,9 @@ type
     CEP    : String;
     Competencia  : Integer;
     DataBloqueio : TDateTime;
+    UsarSGE : Boolean;
+    UsarSGI : Boolean;
+    UsarSGF : Boolean;
   end;
 
   TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
@@ -72,9 +76,7 @@ type
     ibdtstAjustEstoqLookFornec: TStringField;
     qryBusca: TIBQuery;
     ibdtstUsers: TIBDataSet;
-    EvMsgDialog: TEvMsgDlg;
     dtsrcUsers: TDataSource;
-    raveReport: TRvProject;
     IdIPWatch: TIdIPWatch;
     qryCaixaAberto: TIBDataSet;
     qryCaixaAbertoANO: TSmallintField;
@@ -127,6 +129,8 @@ type
     frxChartObject: TfrxChartObject;
     ibdtstUsersVENDEDOR: TIntegerField;
     fastReport: TfrxReport;
+    ACBrValidador: TACBrValidador;
+    ACBrMail: TACBrMail;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -172,7 +176,7 @@ var
   function IfThen(AValue: Boolean; const ATrue: string; AFalse: string = ''): string; overload;
   function IfThen(AValue: Boolean; const ATrue: TDateTime; AFalse: TDateTime = 0): TDateTime; overload;
   function IfThen(AValue: Boolean; const ATrue: Integer; AFalse: Integer = 0): Integer; overload;
-  function NetWorkActive(const Alertar : Boolean = FALSE) : Boolean;
+  function IfThen(AValue: Boolean; const ATrue: Currency; AFalse: Currency = 0.0): Currency; overload;
   function DataBaseOnLine : Boolean;
 
   function ShowConfirmation(sTitle, sMsg : String) : Boolean; overload;
@@ -198,12 +202,16 @@ var
   procedure BloquearClientes;
   procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
+  procedure RegistrarEmpresa;
   procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
+  procedure RegistrarCaixaNaVenda(const AnoVenda, NumVenda, AnoCaixa, NumCaixa : Integer; const IsPDV : Boolean);
   {$IFDEF DGE}
   procedure RegistrarControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess);
   {$ENDIF}
   procedure CarregarConfiguracoesEmpresa(CNPJ : String; Mensagem : String; var AssinaturaHtml, AssinaturaTXT : String);
+  procedure AliquotaIcms(const UF_Origem, UF_Destino : String; var aAliquotaNormal, aAliquotaST : Currency);
   procedure SetEmpresaIDDefault(CNPJ : String);
+  procedure SetSegmento(const iCodigo : Integer; const sDescricao : String);
   procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
   procedure SetRotinaSistema(iTipo : Smallint; sCodigo, sDescricao, sRotinaPai : String);
 
@@ -218,13 +226,14 @@ var
   function GetCidadeIDDefault : Integer;
   function GetCfopIDDefault : Integer;
   function GetCfopEntradaIDDefault : Integer;
+  function GetCfopDevolucao(const iCfop : Integer) : Boolean;
   function GetEmpresaIDDefault : String;
   function GetClienteIDDefault : Integer;
   function GetVendedorIDDefault : Integer;
   function GetFormaPagtoIDDefault : Integer;
   function GetCondicaoPagtoIDDefault : Integer;
   function GetEstacaoEmitiBoleto : Boolean;
-  function GetEstacaoEmitiNFe : Boolean;
+  function GetEstacaoEmitiNFe(const sCNPJEmpresa : String) : Boolean;
   function GetCondicaoPagtoIDBoleto_Descontinuada : Integer;  // Descontinuada
   function GetEmitirApenasOrcamento : Boolean;
   function GetEmitirCupom : Boolean;
@@ -259,18 +268,21 @@ var
   function StrIsCPF(const Num: string): Boolean;
   function StrIsDateTime(const S: string): Boolean;
   function StrIsInteger(const Num: string): Boolean;
+  function StrFormatar(Documento, Complemento : String; const TipoDocumento : TACBrValTipoDocto): String;
   function StrFormatarCnpj(sCnpj: String): String;
   function StrFormatarCpf(sCpf: String): String;
   function StrFormatarCEP(sCEP: String): String;
   function StrFormatarFONE(sFone: String): String;
-  function StrDescricaoProduto : String;
+  function StrDescricaoProduto(const NoPlural : Boolean = TRUE) : String;
   function StrOnlyNumbers(const Str : String) : String;
+  Function StrInscricaoEstadual(const IE, UF : String) : Boolean;
 
   function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
   function SetLogradouro(const iCidade : Integer; const sNome : String; var Tipo : Smallint) : Integer;
 
   function GetGeneratorID(const GeneratorName : String) : Integer;
   function GetNextID(NomeTabela, CampoChave : String; const sWhere : String = '') : Largeint;
+  function GetGuidID38 : String;
   function GetPaisNomeDefault : String;
   function GetEstadoNomeDefault : String;
   function GetEstadoNome(const iEstado : Integer) : String; overload;
@@ -279,6 +291,7 @@ var
   function GetEstadoUF(const iEstado : Integer) : String;
   function GetCidadeNomeDefault : String;
   function GetCidadeNome(const iCidade : Integer) : String;
+  function GetCidadeCEP(const iCidade : Integer) : String;
   function GetCidadeID(const iEstado : Integer; const sNome : String) : Integer; overload;
   function GetCidadeID(const sCEP : String) : Integer; overload;
   function GetBairroNome(const iBairro : Integer) : String;
@@ -291,18 +304,24 @@ var
   function GetEmpresaNome(const sCNPJEmpresa : String) : String;
   function GetEmpresaEnderecoDefault : String;
   function GetEmpresaEndereco(const sCNPJEmitente : String) : String;
+  function GetEmpresaUF(const sCNPJEmitente : String) : String;
   function GetClienteNomeDefault : String;
   function GetClienteNome(const iCodigo : Integer) : String;
   function GetClienteEmail(const iCodigo : Integer) : String;
+  function GetClienteUF(const iCodigo : Integer) : String;
+  function GetClienteEndereco(const aCodigo : Integer; const aQuebrarLinha : Boolean = FALSE) : String;
   function GetFornecedorEmail(const iCodigo : Integer) : String;
   function GetFornecedorRazao(const iCodigo : Integer) : String;
   function GetFornecedorContato(const iCodigo : Integer) : String;
+  function GetFornecedorUF(const iCodigo : Integer) : String;
   function GetVendedorNomeDefault : String;
   function GetVendedorNome(const iCodigo : Integer) : String;
   function GetFormaPagtoNomeDefault : String;
   function GetFormaPagtoNome(const iCodigo : Integer) : String;
+  function GetFormaPagtoCondicaoPagto(const iFormaPagto, iCondicaoPagto : Integer) : Boolean;
   function GetCondicaoPagtoNomeDefault : String;
   function GetCondicaoPagtoNome(const iCodigo : Integer) : String;
+  function GetTabelaIBPT_Codigo(const aCodigoNCM : String) : Integer;
   function GetSenhaAutorizacao : String;
   function GetDateTimeDB : TDateTime;
   function GetDateDB : TDateTime;
@@ -317,19 +336,24 @@ var
   function GetLimiteDescontoUser : Currency;
   function GetUserPermitirAlterarValorVenda : Boolean;
   function GetPermititEmissaoNFe(const sCNPJEmitente : String) : Boolean;
+  function GetPermititEmissaoNFeEntrada(const sCNPJEmitente : String) : Boolean;
   function GetPermititNFeDenegada(const sCNPJEmitente : String) : Boolean;
   function GetSolicitaDHSaidaNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+  function GetExisteNumeroSolicitacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroRequisicaoAlmox(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
-  function GetMenorDataEmissaoReqAlmoxEnviada : TDateTime;
+  function GetMenorVencimentoAReceber : TDateTime;
+  function GetMenorDataEmissaoReqAlmoxEnviada(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
+  function GetMenorDataApropriacaoAberta(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
+  function GetCarregarPapelDeParedeLocal : Boolean;
   function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
   function GetRotinaPaiIDSistema(const RotinaID : String): String;
   function GetQuantidadeEmpresasEmiteNFe : Integer;
@@ -397,6 +421,10 @@ const
   TIPO_COTACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
   TIPO_COTACAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
 
+  TIPO_SOLICITACAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
+  TIPO_SOLICITACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
+  TIPO_SOLICITACAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
+
   TIPO_APROPRIACAO_GERAL   = 0;
   TIPO_APROPRIACAO_ENTRADA = 1;
   TIPO_APROPRIACAO_AUTORIZ = 2;
@@ -428,6 +456,17 @@ const
   STATUS_ITEM_REQUISICAO_ALMOX_ATE = 2;
   STATUS_ITEM_REQUISICAO_ALMOX_ENT = 3;
   STATUS_ITEM_REQUISICAO_ALMOX_CAN = 4;
+
+  STATUS_INVENTARIO_ALMOX_EML = 0;
+  STATUS_INVENTARIO_ALMOX_EMC = 1;
+  STATUS_INVENTARIO_ALMOX_ENC = 2;
+  STATUS_INVENTARIO_ALMOX_CAN = 3;
+
+  STATUS_SOLICITACAO_EDC = 0;
+  STATUS_SOLICITACAO_ABR = 1;
+  STATUS_SOLICITACAO_FIN = 2;
+  STATUS_SOLICITACAO_APR = 3;
+  STATUS_SOLICITACAO_CAN = 4;
 
   // Mensagens padrões do sistema
   CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado, automaticamente, pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
@@ -464,6 +503,15 @@ begin
     Result := AFalse;
 end;
 
+function IfThen(AValue: Boolean; const ATrue: Currency; AFalse: Currency = 0.0): Currency;
+begin
+  if AValue then
+    Result := ATrue
+  else
+    Result := AFalse;
+end;
+
+(*
 function NetWorkActive(const Alertar : Boolean = FALSE) : Boolean;
 var
   Enviar    ,
@@ -487,13 +535,6 @@ begin
   try
 
     try
-(*
-      if ( IdIP = nil ) then
-        IdIP  := TIdIPWatch.Create(Application);
-
-      if ( IdFTP = nil ) then
-        IdFTP := TIdFTP.Create(Application);
-*)
       sSistema  := StringReplace( ExtractFileName(ParamStr(0)), '.exe', '', [rfReplaceAll] );
       sFileName := ExtractFilePath(ParamStr(0)) + 'NetWorkActive' + sSistema + '.dll';
 
@@ -515,9 +556,6 @@ begin
       // --- Conectar ao servidor para registrar cliente (INICIO)
       if ( not Return ) then
       begin
-(*        sHostID   := IdIP.LocalIP;
-        sHostName := IdIP.LocalName;
-*)
         Registro.Clear;
         Registro.BeginUpdate;
         Registro.Add( FormatDateTime('dd/mm/yyyy', Date) );
@@ -602,6 +640,7 @@ begin
     Result := Return;
   end;
 end;
+*)
 
 function DataBaseOnLine : Boolean;
 begin
@@ -622,7 +661,8 @@ begin
       fMsg.Free;
     end
   else
-    Result := (Application.MessageBox(PChar(sMsg), PChar(sTitle), MB_ICONQUESTION + MB_YESNO + MB_DEFBUTTON2) = ID_YES);
+    Result := (MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0) = ID_YES);
+//    Result := (Application.MessageBox(PChar(sMsg), PChar(sTitle), MB_ICONQUESTION + MB_YESNO + MB_DEFBUTTON2) = ID_YES);
 end;
 
 function ShowConfirmation(sMsg : String) : Boolean;
@@ -835,6 +875,8 @@ end;
 
 procedure ExportarFR3_ToXSL(const FrrLayout: TfrxReport; var sFileName : String);
 begin
+  KillTask('EXCEL.EXE');
+
   with DMBusiness, FrrLayout, PrintOptions do
   begin
     if FileExists(sFileName) then
@@ -960,6 +1002,60 @@ begin
   end;
 end;
 
+procedure RegistrarEmpresa;
+var
+  bRegistrada : Boolean;
+begin
+  try
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  e.codigo');
+      SQL.Add('from TBEMPRESA e');
+      SQL.Add('where e.cnpj = ' + QuotedStr(StrOnlyNumbers(gLicencaSistema.CNPJ)));
+      Open;
+
+      bRegistrada := (FieldByName('codigo').AsInteger = 1);
+
+      Close;
+
+      SQL.Clear;
+
+      if not bRegistrada then
+      begin
+        SQL.Add('Insert Into TBEMPRESA (');
+        SQL.Add('    codigo');
+        SQL.Add('  , cnpj');
+        SQL.Add('  , pessoa_fisica');
+        SQL.Add('  , rzsoc');
+        SQL.Add('  , segmento');
+        SQL.Add(') values (');
+        SQL.Add('    1');
+        SQL.Add('  , ' + QuotedStr(StrOnlyNumbers(gLicencaSistema.CNPJ)));
+        SQL.Add('  , 0');
+        SQL.Add('  , ' + QuotedStr(gLicencaSistema.Empresa));
+        SQL.Add('  , ' + IntToStr(SEGMENTO_PADRAO_ID));
+        SQL.Add(')');
+      end
+      else
+      begin
+        SQL.Add('Update TBEMPRESA e Set');
+        SQL.Add('    codigo = 1');
+        SQL.Add('  , rzsoc  = ' + QuotedStr(gLicencaSistema.Empresa));
+        SQL.Add('where e.cnpj = ' + QuotedStr(StrOnlyNumbers(gLicencaSistema.CNPJ)));
+      end;
+
+      ExecSQL;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      ShowError('Erro na inserção/atualização do registro da empresa.' + #13#13 + E.Message);
+  end;
+end;
+
 procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
 begin
   with DMBusiness, qryBusca do
@@ -967,6 +1063,28 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('Execute Procedure SET_SEGMENTO(' + IntToStr(Codigo) + ', ' + QuotedStr(Trim(Descricao)) + ')');
+    ExecSQL;
+
+    CommitTransaction;
+  end;
+end;
+
+procedure RegistrarCaixaNaVenda(const AnoVenda, NumVenda, AnoCaixa, NumCaixa : Integer;
+  const IsPDV : Boolean);
+begin
+  if (AnoVenda = 0) or (NumVenda = 0) or (AnoCaixa = 0) or (NumCaixa = 0) then
+    Exit;
+
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Update TBVENDAS Set');
+    SQL.Add('    caixa_ano = ' + IntToStr(AnoCaixa));
+    SQL.Add('  , caixa_num = ' + IntToStr(NumCaixa));
+    SQL.Add('  , caixa_PDV = ' + IfThen(IsPDV, '1', '0'));
+    SQL.Add('where ano        = ' + IntToStr(AnoVenda));
+    SQL.Add('  and codcontrol = ' + IntToStr(NumVenda));
     ExecSQL;
 
     CommitTransaction;
@@ -1102,10 +1220,49 @@ begin
   end;
 end;
 
+procedure AliquotaIcms(const UF_Origem, UF_Destino : String; var aAliquotaNormal, aAliquotaST : Currency);
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select first 1');
+    SQL.Add('    icms.aliquota_normal');
+    SQL.Add('  , icms.aliquota_st');
+    SQL.Add('from GET_ALIQUOTA_ICMS(' + QuotedStr(UF_Origem) + ', ' + QuotedStr(UF_Destino) + ') icms');
+    Open;
+
+    aAliquotaNormal := FieldByName('aliquota_normal').AsCurrency;
+    aAliquotaST     := FieldByName('aliquota_st').AsCurrency;
+
+    Close;
+  end;
+end;
+
 procedure SetEmpresaIDDefault(CNPJ : String);
 begin
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_EMPRESA, CNPJ);
   FileINI.UpdateFile;
+end;
+
+procedure SetSegmento(const iCodigo : Integer; const sDescricao : String);
+begin
+  try
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Execute Procedure SET_SEGMENTO_EMPRESA(' + IntToStr(iCodigo) + ', ' + QuotedStr(Trim(sDescricao)) + ')');
+      ExecSQL;
+
+      CommitTransaction;
+
+      Close;
+    end;
+  except
+    On E : Exception do
+      ShowError('SetSegmento() - ' + E.Message + #13#13 + DMBusiness.qryBusca.SQL.Text);
+  end;
 end;
 
 procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
@@ -1150,23 +1307,54 @@ end;
 
 function EncriptSenha_Master(const Value, Key : String) : String;
 var
-  iCarac ,
-  KeyAlt : Integer;
+  sKeyChar    ,
+  sStrEncode  ,
+  sResult     : String;
+  iTamanhoStr ,
+  iPosicaoKey : Integer;
+  IdEncoder   : TIdEncoderMIME;
 begin
-  KeyAlt := Length(Key);
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  try
+    sKeyChar    := IdEncoder.EncodeString(Key);
+    sStrEncode  := IdEncoder.EncodeString(Value);
+    iTamanhoStr := Length(sStrEncode);
 
-  for iCarac := 1 to Length(Key) do
-    KeyAlt := KeyAlt xor Ord(Key[iCarac]);
+    iPosicaoKey := -1;
+    while (iPosicaoKey < 0) do
+      iPosicaoKey := Random(iTamanhoStr);
 
-  Result := Value;
+    sResult := Copy(sStrEncode, 1, iPosicaoKey) + sKeyChar + Copy(sStrEncode, iPosicaoKey + 1, iTamanhoStr);
 
-  for iCarac := 1 to Length(Value) do
-    Result[iCarac] := chr(not(ord(Value[iCarac]) xor Ord(KeyAlt)));
+    Result := sResult;
+  finally
+    IdEncoder.Free;
+  end;
 end;
 
 function DecriptarSenha_Master(const Value, Key : String) : String;
+var
+  sKeyChar   ,
+  sStrEncode : String;
+  IdEncoder  : TIdEncoderMIME;
+  IdDecoder  : TIdDecoderMIME;
 begin
-  Result := EncriptSenha_Master(Value, Key);
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  IdDecoder := TIdDecoderMIME.Create(nil);
+  try
+    sKeyChar   := IdEncoder.EncodeString(Key);
+    sStrEncode := Value;
+
+    if (Pos(sKeyChar, sStrEncode) = 0)  then
+      raise Exception.Create('Criptografia corrompida!!!')
+    else
+      sStrEncode := StringReplace(sStrEncode, sKeyChar, EmptyStr, [rfReplaceAll]);
+
+    Result := IdDecoder.DecodeString(sStrEncode);
+  finally
+    IdEncoder.Free;
+    IdDecoder.Free;
+  end;
 end;
 
 function DelphiIsRunning : Boolean;
@@ -1214,6 +1402,21 @@ begin
   Result := FileINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_CFOP_ENT, StrToInt(INI_KEY_CFOP_ENT_VALUE));
 end;
 
+function GetCfopDevolucao(const iCfop : Integer) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cfop_devolucao from TBCFOP where cfop_cod = ' + IntToStr(iCfop));
+    Open;
+
+    Result := (FieldByName('cfop_devolucao').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
 function GetEmpresaIDDefault : String;
 begin
   Result := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_EMPRESA, EmptyStr);
@@ -1244,19 +1447,19 @@ begin
   Result := FileINI.ReadBool('Boleto', 'EmitirBoleto', False);
 end;
 
-function GetEstacaoEmitiNFe : Boolean;
+function GetEstacaoEmitiNFe(const sCNPJEmpresa : String) : Boolean;
 Var
   sPrefixoSecao     ,
   sSecaoCertificado : String;
 begin
   if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
-    sPrefixoSecao := Trim(GetEmpresaIDDefault) + '_'
+    sPrefixoSecao := Trim(sCNPJEmpresa) + '_'
   else
     sPrefixoSecao := EmptyStr;
 
   sSecaoCertificado := sPrefixoSecao + INI_SECAO_CERTIFICADO;
 
-  Result := GetPermititEmissaoNFe(GetEmpresaIDDefault) and (Trim(FileINI.ReadString(sSecaoCertificado, 'NumSerie', EmptyStr)) <> EmptyStr);
+  Result := GetPermititEmissaoNFe(sCNPJEmpresa) and (Trim(FileINI.ReadString(sSecaoCertificado, 'NumSerie', EmptyStr)) <> EmptyStr);
 end;
 
 function GetCondicaoPagtoIDBoleto_Descontinuada : Integer; // Descontinuada
@@ -1679,6 +1882,18 @@ begin
   Result := TryStrToInt(Num, I);
 end;
 
+function StrFormatar(Documento, Complemento : String; const TipoDocumento : TACBrValTipoDocto): String;
+begin
+  with DMBusiness do
+  begin
+    ACBrValidador.TipoDocto   := TipoDocumento;
+    ACBrValidador.Documento   := Trim(Documento);
+    ACBrValidador.Complemento := Trim(Complemento);
+
+    Result := ACBrValidador.Formatar;
+  end;
+end;
+
 function StrFormatarCnpj(sCnpj: String): String;
 var
   S : String;
@@ -1751,20 +1966,23 @@ begin
   Result := S;
 end;
 
-function StrDescricaoProduto : String;
+function StrDescricaoProduto(const NoPlural : Boolean = TRUE) : String;
 var
   S : String;
 begin
   try
-    S := 'Produtos';
+    S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
 
-    Case GetSegmentoID(GetEmpresaIDDefault)  of
+    Case GetSegmentoID(gUsuarioLogado.Empresa)  of
       SEGMENTO_MERCADO_CARRO_ID:
-        S := 'Veículos';
+        S := 'Veículo' + IfThen(NoPlural, 's', EmptyStr);
       SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
-        s := 'Produto/Serviço'  
+        s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
       else
-        S := 'Produtos';
+        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+          s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
+        else
+          S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
     end;
 
   finally
@@ -1784,6 +2002,31 @@ begin
       Delete(Valor, I, 1);
 
   Result := Valor;
+end;
+
+function StrInscricaoEstadual(const IE, UF : String) : Boolean;
+var
+  sDocumento   ,
+  sComplemento ,
+  sMensErro    : String;
+begin
+  Result := (Trim(IE) = EmptyStr) or (Copy(AnsiUpperCase(IE), 1, 5) = 'ISENT');
+
+  if not Result  then
+    with DMBusiness do
+    begin
+      sDocumento   := StrFormatar(IE, UF, docInscEst);
+      sComplemento := Trim(UF);
+
+
+      ACBrValidador.Documento   := sDocumento;
+      ACBrValidador.Complemento := sComplemento;
+
+      Result := ACBrValidador.Validar;
+
+      if not Result then
+         sMensErro := Trim(ACBrValidador.MsgErro);
+    end;
 end;
 
 function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
@@ -1860,6 +2103,20 @@ begin
     Open;
 
     Result := FieldByName('ID').AsInteger + 1;
+  end;
+end;
+function GetGuidID38 : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select g.hex_uuid_format from GET_GUID_UUID_HEX g');
+    Open;
+
+    Result := FieldByName('hex_uuid_format').AsString;
+
+    Close;
   end;
 end;
 
@@ -1958,6 +2215,21 @@ begin
     Open;
 
     Result := FieldByName('cid_nome').AsString;
+
+    Close;
+  end;
+end;
+
+function GetCidadeCEP(const iCidade : Integer) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cid_cep_inicial from TBCIDADE where cid_cod = ' + IntToStr(iCidade));
+    Open;
+
+    Result := FieldByName('cid_cep_inicial').AsString;
 
     Close;
   end;
@@ -2117,13 +2389,36 @@ begin
     SQL.Add('  , e.uf');
     SQL.Add('  , e.cep');
     SQL.Add('from TBEMPRESA e');
-    SQL.Add('where e.cnpj = ' + QuotedStr(GetEmpresaIDDefault));
+    if Trim(sCNPJEmitente) = EmptyStr then
+      SQL.Add('where e.cnpj = ' + QuotedStr(GetEmpresaIDDefault))
+    else
+      SQL.Add('where e.cnpj = ' + QuotedStr(sCNPJEmitente));
     Open;
 
     Result := Trim(FieldByName('ender').AsString) + ', No. ' + Trim(FieldByName('numero_end').AsString) +
       IfThen(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') + ', ' +
       'BAIRRO: ' + Trim(FieldByName('bairro').AsString) + ' - ' + Trim(FieldByName('cidade').AsString) + ' ' +
       'CEP: ' + StrFormatarCEP(Trim(FieldByName('cep').AsString));
+
+    Close;
+  end;
+end;
+
+function GetEmpresaUF(const sCNPJEmitente : String) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select e.uf');
+    SQL.Add('from TBEMPRESA e');
+    if Trim(sCNPJEmitente) = EmptyStr then
+      SQL.Add('where e.cnpj = ' + QuotedStr(GetEmpresaIDDefault))
+    else
+      SQL.Add('where e.cnpj = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := Trim(FieldByName('uf').AsString);
 
     Close;
   end;
@@ -2163,6 +2458,51 @@ begin
     Close;
   end;
 end;
+
+function GetClienteUF(const iCodigo : Integer) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select uf from TBCLIENTE where Codigo = ' + IntToStr(iCodigo));
+    Open;
+
+    Result := AnsiLowerCase(Trim(FieldByName('uf').AsString));
+
+    Close;
+  end;
+end;
+
+function GetClienteEndereco(const aCodigo : Integer; const aQuebrarLinha : Boolean = FALSE) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    c.ender');
+    SQL.Add('  , c.numero_end');
+    SQL.Add('  , c.complemento');
+    SQL.Add('  , c.bairro');
+    SQL.Add('  , c.cidade');
+    SQL.Add('  , c.uf');
+    SQL.Add('  , c.cep');
+    SQL.Add('from TBCLIENTE c');
+    SQL.Add('where c.codigo = ' + IntToStr(aCodigo));
+    Open;
+
+    Result := Trim(FieldByName('ender').AsString) + ', No. ' + Trim(FieldByName('numero_end').AsString) +
+      IfThen(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') +
+      IfThen(aQuebrarLinha, #13, ', ') +
+      'BAIRRO: ' + Trim(FieldByName('bairro').AsString) + ' - ' + Trim(FieldByName('cidade').AsString) +
+      IfThen(aQuebrarLinha, #13, ' ') +
+      'CEP: ' + StrFormatarCEP(Trim(FieldByName('cep').AsString));
+
+    Close;
+  end;
+end;
+
 
 function GetFornecedorEmail(const iCodigo : Integer) : String;
 begin
@@ -2209,6 +2549,21 @@ begin
   end;
 end;
 
+function GetFornecedorUF(const iCodigo : Integer) : String;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select uf from TBFORNECEDOR where Codforn = ' + IntToStr(iCodigo));
+    Open;
+
+    Result := AnsiLowerCase(Trim(FieldByName('uf').AsString));
+
+    Close;
+  end;
+end;
+
 function GetVendedorNomeDefault : String;
 begin
   Result := GetVendedorNome( GetVendedorIDDefault );
@@ -2249,6 +2604,23 @@ begin
   end;
 end;
 
+function GetFormaPagtoCondicaoPagto(const iFormaPagto, iCondicaoPagto : Integer) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select count(*) as Itens from TBFORMPAGTO_CONDICAO');
+    SQL.Add('where forma_pagto    = ' + IntToStr(iFormaPagto));
+    SQL.Add('  and condicao_pagto = ' + IntToStr(iCondicaoPagto));
+    Open;
+
+    Result := (FieldByName('Itens').AsInteger > 0);
+
+    Close;
+  end;
+end;
+
 function GetCondicaoPagtoNomeDefault : String;
 begin
   Result := GetCondicaoPagtoNome( GetCondicaoPagtoIDDefault );
@@ -2264,6 +2636,26 @@ begin
     Open;
 
     Result := FieldByName('cond_descricao_full').AsString;
+
+    Close;
+  end;
+end;
+
+function GetTabelaIBPT_Codigo(const aCodigoNCM : String) : Integer;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  t.id_ibpt');
+    SQL.Add('from SYS_IBPT t');
+    SQL.Add('where t.ncm_ibpt = ' + QuotedStr(aCodigoNCM));
+    SQL.Add('order by');
+    SQL.Add('  t.ex_ibpt, t.ncm_ibpt');
+    Open;
+
+    Result := FieldByName('id_ibpt').AsInteger;
 
     Close;
   end;
@@ -2347,43 +2739,67 @@ end;
 function GetUserApp : String;
 begin
   with DMBusiness, ibdtstUsers do
-    Result := AnsiUpperCase( Trim(ibdtstUsersNOME.AsString) );
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := AnsiUpperCase( Trim(ibdtstUsersNOME.AsString) )
+    else
+      Result := EmptyStr;  
 end;
 
 function GetUserFullName : String;
 begin
   with DMBusiness, ibdtstUsers do
-    Result := AnsiUpperCase( Trim(ibdtstUsersNOMECOMPLETO.AsString) );
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := AnsiUpperCase( Trim(ibdtstUsersNOMECOMPLETO.AsString) )
+    else
+      Result := EmptyStr;
 end;
 
 function GetUserFunctionID : Integer;
 begin
   with DMBusiness, ibdtstUsers do
-    Result := ibdtstUsersCODFUNCAO.AsInteger;
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := ibdtstUsersCODFUNCAO.AsInteger
+    else
+      Result := 0;
 end;
 
 function GetUserCodigoVendedorID : Integer;
 begin
   with DMBusiness, ibdtstUsers do
-    Result := ibdtstUsersVENDEDOR.AsInteger;
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := ibdtstUsersVENDEDOR.AsInteger
+    else
+      Result := 0;
 end;
 
 function GetUserUpdatePassWord : Boolean;
 begin
+  if Trim(gUsuarioLogado.Login) = EmptyStr then
+    Result := False
+  else
   with DMBusiness, ibdtstUsers do
-    Result := (ibdtstUsersALTERAR_SENHA.AsInteger = 1);
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (ibdtstUsersALTERAR_SENHA.AsInteger = 1)
+    else
+      Result := False;
 end;
 
 function GetLimiteDescontoUser : Currency;
 begin
   with DMBusiness, ibdtstUsers do
-    Result := ibdtstUsersLIMIDESC.AsCurrency;
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := ibdtstUsersLIMIDESC.AsCurrency
+    else
+      Result := 0.0;
 end;
 
 function GetUserPermitirAlterarValorVenda : Boolean;
 begin
   with DMBusiness, ibdtstUsers do
-    Result := (ibdtstUsersPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (ibdtstUsersPERM_ALTERAR_VALOR_VENDA.AsInteger = 1)
+    else
+      Result := False;
 end;
 
 function GetPermititEmissaoNFe(const sCNPJEmitente : String) : Boolean;
@@ -2396,6 +2812,21 @@ begin
     Open;
 
     Result := (FieldByName('nfe_emitir').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetPermititEmissaoNFeEntrada(const sCNPJEmitente : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select nfe_emitir_entrada from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := (FieldByName('nfe_emitir_entrada').AsInteger = 1);
 
     Close;
   end;
@@ -2526,6 +2957,33 @@ begin
   end;
 end;
 
+function GetExisteNumeroSolicitacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    s.ano');
+    SQL.Add('  , s.codigo');
+    SQL.Add('  , s.numero');
+    SQL.Add('from TBSOLICITACAO s');
+    SQL.Add('where s.Numero  = ' + QuotedStr(Trim(sNumero)));
+    SQL.Add('  and (not (');
+    SQL.Add('           s.ano    = ' + IntToStr(iAno));
+    SQL.Add('       and s.codigo = ' + IntToStr(iCodigo));
+    SQL.Add('  ))');
+    Open;
+
+    Result := (FieldByName('codigo').AsInteger > 0);
+
+    if Result then
+      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
+
+    Close;
+  end;
+end;
+
 function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
   with DMBusiness, qryBusca do
@@ -2616,12 +3074,16 @@ begin
     SQL.Add('Select');
     SQL.Add('  min(cp.dtvenc) as vencimento');
     SQL.Add('from TBCONTPAG cp');
-    SQL.Add('where cp.empresa = ' + QuotedStr(GetEmpresaIDDefault));
-    SQL.Add('  and cp.quitado = 0');
+    SQL.Add('where cp.empresa  = ' + QuotedStr(gUsuarioLogado.Empresa));
+    SQL.Add('  and cp.quitado  = 0');
+    SQL.Add('  and cp.situacao = 1');
     Open;
 
     if not IsEmpty then
-      Result := FieldByName('vencimento').AsDateTime
+      if not FieldByName('vencimento').IsNull then
+        Result := FieldByName('vencimento').AsDateTime
+      else
+        Result := GetDateDB
     else
       Result := GetDateDB;
 
@@ -2629,21 +3091,81 @@ begin
   end;
 end;
 
-function GetMenorDataEmissaoReqAlmoxEnviada : TDateTime;
+function GetMenorVencimentoAReceber : TDateTime;
 begin
   with DMBusiness, qryBusca do
   begin
     Close;
     SQL.Clear;
     SQL.Add('Select');
+    SQL.Add('  min(cr.dtvenc) as vencimento');
+    SQL.Add('from TBCONTREC cr');
+    SQL.Add('where cr.empresa  = ' + QuotedStr(gUsuarioLogado.Empresa));
+    SQL.Add('  and cr.baixado  = 0');
+    SQL.Add('  and cr.situacao = 1');
+    Open;
+
+    if not IsEmpty then
+      if not FieldByName('vencimento').IsNull then
+        Result := FieldByName('vencimento').AsDateTime
+      else
+        Result := GetDateDB
+    else
+      Result := GetDateDB;
+
+    Close;
+  end;
+end;
+
+function GetMenorDataEmissaoReqAlmoxEnviada(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+
+    SQL.Clear;
+    SQL.Add('Select');
     SQL.Add('  min(r.data_emissao) as data_emissao');
     SQL.Add('from TBREQUISICAO_ALMOX r');
-    SQL.Add('where r.empresa = ' + QuotedStr(GetEmpresaIDDefault));
+    SQL.Add('where r.empresa = ' + QuotedStr(aEmpresa));
     SQL.Add('  and r.status in (' + IntToStr(STATUS_REQUISICAO_ALMOX_ENV) + ', ' + IntToStr(STATUS_REQUISICAO_ALMOX_REC) + ')');
+
+    if ( aCentroCusto > 0 ) then
+      SQL.Add('  and r.ccusto_destino = ' + IntToStr(aCentroCusto));
+
     Open;
 
     if not FieldByName('data_emissao').IsNull then
       Result := FieldByName('data_emissao').AsDateTime
+    else
+      Result := GetDateDB;
+
+    Close;
+  end;
+end;
+
+function GetMenorDataApropriacaoAberta(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  min(cast(a.data_apropriacao as date)) as data_apropriacao');
+    SQL.Add('from TBAPROPRIACAO_ALMOX a');
+    SQL.Add('where a.status in (' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_EDC) + ', ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_ABR) + ')');
+
+    if (Trim(aEmpresa) <> EmptyStr) then
+      SQL.Add('  and a.empresa = ' + QuotedStr(aEmpresa));
+
+    if ( aCentroCusto > 0 ) then
+      SQL.Add('  and a.centro_custo = ' + IntToStr(aCentroCusto));
+
+    Open;
+
+    if not FieldByName('data_apropriacao').IsNull then
+      Result := FieldByName('data_apropriacao').AsDateTime
     else
       Result := GetDateDB;
 
@@ -2669,6 +3191,11 @@ end;
 function GetCarregarProdutoCodigoBarraLocal : Boolean;
 begin
   Result := FileINI.ReadBool(INI_SECAO_VENDA, INI_KEY_CODIGO_EAN, GetCarregarProdutoCodigoBarra(GetEmpresaIDDefault));
+end;
+
+function GetCarregarPapelDeParedeLocal : Boolean;
+begin
+  Result := FileINI.ReadBool(INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, True);
 end;
 
 function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
@@ -3029,7 +3556,19 @@ begin
     gLicencaSistema.CEP      := ini.ReadString('Licenca', 'edCEP',      '');
     gLicencaSistema.Competencia  := StrToIntDef(ini.ReadString('Licenca', 'edCompetencia', FormatDateTime('yyyymm', Date + 30)), 0);
     gLicencaSistema.DataBloqueio := ini.ReadDateTime('Licenca', 'edDataBloqueio', Date + 45);
+    gLicencaSistema.UsarSGE  := ini.ReadBool('Licenca', 'chkSGE', False);
+    gLicencaSistema.UsarSGI  := ini.ReadBool('Licenca', 'chkSGI', False);
+    gLicencaSistema.UsarSGF  := ini.ReadBool('Licenca', 'chkSGF', False);
 
+    SetSegmento(SEGMENTO_PADRAO_ID,          SEGMENTO_PADRAO_DS);
+    SetSegmento(SEGMENTO_VAREJO_ATACADO_ID,  SEGMENTO_VAREJO_ATACADO_DS);
+    SetSegmento(SEGMENTO_MERCADO_CARRO_ID,   SEGMENTO_MERCADO_CARRO_DS);
+    SetSegmento(SEGMENTO_SERVICOS_ID,        SEGMENTO_SERVICOS_DS);
+    SetSegmento(SEGMENTO_VAREJO_SERVICOS_ID, SEGMENTO_VAREJO_SERVICOS_DS);
+    SetSegmento(SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_METAL_DS);
+    SetSegmento(SEGMENTO_INDUSTRIA_GERAL_ID, SEGMENTO_INDUSTRIA_GERAL_DS);
+
+    RegistrarEmpresa;
   finally
     ini.Free;
     Arquivo.Free;
@@ -3080,17 +3619,20 @@ begin
     begin
       CarregarLicenca(EmptyStr);
     end;
-    
-    with RegistroSistema do
-    begin
-      RootKey := HKEY_CURRENT_USER;
-      OpenKey(SYS_PATH_REGISTER + GetInternalName, True);
 
-      WriteString(KEY_REG_VERSAO, GetExeVersion);
-      WriteString(KEY_REG_DATA,   DateToStr(Date));
-      CloseKey;
+    try
+      with RegistroSistema do
+      begin
+        RootKey := HKEY_CURRENT_USER;
+        OpenKey(SYS_PATH_REGISTER + GetInternalName, True);
+
+        WriteString(KEY_REG_VERSAO, GetExeVersion);
+        WriteString(KEY_REG_DATA,   DateToStr(Date));
+        CloseKey;
+      end;
+    except
     end;
-    
+
   except
     On E : Exception do
       ShowError('Erro ao tentar conectar no Servidor/Base.' + #13#13 + E.Message);
@@ -3221,6 +3763,29 @@ begin
 
     Signature.Clear;
     Signature.Add(sAssinaturaTxt);
+  end;
+
+  // Configurar conta de e-mail no ACBrMail
+
+  with ACBrMail do
+  begin
+    From     := gContaEmail.Conta;
+    FromName := RemoveAcentos(GetRazaoSocialEmpresa(sCNPJEmitente));
+    Host     := gContaEmail.Servidor_SMTP;
+    Username := gContaEmail.Conta;
+    Password := gContaEmail.Senha;
+    Port     := IntToStr(gContaEmail.Porta_SMTP);
+    SetSSL   := gContaEmail.ConexaoSeguraSSL;
+    SetTLS   := gContaEmail.RequerAutenticacao;
+    IsHTML   := False;
+    Subject  := Trim(sAssunto);
+    AddAddress( AnsiLowerCase(Trim(sDestinatario)) );
+
+    Body.BeginUpdate;
+    Body.Clear;
+    Body.Add( sMensagem );
+    Body.Add( sAssinaturaTxt );
+    Body.EndUpdate;
   end;
 end;
 

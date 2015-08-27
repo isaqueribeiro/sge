@@ -7,7 +7,13 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, DBClient, Provider, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeFormaPagto = class(TfrmGrPadraoCadastro)
@@ -40,11 +46,11 @@ type
     cdsContaCorrenteLista: TClientDataSet;
     cdsContaCorrenteListaSELECIONAR: TIntegerField;
     cdsContaCorrenteListaCODIGO: TIntegerField;
-    cdsContaCorrenteListaDESCRICAO: TStringField;
-    cdsContaCorrenteListaTIPO: TStringField;
-    cdsContaCorrenteListaRZSOC: TStringField;
     IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField;
     dbFormaPagtoPDVRelatorio: TDBCheckBox;
+    cdsContaCorrenteListaDESCRICAO: TWideStringField;
+    cdsContaCorrenteListaTIPO: TWideStringField;
+    cdsContaCorrenteListaRZSOC: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
@@ -256,6 +262,7 @@ begin
 
     cdsContaCorrenteLista.Next;
   end;
+  cdsContaCorrenteLista.First;
 end;
 
 procedure TfrmGeFormaPagto.btbtnSalvarClick(Sender: TObject);

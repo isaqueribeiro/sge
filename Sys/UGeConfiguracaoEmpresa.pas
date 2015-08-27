@@ -7,7 +7,14 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeConfiguracaoEmpresa = class(TfrmGrPadraoCadastro)
@@ -72,6 +79,8 @@ type
     edTokenId: TDBEdit;
     lblToken: TLabel;
     edToken: TDBEdit;
+    IbDtstTabelaNFE_EMITIR_ENTRADA: TSmallintField;
+    chkNFE_EmitirEntrada: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
@@ -110,7 +119,7 @@ begin
 
   pgcConfigurar.ActivePage := tbsContaEmail;
 
-  dbAutorizacaoInformaCliente.Visible := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
+  dbAutorizacaoInformaCliente.Visible := (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.DtSrcTabelaStateChange(
@@ -176,11 +185,13 @@ end;
 procedure TfrmGeConfiguracaoEmpresa.IbDtstTabelaNewRecord(
   DataSet: TDataSet);
 begin
-  IbDtstTabelaEMPRESA.AsString            := GetEmpresaIDDefault;
+  IbDtstTabelaEMPRESA.AsString            := gUsuarioLogado.Empresa;
   IbDtstTabelaEMAIL_SMTP_PORTA.AsInteger  := PORTA_SMTP_PADRAO;
   IbDtstTabelaEMAIL_REQUER_AUTENTICACAO.AsInteger := 0;
   IbDtstTabelaEMAIL_CONEXAO_SSL.AsInteger         := 0;
 
+  IbDtstTabelaNFE_EMITIR.AsInteger                := 0;
+  IbDtstTabelaNFE_EMITIR_ENTRADA.AsInteger        := 0;
   IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA.AsInteger := 1;
   IbDtstTabelaNFE_SOLICITA_DH_SAIDA.AsInteger     := 0;
   IbDtstTabelaNFE_IMPRIMIR_COD_CLIENTE.AsInteger  := 0;

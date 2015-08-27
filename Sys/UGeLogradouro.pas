@@ -6,8 +6,9 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, dblookup, IBQuery, IBTable, rxToolEdit, RXDBCtrl, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, dblookup, IBQuery, IBTable, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
+  JvToolEdit, JvDBControls;
 
 type
   TfrmGeLogradouro = class(TfrmGrPadraoCadastro)
@@ -18,13 +19,13 @@ type
     tblTipo: TIBTable;
     dbTipo: TDBLookupComboBox;
     lblCidade: TLabel;
-    dbCidade: TRxDBComboEdit;
     IbDtstTabelaLOG_COD: TIntegerField;
     IbDtstTabelaLOG_NOME: TIBStringField;
     IbDtstTabelaTLG_COD: TSmallintField;
     IbDtstTabelaCID_COD: TIntegerField;
     IbDtstTabelaLOGRADOURO: TIBStringField;
     IbDtstTabelaCID_NOME: TIBStringField;
+    dbCidade: TJvDBComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure dbCidadeButtonClick(Sender: TObject);

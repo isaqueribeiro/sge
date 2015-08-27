@@ -6,10 +6,19 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, IBQuery, Menus, JPEG,
+  ToolWin, IBTable, IBQuery, Menus, JPEG,
   UObserverInterface, UCliente, ACBrBase, ACBrSocket, ACBrConsultaCNPJ,
   ACBrConsultaCPF, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  cxButtons;
+  cxButtons, JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  cxControls, cxStyles, cxEdit, cxDBLookupComboBox, cxVGrid, cxDBVGrid,
+  cxInplaceContainer;
 
 type
   TfrmGeCliente = class(TfrmGrPadraoCadastro, IObserver) // Observador
@@ -41,17 +50,13 @@ type
     dbIM: TDBEdit;
     GroupBox1: TGroupBox;
     lblCidade: TLabel;
-    dbCidade: TRxDBComboEdit;
     Bevel5: TBevel;
     lblEstado: TLabel;
-    dbEstado: TRxDBComboEdit;
     pgcMaisDados: TPageControl;
     tbsContato: TTabSheet;
     tbsCompra: TTabSheet;
     lblBairro: TLabel;
-    dbBairro: TRxDBComboEdit;
     lblLogradouro: TLabel;
-    dbLogradouro: TRxDBComboEdit;
     lblCEP: TLabel;
     dbCEP: TDBEdit;
     lblNumero: TLabel;
@@ -73,7 +78,6 @@ type
     IbDtstTabelaINSCMUN: TIBStringField;
     IbDtstTabelaSITE: TIBStringField;
     lblPais: TLabel;
-    dbPais: TRxDBComboEdit;
     lblValorLimiteCompra: TLabel;
     dbValorLimiteCompra: TDBEdit;
     IbDtstTabelaVALOR_LIMITE_COMPRA: TIBBCDField;
@@ -143,7 +147,6 @@ type
     popProcesso: TPopupMenu;
     mpClienteBloquear: TMenuItem;
     mpClienteDesbloquear: TMenuItem;
-    dbCNPJ: TRxDBComboEdit;
     tbsConsultarCNPJ: TTabSheet;
     tbsConsultarCPF: TTabSheet;
     ACBrConsultaCNPJ: TACBrConsultaCNPJ;
@@ -247,14 +250,6 @@ type
     IbDtstTabelaOBSERVACAO: TMemoField;
     dtsBancoFebraban: TDataSource;
     tbsDadoFinanceiro: TTabSheet;
-    lblBanco: TLabel;
-    dbBanco: TDBLookupComboBox;
-    lblAgencia: TLabel;
-    dbAgencia: TDBEdit;
-    lblContaCorrente: TLabel;
-    dbContaCorrente: TDBEdit;
-    lblPracaoCobranca: TLabel;
-    dbPracaoCobranca: TDBEdit;
     tbsObservacao: TTabSheet;
     dbObservacao: TDBMemo;
     qryBancoFebraban: TIBQuery;
@@ -268,6 +263,45 @@ type
     btnRecuperarCNPJ: TcxButton;
     btnConsultarCPF: TcxButton;
     BtnRequisicoes: TcxButton;
+    Label15: TLabel;
+    EditCNAE1: TEdit;
+    Label16: TLabel;
+    ListCNAE2: TListBox;
+    dbCNPJ: TJvDBComboEdit;
+    dbEstado: TJvDBComboEdit;
+    dbCidade: TJvDBComboEdit;
+    dbBairro: TJvDBComboEdit;
+    dbLogradouro: TJvDBComboEdit;
+    dbPais: TJvDBComboEdit;
+    IbDtstTabelaATIVO: TSmallintField;
+    dbCadastroAtivo: TDBCheckBox;
+    lblClienteDesativado: TLabel;
+    lblDataNasc: TLabel;
+    edDataNasc: TMaskEdit;
+    dbgContaCorrente: TcxDBVerticalGrid;
+    dbCtgrConta1: TcxCategoryRow;
+    dbBanco1: TcxDBEditorRow;
+    dbAgencia1: TcxDBEditorRow;
+    dbContaCorrente1: TcxDBEditorRow;
+    dbPracaCobranca1: TcxDBEditorRow;
+    dbCtgrConta2: TcxCategoryRow;
+    dbBanco2: TcxDBEditorRow;
+    dbAgencia2: TcxDBEditorRow;
+    dbContaCorrente2: TcxDBEditorRow;
+    dbPracaCobranca2: TcxDBEditorRow;
+    dbCtgrConta3: TcxCategoryRow;
+    dbBanco3: TcxDBEditorRow;
+    dbAgencia3: TcxDBEditorRow;
+    dbContaCorrente3: TcxDBEditorRow;
+    dbPracaCobranca3: TcxDBEditorRow;
+    IbDtstTabelaBANCO_2: TIBStringField;
+    IbDtstTabelaAGENCIA_2: TIBStringField;
+    IbDtstTabelaCC_2: TIBStringField;
+    IbDtstTabelaPRACA_2: TIBStringField;
+    IbDtstTabelaBANCO_3: TIBStringField;
+    IbDtstTabelaAGENCIA_3: TIBStringField;
+    IbDtstTabelaCC_3: TIBStringField;
+    IbDtstTabelaPRACA_3: TIBStringField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -309,6 +343,8 @@ type
       Shift: TShiftState);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure dbgContaCorrenteExit(Sender: TObject);
+    procedure dbgContaCorrenteEnter(Sender: TObject);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -346,7 +382,7 @@ implementation
 
 uses
   UDMBusiness, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
-  UGeLogradouro, UGrPadrao, ChkDgVer, FuncoesFormulario, UConstantesDGE;
+  UGeLogradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -502,10 +538,11 @@ begin
 
   DisplayFormatCodigo := '##0000';
 
-  NomeTabela     := 'TBCLIENTE';
-  CampoCodigo    := 'codigo';
-  CampoDescricao := 'nome';
-  CampoOrdenacao := CampoDescricao;
+  NomeTabela         := 'TBCLIENTE';
+  CampoCodigo        := 'codigo';
+  CampoDescricao     := 'nome';
+  CampoCadastroAtivo := 'ativo';
+  CampoOrdenacao     := CampoDescricao;
 
   UpdateGenerator;
 
@@ -517,8 +554,8 @@ begin
     dbValorLimiteCompra.Enabled := False;
 
   tbsEstoqueSatelite.TabVisible := False;
-  GrpBxCustosOper.Enabled       := GetCalcularCustoOperEmpresa(GetEmpresaIDDefault);
-  dbEntregaFracionada.ReadOnly  := not GetEstoqueSateliteEmpresa(GetEmpresaIDDefault);
+  GrpBxCustosOper.Enabled       := GetCalcularCustoOperEmpresa(gUsuarioLogado.Empresa);
+  dbEntregaFracionada.ReadOnly  := not GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
 
   tbsDadosAdcionais.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   tbsCompra.TabVisible         := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
@@ -538,10 +575,7 @@ begin
       pgcMaisDados.ActivePage := tbsDadosAdcionais
     else
     if ( Sender = dbEntregaFracionada ) then
-      pgcMaisDados.ActivePage := tbsDadoFinanceiro
-    else
-    if ( Sender = dbPracaoCobranca ) then
-      pgcMaisDados.ActivePage := tbsObservacao;
+      pgcMaisDados.ActivePage := tbsDadoFinanceiro;
   end;
 end;
 
@@ -576,7 +610,8 @@ begin
     begin
       IbDtstTabelaCID_COD.AsInteger := iCidade;
       IbDtstTabelaCID_NOME.AsString := sCidade;
-      IbDtstTabelaCIDADE.AsString   := sCidade + ' (' + IbDtstTabelaUF.AsString + ')';
+      IbDtstTabelaCIDADE.AsString   := Copy(sCidade + ' (' + IbDtstTabelaUF.AsString + ')', 1, IbDtstTabelaCIDADE.Size);
+      IbDtstTabelaCEP.AsString      := GetCidadeCEP(iCidade);
     end;
 end;
 
@@ -654,8 +689,12 @@ begin
   IbDtstTabelaUF.AsString                := GetEstadoUF(GetEstadoIDDefault);
   IbDtstTabelaCID_COD.AsInteger          := GetCidadeIDDefault;
   IbDtstTabelaCID_NOME.AsString          := GetCidadeNomeDefault;
-  IbDtstTabelaCIDADE.AsString            := GetCidadeNomeDefault + ' (' + IbDtstTabelaUF.AsString + ')';
+  IbDtstTabelaCIDADE.AsString            := Copy(GetCidadeNomeDefault + ' (' + IbDtstTabelaUF.AsString + ')', 1, IbDtstTabelaCIDADE.Size);
+  IbDtstTabelaCEP.AsString               := GetCidadeCEP(GetCidadeIDDefault);
+  IbDtstTabelaNUMERO_END.AsString        := 'S/N';
+  IbDtstTabelaCOMPLEMENTO.AsString       := EmptyStr;
   IbDtstTabelaDTCAD.AsDateTime           := GetDateDB;
+  IbDtstTabelaATIVO.Value                := 1;
   IbDtstTabelaBLOQUEADO.AsInteger             := 0; // Ord(False);
   IbDtstTabelaEMITIR_NFE_DEVOLUCAO.AsInteger  := 0; // Ord(False);
   IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 0; // Ord(False);
@@ -669,6 +708,14 @@ begin
   IbDtstTabelaAGENCIA.Clear;
   IbDtstTabelaCC.Clear;
   IbDtstTabelaPRACA.Clear;
+  IbDtstTabelaBANCO_2.Clear;
+  IbDtstTabelaAGENCIA_2.Clear;
+  IbDtstTabelaCC_2.Clear;
+  IbDtstTabelaPRACA_2.Clear;
+  IbDtstTabelaBANCO_3.Clear;
+  IbDtstTabelaAGENCIA_3.Clear;
+  IbDtstTabelaCC_3.Clear;
+  IbDtstTabelaPRACA_3.Clear;
   IbDtstTabelaOBSERVACAO.Clear;
 end;
 
@@ -765,7 +812,7 @@ begin
       Abort;
     end;
 
-    if ( not ChkInscEstadual(Trim(IbDtstTabelaINSCEST.AsString), Trim(IbDtstTabelaUF.AsString)) ) then
+    if ( not StrInscricaoEstadual(Trim(IbDtstTabelaINSCEST.AsString), Trim(IbDtstTabelaUF.AsString)) ) then
     begin
       ShowWarning('Favor informar uma Inscrição Estadual válida.');
       Abort;
@@ -775,7 +822,7 @@ begin
   { DONE 1 -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (1) }
   
   if GetExisteCPF_CNPJ(IbDtstTabelaCODIGO.AsInteger, IbDtstTabelaCNPJ.AsString, iCodigo, sRazao) then
-    if not GetPermitirDuplicarCNPJCliente(GetEmpresaIDDefault) then
+    if not GetPermitirDuplicarCNPJCliente(gUsuarioLogado.Empresa) then
     begin
       ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
       Abort;
@@ -852,6 +899,21 @@ begin
     Text := 'Cancelado';
 end;
 
+procedure TfrmGeCliente.dbgContaCorrenteEnter(Sender: TObject);
+begin
+  Self.OnKeyDown := nil;
+end;
+
+procedure TfrmGeCliente.dbgContaCorrenteExit(Sender: TObject);
+begin
+  Self.OnKeyDown := FormKeyDown;
+  if ( IbDtstTabela.State = dsInsert ) then
+  begin
+    pgcMaisDados.ActivePage := tbsObservacao;
+    dbObservacao.SetFocus;
+  end;
+end;
+
 procedure TfrmGeCliente.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
@@ -862,6 +924,10 @@ begin
     // Cliente bloqueado
     if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
       dbgDados.Canvas.Font.Color := GrpBxBloqueio.Font.Color;
+
+    // Destacar clientes desativados
+    if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+      dbgDados.Canvas.Font.Color := lblClienteDesativado.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -936,12 +1002,6 @@ var
   iCodigo : Integer;
   sMotivo : String;
 begin
-  if not (GetUserFunctionID in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_AUX_FINANC1]) then
-  begin
-    ShowWarning('Usuário sem permisssão para execução desta rotina!');
-    Exit;
-  end;
-
   if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
     if InputQuery('Desbloquear cliente:', 'Informe o motivo do desbloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
@@ -960,12 +1020,6 @@ var
   iCodigo : Integer;
   sMotivo : String;
 begin
-  if not (GetUserFunctionID in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_AUX_FINANC1]) then
-  begin
-    ShowWarning('Usuário sem permisssão para execução desta rotina!');
-    Exit;
-  end;
-
   if ( IbDtstTabelaBLOQUEADO.AsInteger = 0 ) then
     if InputQuery('Bloquear cliente:', 'Informe o motivo do bloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
@@ -1028,6 +1082,9 @@ procedure TfrmGeCliente.dbCNPJButtonClick(Sender: TObject);
   end;
 
 begin
+  tbsConsultarCPF.TabVisible  := False;
+  tbsConsultarCNPJ.TabVisible := False;
+
   if dbPessoaFisica.Checked then
   begin
     tbsConsultarCPF.TabVisible := True;
@@ -1042,7 +1099,10 @@ begin
     LabAtualizarCaptchaClick(LabAtualizarCaptcha);
 
     if ( Trim(StrOnlyNumbers(dbCNPJ.Text)) <> EmptyStr ) then
-      edCPF.Text := StrFormatarCpf( StrOnlyNumbers(dbCNPJ.Text) )
+    begin
+      edCPF.Text := StrFormatarCpf( StrOnlyNumbers(dbCNPJ.Text) );
+      edDataNasc.SetFocus;
+    end
     else
       edCPF.SetFocus;
   end
@@ -1071,19 +1131,19 @@ end;
 procedure TfrmGeCliente.LabAtualizarCaptchaClick(Sender: TObject);
 var
   Stream : TMemoryStream;
-  Jpg : TJPEGImage;
+  ImgArq : String;
 begin
   Stream := TMemoryStream.Create;
-  Jpg    := TJPEGImage.Create;
   try
     if ( pgcGuias.ActivePage = tbsConsultarCNPJ ) then
       ACBrConsultaCNPJ.Captcha(Stream)
     else
     if ( pgcGuias.ActivePage = tbsConsultarCPF ) then
       ACBrConsultaCPF.Captcha(Stream);
-      
-    Jpg.LoadFromStream(Stream);
-    ImgCaptcha.Picture.Assign(Jpg);
+
+    ImgArq := ExtractFilePath(ParamStr(0)) + PathDelim + 'captch.png';
+    Stream.SaveToFile( ImgArq );
+    ImgCaptcha.Picture.LoadFromFile( ImgArq );
 
     edCaptcha.Clear;
     edCaptcha.SetFocus;
@@ -1100,13 +1160,16 @@ begin
     EditCidade.Clear;
     EditUF.Clear;
     EditCEP.Clear;
+    EditCNAE1.Clear;
+    ListCNAE2.Clear;
   finally
     Stream.Free;
-    Jpg.Free;
   end;
 end;
 
 procedure TfrmGeCliente.btnConsultarCNPJClick(Sender: TObject);
+var
+  I : Integer;
 begin
   if Trim(edCaptcha.Text) <> EmptyStr then
   begin
@@ -1125,6 +1188,10 @@ begin
       EditUF.Text          := ACBrConsultaCNPJ.UF;
       EditCEP.Text         := ACBrConsultaCNPJ.CEP;
       EditSituacao.Text    := ACBrConsultaCNPJ.Situacao;
+      EditCNAE1.Text       := ACBrConsultaCNPJ.CNAE1;
+
+      for I := 0 to ACBrConsultaCNPJ.CNAE2.Count - 1 do
+        ListCNAE2.Items.Add(ACBrConsultaCNPJ.CNAE2[I]);
 
       btnRecuperarCNPJ.Enabled := True;
     end;
@@ -1141,6 +1208,7 @@ end;
 procedure TfrmGeCliente.btnVoltarClick(Sender: TObject);
 begin
   pgcGuias.ActivePage         := tbsCadastro;
+  tbsConsultarCPF.TabVisible  := False;
   tbsConsultarCNPJ.TabVisible := False;
   dbCNPJ.SetFocus;
 end;
@@ -1180,7 +1248,7 @@ begin
         IbDtstTabelaCID_NOME.AsString  := GetCidadeNome(IbDtstTabelaCID_COD.AsInteger);
       end;
 
-      IbDtstTabelaCIDADE.AsString   := IbDtstTabelaCID_NOME.AsString + ' (' + Trim(EditUF.Text) + ')';
+      IbDtstTabelaCIDADE.AsString   := Copy(IbDtstTabelaCID_NOME.AsString + ' (' + Trim(EditUF.Text) + ')', 1, IbDtstTabelaCIDADE.Size);
 
       IbDtstTabelaBAI_COD.AsInteger := SetBairro(IbDtstTabelaCID_COD.AsInteger, Copy(Trim(EditBairro.Text), 1, IbDtstTabelaBAIRRO.Size));
       IbDtstTabelaBAIRRO.AsString   := Trim(EditBairro.Text);
@@ -1211,7 +1279,7 @@ procedure TfrmGeCliente.btnConsultarCPFClick(Sender: TObject);
 begin
   if Trim(edCaptcha.Text) <> EmptyStr then
   begin
-    if ACBrConsultaCPF.Consulta(edCPF.Text, Trim(edCaptcha.Text)) then
+    if ACBrConsultaCPF.Consulta(edCPF.Text, edDataNasc.Text, Trim(edCaptcha.Text)) then
     begin
       EditRazaoSocial.Text := ACBrConsultaCPF.Nome;
       EditSituacao.Text    := ACBrConsultaCPF.Situacao;
@@ -1249,7 +1317,7 @@ end;
 
 procedure TfrmGeCliente.HabilitarAbaEstoque;
 begin
-  tbsEstoqueSatelite.TabVisible := GetEstoqueSateliteEmpresa(GetEmpresaIDDefault) and (IbDtstTabelaENTREGA_FRACIONADA_VENDA.AsInteger = 1)
+  tbsEstoqueSatelite.TabVisible := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) and (IbDtstTabelaENTREGA_FRACIONADA_VENDA.AsInteger = 1)
     and GetUserVisualizaEstoque;
 end;
 

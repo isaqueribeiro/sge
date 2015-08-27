@@ -5,15 +5,13 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
-  StdCtrls, Buttons, ExtCtrls, Mask, rxToolEdit;
+  StdCtrls, Buttons, ExtCtrls, Mask, JvToolEdit, JvExMask, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeProdutoKardex = class(TfrmGrPadraoPesquisa)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     lblProduto: TLabel;
-    edProduto: TComboEdit;
     QryPesquisaCODEMPRESA: TIBStringField;
     QryPesquisaCODPROD: TIBStringField;
     QryPesquisaDOC: TIBStringField;
@@ -25,6 +23,9 @@ type
     QryPesquisaUNIDADE: TIBStringField;
     QryPesquisaRESP: TIBStringField;
     QryPesquisaMOTIVO: TIBStringField;
+    edProduto: TJvComboEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure edProdutoButtonClick(Sender: TObject);
     procedure edProdutoKeyPress(Sender: TObject; var Key: Char);
@@ -47,7 +48,7 @@ uses
 
 {$R *.dfm}
 
-{ TfrmGrPadraoPesquisa1 }
+{ TfrmGeProdutoKardex }
 
 function TfrmGeProdutoKardex.ExecutarPesquisa: Boolean;
 var
@@ -56,7 +57,7 @@ var
 begin
   if (edProduto.Tag = 0) then
   begin
-    ShowWarning('Pesquisa', 'Favor selecionar o produto/serviço para pesquisa de histórico no período informado.');
+    ShowWarning('Favor selecionar o produto/serviço para pesquisa de histórico no período informado.');
     Exit;
   end;
 
@@ -73,7 +74,6 @@ begin
       SQL.Clear;
       SQL.AddStrings( SQLSelect );
       SQL.Add('where ph.codprod = ' + QuotedStr(Trim(Copy(edProduto.Text, 1, Pos('-', edProduto.Text) - 1))));
-      SQL.Add('  and ph.codempresa = ' + QuotedStr(GetEmpresaIDDefault));
       SQL.Add('  and ph.dthist between ' + QuotedStr(sDataInicial) + ' and ' + QuotedStr(sDataFinal));
       SQL.Add('  and ph.historico like ' + QuotedStr(Trim(edPesquisar.Text) + '%'));
       SQL.Add('order by ph.dthist');

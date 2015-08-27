@@ -6,8 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, RxDBComb, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, IBTable, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeBancos = class(TfrmGrPadraoCadastro)
@@ -131,7 +138,7 @@ var
 begin
   frm := TfrmGeBancos.Create(AOwner);
   try
-    // frm.WhereAdditional := '(b.Empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+    // frm.WhereAdditional := '(b.Empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;
@@ -144,7 +151,7 @@ var
 begin
   frm := TfrmGeBancos.Create(AOwner);
   try
-    // frm.WhereAdditional := '(b.Empresa = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+    // frm.WhereAdditional := '(b.Empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
     Result := frm.SelecionarRegistro(Codigo, Nome);
     if ( Result ) then
     begin
@@ -174,7 +181,7 @@ end;
 procedure TfrmGeBancos.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.AsString            := GetEmpresaIDDefault;
+  IbDtstTabelaEMPRESA.AsString            := gUsuarioLogado.Empresa;
   IbDtstTabelaBCO_GERAR_BOLETO.Value      := 0;
   IbDtstTabelaBCO_NOSSO_NUM_INICIO.Value  := FormatFloat('0000000', 1);
   IbDtstTabelaBCO_NOSSO_NUM_FINAL.Value   := FormatFloat('0000000', 999999);
@@ -233,7 +240,7 @@ begin
     '---' + #13#13 + 
     '1. Para alguns bancos o "Código da Empresa" informado por eles é o mesmo "Código do Cedente" solicitado pela aplicação.' + #13 +
     '2. O código da Agência deve ser informada com o dígito. Ex: 1232-1' + #13 +
-    '3. A Conta Corrente (C/C) deverá ser infrmanda funatmente com o seu dígito. Ex: 06598-7' + #13 +
+    '3. A Conta Corrente (C/C) deverá ser informanda fundamentalmente com o seu dígito. Ex: 06598-7' + #13 +
     '4. Para determinados bancos o Código do Cedente é o mesmo número de Conta Corrente.';
 
   ShowInformation(Self.Caption, sMsg);

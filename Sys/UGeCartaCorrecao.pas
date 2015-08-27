@@ -4,15 +4,21 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, dblookup, IBQuery, rxToolEdit, RXDBCtrl, IBTable, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
+  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery,
+  IBTable, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeCartaCorrecao = class(TfrmGrPadraoCadastro)
     lblNFe: TLabel;
-    dbNFe: TRxDBComboEdit;
     tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
@@ -47,6 +53,7 @@ type
     lblCartaPendente: TLabel;
     Bevel5: TBevel;
     BtnEnviarCCe: TcxButton;
+    dbNFe: TJvDBComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbNFeButtonClick(Sender: TObject);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
@@ -79,14 +86,14 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UDMNFe, UGeNFEmitida;
+  UDMBusiness, UConstantesDGE, UDMNFe, UGeNFEmitida, UDMRecursos;
 
 {$R *.dfm}
 
 procedure TfrmGeCartaCorrecao.FormCreate(Sender: TObject);
 begin
   inherited;
-  WhereAdditional  := 'c.cce_empresa = ' + QuotedStr(GetEmpresaIDDefault);
+  WhereAdditional  := 'c.cce_empresa = ' + QuotedStr(gUsuarioLogado.Empresa);
 
   RotinaID         := ROTINA_NFE_CARTA_CORRECAO_ID;
   ControlFirstEdit := dbEmpresa;
@@ -101,19 +108,26 @@ begin
   
   tblEmpresa.Open;
 
-  BtnEnviarCCe.Visible := GetEstacaoEmitiNFe and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  BtnEnviarCCe.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 end;
 
 procedure TfrmGeCartaCorrecao.dbNFeButtonClick(Sender: TObject);
 var
-  sEmpresa,
-  sSerie  : String;
-  iNumero ,
-  iModelo : Integer;
+  iAno      ,
+  iControle : Integer;
+  sEmpresa ,
+  sSerie   ,
+  sChave   : String;
+  iNumero  ,
+  iModelo  : Integer;
+  dEmissao : TDateTime;
   aDestinatario : TDestinatarioNF;
 begin
+  iAno      := 0;
+  iControle := 0;
+  sEmpresa  := IbDtstTabelaCCE_EMPRESA.AsString;
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarNFe(Self, sEmpresa, sSerie, iNumero, iModelo, aDestinatario) ) then
+    if ( SelecionarNFe(Self, sEmpresa, sSerie, sChave, iNumero, iModelo, dEmissao, aDestinatario, iAno, iControle) ) then
     begin
       IbDtstTabelaNFE_SERIE.Value  := sSerie;
       IbDtstTabelaNFE_NUMERO.Value := iNumero;
@@ -139,7 +153,7 @@ end;
 procedure TfrmGeCartaCorrecao.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaCCE_EMPRESA.Value := GetEmpresaIDDefault;
+  IbDtstTabelaCCE_EMPRESA.Value := gUsuarioLogado.Empresa;
   IbDtstTabelaCCE_DATA.Value    := GetDateDB;
   IbDtstTabelaCCE_HORA.Value    := GetTimeDB;
   IbDtstTabelaCCE_ENVIADA.Value := 0;
@@ -213,7 +227,7 @@ begin
   RecarregarRegistro;
 
   if ( not DelphiIsRunning ) then
-    if not DMNFe.GetValidadeCertificado then
+    if not DMNFe.GetValidadeCertificado(IbDtstTabelaCCE_EMPRESA.AsString) then
       Exit;
 
   if DMNFe.GerarEnviarCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger, mmCondicaoUso.Lines.Text) then

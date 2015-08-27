@@ -6,9 +6,18 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, ACBrConsultaCPF, ACBrBase,
+  ToolWin, IBTable, ACBrConsultaCPF, ACBrBase,
   ACBrSocket, ACBrConsultaCNPJ, JPEG, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxControls, cxStyles,
+  cxEdit, cxDBLookupComboBox, cxVGrid, cxDBVGrid, cxInplaceContainer;
 
 type
   TfrmGeFornecedor = class(TfrmGrPadraoCadastro)
@@ -21,17 +30,13 @@ type
     dbIM: TDBEdit;
     GroupBox1: TGroupBox;
     lblCidade: TLabel;
-    dbCidade: TRxDBComboEdit;
     Bevel5: TBevel;
     lblEstado: TLabel;
-    dbEstado: TRxDBComboEdit;
     pgcMaisDados: TPageControl;
     tbsContato: TTabSheet;
     tbsDuplicatas: TTabSheet;
     lblBairro: TLabel;
-    dbBairro: TRxDBComboEdit;
     lblLogradouro: TLabel;
-    dbLogradouro: TRxDBComboEdit;
     lblCEP: TLabel;
     dbCEP: TDBEdit;
     lblNumero: TLabel;
@@ -45,7 +50,6 @@ type
     lblHome: TLabel;
     dbHome: TDBEdit;
     lblPais: TLabel;
-    dbPais: TRxDBComboEdit;
     IbDtstTabelaCODFORN: TIntegerField;
     IbDtstTabelaPESSOA_FISICA: TSmallintField;
     IbDtstTabelaCNPJ: TIBStringField;
@@ -124,7 +128,6 @@ type
     lblCPFX: TLabel;
     edCPF: TMaskEdit;
     lblCNPJ: TLabel;
-    dbCNPJ: TRxDBComboEdit;
     ACBrConsultaCNPJ: TACBrConsultaCNPJ;
     ACBrConsultaCPF: TACBrConsultaCPF;
     IbDtstTabelaDTCAD: TDateField;
@@ -148,14 +151,6 @@ type
     IbDtstTabelaCC: TIBStringField;
     IbDtstTabelaPRACA: TIBStringField;
     IbDtstTabelaOBSERVACAO: TMemoField;
-    lblBanco: TLabel;
-    dbBanco: TDBLookupComboBox;
-    lblAgencia: TLabel;
-    dbAgencia: TDBEdit;
-    dbContaCorrente: TDBEdit;
-    lblContaCorrente: TLabel;
-    lblPracaoCobranca: TLabel;
-    dbPracaoCobranca: TDBEdit;
     dbObservacao: TDBMemo;
     IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField;
     lblFaturaMinima: TLabel;
@@ -164,6 +159,45 @@ type
     btnVoltar: TcxButton;
     btnRecuperarCNPJ: TcxButton;
     btnConsultarCPF: TcxButton;
+    Label15: TLabel;
+    EditCNAE1: TEdit;
+    Label16: TLabel;
+    ListCNAE2: TListBox;
+    dbCNPJ: TJvDBComboEdit;
+    dbEstado: TJvDBComboEdit;
+    dbCidade: TJvDBComboEdit;
+    dbBairro: TJvDBComboEdit;
+    dbLogradouro: TJvDBComboEdit;
+    dbPais: TJvDBComboEdit;
+    IbDtstTabelaATIVO: TSmallintField;
+    dbCadastroAtivo: TDBCheckBox;
+    lblFornecedorDesativado: TLabel;
+    lblDataNasc: TLabel;
+    edDataNasc: TMaskEdit;
+    IbDtstTabelaBANCO_2: TIBStringField;
+    IbDtstTabelaAGENCIA_2: TIBStringField;
+    IbDtstTabelaCC_2: TIBStringField;
+    IbDtstTabelaPRACA_2: TIBStringField;
+    IbDtstTabelaBANCO_3: TIBStringField;
+    IbDtstTabelaAGENCIA_3: TIBStringField;
+    IbDtstTabelaCC_3: TIBStringField;
+    IbDtstTabelaPRACA_3: TIBStringField;
+    dbgContaCorrente: TcxDBVerticalGrid;
+    dbCtgrConta1: TcxCategoryRow;
+    dbBanco1: TcxDBEditorRow;
+    dbAgencia1: TcxDBEditorRow;
+    dbContaCorrente1: TcxDBEditorRow;
+    dbPracaCobranca1: TcxDBEditorRow;
+    dbCtgrConta2: TcxCategoryRow;
+    dbBanco2: TcxDBEditorRow;
+    dbAgencia2: TcxDBEditorRow;
+    dbContaCorrente2: TcxDBEditorRow;
+    dbPracaCobranca2: TcxDBEditorRow;
+    dbCtgrConta3: TcxCategoryRow;
+    dbBanco3: TcxDBEditorRow;
+    dbAgencia3: TcxDBEditorRow;
+    dbContaCorrente3: TcxDBEditorRow;
+    dbPracaCobranca3: TcxDBEditorRow;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -184,6 +218,10 @@ type
     procedure edCNPJKeyPress(Sender: TObject; var Key: Char);
     procedure edCaptchaKeyPress(Sender: TObject; var Key: Char);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure dbgContaCorrenteEnter(Sender: TObject);
+    procedure dbgContaCorrenteExit(Sender: TObject);
   private
     { Private declarations }
   public
@@ -202,7 +240,7 @@ var
 implementation
 
 uses UDMBusiness, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
-  UGeLogradouro, UGrPadrao, ChkDgVer, UConstantesDGE;
+  UGeLogradouro, UGrPadrao, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -212,7 +250,7 @@ var
 begin
   frm := TfrmGeFornecedor.Create(AOwner);
   try
-    frm.WhereAdditional := 'f.cliente_origem is null';
+    frm.WhereAdditional := '(f.cliente_origem is null) and (f.fornecedor_funcionario = 0)';
     frm.tbsDuplicatas.TabVisible := False; // Temporário
     frm.ShowModal;
   finally
@@ -285,10 +323,11 @@ begin
 
   DisplayFormatCodigo := '##0000';
 
-  NomeTabela      := 'TBFORNECEDOR';
-  CampoCodigo     := 'Codforn';
-  CampoDescricao  := 'Nomeforn';
-  WhereAdditional := 'f.cliente_origem is null';
+  NomeTabela         := 'TBFORNECEDOR';
+  CampoCodigo        := 'Codforn';
+  CampoDescricao     := 'Nomeforn';
+  CampoCadastroAtivo := 'f.ativo';
+  WhereAdditional    := '(f.cliente_origem is null) and (f.fornecedor_funcionario = 0)';
 
   UpdateGenerator;
 
@@ -309,10 +348,7 @@ begin
       pgcMaisDados.ActivePage := tbsDadosAdcionais
     else
     if ( Sender = dbTransportadora ) then
-      pgcMaisDados.ActivePage := tbsDadoFinanceiro
-    else
-    if ( Sender = dbPracaoCobranca ) then
-      pgcMaisDados.ActivePage := tbsObservacao;
+      pgcMaisDados.ActivePage := tbsDadoFinanceiro;
   end;
 end;
 
@@ -331,6 +367,32 @@ begin
     end;
 end;
 
+procedure TfrmGeFornecedor.dbgContaCorrenteEnter(Sender: TObject);
+begin
+  Self.OnKeyDown := nil;
+end;
+
+procedure TfrmGeFornecedor.dbgContaCorrenteExit(Sender: TObject);
+begin
+  Self.OnKeyDown := FormKeyDown;
+  if ( IbDtstTabela.State = dsInsert ) then
+  begin
+    pgcMaisDados.ActivePage := tbsObservacao;
+    dbObservacao.SetFocus;
+  end;
+end;
+
+procedure TfrmGeFornecedor.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  // Destacar fornecedores desativados
+  if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+    dbgDados.Canvas.Font.Color := lblFornecedorDesativado.Font.Color;
+
+  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+end;
+
 procedure TfrmGeFornecedor.dbCidadeButtonClick(Sender: TObject);
 var
   iCidade : Integer;
@@ -347,7 +409,8 @@ begin
     begin
       IbDtstTabelaCID_COD.AsInteger := iCidade;
       IbDtstTabelaCID_NOME.AsString := sCidade;
-      IbDtstTabelaCIDADE.AsString   := sCidade + ' (' + IbDtstTabelaUF.AsString + ')';
+      IbDtstTabelaCIDADE.AsString   := Copy(sCidade + ' (' + IbDtstTabelaUF.AsString + ')', 1, IbDtstTabelaCIDADE.Size);
+      IbDtstTabelaCEP.AsString      := GetCidadeCEP(iCidade);
     end;
 end;
 
@@ -404,15 +467,27 @@ begin
   IbDtstTabelaUF.AsString              := GetEstadoUF(GetEstadoIDDefault);
   IbDtstTabelaCID_COD.AsInteger        := GetCidadeIDDefault;
   IbDtstTabelaCID_NOME.AsString        := GetCidadeNomeDefault;
-  IbDtstTabelaCIDADE.AsString          := IbDtstTabelaCID_NOME.AsString + ' (' + Trim(IbDtstTabelaUF.AsString) + ')';
+  IbDtstTabelaCIDADE.AsString          := Copy(IbDtstTabelaCID_NOME.AsString + ' (' + Trim(IbDtstTabelaUF.AsString) + ')', 1, IbDtstTabelaCIDADE.Size);
+  IbDtstTabelaCEP.AsString             := GetCidadeCEP(GetCidadeIDDefault);
+  IbDtstTabelaNUMERO_END.AsString      := 'S/N';
+  IbDtstTabelaCOMPLEMENTO.AsString     := EmptyStr;
   IbDtstTabelaTRANSPORTADORA.AsInteger := 0;
   IbDtstTabelaDTCAD.AsDateTime         := GetDateTimeDB;
   IbDtstTabelaFATURAMENTO_MINIMO.Value := 0.0;
+  IbDtstTabelaATIVO.Value              := 1;
   IbDtstTabelaGRF_COD.Clear;
   IbDtstTabelaBANCO.Clear;
   IbDtstTabelaAGENCIA.Clear;
   IbDtstTabelaCC.Clear;
   IbDtstTabelaPRACA.Clear;
+  IbDtstTabelaBANCO_2.Clear;
+  IbDtstTabelaAGENCIA_2.Clear;
+  IbDtstTabelaCC_2.Clear;
+  IbDtstTabelaPRACA_2.Clear;
+  IbDtstTabelaBANCO_3.Clear;
+  IbDtstTabelaAGENCIA_3.Clear;
+  IbDtstTabelaCC_3.Clear;
+  IbDtstTabelaPRACA_3.Clear;
   IbDtstTabelaOBSERVACAO.Clear;
 end;
 
@@ -470,7 +545,7 @@ begin
       Abort;
     end;
 
-    if ( not ChkInscEstadual(Trim(IbDtstTabelaINSCEST.AsString), Trim(IbDtstTabelaUF.AsString)) ) then
+    if ( not StrInscricaoEstadual(Trim(IbDtstTabelaINSCEST.AsString), Trim(IbDtstTabelaUF.AsString)) ) then
     begin
       ShowWarning('Favor informar uma Inscrição Estadual válida.');
       Abort;
@@ -529,6 +604,9 @@ procedure TfrmGeFornecedor.dbCNPJButtonClick(Sender: TObject);
   end;
 
 begin
+  tbsConsultarCPF.TabVisible  := False;
+  tbsConsultarCNPJ.TabVisible := False;
+
   if dbPessoaFisica.Checked then
   begin
 
@@ -573,19 +651,19 @@ end;
 procedure TfrmGeFornecedor.LabAtualizarCaptchaClick(Sender: TObject);
 var
   Stream : TMemoryStream;
-  Jpg : TJPEGImage;
+  ImgArq : String;
 begin
   Stream := TMemoryStream.Create;
-  Jpg    := TJPEGImage.Create;
   try
     if ( pgcGuias.ActivePage = tbsConsultarCNPJ ) then
       ACBrConsultaCNPJ.Captcha(Stream)
     else
     if ( pgcGuias.ActivePage = tbsConsultarCPF ) then
       ACBrConsultaCPF.Captcha(Stream);
-      
-    Jpg.LoadFromStream(Stream);
-    ImgCaptcha.Picture.Assign(Jpg);
+
+    ImgArq := ExtractFilePath(ParamStr(0)) + PathDelim + 'captch.png';
+    Stream.SaveToFile( ImgArq );
+    ImgCaptcha.Picture.LoadFromFile( ImgArq );
 
     edCaptcha.Clear;
     edCaptcha.SetFocus;
@@ -602,15 +680,17 @@ begin
     EditCidade.Clear;
     EditUF.Clear;
     EditCEP.Clear;
+    EditCNAE1.Clear;
+    ListCNAE2.Clear;
   finally
     Stream.Free;
-    Jpg.Free;
   end;
 end;
 
 procedure TfrmGeFornecedor.btnVoltarClick(Sender: TObject);
 begin
   pgcGuias.ActivePage         := tbsCadastro;
+  tbsConsultarCPF.TabVisible  := False;
   tbsConsultarCNPJ.TabVisible := False;
   dbCNPJ.SetFocus;
 end;
@@ -650,7 +730,7 @@ begin
         IbDtstTabelaCID_NOME.AsString  := GetCidadeNome(IbDtstTabelaCID_COD.AsInteger);
       end;
 
-      IbDtstTabelaCIDADE.AsString   := IbDtstTabelaCID_NOME.AsString + ' (' + Trim(EditUF.Text) + ')';
+      IbDtstTabelaCIDADE.AsString   := Copy(IbDtstTabelaCID_NOME.AsString + ' (' + Trim(EditUF.Text) + ')', 1, IbDtstTabelaCIDADE.Size);
 
       IbDtstTabelaBAI_COD.AsInteger := SetBairro(IbDtstTabelaCID_COD.AsInteger, Copy(Trim(EditBairro.Text), 1, IbDtstTabelaBAI_NOME.Size));
       IbDtstTabelaBAI_NOME.AsString := Trim(EditBairro.Text);
@@ -672,6 +752,8 @@ begin
 end;
 
 procedure TfrmGeFornecedor.btnConsultarCNPJClick(Sender: TObject);
+var
+  I : Integer;
 begin
   if Trim(edCaptcha.Text) <> EmptyStr then
   begin
@@ -690,6 +772,10 @@ begin
       EditUF.Text          := ACBrConsultaCNPJ.UF;
       EditCEP.Text         := ACBrConsultaCNPJ.CEP;
       EditSituacao.Text    := ACBrConsultaCNPJ.Situacao;
+      EditCNAE1.Text       := ACBrConsultaCNPJ.CNAE1;
+
+      for I := 0 to ACBrConsultaCNPJ.CNAE2.Count - 1 do
+        ListCNAE2.Items.Add(ACBrConsultaCNPJ.CNAE2[I]);
 
       btnRecuperarCNPJ.Enabled := True;
     end;
@@ -707,7 +793,7 @@ procedure TfrmGeFornecedor.btnConsultarCPFClick(Sender: TObject);
 begin
   if Trim(edCaptcha.Text) <> EmptyStr then
   begin
-    if ACBrConsultaCPF.Consulta(edCPF.Text, Trim(edCaptcha.Text)) then
+    if ACBrConsultaCPF.Consulta(edCPF.Text, edDataNasc.Text, Trim(edCaptcha.Text)) then
     begin
       EditRazaoSocial.Text := ACBrConsultaCPF.Nome;
       EditSituacao.Text    := ACBrConsultaCPF.Situacao;
@@ -763,27 +849,26 @@ begin
       Clear;
       AddStrings( SQLTabela );
 
+      if ( WhereAdditional <> EmptyStr ) then
+        Add( 'where (' + WhereAdditional + ')' )
+      else
+        Add( 'where (1 = 1)' );
+
       if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
       begin
 
         if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
-          Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
+          Add( '  and ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
         else
         begin
-          Add( 'where ((upper(f.Nomeforn) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-               '     or upper(f.Nomeforn) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+          Add( '  and (((upper(f.Nomeforn) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+               '      or upper(f.Nomeforn) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
           Add( '   or ((upper(f.Nomefant) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-               '     or upper(f.Nomefant) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+               '      or upper(f.Nomefant) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')))');
         end;
       end;
 
-      if ( WhereAdditional <> EmptyStr ) then
-        if ( Pos('where', SelectSQL.Text) > 0 ) then
-          Add( '  and (' + WhereAdditional + ')' )
-        else
-          Add( 'where (' + WhereAdditional + ')' );
-
-      Add( 'order by ' + CampoOrdenacao );  
+      Add( 'order by ' + CampoOrdenacao );
 
       Open;
 

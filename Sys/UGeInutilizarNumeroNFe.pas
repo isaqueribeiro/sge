@@ -6,7 +6,14 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, Mask, DBCtrls, DB,
   IBCustomDataSet, IBUpdateSQL, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeInutilizarNumeroNFe = class(TfrmGrPadrao)
@@ -80,7 +87,7 @@ var
 
 implementation
 
-uses UDMBusiness, UDMNFe, UConstantesDGE;
+uses UDMBusiness, UDMNFe, UConstantesDGE, UDMRecursos;
 
 {$R *.dfm}
 
@@ -102,7 +109,7 @@ begin
   with qryEmpresa do
   begin
     Close;
-    ParamByName('cnpj').AsString := GetEmpresaIDDefault;
+    ParamByName('cnpj').AsString := gUsuarioLogado.Empresa;
     Open;
   end;
 
@@ -161,11 +168,11 @@ begin
   if ShowConfirm('Confirma a initilização do intervalor de numeração de NF-e informado?') then
   begin
 
-    if not DMNFe.GetValidadeCertificado then
+    if not DMNFe.GetValidadeCertificado(gUsuarioLogado.Empresa) then
       Exit;
 
     sRetorno := EmptyStr;
-    if DMNFe.InutilizaNumeroNFeACBr(GetEmpresaIDDefault, iAno, iModelo, iSerie, iNroInicial, iNroFinal, sJustific, sRetorno ) then
+    if DMNFe.InutilizaNumeroNFeACBr(gUsuarioLogado.Empresa, iAno, iModelo, iSerie, iNroInicial, iNroFinal, sJustific, sRetorno ) then
     begin
 
       with cdsLOG do
@@ -218,12 +225,12 @@ begin
   with qryNFeEmitida do
   begin
     Close;
-    ParamByName('empresa1').AsString := GetEmpresaIDDefault;
+    ParamByName('empresa1').AsString := gUsuarioLogado.Empresa;
     ParamByName('serie1').AsInteger  := iSerie;
     ParamByName('inicio1').AsInteger := iInicio;
     ParamByName('final1').AsInteger  := iFinal;
 
-    ParamByName('empresa2').AsString := GetEmpresaIDDefault;
+    ParamByName('empresa2').AsString := gUsuarioLogado.Empresa;
     ParamByName('serie2').AsInteger  := iSerie;
     ParamByName('inicio2').AsInteger := iInicio;
     ParamByName('final2').AsInteger  := iFinal;

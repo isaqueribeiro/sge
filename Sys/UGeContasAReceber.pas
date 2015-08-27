@@ -6,15 +6,23 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, IBTable, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, IBTable, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, JvToolEdit, JvExMask,
+  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, Datasnap.DBClient,
+  Datasnap.Provider, IBX.IBQuery, ACBrBase, ACBrExtenso, frxClass, frxDBSet;
 
 type
   TfrmGeContasAReceber = class(TfrmGrPadraoCadastro)
     Bevel5: TBevel;
     GrpBxDadosValores: TGroupBox;
     lblCliente: TLabel;
-    dbCliente: TRxDBComboEdit;
     lblParcela: TLabel;
     dbParcela: TDBEdit;
     dbQuitado: TDBEdit;
@@ -113,8 +121,6 @@ type
     IbDtstTabelaNOMECLIENTE: TIBStringField;
     IbDtstTabelaSITUACAO: TSmallintField;
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     IbDtstTabelaSERIE: TIBStringField;
     IbDtstTabelaNFE: TLargeintField;
     IbDtstTabelaNFE_VENDA: TIBStringField;
@@ -123,6 +129,48 @@ type
     IbDtstTabelaEMPRESA: TIBStringField;
     IbDtstTabelaCLIENTE: TIntegerField;
     btbtnEfetuarPagto: TcxButton;
+    dbCliente: TJvDBComboEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    lblLancamentoAberto: TLabel;
+    lblLancamentoVencido: TLabel;
+    Bevel10: TBevel;
+    btbtnIncluirLote: TcxButton;
+    FrRecibo: TfrxReport;
+    FrdRecibo: TfrxDBDataset;
+    ACBrExtenso: TACBrExtenso;
+    QryRecibo: TIBQuery;
+    DspRecibo: TDataSetProvider;
+    CdsRecibo: TClientDataSet;
+    CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
+    popImprimir: TPopupMenu;
+    popGerarRecibo: TMenuItem;
+    CdsReciboANOLANC: TSmallintField;
+    CdsReciboNUMLANC: TIntegerField;
+    CdsReciboPARCELA: TSmallintField;
+    CdsReciboCLIENTE: TIntegerField;
+    CdsReciboRZSOC: TWideStringField;
+    CdsReciboNOME: TWideStringField;
+    CdsReciboPESSOA_FISICA: TSmallintField;
+    CdsReciboCNPJ: TWideStringField;
+    CdsReciboTIPPAG: TWideStringField;
+    CdsReciboDTEMISS: TDateField;
+    CdsReciboDTVENC: TDateField;
+    CdsReciboDTREC: TDateField;
+    CdsReciboVALORREC: TBCDField;
+    CdsReciboBANCO: TSmallintField;
+    CdsReciboBCO_NOME: TWideStringField;
+    CdsReciboNUMERO_CHEQUE: TWideStringField;
+    CdsReciboPAGO_: TWideStringField;
+    CdsReciboDOCBAIX: TWideStringField;
+    CdsReciboBAIXADO: TSmallintField;
+    CdsReciboSEQ: TSmallintField;
+    CdsReciboDATA_PAGTO: TDateField;
+    CdsReciboFORMA_PAGTO: TSmallintField;
+    CdsReciboFORMA_PAGTO_DESC: TWideStringField;
+    CdsReciboHISTORICO: TWideMemoField;
+    CdsReciboVALOR_BAIXA: TBCDField;
+    CdsReciboEMPRESA_CNPJ: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -143,11 +191,22 @@ type
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btbtnIncluirLoteClick(Sender: TObject);
+    procedure FrReciboGetValue(const VarName: string; var Value: Variant);
+    procedure popGerarReciboClick(Sender: TObject);
+    procedure btbtnListaClick(Sender: TObject);
+    procedure CdsReciboCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
+    FDataAtual     : TDateTime;
+    FLoteParcelas  : String;
     SQL_Pagamentos : TStringList;
+    FImprimirCabecalho : Boolean;
     procedure AbrirPagamentos(const Ano : Smallint; const Numero : Integer);
     procedure HabilitarDesabilitar_Btns;
+    procedure RecarregarRegistro;
 
     function GetRotinaEfetuarPagtoID : String;
     function GetRotinaCancelarPagtosID : String;
@@ -157,10 +216,15 @@ type
     { Public declarations }
     property RotinaEfetuarPagtoID : String read GetRotinaEfetuarPagtoID;
     property RotinaCancelarPagtosID : String read GetRotinaCancelarPagtosID;
+    property DataAtual : TDateTime read FDataAtual;
   end;
 
 var
   frmGeContasAReceber: TfrmGeContasAReceber;
+
+const
+  STATUS_ARECEBER_PENDENTE = 0;
+  STATUS_ARECEBER_PAGO     = 1;
 
   { DONE -oIsaque -cContas A Receber : 22/05/2014 - Correção de BUG porque a rotina estava permitindo a gravação de um lançamento sem CLIENTE, DATAS e VALOR }
 
@@ -169,7 +233,8 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UGeCliente, DateUtils, UGeEfetuarPagtoREC;
+  UConstantesDGE, UDMBusiness, UGeCliente, DateUtils, UGeEfetuarPagtoREC,
+  UGeContasAReceberLoteParcela;
 
 {$R *.dfm}
 
@@ -182,7 +247,7 @@ begin
   try
 
     whr :=
-      '( (r.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
+      '( (r.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
       'cast(r.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) +
       ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ')';
 
@@ -209,8 +274,13 @@ begin
   SQL_Pagamentos := TStringList.Create;
   SQL_Pagamentos.AddStrings( cdsPagamentos.SelectSQL );
 
-  e1Data.Date     := Date;
-  e2Data.Date     := Date;
+  FDataAtual      := GetDateTimeDB;
+  e1Data.Date     := GetMenorVencimentoAReceber;
+  e2Data.Date     := GetDateLastMonth;
+
+  if (e1Data.Date > GetDateDB) then
+    e1Data.Date   := GetDateDB;
+
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbCliente;
 
@@ -228,7 +298,7 @@ begin
   CampoOrdenacao := 'r.dtvenc, c.Nome';
 
   WhereAdditional :=
-    '( (r.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
+    '( (r.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
     'cast(r.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
 
@@ -255,17 +325,20 @@ end;
 procedure TfrmGeContasAReceber.btnFiltrarClick(Sender: TObject);
 begin
   WhereAdditional :=
-    '( (r.empresa = ' + QuotedStr(GetEmpresaIDDefault) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
+    '( (r.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
     'cast(r.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
     
+  if Trim(FLoteParcelas) <> EmptyStr then
+    WhereAdditional := '(' + WhereAdditional + ' and (r.lote = ' + QuotedStr(FLoteParcelas) + '))';
+
   inherited;
 end;
 
 procedure TfrmGeContasAReceber.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.AsString := GetEmpresaIDDefault;
+  IbDtstTabelaEMPRESA.AsString := gUsuarioLogado.Empresa;
   IbDtstTabelaANOLANC.Value    := YearOf(Date);
   IbDtstTabelaPARCELA.Value    := 0;
   IbDtstTabelaDTEMISS.Value    := Date;
@@ -290,6 +363,7 @@ var
   CxNumero ,
   CxContaCorrente : Integer;
   DataPagto : TDateTime;
+  cReceber  : Currency;
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
@@ -300,6 +374,11 @@ begin
   CxAno    := 0;
   CxNumero := 0;
   CxContaCorrente := 0;
+
+  RecarregarRegistro;
+
+  if ( not IbDtstTabela.Active ) then
+    Exit;
 
   if ( IbDtstTabelaBAIXADO.AsInteger = 1 ) then
   begin
@@ -325,7 +404,9 @@ begin
 //    Exit;
 //  end;
 
-  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString, DataPagto) then
+  cReceber := IbDtstTabelaVALORSALDO.AsCurrency;
+
+  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString, DataPagto, cReceber) then
   begin
     if ( CxContaCorrente > 0 ) then
       GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
@@ -346,9 +427,15 @@ end;
 procedure TfrmGeContasAReceber.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
-    btbtnEfetuarPagto.Enabled := (IbDtstTabelaBAIXADO.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse)
+  begin
+    btbtnEfetuarPagto.Enabled := (IbDtstTabelaBAIXADO.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse);
+    popGerarRecibo.Enabled    := (not cdsPagamentos.IsEmpty);
+  end
   else
+  begin
     btbtnEfetuarPagto.Enabled := False;
+    popGerarRecibo.Enabled    := False;
+  end;
 end;
 
 procedure TfrmGeContasAReceber.btbtnSalvarClick(Sender: TObject);
@@ -361,6 +448,32 @@ procedure TfrmGeContasAReceber.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
   AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
+end;
+
+procedure TfrmGeContasAReceber.popGerarReciboClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  with CdsRecibo, Params do
+  begin
+    Close;
+    ParamByName('ano').AsInteger    := cdsPagamentosANOLANC.AsInteger;
+    ParamByName('numero').AsInteger := cdsPagamentosNUMLANC.AsInteger;
+    ParamByName('baixa').AsInteger  := cdsPagamentosSEQ.AsInteger;
+    Open;
+
+    if IsEmpty then
+      Exit;
+  end;
+
+  FImprimirCabecalho := ShowConfirmation('Recibo', 'Deseja imprimir no recibo o Cabeçalho com informações da empresa?');
+
+  frReport := FrRecibo;
+  SetVariablesDefault(frReport);
+
+  frReport.PrepareReport;
+  frReport.ShowReport;
 end;
 
 procedure TfrmGeContasAReceber.AbrirPagamentos(const Ano: Smallint;
@@ -423,6 +536,24 @@ begin
         CommitTransaction;
       end;
 
+    end
+    else
+    begin
+
+      with DMBusiness, qryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Update TBCAIXA_MOVIMENTO Set');
+        SQL.Add('    ARECEBER_ANO = null');
+        SQL.Add('  , ARECEBER_NUM = null');
+        SQL.Add('where ARECEBER_ANO = ' + IbDtstTabelaANOLANC.AsString);
+        SQL.Add('  and ARECEBER_NUM = ' + IbDtstTabelaNUMLANC.AsString);
+        ExecSQL;
+
+        CommitTransaction;
+      end;
+
     end;
 
     inherited;
@@ -443,6 +574,11 @@ begin
   end;
 end;
 
+procedure TfrmGeContasAReceber.CdsReciboCalcFields(DataSet: TDataSet);
+begin
+  CdsReciboVALOR_BAIXA_EXTENSO.AsString := AnsiUpperCase(ACBrExtenso.ValorToTexto(CdsReciboVALOR_BAIXA.AsCurrency, ACBrExtenso.Formato));
+end;
+
 procedure TfrmGeContasAReceber.ControlEditExit(Sender: TObject);
 begin
   inherited;
@@ -458,6 +594,27 @@ begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
     if ( tblFormaPagto.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
       IbDtstTabelaTIPPAG.AsString := tblFormaPagto.FieldByName('descri').AsString;
+end;
+
+procedure TfrmGeContasAReceber.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  if ( Sender = dbgDados ) then
+  begin
+    // Destacar Títulos A Pagar em aberto
+    if ( not IbDtstTabelaBAIXADO.IsNull ) then
+      if ( IbDtstTabelaBAIXADO.AsInteger = STATUS_ARECEBER_PENDENTE ) then
+        if IbDtstTabelaDTVENC.AsDateTime >= DataAtual then
+          dbgDados.Canvas.Font.Color := lblLancamentoAberto.Font.Color
+        else
+        begin
+          dbgDados.Canvas.Font.Color  := lblLancamentoVencido.Font.Color;
+          dbgDados.Canvas.Brush.Color := lblLancamentoVencido.Color;
+        end;
+
+    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+  end
 end;
 
 procedure TfrmGeContasAReceber.dbgPagamentosKeyDown(Sender: TObject;
@@ -587,6 +744,7 @@ procedure TfrmGeContasAReceber.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   dbValorAReceber.ReadOnly := (not cdsPagamentos.IsEmpty);
+  btbtnIncluirLote.Enabled := btbtnIncluir.Enabled;
   HabilitarDesabilitar_Btns;
 end;
 
@@ -607,6 +765,43 @@ begin
   end;
 end;
 
+procedure TfrmGeContasAReceber.btbtnIncluirLoteClick(Sender: TObject);
+var
+  sEmpresa ,
+  sLote    : String;
+  iCliente : Integer;
+  dDataEmissao    ,
+  dVencimentoFirst,
+  dVencimentoLast : TDateTime;
+begin
+  if btbtnIncluir.Enabled then
+  begin
+    sEmpresa     := gUsuarioLogado.Empresa;
+    sLote        := EmptyStr;
+    iCliente     := 0;
+    dDataEmissao := GetDateDB;
+    dVencimentoFirst := dDataEmissao + 30;
+    dVencimentoLast  := dDataEmissao + 60;
+
+    if GerarLoteParcelas(Self, sEmpresa, sLote, iCliente, dDataEmissao, dVencimentoFirst, dVencimentoLast)  then
+    begin
+      pgcGuias.ActivePage := tbsTabela;
+      e1Data.Date     := dVencimentoFirst;
+      e2Data.Date     := dVencimentoLast;
+      edtFiltrar.Text := GetClienteNome(iCliente);
+      FLoteParcelas   := sLote;
+      btnFiltrar.Click;
+
+      FLoteParcelas := EmptyStr;
+    end;
+  end;
+end;
+
+procedure TfrmGeContasAReceber.btbtnListaClick(Sender: TObject);
+begin
+  popImprimir.Popup(btbtnLista.ClientOrigin.X, btbtnLista.ClientOrigin.Y + btbtnLista.Height);
+end;
+
 function TfrmGeContasAReceber.GetRotinaCancelarPagtosID: String;
 begin
   Result := GetRotinaInternaID(dbgPagamentos);
@@ -615,6 +810,36 @@ end;
 function TfrmGeContasAReceber.GetRotinaEfetuarPagtoID: String;
 begin
   Result := GetRotinaInternaID(btbtnEfetuarPagto);
+end;
+
+procedure TfrmGeContasAReceber.RecarregarRegistro;
+var
+  MovAno    ,
+  MovNumero : Integer;
+begin
+  MovAno    := IbDtstTabelaANOLANC.AsInteger;
+  MovNumero := IbDtstTabelaNUMLANC.AsInteger;
+
+  if ( not IbDtstTabelaDTVENC.IsNull ) then
+  begin
+    if ( IbDtstTabelaDTVENC.AsDateTime < e1Data.Date ) then
+      e1Data.Date := IbDtstTabelaDTVENC.AsDateTime;
+
+    if ( IbDtstTabelaDTVENC.AsDateTime > e2Data.Date ) then
+      e2Data.Date := IbDtstTabelaDTVENC.AsDateTime;
+  end;
+
+  IbDtstTabela.Close;
+  IbDtstTabela.Open;
+
+  if not IbDtstTabela.Locate('ANOLANC;NUMLANC', VarArrayOf([MovAno, MovNumero]), []) then
+  begin
+    IbDtstTabela.Close;
+
+    ShowInformation('Favor pesquisar novamente o registro de despesa!');
+    pgcGuias.ActivePage := tbsTabela;
+    edtFiltrar.SetFocus;
+  end;
 end;
 
 procedure TfrmGeContasAReceber.RegistrarNovaRotinaSistema;
@@ -633,6 +858,25 @@ procedure TfrmGeContasAReceber.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
+end;
+
+procedure TfrmGeContasAReceber.FrReciboGetValue(const VarName: string;
+  var Value: Variant);
+begin
+  if ( VarName = VAR_TITLE ) then
+    Value := 'RECIBO';
+
+  if ( VarName = VAR_EMPRESA ) then
+    Value := GetEmpresaNomeDefault;
+
+  if ( VarName = VAR_USER ) then
+    Value := GetUserApp;
+
+  if ( VarName = VAR_SYSTEM ) then
+    Value := Application.Title + ' - versão ' + ver.FileVersion;
+
+  if ( VarName = 'Imprimir_Cabecalho' ) then
+    Value := IfThen(FImprimirCabecalho, 1, 0);
 end;
 
 initialization

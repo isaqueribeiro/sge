@@ -4,12 +4,21 @@ interface
 
 uses
   UDMBusiness,
-  
+  Clipbrd,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, IBStoredProc, Menus, IBQuery,
-  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  ToolWin, IBTable, IBStoredProc, Menus, IBQuery, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, cxButtons, JvDBControls, JvExMask, JvToolEdit,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
+  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeEntradaEstoque = class(TfrmGrPadraoCadastro)
@@ -20,7 +29,6 @@ type
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblFornecedor: TLabel;
-    dbFornecedor: TRxDBComboEdit;
     lblDataEmissao: TLabel;
     lblNotaFiscal: TLabel;
     dbNotaFiscal: TDBEdit;
@@ -28,7 +36,6 @@ type
     dbSerie: TDBEdit;
     lblDataEntrada: TLabel;
     lblCFOPNF: TLabel;
-    dbCFOPNF: TRxDBComboEdit;
     dbCFOPNFDescricao: TDBEdit;
     qryProduto: TIBDataSet;
     qryCFOP: TIBDataSet;
@@ -117,7 +124,6 @@ type
     lblTotalBruto: TLabel;
     lblValorIPIProduto: TLabel;
     Bevel10: TBevel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbQuantidade: TDBEdit;
     dbValorUnit: TDBEdit;
@@ -231,8 +237,6 @@ type
     lblEntradaCancelada: TLabel;
     Label1: TLabel;
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     lblAliquota: TLabel;
     dbAliquota: TDBEdit;
     lblPercRedBC: TLabel;
@@ -242,50 +246,29 @@ type
     cdsTabelaItensALIQUOTA_PIS: TIBBCDField;
     cdsTabelaItensALIQUOTA_COFINS: TIBBCDField;
     cdsTabelaItensPERCENTUAL_REDUCAO_BC: TIBBCDField;
-    qryNFE: TIBDataSet;
-    updNFE: TIBUpdateSQL;
     ppImprimir: TPopupMenu;
     nmImprimirVenda: TMenuItem;
     N1: TMenuItem;
     nmImprimirDANFE: TMenuItem;
     nmGerarDANFEXML: TMenuItem;
-    qryNFEANOCOMPRA: TSmallintField;
-    qryNFENUMCOMPRA: TIntegerField;
-    qryNFEDATAEMISSAO: TDateField;
-    qryNFEHORAEMISSAO: TTimeField;
-    qryNFESERIE: TIBStringField;
-    qryNFENUMERO: TIntegerField;
-    qryNFECHAVE: TIBStringField;
-    qryNFEPROTOCOLO: TIBStringField;
-    qryNFERECIBO: TIBStringField;
-    qryNFEXML_FILENAME: TIBStringField;
-    qryNFEXML_FILE: TMemoField;
-    qryNFELOTE_ANO: TSmallintField;
-    qryNFELOTE_NUM: TIntegerField;
     IbDtstTabelaNFSERIE: TIBStringField;
     IbDtstTabelaLOTE_NFE_ANO: TSmallintField;
     IbDtstTabelaLOTE_NFE_NUMERO: TIntegerField;
     IbDtstTabelaLOTE_NFE_RECIBO: TIBStringField;
-    qryNFEEMPRESA: TIBStringField;
     cdsTabelaItensQTDE: TIBBCDField;
     cdsTabelaItensQTDEANTES: TIBBCDField;
     cdsTabelaItensQTDEFINAL: TIBBCDField;
     cdsTabelaItensESTOQUE: TIBBCDField;
-    cdsTabelaItensTOTAL_BRUTO: TFMTBCDField;
-    cdsTabelaItensTOTAL_LIQUIDO: TFMTBCDField;
     lblAutorizacao: TLabel;
-    dbAutorizacao: TRxDBComboEdit;
     IbDtstTabelaAUTORIZACAO_ANO: TSmallintField;
     IbDtstTabelaAUTORIZACAO_CODIGO: TIntegerField;
     IbDtstTabelaAUTORIZACAO_EMPRESA: TIBStringField;
-    qryTpDespesa: TIBQuery;
+    qryTipoDespesa: TIBQuery;
     dtsTpDespesa: TDataSource;
     IbDtstTabelaTIPO_DESPESA: TSmallintField;
     Bevel13: TBevel;
     lblTipoDespesa: TLabel;
     dbTipoDespesa: TDBLookupComboBox;
-    dbDataEmissao: TDBDateEdit;
-    dbDataEntrada: TDBDateEdit;
     lblTipoDocumento: TLabel;
     dbTipoDocumento: TDBLookupComboBox;
     tblTipoDocumento: TIBTable;
@@ -297,11 +280,84 @@ type
     lblTipoEntrada: TLabel;
     dbTipoEntrada: TDBLookupComboBox;
     IbDtstTabelaTIPO_MOVIMENTO: TSmallintField;
-    qryNFEMODELO: TSmallintField;
-    qryNFEVERSAO: TSmallintField;
     btbtnFinalizar: TcxButton;
     btbtnGerarNFe: TcxButton;
     btbtnCancelarENT: TcxButton;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    dbFornecedor: TJvDBComboEdit;
+    dbCFOPNF: TJvDBComboEdit;
+    dbAutorizacao: TJvDBComboEdit;
+    dbProduto: TJvDBComboEdit;
+    dbDataEmissao: TJvDBDateEdit;
+    dbDataEntrada: TJvDBDateEdit;
+    qryNFE: TIBDataSet;
+    qryNFEEMPRESA: TIBStringField;
+    qryNFEANOVENDA: TSmallintField;
+    qryNFENUMVENDA: TIntegerField;
+    qryNFEANOCOMPRA: TSmallintField;
+    qryNFENUMCOMPRA: TIntegerField;
+    qryNFEDATAEMISSAO: TDateField;
+    qryNFEHORAEMISSAO: TTimeField;
+    qryNFESERIE: TIBStringField;
+    qryNFENUMERO: TIntegerField;
+    qryNFEMODELO: TSmallintField;
+    qryNFEVERSAO: TSmallintField;
+    qryNFECHAVE: TIBStringField;
+    qryNFEPROTOCOLO: TIBStringField;
+    qryNFERECIBO: TIBStringField;
+    qryNFEXML_FILENAME: TIBStringField;
+    qryNFEXML_FILE: TMemoField;
+    qryNFELOTE_ANO: TSmallintField;
+    qryNFELOTE_NUM: TIntegerField;
+    updNFE: TIBUpdateSQL;
+    dtsNFE: TDataSource;
+    TbsInformeNFe: TTabSheet;
+    lblLogNFeLote: TLabel;
+    dbLogNFeLote: TDBEdit;
+    lblLogNFeLoteDataEmissao: TLabel;
+    d1LogNFeLoteDataEmissao: TDBEdit;
+    d2LogNFeLoteDataEmissao: TDBEdit;
+    lblLogNFeLoteRecibo: TLabel;
+    dbLogNFeLoteRecibo: TDBEdit;
+    lblLogNFeLoteProtocolo: TLabel;
+    dbLogNFeLoteProtocolo: TDBEdit;
+    lblLogNFeUsuario: TLabel;
+    dbLogNFeUsuario: TDBEdit;
+    lblLogNFeLoteChave: TLabel;
+    dbLogNFeLoteChave: TDBEdit;
+    BtnLimparDadosNFe: TSpeedButton;
+    lblLogNFeLoteArquivo: TLabel;
+    dbLogNFeLoteArquivo: TDBEdit;
+    lblLogNFeCancelUsuario: TLabel;
+    dbLogNFeCancelUsuario: TDBEdit;
+    lblLogNFeCancelMotivo: TLabel;
+    dbLogNFeCancelMotivo: TDBMemo;
+    lblLogNFeDenegada: TLabel;
+    dbLogNFeDenegada: TDBEdit;
+    lblLogNFeCancelData: TLabel;
+    dbLogNFeCancelData: TDBEdit;
+    ppCorrigirDadosNFe: TPopupMenu;
+    nmPpCorrigirDadosNFeCFOP: TMenuItem;
+    BtnCorrigirDadosNFe: TSpeedButton;
+    popupAuditoria: TPopupMenu;
+    nmPpLimparDadosNFe: TMenuItem;
+    N2: TMenuItem;
+    nmPpReciboNFe: TMenuItem;
+    nmPpChaveNFe: TMenuItem;
+    nmPpArquivoNFe: TMenuItem;
+    IbDtstTabelaVERIFICADOR_NFE: TIBStringField;
+    IbDtstTabelaXML_NFE_FILENAME: TIBStringField;
+    IbDtstTabelaCANCEL_USUARIO: TIBStringField;
+    IbDtstTabelaCANCEL_DATAHORA: TDateTimeField;
+    IbDtstTabelaCANCEL_MOTIVO: TMemoField;
+    cdsTabelaItensTOTAL_BRUTO: TIBBCDField;
+    cdsTabelaItensTOTAL_LIQUIDO: TIBBCDField;
+    cdsTabelaItensCSOSN: TIBStringField;
+    lblCSOSN: TLabel;
+    dbCSOSN: TDBEdit;
+    IbDtstTabelaCALCULAR_TOTAIS: TSmallintField;
+    dbCalcularTotais: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -343,14 +399,22 @@ type
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
+    procedure nmPpCorrigirDadosNFeCFOPClick(Sender: TObject);
+    procedure BtnCorrigirDadosNFeClick(Sender: TObject);
+    procedure nmPpLimparDadosNFeClick(Sender: TObject);
+    procedure nmPpReciboNFeClick(Sender: TObject);
+    procedure nmPpChaveNFeClick(Sender: TObject);
+    procedure nmPpArquivoNFeClick(Sender: TObject);
   private
     { Private declarations }
+    FEmpresa : String;
     FTipoMovimento : TTipoMovimentoEntrada;
     FApenasFinalizadas : Boolean;
     SQL_Itens   ,
     SQL_Duplicatas : TStringList;
     procedure AbrirTabelaItens(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirTabelaDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
+    procedure AbrirNotaFiscal(const Empresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure GerarDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure CarregarDadosProduto( Codigo : Integer);
     procedure CarregarDadosCFOP( iCodigo : Integer );
@@ -362,6 +426,7 @@ type
     function GetRotinaCancelarEntradaID : String;
 
     procedure RegistrarNovaRotinaSistema;
+    procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
   public
     { Public declarations }
     procedure pgcGuiasOnChange; override;
@@ -380,12 +445,15 @@ var
   procedure MostrarControleCompraServicos(const AOwner : TComponent);
 
   function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var Empresa : String) : Boolean;
+  function SelecionarNFParaDevolver(const AOwner : TComponent; var Ano, Controle : Integer;
+    var Empresa : String; var Emissao : TDateTime; var Serie, Numero, UF, Cnpj, IE : String) : Boolean;
 
 implementation
 
 uses
   UConstantesDGE, DateUtils, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
-  UGeFornecedor, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe, UDMNFe;
+  UGeFornecedor, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe, UDMNFe,
+  UGeEntradaEstoqueDevolucaoNF;
 
 {$R *.dfm}
 
@@ -499,6 +567,61 @@ begin
   end;
 end;
 
+function SelecionarNFParaDevolver(const AOwner : TComponent; var Ano, Controle : Integer;
+  var Empresa : String; var Emissao : TDateTime; var Serie, Numero, UF, Cnpj, IE : String) : Boolean;
+var
+  sWhr  : String;
+  AForm : TfrmGeEntradaEstoque;
+begin
+  AForm := TfrmGeEntradaEstoque.Create(AOwner);
+  try
+    with AForm do
+    begin
+      btbtnSelecionar.Visible := True;
+
+      TipoMovimento     := tmeProduto;
+      ApenasFinalizadas := True;
+      FEmpresa          := Trim(Empresa);
+      Caption           := 'Controle de Entradas de Produtos';
+      RotinaID          := ROTINA_ENT_PRODUTO_ID;
+
+      btbtnIncluir.Visible  := False;
+      btbtnAlterar.Visible  := False;
+      btbtnExcluir.Visible  := False;
+      btbtnFinalizar.Visible   := False;
+      btbtnCancelarENT.Visible := False;
+      btbtnGerarNFe.Visible    := False;
+
+      sWhr :=
+        '(c.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + ')) and ' +
+        '(c.tipo_movimento = ' + IntToStr(Ord(TipoMovimento)) + ') and cast(c.dtent as date) between ' +
+        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ' and ' +
+        '(c.codemp = ' + QuotedStr(FEmpresa) + ')';
+
+      WhereAdditional := sWhr;
+
+      Result := (ShowModal = mrOk);
+
+      if Result then
+      begin
+        Ano      := IbDtstTabelaANO.AsInteger;
+        Controle := IbDtstTabelaCODCONTROL.AsInteger;
+        Empresa  := IbDtstTabelaCODEMP.AsString;
+        Emissao  := IbDtstTabelaDTEMISS.AsDateTime;
+        Serie    := IbDtstTabelaNFSERIE.AsString;
+        Numero   := FormatFloat('###0000000', IbDtstTabelaNF.AsInteger);
+        UF       := EmptyStr;
+        Cnpj     := IbDtstTabelaCNPJ.AsString;
+        IE       := EmptyStr;
+      end;
+    end;
+
+  finally
+    AForm.Free;
+  end;
+end;
+
 procedure TfrmGeEntradaEstoque.FormCreate(Sender: TObject);
 
   procedure OcutarCampoAutorizacao;
@@ -517,7 +640,7 @@ begin
   {$ENDIF}
 
   {$IFNDEF DGE}
-  if not (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
+  if not (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
     OcutarCampoAutorizacao;
   {$ENDIF}
 
@@ -526,6 +649,7 @@ begin
   inherited;
 
   AbrirTabelaAuto := True;
+  FEmpresa        := EmptyStr;
 
   SQL_Itens := TStringList.Create;
   SQL_Itens.Clear;
@@ -542,9 +666,9 @@ begin
   tblEmpresa.Open;
   tblFormaPagto.Open;
   tblCondicaoPagto.Open;
-  qryTpDespesa.Open;
   tblTipoDocumento.Open;
   tblTipoEntrada.Open;
+  CarregarTipoDespesa(False);
 
   DisplayFormatCodigo := '###0000000';
   
@@ -555,10 +679,16 @@ begin
 
   UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
 
-  btbtnGerarNFe.Visible := GetEstacaoEmitiNFe;
+  dbCalcularTotais.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  btbtnGerarNFe.Visible    := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
 
   TipoMovimento     := tmeProduto;
   ApenasFinalizadas := False;
+
+  if not dbCalcularTotais.Visible then
+    GrpBxDadosValores.Height := 76
+  else
+    GrpBxDadosValores.Height := 90;
 end;
 
 procedure TfrmGeEntradaEstoque.btnFiltrarClick(Sender: TObject);
@@ -572,7 +702,10 @@ begin
     '(c.tipo_movimento = ' + IntToStr(Ord(TipoMovimento)) + ') and cast(c.dtent as date) between ' +
     QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
     QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
-    
+
+  if ( Trim(FEmpresa) <> EmptyStr ) then
+    WhereAdditional := WhereAdditional + ' and (c.codemp = ' + QuotedStr(FEmpresa) +')';
+
   inherited;
 end;
 
@@ -582,7 +715,7 @@ begin
   IbDtstTabelaAno.Value     := YearOf(Now);
   IbDtstTabelaDTENT.Value   := Date;
   IbDtstTabelaDTLANCAMENTO.Value := Now;
-  IbDtstTabelaCODEMP.Value  := GetEmpresaIDDefault;
+  IbDtstTabelaCODEMP.Value       := gUsuarioLogado.Empresa;
   IbDtstTabelaFORMAPAGTO_COD.Value    := GetFormaPagtoIDDefault;
   IbDtstTabelaCONDICAOPAGTO_COD.Value := GetCondicaoPagtoIDDefault;
 
@@ -600,20 +733,27 @@ begin
     IbDtstTabelaNATUREZA.Clear;
   end;
 
-  IbDtstTabelaTIPO_MOVIMENTO.Value := Ord(FTipoMovimento);
-  IbDtstTabelaSTATUS.Value         := STATUS_CMP_ABR;
-  IbDtstTabelaCOMPRA_PRAZO.Value   := 0;
-  IbDtstTabelaICMSBASE.Value       := 0;
-  IbDtstTabelaICMSVALOR.Value      := 0;
-  IbDtstTabelaICMSSUBSTBASE.Value  := 0;
-  IbDtstTabelaICMSSUBSTVALOR.Value := 0;
-  IbDtstTabelaFRETE.Value          := 0;
-  IbDtstTabelaOUTROSCUSTOS.Value   := 0;
-  IbDtstTabelaIPI.Value            := 0;
-  IbDtstTabelaDESCONTO.Value       := 0;
-  IbDtstTabelaTOTALNF.Value        := 0;
-  IbDtstTabelaTOTALPROD.Value      := 0;
-  IbDtstTabelaUSUARIO.Value        := GetUserApp;
+  if GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(IbDtstTabelaCODEMP.AsString) then
+    IbDtstTabelaCALCULAR_TOTAIS.Value := 1
+  else
+    IbDtstTabelaCALCULAR_TOTAIS.Value := 0;
+
+  IbDtstTabelaTIPO_MOVIMENTO.Value  := Ord(FTipoMovimento);
+  IbDtstTabelaSTATUS.Value          := STATUS_CMP_ABR;
+  IbDtstTabelaCOMPRA_PRAZO.Value    := 0;
+  IbDtstTabelaICMSBASE.Value        := 0;
+  IbDtstTabelaICMSVALOR.Value       := 0;
+  IbDtstTabelaICMSSUBSTBASE.Value   := 0;
+  IbDtstTabelaICMSSUBSTVALOR.Value  := 0;
+  IbDtstTabelaFRETE.Value           := 0;
+  IbDtstTabelaOUTROSCUSTOS.Value    := 0;
+  IbDtstTabelaIPI.Value             := 0;
+  IbDtstTabelaDESCONTO.Value        := 0;
+  IbDtstTabelaTOTALNF.Value         := 0;
+  IbDtstTabelaTOTALPROD.Value       := 0;
+  IbDtstTabelaUSUARIO.Value         := gUsuarioLogado.Login;
+  IbDtstTabelaVERIFICADOR_NFE.Clear;
+  IbDtstTabelaXML_NFE_FILENAME.Clear;
   IbDtstTabelaCODFORN.Clear;
   IbDtstTabelaTIPO_ENTRADA.Clear;
   IbDtstTabelaTIPO_DOCUMENTO.Clear;
@@ -748,6 +888,9 @@ begin
         if ( Trim(FieldByName('Cst').AsString) <> EmptyStr ) then
           cdsTabelaItensCST.AsString       := FieldByName('Cst').AsString;
 
+        if ( Trim(FieldByName('Csosn').AsString) <> EmptyStr ) then
+          cdsTabelaItensCSOSN.AsString     := FieldByName('Csosn').AsString;
+
         if ( (qryCFOP.FieldByName('Cfop_cst_padrao_entrada').AsString) <> EmptyStr ) then
           cdsTabelaItensCST.AsString := Trim(qryCFOP.FieldByName('Cfop_cst_padrao_entrada').AsString);
 
@@ -765,6 +908,20 @@ begin
   end;
 end;
 
+procedure TfrmGeEntradaEstoque.CarregarTipoDespesa(const ApenasAtivos: Boolean);
+begin
+  with qryTipoDespesa, Params do
+  begin
+    Close;
+    ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
+    ParamByName('todos').AsInteger := IfThen(ApenasAtivos, 0, 1);
+    Open;
+
+    Prior;
+    Last;
+  end;
+end;
+
 procedure TfrmGeEntradaEstoque.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
@@ -775,6 +932,11 @@ begin
 
     nmImprimirDANFE.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE);
     nmGerarDANFEXML.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE);
+
+    TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNF.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNF.AsCurrency = 0);
+    BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) and (IbDtstTabelaNF.AsCurrency = 0);
   end
   else
   begin
@@ -784,6 +946,11 @@ begin
 
     nmImprimirDANFE.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE);
     nmGerarDANFEXML.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE);
+
+    TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNF.AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNF.AsCurrency = 0);
+    BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) and (IbDtstTabelaNF.AsCurrency = 0);
   end;
 end;
 
@@ -818,11 +985,22 @@ begin
     begin
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     end;
   end;
 end;
 
 procedure TfrmGeEntradaEstoque.btnProdutoInserirClick(Sender: TObject);
+
+  procedure GerarSequencial(var Seq : Integer);
+  begin
+    Seq := cdsTabelaItens.RecordCount + 1;
+    while ( cdsTabelaItens.Locate('SEQ', Seq, []) ) do
+      Seq := Seq + 1;
+  end;
+
+var
+  Sequencial : Integer;
 begin
   if ( IbDtstTabelaCODFORN.AsInteger = 0 ) then
   begin
@@ -844,7 +1022,10 @@ begin
   else
   if ( cdsTabelaItens.Active ) then
   begin
+    GerarSequencial(Sequencial);
+
     cdsTabelaItens.Append;
+    cdsTabelaItensSEQ.Value := Sequencial;
     dbProduto.SetFocus;
   end;
 end;
@@ -866,6 +1047,52 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.btnProdutoSalvarClick(Sender: TObject);
+
+  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_Liquido, vBC_ICMS, vICMS: Currency);
+  var
+    Item : Integer;
+  begin
+    Item         := cdsTabelaItensSEQ.AsInteger;
+    Total_Bruto    := 0.0;
+    Total_desconto := 0.0;
+    Total_Liquido  := 0.0;
+    vBC_ICMS       := 0.0;
+    vICMS          := 0.0;
+
+    cdsTabelaItens.First;
+
+    while not cdsTabelaItens.Eof do
+    begin
+      Total_Bruto    := Total_Bruto + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
+
+      if ( cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency > 0 ) then
+      begin
+        vBC_ICMS := vBC_ICMS + (cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency / 100);
+        vICMS    := vICMS    + (((cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency / 100)) * cdsTabelaItensALIQUOTA.AsCurrency / 100);
+      end
+      else
+      begin
+        vBC_ICMS := vBC_ICMS + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
+        vICMS    := vICMS    + (cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensALIQUOTA.AsCurrency / 100);
+      end;
+
+
+      cdsTabelaItens.Next;
+    end;
+
+    Total_desconto := IbDtstTabelaDESCONTO.AsCurrency;
+    Total_Liquido  := Total_Bruto - Total_desconto;
+
+    cdsTabelaItens.Locate('SEQ', Item, []);
+  end;
+
+var
+  cDescontos    ,
+  cTotalBruto   ,
+  cTotalDesconto,
+  cTotalLiquido ,
+  cValorBaseIcms,
+  cValorIcms    : Currency;
 begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
   begin
@@ -897,6 +1124,17 @@ begin
 
       cdsTabelaItens.Post;
 
+      if ( dbCalcularTotais.Checked ) then
+      begin
+        GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido, cValorBaseIcms, cValorIcms);
+
+        IbDtstTabelaICMSBASE.AsCurrency  := cValorBaseIcms;
+        IbDtstTabelaICMSVALOR.AsCurrency := cValorIcms;
+        IbDtstTabelaTOTALPROD.AsCurrency := cTotalBruto;
+        IbDtstTabelaDESCONTO.AsCurrency  := cTotalDesconto;
+        IbDtstTabelaTOTALNF.AsCurrency   := cTotalLiquido + IbDtstTabelaIPI.AsCurrency;
+      end;
+
       if ( btnProdutoInserir.Visible and btnProdutoInserir.Enabled ) then
         btnProdutoInserir.SetFocus;
 
@@ -916,8 +1154,8 @@ begin
       IbDtstTabelaNFSERIE.Value := TIPO_DOCUMENTO_SERIE_AVULSO;
     end;
 
-    IbDtstTabelaNF.Required      := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NF, TIPO_DOCUMENTO_ENTRADA_CUPOM]);
-    IbDtstTabelaNFSERIE.Required := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NF]) and (TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto);
+    IbDtstTabelaNF.Required      := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NOTA_FISCAL, TIPO_DOCUMENTO_ENTRADA_CUPOM, TIPO_DOCUMENTO_ENTRADA_NFE, TIPO_DOCUMENTO_ENTRADA_NFCE]);
+    IbDtstTabelaNFSERIE.Required := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NOTA_FISCAL, TIPO_DOCUMENTO_ENTRADA_NFE, TIPO_DOCUMENTO_ENTRADA_NFCE]) and (TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto);
 
     inherited;
 
@@ -925,6 +1163,7 @@ begin
     begin
       if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
         cdsTabelaItens.Post;
+
       cdsTabelaItens.ApplyUpdates;
       CommitTransaction;
     end;
@@ -934,6 +1173,8 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.ControlEditExit(Sender: TObject);
+var
+  cPrecoUN : Currency;
 begin
   inherited;
 
@@ -953,8 +1194,10 @@ begin
   begin
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
     begin
-      cdsTabelaItensCUSTOMEDIO.AsCurrency  := cdsTabelaItensPRECOUNIT.AsCurrency + cdsTabelaItensVALOR_IPI.AsCurrency;
-      cdsTabelaItensTOTAL_BRUTO.AsCurrency := cdsTabelaItensPRECOUNIT.AsCurrency * cdsTabelaItensQTDE.AsCurrency;
+      cPrecoUN := cdsTabelaItensPRECOUNIT.AsCurrency;
+
+      cdsTabelaItensCUSTOMEDIO.AsCurrency  := cPrecoUN + cdsTabelaItensVALOR_IPI.AsCurrency;
+      cdsTabelaItensTOTAL_BRUTO.AsCurrency := cPrecoUN * cdsTabelaItensQTDE.AsCurrency;
 
       if ( IbDtstTabelaTOTALPROD.AsCurrency > 0 ) then
       begin
@@ -963,7 +1206,7 @@ begin
         cdsTabelaItensVALOR_DESCONTO.Value     := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaDESCONTO.Value / 100;
         cdsTabelaItensVALOR_OUTROS.Value       := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaOUTROSCUSTOS.Value / 100;
 
-        cdsTabelaItensTOTAL_LIQUIDO.AsCurrency := cdsTabelaItensCUSTOMEDIO.AsCurrency * cdsTabelaItensQTDE.AsCurrency;
+        cdsTabelaItensTOTAL_LIQUIDO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency; //cdsTabelaItensCUSTOMEDIO.AsCurrency * cdsTabelaItensQTDE.AsCurrency;
       end;
     end;
   end;
@@ -978,6 +1221,7 @@ procedure TfrmGeEntradaEstoque.pgcGuiasChange(Sender: TObject);
 begin
   AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 end;
 
 procedure TfrmGeEntradaEstoque.btbtnIncluirClick(Sender: TObject);
@@ -987,6 +1231,7 @@ begin
   begin
     AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   end;
 end;
 
@@ -1014,6 +1259,7 @@ begin
     begin
       AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
       AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     end;
   end;
 end;
@@ -1102,7 +1348,6 @@ begin
   cdsTabelaItensCODEMP.Value     := IbDtstTabelaCODEMP.Value;
   cdsTabelaItensCODFORN.Value    := IbDtstTabelaCODFORN.Value;
   cdsTabelaItensNF.Value         := IbDtstTabelaNF.Value;
-  cdsTabelaItensSEQ.Value        := cdsTabelaItens.RecordCount + 1;
 
   if ( FTipoMovimento = tmeProduto ) then
   begin
@@ -1293,6 +1538,8 @@ begin
 
   DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_CMP_FIN );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+
+  CarregarTipoDespesa( (IbDtstTabela.State in [dsEdit, dsInsert]) );
 end;
 
 procedure TfrmGeEntradaEstoque.btbtnCancelarENTClick(Sender: TObject);
@@ -1338,13 +1585,14 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    // Destacar Movimento de Entrada Aberto
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_ABR ) then
-      dbgDados.Canvas.Font.Color := lblEntradaAberta.Font.Color
-    else
-    // Destacar Movimento de Entrada Cancelado
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_CAN ) then
-      dbgDados.Canvas.Font.Color := lblEntradaCancelada.Font.Color;
+    if (not IbDtstTabelaSTATUS.IsNull) then
+      // Destacar Movimento de Entrada Aberto
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_ABR ) then
+        dbgDados.Canvas.Font.Color := lblEntradaAberta.Font.Color
+      else
+      // Destacar Movimento de Entrada Cancelado
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_CAN ) then
+        dbgDados.Canvas.Font.Color := lblEntradaCancelada.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end;
@@ -1360,32 +1608,45 @@ var
   sProtocoloNFE,
   sReciboNFE   : String;
   iNumeroLote  : Int64;
+  bNFeGerada   : Boolean;
 begin
+{
+  IMR - 23/05/2015 :
+    Inclusão do bloco de código para verificar se o CFOP da entrada corresponde
+    a uma operação de devolução. Caso esta situação seja confirmada, a NF-e de
+    origem será solicitada.
+}
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  if ( not DelphiIsRunning ) then
-    if not DMNFe.GetValidadeCertificado then
-      Exit;
-
   RecarregarRegistro;
 
   pgcGuias.ActivePage := tbsCadastro;
-  
+
+  bNFeGerada := (IbDtstTabelaNF.AsCurrency > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE);
+
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE) then
   begin
     ShowWarning('Movimento de Entrada já está com NF-e gerada!');
     Abort;
   end;
 
-  if not GetPermititEmissaoNFe( IbDtstTabelaCODEMP.AsString ) then
+  if not GetPermititEmissaoNFeEntrada( IbDtstTabelaCODEMP.AsString ) then
   begin
-    ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.');
+    ShowInformation('Empresa selecionada não habilitada para emissão de NF-e p/ Entradas.' + #13 + 'Favor entrar em contato com suporte.');
     Exit;
   end;
+
+  if ( not DelphiIsRunning ) then
+    if not DMNFe.GetValidadeCertificado(IbDtstTabelaCODEMP.AsString) then
+      Exit;
+
+  if GetCfopDevolucao( IbDtstTabelaNFCFOP.AsInteger ) then
+    if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
+      Exit;
 
   if ( IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0 ) then
   begin
@@ -1393,23 +1654,29 @@ begin
       'Favor consultar junto a SEFA e processar o Recibo/Lote de número ' +
         IbDtstTabelaLOTE_NFE_RECIBO.AsString + '/' +
         FormatFloat('#########0', IbDtstTabelaLOTE_NFE_NUMERO.AsInteger));
-    Exit;  
+    Exit;
   end;
 
-  if ( GerarNFeEntrada(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value,
-                iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote
-  ) ) then
+  if not bNFeGerada then
+    bNFeGerada := GerarNFeEntrada(Self
+      , IbDtstTabelaANO.Value
+      , IbDtstTabelaCODCONTROL.Value
+      , iSerieNFe
+      , iNumeroNFe
+      , sFileNameXML
+      , sChaveNFE
+      , sProtocoloNFE
+      , sReciboNFE
+      , iNumeroLote);
+
+  if bNFeGerada then
     with IbDtstTabela do
     begin
       iNumero := IbDtstTabelaCODCONTROL.AsInteger;
 
       with qryNFE do
       begin
-        Close;
-        ParamByName('empresa').AsString    := IbDtstTabelaCODEMP.AsString;
-        ParamByName('anoCompra').AsInteger := IbDtstTabelaANO.Value;
-        ParamByName('numCompra').AsInteger := IbDtstTabelaCODCONTROL.Value;
-        Open;
+        AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
         Append;
 
@@ -1430,11 +1697,14 @@ begin
 
         if ( FileExists(sFileNameXML) ) then
         begin
-          CorrigirXML_NFe(sFileNameXML);
+          CorrigirXML_NFe(EmptyWideStr, sFileNameXML);
 
           qryNFEXML_FILENAME.Value := ExtractFileName( sFileNameXML );
           qryNFEXML_FILE.LoadFromFile( sFileNameXML );
         end;
+
+        qryNFEANOVENDA.Clear;
+        qryNFENUMVENDA.Clear;
 
         Post;
         ApplyUpdates;
@@ -1680,11 +1950,151 @@ begin
   inherited;
   AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 end;
 
 procedure TfrmGeEntradaEstoque.pgcGuiasOnChange;
 begin
   HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeEntradaEstoque.AbrirNotaFiscal(const Empresa: String;
+  const AnoCompra: Smallint; const ControleCompra: Integer);
+begin
+  with qryNFE do
+  begin
+    Close;
+    ParamByName('empresa').AsString    := Empresa;
+    ParamByName('anocompra').AsInteger := AnoCompra;
+    ParamByName('numcompra').AsInteger := ControleCompra;
+    Open;
+  end;
+end;
+
+procedure TfrmGeEntradaEstoque.nmPpCorrigirDadosNFeCFOPClick(
+  Sender: TObject);
+var
+  iCodigo    : Integer;
+  sCFOP      ,
+  sDescricao : String;
+begin
+  if not BtnCorrigirDadosNFe.Enabled then
+    Exit;
+
+  if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+  begin
+    sCFOP := IntToStr(iCodigo);
+
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Update TBCOMPRAS Set ');
+      SQL.Add('  NFCFOP = ' + sCFOP);
+      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
+      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      ExecSQL;
+
+      CommitTransaction;
+
+      SQL.Clear;
+      SQL.Add('Update TBCOMPRASITENS Set ');
+      SQL.Add('  CFOP = ' + sCFOP);
+      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
+      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+
+    RecarregarRegistro;
+
+    AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar entrada novamente.');
+  end;
+end;
+
+procedure TfrmGeEntradaEstoque.BtnCorrigirDadosNFeClick(Sender: TObject);
+begin
+  if not BtnLimparDadosNFe.Enabled then
+    ppCorrigirDadosNFe.Popup(BtnCorrigirDadosNFe.ClientOrigin.X, BtnCorrigirDadosNFe.ClientOrigin.Y + BtnCorrigirDadosNFe.Height);
+end;
+
+procedure TfrmGeEntradaEstoque.nmPpLimparDadosNFeClick(Sender: TObject);
+begin
+  if not IbDtstTabela.IsEmpty then
+  begin
+    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
+      Exit;
+
+    if ( IbDtstTabelaNF.AsCurrency > 0 ) then
+      Exit;
+
+    if not ShowConfirmation('Limpar LOG', 'Confirma a limpeza do LOG de envio de NF-e para que esta seja enviada novamente?') then
+      Exit;
+
+    with DMBusiness, qryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Update TBCOMPRAS Set ');
+      SQL.Add('    LOTE_NFE_ANO    = null');
+      SQL.Add('  , LOTE_NFE_NUMERO = null');
+      SQL.Add('  , LOTE_NFE_RECIBO = null');
+      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
+      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+
+    RecarregarRegistro;
+    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    ShowInformation('Dados NF-e', 'LOG de envio de recibo NF-e limpo com sucesso!');
+  end;
+end;
+
+procedure TfrmGeEntradaEstoque.nmPpReciboNFeClick(Sender: TObject);
+begin
+  if not IbDtstTabela.IsEmpty then
+  begin
+    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
+      Exit;
+
+    Clipboard.AsText := Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString);
+    ShowInformation('Dados NF-e', 'Número de Recibo de Envio da NF-e:' + #13 + Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString));
+  end;
+end;
+
+procedure TfrmGeEntradaEstoque.nmPpChaveNFeClick(Sender: TObject);
+begin
+  if not IbDtstTabela.IsEmpty then
+  begin
+    if ( Trim(IbDtstTabelaVERIFICADOR_NFE.AsString) = EmptyStr ) then
+      Exit;
+
+    Clipboard.AsText := Trim(IbDtstTabelaVERIFICADOR_NFE.AsString);
+    ShowInformation('Dados NF-e', 'Chave da NF-e:' + #13 + Trim(IbDtstTabelaVERIFICADOR_NFE.AsString));
+  end;
+end;
+
+procedure TfrmGeEntradaEstoque.nmPpArquivoNFeClick(Sender: TObject);
+begin
+  if not IbDtstTabela.IsEmpty then
+  begin
+    if ( Trim(IbDtstTabelaXML_NFE_FILENAME.AsString) = EmptyStr ) then
+      Exit;
+
+    Clipboard.AsText := Trim(IbDtstTabelaXML_NFE_FILENAME.AsString);
+    ShowInformation('Dados NF-e', 'Nome do Arquivo XML NF-e:' + #13 + Trim(IbDtstTabelaXML_NFE_FILENAME.AsString));
+  end;
 end;
 
 initialization

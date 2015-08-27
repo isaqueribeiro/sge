@@ -6,9 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, Menus, IBStoredProc, frxClass,
-  frxDBSet, IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  cxButtons;
+  ToolWin, IBTable, Menus, IBStoredProc, frxClass, frxDBSet, IBQuery, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
+  JvToolEdit, JvExMask, JvDBControls, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeCaixa = class(TfrmGrPadraoCadastro)
@@ -33,20 +39,17 @@ type
     dbOperador: TDBLookupComboBox;
     lblContaCorrente: TLabel;
     dbContaCorrente: TDBLookupComboBox;
-    dbDataAbertura: TDBDateEdit;
     lblDataAbertura: TLabel;
     lblSituacao: TLabel;
     dbSituacao: TDBEdit;
     IbDtstTabelaMOTIVO_CANCEL: TIBStringField;
     GrpBxDadosEncerramento: TGroupBox;
     lblDataFech: TLabel;
-    dbDataFech: TDBDateEdit;
     lblEntrada: TLabel;
     dbEntrada: TDBEdit;
     lblSaida: TLabel;
     dbSaida: TDBEdit;
     lblDataCancel: TLabel;
-    dbDataCancel: TDBDateEdit;
     dbUsuarioCancel: TDBEdit;
     lblUsuarioCancel: TLabel;
     lblMotivoCancel: TLabel;
@@ -106,11 +109,14 @@ type
     qryCaixaAnalitico: TIBQuery;
     frdCaixaAnalitico: TfrxDBDataset;
     Label2: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     IbDtstTabelaEMPRESA: TIBStringField;
     btbtnEncerrar: TcxButton;
     btbtnCancelarCaixa: TcxButton;
+    dbDataFech: TJvDBDateEdit;
+    dbDataCancel: TJvDBDateEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    dbDataAbertura: TJvDBDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -430,13 +436,10 @@ procedure TfrmGeCaixa.AbrirTabelaMovimento(const AnoCaixa: Smallint;
 begin
   qryMovimento.Close;
 
-  with qryMovimento, SelectSQL do
+  with qryMovimento do
   begin
-    Clear;
-    AddStrings( SQL_Movimento );
-    Add('where cm.Caixa_ano = ' + IntToStr(AnoCaixa));
-    Add('  and cm.Caixa_num = ' + IntToStr(NumeroCaixa));
-    Add('order by cm.Ano, cm.Numero');
+    ParamByName('Caixa_ano').AsInteger := AnoCaixa;
+    ParamByName('Caixa_num').AsInteger := NumeroCaixa;
   end;
 
   qryMovimento.Open;
@@ -709,16 +712,22 @@ begin
     if ( IbDtstTabela.IsEmpty ) then
       btbtnIncluir.Click
     else
+    begin
+      tbsCadastro.TabVisible := True;
       ShowWarning('Existe(m) caixa(s) aberto(s) para o usuário logado.' + #13#13 +
                   'Caso deseje abrir um novo caixa para uma conta corrente diferente, favor ir para a guia DADOS e clicar no botão ABRIR.');
-                  
+    end;
+
   end;
 end;
 
 procedure TfrmGeCaixa.qryMovimentoCalcFields(DataSet: TDataSet);
 begin
   inherited;
-  qryMovimentoControleMov.AsString := qryMovimentoANO.AsString  + FormatFloat('"/"###0000000', qryMovimentoNUMERO.AsInteger);
+  if qryMovimentoANO.IsNull then
+    qryMovimentoControleMov.AsString := EmptyStr
+  else
+    qryMovimentoControleMov.AsString := qryMovimentoANO.AsString  + FormatFloat('"/"###0000000', qryMovimentoNUMERO.AsInteger);
 
   if ( qryMovimentoVENDA_ANO.AsInteger > 0 ) then
     qryMovimentoControleVenda.AsString  := qryMovimentoVENDA_ANO.AsString  + FormatFloat('"/"###0000000', qryMovimentoVENDA_NUM.AsInteger)
@@ -799,7 +808,7 @@ begin
     with qryEmitente do
     begin
       Close;
-      ParamByName('Cnpj').AsString := GetEmpresaIDDefault;
+      ParamByName('Cnpj').AsString := gUsuarioLogado.Empresa;
       Open;
     end;
 
@@ -830,7 +839,7 @@ begin
     with qryEmitente do
     begin
       Close;
-      ParamByName('Cnpj').AsString := IfThen(Trim(IbDtstTabelaEMPRESA.AsString) = EmptyStr, GetEmpresaIDDefault, Trim(IbDtstTabelaEMPRESA.AsString));
+      ParamByName('Cnpj').AsString := IfThen(Trim(IbDtstTabelaEMPRESA.AsString) = EmptyStr, gUsuarioLogado.Empresa, Trim(IbDtstTabelaEMPRESA.AsString));
       Open;
     end;
 
@@ -844,19 +853,35 @@ begin
       Open;
     end;
 
-    with qryCaixaAnalitico, SQL do
+    if ( gSistema.Codigo = SISTEMA_PDV ) then
     begin
-      Close;
-      Clear;
-      AddStrings( SQL_CaixaAnalitico );
-      Add('where c.Ano    = ' + IbDtstTabelaANO.AsString);
-      Add('  and c.Numero = ' + IbDtstTabelaNUMERO.AsString);
-      Add('order by cm.Forma_pagto, cm.Ano, cm.Numero');
-      Open;
-    end;
 
-    if ( not qryCaixaAnalitico.IsEmpty ) then
-      frrCaixaAnalitico.ShowReport;
+      if not GetCupomNaoFiscalEmitir then
+        ShowWarning(
+          'Esta estação não está configurada para a impressão de Cupom no Fechamento do Caixa.' + #13 +
+          'Favor realizar a impressão do Caixa no sistema de retaguarda!')
+      else
+        ImprimirCupomFechamentoCaixa(gUsuarioLogado.Empresa, IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+
+    end
+    else
+    begin
+
+      with qryCaixaAnalitico, SQL do
+      begin
+        Close;
+        Clear;
+        AddStrings( SQL_CaixaAnalitico );
+        Add('where c.Ano    = ' + IbDtstTabelaANO.AsString);
+        Add('  and c.Numero = ' + IbDtstTabelaNUMERO.AsString);
+        Add('order by cm.Forma_pagto, cm.Ano, cm.Numero');
+        Open;
+      end;
+
+      if ( not qryCaixaAnalitico.IsEmpty ) then
+        frrCaixaAnalitico.ShowReport;
+
+    end;
 
   end;
 end;

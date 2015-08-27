@@ -6,9 +6,17 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, DBClient, Provider, IBStoredProc,
+  ToolWin, IBTable, DBClient, Provider, IBStoredProc,
   frxClass, frxDBSet, Menus, IBQuery, ClipBrd, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, cxButtons;
+  cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit, JvDBControls,
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -17,7 +25,6 @@ type
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblCliente: TLabel;
-    dbCliente: TRxDBComboEdit;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
     GrpBxDadosProduto: TGroupBox;
@@ -27,7 +34,6 @@ type
     tbsRecebimento: TTabSheet;
     tbsITitulos: TTabSheet;
     lblProduto: TLabel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbgProdutos: TDBGrid;
     lblQuantidade: TLabel;
@@ -41,7 +47,6 @@ type
     lblUnidade: TLabel;
     dbUnidade: TDBEdit;
     lblCFOP: TLabel;
-    dbCFOP: TRxDBComboEdit;
     lblAliquota: TLabel;
     dbAliquota: TDBEdit;
     lblCST: TLabel;
@@ -118,7 +123,6 @@ type
     cdsTabelaItens: TIBDataSet;
     IbUpdTabelaItens: TIBUpdateSQL;
     DtSrcTabelaItens: TDataSource;
-    Bevel11: TBevel;
     Bevel12: TBevel;
     IbDtstTabelaANO: TSmallintField;
     IbDtstTabelaCODCONTROL: TIntegerField;
@@ -164,7 +168,6 @@ type
     IbDtstTabelaDTFINALIZACAO_VENDA: TDateField;
     btnTituloQuitar: TBitBtn;
     lblCFOPVenda: TLabel;
-    dbCFOPVenda: TRxDBComboEdit;
     IbDtstTabelaCFOP: TIntegerField;
     IbDtstTabelaLOTE_NFE_ANO: TSmallintField;
     IbDtstTabelaLOTE_NFE_NUMERO: TIntegerField;
@@ -194,8 +197,6 @@ type
     qryNFEXML_FILE: TMemoField;
     qryNFELOTE_ANO: TSmallintField;
     qryNFELOTE_NUM: TIntegerField;
-    Bevel13: TBevel;
-    dbTotalDesconto: TRxDBComboEdit;
     lblTotalDesconto: TLabel;
     cdsTabelaItensPUNIT_PROMOCAO: TIBBCDField;
     lblProdutoPromocao: TLabel;
@@ -259,8 +260,6 @@ type
     cdsTabelaItensDESCONTO_VALOR: TIBBCDField;
     IbDtstTabelaDESCONTO: TIBBCDField;
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     cdsTabelaItensPFINAL: TIBBCDField;
     dbValorTotalBruto: TDBEdit;
     lblValorTotalBruto: TLabel;
@@ -373,6 +372,28 @@ type
     btbtnFinalizar: TcxButton;
     btbtnGerarNFe: TcxButton;
     btbtnCancelarVND: TcxButton;
+    cdsTabelaItensDESCRI_APRESENTACAO: TIBStringField;
+    dbCliente: TJvDBComboEdit;
+    dbCFOPVenda: TJvDBComboEdit;
+    dbProduto: TJvDBComboEdit;
+    dbCFOP: TJvDBComboEdit;
+    dbTotalDesconto: TJvDBComboEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    qryNFEANOCOMPRA: TSmallintField;
+    qryNFENUMCOMPRA: TIntegerField;
+    nmImprimirNotaEntregaX: TMenuItem;
+    N4: TMenuItem;
+    nmPpCarregarArquivoNFe: TMenuItem;
+    opdNotas: TOpenDialog;
+    IbDtstTabelaDADOS_ENTREGA: TWideMemoField;
+    tbsDadosEntrega: TTabSheet;
+    pnlDadosEntrega: TPanel;
+    lblDadosEntrega: TLabel;
+    Bevel11: TBevel;
+    Bevel13: TBevel;
+    dbDadosEntrega: TDBMemo;
+    nmPpCorrigirDadosEntrega: TMenuItem;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -437,6 +458,10 @@ type
     procedure nmPpLimparDadosNFeClick(Sender: TObject);
     procedure BtnCorrigirDadosNFeClick(Sender: TObject);
     procedure nmPpCorrigirDadosNFeCFOPClick(Sender: TObject);
+    procedure RdgStatusVendaClick(Sender: TObject);
+    procedure nmImprimirNotaEntregaXClick(Sender: TObject);
+    procedure nmPpCarregarArquivoNFeClick(Sender: TObject);
+    procedure nmPpCorrigirDadosEntregaClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -471,16 +496,18 @@ type
     function GetRotinaCancelarVendaID : String;
     function GetRotinaGerarBoletoID : String;
     function GetRotinaEnviarEmailID : String;
+    function GetRotinaCancelarPagtosID : String;
 
     procedure RegistrarNovaRotinaSistema;
     procedure pgcGuiasOnChange; override;
   public
     { Public declarations }
-    property RotinaFinalizarID     : String read GetRotinaFinalizarID;
-    property RotinaGerarNFeID      : String read GetRotinaGerarNFeID;
-    property RotinaCancelarVendaID : String read GetRotinaCancelarVendaID;
-    property RotinaGerarBoletoID   : String read GetRotinaGerarBoletoID;
-    property RotinaEnviarEmailID   : String read GetRotinaEnviarEmailID;
+    property RotinaFinalizarID      : String read GetRotinaFinalizarID;
+    property RotinaGerarNFeID       : String read GetRotinaGerarNFeID;
+    property RotinaCancelarVendaID  : String read GetRotinaCancelarVendaID;
+    property RotinaGerarBoletoID    : String read GetRotinaGerarBoletoID;
+    property RotinaEnviarEmailID    : String read GetRotinaEnviarEmailID;
+    property RotinaCancelarPagtosID : String read GetRotinaCancelarPagtosID;
   end;
 
 var
@@ -492,8 +519,10 @@ implementation
 
 uses
   UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP,
-  DateUtils, UDMNFe, UGeVendaGerarNFe, SysConst, UGeVendaCancelar,
-  UGeGerarBoletos, UGeEfetuarPagtoREC, UGeVendaFormaPagto, UConstantesDGE, UGeVendaTransporte, UGeVendaConfirmaTitulos;
+  UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
+  UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte,
+  UGeVendaConfirmaTitulos, {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, {$ENDIF}
+  UDMRecursos, UGrMemo;
 
 {$R *.dfm}
 
@@ -565,8 +594,13 @@ begin
   tblCondicaoPagto.Open;
   tblModalidadeFrete.Open;
 
-  pgcMaisDados.Height := 150;
-  RotinaID            := ROTINA_MOV_VENDA_ID;
+  Case gSistema.Codigo of
+    SISTEMA_PDV :
+      RotinaID := ROTINA_MOV_VENDA_PDV_ID;
+    else
+      RotinaID := ROTINA_MOV_VENDA_ID;
+  end;
+
   DisplayFormatCodigo := '###0000000';
 
   NomeTabela     := 'TBVENDAS';
@@ -578,14 +612,14 @@ begin
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
-  UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
+  // A tela de vendas não pode atualizar generator porque este processo está gerando erros
+  // UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
 
   // Configurar Legendas de acordo com o segmento
   btnConsultarProduto.Caption := StrDescricaoProduto;
   btnConsultarProduto.Hint    := 'Consultar ' + StrDescricaoProduto;
 
-  RdgStatusVenda.Controls[2].Enabled := False;
-  btbtnGerarNFe.Visible              := GetEstacaoEmitiNFe and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  btbtnGerarNFe.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   if GetUserPermitirAlterarValorVenda then
   begin
@@ -614,7 +648,8 @@ begin
   begin
     Self.Caption       := 'Controle de Vendas';
     btbtnLista.OnClick := ImprimirOpcoesClick;
-  end;  
+  end;
+
 end;
 
 procedure TfrmGeVenda.btnFiltrarClick(Sender: TObject);
@@ -622,7 +657,7 @@ begin
   WhereAdditional :=  'cast(v.dtvenda as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );// + ' and ' +
-                        //'v.codemp = ' + QuotedStr(GetEmpresaIDDefault);
+                        //'v.codemp = ' + QuotedStr(gUsuarioLogado.Empresa);
   if ( RdgStatusVenda.ItemIndex > 0 ) then
     WhereAdditional := WhereAdditional + ' and (v.status = ' + IntToStr(RdgStatusVenda.ItemIndex) + ')';
 
@@ -633,7 +668,7 @@ procedure TfrmGeVenda.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaDTVENDA.Value := GetDateTimeDB;
-  IbDtstTabelaCODEMP.Value  := GetEmpresaIDDefault;
+  IbDtstTabelaCODEMP.Value  := gUsuarioLogado.Empresa;
   IbDtstTabelaFORMAPAG.Value          := GetFormaPagtoNomeDefault;
   IbDtstTabelaCFOP.Value              := GetCfopIDDefault;
   IbDtstTabelaVENDA_PRAZO.Value := 0;
@@ -645,7 +680,7 @@ begin
   IbDtstTabelaNFE_ENVIADA.Value           := 0;
   IbDtstTabelaNFE_DENEGADA.Value          := 0;
   IbDtstTabelaNFE_MODALIDADE_FRETE.Value  := MODALIDADE_FRETE_SEMFRETE;
-  IbDtstTabelaUSUARIO.Value     := GetUserApp;
+  IbDtstTabelaUSUARIO.Value     := gUsuarioLogado.Login;
 
   IbDtstTabelaCODCLIENTE.Value := CONSUMIDOR_FINAL_CODIGO;
   IbDtstTabelaCODCLI.Value     := CONSUMIDOR_FINAL_CNPJ;
@@ -662,6 +697,9 @@ begin
     IbDtstTabelaCODCLI.Clear;
     IbDtstTabelaNOME.Clear;
   end;
+
+  IbDtstTabelaOBS.Clear;
+  IbDtstTabelaDADOS_ENTREGA.Clear;
 
   IbDtstTabelaFORMAPAGTO_COD.Clear;
   IbDtstTabelaCONDICAOPAGTO_COD.Clear;
@@ -707,6 +745,11 @@ begin
       IbDtstTabelaCODCLIENTE.AsInteger := iCodigo;
       IbDtstTabelaCODCLI.AsString := sCNPJ;
       IbDtstTabelaNOME.AsString   := sNome;
+
+      IbDtstTabelaDADOS_ENTREGA.AsString :=
+        '* Responsável pela entrega..............: ' + #13 +
+        '* Entregar a(o) Sr(a)...................: ' + #13#13 +
+        '* Endereço para entrega do(s) produto(s): ' + #13 + GetClienteEndereco(iCodigo, True);
     end;
 end;
 
@@ -846,11 +889,16 @@ begin
       Close;
       ParamByName('Codigo').AsInteger := Codigo;
       Open;
+
       if not IsEmpty then
       begin
-        cdsTabelaItensCODPROD.AsString     := FieldByName('Cod').AsString;
-        cdsTabelaItensDESCRI.AsString      := FieldByName('Descri').AsString;
-        cdsTabelaItensUNP_SIGLA.AsString   := FieldByName('Unp_sigla').AsString;
+        cdsTabelaItensCODPROD.AsString   := FieldByName('Cod').AsString;
+        cdsTabelaItensDESCRI.AsString    := FieldByName('Descri').AsString;
+        cdsTabelaItensDESCRI_APRESENTACAO.AsString := FieldByName('Descri_apresentacao').AsString;
+        cdsTabelaItensUNP_SIGLA.AsString := FieldByName('Unp_sigla').AsString;
+
+        if not qryCFOP.Active then
+          CarregarDadosCFOP( FieldByName('Codcfop').AsInteger );
 
         if ( FieldByName('Codunidade').AsInteger > 0 ) then
           cdsTabelaItensUNID_COD.AsInteger   := FieldByName('Codunidade').AsInteger;
@@ -938,16 +986,20 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmImprimirNotaEntrega.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmImprimirCartaCredito.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
-    nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmEnviarEmailCliente.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirDANFE.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled   := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmImprimirNotaEntregaX.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmImprimirCartaCredito.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
+    nmGerarDANFEXML.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmEnviarEmailCliente.Enabled    := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
 
     TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
     nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
     BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
     BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
+
+    nmPpCorrigirDadosNFeCFOP.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
+    nmPpCorrigirDadosEntrega.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]);
   end
   else
   begin
@@ -959,16 +1011,20 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmImprimirNotaEntrega.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmImprimirCartaCredito.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
-    nmGerarDANFEXML.Enabled        := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmEnviarEmailCliente.Enabled   := False;
+    nmImprimirDANFE.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled   := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmImprimirNotaEntregaX.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    nmImprimirCartaCredito.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
+    nmGerarDANFEXML.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmEnviarEmailCliente.Enabled    := False;
 
     TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
     nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
     BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
     BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
+
+    nmPpCorrigirDadosNFeCFOP.Enabled := False;
+    nmPpCorrigirDadosEntrega.Enabled := False;
   end;
 end;
 
@@ -1045,7 +1101,7 @@ procedure TfrmGeVenda.btnProdutoInserirClick(Sender: TObject);
   procedure GerarSequencial(var Seq : Integer);
   begin
     Seq := cdsTabelaItens.RecordCount + 1;
-    if ( cdsTabelaItens.Locate('SEQ', Seq, []) ) then
+    while ( cdsTabelaItens.Locate('SEQ', Seq, []) ) do
       Seq := Seq + 1;
   end;
 
@@ -1132,39 +1188,51 @@ end;
 
 procedure TfrmGeVenda.btnProdutoSalvarClick(Sender: TObject);
 
-  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_Liquido: Currency);
+  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_Liquido, vBC_ICMS, vICMS: Currency);
   var
     Item : Integer;
   begin
-    try
-      Item         := cdsTabelaItensSEQ.AsInteger;
-      Total_Bruto    := 0.0;
-      Total_desconto := 0.0;
-      Total_Liquido  := 0.0;
+    Item         := cdsTabelaItensSEQ.AsInteger;
+    Total_Bruto    := 0.0;
+    Total_desconto := 0.0;
+    Total_Liquido  := 0.0;
+    vBC_ICMS       := 0.0;
+    vICMS          := 0.0;
 
-      cdsTabelaItens.DisableControls;
-      cdsTabelaItens.First;
+    cdsTabelaItens.First;
 
-      while not cdsTabelaItens.Eof do
+    while not cdsTabelaItens.Eof do
+    begin
+      Total_Bruto    := Total_Bruto    + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
+      Total_desconto := Total_desconto + cdsTabelaItensTOTAL_DESCONTO.AsCurrency;
+
+      if ( cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency > 0 ) then
       begin
-        Total_Bruto    := Total_Bruto    + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
-        Total_desconto := Total_desconto + cdsTabelaItensTOTAL_DESCONTO.AsCurrency;
-
-        cdsTabelaItens.Next;
+        vBC_ICMS := vBC_ICMS + (cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency / 100);
+        vICMS    := vICMS    + (((cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency / 100)) * cdsTabelaItensALIQUOTA.AsCurrency / 100);
+      end
+      else
+      begin
+        vBC_ICMS := vBC_ICMS + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
+        vICMS    := vICMS    + (cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensALIQUOTA.AsCurrency / 100);
       end;
 
-      Total_Liquido  := Total_Bruto - Total_desconto;
-    finally
-      cdsTabelaItens.Locate('SEQ', Item, []);
-      cdsTabelaItens.EnableControls;
+
+      cdsTabelaItens.Next;
     end;
+
+    Total_Liquido  := Total_Bruto - Total_desconto;
+
+    cdsTabelaItens.Locate('SEQ', Item, []);
   end;
 
 var
   cDescontos    ,
   cTotalBruto   ,
   cTotalDesconto,
-  cTotalLiquido : Currency;
+  cTotalLiquido ,
+  cValorBaseIcms,
+  cValorIcms    : Currency;
 begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
   begin
@@ -1211,7 +1279,7 @@ begin
         
       cdsTabelaItens.Post;
 
-      GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
+      GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido, cValorBaseIcms, cValorIcms);
 
       IbDtstTabelaTOTALVENDA_BRUTA.AsCurrency := cTotalBruto;
       IbDtstTabelaDESCONTO.AsCurrency         := cTotalDesconto;
@@ -1221,7 +1289,7 @@ begin
       begin
         if ( not (cdsVendaFormaPagto.State in [dsEdit, dsInsert]) ) then
           cdsVendaFormaPagto.Edit;
-          
+
         cdsVendaFormaPagtoVALOR_FPAGTO.Value := cTotalLiquido;
       end;
 
@@ -1476,6 +1544,7 @@ begin
     begin
       cdsTabelaItensCODPROD.AsString     := sCodigoAlfa;
       cdsTabelaItensDESCRI.AsString      := sDescricao;
+      cdsTabelaItensDESCRI_APRESENTACAO.AsString := sDescricao;
       cdsTabelaItensUNP_SIGLA.AsString   := sUnidade;
       cdsTabelaItensCST.AsString         := sCST;
       cdsTabelaItensCFOP_COD.AsInteger   := iCFOP;
@@ -1535,6 +1604,13 @@ begin
   end
   else
   begin
+    if not qryCFOP.Active then
+    begin
+      qryCFOP.Close;
+      qryCFOP.ParamByName('Cfop_cod').AsInteger := IbDtstTabelaCFOP.AsInteger;
+      qryCFOP.Open;
+    end;
+
     cdsTabelaItensCFOP_COD.Assign( IbDtstTabelaCFOP );
     cdsTabelaItensCFOP_DESCRICAO.Assign( qryCFOP.FieldByName('cfop_descricao') );
   end;
@@ -1625,7 +1701,7 @@ begin
   // Verificar se existe caixa aberto para o usuário do sistema
 
   if cdsVendaFormaPagto.Locate('VENDA_PRAZO', 0, []) then
-    if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, GetUserApp, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+    if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
     begin
       ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento ' + QuotedStr(cdsVendaFormaPagtoFormaPagto.AsString) + '.');
       Exit;
@@ -1732,6 +1808,15 @@ begin
       cdsVendaFormaPagto.Next;
     end;
 
+    // Registrar o Número do Caixa na Venda Finalizada
+
+    RegistrarCaixaNaVenda(
+        IbDtstTabelaANO.AsInteger
+      , IbDtstTabelaCODCONTROL.AsInteger
+      , CxAno
+      , CxNumero
+      , (gSistema.Codigo = SISTEMA_PDV));
+
     if ( CxContaCorrente > 0 ) then
       GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
 
@@ -1753,16 +1838,31 @@ end;
 
 procedure TfrmGeVenda.btbtnGerarNFeClick(Sender: TObject);
 var
+  iNumeroTmp ,
   iNumero    ,
   iSerieNFe  ,
   iNumeroNFe : Integer;
-  sFileNameXML ,
-  sChaveNFE    ,
-  sProtocoloNFE,
-  sReciboNFE   ,
-  sMensagem    : String;
-  iNumeroLote  : Int64;
+  sFileNameXML  ,
+  sChaveNFE     ,
+  sProtocoloNFE ,
+  sReciboNFE    ,
+  sMensagem     : String;
+  iNumeroLote   : Int64;
+  {$IFNDEF PDV}
+  TipoMovimento : TTipoMovimento;
+  {$ENDIF}
+  bNFeGerada    : Boolean;
 begin
+(*
+  IMR - 20/04/2015 :
+    Inclusão do bloco de código para verificar se o CFOP da venda corresponde
+    a uma operação de devolução. Caso esta situação seja confirmada, a NF-e de
+    origem será solicitada.
+
+  IMR - 04/05/2015 :
+    Inclusão do bloco de código para buscar o retorno NF-e quando esta já fora
+    solicitada, mas seu retorno ainda não fora processado pela aplicação.
+*)
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -1772,16 +1872,14 @@ begin
   RecarregarRegistro;
 
   pgcGuias.ActivePage := tbsCadastro;
-  
+
+  bNFeGerada := (IbDtstTabelaNFE.AsCurrency > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) then
   begin
     ShowWarning('Movimento de Venda já com NF-e gerada!');
     Abort;
   end;
-
-  if ( not DelphiIsRunning ) then
-    if not DMNFe.GetValidadeCertificado then
-      Exit;
 
   if not GetPermititEmissaoNFe( IbDtstTabelaCODEMP.AsString ) then
   begin
@@ -1789,17 +1887,57 @@ begin
     Exit;
   end;
 
-  if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr ) then
-  begin
-    ShowWarning('O processo de geração de NF-e para esta venda já foi solicitado, mas não fora concluído.' + #13 +
-      'Favor consultar junto a SEFA e processar o Recibo de número ' +
-        IbDtstTabelaLOTE_NFE_RECIBO.AsString);
-    Exit;
-  end;
+  if ( not DelphiIsRunning ) then
+    if not DMNFe.GetValidadeCertificado(IbDtstTabelaCODEMP.AsString) then
+      Exit;
 
-  if ( GerarNFe(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value,
-                iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote, sMensagem
-  ) ) then
+  {$IFNDEF PDV}
+  if GetCfopDevolucao( IbDtstTabelaCFOP.AsInteger ) then
+    if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
+      Exit;
+
+  // Buscar retorno do envio pendente, caso ele tenha ocorrido
+  if not bNFeGerada then
+    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr ) then
+    begin
+      bNFeGerada := BuscarRetornoReciboNFe(Self
+        , IbDtstTabelaCODEMP.AsString
+        , IbDtstTabelaLOTE_NFE_RECIBO.AsString
+        , iSerieNFe
+        , iNumeroNFe
+        , sFileNameXML
+        , sChaveNFE
+        , sProtocoloNFE
+        , TipoMovimento);
+
+      if ( TipoMovimento <> tmNFeSaida ) then
+      begin
+        ShowWarning('Tipo do movimento do recibo incompatível!');
+        Exit;
+      end;
+
+      sReciboNFE  := Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString);
+      iNumeroLote := iNumeroNFe;
+
+      if not bNFeGerada then
+        Exit;
+    end;
+  {$ENDIF}
+
+  if not bNFeGerada then
+    bNFeGerada := GerarNFe(Self
+      , IbDtstTabelaANO.Value
+      , IbDtstTabelaCODCONTROL.Value
+      , iSerieNFe
+      , iNumeroNFe
+      , sFileNameXML
+      , sChaveNFE
+      , sProtocoloNFE
+      , sReciboNFE
+      , iNumeroLote
+      , sMensagem);
+
+  if bNFeGerada then
     with IbDtstTabela do
     begin
       iNumero := IbDtstTabelaCODCONTROL.AsInteger;
@@ -1819,19 +1957,22 @@ begin
         qryNFEVERSAO.Value      := DMNFe.GetVersaoDF;
         qryNFEDATAEMISSAO.Value := GetDateDB;
         qryNFEHORAEMISSAO.Value := GetTimeDB;
-        qryNFECHAVE.Value     := sChaveNFE;
-        qryNFEPROTOCOLO.Value := sProtocoloNFE;
-        qryNFERECIBO.Value    := sReciboNFE;
-        qryNFELOTE_ANO.Value  := IbDtstTabelaANO.Value;
-        qryNFELOTE_NUM.Value  := iNumeroLote;
+        qryNFECHAVE.Value       := sChaveNFE;
+        qryNFEPROTOCOLO.Value   := sProtocoloNFE;
+        qryNFERECIBO.Value      := sReciboNFE;
+        qryNFELOTE_ANO.Value    := IbDtstTabelaANO.Value;
+        qryNFELOTE_NUM.Value    := iNumeroLote;
 
         if ( FileExists(sFileNameXML) ) then
         begin
-          CorrigirXML_NFe(sFileNameXML);
+          CorrigirXML_NFe(EmptyWideStr, sFileNameXML);
 
           qryNFEXML_FILENAME.Value := ExtractFileName( sFileNameXML );
           qryNFEXML_FILE.LoadFromFile( sFileNameXML );
         end;
+
+        qryNFEANOCOMPRA.Clear;
+        qryNFENUMCOMPRA.Clear;
 
         Post;
         ApplyUpdates;
@@ -2038,22 +2179,25 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    // Destacar produtos em Promocao
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_AND ) then
-      dbgDados.Canvas.Font.Color := lblVendaAberta.Font.Color
-    else
-    // Destacar produtos em Promocao
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN ) then
-      dbgDados.Canvas.Font.Color := lblVendaCancelada.Font.Color;
-
-    // Destacar alerta de lucros
-    if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
+    if (not IbDtstTabelaSTATUS.IsNull) then
     begin
-      if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
-        dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
+      // Destacar produtos em Promocao
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_AND ) then
+        dbgDados.Canvas.Font.Color := lblVendaAberta.Font.Color
       else
-      if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
-        dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
+      // Destacar produtos em Promocao
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN ) then
+        dbgDados.Canvas.Font.Color := lblVendaCancelada.Font.Color;
+
+      // Destacar alerta de lucros
+      if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
+      begin
+        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
+          dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
+        else
+        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
+          dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
+      end;
     end;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -2131,13 +2275,8 @@ begin
     if ( UpperCase(Trim(qryTitulosBAIXADO_.AsString)) <> 'X' ) then
       Exit;
       
-    // Diretoria, Gerente Financeiro, Gerente ADM, Masterdados
-
-    if (not (DMBusiness.ibdtstUsersCODFUNCAO.AsInteger in [
-        FUNCTION_USER_ID_DIRETORIA
-      , FUNCTION_USER_ID_GERENTE_ADM
-      , FUNCTION_USER_ID_GERENTE_FIN
-      , FUNCTION_USER_ID_SYSTEM_ADM])) then Exit;
+    if not GetPermissaoRotinaInterna(Sender, True) then
+      Abort;
 
     if ( not qryTitulos.IsEmpty ) then
     begin
@@ -2147,7 +2286,7 @@ begin
 
       if ( tblFormaPagto.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
         if ( tblFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
-          if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, GetUserApp, GetDateDB, qryTitulosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+          if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login, GetDateDB, qryTitulosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
           begin
             ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
             Exit;
@@ -2447,6 +2586,12 @@ begin
   cdsVendaVolumeCONTROLE_VENDA.Assign( IbDtstTabelaCODCONTROL );
 end;
 
+procedure TfrmGeVenda.RdgStatusVendaClick(Sender: TObject);
+begin
+  if RdgStatusVenda.ItemIndex = 2 then
+    RdgStatusVenda.ItemIndex := RdgStatusVenda.ItemIndex - 1;
+end;
+
 procedure TfrmGeVenda.RecarregarRegistro;
 var
   iAno ,
@@ -2580,7 +2725,7 @@ var
 begin
   iReturn := False;
   try
-    if GetEstoqueSateliteEmpresa(GetEmpresaIDDefault) then
+    if GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) then
       with DMBusiness, qryBusca do
       begin
         Close;
@@ -2618,6 +2763,12 @@ begin
   with DMNFe do
   begin
 
+    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN ) then
+    begin
+      ShowWarning('Vanda cancelada não pode ser impressa!');
+      Exit;
+    end;
+
     AbrirEmitente( IbDtstTabelaCODEMP.AsString );
     AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
     AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
@@ -2634,19 +2785,13 @@ begin
             , IbDtstTabela.FieldByName('CODCONTROL').AsInteger);
         end
         else
-        if GetCupomNaoFiscalEmitir then
+        if GetCupomNaoFiscalEmitir and (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) then
           ImprimirCupomNaoFiscal(
               IbDtstTabelaCODEMP.AsString
             , IbDtstTabelaCODCLIENTE.AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
             , IbDtstTabelaANO.Value
             , IbDtstTabelaCODCONTROL.Value)
-        else
-        if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
-        begin
-          FrECFPooler.PrepareReport;
-          FrECFPooler.Print;
-        end
         else
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_ORCAMENTO ) then
         begin
@@ -2656,8 +2801,14 @@ begin
             , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
             , IbDtstTabelaANO.Value
             , IbDtstTabelaCODCONTROL.Value)
+        end
+        else
+        if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
+        begin
+          FrECFPooler.PrepareReport;
+          FrECFPooler.Print;
         end;
-        
+
         Exit;
       end;
 
@@ -2686,6 +2837,109 @@ begin
 
     Clipboard.AsText := Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString);
     ShowInformation('Dados NF-e', 'Número de Recibo de Envio da NF-e:' + #13 + Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString));
+  end;
+end;
+
+procedure TfrmGeVenda.nmPpCarregarArquivoNFeClick(Sender: TObject);
+var
+  sNomeArquivoXML,
+  sEmitente      ,
+  sDestinatario  ,
+  sRecibo   ,
+  sProtocolo,
+  sChave    : String;
+  dDataHoraEmissao : TDateTime;
+  bNotaValida : Boolean;
+  sSerieNFe  : String;
+  iNumeroNFe ,
+  iModeloNFe ,
+  iVersaoNFe : Integer;
+  tTipoNota  : TTipoNF;
+  cValorProdutoNF : Currency;
+begin
+  if IbDtstTabela.IsEmpty then
+    Exit;
+
+  if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE ) then
+    ShowWarning('Venda já possui Nota Fiscal Eletrônica.')
+  else
+  if opdNotas.Execute then
+  begin
+    DMNFe.CarregarArquivoNFe(IbDtstTabelaCODEMP.AsString, opdNotas.FileName
+      , sNomeArquivoXML
+      , sEmitente
+      , sDestinatario
+      , sRecibo
+      , sProtocolo
+      , sChave
+      , dDataHoraEmissao
+      , bNotaValida
+      , sSerieNFe
+      , iNumeroNFe
+      , iModeloNFe
+      , iVersaoNFe
+      , tTipoNota
+      , cValorProdutoNF
+    );
+
+    if bNotaValida then
+      if ( tTipoNota <> tnfSaida ) then
+        ShowWarning('NF-e selecionada não é uma nota de saída.')
+      else
+      if ( IbDtstTabelaCODEMP.AsString <> sEmitente ) then
+        ShowWarning('NF-e selecionada não pertence ao emitente ' + GetEmpresaNome(IbDtstTabelaCODEMP.AsString) + '.')
+      else
+      if ( IbDtstTabelaCODCLI.AsString <> sDestinatario ) then
+        ShowWarning('NF-e selecionada não pertence ao cliente ' + GetClienteNome(IbDtstTabelaCODCLIENTE.AsInteger) + '.')
+      else
+      if ( IbDtstTabelaTOTALVENDA_BRUTA.AsCurrency <> cValorProdutoNF ) then
+        ShowWarning('NF-e com Valor Total de Produtos diferente ao registrado na venda.')
+      else
+      if ShowConfirm('Confirma a importação do XML da NF-e para o registro de venda selecionado?') then
+      begin
+        with qryNFE do
+        begin
+          AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+          Append;
+
+          qryNFEEMPRESA.Value     := IbDtstTabelaCODEMP.AsString;
+          qryNFEANOVENDA.Value    := IbDtstTabelaANO.Value;
+          qryNFENUMVENDA.Value    := IbDtstTabelaCODCONTROL.Value;
+          qryNFESERIE.Value       := sSerieNFe;
+          qryNFENUMERO.Value      := iNumeroNFe;
+          qryNFEMODELO.Value      := iModeloNFe;
+          qryNFEVERSAO.Value      := iVersaoNFe;
+          qryNFEDATAEMISSAO.Value := StrToDate(FormatDateTime('dd/mm/yyyy', dDataHoraEmissao));
+          qryNFEHORAEMISSAO.Value := StrToTime(FormatDateTime('hh:mm:ss',   dDataHoraEmissao));
+          qryNFECHAVE.Value       := sChave;
+          qryNFEPROTOCOLO.Value   := sProtocolo;
+          qryNFERECIBO.Value      := sRecibo;
+          qryNFELOTE_ANO.Value    := IbDtstTabelaANO.Value;
+          qryNFELOTE_NUM.Value    := iNumeroNFe;
+
+          if ( FileExists(opdNotas.FileName) ) then
+          begin
+            CorrigirXML_NFe(EmptyWideStr, opdNotas.FileName);
+
+            qryNFEXML_FILENAME.Value := sNomeArquivoXML;
+            qryNFEXML_FILE.LoadFromFile( opdNotas.FileName );
+          end;
+
+          qryNFEANOCOMPRA.Clear;
+          qryNFENUMCOMPRA.Clear;
+
+          Post;
+          ApplyUpdates;
+
+          CommitTransaction;
+        end;
+
+        RecarregarRegistro;
+        HabilitarDesabilitar_Btns;
+
+        ShowInformation('Arquivo XML de NF-e importando com sucesso.');
+      end;
   end;
 end;
 
@@ -2827,7 +3081,15 @@ begin
 
     if nmEnviarEmailCliente.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaEnviarEmailID, nmEnviarEmailCliente.Caption, RotinaID);
+
+    if dbgTitulos.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarPagtosID, 'Cancelar Pagamentos', RotinaID);
   end;
+end;
+
+function TfrmGeVenda.GetRotinaCancelarPagtosID: String;
+begin
+  Result := GetRotinaInternaID(dbgTitulos);
 end;
 
 function TfrmGeVenda.GetRotinaCancelarVendaID: String;
@@ -2862,13 +3124,28 @@ begin
 
   with DMNFe do
   begin
-
     AbrirEmitente( IbDtstTabelaCODEMP.AsString );
     AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
     AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     frrNotaEntrega.ShowReport;
+  end;
+end;
 
+procedure TfrmGeVenda.nmImprimirNotaEntregaXClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  with DMNFe do
+  begin
+    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
+    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
+    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    ImprimirCabecalho := ShowConfirmation('Nota de Entrega', 'Deseja imprimir na Nota de Entraga o Cabeçalho com informações da empresa?');
+
+    frrNotaEntregaX.ShowReport;
   end;
 end;
 
@@ -2948,6 +3225,45 @@ procedure TfrmGeVenda.BtnCorrigirDadosNFeClick(Sender: TObject);
 begin
   if not BtnLimparDadosNFe.Enabled then
     ppCorrigirDadosNFe.Popup(BtnCorrigirDadosNFe.ClientOrigin.X, BtnCorrigirDadosNFe.ClientOrigin.Y + BtnCorrigirDadosNFe.Height);
+end;
+
+procedure TfrmGeVenda.nmPpCorrigirDadosEntregaClick(Sender: TObject);
+var
+  sDadosEntrega : TStringList;
+begin
+  if not (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) then
+    Exit;
+
+  sDadosEntrega := TStringList.Create;
+  try
+    if Trim(IbDtstTabelaDADOS_ENTREGA.AsString) <> EmptyStr then
+      sDadosEntrega.Text := IbDtstTabelaDADOS_ENTREGA.AsString
+    else
+      sDadosEntrega.Text :=
+        '* Responsável pela entrega..............: ' + #13 +
+        '* Entregar a(o) Sr(a)...................: ' + #13#13 +
+        '* Endereço para entrega do(s) produto(s): ' + #13 + GetClienteEndereco(IbDtstTabelaCODCLIENTE.AsInteger, True);
+
+    if SetDadosEntrega(Self, sDadosEntrega) then
+      with DMBusiness, qryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Update TBVENDAS Set ');
+        SQL.Add('  DADOS_ENTREGA = ' + QuotedStr(sDadosEntrega.Text));
+        SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
+        SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
+        SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+        ExecSQL;
+
+        CommitTransaction;
+
+        RecarregarRegistro;
+        pgcMaisDados.ActivePage := tbsDadosEntrega;
+      end;
+  finally
+    sDadosEntrega.Free;
+  end;
 end;
 
 procedure TfrmGeVenda.nmPpCorrigirDadosNFeCFOPClick(Sender: TObject);

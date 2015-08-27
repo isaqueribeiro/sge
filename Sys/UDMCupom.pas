@@ -7,7 +7,7 @@ uses
   UFuncoes,
   UEcfFactory,
 
-  Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFeDANFERave, ACBrNFe, DB,
+  Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFe, DB,
   IBCustomDataSet, IBQuery, frxClass, frxDBSet, frxExportRTF, frxExportXLS,
   frxExportPDF, frxExportMail, UGeConfigurarNFeACBr,
 
@@ -173,6 +173,9 @@ type
     cdsVendaNFCeLOTE_ANO: TSmallintField;
     cdsVendaNFCeLOTE_NUM: TIntegerField;
     updVendaNFCe: TIBUpdateSQL;
+    cdsVendaNFE_VALOR_TOTAL_PRODUTO: TIBBCDField;
+    cdsVendaNFE_VALOR_DESCONTO: TIBBCDField;
+    cdsVendaNFE_VALOR_TOTAL_NOTA: TIBBCDField;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
     procedure cdsVendaItemSEQGetText(Sender: TField; var Text: String;
@@ -216,8 +219,8 @@ end;
 
 procedure TDMCupom.cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
 begin
-  if ( cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency > cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency ) then
-    cdsVendaFormaPagtoValorTroco.AsCurrency := cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency - cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency
+  if ( cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency > cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency ) then
+    cdsVendaFormaPagtoValorTroco.AsCurrency := cdsVendaFormaPagtoVALOR_RECEBIDO.AsCurrency - cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency
   else
     cdsVendaFormaPagtoValorTroco.AsCurrency := 0.0;
 end;

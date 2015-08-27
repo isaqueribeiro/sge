@@ -1,6 +1,6 @@
 inherited frmGeSecaoProduto: TfrmGeSecaoProduto
-  Left = 434
-  Top = 241
+  Left = 395
+  Top = 214
   ActiveControl = dbCodigo
   Caption = 'Tabela de Se'#231#245'es de Produtos'
   OldCreateOrder = True

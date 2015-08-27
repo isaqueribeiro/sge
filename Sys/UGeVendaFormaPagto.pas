@@ -163,6 +163,12 @@ begin
     Exit;
   end;
 
+  if not GetFormaPagtoCondicaoPagto(dbFormaPagto.Field.AsInteger, dbCondicaoPagto.Field.AsInteger) then
+  begin
+    ShowWarning('Forma de Pagamento não liberada para ser usada com a Condição de Pagamento selecionada!');
+    Exit;
+  end;
+
   if not CamposRequiridos(Self, TIBDataSet(dbCodigo.DataSource.DataSet), 'Forma/Condição de Pagamento') then
     try
       if dbValorFormaPagto.Field.AsCurrency <= 0 then

@@ -6,8 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, RXDBCtrl, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeTipoDespesa = class(TfrmGrPadraoCadastro)
@@ -17,18 +24,24 @@ type
     IbDtstTabelaCOD: TSmallintField;
     IbDtstTabelaTIPODESP: TIBStringField;
     IbDtstTabelaTIPO_PARTICULAR: TSmallintField;
-    dbTipoParticular: TDBCheckBox;
     IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField;
     lblPlanoContas: TLabel;
-    dbPlanoContas: TRxDBComboEdit;
     IbDtstTabelaPLANO_CONTA: TIntegerField;
     IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
+    dbPlanoContas: TJvDBComboEdit;
+    GrpBxParametros: TGroupBox;
+    Bevel5: TBevel;
+    dbTipoParticular: TDBCheckBox;
+    dbAtivo: TDBCheckBox;
+    IbDtstTabelaATIVO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure dbPlanoContasButtonClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -88,6 +101,7 @@ begin
   inherited;
   IbDtstTabelaCOD.Value                 := GetNextID(NomeTabela, CampoCodigo);
   IbDtstTabelaTIPO_PARTICULAR.AsInteger := 0;
+  IbDtstTabelaATIVO.AsInteger           := 1;
   IbDtstTabelaPLANO_CONTA.Clear;
 end;
 
@@ -95,6 +109,19 @@ procedure TfrmGeTipoDespesa.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
+end;
+
+procedure TfrmGeTipoDespesa.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  if ( Sender = dbgDados ) then
+  begin
+    if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+      dbgDados.Canvas.Font.Color := clRed;
+
+    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+  end;
 end;
 
 procedure TfrmGeTipoDespesa.dbPlanoContasButtonClick(Sender: TObject);

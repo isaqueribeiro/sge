@@ -168,13 +168,13 @@ begin
           Exit;
         end;
 
-        if not GetEstacaoEmitiNFe then
+        if not GetEstacaoEmitiNFe(cdsEntradaCODEMP.AsString) then
         begin
           ShowWarning('Estação de trabalho não habilitada para cancelar Entrada/NFe!');
           Exit;
         end;
 
-        if not DMNFe.GetValidadeCertificado then
+        if not DMNFe.GetValidadeCertificado(cdsEntradaCODEMP.AsString) then
           Exit;
 
         lblInforme.Caption := 'Cancelando NF-e junto a SEFA. Aguarde . . . ';
