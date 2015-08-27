@@ -6,44 +6,42 @@ uses
   UGrPadrao,
   
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters,
   cxControls, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, IdIOHandler,
   IdIOHandlerSocket, IdSSLOpenSSL, IdMessage, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP, IBStoredProc,
-  DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, ToolWin,
+  DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, 
   cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridBandedTableView, cxGridDBBandedTableView, cxClasses,
   cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons,
-  dxSkinsForm, Mask, rxToolEdit,
+  dxSkinsForm, Mask, cxCurrencyEdit, JvExMask, JvToolEdit,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, cxCurrencyEdit;
+  dxSkinOffice2010Silver, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator,
+  IdExplicitTLSClientServerBase, IdSMTPBase;
 
 type        
   TfrmGeApropriacaoEstoquePesquisa = class(TfrmGrPadrao)
     pnlPesquisa: TPanel;
-    GrpBxPesquisar: TGroupBox;
-    BtnPesquisar: TSpeedButton;
+    GrpBxFiltro: TGroupBox;
     lblPesquisar: TLabel;
     lblTipoFiltro: TLabel;
     edPesquisar: TEdit;
     edTipoFiltro: TComboBox;
-    edCentroCusto: TComboEdit;
     lblCentroCusto: TLabel;
     Bevel1: TBevel;
-    tlbBotoes: TToolBar;
-    Bevel2: TBevel;
-    btBtnExportar: TcxButton;
-    btBtnEnviarEmail: TcxButton;
     Bevel3: TBevel;
     svdArquivo: TSaveDialog;
     smtpEmail: TIdSMTP;
     msgEmail: TIdMessage;
-    IdSSLIOHandlerSocket: TIdSSLIOHandlerSocket;
     StyleRepository: TcxStyleRepository;
     StyleSelecao: TcxStyle;
     StyleContent: TcxStyle;
@@ -100,11 +98,19 @@ type
     dbgProdutoTblFABRICANTE_NOME: TcxGridDBBandedColumn;
     dbgProdutoTblESTOQUE: TcxGridDBBandedColumn;
     dbgProdutoLvl: TcxGridLevel;
-    btbtnSelecionar: TcxButton;
-    Bevel4: TBevel;
     dbgProdutoTblPERCENTUAL: TcxGridDBBandedColumn;
     dbgFabTblPERCENTUAL: TcxGridDBBandedColumn;
     dbgGrupoTblPERCENTUAL: TcxGridDBBandedColumn;
+    chkProdutoComEstoque: TCheckBox;
+    edCentroCusto: TJvComboEdit;
+    tlbBotoes: TPanel;
+    Bevel2: TBevel;
+    btBtnExportar: TcxButton;
+    btBtnEnviarEmail: TcxButton;
+    btBtnAtualizarCusto: TcxButton;
+    btbtnSelecionar: TcxButton;
+    Bevel4: TBevel;
+    BtnPesquisar: TcxButton;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -118,6 +124,7 @@ type
     procedure btbtnSelecionarClick(Sender: TObject);
     procedure btBtnExportarClick(Sender: TObject);
     procedure btBtnEnviarEmailClick(Sender: TObject);
+    procedure btBtnAtualizarCustoClick(Sender: TObject);
   private
     { Private declarations }
     FSQLTotal   ,
@@ -142,7 +149,8 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, cxGridExportLink, UGeCentroCusto;
+  UDMBusiness, UConstantesDGE, cxGridExportLink, UGeCentroCusto, UDMRecursos,
+  UFuncoes;
 
 {$R *.dfm}
 
@@ -175,7 +183,8 @@ begin
       lblCentroCusto.Enabled  := False;
       edCentroCusto.Enabled   := False;
 
-      btbtnSelecionar.Visible := True;
+      btBtnAtualizarCusto.Visible := False;
+      btbtnSelecionar.Visible     := True;
       
       Result := (ShowModal = mrOk);
 
@@ -200,7 +209,17 @@ end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.RegistrarRotinaSistema;
 begin
-  ;
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if btBtnExportar.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, GetRotinaInternaID(btBtnExportar), btBtnExportar.Hint, RotinaID);
+
+    if btBtnEnviarEmail.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, GetRotinaInternaID(btBtnEnviarEmail), btBtnEnviarEmail.Hint, RotinaID);
+
+    if btBtnAtualizarCusto.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, GetRotinaInternaID(btBtnAtualizarCusto), btBtnAtualizarCusto.Hint, RotinaID);
+  end;
 end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.NovaPesquisaKeyPress(
@@ -266,7 +285,7 @@ var
   iCliente : Integer;
   sNome : String;
 begin
-  if ( SelecionarDepartamento(Self, 0, GetEmpresaIDDefault, iCodigo, sNome, iCliente) ) then
+  if ( SelecionarDepartamento(Self, 0, gUsuarioLogado.Empresa, iCodigo, sNome, iCliente) ) then
   begin
     edCentroCusto.Tag  := iCodigo;
     edCentroCusto.Text := sNome;
@@ -295,6 +314,8 @@ begin
     PgcTabelas.Pages[TipoFiltro].TabVisible := True;
     PgcTabelas.Pages[TipoFiltro].Caption    := edTipoFiltro.Items.Strings[TipoFiltro];
   end;
+
+  btBtnAtualizarCusto.Enabled := (PgcTabelas.ActivePage = TbsProduto);
 end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.BtnPesquisarClick(
@@ -312,6 +333,7 @@ end;
 procedure TfrmGeApropriacaoEstoquePesquisa.FormCreate(Sender: TObject);
 begin
   inherited;
+  RotinaID := ROTINA_CNS_CONSULTA_ESTOQUE_APR_ID;
 
   FSQLTotal := TStringList.Create;
   FSQLTotal.AddStrings( QryTotal.SQL );
@@ -327,6 +349,9 @@ begin
 
   edTipoFiltro.ItemIndex := TIPO_PRD;
   HabilitarGuia(edTipoFiltro.ItemIndex);
+
+  btBtnAtualizarCusto.Visible := True;
+  btbtnSelecionar.Visible     := False;
 end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.ExecutarPesquisa(
@@ -343,7 +368,7 @@ begin
     SQL.Clear;
     SQL.AddStrings( FSQLTotal );
 
-    SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+    SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
     SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
   end;
 
@@ -362,9 +387,18 @@ begin
             if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
               sWhr := sWhr + ' and (p.cod like ' + QuotedStr('%' + edPesquisar.Text + '%') + ')'
             else
-              sWhr := sWhr + ' and (upper(p.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
+            begin
+              sWhr := sWhr + ' and (upper(p.descri) like ' + QuotedStr(UpperCase(Trim(edPesquisar.Text)) + '%') +
+                   '    or upper(p.descri) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edPesquisar.Text))) + '%') +
+                   '    or upper(p.metafonema) like ' + QuotedStr(Metafonema(edPesquisar.Text) + '%') +
+                   '    or upper(p.nome_amigo) like ' + QuotedStr(UpperCase(Trim(edPesquisar.Text)) + '%') +
+                   '    or upper(p.nome_amigo) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edPesquisar.Text))) + '%') + ')';
+            end;
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+          if chkProdutoComEstoque.Checked then
+            sWhr := sWhr + ' and (e.estoque > 0.0)';
+
+          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
 
@@ -403,7 +437,10 @@ begin
             else
               sWhr := sWhr + ' and ((upper(g.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ') or (g.descri is null))';
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+          if chkProdutoComEstoque.Checked then
+            sWhr := sWhr + ' and (e.estoque > 0.0)';
+
+          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
@@ -434,7 +471,10 @@ begin
             else
               sWhr := sWhr + ' and ((upper(f.nome) like ' + QuotedStr(edPesquisar.Text + '%') + ') or (f.nome is null))';
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+          if chkProdutoComEstoque.Checked then
+            sWhr := sWhr + ' and (e.estoque > 0.0)';
+
+          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
@@ -511,7 +551,7 @@ begin
           else
             sWhr := sWhr + ' and (p.codgrupo = ' + CdsGrupo.FieldByName('GRUPO_COD').AsString + ')';
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
@@ -551,7 +591,7 @@ begin
           else
             sWhr := sWhr + ' and (p.codfabricante = ' + CdsFabricante.FieldByName('FABRICANTE_COD').AsString + ')';
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', GetEmpresaIDDefault, [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
@@ -577,6 +617,9 @@ end;
 procedure TfrmGeApropriacaoEstoquePesquisa.btBtnExportarClick(
   Sender: TObject);
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Exit;
+
   Case PgcTabelas.ActivePageIndex of
     TIPO_GRP:
       if ( CdsGrupo.IsEmpty ) then
@@ -618,6 +661,9 @@ var
   sFileNameHtml  ,
   sFileNameXls   : String;
 begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Exit;
+
   Case PgcTabelas.ActivePageIndex of
     TIPO_GRP:
       if ( CdsGrupo.IsEmpty ) then
@@ -641,7 +687,7 @@ begin
       end;
   end;
 
-  sEmailTo := GetEmailEmpresa(GetEmpresaIDDefault);
+  sEmailTo := GetEmailEmpresa(gUsuarioLogado.Empresa);
   if not InputQuery('Enviar e-mail', 'Favor informar e-mail do destinatário:', sEmailTo) then
     Exit;
 
@@ -676,8 +722,9 @@ begin
   try
     try
       sAssunto := FormatDateTime('dd/mm/yyyy', Date) + ' - Apropriação de Estoque (' + edTipoFiltro.Text + ' / ' + edCentroCusto.Text + ')';;
-      CarregarConfiguracoesEmpresa(GetEmpresaIDDefault, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
+      CarregarConfiguracoesEmpresa(gUsuarioLogado.Empresa, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
 
+      (* Bloco de código descontinuado por sua compilação integral ser possível apenas no Delpi 7
       smtpEmail.Username    := gContaEmail.Conta;
       smtpEmail.Password    := gContaEmail.Senha;
       smtpEmail.Host        := gContaEmail.Servidor_SMTP;
@@ -708,6 +755,15 @@ begin
       smtpEmail.Connect;
       smtpEmail.Authenticate;
       smtpEmail.Send(msgEmail);
+      *)
+
+      with DMBusiness, ACBrMail do
+      begin
+        ConfigurarEmail(gUsuarioLogado.Empresa, sEmailTo, sAssunto, gContaEmail.Mensagem_Padrao);
+        AddAttachment(sFileNameHtml);
+        AddAttachment(sFileNameXls);
+        Send;
+      end;
 
       ShowInformation('E-mail enviado com sucesso!' + #13 + 'Arquivo(s) anexo(s) : ' + #13 + sFileNameHtml + #13 + sFileNameXls);
     except
@@ -718,6 +774,81 @@ begin
     Screen.Cursor := crDefault;
     if smtpEmail.Connected then
       smtpEmail.Disconnect;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.btBtnAtualizarCustoClick(
+  Sender: TObject);
+var
+  cValorCusto : Currency;
+  sProduto    ,
+  sValorCusto : String;
+const
+  LOG = 'Insert Into TBLOG_TRANSACAO (USUARIO, DATA_HORA, TIPO, DESCRICAO, ESPECIFICACAO) values (%s, current_timestamp, 2, %s, %s)';
+begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Exit;
+
+  if not CdsProduto.Active then
+    Exit;
+
+  if CdsProduto.IsEmpty then
+    Exit;
+
+  sValorCusto := EmptyStr;
+
+  if InputQuery('Atualizar Custo (R$)', 'Favor informar o Custo de Compra do Produto:', sValorCusto) then
+  begin
+    sValorCusto := Trim( StringReplace(StringReplace(sValorCusto, '.', '', [rfReplaceAll]), 'R$', '', [rfReplaceAll]) );
+
+    if StrToCurrDef(sValorCusto, 0.0) <=0 then
+      ShowWarning('Valor de Custo informado não é válido!')
+    else
+    begin
+      sProduto    := CdsProduto.FieldByName('produto').AsString;
+      cValorCusto := StrToCurr(sValorCusto);
+
+      // Gravar Log
+
+      with DMBusiness, qryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add(Format(LOG, [
+            QuotedStr(gUsuarioLogado.Login)
+          , QuotedStr(DESC_LOG_EVENTO_ATUALIZAR_CUSTO)
+          , QuotedStr('Atualização de custo do produto "' +
+              sProduto + '" para o valor de R$ ' +
+              FormatFloat(',0.00', cValorCusto) + ' correspondente ao custo de compra.' )
+        ]));
+        ExecSQL;
+
+        CommitTransaction;
+      end;
+
+      // Executar atualização de custo
+
+      with DMBusiness, qryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Execute Procedure SET_ATUALIZAR_CUSTO_PRODUTO (' +
+          QuotedStr(sProduto) + ', ' +
+          StringReplace(FormatFloat('#########################0.00', cValorCusto), ',', '.', [rfReplaceAll]) + ', ' +
+          IntToStr(gSistema.Codigo) + ')');
+        ExecSQL;
+
+        CommitTransaction;
+      end;
+
+      ShowInformation('Custo atualizado com sucesso');
+
+      CdsProduto.Close;
+      CdsProduto.Open;
+      CalcularPercentuais( CdsProduto );
+      
+      CdsProduto.Locate('PRODUTO', sProduto, []);
+    end;
   end;
 end;
 

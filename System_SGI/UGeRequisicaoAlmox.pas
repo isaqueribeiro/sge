@@ -5,15 +5,20 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, 
+  IBTable, Menus, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
+  JvToolEdit, JvDBControls, JvExMask, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeRequisicaoAlmox = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     RdgStatusRequisicao: TRadioGroup;
     lblRequisicaoAberta: TLabel;
     lblRequisicaoCancelada: TLabel;
@@ -26,7 +31,6 @@ type
     dbSituacao: TDBEdit;
     lblSituacao: TLabel;
     lblDataEmissao: TLabel;
-    dbDataEmissao: TDBDateEdit;
     lblUsuarioCadastro: TLabel;
     dbUsuarioCadastro: TDBEdit;
     Bevel12: TBevel;
@@ -39,7 +43,6 @@ type
     lblQtde: TLabel;
     lblUnidade: TLabel;
     Bevel7: TBevel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbQtde: TDBEdit;
     dbUnidade: TDBEdit;
@@ -68,10 +71,8 @@ type
     TbsRequisicaoCancelado: TTabSheet;
     dbMovitoCancelamento: TDBMemo;
     lblCentroCustoRequisitante: TLabel;
-    dbCentroCustoRequisitante: TRxDBComboEdit;
     dbObservacao: TDBMemo;
     lblUsuarioRequisitante: TLabel;
-    dbUsuarioRequisitante: TRxDBComboEdit;
     PnlValores: TPanel;
     lblCompetencia: TLabel;
     dbCompetencia: TDBEdit;
@@ -112,7 +113,6 @@ type
     IbDtstTabelaCC_DESTINO_DESC: TIBStringField;
     lblRequisicaoRecebida: TLabel;
     lblCentroCustoAtendente: TLabel;
-    dbCentroCustoAtendente: TRxDBComboEdit;
     lblUsuarioAtendente: TLabel;
     dbUsuarioAtendente: TDBEdit;
     lblUsuarioCancelamento: TLabel;
@@ -153,6 +153,14 @@ type
     btnProdutoCancelar: TBitBtn;
     btnProdutoAtenderTodos: TBitBtn;
     btnConfirmarAtendimento: TcxButton;
+    dbCentroCustoRequisitante: TJvDBComboEdit;
+    dbCentroCustoAtendente: TJvDBComboEdit;
+    dbUsuarioRequisitante: TJvDBComboEdit;
+    dbProduto: TJvDBComboEdit;
+    dbDataEmissao: TJvDBDateEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    IbDtstTabelaUSUARIO_REQUISITANTE: TIBStringField;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
@@ -410,13 +418,14 @@ end;
 procedure TfrmGeRequisicaoAlmox.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.Value       := GetEmpresaIDDefault;
+  IbDtstTabelaEMPRESA.Value       := gUsuarioLogado.Empresa;
   IbDtstTabelaINSERCAO_DATA.Value := GetDateTimeDB;
   IbDtstTabelaDATA_EMISSAO.Value  := GetDateDB;
   IbDtstTabelaREQUISITANTE.Value  := gUsuarioLogado.Login; 
   IbDtstTabelaSTATUS.AsInteger    := STATUS_REQUISICAO_ALMOX_EDC;
-  IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
-  IbDtstTabelaINSERCAO_USUARIO.Value := gUsuarioLogado.Login;
+  IbDtstTabelaINSERCAO_DATA.Value        := GetDateTimeDB;
+  IbDtstTabelaINSERCAO_USUARIO.Value     := gUsuarioLogado.Login;
+  IbDtstTabelaUSUARIO_REQUISITANTE.Value := gUsuarioLogado.Nome;
 
   IbDtstTabelaVALOR_TOTAL.AsCurrency := 0.0;
 
@@ -598,7 +607,7 @@ procedure TfrmGeRequisicaoAlmox.btnProdutoInserirClick(Sender: TObject);
   procedure GerarSequencial(var Seq : Integer);
   begin
     Seq := cdsTabelaItens.RecordCount + 1;
-    if ( cdsTabelaItens.Locate('ITEM', Seq, []) ) then
+    while ( cdsTabelaItens.Locate('ITEM', Seq, []) ) do
       Seq := Seq + 1;
   end;
 
@@ -944,12 +953,6 @@ begin
     IbDtstTabelaMOTIVO.AsString  := Trim(AnsiUpperCase(IbDtstTabelaMOTIVO.AsString));
     IbDtstTabelaOBS.AsString     := Trim(AnsiUpperCase(IbDtstTabelaOBS.AsString));
 
-    if (IbDtstTabelaCCUSTO_ORIGEM.AsInteger = IbDtstTabelaCCUSTO_DESTINO.AsInteger) then
-    begin
-      ShowWarning('O Centro de Custo de destino (atendente) não poderá ser igual ao Centro de Custo de origem (requisitante)!');
-      Abort;
-    end;
-
     if ( cdsTabelaItens.RecordCount > 0 ) then
       IbDtstTabelaITENS.AsInteger := cdsTabelaItens.RecordCount
     else
@@ -1011,21 +1014,22 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    // Destacar requisição em edição
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_EDC ) then
-      dbgDados.Canvas.Brush.Color := lblRequisicaoEmEdicao.Color
-    else
-    // Destacar requisição aberta
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_ABR ) then
-      dbgDados.Canvas.Font.Color := lblRequisicaoAberta.Font.Color
-    else
-    // Destacar requisição enviada e/ou recebida
-    if ( IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC] ) then
-      dbgDados.Canvas.Font.Color := lblRequisicaoRecebida.Font.Color
-    else
-    // Destacar requisição cancelada
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_CAN ) then
-      dbgDados.Canvas.Font.Color := lblRequisicaoCancelada.Font.Color;
+    if (not IbDtstTabelaSTATUS.IsNull) then
+      // Destacar requisição em edição
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_EDC ) then
+        dbgDados.Canvas.Brush.Color := lblRequisicaoEmEdicao.Color
+      else
+      // Destacar requisição aberta
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_ABR ) then
+        dbgDados.Canvas.Font.Color := lblRequisicaoAberta.Font.Color
+      else
+      // Destacar requisição enviada e/ou recebida
+      if ( IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC] ) then
+        dbgDados.Canvas.Font.Color := lblRequisicaoRecebida.Font.Color
+      else
+      // Destacar requisição cancelada
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_CAN ) then
+        dbgDados.Canvas.Font.Color := lblRequisicaoCancelada.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -1102,7 +1106,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Requisição de Materiais', EmptyStr);
+      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Requisição de Materiais', EmptyStr);
     except
     end;
 
@@ -1153,8 +1157,8 @@ begin
     Abort;
   end;
 
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_REQUISICAO_ALMOX_ATD ) then
-    ShowInformation('Apenas registros atendidos/encerrados podem ser cancelados!')
+  if not (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]) then
+    ShowInformation('Apenas registros enviados, recebidos e/ou atendidos podem ser cancelados!')
   else
   if ( CancelarRequisicaoAlmox(Self, IbDtstTabelaANO.Value, IbDtstTabelaCONTROLE.Value) ) then
     with IbDtstTabela do
@@ -1384,7 +1388,10 @@ var
 begin
   if ( dbUsuarioRequisitante.Button.Enabled and (IbDtstTabela.State in [dsEdit, dsInsert]) ) then
     if SelecionarUsuarioRequisitante(Self, sLogin, sNome) then
-      IbDtstTabelaREQUISITANTE.Value := sLogin;
+    begin
+      IbDtstTabelaREQUISITANTE.Value         := sLogin;
+      IbDtstTabelaUSUARIO_REQUISITANTE.Value := sNome;
+    end;
 end;
 
 procedure TfrmGeRequisicaoAlmox.pgcGuiasOnChange;
@@ -1616,7 +1623,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Requisição de Materiais', EmptyStr);
+      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Requisição de Materiais', EmptyStr);
     except
     end;
 

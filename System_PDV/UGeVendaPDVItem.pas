@@ -4,16 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls;
+  Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeVendaPDVItem = class(TfrmGrPadrao)
     ImgConsulta: TImage;
     Bevel4: TBevel;
-    btnOk: TBitBtn;
-    btnNao: TBitBtn;
     lblValorAltera: TLabel;
     edValorAltera: TEdit;
+    btnOk: TcxButton;
+    btnNao: TcxButton;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure btnOkClick(Sender: TObject);

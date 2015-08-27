@@ -5,18 +5,20 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, ExtCtrls, DB, Mask, DBCtrls, Buttons,
-  rxToolEdit, rxCurrEdit;
+  cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+  JvBaseEdits;
 
 type
   TfrmGeVendaPDVDesconto = class(TfrmGrPadrao)
     Bevel4: TBevel;
     dtsVenda: TDataSource;
-    btnOk: TBitBtn;
-    btnNao: TBitBtn;
     ImgConsulta: TImage;
-    edDescontoAcrescimo: TRxCalcEdit;
     Label1: TLabel;
     rgDescontoAcrescimo: TRadioGroup;
+    btnOk: TcxButton;
+    btnNao: TcxButton;
+    edDescontoAcrescimo: TJvCalcEdit;
     procedure rgDescontoAcrescimoClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
   private

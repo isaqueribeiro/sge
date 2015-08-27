@@ -33,7 +33,6 @@ uses
   UDMNFe in '..\Sys\UDMNFe.pas' {DMNFe: TDataModule},
   UGeConfigurarNFeACBr in '..\Sys\UGeConfigurarNFeACBr.pas' {frmGeConfigurarNFeACBr},
   UEnviarLoteNFe in '..\Sys\UEnviarLoteNFe.pas' {frmEnviarLoteNFe},
-  ChkDgVer in '..\Sys\lib\ChkDgVer.pas',
   UGrCampoRequisitado in '..\Sys\lib\UGrCampoRequisitado.pas' {frmCampoRequisitado},
   UGeGerarBoletos in '..\Sys\UGeGerarBoletos.pas' {frmGeGerarBoleto},
   UGePromocao in '..\Sys\UGePromocao.pas' {frmGePromocao},
@@ -83,7 +82,11 @@ uses
   UGeVendaPDVOrcamento in 'UGeVendaPDVOrcamento.pas' {frmGeVendaPDVOrcamento},
   UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
   UGeVendaPDVFinalizar in 'UGeVendaPDVFinalizar.pas' {frmGeVendaPDVFinalizar},
-  UGeVendaPDVItem in 'UGeVendaPDVItem.pas' {frmGeVendaPDVItem};
+  UGeVendaPDVItem in 'UGeVendaPDVItem.pas' {frmGeVendaPDVItem},
+  UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
+  UGrMemo in '..\Sys\lib\UGrMemo.pas' {frmGrMemo},
+  UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
+  UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar};
 
 {$R *.res}
 
@@ -92,6 +95,7 @@ begin
 
   Application.Initialize;
   Application.Title := 'PDV | Ponto de Venda do SGE/SGI';
+  Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
   Application.CreateForm(TfrmPrinc, frmPrinc);

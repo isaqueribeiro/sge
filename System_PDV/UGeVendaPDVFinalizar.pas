@@ -5,13 +5,12 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, DB, IBCustomDataSet,
-  IBTable, DBCtrls, Mask;
+  IBTable, DBCtrls, Mask, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons;
 
 type
   TfrmGeVendaPDVFinalizar = class(TfrmGrPadrao)
     Bevel4: TBevel;
-    btnOk: TBitBtn;
-    btnNao: TBitBtn;
     dtsFormaPagto: TDataSource;
     ImgConsulta: TImage;
     tblCondicaoPagto: TIBTable;
@@ -28,6 +27,8 @@ type
     dbValorRecebidoFormaPagto: TDBEdit;
     Label3: TLabel;
     dbValorTrocoFormaPagto: TDBEdit;
+    btnOk: TcxButton;
+    btnNao: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure dbCondicaoPagtoClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
@@ -56,7 +57,7 @@ begin
   inherited;
   tblFormaPagto.Open;
   tblCondicaoPagto.Open;
-  
+
   fTotalAPagar := 0.0;
 end;
 
@@ -93,6 +94,12 @@ begin
   if ( Trim(dbCondicaoPagto.Text) = EmptyStr ) then
   begin
     ShowWarning('Favor informa uma Condição de Pagamento');
+    Exit;
+  end;
+
+  if not GetFormaPagtoCondicaoPagto(dbFormaPagto.Field.AsInteger, dbCondicaoPagto.Field.AsInteger) then
+  begin
+    ShowWarning('Forma de Pagamento não liberada para ser usada com a Condição de Pagamento selecionada!');
     Exit;
   end;
 

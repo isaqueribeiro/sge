@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, XPMan, IniFiles;
+  Dialogs, StdCtrls, XPMan, IniFiles, IdCoder, IdCoder3to4, IdCoderMIME,
+  IdBaseComponent, Vcl.ExtCtrls, dxGDIPlusClasses;
 
 type
   TFrmGrGerarLicenca = class(TForm)
@@ -31,6 +32,11 @@ type
     opdLicenca: TOpenDialog;
     lblDataBloqueio: TLabel;
     edDataBloqueio: TEdit;
+    chkSGE: TCheckBox;
+    chkSGI: TCheckBox;
+    chkSGF: TCheckBox;
+    Label1: TLabel;
+    ImgLogoEmpresa: TImage;
     procedure BtnCarregarLicencaClick(Sender: TObject);
     procedure BtnGerarLicencaClick(Sender: TObject);
 
@@ -103,6 +109,9 @@ begin
     edCEP.Text      := ini.ReadString('Licenca', edCEP.Name,      '');
     edCompetencia.Text  := ini.ReadString('Licenca', edCompetencia.Name, FormatDateTime('yyyymm', Date + 30));
     edDataBloqueio.Text := FormatDateTime('dd/mm/yyyy', ini.ReadDateTime('Licenca', edDataBloqueio.Name, Date + 45));
+    chkSGE.Checked := ini.ReadBool('Licenca', chkSGE.Name, False);
+    chkSGI.Checked := ini.ReadBool('Licenca', chkSGI.Name, False);
+    chkSGF.Checked := ini.ReadBool('Licenca', chkSGF.Name, False);
 
     edCompetenciaChange( edCompetencia );
   finally
@@ -132,6 +141,9 @@ begin
     ini.WriteString  ('Licenca', edCEP.Name,      Trim(edCEP.Text));
     ini.WriteString  ('Licenca', edCompetencia.Name,  Trim(edCompetencia.Text));
     ini.WriteDateTime('Licenca', edDataBloqueio.Name, StrToDateTimeDef(edDataBloqueio.Text, Date + 15));
+    ini.WriteBool    ('Licenca', chkSGE.Name, chkSGE.Checked);
+    ini.WriteBool    ('Licenca', chkSGI.Name, chkSGI.Checked);
+    ini.WriteBool    ('Licenca', chkSGF.Name, chkSGF.Checked);
 
     ini.UpdateFile;
 
@@ -182,24 +194,72 @@ end;
 
 function TFrmGrGerarLicenca.DecriptarSenha(const Value,
   Key: String): String;
+var
+  sKeyChar   ,
+  sStrEncode : String;
+  IdEncoder  : TIdEncoderMIME;
+  IdDecoder  : TIdDecoderMIME;
 begin
-  Result := EncriptSenha(Value, Key);
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  IdDecoder := TIdDecoderMIME.Create(nil);
+  try
+    sKeyChar   := IdEncoder.EncodeString(Key);
+    sStrEncode := Value;
+
+    if (Pos(sKeyChar, sStrEncode) = 0)  then
+      raise Exception.Create('Criptografia corrompida!!!')
+    else
+      sStrEncode := StringReplace(sStrEncode, sKeyChar, EmptyStr, [rfReplaceAll]);
+
+    Result := IdDecoder.DecodeString(sStrEncode);
+  finally
+    IdEncoder.Free;
+    IdDecoder.Free;
+  end;
+  // Rotina abaixo descontinuada, mas mantida por histórico
+  //
+  //Result := EncriptSenha(Value, Key);
 end;
 
 function TFrmGrGerarLicenca.EncriptSenha(const Value, Key: String): String;
 var
-  iCarac ,
-  KeyAlt : Integer;
+//  iCarac ,
+//  KeyAlt : Integer;
+  sKeyChar    ,
+  sStrEncode  ,
+  sResult     : String;
+  iTamanhoStr ,
+  iPosicaoKey : Integer;
+  IdEncoder   : TIdEncoderMIME;
 begin
-  KeyAlt := Length(Key);
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  try
+    sKeyChar    := IdEncoder.EncodeString(Key);
+    sStrEncode  := IdEncoder.EncodeString(Value);
+    iTamanhoStr := Length(sStrEncode);
 
-  for iCarac := 1 to Length(Key) do
-    KeyAlt := KeyAlt xor Ord(Key[iCarac]);
+    iPosicaoKey := -1;
+    while (iPosicaoKey < 0) do
+      iPosicaoKey := Random(iTamanhoStr);
 
-  Result := Value;
+    sResult := Copy(sStrEncode, 1, iPosicaoKey) + sKeyChar + Copy(sStrEncode, iPosicaoKey + 1, iTamanhoStr);
 
-  for iCarac := 1 to Length(Value) do
-    Result[iCarac] := chr(not(ord(Value[iCarac]) xor Ord(KeyAlt)));
+    Result := sResult;
+  finally
+    IdEncoder.Free;
+  end;
+
+  // Rotina abaixo descontinuada, mas mantida por histórico
+  //
+  //KeyAlt := Length(Key);
+  //
+  //for iCarac := 1 to Length(Key) do
+  //  KeyAlt := KeyAlt xor Ord(Key[iCarac]);
+  //
+  //Result := Value;
+  //
+  //for iCarac := 1 to Length(Value) do
+  //  Result[iCarac] := chr(not(ord(Value[iCarac]) xor Ord(KeyAlt)));
 end;
 
 procedure TFrmGrGerarLicenca.edCompetenciaChange(Sender: TObject);

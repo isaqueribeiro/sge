@@ -1,11 +1,11 @@
-inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
-  Left = 755
-  Top = 304
+inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
+  Left = 389
+  Top = 218
   Width = 617
   Height = 474
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
-  Caption = 'Cancelar Requisi'#231#227'o ao Almoxarifado'
+  Caption = 'Cancelar Solicita'#231#227'o de Compra/Servi'#231'o'
   DesignSize = (
     593
     428)
@@ -48,7 +48,7 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     Width = 593
     Height = 121
     Align = alTop
-    Caption = 'Controle da Apropria'#231#227'o'
+    Caption = 'Controle da Cota'#231#227'o'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -61,7 +61,7 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       Top = 24
       Width = 84
       Height = 13
-      Caption = 'No. Requisi'#231#227'o:'
+      Caption = 'No. Solicita'#231#227'o:'
       FocusControl = dbCodigo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -70,13 +70,13 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblCentroCustoOrigem: TLabel
-      Left = 120
+    object lblDescricaoResumo: TLabel
+      Left = 112
       Top = 24
-      Width = 314
+      Width = 98
       Height = 13
-      Caption = 'Departamento / Centro de Custo requisitante (Origem):'
-      FocusControl = dbCentroCustoOrigem
+      Caption = 'Nome Solicitante:'
+      FocusControl = dbDescricaoResumo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -84,13 +84,13 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblDataApropriacao: TLabel
+    object lblEmissao: TLabel
       Left = 15
       Top = 64
-      Width = 30
+      Width = 49
       Height = 13
-      Caption = 'Data:'
-      FocusControl = dbDataApropriacao
+      Caption = 'Emiss'#227'o:'
+      FocusControl = dbEmissao
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -98,13 +98,13 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblCentroCustoDestino: TLabel
-      Left = 120
+    object lblValidade: TLabel
+      Left = 112
       Top = 64
-      Width = 337
+      Width = 51
       Height = 13
-      Caption = 'Departamento / Centro de Custo de atendimento (Destino):'
-      FocusControl = dbCentroCustoDestino
+      Caption = 'Validade:'
+      FocusControl = dbValidade
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -115,12 +115,12 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     object dbCodigo: TDBEdit
       Left = 16
       Top = 40
-      Width = 97
+      Width = 89
       Height = 21
       TabStop = False
       Color = clMoneyGreen
       DataField = 'NUMERO'
-      DataSource = dtsRequisicao
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -130,15 +130,15 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       ReadOnly = True
       TabOrder = 0
     end
-    object dbCentroCustoOrigem: TDBEdit
-      Left = 120
+    object dbDescricaoResumo: TDBEdit
+      Left = 112
       Top = 40
-      Width = 457
+      Width = 465
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'CC_ORIGEM_DESC'
-      DataSource = dtsRequisicao
+      DataField = 'NOME_SOLICITANTE'
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -148,15 +148,15 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       ReadOnly = True
       TabOrder = 1
     end
-    object dbDataApropriacao: TDBEdit
+    object dbEmissao: TDBEdit
       Left = 16
       Top = 80
-      Width = 97
+      Width = 89
       Height = 21
       TabStop = False
       Color = clMoneyGreen
       DataField = 'DATA_EMISSAO'
-      DataSource = dtsRequisicao
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -166,15 +166,15 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       ReadOnly = True
       TabOrder = 2
     end
-    object dbCentroCustoDestino: TDBEdit
-      Left = 120
+    object dbValidade: TDBEdit
+      Left = 112
       Top = 80
-      Width = 457
+      Width = 89
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'CC_DESTINO_DESC'
-      DataSource = dtsRequisicao
+      DataField = 'VALIDADE'
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -422,7 +422,7 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
     NumGlyphs = 2
   end
-  object cdsRequisicao: TIBDataSet
+  object cdsSolicitacao: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
@@ -431,158 +431,137 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       '')
     SelectSQL.Strings = (
       'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.empresa'
-      '  , r.ccusto_origem'
-      '  , r.ccusto_destino'
-      '  , r.status'
-      ''
-      '  , r.data_emissao'
-      ''
-      '  , r.cancel_usuario'
-      '  , r.cancel_data'
-      '  , r.cancel_motivo'
-      ''
-      '  , co.descricao as cc_origem_desc'
-      '  , cd.descricao as cc_destino_desc'
-      'from TBREQUISICAO_ALMOX r'
-      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
-      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
-      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
-      ''
-      'where r.ano      = :ano'
-      '  and r.controle = :controle')
+      '    s.ano'
+      '  , s.codigo'
+      '  , s.empresa'
+      '  , s.numero'
+      '  , s.nome_solicitante'
+      '  , s.data_emissao'
+      '  , s.validade'
+      '  , s.status'
+      '  , s.cancelado_data'
+      '  , s.cancelado_usuario'
+      '  , s.cancelado_motivo'
+      'from TBSOLICITACAO s'
+      'where s.ano   = :ano'
+      '  and s.codigo = :cod')
     ModifySQL.Strings = (
       '')
     GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updRequisicao
+    UpdateObject = updSolicitacao
     Left = 472
     Top = 72
-    object cdsRequisicaoANO: TSmallintField
+    object cdsSolicitacaoANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBREQUISICAO_ALMOX"."ANO"'
+      Origin = '"TBSOLICITACAO"."ANO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object cdsSolicitacaoCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = '"TBSOLICITACAO"."CODIGO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsRequisicaoCONTROLE: TIntegerField
-      FieldName = 'CONTROLE'
-      Origin = '"TBREQUISICAO_ALMOX"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsRequisicaoNUMERO: TIBStringField
-      FieldName = 'NUMERO'
-      Origin = '"TBREQUISICAO_ALMOX"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object cdsRequisicaoEMPRESA: TIBStringField
+    object cdsSolicitacaoEMPRESA: TIBStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBREQUISICAO_ALMOX"."EMPRESA"'
+      Origin = '"TBSOLICITACAO"."EMPRESA"'
       ProviderFlags = [pfInUpdate]
       Required = True
       Size = 18
     end
-    object cdsRequisicaoCCUSTO_ORIGEM: TIntegerField
-      FieldName = 'CCUSTO_ORIGEM'
-      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_ORIGEM"'
+    object cdsSolicitacaoNUMERO: TIBStringField
+      FieldName = 'NUMERO'
+      Origin = '"TBSOLICITACAO"."NUMERO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
-    object cdsRequisicaoCCUSTO_DESTINO: TIntegerField
-      FieldName = 'CCUSTO_DESTINO'
-      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_DESTINO"'
+    object cdsSolicitacaoNOME_SOLICITANTE: TIBStringField
+      FieldName = 'NOME_SOLICITANTE'
+      Origin = '"TBSOLICITACAO"."NOME_SOLICITANTE"'
       ProviderFlags = [pfInUpdate]
-      Required = True
+      Size = 100
     end
-    object cdsRequisicaoSTATUS: TSmallintField
-      FieldName = 'STATUS'
-      Origin = '"TBREQUISICAO_ALMOX"."STATUS"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsRequisicaoDATA_EMISSAO: TDateField
+    object cdsSolicitacaoDATA_EMISSAO: TDateField
       FieldName = 'DATA_EMISSAO'
-      Origin = '"TBREQUISICAO_ALMOX"."DATA_EMISSAO"'
+      Origin = '"TBSOLICITACAO"."DATA_EMISSAO"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object cdsRequisicaoCANCEL_USUARIO: TIBStringField
-      FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_USUARIO"'
+    object cdsSolicitacaoVALIDADE: TDateField
+      FieldName = 'VALIDADE'
+      Origin = '"TBSOLICITACAO"."VALIDADE"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsSolicitacaoSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = '"TBSOLICITACAO"."STATUS"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsSolicitacaoCANCELADO_DATA: TDateField
+      FieldName = 'CANCELADO_DATA'
+      Origin = '"TBSOLICITACAO"."CANCELADO_DATA"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsSolicitacaoCANCELADO_USUARIO: TIBStringField
+      FieldName = 'CANCELADO_USUARIO'
+      Origin = '"TBSOLICITACAO"."CANCELADO_USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 12
     end
-    object cdsRequisicaoCANCEL_DATA: TDateTimeField
-      FieldName = 'CANCEL_DATA'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsRequisicaoCANCEL_MOTIVO: TMemoField
-      FieldName = 'CANCEL_MOTIVO'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_MOTIVO"'
+    object cdsSolicitacaoCANCELADO_MOTIVO: TMemoField
+      FieldName = 'CANCELADO_MOTIVO'
+      Origin = '"TBSOLICITACAO"."CANCELADO_MOTIVO"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
     end
-    object cdsRequisicaoCC_ORIGEM_DESC: TIBStringField
-      FieldName = 'CC_ORIGEM_DESC'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object cdsRequisicaoCC_DESTINO_DESC: TIBStringField
-      FieldName = 'CC_DESTINO_DESC'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
-      ProviderFlags = []
-      Size = 100
-    end
   end
-  object updRequisicao: TIBUpdateSQL
+  object updSolicitacao: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
-      '  CONTROLE,'
+      '  CODIGO,'
       '  NUMERO,'
-      '  EMPRESA,'
       '  TIPO,'
-      '  CCUSTO_ORIGEM,'
-      '  CCUSTO_DESTINO,'
+      '  EMPRESA,'
+      '  CENTRO_CUSTO,'
+      '  NOME_SOLICITANTE,'
+      '  OBJETO_SOLICITACAO,'
+      '  MOVITO,'
+      '  OBSERVACAO,'
+      '  DATA_EMISSAO,'
+      '  VALIDADE,'
+      '  COMPETENCIA,'
       '  INSERCAO_DATA,'
       '  INSERCAO_USUARIO,'
-      '  DATA_EMISSAO,'
-      '  REQUISITANTE,'
-      '  COMPETENCIA,'
       '  STATUS,'
-      '  MOTIVO,'
-      '  OBS,'
-      '  VALOR_TOTAL,'
-      '  ATENDIMENTO_USUARIO,'
-      '  ATENDIMENTO_DATA,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATA,'
-      '  CANCEL_MOTIVO'
-      'from TBREQUISICAO_ALMOX '
+      '  APROVACAO_DATA,'
+      '  APROVACAO_USUARIO,'
+      '  CANCELADO_DATA,'
+      '  CANCELADO_USUARIO,'
+      '  CANCELADO_MOTIVO,'
+      '  LOG_EVENTO'
+      'from TBSOLICITACAO '
       'where'
       '  ANO = :ANO and'
-      '  CONTROLE = :CONTROLE')
+      '  CODIGO = :CODIGO')
     ModifySQL.Strings = (
-      'update TBREQUISICAO_ALMOX'
+      'update TBSOLICITACAO'
       'set'
-      '  CANCEL_DATA = :CANCEL_DATA,'
-      '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
-      '  CANCEL_USUARIO = :CANCEL_USUARIO,'
+      '  CANCELADO_DATA = :CANCELADO_DATA,'
+      '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
+      '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
       '  STATUS = :STATUS'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE')
+      '  CODIGO = :OLD_CODIGO')
     Left = 504
     Top = 72
   end
-  object dtsRequisicao: TDataSource
+  object dtsSolicitacao: TDataSource
     AutoEdit = False
-    DataSet = cdsRequisicao
+    DataSet = cdsSolicitacao
     Left = 536
     Top = 72
   end

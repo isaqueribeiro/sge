@@ -1,7 +1,7 @@
-inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
-  Left = 446
-  Top = 196
-  Caption = 'Controle de Apropria'#231#245'es de Estoque'
+inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
+  Left = 388
+  Top = 210
+  Caption = 'Controle p/ Solicita'#231#227'o de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
   ExplicitWidth = 1132
@@ -48,63 +48,47 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           item
             Expanded = False
             FieldName = 'TIPO'
-            Title.Caption = 'Tipo'
-            Width = 100
+            Width = 120
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'DATA_APROPRIACAO'
-            Title.Caption = 'Data'
+            FieldName = 'DATA_EMISSAO'
+            Title.Caption = 'Emiss'#227'o'
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
-            Title.Caption = 'Situa'#231#227'o'
             Width = 100
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'CC_DESCRICAO'
-            Title.Caption = 'Centro de Custo'
-            Width = 300
+            FieldName = 'CENTRO_CUSTO_NOME'
+            Width = 330
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ITENS'
-            Title.Caption = 'Itens'
             Width = 50
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'VALOR_TOTAL'
-            Title.Caption = 'Valor Total (R$)'
-            Width = 100
+            FieldName = 'NOME_SOLICITANTE'
+            Width = 150
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'ENTRADA'
-            Width = 90
-            Visible = True
+            Visible = False
           end
           item
             Expanded = False
-            FieldName = 'AUTORIZACAO'
-            Width = 90
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'USUARIO'
-            Title.Caption = 'Respons'#225'vel'
-            Width = 100
-            Visible = True
+            Visible = False
           end>
       end
       inherited pnlFiltros: TPanel
@@ -114,12 +98,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         ExplicitTop = 543
         ExplicitWidth = 1108
         ExplicitHeight = 70
-        object lblApropriacaoAberta: TLabel [0]
+        object lblSolicitacaoAberta: TLabel [0]
           Left = 2
           Top = 4
-          Width = 133
+          Width = 125
           Height = 13
-          Caption = '* Apropria'#231#245'es Abertas'
+          Caption = '* Solicita'#231#245'es Abertas'
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -128,12 +112,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
           Transparent = True
         end
-        object lblApropriacaoCancelada: TLabel [1]
+        object lblSolicitacaoCancelada: TLabel [1]
           Left = 2
           Top = 24
-          Width = 152
+          Width = 144
           Height = 13
-          Caption = '* Apropria'#231#245'es Canceladas'
+          Caption = '* Solicita'#231#245'es Canceladas'
           Font.Charset = ANSI_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -142,12 +126,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
           Transparent = True
         end
-        object lblApropriacaoEmEdicao: TLabel [2]
+        object lblSolicitacaoEmEdicao: TLabel [2]
           Left = 2
           Top = 44
-          Width = 144
+          Width = 136
           Height = 13
-          Caption = '* Apropria'#231#245'es Em Edi'#231#227'o'
+          Caption = '* Solicita'#231#245'es Em Edi'#231#227'o'
           Color = clYellow
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -156,7 +140,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentColor = False
           ParentFont = False
-          Transparent = False
         end
         inherited grpBxFiltro: TGroupBox
           Left = 424
@@ -171,10 +154,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             62)
           inherited lbltFiltrar: TLabel
             Left = 294
-            Width = 93
-            Caption = 'Centro de Custo:'
+            Top = 27
+            Width = 64
+            Caption = 'Solicita'#231#227'o:'
             ExplicitLeft = 294
-            ExplicitWidth = 93
+            ExplicitTop = 27
+            ExplicitWidth = 64
           end
           object lblData: TLabel [1]
             Left = 14
@@ -185,11 +170,13 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             FocusControl = e1Data
           end
           inherited edtFiltrar: TEdit
-            Left = 392
-            Width = 239
+            Left = 368
+            Top = 23
+            Width = 263
             TabOrder = 2
-            ExplicitLeft = 392
-            ExplicitWidth = 239
+            ExplicitLeft = 368
+            ExplicitTop = 23
+            ExplicitWidth = 263
           end
           inherited btnFiltrar: TcxButton
             Left = 635
@@ -313,20 +300,21 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             TabOrder = 1
           end
         end
-        object RdgStatusApropriacao: TRadioGroup
+        object RdgStatusSolicitacao: TRadioGroup
           Left = 198
           Top = 4
           Width = 226
           Height = 62
           Align = alRight
-          Caption = '&Status Autoriza'#231#227'o'
+          Caption = '&Status Solicita'#231#227'o'
           Columns = 2
           ItemIndex = 0
           Items.Strings = (
             '(Todas)'
-            'Em Edi'#231#227'o'
+            'Em edi'#231#227'o'
             'Aberta'
-            'Encerrada'
+            'Finalizada'
+            'Aprovada'
             'Cancelada')
           TabOrder = 0
         end
@@ -338,25 +326,28 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
-        Top = 349
+        Top = 341
         Width = 1108
-        ExplicitTop = 349
+        ExplicitTop = 341
         ExplicitWidth = 1108
       end
       object Bevel6: TBevel [1]
         Left = 0
-        Top = 443
+        Top = 491
         Width = 1108
         Height = 4
         Align = alBottom
         Shape = bsSpacer
-        ExplicitTop = 444
+        ExplicitTop = 492
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1108
-        Height = 233
+        Height = 225
         ExplicitWidth = 1108
-        ExplicitHeight = 233
+        ExplicitHeight = 225
+        DesignSize = (
+          1108
+          225)
         inherited lblCodigo: TLabel
           Width = 71
           Caption = 'No. Controle:'
@@ -385,7 +376,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           FocusControl = dbEmpresa
         end
         object lblSituacao: TLabel [3]
-          Left = 792
+          Left = 640
           Top = 64
           Width = 52
           Height = 13
@@ -398,13 +389,13 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblDataApropriacao: TLabel [4]
-          Left = 360
+        object lblDataEmissao: TLabel [4]
+          Left = 384
           Top = 64
-          Width = 88
+          Width = 68
           Height = 13
-          Caption = 'Data Apropria'#231#227'o:'
-          FocusControl = dbDataApropriacao
+          Caption = 'Data Emiss'#227'o:'
+          FocusControl = dbDataEmissao
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -413,7 +404,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
         end
         object lblUsuario: TLabel [5]
-          Left = 920
+          Left = 792
           Top = 64
           Width = 46
           Height = 13
@@ -426,7 +417,21 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblNumero: TLabel [6]
+        object lblAprovador: TLabel [6]
+          Left = 944
+          Top = 64
+          Width = 80
+          Height = 13
+          Caption = 'Aprovada por:'
+          FocusControl = dbAprovador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblNumero: TLabel [7]
           Left = 240
           Top = 64
           Width = 41
@@ -434,23 +439,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Caption = 'N'#250'mero:'
           FocusControl = dbNumero
         end
-        object lblCentroCusto: TLabel [7]
-          Left = 704
-          Top = 24
-          Width = 162
-          Height = 13
-          Caption = 'Departamento / Centro de Custo:'
-          FocusControl = dbCentroCusto
-        end
-        object lblEntrada: TLabel [8]
-          Left = 488
-          Top = 64
-          Width = 42
-          Height = 13
-          Caption = 'Entrada:'
-          FocusControl = dbEntrada
-        end
-        object lblTipo: TLabel [9]
+        object lblTipo: TLabel [8]
           Left = 16
           Top = 64
           Width = 24
@@ -458,18 +447,40 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Caption = 'Tipo:'
           FocusControl = dbTipo
         end
-        object lblAutorizacao: TLabel [10]
-          Left = 640
+        object lblDataValidade: TLabel [9]
+          Left = 512
           Top = 64
-          Width = 61
+          Width = 70
           Height = 13
-          Caption = 'Autoriza'#231#227'o:'
-          FocusControl = dbAutorizacao
+          Caption = 'Data Validade:'
+          FocusControl = dbDataValidade
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblNomeSolicitante: TLabel [10]
+          Left = 640
+          Top = 24
+          Width = 53
+          Height = 13
+          Caption = 'Solicitante:'
+          FocusControl = dbNomeSolicitante
+        end
+        object lblCentroCustoSolicitacao: TLabel [11]
+          Left = 16
+          Top = 104
+          Width = 162
+          Height = 13
+          Caption = 'Departamento / Centro de Custo:'
+          FocusControl = dbCentroCustoSolicitacao
         end
         inherited dbCodigo: TDBEdit
           Width = 89
           Color = clMoneyGreen
-          DataField = 'CONTROLE'
+          DataField = 'CODIGO'
           ExplicitWidth = 89
         end
         object dbDataHora: TDBEdit
@@ -493,7 +504,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         object dbEmpresa: TDBLookupComboBox
           Left = 240
           Top = 40
-          Width = 457
+          Width = 393
           Height = 21
           DataField = 'EMPRESA'
           DataSource = DtSrcTabela
@@ -510,9 +521,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 2
         end
         object dbSituacao: TDBEdit
-          Left = 792
+          Left = 640
           Top = 80
-          Width = 121
+          Width = 145
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -525,16 +536,34 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 8
         end
         object dbUsuario: TDBEdit
-          Left = 920
+          Left = 792
           Top = 80
-          Width = 169
+          Width = 145
           Height = 21
           TabStop = False
           Color = clMoneyGreen
-          DataField = 'USUARIO'
+          DataField = 'INSERCAO_USUARIO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 9
+        end
+        object dbAprovador: TDBEdit
+          Left = 944
+          Top = 80
+          Width = 145
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'APROVACAO_USUARIO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -548,7 +577,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         object dbNumero: TDBEdit
           Left = 240
           Top = 80
-          Width = 113
+          Width = 137
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NUMERO'
@@ -560,58 +589,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           ParentFont = False
           TabOrder = 5
-        end
-        object PgcTextoApropriacao: TPageControl
-          Left = 16
-          Top = 112
-          Width = 1073
-          Height = 114
-          ActivePage = TbsApropriacaoMotivo
-          Style = tsFlatButtons
-          TabOrder = 11
-          object TbsApropriacaoMotivo: TTabSheet
-            Caption = 'Motivo da apropria'#231#227'o'
-            object dbMotivo: TDBMemo
-              Left = 0
-              Top = 0
-              Width = 1065
-              Height = 83
-              Align = alClient
-              DataField = 'MOTIVO'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ScrollBars = ssVertical
-              TabOrder = 0
-            end
-          end
-          object TbsApropriacaoCancelado: TTabSheet
-            Caption = 'Motivo do cancelamento'
-            ImageIndex = 2
-            object dbMovitoCancelamento: TDBMemo
-              Left = 0
-              Top = 0
-              Width = 1065
-              Height = 83
-              TabStop = False
-              Align = alClient
-              DataField = 'CANCEL_MOTIVO'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ReadOnly = True
-              ScrollBars = ssVertical
-              TabOrder = 0
-            end
-          end
         end
         object dbTipo: TDBLookupComboBox
           Left = 16
@@ -628,247 +605,127 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           KeyField = 'CODIGO'
           ListField = 'DESCRICAO'
-          ListSource = dtsTipoApropriacao
+          ListSource = dtsTipoSolicitacao
           ParentFont = False
           TabOrder = 4
         end
-        object dbCentroCusto: TJvDBComboEdit
-          Left = 704
-          Top = 40
-          Width = 385
-          Height = 21
-          ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
-          CharCase = ecUpperCase
-          ClickKey = 16464
-          Color = clMoneyGreen
-          DataField = 'CC_DESCRICAO'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          Glyph.Data = {
-            36060000424D3606000000000000360000002800000020000000100000000100
-            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
-            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
-            6048306048306048306048306048306048306048306048306048305048403050
-            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
-            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
-            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
-            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
-            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
-            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
-            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
-            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
-            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
-            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
-            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
-            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
-            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
-            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
-            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
-            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
-            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
-            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
-            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
-          NumGlyphs = 2
-          ParentFont = False
-          ParentShowHint = False
-          ReadOnly = True
-          ShowHint = True
-          TabOrder = 3
-          OnButtonClick = dbCentroCustoButtonClick
+        object PgcTextoSolicitacao: TPageControl
+          Left = 384
+          Top = 112
+          Width = 705
+          Height = 105
+          ActivePage = TbsSolicitacaoObjeto
+          Anchors = [akLeft, akRight, akBottom]
+          Style = tsFlatButtons
+          TabOrder = 12
+          object TbsSolicitacaoObjeto: TTabSheet
+            Caption = 'Objeto da Solicita'#231#227'o'
+            object dbObjeto: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 697
+              Height = 74
+              Align = alClient
+              DataField = 'OBJETO_SOLICITACAO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+          object TbsSolicitacaoMotivo: TTabSheet
+            Caption = 'Motivo da Solicita'#231#227'o'
+            ImageIndex = 3
+            object dbMotivo: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 697
+              Height = 74
+              Align = alClient
+              DataField = 'MOVITO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+          object TbsSolicitacaoObservacao: TTabSheet
+            Caption = 'Observa'#231#245'es Gerais'
+            ImageIndex = 1
+            object dbObservacao: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 697
+              Height = 74
+              Align = alClient
+              DataField = 'OBSERVACAO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+          object TbsSolicitacaoCancelado: TTabSheet
+            Caption = 'Motivo do Cancelamento'
+            ImageIndex = 2
+            object dbMovitoCancelamento: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 697
+              Height = 74
+              TabStop = False
+              Align = alClient
+              DataField = 'CANCELADO_MOTIVO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
         end
-        object dbEntrada: TJvDBComboEdit
-          Left = 488
-          Top = 80
-          Width = 145
-          Height = 21
-          ButtonHint = 'Pesquisar Movimento de Entrada (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
-          CharCase = ecUpperCase
-          ClickKey = 16464
-          Color = clMoneyGreen
-          DataField = 'ENTRADA'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          Glyph.Data = {
-            36060000424D3606000000000000360000002800000020000000100000000100
-            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
-            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
-            6048306048306048306048306048306048306048306048306048305048403050
-            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
-            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
-            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
-            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
-            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
-            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
-            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
-            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
-            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
-            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
-            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
-            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
-            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
-            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
-            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
-            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
-            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
-            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
-            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
-          NumGlyphs = 2
-          ParentFont = False
-          ParentShowHint = False
-          ReadOnly = True
-          ShowHint = True
-          TabOrder = 7
-          OnButtonClick = dbEntradaButtonClick
-        end
-        object dbAutorizacao: TJvDBComboEdit
+        object dbNomeSolicitante: TDBEdit
           Left = 640
-          Top = 80
-          Width = 145
+          Top = 40
+          Width = 449
           Height = 21
-          ButtonHint = 
-            'Pesquisar Autoriza'#231#227'o de Compras (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)' +
-            #13#10#13#10'Observa'#231#245'es: '#13#10#13#10'1. Apenas as Autoriza'#231#245'es de Compras que ai' +
-            'nda n'#227'o foram '#13#10'faturadas podem ser utilizadas neste processo.'#13#10 +
-            #13#10'2. Para as Autoriza'#231#245'es j'#225' faturadas, utilizar o tipo "Apropri' +
-            'a'#231#227'o por Entrada"'#13#10'e fazer uso da Entrada de Nota correspondente' +
-            ' a autoriza'#231#227'o desejada.'
           CharCase = ecUpperCase
-          ClickKey = 16464
-          Color = clMoneyGreen
-          DataField = 'AUTORIZACAO'
+          DataField = 'NOME_SOLICITANTE'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          Glyph.Data = {
-            36060000424D3606000000000000360000002800000020000000100000000100
-            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
-            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
-            6048306048306048306048306048306048306048306048306048305048403050
-            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
-            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
-            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
-            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
-            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
-            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
-            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
-            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
-            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
-            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
-            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
-            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
-            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
-            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
-            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
-            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
-            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
-            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
-            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
-          NumGlyphs = 2
           ParentFont = False
-          ParentShowHint = False
-          ReadOnly = True
-          ShowHint = True
-          TabOrder = 8
-          OnButtonClick = dbAutorizacaoButtonClick
+          TabOrder = 3
         end
-        object dbDataApropriacao: TJvDBDateEdit
-          Left = 360
+        object dbDataEmissao: TJvDBDateEdit
+          Left = 384
           Top = 80
           Width = 121
           Height = 21
-          DataField = 'DATA_APROPRIACAO'
+          DataField = 'DATA_EMISSAO'
           DataSource = DtSrcTabela
           Color = clWhite
           Font.Charset = ANSI_CHARSET
@@ -929,143 +786,200 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 6
           OnExit = ControlEditExit
         end
+        object dbDataValidade: TJvDBDateEdit
+          Left = 512
+          Top = 80
+          Width = 121
+          Height = 21
+          DataField = 'VALIDADE'
+          DataSource = DtSrcTabela
+          Color = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Glyph.Data = {
+            76050000424D760500000000000036000000280000001C0000000C0000000100
+            2000000000004005000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+            0000800000008000000000000000800000000000000000000000800000008080
+            8000FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FF00FF00}
+          ImageKind = ikCustom
+          NumGlyphs = 2
+          ParentFont = False
+          PopupColor = clBtnFace
+          ShowNullDate = False
+          TabOrder = 7
+        end
+        object dbCentroCustoSolicitacao: TJvDBComboEdit
+          Left = 16
+          Top = 120
+          Width = 361
+          Height = 21
+          ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'CENTRO_CUSTO_NOME'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 11
+          OnButtonClick = dbCentroCustoSelecionar
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 447
+        Top = 495
         Width = 1108
-        Height = 166
-        ActivePage = tbsObservacoes
+        Height = 118
+        ActivePage = tbsEventoLOG
         Align = alBottom
         TabOrder = 3
-        object tbsObservacoes: TTabSheet
-          Caption = 'Observa'#231#245'es'
+        object tbsEventoLOG: TTabSheet
+          Caption = 'LOG de Eventos'
           ImageIndex = 1
-          object PnlObservacoes: TPanel
+          object dbEventoLOG: TDBMemo
             Left = 0
             Top = 0
             Width = 1100
-            Height = 138
+            Height = 90
+            TabStop = False
             Align = alClient
-            BevelOuter = bvNone
+            DataField = 'LOG_EVENTO'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Lucida Console'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            ScrollBars = ssVertical
             TabOrder = 0
-            object dbObservacao: TDBMemo
-              Left = 0
-              Top = 0
-              Width = 1100
-              Height = 88
-              Align = alClient
-              DataField = 'OBS'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ScrollBars = ssVertical
-              TabOrder = 0
-            end
-            object PnlValores: TPanel
-              Left = 0
-              Top = 88
-              Width = 1100
-              Height = 50
-              Align = alBottom
-              BevelOuter = bvNone
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 1
-              object lblCompetencia: TLabel
-                Left = 8
-                Top = 8
-                Width = 77
-                Height = 13
-                Caption = 'Compet'#234'ncia:'
-                FocusControl = dbCompetencia
-                Font.Charset = ANSI_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-              end
-              object lblValorTotalAprop: TLabel
-                Left = 160
-                Top = 8
-                Width = 92
-                Height = 13
-                Caption = 'Valor Total (R$):'
-                FocusControl = dbValorTotalAprop
-                Font.Charset = ANSI_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-              end
-              object dbCompetencia: TDBEdit
-                Left = 8
-                Top = 24
-                Width = 145
-                Height = 21
-                TabStop = False
-                Color = clMoneyGreen
-                DataField = 'COMPETENCIA'
-                DataSource = DtSrcTabela
-                Font.Charset = ANSI_CHARSET
-                Font.Color = clBlack
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-                ReadOnly = True
-                TabOrder = 0
-              end
-              object dbValorTotalAprop: TDBEdit
-                Left = 160
-                Top = 24
-                Width = 145
-                Height = 21
-                TabStop = False
-                Color = clMoneyGreen
-                DataField = 'VALOR_TOTAL'
-                DataSource = DtSrcTabela
-                Font.Charset = ANSI_CHARSET
-                Font.Color = clBlack
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-                ReadOnly = True
-                TabOrder = 1
-              end
-            end
           end
         end
       end
       object GrpBxDadosProduto: TGroupBox
         Left = 0
-        Top = 233
+        Top = 225
         Width = 1108
         Height = 116
         Align = alTop
-        Caption = 'Dados do produto'
+        Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
+        DesignSize = (
+          1108
+          116)
         object lblProduto: TLabel
           Left = 88
           Top = 24
-          Width = 42
+          Width = 37
           Height = 13
-          Caption = 'Produto:'
+          Caption = 'C'#243'digo:'
           FocusControl = dbProduto
         end
         object lblQuantidade: TLabel
-          Left = 88
+          Left = 656
           Top = 64
           Width = 60
           Height = 13
@@ -1081,9 +995,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         object lblUnidade: TLabel
           Left = 656
           Top = 24
-          Width = 27
+          Width = 43
           Height = 13
-          Caption = 'Und.:'
+          Caption = 'Unidade:'
           FocusControl = dbUnidade
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -1100,43 +1014,30 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Align = alLeft
           Shape = bsSpacer
         end
-        object lblCustoTotal: TLabel
-          Left = 304
-          Top = 64
-          Width = 83
-          Height = 13
-          Caption = 'Custo Total (R$):'
-          FocusControl = dbCustoTotal
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object lblCustoUn: TLabel
+        object lblProdutoNome: TLabel
           Left = 184
-          Top = 64
-          Width = 76
+          Top = 24
+          Width = 50
           Height = 13
-          Caption = 'Custo Un. (R$):'
-          FocusControl = dbCustoUn
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
+          Caption = 'Descri'#231#227'o:'
+          FocusControl = dbProdutoNome
         end
-        object LblAjuda: TLabel
-          Left = 852
-          Top = 16
-          Width = 237
-          Height = 65
+        object lblCentroCustoItem: TLabel
+          Left = 88
+          Top = 64
+          Width = 162
+          Height = 13
+          Caption = 'Departamento / Centro de Custo:'
+          FocusControl = dbCentroCustoItem
+        end
+        object lblProdutoNaoCadastrado: TLabel
+          Left = 904
+          Top = 96
+          Width = 194
+          Height = 13
           Alignment = taRightJustify
-          Caption = 
-            'IMPORTANTE:'#13#10#13#10'Apenas nas Apropria'#231#245'es Gerais se tem a liberdade' +
-            ' de inserir manualmente'#13#10'os produtos desejados.'
+          Anchors = [akRight, akBottom]
+          Caption = '* Produto/Servi'#231'o n'#227'o cadastrado'
           Font.Charset = ANSI_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -1144,16 +1045,15 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = [fsBold]
           ParentFont = False
           Transparent = True
-          WordWrap = True
         end
         object dbProdutoNome: TDBEdit
           Left = 184
           Top = 40
           Width = 465
           Height = 21
-          TabStop = False
-          Color = clMoneyGreen
-          DataField = 'DESCRI_APRESENTACAO'
+          CharCase = ecUpperCase
+          Color = clWhite
+          DataField = 'ITEM_DESCRICAO'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1161,16 +1061,15 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          ReadOnly = True
           TabOrder = 2
         end
         object dbQuantidade: TDBEdit
-          Left = 88
+          Left = 656
           Top = 80
           Width = 89
           Height = 21
           Color = clWhite
-          DataField = 'QTDE'
+          DataField = 'QUANTIDADE'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1178,26 +1077,8 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
           OnExit = ControlEditExit
-        end
-        object dbUnidade: TDBEdit
-          Left = 656
-          Top = 40
-          Width = 57
-          Height = 21
-          TabStop = False
-          Color = clMoneyGreen
-          DataField = 'UNP_SIGLA'
-          DataSource = DtSrcTabelaItens
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 3
         end
         object pnlBotoesProduto: TPanel
           Left = 6
@@ -1216,11 +1097,10 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 0
           object btnProdutoInserir: TBitBtn
             Left = 0
-            Top = 0
+            Top = 1
             Width = 70
             Height = 25
             Hint = 'Inserir Produto'
-            Align = alTop
             Caption = 'Inserir'
             Enabled = False
             Glyph.Data = {
@@ -1286,7 +1166,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             Width = 70
             Height = 25
             Hint = 'Editar Produto'
-            Align = alTop
             Caption = 'Editar'
             Enabled = False
             Glyph.Data = {
@@ -1352,7 +1231,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             Width = 70
             Height = 25
             Hint = 'Excluir Produto'
-            Align = alBottom
             Caption = 'Excluir'
             Enabled = False
             Glyph.Data = {
@@ -1414,11 +1292,10 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
           object btnProdutoSalvar: TBitBtn
             Left = 0
-            Top = 74
+            Top = 73
             Width = 70
             Height = 25
             Hint = 'Salvar Produto'
-            Align = alBottom
             Caption = 'Salvar'
             Enabled = False
             Glyph.Data = {
@@ -1479,40 +1356,24 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             OnClick = btnProdutoSalvarClick
           end
         end
-        object dbCustoTotal: TDBEdit
-          Left = 304
-          Top = 80
-          Width = 113
-          Height = 21
-          Color = clMoneyGreen
-          DataField = 'CUSTO_TOTAL'
-          DataSource = DtSrcTabelaItens
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 6
-          OnExit = ControlEditExit
-        end
-        object dbCustoUn: TDBEdit
-          Left = 184
-          Top = 80
-          Width = 113
+        object dbUnidade: TDBLookupComboBox
+          Left = 656
+          Top = 40
+          Width = 153
           Height = 21
           Color = clWhite
-          DataField = 'CUSTO_UNITARIO'
+          DataField = 'UNIDADE'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          KeyField = 'UNP_COD'
+          ListField = 'UNP_DESCRICAO'
+          ListSource = dtsUnidade
           ParentFont = False
-          TabOrder = 5
-          OnExit = ControlEditExit
+          TabOrder = 3
         end
         object dbProduto: TJvDBComboEdit
           Left = 88
@@ -1523,7 +1384,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clWhite
-          DataField = 'PRODUTO'
+          DataField = 'ITEM_CODIGO'
           DataSource = DtSrcTabelaItens
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1589,12 +1450,87 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           OnButtonClick = dbProdutoButtonClick
           OnExit = ControlEditExit
         end
+        object dbCentroCustoItem: TJvDBComboEdit
+          Left = 88
+          Top = 80
+          Width = 561
+          Height = 21
+          ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'CENTRO_CUSTO_NOME'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 4
+          OnButtonClick = dbCentroCustoSelecionar
+        end
       end
       object dbgProdutos: TDBGrid
         Left = 0
-        Top = 353
+        Top = 345
         Width = 1108
-        Height = 90
+        Height = 146
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -1616,7 +1552,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         Columns = <
           item
             Expanded = False
-            FieldName = 'ITEM'
+            FieldName = 'SEQ'
             Title.Alignment = taCenter
             Title.Caption = '#'
             Width = 25
@@ -1624,63 +1560,33 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
           item
             Expanded = False
-            FieldName = 'PRODUTO'
+            FieldName = 'ITEM_CODIGO'
             Title.Caption = 'Codigo'
-            Width = 70
+            Width = 80
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'DESCRI_APRESENTACAO'
-            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o'
-            Width = 400
+            FieldName = 'ITEM_DESCRICAO'
+            Width = 450
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'QTDE'
-            Width = 70
+            FieldName = 'CENTRO_CUSTO_NOME'
+            Width = 300
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QUANTIDADE'
+            Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UNP_DESCRICAO'
             Title.Caption = 'Unidade'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'CUSTO_UNITARIO'
-            Title.Caption = 'Custo Un. (R$)'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'CUSTO_TOTAL'
-            Title.Caption = 'Custo Total (R$)'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'FRACIONADOR'
-            Title.Caption = 'Fracionador'
-            Width = 80
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTDE_FRACIONADA'
-            Title.Caption = 'Qtde. Frac.'
-            Width = 80
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'UNIDADE_FRACIONADA'
-            Title.Caption = 'Und. Fracionada'
             Width = 100
             Visible = True
           end>
@@ -1701,17 +1607,11 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ExplicitLeft = 1112
     end
     object Bevel12: TBevel [5]
-      Left = 1086
+      Left = 1101
       Top = 2
       Width = 4
       Height = 31
       Shape = bsSpacer
-    end
-    inherited btbtnCancelar: TcxButton
-      TabOrder = 3
-    end
-    inherited btbtnSalvar: TcxButton
-      TabOrder = 4
     end
     inherited btbtnLista: TcxButton
       Visible = True
@@ -1726,15 +1626,15 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       TabOrder = 9
       ExplicitLeft = 913
     end
-    object btnFinalizarLancamento: TcxButton
+    object btnFinalizarSolicitacao: TcxButton
       Tag = 11
-      Left = 553
+      Left = 538
       Top = 0
-      Width = 120
+      Width = 125
       Height = 35
-      Hint = 'Finalizar Lan'#231'amento da Apropria'#231#227'o'
+      Hint = 'Finalizar/Enviar Solicita'#231#227'o'
       Align = alRight
-      Caption = 'Finalizar Lanc.'
+      Caption = 'Finalizar / Enviar'
       Enabled = False
       OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
@@ -1791,17 +1691,17 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
-      OnClick = btnFinalizarLancamentoClick
+      OnClick = btnFinalizarSolicitacaoClick
     end
-    object btnEncerrarApropriacao: TcxButton
+    object btnAprovarSolicitacao: TcxButton
       Tag = 12
-      Left = 673
+      Left = 663
       Top = 0
-      Width = 120
+      Width = 125
       Height = 35
-      Hint = 'Encerrar Apropria'#231#227'o de Estoque'
+      Hint = 'Aprovar Solicita'#231#227'o'
       Align = alRight
-      Caption = 'Encerrar'
+      Caption = 'Aprovar Solicita'#231#227'o'
       Enabled = False
       OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
@@ -1858,17 +1758,17 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ParentShowHint = False
       ShowHint = True
       TabOrder = 7
-      OnClick = btnEncerrarApropriacaoClick
+      OnClick = btnAprovarSolicitacaoClick
     end
-    object btnCancelarApropriacao: TcxButton
+    object btnCancelarSolicitacao: TcxButton
       Tag = 13
-      Left = 793
+      Left = 788
       Top = 0
-      Width = 120
+      Width = 125
       Height = 35
-      Hint = 'Cancelar Apropria'#231#227'o selecionada'
+      Hint = 'Cancelar Solicita'#231#227'o selecionada'
       Align = alRight
-      Caption = 'Cancelar Aprop.'
+      Caption = 'Cancelar Solicita'#231#227'o'
       Enabled = False
       OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
@@ -1925,7 +1825,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ParentShowHint = False
       ShowHint = True
       TabOrder = 8
-      OnClick = btnCancelarApropriacaoClick
+      OnClick = btnCancelarSolicitacaoClick
     end
   end
   inherited IbDtstTabela: TIBDataSet
@@ -1934,362 +1834,424 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
-      '    a.ano'
-      '  , a.controle'
-      '  , a.numero'
-      '  , a.empresa'
-      '  , a.centro_custo'
-      '  , a.tipo'
-      '  , a.compra_ano'
-      '  , a.compra_num'
-      '  , a.compra_emp'
-      '  , a.autorizacao_ano'
-      '  , a.autorizacao_num'
-      '  , a.autorizacao_emp'
-      '  , a.insercao_data'
-      '  , a.data_apropriacao'
-      '  , a.competencia'
-      '  , a.usuario'
-      '  , a.status'
-      '  , a.motivo'
-      '  , a.obs'
-      '  , a.valor_total'
-      '  , a.cancel_usuario'
-      '  , a.cancel_datahora'
-      '  , a.cancel_motivo'
-      ''
+      '    s.ano'
+      '  , s.codigo'
+      '  , s.numero'
+      '  , s.tipo'
+      '  , s.empresa'
+      '  , s.centro_custo'
+      '  , s.nome_solicitante'
+      '  , s.objeto_solicitacao'
+      '  , s.movito'
+      '  , s.observacao'
+      '  , s.data_emissao'
+      '  , s.validade'
+      '  , s.competencia'
+      '  , s.insercao_data'
+      '  , s.insercao_usuario'
+      '  , s.status'
+      '  , s.aprovacao_data'
+      '  , s.aprovacao_usuario'
+      '  , s.cancelado_data'
+      '  , s.cancelado_usuario'
+      '  , s.cancelado_motivo'
+      '  , s.log_evento'
       
-        '  , (Select count(ai.item) from TBAPROPRIACAO_ALMOX_ITEM ai WHER' +
-        'E ai.ano = a.ano and ai.controle = a.controle) as Itens'
-      ''
-      '  , e.rzsoc     as empresa_nome'
-      '  , c.descricao as cc_descricao'
-      '  , c.codcliente as cc_cliente_codigo'
-      '  , ci.nome     as cc_cliente_nome'
-      '  , ci.cnpj     as cc_cliente_cnpj'
-      '  , ci.pessoa_fisica as cc_cliente_tipo'
-      ''
-      '  , a.compra_ano || '#39'/'#39' || lpad(a.compra_num, 7, '#39'0'#39') as entrada'
-      
-        '  , a.autorizacao_ano || '#39'/'#39' || lpad(a.autorizacao_num, 7, '#39'0'#39') ' +
-        'as autorizacao'
-      'from TBAPROPRIACAO_ALMOX a'
-      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
-      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)')
-    GeneratorField.Field = 'NUMERO'
-    GeneratorField.Generator = 'GEN_REQUISICAO_2013'
-    Top = 512
+        '  , (Select count(x.seq) from TBSOLICITACAO_ITEM x WHERE x.ano =' +
+        ' s.ano and x.codigo = s.codigo) as itens'
+      '  , c.descricao as centro_custo_nome'
+      'from TBSOLICITACAO s'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = s.centro_custo)')
+    GeneratorField.Field = 'CODIGO'
+    GeneratorField.Generator = 'GEN_SOLICITACAO_2015'
+    Left = 680
+    Top = 432
     object IbDtstTabelaANO: TSmallintField
       DisplayLabel = 'Ano'
       FieldName = 'ANO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."ANO"'
+      Origin = '"TBSOLICITACAO"."ANO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object IbDtstTabelaCONTROLE: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'Controle'
-      FieldName = 'CONTROLE'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CONTROLE"'
+    object IbDtstTabelaCODIGO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = '"TBSOLICITACAO"."CODIGO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
       DisplayFormat = '###0000000'
     end
     object IbDtstTabelaNUMERO: TIBStringField
       DisplayLabel = 'N'#250'mero'
       FieldName = 'NUMERO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."NUMERO"'
+      Origin = '"TBSOLICITACAO"."NUMERO"'
       ProviderFlags = [pfInUpdate]
-      Required = True
+    end
+    object IbDtstTabelaTIPO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = '"TBSOLICITACAO"."TIPO"'
+      ProviderFlags = [pfInUpdate]
+      OnGetText = IbDtstTabelaTIPOGetText
     end
     object IbDtstTabelaEMPRESA: TIBStringField
       DisplayLabel = 'Empresa'
       FieldName = 'EMPRESA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."EMPRESA"'
+      Origin = '"TBSOLICITACAO"."EMPRESA"'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 18
     end
     object IbDtstTabelaCENTRO_CUSTO: TIntegerField
-      DisplayLabel = 'Centro de Custo / Departamento'
+      DisplayLabel = 'Departamento / Centro de Custo'
       FieldName = 'CENTRO_CUSTO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CENTRO_CUSTO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaTIPO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo Apropria'#231#227'o'
-      FieldName = 'TIPO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      OnGetText = IbDtstTabelaTIPOGetText
-    end
-    object IbDtstTabelaCOMPRA_ANO: TSmallintField
-      DisplayLabel = 'Entrada - Ano'
-      FieldName = 'COMPRA_ANO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."COMPRA_ANO"'
+      Origin = '"TBSOLICITACAO"."CENTRO_CUSTO"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaCOMPRA_NUM: TIntegerField
-      DisplayLabel = 'Entrada - N'#250'mero'
-      FieldName = 'COMPRA_NUM'
-      Origin = '"TBAPROPRIACAO_ALMOX"."COMPRA_NUM"'
+    object IbDtstTabelaNOME_SOLICITANTE: TIBStringField
+      DisplayLabel = 'Solicitante'
+      FieldName = 'NOME_SOLICITANTE'
+      Origin = '"TBSOLICITACAO"."NOME_SOLICITANTE"'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object IbDtstTabelaOBJETO_SOLICITACAO: TMemoField
+      DisplayLabel = 'Objeto'
+      FieldName = 'OBJETO_SOLICITACAO'
+      Origin = '"TBSOLICITACAO"."OBJETO_SOLICITACAO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaMOVITO: TMemoField
+      DisplayLabel = 'Motivo'
+      FieldName = 'MOVITO'
+      Origin = '"TBSOLICITACAO"."MOVITO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaOBSERVACAO: TMemoField
+      DisplayLabel = 'Observa'#231#245'es'
+      FieldName = 'OBSERVACAO'
+      Origin = '"TBSOLICITACAO"."OBSERVACAO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaDATA_EMISSAO: TDateField
+      DisplayLabel = 'Data de Emiss'#227'o'
+      FieldName = 'DATA_EMISSAO'
+      Origin = '"TBSOLICITACAO"."DATA_EMISSAO"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaCOMPRA_EMP: TIBStringField
-      DisplayLabel = 'Entrada - Empresa'
-      FieldName = 'COMPRA_EMP'
-      Origin = '"TBAPROPRIACAO_ALMOX"."COMPRA_EMP"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object IbDtstTabelaAUTORIZACAO_ANO: TSmallintField
-      FieldName = 'AUTORIZACAO_ANO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."AUTORIZACAO_ANO"'
+    object IbDtstTabelaVALIDADE: TDateField
+      DisplayLabel = 'Data de Validade'
+      FieldName = 'VALIDADE'
+      Origin = '"TBSOLICITACAO"."VALIDADE"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaAUTORIZACAO_NUM: TIntegerField
-      FieldName = 'AUTORIZACAO_NUM'
-      Origin = '"TBAPROPRIACAO_ALMOX"."AUTORIZACAO_NUM"'
+    object IbDtstTabelaCOMPETENCIA: TIntegerField
+      DisplayLabel = 'ompet'#234'ncia'
+      FieldName = 'COMPETENCIA'
+      Origin = '"TBSOLICITACAO"."COMPETENCIA"'
       ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaAUTORIZACAO_EMP: TIBStringField
-      FieldName = 'AUTORIZACAO_EMP'
-      Origin = '"TBAPROPRIACAO_ALMOX"."AUTORIZACAO_EMP"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
     end
     object IbDtstTabelaINSERCAO_DATA: TDateTimeField
       FieldName = 'INSERCAO_DATA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."INSERCAO_DATA"'
+      Origin = '"TBSOLICITACAO"."INSERCAO_DATA"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaDATA_APROPRIACAO: TDateField
-      DisplayLabel = 'Data da Apropria'#231#227'o'
-      FieldName = 'DATA_APROPRIACAO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."DATA_APROPRIACAO"'
+    object IbDtstTabelaINSERCAO_USUARIO: TIBStringField
+      FieldName = 'INSERCAO_USUARIO'
+      Origin = '"TBSOLICITACAO"."INSERCAO_USUARIO"'
       ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaCOMPETENCIA: TIntegerField
-      FieldName = 'COMPETENCIA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."COMPETENCIA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 12
     end
     object IbDtstTabelaSTATUS: TSmallintField
       Alignment = taLeftJustify
+      DisplayLabel = 'Situa'#231#227'o'
       FieldName = 'STATUS'
-      Origin = '"TBAPROPRIACAO_ALMOX"."STATUS"'
+      Origin = '"TBSOLICITACAO"."STATUS"'
       ProviderFlags = [pfInUpdate]
-      Required = True
       OnGetText = IbDtstTabelaSTATUSGetText
     end
-    object IbDtstTabelaMOTIVO: TMemoField
-      DisplayLabel = 'Motivo'
-      FieldName = 'MOTIVO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."MOTIVO"'
+    object IbDtstTabelaAPROVACAO_DATA: TDateField
+      FieldName = 'APROVACAO_DATA'
+      Origin = '"TBSOLICITACAO"."APROVACAO_DATA"'
       ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
     end
-    object IbDtstTabelaOBS: TMemoField
-      DisplayLabel = 'Observa'#231#245'es'
-      FieldName = 'OBS'
-      Origin = '"TBAPROPRIACAO_ALMOX"."OBS"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaVALOR_TOTAL: TIBBCDField
-      FieldName = 'VALOR_TOTAL'
-      Origin = '"TBAPROPRIACAO_ALMOX"."VALOR_TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaCANCEL_USUARIO: TIBStringField
-      FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_USUARIO"'
+    object IbDtstTabelaAPROVACAO_USUARIO: TIBStringField
+      FieldName = 'APROVACAO_USUARIO'
+      Origin = '"TBSOLICITACAO"."APROVACAO_USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 12
     end
-    object IbDtstTabelaCANCEL_DATAHORA: TDateTimeField
-      FieldName = 'CANCEL_DATAHORA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_DATAHORA"'
+    object IbDtstTabelaCANCELADO_DATA: TDateField
+      FieldName = 'CANCELADO_DATA'
+      Origin = '"TBSOLICITACAO"."CANCELADO_DATA"'
       ProviderFlags = [pfInUpdate]
     end
-    object IbDtstTabelaCANCEL_MOTIVO: TMemoField
-      FieldName = 'CANCEL_MOTIVO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_MOTIVO"'
+    object IbDtstTabelaCANCELADO_USUARIO: TIBStringField
+      FieldName = 'CANCELADO_USUARIO'
+      Origin = '"TBSOLICITACAO"."CANCELADO_USUARIO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 12
+    end
+    object IbDtstTabelaCANCELADO_MOTIVO: TMemoField
+      FieldName = 'CANCELADO_MOTIVO'
+      Origin = '"TBSOLICITACAO"."CANCELADO_MOTIVO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaLOG_EVENTO: TMemoField
+      FieldName = 'LOG_EVENTO'
+      Origin = '"TBSOLICITACAO"."LOG_EVENTO"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
     end
     object IbDtstTabelaITENS: TIntegerField
-      DisplayLabel = 'Produto(s)'
+      DisplayLabel = 'Itens'
       FieldName = 'ITENS'
       ProviderFlags = []
-      Required = True
     end
-    object IbDtstTabelaEMPRESA_NOME: TIBStringField
-      FieldName = 'EMPRESA_NOME'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      ProviderFlags = []
-      Size = 60
-    end
-    object IbDtstTabelaCC_DESCRICAO: TIBStringField
-      FieldName = 'CC_DESCRICAO'
+    object IbDtstTabelaCENTRO_CUSTO_NOME: TIBStringField
+      DisplayLabel = 'Departamento / Centro de Custo'
+      FieldName = 'CENTRO_CUSTO_NOME'
       Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
       ProviderFlags = []
       Size = 100
     end
-    object IbDtstTabelaCC_CLIENTE_CODIGO: TIntegerField
-      FieldName = 'CC_CLIENTE_CODIGO'
-      Origin = '"TBCENTRO_CUSTO"."CODCLIENTE"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaCC_CLIENTE_NOME: TIBStringField
-      FieldName = 'CC_CLIENTE_NOME'
-      Origin = '"TBCLIENTE"."NOME"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaCC_CLIENTE_CNPJ: TIBStringField
-      FieldName = 'CC_CLIENTE_CNPJ'
-      Origin = '"TBCLIENTE"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object IbDtstTabelaCC_CLIENTE_TIPO: TSmallintField
-      FieldName = 'CC_CLIENTE_TIPO'
-      Origin = '"TBCLIENTE"."PESSOA_FISICA"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaENTRADA: TIBStringField
-      DisplayLabel = 'Entrada'
-      FieldName = 'ENTRADA'
-      ProviderFlags = []
-      Size = 14
-    end
-    object IbDtstTabelaAUTORIZACAO: TIBStringField
-      DisplayLabel = 'Autoriza'#231#227'o'
-      FieldName = 'AUTORIZACAO'
-      ProviderFlags = []
-      Size = 14
-    end
   end
   inherited DtSrcTabela: TDataSource
-    OnDataChange = DtSrcTabelaDataChange
-    Top = 512
+    Left = 744
+    Top = 432
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
-      '  CONTROLE,'
+      '  CODIGO,'
       '  NUMERO,'
+      '  TIPO,'
       '  EMPRESA,'
       '  CENTRO_CUSTO,'
-      '  TIPO,'
-      '  COMPRA_ANO,'
-      '  COMPRA_NUM,'
-      '  COMPRA_EMP,'
-      '  AUTORIZACAO_ANO,'
-      '  AUTORIZACAO_NUM,'
-      '  AUTORIZACAO_EMP,'
-      '  INSERCAO_DATA,'
-      '  DATA_APROPRIACAO,'
+      '  NOME_SOLICITANTE,'
+      '  OBJETO_SOLICITACAO,'
+      '  MOVITO,'
+      '  OBSERVACAO,'
+      '  DATA_EMISSAO,'
+      '  VALIDADE,'
       '  COMPETENCIA,'
-      '  USUARIO,'
+      '  INSERCAO_DATA,'
+      '  INSERCAO_USUARIO,'
       '  STATUS,'
-      '  MOTIVO,'
-      '  OBS,'
-      '  VALOR_TOTAL,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO'
-      'from TBAPROPRIACAO_ALMOX '
+      '  APROVACAO_DATA,'
+      '  APROVACAO_USUARIO,'
+      '  CANCELADO_DATA,'
+      '  CANCELADO_USUARIO,'
+      '  CANCELADO_MOTIVO,'
+      '  LOG_EVENTO'
+      'from TBSOLICITACAO '
       'where'
       '  ANO = :ANO and'
-      '  CONTROLE = :CONTROLE')
+      '  CODIGO = :CODIGO')
     ModifySQL.Strings = (
-      'update TBAPROPRIACAO_ALMOX'
+      'update TBSOLICITACAO'
       'set'
       '  ANO = :ANO,'
-      '  AUTORIZACAO_ANO = :AUTORIZACAO_ANO,'
-      '  AUTORIZACAO_EMP = :AUTORIZACAO_EMP,'
-      '  AUTORIZACAO_NUM = :AUTORIZACAO_NUM,'
-      '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
-      '  CANCEL_USUARIO = :CANCEL_USUARIO,'
+      '  APROVACAO_DATA = :APROVACAO_DATA,'
+      '  APROVACAO_USUARIO = :APROVACAO_USUARIO,'
+      '  CANCELADO_DATA = :CANCELADO_DATA,'
+      '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
+      '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
       '  CENTRO_CUSTO = :CENTRO_CUSTO,'
+      '  CODIGO = :CODIGO,'
       '  COMPETENCIA = :COMPETENCIA,'
-      '  COMPRA_ANO = :COMPRA_ANO,'
-      '  COMPRA_EMP = :COMPRA_EMP,'
-      '  COMPRA_NUM = :COMPRA_NUM,'
-      '  CONTROLE = :CONTROLE,'
-      '  DATA_APROPRIACAO = :DATA_APROPRIACAO,'
+      '  DATA_EMISSAO = :DATA_EMISSAO,'
       '  EMPRESA = :EMPRESA,'
       '  INSERCAO_DATA = :INSERCAO_DATA,'
-      '  MOTIVO = :MOTIVO,'
+      '  INSERCAO_USUARIO = :INSERCAO_USUARIO,'
+      '  LOG_EVENTO = :LOG_EVENTO,'
+      '  MOVITO = :MOVITO,'
+      '  NOME_SOLICITANTE = :NOME_SOLICITANTE,'
       '  NUMERO = :NUMERO,'
-      '  OBS = :OBS,'
+      '  OBJETO_SOLICITACAO = :OBJETO_SOLICITACAO,'
+      '  OBSERVACAO = :OBSERVACAO,'
       '  STATUS = :STATUS,'
       '  TIPO = :TIPO,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_TOTAL = :VALOR_TOTAL'
+      '  VALIDADE = :VALIDADE'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE')
+      '  CODIGO = :OLD_CODIGO')
     InsertSQL.Strings = (
-      'insert into TBAPROPRIACAO_ALMOX'
+      'insert into TBSOLICITACAO'
       
-        '  (ANO, AUTORIZACAO_ANO, AUTORIZACAO_EMP, AUTORIZACAO_NUM, CANCE' +
-        'L_DATAHORA, '
+        '  (ANO, APROVACAO_DATA, APROVACAO_USUARIO, CANCELADO_DATA, CANCE' +
+        'LADO_MOTIVO, '
       
-        '   CANCEL_MOTIVO, CANCEL_USUARIO, CENTRO_CUSTO, COMPETENCIA, COM' +
-        'PRA_ANO, '
+        '   CANCELADO_USUARIO, CENTRO_CUSTO, CODIGO, COMPETENCIA, DATA_EM' +
+        'ISSAO, '
       
-        '   COMPRA_EMP, COMPRA_NUM, CONTROLE, DATA_APROPRIACAO, EMPRESA, ' +
-        'INSERCAO_DATA, '
-      '   MOTIVO, NUMERO, OBS, STATUS, TIPO, USUARIO, VALOR_TOTAL)'
+        '   EMPRESA, INSERCAO_DATA, INSERCAO_USUARIO, LOG_EVENTO, MOVITO,' +
+        ' NOME_SOLICITANTE, '
+      
+        '   NUMERO, OBJETO_SOLICITACAO, OBSERVACAO, STATUS, TIPO, VALIDAD' +
+        'E)'
       'values'
       
-        '  (:ANO, :AUTORIZACAO_ANO, :AUTORIZACAO_EMP, :AUTORIZACAO_NUM, :' +
-        'CANCEL_DATAHORA, '
+        '  (:ANO, :APROVACAO_DATA, :APROVACAO_USUARIO, :CANCELADO_DATA, :' +
+        'CANCELADO_MOTIVO, '
       
-        '   :CANCEL_MOTIVO, :CANCEL_USUARIO, :CENTRO_CUSTO, :COMPETENCIA,' +
-        ' :COMPRA_ANO, '
+        '   :CANCELADO_USUARIO, :CENTRO_CUSTO, :CODIGO, :COMPETENCIA, :DA' +
+        'TA_EMISSAO, '
       
-        '   :COMPRA_EMP, :COMPRA_NUM, :CONTROLE, :DATA_APROPRIACAO, :EMPR' +
-        'ESA, :INSERCAO_DATA, '
+        '   :EMPRESA, :INSERCAO_DATA, :INSERCAO_USUARIO, :LOG_EVENTO, :MO' +
+        'VITO, :NOME_SOLICITANTE, '
       
-        '   :MOTIVO, :NUMERO, :OBS, :STATUS, :TIPO, :USUARIO, :VALOR_TOTA' +
-        'L)')
+        '   :NUMERO, :OBJETO_SOLICITACAO, :OBSERVACAO, :STATUS, :TIPO, :V' +
+        'ALIDADE)')
     DeleteSQL.Strings = (
-      'delete from TBAPROPRIACAO_ALMOX'
+      'delete from TBSOLICITACAO'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE')
-    Top = 512
+      '  CODIGO = :OLD_CODIGO')
+    Left = 712
+    Top = 432
   end
   inherited ImgList: TImageList
-    Left = 912
-    Top = 176
+    Left = 896
+    Top = 352
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
-      000000000000360000002800000040000000B0000000010020000000000000B0
+      494C01012F003100100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      000000000000360000002800000040000000C0000000010020000000000000C0
+      0000000000000000000000000000000000000000000000000000000000004A5B
+      6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B
+      5F003242560032425600324256002C3C50000000000000000000000000006349
+      3500634935006349350063493500634935006349350063493500634935006349
+      3500634935006349350063493500634935000000000000000000000000003545
+      5900354559003545590035455900354559003545590035455900354559003545
+      5900354559003545590035455900354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000008292A3007D8D9E007D8D
+      9E00768799007687990071829400718294006A7B8E006A7B8E006A7B8E006273
+      8600627386005D6F83005D6F83002C3C5000000000000000000000000000B7A2
+      9300FAE2D200DFB89E00E0B69900E2B49500E2B19100E4AF8C00E5AD8800E6AB
+      8400E7A77F00E8A57A00EBA3770063493500000000000000000000000000909F
+      AE00D9DFE500A7B4C000A5B2BF00A2AFBC00A0ADBA009CAAB8009AA8B60098A6
+      B40093A2B100909FAE008F9EAD00354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000057697D008292A300EBEFF200E9ED
+      F000E7EBEE00E6EAEE00E4E9ED00E1E6EA00E0E5E900DEE4E900DDE3E800DBE1
+      E600DAE0E500DAE0E5005D6F83002C3C5000000000000000000000000000B9A4
+      9500FBE6DA00FBE7DA00FBE6D900FAE5D800FBE4D600FBE2D300F9E0D000F8DD
+      CC00F9DBC900F8DAC700E9A47B006349350000000000000000000000000092A1
+      B000DEE4E900E0E5E900DEE4E900DDE3E800DCE2E700DAE0E500D7DEE400D3DA
+      E000D2D9E000CFD7DE00909FAE00354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000057697D008797A700EEF1F300EBEF
+      F200E9EDF000E7EBEE00E6EAEE00E4E9ED00E1E6EA00E0E5E900DDE3E800DDE3
+      E800DCE2E700DAE0E5006273860032425600000000000000000000000000BBA6
+      9600FBECE200D6AE9000D6AE9000D6AE9000D6AE9000FAE7DA00D6AE9000D6AE
+      9000D6AE9000F8DBCA00E7A780006349350000000000000000000000000095A3
+      B200E6EAEE009BA9B7009BA9B7009BA9B7009BA9B700E0E5E9009BA9B7009BA9
+      B7009BA9B700D2D9E00093A2B100354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000005D6F83008C9BAB00F0F3F500EEF1
+      F300EBEFF200EAEEF100E9EDF000E6EAEE008D9CAC0033435700334357003343
+      570033435700DCE2E7006273860032425600000000000000000000000000BEA8
+      9900FDF0E800FDF0E900FDF0E800FCEFE700FCEDE500FBEBE100D6AE9000FAE5
+      D700D6AE9000F9DECE00E6AC85006349350000000000000000000000000098A6
+      B400EBEFF200EBEFF200EBEFF200EAEEF100E8ECEF00E4E9ED009BA9B700DDE3
+      E8009BA9B700D5DCE20098A6B400354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000006475880092A1B000F3F5F6007384
+      960033435700334357003343570033435700415266008B9AAA006A7B8E006677
+      8A003A4B5F00DDE3E8006A7B8E003A4B5F00187639000C6F32000D6C33000E68
+      320011633300125D33001457330016523300184C330019483400FCECE200FBE8
+      DD00D6AE9000FAE1D200E4AE8A006349350048596D00405165003F5064003C4D
+      61003A4B5F0036475B0034445800314155002E3E52002C3C5000E6EAEE00E1E6
+      EA009BA9B700D9DFE5009BA9B700354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000006A7B8E009AA8B600F4F6F700F1F4
+      F600738496008797A700738496004152660099A7B5006A7B8E0066778A003A4B
+      5F008D9CAC00DEE4E9006A7B8E003A4B5F00207C3E0000000000000000000000
+      00000000000000000000000000000000000000000000174C3400FCEFE800FCEC
+      E200FBE8DC00FAE4D600E3B18F00634935004C5E720000000000000000000000
+      000000000000000000000000000000000000000000002E3E5200EAEEF100E6EA
+      EE00E1E6EA00DCE2E7009EACBA00354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000007182940099A7B500F6F8F900F5F7
+      F800F3F5F60073849600526478009AA8B6006A7B8E0066778A003A4B5F007182
+      940071829400E1E6EA006A7B8E003A4B5F002B84450000000000000000000000
+      00000000000085A987001D6F3800195D34005B7D5F0016513300D6AE9000D6AE
+      9000D6AE9000FBE6DA00E2B395006349350055677B0000000000000000000000
+      0000000000008B9AAA004455690037485C005F708400314155009BA9B7009BA9
+      B7009BA9B700DEE4E900A2AFBC00354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000076879900A7B4C000F9FAFA00F6F8
+      F900F5F7F80052647800A7B4C0007C8C9D00738496004A5B6F002F3F5300E7EB
+      EE00E4E9ED00E3E8EC007182940043546800388E4E008BBD90001E763B001D6E
+      39001A6235008BBD90003E9247001D673A009FB3A10014573300FDF4EF00FDF1
+      EA00D6AE9000FBE9DD00E0B6990063493500607184009BA9B700495A6E004354
+      68003B4C60009BA9B70060718400405165009DABB90034445800F0F3F500EDF0
+      F2009BA9B700E2E7EB00A5B2BF00354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000007D8D9E00A7B4C000FBFCFC00F9FA
+      FA0061728500B2BDC8008B9AAA007C8C9D005A6C800073849600526478002F3F
+      5300E7EBEE00E6EAEE00718294004354680046985700000000008BBD9000519E
+      570091C4960057A25A0021703A006C9B6F00DFE9DF00135D3300D6AE9000D6AE
+      9000D6AE9000FBEADF00DEB89D00634935006A7B8E00000000009BA9B7006E7F
+      9100A3B0BD007283950045566A0077889A00DEE4E90037485C009BA9B7009BA9
+      B7009BA9B700E3E8EC00A7B4C000354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000008292A300B2BDC800FBFCFC006677
+      8A00BCC6D000909FAE00909FAE006A7B8E00607184008494A500738496005264
+      78002F3F5300E7EBEE00768799004A5B6F0053A2600000000000CFDDCF0096C6
+      9A0057A25A00267C390027673100C0D1C0000000000010623300FEF8F300FDF4
+      EF00D6AE9000FCECE100DDBAA100634935007485970000000000CFD7DE00A6B3
+      C000728395004C5E72003E4F6300BFC9D20000000000394A5E00F5F7F800F0F3
+      F5009BA9B700E6EAEE00AAB6C200354559000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000008797A700B2BDC800FDFEFE008494
+      A5007F8FA0007F8FA0006F809200F5F7F800F3F5F60060718400607184006071
+      840060718400EAEEF100768799004A5B6F005EAA6600E5ECE5008DC4930064AC
+      6900348941006FA5730057A060003A884600D6E2D6000E683200D6AE9000D6AE
+      9000D6AE9000DCBCA500DDBBA400644A36007D8D9E00E4E9ED00A2AFBC007F8F
+      A00057697D007F8FA00073849600596B7F00D6DDE3003C4D61009BA9B7009BA9
+      B7009BA9B700ACB8C400ABB7C30036465A000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000008C9BAB00BCC6D000FDFEFE00FCFD
+      FD00FCFDFD00FBFCFC00F9FAFA00F7F9FA00F5F7F800F4F6F700F1F4F600F0F3
+      F500EEF1F300EBEFF2007D8D9E000000000066B06C008EC293005FA863004797
+      510000000000CBDACC0054985D0054985D009BB09C000D6C3200FDF8F400FDF5
+      EF00B7A29300644A3600644A3600644A36008393A400A1AEBB007B8B9C006778
+      8B0000000000CCD4DB006D7E91006D7E910099A7B5003E4F6300F5F7F800F1F4
+      F600909FAE0036465A0036465A0036465A000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000092A1B000BCC6D000FFFFFF00FFFF
+      FF00FDFEFE00FCFDFD00FBFCFC00F9FAFA00F7F9FA00F6F8F900F4F6F700F1F4
+      F600F0F3F500EEF1F3007D8D9E000000000066B06C0000000000000000000000
+      000000000000000000000000000000000000000000000C6F3200FEF7F400FDF4
+      EF00B9A49500D4C5BA00644A3600000000008393A40000000000000000000000
+      0000000000000000000000000000000000000000000040516500F4F6F700F0F3
+      F50092A1B000B8C3CD0036465A00000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000092A1B000BCC6D000BCC6D000B2BD
+      C800B2BDC800A7B4C000A7B4C000A7B4C00099A7B5009AA8B60092A1B0008C9B
+      AB008797A7008797A7008292A3000000000066B06C0061AD68005AA7640052A1
+      5E00489A59003F935200358C4C002C854600247F41001D7A3D00FEF7F300FDF4
+      ED00C0AB9C00644A360000000000000000008393A4007F8FA0007A8A9C007283
+      95006C7D9000647588005C6E820056687C00506276004C5D7100F4F6F700EFF2
+      F4009AA8B60036465A0000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009AA8B60092A1B0008C9BAB008797
+      A7008292A3007D8D9E0076879900718294006A7B8E0064758800647588005D6F
+      830057697D0057697D000000000000000000000000000000000000000000D8C2
+      B200D7C1B100D6C0B000D4BEAE00D2BDAD00D1BAAB00CFB9AA00CDB6A800CBB6
+      A600CAB4A500000000000000000000000000000000000000000000000000B4BF
+      CA00B3BEC900B2BDC800AFBBC600AEBAC600ACB8C400ABB7C300A7B4C000A6B3
+      C000A5B2BF000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2297,128 +2259,129 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000D6D9D8008080
+      000000000000000000000000000000000000000000000000000000000000336D
+      4700336D4700336D47002C6642002C6642002C664200265D3800265D3800265D
+      38001E5331001E5331001E5331001A4D2A000000000000000000D6D9D8008080
       8000808080008080800080808000808080008080800080808000808080008080
       80008080800080808000A6A6A9000000000000000000000000008F8F8E008F8F
       8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F
       8E008F8F8E008F8F8E008F8F8E000000000000000000000000008F8F8E008F8F
       8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F
-      8E008F8F8E008F8F8E008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      8E008F8F8E008F8F8E008F8F8E0000000000000000006CA67C0066A0770066A0
+      77005F9B72005F9B720058966B0058966B0049935F0049935F0049935F003D8C
+      57003D8C5700358C4F00358C4F001A4D2A000000000000000000808080000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4
       F400F4F4F400F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400F4F4F400F4F4F400F5F5F500F9F9F900F8F8F800F5F5F500F4F4F400F4F4
-      F400F4F4F400F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      F400F4F4F400F4F4F4008F8F8E0000000000417B57006CA67C00EBF3EB00E8F1
+      E800E6F0E600E4EFE400E2EEE300DFECDF00DEEBDE00DCEADD00DCEADB00D9E8
+      D900D8E7D800D8E7D800358C4F001A4D2A000000000000000000808080000000
       0000000000000000000080808000808080000000000000000000000000000000
       00000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400CCCBCA00D5D4D400DCDBDB00E1E1E000E7E7E600EBEBEA00ECECEB00ECEB
       EB00EAE9E900F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400CCCBCA00DBDADA00E9E2DF00BA998C00BD9D9000F6F3F200EDEDEC00ECEB
-      EB00EAE9E900F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      EB00EAE9E900F4F4F4008F8F8E0000000000417B570071AA8100EDF5ED00EBF3
+      EB00EAF1E900E6F0E600E4EFE400E2EEE300DFECDF00DEEBDE00DCEADB00DCEA
+      DB00DAE9DA00D8E7D8003D8C57001E5331000000000000000000808080000000
       0000000000008080800080808000808080008080800000000000000000000000
       00000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400C6C4C200E9E9E900EDEDED00F0F0F000F4F4F400F6F6F600F6F6F600F6F6
       F600E6E6E600F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400CAC8C600F0ECEA00BB998B00975F4A0098614C00D1B9B000F9F9F900F6F6
-      F600E6E6E600F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      F600E6E6E600F4F4F4008F8F8E000000000047815D0076AF8500EFF6EF00EDF5
+      ED00EBF3EB00E9F2E900E8F1E800E4EFE40081AA8D002C5230002C5230002C52
+      30002C523000DAE9DA003D8C57001E5331000000000000000000808080000000
       00008080800080808000FFFFFF00FFFFFF008080800080808000D0C0C0000000
       00000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400C2BFBC00E5E4E300E9E9E900EDEDED00F2F2F200F4F4F400F5F5F500F4F4
       F400E2E2E100F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400D1CFCD00E9E1DE00955D4800965F490097604B00A4736100FAF9F800F4F4
-      F400E2E2E100F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      F400E2E2E100F4F4F4008F8F8E00000000004D8762007CB58A00F3F8F30055A4
+      5A002C5230002C5230002C5230002C5230001D781E006DB6750049935F004B96
+      4D00265D3800DCEADB0049935F00265D38000000000000000000808080000000
       000080808000FFFFFF00FFFFFF0000000000FFFFFF0080808000808080000000
       00000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400BFBBB800E1DFDD00E5E5E400EAEAEA00EFEFEF00F2F2F200F2F2F200F2F2
       F200DEDDDC00F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400E1E0DE00AA7F6E00945C4700E2D4CF00A778670097604B00D5BFB700F6F6
-      F600DEDDDC00F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      F600DEDDDC00F4F4F4008F8F8E0000000000558E670081BC9000F4F9F400F1F7
+      F10055A45A0063B2760055A45A001D781E007CC1850049935F004B964D00265D
+      380081AA8D00DCEADD0049935F00265D38000000000000000000808080000000
       000000000000FFFFFF00000000000000000000000000FFFFFF00808080008080
       80000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400BCB7B200DCD8D500DFDCDA00E3E1E000E8E8E800ECECEC00EDEDED00EDED
       ED00D6D5D400F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400CDC9C500DDCFC900C8AEA300EEEEED00D5C1BA00965E4900A5766400F8F8
-      F800D6D5D500F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      F800D6D5D500F4F4F4008F8F8E000000000058966B008AB79500F6FAF600F5F9
+      F500F3F8F30055A45A003287350081BC900049935F004B964D00265D38006199
+      640061996400DFECDF0049935F00265D38000000000000000000808080000000
       0000000000000000000000000000000000000000000000000000FFFFFF008080
       80008080800000000000808080000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00D7D1CD00D9D4D000DBD7D400DFDDDB00E3E2E100E6E6E500E8E8
       E800CDCDCC00F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00DDD9D500E5E2DF00DCD8D500F4F3F200A1715E00945C4700D6C3
-      BC00DCDCDB00F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      BC00DCDCDB00F4F4F4008F8F8E00000000005F9B720094C79C00F9FBFA00F6FA
+      F600F5F9F5003287350094C79C005CAA650055A45A00336D470004690400E6F0
+      E600E2EEE300E1EDE10058966B002C6642000000000000000000808080000000
       000000000000000000000000000000000000000000000000000000000000FFFF
       FF008080800080808000808080000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00D5CFCB00D5CFCB00D6D1CD00DAD5D200DEDBD800E1DFDD00E4E3
       E200C8C7C600F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00D5CFCB00D5CFCB00D6D1CD00E6E2E000CFB8AF00925A4500A577
-      6500E8E7E700F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      6500E8E7E700F4F4F4008F8F8E000000000066A0770094C79C00FCFDFB00F9FB
+      FA00409347009DD0A7006DB675005CAA65004287490055A45A00328735000469
+      0400E6F0E600E4EFE40058966B002C6642000000000000000000808080000000
       0000000000008080800080808000808080008080800080808000808080008080
       8000FFFFFF0080808000808080000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00D5CFCB00D5CFCB00D5CFCB00D5CFCB00D8D3D000DCD8D500DFDD
       DB00C5C3C100F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00D5CFCB00D5CFCB00D5CFCB00D6D0CC00F1EEED009D6A5700925A
-      4400D0BFB900F6F6F6008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      4400D0BFB900F6F6F6008F8F8E00000000006CA67C009DD0A700FCFDFC004B96
+      4D00AAD6B20073BB7C0073BB7C0049935F0057825A0068B06F0055A45A003287
+      350004690400E6F0E6005F9B7200336D47000000000000000000808080000000
       0000000000008080800000000000000000000000000000000000808080008080
       80000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00B9B3AE00B9B3AE00B9B3AE00B9B3AE00B9B3AE00BAB4AF00BDB9
       B400C1BEBB00F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400B9B3AE00B9B3AE00B9B3AE00B9B3AE00B9B3AE00D0CCC900C0A79D00AB86
-      7700E4DFDC00F5F5F5008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000808080000000
+      7700E4DFDC00F5F5F5008F8F8E000000000071AA81009DD0A700FEFEFE0068B0
+      6F0064AC690064AC6900579A5E00F6F9F600F3F8F30057825A0057825A005782
+      5A0057825A00E9F2E9005F9B7200336D47000000000000000000808080000000
       0000000000000000000080808000808080008080800000000000808080000000
       00000000000000000000808080000000000000000000000000008F8F8E00F4F4
       F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4
       F400F4F4F400F4F4F4008F8F8E000000000000000000000000008F8F8E00F4F4
       F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F4F4F400F8F8F800F9F9
-      F900F6F6F600F4F4F4008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000E2E5E1008080
+      F900F6F6F600F4F4F4008F8F8E000000000076AF8500AAD6B200FEFEFE00FDFE
+      FD00FDFEFD00FCFDFB00F9FBFA00F8FAF800F6F9F600F4F9F400F1F7F100EFF6
+      EF00EDF5ED00EBF3EB0066A07700000000000000000000000000E2E5E1008080
       8000808080008080800080808000000000000000000000000000808080008080
       80008080800080808000D6DAD6000000000000000000000000008F8F8E008F8F
       8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F
       8E008F8F8E008F8F8E008F8F8E000000000000000000000000008F8F8E008F8F
       8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F8E008F8F
-      8E008F8F8E008F8F8E008F8F8E00000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      8E008F8F8E008F8F8E008F8F8E00000000007CB58A00AAD6B200FFFFFF00FFFF
+      FF00FEFFFE00FDFEFD00FCFDFB00F9FBFA00F8FAF800F6FAF600F4F9F400F1F7
+      F100EFF6EF00EDF5ED0066A07700000000000000000000000000000000000000
       00000000000000000000DCE3E100808080008080800080808000D8DDD9000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000007CB58A00AAD6B200AAD6B2009DD0
+      A7009DD0A70094C79C0094C79C0094C79C008AB7950081BC90007CB58A0076AF
+      850071AA810071AA81006CA67C00000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000081BC90007CB58A0076AF850071AA
+      81006CA67C0066A077005F9B720058966B00558E67004D8762004D8762004781
+      5D00417B5700417B570000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000006666
       6600666666006666660066666600666666006666660066666600666666000000
@@ -3699,12 +3662,16 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000424D3E000000000000003E000000
-      2800000040000000B00000000100010000000000800500000000000000000000
-      000000000000000000000000FFFFFF00FFFFFFFFFFFF0000C001C001C0010000
+      2800000040000000C00000000100010000000000000600000000000000000000
+      000000000000000000000000FFFFFF00E000E000E00000008000E000E0000000
+      0000E000E00000000000E000E00000000000E000E00000000000000000000000
+      00007F807F800000000078007800000000000000000000000000400040000000
+      00004080408000000000000000000000000108000800000000017F817F810000
+      00010003000300000003E007E0070000FFFFFFFFFFFFE000C001C001C0018000
       DFFDC001C0010000DCFDC001C0010000D87DC001C0010000D01DC001C0010000
       D11DC001C0010000DB8DC001C0010000DFC5C001C0010000DFE1C001C0010000
-      D801C001C0010000DBCDC001C0010000DC5DC001C0010000C1C1C001C0010000
-      FC1FFFFFFFFF0000FFFFFFFFFFFF0000FFFFE01FE01FFFFF8001E01FE01FC001
+      D801C001C0010000DBCDC001C0010000DC5DC001C0010001C1C1C001C0010001
+      FC1FFFFFFFFF0001FFFFFFFFFFFF0003FFFFE01FE01FFFFF8001E01FE01FC001
       9001E01FE01FC0019B51E01FE01FC0019EA9E010E010C0019F51E01FE01FC001
       A0E9E019E019C001A63DE010E010C001AF05E039E039C001AF01E079E079C001
       A601BFF9BFF9C001A0019FFF9FFFC001BFFD8FF98FF9C00180019FFF9FFFC001
@@ -3754,18 +3721,17 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     CachedUpdates = False
     TableName = 'TBEMPRESA'
     UniDirectional = False
-    Left = 944
-    Top = 176
+    Left = 928
+    Top = 352
   end
   object dtsEmpresa: TDataSource
     DataSet = tblEmpresa
-    Left = 976
-    Top = 176
+    Left = 960
+    Top = 352
   end
   object cdsTabelaItens: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
-    OnCalcFields = cdsTabelaItensCalcFields
     OnNewRecord = cdsTabelaItensNewRecord
     BufferChunks = 1000
     CachedUpdates = True
@@ -3774,79 +3740,71 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     SelectSQL.Strings = (
       'Select'
       '    i.ano'
-      '  , i.controle'
-      '  , i.item'
-      '  , i.produto'
-      '  , i.qtde'
-      '  , i.fracionador'
+      '  , i.codigo'
+      '  , i.seq'
+      '  , i.centro_custo'
+      '  , i.item_codigo'
+      '  , i.item_descricao'
+      '  , i.item_cadastrado'
+      '  , i.quantidade'
       '  , i.unidade'
-      '  , i.unidade_fracao'
-      '  , i.custo_unitario'
-      '  , i.custo_total'
-      ''
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , uc.unp_descricao'
-      '  , uc.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(uc.unp_sigla), '#39#39'), uc.unp_de' +
-        'scricao) from 1 for 3) unidade_sigla'
-      '  , coalesce(p.qtde, 0.0) as estoque'
-      '  , coalesce(p.reserva, 0.0) as reserva'
-      '  , p.movimenta_estoque'
-      '  , uf.unp_descricao as unidade_fracionada'
-      'from TBAPROPRIACAO_ALMOX_ITEM i'
-      '  left join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBUNIDADEPROD uc on (uc.unp_cod = i.unidade)'
-      '  left join TBUNIDADEPROD uf on (uf.unp_cod = i.unidade_fracao)')
+      '  , i.usuario'
+      '  , u.unp_descricao'
+      '  , c.descricao as centro_custo_nome'
+      'from TBSOLICITACAO_ITEM i'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 624
-    Top = 544
+    Left = 680
+    Top = 464
     object cdsTabelaItensANO: TSmallintField
-      DisplayLabel = 'Ano'
       FieldName = 'ANO'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."ANO"'
+      Origin = '"TBSOLICITACAO_ITEM"."ANO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsTabelaItensCONTROLE: TIntegerField
-      DisplayLabel = 'Controle'
-      FieldName = 'CONTROLE'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."CONTROLE"'
+    object cdsTabelaItensCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = '"TBSOLICITACAO_ITEM"."CODIGO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object cdsTabelaItensITEM: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = 'Item'
-      FieldName = 'ITEM'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."ITEM"'
+    object cdsTabelaItensSEQ: TSmallintField
+      FieldName = 'SEQ'
+      Origin = '"TBSOLICITACAO_ITEM"."SEQ"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      DisplayFormat = '000'
     end
-    object cdsTabelaItensPRODUTO: TIBStringField
-      DisplayLabel = 'Produto'
-      FieldName = 'PRODUTO'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."PRODUTO"'
+    object cdsTabelaItensCENTRO_CUSTO: TIntegerField
+      DisplayLabel = 'Departamento / Centro de Custo'
+      FieldName = 'CENTRO_CUSTO'
+      Origin = '"TBSOLICITACAO_ITEM"."CENTRO_CUSTO"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsTabelaItensITEM_CODIGO: TIBStringField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ITEM_CODIGO'
+      Origin = '"TBSOLICITACAO_ITEM"."ITEM_CODIGO"'
       ProviderFlags = [pfInUpdate]
       Size = 10
     end
-    object cdsTabelaItensQTDE: TIBBCDField
-      DisplayLabel = 'Quantidade'
-      FieldName = 'QTDE'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."QTDE"'
+    object cdsTabelaItensITEM_DESCRICAO: TIBStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'ITEM_DESCRICAO'
+      Origin = '"TBSOLICITACAO_ITEM"."ITEM_DESCRICAO"'
       ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
+      Size = 250
     end
-    object cdsTabelaItensFRACIONADOR: TIBBCDField
-      FieldName = 'FRACIONADOR'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."FRACIONADOR"'
+    object cdsTabelaItensITEM_CADASTRADO: TSmallintField
+      FieldName = 'ITEM_CADASTRADO'
+      Origin = '"TBSOLICITACAO_ITEM"."ITEM_CADASTRADO"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsTabelaItensQUANTIDADE: TIBBCDField
+      DisplayLabel = 'Quantidade'
+      FieldName = 'QUANTIDADE'
+      Origin = '"TBSOLICITACAO_ITEM"."QUANTIDADE"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.###'
       Precision = 18
@@ -3855,49 +3813,14 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     object cdsTabelaItensUNIDADE: TSmallintField
       DisplayLabel = 'Unidade'
       FieldName = 'UNIDADE'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."UNIDADE"'
+      Origin = '"TBSOLICITACAO_ITEM"."UNIDADE"'
       ProviderFlags = [pfInUpdate]
     end
-    object cdsTabelaItensUNIDADE_FRACAO: TSmallintField
-      FieldName = 'UNIDADE_FRACAO'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."UNIDADE_FRACAO"'
+    object cdsTabelaItensUSUARIO: TIBStringField
+      FieldName = 'USUARIO'
+      Origin = '"TBSOLICITACAO_ITEM"."USUARIO"'
       ProviderFlags = [pfInUpdate]
-    end
-    object cdsTabelaItensCUSTO_UNITARIO: TIBBCDField
-      DisplayLabel = 'Custo Unit'#225'rio'
-      FieldName = 'CUSTO_UNITARIO'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."CUSTO_UNITARIO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensCUSTO_TOTAL: TIBBCDField
-      DisplayLabel = 'Custo Total'
-      FieldName = 'CUSTO_TOTAL'
-      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."CUSTO_TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensDESCRI: TIBStringField
-      FieldName = 'DESCRI'
-      Origin = '"TBPRODUTO"."DESCRI"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object cdsTabelaItensAPRESENTACAO: TIBStringField
-      FieldName = 'APRESENTACAO'
-      Origin = '"TBPRODUTO"."APRESENTACAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object cdsTabelaItensDESCRI_APRESENTACAO: TIBStringField
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
-      ProviderFlags = []
-      Size = 100
+      Size = 12
     end
     object cdsTabelaItensUNP_DESCRICAO: TIBStringField
       FieldName = 'UNP_DESCRICAO'
@@ -3905,119 +3828,84 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = []
       Size = 50
     end
-    object cdsTabelaItensUNP_SIGLA: TIBStringField
-      FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
+    object cdsTabelaItensCENTRO_CUSTO_NOME: TIBStringField
+      DisplayLabel = 'Departamento / Centro de Custo'
+      FieldName = 'CENTRO_CUSTO_NOME'
+      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
       ProviderFlags = []
-      Size = 5
-    end
-    object cdsTabelaItensUNIDADE_SIGLA: TIBStringField
-      FieldName = 'UNIDADE_SIGLA'
-      ProviderFlags = []
-      Size = 50
-    end
-    object cdsTabelaItensESTOQUE: TIBBCDField
-      FieldName = 'ESTOQUE'
-      ProviderFlags = []
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensRESERVA: TIBBCDField
-      FieldName = 'RESERVA'
-      ProviderFlags = []
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField
-      FieldName = 'MOVIMENTA_ESTOQUE'
-      Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
-      ProviderFlags = []
-    end
-    object cdsTabelaItensUNIDADE_FRACIONADA: TIBStringField
-      FieldName = 'UNIDADE_FRACIONADA'
-      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object cdsTabelaItensQTDE_FRACIONADA: TCurrencyField
-      FieldKind = fkCalculated
-      FieldName = 'QTDE_FRACIONADA'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Calculated = True
+      Size = 100
     end
   end
   object IbUpdTabelaItens: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
-      '  CONTROLE,'
-      '  ITEM,'
-      '  PRODUTO,'
-      '  QTDE,'
-      '  FRACIONADOR,'
+      '  CODIGO,'
+      '  SEQ,'
+      '  CENTRO_CUSTO,'
+      '  ITEM_CODIGO,'
+      '  ITEM_DESCRICAO,'
+      '  ITEM_CADASTRADO,'
+      '  QUANTIDADE,'
       '  UNIDADE,'
-      '  UNIDADE_FRACAO,'
-      '  CUSTO_UNITARIO,'
-      '  CUSTO_TOTAL'
-      'from TBAPROPRIACAO_ALMOX_ITEM '
+      '  USUARIO'
+      'from TBSOLICITACAO_ITEM '
       'where'
       '  ANO = :ANO and'
-      '  CONTROLE = :CONTROLE and'
-      '  ITEM = :ITEM')
+      '  CODIGO = :CODIGO and'
+      '  SEQ = :SEQ')
     ModifySQL.Strings = (
-      'update TBAPROPRIACAO_ALMOX_ITEM'
+      'update TBSOLICITACAO_ITEM'
       'set'
       '  ANO = :ANO,'
-      '  CONTROLE = :CONTROLE,'
-      '  CUSTO_TOTAL = :CUSTO_TOTAL,'
-      '  CUSTO_UNITARIO = :CUSTO_UNITARIO,'
-      '  FRACIONADOR = :FRACIONADOR,'
-      '  ITEM = :ITEM,'
-      '  PRODUTO = :PRODUTO,'
-      '  QTDE = :QTDE,'
+      '  CENTRO_CUSTO = :CENTRO_CUSTO,'
+      '  CODIGO = :CODIGO,'
+      '  ITEM_CADASTRADO = :ITEM_CADASTRADO,'
+      '  ITEM_CODIGO = :ITEM_CODIGO,'
+      '  ITEM_DESCRICAO = :ITEM_DESCRICAO,'
+      '  QUANTIDADE = :QUANTIDADE,'
+      '  SEQ = :SEQ,'
       '  UNIDADE = :UNIDADE,'
-      '  UNIDADE_FRACAO = :UNIDADE_FRACAO'
+      '  USUARIO = :USUARIO'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE and'
-      '  ITEM = :OLD_ITEM')
+      '  CODIGO = :OLD_CODIGO and'
+      '  SEQ = :OLD_SEQ')
     InsertSQL.Strings = (
-      'insert into TBAPROPRIACAO_ALMOX_ITEM'
+      'insert into TBSOLICITACAO_ITEM'
       
-        '  (ANO, CONTROLE, CUSTO_TOTAL, CUSTO_UNITARIO, FRACIONADOR, ITEM' +
-        ', PRODUTO, '
-      '   QTDE, UNIDADE, UNIDADE_FRACAO)'
+        '  (ANO, CENTRO_CUSTO, CODIGO, ITEM_CADASTRADO, ITEM_CODIGO, ITEM' +
+        '_DESCRICAO, '
+      '   QUANTIDADE, SEQ, UNIDADE, USUARIO)'
       'values'
       
-        '  (:ANO, :CONTROLE, :CUSTO_TOTAL, :CUSTO_UNITARIO, :FRACIONADOR,' +
-        ' :ITEM, '
-      '   :PRODUTO, :QTDE, :UNIDADE, :UNIDADE_FRACAO)')
+        '  (:ANO, :CENTRO_CUSTO, :CODIGO, :ITEM_CADASTRADO, :ITEM_CODIGO,' +
+        ' :ITEM_DESCRICAO, '
+      '   :QUANTIDADE, :SEQ, :UNIDADE, :USUARIO)')
     DeleteSQL.Strings = (
-      'delete from TBAPROPRIACAO_ALMOX_ITEM'
+      'delete from TBSOLICITACAO_ITEM'
       'where'
       '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE and'
-      '  ITEM = :OLD_ITEM')
-    Left = 656
-    Top = 544
+      '  CODIGO = :OLD_CODIGO and'
+      '  SEQ = :OLD_SEQ')
+    Left = 712
+    Top = 464
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
-    OnDataChange = DtSrcTabelaItensDataChange
-    Left = 688
-    Top = 544
+    Left = 744
+    Top = 464
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
-    Left = 16
-    Top = 512
-    object nmImprimirApropriacao: TMenuItem
-      Caption = 'Apropria'#231#227'o de Estoque (Almoxarifado)'
+    Left = 352
+    Top = 376
+    object nmImprimirSolicitacao: TMenuItem
+      Caption = 'Solicita'#231#227'o de Compra/Servi'#231'o'
       ImageIndex = 16
-      OnClick = nmImprimirApropriacaoClick
+      OnClick = nmImprimirSolicitacaoClick
     end
   end
   object qryProduto: TIBDataSet
@@ -4031,251 +3919,53 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       'Select'
       '    p.cod'
       '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.codunidade'
-      '  , p.codunidade_fracionada'
-      '  , uc.unp_descricao'
-      '  , uc.unp_sigla'
-      '  , uf.unp_descricao as unidade_fracionada'
-      '  , coalesce(p.fracionador, 1.0) as fracionador'
-      '  , p.movimenta_estoque'
-      'from TBPRODUTO p'
-      '  left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)'
       
-        '  left join TBUNIDADEPROD uf on (uf.unp_cod = p.codunidade_fraci' +
-        'onada)'
+        '  , coalesce(nullif(trim(p.nome_amigo), '#39#39'), p.descri_apresentac' +
+        'ao) as descri_apresentacao'
+      '  , p.codunidade'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from TBPRODUTO p'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
       'where p.codigo = :produto')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 1008
-    Top = 176
+    Left = 1040
+    Top = 264
   end
-  object tblTipoApropriacao: TIBTable
+  object tblTipoSolicitacao: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
     CachedUpdates = False
-    TableName = 'VW_TIPO_APROPRIACAO'
+    TableName = 'VW_TIPO_SOLICITACAO'
     TableTypes = [ttView]
     UniDirectional = False
-    Left = 944
-    Top = 208
+    Left = 928
+    Top = 384
   end
-  object dtsTipoApropriacao: TDataSource
-    DataSet = tblTipoApropriacao
-    Left = 976
-    Top = 208
+  object dtsTipoSolicitacao: TDataSource
+    DataSet = tblTipoSolicitacao
+    Left = 960
+    Top = 384
   end
-  object qryEntradaProduto: TIBDataSet
+  object tblUnidade: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
     CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.codprod    as produto'
-      '  , i.unid_cod   as unidade'
-      '  , p.codunidade_fracionada as unidade_fracao'
-      '  , p.customedio as custo_medio'
-      '  , i.customedio as valor_unitario'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3) unidade_sigla'
-      '  , uf.unp_descricao as unidade_fracionada'
-      '  , coalesce(p.qtde, 0.0) as estoque'
-      '  , coalesce(p.reserva, 0.0) as reserva'
-      '  , coalesce(p.fracionador, 1.0) as fracionador'
-      '  , p.movimenta_estoque'
-      ''
-      '  , sum(i.qtde) - sum(coalesce(ai.qtde, 0.0)) as quantidade'
-      ''
-      'from TBCOMPRAS c'
-      
-        '  inner join TBCOMPRASITENS i on (i.ano = c.ano and i.codcontrol' +
-        ' = c.codcontrol and i.codemp = c.codemp)'
-      '  inner join TBPRODUTO p on (p.cod = i.codprod)'
-      
-        '  left join TBAPROPRIACAO_ALMOX a on (a.compra_ano = c.ano and a' +
-        '.compra_num = c.codcontrol and a.compra_emp = c.codemp and a.sta' +
-        'tus <> 3)'
-      
-        '  left join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and a' +
-        'i.controle = a.controle and ai.produto = i.codprod)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = ai.unidade)'
-      
-        '  left join TBUNIDADEPROD uf on (uf.unp_cod = p.codunidade_fraci' +
-        'onada)'
-      ''
-      'where c.ano        = :ano'
-      '  and c.codcontrol = :cod'
-      '  and c.codemp     = :emp'
-      ''
-      'group by'
-      '    i.codprod'
-      '  , i.unid_cod'
-      '  , p.codunidade_fracionada'
-      '  , p.customedio'
-      '  , i.customedio'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3)'
-      '  , uf.unp_descricao'
-      '  , coalesce(p.qtde, 0.0)'
-      '  , coalesce(p.reserva, 0.0)'
-      '  , coalesce(p.fracionador, 1.0)'
-      '  , p.movimenta_estoque')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
+    IndexName = 'IDX_TBUNIDADEPROD_SIGLA'
+    TableName = 'TBUNIDADEPROD'
+    TableTypes = [ttView]
     UniDirectional = False
-    Left = 1008
-    Top = 208
+    Left = 928
+    Top = 416
   end
-  object qryAutorizacaoProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.produto'
-      '  , i.unidade'
-      '  , p.codunidade_fracionada as unidade_fracao'
-      
-        '  , coalesce(nullif(p.customedio, 0), i.valor_unitario) as custo' +
-        '_medio'
-      '  , i.valor_unitario'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3) unidade_sigla'
-      '  , uf.unp_descricao as unidade_fracionada'
-      '  , coalesce(p.qtde, 0.0) as estoque'
-      '  , coalesce(p.reserva, 0.0) as reserva'
-      '  , coalesce(p.fracionador, 1.0) as fracionador'
-      '  , p.movimenta_estoque'
-      ''
-      
-        '  , sum(i.quantidade) - sum(coalesce(ai.qtde, 0.0)) as quantidad' +
-        'e'
-      ''
-      'from TBAUTORIZA_COMPRA c'
-      
-        '  inner join TBAUTORIZA_COMPRAITEM i on (i.ano = c.ano and i.cod' +
-        'igo = c.codigo and i.empresa = c.empresa)'
-      
-        '  inner join TBPRODUTO p on (p.cod = i.produto and p.aliquota_ti' +
-        'po = 0)'
-      
-        '  left join TBAPROPRIACAO_ALMOX a on (a.autorizacao_ano = c.ano ' +
-        'and a.autorizacao_num = c.codigo and a.autorizacao_emp = c.empre' +
-        'sa and a.status <> 3)'
-      
-        '  left join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and a' +
-        'i.controle = a.controle and ai.produto = i.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      
-        '  left join TBUNIDADEPROD uf on (uf.unp_cod = p.codunidade_fraci' +
-        'onada)'
-      ''
-      'where c.ano     = :ano'
-      '  and c.codigo  = :cod'
-      '  and c.empresa = :emp'
-      ''
-      'group by'
-      '    i.produto'
-      '  , i.unidade'
-      '  , p.codunidade_fracionada'
-      '  , ai.unidade'
-      '  , coalesce(nullif(p.customedio, 0), i.valor_unitario)'
-      '  , i.valor_unitario'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3)'
-      '  , uf.unp_descricao'
-      '  , coalesce(p.qtde, 0.0)'
-      '  , coalesce(p.reserva, 0.0)'
-      '  , coalesce(p.fracionador, 1.0)'
-      '  , p.movimenta_estoque'
-      '')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 1008
-    Top = 240
-  end
-  object stpAjusteEstoqueVenda: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_AJUSTE_ESTOQUE_VENDA'
-    Left = 720
-    Top = 544
-    ParamData = <
-      item
-        DataType = ftWideString
-        Name = 'EMPRESA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftWideString
-        Name = 'PRODUTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftBCD
-        Name = 'QTDE_ATUAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftBCD
-        Name = 'QTDE_NOVA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftWideString
-        Name = 'MOTIVO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDateTime
-        Name = 'DATA_HORA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftWideString
-        Name = 'USUARIO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftWideString
-        Name = 'DOCUMENTO'
-        ParamType = ptInput
-      end>
+  object dtsUnidade: TDataSource
+    DataSet = tblUnidade
+    Left = 960
+    Top = 416
   end
 end

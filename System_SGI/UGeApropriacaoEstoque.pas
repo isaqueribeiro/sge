@@ -5,15 +5,21 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, 
+  IBTable, Menus, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
+  JvToolEdit, JvDBControls, JvExMask, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  IBX.IBStoredProc;
 
 type
   TfrmGeApropriacaoEstoque = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     RdgStatusApropriacao: TRadioGroup;
     lblApropriacaoAberta: TLabel;
     lblApropriacaoCancelada: TLabel;
@@ -26,7 +32,6 @@ type
     dbSituacao: TDBEdit;
     lblSituacao: TLabel;
     lblDataApropriacao: TLabel;
-    dbDataApropriacao: TDBDateEdit;
     lblUsuario: TLabel;
     dbUsuario: TDBEdit;
     Bevel12: TBevel;
@@ -39,7 +44,6 @@ type
     lblQuantidade: TLabel;
     lblUnidade: TLabel;
     Bevel7: TBevel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbQuantidade: TDBEdit;
     dbUnidade: TDBEdit;
@@ -68,10 +72,8 @@ type
     TbsApropriacaoCancelado: TTabSheet;
     dbMovitoCancelamento: TDBMemo;
     lblCentroCusto: TLabel;
-    dbCentroCusto: TRxDBComboEdit;
     dbObservacao: TDBMemo;
     lblEntrada: TLabel;
-    dbEntrada: TRxDBComboEdit;
     PnlValores: TPanel;
     lblCompetencia: TLabel;
     dbCompetencia: TDBEdit;
@@ -132,12 +134,23 @@ type
     qryEntradaProduto: TIBDataSet;
     cdsTabelaItensQTDE: TIBBCDField;
     lblAutorizacao: TLabel;
-    dbAutorizacao: TRxDBComboEdit;
     IbDtstTabelaAUTORIZACAO_ANO: TSmallintField;
     IbDtstTabelaAUTORIZACAO_NUM: TIntegerField;
     IbDtstTabelaAUTORIZACAO_EMP: TIBStringField;
     IbDtstTabelaAUTORIZACAO: TIBStringField;
     qryAutorizacaoProduto: TIBDataSet;
+    dbCentroCusto: TJvDBComboEdit;
+    dbEntrada: TJvDBComboEdit;
+    dbAutorizacao: TJvDBComboEdit;
+    dbProduto: TJvDBComboEdit;
+    dbDataApropriacao: TJvDBDateEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    cdsTabelaItensFRACIONADOR: TIBBCDField;
+    cdsTabelaItensUNIDADE_FRACAO: TSmallintField;
+    cdsTabelaItensUNIDADE_FRACIONADA: TIBStringField;
+    cdsTabelaItensQTDE_FRACIONADA: TCurrencyField;
+    stpAjusteEstoqueVenda: TIBStoredProc;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -179,6 +192,7 @@ type
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure dbEntradaButtonClick(Sender: TObject);
     procedure dbAutorizacaoButtonClick(Sender: TObject);
+    procedure cdsTabelaItensCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -266,8 +280,9 @@ begin (*
 
     frm.RdgStatusAutorizacao.ItemIndex := STATUS_APROPRIACAO_ESTOQUE_AUT + 1;
 
-    for I := 0 to frm.RdgStatusAutorizacao.Items.Count - 1 do
-      frm.RdgStatusAutorizacao.Controls[I].Enabled := False;
+    frm.RdgStatusAutorizacao.Enabled := False;
+    //for I := 0 to frm.RdgStatusAutorizacao.Items.Count - 1 do
+    //  frm.RdgStatusAutorizacao.Controls[I].Enabled := False;
 
     frm.iFornecedor := Fornecedor;
     frm.e1Data.Date := DataInicial;
@@ -313,8 +328,12 @@ begin
   SQL_Itens.Clear;
   SQL_Itens.AddStrings( cdsTabelaItens.SelectSQL );
 
-  e1Data.Date      := GetDateDB - 30;
-  e2Data.Date      := GetDateDB;
+  e1Data.Date := GetMenorDataApropriacaoAberta(EmptyStr, 0);
+  e2Data.Date := GetDateDB;
+
+  if (e1Data.Date >= GetDateDB) then
+    e1Data.Date := e2Data.Date - 30;
+
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
   iCentroCusto     := 0;
@@ -349,7 +368,7 @@ end;
 procedure TfrmGeApropriacaoEstoque.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.Value          := GetEmpresaIDDefault;
+  IbDtstTabelaEMPRESA.Value          := gUsuarioLogado.Empresa;
   IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
   IbDtstTabelaDATA_APROPRIACAO.Value := GetDateDB;
   IbDtstTabelaUSUARIO.Value          := gUsuarioLogado.Login;
@@ -462,7 +481,16 @@ begin
 
     IbDtstTabela.Close;
     IbDtstTabela.Open;
-    IbDtstTabela.Locate('NUMERO', sID, []);
+
+    if not IbDtstTabela.Locate('NUMERO', sID, []) then
+    begin
+      IbDtstTabela.Close;
+
+      ShowInformation('Favor pesquisar novamente o registro de apropriação!');
+      pgcGuias.ActivePage := tbsTabela;
+      edtFiltrar.SetFocus;
+    end;
+
   end;
 end;
 
@@ -533,7 +561,7 @@ procedure TfrmGeApropriacaoEstoque.btnProdutoInserirClick(Sender: TObject);
   procedure GerarSequencial(var Seq : Integer);
   begin
     Seq := cdsTabelaItens.RecordCount + 1;
-    if ( cdsTabelaItens.Locate('ITEM', Seq, []) ) then
+    while ( cdsTabelaItens.Locate('ITEM', Seq, []) ) do
       Seq := Seq + 1;
   end;
 
@@ -653,19 +681,27 @@ begin
   end;
 end;
 
+procedure TfrmGeApropriacaoEstoque.cdsTabelaItensCalcFields(DataSet: TDataSet);
+begin
+  cdsTabelaItensQTDE_FRACIONADA.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensFRACIONADOR.AsCurrency;
+end;
+
 procedure TfrmGeApropriacaoEstoque.cdsTabelaItensNewRecord(
   DataSet: TDataSet);
 begin
   inherited;
-  cdsTabelaItensANO.Value      := IbDtstTabelaANO.Value;
-  cdsTabelaItensCONTROLE.Value := IbDtstTabelaCONTROLE.Value;
-  cdsTabelaItensQTDE.Value     := 1;
+  cdsTabelaItensANO.Value         := IbDtstTabelaANO.Value;
+  cdsTabelaItensCONTROLE.Value    := IbDtstTabelaCONTROLE.Value;
+  cdsTabelaItensQTDE.Value        := 1;
+  cdsTabelaItensFRACIONADOR.Value := 1;
   cdsTabelaItensCUSTO_UNITARIO.AsCurrency := 0.0;
   cdsTabelaItensCUSTO_TOTAL.AsCurrency    := 0.0;
   cdsTabelaItensPRODUTO.Clear;
   cdsTabelaItensDESCRI_APRESENTACAO.Clear;
   cdsTabelaItensUNIDADE.Clear;
+  cdsTabelaItensUNIDADE_FRACAO.Clear;
   cdsTabelaItensUNP_SIGLA.Clear;
+  cdsTabelaItensUNIDADE_FRACIONADA.Clear;
 end;
 
 procedure TfrmGeApropriacaoEstoque.btnEncerrarApropriacaoClick(
@@ -697,6 +733,46 @@ procedure TfrmGeApropriacaoEstoque.btnEncerrarApropriacaoClick(
     end;
   end;
 
+  procedure AjustarEstoqueAutomatico;
+  var
+    bAjustar : Boolean;
+  begin
+    try
+
+      cdsTabelaItens.First;
+      cdsTabelaItens.DisableControls;
+      while not cdsTabelaItens.Eof do
+      begin
+        if ( (cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger = 0) or (IbDtstTabelaAUTORIZACAO_ANO.AsInteger > 0) ) then // Produto não movimenta estoque ou autorização informada
+          bAjustar := False
+        else
+          bAjustar := ( (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensESTOQUE.AsCurrency - cdsTabelaItensRESERVA.AsCurrency)) or (cdsTabelaItensESTOQUE.AsCurrency <= 0) );
+
+        if ( bAjustar ) then
+          with stpAjusteEstoqueVenda do
+          begin
+            ParamByName('empresa').AsString      := IbDtstTabelaEMPRESA.AsString;
+            ParamByName('produto').AsString      := cdsTabelaItensPRODUTO.AsString;
+            ParamByName('qtde_atual').AsCurrency := cdsTabelaItensESTOQUE.AsCurrency + cdsTabelaItensRESERVA.AsCurrency;
+            ParamByName('qtde_nova').AsCurrency  := cdsTabelaItensQTDE.AsCurrency    + cdsTabelaItensRESERVA.AsCurrency;
+            ParamByName('motivo').AsString       := 'APROPRIAÇÃO DE ESTOQUE PARA O CENTRO DE CUSTO ' + dbCentroCusto.Text;
+            ParamByName('data_hora').AsDateTime  := GetDateTimeDB;
+            ParamByName('usuario').AsString      := gUsuarioLogado.Login;
+            ParamByName('documento').AsString    := 'AE' + Copy(IbDtstTabelaANO.AsString, 3, 2) + FormatFloat('000000', IbDtstTabelaCONTROLE.AsInteger);
+
+            ExecProc;
+            CommitTransaction;
+          end;
+
+        cdsTabelaItens.Next;
+      end;
+
+    finally
+      cdsTabelaItens.First;
+      cdsTabelaItens.EnableControls;
+    end;
+  end;
+
 var
   cTotalCusto : Currency;
 begin
@@ -707,6 +783,9 @@ begin
     Exit;
 
   RecarregarRegistro;
+
+  if ( not IbDtstTabela.Active ) then
+    Exit;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
 
@@ -732,6 +811,11 @@ begin
     Abort;
   end;
 
+  (*
+   * IMR: 29/06/2015
+   * Rotina descontinuada, pois acima tem uma novo procedimento da criar um ajustes
+   * automático no estoque e para que este possa ser apropriado pelo Centro de Custo.
+
   if ( QuantidadeInvalida ) then
   begin
     ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', cdsTabelaItensITEM.AsInteger) + ' está acima da quantidade disponível no estoque.');
@@ -739,8 +823,15 @@ begin
       btnProdutoEditar.SetFocus;
   end
   else
+  *)
   if ( ShowConfirm('Confirma o encerramento da apropriação selecionada?') ) then
   begin
+    if QuantidadeInvalida then
+    begin
+      AjustarEstoqueAutomatico;
+      AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
+    end;
+
     IbDtstTabela.Edit;
 
     IbDtstTabelaSTATUS.Value  := STATUS_APROPRIACAO_ESTOQUE_ENC;
@@ -832,10 +923,15 @@ begin
       begin
         cdsTabelaItensPRODUTO.AsString             := FieldByName('cod').AsString;
         cdsTabelaItensDESCRI_APRESENTACAO.AsString := FieldByName('descri_apresentacao').AsString;
+        cdsTabelaItensFRACIONADOR.AsCurrency       := FieldByName('fracionador').AsCurrency;
         cdsTabelaItensUNP_SIGLA.AsString           := FieldByName('Unp_sigla').AsString;
+        cdsTabelaItensUNIDADE_FRACIONADA.AsString  := FieldByName('Unidade_fracionada').AsString;
 
         if ( FieldByName('Codunidade').AsInteger > 0 ) then
           cdsTabelaItensUNIDADE.AsInteger := FieldByName('Codunidade').AsInteger;
+
+        if ( FieldByName('Codunidade_fracionada').AsInteger > 0 ) then
+          cdsTabelaItensUNIDADE_FRACAO.AsInteger := FieldByName('Codunidade_fracionada').AsInteger;
       end
       else
       begin
@@ -963,17 +1059,18 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    // Destacar autorização em edição
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_EDC ) then
-      dbgDados.Canvas.Brush.Color := lblApropriacaoEmEdicao.Color
-    else
-    // Destacar autorização aberta
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_ABR ) then
-      dbgDados.Canvas.Font.Color := lblApropriacaoAberta.Font.Color
-    else
-    // Destacar autorização cancelada
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_CAN ) then
-      dbgDados.Canvas.Font.Color := lblApropriacaoCancelada.Font.Color;
+    if (not IbDtstTabelaSTATUS.IsNull) then
+      // Destacar autorização em edição
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_EDC ) then
+        dbgDados.Canvas.Brush.Color := lblApropriacaoEmEdicao.Color
+      else
+      // Destacar autorização aberta
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_ABR ) then
+        dbgDados.Canvas.Font.Color := lblApropriacaoAberta.Font.Color
+      else
+      // Destacar autorização cancelada
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_APROPRIACAO_ESTOQUE_CAN ) then
+        dbgDados.Canvas.Font.Color := lblApropriacaoCancelada.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -1051,8 +1148,7 @@ begin
       cdsTabelaItensUNP_SIGLA.AsString           := sUnidade;
       cdsTabelaItensCUSTO_UNITARIO.AsCurrency    := cValorCusto;
 
-      if ( iUnidade > 0 ) then
-        cdsTabelaItensUNIDADE.AsInteger := iUnidade;
+      CarregarDadosProduto( iCodigo );
     end;
 
   end;
@@ -1068,7 +1164,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Apropriação de Estoque', EmptyStr);
+      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), 'Apropriação de Estoque', EmptyStr);
     except
     end;
 
@@ -1108,6 +1204,10 @@ begin
     Exit;
 
   RecarregarRegistro;
+
+  if ( not IbDtstTabela.Active ) then
+    Exit;
+
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
 
   pgcGuias.ActivePage := tbsCadastro;
@@ -1158,6 +1258,9 @@ begin
     Exit;
 
   RecarregarRegistro;
+
+  if ( not IbDtstTabela.Active ) then
+    Exit;
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger);
 
@@ -1430,18 +1533,21 @@ begin
         cdsTabelaItensITEM.AsInteger := I;
         cdsTabelaItensPRODUTO.Assign       ( FieldByName('produto') );
         cdsTabelaItensQTDE.Assign          ( FieldByName('quantidade') );
+        cdsTabelaItensFRACIONADOR.Assign   ( FieldByName('fracionador') );
         cdsTabelaItensUNIDADE.Assign       ( FieldByName('unidade') );
-        cdsTabelaItensCUSTO_UNITARIO.Assign( FieldByName('custo_medio') );
+        cdsTabelaItensUNIDADE_FRACAO.Assign( FieldByName('unidade_fracao') );
+        cdsTabelaItensCUSTO_UNITARIO.Assign( FieldByName('valor_unitario') );
 
         cdsTabelaItensDESCRI.Assign             ( FieldByName('DESCRI') );
         cdsTabelaItensAPRESENTACAO.Assign       ( FieldByName('apresentacao') );
         cdsTabelaItensDESCRI_APRESENTACAO.Assign( FieldByName('DESCRI_APRESENTACAO') );
         cdsTabelaItensUNP_DESCRICAO.Assign      ( FieldByName('UNP_DESCRICAO') );
-        cdsTabelaItensUNP_SIGLA.Assign        ( FieldByName('UNP_SIGLA') );
-        cdsTabelaItensUNIDADE_SIGLA.Assign    ( FieldByName('UNIDADE_SIGLA') );
-        cdsTabelaItensESTOQUE.Assign          ( FieldByName('ESTOQUE') );
-        cdsTabelaItensRESERVA.Assign          ( FieldByName('RESERVA') );
-        cdsTabelaItensMOVIMENTA_ESTOQUE.Assign( FieldByName('MOVIMENTA_ESTOQUE') );
+        cdsTabelaItensUNP_SIGLA.Assign          ( FieldByName('UNP_SIGLA') );
+        cdsTabelaItensUNIDADE_SIGLA.Assign      ( FieldByName('UNIDADE_SIGLA') );
+        cdsTabelaItensUNIDADE_FRACIONADA.Assign ( FieldByName('unidade_fracionada') );
+        cdsTabelaItensESTOQUE.Assign            ( FieldByName('ESTOQUE') );
+        cdsTabelaItensRESERVA.Assign            ( FieldByName('RESERVA') );
+        cdsTabelaItensMOVIMENTA_ESTOQUE.Assign  ( FieldByName('MOVIMENTA_ESTOQUE') );
 
         cdsTabelaItensCUSTO_TOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
 
@@ -1521,18 +1627,21 @@ begin
         cdsTabelaItensITEM.AsInteger := I;
         cdsTabelaItensPRODUTO.Assign       ( FieldByName('produto') );
         cdsTabelaItensQTDE.Assign          ( FieldByName('quantidade') );
+        cdsTabelaItensFRACIONADOR.Assign   ( FieldByName('fracionador') );
         cdsTabelaItensUNIDADE.Assign       ( FieldByName('unidade') );
-        cdsTabelaItensCUSTO_UNITARIO.Assign( FieldByName('custo_medio') );
+        cdsTabelaItensUNIDADE_FRACAO.Assign( FieldByName('unidade_fracao') );
+        cdsTabelaItensCUSTO_UNITARIO.Assign( FieldByName('valor_unitario') );
 
         cdsTabelaItensDESCRI.Assign             ( FieldByName('DESCRI') );
         cdsTabelaItensAPRESENTACAO.Assign       ( FieldByName('apresentacao') );
         cdsTabelaItensDESCRI_APRESENTACAO.Assign( FieldByName('DESCRI_APRESENTACAO') );
         cdsTabelaItensUNP_DESCRICAO.Assign      ( FieldByName('UNP_DESCRICAO') );
-        cdsTabelaItensUNP_SIGLA.Assign        ( FieldByName('UNP_SIGLA') );
-        cdsTabelaItensUNIDADE_SIGLA.Assign    ( FieldByName('UNIDADE_SIGLA') );
-        cdsTabelaItensESTOQUE.Assign          ( FieldByName('ESTOQUE') );
-        cdsTabelaItensRESERVA.Assign          ( FieldByName('RESERVA') );
-        cdsTabelaItensMOVIMENTA_ESTOQUE.Assign( FieldByName('MOVIMENTA_ESTOQUE') );
+        cdsTabelaItensUNP_SIGLA.Assign          ( FieldByName('UNP_SIGLA') );
+        cdsTabelaItensUNIDADE_SIGLA.Assign      ( FieldByName('UNIDADE_SIGLA') );
+        cdsTabelaItensUNIDADE_FRACIONADA.Assign ( FieldByName('unidade_fracionada') );
+        cdsTabelaItensESTOQUE.Assign            ( FieldByName('ESTOQUE') );
+        cdsTabelaItensRESERVA.Assign            ( FieldByName('RESERVA') );
+        cdsTabelaItensMOVIMENTA_ESTOQUE.Assign  ( FieldByName('MOVIMENTA_ESTOQUE') );
 
         cdsTabelaItensCUSTO_TOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
 

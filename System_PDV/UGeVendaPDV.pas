@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, dxGDIPlusClasses, StdCtrls, DBCtrls, Grids,
   DBGrids, DB, ActnList, IBCustomDataSet, IBUpdateSQL, IBTable, IBQuery,
-  IBStoredProc;
+  IBStoredProc, pngimage, System.Actions, frxClass;
 
 type
   TTipoAlteraItem = (alterarQuantidade, alterarValor, excluirProduto);
@@ -29,7 +29,7 @@ type
     dbNomeProduto: TDBText;
     dbValorProduto: TDBText;
     Panel1: TPanel;
-    Image1: TImage;
+    imgFechar: TImage;
     Label1: TLabel;
     lblFinalizarVenda: TLabel;
     lblCancelar: TLabel;
@@ -90,6 +90,7 @@ type
     actProdutoQuantidade: TAction;
     actProdutoExcluir: TAction;
     dtsNotaFiscal: TDataSource;
+    imgCaixaLivre: TImage;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -117,6 +118,7 @@ type
     procedure actProdutoExcluirExecute(Sender: TObject);
   private
     { Private declarations }
+    bOrcamentoCarregado : Boolean;
     sNomeTabela    ,
     sCampoCodigo   ,
     sGeneratorName : String;
@@ -217,7 +219,7 @@ begin
   edNomeFormaPagto.Tag     := GetFormaPagtoIDDefault;
   edNomeFormaPagto.Caption := GetFormaPagtoNomeDefault;
 
-  CarregarVenda(GetEmpresaIDDefault, 0, 0);
+  CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
 end;
 
 procedure TfrmGeVendaPDV.tmrContadorTimer(Sender: TObject);
@@ -250,8 +252,10 @@ end;
 
 procedure TfrmGeVendaPDV.FormShow(Sender: TObject);
 begin
-  if ( (sGeneratorName <> EmptyStr) and (sNomeTabela <> EmptyStr) and (sCampoCodigo <> EmptyStr) ) then
-    UpdateSequence(sGeneratorName, sNomeTabela, sCampoCodigo, 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
+  // A tela de vendas não pode atualizar generator porque este processo está gerando erros
+  
+  //if ( (sGeneratorName <> EmptyStr) and (sNomeTabela <> EmptyStr) and (sCampoCodigo <> EmptyStr) ) then
+  //  UpdateSequence(sGeneratorName, sNomeTabela, sCampoCodigo, 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
 
   inherited;
 
@@ -347,6 +351,7 @@ begin
 
   lblFinalizarVenda.Visible := not GetEmitirApenasOrcamento;
   lblGravar.Visible         := GetEmitirApenasOrcamento or (GetEmitirCupom and GetCupomNaoFiscalEmitir);
+  bOrcamentoCarregado       := False;
 
   if not lblFinalizarVenda.Visible then
   begin
@@ -478,7 +483,9 @@ begin
   else
     with DataSetVenda do
     begin
-      CarregarVenda(GetEmpresaIDDefault, 0, 0);
+      bOrcamentoCarregado := False;
+
+      CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
       
       pnlCaixaLivre.Visible := False;
       pnlCaixaLivre.Tag     := 0;
@@ -488,7 +495,7 @@ begin
 
       Append;
 
-      FieldByName('CODEMP').Value         := GetEmpresaIDDefault;
+      FieldByName('CODEMP').Value         := gUsuarioLogado.Empresa;
       FieldByName('ANO').AsInteger        := iAno;
       FieldByName('CODCONTROL').AsInteger := iNum;
 
@@ -503,7 +510,7 @@ begin
       FieldByName('NFE_ENVIADA').Value           := 0;
       FieldByName('NFE_DENEGADA').AsInteger      := 0;
       FieldByName('NFE_MODALIDADE_FRETE').Value  := MODALIDADE_FRETE_SEMFRETE;
-      FieldByName('USUARIO').Value               := GetUserApp;
+      FieldByName('USUARIO').Value               := gUsuarioLogado.Login;
 
       FieldByName('VENDEDOR_COD').Value   := edNomeVendedor.Tag;
       FieldByName('FORMAPAG').Value       := edNomeFormaPagto.Caption;
@@ -641,7 +648,7 @@ begin
   with DataSetVenda do
     if ( RecordCount = 0 ) then
     begin
-      CarregarVenda(GetEmpresaIDDefault, 0, 0);
+      CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
       IniciarCupomCabecalho;
       IniciarCupomProduto;
     end
@@ -655,7 +662,7 @@ begin
           CommitTransaction;
         end;
 
-      CarregarVenda(GetEmpresaIDDefault, 0, 0);
+      CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
       IniciarCupomCabecalho;
       IniciarCupomProduto;
     end;
@@ -1007,7 +1014,7 @@ begin
 
   AForm := TfrmGeVendaPDVOrcamento.Create(Self);
   try
-    AForm.OrcamentoCod := DMCupom.GetUltimaVenda(GetEmpresaIDDefault
+    AForm.OrcamentoCod := DMCupom.GetUltimaVenda(gUsuarioLogado.Empresa
       , gUsuarioLogado.Login
       , AForm.OrcamentoAno
       , STATUS_VND_ABR);
@@ -1016,7 +1023,10 @@ begin
       AForm.e2NumeroOrcamento.Text := EmptyStr;
 
     if ( AForm.ShowModal = mrOk ) then
-      CarregarVenda(GetEmpresaIDDefault, AForm.OrcamentoAno, AForm.OrcamentoCod);
+    begin
+      CarregarVenda(gUsuarioLogado.Empresa, AForm.OrcamentoAno, AForm.OrcamentoCod);
+      bOrcamentoCarregado := True;  
+    end;
   finally
     AForm.Free;
   end;
@@ -1092,8 +1102,8 @@ begin
             , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
 
       // Limpar Tela
-      
-      CarregarVenda(GetEmpresaIDDefault, 0, 0);
+
+      CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
       IniciarCupomCabecalho;
       IniciarCupomProduto;
     end;
@@ -1189,6 +1199,31 @@ begin
   CxNumero := 0;
   CxContaCorrente := 0;
 
+  // ( I N I C I O ) FORÇAR A GRAVAÇÃO DO REGISTRO NA BASE PARA DISPARAR TRIGGERS DE UPDATE
+
+  DataSetVenda.Edit;
+
+  TIBDataSet(DataSetVenda).Post;
+  TIBDataSet(DataSetVenda).ApplyUpdates;
+
+  // Gravar Itens da Venda
+
+  if (DataSetItens.State in [dsEdit, dsInsert]) then
+    TIBDataSet(DataSetItens).Post;
+
+  TIBDataSet(DataSetItens).ApplyUpdates;
+
+  // Gravar Forma de Pagamento da Venda
+
+  if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
+    TIBDataSet(DataSetFormaPagto).Post;
+
+  TIBDataSet(DataSetFormaPagto).ApplyUpdates;
+
+  CommitTransaction;
+
+  // ( F I N A L ) FORÇAR A GRAVAÇÃO DO REGISTRO NA BASE PARA DISPARAR TRIGGERS DE UPDATE
+
   with DataSetVenda do
   begin
     // Verificar se cliente está bloqueado, caso a venda seja a prazo
@@ -1205,7 +1240,7 @@ begin
 
   if DataSetFormaPagto.Locate('VENDA_PRAZO', 0, []) then
     if ( not CaixaAberto(DataSetVenda.FieldByName('CODEMP').AsString
-      , GetUserApp
+      , gUsuarioLogado.Login
       , GetDateDB
       , DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger
       , CxAno
@@ -1337,6 +1372,8 @@ begin
 
     // Formas de Pagamento que nao seja a prazo
 
+    DataSetVenda.Edit;
+
     DataSetFormaPagto.First;
     while not DataSetFormaPagto.Eof do
     begin
@@ -1357,6 +1394,20 @@ begin
       DataSetFormaPagto.Next;
     end;
 
+    TIBDataSet(DataSetVenda).Post;
+    TIBDataSet(DataSetVenda).ApplyUpdates;
+
+    CommitTransaction;
+
+    // Registrar o Número do Caixa na Venda Finalizada
+
+    RegistrarCaixaNaVenda(
+        DataSetVenda.FieldByName('ANO').AsInteger
+      , DataSetVenda.FieldByName('CODCONTROL').AsInteger
+      , CxAno
+      , CxNumero
+      , True);
+
     if ( CxContaCorrente > 0 ) then
       GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
 
@@ -1364,6 +1415,7 @@ begin
 
     if GetEmitirCupom then
       if GetEmitirCupomAutomatico then
+      begin
         if DMNFe.IsEstacaoEmiteNFCe then
         begin
           // (INICIO) - Emissão de NFC-e
@@ -1432,7 +1484,7 @@ begin
 
             if ( FileExists(sFileNameXML) ) then
             begin
-              CorrigirXML_NFe(sFileNameXML);
+              CorrigirXML_NFe(EmptyStr, sFileNameXML);
 
               DataSetNotaFiscal.FieldByName('XML_FILENAME').Value := ExtractFileName( sFileNameXML );
               TMemoField(DataSetNotaFiscal.FieldByName('XML_FILE')).LoadFromFile( sFileNameXML );
@@ -1453,7 +1505,7 @@ begin
               , DataSetVenda.FieldByName('ANO').AsInteger
               , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
 
-          // (FINAL) - Emissão de NFC-e    
+          // (FINAL) - Emissão de NFC-e
         end
         else
         if GetCupomNaoFiscalEmitir then
@@ -1470,10 +1522,27 @@ begin
         end
         else
           ; // Emitir Cupom Fiscal
+      end
+      else
+      begin
+        bConfirmado := ShowConfirmation('Confirma a impressão do Cupom?');
+
+        if bConfirmado then
+          if GetCupomNaoFiscalEmitir then
+            DMNFe.ImprimirCupomNaoFiscal(
+                DataSetVenda.FieldByName('CODEMP').AsString
+              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+              , DataSetVenda.FieldByName('ANO').AsInteger
+              , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
+          else
+            ; // Emitir Cupom Fiscal
+
+      end;
 
     // Limpar Tela
-    
-    CarregarVenda(GetEmpresaIDDefault, 0, 0);
+
+    CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
     IniciarCupomCabecalho;
     IniciarCupomProduto;
 
@@ -1591,7 +1660,7 @@ var
 begin
   iReturn := False;
   try
-    if GetEstoqueSateliteEmpresa(GetEmpresaIDDefault) then
+    if GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) then
       with DMBusiness, qryBusca do
       begin
         Close;
