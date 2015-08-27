@@ -1,7 +1,9 @@
 inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
-  Left = 392
-  Top = 218
+  Left = 410
+  Top = 214
   Caption = 'Relat'#243'rios de Contas A Receber'
+  ExplicitWidth = 555
+  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
@@ -64,12 +66,63 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         Caption = 'Empresa:'
         FocusControl = edEmpresa
       end
-      object e1Data: TDateEdit
+      object edSituacao: TComboBox
+        Left = 104
+        Top = 72
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemIndex = 2
+        TabOrder = 4
+        Text = 'Pendentes'
+        Items.Strings = (
+          '(Todos)'
+          'Baixados'
+          'Pendentes'
+          'Cancelados')
+      end
+      object edCompetencia: TComboBox
+        Left = 104
+        Top = 48
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemIndex = 0
+        TabOrder = 1
+        Text = '(Todas)'
+        OnChange = edCompetenciaChange
+        Items.Strings = (
+          '(Todas)'
+          'Baixados'
+          'Pendentes'
+          'Cancelados')
+      end
+      object edCliente: TComboBox
+        Left = 104
+        Top = 96
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemIndex = 0
+        TabOrder = 5
+        Text = '(Todos)'
+        Items.Strings = (
+          '(Todos)')
+      end
+      object edEmpresa: TComboBox
+        Left = 104
+        Top = 24
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object e1Data: TJvDateEdit
         Left = 104
         Top = 119
-        Width = 100
+        Width = 99
         Height = 21
-        GlyphKind = gkCustom
+        Date = 40909.000000000000000000
         Glyph.Data = {
           76050000424D760500000000000036000000280000001C0000000C0000000100
           2000000000004005000000000000000000000000000000000000FF00FF00FF00
@@ -115,80 +168,75 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           0000000000000000000000000000000000000000000000000000FF00FF00FF00
           FF00FF00FF008080800080808000808080008080800080808000808080008080
           80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
         NumGlyphs = 2
+        PopupColor = clBtnFace
+        ShowNullDate = False
         TabOrder = 2
-        Text = '01/01/2012'
         Visible = False
       end
-      object e2Data: TDateEdit
+      object e2Data: TJvDateEdit
         Left = 208
         Top = 119
-        Width = 104
+        Width = 103
         Height = 21
+        Date = 40909.000000000000000000
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
         NumGlyphs = 2
+        PopupColor = clBtnFace
+        ShowNullDate = False
         TabOrder = 3
-        Text = '01/01/2012'
         Visible = False
-      end
-      object edSituacao: TComboBox
-        Left = 104
-        Top = 72
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        ItemIndex = 2
-        TabOrder = 4
-        Text = 'Pendentes'
-        Items.Strings = (
-          '(Todos)'
-          'Baixados'
-          'Pendentes'
-          'Cancelados')
-      end
-      object edCompetencia: TComboBox
-        Left = 104
-        Top = 48
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        ItemIndex = 0
-        TabOrder = 1
-        Text = '(Todas)'
-        OnChange = edCompetenciaChange
-        Items.Strings = (
-          '(Todas)'
-          'Baixados'
-          'Pendentes'
-          'Cancelados')
-      end
-      object edCliente: TComboBox
-        Left = 104
-        Top = 96
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        ItemIndex = 0
-        TabOrder = 5
-        Text = '(Todos)'
-        Items.Strings = (
-          '(Todos)')
-      end
-      object edEmpresa: TComboBox
-        Left = 104
-        Top = 24
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        TabOrder = 0
       end
     end
   end
   object frRelacaoAReceberVSintetico: TfrxReport
-    Version = '4.9.72'
+    Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -260,6 +308,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
+        FillType = ftBrush
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -269,13 +318,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 94.488250000000000000
           Width = 604.724800000000000000
           Height = 26.456710000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
           VAlign = vaCenter
@@ -285,7 +333,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
-          ShowHint = False
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -298,7 +345,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -306,7 +352,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
           VAlign = vaCenter
@@ -316,7 +362,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -324,7 +369,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
               '">)]')
@@ -337,7 +382,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 41.574830000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -345,7 +389,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
           WordWrap = False
@@ -356,7 +400,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -364,7 +407,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
               'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
@@ -377,7 +420,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 718.110700000000000000
-          ShowHint = False
+          Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
@@ -385,7 +428,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 71.811070000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -393,7 +435,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
@@ -404,14 +446,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 120.944960000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Situa'#195#167#195#163'o dos t'#195#173'tulos:')
+          Memo.UTF8W = (
+            'Situa'#231#227'o dos t'#237'tulos:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -420,7 +461,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 136.063080000000000000
           Width = 604.724800000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -428,7 +468,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
           VAlign = vaCenter
@@ -438,26 +478,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 483.779840000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndPageFooter: TfrxPageFooter
+        FillType = ftBrush
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -465,7 +504,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [Sistema]')
           ParentFont = False
           WordWrap = False
@@ -475,15 +514,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Impresso em [Date] '#195#160's [Time] por [Usuario]')
+          Memo.UTF8W = (
+            ' Impresso em [Date] '#224's [Time] por [Usuario]')
           ParentFont = False
           WordWrap = False
         end
@@ -491,7 +529,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -500,14 +537,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftTop]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
-            'P'#195#161'gina [Page#] / [TotalPages#]')
+          Memo.UTF8W = (
+            'P'#225'gina [Page#] / [TotalPages#]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
+        FillType = ftBrush
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -517,7 +555,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -527,7 +564,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVSintetico."COMPETENCIA_VENCIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -536,8 +573,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo5: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -547,8 +582,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Compet'#195#170'ncia')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Compet'#234'ncia')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -556,8 +592,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -567,8 +601,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Vencimentos')
           ParentFont = False
           VAlign = vaCenter
@@ -578,8 +613,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 461.102660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -589,9 +622,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Valores do T'#195#173'tulo')
+          Memo.UTF8W = (
+            'Valores do T'#237'tulo')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -600,8 +634,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -611,8 +643,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Valor (R$) ')
           ParentFont = False
           WordWrap = False
@@ -623,8 +656,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -634,8 +665,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido (R$) ')
           ParentFont = False
           WordWrap = False
@@ -646,8 +678,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -657,8 +687,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber (R$) ')
           ParentFont = False
           WordWrap = False
@@ -669,8 +700,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 173.858316540000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -680,8 +709,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' Forma de Pagto.')
           ParentFont = False
           WordWrap = False
@@ -692,8 +722,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -703,8 +731,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas (R$) ')
           ParentFont = False
           WordWrap = False
@@ -715,8 +744,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 52.913346770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -726,8 +753,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Quant. ')
           ParentFont = False
           WordWrap = False
@@ -735,6 +763,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndMasterData: TfrxMasterData
+        FillType = ftBrush
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -745,7 +774,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -762,7 +790,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
           WordWrap = False
@@ -771,7 +800,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo9: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -787,7 +815,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVSintetico."D' +
               'TVENC">)]')
@@ -799,7 +828,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -816,7 +844,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVSintetico."VALORREC">)' +
               '] ')
@@ -828,7 +857,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -845,7 +873,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVSintetico."VALORMULTA"' +
               '>)] ')
@@ -857,7 +886,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -874,7 +902,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVSintetico."VALORRECTOT' +
               '">)] ')
@@ -886,7 +915,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -902,7 +930,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVSintetico."FORMA_PAGTO"]')
           ParentFont = False
           WordWrap = False
@@ -912,7 +941,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -929,7 +957,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',<FrdsRelacaoAReceberVSintetico."QUANTIDADE">)]' +
               ' ')
@@ -939,6 +968,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
+        FillType = ftBrush
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -946,8 +976,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -956,7 +984,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -966,8 +994,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -976,7 +1002,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVSintetico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -988,8 +1014,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -998,7 +1022,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVSintetico."VALORMU' +
               'LTA">,BndMasterData))] ')
@@ -1010,8 +1034,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -1020,7 +1042,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVSintetico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -1032,8 +1054,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -1042,7 +1062,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',SUM(<FrdsRelacaoAReceberVSintetico."QUANTIDADE' +
               '">,BndMasterData))] ')
@@ -1052,6 +1072,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object bndReportSummary: TfrxReportSummary
+        FillType = ftBrush
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -1059,7 +1080,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo18: TfrxMemoView
           Width = 718.110700000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -1067,10 +1087,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
-              ' * Os valores totais apresentados est'#195#163'o de acordo com o per'#195#173'od' +
-              'o e a situa'#195#167#195#163'o dos t'#195#173'tulos  informados')
+              ' * Os valores totais apresentados est'#227'o de acordo com o per'#237'odo ' +
+              'e a situa'#231#227'o dos t'#237'tulos  informados')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -1078,7 +1098,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -1087,7 +1106,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVSintetico."VALORR' +
               'EC">-<FrdsRelacaoAReceberVSintetico."VALORREC_CANCEL">),BndMaste' +
@@ -1101,8 +1120,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1112,8 +1129,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Bruto: ')
           ParentFont = False
           WordWrap = False
@@ -1124,8 +1142,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1135,8 +1151,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'TOTAL GERAL (R$)')
           ParentFont = False
           WordWrap = False
@@ -1147,8 +1164,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1158,8 +1173,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas:')
           ParentFont = False
           WordWrap = False
@@ -1170,8 +1186,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1181,8 +1195,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido: ')
           ParentFont = False
           WordWrap = False
@@ -1193,7 +1208,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -1202,7 +1216,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVSintetico."VALORM' +
               'ULTA">-<FrdsRelacaoAReceberVSintetico."VALORMULTA_CANCEL">),BndM' +
@@ -1216,7 +1230,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -1225,7 +1238,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVSintetico."VALORR' +
               'ECTOT">-<FrdsRelacaoAReceberVSintetico."VALORRECTOT_CANCEL">),Bn' +
@@ -1239,8 +1252,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1250,8 +1261,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber: ')
           ParentFont = False
           WordWrap = False
@@ -1262,7 +1274,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -1271,7 +1282,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -1281,15 +1292,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' ** Valores de t'#195#173'trulos cancelados')
+          Memo.UTF8W = (
+            ' ** Valores de t'#237'trulos cancelados')
           ParentFont = False
           WordWrap = False
         end
@@ -1299,6 +1309,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryRelacaoAReceberVSintetico: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       
@@ -1427,6 +1440,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryRelacaoAReceberVAnalitico: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       '    cr.anolanc'
@@ -1593,7 +1609,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     Top = 56
   end
   object frRelacaoAReceberVAnalitico: TfrxReport
-    Version = '4.9.72'
+    Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1674,6 +1690,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
+        FillType = ftBrush
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1682,13 +1699,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 94.488250000000000000
           Width = 933.543910000000000000
           Height = 26.456710000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
           VAlign = vaCenter
@@ -1698,7 +1714,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
-          ShowHint = False
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -1711,7 +1726,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -1719,7 +1733,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
           VAlign = vaCenter
@@ -1729,7 +1743,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -1737,7 +1750,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
               '">)]')
@@ -1750,7 +1763,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 41.574830000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -1758,7 +1770,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
           WordWrap = False
@@ -1769,7 +1781,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -1777,7 +1788,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
               'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
@@ -1790,7 +1801,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
-          ShowHint = False
+          Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
@@ -1798,7 +1809,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 71.811070000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -1806,7 +1816,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
@@ -1817,14 +1827,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 120.944960000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Situa'#195#167#195#163'o dos t'#195#173'tulos:')
+          Memo.UTF8W = (
+            'Situa'#231#227'o dos t'#237'tulos:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -1833,14 +1842,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 136.063080000000000000
           Width = 933.543910000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
           VAlign = vaCenter
@@ -1850,26 +1858,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 812.598950000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndPageFooter: TfrxPageFooter
+        FillType = ftBrush
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           Width = 910.866730000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -1877,7 +1884,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [Sistema]')
           ParentFont = False
           WordWrap = False
@@ -1887,15 +1894,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Impresso em [Date] '#195#160's [Time] por [Usuario]')
+          Memo.UTF8W = (
+            ' Impresso em [Date] '#224's [Time] por [Usuario]')
           ParentFont = False
           WordWrap = False
         end
@@ -1903,7 +1909,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -1912,14 +1917,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftTop]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
-            'P'#195#161'gina [Page#] / [TotalPages#]')
+          Memo.UTF8W = (
+            'P'#225'gina [Page#] / [TotalPages#]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
+        FillType = ftBrush
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -1929,7 +1935,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1939,7 +1944,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."COMPETENCIA_VENCIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -1948,8 +1953,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo5: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1959,13 +1962,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Compet'#195#170'ncia')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Compet'#234'ncia')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndMasterData: TfrxMasterData
+        FillType = ftBrush
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -1976,7 +1981,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1993,7 +1997,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
           WordWrap = False
@@ -2003,7 +2008,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2020,7 +2024,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVAnalitico."VALORREC">)' +
               '] ')
@@ -2032,7 +2037,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2049,7 +2053,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVAnalitico."VALORRECTOT' +
               '">)] ')
@@ -2061,7 +2066,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2077,7 +2081,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."VENDA"]')
           ParentFont = False
           WordWrap = False
@@ -2087,7 +2092,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2103,7 +2107,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."V' +
               'ENDA_DATA">)]')
@@ -2115,7 +2120,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2131,7 +2135,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."NFE"]')
           ParentFont = False
           WordWrap = False
@@ -2140,7 +2145,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo28: TfrxMemoView
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2156,7 +2160,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."LANCAMENTO"]')
           ParentFont = False
           WordWrap = False
@@ -2166,7 +2171,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2183,7 +2187,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."PARCELA"]')
           ParentFont = False
           WordWrap = False
@@ -2193,7 +2198,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2209,7 +2213,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."D' +
               'TEMISS">)]')
@@ -2221,7 +2226,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2237,7 +2241,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."D' +
               'TVENC">)]')
@@ -2249,7 +2254,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2265,7 +2269,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAReceberVAnalitico."DTREC">=0,'#39#39',FormatDateTim' +
               'e('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."DTREC">))]')
@@ -2277,7 +2282,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2293,7 +2297,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -2301,6 +2306,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
+        FillType = ftBrush
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -2308,8 +2314,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -2318,7 +2322,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -2328,8 +2332,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -2338,7 +2340,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -2350,8 +2352,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -2360,7 +2360,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -2372,8 +2372,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2383,8 +2381,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."COMPETENCIA_VENCIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -2392,6 +2391,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object bndReportSummary: TfrxReportSummary
+        FillType = ftBrush
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -2399,7 +2399,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo18: TfrxMemoView
           Width = 793.701300000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -2407,8 +2406,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' * T'#195#173'tulo(s) Cancelado(s).')
+          Memo.UTF8W = (
+            ' * T'#237'tulo(s) Cancelado(s).')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -2416,7 +2415,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -2425,7 +2423,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORR' +
               'EC">-<FrdsRelacaoAReceberVAnalitico."VALORREC_CANCEL">),BndMaste' +
@@ -2439,8 +2437,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2450,8 +2446,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Bruto: ')
           ParentFont = False
           WordWrap = False
@@ -2461,8 +2458,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2472,8 +2467,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'TOTAL GERAL (R$)')
           ParentFont = False
           WordWrap = False
@@ -2484,8 +2480,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2495,8 +2489,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas: ')
           ParentFont = False
           WordWrap = False
@@ -2507,8 +2502,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2518,8 +2511,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido: ')
           ParentFont = False
           WordWrap = False
@@ -2530,7 +2524,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -2539,7 +2532,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORM' +
               'ULTA">-<FrdsRelacaoAReceberVAnalitico."VALORMULTA_CANCEL">),BndM' +
@@ -2553,7 +2546,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -2562,7 +2554,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORR' +
               'ECTOT">-<FrdsRelacaoAReceberVAnalitico."VALORRECTOT_CANCEL">),Bn' +
@@ -2576,8 +2568,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 75.590600000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2587,8 +2577,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber: ')
           ParentFont = False
           WordWrap = False
@@ -2599,7 +2590,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 75.590600000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -2608,7 +2598,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -2618,21 +2608,21 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
-              ' * O TOTAL GERAL do relat'#195#179'rio leva em considera'#195#167#195#163'o apenas os ' +
-              't'#195#173'tulos n'#195#163'o cancelados.')
+              ' * O TOTAL GERAL do relat'#243'rio leva em considera'#231#227'o apenas os t'#237't' +
+              'ulos n'#227'o cancelados.')
           ParentFont = False
         end
       end
       object BndGrpHeaderCliente: TfrxGroupHeader
+        FillType = ftBrush
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -2641,8 +2631,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo8: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897637800000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2652,7 +2640,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Cliente')
           ParentFont = False
           VAlign = vaCenter
@@ -2662,8 +2651,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 427.086890000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2673,9 +2660,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Valores do T'#195#173'tulo')
+          Memo.UTF8W = (
+            'Valores do T'#237'tulo')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -2684,8 +2672,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2695,8 +2681,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Valor (R$) ')
           ParentFont = False
           WordWrap = False
@@ -2707,8 +2694,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2718,8 +2703,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido (R$) ')
           ParentFont = False
           WordWrap = False
@@ -2730,8 +2716,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2741,8 +2725,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber (R$) ')
           ParentFont = False
           WordWrap = False
@@ -2752,7 +2737,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2762,7 +2746,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."CLIENTE_NOME"]')
           ParentFont = False
           WordWrap = False
@@ -2773,8 +2757,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2784,7 +2766,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' No. Venda')
           ParentFont = False
           WordWrap = False
@@ -2795,8 +2778,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2806,7 +2787,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Data')
           ParentFont = False
           WordWrap = False
@@ -2817,8 +2799,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2828,7 +2808,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' NF-e')
           ParentFont = False
           WordWrap = False
@@ -2839,8 +2820,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2850,8 +2829,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Dados da Venda')
           ParentFont = False
           VAlign = vaCenter
@@ -2860,8 +2840,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2871,7 +2849,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' No. ')
           ParentFont = False
           WordWrap = False
@@ -2881,8 +2860,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2892,9 +2869,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Dados do Lan'#195#167'amento')
+          Memo.UTF8W = (
+            'Dados do Lan'#231'amento')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -2903,8 +2881,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2914,7 +2890,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Parc.')
           ParentFont = False
           WordWrap = False
@@ -2925,8 +2902,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2936,8 +2911,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Emiss'#195#163'o')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Emiss'#227'o')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2947,8 +2923,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2958,7 +2932,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Vencimento')
           ParentFont = False
           WordWrap = False
@@ -2969,8 +2944,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2980,7 +2953,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Baixado em')
           ParentFont = False
           WordWrap = False
@@ -2991,8 +2965,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3002,7 +2974,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Forma de Pagto.')
           ParentFont = False
           WordWrap = False
@@ -3012,7 +2985,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3022,7 +2994,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '  [IIF(<FrdsRelacaoAReceberVAnalitico."CLIENTE_PF">=1,FormatMask' +
               'Text('#39'###.###.###-##;0;'#39',<FrdsRelacaoAReceberVAnalitico."CLIENTE' +
@@ -3034,6 +3006,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCliente: TfrxGroupFooter
+        FillType = ftBrush
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -3041,7 +3014,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -3050,7 +3022,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -3060,7 +3032,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -3069,7 +3040,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -3081,7 +3052,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -3090,7 +3060,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -3102,7 +3072,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3113,7 +3082,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."CLIENTE_NOME"]')
           ParentFont = False
           WordWrap = False
@@ -3125,6 +3094,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryCompetencia: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       '    c.cmp_num'
@@ -3150,6 +3122,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryCliente: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       '    c.codigo'
@@ -3176,7 +3151,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     Top = 40
   end
   object frRelacaoAReceberESintetico: TfrxReport
-    Version = '4.9.72'
+    Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3248,6 +3223,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
+        FillType = ftBrush
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -3257,13 +3233,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 94.488250000000000000
           Width = 604.724800000000000000
           Height = 26.456710000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
           VAlign = vaCenter
@@ -3273,7 +3248,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
-          ShowHint = False
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -3286,7 +3260,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -3294,7 +3267,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
           VAlign = vaCenter
@@ -3304,7 +3277,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -3312,7 +3284,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
               '">)]')
@@ -3325,7 +3297,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 41.574830000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -3333,7 +3304,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
           WordWrap = False
@@ -3344,7 +3315,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -3352,7 +3322,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
               'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
@@ -3365,7 +3335,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 718.110700000000000000
-          ShowHint = False
+          Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
@@ -3373,7 +3343,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 71.811070000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -3381,7 +3350,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
@@ -3392,14 +3361,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 120.944960000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Situa'#195#167#195#163'o dos t'#195#173'tulos:')
+          Memo.UTF8W = (
+            'Situa'#231#227'o dos t'#237'tulos:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3408,7 +3376,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 136.063080000000000000
           Width = 604.724800000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3416,7 +3383,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
           VAlign = vaCenter
@@ -3426,26 +3393,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 483.779840000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndPageFooter: TfrxPageFooter
+        FillType = ftBrush
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -3453,7 +3419,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [Sistema]')
           ParentFont = False
           WordWrap = False
@@ -3463,15 +3429,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Impresso em [Date] '#195#160's [Time] por [Usuario]')
+          Memo.UTF8W = (
+            ' Impresso em [Date] '#224's [Time] por [Usuario]')
           ParentFont = False
           WordWrap = False
         end
@@ -3479,7 +3444,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -3488,14 +3452,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftTop]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
-            'P'#195#161'gina [Page#] / [TotalPages#]')
+          Memo.UTF8W = (
+            'P'#225'gina [Page#] / [TotalPages#]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
+        FillType = ftBrush
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -3505,7 +3470,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3515,7 +3479,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberESintetico."COMPETENCIA_EMISSAO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -3524,8 +3488,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo5: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3535,8 +3497,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Compet'#195#170'ncia')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Compet'#234'ncia')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3544,8 +3507,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3555,9 +3516,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Emiss'#195#163'o')
+          Memo.UTF8W = (
+            'Emiss'#227'o')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3566,8 +3528,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 461.102660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3577,9 +3537,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Valores do T'#195#173'tulo')
+          Memo.UTF8W = (
+            'Valores do T'#237'tulo')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3588,8 +3549,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3599,8 +3558,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Valor (R$) ')
           ParentFont = False
           WordWrap = False
@@ -3611,8 +3571,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3622,8 +3580,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido (R$) ')
           ParentFont = False
           WordWrap = False
@@ -3634,8 +3593,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3645,8 +3602,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber (R$) ')
           ParentFont = False
           WordWrap = False
@@ -3657,8 +3615,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 173.858316540000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3668,8 +3624,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' Forma de Pagto.')
           ParentFont = False
           WordWrap = False
@@ -3680,8 +3637,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3691,8 +3646,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas (R$) ')
           ParentFont = False
           WordWrap = False
@@ -3703,8 +3659,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 52.913346770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3714,8 +3668,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Quant. ')
           ParentFont = False
           WordWrap = False
@@ -3723,6 +3678,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndMasterData: TfrxMasterData
+        FillType = ftBrush
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -3733,7 +3689,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3750,7 +3705,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberESintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
           WordWrap = False
@@ -3759,7 +3715,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo9: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3775,7 +3730,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberESintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberESintetico."D' +
               'TEMISS">)]')
@@ -3787,7 +3743,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3804,7 +3759,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberESintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberESintetico."VALORREC">)' +
               '] ')
@@ -3816,7 +3772,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3833,7 +3788,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberESintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberESintetico."VALORMULTA"' +
               '>)] ')
@@ -3845,7 +3801,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3862,7 +3817,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberESintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberESintetico."VALORRECTOT' +
               '">)] ')
@@ -3874,7 +3830,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3890,7 +3845,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberESintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberESintetico."FORMA_PAGTO"]')
           ParentFont = False
           WordWrap = False
@@ -3900,7 +3856,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3917,7 +3872,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberESintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',<FrdsRelacaoAReceberESintetico."QUANTIDADE">)]' +
               ' ')
@@ -3927,6 +3883,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
+        FillType = ftBrush
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -3934,8 +3891,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -3944,7 +3899,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -3954,8 +3909,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -3964,7 +3917,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberESintetico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -3976,8 +3929,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -3986,7 +3937,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberESintetico."VALORMU' +
               'LTA">,BndMasterData))] ')
@@ -3998,8 +3949,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -4008,7 +3957,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberESintetico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -4020,8 +3969,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -4030,7 +3977,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',SUM(<FrdsRelacaoAReceberESintetico."QUANTIDADE' +
               '">,BndMasterData))] ')
@@ -4040,6 +3987,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object bndReportSummary: TfrxReportSummary
+        FillType = ftBrush
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -4047,7 +3995,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo18: TfrxMemoView
           Width = 718.110700000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -4055,10 +4002,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
-              ' * Os valores totais apresentados est'#195#163'o de acordo com o per'#195#173'od' +
-              'o e a situa'#195#167#195#163'o dos t'#195#173'tulos  informados')
+              ' * Os valores totais apresentados est'#227'o de acordo com o per'#237'odo ' +
+              'e a situa'#231#227'o dos t'#237'tulos  informados')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -4066,7 +4013,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -4075,7 +4021,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberESintetico."VALORR' +
               'EC">-<FrdsRelacaoAReceberESintetico."VALORREC_CANCEL">),BndMaste' +
@@ -4089,8 +4035,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4100,8 +4044,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Bruto: ')
           ParentFont = False
           WordWrap = False
@@ -4112,8 +4057,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4123,8 +4066,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'TOTAL GERAL (R$)')
           ParentFont = False
           WordWrap = False
@@ -4135,8 +4079,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4146,8 +4088,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas:')
           ParentFont = False
           WordWrap = False
@@ -4158,8 +4101,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4169,8 +4110,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido: ')
           ParentFont = False
           WordWrap = False
@@ -4181,7 +4123,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -4190,7 +4131,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberESintetico."VALORM' +
               'ULTA">-<FrdsRelacaoAReceberESintetico."VALORMULTA_CANCEL">),BndM' +
@@ -4204,7 +4145,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -4213,7 +4153,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberESintetico."VALORR' +
               'ECTOT">-<FrdsRelacaoAReceberESintetico."VALORRECTOT_CANCEL">),Bn' +
@@ -4227,8 +4167,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4238,8 +4176,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber: ')
           ParentFont = False
           WordWrap = False
@@ -4250,7 +4189,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -4259,7 +4197,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -4269,15 +4207,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' ** Valores de t'#195#173'trulos cancelados')
+          Memo.UTF8W = (
+            ' ** Valores de t'#237'trulos cancelados')
           ParentFont = False
           WordWrap = False
         end
@@ -4287,6 +4224,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryRelacaoAReceberESintetico: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       
@@ -4414,7 +4354,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     Top = 152
   end
   object frRelacaoAReceberEAnalitico: TfrxReport
-    Version = '4.9.72'
+    Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4495,6 +4435,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
+        FillType = ftBrush
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -4503,13 +4444,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 94.488250000000000000
           Width = 933.543910000000000000
           Height = 26.456710000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
           VAlign = vaCenter
@@ -4519,7 +4459,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
-          ShowHint = False
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -4532,7 +4471,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -4540,7 +4478,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
           VAlign = vaCenter
@@ -4550,7 +4488,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -4558,7 +4495,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
               '">)]')
@@ -4571,7 +4508,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 41.574830000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -4579,7 +4515,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
           WordWrap = False
@@ -4590,7 +4526,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -4598,7 +4533,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
               'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
@@ -4611,7 +4546,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
-          ShowHint = False
+          Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
@@ -4619,7 +4554,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 71.811070000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -4627,7 +4561,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
@@ -4638,14 +4572,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 120.944960000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Situa'#195#167#195#163'o dos t'#195#173'tulos:')
+          Memo.UTF8W = (
+            'Situa'#231#227'o dos t'#237'tulos:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -4654,14 +4587,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 136.063080000000000000
           Width = 933.543910000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
           VAlign = vaCenter
@@ -4671,26 +4603,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 812.598950000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndPageFooter: TfrxPageFooter
+        FillType = ftBrush
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           Width = 910.866730000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -4698,7 +4629,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [Sistema]')
           ParentFont = False
           WordWrap = False
@@ -4708,15 +4639,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Impresso em [Date] '#195#160's [Time] por [Usuario]')
+          Memo.UTF8W = (
+            ' Impresso em [Date] '#224's [Time] por [Usuario]')
           ParentFont = False
           WordWrap = False
         end
@@ -4724,7 +4654,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -4733,14 +4662,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftTop]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
-            'P'#195#161'gina [Page#] / [TotalPages#]')
+          Memo.UTF8W = (
+            'P'#225'gina [Page#] / [TotalPages#]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
+        FillType = ftBrush
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -4750,7 +4680,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4760,7 +4689,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."COMPETENCIA_EMISSAO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -4769,8 +4698,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo5: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4780,13 +4707,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Compet'#195#170'ncia')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Compet'#234'ncia')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndMasterData: TfrxMasterData
+        FillType = ftBrush
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -4797,7 +4726,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4814,7 +4742,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
           WordWrap = False
@@ -4824,7 +4753,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4841,7 +4769,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVAnalitico."VALORREC">)' +
               '] ')
@@ -4853,7 +4782,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4870,7 +4798,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVAnalitico."VALORRECTOT' +
               '">)] ')
@@ -4882,7 +4811,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4898,7 +4826,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."VENDA"]')
           ParentFont = False
           WordWrap = False
@@ -4908,7 +4837,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4924,7 +4852,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."V' +
               'ENDA_DATA">)]')
@@ -4936,7 +4865,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4952,7 +4880,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."NFE"]')
           ParentFont = False
           WordWrap = False
@@ -4961,7 +4890,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo28: TfrxMemoView
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4977,7 +4905,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."LANCAMENTO"]')
           ParentFont = False
           WordWrap = False
@@ -4987,7 +4916,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5004,7 +4932,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."PARCELA"]')
           ParentFont = False
           WordWrap = False
@@ -5014,7 +4943,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5030,7 +4958,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."D' +
               'TEMISS">)]')
@@ -5042,7 +4971,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5058,7 +4986,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."D' +
               'TVENC">)]')
@@ -5070,7 +4999,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5086,7 +5014,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAReceberVAnalitico."DTREC">=0,'#39#39',FormatDateTim' +
               'e('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."DTREC">))]')
@@ -5098,7 +5027,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5114,7 +5042,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -5122,6 +5051,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
+        FillType = ftBrush
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -5129,8 +5059,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -5139,7 +5067,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -5149,8 +5077,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -5159,7 +5085,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -5171,8 +5097,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -5181,7 +5105,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -5193,8 +5117,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5204,8 +5126,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."COMPETENCIA_VENCIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -5213,6 +5136,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object bndReportSummary: TfrxReportSummary
+        FillType = ftBrush
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -5220,7 +5144,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo18: TfrxMemoView
           Width = 793.701300000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -5228,8 +5151,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' * T'#195#173'tulo(s) Cancelado(s).')
+          Memo.UTF8W = (
+            ' * T'#237'tulo(s) Cancelado(s).')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -5237,7 +5160,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -5246,7 +5168,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORR' +
               'EC">-<FrdsRelacaoAReceberVAnalitico."VALORREC_CANCEL">),BndMaste' +
@@ -5260,8 +5182,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5271,8 +5191,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Bruto: ')
           ParentFont = False
           WordWrap = False
@@ -5282,8 +5203,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5293,8 +5212,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'TOTAL GERAL (R$)')
           ParentFont = False
           WordWrap = False
@@ -5305,8 +5225,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5316,8 +5234,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas: ')
           ParentFont = False
           WordWrap = False
@@ -5328,8 +5247,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5339,8 +5256,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido: ')
           ParentFont = False
           WordWrap = False
@@ -5351,7 +5269,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -5360,7 +5277,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORM' +
               'ULTA">-<FrdsRelacaoAReceberVAnalitico."VALORMULTA_CANCEL">),BndM' +
@@ -5374,7 +5291,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -5383,7 +5299,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORR' +
               'ECTOT">-<FrdsRelacaoAReceberVAnalitico."VALORRECTOT_CANCEL">),Bn' +
@@ -5397,8 +5313,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 75.590600000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5408,8 +5322,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber: ')
           ParentFont = False
           WordWrap = False
@@ -5420,7 +5335,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 75.590600000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -5429,7 +5343,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -5439,21 +5353,21 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
-              ' * O TOTAL GERAL do relat'#195#179'rio leva em considera'#195#167#195#163'o apenas os ' +
-              't'#195#173'tulos n'#195#163'o cancelados.')
+              ' * O TOTAL GERAL do relat'#243'rio leva em considera'#231#227'o apenas os t'#237't' +
+              'ulos n'#227'o cancelados.')
           ParentFont = False
         end
       end
       object BndGrpHeaderCliente: TfrxGroupHeader
+        FillType = ftBrush
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -5462,8 +5376,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo8: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897637800000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5473,7 +5385,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Cliente')
           ParentFont = False
           VAlign = vaCenter
@@ -5483,8 +5396,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 427.086890000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5494,9 +5405,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Valores do T'#195#173'tulo')
+          Memo.UTF8W = (
+            'Valores do T'#237'tulo')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -5505,8 +5417,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5516,8 +5426,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Valor (R$) ')
           ParentFont = False
           WordWrap = False
@@ -5528,8 +5439,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5539,8 +5448,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido (R$) ')
           ParentFont = False
           WordWrap = False
@@ -5551,8 +5461,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5562,8 +5470,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber (R$) ')
           ParentFont = False
           WordWrap = False
@@ -5573,7 +5482,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5583,7 +5491,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."CLIENTE_NOME"]')
           ParentFont = False
           WordWrap = False
@@ -5594,8 +5502,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5605,7 +5511,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' No. Venda')
           ParentFont = False
           WordWrap = False
@@ -5616,8 +5523,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5627,7 +5532,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Data')
           ParentFont = False
           WordWrap = False
@@ -5638,8 +5544,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5649,7 +5553,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' NF-e')
           ParentFont = False
           WordWrap = False
@@ -5660,8 +5565,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5671,8 +5574,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Dados da Venda')
           ParentFont = False
           VAlign = vaCenter
@@ -5681,8 +5585,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5692,7 +5594,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' No. ')
           ParentFont = False
           WordWrap = False
@@ -5702,8 +5605,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5713,9 +5614,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Dados do Lan'#195#167'amento')
+          Memo.UTF8W = (
+            'Dados do Lan'#231'amento')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -5724,8 +5626,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5735,7 +5635,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Parc.')
           ParentFont = False
           WordWrap = False
@@ -5746,8 +5647,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5757,8 +5656,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Emiss'#195#163'o')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Emiss'#227'o')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -5768,8 +5668,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5779,7 +5677,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Vencimento')
           ParentFont = False
           WordWrap = False
@@ -5790,8 +5689,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5801,7 +5698,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Baixado em')
           ParentFont = False
           WordWrap = False
@@ -5812,8 +5710,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5823,7 +5719,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Forma de Pagto.')
           ParentFont = False
           WordWrap = False
@@ -5833,7 +5730,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5843,7 +5739,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '  [IIF(<FrdsRelacaoAReceberVAnalitico."CLIENTE_PF">=1,FormatMask' +
               'Text('#39'###.###.###-##;0;'#39',<FrdsRelacaoAReceberVAnalitico."CLIENTE' +
@@ -5855,6 +5751,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCliente: TfrxGroupFooter
+        FillType = ftBrush
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -5862,7 +5759,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -5871,7 +5767,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -5881,7 +5777,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -5890,7 +5785,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -5902,7 +5797,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -5911,7 +5805,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -5923,7 +5817,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5934,7 +5827,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."CLIENTE_NOME"]')
           ParentFont = False
           WordWrap = False
@@ -5944,7 +5837,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     end
   end
   object frRelacaoAReceberBSintetico: TfrxReport
-    Version = '4.9.72'
+    Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -6016,6 +5909,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
+        FillType = ftBrush
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -6025,13 +5919,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 94.488250000000000000
           Width = 604.724800000000000000
           Height = 26.456710000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
           VAlign = vaCenter
@@ -6041,7 +5934,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
-          ShowHint = False
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6054,7 +5946,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -6062,7 +5953,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
           VAlign = vaCenter
@@ -6072,7 +5963,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -6080,7 +5970,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
               '">)]')
@@ -6093,7 +5983,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 41.574830000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -6101,7 +5990,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
           WordWrap = False
@@ -6112,7 +6001,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -6120,7 +6008,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
               'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
@@ -6133,7 +6021,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 718.110700000000000000
-          ShowHint = False
+          Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
@@ -6141,7 +6029,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 71.811070000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -6149,7 +6036,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
@@ -6160,14 +6047,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 120.944960000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Situa'#195#167#195#163'o dos t'#195#173'tulos:')
+          Memo.UTF8W = (
+            'Situa'#231#227'o dos t'#237'tulos:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -6176,7 +6062,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 136.063080000000000000
           Width = 604.724800000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6184,7 +6069,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
           VAlign = vaCenter
@@ -6194,26 +6079,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 483.779840000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndPageFooter: TfrxPageFooter
+        FillType = ftBrush
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -6221,7 +6105,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [Sistema]')
           ParentFont = False
           WordWrap = False
@@ -6231,15 +6115,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Impresso em [Date] '#195#160's [Time] por [Usuario]')
+          Memo.UTF8W = (
+            ' Impresso em [Date] '#224's [Time] por [Usuario]')
           ParentFont = False
           WordWrap = False
         end
@@ -6247,7 +6130,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -6256,14 +6138,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftTop]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
-            'P'#195#161'gina [Page#] / [TotalPages#]')
+          Memo.UTF8W = (
+            'P'#225'gina [Page#] / [TotalPages#]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
+        FillType = ftBrush
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -6273,7 +6156,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6283,7 +6165,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberBSintetico."COMPETENCIA_RECEBIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -6292,8 +6174,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo5: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6303,8 +6183,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Compet'#195#170'ncia')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Compet'#234'ncia')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -6312,8 +6193,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6323,8 +6202,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Baixas em')
           ParentFont = False
           VAlign = vaCenter
@@ -6334,8 +6214,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 461.102660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6345,9 +6223,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Valores do T'#195#173'tulo')
+          Memo.UTF8W = (
+            'Valores do T'#237'tulo')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -6356,8 +6235,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6367,8 +6244,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Valor (R$) ')
           ParentFont = False
           WordWrap = False
@@ -6379,8 +6257,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6390,8 +6266,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido (R$) ')
           ParentFont = False
           WordWrap = False
@@ -6402,8 +6279,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6413,8 +6288,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber (R$) ')
           ParentFont = False
           WordWrap = False
@@ -6425,8 +6301,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 173.858316540000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6436,8 +6310,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' Forma de Pagto.')
           ParentFont = False
           WordWrap = False
@@ -6448,8 +6323,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6459,8 +6332,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas (R$) ')
           ParentFont = False
           WordWrap = False
@@ -6471,8 +6345,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 52.913346770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6482,8 +6354,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Quant. ')
           ParentFont = False
           WordWrap = False
@@ -6491,6 +6364,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndMasterData: TfrxMasterData
+        FillType = ftBrush
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -6501,7 +6375,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6518,7 +6391,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberBSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
           WordWrap = False
@@ -6527,7 +6401,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo9: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6543,7 +6416,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberBSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAReceberBSintetico."DTREC">=0,'#39#39',FormatDateTim' +
               'e('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberBSintetico."DTREC">))]')
@@ -6555,7 +6429,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6572,7 +6445,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberBSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberBSintetico."VALORREC">)' +
               '] ')
@@ -6584,7 +6458,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6601,7 +6474,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberBSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberBSintetico."VALORMULTA"' +
               '>)] ')
@@ -6613,7 +6487,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6630,7 +6503,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberBSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberBSintetico."VALORRECTOT' +
               '">)] ')
@@ -6642,7 +6516,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6658,7 +6531,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberBSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberBSintetico."FORMA_PAGTO"]')
           ParentFont = False
           WordWrap = False
@@ -6668,7 +6542,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6685,7 +6558,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberBSintetico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',<FrdsRelacaoAReceberBSintetico."QUANTIDADE">)]' +
               ' ')
@@ -6695,6 +6569,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
+        FillType = ftBrush
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -6702,8 +6577,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -6712,7 +6585,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -6722,8 +6595,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -6732,7 +6603,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberBSintetico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -6744,8 +6615,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -6754,7 +6623,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberBSintetico."VALORMU' +
               'LTA">,BndMasterData))] ')
@@ -6766,8 +6635,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -6776,7 +6643,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberBSintetico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -6788,8 +6655,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -6798,7 +6663,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',SUM(<FrdsRelacaoAReceberBSintetico."QUANTIDADE' +
               '">,BndMasterData))] ')
@@ -6808,6 +6673,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object bndReportSummary: TfrxReportSummary
+        FillType = ftBrush
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -6815,7 +6681,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo18: TfrxMemoView
           Width = 718.110700000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -6823,10 +6688,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
-              ' * Os valores totais apresentados est'#195#163'o de acordo com o per'#195#173'od' +
-              'o e a situa'#195#167#195#163'o dos t'#195#173'tulos  informados')
+              ' * Os valores totais apresentados est'#227'o de acordo com o per'#237'odo ' +
+              'e a situa'#231#227'o dos t'#237'tulos  informados')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -6834,7 +6699,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -6843,7 +6707,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberBSintetico."VALORR' +
               'EC">-<FrdsRelacaoAReceberBSintetico."VALORREC_CANCEL">),BndMaste' +
@@ -6857,8 +6721,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6868,8 +6730,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Bruto: ')
           ParentFont = False
           WordWrap = False
@@ -6880,8 +6743,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6891,8 +6752,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'TOTAL GERAL (R$)')
           ParentFont = False
           WordWrap = False
@@ -6903,8 +6765,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6914,8 +6774,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas:')
           ParentFont = False
           WordWrap = False
@@ -6926,8 +6787,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -6937,8 +6796,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido: ')
           ParentFont = False
           WordWrap = False
@@ -6949,7 +6809,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -6958,7 +6817,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberBSintetico."VALORM' +
               'ULTA">-<FrdsRelacaoAReceberBSintetico."VALORMULTA_CANCEL">),BndM' +
@@ -6972,7 +6831,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -6981,7 +6839,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberBSintetico."VALORR' +
               'ECTOT">-<FrdsRelacaoAReceberBSintetico."VALORRECTOT_CANCEL">),Bn' +
@@ -6995,8 +6853,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7006,8 +6862,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber: ')
           ParentFont = False
           WordWrap = False
@@ -7018,7 +6875,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -7027,7 +6883,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -7037,15 +6893,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' ** Valores de t'#195#173'trulos cancelados')
+          Memo.UTF8W = (
+            ' ** Valores de t'#237'trulos cancelados')
           ParentFont = False
           WordWrap = False
         end
@@ -7055,6 +6910,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryRelacaoAReceberBSintetico: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       
@@ -7181,7 +7039,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     Top = 248
   end
   object frRelacaoAReceberBAnalitico: TfrxReport
-    Version = '4.9.72'
+    Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7198,7 +7056,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       ''
       'end.')
     Left = 8
-    Top = 296
+    Top = 288
     Datasets = <
       item
         DataSet = DMNFe.frdEmpresa
@@ -7262,6 +7120,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
+        FillType = ftBrush
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -7270,13 +7129,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 94.488250000000000000
           Width = 933.543910000000000000
           Height = 26.456710000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
           VAlign = vaCenter
@@ -7286,7 +7144,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
-          ShowHint = False
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -7299,7 +7156,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -7307,7 +7163,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
           VAlign = vaCenter
@@ -7317,7 +7173,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -7325,7 +7180,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
               '">)]')
@@ -7338,7 +7193,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 41.574830000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -7346,7 +7200,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
           WordWrap = False
@@ -7357,7 +7211,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -7365,7 +7218,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
               'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
@@ -7378,7 +7231,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
-          ShowHint = False
+          Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
@@ -7386,7 +7239,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 71.811070000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -7394,7 +7246,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
@@ -7405,14 +7257,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 120.944960000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Situa'#195#167#195#163'o dos t'#195#173'tulos:')
+          Memo.UTF8W = (
+            'Situa'#231#227'o dos t'#237'tulos:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -7421,14 +7272,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 136.063080000000000000
           Width = 933.543910000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
           VAlign = vaCenter
@@ -7438,26 +7288,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 812.598950000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndPageFooter: TfrxPageFooter
+        FillType = ftBrush
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           Width = 910.866730000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -7465,7 +7314,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [Sistema]')
           ParentFont = False
           WordWrap = False
@@ -7475,15 +7324,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Impresso em [Date] '#195#160's [Time] por [Usuario]')
+          Memo.UTF8W = (
+            ' Impresso em [Date] '#224's [Time] por [Usuario]')
           ParentFont = False
           WordWrap = False
         end
@@ -7491,7 +7339,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -7500,14 +7347,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftTop]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
-            'P'#195#161'gina [Page#] / [TotalPages#]')
+          Memo.UTF8W = (
+            'P'#225'gina [Page#] / [TotalPages#]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
+        FillType = ftBrush
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -7517,7 +7365,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7527,7 +7374,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."COMPETENCIA_RECEBIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -7536,8 +7383,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo5: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7547,13 +7392,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Compet'#195#170'ncia')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Compet'#234'ncia')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndMasterData: TfrxMasterData
+        FillType = ftBrush
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -7564,7 +7411,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7581,7 +7427,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
           WordWrap = False
@@ -7591,7 +7438,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7608,7 +7454,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVAnalitico."VALORREC">)' +
               '] ')
@@ -7620,7 +7467,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7637,7 +7483,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVAnalitico."VALORRECTOT' +
               '">)] ')
@@ -7649,7 +7496,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7665,7 +7511,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."VENDA"]')
           ParentFont = False
           WordWrap = False
@@ -7675,7 +7522,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7691,7 +7537,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."V' +
               'ENDA_DATA">)]')
@@ -7703,7 +7550,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7719,7 +7565,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."NFE"]')
           ParentFont = False
           WordWrap = False
@@ -7728,7 +7575,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo28: TfrxMemoView
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7744,7 +7590,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."LANCAMENTO"]')
           ParentFont = False
           WordWrap = False
@@ -7754,7 +7601,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7771,7 +7617,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."PARCELA"]')
           ParentFont = False
           WordWrap = False
@@ -7781,7 +7628,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7797,7 +7643,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."D' +
               'TEMISS">)]')
@@ -7809,7 +7656,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7825,7 +7671,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."D' +
               'TVENC">)]')
@@ -7837,7 +7684,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7853,7 +7699,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAReceberVAnalitico."DTREC">=0,'#39#39',FormatDateTim' +
               'e('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."DTREC">))]')
@@ -7865,7 +7712,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7881,7 +7727,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVAnalitico."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -7889,6 +7736,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
+        FillType = ftBrush
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -7896,8 +7744,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -7906,7 +7752,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -7916,8 +7762,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -7926,7 +7770,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -7938,8 +7782,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -7948,7 +7790,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -7960,8 +7802,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -7971,8 +7811,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."COMPETENCIA_VENCIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -7980,6 +7821,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object bndReportSummary: TfrxReportSummary
+        FillType = ftBrush
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -7987,7 +7829,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo18: TfrxMemoView
           Width = 793.701300000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -7995,8 +7836,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' * T'#195#173'tulo(s) Cancelado(s).')
+          Memo.UTF8W = (
+            ' * T'#237'tulo(s) Cancelado(s).')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -8004,7 +7845,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -8013,7 +7853,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORR' +
               'EC">-<FrdsRelacaoAReceberVAnalitico."VALORREC_CANCEL">),BndMaste' +
@@ -8027,8 +7867,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8038,8 +7876,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Bruto: ')
           ParentFont = False
           WordWrap = False
@@ -8049,8 +7888,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8060,8 +7897,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'TOTAL GERAL (R$)')
           ParentFont = False
           WordWrap = False
@@ -8072,8 +7910,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8083,8 +7919,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas: ')
           ParentFont = False
           WordWrap = False
@@ -8095,8 +7932,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8106,8 +7941,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido: ')
           ParentFont = False
           WordWrap = False
@@ -8118,7 +7954,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -8127,7 +7962,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORM' +
               'ULTA">-<FrdsRelacaoAReceberVAnalitico."VALORMULTA_CANCEL">),BndM' +
@@ -8141,7 +7976,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -8150,7 +7984,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVAnalitico."VALORR' +
               'ECTOT">-<FrdsRelacaoAReceberVAnalitico."VALORRECTOT_CANCEL">),Bn' +
@@ -8164,8 +7998,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 75.590600000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8175,8 +8007,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber: ')
           ParentFont = False
           WordWrap = False
@@ -8187,7 +8020,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 75.590600000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -8196,7 +8028,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -8206,21 +8038,21 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
-              ' * O TOTAL GERAL do relat'#195#179'rio leva em considera'#195#167#195#163'o apenas os ' +
-              't'#195#173'tulos n'#195#163'o cancelados.')
+              ' * O TOTAL GERAL do relat'#243'rio leva em considera'#231#227'o apenas os t'#237't' +
+              'ulos n'#227'o cancelados.')
           ParentFont = False
         end
       end
       object BndGrpHeaderCliente: TfrxGroupHeader
+        FillType = ftBrush
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -8229,8 +8061,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo8: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897637800000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8240,7 +8070,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Cliente')
           ParentFont = False
           VAlign = vaCenter
@@ -8250,8 +8081,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 427.086890000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8261,9 +8090,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Valores do T'#195#173'tulo')
+          Memo.UTF8W = (
+            'Valores do T'#237'tulo')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -8272,8 +8102,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8283,8 +8111,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Valor (R$) ')
           ParentFont = False
           WordWrap = False
@@ -8295,8 +8124,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8306,8 +8133,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido (R$) ')
           ParentFont = False
           WordWrap = False
@@ -8318,8 +8146,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8329,8 +8155,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber (R$) ')
           ParentFont = False
           WordWrap = False
@@ -8340,7 +8167,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8350,7 +8176,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVAnalitico."CLIENTE_NOME"]')
           ParentFont = False
           WordWrap = False
@@ -8361,8 +8187,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8372,7 +8196,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' No. Venda')
           ParentFont = False
           WordWrap = False
@@ -8383,8 +8208,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8394,7 +8217,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Data')
           ParentFont = False
           WordWrap = False
@@ -8405,8 +8229,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8416,7 +8238,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' NF-e')
           ParentFont = False
           WordWrap = False
@@ -8427,8 +8250,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8438,8 +8259,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Dados da Venda')
           ParentFont = False
           VAlign = vaCenter
@@ -8448,8 +8270,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8459,7 +8279,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' No. ')
           ParentFont = False
           WordWrap = False
@@ -8469,8 +8290,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8480,9 +8299,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Dados do Lan'#195#167'amento')
+          Memo.UTF8W = (
+            'Dados do Lan'#231'amento')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -8491,8 +8311,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8502,7 +8320,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Parc.')
           ParentFont = False
           WordWrap = False
@@ -8513,8 +8332,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8524,8 +8341,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Emiss'#195#163'o')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Emiss'#227'o')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8535,8 +8353,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8546,7 +8362,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Vencimento')
           ParentFont = False
           WordWrap = False
@@ -8557,8 +8374,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8568,7 +8383,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Baixado em')
           ParentFont = False
           WordWrap = False
@@ -8579,8 +8395,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8590,7 +8404,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
             ' Forma de Pagto.')
           ParentFont = False
           WordWrap = False
@@ -8600,7 +8415,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8610,7 +8424,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '  [IIF(<FrdsRelacaoAReceberVAnalitico."CLIENTE_PF">=1,FormatMask' +
               'Text('#39'###.###.###-##;0;'#39',<FrdsRelacaoAReceberVAnalitico."CLIENTE' +
@@ -8622,6 +8436,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCliente: TfrxGroupFooter
+        FillType = ftBrush
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -8629,7 +8444,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -8638,7 +8452,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -8648,7 +8462,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -8657,7 +8470,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'CTOT">,BndMasterData))] ')
@@ -8669,7 +8482,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -8678,7 +8490,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVAnalitico."VALORRE' +
               'C">,BndMasterData))] ')
@@ -8690,7 +8502,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -8701,7 +8512,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVAnalitico."CLIENTE_NOME"]')
           ParentFont = False
           WordWrap = False
@@ -8711,7 +8522,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     end
   end
   object frRelacaoAReceberVCliente: TfrxReport
-    Version = '4.9.72'
+    Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -8783,6 +8594,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
+        FillType = ftBrush
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -8792,13 +8604,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 94.488250000000000000
           Width = 604.724800000000000000
           Height = 26.456710000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
           VAlign = vaCenter
@@ -8808,7 +8619,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
-          ShowHint = False
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8821,7 +8631,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -8829,7 +8638,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
           VAlign = vaCenter
@@ -8839,7 +8648,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -8847,7 +8655,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
               '">)]')
@@ -8860,7 +8668,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 41.574830000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -8868,7 +8675,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
           WordWrap = False
@@ -8879,7 +8686,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -8887,7 +8693,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
               'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
@@ -8900,7 +8706,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 718.110700000000000000
-          ShowHint = False
+          Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
@@ -8908,7 +8714,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 71.811070000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
@@ -8916,7 +8721,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
           WordWrap = False
@@ -8927,14 +8732,13 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 120.944960000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Situa'#195#167#195#163'o dos t'#195#173'tulos:')
+          Memo.UTF8W = (
+            'Situa'#231#227'o dos t'#237'tulos:')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -8943,7 +8747,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 136.063080000000000000
           Width = 604.724800000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -8951,7 +8754,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
           VAlign = vaCenter
@@ -8961,26 +8764,25 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 120.944960000000000000
           Width = 483.779840000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndPageFooter: TfrxPageFooter
+        FillType = ftBrush
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -8988,7 +8790,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [Sistema]')
           ParentFont = False
           WordWrap = False
@@ -8998,15 +8800,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Impresso em [Date] '#195#160's [Time] por [Usuario]')
+          Memo.UTF8W = (
+            ' Impresso em [Date] '#224's [Time] por [Usuario]')
           ParentFont = False
           WordWrap = False
         end
@@ -9014,7 +8815,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -9023,14 +8823,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftTop]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
-            'P'#195#161'gina [Page#] / [TotalPages#]')
+          Memo.UTF8W = (
+            'P'#225'gina [Page#] / [TotalPages#]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
+        FillType = ftBrush
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -9040,7 +8841,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9050,7 +8850,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             ' [FrdsRelacaoAReceberVCliente."COMPETENCIA_VENCIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
@@ -9059,8 +8859,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo5: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9070,8 +8868,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' Compet'#195#170'ncia')
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Compet'#234'ncia')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -9079,8 +8878,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9090,8 +8887,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Vencimentos')
           ParentFont = False
           VAlign = vaCenter
@@ -9101,8 +8899,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 461.102660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9112,9 +8908,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
-            'Valores do T'#195#173'tulo')
+          Memo.UTF8W = (
+            'Valores do T'#237'tulo')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -9123,8 +8920,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9134,8 +8929,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Valor (R$) ')
           ParentFont = False
           WordWrap = False
@@ -9146,8 +8942,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9157,8 +8951,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido (R$) ')
           ParentFont = False
           WordWrap = False
@@ -9169,8 +8964,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9180,8 +8973,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber (R$) ')
           ParentFont = False
           WordWrap = False
@@ -9192,8 +8986,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 173.858316540000000000
           Height = 37.795300000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9203,8 +8995,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Cliente')
           ParentFont = False
           WordWrap = False
@@ -9215,8 +9008,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 102.047236770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9226,8 +9017,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas (R$) ')
           ParentFont = False
           WordWrap = False
@@ -9238,8 +9030,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 37.795300000000000000
           Width = 52.913346770000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9249,8 +9039,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Quant. ')
           ParentFont = False
           WordWrap = False
@@ -9258,6 +9049,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndMasterData: TfrxMasterData
+        FillType = ftBrush
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -9269,7 +9061,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 83.149660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9286,6 +9077,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
+          Highlight.FillType = ftBrush
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -9294,7 +9086,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9312,7 +9103,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAReceber>)] ')
           ParentFont = False
           WordWrap = False
@@ -9321,7 +9113,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo9: TfrxMemoView
           Width = 83.149660000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9338,7 +9129,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVCliente."DTV' +
               'ENC">)]')
@@ -9350,7 +9142,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9368,7 +9159,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORREC">)] ')
           ParentFont = False
           WordWrap = False
@@ -9378,7 +9170,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9396,7 +9187,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORMULTA">)' +
               '] ')
@@ -9408,7 +9200,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9426,7 +9217,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAReceberVCliente."VALORRECTOT">' +
               ')] ')
@@ -9438,7 +9230,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 86.929190000000000000
           Width = 170.078850000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9455,7 +9246,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FrdsRelacaoAReceberVCliente."CLIENTE_NOME"]')
           ParentFont = False
           VAlign = vaCenter
@@ -9464,7 +9256,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
-          ShowHint = False
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9482,7 +9273,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAReceberVCliente."SITUACAO">=0'
-          Memo.UTF8 = (
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAReceberVCliente."QUANTIDADE">)] ')
           ParentFont = False
           WordWrap = False
@@ -9490,6 +9282,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
+        FillType = ftBrush
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -9497,8 +9290,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -9507,7 +9298,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -9517,8 +9308,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -9527,7 +9316,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVCliente."VALORRECT' +
               'OT">,BndMasterData))] ')
@@ -9539,8 +9328,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -9549,7 +9336,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVCliente."VALORMULT' +
               'A">,BndMasterData))] ')
@@ -9561,8 +9348,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -9571,7 +9356,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoAReceberVCliente."VALORREC"' +
               '>,BndMasterData))] ')
@@ -9583,8 +9368,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -9593,7 +9376,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',SUM(<FrdsRelacaoAReceberVCliente."QUANTIDADE">' +
               ',BndMasterData))] ')
@@ -9603,6 +9386,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
       object bndReportSummary: TfrxReportSummary
+        FillType = ftBrush
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -9610,7 +9394,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo18: TfrxMemoView
           Width = 718.110700000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -9618,10 +9401,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = []
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
-              ' * Os valores totais apresentados est'#195#163'o de acordo com o per'#195#173'od' +
-              'o e a situa'#195#167#195#163'o dos t'#195#173'tulos  informados')
+              ' * Os valores totais apresentados est'#227'o de acordo com o per'#237'odo ' +
+              'e a situa'#231#227'o dos t'#237'tulos  informados')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -9629,7 +9412,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -9638,7 +9420,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVCliente."VALORREC' +
               '">-<FrdsRelacaoAReceberVCliente."VALORREC_CANCEL">),BndMasterDat' +
@@ -9652,8 +9434,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 45.354360000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9663,8 +9443,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Bruto: ')
           ParentFont = False
           WordWrap = False
@@ -9675,8 +9456,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 26.456710000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9686,8 +9465,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haCenter
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'TOTAL GERAL (R$)')
           ParentFont = False
           WordWrap = False
@@ -9698,8 +9478,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9709,8 +9487,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Multas:')
           ParentFont = False
           WordWrap = False
@@ -9721,8 +9500,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9732,8 +9509,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'Recebido: ')
           ParentFont = False
           WordWrap = False
@@ -9744,7 +9522,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 64.252010000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -9753,7 +9530,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVCliente."VALORMUL' +
               'TA">-<FrdsRelacaoAReceberVCliente."VALORMULTA_CANCEL">),BndMaste' +
@@ -9767,7 +9544,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -9776,7 +9552,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',SUM((<FrdsRelacaoAReceberVCliente."VALORREC' +
               'TOT">-<FrdsRelacaoAReceberVCliente."VALORRECTOT_CANCEL">),BndMas' +
@@ -9790,8 +9566,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
-          ShowHint = False
-          Color = clBtnFace
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9801,8 +9575,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             'A Receber: ')
           ParentFont = False
           WordWrap = False
@@ -9813,7 +9588,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 102.047310000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -9822,7 +9596,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Memo.UTF8 = (
+          Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',SUM(<ValorAReceber>,BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
@@ -9832,15 +9606,14 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
-          ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Width = 0.100000000000000000
-          Memo.UTF8 = (
-            ' ** Valores de t'#195#173'tulos cancelados')
+          Memo.UTF8W = (
+            ' ** Valores de t'#237'tulos cancelados')
           ParentFont = False
           WordWrap = False
         end
@@ -9850,6 +9623,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryRelacaoAReceberVCliente: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       
@@ -9981,6 +9757,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
   object QryEmpresas: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       '    e.codigo'

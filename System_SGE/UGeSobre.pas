@@ -46,10 +46,10 @@ begin
 
   (* -- Isaque : 22/04/2014 -> Bloco de código descontinuado
 
-  if ( StrIsCNPJ(GetEmpresaIDDefault) ) then
-    sCNPJ := StrFormatarCnpj(GetEmpresaIDDefault)
+  if ( StrIsCNPJ(gUsuarioLogado.Empresa) ) then
+    sCNPJ := StrFormatarCnpj(gUsuarioLogado.Empresa)
   else
-    sCNPJ := StrFormatarCpf(GetEmpresaIDDefault);
+    sCNPJ := StrFormatarCpf(gUsuarioLogado.Empresa);
 
   Comments.Caption :=
     'Propriedade intelectual de ' + ver.getPropertyValue(ivOWNER) + ', ' +

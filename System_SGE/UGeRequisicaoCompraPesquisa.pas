@@ -5,21 +5,26 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
-  StdCtrls, Buttons, ExtCtrls, Mask, rxToolEdit, DBClient, Provider,
-  IBTable, RXDBCtrl, IBUpdateSQL, IBStoredProc;
+  StdCtrls, Buttons, ExtCtrls, Mask, DBClient, Provider, IBTable, IBUpdateSQL, IBStoredProc,
+  JvToolEdit, JvExMask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeRequisicaoCompraPesquisa = class(TfrmGrPadraoPesquisa)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     DspPesquisa: TDataSetProvider;
     CdsPesquisa: TClientDataSet;
     lblTipoRequisicao: TLabel;
     edTipoRequisicao: TComboBox;
     tblTipoRequisicao: TIBTable;
     lblFornecedor: TLabel;
-    edFornecedor: TComboEdit;
     cdsAutorizacao: TIBDataSet;
     cdsAutorizacaoANO: TSmallintField;
     cdsAutorizacaoCODIGO: TIntegerField;
@@ -58,24 +63,32 @@ type
     updAutorizacao: TIBUpdateSQL;
     CdsPesquisaANO: TSmallintField;
     CdsPesquisaCODIGO: TIntegerField;
-    CdsPesquisaEMPRESA: TStringField;
-    CdsPesquisaNUMERO: TStringField;
+    CdsPesquisaSELECIONAR: TIntegerField;
+    BtnConverter: TSpeedButton;
+    stpGerarAutorizacaoItens: TIBStoredProc;
+    cdsAutorizacaoCENTRO_CUSTO: TIntegerField;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    edFornecedor: TJvComboEdit;
+    CdsPesquisaEMPRESA: TWideStringField;
+    CdsPesquisaNUMERO: TWideStringField;
     CdsPesquisaFORNECEDOR: TIntegerField;
-    CdsPesquisaNOME_CONTATO: TStringField;
+    CdsPesquisaNOME_CONTATO: TWideStringField;
     CdsPesquisaTIPO: TSmallintField;
     CdsPesquisaINSERCAO_DATA: TDateTimeField;
     CdsPesquisaEMISSAO_DATA: TDateField;
-    CdsPesquisaEMISSAO_USUARIO: TStringField;
+    CdsPesquisaEMISSAO_USUARIO: TWideStringField;
     CdsPesquisaVALIDADE: TDateField;
     CdsPesquisaCOMPETENCIA: TIntegerField;
-    CdsPesquisaMOVITO: TMemoField;
-    CdsPesquisaOBSERVACAO: TMemoField;
+    CdsPesquisaMOVITO: TWideMemoField;
+    CdsPesquisaOBSERVACAO: TWideMemoField;
     CdsPesquisaCLIENTE: TIntegerField;
-    CdsPesquisaENDERECO_ENTREGA: TMemoField;
+    CdsPesquisaCENTRO_CUSTO: TIntegerField;
+    CdsPesquisaENDERECO_ENTREGA: TWideMemoField;
     CdsPesquisaSTATUS: TSmallintField;
-    CdsPesquisaRECEBEDOR_NOME: TStringField;
-    CdsPesquisaRECEBEDOR_CPF: TStringField;
-    CdsPesquisaRECEBEDOR_FUNCAO: TStringField;
+    CdsPesquisaRECEBEDOR_NOME: TWideStringField;
+    CdsPesquisaRECEBEDOR_CPF: TWideStringField;
+    CdsPesquisaRECEBEDOR_FUNCAO: TWideStringField;
     CdsPesquisaFORMA_PAGTO: TSmallintField;
     CdsPesquisaCONDICAO_PAGTO: TSmallintField;
     CdsPesquisaTRANSPORTADOR: TIntegerField;
@@ -87,22 +100,17 @@ type
     CdsPesquisaVALOR_TOTAL: TBCDField;
     CdsPesquisaREQUISITADO_DATA: TDateField;
     CdsPesquisaDATA_FATURA: TDateField;
-    CdsPesquisaREQUISITADO_USUARIO: TStringField;
+    CdsPesquisaREQUISITADO_USUARIO: TWideStringField;
     CdsPesquisaCANCELADO_DATA: TDateField;
-    CdsPesquisaCANCELADO_USUARIO: TStringField;
-    CdsPesquisaCANCELADO_MOTIVO: TMemoField;
-    CdsPesquisaNOMEFORN: TStringField;
-    CdsPesquisaCNPJ: TStringField;
+    CdsPesquisaCANCELADO_USUARIO: TWideStringField;
+    CdsPesquisaCANCELADO_MOTIVO: TWideMemoField;
+    CdsPesquisaNOMEFORN: TWideStringField;
+    CdsPesquisaCNPJ: TWideStringField;
     CdsPesquisaPESSOA_FISICA: TSmallintField;
     CdsPesquisaFATURAMENTO_MINIMO: TBCDField;
-    CdsPesquisaTRANSPORTADOR_NOME: TStringField;
-    CdsPesquisaTRANSPORTADOR_CPF_CNPJ: TStringField;
-    CdsPesquisaNOMECLIENTE: TStringField;
-    CdsPesquisaSELECIONAR: TIntegerField;
-    BtnConverter: TSpeedButton;
-    stpGerarAutorizacaoItens: TIBStoredProc;
-    cdsAutorizacaoCENTRO_CUSTO: TIntegerField;
-    CdsPesquisaCENTRO_CUSTO: TIntegerField;
+    CdsPesquisaTRANSPORTADOR_NOME: TWideStringField;
+    CdsPesquisaTRANSPORTADOR_CPF_CNPJ: TWideStringField;
+    CdsPesquisaNOMECLIENTE: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -170,7 +178,7 @@ begin
 
     with CdsPesquisa, Params do
     begin
-      ParamByName('empresa').AsString := GetEmpresaIDDefault;
+      ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
       ParamByName('tipo').AsInteger   := GetTipoRequisicao;
       ParamByName('data_inicial').AsDateTime := e1Data.Date;
       ParamByName('data_final').AsDateTime   := e2Data.Date;
@@ -181,6 +189,8 @@ begin
     CdsPesquisa.Open;
 
     Result := not CdsPesquisa.IsEmpty;
+
+    BtnConverter.Enabled := Result;
   finally
     Screen.Cursor := crDefault;
   end;
@@ -225,6 +235,9 @@ end;
 
 procedure TfrmGeRequisicaoCompraPesquisa.dbgDadosDblClick(Sender: TObject);
 begin
+  if not CdsPesquisa.Active then
+    Exit;
+
   if ( not CdsPesquisa.IsEmpty ) then
   begin
     CdsPesquisa.Edit;
@@ -283,8 +296,15 @@ begin
     ShowInformation('Nenhum requisição de compra/serviço foi selecionada para conversão em autorização de compra/serviço!')
   else
   if ShowConfirmation('Confirma a conversão das requisições de compras/serviços selecionadas em um autorização de compra/serviço?') then
+  begin
+    BtnConverter.Enabled := False;
+    
     if GerarAutorizacao then
-      CdsPesquisa.Close;
+    begin
+      ShowInformation('Para processar nova conversão de requisições, favor pesquisar novamente.');
+      Self.Close;
+    end;  
+  end;
 end;
 
 function TfrmGeRequisicaoCompraPesquisa.EstaSelecionada: Boolean;
@@ -292,6 +312,9 @@ var
   bSelecionada : Boolean;
 begin
   bSelecionada := False;
+
+  if not CdsPesquisa.Active then
+    Exit;
 
   with CdsPesquisa do
   begin
@@ -343,7 +366,7 @@ begin
       cdsAutorizacao.Close;
       cdsAutorizacao.ParamByName('ano').AsInteger    := iAno;
       cdsAutorizacao.ParamByName('codigo').AsInteger := iNum;
-      cdsAutorizacao.ParamByName('empresa').AsString := GetEmpresaIDDefault;
+      cdsAutorizacao.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
       cdsAutorizacao.Open;
 
       // Gerar cabeçalho da autorização
@@ -353,12 +376,12 @@ begin
       cdsAutorizacaoANO.AsInteger    := iAno;
       cdsAutorizacaoCODIGO.AsInteger := iNum;
       cdsAutorizacaoNUMERO.AsString  := FormatFloat('##0000000', cdsAutorizacaoCODIGO.AsInteger) + '/' + Copy(cdsAutorizacaoANO.AsString, 3, 2);
-      cdsAutorizacaoEMPRESA.Value    := GetEmpresaIDDefault;
+      cdsAutorizacaoEMPRESA.Value    := gUsuarioLogado.Empresa;
       cdsAutorizacaoTIPO.Value       := GetTipoRequisicao;
       cdsAutorizacaoINSERCAO_DATA.Value    := GetDateTimeDB;
       cdsAutorizacaoEMISSAO_DATA.Value     := GetDateDB;
-      cdsAutorizacaoEMISSAO_USUARIO.Value  := GetUserApp;
-      cdsAutorizacaoVALIDADE.Value         := cdsAutorizacaoEMISSAO_DATA.Value + GetPrazoValidadeAutorizacaoCompra(GetEmpresaIDDefault);
+      cdsAutorizacaoEMISSAO_USUARIO.Value  := gUsuarioLogado.Login;
+      cdsAutorizacaoVALIDADE.Value         := cdsAutorizacaoEMISSAO_DATA.Value + GetPrazoValidadeAutorizacaoCompra(gUsuarioLogado.Empresa);
       cdsAutorizacaoSTATUS.AsInteger       := STATUS_AUTORIZACAO_EDC;
 
       cdsAutorizacaoFORNECEDOR.AsInteger     := edFornecedor.Tag;
@@ -423,7 +446,7 @@ begin
       stpGerarAutorizacaoItens.ParamByName('autorizacao_ano').AsInteger := cdsAutorizacaoANO.AsInteger;
       stpGerarAutorizacaoItens.ParamByName('autorizacao_cod').AsInteger := cdsAutorizacaoCODIGO.AsInteger;
       stpGerarAutorizacaoItens.ParamByName('autorizacao_emp').AsString  := cdsAutorizacaoEMPRESA.AsString;
-      stpGerarAutorizacaoItens.ParamByName('usuario').AsString          := GetUserApp;
+      stpGerarAutorizacaoItens.ParamByName('usuario').AsString          := gUsuarioLogado.Login;
       stpGerarAutorizacaoItens.ExecProc;
 
       CommitTransaction;
@@ -435,7 +458,7 @@ begin
       cdsAutorizacaoMOVITO.AsString          := AnsiUpperCase(sTextoMotivo);
       cdsAutorizacaoSTATUS.Value             := STATUS_AUTORIZACAO_AUT;
       cdsAutorizacaoAUTORIZADO_DATA.Value    := GetDateDB;
-      cdsAutorizacaoAUTORIZADO_USUARIO.Value := GetUserApp;
+      cdsAutorizacaoAUTORIZADO_USUARIO.Value := gUsuarioLogado.Login;
 
       cdsAutorizacao.Post;
       cdsAutorizacao.ApplyUpdates;
@@ -457,6 +480,9 @@ end;
 procedure TfrmGeRequisicaoCompraPesquisa.GetValorTotal(var iFormaPagto, iCondicaoPagto : Integer;
   var cTotalBruto, cTotalDesconto, cTotalFrete, cTotalIPI, cTotalLiquido: Currency);
 begin
+  if not CdsPesquisa.Active then
+    Exit;
+
   cTotalBruto    := 0.0;
   cTotalDesconto := 0.0;
   cTotalFrete    := 0.0;

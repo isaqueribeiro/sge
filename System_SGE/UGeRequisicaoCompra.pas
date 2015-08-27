@@ -5,15 +5,20 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, 
+  IBTable, Menus, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
+  JvToolEdit, JvDBControls, JvExMask, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeRequisicaoCompra = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     RdgStatusRequisicao: TRadioGroup;
     lblRequisicaoAberta: TLabel;
     lblRequisicaoCancelada: TLabel;
@@ -23,12 +28,10 @@ type
     dbDataHora: TDBEdit;
     dbEmpresa: TDBLookupComboBox;
     lblEmpresa: TLabel;
-    dbFornecedor: TRxDBComboEdit;
     lblFornecedor: TLabel;
     dbSituacao: TDBEdit;
     lblSituacao: TLabel;
     lblDataEmissao: TLabel;
-    dbDataEmissao: TDBDateEdit;
     lblUsuario: TLabel;
     dbUsuario: TDBEdit;
     lblAutorizador: TLabel;
@@ -43,7 +46,6 @@ type
     lblQuantidade: TLabel;
     lblUnidade: TLabel;
     Bevel7: TBevel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbQuantidade: TDBEdit;
     dbUnidade: TDBEdit;
@@ -67,7 +69,6 @@ type
     tblTipoRequisicao: TIBTable;
     dtsTipoRequisicao: TDataSource;
     lblDataValidade: TLabel;
-    dbDataValidade: TDBDateEdit;
     GrpBxPagamento: TGroupBox;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
@@ -136,7 +137,6 @@ type
     dbObservacao: TDBMemo;
     dbMotivo: TDBMemo;
     lblCliente: TLabel;
-    dbCliente: TRxDBComboEdit;
     TbsRequisicaoCancelado: TTabSheet;
     dbMovitoCancelamento: TDBMemo;
     IbDtstTabelaANO: TSmallintField;
@@ -182,12 +182,19 @@ type
     IbDtstTabelaNOMECLIENTE: TIBStringField;
     IbDtstTabelaFATURAMENTO_MINIMO: TIBBCDField;
     lblCentroCusto: TLabel;
-    dbCentroCusto: TRxDBComboEdit;
     IbDtstTabelaCENTRO_CUSTO: TIntegerField;
     IbDtstTabelaDESCRICAO_CENTRO_CUSTO: TIBStringField;
     btnFinalizarRequisicao: TcxButton;
     btnRequisitarCompra: TcxButton;
     btnCancelarRequisicao: TcxButton;
+    dbFornecedor: TJvDBComboEdit;
+    dbCliente: TJvDBComboEdit;
+    dbCentroCusto: TJvDBComboEdit;
+    dbProduto: TJvDBComboEdit;
+    dbDataEmissao: TJvDBDateEdit;
+    dbDataValidade: TJvDBDateEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -313,8 +320,9 @@ begin
 
     frm.RdgStatusRequisicao.ItemIndex := STATUS_REQUISICAO_REQ + 1;
 
-    for I := 0 to frm.RdgStatusRequisicao.Items.Count - 1 do
-      frm.RdgStatusRequisicao.Controls[I].Enabled := False;
+    frm.RdgStatusRequisicao.Enabled := False;
+    //for I := 0 to frm.RdgStatusRequisicao.Items.Count - 1 do
+    //  frm.RdgStatusRequisicao.Controls[I].Enabled := False;
 
     frm.iFornecedor := Fornecedor;
     frm.e1Data.Date := DataInicial;
@@ -387,7 +395,7 @@ begin
 
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 
-  lblCliente.Visible := GetAutorizacaoInformarCliente( GetEmpresaIDDefault );
+  lblCliente.Visible := GetAutorizacaoInformarCliente( gUsuarioLogado.Empresa );
   dbCliente.Visible  := lblCliente.Visible;
 end;
 
@@ -403,7 +411,7 @@ end;
 procedure TfrmGeRequisicaoCompra.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.Value          := GetEmpresaIDDefault;
+  IbDtstTabelaEMPRESA.Value          := gUsuarioLogado.Empresa;
   IbDtstTabelaTIPO.Value             := TIPO_REQUISICAO_COMPRA;
   IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
   IbDtstTabelaEMISSAO_DATA.Value     := GetDateDB;
@@ -595,7 +603,7 @@ procedure TfrmGeRequisicaoCompra.btnProdutoInserirClick(Sender: TObject);
   procedure GerarSequencial(var Seq : Integer);
   begin
     Seq := cdsTabelaItens.RecordCount + 1;
-    if ( cdsTabelaItens.Locate('SEQ', Seq, []) ) then
+    while ( cdsTabelaItens.Locate('SEQ', Seq, []) ) do
       Seq := Seq + 1;
   end;
 
@@ -1042,17 +1050,18 @@ begin
   inherited;                            
   if ( Sender = dbgDados ) then
   begin
-    // Destacar autorização em edição
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_Requisicao_EDC ) then
-      dbgDados.Canvas.Brush.Color := lblRequisicaoEmEdicao.Color
-    else
-    // Destacar autorização aberta
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_Requisicao_ABR ) then
-      dbgDados.Canvas.Font.Color := lblRequisicaoAberta.Font.Color
-    else
-    // Destacar autorização cancelada
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_Requisicao_CAN ) then
-      dbgDados.Canvas.Font.Color := lblRequisicaoCancelada.Font.Color;
+    if (not IbDtstTabelaSTATUS.IsNull) then
+      // Destacar autorização em edição
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_Requisicao_EDC ) then
+        dbgDados.Canvas.Brush.Color := lblRequisicaoEmEdicao.Color
+      else
+      // Destacar autorização aberta
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_Requisicao_ABR ) then
+        dbgDados.Canvas.Font.Color := lblRequisicaoAberta.Font.Color
+      else
+      // Destacar autorização cancelada
+      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_Requisicao_CAN ) then
+        dbgDados.Canvas.Font.Color := lblRequisicaoCancelada.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -1147,7 +1156,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetFornecedorEmail(IbDtstTabelaFORNECEDOR.AsInteger), dbTipo.Text, EmptyStr);
+      ConfigurarEmail(gUsuarioLogado.Empresa, GetFornecedorEmail(IbDtstTabelaFORNECEDOR.AsInteger), dbTipo.Text, EmptyStr);
     except
     end;
 

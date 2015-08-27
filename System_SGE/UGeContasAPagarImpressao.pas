@@ -5,15 +5,21 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  Buttons, ToolWin, ComCtrls, Mask, rxToolEdit, frxClass, frxDBSet,
+  Buttons, ComCtrls, Mask, frxClass, frxDBSet,
   DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeContasAPagarImpressao = class(TfrmGrPadraoImpressao)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     lblSituacao: TLabel;
     edSituacao: TComboBox;
     frRelacaoAPagarVSintetico: TfrxReport;
@@ -61,6 +67,13 @@ type
     CdsEmpresas: TClientDataSet;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    QryRelacaoAPagarTPDespesaFornecedor: TIBQuery;
+    DspRelacaoAPagarTPDespesaFornecedor: TDataSetProvider;
+    CdsRelacaoAPagarTPDespesaFornecedor: TClientDataSet;
+    FrdsRelacaoAPagarTPDespesaFornecedor: TfrxDBDataset;
+    frRelacaoAPagarTPDespesaFornecedor: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -72,7 +85,8 @@ type
     FSQL_RelacaoAPagarEmissaoSintet   ,
     FSQL_RelacaoAPagarVencimentoSintet,
     FSQL_RelacaoAPagarVencimentoFornec,
-    FSQL_RelacaoAPagarBaixaSintet     : TStringList;
+    FSQL_RelacaoAPagarBaixaSintet     ,
+    FSQL_RelacaoAPagarTPDespesaFornec : TStringList;
     IEmpresa : Array of String;
     ITipoDespesa : Array of Integer;
     IFornecedor  : Array of Integer;
@@ -90,6 +104,7 @@ type
     procedure MontarRelacaoAPagarPorBaixaAnalitico;
     procedure MontarRelacaoAPagarPorTPDespesaSintetico;
     procedure MontarRelacaoAPagarPorTPDespesaAnalitico;
+    procedure MontarRelacaoAPagarPorTPDespesaFornecedor;
   public
     { Public declarations }
   end;
@@ -107,6 +122,7 @@ const
   REPORT_RELACAO_APAGAR_POR_BAIXA_ANALITICO       = 6;
   REPORT_RELACAO_APAGAR_POR_TPDESPESA_SINTETICO   = 7;
   REPORT_RELACAO_APAGAR_POR_TPDESPESA_ANALITICO   = 8;
+  REPORT_RELACAO_APAGAR_POR_TPDESPESA_FORNECEDOR  = 9;
 
 implementation
 
@@ -145,6 +161,9 @@ begin
 
   FSQL_RelacaoAPagarBaixaSintet := TStringList.Create;
   FSQL_RelacaoAPagarBaixaSintet.AddStrings( QryRelacaoAPagarBSintetico.SQL );
+
+  FSQL_RelacaoAPagarTPDespesaFornec := TStringList.Create;
+  FSQL_RelacaoAPagarTPDespesaFornec.AddStrings( QryRelacaoAPagarTPDespesaFornecedor.SQL );
 end;
 
 procedure TfrmGeContasAPagarImpressao.btnVisualizarClick(
@@ -218,6 +237,12 @@ begin
       begin
         MontarRelacaoAPagarPorTPDespesaAnalitico;
         frReport := frRelacaoAPagarTPDespesaAnalitico;
+      end;
+
+    REPORT_RELACAO_APAGAR_POR_TPDESPESA_FORNECEDOR:
+      begin
+        MontarRelacaoAPagarPorTPDespesaFornecedor;
+        frReport := frRelacaoAPagarTPDespesaFornecedor;
       end;
   end;
 
@@ -860,6 +885,85 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório analítico de contas a pagar por tipo de despesa/fornecedor.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeContasAPagarImpressao.MontarRelacaoAPagarPorTPDespesaFornecedor;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    if (edFornecedor.ItemIndex = 0) then
+      PeriodoRelatorio := Format('Despesas com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Despesas com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edFornecedor.Text]) + #13;
+
+    if (edTipoDespesa.ItemIndex > 0) then
+      PeriodoRelatorio := '[' + Trim(AnsiUpperCase(edTipoDespesa.Text)) +  '] ' + PeriodoRelatorio;
+
+    CdsRelacaoAPagarTPDespesaFornecedor.Close;
+
+    with QryRelacaoAPagarTPDespesaFornecedor do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAPagarTPDespesaFornec );
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and cp.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and (cp.quitado = 1)');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and (cp.quitado = 0)');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and cp.situacao = 0');
+      end;
+
+      if ( edTipoDespesa.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
+
+      if ( edFornecedor.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
+      SQL.Add('');
+      SQL.Add('group by');
+      SQL.Add('    extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , cv.cmp_desc');
+      SQL.Add('  , cp.codtpdesp');
+      SQL.Add('  , d.tipodesp');
+      SQL.Add('  , cp.situacao');
+      SQL.Add('  , fp.descri');
+      SQL.Add('  , cp.codforn');
+      SQL.Add('  , fn.nomeforn');
+      SQL.Add('  , fn.cnpj');
+      SQL.Add('  , fn.pessoa_fisica');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    cp.codtpdesp');
+      SQL.Add('  , d.tipodesp');
+      SQL.Add('  , extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , fn.nomeforn');
+      SQL.Add('  , fn.cnpj');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório sintético de contas a pagar por tipos de despesas/fornecedores.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;

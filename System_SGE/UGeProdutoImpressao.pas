@@ -5,9 +5,11 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  Buttons, ToolWin, ComCtrls, frxClass, frxDBSet, DBClient, Provider, DB,
+  Buttons, ComCtrls, frxClass, frxDBSet, DBClient, Provider, DB,
   IBCustomDataSet, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2007Green;
 
 type
   TfrmGeProdutoImpressao = class(TfrmGrPadraoImpressao)
@@ -43,6 +45,7 @@ type
     CdsEmpresas: TClientDataSet;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
+    ckSemEstoqueVenda: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -134,6 +137,9 @@ begin
 
       if ( edEmpresa.ItemIndex > 0 ) then
         SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if ckSemEstoqueVenda.Checked then
+        SQL.Add('  and p.qtde <= 0');
 
       SQL.Add('order by');
       SQL.Add('    e.rzsoc');
@@ -280,7 +286,10 @@ begin
         SQL.Add('  and p.fabricante_cod = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
 
       if ( edEmpresa.ItemIndex > 0 ) then
-        SQL.Add('  and p.empresa_cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));        
+        SQL.Add('  and p.empresa_cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if ckSemEstoqueVenda.Checked then
+        SQL.Add('  and p.qtde <= 0');
     end;
   except
     On E : Exception do
@@ -328,8 +337,8 @@ procedure TfrmGeProdutoImpressao.CarregarDadosEmpresa;
 begin
   with frReport do
     try
-      DMNFe.AbrirEmitente(IfThen(edEmpresa.ItemIndex = 0, GetEmpresaIDDefault, IEmpresa[edEmpresa.ItemIndex]));
-      DMBusiness.ConfigurarEmail(IfThen(edEmpresa.ItemIndex = 0, GetEmpresaIDDefault, IEmpresa[edEmpresa.ItemIndex]), EmptyStr, TituloRelario, EmptyStr);
+      DMNFe.AbrirEmitente(IfThen(edEmpresa.ItemIndex = 0, gUsuarioLogado.Empresa, IEmpresa[edEmpresa.ItemIndex]));
+      DMBusiness.ConfigurarEmail(IfThen(edEmpresa.ItemIndex = 0, gUsuarioLogado.Empresa, IEmpresa[edEmpresa.ItemIndex]), EmptyStr, TituloRelario, EmptyStr);
     except
     end;
 end;

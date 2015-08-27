@@ -5,8 +5,8 @@ inherited frmGrUsuarioCopiarPerfil: TfrmGrUsuarioCopiarPerfil
   Caption = 'Copiar Perfil de . . .'
   ClientHeight = 93
   ClientWidth = 471
-  Font.Charset = ANSI_CHARSET
-  Font.Name = 'Tahoma'
+  ExplicitWidth = 477
+  ExplicitHeight = 122
   DesignSize = (
     471
     93)
@@ -27,7 +27,6 @@ inherited frmGrUsuarioCopiarPerfil: TfrmGrUsuarioCopiarPerfil
     Height = 21
     Style = csDropDownList
     Anchors = [akLeft, akTop, akRight]
-    ItemHeight = 13
     TabOrder = 0
   end
   object btnSelecionar: TcxButton
@@ -37,12 +36,17 @@ inherited frmGrUsuarioCopiarPerfil: TfrmGrUsuarioCopiarPerfil
     Height = 25
     Anchors = [akLeft, akBottom]
     Caption = 'Selecionar'
+    OptionsImage.ImageIndex = 10
+    OptionsImage.Images = DMRecursos.ImgBotoes16x16
     TabOrder = 1
     OnClick = btnSelecionarClick
   end
   object qryPerfil: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
     SQL.Strings = (
       'Select'
       '    f.cod'

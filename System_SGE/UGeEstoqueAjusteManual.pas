@@ -4,9 +4,16 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, IBCustomDataSet, IBUpdateSQL, DB, IBQuery, StdCtrls,
-  Buttons, ExtCtrls, Mask, DBCtrls, rxToolEdit, RXDBCtrl, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  Dialogs, UGrPadrao, IBCustomDataSet, IBUpdateSQL, DB, IBQuery, StdCtrls, Buttons, ExtCtrls,
+  Mask, DBCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeEstoqueAjusteManual = class(TfrmGrPadrao)
@@ -26,13 +33,11 @@ type
     qryProduto: TIBDataSet;
     updProduto: TIBUpdateSQL;
     lblProduto: TLabel;
-    dbProduto: TRxDBComboEdit;
     lblProdutoDesc: TLabel;
     dbProdutoDesc: TDBEdit;
     lblEstoque: TLabel;
     dbEstoque: TDBEdit;
     lblFornecedor: TLabel;
-    dbFornecedor: TRxDBComboEdit;
     lblDocumento: TLabel;
     dbDocumento: TDBEdit;
     lblQuantidade: TLabel;
@@ -70,6 +75,9 @@ type
     btnNovoAjuste: TcxButton;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
+    qryProdutoMOVIMENTA_ESTOQUE: TSmallintField;
+    dbProduto: TJvDBComboEdit;
+    dbFornecedor: TJvDBComboEdit;
     procedure ControlEditExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
@@ -112,7 +120,7 @@ begin
   with qryEmpresa do
   begin
     Close;
-    SQL.Add('where e.cnpj = ' + QuotedStr(GetEmpresaIDDefault));
+    SQL.Add('where e.cnpj = ' + QuotedStr(gUsuarioLogado.Empresa));
     Open;
   end;
 
@@ -170,12 +178,14 @@ end;
 procedure TfrmGeEstoqueAjusteManual.CarregarDadosProduto(
   const Codigo: String);
 var
+  sUnico  ,
   sCodigo : String;
 begin
   if not StrIsInteger(Codigo) then
     raise Exception.Create('Código do produto inválido!');
 
   sCodigo := FormatFloat('0000000', StrToInt(Codigo));
+  sUnico  := IfThen(GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa), '1', '0');
 
   with qryProduto, SelectSQL do
   begin
@@ -183,8 +193,8 @@ begin
 
     Clear;
     AddStrings( FSQLProduto );
-    Add('where p.codemp = ' + QuotedStr(GetEmpresaIDDefault));
-    Add('  and p.cod    = ' + QuotedStr(sCodigo));
+    Add('where ( p.cod    = ' + QuotedStr(sCodigo) + ')');
+    Add('  and ((p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ') or (' + sUnico + ' = 1))');
 
     Open;
 
@@ -233,21 +243,31 @@ begin
     if Trim(dbMotivo.Lines.Text) = EmptyStr then
       ShowWarning('Favor informar o motivo do ajuste manual de estoque do produto selecionado.')
     else
+    if ( Trim(dbProdutoDesc.Text) = EmptyStr ) then
+      ShowWarning('Favor selecionar o produto para seu ajuste manual de estoque.')
+    else
     if ( dbQuantidade.Field.AsInteger = 0 ) then
       ShowWarning('Favor informar a quantidade do ajuste manual de estoque para produto selecionado.')
-    else  
-    if ShowConfirm('Confirma o lançamento do novo estoque para o produto?', 'Ajuste de Estoque') then
+    else
+    if ( qryProdutoMOVIMENTA_ESTOQUE.AsInteger = 0 ) then
+      ShowWarning('Ajuste manual de estoque não permitido!' + #13 + 'Produto selecionado está marcado para NÃO MOVIMENTAR ESTOQUE.')
+    else
+    if ShowConfirmation('Confirma o lançamento do novo estoque para o produto?') then
     begin
       qryAjusteCONTROLE.AsInteger := GetNextID('TBAJUSTESTOQ', 'CONTROLE');
       qryAjusteMOTIVO.AsString    := AnsiUpperCase( (dbMotivo.Lines.Text) );
       qryAjuste.Post;
       qryAjuste.ApplyUpdates;
 
+      (*
+      // Bloco de código descontinuado por haver a trigger TG_AJUST_ESTOQUE_HISTORICO responsável por esta tarefa
+
       qryProduto.Edit;
       qryProdutoQTDE.AsCurrency := qryAjusteQTDEFINAL.AsCurrency;
       qryProduto.Post;
       qryProduto.ApplyUpdates;
-
+      *)
+      
       CommitTransaction;
     end;
 end;
@@ -259,7 +279,7 @@ var
   sNome      : String;
 begin
   if ( qryAjuste.State in [dsEdit, dsInsert] ) then
-    if SelecionarProdutoParaAjuste(Self, iCodigo, sCodigoAlfa, sNome) then
+    if SelecionarProdutoParaAjuste(Self, gUsuarioLogado.Empresa, iCodigo, sCodigoAlfa, sNome) then
       CarregarDadosProduto( sCodigoAlfa );
 end;
 

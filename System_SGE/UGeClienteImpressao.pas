@@ -5,9 +5,16 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  Buttons, ToolWin, ComCtrls, frxClass, DB, IBCustomDataSet, IBQuery,
+  Buttons, ComCtrls, frxClass, DB, IBCustomDataSet, IBQuery,
   DBClient, Provider, frxDBSet, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeClienteImpressao = class(TfrmGrPadraoImpressao)
@@ -232,7 +239,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoCredito );
-      SQL.Text := StringReplace(SQL.Text, '1=1', 'v.codemp = ' + QuotedStr(GetEmpresaIDDefault), [rfReplaceAll]); // Vendas da Empresa
+      SQL.Text := StringReplace(SQL.Text, '1=1', 'v.codemp = ' + QuotedStr(gUsuarioLogado.Empresa), [rfReplaceAll]); // Vendas da Empresa
 
       SQL.Add('where 1=1');
 

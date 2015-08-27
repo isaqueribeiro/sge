@@ -1,4 +1,4 @@
-unit UGeContasAPagarQuitar;
+unit UGeContasAReceberQuitar;
 
 interface
 
@@ -17,68 +17,68 @@ uses
   dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
-  TfrmGeContasAPagarQuitar = class(TfrmGrPadraoPesquisa)
+  TfrmGeContasAReceberQuitar = class(TfrmGrPadraoPesquisa)
     lblData: TLabel;
     PnlControleQuitacao: TPanel;
     GrpBxControleQuitacao: TGroupBox;
     DspPesquisa: TDataSetProvider;
     CdsPesquisa: TClientDataSet;
-    CdsPesquisaANOLANC: TSmallintField;
-    CdsPesquisaNUMLANC: TIntegerField;
-    CdsPesquisaPARCELA: TSmallintField;
-    CdsPesquisaDTEMISS: TDateField;
-    CdsPesquisaDTVENC: TDateField;
-    CdsPesquisaDTPAG: TDateField;
-    CdsPesquisaVALORPAG: TBCDField;
-    CdsPesquisaVALORMULTA: TBCDField;
-    CdsPesquisaVALORPAGTOT: TBCDField;
-    CdsPesquisaVALORSALDO: TBCDField;
-    CdsPesquisaVALOR_APAGAR: TBCDField;
-    CdsPesquisaENTRADA_ANO: TSmallintField;
-    CdsPesquisaENTRADA_NUMERO: TIntegerField;
-    CdsPesquisaSELECIONAR: TIntegerField;
     CdsPesquisaSelecionados: TAggregateField;
     tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
-    cdsPagamentoLOTE: TClientDataSet;
-    dtsPagamentoLOTE: TDataSource;
+    cdsRecebimentoLOTE: TClientDataSet;
+    dtsRecebimentoLOTE: TDataSource;
     lblDataPagto: TLabel;
-    cdsPagamentoLOTEDataPagto: TDateTimeField;
-    cdsPagamentoLOTEFormaPagto: TIntegerField;
-    cdsPagamentoLOTEHistoricoGeral: TMemoField;
+    cdsRecebimentoLOTEDataPagto: TDateTimeField;
+    cdsRecebimentoLOTEFormaPagto: TIntegerField;
+    cdsRecebimentoLOTEHistoricoGeral: TMemoField;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
     lblHistorico: TLabel;
     dbHistorico: TDBMemo;
-    cdsPagamentos: TIBDataSet;
-    cdsPagamentosANOLANC: TSmallintField;
-    cdsPagamentosNUMLANC: TIntegerField;
-    cdsPagamentosSEQ: TSmallintField;
-    cdsPagamentosHISTORICO: TMemoField;
-    cdsPagamentosDATA_PAGTO: TDateField;
-    cdsPagamentosFORMA_PAGTO: TSmallintField;
-    cdsPagamentosFORMA_PAGTO_DESC: TIBStringField;
-    cdsPagamentosVALOR_BAIXA: TIBBCDField;
-    cdsPagamentosNUMERO_CHEQUE: TIBStringField;
-    cdsPagamentosBANCO: TSmallintField;
-    cdsPagamentosBCO_NOME: TIBStringField;
-    cdsPagamentosDOCUMENTO_BAIXA: TIBStringField;
-    cdsPagamentosUSUARIO: TIBStringField;
-    updPagamentos: TIBUpdateSQL;
+    cdsRecebimentos: TIBDataSet;
+    cdsRecebimentosANOLANC: TSmallintField;
+    cdsRecebimentosNUMLANC: TIntegerField;
+    cdsRecebimentosSEQ: TSmallintField;
+    cdsRecebimentosHISTORICO: TMemoField;
+    cdsRecebimentosDATA_PAGTO: TDateField;
+    cdsRecebimentosFORMA_PAGTO: TSmallintField;
+    cdsRecebimentosFORMA_PAGTO_DESC: TIBStringField;
+    cdsRecebimentosVALOR_BAIXA: TIBBCDField;
+    cdsRecebimentosNUMERO_CHEQUE: TIBStringField;
+    cdsRecebimentosBANCO: TSmallintField;
+    cdsRecebimentosBCO_NOME: TIBStringField;
+    cdsRecebimentosDOCUMENTO_BAIXA: TIBStringField;
+    cdsRecebimentosUSUARIO: TIBStringField;
+    updRecebimentos: TIBUpdateSQL;
     BtnQuitar: TcxButton;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     dbDataPagto: TJvDBDateEdit;
+    CdsPesquisaANOLANC: TSmallintField;
+    CdsPesquisaNUMLANC: TIntegerField;
     CdsPesquisaLANCAMENTO: TWideStringField;
     CdsPesquisaEMPRESA: TWideStringField;
+    CdsPesquisaPARCELA: TSmallintField;
     CdsPesquisaTIPPAG: TWideStringField;
-    CdsPesquisaENTRADA: TWideStringField;
-    CdsPesquisaENTRADA_DOC_TIPO: TWideStringField;
-    CdsPesquisaENTRADA_DOC: TWideStringField;
-    CdsPesquisaENTRADA_DOC_NUMERO: TIntegerField;
-    CdsPesquisaENTRADA_DOC_SERIE: TWideStringField;
-    CdsPesquisaENTRADA_FORNECEDOR: TWideStringField;
-    CdsPesquisaENTRADA_FORNECEDOR_CNPJ: TWideStringField;
+    CdsPesquisaDTEMISS: TDateField;
+    CdsPesquisaDTVENC: TDateField;
+    CdsPesquisaDTREC: TDateField;
+    CdsPesquisaVALORREC: TBCDField;
+    CdsPesquisaVALORMULTA: TBCDField;
+    CdsPesquisaVALORRECTOT: TBCDField;
+    CdsPesquisaVALORSALDO: TBCDField;
+    CdsPesquisaVALOR_ARECEBER: TBCDField;
+    CdsPesquisaSAIDA: TWideStringField;
+    CdsPesquisaSAIDA_ANO: TSmallintField;
+    CdsPesquisaSAIDA_NUMERO: TIntegerField;
+    CdsPesquisaSAIDA_DOC: TWideStringField;
+    CdsPesquisaSAIDA_DOC_NUMERO: TLargeintField;
+    CdsPesquisaSAIDA_DOC_SERIE: TWideStringField;
+    CdsPesquisaSAIDA_FORNECEDOR: TWideStringField;
+    CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TWideStringField;
+    CdsPesquisaSELECIONAR: TIntegerField;
+    CdsPesquisaSAIDA_DOC_TIPO: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -95,7 +95,7 @@ type
   end;
 
 var
-  frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar;
+  frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar;
 
 implementation
 
@@ -109,7 +109,7 @@ uses
 const
   TIPO_AUT = 0;
   
-function TfrmGeContasAPagarQuitar.ExecutarPesquisa: Boolean;
+function TfrmGeContasAReceberQuitar.ExecutarPesquisa: Boolean;
 var
   sDataInicial,
   sDataFinal  : String;
@@ -126,25 +126,25 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( SQLSelect );
-      SQL.Add('where c.empresa  = ' + QuotedStr(gUsuarioLogado.Empresa));
-      SQL.Add('  and c.situacao = 1');    // Situação Ativa
-      SQL.Add('  and c.quitado  = 0');    // Não quitados
-      SQL.Add('  and c.dtvenc between ' + QuotedStr(sDataInicial) + ' and ' + QuotedStr(sDataFinal));
+      SQL.Add('where r.empresa  = ' + QuotedStr(gUsuarioLogado.Empresa));
+      SQL.Add('  and r.situacao = 1');    // Situação Ativa
+      SQL.Add('  and r.baixado  = 0');    // Não baixados
+      SQL.Add('  and r.dtvenc between ' + QuotedStr(sDataInicial) + ' and ' + QuotedStr(sDataFinal));
 
       Case edTipoPesquisa.ItemIndex of
         TIPO_AUT:
           begin
             if FuncoesString.StrIsInt(edPesquisar.Text) then
-              SQL.Add('  and c.codforn = ' + edPesquisar.Text)
+              SQL.Add('  and r.cliente = ' + edPesquisar.Text)
             else  
             if FuncoesString.StrIsCPF(edPesquisar.Text) or FuncoesString.StrIsCNPJ(edPesquisar.Text) then
               SQL.Add('  and f.cnpj = ' + QuotedStr(edPesquisar.Text))
             else
-              SQL.Add('  and ((f.nomeforn like ' + QuotedStr(edPesquisar.Text + '%') + ') or (f.nomefant like ' + QuotedStr(edPesquisar.Text + '%') + '))');
+              SQL.Add('  and ((f.nome like ' + QuotedStr(edPesquisar.Text + '%') + ') or (f.nomefant like ' + QuotedStr(edPesquisar.Text + '%') + '))');
           end;
       end;
 
-      SQL.Add('order by c.dtvenc, f.nomeforn');
+      SQL.Add('order by r.dtvenc, f.nome');
     end;
 
     CdsPesquisa.Open;
@@ -153,32 +153,32 @@ begin
   finally
     Screen.Cursor := crDefault;
 
-    if cdsPagamentoLOTE.Active then
-      cdsPagamentoLOTE.Close;
+    if cdsRecebimentoLOTE.Active then
+      cdsRecebimentoLOTE.Close;
 
-    cdsPagamentoLOTE.Open;
-    while not cdsPagamentoLOTE.Eof do
-      cdsPagamentoLOTE.Delete;
+    cdsRecebimentoLOTE.Open;
+    while not cdsRecebimentoLOTE.Eof do
+      cdsRecebimentoLOTE.Delete;
 
-    cdsPagamentoLOTE.Append;
-    cdsPagamentoLOTEDataPagto.AsDateTime := GetDateDB;
-    cdsPagamentoLOTEFormaPagto.Clear;
-    cdsPagamentoLOTEHistoricoGeral.Clear; 
+    cdsRecebimentoLOTE.Append;
+    cdsRecebimentoLOTEDataPagto.AsDateTime := GetDateDB;
+    cdsRecebimentoLOTEFormaPagto.Clear;
+    cdsRecebimentoLOTEHistoricoGeral.Clear;
   end;
 end;
 
-procedure TfrmGeContasAPagarQuitar.FormCreate(Sender: TObject);
+procedure TfrmGeContasAReceberQuitar.FormCreate(Sender: TObject);
 begin
   inherited;
   tblFormaPagto.Open;
 
-  e1Data.Date := GetMenorVencimentoAPagar;
+  e1Data.Date := GetMenorVencimentoAReceber;
   e2Data.Date := GetDateDB;
 
-  cdsPagamentoLOTE.CreateDataSet;
+  cdsRecebimentoLOTE.CreateDataSet;
 end;
 
-procedure TfrmGeContasAPagarQuitar.CdsPesquisaSELECIONARGetText(
+procedure TfrmGeContasAReceberQuitar.CdsPesquisaSELECIONARGetText(
   Sender: TField; var Text: String; DisplayText: Boolean);
 begin
   if not Sender.IsNull then
@@ -188,7 +188,7 @@ begin
       Text := 'X';  
 end;
 
-procedure TfrmGeContasAPagarQuitar.dbgDadosKeyPress(Sender: TObject;
+procedure TfrmGeContasAReceberQuitar.dbgDadosKeyPress(Sender: TObject;
   var Key: Char);
 begin
   if (Key = #32) then
@@ -209,7 +209,7 @@ begin
   inherited;
 end;
 
-procedure TfrmGeContasAPagarQuitar.BtnQuitarClick(Sender: TObject);
+procedure TfrmGeContasAReceberQuitar.BtnQuitarClick(Sender: TObject);
 begin
   if CdsPesquisa.IsEmpty then
     ShowWarning('Não há registros de despesas para quitação!')
@@ -220,19 +220,19 @@ begin
     dbgDados.SetFocus;
   end
   else
-  if cdsPagamentoLOTEDataPagto.IsNull then
+  if cdsRecebimentoLOTEDataPagto.IsNull then
   begin
     ShowWarning('Favor informar a Data de Pagamento para os lançamentos selecionados!');
     dbDataPagto.SetFocus;
   end
   else
-  if cdsPagamentoLOTEFormaPagto.IsNull then
+  if cdsRecebimentoLOTEFormaPagto.IsNull then
   begin
     ShowWarning('Favor informar a Forma de Pagamento para os lançamentos selecionados!');
     dbFormaPagto.SetFocus;
   end
   else
-  if Trim(cdsPagamentoLOTEHistoricoGeral.AsString) = EmptyStr then
+  if Trim(cdsRecebimentoLOTEHistoricoGeral.AsString) = EmptyStr then
   begin
     ShowWarning('Favor informar um histório geral para os lançamentos selecionados!');
     dbHistorico.SetFocus;
@@ -240,7 +240,7 @@ begin
   else
     if ShowConfirm('Confirma a quitação dos lançamentos de despesas selecionados?', 'Quitação por Lote') then
       try
-        cdsPagamentoLOTE.Post;
+        cdsRecebimentoLOTE.Post;
         QuitarDespesa;
       finally
         CdsPesquisa.Close;
@@ -248,7 +248,7 @@ begin
       end;
 end;
 
-procedure TfrmGeContasAPagarQuitar.QuitarDespesa;
+procedure TfrmGeContasAReceberQuitar.QuitarDespesa;
 var
   sSenha   : String;
   CxAno    ,
@@ -261,7 +261,7 @@ begin
     CdsPesquisa.DisableControls;
     CdsPesquisa.First;
 
-    if ( not CaixaAberto(gUsuarioLogado.Empresa, GetUserApp, GetDateDB, cdsPagamentoLOTEFormaPagto.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+    if ( not CaixaAberto(gUsuarioLogado.Empresa, GetUserApp, GetDateDB, cdsRecebimentoLOTEFormaPagto.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
     begin
       ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento desta quitação.');
       Exit;
@@ -271,30 +271,30 @@ begin
     
     while not CdsPesquisa.Eof do
     begin
-      if not cdsPagamentos.Active then
-        cdsPagamentos.Open;
+      if not cdsRecebimentos.Active then
+        cdsRecebimentos.Open;
 
       if (CdsPesquisaSELECIONAR.AsInteger = 1) then
       begin
         // 1. Gerar Registro de Pagamento
 
-        cdsPagamentos.Append;
+        cdsRecebimentos.Append;
 
-        cdsPagamentosANOLANC.Value     := CdsPesquisaANOLANC.Value;
-        cdsPagamentosNUMLANC.Value     := CdsPesquisaNUMLANC.Value;
-        cdsPagamentosSEQ.Value         := GetNextID('TBCONTPAG_BAIXA', 'SEQ', 'where anolanc = ' + CdsPesquisaANOLANC.AsString + ' and numlanc = ' + CdsPesquisaNUMLANC.AsString);
-        cdsPagamentosDATA_PAGTO.Value  := cdsPagamentoLOTEDataPagto.Value;
-        cdsPagamentosUSUARIO.Value     := GetUserApp;
-        cdsPagamentosVALOR_BAIXA.Value := CdsPesquisaVALOR_APAGAR.AsCurrency;
-        cdsPagamentosFORMA_PAGTO.Value      := cdsPagamentoLOTEFormaPagto.Value;
-        cdsPagamentosFORMA_PAGTO_DESC.Value := Trim(dbFormaPagto.Text);
-        cdsPagamentosHISTORICO.AsString     := AnsiUpperCase(Trim(cdsPagamentoLOTEHistoricoGeral.AsString)) + ' (PAGTO REALIZADO EM LOTE POR ' + GetUserApp + ')';
+        cdsRecebimentosANOLANC.Value     := CdsPesquisaANOLANC.Value;
+        cdsRecebimentosNUMLANC.Value     := CdsPesquisaNUMLANC.Value;
+        cdsRecebimentosSEQ.Value         := GetNextID('TBCONTREC_BAIXA', 'SEQ', 'where anolanc = ' + CdsPesquisaANOLANC.AsString + ' and numlanc = ' + CdsPesquisaNUMLANC.AsString);
+        cdsRecebimentosDATA_PAGTO.Value  := cdsRecebimentoLOTEDataPagto.Value;
+        cdsRecebimentosUSUARIO.Value     := GetUserApp;
+        cdsRecebimentosVALOR_BAIXA.Value := CdsPesquisaVALOR_ARECEBER.AsCurrency;
+        cdsRecebimentosFORMA_PAGTO.Value      := cdsRecebimentoLOTEFormaPagto.Value;
+        cdsRecebimentosFORMA_PAGTO_DESC.Value := Trim(dbFormaPagto.Text);
+        cdsRecebimentosHISTORICO.AsString     := AnsiUpperCase(Trim(cdsRecebimentoLOTEHistoricoGeral.AsString)) + ' (RECEBIMENTO REALIZADO EM LOTE POR ' + GetUserApp + ')';
 
-        if (Copy(cdsPagamentosHISTORICO.AsString, Length(cdsPagamentosHISTORICO.AsString), 1) = '.') then
-          cdsPagamentosHISTORICO.AsString := Copy(cdsPagamentosHISTORICO.AsString, 1, Length(cdsPagamentosHISTORICO.AsString) - 1);
+        if (Copy(cdsRecebimentosHISTORICO.AsString, Length(cdsRecebimentosHISTORICO.AsString), 1) = '.') then
+          cdsRecebimentosHISTORICO.AsString := Copy(cdsRecebimentosHISTORICO.AsString, 1, Length(cdsRecebimentosHISTORICO.AsString) - 1);
 
-        cdsPagamentos.Post;
-        cdsPagamentos.ApplyUpdates;
+        cdsRecebimentos.Post;
+        cdsRecebimentos.ApplyUpdates;
 
         CommitTransaction;
 
@@ -302,15 +302,15 @@ begin
 
         SetMovimentoCaixa(
           GetUserApp,
-          cdsPagamentosDATA_PAGTO.AsDateTime + Time,
-          cdsPagamentosFORMA_PAGTO.AsInteger,
-          cdsPagamentosANOLANC.AsInteger,
-          cdsPagamentosNUMLANC.AsInteger,
-          cdsPagamentosSEQ.AsInteger,
-          cdsPagamentosVALOR_BAIXA.AsCurrency,
-          tmcxDebito);
+          cdsRecebimentosDATA_PAGTO.AsDateTime + Time,
+          cdsRecebimentosFORMA_PAGTO.AsInteger,
+          cdsRecebimentosANOLANC.AsInteger,
+          cdsRecebimentosNUMLANC.AsInteger,
+          cdsRecebimentosSEQ.AsInteger,
+          cdsRecebimentosVALOR_BAIXA.AsCurrency,
+          tmcxCredito);
 
-        cTotalPago := cTotalPago + CdsPesquisaVALOR_APAGAR.AsCurrency;
+        cTotalPago := cTotalPago + CdsPesquisaVALOR_ARECEBER.AsCurrency;
       end;
 
       CdsPesquisa.Next;
@@ -320,7 +320,7 @@ begin
 
     if ( (cTotalPago > 0.0) and (CxContaCorrente > 0) ) then
     begin
-      GerarSaldoContaCorrente(CxContaCorrente, cdsPagamentoLOTEDataPagto.AsDateTime);
+      GerarSaldoContaCorrente(CxContaCorrente, cdsRecebimentoLOTEDataPagto.AsDateTime);
       ShowInformation('Quitação por Lote relalizado com sucesso!');
     end;
 
@@ -329,7 +329,7 @@ begin
   end;
 end;
 
-procedure TfrmGeContasAPagarQuitar.FormKeyDown(Sender: TObject;
+procedure TfrmGeContasAReceberQuitar.FormKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   inherited;
@@ -338,6 +338,6 @@ begin
 end;
 
 initialization
-  FormFunction.RegisterForm('frmGeContasAPagarQuitar', TfrmGeContasAPagarQuitar);
+  FormFunction.RegisterForm('frmGeContasAReceberQuitar', TfrmGeContasAReceberQuitar);
 
 end.

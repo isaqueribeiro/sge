@@ -1,7 +1,7 @@
 object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
   Left = 388
   Top = 221
-  ActiveControl = dbNome
+  ActiveControl = dbSenhaAtual
   BorderStyle = bsDialog
   Caption = 'Altera'#231#227'o de Senha'
   ClientHeight = 187
@@ -48,6 +48,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      Transparent = True
     end
     object lblSenhaNova: TLabel
       Left = 38
@@ -63,6 +64,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      Transparent = True
     end
     object lblSenhaConfirmar: TLabel
       Left = 15
@@ -78,6 +80,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      Transparent = True
     end
     object lblSenhaAtual: TLabel
       Left = 35
@@ -93,11 +96,12 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      Transparent = True
     end
     object dbNome: TDBEdit
       Left = 122
       Top = 14
-      Width = 231
+      Width = 167
       Height = 24
       CharCase = ecUpperCase
       DataField = 'NOME'
@@ -189,25 +193,13 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       Height = 31
       Hint = 'Gravar Nova Senha'
       Anchors = [akTop, akRight]
-      Caption = 'Confirmar'
+      Caption = 'Salvar'
+      OptionsImage.ImageIndex = 22
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
       OnClick = btbtnSalvarClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00555555555555
-        55555FFFFFFF5F55FFF5777777757559995777777775755777F7555555555550
-        305555555555FF57F7F555555550055BB0555555555775F777F55555550FB000
-        005555555575577777F5555550FB0BF0F05555555755755757F555550FBFBF0F
-        B05555557F55557557F555550BFBF0FB005555557F55575577F555500FBFBFB0
-        B05555577F555557F7F5550E0BFBFB00B055557575F55577F7F550EEE0BFB0B0
-        B05557FF575F5757F7F5000EEE0BFBF0B055777FF575FFF7F7F50000EEE00000
-        B0557777FF577777F7F500000E055550805577777F7555575755500000555555
-        05555777775555557F5555000555555505555577755555557555}
-      NumGlyphs = 2
     end
     object btbtnFechar: TcxButton
       Left = 288
@@ -215,31 +207,21 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       Width = 75
       Height = 31
       Hint = 'Fechar'
+      ParentCustomHint = False
       Anchors = [akTop, akRight]
       Caption = 'Fechar'
+      OptionsImage.ImageIndex = 15
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
       OnClick = btbtnFecharClick
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033BBBBBBBBBB
-        BB33337777777777777F33BB00BBBBBBBB33337F77333333F37F33BB0BBBBBB0
-        BB33337F73F33337FF7F33BBB0BBBB000B33337F37FF3377737F33BBB00BB00B
-        BB33337F377F3773337F33BBBB0B00BBBB33337F337F7733337F33BBBB000BBB
-        BB33337F33777F33337F33EEEE000EEEEE33337F3F777FFF337F33EE0E80000E
-        EE33337F73F77773337F33EEE0800EEEEE33337F37377F33337F33EEEE000EEE
-        EE33337F33777F33337F33EEEEE00EEEEE33337F33377FF3337F33EEEEEE00EE
-        EE33337F333377F3337F33EEEEEE00EEEE33337F33337733337F33EEEEEEEEEE
-        EE33337FFFFFFFFFFF7F33EEEEEEEEEEEE333377777777777773}
-      NumGlyphs = 2
     end
   end
   object tblUsers: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
     CachedUpdates = True
     DeleteSQL.Strings = (
       'delete from TBUSERS'
@@ -280,6 +262,8 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       '  LIMIDESC = :LIMIDESC'
       'where'
       '  NOME = :OLD_NOME')
+    ParamCheck = True
+    UniDirectional = False
     UpdateObject = updUsers
     Left = 16
     Top = 152

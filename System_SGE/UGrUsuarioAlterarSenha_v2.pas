@@ -6,7 +6,12 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   UGrPadrao, Dialogs, ExtCtrls, StdCtrls, Mask, DBCtrls, DB, IBCustomDataSet, Buttons,
   IBUpdateSQL, DBClient, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, cxButtons;
+  Menus, cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGrUsuarioAlterarSenha = class(TfrmGrPadrao)
@@ -52,7 +57,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UGrCampoRequisitado, UGrUsuario;
+  UDMBusiness, UGrCampoRequisitado, UGrUsuario, UDMRecursos;
 
 {$R *.dfm}
 
@@ -66,7 +71,7 @@ procedure TfrmGrUsuarioAlterarSenha.btbtnSalvarClick(Sender: TObject);
   function SenhaValida(const Senha : String) : Boolean;
   begin
     Result := (AnsiCompareStr(tblUsersSENHA.AsString, Senha) = 0)
-      or (AnsiCompareStr(tblUsersSENHA.AsString, GetSenhaFormatada(Senha)) = 0);
+      or (AnsiCompareStr(tblUsersSENHA.AsString, GetSenhaFormatada(Senha, False)) = 0);
   end;
 
 var
@@ -97,7 +102,7 @@ begin
     else
     begin
       tblUsersALTERAR_SENHA.AsInteger := 0; // Não
-      tblUsersSENHA.AsString          := GetSenhaFormatada(tblUsersSENHA_NOVA.AsString);
+      tblUsersSENHA.AsString          := GetSenhaFormatada(tblUsersSENHA_NOVA.AsString, False);
 
       tblUsers.Post;
       tblUsers.ApplyUpdates;
@@ -112,7 +117,7 @@ end;
 
 procedure TfrmGrUsuarioAlterarSenha.FormShow(Sender: TObject);
 begin
-  if tblUsersNOME.AsString <> GetUserApp then
+  if ( tblUsersNOME.AsString <> gUsuarioLogado.Login ) then
     tblUsers.Close
   else
     tblUsers.Edit;
@@ -122,7 +127,7 @@ procedure TfrmGrUsuarioAlterarSenha.FormCreate(Sender: TObject);
 begin
   inherited;
   tblUsers.Close;
-  tblUsers.ParamByName('nome').AsString := GetUserApp;
+  tblUsers.ParamByName('nome').AsString := gUsuarioLogado.Login;
   tblUsers.Open;
 end;
 

@@ -1,6 +1,6 @@
 inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
-  Left = 405
-  Top = 223
+  Left = 385
+  Top = 217
   Width = 617
   Height = 474
   BorderIcons = [biSystemMenu]

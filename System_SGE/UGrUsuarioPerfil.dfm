@@ -1,6 +1,6 @@
 inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
-  Left = 386
-  Top = 212
+  Left = 394
+  Top = 213
   Width = 757
   Height = 447
   BorderIcons = [biSystemMenu, biMinimize, biMaximize]
@@ -14,10 +14,6 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
   end
   inherited Bevel3: TBevel
     Top = 366
-    Width = 741
-  end
-  inherited tlbBotoes: TToolBar
-    Top = 370
     Width = 741
   end
   inherited pgcGuias: TPageControl
@@ -62,12 +58,12 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
             Width = 92
             Caption = 'Perfil de Acesso:'
           end
-          inherited btnFiltrar: TSpeedButton
-            Left = 260
-          end
           inherited edtFiltrar: TEdit
             Left = 104
             Width = 152
+          end
+          inherited btnFiltrar: TcxButton
+            Left = 260
           end
         end
       end
@@ -150,6 +146,22 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
           TabOrder = 0
         end
       end
+    end
+  end
+  inherited tlbBotoes: TPanel
+    Top = 370
+    Width = 741
+    inherited bvlTool3: TBevel
+      Left = 658
+    end
+    inherited bvlTool4: TBevel
+      Left = 737
+    end
+    inherited btbtnFechar: TcxButton
+      Left = 662
+    end
+    inherited btbtnSelecionar: TcxButton
+      Left = 538
     end
   end
   inherited IbDtstTabela: TIBDataSet

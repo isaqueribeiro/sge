@@ -1,15 +1,18 @@
 inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
-  Left = 411
-  Top = 228
-  Width = 1132
-  Height = 615
+  Left = 395
+  Top = 218
   ActiveControl = edTipoRequisicao
   Caption = 'Conrverter Requisi'#231#245'es em Autoriza'#231#245'es de Compras/Servi'#231'os'
+  ClientHeight = 576
+  ClientWidth = 1116
   OnKeyPress = FormKeyPress
+  ExplicitWidth = 1132
+  ExplicitHeight = 615
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlPesquisa: TPanel
     Width = 1116
+    ExplicitWidth = 1116
     inherited GrpBxTipoPesquisa: TGroupBox
       inherited edTipoPesquisa: TComboBox
         Text = 'Per'#237'odo, Autom'#225'tico'
@@ -19,17 +22,16 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     end
     inherited GrpBxPesquisar: TGroupBox
       Width = 888
+      ExplicitWidth = 888
       DesignSize = (
         888
         73)
-      inherited BrnPesquisar: TSpeedButton
-        Left = 763
-      end
       inherited lblPesquisar: TLabel
         Left = 440
         Visible = False
+        ExplicitLeft = 440
       end
-      object lblData: TLabel [2]
+      object lblData: TLabel [1]
         Left = 216
         Top = 24
         Width = 46
@@ -37,7 +39,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         Caption = 'Per'#237'o&do:'
         FocusControl = e1Data
       end
-      object lblTipoRequisicao: TLabel [3]
+      object lblTipoRequisicao: TLabel [2]
         Left = 16
         Top = 24
         Width = 91
@@ -45,7 +47,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         Caption = '&Tipo Requisi'#231#227'o:'
         FocusControl = edTipoRequisicao
       end
-      object lblFornecedor: TLabel [4]
+      object lblFornecedor: TLabel [3]
         Left = 440
         Top = 24
         Width = 67
@@ -53,13 +55,14 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         Caption = '&Fornecedor:'
         FocusControl = edFornecedor
       end
-      object BtnConverter: TSpeedButton [5]
+      object BtnConverter: TSpeedButton [4]
         Left = 792
         Top = 40
         Width = 89
         Height = 22
         Cursor = crHandPoint
         Caption = '&Converter'
+        Enabled = False
         Flat = True
         Font.Charset = ANSI_CHARSET
         Font.Color = clRed
@@ -127,24 +130,13 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         Enabled = False
         TabOrder = 4
         Visible = False
+        ExplicitLeft = 440
+        ExplicitWidth = 321
       end
-      object e1Data: TDateEdit
-        Left = 216
-        Top = 40
-        Width = 105
-        Height = 21
-        NumGlyphs = 2
-        TabOrder = 1
-        Text = '24/06/2013'
-      end
-      object e2Data: TDateEdit
-        Left = 328
-        Top = 40
-        Width = 105
-        Height = 21
-        NumGlyphs = 2
-        TabOrder = 2
-        Text = '24/06/2013'
+      inherited BrnPesquisar: TcxButton
+        Left = 763
+        TabOrder = 5
+        ExplicitLeft = 763
       end
       object edTipoRequisicao: TComboBox
         Left = 16
@@ -152,10 +144,123 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         Width = 193
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
         TabOrder = 0
       end
-      object edFornecedor: TComboEdit
+      object e1Data: TJvDateEdit
+        Left = 216
+        Top = 40
+        Width = 104
+        Height = 21
+        Date = 41449.000000000000000000
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
+        NumGlyphs = 2
+        PopupColor = clBtnFace
+        ShowNullDate = False
+        TabOrder = 1
+      end
+      object e2Data: TJvDateEdit
+        Left = 328
+        Top = 40
+        Width = 104
+        Height = 21
+        Date = 41449.000000000000000000
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
+        NumGlyphs = 2
+        PopupColor = clBtnFace
+        ShowNullDate = False
+        TabOrder = 2
+      end
+      object edFornecedor: TJvComboEdit
         Left = 440
         Top = 40
         Width = 321
@@ -225,6 +330,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         ParentShowHint = False
         ShowHint = True
         TabOrder = 3
+        Text = ''
         OnButtonClick = edFornecedorButtonClick
         OnKeyDown = edFornecedorKeyDown
       end
@@ -232,10 +338,12 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
   end
   inherited PnlTabela: TPanel
     Width = 1116
-    Height = 496
+    Height = 495
+    ExplicitWidth = 1116
+    ExplicitHeight = 495
     inherited dbgDados: TDBGrid
       Width = 1108
-      Height = 488
+      Height = 487
       OnDblClick = dbgDadosDblClick
       OnKeyDown = dbgDadosKeyDown
       Columns = <
@@ -361,10 +469,23 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       '  , t.cnpj     as transportador_cpf_cnpj'
       '  , c.nome     as nomecliente'
       'from TBREQUISITA_COMPRA r'
+      '  left join ('
+      '    Select'
+      '        ar.autorizacao_ano'
+      '      , ar.autorizacao_cod'
+      '      , ar.autorizacao_emp'
+      '      , ar.requisicao_ano'
+      '      , ar.requisicao_cod'
+      '      , ar.requisicao_emp'
+      '    from TBAUTORIZA_REQUISITA ar'
       
-        '  left join TBAUTORIZA_REQUISITA a on (a.requisicao_ano = r.ano ' +
-        'and a.requisicao_cod = r.codigo and a.requisicao_emp = r.empresa' +
-        ')'
+        '      inner join TBAUTORIZA_COMPRA ac on (ac.ano = ar.autorizaca' +
+        'o_ano and ac.codigo = ar.autorizacao_cod and ac.empresa = ar.aut' +
+        'orizacao_emp)'
+      '    where ac.status <> 4 -- Cancelada'
+      
+        '  ) a on (a.requisicao_ano = r.ano and a.requisicao_cod = r.codi' +
+        'go and a.requisicao_emp = r.empresa)'
       '  left join TBFORNECEDOR f on (f.codforn = r.fornecedor)'
       '  left join TBFORNECEDOR t on (t.codforn = r.transportador)'
       '  left join TBCLIENTE c on (c.codigo = r.cliente)'
@@ -484,12 +605,12 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       FieldName = 'CODIGO'
       Required = True
     end
-    object CdsPesquisaEMPRESA: TStringField
+    object CdsPesquisaEMPRESA: TWideStringField
       FieldName = 'EMPRESA'
       Required = True
       Size = 18
     end
-    object CdsPesquisaNUMERO: TStringField
+    object CdsPesquisaNUMERO: TWideStringField
       FieldName = 'NUMERO'
       Required = True
     end
@@ -497,7 +618,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       FieldName = 'FORNECEDOR'
       Required = True
     end
-    object CdsPesquisaNOME_CONTATO: TStringField
+    object CdsPesquisaNOME_CONTATO: TWideStringField
       FieldName = 'NOME_CONTATO'
       Size = 100
     end
@@ -511,7 +632,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       FieldName = 'EMISSAO_DATA'
       Required = True
     end
-    object CdsPesquisaEMISSAO_USUARIO: TStringField
+    object CdsPesquisaEMISSAO_USUARIO: TWideStringField
       FieldName = 'EMISSAO_USUARIO'
       Size = 12
     end
@@ -521,14 +642,14 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     object CdsPesquisaCOMPETENCIA: TIntegerField
       FieldName = 'COMPETENCIA'
     end
-    object CdsPesquisaMOVITO: TMemoField
+    object CdsPesquisaMOVITO: TWideMemoField
       FieldName = 'MOVITO'
-      BlobType = ftMemo
+      BlobType = ftWideMemo
       Size = 8
     end
-    object CdsPesquisaOBSERVACAO: TMemoField
+    object CdsPesquisaOBSERVACAO: TWideMemoField
       FieldName = 'OBSERVACAO'
-      BlobType = ftMemo
+      BlobType = ftWideMemo
       Size = 8
     end
     object CdsPesquisaCLIENTE: TIntegerField
@@ -537,25 +658,23 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     object CdsPesquisaCENTRO_CUSTO: TIntegerField
       FieldName = 'CENTRO_CUSTO'
     end
-    object CdsPesquisaENDERECO_ENTREGA: TMemoField
+    object CdsPesquisaENDERECO_ENTREGA: TWideMemoField
       FieldName = 'ENDERECO_ENTREGA'
-      BlobType = ftMemo
+      BlobType = ftWideMemo
       Size = 8
     end
     object CdsPesquisaSTATUS: TSmallintField
-      Alignment = taLeftJustify
       FieldName = 'STATUS'
-      OnGetText = CdsPesquisaSTATUSGetText
     end
-    object CdsPesquisaRECEBEDOR_NOME: TStringField
+    object CdsPesquisaRECEBEDOR_NOME: TWideStringField
       FieldName = 'RECEBEDOR_NOME'
       Size = 100
     end
-    object CdsPesquisaRECEBEDOR_CPF: TStringField
+    object CdsPesquisaRECEBEDOR_CPF: TWideStringField
       FieldName = 'RECEBEDOR_CPF'
       Size = 18
     end
-    object CdsPesquisaRECEBEDOR_FUNCAO: TStringField
+    object CdsPesquisaRECEBEDOR_FUNCAO: TWideStringField
       FieldName = 'RECEBEDOR_FUNCAO'
       Size = 50
     end
@@ -570,7 +689,6 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     end
     object CdsPesquisaITENS: TIntegerField
       FieldName = 'ITENS'
-      DisplayFormat = ',0.###'
     end
     object CdsPesquisaVALOR_BRUTO: TBCDField
       FieldName = 'VALOR_BRUTO'
@@ -608,27 +726,27 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     object CdsPesquisaDATA_FATURA: TDateField
       FieldName = 'DATA_FATURA'
     end
-    object CdsPesquisaREQUISITADO_USUARIO: TStringField
+    object CdsPesquisaREQUISITADO_USUARIO: TWideStringField
       FieldName = 'REQUISITADO_USUARIO'
       Size = 12
     end
     object CdsPesquisaCANCELADO_DATA: TDateField
       FieldName = 'CANCELADO_DATA'
     end
-    object CdsPesquisaCANCELADO_USUARIO: TStringField
+    object CdsPesquisaCANCELADO_USUARIO: TWideStringField
       FieldName = 'CANCELADO_USUARIO'
       Size = 12
     end
-    object CdsPesquisaCANCELADO_MOTIVO: TMemoField
+    object CdsPesquisaCANCELADO_MOTIVO: TWideMemoField
       FieldName = 'CANCELADO_MOTIVO'
-      BlobType = ftMemo
+      BlobType = ftWideMemo
       Size = 8
     end
-    object CdsPesquisaNOMEFORN: TStringField
+    object CdsPesquisaNOMEFORN: TWideStringField
       FieldName = 'NOMEFORN'
       Size = 100
     end
-    object CdsPesquisaCNPJ: TStringField
+    object CdsPesquisaCNPJ: TWideStringField
       FieldName = 'CNPJ'
       Size = 18
     end
@@ -640,15 +758,15 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       Precision = 18
       Size = 2
     end
-    object CdsPesquisaTRANSPORTADOR_NOME: TStringField
+    object CdsPesquisaTRANSPORTADOR_NOME: TWideStringField
       FieldName = 'TRANSPORTADOR_NOME'
       Size = 100
     end
-    object CdsPesquisaTRANSPORTADOR_CPF_CNPJ: TStringField
+    object CdsPesquisaTRANSPORTADOR_CPF_CNPJ: TWideStringField
       FieldName = 'TRANSPORTADOR_CPF_CNPJ'
       Size = 18
     end
-    object CdsPesquisaNOMECLIENTE: TStringField
+    object CdsPesquisaNOMECLIENTE: TWideStringField
       FieldName = 'NOMECLIENTE'
       Size = 100
     end
@@ -656,8 +774,11 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
   object tblTipoRequisicao: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
     TableName = 'VW_TIPO_REQUISICAO'
     TableTypes = [ttView]
+    UniDirectional = False
     Left = 104
     Top = 208
   end
@@ -665,6 +786,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
+    BufferChunks = 1000
     CachedUpdates = True
     RefreshSQL.Strings = (
       '')
@@ -711,6 +833,8 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       '  and a.empresa = :empresa')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
+    UniDirectional = False
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_REQUISICAO_2013'
     GeneratorField.ApplyEvent = gamOnPost

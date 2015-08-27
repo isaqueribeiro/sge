@@ -6,7 +6,23 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons,
   ExtCtrls, UGrPadraoLogin, dxGDIPlusClasses, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, pngimage;
+  cxLookAndFeelPainters, Menus, cxButtons, pngimage, cxControls,
+  cxContainer, cxEdit, cxLabel, cxMaskEdit, cxDropDownEdit, cxTextEdit,
+  
+  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinBlack, dxSkinBlue,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
+  dxSkinLondonLiquidSky, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
+  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  frxClass;
 
 type
   TFrmEfetuarLogin = class(TfrmGrPadraoLogin)
@@ -40,7 +56,10 @@ begin
 
   try
 
-    if not DMBusiness.ibdtstUsers.Locate('NOME', edNome.Text, []) then
+    DMBusiness.ibdtstUsers.Close;
+    DMBusiness.ibdtstUsers.Open;
+
+    if not DMBusiness.ibdtstUsers.Locate('NOME', Usuario, []) then
     begin
       pnlMensagem.Caption := 'Entrada recusada ... USUÁRIO DESCONHECIDO!';
 
@@ -52,9 +71,9 @@ begin
     end;
 
     vSenha := DMBusiness.ibdtstUsersSENHA as tStringfield;
-    sSenha := GetSenhaFormatada(Senha);
+    sSenha := GetSenhaFormatada(Senha, False);
 
-    if (vSenha.Value = edSenha.Text) or (vSenha.Value = sSenha) then
+    if (vSenha.Value = Senha) or (vSenha.Value = sSenha) then
     begin
       frmPrinc.Enabled := True;
       frmPrinc.stbMain.Panels[1].Text := AnsiLowerCase(edNome.Text + '@' + DMBusiness.ibdtbsBusiness.DatabaseName);
@@ -106,27 +125,40 @@ begin
 
 //  inherited;
 
+  if Trim(edEmpresa.Text) = EmptyStr then
+  begin
+    ShowWarning('Favor selecionar a empresa!');
+    if edEmpresa.Visible and edEmpresa.Enabled then
+      edEmpresa.SetFocus;
+  end
+  else
   if EfetuarLogin then
   begin
-    SetEmpresaIDDefault( Empresa );
-
-    gUsuarioLogado.Login    := GetUserApp;
+    gUsuarioLogado.Login    := Usuario;
     gUsuarioLogado.Nome     := GetUserFullName;
     gUsuarioLogado.Funcao   := GetUserFunctionID;
     gUsuarioLogado.Empresa  := Empresa;
     gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
 
-    frmPrinc.nmUsuarioAlterarSenha.Caption := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+    SetEmpresaIDDefault( Empresa );
 
-    if (StrFormatarCnpj(GetEmpresaIDDefault) = StrFormatarCnpj(gLicencaSistema.CNPJ)) then
+    frmPrinc.BrBtnAlterarSenha.Caption := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+    frmPrinc.BrBtnAlterarSenha.Hint    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+    frmPrinc.TmrMonitorar.Enabled      := True;
+
+    if (StrFormatarCnpj(gUsuarioLogado.Empresa) = StrFormatarCnpj(gLicencaSistema.CNPJ)) then
       frmPrinc.stbMain.Panels.Items[2].Text  := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ])
     else
-      frmPrinc.stbMain.Panels.Items[2].Text  := Format('[%s] Licenciado a empresa %s, %s', [GetEmpresaNomeDefault, gLicencaSistema.Empresa, sCNPJ]);
+      frmPrinc.stbMain.Panels.Items[2].Text  := Format('[%s] Licenciado a empresa %s, %s', [GetEmpresaNome(gUsuarioLogado.Empresa), gLicencaSistema.Empresa, sCNPJ]);
 
     ModalResult := mrOk;
+
+    frmPrinc.ConfigurarRotuloBotoes;
+    if GetUserUpdatePassWord then
+      frmPrinc.nmUsuarioAlterarSenhaClick( frmPrinc.BrBtnAlterarSenha );
   end
   else
-    Contador := Contador + 1; //Inc(Contador);
+    Contador := Contador + 1; 
 end;
 
 initialization

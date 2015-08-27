@@ -6,14 +6,19 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  ToolWin, IBTable, Menus, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
+  JvToolEdit, JvDBControls, JvExMask, dxSkinsCore, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeRequisicaoCliente = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     RdgStatusRequisicao: TRadioGroup;
     lblRequisicaoAberta: TLabel;
     lblRequisicaoCancelada: TLabel;
@@ -39,12 +44,10 @@ type
     dbDataHora: TDBEdit;
     dbEmpresa: TDBLookupComboBox;
     lblEmpresa: TLabel;
-    dbCliente: TRxDBComboEdit;
     lblCliente: TLabel;
     dbSituacao: TDBEdit;
     lblSituacao: TLabel;
     lblDataMovimento: TLabel;
-    dbDataMovimento: TDBDateEdit;
     lblResponsavel: TLabel;
     dbResponsavel: TDBEdit;
     dbResponsavelRG: TDBEdit;
@@ -68,7 +71,6 @@ type
     lblQuantidade: TLabel;
     lblUnidade: TLabel;
     Bevel7: TBevel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbQuantidade: TDBEdit;
     dbUnidade: TDBEdit;
@@ -102,6 +104,11 @@ type
     cdsTabelaItensESTOQUE_SATELITE: TIBBCDField;
     btnAutorizarRequisicao: TcxButton;
     btnCancelarRequisicao: TcxButton;
+    dbCliente: TJvDBComboEdit;
+    dbProduto: TJvDBComboEdit;
+    dbDataMovimento: TJvDBDateEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -132,6 +139,7 @@ type
     procedure dbProdutoButtonClick(Sender: TObject);
     procedure nmImprimirRequisicaoClick(Sender: TObject);
     procedure btnCancelarRequisicaoClick(Sender: TObject);
+    procedure RdgStatusRequisicaoClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -215,8 +223,6 @@ begin
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
-
-  RdgStatusRequisicao.Controls[3].Enabled := False;
 end;
 
 procedure TfrmGeRequisicaoCliente.IbDtstTabelaINSERCAO_DATAGetText(
@@ -234,7 +240,7 @@ begin
   IbDtstTabelaINSERCAO_DATA.Value    := GetDateDB;
   IbDtstTabelaINSERCAO_HORA.Value    := GetTimeDB;
   IbDtstTabelaINSERCAO_USUARIO.Value := GetUserApp;
-  IbDtstTabelaCODEMPRESA.Value       := GetEmpresaIDDefault;
+  IbDtstTabelaCODEMPRESA.Value       := gUsuarioLogado.Empresa;
   IbDtstTabelaDATA_MOVIMENTO.Value   := GetDateDB;
   IbDtstTabelaSITUACAO.AsInteger     := STATUS_REQ_ABR;
 
@@ -313,6 +319,12 @@ begin
 
     nmImprimirRequisicao.Enabled   := (IbDtstTabelaSITUACAO.AsInteger = STATUS_REQ_AUT) or (IbDtstTabelaSITUACAO.AsInteger = STATUS_REQ_FCH);
   end;
+end;
+
+procedure TfrmGeRequisicaoCliente.RdgStatusRequisicaoClick(Sender: TObject);
+begin
+  if RdgStatusRequisicao.ItemIndex = 3 then
+    RdgStatusRequisicao.ItemIndex := RdgStatusRequisicao.ItemIndex - 1;
 end;
 
 procedure TfrmGeRequisicaoCliente.RecarregarRegistro;
@@ -401,7 +413,7 @@ procedure TfrmGeRequisicaoCliente.btnProdutoInserirClick(Sender: TObject);
   procedure GerarSequencial(var Seq : Integer);
   begin
     Seq := cdsTabelaItens.RecordCount + 1;
-    if ( cdsTabelaItens.Locate('ITEM', Seq, []) ) then
+    while ( cdsTabelaItens.Locate('ITEM', Seq, []) ) do
       Seq := Seq + 1;
   end;
 

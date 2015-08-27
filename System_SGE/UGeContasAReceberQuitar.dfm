@@ -1,7 +1,7 @@
-inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
+inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
   Left = 398
   Top = 213
-  Caption = 'Quitar Contas A Pagar (por Lote)'
+  Caption = 'Quitar Contas A Receber (por Lote)'
   ClientHeight = 515
   ClientWidth = 1055
   ExplicitWidth = 1071
@@ -205,55 +205,55 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
         end
         item
           Expanded = False
-          FieldName = 'VALORPAG'
-          Title.Caption = 'Despesa (R$)'
+          FieldName = 'VALORREC'
+          Title.Caption = 'Receita (R$)'
           Width = 85
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'VALORPAGTOT'
-          Title.Caption = 'Pago (R$)'
+          FieldName = 'VALORRECTOT'
+          Title.Caption = 'Recebido (R$)'
           Visible = False
         end
         item
           Expanded = False
-          FieldName = 'VALOR_APAGAR'
-          Title.Caption = 'A Pagar (R$)'
-          Width = 85
+          FieldName = 'VALOR_ARECEBER'
+          Title.Caption = 'A Receber (R$)'
+          Width = 95
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'ENTRADA'
-          Title.Caption = 'Entrada'
+          FieldName = 'SAIDA'
+          Title.Caption = 'Saida'
           Width = 100
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'ENTRADA_DOC_TIPO'
+          FieldName = 'SAIDA_DOC_TIPO'
           Title.Caption = 'Documento'
-          Width = 100
+          Width = 120
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'ENTRADA_DOC'
+          FieldName = 'SAIDA_DOC'
           Title.Caption = 'No. Documento'
           Width = 100
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'ENTRADA_FORNECEDOR'
-          Title.Caption = 'Fornecedor'
+          FieldName = 'SAIDA_FORNECEDOR'
+          Title.Caption = 'Cliente'
           Width = 350
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'ENTRADA_FORNECEDOR_CNPJ'
+          FieldName = 'SAIDA_FORNECEDOR_CNPJ'
           Title.Caption = 'CPF/CNPJ'
           Width = 150
           Visible = True
@@ -326,7 +326,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
           Width = 257
           Height = 21
           DataField = 'FormaPagto'
-          DataSource = dtsPagamentoLOTE
+          DataSource = dtsRecebimentoLOTE
           DropDownRows = 10
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -346,7 +346,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
           Height = 49
           Anchors = [akLeft, akTop, akRight, akBottom]
           DataField = 'HistoricoGeral'
-          DataSource = dtsPagamentoLOTE
+          DataSource = dtsRecebimentoLOTE
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -409,7 +409,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
           Width = 113
           Height = 21
           DataField = 'DataPagto'
-          DataSource = dtsPagamentoLOTE
+          DataSource = dtsRecebimentoLOTE
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -473,46 +473,47 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
   inherited QryPesquisa: TIBQuery
     SQL.Strings = (
       'Select'
-      '    c.anolanc'
-      '  , c.numlanc'
+      '    r.anolanc'
+      '  , r.numlanc'
       
-        '  , cast(c.anolanc || '#39'/'#39' || right('#39'0000000'#39' || c.numlanc, 7) as' +
+        '  , cast(r.anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.numlanc, 7) as' +
         ' varchar(30)) as lancamento'
-      '  , c.empresa'
-      '  , c.parcela'
-      '  , c.tippag'
-      '  , c.dtemiss'
-      '  , c.dtvenc'
-      '  , c.dtpag'
-      '  , c.valorpag'
-      '  , c.valormulta'
-      '  , c.valorpagtot'
-      '  , c.valorsaldo'
-      '  , c.valorsaldo as valor_apagar'
+      '  , r.empresa'
+      '  , r.parcela'
+      '  , r.tippag'
+      '  , r.dtemiss'
+      '  , r.dtvenc'
+      '  , r.dtrec'
+      '  , r.valorrec'
+      '  , r.valormulta'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.valorsaldo as valor_areceber'
       ''
       
-        '  , cast(c.anocompra || '#39'/'#39' || right('#39'0000000'#39' || c.numcompra, 7' +
-        ') as varchar(30)) as entrada'
-      '  , c.anocompra     as entrada_ano'
-      '  , c.numcompra     as entrada_numero'
-      '  , d.tpd_descricao as entrada_doc_tipo'
+        '  , cast(r.anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.numvenda, 7) ' +
+        'as varchar(30)) as saida'
+      '  , r.anovenda     as saida_ano'
+      '  , r.numvenda     as saida_numero'
+      '  , Case when e.nfe is null'
+      '      then '#39'Venda sem Nota Fiscal'#39
+      '      else '#39'Notal Fiscal'#39
+      '    end as saida_doc_tipo'
       
-        '  , cast(right('#39'0000000'#39' || e.nf, 7) || coalesce('#39'-'#39' || nullif(t' +
-        'rim(e.nfserie), '#39#39'), '#39#39') as varchar(30)) as entrada_doc'
-      '  , e.nf            as entrada_doc_numero'
-      '  , e.nfserie       as entrada_doc_serie'
-      '  , f.nomeforn      as entrada_fornecedor'
-      '  , f.cnpj          as entrada_fornecedor_cnpj'
+        '  , cast(right('#39'0000000'#39' || e.nfe, 7) || coalesce('#39'-'#39' || nullif(' +
+        'trim(e.serie), '#39#39'), '#39#39') as varchar(30)) as saida_doc'
+      '  , e.nfe   as saida_doc_numero'
+      '  , e.serie as saida_doc_serie'
+      '  , f.nome  as saida_fornecedor'
+      '  , f.cnpj  as saida_fornecedor_cnpj'
       ''
       '  , 0 as selecionar'
-      'from TBCONTPAG c'
-      '  left join TBFORNECEDOR f on (f.codforn = c.codforn)'
+      'from TBCONTREC r'
+      '  left join TBCLIENTE f on (f.codigo = r.cliente)'
       
-        '  left join TBCOMPRAS e on (e.ano = c.anocompra and c.numcompra ' +
-        '= e.codcontrol)'
-      
-        '  left join VW_TIPO_DOCUMENTO_ENTRADA d on (d.tpd_codigo = e.tip' +
-        'o_documento)')
+        '  left join TBVENDAS e on (e.ano = r.anovenda and e.codcontrol =' +
+        ' r.numvenda)'
+      '')
     ParamData = <>
   end
   inherited DtsPesquisa: TDataSource
@@ -532,14 +533,6 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     ProviderName = 'DspPesquisa'
     Left = 360
     Top = 241
-    object CdsPesquisaLANCAMENTO: TWideStringField
-      FieldName = 'LANCAMENTO'
-      Size = 30
-    end
-    object CdsPesquisaEMPRESA: TWideStringField
-      FieldName = 'EMPRESA'
-      Size = 18
-    end
     object CdsPesquisaANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Required = True
@@ -548,10 +541,16 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       FieldName = 'NUMLANC'
       Required = True
     end
+    object CdsPesquisaLANCAMENTO: TWideStringField
+      FieldName = 'LANCAMENTO'
+      Size = 30
+    end
+    object CdsPesquisaEMPRESA: TWideStringField
+      FieldName = 'EMPRESA'
+      Size = 18
+    end
     object CdsPesquisaPARCELA: TSmallintField
-      Alignment = taCenter
       FieldName = 'PARCELA'
-      DisplayFormat = '00'
     end
     object CdsPesquisaTIPPAG: TWideStringField
       FieldName = 'TIPPAG'
@@ -565,12 +564,12 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       FieldName = 'DTVENC'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object CdsPesquisaDTPAG: TDateField
-      FieldName = 'DTPAG'
+    object CdsPesquisaDTREC: TDateField
+      FieldName = 'DTREC'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object CdsPesquisaVALORPAG: TBCDField
-      FieldName = 'VALORPAG'
+    object CdsPesquisaVALORREC: TBCDField
+      FieldName = 'VALORREC'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -581,8 +580,8 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       Precision = 18
       Size = 2
     end
-    object CdsPesquisaVALORPAGTOT: TBCDField
-      FieldName = 'VALORPAGTOT'
+    object CdsPesquisaVALORRECTOT: TBCDField
+      FieldName = 'VALORRECTOT'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -593,45 +592,44 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       Precision = 18
       Size = 2
     end
-    object CdsPesquisaVALOR_APAGAR: TBCDField
-      FieldName = 'VALOR_APAGAR'
+    object CdsPesquisaVALOR_ARECEBER: TBCDField
+      FieldName = 'VALOR_ARECEBER'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object CdsPesquisaENTRADA: TWideStringField
-      FieldName = 'ENTRADA'
+    object CdsPesquisaSAIDA: TWideStringField
+      FieldName = 'SAIDA'
       Size = 30
     end
-    object CdsPesquisaENTRADA_ANO: TSmallintField
-      FieldName = 'ENTRADA_ANO'
+    object CdsPesquisaSAIDA_ANO: TSmallintField
+      FieldName = 'SAIDA_ANO'
     end
-    object CdsPesquisaENTRADA_NUMERO: TIntegerField
-      FieldName = 'ENTRADA_NUMERO'
+    object CdsPesquisaSAIDA_NUMERO: TIntegerField
+      FieldName = 'SAIDA_NUMERO'
     end
-    object CdsPesquisaENTRADA_DOC_TIPO: TWideStringField
-      FieldName = 'ENTRADA_DOC_TIPO'
-      ReadOnly = True
+    object CdsPesquisaSAIDA_DOC_TIPO: TWideStringField
+      FieldName = 'SAIDA_DOC_TIPO'
       FixedChar = True
-      Size = 12
+      Size = 21
     end
-    object CdsPesquisaENTRADA_DOC: TWideStringField
-      FieldName = 'ENTRADA_DOC'
+    object CdsPesquisaSAIDA_DOC: TWideStringField
+      FieldName = 'SAIDA_DOC'
       Size = 30
     end
-    object CdsPesquisaENTRADA_DOC_NUMERO: TIntegerField
-      FieldName = 'ENTRADA_DOC_NUMERO'
+    object CdsPesquisaSAIDA_DOC_NUMERO: TLargeintField
+      FieldName = 'SAIDA_DOC_NUMERO'
     end
-    object CdsPesquisaENTRADA_DOC_SERIE: TWideStringField
-      FieldName = 'ENTRADA_DOC_SERIE'
+    object CdsPesquisaSAIDA_DOC_SERIE: TWideStringField
+      FieldName = 'SAIDA_DOC_SERIE'
       Size = 4
     end
-    object CdsPesquisaENTRADA_FORNECEDOR: TWideStringField
-      FieldName = 'ENTRADA_FORNECEDOR'
+    object CdsPesquisaSAIDA_FORNECEDOR: TWideStringField
+      FieldName = 'SAIDA_FORNECEDOR'
       Size = 100
     end
-    object CdsPesquisaENTRADA_FORNECEDOR_CNPJ: TWideStringField
-      FieldName = 'ENTRADA_FORNECEDOR_CNPJ'
+    object CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TWideStringField
+      FieldName = 'SAIDA_FORNECEDOR_CNPJ'
       Size = 18
     end
     object CdsPesquisaSELECIONAR: TIntegerField
@@ -661,7 +659,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     Left = 584
     Top = 264
   end
-  object cdsPagamentoLOTE: TClientDataSet
+  object cdsRecebimentoLOTE: TClientDataSet
     Aggregates = <>
     FieldDefs = <
       item
@@ -681,24 +679,24 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     StoreDefs = True
     Left = 72
     Top = 249
-    object cdsPagamentoLOTEDataPagto: TDateTimeField
+    object cdsRecebimentoLOTEDataPagto: TDateTimeField
       FieldName = 'DataPagto'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object cdsPagamentoLOTEFormaPagto: TIntegerField
+    object cdsRecebimentoLOTEFormaPagto: TIntegerField
       FieldName = 'FormaPagto'
     end
-    object cdsPagamentoLOTEHistoricoGeral: TMemoField
+    object cdsRecebimentoLOTEHistoricoGeral: TMemoField
       FieldName = 'HistoricoGeral'
       BlobType = ftMemo
     end
   end
-  object dtsPagamentoLOTE: TDataSource
-    DataSet = cdsPagamentoLOTE
+  object dtsRecebimentoLOTE: TDataSource
+    DataSet = cdsRecebimentoLOTE
     Left = 104
     Top = 249
   end
-  object cdsPagamentos: TIBDataSet
+  object cdsRecebimentos: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -707,40 +705,40 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       '')
     SelectSQL.Strings = (
       'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.Seq'
-      '  , p.Historico'
-      '  , p.Data_pagto'
-      '  , p.Forma_pagto'
+      '    r.Anolanc'
+      '  , r.Numlanc'
+      '  , r.Seq'
+      '  , r.Historico'
+      '  , r.Data_pagto'
+      '  , r.Forma_pagto'
       '  , f.Descri as Forma_pagto_desc'
-      '  , p.Valor_baixa'
-      '  , p.Numero_cheque'
-      '  , p.Banco'
+      '  , r.Valor_baixa'
+      '  , r.Numero_cheque'
+      '  , r.Banco'
       '  , b.Bco_nome'
-      '  , p.Documento_baixa'
-      '  , p.Usuario'
-      'from TBCONTPAG_BAIXA p'
-      '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
+      '  , r.Documento_baixa'
+      '  , r.Usuario'
+      'from TBCONTREC_BAIXA r'
+      '  left join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
+      '  left join TBBANCO_BOLETO b on (b.Bco_cod = r.Banco)')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
     UniDirectional = False
-    UpdateObject = updPagamentos
+    UpdateObject = updRecebimentos
     Left = 72
     Top = 296
-    object cdsPagamentosANOLANC: TSmallintField
+    object cdsRecebimentosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTPAG_BAIXA.ANOLANC'
       Required = True
     end
-    object cdsPagamentosNUMLANC: TIntegerField
+    object cdsRecebimentosNUMLANC: TIntegerField
       FieldName = 'NUMLANC'
       Origin = 'TBCONTPAG_BAIXA.NUMLANC'
       Required = True
     end
-    object cdsPagamentosSEQ: TSmallintField
+    object cdsRecebimentosSEQ: TSmallintField
       Alignment = taCenter
       DisplayLabel = '#'
       FieldName = 'SEQ'
@@ -748,13 +746,13 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       Required = True
       DisplayFormat = '00'
     end
-    object cdsPagamentosHISTORICO: TMemoField
+    object cdsRecebimentosHISTORICO: TMemoField
       FieldName = 'HISTORICO'
       Origin = 'TBCONTPAG_BAIXA.HISTORICO'
       BlobType = ftMemo
       Size = 8
     end
-    object cdsPagamentosDATA_PAGTO: TDateField
+    object cdsRecebimentosDATA_PAGTO: TDateField
       Alignment = taCenter
       DisplayLabel = 'Data Pagto.'
       FieldName = 'DATA_PAGTO'
@@ -762,17 +760,17 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       DisplayFormat = 'dd/mm/yyyy'
       EditMask = '!99/99/0000;1; '
     end
-    object cdsPagamentosFORMA_PAGTO: TSmallintField
+    object cdsRecebimentosFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
       Origin = 'TBCONTPAG_BAIXA.FORMA_PAGTO'
     end
-    object cdsPagamentosFORMA_PAGTO_DESC: TIBStringField
+    object cdsRecebimentosFORMA_PAGTO_DESC: TIBStringField
       DisplayLabel = 'Forma de Pagamento'
       FieldName = 'FORMA_PAGTO_DESC'
       Origin = 'TBFORMPAGTO.DESCRI'
       Size = 30
     end
-    object cdsPagamentosVALOR_BAIXA: TIBBCDField
+    object cdsRecebimentosVALOR_BAIXA: TIBBCDField
       DisplayLabel = 'Valor Pago (R$)'
       FieldName = 'VALOR_BAIXA'
       Origin = 'TBCONTPAG_BAIXA.VALOR_BAIXA'
@@ -780,35 +778,35 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       Precision = 18
       Size = 2
     end
-    object cdsPagamentosNUMERO_CHEQUE: TIBStringField
+    object cdsRecebimentosNUMERO_CHEQUE: TIBStringField
       DisplayLabel = 'No. Cheque'
       FieldName = 'NUMERO_CHEQUE'
       Origin = 'TBCONTPAG_BAIXA.NUMERO_CHEQUE'
       Size = 10
     end
-    object cdsPagamentosBANCO: TSmallintField
+    object cdsRecebimentosBANCO: TSmallintField
       FieldName = 'BANCO'
       Origin = 'TBCONTPAG_BAIXA.BANCO'
     end
-    object cdsPagamentosBCO_NOME: TIBStringField
+    object cdsRecebimentosBCO_NOME: TIBStringField
       DisplayLabel = 'Banco'
       FieldName = 'BCO_NOME'
       Origin = 'TBBANCO_BOLETO.BCO_NOME'
       Size = 50
     end
-    object cdsPagamentosDOCUMENTO_BAIXA: TIBStringField
+    object cdsRecebimentosDOCUMENTO_BAIXA: TIBStringField
       DisplayLabel = 'Doc. Baixa'
       FieldName = 'DOCUMENTO_BAIXA'
       Origin = 'TBCONTPAG_BAIXA.DOCUMENTO_BAIXA'
       Size = 10
     end
-    object cdsPagamentosUSUARIO: TIBStringField
+    object cdsRecebimentosUSUARIO: TIBStringField
       FieldName = 'USUARIO'
       Origin = 'TBCONTPAG_BAIXA.USUARIO'
       Size = 12
     end
   end
-  object updPagamentos: TIBUpdateSQL
+  object updRecebimentos: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANOLANC,'
@@ -822,42 +820,42 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       '  BANCO,'
       '  DOCUMENTO_BAIXA,'
       '  USUARIO'
-      'from TBCONTPAG_BAIXA '
+      'from TBCONTREC_BAIXA '
       'where'
       '  ANOLANC = :ANOLANC and'
       '  NUMLANC = :NUMLANC and'
       '  SEQ = :SEQ')
     ModifySQL.Strings = (
-      'update TBCONTPAG_BAIXA'
+      'update TBCONTREC_BAIXA'
       'set'
       '  ANOLANC = :ANOLANC,'
+      '  BANCO = :BANCO,'
+      '  DATA_PAGTO = :DATA_PAGTO,'
+      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
+      '  FORMA_PAGTO = :FORMA_PAGTO,'
+      '  HISTORICO = :HISTORICO,'
+      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
       '  NUMLANC = :NUMLANC,'
       '  SEQ = :SEQ,'
-      '  HISTORICO = :HISTORICO,'
-      '  DATA_PAGTO = :DATA_PAGTO,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  VALOR_BAIXA = :VALOR_BAIXA,'
-      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
-      '  BANCO = :BANCO,'
-      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
-      '  USUARIO = :USUARIO'
+      '  USUARIO = :USUARIO,'
+      '  VALOR_BAIXA = :VALOR_BAIXA'
       'where'
       '  ANOLANC = :OLD_ANOLANC and'
       '  NUMLANC = :OLD_NUMLANC and'
       '  SEQ = :OLD_SEQ')
     InsertSQL.Strings = (
-      'insert into TBCONTPAG_BAIXA'
+      'insert into TBCONTREC_BAIXA'
       
-        '  (ANOLANC, NUMLANC, SEQ, HISTORICO, DATA_PAGTO, FORMA_PAGTO, VA' +
-        'LOR_BAIXA, '
-      '   NUMERO_CHEQUE, BANCO, DOCUMENTO_BAIXA, USUARIO)'
+        '  (ANOLANC, BANCO, DATA_PAGTO, DOCUMENTO_BAIXA, FORMA_PAGTO, HIS' +
+        'TORICO, '
+      '   NUMERO_CHEQUE, NUMLANC, SEQ, USUARIO, VALOR_BAIXA)'
       'values'
       
-        '  (:ANOLANC, :NUMLANC, :SEQ, :HISTORICO, :DATA_PAGTO, :FORMA_PAG' +
-        'TO, :VALOR_BAIXA, '
-      '   :NUMERO_CHEQUE, :BANCO, :DOCUMENTO_BAIXA, :USUARIO)')
+        '  (:ANOLANC, :BANCO, :DATA_PAGTO, :DOCUMENTO_BAIXA, :FORMA_PAGTO' +
+        ', :HISTORICO, '
+      '   :NUMERO_CHEQUE, :NUMLANC, :SEQ, :USUARIO, :VALOR_BAIXA)')
     DeleteSQL.Strings = (
-      'delete from TBCONTPAG_BAIXA'
+      'delete from TBCONTREC_BAIXA'
       'where'
       '  ANOLANC = :OLD_ANOLANC and'
       '  NUMLANC = :OLD_NUMLANC and'

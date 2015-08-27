@@ -6,7 +6,7 @@ uses
   UGrPadrao,
   
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters,
   cxControls, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, IdIOHandler,
@@ -20,20 +20,22 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver;
+  dxSkinOffice2010Silver, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator,
+  IdExplicitTLSClientServerBase, IdSMTPBase;
 
 type
   TFrmGeProdutoEstoqueMinimo = class(TfrmGrPadrao)
     pnlPesquisa: TPanel;
     GrpBxPesquisar: TGroupBox;
-    BtnPesquisar: TSpeedButton;
     lblPesquisar: TLabel;
     lblTipoFiltro: TLabel;
     edPesquisar: TEdit;
     edTipoFiltro: TComboBox;
     Bevel1: TBevel;
-    tlbBotoes: TToolBar;
-    Bevel2: TBevel;
     Bevel3: TBevel;
     QryProduto: TIBQuery;
     DspProduto: TDataSetProvider;
@@ -85,18 +87,10 @@ type
     dbgProdutoTblColumn32: TcxGridDBBandedColumn;
     dbgProdutoLvl: TcxGridLevel;
     dbgProdutoTblColumn9: TcxGridDBBandedColumn;
-    CdsProdutoCODEMP: TStringField;
-    CdsProdutoCOD: TStringField;
     CdsProdutoCODIGO: TIntegerField;
-    CdsProdutoDESCRI: TStringField;
-    CdsProdutoAPRESENTACAO: TStringField;
-    CdsProdutoDESCRI_APRESENTACAO: TStringField;
     CdsProdutoCODGRUPO: TSmallintField;
-    CdsProdutoGRUPO: TStringField;
     CdsProdutoCODFABRICANTE: TIntegerField;
-    CdsProdutoFABRICANTE: TStringField;
     CdsProdutoCODUNIDADE: TSmallintField;
-    CdsProdutoUNIDADE: TStringField;
     CdsProdutoCOMPRA_QTDE_01: TBCDField;
     CdsProdutoCOMPRA_VALOR_01: TBCDField;
     CdsProdutoVENDA_QTDE_01: TBCDField;
@@ -110,13 +104,11 @@ type
     svdArquivo: TSaveDialog;
     smtpEmail: TIdSMTP;
     msgEmail: TIdMessage;
-    IdSSLIOHandlerSocket: TIdSSLIOHandlerSocket;
     QryTotal: TIBQuery;
     DspTotal: TDataSetProvider;
     CdsTotal: TClientDataSet;
     dsTotal: TDataSource;
     CdsGrupoCODIGO: TSmallintField;
-    CdsGrupoDESCRICAO: TStringField;
     CdsGrupoITENS: TIntegerField;
     CdsGrupoCOMPRA_QTDE_01: TBCDField;
     CdsGrupoCOMPRA_VALOR_01: TBCDField;
@@ -149,7 +141,6 @@ type
     cxGridDBBandedColumn18: TcxGridDBBandedColumn;
     dbgFabLvl: TcxGridLevel;
     CdsFabricanteCODIGO: TIntegerField;
-    CdsFabricanteDESCRICAO: TStringField;
     CdsFabricanteITENS: TIntegerField;
     CdsFabricanteCOMPRA_QTDE_01: TBCDField;
     CdsFabricanteCOMPRA_VALOR_01: TBCDField;
@@ -167,8 +158,21 @@ type
     CdsGrupoESTOQUE_MINIMO: TBCDField;
     CdsFabricanteESTOQUE_MINIMO: TBCDField;
     CdsProdutoESTOQMIN: TBCDField;
+    tlbBotoes: TPanel;
+    Bevel2: TBevel;
     btBtnExportar: TcxButton;
     btBtnEnviarEmail: TcxButton;
+    BtnPesquisar: TcxButton;
+    CdsGrupoDESCRICAO: TWideStringField;
+    CdsFabricanteDESCRICAO: TWideStringField;
+    CdsProdutoCODEMP: TWideStringField;
+    CdsProdutoCOD: TWideStringField;
+    CdsProdutoDESCRI: TWideStringField;
+    CdsProdutoAPRESENTACAO: TWideStringField;
+    CdsProdutoDESCRI_APRESENTACAO: TWideStringField;
+    CdsProdutoGRUPO: TWideStringField;
+    CdsProdutoFABRICANTE: TWideStringField;
+    CdsProdutoUNIDADE: TWideStringField;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -199,7 +203,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, cxGridExportLink;
+  UDMBusiness, UConstantesDGE, cxGridExportLink, UDMRecursos;
 
 {$R *.dfm}
 
@@ -302,7 +306,7 @@ procedure TFrmGeProdutoEstoqueMinimo.ExecutarPesquisa(
 var
   sWhr : String;
 begin
-  sWhr := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+  sWhr := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
   CdsTotal.Close;
   with QryTotal do
@@ -458,7 +462,7 @@ procedure TFrmGeProdutoEstoqueMinimo.dbgGrupoTblDblClick(Sender: TObject);
 var
   sWhr : String;
 begin
-  sWhr := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+  sWhr := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
   Case edTipoFiltro.ItemIndex of
     TIPO_GRP:
@@ -492,7 +496,7 @@ procedure TFrmGeProdutoEstoqueMinimo.dbgFabTblDblClick(Sender: TObject);
 var
   sWhr : String;
 begin
-  sWhr := '(p.codemp = ' + QuotedStr(GetEmpresaIDDefault) + ')';
+  sWhr := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
   Case edTipoFiltro.ItemIndex of
     TIPO_FAB:
@@ -588,7 +592,7 @@ begin
       end;
   end;
 
-  sEmailTo := GetEmailEmpresa(GetEmpresaIDDefault);
+  sEmailTo := GetEmailEmpresa(gUsuarioLogado.Empresa);
   if not InputQuery('Enviar e-mail', 'Favor informar e-mail do destinatário:', sEmailTo) then
     Exit;
 
@@ -623,8 +627,9 @@ begin
   try
     try
       sAssunto := FormatDateTime('dd/mm/yyyy', Date) + ' - Alerta de Estoque Mínimo (' + edTipoFiltro.Text + ')';;
-      CarregarConfiguracoesEmpresa(GetEmpresaIDDefault, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
+      CarregarConfiguracoesEmpresa(gUsuarioLogado.Empresa, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
 
+      (* Bloco de código descontinuado por sua compilação integral ser possível apenas no Delpi 7
       smtpEmail.Username    := gContaEmail.Conta;
       smtpEmail.Password    := gContaEmail.Senha;
       smtpEmail.Host        := gContaEmail.Servidor_SMTP;
@@ -655,6 +660,15 @@ begin
       smtpEmail.Connect;
       smtpEmail.Authenticate;
       smtpEmail.Send(msgEmail);
+      *)
+
+      with DMBusiness, ACBrMail do
+      begin
+        ConfigurarEmail(gUsuarioLogado.Empresa, sEmailTo, sAssunto, gContaEmail.Mensagem_Padrao);
+        AddAttachment(sFileNameHtml);
+        AddAttachment(sFileNameXls);
+        Send;
+      end;
 
       ShowInformation('E-mail enviado com sucesso!' + #13 + 'Arquivo(s) anexo(s) : ' + #13 + sFileNameHtml + #13 + sFileNameXls);
     except

@@ -1,0 +1,877 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{DD04DC33-DC3D-437B-B842-479CD83A1150}</ProjectGuid>
+        <MainSource>SGE.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Application</AppType>
+        <FrameworkType>VCL</FrameworkType>
+        <ProjectVersion>16.1</ProjectVersion>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <Icon_MainIcon>SGE_Icon.ico</Icon_MainIcon>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <DCC_UNSAFE_TYPE>true</DCC_UNSAFE_TYPE>
+        <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
+        <DCC_UNSAFE_CAST>true</DCC_UNSAFE_CAST>
+        <DCC_DebugInformation>1</DCC_DebugInformation>
+        <DCC_K>false</DCC_K>
+        <DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <DCC_E>false</DCC_E>
+        <DCC_S>false</DCC_S>
+        <DCC_F>false</DCC_F>
+        <VerInfo_Release>11</VerInfo_Release>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;IBX;System.Win;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_Define>ACBR;$(DCC_Define)</DCC_Define>
+        <DCC_UsePackage>vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;dbexpress;dbxcds;indy;dclOffice2k;BcBarMenus60;Instalar;FIBDBMidas6;LabelPack;WinSkinD6R;PackageXPMenu;RxCtl6;RxDB6;RxBDE6;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UNSAFE_CODE>true</DCC_UNSAFE_CODE>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <SanitizedProjectName>SGE</SanitizedProjectName>
+        <DCC_N>true</DCC_N>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.11.4;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/02/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <DCC_DcuOutput>..\_dcu\</DCC_DcuOutput>
+        <DCC_ExeOutput>..\Bin\</DCC_ExeOutput>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+        <VerInfo_Release>5</VerInfo_Release>
+        <VerInfo_Build>0</VerInfo_Build>
+        <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.5.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.5;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/08/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Icon_MainIcon>SGE_Icon.ico</Icon_MainIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <VerInfo_Build>3</VerInfo_Build>
+        <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.5.3;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.5;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/08/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Release>5</VerInfo_Release>
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.5.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.5;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/08/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Release>5</VerInfo_Release>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="..\Sys\lib\HPL_Strings.pas"/>
+        <DCCReference Include="..\Sys\lib\UEcfAgil.pas"/>
+        <DCCReference Include="..\Sys\lib\UEcfGenerico.pas"/>
+        <DCCReference Include="..\Sys\lib\UEcfFactory.pas"/>
+        <DCCReference Include="UPrinc.pas">
+            <Form>frmPrinc</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UDMBusiness.pas">
+            <Form>DMBusiness</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\USobre.pas">
+            <Form>frmSobre</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UPesqProd.pas">
+            <Form>frmPesqProd</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UfrmRelVendas.pas">
+            <Form>frmRelVendas</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrPadraoCadastro.pas">
+            <Form>frmGrPadraoCadastro</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrPadrao.pas">
+            <Form>frmGrPadrao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeBancos.pas">
+            <Form>frmGeBancos</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeTipoLogradouro.pas">
+            <Form>frmGeTipoLogradouro</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEstado.pas">
+            <Form>frmGeEstado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeCidade.pas">
+            <Form>frmGeCidade</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeDistrito.pas">
+            <Form>frmGeDistrito</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeBairro.pas">
+            <Form>frmGeBairro</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeLogradouro.pas">
+            <Form>frmGeLogradouro</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEmpresa.pas">
+            <Form>frmGeEmpresa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeCliente.pas">
+            <Form>frmGeCliente</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeFornecedor.pas">
+            <Form>frmGeFornecedor</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeGrupoProduto.pas">
+            <Form>frmGeGrupoProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeSecaoProduto.pas">
+            <Form>frmGeSecaoProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeUnidade.pas">
+            <Form>frmGeUnidade</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeTabelaCFOP.pas">
+            <Form>frmGeTabelaCFOP</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeFormaPagto.pas">
+            <Form>frmGeFormaPagto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVendedor.pas">
+            <Form>frmGeVendedor</Form>
+        </DCCReference>
+        <DCCReference Include="UGeProduto.pas">
+            <Form>frmGeProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVenda.pas">
+            <Form>frmGeVenda</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeCondicaoPagto.pas">
+            <Form>frmGeCondicaoPagto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEntradaEstoque.pas">
+            <Form>frmGeEntradaEstoque</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeContasAReceber.pas">
+            <Form>frmGeContasAReceber</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrPadraoCadastroSimples.pas">
+            <Form>frmGrPadraoCadastroSimples</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEfetuarPagtoREC.pas">
+            <Form>frmGeEfetuarPagtoREC</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeContasAPagar.pas">
+            <Form>frmGeContasAPagar</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEfetuarPagtoPAG.pas">
+            <Form>frmGeEfetuarPagtoPAG</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UDMNFe.pas">
+            <Form>DMNFe</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVendaGerarNFe.pas">
+            <Form>frmGeVendaGerarNFe</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeConfigurarNFeACBr.pas">
+            <Form>frmGeConfigurarNFeACBr</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEntradaEstoqueCancelar.pas">
+            <Form>frmGeEntradaEstoqueCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UEnviarLoteNFe.pas">
+            <Form>frmEnviarLoteNFe</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeTipoDespesa.pas">
+            <Form>frmGeTipoDespesa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVendaCancelar.pas">
+            <Form>frmGeVendaCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrCampoRequisitado.pas">
+            <Form>frmCampoRequisitado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeGerarBoletos.pas">
+            <Form>frmGeGerarBoleto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeRemessaBoletos.pas">
+            <Form>frmGeRemessaBoleto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeRetornoBoletos.pas">
+            <Form>frmGeRetornoBoleto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEntradaConfirmaDuplicatas.pas">
+            <Form>frmGeEntradaConfirmaDuplicatas</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGePromocao.pas">
+            <Form>frmGePromocao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeContaCorrente.pas">
+            <Form>frmGeContaCorrente</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeCaixa.pas">
+            <Form>frmGeCaixa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeFluxoCaixa.pas">
+            <Form>frmGeFluxoCaixa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UFuncoes.pas"/>
+        <DCCReference Include="..\Sys\lib\UInfoVersao.pas"/>
+        <DCCReference Include="..\Sys\UGeFabricante.pas">
+            <Form>frmGeFabricante</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\FormFactoryU.pas"/>
+        <DCCReference Include="..\Sys\lib\FuncoesFormulario.pas"/>
+        <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
+        <DCCReference Include="..\Sys\UGeVendaFormaPagto.pas">
+            <Form>frmGeVendaFormaPagto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEntradaEstoqueGerarNFe.pas">
+            <Form>frmGeEntradaEstoqueGerarNFe</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeExportarNFeGerada.pas">
+            <Form>frmGeExportarNFeGerada</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVendaTransporte.pas">
+            <Form>frmGeVendaTransporte</Form>
+        </DCCReference>
+        <DCCReference Include="UGeSobre.pas">
+            <Form>frmGeSobre</Form>
+        </DCCReference>
+        <DCCReference Include="UGrUsuarioAlterarSenha_v2.pas">
+            <Form>frmGrUsuarioAlterarSenha</Form>
+        </DCCReference>
+        <DCCReference Include="UGrPesq.pas">
+            <Form>frmPesq</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVendaConfirmaTitulos.pas">
+            <Form>frmGeVendaConfirmaTitulos</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrPadraoPesquisa.pas">
+            <Form>frmGrPadraoPesquisa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVendaItemPesquisa.pas">
+            <Form>FrmGeVendaItemPesquisa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeProdutoRotatividadePRC.pas">
+            <Form>FrmGeProdutoRotatividadePRC</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeConfiguracaoEmpresa.pas">
+            <Form>frmGeConfiguracaoEmpresa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeInutilizarNumeroNFe.pas">
+            <Form>frmGeInutilizarNumeroNFe</Form>
+        </DCCReference>
+        <DCCReference Include="UGeProdutoEstoqueMinimo.pas">
+            <Form>FrmGeProdutoEstoqueMinimo</Form>
+        </DCCReference>
+        <DCCReference Include="UGeConsultarLoteNFe_v2.pas">
+            <Form>frmGeConsultarLoteNFe_v2</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrPadraoLogin.pas">
+            <Form>frmGrPadraoLogin</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrConsultarCNJP.pas">
+            <Form>frmGrConsultarCNJP</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UObserverInterface.pas"/>
+        <DCCReference Include="..\Sys\lib\UBaseObject.pas"/>
+        <DCCReference Include="..\Sys\lib\UCliente.pas"/>
+        <DCCReference Include="lib\UGrPadraoImpressao.pas">
+            <Form>frmGrPadraoImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="UGeClienteImpressao.pas">
+            <Form>frmGeClienteImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="UGeEstoqueAjusteManual.pas">
+            <Form>frmGeEstoqueAjusteManual</Form>
+        </DCCReference>
+        <DCCReference Include="UGeRequisicaoCliente.pas">
+            <Form>frmGeRequisicaoCliente</Form>
+        </DCCReference>
+        <DCCReference Include="UGrUsuario.pas">
+            <Form>frmGrUsuario</Form>
+        </DCCReference>
+        <DCCReference Include="UGeVendaImpressao.pas">
+            <Form>frmGeVendaImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="UGeEfetuarLogin.pas">
+            <Form>FrmEfetuarLogin</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrMessage.pas">
+            <Form>frmGeMessage</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeExportarChaveNFeGerada.pas">
+            <Form>frmGeExportarChaveNFeGerada</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeExportarNFC.pas">
+            <Form>frmGeExportarNFC</Form>
+        </DCCReference>
+        <DCCReference Include="UGeContasAReceberImpressao.pas">
+            <Form>frmGeContasAReceberImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrConfigurarAmbiente.pas">
+            <Form>frmGrConfigurarAmbiente</Form>
+        </DCCReference>
+        <DCCReference Include="UGeAutorizacaoCompra.pas">
+            <Form>frmGeAutorizacaoCompra</Form>
+        </DCCReference>
+        <DCCReference Include="UGeAutorizacaoCompraCancelar.pas">
+            <Form>frmGeAutorizacaoCompraCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="UGeContasAPagarImpressao.pas">
+            <Form>frmGeContasAPagarImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="UGeEntradaImpressao.pas">
+            <Form>frmGeEntradaImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="UGeContasAPagarQuitar.pas">
+            <Form>frmGeContasAPagarQuitar</Form>
+        </DCCReference>
+        <DCCReference Include="UGrUsuarioPerfil.pas">
+            <Form>frmGrUsuarioPerfil</Form>
+        </DCCReference>
+        <DCCReference Include="UGrUsuarioCopiarPerfil.pas">
+            <Form>frmGrUsuarioCopiarPerfil</Form>
+        </DCCReference>
+        <DCCReference Include="UGeCotacaoCompra.pas">
+            <Form>frmGeCotacaoCompra</Form>
+        </DCCReference>
+        <DCCReference Include="UGeCotacaoCompraCancelar.pas">
+            <Form>frmGeCotacaoCompraCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="UGeCotacaoCompraFornecedor.pas">
+            <Form>frmGeCotacaoCompraFornecedor</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UEcfWindowsPrinter.pas"/>
+        <DCCReference Include="UGeFornecedorImpressao.pas">
+            <Form>frmGeFornecedorImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrRegistroEstacao.pas">
+            <Form>FrmGrRegistroEstacao</Form>
+        </DCCReference>
+        <DCCReference Include="UGeRequisicaoCompra.pas">
+            <Form>frmGeRequisicaoCompra</Form>
+        </DCCReference>
+        <DCCReference Include="UGeRequisicaoCompraCancelar.pas">
+            <Form>frmGeRequisicaoCompraCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="UGeRequisicaoCompraPesquisa.pas">
+            <Form>frmGeRequisicaoCompraPesquisa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeCartaCorrecao.pas">
+            <Form>frmGeCartaCorrecao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeNFEmitida.pas">
+            <Form>frmGeNFEmitida</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeCentroCusto.pas">
+            <Form>frmGeCentroCusto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGePlanoContas.pas">
+            <Form>frmGePlanoContas</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeProdutoKardex.pas">
+            <Form>frmGeProdutoKardex</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UEcfBematechNaoFiscal.pas"/>
+        <DCCReference Include="..\Sys\UDMRecursos.pas">
+            <Form>DMRecursos</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\System_SGI\UGeInventario.pas">
+            <Form>frmGeInventario</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrMemo.pas">
+            <Form>frmGrMemo</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeVendaDevolucaoNF.pas">
+            <Form>frmGeVendaDevolucaoNF</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrConfigurarBackup.pas">
+            <Form>frmGrConfigurarBackup</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UGeProdutoImpressao.pas">
+            <Form>frmGeProdutoImpressao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UGeProdutoEstoqueImpressao.pas">
+            <Form>frmGeProdutoEstoqueImpressao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEntradaEstoqueDevolucaoNF.pas">
+            <Form>frmGeEntradaEstoqueDevolucaoNF</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeNFComplementar.pas">
+            <Form>frmGeNFComplementar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UGeContasAReceberQuitar.pas">
+            <Form>frmGeContasAReceberQuitar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeContasAPagarLoteParcela.pas">
+            <Form>frmGeContasAPagarLoteParcela</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeContasAReceberLoteParcela.pas">
+            <Form>frmGeContasAReceberLoteParcela</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeTabelaIBPT.pas">
+            <Form>frmGeTabelaIBPT</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeTabelaIBPTImportar.pas">
+            <Form>frmGeTabelaIBPTImportar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <None Include="SGE.todo"/>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">SGE.dpr</Source>
+                </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\QR506RunDXE7.bpl">QuickReport 5.05 Runtime Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k210.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+            <Deployment>
+                <DeployFile LocalName="..\Bin\SGE.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>SGE.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="SGE.todo" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="SGE.todo" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\Bin\SGE.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>SGE.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployClass Required="true" Name="DependencyPackage">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch2048">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXInfoPList">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage470">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-normal</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeX86File">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\x86</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSResource">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXEntitlements">
+                    <Platform Name="OSX32">
+                        <RemoteDir>../</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidGDBServer">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch640">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage960">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xlarge</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon96">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch320">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon144">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeMipsFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\mips</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashImageDef">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DebugSymbols">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyFramework">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage426">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-small</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice">
+                        <RemoteDir>../</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AdditionalDebugSymbols">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidClassesDexFile">
+                    <Platform Name="Android">
+                        <RemoteDir>classes</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSInfoPList">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1024">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_DefaultAppIcon">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXResource">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch768">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="ProjectOutput">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeArmeabiFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage640">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-large</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="File">
+                    <Platform Name="iOSDevice">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Android">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch640x1136">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon36">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-ldpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStyles">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1536">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon48">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon72">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectAndroidManifest">
+                    <Platform Name="Android">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+            </Deployment>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

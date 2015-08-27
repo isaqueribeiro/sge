@@ -6,14 +6,20 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, rxToolEdit, IBTable, RXDBCtrl, Menus, IBStoredProc, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  ToolWin, IBTable, Menus, IBStoredProc, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, cxButtons, JvDBControls,
+  JvToolEdit, JvExMask, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeCotacaoCompra = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     RdgStatusCotacao: TRadioGroup;
     lblCotacaoAberta: TLabel;
     lblCotacaoCancelada: TLabel;
@@ -26,7 +32,6 @@ type
     dbSituacao: TDBEdit;
     lblSituacao: TLabel;
     lblDataEmissao: TLabel;
-    dbDataEmissao: TDBDateEdit;
     lblUsuario: TLabel;
     dbUsuario: TDBEdit;
     lblAutorizador: TLabel;
@@ -41,7 +46,6 @@ type
     lblQuantidade: TLabel;
     lblUnidade: TLabel;
     Bevel7: TBevel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbQuantidade: TDBEdit;
     dbUnidade: TDBEdit;
@@ -65,7 +69,6 @@ type
     tblTipoCotacao: TIBTable;
     dtsTipoCotacao: TDataSource;
     lblDataValidade: TLabel;
-    dbDataValidade: TDBDateEdit;
     GrpBxPagamento: TGroupBox;
     tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
@@ -215,6 +218,11 @@ type
     btnFinalizarCotacao: TcxButton;
     btnAutorizarCotacao: TcxButton;
     btnCancelarCotacao: TcxButton;
+    dbDataEmissao: TJvDBDateEdit;
+    dbDataValidade: TJvDBDateEdit;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    dbProduto: TJvDBComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -354,8 +362,9 @@ begin
 
     frm.RdgStatusCotacao.ItemIndex := STATUS_COTACAO_COT + 1;
 
-    for I := 0 to frm.RdgStatusCotacao.Items.Count - 1 do
-      frm.RdgStatusCotacao.Controls[I].Enabled := False;
+    frm.RdgStatusCotacao.Enabled := False;
+    //for I := 0 to frm.RdgStatusCotacao.Items.Count - 1 do
+    //  frm.RdgStatusCotacao.Controls[I].Enabled := False;
 
     frm.iFornecedor := 0; //Fornecedor;
     frm.e1Data.Date := DataInicial;
@@ -445,7 +454,7 @@ end;
 procedure TfrmGeCotacaoCompra.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.Value             := GetEmpresaIDDefault;
+  IbDtstTabelaEMPRESA.Value             := gUsuarioLogado.Empresa;
   IbDtstTabelaTIPO.Value                := TIPO_COTACAO_COMPRA;
   IbDtstTabelaINSERCAO_DATA.Value       := GetDateTimeDB;
   IbDtstTabelaEMISSAO_DATA.Value        := GetDateDB;
@@ -648,7 +657,7 @@ procedure TfrmGeCotacaoCompra.btnProdutoInserirClick(Sender: TObject);
   procedure GerarSequencial(var Seq : Integer);
   begin
     Seq := cdsTabelaItens.RecordCount + 1;
-    if ( cdsTabelaItens.Locate('SEQ', Seq, []) ) then
+    while ( cdsTabelaItens.Locate('SEQ', Seq, []) ) do
       Seq := Seq + 1;
   end;
 
@@ -1131,7 +1140,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
+      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
     except
     end;
 
@@ -1176,8 +1185,8 @@ begin
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
   AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
 
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_AUTORIZACAO_AUT ) then
-    ShowInformation('Apenas registros autorizados podem ser cancelados!')
+  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_COTACAO_COT ) then
+    ShowInformation('Apenas registros em cotação podem ser cancelados!')
   else
   if ( CancelarCOT(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value) ) then
     with IbDtstTabela do
@@ -1279,7 +1288,7 @@ begin
       if dbNumero.Focused then
         if ( Length(Trim(dbNumero.Text)) > 0 ) then
           if GetExisteNumeroCotacao(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger, Trim(dbNumero.Text), sControle) then
-            ShowWarning('Número de cotaçaõ já existe!' + #13 + 'Controle: ' + sControle);
+            ShowWarning('Número de cotação já existe!' + #13 + 'Controle: ' + sControle);
 
       { DONE -oIsaque -cAutorizacao : 22/05/2014 - Verificar Data de Emissão da Autorização }
 
@@ -1483,7 +1492,7 @@ begin
   begin
 
     try
-      ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(qryFornecedorEMPRESA.AsString), dbTipo.Text, EmptyStr);
+      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(qryFornecedorEMPRESA.AsString), dbTipo.Text, EmptyStr);
     except
     end;
 
@@ -1656,7 +1665,7 @@ begin
     begin
 
       try
-        ConfigurarEmail(GetEmpresaIDDefault, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
+        ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
       except
       end;
 

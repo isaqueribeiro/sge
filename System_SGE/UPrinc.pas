@@ -6,175 +6,197 @@ uses
   StdCtrls, Buttons,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, BarMenus, RxSpeedBar, RXCtrls, ExtCtrls, jpeg,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm,
+  cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons, cxLookAndFeels,
+  dxBar, dxSkinsForm, dxSkinsdxBarPainter, cxControls, cxClasses, dxRibbon,
 
-  dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinPumpkin, dxSkinSeven, dxSkinSharp, dxSkinSpringTime,
-  dxSkinSummer2008, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel,
-  dxSkinCoffee, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
-  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinSilver,
-  dxSkinStardust, dxSkinsDefaultPainters, dxSkinValentine,
-  dxSkinXmas2008Blue, cxLookAndFeels, dxSkinsForm, dxGDIPlusClasses;
+  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinsdxStatusBarPainter, dxStatusBar,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint, dxRibbonSkins, dxSkinsdxRibbonPainter,
+  dxRibbonCustomizationForm, cxContainer, cxEdit, dxGallery, dxGalleryControl,
+  dxRibbonBackstageViewGalleryControl, cxLabel, dxRibbonBackstageView;
+
 
 type
-  TfrmPrinc = class(TForm)
-    BcBarMainMenu: TBcBarMainMenu;
-    stbMain: TStatusBar;
-    menuCadastro: TMenuItem;
-    nmCliente: TMenuItem;
-    nmProduto: TMenuItem;
-    nmVendedor: TMenuItem;
-    mnBanco: TMenuItem;
-    menuEntrada: TMenuItem;
-    menuFinanceiro: TMenuItem;
-    nmContasAPagar: TMenuItem;
-    nmContasAReceber: TMenuItem;
-    nmDeposito: TMenuItem;
-    nmFluxoDeCaixa: TMenuItem;
-    menuRelatorio: TMenuItem;
-    N1: TMenuItem;
-    N2: TMenuItem;
-    nmUsuario: TMenuItem;
-    nmEntradaProduto: TMenuItem;
-    nmEmpresa: TMenuItem;
-    spbBarraAcessoRapido: TSpeedBar;
-    btnEmpresa: TRxSpeedButton;
-    btnContaAReceber: TRxSpeedButton;
-    btnFornecedor: TRxSpeedButton;
-    btnTesouraria: TRxSpeedButton;
-    btnContaAPagar: TRxSpeedButton;
-    btnProduto: TRxSpeedButton;
-    btnCliente: TRxSpeedButton;
-    SpeedbarSection1: TSpeedbarSection;
-    menuSobre: TMenuItem;
+  TfrmPrinc = class(TdxRibbonForm)
     pnlMain: TPanel;
-    nmFornecedor: TMenuItem;
     imgFundo: TImage;
-    nmTipoDespesa: TMenuItem;
-    btnSair: TRxSpeedButton;
-    N3: TMenuItem;
-    btnEstoque: TRxSpeedButton;
-    ppEstoque: TPopupMenu;
-    popEntradaProduto: TMenuItem;
-    nmAjusteManual: TMenuItem;
-    nmKardex: TMenuItem;
-    popAjusteEstoque: TMenuItem;
-    popKardex: TMenuItem;
-    menuMovimentacao: TMenuItem;
-    nmVenda: TMenuItem;
-    nmRelatorioCliente: TMenuItem;
-    nmRelatorioFornecedor: TMenuItem;
-    nmRelatorioProduto: TMenuItem;
-    mnRelatorioFinanceiro: TMenuItem;
-    nmRelatorioFinanceiroContasAPagar: TMenuItem;
-    nmRelatorioFinanceiroContasAReceber: TMenuItem;
-    btnVenda: TRxSpeedButton;
-    nmAbout: TMenuItem;
-    nmRelatorioFaturamentoVendas: TMenuItem;
-    mnTabelasAuxiliares: TMenuItem;
-    nmEstados: TMenuItem;
-    nmCidades: TMenuItem;
-    nmBairros: TMenuItem;
-    nmTiposdeLogradouros: TMenuItem;
-    nmLogradouros: TMenuItem;
-    N5: TMenuItem;
-    N4: TMenuItem;
-    nmDistritos: TMenuItem;
-    nmGruposProduto: TMenuItem;
-    nmSecaoProduto: TMenuItem;
-    nmUnidade: TMenuItem;
-    nmTributacao: TMenuItem;
-    nmFormaPagto: TMenuItem;
-    nmCondicaoPagto: TMenuItem;
-    N6: TMenuItem;
-    nmTabelaCFOP: TMenuItem;
-    nmSenhaAutorizacao: TMenuItem;
-    nmConfigurarNFeACBr: TMenuItem;
-    N7: TMenuItem;
-    N8: TMenuItem;
-    menuNotaFiscal: TMenuItem;
-    nmEnviarLoteNFe: TMenuItem;
-    N10: TMenuItem;
-    nmGerarBoleto: TMenuItem;
-    nmCancelarNFe: TMenuItem;
-    nmInutilizarNumeroNFe: TMenuItem;
-    SpeedbarSection2: TSpeedbarSection;
-    SpeedItem1: TSpeedItem;
-    SpeedItem2: TSpeedItem;
-    nmImprimirDANFE: TMenuItem;
-    N11: TMenuItem;
-    nmRemessaBoleto: TMenuItem;
-    nmRetornoBoleto: TMenuItem;
-    nmPromocoes: TMenuItem;
-    nmContaCorrente: TMenuItem;
-    nmAberturaCaixa: TMenuItem;
-    N12: TMenuItem;
-    nmEncerramentoCaixa: TMenuItem;
-    nmGerenciaCaixa: TMenuItem;
-    nmRelatorioFaturamento: TMenuItem;
     imgEmpresa: TImage;
     ProductName: TLabel;
     Copyright: TLabel;
     FileDescription: TLabel;
     Version: TLabel;
-    dxSkinController: TdxSkinController;
-    nmUsuarioAlterarSenha: TMenuItem;
-    nmFabricanteProduto: TMenuItem;
-    N13: TMenuItem;
-    nmExportarNFeGerada: TMenuItem;
-    mnRelatorioEstoque: TMenuItem;
-    mnRelatorioEstoqueProduto: TMenuItem;
-    nmVendaIemPesquisa: TMenuItem;
-    menuConsulta: TMenuItem;
-    nmRotatividade: TMenuItem;
-    nmConfiguracaoEmpresa: TMenuItem;
-    nmEstoqueMinimo: TMenuItem;
-    N14: TMenuItem;
-    nmConsultarLoteNFe: TMenuItem;
-    nmConsultarCNPJ: TMenuItem;
-    N15: TMenuItem;
-    nmConfigurarAmbiente: TMenuItem;
-    N16: TMenuItem;
-    nmRequisicaoCliente: TMenuItem;
-    N9: TMenuItem;
-    nmOS: TMenuItem;
-    nmRelatorioFaturamentoOS: TMenuItem;
-    nmExportarChaveNFeGerada: TMenuItem;
-    nmDownloadNFeGerada: TMenuItem;
-    nmGerarArquivoNFC: TMenuItem;
-    N17: TMenuItem;
-    nmCarregarLicenca: TMenuItem;
-    N18: TMenuItem;
-    nmAutorizacaoCompra: TMenuItem;
-    N19: TMenuItem;
-    nmQuitarContaAPagar_Lote: TMenuItem;
-    nmQuitarContaAReceber_Lote: TMenuItem;
-    nmPerfilAcesso: TMenuItem;
-    N20: TMenuItem;
-    nmEntradaServico: TMenuItem;
-    N21: TMenuItem;
-    popEntradaServico: TMenuItem;
-    mnRelatorioEntrada: TMenuItem;
-    mnRelatorioEntradaProduto: TMenuItem;
-    nmCotacaoCompra: TMenuItem;
-    N22: TMenuItem;
-    nmPlanoConta: TMenuItem;
-    nmCentroCusto: TMenuItem;
-    nmRegistroEstacao: TMenuItem;
-    nmCartaCorrecaoNFe: TMenuItem;
-    nmEfetuarLogoff: TMenuItem;
-    N110: TMenuItem;
-    nmRequisicaoCompra: TMenuItem;
-    nmConverterReqAutCompra: TMenuItem;
+    SknController: TdxSkinController;
+    PnlDockReqAlmox: TPanel;
+    SptDockReqAlmox: TSplitter;
+    BrManager: TdxBarManager;
+    RbnTabPrincipal: TdxRibbonTab;
+    Ribbon: TdxRibbon;
+    BrMngPrincipalCad: TdxBar;
+    BrBtnEmpresa: TdxBarLargeButton;
+    BrBtnCliente: TdxBarLargeButton;
+    BrBtnProduto: TdxBarLargeButton;
+    BrBtnFornecedor: TdxBarLargeButton;
+    BrMngPrincipalMov: TdxBar;
+    RbnTabCadastro: TdxRibbonTab;
+    BrBtnEntrada: TdxBarLargeButton;
+    RbnTabMovimento: TdxRibbonTab;
+    BrMngPrincipalFin: TdxBar;
+    BrBtnTesouraria: TdxBarLargeButton;
+    BrBtnContaAPagar: TdxBarLargeButton;
+    BrBtnContaAReceber: TdxBarLargeButton;
+    BrPpEntrada: TdxBarPopupMenu;
+    RbnTabNota: TdxRibbonTab;
+    RbnTabConsulta: TdxRibbonTab;
+    RbnTabFinanceiro: TdxRibbonTab;
+    RbnTabRelatorio: TdxRibbonTab;
+    RbnTabAjuda: TdxRibbonTab;
+    BrPpTabelaAuxiliar: TdxBarPopupMenu;
+    BrBtnConfigurarEmpresa: TdxBarLargeButton;
+    BrBtnConfigurarNFe: TdxBarLargeButton;
+    BrBtnConfigurarAmbiente: TdxBarLargeButton;
+    BrBtnPerfilAcesso: TdxBarLargeButton;
+    BrBtnUsuario: TdxBarLargeButton;
+    BrMngCadastroCad: TdxBar;
+    BrBtnTabelaAuxiliar: TdxBarLargeButton;
+    BrBtnEstado: TdxBarLargeButton;
+    BrBtnCidade: TdxBarLargeButton;
+    BrBtnDistrito: TdxBarLargeButton;
+    BrBtnBairro: TdxBarLargeButton;
+    BrBtnTipoLogradouro: TdxBarLargeButton;
+    BrBtnLogradouro: TdxBarLargeButton;
+    BrBtnVendedor: TdxBarLargeButton;
+    BrBrntBanco: TdxBarLargeButton;
+    BrBtnTabelaProduto: TdxBarLargeButton;
+    BrPpTabelaProduto: TdxBarPopupMenu;
+    BrBtnTabelaCFOP: TdxBarLargeButton;
+    BrBtnTabelaCNAE: TdxBarLargeButton;
+    BrBtnTabelaIBPT: TdxBarLargeButton;
+    BrBtnCondicaoPagto: TdxBarLargeButton;
+    BrBtnFormaPagto: TdxBarLargeButton;
+    BrBtnContaCorrente: TdxBarLargeButton;
+    BrBtnPlanoConta: TdxBarLargeButton;
+    BrBtnTipoDespesa: TdxBarLargeButton;
+    BrBtnCentroCusto: TdxBarLargeButton;
+    BrBtnPromocao: TdxBarLargeButton;
+    RbnTabEntrada: TdxRibbonTab;
+    BrBtnGrupoProduto: TdxBarLargeButton;
+    BrBtnSecaoProduto: TdxBarLargeButton;
+    BrBtnFabricante: TdxBarLargeButton;
+    BrBtnUnidadeCompra: TdxBarLargeButton;
+    BrMngEntradaCusto: TdxBar;
+    BrBtnEntradaProduto: TdxBarLargeButton;
+    BrBtnEntradaAjuste: TdxBarLargeButton;
+    BrBtnEntradaKardex: TdxBarLargeButton;
+    BrBtnEntradaServico: TdxBarLargeButton;
+    BrBtnEntradaEstoque: TdxBarLargeButton;
+    BrPpEntradaEstoque: TdxBarPopupMenu;
+    BrBtnAlterarSenha: TdxBarLargeButton;
+    BrBtnEfetuarLogoff: TdxBarLargeButton;
+    BrMngMovimentoFat: TdxBar;
+    BrBtnVenda: TdxBarLargeButton;
+    BrBtnOrdemServico: TdxBarLargeButton;
+    BrBtnRequisicaoCliente: TdxBarLargeButton;
+    BrMngMovimentoCmp: TdxBar;
+    BrBtnCotacaoCompra: TdxBarLargeButton;
+    BrBtnRequisicaoCompra: TdxBarLargeButton;
+    BrBtnConverterRequisicaoCompra: TdxBarLargeButton;
+    BrBtnAutorizacaoCompra: TdxBarLargeButton;
+    BrPpRequisicaoCompra: TdxBarPopupMenu;
+    BrBtnRequisicaoCompraPopup: TdxBarLargeButton;
+    BrBtnSolicitacaoCompra: TdxBarLargeButton;
+    BrPpRequisicaoAlmox: TdxBarPopupMenu;
+    BrMngNotaFiscal: TdxBar;
+    BrBtnNotaFiscalInutilizar: TdxBarLargeButton;
+    BrBtnNotaFiscalRecibo: TdxBarLargeButton;
+    BrBtnNotaFiscalCartaCorrecao: TdxBarLargeButton;
+    BrBtnNotaFiscalExportar: TdxBarLargeButton;
+    BrBtnNotaFiscalDownload: TdxBarLargeButton;
+    BrPpNotaFiscalExportar: TdxBarPopupMenu;
+    BrBtnNotaFiscalExportarNF: TdxBarLargeButton;
+    BrBtnNotaFiscalExportarChave: TdxBarLargeButton;
+    BrBtnNotaFiscalExportarNFC: TdxBarLargeButton;
+    BrMngConsultaGeral: TdxBar;
+    BrMngConsultaEstatistica: TdxBar;
+    BrBtnConsultaCNPJ: TdxBarLargeButton;
+    BrBtnConsultaVenda: TdxBarLargeButton;
+    BrBtnConsultaRotatividadeProduto: TdxBarLargeButton;
+    BrBtnConsultaEstoqueMinimo: TdxBarLargeButton;
+    BrMngFinanceiroCaixa: TdxBar;
+    BrBtnAbrirCaixa: TdxBarLargeButton;
+    BrBtnEncerrarCaixa: TdxBarLargeButton;
+    BrBtnGerenciarCaixa: TdxBarLargeButton;
+    BrMngFinanceiroBoleto: TdxBar;
+    BrBtnGerarBoleto: TdxBarLargeButton;
+    BrBtnGerarRemessaBoleto: TdxBarLargeButton;
+    BrBtnProcessarRetornoBoleto: TdxBarLargeButton;
+    BrBtnQuitarLote: TdxBarLargeButton;
+    BrBtnQuitarAPagarLote: TdxBarLargeButton;
+    BrBtnQuitarAReceberLote: TdxBarLargeButton;
+    BrPpFinanceiroQuitarLote: TdxBarPopupMenu;
+    BrMngRelatorioCadastro: TdxBar;
+    BrBtnRelatorioCliente: TdxBarLargeButton;
+    BrBtnRelatorioFornecedor: TdxBarLargeButton;
+    BrBtnRelatorioProduto: TdxBarLargeButton;
+    BrMngRelatorioOperacional: TdxBar;
+    BrBtnRelatorioEntrada: TdxBarLargeButton;
+    BrPpRelatorioEstoque: TdxBarPopupMenu;
+    BrBtnRelatorioEstoque: TdxBarLargeButton;
+    BrBtnRelatorioEstoqueProd: TdxBarLargeButton;
+    BrBtnRelatorioFaturamento: TdxBarLargeButton;
+    BrBtnRelatorioFinanceiro: TdxBarLargeButton;
+    BrBtnRelatorioFaturamentoVnd: TdxBarLargeButton;
+    BrBtnRelatorioFaturamentoOrd: TdxBarLargeButton;
+    BrBtnRelatorioFinanceiroAP: TdxBarLargeButton;
+    BrBtnRelatorioFinanceiroAR: TdxBarLargeButton;
+    BrPpRelatorioFaturamento: TdxBarPopupMenu;
+    BrPpRelatorioFinanceiro: TdxBarPopupMenu;
+    BrBtnRelatorioFinanceiroMV: TdxBarLargeButton;
+    BrMngRelatorioGerencial: TdxBar;
+    BrMngAjudaDiversos: TdxBar;
+    BrBtnCarregarLicenca: TdxBarLargeButton;
+    BrBtnRegistroEstacao: TdxBarLargeButton;
+    BrBtnSobre: TdxBarLargeButton;
+    BrBtnNotaFiscalComplementar: TdxBarLargeButton;
+    BrBtnRelatorioAutorizacaoEntrada: TdxBarLargeButton;
+    BrBtnRelatorioEntradaVenda: TdxBarLargeButton;
+    BrBtnRelatorioEntradaSaida: TdxBarLargeButton;
+    BrPpRelatorioEntradaSaida: TdxBarPopupMenu;
+    BrBtnSenhaAutorizacao: TdxBarLargeButton;
+    stbMain: TdxStatusBar;
+    BrMnQuickAccessToolbar: TdxBar;
+    RbnBackstageView: TdxRibbonBackstageView;
+    RbnBackstageViewConfig: TdxRibbonBackstageViewTabSheet;
+    LblBackstageViewConfig: TcxLabel;
+    RbnBackstageGalleryConfig: TdxRibbonBackstageViewGalleryControl;
+    dxRibbonBackstageViewGalleryGroup1: TdxRibbonBackstageViewGalleryGroup;
+    RbnBackstageGalleryConfigEmp: TdxRibbonBackstageViewGalleryItem;
+    RbnBackstageGalleryConfigNFe: TdxRibbonBackstageViewGalleryItem;
+    RbnBackstageGalleryConfigAmb: TdxRibbonBackstageViewGalleryItem;
+    RbnBackstageViewAcesso: TdxRibbonBackstageViewTabSheet;
+    LblBackstageViewAcesso: TcxLabel;
+    RbnBackstageGalleryAcesso: TdxRibbonBackstageViewGalleryControl;
+    dxRibbonBackstageViewGalleryGroup2: TdxRibbonBackstageViewGalleryGroup;
+    dxRibbonBackstageViewGalleryItem1: TdxRibbonBackstageViewGalleryItem;
+    dxRibbonBackstageViewGalleryItem2: TdxRibbonBackstageViewGalleryItem;
+    dxRibbonBackstageViewGalleryItem3: TdxRibbonBackstageViewGalleryItem;
+    TmrMonitorar: TTimer;
+    RbnBackstageViewBackup: TdxRibbonBackstageViewTabSheet;
+    LblBackstageViewBackup: TcxLabel;
+    RbnBackstageGalleryBackup: TdxRibbonBackstageViewGalleryControl;
+    dxRibbonBackstageViewGalleryGroup3: TdxRibbonBackstageViewGalleryGroup;
+    dxRibbonBackstageViewGalleryItem4: TdxRibbonBackstageViewGalleryItem;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
     procedure btnContaAPagarClick(Sender: TObject);
     procedure nmFornecedorClick(Sender: TObject);
-    procedure btnSairClick(Sender: TObject);
     procedure btnProdutoClick(Sender: TObject);
     procedure nmEntradaProdutoClick(Sender: TObject);
     procedure nmAjusteManualClick(Sender: TObject);
@@ -215,8 +237,6 @@ type
     procedure nmFabricanteProdutoClick(Sender: TObject);
     procedure nmUsuarioAlterarSenhaClick(Sender: TObject);
     procedure nmExportarNFeGeradaClick(Sender: TObject);
-    procedure mnRelatorioEstoqueProdutoClick(Sender: TObject);
-    procedure mnRelatorioEstoqueDemandaClick(Sender: TObject);
     procedure nmVendaIemPesquisaClick(Sender: TObject);
     procedure nmRotatividadeClick(Sender: TObject);
     procedure nmInutilizarNumeroNFeClick(Sender: TObject);
@@ -238,21 +258,36 @@ type
     procedure mnRelatorioEntradaProdutoClick(Sender: TObject);
     procedure nmQuitarContaAPagar_LoteClick(Sender: TObject);
     procedure nmPerfilAcessoClick(Sender: TObject);
-    procedure nmCotacaoCompraClick(Sender: TObject);
     procedure nmRegistroEstacaoClick(Sender: TObject);
     procedure nmEfetuarLogoffClick(Sender: TObject);
-    procedure nmRequisicaoCompraClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure nmCartaCorrecaoNFeClick(Sender: TObject);
     procedure nmCentroCustoClick(Sender: TObject);
-    procedure nmConverterReqAutCompraClick(Sender: TObject);
     procedure nmPlanoContaClick(Sender: TObject);
+    procedure nmEstoqueApropriadoClick(Sender: TObject);
+    procedure nmInventarioMaterialClick(Sender: TObject);
+    procedure mnRelatorioEstoqueProdutoClick(Sender: TObject);
+    procedure mnRelatorioEstoqueApropriacaoClick(Sender: TObject);
+    procedure mnRelatorioRequsicaoAlmoxClick(Sender: TObject);
+    procedure BrBtnRelatorioEstoqueReqClick(Sender: TObject);
+    procedure RbnBackstageGalleryConfigItemClick(Sender: TObject;
+      AItem: TdxRibbonBackstageViewGalleryItem);
+    procedure RbnBackstageGalleryAcessoItemClick(Sender: TObject;
+      AItem: TdxRibbonBackstageViewGalleryItem);
+    procedure RbnBackstageGalleryBackupItemClick(Sender: TObject;
+      AItem: TdxRibbonBackstageViewGalleryItem);
+    procedure RibbonApplicationMenuClick(Sender: TdxCustomRibbon;
+      var AHandled: Boolean);
+    procedure BrBtnNotaFiscalComplementarClick(Sender: TObject);
+    procedure BrBtnQuitarAReceberLoteClick(Sender: TObject);
+    procedure BrBtnTabelaIBPTClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
   public
     { Public declarations }
+    procedure ConfigurarRotuloBotoes;
   end;
 
 var
@@ -262,6 +297,7 @@ implementation
 
 uses
   // Conexão e Controles Aplicação
+  UDMRecursos,
   UDMBusiness,
   UDMNFe,
   UFuncoes,
@@ -269,15 +305,14 @@ uses
   UGeSobre,
 
   // Movimentação
-  UGeCotacaoCompra,
+  UGeRequisicaoCliente,
+  UGeAutorizacaoCompra,
+  UGeRequisicaoCompra,
 
   // Estoque, Entrada e Saída
   UGeProduto,
   UGeVenda,
   UGeEntradaEstoque,
-  UGeRequisicaoCliente,
-  UGeAutorizacaoCompra,
-  UGeRequisicaoCompra,
 
   // Financeiro
   UGeContasAPagar,
@@ -293,6 +328,33 @@ begin
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
     FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
+end;
+
+procedure TfrmPrinc.BrBtnNotaFiscalComplementarClick(Sender: TObject);
+begin
+  if not GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) then
+    ShowWarning('Certificado não configurado nesta estação de trabalho para que esta rotina seja executada!')
+  else
+  if GetPermissaoRotinaSistema(ROTINA_NFE_COMPLEMENTAR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeNFComplementar');
+end;
+
+procedure TfrmPrinc.BrBtnQuitarAReceberLoteClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_ARECEBER_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeContasAReceberQuitar');
+end;
+
+procedure TfrmPrinc.BrBtnRelatorioEstoqueReqClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_REQ_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeRequisicaoAlmoxImpressao');
+end;
+
+procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CAD_TABELA_IBPT_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeTabelaIBPT');
 end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);
@@ -319,16 +381,48 @@ begin
     FormFunction.ShowModalForm(Self, 'frmGeFornecedor');
 end;
 
-procedure TfrmPrinc.btnSairClick(Sender: TObject);
-begin
-  if ShowConfirm('Deseja SAIR do Sistema?') then
-    Application.Terminate;
-end;
-
 procedure TfrmPrinc.btnProdutoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_PRODUTO_ID, True) then
     MostrarTabelaProdutos(Self, taICMS);
+end;
+
+procedure TfrmPrinc.ConfigurarRotuloBotoes;
+begin
+  BrBtnGrupoProduto.Caption      := 'Grupos de ' + StrDescricaoProduto;
+  BrBtnSecaoProduto.Caption      := 'Seções de ' + StrDescricaoProduto;
+  BrBtnTabelaProduto.Caption     := StrDescricaoProduto;
+  BrBtnProduto.Caption           := StrDescricaoProduto;
+  BrBtnRelatorioProduto.Caption  := StrDescricaoProduto;
+  BrBtnRelatorioEntrada.Caption  := 'Entradas de ' + StrDescricaoProduto;
+end;
+
+procedure TfrmPrinc.RbnBackstageGalleryAcessoItemClick(
+  Sender: TObject; AItem: TdxRibbonBackstageViewGalleryItem);
+begin
+  Case AItem.Index of
+    0:
+      if BrBtnPerfilAcesso.Enabled then
+        BrBtnPerfilAcesso.Click;
+    1:
+      if BrBtnUsuario.Enabled then
+        BrBtnUsuario.Click;
+    2:
+      if BrBtnSenhaAutorizacao.Enabled then
+        BrBtnSenhaAutorizacao.Click;
+  end;
+end;
+
+procedure TfrmPrinc.RbnBackstageGalleryBackupItemClick(Sender: TObject;
+  AItem: TdxRibbonBackstageViewGalleryItem);
+begin
+  Case AItem.Index of
+    0 :
+      begin
+        RbnBackstageView.ClosePopup;
+        FormFunction.ShowModalForm(Self, 'frmGrConfigurarBackup');
+      end;
+  end;
 end;
 
 procedure TfrmPrinc.nmEntradaProdutoClick(Sender: TObject);
@@ -376,6 +470,7 @@ end;
 procedure TfrmPrinc.nmAboutClick(Sender: TObject);
 begin
   ShowAbout(Self);
+  Application.BringToFront;
 end;
 
 procedure TfrmPrinc.mnBancoClick(Sender: TObject);
@@ -467,10 +562,10 @@ begin
   if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
-  if not GetPermititEmissaoNFe( GetEmpresaIDDefault ) then
+  if not GetPermititEmissaoNFe( gUsuarioLogado.Empresa ) then
     ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.')
   else
-    ConfigurarNFeACBr( GetEmpresaIDDefault );
+    ConfigurarNFeACBr( gUsuarioLogado.Empresa );
 end;
 
 procedure TfrmPrinc.nmTipoDespesaClick(Sender: TObject);
@@ -481,7 +576,8 @@ end;
 
 procedure TfrmPrinc.FormActivate(Sender: TObject);
 var
-  sCNPJ : String;
+  sCNPJ     ,
+  sHostName : String;
 begin
   if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
     sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
@@ -491,46 +587,56 @@ begin
   if not DataBaseOnLine then
     Exit;
 
-  stbMain.Panels.Items[2].Text  := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
-  nmUsuarioAlterarSenha.Caption := Format('Alteração de Senha (%s)', [GetUserApp]);
+  stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
+  BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+  BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
 
   Self.WindowState := wsMaximized;
 
-  nmRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( GetEmpresaIDDefault );
-
-  if GetUserUpdatePassWord then
-    nmUsuarioAlterarSenhaClick( nmUsuarioAlterarSenha );
-
   if not DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
   begin
-    menuCadastro.Enabled     := False;
-    menuEntrada.Enabled      := False;
-    menuMovimentacao.Enabled := False;
-    menuFinanceiro.Enabled   := False;
+    RbnTabCadastro.Visible   := False;
+    RbnTabEntrada.Visible    := False;
+    RbnTabMovimento.Visible  := False;
+    RbnTabFinanceiro.Visible := False;
   end;
 
-  if not SetAcessoEstacao(DMBusiness.IdIPWatch.LocalName) then
+  sHostName := GetHostNameLocal;
+  if not SetAcessoEstacao(sHostName) then
   begin
-    ShowError('Estação de trabalho não registrada no sistema!');
+    ShowError('Host -> ' + sHostName + #13 + 'Estação de trabalho não registrada no sistema!');
 
-    menuCadastro.Enabled     := False;
-    menuEntrada.Enabled      := False;
-    menuMovimentacao.Enabled := False;
-    menuNotaFiscal.Enabled   := False;
-    menuConsulta.Enabled     := False;
-    menuFinanceiro.Enabled   := False;
-    menuRelatorio.Enabled    := False;
 
-    btnEmpresa.Enabled := False;
-    btnCliente.Enabled := False;
-    btnProduto.Enabled := False;
-    btnFornecedor.Enabled := False;
-    btnEstoque.Enabled    := False;
-    btnVenda.Enabled      := False;
-    btnTesouraria.Enabled    := False;
-    btnContaAPagar.Enabled   := False;
-    btnContaAReceber.Enabled := False;
+    RbnTabCadastro.Visible   := False;
+    RbnTabEntrada.Visible    := False;
+    RbnTabMovimento.Visible  := False;
+    RbnTabNota.Visible       := False;
+    RbnTabConsulta.Visible   := False;
+    RbnTabFinanceiro.Visible := False;
+    RbnTabRelatorio.Visible  := False;
+
+    BrBtnEmpresa.Enabled := False;
+    BrBtnCliente.Enabled := False;
+    BrBtnProduto.Enabled := False;
+    BrBtnFornecedor.Enabled        := False;
+    BrBtnAutorizacaoCompra.Enabled := False;
+    BrBtnEntrada.Enabled           := False;
+    BrBtnVenda.Enabled             := False;
+    BrBtnOrdemServico.Enabled      := False;
+    BrBtnRequisicaoCliente.Enabled := False;
+    BrBtnTesouraria.Enabled    := False;
+    BrBtnContaAPagar.Enabled   := False;
+    BrBtnContaAReceber.Enabled := False;
   end;
+
+  if ( not DelphiIsRunning ) then
+    if not gLicencaSistema.UsarSGE then
+    begin
+      ShowWarning(
+        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+        'Favor entrar em contato com o fornecedor do software.');
+      Application.Terminate;
+    end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -547,46 +653,25 @@ begin
   Self.FileDescription.Caption := GetFileDescription;
   Self.Version.Caption     := 'Versão ' + GetExeVersion;
   Self.Copyright.Caption   := GetCopyright;
+  Self.DisableAero         := True;
 
-  BcBarMainMenu.Bar.BarCaption.Caption := Application.Title;
+  Ribbon.ActiveTab := RbnTabPrincipal;
+  ConfigurarRotuloBotoes;
 
   // Carregar Imagem de Fundo da Tele Principal
-
-  sFileImage := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
-
-  if ( FileExists(sFileImage) ) then
+  if GetCarregarPapelDeParedeLocal then
   begin
-    imgFundo.Picture.LoadFromFile(sFileImage);
-    imgFundo.Center := True;
-  end
-  else
-  begin
-    imgEmpresa.Visible  := False;
-    ProductName.Visible := False;
-    Version.Visible     := False;
-    FileDescription.Visible := False;
-    Copyright.Visible       := False;
+    sFileImage := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
+
+    if ( FileExists(sFileImage) ) then
+    begin
+      imgFundo.Picture.LoadFromFile(sFileImage);
+      imgFundo.Center := True;
+    end;
   end;
 
   if not DataBaseOnLine then
     Exit;
-
-  // (INICIO) Configurar Legendas de acordo com o segmento
-
-  nmGruposProduto.Caption    := 'Grupos de ' + StrDescricaoProduto;
-  nmSecaoProduto.Caption     := 'Seções de ' + StrDescricaoProduto;
-  nmProduto.Caption          := StrDescricaoProduto;
-  btnProduto.Caption         := StrDescricaoProduto;
-  nmRelatorioProduto.Caption := StrDescricaoProduto;
-  mnRelatorioEntradaProduto.Caption := StrDescricaoProduto;
-
-  nmRequisicaoCliente.Visible     := (GetSegmentoID(GetEmpresaIDDefault) <= SEGMENTO_VAREJO_SERVICOS_ID);
-  nmCotacaoCompra.Visible         := (GetSegmentoID(GetEmpresaIDDefault) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
-  nmRequisicaoCompra.Visible      := nmCotacaoCompra.Visible;
-  nmConverterReqAutCompra.Visible := nmCotacaoCompra.Visible;
-  nmAutorizacaoCompra.Visible     := nmCotacaoCompra.Visible;
-
-  // (FINAL) Configurar Legendas de acordo com o segmento
 
   FAcesso := False;
   SetSistema(gSistema.Codigo, gSistema.Nome, GetVersion);
@@ -639,7 +724,7 @@ end;
 procedure TfrmPrinc.nmEncerramentoCaixaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_ENCERRAR_CAIXA_ID, True) then
-    if ( FecharCaixa(Self, GetUserApp) ) then
+    if ( FecharCaixa(Self, gUsuarioLogado.Login) ) then
       ShowInformation('Caixa encerrado com sucesso!');
 end;
 
@@ -673,16 +758,6 @@ begin
     FormFunction.ShowModalForm(Self, 'frmGeExportarNFeGerada');
 end;
 
-procedure TfrmPrinc.mnRelatorioEstoqueProdutoClick(Sender: TObject);
-begin
-  FormFunction.ShowFormReport(Self, 'frmRelProdutos', 'qckrp');
-end;
-
-procedure TfrmPrinc.mnRelatorioEstoqueDemandaClick(Sender: TObject);
-begin
-  FormFunction.ShowModalForm(Self, 'frmRelEstoque');
-end;
-
 procedure TfrmPrinc.nmVendaIemPesquisaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_VENDA_ID, True) then
@@ -697,6 +772,9 @@ end;
 
 procedure TfrmPrinc.nmInutilizarNumeroNFeClick(Sender: TObject);
 begin
+  if not GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) then
+    ShowWarning('Certificado não configurado nesta estação de trabalho para que esta rotina seja executada!')
+  else
   if GetPermissaoRotinaSistema(ROTINA_NFE_INUTILIZAR_NRO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeInutilizarNumeroNFe');
 end;
@@ -717,6 +795,9 @@ end;
 
 procedure TfrmPrinc.nmConsultarLoteNFeClick(Sender: TObject);
 begin
+  if not GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) then
+    ShowWarning('Certificado não configurado nesta estação de trabalho para que esta rotina seja executada!')
+  else
   if GetPermissaoRotinaSistema(ROTINA_NFE_CONSULTA_RECIBO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeConsultarLoteNFe_v2');
 end;
@@ -729,16 +810,18 @@ end;
 
 procedure TfrmPrinc.nmUsuarioClick(Sender: TObject);
 begin
-  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
-    ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
-  else
+  if GetPermissaoRotinaSistema(ROTINA_CAD_USUARIO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGrUsuario');
 end;
 
 procedure TfrmPrinc.nmRequisicaoClienteClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_MOV_REQUISICAO_ID, True) then
-    MostrarControleRequisicaoCliente(Self);
+  if not GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) then
+    ShowInformation('Empresa não habilitada para trabalhar com estoque satélide de clientes.' + #13 +
+      'Favor entrar em contato com suporte.')
+  else
+    if GetPermissaoRotinaSistema(ROTINA_MOV_REQUISICAO_ID, True) then
+      MostrarControleRequisicaoCliente(Self);
 end;
 
 procedure TfrmPrinc.nmExportarChaveNFeGeradaClick(Sender: TObject);
@@ -752,12 +835,33 @@ begin
   ;
 end;
 
+procedure TfrmPrinc.RbnBackstageGalleryConfigItemClick(Sender: TObject;
+  AItem: TdxRibbonBackstageViewGalleryItem);
+begin
+  Case AItem.Index of
+    0:
+      if BrBtnConfigurarEmpresa.Enabled then
+        BrBtnConfigurarEmpresa.Click;
+    1:
+      if BrBtnConfigurarNFe.Enabled then
+        BrBtnConfigurarNFe.Click;
+    2:
+      if BrBtnConfigurarAmbiente.Enabled then
+        BrBtnConfigurarAmbiente.Click;
+  end;
+end;
+
 procedure TfrmPrinc.RegistrarRotinasMenu;
 begin
+  (*
+  Neste procedimento utiliza-se apenas rotinas que não vem da matriz "Padrão Cadastro".
+  *)
+
   // Menus
 
-  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CADASTRO_ID,   'Cadastro', EmptyStr);
-  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_ENTRADA_ID,    'Entradas',  EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_RIBBON_ID,     '> Aplicação',   EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CADASTRO_ID,   'Cadastro',      EmptyStr);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_ENTRADA_ID,    'Entradas',      EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_MOVIMENTO_ID,  'Movimentações', EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_NOTAFISCAL_ID, 'Notas Fiscais', EmptyStr);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_CONSULTA_ID,   'Consultas',  EmptyStr);
@@ -768,74 +872,97 @@ begin
   // Sub-menus
 
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_TAB_AUXILIAR_ID,    'Tabelas Auxiliares',        ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ENTRADA_ID,     'Relatórios de Entradas',    ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FATURAMENTO_ID, 'Relatórios de Faturamento', ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FINANCEIRO_ID,  'Relatórios do Financeiro',  ROTINA_MENU_RELATORIO_ID);
 
+  // Menu Aplicação
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_EMP_ID, Trim(RbnBackstageViewConfig.Caption + ' -> ' + BrBtnConfigurarEmpresa.Caption),  ROTINA_MENU_RIBBON_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_NFE_ID, Trim(RbnBackstageViewConfig.Caption + ' -> ' + BrBtnConfigurarNFe.Caption),      ROTINA_MENU_RIBBON_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_AMB_ID, Trim(RbnBackstageViewConfig.Caption + ' -> ' + BrBtnConfigurarAmbiente.Caption), ROTINA_MENU_RIBBON_ID);
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_PERFIL_ID,     Trim(BrBtnPerfilAcesso.Caption),     ROTINA_MENU_RIBBON_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_USUARIO_ID,    Trim(BrBtnUsuario.Caption),          ROTINA_MENU_RIBBON_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_GERAR_SENH_ID, Trim(BrBtnSenhaAutorizacao.Caption), ROTINA_MENU_RIBBON_ID);
+
   // Cadastros
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_EMPRESA_ID,    'Cadastro da Empresa(s)',   ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CLIENTE_ID,    'Cadastro da Clientes',     ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_FORNECEDOR_ID, 'Cadastro da Fornecedores', ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_VENDEDOR_ID,   'Cadastro da Vendedores',   ROTINA_MENU_CADASTRO_ID);
-
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_EMP_ID, Trim(nmConfiguracaoEmpresa.Caption), ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_NFE_ID, Trim(nmConfigurarNFeACBr.Caption),   ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONFIG_AMB_ID, Trim(nmConfigurarAmbiente.Caption),  ROTINA_MENU_CADASTRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_GERAR_SENH_ID, Trim(nmSenhaAutorizacao.Caption),    ROTINA_MENU_CADASTRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_EMPRESA_ID, Trim(BrBtnEmpresa.Caption), ROTINA_MENU_CADASTRO_ID);
 
   // Entradas
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_AJUSTE_ID, Trim(nmAjusteManual.Caption), ROTINA_MENU_ENTRADA_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_KARDEX_ID, Trim(nmKardex.Caption),       ROTINA_MENU_ENTRADA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_AJUSTE_ID, Trim(BrBtnEntradaEstoque.Caption + ' -> ' + BrBtnEntradaAjuste.Caption), ROTINA_MENU_ENTRADA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_ENT_KARDEX_ID, Trim(BrBtnEntradaEstoque.Caption + ' -> ' + BrBtnEntradaKardex.Caption), ROTINA_MENU_ENTRADA_ID);
+
+  // Movimento
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_VENDA_ID,      Trim(BrBtnVenda.Caption),        ROTINA_MENU_MOVIMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_ORDEM_SERV_ID, Trim(BrBtnOrdemServico.Caption), ROTINA_MENU_MOVIMENTO_ID);
 
   // Notas Fiscais
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_INUTILIZAR_NRO_ID,  Trim(nmInutilizarNumeroNFe.Caption),    ROTINA_MENU_NOTAFISCAL_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_CONSULTA_RECIBO_ID, Trim(nmConsultarLoteNFe.Caption),       ROTINA_MENU_NOTAFISCAL_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_EXPORTAR_NFE_ID,    Trim(nmExportarNFeGerada.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_EXPORTAR_CHAVE_ID,  Trim(nmExportarChaveNFeGerada.Caption), ROTINA_MENU_NOTAFISCAL_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_GERAR_ARQUI_NFC_ID, Trim(nmGerarArquivoNFC.Caption),        ROTINA_MENU_NOTAFISCAL_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_DOWNLOAD_NFE_ID,    Trim(nmDownloadNFeGerada.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_INUTILIZAR_NRO_ID,  Trim(BrBtnNotaFiscalInutilizar.Caption),    ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_CONSULTA_RECIBO_ID, Trim(BrBtnNotaFiscalRecibo.Caption),        ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_EXPORTAR_NFE_ID,    Trim(BrBtnNotaFiscalExportar.Caption + ' -> ' + BrBtnNotaFiscalExportarNF.Caption),    ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_EXPORTAR_CHAVE_ID,  Trim(BrBtnNotaFiscalExportar.Caption + ' -> ' + BrBtnNotaFiscalExportarChave.Caption), ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_GERAR_ARQUI_NFC_ID, Trim(BrBtnNotaFiscalExportar.Caption + ' -> ' + BrBtnNotaFiscalExportarNFC.Caption),   ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_DOWNLOAD_NFE_ID,    Trim(BrBtnNotaFiscalDownload.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_COMPLEMENTAR_ID,    Trim(BrBtnNotaFiscalComplementar.Caption),  ROTINA_MENU_NOTAFISCAL_ID);
+
+  BrBtnNotaFiscalInutilizar.Enabled    := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
+  BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
+  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
+  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
 
   // Consultas
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_CNPJ_ID,        Trim(nmConsultarCNPJ.Caption),    ROTINA_MENU_CONSULTA_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_VENDA_ID,       Trim(nmVendaIemPesquisa.Caption), ROTINA_MENU_CONSULTA_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ROTATIVIDAD_ID, Trim(nmRotatividade.Caption),     ROTINA_MENU_CONSULTA_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ESTOQUE_MIN_ID, Trim(nmEstoqueMinimo.Caption),    ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_CNPJ_ID,        Trim(BrBtnConsultaCNPJ.Caption),                ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_VENDA_ID,       Trim(BrBtnConsultaVenda.Caption),               ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ROTATIVIDAD_ID, Trim(BrBtnConsultaRotatividadeProduto.Caption), ROTINA_MENU_CONSULTA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CNS_CONSULTA_ESTOQUE_MIN_ID, Trim(BrBtnConsultaEstoqueMinimo.Caption),       ROTINA_MENU_CONSULTA_ID);
 
   // Financeiro
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ABRIR_CAIXA_ID,     Trim(nmAberturaCaixa.Caption),            ROTINA_MENU_FINANCEIRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ENCERRAR_CAIXA_ID,  Trim(nmEncerramentoCaixa.Caption),        ROTINA_MENU_FINANCEIRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_BOLETO_ID,    Trim(nmGerarBoleto.Caption),              ROTINA_MENU_FINANCEIRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_REMESSA_ID,   Trim(nmRemessaBoleto.Caption),            ROTINA_MENU_FINANCEIRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_PROCESSA_RETORN_ID, Trim(nmRetornoBoleto.Caption),            ROTINA_MENU_FINANCEIRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_APAGAR_ID,   Trim(nmQuitarContaAPagar_Lote.Caption),   ROTINA_MENU_FINANCEIRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_ARECEBER_ID, Trim(nmQuitarContaAReceber_Lote.Caption), ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ABRIR_CAIXA_ID,     Trim(BrBtnAbrirCaixa.Caption),             ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ENCERRAR_CAIXA_ID,  Trim(BrBtnEncerrarCaixa.Caption),          ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_BOLETO_ID,    Trim(BrBtnGerarBoleto.Caption),            ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_REMESSA_ID,   Trim(BrBtnGerarRemessaBoleto.Caption),     ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_PROCESSA_RETORN_ID, Trim(BrBtnProcessarRetornoBoleto.Caption), ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_APAGAR_ID,   Trim(BrBtnQuitarAPagarLote.Caption),       ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_ARECEBER_ID, Trim(BrBtnQuitarAReceberLote.Caption),     ROTINA_MENU_FINANCEIRO_ID);
 
   // Relatórios
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_CLIENTE_ID,      Trim(nmRelatorioCliente.Caption),        ROTINA_MENU_RELATORIO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FORNECEDOR_ID,   Trim(nmRelatorioFornecedor.Caption),     ROTINA_MENU_RELATORIO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_PRODUTO_ID,      Trim(nmRelatorioProduto.Caption),        ROTINA_MENU_RELATORIO_ID);
-
-  // Relatórios -> Faturamento
-
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FATURA_VENDA_ID, Trim(nmRelatorioFaturamentoVendas.Caption), ROTINA_MENU_REL_FATURAMENTO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FATURA_OS_ID,    Trim(nmRelatorioFaturamentoOS.Caption),     ROTINA_MENU_REL_FATURAMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_CLIENTE_ID,      Trim(BrBtnRelatorioCliente.Caption),        ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FORNECEDOR_ID,   Trim(BrBtnRelatorioFornecedor.Caption),     ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_PRODUTO_ID,      Trim(BrBtnRelatorioProduto.Caption),        ROTINA_MENU_RELATORIO_ID);
 
   // Relatórios -> Entradas
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ENTRADA_PROD_ID, Trim(mnRelatorioEntradaProduto.Caption), ROTINA_MENU_REL_ENTRADA_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ENTRADA_PROD_ID, Trim(BrBtnRelatorioEntrada.Caption), ROTINA_MENU_REL_ENTRADA_ID);
+
+  // Relatórios -> Estoque
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ESTOQUE_PROD_ID, Trim(BrBtnRelatorioEstoque.Caption + ' -> ' + BrBtnRelatorioEstoqueProd.Caption),  ROTINA_MENU_REL_ESTOQUE_ID);
+
+  // Relatórios -> Faturamento
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FATURA_VENDA_ID, Trim(BrBtnRelatorioFaturamento.Caption + ' -> ' + BrBtnRelatorioFaturamentoVnd.Caption), ROTINA_MENU_REL_FATURAMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FATURA_OS_ID,    Trim(BrBtnRelatorioFaturamento.Caption + ' -> ' + BrBtnRelatorioFaturamentoOrd.Caption), ROTINA_MENU_REL_FATURAMENTO_ID);
 
   // Relatórios -> Financeiro
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_APAGAR_ID,   Trim(nmRelatorioFinanceiroContasAPagar.Caption),   ROTINA_MENU_REL_FINANCEIRO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ARECEBER_ID, Trim(nmRelatorioFinanceiroContasAReceber.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_APAGAR_ID,      Trim(BrBtnRelatorioFinanceiro.Caption + ' -> ' + BrBtnRelatorioFinanceiroAP.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ARECEBER_ID,    Trim(BrBtnRelatorioFinanceiro.Caption + ' -> ' + BrBtnRelatorioFinanceiroAR.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_MOV_FINANCE_ID, Trim(BrBtnRelatorioFinanceiro.Caption + ' -> ' + BrBtnRelatorioFinanceiroMV.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
+end;
 
+procedure TfrmPrinc.RibbonApplicationMenuClick(Sender: TdxCustomRibbon;
+  var AHandled: Boolean);
+begin
+  RbnBackstageView.ActiveTab := RbnBackstageViewConfig;
 end;
 
 procedure TfrmPrinc.nmGerarArquivoNFCClick(Sender: TObject);
@@ -917,12 +1044,6 @@ begin
     FormFunction.ShowModalForm(Self, 'frmGrUsuarioPerfil');
 end;
 
-procedure TfrmPrinc.nmCotacaoCompraClick(Sender: TObject);
-begin
-  if GetPermissaoRotinaSistema(ROTINA_MOV_COTACAO_ID, True) then
-    MostrarControleCotacao(Self);
-end;
-
 procedure TfrmPrinc.nmRegistroEstacaoClick(Sender: TObject);
 begin
   FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
@@ -933,12 +1054,6 @@ begin
   FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
 end;
 
-procedure TfrmPrinc.nmRequisicaoCompraClick(Sender: TObject);
-begin
-  if GetPermissaoRotinaSistema(ROTINA_MOV_REQUISICAO_CMP_ID, True) then
-    MostrarControleRequisicao(Self);
-end;
-
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
@@ -946,6 +1061,9 @@ end;
 
 procedure TfrmPrinc.nmCartaCorrecaoNFeClick(Sender: TObject);
 begin
+  if not GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) then
+    ShowWarning('Certificado não configurado nesta estação de trabalho para que esta rotina seja executada!')
+  else
   if GetPermissaoRotinaSistema(ROTINA_NFE_CARTA_CORRECAO_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeCartaCorrecao');
 end;
@@ -956,16 +1074,40 @@ begin
     FormFunction.ShowModalForm(Self, 'frmGeCentroCusto');
 end;
 
-procedure TfrmPrinc.nmConverterReqAutCompraClick(Sender: TObject);
-begin
-  if GetPermissaoRotinaSistema(ROTINA_MOV_CONVERT_REQ_AUT_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeRequisicaoCompraPesquisa');
-end;
-
 procedure TfrmPrinc.nmPlanoContaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_PLANO_CONTAS_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGePlanoContas');
+end;
+
+procedure TfrmPrinc.nmEstoqueApropriadoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_ESTOQUE_APR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeApropriacaoEstoquePesquisa');
+end;
+
+procedure TfrmPrinc.nmInventarioMaterialClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_MOV_INVENTARIO_ESTOQU_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeInventario');
+end;
+
+procedure TfrmPrinc.mnRelatorioEstoqueProdutoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_PROD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeProdutoEstoqueImpressao');
+end;
+
+procedure TfrmPrinc.mnRelatorioRequsicaoAlmoxClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_REQ_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeRequisicaoAlmoxImpressao');
+end;
+
+procedure TfrmPrinc.mnRelatorioEstoqueApropriacaoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_APRO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeApropriacaoEstoqueImpressao');
 end;
 
 end.
