@@ -1736,6 +1736,10 @@ begin
     end;
   finally
     IbDtstTabela.First;
+
+    IbDtstTabela.Close;
+    IbDtstTabela.Open;
+
     IbDtstTabela.EnableControls;
     Screen.Cursor := crDefault;
 

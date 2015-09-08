@@ -5,6 +5,7 @@ interface
 uses
   UInfoVersao,
   PngImage,
+  Variants,
 
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFe, DB,
   IBCustomDataSet, IBQuery, frxClass, frxDBSet, frxExportRTF, frxExportXLS,

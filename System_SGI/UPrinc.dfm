@@ -36,8 +36,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 127
-    ExplicitHeight = 514
     DesignSize = (
       1044
       481)
@@ -4903,7 +4901,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 236
+      DockedLeft = 559
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213

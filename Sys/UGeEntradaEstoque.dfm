@@ -6,7 +6,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   ClientHeight = 677
   ClientWidth = 1114
   OldCreateOrder = True
-  ExplicitTop = -49
   ExplicitWidth = 1130
   ExplicitHeight = 716
   PixelsPerInch = 96
@@ -1317,7 +1316,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         TabOrder = 4
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
-          ExplicitHeight = 162
           DesignSize = (
             1098
             157)
@@ -1571,7 +1569,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
-            ExplicitHeight = 100
           end
           object dbFormaPagto: TDBLookupComboBox
             Left = 0
@@ -1592,7 +1589,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ListSource = dtsFormaPagto
             ParentFont = False
             TabOrder = 1
-            ExplicitTop = 135
           end
           object dbCondicaoPagto: TDBLookupComboBox
             Left = 152
@@ -1614,7 +1610,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             TabOrder = 2
             OnClick = dbCondicaoPagtoClick
-            ExplicitTop = 135
           end
           object dbPrazo01: TDBEdit
             Left = 600
@@ -1634,7 +1629,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 4
-            ExplicitTop = 135
           end
           object dbPrazo02: TDBEdit
             Left = 640
@@ -1654,7 +1648,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 5
-            ExplicitTop = 135
           end
           object dbPrazo03: TDBEdit
             Left = 680
@@ -1674,7 +1667,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 6
-            ExplicitTop = 135
           end
           object dbPrazo04: TDBEdit
             Left = 720
@@ -1694,7 +1686,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 7
-            ExplicitTop = 135
           end
           object dbPrazo05: TDBEdit
             Left = 760
@@ -1714,7 +1705,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 8
-            ExplicitTop = 135
           end
           object dbPrazo06: TDBEdit
             Left = 800
@@ -1734,7 +1724,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 9
-            ExplicitTop = 135
           end
           object dbPrazo07: TDBEdit
             Left = 840
@@ -1754,7 +1743,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 10
-            ExplicitTop = 135
           end
           object dbPrazo08: TDBEdit
             Left = 880
@@ -1774,7 +1762,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 11
-            ExplicitTop = 135
           end
           object dbPrazo09: TDBEdit
             Left = 920
@@ -1794,7 +1781,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 12
-            ExplicitTop = 135
           end
           object dbPrazo10: TDBEdit
             Left = 960
@@ -1814,7 +1800,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 13
-            ExplicitTop = 135
           end
           object dbPrazo11: TDBEdit
             Left = 1000
@@ -1834,7 +1819,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 14
-            ExplicitTop = 135
           end
           object dbPrazo12: TDBEdit
             Left = 1040
@@ -1854,7 +1838,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             ReadOnly = True
             TabOrder = 15
-            ExplicitTop = 135
           end
           object dbTipoDespesa: TDBLookupComboBox
             Left = 384
@@ -1876,13 +1859,11 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             TabOrder = 3
             OnClick = dbCondicaoPagtoClick
-            ExplicitTop = 135
           end
         end
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitHeight = 162
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -1919,7 +1900,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ParentFont = False
             TabOrder = 0
             Visible = False
-            ExplicitHeight = 162
             object btnRegerarDuplicata: TBitBtn
               Left = 0
               Top = 0
@@ -1933,7 +1913,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
               ShowHint = True
               TabOrder = 0
               OnClick = btnRegerarDuplicataClick
-              ExplicitTop = 1
             end
             object btnTituloEditar: TBitBtn
               Left = 0
@@ -1962,7 +1941,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
               ShowHint = True
               TabOrder = 2
               Visible = False
-              ExplicitTop = 49
             end
           end
           object dbgTitulos: TDBGrid
@@ -2051,7 +2029,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
-          ExplicitHeight = 162
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -2936,7 +2913,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          ExplicitHeight = 99
           object btnProdutoInserir: TBitBtn
             Left = 0
             Top = 0
@@ -3002,7 +2978,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ShowHint = True
             TabOrder = 0
             OnClick = btnProdutoInserirClick
-            ExplicitTop = 1
           end
           object btnProdutoEditar: TBitBtn
             Left = 0
@@ -3135,7 +3110,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ShowHint = True
             TabOrder = 2
             OnClick = btnProdutoExcluirClick
-            ExplicitTop = 49
           end
           object btnProdutoSalvar: TBitBtn
             Left = 0
@@ -3202,7 +3176,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             ShowHint = True
             TabOrder = 3
             OnClick = btnProdutoSalvarClick
-            ExplicitTop = 73
           end
         end
         object dbFrete: TDBEdit
@@ -4437,7 +4410,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7075,5 +7048,56 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       Caption = '&3. Visualizar Nome do Arquivo NF-e'
       OnClick = nmPpArquivoNFeClick
     end
+  end
+  object qryAutorizacaoProduto: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '    i.produto'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , i.unidade'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      '  , p.codcfop'
+      '  , p.ncm_sh'
+      '  , p.cst'
+      '  , p.csosn'
+      '  , p.aliquota'
+      '  , p.percentual_reducao_bc'
+      '  , p.aliquota_csosn'
+      '  , p.aliquota_pis'
+      '  , p.aliquota_cofins'
+      '  , i.quantidade'
+      '  , p.qtde as estoque'
+      '  , i.quantidade + coalesce(p.qtde, 0.0) as novo_estoque'
+      '  , i.valor_unitario'
+      '  , p.valor_ipi'
+      ''
+      'from TBAUTORIZA_COMPRA c'
+      
+        '  inner join TBAUTORIZA_COMPRAITEM i on (i.ano = c.ano and i.cod' +
+        'igo = c.codigo and i.empresa = c.empresa)'
+      
+        '  inner join TBPRODUTO p on (p.cod = i.produto and p.aliquota_ti' +
+        'po = 0)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      ''
+      'where c.ano     = :ano'
+      '  and c.codigo  = :cod'
+      '  and c.empresa = :emp'
+      '')
+    ModifySQL.Strings = (
+      '')
+    ParamCheck = True
+    UniDirectional = False
+    Left = 960
+    Top = 104
   end
 end

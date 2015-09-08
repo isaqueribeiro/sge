@@ -358,6 +358,7 @@ type
     dbCSOSN: TDBEdit;
     IbDtstTabelaCALCULAR_TOTAIS: TSmallintField;
     dbCalcularTotais: TDBCheckBox;
+    qryAutorizacaoProduto: TIBDataSet;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -420,6 +421,7 @@ type
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+    procedure InserirItensAutorizacao;
 
     function GetRotinaFinalizarID : String;
     function GetRotinaGerarNFeID : String;
@@ -791,6 +793,76 @@ begin
   end;
 end;
 
+procedure TfrmGeEntradaEstoque.InserirItensAutorizacao;
+var
+  I : Integer;
+  cPrecoUN : Currency;
+begin
+  with qryAutorizacaoProduto do
+  begin
+    Close;
+    ParamByName('ano').AsInteger := IbDtstTabelaAUTORIZACAO_ANO.AsInteger;
+    ParamByName('cod').AsInteger := IbDtstTabelaAUTORIZACAO_CODIGO.AsInteger;
+    ParamByName('emp').AsString  := IbDtstTabelaAUTORIZACAO_EMPRESA.AsString;
+    Open;
+
+    if not IsEmpty then
+    begin
+      AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
+      cdsTabelaItens.First;
+      while not cdsTabelaItens.Eof do
+        cdsTabelaItens.Delete;
+    end;
+
+    I := 1;
+
+    First;
+    while not Eof do
+    begin
+      if ( FieldByName('quantidade').AsCurrency > 0.0 ) then
+      begin
+        cdsTabelaItens.Append;
+
+        cdsTabelaItensSEQ.AsInteger := I;
+        cdsTabelaItensCODPROD.Assign       ( FieldByName('produto') );
+        cdsTabelaItensDESCRI.Assign        ( FieldByName('DESCRI') );
+        cdsTabelaItensQTDE.Assign          ( FieldByName('quantidade') );
+        cdsTabelaItensUNID_COD.Assign      ( FieldByName('unidade') );
+        cdsTabelaItensUNP_SIGLA.Assign     ( FieldByName('unp_sigla') );
+        cdsTabelaItensCFOP.Assign          ( FieldByName('codcfop') );
+        cdsTabelaItensCST.Assign           ( FieldByName('cst') );
+        cdsTabelaItensCSOSN.Assign         ( FieldByName('csosn') );
+        cdsTabelaItensALIQUOTA.Assign      ( FieldByName('aliquota') );
+        cdsTabelaItensPERCENTUAL_REDUCAO_BC.Assign      ( FieldByName('percentual_reducao_bc') );
+        cdsTabelaItensALIQUOTA_CSOSN.Assign ( FieldByName('aliquota_csosn') );
+        cdsTabelaItensALIQUOTA_PIS.Assign   ( FieldByName('aliquota_pis') );
+        cdsTabelaItensALIQUOTA_COFINS.Assign( FieldByName('aliquota_cofins') );
+        cdsTabelaItensQTDE.Assign           ( FieldByName('quantidade') );
+        cdsTabelaItensQTDEANTES.Assign      ( FieldByName('estoque') );
+        cdsTabelaItensQTDEFINAL.Assign      ( FieldByName('novo_estoque') );
+        cdsTabelaItensPRECOUNIT.Assign      ( FieldByName('valor_unitario') );
+        cdsTabelaItensVALOR_IPI.Assign      ( FieldByName('valor_ipi') );
+
+        cPrecoUN := cdsTabelaItensPRECOUNIT.AsCurrency;
+
+        cdsTabelaItensCUSTOMEDIO.AsCurrency  := cPrecoUN + cdsTabelaItensVALOR_IPI.AsCurrency;
+        cdsTabelaItensTOTAL_BRUTO.AsCurrency := cPrecoUN * cdsTabelaItensQTDE.AsCurrency;
+        cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency / IbDtstTabelaTOTALPROD.AsCurrency * 100;
+        cdsTabelaItensVALOR_FRETE.Value            := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaFRETE.Value / 100;
+        cdsTabelaItensVALOR_DESCONTO.Value         := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaDESCONTO.Value / 100;
+        cdsTabelaItensVALOR_OUTROS.Value           := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaOUTROSCUSTOS.Value / 100;
+        cdsTabelaItensTOTAL_LIQUIDO.AsCurrency     := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency; //cdsTabelaItensCUSTOMEDIO.AsCurrency * cdsTabelaItensQTDE.AsCurrency;
+
+        cdsTabelaItens.Post;
+
+        Inc(I);
+      end;
+
+      Next;
+    end;
+  end;
+end;
+
 procedure TfrmGeEntradaEstoque.dbCondicaoPagtoClick(Sender: TObject);
 var
   I : Integer;
@@ -1022,6 +1094,14 @@ begin
   else
   if ( cdsTabelaItens.Active ) then
   begin
+    if ( gSistema.Codigo = SISTEMA_GESTAO_IND ) then
+      if ( IbDtstTabelaAUTORIZACAO_CODIGO.Value > 0 ) then
+        if ShowConfirmation('Deseja carregar automaticamente os itens da autorização selecionada?') then
+        begin
+          InserirItensAutorizacao;
+          Exit;
+        end;
+
     GerarSequencial(Sequencial);
 
     cdsTabelaItens.Append;

@@ -893,7 +893,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         Top = 237
         Width = 836
         Height = 191
-        ActivePage = tbsContato
+        ActivePage = tbsDadoFinanceiro
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
@@ -1048,6 +1048,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbTransportadora: TDBCheckBox
             Left = 13
             Top = 10
@@ -1078,6 +1082,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsDadoFinanceiro: TTabSheet
           Caption = '&3. Dados Financeiros'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFaturaMinima: TLabel
             Left = 8
             Top = 0
@@ -1284,6 +1292,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsObservacao: TTabSheet
           Caption = '&4. Observa'#231#245'es'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1298,6 +1310,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsDuplicatas: TTabSheet
           Caption = '&5. Duplicatas'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
         end
       end
     end
@@ -1891,6 +1907,10 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     object tbsConsultarCPF: TTabSheet
       Caption = 'Consultar CPF'
       ImageIndex = 12
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlConsultarCPF: TPanel
         Left = 0
         Top = 0
@@ -2518,7 +2538,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     Left = 640
     Top = 120
     Bitmap = {
-      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

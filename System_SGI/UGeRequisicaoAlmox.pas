@@ -224,6 +224,7 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaEnviarID  : String;
     function GetRotinaCancelarRequisicaoID : String;
+    function GetMenorDataEmissao : TDateTime;
 
     procedure RegistrarNovaRotinaSistema;
   public
@@ -231,7 +232,7 @@ type
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
     property RotinaEnviarID  : String read GetRotinaEnviarID;
     property RotinaCancelarRequisicaoID : String read GetRotinaCancelarRequisicaoID;
-    
+
     procedure pgcGuiasOnChange; override;
   end;
 
@@ -380,7 +381,7 @@ begin
   SQL_Itens.Clear;
   SQL_Itens.AddStrings( cdsTabelaItens.SelectSQL );
 
-  e1Data.Date      := GetDateDB - 30;
+  e1Data.Date      := GetMenorDataEmissao;
   e2Data.Date      := GetDateDB;
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
@@ -1316,6 +1317,28 @@ end;
 function TfrmGeRequisicaoAlmox.GetRotinaEnviarID: String;
 begin
   Result := GetRotinaInternaID(btnEnviarRequisicao);
+end;
+
+function TfrmGeRequisicaoAlmox.GetMenorDataEmissao: TDateTime;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  min(r.data_emissao) as data_emissao');
+    SQL.Add('from TBREQUISICAO_ALMOX r');
+    SQL.Add('where r.status in (' + IntToStr(STATUS_REQUISICAO_ALMOX_EDC) + ', ' + IntToStr(STATUS_REQUISICAO_ALMOX_ABR) + ')');
+    Open;
+
+    if not FieldByName('data_emissao').IsNull then
+      Result := FieldByName('data_emissao').AsDateTime
+    else
+      Result := GetDateDB - 30;
+
+    Close;
+  end;
 end;
 
 function TfrmGeRequisicaoAlmox.GetRotinaCancelarRequisicaoID: String;
