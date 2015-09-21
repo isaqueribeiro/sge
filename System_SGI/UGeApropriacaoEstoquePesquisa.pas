@@ -111,6 +111,7 @@ type
     btbtnSelecionar: TcxButton;
     Bevel4: TBevel;
     BtnPesquisar: TcxButton;
+    qryQtdeReservada: TIBDataSet;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -125,6 +126,9 @@ type
     procedure btBtnExportarClick(Sender: TObject);
     procedure btBtnEnviarEmailClick(Sender: TObject);
     procedure btBtnAtualizarCustoClick(Sender: TObject);
+    procedure dbgProdutoTblCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
   private
     { Private declarations }
     FSQLTotal   ,
@@ -564,6 +568,39 @@ begin
         end;
       end;
 
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.dbgProdutoTblCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+var
+  sLinha : String;
+begin
+  if (Sender.Controller.FocusedItem = dbgProdutoTblDISPONIVEL) then
+  begin
+    if CdsProduto.IsEmpty then
+      Exit;
+
+    qryQtdeReservada.Close;
+    qryQtdeReservada.ParamByName('produto').AsString := CdsProduto.FieldByName('produto').AsString;
+    qryQtdeReservada.Open;
+
+    if qryQtdeReservada.IsEmpty then
+      Exit;
+
+    sLinha := 'Requisições com este produto em reserva: ' + #13#13;
+    while not qryQtdeReservada.Eof do
+    begin
+      sLinha := sLinha +
+        qryQtdeReservada.FieldByName('numero').AsString + ' - ' +
+        FormatDateTime('yy/mm/yyyy', qryQtdeReservada.FieldByName('data_emissao').AsDateTime) + ' -> ' +
+        qryQtdeReservada.FieldByName('centro_custo').AsString + #13;
+      qryQtdeReservada.Next;
+    end;
+    qryQtdeReservada.Close;
+
+    ShowWarning(sLinha);
   end;
 end;
 

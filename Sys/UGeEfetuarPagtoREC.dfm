@@ -576,7 +576,11 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
       '  , b.Bco_nome'
       '  , p.Documento_baixa'
       '  , p.Usuario'
+      '  , c.empresa'
       'from TBCONTREC_BAIXA p'
+      
+        '  left join TBCONTREC c on (c.anolanc = p.anolanc and c.numlanc ' +
+        '= p.numlanc)'
       '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
       '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
     ModifySQL.Strings = (
@@ -662,6 +666,12 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
       FieldName = 'USUARIO'
       Origin = 'TBCONTREC_BAIXA.USUARIO'
       Size = 12
+    end
+    object cdsPagamentosEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBCONTREC"."EMPRESA"'
+      ProviderFlags = []
+      Size = 18
     end
   end
   object updPagamentos: TIBUpdateSQL

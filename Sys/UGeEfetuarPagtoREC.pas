@@ -67,6 +67,7 @@ type
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
     dbDataPagto: TJvDBDateEdit;
+    cdsPagamentosEMPRESA: TIBStringField;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -76,6 +77,7 @@ type
     procedure tmrAlertaTimer(Sender: TObject);
   private
     { Private declarations }
+    CxContaCorrente : Integer;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -85,7 +87,7 @@ var
   frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC;
 
   function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Cliente : String;
-    var DataPagto : TDateTime; var AReceber : Currency) : Boolean;
+    var ContaCorrente : Integer; var DataPagto : TDateTime; var AReceber : Currency) : Boolean;
   function RegistrarPagamento(LancAno, LanNumero : Integer; DataPagto : TDateTime; FormaPagto : Integer; ValorPago : Currency; VendaAno, VendaNumero : Integer) : Boolean;
 
 implementation
@@ -95,7 +97,7 @@ uses UDMBusiness;
 {$R *.dfm}
 
 function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Cliente : String;
-  var DataPagto : TDateTime; var AReceber : Currency) : Boolean;
+  var ContaCorrente : Integer; var DataPagto : TDateTime; var AReceber : Currency) : Boolean;
 var
   frm : TfrmGeEfetuarPagtoREC;
 begin
@@ -208,11 +210,18 @@ begin
   inherited;
   tblBanco.Open;
   tblFormaPagto.Open;
+  CxContaCorrente := 0;
 end;
 
 procedure TfrmGeEfetuarPagtoREC.btnConfirmarClick(Sender: TObject);
+var
+  CxAno    ,
+  CxNumero : Integer;
 begin
   inherited;
+  CxAno    := 0;
+  CxNumero := 0;
+
   if ( cdsPagamentos.State in [dsEdit, dsInsert] ) then
   begin
     if ( cdsPagamentosVALOR_BAIXA.AsCurrency <= 0 ) then
@@ -245,18 +254,26 @@ begin
       dbHistorico.SetFocus;
     end
     else
-    if ( ShowConfirm('Confirma a efetuação do recebimento?') ) then
     begin
-      cdsPagamentosHISTORICO.AsString := AnsiUpperCase(Trim(cdsPagamentosHISTORICO.AsString));
+      if ( not CaixaAberto(cdsPagamentosEMPRESA.AsString, gUsuarioLogado.Login, GetDateDB, cdsPagamentosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+      begin
+        ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
+        Exit;
+      end;
 
-      if (Copy(cdsPagamentosHISTORICO.AsString, Length(cdsPagamentosHISTORICO.AsString), 1) = '.') then
-        cdsPagamentosHISTORICO.AsString := Copy(cdsPagamentosHISTORICO.AsString, 1, Length(cdsPagamentosHISTORICO.AsString) - 1);
+      if ( ShowConfirm('Confirma a efetuação do recebimento?') ) then
+      begin
+        cdsPagamentosHISTORICO.AsString := AnsiUpperCase(Trim(cdsPagamentosHISTORICO.AsString));
 
-      cdsPagamentos.Post;
-      cdsPagamentos.ApplyUpdates;
-      CommitTransaction;
+        if (Copy(cdsPagamentosHISTORICO.AsString, Length(cdsPagamentosHISTORICO.AsString), 1) = '.') then
+          cdsPagamentosHISTORICO.AsString := Copy(cdsPagamentosHISTORICO.AsString, 1, Length(cdsPagamentosHISTORICO.AsString) - 1);
 
-      ModalResult := mrOk;
+        cdsPagamentos.Post;
+        cdsPagamentos.ApplyUpdates;
+        CommitTransaction;
+
+        ModalResult := mrOk;
+      end;
     end;
   end;
 end;

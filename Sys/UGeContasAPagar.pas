@@ -370,21 +370,26 @@ end;
 
 procedure TfrmGeContasAPagar.btbtnEfetuarPagtoClick(Sender: TObject);
 var
-  sSenha   : String;
-  CxAno    ,
-  CxNumero ,
+//  sSenha   : String;
+//  CxAno    ,
+//  CxNumero ,
   CxContaCorrente : Integer;
   DataPagto : TDateTime;
   cAPagar   : Currency;
 begin
+(*
+  IMR - 17/09/2015
+    Remoção do trecho de código que verifica a existência de caixa aberto antes da
+    inserção da baixa. Esta validação passou para a tela de Efetuação do Pagamento.
+*)
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  CxAno    := 0;
-  CxNumero := 0;
+//  CxAno    := 0;
+//  CxNumero := 0;
   CxContaCorrente := 0;
 
   RecarregarRegistro;
@@ -397,7 +402,7 @@ begin
     ShowWarning('Registro de despesa selecionada já se encontra quitado!' + #13 + 'Favor pesquisar novamente.');
     Abort;
   end;
-
+{
   if ( tblCondicaoPagto.Locate('COND_COD', IbDtstTabelaCONDICAO_PAGTO.AsInteger, []) ) then
     if ( tblCondicaoPagto.FieldByName('COND_PRAZO').AsInteger = 0 ) then
       if ( not CaixaAberto(IbDtstTabelaEMPRESA.AsString, GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
@@ -405,7 +410,7 @@ begin
         ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
         Exit;
       end;
-
+}
 {  sSenha := InputBox('Favor informar a senha de autorização', 'Senha de Autorização:', '');
 
   if ( Trim(sSenha) = EmptyStr ) then
@@ -419,15 +424,14 @@ begin
  }
   cAPagar := IbDtstTabelaVALORSALDO.AsCurrency;
 
-  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMEFORN.AsString, DataPagto, cAPagar) then
+  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMEFORN.AsString,
+    CxContaCorrente, DataPagto, cAPagar) then
   begin
     if ( CxContaCorrente > 0 ) then
       GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
 
     RecarregarRegistro;
-
     AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
-
   end;
 end;
 

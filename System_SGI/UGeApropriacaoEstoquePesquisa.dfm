@@ -645,6 +645,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         TabOrder = 0
         object dbgProdutoTbl: TcxGridDBBandedTableView
           Navigator.Buttons.CustomButtons = <>
+          OnCellDblClick = dbgProdutoTblCellDblClick
           DataController.DataSource = dsProduto
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <
@@ -679,7 +680,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
           OptionsData.DeletingConfirmation = False
           OptionsData.Editing = False
           OptionsData.Inserting = False
-          OptionsSelection.CellSelect = False
           OptionsView.CellEndEllipsis = True
           OptionsView.NoDataToDisplayInfoText = '<Sem dados para visualiza'#231#227'o>'
           OptionsView.Footer = True
@@ -1264,5 +1264,41 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     DataSet = CdsGrupo
     Left = 152
     Top = 288
+  end
+  object qryQtdeReservada: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.data_emissao'
+      '  , t.descricao as tipo'
+      '  , c.descricao as centro_custo'
+      '  , ri.produto'
+      '  , ri.qtde'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from TBREQUISICAO_ALMOX r'
+      
+        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
+        'i.controle = r.controle)'
+      '  inner join TBUNIDADEPROD u on (u.unp_cod = ri.unidade)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = r.ccusto_origem)'
+      '  left join VW_TIPO_REQUISICAO_ALMOX t on (t.codigo = r.tipo)'
+      ''
+      'where r.status in (0, 1, 2)'
+      '  and ri.produto = :produto')
+    ModifySQL.Strings = (
+      '')
+    ParamCheck = True
+    UniDirectional = False
+    Left = 752
+    Top = 368
   end
 end

@@ -357,22 +357,27 @@ end;
 
 procedure TfrmGeContasAReceber.btbtnEfetuarPagtoClick(Sender: TObject);
 var
-  sSenha   : String;
-  iNumero  ,
-  CxAno    ,
-  CxNumero ,
+//  sSenha   : String;
+//  iNumero  ,
+//  CxAno    ,
+//  CxNumero ,
   CxContaCorrente : Integer;
   DataPagto : TDateTime;
   cReceber  : Currency;
 begin
+(*
+  IMR - 17/09/2015
+    Remoção do trecho de código que verifica a existência de caixa aberto antes da
+    inserção da baixa. Esta validação passou para a tela de Efetuação do Pagamento.
+*)
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  CxAno    := 0;
-  CxNumero := 0;
+//  CxAno    := 0;
+//  CxNumero := 0;
   CxContaCorrente := 0;
 
   RecarregarRegistro;
@@ -385,14 +390,14 @@ begin
     ShowWarning('Registro de recebimento selecionado já se encontra baixado!' + #13 + 'Favor pesquisar novamente.');
     Abort;
   end;
-
+{
   if ( tblFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
     if ( not CaixaAberto(IbDtstTabelaEMPRESA.AsString, GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
     begin
       ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
       Exit;
     end;
-
+}
 //  sSenha := InputBox('Favor informar a senha de autorização', 'Senha de Autorização:', '');
 //
 //  if ( Trim(sSenha) = EmptyStr ) then
@@ -406,20 +411,14 @@ begin
 
   cReceber := IbDtstTabelaVALORSALDO.AsCurrency;
 
-  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString, DataPagto, cReceber) then
+  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString,
+    CxContaCorrente, DataPagto, cReceber) then
   begin
     if ( CxContaCorrente > 0 ) then
       GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
 
-    iNumero := IbDtstTabelaNUMLANC.AsInteger;
-
-    IbDtstTabela.Close;
-    IbDtstTabela.Open;
-
-    IbDtstTabela.Locate('NUMLANC', iNumero, []);
-
+    RecarregarRegistro;
     AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
-
     DesbloquearCliente(IbDtstTabelaCLIENTE.AsInteger, EmptyStr);
   end;
 end;
