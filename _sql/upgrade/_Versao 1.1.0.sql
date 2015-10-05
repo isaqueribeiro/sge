@@ -1353,3 +1353,503 @@ alter NFS_NCM position 24;
 alter table TBOS
 alter NFS_DESCRICAO_SERVICO position 25;
 
+
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column ANO position 1;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column CONTROLE position 2;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column EMPRESA position 3;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column CLIENTE position 4;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column DATA_CADASTRO position 5;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column DATA_EMISSAO position 6;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column USUARIO position 7;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column VENDEDOR position 8;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column STATUS position 9;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column OBSERVACOES position 10;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column DADOS_ENTREGA position 11;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column COMPETENCIA position 12;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column TOTAL_SERVICO position 13;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column TOTAL_PRODUTO position 14;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column TOTAL_DESCONTOS_SERVICOS position 15;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column TOTAL_DESCONTOS_PRODUTOS position 16;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column TOTAL_OS position 17;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column TOTAL_BRUTO position 18;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column TOTAL_LIQUIDO position 19;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column DATA_APROVACAO position 20;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column DATA_FINALIZACAO position 21;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column DATA_FATURA position 22;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column NFS_CNAE position 23;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column NFS_NCM position 24;
+
+
+/*------ SYSDBA 22/09/2015 00:15:50 --------*/
+
+alter table TBOS
+alter column NFS_DESCRICAO_SERVICO position 25;
+
+
+/*------ SYSDBA 22/09/2015 00:21:27 --------*/
+
+ALTER TABLE TBOS
+    ADD SOLICITACAO DMN_TEXTO;
+
+COMMENT ON COLUMN TBOS.SOLICITACAO IS
+'Solicitacao do cliente';
+
+alter table TBOS
+alter ANO position 1;
+
+alter table TBOS
+alter CONTROLE position 2;
+
+alter table TBOS
+alter EMPRESA position 3;
+
+alter table TBOS
+alter CLIENTE position 4;
+
+alter table TBOS
+alter DATA_CADASTRO position 5;
+
+alter table TBOS
+alter DATA_EMISSAO position 6;
+
+alter table TBOS
+alter USUARIO position 7;
+
+alter table TBOS
+alter VENDEDOR position 8;
+
+alter table TBOS
+alter STATUS position 9;
+
+alter table TBOS
+alter OBSERVACOES position 10;
+
+alter table TBOS
+alter SOLICITACAO position 11;
+
+alter table TBOS
+alter DADOS_ENTREGA position 12;
+
+alter table TBOS
+alter COMPETENCIA position 13;
+
+alter table TBOS
+alter TOTAL_SERVICO position 14;
+
+alter table TBOS
+alter TOTAL_PRODUTO position 15;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_SERVICOS position 16;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_PRODUTOS position 17;
+
+alter table TBOS
+alter TOTAL_OS position 18;
+
+alter table TBOS
+alter TOTAL_BRUTO position 19;
+
+alter table TBOS
+alter TOTAL_LIQUIDO position 20;
+
+alter table TBOS
+alter DATA_APROVACAO position 21;
+
+alter table TBOS
+alter DATA_FINALIZACAO position 22;
+
+alter table TBOS
+alter DATA_FATURA position 23;
+
+alter table TBOS
+alter NFS_CNAE position 24;
+
+alter table TBOS
+alter NFS_NCM position 25;
+
+alter table TBOS
+alter NFS_DESCRICAO_SERVICO position 26;
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:31:16 --------*/
+
+ALTER TABLE TBOS
+    ADD DIAGNOSTICO DMN_TEXTO;
+
+COMMENT ON COLUMN TBOS.DIAGNOSTICO IS
+'Diagnostico do tecnico';
+
+alter table TBOS
+alter ANO position 1;
+
+alter table TBOS
+alter CONTROLE position 2;
+
+alter table TBOS
+alter EMPRESA position 3;
+
+alter table TBOS
+alter CLIENTE position 4;
+
+alter table TBOS
+alter DATA_CADASTRO position 5;
+
+alter table TBOS
+alter DATA_EMISSAO position 6;
+
+alter table TBOS
+alter USUARIO position 7;
+
+alter table TBOS
+alter VENDEDOR position 8;
+
+alter table TBOS
+alter STATUS position 9;
+
+alter table TBOS
+alter OBSERVACOES position 10;
+
+alter table TBOS
+alter SOLICITACAO position 11;
+
+alter table TBOS
+alter DIAGNOSTICO position 12;
+
+alter table TBOS
+alter DADOS_ENTREGA position 13;
+
+alter table TBOS
+alter COMPETENCIA position 14;
+
+alter table TBOS
+alter TOTAL_SERVICO position 15;
+
+alter table TBOS
+alter TOTAL_PRODUTO position 16;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_SERVICOS position 17;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_PRODUTOS position 18;
+
+alter table TBOS
+alter TOTAL_OS position 19;
+
+alter table TBOS
+alter TOTAL_BRUTO position 20;
+
+alter table TBOS
+alter TOTAL_LIQUIDO position 21;
+
+alter table TBOS
+alter DATA_APROVACAO position 22;
+
+alter table TBOS
+alter DATA_FINALIZACAO position 23;
+
+alter table TBOS
+alter DATA_FATURA position 24;
+
+alter table TBOS
+alter NFS_CNAE position 25;
+
+alter table TBOS
+alter NFS_NCM position 26;
+
+alter table TBOS
+alter NFS_DESCRICAO_SERVICO position 27;
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:33:26 --------*/
+
+ALTER TABLE TBOS DROP DIAGNOSTICO;
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:34:46 --------*/
+
+ALTER TABLE TBOS ALTER SOLICITACAO TO RELATO_SOLICITACAO;
+
+COMMENT ON COLUMN TBOS.RELATO_SOLICITACAO IS
+'Relato / Solicitacao do cliente';
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:40:17 --------*/
+
+ALTER TABLE TBOS
+    ADD NFS_SERIE DMN_VCHAR_04,
+    ADD NFS_NUMERO DMN_BIGINT_N,
+    ADD NFS_DATAEMISSAO DMN_DATE,
+    ADD NFS_HORAEMISSAO DMN_TIME;
+
+COMMENT ON COLUMN TBOS.NFS_SERIE IS
+'NFS-e: Serie';
+
+COMMENT ON COLUMN TBOS.NFS_NUMERO IS
+'NFS-e: Numero';
+
+COMMENT ON COLUMN TBOS.NFS_DATAEMISSAO IS
+'NFS-e: Data de emissao';
+
+COMMENT ON COLUMN TBOS.NFS_HORAEMISSAO IS
+'NFS-e: Hora de emissao';
+
+alter table TBOS
+alter ANO position 1;
+
+alter table TBOS
+alter CONTROLE position 2;
+
+alter table TBOS
+alter EMPRESA position 3;
+
+alter table TBOS
+alter CLIENTE position 4;
+
+alter table TBOS
+alter DATA_CADASTRO position 5;
+
+alter table TBOS
+alter DATA_EMISSAO position 6;
+
+alter table TBOS
+alter USUARIO position 7;
+
+alter table TBOS
+alter VENDEDOR position 8;
+
+alter table TBOS
+alter STATUS position 9;
+
+alter table TBOS
+alter OBSERVACOES position 10;
+
+alter table TBOS
+alter RELATO_SOLICITACAO position 11;
+
+alter table TBOS
+alter DADOS_ENTREGA position 12;
+
+alter table TBOS
+alter COMPETENCIA position 13;
+
+alter table TBOS
+alter TOTAL_SERVICO position 14;
+
+alter table TBOS
+alter TOTAL_PRODUTO position 15;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_SERVICOS position 16;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_PRODUTOS position 17;
+
+alter table TBOS
+alter TOTAL_OS position 18;
+
+alter table TBOS
+alter TOTAL_BRUTO position 19;
+
+alter table TBOS
+alter TOTAL_LIQUIDO position 20;
+
+alter table TBOS
+alter DATA_APROVACAO position 21;
+
+alter table TBOS
+alter DATA_FINALIZACAO position 22;
+
+alter table TBOS
+alter DATA_FATURA position 23;
+
+alter table TBOS
+alter NFS_SERIE position 24;
+
+alter table TBOS
+alter NFS_NUMERO position 25;
+
+alter table TBOS
+alter NFS_DATAEMISSAO position 26;
+
+alter table TBOS
+alter NFS_HORAEMISSAO position 27;
+
+alter table TBOS
+alter NFS_CNAE position 28;
+
+alter table TBOS
+alter NFS_NCM position 29;
+
+alter table TBOS
+alter NFS_DESCRICAO_SERVICO position 30;
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:50:05 --------*/
+
+ALTER TABLE TBVENDAS DROP CONSTRAINT UNQ_TBVENDAS_NFE;
+
+ALTER TABLE TBVENDAS
+ADD CONSTRAINT UNQ_TBVENDAS_NFES
+UNIQUE (CODEMP,SERIE,NFE)
+USING INDEX UNQ_TBVENDAS_NFE;
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:50:18 --------*/
+
+ALTER TABLE TBVENDAS DROP CONSTRAINT UNQ_TBVENDAS_NFES;
+
+ALTER TABLE TBVENDAS
+ADD CONSTRAINT UNQ_TBVENDAS_NFE
+UNIQUE (CODEMP,SERIE,NFE)
+USING INDEX UNQ_TBVENDAS_NFE;
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:51:04 --------*/
+
+ALTER TABLE TBVENDAS DROP CONSTRAINT UNQ_TBVENDAS_NFE;
+
+
+
+
+/*------ SYSDBA 22/09/2015 00:52:14 --------*/
+
+CREATE INDEX IDX_TBVENDAS_NFE
+ON TBVENDAS (SERIE,NFE);
+

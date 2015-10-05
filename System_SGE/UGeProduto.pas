@@ -1064,6 +1064,10 @@ end;
 
 procedure TfrmGeProduto.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
+(*
+  IMR - 05/10/2015 :
+    Remoção de BUG no sistema quanto a quantidade em estoque do produto.
+*)
   IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
   IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
 
@@ -1075,10 +1079,10 @@ begin
 
   if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
     IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 0;
-    
+(*
   if ( IbDtstTabelaQTDE.AsCurrency < 0 ) then
     IbDtstTabelaQTDE.Value := 0;
-
+*)
   if ( (IbDtstTabelaRESERVA.AsCurrency < 0) or (IbDtstTabelaRESERVA.AsCurrency > IbDtstTabelaQTDE.AsCurrency) ) then
     IbDtstTabelaRESERVA.Value := 0;
 
