@@ -1369,6 +1369,7 @@ begin
 
       UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
+      GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFE);
     end;
 
   except
@@ -1729,6 +1730,7 @@ begin
       SQL.Add('    SERIE_NFE  = ' + FormatFloat('####', Serie));
       SQL.Add('  , NUMERO_NFE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+      SQL.Add('  and NUMERO_NFE = ' + FormatFloat('#########', Numero - 1));
 
       ExecQuery;
       CommitTransaction;
@@ -1749,6 +1751,7 @@ begin
       SQL.Add('    SERIE_NFCE  = ' + FormatFloat('####', Serie));
       SQL.Add('  , NUMERO_NFCE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+      SQL.Add('  and NUMERO_NFCE = ' + FormatFloat('#########', Numero - 1));
 
       ExecQuery;
       CommitTransaction;

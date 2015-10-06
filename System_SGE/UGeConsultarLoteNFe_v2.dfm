@@ -514,7 +514,7 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
     end
   end
   object btnConfirmar: TcxButton
-    Left = 405
+    Left = 403
     Top = 479
     Width = 92
     Height = 33

@@ -3176,6 +3176,12 @@ procedure TfrmGeVenda.nmPpLimparDadosNFeClick(Sender: TObject);
 begin
   if not IbDtstTabela.IsEmpty then
   begin
+    if (gUsuarioLogado.Funcao <> FUNCTION_USER_ID_SYSTEM_ADM) then
+    begin
+      ShowStop('Favor entrar em contato com o suporte do sistema para execução desta rotina!');
+      Exit;
+    end;
+
     if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
       Exit;
 

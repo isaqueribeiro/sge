@@ -189,6 +189,7 @@ var
   procedure ShowStop(sMsg : String); overload;
   procedure ShowStop(sTitulo, sMsg : String); overload;
   procedure ShowError(sMsg : String);
+  procedure ShowErrorNotify(Sender: TObject; E: Exception);
   procedure UpdateSequence(GeneratorName, NomeTabela, CampoChave : String; const sWhr : String = '');
   procedure ExecuteScriptSQL(sScriptSQL : String);
   procedure CommitTransaction;
@@ -784,6 +785,35 @@ begin
     sLOG_Error.SaveToFile(ExtractFilePath(Application.ExeName) + '_logError\' + FormatDateTime('yyyy-mm-dd.hhmmss".log"', Now));
 
     MessageDlg(PChar(sMsg), mtError, [mbOK], 0);
+  finally
+    sLOG_Error.Free;
+  end;
+end;
+
+procedure ShowErrorNotify(Sender: TObject; E: Exception);
+var
+  sLOG_File  : String;
+  sLOG_Error : TStringList;
+begin
+  sLOG_File  := ExtractFilePath(Application.ExeName) + '_logError\' + FormatDateTime('yyyy-mm-dd.hhmmss".log"', Now);
+  sLOG_Error := TStringList.Create;
+  try
+    sLOG_Error.BeginUpdate;
+    sLOG_Error.Add('Cliente   : ' + gLicencaSistema.Empresa);
+    sLOG_Error.Add('Aplicativo: ' + Application.Title);
+    sLOG_Error.Add('Versão    : ' + GetVersion);
+    sLOG_Error.Add('-');
+    sLOG_Error.Add('UnitName  : ' + Sender.UnitName);
+    sLOG_Error.Add('ClassName : ' + E.ClassName);
+    sLOG_Error.Add('-');
+    sLOG_Error.Add('ERROR MESSAGE:');
+    sLOG_Error.Add(E.Message);
+    sLOG_Error.EndUpdate;
+
+    ForceDirectories(ExtractFilePath(sLOG_File));
+    sLOG_Error.SaveToFile(sLOG_File);
+
+    MessageDlg(PChar(E.Message), mtError, [mbOK], 0);
   finally
     sLOG_Error.Free;
   end;
