@@ -332,63 +332,74 @@ var
 const
   NOME_ARQUIVO_XML = '%s-nfe.xml';
 begin
-  if not GetConectedInternet then
-  begin
-    ShowWarning('Estação de trabalho sem acesso a Internet!');
-    Exit;
-  end;
-
-  if (Trim(edNumeroRecibo.Text) = EmptyStr) then
-    ShowInformation('Favor informar o Número do Recibo!')
-  else
-  if (Trim(edJustificativa.Lines.Text) = EmptyStr) then
-    ShowInformation('Favor informar a justificativa da consulta do recibo!')
-  else
-  begin
-
-    PesquisarLote(0, 0, Trim(edNumeroRecibo.Text), iAnoMov, iCodMov, sDestinatarioCNPJ);
-
-    if not DMNFe.GetValidadeCertificado(dbCNPJ.Field.AsString) then
+  lblInforme.Visible := True;
+  try
+    if not GetConectedInternet then
+    begin
+      ShowWarning('Estação de trabalho sem acesso a Internet!');
       Exit;
+    end;
 
-    sRetorno := EmptyStr;
-
-    // Executar Consulta por Recibo para obter a Chave NF-e
-
-    if DMNFe.ConsultarNumeroLoteNFeACBr(dbCNPJ.Field.AsString, Trim(edNumeroRecibo.Text), sChaveNFE, sProtocoloTMP, sRetorno, dDataEnvio ) then
+    if (Trim(edNumeroRecibo.Text) = EmptyStr) then
+      ShowInformation('Favor informar o Número do Recibo!')
+    else
+    if (Trim(edJustificativa.Lines.Text) = EmptyStr) then
+      ShowInformation('Favor informar a justificativa da consulta do recibo!')
+    else
     begin
 
-      edChaveNFe.Text     := Trim(sChaveNFE);
-      edProtocoloTMP.Text := Trim(sProtocoloTMP);
+      PesquisarLote(0, 0, Trim(edNumeroRecibo.Text), iAnoMov, iCodMov, sDestinatarioCNPJ);
 
-      edJustificativa.Lines.Add('--');
-      edJustificativa.Lines.Add('Retorno:');
-      edJustificativa.Lines.Add('--');
-      edJustificativa.Lines.Add(sRetorno);
+      if not DMNFe.GetValidadeCertificado(dbCNPJ.Field.AsString) then
+        Exit;
 
-      sFileNameXML := GetDiretorioNFe + Format(NOME_ARQUIVO_XML, [Trim(edChaveNFe.Text)]);
-      sMensagem    := 'Arquivo referenciado da NF-e:' + #13#13 + sFileNameXML;
+      sRetorno := EmptyStr;
 
-      // Executar Consulta por Chave NF-e para obter o arquivo e o Protocolo
+      // Executar Consulta por Recibo para obter a Chave NF-e
 
-      if ( DMNFe.ConsultarChaveNFeACBr(dbCNPJ.Field.AsString, sChaveNFE, iSerieNFe, iNumeroNFe, iTipoNFe,
-        sDestinatarioCNPJ, sFileNameXML, sChaveNFE, sProtocoloNFE, dDataEmissao) ) then
+      lblInforme.Caption := 'Executando consulta do Recibo... Aguarde!';
+      lblInforme.Update;
+
+      if DMNFe.ConsultarNumeroLoteNFeACBr(dbCNPJ.Field.AsString, Trim(edNumeroRecibo.Text), sChaveNFE, sProtocoloTMP, sRetorno, dDataEnvio ) then
       begin
-        FSerieNFe  := iSerieNFe;
-        FNumeroNFe := iNumeroNFe;
-        edProtocoloTMP.Text := Trim(sProtocoloNFE);
-        FFileNameXML        := sFileNameXML;
-        sMensagem := sMensagem + #13#13 + 'Arquivo a processar:' + #13#13 + sFileNameXML;
-        ShowInformation( sMensagem );
 
-        if FAguardandoRetorno then
-          ModalResult := mrOk;
-      end;
+        edChaveNFe.Text     := Trim(sChaveNFE);
+        edProtocoloTMP.Text := Trim(sProtocoloTMP);
 
-    end
-    else
-      ShowWarning('Consulta de recibo/lote NF-e sem o retorno esperado!' + #13 + sRetorno);
+        edJustificativa.Lines.Add('--');
+        edJustificativa.Lines.Add('Retorno:');
+        edJustificativa.Lines.Add('--');
+        edJustificativa.Lines.Add(sRetorno);
 
+        sFileNameXML := GetDiretorioNFe + Format(NOME_ARQUIVO_XML, [Trim(edChaveNFe.Text)]);
+        sMensagem    := 'Arquivo referenciado da NF-e:' + #13#13 + sFileNameXML;
+
+        // Executar Consulta por Chave NF-e para obter o arquivo e o Protocolo
+
+        lblInforme.Caption := 'Executando consulta da Chave NF-e... Aguarde!';
+        lblInforme.Update;
+
+        if ( DMNFe.ConsultarChaveNFeACBr(dbCNPJ.Field.AsString, sChaveNFE, iSerieNFe, iNumeroNFe, iTipoNFe,
+          sDestinatarioCNPJ, sFileNameXML, sChaveNFE, sProtocoloNFE, dDataEmissao) ) then
+        begin
+          FSerieNFe  := iSerieNFe;
+          FNumeroNFe := iNumeroNFe;
+          edProtocoloTMP.Text := Trim(sProtocoloNFE);
+          FFileNameXML        := sFileNameXML;
+          sMensagem := sMensagem + #13#13 + 'Arquivo a processar:' + #13#13 + sFileNameXML;
+          ShowInformation( sMensagem );
+
+          if FAguardandoRetorno then
+            ModalResult := mrOk;
+        end;
+
+      end
+      else
+        ShowWarning('Consulta de recibo/lote NF-e sem o retorno esperado!' + #13 + sRetorno);
+
+    end;
+  finally
+    lblInforme.Visible := False;
   end;
 (*
   bTudo   := (Trim(edAno.Text) = EmptyStr) and (Trim(edNumeroLote.Text) = EmptyStr) and (Trim(edNumeroRecibo.Text) = EmptyStr);
