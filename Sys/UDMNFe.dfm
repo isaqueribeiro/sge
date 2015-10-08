@@ -32775,4 +32775,11 @@ object DMNFe: TDMNFe
       end
     end
   end
+  object opdNotas: TOpenDialog
+    Filter = 
+      'Arquivo NF-e (*-nfe.xml)|*-nfe.xml|Todos os arquivos XML (*.xml)' +
+      '|*.xml'
+    Left = 780
+    Top = 521
+  end
 end

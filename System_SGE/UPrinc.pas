@@ -192,6 +192,7 @@ type
     RbnBackstageGalleryBackup: TdxRibbonBackstageViewGalleryControl;
     dxRibbonBackstageViewGalleryGroup3: TdxRibbonBackstageViewGalleryGroup;
     dxRibbonBackstageViewGalleryItem4: TdxRibbonBackstageViewGalleryItem;
+    BrBtnGerarDanfeXML: TdxBarButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -281,6 +282,7 @@ type
     procedure BrBtnNotaFiscalComplementarClick(Sender: TObject);
     procedure BrBtnQuitarAReceberLoteClick(Sender: TObject);
     procedure BrBtnTabelaIBPTClick(Sender: TObject);
+    procedure BrBtnGerarDanfeXMLClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -328,6 +330,44 @@ begin
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
     FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
+end;
+
+procedure TfrmPrinc.BrBtnGerarDanfeXMLClick(Sender: TObject);
+var
+  sNomeArquivoXML,
+  sEmitente      ,
+  sDestinatario  ,
+  sRecibo   ,
+  sProtocolo,
+  sChave    : String;
+  dDataHoraEmissao : TDateTime;
+  bNotaValida : Boolean;
+  sSerieNFe  : String;
+  iNumeroNFe ,
+  iModeloNFe ,
+  iVersaoNFe : Integer;
+  tTipoNota  : TTipoNF;
+  cValorProdutoNF : Currency;
+begin
+  if DMNFe.opdNotas.Execute then
+  begin
+    DMNFe.ImprimirArquivoNFeDANFE(gUsuarioLogado.Empresa, DMNFe.opdNotas.FileName
+      , sNomeArquivoXML
+      , sEmitente
+      , sDestinatario
+      , sRecibo
+      , sProtocolo
+      , sChave
+      , dDataHoraEmissao
+      , bNotaValida
+      , sSerieNFe
+      , iNumeroNFe
+      , iModeloNFe
+      , iVersaoNFe
+      , tTipoNota
+      , cValorProdutoNF
+    );
+  end;
 end;
 
 procedure TfrmPrinc.BrBtnNotaFiscalComplementarClick(Sender: TObject);

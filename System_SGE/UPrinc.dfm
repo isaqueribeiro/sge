@@ -4645,7 +4645,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4687,6 +4686,7 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
+      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item
@@ -5945,6 +5945,13 @@ object frmPrinc: TfrmPrinc
       SyncImageIndex = False
       ImageIndex = 39
     end
+    object BrBtnGerarDanfeXML: TdxBarButton
+      Caption = 'Gerar DANFE do XML da NF-e'
+      Category = 10
+      Hint = 'Gerar DANFE do XML da NF-e'
+      Visible = ivAlways
+      OnClick = BrBtnGerarDanfeXMLClick
+    end
     object BrBtnConsultaCNPJ: TdxBarLargeButton
       Caption = 'Consultar CNPJ (Receita Federal)'
       Category = 11
@@ -6467,6 +6474,11 @@ object frmPrinc: TfrmPrinc
       item
         Visible = True
         ItemName = 'BrBtnNotaFiscalExportarNFC'
+      end
+      item
+        BeginGroup = True
+        Visible = True
+        ItemName = 'BrBtnGerarDanfeXML'
       end>
     UseOwnFont = False
     Left = 464

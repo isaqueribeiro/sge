@@ -18,7 +18,7 @@ uses
   ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
   ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal, ACBrSATExtratoClass,
   ACBrSATExtratoESCPOS, ACBrNFeDANFeESCPOS, ACBrSAT, Xml.xmldom, Xml.XMLIntf,
-  Xml.XMLDoc, ACBrNFeDANFEFRDM;
+  Xml.XMLDoc, ACBrNFeDANFEFRDM, Vcl.Dialogs;
 
 type
   TTipoDANFE = (tipoDANFEFast, tipoDANFE_ESCPOS); 
@@ -239,6 +239,7 @@ type
     qryListaFuncionario: TIBQuery;
     frdListaFuncionario: TfrxDBDataset;
     frrListaFuncionario: TfrxReport;
+    opdNotas: TOpenDialog;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -297,6 +298,12 @@ type
     procedure ConfigurarEmail(const sCNPJEmitente, sDestinatario, sAssunto, sMensagem : String);
     procedure GerarArquivoQRCODE(const FileNameQRCODE, StringQRCODE : String; const tamanhoQrCode : TTamanhoQrCode);
     procedure CarregarArquivoNFe(const sCNPJEmitente, sArquivo : String;
+      var aNomeArquivoXML, aEmitente, aDestinatario, aRecibo, aProtocolo, aChave : String;
+      var aDataHoraEmissao : TDateTime; var NotaValida : Boolean;
+      var aSerie : String; var aNumero, aModelo, aVersao : Integer;
+      var aTipoNota : TTipoNF;
+      var aValorNF  : Currency);
+    procedure ImprimirArquivoNFeDANFE(const sCNPJEmitente, sArquivo : String;
       var aNomeArquivoXML, aEmitente, aDestinatario, aRecibo, aProtocolo, aChave : String;
       var aDataHoraEmissao : TDateTime; var NotaValida : Boolean;
       var aSerie : String; var aNumero, aModelo, aVersao : Integer;
@@ -1359,8 +1366,6 @@ begin
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
 
-//    GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, EmptyStr);
-//
     if ( Result ) then
     begin
       ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
@@ -1727,7 +1732,7 @@ begin
     begin
       SQL.Clear;
       SQL.Add('Update TBEMPRESA Set');
-      SQL.Add('    SERIE_NFE  = ' + FormatFloat('####', Serie));
+      SQL.Add('    SERIE_NFE  = ' + FormatFloat('####',      Serie));
       SQL.Add('  , NUMERO_NFE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
       SQL.Add('  and NUMERO_NFE = ' + FormatFloat('#########', Numero - 1));
@@ -2895,8 +2900,6 @@ begin
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
 
-//    GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, EmptyStr);
-//
     if ( Result ) then
     begin
       ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
@@ -2905,6 +2908,7 @@ begin
 
       UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
+      GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, EmptyStr);
     end;
 
   except
@@ -4265,7 +4269,7 @@ begin
         aRecibo    := aProtocolo;
         aValorNF   := NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF;
 
-        aNomeArquivoXML := aChave + '-NFe_import.xml';
+        aNomeArquivoXML := aChave + '-nfe_import.xml';
       end;
     end;
   except
@@ -6510,6 +6514,87 @@ begin
     ParamByName('anoCaixa').AsInteger := AnoCaixa;
     ParamByName('numCaixa').AsInteger := NumeroCaixa;
     Open;
+  end;
+end;
+
+procedure TDMNFe.ImprimirArquivoNFeDANFE(const sCNPJEmitente, sArquivo: String;
+  var aNomeArquivoXML, aEmitente, aDestinatario, aRecibo, aProtocolo,
+  aChave: String; var aDataHoraEmissao: TDateTime; var NotaValida: Boolean;
+  var aSerie: String; var aNumero, aModelo, aVersao: Integer;
+  var aTipoNota: TTipoNF; var aValorNF: Currency);
+var
+  sVersao : String;
+begin
+  NotaValida := False;
+
+  if Trim(sCNPJEmitente) = EmptyStr then
+    LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFEFast)
+  else
+    LerConfiguracao(sCNPJEmitente, tipoDANFEFast);
+
+  try
+    with ACBrNFe do
+    begin
+      NotasFiscais.Clear;
+      NotasFiscais.LoadFromFile( sArquivo, False );
+
+      with NotasFiscais.Items[0].NFe do
+      begin
+        DANFE.Logo    := EmptyStr;
+        aEmitente     := Emit.CNPJCPF;
+        aDestinatario := Dest.CNPJCPF;
+        aSerie    := FormatFloat('#00', Ide.serie);
+        aNumero   := Ide.nNF;
+
+        Case Ide.modelo of
+          MODELO_NFE  : aModelo := Ord(moNFe);
+          MODELO_NFCE : aModelo := Ord(moNFCe);
+        end;
+
+        aDataHoraEmissao := Ide.dEmi;
+        aTipoNota        := TTipoNF(Ord( Ide.tpNF ));
+
+        sVersao := NotasFiscais.Items[0].NFe.infNFe.VersaoStr;
+
+        if ( Trim(sVersao) = 'versao="2.00"' ) then
+          aVersao := Ord(ve200)
+        else
+        if ( Trim(sVersao) = 'versao="3.00"' ) then
+          aVersao := Ord(ve300)
+        else
+        if ( Trim(sVersao) = 'versao="3.10"' ) then
+          aVersao := Ord(ve310);
+      end;
+
+      if ( not DelphiIsRunning ) then
+        if NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC then
+        begin
+          WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
+          WebServices.ConsultaDPEC.Executar;
+
+          DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
+        end;
+
+      NotaValida := Assigned(NotasFiscais.Items[0].NFe.procNFe);
+
+      if NotaValida then
+      begin
+        aChave     := StringReplace(AnsiUpperCase(NotasFiscais.Items[0].NFe.infNFe.ID), 'NFE', '', [rfReplaceAll]);
+        aProtocolo := NotasFiscais.Items[0].NFe.procNFe.nProt;
+        aRecibo    := aProtocolo;
+        aValorNF   := NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF;
+
+        aNomeArquivoXML := aChave + '-nfe_view.xml';
+        NotasFiscais.Items[0].SaveToFile(ExtractFilePath(sArquivo) + aNomeArquivoXML);
+      end;
+
+      NotasFiscais.Imprimir;
+    end;
+  except
+    On E : Exception do
+      ShowError('Erro ao tentar validar/carregar XML da NF-e.' + #13 +
+        'Arquivo XML inválido!' + #13#13 +
+        'ImprimirArquivoNFeDANFE() --> ' + e.Message);
   end;
 end;
 
