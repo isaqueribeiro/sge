@@ -424,7 +424,9 @@ begin
  }
   cAPagar := IbDtstTabelaVALORSALDO.AsCurrency;
 
-  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMEFORN.AsString,
+  if PagamentoConfirmado(Self, IbDtstTabelaEMPRESA.AsString,
+    IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger,
+    IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMEFORN.AsString,
     CxContaCorrente, DataPagto, cAPagar) then
   begin
     if ( CxContaCorrente > 0 ) then

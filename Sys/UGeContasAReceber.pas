@@ -411,7 +411,9 @@ begin
 
   cReceber := IbDtstTabelaVALORSALDO.AsCurrency;
 
-  if PagamentoConfirmado(Self, IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger, IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString,
+  if PagamentoConfirmado(Self, IbDtstTabelaEMPRESA.AsString,
+    IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger,
+    IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString,
     CxContaCorrente, DataPagto, cReceber) then
   begin
     if ( CxContaCorrente > 0 ) then

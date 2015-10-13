@@ -86,7 +86,8 @@ type
 var
   frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC;
 
-  function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Cliente : String;
+  function PagamentoConfirmado(const AOwner : TComponent; const Empresa : String;
+    const Ano, Lancamento, FormaPagto : Integer; const Cliente : String;
     var ContaCorrente : Integer; var DataPagto : TDateTime; var AReceber : Currency) : Boolean;
   function RegistrarPagamento(LancAno, LanNumero : Integer; DataPagto : TDateTime; FormaPagto : Integer; ValorPago : Currency; VendaAno, VendaNumero : Integer) : Boolean;
 
@@ -96,7 +97,8 @@ uses UDMBusiness;
 
 {$R *.dfm}
 
-function PagamentoConfirmado(const AOwner : TComponent; const Ano, Lancamento, FormaPagto : Integer; const Cliente : String;
+function PagamentoConfirmado(const AOwner : TComponent; const Empresa : String;
+  const Ano, Lancamento, FormaPagto : Integer; const Cliente : String;
   var ContaCorrente : Integer; var DataPagto : TDateTime; var AReceber : Currency) : Boolean;
 var
   frm : TfrmGeEfetuarPagtoREC;
@@ -120,6 +122,7 @@ begin
 
       cdsPagamentos.Open;
       cdsPagamentos.Append;
+      cdsPagamentosEMPRESA.AsString       := Empresa;
       cdsPagamentosFORMA_PAGTO.AsInteger  := FormaPagto;
       cdsPagamentosVALOR_BAIXA.AsCurrency := AReceber;
 
@@ -255,7 +258,7 @@ begin
     end
     else
     begin
-      if ( not CaixaAberto(cdsPagamentosEMPRESA.AsString, gUsuarioLogado.Login, GetDateDB, cdsPagamentosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+      if ( not CaixaAberto(cdsPagamentosEMPRESA.AsString, gUsuarioLogado.Login, cdsPagamentosDATA_PAGTO.AsDateTime, cdsPagamentosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
       begin
         ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
         Exit;

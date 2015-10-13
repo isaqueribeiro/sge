@@ -6567,7 +6567,7 @@ begin
       end;
 
       if ( not DelphiIsRunning ) then
-        if NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC then
+        if ( (NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC) or (not Assigned(NotasFiscais.Items[0].NFe.procNFe)) ) then
         begin
           WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
           WebServices.ConsultaDPEC.Executar;

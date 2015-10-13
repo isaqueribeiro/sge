@@ -5076,6 +5076,11 @@ object frmPrinc: TfrmPrinc
       ItemLinks = <
         item
           Visible = True
+          ItemName = 'BrBtnGerarDanfeXML'
+        end
+        item
+          BeginGroup = True
+          Visible = True
           ItemName = 'BrBtnNotaFiscalInutilizar'
         end
         item
@@ -5945,12 +5950,15 @@ object frmPrinc: TfrmPrinc
       SyncImageIndex = False
       ImageIndex = 39
     end
-    object BrBtnGerarDanfeXML: TdxBarButton
+    object BrBtnGerarDanfeXML: TdxBarLargeButton
       Caption = 'Gerar DANFE do XML da NF-e'
       Category = 10
       Hint = 'Gerar DANFE do XML da NF-e'
       Visible = ivAlways
       OnClick = BrBtnGerarDanfeXMLClick
+      HotImageIndex = 74
+      SyncImageIndex = False
+      ImageIndex = 74
     end
     object BrBtnConsultaCNPJ: TdxBarLargeButton
       Caption = 'Consultar CNPJ (Receita Federal)'
@@ -6474,11 +6482,6 @@ object frmPrinc: TfrmPrinc
       item
         Visible = True
         ItemName = 'BrBtnNotaFiscalExportarNFC'
-      end
-      item
-        BeginGroup = True
-        Visible = True
-        ItemName = 'BrBtnGerarDanfeXML'
       end>
     UseOwnFont = False
     Left = 464

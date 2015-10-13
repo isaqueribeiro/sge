@@ -3390,11 +3390,6 @@ end;
 
 function CaixaAberto(const Empresa, Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 begin
-(*
-  IMR - 14/10/2014 :
-    Inserção do Parâmetro EMPRESA para que o número do caixa encontrado possa corresponder exatamente a conta correte pertecente à empresa
-    informada.
-*)
   with DMBusiness, qryCaixaAberto do
   begin
     Close;
