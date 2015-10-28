@@ -122,6 +122,7 @@ type
     cdsContaAPagarCODTPDESP: TSmallintField;
     cdsContaAPagarSITUACAO: TSmallintField;
     cdsContaAPagarLOTE: TIBStringField;
+    cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -459,6 +460,7 @@ begin
         cdsContaAPagarNOTFISC.Value  := cdsDadosNominaisNotaFiscal.AsString;
         cdsContaAPagarDTEMISS.Value  := cdsDadosNominaisEmissao.AsDateTime;
         cdsContaAPagarDTVENC.Value   := cdsParcelasVencimento.AsDateTime;
+        cdsContaAPagarCOMPETENCIA_APURACAO.Value := GetCompetenciaID(cdsDadosNominaisEmissao.AsDateTime);
         cdsContaAPagarVALORPAG.Value := cdsParcelasValorParcela.AsCurrency;
         cdsContaAPagarVALORPAGTOT.Value := 0.0;
         cdsContaAPagarVALORSALDO.Value  := cdsParcelasValorParcela.AsCurrency;

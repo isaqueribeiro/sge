@@ -114,6 +114,7 @@ type
     tblBanco: TIBTable;
     dtsBanco: TDataSource;
     cdsDadosNominaisBanco: TIntegerField;
+    cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -436,6 +437,7 @@ begin
         cdsContaAReceberHISTORIC.Value    := cdsParcelasObservacao.AsString;
         cdsContaAReceberDTEMISS.Value  := cdsDadosNominaisEmissao.AsDateTime;
         cdsContaAReceberDTVENC.Value   := cdsParcelasVencimento.AsDateTime;
+        cdsContaAReceberCOMPETENCIA_APURACAO.Value := GetCompetenciaID(cdsDadosNominaisEmissao.AsDateTime);
         cdsContaAReceberVALORREC.Value := cdsParcelasValorParcela.AsCurrency;
         cdsContaAReceberVALORRECTOT.Value := 0.0;
         cdsContaAReceberVALORSALDO.Value  := cdsParcelasValorParcela.AsCurrency;

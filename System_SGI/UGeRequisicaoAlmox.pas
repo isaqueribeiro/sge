@@ -383,6 +383,10 @@ begin
 
   e1Data.Date      := GetMenorDataEmissao;
   e2Data.Date      := GetDateDB;
+
+  if (e1Data.Date > GetDateDB) then
+    e1Data.Date   := GetDateDB;
+
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
 

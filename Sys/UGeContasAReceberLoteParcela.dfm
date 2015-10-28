@@ -1090,6 +1090,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  , r.historic'
       '  , r.dtemiss'
       '  , r.dtvenc'
+      '  , r.competencia_apuracao'
       '  , r.valorrec'
       '  , r.valorrectot'
       '  , r.valorsaldo'
@@ -1158,6 +1159,11 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     object cdsContaAReceberDTVENC: TDateField
       FieldName = 'DTVENC'
       Origin = '"TBCONTREC"."DTVENC"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField
+      FieldName = 'COMPETENCIA_APURACAO'
+      Origin = '"TBCONTREC"."COMPETENCIA_APURACAO"'
       ProviderFlags = [pfInUpdate]
     end
     object cdsContaAReceberVALORREC: TIBBCDField
@@ -1230,6 +1236,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  VALORSALDO,'
       '  NUMCONTRATO,'
       '  PARCELA,'
+      '  STATUS,'
       '  CODBANCO,'
       '  NOSSONUMERO,'
       '  REMESSA,'
@@ -1242,7 +1249,8 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  ANOVENDA,'
       '  NUMVENDA,'
       '  SITUACAO,'
-      '  LOTE'
+      '  LOTE,'
+      '  COMPETENCIA_APURACAO'
       'from TBCONTREC '
       'where'
       '  ANOLANC = :ANOLANC and'
@@ -1254,6 +1262,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  BAIXADO = :BAIXADO,'
       '  CLIENTE = :CLIENTE,'
       '  CNPJ = :CNPJ,'
+      '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
       '  DTEMISS = :DTEMISS,'
       '  DTVENC = :DTVENC,'
       '  EMPRESA = :EMPRESA,'
@@ -1273,20 +1282,20 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     InsertSQL.Strings = (
       'insert into TBCONTREC'
       
-        '  (ANOLANC, BAIXADO, CLIENTE, CNPJ, DTEMISS, DTVENC, EMPRESA, EN' +
-        'VIADO, '
+        '  (ANOLANC, BAIXADO, CLIENTE, CNPJ, COMPETENCIA_APURACAO, DTEMIS' +
+        'S, DTVENC, '
       
-        '   FORMA_PAGTO, HISTORIC, LOTE, NUMLANC, PARCELA, SITUACAO, VALO' +
-        'RREC, '
-      '   VALORRECTOT, VALORSALDO)'
+        '   EMPRESA, ENVIADO, FORMA_PAGTO, HISTORIC, LOTE, NUMLANC, PARCE' +
+        'LA, SITUACAO, '
+      '   VALORREC, VALORRECTOT, VALORSALDO)'
       'values'
       
-        '  (:ANOLANC, :BAIXADO, :CLIENTE, :CNPJ, :DTEMISS, :DTVENC, :EMPR' +
-        'ESA, :ENVIADO, '
+        '  (:ANOLANC, :BAIXADO, :CLIENTE, :CNPJ, :COMPETENCIA_APURACAO, :' +
+        'DTEMISS, '
       
-        '   :FORMA_PAGTO, :HISTORIC, :LOTE, :NUMLANC, :PARCELA, :SITUACAO' +
-        ',  '
-      '   :VALORREC, :VALORRECTOT, :VALORSALDO)')
+        '   :DTVENC, :EMPRESA, :ENVIADO, :FORMA_PAGTO, :HISTORIC, :LOTE, ' +
+        ':NUMLANC, '
+      '   :PARCELA, :SITUACAO, :VALORREC, :VALORRECTOT, :VALORSALDO)')
     DeleteSQL.Strings = (
       'delete from TBCONTREC'
       'where'

@@ -28,8 +28,6 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -315,6 +313,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -563,8 +563,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
         end
         object lblValorAPagar: TLabel
-          Left = 392
-          Top = 24
+          Left = 16
+          Top = 64
           Width = 107
           Height = 13
           Caption = 'Valor A Pagar (R$):'
@@ -577,7 +577,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
         end
         object lblFormaPagto: TLabel
-          Left = 16
+          Left = 135
           Top = 64
           Width = 124
           Height = 13
@@ -585,7 +585,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           FocusControl = dbFormaPagto
         end
         object lblCondicaoPagto: TLabel
-          Left = 168
+          Left = 389
           Top = 64
           Width = 139
           Height = 13
@@ -593,7 +593,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           FocusControl = dbCondicaoPagto
         end
         object lblTipoDespesa: TLabel
-          Left = 512
+          Left = 548
           Top = 24
           Width = 95
           Height = 13
@@ -607,7 +607,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
         end
         object lblSaldoAPagar: TLabel
-          Left = 512
+          Left = 732
           Top = 64
           Width = 109
           Height = 13
@@ -619,6 +619,14 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+        end
+        object lblCompetenciaApuracao: TLabel
+          Left = 391
+          Top = 24
+          Width = 151
+          Height = 13
+          Caption = 'Compet'#234'ncia de Apura'#231#227'o:'
+          FocusControl = dbCompetenciaApuracao
         end
         object dbNotaFiscal: TDBEdit
           Left = 16
@@ -651,8 +659,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           TabOrder = 1
         end
         object dbValorAPagar: TDBEdit
-          Left = 392
-          Top = 40
+          Left = 16
+          Top = 80
           Width = 113
           Height = 21
           DataField = 'VALORPAG'
@@ -663,12 +671,12 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 6
         end
         object dbFormaPagto: TDBLookupComboBox
-          Left = 16
+          Left = 135
           Top = 80
-          Width = 145
+          Width = 247
           Height = 21
           DataField = 'FORMA_PAGTO'
           DataSource = DtSrcTabela
@@ -682,10 +690,10 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ListField = 'DESCRI'
           ListSource = dtsFormaPagto
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 7
         end
         object dbCondicaoPagto: TDBLookupComboBox
-          Left = 168
+          Left = 389
           Top = 80
           Width = 337
           Height = 21
@@ -701,12 +709,12 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ListField = 'COND_DESCRICAO_FULL'
           ListSource = dtsCondicaoPagto
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 8
         end
         object dbTipoDespesa: TDBLookupComboBox
-          Left = 512
+          Left = 548
           Top = 40
-          Width = 393
+          Width = 357
           Height = 21
           DataField = 'CODTPDESP'
           DataSource = DtSrcTabela
@@ -723,7 +731,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           TabOrder = 5
         end
         object dbSaldoAPagar: TDBEdit
-          Left = 512
+          Left = 732
           Top = 80
           Width = 113
           Height = 21
@@ -738,7 +746,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 8
+          TabOrder = 9
         end
         object dbEmissao: TJvDBDateEdit
           Left = 168
@@ -867,6 +875,25 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           PopupColor = clBtnFace
           ShowNullDate = False
           TabOrder = 3
+        end
+        object dbCompetenciaApuracao: TDBLookupComboBox
+          Left = 391
+          Top = 40
+          Width = 151
+          Height = 21
+          DataField = 'COMPETENCIA_APURACAO'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CMP_NUM'
+          ListField = 'CMP_DESC'
+          ListSource = dtsCompetencia
+          ParentFont = False
+          TabOrder = 4
         end
       end
       object pgcMaisDados: TPageControl
@@ -1170,12 +1197,12 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  , p.Quitado'
       '  , p.Codtpdesp'
       '  , p.Lote'
+      '  , p.Competencia_apuracao'
       'from TBCONTPAG p'
       '  left join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
       '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
     GeneratorField.Field = 'NUMLANC'
     GeneratorField.Generator = 'GEN_CONTAPAG_NUM_2013'
-    Top = 72
     object IbDtstTabelaANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTPAG.ANOLANC'
@@ -1255,6 +1282,13 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       Required = True
       DisplayFormat = 'dd/mm/yyyy'
       EditMask = '!99/99/0000;1; '
+    end
+    object IbDtstTabelaCOMPETENCIA_APURACAO: TIntegerField
+      DisplayLabel = 'Compet'#234'ncia de Apura'#231#227'o'
+      FieldName = 'COMPETENCIA_APURACAO'
+      Origin = '"TBCONTPAG"."COMPETENCIA_APURACAO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object IbDtstTabelaDTPAG: TDateField
       Alignment = taCenter
@@ -1349,7 +1383,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     end
   end
   inherited DtSrcTabela: TDataSource
-    Top = 72
+    OnDataChange = DtSrcTabelaDataChange
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1381,7 +1415,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  QUITADO,'
       '  CODTPDESP,'
       '  SITUACAO,'
-      '  LOTE'
+      '  LOTE,'
+      '  COMPETENCIA_APURACAO'
       'from TBCONTPAG '
       'where'
       '  ANOLANC = :ANOLANC and'
@@ -1393,6 +1428,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  BANCO = :BANCO,'
       '  CODFORN = :CODFORN,'
       '  CODTPDESP = :CODTPDESP,'
+      '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
       '  CONDICAO_PAGTO = :CONDICAO_PAGTO,'
       '  DOCBAIX = :DOCBAIX,'
       '  DTEMISS = :DTEMISS,'
@@ -1417,36 +1453,35 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     InsertSQL.Strings = (
       'insert into TBCONTPAG'
       
-        '  (ANOLANC, BANCO, CODFORN, CODTPDESP, CONDICAO_PAGTO, DOCBAIX, ' +
-        'DTEMISS, '
+        '  (ANOLANC, BANCO, CODFORN, CODTPDESP, COMPETENCIA_APURACAO, CON' +
+        'DICAO_PAGTO, '
       
-        '   DTPAG, DTVENC, EMPRESA, FORMA_PAGTO, HISTORIC, LOTE, NOMEEMP,' +
-        ' NOTFISC, '
+        '   DOCBAIX, DTEMISS, DTPAG, DTVENC, EMPRESA, FORMA_PAGTO, HISTOR' +
+        'IC, LOTE, '
       
-        '   NUMCHQ, NUMLANC, PARCELA, QUITADO, TIPPAG, VALORPAG, VALORSAL' +
-        'DO)'
+        '   NOMEEMP, NOTFISC, NUMCHQ, NUMLANC, PARCELA, QUITADO, TIPPAG, ' +
+        'VALORPAG, '
+      '   VALORSALDO)'
       'values'
       
-        '  (:ANOLANC, :BANCO, :CODFORN, :CODTPDESP, :CONDICAO_PAGTO, :DOC' +
-        'BAIX, :DTEMISS, '
+        '  (:ANOLANC, :BANCO, :CODFORN, :CODTPDESP, :COMPETENCIA_APURACAO' +
+        ', :CONDICAO_PAGTO, '
       
-        '   :DTPAG, :DTVENC, :EMPRESA, :FORMA_PAGTO, :HISTORIC, :LOTE, :N' +
-        'OMEEMP, '
+        '   :DOCBAIX, :DTEMISS, :DTPAG, :DTVENC, :EMPRESA, :FORMA_PAGTO, ' +
+        ':HISTORIC, '
       
-        '   :NOTFISC, :NUMCHQ, :NUMLANC, :PARCELA, :QUITADO, :TIPPAG, :VA' +
-        'LORPAG, '
-      '   :VALORSALDO)')
+        '   :LOTE, :NOMEEMP, :NOTFISC, :NUMCHQ, :NUMLANC, :PARCELA, :QUIT' +
+        'ADO, :TIPPAG, '
+      '   :VALORPAG, :VALORSALDO)')
     DeleteSQL.Strings = (
       'delete from TBCONTPAG'
       'where'
       '  ANOLANC = :OLD_ANOLANC and'
       '  NUMLANC = :OLD_NUMLANC')
-    Top = 72
   end
   inherited ImgList: TImageList
-    Top = 72
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2912,13 +2947,13 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     CachedUpdates = False
     TableName = 'TBEMPRESA'
     UniDirectional = False
-    Left = 848
-    Top = 128
+    Left = 824
+    Top = 280
   end
   object dtsEmpresa: TDataSource
     DataSet = tblEmpresa
-    Left = 880
-    Top = 128
+    Left = 856
+    Top = 280
   end
   object tblFormaPagto: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -2927,13 +2962,13 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     CachedUpdates = False
     TableName = 'TBFORMPAGTO'
     UniDirectional = False
-    Left = 848
-    Top = 160
+    Left = 824
+    Top = 312
   end
   object dtsFormaPagto: TDataSource
     DataSet = tblFormaPagto
-    Left = 880
-    Top = 160
+    Left = 856
+    Top = 312
   end
   object tblCondicaoPagto: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -3012,13 +3047,13 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     TableName = 'VW_CONDICAOPAGTO'
     TableTypes = [ttView]
     UniDirectional = False
-    Left = 848
-    Top = 192
+    Left = 824
+    Top = 344
   end
   object dtsCondicaoPagto: TDataSource
     DataSet = tblCondicaoPagto
-    Left = 880
-    Top = 192
+    Left = 856
+    Top = 344
   end
   object cdsPagamentos: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -3049,7 +3084,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     ParamCheck = True
     UniDirectional = False
     Left = 624
-    Top = 104
+    Top = 40
     object cdsPagamentosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTPAG_BAIXA.ANOLANC'
@@ -3126,12 +3161,12 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     AutoEdit = False
     DataSet = cdsPagamentos
     Left = 688
-    Top = 104
+    Top = 40
   end
   object dtsTpDespesa: TDataSource
     DataSet = qryTipoDespesa
-    Left = 880
-    Top = 224
+    Left = 856
+    Top = 408
   end
   object FrdRecibo: TfrxDBDataset
     UserName = 'FrdRecibo'
@@ -3908,8 +3943,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       'from TBTPDESPESA t'
       'where (t.ativo = :ativo) or (:todos = 1)'
       'order by t.tipodesp')
-    Left = 848
-    Top = 224
+    Left = 824
+    Top = 408
     ParamData = <
       item
         DataType = ftInteger
@@ -3923,5 +3958,20 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         ParamType = ptInput
         Value = 0
       end>
+  end
+  object tblCompetencia: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    TableName = 'TBCOMPETENCIA'
+    UniDirectional = False
+    Left = 824
+    Top = 376
+  end
+  object dtsCompetencia: TDataSource
+    DataSet = tblCompetencia
+    Left = 856
+    Top = 376
   end
 end

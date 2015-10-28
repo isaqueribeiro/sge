@@ -1853,3 +1853,126 @@ ALTER TABLE TBVENDAS DROP CONSTRAINT UNQ_TBVENDAS_NFE;
 CREATE INDEX IDX_TBVENDAS_NFE
 ON TBVENDAS (SERIE,NFE);
 
+
+
+
+/*------ SYSDBA 27/10/2015 20:06:48 --------*/
+
+ALTER TABLE TBCONTPAG
+    ADD COMPETENCIA_APURACAO DMN_INTEGER_N;
+
+COMMENT ON COLUMN TBCONTPAG.COMPETENCIA_APURACAO IS
+'Competencia de apuracao.';
+
+
+
+
+/*------ SYSDBA 27/10/2015 20:07:46 --------*/
+
+ALTER TABLE TBCONTREC
+    ADD COMPETENCIA_APURACAO DMN_INTEGER_N;
+
+COMMENT ON COLUMN TBCONTREC.COMPETENCIA_APURACAO IS
+'Competencia de apuracao.';
+
+
+
+
+/*------ SYSDBA 27/10/2015 20:09:24 --------*/
+
+ALTER TABLE TBCONTPAG
+ADD CONSTRAINT FK_TBCONTPAG_COMP_APUR
+FOREIGN KEY (COMPETENCIA_APURACAO)
+REFERENCES TBCOMPETENCIA(CMP_NUM);
+
+
+
+
+/*------ SYSDBA 27/10/2015 20:11:06 --------*/
+
+ALTER TABLE TBCONTREC
+ADD CONSTRAINT FK_TBCONTREC_COMP_APUR
+FOREIGN KEY (COMPETENCIA_APURACAO)
+REFERENCES TBCOMPETENCIA(CMP_NUM);
+
+
+
+/*------ SYSDBA 27/10/2015 21:28:23 --------*/
+
+Execute block
+as
+  declare variable competencia Integer;
+  declare variable data_emissao Date;
+begin
+  /* Atualizar Compras A Pagar */
+  for
+    Select
+      p.dtemiss
+    from TBCONTPAG p
+    where p.competencia_apuracao is null
+    group by
+      p.dtemiss
+    Into
+      data_emissao
+  do
+  begin
+    competencia = extract(year from data_emissao) || right('00' || extract(month from data_emissao), 2);
+    Execute Procedure SET_COMPETENCIA(:competencia, null);
+    Update TBCONTPAG p Set
+      p.competencia_apuracao = :competencia
+    where p.competencia_apuracao is null
+      and p.dtemiss = :data_emissao;
+  end 
+end;
+
+/*------ SYSDBA 27/10/2015 21:29:11 --------*/
+
+Execute block
+as
+  declare variable competencia Integer;
+  declare variable data_emissao Date;
+begin
+  /* Atualizar Compras A Pagar */
+  for
+    Select
+      p.dtemiss
+    from TBCONTPAG p
+    where p.competencia_apuracao is null
+    group by
+      p.dtemiss
+    Into
+      data_emissao
+  do
+  begin
+    competencia = extract(year from data_emissao) || right('00' || extract(month from data_emissao), 2);
+    Execute Procedure SET_COMPETENCIA(:competencia, null);
+    Update TBCONTPAG p Set
+      p.competencia_apuracao = :competencia
+    where p.competencia_apuracao is null
+      and p.dtemiss = :data_emissao;
+  end 
+
+  /* Atualizar Compras A Receber */
+  for
+    Select
+      r.dtemiss
+    from TBCONTREC r
+    where r.competencia_apuracao is null
+    group by
+      r.dtemiss
+    Into
+      data_emissao
+  do
+  begin
+    competencia = extract(year from data_emissao) || right('00' || extract(month from data_emissao), 2);
+    Execute Procedure SET_COMPETENCIA(:competencia, null);
+    Update TBCONTREC r Set
+      r.competencia_apuracao = :competencia
+    where r.competencia_apuracao is null
+      and r.dtemiss = :data_emissao;
+  end 
+end;
+
+/*------ SYSDBA 27/10/2015 21:32:11 --------*/
+
+COMMIT WORK;

@@ -145,6 +145,11 @@ type
     btbtnIncluirLote: TcxButton;
     IbDtstTabelaLOTE: TIBStringField;
     qryTipoDespesa: TIBQuery;
+    IbDtstTabelaCOMPETENCIA_APURACAO: TIntegerField;
+    tblCompetencia: TIBTable;
+    dtsCompetencia: TDataSource;
+    lblCompetenciaApuracao: TLabel;
+    dbCompetenciaApuracao: TDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -170,6 +175,7 @@ type
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnIncluirLoteClick(Sender: TObject);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     FDataAtual     : TDateTime;
@@ -259,6 +265,7 @@ begin
   tblEmpresa.Open;
   tblFormaPagto.Open;
   tblCondicaoPagto.Open;
+  tblCompetencia.Open;
   CarregarTipoDespesa(False);
 
   RotinaID            := ROTINA_FIN_CONTA_APAGAR_ID;
@@ -362,6 +369,7 @@ begin
   IbDtstTabelaNOMEEMP.Value := Copy(GetEmpresaNome(gUsuarioLogado.Empresa), 1, IbDtstTabelaNOMEEMP.Size);
   IbDtstTabelaPARCELA.Value := 0;
   IbDtstTabelaDTEMISS.Value := Date;
+  IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(Date);
   IbDtstTabelaQUITADO.Value := STATUS_APAGAR_PENDENTE;
   IbDtstTabelaLOTE.AsString := EmptyStr;
   IbDtstTabelaFORMA_PAGTO.Value    := GetFormaPagtoIDDefault;
@@ -774,7 +782,10 @@ end;
 
 procedure TfrmGeContasAPagar.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
-  IbDtstTabelaVALORSALDO.AsCurrency := IbDtstTabelaVALORPAG.AsCurrency; 
+  if IbDtstTabelaCOMPETENCIA_APURACAO.IsNull then
+    IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(IbDtstTabelaDTEMISS.AsDateTime);
+
+  IbDtstTabelaVALORSALDO.AsCurrency := IbDtstTabelaVALORPAG.AsCurrency;
   inherited;
 end;
 
@@ -806,6 +817,23 @@ begin
     pgcGuias.ActivePage := tbsTabela;
     edtFiltrar.SetFocus;
   end;
+end;
+
+procedure TfrmGeContasAPagar.DtSrcTabelaDataChange(Sender: TObject;
+  Field: TField);
+var
+  iCompetencia : Integer;
+begin
+  if ( Field = IbDtstTabelaDTEMISS ) then
+    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+      if not IbDtstTabelaDTEMISS.IsNull then
+      begin
+        iCompetencia := GetCompetenciaID(IbDtstTabelaDTEMISS.AsDateTime);
+        tblCompetencia.Close;
+        tblCompetencia.Open;
+
+        IbDtstTabelaCOMPETENCIA_APURACAO.AsInteger := iCompetencia;
+      end;
 end;
 
 procedure TfrmGeContasAPagar.DtSrcTabelaStateChange(Sender: TObject);

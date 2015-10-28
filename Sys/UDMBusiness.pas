@@ -247,6 +247,7 @@ var
   function GetCupomNaoFiscalModeloEspID : Integer;
   function GetCupomNaoFiscalEmitir : Boolean;
   function GetSegmentoID(const CNPJ : String) : Integer;
+  function GetCompetenciaID(const aDataMovimento : TDateTime) : Integer;
   {$IFDEF DGE}
   function GetControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess) : Boolean;
   {$ENDIF}
@@ -1560,6 +1561,26 @@ begin
 
     Close;
   end;
+end;
+
+function GetCompetenciaID(const aDataMovimento : TDateTime) : Integer;
+var
+  iCompetencia : Integer;
+  sCompetencia : String;
+begin
+  iCompetencia := StrToInt(FormatDateTime('YYYYMM', aDataMovimento));
+  sCompetencia := AnsiUpperCase(FormatDateTime('MMMM/YYYY', aDataMovimento));
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Execute Procedure SET_COMPETENCIA(' +
+      IntToStr(iCompetencia) + ', ' + QuotedStr(sCompetencia) + ')');
+    ExecSQL;
+
+    CommitTransaction;
+  end;
+  Result := iCompetencia;
 end;
 
 {$IFDEF DGE}

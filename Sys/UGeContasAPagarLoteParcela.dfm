@@ -1236,6 +1236,7 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       '  , p.notfisc'
       '  , p.dtemiss'
       '  , p.dtvenc'
+      '  , p.competencia_apuracao'
       '  , p.valorpag'
       '  , p.valorpagtot'
       '  , p.valorsaldo'
@@ -1313,6 +1314,11 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
     object cdsContaAPagarDTVENC: TDateField
       FieldName = 'DTVENC'
       Origin = '"TBCONTPAG"."DTVENC"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField
+      FieldName = 'COMPETENCIA_APURACAO'
+      Origin = '"TBCONTPAG"."COMPETENCIA_APURACAO"'
       ProviderFlags = [pfInUpdate]
     end
     object cdsContaAPagarVALORPAG: TIBBCDField
@@ -1409,7 +1415,8 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       '  QUITADO,'
       '  CODTPDESP,'
       '  SITUACAO,'
-      '  LOTE'
+      '  LOTE,'
+      '  COMPETENCIA_APURACAO'
       'from TBCONTPAG '
       'where'
       '  ANOLANC = :ANOLANC and'
@@ -1420,6 +1427,7 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       '  ANOLANC = :ANOLANC,'
       '  CODFORN = :CODFORN,'
       '  CODTPDESP = :CODTPDESP,'
+      '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
       '  CONDICAO_PAGTO = :CONDICAO_PAGTO,'
       '  DTEMISS = :DTEMISS,'
       '  DTVENC = :DTVENC,'
@@ -1444,25 +1452,26 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
     InsertSQL.Strings = (
       'insert into TBCONTPAG'
       
-        '  (ANOLANC, CODFORN, CODTPDESP, CONDICAO_PAGTO, DTEMISS, DTVENC,' +
-        ' EMPRESA, '
+        '  (ANOLANC, CODFORN, CODTPDESP, COMPETENCIA_APURACAO, CONDICAO_P' +
+        'AGTO, DTEMISS, '
       
-        '   FORMA_PAGTO, HISTORIC, LOTE, NOMEEMP, NOTFISC, NUMLANC, PARCE' +
-        'LA, QUITADO, '
+        '   DTVENC, EMPRESA, FORMA_PAGTO, HISTORIC, LOTE, NOMEEMP, NOTFIS' +
+        'C, NUMLANC, '
       
-        '   SITUACAO, TIPOCATEG, TIPPAG, VALORPAG, VALORPAGTOT, VALORSALD' +
-        'O)'
+        '   PARCELA, QUITADO, SITUACAO, TIPOCATEG, TIPPAG, VALORPAG, VALO' +
+        'RPAGTOT, '
+      '   VALORSALDO)'
       'values'
       
-        '  (:ANOLANC, :CODFORN, :CODTPDESP, :CONDICAO_PAGTO, :DTEMISS, :D' +
-        'TVENC, '
+        '  (:ANOLANC, :CODFORN, :CODTPDESP, :COMPETENCIA_APURACAO, :CONDI' +
+        'CAO_PAGTO, '
       
-        '   :EMPRESA, :FORMA_PAGTO, :HISTORIC, :LOTE, :NOMEEMP, :NOTFISC,' +
-        ' :NUMLANC, '
+        '   :DTEMISS, :DTVENC, :EMPRESA, :FORMA_PAGTO, :HISTORIC, :LOTE, ' +
+        ':NOMEEMP, '
       
-        '   :PARCELA, :QUITADO, :SITUACAO, :TIPOCATEG, :TIPPAG, :VALORPAG' +
-        ', :VALORPAGTOT, '
-      '   :VALORSALDO)')
+        '   :NOTFISC, :NUMLANC, :PARCELA, :QUITADO, :SITUACAO, :TIPOCATEG' +
+        ', :TIPPAG, '
+      '   :VALORPAG, :VALORPAGTOT, :VALORSALDO)')
     DeleteSQL.Strings = (
       'delete from TBCONTPAG'
       'where'

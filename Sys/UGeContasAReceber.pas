@@ -26,10 +26,6 @@ type
     lblParcela: TLabel;
     dbParcela: TDBEdit;
     dbQuitado: TDBEdit;
-    lblEmissao: TLabel;
-    dbEmissao: TDBEdit;
-    lblVencimento: TLabel;
-    dbVencimento: TDBEdit;
     lblValorAReceber: TLabel;
     dbValorAReceber: TDBEdit;
     tblEmpresa: TIBTable;
@@ -171,6 +167,15 @@ type
     CdsReciboHISTORICO: TWideMemoField;
     CdsReciboVALOR_BAIXA: TBCDField;
     CdsReciboEMPRESA_CNPJ: TWideStringField;
+    IbDtstTabelaCOMPETENCIA_APURACAO: TIntegerField;
+    tblCompetencia: TIBTable;
+    dtsCompetencia: TDataSource;
+    lblEmissao: TLabel;
+    dbEmissao: TJvDBDateEdit;
+    lblVencimento: TLabel;
+    dbVencimento: TJvDBDateEdit;
+    lblCompetenciaApuracao: TLabel;
+    dbCompetenciaApuracao: TDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -198,6 +203,7 @@ type
     procedure popGerarReciboClick(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
     procedure CdsReciboCalcFields(DataSet: TDataSet);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     FDataAtual     : TDateTime;
@@ -288,6 +294,7 @@ begin
   tblFormaPagto.Open;
   tblCondicaoPagto.Open;
   tblBanco.Open;
+  tblCompetencia.Open;
 
   RotinaID            := ROTINA_FIN_CONTA_ARECEBER_ID;
   DisplayFormatCodigo := '###0000000';
@@ -342,6 +349,7 @@ begin
   IbDtstTabelaANOLANC.Value    := YearOf(Date);
   IbDtstTabelaPARCELA.Value    := 0;
   IbDtstTabelaDTEMISS.Value    := Date;
+  IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(Date);
   IbDtstTabelaFORMA_PAGTO.Value    := GetFormaPagtoIDDefault;
   IbDtstTabelaTIPPAG.Value         := GetFormaPagtoNomeDefault;
   IbDtstTabelaVALORRECTOT.Value     := 0;
@@ -736,9 +744,29 @@ end;
 
 procedure TfrmGeContasAReceber.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
+  if IbDtstTabelaCOMPETENCIA_APURACAO.IsNull then
+    IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(IbDtstTabelaDTEMISS.AsDateTime);
+
   if ( IbDtstTabela.State = dsEdit ) then
     if ( VarToStr(IbDtstTabelaDTVENC.OldValue) <> VarToStr(IbDtstTabelaDTVENC.NewValue) ) then
       DesbloquearCliente(IbDtstTabelaCLIENTE.AsInteger, EmptyStr)
+end;
+
+procedure TfrmGeContasAReceber.DtSrcTabelaDataChange(Sender: TObject;
+  Field: TField);
+var
+  iCompetencia : Integer;
+begin
+  if ( Field = IbDtstTabelaDTEMISS ) then
+    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+      if not IbDtstTabelaDTEMISS.IsNull then
+      begin
+        iCompetencia := GetCompetenciaID(IbDtstTabelaDTEMISS.AsDateTime);
+        tblCompetencia.Close;
+        tblCompetencia.Open;
+
+        IbDtstTabelaCOMPETENCIA_APURACAO.AsInteger := iCompetencia;
+      end;
 end;
 
 procedure TfrmGeContasAReceber.DtSrcTabelaStateChange(Sender: TObject);

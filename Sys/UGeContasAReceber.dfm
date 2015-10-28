@@ -27,8 +27,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -300,10 +298,12 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
-        Top = 241
+        Top = 281
         Width = 926
         ExplicitTop = 241
         ExplicitWidth = 926
@@ -318,7 +318,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       end
       object Bevel6: TBevel [2]
         Left = 0
-        Top = 363
+        Top = 372
         Width = 926
         Height = 4
         Align = alBottom
@@ -327,11 +327,12 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       end
       object Bevel9: TBevel [3]
         Left = 0
-        Top = 161
+        Top = 201
         Width = 926
         Height = 4
         Align = alTop
         Shape = bsSpacer
+        ExplicitTop = 161
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 926
@@ -572,7 +573,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         Left = 0
         Top = 85
         Width = 926
-        Height = 76
+        Height = 116
         Align = alTop
         Caption = 'A Receber'
         Font.Charset = ANSI_CHARSET
@@ -596,8 +597,72 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object lblValorAReceber: TLabel
+          Left = 16
+          Top = 64
+          Width = 89
+          Height = 13
+          Caption = 'A Receber (R$):'
+          FocusControl = dbValorAReceber
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblFormaPagto: TLabel
+          Left = 120
+          Top = 64
+          Width = 124
+          Height = 13
+          Caption = '&Forma de Pagamento:'
+          FocusControl = dbFormaPagto
+        end
+        object lblValorMulta: TLabel
+          Left = 352
+          Top = 64
+          Width = 63
+          Height = 13
+          Caption = 'Multa (R$):'
+          FocusControl = dbValorMulta
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblTotalAReceber: TLabel
+          Left = 520
+          Top = 64
+          Width = 115
+          Height = 13
+          Caption = 'Total Recebido (R$):'
+          FocusControl = dbTotalAReceber
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblPercDesconto: TLabel
+          Left = 456
+          Top = 64
+          Width = 49
+          Height = 13
+          Caption = '% Desc.:'
+          FocusControl = dbPercDesconto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object lblEmissao: TLabel
-          Left = 72
+          Left = 71
           Top = 24
           Width = 49
           Height = 13
@@ -611,7 +676,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           ParentFont = False
         end
         object lblVencimento: TLabel
-          Left = 168
+          Left = 183
           Top = 24
           Width = 70
           Height = 13
@@ -624,69 +689,13 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblValorAReceber: TLabel
-          Left = 264
+        object lblCompetenciaApuracao: TLabel
+          Left = 294
           Top = 24
-          Width = 89
+          Width = 151
           Height = 13
-          Caption = 'A Receber (R$):'
-          FocusControl = dbValorAReceber
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblFormaPagto: TLabel
-          Left = 368
-          Top = 24
-          Width = 124
-          Height = 13
-          Caption = '&Forma de Pagamento:'
-          FocusControl = dbFormaPagto
-        end
-        object lblValorMulta: TLabel
-          Left = 600
-          Top = 24
-          Width = 63
-          Height = 13
-          Caption = 'Multa (R$):'
-          FocusControl = dbValorMulta
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblTotalAReceber: TLabel
-          Left = 768
-          Top = 24
-          Width = 115
-          Height = 13
-          Caption = 'Total Recebido (R$):'
-          FocusControl = dbTotalAReceber
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblPercDesconto: TLabel
-          Left = 704
-          Top = 24
-          Width = 49
-          Height = 13
-          Caption = '% Desc.:'
-          FocusControl = dbPercDesconto
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
+          Caption = 'Compet'#234'ncia de Apura'#231#227'o:'
+          FocusControl = dbCompetenciaApuracao
         end
         object dbParcela: TDBEdit
           Left = 16
@@ -703,39 +712,9 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           ParentFont = False
           TabOrder = 0
         end
-        object dbEmissao: TDBEdit
-          Left = 72
-          Top = 40
-          Width = 89
-          Height = 21
-          DataField = 'DTEMISS'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 1
-        end
-        object dbVencimento: TDBEdit
-          Left = 168
-          Top = 40
-          Width = 89
-          Height = 21
-          DataField = 'DTVENC'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 2
-        end
         object dbValorAReceber: TDBEdit
-          Left = 264
-          Top = 40
+          Left = 16
+          Top = 80
           Width = 97
           Height = 21
           DataField = 'VALORREC'
@@ -746,12 +725,12 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 4
           OnExit = ControlEditExit
         end
         object dbFormaPagto: TDBLookupComboBox
-          Left = 368
-          Top = 40
+          Left = 120
+          Top = 80
           Width = 225
           Height = 21
           DataField = 'FORMA_PAGTO'
@@ -766,12 +745,12 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           ListField = 'DESCRI'
           ListSource = dtsFormaPagto
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
           OnClick = dbFormaPagtoClick
         end
         object dbValorMulta: TDBEdit
-          Left = 600
-          Top = 40
+          Left = 352
+          Top = 80
           Width = 97
           Height = 21
           DataField = 'VALORMULTA'
@@ -782,12 +761,12 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 6
           OnExit = ControlEditExit
         end
         object dbTotalAReceber: TDBEdit
-          Left = 768
-          Top = 40
+          Left = 520
+          Top = 80
           Width = 129
           Height = 21
           Color = clMoneyGreen
@@ -800,12 +779,12 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 7
+          TabOrder = 8
           OnExit = ControlEditExit
         end
         object dbPercDesconto: TDBEdit
-          Left = 704
-          Top = 40
+          Left = 456
+          Top = 80
           Width = 57
           Height = 21
           DataField = 'PERCENTDESCONTO'
@@ -816,41 +795,186 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 7
+        end
+        object dbEmissao: TJvDBDateEdit
+          Left = 71
+          Top = 40
+          Width = 105
+          Height = 21
+          DataField = 'DTEMISS'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Glyph.Data = {
+            76050000424D760500000000000036000000280000001C0000000C0000000100
+            2000000000004005000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+            0000800000008000000000000000800000000000000000000000800000008080
+            8000FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FF00FF00}
+          ImageKind = ikCustom
+          NumGlyphs = 2
+          ParentFont = False
+          PopupColor = clBtnFace
+          ShowNullDate = False
+          TabOrder = 1
+        end
+        object dbVencimento: TJvDBDateEdit
+          Left = 183
+          Top = 40
+          Width = 105
+          Height = 21
+          DataField = 'DTVENC'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Glyph.Data = {
+            76050000424D760500000000000036000000280000001C0000000C0000000100
+            2000000000004005000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+            0000800000008000000000000000800000000000000000000000800000008080
+            8000FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FF00FF00}
+          ImageKind = ikCustom
+          NumGlyphs = 2
+          ParentFont = False
+          PopupColor = clBtnFace
+          ShowNullDate = False
+          TabOrder = 2
+        end
+        object dbCompetenciaApuracao: TDBLookupComboBox
+          Left = 294
+          Top = 40
+          Width = 155
+          Height = 21
+          DataField = 'COMPETENCIA_APURACAO'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CMP_NUM'
+          ListField = 'CMP_DESC'
+          ListSource = dtsCompetencia
+          ParentFont = False
+          TabOrder = 3
         end
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 367
+        Top = 376
         Width = 926
-        Height = 122
+        Height = 113
         ActivePage = tbsHistorico
         Align = alBottom
         TabOrder = 4
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
+          ExplicitHeight = 94
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
             Width = 918
-            Height = 94
+            Height = 85
             Align = alClient
             DataField = 'HISTORIC'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitHeight = 94
           end
         end
       end
       object dbgPagamentos: TDBGrid
         Tag = 12
         Left = 0
-        Top = 245
+        Top = 285
         Width = 926
-        Height = 118
+        Height = 87
         Hint = 
           'Para a exclus'#227'o de baixas basta pressionar CTRL + DELETE'#13#10#13#10'Obse' +
           'rva'#231#227'o:'#13#10'======================='#13#10'Apenas usu'#225'rios nas fun'#231#245'es Di' +
@@ -934,7 +1058,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       end
       object GrpBxDadosBoleto: TGroupBox
         Left = 0
-        Top = 165
+        Top = 205
         Width = 926
         Height = 76
         Align = alTop
@@ -946,6 +1070,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         Font.Style = []
         ParentFont = False
         TabOrder = 2
+        ExplicitTop = 165
         object lblBanco: TLabel
           Left = 16
           Top = 24
@@ -1345,6 +1470,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  , r.Anovenda'
       '  , r.Numvenda'
       '  , r.Situacao'
+      '  , r.Competencia_apuracao'
       '  , c.Nome as NomeCliente'
       '  , Case when r.Baixado = 1 then '#39'X'#39' else '#39'.'#39' end as Pago_'
       '  , vn.Serie'
@@ -1435,6 +1561,13 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       Required = True
       DisplayFormat = 'dd/mm/yyyy'
       EditMask = '!99/99/0000;1; '
+    end
+    object IbDtstTabelaCOMPETENCIA_APURACAO: TIntegerField
+      DisplayLabel = 'Compet'#234'ncia de Apura'#231#227'o'
+      FieldName = 'COMPETENCIA_APURACAO'
+      Origin = '"TBCONTREC"."COMPETENCIA_APURACAO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object IbDtstTabelaDTREC: TDateField
       DisplayLabel = 'Recebimento'
@@ -1587,6 +1720,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     end
   end
   inherited DtSrcTabela: TDataSource
+    OnDataChange = DtSrcTabelaDataChange
     Left = 832
   end
   inherited IbUpdTabela: TIBUpdateSQL
@@ -1608,13 +1742,13 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  VALORREC,'
       '  VALORMULTA,'
       '  VALORRECTOT,'
+      '  VALORSALDO,'
       '  NUMCONTRATO,'
       '  PARCELA,'
       '  STATUS,'
       '  CODBANCO,'
       '  NOSSONUMERO,'
       '  REMESSA,'
-      '  VALORSALDO,'
       '  PERCENTJUROS,'
       '  PERCENTMULTA,'
       '  PERCENTDESCONTO,'
@@ -1623,7 +1757,9 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  ENVIADO,'
       '  ANOVENDA,'
       '  NUMVENDA,'
-      '  SITUACAO'
+      '  SITUACAO,'
+      '  LOTE,'
+      '  COMPETENCIA_APURACAO'
       'from TBCONTREC '
       'where'
       '  ANOLANC = :ANOLANC and'
@@ -1637,6 +1773,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  CLIENTE = :CLIENTE,'
       '  CNPJ = :CNPJ,'
       '  CODBANCO = :CODBANCO,'
+      '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
       '  DATAPROCESSOBOLETO = :DATAPROCESSOBOLETO,'
       '  DOCBAIX = :DOCBAIX,'
       '  DTEMISS = :DTEMISS,'
@@ -1668,34 +1805,35 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     InsertSQL.Strings = (
       'insert into TBCONTREC'
       
-        '  (ANOLANC, ANOVENDA, BAIXADO, CLIENTE, CNPJ, CODBANCO, DATAPROC' +
-        'ESSOBOLETO, '
+        '  (ANOLANC, ANOVENDA, BAIXADO, CLIENTE, CNPJ, CODBANCO, COMPETEN' +
+        'CIA_APURACAO, '
       
-        '   DOCBAIX, DTEMISS, DTREC, DTVENC, EMPRESA, ENVIADO, FORMA_PAGT' +
-        'O, HISTORIC, '
+        '   DATAPROCESSOBOLETO, DOCBAIX, DTEMISS, DTREC, DTVENC, EMPRESA,' +
+        ' ENVIADO, '
       
-        '   NOSSONUMERO, NUMCONTRATO, NUMLANC, NUMREC, NUMVENDA, PARCELA,' +
-        ' PERCENTDESCONTO, '
+        '   FORMA_PAGTO, HISTORIC, NOSSONUMERO, NUMCONTRATO, NUMLANC, NUM' +
+        'REC, NUMVENDA, '
       
-        '   PERCENTJUROS, PERCENTMULTA, REMESSA, SITUACAO, TIPPAG, VALORM' +
-        'ULTA, VALORREC, '
-      '   VALORRECTOT, VALORSALDO)'
+        '   PARCELA, PERCENTDESCONTO, PERCENTJUROS, PERCENTMULTA, REMESSA' +
+        ', SITUACAO, '
+      '   TIPPAG, VALORMULTA, VALORREC, VALORRECTOT, VALORSALDO)'
       'values'
       
-        '  (:ANOLANC, :ANOVENDA, :BAIXADO, :CLIENTE, :CNPJ, :CODBANCO, :D' +
-        'ATAPROCESSOBOLETO, '
+        '  (:ANOLANC, :ANOVENDA, :BAIXADO, :CLIENTE, :CNPJ, :CODBANCO, :C' +
+        'OMPETENCIA_APURACAO, '
       
-        '   :DOCBAIX, :DTEMISS, :DTREC, :DTVENC, :EMPRESA, :ENVIADO, :FOR' +
-        'MA_PAGTO, '
+        '   :DATAPROCESSOBOLETO, :DOCBAIX, :DTEMISS, :DTREC, :DTVENC, :EM' +
+        'PRESA, '
       
-        '   :HISTORIC, :NOSSONUMERO, :NUMCONTRATO, :NUMLANC, :NUMREC, :NU' +
-        'MVENDA, '
+        '   :ENVIADO, :FORMA_PAGTO, :HISTORIC, :NOSSONUMERO, :NUMCONTRATO' +
+        ', :NUMLANC, '
       
-        '   :PARCELA, :PERCENTDESCONTO, :PERCENTJUROS, :PERCENTMULTA, :RE' +
-        'MESSA, '
+        '   :NUMREC, :NUMVENDA, :PARCELA, :PERCENTDESCONTO, :PERCENTJUROS' +
+        ', :PERCENTMULTA, '
       
-        '   :SITUACAO, :TIPPAG, :VALORMULTA, :VALORREC, :VALORRECTOT, :VA' +
-        'LORSALDO)')
+        '   :REMESSA, :SITUACAO, :TIPPAG, :VALORMULTA, :VALORREC, :VALORR' +
+        'ECTOT, '
+      '   :VALORSALDO)')
     DeleteSQL.Strings = (
       'delete from TBCONTREC'
       'where'
@@ -1706,7 +1844,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited ImgList: TImageList
     Left = 736
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4094,5 +4232,20 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       Caption = 'Gerar Recibo'
       OnClick = popGerarReciboClick
     end
+  end
+  object tblCompetencia: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    TableName = 'TBCOMPETENCIA'
+    UniDirectional = False
+    Left = 864
+    Top = 136
+  end
+  object dtsCompetencia: TDataSource
+    DataSet = tblCompetencia
+    Left = 896
+    Top = 136
   end
 end
