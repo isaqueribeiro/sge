@@ -796,6 +796,20 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
             Options.Sorting = False
             Width = 30
           end
+          object dbgParcelasTblCompetencia: TcxGridDBColumn
+            Caption = 'Compet'#234'ncia'
+            DataBinding.FieldName = 'Competencia'
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'CMP_NUM'
+            Properties.ListColumns = <
+              item
+                FieldName = 'CMP_DESC'
+              end>
+            Properties.ListSource = dtsCompetencia
+            Options.Filtering = False
+            Options.Moving = False
+            Options.Sorting = False
+          end
           object dbgParcelasTblVencimento: TcxGridDBColumn
             DataBinding.FieldName = 'Vencimento'
             PropertiesClassName = 'TcxDateEditProperties'
@@ -825,18 +839,19 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
             Caption = 'Valor (R$)'
             DataBinding.FieldName = 'ValorParcela'
             PropertiesClassName = 'TcxCurrencyEditProperties'
-            MinWidth = 80
+            MinWidth = 100
             Options.Filtering = False
             Options.HorzSizing = False
             Options.Moving = False
             Options.Sorting = False
-            Width = 80
+            Width = 100
           end
           object dbgParcelasTblObservacao: TcxGridDBColumn
             Caption = 'Observa'#231#245'es'
             DataBinding.FieldName = 'Observacao'
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.CharCase = ecUpperCase
+            Visible = False
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -1019,6 +1034,10 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
         DataType = ftSmallint
       end
       item
+        Name = 'Competencia'
+        DataType = ftInteger
+      end
+      item
         Name = 'Vencimento'
         DataType = ftDateTime
       end
@@ -1045,6 +1064,9 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       Alignment = taCenter
       FieldName = 'Parcela'
       DisplayFormat = '00'
+    end
+    object cdsParcelasCompetencia: TIntegerField
+      FieldName = 'Competencia'
     end
     object cdsParcelasVencimento: TDateTimeField
       FieldName = 'Vencimento'
@@ -1319,5 +1341,20 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     DataSet = tblBanco
     Left = 368
     Top = 320
+  end
+  object tblCompetencia: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    TableName = 'TBCOMPETENCIA'
+    UniDirectional = False
+    Left = 336
+    Top = 352
+  end
+  object dtsCompetencia: TDataSource
+    DataSet = tblCompetencia
+    Left = 368
+    Top = 352
   end
 end

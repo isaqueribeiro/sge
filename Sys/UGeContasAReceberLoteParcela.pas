@@ -19,7 +19,7 @@ uses
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, cxDBData,
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, cxCalendar, cxCurrencyEdit,
-  IBX.IBUpdateSQL, cxTextEdit;
+  IBX.IBUpdateSQL, cxTextEdit, cxDBLookupComboBox;
 
 type
   TfrmGeContasAReceberLoteParcela = class(TfrmGrPadrao)
@@ -115,6 +115,10 @@ type
     dtsBanco: TDataSource;
     cdsDadosNominaisBanco: TIntegerField;
     cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField;
+    cdsParcelasCompetencia: TIntegerField;
+    dbgParcelasTblCompetencia: TcxGridDBColumn;
+    tblCompetencia: TIBTable;
+    dtsCompetencia: TDataSource;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -298,6 +302,7 @@ begin
 
       cdsParcelas.Append;
       cdsParcelasParcela.AsInteger       := I;
+      cdsParcelasCompetencia.AsInteger   := GetCompetenciaID(dVencimento - 30);
       cdsParcelasVencimento.AsDateTime   := dVencimento;
       cdsParcelasValorParcela.AsCurrency := cValorParc;
       cdsParcelas.Post;
@@ -320,7 +325,7 @@ begin
     end;
 
     dbgParcelas.SetFocus;
-    dbgParcelasTblVencimento.Focused := True;
+    dbgParcelasTblCompetencia.Focused := True;
   end;
 end;
 
@@ -408,6 +413,7 @@ begin
   tblEmpresa.Open;
   tblFormaPagto.Open;
   tblBanco.Open;
+  tblCompetencia.Open;
 
   cdsDadosNominais.CreateDataSet;
 end;
@@ -437,7 +443,7 @@ begin
         cdsContaAReceberHISTORIC.Value    := cdsParcelasObservacao.AsString;
         cdsContaAReceberDTEMISS.Value  := cdsDadosNominaisEmissao.AsDateTime;
         cdsContaAReceberDTVENC.Value   := cdsParcelasVencimento.AsDateTime;
-        cdsContaAReceberCOMPETENCIA_APURACAO.Value := GetCompetenciaID(cdsDadosNominaisEmissao.AsDateTime);
+        cdsContaAReceberCOMPETENCIA_APURACAO.Value := cdsParcelasCompetencia.AsInteger;
         cdsContaAReceberVALORREC.Value := cdsParcelasValorParcela.AsCurrency;
         cdsContaAReceberVALORRECTOT.Value := 0.0;
         cdsContaAReceberVALORSALDO.Value  := cdsParcelasValorParcela.AsCurrency;

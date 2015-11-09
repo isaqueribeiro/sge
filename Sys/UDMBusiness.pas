@@ -1569,7 +1569,7 @@ var
   sCompetencia : String;
 begin
   iCompetencia := StrToInt(FormatDateTime('YYYYMM', aDataMovimento));
-  sCompetencia := AnsiUpperCase(FormatDateTime('MMMM/YYYY', aDataMovimento));
+  sCompetencia := AnsiUpperCase(FormatDateTime('MMM/YYYY', aDataMovimento));
   with DMBusiness, qryBusca do
   begin
     Close;

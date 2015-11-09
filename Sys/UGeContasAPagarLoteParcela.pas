@@ -19,7 +19,7 @@ uses
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, cxDBData,
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, cxCalendar, cxCurrencyEdit,
-  IBX.IBUpdateSQL, cxTextEdit;
+  IBX.IBUpdateSQL, cxTextEdit, cxDBLookupComboBox;
 
 type
   TfrmGeContasAPagarLoteParcela = class(TfrmGrPadrao)
@@ -123,6 +123,10 @@ type
     cdsContaAPagarSITUACAO: TSmallintField;
     cdsContaAPagarLOTE: TIBStringField;
     cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField;
+    cdsParcelasCompetencia: TIntegerField;
+    dbgParcelasTblCompetencia: TcxGridDBColumn;
+    tblCompetencia: TIBTable;
+    dtsCompetencia: TDataSource;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -308,6 +312,7 @@ begin
 
       cdsParcelas.Append;
       cdsParcelasParcela.AsInteger       := I;
+      cdsParcelasCompetencia.AsInteger   := GetCompetenciaID(dVencimento - 30);
       cdsParcelasVencimento.AsDateTime   := dVencimento;
       cdsParcelasValorParcela.AsCurrency := cValorParc;
       cdsParcelas.Post;
@@ -330,7 +335,7 @@ begin
     end;
 
     dbgParcelas.SetFocus;
-    dbgParcelasTblVencimento.Focused := True;
+    dbgParcelasTblCompetencia.Focused := True;
   end;
 end;
 
@@ -429,6 +434,7 @@ begin
   tblEmpresa.Open;
   tblFormaPagto.Open;
   tblCondicaoPagto.Open;
+  tblCompetencia.Open;
   CarregarTipoDespesa(True);
 
   cdsDadosNominais.CreateDataSet;
@@ -460,7 +466,7 @@ begin
         cdsContaAPagarNOTFISC.Value  := cdsDadosNominaisNotaFiscal.AsString;
         cdsContaAPagarDTEMISS.Value  := cdsDadosNominaisEmissao.AsDateTime;
         cdsContaAPagarDTVENC.Value   := cdsParcelasVencimento.AsDateTime;
-        cdsContaAPagarCOMPETENCIA_APURACAO.Value := GetCompetenciaID(cdsDadosNominaisEmissao.AsDateTime);
+        cdsContaAPagarCOMPETENCIA_APURACAO.Value := cdsParcelasCompetencia.AsInteger;
         cdsContaAPagarVALORPAG.Value := cdsParcelasValorParcela.AsCurrency;
         cdsContaAPagarVALORPAGTOT.Value := 0.0;
         cdsContaAPagarVALORSALDO.Value  := cdsParcelasValorParcela.AsCurrency;

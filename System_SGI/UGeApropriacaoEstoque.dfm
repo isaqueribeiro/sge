@@ -1056,6 +1056,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
+        ExplicitTop = 232
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -1091,6 +1092,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          Visible = False
         end
         object Bevel7: TBevel
           Left = 2
@@ -1101,7 +1103,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Shape = bsSpacer
         end
         object lblCustoTotal: TLabel
-          Left = 304
+          Left = 401
           Top = 64
           Width = 83
           Height = 13
@@ -1115,11 +1117,11 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
         end
         object lblCustoUn: TLabel
-          Left = 184
+          Left = 259
           Top = 64
-          Width = 76
+          Width = 119
           Height = 13
-          Caption = 'Custo Un. (R$):'
+          Caption = 'Custo Un. [Inteiro] (R$):'
           FocusControl = dbCustoUn
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -1145,6 +1147,28 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
           Transparent = True
           WordWrap = True
+        end
+        object lblUnidadeProduto: TLabel
+          Left = 656
+          Top = 24
+          Width = 43
+          Height = 13
+          Caption = 'Unidade:'
+          FocusControl = dbUnidadeProduto
+        end
+        object lblFracionador: TLabel
+          Left = 183
+          Top = 64
+          Width = 61
+          Height = 13
+          Caption = 'Fracionador:'
+          FocusControl = dbFracionador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object dbProdutoNome: TDBEdit
           Left = 184
@@ -1178,7 +1202,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
           OnExit = ControlEditExit
         end
         object dbUnidade: TDBEdit
@@ -1198,6 +1222,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          Visible = False
         end
         object pnlBotoesProduto: TPanel
           Left = 6
@@ -1480,9 +1505,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           end
         end
         object dbCustoTotal: TDBEdit
-          Left = 304
+          Left = 401
           Top = 80
-          Width = 113
+          Width = 136
           Height = 21
           Color = clMoneyGreen
           DataField = 'CUSTO_TOTAL'
@@ -1494,13 +1519,13 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Style = []
           ParentFont = False
           ReadOnly = True
-          TabOrder = 6
+          TabOrder = 8
           OnExit = ControlEditExit
         end
         object dbCustoUn: TDBEdit
-          Left = 184
+          Left = 259
           Top = 80
-          Width = 113
+          Width = 136
           Height = 21
           Color = clWhite
           DataField = 'CUSTO_UNITARIO'
@@ -1511,7 +1536,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 7
           OnExit = ControlEditExit
         end
         object dbProduto: TJvDBComboEdit
@@ -1587,6 +1612,44 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           ShowHint = True
           TabOrder = 1
           OnButtonClick = dbProdutoButtonClick
+          OnExit = ControlEditExit
+        end
+        object dbUnidadeProduto: TDBLookupComboBox
+          Left = 656
+          Top = 40
+          Width = 186
+          Height = 21
+          DataField = 'QTDE_TIPO_LANCAMENTO'
+          DataSource = DtSrcTabelaItens
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'INDICE'
+          ListField = 'UNP_DESCRICAO'
+          ListSource = dtsUnidadeProduto
+          ParentFont = False
+          TabOrder = 4
+          OnExit = ControlEditExit
+        end
+        object dbFracionador: TDBEdit
+          Left = 183
+          Top = 80
+          Width = 70
+          Height = 21
+          Color = clMoneyGreen
+          DataField = 'FRACIONADOR'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 6
           OnExit = ControlEditExit
         end
       end
@@ -2288,7 +2351,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3765,7 +3828,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   object cdsTabelaItens: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
-    OnCalcFields = cdsTabelaItensCalcFields
+    AfterScroll = cdsTabelaItensAfterScroll
     OnNewRecord = cdsTabelaItensNewRecord
     BufferChunks = 1000
     CachedUpdates = True
@@ -3777,7 +3840,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  , i.controle'
       '  , i.item'
       '  , i.produto'
+      '  , i.qtde_tipo_lancamento'
       '  , i.qtde'
+      '  , i.qtde_fracionada'
       '  , i.fracionador'
       '  , i.unidade'
       '  , i.unidade_fracao'
@@ -3835,11 +3900,22 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = [pfInUpdate]
       Size = 10
     end
+    object cdsTabelaItensQTDE_TIPO_LANCAMENTO: TSmallintField
+      FieldName = 'QTDE_TIPO_LANCAMENTO'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."QTDE_TIPO_LANCAMENTO"'
+    end
     object cdsTabelaItensQTDE: TIBBCDField
       DisplayLabel = 'Quantidade'
       FieldName = 'QTDE'
       Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."QTDE"'
       ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensQTDE_FRACIONADA: TIBBCDField
+      FieldName = 'QTDE_FRACIONADA'
+      Origin = '"TBAPROPRIACAO_ALMOX_ITEM"."QTDE_FRACIONADA"'
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
@@ -3939,13 +4015,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       ProviderFlags = []
       Size = 50
     end
-    object cdsTabelaItensQTDE_FRACIONADA: TCurrencyField
-      FieldKind = fkCalculated
-      FieldName = 'QTDE_FRACIONADA'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Calculated = True
-    end
   end
   object IbUpdTabelaItens: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -3954,7 +4023,9 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  CONTROLE,'
       '  ITEM,'
       '  PRODUTO,'
+      '  QTDE_TIPO_LANCAMENTO,'
       '  QTDE,'
+      '  QTDE_FRACIONADA,'
       '  FRACIONADOR,'
       '  UNIDADE,'
       '  UNIDADE_FRACAO,'
@@ -3976,6 +4047,8 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  ITEM = :ITEM,'
       '  PRODUTO = :PRODUTO,'
       '  QTDE = :QTDE,'
+      '  QTDE_FRACIONADA = :QTDE_FRACIONADA,'
+      '  QTDE_TIPO_LANCAMENTO = :QTDE_TIPO_LANCAMENTO,'
       '  UNIDADE = :UNIDADE,'
       '  UNIDADE_FRACAO = :UNIDADE_FRACAO'
       'where'
@@ -3987,12 +4060,17 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       
         '  (ANO, CONTROLE, CUSTO_TOTAL, CUSTO_UNITARIO, FRACIONADOR, ITEM' +
         ', PRODUTO, '
-      '   QTDE, UNIDADE, UNIDADE_FRACAO)'
+      
+        '   QTDE, QTDE_FRACIONADA, QTDE_TIPO_LANCAMENTO, UNIDADE, UNIDADE' +
+        '_FRACAO)'
       'values'
       
         '  (:ANO, :CONTROLE, :CUSTO_TOTAL, :CUSTO_UNITARIO, :FRACIONADOR,' +
         ' :ITEM, '
-      '   :PRODUTO, :QTDE, :UNIDADE, :UNIDADE_FRACAO)')
+      
+        '   :PRODUTO, :QTDE, :QTDE_FRACIONADA, :QTDE_TIPO_LANCAMENTO, :UN' +
+        'IDADE, '
+      '   :UNIDADE_FRACAO)')
     DeleteSQL.Strings = (
       'delete from TBAPROPRIACAO_ALMOX_ITEM'
       'where'
@@ -4277,5 +4355,50 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         Name = 'DOCUMENTO'
         ParamType = ptInput
       end>
+  end
+  object qryUnidadeProduto: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      'Select'
+      '    x.indice'
+      '  , x.unidade'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from ('
+      '    Select'
+      '        0 as indice'
+      '      , p.codunidade  as unidade'
+      '    from TBPRODUTO p'
+      '    where p.cod = :produto'
+      '    '
+      '    union'
+      '    '
+      '    Select'
+      '        1 as indice'
+      '      , p.codunidade_fracionada  as unidade'
+      '    from TBPRODUTO p'
+      '    where p.cod = :produto'
+      '      and p.codunidade <> p.codunidade_fracionada'
+      ') x'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = x.unidade)'
+      ''
+      'order by'
+      '    x.indice')
+    ModifySQL.Strings = (
+      '')
+    ParamCheck = True
+    UniDirectional = False
+    Left = 944
+    Top = 240
+  end
+  object dtsUnidadeProduto: TDataSource
+    DataSet = qryUnidadeProduto
+    Left = 976
+    Top = 240
   end
 end

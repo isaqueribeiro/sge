@@ -823,6 +823,21 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
             Options.Sorting = False
             Width = 30
           end
+          object dbgParcelasTblCompetencia: TcxGridDBColumn
+            Caption = 'Compet'#234'ncia'
+            DataBinding.FieldName = 'Competencia'
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'CMP_NUM'
+            Properties.ListColumns = <
+              item
+                FieldName = 'CMP_DESC'
+              end>
+            Properties.ListSource = dtsCompetencia
+            Options.Filtering = False
+            Options.Moving = False
+            Options.Sorting = False
+            Width = 70
+          end
           object dbgParcelasTblVencimento: TcxGridDBColumn
             DataBinding.FieldName = 'Vencimento'
             PropertiesClassName = 'TcxDateEditProperties'
@@ -852,18 +867,19 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
             Caption = 'Valor (R$)'
             DataBinding.FieldName = 'ValorParcela'
             PropertiesClassName = 'TcxCurrencyEditProperties'
-            MinWidth = 80
+            MinWidth = 100
             Options.Filtering = False
             Options.HorzSizing = False
             Options.Moving = False
             Options.Sorting = False
-            Width = 80
+            Width = 100
           end
           object dbgParcelasTblObservacao: TcxGridDBColumn
             Caption = 'Observa'#231#245'es'
             DataBinding.FieldName = 'Observacao'
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.CharCase = ecUpperCase
+            Visible = False
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -1136,7 +1152,7 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       'where (t.ativo = :ativo) or (:todos = 1)'
       'order by t.tipodesp')
     Left = 336
-    Top = 352
+    Top = 384
     ParamData = <
       item
         DataType = ftInteger
@@ -1154,7 +1170,7 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
   object dtsTpDespesa: TDataSource
     DataSet = qryTipoDespesa
     Left = 368
-    Top = 352
+    Top = 384
   end
   object cdsParcelas: TClientDataSet
     Aggregates = <>
@@ -1162,6 +1178,10 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       item
         Name = 'Parcela'
         DataType = ftSmallint
+      end
+      item
+        Name = 'Competencia'
+        DataType = ftInteger
       end
       item
         Name = 'Vencimento'
@@ -1190,6 +1210,9 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       Alignment = taCenter
       FieldName = 'Parcela'
       DisplayFormat = '00'
+    end
+    object cdsParcelasCompetencia: TIntegerField
+      FieldName = 'Competencia'
     end
     object cdsParcelasVencimento: TDateTimeField
       FieldName = 'Vencimento'
@@ -1479,5 +1502,20 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       '  NUMLANC = :OLD_NUMLANC')
     Left = 632
     Top = 288
+  end
+  object tblCompetencia: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    TableName = 'TBCOMPETENCIA'
+    UniDirectional = False
+    Left = 336
+    Top = 352
+  end
+  object dtsCompetencia: TDataSource
+    DataSet = tblCompetencia
+    Left = 368
+    Top = 352
   end
 end

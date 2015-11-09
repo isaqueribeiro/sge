@@ -1976,3 +1976,195 @@ end;
 /*------ SYSDBA 27/10/2015 21:32:11 --------*/
 
 COMMIT WORK;
+
+
+/*------ SYSDBA 29/10/2015 14:16:07 --------*/
+
+ALTER TABLE TBAPROPRIACAO_ALMOX_ITEM
+    ADD QTDE_FRACIONADA DMN_QUANTIDADE_D3;
+
+COMMENT ON COLUMN TBAPROPRIACAO_ALMOX_ITEM.QTDE_FRACIONADA IS
+'Quantidade fracionada (Consumo)';
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter ANO position 1;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter CONTROLE position 2;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter ITEM position 3;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter PRODUTO position 4;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter QTDE position 5;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter QTDE_FRACIONADA position 6;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter FRACIONADOR position 7;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter UNIDADE position 8;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter UNIDADE_FRACAO position 9;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter CUSTO_UNITARIO position 10;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter CUSTO_TOTAL position 11;
+
+
+
+
+/*------ SYSDBA 29/10/2015 14:16:31 --------*/
+
+ALTER TABLE TBAPROPRIACAO_ALMOX_ITEM ALTER COLUMN QTDE_FRACIONADA
+SET DEFAULT 0.0
+;
+
+
+
+
+/*------ SYSDBA 29/10/2015 14:18:47 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_apropriacao_almox_item_qtde for tbapropriacao_almox_item
+active before insert or update position 1
+AS
+begin
+  if ( coalesce(new.qtde_fracionada, 0.0) = 0.0 ) then
+    if ( coalesce(new.qtde, 0.0) > 0.0 ) then
+      new.qtde_fracionada = coalesce(new.qtde, 0.0) * coalesce(new.fracionador, 1);
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 29/10/2015 14:22:31 --------*/
+
+ALTER TABLE TBAPROPRIACAO_ALMOX_ITEM
+    ADD QTDE_TIPO_LANCAMENTO DMN_SMALLINT_N DEFAULT 0;
+
+COMMENT ON COLUMN TBAPROPRIACAO_ALMOX_ITEM.QTDE_TIPO_LANCAMENTO IS
+'Tipo de lancamento da quantidade:
+0 - Quantidade lancada pela Unidade de Compra
+1 - Quantidade lancada pela Unidade de Consumo (Fracionada)';
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter ANO position 1;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter CONTROLE position 2;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter ITEM position 3;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter PRODUTO position 4;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter QTDE_TIPO_LANCAMENTO position 5;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter QTDE position 6;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter QTDE_FRACIONADA position 7;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter FRACIONADOR position 8;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter UNIDADE position 9;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter UNIDADE_FRACAO position 10;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter CUSTO_UNITARIO position 11;
+
+alter table TBAPROPRIACAO_ALMOX_ITEM
+alter CUSTO_TOTAL position 12;
+
+
+
+
+/*------ SYSDBA 29/10/2015 14:23:16 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_SMALLINT_NN'
+where (RDB$FIELD_NAME = 'QTDE_TIPO_LANCAMENTO') and
+(RDB$RELATION_NAME = 'TBAPROPRIACAO_ALMOX_ITEM')
+;
+
+
+
+
+/*------ SYSDBA 29/10/2015 14:26:09 --------*/
+
+COMMENT ON TABLE TBAPROPRIACAO_ALMOX_ITEM IS 'Tabela de Itens de Apropriacao de Estoque (Almoxarifado)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   05/01/2015
+
+Tabela responsavel por armazenar todos os registros de itens da apropriacao de estoque para as entradas finalizadas de produtos lancadas no Sistema de Gestao Industrial.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    29/10/2015 - IMR :
+        + Criacao dos campos QTDE_FRACIONADA e QTDE_TIPO_LANCAMENTO para que seja
+          possivel a apropriacao geral de produtos para o estoque tanto por Unidade
+          de Compra como por Unidade de Consumo.
+
+    05/01/2014 - IMR :
+        * Documentacao da tabela.
+
+    13/01/2014 - IMR :
+        * Revisao da documentacao dos objetos.';
+
+
+
+
+/*------ SYSDBA 29/10/2015 14:59:37 --------*/
+
+COMMENT ON TABLE TBAPROPRIACAO_ALMOX_ITEM IS 'Tabela de Itens de Apropriacao de Estoque (Almoxarifado)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   05/01/2015
+
+Tabela responsavel por armazenar todos os registros de itens da apropriacao de estoque para as entradas finalizadas de produtos lancadas no Sistema de Gestao Industrial.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    29/10/2015 - IMR :
+        + Criacao dos campos QTDE_FRACIONADA e QTDE_TIPO_LANCAMENTO para que seja
+          possivel a apropriacao geral de produtos para o estoque tanto por Unidade
+          de Compra como por Unidade de Consumo.
+
+    13/01/2014 - IMR :
+        * Revisao da documentacao dos objetos.
+
+    05/01/2014 - IMR :
+        * Documentacao da tabela.';
+

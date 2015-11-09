@@ -149,8 +149,15 @@ type
     cdsTabelaItensFRACIONADOR: TIBBCDField;
     cdsTabelaItensUNIDADE_FRACAO: TSmallintField;
     cdsTabelaItensUNIDADE_FRACIONADA: TIBStringField;
-    cdsTabelaItensQTDE_FRACIONADA: TCurrencyField;
     stpAjusteEstoqueVenda: TIBStoredProc;
+    qryUnidadeProduto: TIBDataSet;
+    cdsTabelaItensQTDE_TIPO_LANCAMENTO: TSmallintField;
+    cdsTabelaItensQTDE_FRACIONADA: TIBBCDField;
+    lblUnidadeProduto: TLabel;
+    dbUnidadeProduto: TDBLookupComboBox;
+    dtsUnidadeProduto: TDataSource;
+    lblFracionador: TLabel;
+    dbFracionador: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -192,7 +199,7 @@ type
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure dbEntradaButtonClick(Sender: TObject);
     procedure dbAutorizacaoButtonClick(Sender: TObject);
-    procedure cdsTabelaItensCalcFields(DataSet: TDataSet);
+    procedure cdsTabelaItensAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -201,6 +208,7 @@ type
     iCentroCusto : Integer;
     procedure AbrirTabelaItens(const AnoApropriacao : Smallint; const CodigoApropriacao : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
+    procedure CarregarUnidadeProduto( Codigo : String );
     procedure CarregarProdutosEntrada(const iEntradaAno, iEntradaCod : Integer; sEntradaEmp : String);
     procedure CarregarProdutosAutorizacao(const iAutorizacaoAno, iAutorizacaoCod : Integer; sAutorizacaoEmp : String);
     procedure HabilitarDesabilitar_Btns;
@@ -648,7 +656,7 @@ begin
       dbProduto.SetFocus;
     end
     else
-    if ( cdsTabelaItensQTDE.AsCurrency < 0 ) then
+    if ( dbQuantidade.Field.AsCurrency < 0 ) then
     begin
       ShowWarning('Quantidade inválida.');
       dbQuantidade.SetFocus;
@@ -661,7 +669,6 @@ begin
     end
     else
     begin
-
       cdsTabelaItens.Post;
 
       GetToTais(cTotalCusto);
@@ -681,9 +688,13 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoque.cdsTabelaItensCalcFields(DataSet: TDataSet);
+procedure TfrmGeApropriacaoEstoque.cdsTabelaItensAfterScroll(DataSet: TDataSet);
 begin
-  cdsTabelaItensQTDE_FRACIONADA.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensFRACIONADOR.AsCurrency;
+  CarregarUnidadeProduto( cdsTabelaItensPRODUTO.AsString );
+  if ( cdsTabelaItensQTDE_TIPO_LANCAMENTO.AsInteger = 0 ) then
+    dbQuantidade.DataField := cdsTabelaItensQTDE.FieldName
+  else
+    dbQuantidade.DataField := cdsTabelaItensQTDE_FRACIONADA.FieldName;
 end;
 
 procedure TfrmGeApropriacaoEstoque.cdsTabelaItensNewRecord(
@@ -692,10 +703,12 @@ begin
   inherited;
   cdsTabelaItensANO.Value         := IbDtstTabelaANO.Value;
   cdsTabelaItensCONTROLE.Value    := IbDtstTabelaCONTROLE.Value;
-  cdsTabelaItensQTDE.Value        := 1;
-  cdsTabelaItensFRACIONADOR.Value := 1;
-  cdsTabelaItensCUSTO_UNITARIO.AsCurrency := 0.0;
-  cdsTabelaItensCUSTO_TOTAL.AsCurrency    := 0.0;
+  cdsTabelaItensQTDE_TIPO_LANCAMENTO.Value := 0;
+  cdsTabelaItensQTDE.Value                 := 1;
+  cdsTabelaItensQTDE_FRACIONADA.Value      := 1;
+  cdsTabelaItensFRACIONADOR.Value          := 1;
+  cdsTabelaItensCUSTO_UNITARIO.AsCurrency  := 0.0;
+  cdsTabelaItensCUSTO_TOTAL.AsCurrency     := 0.0;
   cdsTabelaItensPRODUTO.Clear;
   cdsTabelaItensDESCRI_APRESENTACAO.Clear;
   cdsTabelaItensUNIDADE.Clear;
@@ -921,6 +934,8 @@ begin
 
       if not IsEmpty then
       begin
+        CarregarUnidadeProduto( FieldByName('cod').AsString );
+
         cdsTabelaItensPRODUTO.AsString             := FieldByName('cod').AsString;
         cdsTabelaItensDESCRI_APRESENTACAO.AsString := FieldByName('descri_apresentacao').AsString;
         cdsTabelaItensFRACIONADOR.AsCurrency       := FieldByName('fracionador').AsCurrency;
@@ -1037,9 +1052,23 @@ begin
       if ( IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_GERAL ) then
           CarregarDadosProduto( StrToIntDef(cdsTabelaItensPRODUTO.AsString, 0) );
 
+  if ( Sender = dbUnidadeProduto ) then
+    if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+      if ( cdsTabelaItensQTDE_TIPO_LANCAMENTO.AsInteger = 0 ) then
+        dbQuantidade.DataField := cdsTabelaItensQTDE.FieldName
+      else
+        dbQuantidade.DataField := cdsTabelaItensQTDE_FRACIONADA.FieldName;
+
   if ( (Sender = dbQuantidade) or (Sender = dbCustoUn) ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+    begin
+      if ( cdsTabelaItensQTDE_TIPO_LANCAMENTO.AsInteger = 0 ) then
+        cdsTabelaItensQTDE_FRACIONADA.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensFRACIONADOR.AsInteger
+      else
+        cdsTabelaItensQTDE.AsCurrency := cdsTabelaItensQTDE_FRACIONADA.AsCurrency / cdsTabelaItensFRACIONADOR.AsInteger;
+
       cdsTabelaItensCUSTO_TOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
+    end;
 
   if ( Sender = dbCustoTotal ) then
     if ( btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled ) then
@@ -1470,8 +1499,9 @@ begin
   begin
     dbEntrada.Button.Enabled     := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_ENTRADA);
     dbAutorizacao.Button.Enabled := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_AUTORIZ);
-    dbProduto.Button.Enabled := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_GERAL);
-    dbProduto.ReadOnly       := (IbDtstTabelaTIPO.AsInteger > TIPO_APROPRIACAO_GERAL);
+    dbProduto.Button.Enabled     := (IbDtstTabelaTIPO.AsInteger = TIPO_APROPRIACAO_GERAL);
+    dbProduto.ReadOnly           := (IbDtstTabelaTIPO.AsInteger > TIPO_APROPRIACAO_GERAL);
+    dbUnidadeProduto.ReadOnly    := (IbDtstTabelaTIPO.AsInteger > TIPO_APROPRIACAO_GERAL);
 
     DtSrcTabelaItensStateChange( DtSrcTabelaItens );
   end;
@@ -1561,6 +1591,16 @@ begin
     end;
 
     IbDtstTabelaVALOR_TOTAL.AsCurrency := cTotalCusto;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoque.CarregarUnidadeProduto(Codigo: String);
+begin
+  with qryUnidadeProduto do
+  begin
+    Close;
+    ParamByName('produto').AsString := Codigo;
+    Open;
   end;
 end;
 
