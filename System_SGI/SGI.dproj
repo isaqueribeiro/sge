@@ -65,14 +65,14 @@
         <SanitizedProjectName>SGI</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Release>4</VerInfo_Release>
+        <VerInfo_Release>5</VerInfo_Release>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <Icon_MainIcon>SGI_Icon2.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.4.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.4;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/09/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.5.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.5;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
@@ -85,12 +85,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Build>8</VerInfo_Build>
+        <VerInfo_Build>1</VerInfo_Build>
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
-        <VerInfo_Release>4</VerInfo_Release>
+        <VerInfo_Release>5</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.4.8;InternalName=SGI;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.4;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/09/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.5.1;InternalName=SGI;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.5;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
     </PropertyGroup>
@@ -100,13 +100,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Build>4</VerInfo_Build>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Release>4</VerInfo_Release>
+        <VerInfo_Release>5</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.4.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.4;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/09/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.5.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.5;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

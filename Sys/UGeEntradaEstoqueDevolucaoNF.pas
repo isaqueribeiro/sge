@@ -84,6 +84,8 @@ type
     cdsCompraDECF_MODELO: TSmallintField;
     cdsCompraDECF_NUMERO: TIntegerField;
     cdsCompraDECF_COO: TIntegerField;
+    cdsCompraDNFE_SAIDA_ANO: TSmallintField;
+    cdsCompraDNFE_SAIDA_COD: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure cdsCompraCODCONTROLGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
@@ -92,6 +94,8 @@ type
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbEntradaButtonClick(Sender: TObject);
     procedure cdsCompraDNFE_ENTRADA_CODGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
+    procedure cdsCompraDNFE_SAIDA_CODGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
   private
     { Private declarations }
@@ -121,6 +125,12 @@ begin
       cdsCompra.ParamByName('anocompra').AsShort   := Ano;
       cdsCompra.ParamByName('numcompra').AsInteger := Numero;
       cdsCompra.Open;
+
+      if cdsCompraDNFE_ENTRADA_COD.AsInteger > 0 then
+        dbEntrada.DataField := cdsCompraDNFE_ENTRADA_COD.FieldName
+      else
+      if cdsCompraDNFE_SAIDA_COD.AsInteger > 0 then
+        dbEntrada.DataField := cdsCompraDNFE_SAIDA_COD.FieldName;
 
       if not cdsCompra.IsEmpty then
       begin
@@ -180,7 +190,16 @@ procedure TfrmGeEntradaEstoqueDevolucaoNF.cdsCompraDNFE_ENTRADA_CODGetText(
   Sender: TField; var Text: string; DisplayText: Boolean);
 begin
   if not Sender.IsNull then
-    Text := cdsCompraDNFE_ENTRADA_ANO.AsString + '/' + FormatFloat('0000000', Sender.AsInteger);
+    Text := Sender.DataSet.FieldByName('DNFE_ENTRADA_ANO').AsString + '/' +
+      FormatFloat('0000000', Sender.AsInteger);
+end;
+
+procedure TfrmGeEntradaEstoqueDevolucaoNF.cdsCompraDNFE_SAIDA_CODGetText(
+  Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Text := Sender.DataSet.FieldByName('DNFE_SAIDA_ANO').AsString + '/' +
+      FormatFloat('0000000', Sender.AsInteger);
 end;
 
 procedure TfrmGeEntradaEstoqueDevolucaoNF.dbEntradaButtonClick(Sender: TObject);
@@ -210,6 +229,17 @@ begin
       begin
         cdsCompraDNFE_ENTRADA_ANO.Clear;
         cdsCompraDNFE_ENTRADA_COD.Clear;
+      end;
+
+      if (fDestinatario.Tipo = dtCliente) then
+      begin
+        cdsCompraDNFE_SAIDA_ANO.AsInteger := iAno;
+        cdsCompraDNFE_SAIDA_COD.AsInteger := iControle;
+      end
+      else
+      begin
+        cdsCompraDNFE_SAIDA_ANO.Clear;
+        cdsCompraDNFE_SAIDA_COD.Clear;
       end;
 
       cdsCompraDNFE_COMPETENCIA.AsString  := FormatDateTime('yymm', dEmissao);
@@ -270,6 +300,15 @@ begin
           dbNFModelo.Field.Clear;
       end;
 
+  end
+  else
+  if ( (Field = cdsCompraDNFE_ENTRADA_COD) or (Field = cdsCompraDNFE_SAIDA_COD) ) then
+  begin
+    if cdsCompraDNFE_ENTRADA_COD.AsInteger > 0 then
+      dbEntrada.DataField := cdsCompraDNFE_ENTRADA_COD.FieldName
+    else
+    if cdsCompraDNFE_SAIDA_COD.AsInteger > 0 then
+      dbEntrada.DataField := cdsCompraDNFE_SAIDA_COD.FieldName;
   end;
 end;
 

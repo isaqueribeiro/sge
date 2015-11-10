@@ -4,6 +4,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   Caption = 'Controle de Apropria'#231#245'es de Estoque'
   ClientHeight = 685
   ClientWidth = 1116
+  ExplicitTop = -126
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -1056,7 +1057,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
-        ExplicitTop = 232
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -2351,7 +2351,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

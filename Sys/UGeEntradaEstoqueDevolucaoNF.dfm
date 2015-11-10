@@ -50,9 +50,9 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
     object lblEntrada: TLabel
       Left = 135
       Top = 24
-      Width = 118
+      Width = 114
       Height = 13
-      Caption = 'Mov. Entrada/Venda:'
+      Caption = 'Mov. Entrada/Sa'#237'da:'
       FocusControl = dbEntrada
     end
     object lblFormaDevolucao: TLabel
@@ -732,6 +732,8 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
       '  , c.codemp'
       '  , c.dnfe_entrada_ano'
       '  , c.dnfe_entrada_cod'
+      '  , c.dnfe_saida_ano'
+      '  , c.dnfe_saida_cod'
       '  , c.dnfe_forma'
       '  , c.dnfe_chave'
       '  , c.dnfe_uf'
@@ -783,6 +785,15 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
       Origin = '"TBCOMPRAS"."DNFE_ENTRADA_COD"'
       ProviderFlags = [pfInUpdate]
       OnGetText = cdsCompraDNFE_ENTRADA_CODGetText
+    end
+    object cdsCompraDNFE_SAIDA_ANO: TSmallintField
+      FieldName = 'DNFE_SAIDA_ANO'
+      Origin = '"TBCOMPRAS"."DNFE_SAIDA_ANO"'
+    end
+    object cdsCompraDNFE_SAIDA_COD: TIntegerField
+      FieldName = 'DNFE_SAIDA_COD'
+      Origin = '"TBCOMPRAS"."DNFE_SAIDA_COD"'
+      OnGetText = cdsCompraDNFE_SAIDA_CODGetText
     end
     object cdsCompraDNFE_FORMA: TSmallintField
       FieldName = 'DNFE_FORMA'
@@ -879,6 +890,7 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
       '  NFCFOP,'
       '  NATUREZA,'
       '  STATUS,'
+      '  CALCULAR_TOTAIS,'
       '  IPI,'
       '  ICMSBASE,'
       '  ICMSVALOR,'
@@ -921,6 +933,8 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
       '  AUTORIZACAO_EMPRESA,'
       '  DNFE_ENTRADA_ANO,'
       '  DNFE_ENTRADA_COD,'
+      '  DNFE_SAIDA_ANO,'
+      '  DNFE_SAIDA_COD,'
       '  DNFE_FORMA,'
       '  DNFE_UF,'
       '  DNFE_CNPJ_CPF,'
@@ -950,8 +964,33 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
       '  DNFE_IE = :DNFE_IE,'
       '  DNFE_MODELO = :DNFE_MODELO,'
       '  DNFE_NUMERO = :DNFE_NUMERO,'
+      '  DNFE_SAIDA_ANO = :DNFE_SAIDA_ANO,'
+      '  DNFE_SAIDA_COD = :DNFE_SAIDA_COD,'
       '  DNFE_SERIE = :DNFE_SERIE,'
       '  DNFE_UF = :DNFE_UF'
+      'where'
+      '  ANO = :OLD_ANO and'
+      '  CODCONTROL = :OLD_CODCONTROL and'
+      '  CODEMP = :OLD_CODEMP')
+    InsertSQL.Strings = (
+      'insert into TBCOMPRAS'
+      
+        '  (DNFE_CHAVE, DNFE_CNPJ_CPF, DNFE_COMPETENCIA, DNFE_ENTRADA_ANO' +
+        ', DNFE_ENTRADA_COD, '
+      
+        '   DNFE_FORMA, DNFE_IE, DNFE_MODELO, DNFE_NUMERO, DNFE_SAIDA_ANO' +
+        ', DNFE_SAIDA_COD, '
+      '   DNFE_SERIE, DNFE_UF)'
+      'values'
+      
+        '  (:DNFE_CHAVE, :DNFE_CNPJ_CPF, :DNFE_COMPETENCIA, :DNFE_ENTRADA' +
+        '_ANO, :DNFE_ENTRADA_COD, '
+      
+        '   :DNFE_FORMA, :DNFE_IE, :DNFE_MODELO, :DNFE_NUMERO, :DNFE_SAID' +
+        'A_ANO, '
+      '   :DNFE_SAIDA_COD, :DNFE_SERIE, :DNFE_UF)')
+    DeleteSQL.Strings = (
+      'delete from TBCOMPRAS'
       'where'
       '  ANO = :OLD_ANO and'
       '  CODCONTROL = :OLD_CODCONTROL and'

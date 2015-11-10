@@ -112,6 +112,13 @@ type
     Bevel4: TBevel;
     BtnPesquisar: TcxButton;
     qryQtdeReservada: TIBDataSet;
+    ppAtualizarCusto: TPopupMenu;
+    nmppAtualizacaoAutomatica: TMenuItem;
+    nmppAtualizacaoManual: TMenuItem;
+    spAtualizarCustoApEntrada: TIBStoredProc;
+    spAtualizarCustoApAutorizacao: TIBStoredProc;
+    spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc;
+    spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -129,6 +136,9 @@ type
     procedure dbgProdutoTblCellDblClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
+    procedure nmppAtualizacaoManualClick(Sender: TObject);
+    procedure nmppAtualizacaoAutomaticaClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FSQLTotal   ,
@@ -280,6 +290,13 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.FormShow(Sender: TObject);
+begin
+  inherited;
+
+  nmppAtualizacaoAutomaticaClick(Self);
 end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.edCentroCustoButtonClick(
@@ -814,7 +831,61 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoquePesquisa.btBtnAtualizarCustoClick(
+procedure TfrmGeApropriacaoEstoquePesquisa.nmppAtualizacaoAutomaticaClick(
+  Sender: TObject);
+var
+  dData : TDateTime;
+begin
+  dData := GetDateDB;
+  Screen.Cursor := crSQLWait;
+  try
+    // 1. Atualização do Custo das Apropriações de Estoque por Entrada
+    with spAtualizarCustoApEntrada do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 2. Atualização do Custo das Apropriações de Estoque por Autorizações
+    with spAtualizarCustoApAutorizacao do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 3. Atualização do Custo do Estoque de Almoxarifado
+    with spAtualizarCustoEstoqueAlmoxarifado do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 4. Atualização do Custo das Requisições ao Almoxarifado
+    with spAtualizarCustoEstoqueRequisicao do
+    begin
+      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    if ( Sender = nmppAtualizacaoAutomatica ) then
+      ShowInformation('Atualização ocorrida com sucesso!');
+
+    if CdsProduto.Active then
+    begin
+      CdsProduto.Close;
+      CdsProduto.Open;
+      CalcularPercentuais( CdsProduto );
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.nmppAtualizacaoManualClick(
   Sender: TObject);
 var
   cValorCusto : Currency;
@@ -823,7 +894,7 @@ var
 const
   LOG = 'Insert Into TBLOG_TRANSACAO (USUARIO, DATA_HORA, TIPO, DESCRICAO, ESPECIFICACAO) values (%s, current_timestamp, 2, %s, %s)';
 begin
-  if not GetPermissaoRotinaInterna(Sender, True) then
+  if not GetPermissaoRotinaInterna(btBtnAtualizarCusto, True) then
     Exit;
 
   if not CdsProduto.Active then
@@ -883,10 +954,18 @@ begin
       CdsProduto.Close;
       CdsProduto.Open;
       CalcularPercentuais( CdsProduto );
-      
+
       CdsProduto.Locate('PRODUTO', sProduto, []);
     end;
   end;
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.btBtnAtualizarCustoClick(
+  Sender: TObject);
+begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Exit;
+  ppAtualizarCusto.Popup(btBtnAtualizarCusto.ClientOrigin.X, btBtnAtualizarCusto.ClientOrigin.Y + btBtnAtualizarCusto.Height);
 end;
 
 initialization
