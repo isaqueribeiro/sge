@@ -5,7 +5,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
   Caption = 'Consultar Apropria'#231#227'o de Estoque Atual'
   ClientHeight = 648
   ClientWidth = 1116
-  ExplicitLeft = -50
+  ExplicitTop = -20
   ExplicitWidth = 1132
   ExplicitHeight = 687
   PixelsPerInch = 96
@@ -910,6 +910,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Hint = 'Atualizar Valor de Custo (R$)'
       Align = alRight
       Caption = '&Atualizar Custo'
+      DropDownMenu = ppAtualizarCusto
       OptionsImage.ImageIndex = 16
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       ParentShowHint = False

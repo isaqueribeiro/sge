@@ -2747,3 +2747,454 @@ end ^
 SET TERM ; ^
 
 GRANT EXECUTE ON PROCEDURE SP_UPD_CUSTO_ESTOQUE_REQUI TO "PUBLIC";
+
+
+
+/*------ SYSDBA 10/11/2015 20:42:13 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_ESTOQUE_APROP (
+    ANO smallint)
+as
+declare variable PRODUTO varchar(10);
+declare variable CENTRO integer;
+declare variable FRACIONADOR DMN_PERCENTUAL_3;
+declare variable UNIDADE smallint;
+declare variable CUSTO_INTEIRO DMN_MONEY;
+begin
+  -- Atualizar Custos do Estoque Apropriado no Almoxarifado
+  -- OBSERVACAO: Processo III da Atualizacao Geral de Custos do Estoque
+  for
+    Select
+        i.produto
+      , a.centro_custo
+      , i.fracionador
+      , p.codunidade_fracionada
+      , avg(i.custo_unitario) as custo_medio
+    from TBAPROPRIACAO_ALMOX_ITEM i
+      inner join TBAPROPRIACAO_ALMOX a on (a.ano = i.ano and a.controle = i.controle and a.status = 2)  -- 2. Encerrada
+      inner join TBPRODUTO p on (p.cod = i.produto)
+    where i.ano = :ano
+    group by
+        i.produto
+      , a.centro_custo
+      , i.fracionador
+      , p.codunidade_fracionada
+    Into
+        produto
+      , centro
+      , fracionador
+      , unidade
+      , custo_inteiro
+  do
+  begin
+    Update TBESTOQUE_ALMOX ee Set
+        ee.fracionador = :fracionador
+      , ee.unidade     = :unidade
+      , ee.custo_medio = (:custo_inteiro / :fracionador)
+    where ee.centro_custo = :centro
+      and ee.produto      = :produto;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 10/11/2015 20:47:03 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_APROP_AUTORIZ (
+    ANO smallint)
+as
+declare variable ANO_AUTORIZA integer;
+declare variable COD_AUTORIZA integer;
+declare variable EMP_AUTORIZA varchar(18);
+declare variable PRODUTO varchar(10);
+declare variable CUSTO DMN_MONEY;
+declare variable TOTAL DMN_MONEY;
+declare variable ANO_APROPRIACAO integer;
+declare variable COD_APROPRIACAO integer;
+begin
+  -- Atualizar Custos de Apropriacao por Autorizacoes
+  -- OBSERVACAO: Processo II da Atualizacao Geral de Custos do Estoque
+  for
+    Select
+        c.ano
+      , c.codigo
+      , c.empresa
+      , c.produto
+      , c.valor_unitario
+    from TBAUTORIZA_COMPRAITEM c
+      inner join TBAUTORIZA_COMPRA cc on (cc.ano = c.ano and cc.codigo = c.codigo and cc.empresa = c.empresa)
+    where cc.status between 2 and 3 -- 2. Autorizada / 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      and c.ano = :ano
+    Into
+        ano_autoriza
+      , cod_autoriza
+      , emp_autoriza
+      , produto
+      , custo
+  do
+  begin
+    for
+      Select
+          aa.ano
+        , aa.controle
+      from TBAPROPRIACAO_ALMOX aa
+      where aa.autorizacao_ano = :ano_autoriza
+        and aa.autorizacao_num = :cod_autoriza
+        and aa.autorizacao_emp = :emp_autoriza
+      Into
+          ano_apropriacao
+        , cod_apropriacao
+    do
+    begin
+      Update TBAPROPRIACAO_ALMOX_ITEM i Set
+          i.custo_unitario = :custo
+        , i.custo_total    = i.qtde * :custo
+      where i.ano      = :ano_apropriacao
+        and i.controle = :cod_apropriacao
+        and i.produto  = :produto;
+    end 
+  end 
+
+  -- 2. Atualizar Valor Total das Apropriacoes
+  for
+    Select
+        i.ano
+      , i.controle
+      , sum( i.custo_total )
+    from TBAPROPRIACAO_ALMOX_ITEM i
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano_apropriacao
+      , cod_apropriacao
+      , total
+  do
+  begin
+    Update TBAPROPRIACAO_ALMOX a Set
+      a.valor_total  = :total
+    where a.ano      = :ano_apropriacao
+      and a.controle = :cod_apropriacao;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 10/11/2015 20:50:34 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_APROP_ENTRADA (
+    ANO smallint)
+as
+declare variable ANO_COMPRA integer;
+declare variable COD_COMPRA integer;
+declare variable EMP_COMPRA varchar(18);
+declare variable PRODUTO varchar(10);
+declare variable CUSTO DMN_MONEY;
+declare variable TOTAL DMN_MONEY;
+declare variable ANO_AUTORIZ integer;
+declare variable COD_AUTORIZ integer;
+begin
+  -- Atualizar Custos de Apropriacao por Entradas
+  -- OBSERVACAO: Processo I da Atualizacao Geral de Custos do Estoque
+  for
+    Select
+        c.ano
+      , c.codcontrol
+      , c.codemp
+      , c.codprod
+      , c.customedio
+    from TBCOMPRASITENS c
+      inner join TBCOMPRAS cc on (cc.ano = c.ano and cc.codcontrol = c.codcontrol and cc.codemp = c.codemp)
+    where cc.status in (2, 4) -- 2. Finalizado / 4. NF-e Emitida
+      and c.ano = :ano
+    Into
+        ano_compra
+      , cod_compra
+      , emp_compra
+      , produto
+      , custo
+  do
+  begin
+    for
+      Select
+          aa.ano
+        , aa.controle
+      from TBAPROPRIACAO_ALMOX aa
+      where aa.compra_ano = :ano_compra
+        and aa.compra_num = :cod_compra
+        and aa.compra_emp = :emp_compra
+      Into
+          ano_autoriz
+        , cod_autoriz
+    do
+    begin
+      Update TBAPROPRIACAO_ALMOX_ITEM i Set
+          i.custo_unitario = :custo
+        , i.custo_total    = i.qtde * :custo
+      where i.ano      = :ano_autoriz
+        and i.controle = :cod_autoriz
+        and i.produto  = :produto;
+    end 
+  end 
+
+  -- 2. Atualizar Valor Total das Apropriacoes
+  for
+    Select
+        i.ano
+      , i.controle
+      , sum( i.custo_total )
+    from TBAPROPRIACAO_ALMOX_ITEM i
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano_autoriz
+      , cod_autoriz
+      , total
+  do
+  begin
+    Update TBAPROPRIACAO_ALMOX a Set
+      a.valor_total  = :total
+    where a.ano      = :ano_autoriz
+      and a.controle = :cod_autoriz;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 10/11/2015 20:50:59 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_APROP_AUTORIZ (
+    ANO smallint)
+as
+declare variable ANO_AUTORIZA integer;
+declare variable COD_AUTORIZA integer;
+declare variable EMP_AUTORIZA varchar(18);
+declare variable PRODUTO varchar(10);
+declare variable CUSTO DMN_MONEY;
+declare variable TOTAL DMN_MONEY;
+declare variable ANO_APROPRIACAO integer;
+declare variable COD_APROPRIACAO integer;
+begin
+  -- Atualizar Custos de Apropriacao por Autorizacoes
+  -- OBSERVACAO: Processo II da Atualizacao Geral de Custos do Estoque
+  for
+    Select
+        c.ano
+      , c.codigo
+      , c.empresa
+      , c.produto
+      , c.valor_unitario
+    from TBAUTORIZA_COMPRAITEM c
+      inner join TBAUTORIZA_COMPRA cc on (cc.ano = c.ano and cc.codigo = c.codigo and cc.empresa = c.empresa)
+    where cc.status in (2, 3) -- 2. Autorizada / 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      and c.ano = :ano
+    Into
+        ano_autoriza
+      , cod_autoriza
+      , emp_autoriza
+      , produto
+      , custo
+  do
+  begin
+    for
+      Select
+          aa.ano
+        , aa.controle
+      from TBAPROPRIACAO_ALMOX aa
+      where aa.autorizacao_ano = :ano_autoriza
+        and aa.autorizacao_num = :cod_autoriza
+        and aa.autorizacao_emp = :emp_autoriza
+      Into
+          ano_apropriacao
+        , cod_apropriacao
+    do
+    begin
+      Update TBAPROPRIACAO_ALMOX_ITEM i Set
+          i.custo_unitario = :custo
+        , i.custo_total    = i.qtde * :custo
+      where i.ano      = :ano_apropriacao
+        and i.controle = :cod_apropriacao
+        and i.produto  = :produto;
+    end 
+  end 
+
+  -- 2. Atualizar Valor Total das Apropriacoes
+  for
+    Select
+        i.ano
+      , i.controle
+      , sum( i.custo_total )
+    from TBAPROPRIACAO_ALMOX_ITEM i
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano_apropriacao
+      , cod_apropriacao
+      , total
+  do
+  begin
+    Update TBAPROPRIACAO_ALMOX a Set
+      a.valor_total  = :total
+    where a.ano      = :ano_apropriacao
+      and a.controle = :cod_apropriacao;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 10/11/2015 20:51:39 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_ESTOQUE_APROP (
+    ANO smallint)
+as
+declare variable PRODUTO varchar(10);
+declare variable CENTRO integer;
+declare variable FRACIONADOR DMN_PERCENTUAL_3;
+declare variable UNIDADE smallint;
+declare variable CUSTO_INTEIRO DMN_MONEY;
+begin
+  -- Atualizar Custos do Estoque Apropriado no Almoxarifado
+  -- OBSERVACAO: Processo III da Atualizacao Geral de Custos do Estoque
+  for
+    Select
+        i.produto
+      , a.centro_custo
+      , i.fracionador
+      , p.codunidade_fracionada
+      , avg(i.custo_unitario) as custo_medio
+    from TBAPROPRIACAO_ALMOX_ITEM i
+      inner join TBAPROPRIACAO_ALMOX a on (a.ano = i.ano and a.controle = i.controle)
+      inner join TBPRODUTO p on (p.cod = i.produto)
+    where a.status = 2 -- 2. Encerrada
+      and i.ano = :ano
+    group by
+        i.produto
+      , a.centro_custo
+      , i.fracionador
+      , p.codunidade_fracionada
+    Into
+        produto
+      , centro
+      , fracionador
+      , unidade
+      , custo_inteiro
+  do
+  begin
+    Update TBESTOQUE_ALMOX ee Set
+        ee.fracionador = :fracionador
+      , ee.unidade     = :unidade
+      , ee.custo_medio = (:custo_inteiro / :fracionador)
+    where ee.centro_custo = :centro
+      and ee.produto      = :produto;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 10/11/2015 21:10:21 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_ESTOQUE_REQUI (
+    ANO_MOVIMENTO smallint)
+as
+declare variable ANO integer;
+declare variable CONTROLE integer;
+declare variable LOTE varchar(38);
+declare variable CUSTO DMN_MONEY_4;
+declare variable TOTAL DMN_MONEY;
+declare variable UNIDADE smallint;
+declare variable FRACIONADOR DMN_PERCENTUAL_3;
+begin
+  -- Atualizar Custos das Requisicoes ao Almoxarifado
+  -- OBSERVACAO: Processo VI da Atualizacao Geral de Custos do Estoque
+
+  --1. Atualizar Custo dos Itens
+  for
+    Select
+        i.ano
+      , i.controle
+      , i.lote_atendimento
+    from TBREQUISICAO_ALMOX_ITEM i
+      inner join TBREQUISICAO_ALMOX ii on (ii.ano = i.ano and ii.controle = i.controle )
+    where ii.status in (2, 3, 4) -- 2. Enviada / 3. Recebida / 4. Atendida
+      and i.ano = :ano_movimento
+    Into
+        ano
+      , controle
+      , lote
+  do
+  begin
+    Select
+        e.custo_medio
+      , e.unidade
+      , e.fracionador
+    from TBESTOQUE_ALMOX e
+    where e.id = :lote
+    Into
+        custo
+      , unidade
+      , fracionador;
+
+    Update TBREQUISICAO_ALMOX_ITEM i Set
+        i.custo       = :custo
+      , i.unidade     = :unidade
+      , i.fracionador = :fracionador
+      , i.total       = (i.qtde_atendida * :custo)
+    where i.ano      = :ano
+      and i.controle = :controle
+      and i.lote_atendimento = :lote;
+  end 
+
+  --2. Atualizar Custos Gerais
+  for
+    Select
+        i.ano
+      , i.controle
+      , sum( i.total )
+    from TBREQUISICAO_ALMOX_ITEM i
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano
+      , controle
+      , total
+  do
+  begin
+    Update TBREQUISICAO_ALMOX r Set
+      r.valor_total = :total
+    where r.ano      = :ano
+      and r.controle = :controle;
+  end 
+end^
+
+SET TERM ; ^
+

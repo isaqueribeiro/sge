@@ -76,6 +76,7 @@ type
     frRelacaoAPagarTPDespesaFornecedor: TfrxReport;
     frRelacaoAPagarAPSintetico: TfrxReport;
     frRelacaoAPagarAPAnalitico: TfrxReport;
+    frRelacaoAPagarAPFornecedor: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -109,6 +110,7 @@ type
     procedure MontarRelacaoAPagarPorTPDespesaFornecedor;
     procedure MontarRelacaoAPagarPorCompetenciaApuracaoSintetico;
     procedure MontarRelacaoAPagarPorCompetenciaApuracaoAnalitico;
+    procedure MontarRelacaoAPagarPorCompetenciaApuracaoFornecedor;
   public
     { Public declarations }
   end;
@@ -127,8 +129,9 @@ const
   REPORT_RELACAO_APAGAR_POR_TPDESPESA_SINTETICO   = 7;
   REPORT_RELACAO_APAGAR_POR_TPDESPESA_ANALITICO   = 8;
   REPORT_RELACAO_APAGAR_POR_TPDESPESA_FORNECEDOR  = 9;
-  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_SINTETICO = 10;
-  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_ANALITICO = 11;
+  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_SINTETICO  = 10;
+  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_ANALITICO  = 11;
+  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_FORNECEDOR = 12;
 
 implementation
 
@@ -263,6 +266,12 @@ begin
       begin
         MontarRelacaoAPagarPorCompetenciaApuracaoAnalitico;
         frReport := frRelacaoAPagarAPAnalitico;
+      end;
+
+    REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_FORNECEDOR:
+      begin
+        MontarRelacaoAPagarPorCompetenciaApuracaoFornecedor;
+        frReport := frRelacaoAPagarAPFornecedor;
       end;
   end;
 
@@ -820,6 +829,83 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório analítico de contas a pagar por competência de apuração/fornecedor.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeContasAPagarImpressao.MontarRelacaoAPagarPorCompetenciaApuracaoFornecedor;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    if (edFornecedor.ItemIndex = 0) then
+      PeriodoRelatorio := Format('Despesas com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Despesas com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edFornecedor.Text]) + #13;
+
+    if (edTipoDespesa.ItemIndex > 0) then
+      PeriodoRelatorio := '[' + Trim(AnsiUpperCase(edTipoDespesa.Text)) +  '] ' + PeriodoRelatorio;
+
+    CdsRelacaoAPagarVFornecedor.Close;
+
+    with QryRelacaoAPagarVFornecedor do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAPagarVencimentoFornec );
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and cp.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and (cp.quitado = 1)');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and (cp.quitado = 0)');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and cp.situacao = 0');
+      end;
+
+      if ( edTipoDespesa.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
+
+      if ( edFornecedor.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
+      SQL.Add('');
+      SQL.Add('group by');
+      SQL.Add('    extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , cp.competencia_apuracao');
+      SQL.Add('  , ca.cmp_desc');
+      SQL.Add('  , cv.cmp_desc');
+      SQL.Add('  , cp.situacao');
+      SQL.Add('  , cp.codforn');
+      SQL.Add('  , fn.nomeforn');
+      SQL.Add('  , fn.cnpj');
+      SQL.Add('  , fn.pessoa_fisica');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    cp.competencia_apuracao');
+      SQL.Add('  , extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , fn.nomeforn');
+      SQL.Add('  , fn.cnpj');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório sintético de contas a pagar por competência de apuração/fornecedor.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
