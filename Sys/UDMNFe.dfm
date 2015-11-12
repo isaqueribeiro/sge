@@ -8553,7 +8553,7 @@ object DMNFe: TDMNFe
         end
         object Memo11: TfrxMemoView
           Left = 143.622140000000000000
-          Top = 49.133889999999990000
+          Top = 49.133890000000000000
           Width = 411.968770000000000000
           Height = 15.118120000000000000
           DataSet = frdCliente

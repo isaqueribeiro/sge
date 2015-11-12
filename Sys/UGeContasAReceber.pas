@@ -352,6 +352,7 @@ begin
   IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(Date);
   IbDtstTabelaFORMA_PAGTO.Value    := GetFormaPagtoIDDefault;
   IbDtstTabelaTIPPAG.Value         := GetFormaPagtoNomeDefault;
+  IbDtstTabelaHISTORIC.AsString    := '...';
   IbDtstTabelaVALORRECTOT.Value     := 0;
   IbDtstTabelaVALORSALDO.Value      := 0;
   IbDtstTabelaVALORMULTA.Value      := 0;

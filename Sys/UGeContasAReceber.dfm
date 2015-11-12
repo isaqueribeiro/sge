@@ -955,7 +955,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         TabOrder = 4
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitHeight = 94
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -965,7 +964,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
             DataField = 'HISTORIC'
             DataSource = DtSrcTabela
             TabOrder = 0
-            ExplicitHeight = 94
           end
         end
       end
@@ -1070,7 +1068,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         Font.Style = []
         ParentFont = False
         TabOrder = 2
-        ExplicitTop = 165
         object lblBanco: TLabel
           Left = 16
           Top = 24
@@ -1844,7 +1841,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited ImgList: TImageList
     Left = 736
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

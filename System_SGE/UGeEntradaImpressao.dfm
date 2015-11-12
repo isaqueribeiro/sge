@@ -2,8 +2,16 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
   Left = 388
   Top = 219
   Caption = 'Relat'#243'rio de Entradas'
+  ExplicitWidth = 555
+  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
+  inherited pnlBanner: TPanel
+    inherited imgBanner: TImage
+      ExplicitLeft = -2
+      ExplicitHeight = 260
+    end
+  end
   inherited pnlRelatorio: TPanel
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
@@ -15,8 +23,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
     end
     inherited GrpBxFiltro: TGroupBox
       object lblData: TLabel
-        Left = 45
-        Top = 51
+        Left = 52
+        Top = 50
         Width = 46
         Height = 13
         Alignment = taRightJustify
@@ -24,8 +32,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         FocusControl = e1Data
       end
       object lblSituacao: TLabel
-        Left = 41
-        Top = 76
+        Left = 46
+        Top = 75
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -33,8 +41,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         FocusControl = edSituacao
       end
       object lblTipoEntrada: TLabel
-        Left = 19
-        Top = 100
+        Left = 24
+        Top = 99
         Width = 74
         Height = 13
         Alignment = taRightJustify
@@ -42,8 +50,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         FocusControl = edTipoEntrada
       end
       object lblTipoDocumento: TLabel
-        Left = 25
-        Top = 124
+        Left = 30
+        Top = 123
         Width = 68
         Height = 13
         Alignment = taRightJustify
@@ -51,8 +59,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         FocusControl = edTipoDocumento
       end
       object lblEmpresa: TLabel
-        Left = 49
-        Top = 28
+        Left = 46
+        Top = 27
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -474,10 +482,18 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
         end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
@@ -1799,10 +1815,18 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
         end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
@@ -3563,10 +3587,18 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
         end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000

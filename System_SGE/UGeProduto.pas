@@ -415,6 +415,8 @@ uses
 {$R *.dfm}
 
 const
+  COLUMN_QTDE       = 2;
+  COLUMN_DISPONIVEL = 3;
   COLUMN_LUCRO = 12;
   COLUMN_GRUPO = 13;
 
@@ -1344,6 +1346,11 @@ begin
       edtFiltrar.SetFocus;
   end;
 
+  dbgDados.Columns[COLUMN_QTDE].Visible       := ( gSistema.Codigo <> SISTEMA_GESTAO_IND );
+  dbgDados.Columns[COLUMN_DISPONIVEL].Visible := ( gSistema.Codigo <> SISTEMA_GESTAO_IND );
+  lblProdutoPromocao.Visible   := ( gSistema.Codigo <> SISTEMA_GESTAO_IND );
+  lblProdutoSemEstoque.Visible := ( gSistema.Codigo <> SISTEMA_GESTAO_IND );
+
   dbgDados.Columns[COLUMN_LUCRO].Visible := ( gUsuarioLogado.Funcao in [FUNCTION_USER_ID_DIRETORIA..FUNCTION_USER_ID_GERENTE_FIN,
     FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM] )
     and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
@@ -1357,12 +1364,14 @@ begin
   // Destacar produtos sem Estoque
   if ( TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
     if ( IbDtstTabelaQTDE.AsCurrency <= 0 ) then
-      dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color;
+      if lblProdutoSemEstoque.Visible then
+        dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color;
 
   // Destacar produtos em Promocao
   if ( IbDtstTabelaPRECO_PROMOCAO.AsCurrency > 0 ) then
-    dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
-    
+    if lblProdutoPromocao.Visible then
+      dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
+
   // Destacar serviços/produtos desativados
   if ( IbDtstTabelaCADASTRO_ATIVO.AsInteger = 0 ) then
     dbgDados.Canvas.Font.Color := lblProdutoDesativado.Font.Color;

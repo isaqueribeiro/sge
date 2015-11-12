@@ -374,6 +374,7 @@ begin
   IbDtstTabelaLOTE.AsString := EmptyStr;
   IbDtstTabelaFORMA_PAGTO.Value    := GetFormaPagtoIDDefault;
   IbDtstTabelaCONDICAO_PAGTO.Value := GetCondicaoPagtoIDDefault;
+  IbDtstTabelaHISTORIC.AsString    := '...';
 end;
 
 procedure TfrmGeContasAPagar.btbtnEfetuarPagtoClick(Sender: TObject);

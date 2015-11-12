@@ -207,6 +207,7 @@ type
     dxRibbonBackstageViewGalleryItem4: TdxRibbonBackstageViewGalleryItem;
     BrBtnFuncionario: TdxBarLargeButton;
     BrBtnFuncaoCBO: TdxBarLargeButton;
+    BrBtnRelatorioAutorizacao: TdxBarLargeButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -304,6 +305,7 @@ type
     procedure BrBtnQuitarAReceberLoteClick(Sender: TObject);
     procedure BrBtnFuncionarioClick(Sender: TObject);
     procedure BrBtnTabelaIBPTClick(Sender: TObject);
+    procedure BrBtnRelatorioAutorizacaoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -368,6 +370,12 @@ procedure TfrmPrinc.BrBtnQuitarAReceberLoteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_ARECEBER_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeContasAReceberQuitar');
+end;
+
+procedure TfrmPrinc.BrBtnRelatorioAutorizacaoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_AUTORIZACAO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeAutorizacaoCompraImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnRelatorioEstoqueReqClick(Sender: TObject);
@@ -956,6 +964,7 @@ begin
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_CLIENTE_ID,      Trim(BrBtnRelatorioCliente.Caption),        ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_FORNECEDOR_ID,   Trim(BrBtnRelatorioFornecedor.Caption),     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_PRODUTO_ID,      Trim(BrBtnRelatorioProduto.Caption),        ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_AUTORIZACAO_ID,  Trim(BrBtnRelatorioAutorizacao.Caption),    ROTINA_MENU_RELATORIO_ID);
 
   // Relatórios -> Entradas
 

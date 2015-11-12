@@ -4643,7 +4643,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4721,6 +4720,7 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
+      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -5375,6 +5375,10 @@ object frmPrinc: TfrmPrinc
       ItemLinks = <
         item
           Visible = True
+          ItemName = 'BrBtnRelatorioAutorizacao'
+        end
+        item
+          Visible = True
           ItemName = 'BrBtnRelatorioEntrada'
         end
         item
@@ -5399,7 +5403,7 @@ object frmPrinc: TfrmPrinc
     object BrMngRelatorioGerencial: TdxBar
       Caption = 'Relat'#243'rios Gerenciais'
       CaptionButtons = <>
-      DockedLeft = 564
+      DockedLeft = 682
       DockedTop = 0
       FloatLeft = 379
       FloatTop = 206
@@ -6345,6 +6349,17 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 62
       SyncImageIndex = False
       ImageIndex = 62
+    end
+    object BrBtnRelatorioAutorizacao: TdxBarLargeButton
+      Caption = 'Autoriza'#231#245'es de Compras / Servi'#231'os'
+      Category = 15
+      Hint = 'Autoriza'#231#245'es de Compras / Servi'#231'os'
+      Visible = ivAlways
+      LargeImageIndex = 75
+      OnClick = BrBtnRelatorioAutorizacaoClick
+      HotImageIndex = 75
+      SyncImageIndex = False
+      ImageIndex = 75
     end
     object BrBtnRelatorioEntrada: TdxBarLargeButton
       Caption = 'Entradas de Produtos/Servi'#231'os'

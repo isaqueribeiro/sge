@@ -110,7 +110,8 @@ begin
 
     if AForm.fSemNFComplementar then
       AForm.WhereAdditional := AForm.WhereAdditional +
-        ' and (coalesce(nf.anovenda, nf.anocompra, 0) > 0)' +
+//        ' and (coalesce(nf.anovenda, nf.anocompra, 0) > 0)' +
+        ' and ((coalesce(nf.anovenda, nf.anocompra, 0) > 0) or (nf.lote_ano = 0))' +  // Voltar ao código anterior em 12/2015
         ' and (coalesce(nf.cancelada, 0) = 0)';
 
     Result := AForm.SelecionarRegistro(iCodigo, sDescricao, pEmpresa);
@@ -208,7 +209,8 @@ begin
 
   if fSemNFComplementar then
     WhereAdditional := WhereAdditional +
-      ' and (coalesce(nf.anovenda, nf.anocompra, 0) > 0)' +
+//      ' and (coalesce(nf.anovenda, nf.anocompra, 0) > 0)' +
+      ' and ((coalesce(nf.anovenda, nf.anocompra, 0) > 0) or (nf.lote_ano = 0))' +    // Voltar ao código anterior em 12/2015
       ' and (coalesce(nf.cancelada, 0) = 0)';
 
   inherited;
