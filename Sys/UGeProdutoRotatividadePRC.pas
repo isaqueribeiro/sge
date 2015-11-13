@@ -120,7 +120,7 @@ type
     dbgProdutoTblColumn26: TcxGridDBBandedColumn;
     dbgProdutoTblColumn27: TcxGridDBBandedColumn;
     dbgProdutoTblColumn28: TcxGridDBBandedColumn;
-    dbgProdutoTblColumn29: TcxGridDBBandedColumn;
+    dbgProdutoTblESTOQUE: TcxGridDBBandedColumn;
     dbgProdutoTblColumn30: TcxGridDBBandedColumn;
     QryGrupo: TIBQuery;
     DspGrupo: TDataSetProvider;
@@ -218,8 +218,8 @@ type
     cxGridDBBandedColumn26: TcxGridDBBandedColumn;
     cxGridDBBandedColumn27: TcxGridDBBandedColumn;
     cxGridDBBandedColumn28: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn29: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn30: TcxGridDBBandedColumn;
+    dbgTotalTblEstoque: TcxGridDBBandedColumn;
+    dbgTotalTblITEM: TcxGridDBBandedColumn;
     dbgTotalLvl: TcxGridLevel;
     dbgGrupo: TcxGrid;
     dbgGrupoTbl: TcxGridDBBandedTableView;
@@ -251,8 +251,8 @@ type
     cxGridDBBandedColumn54: TcxGridDBBandedColumn;
     cxGridDBBandedColumn55: TcxGridDBBandedColumn;
     cxGridDBBandedColumn56: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn57: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn58: TcxGridDBBandedColumn;
+    dbgGrupoTblESTOQUE: TcxGridDBBandedColumn;
+    dbgGrupoTblITEM: TcxGridDBBandedColumn;
     dbgGrupoLvl: TcxGridLevel;
     dbgGrupoTblColumn1: TcxGridDBBandedColumn;
     dbgGrupoTblColumn2: TcxGridDBBandedColumn;
@@ -392,8 +392,8 @@ type
     cxGridDBBandedColumn84: TcxGridDBBandedColumn;
     cxGridDBBandedColumn85: TcxGridDBBandedColumn;
     cxGridDBBandedColumn86: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn87: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn88: TcxGridDBBandedColumn;
+    dbgFabTblESTOQUE: TcxGridDBBandedColumn;
+    dbgFabTblITEM: TcxGridDBBandedColumn;
     cxGridDBBandedColumn89: TcxGridDBBandedColumn;
     cxGridDBBandedColumn90: TcxGridDBBandedColumn;
     cxGridDBBandedColumn91: TcxGridDBBandedColumn;
@@ -440,6 +440,13 @@ type
     CdsProdutoPROCESSO_USUARIO: TWideStringField;
     CdsGrupoDESCRICAO: TWideStringField;
     CdsFabricanteDESCRICAO: TWideStringField;
+    CdsProdutoESTOQUE_ALMOX: TFMTBCDField;
+    CdsTotalESTOQUE_ALMOX: TFMTBCDField;
+    CdsTotalITENS_ALMOX: TIntegerField;
+    CdsGrupoESTOQUE_ALMOX: TFMTBCDField;
+    CdsGrupoITENS_ALMOX: TIntegerField;
+    CdsFabricanteESTOQUE_ALMOX: TFMTBCDField;
+    CdsFabricanteITENS_ALMOX: TIntegerField;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure edTipoProcessoChange(Sender: TObject);
@@ -480,7 +487,8 @@ const
   TIPO_FAB = 1;
   TIPO_PRD = 2;
 
-  WHR_DEFAULT = 'where 1=1'; 
+  WHR_DEFAULT_EMP = 'where 0=0';
+  WHR_DEFAULT     = 'where 1=1';
 
   MES_01 = 30 * 1;
   MES_03 = 30 * 3;
@@ -541,6 +549,27 @@ begin
   edTipoFiltro.ItemIndex   := 0;
   edTipoProcesso.ItemIndex := 0;
   HabilitarGuia(edTipoProcesso.ItemIndex);
+
+  if ( gSistema.Codigo = SISTEMA_GESTAO_IND ) then
+  begin
+    dbgProdutoTblESTOQUE.DataBinding.FieldName := 'ESTOQUE_ALMOX';
+    dbgGrupoTblESTOQUE.DataBinding.FieldName   := 'ESTOQUE_ALMOX';
+    dbgGrupoTblITEM.DataBinding.FieldName      := 'ITENS_ALMOX';
+    dbgFabTblESTOQUE.DataBinding.FieldName     := 'ESTOQUE_ALMOX';
+    dbgFabTblITEM.DataBinding.FieldName        := 'ITENS_ALMOX';
+    dbgTotalTblEstoque.DataBinding.FieldName   := 'ESTOQUE_ALMOX';
+    dbgTotalTblITEM.DataBinding.FieldName      := 'ITENS_ALMOX';
+  end
+  else
+  begin
+    dbgProdutoTblESTOQUE.DataBinding.FieldName := 'QTDE';
+    dbgGrupoTblESTOQUE.DataBinding.FieldName   := 'QTDE';
+    dbgGrupoTblITEM.DataBinding.FieldName      := 'ITENS';
+    dbgFabTblESTOQUE.DataBinding.FieldName     := 'QTDE';
+    dbgFabTblITEM.DataBinding.FieldName        := 'ITENS';
+    dbgTotalTblEstoque.DataBinding.FieldName   := 'QTDE';
+    dbgTotalTblITEM.DataBinding.FieldName      := 'ITENS';
+  end;
 end;
 
 procedure TFrmGeProdutoRotatividadePRC.edTipoProcessoChange(Sender: TObject);
@@ -683,6 +712,8 @@ Produtos s/ movimentação de Venda a mais de 1 ano
   begin
     SQL.Clear;
     SQL.AddStrings( FSQLTotal );
+    SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT_EMP,
+      'where e.empresa = ' + QuotedStr(gUsuarioLogado.Empresa), [rfReplaceAll]);
     SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
   end;
   CdsTotal.Open;
@@ -702,6 +733,8 @@ Produtos s/ movimentação de Venda a mais de 1 ano
             else
               sWhr := sWhr + ' and (upper(p.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
 
+          SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT_EMP,
+            'where e.empresa = ' + QuotedStr(gUsuarioLogado.Empresa), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
         CdsProduto.Open;
@@ -724,6 +757,8 @@ Produtos s/ movimentação de Venda a mais de 1 ano
             else
               sWhr := sWhr + ' and (upper(g.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
 
+          SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT_EMP,
+            'where e.empresa = ' + QuotedStr(gUsuarioLogado.Empresa), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
         CdsGrupo.Open;
@@ -748,6 +783,8 @@ Produtos s/ movimentação de Venda a mais de 1 ano
             else
               sWhr := sWhr + ' and (upper(f.nome) like ' + QuotedStr(edPesquisar.Text + '%') + ')';
 
+          SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT_EMP,
+            'where e.empresa = ' + QuotedStr(gUsuarioLogado.Empresa), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
         CdsFabricante.Open;

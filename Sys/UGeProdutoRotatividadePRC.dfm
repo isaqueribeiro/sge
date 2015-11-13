@@ -265,7 +265,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Top = 0
       Width = 1014
       Height = 465
-      ActivePage = TbsGrupo
+      ActivePage = TbsFabricante
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -697,7 +697,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.ColIndex = 1
                 Position.RowIndex = 0
               end
-              object cxGridDBBandedColumn29: TcxGridDBBandedColumn
+              object dbgTotalTblEstoque: TcxGridDBBandedColumn
                 DataBinding.FieldName = 'QTDE'
                 Options.Filtering = False
                 Options.Moving = False
@@ -707,7 +707,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.ColIndex = 0
                 Position.RowIndex = 0
               end
-              object cxGridDBBandedColumn30: TcxGridDBBandedColumn
+              object dbgTotalTblITEM: TcxGridDBBandedColumn
                 DataBinding.FieldName = 'ITENS'
                 Options.Filtering = False
                 Options.Moving = False
@@ -1232,7 +1232,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.ColIndex = 2
               Position.RowIndex = 0
             end
-            object cxGridDBBandedColumn57: TcxGridDBBandedColumn
+            object dbgGrupoTblESTOQUE: TcxGridDBBandedColumn
               DataBinding.FieldName = 'QTDE'
               Options.Filtering = False
               Options.Moving = False
@@ -1242,7 +1242,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.ColIndex = 2
               Position.RowIndex = 0
             end
-            object cxGridDBBandedColumn58: TcxGridDBBandedColumn
+            object dbgGrupoTblITEM: TcxGridDBBandedColumn
               DataBinding.FieldName = 'ITENS'
               Options.Filtering = False
               Options.Moving = False
@@ -2070,7 +2070,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.ColIndex = 2
               Position.RowIndex = 0
             end
-            object cxGridDBBandedColumn87: TcxGridDBBandedColumn
+            object dbgFabTblESTOQUE: TcxGridDBBandedColumn
               DataBinding.FieldName = 'QTDE'
               Options.Filtering = False
               Options.Moving = False
@@ -2080,7 +2080,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.ColIndex = 2
               Position.RowIndex = 0
             end
-            object cxGridDBBandedColumn88: TcxGridDBBandedColumn
+            object dbgFabTblITEM: TcxGridDBBandedColumn
               DataBinding.FieldName = 'ITENS'
               Options.Filtering = False
               Options.Moving = False
@@ -2911,7 +2911,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.ColIndex = 1
               Position.RowIndex = 0
             end
-            object dbgProdutoTblColumn29: TcxGridDBBandedColumn
+            object dbgProdutoTblESTOQUE: TcxGridDBBandedColumn
               DataBinding.FieldName = 'QTDE'
               Options.Filtering = False
               Options.Moving = False
@@ -3130,6 +3130,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       '  , g.descri as grupo'
       '  , f.nome as fabricante'
       '  , p.qtde'
+      '  , ep.estoque_almox'
       '  , u.unp_descricao'
       '  , u.unp_sigla'
       '  , r.data_ultima_compra'
@@ -3167,6 +3168,21 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
       ''
       'where 1=1'
       ''
@@ -3261,6 +3277,13 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
+    end
+    object CdsProdutoESTOQUE_ALMOX: TFMTBCDField
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE_ALMOX'
+      DisplayFormat = ',0.##'
+      Precision = 18
+      Size = 6
     end
     object CdsProdutoDATA_ULTIMA_COMPRA: TDateField
       Alignment = taCenter
@@ -3493,7 +3516,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       '    p.codgrupo as Codigo'
       '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
       '  , sum( coalesce(p.qtde, 0) ) as qtde'
+      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
       '  , count( p.cod ) as itens'
+      '  , count( ep.produto ) as itens_almox'
       '  , max( r.data_ultima_compra ) as data_ultima_compra'
       '  , max( r.data_ultima_venda  ) as data_ultima_venda'
       '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
@@ -3547,6 +3572,21 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       'from TBPRODUTO p'
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
       '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
       ''
       'where 1=1'
       ''
@@ -3583,9 +3623,21 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Precision = 18
       Size = 3
     end
+    object CdsGrupoESTOQUE_ALMOX: TFMTBCDField
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE_ALMOX'
+      DisplayFormat = ',0.##'
+      Precision = 18
+      Size = 6
+    end
     object CdsGrupoITENS: TIntegerField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'
+      DisplayFormat = ',0'
+    end
+    object CdsGrupoITENS_ALMOX: TIntegerField
+      DisplayLabel = 'Itens'
+      FieldName = 'ITENS_ALMOX'
       DisplayFormat = ',0'
     end
     object CdsGrupoDATA_ULTIMA_COMPRA: TDateField
@@ -3938,7 +3990,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     SQL.Strings = (
       'select'
       '    sum( coalesce(p.qtde, 0) ) as qtde'
+      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
       '  , count( p.cod ) as itens'
+      '  , count( ep.produto ) as itens_almox'
       '  , max( r.data_ultima_compra ) as data_ultima_compra'
       '  , max( r.data_ultima_venda  ) as data_ultima_venda'
       '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
@@ -3967,6 +4021,21 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       '  , sum( coalesce(r.venda_valor_99, 0) )  as venda_valor_99'
       'from TBPRODUTO p'
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
       ''
       'where 1=1')
     Left = 24
@@ -3990,9 +4059,21 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Precision = 18
       Size = 3
     end
+    object CdsTotalESTOQUE_ALMOX: TFMTBCDField
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE_ALMOX'
+      DisplayFormat = ',0.##'
+      Precision = 18
+      Size = 6
+    end
     object CdsTotalITENS: TIntegerField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'
+      DisplayFormat = ',0'
+    end
+    object CdsTotalITENS_ALMOX: TIntegerField
+      DisplayLabel = 'Itens'
+      FieldName = 'ITENS_ALMOX'
       DisplayFormat = ',0'
     end
     object CdsTotalDATA_ULTIMA_COMPRA: TDateField
@@ -4175,7 +4256,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       '    p.codfabricante as Codigo'
       '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
       '  , sum( coalesce(p.qtde, 0) ) as qtde'
+      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
       '  , count( p.cod ) as itens'
+      '  , count( ep.produto ) as itens_almox'
       '  , max( r.data_ultima_compra ) as data_ultima_compra'
       '  , max( r.data_ultima_venda  ) as data_ultima_venda'
       '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
@@ -4229,6 +4312,21 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       'from TBPRODUTO p'
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
       '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
       ''
       'where 1=1'
       ''
@@ -4265,9 +4363,21 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Precision = 18
       Size = 3
     end
+    object CdsFabricanteESTOQUE_ALMOX: TFMTBCDField
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE_ALMOX'
+      DisplayFormat = ',0.##'
+      Precision = 18
+      Size = 6
+    end
     object IntegerField1: TIntegerField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'
+      DisplayFormat = ',0'
+    end
+    object CdsFabricanteITENS_ALMOX: TIntegerField
+      DisplayLabel = 'Itens'
+      FieldName = 'ITENS_ALMOX'
       DisplayFormat = ',0'
     end
     object DateField1: TDateField
