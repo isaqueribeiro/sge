@@ -9,7 +9,13 @@ uses
   IBCustomDataSet, IBQuery, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinOffice2007Green;
+  dxSkinOffice2007Green, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeProdutoImpressao = class(TfrmGrPadraoImpressao)
@@ -92,9 +98,44 @@ begin
   Case gSistema.Codigo of
     SISTEMA_GESTAO_COM:
       QryDemandaProduto.SQL.Text := 'Select p.* from VW_PRODUTO_DEMANDA_ANUAL p';
-
+(*
+        'Select ' +
+        '    p.* ' +
+        '  , coalesce(ep.estoque_almox, 0) as estoque_almox ' +
+        'from VW_PRODUTO_DEMANDA_ANUAL p ' +
+        '  left join ( ' +
+        '    Select ' +
+        '        e.empresa ' +
+        '      , e.produto ' +
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as estoque_almox ' +
+        '    from TBESTOQUE_ALMOX e ' +
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo and c.codcliente is null) ' +
+        '    where e.qtde > 0 ' +
+        '    group by ' +
+        '        e.empresa ' +
+        '      , e.produto ' +
+        '  ) ep on (ep.empresa = p.empresa_cnpj and ep.produto = p.cod) ';
+*)
     SISTEMA_GESTAO_IND:
       QryDemandaProduto.SQL.Text := 'Select p.* from VW_PRODUTO_DEMANDA_ANUAL_IND p';
+(*
+        'Select ' +
+        '    p.* ' +
+        '  , coalesce(ep.estoque_almox, 0) as estoque_almox ' +
+        'from VW_PRODUTO_DEMANDA_ANUAL_IND p ' +
+        '  left join ( ' +
+        '    Select ' +
+        '        e.empresa ' +
+        '      , e.produto ' +
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as estoque_almox ' +
+        '    from TBESTOQUE_ALMOX e ' +
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo and c.codcliente is null) ' +
+        '    where e.qtde > 0 ' +
+        '    group by ' +
+        '        e.empresa ' +
+        '      , e.produto ' +
+        '  ) ep on (ep.empresa = p.empresa_cnpj and ep.produto = p.cod) ';
+*)
   end;
 
   for I := 0 to edRelatorio.Items.Count - 1 do
@@ -136,10 +177,16 @@ begin
         SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
 
       if ( edEmpresa.ItemIndex > 0 ) then
+      begin
+        SQL.Text := StringReplace(SQL.Text, '0=0', 'e.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
         SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+      end;
 
       if ckSemEstoqueVenda.Checked then
-        SQL.Add('  and p.qtde <= 0');
+        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+          SQL.Add('  and coalesce(ep.estoque_almox, 0) <= 0')
+        else
+          SQL.Add('  and p.qtde <= 0');
 
       SQL.Add('order by');
       SQL.Add('    e.rzsoc');
@@ -289,7 +336,10 @@ begin
         SQL.Add('  and p.empresa_cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
       if ckSemEstoqueVenda.Checked then
-        SQL.Add('  and p.qtde <= 0');
+        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+          SQL.Add('  and p.estoque_almox <= 0')
+        else
+          SQL.Add('  and p.qtde <= 0');
     end;
   except
     On E : Exception do
@@ -303,17 +353,26 @@ begin
 end;
 
 procedure TfrmGeProdutoImpressao.CarregarAno;
+var
+  iAno,
+  I   : Integer;
 begin
+  iAno := StrToInt(FormatDateTime('yyyy', Date));
   with CdsAno do
   begin
     Open;
 
     edAno.Clear;
+    I := 0;
 
     while not Eof do
     begin
       if (FieldByName('ano').AsInteger > 0) then
         edAno.Items.Add( FieldByName('ano').AsString );
+
+      if (FieldByName('ano').AsInteger = iAno) then
+        I := edAno.Items.Count - 1;
+
       Next;
     end;
 
@@ -323,7 +382,7 @@ begin
   if (edGrupo.Items.Count = 0) then
     edAno.Items.Add( FormatDateTime('yyyy', GetDateDB) );
 
-  edAno.ItemIndex := 0;
+  edAno.ItemIndex := I;
 end;
 
 procedure TfrmGeProdutoImpressao.edRelatorioChange(Sender: TObject);

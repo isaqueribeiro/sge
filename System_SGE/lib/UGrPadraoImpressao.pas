@@ -84,6 +84,7 @@ const
   VAR_TODOS    = 'Todos';
   VAR_APENASCONSOLIDADO = 'ApenasConsolidado';
   VAR_SYSTEM            = 'Sistema';
+  VAR_SYSTEM_CODE       = 'SistemaCodigo';
   VAR_USER              = 'Usuario';
   VAR_EMPRESA           = 'Entidade';
   VAR_DEPARTAMENTO      = 'Depto';
@@ -108,6 +109,9 @@ begin
 
   if ( VarName = VAR_SYSTEM ) then
     Value := Application.Title + ' - versão ' + ver.FileVersion;
+
+  if ( VarName = VAR_SYSTEM_CODE ) then
+    Value := gSistema.Codigo;
 
   if ( VarName = VAR_USER ) then
     Value := GetUserApp;
@@ -241,6 +245,9 @@ begin
 
     if ( not VariableExist(VAR_SYSTEM) ) then
       frReport.Variables.AddVariable(CATEGORY_VAR, VAR_SYSTEM, Application.Title + ' - versão ' + ver.FileVersion);
+
+    if ( not VariableExist(VAR_SYSTEM_CODE) ) then
+      frReport.Variables.AddVariable(CATEGORY_VAR, VAR_SYSTEM_CODE, gSistema.Codigo);
   end;
 end;
 

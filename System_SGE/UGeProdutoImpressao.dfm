@@ -2,6 +2,8 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
   Left = 411
   Top = 231
   Caption = 'Relat'#243'rio de Produtos'
+  ExplicitWidth = 555
+  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
@@ -126,9 +128,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       object ckSemEstoqueVenda: TCheckBox
         Left = 104
         Top = 147
-        Width = 313
+        Width = 201
         Height = 17
-        Caption = 'Apenas produtos sem estoque de venda'
+        Caption = 'Apenas produtos sem estoque'
         TabOrder = 5
       end
     end
@@ -177,6 +179,16 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       item
         Name = 'Usuario'
         Value = #39'Usu'#225'rio'#39
+      end
+      item
+        Name = 'SistemaCodigo'
+        Value = '0'
+      end
+      item
+        Name = 'Estoque'
+        Value = 
+          'IIF(<SistemaCodigo> = 2,<FrdsRelacaoProduto."ESTOQUE_ALMOX">,<Fr' +
+          'dsRelacaoProduto."ESTOQUE">)'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -455,14 +467,12 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = 
-            '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<FrdsRelacaoProduto."ESTO' +
-            'QUE"> <= 0)'
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             
-              '[IIF(<FrdsRelacaoProduto."TIPO">='#39'S'#39','#39#39',FormatFloat('#39',0.##'#39',<Frd' +
-              'sRelacaoProduto."ESTOQUE">))] ')
+              '[IIF(<FrdsRelacaoProduto."TIPO">='#39'S'#39','#39#39',FormatFloat('#39',0.##'#39',<Est' +
+              'oque>))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -485,9 +495,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = 
-            '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<FrdsRelacaoProduto."ESTO' +
-            'QUE"> <= 0)'
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             ' [FrdsRelacaoProduto."COD"]')
@@ -513,9 +521,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = 
-            '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<FrdsRelacaoProduto."ESTO' +
-            'QUE"> <= 0)'
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             ' [FrdsRelacaoProduto."DESCRI_APRESENTACAO"]')
@@ -541,9 +547,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = 
-            '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<FrdsRelacaoProduto."ESTO' +
-            'QUE"> <= 0)'
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             ' [FrdsRelacaoProduto."REFERENCIA"]')
@@ -569,9 +573,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = 
-            '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<FrdsRelacaoProduto."ESTO' +
-            'QUE"> <= 0)'
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             ' [FrdsRelacaoProduto."FABRICANTE_NOME"]')
@@ -597,9 +599,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = 
-            '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<FrdsRelacaoProduto."ESTO' +
-            'QUE"> <= 0)'
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             ' [FrdsRelacaoProduto."TIPO_DESC"]')
@@ -626,9 +626,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = 
-            '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<FrdsRelacaoProduto."ESTO' +
-            'QUE"> <= 0)'
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             '[FrdsRelacaoProduto."UND_COMPRA"]')
@@ -914,6 +912,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       '  , p.especificacao'
       '  , p.estoqmin as estoque_minimo'
       '  , p.qtde     as estoque'
+      '  , coalesce(ep.estoque_almox, 0) as estoque_almox'
       
         '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
         '_descricao)) from 1 for 3) as und_compra'
@@ -931,7 +930,22 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
       '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
       '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)')
     Left = 40
     Top = 8
   end
@@ -970,6 +984,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       'ESPECIFICACAO=ESPECIFICACAO'
       'ESTOQUE_MINIMO=ESTOQUE_MINIMO'
       'ESTOQUE=ESTOQUE'
+      'ESTOQUE_ALMOX=ESTOQUE_ALMOX'
       'UND_COMPRA=UND_COMPRA'
       'VALOR_CUSTOMEDIO=VALOR_CUSTOMEDIO'
       'VALOR_VENDA=VALOR_VENDA'
@@ -1088,6 +1103,16 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       item
         Name = 'SubTitulo'
         Value = ''
+      end
+      item
+        Name = 'SistemaCodigo'
+        Value = '0'
+      end
+      item
+        Name = 'Estoque'
+        Value = 
+          'IIF(<SistemaCodigo> = 2,<FrdsDemandaProduto."ESTOQUE_ALMOX">,<Fr' +
+          'dsDemandaProduto."ESTOQUE">)'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -1352,7 +1377,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         object Memo7: TfrxMemoView
           Left = 294.803340000000000000
           Width = 41.574830000000000000
-          Height = 15.118110236220500000
+          Height = 15.118110240000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -1366,8 +1391,8 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[IIF(<FrdsDemandaProduto."TIPO">='#39'S'#39','#39#39',FormatFloat('#39',0.##'#39',<Frd' +
-              'sDemandaProduto."ESTOQUE">))] ')
+              '[IIF(<FrdsDemandaProduto."TIPO">='#39'S'#39','#39#39',FormatFloat('#39',0.##'#39',<Est' +
+              'oque>))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3009,6 +3034,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       'TIPO=TIPO'
       'TIPO_DESC=TIPO_DESC'
       'COD=COD'
+      'COD_X=COD_X'
       'DESCRI=DESCRI'
       'APRESENTACAO=APRESENTACAO'
       'DESCRI_APRESENTACAO=DESCRI_APRESENTACAO'
@@ -3031,6 +3057,8 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       'MOVIMENTA_ESTOQUE=MOVIMENTA_ESTOQUE'
       'ESTOQUE_MINIMO=ESTOQUE_MINIMO'
       'ESTOQUE=ESTOQUE'
+      'ESTOQUE_ALMOX=ESTOQUE_ALMOX'
+      'ANO=ANO'
       'CJAN=CJAN'
       'VJAN=VJAN'
       'AJAN=AJAN'
