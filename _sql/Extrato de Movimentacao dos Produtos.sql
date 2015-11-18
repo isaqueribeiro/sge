@@ -90,11 +90,10 @@ from TBEMPRESA e
       , ri.produto
       , r.data_emissao as data
       , sum(ri.qtde / ri.fracionador) as quant
-      , sum(ri.qtde * lt.custo_medio) as valor_total
+      , sum(ri.total) as valor_total
       , 2 as tipo
     from TBREQUISICAO_ALMOX r
       inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
-      inner join TBESTOQUE_ALMOX lt on (lt.id = ri.lote_atendimento)
     where r.status = 4 -- Atendida
     group by
         r.empresa
