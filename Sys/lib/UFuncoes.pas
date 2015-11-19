@@ -33,6 +33,7 @@ uses
   function Metafonema(Value : String) : String;
 
   function KillTask(ExeFileName : String): Integer;
+  function IndexOfArray(const Value: String; Items: Array of String): Integer;
 
 implementation
 
@@ -608,6 +609,21 @@ begin
     end;
     CloseHandle(FSnapshotHandle);
   except
+  end;
+end;
+
+function IndexOfArray(const Value: String; Items: Array of String): Integer;
+var
+  i: Integer;
+begin
+  Result := -1;
+  for i := Low(Items) to High(Items) do
+  begin
+    if AnsiSameText(Value, Items[i]) then
+    begin
+      Result := i;
+      Break;
+    end;
   end;
 end;
 

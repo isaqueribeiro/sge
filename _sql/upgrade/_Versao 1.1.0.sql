@@ -4497,3 +4497,700 @@ order by
   , coalesce(pc.ano, pv.ano, pa.ano)
 ;
 
+
+
+
+/*------ SYSDBA 18/11/2015 17:23:29 --------*/
+
+CREATE OR ALTER VIEW VW_PRODUTO_DEMANDA_ANUAL_IND(
+    EMPRESA_CNPJ,
+    EMPRESA_RAZAO,
+    TIPO,
+    TIPO_DESC,
+    COD,
+    COD_X,
+    DESCRI,
+    APRESENTACAO,
+    DESCRI_APRESENTACAO,
+    MODELO,
+    REFERENCIA,
+    GRUPO_COD,
+    GRUPO_DESC,
+    SECAO_COD,
+    SECAO_DESC,
+    FABRICANTE_COD,
+    FABRICANTE_NOME,
+    ESPECIFICACAO,
+    UND_COMPRA,
+    VALOR_CUSTOMEDIO,
+    VALOR_VENDA,
+    PERCENTUAL_MARCKUP,
+    PERCENTUAL_MARGEM,
+    COMPOR_FATURAMENTO,
+    PRODUTO_NOVO,
+    MOVIMENTA_ESTOQUE,
+    ESTOQUE_MINIMO,
+    ESTOQUE,
+    ESTOQUE_ALMOX,
+    ANO,
+    CJAN,
+    ACJAN,
+    VJAN,
+    AJAN,
+    SJAN,
+    CFEV,
+    ACFEV,
+    VFEV,
+    AFEV,
+    SFEV,
+    CMAR,
+    ACMAR,
+    VMAR,
+    AMAR,
+    SMAR,
+    CABR,
+    ACABR,
+    VABR,
+    AABR,
+    SABR,
+    CMAI,
+    ACMAI,
+    VMAI,
+    AMAI,
+    SMAI,
+    CJUN,
+    ACJUN,
+    VJUN,
+    AJUN,
+    SJUN,
+    CJUL,
+    ACJUL,
+    VJUL,
+    AJUL,
+    SJUL,
+    CAGO,
+    ACAGO,
+    VAGO,
+    AAGO,
+    SAGO,
+    CSET,
+    ACSET,
+    VSET,
+    ASET,
+    SSET,
+    COUT,
+    ACOUT,
+    VOUT,
+    AOUT,
+    SOUT,
+    CNOV,
+    ACNOV,
+    VNOV,
+    ANOV,
+    SNOV,
+    CDEZ,
+    ACDEZ,
+    VDEZ,
+    ADEZ,
+    SDEZ)
+AS
+Select
+    p.codemp as empresa_cnpj
+  , e.rzsoc  as empresa_razao
+  , case when p.aliquota_tipo = 0 then 'P' else 'S' end as tipo
+  , case when p.aliquota_tipo = 0 then 'Produto(s)' else 'Serviço(s)' end as tipo_desc
+  , p.cod
+  , coalesce(pc.item, pv.item, pa.item) as cod_x
+  , p.descri
+  , p.apresentacao
+  , p.descri_apresentacao
+  , p.modelo
+  , p.referencia
+  , coalesce(p.codgrupo, 0) as grupo_cod
+  , coalesce(g.descri, '* Indefinido')   as grupo_desc
+  , coalesce(p.codsecao, 0)                     as secao_cod
+  , coalesce(s.scp_descricao, '* Indefinida')   as secao_desc
+  , coalesce(p.codfabricante, 0)     as fabricante_cod
+  , coalesce(f.nome, '* Indefinido') as fabricante_nome
+  , p.especificacao
+  , substring(coalesce(nullif(trim(u.unp_sigla), ''), trim(u.unp_descricao)) from 1 for 3) as und_compra
+  , p.customedio as valor_customedio
+  , p.preco      as valor_venda
+
+  , p.percentual_marckup
+  , p.percentual_margem
+  , p.compor_faturamento
+  , p.produto_novo
+  , p.movimenta_estoque
+
+  , p.estoqmin as estoque_minimo
+  , p.qtde     as estoque
+  , coalesce(pe.estoque_almox, 0) as estoque_almox
+
+  , coalesce(pc.ano, pv.ano, pa.ano) as ano
+
+  , coalesce(pc.jan, 0.0)  as cjan
+  , coalesce(pac.jan, 0.0) as acjan
+  , coalesce(pv.jan, 0.0) as vjan
+  , coalesce(pa.jan, 0.0) as ajan
+  , coalesce(pc.jan, 0.0) - coalesce(pv.jan, 0.0) + coalesce(pa.jan, 0.0) as sjan
+
+  , coalesce(pc.fev, 0.0)  as cfev
+  , coalesce(pac.fev, 0.0) as acfev
+  , coalesce(pv.fev, 0.0) as vfev
+  , coalesce(pa.fev, 0.0) as afev
+  , coalesce(pc.fev, 0.0) - coalesce(pv.fev, 0.0) + coalesce(pa.fev, 0.0) as sfev
+
+  , coalesce(pc.mar, 0.0)  as cmar
+  , coalesce(pac.mar, 0.0) as acmar
+  , coalesce(pv.mar, 0.0) as vmar
+  , coalesce(pa.mar, 0.0) as amar
+  , coalesce(pc.mar, 0.0) - coalesce(pv.mar, 0.0) + coalesce(pa.mar, 0.0) as smar
+
+  , coalesce(pc.abr, 0.0)  as cabr
+  , coalesce(pac.abr, 0.0) as acabr
+  , coalesce(pv.abr, 0.0) as vabr
+  , coalesce(pa.abr, 0.0) as aabr
+  , coalesce(pc.abr, 0.0) - coalesce(pv.abr, 0.0) + coalesce(pa.abr, 0.0) as sabr
+
+  , coalesce(pc.mai, 0.0)  as cmai
+  , coalesce(pac.mai, 0.0) as acmai
+  , coalesce(pv.mai, 0.0) as vmai
+  , coalesce(pa.mai, 0.0) as amai
+  , coalesce(pc.mai, 0.0) - coalesce(pv.mai, 0.0) + coalesce(pa.mai, 0.0) as smai
+
+  , coalesce(pc.jun, 0.0)  as cjun
+  , coalesce(pac.jun, 0.0) as acjun
+  , coalesce(pv.jun, 0.0) as vjun
+  , coalesce(pa.jun, 0.0) as ajun
+  , coalesce(pc.jun, 0.0) - coalesce(pv.jun, 0.0) + coalesce(pa.jun, 0.0) as sjun
+
+  , coalesce(pc.jul, 0.0)  as cjul
+  , coalesce(pac.jul, 0.0) as acjul
+  , coalesce(pv.jul, 0.0) as vjul
+  , coalesce(pa.jul, 0.0) as ajul
+  , coalesce(pc.jul, 0.0) - coalesce(pv.jul, 0.0) + coalesce(pa.jul, 0.0) as sjul
+
+  , coalesce(pc.ago, 0.0)  as cago
+  , coalesce(pac.ago, 0.0) as acago
+  , coalesce(pv.ago, 0.0) as vago
+  , coalesce(pa.ago, 0.0) as aago
+  , coalesce(pc.ago, 0.0) - coalesce(pv.ago, 0.0) + coalesce(pa.ago, 0.0) as sago
+
+  , coalesce(pc.se, 0.0)   as cset
+  , coalesce(pac.se, 0.0)  as acset
+  , coalesce(pv.se, 0.0)  as vset
+  , coalesce(pa.se, 0.0)  as aset
+  , coalesce(pc.se, 0.0) - coalesce(pv.se, 0.0) + coalesce(pa.se, 0.0) as sset
+
+  , coalesce(pc.out, 0.0)  as cout
+  , coalesce(pac.out, 0.0) as acout
+  , coalesce(pv.out, 0.0) as vout
+  , coalesce(pa.out, 0.0) as aout
+  , coalesce(pc.out, 0.0) - coalesce(pv.out, 0.0) + coalesce(pa.out, 0.0) as sout
+
+  , coalesce(pc.nov, 0.0)  as cnov
+  , coalesce(pac.nov, 0.0) as acnov
+  , coalesce(pv.nov, 0.0) as vnov
+  , coalesce(pa.nov, 0.0) as anov
+  , coalesce(pc.nov, 0.0) - coalesce(pv.nov, 0.0) + coalesce(pa.nov, 0.0) as snov
+
+  , coalesce(pc.dez, 0.0)  as cdez
+  , coalesce(pac.dez, 0.0) as acdez
+  , coalesce(pv.dez, 0.0) as vdez
+  , coalesce(pa.dez, 0.0) as adez
+  , coalesce(pc.dez, 0.0) - coalesce(pv.dez, 0.0) + coalesce(pa.dez, 0.0) as sdez
+from TBEMPRESA e
+
+  /* Compras */
+  left join (
+
+    select
+        ci.codprod as item
+      , ci.codemp as empresa
+      , extract(year from ci.dtent) as ano
+      , sum(case when extract(month from ci.dtent) = 1 then ci.qtde else 0 end) as JAN
+      , sum(case when extract(month from ci.dtent) = 2 then ci.qtde else 0 end) as FEV
+      , sum(case when extract(month from ci.dtent) = 3 then ci.qtde else 0 end) as MAR
+      , sum(case when extract(month from ci.dtent) = 4 then ci.qtde else 0 end) as ABR
+      , sum(case when extract(month from ci.dtent) = 5 then ci.qtde else 0 end) as MAI
+      , sum(case when extract(month from ci.dtent) = 6 then ci.qtde else 0 end) as JUN
+      , sum(case when extract(month from ci.dtent) = 7 then ci.qtde else 0 end) as JUL
+      , sum(case when extract(month from ci.dtent) = 8 then ci.qtde else 0 end) as AGO
+      , sum(case when extract(month from ci.dtent) = 9 then ci.qtde else 0 end) as SE
+      , sum(case when extract(month from ci.dtent) = 10 then ci.qtde else 0 end) as OUT
+      , sum(case when extract(month from ci.dtent) = 11 then ci.qtde else 0 end) as NOV
+      , sum(case when extract(month from ci.dtent) = 12 then ci.qtde else 0 end) as DEZ
+    from TBCOMPRAS c
+      inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+    where c.status in (2,4)
+    group by
+        ci.codprod
+      , ci.codemp
+      , extract(year from ci.dtent)
+
+  ) PC on (pc.empresa = e.cnpj)
+
+  /* Apropriacao de Estoque */
+  left join (
+
+    select
+        ai.produto as item
+      , ae.empresa
+      , extract(year from ae.data_apropriacao) as ano
+      , sum(case when extract(month from ae.data_apropriacao) = 1 then ai.qtde else 0 end) as JAN
+      , sum(case when extract(month from ae.data_apropriacao) = 2 then ai.qtde else 0 end) as FEV
+      , sum(case when extract(month from ae.data_apropriacao) = 3 then ai.qtde else 0 end) as MAR
+      , sum(case when extract(month from ae.data_apropriacao) = 4 then ai.qtde else 0 end) as ABR
+      , sum(case when extract(month from ae.data_apropriacao) = 5 then ai.qtde else 0 end) as MAI
+      , sum(case when extract(month from ae.data_apropriacao) = 6 then ai.qtde else 0 end) as JUN
+      , sum(case when extract(month from ae.data_apropriacao) = 7 then ai.qtde else 0 end) as JUL
+      , sum(case when extract(month from ae.data_apropriacao) = 8 then ai.qtde else 0 end) as AGO
+      , sum(case when extract(month from ae.data_apropriacao) = 9 then ai.qtde else 0 end) as SE
+      , sum(case when extract(month from ae.data_apropriacao) = 10 then ai.qtde else 0 end) as OUT
+      , sum(case when extract(month from ae.data_apropriacao) = 11 then ai.qtde else 0 end) as NOV
+      , sum(case when extract(month from ae.data_apropriacao) = 12 then ai.qtde else 0 end) as DEZ
+    from TBAPROPRIACAO_ALMOX ae
+      inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = ae.ano and ai.controle = ae.controle)
+    where ae.status = 2
+    group by
+        ai.produto
+      , ae.empresa
+      , extract(year from ae.data_apropriacao)
+
+  ) PAC on (pac.empresa = e.cnpj and pac.item = pc.item)
+
+  /* Estoque Almoxarifado */
+  left join (
+
+    Select
+        e.produto as item
+      , e.empresa
+      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as estoque_almox
+    from TBESTOQUE_ALMOX e
+      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo and c.codcliente is null)
+    where e.qtde > 0
+    group by
+        e.produto
+      , e.empresa
+
+  ) PE on (pe.empresa = e.cnpj and pe.item = pc.item)
+
+  /* Vendas */
+  left join (
+
+    select
+        vi.codprod as item
+      , vi.codemp as empresa
+      , extract(year from vi.dtvenda) as ano
+      , sum(case when extract(month from vi.dtvenda) = 1 then vi.qtde else 0 end) as JAN,
+              sum(case when extract(month from vi.dtvenda) = 2 then vi.qtde else 0 end) as FEV,
+              sum(case when extract(month from vi.dtvenda) = 3 then vi.qtde else 0 end) as MAR,
+              sum(case when extract(month from vi.dtvenda) = 4 then vi.qtde else 0 end) as ABR,
+              sum(case when extract(month from vi.dtvenda) = 5 then vi.qtde else 0 end) as MAI,
+              sum(case when extract(month from vi.dtvenda) = 6 then vi.qtde else 0 end) as JUN,
+              sum(case when extract(month from vi.dtvenda) = 7 then vi.qtde else 0 end) as JUL,
+              sum(case when extract(month from vi.dtvenda) = 8 then vi.qtde else 0 end) as AGO,
+              sum(case when extract(month from vi.dtvenda) = 9 then vi.qtde else 0 end) as SE,
+              sum(case when extract(month from vi.dtvenda) = 10 then vi.qtde else 0 end) as OUT,
+              sum(case when extract(month from vi.dtvenda) = 11 then vi.qtde else 0 end) as NOV,
+              sum(case when extract(month from vi.dtvenda) = 12 then vi.qtde else 0 end) as DEZ
+    from TBVENDAS v
+      inner join TVENDASITENS vi on (v.ano = vi.ano and v.codcontrol = vi.codcontrol and v.codemp = vi.codemp)
+    where v.status in (3, 4)
+    group by
+        vi.codprod
+      , vi.codemp
+      , extract(year from vi.dtvenda)
+
+  ) PV on (pv.empresa = e.cnpj and pv.item = pc.item and pv.ano = pc.ano)
+
+  /* Ajustes */
+  left join (
+
+    select
+        a.codprod as item
+      , a.codempresa as empresa
+      , extract(year from a.dtajust) as ano
+      , sum(case when extract(month from a.dtajust) = 1 then a.qtdeatual else 0 end) as JAN,
+        sum(case when extract(month from a.dtajust) = 2 then a.qtdeatual else 0 end) as FEV,
+        sum(case when extract(month from a.dtajust) = 3 then a.qtdeatual else 0 end) as MAR,
+        sum(case when extract(month from a.dtajust) = 4 then a.qtdeatual else 0 end) as ABR,
+        sum(case when extract(month from a.dtajust) = 5 then a.qtdeatual else 0 end) as MAI,
+        sum(case when extract(month from a.dtajust) = 6 then a.qtdeatual else 0 end) as JUN,
+        sum(case when extract(month from a.dtajust) = 7 then a.qtdeatual else 0 end) as JUL,
+        sum(case when extract(month from a.dtajust) = 8 then a.qtdeatual else 0 end) as AGO,
+        sum(case when extract(month from a.dtajust) = 9 then a.qtdeatual else 0 end) as SE,
+        sum(case when extract(month from a.dtajust) = 10 then a.qtdeatual else 0 end) as OUT,
+        sum(case when extract(month from a.dtajust) = 11 then a.qtdeatual else 0 end) as NOV,
+        sum(case when extract(month from a.dtajust) = 12 then a.qtdeatual else 0 end) as DEZ
+    from TBAJUSTESTOQ a
+    group by
+        a.codprod
+      , a.codempresa
+      , extract(year from a.dtajust)
+
+  ) PA on (pa.empresa = e.cnpj and pa.item = pc.item and pa.ano = pc.ano)
+
+  inner join TBPRODUTO p on (p.cod = coalesce(pv.item, pc.item, pa.item))
+
+  left join TBGRUPOPROD g on (g.cod = p.codgrupo)
+  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)
+  left join TBFABRICANTE f on (f.cod = p.codfabricante)
+  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)
+
+order by
+    e.rzsoc
+  , p.aliquota_tipo
+  , coalesce(g.descri, '* Indefinido')
+  , coalesce(f.nome, '* Indefinido')
+  , p.descri_apresentacao
+  , coalesce(pc.ano, pv.ano, pa.ano)
+;
+
+
+
+
+/*------ SYSDBA 18/11/2015 22:24:01 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure SP_UPD_CUSTO_INVENTARIO_ALMOX (
+    ANO_MOVIMENTO smallint)
+as
+declare variable ANO integer;
+declare variable CONTROLE integer;
+declare variable LOTE varchar(38);
+declare variable CUSTO DMN_MONEY_4;
+declare variable TOTAL DMN_MONEY;
+declare variable UNIDADE smallint;
+declare variable FRACIONADOR DMN_PERCENTUAL_3;
+begin
+  -- Atualizar Custos dos Inventarios ocorridos nos Centros de Custos
+  -- OBSERVACAO: Processo VII da Atualizacao Geral de Custos do Estoque, caso seja necessario
+
+  --1. Atualizar Custo dos Itens
+  for
+    Select
+        i.ano
+      , i.controle
+      , ii.lote_conferido
+    from TBINVENTARIO_ALMOX i
+      inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle )
+    where i.status < 3 -- Todos os status com excessao do "3. Cancelado"
+      and i.ano = :ano_movimento
+    Into
+        ano
+      , controle
+      , lote
+  do
+  begin
+    Select
+        e.custo_medio
+      , e.unidade
+      , e.fracionador
+    from TBESTOQUE_ALMOX e
+    where e.id = :lote
+    Into
+        custo
+      , unidade
+      , fracionador;
+
+    Update TBINVENTARIO_ALMOX_ITEM ii Set
+        ii.custo       = :custo
+      , ii.unidade     = :unidade
+      , ii.fracionador = :fracionador
+      , ii.total       = (ii.qtde * :custo)
+    where ii.ano      = :ano
+      and ii.controle = :controle
+      and ii.lote_conferido = :lote;
+  end 
+  /*
+  --2. Atualizar Custos Gerais
+  for
+    Select
+        ii.ano
+      , ii.controle
+      , sum( ii.total )
+    from TBINVENTARIO_ALMOX_ITEM ii
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano
+      , controle
+      , total
+  do
+  begin
+    Update TBINVENTARIO_ALMOX i Set
+      i.valor_total = :total
+    where i.ano      = :ano
+      and i.controle = :controle;
+  end 
+  */
+end^
+
+SET TERM ; ^
+
+GRANT EXECUTE ON PROCEDURE SP_UPD_CUSTO_INVENTARIO_ALMOX TO "PUBLIC";
+
+
+
+/*------ SYSDBA 18/11/2015 22:24:12 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_INVENTARIO_ALMOX (
+    ANO_MOVIMENTO smallint)
+as
+declare variable ANO integer;
+declare variable CONTROLE integer;
+declare variable LOTE varchar(38);
+declare variable CUSTO DMN_MONEY_4;
+declare variable TOTAL DMN_MONEY;
+declare variable UNIDADE smallint;
+declare variable FRACIONADOR DMN_PERCENTUAL_3;
+begin
+  -- Atualizar Custos dos Inventarios ocorridos nos Centros de Custos
+  -- OBSERVACAO: Processo VII da Atualizacao Geral de Custos do Estoque, caso seja necessario
+
+  --1. Atualizar Custo dos Itens
+  for
+    Select
+        i.ano
+      , i.controle
+      , ii.lote_conferido
+    from TBINVENTARIO_ALMOX i
+      inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle )
+    where i.status < 3 -- Todos os status com excessao do "3. Cancelado"
+      and i.ano = :ano_movimento
+    Into
+        ano
+      , controle
+      , lote
+  do
+  begin
+    Select
+        e.custo_medio
+      , e.unidade
+      , e.fracionador
+    from TBESTOQUE_ALMOX e
+    where e.id = :lote
+    Into
+        custo
+      , unidade
+      , fracionador;
+
+    Update TBINVENTARIO_ALMOX_ITEM ii Set
+        ii.custo       = :custo
+      , ii.unidade     = :unidade
+      , ii.fracionador = :fracionador
+      , ii.total       = (ii.qtde * :custo)
+    where ii.ano      = :ano
+      and ii.controle = :controle
+      and ii.lote_conferido = :lote;
+  end 
+  /*
+  --2. Atualizar Custos Gerais
+  for
+    Select
+        ii.ano
+      , ii.controle
+      , sum( ii.total )
+    from TBINVENTARIO_ALMOX_ITEM ii
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano
+      , controle
+      , total
+  do
+  begin
+    Update TBINVENTARIO_ALMOX i Set
+      i.valor_total = :total
+    where i.ano      = :ano
+      and i.controle = :controle;
+  end 
+  */
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 18/11/2015 22:25:01 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_ESTOQUE_REQUI (
+    ANO_MOVIMENTO smallint)
+as
+declare variable ANO integer;
+declare variable CONTROLE integer;
+declare variable LOTE varchar(38);
+declare variable CUSTO DMN_MONEY_4;
+declare variable TOTAL DMN_MONEY;
+declare variable UNIDADE smallint;
+declare variable FRACIONADOR DMN_PERCENTUAL_3;
+begin
+  -- Atualizar Custos das Requisicoes ao Almoxarifado
+  -- OBSERVACAO: Processo IV da Atualizacao Geral de Custos do Estoque
+
+  --1. Atualizar Custo dos Itens
+  for
+    Select
+        i.ano
+      , i.controle
+      , i.lote_atendimento
+    from TBREQUISICAO_ALMOX_ITEM i
+      inner join TBREQUISICAO_ALMOX ii on (ii.ano = i.ano and ii.controle = i.controle )
+    where ii.status in (2, 3, 4) -- 2. Enviada / 3. Recebida / 4. Atendida
+      and i.ano = :ano_movimento
+    Into
+        ano
+      , controle
+      , lote
+  do
+  begin
+    Select
+        e.custo_medio
+      , e.unidade
+      , e.fracionador
+    from TBESTOQUE_ALMOX e
+    where e.id = :lote
+    Into
+        custo
+      , unidade
+      , fracionador;
+
+    Update TBREQUISICAO_ALMOX_ITEM i Set
+        i.custo       = :custo
+      , i.unidade     = :unidade
+      , i.fracionador = :fracionador
+      , i.total       = (i.qtde_atendida * :custo)
+    where i.ano      = :ano
+      and i.controle = :controle
+      and i.lote_atendimento = :lote;
+  end 
+
+  --2. Atualizar Custos Gerais
+  for
+    Select
+        i.ano
+      , i.controle
+      , sum( i.total )
+    from TBREQUISICAO_ALMOX_ITEM i
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano
+      , controle
+      , total
+  do
+  begin
+    Update TBREQUISICAO_ALMOX r Set
+      r.valor_total = :total
+    where r.ano      = :ano
+      and r.controle = :controle;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 18/11/2015 22:25:10 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SP_UPD_CUSTO_INVENTARIO_ALMOX (
+    ANO_MOVIMENTO smallint)
+as
+declare variable ANO integer;
+declare variable CONTROLE integer;
+declare variable LOTE varchar(38);
+declare variable CUSTO DMN_MONEY_4;
+declare variable TOTAL DMN_MONEY;
+declare variable UNIDADE smallint;
+declare variable FRACIONADOR DMN_PERCENTUAL_3;
+begin
+  -- Atualizar Custos dos Inventarios ocorridos nos Centros de Custos
+  -- OBSERVACAO: Processo V da Atualizacao Geral de Custos do Estoque, caso seja necessario
+
+  --1. Atualizar Custo dos Itens
+  for
+    Select
+        i.ano
+      , i.controle
+      , ii.lote_conferido
+    from TBINVENTARIO_ALMOX i
+      inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle )
+    where i.status < 3 -- Todos os status com excessao do "3. Cancelado"
+      and i.ano = :ano_movimento
+    Into
+        ano
+      , controle
+      , lote
+  do
+  begin
+    Select
+        e.custo_medio
+      , e.unidade
+      , e.fracionador
+    from TBESTOQUE_ALMOX e
+    where e.id = :lote
+    Into
+        custo
+      , unidade
+      , fracionador;
+
+    Update TBINVENTARIO_ALMOX_ITEM ii Set
+        ii.custo       = :custo
+      , ii.unidade     = :unidade
+      , ii.fracionador = :fracionador
+      , ii.total       = (ii.qtde * :custo)
+    where ii.ano      = :ano
+      and ii.controle = :controle
+      and ii.lote_conferido = :lote;
+  end 
+  /*
+  --2. Atualizar Custos Gerais
+  for
+    Select
+        ii.ano
+      , ii.controle
+      , sum( ii.total )
+    from TBINVENTARIO_ALMOX_ITEM ii
+    group by
+        i.ano
+      , i.controle
+    Into
+        ano
+      , controle
+      , total
+  do
+  begin
+    Update TBINVENTARIO_ALMOX i Set
+      i.valor_total = :total
+    where i.ano      = :ano
+      and i.controle = :controle;
+  end 
+  */
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 18/11/2015 22:30:05 --------*/
+
+ALTER TABLE TBAPROPRIACAO_ALMOX_ITEM
+ADD CONSTRAINT FK_TBAPROPRIACAO_ALMOX_ITEM_PRD
+FOREIGN KEY (PRODUTO)
+REFERENCES TBPRODUTO(COD);
+

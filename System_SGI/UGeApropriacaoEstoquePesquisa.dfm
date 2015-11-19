@@ -851,6 +851,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 2
+    ExplicitTop = 611
     object Bevel2: TBevel
       Left = 0
       Top = 0
@@ -867,9 +868,18 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Align = alRight
       Shape = bsSpacer
     end
+    object Bevel5: TBevel
+      Left = 79
+      Top = 0
+      Width = 4
+      Height = 35
+      Align = alLeft
+      Shape = bsSpacer
+      ExplicitLeft = 16
+    end
     object btBtnExportar: TcxButton
       Tag = 1
-      Left = 4
+      Left = 83
       Top = 0
       Width = 75
       Height = 35
@@ -883,10 +893,12 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       TabOrder = 0
       TabStop = False
       OnClick = btBtnExportarClick
+      ExplicitLeft = 85
+      ExplicitTop = 2
     end
     object btBtnEnviarEmail: TcxButton
       Tag = 2
-      Left = 79
+      Left = 158
       Top = 0
       Width = 75
       Height = 35
@@ -900,6 +912,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       TabOrder = 1
       TabStop = False
       OnClick = btBtnEnviarEmailClick
+      ExplicitLeft = 79
     end
     object btBtnAtualizarCusto: TcxButton
       Tag = 3
@@ -935,6 +948,23 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       TabOrder = 2
       Visible = False
       OnClick = btbtnSelecionarClick
+    end
+    object btBtnImprimir: TcxButton
+      Left = 4
+      Top = 0
+      Width = 75
+      Height = 35
+      Hint = 'Exportar dados para planilha'
+      Align = alLeft
+      Caption = 'Imprimir'
+      DropDownMenu = ppImprimir
+      Kind = cxbkDropDown
+      OptionsImage.ImageIndex = 20
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 4
+      TabStop = False
     end
   end
   object svdArquivo: TSaveDialog
@@ -1430,5 +1460,13 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         Name = 'ANO_MOVIMENTO'
         ParamType = ptInput
       end>
+  end
+  object ppImprimir: TPopupMenu
+    Left = 764
+    Top = 457
+    object nmppExtratoMovimentoProduto: TMenuItem
+      Caption = 'Extrato de Moviment'#231#227'o do Produto'
+      OnClick = nmppExtratoMovimentoProdutoClick
+    end
   end
 end

@@ -15,7 +15,7 @@ uses
   dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  dxSkinWhiteprint, Vcl.Mask, JvExMask, JvToolEdit;
 
 type
   TfrmGeProdutoImpressao = class(TfrmGrPadraoImpressao)
@@ -52,6 +52,14 @@ type
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
     ckSemEstoqueVenda: TCheckBox;
+    frExtratoMovimentoProduto_IND: TfrxReport;
+    QryExtratoMovimentoProduto: TIBQuery;
+    DspExtratoMovimentoProduto: TDataSetProvider;
+    CdsExtratoMovimentoProduto: TClientDataSet;
+    FrdsExtratoMovimentoProduto: TfrxDBDataset;
+    frExtratoMovimentoProduto_COM: TfrxReport;
+    lblProduto: TLabel;
+    edProduto: TJvComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -59,7 +67,8 @@ type
   private
     { Private declarations }
     FSQL_RelacaoProduto ,
-    FSQL_DemandaProduto : TStringList;
+    FSQL_DemandaProduto ,
+    FSQL_ExtratoMovimentoProduto : TStringList;
     IGrupo ,
     IFabricante : Array of Integer;
     IEmpresa : Array of String;
@@ -70,6 +79,7 @@ type
     procedure CarregarAno;
     procedure MontarRelacaoProduto;
     procedure MontarDemandaProduto;
+    procedure MontarExtratoMovimentoProduto;
   public
     { Public declarations }
   end;
@@ -80,11 +90,12 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe;
+  UConstantesDGE, UDMBusiness, UDMNFe, UFuncoes;
 
 const
-  REPORT_RELACAO_PRODUTO = 0;
-  REPORT_DEMANDA_PRODUTO = 1;
+  REPORT_RELACAO_PRODUTO     = 0;
+  REPORT_DEMANDA_PRODUTO     = 1;
+  REPORT_EXTRATO_MOV_PRODUTO = 2;
 
 {$R *.dfm}
 
@@ -92,6 +103,9 @@ procedure TfrmGeProdutoImpressao.FormCreate(Sender: TObject);
 var
   I : Integer;
 begin
+  lblProduto.Top := lblAno.Top;
+  edProduto.Top  := edAno.Top;
+
   // VW_PRODUTO_DEMANDA_ANUAL     -- Para Comércio
   // VW_PRODUTO_DEMANDA_ANUAL_IND -- Para Indústria
 
@@ -150,6 +164,9 @@ begin
 
   FSQL_DemandaProduto := TStringList.Create;
   FSQL_DemandaProduto.AddStrings( QryDemandaProduto.SQL );
+
+  FSQL_ExtratoMovimentoProduto := TStringList.Create;
+  FSQL_ExtratoMovimentoProduto.AddStrings( QryExtratoMovimentoProduto.SQL );
 end;
 
 procedure TfrmGeProdutoImpressao.MontarRelacaoProduto;
@@ -215,26 +232,51 @@ begin
   Screen.Cursor         := crSQLWait;
   btnVisualizar.Enabled := False;
 
-  Case edRelatorio.ItemIndex of
-    REPORT_RELACAO_PRODUTO:
-      begin
-        SubTituloRelario := EmptyStr;
-        MontarRelacaoProduto;
-        frReport := frRelacaoProduto;
-      end;
+  try
 
-    REPORT_DEMANDA_PRODUTO:
-      begin
-        SubTituloRelario := '- ANO ' + edAno.Text;
-        MontarDemandaProduto;
-        frReport := frDemandaProduto;
-      end;
+    Case edRelatorio.ItemIndex of
+      REPORT_RELACAO_PRODUTO:
+        begin
+          SubTituloRelario := EmptyStr;
+          MontarRelacaoProduto;
+          frReport := frRelacaoProduto;
+        end;
+
+      REPORT_DEMANDA_PRODUTO:
+        begin
+          SubTituloRelario := '- ANO ' + edAno.Text;
+          MontarDemandaProduto;
+          frReport := frDemandaProduto;
+        end;
+
+      REPORT_EXTRATO_MOV_PRODUTO:
+        begin
+          if ( edProduto.Tag = 0 ) then
+          begin
+            ShowWarning('Favor selecionar o produto desejado!');
+            if edProduto.Visible and edProduto.Enabled then
+              edProduto.SetFocus;
+            Abort;
+          end;
+
+          if ( edEmpresa.ItemIndex = 0 ) then
+            edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
+
+          SubTituloRelario := EmptyStr;
+          MontarExtratoMovimentoProduto;
+          if ( gSistema.Codigo = SISTEMA_GESTAO_IND ) then
+            frReport := frExtratoMovimentoProduto_IND
+          else
+            frReport := frExtratoMovimentoProduto_COM;
+        end;
+    end;
+
+    inherited;
+
+  finally
+    Screen.Cursor         := crDefault;
+    btnVisualizar.Enabled := True;
   end;
-
-  inherited;
-
-  Screen.Cursor         := crDefault;
-  btnVisualizar.Enabled := True;
 end;
 
 procedure TfrmGeProdutoImpressao.CarregarGrupo;
@@ -352,6 +394,50 @@ begin
   end;
 end;
 
+procedure TfrmGeProdutoImpressao.MontarExtratoMovimentoProduto;
+begin
+  try
+    CdsExtratoMovimentoProduto.Close;
+
+    with QryExtratoMovimentoProduto do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_ExtratoMovimentoProduto );
+      SQL.Add('where 1 = 1');
+
+      if ( edGrupo.ItemIndex > 0 ) then
+        SQL.Add('  and p.grupo_cod = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
+
+      if ( edFabricante.ItemIndex > 0 ) then
+        SQL.Add('  and p.fabricante_cod = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
+
+      if ( edEmpresa.ItemIndex > 0 ) then
+        SQL.Add('  and e.cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if ckSemEstoqueVenda.Checked then
+        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+          SQL.Add('  and coalesce(ep.estoque_almox, 0) <= 0')
+        else
+          SQL.Add('  and p.qtde <= 0');
+
+      SQL.Add('order by');
+      SQL.Add('    ex.empresa');
+      SQL.Add('  , p.descri_apresentacao');
+      SQL.Add('  , p.cod');
+      SQL.Add('  , ex.data');
+      SQL.Add('  , ex.tipo');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar o extrato de movimentação do produto.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
 procedure TfrmGeProdutoImpressao.CarregarAno;
 var
   iAno,
@@ -390,6 +476,13 @@ begin
   inherited;
   lblAno.Enabled := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
   edAno.Enabled  := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
+  lblTipoRegistro.Enabled := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  edTipoRegistro.Enabled  := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  lblProduto.Visible := (edRelatorio.ItemIndex = REPORT_EXTRATO_MOV_PRODUTO);
+  edProduto.Visible  := (edRelatorio.ItemIndex = REPORT_EXTRATO_MOV_PRODUTO);
+  lblAno.Visible     := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  edAno.Visible      := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  ckSemEstoqueVenda.Visible := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
 end;
 
 procedure TfrmGeProdutoImpressao.CarregarDadosEmpresa;

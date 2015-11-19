@@ -26,7 +26,7 @@ uses
   dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
   dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator,
-  IdExplicitTLSClientServerBase, IdSMTPBase;
+  IdExplicitTLSClientServerBase, IdSMTPBase, frxClass, frxDBSet;
 
 type        
   TfrmGeApropriacaoEstoquePesquisa = class(TfrmGrPadrao)
@@ -119,6 +119,10 @@ type
     spAtualizarCustoApAutorizacao: TIBStoredProc;
     spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc;
     spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
+    btBtnImprimir: TcxButton;
+    ppImprimir: TPopupMenu;
+    nmppExtratoMovimentoProduto: TMenuItem;
+    Bevel5: TBevel;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -139,6 +143,7 @@ type
     procedure nmppAtualizacaoManualClick(Sender: TObject);
     procedure nmppAtualizacaoAutomaticaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure nmppExtratoMovimentoProdutoClick(Sender: TObject);
   private
     { Private declarations }
     FSQLTotal   ,
@@ -164,7 +169,7 @@ implementation
 
 uses
   UDMBusiness, UConstantesDGE, cxGridExportLink, UGeCentroCusto, UDMRecursos,
-  UFuncoes;
+  UFuncoes, UGeProdutoImpressao;
 
 {$R *.dfm}
 
@@ -957,6 +962,34 @@ begin
 
       CdsProduto.Locate('PRODUTO', sProduto, []);
     end;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoquePesquisa.nmppExtratoMovimentoProdutoClick(
+  Sender: TObject);
+begin
+  if ( PgcTabelas.ActivePageIndex <> TIPO_PRD ) then
+  begin
+    ShowInformation('Favor selecionar o produto desejado!');
+    edTipoFiltro.ItemIndex := TIPO_PRD;
+    edTipoFiltroChange(edTipoFiltro);
+    edTipoFiltro.SetFocus;
+  end
+  else
+  if ( not CdsProduto.Active ) then
+  begin
+    ShowInformation('Favor executar pesquisa para seleção do produto!');
+    edPesquisar.SetFocus;
+  end
+  else
+  if ( CdsProduto.IsEmpty ) then
+  begin
+    ShowInformation('Favor selecionar produto!');
+    edPesquisar.SetFocus;
+  end
+  else
+  begin
+    ;
   end;
 end;
 
