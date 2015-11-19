@@ -57,13 +57,16 @@ type
     DspExtratoMovimentoProduto: TDataSetProvider;
     CdsExtratoMovimentoProduto: TClientDataSet;
     FrdsExtratoMovimentoProduto: TfrxDBDataset;
-    frExtratoMovimentoProduto_COM: TfrxReport;
     lblProduto: TLabel;
     edProduto: TJvComboEdit;
+    frExtratoMovimentoProduto_COM: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
+    procedure edProdutoButtonClick(Sender: TObject);
+    procedure edProdutoKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FSQL_RelacaoProduto ,
@@ -84,13 +87,13 @@ type
     { Public declarations }
   end;
 
-var
-  frmGeProdutoImpressao: TfrmGeProdutoImpressao;
+  procedure ExtratoMovimentoProduto(const AOnwer : TComponent;
+    const aEmpresa, aProduto : String);
 
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UFuncoes;
+  UConstantesDGE, UDMBusiness, UDMNFe, UFuncoes, UGeProduto;
 
 const
   REPORT_RELACAO_PRODUTO     = 0;
@@ -98,6 +101,28 @@ const
   REPORT_EXTRATO_MOV_PRODUTO = 2;
 
 {$R *.dfm}
+
+procedure ExtratoMovimentoProduto(const AOnwer : TComponent;
+  const aEmpresa, aProduto : String);
+var
+  AForm : TfrmGeProdutoImpressao;
+begin
+  AForm := TfrmGeProdutoImpressao.Create(AOnwer);
+  try
+    AForm.CarregarEmpresa;
+    AForm.CarregarGrupo;
+    AForm.CarregarFabricante;
+    AForm.CarregarAno;
+
+    AForm.edRelatorio.ItemIndex := REPORT_EXTRATO_MOV_PRODUTO;
+    AForm.edEmpresa.ItemIndex   := IndexOfArray(aEmpresa, AForm.IEmpresa);
+    AForm.edProduto.Tag         := StrToInt(aProduto);
+    AForm.edProduto.Text        := aProduto + ' - SELEÇÃO AUTOMÁTICA';
+    AForm.btnVisualizarClick(AForm.btnVisualizar);
+  finally
+    AForm.Free;
+  end;
+end;
 
 procedure TfrmGeProdutoImpressao.FormCreate(Sender: TObject);
 var
@@ -167,6 +192,21 @@ begin
 
   FSQL_ExtratoMovimentoProduto := TStringList.Create;
   FSQL_ExtratoMovimentoProduto.AddStrings( QryExtratoMovimentoProduto.SQL );
+end;
+
+procedure TfrmGeProdutoImpressao.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_DELETE) or ((Shift = [ssCtrl]) and (Key = SYS_KEY_L)) Then
+  begin
+    if ( edProduto.Focused ) then
+    begin
+      edProduto.Tag  := 0;
+      edProduto.Text := EmptyStr;
+    end;
+  end;
+
+  inherited;
 end;
 
 procedure TfrmGeProdutoImpressao.MontarRelacaoProduto;
@@ -414,6 +454,9 @@ begin
       if ( edEmpresa.ItemIndex > 0 ) then
         SQL.Add('  and e.cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
+      if ( edProduto.Tag > 0 ) then
+        SQL.Add(' and ex.produto = ' + QuotedStr(Trim(Copy(edProduto.Text, 1, Pos('-', edProduto.Text) - 1))));
+
       if ckSemEstoqueVenda.Checked then
         if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
           SQL.Add('  and coalesce(ep.estoque_almox, 0) <= 0')
@@ -423,7 +466,7 @@ begin
       SQL.Add('order by');
       SQL.Add('    ex.empresa');
       SQL.Add('  , p.descri_apresentacao');
-      SQL.Add('  , p.cod');
+      SQL.Add('  , ex.produto');
       SQL.Add('  , ex.data');
       SQL.Add('  , ex.tipo');
     end;
@@ -469,6 +512,25 @@ begin
     edAno.Items.Add( FormatDateTime('yyyy', GetDateDB) );
 
   edAno.ItemIndex := I;
+end;
+
+procedure TfrmGeProdutoImpressao.edProdutoButtonClick(Sender: TObject);
+var
+  iCodigo : Integer;
+  sCodigo ,
+  sNome   : String;
+begin
+  if SelecionarProduto(Self, iCodigo, sCodigo, sNome) then
+  begin
+    edProduto.Tag  := iCodigo;
+    edProduto.Text := sCodigo + ' - ' + sNome;
+  end;
+end;
+
+procedure TfrmGeProdutoImpressao.edProdutoKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  Key := #0;
 end;
 
 procedure TfrmGeProdutoImpressao.edRelatorioChange(Sender: TObject);

@@ -17,7 +17,7 @@ uses
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
   dxSkinWhiteprint, frxClass, frxDBSet, Vcl.Mask, JvExMask, JvToolEdit,
-  IBX.IBTable;
+  IBX.IBTable, IBX.IBStoredProc;
 
 type
   TfrmGeRequisicaoAlmoxImpressao = class(TfrmGrPadraoImpressao)
@@ -54,6 +54,12 @@ type
     DspRequisicaoAlmoxAnalitico: TDataSetProvider;
     CdsRequisicaoAlmoxAnalitico: TClientDataSet;
     frdsRequisicaoAlmoxAnalitico: TfrxDBDataset;
+    frRequisicaoAlmoxProduto: TfrxReport;
+    QryRequisicaoAlmoxProduto: TIBQuery;
+    DspRequisicaoAlmoxProduto: TDataSetProvider;
+    CdsRequisicaoAlmoxProduto: TClientDataSet;
+    frdsRequisicaoAlmoxProduto: TfrxDBDataset;
+    spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
     procedure FormCreate(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -62,6 +68,7 @@ type
     { Private declarations }
     FSQL_RequisicaoEstoqueS,
     FSQL_RequisicaoEstoqueA,
+    FSQL_RequisicaoEstoqueProduto,
     FSQL_ConsumoDeptoS     ,
     FSQL_ConsumoDeptoA     : TStringList;
     IEmpresa     : Array of String;
@@ -82,17 +89,18 @@ var
   frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao;
 
 const
-  IDX_SITUACAO_REQUISICAO_PADRAO     = 2;
+  IDX_SITUACAO_REQUISICAO_PADRAO = 2;
 
-  REPORT_REQUSICAO_ESTOQUE_SINTETICO = 0;
-  REPORT_REQUSICAO_ESTOQUE_ANALITICO = 1;
-  REPORT_CONSUMO_DEPTO_SINTETICO     = 2;
-  REPORT_CONSUMO_DEPTO_ANALITICO     = 3;
+  REPORT_REQUISICAO_ESTOQUE_SINTETICO = 0;
+  REPORT_REQUISICAO_ESTOQUE_ANALITICO = 1;
+  REPORT_REQUISICAO_ESTOQUE_PRODUTO  = 2;
+  REPORT_CONSUMO_DEPTO_SINTETICO     = 3;
+  REPORT_CONSUMO_DEPTO_ANALITICO     = 4;
 
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe;
+  UConstantesDGE, UDMBusiness, UDMNFe, UFuncoes;
 
 {$R *.dfm}
 
@@ -106,18 +114,27 @@ begin
   btnVisualizar.Enabled := False;
 
   Case edRelatorio.ItemIndex of
-    REPORT_REQUSICAO_ESTOQUE_SINTETICO:
+    REPORT_REQUISICAO_ESTOQUE_SINTETICO:
       begin
         SubTituloRelario := EmptyStr;
         MontarRequisicaoEstoqueSintetico;
         frReport := frRequsicaoAlmoxSintetico;
       end;
 
-    REPORT_REQUSICAO_ESTOQUE_ANALITICO:
+    REPORT_REQUISICAO_ESTOQUE_ANALITICO:
       begin
         SubTituloRelario := EmptyStr;
         MontarRequisicaoEstoqueAnalitico;
         frReport := frRequsicaoAlmoxAnalitico;
+      end;
+
+    REPORT_REQUISICAO_ESTOQUE_PRODUTO:
+      begin
+        if ( edEmpresa.ItemIndex = 0 ) then
+          edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
+
+        edSituacao.ItemIndex := IDX_SITUACAO_REQUISICAO_PADRAO;
+
       end;
   end;
 
@@ -273,8 +290,13 @@ end;
 procedure TfrmGeRequisicaoAlmoxImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
+  lblSituacao.Enabled   := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
+  edSituacao.Enabled    := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
   lblGrupo.Enabled      := (edRelatorio.ItemIndex in [REPORT_CONSUMO_DEPTO_SINTETICO, REPORT_CONSUMO_DEPTO_ANALITICO]);
   edGrupo.Enabled       := (edRelatorio.ItemIndex in [REPORT_CONSUMO_DEPTO_SINTETICO, REPORT_CONSUMO_DEPTO_ANALITICO]);
+
+  lblGrupo.Visible := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
+  edGrupo.Visible  := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
 end;
 
 procedure TfrmGeRequisicaoAlmoxImpressao.FormCreate(Sender: TObject);
@@ -297,6 +319,17 @@ begin
 
   FSQL_RequisicaoEstoqueA := TStringList.Create;
   FSQL_RequisicaoEstoqueA.AddStrings( QryRequisicaoAlmoxAnalitico.SQL );
+
+  FSQL_RequisicaoEstoqueProduto := TStringList.Create;
+  FSQL_RequisicaoEstoqueProduto.AddStrings( QryRequisicaoAlmoxProduto.SQL );
+
+  // Atualização do Custo das Requisições ao Almoxarifado
+  with spAtualizarCustoEstoqueRequisicao do
+  begin
+    ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', e1Data.Date));
+    ExecProc;
+    CommitTransaction;
+  end;
 end;
 
 procedure TfrmGeRequisicaoAlmoxImpressao.MontarRequisicaoEstoqueAnalitico;

@@ -2190,7 +2190,7 @@ begin
         dbgDados.Canvas.Font.Color := lblVendaCancelada.Font.Color;
 
       // Destacar alerta de lucros
-      if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
+      if ((not IbDtstTabelaLUCRO_CALCULADO.IsNull) and (IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_CAN)) then
       begin
         if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
           dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color

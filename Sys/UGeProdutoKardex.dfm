@@ -1,15 +1,19 @@
 inherited frmGeProdutoKardex: TfrmGeProdutoKardex
   Left = 398
   Top = 228
-  Width = 1177
-  Height = 648
   Caption = 'Pesquisa Kardex (Hist'#243'rico de Produtos/Servi'#231'os)'
+  ClientHeight = 609
+  ClientWidth = 1161
+  ExplicitWidth = 1177
+  ExplicitHeight = 648
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlPesquisa: TPanel
     Width = 1161
+    ExplicitWidth = 1161
     inherited GrpBxPesquisar: TGroupBox
       Width = 933
+      ExplicitWidth = 933
       DesignSize = (
         933
         73)
@@ -17,6 +21,8 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
         Left = 576
         Width = 110
         Caption = '&Descri'#231#227'o hist'#243'rico:'
+        ExplicitLeft = 576
+        ExplicitWidth = 110
       end
       object lblData: TLabel [1]
         Left = 352
@@ -38,10 +44,13 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
         Left = 576
         Width = 313
         TabOrder = 3
+        ExplicitLeft = 576
+        ExplicitWidth = 313
       end
       inherited BrnPesquisar: TcxButton
         Left = 896
         TabOrder = 4
+        ExplicitLeft = 896
       end
       object edProduto: TJvComboEdit
         Left = 16
@@ -113,6 +122,7 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
+        Text = ''
         OnButtonClick = edProdutoButtonClick
         OnKeyPress = edProdutoKeyPress
       end
@@ -170,6 +180,7 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
         ImageKind = ikCustom
         NumGlyphs = 2
         PopupColor = clBtnFace
+        ShowNullDate = False
         TabOrder = 1
       end
       object e2Data: TJvDateEdit
@@ -226,16 +237,19 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
         ImageKind = ikCustom
         NumGlyphs = 2
         PopupColor = clBtnFace
+        ShowNullDate = False
         TabOrder = 2
       end
     end
   end
   inherited PnlTabela: TPanel
     Width = 1161
-    Height = 529
+    Height = 528
+    ExplicitWidth = 1161
+    ExplicitHeight = 528
     inherited dbgDados: TDBGrid
       Width = 1153
-      Height = 521
+      Height = 520
       Columns = <
         item
           Expanded = False

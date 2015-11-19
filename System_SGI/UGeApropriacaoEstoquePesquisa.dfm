@@ -5,7 +5,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
   Caption = 'Consultar Apropria'#231#227'o de Estoque Atual'
   ClientHeight = 648
   ClientWidth = 1116
-  ExplicitTop = -20
   ExplicitWidth = 1132
   ExplicitHeight = 687
   PixelsPerInch = 96
@@ -851,7 +850,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 2
-    ExplicitTop = 611
     object Bevel2: TBevel
       Left = 0
       Top = 0
@@ -893,8 +891,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       TabOrder = 0
       TabStop = False
       OnClick = btBtnExportarClick
-      ExplicitLeft = 85
-      ExplicitTop = 2
     end
     object btBtnEnviarEmail: TcxButton
       Tag = 2
@@ -912,7 +908,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       TabOrder = 1
       TabStop = False
       OnClick = btBtnEnviarEmailClick
-      ExplicitLeft = 79
     end
     object btBtnAtualizarCusto: TcxButton
       Tag = 3
@@ -1464,9 +1459,9 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
   object ppImprimir: TPopupMenu
     Left = 764
     Top = 457
-    object nmppExtratoMovimentoProduto: TMenuItem
-      Caption = 'Extrato de Moviment'#231#227'o do Produto'
-      OnClick = nmppExtratoMovimentoProdutoClick
+    object nmppExtratoMovimentoDiaProduto: TMenuItem
+      Caption = 'Extrato de Movimenta'#231#227'o di'#225'ria do Produto'
+      OnClick = nmppExtratoMovimentoDiaProdutoClick
     end
   end
 end

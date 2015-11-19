@@ -151,6 +151,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         Height = 21
         ButtonHint = 'Pesquisar Produto (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
         ClickKey = 16464
+        Color = clMoneyGreen
         Glyph.Data = {
           36060000424D3606000000000000360000002800000020000000100000000100
           18000000000000060000000000000000000000000000000000001DE6B51DE6B5
@@ -204,7 +205,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
         NumGlyphs = 2
         TabOrder = 4
-        Text = '(Todos)'
+        Text = ''
+        OnButtonClick = edProdutoButtonClick
+        OnKeyPress = edProdutoKeyPress
       end
     end
   end
@@ -3909,6 +3912,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Style = []
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = 10027007
           HAlign = haCenter
           Memo.UTF8W = (
             '[FrdsExtratoMovimentoProduto."UND_COMPRA_SIGLA"]')
@@ -4071,9 +4075,10 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Tahoma'
-          Font.Style = []
+          Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = 10027007
           HAlign = haRight
           Memo.UTF8W = (
             '[IIF(<Estoque>=0,'#39#39',FormatFloat('#39',0.###'#39', <Estoque>))] ')
@@ -4747,8 +4752,28 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       item
         Name = 'Estoque'
         Value = 
-          'IIF(<SistemaCodigo> = 2,<FrdsRelacaoProduto."ESTOQUE_ALMOX">,<Fr' +
-          'dsRelacaoProduto."ESTOQUE">)'
+          'IIF(<SistemaCodigo> = 2,<FrdsExtratoMovimentoProduto."ESTOQUE_AL' +
+          'MOX">,<FrdsExtratoMovimentoProduto."ESTOQUE">)'
+      end
+      item
+        Name = 'Quantidade'
+        Value = 
+          '(<FrdsExtratoMovimentoProduto."QUANT_APROPRIACAO"> + <FrdsExtrat' +
+          'oMovimentoProduto."QUANT_INVENTARIO">)'
+      end
+      item
+        Name = 'QuantidadeSaldo'
+        Value = '(<Quantidade>-<FrdsExtratoMovimentoProduto."QUANT_REQUISICAO">)'
+      end
+      item
+        Name = 'Total'
+        Value = 
+          '(<FrdsExtratoMovimentoProduto."VALOR_TOTAL_APROPRIACAO">+<FrdsEx' +
+          'tratoMovimentoProduto."VALOR_TOTAL_INVENTARIO">)'
+      end
+      item
+        Name = 'TotalSaldo'
+        Value = '(<Total>-<FrdsExtratoMovimentoProduto."VALOR_TOTAL_REQUISICAO">)'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -4785,7 +4810,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         end
         object Picture1: TfrxPictureView
           Left = 3.779530000000000000
-          Top = 7.559060000000000000
+          Top = 7.559059999999999000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
           DataField = 'LOGO'
@@ -4797,7 +4822,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559060000000000000
+          Top = 7.559059999999999000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
@@ -4852,7 +4877,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         end
         object Memo11: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 56.692950000000000000
+          Top = 56.692949999999990000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
@@ -4891,16 +4916,24 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Name = 'Lucida Console'
           Font.Style = []
           Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
         end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
         Height = 30.236240000000000000
-        Top = 521.575140000000000000
+        Top = 548.031849999999900000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -4919,7 +4952,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
-          Top = 15.118120000000000000
+          Top = 15.118119999999980000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4956,13 +4989,14 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         FillType = ftBrush
         Height = 22.677180000000000000
         Top = 204.094620000000000000
+        Visible = False
         Width = 718.110700000000000000
-        Condition = 'FrdsRelacaoProduto."EMPRESA_CNPJ"'
+        Condition = 'FrdsExtratoMovimentoProduto."EMPRESA"'
         ReprintOnNewPage = True
         StartNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
-          Left = 113.385900000000000000
-          Width = 604.724800000000000000
+          Left = 64.252010000000000000
+          Width = 653.858690000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -4975,14 +5009,20 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
-              ' [FormatMaskText('#39'##.###.###/####-##;0;'#39',<FrdsRelacaoProduto."EM' +
-              'PRESA_CNPJ">)] - [FrdsRelacaoProduto."EMPRESA_RAZAO"]')
+              ' [FormatMaskText('#39'##.###.###/####-##;0;'#39',<FrdsExtratoMovimentoPr' +
+              'oduto."EMPRESA">)] - [FrdsExtratoMovimentoProduto."EMPRESA_RAZAO' +
+              '"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
         end
         object Memo5: TfrxMemoView
-          Width = 113.385900000000000000
+          Width = 64.252010000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5008,9 +5048,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         DataSet = FrdsExtratoMovimentoProduto
         DataSetName = 'FrdsExtratoMovimentoProduto'
         RowCount = 0
-        object Memo7: TfrxMemoView
-          Left = 623.622450000000000000
-          Width = 64.252010000000000000
+        object Memo13: TfrxMemoView
+          Left = 64.252010000000000000
+          Width = 71.811023622047240000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5022,24 +5062,37 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
-          Highlight.FillType = ftBrush
           Memo.UTF8W = (
             
-              '[IIF(<FrdsRelacaoProduto."TIPO">='#39'S'#39','#39#39',FormatFloat('#39',0.##'#39',<Est' +
-              'oque>))] ')
+              '[IIF(<FrdsExtratoMovimentoProduto."QUANT_COMPRA">=0,'#39#39',FormatFlo' +
+              'at('#39',0.###'#39', <FrdsExtratoMovimentoProduto."QUANT_COMPRA">))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo21: TfrxMemoView
+          Width = 64.252010000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Memo.UTF8W = (
+            
+              ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsExtratoMovimentoProduto."DAT' +
+              'A">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
-          Left = 56.692950000000000000
-          Width = 56.692950000000000000
+          Left = 136.063080000000000000
+          Width = 71.811023620000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5050,22 +5103,19 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
-          Highlight.FillType = ftBrush
+          HAlign = haRight
           Memo.UTF8W = (
-            ' [FrdsRelacaoProduto."COD"]')
+            
+              '[IIF(<FrdsExtratoMovimentoProduto."QUANT_APROPRIACAO">=0,'#39#39',Form' +
+              'atFloat('#39',0.###'#39', <FrdsExtratoMovimentoProduto."QUANT_APROPRIACA' +
+              'O">))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo13: TfrxMemoView
-          Left = 113.385900000000000000
-          Width = 298.582870000000000000
+        object Memo27: TfrxMemoView
+          Left = 207.874150000000000000
+          Width = 71.811023620000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5076,21 +5126,82 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
-          Highlight.FillType = ftBrush
+          HAlign = haRight
           Memo.UTF8W = (
-            ' [FrdsRelacaoProduto."DESCRI_APRESENTACAO"]')
+            
+              '[IIF(<FrdsExtratoMovimentoProduto."QUANT_INVENTARIO">=0,'#39#39',Forma' +
+              'tFloat('#39',0.###'#39', <FrdsExtratoMovimentoProduto."QUANT_INVENTARIO"' +
+              '>))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo15: TfrxMemoView
-          Left = 548.031850000000000000
+        object Memo6: TfrxMemoView
+          Left = 279.685220000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[IIF(<FrdsExtratoMovimentoProduto."QUANT_REQUISICAO">=0,'#39#39',Forma' +
+              'tFloat('#39',0.###'#39', <FrdsExtratoMovimentoProduto."QUANT_REQUISICAO"' +
+              '>))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo16: TfrxMemoView
+          Left = 351.496290000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = 13434879
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[IIF(<QuantidadeSaldo>=0,'#39#39',FormatFloat('#39',0.###'#39', <QuantidadeSal' +
+              'do>))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo32: TfrxMemoView
+          Left = 423.307360000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo36: TfrxMemoView
+          Left = 566.929500000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5102,22 +5213,22 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
-          Highlight.FillType = ftBrush
+          Fill.BackColor = 13434879
+          HAlign = haRight
           Memo.UTF8W = (
-            ' [FrdsRelacaoProduto."REFERENCIA"]')
+            
+              '[IIF((<FrdsExtratoMovimentoProduto."VALOR_TOTAL_APROPRIACAO"> + ' +
+              '<FrdsExtratoMovimentoProduto."VALOR_TOTAL_INVENTARIO">)=0,'#39#39',For' +
+              'matFloat('#39',0.00'#39', (<FrdsExtratoMovimentoProduto."VALOR_TOTAL_APR' +
+              'OPRIACAO"> + <FrdsExtratoMovimentoProduto."VALOR_TOTAL_INVENTARI' +
+              'O">)))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo17: TfrxMemoView
-          Left = 411.968770000000000000
-          Width = 136.063080000000000000
+        object Memo38: TfrxMemoView
+          Left = 642.520100000000000000
+          Width = 75.590600000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5128,21 +5239,20 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
-          Highlight.FillType = ftBrush
+          Fill.BackColor = 13434879
+          HAlign = haRight
           Memo.UTF8W = (
-            ' [FrdsRelacaoProduto."FABRICANTE_NOME"]')
+            
+              '[IIF(<FrdsExtratoMovimentoProduto."VALOR_TOTAL_REQUISICAO">=0,'#39#39 +
+              ',FormatFloat('#39',0.00'#39', <FrdsExtratoMovimentoProduto."VALOR_TOTAL_' +
+              'REQUISICAO">))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo21: TfrxMemoView
-          Width = 56.692950000000000000
+        object Memo40: TfrxMemoView
+          Left = 491.338900000000000000
+          Width = 75.590600000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5153,43 +5263,13 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          HAlign = haCenter
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
-          Highlight.FillType = ftBrush
+          Fill.BackColor = 13434879
+          HAlign = haRight
           Memo.UTF8W = (
-            ' [FrdsRelacaoProduto."TIPO_DESC"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo23: TfrxMemoView
-          Left = 687.874460000000000000
-          Width = 30.236240000000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haCenter
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
-          Highlight.FillType = ftBrush
-          Memo.UTF8W = (
-            '[FrdsRelacaoProduto."UND_COMPRA"]')
+            
+              '[IIF(<FrdsExtratoMovimentoProduto."VALOR_TOTAL_COMPRA">=0,'#39#39',For' +
+              'matFloat('#39',0.00'#39', <FrdsExtratoMovimentoProduto."VALOR_TOTAL_COMP' +
+              'RA">))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -5198,7 +5278,8 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
         Height = 22.677180000000000000
-        Top = 381.732530000000000000
+        Top = 408.189240000000000000
+        Visible = False
         Width = 718.110700000000000000
         object Memo10: TfrxMemoView
           Width = 718.110700000000000000
@@ -5211,14 +5292,14 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' [COUNT(BndMasterData)] produto(s)/servi'#231'o(s) relacionado(s).')
+            ' [COUNT(BndMasterData)] dia(a) relacionado(s).')
           ParentFont = False
         end
       end
       object BndFooter: TfrxFooter
         FillType = ftBrush
         Height = 34.015770000000000000
-        Top = 427.086890000000000000
+        Top = 453.543600000000000000
         Width = 718.110700000000000000
         object Memo18: TfrxMemoView
           Top = 18.897650000000000000
@@ -5231,7 +5312,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Style = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' * Produto(s) sem estoque')
+            ' * Produto(s) com poss'#237'vel diverg'#234'ncia no estoque')
           ParentFont = False
         end
         object Memo19: TfrxMemoView
@@ -5245,7 +5326,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' [COUNT(BndMasterData, 2)] produto(s)/servi'#231'o(s) relacionado(s).')
+            
+              ' [FormatFloat('#39',0'#39', COUNT(BndMasterData, 2))] dia(s) relacionado' +
+              '(s).')
           ParentFont = False
         end
       end
@@ -5254,132 +5337,34 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         Height = 37.795300000000000000
         Top = 249.448980000000000000
         Width = 718.110700000000000000
-        Condition = 'FrdsRelacaoProduto."GRUPO_COD"'
+        Condition = 'FrdsExtratoMovimentoProduto."COD"'
         ReprintOnNewPage = True
-        object Memo6: TfrxMemoView
-          Left = 623.622450000000000000
+        object Memo23: TfrxMemoView
+          Left = 468.661720000000000000
           Top = 18.897650000000000000
-          Width = 64.252010000000000000
+          Width = 22.677180000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          HAlign = haRight
+          Fill.BackColor = 10027007
+          HAlign = haCenter
           Memo.UTF8W = (
-            'Quant. ')
+            '[FrdsExtratoMovimentoProduto."UND_COMPRA_SIGLA"]')
           ParentFont = False
-          VAlign = vaCenter
-        end
-        object Memo8: TfrxMemoView
-          Left = 56.692950000000000000
-          Top = 18.897650000000000000
-          Width = 56.692950000000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' C'#243'digo')
-          ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 113.385900000000000000
+          Left = 64.252010000000000000
           Top = 18.897650000000000000
-          Width = 298.582870000000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' Descri'#231#227'o / Apresenta'#231#227'o')
-          ParentFont = False
-          VAlign = vaCenter
-        end
-        object Memo14: TfrxMemoView
-          Left = 548.031850000000000000
-          Top = 18.897650000000000000
-          Width = 75.590600000000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' Refer'#234'ncia')
-          ParentFont = False
-          VAlign = vaCenter
-        end
-        object Memo16: TfrxMemoView
-          Left = 411.968770000000000000
-          Top = 18.897650000000000000
-          Width = 136.063080000000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' Fabricante')
-          ParentFont = False
-          VAlign = vaCenter
-        end
-        object Memo20: TfrxMemoView
-          Top = 18.897650000000000000
-          Width = 56.692950000000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' Tipo')
-          ParentFont = False
-          VAlign = vaCenter
-        end
-        object Memo22: TfrxMemoView
-          Left = 687.874460000000000000
-          Top = 18.897650000000000000
-          Width = 30.236240000000000000
+          Width = 71.811023622047240000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5393,13 +5378,13 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'UN')
+            'Compra')
           ParentFont = False
           VAlign = vaCenter
         end
-        object Memo24: TfrxMemoView
-          Left = 113.385900000000000000
-          Width = 604.724800000000000000
+        object Memo20: TfrxMemoView
+          Top = 18.897650000000000000
+          Width = 64.252010000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5407,18 +5392,41 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Data')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo24: TfrxMemoView
+          Left = 64.252010000000000000
+          Width = 359.055350000000000000
+          Height = 18.897650000000000000
+          CharSpacing = 1.000000000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
           Font.Style = []
-          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Typ = [ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' [FrdsRelacaoProduto."GRUPO_DESC"]')
+            
+              ' [FrdsExtratoMovimentoProduto."COD"] - [FrdsExtratoMovimentoProd' +
+              'uto."DESCRI_APRESENTACAO"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
-          Width = 113.385900000000000000
+          Width = 64.252010000000000000
           Height = 18.897650000000000000
+          CharSpacing = 1.000000000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -5430,16 +5438,446 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' Grupo')
+            ' Produto')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo8: TfrxMemoView
+          Left = 136.063080000000000000
+          Top = 18.897650000000000000
+          Width = 71.811070000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Aprop.')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo26: TfrxMemoView
+          Left = 207.874150000000000000
+          Top = 18.897650000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Invent.')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo28: TfrxMemoView
+          Left = 279.685220000000000000
+          Top = 18.897650000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Requis.')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo7: TfrxMemoView
+          Left = 423.307360000000000000
+          Top = 18.897650000000000000
+          Width = 45.354360000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = 10027007
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[IIF(<Estoque>=0,'#39#39',FormatFloat('#39',0.###'#39', <Estoque>))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo14: TfrxMemoView
+          Left = 423.307360000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          CharSpacing = 1.000000000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Estoque')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo15: TfrxMemoView
+          Left = 351.496290000000000000
+          Top = 18.897650000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clYellow
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Saldo')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo34: TfrxMemoView
+          Left = 491.338900000000000000
+          Width = 226.771800000000000000
+          Height = 18.897650000000000000
+          CharSpacing = 1.000000000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Valores (R$)')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo35: TfrxMemoView
+          Left = 566.929500000000000000
+          Top = 18.897650000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Apropria'#231#227'o')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo37: TfrxMemoView
+          Left = 642.520100000000000000
+          Top = 18.897650000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Requisi'#231#227'o')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo39: TfrxMemoView
+          Left = 491.338900000000000000
+          Top = 18.897650000000000000
+          Width = 75.590600000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Compras')
           ParentFont = False
           VAlign = vaCenter
         end
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
-        Height = 7.559060000000000000
+        Height = 34.015770000000000000
         Top = 351.496290000000000000
         Width = 718.110700000000000000
+        object Memo22: TfrxMemoView
+          Left = 64.252010000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.###'#39', SUM(<FrdsExtratoMovimentoProduto."QUANT_C' +
+              'OMPRA">))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo17: TfrxMemoView
+          Left = 136.063080000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.###'#39', SUM(<FrdsExtratoMovimentoProduto."QUANT_A' +
+              'PROPRIACAO">))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo29: TfrxMemoView
+          Left = 207.874150000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.###'#39', SUM(<FrdsExtratoMovimentoProduto."QUANT_I' +
+              'NVENTARIO">))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo30: TfrxMemoView
+          Left = 279.685220000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.###'#39', SUM(<FrdsExtratoMovimentoProduto."QUANT_R' +
+              'EQUISICAO">))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo31: TfrxMemoView
+          Left = 351.496290000000000000
+          Width = 71.811023620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = 10027007
+          HAlign = haRight
+          Highlight.ApplyFill = False
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -11
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = [fsBold]
+          Highlight.Condition = '(SUM(<QuantidadeSaldo>) <> <Estoque>)'
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.###'#39', SUM(<QuantidadeSaldo>))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo33: TfrxMemoView
+          Left = 423.307360000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          Highlight.ApplyFill = False
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -11
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = [fsBold]
+          Highlight.Condition = '(SUM(<QuantidadeSaldo>) <> <Estoque>)'
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
+            ' [FrdsExtratoMovimentoProduto."UND_COMPRA"]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo41: TfrxMemoView
+          Left = 491.338900000000000000
+          Width = 75.590553620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = 10027007
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsExtratoMovimentoProduto."VALOR_TO' +
+              'TAL_COMPRA">))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo42: TfrxMemoView
+          Left = 566.929499999999900000
+          Width = 75.590553620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = 10027007
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM((<FrdsExtratoMovimentoProduto."VALOR_T' +
+              'OTAL_APROPRIACAO"> + <FrdsExtratoMovimentoProduto."VALOR_TOTAL_I' +
+              'NVENTARIO">)))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo43: TfrxMemoView
+          Left = 642.520100000000000000
+          Width = 75.590553620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = 10027007
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsExtratoMovimentoProduto."VALOR_TO' +
+              'TAL_REQUISICAO">))] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
       end
     end
   end

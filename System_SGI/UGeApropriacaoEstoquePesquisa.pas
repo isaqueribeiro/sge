@@ -121,7 +121,7 @@ type
     spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
     btBtnImprimir: TcxButton;
     ppImprimir: TPopupMenu;
-    nmppExtratoMovimentoProduto: TMenuItem;
+    nmppExtratoMovimentoDiaProduto: TMenuItem;
     Bevel5: TBevel;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -143,7 +143,7 @@ type
     procedure nmppAtualizacaoManualClick(Sender: TObject);
     procedure nmppAtualizacaoAutomaticaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure nmppExtratoMovimentoProdutoClick(Sender: TObject);
+    procedure nmppExtratoMovimentoDiaProdutoClick(Sender: TObject);
   private
     { Private declarations }
     FSQLTotal   ,
@@ -965,7 +965,7 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoquePesquisa.nmppExtratoMovimentoProdutoClick(
+procedure TfrmGeApropriacaoEstoquePesquisa.nmppExtratoMovimentoDiaProdutoClick(
   Sender: TObject);
 begin
   if ( PgcTabelas.ActivePageIndex <> TIPO_PRD ) then
@@ -988,9 +988,7 @@ begin
     edPesquisar.SetFocus;
   end
   else
-  begin
-    ;
-  end;
+    ExtratoMovimentoProduto(Self, gUsuarioLogado.Empresa, CdsProduto.FieldByName('produto').AsString);
 end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.btBtnAtualizarCustoClick(

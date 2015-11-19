@@ -16,24 +16,24 @@ Select
   , ex.quant
   , ex.valor_total
 
-  , Case when ex.tipo = 0 then ex.quant else 0 end as quant_ajuste
-  , Case when ex.tipo = 1 then ex.quant else 0 end as quant_compra
-  , Case when ex.tipo = 2 then ex.quant else 0 end as quant_inventario
-  , Case when ex.tipo = 3 then ex.quant else 0 end as quant_apropriacao
-  , Case when ex.tipo = 4 then ex.quant else 0 end as quant_requisicao
+  , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+  , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+  , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+  , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+  , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
 
-  , Case when ex.tipo = 3 then ex.quant else 0 end +
-    Case when ex.tipo = 2 then ex.quant else 0 end -
-    Case when ex.tipo = 4 then ex.quant else 0 end as quant_saldo_almox
+  , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +
+    Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -
+    Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_saldo_almox
 
-  , Case when ex.tipo = 1 then ex.valor_total else 0 end as valor_total_compra
-  , Case when ex.tipo = 2 then ex.valor_total else 0 end as valor_total_inventario
-  , Case when ex.tipo = 3 then ex.valor_total else 0 end as valor_total_apropriacao
-  , Case when ex.tipo = 4 then ex.valor_total else 0 end as valor_total_requisicao
+  , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+  , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+  , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+  , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
 
-  , Case when ex.tipo = 3 then ex.valor_total else 0 end +
-    Case when ex.tipo = 2 then ex.valor_total else 0 end -
-    Case when ex.tipo = 4 then ex.valor_total else 0 end as valor_total_saldo_almox
+  , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+    Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+    Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_saldo_almox
 
   , ep.valor_estoque_almox
 from TBEMPRESA e
