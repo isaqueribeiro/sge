@@ -54,12 +54,17 @@ type
     DspRequisicaoAlmoxAnalitico: TDataSetProvider;
     CdsRequisicaoAlmoxAnalitico: TClientDataSet;
     frdsRequisicaoAlmoxAnalitico: TfrxDBDataset;
-    frRequisicaoAlmoxProduto: TfrxReport;
-    QryRequisicaoAlmoxProduto: TIBQuery;
-    DspRequisicaoAlmoxProduto: TDataSetProvider;
-    CdsRequisicaoAlmoxProduto: TClientDataSet;
-    frdsRequisicaoAlmoxProduto: TfrxDBDataset;
+    frRequisicaoAlmoxProdutoS: TfrxReport;
+    QryRequisicaoAlmoxProdutoS: TIBQuery;
+    DspRequisicaoAlmoxProdutoS: TDataSetProvider;
+    CdsRequisicaoAlmoxProdutoS: TClientDataSet;
+    frdsRequisicaoAlmoxProdutoS: TfrxDBDataset;
     spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
+    frRequisicaoAlmoxProdutoE: TfrxReport;
+    QryRequisicaoAlmoxProdutoE: TIBQuery;
+    DspRequisicaoAlmoxProdutoE: TDataSetProvider;
+    CdsRequisicaoAlmoxProdutoE: TClientDataSet;
+    frdsRequisicaoAlmoxProdutoE: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -68,7 +73,8 @@ type
     { Private declarations }
     FSQL_RequisicaoEstoqueS,
     FSQL_RequisicaoEstoqueA,
-    FSQL_RequisicaoEstoqueProduto,
+    FSQL_RequisicaoEstoqueProdutoS,
+    FSQL_RequisicaoEstoqueProdutoE,
     FSQL_ConsumoDeptoS     ,
     FSQL_ConsumoDeptoA     : TStringList;
     IEmpresa     : Array of String;
@@ -83,6 +89,8 @@ type
     procedure CarregarTipoRequisicaoAlmox;
     procedure MontarRequisicaoEstoqueSintetico;
     procedure MontarRequisicaoEstoqueAnalitico;
+    procedure MontarRequisicaoEstoqueProdutoSaida;
+    procedure MontarRequisicaoEstoqueProdutoEntrada;
   end;
 
 var
@@ -93,9 +101,10 @@ const
 
   REPORT_REQUISICAO_ESTOQUE_SINTETICO = 0;
   REPORT_REQUISICAO_ESTOQUE_ANALITICO = 1;
-  REPORT_REQUISICAO_ESTOQUE_PRODUTO  = 2;
-  REPORT_CONSUMO_DEPTO_SINTETICO     = 3;
-  REPORT_CONSUMO_DEPTO_ANALITICO     = 4;
+  REPORT_REQUISICAO_ESTOQUE_PRODUTO_S = 2;
+  REPORT_REQUISICAO_ESTOQUE_PRODUTO_E = 3;
+  REPORT_CONSUMO_DEPTO_SINTETICO      = 4;
+  REPORT_CONSUMO_DEPTO_ANALITICO      = 5;
 
 implementation
 
@@ -128,13 +137,26 @@ begin
         frReport := frRequsicaoAlmoxAnalitico;
       end;
 
-    REPORT_REQUISICAO_ESTOQUE_PRODUTO:
+    REPORT_REQUISICAO_ESTOQUE_PRODUTO_S:
       begin
         if ( edEmpresa.ItemIndex = 0 ) then
           edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
 
         edSituacao.ItemIndex := IDX_SITUACAO_REQUISICAO_PADRAO;
 
+        MontarRequisicaoEstoqueProdutoSaida;
+        frReport := frRequisicaoAlmoxProdutoS;
+      end;
+
+    REPORT_REQUISICAO_ESTOQUE_PRODUTO_E:
+      begin
+        if ( edEmpresa.ItemIndex = 0 ) then
+          edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
+
+        edSituacao.ItemIndex := IDX_SITUACAO_REQUISICAO_PADRAO;
+
+        MontarRequisicaoEstoqueProdutoEntrada;
+        frReport := frRequisicaoAlmoxProdutoE;
       end;
   end;
 
@@ -290,13 +312,18 @@ end;
 procedure TfrmGeRequisicaoAlmoxImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
-  lblSituacao.Enabled   := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
-  edSituacao.Enabled    := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
+  lblSituacao.Enabled   := not (edRelatorio.ItemIndex in [REPORT_REQUISICAO_ESTOQUE_PRODUTO_S, REPORT_REQUISICAO_ESTOQUE_PRODUTO_E]);
+  edSituacao.Enabled    := not (edRelatorio.ItemIndex in [REPORT_REQUISICAO_ESTOQUE_PRODUTO_S, REPORT_REQUISICAO_ESTOQUE_PRODUTO_E]);
   lblGrupo.Enabled      := (edRelatorio.ItemIndex in [REPORT_CONSUMO_DEPTO_SINTETICO, REPORT_CONSUMO_DEPTO_ANALITICO]);
   edGrupo.Enabled       := (edRelatorio.ItemIndex in [REPORT_CONSUMO_DEPTO_SINTETICO, REPORT_CONSUMO_DEPTO_ANALITICO]);
 
-  lblGrupo.Visible := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
-  edGrupo.Visible  := (edRelatorio.ItemIndex <> REPORT_REQUISICAO_ESTOQUE_PRODUTO);
+  lblGrupo.Visible := not (edRelatorio.ItemIndex in [REPORT_REQUISICAO_ESTOQUE_PRODUTO_S, REPORT_REQUISICAO_ESTOQUE_PRODUTO_E]);
+  edGrupo.Visible  := not (edRelatorio.ItemIndex in [REPORT_REQUISICAO_ESTOQUE_PRODUTO_S, REPORT_REQUISICAO_ESTOQUE_PRODUTO_E]);
+
+  if ( edRelatorio.ItemIndex = REPORT_REQUISICAO_ESTOQUE_PRODUTO_E ) then
+    lblCentroCusto.Caption := 'C.C. Requisitante:'
+  else
+    lblCentroCusto.Caption := 'C.C. Atendente:';
 end;
 
 procedure TfrmGeRequisicaoAlmoxImpressao.FormCreate(Sender: TObject);
@@ -320,15 +347,23 @@ begin
   FSQL_RequisicaoEstoqueA := TStringList.Create;
   FSQL_RequisicaoEstoqueA.AddStrings( QryRequisicaoAlmoxAnalitico.SQL );
 
-  FSQL_RequisicaoEstoqueProduto := TStringList.Create;
-  FSQL_RequisicaoEstoqueProduto.AddStrings( QryRequisicaoAlmoxProduto.SQL );
+  FSQL_RequisicaoEstoqueProdutoS := TStringList.Create;
+  FSQL_RequisicaoEstoqueProdutoS.AddStrings( QryRequisicaoAlmoxProdutoS.SQL );
+
+  FSQL_RequisicaoEstoqueProdutoE := TStringList.Create;
+  FSQL_RequisicaoEstoqueProdutoE.AddStrings( QryRequisicaoAlmoxProdutoE.SQL );
 
   // Atualização do Custo das Requisições ao Almoxarifado
-  with spAtualizarCustoEstoqueRequisicao do
-  begin
-    ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', e1Data.Date));
-    ExecProc;
-    CommitTransaction;
+  Screen.Cursor := crSQLWait;
+  try
+    with spAtualizarCustoEstoqueRequisicao do
+    begin
+      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', e1Data.Date));
+      ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
   end;
 end;
 
@@ -392,6 +427,158 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar o relatório analítico de Requisições ao Estoque.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeRequisicaoAlmoxImpressao.MontarRequisicaoEstoqueProdutoEntrada;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    if ( edTipoRequsicao.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Requisições realizadas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Requisições realizadas no período de %s a %s, para o tipo %s.', [e1Data.Text, e2Data.Text,
+        Trim(Copy(edTipoRequsicao.Text, Pos('-', edTipoRequsicao.Text) + 1, Length(edTipoRequsicao.Text)))]);
+
+    CdsRequisicaoAlmoxProdutoE.Close;
+
+    with QryRequisicaoAlmoxProdutoE do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RequisicaoEstoqueProdutoE );
+      SQL.Add('where r.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if ( edCentroCusto.ItemIndex > 0 ) then
+        SQL.Add('  and r.ccusto_origem = ' + IntToStr(ICentroCusto[edCentroCusto.ItemIndex]));
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and r.data_emissao >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and r.data_emissao <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      if ( edSituacao.ItemIndex > 0 ) then
+        Case edSituacao.ItemIndex of
+          1:
+            SQL.Add('  and r.status in (' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_EDC) + ', ' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_ABR) + ')');
+
+          2:
+            SQL.Add('  and r.status in (' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_ENV) + ', ' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_REC) + ', ' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_ATD) + ')');
+
+          3:
+            SQL.Add('  and r.status = ' + IntToStr(STATUS_REQUISICAO_ALMOX_CAN));
+        end;
+
+      if ( edTipoRequsicao.ItemIndex > 0 ) then
+        SQL.Add('  and r.tipo = ' + Trim(Copy(edTipoRequsicao.Text, 1, Pos('-', edTipoRequsicao.Text) - 1)));
+
+      SQL.Add('group by');
+      SQL.Add('    r.empresa');
+      SQL.Add('  , r.ccusto_origem');
+      SQL.Add('  , ca.descricao');
+      SQL.Add('  , r.tipo');
+      SQL.Add('  , tp.descricao');
+      SQL.Add('  , ri.produto');
+      SQL.Add('  , pr.descri_apresentacao');
+      SQL.Add('  , up.unp_descricao');
+      SQL.Add('  , up.unp_sigla');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    r.empresa');
+      SQL.Add('  , r.ccusto_origem');
+      SQL.Add('  , r.tipo');
+      SQL.Add('  , pr.descri_apresentacao');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar o relatório de Requisições/Saidas consolidadas de produtos.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeRequisicaoAlmoxImpressao.MontarRequisicaoEstoqueProdutoSaida;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    if ( edTipoRequsicao.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Requisições realizadas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Requisições realizadas no período de %s a %s, para o tipo %s.', [e1Data.Text, e2Data.Text,
+        Trim(Copy(edTipoRequsicao.Text, Pos('-', edTipoRequsicao.Text) + 1, Length(edTipoRequsicao.Text)))]);
+
+    CdsRequisicaoAlmoxProdutoS.Close;
+
+    with QryRequisicaoAlmoxProdutoS do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RequisicaoEstoqueProdutoS );
+      SQL.Add('where r.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if ( edCentroCusto.ItemIndex > 0 ) then
+        SQL.Add('  and r.ccusto_destino = ' + IntToStr(ICentroCusto[edCentroCusto.ItemIndex]));
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and r.data_emissao >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and r.data_emissao <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      if ( edSituacao.ItemIndex > 0 ) then
+        Case edSituacao.ItemIndex of
+          1:
+            SQL.Add('  and r.status in (' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_EDC) + ', ' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_ABR) + ')');
+
+          2:
+            SQL.Add('  and r.status in (' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_ENV) + ', ' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_REC) + ', ' +
+              IntToStr(STATUS_REQUISICAO_ALMOX_ATD) + ')');
+
+          3:
+            SQL.Add('  and r.status = ' + IntToStr(STATUS_REQUISICAO_ALMOX_CAN));
+        end;
+
+      if ( edTipoRequsicao.ItemIndex > 0 ) then
+        SQL.Add('  and r.tipo = ' + Trim(Copy(edTipoRequsicao.Text, 1, Pos('-', edTipoRequsicao.Text) - 1)));
+
+      SQL.Add('group by');
+      SQL.Add('    r.empresa');
+      SQL.Add('  , r.ccusto_destino');
+      SQL.Add('  , ca.descricao');
+      SQL.Add('  , r.tipo');
+      SQL.Add('  , tp.descricao');
+      SQL.Add('  , ri.produto');
+      SQL.Add('  , pr.descri_apresentacao');
+      SQL.Add('  , up.unp_descricao');
+      SQL.Add('  , up.unp_sigla');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    r.empresa');
+      SQL.Add('  , r.ccusto_destino');
+      SQL.Add('  , r.tipo');
+      SQL.Add('  , pr.descri_apresentacao');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar o relatório de Requisições/Saidas consolidadas de produtos.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
