@@ -115,10 +115,6 @@ type
     ppAtualizarCusto: TPopupMenu;
     nmppAtualizacaoAutomatica: TMenuItem;
     nmppAtualizacaoManual: TMenuItem;
-    spAtualizarCustoApEntrada: TIBStoredProc;
-    spAtualizarCustoApAutorizacao: TIBStoredProc;
-    spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc;
-    spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
     btBtnImprimir: TcxButton;
     ppImprimir: TPopupMenu;
     nmppExtratoMovimentoDiaProduto: TMenuItem;
@@ -838,55 +834,17 @@ end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.nmppAtualizacaoAutomaticaClick(
   Sender: TObject);
-var
-  dData : TDateTime;
 begin
-  dData := GetDateDB;
-  Screen.Cursor := crSQLWait;
-  try
-    // 1. Atualização do Custo das Apropriações de Estoque por Entrada
-    with spAtualizarCustoApEntrada do
-    begin
-      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
-      ExecProc;
-      CommitTransaction;
-    end;
+  SetAtulizarCustoEstoque(GetDateDB);
 
-    // 2. Atualização do Custo das Apropriações de Estoque por Autorizações
-    with spAtualizarCustoApAutorizacao do
-    begin
-      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
-      ExecProc;
-      CommitTransaction;
-    end;
+  if ( Sender = nmppAtualizacaoAutomatica ) then
+    ShowInformation('Atualização ocorrida com sucesso!');
 
-    // 3. Atualização do Custo do Estoque de Almoxarifado
-    with spAtualizarCustoEstoqueAlmoxarifado do
-    begin
-      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
-      ExecProc;
-      CommitTransaction;
-    end;
-
-    // 4. Atualização do Custo das Requisições ao Almoxarifado
-    with spAtualizarCustoEstoqueRequisicao do
-    begin
-      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', dData));
-      ExecProc;
-      CommitTransaction;
-    end;
-
-    if ( Sender = nmppAtualizacaoAutomatica ) then
-      ShowInformation('Atualização ocorrida com sucesso!');
-
-    if CdsProduto.Active then
-    begin
-      CdsProduto.Close;
-      CdsProduto.Open;
-      CalcularPercentuais( CdsProduto );
-    end;
-  finally
-    Screen.Cursor := crDefault;
+  if CdsProduto.Active then
+  begin
+    CdsProduto.Close;
+    CdsProduto.Open;
+    CalcularPercentuais( CdsProduto );
   end;
 end;
 

@@ -3219,7 +3219,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39', SUM(<frdsRequisicaoAlmoxProdutoS."VALOR_TO' +
-              'TAL_ATENDIDA">,BndMasterData,2))] ')
+              'TAL_ATENDIDA">,BndMasterData))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -3245,9 +3245,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo12: TfrxMemoView
           Left = 767.244590000000000000
-          Top = 18.897650000000000000
+          Top = 37.795300000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
+          Visible = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3288,7 +3289,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo34: TfrxMemoView
           Left = 767.244590000000000000
-          Top = 37.795300000000000000
+          Top = 18.897650000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3310,7 +3311,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo33: TfrxMemoView
           Left = 880.630490000000000000
-          Top = 37.795300000000000000
+          Top = 18.897650000000000000
           Width = 166.299256540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3333,9 +3334,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo36: TfrxMemoView
           Left = 880.630490000000000000
-          Top = 18.897650000000000000
+          Top = 37.795300000000000000
           Width = 166.299256540000000000
           Height = 18.897650000000000000
+          Visible = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -3787,19 +3789,6 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     BCDToCurrency = True
     Left = 136
     Top = 72
-  end
-  object spAtualizarCustoEstoqueRequisicao: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_REQUI'
-    Left = 424
-    Top = 8
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO_MOVIMENTO'
-        ParamType = ptInput
-      end>
   end
   object frRequisicaoAlmoxProdutoE: TfrxReport
     Version = '5.1.9'
@@ -4384,7 +4373,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39', SUM(<frdsRequisicaoAlmoxProdutoE."VALOR_TO' +
-              'TAL_ATENDIDA">,BndMasterData,2))] ')
+              'TAL_ATENDIDA">,BndMasterData))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -4410,9 +4399,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo12: TfrxMemoView
           Left = 767.244590000000000000
-          Top = 18.897650000000000000
+          Top = 37.795300000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
+          Visible = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -4453,7 +4443,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo34: TfrxMemoView
           Left = 767.244590000000000000
-          Top = 37.795300000000000000
+          Top = 18.897650000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -4475,7 +4465,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo33: TfrxMemoView
           Left = 880.630490000000000000
-          Top = 37.795300000000000000
+          Top = 18.897650000000000000
           Width = 166.299256540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -4498,9 +4488,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
         object Memo36: TfrxMemoView
           Left = 880.630490000000000000
-          Top = 18.897650000000000000
+          Top = 37.795300000000000000
           Width = 166.299256540000000000
           Height = 18.897650000000000000
+          Visible = False
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET

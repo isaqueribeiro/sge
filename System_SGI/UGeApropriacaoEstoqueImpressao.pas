@@ -310,6 +310,8 @@ begin
 
   FSQL_ApropriacaoGeralA := TStringList.Create;
   FSQL_ApropriacaoGeralA.AddStrings( QryRelacaoApropriacaoAnalitico.SQL );
+
+  SetAtulizarCustoEstoqueApropriacao(GetDateDB);
 end;
 
 procedure TfrmGeApropriacaoEstoqueImpressao.edEmpresaChange(

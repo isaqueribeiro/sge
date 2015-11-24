@@ -198,6 +198,8 @@ begin
 
   FSQL_DemandaEstoqueProduto := TStringList.Create;
   FSQL_DemandaEstoqueProduto.AddStrings( QryDemandaEstoqueProduto.SQL );
+
+  SetAtulizarCustoEstoque(GetDateDB);
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.FormShow(Sender: TObject);

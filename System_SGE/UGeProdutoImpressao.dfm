@@ -4124,7 +4124,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Fill.BackColor = clYellow
           HAlign = haCenter
           Memo.UTF8W = (
-            'Saldo')
+            'E/S')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -4489,6 +4489,10 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       
         '    Case when ex.tipo = 4 then ex.quant else 0 end as quant_sald' +
         'o_almox'
+      '--  , Case when ex.tipo = 3 then ex.quant else 0 end -'
+      
+        '--    Case when ex.tipo = 4 then ex.quant else 0 end as quant_sa' +
+        'ldo_almox'
       ''
       
         '  , Case when ex.tipo = 1 then ex.valor_total else 0 end as valo' +
@@ -4508,6 +4512,10 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       
         '    Case when ex.tipo = 4 then ex.valor_total else 0 end as valo' +
         'r_total_saldo_almox'
+      '--  , Case when ex.tipo = 3 then ex.valor_total else 0 end -'
+      
+        '--    Case when ex.tipo = 4 then ex.valor_total else 0 end as va' +
+        'lor_total_saldo_almox'
       ''
       '  , ep.valor_estoque_almox'
       'from TBEMPRESA e'
@@ -4933,7 +4941,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
         Height = 30.236240000000000000
-        Top = 548.031849999999900000
+        Top = 548.031850000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -5565,7 +5573,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Fill.BackColor = clYellow
           HAlign = haCenter
           Memo.UTF8W = (
-            'Saldo')
+            'E/S')
           ParentFont = False
           VAlign = vaCenter
         end

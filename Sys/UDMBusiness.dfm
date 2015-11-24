@@ -899,4 +899,57 @@ object DMBusiness: TDMBusiness
     Left = 144
     Top = 416
   end
+  object spAtualizarCustoApEntrada: TIBStoredProc
+    Database = ibdtbsBusiness
+    Transaction = ibtrnsctnBusiness
+    StoredProcName = 'SP_UPD_CUSTO_APROP_ENTRADA'
+    Left = 580
+    Top = 240
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'ANO'
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoApAutorizacao: TIBStoredProc
+    Database = ibdtbsBusiness
+    Transaction = ibtrnsctnBusiness
+    StoredProcName = 'SP_UPD_CUSTO_APROP_AUTORIZ'
+    Left = 580
+    Top = 288
+  end
+  object spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc
+    Database = ibdtbsBusiness
+    Transaction = ibtrnsctnBusiness
+    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_APROP'
+    Left = 580
+    Top = 336
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'ANO'
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoEstoqueRequisicao: TIBStoredProc
+    Database = ibdtbsBusiness
+    Transaction = ibtrnsctnBusiness
+    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_REQUI'
+    Left = 580
+    Top = 384
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'ANO_MOVIMENTO'
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoEstoqueInventario: TIBStoredProc
+    Database = ibdtbsBusiness
+    Transaction = ibtrnsctnBusiness
+    StoredProcName = 'SP_UPD_CUSTO_INVENTARIO_ALMOX'
+    Left = 580
+    Top = 432
+  end
 end

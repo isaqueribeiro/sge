@@ -192,6 +192,8 @@ begin
 
   FSQL_ExtratoMovimentoProduto := TStringList.Create;
   FSQL_ExtratoMovimentoProduto.AddStrings( QryExtratoMovimentoProduto.SQL );
+
+  SetAtulizarCustoEstoque(GetDateDB);
 end;
 
 procedure TfrmGeProdutoImpressao.FormKeyDown(Sender: TObject; var Key: Word;
@@ -517,13 +519,47 @@ end;
 procedure TfrmGeProdutoImpressao.edProdutoButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
-  sCodigo ,
-  sNome   : String;
+  sCodigoAlfa,
+  sNome   ,
+  sUnidade,
+  sNCM_SH ,
+  sCST    : String;
+  iUnidade,
+  iCFOP   : Integer;
+  cAliquota   ,
+  cAliquotaPIS,
+  cAliquotaCOFINS ,
+  cValorVenda     ,
+  cValorPromocao  ,
+  cValorIPI       ,
+  cPercentualRedBC,
+  cValorCusto     ,
+  cEstoque        ,
+  cReserva        : Currency;
 begin
-  if SelecionarProduto(Self, iCodigo, sCodigo, sNome) then
+  if SelecionarProdutoParaEntrada(Self,
+    iCodigo,
+    sCodigoAlfa,
+    sNome   ,
+    sUnidade,
+    sNCM_SH ,
+    sCST    ,
+    iUnidade,
+    iCFOP   ,
+    cAliquota   ,
+    cAliquotaPIS,
+    cAliquotaCOFINS ,
+    cValorVenda     ,
+    cValorPromocao  ,
+    cValorIPI       ,
+    cPercentualRedBC,
+    cValorCusto     ,
+    cEstoque        ,
+    cReserva
+  ) then
   begin
     edProduto.Tag  := iCodigo;
-    edProduto.Text := sCodigo + ' - ' + sNome;
+    edProduto.Text := sCodigoAlfa + ' - ' + sNome;
   end;
 end;
 

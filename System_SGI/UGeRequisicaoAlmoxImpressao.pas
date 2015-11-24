@@ -59,7 +59,6 @@ type
     DspRequisicaoAlmoxProdutoS: TDataSetProvider;
     CdsRequisicaoAlmoxProdutoS: TClientDataSet;
     frdsRequisicaoAlmoxProdutoS: TfrxDBDataset;
-    spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
     frRequisicaoAlmoxProdutoE: TfrxReport;
     QryRequisicaoAlmoxProdutoE: TIBQuery;
     DspRequisicaoAlmoxProdutoE: TDataSetProvider;
@@ -353,18 +352,7 @@ begin
   FSQL_RequisicaoEstoqueProdutoE := TStringList.Create;
   FSQL_RequisicaoEstoqueProdutoE.AddStrings( QryRequisicaoAlmoxProdutoE.SQL );
 
-  // Atualização do Custo das Requisições ao Almoxarifado
-  Screen.Cursor := crSQLWait;
-  try
-    with spAtualizarCustoEstoqueRequisicao do
-    begin
-      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', e1Data.Date));
-      ExecProc;
-      CommitTransaction;
-    end;
-  finally
-    Screen.Cursor := crDefault;
-  end;
+  SetAtulizarCustoEstoqueRequisicao(GetDateDB);
 end;
 
 procedure TfrmGeRequisicaoAlmoxImpressao.MontarRequisicaoEstoqueAnalitico;

@@ -131,6 +131,11 @@ type
     fastReport: TfrxReport;
     ACBrValidador: TACBrValidador;
     ACBrMail: TACBrMail;
+    spAtualizarCustoApEntrada: TIBStoredProc;
+    spAtualizarCustoApAutorizacao: TIBStoredProc;
+    spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc;
+    spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
+    spAtualizarCustoEstoqueInventario: TIBStoredProc;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -215,6 +220,11 @@ var
   procedure SetSegmento(const iCodigo : Integer; const sDescricao : String);
   procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
   procedure SetRotinaSistema(iTipo : Smallint; sCodigo, sDescricao, sRotinaPai : String);
+  procedure SetAtulizarCustoEstoque(const aData : TDateTime);
+  procedure SetAtulizarCustoEstoqueApropriacao(const aData : TDateTime);
+  procedure SetAtulizarCustoEstoqueAlmoxarifado(const aData : TDateTime);
+  procedure SetAtulizarCustoEstoqueRequisicao(const aData : TDateTime);
+  procedure SetAtulizarCustoEstoqueInventario(const aData : TDateTime);
 
   function EncriptSenha_Master(const Value, Key : String) : String;
   function DecriptarSenha_Master(const Value, Key : String) : String;
@@ -1333,6 +1343,126 @@ begin
   except
     On E : Exception do
       ShowError('SetRotinaSistema() - ' + E.Message);
+  end;
+end;
+
+procedure SetAtulizarCustoEstoque(const aData : TDateTime);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    // 1. Atualização do Custo das Apropriações de Estoque por Entrada
+    with DMBusiness, spAtualizarCustoApEntrada do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 2. Atualização do Custo das Apropriações de Estoque por Autorizações
+    with DMBusiness, spAtualizarCustoApAutorizacao do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 3. Atualização do Custo do Estoque de Almoxarifado
+    with DMBusiness, spAtualizarCustoEstoqueAlmoxarifado do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 4. Atualização do Custo das Requisições ao Almoxarifado
+    with DMBusiness, spAtualizarCustoEstoqueRequisicao do
+    begin
+      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 5. Atualização do Custo dos Inventários
+    with DMBusiness, spAtualizarCustoEstoqueInventario do
+    begin
+      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetAtulizarCustoEstoqueApropriacao(const aData : TDateTime);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    // 1. Atualização do Custo das Apropriações de Estoque por Entrada
+    with DMBusiness, spAtualizarCustoApEntrada do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+
+    // 2. Atualização do Custo das Apropriações de Estoque por Autorizações
+    with DMBusiness, spAtualizarCustoApAutorizacao do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetAtulizarCustoEstoqueAlmoxarifado(const aData : TDateTime);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    // 3. Atualização do Custo do Estoque de Almoxarifado
+    with DMBusiness, spAtualizarCustoEstoqueAlmoxarifado do
+    begin
+      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetAtulizarCustoEstoqueRequisicao(const aData : TDateTime);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    // 4. Atualização do Custo das Requisições ao Almoxarifado
+    with DMBusiness, spAtualizarCustoEstoqueRequisicao do
+    begin
+      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetAtulizarCustoEstoqueInventario(const aData : TDateTime);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    // 5. Atualização do Custo dos Inventários
+    with DMBusiness, spAtualizarCustoEstoqueInventario do
+    begin
+      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
   end;
 end;
 

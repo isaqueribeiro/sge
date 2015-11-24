@@ -1410,52 +1410,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       OnClick = nmppAtualizacaoManualClick
     end
   end
-  object spAtualizarCustoApEntrada: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_APROP_ENTRADA'
-    Left = 952
-    Top = 272
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO'
-        ParamType = ptInput
-      end>
-  end
-  object spAtualizarCustoApAutorizacao: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_APROP_AUTORIZ'
-    Left = 952
-    Top = 320
-  end
-  object spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_APROP'
-    Left = 952
-    Top = 368
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO'
-        ParamType = ptInput
-      end>
-  end
-  object spAtualizarCustoEstoqueRequisicao: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_REQUI'
-    Left = 952
-    Top = 416
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO_MOVIMENTO'
-        ParamType = ptInput
-      end>
-  end
   object ppImprimir: TPopupMenu
     Left = 764
     Top = 457
