@@ -146,6 +146,17 @@ begin
     ACBrNFeDANFeESCPOS.Device.AcharPortasSeriais(postasCOM);
     for I := 0 to postasCOM.Count - 1 do
       edCupomNaoFiscalPorta.Items.Add( postasCOM.Strings[I] );
+
+    edCupomNaoFiscalPorta.Items.Add('COM1 *');
+    edCupomNaoFiscalPorta.Items.Add('COM2 *');
+    edCupomNaoFiscalPorta.Items.Add('COM3 *');
+    edCupomNaoFiscalPorta.Items.Add('COM4 *');
+    edCupomNaoFiscalPorta.Items.Add('COM5 *');
+    edCupomNaoFiscalPorta.Items.Add('LPT1 *');
+    edCupomNaoFiscalPorta.Items.Add('LPT2 *');
+    edCupomNaoFiscalPorta.Items.Add('LPT3 *');
+    edCupomNaoFiscalPorta.Items.Add('USB *');
+    edCupomNaoFiscalPorta.Items.Add('ETHERNET *');
   finally
     postasCOM.EndUpdate;
   end;
@@ -349,8 +360,8 @@ begin
   edCupomNaoFiscalImpressora.Enabled  :=  (edCupomNaoFiscalTipo.ItemIndex = 0);
   lblCupomNaoFiscalModelo.Enabled     :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
   edCupomNaoFiscalModelo.Enabled      :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
-  lblCupomNaoFiscalModeloEsp.Enabled  :=  (TEcfTipo(edCupomNaoFiscalTipo.ItemIndex) = ecfBematech);
-  edCupomNaoFiscalModeloEsp.Enabled   :=  (TEcfTipo(edCupomNaoFiscalTipo.ItemIndex) = ecfBematech);
+  lblCupomNaoFiscalModeloEsp.Enabled  :=  (TEcfTipo(edCupomNaoFiscalTipo.ItemIndex) in [ecfBematech, ecfBematechMp2032DLL]);
+  edCupomNaoFiscalModeloEsp.Enabled   :=  (TEcfTipo(edCupomNaoFiscalTipo.ItemIndex) in [ecfBematech, ecfBematechMp2032DLL]);
   lblCupomNaoFiscalPorta.Enabled      :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
   edCupomNaoFiscalPorta.Enabled       :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
 end;

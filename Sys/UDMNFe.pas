@@ -6015,6 +6015,7 @@ const
   TEXTO_TRIB_APROX_2 = '* R$ %s (%s)';
   TEXTO_TRIB_APROX_3 = '* Fonte IBPT';
   TEXTO_NUMERO_DANFE = 'Numero %s Serie %s Emissao %s';
+  PESO_LINHA = 2;
 begin
   LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
 
@@ -6064,6 +6065,7 @@ begin
   aEcfConfig.InscEstadual   := qryEmitenteIE.AsString;
   aEcfConfig.ID             := FormatFloat('###0000000', iNumVenda);
   aEcfConfig.ImprimirGliche := True;
+  aEcfConfig.NumeroLinhas   := (qryDadosProduto.RecordCount * PESO_LINHA) + 35;
 
   aEcfConfig.ArquivoLogo   := Trim(ConfigACBr.edtLogoMarca.Text);
   aEcfConfig.ArquivoQRCode := EmptyStr;
@@ -6283,6 +6285,7 @@ begin
 
   if bEmitirCumpoExtraParcelas and (aEcfTipo in [ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfBematech]) then
   begin
+    aEcfConfig.NumeroLinhas := (qryFormaPagtos.RecordCount * PESO_LINHA) + 35;
     aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
     try
 

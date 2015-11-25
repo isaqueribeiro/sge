@@ -4,7 +4,7 @@ object frmPrinc: TfrmPrinc
   Top = 226
   Caption = 'PDV | Controle do Ponto de Venda do SGE'
   ClientHeight = 517
-  ClientWidth = 927
+  ClientWidth = 930
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,25 +20,27 @@ object frmPrinc: TfrmPrinc
   object pnlMain: TPanel
     Left = 0
     Top = 155
-    Width = 927
+    Width = 930
     Height = 362
     Align = alClient
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
     ExplicitTop = 122
+    ExplicitWidth = 927
     ExplicitHeight = 395
     DesignSize = (
-      927
+      930
       362)
     object imgFundo: TImage
       Left = 1
       Top = 1
-      Width = 925
+      Width = 928
       Height = 340
       Align = alClient
       AutoSize = True
       Transparent = True
+      ExplicitWidth = 925
       ExplicitHeight = 371
     end
     object imgEmpresa: TImage
@@ -4389,7 +4391,7 @@ object frmPrinc: TfrmPrinc
     object stbMain: TdxStatusBar
       Left = 1
       Top = 341
-      Width = 925
+      Width = 928
       Height = 20
       Images = DMRecursos.ImgPrincipal16x16
       Panels = <
@@ -4416,6 +4418,7 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
+      ExplicitWidth = 925
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 430
@@ -4558,7 +4561,7 @@ object frmPrinc: TfrmPrinc
   object Ribbon: TdxRibbon
     Left = 0
     Top = 0
-    Width = 927
+    Width = 930
     Height = 155
     ApplicationButton.Menu = RbnBackstageView
     BarManager = BrManager
@@ -4571,6 +4574,7 @@ object frmPrinc: TfrmPrinc
     TabOrder = 5
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
+    ExplicitWidth = 927
     object RbbTabPrincipal: TdxRibbonTab
       Active = True
       Caption = 'Principal'

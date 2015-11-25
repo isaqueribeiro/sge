@@ -26,10 +26,21 @@ Uses
       SoftHouse ,
       Sistema   ,
       Versao    : String;
+      NumeroLinhas : Integer;
     end;
 
-    TEcfTipo = (ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfDaruma, ecfBematech);
-    TEcfBematech = (ecfBema_Nenhum, ecfBema_MP_20_CI, ecfBema_MP_20_MI, ecfBema_MP_20_TH, ecfBema_MP_2000_CI, ecfBema_MP_2000_TH, ecfBema_MP_2100_TH, ecfBema_MP_4000_TH, ecfBema_MP_4200_TH, ecfBema_MP_2500_TH);
+    TEcfTipo = (ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfDaruma, ecfBematech, ecfBematechMp2032DLL);
+    TEcfBematech = (
+        ecfBema_Nenhum
+      , ecfBema_MP_20_CI      // 1
+      , ecfBema_MP_20_MI      // 2
+      , ecfBema_MP_20_TH      // 3
+      , ecfBema_MP_2000_CI    // 4
+      , ecfBema_MP_2000_TH    // 5
+      , ecfBema_MP_2100_TH    // 6
+      , ecfBema_MP_4000_TH    // 7
+      , ecfBema_MP_4200_TH    // 8
+      , ecfBema_MP_2500_TH);  // 9
 
     TEcfFactory = class
     private
@@ -95,6 +106,7 @@ begin
         aConfiguracao.Dll,
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
+        aConfiguracao.NumeroLinhas,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,
@@ -113,6 +125,7 @@ begin
         aConfiguracao.Dll,
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
+        aConfiguracao.NumeroLinhas,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,
@@ -127,11 +140,12 @@ begin
         aConfiguracao.ImprimirGliche);
 
     {$IFDEF PDV}
-    ecfBematech:
+    ecfBematech, ecfBematechMp2032DLL:
       aEcf := TEcfBematechNaoFiscal.Criar(
         aConfiguracao.Dll,
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
+        aConfiguracao.NumeroLinhas,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,
@@ -151,6 +165,7 @@ begin
         aConfiguracao.Dll,
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
+        aConfiguracao.NumeroLinhas,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,

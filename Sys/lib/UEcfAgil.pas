@@ -12,6 +12,7 @@ Uses
       { Private declarations }
       f_retorno ,
       f_colunas ,
+      f_linhas  ,
       f_modeloEspecifico : Integer;
       f_impressora   ,
       f_dll          ,
@@ -39,6 +40,7 @@ Uses
       Constructor Create;
     public
       property Num_Colunas      : Integer  read f_colunas           write f_colunas;
+      property Num_Linhas       : Integer  read f_linhas            write f_linhas;
       property ModeloEspecifico : Integer  read f_modeloEspecifico  write f_modeloEspecifico;
       property NomeImpressora: String   read f_impressora  write f_impressora;
       property Dll           : String   read f_dll         write f_dll;
@@ -64,7 +66,7 @@ Uses
       property Sistema   : String read f_sistena   write f_sistena;
       property Versao    : String read f_versao   write f_versao;
 
-      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); virtual; abstract;
       destructor Destroy; override;
 

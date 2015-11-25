@@ -161,7 +161,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     Top = 0
     Width = 498
     Height = 488
-    ActivePage = TbsGeral
+    ActivePage = TbsPDV
     Align = alClient
     TabOrder = 0
     object TbsGeral: TTabSheet
@@ -726,6 +726,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     ConfigBarras.MostrarCodigo = False
     ConfigBarras.LarguraLinha = 0
     ConfigBarras.Altura = 0
+    ConfigBarras.Margem = 0
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
     IntervaloBuffer = 0

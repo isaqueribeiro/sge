@@ -1665,7 +1665,7 @@ end;
 
 function GetCupomNaoFiscalPortaDS : String;
 begin
-  Result := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'C:\CUPOM.TXT')
+  Result := Trim(StringReplace(FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'C:\CUPOM.TXT'), '*', '', [rfReplaceAll]));
 end;
 
 function GetCupomNaoFiscalPortaNM : String;

@@ -3,15 +3,16 @@ unit UEcfWindowsPrinter;
 interface
 
 Uses
-  SysUtils, StrUtils, Classes, Printers, Graphics, UEcfAgil, UFuncoes;
+  SysUtils, StrUtils, Classes, Printers, Windows, Graphics, UEcfAgil, UFuncoes;
 
   Type
     TEcfWindowsPrinter = class(TEcfAgil)
     private
       fArquivoQRCODE : TBitmap;
       procedure ImprimirCabecalho;
+      procedure SetPrinterPage(pWidth, pHeight : LongInt);
     public
-      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
 
       procedure Compactar_Fonte; override;
@@ -51,12 +52,15 @@ implementation
 { TEcfWindowsPrinter }
 
 constructor TEcfWindowsPrinter.Criar(sDll, sNomeImpressora: String;
-  iModeloEspecifico: Integer; sPorta, sEmp, sEndereco, sBairro, sFone, sCep,
+  iModeloEspecifico, iLinhas: Integer; sPorta, sEmp, sEndereco, sBairro, sFone, sCep,
   sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche: Boolean);
+var
+  iColunas : Integer;
 begin
   Self.Create;
 
   Num_Colunas      := 50;
+  Num_Linhas       := iLinhas;
   ModeloEspecifico := iModeloEspecifico;
   NomeImpressora := sNomeImpressora;
   Dll            := sDll;
@@ -77,6 +81,13 @@ begin
   myPrinter.PrinterIndex := myPrinter.Printers.IndexOf(PChar(NomeImpressora));
 
   Texto_Cupom.Clear;
+
+  iColunas := StrToIntDef(FormatFloat('000000000', (Num_Colunas / 2) - 1), 1);
+  Self.SetPrinterPage(
+      myPrinter.Canvas.TextWidth(StringOfChar('0', iColunas))     // Largura
+    , myPrinter.Canvas.TextWidth(StringOfChar('0', Num_Linhas))); // Altura
+//    , myPrinter.Canvas.TextWidth(StringOfChar(#13, Num_Linhas))); // Altura
+
   myPrinter.BeginDoc;
 
   myPrinter.Canvas.Font.Name := 'Courier New';
@@ -229,6 +240,42 @@ begin
 
   if (Length(Trim(Msg3)) <> 0) then
     Texto_Cupom.Add( Centralizar(Num_Colunas, Msg3) );
+end;
+
+procedure TEcfWindowsPrinter.SetPrinterPage(pWidth, pHeight: Integer);
+var
+  Device : array[0..255] of char;
+  Driver : array[0..255] of char;
+  Port   : array[0..255] of char;
+  hDMode : THandle;
+  PDMode : PDEVMODE;
+begin
+  myPrinter.GetPrinter(Device, Driver, Port, hDMode);
+  If hDMode <> 0 then
+  begin
+    pDMode := GlobalLock( hDMode );
+    If pDMode <> nil then
+    begin
+     {Set to legal}
+      pDMode^.dmFields    := pDMode^.dmFields or dm_PaperSize;
+      pDMode^.dmPaperSize := DMPAPER_LEGAL;
+
+     {Set to custom size}
+      pDMode^.dmFields := pDMode^.dmFields or
+                          DM_PAPERSIZE or
+                          DM_PAPERWIDTH or
+                          DM_PAPERLENGTH;
+      pDMode^.dmPaperSize   := DMPAPER_USER;
+      pDMode^.dmPaperWidth  := pWidth {SomeValueInTenthsOfAMillimeter};
+      pDMode^.dmPaperLength := pHeight {SomeValueInTenthsOfAMillimeter};
+
+     {Set the bin to use}
+      pDMode^.dmFields := pDMode^.dmFields or DMBIN_MANUAL;
+      pDMode^.dmDefaultSource := DMBIN_MANUAL;
+
+      GlobalUnlock(hDMode);
+    end;
+  end;
 end;
 
 procedure TEcfWindowsPrinter.SubTotalVenda(Valor: String; const LinhaSobre : Boolean);

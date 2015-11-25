@@ -11,7 +11,7 @@ Uses
       function GetModeloImpressora : Integer;
       procedure ImprimirCabecalho;
     public
-      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
 
       procedure Compactar_Fonte; override;
@@ -134,13 +134,14 @@ begin
   ;
 end;
 
-constructor TEcfBematechNaoFiscal.Criar(sDll, sNomeImpressora : String; iModeloEspecifico : Integer; sPorta,
-  sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual,
+constructor TEcfBematechNaoFiscal.Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
+  sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual,
   sID, sArquivoLogotipo : String; bImp_Gliche: Boolean);
 begin
   Self.Create;
 
   Num_Colunas      := 66;
+  Num_Linhas       := iLinhas;
   ModeloEspecifico := iModeloEspecifico;
   NomeImpressora := sNomeImpressora;
   Dll            := sDll;
@@ -169,7 +170,9 @@ begin
     Gliche(bImp_Gliche);
   end
   else
-    raise Exception.Create('A impressora não está conectada ou não está ligada!');  
+    raise Exception.Create('A impressora não está conectada ou não está ligada!' + #13 +
+      'Modelo : ' + IntToStr(GetModeloImpressora) + #13 +
+      'Porta  : ' + Porta);
 end;
 
 procedure TEcfBematechNaoFiscal.Descompactar_Fonte;
