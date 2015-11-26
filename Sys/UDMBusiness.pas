@@ -6,10 +6,10 @@ uses
   {$IFDEF DGE}
   EUserAcs, EMsgDlg,
   {$ENDIF}
-  Windows, Forms, SysUtils, Classes, Controls, IBDatabase, DB, IBCustomDataSet, IniFIles,
-  ShellApi, Printers, DateUtils, IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
-  frxClass, frxDBSet, IdBaseComponent, IdComponent, IdIPWatch, IBStoredProc,
-  FuncoesFormulario, UConstantesDGE, IBUpdateSQL, DBClient,
+  Windows, Forms, SysUtils, Classes, Controls, IBX.IBDatabase, DB, IBX.IBCustomDataSet, IniFIles,
+  ShellApi, Printers, DateUtils, IBX.IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
+  frxClass, frxDBSet, IdBaseComponent, IdComponent, IdIPWatch, IBX.IBStoredProc,
+  FuncoesFormulario, UConstantesDGE, IBX.IBUpdateSQL, DBClient,
   Provider, Dialogs, Registry, frxChart, frxCross, frxRich, frxExportMail,
   frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF, ACBrBase,
   ACBrValidador, ACBrMail;
@@ -1669,8 +1669,11 @@ begin
 end;
 
 function GetCupomNaoFiscalPortaNM : String;
+var
+  pPrinter : TPrinter;
 begin
-  Result := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', Printer.Printers.Strings[Printer.PrinterIndex])
+  pPrinter := TPrinter.Create;
+  Result   := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_NM', pPrinter.Printers.Strings[pPrinter.PrinterIndex]);
 end;
 
 function GetCupomNaoFiscalEmitir : Boolean;

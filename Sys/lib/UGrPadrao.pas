@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, HPL_Strings, StdCtrls, DBCtrls, IBCustomDataSet, DB, DBClient,
+  Dialogs, HPL_Strings, StdCtrls, DBCtrls, IBX.IBCustomDataSet, DB, DBClient,
   ExtCtrls, Mask, Grids, DBGrids, TypInfo, StrUtils,  ComCtrls,
   JvExMask, JvToolEdit, JvDBControls;
 

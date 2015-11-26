@@ -1,14 +1,14 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{7EDF5342-4C3C-4F4F-B68E-9DC4E4A409DD}</ProjectGuid>
-        <MainSource>SGE_PDV.dpr</MainSource>
+        <ProjectGuid>{7DBF5B7D-953C-4B5D-A76E-B0FE68092CF2}</ProjectGuid>
+        <ProjectVersion>16.1</ProjectVersion>
+        <FrameworkType>VCL</FrameworkType>
+        <MainSource>PrinterCupom.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
-        <FrameworkType>VCL</FrameworkType>
-        <ProjectVersion>16.1</ProjectVersion>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -23,7 +23,7 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
         <Cfg_1>true</Cfg_1>
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
@@ -34,7 +34,7 @@
         <Cfg_1>true</Cfg_1>
         <Base>true</Base>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
         <Cfg_2>true</Cfg_2>
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
@@ -46,332 +46,136 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <Icon_MainIcon>SGE_PDV_Icon1.ico</Icon_MainIcon>
-        <VerInfo_Locale>1046</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=;CFBundleName=</VerInfo_Keys>
-        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;IBX;System.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
-        <DCC_S>false</DCC_S>
-        <DCC_UNSAFE_CODE>true</DCC_UNSAFE_CODE>
-        <DCC_Define>ACBR;PDV;$(DCC_Define)</DCC_Define>
+        <SanitizedProjectName>PrinterCupom</SanitizedProjectName>
+        <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_E>false</DCC_E>
-        <DCC_ExeOutput>..\Bin\</DCC_ExeOutput>
-        <DCC_N>true</DCC_N>
-        <DCC_UNSAFE_CAST>true</DCC_UNSAFE_CAST>
-        <DCC_DcuOutput>..\_dcu\</DCC_DcuOutput>
-        <DCC_UsePackage>vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;dbexpress;dbxcds;indy;dclOffice2k;BcBarMenus60;Instalar;FIBDBMidas6;LabelPack;WinSkinD6R;PackageXPMenu;RxCtl6;RxDB6;RxBDE6;$(DCC_UsePackage)</DCC_UsePackage>
-        <DCC_UNSAFE_TYPE>true</DCC_UNSAFE_TYPE>
+        <DCC_N>false</DCC_N>
+        <DCC_S>false</DCC_S>
         <DCC_F>false</DCC_F>
-        <DCC_ImageBase>00400000</DCC_ImageBase>
         <DCC_K>false</DCC_K>
-        <DCC_DebugInformation>1</DCC_DebugInformation>
-        <DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
-        <SanitizedProjectName>SGE_PDV</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.9.0;InternalName=PDV;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/11/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Release>9</VerInfo_Release>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.9.0;InternalName=PDV Printer;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=PrinterCupom.exe;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/11/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_UsePackage>dxPScxSchedulerLnkRS21;JvGlobus;JvMM;cxSchedulerRibbonStyleEventEditorRS21;JvManagedThreads;cxSchedulerRS21;FireDACPgDriver;ACBr_GNRE;dxSkinOffice2007BlueRS21;JvCrypt;cxTreeListdxBarPopupMenuRS21;dxSkinHighContrastRS21;cxPivotGridRS21;dxSkinSevenRS21;DBXInterBaseDriver;DataSnapServer;DataSnapCommon;JvNet;officeXPrt;dxGaugeControlRS21;JvDotNetCtrls;cxEditorsRS21;DbxCommonDriver;vclimg;cxPivotGridOLAPRS21;dxPsPrVwAdvRS21;dbxcds;dxTileControlRS21;DatasnapConnectorsFreePascal;dxSkinSilverRS21;JvXPCtrls;dxSkinMoneyTwinsRS21;vcldb;cxTreeListRS21;dxdborRS21;dxBarExtItemsRS21;dxWizardControlRS21;dxSkinBlueprintRS21;CustomIPTransport;dsnap;IndyIPServer;dxSkinOffice2010BlackRS21;ACBr_MDFe;IndyCore;dxSkinsdxBarPainterRS21;dxSkinValentineRS21;CloudService;dxSkinDevExpressStyleRS21;FmxTeeUI;FireDACIBDriver;dxSkinCaramelRS21;dxPScxPCProdRS21;ACBr_NFe2;dxSkinOffice2013DarkGrayRS21;ACBr_SAT;JvDB;JvRuntimeDesign;dxDockingRS21;dxLayoutControlRS21;dsnapxml;JclDeveloperTools;FireDACDb2Driver;dxSkinscxSchedulerPainterRS21;dxPSLnksRS21;dxPSdxDBOCLnkRS21;dxSkinVS2010RS21;ACBr_SEF2;cxLibraryRS21;bindcompfmx;ACBr_PAF;cxDataRS21;dxComnRS21;FireDACODBCDriver;RESTBackendComponents;dxSkinBlackRS21;dxSkinDarkSideRS21;dbrtl;FireDACCommon;bindcomp;inetdb;JvPluginSystem;dxPScxTLLnkRS21;DBXOdbcDriver;JvCmp;vclFireDAC;JvTimeFramework;xmlrtl;ibxpress;cxExportRS21;FireDACCommonDriver;dxSkinOffice2007PinkRS21;dxFlowChartRS21;bindengine;vclactnband;soaprtl;FMXTee;ACBrComum;synapse;bindcompvcl;cxPageControlRS21;dxCoreRS21;Jcl;vclie;dxSkinOffice2007BlackRS21;dxPSCoreRS21;ACBr_TEFD;dxPSdxDBTVLnkRS21;dxPScxCommonRS21;ACBrNFeDanfeRV;dxADOServerModeRS21;FireDACMSSQLDriver;DBXInformixDriver;dxSkinLilianRS21;Intraweb;dxPSTeeChartRS21;DataSnapServerMidas;dxSkinWhiteprintRS21;dsnapcon;DBXFirebirdDriver;dxNavBarRS21;inet;dxRibbonRS21;PCN2;dxSkinsdxNavBarPainterRS21;AutoUpgraderProXE7;JvPascalInterpreter;FireDACMySQLDriver;soapmidas;vclx;dxSkinOffice2013WhiteRS21;cxBarEditItemRS21;dxSkinsCoreRS21;DBXSybaseASADriver;dxFireDACServerModeRS21;dxSkinSharpPlusRS21;RESTComponents;dbexpress;dxSkinSevenClassicRS21;IndyIPClient;dxThemeRS21;ACBr_Convenio115;FireDACSqliteDriver;dxSkinBlueRS21;FireDACDSDriver;dxDBXServerModeRS21;DBXSqliteDriver;ACBrDiversos;ACBrTCP;dxSkinsdxDLPainterRS21;fmx;dxSkinMetropolisDarkRS21;cxVerticalGridRS21;IndySystem;frxe21;TeeDB;tethering;dxSpreadSheetRS21;dxSkinMetropolisRS21;dxSkinGlassOceansRS21;JvDlgs;vclib;dxSkinSummer2008RS21;DataSnapClient;dxPScxPivotGridLnkRS21;ACBrGNREGuiaFRpkg;frx21;DataSnapProviderClient;dxPSPrVwRibbonRS21;DBXSybaseASEDriver;cxGridRS21;MetropolisUILiveTile;vcldsnap;dxSpellCheckerRS21;dxSkinLondonLiquidSkyRS21;dxSkinMcSkinRS21;dxSkinOffice2010SilverRS21;dxSkinOffice2007GreenRS21;fmxFireDAC;DBXDb2Driver;dxSkinFoggyRS21;DBXOracleDriver;JvCore;vclribbon;dxtrmdRS21;ACBr_SPED;fmxase;vcl;dxBarExtDBItemsRS21;dxGDIPlusRS21;DBXMSSQLDriver;IndyIPCommon;CodeSiteExpressPkg;dxPSDBTeeChartRS21;dxSkinOffice2007SilverRS21;ACBr_Boleto;DataSnapFireDAC;FireDACDBXDriver;dxSkinStardustRS21;dxPSdxSpreadSheetLnkRS21;soapserver;JvAppFrm;ACBr_Sintegra;dxdbtrRS21;inetdbxpress;ACBr_NFSe;FireDACInfxDriver;dxSkinCoffeeRS21;dxPScxGridLnkRS21;dxPSdxFCLnkRS21;ACBr_LFD;ACBr_SPED_Importar;JvDocking;adortl;JvWizards;FireDACASADriver;JvHMI;ACBrOpenSSL;JvBands;dxTabbedMDIRS21;ACBrCapicom;ACBr_BoletoFC_FR;emsclientfiredac;rtl;dxPSdxOCLnkRS21;DbxClientDriver;dxorgcRS21;frxTee21;dxPScxExtCommonRS21;dxSkinDarkRoomRS21;QR506RunDXE7;ACBrSerial;FIBPlus_XE7;Tee;dxPSdxLCLnkRS21;JclContainers;ACBr_CTe;frxDB21;dxMapControlRS21;JvSystem;DataSnapNativeClient;svnui;JvControls;dxSkinSpringTimeRS21;IndyProtocols;DBXMySQLDriver;cxPivotGridChartRS21;dxSkinOffice2013LightGrayRS21;dxSkinPumpkinRS21;bindcompdbx;TeeUI;JvJans;JvPrintPreview;JvPageComps;JvStdCtrls;cxSchedulerTreeBrowserRS21;dxmdsRS21;JvCustom;fs21;dxSkinDevExpressDarkStyleRS21;dxSkinSharpRS21;FireDACADSDriver;vcltouch;dxSkinscxPCPainterRS21;dxServerModeRS21;emsclient;ACBrNFSeDanfseFRpkg;dxSkinsdxRibbonPainterRS21;VCLRESTComponents;FireDAC;VclSmp;dxBarDBNavRS21;dxSkinTheAsphaltWorldRS21;dxSkinXmas2008BlueRS21;DataSnapConnectors;dxSkinLiquidSkyRS21;ACBrNFeDanfeFRpkg;cxSchedulerGridRS21;fmxobj;JclVcl;ACBrMDFeDAMDFEFRpkg;ACBr_SAT_Extrato_ESCPOS;dxPScxVGridLnkRS21;svn;dxBarRS21;FireDACOracleDriver;fmxdae;bdertl;dxSkinOffice2010BlueRS21;ACBrCTeDacteFRpkg;FireDACMSAccDriver;DataSnapIndy10ServerTransport;dxSkiniMaginaryRS21;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <Icon_MainIcon>SGE_PDV_Icon1.ico</Icon_MainIcon>
+        <DCC_UsePackage>dxPScxSchedulerLnkRS21;cxSchedulerRibbonStyleEventEditorRS21;cxSchedulerRS21;FireDACPgDriver;dxSkinOffice2007BlueRS21;cxTreeListdxBarPopupMenuRS21;dxSkinHighContrastRS21;cxPivotGridRS21;dxSkinSevenRS21;DBXInterBaseDriver;DataSnapServer;DataSnapCommon;officeXPrt;dxGaugeControlRS21;cxEditorsRS21;DbxCommonDriver;vclimg;cxPivotGridOLAPRS21;dxPsPrVwAdvRS21;dbxcds;dxTileControlRS21;DatasnapConnectorsFreePascal;dxSkinSilverRS21;dxSkinMoneyTwinsRS21;vcldb;cxTreeListRS21;dxdborRS21;dxBarExtItemsRS21;dxWizardControlRS21;dxSkinBlueprintRS21;CustomIPTransport;dsnap;IndyIPServer;dxSkinOffice2010BlackRS21;IndyCore;dxSkinsdxBarPainterRS21;dxSkinValentineRS21;CloudService;dxSkinDevExpressStyleRS21;FmxTeeUI;FireDACIBDriver;dxSkinCaramelRS21;dxPScxPCProdRS21;dxSkinOffice2013DarkGrayRS21;dxDockingRS21;dxLayoutControlRS21;dsnapxml;FireDACDb2Driver;dxSkinscxSchedulerPainterRS21;dxPSLnksRS21;dxPSdxDBOCLnkRS21;dxSkinVS2010RS21;cxLibraryRS21;bindcompfmx;cxDataRS21;dxComnRS21;FireDACODBCDriver;RESTBackendComponents;dxSkinBlackRS21;dxSkinDarkSideRS21;dbrtl;FireDACCommon;bindcomp;inetdb;dxPScxTLLnkRS21;DBXOdbcDriver;vclFireDAC;xmlrtl;ibxpress;cxExportRS21;FireDACCommonDriver;dxSkinOffice2007PinkRS21;dxFlowChartRS21;bindengine;vclactnband;soaprtl;FMXTee;bindcompvcl;cxPageControlRS21;dxCoreRS21;vclie;dxSkinOffice2007BlackRS21;dxPSCoreRS21;dxPSdxDBTVLnkRS21;dxPScxCommonRS21;dxADOServerModeRS21;FireDACMSSQLDriver;DBXInformixDriver;dxSkinLilianRS21;Intraweb;dxPSTeeChartRS21;DataSnapServerMidas;dxSkinWhiteprintRS21;dsnapcon;DBXFirebirdDriver;dxNavBarRS21;inet;dxRibbonRS21;dxSkinsdxNavBarPainterRS21;FireDACMySQLDriver;soapmidas;vclx;dxSkinOffice2013WhiteRS21;cxBarEditItemRS21;dxSkinsCoreRS21;DBXSybaseASADriver;dxFireDACServerModeRS21;dxSkinSharpPlusRS21;RESTComponents;dbexpress;dxSkinSevenClassicRS21;IndyIPClient;dxThemeRS21;FireDACSqliteDriver;dxSkinBlueRS21;FireDACDSDriver;dxDBXServerModeRS21;DBXSqliteDriver;dxSkinsdxDLPainterRS21;fmx;dxSkinMetropolisDarkRS21;cxVerticalGridRS21;IndySystem;TeeDB;tethering;dxSpreadSheetRS21;dxSkinMetropolisRS21;dxSkinGlassOceansRS21;vclib;dxSkinSummer2008RS21;DataSnapClient;dxPScxPivotGridLnkRS21;DataSnapProviderClient;dxPSPrVwRibbonRS21;DBXSybaseASEDriver;cxGridRS21;MetropolisUILiveTile;vcldsnap;dxSpellCheckerRS21;dxSkinLondonLiquidSkyRS21;dxSkinMcSkinRS21;dxSkinOffice2010SilverRS21;dxSkinOffice2007GreenRS21;fmxFireDAC;DBXDb2Driver;dxSkinFoggyRS21;DBXOracleDriver;vclribbon;dxtrmdRS21;fmxase;vcl;dxBarExtDBItemsRS21;dxGDIPlusRS21;DBXMSSQLDriver;IndyIPCommon;dxPSDBTeeChartRS21;dxSkinOffice2007SilverRS21;DataSnapFireDAC;FireDACDBXDriver;dxSkinStardustRS21;dxPSdxSpreadSheetLnkRS21;soapserver;dxdbtrRS21;inetdbxpress;FireDACInfxDriver;dxSkinCoffeeRS21;dxPScxGridLnkRS21;dxPSdxFCLnkRS21;adortl;FireDACASADriver;dxTabbedMDIRS21;emsclientfiredac;rtl;dxPSdxOCLnkRS21;DbxClientDriver;dxorgcRS21;dxPScxExtCommonRS21;dxSkinDarkRoomRS21;QR506RunDXE7;Tee;dxPSdxLCLnkRS21;dxMapControlRS21;DataSnapNativeClient;dxSkinSpringTimeRS21;IndyProtocols;DBXMySQLDriver;cxPivotGridChartRS21;dxSkinOffice2013LightGrayRS21;dxSkinPumpkinRS21;bindcompdbx;TeeUI;cxSchedulerTreeBrowserRS21;dxmdsRS21;dxSkinDevExpressDarkStyleRS21;dxSkinSharpRS21;FireDACADSDriver;vcltouch;dxSkinscxPCPainterRS21;dxServerModeRS21;emsclient;dxSkinsdxRibbonPainterRS21;VCLRESTComponents;FireDAC;VclSmp;dxBarDBNavRS21;dxSkinTheAsphaltWorldRS21;dxSkinXmas2008BlueRS21;DataSnapConnectors;dxSkinLiquidSkyRS21;cxSchedulerGridRS21;fmxobj;dxPScxVGridLnkRS21;dxBarRS21;FireDACOracleDriver;fmxdae;dxSkinOffice2010BlueRS21;FireDACMSAccDriver;DataSnapIndy10ServerTransport;dxSkiniMaginaryRS21;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <Debugger_RunParams>09260610000107 389 2015 11838 1</Debugger_RunParams>
+        <VerInfo_Release>9</VerInfo_Release>
+        <DCC_ExeOutput>..\Bin\</DCC_ExeOutput>
+        <DCC_DcuOutput>..\_dcu\</DCC_DcuOutput>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_Define>PDV;PRINTER_CUPOM;$(DCC_Define)</DCC_Define>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_RemoteDebug>false</DCC_RemoteDebug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Release>9</VerInfo_Release>
-        <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.9.14;InternalName=PDV;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/11/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Mainho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
-        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
-        <DCC_Optimize>false</DCC_Optimize>
-    </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Build>3</VerInfo_Build>
-        <DCC_DebugDCUs>true</DCC_DebugDCUs>
-        <VerInfo_Release>9</VerInfo_Release>
-        <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.9.3;InternalName=PDV;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/11/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Release>9</VerInfo_Release>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\Sys\lib\HPL_Strings.pas"/>
-        <DCCReference Include="UPrinc.pas">
-            <Form>frmPrinc</Form>
+        <DCCReference Include="..\Sys\UPrinterCupom.pas">
+            <Form>frmPrinterCupom</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
         <DCCReference Include="..\Sys\UDMBusiness.pas">
             <Form>DMBusiness</Form>
             <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="..\Sys\USobre.pas">
-            <Form>frmSobre</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrPadraoCadastro.pas">
-            <Form>frmGrPadraoCadastro</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrPadrao.pas">
-            <Form>frmGrPadrao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeBancos.pas">
-            <Form>frmGeBancos</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeTipoLogradouro.pas">
-            <Form>frmGeTipoLogradouro</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeEstado.pas">
-            <Form>frmGeEstado</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeCidade.pas">
-            <Form>frmGeCidade</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeDistrito.pas">
-            <Form>frmGeDistrito</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeBairro.pas">
-            <Form>frmGeBairro</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeLogradouro.pas">
-            <Form>frmGeLogradouro</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeEmpresa.pas">
-            <Form>frmGeEmpresa</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeCliente.pas">
-            <Form>frmGeCliente</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeFornecedor.pas">
-            <Form>frmGeFornecedor</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeGrupoProduto.pas">
-            <Form>frmGeGrupoProduto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeSecaoProduto.pas">
-            <Form>frmGeSecaoProduto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeUnidade.pas">
-            <Form>frmGeUnidade</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeTabelaCFOP.pas">
-            <Form>frmGeTabelaCFOP</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeFormaPagto.pas">
-            <Form>frmGeFormaPagto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeVendedor.pas">
-            <Form>frmGeVendedor</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeCondicaoPagto.pas">
-            <Form>frmGeCondicaoPagto</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UDMNFe.pas">
             <Form>DMNFe</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeConfigurarNFeACBr.pas">
-            <Form>frmGeConfigurarNFeACBr</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UEnviarLoteNFe.pas">
-            <Form>frmEnviarLoteNFe</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrCampoRequisitado.pas">
-            <Form>frmCampoRequisitado</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeGerarBoletos.pas">
-            <Form>frmGeGerarBoleto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGePromocao.pas">
-            <Form>frmGePromocao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeContaCorrente.pas">
-            <Form>frmGeContaCorrente</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeCaixa.pas">
-            <Form>frmGeCaixa</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeFluxoCaixa.pas">
-            <Form>frmGeFluxoCaixa</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UFuncoes.pas"/>
-        <DCCReference Include="..\Sys\lib\UInfoVersao.pas"/>
-        <DCCReference Include="..\Sys\UGeFabricante.pas">
-            <Form>frmGeFabricante</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\lib\FormFactoryU.pas"/>
         <DCCReference Include="..\Sys\lib\FuncoesFormulario.pas"/>
-        <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
-        <DCCReference Include="..\Sys\UGeExportarNFeGerada.pas">
-            <Form>frmGeExportarNFeGerada</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeSobre.pas">
-            <Form>frmGeSobre</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGrUsuarioAlterarSenha_v2.pas">
-            <Form>frmGrUsuarioAlterarSenha</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGrPesq.pas">
-            <Form>frmPesq</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrPadraoPesquisa.pas">
-            <Form>frmGrPadraoPesquisa</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeConfiguracaoEmpresa.pas">
-            <Form>frmGeConfiguracaoEmpresa</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrPadraoLogin.pas">
-            <Form>frmGrPadraoLogin</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UObserverInterface.pas"/>
-        <DCCReference Include="..\Sys\lib\UBaseObject.pas"/>
-        <DCCReference Include="..\Sys\lib\UCliente.pas"/>
-        <DCCReference Include="..\System_SGE\lib\UGrPadraoImpressao.pas">
-            <Form>frmGrPadraoImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeProduto.pas">
-            <Form>frmGeProduto</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeEstoqueAjusteManual.pas">
-            <Form>frmGeEstoqueAjusteManual</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGrUsuario.pas">
-            <Form>frmGrUsuario</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeEfetuarLogin.pas">
-            <Form>FrmEfetuarLogin</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeVenda.pas">
-            <Form>frmGeVenda</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeVendaCancelar.pas">
-            <Form>frmGeVendaCancelar</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeVendaConfirmaTitulos.pas">
-            <Form>frmGeVendaConfirmaTitulos</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeVendaFormaPagto.pas">
-            <Form>frmGeVendaFormaPagto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeVendaGerarNFe.pas">
-            <Form>frmGeVendaGerarNFe</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeEfetuarPagtoREC.pas">
-            <Form>frmGeEfetuarPagtoREC</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeVendaTransporte.pas">
-            <Form>frmGeVendaTransporte</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMessage.pas">
-            <Form>frmGeMessage</Form>
-        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UInfoVersao.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfAgil.pas"/>
+        <DCCReference Include="..\Sys\lib\UEcfBematechNaoFiscal.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfFactory.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfGenerico.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfWindowsPrinter.pas"/>
-        <DCCReference Include="..\Sys\lib\UEcfBematechNaoFiscal.pas"/>
-        <DCCReference Include="..\System_SGE\UGrUsuarioPerfil.pas">
-            <Form>frmGrUsuarioPerfil</Form>
+        <DCCReference Include="..\Sys\lib\UFuncoes.pas"/>
+        <DCCReference Include="..\Sys\lib\UBaseObject.pas"/>
+        <DCCReference Include="..\Sys\lib\UObserverInterface.pas"/>
+        <DCCReference Include="..\Sys\lib\UGrPadrao.pas">
+            <Form>frmGrPadrao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrConfigurarAmbiente.pas">
-            <Form>frmGrConfigurarAmbiente</Form>
+        <DCCReference Include="..\Sys\lib\UGrMemo.pas">
+            <Form>frmGrMemo</Form>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\UGrUsuarioCopiarPerfil.pas">
-            <Form>frmGrUsuarioCopiarPerfil</Form>
-        </DCCReference>
-        <DCCReference Include="UGeVendaPDV.pas">
-            <Form>frmGeVendaPDV</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UDMCupom.pas">
-            <Form>DMCupom</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="UGeVendaPDVDesconto.pas">
-            <Form>frmGeVendaPDVDesconto</Form>
-        </DCCReference>
-        <DCCReference Include="UGeVendaPDVOrcamento.pas">
-            <Form>frmGeVendaPDVOrcamento</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrRegistroEstacao.pas">
-            <Form>FrmGrRegistroEstacao</Form>
-        </DCCReference>
-        <DCCReference Include="UGeVendaPDVFinalizar.pas">
-            <Form>frmGeVendaPDVFinalizar</Form>
-        </DCCReference>
-        <DCCReference Include="UGeVendaPDVItem.pas">
-            <Form>frmGeVendaPDVItem</Form>
-        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrMessage.pas"/>
+        <DCCReference Include="..\Sys\lib\HPL_Strings.pas"/>
         <DCCReference Include="..\Sys\UDMRecursos.pas">
             <Form>DMRecursos</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMemo.pas">
-            <Form>frmGrMemo</Form>
-            <FormType>dfm</FormType>
+        <DCCReference Include="..\Sys\UGeConfigurarNFeACBr.pas">
+            <Form>frmGeConfigurarNFeACBr</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeTabelaIBPT.pas">
-            <Form>frmGeTabelaIBPT</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeTabelaIBPTImportar.pas">
-            <Form>frmGeTabelaIBPTImportar</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <BuildConfiguration Include="Debug">
+        <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
         </BuildConfiguration>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
-        <BuildConfiguration Include="Release">
+        <BuildConfiguration Include="Debug">
             <Key>Cfg_1</Key>
             <CfgParent>Base</CfgParent>
         </BuildConfiguration>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Delphi.Personality.12</Borland.Personality>
-        <Borland.ProjectType/>
+        <Borland.ProjectType>Application</Borland.ProjectType>
         <BorlandProject>
             <Delphi.Personality>
-                <Source>
-                    <Source Name="MainSource">SGE_PDV.dpr</Source>
-                </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\QR506RunDXE7.bpl">QuickReport 5.05 Runtime Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k210.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
+                <Source>
+                    <Source Name="MainSource">PrinterCupom.dpr</Source>
+                </Source>
             </Delphi.Personality>
-            <Platforms>
-                <Platform value="Win32">True</Platform>
-                <Platform value="Win64">False</Platform>
-            </Platforms>
             <Deployment>
-                <DeployFile LocalName="..\Bin\SGE_PDV.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="..\Bin\PrinterCupom.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>SGE_PDV.exe</RemoteName>
+                        <RemoteName>PrinterCupom.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\Bin\SGE_PDV.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\PrinterCupom.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>SGE_PDV.exe</RemoteName>
+                        <RemoteName>PrinterCupom.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -706,6 +510,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
             </Deployment>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

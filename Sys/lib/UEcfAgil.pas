@@ -260,6 +260,7 @@ const
 
   TAG_NEGRITO = '\n';
 var
+  pPrinter : TPrinter;
   AlturaLinha, Y, I: integer;
   ScaleX ,
   ScaleY : Integer;
@@ -268,7 +269,8 @@ var
   ImageSource ,
   ImageTarget : TBitmap;
 begin
-  AlturaLinha := Printer.Canvas.TextHeight('Tg');
+  pPrinter    := TPrinter.Create;
+  AlturaLinha := pPrinter.Canvas.TextHeight('Tg');
 
   Y := cMargemSuperior;
 

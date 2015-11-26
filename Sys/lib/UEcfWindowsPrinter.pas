@@ -86,7 +86,6 @@ begin
   Self.SetPrinterPage(
       myPrinter.Canvas.TextWidth(StringOfChar('0', iColunas))     // Largura
     , myPrinter.Canvas.TextWidth(StringOfChar('0', Num_Linhas))); // Altura
-//    , myPrinter.Canvas.TextWidth(StringOfChar(#13, Num_Linhas))); // Altura
 
   myPrinter.BeginDoc;
 
