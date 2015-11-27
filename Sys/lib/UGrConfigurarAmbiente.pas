@@ -77,6 +77,11 @@ type
     btnSalvar: TcxButton;
     btnCancelar: TcxButton;
     chkCarregarPapelParede: TCheckBox;
+    GrpBxImpressaoCupomNFiscalFonte: TGroupBox;
+    lblCupomNFiscalFonteNome: TLabel;
+    edCupomNFiscalFonteNome: TComboBox;
+    lblCupomNFiscalFonteTam: TLabel;
+    edCupomNFiscalFonteTam: TEdit;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -174,6 +179,11 @@ begin
     edCupomNaoFiscalModeloEsp.Items.Add(GetEnumName(TypeInfo(TEcfBematech), I));
 
   TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV];
+
+  // Carregar Fontes do Windows
+
+  edCupomNFiscalFonteNome.Clear;
+  edCupomNFiscalFonteNome.Items.AddStrings( Screen.Fonts );
 end;
 
 procedure TfrmGrConfigurarAmbiente.CarregarDadosINI;
@@ -219,6 +229,8 @@ begin
   edCupomNaoFiscalModelo.ItemIndex    := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0);
   edCupomNaoFiscalModelo.Text         := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_DS', 'Nenhum');
   edCupomNaoFiscalModeloEsp.ItemIndex := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ES', 0);
+  edCupomNFiscalFonteNome.Text        := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL_FN, 'Courier New');
+  edCupomNFiscalFonteTam.Text         := IntToStr(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL_FT, 6));
 
   edCupomNaoFiscalTipoChange( edCupomNaoFiscalTipo );
 end;
@@ -261,6 +273,8 @@ begin
   FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', edCupomNaoFiscalModelo.ItemIndex);
   FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_DS', edCupomNaoFiscalModelo.Text);
   FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ES', edCupomNaoFiscalModeloEsp.ItemIndex);
+  FileINI.WriteString (INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL_FN, Trim(edCupomNFiscalFonteNome.Text));
+  FileINI.WriteInteger(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL_FT, StrToIntDef(Trim(edCupomNFiscalFonteTam.Text), 6));
 end;
 
 procedure TfrmGrConfigurarAmbiente.btnSalvarClick(Sender: TObject);
@@ -364,6 +378,8 @@ begin
   edCupomNaoFiscalModeloEsp.Enabled   :=  (TEcfTipo(edCupomNaoFiscalTipo.ItemIndex) in [ecfBematech, ecfBematechMp2032DLL]);
   lblCupomNaoFiscalPorta.Enabled      :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
   edCupomNaoFiscalPorta.Enabled       :=  (edCupomNaoFiscalTipo.ItemIndex > 0);
+
+  GrpBxImpressaoCupomNFiscalFonte.Visible := (edCupomNaoFiscalTipo.ItemIndex = 0);
 end;
 
 procedure TfrmGrConfigurarAmbiente.chkOrcamentoEmitirClick(

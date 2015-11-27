@@ -10,7 +10,7 @@ Uses
     private
       procedure ImprimirCabecalho;
     public
-      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer; sFonteNome : String; iFonteTamanho : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
 
       procedure Compactar_Fonte; override;
@@ -69,8 +69,10 @@ begin
   Write(Corpo_Cupom, c17cpi);
 end;
 
-constructor TEcfGenerico.Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer; sPorta, sEmp, sEndereco, sBairro,
-  sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo: String; bImp_Gliche: Boolean);
+constructor TEcfGenerico.Criar(sDll, sNomeImpressora : String;
+  iModeloEspecifico, iLinhas : Integer; sFonteNome : String; iFonteTamanho : Integer;
+  sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual,
+  sID, sArquivoLogotipo: String; bImp_Gliche: Boolean);
 begin
   Self.Create;
 

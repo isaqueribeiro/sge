@@ -12,7 +12,7 @@ Uses
       procedure ImprimirCabecalho;
       procedure SetPrinterPage(pWidth, pHeight : LongInt);
     public
-      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer; sFonteNome : String; iFonteTamanho : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
 
       procedure Compactar_Fonte; override;
@@ -52,7 +52,8 @@ implementation
 { TEcfWindowsPrinter }
 
 constructor TEcfWindowsPrinter.Criar(sDll, sNomeImpressora: String;
-  iModeloEspecifico, iLinhas: Integer; sPorta, sEmp, sEndereco, sBairro, sFone, sCep,
+  iModeloEspecifico, iLinhas: Integer; sFonteNome : String; iFonteTamanho : Integer;
+  sPorta, sEmp, sEndereco, sBairro, sFone, sCep,
   sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche: Boolean);
 var
   iColunas : Integer;
@@ -63,6 +64,8 @@ begin
   Num_Linhas       := iLinhas;
   ModeloEspecifico := iModeloEspecifico;
   NomeImpressora := sNomeImpressora;
+  FonteNome      := sFonteNome;
+  FonteTamanho   := iFonteTamanho;
   Dll            := sDll;
   Porta          := sPorta;
   Nome_Empresa   := sEmp;
@@ -81,16 +84,16 @@ begin
   myPrinter.PrinterIndex := myPrinter.Printers.IndexOf(PChar(NomeImpressora));
 
   Texto_Cupom.Clear;
-
+  {
   iColunas := StrToIntDef(FormatFloat('000000000', (Num_Colunas / 2) - 1), 1);
   Self.SetPrinterPage(
       myPrinter.Canvas.TextWidth(StringOfChar('0', iColunas))     // Largura
     , myPrinter.Canvas.TextWidth(StringOfChar('0', Num_Linhas))); // Altura
-
+  }
   myPrinter.BeginDoc;
 
-  myPrinter.Canvas.Font.Name := 'Courier New';
-  myPrinter.Canvas.Font.Size := 8;
+  myPrinter.Canvas.Font.Name := FonteNome;
+  myPrinter.Canvas.Font.Size := FonteTamanho;
 
   Gliche(bImp_Gliche);
 end;

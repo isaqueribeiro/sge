@@ -35,7 +35,9 @@ Uses
       f_qrcode   ,
       f_softHouse,
       f_sistena  ,
-      f_versao   : String;
+      f_versao   ,
+      f_fonte_nome : String;
+      f_fonte_tam  : Integer;
     protected
       Constructor Create;
     public
@@ -64,9 +66,11 @@ Uses
       property QRCode    : String read f_qrcode   write f_qrcode;
       property SoftHouse : String read f_softHouse   write f_softHouse;
       property Sistema   : String read f_sistena   write f_sistena;
-      property Versao    : String read f_versao   write f_versao;
+      property Versao    : String read f_versao    write f_versao;
+      property FonteNome    : String read f_fonte_nome write f_fonte_nome;
+      property FonteTamanho : Integer read f_fonte_tam write f_fonte_tam;
 
-      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer; sFonteNome : String; iFonteTamanho : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); virtual; abstract;
       destructor Destroy; override;
 
@@ -254,9 +258,9 @@ end;
 
 procedure TEcfAgil.ImprimirComCanvas_Spooler(const Memo: TStringList);
 const
-  cEspacoLinha = 5;
+  cEspacoLinha    = 0; //5;
   cMargemSuperior = 50;
-  cMargemEsquerda = 30;
+  cMargemEsquerda = 10; //30;
 
   TAG_NEGRITO = '\n';
 var

@@ -6,6 +6,11 @@ Uses
   Classes, UInfoVersao, UEcfAgil, UEcfWindowsPrinter{$IFDEF PDV}, UEcfBematechNaoFiscal{$ENDIF}, Printers;
 
   Type
+    TFonteImpressao = record
+      Nome    : String;
+      Tamanho : Integer;
+    end;
+
     TEcfConfiguracao = record
       Impressora       : String;
       ModeloEspecifico : Integer;
@@ -27,6 +32,7 @@ Uses
       Sistema   ,
       Versao    : String;
       NumeroLinhas : Integer;
+      FonteImpressao : TFonteImpressao;
     end;
 
     TEcfTipo = (ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfDaruma, ecfBematech, ecfBematechMp2032DLL);
@@ -107,6 +113,8 @@ begin
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
         aConfiguracao.NumeroLinhas,
+        aConfiguracao.FonteImpressao.Nome,
+        aConfiguracao.FonteImpressao.Tamanho,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,
@@ -126,6 +134,8 @@ begin
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
         aConfiguracao.NumeroLinhas,
+        aConfiguracao.FonteImpressao.Nome,
+        aConfiguracao.FonteImpressao.Tamanho,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,
@@ -146,6 +156,8 @@ begin
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
         aConfiguracao.NumeroLinhas,
+        aConfiguracao.FonteImpressao.Nome,
+        aConfiguracao.FonteImpressao.Tamanho,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,
@@ -166,6 +178,8 @@ begin
         aConfiguracao.Impressora,
         aConfiguracao.ModeloEspecifico,
         aConfiguracao.NumeroLinhas,
+        aConfiguracao.FonteImpressao.Nome,
+        aConfiguracao.FonteImpressao.Tamanho,
         aConfiguracao.Porta,
         aConfiguracao.Empresa,
         aConfiguracao.Endereco,

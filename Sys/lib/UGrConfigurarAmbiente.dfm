@@ -498,16 +498,17 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
       Caption = 'PDV'
       ImageIndex = 1
       object GrpBxImpressaoCupomNFiscal: TGroupBox
-        Left = 0
-        Top = 89
-        Width = 490
+        AlignWithMargins = True
+        Left = 3
+        Top = 92
+        Width = 484
         Height = 184
         Align = alTop
         Caption = ' Impress'#227'o Cupons N'#227'o-Fiscais '
         TabOrder = 1
-        DesignSize = (
-          490
-          184)
+        ExplicitLeft = 0
+        ExplicitTop = 89
+        ExplicitWidth = 489
         object lblCupomNaoFiscalTipo: TLabel
           Left = 39
           Top = 53
@@ -577,7 +578,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Top = 49
           Width = 357
           Height = 21
-          Anchors = [akLeft, akTop, akRight]
           ItemIndex = 0
           TabOrder = 1
           Text = 'Impressora padr'#227'o do Windows'
@@ -594,7 +594,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Top = 73
           Width = 357
           Height = 21
-          Anchors = [akLeft, akTop, akRight]
           Enabled = False
           ItemIndex = 0
           TabOrder = 2
@@ -614,7 +613,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Width = 357
           Height = 21
           Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
           Enabled = False
           ItemIndex = 0
           TabOrder = 3
@@ -628,7 +626,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Width = 357
           Height = 21
           Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
           Enabled = False
           ItemIndex = 0
           TabOrder = 4
@@ -643,7 +640,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Width = 357
           Height = 21
           Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
           Enabled = False
           ItemIndex = 0
           TabOrder = 5
@@ -695,6 +691,60 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           Caption = 'Esta'#231#227'o emite apenas or'#231'amentos'
           TabOrder = 0
           OnClick = chkOrcamentoEmitirClick
+        end
+      end
+      object GrpBxImpressaoCupomNFiscalFonte: TGroupBox
+        AlignWithMargins = True
+        Left = 3
+        Top = 282
+        Width = 484
+        Height = 87
+        Align = alTop
+        Caption = 'Configurar Fonte na Impress'#227'o do Cupom N'#227'o Fiscal'
+        TabOrder = 2
+        object lblCupomNFiscalFonteNome: TLabel
+          Left = 27
+          Top = 29
+          Width = 77
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Nome da Fonte:'
+          FocusControl = edCupomNFiscalFonteNome
+          Transparent = True
+        end
+        object lblCupomNFiscalFonteTam: TLabel
+          Left = 56
+          Top = 56
+          Width = 48
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Tamanho:'
+          FocusControl = edCupomNFiscalFonteTam
+          Transparent = True
+        end
+        object edCupomNFiscalFonteNome: TComboBox
+          Left = 112
+          Top = 25
+          Width = 357
+          Height = 21
+          ItemIndex = 0
+          TabOrder = 0
+          Text = 'Impressora padr'#227'o do Windows'
+          OnChange = edCupomNaoFiscalTipoChange
+          Items.Strings = (
+            'Impressora padr'#227'o do Windows'
+            'Impressora Matricial (LPT1..LPT5)'
+            'C:\CUPOM.TXT'
+            'Daruma'
+            'Bematech')
+        end
+        object edCupomNFiscalFonteTam: TEdit
+          Left = 112
+          Top = 52
+          Width = 49
+          Height = 21
+          TabOrder = 1
+          OnKeyPress = ApenasNumerosKeyPress
         end
       end
     end

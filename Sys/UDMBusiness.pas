@@ -256,6 +256,8 @@ var
   function GetCupomNaoFiscalPortaNM : String;
   function GetCupomNaoFiscalModeloEspID : Integer;
   function GetCupomNaoFiscalEmitir : Boolean;
+  function GetCupomNaoFiscalFonteNome : String;
+  function GetCupomNaoFiscalFonteTamanho : Integer;
   function GetSegmentoID(const CNPJ : String) : Integer;
   function GetCompetenciaID(const aDataMovimento : TDateTime) : Integer;
   {$IFDEF DGE}
@@ -1679,6 +1681,16 @@ end;
 function GetCupomNaoFiscalEmitir : Boolean;
 begin
   Result := FileINI.ReadBool(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL, False);
+end;
+
+function GetCupomNaoFiscalFonteNome : String;
+begin
+  Result := FileINI.ReadString(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL_FN, 'Courier New');
+end;
+
+function GetCupomNaoFiscalFonteTamanho : Integer;
+begin
+  Result := FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_EMITIR_CUPOM_NFISCAL_FT, 6);
 end;
 
 function GetSegmentoID(const CNPJ : String) : Integer;

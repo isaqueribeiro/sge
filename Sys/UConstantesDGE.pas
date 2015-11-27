@@ -478,7 +478,9 @@ const
   INI_KEY_EMITIR_ORCAM         = 'EmitirApenasOrcamento';
   INI_KEY_EMITIR_CUPOM         = 'EmitirCupom';
   INI_KEY_EMITIR_CUPOM_AUTOMAT = 'CupomAutomatico';
-  INI_KEY_EMITIR_CUPOM_NFISCAL = 'EmitirCupomNaoFiscal';
+  INI_KEY_EMITIR_CUPOM_NFISCAL    = 'EmitirCupomNaoFiscal';
+  INI_KEY_EMITIR_CUPOM_NFISCAL_FN = 'EmitirCupomNaoFiscalFonteNome';
+  INI_KEY_EMITIR_CUPOM_NFISCAL_FT = 'EmitirCupomNaoFiscalFonteTamanho';
   INI_KEY_EMITIR_CUPOM_FISCAL  = 'EmitirCupomFiscal';
   INI_KEY_PORTA_CUPOM_NFISCAL     = 'PortaCupomNaoFiscal';
   INI_KEY_PORTA_CUPOM_NFISCAL_MOD = 'ModeloCupomNaoFiscal';

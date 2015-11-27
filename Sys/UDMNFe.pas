@@ -6084,6 +6084,9 @@ begin
   aEcfConfig.ImprimirGliche := True;
   aEcfConfig.NumeroLinhas   := (qryDadosProduto.RecordCount * PESO_LINHA) +  IfThen(iCodigoCliente = CONSUMIDOR_FINAL_CODIGO, 30, 37);
 
+  aEcfConfig.FonteImpressao.Nome    := GetCupomNaoFiscalFonteNome;
+  aEcfConfig.FonteImpressao.Tamanho := GetCupomNaoFiscalFonteTamanho;
+
   if not qryNFeEmitida.IsEmpty then
     aEcfConfig.NumeroLinhas := aEcfConfig.NumeroLinhas + 37;
 

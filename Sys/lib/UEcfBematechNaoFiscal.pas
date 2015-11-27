@@ -11,7 +11,7 @@ Uses
       function GetModeloImpressora : Integer;
       procedure ImprimirCabecalho;
     public
-      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
+      constructor Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer; sFonteNome : String; iFonteTamanho : Integer;
         sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual, sID, sArquivoLogotipo : String; bImp_Gliche : Boolean); override;
 
       procedure Compactar_Fonte; override;
@@ -134,7 +134,8 @@ begin
   ;
 end;
 
-constructor TEcfBematechNaoFiscal.Criar(sDll, sNomeImpressora : String; iModeloEspecifico, iLinhas : Integer;
+constructor TEcfBematechNaoFiscal.Criar(sDll, sNomeImpressora : String;
+  iModeloEspecifico, iLinhas : Integer; sFonteNome : String; iFonteTamanho : Integer;
   sPorta, sEmp, sEndereco, sBairro, sFone, sCep, sCid, sCnpj, sInscEstadual,
   sID, sArquivoLogotipo : String; bImp_Gliche: Boolean);
 begin
