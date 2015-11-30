@@ -5194,3 +5194,2264 @@ ADD CONSTRAINT FK_TBAPROPRIACAO_ALMOX_ITEM_PRD
 FOREIGN KEY (PRODUTO)
 REFERENCES TBPRODUTO(COD);
 
+
+
+
+/*------ SYSDBA 30/11/2015 13:12:27 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_SALDO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_ESTOQUE_ALMOX DMN_MONEY)
+as
+begin
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_saldo_almox
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_saldo_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriações */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisições */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_saldo_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_estoque_almox
+  do
+  begin
+
+    suspend;
+
+  end
+end^
+
+SET TERM ; ^
+
+GRANT EXECUTE ON PROCEDURE GET_PRODUTO_EXTRATO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 30/11/2015 13:14:47 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_SALDO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_ESTOQUE_ALMOX DMN_MONEY)
+as
+begin
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_saldo_almox
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_saldo_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriações */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisições */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_saldo_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_estoque_almox
+  do
+  begin
+
+    suspend;
+
+  end
+end^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE GET_PRODUTO_EXTRATO IS 'Procedure Ler Exttrato do Produto
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   30/11/2015
+
+Stored procedure responsavel por montar o extrato de movimento do produto em relacao
+a suas entradas (Compras e Apropriacoes) e Saidas (Vendas e Requisicoes).
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    30/11/2015 - IMR :
+        * Documentacao.';
+
+
+
+
+/*------ SYSDBA 30/11/2015 13:15:32 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_SALDO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_ESTOQUE_ALMOX DMN_MONEY)
+as
+begin
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_saldo_almox
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_saldo_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriacoes */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisicoes */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_saldo_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_estoque_almox
+  do
+  begin
+
+    suspend;
+
+  end
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 30/11/2015 13:16:19 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_SALDO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_ESTOQUE_ALMOX DMN_MONEY)
+as
+begin
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_saldo_almox
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_saldo_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriacoes */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisicoes */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_saldo_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_estoque_almox
+  do
+  begin
+
+    suspend;
+
+  end
+end^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE GET_PRODUTO_EXTRATO IS 'Procedure Ler Exttrato do Produto
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   30/11/2015
+
+Stored procedure responsavel por montar o extrato de movimento do produto em relacao
+a suas entradas (Ajustes, Compras e Apropriacoes) e Saidas (Ajustes e Requisicoes).
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    30/11/2015 - IMR :
+        * Documentacao.';
+
+
+
+
+/*------ SYSDBA 30/11/2015 15:11:33 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_MOVIMENTO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_ESTOQUE_ALMOX DMN_MONEY)
+as
+begin
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +                         -- Apropriacao
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -                         -- Inventario Almoxrifado
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_movimento_almox  -- Requisicao
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_saldo_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriacoes */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisicoes */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_movimento_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_estoque_almox
+  do
+  begin
+
+    suspend;
+
+  end
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 30/11/2015 15:21:00 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_MOVIMENTO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_MOVIMENTO_ALMOX DMN_MONEY)
+as
+begin
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +                         -- Apropriacao
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -                         -- Inventario Almoxrifado
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_movimento_almox  -- Requisicao
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_movimento_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriacoes */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisicoes */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_movimento_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_movimento_almox
+  do
+  begin
+
+    suspend;
+
+  end
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 30/11/2015 15:21:43 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_MOVIMENTO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_MOVIMENTO_ALMOX DMN_MONEY)
+as
+begin
+  empresa = coalesce(trim(:empresa), '');
+  produto = coalesce(trim(:produto), '');
+
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +                         -- Apropriacao
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -                         -- Inventario Almoxrifado
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_movimento_almox  -- Requisicao
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_movimento_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriacoes */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisicoes */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_movimento_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_movimento_almox
+  do
+  begin
+
+    suspend;
+
+  end
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 30/11/2015 15:24:02 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_MOVIMENTO_ALMOX DMN_QUANTIDADE_D3_N,
+    QUANT_SALDO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_MOVIMENTO_ALMOX DMN_MONEY)
+as
+  declare variable quant_saldo_almox_tmp DMN_QUANTIDADE_D3_N;
+begin
+  empresa = coalesce(trim(:empresa), '');
+  produto = coalesce(trim(:produto), '');
+
+  quant_saldo_almox_tmp = 0.0;
+
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +                         -- Apropriacao
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -                         -- Inventario Almoxrifado
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_movimento_almox  -- Requisicao
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_movimento_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriacoes */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisicoes */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_movimento_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_movimento_almox
+  do
+  begin
+
+    quant_saldo_almox = :quant_saldo_almox_tmp + :quant_movimento_almox;
+    suspend;
+    quant_saldo_almox_tmp = :quant_saldo_almox;
+
+  end
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 30/11/2015 15:25:55 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_PRODUTO_EXTRATO (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    ID DMN_INTEGER_N,
+    CODIGO DMN_VCHAR_10,
+    DESCRICAO DMN_VCHAR_50,
+    APRESENTACAO DMN_VCHAR_50,
+    DESCRICAO_APRESENTACAO DMN_VCHAR_100,
+    UND_COMPRA DMN_VCHAR_50,
+    UND_COMPRA_SIGLA DMN_VCHAR_05,
+    ESTOQUE_VENDA DMN_QUANTIDADE_D3_N,
+    ESTOQUE_ALMOX DMN_QUANTIDADE_D3_N,
+    EMPRESA_CNPJ DMN_CNPJ,
+    EMPRESA_RAZAO DMN_VCHAR_60,
+    DATA DMN_DATE,
+    TIPO DMN_SMALLINT_N,
+    QUANT DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL DMN_MONEY,
+    QUANT_AJUSTE DMN_QUANTIDADE_D3_N,
+    QUANT_COMPRA DMN_QUANTIDADE_D3_N,
+    QUANT_INVENTARIO DMN_QUANTIDADE_D3_N,
+    QUANT_APROPRIACAO DMN_QUANTIDADE_D3_N,
+    QUANT_REQUISICAO DMN_QUANTIDADE_D3_N,
+    QUANT_MOVIMENTO_ALMOX DMN_QUANTIDADE_D3_N,
+    QUANT_SALDO_ALMOX DMN_QUANTIDADE_D3_N,
+    VALOR_TOTAL_COMPRA DMN_MONEY,
+    VALOR_TOTAL_INVENTARIO DMN_MONEY,
+    VALOR_TOTAL_APROPRIACAO DMN_MONEY,
+    VALOR_TOTAL_REQUISICAO DMN_MONEY,
+    VALOR_TOTAL_SALDO_ALMOX DMN_MONEY,
+    VALOR_MOVIMENTO_ALMOX DMN_MONEY,
+    VALOR_SALDO_ALMOX DMN_MONEY)
+as
+  declare variable quant_saldo_almox_tmp DMN_QUANTIDADE_D3_N;
+  declare variable valor_saldo_almox_tmp DMN_MONEY;
+begin
+  empresa = coalesce(trim(:empresa), '');
+  produto = coalesce(trim(:produto), '');
+
+  quant_saldo_almox_tmp = 0.0;
+  valor_saldo_almox_tmp = 0.0;
+
+  for
+    Select
+        p.codigo
+      , p.cod
+      , p.descri
+      , p.apresentacao
+      , p.descri_apresentacao
+      , uc.unp_descricao as und_compra
+      , uc.unp_sigla     as und_compra_sigla
+      , p.qtde           as estoque
+      , coalesce(ep.estoque_almox, 0) as estoque_almox
+    
+      , ex.empresa
+      , e.rzsoc as empresa_razao
+      , ex.data
+      , ex.tipo
+      , ex.quant
+      , ex.valor_total
+    
+      , Case when ex.tipo = 0 then coalesce(ex.quant, 0.0) else 0 end as quant_ajuste
+      , Case when ex.tipo = 1 then coalesce(ex.quant, 0.0) else 0 end as quant_compra
+      , Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end as quant_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end as quant_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.quant, 0.0) else 0 end +                         -- Apropriacao
+        Case when ex.tipo = 2 then coalesce(ex.quant, 0.0) else 0 end -                         -- Inventario Almoxrifado
+        Case when ex.tipo = 4 then coalesce(ex.quant, 0.0) else 0 end as quant_movimento_almox  -- Requisicao
+    
+      , Case when ex.tipo = 1 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_compra
+      , Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_inventario
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_apropriacao
+      , Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_total_requisicao
+    
+      , Case when ex.tipo = 3 then coalesce(ex.valor_total, 0.0) else 0 end +
+        Case when ex.tipo = 2 then coalesce(ex.valor_total, 0.0) else 0 end -
+        Case when ex.tipo = 4 then coalesce(ex.valor_total, 0.0) else 0 end as valor_movimento_almox
+    
+      , ep.valor_estoque_almox
+    from TBEMPRESA e
+    
+      inner join (
+    
+        /* Ajustes de Entradas/Saidas */
+        Select
+            x.codempresa as empresa
+          , x.codprod    as produto
+          , cast(x.dtajust as date) as data
+          , sum(x.qtdenova)         as quant
+          , sum(x.qtdenova * p.customedio) as valor_total
+          , 0 as tipo
+        from TBAJUSTESTOQ x
+          inner join TBPRODUTO p on (p.cod = x.codprod)
+        group by
+            x.codempresa
+          , x.codprod
+          , cast(x.dtajust as date)
+    
+        union
+    
+        /* Compras */
+        select
+            ci.codemp    as empresa
+          , ci.codprod   as produto
+          , ci.dtent     as data
+          , sum(ci.qtde) as quant
+          , sum(ci.total_liquido) as valor_total
+          , 1 as tipo
+        from TBCOMPRAS c
+          inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+        where c.status in (2,4) -- 2. Finalizado / 4. NF-e Emitida
+        group by
+            ci.codemp
+          , ci.codprod
+          , ci.dtent
+    
+        union
+    
+        /* Inventarios */
+        select
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date) as data
+          , sum((ii.qtde - ii.estoque) / ii.fracionador) as quant
+          , sum((ii.qtde - ii.estoque) * ii.custo) as valor_total
+          , 2 as tipo
+        from TBINVENTARIO_ALMOX i
+          inner join TBINVENTARIO_ALMOX_ITEM ii on (ii.ano = i.ano and ii.controle = i.controle)
+        where i.status = 2 -- Encerrado
+        group by
+            i.empresa
+          , ii.produto
+          , cast(i.fech_datahora as date)
+    
+        union
+    
+        /* Apropriacoes */
+        select
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao  as data
+          , sum(ai.qtde)        as quant
+          , sum(ai.custo_total) as valor_total
+          , 3 as tipo
+        from TBAPROPRIACAO_ALMOX a
+          inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = a.ano and ai.controle = a.controle)
+        where a.status = 2 -- Encerrada
+        group by
+            a.empresa
+          , ai.produto
+          , a.data_apropriacao
+    
+        union
+    
+        /* Requisicoes */
+        select
+            r.empresa
+          , ri.produto
+          , r.data_emissao as data
+          , sum(ri.qtde / ri.fracionador) as quant
+          , sum(ri.total) as valor_total
+          , 4 as tipo
+        from TBREQUISICAO_ALMOX r
+          inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+        where r.status = 4 -- Atendida
+        group by
+            r.empresa
+          , ri.produto
+          , r.data_emissao
+    
+        order by
+            1
+          , 2
+          , 3
+    
+      ) ex on (ex.empresa = e.cnpj)
+    
+      inner join TBPRODUTO p on (p.cod = ex.produto)
+    
+      left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)
+    
+      /* Estoque Apropriado */
+      left join (
+        Select
+            ae.empresa
+          , ae.produto
+          , sum( ae.qtde / coalesce(nullif(ae.fracionador, 0), 1) ) as estoque_almox
+          , sum( ae.qtde * ae.custo_medio ) as valor_estoque_almox
+        from TBESTOQUE_ALMOX ae
+          inner join TBCENTRO_CUSTO c on (c.codigo = ae.centro_custo and c.codcliente is null)
+        where ae.qtde > 0
+        group by
+            ae.empresa
+          , ae.produto
+      ) ep on (ep.empresa = ex.empresa and ep.produto = ex.produto)
+    
+    where e.cnpj = :empresa
+      and ( (trim(:produto) = '') or (ex.produto = :produto) )
+    
+    order by
+        ex.empresa
+      , p.descri_apresentacao
+      , p.cod
+      , ex.data
+      , ex.tipo
+
+    Into
+        id
+      , codigo
+      , descricao
+      , apresentacao
+      , descricao_apresentacao
+      , und_compra
+      , und_compra_sigla
+      , estoque_venda
+      , estoque_almox
+      , empresa_cnpj
+      , empresa_razao
+      , data
+      , tipo
+      , quant
+      , valor_total
+      , quant_ajuste
+      , quant_compra
+      , quant_inventario
+      , quant_apropriacao
+      , quant_requisicao
+      , quant_movimento_almox
+      , valor_total_compra
+      , valor_total_inventario
+      , valor_total_apropriacao
+      , valor_total_requisicao
+      , valor_total_saldo_almox
+      , valor_movimento_almox
+  do
+  begin
+    quant_saldo_almox = :quant_saldo_almox_tmp + :quant_movimento_almox;
+    valor_saldo_almox = :valor_saldo_almox_tmp + :valor_movimento_almox;
+
+    suspend;
+
+    quant_saldo_almox_tmp = :quant_saldo_almox;
+    valor_saldo_almox_tmp = :valor_saldo_almox;
+  end
+end^
+
+SET TERM ; ^
+

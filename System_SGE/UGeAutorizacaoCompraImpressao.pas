@@ -39,6 +39,7 @@ type
     DspRelacaoAutorizacaoGeralAnalitico: TDataSetProvider;
     CdsRelacaoAutorizacaoGeralAnalitico: TClientDataSet;
     frdsRelacaoAutorizacaoGeralAnalitico: TfrxDBDataset;
+    frRelacaoAutorizacaoLista: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
   private
@@ -52,6 +53,7 @@ type
     procedure CarregarEmpresa;
     procedure MontarAutotizacaoGeralSintetico;
     procedure MontarAutotizacaoGeralAnalitico;
+    procedure MontarAutotizacaoLista;
   end;
 
 var
@@ -67,6 +69,7 @@ uses
 const
   REPORT_RELACAO_AUTORIZACAO_SINTETICO = 0;
   REPORT_RELACAO_AUTORIZACAO_ANALITICO = 1;
+  REPORT_RELACAO_AUTORIZACAO_LISTA     = 2;
 
   SITUACAO_AUTORIACAO_PADRAO = 0; // (Todas)
 
@@ -94,6 +97,12 @@ begin
       begin
         MontarAutotizacaoGeralAnalitico;
         frReport := frRelacaoAutorizacaoGeralAnalitico;
+      end;
+
+    REPORT_RELACAO_AUTORIZACAO_LISTA:
+      begin
+        MontarAutotizacaoLista;
+        frReport := frRelacaoAutorizacaoLista;
       end;
  end;
 
@@ -262,6 +271,55 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório sintético de autorizações (por data de emissão).' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeAutorizacaoCompraImpressao.MontarAutotizacaoLista;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    PeriodoRelatorio := Format('Autorizações emitidas no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+
+    CdsRelacaoAutorizacaoGeralAnalitico.Close;
+
+    with QryRelacaoAutorizacaoGeralAnalitico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_AutorizacaoGeralA );
+      SQL.Add('where a.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and a.emissao_data >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and a.emissao_data <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        1: SQL.Add('  and a.status = ' + IntToStr(STATUS_AUTORIZACAO_ABR));
+        2: SQL.Add('  and a.status = ' + IntToStr(STATUS_AUTORIZACAO_AUT));
+        3: SQL.Add('  and a.status = ' + IntToStr(STATUS_AUTORIZACAO_FAT));
+        4: SQL.Add('  and a.status in (' + IntToStr(STATUS_AUTORIZACAO_AUT) + ', ' + IntToStr(STATUS_AUTORIZACAO_FAT) + ')');
+        5: SQL.Add('  and a.status = ' + IntToStr(STATUS_AUTORIZACAO_CAN));
+
+        else
+          SQL.Add('  and a.status > ' + IntToStr(STATUS_AUTORIZACAO_ABR)); // Todas as autorizações, com excesão das "abertas"
+      end;
+
+      SQL.Add('order by');
+      SQL.Add('    a.tipo        -- Tipo');
+      SQL.Add('  , a.emissao_data');
+      SQL.Add('  , f.nomeforn');
+      SQL.Add('  , a.fornecedor  -- Fornecedor');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relação (lista) de autorizações (por data de emissão).' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
