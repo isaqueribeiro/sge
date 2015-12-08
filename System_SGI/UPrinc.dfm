@@ -4697,7 +4697,6 @@ object frmPrinc: TfrmPrinc
       Index = 4
     end
     object RbnTabConsulta: TdxRibbonTab
-      Active = True
       Caption = 'Consulta'
       Groups = <
         item
@@ -4723,6 +4722,7 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
+      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item

@@ -265,7 +265,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Top = 0
       Width = 1014
       Height = 465
-      ActivePage = TbsFabricante
+      ActivePage = TbsProduto
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -994,7 +994,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 3
               Position.ColIndex = 0
@@ -1004,7 +1003,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 3
               Position.ColIndex = 2
@@ -1014,7 +1012,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 4
               Position.ColIndex = 0
@@ -1024,7 +1021,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 4
               Position.ColIndex = 2
@@ -1035,7 +1031,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 6
               Position.ColIndex = 0
@@ -1045,7 +1040,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 6
               Position.ColIndex = 2
@@ -1056,7 +1050,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 7
               Position.ColIndex = 0
@@ -1066,7 +1059,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 7
               Position.ColIndex = 2
@@ -1076,7 +1068,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 9
               Position.ColIndex = 0
@@ -1086,7 +1077,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 9
               Position.ColIndex = 2
@@ -1096,7 +1086,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 10
               Position.ColIndex = 0
@@ -1106,7 +1095,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 10
               Position.ColIndex = 2
@@ -1116,7 +1104,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 12
               Position.ColIndex = 0
@@ -1126,7 +1113,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 12
               Position.ColIndex = 2
@@ -1136,7 +1122,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 13
               Position.ColIndex = 0
@@ -1146,7 +1131,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 13
               Position.ColIndex = 2
@@ -1156,7 +1140,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 15
               Position.ColIndex = 0
@@ -1166,7 +1149,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 15
               Position.ColIndex = 2
@@ -1176,7 +1158,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 16
               Position.ColIndex = 0
@@ -1186,7 +1167,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 16
               Position.ColIndex = 2
@@ -1196,7 +1176,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 18
               Position.ColIndex = 0
@@ -1206,7 +1185,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 18
               Position.ColIndex = 2
@@ -1216,7 +1194,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 19
               Position.ColIndex = 0
@@ -1226,7 +1203,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 19
               Position.ColIndex = 2
@@ -1832,7 +1808,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 3
               Position.ColIndex = 0
@@ -1842,7 +1817,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 3
               Position.ColIndex = 2
@@ -1852,7 +1826,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 4
               Position.ColIndex = 0
@@ -1862,7 +1835,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 4
               Position.ColIndex = 2
@@ -1873,7 +1845,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 6
               Position.ColIndex = 0
@@ -1883,7 +1854,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 6
               Position.ColIndex = 2
@@ -1894,7 +1864,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 7
               Position.ColIndex = 0
@@ -1904,7 +1873,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 7
               Position.ColIndex = 2
@@ -1914,7 +1882,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 9
               Position.ColIndex = 0
@@ -1924,7 +1891,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 9
               Position.ColIndex = 2
@@ -1934,7 +1900,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 10
               Position.ColIndex = 0
@@ -1944,7 +1909,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 10
               Position.ColIndex = 2
@@ -1954,7 +1918,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 12
               Position.ColIndex = 0
@@ -1964,7 +1927,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 12
               Position.ColIndex = 2
@@ -1974,7 +1936,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 13
               Position.ColIndex = 0
@@ -1984,7 +1945,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 13
               Position.ColIndex = 2
@@ -1994,7 +1954,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 15
               Position.ColIndex = 0
@@ -2004,7 +1963,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 15
               Position.ColIndex = 2
@@ -2014,7 +1972,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 16
               Position.ColIndex = 0
@@ -2024,7 +1981,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 16
               Position.ColIndex = 2
@@ -2034,7 +1990,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 18
               Position.ColIndex = 0
@@ -2044,7 +1999,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 18
               Position.ColIndex = 2
@@ -2054,7 +2008,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 19
               Position.ColIndex = 0
@@ -2064,7 +2017,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 90
               Position.BandIndex = 19
               Position.ColIndex = 2
@@ -2674,7 +2626,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 3
               Position.ColIndex = 0
@@ -2684,7 +2635,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 3
               Position.ColIndex = 1
@@ -2694,7 +2644,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 4
               Position.ColIndex = 0
@@ -2704,7 +2653,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_01'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Position.BandIndex = 4
               Position.ColIndex = 1
               Position.RowIndex = 0
@@ -2714,7 +2662,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 6
               Position.ColIndex = 0
@@ -2724,7 +2671,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 6
               Position.ColIndex = 1
@@ -2735,7 +2681,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 7
               Position.ColIndex = 0
@@ -2745,7 +2690,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_03'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 7
               Position.ColIndex = 1
@@ -2755,7 +2699,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 9
               Position.ColIndex = 0
@@ -2765,7 +2708,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 9
               Position.ColIndex = 1
@@ -2775,7 +2717,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 10
               Position.ColIndex = 0
@@ -2785,7 +2726,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_06'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 10
               Position.ColIndex = 1
@@ -2795,7 +2735,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 12
               Position.ColIndex = 0
@@ -2805,7 +2744,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 12
               Position.ColIndex = 1
@@ -2815,7 +2753,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 13
               Position.ColIndex = 0
@@ -2825,7 +2762,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_09'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 13
               Position.ColIndex = 1
@@ -2835,7 +2771,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 15
               Position.ColIndex = 0
@@ -2845,7 +2780,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 15
               Position.ColIndex = 1
@@ -2855,7 +2789,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 16
               Position.ColIndex = 0
@@ -2865,7 +2798,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_12'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 16
               Position.ColIndex = 1
@@ -2875,7 +2807,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_QTDE_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 18
               Position.ColIndex = 0
@@ -2885,7 +2816,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'COMPRA_VALOR_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 18
               Position.ColIndex = 1
@@ -2895,7 +2825,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_QTDE_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 60
               Position.BandIndex = 19
               Position.ColIndex = 0
@@ -2905,7 +2834,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               DataBinding.FieldName = 'VENDA_VALOR_99'
               Options.Filtering = False
               Options.Moving = False
-              Options.Sorting = False
               Width = 80
               Position.BandIndex = 19
               Position.ColIndex = 1

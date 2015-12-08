@@ -13,7 +13,8 @@ uses
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  dxSkinWhiteprint, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver;
 
 type
   TfrmGeCondicaoPagto = class(TfrmGrPadraoCadastro)
@@ -60,7 +61,7 @@ type
     lblPrazo11: TLabel;
     dbPrazo12: TDBEdit;
     lblPrazo12: TLabel;
-    dbFormaPagtoPDV: TDBCheckBox;
+    dbCondicaoPagtoPDV: TDBCheckBox;
     IbDtstTabelaCOND_PDV: TSmallintField;
     IbDtstTabelaCOND_QTDE_PARCELAS: TSmallintField;
     IbDtstTabelaAPrazo: TStringField;
@@ -177,6 +178,11 @@ begin
   btbtnExcluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   btbtnCancelar.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   btbtnSalvar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  dbgFormaPagto.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]);
+
+  dbCondicaoPagtoPDV.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]);
+  if not dbCondicaoPagtoPDV.Visible then
+    GrpBxDadosNominais.Height := 153;
 end;
 
 procedure TfrmGeCondicaoPagto.DtSrcTabelaDataChange(Sender: TObject;

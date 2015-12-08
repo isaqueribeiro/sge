@@ -1228,7 +1228,7 @@ begin
     ShowWarning('Favor informar o(s) ' + IfThen(FTipoMovimento = tmeProduto, 'produto(s)', 'serviço(s)') + ' da entrada.')
   else
   begin
-    if (IbDtstTabelaTIPO_DOCUMENTO.AsInteger = TIPO_DOCUMENTO_ENTRADA_AVULSA) then
+    if (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_AVULSA, TIPO_DOCUMENTO_ENTRADA_CONTRATO]) then
     begin
       IbDtstTabelaNF.Value      := IbDtstTabelaCODCONTROL.AsInteger;
       IbDtstTabelaNFSERIE.Value := TIPO_DOCUMENTO_SERIE_AVULSO;
@@ -1849,7 +1849,9 @@ procedure TfrmGeEntradaEstoque.dbAutorizacaoButtonClick(Sender: TObject);
 var
   iAno    ,
   iCodigo : Integer;
-  sEmpresa : String;
+  sEmpresa,
+  sMotivo ,
+  sObservacao  : String;
   dDataInicial : TDateTime;
 {$ENDIF}
 begin
@@ -1869,11 +1871,17 @@ begin
       if ( (GetDateDB - dDataInicial) < 7 ) then
         dDataInicial := GetDateDB - 7;
 
-      if ( SelecionarAutorizacao(Self, IbDtstTabelaCODFORN.AsInteger, dDataInicial, iAno, iCodigo, sEmpresa) ) then
+      if ( SelecionarAutorizacao(Self, IbDtstTabelaCODFORN.AsInteger, dDataInicial, iAno, iCodigo, sEmpresa, sMotivo, sObservacao) ) then
       begin
         IbDtstTabelaAUTORIZACAO_ANO.AsInteger    := iAno;
         IbDtstTabelaAUTORIZACAO_CODIGO.AsInteger := iCodigo;
         IbDtstTabelaAUTORIZACAO_EMPRESA.AsString := sEmpresa;
+
+        if (sMotivo <> EmptyStr) then
+          dbObservacao.Lines.Add(sMotivo);
+
+        if (sObservacao <> EmptyStr) then
+          dbObservacao.Lines.Add(sObservacao);
       end;
     end
   end;

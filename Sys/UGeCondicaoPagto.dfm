@@ -4,6 +4,8 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
   ActiveControl = nil
   Caption = 'Tabela de Condi'#231#245'es de Pagamento'
   OldCreateOrder = True
+  ExplicitWidth = 751
+  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
@@ -56,6 +58,10 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 185
         ExplicitTop = 185
@@ -392,7 +398,7 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
           ParentFont = False
           TabOrder = 14
         end
-        object dbFormaPagtoPDV: TDBCheckBox
+        object dbCondicaoPagtoPDV: TDBCheckBox
           Left = 88
           Top = 152
           Width = 225
@@ -731,7 +737,7 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
     Left = 576
     Top = 192
     Bitmap = {
-      494C01012B002C00180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -185,7 +185,7 @@ type
     IbDtstTabelaCENTRO_CUSTO: TIntegerField;
     IbDtstTabelaDESCRICAO_CENTRO_CUSTO: TIBStringField;
     btnFinalizarAutorizacao: TcxButton;
-    btnAutorizarCompra: TcxButton;
+    btnAutorizarReabrir: TcxButton;
     btnCancelarAutorizacao: TcxButton;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
@@ -195,6 +195,9 @@ type
     dbCliente: TJvDBComboEdit;
     dbCentroCusto: TJvDBComboEdit;
     dbProduto: TJvDBComboEdit;
+    ppAutorizacao: TPopupMenu;
+    ppmAutorizarCompra: TMenuItem;
+    ppmReabrirAutorizacao: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -208,7 +211,6 @@ type
     procedure btnProdutoExcluirClick(Sender: TObject);
     procedure btnProdutoSalvarClick(Sender: TObject);
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
-    procedure btnAutorizarCompraClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaItensStateChange(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
@@ -236,6 +238,7 @@ type
     procedure dbClienteButtonClick(Sender: TObject);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure dbCentroCustoButtonClick(Sender: TObject);
+    procedure ppmAutorizarCompraClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -252,6 +255,7 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaAutorizarID : String;
     function GetRotinaCancelarAutorizacaoID : String;
+    function GetRotinaReabrirAutorizacaoID : String;
 
     procedure RegistrarNovaRotinaSistema;
   public
@@ -259,6 +263,7 @@ type
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
     property RotinaAutorizarID : String read GetRotinaAutorizarID;
     property RotinaCancelarAutorizacaoID : String read GetRotinaCancelarAutorizacaoID;
+    property RotinaReabrirAutorizacaoID  : String read GetRotinaReabrirAutorizacaoID;
   end;
 
 var
@@ -267,7 +272,7 @@ var
   procedure MostrarControleAutorizacao(const AOwner : TComponent);
 
   function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
-    var Ano, Codigo : Integer; var Empresa : String) : Boolean;
+    var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String) : Boolean;
   function SelecionarAutorizacaoParaApropriacao(const AOwner : TComponent; DataInicial : TDateTime;
     var Ano, Codigo : Integer; var Empresa : String) : Boolean;
 
@@ -308,7 +313,7 @@ begin
 end;
 
 function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
-  var Ano, Codigo : Integer; var Empresa : String) : Boolean;
+  var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String) : Boolean;
 var
   frm : TfrmGeAutorizacaoCompra;
   sNome : String;
@@ -318,7 +323,7 @@ begin
   try
     frm.btbtnIncluir.Visible            := False;
     frm.btnFinalizarAutorizacao.Visible := False;
-    frm.btnAutorizarCompra.Visible      := False;
+    frm.btnAutorizarReabrir.Visible     := False;
     frm.btnCancelarAutorizacao.Visible  := False;
 
     frm.RdgStatusAutorizacao.ItemIndex := STATUS_AUTORIZACAO_AUT + 1;
@@ -352,6 +357,8 @@ begin
       Ano     := frm.IbDtstTabelaANO.AsInteger;
       Codigo  := frm.IbDtstTabelaCODIGO.AsInteger;
       Empresa := frm.IbDtstTabelaEMPRESA.AsString;
+      Motivo     := Trim(frm.IbDtstTabelaMOVITO.AsString);
+      Observacao := Trim(frm.IbDtstTabelaOBSERVACAO.AsString);
     end;
   finally
     frm.Destroy;
@@ -370,7 +377,7 @@ begin
   try
     frm.btbtnIncluir.Visible            := False;
     frm.btnFinalizarAutorizacao.Visible := False;
-    frm.btnAutorizarCompra.Visible      := False;
+    frm.btnAutorizarReabrir.Visible     := False;
     frm.btnCancelarAutorizacao.Visible  := False;
 
     frm.RdgStatusAutorizacao.ItemIndex := STATUS_AUTORIZACAO_AUT + 1;
@@ -541,7 +548,9 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btnFinalizarAutorizacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_EDC) and (not cdsTabelaItens.IsEmpty);
-    btnAutorizarCompra.Enabled      := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnAutorizarReabrir.Enabled     := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_AUTORIZACAO_ABR, STATUS_AUTORIZACAO_AUT]);
+    ppmAutorizarCompra.Enabled      := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    ppmReabrirAutorizacao.Enabled   := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_AUT);
     btnCancelarAutorizacao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_AUT);
 
     nmImprimirAutorizacao.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_AUT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_FAT);
@@ -549,7 +558,9 @@ begin
   else
   begin
     btnFinalizarAutorizacao.Enabled := False;
-    btnAutorizarCompra.Enabled      := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnAutorizarReabrir.Enabled     := False;
+    ppmAutorizarCompra.Enabled      := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    ppmReabrirAutorizacao.Enabled   := False;
     btnCancelarAutorizacao.Enabled  := False;
 
     nmImprimirAutorizacao.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_AUT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_FAT);
@@ -838,8 +849,41 @@ begin
   cdsTabelaItensUNP_SIGLA.Clear;
 end;
 
-procedure TfrmGeAutorizacaoCompra.btnAutorizarCompraClick(
+procedure TfrmGeAutorizacaoCompra.DtSrcTabelaStateChange(Sender: TObject);
+begin
+  inherited;
+  pgcMaisDados.ActivePageIndex   := 0;
+  PgcTextoAutorizacao.ActivePage := TbsAutorizacaoMotivo;
+
+  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_AUTORIZACAO_AUT );
+  DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+end;
+
+procedure TfrmGeAutorizacaoCompra.DtSrcTabelaItensStateChange(
   Sender: TObject);
+begin
+  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
+  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
+  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
+  btnProdutoSalvar.Enabled  := ( cdsTabelaItens.State in [dsEdit, dsInsert] );
+
+  dbgProdutos.Enabled       := not (cdsTabelaItens.State in [dsEdit, dsInsert]);
+
+  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+    if ( dbProduto.Visible and dbProduto.Enabled ) then
+      dbProduto.SetFocus;
+end;
+
+procedure TfrmGeAutorizacaoCompra.pgcGuiasChange(Sender: TObject);
+begin
+  inherited;
+  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+
+  pgcMaisDados.ActivePage := tbsFormaPagto;
+  HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeAutorizacaoCompra.ppmAutorizarCompraClick(Sender: TObject);
 var
   cTotalBruto   ,
   cTotalIPI     ,
@@ -904,40 +948,6 @@ begin
 
     RdgStatusAutorizacao.ItemIndex := 0;
   end;
-end;
-
-procedure TfrmGeAutorizacaoCompra.DtSrcTabelaStateChange(Sender: TObject);
-begin
-  inherited;
-  pgcMaisDados.ActivePageIndex   := 0;
-  PgcTextoAutorizacao.ActivePage := TbsAutorizacaoMotivo;
-
-  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_AUTORIZACAO_AUT );
-  DtSrcTabelaItensStateChange( DtSrcTabelaItens );
-end;
-
-procedure TfrmGeAutorizacaoCompra.DtSrcTabelaItensStateChange(
-  Sender: TObject);
-begin
-  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
-  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoSalvar.Enabled  := ( cdsTabelaItens.State in [dsEdit, dsInsert] );
-
-  dbgProdutos.Enabled       := not (cdsTabelaItens.State in [dsEdit, dsInsert]);
-
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-    if ( dbProduto.Visible and dbProduto.Enabled ) then
-      dbProduto.SetFocus;
-end;
-
-procedure TfrmGeAutorizacaoCompra.pgcGuiasChange(Sender: TObject);
-begin
-  inherited;
-  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-
-  pgcMaisDados.ActivePage := tbsFormaPagto;
-  HabilitarDesabilitar_Btns;
 end;
 
 procedure TfrmGeAutorizacaoCompra.btnFiltrarClick(Sender: TObject);
@@ -1454,7 +1464,7 @@ end;
 
 function TfrmGeAutorizacaoCompra.GetRotinaAutorizarID: String;
 begin
-  Result := GetRotinaInternaID(btnAutorizarCompra);
+  Result := GetRotinaInternaID(ppmAutorizarCompra);
 end;
 
 function TfrmGeAutorizacaoCompra.GetRotinaCancelarAutorizacaoID: String;
@@ -1467,6 +1477,11 @@ begin
   Result := GetRotinaInternaID(btnFinalizarAutorizacao);
 end;
 
+function TfrmGeAutorizacaoCompra.GetRotinaReabrirAutorizacaoID: String;
+begin
+  Result := GetRotinaInternaID(ppmReabrirAutorizacao);
+end;
+
 procedure TfrmGeAutorizacaoCompra.RegistrarNovaRotinaSistema;
 begin
   if ( Trim(RotinaID) <> EmptyStr ) then
@@ -1474,11 +1489,14 @@ begin
     if btnFinalizarAutorizacao.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFinalizarID, btnFinalizarAutorizacao.Caption, RotinaID);
 
-    if btnAutorizarCompra.Visible then
-      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaAutorizarID, btnAutorizarCompra.Caption, RotinaID);
+    if ppmAutorizarCompra.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaAutorizarID, ppmAutorizarCompra.Caption, RotinaID);
 
     if btnCancelarAutorizacao.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarAutorizacaoID, btnCancelarAutorizacao.Caption, RotinaID);
+
+    if ppmReabrirAutorizacao.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaReabrirAutorizacaoID, ppmReabrirAutorizacao.Caption, RotinaID);
   end;
 end;
 

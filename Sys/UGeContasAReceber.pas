@@ -308,10 +308,6 @@ begin
     '( (r.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
     'cast(r.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
-
-  UpdateGenerator( 'where anolanc = ' + FormatFloat('0000', YearOf(Date)) );
-
-  UpdateGenerator;
 end;
 
 procedure TfrmGeContasAReceber.dbClienteButtonClick(Sender: TObject);

@@ -1354,9 +1354,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       '  , p.qtde * p.preco      as venda_vnv_total'
       ''
       '  , coalesce(xx.apropriacao_qtde, 0.0)  as estoque_apr'
-      
-        '  , cast( coalesce(xx.apropriacao_qtde, 0.0) * coalesce(xx.aprop' +
-        'riacao_custo, 0.0) as DMN_MONEY_4) as  custo_apr_total'
+      '  , coalesce(xx.apropriacao_custo, 0.0) as custo_apr_total'
       'from TBPRODUTO p'
       '  left join ('
       '    Select'
@@ -1474,9 +1472,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       '  , p.qtde * p.preco      as venda_vnv_total'
       ''
       '  , coalesce(xx.apropriacao_qtde, 0.0)  as estoque_apr'
-      
-        '  , cast( coalesce(xx.apropriacao_qtde, 0.0) * coalesce(xx.aprop' +
-        'riacao_custo, 0.0) as DMN_MONEY_4 ) as  custo_apr_total'
+      '  , coalesce(xx.apropriacao_custo, 0.0) as custo_apr_total'
       ''
       '  , coalesce(yy.compras_qtde, 0.0)  as estoque_cmp'
       

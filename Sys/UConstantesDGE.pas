@@ -492,6 +492,7 @@ const
   INI_SECAO_GERAL       = 'Geral';
   INI_SECAO_EMITENTE    = 'Emitente';
   INI_SECAO_WEBSERVICE  = 'WebService';
+  INI_SECAO_ARQUIVOS    = 'Arquivos';
 
   SYS_PATH_REGISTER = {$IFDEF DGE}'MasterDados\'{$ELSE}'Ágil Soluções em Softwares\'{$ENDIF};
   SYS_PASSWD_KEY    = 'TheLordIsGod';

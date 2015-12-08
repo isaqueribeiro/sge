@@ -346,7 +346,6 @@ begin
     IncrementBy := 1;
   end;
 *)
-  UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
 //
 //  FAbrirCaixa  := False;
 //  FFecharCaixa := False;

@@ -4,6 +4,7 @@ inherited frmGeBancos: TfrmGeBancos
   Caption = 'Tabela de Bancos'
   ClientHeight = 471
   OldCreateOrder = True
+  ExplicitWidth = 751
   ExplicitHeight = 510
   PixelsPerInch = 96
   TextHeight = 13
@@ -61,6 +62,10 @@ inherited frmGeBancos: TfrmGeBancos
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 399
       inherited Bevel8: TBevel
         Top = 201
         ExplicitTop = 201
@@ -83,7 +88,7 @@ inherited frmGeBancos: TfrmGeBancos
       end
       inherited GrpBxDadosNominais: TGroupBox
         object lblNome: TLabel [1]
-          Left = 88
+          Left = 358
           Top = 24
           Width = 31
           Height = 13
@@ -124,7 +129,7 @@ inherited frmGeBancos: TfrmGeBancos
           Caption = 'Carteira:'
         end
         object lblEmpresa: TLabel [6]
-          Left = 432
+          Left = 87
           Top = 24
           Width = 45
           Height = 13
@@ -898,7 +903,7 @@ inherited frmGeBancos: TfrmGeBancos
           ReadOnly = False
         end
         object dbNome: TDBEdit
-          Left = 88
+          Left = 358
           Top = 40
           Width = 337
           Height = 21
@@ -911,7 +916,7 @@ inherited frmGeBancos: TfrmGeBancos
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 2
         end
         object dbAgencia: TDBEdit
           Left = 16
@@ -986,7 +991,7 @@ inherited frmGeBancos: TfrmGeBancos
           ValueUnchecked = '0'
         end
         object dbEmpresa: TDBLookupComboBox
-          Left = 432
+          Left = 87
           Top = 40
           Width = 265
           Height = 21
@@ -1002,7 +1007,7 @@ inherited frmGeBancos: TfrmGeBancos
           ListField = 'RZSOC'
           ListSource = dtsEmpresa
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 1
         end
         object dbCodigoCedente: TDBEdit
           Left = 208
@@ -1697,7 +1702,7 @@ inherited frmGeBancos: TfrmGeBancos
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

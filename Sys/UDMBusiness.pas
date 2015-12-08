@@ -336,6 +336,7 @@ var
   function GetCondicaoPagtoNomeDefault : String;
   function GetCondicaoPagtoNome(const iCodigo : Integer) : String;
   function GetTabelaIBPT_Codigo(const aCodigoNCM : String) : Integer;
+  function GetBancoBoletoCodigo(const aEmpresa, aCodigoFebraban : String) : Integer;
   function GetSenhaAutorizacao : String;
   function GetDateTimeDB : TDateTime;
   function GetDateDB : TDateTime;
@@ -2852,6 +2853,25 @@ begin
     Open;
 
     Result := FieldByName('id_ibpt').AsInteger;
+
+    Close;
+  end;
+end;
+
+function GetBancoBoletoCodigo(const aEmpresa, aCodigoFebraban : String) : Integer;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  b.bco_cod');
+    SQL.Add('from TBBANCO_BOLETO b');
+    SQL.Add('where b.empresa = ' + QuotedStr(aEmpresa));
+    SQL.Add('  and b.bco_cod = ' + IntToStr(StrToIntDef(aCodigoFebraban, 0)));
+    Open;
+
+    Result := FieldByName('bco_cod').AsInteger;
 
     Close;
   end;

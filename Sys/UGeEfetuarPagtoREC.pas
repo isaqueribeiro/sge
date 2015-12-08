@@ -68,6 +68,9 @@ type
     btnCancelar: TcxButton;
     dbDataPagto: TJvDBDateEdit;
     cdsPagamentosEMPRESA: TIBStringField;
+    tblBancoFebraban: TIBTable;
+    cdsBancoFebraban: TDataSource;
+    cdsPagamentosBANCO_FEBRABAN: TIBStringField;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -212,6 +215,7 @@ procedure TfrmGeEfetuarPagtoREC.FormCreate(Sender: TObject);
 begin
   inherited;
   tblBanco.Open;
+  tblBancoFebraban.Open;
   tblFormaPagto.Open;
   CxContaCorrente := 0;
 end;
@@ -219,7 +223,8 @@ end;
 procedure TfrmGeEfetuarPagtoREC.btnConfirmarClick(Sender: TObject);
 var
   CxAno    ,
-  CxNumero : Integer;
+  CxNumero ,
+  iBancoBoleto : Integer;
 begin
   inherited;
   CxAno    := 0;
@@ -245,7 +250,8 @@ begin
       dbNoCheque.SetFocus;
     end
     else
-    if ( (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) <> EmptyStr) and (cdsPagamentosBANCO.AsInteger = 0) ) then
+//    if ( (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) <> EmptyStr) and (cdsPagamentosBANCO.AsInteger = 0) ) then
+    if ( (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) <> EmptyStr) and (Trim(cdsPagamentosBANCO_FEBRABAN.AsString) = EmptyStr) ) then
     begin
       ShowWarning('Favor informar o Banco!');
       dbBanco.SetFocus;
@@ -270,6 +276,12 @@ begin
 
         if (Copy(cdsPagamentosHISTORICO.AsString, Length(cdsPagamentosHISTORICO.AsString), 1) = '.') then
           cdsPagamentosHISTORICO.AsString := Copy(cdsPagamentosHISTORICO.AsString, 1, Length(cdsPagamentosHISTORICO.AsString) - 1);
+
+        iBancoBoleto := GetBancoBoletoCodigo(cdsPagamentosEMPRESA.AsString, Trim(cdsPagamentosBANCO_FEBRABAN.AsString));
+        if iBancoBoleto > 0 then
+          cdsPagamentosBANCO.AsInteger := iBancoBoleto
+        else
+          cdsPagamentosBANCO.Clear;
 
         cdsPagamentos.Post;
         cdsPagamentos.ApplyUpdates;

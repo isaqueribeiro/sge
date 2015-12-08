@@ -7455,3 +7455,616 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 05/12/2015 09:44:15 --------*/
+
+ALTER TABLE TBCONTPAG
+    ADD BANCO_FEBRABAN DMN_VCHAR_10;
+
+COMMENT ON COLUMN TBCONTPAG.BANCO_FEBRABAN IS
+'Codigo de Compensacao do Banco';
+
+alter table TBCONTPAG
+alter ANOLANC position 1;
+
+alter table TBCONTPAG
+alter NUMLANC position 2;
+
+alter table TBCONTPAG
+alter EMPRESA position 3;
+
+alter table TBCONTPAG
+alter CODFORN position 4;
+
+alter table TBCONTPAG
+alter PARCELA position 5;
+
+alter table TBCONTPAG
+alter TIPPAG position 6;
+
+alter table TBCONTPAG
+alter HISTORIC position 7;
+
+alter table TBCONTPAG
+alter NOTFISC position 8;
+
+alter table TBCONTPAG
+alter DTEMISS position 9;
+
+alter table TBCONTPAG
+alter DTVENC position 10;
+
+alter table TBCONTPAG
+alter DTPAG position 11;
+
+alter table TBCONTPAG
+alter DOCBAIX position 12;
+
+alter table TBCONTPAG
+alter VALORPAG position 13;
+
+alter table TBCONTPAG
+alter VALORMULTA position 14;
+
+alter table TBCONTPAG
+alter VALORPAGTOT position 15;
+
+alter table TBCONTPAG
+alter VALORSALDO position 16;
+
+alter table TBCONTPAG
+alter NOMEEMP position 17;
+
+alter table TBCONTPAG
+alter TIPOCATEG position 18;
+
+alter table TBCONTPAG
+alter BANCO position 19;
+
+alter table TBCONTPAG
+alter BANCO_FEBRABAN position 20;
+
+alter table TBCONTPAG
+alter NUMCHQ position 21;
+
+alter table TBCONTPAG
+alter ANOCOMPRA position 22;
+
+alter table TBCONTPAG
+alter NUMCOMPRA position 23;
+
+alter table TBCONTPAG
+alter FORMA_PAGTO position 24;
+
+alter table TBCONTPAG
+alter CONDICAO_PAGTO position 25;
+
+alter table TBCONTPAG
+alter QUITADO position 26;
+
+alter table TBCONTPAG
+alter CODTPDESP position 27;
+
+alter table TBCONTPAG
+alter SITUACAO position 28;
+
+alter table TBCONTPAG
+alter LOTE position 29;
+
+alter table TBCONTPAG
+alter COMPETENCIA_APURACAO position 30;
+
+
+
+
+/*------ SYSDBA 05/12/2015 09:44:46 --------*/
+
+CREATE INDEX IDX_TBCONTPAG_BANCO_FEBRABAN
+ON TBCONTPAG (BANCO_FEBRABAN);
+
+
+
+
+/*------ SYSDBA 05/12/2015 09:45:20 --------*/
+
+ALTER TABLE TBCONTPAG_BAIXA
+    ADD BANCO_FEBRABAN DMN_VCHAR_10;
+
+COMMENT ON COLUMN TBCONTPAG_BAIXA.BANCO_FEBRABAN IS
+'Codigo de Compensacao do Banco';
+
+alter table TBCONTPAG_BAIXA
+alter ANOLANC position 1;
+
+alter table TBCONTPAG_BAIXA
+alter NUMLANC position 2;
+
+alter table TBCONTPAG_BAIXA
+alter SEQ position 3;
+
+alter table TBCONTPAG_BAIXA
+alter HISTORICO position 4;
+
+alter table TBCONTPAG_BAIXA
+alter DATA_PAGTO position 5;
+
+alter table TBCONTPAG_BAIXA
+alter FORMA_PAGTO position 6;
+
+alter table TBCONTPAG_BAIXA
+alter VALOR_BAIXA position 7;
+
+alter table TBCONTPAG_BAIXA
+alter NUMERO_CHEQUE position 8;
+
+alter table TBCONTPAG_BAIXA
+alter BANCO position 9;
+
+alter table TBCONTPAG_BAIXA
+alter BANCO_FEBRABAN position 10;
+
+alter table TBCONTPAG_BAIXA
+alter DOCUMENTO_BAIXA position 11;
+
+alter table TBCONTPAG_BAIXA
+alter USUARIO position 12;
+
+
+
+
+/*------ SYSDBA 05/12/2015 09:45:44 --------*/
+
+CREATE INDEX IDX_TBCONTPAG_BAIXA_BANCO_FEBRA
+ON TBCONTPAG_BAIXA (BANCO_FEBRABAN);
+
+
+
+
+/*------ SYSDBA 05/12/2015 09:46:29 --------*/
+
+ALTER TABLE TBCONTREC
+    ADD BANCO_FEBRABAN DMN_VCHAR_10;
+
+COMMENT ON COLUMN TBCONTREC.BANCO_FEBRABAN IS
+'Codigo de Compensacao do Banco';
+
+alter table TBCONTREC
+alter ANOLANC position 1;
+
+alter table TBCONTREC
+alter NUMLANC position 2;
+
+alter table TBCONTREC
+alter EMPRESA position 3;
+
+alter table TBCONTREC
+alter CLIENTE position 4;
+
+alter table TBCONTREC
+alter CNPJ position 5;
+
+alter table TBCONTREC
+alter FORMA_PAGTO position 6;
+
+alter table TBCONTREC
+alter TIPPAG position 7;
+
+alter table TBCONTREC
+alter HISTORIC position 8;
+
+alter table TBCONTREC
+alter NUMREC position 9;
+
+alter table TBCONTREC
+alter DTEMISS position 10;
+
+alter table TBCONTREC
+alter DTVENC position 11;
+
+alter table TBCONTREC
+alter DTREC position 12;
+
+alter table TBCONTREC
+alter DOCBAIX position 13;
+
+alter table TBCONTREC
+alter VALORREC position 14;
+
+alter table TBCONTREC
+alter VALORMULTA position 15;
+
+alter table TBCONTREC
+alter VALORRECTOT position 16;
+
+alter table TBCONTREC
+alter VALORSALDO position 17;
+
+alter table TBCONTREC
+alter NUMCONTRATO position 18;
+
+alter table TBCONTREC
+alter PARCELA position 19;
+
+alter table TBCONTREC
+alter STATUS position 20;
+
+alter table TBCONTREC
+alter CODBANCO position 21;
+
+alter table TBCONTREC
+alter BANCO_FEBRABAN position 22;
+
+alter table TBCONTREC
+alter NOSSONUMERO position 23;
+
+alter table TBCONTREC
+alter REMESSA position 24;
+
+alter table TBCONTREC
+alter PERCENTJUROS position 25;
+
+alter table TBCONTREC
+alter PERCENTMULTA position 26;
+
+alter table TBCONTREC
+alter PERCENTDESCONTO position 27;
+
+alter table TBCONTREC
+alter DATAPROCESSOBOLETO position 28;
+
+alter table TBCONTREC
+alter BAIXADO position 29;
+
+alter table TBCONTREC
+alter ENVIADO position 30;
+
+alter table TBCONTREC
+alter ANOVENDA position 31;
+
+alter table TBCONTREC
+alter NUMVENDA position 32;
+
+alter table TBCONTREC
+alter SITUACAO position 33;
+
+alter table TBCONTREC
+alter LOTE position 34;
+
+alter table TBCONTREC
+alter COMPETENCIA_APURACAO position 35;
+
+
+
+
+/*------ SYSDBA 05/12/2015 09:46:54 --------*/
+
+CREATE INDEX IDX_TBCONTREC_BANCO_FEBRABAN
+ON TBCONTREC (BANCO_FEBRABAN);
+
+
+
+
+/*------ SYSDBA 05/12/2015 09:47:21 --------*/
+
+ALTER TABLE TBCONTREC_BAIXA
+    ADD BANCO_FEBRABAN DMN_VCHAR_10;
+
+COMMENT ON COLUMN TBCONTREC_BAIXA.BANCO_FEBRABAN IS
+'Codigo de Compensacao do Banco';
+
+alter table TBCONTREC_BAIXA
+alter ANOLANC position 1;
+
+alter table TBCONTREC_BAIXA
+alter NUMLANC position 2;
+
+alter table TBCONTREC_BAIXA
+alter SEQ position 3;
+
+alter table TBCONTREC_BAIXA
+alter HISTORICO position 4;
+
+alter table TBCONTREC_BAIXA
+alter DATA_PAGTO position 5;
+
+alter table TBCONTREC_BAIXA
+alter FORMA_PAGTO position 6;
+
+alter table TBCONTREC_BAIXA
+alter VALOR_BAIXA position 7;
+
+alter table TBCONTREC_BAIXA
+alter NUMERO_CHEQUE position 8;
+
+alter table TBCONTREC_BAIXA
+alter BANCO position 9;
+
+alter table TBCONTREC_BAIXA
+alter BANCO_FEBRABAN position 10;
+
+alter table TBCONTREC_BAIXA
+alter DOCUMENTO_BAIXA position 11;
+
+alter table TBCONTREC_BAIXA
+alter USUARIO position 12;
+
+
+
+
+/*------ SYSDBA 05/12/2015 09:47:45 --------*/
+
+CREATE INDEX IDX_TBCONTREC_BAIXA_BANCO_FEBRA
+ON TBCONTREC_BAIXA (BANCO_FEBRABAN);
+
+
+
+
+/*------ SYSDBA 05/12/2015 10:15:09 --------*/
+
+ALTER TABLE TBBANCO
+    ADD NOME_RESUMIDO DMN_VCHAR_30;
+
+alter table TBBANCO
+alter COD position 1;
+
+alter table TBBANCO
+alter NOME position 2;
+
+alter table TBBANCO
+alter NOME_RESUMIDO position 3;
+
+alter table TBBANCO
+alter HOME_PAGE position 4;
+
+
+
+
+/*------ SYSDBA 05/12/2015 10:15:19 --------*/
+
+COMMENT ON COLUMN TBBANCO.NOME_RESUMIDO IS
+'Nome Resumido';
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:02:27 --------*/
+
+ALTER TABLE TBLANCDEPOS
+    ADD CODEMPRESA DMN_CNPJ;
+
+COMMENT ON COLUMN TBLANCDEPOS.CODEMPRESA IS
+'Empresa';
+
+alter table TBLANCDEPOS
+alter NUMLANC position 1;
+
+alter table TBLANCDEPOS
+alter CODBANCO position 2;
+
+alter table TBLANCDEPOS
+alter CODEMPRESA position 3;
+
+alter table TBLANCDEPOS
+alter ESPECIE position 4;
+
+alter table TBLANCDEPOS
+alter VALORDEP position 5;
+
+alter table TBLANCDEPOS
+alter DATADEP position 6;
+
+alter table TBLANCDEPOS
+alter COMPRDEP position 7;
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:02:56 --------*/
+
+alter table TBLANCDEPOS
+alter column NUMLANC position 1;
+
+
+/*------ SYSDBA 07/12/2015 23:02:56 --------*/
+
+alter table TBLANCDEPOS
+alter column CODEMPRESA position 2;
+
+
+/*------ SYSDBA 07/12/2015 23:02:56 --------*/
+
+alter table TBLANCDEPOS
+alter column CODBANCO position 3;
+
+
+/*------ SYSDBA 07/12/2015 23:02:56 --------*/
+
+alter table TBLANCDEPOS
+alter column ESPECIE position 4;
+
+
+/*------ SYSDBA 07/12/2015 23:02:56 --------*/
+
+alter table TBLANCDEPOS
+alter column VALORDEP position 5;
+
+
+/*------ SYSDBA 07/12/2015 23:02:56 --------*/
+
+alter table TBLANCDEPOS
+alter column DATADEP position 6;
+
+
+/*------ SYSDBA 07/12/2015 23:02:56 --------*/
+
+alter table TBLANCDEPOS
+alter column COMPRDEP position 7;
+
+
+/*------ SYSDBA 07/12/2015 23:05:04 --------*/
+
+ALTER TABLE TBCONTPAG_BAIXA
+    ADD EMPRESA DMN_CNPJ;
+
+COMMENT ON COLUMN TBCONTPAG_BAIXA.EMPRESA IS
+'Empresa da Conta';
+
+COMMENT ON COLUMN TBCONTPAG_BAIXA.BANCO IS
+'Banco Boleto da Conta';
+
+alter table TBCONTPAG_BAIXA
+alter ANOLANC position 1;
+
+alter table TBCONTPAG_BAIXA
+alter NUMLANC position 2;
+
+alter table TBCONTPAG_BAIXA
+alter SEQ position 3;
+
+alter table TBCONTPAG_BAIXA
+alter HISTORICO position 4;
+
+alter table TBCONTPAG_BAIXA
+alter DATA_PAGTO position 5;
+
+alter table TBCONTPAG_BAIXA
+alter FORMA_PAGTO position 6;
+
+alter table TBCONTPAG_BAIXA
+alter VALOR_BAIXA position 7;
+
+alter table TBCONTPAG_BAIXA
+alter NUMERO_CHEQUE position 8;
+
+alter table TBCONTPAG_BAIXA
+alter EMPRESA position 9;
+
+alter table TBCONTPAG_BAIXA
+alter BANCO position 10;
+
+alter table TBCONTPAG_BAIXA
+alter BANCO_FEBRABAN position 11;
+
+alter table TBCONTPAG_BAIXA
+alter DOCUMENTO_BAIXA position 12;
+
+alter table TBCONTPAG_BAIXA
+alter USUARIO position 13;
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:05:35 --------*/
+
+COMMENT ON COLUMN TBCONTPAG.BANCO IS
+'Banco Boleto';
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:05:44 --------*/
+
+COMMENT ON COLUMN TBCONTPAG_BAIXA.BANCO IS
+'Banco Boleto';
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:05:47 --------*/
+
+COMMENT ON COLUMN TBCONTPAG_BAIXA.EMPRESA IS
+'Empresa';
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:06:31 --------*/
+
+COMMENT ON COLUMN TBCONTREC.CODBANCO IS
+'Banco Boleto';
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:07:22 --------*/
+
+ALTER TABLE TBCONTREC_BAIXA
+    ADD EMPRESA DMN_CNPJ;
+
+COMMENT ON COLUMN TBCONTREC_BAIXA.EMPRESA IS
+'Empresa';
+
+COMMENT ON COLUMN TBCONTREC_BAIXA.BANCO IS
+'Banco Boleto';
+
+alter table TBCONTREC_BAIXA
+alter ANOLANC position 1;
+
+alter table TBCONTREC_BAIXA
+alter NUMLANC position 2;
+
+alter table TBCONTREC_BAIXA
+alter SEQ position 3;
+
+alter table TBCONTREC_BAIXA
+alter HISTORICO position 4;
+
+alter table TBCONTREC_BAIXA
+alter DATA_PAGTO position 5;
+
+alter table TBCONTREC_BAIXA
+alter FORMA_PAGTO position 6;
+
+alter table TBCONTREC_BAIXA
+alter VALOR_BAIXA position 7;
+
+alter table TBCONTREC_BAIXA
+alter NUMERO_CHEQUE position 8;
+
+alter table TBCONTREC_BAIXA
+alter EMPRESA position 9;
+
+alter table TBCONTREC_BAIXA
+alter BANCO position 10;
+
+alter table TBCONTREC_BAIXA
+alter BANCO_FEBRABAN position 11;
+
+alter table TBCONTREC_BAIXA
+alter DOCUMENTO_BAIXA position 12;
+
+alter table TBCONTREC_BAIXA
+alter USUARIO position 13;
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:07:55 --------*/
+
+COMMENT ON COLUMN TBLANCDEPOS.CODBANCO IS
+'Banco Boleto';
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:08:29 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_MONEY'
+where (RDB$FIELD_NAME = 'VALORDEP') and
+(RDB$RELATION_NAME = 'TBLANCDEPOS')
+;
+
+
+
+
+/*------ SYSDBA 07/12/2015 23:08:39 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_DATE'
+where (RDB$FIELD_NAME = 'DATADEP') and
+(RDB$RELATION_NAME = 'TBLANCDEPOS')
+;
+

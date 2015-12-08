@@ -475,6 +475,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsCertificado: TTabSheet
           BorderWidth = 4
           Caption = 'Certificado'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object GroupBox2: TGroupBox
             Left = 0
             Top = 0
@@ -1103,10 +1107,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsArquivos: TTabSheet
           Caption = 'Arquivos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblPathNFe: TLabel
             Left = 16
             Top = 180

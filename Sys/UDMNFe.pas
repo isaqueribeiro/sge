@@ -747,7 +747,8 @@ Var
   sSecaoCertificado,
   sSecaoGeral      ,
   sSecaoEmitente   ,
-  sSecaoWebService : String;
+  sSecaoWebService ,
+  sSecaoArquivos   : String;
 begin
   try
 
@@ -762,6 +763,7 @@ begin
     sSecaoGeral       := sPrefixoSecao + INI_SECAO_GERAL;
     sSecaoEmitente    := sPrefixoSecao + INI_SECAO_EMITENTE;
     sSecaoWebService  := sPrefixoSecao + INI_SECAO_WEBSERVICE;
+    sSecaoArquivos    := sPrefixoSecao + INI_SECAO_ARQUIVOS;
 
     with ConfigACBr, FileINI do
     begin
@@ -784,19 +786,19 @@ begin
       WriteString (sSecaoGeral, 'PathSchemas' , edPathSchemas.Text) ;
       WriteInteger(sSecaoGeral, 'ModoGerarNFe', rgModoGerarNFe.ItemIndex) ;
 
-      WriteBool  ('Arquivos', 'Salvar'        , ckSalvarArqs.Checked) ;
-      WriteBool  ('Arquivos', 'PastaMensal'   , ckPastaMensal.Checked) ;
-      WriteBool  ('Arquivos', 'AddLiteral'    , ckAdicionaLiteral.Checked) ;
-      WriteBool  ('Arquivos', 'EmissaoPathNFe', ckEmissaoPathNFe.Checked) ;
-      WriteBool  ('Arquivos', 'SalvarCCeCanPathEvento', ckSalvaCCeCancelamentoPathEvento.Checked) ;
-      WriteBool  ('Arquivos', 'SepararPorCNPJ'        , ckSepararPorCNPJ.Checked) ;
-      WriteBool  ('Arquivos', 'SepararPorModelo'      , ckSepararPorModelo.Checked) ;
-      WriteString('Arquivos', 'PathNFe'    , edPathNFe.Text) ;
-      WriteString('Arquivos', 'PathCan'    , edPathCan.Text) ;
-      WriteString('Arquivos', 'PathInu'    , edPathInu.Text) ;
-      WriteString('Arquivos', 'PathDPEC'   , edPathDPEC.Text) ;
-      WriteString('Arquivos', 'PathCCe'    , edPathCCe.Text) ;
-      WriteString('Arquivos', 'PathEvento' , edPathEvento.Text) ;
+      WriteBool  (sSecaoArquivos, 'Salvar'        , ckSalvarArqs.Checked) ;
+      WriteBool  (sSecaoArquivos, 'PastaMensal'   , ckPastaMensal.Checked) ;
+      WriteBool  (sSecaoArquivos, 'AddLiteral'    , ckAdicionaLiteral.Checked) ;
+      WriteBool  (sSecaoArquivos, 'EmissaoPathNFe', ckEmissaoPathNFe.Checked) ;
+      WriteBool  (sSecaoArquivos, 'SalvarCCeCanPathEvento', ckSalvaCCeCancelamentoPathEvento.Checked) ;
+      WriteBool  (sSecaoArquivos, 'SepararPorCNPJ'        , ckSepararPorCNPJ.Checked) ;
+      WriteBool  (sSecaoArquivos, 'SepararPorModelo'      , ckSepararPorModelo.Checked) ;
+      WriteString(sSecaoArquivos, 'PathNFe'    , edPathNFe.Text) ;
+      WriteString(sSecaoArquivos, 'PathCan'    , edPathCan.Text) ;
+      WriteString(sSecaoArquivos, 'PathInu'    , edPathInu.Text) ;
+      WriteString(sSecaoArquivos, 'PathDPEC'   , edPathDPEC.Text) ;
+      WriteString(sSecaoArquivos, 'PathCCe'    , edPathCCe.Text) ;
+      WriteString(sSecaoArquivos, 'PathEvento' , edPathEvento.Text) ;
 
       WriteString (sSecaoWebService, 'UF'        , cbUF.Text) ;
       WriteInteger(sSecaoWebService, 'Ambiente'  , rgTipoAmb.ItemIndex) ;
@@ -863,7 +865,8 @@ Var
   sSecaoCertificado,
   sSecaoGeral      ,
   sSecaoEmitente   ,
-  sSecaoWebService : String;
+  sSecaoWebService ,
+  sSecaoArquivos   : String;
 begin
 (*
   IMR - 29/05/2015 :
@@ -899,6 +902,7 @@ begin
     sSecaoGeral       := sPrefixoSecao + INI_SECAO_GERAL;
     sSecaoEmitente    := sPrefixoSecao + INI_SECAO_EMITENTE;
     sSecaoWebService  := sPrefixoSecao + INI_SECAO_WEBSERVICE;
+    sSecaoArquivos    := sPrefixoSecao + INI_SECAO_ARQUIVOS;
 
     with ConfigACBr, FileINI do
     begin
@@ -954,19 +958,19 @@ begin
         Arquivos.PathDPEC   := StringReplace(Geral.PathSalvar + '\DPEC',        '\\', '\', [rfReplaceAll]);
       end;
 
-      ckSalvarArqs.Checked                     := ReadBool('Arquivos', 'Salvar'        , False);
-      ckPastaMensal.Checked                    := ReadBool('Arquivos', 'PastaMensal'   , False);
-      ckAdicionaLiteral.Checked                := ReadBool('Arquivos', 'AddLiteral'    , False);
-      ckEmissaoPathNFe.Checked                 := ReadBool('Arquivos', 'EmissaoPathNFe', False);
-      ckSalvaCCeCancelamentoPathEvento.Checked := ReadBool('Arquivos', 'SalvarCCeCanPathEvento', False);
-      ckSepararPorCNPJ.Checked                 := ReadBool('Arquivos', 'SepararPorCNPJ'        , False);
-      ckSepararPorModelo.Checked               := ReadBool('Arquivos', 'SepararPorModelo'      , False);
-      edPathNFe.Text    := ReadString('Arquivos', 'PathNFe'   , ACBrNFe.Configuracoes.Arquivos.PathNFe) ;
-      edPathCan.Text    := ReadString('Arquivos', 'PathCan'   , ACBrNFe.Configuracoes.Arquivos.PathCan) ;
-      edPathInu.Text    := ReadString('Arquivos', 'PathInu'   , ACBrNFe.Configuracoes.Arquivos.PathInu) ;
-      edPathDPEC.Text   := ReadString('Arquivos', 'PathDPEC'  , ACBrNFe.Configuracoes.Arquivos.PathDPEC) ;
-      edPathCCe.Text    := ReadString('Arquivos', 'PathCCe'   , ACBrNFe.Configuracoes.Arquivos.PathCCe) ;
-      edPathEvento.Text := ReadString('Arquivos', 'PathEvento', ACBrNFe.Configuracoes.Arquivos.PathEvento) ;
+      ckSalvarArqs.Checked                     := ReadBool(sSecaoArquivos, 'Salvar'        , False);
+      ckPastaMensal.Checked                    := ReadBool(sSecaoArquivos, 'PastaMensal'   , False);
+      ckAdicionaLiteral.Checked                := ReadBool(sSecaoArquivos, 'AddLiteral'    , False);
+      ckEmissaoPathNFe.Checked                 := ReadBool(sSecaoArquivos, 'EmissaoPathNFe', False);
+      ckSalvaCCeCancelamentoPathEvento.Checked := ReadBool(sSecaoArquivos, 'SalvarCCeCanPathEvento', False);
+      ckSepararPorCNPJ.Checked                 := ReadBool(sSecaoArquivos, 'SepararPorCNPJ'        , False);
+      ckSepararPorModelo.Checked               := ReadBool(sSecaoArquivos, 'SepararPorModelo'      , False);
+      edPathNFe.Text    := ReadString(sSecaoArquivos, 'PathNFe'   , ACBrNFe.Configuracoes.Arquivos.PathNFe) ;
+      edPathCan.Text    := ReadString(sSecaoArquivos, 'PathCan'   , ACBrNFe.Configuracoes.Arquivos.PathCan) ;
+      edPathInu.Text    := ReadString(sSecaoArquivos, 'PathInu'   , ACBrNFe.Configuracoes.Arquivos.PathInu) ;
+      edPathDPEC.Text   := ReadString(sSecaoArquivos, 'PathDPEC'  , ACBrNFe.Configuracoes.Arquivos.PathDPEC) ;
+      edPathCCe.Text    := ReadString(sSecaoArquivos, 'PathCCe'   , ACBrNFe.Configuracoes.Arquivos.PathCCe) ;
+      edPathEvento.Text := ReadString(sSecaoArquivos, 'PathEvento', ACBrNFe.Configuracoes.Arquivos.PathEvento) ;
 
       with ACBrNFe.Configuracoes.Arquivos do
       begin
@@ -4795,6 +4799,8 @@ var
   aEcfTipo   : TEcfTipo;
   aEcfConfig : TEcfConfiguracao;
   aEcf : TEcfFactory;
+const
+  PESO_LINHA = 2;
 begin
   LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
 
@@ -4822,6 +4828,10 @@ begin
   aEcfConfig.InscEstadual   := qryEmitenteIE.AsString;
   aEcfConfig.ID             := FormatFloat('###0000000', iNumVenda);
   aEcfConfig.ImprimirGliche := True;
+  aEcfConfig.NumeroLinhas   := (qryDadosProduto.RecordCount * PESO_LINHA) +  IfThen(iCodigoCliente = CONSUMIDOR_FINAL_CODIGO, 30, 37);
+
+  aEcfConfig.FonteImpressao.Nome    := GetCupomNaoFiscalFonteNome;
+  aEcfConfig.FonteImpressao.Tamanho := GetCupomNaoFiscalFonteTamanho;
 
   aEcf := TEcfFactory.CriarEcf(aEcfTipo, aEcfConfig);
   try
@@ -6455,6 +6465,8 @@ var
   aEcfTipo   : TEcfTipo;
   aEcfConfig : TEcfConfiguracao;
   aEcf : TEcfFactory;
+const
+  PESO_LINHA = 2;
 begin
   LerConfiguracao(sEmpresa, tipoDANFE_ESCPOS);
 
@@ -6480,6 +6492,10 @@ begin
   aEcfConfig.InscEstadual   := qryEmitenteIE.AsString;
   aEcfConfig.ID             := FormatFloat('###0000000', iNumCaixa);
   aEcfConfig.ImprimirGliche := True;
+  aEcfConfig.NumeroLinhas   := (qryVendasCaixaDetalhe.RecordCount * PESO_LINHA) +  37;
+
+  aEcfConfig.FonteImpressao.Nome    := GetCupomNaoFiscalFonteNome;
+  aEcfConfig.FonteImpressao.Tamanho := GetCupomNaoFiscalFonteTamanho;
 
   aEcfConfig.ArquivoLogo   := Trim(ConfigACBr.edtLogoMarca.Text);
   aEcfConfig.ArquivoQRCode := EmptyStr;
@@ -6514,7 +6530,7 @@ begin
 
       Ecf.SubTotalVenda( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('totalvenda_bruta').AsCurrency) + ' +', True );
       Ecf.Desconto     ( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('total_desconto').AsCurrency)   + ' -');
-      Ecf.TotalVenda   ( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('totalvenda').AsCurrency)       );
+      Ecf.TotalVenda   ( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('totalvenda').AsCurrency)       + ' .');
 
       Ecf.Linha;
       Ecf.Titulo_Livre('DETALHES DAS VENDAS');
@@ -6539,7 +6555,7 @@ begin
 
       Ecf.SubTotalVenda( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('totalvenda_bruta').AsCurrency) + ' +', True );
       Ecf.Desconto     ( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('total_desconto').AsCurrency)   + ' -');
-      Ecf.TotalVenda   ( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('totalvenda').AsCurrency)       );
+      Ecf.TotalVenda   ( FormatFloat(',0.00',  qryVendasCaixaSoma.FieldByName('totalvenda').AsCurrency)       + ' .');
 
       Ecf.Texto_Livre('.');
       Ecf.Texto_Livre('.');

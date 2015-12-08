@@ -3,6 +3,8 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
   Top = 215
   Caption = 'Tabela de Formas de Pagamento'
   OldCreateOrder = True
+  ExplicitWidth = 751
+  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
@@ -58,6 +60,10 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 153
         ExplicitTop = 153
@@ -425,7 +431,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     Left = 560
     Top = 200
     Bitmap = {
-      494C01012B002C00180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

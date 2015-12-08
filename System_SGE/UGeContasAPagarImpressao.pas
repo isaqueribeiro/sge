@@ -1279,8 +1279,10 @@ begin
       SQL.Add('');
       SQL.Add('group by');
       SQL.Add('    extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
-      SQL.Add('  , cp.dtvenc');
       SQL.Add('  , cv.cmp_desc');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , cp.competencia_apuracao');
+      SQL.Add('  , ca.cmp_desc');
       SQL.Add('  , cp.situacao');
       SQL.Add('  , cp.codforn');
       SQL.Add('  , fn.nomeforn');

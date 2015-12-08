@@ -7,6 +7,8 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
   ClientHeight = 359
   ClientWidth = 551
   OldCreateOrder = True
+  ExplicitWidth = 565
+  ExplicitHeight = 396
   DesignSize = (
     551
     359)
@@ -227,7 +229,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       Top = 80
       Width = 401
       Height = 21
-      DataField = 'BANCO'
+      DataField = 'BANCO_FEBRABAN'
       DataSource = dtsPagamentos
       DropDownRows = 10
       Font.Charset = DEFAULT_CHARSET
@@ -235,9 +237,9 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = []
-      KeyField = 'BCO_COD'
-      ListField = 'BCO_NOME'
-      ListSource = dtsBanco
+      KeyField = 'COD'
+      ListField = 'NOME'
+      ListSource = cdsBancoFebraban
       ParentFont = False
       TabOrder = 5
       OnEnter = ControlEditEnter
@@ -572,6 +574,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       '  , p.Valor_baixa'
       '  , p.Numero_cheque'
       '  , p.Banco'
+      '  , p.Banco_febraban'
       '  , b.Bco_nome'
       '  , p.Documento_baixa'
       '  , p.Usuario'
@@ -649,6 +652,11 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       FieldName = 'BANCO'
       Origin = 'TBCONTPAG_BAIXA.BANCO'
     end
+    object cdsPagamentosBANCO_FEBRABAN: TIBStringField
+      FieldName = 'BANCO_FEBRABAN'
+      Origin = '"TBCONTPAG_BAIXA"."BANCO_FEBRABAN"'
+      Size = 10
+    end
     object cdsPagamentosBCO_NOME: TIBStringField
       DisplayLabel = 'Banco'
       FieldName = 'BCO_NOME'
@@ -685,6 +693,7 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       '  VALOR_BAIXA,'
       '  NUMERO_CHEQUE,'
       '  BANCO,'
+      '  BANCO_FEBRABAN,'
       '  DOCUMENTO_BAIXA,'
       '  USUARIO'
       'from TBCONTPAG_BAIXA '
@@ -696,16 +705,17 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       'update TBCONTPAG_BAIXA'
       'set'
       '  ANOLANC = :ANOLANC,'
+      '  BANCO = :BANCO,'
+      '  BANCO_FEBRABAN = :BANCO_FEBRABAN,'
+      '  DATA_PAGTO = :DATA_PAGTO,'
+      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
+      '  FORMA_PAGTO = :FORMA_PAGTO,'
+      '  HISTORICO = :HISTORICO,'
+      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
       '  NUMLANC = :NUMLANC,'
       '  SEQ = :SEQ,'
-      '  HISTORICO = :HISTORICO,'
-      '  DATA_PAGTO = :DATA_PAGTO,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  VALOR_BAIXA = :VALOR_BAIXA,'
-      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
-      '  BANCO = :BANCO,'
-      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
-      '  USUARIO = :USUARIO'
+      '  USUARIO = :USUARIO,'
+      '  VALOR_BAIXA = :VALOR_BAIXA'
       'where'
       '  ANOLANC = :OLD_ANOLANC and'
       '  NUMLANC = :OLD_NUMLANC and'
@@ -713,14 +723,16 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     InsertSQL.Strings = (
       'insert into TBCONTPAG_BAIXA'
       
-        '  (ANOLANC, NUMLANC, SEQ, HISTORICO, DATA_PAGTO, FORMA_PAGTO, VA' +
-        'LOR_BAIXA, '
-      '   NUMERO_CHEQUE, BANCO, DOCUMENTO_BAIXA, USUARIO)'
+        '  (ANOLANC, BANCO, BANCO_FEBRABAN, DATA_PAGTO, DOCUMENTO_BAIXA, ' +
+        'FORMA_PAGTO, '
+      '   HISTORICO, NUMERO_CHEQUE, NUMLANC, SEQ, USUARIO, VALOR_BAIXA)'
       'values'
       
-        '  (:ANOLANC, :NUMLANC, :SEQ, :HISTORICO, :DATA_PAGTO, :FORMA_PAG' +
-        'TO, :VALOR_BAIXA, '
-      '   :NUMERO_CHEQUE, :BANCO, :DOCUMENTO_BAIXA, :USUARIO)')
+        '  (:ANOLANC, :BANCO, :BANCO_FEBRABAN, :DATA_PAGTO, :DOCUMENTO_BA' +
+        'IXA, :FORMA_PAGTO, '
+      
+        '   :HISTORICO, :NUMERO_CHEQUE, :NUMLANC, :SEQ, :USUARIO, :VALOR_' +
+        'BAIXA)')
     DeleteSQL.Strings = (
       'delete from TBCONTPAG_BAIXA'
       'where'
@@ -772,5 +784,20 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     OnTimer = tmrAlertaTimer
     Left = 72
     Top = 245
+  end
+  object tblBancoFebraban: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    TableName = 'TBBANCO'
+    UniDirectional = False
+    Left = 464
+    Top = 16
+  end
+  object cdsBancoFebraban: TDataSource
+    DataSet = tblBancoFebraban
+    Left = 496
+    Top = 16
   end
 end

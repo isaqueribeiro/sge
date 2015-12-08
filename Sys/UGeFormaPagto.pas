@@ -13,7 +13,8 @@ uses
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  dxSkinWhiteprint, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver;
 
 type
   TfrmGeFormaPagto = class(TfrmGrPadraoCadastro)
@@ -168,6 +169,11 @@ begin
   if (gSistema.Codigo = SISTEMA_PDV) then
     WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
       '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
+
+  dbFormaPagtoPDV.Visible          := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]);
+  dbFormaPagtoPDVRelatorio.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]);
+  if not dbFormaPagtoPDV.Visible then
+    GrpBxDadosNominais.Height := 97;
 
   dbDecrementarLimite.Enabled := (GetUserFunctionID in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_ADM, FUNCTION_USER_ID_GERENTE_VND,
     FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SYSTEM_ADM]);

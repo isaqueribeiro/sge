@@ -352,7 +352,7 @@ begin
   if (edGrupo.Items.Count = 0) then
     edAno.Items.Add( FormatDateTime('yyyy', GetDateDB) );
 
-  edAno.ItemIndex := 0;
+  edAno.ItemIndex := edAno.Items.IndexOf( FormatDateTime('yyyy', GetDateDB) );
 end;
 
 initialization
