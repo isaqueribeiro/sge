@@ -513,7 +513,6 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       
         '  left join VW_TIPO_DOCUMENTO_ENTRADA d on (d.tpd_codigo = e.tip' +
         'o_documento)')
-    ParamData = <>
   end
   inherited DtsPesquisa: TDataSource
     DataSet = CdsPesquisa
@@ -716,6 +715,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       '  , f.Descri as Forma_pagto_desc'
       '  , p.Valor_baixa'
       '  , p.Numero_cheque'
+      '  , p.Empresa'
       '  , p.Banco'
       '  , b.Bco_nome'
       '  , p.Documento_baixa'
@@ -786,6 +786,11 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       Origin = 'TBCONTPAG_BAIXA.NUMERO_CHEQUE'
       Size = 10
     end
+    object cdsPagamentosEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBCONTPAG_BAIXA"."EMPRESA"'
+      Size = 18
+    end
     object cdsPagamentosBANCO: TSmallintField
       FieldName = 'BANCO'
       Origin = 'TBCONTPAG_BAIXA.BANCO'
@@ -819,7 +824,9 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       '  FORMA_PAGTO,'
       '  VALOR_BAIXA,'
       '  NUMERO_CHEQUE,'
+      '  EMPRESA,'
       '  BANCO,'
+      '  BANCO_FEBRABAN,'
       '  DOCUMENTO_BAIXA,'
       '  USUARIO'
       'from TBCONTPAG_BAIXA '
@@ -831,16 +838,17 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       'update TBCONTPAG_BAIXA'
       'set'
       '  ANOLANC = :ANOLANC,'
+      '  BANCO = :BANCO,'
+      '  DATA_PAGTO = :DATA_PAGTO,'
+      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
+      '  EMPRESA = :EMPRESA,'
+      '  FORMA_PAGTO = :FORMA_PAGTO,'
+      '  HISTORICO = :HISTORICO,'
+      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
       '  NUMLANC = :NUMLANC,'
       '  SEQ = :SEQ,'
-      '  HISTORICO = :HISTORICO,'
-      '  DATA_PAGTO = :DATA_PAGTO,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  VALOR_BAIXA = :VALOR_BAIXA,'
-      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
-      '  BANCO = :BANCO,'
-      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
-      '  USUARIO = :USUARIO'
+      '  USUARIO = :USUARIO,'
+      '  VALOR_BAIXA = :VALOR_BAIXA'
       'where'
       '  ANOLANC = :OLD_ANOLANC and'
       '  NUMLANC = :OLD_NUMLANC and'
@@ -848,14 +856,16 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     InsertSQL.Strings = (
       'insert into TBCONTPAG_BAIXA'
       
-        '  (ANOLANC, NUMLANC, SEQ, HISTORICO, DATA_PAGTO, FORMA_PAGTO, VA' +
-        'LOR_BAIXA, '
-      '   NUMERO_CHEQUE, BANCO, DOCUMENTO_BAIXA, USUARIO)'
+        '  (ANOLANC, BANCO, DATA_PAGTO, DOCUMENTO_BAIXA, EMPRESA, FORMA_P' +
+        'AGTO, HISTORICO, '
+      '   NUMERO_CHEQUE, NUMLANC, SEQ, USUARIO, VALOR_BAIXA)'
       'values'
       
-        '  (:ANOLANC, :NUMLANC, :SEQ, :HISTORICO, :DATA_PAGTO, :FORMA_PAG' +
-        'TO, :VALOR_BAIXA, '
-      '   :NUMERO_CHEQUE, :BANCO, :DOCUMENTO_BAIXA, :USUARIO)')
+        '  (:ANOLANC, :BANCO, :DATA_PAGTO, :DOCUMENTO_BAIXA, :EMPRESA, :F' +
+        'ORMA_PAGTO, '
+      
+        '   :HISTORICO, :NUMERO_CHEQUE, :NUMLANC, :SEQ, :USUARIO, :VALOR_' +
+        'BAIXA)')
     DeleteSQL.Strings = (
       'delete from TBCONTPAG_BAIXA'
       'where'

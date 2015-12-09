@@ -328,6 +328,7 @@ type
 
     function ReciboNaoExisteNaVenda(const sRecibo : String) : Boolean;
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
+    function ValidarCFOP(const aCNPJEmitente : String; const aCodigoCliente, aCodigoFornecedor, aCFOP : Integer) : Boolean;
     function GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
     function GetInformacaoFisco : String;
     function GetValidadeCertificado(const sCNPJEmitente : String; const Informe : Boolean = FALSE) : Boolean;
@@ -457,6 +458,11 @@ uses
   pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, ACBrDFeUtil, IniFiles;
 
 {$R *.dfm}
+
+(*
+  IMR - 08/12/2015 :
+    Implementação da função "ValidarCFOP()".
+*)
 
 procedure CorrigirXML_NFe (aString : WideString; sFileNameXML : String);
 var
@@ -1316,6 +1322,62 @@ begin
     end;
 end;
 
+function TDMNFe.ValidarCFOP(const aCNPJEmitente : String; const aCodigoCliente, aCodigoFornecedor, aCFOP : Integer) : Boolean;
+var
+  sCFOP       ,
+  sUFOrigem   ,
+  sUFDestino  ,
+  sPaisOrigem ,
+  sPaisDestino,
+  sMensagem   : String;
+begin
+  sMensagem := EmptyStr;
+  sCFOP     := IntToStr(aCFOP);
+
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select uf, pais_id from TBEMPRESA where cnpj = ' + QuotedStr(aCNPJEmitente));
+    Open;
+
+    sUFOrigem   := Trim(FieldByName('uf').AsString);
+    sPaisOrigem := Trim(FieldByName('pais_id').AsString);
+
+    Close;
+    SQL.Clear;
+    if ( aCodigoCliente > 0 ) then
+      SQL.Add('Select uf, pais_id from TBCLIENTE where codigo = ' + IntToStr(aCodigoCliente))
+    else
+    if ( aCodigoFornecedor > 0 ) then
+      SQL.Add('Select uf, pais_id from TBFORNECEDOR where codforn = ' + IntToStr(aCodigoFornecedor));
+    Open;
+
+    sUFDestino   := Trim(FieldByName('uf').AsString);
+    sPaisDestino := Trim(FieldByName('pais_id').AsString);
+
+    if ( sPaisOrigem = sPaisDestino ) then
+    begin
+      if (sUFOrigem = sUFDestino) then
+        if not (sCFOP[1] in ['1', '5']) then
+          sMensagem := Format('(1) CFOP inválida para movimentação de mercadorias dentro do próprio Estado [%s, %s, %s].', [sUFOrigem, sUFDestino, sCFOP]);
+
+      if (sUFOrigem <> sUFDestino) then
+        if not (sCFOP[1] in ['2', '6']) then
+          sMensagem := Format('(2) CFOP inválida para movimentação de mercadorias entre Estados diferentes [%s, %s, %s].', [sUFOrigem, sUFDestino, sCFOP]);
+    end
+    else
+    if not (sCFOP[1] in ['3', '7']) then
+      sMensagem := Format('(3) CFOP inválida para movimentação de mercadorias para fora do País [%s, %s, %s].', [sPaisOrigem, sPaisDestino, sCFOP]);
+
+    Close;
+  end;
+
+  Result := (Trim(sMensagem) = EmptyStr);
+  if not Result then
+    ShowStop(sMensagem);
+end;
+
 function TDMNFe.GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
 begin
   if Trim(sCNPJEmitente) = EmptyStr then
@@ -1801,6 +1863,10 @@ var
   vTotalTributoAprox     : Currency;
 begin
 (*
+  IMR - 08/12/2015 :
+    Alteração nas regras de operação da tag "idDest" para a emissão de Notas Fiscais
+    para fora do Estado.
+
   IMR - 20/09/2014 :
     Inseção de nova TAG na Nota Fiscal referente a IE do destinatário para informa se este é Isento, Contribuinte ou Não-contribuinte de acordo
     com as regras estabelecidas pela SEFA para a versão 3.10 da NF-e.
@@ -1836,7 +1902,20 @@ begin
     begin
       Ide.cNF       := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
       Ide.natOp     := qryCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
-      Ide.idDest    := TpcnDestinoOperacao( IfThen(Trim(qryEmitenteEST_SIGLA.AsString) = Trim(qryDestinatario.FieldByName('EST_SIGLA').AsString), 0, 1) );
+
+      // Entradas ou saídas dentro do Estado
+      if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
+        Ide.idDest := doInterna
+      else
+      // Entradas ou saídas em Estados diferentes
+      if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['2', '6'] ) then
+        Ide.idDest := doInterestadual
+      else
+      // Entradas ou saídas do Exterior
+      if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['3', '7'] ) then
+        Ide.idDest := doExterior
+      else
+        Ide.idDest := doInterna;
 
       if ( qryCalculoImposto.FieldByName('VENDA_PRAZO').AsInteger = 0 ) then
         Ide.indPag  := ipVista
@@ -3116,6 +3195,10 @@ var
   vTotalTributoAprox     : Currency;
 begin
 (*
+  IMR - 08/12/2015 :
+    Alteração nas regras de operação da tag "idDest" para a emissão de Notas Fiscais
+    para fora do Estado.
+
   IMR - 20/09/2014 :
     Inseção de nova TAG na Nota Fiscal referente a IE do destinatário para informa se este é Isento, Contribuinte ou Não-contribuinte de acordo
     com as regras estabelecidas pela SEFA para a versão 3.10 da NF-e.
@@ -3149,9 +3232,22 @@ begin
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
-      Ide.cNF       := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
-      Ide.natOp     := qryEntradaCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
-      Ide.idDest    := TpcnDestinoOperacao( IfThen(Trim(qryEmitenteEST_SIGLA.AsString) = Trim(qryFornecedorDestinatario.FieldByName('EST_SIGLA').AsString), 0, 1) );
+      Ide.cNF   := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
+      Ide.natOp := qryEntradaCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
+
+      // Entradas ou saídas dentro do Estado
+      if ( qryEntradaCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
+        Ide.idDest := doInterna
+      else
+      // Entradas ou saídas em Estados diferentes
+      if ( qryEntradaCalculoImposto.FieldByName('CFOP').AsString[1] in ['2', '6'] ) then
+        Ide.idDest := doInterestadual
+      else
+      // Entradas ou saídas do Exterior
+      if ( qryEntradaCalculoImposto.FieldByName('CFOP').AsString[1] in ['3', '7'] ) then
+        Ide.idDest := doExterior
+      else
+        Ide.idDest := doInterna;
 
       if ( qryEntradaCalculoImposto.FieldByName('COMPRA_PRAZO').AsInteger = 0 ) then
         Ide.indPag  := ipVista
@@ -5235,6 +5331,10 @@ var
   vTotalTributoAprox     : Currency;
 begin
 (*
+  IMR - 08/12/2015 :
+    Alteração nas regras de operação da tag "idDest" para a emissão de Notas Fiscais
+    para fora do Estado.
+
   IMR - 28/11/2014 :
     Construção do procedimento para se gerar NFC-e.
 *)
@@ -5262,9 +5362,22 @@ begin
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
-      Ide.cNF       := iNumeroNFCe;
-      Ide.natOp     := 'VENDA'; // Da CFOP 5101 // qryCalculoImportoCFOP_DESCRICAO.AsString;
-      Ide.idDest    := TpcnDestinoOperacao( IfThen(Trim(qryEmitenteEST_SIGLA.AsString) = Trim(qryDestinatario.FieldByName('EST_SIGLA').AsString), 0, 1) );
+      Ide.cNF   := iNumeroNFCe;
+      Ide.natOp := 'VENDA'; // Da CFOP 5101 // qryCalculoImportoCFOP_DESCRICAO.AsString;
+
+      // Entradas ou saídas dentro do Estado
+      if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
+        Ide.idDest := doInterna
+      else
+      // Entradas ou saídas em Estados diferentes
+      if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['2', '6'] ) then
+        Ide.idDest := doInterestadual
+      else
+      // Entradas ou saídas do Exterior
+      if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['3', '7'] ) then
+        Ide.idDest := doExterior
+      else
+        Ide.idDest := doInterna;
 
       if ( qryCalculoImposto.FieldByName('VENDA_PRAZO').AsInteger = 0 ) then
         Ide.indPag  := ipVista

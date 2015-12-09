@@ -185,7 +185,7 @@ type
     IbDtstTabelaCENTRO_CUSTO: TIntegerField;
     IbDtstTabelaDESCRICAO_CENTRO_CUSTO: TIBStringField;
     btnFinalizarRequisicao: TcxButton;
-    btnRequisitarCompra: TcxButton;
+    btnRequisitarReabrir: TcxButton;
     btnCancelarRequisicao: TcxButton;
     dbFornecedor: TJvDBComboEdit;
     dbCliente: TJvDBComboEdit;
@@ -195,6 +195,10 @@ type
     dbDataValidade: TJvDBDateEdit;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
+    ppRequisicao: TPopupMenu;
+    ppmRequisitarCompra: TMenuItem;
+    ppmReabrirRequisicao: TMenuItem;
+    IbDtstTabelaAUTORIZACOES: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -208,7 +212,6 @@ type
     procedure btnProdutoExcluirClick(Sender: TObject);
     procedure btnProdutoSalvarClick(Sender: TObject);
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
-    procedure btnRequisitarCompraClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaItensStateChange(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
@@ -236,6 +239,8 @@ type
     procedure dbClienteButtonClick(Sender: TObject);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure dbCentroCustoButtonClick(Sender: TObject);
+    procedure ppmRequisitarCompraClick(Sender: TObject);
+    procedure ppmReabrirRequisicaoClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -251,6 +256,7 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaRequisitarID : String;
     function GetRotinaCancelarRequisicaoID : String;
+    function GetRotinaReabrirRequisicaoID : String;
 
     procedure RegistrarNovaRotinaSistema;
   public
@@ -258,6 +264,7 @@ type
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
     property RotinaRequisitarID : String read GetRotinaRequisitarID;
     property RotinaCancelarRequisicaoID : String read GetRotinaCancelarRequisicaoID;
+    property RotinaReabrirRequisicaoID : String read GetRotinaReabrirRequisicaoID;
   end;
 
 var
@@ -315,7 +322,7 @@ begin
   try
     frm.btbtnIncluir.Visible           := False;
     frm.btnFinalizarRequisicao.Visible := False;
-    frm.btnRequisitarCompra.Visible    := False;
+    frm.btnRequisitarReabrir.Visible   := False;
     frm.btnCancelarRequisicao.Visible  := False;
 
     frm.RdgStatusRequisicao.ItemIndex := STATUS_REQUISICAO_REQ + 1;
@@ -485,7 +492,9 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btnFinalizarRequisicao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_EDC) and (not cdsTabelaItens.IsEmpty);
-    btnRequisitarCompra.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnRequisitarReabrir.Enabled   := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ABR, STATUS_REQUISICAO_REQ]);
+    ppmRequisitarCompra.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    ppmReabrirRequisicao.Enabled   := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_REQ);
     btnCancelarRequisicao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_REQ);
 
     nmImprimirRequisicao.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_REQ) or (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_FAT);
@@ -493,7 +502,9 @@ begin
   else
   begin
     btnFinalizarRequisicao.Enabled := False;
-    btnRequisitarCompra.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnRequisitarReabrir.Enabled   := False;
+    ppmRequisitarCompra.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    ppmReabrirRequisicao.Enabled   := False;
     btnCancelarRequisicao.Enabled  := False;
 
     nmImprimirRequisicao.Enabled   := (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_REQ) or (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_FAT);
@@ -782,8 +793,98 @@ begin
   cdsTabelaItensUNP_SIGLA.Clear;
 end;
 
-procedure TfrmGeRequisicaoCompra.btnRequisitarCompraClick(
+procedure TfrmGeRequisicaoCompra.DtSrcTabelaStateChange(Sender: TObject);
+begin
+  inherited;
+  pgcMaisDados.ActivePageIndex   := 0;
+  PgcTextoRequisicao.ActivePage := TbsRequisicaoMotivo;
+
+  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_REQUISICAO_REQ );
+  DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+end;
+
+procedure TfrmGeRequisicaoCompra.DtSrcTabelaItensStateChange(
   Sender: TObject);
+begin
+  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
+  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
+  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
+  btnProdutoSalvar.Enabled  := ( cdsTabelaItens.State in [dsEdit, dsInsert] );
+
+  dbgProdutos.Enabled       := not (cdsTabelaItens.State in [dsEdit, dsInsert]);
+
+  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+    if ( dbProduto.Visible and dbProduto.Enabled ) then
+      dbProduto.SetFocus;
+end;
+
+procedure TfrmGeRequisicaoCompra.pgcGuiasChange(Sender: TObject);
+begin
+  inherited;
+  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+
+  pgcMaisDados.ActivePage := tbsFormaPagto;
+  HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeRequisicaoCompra.ppmReabrirRequisicaoClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+  RecarregarRegistro;
+
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaAUTORIZACOES.AsInteger > 0) then
+  begin
+    ShowWarning('A Requisição possui autorizações de compra/serviço gerada!' + #13 + 'Favor excluir o registro de autorização para que a requisição possa ser reaberta.');
+    Abort;
+  end;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ABR) then
+  begin
+    ShowWarning('A Requisição já está aberta!');
+    Abort;
+  end
+  else
+  if (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_FAT, STATUS_REQUISICAO_CAN]) then
+  begin
+    ShowWarning('Apenas registros "Requisitados" podem ser reabertos!');
+    Abort;
+  end;
+
+  AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
+
+  if ( ShowConfirm('Confirma a reabertura do registro selecionado?') ) then
+    try
+      IbDtstTabela.Edit;
+
+      IbDtstTabelaSTATUS.Value := STATUS_AUTORIZACAO_ABR;
+      IbDtstTabelaREQUISITADO_DATA.Clear;
+      IbDtstTabelaREQUISITADO_USUARIO.Clear;
+      PgcTextoRequisicao.ActivePage := TbsRequisicaoMotivo;
+      dbObservacao.Lines.Add(Format('Requisição reaberta para correção por %s em %s.',
+        [gUsuarioLogado.Login, FormatDateTime('dd/mm/yyyy "às" hh:mm', GetDateTimeDB)]));
+
+      IbDtstTabela.Post;
+      IbDtstTabela.ApplyUpdates;
+
+      CommitTransaction;
+
+      ShowInformation('Requisição reaberta com sucesso !');
+
+      HabilitarDesabilitar_Btns;
+
+      RdgStatusRequisicao.ItemIndex := 0;
+    finally
+    end;
+end;
+
+procedure TfrmGeRequisicaoCompra.ppmRequisitarCompraClick(Sender: TObject);
 var
   cTotalBruto   ,
   cTotalIPI     ,
@@ -848,40 +949,6 @@ begin
 
     RdgStatusRequisicao.ItemIndex := 0;
   end;
-end;
-
-procedure TfrmGeRequisicaoCompra.DtSrcTabelaStateChange(Sender: TObject);
-begin
-  inherited;
-  pgcMaisDados.ActivePageIndex   := 0;
-  PgcTextoRequisicao.ActivePage := TbsRequisicaoMotivo;
-
-  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_REQUISICAO_REQ );
-  DtSrcTabelaItensStateChange( DtSrcTabelaItens );
-end;
-
-procedure TfrmGeRequisicaoCompra.DtSrcTabelaItensStateChange(
-  Sender: TObject);
-begin
-  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
-  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoSalvar.Enabled  := ( cdsTabelaItens.State in [dsEdit, dsInsert] );
-
-  dbgProdutos.Enabled       := not (cdsTabelaItens.State in [dsEdit, dsInsert]);
-
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-    if ( dbProduto.Visible and dbProduto.Enabled ) then
-      dbProduto.SetFocus;
-end;
-
-procedure TfrmGeRequisicaoCompra.pgcGuiasChange(Sender: TObject);
-begin
-  inherited;
-  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-
-  pgcMaisDados.ActivePage := tbsFormaPagto;
-  HabilitarDesabilitar_Btns;
 end;
 
 procedure TfrmGeRequisicaoCompra.btnFiltrarClick(Sender: TObject);
@@ -1391,9 +1458,14 @@ begin
     end;
 end;
 
+function TfrmGeRequisicaoCompra.GetRotinaReabrirRequisicaoID: String;
+begin
+  Result := GetRotinaInternaID(ppmReabrirRequisicao);
+end;
+
 function TfrmGeRequisicaoCompra.GetRotinaRequisitarID: String;
 begin
-  Result := GetRotinaInternaID(btnRequisitarCompra);
+  Result := GetRotinaInternaID(ppmRequisitarCompra);
 end;
 
 function TfrmGeRequisicaoCompra.GetRotinaCancelarRequisicaoID: String;
@@ -1413,11 +1485,14 @@ begin
     if btnFinalizarRequisicao.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFinalizarID, btnFinalizarRequisicao.Caption, RotinaID);
 
-    if btnRequisitarCompra.Visible then
-      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaRequisitarID, btnRequisitarCompra.Caption, RotinaID);
+    if ppmRequisitarCompra.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaRequisitarID, ppmRequisitarCompra.Caption, RotinaID);
 
     if btnCancelarRequisicao.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarRequisicaoID, btnCancelarRequisicao.Caption, RotinaID);
+
+    if ppmReabrirRequisicao.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaReabrirRequisicaoID, ppmReabrirRequisicao.Caption, RotinaID);
   end;
 end;
 

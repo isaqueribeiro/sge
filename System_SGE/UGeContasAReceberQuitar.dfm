@@ -514,7 +514,6 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
         '  left join TBVENDAS e on (e.ano = r.anovenda and e.codcontrol =' +
         ' r.numvenda)'
       '')
-    ParamData = <>
   end
   inherited DtsPesquisa: TDataSource
     DataSet = CdsPesquisa
@@ -714,6 +713,7 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       '  , f.Descri as Forma_pagto_desc'
       '  , r.Valor_baixa'
       '  , r.Numero_cheque'
+      '  , r.Empresa'
       '  , r.Banco'
       '  , b.Bco_nome'
       '  , r.Documento_baixa'
@@ -784,6 +784,11 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       Origin = 'TBCONTPAG_BAIXA.NUMERO_CHEQUE'
       Size = 10
     end
+    object cdsRecebimentosEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBCONTREC_BAIXA"."EMPRESA"'
+      Size = 18
+    end
     object cdsRecebimentosBANCO: TSmallintField
       FieldName = 'BANCO'
       Origin = 'TBCONTPAG_BAIXA.BANCO'
@@ -817,7 +822,9 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       '  FORMA_PAGTO,'
       '  VALOR_BAIXA,'
       '  NUMERO_CHEQUE,'
+      '  EMPRESA,'
       '  BANCO,'
+      '  BANCO_FEBRABAN,'
       '  DOCUMENTO_BAIXA,'
       '  USUARIO'
       'from TBCONTREC_BAIXA '
@@ -832,6 +839,7 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       '  BANCO = :BANCO,'
       '  DATA_PAGTO = :DATA_PAGTO,'
       '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
+      '  EMPRESA = :EMPRESA,'
       '  FORMA_PAGTO = :FORMA_PAGTO,'
       '  HISTORICO = :HISTORICO,'
       '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
@@ -846,14 +854,16 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
     InsertSQL.Strings = (
       'insert into TBCONTREC_BAIXA'
       
-        '  (ANOLANC, BANCO, DATA_PAGTO, DOCUMENTO_BAIXA, FORMA_PAGTO, HIS' +
-        'TORICO, '
+        '  (ANOLANC, BANCO, DATA_PAGTO, DOCUMENTO_BAIXA, EMPRESA, FORMA_P' +
+        'AGTO, HISTORICO, '
       '   NUMERO_CHEQUE, NUMLANC, SEQ, USUARIO, VALOR_BAIXA)'
       'values'
       
-        '  (:ANOLANC, :BANCO, :DATA_PAGTO, :DOCUMENTO_BAIXA, :FORMA_PAGTO' +
-        ', :HISTORICO, '
-      '   :NUMERO_CHEQUE, :NUMLANC, :SEQ, :USUARIO, :VALOR_BAIXA)')
+        '  (:ANOLANC, :BANCO, :DATA_PAGTO, :DOCUMENTO_BAIXA, :EMPRESA, :F' +
+        'ORMA_PAGTO, '
+      
+        '   :HISTORICO, :NUMERO_CHEQUE, :NUMLANC, :SEQ, :USUARIO, :VALOR_' +
+        'BAIXA)')
     DeleteSQL.Strings = (
       'delete from TBCONTREC_BAIXA'
       'where'

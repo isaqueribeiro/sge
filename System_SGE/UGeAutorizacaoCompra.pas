@@ -239,6 +239,7 @@ type
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure dbCentroCustoButtonClick(Sender: TObject);
     procedure ppmAutorizarCompraClick(Sender: TObject);
+    procedure ppmReabrirAutorizacaoClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -948,6 +949,57 @@ begin
 
     RdgStatusAutorizacao.ItemIndex := 0;
   end;
+end;
+
+procedure TfrmGeAutorizacaoCompra.ppmReabrirAutorizacaoClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+  RecarregarRegistro;
+
+  pgcGuias.ActivePage := tbsCadastro;
+
+  if (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_ABR) then
+  begin
+    ShowWarning('A Autorização já está aberta!');
+    Abort;
+  end
+  else
+  if (IbDtstTabelaSTATUS.AsInteger in [STATUS_AUTORIZACAO_FAT, STATUS_AUTORIZACAO_CAN]) then
+  begin
+    ShowWarning('Apenas registros "Autorizados" podem ser reabertos!');
+    Abort;
+  end;
+
+  AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
+
+  if ( ShowConfirm('Confirma a reabertura do registro selecionado?') ) then
+    try
+      IbDtstTabela.Edit;
+
+      IbDtstTabelaSTATUS.Value := STATUS_AUTORIZACAO_ABR;
+      IbDtstTabelaAUTORIZADO_DATA.Clear;
+      IbDtstTabelaAUTORIZADO_USUARIO.Clear;
+      PgcTextoAutorizacao.ActivePage := TbsAutorizacaoMotivo;
+      dbObservacao.Lines.Add(Format('Autorização reaberta para correção por %s em %s.',
+        [gUsuarioLogado.Login, FormatDateTime('dd/mm/yyyy "às" hh:mm', GetDateTimeDB)]));
+
+      IbDtstTabela.Post;
+      IbDtstTabela.ApplyUpdates;
+
+      CommitTransaction;
+
+      ShowInformation('Autorização reaberta com sucesso !');
+
+      HabilitarDesabilitar_Btns;
+
+      RdgStatusAutorizacao.ItemIndex := 0;
+    finally
+    end;
 end;
 
 procedure TfrmGeAutorizacaoCompra.btnFiltrarClick(Sender: TObject);

@@ -79,6 +79,7 @@ type
     CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TWideStringField;
     CdsPesquisaSELECIONAR: TIntegerField;
     CdsPesquisaSAIDA_DOC_TIPO: TWideStringField;
+    cdsRecebimentosEMPRESA: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -282,6 +283,7 @@ begin
 
         cdsRecebimentosANOLANC.Value     := CdsPesquisaANOLANC.Value;
         cdsRecebimentosNUMLANC.Value     := CdsPesquisaNUMLANC.Value;
+        cdsRecebimentosEMPRESA.Value     := CdsPesquisaEMPRESA.Value;
         cdsRecebimentosSEQ.Value         := GetNextID('TBCONTREC_BAIXA', 'SEQ', 'where anolanc = ' + CdsPesquisaANOLANC.AsString + ' and numlanc = ' + CdsPesquisaNUMLANC.AsString);
         cdsRecebimentosDATA_PAGTO.Value  := cdsRecebimentoLOTEDataPagto.Value;
         cdsRecebimentosUSUARIO.Value     := GetUserApp;

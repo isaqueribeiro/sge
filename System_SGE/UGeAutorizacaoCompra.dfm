@@ -3,7 +3,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
   Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
-  ExplicitTop = -57
+  ExplicitTop = -126
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -2853,7 +2853,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4785,6 +4785,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
       Caption = 'Reabrir Autoriza'#231#227'o'
+      OnClick = ppmReabrirAutorizacaoClick
     end
   end
 end

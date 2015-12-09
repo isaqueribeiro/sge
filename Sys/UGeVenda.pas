@@ -1854,6 +1854,9 @@ var
   bNFeGerada    : Boolean;
 begin
 (*
+  IMR - 08/12/2015 :
+    Inserção da validação do código CFOP antes da geração da Nota Fiscal.
+
   IMR - 20/04/2015 :
     Inclusão do bloco de código para verificar se o CFOP da venda corresponde
     a uma operação de devolução. Caso esta situação seja confirmada, a NF-e de
@@ -1886,6 +1889,9 @@ begin
     ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.');
     Exit;
   end;
+
+  if not DMNFe.ValidarCFOP(IbDtstTabelaCODEMP.AsString, IbDtstTabelaCODCLIENTE.AsInteger, 0, IbDtstTabelaCFOP.AsInteger) then
+    Exit;
 
   if ( not DelphiIsRunning ) then
     if not DMNFe.GetValidadeCertificado(IbDtstTabelaCODEMP.AsString) then
