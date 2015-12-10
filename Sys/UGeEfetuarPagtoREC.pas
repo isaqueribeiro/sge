@@ -15,7 +15,7 @@ uses
   dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  dxSkinWhiteprint, IBX.IBQuery;
 
 type
   TfrmGeEfetuarPagtoREC = class(TfrmGrPadrao)
@@ -68,9 +68,9 @@ type
     btnCancelar: TcxButton;
     dbDataPagto: TJvDBDateEdit;
     cdsPagamentosEMPRESA: TIBStringField;
-    tblBancoFebraban: TIBTable;
-    cdsBancoFebraban: TDataSource;
+    dtsBancoFebraban: TDataSource;
     cdsPagamentosBANCO_FEBRABAN: TIBStringField;
+    qryBancoFebraban: TIBQuery;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -215,8 +215,8 @@ procedure TfrmGeEfetuarPagtoREC.FormCreate(Sender: TObject);
 begin
   inherited;
   tblBanco.Open;
-  tblBancoFebraban.Open;
   tblFormaPagto.Open;
+  qryBancoFebraban.Open;
   CxContaCorrente := 0;
 end;
 

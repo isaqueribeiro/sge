@@ -1483,6 +1483,11 @@ begin
           // Por CPF/CNPJ
           1:
             Add( 'where cl.cnpj like ' + QuotedStr('%' + Trim(edtFiltrar.Text) + '%') );
+
+          // Por Cidade
+          2:
+              Add( 'where ((upper(cl.Cidade) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                   '     or upper(cl.Cidade) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
         end;
 
       end;

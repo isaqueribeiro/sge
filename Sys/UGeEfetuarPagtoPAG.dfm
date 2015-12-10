@@ -238,8 +238,8 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       KeyField = 'COD'
-      ListField = 'NOME'
-      ListSource = cdsBancoFebraban
+      ListField = 'BANCO_NOME'
+      ListSource = dtsBancoFebraban
       ParentFont = False
       TabOrder = 5
       OnEnter = ControlEditEnter
@@ -785,18 +785,28 @@ inherited frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG
     Left = 72
     Top = 245
   end
-  object tblBancoFebraban: TIBTable
+  object qryBancoFebraban: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
     CachedUpdates = False
-    TableName = 'TBBANCO'
-    UniDirectional = False
+    ParamCheck = True
+    SQL.Strings = (
+      'Select'
+      '    b.cod'
+      '  , b.nome'
+      '  , b.nome_resumido'
+      
+        '  , b.cod || '#39' - '#39' || coalesce(nullif(trim(b.nome_resumido), '#39#39')' +
+        ', b.nome) as banco_nome'
+      'from TBBANCO b'
+      'order by'
+      '    b.cod')
     Left = 464
     Top = 16
   end
-  object cdsBancoFebraban: TDataSource
-    DataSet = tblBancoFebraban
+  object dtsBancoFebraban: TDataSource
+    DataSet = qryBancoFebraban
     Left = 496
     Top = 16
   end

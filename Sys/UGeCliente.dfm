@@ -137,7 +137,8 @@ inherited frmGeCliente: TfrmGeCliente
             Text = 'por C'#243'digo / Raz'#227'o'
             Items.Strings = (
               'por C'#243'digo / Raz'#227'o'
-              'por CPF / CNPJ')
+              'por CPF / CNPJ'
+              'por Cidade')
           end
         end
         object GrpBxBloqueio: TGroupBox
@@ -1291,16 +1292,12 @@ inherited frmGeCliente: TfrmGeCliente
             OnEnter = dbgContaCorrenteEnter
             OnExit = dbgContaCorrenteExit
             DataController.DataSource = DtSrcTabela
-            ExplicitLeft = 307
-            ExplicitTop = 91
-            ExplicitWidth = 318
-            ExplicitHeight = 104
             Version = 1
             object dbCtgrConta1: TcxCategoryRow
               Options.Focusing = False
               Options.Moving = False
               Properties.Caption = 'Poupan'#231'a / Conta Corrente (1)'
-              ID = 1
+              ID = 0
               ParentID = -1
               Index = 0
               Version = 1
@@ -1317,7 +1314,7 @@ inherited frmGeCliente: TfrmGeCliente
               Properties.EditProperties.ListOptions.ShowHeader = False
               Properties.EditProperties.ListSource = dtsBancoFebraban
               Properties.DataBinding.FieldName = 'BANCO'
-              ID = 2
+              ID = 1
               ParentID = -1
               Index = 1
               Version = 1
@@ -1326,7 +1323,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'Ag'#234'ncia'
               Properties.DataBinding.FieldName = 'AGENCIA'
-              ID = 3
+              ID = 2
               ParentID = -1
               Index = 2
               Version = 1
@@ -1335,7 +1332,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'N'#250'mero da Conta'
               Properties.DataBinding.FieldName = 'CC'
-              ID = 4
+              ID = 3
               ParentID = -1
               Index = 3
               Version = 1
@@ -1343,7 +1340,7 @@ inherited frmGeCliente: TfrmGeCliente
             object dbPracaCobranca1: TcxDBEditorRow
               Options.Moving = False
               Properties.DataBinding.FieldName = 'PRACA'
-              ID = 5
+              ID = 4
               ParentID = -1
               Index = 4
               Version = 1
@@ -1352,7 +1349,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Focusing = False
               Options.Moving = False
               Properties.Caption = 'Poupan'#231'a / Conta Corrente (2)'
-              ID = 6
+              ID = 5
               ParentID = -1
               Index = 5
               Version = 1
@@ -1369,7 +1366,7 @@ inherited frmGeCliente: TfrmGeCliente
               Properties.EditProperties.ListOptions.ShowHeader = False
               Properties.EditProperties.ListSource = dtsBancoFebraban
               Properties.DataBinding.FieldName = 'BANCO_2'
-              ID = 7
+              ID = 6
               ParentID = -1
               Index = 6
               Version = 1
@@ -1378,7 +1375,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'Ag'#234'ncia'
               Properties.DataBinding.FieldName = 'AGENCIA_2'
-              ID = 8
+              ID = 7
               ParentID = -1
               Index = 7
               Version = 1
@@ -1387,7 +1384,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'N'#250'mero da Conta'
               Properties.DataBinding.FieldName = 'CC_2'
-              ID = 9
+              ID = 8
               ParentID = -1
               Index = 8
               Version = 1
@@ -1396,7 +1393,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'Pra'#231'a de Cobran'#231'a'
               Properties.DataBinding.FieldName = 'PRACA_2'
-              ID = 10
+              ID = 9
               ParentID = -1
               Index = 9
               Version = 1
@@ -1405,7 +1402,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Focusing = False
               Options.Moving = False
               Properties.Caption = 'Poupan'#231'a / Conta Corrente (3)'
-              ID = 11
+              ID = 10
               ParentID = -1
               Index = 10
               Version = 1
@@ -1422,7 +1419,7 @@ inherited frmGeCliente: TfrmGeCliente
               Properties.EditProperties.ListOptions.ShowHeader = False
               Properties.EditProperties.ListSource = dtsBancoFebraban
               Properties.DataBinding.FieldName = 'BANCO_3'
-              ID = 12
+              ID = 11
               ParentID = -1
               Index = 11
               Version = 1
@@ -1431,7 +1428,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'Ag'#234'ncia'
               Properties.DataBinding.FieldName = 'AGENCIA_3'
-              ID = 13
+              ID = 12
               ParentID = -1
               Index = 12
               Version = 1
@@ -1440,7 +1437,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'N'#250'mero da Conta'
               Properties.DataBinding.FieldName = 'CC_3'
-              ID = 14
+              ID = 13
               ParentID = -1
               Index = 13
               Version = 1
@@ -1449,7 +1446,7 @@ inherited frmGeCliente: TfrmGeCliente
               Options.Moving = False
               Properties.Caption = 'Pra'#231'a de Cobran'#231'a'
               Properties.DataBinding.FieldName = 'PRACA_3'
-              ID = 15
+              ID = 14
               ParentID = -1
               Index = 14
               Version = 1
@@ -3425,7 +3422,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
