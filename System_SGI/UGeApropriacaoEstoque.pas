@@ -1579,7 +1579,8 @@ begin
         cdsTabelaItensRESERVA.Assign            ( FieldByName('RESERVA') );
         cdsTabelaItensMOVIMENTA_ESTOQUE.Assign  ( FieldByName('MOVIMENTA_ESTOQUE') );
 
-        cdsTabelaItensCUSTO_TOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
+        cdsTabelaItensQTDE_FRACIONADA.AsCurrency := FieldByName('quantidade').AsCurrency * FieldByName('fracionador').AsCurrency;
+        cdsTabelaItensCUSTO_TOTAL.AsCurrency     := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
 
         cdsTabelaItens.Post;
 
@@ -1683,7 +1684,8 @@ begin
         cdsTabelaItensRESERVA.Assign            ( FieldByName('RESERVA') );
         cdsTabelaItensMOVIMENTA_ESTOQUE.Assign  ( FieldByName('MOVIMENTA_ESTOQUE') );
 
-        cdsTabelaItensCUSTO_TOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
+        cdsTabelaItensQTDE_FRACIONADA.AsCurrency := FieldByName('quantidade').AsCurrency * FieldByName('fracionador').AsCurrency;
+        cdsTabelaItensCUSTO_TOTAL.AsCurrency     := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO_UNITARIO.AsCurrency;
 
         cdsTabelaItens.Post;
 

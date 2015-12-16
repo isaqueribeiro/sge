@@ -8284,3 +8284,57 @@ ALTER TABLE TBCONTREC_BAIXA DROP CONSTRAINT FK_TBCONTREC_BAIXA_BCO_EMP;
 CREATE INDEX IDX_TBCONTREC_BAIXA_BCO_EMP
 ON TBCONTREC_BAIXA (BANCO,EMPRESA);
 
+
+
+
+/*------ SYSDBA 15/12/2015 15:48:59 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_apropriacao_almox_item_qtde for tbapropriacao_almox_item
+active before insert or update position 1
+AS
+begin
+  if ( (coalesce(new.qtde_fracionada, 0.0) = 0.0) or (coalesce(new.qtde_fracionada, 0.0) = 1.0)  ) then
+    if ( coalesce(new.qtde, 0.0) > 0.0 ) then
+      new.qtde_fracionada = coalesce(new.qtde, 0.0) * coalesce(new.fracionador, 1);
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 15/12/2015 15:49:18 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_apropriacao_almox_item_qtde for tbapropriacao_almox_item
+active before insert or update position 1
+AS
+begin
+  if ( (coalesce(new.qtde_fracionada, 0.0) = 0.0) or (coalesce(new.qtde_fracionada, 0.0) = 1.0)  ) then
+    if ( coalesce(new.qtde, 0.0) > 0.0 ) then
+      new.qtde_fracionada = coalesce(new.qtde, 0.0) * coalesce(new.fracionador, 1.0);
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 15/12/2015 15:53:13 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_apropriacao_almox_item_qtde for tbapropriacao_almox_item
+active before insert or update position 1
+AS
+begin
+  if ( (coalesce(new.qtde_fracionada, 0.0) = 0.0) or (coalesce(new.qtde_fracionada, 0.0) = 1.0)  ) then
+    if ( coalesce(new.qtde, 0.0) > 0.0 ) then
+      new.qtde_fracionada = coalesce(new.qtde, 0.0) * coalesce(new.fracionador, 1.0);
+end^
+
+SET TERM ; ^
+
