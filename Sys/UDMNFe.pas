@@ -426,9 +426,10 @@ const
   DIRECTORY_PRINT  = 'NFe\Imprimir\';
   DIRECTORY_CLIENT = 'NFe\Clientes\';
 
-  PROCESSO_NFE_AUTORIZADA   = 100;
-  PROCESSO_NFE_LOTE_PROCES  = 103; // Processo: Lote recebido com Sucesso
-  PROCESSO_NFE_USO_DENEGADO = 110; // Processo: Uso denegado
+  PROCESSO_NFE_AUTORIZADA     = 100;
+  PROCESSO_NFE_LOTE_PROCES    = 103; // Processo: Lote recebido com Sucesso
+  PROCESSO_NFE_LOTE_REJEITADO = 104; // Processo: Lote processado, mas rejeitado
+  PROCESSO_NFE_USO_DENEGADO   = 110; // Processo: Uso denegado
 
   REJEICAO_NFE_DUPLICIDADE = 204;
 
@@ -444,6 +445,7 @@ const
   REJEICAO_NFE_TO_PROD_ERR = 564; // Rejeição: Total do Produto / Serviço difere do somatório dos itens
   REJEICAO_NFE_MODELO_DIF  = 450; // Rejeição: Modelo da NF-e diferente de 55
   REJEICAO_NFCE_MODELO_DIF = 775; // Rejeição: Modelo da NFC-e diferente de 65
+  REJEICAO_NFE_NAO_CATALOG = 999; // Rejeição: Erro não catalogado (Possível falha na SEFA)
 
   PULAR_LINHA_FINAL = 3;
 
@@ -1506,6 +1508,15 @@ begin
 
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NF-e novamente!';
+            end;
+
+          REJEICAO_NFE_NAO_CATALOG:
+            begin
+              // Remover Lote da Venda
+              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
@@ -5304,6 +5315,15 @@ begin
 
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NFC-e novamente!';
+            end;
+
+          REJEICAO_NFE_NAO_CATALOG:
+            begin
+              // Remover Lote da Venda
+              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
