@@ -18888,3 +18888,512 @@ Historico:
     07/01/2015 - IMR :
         * Documentacao da tabela';
 
+
+
+
+/*------ SYSDBA 07/01/2016 20:02:33 --------*/
+
+ALTER TABLE TBTPRECEITA
+ADD CONSTRAINT UNQ_TBTPRECEITA
+UNIQUE (TIPOREC);
+
+
+
+
+/*------ SYSDBA 07/01/2016 20:10:24 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_TITULO_RECEBER (
+    ANOVENDA smallint,
+    NUMVENDA integer,
+    EMPRESA varchar(18),
+    CLIENTE_COD integer,
+    CLIENTE_CNPJ varchar(18),
+    FORMA_PAGTO smallint,
+    EMISSAO date,
+    VENCIMENTO date,
+    VALOR_DOCUMENTO numeric(15,2),
+    PARCELA smallint)
+returns (
+    ANOLANCAMENTO smallint,
+    NUMLANCAMENTO integer)
+as
+declare variable FORMA_PAGTO_DESC varchar(30);
+declare variable COMPETENCIA integer;
+declare variable tipo_receita Smallint;
+begin
+  if ( Exists(
+    Select
+      r.Numlanc
+    from TBCONTREC r
+    where r.Anovenda = :Anovenda
+      and r.Numvenda = :Numvenda
+      and r.forma_pagto = :forma_pagto
+      and r.Parcela     = :Parcela
+  ) ) then
+    Exit;
+
+  Select
+    f.Descri
+  from TBFORMPAGTO f
+  where f.Cod = :Forma_pagto
+  into
+    Forma_pagto_desc;
+
+  -- Buscar e inserir Tipo de Receita padrao para Vendas
+
+  Select first 1
+    tr.cod
+  from TBTPRECEITA tr
+  where tr.tiporec = 'VENDAS DE MATERIAIS/PRODUTOS'
+  Into
+    tipo_receita;
+
+  if ( :tipo_receita is null ) then
+  begin
+    Select
+      max(tr.cod)
+    from TBTPRECEITA tr
+    Into
+      tipo_receita;
+
+    tipo_receita = coalesce(:tipo_receita, 0) + 1;
+
+    Insert Into TBTPRECEITA (
+        cod
+      , tiporec
+      , tipo_particular
+      , plano_conta
+      , ativo
+    ) values (
+        :tipo_receita
+      , 'VENDAS DE MATERIAIS/PRODUTOS'
+      , 0
+      , null
+      , 1
+    );
+  end
+
+  Anolancamento = :Anovenda;
+
+  if ( :Anolancamento = 2011 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2011, 1);
+  else
+  if ( :Anolancamento = 2012 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2012, 1);
+  else
+  if ( :Anolancamento = 2013 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2013, 1);
+  else
+  if ( :Anolancamento = 2014 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2014, 1);
+  else
+  if ( :Anolancamento = 2015 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2015, 1);
+  else
+  if ( :Anolancamento = 2016 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2016, 1);
+  else
+  if ( :Anolancamento = 2017 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2017, 1);
+  else
+  if ( :Anolancamento = 2018 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2018, 1);
+  else
+  if ( :Anolancamento = 2019 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2019, 1);
+  else
+  if ( :Anolancamento = 2020 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2020, 1);
+
+  --competencia = extract(year from :Vencimento - 30) || right('00' || extract(month from :Vencimento - 30), 2);
+  competencia = extract(year from :emissao) || right('00' || extract(month from :emissao), 2);
+
+  Insert Into TBCONTREC (
+      Anolanc
+    , numlanc
+    , Anovenda
+    , Numvenda
+    , Empresa
+    , Cliente
+    , Cnpj
+    , Tippag
+    , CodTpRec
+    , Forma_pagto
+    , Dtemiss
+    , Dtvenc
+    , competencia_apuracao
+    , Valorrec
+    , Parcela
+    , Percentjuros
+    , Percentmulta
+    , Percentdesconto
+    , Baixado
+    , Enviado
+    , Situacao
+  ) values (
+      :Anolancamento
+    , :Numlancamento
+    , :Anovenda
+    , :Numvenda
+    , :Empresa
+    , :cliente_cod
+    , :cliente_cnpj
+    , :Forma_pagto_desc
+    , :tipo_receita
+    , :Forma_pagto
+    , :Emissao
+    , :Vencimento
+    , :competencia
+    , :Valor_documento
+    , :Parcela
+    , 0
+    , 0
+    , 0
+    , 0
+    , 0
+    , 1
+  );
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 07/01/2016 20:15:13 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_TITULO_RECEBER (
+    ANOVENDA smallint,
+    NUMVENDA integer,
+    EMPRESA varchar(18),
+    CLIENTE_COD integer,
+    CLIENTE_CNPJ varchar(18),
+    FORMA_PAGTO smallint,
+    EMISSAO date,
+    VENCIMENTO date,
+    VALOR_DOCUMENTO numeric(15,2),
+    PARCELA smallint)
+returns (
+    ANOLANCAMENTO smallint,
+    NUMLANCAMENTO integer)
+as
+declare variable FORMA_PAGTO_DESC varchar(30);
+declare variable COMPETENCIA integer;
+declare variable tipo_receita Smallint;
+begin
+  if ( Exists(
+    Select
+      r.Numlanc
+    from TBCONTREC r
+    where r.Anovenda = :Anovenda
+      and r.Numvenda = :Numvenda
+      and r.forma_pagto = :forma_pagto
+      and r.Parcela     = :Parcela
+  ) ) then
+    Exit;
+
+  Select
+    f.Descri
+  from TBFORMPAGTO f
+  where f.Cod = :Forma_pagto
+  into
+    Forma_pagto_desc;
+
+  tipo_receita = null;
+
+  -- Buscar e inserir Tipo de Receita padrao para Vendas
+  if ( coalesce(:anovenda, 0) > 0 and coalesce(:numvenda, 0) > 0 ) then
+  begin
+    Select first 1
+      tr.cod
+    from TBTPRECEITA tr
+    where tr.tiporec = 'VENDAS DE MATERIAIS/PRODUTOS'
+    Into
+      tipo_receita;
+    
+    if ( :tipo_receita is null ) then
+    begin
+      Select
+        max(tr.cod)
+      from TBTPRECEITA tr
+      Into
+        tipo_receita;
+    
+      tipo_receita = coalesce(:tipo_receita, 0) + 1;
+    
+      Insert Into TBTPRECEITA (
+          cod
+        , tiporec
+        , tipo_particular
+        , plano_conta
+        , ativo
+      ) values (
+          :tipo_receita
+        , 'VENDAS DE MATERIAIS/PRODUTOS'
+        , 0
+        , null
+        , 1
+      );
+    end
+  end
+
+  Anolancamento = :Anovenda;
+
+  if ( :Anolancamento = 2011 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2011, 1);
+  else
+  if ( :Anolancamento = 2012 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2012, 1);
+  else
+  if ( :Anolancamento = 2013 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2013, 1);
+  else
+  if ( :Anolancamento = 2014 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2014, 1);
+  else
+  if ( :Anolancamento = 2015 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2015, 1);
+  else
+  if ( :Anolancamento = 2016 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2016, 1);
+  else
+  if ( :Anolancamento = 2017 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2017, 1);
+  else
+  if ( :Anolancamento = 2018 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2018, 1);
+  else
+  if ( :Anolancamento = 2019 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2019, 1);
+  else
+  if ( :Anolancamento = 2020 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2020, 1);
+
+  --competencia = extract(year from :Vencimento - 30) || right('00' || extract(month from :Vencimento - 30), 2);
+  competencia = extract(year from :emissao) || right('00' || extract(month from :emissao), 2);
+
+  Insert Into TBCONTREC (
+      Anolanc
+    , numlanc
+    , Anovenda
+    , Numvenda
+    , Empresa
+    , Cliente
+    , Cnpj
+    , Tippag
+    , CodTpRec
+    , Forma_pagto
+    , Dtemiss
+    , Dtvenc
+    , competencia_apuracao
+    , Valorrec
+    , Parcela
+    , Percentjuros
+    , Percentmulta
+    , Percentdesconto
+    , Baixado
+    , Enviado
+    , Situacao
+  ) values (
+      :Anolancamento
+    , :Numlancamento
+    , :Anovenda
+    , :Numvenda
+    , :Empresa
+    , :cliente_cod
+    , :cliente_cnpj
+    , :Forma_pagto_desc
+    , :tipo_receita
+    , :Forma_pagto
+    , :Emissao
+    , :Vencimento
+    , :competencia
+    , :Valor_documento
+    , :Parcela
+    , 0
+    , 0
+    , 0
+    , 0
+    , 0
+    , 1
+  );
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 07/01/2016 20:15:39 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_TITULO_RECEBER (
+    ANOVENDA smallint,
+    NUMVENDA integer,
+    EMPRESA varchar(18),
+    CLIENTE_COD integer,
+    CLIENTE_CNPJ varchar(18),
+    FORMA_PAGTO smallint,
+    EMISSAO date,
+    VENCIMENTO date,
+    VALOR_DOCUMENTO numeric(15,2),
+    PARCELA smallint)
+returns (
+    ANOLANCAMENTO smallint,
+    NUMLANCAMENTO integer)
+as
+declare variable FORMA_PAGTO_DESC varchar(30);
+declare variable COMPETENCIA integer;
+declare variable tipo_receita Smallint;
+begin
+  if ( Exists(
+    Select
+      r.Numlanc
+    from TBCONTREC r
+    where r.Anovenda = :Anovenda
+      and r.Numvenda = :Numvenda
+      and r.forma_pagto = :forma_pagto
+      and r.Parcela     = :Parcela
+  ) ) then
+    Exit;
+
+  Select
+    f.Descri
+  from TBFORMPAGTO f
+  where f.Cod = :Forma_pagto
+  into
+    Forma_pagto_desc;
+
+  tipo_receita = null;
+
+  -- Buscar e inserir Tipo de Receita padrao para Vendas
+  if ( coalesce(:anovenda, 0) > 0 and coalesce(:numvenda, 0) > 0 ) then
+  begin
+    Select first 1
+      tr.cod
+    from TBTPRECEITA tr
+    where tr.tiporec = 'VENDA DE MATERIAIS/PRODUTOS'
+    Into
+      tipo_receita;
+    
+    if ( :tipo_receita is null ) then
+    begin
+      Select
+        max(tr.cod)
+      from TBTPRECEITA tr
+      Into
+        tipo_receita;
+    
+      tipo_receita = coalesce(:tipo_receita, 0) + 1;
+    
+      Insert Into TBTPRECEITA (
+          cod
+        , tiporec
+        , tipo_particular
+        , plano_conta
+        , ativo
+      ) values (
+          :tipo_receita
+        , 'VENDA DE MATERIAIS/PRODUTOS'
+        , 0
+        , null
+        , 1
+      );
+    end
+  end
+
+  Anolancamento = :Anovenda;
+
+  if ( :Anolancamento = 2011 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2011, 1);
+  else
+  if ( :Anolancamento = 2012 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2012, 1);
+  else
+  if ( :Anolancamento = 2013 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2013, 1);
+  else
+  if ( :Anolancamento = 2014 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2014, 1);
+  else
+  if ( :Anolancamento = 2015 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2015, 1);
+  else
+  if ( :Anolancamento = 2016 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2016, 1);
+  else
+  if ( :Anolancamento = 2017 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2017, 1);
+  else
+  if ( :Anolancamento = 2018 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2018, 1);
+  else
+  if ( :Anolancamento = 2019 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2019, 1);
+  else
+  if ( :Anolancamento = 2020 ) then
+    Numlancamento = gen_id(Gen_contarec_num_2020, 1);
+
+  --competencia = extract(year from :Vencimento - 30) || right('00' || extract(month from :Vencimento - 30), 2);
+  competencia = extract(year from :emissao) || right('00' || extract(month from :emissao), 2);
+
+  Insert Into TBCONTREC (
+      Anolanc
+    , numlanc
+    , Anovenda
+    , Numvenda
+    , Empresa
+    , Cliente
+    , Cnpj
+    , Tippag
+    , CodTpRec
+    , Forma_pagto
+    , Dtemiss
+    , Dtvenc
+    , competencia_apuracao
+    , Valorrec
+    , Parcela
+    , Percentjuros
+    , Percentmulta
+    , Percentdesconto
+    , Baixado
+    , Enviado
+    , Situacao
+  ) values (
+      :Anolancamento
+    , :Numlancamento
+    , :Anovenda
+    , :Numvenda
+    , :Empresa
+    , :cliente_cod
+    , :cliente_cnpj
+    , :Forma_pagto_desc
+    , :tipo_receita
+    , :Forma_pagto
+    , :Emissao
+    , :Vencimento
+    , :competencia
+    , :Valor_documento
+    , :Parcela
+    , 0
+    , 0
+    , 0
+    , 0
+    , 0
+    , 1
+  );
+
+  suspend;
+end^
+
+SET TERM ; ^
+
