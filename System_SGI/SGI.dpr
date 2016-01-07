@@ -142,7 +142,8 @@ uses
   UGeContasAReceberLoteParcela in '..\Sys\UGeContasAReceberLoteParcela.pas' {frmGeContasAReceberLoteParcela},
   UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
-  UGeAutorizacaoCompraImpressao in '..\System_SGE\UGeAutorizacaoCompraImpressao.pas' {frmGeAutorizacaoCompraImpressao};
+  UGeAutorizacaoCompraImpressao in '..\System_SGE\UGeAutorizacaoCompraImpressao.pas' {frmGeAutorizacaoCompraImpressao},
+  UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita};
 
 {$R *.res}
 

@@ -4659,6 +4659,7 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
+      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -4722,7 +4723,6 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
-      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -5841,6 +5841,13 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       OnClick = nmPlanoContaClick
     end
+    object BrBtnTipoReceita: TdxBarLargeButton
+      Caption = 'Tipos de Receitas'
+      Category = 5
+      Hint = 'Tipos de Receitas'
+      Visible = ivAlways
+      OnClick = BrBtnTipoReceitaClick
+    end
     object BrBtnTipoDespesa: TdxBarLargeButton
       Caption = 'Tipos de Despesas'
       Category = 5
@@ -6620,6 +6627,10 @@ object frmPrinc: TfrmPrinc
         BeginGroup = True
         Visible = True
         ItemName = 'BrBtnPlanoConta'
+      end
+      item
+        Visible = True
+        ItemName = 'BrBtnTipoReceita'
       end
       item
         Visible = True

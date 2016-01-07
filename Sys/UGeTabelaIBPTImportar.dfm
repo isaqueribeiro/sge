@@ -415,6 +415,7 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
       '  , t.aliqinternacional_ibpt'
       '  , t.aliqestadual_ibpt'
       '  , t.aliqmunicipal_ibpt'
+      '  , t.ativo'
       'from SYS_IBPT t'
       'where t.ncm_ibpt = :ncm_ibpt'
       '  and t.ex_ibpt = :ex_ibpt'
@@ -487,6 +488,10 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
       Precision = 18
       Size = 2
     end
+    object qryTabelaIBPTATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = '"SYS_IBPT"."ATIVO"'
+    end
   end
   object updTabelaIBPT: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -499,7 +504,8 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
       '  ALIQNACIONAL_IBPT,'
       '  ALIQINTERNACIONAL_IBPT,'
       '  ALIQESTADUAL_IBPT,'
-      '  ALIQMUNICIPAL_IBPT'
+      '  ALIQMUNICIPAL_IBPT,'
+      '  ATIVO'
       'from SYS_IBPT '
       'where'
       '  ID_IBPT = :ID_IBPT')
@@ -510,6 +516,7 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
       '  ALIQINTERNACIONAL_IBPT = :ALIQINTERNACIONAL_IBPT,'
       '  ALIQMUNICIPAL_IBPT = :ALIQMUNICIPAL_IBPT,'
       '  ALIQNACIONAL_IBPT = :ALIQNACIONAL_IBPT,'
+      '  ATIVO = :ATIVO,'
       '  DESCRICAO_IBPT = :DESCRICAO_IBPT,'
       '  EX_IBPT = :EX_IBPT,'
       '  ID_IBPT = :ID_IBPT,'
@@ -522,12 +529,16 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
       
         '  (ALIQESTADUAL_IBPT, ALIQINTERNACIONAL_IBPT, ALIQMUNICIPAL_IBPT' +
         ', ALIQNACIONAL_IBPT, '
-      '   DESCRICAO_IBPT, EX_IBPT, ID_IBPT, NCM_IBPT, TABELA_IBPT)'
+      
+        '   ATIVO, DESCRICAO_IBPT, EX_IBPT, ID_IBPT, NCM_IBPT, TABELA_IBP' +
+        'T)'
       'values'
       
         '  (:ALIQESTADUAL_IBPT, :ALIQINTERNACIONAL_IBPT, :ALIQMUNICIPAL_I' +
         'BPT, :ALIQNACIONAL_IBPT, '
-      '   :DESCRICAO_IBPT, :EX_IBPT, :ID_IBPT, :NCM_IBPT, :TABELA_IBPT)')
+      
+        '   :ATIVO, :DESCRICAO_IBPT, :EX_IBPT, :ID_IBPT, :NCM_IBPT, :TABE' +
+        'LA_IBPT)')
     DeleteSQL.Strings = (
       'delete from SYS_IBPT'
       'where'

@@ -27,8 +27,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     ExplicitWidth = 1132
     ExplicitHeight = 608
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1124
       ExplicitHeight = 579
       inherited Bevel4: TBevel
@@ -739,6 +737,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1124
       ExplicitHeight = 579
       inherited Bevel8: TBevel
@@ -1045,19 +1045,20 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
+        ExplicitTop = 79
         DesignSize = (
           1124
           236)
         object lblHistorico: TLabel
-          Left = 336
-          Top = 144
+          Left = 16
+          Top = 184
           Width = 53
           Height = 13
           Caption = 'Hist'#243'rico:'
           FocusControl = dbHistorico
         end
         object lblValorMov: TLabel
-          Left = 664
+          Left = 513
           Top = 184
           Width = 60
           Height = 13
@@ -1145,17 +1146,25 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           FocusControl = dbEmpresa
         end
         object lblTipoDespesa: TLabel
-          Left = 16
+          Left = 344
           Top = 144
           Width = 95
           Height = 13
           Caption = 'Tipo de Despesa:'
           FocusControl = dbTipoDespesa
         end
+        object lblTipoReceita: TLabel
+          Left = 15
+          Top = 144
+          Width = 90
+          Height = 13
+          Caption = 'Tipo de Receita:'
+          FocusControl = dbTipoReceita
+        end
         object dbHistorico: TDBEdit
-          Left = 336
-          Top = 160
-          Width = 473
+          Left = 16
+          Top = 200
+          Width = 489
           Height = 21
           CharCase = ecUpperCase
           DataField = 'HISTORICO'
@@ -1166,10 +1175,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 9
         end
         object dbValorMov: TDBEdit
-          Left = 664
+          Left = 513
           Top = 200
           Width = 145
           Height = 21
@@ -1182,7 +1191,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 9
+          TabOrder = 10
         end
         object dbVenda: TDBEdit
           Left = 512
@@ -1263,7 +1272,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Height = 219
           Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Observa'#231#245'es:'
-          TabOrder = 10
+          TabOrder = 11
           TabStop = True
           object Bevel7: TBevel
             Left = 2
@@ -1334,7 +1343,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           TabOrder = 0
         end
         object dbTipoDespesa: TDBLookupComboBox
-          Left = 16
+          Left = 344
           Top = 160
           Width = 314
           Height = 21
@@ -1350,7 +1359,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           ListField = 'TIPODESP'
           ListSource = dtsTpDespesa
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 8
         end
         object dbCliente: TJvDBComboEdit
           Left = 16
@@ -1502,6 +1511,25 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           TabOrder = 4
           OnButtonClick = dbFornecedorButtonClick
         end
+        object dbTipoReceita: TDBLookupComboBox
+          Left = 15
+          Top = 160
+          Width = 323
+          Height = 21
+          DataField = 'TIPO_RECEITA'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'COD'
+          ListField = 'TIPOREC'
+          ListSource = dtsTpReceita
+          ParentFont = False
+          TabOrder = 7
+        end
       end
     end
   end
@@ -1542,6 +1570,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       '  , m.Forma_pagto'
       '  , m.Datahora'
       '  , m.Tipo'
+      '  , m.Tipo_receita'
       '  , m.Tipo_despesa'
       '  , m.Historico'
       '  , m.Valor'
@@ -1636,6 +1665,12 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       Origin = 'TBCAIXA_MOVIMENTO.TIPO'
       Required = True
       Size = 1
+    end
+    object IbDtstTabelaTIPO_RECEITA: TSmallintField
+      DisplayLabel = 'Tipo Receita'
+      FieldName = 'TIPO_RECEITA'
+      Origin = '"TBCAIXA_MOVIMENTO"."TIPO_RECEITA"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaTIPO_DESPESA: TSmallintField
       DisplayLabel = 'Tipo Despesa'
@@ -1802,6 +1837,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       '  FORMA_PAGTO,'
       '  DATAHORA,'
       '  TIPO,'
+      '  ESTORNO,'
+      '  TIPO_RECEITA,'
       '  TIPO_DESPESA,'
       '  HISTORICO,'
       '  VALOR,'
@@ -1843,6 +1880,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       '  SITUACAO = :SITUACAO,'
       '  TIPO = :TIPO,'
       '  TIPO_DESPESA = :TIPO_DESPESA,'
+      '  TIPO_RECEITA = :TIPO_RECEITA,'
       '  USUARIO = :USUARIO,'
       '  VALOR = :VALOR,'
       '  VENDA_ANO = :VENDA_ANO,'
@@ -1859,8 +1897,9 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         '   CONTA_CORRENTE, DATAHORA, EMPRESA, FORMA_PAGTO, FORNECEDOR, H' +
         'ISTORICO, '
       
-        '   NUMERO, SITUACAO, TIPO, TIPO_DESPESA, USUARIO, VALOR, VENDA_A' +
-        'NO, VENDA_NUM)'
+        '   NUMERO, SITUACAO, TIPO, TIPO_DESPESA, TIPO_RECEITA, USUARIO, ' +
+        'VALOR, '
+      '   VENDA_ANO, VENDA_NUM)'
       'values'
       
         '  (:ANO, :CAIXA_ANO, :CAIXA_NUM, :CLIENTE, :CLIENTE_COD, :COMPRA' +
@@ -1869,9 +1908,9 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         '   :CONTA_CORRENTE, :DATAHORA, :EMPRESA, :FORMA_PAGTO, :FORNECED' +
         'OR, :HISTORICO, '
       
-        '   :NUMERO, :SITUACAO, :TIPO, :TIPO_DESPESA, :USUARIO, :VALOR, :' +
-        'VENDA_ANO, '
-      '   :VENDA_NUM)')
+        '   :NUMERO, :SITUACAO, :TIPO, :TIPO_DESPESA, :TIPO_RECEITA, :USU' +
+        'ARIO, :VALOR, '
+      '   :VENDA_ANO, :VENDA_NUM)')
     DeleteSQL.Strings = (
       'delete from TBCAIXA_MOVIMENTO'
       'where'
@@ -1882,7 +1921,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited ImgList: TImageList
     Left = 832
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5678,5 +5717,38 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       FieldName = 'VALOR_BAIXA_EXTENSO'
       Size = 250
     end
+  end
+  object qryTipoReceita: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'Select *'
+      'from TBTPRECEITA t'
+      'where (t.ativo = :ativo) or (:todos = 1)'
+      'order by t.tiporec'
+      '')
+    Left = 824
+    Top = 344
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'ativo'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftInteger
+        Name = 'todos'
+        ParamType = ptInput
+        Value = 0
+      end>
+  end
+  object dtsTpReceita: TDataSource
+    DataSet = qryTipoReceita
+    Left = 856
+    Top = 344
   end
 end

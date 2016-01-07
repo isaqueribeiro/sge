@@ -146,11 +146,7 @@ object DMNFe: TDMNFe
         'acao'
       '  , coalesce(p.Modelo, '#39#39') as Modelo'
       '  , coalesce(p.Referencia, '#39#39') as Referencia'
-      
-        '  , coalesce(nullif(trim(p.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39') as ' +
-        'Ncm_sh'
-      '--  , coalesce(ib.ncm_aliquota_nac, 0.0) as Ncm_aliquota_nac'
-      '--  , coalesce(ib.ncm_aliquota_imp, 0.0) as Ncm_aliquota_imp'
+      '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
       '  , coalesce(ib.aliqnacional_ibpt, 0.0)      as Ncm_aliquota_nac'
       '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
       '  , coalesce(ib.aliqestadual_ibpt, 0.0)      as Ncm_aliquota_est'
@@ -224,9 +220,8 @@ object DMNFe: TDMNFe
       '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
       '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
       
-        '--  left join VW_TABELA_IBPT ib on (ib.ncm_sh = coalesce(nullif(' +
-        'trim(p.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39'))'
-      '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt)'
+        '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
+        'ivo = 1)'
       ''
       'where i.Ano = :anovenda'
       '  and i.Codcontrol = :numvenda'
@@ -3311,9 +3306,7 @@ object DMNFe: TDMNFe
         'acao'
       '  , p.Modelo'
       '  , p.Referencia'
-      '  , p.Ncm_sh'
-      '--  , ib.ncm_aliquota_nac as Ncm_aliquota_nac'
-      '--  , ib.ncm_aliquota_imp as Ncm_aliquota_imp'
+      '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
       '  , coalesce(ib.aliqnacional_ibpt,      0.0) as Ncm_aliquota_nac'
       '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
       '  , coalesce(ib.aliqestadual_ibpt,      0.0) as Ncm_aliquota_est'
@@ -3394,9 +3387,8 @@ object DMNFe: TDMNFe
       '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
       '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
       
-        '--  left join VW_TABELA_IBPT ib on (ib.ncm_sh = coalesce(nullif(' +
-        'trim(p.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39'))'
-      '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt)'
+        '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
+        'ivo = 1)'
       ''
       'where i.Ano = :anoCompra'
       '  and i.Codcontrol = :numCompra'

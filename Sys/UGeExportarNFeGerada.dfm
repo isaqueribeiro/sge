@@ -199,7 +199,7 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
     Width = 531
     Height = 52
     Align = alTop
-    Caption = 'Tipos de NF-e'
+    Caption = 'Tipos de NF-e Emitidas'
     Columns = 3
     ItemIndex = 0
     Items.Strings = (

@@ -333,6 +333,10 @@ type
     function GetInformacaoFisco : String;
     function GetValidadeCertificado(const sCNPJEmitente : String; const Informe : Boolean = FALSE) : Boolean;
 
+    function GetPathNFeXML(const sCNPJEmitente : String) : String;
+    function GetGerarChaveNFeXML(const sCNPJEmitente : String;
+      const pAno, pNumero : Integer; const tipoNF : TTipoNF) : String;
+
     function GerarNFeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
       var Denegada : Boolean; var DenegadaMotivo : String;
@@ -462,6 +466,10 @@ uses
 {$R *.dfm}
 
 (*
+  IMR - 07/01/2016 :
+    Inserção da condição " and ib.ativo = 1" para que apenas os códigos NCM ativos
+    na tabela seja carregados para a emissão de NF-e.
+
   IMR - 08/12/2015 :
     Implementação da função "ValidarCFOP()".
 *)
@@ -1405,6 +1413,84 @@ begin
   Result := IfThen(sTexto = EmptyStr, ConfigACBr.edInfoFisco.Text, sTexto );
 end;
 
+function TDMNFe.GetPathNFeXML(const sCNPJEmitente : String) : String;
+var
+  sPrefixoSecao,
+  sSecaoGeral  : String;
+begin
+  if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
+    sPrefixoSecao := Trim(sCNPJEmitente) + '_'
+  else
+    sPrefixoSecao := EmptyStr;
+
+  sSecaoGeral := sPrefixoSecao + INI_SECAO_GERAL;
+
+  with ConfigACBr, FileINI do
+    Result := ReadString(sSecaoGeral, 'PathSalvar', '') ;
+end;
+
+function TDMNFe.GetGerarChaveNFeXML(const sCNPJEmitente : String;
+  const pAno, pNumero : Integer; const tipoNF : TTipoNF) : String;
+var
+  Ok  : Boolean;
+  aTE ,
+  aUF : Integer;
+  aDataEmissao : TDateTime;
+  aSerie  ,
+  aNumero ,
+  aCodigo ,
+  aModelo : Integer;
+  sPrefixoSecao,
+  sSecaoGeral  : String;
+  sChave : AnsiString;
+begin
+  if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
+    sPrefixoSecao := Trim(sCNPJEmitente) + '_'
+  else
+    sPrefixoSecao := EmptyStr;
+
+  sSecaoGeral := sPrefixoSecao + INI_SECAO_GERAL;
+
+  with ConfigACBr, FileINI do
+    aTE := ReadInteger(sSecaoGeral, 'FormaEmissao', 0) ;
+
+  AbrirEmitente(sCNPJEmitente);
+
+  aTE     := aTE + 1;
+  aUF     := qryEmitente.FieldByName('Est_cod').AsInteger;
+  aSerie  := qryEmitente.FieldByName('SERIE_NFE').AsInteger;
+  aModelo := MODELO_NFE;
+
+  if ( tipoNF = tnfSaida ) then
+  begin
+    AbrirVenda(pAno, pNumero);
+    aNumero := qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
+    aCodigo := qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
+
+    if not qryCalculoImposto.FieldByName('DataEmissao').IsNull then
+      aDataEmissao := qryCalculoImposto.FieldByName('DataEmissao').AsDateTime
+    else
+      aDataEmissao := qryCalculoImposto.FieldByName('DtVenda').AsDateTime;
+  end
+  else
+  if ( tipoNF = tnfEntrada ) then
+  begin
+    AbrirCompra(pAno, pNumero);
+    aNumero := qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
+    aCodigo := qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
+
+    if not qryEntradaCalculoImposto.FieldByName('DataEmissao').IsNull then
+      aDataEmissao := qryEntradaCalculoImposto.FieldByName('DataEmissao').AsDateTime
+    else
+      aDataEmissao := qryEntradaCalculoImposto.FieldByName('DtEnt').AsDateTime;
+  end;
+
+  GerarChave(sChave, aUF, aNumero, aModelo, aSerie, aNumero, aTE, aDataEmissao, sCNPJEmitente);
+  sChave := StrOnlyNumbers(StringReplace(sChave, 'NFe', '', [rfReplaceAll]));
+
+  Result := sChave;
+end;
+
 function TDMNFe.GerarNFeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda: Integer;
   var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
   var Denegada : Boolean; var DenegadaMotivo : String;
@@ -1520,9 +1606,36 @@ begin
             end;
 
           else
+          begin
+
             sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
               ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
+
+            if Assigned(ACBrNFe.WebServices.Recibo) then                        // Se possuir recibo de envio
+            begin
+              if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno) then           // Se o recibo de envio possuir retorno
+              begin
+                if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe) then // Se o retorno prossuir protocolo de processamento
+                begin
+
+                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Count > 0 ) then
+                    Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat of
+                      PROCESSO_NFE_LOTE_REJEITADO :
+                        begin
+                          // Remover Lote da Venda
+                          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                            'Favor fazer as devidas coreções e gerar NF-e novamente!';
+                        end;
+                    end;
+
+                end;
+              end;
+            end;
+
+          end;
         end;
 
       ShowError('Erro ao tentar gerar NF-e.' +
@@ -2136,6 +2249,9 @@ begin
           Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.EXTIPI   := '';
           Prod.CFOP     := qryDadosProduto.FieldByName('CFOP_COD').AsString;
+
+          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // Código descontinuado a partir de 2016
+            Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
           if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEAN   := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
@@ -3031,6 +3147,38 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 'Favor gerar NF-e novamente!';
             end;
+          else
+          begin
+
+            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
+              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
+              'Favor entrar em contato com suporte e apresentar esta mensagem!';
+
+
+            if Assigned(ACBrNFe.WebServices.Recibo) then                        // Se possuir recibo de envio
+            begin
+              if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno) then           // Se o recibo de envio possuir retorno
+              begin
+                if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe) then // Se o retorno prossuir protocolo de processamento
+                begin
+
+                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Count > 0 ) then
+                    Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat of
+                      PROCESSO_NFE_LOTE_REJEITADO :
+                        begin
+                          // Remover Lote da Entrada
+                          GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
+
+                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                            'Favor fazer as devidas coreções e gerar NF-e novamente!';
+                        end;
+                    end;
+
+                end;
+              end;
+            end;
+
+          end;
         end;
 
       ShowError('Erro ao tentar gerar NF-e de Entrada.' +
@@ -3461,6 +3609,9 @@ begin
           Prod.NCM      := qryEntradaDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.EXTIPI   := '';
           Prod.CFOP     := qryEntradaDadosProduto.FieldByName('CFOP_COD').AsString;
+
+          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // Código descontinuado a partir de 2016
+            Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
           if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then  // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEAN   := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString
@@ -5327,9 +5478,34 @@ begin
             end;
 
           else
+          begin
+
             sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
               ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
+
+            if Assigned(ACBrNFe.WebServices.Recibo) then                        // Se possuir recibo de envio
+            begin
+              if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno) then           // Se o recibo de envio possuir retorno
+              begin
+                if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe) then // Se o retorno prossuir protocolo de processamento
+                begin
+                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Count > 0 ) then
+                    Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat of
+                      PROCESSO_NFE_LOTE_REJEITADO :
+                        begin
+                          // Remover Lote da Venda
+                          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+
+                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                            'Favor fazer as devidas coreções e gerar NF-e novamente!';
+                        end;
+                    end;
+                end;
+              end;
+            end;
+
+          end;
         end;
 
       ShowError('Erro ao tentar gerar NFC-e.' +
@@ -5559,6 +5735,9 @@ begin
           Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.EXTIPI   := EmptyStr;
           Prod.CFOP     := '5101'; // qryDadosProdutoCFOP_COD.AsString;
+
+          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // Código descontinuado a partir de 2016
+            Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
           if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
             Prod.cEAN   := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString

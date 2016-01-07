@@ -47,12 +47,17 @@ type
     btnImportar: TcxButton;
     IbDtstTabelaDESCRICAO: TStringField;
     Bevel5: TBevel;
+    IbDtstTabelaATIVO: TSmallintField;
+    dbAtivo: TDBCheckBox;
+    lblNCMDesativado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btnFiltrarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
     procedure btnImportarClick(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     FTipoTabela : TTipoTabelaIBPT;
@@ -73,6 +78,11 @@ uses
   UDMBusiness, UConstantesDGE, UGeTabelaIBPTImportar;
 
 {$R *.dfm}
+
+(*
+  IMR - 07/01/2016 :
+    Inserção do campo "ATIVO" no cadastro.
+*)
 
 function SelecionarCodigoIBPT(const AOwner : TComponent; const aTipoTabela : TTipoTabelaIBPT;
   var aIndice : Integer; var aCodigo : String; var aDescricao : String) : Boolean;
@@ -107,6 +117,17 @@ procedure TfrmGeTabelaIBPT.btnImportarClick(Sender: TObject);
 begin
   if ImportarTabelaIBPT(Self) then
     btnFiltrar.Click;
+end;
+
+procedure TfrmGeTabelaIBPT.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  // Destacar códigos NCM desativados
+  if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+    dbgDados.Canvas.Font.Color := lblNCMDesativado.Font.Color;
+
+  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
 end;
 
 procedure TfrmGeTabelaIBPT.DtSrcTabelaStateChange(Sender: TObject);
@@ -195,11 +216,12 @@ begin
 
   DisplayFormatCodigo := '0000000';
 
-  NomeTabela      := 'SYS_IBPT';
-  CampoCodigo     := 't.id_ibpt';
-  CampoDescricao  := 't.descricao_ibpt';
-  CampoOrdenacao  := 't.ex_ibpt, t.ncm_ibpt, t.descricao_ibpt';
-  AbrirTabelaAuto := True;
+  NomeTabela         := 'SYS_IBPT';
+  CampoCodigo        := 't.id_ibpt';
+  CampoDescricao     := 't.descricao_ibpt';
+  CampoOrdenacao     := 't.ex_ibpt, t.ncm_ibpt, t.descricao_ibpt';
+  CampoCadastroAtivo := 't.ativo';
+  AbrirTabelaAuto    := True;
 
   UpdateGenerator;
 
@@ -220,6 +242,7 @@ begin
   IbDtstTabelaALIQINTERNACIONAL_IBPT.Value := 0.0;
   IbDtstTabelaALIQESTADUAL_IBPT.Value      := 0.0;
   IbDtstTabelaALIQMUNICIPAL_IBPT.Value     := 0.0;
+  IbDtstTabelaATIVO.Value                  := 1;
   IbDtstTabelaTABELA_IBPT.Clear;
   IbDtstTabelaDESCRICAO_IBPT.Clear;
 end;

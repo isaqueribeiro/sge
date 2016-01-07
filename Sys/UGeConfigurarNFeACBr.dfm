@@ -475,10 +475,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsCertificado: TTabSheet
           BorderWidth = 4
           Caption = 'Certificado'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GroupBox2: TGroupBox
             Left = 0
             Top = 0
@@ -640,10 +636,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           BorderWidth = 4
           Caption = 'WebService'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxWebService: TGroupBox
             Left = 0
             Top = 0
@@ -899,10 +891,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsEmitente: TTabSheet
           Caption = 'Emitente'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lbltEmitCNPJ: TLabel
             Left = 8
             Top = 4

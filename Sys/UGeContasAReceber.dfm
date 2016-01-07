@@ -298,6 +298,8 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -695,6 +697,19 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Caption = 'Compet'#234'ncia de Apura'#231#227'o:'
           FocusControl = dbCompetenciaApuracao
         end
+        object lblTipoReceita: TLabel
+          Left = 455
+          Top = 24
+          Width = 90
+          Height = 13
+          Caption = 'Tipo de Receita:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object dbParcela: TDBEdit
           Left = 16
           Top = 40
@@ -723,7 +738,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
           OnExit = ControlEditExit
         end
         object dbFormaPagto: TDBLookupComboBox
@@ -743,7 +758,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           ListField = 'DESCRI'
           ListSource = dtsFormaPagto
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 6
           OnClick = dbFormaPagtoClick
         end
         object dbValorMulta: TDBEdit
@@ -759,7 +774,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 7
           OnExit = ControlEditExit
         end
         object dbTotalAReceber: TDBEdit
@@ -777,7 +792,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 8
+          TabOrder = 9
           OnExit = ControlEditExit
         end
         object dbPercDesconto: TDBEdit
@@ -793,7 +808,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 8
         end
         object dbEmissao: TJvDBDateEdit
           Left = 71
@@ -941,6 +956,25 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           ListSource = dtsCompetencia
           ParentFont = False
           TabOrder = 3
+        end
+        object dbTipoReceita: TDBLookupComboBox
+          Left = 455
+          Top = 40
+          Width = 357
+          Height = 21
+          DataField = 'CODTPREC'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'COD'
+          ListField = 'TIPOREC'
+          ListSource = dtsTpReceita
+          ParentFont = False
+          TabOrder = 4
         end
       end
       object pgcMaisDados: TPageControl
@@ -1442,6 +1476,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  , r.Cnpj'
       '  , r.Forma_pagto'
       '  , r.Tippag'
+      '  , r.Codtprec'
       '  , r.Historic'
       '  , r.Numrec'
       '  , r.Dtemiss'
@@ -1527,6 +1562,13 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       FieldName = 'TIPPAG'
       Origin = 'TBCONTREC.TIPPAG'
       Size = 35
+    end
+    object IbDtstTabelaCODTPREC: TSmallintField
+      DisplayLabel = 'Tipo de Receita'
+      FieldName = 'CODTPREC'
+      Origin = '"TBCONTREC"."CODTPREC"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object IbDtstTabelaHISTORIC: TMemoField
       DisplayLabel = 'Hist'#243'rico'
@@ -1742,6 +1784,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  PARCELA,'
       '  STATUS,'
       '  CODBANCO,'
+      '  BANCO_FEBRABAN,'
       '  NOSSONUMERO,'
       '  REMESSA,'
       '  PERCENTJUROS,'
@@ -1752,6 +1795,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  ENVIADO,'
       '  ANOVENDA,'
       '  NUMVENDA,'
+      '  CODTPREC,'
       '  SITUACAO,'
       '  LOTE,'
       '  COMPETENCIA_APURACAO'
@@ -1768,6 +1812,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  CLIENTE = :CLIENTE,'
       '  CNPJ = :CNPJ,'
       '  CODBANCO = :CODBANCO,'
+      '  CODTPREC = :CODTPREC,'
       '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
       '  DATAPROCESSOBOLETO = :DATAPROCESSOBOLETO,'
       '  DOCBAIX = :DOCBAIX,'
@@ -1800,8 +1845,8 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     InsertSQL.Strings = (
       'insert into TBCONTREC'
       
-        '  (ANOLANC, ANOVENDA, BAIXADO, CLIENTE, CNPJ, CODBANCO, COMPETEN' +
-        'CIA_APURACAO, '
+        '  (ANOLANC, ANOVENDA, BAIXADO, CLIENTE, CNPJ, CODBANCO, CODTPREC' +
+        ', COMPETENCIA_APURACAO, '
       
         '   DATAPROCESSOBOLETO, DOCBAIX, DTEMISS, DTREC, DTVENC, EMPRESA,' +
         ' ENVIADO, '
@@ -1815,20 +1860,20 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       'values'
       
         '  (:ANOLANC, :ANOVENDA, :BAIXADO, :CLIENTE, :CNPJ, :CODBANCO, :C' +
-        'OMPETENCIA_APURACAO, '
+        'ODTPREC, '
       
-        '   :DATAPROCESSOBOLETO, :DOCBAIX, :DTEMISS, :DTREC, :DTVENC, :EM' +
-        'PRESA, '
+        '   :COMPETENCIA_APURACAO, :DATAPROCESSOBOLETO, :DOCBAIX, :DTEMIS' +
+        'S, :DTREC, '
       
-        '   :ENVIADO, :FORMA_PAGTO, :HISTORIC, :NOSSONUMERO, :NUMCONTRATO' +
-        ', :NUMLANC, '
+        '   :DTVENC, :EMPRESA, :ENVIADO, :FORMA_PAGTO, :HISTORIC, :NOSSON' +
+        'UMERO, '
       
-        '   :NUMREC, :NUMVENDA, :PARCELA, :PERCENTDESCONTO, :PERCENTJUROS' +
-        ', :PERCENTMULTA, '
+        '   :NUMCONTRATO, :NUMLANC, :NUMREC, :NUMVENDA, :PARCELA, :PERCEN' +
+        'TDESCONTO, '
       
-        '   :REMESSA, :SITUACAO, :TIPPAG, :VALORMULTA, :VALORREC, :VALORR' +
-        'ECTOT, '
-      '   :VALORSALDO)')
+        '   :PERCENTJUROS, :PERCENTMULTA, :REMESSA, :SITUACAO, :TIPPAG, :' +
+        'VALORMULTA, '
+      '   :VALORREC, :VALORRECTOT, :VALORSALDO)')
     DeleteSQL.Strings = (
       'delete from TBCONTREC'
       'where'
@@ -1839,7 +1884,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited ImgList: TImageList
     Left = 736
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4242,5 +4287,38 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     DataSet = tblCompetencia
     Left = 896
     Top = 136
+  end
+  object qryTipoReceita: TIBQuery
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'Select *'
+      'from TBTPRECEITA t'
+      'where (t.ativo = :ativo) or (:todos = 1)'
+      'order by t.tiporec'
+      '')
+    Left = 864
+    Top = 168
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'ativo'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftInteger
+        Name = 'todos'
+        ParamType = ptInput
+        Value = 0
+      end>
+  end
+  object dtsTpReceita: TDataSource
+    DataSet = qryTipoReceita
+    Left = 896
+    Top = 168
   end
 end

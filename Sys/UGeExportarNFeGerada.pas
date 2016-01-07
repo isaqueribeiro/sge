@@ -162,8 +162,8 @@ begin
   if Copy(edDiretorioExportacao.Text, Length(edDiretorioExportacao.Text), 1) <> '\' then
     edDiretorioExportacao.Text := edDiretorioExportacao.Text + '\';
 
-  sPastaEntradas := edDiretorioExportacao.Text + 'Entradas\';
-  sPastaSaidas   := edDiretorioExportacao.Text + 'Saidas\';
+  sPastaEntradas := edDiretorioExportacao.Text + 'NFeEmitidas\Entradas\';
+  sPastaSaidas   := edDiretorioExportacao.Text + 'NFeEmitidas\Saidas\';
 
   ForceDirectories(sPastaEntradas);
   ForceDirectories(sPastaSaidas);

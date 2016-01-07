@@ -1224,8 +1224,8 @@ begin
   IbDtstTabelaCHASSI_VEICULO.Clear;
   IbDtstTabelaANO_MODELO_VEICULO.Clear;
   IbDtstTabelaANO_FABRICACAO_VEICULO.Clear;
+  IbDtstTabelaNCM_SH.Clear;
 
-  IbDtstTabelaNCM_SH.AsString       := TRIBUTO_NCM_SH_PADRAO;
   IbDtstTabelaTABELA_IBPT.AsInteger := GetTabelaIBPT_Codigo(TRIBUTO_NCM_SH_PADRAO);
   IbDtstTabelaCST_PIS.AsString    := '99';
   IbDtstTabelaCST_COFINS.AsString := '99';
@@ -1777,11 +1777,12 @@ begin
     begin
       sUpdate    := 'Update TBPRODUTO Set tabela_ibpt = %s, ncm_sh = %s where cod = %s';
       sCodigoNCM := IfThen(StrToInt64Def(Trim(IbDtstTabelaNCM_SH.AsString), 0) = 0, TRIBUTO_NCM_SH_PADRAO, IbDtstTabelaNCM_SH.AsString);
+      sCodigoNCM := IfThen(sCodigoNCM = '10203000', TRIBUTO_NCM_SH_PADRAO, sCodigoNCM); // Código descontinuado a partir de 10203000
       iCodigoNCM := GetTabelaIBPT_Codigo(sCodigoNCM);
 
       sUpdate := Format(sUpdate, [
         IfThen(iCodigoNCM = 0, 'null', IntToStr(iCodigoNCM)),
-        QuotedStr(sCodigoNCM),
+        IfThen((sCodigoNCM = EmptyStr) or (sCodigoNCM = TRIBUTO_NCM_SH_PADRAO) or (sCodigoNCM = '10203000'), 'null', QuotedStr(sCodigoNCM)),
         QuotedStr(IbDtstTabelaCOD.AsString)]);
 
       ExecuteScriptSQL( sUpdate );

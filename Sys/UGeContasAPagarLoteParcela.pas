@@ -462,7 +462,7 @@ begin
         cdsContaAPagarCODFORN.Value  := cdsDadosNominaisFornecedor.AsInteger;
         cdsContaAPagarPARCELA.Value  := cdsParcelasParcela.AsInteger;
         cdsContaAPagarTIPPAG.Value   := dbFormaPagto.Text;
-        cdsContaAPagarHISTORIC.Value := cdsParcelasObservacao.AsString;
+        cdsContaAPagarHISTORIC.Value := '---' + #13 + cdsParcelasObservacao.AsString;
         cdsContaAPagarNOTFISC.Value  := cdsDadosNominaisNotaFiscal.AsString;
         cdsContaAPagarDTEMISS.Value  := cdsDadosNominaisEmissao.AsDateTime;
         cdsContaAPagarDTVENC.Value   := cdsParcelasVencimento.AsDateTime;

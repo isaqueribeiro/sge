@@ -1,4 +1,4 @@
-unit UGeTipoDespesa;
+unit UGeTipoReceita;
 
 interface
 
@@ -17,23 +17,23 @@ uses
   dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
-  TfrmGeTipoDespesa = class(TfrmGrPadraoCadastro)
+  TfrmGeTipoReceita = class(TfrmGrPadraoCadastro)
     lblDescricao: TLabel;
     dbDescricao: TDBEdit;
     GrpBxDadosClassificacao: TGroupBox;
-    IbDtstTabelaCOD: TSmallintField;
-    IbDtstTabelaTIPODESP: TIBStringField;
-    IbDtstTabelaTIPO_PARTICULAR: TSmallintField;
-    IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField;
     lblPlanoContas: TLabel;
-    IbDtstTabelaPLANO_CONTA: TIntegerField;
-    IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
     dbPlanoContas: TJvDBComboEdit;
     GrpBxParametros: TGroupBox;
     Bevel5: TBevel;
     dbTipoParticular: TDBCheckBox;
     dbAtivo: TDBCheckBox;
+    IbDtstTabelaCOD: TSmallintField;
+    IbDtstTabelaTIPOREC: TIBStringField;
+    IbDtstTabelaTIPO_PARTICULAR: TSmallintField;
+    IbDtstTabelaPLANO_CONTA: TIntegerField;
     IbDtstTabelaATIVO: TSmallintField;
+    IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField;
+    IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -49,10 +49,10 @@ type
   end;
 
 var
-  frmGeTipoDespesa: TfrmGeTipoDespesa;
+  frmGeTipoReceita: TfrmGeTipoReceita;
 
-  procedure MostrarTipoDespesas(const AOwner : TComponent);
-  function SelecionarTipoDespesa(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
+  procedure MostrarTipoReceitas(const AOwner : TComponent);
+  function SelecionarTipoReceita(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
 
 implementation
 
@@ -61,11 +61,11 @@ uses
 
 {$R *.dfm}
 
-procedure MostrarTipoDespesas(const AOwner : TComponent);
+procedure MostrarTipoReceitas(const AOwner : TComponent);
 var
-  frm : TfrmGeTipoDespesa;
+  frm : TfrmGeTipoReceita;
 begin
-  frm := TfrmGeTipoDespesa.Create(AOwner);
+  frm := TfrmGeTipoReceita.Create(AOwner);
   try
     frm.ShowModal;
   finally
@@ -73,11 +73,11 @@ begin
   end;
 end;
 
-function SelecionarTipoDespesa(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
+function SelecionarTipoReceita(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
 var
-  frm : TfrmGeTipoDespesa;
+  frm : TfrmGeTipoReceita;
 begin
-  frm := TfrmGeTipoDespesa.Create(AOwner);
+  frm := TfrmGeTipoReceita.Create(AOwner);
   try
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
@@ -85,19 +85,19 @@ begin
   end;
 end;
 
-procedure TfrmGeTipoDespesa.FormCreate(Sender: TObject);
+procedure TfrmGeTipoReceita.FormCreate(Sender: TObject);
 begin
   inherited;
-  RotinaID            := ROTINA_CAD_TIPO_DESPESA_ID;
+  RotinaID            := ROTINA_CAD_TIPO_RECEITA_ID;
   ControlFirstEdit    := dbDescricao;
   DisplayFormatCodigo := '##00';
-  NomeTabela     := 'TBTPDESPESA';
+  NomeTabela     := 'TBTPRECEITA';
   CampoCodigo    := 'COD';
-  CampoDescricao := 'TIPODESP';
+  CampoDescricao := 'TIPOREC';
   CampoCadastroAtivo := 'ATIVO';
 end;
 
-procedure TfrmGeTipoDespesa.IbDtstTabelaNewRecord(DataSet: TDataSet);
+procedure TfrmGeTipoReceita.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaCOD.Value                 := GetNextID(NomeTabela, CampoCodigo);
@@ -106,13 +106,13 @@ begin
   IbDtstTabelaPLANO_CONTA.Clear;
 end;
 
-procedure TfrmGeTipoDespesa.IbDtstTabelaBeforePost(DataSet: TDataSet);
+procedure TfrmGeTipoReceita.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
 end;
 
-procedure TfrmGeTipoDespesa.dbgDadosDrawColumnCell(Sender: TObject;
+procedure TfrmGeTipoReceita.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
   inherited;
@@ -125,7 +125,7 @@ begin
   end;
 end;
 
-procedure TfrmGeTipoDespesa.dbPlanoContasButtonClick(Sender: TObject);
+procedure TfrmGeTipoReceita.dbPlanoContasButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
   sDescricao : String;
@@ -138,7 +138,7 @@ begin
     end;
 end;
 
-procedure TfrmGeTipoDespesa.FormKeyDown(Sender: TObject; var Key: Word;
+procedure TfrmGeTipoReceita.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
@@ -157,6 +157,6 @@ begin
 end;
 
 initialization
-  FormFunction.RegisterForm('frmGeTipoDespesa', TfrmGeTipoDespesa);
+  FormFunction.RegisterForm('frmGeTipoReceita', TfrmGeTipoReceita);
 
 end.

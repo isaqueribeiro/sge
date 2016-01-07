@@ -193,6 +193,7 @@ type
     dxRibbonBackstageViewGalleryGroup3: TdxRibbonBackstageViewGalleryGroup;
     dxRibbonBackstageViewGalleryItem4: TdxRibbonBackstageViewGalleryItem;
     BrBtnGerarDanfeXML: TdxBarLargeButton;
+    BrBtnTipoReceita: TdxBarLargeButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -283,6 +284,7 @@ type
     procedure BrBtnQuitarAReceberLoteClick(Sender: TObject);
     procedure BrBtnTabelaIBPTClick(Sender: TObject);
     procedure BrBtnGerarDanfeXMLClick(Sender: TObject);
+    procedure BrBtnTipoReceitaClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -395,6 +397,12 @@ procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TABELA_IBPT_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeTabelaIBPT');
+end;
+
+procedure TfrmPrinc.BrBtnTipoReceitaClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_RECEITA_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeTipoReceita');
 end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);

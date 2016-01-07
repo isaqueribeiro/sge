@@ -176,6 +176,11 @@ type
     dbVencimento: TJvDBDateEdit;
     lblCompetenciaApuracao: TLabel;
     dbCompetenciaApuracao: TDBLookupComboBox;
+    qryTipoReceita: TIBQuery;
+    dtsTpReceita: TDataSource;
+    lblTipoReceita: TLabel;
+    dbTipoReceita: TDBLookupComboBox;
+    IbDtstTabelaCODTPREC: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -213,6 +218,7 @@ type
     procedure AbrirPagamentos(const Ano : Smallint; const Numero : Integer);
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+    procedure CarregarTipoReceita(const ApenasAtivos : Boolean);
 
     function GetRotinaEfetuarPagtoID : String;
     function GetRotinaCancelarPagtosID : String;
@@ -295,6 +301,7 @@ begin
   tblCondicaoPagto.Open;
   tblBanco.Open;
   tblCompetencia.Open;
+  CarregarTipoReceita(False);
 
   RotinaID            := ROTINA_FIN_CONTA_ARECEBER_ID;
   DisplayFormatCodigo := '###0000000';
@@ -358,6 +365,7 @@ begin
   IbDtstTabelaBAIXADO.Value  := 0;
   IbDtstTabelaENVIADO.Value  := 0;
   IbDtstTabelaSITUACAO.Value := 1; // Ativa
+  IbDtstTabelaCODTPREC.Clear;
 end;
 
 procedure TfrmGeContasAReceber.btbtnEfetuarPagtoClick(Sender: TObject);
@@ -580,6 +588,20 @@ begin
   end;
 end;
 
+procedure TfrmGeContasAReceber.CarregarTipoReceita(const ApenasAtivos: Boolean);
+begin
+  with qryTipoReceita, Params do
+  begin
+    Close;
+    ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
+    ParamByName('todos').AsInteger := IfThen(ApenasAtivos, 0, 1);
+    Open;
+
+    Prior;
+    Last;
+  end;
+end;
+
 procedure TfrmGeContasAReceber.CdsReciboCalcFields(DataSet: TDataSet);
 begin
   CdsReciboVALOR_BAIXA_EXTENSO.AsString := AnsiUpperCase(ACBrExtenso.ValorToTexto(CdsReciboVALOR_BAIXA.AsCurrency, ACBrExtenso.Formato));
@@ -772,6 +794,8 @@ begin
   dbValorAReceber.ReadOnly := (not cdsPagamentos.IsEmpty);
   btbtnIncluirLote.Enabled := btbtnIncluir.Enabled;
   HabilitarDesabilitar_Btns;
+
+  CarregarTipoReceita( (IbDtstTabela.State in [dsEdit, dsInsert]) );
 end;
 
 procedure TfrmGeContasAReceber.btbtnCancelarClick(Sender: TObject);

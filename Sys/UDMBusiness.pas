@@ -2848,6 +2848,7 @@ begin
     SQL.Add('  t.id_ibpt');
     SQL.Add('from SYS_IBPT t');
     SQL.Add('where t.ncm_ibpt = ' + QuotedStr(aCodigoNCM));
+    SQL.Add('  and t.ativo = 1');
     SQL.Add('order by');
     SQL.Add('  t.ex_ibpt, t.ncm_ibpt');
     Open;

@@ -6,6 +6,7 @@ inherited frmGeVenda: TfrmGeVenda
   ClientHeight = 685
   ClientWidth = 1116
   OldCreateOrder = True
+  ExplicitTop = -126
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -1808,6 +1809,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsRecebimento: TTabSheet
           BorderWidth = 4
           Caption = 'Recebimento'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -1819,12 +1824,11 @@ inherited frmGeVenda: TfrmGeVenda
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 520
+              Width = 67
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
               FocusControl = dbObservacao
-              ExplicitWidth = 67
             end
             object Bevel14: TBevel
               Left = 516
@@ -2281,6 +2285,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsDadosEntrega: TTabSheet
           Caption = 'Dados para Entrega'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlDadosEntrega: TPanel
             Left = 0
             Top = 0
@@ -2298,7 +2306,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDadosEntrega: TLabel
               Left = 0
               Top = 0
-              Width = 1100
+              Width = 214
               Height = 13
               Align = alTop
               Caption = '&Dados gerais para entrega do(s) produto(s):'
@@ -2309,7 +2317,6 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              ExplicitWidth = 214
             end
             object Bevel11: TBevel
               Left = 1096
@@ -2347,6 +2354,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsITitulos: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel9: TBevel
             Left = 74
             Top = 0
@@ -2558,6 +2569,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsTransporte: TTabSheet
           Caption = 'Dados Transporte'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             1100
             158)
@@ -2803,6 +2818,10 @@ inherited frmGeVenda: TfrmGeVenda
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -3298,6 +3317,14 @@ inherited frmGeVenda: TfrmGeVenda
             ReadOnly = True
             TabOrder = 8
           end
+          object Button1: TButton
+            Left = 293
+            Top = 123
+            Width = 75
+            Height = 25
+            Caption = 'Button1'
+            TabOrder = 12
+          end
         end
       end
       object dbgProdutos: TDBGrid
@@ -3334,7 +3361,7 @@ inherited frmGeVenda: TfrmGeVenda
           item
             Expanded = False
             FieldName = 'CODPROD'
-            Width = 68
+            Width = 55
             Visible = True
           end
           item
@@ -3364,6 +3391,13 @@ inherited frmGeVenda: TfrmGeVenda
           end
           item
             Expanded = False
+            FieldName = 'NCM_SH'
+            Title.Caption = 'NCM/SH'
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'ALIQUOTA'
             Title.Caption = '% Al'#237'q.'
             Width = 45
@@ -3385,7 +3419,7 @@ inherited frmGeVenda: TfrmGeVenda
             Expanded = False
             FieldName = 'PUNIT'
             Title.Caption = 'Valor Un.'
-            Width = 85
+            Width = 80
             Visible = True
           end
           item
@@ -3399,19 +3433,19 @@ inherited frmGeVenda: TfrmGeVenda
             Expanded = False
             FieldName = 'PFINAL'
             Title.Caption = 'Valor L'#237'q.'
-            Width = 85
+            Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL_BRUTO'
-            Width = 85
+            Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL_DESCONTO'
-            Width = 85
+            Width = 80
             Visible = True
           end
           item
@@ -3422,7 +3456,7 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
-            Width = 85
+            Width = 80
             Visible = True
           end>
       end
@@ -4331,7 +4365,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5930,10 +5964,12 @@ inherited frmGeVenda: TfrmGeVenda
       '  , u.Unp_sigla'
       '  , o.Cfop_descricao'
       '  , p.Movimenta_Estoque'
+      '  , coalesce(ib.ncm_ibpt, p.ncm_sh) as ncm_sh'
       'from TVENDASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
       '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBCFOP o on (o.Cfop_cod = i.Cfop_cod)')
+      '  left join TBCFOP o on (o.Cfop_cod = i.Cfop_cod)'
+      '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt)')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
@@ -6175,6 +6211,11 @@ inherited frmGeVenda: TfrmGeVenda
       FieldName = 'MOVIMENTA_ESTOQUE'
       Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
       ProviderFlags = []
+    end
+    object cdsTabelaItensNCM_SH: TIBStringField
+      FieldName = 'NCM_SH'
+      ProviderFlags = []
+      Size = 10
     end
   end
   object IbUpdTabelaItens: TIBUpdateSQL

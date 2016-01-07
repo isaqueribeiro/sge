@@ -27,8 +27,6 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     ExplicitWidth = 809
     ExplicitHeight = 429
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 801
       ExplicitHeight = 400
       inherited Bevel4: TBevel
@@ -107,6 +105,19 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
         Width = 801
         ExplicitTop = 338
         ExplicitWidth = 801
+        object lblNCMDesativado: TLabel [0]
+          Left = 0
+          Top = 6
+          Width = 117
+          Height = 13
+          Caption = 'C'#243'digos Desativados'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         inherited grpBxFiltro: TGroupBox
           Left = 475
           Width = 322
@@ -149,6 +160,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       inherited GrpBxDadosNominais: TGroupBox
         Width = 801
         Height = 201
+        ExplicitTop = -2
         ExplicitWidth = 801
         ExplicitHeight = 201
         object lblCodigoNCM: TLabel [1]
@@ -212,7 +224,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
           DataField = 'DESCRICAO_IBPT'
           DataSource = DtSrcTabela
           ScrollBars = ssVertical
-          TabOrder = 4
+          TabOrder = 5
         end
         object dbExcecao: TDBLookupComboBox
           Left = 231
@@ -251,6 +263,18 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
           ListSource = dtsTabelaIBPT
           ParentFont = False
           TabOrder = 3
+        end
+        object dbAtivo: TDBCheckBox
+          Left = 539
+          Top = 42
+          Width = 57
+          Height = 17
+          Caption = 'Ativo'
+          DataField = 'ATIVO'
+          DataSource = DtSrcTabela
+          TabOrder = 4
+          ValueChecked = '1'
+          ValueUnchecked = '0'
         end
       end
       object GrpBxAliquotas: TGroupBox
@@ -461,6 +485,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       '  , t.aliqinternacional_ibpt'
       '  , t.aliqestadual_ibpt'
       '  , t.aliqmunicipal_ibpt'
+      '  , t.ativo'
       'from SYS_IBPT t'
       '')
     GeneratorField.Field = 'ID_IBPT'
@@ -550,6 +575,11 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       Precision = 18
       Size = 2
     end
+    object IbDtstTabelaATIVO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVO'
+      Origin = '"SYS_IBPT"."ATIVO"'
+    end
     object IbDtstTabelaDESCRICAO: TStringField
       DisplayLabel = 'Descri'#231#227'o'
       FieldKind = fkCalculated
@@ -574,7 +604,8 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       '  ALIQNACIONAL_IBPT,'
       '  ALIQINTERNACIONAL_IBPT,'
       '  ALIQESTADUAL_IBPT,'
-      '  ALIQMUNICIPAL_IBPT'
+      '  ALIQMUNICIPAL_IBPT,'
+      '  ATIVO'
       'from SYS_IBPT '
       'where'
       '  ID_IBPT = :ID_IBPT')
@@ -585,6 +616,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       '  ALIQINTERNACIONAL_IBPT = :ALIQINTERNACIONAL_IBPT,'
       '  ALIQMUNICIPAL_IBPT = :ALIQMUNICIPAL_IBPT,'
       '  ALIQNACIONAL_IBPT = :ALIQNACIONAL_IBPT,'
+      '  ATIVO = :ATIVO,'
       '  DESCRICAO_IBPT = :DESCRICAO_IBPT,'
       '  EX_IBPT = :EX_IBPT,'
       '  ID_IBPT = :ID_IBPT,'
@@ -597,12 +629,16 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       
         '  (ALIQESTADUAL_IBPT, ALIQINTERNACIONAL_IBPT, ALIQMUNICIPAL_IBPT' +
         ', ALIQNACIONAL_IBPT, '
-      '   DESCRICAO_IBPT, EX_IBPT, ID_IBPT, NCM_IBPT, TABELA_IBPT)'
+      
+        '   ATIVO, DESCRICAO_IBPT, EX_IBPT, ID_IBPT, NCM_IBPT, TABELA_IBP' +
+        'T)'
       'values'
       
         '  (:ALIQESTADUAL_IBPT, :ALIQINTERNACIONAL_IBPT, :ALIQMUNICIPAL_I' +
         'BPT, :ALIQNACIONAL_IBPT, '
-      '   :DESCRICAO_IBPT, :EX_IBPT, :ID_IBPT, :NCM_IBPT, :TABELA_IBPT)')
+      
+        '   :ATIVO, :DESCRICAO_IBPT, :EX_IBPT, :ID_IBPT, :NCM_IBPT, :TABE' +
+        'LA_IBPT)')
     DeleteSQL.Strings = (
       'delete from SYS_IBPT'
       'where'
@@ -614,7 +650,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     Left = 168
     Top = 128
     Bitmap = {
-      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2110,13 +2146,13 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       
         'Select '#39'9'#39' as Codigo , '#39'Exce'#231#227'o 9'#39'  as Descricao from RDB$DATABA' +
         'SE')
-    Left = 20
-    Top = 305
+    Left = 60
+    Top = 265
   end
   object dtsNivelIBPT: TDataSource
     DataSet = qryNivelIBPT
-    Left = 52
-    Top = 305
+    Left = 92
+    Top = 265
   end
   object qryTabelaIBPT: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
@@ -2134,12 +2170,12 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       
         'Select '#39'2'#39' as Codigo , '#39'Servi'#231'os Gerais'#39' as Descricao from RDB$D' +
         'ATABASE')
-    Left = 20
-    Top = 337
+    Left = 60
+    Top = 297
   end
   object dtsTabelaIBPT: TDataSource
     DataSet = qryTabelaIBPT
-    Left = 52
-    Top = 337
+    Left = 92
+    Top = 297
   end
 end

@@ -29,6 +29,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     ExplicitWidth = 1114
     ExplicitHeight = 634
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel4: TBevel
@@ -1310,12 +1312,16 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = tbsPagamento
+        ActivePage = TbsInformeNFe
         Align = alBottom
         HotTrack = True
         TabOrder = 4
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             1098
             157)
@@ -1864,6 +1870,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -4410,7 +4420,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

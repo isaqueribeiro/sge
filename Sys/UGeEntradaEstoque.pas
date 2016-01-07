@@ -2120,6 +2120,12 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.nmPpLimparDadosNFeClick(Sender: TObject);
+var
+  sArquivoENV ,
+  sArquivoREC ,
+  sArquivoNFe1,
+  sArquivoNFe2,
+  sDirXMLNFe  : String;
 begin
   if not IbDtstTabela.IsEmpty then
   begin
@@ -2131,6 +2137,39 @@ begin
 
     if not ShowConfirmation('Limpar LOG', 'Confirma a limpeza do LOG de envio de NF-e para que esta seja enviada novamente?') then
       Exit;
+
+    // Realocar arquivos XML de envio
+    sDirXMLNFe := DMNFe.GetPathNFeXML(IbDtstTabelaCODEMP.AsString);
+    if DirectoryExists(sDirXMLNFe) then
+    begin
+      sArquivoENV  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_NUMERO.AsString + '-env-lot.xml', '\\', '\', [rfReplaceAll]);
+      sArquivoREC  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_NUMERO.AsString + '-rec.xml',     '\\', '\', [rfReplaceAll]);
+      sArquivoNFe1 := StringReplace(sDirXMLNFe + '\' +
+        DMNFe.GetGerarChaveNFeXML(
+          IbDtstTabelaCODEMP.AsString,
+          IbDtstTabelaANO.AsInteger,
+          IbDtstTabelaCODCONTROL.AsInteger,
+          tnfEntrada) + '-nfe.xml', '\\', '\', [rfReplaceAll]);
+
+      sArquivoNFe2 := StringReplace(sDirXMLNFe + '\' +
+        DMNFe.GetGerarChaveNFeXML(
+          IbDtstTabelaCODEMP.AsString,
+          IbDtstTabelaANO.AsInteger,
+          IbDtstTabelaCODCONTROL.AsInteger,
+          tnfEntrada) + '-nfe_view.xml', '\\', '\', [rfReplaceAll]);
+
+      ForceDirectories(ExtractFilePath(sArquivoENV) + 'log\');
+
+      DeleteFile(ExtractFilePath(sArquivoENV)  + 'log\' + ExtractFileName(sArquivoENV));
+      DeleteFile(ExtractFilePath(sArquivoREC)  + 'log\' + ExtractFileName(sArquivoREC));
+      DeleteFile(ExtractFilePath(sArquivoNFe1) + 'log\' + ExtractFileName(sArquivoNFe1));
+      DeleteFile(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2));
+
+      MoveFile(PChar(sArquivoENV),  PChar(ExtractFilePath(sArquivoENV)  + 'log\' + ExtractFileName(sArquivoENV)));
+      MoveFile(PChar(sArquivoREC),  PChar(ExtractFilePath(sArquivoREC)  + 'log\' + ExtractFileName(sArquivoREC)));
+      MoveFile(PChar(sArquivoNFe1), PChar(ExtractFilePath(sArquivoNFe1) + 'log\' + ExtractFileName(sArquivoNFe1)));
+      MoveFile(PChar(sArquivoNFe2), PChar(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2)));
+    end;
 
     with DMBusiness, qryBusca do
     begin

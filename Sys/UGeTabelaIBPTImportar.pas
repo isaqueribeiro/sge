@@ -73,6 +73,7 @@ type
     qryTabelaIBPTALIQESTADUAL_IBPT: TIBBCDField;
     qryTabelaIBPTALIQMUNICIPAL_IBPT: TIBBCDField;
     edURL: TComboBox;
+    qryTabelaIBPTATIVO: TSmallintField;
     procedure btnDownloadClick(Sender: TObject);
     procedure btnImportarClick(Sender: TObject);
     procedure ACBrIBPTErroImportacao(const ALinha, AErro: string);
@@ -267,6 +268,11 @@ function TfrmGeTabelaIBPTImportar.GravarRegistros: Boolean;
 var
   I : Integer;
 begin
+(*
+  IMR - 07/01/2016 :
+    Desativar todos os códigos NCM e ativar somente os códigos atualizados pelo
+    novo arquivo NCM.
+*)
   if (tmpCadastro.RecordCount = 0) then
     Exit;
 
@@ -274,6 +280,8 @@ begin
   try
     I := 0;
     btnConfirmar.Enabled := False;
+
+    ExecuteScriptSQL('Update SYS_IBPT Set ativo = 0 where ativo = 1');
 
     tmpCadastro.First;
     while not tmpCadastro.Eof do
@@ -294,6 +302,7 @@ begin
         qryTabelaIBPTEX_IBPT.AsString        := IntToStr(StrToIntDef(Trim(tmpCadastroEx.AsString), 0));
         qryTabelaIBPTTABELA_IBPT.AsString    := IntToStr(StrToIntDef(Trim(tmpCadastroTabela.AsString), 0));
         qryTabelaIBPTDESCRICAO_IBPT.AsString := tmpCadastroDescricao.AsString;
+        qryTabelaIBPTATIVO.AsInteger         := 1;
         qryTabelaIBPTALIQNACIONAL_IBPT.AsCurrency      := tmpCadastroAliqFedNacional.AsCurrency;
         qryTabelaIBPTALIQINTERNACIONAL_IBPT.AsCurrency := tmpCadastroAliqFedImportado.AsCurrency;
         qryTabelaIBPTALIQESTADUAL_IBPT.AsCurrency      := tmpCadastroAliqEstadual.AsCurrency;

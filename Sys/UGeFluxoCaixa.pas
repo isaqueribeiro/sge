@@ -209,6 +209,11 @@ type
     CdsReciboFORMA_PAGTO_DESC: TWideStringField;
     CdsReciboHISTORICO: TWideStringField;
     CdsReciboVALOR_BAIXA: TBCDField;
+    lblTipoReceita: TLabel;
+    dbTipoReceita: TDBLookupComboBox;
+    IbDtstTabelaTIPO_RECEITA: TSmallintField;
+    qryTipoReceita: TIBQuery;
+    dtsTpReceita: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -243,6 +248,7 @@ type
     procedure CarregarSaldos;
     procedure DefinirControle;
     procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
+    procedure CarregarTipoReceita(const ApenasAtivos : Boolean);
 
     function BloquearAlteracaoExclusao : Boolean;
   public
@@ -326,6 +332,7 @@ begin
   tblEmpresa.Open;
   tblFormaPagto.Open;
   tblTipoMovimento.Open;
+  CarregarTipoReceita(False);
   CarregarTipoDespesa(False);
 
   CarregarContaCorrente;
@@ -383,6 +390,10 @@ begin
       if ( FieldByName('codigo').AsInteger > 0 ) then
       begin
         Data := e1Data.Date;
+        // O saldo é recalculado apenas para o período máximo de 30 dias
+        if ( (e2Data.Date - Data) > 30 ) then
+          Data := e2Data.Date - 30;
+
         while Data <= e2Data.Date do
         begin
           GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, Data);
@@ -442,6 +453,20 @@ begin
   end;
 end;
 
+procedure TfrmGeFluxoCaixa.CarregarTipoReceita(const ApenasAtivos: Boolean);
+begin
+  with qryTipoReceita, Params do
+  begin
+    Close;
+    ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
+    ParamByName('todos').AsInteger := IfThen(ApenasAtivos, 0, 1);
+    Open;
+
+    Prior;
+    Last;
+  end;
+end;
+
 procedure TfrmGeFluxoCaixa.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
@@ -454,6 +479,7 @@ begin
   IbDtstTabelaDATA.Value     := GetDateDB;
   IbDtstTabelaHORA.Value     := GetTimeDB;
 
+  IbDtstTabelaTIPO_RECEITA.Clear;
   IbDtstTabelaTIPO_DESPESA.Clear;
   IbDtstTabelaCLIENTE.Clear;
   IbDtstTabelaCLIENTE_COD.Clear;
@@ -553,6 +579,7 @@ begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
     DefinirControle;
 
+  CarregarTipoReceita( (IbDtstTabela.State in [dsEdit, dsInsert]) );
   CarregarTipoDespesa( (IbDtstTabela.State in [dsEdit, dsInsert]) );
 end;
 
@@ -604,6 +631,7 @@ var
 begin
   IbDtstTabelaCLIENTE.Required      := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_CREDITO );
   IbDtstTabelaFORNECEDOR.Required   := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_DEBITO );
+  IbDtstTabelaTIPO_RECEITA.Required := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_CREDITO );
   IbDtstTabelaTIPO_DESPESA.Required := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_DEBITO );
 
   if ( CaixaAberto(IbDtstTabelaEMPRESA.AsString, IbDtstTabelaUSUARIO.AsString, IbDtstTabelaDATAHORA.AsDateTime, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
@@ -775,6 +803,10 @@ begin
     Exit;
 
   Data := e1Data.Date;
+  // O saldo é recalculado apenas para o período máximo de 30 dias
+  if ( (e2Data.Date - Data) > 30 ) then
+    Data := e2Data.Date - 30;
+
   while Data <= e2Data.Date do
   begin
     GerarSaldoContaCorrente(IbDtstTabela.FieldByName('CONTA_CORRENTE').AsInteger, Data);

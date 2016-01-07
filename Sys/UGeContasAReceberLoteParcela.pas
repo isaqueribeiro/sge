@@ -440,7 +440,7 @@ begin
         cdsContaAReceberCLIENTE.Value  := cdsDadosNominaisCliente.AsInteger;
         cdsContaAReceberCNPJ.Value     := cdsDadosNominaisClienteCNPJ.AsString;
         cdsContaAReceberFORMA_PAGTO.Value := cdsDadosNominaisFormaPagto.AsInteger;
-        cdsContaAReceberHISTORIC.Value    := cdsParcelasObservacao.AsString;
+        cdsContaAReceberHISTORIC.Value    := '---' + #13 + cdsParcelasObservacao.AsString;
         cdsContaAReceberDTEMISS.Value  := cdsDadosNominaisEmissao.AsDateTime;
         cdsContaAReceberDTVENC.Value   := cdsParcelasVencimento.AsDateTime;
         cdsContaAReceberCOMPETENCIA_APURACAO.Value := cdsParcelasCompetencia.AsInteger;
