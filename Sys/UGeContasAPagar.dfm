@@ -988,6 +988,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           item
             Expanded = False
             FieldName = 'BCO_NOME'
+            Title.Caption = 'Banco'
             Width = 250
             Visible = True
           end
@@ -1481,7 +1482,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3074,11 +3075,13 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  , p.Valor_baixa'
       '  , p.Numero_cheque'
       '  , p.Banco'
-      '  , b.Bco_nome'
+      '  , p.banco_febraban'
+      '  , coalesce(b2.nome, b1.bco_nome) as bco_nome'
       '  , p.Documento_baixa'
       'from TBCONTPAG_BAIXA p'
       '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
+      '  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco)'
+      '  left join TBBANCO b2 on (b2.cod = p.banco_febraban)')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
@@ -3144,11 +3147,16 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       FieldName = 'BANCO'
       Origin = 'TBCONTPAG_BAIXA.BANCO'
     end
+    object cdsPagamentosBANCO_FEBRABAN: TIBStringField
+      FieldName = 'BANCO_FEBRABAN'
+      Origin = '"TBCONTPAG_BAIXA"."BANCO_FEBRABAN"'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
     object cdsPagamentosBCO_NOME: TIBStringField
-      DisplayLabel = 'Banco'
       FieldName = 'BCO_NOME'
-      Origin = 'TBBANCO_BOLETO.BCO_NOME'
-      Size = 50
+      ProviderFlags = []
+      Size = 100
     end
     object cdsPagamentosDOCUMENTO_BAIXA: TIBStringField
       DisplayLabel = 'Doc. Baixa'

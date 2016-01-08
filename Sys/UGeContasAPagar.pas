@@ -84,7 +84,6 @@ type
     cdsPagamentosVALOR_BAIXA: TIBBCDField;
     cdsPagamentosNUMERO_CHEQUE: TIBStringField;
     cdsPagamentosBANCO: TSmallintField;
-    cdsPagamentosBCO_NOME: TIBStringField;
     cdsPagamentosDOCUMENTO_BAIXA: TIBStringField;
     lblTipoDespesa: TLabel;
     dbTipoDespesa: TDBLookupComboBox;
@@ -150,6 +149,8 @@ type
     dtsCompetencia: TDataSource;
     lblCompetenciaApuracao: TLabel;
     dbCompetenciaApuracao: TDBLookupComboBox;
+    cdsPagamentosBANCO_FEBRABAN: TIBStringField;
+    cdsPagamentosBCO_NOME: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);

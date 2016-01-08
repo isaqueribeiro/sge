@@ -395,7 +395,6 @@ type
     dbDadosEntrega: TDBMemo;
     nmPpCorrigirDadosEntrega: TMenuItem;
     cdsTabelaItensNCM_SH: TIBStringField;
-    Button1: TButton;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

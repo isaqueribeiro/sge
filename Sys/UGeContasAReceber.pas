@@ -55,7 +55,6 @@ type
     cdsPagamentosVALOR_BAIXA: TIBBCDField;
     cdsPagamentosNUMERO_CHEQUE: TIBStringField;
     cdsPagamentosBANCO: TSmallintField;
-    cdsPagamentosBCO_NOME: TIBStringField;
     cdsPagamentosDOCUMENTO_BAIXA: TIBStringField;
     lblCNPJ: TLabel;
     dbCNPJ: TDBEdit;
@@ -181,6 +180,8 @@ type
     lblTipoReceita: TLabel;
     dbTipoReceita: TDBLookupComboBox;
     IbDtstTabelaCODTPREC: TSmallintField;
+    cdsPagamentosBANCO_FEBRABAN: TIBStringField;
+    cdsPagamentosBCO_NOME: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
