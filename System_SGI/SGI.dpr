@@ -143,7 +143,8 @@ uses
   UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
   UGeAutorizacaoCompraImpressao in '..\System_SGE\UGeAutorizacaoCompraImpressao.pas' {frmGeAutorizacaoCompraImpressao},
-  UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita};
+  UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
+  UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao};
 
 {$R *.res}
 

@@ -4659,7 +4659,6 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
-      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -4720,6 +4719,7 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
+      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -6252,11 +6252,11 @@ object frmPrinc: TfrmPrinc
       OnClick = nmRelatorioFinanceiroContasAReceberClick
     end
     object BrBtnRelatorioFinanceiroMV: TdxBarLargeButton
-      Caption = 'Movimenta'#231#245'es'
+      Caption = 'Movimenta'#231#245'es Tesouraria'
       Category = 16
-      Enabled = False
-      Hint = 'Movimenta'#231#245'es'
+      Hint = 'Movimenta'#231#245'es Tesouraria'
       Visible = ivAlways
+      OnClick = BrBtnRelatorioFinanceiroMVClick
     end
     object BrBtnRelatorioAutorizacaoEntrada: TdxBarLargeButton
       Caption = 'Autoriza'#231#245'es x Entradas'

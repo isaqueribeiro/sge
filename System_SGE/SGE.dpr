@@ -135,7 +135,8 @@ uses
   UGeContasAReceberLoteParcela in '..\Sys\UGeContasAReceberLoteParcela.pas' {frmGeContasAReceberLoteParcela},
   UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
-  UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita};
+  UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
+  UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao};
 
 {$R *.res}
 
