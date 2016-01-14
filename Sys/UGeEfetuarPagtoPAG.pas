@@ -135,7 +135,7 @@ begin
         ContaCorrente := cxContaCorrente;
 
         SetMovimentoCaixa(
-          GetUserApp,
+          gUsuarioLogado.Login,
           cdsPagamentosDATA_PAGTO.AsDateTime + Time,
           cdsPagamentosFORMA_PAGTO.AsInteger,
           cdsPagamentosANOLANC.AsInteger,

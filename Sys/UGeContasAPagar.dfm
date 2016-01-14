@@ -1201,7 +1201,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  , p.Competencia_apuracao'
       'from TBCONTPAG p'
       '  left join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
+        'sa = p.empresa)')
     GeneratorField.Field = 'NUMLANC'
     GeneratorField.Generator = 'GEN_CONTAPAG_NUM_2013'
     object IbDtstTabelaANOLANC: TSmallintField
@@ -1482,7 +1484,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00700010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3080,7 +3082,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  , p.Documento_baixa'
       'from TBCONTPAG_BAIXA p'
       '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
-      '  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco)'
+      
+        '  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco and b1.em' +
+        'presa = p.empresa)'
       '  left join TBBANCO b2 on (b2.cod = p.banco_febraban)')
     ModifySQL.Strings = (
       '')
@@ -3716,7 +3720,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       
         '  inner join TBCONTPAG_BAIXA bx on (bx.anolanc = p.anolanc and b' +
         'x.numlanc = p.numlanc)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)'
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
+        'sa = p.empresa)'
       '  left join TBFORMPAGTO fp on (fp.cod = bx.forma_pagto)'
       ''
       'where p.anolanc = :ano'

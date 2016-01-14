@@ -136,7 +136,7 @@ begin
         DataPagto := cdsPagamentosDATA_PAGTO.AsDateTime;
 
         SetMovimentoCaixa(
-          GetUserApp,
+          gUsuarioLogado.Login,
           cdsPagamentosDATA_PAGTO.AsDateTime + Time,
           cdsPagamentosFORMA_PAGTO.AsInteger,
           cdsPagamentosANOLANC.AsInteger,

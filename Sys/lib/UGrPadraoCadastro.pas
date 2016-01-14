@@ -785,10 +785,18 @@ var
 begin
 
   for I := 0 to IbDtstTabela.Fields.Count - 1 do
+  begin
+    if (IbDtstTabela.Fields[I] is TStringField)     or
+       (IbDtstTabela.Fields[I] is TMemoField)       or
+       (IbDtstTabela.Fields[I] is TWideStringField) or
+       (IbDtstTabela.Fields[I] is TWideMemoField) then
+      IbDtstTabela.Fields[I].AsString := Trim(IbDtstTabela.Fields[I].AsString);
+
     if ( IbDtstTabela.Fields[I].Required ) then
       if ( Trim(IbDtstTabela.Fields[I].AsString) = EmptyStr ) then
         IbDtstTabela.Fields[I].Clear;
-        
+  end;
+
 end;
 
 procedure TfrmGrPadraoCadastro.IbDtstTabelaUpdateError(DataSet: TDataSet;

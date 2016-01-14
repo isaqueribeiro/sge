@@ -255,6 +255,29 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBCAIXA_MOVIMENTO
+  - TBEMPRESA
+  - TBCLIENTE
+  - TBFORNECEDOR
+  - TBFORMPAGTO
+  - TBCAIXA
+  - TBTPDESPESA
+  - TBTPRECEITA
+  - TBCONTPAG
+  - TBCONTREC
+  - TBBANCO_BOLETO
+
+  Views:
+  - VW_CONTA_CORRENTE
+  - VW_TIPO_MOVIMENTO_CAIXA
+
+  Procedures:
+  - GET_CONTA_CORRENTE_SALDO
+  - GET_FLUXO_CAIXA
+*)
+
 var
   frmGeFluxoCaixa: TfrmGeFluxoCaixa;
 

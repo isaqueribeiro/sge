@@ -109,6 +109,7 @@ end;
 procedure TfrmGeTipoReceita.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
   inherited;
+  IbDtstTabelaTIPOREC.AsString              := Trim(IbDtstTabelaTIPOREC.AsString);
   IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
 end;
 

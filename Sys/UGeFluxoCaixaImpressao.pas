@@ -15,7 +15,7 @@ uses
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
   dxSkinWhiteprint, Vcl.StdCtrls, cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls,
   Datasnap.DBClient, Datasnap.Provider, Data.DB, IBX.IBCustomDataSet,
-  IBX.IBQuery, Vcl.Mask, JvExMask, JvToolEdit;
+  IBX.IBQuery, Vcl.Mask, JvExMask, JvToolEdit, frxClass, frxDBSet;
 
 type
   TfrmGeFluxoCaixaImpressao = class(TfrmGrPadraoImpressao)
@@ -32,22 +32,34 @@ type
     QryContaCorrente: TIBQuery;
     DspContaCorrente: TDataSetProvider;
     CdsContaCorrente: TClientDataSet;
+    frRelacaoSaldoConsolidadoDia: TfrxReport;
+    QryRelacaoSaldoConsolidadoDia: TIBQuery;
+    DspRelacaoSaldoConsolidadoDia: TDataSetProvider;
+    CdsRelacaoSaldoConsolidadoDia: TClientDataSet;
+    FrdsRelacaoSaldoConsolidadoDia: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
+    procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
   private
     { Private declarations }
+    FSQL_RelacaoSaldoConsolidadoDia : TStringList;
     IEmpresa : Array of String;
     IConta   : Array of Integer;
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
     procedure CarregarContaCorrente(const pEmpresa : String);
+
+    procedure MontarRelacaoSaldoConsolidadoDia;
   public
     { Public declarations }
   end;
 
 var
   frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao;
+
+const
+  REPORT_RELACAO_SALDO_CONSOLIDADO_DIA  = 0;
 
 implementation
 
@@ -57,6 +69,29 @@ uses
 {$R *.dfm}
 
 { TfrmGeFluxoCaixaImpressao }
+
+procedure TfrmGeFluxoCaixaImpressao.btnVisualizarClick(Sender: TObject);
+begin
+  Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '       + #13 +
+    Format('- Período  : %s a %s', [e1Data.Text, e2Data.Text]) + #13 +
+    Format('- C/C Sist : %s', [edContaCorrente.Text]);
+
+  Screen.Cursor         := crSQLWait;
+  btnVisualizar.Enabled := False;
+
+  Case edRelatorio.ItemIndex of
+    REPORT_RELACAO_SALDO_CONSOLIDADO_DIA:
+      begin
+        MontarRelacaoSaldoConsolidadoDia;
+        frReport := frRelacaoSaldoConsolidadoDia;
+      end;
+  end;
+
+  inherited;
+
+  Screen.Cursor         := crDefault;
+  btnVisualizar.Enabled := True;
+end;
 
 procedure TfrmGeFluxoCaixaImpressao.CarregarContaCorrente(
   const pEmpresa: String);
@@ -147,6 +182,8 @@ begin
 
   inherited;
 
+  FSQL_RelacaoSaldoConsolidadoDia := TStringList.Create;
+  FSQL_RelacaoSaldoConsolidadoDia.AddStrings( QryRelacaoSaldoConsolidadoDia.SQL );
 end;
 
 procedure TfrmGeFluxoCaixaImpressao.FormShow(Sender: TObject);
@@ -154,6 +191,11 @@ begin
   inherited;
   CarregarEmpresa;
   CarregarContaCorrente(gUsuarioLogado.Empresa);
+end;
+
+procedure TfrmGeFluxoCaixaImpressao.MontarRelacaoSaldoConsolidadoDia;
+begin
+  ;
 end;
 
 initialization

@@ -232,6 +232,16 @@ type
     property DataAtual : TDateTime read FDataAtual;
   end;
 
+(*
+  Tabelas:
+  - TBCONTREC
+  - TBEMPRESA
+  - TBCLIENTE
+  - TBCONTREC_BAIXA
+  - TBBANCO_BOLETO
+  - TBFORMPAGTO
+*)
+
 var
   frmGeContasAReceber: TfrmGeContasAReceber;
 
@@ -240,7 +250,6 @@ const
   STATUS_ARECEBER_PAGO     = 1;
 
   { DONE -oIsaque -cContas A Receber : 22/05/2014 - Correção de BUG porque a rotina estava permitindo a gravação de um lançamento sem CLIENTE, DATAS e VALOR }
-
   procedure MostrarControleContasAReceber(const AOwner : TComponent);
 
 implementation

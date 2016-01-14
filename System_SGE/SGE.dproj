@@ -78,7 +78,7 @@
         <VerInfo_Build>0</VerInfo_Build>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.9.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=07/01/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/01/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
     </PropertyGroup>
@@ -92,11 +92,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Build>0</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.9.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=07/01/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.9.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/01/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Release>9</VerInfo_Release>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
     </PropertyGroup>
@@ -112,7 +112,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.9.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=07/01/2015;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.9;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/01/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Release>9</VerInfo_Release>
     </PropertyGroup>
     <ItemGroup>

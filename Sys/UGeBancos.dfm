@@ -1438,7 +1438,8 @@ inherited frmGeBancos: TfrmGeBancos
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
-      '    b.bco_cod'
+      '    b.bco_codigo'
+      '  , b.bco_cod'
       '  , b.empresa'
       '  , b.bco_carteira'
       '  , b.bco_nome'
@@ -1462,6 +1463,10 @@ inherited frmGeBancos: TfrmGeBancos
       '  , b.bco_layout_remessa'
       '  , b.bco_layout_retorno'
       'from TBBANCO_BOLETO b')
+    object IbDtstTabelaBCO_CODIGO: TSmallintField
+      FieldName = 'BCO_CODIGO'
+      Origin = '"TBBANCO_BOLETO"."BCO_CODIGO"'
+    end
     object IbDtstTabelaBCO_COD: TSmallintField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'BCO_COD'
@@ -1604,6 +1609,7 @@ inherited frmGeBancos: TfrmGeBancos
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
+      '  BCO_CODIGO,'
       '  BCO_COD,'
       '  EMPRESA,'
       '  BCO_CARTEIRA,'
@@ -1639,6 +1645,7 @@ inherited frmGeBancos: TfrmGeBancos
       '  BCO_CC = :BCO_CC,'
       '  BCO_CHAVE = :BCO_CHAVE,'
       '  BCO_COD = :BCO_COD,'
+      '  BCO_CODIGO = :BCO_CODIGO,'
       '  BCO_CODIGO_CEDENTE = :BCO_CODIGO_CEDENTE,'
       '  BCO_CONFG_1 = :BCO_CONFG_1,'
       '  BCO_CONFG_2 = :BCO_CONFG_2,'
@@ -1664,7 +1671,7 @@ inherited frmGeBancos: TfrmGeBancos
       'insert into TBBANCO_BOLETO'
       
         '  (BCO_AGENCIA, BCO_CARTEIRA, BCO_CC, BCO_CHAVE, BCO_COD, BCO_CO' +
-        'DIGO_CEDENTE, '
+        'DIGO, BCO_CODIGO_CEDENTE, '
       
         '   BCO_CONFG_1, BCO_CONFG_2, BCO_DIA_PROTESTO, BCO_DIRETORIO_REM' +
         'ESSA, BCO_DIRETORIO_RETORNO, '
@@ -1680,20 +1687,20 @@ inherited frmGeBancos: TfrmGeBancos
       'values'
       
         '  (:BCO_AGENCIA, :BCO_CARTEIRA, :BCO_CC, :BCO_CHAVE, :BCO_COD, :' +
-        'BCO_CODIGO_CEDENTE, '
+        'BCO_CODIGO, '
       
-        '   :BCO_CONFG_1, :BCO_CONFG_2, :BCO_DIA_PROTESTO, :BCO_DIRETORIO' +
-        '_REMESSA, '
+        '   :BCO_CODIGO_CEDENTE, :BCO_CONFG_1, :BCO_CONFG_2, :BCO_DIA_PRO' +
+        'TESTO, '
       
-        '   :BCO_DIRETORIO_RETORNO, :BCO_GERAR_BOLETO, :BCO_LAYOUT_REMESS' +
-        'A, :BCO_LAYOUT_RETORNO, '
+        '   :BCO_DIRETORIO_REMESSA, :BCO_DIRETORIO_RETORNO, :BCO_GERAR_BO' +
+        'LETO, :BCO_LAYOUT_REMESSA, '
       
-        '   :BCO_MSG_INSTRUCAO, :BCO_NOME, :BCO_NOSSO_NUM_FINAL, :BCO_NOS' +
-        'SO_NUM_INICIO, '
+        '   :BCO_LAYOUT_RETORNO, :BCO_MSG_INSTRUCAO, :BCO_NOME, :BCO_NOSS' +
+        'O_NUM_FINAL, '
       
-        '   :BCO_NOSSO_NUM_PROXIMO, :BCO_PERCENTUAL_JUROS, :BCO_PERCENTUA' +
-        'L_MORA, '
-      '   :BCO_SEQUENCIAL_REM, :EMPRESA)')
+        '   :BCO_NOSSO_NUM_INICIO, :BCO_NOSSO_NUM_PROXIMO, :BCO_PERCENTUA' +
+        'L_JUROS, '
+      '   :BCO_PERCENTUAL_MORA, :BCO_SEQUENCIAL_REM, :EMPRESA)')
     DeleteSQL.Strings = (
       'delete from TBBANCO_BOLETO'
       'where'
@@ -1702,7 +1709,7 @@ inherited frmGeBancos: TfrmGeBancos
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

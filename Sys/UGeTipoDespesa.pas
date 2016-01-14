@@ -109,6 +109,7 @@ end;
 procedure TfrmGeTipoDespesa.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
   inherited;
+  IbDtstTabelaTIPODESP.AsString             := Trim(IbDtstTabelaTIPODESP.AsString);
   IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
 end;
 

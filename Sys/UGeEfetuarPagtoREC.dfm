@@ -583,7 +583,9 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
         '  left join TBCONTREC c on (c.anolanc = p.anolanc and c.numlanc ' +
         '= p.numlanc)'
       '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
+        'sa = p.empresa)')
     ModifySQL.Strings = (
       '')
     ParamCheck = True

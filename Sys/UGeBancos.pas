@@ -97,6 +97,7 @@ type
     dbLayoutRemessa: TDBLookupComboBox;
     lblLayoutRetorno: TLabel;
     dbLayoutRetorno: TDBLookupComboBox;
+    IbDtstTabelaBCO_CODIGO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -106,6 +107,15 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBBANCO_BOLETO
+  - TBEMPRESA
+
+  Views:
+  - VW_LAYOUT_REM_RET_BANCO
+*)
 
 var
   frmGeBancos: TfrmGeBancos;
@@ -171,8 +181,8 @@ begin
   ControlFirstEdit := dbCodigo;
 
   DisplayFormatCodigo := '0000';
-  CampoCodigo    := 'bco_cod';
-  CampoDescricao := 'bco_nome';
+  CampoCodigo    := 'b.bco_cod';
+  CampoDescricao := 'b.bco_nome';
 
   tblEmpresa.Open;
   tblLayout.Open;
@@ -181,6 +191,7 @@ end;
 procedure TfrmGeBancos.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
+  IbDtstTabelaBCO_CODIGO.AsInteger        := GetNextID('TBBANCO_BOLETO', 'BCO_CODIGO');
   IbDtstTabelaEMPRESA.AsString            := gUsuarioLogado.Empresa;
   IbDtstTabelaBCO_GERAR_BOLETO.Value      := 0;
   IbDtstTabelaBCO_NOSSO_NUM_INICIO.Value  := FormatFloat('0000000', 1);

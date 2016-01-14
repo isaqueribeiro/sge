@@ -199,6 +199,16 @@ type
     property DataAtual : TDateTime read FDataAtual;
   end;
 
+(*
+  Tabelas:
+  - TBCONTPAG
+  - TBEMPRESA
+  - TBFORNECEDOR
+  - TBCONTPAG_BAIXA
+  - TBBANCO_BOLETO
+  - TBFORMPAGTO
+*)
+
 var
   frmGeContasAPagar: TfrmGeContasAPagar;
 

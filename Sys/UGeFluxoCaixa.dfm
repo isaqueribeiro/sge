@@ -1,28 +1,28 @@
 inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   Left = 384
   Caption = 'Tesouraria'
-  ClientHeight = 651
+  ClientHeight = 597
   ClientWidth = 1132
   OldCreateOrder = True
   ExplicitWidth = 1148
-  ExplicitHeight = 690
+  ExplicitHeight = 636
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 647
+    Top = 593
     Width = 1132
     ExplicitTop = 648
     ExplicitWidth = 1132
   end
   inherited Bevel3: TBevel
-    Top = 608
+    Top = 554
     Width = 1132
     ExplicitTop = 609
     ExplicitWidth = 1132
   end
   inherited pgcGuias: TPageControl
     Width = 1132
-    Height = 608
+    Height = 554
     OnChange = pgcGuiasChange
     ExplicitWidth = 1132
     ExplicitHeight = 608
@@ -30,14 +30,14 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       ExplicitWidth = 1124
       ExplicitHeight = 579
       inherited Bevel4: TBevel
-        Top = 363
+        Top = 309
         Width = 1124
         ExplicitTop = 364
         ExplicitWidth = 1124
       end
       object Bevel5: TBevel [1]
         Left = 0
-        Top = 513
+        Top = 459
         Width = 1124
         Height = 4
         Align = alBottom
@@ -46,7 +46,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       inherited dbgDados: TDBGrid
         Width = 1124
-        Height = 363
+        Height = 309
         Columns = <
           item
             Expanded = False
@@ -110,7 +110,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 517
+        Top = 463
         Width = 1124
         TabOrder = 2
         ExplicitTop = 517
@@ -286,12 +286,13 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object pnlConsolidacao: TPanel
         Left = 0
-        Top = 367
+        Top = 313
         Width = 1124
         Height = 146
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitTop = 367
         object lblMovCaixaCancelado: TLabel
           Left = 0
           Top = 8
@@ -1045,7 +1046,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
-        ExplicitTop = 79
         DesignSize = (
           1124
           236)
@@ -1534,7 +1534,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 612
+    Top = 558
     Width = 1132
     ExplicitTop = 612
     ExplicitWidth = 1132
@@ -1921,7 +1921,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited ImgList: TImageList
     Left = 832
     Bitmap = {
-      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5556,7 +5556,9 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         '  left join TBCLIENTE c on (c.codigo = coalesce(cxm.cliente_cod,' +
         ' r.cliente))'
       ''
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)'
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
+        'sa = cxm.empresa)'
       ''
       'where cxm.ano    = :ano'
       '  and cxm.numero = :numero')

@@ -7,7 +7,9 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
   StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery, IBTable,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls;
+  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin,
+  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
@@ -34,9 +36,16 @@ type
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
+    function PermitirSalvarContaCaixa : Boolean;
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBCONTA_CORRENTE
+  - TBBANCO_BOLETO
+*)
 
 var
   frmGeContaCorrente: TfrmGeContaCorrente;
@@ -97,10 +106,36 @@ end;
 procedure TfrmGeContaCorrente.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaCODIGO.Value := GetNextID(NomeTabela, CampoCodigo);
-  IbDtstTabelaTIPO.Value   := CONTA_CORRENTE_TIPO_CAIXA;
+  IbDtstTabelaCODIGO.Value  := GetNextID(NomeTabela, CampoCodigo);
+  IbDtstTabelaTIPO.Value    := CONTA_CORRENTE_TIPO_CAIXA;
+  IbDtstTabelaEMPRESA.Value := gUsuarioLogado.Empresa;
   IbDtstTabelaCONTA_BANCO_BOLETO.Clear;
-  IbDtstTabelaEMPRESA.Clear;
+end;
+
+function TfrmGeContaCorrente.PermitirSalvarContaCaixa: Boolean;
+begin
+  Result := (IbDtstTabelaTIPO.AsInteger = 2); // Conta Banco não é analisada
+  if not Result then
+    with DMBusiness, qryBusca do
+    begin
+      if qryBusca.Active then
+        qryBusca.Close;
+
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  codigo');
+      SQL.Add('from TBCONTA_CORRENTE');
+      SQL.Add('where empresa = ' + QuotedStr(IbDtstTabelaEMPRESA.AsString));
+      SQL.Add('  and tipo    = ' + IbDtstTabelaTIPO.AsString);
+      SQL.Add('  and codigo <> ' + IbDtstTabelaCODIGO.AsString);
+
+      qryBusca.Open;
+
+      Result := (qryBusca.RecordCount = 0);
+
+      if not Result then
+        ShowWarning('Não pode haver mais de uma Conta Corrente do tipo Caixa para a mesma empresa!');
+    end;
 end;
 
 procedure TfrmGeContaCorrente.btbtnSalvarClick(Sender: TObject);
@@ -108,6 +143,10 @@ begin
   IbDtstTabelaCONTA_BANCO_BOLETO.Required := (IbDtstTabelaTIPO.AsInteger = CONTA_CORRENTE_TIPO_BANCO);
 
   IbDtstTabelaTIPO_DESC.AsString := dbTipo.Items[ dbTipo.ItemIndex ];
+
+  if not PermitirSalvarContaCaixa then
+    Abort;
+
   inherited;
 end;
 

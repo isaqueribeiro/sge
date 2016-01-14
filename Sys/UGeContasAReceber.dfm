@@ -27,6 +27,8 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -1885,7 +1887,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited ImgList: TImageList
     Left = 736
     Bitmap = {
-      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3414,7 +3416,9 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  , p.Documento_baixa'
       'from TBCONTREC_BAIXA p'
       '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
-      '  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco)'
+      
+        '  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco and b1.em' +
+        'presa = p.empresa)'
       '  left join TBBANCO b2 on (b2.cod = p.banco_febraban)')
     ModifySQL.Strings = (
       '')
@@ -4065,7 +4069,9 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       
         '  inner join TBCONTREC_BAIXA bx on (bx.anolanc = r.anolanc and b' +
         'x.numlanc = r.numlanc)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = bx.banco)'
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = bx.banco and b.empr' +
+        'esa = r.empresa)'
       '  left join TBFORMPAGTO fp on (fp.cod = bx.forma_pagto)'
       ''
       'where r.anolanc = :ano'
