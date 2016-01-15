@@ -94,13 +94,13 @@ type
     Label1: TLabel;
     lblData: TLabel;
     FrdRecibo: TfrxDBDataset;
-    FrRecibo: TfrxReport;
+    FrReciboA5: TfrxReport;
     QryRecibo: TIBQuery;
     DspRecibo: TDataSetProvider;
     CdsRecibo: TClientDataSet;
     CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
     popImprimir: TPopupMenu;
-    popGerarRecibo: TMenuItem;
+    popGerarReciboA4: TMenuItem;
     ACBrExtenso: TACBrExtenso;
     IbDtstTabelaEMPRESA: TIBStringField;
     IbDtstTabelaVALORSALDO: TIBBCDField;
@@ -151,6 +151,13 @@ type
     dbCompetenciaApuracao: TDBLookupComboBox;
     cdsPagamentosBANCO_FEBRABAN: TIBStringField;
     cdsPagamentosBCO_NOME: TIBStringField;
+    IbDtstTabelaANOCOMPRA: TSmallintField;
+    IbDtstTabelaNUMCOMPRA: TIntegerField;
+    daCompra: TDBEdit;
+    dnCompra: TDBEdit;
+    lblCompra: TLabel;
+    FrReciboA4: TfrxReport;
+    popGerarReciboA5: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -374,7 +381,7 @@ begin
   IbDtstTabelaANOLANC.Value := YearOf(Date);
   IbDtstTabelaEMPRESA.Value := gUsuarioLogado.Empresa;
   IbDtstTabelaNOMEEMP.Value := Copy(GetEmpresaNome(gUsuarioLogado.Empresa), 1, IbDtstTabelaNOMEEMP.Size);
-  IbDtstTabelaPARCELA.Value := 0;
+  IbDtstTabelaPARCELA.Value := 1;
   IbDtstTabelaDTEMISS.Value := Date;
   IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(Date);
   IbDtstTabelaQUITADO.Value := STATUS_APAGAR_PENDENTE;
@@ -383,6 +390,8 @@ begin
   IbDtstTabelaCONDICAO_PAGTO.Value := GetCondicaoPagtoIDDefault;
   IbDtstTabelaHISTORIC.AsString    := '...';
   IbDtstTabelaCODTPDESP.Clear;
+  IbDtstTabelaANOCOMPRA.Clear;
+  IbDtstTabelaNUMCOMPRA.Clear;
 end;
 
 procedure TfrmGeContasAPagar.btbtnEfetuarPagtoClick(Sender: TObject);
@@ -459,12 +468,14 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btbtnEfetuarPagto.Enabled := (IbDtstTabelaQUITADO.AsInteger = STATUS_APAGAR_PENDENTE) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse);
-    popGerarRecibo.Enabled    := (not cdsPagamentos.IsEmpty);
+    popGerarReciboA4.Enabled  := (not cdsPagamentos.IsEmpty);
+    popGerarReciboA5.Enabled  := (not cdsPagamentos.IsEmpty);
   end
   else
   begin
     btbtnEfetuarPagto.Enabled := False;
-    popGerarRecibo.Enabled    := False;
+    popGerarReciboA4.Enabled  := False;
+    popGerarReciboA5.Enabled  := False;
   end;
 end;
 
@@ -739,7 +750,12 @@ begin
 
   FImprimirCabecalho := ShowConfirmation('Recibo', 'Deseja imprimir no recibo o Cabeçalho com informações da empresa?');
 
-  frReport := FrRecibo;
+  if ( Sender = popGerarReciboA4 ) then
+    frReport := FrReciboA4
+  else
+  if ( Sender = popGerarReciboA5 ) then
+    frReport := FrReciboA5;
+
   SetVariablesDefault(frReport);
 
   frReport.PrepareReport;
@@ -793,6 +809,9 @@ procedure TfrmGeContasAPagar.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
   if IbDtstTabelaCOMPETENCIA_APURACAO.IsNull then
     IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(IbDtstTabelaDTEMISS.AsDateTime);
+
+  if ( (IbDtstTabelaANOCOMPRA.AsInteger = 0) and (IbDtstTabelaPARCELA.AsInteger <= 0) ) then
+    IbDtstTabelaPARCELA.AsInteger := 1;
 
   IbDtstTabelaVALORSALDO.AsCurrency := IbDtstTabelaVALORPAG.AsCurrency;
   inherited;

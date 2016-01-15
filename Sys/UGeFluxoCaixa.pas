@@ -164,8 +164,8 @@ type
     IbDtstTabelaCLIENTE_COD: TIntegerField;
     ppImprimir: TPopupMenu;
     nmImprimirExtrato: TMenuItem;
-    nmImprimirRecibo: TMenuItem;
-    FrRecibo: TfrxReport;
+    nmImprimirReciboA5: TMenuItem;
+    FrReciboA5: TfrxReport;
     FrdRecibo: TfrxDBDataset;
     ACBrExtenso: TACBrExtenso;
     QryRecibo: TIBQuery;
@@ -214,6 +214,8 @@ type
     IbDtstTabelaTIPO_RECEITA: TSmallintField;
     qryTipoReceita: TIBQuery;
     dtsTpReceita: TDataSource;
+    nmImprimirReciboA4: TMenuItem;
+    FrReciboA4: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -590,8 +592,32 @@ begin
   begin
     memObservacoes.Lines.Add(
       'Movimento de fluxo de caixa relacionada a COMPRA CONFIRMADA de No. ' + IbDtstTabelaCOMPRA.AsString +
-      '. Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu '   +
-      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A COMPRA '   +
+      '. Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu ' +
+      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A COMPRA '  +
+      'responsável por este movimento.');
+  end
+  else
+  if ( Trim(IbDtstTabelaTITULO.AsString) <> EmptyStr ) then
+  begin
+    memObservacoes.Lines.Add(
+      'Movimento de fluxo de caixa relacionado ao TÍTULO de No. ' + IbDtstTabelaTITULO.AsString);
+    memObservacoes.Lines.Add('(Contas A Receber).');
+    memObservacoes.Lines.Add('');
+    memObservacoes.Lines.Add(
+      'Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu '  +
+      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A BAIXA ' +
+      'responsável por este movimento.');
+  end
+  else
+  if ( Trim(IbDtstTabelaDUPLICATA.AsString) <> EmptyStr ) then
+  begin
+    memObservacoes.Lines.Add(
+      'Movimento de fluxo de caixa relacionado a DUPLICATA de No. ' + IbDtstTabelaDUPLICATA.AsString);
+    memObservacoes.Lines.Add('(Contas A Pagar).');
+    memObservacoes.Lines.Add('');
+    memObservacoes.Lines.Add(
+      'Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu '  +
+      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A BAIXA ' +
       'responsável por este movimento.');
   end;
 end;
@@ -726,6 +752,28 @@ begin
     DefinirControle;
 
     ShowWarning('Movimento de Fluxo de Caixa bloqueado para edição ou exclusão!');
+    pgcGuias.ActivePage := tbsCadastro;
+
+    Return := True;
+  end
+  else
+  if ( Trim(IbDtstTabelaTITULO.AsString) <> EmptyStr ) then
+  begin
+    DefinirControle;
+
+    ShowWarning('Movimentos de Fluxo de Caixa associados a Títulos não podem ser editados ou excluídos!' + #13#13 +
+      'Favor promover essas alterações direto no registro de baixa do Título (Contas A Receber).');
+    pgcGuias.ActivePage := tbsCadastro;
+
+    Return := True;
+  end
+  else
+  if ( Trim(IbDtstTabelaDUPLICATA.AsString) <> EmptyStr ) then
+  begin
+    DefinirControle;
+
+    ShowWarning('Movimentos de Fluxo de Caixa associados a Duplicatas não podem ser editados ou excluídos!' + #13#13 +
+      'Favor promover essas alterações direto no registro de baixa da Duplicata (Contas A Pagar).');
     pgcGuias.ActivePage := tbsCadastro;
 
     Return := True;
@@ -897,7 +945,12 @@ begin
 
   FImprimirCabecalho := ShowConfirmation('Recibo', 'Deseja imprimir no recibo o Cabeçalho com informações da empresa?');
 
-  frReport := FrRecibo;
+  if (Sender = nmImprimirReciboA4) then
+    frReport := FrReciboA4
+  else
+  if (Sender = nmImprimirReciboA5) then
+    frReport := FrReciboA5;
+
   SetVariablesDefault(frReport);
 
   frReport.PrepareReport;

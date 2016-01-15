@@ -131,7 +131,7 @@ type
     lblLancamentoVencido: TLabel;
     Bevel10: TBevel;
     btbtnIncluirLote: TcxButton;
-    FrRecibo: TfrxReport;
+    FrReciboA5: TfrxReport;
     FrdRecibo: TfrxDBDataset;
     ACBrExtenso: TACBrExtenso;
     QryRecibo: TIBQuery;
@@ -139,7 +139,7 @@ type
     CdsRecibo: TClientDataSet;
     CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
     popImprimir: TPopupMenu;
-    popGerarRecibo: TMenuItem;
+    popGerarReciboA4: TMenuItem;
     CdsReciboANOLANC: TSmallintField;
     CdsReciboNUMLANC: TIntegerField;
     CdsReciboPARCELA: TSmallintField;
@@ -182,6 +182,8 @@ type
     IbDtstTabelaCODTPREC: TSmallintField;
     cdsPagamentosBANCO_FEBRABAN: TIBStringField;
     cdsPagamentosBCO_NOME: TIBStringField;
+    FrReciboA4: TfrxReport;
+    popGerarReciboA5: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -360,7 +362,7 @@ begin
   inherited;
   IbDtstTabelaEMPRESA.AsString := gUsuarioLogado.Empresa;
   IbDtstTabelaANOLANC.Value    := YearOf(Date);
-  IbDtstTabelaPARCELA.Value    := 0;
+  IbDtstTabelaPARCELA.Value    := 1;
   IbDtstTabelaDTEMISS.Value    := Date;
   IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(Date);
   IbDtstTabelaFORMA_PAGTO.Value    := GetFormaPagtoIDDefault;
@@ -453,12 +455,14 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btbtnEfetuarPagto.Enabled := (IbDtstTabelaBAIXADO.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse);
-    popGerarRecibo.Enabled    := (not cdsPagamentos.IsEmpty);
+    popGerarReciboA4.Enabled  := (not cdsPagamentos.IsEmpty);
+    popGerarReciboA5.Enabled  := (not cdsPagamentos.IsEmpty);
   end
   else
   begin
     btbtnEfetuarPagto.Enabled := False;
-    popGerarRecibo.Enabled    := False;
+    popGerarReciboA4.Enabled  := False;
+    popGerarReciboA5.Enabled  := False;
   end;
 end;
 
@@ -493,7 +497,12 @@ begin
 
   FImprimirCabecalho := ShowConfirmation('Recibo', 'Deseja imprimir no recibo o Cabeçalho com informações da empresa?');
 
-  frReport := FrRecibo;
+  if ( Sender = popGerarReciboA4 )  then
+    frReport := FrReciboA4
+  else
+  if ( Sender = popGerarReciboA5 )  then
+    frReport := FrReciboA5;
+
   SetVariablesDefault(frReport);
 
   frReport.PrepareReport;
@@ -776,9 +785,12 @@ begin
   if IbDtstTabelaCOMPETENCIA_APURACAO.IsNull then
     IbDtstTabelaCOMPETENCIA_APURACAO.Value := GetCompetenciaID(IbDtstTabelaDTEMISS.AsDateTime);
 
+  if ( (IbDtstTabelaANOVENDA.AsInteger = 0) and (IbDtstTabelaPARCELA.AsInteger <= 0) ) then
+    IbDtstTabelaPARCELA.AsInteger := 1;
+
   if ( IbDtstTabela.State = dsEdit ) then
     if ( VarToStr(IbDtstTabelaDTVENC.OldValue) <> VarToStr(IbDtstTabelaDTVENC.NewValue) ) then
-      DesbloquearCliente(IbDtstTabelaCLIENTE.AsInteger, EmptyStr)
+      DesbloquearCliente(IbDtstTabelaCLIENTE.AsInteger, EmptyStr);
 end;
 
 procedure TfrmGeContasAReceber.DtSrcTabelaDataChange(Sender: TObject;
