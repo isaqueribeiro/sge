@@ -55,6 +55,14 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBCAIXA_MOVIMENTO
+  - TBCONTA_CORRENTE_SALDO
+  - TBCONTA_CORRENTE
+  - TBBANCO_BOLETO
+*)
+
 var
   frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao;
 
@@ -74,7 +82,7 @@ procedure TfrmGeFluxoCaixaImpressao.btnVisualizarClick(Sender: TObject);
 begin
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '       + #13 +
     Format('- Período  : %s a %s', [e1Data.Text, e2Data.Text]) + #13 +
-    Format('- C/C Sist : %s', [edContaCorrente.Text]);
+    Format('- C/C Sist.: %s', [edContaCorrente.Text]);
 
   Screen.Cursor         := crSQLWait;
   btnVisualizar.Enabled := False;
@@ -195,7 +203,50 @@ end;
 
 procedure TfrmGeFluxoCaixaImpressao.MontarRelacaoSaldoConsolidadoDia;
 begin
-  ;
+  try
+    SubTituloRelario := edContaCorrente.Text;
+    PeriodoRelatorio := Format('Consolidação no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+
+    CdsRelacaoSaldoConsolidadoDia.Close;
+
+    with QryRelacaoSaldoConsolidadoDia do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoSaldoConsolidadoDia );
+      SQL.Add('where (cx.situacao = 1)'); // Apenas movimentos ativos
+      SQL.Add('  and (cx.empresa  = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+
+      if ( edContaCorrente.ItemIndex > 0 ) then
+        SQL.Add('  and (cx.conta_corrente = ' + IntToStr(IConta[edContaCorrente.ItemIndex]) + ')');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and (cast(cx.datahora as date) >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)) + ')');
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and (cast(cx.datahora as date) <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)) + ')');
+
+      SQL.Add('');
+      SQL.Add('group by');
+      SQL.Add('    cx.conta_corrente');
+      SQL.Add('  , cc.descricao');
+      SQL.Add('  , cast(cx.datahora as date)');
+      SQL.Add('  , bb.bco_nome');
+      SQL.Add('  , bb.bco_agencia');
+      SQL.Add('  , bb.bco_cc');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    cx.conta_corrente');
+      SQL.Add('  , cast(cx.datahora as date)');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório de saldo consolidado por dia.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
 end;
 
 initialization

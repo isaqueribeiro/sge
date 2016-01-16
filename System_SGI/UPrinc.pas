@@ -308,6 +308,7 @@ type
     procedure BrBtnTabelaIBPTClick(Sender: TObject);
     procedure BrBtnRelatorioAutorizacaoClick(Sender: TObject);
     procedure BrBtnTipoReceitaClick(Sender: TObject);
+    procedure BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -384,6 +385,12 @@ procedure TfrmPrinc.BrBtnRelatorioEstoqueReqClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_REQ_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeRequisicaoAlmoxImpressao');
+end;
+
+procedure TfrmPrinc.BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_MOV_FINANCE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeFluxoCaixaImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
