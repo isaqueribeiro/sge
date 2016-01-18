@@ -20230,3 +20230,363 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 18/01/2016 15:43:27 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_FLUXO_CAIXA (
+    IDCONTA integer,
+    DATA_INICIAL date,
+    DATA_FINAL date)
+returns (
+    DATA date,
+    CONTA_CORRENTE integer,
+    CONTA_CORRENTE_DESC varchar(50),
+    FORMA_PAGTO integer,
+    FORMA_PAGTO_DESC varchar(50),
+    HISTORICO varchar(250),
+    TIPO varchar(1),
+    TIPO_RECEITA smallint,
+    TIPO_RECEITA_DESC varchar(50),
+    TIPO_DESPESA smallint,
+    TIPO_DESPESA_DESC varchar(50),
+    ENTRADA numeric(18,2),
+    SAIDA numeric(18,2),
+    SALDO numeric(18,2),
+    CAIXA_ANO integer,
+    CAIXA_NUM integer)
+as
+begin
+  IDConta = coalesce(:IDConta, 0);
+  Data_Inicial = Coalesce(:Data_Inicial, Current_date);
+  Data_final   = Coalesce(:Data_Final,   Current_date);
+
+  /* Buscar Conta Corrente */
+  for
+    Select
+        c.Codigo
+      , c.Descricao
+    from TBCONTA_CORRENTE c
+    where (c.Codigo = :IDConta)
+       or (:IDConta = 0)
+    into
+        Conta_Corrente
+      , Conta_Corrente_Desc
+  do
+  begin
+
+    -- Buscar Saldo Anterior da Conta Corrente
+    Select
+        sc.SALDO_ANTERIOR_DATA
+      , 0
+      , 'SALDO'
+      , 'SALDO ANTERIOR DA C/C ' || :Conta_corrente_desc
+      , 'S'
+      , sc.SALDO_ANTERIOR_VALOR
+    from GET_CONTA_CORRENTE_SALDO(:Conta_corrente, :Data_inicial, :Data_final) sc
+    into
+        Data
+      , Forma_Pagto
+      , Forma_Pagto_Desc
+      , Historico
+      , Tipo
+      , Saldo;
+
+    Saldo = coalesce(Saldo, 0);
+
+    Suspend;
+
+      /* Buscar Movimento do Caixa por Conta Corrente e Periodo */
+    for
+      Select
+          cast(m.Datahora as Date)
+        , m.Forma_pagto
+        , f.Descri
+        , m.Historico
+        , m.Tipo
+        , Case when upper(m.Tipo) = 'C' then m.Valor else 0 end
+        , Case when upper(m.Tipo) = 'D' then m.Valor else 0 end
+        , m.tipo_receita
+        , rc.tiporec  as tipo_receita_desc
+        , m.tipo_despesa
+        , ds.tipodesp as tipo_despesa_desc
+        , m.Caixa_ano
+        , m.Caixa_num
+      from TBCAIXA_MOVIMENTO m
+        left join TBFORMPAGTO f on (f.Cod = m.Forma_pagto)
+        left join TBTPRECEITA rc on (m.tipo_receita = rc.cod)
+        left join TBTPDESPESA ds on (m.tipo_despesa = ds.cod)
+      where m.Situacao = 1 -- Confirmado
+        and m.Conta_corrente = :Conta_corrente
+        and cast(m.Datahora as Date) between :Data_inicial and :Data_final
+      into
+          Data
+        , Forma_Pagto
+        , Forma_Pagto_Desc
+        , Historico
+        , Tipo
+        , Tipo_Receita
+        , Tipo_Receita_Desc
+        , Tipo_Despesa
+        , Tipo_Despesa_Desc
+        , Entrada
+        , Saida
+        , Caixa_ano
+        , Caixa_num
+    do
+    begin
+
+      Saldo = coalesce(:Saldo, 0) + coalesce(:Entrada, 0) - coalesce(:Saida, 0);
+
+      Suspend;
+
+    end 
+
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 18/01/2016 15:48:37 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_FLUXO_CAIXA (
+    IDCONTA integer,
+    DATA_INICIAL date,
+    DATA_FINAL date)
+returns (
+    DATA date,
+    CONTA_CORRENTE integer,
+    CONTA_CORRENTE_DESC varchar(50),
+    FORMA_PAGTO integer,
+    FORMA_PAGTO_DESC varchar(50),
+    HISTORICO varchar(250),
+    TIPO varchar(1),
+    TIPO_RECEITA smallint,
+    TIPO_RECEITA_DESC varchar(50),
+    TIPO_DESPESA smallint,
+    TIPO_DESPESA_DESC varchar(50),
+    ENTRADA numeric(18,2),
+    SAIDA numeric(18,2),
+    SALDO numeric(18,2),
+    CAIXA_ANO integer,
+    CAIXA_NUM integer)
+as
+begin
+  IDConta = coalesce(:IDConta, 0);
+  Data_Inicial = Coalesce(:Data_Inicial, Current_date);
+  Data_final   = Coalesce(:Data_Final,   Current_date);
+
+  /* Buscar Conta Corrente */
+  for
+    Select
+        c.Codigo
+      , c.Descricao
+    from TBCONTA_CORRENTE c
+    where (c.Codigo = :IDConta)
+       or (:IDConta = 0)
+    into
+        Conta_Corrente
+      , Conta_Corrente_Desc
+  do
+  begin
+
+    -- Buscar Saldo Anterior da Conta Corrente
+    Select
+        sc.SALDO_ANTERIOR_DATA
+      , 0
+      , 'SALDO'
+      , 'SALDO ANTERIOR DA C/C ' || :Conta_corrente_desc
+      , 'S'
+      , sc.SALDO_ANTERIOR_VALOR
+    from GET_CONTA_CORRENTE_SALDO(:Conta_corrente, :Data_inicial, :Data_final) sc
+    into
+        Data
+      , Forma_Pagto
+      , Forma_Pagto_Desc
+      , Historico
+      , Tipo
+      , Saldo;
+
+    Saldo = coalesce(Saldo, 0);
+
+    Suspend;
+
+    /* Buscar Movimento do Caixa por Conta Corrente e Periodo */
+    for
+      Select
+          cast(m.Datahora as Date)
+        , m.Forma_pagto
+        , f.Descri
+        , m.Historico
+        , m.Tipo
+        , Case when upper(m.Tipo) = 'C' then m.Valor else 0 end
+        , Case when upper(m.Tipo) = 'D' then m.Valor else 0 end
+        , m.tipo_receita
+        , rc.tiporec  as tipo_receita_desc
+        , m.tipo_despesa
+        , ds.tipodesp as tipo_despesa_desc
+        , m.Caixa_ano
+        , m.Caixa_num
+      from TBCAIXA_MOVIMENTO m
+        left join TBFORMPAGTO f on (f.Cod = m.Forma_pagto)
+        left join TBTPRECEITA rc on (m.tipo_receita = rc.cod)
+        left join TBTPDESPESA ds on (m.tipo_despesa = ds.cod)
+      where m.Situacao = 1 -- Confirmado
+        and m.Conta_corrente = :Conta_corrente
+        and cast(m.Datahora as Date) between :Data_inicial and :Data_final
+      into
+          Data
+        , Forma_Pagto
+        , Forma_Pagto_Desc
+        , Historico
+        , Tipo
+        , Tipo_Receita
+        , Tipo_Receita_Desc
+        , Tipo_Despesa
+        , Tipo_Despesa_Desc
+        , Entrada
+        , Saida
+        , Caixa_ano
+        , Caixa_num
+    do
+    begin
+
+      Saldo = coalesce(:Saldo, 0) + coalesce(:Entrada, 0) - coalesce(:Saida, 0);
+
+      Suspend;
+
+    end 
+
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 18/01/2016 15:53:43 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_FLUXO_CAIXA (
+    IDCONTA integer,
+    DATA_INICIAL date,
+    DATA_FINAL date)
+returns (
+    DATA date,
+    CONTA_CORRENTE integer,
+    CONTA_CORRENTE_DESC varchar(50),
+    FORMA_PAGTO integer,
+    FORMA_PAGTO_DESC varchar(50),
+    HISTORICO varchar(250),
+    TIPO varchar(1),
+    TIPO_RECEITA smallint,
+    TIPO_RECEITA_DESC varchar(50),
+    TIPO_DESPESA smallint,
+    TIPO_DESPESA_DESC varchar(50),
+    ENTRADA numeric(18,2),
+    SAIDA numeric(18,2),
+    SALDO numeric(18,2),
+    CAIXA_ANO integer,
+    CAIXA_NUM integer)
+as
+begin
+  IDConta = coalesce(:IDConta, 0);
+  Data_Inicial = Coalesce(:Data_Inicial, Current_date);
+  Data_final   = Coalesce(:Data_Final,   Current_date);
+
+  /* Buscar Conta Corrente */
+  for
+    Select
+        c.Codigo
+      , c.Descricao
+    from TBCONTA_CORRENTE c
+    where (c.Codigo = :IDConta)
+       or (:IDConta = 0)
+    into
+        Conta_Corrente
+      , Conta_Corrente_Desc
+  do
+  begin
+
+    -- Buscar Saldo Anterior da Conta Corrente
+    Select
+        sc.SALDO_ANTERIOR_DATA
+      , 0
+      , 'SALDO'
+      , 'SALDO ANTERIOR DA C/C ' || :Conta_corrente_desc
+      , 'S'
+      , sc.SALDO_ANTERIOR_VALOR
+    from GET_CONTA_CORRENTE_SALDO(:Conta_corrente, :Data_inicial, :Data_final) sc
+    into
+        Data
+      , Forma_Pagto
+      , Forma_Pagto_Desc
+      , Historico
+      , Tipo
+      , Saldo;
+
+    Saldo = coalesce(Saldo, 0);
+
+    Suspend;
+
+    /* Buscar Movimento do Caixa por Conta Corrente e Periodo */
+    for
+      Select
+          cast(m.Datahora as Date)
+        , m.Forma_pagto
+        , f.Descri
+        , m.Historico
+        , m.Tipo
+        , m.tipo_receita
+        , rc.tiporec  as tipo_receita_desc
+        , m.tipo_despesa
+        , ds.tipodesp as tipo_despesa_desc
+        , Case when upper(m.Tipo) = 'C' then m.Valor else 0 end
+        , Case when upper(m.Tipo) = 'D' then m.Valor else 0 end
+        , m.Caixa_ano
+        , m.Caixa_num
+      from TBCAIXA_MOVIMENTO m
+        left join TBFORMPAGTO f on (f.Cod = m.Forma_pagto)
+        left join TBTPRECEITA rc on (m.tipo_receita = rc.cod)
+        left join TBTPDESPESA ds on (m.tipo_despesa = ds.cod)
+      where m.Situacao = 1 -- Confirmado
+        and m.Conta_corrente = :Conta_corrente
+        and cast(m.Datahora as Date) between :Data_inicial and :Data_final
+      into
+          Data
+        , Forma_Pagto
+        , Forma_Pagto_Desc
+        , Historico
+        , Tipo
+        , Tipo_Receita
+        , Tipo_Receita_Desc
+        , Tipo_Despesa
+        , Tipo_Despesa_Desc
+        , Entrada
+        , Saida
+        , Caixa_ano
+        , Caixa_num
+    do
+    begin
+
+      Saldo = coalesce(:Saldo, 0) + coalesce(:Entrada, 0) - coalesce(:Saida, 0);
+
+      Suspend;
+
+    end 
+
+  end 
+end^
+
+SET TERM ; ^
+

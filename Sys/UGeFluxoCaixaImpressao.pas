@@ -37,6 +37,11 @@ type
     DspRelacaoSaldoConsolidadoDia: TDataSetProvider;
     CdsRelacaoSaldoConsolidadoDia: TClientDataSet;
     FrdsRelacaoSaldoConsolidadoDia: TfrxDBDataset;
+    frxReport1: TfrxReport;
+    IBQuery1: TIBQuery;
+    DataSetProvider1: TDataSetProvider;
+    ClientDataSet1: TClientDataSet;
+    frxDBDataset1: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
