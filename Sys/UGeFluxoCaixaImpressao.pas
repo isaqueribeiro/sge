@@ -37,18 +37,19 @@ type
     DspRelacaoSaldoConsolidadoDia: TDataSetProvider;
     CdsRelacaoSaldoConsolidadoDia: TClientDataSet;
     FrdsRelacaoSaldoConsolidadoDia: TfrxDBDataset;
-    frxReport1: TfrxReport;
-    IBQuery1: TIBQuery;
-    DataSetProvider1: TDataSetProvider;
-    ClientDataSet1: TClientDataSet;
-    frxDBDataset1: TfrxDBDataset;
+    frRelacaoMovimentoCaixa: TfrxReport;
+    QryRelacaoMovimentoCaixa: TIBQuery;
+    DspRelacaoMovimentoCaixa: TDataSetProvider;
+    CdsRelacaoMovimentoCaixa: TClientDataSet;
+    FrdsRelacaoMovimentoCaixa: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
   private
     { Private declarations }
-    FSQL_RelacaoSaldoConsolidadoDia : TStringList;
+    FSQL_RelacaoSaldoConsolidadoDia ,
+    FSQL_RelacaoMovimentoCaixaConta : TStringList;
     IEmpresa : Array of String;
     IConta   : Array of Integer;
     procedure CarregarDadosEmpresa; override;
@@ -66,6 +67,9 @@ type
   - TBCONTA_CORRENTE_SALDO
   - TBCONTA_CORRENTE
   - TBBANCO_BOLETO
+
+  Procedures:
+  - GET_CAIXA_MOVIMENTO
 *)
 
 var
@@ -73,6 +77,7 @@ var
 
 const
   REPORT_RELACAO_SALDO_CONSOLIDADO_DIA  = 0;
+  REPORT_RELACAO_MOVIMENTO_CAIXA_CONTA  = 1;
 
 implementation
 
@@ -97,6 +102,11 @@ begin
       begin
         MontarRelacaoSaldoConsolidadoDia;
         frReport := frRelacaoSaldoConsolidadoDia;
+      end;
+
+    REPORT_RELACAO_MOVIMENTO_CAIXA_CONTA:
+      begin
+
       end;
   end;
 
@@ -197,6 +207,9 @@ begin
 
   FSQL_RelacaoSaldoConsolidadoDia := TStringList.Create;
   FSQL_RelacaoSaldoConsolidadoDia.AddStrings( QryRelacaoSaldoConsolidadoDia.SQL );
+
+  FSQL_RelacaoMovimentoCaixaConta := TStringList.Create;
+  FSQL_RelacaoMovimentoCaixaConta.AddStrings( QryRelacaoMovimentoCaixa.SQL );
 end;
 
 procedure TfrmGeFluxoCaixaImpressao.FormShow(Sender: TObject);

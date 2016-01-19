@@ -1133,7 +1133,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     Left = 136
     Top = 8
   end
-  object frxReport1: TfrxReport
+  object frRelacaoMovimentoCaixa: TfrxReport
     Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -1158,8 +1158,8 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         DataSetName = 'frdEmpresa'
       end
       item
-        DataSet = frxDBDataset1
-        DataSetName = 'FrdsRelacaoSaldoConsolidadoDia'
+        DataSet = FrdsRelacaoMovimentoCaixa
+        DataSetName = 'FrdsRelacaoMovimentoCaixa'
       end>
     Variables = <
       item
@@ -1601,8 +1601,8 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Height = 18.897650000000000000
         Top = 336.378170000000000000
         Width = 359.055350000000000000
-        DataSet = frxDBDataset1
-        DataSetName = 'FrdsRelacaoSaldoConsolidadoDia'
+        DataSet = FrdsRelacaoMovimentoCaixa
+        DataSetName = 'FrdsRelacaoMovimentoCaixa'
         RowCount = 0
         object Memo9: TfrxMemoView
           Width = 71.811070000000000000
@@ -1915,139 +1915,63 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
     end
   end
-  object IBQuery1: TIBQuery
+  object QryRelacaoMovimentoCaixa: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
     SQL.Strings = (
-      'execute block ('
-      '    empresa DMN_CNPJ = :empresa'
-      '  , data_inicial DMN_DATE = :data_inicial'
-      '  , data_final   DMN_DATE = :data_final'
-      ') returns ('
-      '    data date,'
-      '    conta_corrente integer,'
-      '    conta_corrente_desc varchar(50),'
-      '    forma_pagto integer,'
-      '    forma_pagto_desc varchar(50),'
-      '    historico varchar(250),'
-      '    tipo varchar(1),'
-      '    tipo_receita Smallint,'
-      '    tipo_receita_desc varchar(50),'
-      '    tipo_despesa Smallint,'
-      '    tipo_despesa_desc varchar(50),'
-      '    entrada numeric(18,2),'
-      '    saida numeric(18,2),'
-      '    saldo numeric(18,2),'
-      '    caixa_ano integer,'
-      '    caixa_num integer'
-      ')'
-      'as'
-      'begin'
-      '  for'
-      '    Select'
-      '      cc.codigo'
-      '    from TBCONTA_CORRENTE cc'
-      '    where cc.empresa = :empresa'
-      '    Into'
-      '      conta_corrente'
-      '  do'
-      '  begin'
-      '    for'
-      '        Select'
-      '            cx.data'
-      '          , cx.conta_corrente_desc'
-      '          , cx.forma_pagto'
-      '          , cx.forma_pagto_desc'
-      '          , cx.historico'
-      '          , cx.tipo'
-      '          , cx.tipo_receita'
-      '          , cx.tipo_receita_desc'
-      '          , cx.tipo_despesa'
-      '          , cx.tipo_despesa_desc'
-      '          , cx.entrada'
-      '          , cx.saida'
-      '          , cx.saldo'
-      '          , cx.caixa_ano'
-      '          , cx.caixa_num'
+      'Select'
+      '    mc.data'
+      '  , mc.conta_corrente'
+      '  , mc.conta_corrente_desc'
+      '  , bb.bco_nome'
+      '  , bb.bco_agencia'
+      '  , bb.bco_cc'
       
-        '        from GET_FLUXO_CAIXA(:conta_corrente, :data_inicial, :da' +
-        'ta_final) cx'
-      '        Into'
-      '            data'
-      '          , conta_corrente_desc'
-      '          , forma_pagto'
-      '          , forma_pagto_desc'
-      '          , historico'
-      '          , tipo'
-      '          , tipo_receita'
-      '          , tipo_receita_desc'
-      '          , tipo_despesa'
-      '          , tipo_despesa_desc'
-      '          , entrada'
-      '          , saida'
-      '          , saldo'
-      '          , caixa_ano'
-      '          , caixa_num'
-      '    do'
-      '      suspend;'
-      '  end'
-      'end ')
+        '  , coalesce(bb.bco_nome, '#39#39') || '#39' '#39' || coalesce('#39'AG. '#39' || bb.bc' +
+        'o_agencia, '#39#39') || '#39' '#39' || coalesce('#39' C/C '#39' || bb.bco_cc, '#39#39') as b' +
+        'co_conta'
+      '  , mc.forma_pagto'
+      '  , mc.forma_pagto_desc'
+      '  , mc.historico'
+      '  , mc.tipo'
+      '  , mc.tipo_receita'
+      '  , mc.tipo_receita_desc'
+      '  , mc.tipo_despesa'
+      '  , mc.tipo_despesa_desc'
+      '  , mc.entrada'
+      '  , mc.saida'
+      '  , mc.saldo'
+      '  , mc.caixa_ano'
+      '  , mc.caixa_num'
+      
+        'from GET_CAIXA_MOVIMENTO('#39'03041377000187'#39', 0, '#39'2016-01-01'#39', '#39'201' +
+        '6-01-18'#39') mc'
+      
+        '  left join TBCONTA_CORRENTE cc on (cc.codigo = mc.conta_corrent' +
+        'e)'
+      
+        '  left join TBBANCO_BOLETO bb on (bb.bco_cod = cc.conta_banco_bo' +
+        'leto and bb.empresa = cc.empresa)')
     Left = 40
     Top = 40
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'empresa'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'data_inicial'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'data_final'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'empresa'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'conta_corrente'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'data_inicial'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'data_final'
-        ParamType = ptUnknown
-      end>
   end
-  object DataSetProvider1: TDataSetProvider
-    DataSet = IBQuery1
+  object DspRelacaoMovimentoCaixa: TDataSetProvider
+    DataSet = QryRelacaoMovimentoCaixa
     Left = 72
     Top = 40
   end
-  object ClientDataSet1: TClientDataSet
+  object CdsRelacaoMovimentoCaixa: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'DspRelacaoSaldoConsolidadoDia'
+    ProviderName = 'DspRelacaoMovimentoCaixa'
     Left = 104
     Top = 40
   end
-  object frxDBDataset1: TfrxDBDataset
-    UserName = 'FrdsRelacaoSaldoConsolidadoDia'
+  object FrdsRelacaoMovimentoCaixa: TfrxDBDataset
+    UserName = 'FrdsRelacaoMovimentoCaixa'
     CloseDataSource = True
     FieldAliases.Strings = (
       'MOVIMENTO_CONTA=MOVIMENTO_CONTA'
@@ -2060,7 +1984,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       'VALOR_ENTRADAS=VALOR_ENTRADAS'
       'VALOR_SAIDAS=VALOR_SAIDAS'
       'VALOR_SALDO=VALOR_SALDO')
-    DataSet = ClientDataSet1
+    DataSet = CdsRelacaoMovimentoCaixa
     BCDToCurrency = True
     Left = 136
     Top = 40

@@ -20590,3 +20590,98 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 18/01/2016 20:41:32 --------*/
+
+CREATE INDEX IDX_TBCONTA_CORRENTE_DESC
+ON TBCONTA_CORRENTE (DESCRICAO);
+
+
+
+
+/*------ SYSDBA 18/01/2016 20:43:19 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure GET_CAIXA_MOVIMENTO (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    DATA DMN_DATE,
+    CONTA_CORRENTE DMN_INTEGER_N,
+    CONTA_CORRENTE_DESC DMN_VCHAR_50,
+    FORMA_PAGTO DMN_INTEGER_N,
+    FORMA_PAGTO_DESC DMN_VCHAR_50,
+    HISTORICO DMN_VCHAR_250,
+    TIPO DMN_VCHAR_01,
+    TIPO_RECEITA DMN_SMALLINT_N,
+    TIPO_RECEITA_DESC DMN_VCHAR_50,
+    TIPO_DESPESA DMN_SMALLINT_N,
+    TIPO_DESPESA_DESC DMN_VCHAR_50,
+    ENTRADA numeric(18,2),
+    SAIDA numeric(18,2),
+    SALDO numeric(18,2),
+    CAIXA_ANO DMN_INTEGER_N,
+    CAIXA_NUM DMN_INTEGER_N)
+as
+begin
+  conta = coalesce(:conta, 0);
+
+  for
+    Select
+      cc.codigo
+    from TBCONTA_CORRENTE cc
+    where (cc.empresa = :empresa)
+      and ((cc.codigo = :conta) or (:conta = 0))
+    order by
+      cc.descricao
+    Into
+      conta_corrente
+  do
+  begin
+    for
+        Select
+            cx.data
+          , cx.conta_corrente_desc
+          , cx.forma_pagto
+          , cx.forma_pagto_desc
+          , cx.historico
+          , cx.tipo
+          , cx.tipo_receita
+          , cx.tipo_receita_desc
+          , cx.tipo_despesa
+          , cx.tipo_despesa_desc
+          , cx.entrada
+          , cx.saida
+          , cx.saldo
+          , cx.caixa_ano
+          , cx.caixa_num
+        from GET_FLUXO_CAIXA(:conta_corrente, :data_inicial, :data_final) cx
+        Into
+            data
+          , conta_corrente_desc
+          , forma_pagto
+          , forma_pagto_desc
+          , historico
+          , tipo
+          , tipo_receita
+          , tipo_receita_desc
+          , tipo_despesa
+          , tipo_despesa_desc
+          , entrada
+          , saida
+          , saldo
+          , caixa_ano
+          , caixa_num
+    do
+      suspend;
+  end
+end ^
+
+SET TERM ; ^
+
+GRANT EXECUTE ON PROCEDURE GET_CAIXA_MOVIMENTO TO "PUBLIC";

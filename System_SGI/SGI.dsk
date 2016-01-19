@@ -15,13 +15,13 @@ File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContasAReceberLoteParcel
 File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeAutorizacaoCompra.pas',0,1,960,34,966,0,0,,{1
 
 [Modules]
-Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas
-Module2=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarImpressao.pas
-Module3=default.htm
-Module4=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module0=D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module2=default.htm
+Module3=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module6=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarImpressao.pas
 Module7=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
 Module8=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module9=D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas
@@ -33,20 +33,15 @@ Module14=C:\Delphi\ACBr\Fontes\ACBrBoleto\ACBrBoletoFCFR.pas
 Count=15
 EditWindowCount=1
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=1
-
-[D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarImpressao.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
 
 [default.htm]
 ModuleType=TURLModule
@@ -60,6 +55,11 @@ FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarImpressao.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -118,7 +118,7 @@ FormOnTop=0
 
 [EditWindow0]
 ViewCount=15
-CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas
 View0=0
 View1=1
 View2=2
@@ -152,13 +152,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1341
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000000C13000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000DD2100001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000001E11000000000000013D050000000000000100000000550E000009000000446F636B536974653301000000006D1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000000C13000000000000011D0500000000000001000000004412000009000000446F636B53697465320100000000DD21000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=0
+RightPanelData=000008000101000000001E11000000000000011D0500000000000001000000004412000009000000446F636B536974653201000000006D1E000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=810
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D724500000000000002D9020000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B53697465317245000000000000022A030000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779D1D00000000000002F606000000000000FFFFFFFF
@@ -313,13 +313,13 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarImpressao.pas
 [View14]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas
-CursorX=70
-CursorY=221
-TopLine=204
+CursorX=71
+CursorY=212
+TopLine=187
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas
 
 [Watches]
 Count=4
@@ -339,11 +339,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=182
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=182
+ClientHeight=266
 TBDockHeight=218
 LRDockWidth=13600
 Dockable=1
@@ -412,18 +412,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
 Left=0
 Top=23
 Width=10000
-Height=484
+Height=569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=10000
-ClientHeight=484
-TBDockHeight=484
+ClientHeight=569
+TBDockHeight=569
 LRDockWidth=2767
 Dockable=1
 StayOnTop=0
@@ -437,11 +437,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=3898
+Height=2978
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
+ClientHeight=2978
 TBDockHeight=7155
 LRDockWidth=1999
 Dockable=1
@@ -456,11 +456,11 @@ State=0
 Left=0
 Top=340
 Width=1341
-Height=4952
+Height=4031
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
-ClientHeight=4952
+ClientHeight=4031
 TBDockHeight=6707
 LRDockWidth=1341
 Dockable=1
@@ -469,8 +469,8 @@ SplitPos=79
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Connected,Action
-ExpandedItems=DataBinding=0,"LiveBindings Designer=0",Options=0,Position=0,Properties=1,Styles=0,Summary=0,Properties.Alignment=0,Properties.AssignedValues=0,Properties.Images=0,Constraints=0,LiveBindings=0,Margins=0,Font=0,Anchors=0,Touch=0,StyleElements=0,EditForm=0,FilterBox=0,Filtering=0,FilterRow=0,FindPanel=0,Images=0,Navigator=0,NewItemRow=0,OptionsBehavior=0,OptionsCustomize=0,DataController=0,FilterOptions=0,OracleDictionary=0,ProviderOptions=0,DefaultTransaction=0,TraceFlags=0
+SelectedItem=Name,
+ExpandedItems=EngineOptions=0,"LiveBindings Designer=0",FilterOptions=0,DataSet=0,DefaultTransaction=0,TraceFlags=0
 
 [ModelViewTool]
 PercentageSizes=1
@@ -598,11 +598,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=182
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=182
+ClientHeight=266
 TBDockHeight=412
 LRDockWidth=4948
 Dockable=1
@@ -617,11 +617,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=182
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=182
+ClientHeight=266
 TBDockHeight=218
 LRDockWidth=7409
 Dockable=1
@@ -640,11 +640,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=182
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=182
+ClientHeight=266
 TBDockHeight=1538
 LRDockWidth=3483
 Dockable=1
@@ -659,11 +659,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=182
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=182
+ClientHeight=266
 TBDockHeight=2058
 LRDockWidth=3483
 Dockable=1
@@ -781,11 +781,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=182
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=182
+ClientHeight=266
 TBDockHeight=1550
 LRDockWidth=8743
 Dockable=1
@@ -874,12 +874,12 @@ State=0
 Left=0
 Top=23
 Width=3828
-Height=484
+Height=569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=484
-TBDockHeight=484
+ClientHeight=569
+TBDockHeight=569
 LRDockWidth=3828
 Dockable=1
 StayOnTop=0
@@ -946,11 +946,11 @@ State=0
 Left=0
 Top=427
 Width=1309
-Height=3898
+Height=2978
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
+ClientHeight=2978
 TBDockHeight=6707
 LRDockWidth=1309
 Dockable=1
