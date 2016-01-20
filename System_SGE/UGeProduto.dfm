@@ -794,16 +794,16 @@ inherited frmGeProduto: TfrmGeProduto
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object lblPercentualMarckup: TLabel
-            Left = 392
+          object lblPercentualMarkup: TLabel
+            Left = 738
             Top = 8
             Width = 62
             Height = 13
             Caption = '% Markup:'
-            FocusControl = dbPercentualMarckup
+            FocusControl = dbPercentualMarkup
           end
           object lblPrecoVendaSugestao: TLabel
-            Left = 632
+            Left = 619
             Top = 8
             Width = 93
             Height = 13
@@ -818,7 +818,7 @@ inherited frmGeProduto: TfrmGeProduto
             Visible = False
           end
           object lblLucroValor: TLabel
-            Left = 512
+            Left = 499
             Top = 8
             Width = 91
             Height = 13
@@ -830,6 +830,14 @@ inherited frmGeProduto: TfrmGeProduto
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
+          end
+          object lblPercentualMargem: TLabel
+            Left = 391
+            Top = 8
+            Width = 100
+            Height = 13
+            Caption = '% Margem Lucro:'
+            FocusControl = dbPercentualMargem
           end
           object dbCusto: TDBEdit
             Left = 272
@@ -881,10 +889,10 @@ inherited frmGeProduto: TfrmGeProduto
             ReadOnly = True
             TabOrder = 1
           end
-          object dbPercentualMarckup: TDBEdit
-            Left = 392
+          object dbPercentualMarkup: TDBEdit
+            Left = 738
             Top = 24
-            Width = 113
+            Width = 62
             Height = 21
             CharCase = ecUpperCase
             Color = clMoneyGreen
@@ -897,10 +905,10 @@ inherited frmGeProduto: TfrmGeProduto
             Font.Style = [fsBold]
             ParentFont = False
             ReadOnly = True
-            TabOrder = 3
+            TabOrder = 6
           end
           object dbPrecoVendaSugestao: TDBEdit
-            Left = 632
+            Left = 619
             Top = 24
             Width = 113
             Height = 21
@@ -918,7 +926,7 @@ inherited frmGeProduto: TfrmGeProduto
             Visible = False
           end
           object dbLucroValor: TDBEdit
-            Left = 512
+            Left = 499
             Top = 24
             Width = 113
             Height = 21
@@ -937,10 +945,10 @@ inherited frmGeProduto: TfrmGeProduto
           object GrpBxFracionamentoPreco: TGroupBox
             Left = 16
             Top = 48
-            Width = 729
+            Width = 525
             Height = 73
             Caption = 'Fracionamento'
-            TabOrder = 6
+            TabOrder = 7
             object lblPrecoFrac: TLabel
               Left = 16
               Top = 24
@@ -1055,7 +1063,7 @@ inherited frmGeProduto: TfrmGeProduto
             Width = 285
             Height = 106
             Caption = 'Par'#226'metros Gerais'
-            TabOrder = 7
+            TabOrder = 9
             object dbCadastroAtivo: TDBCheckBox
               Left = 16
               Top = 27
@@ -1099,7 +1107,7 @@ inherited frmGeProduto: TfrmGeProduto
             Width = 235
             Height = 106
             Caption = 'Par'#226'metros p/ Produto'
-            TabOrder = 8
+            TabOrder = 10
             object dbProdutoMovEstoque: TDBCheckBox
               Left = 15
               Top = 50
@@ -1137,6 +1145,92 @@ inherited frmGeProduto: TfrmGeProduto
               ValueChecked = '1'
               ValueUnchecked = '0'
             end
+          end
+          object GrpBxUltimaCompra: TGroupBox
+            Left = 547
+            Top = 48
+            Width = 253
+            Height = 73
+            Caption = #218'ltima Compra'
+            TabOrder = 8
+            object lblUltimaCompraData: TLabel
+              Left = 16
+              Top = 24
+              Width = 30
+              Height = 13
+              Caption = 'Data:'
+              FocusControl = dbUltimaCompraData
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object lblUltimaCompraValor: TLabel
+              Left = 127
+              Top = 24
+              Width = 60
+              Height = 13
+              Caption = 'Valor (R$):'
+              FocusControl = dbUltimaCompraValor
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object dbUltimaCompraData: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 105
+              Height = 21
+              Color = clMoneyGreen
+              DataField = 'ULTIMA_COMPRA_DATA'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object dbUltimaCompraValor: TDBEdit
+              Left = 127
+              Top = 40
+              Width = 106
+              Height = 21
+              Color = clMoneyGreen
+              DataField = 'ULTIMA_COMPRA_VALOR'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 1
+            end
+          end
+          object dbPercentualMargem: TDBEdit
+            Left = 391
+            Top = 24
+            Width = 102
+            Height = 21
+            CharCase = ecUpperCase
+            DataField = 'PERCENTUAL_MARGEM'
+            DataSource = DtSrcTabela
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 3
           end
         end
         object tbsCustoVeiculo: TTabSheet
@@ -2804,6 +2898,9 @@ inherited frmGeProduto: TfrmGeProduto
       '  , p.Movimenta_estoque'
       '  , p.Compor_faturamento'
       '  , p.Estoque_Aprop_lote'
+      '  , p.Ultima_compra_data'
+      '  , p.Ultima_compra_valor'
+      '  , p.Ultima_compra_fornec'
       '  , case when coalesce(p.Reserva, 0) > 0'
       '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
       '      else coalesce(p.Qtde, 0)'
@@ -3384,6 +3481,25 @@ inherited frmGeProduto: TfrmGeProduto
       Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaULTIMA_COMPRA_DATA: TDateField
+      FieldName = 'ULTIMA_COMPRA_DATA'
+      Origin = '"TBPRODUTO"."ULTIMA_COMPRA_DATA"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object IbDtstTabelaULTIMA_COMPRA_VALOR: TIBBCDField
+      FieldName = 'ULTIMA_COMPRA_VALOR'
+      Origin = '"TBPRODUTO"."ULTIMA_COMPRA_VALOR"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object IbDtstTabelaULTIMA_COMPRA_FORNEC: TIntegerField
+      FieldName = 'ULTIMA_COMPRA_FORNEC'
+      Origin = '"TBPRODUTO"."ULTIMA_COMPRA_FORNEC"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaDISPONIVEL: TIBBCDField
       DisplayLabel = 'Dispon'#237'vel'
       FieldName = 'DISPONIVEL'
@@ -3658,7 +3774,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

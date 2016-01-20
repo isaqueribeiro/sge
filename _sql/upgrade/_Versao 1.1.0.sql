@@ -20685,3 +20685,2491 @@ end ^
 SET TERM ; ^
 
 GRANT EXECUTE ON PROCEDURE GET_CAIXA_MOVIMENTO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 19/01/2016 19:53:31 --------*/
+
+ALTER TABLE TBCLIENTE
+    ADD BLOQUEADO_AUTOMATICO DMN_LOGICO DEFAULT 0;
+
+COMMENT ON COLUMN TBCLIENTE.BLOQUEADO_AUTOMATICO IS
+'Bloqueado automaticamente:
+0 - Nao
+1 - Sim';
+
+alter table TBCLIENTE
+alter CODIGO position 1;
+
+alter table TBCLIENTE
+alter TIPO position 2;
+
+alter table TBCLIENTE
+alter PESSOA_FISICA position 3;
+
+alter table TBCLIENTE
+alter CNPJ position 4;
+
+alter table TBCLIENTE
+alter NOME position 5;
+
+alter table TBCLIENTE
+alter NOMEFANT position 6;
+
+alter table TBCLIENTE
+alter INSCEST position 7;
+
+alter table TBCLIENTE
+alter INSCMUN position 8;
+
+alter table TBCLIENTE
+alter ENDER position 9;
+
+alter table TBCLIENTE
+alter COMPLEMENTO position 10;
+
+alter table TBCLIENTE
+alter BAIRRO position 11;
+
+alter table TBCLIENTE
+alter CEP position 12;
+
+alter table TBCLIENTE
+alter CIDADE position 13;
+
+alter table TBCLIENTE
+alter UF position 14;
+
+alter table TBCLIENTE
+alter FONE position 15;
+
+alter table TBCLIENTE
+alter FONECEL position 16;
+
+alter table TBCLIENTE
+alter FONECOMERC position 17;
+
+alter table TBCLIENTE
+alter EMAIL position 18;
+
+alter table TBCLIENTE
+alter SITE position 19;
+
+alter table TBCLIENTE
+alter TLG_TIPO position 20;
+
+alter table TBCLIENTE
+alter LOG_COD position 21;
+
+alter table TBCLIENTE
+alter BAI_COD position 22;
+
+alter table TBCLIENTE
+alter CID_COD position 23;
+
+alter table TBCLIENTE
+alter EST_COD position 24;
+
+alter table TBCLIENTE
+alter NUMERO_END position 25;
+
+alter table TBCLIENTE
+alter PAIS_ID position 26;
+
+alter table TBCLIENTE
+alter VALOR_LIMITE_COMPRA position 27;
+
+alter table TBCLIENTE
+alter BLOQUEADO position 28;
+
+alter table TBCLIENTE
+alter BLOQUEADO_DATA position 29;
+
+alter table TBCLIENTE
+alter BLOQUEADO_MOTIVO position 30;
+
+alter table TBCLIENTE
+alter BLOQUEADO_USUARIO position 31;
+
+alter table TBCLIENTE
+alter BLOQUEADO_AUTOMATICO position 32;
+
+alter table TBCLIENTE
+alter DESBLOQUEADO_DATA position 33;
+
+alter table TBCLIENTE
+alter VENDEDOR_COD position 34;
+
+alter table TBCLIENTE
+alter USUARIO position 35;
+
+alter table TBCLIENTE
+alter EMITIR_NFE_DEVOLUCAO position 36;
+
+alter table TBCLIENTE
+alter CUSTO_OPER_PERCENTUAL position 37;
+
+alter table TBCLIENTE
+alter CUSTO_OPER_FRETE position 38;
+
+alter table TBCLIENTE
+alter CUSTO_OPER_OUTROS position 39;
+
+alter table TBCLIENTE
+alter ENTREGA_FRACIONADA_VENDA position 40;
+
+alter table TBCLIENTE
+alter BANCO position 41;
+
+alter table TBCLIENTE
+alter AGENCIA position 42;
+
+alter table TBCLIENTE
+alter CC position 43;
+
+alter table TBCLIENTE
+alter PRACA position 44;
+
+alter table TBCLIENTE
+alter BANCO_2 position 45;
+
+alter table TBCLIENTE
+alter AGENCIA_2 position 46;
+
+alter table TBCLIENTE
+alter CC_2 position 47;
+
+alter table TBCLIENTE
+alter PRACA_2 position 48;
+
+alter table TBCLIENTE
+alter BANCO_3 position 49;
+
+alter table TBCLIENTE
+alter AGENCIA_3 position 50;
+
+alter table TBCLIENTE
+alter CC_3 position 51;
+
+alter table TBCLIENTE
+alter PRACA_3 position 52;
+
+alter table TBCLIENTE
+alter OBSERVACAO position 53;
+
+alter table TBCLIENTE
+alter DTCAD position 54;
+
+alter table TBCLIENTE
+alter ATIVO position 55;
+
+
+
+
+/*------ SYSDBA 19/01/2016 19:55:29 --------*/
+
+COMMENT ON TABLE TBCLIENTE IS 'Tabela de Clientes
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2011
+
+Tabela responsavel por armazenar os dados referentes aos clientes mantidos pelos sistemas de gestao.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/01/2016 - IMR :
+        + Criacao do campo BLOQUEADO_AUTOMATICO como referencial para o sistema de
+          gestao identificar quais registros de clientes foram bloqueados de forma
+          automatica por ele.
+
+    26/05/2015 - IMR :
+        + Criacao dos campos ATIVO para controle dos cadastros ativos.
+
+    29/05/2014 - IMR :
+        + Criacao do campos NOMEFANT para que seja possivel pesquisar clientes tambem pelo NOME FANTASIA, uma vez que
+          o sistema esta permitindo apenas pela RAZAO SOCIAL (NOME).
+
+    28/05/2014 - IMR :
+        + Criacao dos campos BANCO, AGENCIA, CC e OBSERVACAO para atender solicitacoes do novo cliente.
+
+    17/08/2014 - IMR :
+        + Criacao de novos campos referentes a dados financeiros (Banco, Agencia, Conta e Praca)
+          para que o registro do cliente venha suportar ate 3 contas correntes diferentes.';
+
+
+
+
+/*------ SYSDBA 19/01/2016 19:56:08 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_cliente_cod for tbcliente
+active before insert position 0
+As
+Begin
+  new.ativo = coalesce(new.ativo, 1);
+  new.bloqueado_automatico = coalesce(new.bloqueado_automatico, 0);
+
+  If (New.Codigo Is Null) Then
+    New.Codigo = Gen_id(GEN_CLIENTE_ID, 1);
+End^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 20:53:16 --------*/
+
+ALTER TABLE TBPRODUTO
+    ADD ULTIMA_COMPRA_DATA DMN_DATE,
+    ADD ULTIMA_COMPRA_VALOR DMN_MONEY,
+    ADD ULTIMA_COMPRA_FORNEC DMN_INTEGER_N;
+
+COMMENT ON COLUMN TBPRODUTO.ULTIMA_COMPRA_DATA IS
+'Ultima Compra - Data';
+
+COMMENT ON COLUMN TBPRODUTO.ULTIMA_COMPRA_VALOR IS
+'Ultima Compra - Valor Unitario';
+
+COMMENT ON COLUMN TBPRODUTO.ULTIMA_COMPRA_FORNEC IS
+'Ultima Compra - Fornecedor';
+
+
+
+
+/*------ SYSDBA 19/01/2016 20:53:49 --------*/
+
+ALTER TABLE TBPRODUTO
+ADD CONSTRAINT FK_TBPRODUTO_FORNEC_ULT_CMP
+FOREIGN KEY (ULTIMA_COMPRA_FORNEC)
+REFERENCES TBFORNECEDOR(CODFORN);
+
+
+
+
+/*------ SYSDBA 19/01/2016 20:58:07 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable preco_venda DMN_MONEY;
+  declare variable percentual_markup DMN_PERCENTUAL_3;
+  declare variable percentual_margem DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , p.percentual_marckup
+        , p.percentual_margem
+        , p.preco
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , Percentual_markup
+        , Percentual_margem
+        , Preco_venda
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      Percentual_markup = cast( ( ( (:Preco_venda - :Custo_final) / :Custo_final) * 100) as numeric(18,3) );
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = Case when :Percentual_markup > :Percentual_margem then :Percentual_markup else :Percentual_margem end
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 21:48:41 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable preco_venda DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) +
+            (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) +  0.0
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , p.preco
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Preco_venda
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      Percentual_markup = cast( ( ( (:Preco_venda - :Custo_final) / :Custo_final) * 100) as numeric(18,3) );
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = Case when :Percentual_markup > :Percentual_margem then :Percentual_markup else :Percentual_margem end
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:09:01 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable preco_venda DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , p.preco
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Preco_venda
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( coalesce(:percentual_despesas, 0.0) > 100 ) then
+        percentual_despesas = 100.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = Case when :Percentual_markup > :Percentual_margem then :Percentual_markup else :Percentual_margem end
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:10:04 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  --declare variable preco_venda DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        --, p.preco
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        --, Preco_venda
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( coalesce(:percentual_despesas, 0.0) > 100 ) then
+        percentual_despesas = 100.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = Case when :Percentual_markup > :Percentual_margem then :Percentual_markup else :Percentual_margem end
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:11:01 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  --declare variable preco_venda DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        --, p.preco
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        --, Preco_venda
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( coalesce(:percentual_despesas, 0.0) > 100 ) then
+        percentual_despesas = 99.9;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = Case when :Percentual_markup > :Percentual_margem then :Percentual_markup else :Percentual_margem end
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:15:43 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  --declare variable preco_venda DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        --, p.preco
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        --, Preco_venda
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = Case when :Percentual_markup > :Percentual_margem then :Percentual_markup else :Percentual_margem end
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:17:34 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = :Percentual_markup
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:22:41 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        , p.percentual_marckup = :Percentual_markup
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_COMPRAS_ATUALIZAR_ESTOQUE IS 'Trigger Atualizar Estoque Venda (Entrada)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :
+
+Trigger responsavel por atualizar o estoque de venda do produto, quando este
+foi definido para ser movimentado. Atualiza tambem o Valor de Custo Medio do
+produto e seu percentual de markup.';
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:24:06 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        /* Percentuais de markup e margem de lucro */
+        , p.percentual_marckup = :Percentual_markup
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:25:33 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        /* Percentuais de markup e margem de lucro */
+        , p.percentual_marckup = :Percentual_markup
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_COMPRAS_ATUALIZAR_ESTOQUE IS 'Trigger Atualizar Estoque Venda (Entrada)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :
+
+Trigger responsavel por atualizar o estoque de venda do produto, quando este
+foi definido para ser movimentado. Atualiza tambem o Valor de Custo Medio do
+produto e seu percentual de markup.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/01/2016 - IMR :
+        * Reestruturacao da forma de calculo do percentual de markup. Este forma
+          definido da maneira que diz a literatura de gestoa comercial.';
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:27:44 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) <= 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        /* Percentuais de markup e margem de lucro */
+        , p.percentual_marckup = :Percentual_markup
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:31:51 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        /* Percentuais de markup e margem de lucro */
+        , p.percentual_marckup = :Percentual_markup
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_margem / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/01/2016 22:41:35 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_compras_atualizar_estoque for tbcompras
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable custo_produto numeric(15,2);
+  declare variable custo_compra numeric(15,2);
+  declare variable custo_medio numeric(15,2);
+  declare variable custo_final numeric(15,2);
+  declare variable preco_compra DMN_MONEY;
+  declare variable percentual_despesas DMN_PERCENTUAL_3;
+  declare variable percentual_markup   DMN_PERCENTUAL_3;
+  declare variable percentual_margem   DMN_PERCENTUAL_3;
+  declare variable alterar_custo Smallint;
+  declare variable movimentar Smallint;
+begin
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 2)) then
+  begin
+
+    -- Marcar como FATURADA a Autorizacao de Compra associada a Entrada
+    Update TBAUTORIZA_COMPRA ac Set
+        ac.status      = 3 -- 3. Faturada (NF/NFS registrada no sistema referente a autorizacao)
+      , ac.data_fatura = new.dtemiss
+    where ac.ano     = new.autorizacao_ano
+      and ac.codigo  = new.autorizacao_codigo
+      and ac.empresa = new.autorizacao_empresa;
+
+    -- Buscar FLAG de alteracao de custo de produto
+    Select
+      cf.cfop_altera_custo_produto
+    from TBCFOP cf
+    where cf.cfop_cod = new.nfcfop
+    Into
+        alterar_custo;
+
+    alterar_custo = coalesce(:alterar_custo, 1);
+
+    -- Incrimentar Estoque do produto
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.Qtde
+        , i.precounit
+        , coalesce(p.Qtde, 0)
+        , coalesce(i.Customedio, 0)
+        , coalesce(p.Customedio, 0)
+        , Cast((
+            ( (i.valor_frete  / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            ( (i.valor_outros / coalesce(nullif(i.Qtde, 0), 1)) / i.precounit * 100 ) +
+            coalesce(i.aliquota, 0.0)        +
+            coalesce(i.aliquota_pis, 0.0)    +
+            coalesce(i.aliquota_cofins, 0.0)
+          ) as numeric(15,2)) as percentual_despesas
+        , p.percentual_marckup
+        , p.percentual_margem
+        , coalesce(p.movimenta_estoque, 1)
+      from TBCOMPRASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          Produto
+        , Empresa
+        , Quantidade
+        , Preco_compra
+        , Estoque
+        , Custo_compra
+        , Custo_produto
+        , percentual_despesas
+        , Percentual_markup
+        , Percentual_margem
+        , Movimentar
+    do
+    begin
+
+      -- Confirmar recebimento dos produtos autorizados na Autorizacao de Compras
+      Update TBAUTORIZA_COMPRAITEM aci Set
+        aci.confirmado_recebimento = 1
+      where aci.ano     = new.autorizacao_ano
+        and aci.codigo  = new.autorizacao_codigo
+        and aci.empresa = new.autorizacao_empresa
+        and aci.produto = :Produto;
+
+      if ( (:Custo_compra > 0) and (:Custo_produto > 0) and (:Estoque > 0) ) then
+        Custo_medio = (:Custo_compra + :Custo_produto) / 2;
+      else
+        Custo_medio = :Custo_compra;
+
+      if ( :Movimentar = 1 ) then
+        Custo_final = :Custo_medio;
+      else
+        Custo_final = :Custo_compra;
+
+      /* (Inicio) - Calcular o markup do produto */
+      percentual_despesas = coalesce(:percentual_despesas, 0.0) + coalesce(:Percentual_margem, 0.0);
+
+      if ( (100.0 - :percentual_despesas) = 0 ) then
+        percentual_despesas = 99.0;
+
+      Percentual_markup = 100.0 / (100.0 - :percentual_despesas); -- Encontrando o indice do Markup
+      Percentual_markup = (:Percentual_markup - 1) * 100.0;       -- Transformando o indice em percentual
+      /* (Final) - Calcular o markup do produto */
+
+      if ( coalesce(:Percentual_margem, 0.0) < 0 ) then
+        Percentual_margem = :Percentual_markup;
+
+      -- Incrementar estoque
+      Update TBPRODUTO p Set
+          p.Customedio = Case when :Alterar_custo = 1 then :Custo_final else p.Customedio end
+        , p.Qtde       = Case when :Movimentar = 1    then (:Estoque + :Quantidade) else :Estoque end
+        /* Percentuais de markup e margem de lucro */
+        , p.percentual_marckup = :Percentual_markup
+        , p.percentual_margem  = :Percentual_margem
+        , p.preco_sugerido     = cast( (:Custo_final + (:Custo_final * :Percentual_markup / 100)) as numeric(15,2) )
+        /* Dados da ultima entrada/compra */
+        , p.ultima_compra_data   = new.dtemiss
+        , p.ultima_compra_valor  = :Preco_compra
+        , p.ultima_compra_fornec = new.codforn
+      where (p.Cod     = :Produto);
+
+      -- Gravar posicao de estoque
+      Update TBCOMPRASITENS i Set
+          i.Qtdeantes = :Estoque
+        , i.Qtdefinal = :Estoque + :Quantidade
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('ENTRADA - COMPRA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque
+        , :Quantidade
+        , :Estoque + :Quantidade
+        , new.Usuario
+        , replace('Custo Medio/Final no valor de R$ ' || :Custo_final, '.', ',')
+      );
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+

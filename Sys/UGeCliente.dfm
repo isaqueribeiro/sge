@@ -1009,7 +1009,7 @@ inherited frmGeCliente: TfrmGeCliente
         Top = 237
         Width = 836
         Height = 226
-        ActivePage = tbsContato
+        ActivePage = tbsCompra
         Align = alClient
         TabOrder = 2
         TabStop = False
@@ -1509,20 +1509,19 @@ inherited frmGeCliente: TfrmGeCliente
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object lblTituloCancelado: TLabel
+          object lblTituloEmAberto: TLabel
             Left = 8
             Top = 175
-            Width = 114
+            Width = 110
             Height = 13
             Anchors = [akLeft, akBottom]
-            Caption = '* T'#237'tulos cancelados'
+            Caption = '* T'#237'tulos em aberto'
             Font.Charset = ANSI_CHARSET
             Font.Color = clRed
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            ExplicitTop = 137
           end
           object lblTituloPagando: TLabel
             Left = 8
@@ -1639,14 +1638,14 @@ inherited frmGeCliente: TfrmGeCliente
                   Expanded = False
                   FieldName = 'DTEMISS'
                   Title.Caption = 'Emiss'#227'o'
-                  Width = 85
+                  Width = 75
                   Visible = True
                 end
                 item
                   Expanded = False
                   FieldName = 'DTVENC'
                   Title.Caption = 'Vencimento'
-                  Width = 85
+                  Width = 75
                   Visible = True
                 end
                 item
@@ -1654,13 +1653,6 @@ inherited frmGeCliente: TfrmGeCliente
                   FieldName = 'FORMA_PAGTO_DESC'
                   Title.Caption = 'Forma de Pagamento'
                   Width = 130
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'SITUACAO'
-                  Title.Caption = 'Situa'#231#227'o'
-                  Width = 75
                   Visible = True
                 end
                 item
@@ -1690,6 +1682,13 @@ inherited frmGeCliente: TfrmGeCliente
                   Title.Caption = 'NF-e'
                   Width = 90
                   Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'SITUACAO'
+                  Title.Caption = 'Situa'#231#227'o'
+                  Width = -1
+                  Visible = False
                 end>
             end
           end
@@ -2844,6 +2843,7 @@ inherited frmGeCliente: TfrmGeCliente
       '  , cl.Bloqueado_data'
       '  , cl.Bloqueado_motivo'
       '  , cl.Bloqueado_usuario'
+      '  , cl.Bloqueado_automatico'
       '  , cl.DesBloqueado_data'
       '  , cl.Usuario'
       '  , cl.emitir_nfe_devolucao'
@@ -3104,6 +3104,11 @@ inherited frmGeCliente: TfrmGeCliente
       Origin = 'TBCLIENTE.BLOQUEADO_USUARIO'
       Size = 50
     end
+    object IbDtstTabelaBLOQUEADO_AUTOMATICO: TSmallintField
+      FieldName = 'BLOQUEADO_AUTOMATICO'
+      Origin = '"TBCLIENTE"."BLOQUEADO_AUTOMATICO"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaDESBLOQUEADO_DATA: TDateField
       FieldName = 'DESBLOQUEADO_DATA'
       Origin = 'TBCLIENTE.DESBLOQUEADO_DATA'
@@ -3276,6 +3281,7 @@ inherited frmGeCliente: TfrmGeCliente
       '  BLOQUEADO_DATA,'
       '  BLOQUEADO_MOTIVO,'
       '  BLOQUEADO_USUARIO,'
+      '  BLOQUEADO_AUTOMATICO,'
       '  DESBLOQUEADO_DATA,'
       '  VENDEDOR_COD,'
       '  USUARIO,'
@@ -3315,6 +3321,7 @@ inherited frmGeCliente: TfrmGeCliente
       '  BANCO_2 = :BANCO_2,'
       '  BANCO_3 = :BANCO_3,'
       '  BLOQUEADO = :BLOQUEADO,'
+      '  BLOQUEADO_AUTOMATICO = :BLOQUEADO_AUTOMATICO,'
       '  BLOQUEADO_DATA = :BLOQUEADO_DATA,'
       '  BLOQUEADO_MOTIVO = :BLOQUEADO_MOTIVO,'
       '  BLOQUEADO_USUARIO = :BLOQUEADO_USUARIO,'
@@ -3367,52 +3374,54 @@ inherited frmGeCliente: TfrmGeCliente
         '  (AGENCIA, AGENCIA_2, AGENCIA_3, ATIVO, BAI_COD, BAIRRO, BANCO,' +
         ' BANCO_2, '
       
-        '   BANCO_3, BLOQUEADO, BLOQUEADO_DATA, BLOQUEADO_MOTIVO, BLOQUEA' +
-        'DO_USUARIO, '
+        '   BANCO_3, BLOQUEADO, BLOQUEADO_AUTOMATICO, BLOQUEADO_DATA, BLO' +
+        'QUEADO_MOTIVO, '
       
-        '   CC, CC_2, CC_3, CEP, CID_COD, CIDADE, CNPJ, CODIGO, COMPLEMEN' +
-        'TO, CUSTO_OPER_FRETE, '
+        '   BLOQUEADO_USUARIO, CC, CC_2, CC_3, CEP, CID_COD, CIDADE, CNPJ' +
+        ', CODIGO, '
       
-        '   CUSTO_OPER_OUTROS, CUSTO_OPER_PERCENTUAL, DESBLOQUEADO_DATA, ' +
-        'DTCAD, '
+        '   COMPLEMENTO, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS, CUSTO_OPER_' +
+        'PERCENTUAL, '
       
-        '   EMAIL, EMITIR_NFE_DEVOLUCAO, ENDER, ENTREGA_FRACIONADA_VENDA,' +
-        ' EST_COD, '
+        '   DESBLOQUEADO_DATA, DTCAD, EMAIL, EMITIR_NFE_DEVOLUCAO, ENDER,' +
+        ' ENTREGA_FRACIONADA_VENDA, '
       
-        '   FONE, FONECEL, FONECOMERC, INSCEST, INSCMUN, LOG_COD, NOME, N' +
-        'OMEFANT, '
+        '   EST_COD, FONE, FONECEL, FONECOMERC, INSCEST, INSCMUN, LOG_COD' +
+        ', NOME, '
       
-        '   NUMERO_END, OBSERVACAO, PAIS_ID, PESSOA_FISICA, PRACA, PRACA_' +
-        '2, PRACA_3, '
+        '   NOMEFANT, NUMERO_END, OBSERVACAO, PAIS_ID, PESSOA_FISICA, PRA' +
+        'CA, PRACA_2, '
       
-        '   SITE, TIPO, TLG_TIPO, UF, USUARIO, VALOR_LIMITE_COMPRA, VENDE' +
-        'DOR_COD)'
+        '   PRACA_3, SITE, TIPO, TLG_TIPO, UF, USUARIO, VALOR_LIMITE_COMP' +
+        'RA, VENDEDOR_COD)'
       'values'
       
         '  (:AGENCIA, :AGENCIA_2, :AGENCIA_3, :ATIVO, :BAI_COD, :BAIRRO, ' +
         ':BANCO, '
       
-        '   :BANCO_2, :BANCO_3, :BLOQUEADO, :BLOQUEADO_DATA, :BLOQUEADO_M' +
-        'OTIVO, '
+        '   :BANCO_2, :BANCO_3, :BLOQUEADO, :BLOQUEADO_AUTOMATICO, :BLOQU' +
+        'EADO_DATA, '
       
-        '   :BLOQUEADO_USUARIO, :CC, :CC_2, :CC_3, :CEP, :CID_COD, :CIDAD' +
-        'E, :CNPJ, '
+        '   :BLOQUEADO_MOTIVO, :BLOQUEADO_USUARIO, :CC, :CC_2, :CC_3, :CE' +
+        'P, :CID_COD, '
       
-        '   :CODIGO, :COMPLEMENTO, :CUSTO_OPER_FRETE, :CUSTO_OPER_OUTROS,' +
-        ' :CUSTO_OPER_PERCENTUAL, '
+        '   :CIDADE, :CNPJ, :CODIGO, :COMPLEMENTO, :CUSTO_OPER_FRETE, :CU' +
+        'STO_OPER_OUTROS, '
       
-        '   :DESBLOQUEADO_DATA, :DTCAD, :EMAIL, :EMITIR_NFE_DEVOLUCAO, :E' +
-        'NDER, :ENTREGA_FRACIONADA_VENDA, '
+        '   :CUSTO_OPER_PERCENTUAL, :DESBLOQUEADO_DATA, :DTCAD, :EMAIL, :' +
+        'EMITIR_NFE_DEVOLUCAO, '
       
-        '   :EST_COD, :FONE, :FONECEL, :FONECOMERC, :INSCEST, :INSCMUN, :' +
-        'LOG_COD, '
+        '   :ENDER, :ENTREGA_FRACIONADA_VENDA, :EST_COD, :FONE, :FONECEL,' +
+        ' :FONECOMERC, '
       
-        '   :NOME, :NOMEFANT, :NUMERO_END, :OBSERVACAO, :PAIS_ID, :PESSOA' +
-        '_FISICA, '
+        '   :INSCEST, :INSCMUN, :LOG_COD, :NOME, :NOMEFANT, :NUMERO_END, ' +
+        ':OBSERVACAO, '
       
-        '   :PRACA, :PRACA_2, :PRACA_3, :SITE, :TIPO, :TLG_TIPO, :UF, :US' +
-        'UARIO, '
-      '   :VALOR_LIMITE_COMPRA, :VENDEDOR_COD)')
+        '   :PAIS_ID, :PESSOA_FISICA, :PRACA, :PRACA_2, :PRACA_3, :SITE, ' +
+        ':TIPO, '
+      
+        '   :TLG_TIPO, :UF, :USUARIO, :VALOR_LIMITE_COMPRA, :VENDEDOR_COD' +
+        ')')
     DeleteSQL.Strings = (
       'delete from TBCLIENTE'
       'where'
@@ -3422,7 +3431,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4936,7 +4945,8 @@ inherited frmGeCliente: TfrmGeCliente
     ParamCheck = True
     SQL.Strings = (
       'Select'
-      '    r.Anolanc'
+      '    1 as tipo'
+      '  , r.Anolanc'
       '  , r.Numlanc'
       
         '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
@@ -4970,7 +4980,52 @@ inherited frmGeCliente: TfrmGeCliente
         ' r.Numvenda)'
       'where r.Baixado = 0'
       '  and r.Parcela > 0'
-      '  and r.Cliente = :cliente')
+      '  and r.Situacao = 1'
+      '  and r.Cliente = :cliente'
+      ''
+      'Union'
+      ''
+      'Select first 10'
+      '    0 as tipo'
+      '  , r.Anolanc'
+      '  , r.Numlanc'
+      
+        '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
+        'amento'
+      '  , r.Parcela'
+      '  , r.Dtemiss'
+      '  , r.Dtvenc'
+      '  , r.Forma_pagto'
+      '  , f.Descri as Forma_pagto_Desc'
+      '  , r.Nossonumero'
+      '  , r.Valorrec'
+      '  , r.Valormulta'
+      '  , r.Valorrectot'
+      '  , r.Valorsaldo'
+      '  , r.Status'
+      '  , r.Situacao'
+      '  , r.Anovenda'
+      '  , r.Numvenda'
+      
+        '  , r.Anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.Numvenda, 7) as Ve' +
+        'nda'
+      '  , v.Serie'
+      '  , v.Nfe'
+      
+        '  , '#39'S'#39' || v.Serie || '#39'/'#39' || right('#39'0000000'#39' || v.Nfe, 7) as NFE' +
+        '_Serie'
+      'from TBCONTREC r'
+      '  inner join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
+      
+        '  left join TBVENDAS v on (v.Ano = r.Anovenda and v.Codcontrol =' +
+        ' r.Numvenda)'
+      'where r.Baixado  = 1'
+      '  and r.Parcela  = 0'
+      '  and r.Situacao = 1'
+      '  and r.Cliente  = :cliente'
+      ''
+      'order by    '
+      '    1 desc, 4 desc, 7 desc')
     Left = 504
     Top = 369
     ParamData = <
@@ -4979,7 +5034,16 @@ inherited frmGeCliente: TfrmGeCliente
         Name = 'cliente'
         ParamType = ptInput
         Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'cliente'
+        ParamType = ptInput
       end>
+    object qryTitulosTIPO: TIntegerField
+      FieldName = 'TIPO'
+      ProviderFlags = []
+    end
     object qryTitulosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTREC.ANOLANC'

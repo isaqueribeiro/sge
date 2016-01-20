@@ -484,7 +484,7 @@ const
   STATUS_SOLICITACAO_CAN = 4;
 
   // Mensagens padrões do sistema
-  CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado, automaticamente, pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
+  CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado automaticamente pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
 
 implementation
 
@@ -984,8 +984,15 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Update TBCLIENTE Set Dtcad = coalesce(Dtcad, Current_date), Bloqueado = 1, Bloqueado_data = Current_date, Bloqueado_usuario = user,');
-    SQL.Add('  Usuario = user, Desbloqueado_data = null, Bloqueado_motivo = ' + QuotedStr(CLIENTE_BLOQUEADO_PORDEBITO));
+    SQL.Add('Update TBCLIENTE Set');
+    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
+    SQL.Add('  , Bloqueado = 1');
+    SQL.Add('  , Bloqueado_automatico = 1');
+    SQL.Add('  , Bloqueado_data = Current_date');
+    SQL.Add('  , Bloqueado_usuario = user');
+    SQL.Add('  , Usuario = user');
+    SQL.Add('  , Desbloqueado_data = null');
+    SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(CLIENTE_BLOQUEADO_PORDEBITO));
     SQL.Add('where Bloqueado = 0');
     SQL.Add('  and ((Desbloqueado_data is null) or (Desbloqueado_data <> Current_date))');
     SQL.Add('  and Codigo in (');
@@ -1010,13 +1017,19 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Update TBCLIENTE Set Dtcad = coalesce(Dtcad, Current_date), Desbloqueado_data = Current_date, Bloqueado = 0, Bloqueado_data = Null, Bloqueado_usuario = Null,');
-    SQL.Add('  Usuario = ' + QuotedStr(gUsuarioLogado.Login) + ',');
+    SQL.Add('Update TBCLIENTE Set');
+    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
+    SQL.Add('  , Desbloqueado_data = Current_date');
+    SQL.Add('  , Bloqueado = 0');
+    SQL.Add('  , Bloqueado_automatico = 0');
+    SQL.Add('  , Bloqueado_data = Null');
+    SQL.Add('  , Bloqueado_usuario = Null');
+    SQL.Add('  , Usuario = ' + QuotedStr(gUsuarioLogado.Login));
 
     if Trim(Motivo) = EmptyStr then
-      SQL.Add('  Bloqueado_motivo = Null')
+      SQL.Add('  , Bloqueado_motivo = Null')
     else
-      SQL.Add('  Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
+      SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
 
     SQL.Add('where Codigo = ' + IntToStr(iCodigoCliente));
     ExecSQL;
@@ -1031,13 +1044,19 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Update TBCLIENTE Set Dtcad = coalesce(Dtcad, Current_date), Desbloqueado_data = Null, Bloqueado = 1, Bloqueado_data = Current_date, Bloqueado_usuario = ' + QuotedStr(gUsuarioLogado.Login) + ',');
-    SQL.Add('  Usuario = ' + QuotedStr(gUsuarioLogado.Login) + ',');
+    SQL.Add('Update TBCLIENTE Set');
+    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
+    SQL.Add('  , Desbloqueado_data = Null');
+    SQL.Add('  , Bloqueado = 1');
+    SQL.Add('  , Bloqueado_automatico = 0');
+    SQL.Add('  , Bloqueado_data = Current_date');
+    SQL.Add('  , Bloqueado_usuario = ' + QuotedStr(gUsuarioLogado.Login));
+    SQL.Add('  , Usuario = ' + QuotedStr(gUsuarioLogado.Login));
 
     if Trim(Motivo) = EmptyStr then
-      SQL.Add('  Bloqueado_motivo = Null')
+      SQL.Add('  , Bloqueado_motivo = Null')
     else
-      SQL.Add('  Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
+      SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
 
     SQL.Add('where Codigo = ' + IntToStr(iCodigoCliente));
     ExecSQL;

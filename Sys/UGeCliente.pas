@@ -109,7 +109,7 @@ type
     qryTitulosSITUACAO: TSmallintField;
     pnlTitulos: TPanel;
     dbgTitulos: TDBGrid;
-    lblTituloCancelado: TLabel;
+    lblTituloEmAberto: TLabel;
     lblTituloPagando: TLabel;
     IbDtstTabelaDTCAD: TDateField;
     lblDataCadastro: TLabel;
@@ -302,6 +302,8 @@ type
     IbDtstTabelaAGENCIA_3: TIBStringField;
     IbDtstTabelaCC_3: TIBStringField;
     IbDtstTabelaPRACA_3: TIBStringField;
+    IbDtstTabelaBLOQUEADO_AUTOMATICO: TSmallintField;
+    qryTitulosTIPO: TIntegerField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -696,6 +698,7 @@ begin
   IbDtstTabelaDTCAD.AsDateTime           := GetDateDB;
   IbDtstTabelaATIVO.Value                := 1;
   IbDtstTabelaBLOQUEADO.AsInteger             := 0; // Ord(False);
+  IbDtstTabelaBLOQUEADO_AUTOMATICO.AsInteger  := 0;
   IbDtstTabelaEMITIR_NFE_DEVOLUCAO.AsInteger  := 0; // Ord(False);
   IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 0; // Ord(False);
   IbDtstTabelaENTREGA_FRACIONADA_VENDA.Value  := 0; // Ord(False);
@@ -858,6 +861,9 @@ begin
   if IbDtstTabelaENTREGA_FRACIONADA_VENDA.IsNull then
     IbDtstTabelaENTREGA_FRACIONADA_VENDA.Value := 0;
 
+  if IbDtstTabelaBLOQUEADO_AUTOMATICO.IsNull then
+    IbDtstTabelaBLOQUEADO_AUTOMATICO.Value := 0;
+
   if (IbDtstTabelaPESSOA_FISICA.AsInteger = 1) then
     IbDtstTabelaTIPO.AsInteger := 0;
 
@@ -935,12 +941,16 @@ begin
   if ( Sender = dbgTitulos ) then
   begin
     // Destacar Títulos em Pagamento
-    if ( qryTitulosVALORRECTOT.AsCurrency > 0 ) then
+    if ( (qryTitulosVALORRECTOT.AsCurrency > 0) and (qryTitulosTIPO.AsInteger = 1) ) then
       dbgTitulos.Canvas.Font.Color := lblTituloPagando.Font.Color
     else
     // Destacar Títulos Cancelados
-    if ( qryTitulosSITUACAO.AsInteger = 0 ) then
-      dbgTitulos.Canvas.Font.Color := lblTituloCancelado.Font.Color;
+    if ( qryTitulosTIPO.AsInteger = 1 ) then
+      dbgTitulos.Canvas.Font.Color := lblTituloEmAberto.Font.Color
+    else
+    // Títulos pagos de forma imediata (A Vista)
+    if ( qryTitulosTIPO.AsInteger = 0 ) then
+      dbgTitulos.Canvas.Font.Style := [];
 
     dbgTitulos.DefaultDrawDataCell(Rect, dbgTitulos.Columns[DataCol].Field, State);
   end

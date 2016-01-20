@@ -165,8 +165,8 @@ type
     dtsAliquotaCOFINS: TDataSource;
     qryAliquotaPIS: TIBDataSet;
     qryAliquotaCOFINS: TIBDataSet;
-    lblPercentualMarckup: TLabel;
-    dbPercentualMarckup: TDBEdit;
+    lblPercentualMarkup: TLabel;
+    dbPercentualMarkup: TDBEdit;
     lblPrecoVendaSugestao: TLabel;
     dbPrecoVendaSugestao: TDBEdit;
     IbDtstTabelaPRECO_SUGERIDO: TIBBCDField;
@@ -300,6 +300,16 @@ type
     dbNomeAmigo: TDBEdit;
     IbDtstTabelaNOME_AMIGO: TIBStringField;
     ppMnAtualizarNomeAmigo: TMenuItem;
+    IbDtstTabelaULTIMA_COMPRA_DATA: TDateField;
+    IbDtstTabelaULTIMA_COMPRA_VALOR: TIBBCDField;
+    IbDtstTabelaULTIMA_COMPRA_FORNEC: TIntegerField;
+    GrpBxUltimaCompra: TGroupBox;
+    lblUltimaCompraData: TLabel;
+    lblUltimaCompraValor: TLabel;
+    dbUltimaCompraData: TDBEdit;
+    dbUltimaCompraValor: TDBEdit;
+    lblPercentualMargem: TLabel;
+    dbPercentualMargem: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -972,9 +982,9 @@ begin
   pgcMaisDados.ActivePageIndex := 0;
 
   {$IFNDEF DGE}
-  dbPercentualMarckup.Color    := clWindow;
-  dbPercentualMarckup.ReadOnly := False;
-  dbPercentualMarckup.TabStop  := True;
+  //dbPercentualMarckup.Color    := clWindow;
+  //dbPercentualMarckup.ReadOnly := False;
+  //dbPercentualMarckup.TabStop  := True;
 
   lblPrecoVendaSugestao.Visible := True;
   dbPrecoVendaSugestao.Visible  := True;
@@ -1206,6 +1216,7 @@ begin
   IbDtstTabelaVALOR_IPI.Value      := 0;
   IbDtstTabelaRESERVA.Value        := 0;
   IbDtstTabelaPRODUTO_NOVO.Value   := 0;
+  IbDtstTabelaPERCENTUAL_MARGEM.Value  := 20.0; // 20%
   IbDtstTabelaPERCENTUAL_MARCKUP.Value := 0;
   IbDtstTabelaPRECO_SUGERIDO.Value     := 0;
   IbDtstTabelaPESO_BRUTO.AsCurrency    := 0.0;
@@ -1225,6 +1236,9 @@ begin
   IbDtstTabelaANO_MODELO_VEICULO.Clear;
   IbDtstTabelaANO_FABRICACAO_VEICULO.Clear;
   IbDtstTabelaNCM_SH.Clear;
+  IbDtstTabelaULTIMA_COMPRA_DATA.Clear;
+  IbDtstTabelaULTIMA_COMPRA_VALOR.Clear;
+  IbDtstTabelaULTIMA_COMPRA_FORNEC.Clear;
 
   IbDtstTabelaTABELA_IBPT.AsInteger := GetTabelaIBPT_Codigo(TRIBUTO_NCM_SH_PADRAO);
   IbDtstTabelaCST_PIS.AsString    := '99';
@@ -1528,12 +1542,12 @@ begin
       GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
     end;
 
-    if ( Field = IbDtstTabelaPERCENTUAL_MARCKUP ) then
-      IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency := IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency;
-
-    if ( Field = IbDtstTabelaPERCENTUAL_MARGEM ) then
+    if ( (Field = IbDtstTabelaPERCENTUAL_MARCKUP) or (Field = IbDtstTabelaPERCENTUAL_MARGEM) ) then
       IbDtstTabelaPRECO_SUGERIDO.AsCurrency := IbDtstTabelaCUSTOMEDIO.AsCurrency +
-        (IbDtstTabelaCUSTOMEDIO.AsCurrency * IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency / 100);
+        (IbDtstTabelaCUSTOMEDIO.AsCurrency *
+          IfThen(IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency = 0.0
+            , IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency
+            , IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency) / 100);
 
     if ( Field = IbDtstTabelaMOVIMENTA_ESTOQUE ) then
       dbProdutoPorLote.Enabled := (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = 1);
@@ -1685,6 +1699,13 @@ begin
     else
     if (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = 0) then
       IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger  := 0;
+
+    if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 1 ) then
+      IbDtstTabelaPRECO_SUGERIDO.AsCurrency := IbDtstTabelaCUSTOMEDIO.AsCurrency +
+        (IbDtstTabelaCUSTOMEDIO.AsCurrency *
+          IfThen(IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency = 0.0
+            , IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency
+            , IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency) / 100);
   end;
 
   inherited;
