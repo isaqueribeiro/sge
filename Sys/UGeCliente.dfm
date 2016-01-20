@@ -138,7 +138,8 @@ inherited frmGeCliente: TfrmGeCliente
             Items.Strings = (
               'por C'#243'digo / Raz'#227'o'
               'por CPF / CNPJ'
-              'por Cidade')
+              'por Cidade'
+              'por Telefones')
           end
         end
         object GrpBxBloqueio: TGroupBox
@@ -1687,7 +1688,6 @@ inherited frmGeCliente: TfrmGeCliente
                   Expanded = False
                   FieldName = 'SITUACAO'
                   Title.Caption = 'Situa'#231#227'o'
-                  Width = -1
                   Visible = False
                 end>
             end
@@ -3431,7 +3431,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

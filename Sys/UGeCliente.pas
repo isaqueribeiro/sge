@@ -367,6 +367,33 @@ type
     procedure FiltarDados(const iTipoPesquisa : Integer); overload;
   end;
 
+(*
+  Tabelas:
+  - TBCLIENTE
+  - TBTIPO_LOGRADOURO
+  - TBLOGRADOURO
+  - TBCIDADE
+  - TBESTADO
+  - TBPAIS
+  - TBCLIENTE_ESTOQUE
+  - TBPRODUTO
+  - TBGRUPOPROD
+  - TBSECAOPROD
+  - TBUNIDADEPROD
+  - TBFABRICANTE
+  - TBVENDEDOR
+  - TBCONTREC
+  - TBFORMPAGTO
+  - TBVENDAS
+
+  Views:
+  - VW_TIPO_CNPJ
+  - VW_BANCO_FEBRABAN
+
+  Procedures:
+  - GET_LIMITE_DISPONIVEL_CLIENTE
+*)
+
 var
   frmGeCliente: TfrmGeCliente;
 
@@ -563,6 +590,9 @@ begin
   tbsCompra.TabVisible         := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   BtBtnProcesso.Visible        := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
+  if ( (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_VAREJO_DELIVERY_ID) ) then
+    CmbBxFiltrarTipo.ItemIndex := 3  // Pesquisar por Telefones
+  else
   if ( gSistema.Codigo = SISTEMA_PDV ) then
     CmbBxFiltrarTipo.ItemIndex := 1; // Pesquisar por CPF/CNPJ
 end;
@@ -1492,12 +1522,20 @@ begin
 
           // Por CPF/CNPJ
           1:
-            Add( 'where cl.cnpj like ' + QuotedStr('%' + Trim(edtFiltrar.Text) + '%') );
+            Add( 'where cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') );
 
           // Por Cidade
           2:
-              Add( 'where ((upper(cl.Cidade) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '     or upper(cl.Cidade) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+            Add( 'where ((upper(cl.Cidade) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                 '     or upper(cl.Cidade) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+
+          // Por Telefones
+          3:
+            begin
+              Add( 'where ((cl.fone       like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
+              Add( '    or (cl.fonecel    like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
+              Add( '    or (cl.fonecomerc like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + '))');
+            end;
         end;
 
       end;
