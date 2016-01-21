@@ -337,16 +337,17 @@ object DMNFe: TDMNFe
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
+    PreviewOptions.ZoomMode = zmPageWidth
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 41856.560478368000000000
+    ReportOptions.LastChange = 42389.934059375000000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
       
-        'procedure bndReportSummaryOnAfterCalcHeight(Sender: TfrxComponen' +
-        't);'
+        'procedure bndChildSummaryOnAfterCalcHeight(Sender: TfrxComponent' +
+        ');'
       'begin'
       
         '  mmTextoAutorizacao.Visible := (<frdVenda."STATUS"> = 1) or (<f' +
@@ -768,7 +769,7 @@ object DMNFe: TDMNFe
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
         Height = 22.677180000000000000
-        Top = 725.669760000000000000
+        Top = 744.567410000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Left = 566.929500000000000000
@@ -1104,10 +1105,11 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
-        Height = 347.716760000000000000
+        Height = 185.196970000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
-        OnAfterCalcHeight = 'bndReportSummaryOnAfterCalcHeight'
+        Child = frrVenda.bndChildSummary
+        Stretched = True
         object SysMemo1: TfrxSysMemoView
           Left = 623.622450000000000000
           Width = 94.488250000000000000
@@ -1345,42 +1347,40 @@ object DMNFe: TDMNFe
           ParentFont = False
           VAlign = vaCenter
         end
-        object Memo40: TfrxMemoView
-          Top = 132.283550000000000000
+        object Rich1: TfrxRichView
+          Top = 120.944960000000000000
           Width = 718.110700000000000000
-          Height = 45.354360000000000000
-          DataSet = frdVenda
-          DataSetName = 'frdVenda'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftBottom]
-          HAlign = haCenter
-          Memo.UTF8W = (
-            '[frdVenda."OBS"]')
-          ParentFont = False
-          VAlign = vaCenter
+          Height = 64.252010000000000000
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
+            7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
+            305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
+            7D7B5C66315C666E696C5C666368617273657430205461686F6D613B7D7D0D0A
+            7B5C2A5C67656E657261746F7220526963686564323020362E332E393630307D
+            5C766965776B696E64345C756331200D0A5C706172645C6C6936305C72693230
+            5C716A5C625C66305C667331345C7061720D0A4F6273657276615C2765375C27
+            663565733A5C62305C7061720D0A5B66726456656E64612E224F4253225D5C70
+            61720D0A5C7061720D0A5C62205B494946285472696D283C66726456656E6461
+            2E224441444F535F454E5452454741223E293D27272C2027272C20274461646F
+            7320646520456E74726567613A27295D5C62305C7061720D0A5B66726456656E
+            64612E224441444F535F454E5452454741225D5C7061720D0A5C66315C667331
+            365C7061720D0A7D0D0A00}
         end
-        object Memo41: TfrxMemoView
-          Top = 117.165430000000000000
-          Width = 718.110700000000000000
-          Height = 15.118120000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop]
-          Memo.UTF8W = (
-            ' Observa'#231#227'o:')
-          ParentFont = False
-          VAlign = vaCenter
-        end
+      end
+      object bndChildSummary: TfrxChild
+        FillType = ftBrush
+        Height = 158.740260000000000000
+        Top = 563.149970000000000000
+        Width = 718.110700000000000000
+        OnAfterCalcHeight = 'bndChildSummaryOnAfterCalcHeight'
         object Memo42: TfrxMemoView
           Left = 234.330860000000000000
-          Top = 324.039580000000000000
+          Top = 138.842610000000000000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1397,7 +1397,7 @@ object DMNFe: TDMNFe
         end
         object mmTextoAutorizacao: TfrxMemoView
           Left = 37.795300000000000000
-          Top = 211.653680000000000000
+          Top = 26.456710000000000000
           Width = 623.622450000000000000
           Height = 45.354360000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1414,7 +1414,6 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object subRptTitulos: TfrxSubreport
-          Top = 181.417440000000000000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Page = frrVenda.PgTitulos
@@ -12378,6 +12377,7 @@ object DMNFe: TDMNFe
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
+    PreviewOptions.ZoomMode = zmPageWidth
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
@@ -31062,6 +31062,7 @@ object DMNFe: TDMNFe
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
+    PreviewOptions.ZoomMode = zmPageWidth
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000

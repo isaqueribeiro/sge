@@ -57,6 +57,7 @@ type
     procedure CarregarContaCorrente(const pEmpresa : String);
 
     procedure MontarRelacaoSaldoConsolidadoDia;
+    procedure MontarRelacaoMovimentoCaixaConta;
   public
     { Public declarations }
   end;
@@ -106,7 +107,8 @@ begin
 
     REPORT_RELACAO_MOVIMENTO_CAIXA_CONTA:
       begin
-
+        MontarRelacaoMovimentoCaixaConta;
+        frReport := frRelacaoMovimentoCaixa;
       end;
   end;
 
@@ -217,6 +219,11 @@ begin
   inherited;
   CarregarEmpresa;
   CarregarContaCorrente(gUsuarioLogado.Empresa);
+end;
+
+procedure TfrmGeFluxoCaixaImpressao.MontarRelacaoMovimentoCaixaConta;
+begin
+  ;
 end;
 
 procedure TfrmGeFluxoCaixaImpressao.MontarRelacaoSaldoConsolidadoDia;

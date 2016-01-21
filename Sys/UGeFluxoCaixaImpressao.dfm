@@ -8,7 +8,8 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
         Items.Strings = (
-          'Saldo Consolidado por Dia')
+          'Saldo Consolidado por Dia'
+          'Movimenta'#231#227'o na Conta (Fluxo de Caixa)')
       end
     end
     inherited GrpBxFiltro: TGroupBox
@@ -275,8 +276,56 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     ReportOptions.LastChange = 41557.397184305600000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
+      
+        '// Declara'#231#227'o de vari'#225'veis geriais                              ' +
+        '                                                     '
+      'var'
+      '  cValorSaldoAnterior,                                   '
+      '  cValorEntradas     ,'
+      '  cValorSaidas       ,'
+      '  cValorSaldoGeral   : Currency;'
+      '    '
+      
+        'procedure BndGrpFooterCompetenciaOnAfterCalcHeight(Sender: TfrxC' +
+        'omponent);'
       'begin'
+      
+        '  cValorEntradas   := (cValorEntradas + SUM(<FrdsRelacaoSaldoCon' +
+        'solidadoDia."VALOR_ENTRADAS">,BndMasterData));                  ' +
+        '                    '
+      
+        '  cValorSaidas     := (cValorSaidas   + SUM(<FrdsRelacaoSaldoCon' +
+        'solidadoDia."VALOR_SAIDAS">,BndMasterData));        '
+      
+        '  cValorSaldoGeral := (cValorSaldoGeral + <FrdsRelacaoSaldoConso' +
+        'lidadoDia."VALOR_SALDO">);                              '
+      'end;'
       ''
+      
+        'procedure bndReportSummaryOnAfterCalcHeight(Sender: TfrxComponen' +
+        't);'
+      'begin'
+      
+        '  cValorSaldoAnterior   := (cValorSaldoGeral + cValorSaidas) - c' +
+        'ValorEntradas;'
+      
+        '  memSaldoAnterior.Text := FormatFloat('#39',0.00" "'#39', cValorSaldoAn' +
+        'terior);        '
+      
+        '  memTotalSaldo.Text    := FormatFloat('#39',0.00" "'#39', cValorSaldoGe' +
+        'ral);                                  '
+      'end;'
+      ''
+      'begin'
+      
+        '  // Inicia'#231#227'o das vari'#225'veis                                    ' +
+        '                           '
+      
+        '  cValorSaldoAnterior := 0.0;                                   ' +
+        '   '
+      '  cValorEntradas      := 0.0;        '
+      '  cValorSaidas        := 0.0;          '
+      '  cValorSaldoGeral    := 0.0;               '
       'end.')
     Left = 8
     Top = 8
@@ -524,7 +573,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
         Height = 30.236240000000000000
-        Top = 574.488560000000000000
+        Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -632,7 +681,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dia')
+            'Data')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -825,7 +874,8 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Height = 26.456710000000000000
         Top = 377.953000000000000000
         Width = 359.055350000000000000
-        object SysMemo7: TfrxSysMemoView
+        OnAfterCalcHeight = 'BndGrpFooterCompetenciaOnAfterCalcHeight'
+        object memValorEntradas: TfrxSysMemoView
           Left = 71.811070000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -845,7 +895,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
           WordWrap = False
         end
-        object SysMemo1: TfrxSysMemoView
+        object memValorSaidas: TfrxSysMemoView
           Left = 166.299320000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -890,9 +940,10 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
-        Height = 86.929190000000000000
+        Height = 102.047310000000000000
         Top = 464.882190000000000000
         Width = 718.110700000000000000
+        OnAfterCalcHeight = 'bndReportSummaryOnAfterCalcHeight'
         Stretched = True
         object Memo31: TfrxMemoView
           Left = 71.811070000000000000
@@ -917,7 +968,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo32: TfrxMemoView
           Left = 71.811070000000000000
-          Top = 18.897650000000000000
+          Top = 37.795300000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -939,7 +990,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object SysMemo9: TfrxSysMemoView
           Left = 166.299320000000000000
-          Top = 18.897650000000000000
+          Top = 37.795300000000000000
           Width = 188.976500000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -960,7 +1011,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo10: TfrxMemoView
           Left = 71.811070000000000000
-          Top = 37.795300000000000000
+          Top = 56.692950000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -982,7 +1033,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object SysMemo2: TfrxSysMemoView
           Left = 166.299320000000000000
-          Top = 37.795300000000000000
+          Top = 56.692950000000000000
           Width = 188.976500000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1003,7 +1054,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo5: TfrxMemoView
           Left = 71.811070000000000000
-          Top = 56.692950000000000000
+          Top = 75.590600000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1023,9 +1074,48 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object SysMemo3: TfrxSysMemoView
+        object memTotalSaldo: TfrxSysMemoView
           Left = 166.299320000000000000
-          Top = 56.692950000000000000
+          Top = 75.590600000000000000
+          Width = 188.976500000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object Memo15: TfrxMemoView
+          Left = 71.811070000000000000
+          Top = 18.897650000000000000
+          Width = 94.488186540000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo Anterior: ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object memSaldoAnterior: TfrxSysMemoView
+          Left = 166.299320000000000000
+          Top = 18.897650000000000000
           Width = 188.976500000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1147,8 +1237,56 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     ReportOptions.LastChange = 41557.397184305600000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
-      'begin'
+      
+        '// Declara'#231#227'o de vari'#225'veis geriais                              ' +
+        '                                                     '
+      'var'
+      '  cValorSaldoAnterior,                                   '
+      '  cValorEntradas     ,'
+      '  cValorSaidas       ,'
+      '  cValorSaldoGeral   : Currency;    '
       ''
+      
+        'procedure BndGrpFooterContaOnAfterCalcHeight(Sender: TfrxCompone' +
+        'nt);'
+      'begin'
+      
+        '  cValorEntradas   := (cValorEntradas + SUM(<FrdsRelacaoMoviment' +
+        'oCaixa."ENTRADA">,BndMasterData));                              ' +
+        '        '
+      
+        '  cValorSaidas     := (cValorSaidas   + SUM(<FrdsRelacaoMoviment' +
+        'oCaixa."SAIDA">,BndMasterData));        '
+      
+        '  cValorSaldoGeral := (cValorSaldoGeral + <FrdsRelacaoMovimentoC' +
+        'aixa."SALDO">);                              '
+      'end;'
+      ''
+      
+        'procedure bndReportSummaryOnAfterCalcHeight(Sender: TfrxComponen' +
+        't);'
+      'begin'
+      
+        '  cValorSaldoAnterior   := (cValorSaldoGeral + cValorSaidas) - c' +
+        'ValorEntradas;'
+      
+        '  memSaldoAnterior.Text := FormatFloat('#39',0.00" "'#39', cValorSaldoAn' +
+        'terior);        '
+      
+        '  memTotalSaldo.Text    := FormatFloat('#39',0.00" "'#39', cValorSaldoGe' +
+        'ral);                                  '
+      'end;'
+      ''
+      'begin'
+      
+        '  // Inicia'#231#227'o das vari'#225'veis                                    ' +
+        '                           '
+      
+        '  cValorSaldoAnterior := 0.0;                                   ' +
+        '   '
+      '  cValorEntradas      := 0.0;        '
+      '  cValorSaidas        := 0.0;          '
+      '  cValorSaldoGeral    := 0.0;               '
       'end.')
     Left = 8
     Top = 40
@@ -1199,11 +1337,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
-      Columns = 2
       ColumnWidth = 95.000000000000000000
-      ColumnPositions.Strings = (
-        '0'
-        '95')
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Height = 154.960730000000000000
@@ -1257,7 +1391,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         object frdEmpresaNMFANT: TfrxMemoView
           Left = 113.385900000000000000
           Top = 26.456710000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409448819000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -1277,7 +1411,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         object frdFone: TfrxMemoView
           Left = 113.385900000000000000
           Top = 41.574830000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409448819000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -1295,7 +1429,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         object Memo11: TfrxMemoView
           Left = 113.385900000000000000
           Top = 56.692950000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409448819000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -1396,7 +1530,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
         Height = 30.236240000000000000
-        Top = 574.488560000000000000
+        Top = 585.827150000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -1448,18 +1582,18 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
       end
-      object BndGrpHeaderCompetencia: TfrxGroupHeader
+      object BndGrpHeaderConta: TfrxGroupHeader
         FillType = ftBrush
         Height = 79.370130000000000000
         Top = 234.330860000000000000
-        Width = 359.055350000000000000
-        Condition = 'FrdsRelacaoSaldoConsolidadoDia."MOVIMENTO_CONTA"'
+        Width = 718.110700000000000000
+        Condition = 'FrdsRelacaoMovimentoCaixa."CONTA_CORRENTE"'
         ReprintOnNewPage = True
         Stretched = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
           ShiftMode = smDontShift
           Top = 3.779530000000000000
-          Width = 355.275820000000000000
+          Width = 718.110700000000000000
           Height = 37.795275590000000000
           CharSpacing = 1.000000000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1474,12 +1608,11 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           HAlign = haCenter
           Memo.UTF8W = (
             
-              ' [IIF(Trim(<FrdsRelacaoSaldoConsolidadoDia."MOVIMENTO_CONTA_NOME' +
-              '">)='#39#39', '#39'<Conta de movimenta'#231#227'o financeira do sistema n'#227'o defini' +
-              'da>'#39', <FrdsRelacaoSaldoConsolidadoDia."MOVIMENTO_CONTA_NOME">)] ' +
-              '[IIF(Trim(<FrdsRelacaoSaldoConsolidadoDia."BCO_CONTA">)='#39#39', '#39#39', ' +
-              #39'(Conta Banco : '#39' + <FrdsRelacaoSaldoConsolidadoDia."BCO_CONTA">' +
-              ' + '#39')'#39')]')
+              ' [IIF(Trim(<FrdsRelacaoMovimentoCaixa."CONTA_CORRENTE_DESC">)='#39#39 +
+              ', '#39'<Conta de movimenta'#231#227'o financeira do sistema n'#227'o definida>'#39', ' +
+              '<FrdsRelacaoMovimentoCaixa."CONTA_CORRENTE_DESC">)] [IIF(Trim(<F' +
+              'rdsRelacaoMovimentoCaixa."BCO_CONTA">)='#39#39', '#39#39', '#39'(Conta Banco : '#39 +
+              ' + <FrdsRelacaoMovimentoCaixa."BCO_CONTA"> + '#39')'#39')]')
           ParentFont = False
           VAlign = vaCenter
           Formats = <
@@ -1504,12 +1637,12 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dia')
+            'Data')
           ParentFont = False
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 71.811070000000000000
+          Left = 434.645950000000000000
           Top = 41.574830000000000000
           Width = 283.464750000000000000
           Height = 18.897650000000000000
@@ -1525,12 +1658,12 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Valores Consolidados')
+            'Valores')
           ParentFont = False
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
-          Left = 260.787570000000000000
+          Left = 623.622450000000000000
           Top = 60.472480000000000000
           Width = 94.488176770000000000
           Height = 18.897650000000000000
@@ -1552,7 +1685,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
-          Left = 71.811070000000000000
+          Left = 434.645950000000000000
           Top = 60.472480000000000000
           Width = 94.488176770000000000
           Height = 18.897650000000000000
@@ -1568,13 +1701,13 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
-            'Entradas (R$) ')
+            'Entrada (R$) ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
-          Left = 166.299320000000000000
+          Left = 529.134200000000000000
           Top = 60.472480000000000000
           Width = 94.488176770000000000
           Height = 18.897650000000000000
@@ -1590,9 +1723,30 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
-            'Sa'#237'das (R$) ')
+            'Sa'#237'da (R$) ')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo19: TfrxMemoView
+          Left = 71.811070000000000000
+          Top = 41.574830000000000000
+          Width = 362.834880000000000000
+          Height = 37.795300000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Hist'#243'rico')
+          ParentFont = False
           VAlign = vaCenter
         end
       end
@@ -1600,13 +1754,15 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         FillType = ftBrush
         Height = 18.897650000000000000
         Top = 336.378170000000000000
-        Width = 359.055350000000000000
+        Width = 718.110700000000000000
         DataSet = FrdsRelacaoMovimentoCaixa
         DataSetName = 'FrdsRelacaoMovimentoCaixa'
         RowCount = 0
+        Stretched = True
         object Memo9: TfrxMemoView
           Width = 71.811070000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1619,16 +1775,17 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoSaldoConsolidadoDia."M' +
-              'OVIMENTO_DATA">)]')
+              '[FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoMovimentoCaixa."DATA">' +
+              ')]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
-          Left = 260.787570000000000000
+          Left = 623.622450000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1640,17 +1797,16 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoSaldoConsolidadoDia."VALOR_SALD' +
-              'O">)] ')
+            '[FormatFloat('#39',0.00'#39',<FrdsRelacaoMovimentoCaixa."SALDO">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
-          Left = 71.811070000000000000
+          Left = 434.645950000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1662,17 +1818,16 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoSaldoConsolidadoDia."VALOR_ENTR' +
-              'ADAS">)] ')
+            '[FormatFloat('#39',0.00'#39',<FrdsRelacaoMovimentoCaixa."ENTRADA">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
-          Left = 166.299320000000000000
+          Left = 529.134200000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1684,21 +1839,39 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoSaldoConsolidadoDia."VALOR_SAID' +
-              'AS">)] ')
+            '[FormatFloat('#39',0.00'#39',<FrdsRelacaoMovimentoCaixa."SAIDA">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
+        object Memo18: TfrxMemoView
+          Left = 71.811070000000000000
+          Width = 362.834880000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Memo.UTF8W = (
+            ' [FrdsRelacaoMovimentoCaixa."HISTORICO"]')
+          ParentFont = False
+          VAlign = vaCenter
+        end
       end
-      object BndGrpFooterCompetencia: TfrxGroupFooter
+      object BndGrpFooterConta: TfrxGroupFooter
         FillType = ftBrush
         Height = 26.456710000000000000
         Top = 377.953000000000000000
-        Width = 359.055350000000000000
+        Width = 718.110700000000000000
+        OnAfterCalcHeight = 'BndGrpFooterContaOnAfterCalcHeight'
         object SysMemo7: TfrxSysMemoView
-          Left = 71.811070000000000000
+          Left = 434.645950000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1711,14 +1884,14 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoSaldoConsolidadoDia."VALOR_' +
-              'ENTRADAS">,BndMasterData))] ')
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoMovimentoCaixa."ENTRADA">,B' +
+              'ndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
         end
         object SysMemo1: TfrxSysMemoView
-          Left = 166.299320000000000000
+          Left = 529.134200000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1731,14 +1904,14 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoSaldoConsolidadoDia."VALOR_' +
-              'SAIDAS">,BndMasterData))] ')
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoMovimentoCaixa."SAIDA">,Bnd' +
+              'MasterData))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
         end
         object mmSaldoConta: TfrxMemoView
-          Left = 260.787570000000000000
+          Left = 623.622450000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1752,9 +1925,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',<FrdsRelacaoSaldoConsolidadoDia."VALOR_SALD' +
-              'O">)] ')
+            '[FormatFloat('#39',0.00'#39',<FrdsRelacaoMovimentoCaixa."SALDO">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -1762,12 +1933,13 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
-        Height = 86.929190000000000000
+        Height = 98.267780000000000000
         Top = 464.882190000000000000
         Width = 718.110700000000000000
+        OnAfterCalcHeight = 'bndReportSummaryOnAfterCalcHeight'
         Stretched = True
         object Memo31: TfrxMemoView
-          Left = 71.811070000000000000
+          Left = 434.645950000000000000
           Width = 283.464686540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1788,8 +1960,8 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
-          Left = 71.811070000000000000
-          Top = 18.897650000000000000
+          Left = 434.645950000000000000
+          Top = 37.795300000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1809,30 +1981,9 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object SysMemo9: TfrxSysMemoView
-          Left = 166.299320000000000000
-          Top = 18.897650000000000000
-          Width = 188.976500000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoSaldoConsolidadoDia."VALOR_' +
-              'ENTRADAS">,BndMasterData,2))] ')
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
         object Memo10: TfrxMemoView
-          Left = 71.811070000000000000
-          Top = 37.795300000000000000
+          Left = 434.645950000000000000
+          Top = 56.692950000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1852,30 +2003,9 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object SysMemo2: TfrxSysMemoView
-          Left = 166.299320000000000000
-          Top = 37.795300000000000000
-          Width = 188.976500000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          HAlign = haRight
-          Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoSaldoConsolidadoDia."VALOR_' +
-              'SAIDAS">,BndMasterData,2))] ')
-          ParentFont = False
-          VAlign = vaCenter
-          WordWrap = False
-        end
         object Memo5: TfrxMemoView
-          Left = 71.811070000000000000
-          Top = 56.692950000000000000
+          Left = 434.645950000000000000
+          Top = 75.590600000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1895,9 +2025,90 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object SysMemo3: TfrxSysMemoView
-          Left = 166.299320000000000000
+        object Memo15: TfrxMemoView
+          Left = 434.645950000000000000
+          Top = 18.897650000000000000
+          Width = 94.488186540000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo Anterior: ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object SysMemo9: TfrxSysMemoView
+          Left = 529.134200000000000000
+          Top = 37.795300000000000000
+          Width = 188.976500000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoMovimentoCaixa."ENTRADA">,B' +
+              'ndMasterData,2))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo2: TfrxSysMemoView
+          Left = 529.134200000000000000
           Top = 56.692950000000000000
+          Width = 188.976500000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<FrdsRelacaoMovimentoCaixa."SAIDA">,Bnd' +
+              'MasterData,2))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object memTotalSaldo: TfrxSysMemoView
+          Left = 529.134200000000000000
+          Top = 75.590600000000000000
+          Width = 188.976500000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object memSaldoAnterior: TfrxSysMemoView
+          Left = 529.134200000000000000
+          Top = 18.897650000000000000
           Width = 188.976500000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1974,16 +2185,26 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     UserName = 'FrdsRelacaoMovimentoCaixa'
     CloseDataSource = True
     FieldAliases.Strings = (
-      'MOVIMENTO_CONTA=MOVIMENTO_CONTA'
-      'MOVIMENTO_CONTA_NOME=MOVIMENTO_CONTA_NOME'
+      'DATA=DATA'
+      'CONTA_CORRENTE=CONTA_CORRENTE'
+      'CONTA_CORRENTE_DESC=CONTA_CORRENTE_DESC'
       'BCO_NOME=BCO_NOME'
       'BCO_AGENCIA=BCO_AGENCIA'
       'BCO_CC=BCO_CC'
       'BCO_CONTA=BCO_CONTA'
-      'MOVIMENTO_DATA=MOVIMENTO_DATA'
-      'VALOR_ENTRADAS=VALOR_ENTRADAS'
-      'VALOR_SAIDAS=VALOR_SAIDAS'
-      'VALOR_SALDO=VALOR_SALDO')
+      'FORMA_PAGTO=FORMA_PAGTO'
+      'FORMA_PAGTO_DESC=FORMA_PAGTO_DESC'
+      'HISTORICO=HISTORICO'
+      'TIPO=TIPO'
+      'TIPO_RECEITA=TIPO_RECEITA'
+      'TIPO_RECEITA_DESC=TIPO_RECEITA_DESC'
+      'TIPO_DESPESA=TIPO_DESPESA'
+      'TIPO_DESPESA_DESC=TIPO_DESPESA_DESC'
+      'ENTRADA=ENTRADA'
+      'SAIDA=SAIDA'
+      'SALDO=SALDO'
+      'CAIXA_ANO=CAIXA_ANO'
+      'CAIXA_NUM=CAIXA_NUM')
     DataSet = CdsRelacaoMovimentoCaixa
     BCDToCurrency = True
     Left = 136
