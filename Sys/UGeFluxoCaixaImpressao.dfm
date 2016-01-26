@@ -1361,7 +1361,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Picture1: TfrxPictureView
           Left = 3.779530000000000000
-          Top = 7.559060000000000000
+          Top = 7.559059999999999000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
           DataField = 'LOGO'
@@ -1373,7 +1373,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559060000000000000
+          Top = 7.559059999999999000
           Width = 604.724800000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
@@ -1391,7 +1391,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         object frdEmpresaNMFANT: TfrxMemoView
           Left = 113.385900000000000000
           Top = 26.456710000000000000
-          Width = 604.724409448819000000
+          Width = 604.724409448818900000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -1411,7 +1411,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         object frdFone: TfrxMemoView
           Left = 113.385900000000000000
           Top = 41.574830000000000000
-          Width = 604.724409448819000000
+          Width = 604.724409448818900000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -1428,8 +1428,8 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo11: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 56.692950000000000000
-          Width = 604.724409448819000000
+          Top = 56.692949999999990000
+          Width = 604.724409448818900000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -1549,7 +1549,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
-          Top = 15.118120000000000000
+          Top = 15.118119999999980000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1592,7 +1592,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Stretched = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
           ShiftMode = smDontShift
-          Top = 3.779530000000000000
+          Top = 3.779529999999994000
           Width = 718.110700000000000000
           Height = 37.795275590000000000
           CharSpacing = 1.000000000000000000
@@ -1622,7 +1622,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
             end>
         end
         object Memo8: TfrxMemoView
-          Top = 41.574830000000000000
+          Top = 41.574829999999990000
           Width = 71.811070000000000000
           Height = 37.795300000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1643,7 +1643,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo12: TfrxMemoView
           Left = 434.645950000000000000
-          Top = 41.574830000000000000
+          Top = 41.574829999999990000
           Width = 283.464750000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1664,7 +1664,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo21: TfrxMemoView
           Left = 623.622450000000000000
-          Top = 60.472480000000000000
+          Top = 60.472479999999990000
           Width = 94.488176770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1686,7 +1686,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo17: TfrxMemoView
           Left = 434.645950000000000000
-          Top = 60.472480000000000000
+          Top = 60.472479999999990000
           Width = 94.488176770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1708,7 +1708,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo6: TfrxMemoView
           Left = 529.134200000000000000
-          Top = 60.472480000000000000
+          Top = 60.472479999999990000
           Width = 94.488176770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1730,7 +1730,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo19: TfrxMemoView
           Left = 71.811070000000000000
-          Top = 41.574830000000000000
+          Top = 41.574829999999990000
           Width = 362.834880000000000000
           Height = 37.795300000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1983,7 +1983,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo10: TfrxMemoView
           Left = 434.645950000000000000
-          Top = 56.692950000000000000
+          Top = 56.692950000000050000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2005,7 +2005,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object Memo5: TfrxMemoView
           Left = 434.645950000000000000
-          Top = 75.590600000000000000
+          Top = 75.590600000000050000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2070,7 +2070,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object SysMemo2: TfrxSysMemoView
           Left = 529.134200000000000000
-          Top = 56.692950000000000000
+          Top = 56.692950000000050000
           Width = 188.976500000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2091,7 +2091,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         end
         object memTotalSaldo: TfrxSysMemoView
           Left = 529.134200000000000000
-          Top = 75.590600000000000000
+          Top = 75.590600000000050000
           Width = 188.976500000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2158,8 +2158,8 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       '  , mc.caixa_ano'
       '  , mc.caixa_num'
       
-        'from GET_CAIXA_MOVIMENTO('#39'03041377000187'#39', 0, '#39'2016-01-01'#39', '#39'201' +
-        '6-01-18'#39') mc'
+        'from GET_CAIXA_MOVIMENTO(:empresa, :conta, :data_inicial, :data_' +
+        'final) mc'
       
         '  left join TBCONTA_CORRENTE cc on (cc.codigo = mc.conta_corrent' +
         'e)'
@@ -2168,6 +2168,31 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         'leto and bb.empresa = cc.empresa)')
     Left = 40
     Top = 40
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'empresa'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = 'conta'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftDateTime
+        Name = 'data_inicial'
+        ParamType = ptInput
+        Value = 0d
+      end
+      item
+        DataType = ftDateTime
+        Name = 'data_final'
+        ParamType = ptInput
+        Value = 0d
+      end>
   end
   object DspRelacaoMovimentoCaixa: TDataSetProvider
     DataSet = QryRelacaoMovimentoCaixa
@@ -2176,7 +2201,31 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
   end
   object CdsRelacaoMovimentoCaixa: TClientDataSet
     Aggregates = <>
-    Params = <>
+    Params = <
+      item
+        DataType = ftString
+        Name = 'empresa'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = 'conta'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftDateTime
+        Name = 'data_inicial'
+        ParamType = ptInput
+        Value = 0d
+      end
+      item
+        DataType = ftDateTime
+        Name = 'data_final'
+        ParamType = ptInput
+        Value = 0d
+      end>
     ProviderName = 'DspRelacaoMovimentoCaixa'
     Left = 104
     Top = 40

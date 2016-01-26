@@ -23389,3 +23389,81 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 21/01/2016 11:03:36 --------*/
+
+ALTER TABLE TBPRODUTO
+    ADD ARQUIVO_MORTO DMN_LOGICO DEFAULT 0;
+
+COMMENT ON COLUMN TBPRODUTO.ARQUIVO_MORTO IS
+'Arquivo morto:
+0 - Nao
+1 - Sim
+
+Registros definidos como "arqivo morto" nao sao apresentados no sistema mas precisa
+constar na base por causar da integridade dos dados.';
+
+
+
+
+/*------ SYSDBA 21/01/2016 11:05:19 --------*/
+
+COMMENT ON TABLE TBPRODUTO IS 'Tabela Produtos/Servicos
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar todos os registros de todos os produtos e/ou servicos necessarios as movimentacoes de
+entrada e saida.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    21/01/2016 - IMR :
+        + Criacao do campo ARQUIVO_MORTO com o objetivo de ocultar do sistema os
+          registros que nao devem mas ser apresentados para o usuario mas que
+          precisam constar na base por efeito de integridade referencial.
+
+    30/05/2014 - IMR :
+        + Criacao do campo COMPOR_FATURAMENTO que ira permitir ao sistema saber quais produtos/servicos haverao de compor
+          o faturamento da empresa e quais sao de consumo interno.
+
+    03/11/2014 - IMR :
+        + Criacao do campo METAFONEMA para auxiliar da pesquisa de produtos homonimos e o campo ESPECIFICACAO como
+          campo para especificar de maneira textual o produto/servico, muito utilizado em processos de cotacao.
+
+    10/02/2014 - IMR :
+        + Criacao dos campos CADASTRO_ATIVO e PRODUTO_IMOBILIZADO para permitir que apenas os cadastro ativos sejam
+          utilizados nos processos e para designar os produtos que sao imobilizados para futuras implementacoes de
+          controles patrimoniais.
+
+    30/07/2015 - IMR :
+        + Criacao do campo NOME_AMIGO para facilitar a identificacao interna do produto/servico dentro da empresa
+          pelos usuarios do sistema. Esse dados e necessario por existir muitas situacoes onde o nome comercial do
+          servico/produto e muito diferente do nome usualmente conhecimento pelos usuarios.';
+
+
+
+
+/*------ SYSDBA 21/01/2016 11:06:29 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_produto_cod for tbproduto
+active before insert position 0
+As
+Begin
+  new.arquivo_morto = coalesce(new.arquivo_morto, 0);
+  If (new.codigo Is Null) Then
+    new.codigo = Gen_id(GEN_PRODUTO_ID, 1);
+End^
+
+SET TERM ; ^
+

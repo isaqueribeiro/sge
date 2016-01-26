@@ -47,7 +47,8 @@ implementation
 
 function CamposRequiridos(const AOwer : TComponent; const Tabela : TClientDataSet; const TabelaNome : String) : Boolean;
 var
-  I : Integer;
+  I ,
+  X : Integer;
   frm : TfrmCampoRequisitado;
 begin
   frm := TfrmCampoRequisitado.Create(Aower);
@@ -57,17 +58,21 @@ begin
     begin
       frm.pnlDescricao.Caption := Trim(TabelaNome);
 
+      X := 1;
       CreateDataSet;
       for I := 0 to Tabela.Fields.Count - 1 do
         if ( Tabela.Fields[I].Required ) then
           if ( Tabela.Fields[I].IsNull ) then
           begin
             Append;
-            cdsRequisitadoID.Value    := RecordCount + 1;
+            cdsRequisitadoID.Value    := X;
             cdsRequisitadoImage.Value := 1;
             cdsRequisitadoDescription.Value := ' * ' + Trim(Tabela.Fields[I].DisplayName);
             Post;
+
+            Inc(X);
           end;
+
        Result := (RecordCount > 0);
 
        if ( Result ) then
@@ -81,7 +86,8 @@ end;
 
 function CamposRequiridos(const AOwer : TComponent; const Tabela : TIBDataSet; const TabelaNome : String) : Boolean;
 var
-  I : Integer;
+  I ,
+  X : Integer;
   frm : TfrmCampoRequisitado;
 begin
   frm := TfrmCampoRequisitado.Create(Aower);
@@ -91,18 +97,22 @@ begin
     begin
       frm.pnlDescricao.Caption := Trim(TabelaNome);
 
+      X := 1;
       CreateDataSet;
       for I := 0 to Tabela.Fields.Count - 1 do
         if ( Tabela.Fields[I].Required ) then
           if ( Tabela.Fields[I].IsNull ) then
           begin
             Append;
-            cdsRequisitadoID.Value    := RecordCount + 1;
+            cdsRequisitadoID.Value    := X;
             cdsRequisitadoImage.Value := 1;
             cdsRequisitadoDescription.Value := ' * ' + Trim(Tabela.Fields[I].DisplayName);
             Post;
+
+            Inc(X);
           end;
-       Result := (RecordCount > 0);
+
+       Result := (cdsRequisitado.RecordCount > 0);
 
        if ( Result ) then
          ShowModal;

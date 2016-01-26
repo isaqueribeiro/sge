@@ -216,6 +216,8 @@ type
     dtsTpReceita: TDataSource;
     nmImprimirReciboA4: TMenuItem;
     FrReciboA4: TfrxReport;
+    btnRecalcularSaldo: TcxButton;
+    bvlRecalcularSaldo: TBevel;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -226,7 +228,6 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
-    procedure pgcGuiasChange(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -242,6 +243,9 @@ type
     procedure nmImprimirReciboClick(Sender: TObject);
     procedure FrReciboGetValue(const VarName: String; var Value: Variant);
     procedure CdsReciboCalcFields(DataSet: TDataSet);
+    procedure FormShow(Sender: TObject);
+    procedure btnRecalcularSaldoClick(Sender: TObject);
+    procedure pgcGuiasChange(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -251,10 +255,14 @@ type
     procedure DefinirControle;
     procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
     procedure CarregarTipoReceita(const ApenasAtivos : Boolean);
+    procedure RegistrarNovaRotinaSistema;
+    procedure pgcGuiasOnChange; override;
 
     function BloquearAlteracaoExclusao : Boolean;
+    function GetRotinaRecalcularSaldoID : String;
   public
     { Public declarations }
+    property RotinaRecalcularSaldoID : String read GetRotinaRecalcularSaldoID;
   end;
 
 (*
@@ -291,7 +299,9 @@ const
 
 implementation
 
-uses DateUtils, UDMBusiness, UGeCliente, UGeFornecedor, UGeCaixa, UDMNFe, UConstantesDGE;
+uses
+  DateUtils, UDMBusiness, UGeCliente, UGeFornecedor, UGeCaixa, UDMNFe,
+  UConstantesDGE, UDMRecursos;
 
 {$R *.dfm}
 
@@ -383,6 +393,14 @@ begin
 //  FFecharCaixa := False;
 end;
 
+procedure TfrmGeFluxoCaixa.FormShow(Sender: TObject);
+begin
+  inherited;
+  RegistrarNovaRotinaSistema;
+  btnRecalcularSaldo.Visible := (not btbtnSelecionar.Visible) and
+    GetPermissaoRotinaInterna(btnRecalcularSaldo, False);
+end;
+
 procedure TfrmGeFluxoCaixa.edContaCorrentePesqChange(Sender: TObject);
 begin
   if ( not tblContaCorrente.IsEmpty ) then
@@ -393,7 +411,7 @@ procedure TfrmGeFluxoCaixa.btnFiltrarClick(Sender: TObject);
 var
   Data : TDateTime;
 begin
-  Screen.Cursor := crSQLWait;
+  WaitAMoment(WAIT_AMOMENT_LoadData);
   try
 
     with tblContaCorrente do
@@ -401,6 +419,7 @@ begin
 
       if not Locate('Descricao_FULL', edContaCorrentePesq.Text, []) then
       begin
+        WaitAMomentFree;
         ShowWarning('Favor selecionar Conta Corrente para pesquisa!');
         Abort;
       end;
@@ -433,7 +452,49 @@ begin
     inherited;
 
   finally
-    Screen.Cursor := crDefault;
+    WaitAMomentFree;
+  end;
+end;
+
+procedure TfrmGeFluxoCaixa.btnRecalcularSaldoClick(Sender: TObject);
+var
+  dData : TDateTime;
+begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+  if not ShowConfirmation('Ao executar o recálculo dos saldos diários da Conta Corrente ' +
+    'selecionada, possivelmente os valores sejam alterados no período informado.' + #13#13 +
+    'Deseja continuar com o recálculo dos saldos?') then
+    Exit;
+
+  WaitAMoment(WAIT_AMOMENT_Process);
+  try
+
+    with tblContaCorrente do
+    begin
+
+      if not Locate('Descricao_FULL', edContaCorrentePesq.Text, []) then
+        Exit;
+
+      // Recalcular Saldo da Conta Corrente
+      if ( FieldByName('codigo').AsInteger > 0 ) then
+      begin
+        dData := e1Data.Date;
+
+        while dData <= e2Data.Date do
+        begin
+          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, dData);
+          dData := dData + 1;
+        end;
+      end;
+
+    end;
+
+    CarregarSaldos;
+
+  finally
+    WaitAMomentFree;
   end;
 end;
 
@@ -559,6 +620,8 @@ procedure TfrmGeFluxoCaixa.DefinirControle;
 begin
   memObservacoes.Lines.Clear;
 
+  btnRecalcularSaldo.Enabled := (pgcGuias.ActivePage = tbsTabela);
+
   if ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_CREDITO ) then
   begin
     lblCliente.Enabled := True;
@@ -640,6 +703,11 @@ begin
 end;
 
 procedure TfrmGeFluxoCaixa.pgcGuiasChange(Sender: TObject);
+begin
+  DefinirControle;
+end;
+
+procedure TfrmGeFluxoCaixa.pgcGuiasOnChange;
 begin
   DefinirControle;
 end;
@@ -816,6 +884,15 @@ begin
       qryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat('"- ",0.00', qryConsolidadoFormaPagtoSALDO.AsCurrency);  
 end;
 
+procedure TfrmGeFluxoCaixa.RegistrarNovaRotinaSistema;
+begin
+  if ( Trim(RotinaID) <> EmptyStr ) then
+  begin
+    if btnRecalcularSaldo.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaRecalcularSaldoID, btnRecalcularSaldo.Caption, RotinaID);
+  end;
+end;
+
 procedure TfrmGeFluxoCaixa.btbtnListaClick(Sender: TObject);
 begin
   inherited;
@@ -840,6 +917,11 @@ begin
       Value := FormatDateTime('dd/mm/yyyy', e1Data.Date)
     else
       Value := FormatDateTime('dd/mm/yyyy', e1Data.Date) + ' a ' + FormatDateTime('dd/mm/yyyy', e2Data.Date);
+end;
+
+function TfrmGeFluxoCaixa.GetRotinaRecalcularSaldoID: String;
+begin
+  Result := GetRotinaInternaID(btnRecalcularSaldo);
 end;
 
 procedure TfrmGeFluxoCaixa.btbtnIncluirClick(Sender: TObject);

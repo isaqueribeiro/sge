@@ -1,5 +1,6 @@
 inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   Left = 384
+  ActiveControl = dbgDados
   Caption = 'Tesouraria'
   ClientHeight = 597
   ClientWidth = 1132
@@ -23,6 +24,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited pgcGuias: TPageControl
     Width = 1132
     Height = 554
+    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 1132
     ExplicitHeight = 554
@@ -737,8 +739,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1124
       ExplicitHeight = 525
       inherited Bevel8: TBevel
@@ -1545,6 +1545,16 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       Left = 1128
       ExplicitLeft = 1128
     end
+    object bvlRecalcularSaldo: TBevel [5]
+      Left = 925
+      Top = 0
+      Width = 4
+      Height = 35
+      Align = alRight
+      Shape = bsSpacer
+      Visible = False
+      ExplicitLeft = 383
+    end
     inherited btbtnLista: TcxButton
       Visible = True
     end
@@ -1555,6 +1565,22 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     inherited btbtnSelecionar: TcxButton
       Left = 929
       ExplicitLeft = 929
+    end
+    object btnRecalcularSaldo: TcxButton
+      Tag = 10
+      Left = 805
+      Top = 0
+      Width = 120
+      Height = 35
+      Hint = 'Recalcular Saldo Em Conta Corrente'
+      Align = alRight
+      Caption = 'Recalcular Saldo'
+      OptionsImage.ImageIndex = 5
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 8
+      OnClick = btnRecalcularSaldoClick
     end
   end
   inherited IbDtstTabela: TIBDataSet
@@ -1920,7 +1946,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited ImgList: TImageList
     Left = 832
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

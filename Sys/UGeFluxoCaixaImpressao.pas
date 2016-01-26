@@ -78,7 +78,7 @@ var
 
 const
   REPORT_RELACAO_SALDO_CONSOLIDADO_DIA  = 0;
-  REPORT_RELACAO_MOVIMENTO_CAIXA_CONTA  = 1;
+  REPORT_RELACAO_MOVIMENTO_CAIXA_CONTA  = 1; // Movimentação na Conta (Fluxo de Caixa)
 
 implementation
 
@@ -223,7 +223,28 @@ end;
 
 procedure TfrmGeFluxoCaixaImpressao.MontarRelacaoMovimentoCaixaConta;
 begin
-  ;
+  try
+    SubTituloRelario := edContaCorrente.Text;
+    PeriodoRelatorio := Format('Movimentos do período de %s a %s.', [e1Data.Text, e2Data.Text]);
+
+    CdsRelacaoMovimentoCaixa.Close;
+
+    with CdsRelacaoMovimentoCaixa, Params do
+    begin
+      ParamByName('empresa').AsString := IEmpresa[edEmpresa.ItemIndex];
+      ParamByName('conta').AsInteger  := IConta[edContaCorrente.ItemIndex];
+      ParamByName('data_inicial').AsDateTime := e1Data.Date;
+      ParamByName('data_final').AsDateTime   := e2Data.Date;
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório de movimentações na(s) conta(s).' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
 end;
 
 procedure TfrmGeFluxoCaixaImpressao.MontarRelacaoSaldoConsolidadoDia;

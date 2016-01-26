@@ -222,6 +222,7 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure dbgContaCorrenteEnter(Sender: TObject);
     procedure dbgContaCorrenteExit(Sender: TObject);
+    procedure btbtnCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -522,6 +523,16 @@ begin
       IbDtstTabelaCNPJ.EditMask := '99.999.999/9999-99;0; '
 end;
 
+procedure TfrmGeFornecedor.btbtnCancelarClick(Sender: TObject);
+begin
+  try
+    dbgContaCorrente.DataController.DataSource := nil;
+    inherited;
+  finally
+    dbgContaCorrente.DataController.DataSource := DtSrcTabela;
+  end;
+end;
+
 procedure TfrmGeFornecedor.btbtnSalvarClick(Sender: TObject);
 begin
   if ( IbDtstTabelaPESSOA_FISICA.AsInteger = 1 ) then
@@ -554,8 +565,13 @@ begin
 
   if ( IbDtstTabelaDTCAD.IsNull ) then
     IbDtstTabelaDTCAD.AsDateTime := GetDateTimeDB;
-    
-  inherited;
+
+  try
+    dbgContaCorrente.DataController.DataSource := nil;
+    inherited;
+  finally
+    dbgContaCorrente.DataController.DataSource := DtSrcTabela;
+  end;
 end;
 
 procedure TfrmGeFornecedor.FormClose(Sender: TObject;

@@ -86,7 +86,8 @@ uses
   UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
   UGrMemo in '..\Sys\lib\UGrMemo.pas' {frmGrMemo},
   UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
-  UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar};
+  UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
+  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde};
 
 {$R *.res}
 

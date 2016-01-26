@@ -28,6 +28,18 @@ const
   ROTINA_TIPO_FUNCAO   = 2;
   ROTINA_TIPO_PROCESSO = 3;
 
+  // Constantes Wait A Moment...
+
+  WAIT_AMOMENT_Deleting      = 0;
+  WAIT_AMOMENT_Inserting     = 1;
+  WAIT_AMOMENT_Editing       = 2;
+  WAIT_AMOMENT_LoadData      = 3;
+  WAIT_AMOMENT_CloneTable    = 4;
+  WAIT_AMOMENT_PrintPrepare  = 5;
+  WAIT_AMOMENT_MakerConsulta = 6;
+  WAIT_AMOMENT_Process       = 7;
+  WAIT_AMOMENT_Autorizacao   = 8;
+
   // Flags para Operação Lógica
 
   FLAG_NAO = 0;
@@ -421,7 +433,12 @@ const
   FILE_AUTOBACKUP   = 'AutoBackupGA.exe';
 
   DOWNLOAD_URL_COMPANY        = {$IFDEF DGE}'www.masterdados.com.br/downloads/%s'{$ELSE}'www.agilsoftwares.com.br/downloads/%s'{$ENDIF};
+  DOWNLOAD_URL_HOME_AUTOMACAO = 'http://www.homeautomacao.com/suporte/agil/';
   DOWNLOAD_URL_GOOGLE_DRIVE   = 'https://drive.google.com/uc?export=download&id=%s';
+
+  DOWNLOAD_URL_HOME_AUTOMACAO_UPGRADE  = DOWNLOAD_URL_HOME_AUTOMACAO + 'upgrade/';
+  DOWNLOAD_URL_HOME_AUTOMACAO_DOWNLOAD = DOWNLOAD_URL_HOME_AUTOMACAO + 'downloads/';
+
   DOWNLOAD_IDFILE_TABELA_IBPT = '0B-sA8UJ9iK-QR3d3dGJ3WWRfQzQ'; //'0B-sA8UJ9iK-QUS1PV0RSa2hvbWM';
   DOWNLOAD_NMFILE_TABELA_IBPT = 'TabelaIBPT_PA2016.01.csv';     //'TabelaIBPT_PA2015.02.csv';
 

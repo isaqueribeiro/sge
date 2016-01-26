@@ -347,6 +347,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure dbgContaCorrenteExit(Sender: TObject);
     procedure dbgContaCorrenteEnter(Sender: TObject);
+    procedure btbtnCancelarClick(Sender: TObject);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -897,7 +898,12 @@ begin
   if (IbDtstTabelaPESSOA_FISICA.AsInteger = 1) then
     IbDtstTabelaTIPO.AsInteger := 0;
 
-  inherited;
+  try
+    dbgContaCorrente.DataController.DataSource := nil;
+    inherited;
+  finally
+    dbgContaCorrente.DataController.DataSource := DtSrcTabela;
+  end;
 
   HabilitarAbaEstoque;
 end;
@@ -1611,6 +1617,16 @@ begin
 
   inherited;
 
+end;
+
+procedure TfrmGeCliente.btbtnCancelarClick(Sender: TObject);
+begin
+  try
+    dbgContaCorrente.DataController.DataSource := nil;
+    inherited;
+  finally
+    dbgContaCorrente.DataController.DataSource := DtSrcTabela;
+  end;
 end;
 
 procedure TfrmGeCliente.btbtnExcluirClick(Sender: TObject);

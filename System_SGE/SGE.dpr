@@ -136,7 +136,8 @@ uses
   UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
   UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
-  UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao};
+  UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
+  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde};
 
 {$R *.res}
 

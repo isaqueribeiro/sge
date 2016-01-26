@@ -60,7 +60,7 @@ var
 begin
   Self.Create;
 
-  Num_Colunas      := 50;
+  Num_Colunas      := 48;
   Num_Linhas       := iLinhas;
   ModeloEspecifico := iModeloEspecifico;
   NomeImpressora := sNomeImpressora;

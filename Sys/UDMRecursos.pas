@@ -3,7 +3,8 @@ unit UDMRecursos;
 interface
 
 uses
-  SysUtils, Classes, ImgList, Controls, cxGraphics;
+  UGrAguarde,
+  Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics;
 
 type
   TDMRecursos = class(TDataModule)
@@ -24,8 +25,29 @@ type
 var
   DMRecursos: TDMRecursos;
 
+  procedure WaitAMomentFree;
+  procedure WaitAMoment(const aTag : Integer = -1);
+
 implementation
 
 {$R *.dfm}
+
+procedure WaitAMomentFree;
+begin
+  if ( FrmAguarde <> nil ) then
+    FrmAguarde.Close;
+end;
+
+procedure WaitAMoment(const aTag : Integer = -1);
+begin
+  WaitAMomentFree;
+
+  try
+    FrmAguarde := TFrmAguarde.Create(Application);
+    FrmAguarde.Tag := aTag;
+    FrmAguarde.Show;
+  finally
+  end
+end;
 
 end.

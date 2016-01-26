@@ -448,6 +448,7 @@ const
   REJEICAO_NFE_TO_ICMS_ERR = 532; // Rejeição: Total do ICMS difere do somatório dos itens
   REJEICAO_NFE_TO_PROD_ERR = 564; // Rejeição: Total do Produto / Serviço difere do somatório dos itens
   REJEICAO_NFE_MODELO_DIF  = 450; // Rejeição: Modelo da NF-e diferente de 55
+  REJEICAO_NFE_NCM_INEXIST = 778; // Rejeição: Informado NCM inexistente
   REJEICAO_NFCE_MODELO_DIF = 775; // Rejeição: Modelo da NFC-e diferente de 65
   REJEICAO_NFE_NAO_CATALOG = 999; // Rejeição: Erro não catalogado (Possível falha na SEFA)
 
@@ -1587,7 +1588,10 @@ begin
                 'Favor gerar NF-e novamente!';
             end;
 
-          REJEICAO_NFE_BC_ICMS_ERR, REJEICAO_NFE_TO_ICMS_ERR, REJEICAO_NFE_TO_PROD_ERR:
+          REJEICAO_NFE_BC_ICMS_ERR,
+          REJEICAO_NFE_TO_ICMS_ERR,
+          REJEICAO_NFE_TO_PROD_ERR,
+          REJEICAO_NFE_NCM_INEXIST:
             begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
@@ -5128,8 +5132,12 @@ begin
         qryDadosProduto.Next;
       end;
 
-      Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('TOTALVENDABRUTA').AsCurrency), True );
-      Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('DESCONTO').AsCurrency + qryCalculoImposto.FieldByName('DESCONTO_CUPOM').AsCurrency) );
+      if (qryCalculoImposto.FieldByName('DESCONTO').AsCurrency + qryCalculoImposto.FieldByName('DESCONTO_CUPOM').AsCurrency) <> 0 then
+      begin
+        Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('TOTALVENDABRUTA').AsCurrency), True );
+        Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('DESCONTO').AsCurrency + qryCalculoImposto.FieldByName('DESCONTO_CUPOM').AsCurrency) );
+      end;
+
       Ecf.Linha;
       Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('TOTALVENDA').AsCurrency)  );
 
@@ -5459,7 +5467,10 @@ begin
                 'Favor gerar NFC-e novamente!';
             end;
 
-          REJEICAO_NFE_BC_ICMS_ERR, REJEICAO_NFE_TO_ICMS_ERR, REJEICAO_NFE_TO_PROD_ERR:
+          REJEICAO_NFE_BC_ICMS_ERR,
+          REJEICAO_NFE_TO_ICMS_ERR,
+          REJEICAO_NFE_TO_PROD_ERR,
+          REJEICAO_NFE_NCM_INEXIST:
             begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
@@ -6659,9 +6670,13 @@ begin
 
           Ecf.Linha;
 
-          Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('TOTALVENDABRUTA').AsCurrency), False );
-          Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('DESCONTO').AsCurrency + qryCalculoImposto.FieldByName('DESCONTO_CUPOM').AsCurrency) );
-          Ecf.Linha;
+          if (qryCalculoImposto.FieldByName('DESCONTO').AsCurrency + qryCalculoImposto.FieldByName('DESCONTO_CUPOM').AsCurrency) <> 0 then
+          begin
+            Ecf.SubTotalVenda( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('TOTALVENDABRUTA').AsCurrency), False );
+            Ecf.Desconto( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('DESCONTO').AsCurrency + qryCalculoImposto.FieldByName('DESCONTO_CUPOM').AsCurrency) );
+            Ecf.Linha;
+          end;
+
           Ecf.TotalVenda( FormatFloat(',0.00',  qryCalculoImposto.FieldByName('TOTALVENDA').AsCurrency)  );
 
           qryFormaPagtos.First;

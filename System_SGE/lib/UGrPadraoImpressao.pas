@@ -140,24 +140,33 @@ end;
 
 procedure TfrmGrPadraoImpressao.btnVisualizarClick(Sender: TObject);
 begin
-  if not Assigned(_frReport) then
-    ShowError('Objeto de relatório não instanciado!')
-  else
-  begin
-    with frReport do
+  WaitAMoment(WAIT_AMOMENT_PrintPrepare);
+  try
+    if not Assigned(_frReport) then
     begin
-      CarregarDadosEmpresa;
+      WaitAMomentFree;
+      ShowError('Objeto de relatório não instanciado!');
+    end
+    else
+    begin
+      with frReport do
+      begin
+        CarregarDadosEmpresa;
 
-      SetVariablesDefault(frReport);
+        SetVariablesDefault(frReport);
 
-      ReportOptions.Author := ver.CompanyName;
-      ReportOptions.Name   := TituloRelario;
+        ReportOptions.Author := ver.CompanyName;
+        ReportOptions.Name   := TituloRelario;
 
-      OnGetValue := frGetValue;
+        OnGetValue := frGetValue;
 
-      PrepareReport;
-      ShowReport;
+        PrepareReport;
+        WaitAMomentFree;
+        ShowReport;
+      end;
     end;
+  finally
+    WaitAMomentFree;
   end;
 end;
 

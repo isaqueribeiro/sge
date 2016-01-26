@@ -4,8 +4,6 @@ inherited frmCampoRequisitado: TfrmCampoRequisitado
   Caption = ' Campo(s) requisitado(s)'
   ClientHeight = 358
   ClientWidth = 268
-  Font.Charset = ANSI_CHARSET
-  Font.Name = 'Tahoma'
   OldCreateOrder = True
   OnKeyPress = FormKeyPress
   PixelsPerInch = 96
@@ -182,8 +180,8 @@ inherited frmCampoRequisitado: TfrmCampoRequisitado
     object Label1: TLabel
       Left = 53
       Top = 8
-      Width = 207
-      Height = 49
+      Width = 200
+      Height = 48
       Align = alClient
       Caption = 
         'Os seguintes campos devem ser preenchidos com algum valor mas es' +

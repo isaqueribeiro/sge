@@ -3189,10 +3189,11 @@ end;
 
 procedure TfrmGeVenda.nmPpLimparDadosNFeClick(Sender: TObject);
 var
-  sArquivoENV ,
-  sArquivoREC ,
-  sArquivoNFe1,
-  sArquivoNFe2,
+  sArquivoENV , // Envio
+  sArquivoREC , // Recibo
+  sArquivoRET , // Retorno do processamento do recibo
+  sArquivoNFe1, // NFe
+  sArquivoNFe2, // NFe
   sDirXMLNFe  : String;
 begin
   if not IbDtstTabela.IsEmpty then
@@ -3217,7 +3218,9 @@ begin
     if DirectoryExists(sDirXMLNFe) then
     begin
       sArquivoENV  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_NUMERO.AsString + '-env-lot.xml', '\\', '\', [rfReplaceAll]);
+      sArquivoRET  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_RECIBO.AsString + '-pro-rec.xml', '\\', '\', [rfReplaceAll]);
       sArquivoREC  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_NUMERO.AsString + '-rec.xml',     '\\', '\', [rfReplaceAll]);
+
       sArquivoNFe1 := StringReplace(sDirXMLNFe + '\' +
         DMNFe.GetGerarChaveNFeXML(
           IbDtstTabelaCODEMP.AsString,
@@ -3235,11 +3238,13 @@ begin
       ForceDirectories(ExtractFilePath(sArquivoENV) + 'log\');
 
       DeleteFile(ExtractFilePath(sArquivoENV)  + 'log\' + ExtractFileName(sArquivoENV));
+      DeleteFile(ExtractFilePath(sArquivoREC)  + 'log\' + ExtractFileName(sArquivoRET));
       DeleteFile(ExtractFilePath(sArquivoREC)  + 'log\' + ExtractFileName(sArquivoREC));
       DeleteFile(ExtractFilePath(sArquivoNFe1) + 'log\' + ExtractFileName(sArquivoNFe1));
       DeleteFile(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2));
 
       MoveFile(PChar(sArquivoENV),  PChar(ExtractFilePath(sArquivoENV)  + 'log\' + ExtractFileName(sArquivoENV)));
+      MoveFile(PChar(sArquivoRET),  PChar(ExtractFilePath(sArquivoREC)  + 'log\' + ExtractFileName(sArquivoRET)));
       MoveFile(PChar(sArquivoREC),  PChar(ExtractFilePath(sArquivoREC)  + 'log\' + ExtractFileName(sArquivoREC)));
       MoveFile(PChar(sArquivoNFe1), PChar(ExtractFilePath(sArquivoNFe1) + 'log\' + ExtractFileName(sArquivoNFe1)));
       MoveFile(PChar(sArquivoNFe2), PChar(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2)));
