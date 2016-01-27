@@ -4,7 +4,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
   ActiveControl = dbCodigo
   BorderStyle = bsDialog
   BorderWidth = 4
-  Caption = 'Confirma'#231#227'o de T'#237'tulos'
+  Caption = 'Edi'#231#227'o / Confirma'#231#227'o de T'#237'tulos'
   ClientHeight = 403
   ClientWidth = 534
   OldCreateOrder = True
@@ -25,17 +25,18 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 73
+    Top = 109
     Width = 534
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitTop = 73
   end
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
     Width = 534
-    Height = 73
+    Height = 109
     Align = alTop
     Caption = ' Dados do T'#237'tulo Selecionadao'
     Font.Charset = ANSI_CHARSET
@@ -60,8 +61,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ParentFont = False
     end
     object lblDataVencimento: TLabel
-      Left = 264
-      Top = 24
+      Left = 263
+      Top = 66
       Width = 85
       Height = 13
       Caption = 'Data Vencimento:'
@@ -88,8 +89,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ParentFont = False
     end
     object lblValor: TLabel
-      Left = 368
-      Top = 24
+      Left = 367
+      Top = 66
       Width = 90
       Height = 13
       Caption = 'Valor Parcela (R$):'
@@ -115,6 +116,14 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object lblFormaPagto: TLabel
+      Left = 263
+      Top = 24
+      Width = 124
+      Height = 13
+      Caption = '&Forma de Pagamento:'
+      FocusControl = dbFormaPagto
+    end
     object dbCodigo: TDBEdit
       Left = 16
       Top = 40
@@ -134,8 +143,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       TabOrder = 0
     end
     object dbDataVencimento: TDBEdit
-      Left = 264
-      Top = 40
+      Left = 263
+      Top = 82
       Width = 97
       Height = 21
       Color = clWhite
@@ -147,7 +156,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 4
       OnEnter = ControlEditEnter
     end
     object dbParcela: TDBEdit
@@ -169,8 +178,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       TabOrder = 1
     end
     object dbValor: TDBEdit
-      Left = 368
-      Top = 40
+      Left = 367
+      Top = 82
       Width = 105
       Height = 21
       Color = clWhite
@@ -182,7 +191,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 5
+      OnEnter = ControlEditEnter
       OnExit = ControlEditExit
     end
     object dbEmissao: TDBEdit
@@ -203,12 +213,32 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ReadOnly = True
       TabOrder = 2
     end
+    object dbFormaPagto: TDBLookupComboBox
+      Left = 263
+      Top = 40
+      Width = 258
+      Height = 21
+      DataField = 'FORMA_PAGTO'
+      DataSource = dtsTitulos
+      DropDownRows = 10
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      KeyField = 'COD'
+      ListField = 'DESCRI'
+      ListSource = dtsFormaPagto
+      ParentFont = False
+      TabOrder = 3
+      OnEnter = ControlEditEnter
+    end
   end
   object dbgTitulos: TDBGrid
     Left = 0
-    Top = 77
+    Top = 113
     Width = 534
-    Height = 288
+    Height = 252
     TabStop = False
     Align = alClient
     DataSource = dtsTitulos
@@ -556,39 +586,44 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       '  , parcela'
       '  , Cnpj'
       '  , Tippag'
+      '  , Forma_Pagto'
       '  , Dtemiss'
       '  , Dtvenc'
       '  , Valorrec'
+      '  , ValorrecTot'
+      '  , ValorSaldo'
+      '  , Baixado'
       'from TBCONTREC')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
     UniDirectional = True
-    Left = 16
-    Top = 120
+    Left = 40
+    Top = 168
   end
   object dtsTitulos: TDataSource
     AutoEdit = False
     DataSet = cdsTitulos
     OnDataChange = dtsTitulosDataChange
     OnUpdateData = dtsTitulosUpdateData
-    Left = 16
-    Top = 216
+    Left = 40
+    Top = 264
   end
   object dspTitulos: TDataSetProvider
     DataSet = qryTitulos
     UpdateMode = upWhereChanged
-    Left = 16
-    Top = 152
+    Left = 40
+    Top = 200
   end
   object cdsTitulos: TClientDataSet
     Aggregates = <>
     AggregatesActive = True
     Params = <>
     ProviderName = 'dspTitulos'
+    AfterScroll = cdsTitulosAfterScroll
     OnCalcFields = cdsTitulosCalcFields
-    Left = 16
-    Top = 184
+    Left = 40
+    Top = 232
     object cdsTitulosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       ProviderFlags = [pfInUpdate, pfInKey]
@@ -614,12 +649,30 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       FieldName = 'TIPPAG'
       Size = 35
     end
+    object cdsTitulosFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+    end
     object cdsTitulosVALORREC: TBCDField
       FieldName = 'VALORREC'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
+    end
+    object cdsTitulosVALORRECTOT: TBCDField
+      FieldName = 'VALORRECTOT'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTitulosVALORSALDO: TBCDField
+      FieldName = 'VALORSALDO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTitulosBAIXADO: TSmallintField
+      FieldName = 'BAIXADO'
     end
     object cdsTitulosDTEMISS: TDateField
       Alignment = taCenter
@@ -672,7 +725,9 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       '')
     SelectSQL.Strings = (
       'Update TBCONTREC Set'
-      '  Dtvenc = :Vencimento, Valorrec = :Valor'
+      
+        '    Forma_Pagto = :Forma_Pagto, Dtvenc = :Vencimento, Valorrec =' +
+        ' :Valor'
       'where AnoVenda = :AnoVenda'
       '  and NumVenda = :NumVenda'
       '  and Anolanc = :Anolanc'
@@ -682,7 +737,22 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 16
-    Top = 248
+    Left = 40
+    Top = 296
+  end
+  object tblFormaPagto: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    TableName = 'TBFORMPAGTO'
+    UniDirectional = False
+    Left = 290
+    Top = 216
+  end
+  object dtsFormaPagto: TDataSource
+    DataSet = tblFormaPagto
+    Left = 322
+    Top = 216
   end
 end

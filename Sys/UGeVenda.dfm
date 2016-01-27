@@ -6,6 +6,7 @@ inherited frmGeVenda: TfrmGeVenda
   ClientHeight = 685
   ClientWidth = 1116
   OldCreateOrder = True
+  ExplicitTop = -57
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -1802,7 +1803,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 427
         Width = 1108
         Height = 186
-        ActivePage = TbsInformeNFe
+        ActivePage = tbsITitulos
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet
@@ -2413,14 +2414,14 @@ inherited frmGeVenda: TfrmGeVenda
               Top = 49
               Width = 70
               Height = 25
-              Hint = 'Editar T'#237'tulo'
+              Hint = 'Editar T'#237'tulo (Vencimentos e Valores)'
               Caption = 'Editar'
-              Enabled = False
               NumGlyphs = 2
               ParentShowHint = False
               ShowHint = True
               TabOrder = 2
               TabStop = False
+              OnClick = btnTituloEditarClick
             end
             object btnTituloExcluir: TBitBtn
               Left = 0
@@ -2434,6 +2435,7 @@ inherited frmGeVenda: TfrmGeVenda
               ParentShowHint = False
               ShowHint = True
               TabOrder = 3
+              Visible = False
             end
             object btnTituloQuitar: TBitBtn
               Left = 0
@@ -2453,6 +2455,7 @@ inherited frmGeVenda: TfrmGeVenda
               ParentShowHint = False
               ShowHint = True
               TabOrder = 4
+              Visible = False
             end
           end
           object dbgTitulos: TDBGrid
@@ -4338,7 +4341,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

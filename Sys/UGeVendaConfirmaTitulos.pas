@@ -14,7 +14,7 @@ uses
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  dxSkinWhiteprint, cxControls, cxContainer, cxEdit, IBX.IBTable;
 
 type
   TfrmGeVendaConfirmaTitulos = class(TfrmGrPadrao)
@@ -60,6 +60,14 @@ type
     cdsTitulosCNPJ: TWideStringField;
     cdsTitulosTIPPAG: TWideStringField;
     cdsTitulosLancamento: TStringField;
+    cdsTitulosVALORRECTOT: TBCDField;
+    cdsTitulosVALORSALDO: TBCDField;
+    cdsTitulosBAIXADO: TSmallintField;
+    tblFormaPagto: TIBTable;
+    dtsFormaPagto: TDataSource;
+    lblFormaPagto: TLabel;
+    dbFormaPagto: TDBLookupComboBox;
+    cdsTitulosFORMA_PAGTO: TSmallintField;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -73,6 +81,7 @@ type
     procedure dtsTitulosUpdateData(Sender: TObject);
     procedure cdsTitulosDiaSemanaGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure cdsTitulosAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     fAnoVenda ,
@@ -88,6 +97,12 @@ type
 
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBCONTREC
+  - TBFORMPAGTO
+*)
 
 var
   frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos;
@@ -127,6 +142,8 @@ begin
   TotalVenda    := 0;
   AnoVenda      := 0;
   ControleVenda := 0;
+
+  tblFormaPagto.Open;
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.FormShow(Sender: TObject);
@@ -149,7 +166,7 @@ procedure TfrmGeVendaConfirmaTitulos.ControlEditEnter(
   Sender: TObject);
 begin
   inherited;
-  if ( (Sender = dbDataVencimento) or (Sender = dbValor) ) then
+  if ( (Sender = dbFormaPagto) or (Sender = dbDataVencimento) or (Sender = dbValor) ) then
     if ( not cdsTitulos.IsEmpty ) then
       if ( cdsTitulos.State <> dsEdit ) then
         cdsTitulos.Edit;
@@ -220,6 +237,13 @@ begin
   end;
 end;
 
+procedure TfrmGeVendaConfirmaTitulos.cdsTitulosAfterScroll(DataSet: TDataSet);
+begin
+  dbFormaPagto.ReadOnly     := (DataSet.FieldByName('ValorSaldo').AsCurrency > 0);
+  dbDataVencimento.ReadOnly := (DataSet.FieldByName('ValorSaldo').AsCurrency > 0);
+  dbValor.ReadOnly          := (DataSet.FieldByName('ValorSaldo').AsCurrency > 0);
+end;
+
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosCalcFields(
   DataSet: TDataSet);
 begin
@@ -234,6 +258,7 @@ begin
   while not cdsTitulos.Eof do
   begin
     updParcela.Close;
+    updParcela.ParamByName('Forma_Pagto').AsInteger := cdsTitulosFORMA_PAGTO.AsInteger;
     updParcela.ParamByName('vencimento').AsDateTime := cdsTitulosDTVENC.AsDateTime;
     updParcela.ParamByName('valor').AsCurrency      := cdsTitulosVALORREC.AsCurrency;
     updParcela.ParamByName('anovenda').AsInteger := AnoVenda;

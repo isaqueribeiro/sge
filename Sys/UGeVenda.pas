@@ -463,6 +463,7 @@ type
     procedure nmImprimirNotaEntregaXClick(Sender: TObject);
     procedure nmPpCarregarArquivoNFeClick(Sender: TObject);
     procedure nmPpCorrigirDadosEntregaClick(Sender: TObject);
+    procedure btnTituloEditarClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -988,6 +989,7 @@ begin
     btbtnFinalizar.Enabled   := (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty) and (not cdsVendaFormaPagto.IsEmpty);
     btbtnGerarNFe.Enabled    := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty);
     btbtnCancelarVND.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    btnTituloEditar.Enabled  := (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) and (not qryTitulos.IsEmpty);
 
     BtnTransporteInforme.Enabled := btbtnFinalizar.Enabled or btbtnGerarNFe.Enabled;
 
@@ -2056,6 +2058,21 @@ begin
   begin
     GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  end;
+end;
+
+procedure TfrmGeVenda.btnTituloEditarClick(Sender: TObject);
+begin
+  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_FIN ) then
+    ShowWarning('É permitida a edição de títulos apenas para vendas finalizadas')
+  else
+  if ( qryTitulos.IsEmpty ) then
+    ShowWarning('Não existe(m) título(s) gerado(s) para esta venda')
+  else
+  if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+  begin
+    if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+      AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   end;
 end;
 
