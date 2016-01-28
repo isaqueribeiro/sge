@@ -726,8 +726,8 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     SelectSQL.Strings = (
       'Update TBCONTREC Set'
       
-        '    Forma_Pagto = :Forma_Pagto, Dtvenc = :Vencimento, Valorrec =' +
-        ' :Valor'
+        '    Tippag = :Tippag, Forma_Pagto = :Forma_Pagto, Dtvenc = :Venc' +
+        'imento, Valorrec = :Valor'
       'where AnoVenda = :AnoVenda'
       '  and NumVenda = :NumVenda'
       '  and Anolanc = :Anolanc'

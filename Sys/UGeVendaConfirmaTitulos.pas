@@ -239,9 +239,9 @@ end;
 
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosAfterScroll(DataSet: TDataSet);
 begin
-  dbFormaPagto.ReadOnly     := (DataSet.FieldByName('ValorSaldo').AsCurrency > 0);
-  dbDataVencimento.ReadOnly := (DataSet.FieldByName('ValorSaldo').AsCurrency > 0);
-  dbValor.ReadOnly          := (DataSet.FieldByName('ValorSaldo').AsCurrency > 0);
+  dbFormaPagto.ReadOnly     := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0);
+  dbDataVencimento.ReadOnly := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0);
+  dbValor.ReadOnly          := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0);
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosCalcFields(
@@ -257,7 +257,10 @@ begin
   cdsTitulos.First;
   while not cdsTitulos.Eof do
   begin
+    tblFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
+
     updParcela.Close;
+    updParcela.ParamByName('Tippag').AsString       := tblFormaPagto.FieldByName('DESCRI').AsString;
     updParcela.ParamByName('Forma_Pagto').AsInteger := cdsTitulosFORMA_PAGTO.AsInteger;
     updParcela.ParamByName('vencimento').AsDateTime := cdsTitulosDTVENC.AsDateTime;
     updParcela.ParamByName('valor').AsCurrency      := cdsTitulosVALORREC.AsCurrency;

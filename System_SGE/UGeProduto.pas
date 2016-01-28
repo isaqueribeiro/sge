@@ -425,10 +425,11 @@ uses
 {$R *.dfm}
 
 const
+  PRD_ARQUIVO_MORTO = '(p.arquivo_morto = 0)';
   COLUMN_QTDE       = 2;
   COLUMN_DISPONIVEL = 3;
-  COLUMN_LUCRO = 12;
-  COLUMN_GRUPO = 13;
+  COLUMN_LUCRO      = 12;
+  COLUMN_GRUPO      = 13;
 
 procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota);
 var
@@ -449,6 +450,8 @@ begin
     // Carregar apenas produtos com estoque e serviços em geral
     if frm.chkProdutoComEstoque.Checked then
       frm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
+
+    frm.WhereAdditional := frm.WhereAdditional + '  and (' + PRD_ARQUIVO_MORTO + ')';
 
     frm.ShowModal;
   finally
@@ -1580,7 +1583,7 @@ begin
           // Por Código, Descrição
           0:
             if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
-              Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
+              Add( 'where (' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) + ')' )
             else
               Add( 'where (upper(' + CampoDescricao +  ') like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
                    '    or upper(' + CampoDescricao +  ') like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') +
@@ -1595,14 +1598,14 @@ begin
           // Por Fabricante
           2:
             if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
-              Add( 'where p.Codfabricante = ' + Trim(edtFiltrar.Text) )
+              Add( 'where (p.Codfabricante = ' + Trim(edtFiltrar.Text) + ')' )
             else
               Add( 'where (upper(f.Nome) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') + ')' );
 
           // Por Grupo
           3:
             if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
-              Add( 'where p.Codgrupo = ' + Trim(edtFiltrar.Text) )
+              Add( 'where (p.Codgrupo = ' + Trim(edtFiltrar.Text) + ')' )
             else
               Add( 'where (upper(g.Descri) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') + ')' );
         end;
@@ -1615,6 +1618,7 @@ begin
         else
           Add( 'where (' + WhereAdditional + ')' );
 
+      Add( '  and (' + PRD_ARQUIVO_MORTO + ')');
       Add( 'order by ' + CampoOrdenacao );
 
       Open;
