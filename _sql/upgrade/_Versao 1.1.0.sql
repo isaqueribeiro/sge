@@ -23467,3 +23467,60 @@ End^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 29/01/2016 15:53:39 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_VCHAR_30'
+where (RDB$FIELD_NAME = 'NUMERO_CHEQUE') and
+(RDB$RELATION_NAME = 'TBCONTPAG_BAIXA')
+;
+
+
+
+
+/*------ SYSDBA 29/01/2016 15:54:01 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_VCHAR_30'
+where (RDB$FIELD_NAME = 'NUMERO_CHEQUE') and
+(RDB$RELATION_NAME = 'TBCONTREC_BAIXA')
+;
+
+
+
+
+/*------ SYSDBA 29/01/2016 15:55:49 --------*/
+
+COMMENT ON COLUMN TBCONTREC_BAIXA.NUMERO_CHEQUE IS
+'Numero do cheque
+
+Obs.: Geralmente possui 7 digitos';
+
+
+
+
+/*------ SYSDBA 29/01/2016 16:02:13 --------*/
+
+create view vw_status_cheque (codigo, descricao)
+as
+Select 0 as Codigo, 'Pendente'    as descricao from RDB$DATABASE Union
+Select 1 as Codigo, 'Apresentado' as descricao from RDB$DATABASE Union
+Select 2 as Codigo, 'Devolvido'   as descricao from RDB$DATABASE Union
+Select 8 as Codigo, 'Compensado'  as descricao from RDB$DATABASE Union
+Select 9 as Codigo, 'Cancelado'   as descricao from RDB$DATABASE
+;
+
+GRANT ALL ON VW_STATUS_CHEQUE TO "PUBLIC";
+
+
+
+/*------ SYSDBA 29/01/2016 16:04:34 --------*/
+
+COMMENT ON COLUMN TBCONTPAG_BAIXA.NUMERO_CHEQUE IS
+'Numero do cheque
+
+Obs.: Geralmente possui 7 digitos';
+

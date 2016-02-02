@@ -167,6 +167,10 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     object TbsGeral: TTabSheet
       BorderWidth = 4
       Caption = 'Configura'#231#245'es Geral'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GrpBxPadrao: TGroupBox
         Left = 0
         Top = 0
@@ -506,9 +510,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         Align = alTop
         Caption = ' Impress'#227'o Cupons N'#227'o-Fiscais '
         TabOrder = 1
-        ExplicitLeft = 0
-        ExplicitTop = 89
-        ExplicitWidth = 489
         object lblCupomNaoFiscalTipo: TLabel
           Left = 39
           Top = 53
@@ -754,33 +755,53 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     MostrarStatus = True
     TipoDANFE = tiSemGeracao
     NumCopias = 1
+    ImprimeNomeFantasia = False
     ImprimirDescPorc = False
     ImprimirTotalLiquido = True
     MargemInferior = 0.800000000000000000
     MargemSuperior = 0.800000000000000000
     MargemEsquerda = 0.600000000000000000
     MargemDireita = 0.510000000000000000
+    CasasDecimais.Formato = tdetInteger
     CasasDecimais._qCom = 2
     CasasDecimais._vUnCom = 2
+    CasasDecimais._Mask_qCom = '###,###,###,##0.00'
+    CasasDecimais._Mask_vUnCom = '###,###,###,##0.00'
     ExibirResumoCanhoto = False
     FormularioContinuo = False
     TamanhoFonte_DemaisCampos = 10
     ProdutosPorPagina = 0
     ImprimirDetalhamentoEspecifico = True
     NFeCancelada = False
-    LocalImpCanhoto = 0
-    ImprimeItens = True
+    ImprimirItens = True
     ViaConsumidor = True
+    TamanhoLogoHeight = 0
+    TamanhoLogoWidth = 0
+    RecuoEndereco = 0
+    RecuoEmpresa = 0
+    LogoemCima = False
+    TamanhoFonteEndereco = 0
+    RecuoLogo = 0
     TributosSeparadamente = False
-    TimeOut = 3
+    PosCanhoto = prCabecalho
+    ImprimeEmUmaLinha = False
+    ImprimeDescAcrescItem = False
+    PosPrinter = ACBrPosPrinter
+    Left = 332
+    Top = 408
+  end
+  object ACBrPosPrinter: TACBrPosPrinter
     ConfigBarras.MostrarCodigo = False
     ConfigBarras.LarguraLinha = 0
     ConfigBarras.Altura = 0
     ConfigBarras.Margem = 0
-    ImprimeEmUmaLinha = False
-    ImprimeDescAcrescItem = False
-    IntervaloBuffer = 0
-    Left = 436
-    Top = 432
+    ConfigQRCode.Tipo = 2
+    ConfigQRCode.LarguraModulo = 4
+    ConfigQRCode.ErrorLevel = 0
+    LinhasEntreCupons = 0
+    CortaPapel = False
+    ControlePorta = True
+    Left = 363
+    Top = 407
   end
 end

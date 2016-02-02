@@ -190,7 +190,8 @@ var
 
 implementation
 
-uses UDMNFe, FileCtrl, DateUtils;
+uses
+  FileCtrl, DateUtils, UDMNFe, ACBrDFe, pcnConversaoNFe;
 
 {$R *.dfm}
 

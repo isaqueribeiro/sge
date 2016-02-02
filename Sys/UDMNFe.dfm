@@ -4,16 +4,14 @@ object DMNFe: TDMNFe
   Height = 704
   Width = 931
   object ACBrNFe: TACBrNFe
-    Configuracoes.Geral.PathSalvar = '..\Bin\'
-    Configuracoes.Geral.ExibirErroSchema = True
+    MAIL = DMBusiness.ACBrMail
+    Configuracoes.Geral.SSLLib = libCapicomDelphiSoap
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
-    Configuracoes.Geral.RetirarAcentos = True
-    Configuracoes.Geral.VersaoDF = ve310
     Configuracoes.Geral.ValidarDigest = False
+    Configuracoes.Geral.IncluirQRCodeXMLNFCe = False
     Configuracoes.WebServices.UF = 'PA'
     Configuracoes.WebServices.AguardarConsultaRet = 0
-    Configuracoes.WebServices.IntervaloTentativas = 0
-    Configuracoes.WebServices.AjustaAguardaConsultaRet = False
+    Configuracoes.WebServices.QuebradeLinha = '|'
     Left = 24
     Top = 24
   end
@@ -15882,25 +15880,35 @@ object DMNFe: TDMNFe
     MostrarStatus = True
     TipoDANFE = tiRetrato
     NumCopias = 1
+    ImprimeNomeFantasia = False
     ImprimirDescPorc = False
     ImprimirTotalLiquido = False
     MargemInferior = 0.800000000000000000
     MargemSuperior = 0.800000000000000000
     MargemEsquerda = 0.600000000000000000
     MargemDireita = 0.510000000000000000
+    CasasDecimais.Formato = tdetInteger
     CasasDecimais._qCom = 2
     CasasDecimais._vUnCom = 2
+    CasasDecimais._Mask_qCom = '###,###,###,##0.00'
+    CasasDecimais._Mask_vUnCom = '###,###,###,##0.00'
     ExibirResumoCanhoto = False
     FormularioContinuo = False
     TamanhoFonte_DemaisCampos = 10
     ProdutosPorPagina = 0
     ImprimirDetalhamentoEspecifico = True
     NFeCancelada = False
-    LocalImpCanhoto = 0
-    ImprimeItens = True
-    vTroco = 0.000000000000000000
+    ImprimirItens = True
     ViaConsumidor = True
+    TamanhoLogoHeight = 0
+    TamanhoLogoWidth = 0
+    RecuoEndereco = 0
+    RecuoEmpresa = 0
+    LogoemCima = False
+    TamanhoFonteEndereco = 0
+    RecuoLogo = 0
     TributosSeparadamente = False
+    PosCanhoto = prCabecalho
     EspessuraBorda = 1
     ExibirTotalTributosItem = False
     ExibeCampoFatura = True
@@ -15910,6 +15918,9 @@ object DMNFe: TDMNFe
     DescricaoViaEstabelec = 'Via do Consumidor'
     ExpandirDadosAdicionaisAuto = False
     ImprimirDadosArma = True
+    QuebraLinhaEmDetalhamentoEspecifico = True
+    IncorporarBackgroundPdf = True
+    IncorporarFontesPdf = True
     Left = 24
     Top = 72
   end
@@ -17656,13 +17667,6 @@ object DMNFe: TDMNFe
     CNPJ = '01.234.567/0001-22'
     IE = '012.345.678.90'
     IM = '1234-0'
-    CmdImpCondensado = '#15'
-    CmdImpExpandidoUmaLinha = '#14'
-    CmdImpFimExpandido = '#20'
-    CmdImpZera = '#27,#64'
-    CmdGaveta = '#27,#118,#150'
-    CmdCortaPapelCompleto = '#27,#119'
-    CmdCortaPapelParcial = '#27,#109'
     Cabecalho.Strings = (
       'Nome da Empresa'
       'Nome da Rua , 1234  -  Bairro'
@@ -17683,34 +17687,38 @@ object DMNFe: TDMNFe
     MostrarStatus = True
     TipoDANFE = tiNFCe
     NumCopias = 1
+    ImprimeNomeFantasia = False
     ImprimirDescPorc = False
     ImprimirTotalLiquido = True
     MargemInferior = 0.800000000000000000
     MargemSuperior = 0.800000000000000000
     MargemEsquerda = 0.600000000000000000
     MargemDireita = 0.510000000000000000
+    CasasDecimais.Formato = tdetInteger
     CasasDecimais._qCom = 2
     CasasDecimais._vUnCom = 2
+    CasasDecimais._Mask_qCom = '###,###,###,##0.00'
+    CasasDecimais._Mask_vUnCom = '###,###,###,##0.00'
     ExibirResumoCanhoto = False
     FormularioContinuo = False
     TamanhoFonte_DemaisCampos = 10
     ProdutosPorPagina = 0
     ImprimirDetalhamentoEspecifico = True
     NFeCancelada = False
-    LocalImpCanhoto = 0
-    ImprimeItens = True
+    ImprimirItens = True
     ViaConsumidor = True
+    TamanhoLogoHeight = 0
+    TamanhoLogoWidth = 0
+    RecuoEndereco = 0
+    RecuoEmpresa = 0
+    LogoemCima = False
+    TamanhoFonteEndereco = 0
+    RecuoLogo = 0
     TributosSeparadamente = False
-    MarcaImpressora = iBematech
-    TimeOut = 3
-    ConfigBarras.MostrarCodigo = False
-    ConfigBarras.LarguraLinha = 0
-    ConfigBarras.Altura = 0
-    ConfigBarras.Margem = 0
-    LinhasEntreCupons = 10
+    PosCanhoto = prCabecalho
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
-    IntervaloBuffer = 0
+    PosPrinter = ACBrPosPrinter
     Left = 56
     Top = 72
   end
@@ -17718,9 +17726,6 @@ object DMNFe: TDMNFe
     ACBrSAT = ACBrSAT
     Mask_qCom = '0.0000'
     Mask_vUnCom = '0.000'
-    MarcaImpressora = iBematech
-    LinhasEntreCupons = 10
-    ImprimirLei12741 = False
     Left = 800
     Top = 152
   end
@@ -17734,6 +17739,8 @@ object DMNFe: TDMNFe
     Config.emit_indRatISSQN = irSim
     Config.EhUTF8 = False
     Config.PaginaDeCodigo = 0
+    ConfigArquivos.PrefixoArqCFe = 'AD'
+    ConfigArquivos.PrefixoArqCFeCanc = 'ADC'
     Rede.tipoInter = infETHE
     Rede.seg = segNONE
     Rede.tipoLan = lanDHCP
@@ -32846,5 +32853,19 @@ object DMNFe: TDMNFe
       '|*.xml'
     Left = 780
     Top = 521
+  end
+  object ACBrPosPrinter: TACBrPosPrinter
+    ConfigBarras.MostrarCodigo = False
+    ConfigBarras.LarguraLinha = 0
+    ConfigBarras.Altura = 0
+    ConfigBarras.Margem = 0
+    ConfigQRCode.Tipo = 2
+    ConfigQRCode.LarguraModulo = 4
+    ConfigQRCode.ErrorLevel = 0
+    LinhasEntreCupons = 0
+    CortaPapel = False
+    ControlePorta = True
+    Left = 91
+    Top = 71
   end
 end

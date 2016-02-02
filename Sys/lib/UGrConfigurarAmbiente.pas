@@ -16,7 +16,8 @@ uses
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, ACBrBase,
+  ACBrPosPrinter;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)
@@ -82,6 +83,7 @@ type
     edCupomNFiscalFonteNome: TComboBox;
     lblCupomNFiscalFonteTam: TLabel;
     edCupomNFiscalFonteTam: TEdit;
+    ACBrPosPrinter: TACBrPosPrinter;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -126,7 +128,7 @@ end;
 
 procedure TfrmGrConfigurarAmbiente.FormCreate(Sender: TObject);
 var
-  ModeloImpressora : TACBrNFeMarcaImpressora;
+  ModeloImpressora : TACBrPosPrinterModelo;
   postasCOM : TStringList;
   I : Integer;
 begin
@@ -148,7 +150,7 @@ begin
   postasCOM.BeginUpdate;
   postasCOM.Clear;
   try
-    ACBrNFeDANFeESCPOS.Device.AcharPortasSeriais(postasCOM);
+    ACBrNFeDANFeESCPOS.PosPrinter.Device.AcharPortasSeriais(postasCOM);
     for I := 0 to postasCOM.Count - 1 do
       edCupomNaoFiscalPorta.Items.Add( postasCOM.Strings[I] );
 
@@ -169,8 +171,8 @@ begin
   // Listar de Impressoras suportadas para o ESC POS (NFC-e)
 
   edCupomNaoFiscalModelo.Items.Clear ;
-  For ModeloImpressora := Low(TACBrNFeMarcaImpressora) to High(TACBrNFeMarcaImpressora) do
-    edCupomNaoFiscalModelo.Items.Add(GetEnumName(TypeInfo(TACBrNFeMarcaImpressora), Integer(ModeloImpressora)));
+  For ModeloImpressora := Low(TACBrPosPrinterModelo) to High(TACBrPosPrinterModelo) do
+    edCupomNaoFiscalModelo.Items.Add(GetEnumName(TypeInfo(TACBrPosPrinterModelo), Integer(ModeloImpressora)));
 
   // Listar Modelos Específicos
 

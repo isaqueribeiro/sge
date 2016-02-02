@@ -12,13 +12,14 @@ uses
   frxExportPDF, frxExportMail, UGeConfigurarNFeACBr, TypInfo,
   HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg, ShellApi,
 
-  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
+  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, SHDocVw,
   IBX.IBUpdateSQL, IBX.IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
   ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR,
   ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
   ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal, ACBrSATExtratoClass,
   ACBrSATExtratoESCPOS, ACBrNFeDANFeESCPOS, ACBrSAT, Xml.xmldom, Xml.XMLIntf,
-  Xml.XMLDoc, ACBrNFeDANFEFRDM, Vcl.Dialogs;
+  Xml.XMLDoc, ACBrNFeDANFEFRDM, Vcl.Dialogs, ACBrECFVirtualBuffer, ACBrDFe,
+  ACBrPosPrinter;
 
 type
   TTipoDANFE = (tipoDANFEFast, tipoDANFE_ESCPOS); 
@@ -241,6 +242,7 @@ type
     frdListaFuncionario: TfrxDBDataset;
     frrListaFuncionario: TfrxReport;
     opdNotas: TOpenDialog;
+    ACBrPosPrinter: TACBrPosPrinter;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -462,7 +464,7 @@ uses
   UDMBusiness, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
-  pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, ACBrDFeUtil, IniFiles;
+  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, ACBrDFeUtil, IniFiles;
 
 {$R *.dfm}
 
@@ -537,12 +539,12 @@ end;
 
 function GetDiretorioNFe : String;
 begin
-  Result := StringReplace(DMNFe.ACBrNFe.Configuracoes.Geral.PathSalvar + '\', '\\', '\', [rfReplaceAll]);
+  Result := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\', '\\', '\', [rfReplaceAll]);
 end;
 
 function FormatarChaveNFe(const aChave : String) : String;
 begin
-  Result := Trim(NotaUtil.FormatarChaveAcesso(aChave));
+  Result := Trim(FormatarChaveAcesso(aChave));
 end;
 
 procedure ConfigurarNFeACBr(const sCNPJEmitente : String);
@@ -966,13 +968,15 @@ begin
 
       with ACBrNFe.Configuracoes do
       begin
-        Arquivos.PathNFe    := StringReplace(Geral.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
-        Arquivos.PathCan    := StringReplace(Geral.PathSalvar + '\NFeCancelar', '\\', '\', [rfReplaceAll]);
-        Arquivos.PathInu    := StringReplace(Geral.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
-        Arquivos.PathEvento := StringReplace(Geral.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
-        Arquivos.PathCCe    := StringReplace(Geral.PathSalvar + '\CCe',         '\\', '\', [rfReplaceAll]);
-        Arquivos.PathMDe    := StringReplace(Geral.PathSalvar + '\MDe',         '\\', '\', [rfReplaceAll]);
-        Arquivos.PathDPEC   := StringReplace(Geral.PathSalvar + '\DPEC',        '\\', '\', [rfReplaceAll]);
+        Arquivos.PathSalvar  := edPathLogs.Text;
+        Arquivos.PathSchemas := edPathSchemas.Text;
+        Arquivos.PathNFe     := StringReplace(Arquivos.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
+        Arquivos.PathInu     := StringReplace(Arquivos.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
+        Arquivos.PathEvento  := StringReplace(Arquivos.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
+        //Arquivos.PathCan    := StringReplace(Arquivos.PathSalvar + '\NFeCancelar', '\\', '\', [rfReplaceAll]);
+        //Arquivos.PathCCe    := StringReplace(Arquivos.PathSalvar + '\CCe',         '\\', '\', [rfReplaceAll]);
+        //Arquivos.PathMDe    := StringReplace(Arquivos.PathSalvar + '\MDe',         '\\', '\', [rfReplaceAll]);
+        //Arquivos.PathDPEC   := StringReplace(Arquivos.PathSalvar + '\DPEC',        '\\', '\', [rfReplaceAll]);
       end;
 
       ckSalvarArqs.Checked                     := ReadBool(sSecaoArquivos, 'Salvar'        , False);
@@ -983,19 +987,19 @@ begin
       ckSepararPorCNPJ.Checked                 := ReadBool(sSecaoArquivos, 'SepararPorCNPJ'        , False);
       ckSepararPorModelo.Checked               := ReadBool(sSecaoArquivos, 'SepararPorModelo'      , False);
       edPathNFe.Text    := ReadString(sSecaoArquivos, 'PathNFe'   , ACBrNFe.Configuracoes.Arquivos.PathNFe) ;
-      edPathCan.Text    := ReadString(sSecaoArquivos, 'PathCan'   , ACBrNFe.Configuracoes.Arquivos.PathCan) ;
       edPathInu.Text    := ReadString(sSecaoArquivos, 'PathInu'   , ACBrNFe.Configuracoes.Arquivos.PathInu) ;
-      edPathDPEC.Text   := ReadString(sSecaoArquivos, 'PathDPEC'  , ACBrNFe.Configuracoes.Arquivos.PathDPEC) ;
-      edPathCCe.Text    := ReadString(sSecaoArquivos, 'PathCCe'   , ACBrNFe.Configuracoes.Arquivos.PathCCe) ;
       edPathEvento.Text := ReadString(sSecaoArquivos, 'PathEvento', ACBrNFe.Configuracoes.Arquivos.PathEvento) ;
+      //edPathCan.Text    := ReadString(sSecaoArquivos, 'PathCan'   , ACBrNFe.Configuracoes.Arquivos.PathCan) ;
+      //edPathDPEC.Text   := ReadString(sSecaoArquivos, 'PathDPEC'  , ACBrNFe.Configuracoes.Arquivos.PathDPEC) ;
+      //edPathCCe.Text    := ReadString(sSecaoArquivos, 'PathCCe'   , ACBrNFe.Configuracoes.Arquivos.PathCCe) ;
 
       with ACBrNFe.Configuracoes.Arquivos do
       begin
         Salvar             := ckSalvarArqs.Checked;
-        PastaMensal        := ckPastaMensal.Checked;
+        //PastaMensal        := ckPastaMensal.Checked;
         AdicionarLiteral   := ckAdicionaLiteral.Checked;
         EmissaoPathNFe     := ckEmissaoPathNFe.Checked;
-        SalvarCCeCanEvento := ckSalvaCCeCancelamentoPathEvento.Checked;
+        //SalvarCCeCanEvento := ckSalvaCCeCancelamentoPathEvento.Checked;
         SepararPorCNPJ     := ckSepararPorCNPJ.Checked;
         SepararPorModelo   := ckSepararPorModelo.Checked;
       end;
@@ -1004,11 +1008,10 @@ begin
       ACBrNFe.Configuracoes.Geral.ExibirErroSchema      := ckExibirErroSchema.Checked;
       ACBrNFe.Configuracoes.Geral.FormatoAlerta         := edFormatoAlerta.Text;
       ACBrNFe.Configuracoes.Geral.FormaEmissao   := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
-      ACBrNFe.Configuracoes.Geral.IdToken        := edIdToken.Text;
-      ACBrNFe.Configuracoes.Geral.Token          := edToken.Text;
       ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked;
-      ACBrNFe.Configuracoes.Geral.PathSalvar     := edPathLogs.Text;
       ACBrNFe.Configuracoes.Geral.RetirarAcentos := ckRetirarAcentos.Checked;
+      ACBrNFe.Configuracoes.Geral.IdCSC          := edIdToken.Text;
+      ACBrNFe.Configuracoes.Geral.CSC            := edToken.Text;
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
       ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoDF.ItemIndex); // ve310;
@@ -1035,18 +1038,18 @@ begin
       ACBrNFe.Configuracoes.WebServices.Salvar     := ckSalvarSOAP.Checked;
 
       ACBrNFe.Configuracoes.WebServices.AjustaAguardaConsultaRet := ckAjustarAut.Checked;
-      if DFeUtil.NaoEstaVazio(edAguardar.Text)then
-        ACBrNFe.Configuracoes.WebServices.AguardarConsultaRet := DFeUtil.SeSenao(StrToInt(edAguardar.Text) < 1000, StrToInt(edAguardar.Text) * 1000, StrToInt(edAguardar.Text))
+      if NaoEstaVazio(edAguardar.Text)then
+        ACBrNFe.Configuracoes.WebServices.AguardarConsultaRet := IfThen(StrToInt(edAguardar.Text) < 1000, StrToInt(edAguardar.Text) * 1000, StrToInt(edAguardar.Text))
       else
         edAguardar.Text := IntToStr(ACBrNFe.Configuracoes.WebServices.AguardarConsultaRet);
 
-      if DFeUtil.NaoEstaVazio(edTentativas.Text) then
+      if NaoEstaVazio(edTentativas.Text) then
         ACBrNFe.Configuracoes.WebServices.Tentativas := StrToInt(edTentativas.Text)
       else
         edTentativas.Text := IntToStr(ACBrNFe.Configuracoes.WebServices.Tentativas);
 
-      if DFeUtil.NaoEstaVazio(edIntervalo.Text) then
-        ACBrNFe.Configuracoes.WebServices.IntervaloTentativas := DFeUtil.SeSenao(StrToInt(edIntervalo.Text) < 1000, StrToInt(edIntervalo.Text) * 1000, StrToInt(edIntervalo.Text))
+      if NaoEstaVazio(edIntervalo.Text) then
+        ACBrNFe.Configuracoes.WebServices.IntervaloTentativas := IfThen(StrToInt(edIntervalo.Text) < 1000, StrToInt(edIntervalo.Text) * 1000, StrToInt(edIntervalo.Text))
       else
         edIntervalo.Text := IntToStr(ACBrNFe.Configuracoes.WebServices.IntervaloTentativas);
 
@@ -1178,7 +1181,7 @@ begin
 
     // Configurações necessárias e Emissão da NFC-e
 
-    with ACBrSAT, Config, ConfigACBr do
+    with ACBrSAT, Config, ConfigArquivos, ConfigACBr do
     begin
       emit_CNPJ := ConfigACBr.edtEmitCNPJ.Text;
       emit_IE   := ConfigACBr.edtEmitIE.Text;
@@ -1201,12 +1204,12 @@ begin
     nfcDANFE.Sistema   := RemoveAcentos( GetCompanyName );
     nfcDANFE.Usuario   := RemoveAcentos( GetUserApp );
 
-    nfcDANFE.MarcaImpressora       := TACBrNFeMarcaImpressora(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0));
-    nfcDANFE.Device.Porta          := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'COM1');
-    nfcDANFE.Device.Baud           := 9600;   // StrToInt(cbxVelocidade.Text);
+    nfcDANFE.PosPrinter.Modelo       := TACBrPosPrinterModelo(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0));
+    nfcDANFE.PosPrinter.Device.Porta := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'COM1');
+    nfcDANFE.PosPrinter.Device.Baud  := 9600;   // StrToInt(cbxVelocidade.Text);
+    nfcDANFE.PosPrinter.IgnorarTags  := False;  // chkIgnorarTagsFormatacao.Checked;
     nfcDANFE.ImprimeEmUmaLinha     := False;  // chkImprimirItem1Linha.Checked;
     nfcDANFE.ImprimeDescAcrescItem := False;  // chkImprimirDescAcresItem.Checked;
-    nfcDANFE.IgnorarTagsFormatacao := False;  // chkIgnorarTagsFormatacao.Checked;
     nfcDANFE.NumCopias             := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
 
     if FilesExists(ConfigACBr.edtLogoMarca.Text) then
@@ -1243,7 +1246,7 @@ end;
 procedure TDMNFe.SelecionarCertificado(Sender: TObject);
 begin
   {$IFNDEF ACBrNFeOpenSSL}
-  ConfigACBr.edtNumSerie.Text := ACBrNFe.Configuracoes.Certificados.SelecionarCertificado;
+  ConfigACBr.edtNumSerie.Text := ACBrNFe.SSL.SelecionarCertificado;
   {$ENDIF}
 end;
 
@@ -1751,9 +1754,9 @@ begin
         infEvento.detEvento.nProt := qryNFeEmitidaPROTOCOLO.AsString;
         infEvento.detEvento.xJust := Copy(Motivo, 1, 255);
       end;
-      
+
       // Enviar o evento de cancelamento
-      if ACBrNFe.EnviarEventoNFe(iNumeroLote) then
+      if ACBrNFe.EnviarEvento(iNumeroLote) then
       begin
         with ACBrNFe.WebServices.EnvEvento do
         begin
@@ -1875,10 +1878,14 @@ begin
 
       if NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC then
       begin
-        WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
-        WebServices.ConsultaDPEC.Executar;
+//        WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
+//        WebServices.ConsultaDPEC.Executar;
+//
+//        DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
+        WebServices.Consulta.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
+        WebServices.Consulta.Executar;
 
-        DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
+        DANFE.ProtocoloNFe := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
       end;
 
       if ( IsPDF ) then
@@ -1987,6 +1994,7 @@ procedure TDMNFe.GerarNFeACBr(const sCNPJEmitente : String; iCodigoCliente : Int
   const iAnoVenda, iNumVenda : Integer;
   var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
 var
+  sErros : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
 begin
@@ -2058,7 +2066,7 @@ begin
       Ide.tpEmis    := ACBrNFe.Configuracoes.Geral.FormaEmissao;
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;
       Ide.verProc   := GetExeVersion( ParamStr(0) ); // Versão do seu sistema
-      Ide.cUF       := NotaUtil.UFtoCUF( qryEmitenteEST_SIGLA.AsString );
+      Ide.cUF       := UFtoCUF( qryEmitenteEST_SIGLA.AsString );
       Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger ;
 
       if (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 1) then
@@ -2074,7 +2082,7 @@ begin
 
             fdNFeModelo1_1A:
               begin
-                RefNF.cUF    := NotaUtil.UFtoCUF(FieldByName('DNFE_UF').AsString); // |
+                RefNF.cUF    := UFtoCUF(FieldByName('DNFE_UF').AsString); // |
                 RefNF.AAMM   := FieldByName('DNFE_COMPETENCIA').AsString;          // |
                 RefNF.CNPJ   := FieldByName('DNFE_CNPJ_CPF').AsString;             // |
                 RefNF.modelo := FieldByName('DNFE_MODELO').AsInteger;              // |- NF Modelo 1/1A
@@ -2084,7 +2092,7 @@ begin
 
             fdNFProdutorRural:
               begin
-                RefNFP.cUF     := NotaUtil.UFtoCUF(FieldByName('DNFE_UF').AsString);       // |
+                RefNFP.cUF     := UFtoCUF(FieldByName('DNFE_UF').AsString);       // |
                 RefNFP.AAMM    := FieldByName('DNFE_COMPETENCIA').AsString;                // |
                 RefNFP.CNPJCPF := FieldByName('DNFE_CNPJ_CPF').AsString;                   // |
                 RefNFP.IE      := FieldByName('DNFE_IE').AsString;                         // |- NF produtor Rural
@@ -2862,13 +2870,14 @@ begin
         ACBrNFe.NotasFiscais.Assinar;
 
       if GetSolicitaDHSaidaNFe( sCNPJEmitente ) then
-        if not ACBrNFe.NotasFiscais.ValidaRegrasdeNegocios then
-          raise Exception.Create( ACBrNFe.NotasFiscais.Items[0].RegrasdeNegocios );
+        if not ACBrNFe.NotasFiscais.ValidarRegrasdeNegocios(sErros) then
+          raise Exception.Create( sErros );
 
       if ( not DelphiIsRunning ) then
-        ACBrNFe.NotasFiscais.Valida;
+        ACBrNFe.NotasFiscais.Validar;
 
-      ACBrNFe.NotasFiscais.Items[0].SaveToFile( EmptyStr );
+      //ACBrNFe.NotasFiscais.Items[0].SaveToFile( EmptyStr );
+      ACBrNFe.NotasFiscais.Items[0].GravarXML;
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;
 
@@ -3290,8 +3299,6 @@ begin
           sDocumento := 'Venda ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('##00000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger);
         end;
 
-        CarregarConfiguracoesEmpresa(sCNPJEmitente, sEmailAssunto, sAssinaturaHtml, sAssinaturaTxt);
-
         sEmailEmpresa      := GetEmailEmpresa( sCNPJEmitente );
         sEmailDestinatario := GetClienteEmail( iCodigoCliente );
         sEmailAssunto      := GetNomeFantasiaEmpresa( sCNPJEmitente ) + ' - ' + sDocumento;
@@ -3311,23 +3318,32 @@ begin
 
         CopyFileTo( sFileNameXML, ExtractFilePath(ParamStr(0)) + ExtractFileName(sFileNameXML) );
 
+        ConfigurarEmail(sCNPJEmitente, sEmailDestinatario, sEmailAssunto, sMSG.Text);
+
+//        NotasFiscais.Items[0].EnviarEmail(
+//            gContaEmail.Servidor_SMTP
+//          , IntToStr(gContaEmail.Porta_SMTP)
+//          , gContaEmail.Conta
+//          , gContaEmail.Senha
+//          , gContaEmail.Conta
+//          , sEmailDestinatario
+//          , sEmailAssunto
+//          , sMSG
+//          , gContaEmail.ConexaoSeguraSSL // SSL - Conexão Segura
+//          , EnviarPDF                    // Enviar PDF junto
+//          , sCC                          // Lista com emails que serão enviado cópias - TStrings
+//          , sANX                         // Lista de anexos - TStrings
+//          , False                        // Pede confirmação de leitura do email
+//          , False                        // Aguarda Envio do Email(não usa thread)
+//          , GetNomeFantasiaEmpresa( sCNPJEmitente ) // Nome do Rementente
+//          , gContaEmail.ConexaoSeguraSSL );         // Auto TLS
         NotasFiscais.Items[0].EnviarEmail(
-            gContaEmail.Servidor_SMTP
-          , IntToStr(gContaEmail.Porta_SMTP)
-          , gContaEmail.Conta
-          , gContaEmail.Senha
-          , gContaEmail.Conta
-          , sEmailDestinatario
+            sEmailDestinatario
           , sEmailAssunto
           , sMSG
-          , gContaEmail.ConexaoSeguraSSL // SSL - Conexão Segura
           , EnviarPDF                    // Enviar PDF junto
           , sCC                          // Lista com emails que serão enviado cópias - TStrings
-          , sANX                         // Lista de anexos - TStrings
-          , False                        // Pede confirmação de leitura do email
-          , False                        // Aguarda Envio do Email(não usa thread)
-          , GetNomeFantasiaEmpresa( sCNPJEmitente ) // Nome do Rementente
-          , gContaEmail.ConexaoSeguraSSL );         // Auto TLS
+          , sANX);                       // Lista de anexos - TStrings
 
         Result := True;
       end;
@@ -3425,7 +3441,7 @@ begin
       Ide.tpEmis    := ACBrNFe.Configuracoes.Geral.FormaEmissao;
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;
       Ide.verProc   := GetExeVersion( ParamStr(0) ); // Versão do seu sistema
-      Ide.cUF       := NotaUtil.UFtoCUF( qryEmitenteEST_SIGLA.AsString );
+      Ide.cUF       := UFtoCUF( qryEmitenteEST_SIGLA.AsString );
       Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger ;
 
       if (qryEntradaCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 1) then
@@ -3441,7 +3457,7 @@ begin
 
             fdNFeModelo1_1A:
               begin
-                RefNF.cUF    := NotaUtil.UFtoCUF(FieldByName('DNFE_UF').AsString); // |
+                RefNF.cUF    := UFtoCUF(FieldByName('DNFE_UF').AsString); // |
                 RefNF.AAMM   := FieldByName('DNFE_COMPETENCIA').AsString;          // |
                 RefNF.CNPJ   := FieldByName('DNFE_CNPJ_CPF').AsString;             // |
                 RefNF.modelo := FieldByName('DNFE_MODELO').AsInteger;              // |- NF Modelo 1/1A
@@ -3451,7 +3467,7 @@ begin
 
             fdNFProdutorRural:
               begin
-                RefNFP.cUF     := NotaUtil.UFtoCUF(FieldByName('DNFE_UF').AsString);       // |
+                RefNFP.cUF     := UFtoCUF(FieldByName('DNFE_UF').AsString);       // |
                 RefNFP.AAMM    := FieldByName('DNFE_COMPETENCIA').AsString;                // |
                 RefNFP.CNPJCPF := FieldByName('DNFE_CNPJ_CPF').AsString;                   // |
                 RefNFP.IE      := FieldByName('DNFE_IE').AsString;                         // |- NF produtor Rural
@@ -4204,9 +4220,9 @@ begin
 
 
       if ( not DelphiIsRunning ) then
-        ACBrNFe.NotasFiscais.Valida;
+        ACBrNFe.NotasFiscais.Validar;
 
-      ACBrNFe.NotasFiscais.Items[0].SaveToFile( EmptyStr );
+      ACBrNFe.NotasFiscais.Items[0].GravarXML( EmptyStr );
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;
 
@@ -4253,10 +4269,14 @@ begin
 
       if NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC then
       begin
-        WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
-        WebServices.ConsultaDPEC.Executar;
+//        WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
+//        WebServices.ConsultaDPEC.Executar;
+//
+//        DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
+        WebServices.Consulta.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
+        WebServices.Consulta.Executar;
 
-        DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
+        DANFE.ProtocoloNFe := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
       end;
 
       if ( IsPDF ) then
@@ -4397,7 +4417,7 @@ begin
       end;
 
       // Enviar o evento de cancelamento
-      if ACBrNFe.EnviarEventoNFe(iNumeroLote) then
+      if ACBrNFe.EnviarEvento(iNumeroLote) then
       begin
         with ACBrNFe.WebServices.EnvEvento do
         begin
@@ -4558,8 +4578,8 @@ begin
   else
     LerConfiguracao(sCNPJEmitente);
       
-  sDataVenc := FormatDateTime('dd/mm/yyyy', ACBrNFe.Configuracoes.Certificados.DataVenc);
-  iPrazo    := DaysBetween(now, ACBrNFe.Configuracoes.Certificados.DataVenc);
+  sDataVenc := FormatDateTime('dd/mm/yyyy', ACBrNFe.SSL.CertDataVenc);
+  iPrazo    := DaysBetween(now, ACBrNFe.SSL.CertDataVenc);
 
   Result := (iPrazo >= 0);
 
@@ -4777,7 +4797,7 @@ begin
           if ( Pos(AnsiLowerCase(TERMINATE_FILENAME), AnsiLowerCase(NomeArq)) > 0 ) then
              NomeArq := StringReplace(NomeArq, TERMINATE_FILENAME, TERMINATE_FILENAME_NEW, [rfIgnoreCase]);
 
-          NotasFiscais.Items[0].SaveToFile(NomeArq);
+          NotasFiscais.Items[0].GravarXML(NomeArq);
 
           FileNameXML := NomeArq;
         end;
@@ -4963,23 +4983,32 @@ begin
         if FileExists( sArquivo ) then
           sANX.Add( sArquivo );
 
+        ConfigurarEmail(sCNPJEmitente, sEmailDestinatario, sEmailAssunto, sMSG.Text);
+
+//        NotasFiscais.Items[0].EnviarEmail(
+//            gContaEmail.Servidor_SMTP
+//          , IntToStr(gContaEmail.Porta_SMTP)
+//          , gContaEmail.Conta
+//          , gContaEmail.Senha
+//          , gContaEmail.Conta
+//          , sEmailDestinatario
+//          , sEmailAssunto
+//          , sMSG
+//          , gContaEmail.ConexaoSeguraSSL // SSL - Conexão Segura
+//          , False                        // Enviar PDF junto
+//          , sCC                          // Lista com emails que serão enviado cópias - TStrings
+//          , sANX                         // Lista de anexos - TStrings
+//          , False                        // Pede confirmação de leitura do email
+//          , False                        // Aguarda Envio do Email(não usa thread)
+//          , GetNomeFantasiaEmpresa( sCNPJEmitente ) // Nome do Rementente
+//          , gContaEmail.ConexaoSeguraSSL );         // Auto TLS
         NotasFiscais.Items[0].EnviarEmail(
-            gContaEmail.Servidor_SMTP
-          , IntToStr(gContaEmail.Porta_SMTP)
-          , gContaEmail.Conta
-          , gContaEmail.Senha
-          , gContaEmail.Conta
-          , sEmailDestinatario
+            sEmailDestinatario
           , sEmailAssunto
           , sMSG
-          , gContaEmail.ConexaoSeguraSSL // SSL - Conexão Segura
           , False                        // Enviar PDF junto
           , sCC                          // Lista com emails que serão enviado cópias - TStrings
-          , sANX                         // Lista de anexos - TStrings
-          , False                        // Pede confirmação de leitura do email
-          , False                        // Aguarda Envio do Email(não usa thread)
-          , GetNomeFantasiaEmpresa( sCNPJEmitente ) // Nome do Rementente
-          , gContaEmail.ConexaoSeguraSSL );         // Auto TLS
+          , sANX);                       // Lista de anexos - TStrings
 
         Result := True;
       end;
@@ -5232,7 +5261,7 @@ begin
 
         // Enviar o evento de CC-e
 
-        if EnviarEventoNFe(iNumeroLote) then
+        if EnviarEvento(iNumeroLote) then
         begin
           with WebServices.EnvEvento do
           begin
@@ -5534,6 +5563,7 @@ procedure TDMNFe.GerarNFCeACBr(const sCNPJEmitente: String;
   iNumVenda: Integer; var DtHoraEmiss: TDateTime; var iSerieNFCe,
   iNumeroNFCe: Integer; var FileNameXML: String);
 var
+  sErros : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
 begin
@@ -5599,7 +5629,7 @@ begin
       Ide.tpEmis    := ACBrNFe.Configuracoes.Geral.FormaEmissao;
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;
       Ide.verProc   := GetExeVersion( ParamStr(0) );
-      Ide.cUF       := NotaUtil.UFtoCUF( qryEmitenteEST_SIGLA.AsString );
+      Ide.cUF       := UFtoCUF( qryEmitenteEST_SIGLA.AsString );
       Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger ;
       Ide.finNFe    := fnNormal;
       Ide.tpImp     := tiNFCe;
@@ -6201,13 +6231,13 @@ begin
       if ( not DelphiIsRunning ) then
         ACBrNFe.NotasFiscais.Assinar;
 
-      if not ACBrNFe.NotasFiscais.ValidaRegrasdeNegocios then
-        raise Exception.Create( ACBrNFe.NotasFiscais.Items[0].RegrasdeNegocios );
+      if not ACBrNFe.NotasFiscais.ValidarRegrasdeNegocios(sErros) then
+        raise Exception.Create( sErros );
 
       if ( not DelphiIsRunning ) then
-        ACBrNFe.NotasFiscais.Valida;
+        ACBrNFe.NotasFiscais.Validar;
 
-      ACBrNFe.NotasFiscais.Items[0].SaveToFile( EmptyStr );
+      ACBrNFe.NotasFiscais.Items[0].GravarXML( EmptyStr );
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;
 
@@ -6263,14 +6293,14 @@ begin
         if ACBrNFe.NotasFiscais[0].NFe.Ide.modelo <> MODELO_NFCE then
           raise Exception.Create('Nota Fiscal não é do tipo NFC-e!');
       
-      nfcDANFE.Device.Ativar;
+      nfcDANFE.PosPrinter.Device.Ativar;
       try
         DANFE.ViaConsumidor := True; // chkViaConsumidor.Checked;
-        DANFE.ImprimeItens  := ImprimirItens; // Obs.: Esta propriedade ao receber FALSE, permite apenas a impressão resumo do DANFE da NFC-e
+        DANFE.ImprimirItens := ImprimirItens; // Obs.: Esta propriedade ao receber FALSE, permite apenas a impressão resumo do DANFE da NFC-e
 
         NotasFiscais[0].Imprimir;
       finally
-        nfcDANFE.Device.Desativar;
+        nfcDANFE.PosPrinter.Device.Desativar;
       end;
 
       Result := True;
@@ -6994,10 +7024,14 @@ begin
       if ( not DelphiIsRunning ) then
         if ( (NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC) or (not Assigned(NotasFiscais.Items[0].NFe.procNFe)) ) then
         begin
-          WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
-          WebServices.ConsultaDPEC.Executar;
+//          WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
+//          WebServices.ConsultaDPEC.Executar;
+//
+//          DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
+          WebServices.Consulta.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
+          WebServices.Consulta.Executar;
 
-          DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
+          DANFE.ProtocoloNFe := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
         end;
 
       NotaValida := Assigned(NotasFiscais.Items[0].NFe.procNFe);
@@ -7010,7 +7044,7 @@ begin
         aValorNF   := NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF;
 
         aNomeArquivoXML := aChave + '-nfe_view.xml';
-        NotasFiscais.Items[0].SaveToFile(ExtractFilePath(sArquivo) + aNomeArquivoXML);
+        NotasFiscais.Items[0].GravarXML(ExtractFilePath(sArquivo) + aNomeArquivoXML);
       end;
 
       NotasFiscais.Imprimir;
