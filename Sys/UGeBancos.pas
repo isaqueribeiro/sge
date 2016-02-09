@@ -84,7 +84,6 @@ type
     dbMora: TDBEdit;
     Label4: TLabel;
     lblInstrucao: TLabel;
-    dbInstrucao: TDBEdit;
     IbDtstTabelaBCO_PERCENTUAL_JUROS: TIBBCDField;
     IbDtstTabelaBCO_PERCENTUAL_MORA: TIBBCDField;
     IbDtstTabelaBCO_DIA_PROTESTO: TSmallintField;
@@ -98,10 +97,12 @@ type
     lblLayoutRetorno: TLabel;
     dbLayoutRetorno: TDBLookupComboBox;
     IbDtstTabelaBCO_CODIGO: TSmallintField;
+    dbInstrucao: TDBComboBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure imgAjudaClick(Sender: TObject);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -172,6 +173,16 @@ begin
   finally
     frm.Destroy;
   end;
+end;
+
+procedure TfrmGeBancos.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+begin
+  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    if ( (Field = IbDtstTabelaBCO_PERCENTUAL_JUROS) or (Field = IbDtstTabelaBCO_PERCENTUAL_MORA) ) then
+      if ( (IbDtstTabelaBCO_PERCENTUAL_JUROS.AsCurrency + IbDtstTabelaBCO_PERCENTUAL_MORA.AsCurrency) = 0.0 ) then
+        IbDtstTabelaBCO_MSG_INSTRUCAO.AsString := dbInstrucao.Items.Strings[0]
+      else
+        IbDtstTabelaBCO_MSG_INSTRUCAO.AsString := dbInstrucao.Items.Strings[1];
 end;
 
 procedure TfrmGeBancos.FormCreate(Sender: TObject);

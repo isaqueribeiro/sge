@@ -136,6 +136,7 @@ type
     spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc;
     spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
     spAtualizarCustoEstoqueInventario: TIBStoredProc;
+    ibdtstUsersTIPO_ALTERAR_VALOR_VENDA: TSmallintField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -350,6 +351,9 @@ var
   function GetUserUpdatePassWord : Boolean;
   function GetLimiteDescontoUser : Currency;
   function GetUserPermitirAlterarValorVenda : Boolean;
+  function GetUserPermitirAlterarValorVendaLivre : Boolean;
+  function GetUserPermitirAlterarValorVendaParaMaior : Boolean;
+  function GetUserPermitirAlterarValorVendaParaMenor : Boolean;
   function GetPermititEmissaoNFe(const sCNPJEmitente : String) : Boolean;
   function GetPermititEmissaoNFeEntrada(const sCNPJEmitente : String) : Boolean;
   function GetPermititNFeDenegada(const sCNPJEmitente : String) : Boolean;
@@ -3034,6 +3038,33 @@ begin
   with DMBusiness, ibdtstUsers do
     if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
       Result := (ibdtstUsersPERM_ALTERAR_VALOR_VENDA.AsInteger = 1)
+    else
+      Result := False;
+end;
+
+function GetUserPermitirAlterarValorVendaLivre : Boolean;
+begin
+  with DMBusiness, ibdtstUsers do
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger = 1)
+    else
+      Result := False;
+end;
+
+function GetUserPermitirAlterarValorVendaParaMaior : Boolean;
+begin
+  with DMBusiness, ibdtstUsers do
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger in [1, 2])
+    else
+      Result := False;
+end;
+
+function GetUserPermitirAlterarValorVendaParaMenor : Boolean;
+begin
+  with DMBusiness, ibdtstUsers do
+    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger in [1, 3])
     else
       Result := False;
 end;

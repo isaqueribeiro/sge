@@ -23524,3 +23524,97 @@ COMMENT ON COLUMN TBCONTPAG_BAIXA.NUMERO_CHEQUE IS
 
 Obs.: Geralmente possui 7 digitos';
 
+
+
+
+/*------ SYSDBA 09/02/2016 10:54:34 --------*/
+
+ALTER TABLE TBUSERS
+    ADD TIPO_ALTERAR_VALOR_VENDA DMN_SMALLINT_NN DEFAULT 1;
+
+COMMENT ON COLUMN TBUSERS.TIPO_ALTERAR_VALOR_VENDA IS
+'Tipo de alteracao do valor de venda:
+0 - Nenhum
+1 - Livre
+2 - Para maior
+3 - Para menor';
+
+alter table TBUSERS
+alter NOME position 1;
+
+alter table TBUSERS
+alter SENHA position 2;
+
+alter table TBUSERS
+alter NOMECOMPLETO position 3;
+
+alter table TBUSERS
+alter CODFUNCAO position 4;
+
+alter table TBUSERS
+alter LIMIDESC position 5;
+
+alter table TBUSERS
+alter ATIVO position 6;
+
+alter table TBUSERS
+alter ALTERAR_SENHA position 7;
+
+alter table TBUSERS
+alter PERM_ALTERAR_VALOR_VENDA position 8;
+
+alter table TBUSERS
+alter TIPO_ALTERAR_VALOR_VENDA position 9;
+
+alter table TBUSERS
+alter VENDEDOR position 10;
+
+
+
+/*------ 09/02/2016 10:55:15 --------*/
+
+CREATE VIEW VW_TIPO_ALTERA_VALOR_VENDA (
+    CODIGO,
+    DESCRICAO)
+AS
+Select 0 as Codigo , 'Nenhum'     as Descricao from RDB$DATABASE Union
+Select 1 as Codigo , 'Livre'      as Descricao from RDB$DATABASE Union
+Select 2 as Codigo , 'Para maior' as Descricao from RDB$DATABASE Union
+Select 3 as Codigo , 'Para menor' as Descricao from RDB$DATABASE;
+
+/*------ 09/02/2016 10:55:15 --------*/
+
+GRANT ALL ON VW_TIPO_ALTERA_VALOR_VENDA TO "PUBLIC";
+
+
+/*------ SYSDBA 09/02/2016 10:56:13 --------*/
+
+COMMENT ON TABLE TBUSERS IS 'Tabela de Usuarios do Sistema
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2011
+
+Tabela responsavel por armazenar os registros de usuarios de acesso ao sistema.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    09/02/2016 - IMR :
+        + Criacao dos campos TIPO_ALTERAR_VALOR_VENDA que permitira uma maior
+          restrincao no tipo de alteracao que o usuario podera fazer no valor
+          unitario de venda do item.';
+
+
+
+
+/*------ SYSDBA 09/02/2016 11:24:24 --------*/
+
+ALTER TABLE TBUSERS ALTER COLUMN TIPO_ALTERAR_VALOR_VENDA
+SET DEFAULT 0
+;
+

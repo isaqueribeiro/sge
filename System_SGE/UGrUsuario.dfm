@@ -25,7 +25,7 @@ inherited frmGrUsuario: TfrmGrUsuario
   inherited pgcGuias: TPageControl
     Width = 751
     Height = 413
-    ActivePage = tbsTabela
+    OnChange = pgcGuiasChange
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
@@ -298,9 +298,9 @@ inherited frmGrUsuario: TfrmGrUsuario
         object lblVendedor: TLabel
           Left = 104
           Top = 24
-          Width = 64
+          Width = 143
           Height = 13
-          Caption = 'Vendedor(a):'
+          Caption = 'Funcion'#225'rio(a) / Vendedor(a):'
           FocusControl = dbVendedor
         end
         object dbPercentualDesc: TDBEdit
@@ -355,6 +355,25 @@ inherited frmGrUsuario: TfrmGrUsuario
           ParentFont = False
           TabOrder = 1
         end
+        object dbTipoAlteraValorVendaItem: TDBLookupComboBox
+          Left = 16
+          Top = 95
+          Width = 209
+          Height = 21
+          DataField = 'TIPO_ALTERAR_VALOR_VENDA'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'CODIGO'
+          ListField = 'DESCRICAO'
+          ListSource = dtsTipoAlteraValor
+          ParentFont = False
+          TabOrder = 3
+          OnClick = dbTipoAlteraValorVendaItemClick
+        end
       end
     end
   end
@@ -394,6 +413,7 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  , u.ativo'
       '  , u.alterar_senha'
       '  , u.perm_alterar_valor_venda'
+      '  , u.tipo_alterar_valor_venda'
       '  , u.vendedor'
       '  , f.funcao as perfil'
       'from TBUSERS u'
@@ -456,6 +476,11 @@ inherited frmGrUsuario: TfrmGrUsuario
       Origin = '"TBUSERS"."PERM_ALTERAR_VALOR_VENDA"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA: TSmallintField
+      FieldName = 'TIPO_ALTERAR_VALOR_VENDA'
+      Origin = '"TBUSERS"."TIPO_ALTERAR_VALOR_VENDA"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaVENDEDOR: TIntegerField
       DisplayLabel = 'Vendedor'
       FieldName = 'VENDEDOR'
@@ -476,6 +501,9 @@ inherited frmGrUsuario: TfrmGrUsuario
       Calculated = True
     end
   end
+  inherited DtSrcTabela: TDataSource
+    OnDataChange = DtSrcTabelaDataChange
+  end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
@@ -487,6 +515,7 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  ATIVO,'
       '  ALTERAR_SENHA,'
       '  PERM_ALTERAR_VALOR_VENDA,'
+      '  TIPO_ALTERAR_VALOR_VENDA,'
       '  VENDEDOR'
       'from TBUSERS '
       'where'
@@ -502,6 +531,7 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  NOMECOMPLETO = :NOMECOMPLETO,'
       '  PERM_ALTERAR_VALOR_VENDA = :PERM_ALTERAR_VALOR_VENDA,'
       '  SENHA = :SENHA,'
+      '  TIPO_ALTERAR_VALOR_VENDA = :TIPO_ALTERAR_VALOR_VENDA,'
       '  VENDEDOR = :VENDEDOR'
       'where'
       '  NOME = :OLD_NOME')
@@ -510,12 +540,14 @@ inherited frmGrUsuario: TfrmGrUsuario
       
         '  (ALTERAR_SENHA, ATIVO, CODFUNCAO, LIMIDESC, NOME, NOMECOMPLETO' +
         ', PERM_ALTERAR_VALOR_VENDA, '
-      '   SENHA, VENDEDOR)'
+      '   SENHA, TIPO_ALTERAR_VALOR_VENDA, VENDEDOR)'
       'values'
       
         '  (:ALTERAR_SENHA, :ATIVO, :CODFUNCAO, :LIMIDESC, :NOME, :NOMECO' +
         'MPLETO, '
-      '   :PERM_ALTERAR_VALOR_VENDA, :SENHA, :VENDEDOR)')
+      
+        '   :PERM_ALTERAR_VALOR_VENDA, :SENHA, :TIPO_ALTERAR_VALOR_VENDA,' +
+        ' :VENDEDOR)')
     DeleteSQL.Strings = (
       'delete from TBUSERS'
       'where'
@@ -523,7 +555,7 @@ inherited frmGrUsuario: TfrmGrUsuario
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2031,5 +2063,21 @@ inherited frmGrUsuario: TfrmGrUsuario
     DataSet = QryVendedor
     Left = 652
     Top = 89
+  end
+  object tblTipoAlteraValor: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    TableName = 'VW_TIPO_ALTERA_VALOR_VENDA'
+    TableTypes = [ttView]
+    UniDirectional = False
+    Left = 624
+    Top = 144
+  end
+  object dtsTipoAlteraValor: TDataSource
+    DataSet = tblTipoAlteraValor
+    Left = 656
+    Top = 144
   end
 end

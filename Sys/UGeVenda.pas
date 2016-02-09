@@ -598,11 +598,11 @@ begin
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
 
-  tblEmpresa.Open;
-  tblVendedor.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  tblModalidadeFrete.Open;
+  CarregarLista(tblEmpresa);
+  CarregarLista(tblVendedor);
+  CarregarLista(tblFormaPagto);
+  CarregarLista(tblCondicaoPagto);
+  CarregarLista(tblModalidadeFrete);
 
   Case gSistema.Codigo of
     SISTEMA_PDV :

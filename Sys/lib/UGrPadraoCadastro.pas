@@ -132,7 +132,8 @@ type
     procedure UpdateGenerator(const sWhr : String = ''); override;
     procedure RedimencionarBevel(const ToolBar : TToolBar; const bvl : TBevel);
     procedure RegistrarRotinaSistema; override;
-    procedure pgcGuiasOnChange; virtual; 
+    procedure pgcGuiasOnChange; virtual;
+    procedure CarregarLista(const pDataSet : TDataSet);
   protected
     procedure CentralizarCodigo;
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
@@ -827,6 +828,17 @@ begin
       GetControleAcesso(Self, TEvUserAccess(Components[I]));
     end;
 {$ENDIF}
+end;
+
+procedure TfrmGrPadraoCadastro.CarregarLista(const pDataSet: TDataSet);
+begin
+  if pDataSet.Active then
+    pDataSet.Close;
+
+  pDataSet.Open;
+
+  pDataSet.Last;
+  pDataSet.First;
 end;
 
 procedure TfrmGrPadraoCadastro.SetVariablesDefault(

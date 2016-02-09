@@ -15,7 +15,7 @@ uses
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
   dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
   dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver;
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, IBX.IBTable;
 
 type
   TfrmGrUsuario = class(TfrmGrPadraoCadastro)
@@ -52,6 +52,10 @@ type
     QryVendedor: TIBQuery;
     DtsVendedor: TDataSource;
     IbDtstTabelaATV: TStringField;
+    tblTipoAlteraValor: TIBTable;
+    dtsTipoAlteraValor: TDataSource;
+    dbTipoAlteraValorVendaItem: TDBLookupComboBox;
+    IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -60,6 +64,9 @@ type
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
+    procedure dbTipoAlteraValorVendaItemClick(Sender: TObject);
+    procedure pgcGuiasChange(Sender: TObject);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     function GetLoginExiste(const Login : String) : Boolean;
@@ -193,8 +200,9 @@ begin
     QryFuncao.ParamByName('perfil').AsInteger := FUNCTION_USER_ID_SYSTEM_ADM;
   end;
 
-  QryFuncao.Open;
-  QryVendedor.Open;
+  CarregarLista(QryFuncao);
+  CarregarLista(QryVendedor);
+  CarregarLista(tblTipoAlteraValor);
 
   inherited;
 
@@ -207,6 +215,15 @@ begin
   CampoCodigo    := 'CODFUNCAO';
   CampoDescricao := 'nome';
   CampoOrdenacao := 'nomecompleto';
+
+  dbAlterarValorVendaItem.Visible    := (gSistema.Codigo = SISTEMA_GESTAO_COM);
+  dbTipoAlteraValorVendaItem.Visible := (gSistema.Codigo = SISTEMA_GESTAO_COM);
+end;
+
+procedure TfrmGrUsuario.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+begin
+  if ( Field = IbDtstTabelaPERM_ALTERAR_VALOR_VENDA ) then
+    dbTipoAlteraValorVendaItem.Enabled := (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
 end;
 
 procedure TfrmGrUsuario.DtSrcTabelaStateChange(Sender: TObject);
@@ -270,11 +287,18 @@ begin
   inherited;
   IbDtstTabelaALTERAR_SENHA.AsInteger            := 1; // Sim
   IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger := 0; // Não
+  IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger := 0; // Nenhum
   IbDtstTabelaATIVO.AsInteger                    := 1; // Sim
   IbDtstTabelaLIMIDESC.AsCurrency                := 0.0;
   IbDtstTabelaSENHA.AsString                     := USER_PASSWD_DEFAULT;
   IbDtstTabelaNOME.Clear;
   IbDtstTabelaNOMECOMPLETO.Clear;
+end;
+
+procedure TfrmGrUsuario.pgcGuiasChange(Sender: TObject);
+begin
+  inherited;
+  dbTipoAlteraValorVendaItem.Enabled := (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
 end;
 
 procedure TfrmGrUsuario.IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -287,6 +311,12 @@ begin
       sSenha := Trim(IbDtstTabelaSENHA.AsString);
       IbDtstTabelaSENHA.AsString := GetSenhaFormatada(sSenha, False);
     end;
+
+  if (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 0) then
+    IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger := 0;
+
+  if (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1) and (IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger = 0) then
+    IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger := 1;
 
   inherited;
 end;
@@ -308,6 +338,11 @@ begin
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end;
+end;
+
+procedure TfrmGrUsuario.dbTipoAlteraValorVendaItemClick(Sender: TObject);
+begin
+  dbTipoAlteraValorVendaItem.Enabled := (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
 end;
 
 initialization

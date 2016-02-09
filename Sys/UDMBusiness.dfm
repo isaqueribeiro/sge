@@ -237,6 +237,7 @@ object DMBusiness: TDMBusiness
       '  , u.ativo'
       '  , u.alterar_senha'
       '  , u.perm_alterar_valor_venda'
+      '  , u.tipo_alterar_valor_venda'
       '  , u.vendedor'
       'from TBUSERS u'
       ''
@@ -306,6 +307,10 @@ object DMBusiness: TDMBusiness
       FieldName = 'PERM_ALTERAR_VALOR_VENDA'
       Origin = '"TBUSERS"."PERM_ALTERAR_VALOR_VENDA"'
       ProviderFlags = [pfInUpdate]
+    end
+    object ibdtstUsersTIPO_ALTERAR_VALOR_VENDA: TSmallintField
+      FieldName = 'TIPO_ALTERAR_VALOR_VENDA'
+      Origin = '"TBUSERS"."TIPO_ALTERAR_VALOR_VENDA"'
     end
     object ibdtstUsersVENDEDOR: TIntegerField
       FieldName = 'VENDEDOR'
