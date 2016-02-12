@@ -5,7 +5,9 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, USobre, StdCtrls, ExtCtrls, dxGDIPlusClasses, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
+  dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeSobre = class(TfrmSobre)
@@ -20,7 +22,7 @@ type
 
 implementation
 
-uses UDMBusiness, UFuncoes, UConstantesDGE, UInfoVersao;
+uses UDMBusiness, UFuncoes, UConstantesDGE, UInfoVersao, UDMRecursos;
 
 {$R *.dfm}
 
@@ -44,19 +46,6 @@ begin
   inherited;
   ver := TInfoVersao.GetInstance;
 
-  (* -- Isaque : 22/04/2014 -> Bloco de código descontinuado
-
-  if ( StrIsCNPJ(gUsuarioLogado.Empresa) ) then
-    sCNPJ := StrFormatarCnpj(gUsuarioLogado.Empresa)
-  else
-    sCNPJ := StrFormatarCpf(gUsuarioLogado.Empresa);
-
-  Comments.Caption :=
-    'Propriedade intelectual de ' + ver.getPropertyValue(ivOWNER) + ', ' +
-    'com licença de uso para ' + GetEmpresaNomeDefault + ' CPF/CNPJ.: '  + sCNPJ + ' ' +
-    'atualizada em ' + ver.getPropertyValue(ivRELEASE_DATE) + '.';
-  *)
-  
   if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
     sCNPJ := StrFormatarCnpj(gLicencaSistema.CNPJ)
   else
@@ -68,6 +57,10 @@ begin
     'Atualizada em ' + ver.getPropertyValue(ivRELEASE_DATE) + ', ' +
     'tendo como competência limite ' + IntToStr(gLicencaSistema.Competencia) +
     ' (' + DateToStr(gLicencaSistema.DataBloqueio) + ').';
+
+  // Carregar Logotipo da Empresa
+  if FileExists(gPersonalizaEmpresa.FileNameImagePNG_Company) then
+    ImgLogo.Picture.LoadFromFile(gPersonalizaEmpresa.FileNameImagePNG_Company);
 end;
 
 end.

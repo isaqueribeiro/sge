@@ -137,7 +137,8 @@ uses
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
   UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
-  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde};
+  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
+  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas';
 
 {$R *.res}
 

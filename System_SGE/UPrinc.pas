@@ -716,7 +716,8 @@ begin
   // Carregar Imagem de Fundo da Tele Principal
   if GetCarregarPapelDeParedeLocal then
   begin
-    sFileImage := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
+    //sFileImage := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
+    sFileImage := gPersonalizaEmpresa.FileNameImageJPG_Wallpaper;
 
     if ( FileExists(sFileImage) ) then
     begin
@@ -724,6 +725,10 @@ begin
       imgFundo.Center := True;
     end;
   end;
+
+  // Carregar Logotipo da Empresa
+  if FileExists(gPersonalizaEmpresa.FileNameImagePNG_Company) then
+    imgEmpresa.Picture.LoadFromFile(gPersonalizaEmpresa.FileNameImagePNG_Company);
 
   if not DataBaseOnLine then
     Exit;

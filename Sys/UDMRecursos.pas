@@ -4,6 +4,7 @@ interface
 
 uses
   UGrAguarde,
+  UPersonalizaEmpresa,
   Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics;
 
 type
@@ -24,6 +25,7 @@ type
 
 var
   DMRecursos: TDMRecursos;
+  gPersonalizaEmpresa : TPersonalizaEmpresa;
 
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1);
@@ -49,5 +51,8 @@ begin
   finally
   end
 end;
+
+initialization
+  gPersonalizaEmpresa := TPersonalizaEmpresa.GetInstance;
 
 end.

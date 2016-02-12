@@ -38,7 +38,7 @@ uses
 implementation
 
 uses
-  UInfoVersao, UConstantesDGE;
+  UInfoVersao, UPersonalizaEmpresa, UConstantesDGE;
 
 var
   vet_valido : Array [0..35] of String = (
@@ -141,7 +141,8 @@ end;
 
 function GetCopyright : String;
 begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivLEGAL_COPYRIGHT);
+  //Result := TInfoVersao.GetInstance().getPropertyValue(ivLEGAL_COPYRIGHT);
+  Result := TPersonalizaEmpresa.GetInstance().LegalCopyright;
 end;
 
 function GetInternalName : String;
@@ -151,7 +152,8 @@ end;
 
 function GetProductName : String;
 begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_NAME);
+  //Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_NAME);
+  Result := TPersonalizaEmpresa.GetInstance().ProductName;
 end;
 
 function GetProductVersion : String;
@@ -161,17 +163,20 @@ end;
 
 function GetFileDescription : String;
 begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_DESCRIPTION);
+  //Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_DESCRIPTION);
+  Result := TPersonalizaEmpresa.GetInstance().FileDescription;
 end;
 
 function GetCompanyName : String;
 begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivCOMPANY_NAME);
+  //Result := TInfoVersao.GetInstance().getPropertyValue(ivCOMPANY_NAME);
+  Result := TPersonalizaEmpresa.GetInstance().CompanyName;
 end;
 
 function GetContacts : String;
 begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivCONTACTS);
+  //Result := TInfoVersao.GetInstance().getPropertyValue(ivCONTACTS);
+  Result := TPersonalizaEmpresa.GetInstance().Contacts;
 end;
 
 function GetConectedInternet : Boolean;

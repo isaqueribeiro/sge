@@ -264,10 +264,11 @@ begin
 
   Ribbon.ActiveTab := RbbTabPrincipal;
 
-  // Carregar Imagem de Fundo da Tele Principal
+  // Carregar Imagem de Fundo da Tela Principal
   if GetCarregarPapelDeParedeLocal then
   begin
-    sFileImageWallPaper := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
+    //sFileImageWallPaper := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
+    sFileImageWallPaper := gPersonalizaEmpresa.FileNameImageJPG_Wallpaper;
 
     if ( FileExists(sFileImageWallPaper) ) then
     begin
@@ -275,6 +276,10 @@ begin
       imgFundo.Center := True;
     end;
   end;
+
+  // Carregar Logotipo da Empresa
+  if FileExists(gPersonalizaEmpresa.FileNameImagePNG_Company) then
+    imgEmpresa.Picture.LoadFromFile(gPersonalizaEmpresa.FileNameImagePNG_Company);
 
   if not DataBaseOnLine then
     Exit;

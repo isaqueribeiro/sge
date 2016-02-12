@@ -27,7 +27,9 @@ uses
   UGrMessage in '..\Sys\lib\UGrMessage.pas',
   HPL_Strings in '..\Sys\lib\HPL_Strings.pas',
   UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
-  UGeConfigurarNFeACBr in '..\Sys\UGeConfigurarNFeACBr.pas' {frmGeConfigurarNFeACBr};
+  UGeConfigurarNFeACBr in '..\Sys\UGeConfigurarNFeACBr.pas' {frmGeConfigurarNFeACBr},
+  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas',
+  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde};
 
 {$R *.res}
 

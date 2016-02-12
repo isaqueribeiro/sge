@@ -87,7 +87,8 @@ uses
   UGrMemo in '..\Sys\lib\UGrMemo.pas' {frmGrMemo},
   UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
-  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde};
+  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
+  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas';
 
 {$R *.res}
 

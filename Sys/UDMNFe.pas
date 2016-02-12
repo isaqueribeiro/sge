@@ -6582,23 +6582,23 @@ begin
 
           if (TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger) = moNFCe) then
             sUrlConsultaNFCe :=
-              NotaUtil.GetURLConsultaNFCe(ACBrNFe.Configuracoes.WebServices.UFCodigo
+              ACBrNFe.GetURLConsultaNFCe(ACBrNFe.Configuracoes.WebServices.UFCodigo
                 , ACBrNFe.Configuracoes.WebServices.Ambiente
               )
           else
-            sUrlConsultaNFCe :=
-              NotaUtil.GetURL(ACBrNFe.Configuracoes.WebServices.UFCodigo
-                , ACBrNFe.Configuracoes.WebServices.AmbienteCodigo
-                , ACBrNFe.Configuracoes.Geral.FormaEmissaoCodigo
-                , LayNfeConsulta
-                , TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger)
-                , TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger)
-              );
+            sUrlConsultaNFCe := '';
+//              ACBrNFe.GetURL(ACBrNFe.Configuracoes.WebServices.UFCodigo
+//                , ACBrNFe.Configuracoes.WebServices.AmbienteCodigo
+//                , ACBrNFe.Configuracoes.Geral.FormaEmissaoCodigo
+//                , LayNfeConsulta
+//                , TpcnModeloDF(qryNFeEmitidaMODELO.AsInteger)
+//                , TpcnVersaoDF(qryNFeEmitidaVERSAO.AsInteger)
+//              );
 
           Ecf.Texto_Livre_Centralizado( sUrlConsultaNFCe );
 
           Ecf.Texto_Livre_Centralizado( 'CHAVE DE ACESSO' );
-          Ecf.Texto_Livre_Centralizado( NotaUtil.FormatarChaveAcesso(qryNFeEmitidaCHAVE.AsString) );
+          Ecf.Texto_Livre_Centralizado( ACBrDFeUtil.FormatarChaveAcesso(qryNFeEmitidaCHAVE.AsString) );
           Ecf.Linha;
           Ecf.Texto_Livre_Centralizado( 'Consulta via leitor de QR Code' );
 
@@ -6608,20 +6608,20 @@ begin
           ForceDirectories( ExtractFilePath(sArquivoBmpQRCode) );
 
           if (ACBrNFe.NotasFiscais.Count = 0) then
-            sStringQRCode := NotaUtil.GetURLQRCode(
-                NotaUtil.UFtoCUF(qryEmitenteEST_SIGLA.AsString)    // Código UF
+            sStringQRCode := ACBrNFe.GetURLQRCode(
+                UFtoCUF(qryEmitenteEST_SIGLA.AsString)             // Código UF
               , ACBrNFe.Configuracoes.WebServices.Ambiente         // Ambiente do WebService
               , 'NFe' + qryNFeEmitidaCHAVE.AsString                // ID da Nota Fiscal (NFe + Chave)
               , qryDestinatario.FieldByName('CNPJ').AsString       // CPJ/CNPJ do Consumidor
               , qryCalculoImposto.FieldByName('DATAEMISSAO').AsDateTime            // Data de Emissão
               , qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency   // Valor da Nota Fiscal
               , qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency         // Valor do ICMS da Nota Fiscal
-              , EmptyStr                                           // Assinatura Digital (A1 ou A3)
-              , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdToken      // ID do Código de Segurança do Contribuinte (CSC)
-              , TACBrNFe(ACBrNFe).Configuracoes.Geral.Token        // Token / CSC
+              , EmptyStr                                                           // Assinatura Digital (A1 ou A3)
+//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdCSC      // ID do Código de Segurança do Contribuinte (CSC)
+//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.CSC        // Token / CSC
             )
           else
-            sStringQRCode := NotaUtil.GetURLQRCode(
+            sStringQRCode := ACBrNFe.GetURLQRCode(
                 ACBrNFe.NotasFiscais[0].NFe.ide.cUF
               , ACBrNFe.NotasFiscais[0].NFe.ide.tpAmb
               , ACBrNFe.NotasFiscais[0].NFe.infNFe.ID
@@ -6632,8 +6632,8 @@ begin
               , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vNF
               , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vICMS
               , ACBrNFe.NotasFiscais[0].NFe.signature.DigestValue
-              , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdToken
-              , TACBrNFe(ACBrNFe).Configuracoes.Geral.Token
+//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdCSC
+//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.CSC
             );
 
           if Copy(sStringQRCode, 1, 1) = '?' then

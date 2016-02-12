@@ -27,7 +27,6 @@ object frmPrinc: TfrmPrinc
     Color = clBlack
     TabOrder = 0
     ExplicitTop = 122
-    ExplicitWidth = 927
     ExplicitHeight = 395
     DesignSize = (
       930
@@ -4418,7 +4417,6 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitWidth = 925
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 430
@@ -4480,8 +4478,8 @@ object frmPrinc: TfrmPrinc
               ImageIndex = 12
             end
             object RbnBackstageGalleryConfigNFe: TdxRibbonBackstageViewGalleryItem
-              Caption = 'Configurar NF-e'
-              Description = 'Configurar dados importantes para emiss'#227'o de NF-e'
+              Caption = 'Configurar NF-e / NFC-e'
+              Description = 'Configurar dados importantes para emiss'#227'o de NF-e / NFC-e'
               ImageIndex = 9
             end
             object RbnBackstageGalleryConfigAmb: TdxRibbonBackstageViewGalleryItem
@@ -4574,7 +4572,6 @@ object frmPrinc: TfrmPrinc
     TabOrder = 5
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
-    ExplicitWidth = 927
     object RbbTabPrincipal: TdxRibbonTab
       Active = True
       Caption = 'Principal'

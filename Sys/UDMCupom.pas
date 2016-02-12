@@ -11,7 +11,7 @@ uses
   IBCustomDataSet, IBQuery, frxClass, frxDBSet, frxExportRTF, frxExportXLS,
   frxExportPDF, frxExportMail, UGeConfigurarNFeACBr,
 
-  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrNFeUtil, SHDocVw,
+  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, SHDocVw,
   IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
   ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador;
 
