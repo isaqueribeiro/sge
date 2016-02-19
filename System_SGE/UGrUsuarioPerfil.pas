@@ -7,7 +7,15 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, Menus, DBClient, Provider, IBQuery, IBStoredProc, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons, dxSkinsCore,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
+  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   PNodeDataPermissao = ^TNodeDataPermissao;
@@ -77,7 +85,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGrUsuarioCopiarPerfil;
+  UDMBusiness, UConstantesDGE, UGrUsuarioCopiarPerfil, UDMRecursos;
 
 {$R *.dfm}
 
@@ -207,6 +215,9 @@ var
 
 begin
 
+  TreeMenu.Visible := False;
+  WaitAMoment(WAIT_AMOMENT_LoadData);
+
   cdsNivel0 := TClientDataSet.Create(nil);
 
   try
@@ -259,6 +270,9 @@ begin
   finally
     cdsNivel0.Free;
     CarregarPermissao(iSistema, iPerfil);
+
+    WaitAMomentFree;
+    TreeMenu.Visible := True;
   end;
 
 end;
@@ -287,7 +301,8 @@ end;
 procedure TfrmGrUsuarioPerfil.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
+  if ( pgcGuias.ActivePage = tbsCadastro ) then
+    MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
 end;
 
 procedure TfrmGrUsuarioPerfil.IbDtstTabelaAfterCancel(DataSet: TDataSet);
@@ -366,40 +381,45 @@ var
   I : Integer;
   D : PNodeDataPermissao;
 begin
-  with cdsPermissao, Params do
-  begin
-
-    Close;
-    ParamByName('sistema').AsInteger := iSistema;
-    ParamByName('perfil').AsInteger  := iPerfil;
-    Open;
-
-    for I := 0 to TreeMenu.Items.Count - 1 do
+  WaitAMoment(WAIT_AMOMENT_Process);
+  try
+    with cdsPermissao, Params do
     begin
 
-      D := TreeMenu.Items[I].Data;
+      Close;
+      ParamByName('sistema').AsInteger := iSistema;
+      ParamByName('perfil').AsInteger  := iPerfil;
+      Open;
 
-      D^.bAcesso     := False;
-      D^.iAutorizado := AUTHORIZED_RESTRITO;
-
-      if Locate('rotina', D^.sRotinaID, []) then
+      for I := 0 to TreeMenu.Items.Count - 1 do
       begin
-        D^.bAcesso := (FieldByName('acesso').AsInteger = 1);
 
-        if D^.bAcesso then
-          D^.iAutorizado := AUTHORIZED_HABILITADO
-        else
-          D^.iAutorizado := AUTHORIZED_RESTRITO;
+        D := TreeMenu.Items[I].Data;
+
+        D^.bAcesso     := False;
+        D^.iAutorizado := AUTHORIZED_RESTRITO;
+
+        if Locate('rotina', D^.sRotinaID, []) then
+        begin
+          D^.bAcesso := (FieldByName('acesso').AsInteger = 1);
+
+          if D^.bAcesso then
+            D^.iAutorizado := AUTHORIZED_HABILITADO
+          else
+            D^.iAutorizado := AUTHORIZED_RESTRITO;
+        end;
+
+        TreeMenu.Items[I].ImageIndex    := D^.iAutorizado;
+        TreeMenu.Items[I].SelectedIndex := D^.iAutorizado;
+        TreeMenu.Items[I].Data          := D;
+
       end;
 
-      TreeMenu.Items[I].ImageIndex    := D^.iAutorizado;
-      TreeMenu.Items[I].SelectedIndex := D^.iAutorizado;
-      TreeMenu.Items[I].Data          := D;
+      TreeMenu.Selected := TreeMenu.Items[0];
 
     end;
-
-    TreeMenu.Selected := TreeMenu.Items[0];
-
+  finally
+    WaitAMomentFree;
   end;
 end;
 
@@ -409,28 +429,33 @@ var
   I : Integer;
   D : PNodeDataPermissao;
 begin
-  with stpFuncaoPermissao do
-  begin
-
-    for I := 0 to TreeMenu.Items.Count - 1 do
+  WaitAMoment(WAIT_AMOMENT_Editing);
+  try
+    with stpFuncaoPermissao do
     begin
 
-      D := TreeMenu.Items[I].Data;
+      for I := 0 to TreeMenu.Items.Count - 1 do
+      begin
 
-      Close;
+        D := TreeMenu.Items[I].Data;
 
-      ParamByName('sis_codigo').AsInteger := iSistema;
-      ParamByName('fun_codigo').AsInteger := iPerfil;
-      ParamByName('rot_codigo').AsString  := D^.sRotinaID;
+        Close;
 
-      if D^.bAcesso then
-        ParamByName('acesso').AsInteger := 1
-      else
-        ParamByName('acesso').AsInteger := 0;
+        ParamByName('sis_codigo').AsInteger := iSistema;
+        ParamByName('fun_codigo').AsInteger := iPerfil;
+        ParamByName('rot_codigo').AsString  := D^.sRotinaID;
 
-      ExecProc;
+        if D^.bAcesso then
+          ParamByName('acesso').AsInteger := 1
+        else
+          ParamByName('acesso').AsInteger := 0;
+
+        ExecProc;
+      end;
+
     end;
-
+  finally
+    WaitAMomentFree;
   end;
 end;
 

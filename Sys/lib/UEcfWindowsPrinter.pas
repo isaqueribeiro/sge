@@ -24,6 +24,7 @@ Uses
       procedure Incluir_Texto_Valor(Descricao, Valor : String); override;
       procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); override;
       procedure Desconto(Valor : String); override;
+      procedure TaxaEntrega(Valor : String); override;
       procedure TotalVenda(Valor : String); override;
       procedure TotalCaixa(Valor : String); override;
       procedure Valor_Recebido(Valor : String); override;
@@ -353,6 +354,11 @@ var
 begin
   for i := 1 to Num do
     Texto_Cupom.Add( EmptyStr );
+end;
+
+procedure TEcfWindowsPrinter.TaxaEntrega(Valor: String);
+begin
+  Texto_Cupom.Add( 'Taxa Entrega:' + Alinhar_Direita(Num_Colunas - 14, Valor) );
 end;
 
 procedure TEcfWindowsPrinter.Texto_Livre(Str: String);

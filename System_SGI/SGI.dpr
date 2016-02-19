@@ -61,6 +61,7 @@ uses
   UGeFluxoCaixa in '..\Sys\UGeFluxoCaixa.pas' {frmGeFluxoCaixa},
   UFuncoes in '..\Sys\lib\UFuncoes.pas',
   UInfoVersao in '..\Sys\lib\UInfoVersao.pas',
+  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas',
   UGeFabricante in '..\Sys\UGeFabricante.pas' {frmGeFabricante},
   FormFactoryU in '..\Sys\lib\FormFactoryU.pas',
   FuncoesFormulario in '..\Sys\lib\FuncoesFormulario.pas',
@@ -93,6 +94,7 @@ uses
   UGeVendaImpressao in '..\System_SGE\UGeVendaImpressao.pas' {frmGeVendaImpressao},
   UGeEfetuarLogin in '..\System_SGE\UGeEfetuarLogin.pas' {FrmEfetuarLogin},
   UGrMessage in '..\Sys\lib\UGrMessage.pas' {frmGeMessage},
+  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
   UGeExportarChaveNFeGerada in '..\Sys\UGeExportarChaveNFeGerada.pas' {frmGeExportarChaveNFeGerada},
   UGeExportarNFC in '..\Sys\UGeExportarNFC.pas' {frmGeExportarNFC},
   UGeContasAReceberImpressao in '..\System_SGE\UGeContasAReceberImpressao.pas' {frmGeContasAReceberImpressao},
@@ -144,8 +146,7 @@ uses
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
   UGeAutorizacaoCompraImpressao in '..\System_SGE\UGeAutorizacaoCompraImpressao.pas' {frmGeAutorizacaoCompraImpressao},
   UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
-  UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
-  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde};
+  UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao};
 
 {$R *.res}
 

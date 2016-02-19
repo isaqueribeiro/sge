@@ -259,6 +259,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UFuncoes.pas"/>
         <DCCReference Include="..\Sys\lib\UInfoVersao.pas"/>
+        <DCCReference Include="..\Sys\lib\UPersonalizaEmpresa.pas"/>
         <DCCReference Include="..\Sys\UGeFabricante.pas">
             <Form>frmGeFabricante</Form>
         </DCCReference>
@@ -342,6 +343,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrMessage.pas">
             <Form>frmGeMessage</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGrAguarde.pas">
+            <Form>frmAguarde</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeExportarChaveNFeGerada.pas">
             <Form>frmGeExportarChaveNFeGerada</Form>
@@ -461,59 +465,42 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="UGeRequisicaoAlmoxImpressao.pas">
             <Form>frmGeRequisicaoAlmoxImpressao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaDevolucaoNF.pas">
             <Form>frmGeVendaDevolucaoNF</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrConfigurarBackup.pas">
             <Form>frmGrConfigurarBackup</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFuncionario.pas">
             <Form>frmGeFuncionario</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeEntradaEstoqueDevolucaoNF.pas">
             <Form>frmGeEntradaEstoqueDevolucaoNF</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeContasAReceberQuitar.pas">
             <Form>frmGeContasAReceberQuitar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAPagarLoteParcela.pas">
             <Form>frmGeContasAPagarLoteParcela</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAReceberLoteParcela.pas">
             <Form>frmGeContasAReceberLoteParcela</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeTabelaIBPT.pas">
             <Form>frmGeTabelaIBPT</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeTabelaIBPTImportar.pas">
             <Form>frmGeTabelaIBPTImportar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeAutorizacaoCompraImpressao.pas">
             <Form>frmGeAutorizacaoCompraImpressao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeTipoReceita.pas">
             <Form>frmGeTipoReceita</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFluxoCaixaImpressao.pas">
             <Form>frmGeFluxoCaixaImpressao</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGrAguarde.pas">
-            <Form>frmAguarde</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">
@@ -552,9 +539,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="SGI.todo" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="..\Bin\SGI.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
+                        <RemoteName>SGI.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -564,9 +551,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\Bin\SGI.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="SGI.todo" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
-                        <RemoteName>SGI.exe</RemoteName>
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

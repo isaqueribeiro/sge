@@ -4708,6 +4708,7 @@ object frmPrinc: TfrmPrinc
       Index = 5
     end
     object RbnTabFinanceiro: TdxRibbonTab
+      Active = True
       Caption = 'Financeiro'
       Groups = <
         item
@@ -4722,7 +4723,6 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
-      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -4747,7 +4747,7 @@ object frmPrinc: TfrmPrinc
   end
   object SknController: TdxSkinController
     NativeStyle = False
-    SkinName = 'MoneyTwins'
+    SkinName = 'Office2007Green'
     Left = 176
     Top = 208
   end
@@ -4903,13 +4903,17 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 559
+      DockedLeft = 236
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
       FloatClientWidth = 0
       FloatClientHeight = 0
       ItemLinks = <
+        item
+          Visible = True
+          ItemName = 'BrBtnControleCheque'
+        end
         item
           Visible = True
           ItemName = 'BrBtnTesouraria'
@@ -5307,7 +5311,7 @@ object frmPrinc: TfrmPrinc
     object BrMngFinanceiroBoleto: TdxBar
       Caption = 'Boletos Banc'#225'rios / Quita'#231#245'es'
       CaptionButtons = <>
-      DockedLeft = 439
+      DockedLeft = 517
       DockedTop = 0
       FloatLeft = 379
       FloatTop = 206
@@ -6233,6 +6237,18 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 47
       SyncImageIndex = False
       ImageIndex = 47
+    end
+    object BrBtnControleCheque: TdxBarLargeButton
+      Caption = 'Controle de Cheques'
+      Category = 13
+      Enabled = False
+      Hint = 'Controle de Cheques'
+      Visible = ivAlways
+      LargeImageIndex = 76
+      OnClick = BrBtnControleChequeClick
+      HotImageIndex = 76
+      SyncImageIndex = False
+      ImageIndex = 76
     end
     object BrBtnTesouraria: TdxBarLargeButton
       Caption = 'Tesouraria'

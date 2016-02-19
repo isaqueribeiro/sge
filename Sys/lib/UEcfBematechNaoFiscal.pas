@@ -24,6 +24,7 @@ Uses
       procedure Incluir_Texto_Valor(Descricao, Valor : String); override;
       procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); override;
       procedure Desconto(Valor : String); override;
+      procedure TaxaEntrega(Valor : String); override;
       procedure TotalVenda(Valor : String); override;
       procedure TotalCaixa(Valor : String); override;
       procedure Valor_Recebido(Valor : String); override;
@@ -436,6 +437,12 @@ begin
   Int_Retorno := FormataTX(PChar(Alinhar_Direita(Num_Colunas - 25, Valor)) + #10, cTipoLetraComprimido, 0, 0, 0, 1);
 
   Self.Compactar_Fonte;
+end;
+
+procedure TEcfBematechNaoFiscal.TaxaEntrega(Valor: String);
+begin
+  Int_Retorno := FormataTX(PChar(cMargem + Alinhar_Esquerda(24, 'Taxa Entrega: ')),   cTipoLetraComprimido, 0, 0, 0, 0);
+  Int_Retorno := FormataTX(PChar(Alinhar_Direita(Num_Colunas - 25, Valor)) + #10, cTipoLetraComprimido, 0, 0, 0, 0);
 end;
 
 procedure TEcfBematechNaoFiscal.Texto_Livre(Str: String);

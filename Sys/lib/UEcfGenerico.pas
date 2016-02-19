@@ -22,6 +22,7 @@ Uses
       procedure Incluir_Texto_Valor(Descricao, Valor : String); override;
       procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); override;
       procedure Desconto(Valor : String); override;
+      procedure TaxaEntrega(Valor : String); override;
       procedure TotalVenda(Valor : String); override;
       procedure TotalCaixa(Valor : String); override;
       procedure Valor_Recebido(Valor : String); override;
@@ -287,6 +288,11 @@ var
 begin
   for i := 1 to Num do
     Writeln( Corpo_Cupom, EmptyStr );
+end;
+
+procedure TEcfGenerico.TaxaEntrega(Valor: String);
+begin
+  Writeln( Corpo_Cupom, cMargem + 'Taxa Entrega: ' + Alinhar_Direita(Num_Colunas - 15, Valor) );
 end;
 
 procedure TEcfGenerico.Texto_Livre(Str: String);

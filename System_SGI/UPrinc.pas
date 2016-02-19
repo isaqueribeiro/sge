@@ -209,6 +209,7 @@ type
     BrBtnFuncaoCBO: TdxBarLargeButton;
     BrBtnRelatorioAutorizacao: TdxBarLargeButton;
     BrBtnTipoReceita: TdxBarLargeButton;
+    BrBtnControleCheque: TdxBarLargeButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -309,6 +310,7 @@ type
     procedure BrBtnRelatorioAutorizacaoClick(Sender: TObject);
     procedure BrBtnTipoReceitaClick(Sender: TObject);
     procedure BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
+    procedure BrBtnControleChequeClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -361,6 +363,12 @@ begin
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
     FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
+end;
+
+procedure TfrmPrinc.BrBtnControleChequeClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_FIN_CONTROLE_CHEQUE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeControleCheque');
 end;
 
 procedure TfrmPrinc.BrBtnFuncionarioClick(Sender: TObject);
@@ -677,7 +685,7 @@ end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
-  sFileImage : String;
+  sFileImageWallPaper : String;
 begin
   Self.Tag := SISTEMA_GESTAO_IND;
 
@@ -697,14 +705,18 @@ begin
   // Carregar Imagem de Fundo da Tele Principal
   if GetCarregarPapelDeParedeLocal then
   begin
-    sFileImage := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
+    sFileImageWallPaper := gPersonalizaEmpresa.FileNameImageJPG_Wallpaper;
 
-    if ( FileExists(sFileImage) ) then
+    if ( FileExists(sFileImageWallPaper) ) then
     begin
-      imgFundo.Picture.LoadFromFile(sFileImage);
+      imgFundo.Picture.LoadFromFile(sFileImageWallPaper);
       imgFundo.Center := True;
     end;
   end;
+
+  // Carregar Logotipo da Empresa
+  if FileExists(gPersonalizaEmpresa.FileNameImagePNG_Company) then
+    imgEmpresa.Picture.LoadFromFile(gPersonalizaEmpresa.FileNameImagePNG_Company);
 
   if not DataBaseOnLine then
     Exit;
@@ -973,6 +985,7 @@ begin
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_PROCESSA_RETORN_ID, Trim(BrBtnProcessarRetornoBoleto.Caption), ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_APAGAR_ID,   Trim(BrBtnQuitarAPagarLote.Caption),       ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_ARECEBER_ID, Trim(BrBtnQuitarAReceberLote.Caption),     ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_CONTROLE_CHEQUE_ID, Trim(BrBtnControleCheque.Caption),         ROTINA_MENU_FINANCEIRO_ID);
 
   // Relatórios
 

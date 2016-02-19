@@ -89,6 +89,7 @@ Uses
       procedure Incluir_Texto_Valor(Descricao, Valor : String); virtual; abstract;
       procedure SubTotalVenda(Valor : String; const LinhaSobre : Boolean); virtual; abstract;
       procedure Desconto(Valor : String); virtual; abstract;
+      procedure TaxaEntrega(Valor : String); virtual; abstract;
       procedure TotalVenda(Valor : String); virtual; abstract;
       procedure TotalCaixa(Valor : String); virtual; abstract;
       procedure Valor_Recebido(Valor : String); virtual; abstract;
