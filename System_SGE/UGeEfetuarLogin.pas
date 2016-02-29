@@ -29,6 +29,7 @@ type
     ImgLogoIndustria: TImage;
     procedure FormShow(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -42,7 +43,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UPrinc, UFuncoes, UGrUsuario, UConstantesDGE;
+  UDMBusiness, UPrinc, UFuncoes, UGrUsuario, UConstantesDGE, UDMRecursos;
 
 {$R *.dfm}
 
@@ -96,6 +97,20 @@ begin
 
   finally
     Result := bReturn;
+  end;
+end;
+
+procedure TFrmEfetuarLogin.FormCreate(Sender: TObject);
+var
+  sFileImageBackgroud : String;
+begin
+  inherited;
+  sFileImageBackgroud := gPersonalizaEmpresa.FileNameImagePNG_BackgroundLogin;
+
+  if ( FileExists(sFileImageBackgroud) ) then
+  begin
+    ImgBackgroud.Picture.LoadFromFile(sFileImageBackgroud);
+    ImgBackgroud.Center := True;
   end;
 end;
 

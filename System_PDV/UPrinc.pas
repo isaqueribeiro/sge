@@ -205,6 +205,7 @@ begin
   else
     sCNPJ := ' CNPJ.: ' + StrFormatarCpf(GetEmpresaIDDefault);
 
+  stbMain.Panels.Items[0].Text := gPersonalizaEmpresa.CompanyName + ' - Contatos: ' + gPersonalizaEmpresa.Contacts;
   stbMain.Panels.Items[2].Text := 'Licenciado a empresa ' + GetEmpresaNomeDefault;
   BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [GetUserApp]);
   BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [GetUserApp]);
@@ -255,7 +256,14 @@ begin
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 
-  Self.Caption             := Application.Title + ' [ v' + GetExeVersion + ' ]';
+  if gPersonalizaEmpresa.ExisteArquivo then
+  begin
+    Application.Title := gPersonalizaEmpresa.ProductName;
+    Self.Caption      := gPersonalizaEmpresa.ProductName + ' [ v' + GetExeVersion + ' ]';
+  end
+  else
+    Self.Caption      := Application.Title + ' [ v' + GetExeVersion + ' ]';
+
   Self.ProductName.Caption := GetInternalName;
   Self.FileDescription.Caption := GetFileDescription;
   Self.Version.Caption     := 'Versão ' + GetExeVersion;

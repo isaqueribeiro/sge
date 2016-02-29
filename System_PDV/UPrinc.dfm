@@ -4396,9 +4396,10 @@ object frmPrinc: TfrmPrinc
       Panels = <
         item
           PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
+          PanelStyle.AutoHint = True
           PanelStyle.ImageIndex = 15
-          Text = #193'gil Solu'#231#245'es em Softwares - Fone: (91) 9146.0444'
-          Width = 350
+          Text = #193'gil Solu'#231#245'es em Softwares - Contato: (91) 9146.0444'
+          Width = 450
         end
         item
           PanelStyleClassName = 'TdxStatusBarTextPanelStyle'

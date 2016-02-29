@@ -6241,7 +6241,6 @@ object frmPrinc: TfrmPrinc
     object BrBtnControleCheque: TdxBarLargeButton
       Caption = 'Controle de Cheques'
       Category = 13
-      Enabled = False
       Hint = 'Controle de Cheques'
       Visible = ivAlways
       LargeImageIndex = 76

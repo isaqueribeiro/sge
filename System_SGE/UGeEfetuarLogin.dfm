@@ -9088,12 +9088,15 @@ inherited FrmEfetuarLogin: TFrmEfetuarLogin
   end
   inherited edNome: TcxTextEdit
     Style.IsFontAssigned = True
+    ExplicitHeight = 27
   end
   inherited edSenha: TcxTextEdit
     Style.IsFontAssigned = True
+    ExplicitHeight = 27
   end
   inherited edEmpresa: TcxComboBox
     Style.IsFontAssigned = True
+    ExplicitHeight = 27
   end
   inherited lblNome: TcxLabel
     Style.IsFontAssigned = True
