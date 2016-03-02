@@ -23723,3 +23723,139 @@ ALTER TABLE TBCHEQUE
 COMMENT ON COLUMN TBCHEQUE.OBS IS
 'Observacoes';
 
+
+
+
+/*------ SYSDBA 29/02/2016 21:39:22 --------*/
+
+ALTER TABLE TBCONTPAG_BAIXA
+    ADD CONTROLE_CHEQUE DMN_BIGINT_N;
+
+COMMENT ON COLUMN TBCONTPAG_BAIXA.CONTROLE_CHEQUE IS
+'Controle do Cheque';
+
+alter table TBCONTPAG_BAIXA
+alter ANOLANC position 1;
+
+alter table TBCONTPAG_BAIXA
+alter NUMLANC position 2;
+
+alter table TBCONTPAG_BAIXA
+alter SEQ position 3;
+
+alter table TBCONTPAG_BAIXA
+alter HISTORICO position 4;
+
+alter table TBCONTPAG_BAIXA
+alter DATA_PAGTO position 5;
+
+alter table TBCONTPAG_BAIXA
+alter FORMA_PAGTO position 6;
+
+alter table TBCONTPAG_BAIXA
+alter VALOR_BAIXA position 7;
+
+alter table TBCONTPAG_BAIXA
+alter CONTROLE_CHEQUE position 8;
+
+alter table TBCONTPAG_BAIXA
+alter NUMERO_CHEQUE position 9;
+
+alter table TBCONTPAG_BAIXA
+alter EMPRESA position 10;
+
+alter table TBCONTPAG_BAIXA
+alter BANCO position 11;
+
+alter table TBCONTPAG_BAIXA
+alter BANCO_FEBRABAN position 12;
+
+alter table TBCONTPAG_BAIXA
+alter DOCUMENTO_BAIXA position 13;
+
+alter table TBCONTPAG_BAIXA
+alter USUARIO position 14;
+
+
+
+
+/*------ SYSDBA 29/02/2016 21:40:11 --------*/
+
+ALTER TABLE TBCONTREC_BAIXA
+    ADD CONTROLE_CHEQUE DMN_BIGINT_N;
+
+COMMENT ON COLUMN TBCONTREC_BAIXA.CONTROLE_CHEQUE IS
+'Controle do Cheque';
+
+alter table TBCONTREC_BAIXA
+alter ANOLANC position 1;
+
+alter table TBCONTREC_BAIXA
+alter NUMLANC position 2;
+
+alter table TBCONTREC_BAIXA
+alter SEQ position 3;
+
+alter table TBCONTREC_BAIXA
+alter HISTORICO position 4;
+
+alter table TBCONTREC_BAIXA
+alter DATA_PAGTO position 5;
+
+alter table TBCONTREC_BAIXA
+alter FORMA_PAGTO position 6;
+
+alter table TBCONTREC_BAIXA
+alter VALOR_BAIXA position 7;
+
+alter table TBCONTREC_BAIXA
+alter CONTROLE_CHEQUE position 8;
+
+alter table TBCONTREC_BAIXA
+alter NUMERO_CHEQUE position 9;
+
+alter table TBCONTREC_BAIXA
+alter EMPRESA position 10;
+
+alter table TBCONTREC_BAIXA
+alter BANCO position 11;
+
+alter table TBCONTREC_BAIXA
+alter BANCO_FEBRABAN position 12;
+
+alter table TBCONTREC_BAIXA
+alter DOCUMENTO_BAIXA position 13;
+
+alter table TBCONTREC_BAIXA
+alter USUARIO position 14;
+
+
+
+
+/*------ SYSDBA 29/02/2016 21:40:55 --------*/
+
+ALTER TABLE TBCONTPAG_BAIXA
+ADD CONSTRAINT FK_TBCONTPAG_BAIXA_CHEQUE
+FOREIGN KEY (CONTROLE_CHEQUE)
+REFERENCES TBCHEQUE(CONTROLE);
+
+
+
+
+/*------ SYSDBA 29/02/2016 21:41:29 --------*/
+
+ALTER TABLE TBCONTREC_BAIXA
+ADD CONSTRAINT FK_TBCONTREC_BAIXA_CHEQUE
+FOREIGN KEY (CONTROLE_CHEQUE)
+REFERENCES TBCHEQUE(CONTROLE);
+
+
+
+
+/*------ SYSDBA 01/03/2016 22:12:09 --------*/
+
+COMMENT ON COLUMN TBCHEQUE.TIPO IS
+'Tipo de origem do cheque:
+1 - Emitido
+2 - Recebido';
+

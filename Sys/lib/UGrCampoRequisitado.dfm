@@ -6,6 +6,8 @@ inherited frmCampoRequisitado: TfrmCampoRequisitado
   ClientWidth = 268
   OldCreateOrder = True
   OnKeyPress = FormKeyPress
+  ExplicitWidth = 274
+  ExplicitHeight = 387
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -180,8 +182,8 @@ inherited frmCampoRequisitado: TfrmCampoRequisitado
     object Label1: TLabel
       Left = 53
       Top = 8
-      Width = 200
-      Height = 48
+      Width = 207
+      Height = 49
       Align = alClient
       Caption = 
         'Os seguintes campos devem ser preenchidos com algum valor mas es' +
@@ -194,6 +196,8 @@ inherited frmCampoRequisitado: TfrmCampoRequisitado
       ParentFont = False
       Transparent = True
       WordWrap = True
+      ExplicitWidth = 200
+      ExplicitHeight = 48
     end
     object Bevel3: TBevel
       Left = 49
@@ -213,7 +217,7 @@ inherited frmCampoRequisitado: TfrmCampoRequisitado
     Caption = 'Descri'#231#227'o da Tabela'
     Color = clBlack
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWhite
+    Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]

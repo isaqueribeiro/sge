@@ -2516,6 +2516,7 @@ begin
 
               end;
 
+              // ICMS ST (Substituição Tributária)
               ICMS.orig    := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProduto.FieldByName('CST').AsString, 1, 1)) );
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
@@ -5566,6 +5567,9 @@ var
   sErros : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
+  // Totalizar Valores
+  cTotal_ICMSTot_vBC   ,
+  cTotal_ICMSTot_vICMS : Currency;
 begin
 (*
   IMR - 08/12/2015 :
@@ -5624,7 +5628,7 @@ begin
       Ide.modelo    := MODELO_NFCE;
       Ide.serie     := iSerieNFCe;
       Ide.nNF       := iNumeroNFCe;
-      Ide.dEmi      := GetDateDB;
+      Ide.dEmi      := DtHoraEmiss; // GetDateDB;
       Ide.tpNF      := tnSaida;
       Ide.tpEmis    := ACBrNFe.Configuracoes.Geral.FormaEmissao;
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;
@@ -5635,8 +5639,9 @@ begin
       Ide.tpImp     := tiNFCe;
       Ide.indFinal  := cfConsumidorFinal;
       Ide.indPres   := pcPresencial;
-      Ide.dSaiEnt   := StrToDateTime( FormatDateTime('dd/mm/yyyy', GetDateDB) );
-      Ide.hSaiEnt   := StrToDateTime( FormatDateTime('hh:mm:ss',   GetTimeDB) );
+      // Não é aconselhável informar a Data/Hora de Saída para NFC-e
+      //Ide.dSaiEnt   := StrToDateTime( FormatDateTime('dd/mm/yyyy', GetDateDB) );
+      //Ide.hSaiEnt   := StrToDateTime( FormatDateTime('hh:mm:ss',   GetTimeDB) );
 
 //     Ide.dhCont := date;
 //     Ide.xJust  := 'Justificativa Contingencia';
@@ -5667,6 +5672,7 @@ begin
         end;
   }
       Emit.CNPJCPF := qryEmitenteCNPJ.AsString;
+      Emit.IE      := Trim(qryEmitenteIE.AsString);
       Emit.xNome   := qryEmitenteRZSOC.AsString;
       Emit.xFant   := qryEmitenteNMFANT.AsString;
       Emit.CRT     := TpcnCRT(qryEmitenteTIPO_REGIME_NFE.AsInteger);
@@ -5756,7 +5762,9 @@ begin
 
       // Adicionando Produtos
 
-      vTotalTributoAprox := 0.0;
+      vTotalTributoAprox   := 0.0;
+      cTotal_ICMSTot_vBC   := 0.0;
+      cTotal_ICMSTot_vICMS := 0.0;
 
       qryDadosProduto.First;
 
@@ -5977,7 +5985,6 @@ begin
                 else
                   ICMS.pRedBC := (100.0 - qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency); // qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-
                 if (ICMS.pRedBC > 0) or (qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency > 0) then
                   ICMS.vBC := qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency
                 else
@@ -5986,8 +5993,11 @@ begin
                 ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
                 ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
 
+                cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + ICMS.vBC;
+                cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
               end;
 
+              // ICMS ST (Substituição Tributária)
               ICMS.orig    := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProduto.FieldByName('CST').AsString, 1, 1)) );
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
@@ -6153,8 +6163,8 @@ begin
         qryDadosProduto.Next;
       end;
 
-      Total.ICMSTot.vBC      := qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
-      Total.ICMSTot.vICMS    := qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
+      Total.ICMSTot.vBC      := cTotal_ICMSTot_vBC;   // qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
+      Total.ICMSTot.vICMS    := cTotal_ICMSTot_vICMS; // qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
       Total.ICMSTot.vBCST    := qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS_SUBST').AsCurrency;
       Total.ICMSTot.vST      := qryCalculoImposto.FieldByName('NFE_VALOR_ICMS_SUBST').AsCurrency;
       Total.ICMSTot.vProd    := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency;

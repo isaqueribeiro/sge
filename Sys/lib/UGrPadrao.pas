@@ -45,7 +45,8 @@ type
     procedure RegistrarRotinaSistema; virtual; abstract;
 
     function GetRotinaInternaID(const Sender : TObject) : String;
-    function GetRotinaSubInternaID(const Sender : TObject) : String;
+    function GetRotinaSubInternaID(const Sender : TObject) : String; overload;
+    function GetRotinaSubInternaID(const Sender : TObject; pRotina : String) : String; overload;
     function GetPermissaoRotinaInterna(const Sender : TObject; const Alertar : Boolean = FALSE) : Boolean;
 
     procedure UpdateGenerator(const sWhr : String = ''); virtual;
@@ -598,6 +599,19 @@ begin
     Result := EmptyStr
   else
     Result := Copy(Copy(RotinaID, 1, 6) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+function TfrmGrPadrao.GetRotinaSubInternaID(const Sender: TObject;
+  pRotina: String): String;
+var
+  sComplemento : String;
+begin
+  sComplemento := StringOfChar('0', ROTINA_LENGTH_ID);
+
+  if ( Trim(pRotina) = EmptyStr ) then
+    Result := EmptyStr
+  else
+    Result := Copy(Copy(pRotina, 1, 8) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
 end;
 
 function TfrmGrPadrao.GetPermissaoRotinaInterna(const Sender: TObject;

@@ -370,6 +370,7 @@ var
   function GetMenorVencimentoAReceber : TDateTime;
   function GetMenorDataEmissaoReqAlmoxEnviada(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
   function GetMenorDataApropriacaoAberta(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
+  function GetMenorDataChequePendente : TDateTime;
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
   function GetCarregarPapelDeParedeLocal : Boolean;
@@ -427,6 +428,12 @@ const
   STATUS_REQUISICAO_REQ = STATUS_AUTORIZACAO_AUT;
   STATUS_REQUISICAO_FAT = STATUS_AUTORIZACAO_FAT;
   STATUS_REQUISICAO_CAN = STATUS_AUTORIZACAO_CAN;
+
+  STATUS_CHEQUE_PENDENTE    = 0;
+  STATUS_CHEQUE_APRESENTADO = 1;
+  STATUS_CHEQUE_DEVOLVIDO   = 2;
+  STATUS_CHEQUE_COMPENSADO  = 8;
+  STATUS_CHEQUE_CANCELADO   = 9;
 
   TIPO_AUTORIZACAO_COMPRA         = 1;
   TIPO_AUTORIZACAO_SERVICO        = 2;
@@ -3433,6 +3440,31 @@ begin
 
     if not FieldByName('data_apropriacao').IsNull then
       Result := FieldByName('data_apropriacao').AsDateTime
+    else
+      Result := GetDateDB;
+
+    Close;
+  end;
+end;
+
+function GetMenorDataChequePendente : TDateTime;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  min(coalesce(cq.data_apresentacao, cq.data_emissao, current_date)) as apresentacao');
+    SQL.Add('from TBCHEQUE cq');
+    SQL.Add('where cq.empresa  = ' + QuotedStr(gUsuarioLogado.Empresa));
+    SQL.Add('  and cq.status   < 2'); // 0. Cheque pendente; 1. Cheque apresentado
+    Open;
+
+    if not IsEmpty then
+      if not FieldByName('apresentacao').IsNull then
+        Result := FieldByName('apresentacao').AsDateTime
+      else
+        Result := GetDateDB
     else
       Result := GetDateDB;
 

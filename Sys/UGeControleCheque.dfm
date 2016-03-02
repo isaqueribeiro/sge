@@ -24,10 +24,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Width = 941
     Height = 518
     OnChange = pgcGuiasChange
-    ExplicitWidth = 934
+    ExplicitWidth = 941
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitWidth = 926
+      ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel4: TBevel
         Top = 423
@@ -55,7 +55,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           item
             Expanded = False
             FieldName = 'EMISSOR_NOME'
-            Title.Caption = 'Emissor'
             Width = 250
             Visible = True
           end
@@ -115,7 +114,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         Top = 427
         Width = 933
         ExplicitTop = 427
-        ExplicitWidth = 926
+        ExplicitWidth = 933
         object lblChequePendente: TLabel [0]
           Left = 2
           Top = 4
@@ -178,7 +177,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           inherited btnFiltrar: TcxButton
             Left = 580
             TabOrder = 3
-            ExplicitLeft = 549
+            ExplicitLeft = 580
           end
           object e1Data: TJvDateEdit
             Left = 102
@@ -300,7 +299,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     inherited tbsCadastro: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 25
-      ExplicitWidth = 926
+      ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel8: TBevel
         Top = 241
@@ -331,7 +330,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       inherited GrpBxDadosNominais: TGroupBox
         Width = 933
         Height = 81
-        ExplicitWidth = 926
+        ExplicitWidth = 933
         ExplicitHeight = 81
         object lblStatus: TLabel [1]
           Left = 767
@@ -358,9 +357,9 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         object lblTipo: TLabel [3]
           Left = 455
           Top = 24
-          Width = 24
+          Width = 76
           Height = 13
-          Caption = 'Tipo:'
+          Caption = 'Tipo de Origem:'
           FocusControl = dbTipo
         end
         object lblDataCadastro: TLabel [4]
@@ -404,6 +403,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Top = 40
           Width = 362
           Height = 21
+          Color = clMoneyGreen
           DataField = 'EMPRESA'
           DataSource = DtSrcTabela
           DropDownRows = 10
@@ -416,6 +416,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           ListField = 'RZSOC'
           ListSource = dtsEmpresa
           ParentFont = False
+          ReadOnly = True
           TabOrder = 1
         end
         object dbTipo: TDBLookupComboBox
@@ -617,6 +618,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Top = 83
           Width = 171
           Height = 21
+          CharCase = ecUpperCase
           DataField = 'NUMERO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
@@ -661,13 +663,13 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           ListSource = dtsBanco
           ParentFont = False
           TabOrder = 6
-          OnClick = dbBancoClick
         end
         object dbAgencia: TDBEdit
           Left = 590
           Top = 83
           Width = 105
           Height = 21
+          CharCase = ecUpperCase
           DataField = 'AGENCIA'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
@@ -969,6 +971,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Top = 83
           Width = 105
           Height = 21
+          CharCase = ecUpperCase
           DataField = 'CONTA'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
@@ -985,6 +988,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Top = 125
           Width = 327
           Height = 21
+          CharCase = ecUpperCase
           DataField = 'NOMINAL_A'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
@@ -1006,7 +1010,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         TabOrder = 3
         object tbsObservacao: TTabSheet
           Caption = 'Observa'#231#245'es'
-          ExplicitWidth = 918
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1016,7 +1019,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
-            ExplicitWidth = 918
           end
         end
       end
@@ -1052,28 +1054,42 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         TitleFont.Style = [fsBold]
         Visible = False
         OnDrawColumnCell = dbgDadosDrawColumnCell
-        OnKeyDown = dbgBaixasKeyDown
         Columns = <
           item
             Expanded = False
+            FieldName = 'TIPO'
             Title.Alignment = taCenter
-            Width = 30
+            Title.Caption = 'Tipo'
+            Width = 150
             Visible = True
           end
           item
             Expanded = False
+            FieldName = 'LANCAMENTO'
+            Title.Caption = 'Lan'#231'amento'
+            Width = 120
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'SEQ'
+            Title.Alignment = taCenter
+            Title.Caption = '#'
+            Width = 25
             Visible = True
           end
           item
             Expanded = False
+            FieldName = 'DATA_PAGTO'
+            Title.Caption = 'Pagamento'
+            Width = 85
             Visible = True
           end
           item
             Expanded = False
-            Visible = True
-          end
-          item
-            Expanded = False
+            FieldName = 'VALOR_BAIXA'
+            Title.Caption = 'Valor (R$)'
             Visible = True
           end>
       end
@@ -1083,7 +1099,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Top = 522
     Width = 941
     ExplicitTop = 522
-    ExplicitWidth = 934
+    ExplicitWidth = 941
     inherited bvlTool1: TBevel
       ExplicitLeft = 313
     end
@@ -1105,45 +1121,27 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       Height = 31
       Shape = bsSpacer
     end
-    inherited btbtnIncluir: TcxButton
-      ExplicitLeft = 88
-    end
-    inherited btbtnAlterar: TcxButton
-      ExplicitLeft = 163
-    end
-    inherited btbtnExcluir: TcxButton
-      ExplicitLeft = 238
-    end
-    inherited btbtnCancelar: TcxButton
-      ExplicitLeft = 317
-    end
-    inherited btbtnSalvar: TcxButton
-      ExplicitLeft = 392
-    end
-    inherited btbtnLista: TcxButton
-      Visible = True
-      ExplicitLeft = 471
-    end
     inherited btbtnFechar: TcxButton
       Left = 862
       TabOrder = 8
-      ExplicitLeft = 855
+      ExplicitLeft = 862
     end
     inherited btbtnSelecionar: TcxButton
       Left = 738
       TabOrder = 7
-      ExplicitLeft = 731
+      ExplicitLeft = 738
     end
-    object btbtnEfetuarPagto: TcxButton
-      Tag = 11
+    object btbtnAlterarSituacao: TcxButton
+      Tag = 99
       Left = 618
       Top = 0
       Width = 120
       Height = 35
-      Hint = 'Efetuar Baixa'
+      Hint = 'Alterar Situa'#231#227'o do Cheque selecionado'
       Align = alRight
-      Caption = 'E&fetuar Baixa'
-      Enabled = False
+      Caption = 'Alterar Situa'#231#227'o'
+      DropDownMenu = popMudarSituacao
+      Kind = cxbkDropDown
       OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         18000000000000060000000000000000000000000000000000000000FF0000FF
@@ -1199,13 +1197,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
-      Visible = False
-      OnClick = btbtnEfetuarPagtoClick
-      ExplicitLeft = 611
+      OnClick = btbtnAlterarSituacaoClick
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    BeforePost = IbDtstTabelaBeforePost
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
@@ -1253,30 +1248,43 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 752
     Top = 304
     object IbDtstTabelaCONTROLE: TIntegerField
+      Alignment = taCenter
       DisplayLabel = 'Controle'
       FieldName = 'CONTROLE'
       Origin = '"TBCHEQUE"."CONTROLE"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
+      DisplayFormat = '0000000'
     end
     object IbDtstTabelaEMPRESA: TIBStringField
       DisplayLabel = 'Empresa'
       FieldName = 'EMPRESA'
       Origin = '"TBCHEQUE"."EMPRESA"'
       ProviderFlags = [pfInUpdate]
+      Required = True
       Size = 18
     end
     object IbDtstTabelaTIPO: TSmallintField
-      DisplayLabel = 'Tipo'
+      DisplayLabel = 'Tipo de Origem'
       FieldName = 'TIPO'
       Origin = '"TBCHEQUE"."TIPO"'
       ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object IbDtstTabelaNUMERO: TIBStringField
+      DisplayLabel = 'N'#250'mero do Cheque'
+      FieldName = 'NUMERO'
+      Origin = '"TBCHEQUE"."NUMERO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 30
     end
     object IbDtstTabelaBANCO: TIBStringField
       DisplayLabel = 'Banco'
       FieldName = 'BANCO'
       Origin = '"TBCHEQUE"."BANCO"'
       ProviderFlags = [pfInUpdate]
+      Required = True
       Size = 10
     end
     object IbDtstTabelaAGENCIA: TIBStringField
@@ -1290,13 +1298,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       FieldName = 'CONTA'
       Origin = '"TBCHEQUE"."CONTA"'
       ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNUMERO: TIBStringField
-      DisplayLabel = 'N'#250'mero'
-      FieldName = 'NUMERO'
-      Origin = '"TBCHEQUE"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 30
     end
     object IbDtstTabelaFORNECEDOR: TIntegerField
       DisplayLabel = 'Fornecedor'
@@ -1315,12 +1316,14 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       FieldName = 'DATA_EMISSAO'
       Origin = '"TBCHEQUE"."DATA_EMISSAO"'
       ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object IbDtstTabelaDATA_APRESENTACAO: TDateField
       DisplayLabel = 'Data de Apresenta'#231#227'o'
       FieldName = 'DATA_APRESENTACAO'
       Origin = '"TBCHEQUE"."DATA_APRESENTACAO"'
       ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object IbDtstTabelaDATA_COMPENSACAO: TDateField
       DisplayLabel = 'Data de Compensa'#231#227'o'
@@ -1333,6 +1336,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       FieldName = 'VALOR'
       Origin = '"TBCHEQUE"."VALOR"'
       ProviderFlags = [pfInUpdate]
+      Required = True
       Precision = 18
       Size = 2
     end
@@ -1360,6 +1364,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       FieldName = 'STATUS'
       Origin = '"TBCHEQUE"."STATUS"'
       ProviderFlags = [pfInUpdate]
+      Required = True
+      OnGetText = IbDtstTabelaSTATUSGetText
     end
     object IbDtstTabelaOBS: TWideMemoField
       DisplayLabel = 'Observa'#231#245'es'
@@ -1385,8 +1391,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       Size = 100
     end
     object IbDtstTabelaEMISSOR_NOME: TIBStringField
+      DisplayLabel = 'Emissor'
       FieldName = 'EMISSOR_NOME'
       ProviderFlags = []
+      Required = True
       Size = 100
     end
     object IbDtstTabelaEMISSOR_CNPJ: TIBStringField
@@ -1438,7 +1446,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
   end
   inherited DtSrcTabela: TDataSource
-    OnDataChange = DtSrcTabelaDataChange
     Left = 816
     Top = 304
   end
@@ -1517,7 +1524,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 720
     Top = 304
     Bitmap = {
-      494C01012B002C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2991,7 +2998,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 360
     Top = 296
   end
-  object cdsBaixas: TIBDataSet
+  object qryBaixas: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -3000,110 +3007,100 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       '')
     SelectSQL.Strings = (
       'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.Seq'
-      '  , p.Historico'
-      '  , p.Data_pagto'
-      '  , p.Forma_pagto'
-      '  , f.Descri as Forma_pagto_desc'
-      '  , p.Valor_baixa'
-      '  , p.Numero_cheque'
-      '  , p.banco'
-      '  ,p.banco_febraban'
-      '  , coalesce(b2.nome, b1.bco_nome) as bco_nome'
-      '  , p.Documento_baixa'
-      'from TBCONTREC_BAIXA p'
-      '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
+      '    '#39'CP - Contas A Pagar'#39' as tipo'
       
-        '  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco and b1.em' +
-        'presa = p.empresa)'
-      '  left join TBBANCO b2 on (b2.cod = p.banco_febraban)')
+        '  , pb.anolanc || '#39'/'#39' || right('#39'0000000'#39' || pb.numlanc, 7) as la' +
+        'ncamento'
+      '  , pb.anolanc'
+      '  , pb.numlanc'
+      '  , pb.seq'
+      '  , pb.data_pagto'
+      '  , pb.valor_baixa'
+      '  , pb.documento_baixa'
+      '  , pb.usuario'
+      'from TBCONTPAG_BAIXA pb'
+      'where pb.controle_cheque = :cheque'
+      ''
+      'union'
+      ''
+      'Select'
+      '    '#39'CR - Contas A Receber'#39' as tipo'
+      
+        '  , pr.anolanc || '#39'/'#39' || right('#39'0000000'#39' || pr.numlanc, 7) as la' +
+        'ncamento'
+      '  , pr.anolanc'
+      '  , pr.numlanc'
+      '  , pr.seq'
+      '  , pr.data_pagto'
+      '  , pr.valor_baixa'
+      '  , pr.documento_baixa'
+      '  , pr.usuario'
+      'from TBCONTREC_BAIXA pr'
+      'where pr.controle_cheque = :cheque'
+      ''
+      'order by'
+      '    6')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
     UniDirectional = False
     Left = 752
     Top = 336
-    object cdsBaixasANOLANC: TSmallintField
+    object qryBaixasTIPO: TIBStringField
+      FieldName = 'TIPO'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 21
+    end
+    object qryBaixasLANCAMENTO: TIBStringField
+      FieldName = 'LANCAMENTO'
+      ProviderFlags = []
+      Size = 25
+    end
+    object qryBaixasANOLANC: TSmallintField
       FieldName = 'ANOLANC'
-      Origin = 'TBCONTPAG_BAIXA.ANOLANC'
+      Origin = '"TBCONTPAG_BAIXA"."ANOLANC"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsBaixasNUMLANC: TIntegerField
+    object qryBaixasNUMLANC: TIntegerField
       FieldName = 'NUMLANC'
-      Origin = 'TBCONTPAG_BAIXA.NUMLANC'
+      Origin = '"TBCONTPAG_BAIXA"."NUMLANC"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsBaixasSEQ: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = '#'
+    object qryBaixasSEQ: TSmallintField
       FieldName = 'SEQ'
-      Origin = 'TBCONTPAG_BAIXA.SEQ'
+      Origin = '"TBCONTPAG_BAIXA"."SEQ"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
-      DisplayFormat = '00'
     end
-    object cdsBaixasHISTORICO: TMemoField
-      FieldName = 'HISTORICO'
-      Origin = 'TBCONTPAG_BAIXA.HISTORICO'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object cdsBaixasDATA_PAGTO: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data Pagto.'
+    object qryBaixasDATA_PAGTO: TDateField
       FieldName = 'DATA_PAGTO'
-      Origin = 'TBCONTPAG_BAIXA.DATA_PAGTO'
+      Origin = '"TBCONTPAG_BAIXA"."DATA_PAGTO"'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object cdsBaixasFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = 'TBCONTPAG_BAIXA.FORMA_PAGTO'
-    end
-    object cdsBaixasFORMA_PAGTO_DESC: TIBStringField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'TBFORMPAGTO.DESCRI'
-      Size = 30
-    end
-    object cdsBaixasVALOR_BAIXA: TIBBCDField
-      DisplayLabel = 'Valor Pago (R$)'
+    object qryBaixasVALOR_BAIXA: TIBBCDField
       FieldName = 'VALOR_BAIXA'
-      Origin = 'TBCONTPAG_BAIXA.VALOR_BAIXA'
+      Origin = '"TBCONTPAG_BAIXA"."VALOR_BAIXA"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsBaixasNUMERO_CHEQUE: TIBStringField
-      DisplayLabel = 'No. Cheque'
-      FieldName = 'NUMERO_CHEQUE'
-      Origin = 'TBCONTPAG_BAIXA.NUMERO_CHEQUE'
-      Size = 10
-    end
-    object cdsBaixasBANCO: TSmallintField
-      FieldName = 'BANCO'
-      Origin = 'TBCONTPAG_BAIXA.BANCO'
-    end
-    object cdsBaixasBANCO_FEBRABAN: TIBStringField
-      FieldName = 'BANCO_FEBRABAN'
-      Origin = '"TBCONTREC_BAIXA"."BANCO_FEBRABAN"'
-      Size = 10
-    end
-    object cdsBaixasBCO_NOME: TIBStringField
-      FieldName = 'BCO_NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object cdsBaixasDOCUMENTO_BAIXA: TIBStringField
-      DisplayLabel = 'Doc. Baixa'
+    object qryBaixasDOCUMENTO_BAIXA: TIBStringField
       FieldName = 'DOCUMENTO_BAIXA'
-      Origin = 'TBCONTPAG_BAIXA.DOCUMENTO_BAIXA'
+      Origin = '"TBCONTPAG_BAIXA"."DOCUMENTO_BAIXA"'
       Size = 10
+    end
+    object qryBaixasUSUARIO: TIBStringField
+      FieldName = 'USUARIO'
+      Origin = '"TBCONTPAG_BAIXA"."USUARIO"'
+      Size = 12
     end
   end
   object dtsBaixas: TDataSource
     AutoEdit = False
-    DataSet = cdsBaixas
+    DataSet = qryBaixas
     Left = 816
     Top = 336
   end
@@ -3123,7 +3120,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 360
     Top = 360
   end
-  object FrReciboA5: TfrxReport
+  object FrChequeA5: TfrxReport
     Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -3466,7 +3463,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         Height = 162.519790000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
-        Child = FrReciboA5.BndChildAssinatura
+        Child = FrChequeA5.BndChildAssinatura
         DataSet = FrdRecibo
         DataSetName = 'FrdRecibo'
         RowCount = 0
@@ -3614,7 +3611,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       'HISTORICO=HISTORICO'
       'VALOR_BAIXA=VALOR_BAIXA'
       'VALOR_BAIXA_EXTENSO=VALOR_BAIXA_EXTENSO')
-    DataSet = CdsRecibo
+    DataSet = CdsCheque
     BCDToCurrency = True
     Left = 92
     Top = 353
@@ -3627,7 +3624,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 124
     Top = 353
   end
-  object QryRecibo: TIBQuery
+  object QryCheque: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -3698,12 +3695,12 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         Value = 0
       end>
   end
-  object DspRecibo: TDataSetProvider
-    DataSet = QryRecibo
+  object DspCheque: TDataSetProvider
+    DataSet = QryCheque
     Left = 92
     Top = 401
   end
-  object CdsRecibo: TClientDataSet
+  object CdsCheque: TClientDataSet
     Aggregates = <>
     Params = <
       item
@@ -3724,111 +3721,16 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         ParamType = ptInput
         Value = 0
       end>
-    ProviderName = 'DspRecibo'
-    OnCalcFields = CdsReciboCalcFields
+    ProviderName = 'DspCheque'
+    OnCalcFields = CdsChequeCalcFields
     Left = 124
     Top = 401
-    object CdsReciboANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Required = True
-    end
-    object CdsReciboNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Required = True
-    end
-    object CdsReciboPARCELA: TSmallintField
-      FieldName = 'PARCELA'
-    end
-    object CdsReciboCLIENTE: TIntegerField
-      FieldName = 'CLIENTE'
-    end
-    object CdsReciboRZSOC: TWideStringField
-      FieldName = 'RZSOC'
-      Size = 60
-    end
-    object CdsReciboEMPRESA_CNPJ: TWideStringField
-      FieldName = 'EMPRESA_CNPJ'
-      Required = True
-      Size = 18
-    end
-    object CdsReciboNOME: TWideStringField
-      FieldName = 'NOME'
-      Size = 100
-    end
-    object CdsReciboPESSOA_FISICA: TSmallintField
-      FieldName = 'PESSOA_FISICA'
-    end
-    object CdsReciboCNPJ: TWideStringField
-      FieldName = 'CNPJ'
-      Required = True
-      Size = 18
-    end
-    object CdsReciboTIPPAG: TWideStringField
-      FieldName = 'TIPPAG'
-      Size = 35
-    end
-    object CdsReciboDTEMISS: TDateField
-      FieldName = 'DTEMISS'
-    end
-    object CdsReciboDTVENC: TDateField
-      FieldName = 'DTVENC'
-    end
-    object CdsReciboDTREC: TDateField
-      FieldName = 'DTREC'
-    end
-    object CdsReciboVALORREC: TBCDField
-      FieldName = 'VALORREC'
-      Precision = 18
-      Size = 2
-    end
-    object CdsReciboBANCO: TSmallintField
-      FieldName = 'BANCO'
-    end
-    object CdsReciboBCO_NOME: TWideStringField
-      FieldName = 'BCO_NOME'
-      Size = 50
-    end
-    object CdsReciboNUMERO_CHEQUE: TWideStringField
-      FieldName = 'NUMERO_CHEQUE'
-      Size = 10
-    end
-    object CdsReciboPAGO_: TWideStringField
-      FieldName = 'PAGO_'
-      FixedChar = True
-      Size = 1
-    end
-    object CdsReciboDOCBAIX: TWideStringField
-      FieldName = 'DOCBAIX'
-      Size = 15
-    end
-    object CdsReciboBAIXADO: TSmallintField
-      FieldName = 'BAIXADO'
-    end
-    object CdsReciboSEQ: TSmallintField
-      FieldName = 'SEQ'
-      Required = True
-    end
-    object CdsReciboDATA_PAGTO: TDateField
-      FieldName = 'DATA_PAGTO'
-    end
-    object CdsReciboFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-    end
-    object CdsReciboFORMA_PAGTO_DESC: TWideStringField
-      FieldName = 'FORMA_PAGTO_DESC'
-      Size = 30
-    end
-    object CdsReciboHISTORICO: TWideMemoField
-      FieldName = 'HISTORICO'
-      BlobType = ftWideMemo
-      Size = 8
-    end
-    object CdsReciboVALOR_BAIXA: TBCDField
+    object CdsChequeVALOR_BAIXA: TBCDField
       FieldName = 'VALOR_BAIXA'
       Precision = 18
       Size = 2
     end
-    object CdsReciboVALOR_BAIXA_EXTENSO: TStringField
+    object CdsChequeVALOR_BAIXA_EXTENSO: TStringField
       FieldKind = fkInternalCalc
       FieldName = 'VALOR_BAIXA_EXTENSO'
       Size = 250
@@ -3950,7 +3852,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 360
     Top = 328
   end
-  object FrReciboA4: TfrxReport
+  object FrChequeA4: TfrxReport
     Version = '5.1.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -4292,7 +4194,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         Height = 162.519790000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
-        Child = FrReciboA4.BndChildAssinatura
+        Child = FrChequeA4.BndChildAssinatura
         DataSet = FrdRecibo
         DataSetName = 'FrdRecibo'
         RowCount = 0
@@ -4407,6 +4309,34 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             295D2E5C7061720D0A7D0D0A00}
         end
       end
+    end
+  end
+  object popMudarSituacao: TPopupMenu
+    Images = ImgList
+    Left = 584
+    Top = 446
+    object ppmApresentar: TMenuItem
+      Tag = 1
+      Caption = 'Apresentar Cheque'
+      ImageIndex = 20
+    end
+    object ppmDevolvido: TMenuItem
+      Tag = 2
+      Caption = 'Cheque Devolvido'
+      ImageIndex = 18
+    end
+    object ppmCompensado: TMenuItem
+      Tag = 8
+      Caption = 'Cheque Compensado'
+      ImageIndex = 14
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object ppmCancelar: TMenuItem
+      Tag = 9
+      Caption = 'Cancelar Cheque'
+      ImageIndex = 4
     end
   end
 end
