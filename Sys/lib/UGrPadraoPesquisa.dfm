@@ -161,12 +161,11 @@ inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 1
-    ExplicitHeight = 350
     object dbgDados: TDBGrid
       Left = 4
       Top = 4
       Width = 769
-      Height = 342
+      Height = 341
       Align = alClient
       DataSource = DtsPesquisa
       Font.Charset = ANSI_CHARSET

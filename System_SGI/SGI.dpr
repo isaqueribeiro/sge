@@ -147,7 +147,9 @@ uses
   UGeAutorizacaoCompraImpressao in '..\System_SGE\UGeAutorizacaoCompraImpressao.pas' {frmGeAutorizacaoCompraImpressao},
   UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
-  UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque};
+  UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
+  UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
+  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa};
 
 {$R *.res}
 

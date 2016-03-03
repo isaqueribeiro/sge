@@ -1378,31 +1378,33 @@ procedure TfrmGeProduto.dbgDadosDrawColumnCell(Sender: TObject;
   State: TGridDrawState);
 begin
   inherited;
-  // Destacar produtos sem Estoque
-  if ( TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
-    if ( IbDtstTabelaQTDE.AsCurrency <= 0 ) then
-      if lblProdutoSemEstoque.Visible then
-        dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color;
-
-  // Destacar produtos em Promocao
-  if ( IbDtstTabelaPRECO_PROMOCAO.AsCurrency > 0 ) then
-    if lblProdutoPromocao.Visible then
-      dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
-
   // Destacar serviços/produtos desativados
   if ( IbDtstTabelaCADASTRO_ATIVO.AsInteger = 0 ) then
-    dbgDados.Canvas.Font.Color := lblProdutoDesativado.Font.Color;
+    dbgDados.Canvas.Font.Color := lblProdutoDesativado.Font.Color
+  else
+  begin
+    // Destacar produtos sem Estoque
+    if ( TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
+      if ( IbDtstTabelaQTDE.AsCurrency <= 0 ) then
+        if lblProdutoSemEstoque.Visible then
+          dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color;
 
-  // Destacar alerta de lucros
-  if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 1 ) then
-    if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
-    begin
-      if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
-        dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
-      else
-      if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
-        dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
-    end;
+    // Destacar produtos em Promocao
+    if ( IbDtstTabelaPRECO_PROMOCAO.AsCurrency > 0 ) then
+      if lblProdutoPromocao.Visible then
+        dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
+
+    // Destacar alerta de lucros
+    if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 1 ) then
+      if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
+      begin
+        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
+          dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
+        else
+        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
+          dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
+      end;
+  end;
 
   dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
 end;

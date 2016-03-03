@@ -14,7 +14,8 @@ uses
   dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver;
 
 type
   TfrmGeCaixa = class(TfrmGrPadraoCadastro)
@@ -182,7 +183,7 @@ const
 implementation
 
 uses
-  DateUtils, UDMBusiness, UDMNFe, UConstantesDGE;
+  DateUtils, UDMBusiness, UDMNFe, UConstantesDGE, UDMRecursos;
 
 {$R *.dfm}
 
@@ -628,27 +629,33 @@ begin
     if ( ShowConfirmation('Encerrar Caixa', sMsg) ) then
     begin
       // Recalcular Saldo da Conta Corrente
-      Data := IbDtstTabelaDATA_ABERTURA.AsDateTime;
-      while Data <= GetDateDB do
-      begin
-        GerarSaldoContaCorrente(IbDtstTabelaCONTA_CORRENTE.AsInteger, Data);
-        Data := Data + 1;
+      WaitAMoment(WAIT_AMOMENT_Process);
+      try
+        Data := IbDtstTabelaDATA_ABERTURA.AsDateTime;
+        while Data <= GetDateDB do
+        begin
+          GerarSaldoContaCorrente(IbDtstTabelaCONTA_CORRENTE.AsInteger, Data);
+          Data := Data + 1;
+        end;
+
+        // Encerrar Caixa
+        IbDtstTabela.Edit;
+        IbDtstTabelaSITUACAO.Value  := STATUS_CAIXA_FECHADO;
+        IbDtstTabelaDATA_FECH.Value := GetDateDB;
+        IbDtstTabela.Post;
+        IbDtstTabela.ApplyUpdates;
+
+        CommitTransaction;
+
+        HabilitarDesabilitar_Btns;
+        WaitAMomentFree;
+
+        ShowInformation('Caixa selecionado encerrado com sucesso.');
+
+        nmImprimirCaixaAnalitico.Click;
+      finally
+        WaitAMomentFree;
       end;
-
-      // Encerrar Caixa
-      IbDtstTabela.Edit;
-      IbDtstTabelaSITUACAO.Value  := STATUS_CAIXA_FECHADO;
-      IbDtstTabelaDATA_FECH.Value := GetDateDB;
-      IbDtstTabela.Post;
-      IbDtstTabela.ApplyUpdates;
-
-      CommitTransaction;
-
-      HabilitarDesabilitar_Btns;
-
-      ShowInformation('Caixa selecionado encerrado com sucesso.');
-
-      nmImprimirCaixaAnalitico.Click;
     end;
   end;
 

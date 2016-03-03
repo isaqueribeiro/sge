@@ -98,7 +98,8 @@ type
     _frReport: TfrxReport;
     _SubTituloRelario : String;
     _Todos ,
-    _ApenasConsolidado : Boolean;
+    _ApenasConsolidado  ,
+    _ClearFieldEmptyStr : Boolean;
 
     procedure SetWhereAdditional(Value : String);
     procedure SetManterDados(Value : Boolean);
@@ -122,6 +123,7 @@ type
     property ControlFirstEdit : TWinControl read fControlFirst write fControlFirst;
     property frReport : TfrxReport read _frReport write _frReport;
     property ManterDados : Boolean read GetManterDados write SetManterDados;
+    property IsClearFieldEmptyStr : Boolean read _ClearFieldEmptyStr write _ClearFieldEmptyStr;
 
     property RotinaInserirID   : String read GetRotinaInserirID;
     property RotinaEditarID    : String read GetRotinaEditarID;
@@ -187,6 +189,8 @@ begin
   fManterDados    := True;
   fOcorreuErro    := False;
   AbrirTabelaAuto := False;    //True; alterado em 11-01-2013 Dorivaldo
+
+  IsClearFieldEmptyStr := True;
 
   if ( IbDtstTabela.Database = nil ) then
     IbDtstTabela.Database := DMBusiness.ibdtbsBusiness;
@@ -376,7 +380,9 @@ begin
 
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
     try
-      ClearFieldEmptyStr;
+      if IsClearFieldEmptyStr then
+        ClearFieldEmptyStr;
+
       if ( CamposRequiridos(Self, TClientDataSet(IbDtstTabela), Self.Caption) ) then
       begin
         fOcorreuErro := True;
@@ -527,7 +533,7 @@ begin
 
         try
 
-          if Showing then
+          if Showing and (pgcGuias.ActivePage = tbsTabela) then
             if ( not IsEmpty ) then
               dbgDados.SetFocus
             else
