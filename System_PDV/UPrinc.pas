@@ -133,6 +133,7 @@ type
     { Private declarations }
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
+    procedure AjustarDataHoraSistema;
   public
     { Public declarations }
     procedure ConfigurarRotuloBotoes;
@@ -159,6 +160,16 @@ uses
   UGeFluxoCaixa;
 
 {$R *.dfm}
+
+procedure TfrmPrinc.AjustarDataHoraSistema;
+var
+  st : TSystemTime;
+  dh : TDateTime;
+begin
+  dh := GetDateTimeDB;
+  DateTimeToSystemTime(dh, st);
+  SetLocalTime(st);
+end;
 
 procedure TfrmPrinc.btnSairClick(Sender: TObject);
 begin
@@ -236,6 +247,8 @@ begin
     BrBtnCliente.Enabled   := False;
   end;
 
+  if GetAjustarDataHoraEstacao then
+    AjustarDataHoraSistema;
 
   if ( not DelphiIsRunning ) then
     if not gLicencaSistema.UsarSGE then
@@ -319,8 +332,8 @@ end;
 
 procedure TfrmPrinc.nmTributacaoClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_CAD_TRIBUTACAO_ID, True) then
-    ShowInformation('Rotina não disponível nesta versão!');
+  if GetPermissaoRotinaSistema(ROTINA_CAD_TABELA_IBPT_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeTabelaIBPT');
 end;
 
 procedure TfrmPrinc.nmContaCorrenteClick(Sender: TObject);
@@ -479,7 +492,7 @@ begin
 
   // Cadastros -> Tabelas Auxiliares
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_TRIBUTACAO_ID,     Trim(BtBtnTributacaoIBPT.Caption), ROTINA_MENU_TAB_AUXILIAR_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_TABELA_IBPT_ID,    Trim(BtBtnTributacaoIBPT.Caption), ROTINA_MENU_TAB_AUXILIAR_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONTA_CORRENTE_ID, Trim(BrBtnContaCorrente.Caption),  ROTINA_MENU_TAB_AUXILIAR_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_FORMA_PAGTO_ID,    Trim(BrBtnFormaPagto.Caption),     ROTINA_MENU_TAB_AUXILIAR_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_CAD_CONDICAO_PAGTO_ID, Trim(BrBtnCondicaoPagto.Caption),  ROTINA_MENU_TAB_AUXILIAR_ID);

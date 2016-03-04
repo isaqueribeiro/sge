@@ -170,7 +170,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom,
+  UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom, pcnAuxiliar,
   UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento, UGeVendaPDVFinalizar,
   UGeVendaPDVItem, UGeEfetuarPagtoREC, UGeVendaConfirmaTitulos, UDMNFe;
 
@@ -655,12 +655,16 @@ begin
     else
     begin
       if VendaEstaAberta then
+      begin
         if ShowConfirmation('Confirma o cancelamento do orçamento?') then
         begin
           TIBDataSet(DataSetVenda).Delete;
           TIBDataSet(DataSetVenda).ApplyUpdates;
           CommitTransaction;
         end;
+      end
+      else
+        ShowWarning('Esta venda não pode ser cancelada nesta aplicação!');
 
       CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
       IniciarCupomCabecalho;
@@ -1194,6 +1198,25 @@ begin
 
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
+
+  DMNFe.LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFE_ESCPOS);
+  if DMNFe.IsEstacaoEmiteNFCe then
+    if ( (Length(edNomeCliente.Hint) = 11) and (not ValidarCPF(edNomeCliente.Hint)) ) then
+    begin
+      ShowWarning('Favor solicitar um CPF válido para o cliente!');
+      Exit;
+    end
+    else
+    if ( (Length(edNomeCliente.Hint) = 14) and (not ValidarCNPJ(edNomeCliente.Hint)) ) then
+    begin
+      ShowWarning('Favor solicitar um CNPJ válido para o cliente!');
+      Exit;
+    end
+    else
+    begin
+      ShowError('CPF/CNPJ inválido para o cliente!');
+      Exit;
+    end;
 
   CxAno    := 0;
   CxNumero := 0;

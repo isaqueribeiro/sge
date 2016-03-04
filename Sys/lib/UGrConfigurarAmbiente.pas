@@ -84,6 +84,7 @@ type
     lblCupomNFiscalFonteTam: TLabel;
     edCupomNFiscalFonteTam: TEdit;
     ACBrPosPrinter: TACBrPosPrinter;
+    chkAjustarDataHora: TCheckBox;
     procedure ApenasNumerosKeyPress(Sender: TObject; var Key: Char);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -216,6 +217,7 @@ begin
 
   chkCarregarPapelParede.Checked := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, True);
   chkCarregarPeloEAN.Checked     := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_CODIGO_EAN,   GetCarregarProdutoCodigoBarra(gUsuarioLogado.Empresa));
+  chkAjustarDataHora.Checked     := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_AJUSTAR_DH,   False);
   edNumeroCaixa.Text             := FileINI.ReadString(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, '1');
 
   // PDV
@@ -260,6 +262,7 @@ begin
 
   FileINI.WriteBool (INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, chkCarregarPapelParede.Checked);
   FileINI.WriteBool (INI_SECAO_VENDA, INI_KEY_CODIGO_EAN,   chkCarregarPeloEAN.Checked);
+  FileINI.WriteBool (INI_SECAO_VENDA, INI_KEY_AJUSTAR_DH,   chkAjustarDataHora.Checked);
   FileINI.ReadString(INI_SECAO_VENDA, INI_KEY_NUMERO_CAIXA, edNumeroCaixa.Text);
 
   // PDV

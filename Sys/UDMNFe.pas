@@ -5597,7 +5597,7 @@ begin
 
     iSerieNFCe  := qryEmitenteSERIE_NFE.AsInteger;
     iNumeroNFCe := GetNextID('TBEMPRESA', 'NUMERO_NFCE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFCE = ' + qryEmitenteSERIE_NFCE.AsString);
-    DtHoraEmiss := GetDateTimeDB;
+    DtHoraEmiss := Now; // GetDateTimeDB; // Porque a validação do XML ocorre pela data/hora local da máquina
 
     ACBrNFe.NotasFiscais.Clear;
 
@@ -5628,7 +5628,7 @@ begin
       Ide.modelo    := MODELO_NFCE;
       Ide.serie     := iSerieNFCe;
       Ide.nNF       := iNumeroNFCe;
-      Ide.dEmi      := DtHoraEmiss; // GetDateDB;
+      Ide.dEmi      := DtHoraEmiss; // Data/hora vinda do Servidor FireBird
       Ide.tpNF      := tnSaida;
       Ide.tpEmis    := ACBrNFe.Configuracoes.Geral.FormaEmissao;
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;

@@ -161,7 +161,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     Top = 0
     Width = 498
     Height = 488
-    ActivePage = TbsPDV
+    ActivePage = TbsGeral
     Align = alClient
     TabOrder = 0
     object TbsGeral: TTabSheet
@@ -317,7 +317,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         end
         object lblNumeroCaixa: TLabel
           Left = 72
-          Top = 388
+          Top = 410
           Width = 71
           Height = 13
           Alignment = taRightJustify
@@ -466,23 +466,23 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object chkCarregarPeloEAN: TCheckBox
           Left = 71
           Top = 360
-          Width = 321
+          Width = 386
           Height = 17
           Caption = 'Or'#231'amento/Venda - Carregar pelo C'#243'digo EAN do Produto'
           TabOrder = 17
         end
         object edNumeroCaixa: TEdit
           Left = 151
-          Top = 384
+          Top = 406
           Width = 65
           Height = 21
-          TabOrder = 18
+          TabOrder = 19
           OnKeyPress = ApenasNumerosKeyPress
         end
         object chkCarregarPapelParede: TCheckBox
           Left = 72
           Top = 337
-          Width = 202
+          Width = 385
           Height = 17
           Hint = 
             'Marque esta op'#231#227'o para que o arquivo "PapelDeParede.jpg" seja ca' +
@@ -491,6 +491,19 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           ParentShowHint = False
           ShowHint = True
           TabOrder = 16
+        end
+        object chkAjustarDataHora: TCheckBox
+          Left = 71
+          Top = 383
+          Width = 386
+          Height = 17
+          Hint = 
+            'Marque esta op'#231#227'o para que o arquivo "PapelDeParede.jpg" seja ca' +
+            'rregado.'
+          Caption = 'Ajustar Data/hora da esta'#231#227'o com o servidor'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 18
         end
       end
     end
@@ -563,7 +576,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object chkCupomNaoFiscal: TCheckBox
           Left = 112
           Top = 24
-          Width = 209
+          Width = 357
           Height = 17
           Caption = 'Esta'#231#227'o emite CUPOM N'#195'O FISCAL'
           Enabled = False
@@ -665,7 +678,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object chkCupomAutomatico: TCheckBox
           Left = 112
           Top = 58
-          Width = 329
+          Width = 360
           Height = 17
           Caption = 'Emitir cupom automaticamente ap'#243's a finaliza'#231#227'o da venda'
           Enabled = False
@@ -674,7 +687,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object chkCupomEmitir: TCheckBox
           Left = 112
           Top = 34
-          Width = 145
+          Width = 360
           Height = 17
           Caption = 'Emitir Cupom (Geral)'
           TabOrder = 1
@@ -683,7 +696,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
         object chkOrcamentoEmitir: TCheckBox
           Left = 112
           Top = 10
-          Width = 225
+          Width = 360
           Height = 17
           Caption = 'Esta'#231#227'o emite apenas or'#231'amentos'
           TabOrder = 0

@@ -4574,7 +4574,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbbTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4586,6 +4585,7 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbbTabCadastro: TdxRibbonTab
+      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -5090,10 +5090,9 @@ object frmPrinc: TfrmPrinc
       ImageIndex = 25
     end
     object BtBtnTributacaoIBPT: TdxBarLargeButton
-      Caption = 'Tributa'#231#245'es IBPT'
+      Caption = 'Tabela de Tributa'#231#245'es IBPT'
       Category = 4
-      Enabled = False
-      Hint = 'Tributa'#231#245'es IBPT'
+      Hint = 'Tabela de Tributa'#231#245'es IBPT'
       Visible = ivAlways
       OnClick = nmTributacaoClick
     end

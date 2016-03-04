@@ -374,6 +374,7 @@ var
   function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
   function GetCarregarProdutoCodigoBarraLocal : Boolean;
   function GetCarregarPapelDeParedeLocal : Boolean;
+  function GetAjustarDataHoraEstacao : Boolean;
   function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;
   function GetRotinaPaiIDSistema(const RotinaID : String): String;
   function GetQuantidadeEmpresasEmiteNFe : Integer;
@@ -3498,6 +3499,11 @@ end;
 function GetCarregarPapelDeParedeLocal : Boolean;
 begin
   Result := FileINI.ReadBool(INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, True);
+end;
+
+function GetAjustarDataHoraEstacao : Boolean;
+begin
+  Result := FileINI.ReadBool(INI_SECAO_VENDA, INI_KEY_AJUSTAR_DH, False);
 end;
 
 function GetPermissaoRotinaSistema(sRotina : String; const Alertar : Boolean = FALSE) : Boolean;

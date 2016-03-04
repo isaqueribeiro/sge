@@ -27,6 +27,8 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     ExplicitWidth = 809
     ExplicitHeight = 429
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 801
       ExplicitHeight = 400
       inherited Bevel4: TBevel
@@ -160,7 +162,6 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       inherited GrpBxDadosNominais: TGroupBox
         Width = 801
         Height = 201
-        ExplicitTop = -2
         ExplicitWidth = 801
         ExplicitHeight = 201
         object lblCodigoNCM: TLabel [1]
@@ -650,7 +651,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     Left = 168
     Top = 128
     Bitmap = {
-      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
