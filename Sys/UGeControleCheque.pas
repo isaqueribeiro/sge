@@ -20,6 +20,16 @@ uses
   cxControls, cxContainer, cxEdit, cxImage, cxDBEdit;
 
 type
+  TChequeBaixa = record
+    Codigo : Integer;
+    Numero ,
+    Banco  ,
+    Agencia,
+    Conta  : String;
+    Valor  : Currency;
+    Data   : TDateTime;
+  end;
+
   TfrmGeControleCheque = class(TfrmGrPadraoCadastro)
     Bevel5: TBevel;
     GrpBxDadosValores: TGroupBox;
@@ -155,11 +165,11 @@ type
     CdsChequeEMISSOR_PF: TSmallintField;
     CdsChequeNOMINAL_A: TWideStringField;
     CdsChequeBANCO_LOGO: TBlobField;
+    IbDtstTabelaDATA_DEVOLUCAO: TDateField;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure btbtnAlterarSituacaoClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -189,10 +199,12 @@ type
     FDataAtual    : TDateTime;
     FLoteParcelas : String;
     SQL_Baixas    : TStringList;
-    FImprimirCabecalho : Boolean;
+    FImprimirCabecalho,
+    FChequeParaBaixa  : Boolean;
     procedure AbrirBaixas(const Controle : Integer);
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+    procedure AddWhereAdditional;
 
     function GetRotinaAlterarSituacaoID : String;
     function GetRotinaApresentarChequeID : String;
@@ -223,8 +235,8 @@ type
   - VW_STATUS_CHEQUE
 *)
 
-var
-  frmGeControleCheque: TfrmGeControleCheque;
+  function SelecionarChequeBaixa(const AOnwer : TComponent;
+    var pCheque : TChequeBaixa) : Boolean;
 
 implementation
 
@@ -233,6 +245,44 @@ uses
   UGeFornecedorClientePesquisa;
 
 {$R *.dfm}
+
+function SelecionarChequeBaixa(const AOnwer : TComponent;
+  var pCheque : TChequeBaixa) : Boolean;
+var
+  AForm : TfrmGeControleCheque;
+begin
+  AForm := TfrmGeControleCheque.Create(AOnwer);
+  try
+    AForm.btbtnIncluir.Visible  := False;
+    AForm.btbtnAlterar.Visible  := False;
+    AForm.btbtnExcluir.Visible  := False;
+    AForm.btbtnCancelar.Visible := False;
+    AForm.btbtnSalvar.Visible   := False;
+    AForm.btbtnLista.Visible    := False;
+
+    AForm.btbtnSelecionar.Visible := True;
+    AForm.FChequeParaBaixa        := True;
+
+    AForm.btbtnAlterarSituacao.Visible := False;
+    AForm.AddWhereAdditional;
+
+    Result := (AForm.ShowModal = mrOk);
+
+    if Result then
+      with AForm do
+      begin
+        pCheque.Codigo  := IbDtstTabelaCONTROLE.AsInteger;
+        pCheque.Numero  := IbDtstTabelaNUMERO.AsString;
+        pCheque.Banco   := IbDtstTabelaBANCO.AsString;
+        pCheque.Agencia := IbDtstTabelaAGENCIA.AsString;
+        pCheque.Conta   := IbDtstTabelaCONTA.AsString;
+        pCheque.Valor   := IbDtstTabelaVALOR.AsCurrency;
+        pCheque.Data    := IbDtstTabelaDATA_COMPENSACAO.AsDateTime;
+      end;
+  finally
+    AForm.Free;
+  end;
+end;
 
 procedure TfrmGeControleCheque.FormCreate(Sender: TObject);
 begin
@@ -257,14 +307,13 @@ begin
   RotinaID            := ROTINA_FIN_CONTROLE_CHEQUE_ID;
   DisplayFormatCodigo := '###0000000';
 
-  NomeTabela     := 'TBCHEQUE';
-  CampoCodigo    := 'c.controle';
-  CampoDescricao := 'coalesce(cc.nome, fc.nomeforn)';
-  CampoOrdenacao := 'c.data_apresentacao, coalesce(cc.nome, fc.nomeforn)';
+  NomeTabela       := 'TBCHEQUE';
+  CampoCodigo      := 'c.controle';
+  CampoDescricao   := 'coalesce(cc.nome, fc.nomeforn)';
+  CampoOrdenacao   := 'c.data_apresentacao, coalesce(cc.nome, fc.nomeforn)';
+  FChequeParaBaixa := False;
 
-  WhereAdditional := '(c.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and ' +
-    '(c.data_apresentacao between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
-    ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
+  AddWhereAdditional;
 end;
 
 procedure TfrmGeControleCheque.dbEmissorNomeButtonClick(Sender: TObject);
@@ -314,10 +363,7 @@ end;
 
 procedure TfrmGeControleCheque.btnFiltrarClick(Sender: TObject);
 begin
-  WhereAdditional := '(c.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and ' +
-    '(c.data_apresentacao between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
-    ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
-
+  AddWhereAdditional;
   inherited;
 end;
 
@@ -349,6 +395,7 @@ begin
   IbDtstTabelaVALOR.Clear;
   IbDtstTabelaDATA_EMISSAO.Clear;
   IbDtstTabelaDATA_APRESENTACAO.Clear;
+  IbDtstTabelaDATA_DEVOLUCAO.Clear;
   IbDtstTabelaDATA_COMPENSACAO.Clear;
   IbDtstTabelaNOMINAL_A.Clear;
 end;
@@ -368,54 +415,13 @@ begin
     end;
 end;
 
-procedure TfrmGeControleCheque.btbtnAlterarSituacaoClick(Sender: TObject);
-//var
-//  CxContaCorrente : Integer;
-//  DataPagto : TDateTime;
-//  cReceber  : Currency;
-begin
-//  if ( IbDtstTabela.IsEmpty ) then
-//    Exit;
-//
-//  if not GetPermissaoRotinaInterna(Sender, True) then
-//    Abort;
-//
-//  CxContaCorrente := 0;
-//
-//  RecarregarRegistro;
-//
-//  if ( not IbDtstTabela.Active ) then
-//    Exit;
-//
-//  if ( IbDtstTabelaBAIXADO.AsInteger = 1 ) then
-//  begin
-//    ShowWarning('Registro de recebimento selecionado já se encontra baixado!' + #13 + 'Favor pesquisar novamente.');
-//    Abort;
-//  end;
-//
-//  cReceber := IbDtstTabelaVALORSALDO.AsCurrency;
-//
-//  if PagamentoConfirmado(Self, IbDtstTabelaEMPRESA.AsString,
-//    IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger,
-//    IbDtstTabelaFORMA_PAGTO.AsInteger, IbDtstTabelaNOMECLIENTE.AsString,
-//    CxContaCorrente, DataPagto, cReceber) then
-//  begin
-//    if ( CxContaCorrente > 0 ) then
-//      GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
-//
-//    RecarregarRegistro;
-//    AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
-//    DesbloquearCliente(IbDtstTabelaCLIENTE.AsInteger, EmptyStr);
-//  end;
-end;
-
 procedure TfrmGeControleCheque.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btbtnAlterarSituacao.Enabled := (IbDtstTabelaCONTROLE.Value > 0) and (not (IbDtstTabela.State in [dsEdit, dsInsert]));
 
-    ppmApresentar.Enabled := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_PENDENTE, STATUS_CHEQUE_APRESENTADO]);
+    ppmApresentar.Enabled := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_PENDENTE, STATUS_CHEQUE_DEVOLVIDO]);
     ppmDevolvido.Enabled  := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_APRESENTADO]);
     ppmCompensado.Enabled := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_APRESENTADO]);
     ppmCancelar.Enabled   := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_PENDENTE, STATUS_CHEQUE_APRESENTADO, STATUS_CHEQUE_DEVOLVIDO]);
@@ -468,7 +474,7 @@ begin
       Exit;
   end;
 
-  sLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\Colorido\' + CdsChequeBANCO.AsString + '.jpg';
+  sLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\' + CdsChequeBANCO.AsString + '.jpg';
 
   if not FileExists(sLogo) then
     sLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\CobreBemX.jpg';
@@ -495,6 +501,9 @@ begin
 end;
 
 procedure TfrmGeControleCheque.ppmApresentarClick(Sender: TObject);
+var
+  aDataApresn : TDateTime;
+  aObservacao : TStringList;
 begin
   if IbDtstTabela.IsEmpty then
     Exit;
@@ -502,9 +511,34 @@ begin
   if not GetPermissaoRotinaSistema(RotinaApresentarChequeID, True) then
     Exit;
 
+  aDataApresn := GetDateDB;
+  aObservacao := TStringList.Create;
+
+  if ppmApresentar.Enabled then
+    if SetMemoTextoData(Self, aDataApresn, aObservacao, 'Apresentação do Cheque', 'Informe observação sobre a apresenta do cheque:') then
+      try
+        IbDtstTabela.DisableControls;
+        IbDtstTabela.Edit;
+        IbDtstTabelaSTATUS.Value            := STATUS_CHEQUE_APRESENTADO;
+        IbDtstTabelaDATA_APRESENTACAO.Value := aDataApresn;
+        IbDtstTabelaOBS.AsString :=
+          IbDtstTabelaOBS.AsString + #13 +
+          '* Cheque marcado como "Apresentado" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
+          aObservacao.Text;
+        IbDtstTabela.Post;
+        IbDtstTabela.ApplyUpdates;
+        CommitTransaction;
+      finally
+        IbDtstTabela.EnableControls;
+        RecarregarRegistro;
+        HabilitarDesabilitar_Btns;
+      end;
 end;
 
 procedure TfrmGeControleCheque.ppmCancelarClick(Sender: TObject);
+var
+  aDataCancel : TDateTime;
+  aObservacao : TStringList;
 begin
   if IbDtstTabela.IsEmpty then
     Exit;
@@ -512,9 +546,34 @@ begin
   if not GetPermissaoRotinaSistema(RotinaCancelarChequeID, True) then
     Exit;
 
+  aDataCancel := GetDateDB;
+  aObservacao := TStringList.Create;
+
+  if ppmCancelar.Enabled then
+    if SetMemoTextoData(Self, aDataCancel, aObservacao, 'Cancelamento do Cheque', 'Informe o motivo do cancelamento do cheque:') then
+      try
+        IbDtstTabela.DisableControls;
+        IbDtstTabela.Edit;
+        IbDtstTabelaSTATUS.Value := STATUS_CHEQUE_CANCELADO;
+        IbDtstTabelaOBS.AsString :=
+          IbDtstTabelaOBS.AsString + #13 +
+          '* Cheque marcado como "Cancelado" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
+          'Data  : ' + FormatDateTime('dd/mm/yyyy', aDataCancel) + #13 +
+          'Motivo: ' + aObservacao.Text;
+        IbDtstTabela.Post;
+        IbDtstTabela.ApplyUpdates;
+        CommitTransaction;
+      finally
+        IbDtstTabela.EnableControls;
+        RecarregarRegistro;
+        HabilitarDesabilitar_Btns;
+      end;
 end;
 
 procedure TfrmGeControleCheque.ppmCompensadoClick(Sender: TObject);
+var
+  aDataCompen : TDateTime;
+  aObservacao : TStringList;
 begin
   if IbDtstTabela.IsEmpty then
     Exit;
@@ -522,9 +581,34 @@ begin
   if not GetPermissaoRotinaSistema(RotinaCompensarChequeID, True) then
     Exit;
 
+  aDataCompen := GetDateDB;
+  aObservacao := TStringList.Create;
+
+  if ppmCompensado.Enabled then
+    if SetMemoTextoData(Self, aDataCompen, aObservacao, 'Compensação do Cheque', 'Informe observação sobre a compensação do cheque:') then
+      try
+        IbDtstTabela.DisableControls;
+        IbDtstTabela.Edit;
+        IbDtstTabelaSTATUS.Value           := STATUS_CHEQUE_COMPENSADO;
+        IbDtstTabelaDATA_COMPENSACAO.Value := aDataCompen;
+        IbDtstTabelaOBS.AsString :=
+          IbDtstTabelaOBS.AsString + #13 +
+          '* Cheque marcado como "Compensado" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
+          aObservacao.Text;
+        IbDtstTabela.Post;
+        IbDtstTabela.ApplyUpdates;
+        CommitTransaction;
+      finally
+        IbDtstTabela.EnableControls;
+        RecarregarRegistro;
+        HabilitarDesabilitar_Btns;
+      end;
 end;
 
 procedure TfrmGeControleCheque.ppmDevolvidoClick(Sender: TObject);
+var
+  aDataDevolv : TDateTime;
+  aObservacao : TStringList;
 begin
   if IbDtstTabela.IsEmpty then
     Exit;
@@ -532,6 +616,29 @@ begin
   if not GetPermissaoRotinaSistema(RotinaDevolverChequeID, True) then
     Exit;
 
+  aDataDevolv := GetDateDB;
+  aObservacao := TStringList.Create;
+
+  if ppmDevolvido.Enabled then
+    if SetMemoTextoData(Self, aDataDevolv, aObservacao, 'Devolução do Cheque', 'Informe o motivo da devolução do cheque:') then
+      try
+        IbDtstTabela.DisableControls;
+        IbDtstTabela.Edit;
+        IbDtstTabelaSTATUS.Value         := STATUS_CHEQUE_DEVOLVIDO;
+        IbDtstTabelaDATA_DEVOLUCAO.Value := aDataDevolv;
+        IbDtstTabelaOBS.AsString :=
+          IbDtstTabelaOBS.AsString + #13 +
+          '* Cheque marcado como "Devolvimento" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
+          'Data  : ' + FormatDateTime('dd/mm/yyyy', aDataDevolv) + #13 +
+          'Motivo: ' + aObservacao.Text;
+        IbDtstTabela.Post;
+        IbDtstTabela.ApplyUpdates;
+        CommitTransaction;
+      finally
+        IbDtstTabela.EnableControls;
+        RecarregarRegistro;
+        HabilitarDesabilitar_Btns;
+      end;
 end;
 
 procedure TfrmGeControleCheque.qryBaixasNOME_CNPJGetText(Sender: TField;
@@ -560,11 +667,31 @@ begin
   qryBaixas.Open;
 
   HabilitarDesabilitar_Btns;
+
+  dbgBaixas.Visible := (qryBaixas.RecordCount > 0);
+  bvlBaixas.Visible := (qryBaixas.RecordCount > 0);
+end;
+
+procedure TfrmGeControleCheque.AddWhereAdditional;
+var
+  sChequeBaixa : String;
+begin
+  sChequeBaixa :=
+    // Cheques emitidos que foram apresentados e/ou compensados
+    '((c.tipo = 1) and (c.status in (' + IntToSTr(STATUS_CHEQUE_APRESENTADO) + ', ' + IntToSTr(STATUS_CHEQUE_COMPENSADO) + ')))' +
+    ' or ' +
+    // Cheques recebidos que foram compensados
+    '((c.tipo = 2) and (c.status = ' + IntToSTr(STATUS_CHEQUE_COMPENSADO) + '))';
+
+  WhereAdditional := '(c.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and ' +
+    '(c.data_apresentacao between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
+    ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')' +
+    IfThen(not FChequeParaBaixa, EmptyStr, ' and (' + sChequeBaixa + ')');
 end;
 
 procedure TfrmGeControleCheque.btbtnAlterarClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_CHEQUE_COMPENSADO ) then
+  if ( IbDtstTabelaSTATUS.AsInteger >= STATUS_CHEQUE_COMPENSADO ) then
   begin
     ShowWarning('O cheque selecionado está em situação de "' + dbStatus.Text + '" e não poderá ser alterado!');
     Abort;
@@ -579,7 +706,7 @@ end;
 
 procedure TfrmGeControleCheque.btbtnExcluirClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_CHEQUE_COMPENSADO ) then
+  if ( IbDtstTabelaSTATUS.AsInteger >= STATUS_CHEQUE_COMPENSADO ) then
   begin
     ShowWarning('O cheque selecionado está em situação de "' + dbStatus.Text + '" e não poderá ser excluído!');
     Abort;
@@ -608,7 +735,7 @@ begin
       dbgDados.Canvas.Font.Color := lblChequePendente.Font.Color
     else
     // Destacar Cheques A Compensar
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_CHEQUE_APRESENTADO ) then
+    if ( (IbDtstTabelaSTATUS.AsInteger = STATUS_CHEQUE_APRESENTADO) and (IbDtstTabelaDATA_APRESENTACAO.AsDateTime <= DataAtual) ) then
     begin
       dbgDados.Canvas.Font.Color  := lblChequeCompensar.Font.Color;
       dbgDados.Canvas.Brush.Color := lblChequeCompensar.Color;
@@ -689,6 +816,7 @@ begin
   end;
 
   edtFiltrar.Text := EmptyStr;
+  AddWhereAdditional;
   FiltarDados;
 
   if not IbDtstTabela.Locate('CONTROLE;EMPRESA', VarArrayOf([iControle, gUsuarioLogado.Empresa]), []) then

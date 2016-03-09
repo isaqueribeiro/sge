@@ -691,6 +691,7 @@ begin
   IbDtstTabelaNFE_DENEGADA.Value          := 0;
   IbDtstTabelaNFE_MODALIDADE_FRETE.Value  := MODALIDADE_FRETE_SEMFRETE;
   IbDtstTabelaUSUARIO.Value     := gUsuarioLogado.Login;
+  IbDtstTabelaOBS.AsString      := DMNFe.GetInformacaoComplementar(gUsuarioLogado.Empresa);
 
   IbDtstTabelaCODCLIENTE.Value := CONSUMIDOR_FINAL_CODIGO;
   IbDtstTabelaCODCLI.Value     := CONSUMIDOR_FINAL_CNPJ;
@@ -708,7 +709,6 @@ begin
     IbDtstTabelaNOME.Clear;
   end;
 
-  IbDtstTabelaOBS.Clear;
   IbDtstTabelaDADOS_ENTREGA.Clear;
 
   IbDtstTabelaFORMAPAGTO_COD.Clear;
@@ -2224,10 +2224,10 @@ begin
       // Destacar alerta de lucros
       if ((not IbDtstTabelaLUCRO_CALCULADO.IsNull) and (IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_CAN)) then
       begin
-        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
+        if ( IbDtstTabelaLUCRO_CALCULADO.AsCurrency = 0 ) then
           dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
         else
-        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
+        if ( IbDtstTabelaLUCRO_CALCULADO.AsCurrency < 0 ) then
           dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
       end;
     end;

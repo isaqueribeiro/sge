@@ -23859,3 +23859,71 @@ COMMENT ON COLUMN TBCHEQUE.TIPO IS
 1 - Emitido
 2 - Recebido';
 
+
+
+
+/*------ SYSDBA 07/03/2016 11:48:31 --------*/
+
+ALTER TABLE TBCHEQUE
+    ADD DATA_DEVOLUCAO DMN_DATE;
+
+COMMENT ON COLUMN TBCHEQUE.DATA_DEVOLUCAO IS
+'Data de Devolucao';
+
+alter table TBCHEQUE
+alter CONTROLE position 1;
+
+alter table TBCHEQUE
+alter EMPRESA position 2;
+
+alter table TBCHEQUE
+alter TIPO position 3;
+
+alter table TBCHEQUE
+alter BANCO position 4;
+
+alter table TBCHEQUE
+alter AGENCIA position 5;
+
+alter table TBCHEQUE
+alter CONTA position 6;
+
+alter table TBCHEQUE
+alter NUMERO position 7;
+
+alter table TBCHEQUE
+alter FORNECEDOR position 8;
+
+alter table TBCHEQUE
+alter CLIENTE position 9;
+
+alter table TBCHEQUE
+alter DATA_EMISSAO position 10;
+
+alter table TBCHEQUE
+alter DATA_APRESENTACAO position 11;
+
+alter table TBCHEQUE
+alter DATA_DEVOLUCAO position 12;
+
+alter table TBCHEQUE
+alter DATA_COMPENSACAO position 13;
+
+alter table TBCHEQUE
+alter VALOR position 14;
+
+alter table TBCHEQUE
+alter NOMINAL_A position 15;
+
+alter table TBCHEQUE
+alter DATA_CADASTRO position 16;
+
+alter table TBCHEQUE
+alter USUARIO_CADASTRO position 17;
+
+alter table TBCHEQUE
+alter STATUS position 18;
+
+alter table TBCHEQUE
+alter OBS position 19;
+

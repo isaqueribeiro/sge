@@ -243,6 +243,7 @@ type
     frrListaFuncionario: TfrxReport;
     opdNotas: TOpenDialog;
     ACBrPosPrinter: TACBrPosPrinter;
+    frrNFeEventoCCe: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -272,9 +273,11 @@ type
     procedure GuardarLoteNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
 
     procedure GerarNFeACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
-      var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
+      var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String;
+      const OcultarVencimentos : Boolean = FALSE);
     procedure GerarNFeEntradaACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
-      var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
+      var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String;
+      const OcultarVencimentos : Boolean = FALSE);
     procedure GerarNFCeACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var DtHoraEmiss : TDateTime; var iSerieNFCe, iNumeroNFCe : Integer; var FileNameXML : String);
     procedure GerarNFeComplementarACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
@@ -333,7 +336,9 @@ type
     function ValidarCFOP(const aCNPJEmitente : String; const aCodigoCliente, aCodigoFornecedor, aCFOP : Integer) : Boolean;
     function GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
     function GetInformacaoFisco : String;
+    function GetInformacaoComplementar(const sCNPJEmitente : String) : String;
     function GetValidadeCertificado(const sCNPJEmitente : String; const Informe : Boolean = FALSE) : Boolean;
+    function GetNumeroSerieCertificado(const sCNPJEmitente : String) : String;
 
     function GetPathNFeXML(const sCNPJEmitente : String) : String;
     function GetGerarChaveNFeXML(const sCNPJEmitente : String;
@@ -342,7 +347,7 @@ type
     function GerarNFeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
       var Denegada : Boolean; var DenegadaMotivo : String;
-      const Imprimir : Boolean = TRUE) : Boolean;
+      const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE) : Boolean;
 
     function GerarNFCeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var iSerieNFCe, iNumeroNFCe  : Integer; var FileNameXML, ChaveNFCe, ProtocoloNFCe, ReciboNFCe : String; var iNumeroLote  : Int64;
@@ -351,7 +356,7 @@ type
 
     function GerarNFeOffLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE : String;
-      const Imprimir : Boolean = TRUE) : Boolean;
+      const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE) : Boolean;
 
     function GerarNFeComplementarOnLineACBr(const aCNPJEmitente : String; aCodigoDestinatario : Integer; const aDataHoraSaida : String; const aTipoNotaOrigem : TTipoNF; const aControleNFC : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
@@ -373,11 +378,11 @@ type
 
     function GerarNFeEntradaOnLineACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
-      const Imprimir : Boolean = TRUE) : Boolean;
+      const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE) : Boolean;
 
     function GerarNFeEntradaOffLineACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE : String;
-      const Imprimir : Boolean = TRUE) : Boolean;
+      const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE) : Boolean;
 
     function EnviarEmailDANFEACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer;
       const EnviarPDF : Boolean = True; const sArquivoBoleto : String = '') : Boolean;
@@ -539,7 +544,8 @@ end;
 
 function GetDiretorioNFe : String;
 begin
-  Result := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\', '\\', '\', [rfReplaceAll]);
+  //Result := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\', '\\', '\', [rfReplaceAll]);
+  Result := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathNFe + '\', '\\', '\', [rfReplaceAll]);
 end;
 
 function FormatarChaveNFe(const aChave : String) : String;
@@ -756,6 +762,9 @@ begin
   GerarTabela_CST_COFINS;
 
   FImprimirCabecalho := True;
+
+  frrNFeRetrato.SaveToFile ( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll]) );
+  frrNFePaisagem.SaveToFile( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Paisagem.fr3', [rfReplaceAll]) );
 end;
 
 procedure TDMNFe.GravarConfiguracao(const sCNPJEmitente : String);
@@ -848,6 +857,7 @@ begin
       WriteString( sSecaoEmitente, 'Cidade'     , edtEmitCidade.Text) ;
       WriteString( sSecaoEmitente, 'UF'         , edtEmitUF.Text) ;
       WriteString( sSecaoEmitente, 'InfoFisco'  , edInfoFisco.Text) ;
+      WriteString( sSecaoEmitente, 'InfoComple' , edInfoComplementar.Text) ;
 
       WriteString( 'Email', 'Host'    ,edtSmtpHost.Text) ;
       WriteString( 'Email', 'Port'    ,edtSmtpPort.Text) ;
@@ -1079,20 +1089,21 @@ begin
           ACBrNFe.DANFE.Logo := EmptyStr;
       end;
 
-      edtEmitCNPJ.Text       := ReadString( sSecaoEmitente, 'CNPJ'       , EmptyStr ) ;
-      edtEmitIE.Text         := ReadString( sSecaoEmitente, 'IE'         , EmptyStr ) ;
-      edtEmitRazao.Text      := ReadString( sSecaoEmitente, 'RazaoSocial', EmptyStr ) ;
-      edtEmitFantasia.Text   := ReadString( sSecaoEmitente, 'Fantasia'   , EmptyStr ) ;
-      edtEmitFone.Text       := ReadString( sSecaoEmitente, 'Fone'       , EmptyStr ) ;
-      edtEmitCEP.Text        := ReadString( sSecaoEmitente, 'CEP'        , EmptyStr ) ;
-      edtEmitLogradouro.Text := ReadString( sSecaoEmitente, 'Logradouro' , EmptyStr ) ;
-      edtEmitNumero.Text     := ReadString( sSecaoEmitente, 'Numero'     , EmptyStr ) ;
-      edtEmitComp.Text       := ReadString( sSecaoEmitente, 'Complemento', EmptyStr ) ;
-      edtEmitBairro.Text     := ReadString( sSecaoEmitente, 'Bairro'     , EmptyStr ) ;
-      edtEmitCodCidade.Text  := ReadString( sSecaoEmitente, 'CodCidade'  , EmptyStr ) ;
-      edtEmitCidade.Text     := ReadString( sSecaoEmitente, 'Cidade'     , EmptyStr ) ;
-      edtEmitUF.Text         := ReadString( sSecaoEmitente, 'UF'         , EmptyStr ) ;
-      edInfoFisco.Text       := ReadString( sSecaoEmitente, 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
+      edtEmitCNPJ.Text        := ReadString( sSecaoEmitente, 'CNPJ'       , EmptyStr ) ;
+      edtEmitIE.Text          := ReadString( sSecaoEmitente, 'IE'         , EmptyStr ) ;
+      edtEmitRazao.Text       := ReadString( sSecaoEmitente, 'RazaoSocial', EmptyStr ) ;
+      edtEmitFantasia.Text    := ReadString( sSecaoEmitente, 'Fantasia'   , EmptyStr ) ;
+      edtEmitFone.Text        := ReadString( sSecaoEmitente, 'Fone'       , EmptyStr ) ;
+      edtEmitCEP.Text         := ReadString( sSecaoEmitente, 'CEP'        , EmptyStr ) ;
+      edtEmitLogradouro.Text  := ReadString( sSecaoEmitente, 'Logradouro' , EmptyStr ) ;
+      edtEmitNumero.Text      := ReadString( sSecaoEmitente, 'Numero'     , EmptyStr ) ;
+      edtEmitComp.Text        := ReadString( sSecaoEmitente, 'Complemento', EmptyStr ) ;
+      edtEmitBairro.Text      := ReadString( sSecaoEmitente, 'Bairro'     , EmptyStr ) ;
+      edtEmitCodCidade.Text   := ReadString( sSecaoEmitente, 'CodCidade'  , EmptyStr ) ;
+      edtEmitCidade.Text      := ReadString( sSecaoEmitente, 'Cidade'     , EmptyStr ) ;
+      edtEmitUF.Text          := ReadString( sSecaoEmitente, 'UF'         , EmptyStr ) ;
+      edInfoFisco.Text        := ReadString( sSecaoEmitente, 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
+      edInfoComplementar.Text := ReadString( sSecaoEmitente, 'InfoComple' , EmptyStr) ;
 
       // Configuração para envio de e-mails
 
@@ -1208,9 +1219,9 @@ begin
     nfcDANFE.PosPrinter.Device.Porta := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'COM1');
     nfcDANFE.PosPrinter.Device.Baud  := 9600;   // StrToInt(cbxVelocidade.Text);
     nfcDANFE.PosPrinter.IgnorarTags  := False;  // chkIgnorarTagsFormatacao.Checked;
-    nfcDANFE.ImprimeEmUmaLinha     := False;  // chkImprimirItem1Linha.Checked;
-    nfcDANFE.ImprimeDescAcrescItem := False;  // chkImprimirDescAcresItem.Checked;
-    nfcDANFE.NumCopias             := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
+    nfcDANFE.ImprimeEmUmaLinha       := False;  // chkImprimirItem1Linha.Checked;
+    nfcDANFE.ImprimeDescAcrescItem   := False;  // chkImprimirDescAcresItem.Checked;
+    nfcDANFE.NumCopias               := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
 
     if FilesExists(ConfigACBr.edtLogoMarca.Text) then
     begin
@@ -1399,7 +1410,17 @@ begin
   else
     LerConfiguracao(sCNPJEmitente);
       
-  Result := ( ConfigACBr.rgModoGerarNFe.ItemIndex = 1 );
+  Result := (ConfigACBr.rgModoGerarNFe.ItemIndex = 1);
+end;
+
+function TDMNFe.GetInformacaoComplementar(const sCNPJEmitente : String): String;
+var
+  sInformacao : String;
+begin
+  LerConfiguracao(sCNPJEmitente);
+  sInformacao := Trim(ConfigACBr.edInfoComplementar.Text);
+  sInformacao := StringReplace(StringReplace(sInformacao, '<br>', #13 , [rfReplaceAll]), '<BR>', #13, [rfReplaceAll]) + #13;
+  Result := sInformacao;
 end;
 
 function TDMNFe.GetInformacaoFisco : String;
@@ -1498,12 +1519,16 @@ end;
 function TDMNFe.GerarNFeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda: Integer;
   var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
   var Denegada : Boolean; var DenegadaMotivo : String;
-  const Imprimir : Boolean = TRUE): Boolean;
+  const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE): Boolean;
 var
   DtHoraEmiss : TDateTime;
   sErrorMsg   : String;
 begin
 (*
+  IMR - 05/03/2016 :
+    Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
+    quer ou não informar os vencimentos das parecelas da fatura na NF-e.
+
   IMR - 09/09/2014 :
     Tratamento de excessão para notas fiscal emitidas, mas de forma denegada. Com este bloco de código este função retornará
     TRUE para que o XML da NF-e seja gravada na base de dados e o registro de venda receba a informação de que a NF-e fora
@@ -1521,7 +1546,8 @@ begin
     if not Result then
       Exit;
 
-    GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML);
+    GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida,
+      iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
 
@@ -1529,6 +1555,12 @@ begin
 
     if ( Result ) then
     begin
+      if (ACBrNFe.NotasFiscais.Count > 0) then
+      begin
+        ACBrNFe.Consultar;
+        ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
+      end;
+
       ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
@@ -1657,14 +1689,14 @@ end;
 
 function TDMNFe.GerarNFeOffLineACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
   var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE : String;
-  const Imprimir : Boolean = TRUE) : Boolean;
+  const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE) : Boolean;
 var
   DtHoraEmiss : TDateTime;
 begin
 
   try
 
-    GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML);
+    GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     Result := True;
 
@@ -1992,13 +2024,19 @@ end;
 
 procedure TDMNFe.GerarNFeACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String;
   const iAnoVenda, iNumVenda : Integer;
-  var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
+  var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String;
+  const OcultarVencimentos : Boolean = FALSE);
 var
-  sErros : String;
+  sErros ,
+  sInformacaoFisco : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
 begin
 (*
+  IMR - 05/03/2016 :
+    Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
+    quer ou não informar os vencimentos das parecelas da fatura na NF-e.
+
   IMR - 08/12/2015 :
     Alteração nas regras de operação da tag "idDest" para a emissão de Notas Fiscais
     para fora do Estado.
@@ -2192,7 +2230,7 @@ begin
 
       if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 0 ) then
       begin
-        if (AnsiUpperCase(Trim(qryDestinatario.FieldByName('INSCEST').AsString)) = 'ISENTO') or (Trim(qryDestinatario.FieldByName('INSCEST').AsString) = EmptyStr) then
+        if (AnsiUpperCase(Copy(Trim(qryDestinatario.FieldByName('INSCEST').AsString), 1, 5)) = 'ISENT') or (Trim(qryDestinatario.FieldByName('INSCEST').AsString) = EmptyStr) then
           Dest.indIEDest     := inIsento
         else
           Dest.indIEDest     := inContribuinte;
@@ -2789,35 +2827,42 @@ begin
 
         // Dados da(s) Duplicata(s)
 
-        if ( qryCalculoImposto.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+        if not OcultarVencimentos then
         begin
-          qryDuplicatas.First;
-          while not qryDuplicatas.Eof do
-          begin
-            with Cobr.Dup.Add do
-            begin
-              nDup  := FormatFloat('0000', qryDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' +
-                FormatFloat('0000000', qryDuplicatas.FieldByName('NUMLANC').AsInteger);
-              dVenc := qryDuplicatas.FieldByName('DTVENC').AsDateTime;
-              vDup  := qryDuplicatas.FieldByName('VALORREC').AsCurrency;
-            end;
 
-            qryDuplicatas.Next;
+          if ( qryCalculoImposto.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+          begin
+            qryDuplicatas.First;
+            while not qryDuplicatas.Eof do
+            begin
+              with Cobr.Dup.Add do
+              begin
+                nDup  := FormatFloat('0000', qryDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' +
+                  FormatFloat('0000000', qryDuplicatas.FieldByName('NUMLANC').AsInteger);
+                dVenc := qryDuplicatas.FieldByName('DTVENC').AsDateTime;
+                vDup  := qryDuplicatas.FieldByName('VALORREC').AsCurrency;
+              end;
+
+              qryDuplicatas.Next;
+            end;
           end;
+
         end;
 
       end;
 
-      InfAdic.infCpl     := ' * * * ' + #13 +
+      sInformacaoFisco := Trim(GetInformacaoFisco);
+      InfAdic.infCpl   := ' * * * ' + #13 +
                             'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
-                            ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ' + #13 +
+                            IfThen(OcultarVencimentos, '', ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ') + #13 +
                             'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * * * ' + #13 +
                             'Observações: ' + qryCalculoImposto.FieldByName('OBS').AsString +
                             IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                               FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
                               FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
 
-      InfAdic.infAdFisco := 'Info. Fisco: ' + GetInformacaoFisco;
+      if (sInformacaoFisco <> EmptyStr) then
+        InfAdic.infAdFisco := sInformacaoFisco;
 
   {
       with InfAdic.obsCont.Add do
@@ -3102,12 +3147,17 @@ end;
 
 function TDMNFe.GerarNFeEntradaOnLineACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra: Integer;
   var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
-  const Imprimir : Boolean = TRUE): Boolean;
+  const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE): Boolean;
 var
   DtHoraEmiss : TDateTime;
   sErrorMsg   : String;
 begin
+{
+  IMR - 05/03/2016 :
+    Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
+    quer ou não informar os vencimentos das parecelas da fatura na NF-e.
 
+}
   try
 
     LerConfiguracao(sCNPJEmitente);
@@ -3121,7 +3171,7 @@ begin
     if not Result then
       Exit;
 
-    GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML);
+    GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
 
@@ -3129,6 +3179,12 @@ begin
 
     if ( Result ) then
     begin
+      if (ACBrNFe.NotasFiscais.Count > 0) then
+      begin
+        ACBrNFe.Consultar;
+        ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
+      end;
+
       ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
@@ -3207,14 +3263,14 @@ end;
 
 function TDMNFe.GerarNFeEntradaOffLineACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
   var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE : String;
-  const Imprimir : Boolean = TRUE) : Boolean;
+  const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE) : Boolean;
 var
   DtHoraEmiss : TDateTime;
 begin
 
   try
 
-    GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML);
+    GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     Result := True;
 
@@ -3369,12 +3425,18 @@ begin
 end;
 
 procedure TDMNFe.GerarNFeEntradaACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
-  var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String);
+  var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String;
+  const OcultarVencimentos : Boolean = FALSE);
 var
+  sInformacaoFisco : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
 begin
 (*
+  IMR - 05/03/2016 :
+    Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
+    quer ou não informar os vencimentos das parecelas da fatura na NF-e.
+
   IMR - 08/12/2015 :
     Alteração nas regras de operação da tag "idDest" para a emissão de Notas Fiscais
     para fora do Estado.
@@ -3561,7 +3623,7 @@ begin
 
       if ( qryFornecedorDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 0 ) then
       begin
-        if (AnsiUpperCase(Trim(qryFornecedorDestinatario.FieldByName('INSCEST').AsString)) = 'ISENTO') or (Trim(qryFornecedorDestinatario.FieldByName('INSCEST').AsString) = EmptyStr) then
+        if (AnsiUpperCase(Copy(Trim(qryFornecedorDestinatario.FieldByName('INSCEST').AsString), 1, 5)) = 'ISENT') or (Trim(qryFornecedorDestinatario.FieldByName('INSCEST').AsString) = EmptyStr) then
           Dest.indIEDest     := inIsento
         else
           Dest.indIEDest     := inContribuinte;
@@ -4134,26 +4196,32 @@ begin
 
         // Dados da(s) Duplicata(s)
 
-        if ( qryEntradaCalculoImposto.FieldByName('COMPRA_PRAZO').AsInteger = 1 ) then
+        if not OcultarVencimentos then
         begin
-          qryEntradaDuplicatas.First;
-          while not qryEntradaDuplicatas.Eof do
-          begin
-            with Cobr.Dup.Add do
-            begin
-              nDup  := FormatFloat('0000', qryEntradaDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' +
-                FormatFloat('0000000', qryEntradaDuplicatas.FieldByName('NUMLANC').AsInteger);
-              dVenc := qryEntradaDuplicatas.FieldByName('DTVENC').AsDateTime;
-              vDup  := qryEntradaDuplicatas.FieldByName('VALORPAG').AsCurrency;
-            end;
 
-            qryEntradaDuplicatas.Next;
+          if ( qryEntradaCalculoImposto.FieldByName('COMPRA_PRAZO').AsInteger = 1 ) then
+          begin
+            qryEntradaDuplicatas.First;
+            while not qryEntradaDuplicatas.Eof do
+            begin
+              with Cobr.Dup.Add do
+              begin
+                nDup  := FormatFloat('0000', qryEntradaDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' +
+                  FormatFloat('0000000', qryEntradaDuplicatas.FieldByName('NUMLANC').AsInteger);
+                dVenc := qryEntradaDuplicatas.FieldByName('DTVENC').AsDateTime;
+                vDup  := qryEntradaDuplicatas.FieldByName('VALORPAG').AsCurrency;
+              end;
+
+              qryEntradaDuplicatas.Next;
+            end;
           end;
+
         end;
 
       end;
 
-      InfAdic.infCpl     := ' * * * ' + #13 +
+      sInformacaoFisco := Trim(GetInformacaoFisco);
+      InfAdic.infCpl   := ' * * * ' + #13 +
                             'Compra: ' + qryEntradaCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
                             ' - Forma/Cond. Pgto.: ' + qryEntradaCalculoImposto.FieldByName('FORMA_PAGO').AsString + '/' + qryEntradaCalculoImposto.FieldByName('COND_PAGO_FULL').AsString + ' * * * ' + #13 +
                             'Usuário: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
@@ -4162,7 +4230,8 @@ begin
                               FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
                               FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
 
-      InfAdic.infAdFisco := 'Info. Fisco: ' + GetInformacaoFisco;
+      if ( sInformacaoFisco <> EmptyStr ) then
+        InfAdic.infAdFisco := sInformacaoFisco;
 
   {
       with InfAdic.obsCont.Add do
@@ -4578,7 +4647,7 @@ begin
     LerConfiguracao(gUsuarioLogado.Empresa)
   else
     LerConfiguracao(sCNPJEmitente);
-      
+
   sDataVenc := FormatDateTime('dd/mm/yyyy', ACBrNFe.SSL.CertDataVenc);
   iPrazo    := DaysBetween(now, ACBrNFe.SSL.CertDataVenc);
 
@@ -4798,7 +4867,7 @@ begin
           if ( Pos(AnsiLowerCase(TERMINATE_FILENAME), AnsiLowerCase(NomeArq)) > 0 ) then
              NomeArq := StringReplace(NomeArq, TERMINATE_FILENAME, TERMINATE_FILENAME_NEW, [rfIgnoreCase]);
 
-          NotasFiscais.Items[0].GravarXML(NomeArq);
+          NotasFiscais.Items[0].GravarXML(ExtractFileName(NomeArq), ExtractFilePath(NomeArq));
 
           FileNameXML := NomeArq;
         end;
@@ -5067,6 +5136,19 @@ end;
 function TDMNFe.GetModeloDF: Integer;
 begin
   Result := Ord(ACBrNFe.Configuracoes.Geral.ModeloDF);
+end;
+
+function TDMNFe.GetNumeroSerieCertificado(const sCNPJEmitente: String): String;
+begin
+  if Trim(sCNPJEmitente) = EmptyStr then
+    LerConfiguracao(gUsuarioLogado.Empresa)
+  else
+    LerConfiguracao(sCNPJEmitente);
+
+  if Assigned(ACBrNFe.SSL) then
+    Result := ACBrNFe.SSL.NumeroSerie
+  else
+    Result := EmptyStr;
 end;
 
 function TDMNFe.GetVersaoDF: Integer;
@@ -5416,6 +5498,11 @@ var
   sErrorMsg   : String;
 begin
 (*
+  IMR - 08/03/2016 :
+    Inserção do bloco de comando para que, uma vez confirmado o envio da NFC-e,
+    uma consulta seja realizada para forçar a atualização do XML com os dados da
+    assinatura digital e o protocolo de autorização.
+
   IMR - 09/12/2014 :
     Desenvolvimento da função.
 *)
@@ -5439,6 +5526,12 @@ begin
 
     if ( Result ) then
     begin
+      if (ACBrNFe.NotasFiscais.Count > 0) then
+      begin
+        ACBrNFe.Consultar;
+        ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
+      end;
+
       ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFCE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFCE    := ACBrNFe.WebServices.Retorno.Recibo;
@@ -5564,7 +5657,8 @@ procedure TDMNFe.GerarNFCeACBr(const sCNPJEmitente: String;
   iNumVenda: Integer; var DtHoraEmiss: TDateTime; var iSerieNFCe,
   iNumeroNFCe: Integer; var FileNameXML: String);
 var
-  sErros : String;
+  sErros ,
+  sInformacaoFisco : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
   // Totalizar Valores
@@ -5707,38 +5801,42 @@ begin
         Avulsa.repEmi  := '';
         Avulsa.dPag    := now;             }
 
-      Dest.CNPJCPF := qryDestinatario.FieldByName('CNPJ').AsString;
-      Dest.xNome   := qryDestinatario.FieldByName('NOME').AsString + IfThen(GetImprimirCodClienteNFe(sCNPJEmitente), ' ' + FormatFloat('##00000', qryDestinatario.FieldByName('CODIGO').AsInteger));
-      Dest.Email   := Trim(AnsiLowerCase(qryDestinatario.FieldByName('EMAIL').AsString));
+      if ( (qryDestinatario.FieldByName('CODIGO').AsInteger <> CONSUMIDOR_FINAL_CODIGO) and (qryDestinatario.FieldByName('CNPJ').AsString <> CONSUMIDOR_FINAL_CNPJ) ) then
+        if (Trim(ValidarCNPJouCPF(qryDestinatario.FieldByName('CNPJ').AsString)) = EmptyStr) then
+        begin
+          Dest.CNPJCPF := qryDestinatario.FieldByName('CNPJ').AsString;
+          Dest.xNome   := qryDestinatario.FieldByName('NOME').AsString + IfThen(GetImprimirCodClienteNFe(sCNPJEmitente), ' ' + FormatFloat('##00000', qryDestinatario.FieldByName('CODIGO').AsInteger));
+          Dest.Email   := Trim(AnsiLowerCase(qryDestinatario.FieldByName('EMAIL').AsString));
 
-      if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 0 ) then
-      begin
-        if (AnsiUpperCase(Trim(qryDestinatario.FieldByName('INSCEST').AsString)) = 'ISENTO') or (Trim(qryDestinatario.FieldByName('INSCEST').AsString) = EmptyStr) then
-          Dest.indIEDest     := inIsento
-        else
-          Dest.indIEDest     := inContribuinte;
+          if ( (qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 0) and (Dest.CNPJCPF <> CONSUMIDOR_FINAL_CNPJ) ) then
+          begin
+            if (AnsiUpperCase(Copy(Trim(qryDestinatario.FieldByName('INSCEST').AsString), 1, 5)) = 'ISENT') or (Trim(qryDestinatario.FieldByName('INSCEST').AsString) = EmptyStr) then
+              Dest.indIEDest     := inIsento
+            else
+              Dest.indIEDest     := inContribuinte;
 
-        Dest.IE              := Trim(qryDestinatario.FieldByName('INSCEST').AsString);
-        Dest.ISUF            := EmptyStr;
-      end
-      else
-      begin
-        Dest.indIEDest       := inNaoContribuinte;
-        Dest.IE              := EmptyStr;
-        Dest.ISUF            := EmptyStr;
-      end;
+            Dest.IE              := Trim(qryDestinatario.FieldByName('INSCEST').AsString);
+            Dest.ISUF            := EmptyStr;
+          end
+          else
+          begin
+            Dest.indIEDest       := inNaoContribuinte;
+            Dest.IE              := EmptyStr;
+            Dest.ISUF            := EmptyStr;
+          end;
 
-      Dest.EnderDest.Fone    := qryDestinatario.FieldByName('FONE').AsString;
-      Dest.EnderDest.CEP     := qryDestinatario.FieldByName('CEP').AsInteger;
-      Dest.EnderDest.xLgr    := Trim( qryDestinatario.FieldByName('TLG_SIGLA').AsString + ' ' + qryDestinatario.FieldByName('LOG_NOME').AsString );
-      Dest.EnderDest.nro     := qryDestinatario.FieldByName('NUMERO_END').AsString;
-      Dest.EnderDest.xCpl    := qryDestinatario.FieldByName('COMPLEMENTO').AsString;
-      Dest.EnderDest.xBairro := qryDestinatario.FieldByName('BAI_NOME').AsString;
-      Dest.EnderDest.cMun    := qryDestinatario.FieldByName('CID_IBGE').AsInteger;
-      Dest.EnderDest.xMun    := qryDestinatario.FieldByName('CID_NOME').AsString;
-      Dest.EnderDest.UF      := qryDestinatario.FieldByName('EST_SIGLA').AsString;
-      Dest.EnderDest.cPais   := qryDestinatario.FieldByName('PAIS_ID').AsInteger;  // 1058;
-      Dest.EnderDest.xPais   := qryDestinatario.FieldByName('PAIS_NOME').AsString; // 'BRASIL';
+          Dest.EnderDest.Fone    := qryDestinatario.FieldByName('FONE').AsString;
+          Dest.EnderDest.CEP     := qryDestinatario.FieldByName('CEP').AsInteger;
+          Dest.EnderDest.xLgr    := Trim( qryDestinatario.FieldByName('TLG_SIGLA').AsString + ' ' + qryDestinatario.FieldByName('LOG_NOME').AsString );
+          Dest.EnderDest.nro     := qryDestinatario.FieldByName('NUMERO_END').AsString;
+          Dest.EnderDest.xCpl    := qryDestinatario.FieldByName('COMPLEMENTO').AsString;
+          Dest.EnderDest.xBairro := qryDestinatario.FieldByName('BAI_NOME').AsString;
+          Dest.EnderDest.cMun    := qryDestinatario.FieldByName('CID_IBGE').AsInteger;
+          Dest.EnderDest.xMun    := qryDestinatario.FieldByName('CID_NOME').AsString;
+          Dest.EnderDest.UF      := qryDestinatario.FieldByName('EST_SIGLA').AsString;
+          Dest.EnderDest.cPais   := qryDestinatario.FieldByName('PAIS_ID').AsInteger;  // 1058;
+          Dest.EnderDest.xPais   := qryDestinatario.FieldByName('PAIS_NOME').AsString; // 'BRASIL';
+        end;
 
   //Use os campos abaixo para informar o endereço de retirada quando for diferente do Emitente
   {      Retirada.CNPJCPF := '';
@@ -6218,7 +6316,8 @@ begin
         end;
       end;
 
-      InfAdic.infCpl := '* ' + #13 +
+      sInformacaoFisco := Trim(GetInformacaoFisco);
+      InfAdic.infCpl   := '* ' + #13 +
         'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
         ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * ' + #13 +
         'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * ' + #13 +
@@ -6227,7 +6326,8 @@ begin
           FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
           FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
 
-      InfAdic.infAdFisco := 'Info. Fisco: ' + GetInformacaoFisco;
+      if ( sInformacaoFisco <> EmptyStr ) then
+        InfAdic.infAdFisco := sInformacaoFisco;
 
       exporta.UFembarq   := EmptyStr;
       exporta.xLocEmbarq := EmptyStr;

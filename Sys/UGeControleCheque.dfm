@@ -110,6 +110,13 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Title.Caption = 'Apresent.'
             Width = 80
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'STATUS'
+            Title.Caption = 'Situa'#231#227'o'
+            Width = 100
+            Visible = True
           end>
       end
       inherited pnlFiltros: TPanel
@@ -318,7 +325,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object bvlBaixas: TBevel [2]
         Left = 0
-        Top = 372
+        Top = 337
         Width = 933
         Height = 4
         Align = alTop
@@ -1002,23 +1009,27 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 376
+        Top = 341
         Width = 933
-        Height = 113
+        Height = 148
         ActivePage = tbsObservacao
         Align = alClient
         TabOrder = 3
+        ExplicitTop = 376
+        ExplicitHeight = 113
         object tbsObservacao: TTabSheet
           Caption = 'Observa'#231#245'es'
+          ExplicitHeight = 85
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
             Width = 925
-            Height = 85
+            Height = 120
             Align = alClient
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitHeight = 85
           end
         end
       end
@@ -1027,7 +1038,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         Left = 0
         Top = 245
         Width = 933
-        Height = 127
+        Height = 92
         Hint = 
           'Para a exclus'#227'o de baixas basta pressionar CTRL + DELETE'#13#10#13#10'Obse' +
           'rva'#231#227'o:'#13#10'======================='#13#10'Apenas usu'#225'rios nas fun'#231#245'es Di' +
@@ -1215,7 +1226,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
-      OnClick = btbtnAlterarSituacaoClick
     end
   end
   inherited IbDtstTabela: TIBDataSet
@@ -1233,6 +1243,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       '  , c.cliente'
       '  , c.data_emissao'
       '  , c.data_apresentacao'
+      '  , c.data_devolucao'
       '  , c.data_compensacao'
       '  , c.valor'
       '  , c.nominal_a'
@@ -1320,6 +1331,11 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       Origin = '"TBCHEQUE"."DATA_APRESENTACAO"'
       ProviderFlags = [pfInUpdate]
       Required = True
+    end
+    object IbDtstTabelaDATA_DEVOLUCAO: TDateField
+      FieldName = 'DATA_DEVOLUCAO'
+      Origin = '"TBCHEQUE"."DATA_DEVOLUCAO"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaDATA_COMPENSACAO: TDateField
       DisplayLabel = 'Data de Compensa'#231#227'o'
@@ -1485,6 +1501,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       '  CLIENTE,'
       '  DATA_EMISSAO,'
       '  DATA_APRESENTACAO,'
+      '  DATA_DEVOLUCAO,'
       '  DATA_COMPENSACAO,'
       '  VALOR,'
       '  NOMINAL_A,'
@@ -1506,6 +1523,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       '  DATA_APRESENTACAO = :DATA_APRESENTACAO,'
       '  DATA_CADASTRO = :DATA_CADASTRO,'
       '  DATA_COMPENSACAO = :DATA_COMPENSACAO,'
+      '  DATA_DEVOLUCAO = :DATA_DEVOLUCAO,'
       '  DATA_EMISSAO = :DATA_EMISSAO,'
       '  EMPRESA = :EMPRESA,'
       '  FORNECEDOR = :FORNECEDOR,'
@@ -1524,17 +1542,21 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         '  (AGENCIA, BANCO, CLIENTE, CONTA, CONTROLE, DATA_APRESENTACAO, ' +
         'DATA_CADASTRO, '
       
-        '   DATA_COMPENSACAO, DATA_EMISSAO, EMPRESA, FORNECEDOR, NOMINAL_' +
-        'A, NUMERO, '
-      '   OBS, STATUS, TIPO, USUARIO_CADASTRO, VALOR)'
+        '   DATA_COMPENSACAO, DATA_DEVOLUCAO, DATA_EMISSAO, EMPRESA, FORN' +
+        'ECEDOR, '
+      
+        '   NOMINAL_A, NUMERO, OBS, STATUS, TIPO, USUARIO_CADASTRO, VALOR' +
+        ')'
       'values'
       
         '  (:AGENCIA, :BANCO, :CLIENTE, :CONTA, :CONTROLE, :DATA_APRESENT' +
         'ACAO, :DATA_CADASTRO, '
       
-        '   :DATA_COMPENSACAO, :DATA_EMISSAO, :EMPRESA, :FORNECEDOR, :NOM' +
-        'INAL_A, '
-      '   :NUMERO, :OBS, :STATUS, :TIPO, :USUARIO_CADASTRO, :VALOR)')
+        '   :DATA_COMPENSACAO, :DATA_DEVOLUCAO, :DATA_EMISSAO, :EMPRESA, ' +
+        ':FORNECEDOR, '
+      
+        '   :NOMINAL_A, :NUMERO, :OBS, :STATUS, :TIPO, :USUARIO_CADASTRO,' +
+        ' :VALOR)')
     DeleteSQL.Strings = (
       'delete from TBCHEQUE'
       'where'
@@ -1546,7 +1568,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 720
     Top = 304
     Bitmap = {
-      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

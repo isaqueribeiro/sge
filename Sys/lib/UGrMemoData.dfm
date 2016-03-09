@@ -1,5 +1,6 @@
 inherited frmGrMemoData: TfrmGrMemoData
   ActiveControl = edData
+  Caption = '  Observa'#231#227'o'
   ExplicitWidth = 555
   ExplicitHeight = 332
   PixelsPerInch = 96
@@ -14,15 +15,14 @@ inherited frmGrMemoData: TfrmGrMemoData
     Caption = 'Observa'#231#245'es'
     FocusControl = edData
     Visible = False
-    ExplicitTop = 60
     ExplicitWidth = 63
   end
   inherited edObservacao: TMemo
     Top = 59
     Height = 201
     TabOrder = 1
-    ExplicitTop = 112
-    ExplicitHeight = 148
+    ExplicitTop = 59
+    ExplicitHeight = 201
   end
   inherited tlbBotoes: TPanel
     TabOrder = 2

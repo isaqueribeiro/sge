@@ -106,6 +106,7 @@ type
     btnCalcular: TcxButton;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
+    chkNaoInformarVencimento: TCheckBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -236,7 +237,8 @@ end;
 procedure TfrmGeVendaGerarNFe.btnConfirmarClick(Sender: TObject);
 var
   bOK : Boolean;
-  sDH : String;
+  sDH ,
+  sVN : String;
 begin
 (*
   IMR - 09/09/2014 :
@@ -245,14 +247,19 @@ begin
 *)
 
   bOK := False;
-  
+
   if not GetConectedInternet then
   begin
     ShowWarning('Estação de trabalho sem acesso a Internet!');
     Exit;
   end;
 
-  if ( ShowConfirm('Confirma a geração da NF-e?') ) then
+  if chkNaoInformarVencimento.Checked then
+    sVN := 'Alerta : Os vencimentos não serão informados na NF-e.' + #13#13
+  else
+    sVN := EmptyStr;
+
+  if ( ShowConfirm(sVN + 'Confirma a geração da NF-e?') ) then
   begin
     sDH := FormatDateTime('dd/mm/yyyy', cdsVendaDATAEMISSAO.AsDateTime) + ' ' +
       FormatDateTime('hh:mm:ss', cdsVendaHORAEMISSAO.AsDateTime);
@@ -299,11 +306,14 @@ begin
     if ( DMNFe.GerarNFeOnLine(cdsVendaCODEMP.AsString) ) then
       bOK := DMNFe.GerarNFeOnLineACBr ( cdsVendaCODEMP.AsString, cdsVendaCODCLIENTE.AsInteger, sDH,
                cdsVendaANO.AsInteger, cdsVendaCODCONTROL.AsInteger,
-               iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote, bDenegada, sDenegadaMotivo, False)
+               iSerieNFe, iNumeroNFe, sFileNameXML,
+               sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote, bDenegada, sDenegadaMotivo,
+               chkNaoInformarVencimento.Checked, False)
     else
       bOK := DMNFe.GerarNFeOffLineACBr( cdsVendaCODEMP.AsString, cdsVendaCODCLIENTE.AsInteger, sDH,
                cdsVendaANO.AsInteger, cdsVendaCODCONTROL.AsInteger,
-               iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, False);
+               iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE,
+               chkNaoInformarVencimento.Checked, False);
 
 
     if bDenegada then

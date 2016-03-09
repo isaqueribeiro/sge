@@ -100,6 +100,7 @@ type
     cdsCompraVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsCompraVALOR_TOTAL_PIS: TFMTBCDField;
     cdsCompraVALOR_TOTAL_COFINS: TFMTBCDField;
+    chkNaoInformarVencimento: TCheckBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -225,6 +226,7 @@ end;
 procedure TfrmGeEntradaEstoqueGerarNFe.btnConfirmarClick(Sender: TObject);
 var
   bOK : Boolean;
+  sVN : String;
 begin
   if not GetConectedInternet then
   begin
@@ -232,7 +234,12 @@ begin
     Exit;
   end;
 
-  if ( ShowConfirm('Confirma a geração da NF-e de Entrada?') ) then
+  if chkNaoInformarVencimento.Checked then
+    sVN := 'Alerta : Os vencimentos não serão informados na NF-e.' + #13#13
+  else
+    sVN := EmptyStr;
+
+  if ( ShowConfirm(sVN + 'Confirma a geração da NF-e de Entrada?') ) then
   begin
     if ( cdsCompra.State = dsEdit ) then
     begin
@@ -249,10 +256,12 @@ begin
     
     if ( DMNFe.GerarNFeOnLine(cdsCompraCODEMP.AsString) ) then
       bOK := DMNFe.GerarNFeEntradaOnLineACBr ( cdsCompraCODEMP.AsString, cdsCompraCODFORN.AsInteger, cdsCompraANO.AsInteger, cdsCompraCODCONTROL.AsInteger,
-               iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote, False)
+               iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote,
+               chkNaoInformarVencimento.Checked, False)
     else
       bOK := DMNFe.GerarNFeEntradaOffLineACBr( cdsCompraCODEMP.AsString, cdsCompraCODFORN.AsInteger, cdsCompraANO.AsInteger, cdsCompraCODCONTROL.AsInteger,
-               iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, False);
+               iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE,
+               chkNaoInformarVencimento.Checked, False);
 
     TmrAlerta.Enabled  := False;
     lblInforme.Visible := False;

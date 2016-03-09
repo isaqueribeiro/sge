@@ -55,8 +55,6 @@ type
     dbFormaPagto: TDBLookupComboBox;
     lblDocBaixa: TLabel;
     dbDocBaixa: TDBEdit;
-    lblNoCheque: TLabel;
-    dbNoCheque: TDBEdit;
     lblBanco: TLabel;
     dbBanco: TDBLookupComboBox;
     lblHistorico: TLabel;
@@ -71,6 +69,9 @@ type
     dtsBancoFebraban: TDataSource;
     cdsPagamentosBANCO_FEBRABAN: TIBStringField;
     qryBancoFebraban: TIBQuery;
+    lblNumeroCheque: TLabel;
+    dbNumeroCheque: TJvDBComboEdit;
+    cdsPagamentosCONTROLE_CHEQUE: TIntegerField;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -78,6 +79,8 @@ type
     procedure cdsPagamentosNewRecord(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
     procedure tmrAlertaTimer(Sender: TObject);
+    procedure dbNumeroChequeButtonClick(Sender: TObject);
+    procedure dtsPagamentosDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     CxContaCorrente : Integer;
@@ -96,7 +99,8 @@ var
 
 implementation
 
-uses UDMBusiness;
+uses
+  UDMBusiness, UGeControleCheque;
 
 {$R *.dfm}
 
@@ -180,6 +184,7 @@ begin
       cdsPagamentosVALOR_BAIXA.AsCurrency := ValorPago;
       cdsPagamentosDOCUMENTO_BAIXA.AsString := FormatFloat('0000', VendaAno) + FormatFloat('000000', VendaNumero);
       cdsPagamentosHISTORICO.AsString       := 'BAIXA AUTOMATICA NA CONFIRMACAO DA VENDA No. ' + FormatFloat('0000', VendaAno) + '/' + FormatFloat('000000', VendaNumero);
+      cdsPagamentosCONTROLE_CHEQUE.Clear;
 
       cdsPagamentos.Post;
       cdsPagamentos.ApplyUpdates;
@@ -203,6 +208,28 @@ begin
   finally
     frm.Free;
   end;
+end;
+
+procedure TfrmGeEfetuarPagtoREC.dbNumeroChequeButtonClick(Sender: TObject);
+var
+  aCheque : TChequeBaixa;
+begin
+  if not (cdsPagamentos.State in [dsEdit, dsInsert]) then
+    cdsPagamentos.Edit;
+
+  if SelecionarChequeBaixa(Self, aCheque) then
+  begin
+    cdsPagamentosCONTROLE_CHEQUE.AsInteger := aCheque.Codigo;
+    cdsPagamentosNUMERO_CHEQUE.AsString    := aCheque.Numero;
+    cdsPagamentosBANCO_FEBRABAN.AsString   := aCheque.Banco;
+  end;
+end;
+
+procedure TfrmGeEfetuarPagtoREC.dtsPagamentosDataChange(Sender: TObject;
+  Field: TField);
+begin
+  if (Field = cdsPagamentosFORMA_PAGTO) then
+    dbNumeroCheque.Enabled := (Pos('CHEQUE', AnsiUpperCase(dbFormaPagto.Text)) > 0);
 end;
 
 procedure TfrmGeEfetuarPagtoREC.dtsPagamentosStateChange(Sender: TObject);
@@ -247,7 +274,8 @@ begin
     if ( (Pos('CHEQUE', AnsiUpperCase(dbFormaPagto.Text)) > 0) and (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) = EmptyStr) ) then
     begin
       ShowWarning('Favor informar o Número do Cheque!');
-      dbNoCheque.SetFocus;
+      if dbNumeroCheque.Visible and dbNumeroCheque.Enabled then
+        dbNumeroCheque.SetFocus;
     end
     else
 //    if ( (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) <> EmptyStr) and (cdsPagamentosBANCO.AsInteger = 0) ) then

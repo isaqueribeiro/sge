@@ -35,6 +35,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 122
+    ExplicitHeight = 519
     DesignSize = (
       1044
       486)
@@ -4643,6 +4645,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4717,7 +4720,6 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
-      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -4903,6 +4905,10 @@ object frmPrinc: TfrmPrinc
       FloatClientWidth = 0
       FloatClientHeight = 0
       ItemLinks = <
+        item
+          Visible = True
+          ItemName = 'BrBtnControleCheque'
+        end
         item
           Visible = True
           ItemName = 'BrBtnTesouraria'
@@ -6041,6 +6047,17 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 47
       SyncImageIndex = False
       ImageIndex = 47
+    end
+    object BrBtnControleCheque: TdxBarLargeButton
+      Caption = 'Controle de Cheques'
+      Category = 13
+      Hint = 'Controle de Cheques'
+      Visible = ivAlways
+      LargeImageIndex = 76
+      OnClick = BrBtnControleChequeClick
+      HotImageIndex = 76
+      SyncImageIndex = False
+      ImageIndex = 76
     end
     object BrBtnTesouraria: TdxBarLargeButton
       Caption = 'Tesouraria'

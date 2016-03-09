@@ -274,7 +274,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     object edDataHoraSaida: TMaskEdit
       Left = 408
       Top = 40
-      Width = 167
+      Width = 169
       Height = 21
       EditMask = '!00/00/0000 00:00:00;1; '
       Font.Charset = ANSI_CHARSET
@@ -765,6 +765,20 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       Font.Style = []
       ParentFont = False
       OnClick = btnCalcularClick
+    end
+    object chkNaoInformarVencimento: TCheckBox
+      Left = 216
+      Top = 270
+      Width = 345
+      Height = 17
+      Caption = 'N'#227'o informar vencimentos na NF-e'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 14
     end
   end
   object btnConfirmar: TcxButton

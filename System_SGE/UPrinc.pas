@@ -194,6 +194,7 @@ type
     dxRibbonBackstageViewGalleryItem4: TdxRibbonBackstageViewGalleryItem;
     BrBtnGerarDanfeXML: TdxBarLargeButton;
     BrBtnTipoReceita: TdxBarLargeButton;
+    BrBtnControleCheque: TdxBarLargeButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -286,6 +287,7 @@ type
     procedure BrBtnGerarDanfeXMLClick(Sender: TObject);
     procedure BrBtnTipoReceitaClick(Sender: TObject);
     procedure BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
+    procedure BrBtnControleChequeClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -333,6 +335,12 @@ begin
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
     FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
+end;
+
+procedure TfrmPrinc.BrBtnControleChequeClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_FIN_CONTROLE_CHEQUE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeControleCheque');
 end;
 
 procedure TfrmPrinc.BrBtnGerarDanfeXMLClick(Sender: TObject);
@@ -992,6 +1000,7 @@ begin
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_PROCESSA_RETORN_ID, Trim(BrBtnProcessarRetornoBoleto.Caption), ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_APAGAR_ID,   Trim(BrBtnQuitarAPagarLote.Caption),       ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_QUITAR_ARECEBER_ID, Trim(BrBtnQuitarAReceberLote.Caption),     ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_CONTROLE_CHEQUE_ID, Trim(BrBtnControleCheque.Caption),         ROTINA_MENU_FINANCEIRO_ID);
 
   // Relatórios
 

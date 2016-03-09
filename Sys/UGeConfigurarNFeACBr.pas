@@ -161,6 +161,8 @@ type
     lblPathEvento: TLabel;
     edPathEvento: TEdit;
     sbPathEvento: TSpeedButton;
+    lblInfoComplementar: TLabel;
+    edInfoComplementar: TEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);

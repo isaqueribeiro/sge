@@ -455,7 +455,7 @@ implementation
 uses
   UConstantesDGE, DateUtils, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
   UGeFornecedor, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe, UDMNFe,
-  UGeEntradaEstoqueDevolucaoNF;
+  UGeEntradaEstoqueDevolucaoNF, UFuncoes;
 
 {$R *.dfm}
 
@@ -801,9 +801,10 @@ begin
   with qryAutorizacaoProduto do
   begin
     Close;
-    ParamByName('ano').AsInteger := IbDtstTabelaAUTORIZACAO_ANO.AsInteger;
-    ParamByName('cod').AsInteger := IbDtstTabelaAUTORIZACAO_CODIGO.AsInteger;
-    ParamByName('emp').AsString  := IbDtstTabelaAUTORIZACAO_EMPRESA.AsString;
+    ParamByName('tipo').AsInteger := IfThen(TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto, Ord(taICMS), Ord(taISS));
+    ParamByName('ano').AsInteger  := IbDtstTabelaAUTORIZACAO_ANO.AsInteger;
+    ParamByName('cod').AsInteger  := IbDtstTabelaAUTORIZACAO_CODIGO.AsInteger;
+    ParamByName('emp').AsString   := IbDtstTabelaAUTORIZACAO_EMPRESA.AsString;
     Open;
 
     if not IsEmpty then

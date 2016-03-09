@@ -138,7 +138,10 @@ uses
   UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
   UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
-  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas';
+  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas',
+  UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
+  UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
+  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa};
 
 {$R *.res}
 

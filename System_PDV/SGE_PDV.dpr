@@ -88,7 +88,10 @@ uses
   UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
   UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
-  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas';
+  UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas',
+  UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
+  UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
+  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa};
 
 {$R *.res}
 

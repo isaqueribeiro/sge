@@ -989,6 +989,14 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Height = 13
             Caption = 'Informa'#231#227'o ao Fisco:'
           end
+          object lblInfoComplementar: TLabel
+            Left = 8
+            Top = 332
+            Width = 168
+            Height = 13
+            Caption = 'Informa'#231#227'o Complementar padr'#227'o:'
+            FocusControl = edInfoComplementar
+          end
           object edtEmitCNPJ: TEdit
             Left = 8
             Top = 20
@@ -1091,6 +1099,14 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 12' +
               '3, DE DEZEMBRO DE 2006'
           end
+          object edInfoComplementar: TEdit
+            Left = 8
+            Top = 351
+            Width = 350
+            Height = 21
+            CharCase = ecUpperCase
+            TabOrder = 14
+          end
         end
         object TbsArquivos: TTabSheet
           Caption = 'Arquivos'
@@ -1101,6 +1117,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 94
             Height = 13
             Caption = 'Pasta Arquivos NFe'
+            Enabled = False
             FocusControl = edPathNFe
           end
           object sbPathNFe: TSpeedButton
@@ -1131,6 +1148,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 143
             Height = 13
             Caption = 'Pasta Arquivos Cancelamento'
+            Enabled = False
             FocusControl = edPathCan
           end
           object sbPathCan: TSpeedButton
@@ -1161,6 +1179,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 198
             Height = 13
             Caption = 'Pasta Arquivos CC-e - Carta de Corre'#231#227'o'
+            Enabled = False
             FocusControl = edPathCCe
           end
           object sbPathCCe: TSpeedButton
@@ -1191,6 +1210,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 129
             Height = 13
             Caption = 'Pasta Arquivos Inutiliza'#231#227'o'
+            Enabled = False
             FocusControl = edPathInu
           end
           object sbPathInu: TSpeedButton
@@ -1221,6 +1241,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 101
             Height = 13
             Caption = 'Pasta Arquivos DPEC'
+            Enabled = False
             FocusControl = edPathDPEC
           end
           object sbPathDPEC: TSpeedButton
@@ -1251,6 +1272,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Width = 109
             Height = 13
             Caption = 'Pasta Arquivos Evento'
+            Enabled = False
             FocusControl = edPathEvento
           end
           object sbPathEvento: TSpeedButton
@@ -1336,6 +1358,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Top = 196
             Width = 308
             Height = 21
+            Enabled = False
             ReadOnly = True
             TabOrder = 7
           end
@@ -1344,6 +1367,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Top = 239
             Width = 308
             Height = 21
+            Enabled = False
             ReadOnly = True
             TabOrder = 8
           end
@@ -1352,6 +1376,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Top = 282
             Width = 308
             Height = 21
+            Enabled = False
             ReadOnly = True
             TabOrder = 9
           end
@@ -1360,6 +1385,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Top = 325
             Width = 308
             Height = 21
+            Enabled = False
             ReadOnly = True
             TabOrder = 10
           end
@@ -1368,6 +1394,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Top = 368
             Width = 308
             Height = 21
+            Enabled = False
             ReadOnly = True
             TabOrder = 11
           end
@@ -1376,6 +1403,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Top = 411
             Width = 308
             Height = 21
+            Enabled = False
             ReadOnly = True
             TabOrder = 12
           end

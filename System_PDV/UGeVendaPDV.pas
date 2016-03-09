@@ -393,7 +393,7 @@ begin
 
     edNomeCliente.Tag     := DataSetVenda.FieldByName('CODCLIENTE').AsInteger;
     edNomeCliente.Caption := GetClienteNome( edNomeCliente.Tag );
-    edNomeCliente.Hint    := DataSetVenda.FieldByName('CODCLI').AsString;
+    edNomeCliente.Hint    := DataSetVenda.FieldByName('CODCLI').AsString;       // CPF/CNPJ
 
     edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
     edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
@@ -517,7 +517,7 @@ begin
       FieldByName('VENDA_PRAZO').Value    := 0;
 
       FieldByName('CODCLIENTE').Value := edNomeCliente.Tag;
-      FieldByName('CODCLI').Value     := edNomeCliente.Hint;
+      FieldByName('CODCLI').Value     := edNomeCliente.Hint;    // CPF/CNPJ
       FieldByName('NOME').Value       := edNomeCliente.Caption;
 
       if (AnsiUpperCase(Trim(FieldByName('NOME').AsString)) <> CONSUMIDOR_FINAL_NOME) then
@@ -1068,7 +1068,7 @@ begin
           FieldByName('STATUS').Value := STATUS_VND_ABR;
 
         FieldByName('CODCLIENTE').Value := edNomeCliente.Tag;
-        FieldByName('CODCLI').Value     := edNomeCliente.Hint;
+        FieldByName('CODCLI').Value     := edNomeCliente.Hint;     // CPF/CNPJ
         FieldByName('NOME').Value       := edNomeCliente.Caption;
       end;
 
@@ -1201,22 +1201,18 @@ begin
 
   DMNFe.LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFE_ESCPOS);
   if DMNFe.IsEstacaoEmiteNFCe then
-    if ( (Length(edNomeCliente.Hint) = 11) and (not ValidarCPF(edNomeCliente.Hint)) ) then
-    begin
-      ShowWarning('Favor solicitar um CPF válido para o cliente!');
-      Exit;
-    end
-    else
-    if ( (Length(edNomeCliente.Hint) = 14) and (not ValidarCNPJ(edNomeCliente.Hint)) ) then
-    begin
-      ShowWarning('Favor solicitar um CNPJ válido para o cliente!');
-      Exit;
-    end
-    else
-    begin
-      ShowError('CPF/CNPJ inválido para o cliente!');
-      Exit;
-    end;
+    if ( edNomeCliente.Tag <> CONSUMIDOR_FINAL_CODIGO ) then
+      if ( (Length(edNomeCliente.Hint) = 11) and (not ValidarCPF(edNomeCliente.Hint)) ) then
+      begin
+        ShowWarning('Favor solicitar um CPF válido para o cliente!');
+        Exit;
+      end
+      else
+      if ( (Length(edNomeCliente.Hint) = 14) and (not ValidarCNPJ(edNomeCliente.Hint)) ) then
+      begin
+        ShowWarning('Favor solicitar um CNPJ válido para o cliente!');
+        Exit;
+      end;
 
   CxAno    := 0;
   CxNumero := 0;
@@ -1497,8 +1493,8 @@ begin
         DataSetNotaFiscal.FieldByName('CHAVE').Value     := sChaveNFE;
         DataSetNotaFiscal.FieldByName('PROTOCOLO').Value := sProtocoloNFE;
         DataSetNotaFiscal.FieldByName('RECIBO').Value    := sReciboNFE;
-        DataSetNotaFiscal.FieldByName('LOTE_ANO').Clear;
-        DataSetNotaFiscal.FieldByName('LOTE_NUM').Clear;
+        DataSetNotaFiscal.FieldByName('LOTE_ANO').Value  := 0;
+        DataSetNotaFiscal.FieldByName('LOTE_NUM').Value  := 0;
 
         if ( FileExists(sFileNameXML) ) then
         begin

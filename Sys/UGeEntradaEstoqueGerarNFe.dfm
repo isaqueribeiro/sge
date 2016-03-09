@@ -734,6 +734,20 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       ParentFont = False
       OnClick = btnCalcularClick
     end
+    object chkNaoInformarVencimento: TCheckBox
+      Left = 216
+      Top = 270
+      Width = 345
+      Height = 17
+      Caption = 'N'#227'o informar vencimentos na NF-e'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 14
+    end
   end
   object btnConfirmar: TcxButton
     Left = 408
