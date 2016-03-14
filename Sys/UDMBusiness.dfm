@@ -1,8 +1,8 @@
 object DMBusiness: TDMBusiness
   OldCreateOrder = True
   OnCreate = DataModuleCreate
-  Height = 617
-  Width = 812
+  Height = 648
+  Width = 1043
   object ibdtbsBusiness: TIBDatabase
     DatabaseName = 'localhost:AGIL_COMERCIO'
     Params.Strings = (
@@ -203,7 +203,7 @@ object DMBusiness: TDMBusiness
     Left = 232
     Top = 56
   end
-  object ibdtstUsers: TIBDataSet
+  object ibdtstUsersXXX: TIBDataSet
     Database = ibdtbsBusiness
     Transaction = ibtrnsctnBusiness
     BufferChunks = 1000
@@ -257,76 +257,76 @@ object DMBusiness: TDMBusiness
       '  NOME = :OLD_NOME')
     ParamCheck = True
     UniDirectional = False
-    Left = 144
-    Top = 120
-    object ibdtstUsersNOME: TIBStringField
+    Left = 376
+    Top = 168
+    object ibdtstUsersXXXNOME: TIBStringField
       FieldName = 'NOME'
       Origin = '"TBUSERS"."NOME"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 12
     end
-    object ibdtstUsersSENHA: TIBStringField
+    object ibdtstUsersXXXSENHA: TIBStringField
       FieldName = 'SENHA'
       Origin = '"TBUSERS"."SENHA"'
       ProviderFlags = [pfInUpdate]
       Required = True
       Size = 16
     end
-    object ibdtstUsersNOMECOMPLETO: TIBStringField
+    object ibdtstUsersXXXNOMECOMPLETO: TIBStringField
       FieldName = 'NOMECOMPLETO'
       Origin = '"TBUSERS"."NOMECOMPLETO"'
       ProviderFlags = [pfInUpdate]
       Required = True
       Size = 60
     end
-    object ibdtstUsersCODFUNCAO: TSmallintField
+    object ibdtstUsersXXXCODFUNCAO: TSmallintField
       FieldName = 'CODFUNCAO'
       Origin = '"TBUSERS"."CODFUNCAO"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
-    object ibdtstUsersLIMIDESC: TIBBCDField
+    object ibdtstUsersXXXLIMIDESC: TIBBCDField
       FieldName = 'LIMIDESC'
       Origin = '"TBUSERS"."LIMIDESC"'
       ProviderFlags = [pfInUpdate]
       Precision = 9
       Size = 2
     end
-    object ibdtstUsersATIVO: TSmallintField
+    object ibdtstUsersXXXATIVO: TSmallintField
       FieldName = 'ATIVO'
       Origin = '"TBUSERS"."ATIVO"'
       ProviderFlags = [pfInUpdate]
     end
-    object ibdtstUsersALTERAR_SENHA: TSmallintField
+    object ibdtstUsersXXXALTERAR_SENHA: TSmallintField
       FieldName = 'ALTERAR_SENHA'
       Origin = '"TBUSERS"."ALTERAR_SENHA"'
       Required = True
     end
-    object ibdtstUsersPERM_ALTERAR_VALOR_VENDA: TSmallintField
+    object ibdtstUsersXXXPERM_ALTERAR_VALOR_VENDA: TSmallintField
       FieldName = 'PERM_ALTERAR_VALOR_VENDA'
       Origin = '"TBUSERS"."PERM_ALTERAR_VALOR_VENDA"'
       ProviderFlags = [pfInUpdate]
     end
-    object ibdtstUsersTIPO_ALTERAR_VALOR_VENDA: TSmallintField
+    object ibdtstUsersXXXTIPO_ALTERAR_VALOR_VENDA: TSmallintField
       FieldName = 'TIPO_ALTERAR_VALOR_VENDA'
       Origin = '"TBUSERS"."TIPO_ALTERAR_VALOR_VENDA"'
     end
-    object ibdtstUsersVENDEDOR: TIntegerField
+    object ibdtstUsersXXXVENDEDOR: TIntegerField
       FieldName = 'VENDEDOR'
       Origin = '"TBUSERS"."VENDEDOR"'
     end
   end
   object dtsrcUsers: TDataSource
-    DataSet = ibdtstUsers
-    Left = 176
-    Top = 120
+    DataSet = fdQryUsers
+    Left = 896
+    Top = 208
   end
   object IdIPWatch: TIdIPWatch
     Active = True
     HistoryFilename = 'NetWorkActiveDGE.dat'
-    Left = 312
-    Top = 104
+    Left = 112
+    Top = 504
   end
   object qryCaixaAberto: TIBDataSet
     Database = ibdtbsBusiness
@@ -519,7 +519,7 @@ object DMBusiness: TDMBusiness
     Left = 176
     Top = 264
   end
-  object qryEvAcessUser: TIBDataSet
+  object qryEvAcessUserXXX: TIBDataSet
     Database = ibdtbsBusiness
     Transaction = ibtrnsctnBusiness
     ForcedRefresh = True
@@ -539,22 +539,22 @@ object DMBusiness: TDMBusiness
       '')
     ParamCheck = True
     UniDirectional = False
-    UpdateObject = updEvAcessUser
+    UpdateObject = updEvAcessUserXXX
     Left = 376
     Top = 216
-    object qryEvAcessUserFORM_NAME: TIBStringField
+    object qryEvAcessUserXXXFORM_NAME: TIBStringField
       FieldName = 'FORM_NAME'
       Origin = '"TBUSERALLOW"."FORM_NAME"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 250
     end
-    object qryEvAcessUserOBJECT_NAME: TIBStringField
+    object qryEvAcessUserXXXOBJECT_NAME: TIBStringField
       FieldName = 'OBJECT_NAME'
       Origin = '"TBUSERALLOW"."OBJECT_NAME"'
       Size = 50
     end
-    object qryEvAcessUserCONSENTS_STRING: TMemoField
+    object qryEvAcessUserXXXCONSENTS_STRING: TMemoField
       FieldName = 'CONSENTS_STRING'
       Origin = '"TBUSERALLOW"."CONSENTS_STRING"'
       ProviderFlags = [pfInUpdate]
@@ -562,7 +562,7 @@ object DMBusiness: TDMBusiness
       Size = 8
     end
   end
-  object updEvAcessUser: TIBUpdateSQL
+  object updEvAcessUserXXX: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  FORM_NAME,'
@@ -591,7 +591,7 @@ object DMBusiness: TDMBusiness
     Left = 408
     Top = 216
   end
-  object ibqryEmpresa: TIBQuery
+  object ibqryEmpresaXXX: TIBQuery
     Database = ibdtbsBusiness
     Transaction = ibtrnsctnBusiness
     BufferChunks = 1000
@@ -600,20 +600,20 @@ object DMBusiness: TDMBusiness
     SQL.Strings = (
       'select CNPJ, NMFANT from TBEMPRESA')
     Left = 504
-    Top = 96
-    object ibqryEmpresaCNPJ: TIBStringField
+    Top = 88
+    object ibqryEmpresaXXXCNPJ: TIBStringField
       FieldName = 'CNPJ'
       Origin = 'TBEMPRESA.CNPJ'
       Required = True
       Size = 18
     end
-    object ibqryEmpresaNMFANT: TIBStringField
+    object ibqryEmpresaXXXNMFANT: TIBStringField
       FieldName = 'NMFANT'
       Origin = 'TBEMPRESA.NMFANT'
       Size = 25
     end
   end
-  object qryConfiguracoes: TIBQuery
+  object qryConfiguracoesXXX: TIBQuery
     Database = ibdtbsBusiness
     Transaction = ibtrnsctnBusiness
     BufferChunks = 1000
@@ -654,7 +654,7 @@ object DMBusiness: TDMBusiness
       '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
       'where c.empresa = :empresa')
     Left = 504
-    Top = 128
+    Top = 136
     ParamData = <
       item
         DataType = ftUnknown
@@ -662,7 +662,7 @@ object DMBusiness: TDMBusiness
         ParamType = ptUnknown
       end>
   end
-  object setSistema: TIBStoredProc
+  object setSistemaXXX: TIBStoredProc
     Database = ibdtbsBusiness
     Transaction = ibtrnsctnBusiness
     StoredProcName = 'SET_SISTEMA'
@@ -685,7 +685,7 @@ object DMBusiness: TDMBusiness
         ParamType = ptInput
       end>
   end
-  object setRotina: TIBStoredProc
+  object setRotinaXXX: TIBStoredProc
     Database = ibdtbsBusiness
     Transaction = ibtrnsctnBusiness
     StoredProcName = 'SET_ROTINA'
@@ -889,8 +889,8 @@ object DMBusiness: TDMBusiness
   end
   object ACBrValidador: TACBrValidador
     IgnorarChar = './-'
-    Left = 144
-    Top = 368
+    Left = 112
+    Top = 408
   end
   object ACBrMail: TACBrMail
     Host = '127.0.0.1'
@@ -901,8 +901,8 @@ object DMBusiness: TDMBusiness
     Attempts = 3
     DefaultCharset = UTF_8
     IDECharset = CP1252
-    Left = 144
-    Top = 416
+    Left = 112
+    Top = 456
   end
   object spAtualizarCustoApEntrada: TIBStoredProc
     Database = ibdtbsBusiness
@@ -956,5 +956,201 @@ object DMBusiness: TDMBusiness
     StoredProcName = 'SP_UPD_CUSTO_INVENTARIO_ALMOX'
     Left = 580
     Top = 432
+  end
+  object fdConexao: TFDConnection
+    Params.Strings = (
+      'User_Name=sysdba'
+      'Password=masterkey'
+      'Database=AGIL_COMERCIO'
+      'Protocol=TCPIP'
+      'CharacterSet=ISO8859_2'
+      'Port=3050'
+      'Server=localhost'
+      'DriverID=FB')
+    LoginPrompt = False
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    Left = 800
+    Top = 208
+  end
+  object fdIBDriverLink: TFDPhysIBDriverLink
+    Left = 800
+    Top = 160
+  end
+  object fdFBDriverLink: TFDPhysFBDriverLink
+    Left = 832
+    Top = 160
+  end
+  object fdTransacao: TFDTransaction
+    Connection = fdConexao
+    Left = 800
+    Top = 256
+  end
+  object fdQryUsers: TFDQuery
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    u.nome'
+      '  , u.senha'
+      '  , u.nomecompleto'
+      '  , u.codfuncao'
+      '  , u.limidesc'
+      '  , u.ativo'
+      '  , u.alterar_senha'
+      '  , u.perm_alterar_valor_venda'
+      '  , u.tipo_alterar_valor_venda'
+      '  , u.vendedor'
+      'from TBUSERS u'
+      ''
+      'where coalesce(u.ativo, 1) = 1'
+      ''
+      'order by'
+      '    u.nome')
+    Left = 864
+    Top = 208
+  end
+  object fdQryEmpresa: TFDQuery
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    cnpj'
+      '  , nmfant'
+      'from TBEMPRESA')
+    Left = 864
+    Top = 256
+  end
+  object fdWaitCursor: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 864
+    Top = 160
+  end
+  object fdSetSistema: TFDStoredProc
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_SISTEMA'
+    Left = 896
+    Top = 256
+    ParamData = <
+      item
+        Position = 1
+        Name = 'CODIGO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'NOME'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 100
+      end
+      item
+        Position = 3
+        Name = 'VERSAO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end>
+  end
+  object fdSetRotina: TFDStoredProc
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_ROTINA'
+    Left = 928
+    Top = 256
+    ParamData = <
+      item
+        Position = 1
+        Name = 'SISTEMA'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'CODIGO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        Position = 3
+        Name = 'TIPO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'DESCRICAO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 250
+      end
+      item
+        Position = 5
+        Name = 'ROTINA_PAI'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end>
+  end
+  object fdQryConfiguracoes: TFDQuery
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.empresa as empresa_cnpj'
+      '  , e.rzsoc   as empresa_razao'
+      '  , e.nmfant  as empresa_fantasia'
+      '  , e.ender   as empresa_end'
+      '  , e.numero_end  as empresa_end_nro'
+      '  , e.complemento as empresa_end_compl'
+      '  , e.bairro      as empresa_end_bairro'
+      '  , e.cep         as empresa_end_cep'
+      '  , e.cidade      as empresa_end_cidade'
+      '  , e.uf          as empresa_end_uf'
+      
+        '  , '#39'+55 ('#39' || substring(e.fone  from 1 for 2) || '#39')'#39' || substri' +
+        'ng(e.fone  from 3 for 4) || '#39'.'#39' || substring(e.fone  from 7 for ' +
+        '4) as empresa_fone_1'
+      
+        '  , '#39'+55 ('#39' || substring(e.fone2 from 1 for 2) || '#39')'#39' || substri' +
+        'ng(e.fone2 from 3 for 4) || '#39'.'#39' || substring(e.fone2 from 7 for ' +
+        '4) as empresa_fone_2'
+      '  , e.email       as empresa_email'
+      '  , e.home_page   as empresa_homepage'
+      '  , c.email_conta'
+      '  , c.email_senha'
+      '  , c.email_pop'
+      '  , c.email_smtp'
+      '  , c.email_smtp_porta'
+      '  , c.email_requer_autenticacao'
+      '  , c.email_conexao_ssl'
+      '  , c.email_assunto_padrao'
+      '  , c.email_mensagem_padrao'
+      'from TBCONFIGURACAO c'
+      '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
+      'where c.empresa = :empresa')
+    Left = 864
+    Top = 304
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
+      end>
   end
 end

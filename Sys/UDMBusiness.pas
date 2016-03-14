@@ -12,7 +12,14 @@ uses
   FuncoesFormulario, UConstantesDGE, IBX.IBUpdateSQL, DBClient,
   Provider, Dialogs, Registry, frxChart, frxCross, frxRich, frxExportMail,
   frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF, ACBrBase,
-  ACBrValidador, ACBrMail;
+  ACBrValidador, ACBrMail,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.IBDef,
+  FireDAC.Phys.FBDef, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.IBBase,
+  FireDAC.Phys.IB, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI;
 
 type
   TSistema = record
@@ -75,7 +82,7 @@ type
     ibdtstAjustEstoqLookProdQtde: TIntegerField;
     ibdtstAjustEstoqLookFornec: TStringField;
     qryBusca: TIBQuery;
-    ibdtstUsers: TIBDataSet;
+    ibdtstUsersXXX: TIBDataSet;
     dtsrcUsers: TDataSource;
     IdIPWatch: TIdIPWatch;
     qryCaixaAberto: TIBDataSet;
@@ -91,25 +98,25 @@ type
     qryCaixaAbertoCONTA_CORRENTE: TIntegerField;
     stpCaixaMovimentoREC_ESTORNO: TIBStoredProc;
     stpCaixaMovimentoPAG_ESTORNO: TIBStoredProc;
-    qryEvAcessUser: TIBDataSet;
-    updEvAcessUser: TIBUpdateSQL;
-    qryEvAcessUserFORM_NAME: TIBStringField;
-    qryEvAcessUserOBJECT_NAME: TIBStringField;
-    qryEvAcessUserCONSENTS_STRING: TMemoField;
-    ibqryEmpresa: TIBQuery;
-    ibqryEmpresaCNPJ: TIBStringField;
-    ibqryEmpresaNMFANT: TIBStringField;
-    qryConfiguracoes: TIBQuery;
-    ibdtstUsersNOME: TIBStringField;
-    ibdtstUsersSENHA: TIBStringField;
-    ibdtstUsersNOMECOMPLETO: TIBStringField;
-    ibdtstUsersCODFUNCAO: TSmallintField;
-    ibdtstUsersLIMIDESC: TIBBCDField;
-    ibdtstUsersATIVO: TSmallintField;
-    ibdtstUsersPERM_ALTERAR_VALOR_VENDA: TSmallintField;
-    ibdtstUsersALTERAR_SENHA: TSmallintField;
-    setSistema: TIBStoredProc;
-    setRotina: TIBStoredProc;
+    qryEvAcessUserXXX: TIBDataSet;
+    updEvAcessUserXXX: TIBUpdateSQL;
+    qryEvAcessUserXXXFORM_NAME: TIBStringField;
+    qryEvAcessUserXXXOBJECT_NAME: TIBStringField;
+    qryEvAcessUserXXXCONSENTS_STRING: TMemoField;
+    ibqryEmpresaXXX: TIBQuery;
+    ibqryEmpresaXXXCNPJ: TIBStringField;
+    ibqryEmpresaXXXNMFANT: TIBStringField;
+    qryConfiguracoesXXX: TIBQuery;
+    ibdtstUsersXXXNOME: TIBStringField;
+    ibdtstUsersXXXSENHA: TIBStringField;
+    ibdtstUsersXXXNOMECOMPLETO: TIBStringField;
+    ibdtstUsersXXXCODFUNCAO: TSmallintField;
+    ibdtstUsersXXXLIMIDESC: TIBBCDField;
+    ibdtstUsersXXXATIVO: TSmallintField;
+    ibdtstUsersXXXPERM_ALTERAR_VALOR_VENDA: TSmallintField;
+    ibdtstUsersXXXALTERAR_SENHA: TSmallintField;
+    setSistemaXXX: TIBStoredProc;
+    setRotinaXXX: TIBStoredProc;
     ibdtstAjustEstoqCONTROLE: TIntegerField;
     ibdtstAjustEstoqCODEMPRESA: TIBStringField;
     ibdtstAjustEstoqQTDEATUAL: TIBBCDField;
@@ -127,7 +134,7 @@ type
     frxRichObject: TfrxRichObject;
     frxCrossObject: TfrxCrossObject;
     frxChartObject: TfrxChartObject;
-    ibdtstUsersVENDEDOR: TIntegerField;
+    ibdtstUsersXXXVENDEDOR: TIntegerField;
     fastReport: TfrxReport;
     ACBrValidador: TACBrValidador;
     ACBrMail: TACBrMail;
@@ -136,7 +143,17 @@ type
     spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc;
     spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
     spAtualizarCustoEstoqueInventario: TIBStoredProc;
-    ibdtstUsersTIPO_ALTERAR_VALOR_VENDA: TSmallintField;
+    ibdtstUsersXXXTIPO_ALTERAR_VALOR_VENDA: TSmallintField;
+    fdConexao: TFDConnection;
+    fdIBDriverLink: TFDPhysIBDriverLink;
+    fdFBDriverLink: TFDPhysFBDriverLink;
+    fdTransacao: TFDTransaction;
+    fdQryUsers: TFDQuery;
+    fdQryEmpresa: TFDQuery;
+    fdWaitCursor: TFDGUIxWaitCursor;
+    fdSetSistema: TFDStoredProc;
+    fdSetRotina: TFDStoredProc;
+    fdQryConfiguracoes: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -888,6 +905,9 @@ begin
   with DMBusiness do
   begin
     ibtrnsctnBusiness.CommitRetaining;
+
+    if fdConexao.InTransaction then
+      fdConexao.CommitRetaining;
   end;
 end;
 
@@ -1241,7 +1261,8 @@ begin
   if (Trim(CNPJ) = EmptyStr) then
     CNPJ := GetEmpresaIDDefault;
 
-  with gContaEmail, DMBusiness, qryConfiguracoes do
+//  with gContaEmail, DMBusiness, qryConfiguracoes do
+  with gContaEmail, DMBusiness, fdQryConfiguracoes do
   begin
     Close;
     ParamByName('empresa').AsString := Trim(CNPJ);
@@ -1346,12 +1367,13 @@ end;
 procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
 begin
   try
-    with DMBusiness, setSistema do
+    //with DMBusiness, setSistema do
+    with DMBusiness, fdSetSistema do
     begin
       Close;
-      ParamByName('Codigo').AsInteger := iCodigo;
-      ParamByName('Nome').AsString    := sNome;
-      ParamByName('Versao').AsString  := sVersao;
+      ParamByName('Codigo').AsSmallInt := iCodigo;
+      ParamByName('Nome').AsString     := sNome;
+      ParamByName('Versao').AsString   := sVersao;
       ExecProc;
 
       CommitTransaction;
@@ -1365,12 +1387,13 @@ end;
 procedure SetRotinaSistema(iTipo : Smallint; sCodigo, sDescricao, sRotinaPai : String);
 begin
   try
-    with DMBusiness, setRotina do
+    //with DMBusiness, setRotina do
+    with DMBusiness, fdSetRotina do
     begin
       Close;
-      ParamByName('Sistema').AsInteger   := gSistema.Codigo;
+      ParamByName('Sistema').AsSmallInt  := gSistema.Codigo;
       ParamByName('Codigo').AsString     := Trim(sCodigo);
-      ParamByName('Tipo').AsInteger      := iTipo;
+      ParamByName('Tipo').AsSmallInt     := iTipo;
       ParamByName('Descricao').AsString  := StringReplace(Trim(sDescricao), '&', '', [rfReplaceAll]);
       ParamByName('Rotina_Pai').AsString := Trim(sRotinaPai);
       ExecProc;
@@ -2989,93 +3012,146 @@ end;
 
 function GetUserApp : String;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := AnsiUpperCase( Trim(ibdtstUsersNOME.AsString) )
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := AnsiUpperCase( Trim(ibdtstUsersNOME.AsString) )
+//    else
+//      Result := EmptyStr;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := AnsiUpperCase( Trim(fdQryUsers.FieldByName('NOME').AsString) )
     else
-      Result := EmptyStr;  
+      Result := EmptyStr;
 end;
 
 function GetUserFullName : String;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := AnsiUpperCase( Trim(ibdtstUsersNOMECOMPLETO.AsString) )
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := AnsiUpperCase( Trim(ibdtstUsersNOMECOMPLETO.AsString) )
+//    else
+//      Result := EmptyStr;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := AnsiUpperCase( Trim(fdQryUsers.FieldByName('NOMECOMPLETO').AsString) )
     else
       Result := EmptyStr;
 end;
 
 function GetUserFunctionID : Integer;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := ibdtstUsersCODFUNCAO.AsInteger
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := ibdtstUsersCODFUNCAO.AsInteger
+//    else
+//      Result := 0;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := fdQryUsers.FieldByName('CODFUNCAO').AsInteger
     else
       Result := 0;
 end;
 
 function GetUserCodigoVendedorID : Integer;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := ibdtstUsersVENDEDOR.AsInteger
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := ibdtstUsersVENDEDOR.AsInteger
+//    else
+//      Result := 0;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := fdQryUsers.FieldByName('VENDEDOR').AsInteger
     else
       Result := 0;
 end;
 
 function GetUserUpdatePassWord : Boolean;
 begin
+//  if Trim(gUsuarioLogado.Login) = EmptyStr then
+//    Result := False
+//  else
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := (ibdtstUsersALTERAR_SENHA.AsInteger = 1)
+//    else
+//      Result := False;
   if Trim(gUsuarioLogado.Login) = EmptyStr then
     Result := False
   else
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := (ibdtstUsersALTERAR_SENHA.AsInteger = 1)
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (fdQryUsers.FieldByName('ALTERAR_SENHA').AsInteger = 1)
     else
       Result := False;
 end;
 
 function GetLimiteDescontoUser : Currency;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := ibdtstUsersLIMIDESC.AsCurrency
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := ibdtstUsersLIMIDESC.AsCurrency
+//    else
+//      Result := 0.0;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := fdQryUsers.FieldByName('LIMIDESC').AsCurrency
     else
       Result := 0.0;
 end;
 
 function GetUserPermitirAlterarValorVenda : Boolean;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := (ibdtstUsersPERM_ALTERAR_VALOR_VENDA.AsInteger = 1)
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := (ibdtstUsersPERM_ALTERAR_VALOR_VENDA.AsInteger = 1)
+//    else
+//      Result := False;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (fdQryUsers.FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1)
     else
       Result := False;
 end;
 
 function GetUserPermitirAlterarValorVendaLivre : Boolean;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger = 1)
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger = 1)
+//    else
+//      Result := False;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (fdQryUsers.FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger = 1)
     else
       Result := False;
 end;
 
 function GetUserPermitirAlterarValorVendaParaMaior : Boolean;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger in [1, 2])
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger in [1, 2])
+//    else
+//      Result := False;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (fdQryUsers.FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger in [1, 2])
     else
       Result := False;
 end;
 
 function GetUserPermitirAlterarValorVendaParaMenor : Boolean;
 begin
-  with DMBusiness, ibdtstUsers do
-    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger in [1, 3])
+//  with DMBusiness, ibdtstUsers do
+//    if ibdtstUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := (ibdtstUsersTIPO_ALTERAR_VALOR_VENDA.AsInteger in [1, 3])
+//    else
+//      Result := False;
+  with DMBusiness, fdQryUsers do
+    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+      Result := (fdQryUsers.FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger in [1, 3])
     else
       Result := False;
 end;
@@ -3889,6 +3965,7 @@ begin
 
   try
 
+    // Conexão InterBase
     with ibdtbsBusiness, FileINI do
     begin
       Connected    := False;
@@ -3899,10 +3976,33 @@ begin
       Params.Add('lc_ctype='  + DB_LC_CTYPE);
       Connected := True;
 
+//      if ( Connected ) then
+//      begin
+//        ibdtstUsers.Open;
+//        ibqryEmpresa.Open;
+//      end;
+    end;
+
+    // Conexão FireDAC
+    with fdConexao, FileINI do
+    begin
+      Connected := False;
+      Params.Clear;
+      Params.Add('DriverID=FB');
+      Params.Add('Protocol=TCPIP');
+      Params.Add('Server='       + ReadString('Conexao', 'Servidor', 'localhost'));
+      Params.Add('Port='         + ReadString('Conexao', 'Porta',    '3050'));
+      Params.Add('Database='     + ReadString('Conexao', 'Base',     'AGIL_COMERCIO'));
+      Params.Add('User_Name='    + DB_USER_NAME);
+      Params.Add('Password='     + DB_USER_PASSWORD);
+      Params.Add('CharacterSet=' + DB_LC_CTYPE);
+
+      Connected := True;
+
       if ( Connected ) then
       begin
-        ibdtstUsers.Open;
-        ibqryEmpresa.Open;
+        fdQryUsers.Open;
+        fdQryEmpresa.Open;
       end;
     end;
 

@@ -57,10 +57,13 @@ begin
 
   try
 
-    DMBusiness.ibdtstUsers.Close;
-    DMBusiness.ibdtstUsers.Open;
+//    DMBusiness.ibdtstUsers.Close;
+//    DMBusiness.ibdtstUsers.Open;
+    DMBusiness.fdQryUsers.Close;
+    DMBusiness.fdQryUsers.Open;
 
-    if not DMBusiness.ibdtstUsers.Locate('NOME', Usuario, []) then
+//    if not DMBusiness.ibdtstUsers.Locate('NOME', Usuario, []) then
+    if not DMBusiness.fdQryUsers.Locate('NOME', Usuario, []) then
     begin
       pnlMensagem.Caption := 'Entrada recusada ... USUÁRIO DESCONHECIDO!';
 
@@ -71,7 +74,8 @@ begin
       Exit;
     end;
 
-    vSenha := DMBusiness.ibdtstUsersSENHA as tStringfield;
+//    vSenha := DMBusiness.ibdtstUsersSENHA as tStringfield;
+    vSenha := DMBusiness.fdQryUsers.FieldByName('SENHA') as TStringfield;
     sSenha := GetSenhaFormatada(Senha, False);
 
     if (vSenha.Value = Senha) or (vSenha.Value = sSenha) then

@@ -538,6 +538,12 @@ begin
     Abort;
   end
   else
+  if ( IbDtstTabelaANOCOMPRA.AsInteger > 0 ) then
+  begin
+    ShowWarning('Registros de Contas A Pagar atrelados à entradas de produtos/serviços não podem ser excluídos!');
+    Abort;
+  end
+  else
   begin
     // Eliminar Movimento do Caixa quando o lançamento for excluído pelo SYSTEM ADM
 
