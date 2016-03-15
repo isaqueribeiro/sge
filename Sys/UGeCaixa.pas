@@ -600,7 +600,8 @@ end;
 procedure TfrmGeCaixa.btbtnEncerrarClick(Sender: TObject);
 var
   sMsg : String;
-  Data : TDateTime;
+  DataDB,
+  Data  : TDateTime;
 begin
   inherited;
   if ( IbDtstTabela.IsEmpty ) then
@@ -614,12 +615,12 @@ begin
     AbrirTabelaMovimento(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
 
     // Consolidar Movimentacao
-    
+
     if ( not qryMovimento.IsEmpty ) then
     begin
       ConsolidarCaixa(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
       AbrirTabelaConsolidado(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
-    end;  
+    end;
 
     if ( qryMovimento.IsEmpty ) then
       sMsg := 'Não existe movimentação para o Caixa selecionado!' + #13#13 + 'Deseja encerrá-lo mesmo assim?'
@@ -631,8 +632,9 @@ begin
       // Recalcular Saldo da Conta Corrente
       WaitAMoment(WAIT_AMOMENT_Process);
       try
-        Data := IbDtstTabelaDATA_ABERTURA.AsDateTime;
-        while Data <= GetDateDB do
+        Data   := IbDtstTabelaDATA_ABERTURA.AsDateTime;
+        DataDB := GetDateDB;
+        while Data <= DataDB do
         begin
           GerarSaldoContaCorrente(IbDtstTabelaCONTA_CORRENTE.AsInteger, Data);
           Data := Data + 1;
@@ -695,6 +697,7 @@ begin
       dbOperador.Enabled  := False;
     end
     else
+    if ( pgcGuias.ActivePage = tbsTabela ) then
     begin
       ShowWarning('Existe(m) mais de um caixa(s) aberto(s) para o usuário logado.' + #13#13 +
                   'Caso deseje encerrar um caixa específico, selecione-o clicando duas vezes no registro correspondente.');
