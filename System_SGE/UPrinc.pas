@@ -195,6 +195,7 @@ type
     BrBtnGerarDanfeXML: TdxBarLargeButton;
     BrBtnTipoReceita: TdxBarLargeButton;
     BrBtnControleCheque: TdxBarLargeButton;
+    BrBtnUpgrade: TdxBarLargeButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -288,6 +289,7 @@ type
     procedure BrBtnTipoReceitaClick(Sender: TObject);
     procedure BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
     procedure BrBtnControleChequeClick(Sender: TObject);
+    procedure BrBtnUpgradeClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -418,6 +420,12 @@ procedure TfrmPrinc.BrBtnTipoReceitaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_RECEITA_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeTipoReceita');
+end;
+
+procedure TfrmPrinc.BrBtnUpgradeClick(Sender: TObject);
+begin
+  if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeAutoUpgrade');
 end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);

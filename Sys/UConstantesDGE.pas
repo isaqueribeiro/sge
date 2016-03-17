@@ -133,6 +133,7 @@ const
   IMG_IDX_AJUDA_LICENCA_USO_1  = 66;
   IMG_IDX_AJUDA_LICENCA_USO_2  = 67;
   IMG_IDX_AJUDA_SOBRE          = 68;
+  IMG_IDX_UPGRADE_SYSTEM       = 77;
 
   // Constantes FR3
 
@@ -416,7 +417,7 @@ const
 
   DESC_LOG_EVENTO_CANCELAR_NFE_SD = 'Cancelar NF-e de Saída';
   DESC_LOG_EVENTO_CANCELAR_NFE_ET = 'Cancelar NF-e de Entrada';
-  DESC_LOG_EVENTO_CCE_NFE         = 'Carta de Correção Eletrônica';
+  DESC_LOG_EVENTO_CCE_NFE         = 'Carta de Correcao Eletronica';
   DESC_LOG_INUTILIZA_NRO_NFE      = 'Inutilização de numerão para NF-e';
   DESC_LOG_CONSULTAR_NRO_LOTE_NFE = 'Consultar retorno do Lote/Recibo de NF-e';
   DESC_LOG_EVENTO_ATUALIZAR_CUSTO = 'Atualização de Custo de Produto';
@@ -436,9 +437,12 @@ const
   FILE_AUTOBACKUP   = 'AutoBackupGA.exe';
 
   DOWNLOAD_URL_COMPANY        = {$IFDEF DGE}'www.masterdados.com.br/downloads/%s'{$ELSE}'www.agilsoftwares.com.br/downloads/%s'{$ENDIF};
-  DOWNLOAD_URL_HOME_AUTOMACAO = 'http://www.homeautomacao.com/suporte/agil/';
+  DOWNLOAD_URL_AGIL_SOFTWARES = 'www.agilsoftwares.com.br';
+  DOWNLOAD_URL_HOME_AUTOMACAO = 'www.homeautomacao.com/suporte/agil/';
   DOWNLOAD_URL_GOOGLE_DRIVE   = 'https://drive.google.com/uc?export=download&id=%s';
 
+  DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE  = DOWNLOAD_URL_AGIL_SOFTWARES + '/upgrade/';
+  DOWNLOAD_URL_AGIL_SOFTWARES_DOWNLOAD = DOWNLOAD_URL_AGIL_SOFTWARES + '/downloads/';
   DOWNLOAD_URL_HOME_AUTOMACAO_UPGRADE  = DOWNLOAD_URL_HOME_AUTOMACAO + 'upgrade/';
   DOWNLOAD_URL_HOME_AUTOMACAO_DOWNLOAD = DOWNLOAD_URL_HOME_AUTOMACAO + 'downloads/';
 

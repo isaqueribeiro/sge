@@ -141,7 +141,8 @@ uses
   UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas',
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
-  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa};
+  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
+  UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade};
 
 {$R *.res}
 

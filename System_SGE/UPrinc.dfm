@@ -4645,7 +4645,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4734,6 +4733,7 @@ object frmPrinc: TfrmPrinc
       Index = 7
     end
     object RbnTabAjuda: TdxRibbonTab
+      Active = True
       Caption = 'Ajuda'
       Groups = <
         item
@@ -5331,6 +5331,10 @@ object frmPrinc: TfrmPrinc
         end
         item
           BeginGroup = True
+          Visible = True
+          ItemName = 'BrBtnUpgrade'
+        end
+        item
           Visible = True
           ItemName = 'BrBtnSobre'
         end>
@@ -6328,6 +6332,17 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 68
       SyncImageIndex = False
       ImageIndex = 68
+    end
+    object BrBtnUpgrade: TdxBarLargeButton
+      Caption = 'Atualizar Sistema'
+      Category = 18
+      Hint = 'Atualizar Sistema'
+      Visible = ivAlways
+      LargeImageIndex = 77
+      OnClick = BrBtnUpgradeClick
+      HotImageIndex = 77
+      SyncImageIndex = False
+      ImageIndex = 77
     end
   end
   object BrPpEntrada: TdxBarPopupMenu

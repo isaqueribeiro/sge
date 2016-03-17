@@ -68,6 +68,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure HabilitarDesabilitar_Btns;
@@ -109,6 +110,12 @@ begin
   tblEmpresa.Open;
 
   BtnEnviarCCe.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+end;
+
+procedure TfrmGeCartaCorrecao.FormShow(Sender: TObject);
+begin
+  inherited;
+  RegistrarNovaRotinaSistema;
 end;
 
 procedure TfrmGeCartaCorrecao.dbNFeButtonClick(Sender: TObject);

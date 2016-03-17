@@ -15,9 +15,11 @@ uses
   function GetInternalName : String;
   function GetProductName : String;
   function GetProductVersion : String;
+  function GetFileVersion : String;
   function GetFileDescription : String;
   function GetCompanyName : String;
   function GetContacts : String;
+  function GetReleaseDate : String;
   function GetConectedInternet : Boolean;
   function GetEmailValido(email : String; bShowMsg : Boolean) : Boolean;
 
@@ -161,6 +163,11 @@ begin
   Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_VERSION);
 end;
 
+function GetFileVersion : String;
+begin
+  Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
+end;
+
 function GetFileDescription : String;
 begin
   //Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_DESCRIPTION);
@@ -177,6 +184,11 @@ function GetContacts : String;
 begin
   //Result := TInfoVersao.GetInstance().getPropertyValue(ivCONTACTS);
   Result := TPersonalizaEmpresa.GetInstance().Contacts;
+end;
+
+function GetReleaseDate : String;
+begin
+  Result := TInfoVersao.GetInstance().getPropertyValue(ivRELEASE_DATE);
 end;
 
 function GetConectedInternet : Boolean;
@@ -399,8 +411,8 @@ end;
 
 function RemoveAcentos(Str : String) : String;
 const
-  COM_ACENTO = 'àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜªº';
-  SEM_ACENTO = 'aaeouaoaeioucuAAEOUAOAEIOUCUao';
+  COM_ACENTO = 'ñàâêôûãõáéíóúçüÑÀÂÊÔÛÃÕÁÉÍÓÚÇÜªº';
+  SEM_ACENTO = 'naaeouaoaeioucuNAAEOUAOAEIOUCUao';
 var
   X : Integer;
 begin

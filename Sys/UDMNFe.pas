@@ -175,22 +175,6 @@ type
     frrRequisicaoCompra: TfrxReport;
     frrCartaCorrecaoE: TfrxReport;
     qryNFe: TIBQuery;
-    qryNFeANOVENDA: TSmallintField;
-    qryNFeNUMVENDA: TIntegerField;
-    qryNFeEMPRESA: TIBStringField;
-    qryNFeDATAEMISSAO: TDateField;
-    qryNFeHORAEMISSAO: TTimeField;
-    qryNFeSERIE: TIBStringField;
-    qryNFeNUMERO: TIntegerField;
-    qryNFeMODELO: TSmallintField;
-    qryNFeVERSAO: TSmallintField;
-    qryNFeCHAVE: TIBStringField;
-    qryNFePROTOCOLO: TIBStringField;
-    qryNFeRECIBO: TIBStringField;
-    qryNFeXML_FILENAME: TIBStringField;
-    qryNFeXML_FILE: TMemoField;
-    qryNFeLOTE_ANO: TSmallintField;
-    qryNFeLOTE_NUM: TIntegerField;
     qryCartaCorrecaoNFe: TIBDataSet;
     updCartaCorrecaoNFe: TIBUpdateSQL;
     qryCartaCorrecaoNFeCCE_NUMERO: TIntegerField;
@@ -2852,14 +2836,13 @@ begin
       end;
 
       sInformacaoFisco := Trim(GetInformacaoFisco);
-      InfAdic.infCpl   := ' * * * ' + #13 +
-                            'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
-                            IfThen(OcultarVencimentos, '', ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ') + #13 +
-                            'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * * * ' + #13 +
-                            'Observações: ' + qryCalculoImposto.FieldByName('OBS').AsString +
-                            IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-                              FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
-                              FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
+      InfAdic.infCpl   := 'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
+                          IfThen(OcultarVencimentos, '', ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ') + #13 +
+                          'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * * * ' + #13 +
+                          'Observações: ' + qryCalculoImposto.FieldByName('OBS').AsString +
+                          IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                            FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
+                            FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
 
       if (sInformacaoFisco <> EmptyStr) then
         InfAdic.infAdFisco := sInformacaoFisco;
@@ -4221,14 +4204,13 @@ begin
       end;
 
       sInformacaoFisco := Trim(GetInformacaoFisco);
-      InfAdic.infCpl   := ' * * * ' + #13 +
-                            'Compra: ' + qryEntradaCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
-                            ' - Forma/Cond. Pgto.: ' + qryEntradaCalculoImposto.FieldByName('FORMA_PAGO').AsString + '/' + qryEntradaCalculoImposto.FieldByName('COND_PAGO_FULL').AsString + ' * * * ' + #13 +
-                            'Usuário: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
-                            'Observações: ' + qryEntradaCalculoImposto.FieldByName('OBS').AsString +
-                            IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-                              FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
-                              FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
+      InfAdic.infCpl   := 'Compra: ' + qryEntradaCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
+                          ' - Forma/Cond. Pgto.: ' + qryEntradaCalculoImposto.FieldByName('FORMA_PAGO').AsString + '/' + qryEntradaCalculoImposto.FieldByName('COND_PAGO_FULL').AsString + ' * * * ' + #13 +
+                          'Usuário: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
+                          'Observações: ' + qryEntradaCalculoImposto.FieldByName('OBS').AsString +
+                          IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                            FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
+                            FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
 
       if ( sInformacaoFisco <> EmptyStr ) then
         InfAdic.infAdFisco := sInformacaoFisco;
@@ -5293,7 +5275,10 @@ begin
 
       AbrirEmitente(sCNPJEmitente);
       AbrirCartaCorrecao(sCNPJEmitente, ControleCCe);
-      AbrirNFe(sCNPJEmitente, qryCartaCorrecaoNFeNFE_MODELO.AsInteger, qryCartaCorrecaoNFeNFE_SERIE.AsString, qryCartaCorrecaoNFeNFE_NUMERO.AsInteger);
+      AbrirNFe(sCNPJEmitente,
+        qryCartaCorrecaoNFeNFE_MODELO.AsInteger,
+        qryCartaCorrecaoNFeNFE_SERIE.AsString,
+        qryCartaCorrecaoNFeNFE_NUMERO.AsInteger);
 
       with ACBrNFe do
       begin
@@ -5308,20 +5293,20 @@ begin
 
         iNumeroCarta := GetNextID('TBEMPRESA', 'CARTA_CORRECAO_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente));
 
-        Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFeMODELO.AsInteger);
-        Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFeVERSAO.AsInteger);
+        Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFe.FieldByName('MODELO').AsInteger);
+        Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFe.FieldByName('VERSAO').AsInteger);
 
-        sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryNFeXML_FILENAME.AsString;
+        sFileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryNFe.FieldByName('XML_FILENAME').AsString;
         ForceDirectories( ExtractFilePath(sFileNameXML) );
-        qryNFeEmitidaXML_FILE.SaveToFile( sFileNameXML );
+        TMemoField(qryNFe.FieldByName('XML_FILE')).SaveToFile( sFileNameXML );
 
         NotasFiscais.Clear;
-        if not NotasFiscais.LoadFromString( qryNFeEmitidaXML_FILE.AsWideString ) then
+        if not NotasFiscais.LoadFromString( qryNFe.FieldByName('XML_FILE').AsWideString ) then
           raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + sFileNameXML);
 
         // Numero do Lote de Envio
         iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
-        sCorrecao   := Trim(qryCartaCorrecaoNFeCCE_TEXTO.AsString);
+        sCorrecao   := RemoveAcentos(Trim(qryCartaCorrecaoNFeCCE_TEXTO.AsString));
 
         EventoNFe.Evento.Clear;
         EventoNFe.idLote := iNumeroLote;
@@ -5332,14 +5317,14 @@ begin
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
           infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
-          infEvento.chNFe  := qryNFeCHAVE.AsString;
+          infEvento.chNFe  := qryNFe.FieldByName('CHAVE').AsString;
           infEvento.CNPJ   := sCNPJEmitente;
           infEvento.dhEvento   := GetDateTimeDB;
           infEvento.tpEvento   := teCCe;
           infEvento.nSeqEvento := iNumeroCarta;
-          infEvento.detEvento.descEvento := AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE);
+          infEvento.detEvento.descEvento := RemoveAcentos(AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE));
           infEvento.detEvento.xCorrecao  := sCorrecao;
-          infEvento.detEvento.xCondUso   := Trim(sCondicaoUso);
+          infEvento.detEvento.xCondUso   := RemoveAcentos(Trim(sCondicaoUso));
         end;
 
         // Enviar o evento de CC-e
@@ -5358,7 +5343,7 @@ begin
             sLOG.Add('-');
             sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE));
             sLOG.Add('Emitente  : ' + sCNPJEmitente);
-            sLOG.Add('Chave NF-e: ' + qryNFeCHAVE.AsString);
+            sLOG.Add('Chave NF-e: ' + qryNFe.FieldByName('CHAVE').AsString);
             sLOG.Add('-');
             sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
             sLOG.Add('Número Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
