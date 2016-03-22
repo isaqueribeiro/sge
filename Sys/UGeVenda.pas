@@ -2887,7 +2887,7 @@ var
   iModeloNFe ,
   iVersaoNFe : Integer;
   tTipoNota  : TTipoNF;
-  cValorProdutoNF : Currency;
+  cValorNF   : Currency;
 begin
   if IbDtstTabela.IsEmpty then
     Exit;
@@ -2911,7 +2911,7 @@ begin
       , iModeloNFe
       , iVersaoNFe
       , tTipoNota
-      , cValorProdutoNF
+      , cValorNF
     );
 
     if bNotaValida then
@@ -2924,8 +2924,8 @@ begin
       if ( IbDtstTabelaCODCLI.AsString <> sDestinatario ) then
         ShowWarning('NF-e selecionada não pertence ao cliente ' + GetClienteNome(IbDtstTabelaCODCLIENTE.AsInteger) + '.')
       else
-      if ( IbDtstTabelaTOTALVENDA_BRUTA.AsCurrency <> cValorProdutoNF ) then
-        ShowWarning('NF-e com Valor Total de Produtos diferente ao registrado na venda.')
+      if ( IbDtstTabelaTOTALVENDA.AsCurrency <> cValorNF ) then
+        ShowWarning('NF-e com Valor Total da Nota Fiscal diferente ao registrado na venda.')
       else
       if ShowConfirm('Confirma a importação do XML da NF-e para o registro de venda selecionado?') then
       begin
