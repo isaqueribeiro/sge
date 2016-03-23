@@ -4274,7 +4274,7 @@ begin
       if ( not DelphiIsRunning ) then
         ACBrNFe.NotasFiscais.Validar;
 
-      ACBrNFe.NotasFiscais.Items[0].GravarXML( EmptyStr );
+      ACBrNFe.NotasFiscais.Items[0].GravarXML;
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;
 
@@ -6332,7 +6332,7 @@ begin
       if ( not DelphiIsRunning ) then
         ACBrNFe.NotasFiscais.Validar;
 
-      ACBrNFe.NotasFiscais.Items[0].GravarXML( EmptyStr );
+      ACBrNFe.NotasFiscais.Items[0].GravarXML;
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;
 
@@ -7138,8 +7138,8 @@ begin
         aRecibo    := aProtocolo;
         aValorNF   := NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF;
 
-        aNomeArquivoXML := aChave + '-nfe_view.xml';
-        NotasFiscais.Items[0].GravarXML(ExtractFilePath(sArquivo) + aNomeArquivoXML);
+        aNomeArquivoXML := aChave + '_view.xml';
+        NotasFiscais.Items[0].GravarXML(aNomeArquivoXML, ExtractFilePath(sArquivo));
       end;
 
       NotasFiscais.Imprimir;
