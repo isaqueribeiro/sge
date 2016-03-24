@@ -225,7 +225,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Top = 0
         Width = 375
         Height = 514
-        ActivePage = TbsGeral
+        ActivePage = TbsArquivos
         Align = alClient
         MultiLine = True
         TabOrder = 0

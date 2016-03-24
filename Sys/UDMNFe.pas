@@ -567,6 +567,7 @@ begin
       ConfigACBr.lblToken.Enabled     := (gSistema.Codigo = SISTEMA_PDV);
       ConfigACBr.edToken.Enabled      := (gSistema.Codigo = SISTEMA_PDV);
       ConfigACBr.ckEmitirNFCe.Enabled := (gSistema.Codigo = SISTEMA_PDV);
+      ConfigACBr.ckAdicionaLiteral.Enabled := (gSistema.Codigo <> SISTEMA_PDV);
       {$ENDIF}
 
       LerConfiguracao(sCNPJEmitente);
@@ -975,7 +976,7 @@ begin
 
       ckSalvarArqs.Checked                     := ReadBool(sSecaoArquivos, 'Salvar'        , False);
       ckPastaMensal.Checked                    := ReadBool(sSecaoArquivos, 'PastaMensal'   , False);
-      ckAdicionaLiteral.Checked                := ReadBool(sSecaoArquivos, 'AddLiteral'    , False);
+      ckAdicionaLiteral.Checked                := IfThen(gSistema.Codigo = SISTEMA_PDV, True, ReadBool(sSecaoArquivos, 'AddLiteral', False));
       ckEmissaoPathNFe.Checked                 := ReadBool(sSecaoArquivos, 'EmissaoPathNFe', False);
       ckSalvaCCeCancelamentoPathEvento.Checked := ReadBool(sSecaoArquivos, 'SalvarCCeCanPathEvento', False);
       ckSepararPorCNPJ.Checked                 := ReadBool(sSecaoArquivos, 'SepararPorCNPJ'        , False);
@@ -4580,6 +4581,9 @@ begin
         aDestinatario := Dest.CNPJCPF;
         aSerie    := FormatFloat('#00', Ide.serie);
         aNumero   := Ide.nNF;
+
+        if (aDestinatario = EmptyStr) then
+          aDestinatario := CONSUMIDOR_FINAL_CNPJ;
 
         Case Ide.modelo of
           MODELO_NFE  : aModelo := Ord(moNFe);
