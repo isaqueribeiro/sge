@@ -382,6 +382,8 @@ type
     function EnviarEmail_Generico(const sCNPJEmitente, sNumeroDocumento, sEmailDestinatario : String;
       const sArquivo : String = '') : Boolean;
 
+    function TipoEmissaoCupomTexto(const sCNPJEmitente : String) : Boolean;
+
     function ImprimirCupomNaoFiscal(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       const BlocoImpressaoCupom : TBlocoImpressaoCupom = bicCupomRelatorioGerencial) : Boolean;
@@ -965,6 +967,7 @@ begin
       begin
         Arquivos.PathSalvar  := edPathLogs.Text;
         Arquivos.PathSchemas := edPathSchemas.Text;
+
         Arquivos.PathNFe     := StringReplace(Arquivos.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
         Arquivos.PathInu     := StringReplace(Arquivos.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
         Arquivos.PathEvento  := StringReplace(Arquivos.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
@@ -981,12 +984,14 @@ begin
       ckSalvaCCeCancelamentoPathEvento.Checked := ReadBool(sSecaoArquivos, 'SalvarCCeCanPathEvento', False);
       ckSepararPorCNPJ.Checked                 := ReadBool(sSecaoArquivos, 'SepararPorCNPJ'        , False);
       ckSepararPorModelo.Checked               := ReadBool(sSecaoArquivos, 'SepararPorModelo'      , False);
-      edPathNFe.Text    := ReadString(sSecaoArquivos, 'PathNFe'   , ACBrNFe.Configuracoes.Arquivos.PathNFe) ;
-      edPathInu.Text    := ReadString(sSecaoArquivos, 'PathInu'   , ACBrNFe.Configuracoes.Arquivos.PathInu) ;
-      edPathEvento.Text := ReadString(sSecaoArquivos, 'PathEvento', ACBrNFe.Configuracoes.Arquivos.PathEvento) ;
-      //edPathCan.Text    := ReadString(sSecaoArquivos, 'PathCan'   , ACBrNFe.Configuracoes.Arquivos.PathCan) ;
-      //edPathDPEC.Text   := ReadString(sSecaoArquivos, 'PathDPEC'  , ACBrNFe.Configuracoes.Arquivos.PathDPEC) ;
-      //edPathCCe.Text    := ReadString(sSecaoArquivos, 'PathCCe'   , ACBrNFe.Configuracoes.Arquivos.PathCCe) ;
+
+      edPathNFe.Text    := ACBrNFe.Configuracoes.Arquivos.PathNFe;
+      edPathInu.Text    := ACBrNFe.Configuracoes.Arquivos.PathInu;
+      edPathEvento.Text := ACBrNFe.Configuracoes.Arquivos.PathEvento;
+      //ACBrNFe.Configuracoes.Arquivos.PathCan;
+      //ACBrNFe.Configuracoes.Arquivos.PathCCe;
+      //ACBrNFe.Configuracoes.Arquivos.PathMDe;
+      //ACBrNFe.Configuracoes.Arquivos.PathDPEC;
 
       with ACBrNFe.Configuracoes.Arquivos do
       begin
@@ -1288,6 +1293,15 @@ begin
     memRespWS.Free;
     memInfo.Free;
   end;
+end;
+
+function TDMNFe.TipoEmissaoCupomTexto(const sCNPJEmitente : String): Boolean;
+var
+  aTipoEmissao : TEcfTipo;
+begin
+  LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
+  aTipoEmissao := TEcfTipo(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_TP', 0));
+  Result := (aTipoEmissao in [ecfPadraoWindows, ecfLPTX, ecfTEXTO]);
 end;
 
 procedure TDMNFe.LoadXML(MyMemo: TStringList; MyWebBrowser: TWebBrowser);
@@ -2895,18 +2909,15 @@ begin
       compra.xCont := '';
 
       ACBrNFe.NotasFiscais.GerarNFe;
-
-      if ( not DelphiIsRunning ) then
-        ACBrNFe.NotasFiscais.Assinar;
+      ACBrNFe.NotasFiscais.Assinar;
 
       if GetSolicitaDHSaidaNFe( sCNPJEmitente ) then
         if not ACBrNFe.NotasFiscais.ValidarRegrasdeNegocios(sErros) then
           raise Exception.Create( sErros );
 
-      if ( not DelphiIsRunning ) then
-        ACBrNFe.NotasFiscais.Validar;
+      ACBrNFe.NotasFiscais.Validar;
 
-      //ACBrNFe.NotasFiscais.Items[0].SaveToFile( EmptyStr );
+      ACBrNFe.NotasFiscais.Items[0].NomeArq := EmptyStr;
       ACBrNFe.NotasFiscais.Items[0].GravarXML;
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;
@@ -5484,7 +5495,9 @@ function TDMNFe.GerarNFCeOnLineACBr(const sCNPJEmitente: String;
   var DenegadaMotivo: String; const Imprimir: Boolean): Boolean;
 var
   DtHoraEmiss : TDateTime;
-  sErrorMsg   : String;
+  sErrorMsg   ,
+  sLogXmlEnv  ,
+  sLogXmlRec  : String;
 begin
 (*
   IMR - 08/03/2016 :
@@ -5509,7 +5522,7 @@ begin
 
     GerarNFCEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFCe, iNumeroNFCe, FileNameXML);
 
-    iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+    iNumeroLote := StrToInt(Copy(FormatDateTime('yymmddhhmmss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
 
@@ -5526,6 +5539,12 @@ begin
       ReciboNFCE    := ACBrNFe.WebServices.Retorno.Recibo;
 
       UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
+
+      // Renomer no diretório os arquivos XML de envio e retorno dos lotes de NFC-e
+      sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-env-lot.xml', '//', '/', [rfReplaceAll]);
+      sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-rec.xml',     '//', '/', [rfReplaceAll]);
+      RenameFile(sLogXmlEnv, StringReplace(sLogXmlEnv, '.xml', '.xml.nfce', [rfReplaceAll]));
+      RenameFile(sLogXmlRec, StringReplace(sLogXmlRec, '.xml', '.xml.nfce', [rfReplaceAll]));
     end;
 
   except
@@ -6326,16 +6345,14 @@ begin
       compra.xCont := EmptyStr;
 
       ACBrNFe.NotasFiscais.GerarNFe;
-      
-      if ( not DelphiIsRunning ) then
-        ACBrNFe.NotasFiscais.Assinar;
+      ACBrNFe.NotasFiscais.Assinar;
 
       if not ACBrNFe.NotasFiscais.ValidarRegrasdeNegocios(sErros) then
         raise Exception.Create( sErros );
 
-      if ( not DelphiIsRunning ) then
-        ACBrNFe.NotasFiscais.Validar;
+      ACBrNFe.NotasFiscais.Validar;
 
+      ACBrNFe.NotasFiscais.Items[0].NomeArq := EmptyStr;
       ACBrNFe.NotasFiscais.Items[0].GravarXML;
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;

@@ -1519,19 +1519,21 @@ begin
       begin
         if DMNFe.IsEstacaoEmiteNFCe then
         begin
-//          // -- Carregar o arquivo XML da NFC-e para impressão, caso ela fora gerar corretamente acima
-//          // -- Caso o tipo de impressora seja Daruma ou Bematech
-//          DMNFe.ImprimirDANFE_ESCPOSACBr(
-//              DataSetVenda.FieldByName('CODEMP').AsString
-//            , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-//            , DataSetVenda.FieldByName('ANO').AsInteger
-//            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
-          DMNFe.ImprimirCupomNaoFiscal(
-              DataSetVenda.FieldByName('CODEMP').AsString
-            , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-            , DataSetVenda.FieldByName('ANO').AsInteger
-            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+          // -- Carregar o arquivo XML da NFC-e para impressão, caso ela fora gerar corretamente acima
+          // -- Caso o tipo de impressora seja Daruma ou Bematech
+          if DMNFe.TipoEmissaoCupomTexto(DataSetVenda.FieldByName('CODEMP').AsString) then
+            DMNFe.ImprimirCupomNaoFiscal(
+                DataSetVenda.FieldByName('CODEMP').AsString
+              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+              , DataSetVenda.FieldByName('ANO').AsInteger
+              , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
+          else
+            DMNFe.ImprimirDANFE_ESCPOSACBr(
+                DataSetVenda.FieldByName('CODEMP').AsString
+              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+              , DataSetVenda.FieldByName('ANO').AsInteger
+              , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
         end
         else
         if GetCupomNaoFiscalEmitir then
@@ -1556,18 +1558,21 @@ begin
         if bConfirmado then
           if DMNFe.IsEstacaoEmiteNFCe and (not DataSetNotaFiscal.IsEmpty) then
           begin
-//            // -- Caso o tipo de impressora seja Daruma ou Bematech
-//            DMNFe.ImprimirDANFE_ESCPOSACBr(
-//                DataSetVenda.FieldByName('CODEMP').AsString
-//              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-//              , DataSetVenda.FieldByName('ANO').AsInteger
-//              , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
-            DMNFe.ImprimirCupomNaoFiscal(
-                DataSetVenda.FieldByName('CODEMP').AsString
-              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-              , DataSetVenda.FieldByName('ANO').AsInteger
-              , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+            // -- Carregar o arquivo XML da NFC-e para impressão, caso ela fora gerar corretamente acima
+            // -- Caso o tipo de impressora seja Daruma ou Bematech
+            if DMNFe.TipoEmissaoCupomTexto(DataSetVenda.FieldByName('CODEMP').AsString) then
+              DMNFe.ImprimirCupomNaoFiscal(
+                  DataSetVenda.FieldByName('CODEMP').AsString
+                , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+                , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+                , DataSetVenda.FieldByName('ANO').AsInteger
+                , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
+            else
+              DMNFe.ImprimirDANFE_ESCPOSACBr(
+                  DataSetVenda.FieldByName('CODEMP').AsString
+                , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+                , DataSetVenda.FieldByName('ANO').AsInteger
+                , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
           end
           else
           if GetCupomNaoFiscalEmitir then
