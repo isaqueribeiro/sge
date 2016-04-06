@@ -1998,7 +1998,7 @@ begin
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroNFe > ' + E.Message);
+      raise Exception.Create('UpdateNumeroNFCe > ' + E.Message);
   end;
 end;
 
@@ -2017,7 +2017,7 @@ begin
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroNFe > ' + E.Message);
+      raise Exception.Create('UpdateNumeroCCe > ' + E.Message);
   end;
 end;
 
@@ -5277,8 +5277,9 @@ var
   sCorrecao   ,
   sRetornoXML ,
   sProtocolo  : String;
-  iNumeroLote  ,
-  iNumeroCarta : Integer;
+  iNumeroLote   ,
+  iNumeroCarta  ,
+  iNumeroEvento : Integer;
   sLOG : TStringList;
 begin
   sLOG := TStringList.Create;
@@ -5306,7 +5307,13 @@ begin
         if not bRetorno then
           Exit;
 
-        iNumeroCarta := GetNextID('TBEMPRESA', 'CARTA_CORRECAO_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente));
+        iNumeroCarta  := GetNextID('TBEMPRESA', 'CARTA_CORRECAO_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente));
+        iNumeroEvento := GetCountID('TBNFE_CARTA_CORRECAO',
+          'where CCE_EMPRESA = ' + QuotedStr(sCNPJEmitente) +
+          '  and NFE_NUMERO  = ' + qryCartaCorrecaoNFeNFE_NUMERO.AsString +
+          '  and NFE_SERIE   = ' + qryCartaCorrecaoNFeNFE_SERIE.AsString  +
+          '  and NFE_MODELO  = ' + qryCartaCorrecaoNFeNFE_MODELO.AsString +
+          '  and CCE_ENVIADA = 1');
 
         Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFe.FieldByName('MODELO').AsInteger);
         Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFe.FieldByName('VERSAO').AsInteger);
@@ -5316,8 +5323,10 @@ begin
         TMemoField(qryNFe.FieldByName('XML_FILE')).SaveToFile( sFileNameXML );
 
         NotasFiscais.Clear;
-        if not NotasFiscais.LoadFromString( qryNFe.FieldByName('XML_FILE').AsWideString ) then
+        if not NotasFiscais.LoadFromFile(sFileNameXML, False) then
           raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + sFileNameXML);
+//        if not NotasFiscais.LoadFromString( qryNFe.FieldByName('XML_FILE').AsWideString ) then
+//          raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + sFileNameXML);
 
         // Numero do Lote de Envio
         iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));

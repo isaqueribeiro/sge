@@ -315,6 +315,7 @@ var
 
   function GetGeneratorID(const GeneratorName : String) : Integer;
   function GetNextID(NomeTabela, CampoChave : String; const sWhere : String = '') : Largeint;
+  function GetCountID(NomeTabela : String; const sWhere : String = '') : Largeint;
   function GetGuidID38 : String;
   function GetPaisNomeDefault : String;
   function GetEstadoNomeDefault : String;
@@ -2368,6 +2369,20 @@ begin
     Result := FieldByName('ID').AsInteger + 1;
   end;
 end;
+
+function GetCountID(NomeTabela : String; const sWhere : String = '') : Largeint;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select count(*) as Registros from ' + NomeTabela + ' ' + sWhere);
+    Open;
+
+    Result := FieldByName('Registros').AsInteger + 1;
+  end;
+end;
+
 function GetGuidID38 : String;
 begin
   with DMBusiness, qryBusca do
