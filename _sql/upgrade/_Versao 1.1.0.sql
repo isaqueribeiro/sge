@@ -23927,3 +23927,22 @@ alter STATUS position 18;
 alter table TBCHEQUE
 alter OBS position 19;
 
+
+
+
+/*------ SYSDBA 14/04/2016 16:03:11 --------*/
+
+CREATE OR ALTER VIEW VW_TIPO_DOCUMENTO_ENTRADA(
+    TPD_CODIGO,
+    TPD_DESCRICAO)
+AS
+Select 0 as TPD_CODIGO , 'Avulso'        as TPD_DESCRICAO from RDB$DATABASE union
+Select 1 as TPD_CODIGO , 'Nota Fiscal *' as TPD_DESCRICAO from RDB$DATABASE union
+Select 2 as TPD_CODIGO , 'Cupom Fiscal'  as TPD_DESCRICAO from RDB$DATABASE union
+Select 3 as TPD_CODIGO , 'Nota Série D'  as TPD_DESCRICAO from RDB$DATABASE union
+Select 4 as TPD_CODIGO , 'Contrato'      as TPD_DESCRICAO from RDB$DATABASE union
+Select 5 as TPD_CODIGO , 'NF-e'          as TPD_DESCRICAO from RDB$DATABASE union
+Select 6 as TPD_CODIGO , 'NFC-e'         as TPD_DESCRICAO from RDB$DATABASE union
+Select 7 as TPD_CODIGO , 'NFS-e'         as TPD_DESCRICAO from RDB$DATABASE
+;
+
