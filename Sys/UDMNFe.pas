@@ -5708,7 +5708,7 @@ begin
     if ( GetSegmentoID(qryEmitenteCNPJ.AsString) = SEGMENTO_MERCADO_CARRO_ID ) then
       raise Exception.Create('O segmento da empresa não permite a emissão de NFC-e!');
 
-    iSerieNFCe  := qryEmitenteSERIE_NFE.AsInteger;
+    iSerieNFCe  := qryEmitenteSERIE_NFCE.AsInteger;
     iNumeroNFCe := GetNextID('TBEMPRESA', 'NUMERO_NFCE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFCE = ' + qryEmitenteSERIE_NFCE.AsString);
     DtHoraEmiss := Now; // GetDateTimeDB; // Porque a validação do XML ocorre pela data/hora local da máquina
 
@@ -6745,24 +6745,32 @@ begin
               , qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency   // Valor da Nota Fiscal
               , qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency         // Valor do ICMS da Nota Fiscal
               , EmptyStr                                                           // Assinatura Digital (A1 ou A3)
-//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdCSC      // ID do Código de Segurança do Contribuinte (CSC)
-//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.CSC        // Token / CSC
             )
           else
+          begin
+            sStringQRCode := ACBrNFe.NotasFiscais[0].NFe.infNFeSupl.qrCode;
+            sStringQRCode :=
+              StringReplace(
+                StringReplace(
+                  StringReplace(
+                    StringReplace(sStringQRCode, '![CDATA[', '', [rfReplaceAll])
+                  , ']]', '', [rfReplaceAll])
+                , '<', '', [rfReplaceAll])
+              , '>', '', [rfReplaceAll]);
+          end;
+
+          if ( Trim(sStringQRCode) = EmptyStr ) then
             sStringQRCode := ACBrNFe.GetURLQRCode(
-                ACBrNFe.NotasFiscais[0].NFe.ide.cUF
-              , ACBrNFe.NotasFiscais[0].NFe.ide.tpAmb
-              , ACBrNFe.NotasFiscais[0].NFe.infNFe.ID
-              , IfThen(ACBrNFe.NotasFiscais[0].NFe.Dest.idEstrangeiro <> EmptyStr
+                ACBrNFe.NotasFiscais[0].NFe.Ide.cUF
+              , ACBrNFe.NotasFiscais[0].NFe.Ide.tpAmb
+              , OnlyNumber(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID)
+              , Trim(IfThen(ACBrNFe.NotasFiscais[0].NFe.Dest.idEstrangeiro <> EmptyStr
                 , ACBrNFe.NotasFiscais[0].NFe.Dest.idEstrangeiro
-                , ACBrNFe.NotasFiscais[0].NFe.Dest.CNPJCPF)
-              , ACBrNFe.NotasFiscais[0].NFe.ide.dEmi
+                , ACBrNFe.NotasFiscais[0].NFe.Dest.CNPJCPF))
+              , ACBrNFe.NotasFiscais[0].NFe.Ide.dEmi
               , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vNF
               , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vICMS
-              , ACBrNFe.NotasFiscais[0].NFe.signature.DigestValue
-//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.IdCSC
-//              , TACBrNFe(ACBrNFe).Configuracoes.Geral.CSC
-            );
+              , ACBrNFe.NotasFiscais[0].NFe.signature.DigestValue);
 
           if Copy(sStringQRCode, 1, 1) = '?' then
             sStringQRCode := sUrlConsultaNFCe + sStringQRCode;
