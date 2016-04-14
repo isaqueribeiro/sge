@@ -1015,6 +1015,7 @@ begin
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
       ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoDF.ItemIndex); // ve310;
+      ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := False;
 
       if ( tipoDANFE = tipoDANFEFast ) then
         ACBrNFe.DANFE := frDANFE
@@ -5695,9 +5696,10 @@ begin
 
     LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
 
-    ACBrNFe.Configuracoes.Geral.RetirarAcentos := True;
-    ACBrNFe.Configuracoes.Geral.ModeloDF := moNFCe;
-    ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(ConfigACBr.cbVersaoDF.ItemIndex);
+    ACBrNFe.Configuracoes.Geral.RetirarAcentos       := True;
+    ACBrNFe.Configuracoes.Geral.ModeloDF             := moNFCe;
+    ACBrNFe.Configuracoes.Geral.VersaoDF             := TpcnVersaoDF(ConfigACBr.cbVersaoDF.ItemIndex);
+    ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True;
 
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatario( iCodigoCliente );
@@ -5825,23 +5827,6 @@ begin
           Dest.xNome   := qryDestinatario.FieldByName('NOME').AsString + IfThen(GetImprimirCodClienteNFe(sCNPJEmitente), ' ' + FormatFloat('##00000', qryDestinatario.FieldByName('CODIGO').AsInteger));
           Dest.Email   := Trim(AnsiLowerCase(qryDestinatario.FieldByName('EMAIL').AsString));
 
-          if ( (qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 0) and (Dest.CNPJCPF <> CONSUMIDOR_FINAL_CNPJ) ) then
-          begin
-            if (AnsiUpperCase(Copy(Trim(qryDestinatario.FieldByName('INSCEST').AsString), 1, 5)) = 'ISENT') or (Trim(qryDestinatario.FieldByName('INSCEST').AsString) = EmptyStr) then
-              Dest.indIEDest     := inIsento
-            else
-              Dest.indIEDest     := inContribuinte;
-
-            Dest.IE              := Trim(qryDestinatario.FieldByName('INSCEST').AsString);
-            Dest.ISUF            := EmptyStr;
-          end
-          else
-          begin
-            Dest.indIEDest       := inNaoContribuinte;
-            Dest.IE              := EmptyStr;
-            Dest.ISUF            := EmptyStr;
-          end;
-
           Dest.EnderDest.Fone    := qryDestinatario.FieldByName('FONE').AsString;
           Dest.EnderDest.CEP     := qryDestinatario.FieldByName('CEP').AsInteger;
           Dest.EnderDest.xLgr    := Trim( qryDestinatario.FieldByName('TLG_SIGLA').AsString + ' ' + qryDestinatario.FieldByName('LOG_NOME').AsString );
@@ -5854,6 +5839,11 @@ begin
           Dest.EnderDest.cPais   := qryDestinatario.FieldByName('PAIS_ID').AsInteger;  // 1058;
           Dest.EnderDest.xPais   := qryDestinatario.FieldByName('PAIS_NOME').AsString; // 'BRASIL';
         end;
+
+      // Dados padrões e obrigatórios para a geração da NFC-e
+      Dest.indIEDest := inNaoContribuinte;
+      Dest.IE        := EmptyStr;
+      Dest.ISUF      := EmptyStr;
 
   //Use os campos abaixo para informar o endereço de retirada quando for diferente do Emitente
   {      Retirada.CNPJCPF := '';
@@ -5940,9 +5930,9 @@ begin
           // NFe.Det[i].Prod.qTrib   :=   20;   2 caixas X 10 unidades por caixa = 20 unidades  = 20
           // NFe.Det[i].Prod.vUnTrib :=    5;   R$ 100,00 / 20 unidades = R$ 5,00 cada unidade  = 100,00 / 20 = 5,00
 
-          Prod.vFrete    := 0;                                        // I15 - Valor Total do Frete
-          Prod.vSeg      := 0;                                        // I16 - Valor Total do Seguro
-          Prod.vDesc     := qryDadosProduto.FieldByName('TOTAL_DESCONTO').AsCurrency; // I17 - Valor do Desconto
+          Prod.vFrete := 0;                                        // I15 - Valor Total do Frete
+          Prod.vSeg   := 0;                                        // I16 - Valor Total do Seguro
+          Prod.vDesc  := qryDadosProduto.FieldByName('TOTAL_DESCONTO').AsCurrency; // I17 - Valor do Desconto
 
           // Informação Adicional do Produto
 
@@ -6346,6 +6336,19 @@ begin
       if ( sInformacaoFisco <> EmptyStr ) then
         InfAdic.infAdFisco := sInformacaoFisco;
 
+//      infNFeSupl.qrCode := ACBrNFe.GetURLQRCode(
+//          ACBrNFe.NotasFiscais[0].NFe.ide.cUF
+//        , ACBrNFe.NotasFiscais[0].NFe.ide.tpAmb
+//        , ACBrNFe.NotasFiscais[0].NFe.infNFe.ID
+//        , IfThen(ACBrNFe.NotasFiscais[0].NFe.Dest.idEstrangeiro <> EmptyStr
+//          , ACBrNFe.NotasFiscais[0].NFe.Dest.idEstrangeiro
+//          , ACBrNFe.NotasFiscais[0].NFe.Dest.CNPJCPF)
+//        , ACBrNFe.NotasFiscais[0].NFe.ide.dEmi
+//        , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vNF
+//        , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vICMS
+//        , ACBrNFe.NotasFiscais[0].NFe.signature.DigestValue
+//      );
+//
       exporta.UFembarq   := EmptyStr;
       exporta.xLocEmbarq := EmptyStr;
 
