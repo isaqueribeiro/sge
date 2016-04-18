@@ -378,7 +378,7 @@ inherited frmGeVenda: TfrmGeVenda
             'Atendimento/Aberta'
             '--'
             'Finalizada'
-            'NF-e emitida'
+            'NF-e / NFC-e'
             'Cancelada')
           TabOrder = 0
           OnClick = RdgStatusVendaClick
@@ -3710,6 +3710,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , v.Fatdias'
       '  , v.Serie'
       '  , v.Nfe'
+      '  , coalesce(v.modelo_Nf, 0) as modelo_Nf'
       '  , v.Lote_nfe_ano'
       '  , v.Lote_nfe_numero'
       '  , v.Lote_nfe_Recibo'
@@ -3878,6 +3879,10 @@ inherited frmGeVenda: TfrmGeVenda
       FieldName = 'NFE'
       Origin = 'TBVENDAS.NFE'
       DisplayFormat = '###0000000'
+    end
+    object IbDtstTabelaMODELO_NF: TIntegerField
+      FieldName = 'MODELO_NF'
+      ProviderFlags = []
     end
     object IbDtstTabelaLOTE_NFE_ANO: TSmallintField
       FieldName = 'LOTE_NFE_ANO'
@@ -4340,7 +4345,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

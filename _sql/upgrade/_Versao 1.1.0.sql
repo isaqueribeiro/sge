@@ -23946,3 +23946,741 @@ Select 6 as TPD_CODIGO , 'NFC-e'         as TPD_DESCRICAO from RDB$DATABASE unio
 Select 7 as TPD_CODIGO , 'NFS-e'         as TPD_DESCRICAO from RDB$DATABASE
 ;
 
+
+
+
+/*------ SYSDBA 18/04/2016 11:06:51 --------*/
+
+ALTER TABLE TBVENDAS
+    ADD MODELO_NF DMN_SMALLINT_NN DEFAULT 55;
+
+COMMENT ON COLUMN TBVENDAS.MODELO_NF IS
+'Modelo da Nota Fiscal Eletronica emitida:
+55 - NF-e  (0)
+65 - NFC-e (1)';
+
+alter table TBVENDAS
+alter ANO position 1;
+
+alter table TBVENDAS
+alter CODCONTROL position 2;
+
+alter table TBVENDAS
+alter CODEMP position 3;
+
+alter table TBVENDAS
+alter CODCLIENTE position 4;
+
+alter table TBVENDAS
+alter CODCLI position 5;
+
+alter table TBVENDAS
+alter DTVENDA position 6;
+
+alter table TBVENDAS
+alter COMPETENCIA position 7;
+
+alter table TBVENDAS
+alter STATUS position 8;
+
+alter table TBVENDAS
+alter TOTALVENDA_BRUTA position 9;
+
+alter table TBVENDAS
+alter DESCONTO position 10;
+
+alter table TBVENDAS
+alter DESCONTO_CUPOM position 11;
+
+alter table TBVENDAS
+alter TOTALVENDA position 12;
+
+alter table TBVENDAS
+alter TOTALCUSTO position 13;
+
+alter table TBVENDAS
+alter DTFINALIZACAO_VENDA position 14;
+
+alter table TBVENDAS
+alter OBS position 15;
+
+alter table TBVENDAS
+alter DADOS_ENTREGA position 16;
+
+alter table TBVENDAS
+alter FORMAPAG position 17;
+
+alter table TBVENDAS
+alter FATDIAS position 18;
+
+alter table TBVENDAS
+alter SERIE position 19;
+
+alter table TBVENDAS
+alter NFE position 20;
+
+alter table TBVENDAS
+alter MODELO_NF position 21;
+
+alter table TBVENDAS
+alter DATAEMISSAO position 22;
+
+alter table TBVENDAS
+alter HORAEMISSAO position 23;
+
+alter table TBVENDAS
+alter CFOP position 24;
+
+alter table TBVENDAS
+alter VERIFICADOR_NFE position 25;
+
+alter table TBVENDAS
+alter XML_NFE position 26;
+
+alter table TBVENDAS
+alter XML_NFE_FILENAME position 27;
+
+alter table TBVENDAS
+alter VENDEDOR_COD position 28;
+
+alter table TBVENDAS
+alter USUARIO position 29;
+
+alter table TBVENDAS
+alter FORMAPAGTO_COD position 30;
+
+alter table TBVENDAS
+alter CONDICAOPAGTO_COD position 31;
+
+alter table TBVENDAS
+alter VENDA_PRAZO position 32;
+
+alter table TBVENDAS
+alter PRAZO_01 position 33;
+
+alter table TBVENDAS
+alter PRAZO_02 position 34;
+
+alter table TBVENDAS
+alter PRAZO_03 position 35;
+
+alter table TBVENDAS
+alter PRAZO_04 position 36;
+
+alter table TBVENDAS
+alter PRAZO_05 position 37;
+
+alter table TBVENDAS
+alter PRAZO_06 position 38;
+
+alter table TBVENDAS
+alter PRAZO_07 position 39;
+
+alter table TBVENDAS
+alter PRAZO_08 position 40;
+
+alter table TBVENDAS
+alter PRAZO_09 position 41;
+
+alter table TBVENDAS
+alter PRAZO_10 position 42;
+
+alter table TBVENDAS
+alter PRAZO_11 position 43;
+
+alter table TBVENDAS
+alter PRAZO_12 position 44;
+
+alter table TBVENDAS
+alter LOTE_NFE_ANO position 45;
+
+alter table TBVENDAS
+alter LOTE_NFE_NUMERO position 46;
+
+alter table TBVENDAS
+alter LOTE_NFE_RECIBO position 47;
+
+alter table TBVENDAS
+alter NFE_ENVIADA position 48;
+
+alter table TBVENDAS
+alter NFE_DENEGADA position 49;
+
+alter table TBVENDAS
+alter NFE_DENEGADA_MOTIVO position 50;
+
+alter table TBVENDAS
+alter CANCEL_USUARIO position 51;
+
+alter table TBVENDAS
+alter CANCEL_DATAHORA position 52;
+
+alter table TBVENDAS
+alter CANCEL_MOTIVO position 53;
+
+alter table TBVENDAS
+alter NFE_MODALIDADE_FRETE position 54;
+
+alter table TBVENDAS
+alter NFE_TRANSPORTADORA position 55;
+
+alter table TBVENDAS
+alter NFE_PLACA_VEICULO position 56;
+
+alter table TBVENDAS
+alter NFE_PLACA_UF position 57;
+
+alter table TBVENDAS
+alter NFE_PLACA_RNTC position 58;
+
+alter table TBVENDAS
+alter NFE_VALOR_BASE_ICMS position 59;
+
+alter table TBVENDAS
+alter NFE_VALOR_ICMS position 60;
+
+alter table TBVENDAS
+alter NFE_VALOR_BASE_ICMS_SUBST position 61;
+
+alter table TBVENDAS
+alter NFE_VALOR_ICMS_SUBST position 62;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_PRODUTO position 63;
+
+alter table TBVENDAS
+alter NFE_VALOR_FRETE position 64;
+
+alter table TBVENDAS
+alter NFE_VALOR_SEGURO position 65;
+
+alter table TBVENDAS
+alter NFE_VALOR_DESCONTO position 66;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_II position 67;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_IPI position 68;
+
+alter table TBVENDAS
+alter NFE_VALOR_PIS position 69;
+
+alter table TBVENDAS
+alter NFE_VALOR_COFINS position 70;
+
+alter table TBVENDAS
+alter NFE_VALOR_OUTROS position 71;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_NOTA position 72;
+
+alter table TBVENDAS
+alter CUSTO_OPER_PERCENTUAL position 73;
+
+alter table TBVENDAS
+alter CUSTO_OPER_FRETE position 74;
+
+alter table TBVENDAS
+alter CUSTO_OPER_OUTROS position 75;
+
+alter table TBVENDAS
+alter GERAR_ESTOQUE_CLIENTE position 76;
+
+alter table TBVENDAS
+alter CAIXA_ANO position 77;
+
+alter table TBVENDAS
+alter CAIXA_NUM position 78;
+
+alter table TBVENDAS
+alter CAIXA_PDV position 79;
+
+alter table TBVENDAS
+alter DNFE_COMPRA_ANO position 80;
+
+alter table TBVENDAS
+alter DNFE_COMPRA_COD position 81;
+
+alter table TBVENDAS
+alter DNFE_FORMA position 82;
+
+alter table TBVENDAS
+alter DNFE_UF position 83;
+
+alter table TBVENDAS
+alter DNFE_CNPJ_CPF position 84;
+
+alter table TBVENDAS
+alter DNFE_IE position 85;
+
+alter table TBVENDAS
+alter DNFE_COMPETENCIA position 86;
+
+alter table TBVENDAS
+alter DNFE_SERIE position 87;
+
+alter table TBVENDAS
+alter DNFE_NUMERO position 88;
+
+alter table TBVENDAS
+alter DNFE_MODELO position 89;
+
+alter table TBVENDAS
+alter DNFE_CHAVE position 90;
+
+alter table TBVENDAS
+alter DECF_MODELO position 91;
+
+alter table TBVENDAS
+alter DECF_NUMERO position 92;
+
+alter table TBVENDAS
+alter DECF_COO position 93;
+
+
+
+/*------ SYSDBA 18/04/2016 11:08:04 --------*/
+
+Update TBVENDAS v Set
+  v.modelo_nf = 55
+where v.modelo_nf is null;
+
+/*------ SYSDBA 18/04/2016 11:08:08 --------*/
+
+COMMIT WORK;
+
+
+/*------ SYSDBA 18/04/2016 11:10:54 --------*/
+
+COMMENT ON COLUMN TBVENDAS.MODELO_NF IS
+'Modelo da Nota Fiscal Eletronica emitida:
+0 - NF-e  (55)
+1 - NFC-e (65)';
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:11:22 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_SMALLINT_N'
+where (RDB$FIELD_NAME = 'MODELO_NF') and
+(RDB$RELATION_NAME = 'TBVENDAS')
+;
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:11:30 --------*/
+
+ALTER TABLE TBVENDAS ALTER COLUMN MODELO_NF
+DROP DEFAULT;
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:11:46 --------*/
+
+DROP INDEX IDX_TBVENDAS_NFE;
+
+CREATE INDEX IDX_TBVENDAS_NFE
+ON TBVENDAS (SERIE,NFE,MODELO_NF);
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:12:28 --------*/
+
+ALTER TABLE TBCOMPRAS
+    ADD MODELO_NF DMN_SMALLINT_N;
+
+COMMENT ON COLUMN TBCOMPRAS.MODELO_NF IS
+'Modelo da Nota Fiscal Eletronica emitida:
+0 - NF-e  (55)
+1 - NFC-e (65)';
+
+alter table TBCOMPRAS
+alter ANO position 1;
+
+alter table TBCOMPRAS
+alter CODCONTROL position 2;
+
+alter table TBCOMPRAS
+alter CODEMP position 3;
+
+alter table TBCOMPRAS
+alter CODFORN position 4;
+
+alter table TBCOMPRAS
+alter TIPO_ENTRADA position 5;
+
+alter table TBCOMPRAS
+alter TIPO_DOCUMENTO position 6;
+
+alter table TBCOMPRAS
+alter TIPO_MOVIMENTO position 7;
+
+alter table TBCOMPRAS
+alter NF position 8;
+
+alter table TBCOMPRAS
+alter NFSERIE position 9;
+
+alter table TBCOMPRAS
+alter MODELO_NF position 10;
+
+alter table TBCOMPRAS
+alter LOTE_NFE_ANO position 11;
+
+alter table TBCOMPRAS
+alter LOTE_NFE_NUMERO position 12;
+
+alter table TBCOMPRAS
+alter LOTE_NFE_RECIBO position 13;
+
+alter table TBCOMPRAS
+alter NFE_ENVIADA position 14;
+
+alter table TBCOMPRAS
+alter NFE_DENEGADA position 15;
+
+alter table TBCOMPRAS
+alter NFE_DENEGADA_MOTIVO position 16;
+
+alter table TBCOMPRAS
+alter VERIFICADOR_NFE position 17;
+
+alter table TBCOMPRAS
+alter XML_NFE position 18;
+
+alter table TBCOMPRAS
+alter XML_NFE_FILENAME position 19;
+
+alter table TBCOMPRAS
+alter DTLANCAMENTO position 20;
+
+alter table TBCOMPRAS
+alter DTEMISS position 21;
+
+alter table TBCOMPRAS
+alter HREMISS position 22;
+
+alter table TBCOMPRAS
+alter DTENT position 23;
+
+alter table TBCOMPRAS
+alter NFCFOP position 24;
+
+alter table TBCOMPRAS
+alter NATUREZA position 25;
+
+alter table TBCOMPRAS
+alter STATUS position 26;
+
+alter table TBCOMPRAS
+alter CALCULAR_TOTAIS position 27;
+
+alter table TBCOMPRAS
+alter IPI position 28;
+
+alter table TBCOMPRAS
+alter ICMSBASE position 29;
+
+alter table TBCOMPRAS
+alter ICMSVALOR position 30;
+
+alter table TBCOMPRAS
+alter ICMSSUBSTBASE position 31;
+
+alter table TBCOMPRAS
+alter ICMSSUBSTVALOR position 32;
+
+alter table TBCOMPRAS
+alter FRETE position 33;
+
+alter table TBCOMPRAS
+alter OUTROSCUSTOS position 34;
+
+alter table TBCOMPRAS
+alter DESCONTO position 35;
+
+alter table TBCOMPRAS
+alter VALORSEGURO position 36;
+
+alter table TBCOMPRAS
+alter VALORTOTAL_II position 37;
+
+alter table TBCOMPRAS
+alter VALORTOTAL_IPI position 38;
+
+alter table TBCOMPRAS
+alter VALORPIS position 39;
+
+alter table TBCOMPRAS
+alter VALORCOFINS position 40;
+
+alter table TBCOMPRAS
+alter TOTALPROD position 41;
+
+alter table TBCOMPRAS
+alter TOTALNF position 42;
+
+alter table TBCOMPRAS
+alter OBS position 43;
+
+alter table TBCOMPRAS
+alter USUARIO position 44;
+
+alter table TBCOMPRAS
+alter FORMAPAGTO_COD position 45;
+
+alter table TBCOMPRAS
+alter CONDICAOPAGTO_COD position 46;
+
+alter table TBCOMPRAS
+alter COMPRA_PRAZO position 47;
+
+alter table TBCOMPRAS
+alter PRAZO_01 position 48;
+
+alter table TBCOMPRAS
+alter PRAZO_02 position 49;
+
+alter table TBCOMPRAS
+alter PRAZO_03 position 50;
+
+alter table TBCOMPRAS
+alter PRAZO_04 position 51;
+
+alter table TBCOMPRAS
+alter PRAZO_05 position 52;
+
+alter table TBCOMPRAS
+alter PRAZO_06 position 53;
+
+alter table TBCOMPRAS
+alter PRAZO_07 position 54;
+
+alter table TBCOMPRAS
+alter PRAZO_08 position 55;
+
+alter table TBCOMPRAS
+alter PRAZO_09 position 56;
+
+alter table TBCOMPRAS
+alter PRAZO_10 position 57;
+
+alter table TBCOMPRAS
+alter PRAZO_11 position 58;
+
+alter table TBCOMPRAS
+alter PRAZO_12 position 59;
+
+alter table TBCOMPRAS
+alter DTFINALIZACAO_COMPRA position 60;
+
+alter table TBCOMPRAS
+alter TIPO_DESPESA position 61;
+
+alter table TBCOMPRAS
+alter CANCEL_USUARIO position 62;
+
+alter table TBCOMPRAS
+alter CANCEL_DATAHORA position 63;
+
+alter table TBCOMPRAS
+alter CANCEL_MOTIVO position 64;
+
+alter table TBCOMPRAS
+alter AUTORIZACAO_ANO position 65;
+
+alter table TBCOMPRAS
+alter AUTORIZACAO_CODIGO position 66;
+
+alter table TBCOMPRAS
+alter AUTORIZACAO_EMPRESA position 67;
+
+alter table TBCOMPRAS
+alter DNFE_ENTRADA_ANO position 68;
+
+alter table TBCOMPRAS
+alter DNFE_ENTRADA_COD position 69;
+
+alter table TBCOMPRAS
+alter DNFE_SAIDA_ANO position 70;
+
+alter table TBCOMPRAS
+alter DNFE_SAIDA_COD position 71;
+
+alter table TBCOMPRAS
+alter DNFE_FORMA position 72;
+
+alter table TBCOMPRAS
+alter DNFE_UF position 73;
+
+alter table TBCOMPRAS
+alter DNFE_CNPJ_CPF position 74;
+
+alter table TBCOMPRAS
+alter DNFE_IE position 75;
+
+alter table TBCOMPRAS
+alter DNFE_COMPETENCIA position 76;
+
+alter table TBCOMPRAS
+alter DNFE_SERIE position 77;
+
+alter table TBCOMPRAS
+alter DNFE_NUMERO position 78;
+
+alter table TBCOMPRAS
+alter DNFE_MODELO position 79;
+
+alter table TBCOMPRAS
+alter DNFE_CHAVE position 80;
+
+alter table TBCOMPRAS
+alter DECF_MODELO position 81;
+
+alter table TBCOMPRAS
+alter DECF_NUMERO position 82;
+
+alter table TBCOMPRAS
+alter DECF_COO position 83;
+
+
+
+/*------ SYSDBA 18/04/2016 11:13:00 --------*/
+
+Update TBVENDAS v Set
+  v.modelo_nf = 0;
+
+/*------ SYSDBA 18/04/2016 11:13:04 --------*/
+
+Update TBVENDAS v Set
+  v.modelo_nf = 0
+where v.modelo_nf is null
+  and v.nfe is not null;
+
+/*------ SYSDBA 18/04/2016 11:13:07 --------*/
+
+COMMIT WORK;
+
+
+/*------ SYSDBA 18/04/2016 11:13:42 --------*/
+
+DROP INDEX IDX_TBCOMPRAS_NFE;
+
+CREATE INDEX IDX_TBCOMPRAS_NFE
+ON TBCOMPRAS (CODFORN,NF,NFSERIE,MODELO_NF);
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:14:20 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_nfe_atualizar_venda for tbnfe_enviada
+active after insert position 0
+AS
+begin
+  if ( (new.anovenda > 0) and (new.numvenda > 0) ) then
+  begin
+    Update TBVENDAS v Set
+        v.serie = new.serie
+      , v.nfe   = new.numero
+      , v.modelo_nf = new.modelo
+      , v.nfe_enviada      = 1
+      , v.verificador_nfe  = new.chave
+      , v.xml_nfe_filename = new.xml_filename
+      , v.xml_nfe          = new.xml_file
+      , v.lote_nfe_ano     = new.lote_ano
+      , v.lote_nfe_numero  = new.lote_num
+      , v.lote_nfe_recibo  = new.recibo
+      , v.status      = 4 -- Nota Fiscal Gerada
+      , v.dataemissao = new.dataemissao
+      , v.horaemissao = new.horaemissao
+    where v.ano = new.anovenda
+      and v.codcontrol = new.numvenda;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:14:46 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_nfe_atualizar_compra for tbnfe_enviada
+active after insert position 1
+AS
+begin
+  if ( (new.anocompra > 0) and (new.numcompra > 0) ) then
+  begin
+    Update TBCOMPRAS c Set
+        c.nfserie   = new.serie
+      , c.nf        = new.numero
+      , c.modelo_nf = new.modelo
+      , c.nfe_enviada      = 1
+      , c.tipo_documento   = 5 -- NF-e
+      , c.verificador_nfe  = new.chave
+      , c.xml_nfe_filename = new.xml_filename
+      , c.xml_nfe          = new.xml_file
+      , c.lote_nfe_ano     = new.lote_ano
+      , c.lote_nfe_numero  = new.lote_num
+      , c.lote_nfe_recibo  = new.recibo
+      , c.status  = 4 -- Nota Fiscal Gerada
+      , c.dtemiss = new.dataemissao
+      , c.hremiss = new.horaemissao
+    where c.ano        = new.anocompra
+      and c.codcontrol = new.numcompra;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:15:34 --------*/
+
+CREATE OR ALTER VIEW VW_TIPO_DOCUMENTO_ENTRADA(
+    TPD_CODIGO,
+    TPD_DESCRICAO)
+AS
+Select 0 as TPD_CODIGO , 'Avulso'        as TPD_DESCRICAO from RDB$DATABASE union
+Select 1 as TPD_CODIGO , 'Nota Fiscal *' as TPD_DESCRICAO from RDB$DATABASE union
+Select 2 as TPD_CODIGO , 'Cupom Fiscal'  as TPD_DESCRICAO from RDB$DATABASE union
+Select 3 as TPD_CODIGO , 'Nota Série D'  as TPD_DESCRICAO from RDB$DATABASE union
+Select 4 as TPD_CODIGO , 'Contrato'      as TPD_DESCRICAO from RDB$DATABASE union
+Select 5 as TPD_CODIGO , 'NF-e'          as TPD_DESCRICAO from RDB$DATABASE union
+Select 6 as TPD_CODIGO , 'NFC-e'         as TPD_DESCRICAO from RDB$DATABASE union
+Select 7 as TPD_CODIGO , 'NFS-e'         as TPD_DESCRICAO from RDB$DATABASE union
+Select 8 as TPD_CODIGO , 'CT-e'          as TPD_DESCRICAO from RDB$DATABASE
+;
+
+
+
+
+/*------ SYSDBA 18/04/2016 11:16:45 --------*/
+
+CREATE OR ALTER VIEW VW_TIPO_DOCUMENTO_ENTRADA(
+    TPD_CODIGO,
+    TPD_DESCRICAO)
+AS
+Select 0 as TPD_CODIGO , 'Avulso'        as TPD_DESCRICAO from RDB$DATABASE union
+Select 1 as TPD_CODIGO , 'Nota Fiscal *' as TPD_DESCRICAO from RDB$DATABASE union
+Select 2 as TPD_CODIGO , 'Cupom Fiscal*' as TPD_DESCRICAO from RDB$DATABASE union
+Select 3 as TPD_CODIGO , 'Nota Série D*' as TPD_DESCRICAO from RDB$DATABASE union
+Select 4 as TPD_CODIGO , 'Contrato'      as TPD_DESCRICAO from RDB$DATABASE union
+Select 5 as TPD_CODIGO , 'NF-e'          as TPD_DESCRICAO from RDB$DATABASE union
+Select 6 as TPD_CODIGO , 'NFC-e'         as TPD_DESCRICAO from RDB$DATABASE union
+Select 7 as TPD_CODIGO , 'NFS-e'         as TPD_DESCRICAO from RDB$DATABASE union
+Select 8 as TPD_CODIGO , 'CT-e'          as TPD_DESCRICAO from RDB$DATABASE
+;
+

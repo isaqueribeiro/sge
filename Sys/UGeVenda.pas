@@ -395,6 +395,7 @@ type
     dbDadosEntrega: TDBMemo;
     nmPpCorrigirDadosEntrega: TMenuItem;
     cdsTabelaItensNCM_SH: TIBStringField;
+    IbDtstTabelaMODELO_NF: TIntegerField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -770,7 +771,7 @@ begin
     STATUS_VND_AND : Text := 'Em atendimento';
     STATUS_VND_ABR : Text := 'Aberta';
     STATUS_VND_FIN : Text := 'Finalizada';
-    STATUS_VND_NFE : Text := 'NF-e emitida';
+    STATUS_VND_NFE : Text := IfThen(Sender.DataSet.FieldByName('modelo_nf').AsInteger = 0,  'NF-e', 'NFC-e');
     STATUS_VND_CAN : Text := 'Cancelada';
     else
       Text := Sender.AsString;
@@ -1086,7 +1087,7 @@ begin
   begin
     Case IbDtstTabelaSTATUS.AsInteger of
       STATUS_VND_FIN : sMsg := 'Esta venda não pode ser excluída porque está finalizada.';
-      STATUS_VND_NFE : sMsg := 'Esta venda não pode ser excluída porque tem NF-e emitida';
+      STATUS_VND_NFE : sMsg := 'Esta venda não pode ser excluída porque tem NF-e/NFC-e emitida';
       STATUS_VND_CAN : sMsg := 'Esta venda não pode ser excluída porque está cancelada';
     end;
 
@@ -1507,7 +1508,7 @@ begin
   begin
     Case IbDtstTabelaSTATUS.AsInteger of
       STATUS_VND_FIN : sMsg := 'Esta venda não pode ser alterada porque está finalizada.';
-      STATUS_VND_NFE : sMsg := 'Esta venda não pode ser alterada porque tem NF-e emitida';
+      STATUS_VND_NFE : sMsg := 'Esta venda não pode ser alterada porque tem NF-e/NFC-e emitida';
       STATUS_VND_CAN : sMsg := 'Esta venda não pode ser alterada porque está cancelada';
     end;
 
@@ -1891,7 +1892,7 @@ begin
 
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) then
   begin
-    ShowWarning('Movimento de Venda já com NF-e gerada!');
+    ShowWarning('Movimento de Venda já com NF-e/NFC-e gerada!');
     Abort;
   end;
 
@@ -2808,13 +2809,21 @@ begin
     if GetEmitirCupom then
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin
-        if DMNFe.IsEstacaoEmiteNFCe and ( ((IbDtstTabelaNFE.AsCurrency > 0) and (IbDtstTabelaLOTE_NFE_ANO.AsInteger = 0)) or DelphiIsRunning ) then
+        if DMNFe.IsEstacaoEmiteNFCe and ((IbDtstTabelaNFE.AsCurrency > 0) and (IbDtstTabelaMODELO_NF.AsInteger = 1)) then // Modelo 1 (NFC-e [65])
         begin
-          DMNFe.ImprimirDANFE_ESCPOSACBr(
-              IbDtstTabela.FieldByName('CODEMP').AsString
-            , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
-            , IbDtstTabela.FieldByName('ANO').AsInteger
-            , IbDtstTabela.FieldByName('CODCONTROL').AsInteger);
+          if DMNFe.TipoEmissaoCupomTexto(IbDtstTabela.FieldByName('CODEMP').AsString) then
+            DMNFe.ImprimirCupomNaoFiscal(
+                IbDtstTabela.FieldByName('CODEMP').AsString
+              , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
+              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+              , IbDtstTabela.FieldByName('ANO').AsInteger
+              , IbDtstTabela.FieldByName('CODCONTROL').AsInteger)
+          else
+            DMNFe.ImprimirDANFE_ESCPOSACBr(
+                IbDtstTabela.FieldByName('CODEMP').AsString
+              , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
+              , IbDtstTabela.FieldByName('ANO').AsInteger
+              , IbDtstTabela.FieldByName('CODCONTROL').AsInteger);
         end
         else
         if GetCupomNaoFiscalEmitir and (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) then
@@ -2893,7 +2902,7 @@ begin
     Exit;
 
   if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE ) then
-    ShowWarning('Venda já possui Nota Fiscal Eletrônica.')
+    ShowWarning('Venda já possui NF-e/NFC-e.')
   else
   if opdNotas.Execute then
   begin

@@ -476,7 +476,8 @@ object DMNFe: TDMNFe
             
               '[IIF(<frdVenda."STATUS">=1,'#39'Or'#231'amento'#39',IIF(<frdVenda."STATUS">=2' +
               ','#39'Or'#231'amento'#39',IIF(<frdVenda."STATUS">=3,'#39'Finalizada'#39',IIF(<frdVend' +
-              'a."STATUS">=4,'#39'Gerada NF-e'#39','#39'Cancelada'#39'))))]')
+              'a."STATUS">=4,IIF(<frdVenda."MODELO_NF">=0,'#39'NF-e Emitida'#39','#39'NFC-e' +
+              ' Emitida'#39'),'#39'Cancelada'#39'))))]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -1643,6 +1644,7 @@ object DMNFe: TDMNFe
       'DADOS_ENTREGA=DADOS_ENTREGA'
       'SERIE=SERIE'
       'NFE=NFE'
+      'MODELO_NF=MODELO_NF'
       'LOTE_NFE_ANO=LOTE_NFE_ANO'
       'LOTE_NFE_NUMERO=LOTE_NFE_NUMERO'
       'NFE_ENVIADA=NFE_ENVIADA'
@@ -2094,6 +2096,7 @@ object DMNFe: TDMNFe
       '  , v.Dados_entrega'
       '  , v.Serie'
       '  , v.Nfe'
+      '  , coalesce(v.Modelo_Nf, 0) as Modelo_Nf'
       '  , v.Lote_nfe_ano'
       '  , v.Lote_nfe_numero'
       '  , v.Nfe_enviada'

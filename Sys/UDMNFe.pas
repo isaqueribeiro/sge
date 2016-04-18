@@ -1010,7 +1010,7 @@ begin
       ACBrNFe.Configuracoes.Geral.FormaEmissao   := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
       ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked;
       ACBrNFe.Configuracoes.Geral.RetirarAcentos := ckRetirarAcentos.Checked;
-      ACBrNFe.Configuracoes.Geral.IdCSC          := edIdToken.Text;
+      ACBrNFe.Configuracoes.Geral.IdCSC          := FormatFloat('000000', StrToIntDef(Trim(edIdToken.Text), 1));
       ACBrNFe.Configuracoes.Geral.CSC            := edToken.Text;
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
@@ -5551,8 +5551,8 @@ begin
       UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
 
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes de NFC-e
-      sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-env-lot.xml', '//', '/', [rfReplaceAll]);
-      sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-rec.xml',     '//', '/', [rfReplaceAll]);
+      sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-env-lot.xml', '\\', '/', [rfReplaceAll]);
+      sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-rec.xml',     '\\', '/', [rfReplaceAll]);
       RenameFile(sLogXmlEnv, StringReplace(sLogXmlEnv, '.xml', '.xml.nfce', [rfReplaceAll]));
       RenameFile(sLogXmlRec, StringReplace(sLogXmlRec, '.xml', '.xml.nfce', [rfReplaceAll]));
     end;

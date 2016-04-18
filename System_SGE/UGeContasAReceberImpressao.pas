@@ -65,6 +65,16 @@ type
     edEmpresa: TComboBox;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
+    lblCidade: TLabel;
+    edCidade: TComboBox;
+    QryCidades: TIBQuery;
+    DpsCidades: TDataSetProvider;
+    CdsCidades: TClientDataSet;
+    frRelacaoAReceberVCidade: TfrxReport;
+    QryRelacaoAReceberVCidade: TIBQuery;
+    DspRelacaoAReceberVCidade: TDataSetProvider;
+    CdsRelacaoAReceberVCidade: TClientDataSet;
+    FrdsRelacaoAReceberVCidade: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -76,20 +86,24 @@ type
     FSQL_RelacaoAReceberEmissaoSintet    ,
     FSQL_RelacaoAReceberVencimentoSintet ,
     FSQL_RelacaoAReceberVencimentoCliente,
+    FSQL_RelacaoAReceberVencimentoCidade ,
     FSQL_RelacaoAReceberBaixaSintet      : TStringList;
     IEmpresa : Array of String;
     ICompetencia : Array of Integer;
     ICliente     : Array of Integer;
+    ICidade      : Array of Integer;
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
     procedure CarregarCompetencia;
     procedure CarregarCliente;
+    procedure CarregarCidades;
 
     procedure MontarRelacaoAReceberPorEmissaoSintetico;
     procedure MontarRelacaoAReceberPorEmissaoAnalitico;
     procedure MontarRelacaoAReceberPorVencimentoSintetico;
     procedure MontarRelacaoAReceberPorVencimentoAnalitico;
     procedure MontarRelacaoAReceberPorVencimentoCliente;
+    procedure MontarRelacaoAReceberPorVencimentoCidade;
     procedure MontarRelacaoAReceberPorBaixaSintetico;
     procedure MontarRelacaoAReceberPorBaixaAnalitico;
   public
@@ -103,15 +117,16 @@ const
   REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_SINTETICO = 0;
   REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_ANALITICO = 1;
   REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CLIENTE   = 2;
-  REPORT_RELACAO_ARECEBER_POR_EMISSAO_SINTETICO    = 3;
-  REPORT_RELACAO_ARECEBER_POR_EMISSAO_ANALITICO    = 4;
-  REPORT_RELACAO_ARECEBER_POR_BAIXA_SINTETICO      = 5;
-  REPORT_RELACAO_ARECEBER_POR_BAIXA_ANALITICO      = 6;
+  REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CIDADE    = 3;
+  REPORT_RELACAO_ARECEBER_POR_EMISSAO_SINTETICO    = 4;
+  REPORT_RELACAO_ARECEBER_POR_EMISSAO_ANALITICO    = 5;
+  REPORT_RELACAO_ARECEBER_POR_BAIXA_SINTETICO      = 6;
+  REPORT_RELACAO_ARECEBER_POR_BAIXA_ANALITICO      = 7;
 
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, DateUtils, UDMNFe;
+  UConstantesDGE, UDMBusiness, DateUtils, UDMNFe, UDMRecursos;
 
 {$R *.dfm}
 
@@ -139,6 +154,9 @@ begin
 
   FSQL_RelacaoAReceberVencimentoCliente := TStringList.Create;
   FSQL_RelacaoAReceberVencimentoCliente.AddStrings( QryRelacaoAReceberVCliente.SQL );
+
+  FSQL_RelacaoAReceberVencimentoCidade := TStringList.Create;
+  FSQL_RelacaoAReceberVencimentoCidade.AddStrings( QryRelacaoAReceberVCidade.SQL );
 
   FSQL_RelacaoAReceberEmissaoSintet := TStringList.Create;
   FSQL_RelacaoAReceberEmissaoSintet.AddStrings( QryRelacaoAReceberESintetico.SQL );
@@ -176,6 +194,12 @@ begin
       begin
         MontarRelacaoAReceberPorVencimentoCliente;
         frReport := frRelacaoAReceberVCliente;
+      end;
+
+    REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CIDADE:
+      begin
+        MontarRelacaoAReceberPorVencimentoCidade;
+        frReport := frRelacaoAReceberVCidade;
       end;
 
     // Por Data de Emissão
@@ -367,9 +391,15 @@ end;
 procedure TfrmGeContasAReceberImpressao.FormShow(Sender: TObject);
 begin
   inherited;
-  CarregarEmpresa;
-  CarregarCompetencia;
-  CarregarCliente;
+  WaitAMoment(WAIT_AMOMENT_LoadData);
+  try
+    CarregarEmpresa;
+    CarregarCompetencia;
+    CarregarCliente;
+    CarregarCidades;
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TfrmGeContasAReceberImpressao.edCompetenciaChange(
@@ -382,6 +412,37 @@ begin
 
   e1Data.Date := StrToDate(sDataInicial);
   e2Data.Date := StrToDate(FormatFloat('00"/"', DaysInMonth(e1Data.Date)) + FormatDateTime('mm/yyyy', e1Data.Date));
+end;
+
+procedure TfrmGeContasAReceberImpressao.CarregarCidades;
+var
+  I : Integer;
+begin
+  with CdsCidades do
+  begin
+    Open;
+
+    edCidade.Clear;
+    SetLength(ICidade, RecordCount + 1);
+
+    edCidade.Items.Add('(Todas)');
+    ICidade[0] := 0;
+
+    I := 1;
+
+    while not Eof do
+    begin
+      edCidade.Items.Add( FieldByName('cid_nome').AsString );
+      ICidade[I] := FieldByName('cid_cod').AsInteger;
+
+      Inc(I);
+      Next;
+    end;
+
+    Close;
+  end;
+
+  edCidade.ItemIndex := 0;
 end;
 
 procedure TfrmGeContasAReceberImpressao.CarregarCliente;
@@ -661,6 +722,83 @@ begin
   begin
     edSituacao.Enabled   := False;
     edSituacao.ItemIndex := TITULO_PENDENTE;
+  end;
+
+  lblCidade.Visible  := (edRelatorio.ItemIndex = REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CIDADE);
+  edCidade.Visible   := (edRelatorio.ItemIndex = REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CIDADE);
+  lblCliente.Enabled := not edCidade.Visible;
+  edCliente.Enabled  := not edCidade.Visible;
+  if not edCliente.Enabled then
+    edCliente.ItemIndex := 0;
+end;
+
+procedure TfrmGeContasAReceberImpressao.MontarRelacaoAReceberPorVencimentoCidade;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    if (edCliente.ItemIndex = 0) then
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edCidade.Text]) + #13;
+
+    CdsRelacaoAReceberVCidade.Close;
+
+    with QryRelacaoAReceberVCidade do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAReceberVencimentoCidade );
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+      SQL.Add('  and (cr.parcela > 0)');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and (cr.baixado = 1)');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and (cr.baixado = 0)');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and cr.situacao = 0');
+      end;
+
+      if ( edCidade.ItemIndex > 0 ) then
+        SQL.Add('  and (cr.cliente = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ')');
+
+      SQL.Add('');
+      SQL.Add('group by');
+      SQL.Add('    cd.cid_nome');
+      SQL.Add('  , cl.cid_cod');
+      SQL.Add('  , extract(year from cr.dtvenc)  || right(''00'' || extract(month from cr.dtvenc),  2)');
+      SQL.Add('  , cr.dtvenc');
+      SQL.Add('  , cv.cmp_desc');
+      SQL.Add('  , cr.situacao');
+      SQL.Add('  , cr.cliente');
+      SQL.Add('  , cl.nome');
+      SQL.Add('  , cr.cnpj');
+      SQL.Add('  , cl.pessoa_fisica');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    cd.cid_nome');
+      SQL.Add('  , cl.cid_cod');
+      SQL.Add('  , extract(year from cr.dtvenc)  || right(''00'' || extract(month from cr.dtvenc),  2)');
+      SQL.Add('  , cr.dtvenc');
+      SQL.Add('  , cl.nome');
+      SQL.Add('  , cr.cnpj');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório sintético de contas a receber por vencimento/cidade.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
   end;
 end;
 
