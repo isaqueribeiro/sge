@@ -515,7 +515,7 @@ inherited frmGeVenda: TfrmGeVenda
           Top = 64
           Width = 50
           Height = 13
-          Caption = 'Vendedor:'
+          Caption = '&Vendedor:'
           FocusControl = dbVendedor
         end
         object lblValorTotal: TLabel [9]
@@ -4345,7 +4345,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5916,6 +5916,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , i.Codemp'
       '  , i.Codcli'
       '  , i.Codcliente'
+      '  , i.Codvendedor'
       '  , i.Dtvenda'
       '  , i.Qtde'
       '  , i.Punit'
@@ -5997,6 +5998,11 @@ inherited frmGeVenda: TfrmGeVenda
     object cdsTabelaItensCODCLIENTE: TIntegerField
       FieldName = 'CODCLIENTE'
       Origin = '"TVENDASITENS"."CODCLIENTE"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsTabelaItensCODVENDEDOR: TIntegerField
+      FieldName = 'CODVENDEDOR'
+      Origin = '"TVENDASITENS"."CODVENDEDOR"'
       ProviderFlags = [pfInUpdate]
     end
     object cdsTabelaItensDTVENDA: TDateTimeField
@@ -6246,6 +6252,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  CFOP_COD = :CFOP_COD,'
       '  CODCLI = :CODCLI,'
       '  CODCLIENTE = :CODCLIENTE,'
+      '  CODVENDEDOR = :CODVENDEDOR,'
       '  CODCONTROL = :CODCONTROL,'
       '  CODEMP = :CODEMP,'
       '  CODPROD = :CODPROD,'
@@ -6277,8 +6284,8 @@ inherited frmGeVenda: TfrmGeVenda
         '  (ALIQUOTA, ALIQUOTA_COFINS, ALIQUOTA_CSOSN, ALIQUOTA_PIS, ANO,' +
         ' CFOP_COD, '
       
-        '   CODCLI, CODCLIENTE, CODCONTROL, CODEMP, CODPROD, CST, CSOSN, ' +
-        'DESCONTO, DESCONTO_VALOR, '
+        '   CODCLI, CODCLIENTE, CODVENDEDOR, CODCONTROL, CODEMP, CODPROD,' +
+        ' CST, CSOSN, DESCONTO, DESCONTO_VALOR, '
       
         '   DTVENDA, PERCENTUAL_REDUCAO_BC, PFINAL, PUNIT, PUNIT_PROMOCAO' +
         ', QTDE, '
@@ -6291,8 +6298,8 @@ inherited frmGeVenda: TfrmGeVenda
         '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
         ':ANO, :CFOP_COD, '
       
-        '   :CODCLI, :CODCLIENTE, :CODCONTROL, :CODEMP, :CODPROD, :CST, :' +
-        'CSOSN, :DESCONTO, '
+        '   :CODCLI, :CODCLIENTE, :CODVENDEDOR, :CODCONTROL, :CODEMP, :CO' +
+        'DPROD, :CST, :CSOSN, :DESCONTO, '
       
         '   :DESCONTO_VALOR, :DTVENDA, :PERCENTUAL_REDUCAO_BC, :PFINAL, :' +
         'PUNIT, '

@@ -348,6 +348,7 @@ type
     procedure dbgContaCorrenteExit(Sender: TObject);
     procedure dbgContaCorrenteEnter(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
+    procedure CmbBxFiltrarTipoKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -557,9 +558,9 @@ begin
 
   inherited;
 
-  tblVendedor.Open;
-  tblTipoCnpj.Open;
-  qryBancoFebraban.Open;
+  CarregarLista(tblVendedor);
+  CarregarLista(tblTipoCnpj);
+  CarregarLista(qryBancoFebraban);
 
   BloquearClientes;
 
@@ -1259,6 +1260,22 @@ begin
   dbCNPJ.SetFocus;
 end;
 
+procedure TfrmGeCliente.CmbBxFiltrarTipoKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  inherited;
+  if (Key in ['0'..'9', 'a'..'z', 'A'..'Z', ' ']) then
+  begin
+    edtFiltrar.Text := Trim(Key);
+    if (pgcGuias.ActivePage = tbsTabela) then
+      if (edtFiltrar.Visible and edtFiltrar.Enabled) then
+      begin
+        edtFiltrar.SetFocus;
+        edtFiltrar.SelStart := Length(edtFiltrar.Text);
+      end;
+  end;
+end;
+
 procedure TfrmGeCliente.btnRecuperarCNPJClick(Sender: TObject);
 var
   bCPF  : Boolean;
@@ -1658,6 +1675,9 @@ procedure TfrmGeCliente.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
+  if (pgcGuias.ActivePage = tbsTabela) then
+    if (CmbBxFiltrarTipo.Visible and CmbBxFiltrarTipo.Enabled) then
+      CmbBxFiltrarTipo.Setfocus;
 end;
 
 initialization

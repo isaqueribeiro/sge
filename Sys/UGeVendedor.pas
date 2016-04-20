@@ -7,7 +7,9 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  IBX.IBTable;
 
 type
   TfrmGeVendedor = class(TfrmGrPadraoCadastro)
@@ -26,12 +28,20 @@ type
     dbComissaoValor: TDBEdit;
     lblComissaoValor: TLabel;
     chkbxAtivo: TDBCheckBox;
+    tblTipoComissao: TIBTable;
+    dtsTipoComissao: TDataSource;
+    lblTipoComissao: TLabel;
+    dbTipoComissao: TDBLookupComboBox;
+    IbDtstTabelaCOMISSAO_TIPO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
+    procedure ControleCampos;
   public
     { Public declarations }
   end;
@@ -96,9 +106,25 @@ begin
   end;
 end;
 
+procedure TfrmGeVendedor.ControleCampos;
+begin
+  lblComissao.Enabled      := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
+  dbComissao.Enabled       := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
+  lblComissaoValor.Enabled := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
+  dbComissaoValor.Enabled  := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
+end;
+
+procedure TfrmGeVendedor.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+begin
+  if (Field = IbDtstTabelaCOMISSAO_TIPO) then
+    ControleCampos;
+end;
+
 procedure TfrmGeVendedor.FormCreate(Sender: TObject);
 begin
   inherited;
+  CarregarLista(tblTipoComissao);
+
   RotinaID            := ROTINA_CAD_VENDEDOR_ID;
   ControlFirstEdit    := dbNome;
   DisplayFormatCodigo := '000';
@@ -115,8 +141,10 @@ begin
     Abort;
   end;
 
-  inherited;
-
+  if (IbDtstTabelaCOMISSAO.AsCurrency < 0) or (IbDtstTabelaCOMISSAO.AsCurrency > 100) then
+    ShowWarning('Favor informar um percentual válido de comissão!')
+  else
+    inherited;
 end;
 
 procedure TfrmGeVendedor.IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -124,13 +152,26 @@ begin
   inherited;
   IbDtstTabelaCOD.Value   := GetNextID(NomeTabela, CampoCodigo);
   IbDtstTabelaATIVO.Value := 1;
+  IbDtstTabelaCOMISSAO_TIPO.Value := 0;
+end;
+
+procedure TfrmGeVendedor.IbDtstTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  ControleCampos;
 end;
 
 procedure TfrmGeVendedor.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
   if ( IbDtstTabelaATIVO.IsNull ) then
     IbDtstTabelaATIVO.Value := 1;
-    
+
+  if ( IbDtstTabelaCOMISSAO_TIPO.AsInteger = 1 ) then
+  begin
+    IbDtstTabelaCOMISSAO.AsCurrency    := 0.0;
+    IbDtstTabelaCOMISSAO_VL.AsCurrency := 0.0;
+  end;
+
   inherited;
 end;
 

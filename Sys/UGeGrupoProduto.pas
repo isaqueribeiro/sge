@@ -7,7 +7,8 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeGrupoProduto = class(TfrmGrPadraoCadastro)
@@ -15,7 +16,11 @@ type
     dbNome: TDBEdit;
     IbDtstTabelaCOD: TSmallintField;
     IbDtstTabelaDESCRI: TIBStringField;
+    lblComissao: TLabel;
+    dbComissao: TDBEdit;
+    IbDtstTabelaPERC_VENDA_COMISSAO: TIBBCDField;
     procedure FormCreate(Sender: TObject);
+    procedure btbtnSalvarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,7 +36,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE;
+  UDMBusiness, UConstantesDGE, UDMRecursos;
 
 {$R *.dfm}
 
@@ -57,6 +62,14 @@ begin
   finally
     frm.Destroy;
   end;
+end;
+
+procedure TfrmGeGrupoProduto.btbtnSalvarClick(Sender: TObject);
+begin
+  if (IbDtstTabelaPERC_VENDA_COMISSAO.AsCurrency < 0) or (IbDtstTabelaPERC_VENDA_COMISSAO.AsCurrency > 100) then
+    ShowWarning('Favor informar um percentual válido de comissão!')
+  else
+    inherited;
 end;
 
 procedure TfrmGeGrupoProduto.FormCreate(Sender: TObject);

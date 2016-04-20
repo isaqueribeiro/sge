@@ -176,6 +176,7 @@ type
     cdsVendaNFE_VALOR_TOTAL_PRODUTO: TIBBCDField;
     cdsVendaNFE_VALOR_DESCONTO: TIBBCDField;
     cdsVendaNFE_VALOR_TOTAL_NOTA: TIBBCDField;
+    cdsVendaItemCODVENDEDOR: TIntegerField;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
     procedure cdsVendaItemSEQGetText(Sender: TField; var Text: String;

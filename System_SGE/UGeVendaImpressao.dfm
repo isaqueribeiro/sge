@@ -1451,38 +1451,42 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     SQL.Strings = (
       'Select'
       '    v.competencia'
-      '  , m.cmp_desc    as competencia_desc'
-      '  , v.vendedor_cod'
+      '  , m.cmp_desc     as competencia_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
       '  , d.nome as vendedor_nome'
       '  , d.cpf  as vendedor_cpf'
       '  , d.comissao'
-      '  , sum( v.totalvenda_bruta )  as venda_bruta'
-      '  , sum( v.desconto )          as venda_descontos'
-      '  , sum( v.totalvenda )        as venda_liquido'
-      '  , sum( v.totalcusto )        as venda_custo'
-      
-        '  , sum( v.totalvenda * coalesce(d.comissao, 0) / 100 )  as vend' +
-        'a_comissao'
+      '  , sum( vi.total_bruto )           as venda_bruta'
+      '  , sum( vi.total_desconto )        as venda_descontos'
+      '  , sum( vi.total_liquido )         as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
       ''
       
-        '  , sum( case when v.status = 5 then v.totalvenda_bruta else 0 e' +
-        'nd )  as venda_bruta_cancel'
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '           as venda_bruta_cancel'
       
-        '  , sum( case when v.status = 5 then v.desconto else 0 end )    ' +
-        '      as venda_descontos_cancel'
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd )        as venda_descontos_cancel'
       
-        '  , sum( case when v.status = 5 then v.totalvenda else 0 end )  ' +
-        '      as venda_liquido_cancel'
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )         as venda_liquido_cancel'
       
-        '  , sum( case when v.status = 5 then v.totalcusto else 0 end )  ' +
-        '      as venda_custo_cancel'
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
       
-        '  , sum( case when v.status = 5 then v.totalvenda * coalesce(d.c' +
-        'omissao, 0) / 100 else 0 end )  as venda_comissao_cancel'
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
       'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
       '  left join TBCLIENTE c on (c.codigo = v.codcliente)'
       '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
-      '  left join TBVENDEDOR d on (d.cod = v.vendedor_cod)'
+      
+        '  left join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v.' +
+        'vendedor_cod))'
       '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
       ''
       '/*'
@@ -1492,7 +1496,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       'group by'
       '    v.competencia'
       '  , m.cmp_desc'
-      '  , v.vendedor_cod'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
       '  , d.nome'
       '  , d.cpf'
       '  , d.comissao'
@@ -1500,8 +1504,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       'order by'
       '    d.nome'
       '  , v.competencia'
-      ''
-      '*/')
+      '*/'
+      '')
     Left = 40
     Top = 8
   end
@@ -2971,7 +2975,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       'Select'
       '    v.competencia'
       '  , m.cmp_desc    as competencia_desc'
-      '  , v.vendedor_cod'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
       '  , d.nome as vendedor_nome'
       '  , d.cpf  as vendedor_cpf'
       '  , d.comissao'
@@ -2984,32 +2988,36 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       '  , c.cnpj          as cliente_cod'
       '  , c.nome          as cliente_nome'
       '  , c.pessoa_fisica as cliente_tipo'
-      '  , v.totalvenda_bruta   as venda_bruta'
-      '  , v.desconto           as venda_descontos'
-      '  , v.totalvenda         as venda_liquido'
-      '  , v.totalcusto         as venda_custo'
-      
-        '  , ( v.totalvenda * coalesce(d.comissao, 0) / 100 )  as venda_c' +
-        'omissao'
+      '  , sum( vi.total_bruto )    as venda_bruta'
+      '  , sum( vi.total_desconto ) as venda_descontos'
+      '  , sum( vi.total_liquido )  as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
       ''
       
-        '  , ( case when v.status = 5 then v.totalvenda_bruta else 0 end ' +
-        ')  as venda_bruta_cancel'
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '    as venda_bruta_cancel'
       
-        '  , ( case when v.status = 5 then v.desconto else 0 end )       ' +
-        '   as venda_descontos_cancel'
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd ) as venda_descontos_cancel'
       
-        '  , ( case when v.status = 5 then v.totalvenda else 0 end )     ' +
-        '   as venda_liquido_cancel'
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )  as venda_liquido_cancel'
       
-        '  , ( case when v.status = 5 then v.totalcusto else 0 end )     ' +
-        '   as venda_custo_cancel'
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
       
-        '  , ( case when v.status = 5 then v.totalvenda * coalesce(d.comi' +
-        'ssao, 0) / 100 else 0 end )  as venda_comissao_cancel'
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
       'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
       '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
-      '  inner join TBVENDEDOR d on (d.cod = v.vendedor_cod)'
+      
+        '  inner join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v' +
+        '.vendedor_cod))'
       ''
       '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
       '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
@@ -3018,9 +3026,26 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       'where v.codemp = '#39'17429064000105'#39
       '  and v.status > 1 -- 1. Em andamento'
       ''
+      'group by'
+      '    v.competencia'
+      '  , m.cmp_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
+      '  , d.nome'
+      '  , d.cpf'
+      '  , d.comissao'
+      '  , v.ano'
+      '  , v.codcontrol'
+      '  , v.dtvenda'
+      '  , v.nfe'
+      '  , v.serie'
+      '  , v.status'
+      '  , c.cnpj'
+      '  , c.nome'
+      '  , c.pessoa_fisica'
+      ''
       'order by'
       '    d.nome'
-      '  , v.vendedor_cod'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
       '  , v.competencia'
       '  , v.dtvenda'
       '  , c.nome'
@@ -4777,34 +4802,39 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       '  , trim(c.nome)   as cliente_nome'
       '  , c.cnpj   as cliente_cpf_cnpj'
       '  , c.pessoa_fisica as cliente_pf'
-      '  , sum( v.totalvenda_bruta )  as venda_bruta'
-      '  , sum( v.desconto )          as venda_descontos'
-      '  , sum( v.totalvenda )        as venda_liquido'
-      '  , sum( v.totalcusto )        as venda_custo'
-      
-        '  , sum( v.totalvenda * coalesce(d.comissao, 0) / 100 )  as vend' +
-        'a_comissao'
+      ''
+      '  , sum( vi.total_bruto )    as venda_bruta'
+      '  , sum( vi.total_desconto ) as venda_descontos'
+      '  , sum( vi.total_liquido )  as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
       ''
       
-        '  , sum( case when v.status = 5 then v.totalvenda_bruta else 0 e' +
-        'nd )  as venda_bruta_cancel'
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '    as venda_bruta_cancel'
       
-        '  , sum( case when v.status = 5 then v.desconto else 0 end )    ' +
-        '      as venda_descontos_cancel'
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd ) as venda_descontos_cancel'
       
-        '  , sum( case when v.status = 5 then v.totalvenda else 0 end )  ' +
-        '      as venda_liquido_cancel'
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )  as venda_liquido_cancel'
       
-        '  , sum( case when v.status = 5 then v.totalcusto else 0 end )  ' +
-        '      as venda_custo_cancel'
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
       
-        '  , sum( case when v.status = 5 then v.totalvenda * coalesce(d.c' +
-        'omissao, 0) / 100 else 0 end )  as venda_comissao_cancel'
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
       'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
       '  left join TBCLIENTE c on (c.codigo = v.codcliente)'
       '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
       '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
-      '  left join TBVENDEDOR d on (d.cod = v.vendedor_cod)'
+      
+        '  left join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v.' +
+        'vendedor_cod))'
       ''
       '/*'
       'where v.codemp = '#39'17429064000105'#39
@@ -6264,7 +6294,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       'Select'
       '    v.competencia'
       '  , m.cmp_desc    as competencia_desc'
-      '  , v.vendedor_cod'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
       '  , d.nome as vendedor_nome'
       '  , d.cpf  as vendedor_cpf'
       '  , d.comissao'
@@ -6277,32 +6307,37 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       '  , c.cnpj          as cliente_cod'
       '  , c.nome          as cliente_nome'
       '  , c.pessoa_fisica as cliente_pf'
-      '  , v.totalvenda_bruta   as venda_bruta'
-      '  , v.desconto           as venda_descontos'
-      '  , v.totalvenda         as venda_liquido'
-      '  , v.totalcusto         as venda_custo'
-      
-        '  , ( v.totalvenda * coalesce(d.comissao, 0) / 100 )  as venda_c' +
-        'omissao'
+      ''
+      '  , sum( vi.total_bruto )    as venda_bruta'
+      '  , sum( vi.total_desconto ) as venda_descontos'
+      '  , sum( vi.total_liquido )  as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
       ''
       
-        '  , ( case when v.status = 5 then v.totalvenda_bruta else 0 end ' +
-        ')  as venda_bruta_cancel'
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '    as venda_bruta_cancel'
       
-        '  , ( case when v.status = 5 then v.desconto else 0 end )       ' +
-        '   as venda_descontos_cancel'
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd ) as venda_descontos_cancel'
       
-        '  , ( case when v.status = 5 then v.totalvenda else 0 end )     ' +
-        '   as venda_liquido_cancel'
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )  as venda_liquido_cancel'
       
-        '  , ( case when v.status = 5 then v.totalcusto else 0 end )     ' +
-        '   as venda_custo_cancel'
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
       
-        '  , ( case when v.status = 5 then v.totalvenda * coalesce(d.comi' +
-        'ssao, 0) / 100 else 0 end )  as venda_comissao_cancel'
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
       'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
       '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
-      '  inner join TBVENDEDOR d on (d.cod = v.vendedor_cod)'
+      
+        '  inner join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v' +
+        '.vendedor_cod))'
       ''
       '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
       '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
@@ -6310,6 +6345,23 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       '/*'
       'where v.codemp = '#39'17429064000105'#39
       '  and v.status > 1 -- 1. Em andamento'
+      ''
+      'group by'
+      '    v.competencia'
+      '  , m.cmp_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
+      '  , d.nome'
+      '  , d.cpf'
+      '  , d.comissao'
+      '  , v.ano'
+      '  , v.codcontrol'
+      '  , v.dtvenda'
+      '  , v.nfe'
+      '  , v.serie'
+      '  , v.status'
+      '  , c.cnpj'
+      '  , c.nome'
+      '  , c.pessoa_fisica'
       ''
       'order by'
       '    c.nome'

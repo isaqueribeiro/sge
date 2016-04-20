@@ -797,12 +797,13 @@ begin
 
       FieldByName('SEQ').Value := Sequencial;
 
-      FieldByName('ANO').Value        := DataSetVenda.FieldByName('ANO').Value;
-      FieldByName('CODCONTROL').Value := DataSetVenda.FieldByName('CODCONTROL').Value;
-      FieldByName('DTVENDA').Value    := DataSetVenda.FieldByName('DTVENDA').Value;
-      FieldByName('CODEMP').Value     := DataSetVenda.FieldByName('CODEMP').Value;
-      FieldByName('CODCLI').Value     := DataSetVenda.FieldByName('CODCLI').Value;
-      FieldByName('CODCLIENTE').Value := DataSetVenda.FieldByName('CODCLIENTE').Value;
+      FieldByName('ANO').Value         := DataSetVenda.FieldByName('ANO').Value;
+      FieldByName('CODCONTROL').Value  := DataSetVenda.FieldByName('CODCONTROL').Value;
+      FieldByName('DTVENDA').Value     := DataSetVenda.FieldByName('DTVENDA').Value;
+      FieldByName('CODEMP').Value      := DataSetVenda.FieldByName('CODEMP').Value;
+      FieldByName('CODCLI').Value      := DataSetVenda.FieldByName('CODCLI').Value;
+      FieldByName('CODCLIENTE').Value  := DataSetVenda.FieldByName('CODCLIENTE').Value;
+      FieldByName('CODVENDEDOR').Value := edNomeVendedor.Tag;
 
       if ( DataSetVenda.FieldByName('CFOP').IsNull ) then
       begin

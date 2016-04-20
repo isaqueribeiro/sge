@@ -696,6 +696,7 @@ object DMCupom: TDMCupom
       '  , i.Codemp'
       '  , i.Codcli'
       '  , i.Codcliente'
+      '  , i.Codvendedor'
       '  , i.Dtvenda'
       '  , i.Qtde'
       '  , i.Punit'
@@ -775,6 +776,11 @@ object DMCupom: TDMCupom
     object cdsVendaItemCODCLIENTE: TIntegerField
       FieldName = 'CODCLIENTE'
       Origin = '"TVENDASITENS"."CODCLIENTE"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsVendaItemCODVENDEDOR: TIntegerField
+      FieldName = 'CODVENDEDOR'
+      Origin = '"TVENDASITENS"."CODVENDEDOR"'
       ProviderFlags = [pfInUpdate]
     end
     object cdsVendaItemDTVENDA: TDateTimeField
@@ -969,11 +975,12 @@ object DMCupom: TDMCupom
       'Select '
       '  ANO,'
       '  CODCONTROL,'
+      '  CODEMP,'
       '  SEQ,'
       '  CODPROD,'
-      '  CODEMP,'
       '  CODCLIENTE,'
       '  CODCLI,'
+      '  CODVENDEDOR,'
       '  DTVENDA,'
       '  QTDE,'
       '  PUNIT,'
@@ -994,7 +1001,8 @@ object DMCupom: TDMCupom
       '  PERCENTUAL_REDUCAO_BC,'
       '  TOTAL_BRUTO,'
       '  TOTAL_DESCONTO,'
-      '  TOTAL_LIQUIDO'
+      '  TOTAL_LIQUIDO,'
+      '  TOTAL_COMISSAO'
       'from TVENDASITENS '
       'where'
       '  ANO = :ANO and'
@@ -1015,6 +1023,7 @@ object DMCupom: TDMCupom
       '  CODCONTROL = :CODCONTROL,'
       '  CODEMP = :CODEMP,'
       '  CODPROD = :CODPROD,'
+      '  CODVENDEDOR = :CODVENDEDOR,'
       '  CST = :CST,'
       '  DESCONTO = :DESCONTO,'
       '  DESCONTO_VALOR = :DESCONTO_VALOR,'
@@ -1042,29 +1051,29 @@ object DMCupom: TDMCupom
         '  (ALIQUOTA, ALIQUOTA_COFINS, ALIQUOTA_CSOSN, ALIQUOTA_PIS, ANO,' +
         ' CFOP_COD, '
       
-        '   CODCLI, CODCLIENTE, CODCONTROL, CODEMP, CODPROD, CST, DESCONT' +
-        'O, DESCONTO_VALOR, '
+        '   CODCLI, CODCLIENTE, CODCONTROL, CODEMP, CODPROD, CODVENDEDOR,' +
+        ' CST, DESCONTO, '
       
-        '   DTVENDA, PERCENTUAL_REDUCAO_BC, PFINAL, PUNIT, PUNIT_PROMOCAO' +
-        ', QTDE, '
+        '   DESCONTO_VALOR, DTVENDA, PERCENTUAL_REDUCAO_BC, PFINAL, PUNIT' +
+        ', PUNIT_PROMOCAO, '
       
-        '   QTDEFINAL, SEQ, TOTAL_BRUTO, TOTAL_DESCONTO, TOTAL_LIQUIDO, U' +
-        'NID_COD, '
+        '   QTDE, QTDEFINAL, SEQ, TOTAL_BRUTO, TOTAL_DESCONTO, TOTAL_LIQU' +
+        'IDO, UNID_COD, '
       '   VALOR_IPI)'
       'values'
       
         '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
         ':ANO, :CFOP_COD, '
       
-        '   :CODCLI, :CODCLIENTE, :CODCONTROL, :CODEMP, :CODPROD, :CST, :' +
-        'DESCONTO, '
+        '   :CODCLI, :CODCLIENTE, :CODCONTROL, :CODEMP, :CODPROD, :CODVEN' +
+        'DEDOR, '
       
-        '   :DESCONTO_VALOR, :DTVENDA, :PERCENTUAL_REDUCAO_BC, :PFINAL, :' +
-        'PUNIT, '
+        '   :CST, :DESCONTO, :DESCONTO_VALOR, :DTVENDA, :PERCENTUAL_REDUC' +
+        'AO_BC, '
       
-        '   :PUNIT_PROMOCAO, :QTDE, :QTDEFINAL, :SEQ, :TOTAL_BRUTO, :TOTA' +
-        'L_DESCONTO, '
-      '   :TOTAL_LIQUIDO, :UNID_COD, :VALOR_IPI)')
+        '   :PFINAL, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :QTDEFINAL, :SEQ, :T' +
+        'OTAL_BRUTO, '
+      '   :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNID_COD, :VALOR_IPI)')
     DeleteSQL.Strings = (
       'delete from TVENDASITENS'
       'where'

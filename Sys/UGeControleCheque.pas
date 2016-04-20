@@ -166,6 +166,13 @@ type
     CdsChequeNOMINAL_A: TWideStringField;
     CdsChequeBANCO_LOGO: TBlobField;
     IbDtstTabelaDATA_DEVOLUCAO: TDateField;
+    popRelacaoCheques: TMenuItem;
+    N2: TMenuItem;
+    QryRelacaoCheque: TIBQuery;
+    DspRelacaoCheque: TDataSetProvider;
+    CdsRelacaoCheque: TClientDataSet;
+    frdsRelacaoCheque: TfrxDBDataset;
+    frRelacaoCheque: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -194,6 +201,7 @@ type
       DisplayText: Boolean);
     procedure qryBaixasNOME_CNPJGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure popRelacaoChequesClick(Sender: TObject);
   private
     { Private declarations }
     FDataAtual    : TDateTime;
@@ -242,7 +250,7 @@ implementation
 
 uses
   UConstantesDGE, UDMBusiness, UGeCliente, DateUtils, UGrMemoData,
-  UGeFornecedorClientePesquisa;
+  UGeFornecedorClientePesquisa, UDMRecursos, UDMNFe;
 
 {$R *.dfm}
 
@@ -286,7 +294,10 @@ end;
 
 procedure TfrmGeControleCheque.FormCreate(Sender: TObject);
 begin
+  popRelacaoCheques.Caption := Format(popRelacaoCheques.Caption, [GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa)]);
+
   inherited;
+
   CarregarLista(tblEmpresa);
   CarregarLista(qryTipoCheque);
   CarregarLista(tblBanco);
@@ -464,6 +475,9 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
+  SetVariablesDefault(FrChequeA4);
+  SetVariablesDefault(FrChequeA5);
+
   with CdsCheque, Params do
   begin
     Close;
@@ -498,6 +512,28 @@ begin
 
   frReport.PrepareReport;
   frReport.ShowReport;
+end;
+
+procedure TfrmGeControleCheque.popRelacaoChequesClick(Sender: TObject);
+begin
+  WaitAMoment(WAIT_AMOMENT_PrintPrepare);
+  try
+    SetVariablesDefault(frRelacaoCheque);
+
+    DMNFe.AbrirEmitente(gUsuarioLogado.Empresa);
+    DMBusiness.ConfigurarEmail(gUsuarioLogado.Empresa, EmptyStr, 'Relação de Cheques', EmptyStr);
+
+    with CdsRelacaoCheque, Params do
+    begin
+      Close;
+      ParamByName('empresa').AsString        := gUsuarioLogado.Empresa;
+      ParamByName('data_inicial').AsDateTime := e1Data.Date;
+      ParamByName('data_final').AsDateTime   := e1Data.Date;
+      Open;
+    end;
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TfrmGeControleCheque.ppmApresentarClick(Sender: TObject);
@@ -683,7 +719,8 @@ begin
     // Cheques recebidos que foram compensados
     '((c.tipo = 2) and (c.status = ' + IntToSTr(STATUS_CHEQUE_COMPENSADO) + '))';
 
-  WhereAdditional := '(c.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and ' +
+  WhereAdditional :=
+    IfThen(FChequeParaBaixa, '(c.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and ', EmptyStr) +
     '(c.data_apresentacao between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')' +
     IfThen(not FChequeParaBaixa, EmptyStr, ' and (' + sChequeBaixa + ')');
@@ -854,6 +891,17 @@ procedure TfrmGeControleCheque.FrReciboGetValue(const VarName: string;
 begin
   if ( VarName = VAR_TITLE ) then
     Value := 'CHEQUE';
+
+//  if ( VarName = VAR_TITLE ) then
+//    Value := AnsiUpperCase(TituloRelario);
+//
+  if ( VarName = VAR_SUBTITLE ) then
+    Value := '(Todas)';
+
+  if ( VarName = VAR_PERIODO ) then
+    Value := 'Período de apresentação de ' +
+      FormatDateTime('dd/mm/yyyy', e1Data.Date) + ' à ' +
+      FormatDateTime('dd/mm/yyyy', e2Data.Date);
 
   if ( VarName = VAR_EMPRESA ) then
     Value := GetEmpresaNomeDefault;

@@ -221,7 +221,7 @@ begin
       end;
 
       if ( edVendedor.ItemIndex > 0 ) then
-        SQL.Add('  and v.vendedor_cod = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
@@ -233,7 +233,7 @@ begin
       SQL.Add('group by');
       SQL.Add('    v.competencia');
       SQL.Add('  , m.cmp_desc');
-      SQL.Add('  , v.vendedor_cod');
+      SQL.Add('  , coalesce(vi.codvendedor, v.vendedor_cod)');
       SQL.Add('  , d.nome');
       SQL.Add('  , d.cpf');
       SQL.Add('  , d.comissao');
@@ -388,7 +388,7 @@ begin
       end;
 
       if ( edVendedor.ItemIndex > 0 ) then
-        SQL.Add('  and v.vendedor_cod = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
@@ -397,10 +397,26 @@ begin
         if ( chkNFeEmitida.Checked ) then
           SQL.Add('  and v.nfe is not null ');
 
+      SQL.Add('group by');
+      SQL.Add('    v.competencia');
+      SQL.Add('  , m.cmp_desc');
+      SQL.Add('  , coalesce(vi.codvendedor, v.vendedor_cod)');
+      SQL.Add('  , d.nome');
+      SQL.Add('  , d.cpf');
+      SQL.Add('  , d.comissao');
+      SQL.Add('  , v.ano');
+      SQL.Add('  , v.codcontrol');
+      SQL.Add('  , v.dtvenda');
+      SQL.Add('  , v.nfe');
+      SQL.Add('  , v.serie');
+      SQL.Add('  , v.status');
+      SQL.Add('  , c.cnpj');
+      SQL.Add('  , c.nome');
+      SQL.Add('  , c.pessoa_fisica');
       SQL.Add('');
       SQL.Add('order by');
       SQL.Add('    d.nome');
-      SQL.Add('  , v.vendedor_cod');
+      SQL.Add('  , coalesce(vi.codvendedor, v.vendedor_cod)');
       SQL.Add('  , v.competencia');
       SQL.Add('  , v.dtvenda');
       SQL.Add('  , c.nome');
@@ -480,7 +496,7 @@ begin
       end;
 
       if ( edVendedor.ItemIndex > 0 ) then
-        SQL.Add('  and v.vendedor_cod = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
@@ -492,7 +508,7 @@ begin
       SQL.Add('group by');
       SQL.Add('    v.competencia');
       SQL.Add('  , m.cmp_desc');
-      SQL.Add('  , v.vendedor_cod');
+      SQL.Add('  , coalesce(vi.codvendedor, v.vendedor_cod)');
       SQL.Add('  , d.nome');
       SQL.Add('  , d.cpf');
       SQL.Add('  , d.comissao');
@@ -554,7 +570,7 @@ begin
       end;
 
       if ( edVendedor.ItemIndex > 0 ) then
-        SQL.Add('  and v.vendedor_cod = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
@@ -563,6 +579,22 @@ begin
         if ( chkNFeEmitida.Checked ) then
           SQL.Add('  and v.nfe is not null ');
 
+      SQL.Add('group by');
+      SQL.Add('    v.competencia');
+      SQL.Add('  , m.cmp_desc');
+      SQL.Add('  , coalesce(vi.codvendedor, v.vendedor_cod)');
+      SQL.Add('  , d.nome');
+      SQL.Add('  , d.cpf');
+      SQL.Add('  , d.comissao');
+      SQL.Add('  , v.ano');
+      SQL.Add('  , v.codcontrol');
+      SQL.Add('  , v.dtvenda');
+      SQL.Add('  , v.nfe');
+      SQL.Add('  , v.serie');
+      SQL.Add('  , v.status');
+      SQL.Add('  , c.cnpj');
+      SQL.Add('  , c.nome');
+      SQL.Add('  , c.pessoa_fisica');
       SQL.Add('');
       SQL.Add('order by');
       SQL.Add('    c.nome');
@@ -623,7 +655,7 @@ begin
       end;
 
       if ( edVendedor.ItemIndex > 0 ) then
-        SQL.Add('  and v.vendedor_cod = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
@@ -698,7 +730,7 @@ begin
       end;
 
       if ( edVendedor.ItemIndex > 0 ) then
-        SQL.Add('  and v.vendedor_cod = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');

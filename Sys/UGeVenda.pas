@@ -396,6 +396,7 @@ type
     nmPpCorrigirDadosEntrega: TMenuItem;
     cdsTabelaItensNCM_SH: TIBStringField;
     IbDtstTabelaMODELO_NF: TIntegerField;
+    cdsTabelaItensCODVENDEDOR: TIntegerField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -1139,7 +1140,8 @@ begin
     GerarSequencial(Sequencial);
 
     cdsTabelaItens.Append;
-    cdsTabelaItensSEQ.Value := Sequencial;
+    cdsTabelaItensSEQ.Value         := Sequencial;
+    cdsTabelaItensCODVENDEDOR.Value := IbDtstTabelaVENDEDOR_COD.Value;
     dbProduto.SetFocus;
   end;
 end;
@@ -1602,12 +1604,12 @@ end;
 
 procedure TfrmGeVenda.cdsTabelaItensNewRecord(DataSet: TDataSet);
 begin
-  cdsTabelaItensANO.Value        := IbDtstTabelaANO.Value;
-  cdsTabelaItensCODCONTROL.Value := IbDtstTabelaCODCONTROL.Value;
-  cdsTabelaItensDTVENDA.Value    := IbDtstTabelaDTVENDA.Value;
-  cdsTabelaItensCODEMP.Value     := IbDtstTabelaCODEMP.Value;
-  cdsTabelaItensCODCLI.Value     := IbDtstTabelaCODCLI.Value;
-  cdsTabelaItensCODCLIENTE.Value := IbDtstTabelaCODCLIENTE.Value;
+  cdsTabelaItensANO.Value         := IbDtstTabelaANO.Value;
+  cdsTabelaItensCODCONTROL.Value  := IbDtstTabelaCODCONTROL.Value;
+  cdsTabelaItensDTVENDA.Value     := IbDtstTabelaDTVENDA.Value;
+  cdsTabelaItensCODEMP.Value      := IbDtstTabelaCODEMP.Value;
+  cdsTabelaItensCODCLI.Value      := IbDtstTabelaCODCLI.Value;
+  cdsTabelaItensCODCLIENTE.Value  := IbDtstTabelaCODCLIENTE.Value;
 
   if ( IbDtstTabelaCFOP.IsNull ) then
   begin

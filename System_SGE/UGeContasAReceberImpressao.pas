@@ -18,7 +18,6 @@ uses
 
 type
   TfrmGeContasAReceberImpressao = class(TfrmGrPadraoImpressao)
-    lblData: TLabel;
     lblSituacao: TLabel;
     edSituacao: TComboBox;
     frRelacaoAReceberVSintetico: TfrxReport;
@@ -31,7 +30,6 @@ type
     CdsRelacaoAReceberVAnalitico: TClientDataSet;
     FrdsRelacaoAReceberVAnalitico: TfrxDBDataset;
     frRelacaoAReceberVAnalitico: TfrxReport;
-    lblCompetencia: TLabel;
     edCompetencia: TComboBox;
     QryCompetencia: TIBQuery;
     DspCompetencia: TDataSetProvider;
@@ -63,8 +61,8 @@ type
     CdsEmpresas: TClientDataSet;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
-    e1Data: TJvDateEdit;
-    e2Data: TJvDateEdit;
+    e1Periodo: TJvDateEdit;
+    e2Periodo: TJvDateEdit;
     lblCidade: TLabel;
     edCidade: TComboBox;
     QryCidades: TIBQuery;
@@ -75,11 +73,13 @@ type
     DspRelacaoAReceberVCidade: TDataSetProvider;
     CdsRelacaoAReceberVCidade: TClientDataSet;
     FrdsRelacaoAReceberVCidade: TfrxDBDataset;
+    chkPeriodo: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edCompetenciaChange(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
+    procedure chkPeriodoClick(Sender: TObject);
   private
     { Private declarations }
     FSQL_RelacaoAReceberAnalit           ,
@@ -140,8 +140,8 @@ const
 
 procedure TfrmGeContasAReceberImpressao.FormCreate(Sender: TObject);
 begin
-  e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
-  e2Data.Date := GetDateDB;
+  e1Periodo.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
+  e2Periodo.Date := GetDateDB;
   edSituacao.ItemIndex := TITULO_PENDENTE;
 
   inherited;
@@ -169,7 +169,7 @@ procedure TfrmGeContasAReceberImpressao.btnVisualizarClick(
   Sender: TObject);
 begin
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '       + #13 +
-    Format('- Período  : %s a %s', [e1Data.Text, e2Data.Text]) + #13 +
+    Format('- Período  : %s a %s', [e1Periodo.Text, e2Periodo.Text]) + #13 +
     Format('- Situação : %s', [edSituacao.Text]);
 
   Screen.Cursor         := crSQLWait;
@@ -241,7 +241,7 @@ procedure TfrmGeContasAReceberImpressao.MontarRelacaoAReceberPorVencimentoAnalit
 begin
   try
     SubTituloRelario := edSituacao.Text;
-    PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+    PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text]);
 
     CdsRelacaoAReceberVAnalitico.Close;
 
@@ -252,11 +252,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -295,9 +295,9 @@ begin
   try
     SubTituloRelario := edSituacao.Text;
     if (edCliente.ItemIndex = 0) then
-      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text])
     else
-      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edCliente.Text]) + #13;
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Periodo.Text, e2Periodo.Text, edCliente.Text]) + #13;
 
     CdsRelacaoAReceberVSintetico.Close;
 
@@ -308,11 +308,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -410,8 +410,8 @@ begin
   sDataInicial := IntToStr(ICompetencia[edCompetencia.ItemIndex]);
   sDataInicial := '01/' + Copy(sDataInicial, 5, 2) + '/' + Copy(sDataInicial, 1, 4);
 
-  e1Data.Date := StrToDate(sDataInicial);
-  e2Data.Date := StrToDate(FormatFloat('00"/"', DaysInMonth(e1Data.Date)) + FormatDateTime('mm/yyyy', e1Data.Date));
+  e1Periodo.Date := StrToDate(sDataInicial);
+  e2Periodo.Date := StrToDate(FormatFloat('00"/"', DaysInMonth(e1Periodo.Date)) + FormatDateTime('mm/yyyy', e1Periodo.Date));
 end;
 
 procedure TfrmGeContasAReceberImpressao.CarregarCidades;
@@ -486,7 +486,7 @@ procedure TfrmGeContasAReceberImpressao.MontarRelacaoAReceberPorEmissaoAnalitico
 begin
   try
     SubTituloRelario := edSituacao.Text;
-    PeriodoRelatorio := Format('Títulos emitidos no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+    PeriodoRelatorio := Format('Títulos emitidos no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text]);
 
     CdsRelacaoAReceberVAnalitico.Close;
 
@@ -497,11 +497,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtemiss >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtemiss >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtemiss <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtemiss <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -540,9 +540,9 @@ begin
   try
     SubTituloRelario := edSituacao.Text;
     if (edCliente.ItemIndex = 0) then
-      PeriodoRelatorio := Format('Títulos emitidos no período de %s a %s.', [e1Data.Text, e2Data.Text])
+      PeriodoRelatorio := Format('Títulos emitidos no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text])
     else
-      PeriodoRelatorio := Format('Títulos emitidos no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edCliente.Text]) + #13;
+      PeriodoRelatorio := Format('Títulos emitidos no período de %s a %s (%s).', [e1Periodo.Text, e2Periodo.Text, edCliente.Text]) + #13;
 
     CdsRelacaoAReceberESintetico.Close;
 
@@ -553,11 +553,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtemiss >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtemiss >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtemiss <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtemiss <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -600,7 +600,7 @@ procedure TfrmGeContasAReceberImpressao.MontarRelacaoAReceberPorBaixaAnalitico;
 begin
   try
     SubTituloRelario := edSituacao.Text;
-    PeriodoRelatorio := Format('Títulos baixados no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+    PeriodoRelatorio := Format('Títulos baixados no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text]);
 
     CdsRelacaoAReceberVAnalitico.Close;
 
@@ -611,11 +611,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtrec >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtrec >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtrec <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtrec <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -654,9 +654,9 @@ begin
   try
     SubTituloRelario := edSituacao.Text;
     if (edCliente.ItemIndex = 0) then
-      PeriodoRelatorio := Format('Títulos baixados no período de %s a %s.', [e1Data.Text, e2Data.Text])
+      PeriodoRelatorio := Format('Títulos baixados no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text])
     else
-      PeriodoRelatorio := Format('Títulos baixados no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edCliente.Text]) + #13;
+      PeriodoRelatorio := Format('Títulos baixados no período de %s a %s (%s).', [e1Periodo.Text, e2Periodo.Text, edCliente.Text]) + #13;
 
     CdsRelacaoAReceberBSintetico.Close;
 
@@ -667,11 +667,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtrec >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtrec >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtrec <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtrec <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -737,9 +737,9 @@ begin
   try
     SubTituloRelario := edSituacao.Text;
     if (edCliente.ItemIndex = 0) then
-      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text])
     else
-      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edCidade.Text]) + #13;
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Periodo.Text, e2Periodo.Text, edCidade.Text]) + #13;
 
     CdsRelacaoAReceberVCidade.Close;
 
@@ -750,11 +750,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -807,9 +807,9 @@ begin
   try
     SubTituloRelario := edSituacao.Text;
     if (edCliente.ItemIndex = 0) then
-      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text])
     else
-      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edCliente.Text]) + #13;
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Periodo.Text, e2Periodo.Text, edCliente.Text]) + #13;
 
     CdsRelacaoAReceberVCliente.Close;
 
@@ -820,11 +820,11 @@ begin
       SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
       SQL.Add('  and (cr.parcela > 0)');
 
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
 
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
@@ -909,6 +909,16 @@ begin
   end;
 
   edEmpresa.ItemIndex := P;
+end;
+
+procedure TfrmGeContasAReceberImpressao.chkPeriodoClick(Sender: TObject);
+begin
+  e1Periodo.Top  := edCompetencia.Top;
+  e2Periodo.Top  := edCompetencia.Top;
+
+  edCompetencia.Visible  := not chkPeriodo.Checked;
+  e1Periodo.Visible  := chkPeriodo.Checked;
+  e2Periodo.Visible  := chkPeriodo.Checked;
 end;
 
 initialization

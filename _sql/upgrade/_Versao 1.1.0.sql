@@ -24684,3 +24684,533 @@ Select 7 as TPD_CODIGO , 'NFS-e'         as TPD_DESCRICAO from RDB$DATABASE unio
 Select 8 as TPD_CODIGO , 'CT-e'          as TPD_DESCRICAO from RDB$DATABASE
 ;
 
+
+
+
+/*------ SYSDBA 19/04/2016 11:22:14 --------*/
+
+ALTER TABLE TBVENDEDOR
+    ADD COMISSAO_TIPO DMN_SMALLINT_NN DEFAULT 0;
+
+COMMENT ON COLUMN TBVENDEDOR.COMISSAO_TIPO IS
+'Tipo de Comissao:
+0 - Direta (Por Percentual/Valor sobre o Valor Total da Venda)
+1 - Grupo de Produtos/Servicos (Percentual)';
+
+alter table TBVENDEDOR
+alter COD position 1;
+
+alter table TBVENDEDOR
+alter NOME position 2;
+
+alter table TBVENDEDOR
+alter CPF position 3;
+
+alter table TBVENDEDOR
+alter COMISSAO_TIPO position 4;
+
+alter table TBVENDEDOR
+alter COMISSAO position 5;
+
+alter table TBVENDEDOR
+alter COMISSAO_VL position 6;
+
+alter table TBVENDEDOR
+alter TIPO position 7;
+
+alter table TBVENDEDOR
+alter ATIVO position 8;
+
+
+
+
+/*------ SYSDBA 19/04/2016 11:25:47 --------*/
+
+CREATE OR ALTER VIEW VW_TIPO_COMISSAO (
+    CODIGO,
+    DESCRICAO)
+AS
+Select 0 as Codigo , 'Direta' as Descricao from RDB$DATABASE Union
+Select 1 as Codigo , 'Por Grupo de Produtos/Servicos'  as Descricao from RDB$DATABASE
+;
+
+GRANT ALL ON VW_TIPO_COMISSAO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 19/04/2016 11:59:17 --------*/
+
+ALTER TABLE TVENDASITENS
+    ADD CODVENDEDOR DMN_INTEGER_N;
+
+COMMENT ON COLUMN TVENDASITENS.CODVENDEDOR IS
+'Vendedor';
+
+alter table TVENDASITENS
+alter ANO position 1;
+
+alter table TVENDASITENS
+alter CODCONTROL position 2;
+
+alter table TVENDASITENS
+alter CODEMP position 3;
+
+alter table TVENDASITENS
+alter SEQ position 4;
+
+alter table TVENDASITENS
+alter CODPROD position 5;
+
+alter table TVENDASITENS
+alter CODCLIENTE position 6;
+
+alter table TVENDASITENS
+alter CODCLI position 7;
+
+alter table TVENDASITENS
+alter CODVENDEDOR position 8;
+
+alter table TVENDASITENS
+alter DTVENDA position 9;
+
+alter table TVENDASITENS
+alter QTDE position 10;
+
+alter table TVENDASITENS
+alter PUNIT position 11;
+
+alter table TVENDASITENS
+alter PUNIT_PROMOCAO position 12;
+
+alter table TVENDASITENS
+alter DESCONTO position 13;
+
+alter table TVENDASITENS
+alter DESCONTO_VALOR position 14;
+
+alter table TVENDASITENS
+alter PFINAL position 15;
+
+alter table TVENDASITENS
+alter QTDEFINAL position 16;
+
+alter table TVENDASITENS
+alter UNID_COD position 17;
+
+alter table TVENDASITENS
+alter CFOP_COD position 18;
+
+alter table TVENDASITENS
+alter CST position 19;
+
+alter table TVENDASITENS
+alter CSOSN position 20;
+
+alter table TVENDASITENS
+alter ALIQUOTA position 21;
+
+alter table TVENDASITENS
+alter ALIQUOTA_CSOSN position 22;
+
+alter table TVENDASITENS
+alter ALIQUOTA_PIS position 23;
+
+alter table TVENDASITENS
+alter ALIQUOTA_COFINS position 24;
+
+alter table TVENDASITENS
+alter VALOR_IPI position 25;
+
+alter table TVENDASITENS
+alter PERCENTUAL_REDUCAO_BC position 26;
+
+alter table TVENDASITENS
+alter TOTAL_BRUTO position 27;
+
+alter table TVENDASITENS
+alter TOTAL_DESCONTO position 28;
+
+alter table TVENDASITENS
+alter TOTAL_LIQUIDO position 29;
+
+
+
+
+/*------ SYSDBA 19/04/2016 11:59:45 --------*/
+
+ALTER TABLE TVENDASITENS
+ADD CONSTRAINT FK_TVENDASITENS_VENDEDOR
+FOREIGN KEY (CODVENDEDOR)
+REFERENCES TBVENDEDOR(COD);
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:01:27 --------*/
+
+ALTER TABLE TVENDASITENS
+    ADD TOTAL_COMISSAO DMN_MONEY;
+
+COMMENT ON COLUMN TVENDASITENS.TOTAL_COMISSAO IS
+'Total Comissao Vendedor';
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:29:19 --------*/
+
+COMMENT ON COLUMN TVENDASITENS.TOTAL_COMISSAO IS
+'Total Comissao Vendedor
+
+Observacao: Valor calculado a partir do percentual retornado pelo procedimento GET_COMISSAO_VENDEDOR().';
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:38:46 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure GET_COMISSAO_VENDEDOR (
+    VENDEDOR DMN_INTEGER_N,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    COMISSAO_PERCENTUAL DMN_PERCENTUAL,
+    COMISSAO_VALOR DMN_MONEY)
+as
+declare variable TIPO_COMISSAO DMN_SMALLINT_N;
+declare variable PERC_COMISSAO DMN_COMISSAO;
+begin
+  Select
+      v.comissao_tipo
+    , v.comissao
+    , v.comissao_vl
+  from TBVENDEDOR v
+  where v.cod = coalesce(:vendedor, 0)
+  Into
+      tipo_comissao
+    , perc_comissao
+    , comissao_valor;
+
+  tipo_comissao  = coalesce(:tipo_comissao,  0);
+  perc_comissao  = coalesce(:perc_comissao,  0.0);
+  comissao_valor = coalesce(:comissao_valor, 0.0);
+
+  /* Comissao por grupo de produtos/servicos (Percentual) */
+  if ( :tipo_comissao = 1 ) then
+  begin
+    Select
+      coalesce(g.perc_venda_comissao, 0.0)
+    from TBPRODUTO p
+      inner join TBGRUPOPROD g on (g.cod = p.codgrupo)
+    where p.cod = coalesce(:produto, '0')
+    Into
+      perc_comissao;
+  end
+
+  comissao_percentual = coalesce(:perc_comissao, 0.0);
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:41:24 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_COMISSAO_VENDEDOR (
+    VENDEDOR DMN_INTEGER_N,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    COMISSAO_PERCENTUAL DMN_PERCENTUAL,
+    COMISSAO_VALOR DMN_MONEY)
+as
+declare variable TIPO_COMISSAO DMN_SMALLINT_N;
+declare variable PERC_COMISSAO DMN_COMISSAO;
+begin
+  Select
+      v.comissao_tipo
+    , v.comissao
+    , v.comissao_vl
+  from TBVENDEDOR v
+  where v.cod = coalesce(:vendedor, 0)
+  Into
+      tipo_comissao
+    , perc_comissao
+    , comissao_valor;
+
+  tipo_comissao  = coalesce(:tipo_comissao,  0);
+  perc_comissao  = coalesce(:perc_comissao,  0.0);
+  comissao_valor = coalesce(:comissao_valor, 0.0);
+
+  /* Comissao por grupo de produtos/servicos (Percentual) */
+  if ( :tipo_comissao = 1 ) then
+  begin
+    Select
+      coalesce(g.perc_venda_comissao, 0.0)
+    from TBPRODUTO p
+      inner join TBGRUPOPROD g on (g.cod = p.codgrupo)
+    where p.cod = coalesce(:produto, '0')
+    Into
+      perc_comissao;
+  end
+
+  comissao_percentual = coalesce(:perc_comissao, 0.0);
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE GET_COMISSAO_VENDEDOR IS 'Procedure GET Co/missao Vendedor.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   19/04/2016
+
+Stored procedure responsavel por retornar o percentual e/ou o valor de comissao
+do vendedor a partir do codigo do vendedor e do produto.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/04/2014 - IMR:
+        + Criacao e documentacao do objeto.';
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:41:35 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_COMISSAO_VENDEDOR (
+    VENDEDOR DMN_INTEGER_N,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    COMISSAO_PERCENTUAL DMN_PERCENTUAL,
+    COMISSAO_VALOR DMN_MONEY)
+as
+declare variable TIPO_COMISSAO DMN_SMALLINT_N;
+declare variable PERC_COMISSAO DMN_COMISSAO;
+begin
+  Select
+      v.comissao_tipo
+    , v.comissao
+    , v.comissao_vl
+  from TBVENDEDOR v
+  where v.cod = coalesce(:vendedor, 0)
+  Into
+      tipo_comissao
+    , perc_comissao
+    , comissao_valor;
+
+  tipo_comissao  = coalesce(:tipo_comissao,  0);
+  perc_comissao  = coalesce(:perc_comissao,  0.0);
+  comissao_valor = coalesce(:comissao_valor, 0.0);
+
+  /* Comissao por grupo de produtos/servicos (Percentual) */
+  if ( :tipo_comissao = 1 ) then
+  begin
+    Select
+      coalesce(g.perc_venda_comissao, 0.0)
+    from TBPRODUTO p
+      inner join TBGRUPOPROD g on (g.cod = p.codgrupo)
+    where p.cod = coalesce(:produto, '0')
+    Into
+      perc_comissao;
+  end
+
+  comissao_percentual = coalesce(:perc_comissao, 0.0);
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE GET_COMISSAO_VENDEDOR IS 'Procedure GET Co/missao Vendedor.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   19/04/2016
+
+Stored procedure responsavel por retornar o percentual e/ou o valor de comissao
+do vendedor a partir do codigo do vendedor e do produto.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/04/2014 - IMR:
+        * Criacao e documentacao do objeto.';
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:43:23 --------*/
+
+COMMENT ON TABLE TVENDASITENS IS 'Tabela de Itens das Vendas.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2014
+
+Tabela responsavel por armazenar os itens (produtos) das vendas registradas pelos
+sistema de retaguarda e PDV.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/04/2014 - IMR:
+        * Documentacao da tabela.';
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:47:42 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_vendasitens_comissao for tvendasitens
+active before insert or update position 20
+AS
+  declare variable percentual_comissao DMN_PERCENTUAL;
+begin
+  Select
+    g.comissao_percentual
+  from GET_COMISSAO_VENDEDOR(new.codvendedor, new.codprod) g
+  Into
+    percentual_comissao;
+
+  new.total_comissao = (new.total_liquido * :percentual_comissao / 100.0);
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:49:08 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendasitens_comissao for tvendasitens
+active before insert or update position 20
+AS
+  declare variable percentual_comissao DMN_PERCENTUAL;
+begin
+  Select
+    g.comissao_percentual
+  from GET_COMISSAO_VENDEDOR(new.codvendedor, new.codprod) g
+  Into
+    percentual_comissao;
+
+  new.total_comissao = (new.total_liquido * :percentual_comissao / 100.0);
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_VENDASITENS_COMISSAO IS 'Trigger Comissao Vendedor.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   19/04/2016
+
+Trigger responsavel por calcular a comissao do vendedor em cada produto inserido
+na venda.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/04/2014 - IMR:
+        * Criacao e documentacao do objeto.';
+
+
+
+
+/*------ SYSDBA 19/04/2016 12:49:17 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_COMISSAO_VENDEDOR (
+    VENDEDOR DMN_INTEGER_N,
+    PRODUTO DMN_VCHAR_10)
+returns (
+    COMISSAO_PERCENTUAL DMN_PERCENTUAL,
+    COMISSAO_VALOR DMN_MONEY)
+as
+declare variable TIPO_COMISSAO DMN_SMALLINT_N;
+declare variable PERC_COMISSAO DMN_COMISSAO;
+begin
+  Select
+      v.comissao_tipo
+    , v.comissao
+    , v.comissao_vl
+  from TBVENDEDOR v
+  where v.cod = coalesce(:vendedor, 0)
+  Into
+      tipo_comissao
+    , perc_comissao
+    , comissao_valor;
+
+  tipo_comissao  = coalesce(:tipo_comissao,  0);
+  perc_comissao  = coalesce(:perc_comissao,  0.0);
+  comissao_valor = coalesce(:comissao_valor, 0.0);
+
+  /* Comissao por grupo de produtos/servicos (Percentual) */
+  if ( :tipo_comissao = 1 ) then
+  begin
+    Select
+      coalesce(g.perc_venda_comissao, 0.0)
+    from TBPRODUTO p
+      inner join TBGRUPOPROD g on (g.cod = p.codgrupo)
+    where p.cod = coalesce(:produto, '0')
+    Into
+      perc_comissao;
+  end
+
+  comissao_percentual = coalesce(:perc_comissao, 0.0);
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE GET_COMISSAO_VENDEDOR IS 'Procedure GET Comissao Vendedor.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   19/04/2016
+
+Stored procedure responsavel por retornar o percentual e/ou o valor de comissao
+do vendedor a partir do codigo do vendedor e do produto.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/04/2014 - IMR:
+        * Criacao e documentacao do objeto.';
+

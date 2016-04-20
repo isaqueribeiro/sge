@@ -21,37 +21,18 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
     end
     inherited GrpBxFiltro: TGroupBox
-      object lblData: TLabel
-        Left = 45
-        Top = 154
-        Width = 46
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'Per'#237'odo:'
-        FocusControl = e1Data
-        Visible = False
-      end
       object lblSituacao: TLabel
-        Left = 41
-        Top = 76
+        Left = 46
+        Top = 78
         Width = 52
         Height = 13
         Alignment = taRightJustify
         Caption = 'Situa'#231#227'o:'
         FocusControl = edSituacao
       end
-      object lblCompetencia: TLabel
-        Left = 16
-        Top = 52
-        Width = 77
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'Compet'#234'ncia:'
-        FocusControl = edCompetencia
-      end
       object lblCliente: TLabel
-        Left = 51
-        Top = 100
+        Left = 56
+        Top = 102
         Width = 42
         Height = 13
         Alignment = taRightJustify
@@ -59,8 +40,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         FocusControl = edCliente
       end
       object lblEmpresa: TLabel
-        Left = 49
-        Top = 28
+        Left = 46
+        Top = 27
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -68,8 +49,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         FocusControl = edEmpresa
       end
       object lblCidade: TLabel
-        Left = 52
-        Top = 127
+        Left = 57
+        Top = 126
         Width = 41
         Height = 13
         Alignment = taRightJustify
@@ -79,12 +60,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object edSituacao: TComboBox
         Left = 104
-        Top = 72
+        Top = 74
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemIndex = 2
-        TabOrder = 4
+        TabOrder = 5
         Text = 'Pendentes'
         Items.Strings = (
           '(Todos)'
@@ -94,12 +75,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object edCompetencia: TComboBox
         Left = 104
-        Top = 48
-        Width = 313
+        Top = 49
+        Width = 207
         Height = 21
         Style = csDropDownList
         ItemIndex = 0
-        TabOrder = 1
+        TabOrder = 2
         Text = '(Todas)'
         OnChange = edCompetenciaChange
         Items.Strings = (
@@ -110,12 +91,12 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object edCliente: TComboBox
         Left = 104
-        Top = 96
+        Top = 98
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemIndex = 0
-        TabOrder = 5
+        TabOrder = 6
         Text = '(Todos)'
         Items.Strings = (
           '(Todos)')
@@ -128,68 +109,10 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         Style = csDropDownList
         TabOrder = 0
       end
-      object e1Data: TJvDateEdit
+      object e1Periodo: TJvDateEdit
         Left = 104
-        Top = 150
+        Top = 152
         Width = 99
-        Height = 21
-        Date = 40909.000000000000000000
-        Glyph.Data = {
-          76050000424D760500000000000036000000280000001C0000000C0000000100
-          2000000000004005000000000000000000000000000000000000FF00FF00FF00
-          FF00FF00FF008080800080808000808080008080800080808000808080008080
-          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
-          0000800000008000000000000000800000000000000000000000800000008080
-          8000FF00FF008080800080808000808080008080800080808000808080008080
-          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
-          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
-          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
-          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
-          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
-          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
-          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
-          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
-          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
-          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
-          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
-          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
-          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
-          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
-          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
-          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000FF00FF00FF00
-          FF00FF00FF008080800080808000808080008080800080808000808080008080
-          80008080800080808000808080008080800080808000FF00FF00}
-        ImageKind = ikCustom
-        NumGlyphs = 2
-        PopupColor = clBtnFace
-        ShowNullDate = False
-        TabOrder = 2
-        Visible = False
-      end
-      object e2Data: TJvDateEdit
-        Left = 208
-        Top = 150
-        Width = 103
         Height = 21
         Date = 40909.000000000000000000
         Glyph.Data = {
@@ -244,18 +167,85 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         TabOrder = 3
         Visible = False
       end
+      object e2Periodo: TJvDateEdit
+        Left = 208
+        Top = 152
+        Width = 103
+        Height = 21
+        Date = 40909.000000000000000000
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
+        NumGlyphs = 2
+        PopupColor = clBtnFace
+        ShowNullDate = False
+        TabOrder = 4
+        Visible = False
+      end
       object edCidade: TComboBox
         Left = 104
-        Top = 123
+        Top = 122
         Width = 313
         Height = 21
         Style = csDropDownList
         ItemIndex = 0
-        TabOrder = 6
+        TabOrder = 7
         Text = '(Todos)'
         Visible = False
         Items.Strings = (
           '(Todos)')
+      end
+      object chkPeriodo: TCheckBox
+        Left = 15
+        Top = 51
+        Width = 83
+        Height = 17
+        Caption = 'Por Per'#237'odo:'
+        TabOrder = 1
+        OnClick = chkPeriodoClick
       end
     end
   end
@@ -3128,20 +3118,17 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       'from TBCOMPETENCIA c'
       'order by'
       '    c.cmp_num desc')
-    Left = 424
-    Top = 8
+    Left = 456
   end
   object DspCompetencia: TDataSetProvider
     DataSet = QryCompetencia
-    Left = 456
-    Top = 8
+    Left = 488
   end
   object CdsCompetencia: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspCompetencia'
-    Left = 488
-    Top = 8
+    Left = 520
   end
   object QryCliente: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
@@ -3159,20 +3146,20 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       ''
       'order by'
       '    c.nome')
-    Left = 424
-    Top = 40
+    Left = 456
+    Top = 32
   end
   object DspCliente: TDataSetProvider
     DataSet = QryCliente
-    Left = 456
-    Top = 40
+    Left = 488
+    Top = 32
   end
   object CdsCliente: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspCliente'
-    Left = 488
-    Top = 40
+    Left = 520
+    Top = 32
   end
   object frRelacaoAReceberESintetico: TfrxReport
     Version = '5.1.9'
@@ -9791,20 +9778,20 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       '  , e.cnpj'
       'from TBEMPRESA e'
       'order by 2')
-    Left = 424
-    Top = 72
+    Left = 456
+    Top = 64
   end
   object DspEmpresas: TDataSetProvider
     DataSet = QryEmpresas
-    Left = 456
-    Top = 72
+    Left = 488
+    Top = 64
   end
   object CdsEmpresas: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspEmpresas'
-    Left = 488
-    Top = 72
+    Left = 520
+    Top = 64
   end
   object QryCidades: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
@@ -9819,20 +9806,20 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       'from TBCIDADE c'
       '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
       'order by 2')
-    Left = 424
-    Top = 104
+    Left = 456
+    Top = 96
   end
   object DpsCidades: TDataSetProvider
     DataSet = QryCidades
-    Left = 456
-    Top = 104
+    Left = 488
+    Top = 96
   end
   object CdsCidades: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DpsCidades'
-    Left = 488
-    Top = 104
+    Left = 520
+    Top = 96
   end
   object frRelacaoAReceberVCidade: TfrxReport
     Version = '5.1.9'
