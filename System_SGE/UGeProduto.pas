@@ -19,6 +19,41 @@ uses
 
 type
   TAliquota = (taICMS, taISS);
+
+  TUnidade = record
+    aCodigo   : Integer;
+    aDescricao,
+    aSigla    : String;
+  end;
+
+  ProdutoServicoPonteiro = ^TProdutoServico;
+
+  TProdutoServico = record
+    aCodigo      : Integer;
+    aCodigoAlfa  ,
+    aCodigoEAN   ,
+    aDescricao   ,
+    aApresentacao,
+    aNome        ,
+    aReferencia  : String;
+    aUnidadeCompra  ,
+    aUnidadeConsumo : TUnidade;
+    aCST    ,
+    aNCM_SH : String;
+    aCFOP ,
+    aCNAE : Integer;
+    aAliquota       ,
+    aAliquotaPIS    ,
+    aAliquotaCOFINS ,
+    aValorVenda     ,
+    aValorPromocao  ,
+    aValorIPI       ,
+    aValorCusto     ,
+    aPercentualRedBC,
+    aEstoque ,
+    aReserva : Currency
+  end;
+
   TfrmGeProduto = class(TfrmGrPadraoCadastro)
     IbDtstTabelaCODIGO: TIntegerField;
     IbDtstTabelaCOD: TIBStringField;
@@ -343,9 +378,11 @@ type
     { Private declarations }
     fOrdenado : Boolean;
     fAliquota : TAliquota;
+    fRealizarVenda  ,
     fApenasProdutos ,
     fApenasServicos : Boolean;
     Procedure ControleCampos;
+    procedure AddWhereAdditional;
   public
     { Public declarations }
     procedure FiltarDados(const iTipoPesquisa : Integer); overload;
@@ -359,6 +396,8 @@ var
   function SelecionarProdutoParaAjuste(const AOwner : TComponent; const Empresa : String;
     var Codigo : Integer;
     var CodigoAlfa, Nome : String) : Boolean;
+
+  function SelecionarProdutoParaVenda(const AOwner : TComponent; var pProduto : TProdutoServico) : Boolean;
 
   function SelecionarProduto(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
   function SelecionarProduto(const AOwner : TComponent;
@@ -438,21 +477,19 @@ begin
   frm := TfrmGeProduto.Create(AOwner);
   try
     frm.fAliquota := TipoAliquota;
-
-    if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
-      frm.WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
-    else
-      frm.WhereAdditional := '(1 = 1)';
-
-    if (GetPermitirVendaEstoqueInsEmpresa(gUsuarioLogado.Empresa) and (gSistema.Codigo = SISTEMA_PDV)) then
-       frm.chkProdutoComEstoque.Checked := False;
-
-    // Carregar apenas produtos com estoque e serviços em geral
-    if frm.chkProdutoComEstoque.Checked then
-      frm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
-
-    frm.WhereAdditional := frm.WhereAdditional + '  and (' + PRD_ARQUIVO_MORTO + ')';
-
+    frm.AddWhereAdditional;
+//
+//    if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
+//      frm.WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
+//    else
+//      frm.WhereAdditional := '(1 = 1)';
+//
+//    // Carregar apenas produtos com estoque e serviços em geral
+//    if frm.chkProdutoComEstoque.Checked then
+//      frm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
+//
+//    frm.WhereAdditional := frm.WhereAdditional + '  and (' + PRD_ARQUIVO_MORTO + ')';
+//
     frm.ShowModal;
   finally
     frm.Destroy;
@@ -485,6 +522,64 @@ begin
       CodigoAlfa := frm.IbDtstTabelaCOD.Value;
   finally
     frm.Destroy;
+  end;
+end;
+
+function SelecionarProdutoParaVenda(const AOwner : TComponent; var pProduto : TProdutoServico) : Boolean;
+var
+  AForm : TfrmGeProduto;
+  iCodigo    : Integer;
+  sDescricao : String;
+begin
+  AForm := TfrmGeProduto.Create(AOwner);
+  try
+    AForm.fAliquota       := taICMS;
+    AForm.fApenasProdutos := True;
+    AForm.fRealizarVenda  := True;
+    AForm.AddWhereAdditional;
+
+    Result := AForm.SelecionarRegistro(iCodigo, sDescricao, AForm.WhereAdditional);
+
+    if Result then
+      with AForm, pProduto do
+      begin
+        aCodigo     := IbDtstTabelaCODIGO.AsInteger;
+        aCodigoAlfa := IbDtstTabelaCOD.AsString;
+        aCodigoEAN  := IbDtstTabelaCODBARRA_EAN.AsString;
+
+        aDescricao    := IbDtstTabelaDESCRI.AsString;
+        aApresentacao := IbDtstTabelaAPRESENTACAO.AsString;
+        aNome         := IbDtstTabelaDESCRI_APRESENTACAO.AsString;
+
+        aUnidadeCompra.aCodigo     := IbDtstTabelaCODUNIDADE.AsInteger;
+        aUnidadeCompra.aDescricao  := IbDtstTabelaDESCRICAO_UNIDADE.AsString;
+        aUnidadeCompra.aSigla      := IbDtstTabelaUNP_SIGLA.AsString;
+
+        aUnidadeConsumo.aCodigo    := IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger;
+        aUnidadeConsumo.aDescricao := IbDtstTabelaDESCRICAO_UNIDADE_FRAC.AsString;
+        aUnidadeConsumo.aSigla     := IbDtstTabelaUNP_SIGLA_FRAC.AsString;
+
+        aCST       := IbDtstTabelaCST.AsString;
+        aNCM_SH    := IbDtstTabelaNCM_SH.AsString;
+        aCFOP      := IbDtstTabelaCODCFOP.AsInteger;
+        aCNAE      := 0;
+
+        aAliquota       := IbDtstTabelaALIQUOTA.AsCurrency;
+        aAliquotaPIS    := IbDtstTabelaALIQUOTA_PIS.AsCurrency;
+        aAliquotaCOFINS := IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
+
+        aValorVenda     := IbDtstTabelaPRECO.AsCurrency;
+        aValorPromocao  := IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
+        aValorIPI       := IbDtstTabelaVALOR_IPI.AsCurrency;
+        aValorCusto     := IbDtstTabelaCUSTOMEDIO.AsCurrency;
+
+        aPercentualRedBC := IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+
+        aEstoque := IbDtstTabelaQTDE.AsCurrency;
+        aReserva := IbDtstTabelaRESERVA.AsCurrency;
+      end;
+  finally
+    AForm.Destroy;
   end;
 end;
 
@@ -952,6 +1047,7 @@ begin
   fOrdenado := False;
   fAliquota := taICMS;
 
+  fRealizarVenda  := False;
   fApenasProdutos := False;
   fApenasServicos := False;
 
@@ -1019,7 +1115,9 @@ begin
   dbTipoTributacaoSN.Enabled  := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
   lblAliquotaSN.Enabled := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
   dbAliquotaSN.Enabled  := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
-*)  
+*)
+  if (GetPermitirVendaEstoqueInsEmpresa(gUsuarioLogado.Empresa) and (gSistema.Codigo = SISTEMA_PDV)) then
+    chkProdutoComEstoque.Checked := False;
 end;
 
 procedure TfrmGeProduto.dbGrupoButtonClick(Sender: TObject);
@@ -1505,22 +1603,23 @@ end;
 
 procedure TfrmGeProduto.btnFiltrarClick(Sender: TObject);
 begin
-  if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
-    WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
-  else
-    WhereAdditional := '(1 = 1)';
-
-  if fApenasProdutos then
-    WhereAdditional := WhereAdditional + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taICMS)) + ')'
-  else
-  if fApenasServicos then
-    WhereAdditional := WhereAdditional + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taISS)) + ')';
-
-  if chkProdutoComEstoque.Visible then
-    if chkProdutoComEstoque.Checked then
-      WhereAdditional := WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
-
+//  if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
+//    WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
+//  else
+//    WhereAdditional := '(1 = 1)';
+//
+//  if fApenasProdutos then
+//    WhereAdditional := WhereAdditional + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taICMS)) + ')'
+//  else
+//  if fApenasServicos then
+//    WhereAdditional := WhereAdditional + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taISS)) + ')';
+//
+//  if chkProdutoComEstoque.Visible then
+//    if chkProdutoComEstoque.Checked then
+//      WhereAdditional := WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
+//
   // inherited;
+  AddWhereAdditional;
   FiltarDados(CmbBxFiltrarTipo.ItemIndex);
 end;
 
@@ -1823,6 +1922,31 @@ begin
 
     ShowInformation('Atualização', 'Código da Tabela IBPT dos registros atualizados com sucesso!');
   end;
+end;
+
+procedure TfrmGeProduto.AddWhereAdditional;
+var
+  sWhr : String;
+begin
+  sWhr := PRD_ARQUIVO_MORTO;
+
+  if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
+    sWhr := sWhr + '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
+
+  if chkProdutoComEstoque.Visible then
+    if chkProdutoComEstoque.Checked then
+      sWhr := sWhr + ' and ((p.qtde > 0) or (p.movimenta_estoque = 0) or (p.aliquota_tipo = 1))';
+
+  if fApenasProdutos then
+    sWhr := sWhr + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taICMS)) + ')'
+  else
+  if fApenasServicos then
+    sWhr := sWhr + ' and (p.Aliquota_tipo = ' + IntToStr(Ord(taISS)) + ')';
+
+  if fRealizarVenda then
+    sWhr := sWhr + ' and (p.compor_faturamento = 1)';
+
+  WhereAdditional := '(' + sWhr + ')';
 end;
 
 procedure TfrmGeProduto.btbtnAlterarClick(Sender: TObject);

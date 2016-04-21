@@ -306,6 +306,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -1564,7 +1566,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 720
     Top = 304
     Bitmap = {
-      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4920,7 +4922,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       '  left join TBBANCO bc on (bc.cod = ch.banco)'
       ''
       'where ch.empresa = :empresa'
-      '  and ch.data_apresentacao :data_inicial and :data_final'
+      '  and ch.data_apresentacao between :data_inicial and :data_final'
       ''
       'order by'
       '    ch.status'
@@ -5061,6 +5063,34 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       item
         Name = 'SubTitulo'
         Value = #39#39
+      end
+      item
+        Name = ' Valores'
+        Value = Null
+      end
+      item
+        Name = 'ValorApresentado'
+        Value = 
+          'IIF(<frdsRelacaoCheque."STATUS">=1,<frdsRelacaoCheque."VALOR">,0' +
+          '.0)'
+      end
+      item
+        Name = 'ValorDevolvido'
+        Value = 
+          'IIF(<frdsRelacaoCheque."STATUS">=2,<frdsRelacaoCheque."VALOR">,0' +
+          '.0)'
+      end
+      item
+        Name = 'ValorCompensado'
+        Value = 
+          'IIF(<frdsRelacaoCheque."STATUS">=8,<frdsRelacaoCheque."VALOR">,0' +
+          '.0)'
+      end
+      item
+        Name = 'ValorCancelado'
+        Value = 
+          'IIF(<frdsRelacaoCheque."STATUS">=9,<frdsRelacaoCheque."VALOR">,0' +
+          '.0)'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -5078,7 +5108,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       BottomMargin = 10.000000000000000000
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
-        Height = 154.960730000000000000
+        Height = 139.842610000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         Stretched = True
@@ -5195,7 +5225,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
-          Width = 113.385900000000000000
+          Width = 933.543910000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5203,39 +5233,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Memo.UTF8W = (
-            'Situa'#231#227'o cheques:')
-          ParentFont = False
-          VAlign = vaCenter
-        end
-        object Memo14: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 136.063080000000000000
-          Width = 933.543910000000000000
-          Height = 15.118120000000000000
-          StretchMode = smMaxHeight
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[Periodo] ')
-          ParentFont = False
-          VAlign = vaCenter
-        end
-        object Memo16: TfrxMemoView
-          Left = 226.771800000000000000
-          Top = 120.944960000000000000
-          Width = 820.158010000000000000
-          Height = 15.118120000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[SubTitulo]')
+            '[Periodo]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -5264,7 +5262,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
         Height = 30.236240000000000000
-        Top = 570.709030000000000000
+        Top = 555.590910000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           Width = 910.866730000000000000
@@ -5319,13 +5317,13 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       object BndGrpHeaderStatus: TfrxGroupHeader
         FillType = ftBrush
         Height = 56.692950000000010000
-        Top = 234.330860000000000000
+        Top = 219.212740000000000000
         Width = 1046.929810000000000000
         Condition = 'frdsRelacaoCheque."STATUS"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
-          Left = 83.149660000000000000
-          Width = 963.780150000000000000
+          Left = 128.504020000000000000
+          Width = 918.425790000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5344,7 +5342,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
-          Width = 83.149660000000000000
+          Width = 128.504020000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5363,6 +5361,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          Left = 45.354360000000000000
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -5383,9 +5382,9 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 257.008040000000000000
+          Left = 302.362400000000000000
           Top = 18.897650000000000000
-          Width = 789.921770000000000000
+          Width = 744.567410000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5405,7 +5404,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo6: TfrxMemoView
           Left = 944.882500000000000000
-          Top = 37.795300000000030000
+          Top = 37.795299999999940000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5426,7 +5425,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
-          Left = 83.149660000000000000
+          Left = 128.504020000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
           Height = 37.795300000000000000
@@ -5448,9 +5447,9 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
-          Left = 257.008040000000000000
-          Top = 37.795300000000030000
-          Width = 219.212666770000000000
+          Left = 302.362400000000000000
+          Top = 37.795299999999940000
+          Width = 173.858306770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -5470,7 +5469,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo23: TfrxMemoView
           Left = 476.220780000000000000
-          Top = 37.795300000000030000
+          Top = 37.795299999999940000
           Width = 52.913346770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5491,7 +5490,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo25: TfrxMemoView
           Left = 529.134199999999900000
-          Top = 37.795300000000030000
+          Top = 37.795299999999940000
           Width = 79.370056770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5512,7 +5511,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo30: TfrxMemoView
           Left = 608.504330000000000000
-          Top = 37.795300000000030000
+          Top = 37.795299999999940000
           Width = 86.929116769999990000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5533,7 +5532,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo33: TfrxMemoView
           Left = 695.433520000000000000
-          Top = 37.795300000000030000
+          Top = 37.795299999999940000
           Width = 83.149586770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5554,7 +5553,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo35: TfrxMemoView
           Left = 778.583180000000000000
-          Top = 37.795300000000030000
+          Top = 37.795299999999940000
           Width = 83.149586770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5575,7 +5574,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo37: TfrxMemoView
           Left = 861.732840000000000000
-          Top = 37.795300000000030000
+          Top = 37.795299999999940000
           Width = 83.149586770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5594,18 +5593,38 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           WordWrap = False
           VAlign = vaCenter
         end
+        object Memo39: TfrxMemoView
+          Top = 18.897650000000000000
+          Width = 45.354360000000000000
+          Height = 37.795300000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '#')
+          ParentFont = False
+          VAlign = vaCenter
+        end
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
         Height = 18.897650000000000000
-        Top = 313.700990000000000000
+        Top = 298.582870000000000000
         Width = 1046.929810000000000000
         DataSet = frdsRelacaoCheque
         DataSetName = 'frdsRelacaoCheque'
         RowCount = 0
         Stretched = True
         object Memo28: TfrxMemoView
-          Left = 83.149660000000000000
+          Left = 128.504020000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -5658,6 +5677,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          Left = 45.354360000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -5687,7 +5707,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
-          Left = 86.929190000000000000
+          Left = 132.283550000000000000
           Width = 170.078850000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -5713,8 +5733,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
-          Left = 257.008040000000000000
-          Width = 219.212676540000000000
+          Left = 302.362400000000000000
+          Width = 173.858316540000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -5753,7 +5773,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -5781,7 +5800,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -5809,7 +5827,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
-          HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -5910,11 +5927,38 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           WordWrap = False
           VAlign = vaCenter
         end
+        object Memo40: TfrxMemoView
+          Width = 45.354360000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haCenter
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
+            '[FormatFloat('#39'###00000'#39',<frdsRelacaoCheque."CONTROLE">)]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
       end
       object BndGrpFooterStatus: TfrxGroupFooter
         FillType = ftBrush
         Height = 26.456710000000000000
-        Top = 355.275820000000000000
+        Top = 340.157700000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
           Left = 944.882500000000000000
@@ -5940,7 +5984,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
         Height = 105.826840000000000000
-        Top = 442.205010000000000000
+        Top = 427.086890000000000000
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
@@ -6053,8 +6097,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[FormatFloat('#39',0.00'#39',SUM((<frdsRelacaoCheque."VALOR">),BndMaster' +
-              'Data,2))] ')
+              '[FormatFloat('#39',0.00'#39',SUM((<ValorApresentado>+<ValorDevolvido>),B' +
+              'ndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -6095,9 +6139,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',SUM((<frdsRelacaoCheque."VALOR">),BndMaster' +
-              'Data,2))] ')
+            '[FormatFloat('#39',0.00'#39',SUM((<ValorDevolvido>),BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -6138,9 +6180,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.00'#39',SUM((<frdsRelacaoCheque."VALOR">),BndMaster' +
-              'Data,2))] ')
+            '[FormatFloat('#39',0.00'#39',SUM((<ValorCompensado>),BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False

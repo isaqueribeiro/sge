@@ -19679,7 +19679,7 @@ object DMNFe: TDMNFe
           Font.Style = [fsBold]
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' Centro de Custo requisitante:')
+            ' Centro de Custo Requisitante:')
           ParentFont = False
           VAlign = vaCenter
         end

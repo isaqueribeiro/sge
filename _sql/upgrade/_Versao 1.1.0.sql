@@ -25214,3 +25214,65 @@ Historico:
     19/04/2014 - IMR:
         * Criacao e documentacao do objeto.';
 
+
+
+
+/*------ SYSDBA 20/04/2016 17:31:25 --------*/
+
+COMMENT ON TABLE TBFORMPAGTO_CONDICAO IS 'Tabela Forma de Pagamento x Condicao de Pagamento.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   11/03/2015
+
+Tabela responsavel por armazenar a relacao "Forma de Pagamento" X "Condicao de Pagamento". Ela permitira que uma forma de
+pagamento possa esta associada a mais de uma condicao de pagamento e uma condicao de pagamento associada a varias formas
+de pagamentos.
+
+Esta relacao e importante para impedir que, no PDV, escolha-se uma condicao de pagamento inadequada a forma de pagamento
+da venda.
+
+O Sistema de Gestao Industrial nao utiliza esta regra.
+
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    12/03/2015 - IMR :
+        * Documentacao da tabela.';
+
+
+
+
+/*------ SYSDBA 20/04/2016 17:31:32 --------*/
+
+COMMENT ON TABLE TBFORMPAGTO_CONDICAO IS 'Tabela Forma de Pagamento x Condicao de Pagamento.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   11/03/2015
+
+Tabela responsavel por armazenar a relacao "Forma de Pagamento" X "Condicao de Pagamento". Ela permitira que uma forma de
+pagamento possa esta associada a mais de uma condicao de pagamento e uma condicao de pagamento associada a varias formas
+de pagamentos.
+
+Esta relacao e importante para impedir que, no PDV, escolha-se uma condicao de pagamento inadequada a forma de pagamento
+da venda.
+
+Obs.: O Sistema de Gestao Industrial nao utiliza esta regra.
+
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    12/03/2015 - IMR :
+        * Documentacao da tabela.';
+

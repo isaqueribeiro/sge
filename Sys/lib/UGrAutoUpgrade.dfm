@@ -158,7 +158,6 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     Height = 13
     Align = alBottom
     TabOrder = 1
-    ExplicitWidth = 335
   end
   object AutoUpgraderPro: TauAutoUpgrader
     InfoFile.Files.Strings = (
@@ -169,13 +168,13 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
       'http://www.agilsoftwares.com.br/upgrade/lib/LciLR3USB.inf'
       'http://www.agilsoftwares.com.br/upgrade/lib/MP2032.chm')
     InfoFile.UpgradeMsg = 
-      'Novos recursos dispon'#237'veis nesta vers'#227'o:'#13#10'- Financeiro / Control' +
-      'e de Cheques;'#13#10'- NF-e / Emiss'#227'o de CC-e (Carta de Corre'#231#227'o Eletr' +
-      #244'nica);'#13#10'- Atualiza'#231#227'o Autom'#225'tica;'#13#10'- Outros ajustes na otimiza'#231 +
-      #227'o de processos.'
+      'Novos recursos dispon'#237'veis nesta vers'#227'o:'#13#10'- Novos relat'#243'rios de ' +
+      'Vendas (Faturamento)'#13#10'- Financeiro / Controle de Cheques;'#13#10'- NF-' +
+      'e / Emiss'#227'o de CC-e (Carta de Corre'#231#227'o Eletr'#244'nica);'#13#10'- Atualiza'#231 +
+      #227'o Autom'#225'tica;'#13#10'- Outros ajustes na otimiza'#231#227'o de processos.'
     InfoFileURL = 'http://www.homeautomacao.com/suporte/itransito/digitoseven.inf'
     VersionControl = byNumber
-    VersionDate = '03/16/2016'
+    VersionDate = '04/20/2016'
     VersionDateAutoSet = True
     VersionNumber = '1.0.11.0'
     ShowMessages = [mAskUpgrade, mConnLost, mHostUnreachable, mLostFile, mNoInfoFile, mNoUpdateAvailable, mPasswordRequest]

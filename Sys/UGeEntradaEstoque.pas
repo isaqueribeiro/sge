@@ -665,11 +665,11 @@ begin
   e2Data.Date      := GetDateDB;
   ControlFirstEdit := dbEmpresa;
 
-  tblEmpresa.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  tblTipoDocumento.Open;
-  tblTipoEntrada.Open;
+  CarregarLista(tblEmpresa);
+  CarregarLista(tblFormaPagto);
+  CarregarLista(tblCondicaoPagto);
+  CarregarLista(tblTipoDocumento);
+  CarregarLista(tblTipoEntrada);
   CarregarTipoDespesa(False);
 
   DisplayFormatCodigo := '###0000000';
@@ -1235,7 +1235,7 @@ begin
       IbDtstTabelaNFSERIE.Value := TIPO_DOCUMENTO_SERIE_AVULSO;
     end;
 
-    IbDtstTabelaNF.Required      := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NOTA_FISCAL, TIPO_DOCUMENTO_ENTRADA_CUPOM, TIPO_DOCUMENTO_ENTRADA_NFE, TIPO_DOCUMENTO_ENTRADA_NFCE]);
+    IbDtstTabelaNF.Required      := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NOTA_FISCAL, TIPO_DOCUMENTO_ENTRADA_CUPOM, TIPO_DOCUMENTO_ENTRADA_NFE, TIPO_DOCUMENTO_ENTRADA_NFCE, TIPO_DOCUMENTO_ENTRADA_NFSE, TIPO_DOCUMENTO_ENTRADA_CTE]);
     IbDtstTabelaNFSERIE.Required := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NOTA_FISCAL, TIPO_DOCUMENTO_ENTRADA_NFE, TIPO_DOCUMENTO_ENTRADA_NFCE]) and (TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto);
 
     inherited;

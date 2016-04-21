@@ -4,7 +4,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
   Caption = 'Controle de Requisi'#231#245'es de Materiais'
   ClientHeight = 685
   ClientWidth = 1116
-  ExplicitTop = -57
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -454,9 +453,9 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         object lblCentroCustoRequisitante: TLabel [7]
           Left = 704
           Top = 24
-          Width = 267
+          Width = 288
           Height = 13
-          Caption = 'Departamento / Centro de Custo requisitante (Origem):'
+          Caption = 'Departamento Requisitante / Centro de Custo Requisitante:'
           FocusControl = dbCentroCustoRequisitante
         end
         object lblUsuarioRequisitante: TLabel [8]
@@ -478,9 +477,9 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         object lblCentroCustoAtendente: TLabel [10]
           Left = 704
           Top = 64
-          Width = 262
+          Width = 270
           Height = 13
-          Caption = 'Departamento / Centro de Custo atendente (Destino):'
+          Caption = 'Departamento Atendente / Centro de Custo Atendente:'
           FocusControl = dbCentroCustoAtendente
         end
         object lblUsuarioAtendente: TLabel [11]
@@ -2277,8 +2276,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       TabOrder = 9
       Visible = False
       OnClick = btnConfirmarAtendimentoClick
-      ExplicitLeft = 787
-      ExplicitTop = -2
     end
   end
   inherited IbDtstTabela: TIBDataSet
@@ -2365,14 +2362,14 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       OnGetText = IbDtstTabelaTIPOGetText
     end
     object IbDtstTabelaCCUSTO_ORIGEM: TIntegerField
-      DisplayLabel = 'Centro de Custo requisitante (Origem)'
+      DisplayLabel = 'Centro de Custo Requisitante'
       FieldName = 'CCUSTO_ORIGEM'
       Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_ORIGEM"'
       ProviderFlags = [pfInUpdate]
       Required = True
     end
     object IbDtstTabelaCCUSTO_DESTINO: TIntegerField
-      DisplayLabel = 'Centro de Custo de atendimento (Destino)'
+      DisplayLabel = 'Centro de Custo de Atendimento'
       FieldName = 'CCUSTO_DESTINO'
       Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_DESTINO"'
       ProviderFlags = [pfInUpdate]
@@ -2597,7 +2594,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -206,7 +206,8 @@ type
     { Private declarations }
     FDataAtual    : TDateTime;
     FLoteParcelas : String;
-    SQL_Baixas    : TStringList;
+    SQL_Baixas  ,
+    SQL_Relacao : TStringList;
     FImprimirCabecalho,
     FChequeParaBaixa  : Boolean;
     procedure AbrirBaixas(const Controle : Integer);
@@ -304,6 +305,9 @@ begin
 
   SQL_Baixas := TStringList.Create;
   SQL_Baixas.AddStrings( qryBaixas.SelectSQL );
+
+  SQL_Relacao := TStringList.Create;
+  SQL_Relacao.AddStrings( QryRelacaoCheque.SQL );
 
   FDataAtual      := GetDateTimeDB;
   e1Data.Date     := GetMenorDataChequePendente;
@@ -452,6 +456,8 @@ begin
     popGerarEspelhoChequeA4.Enabled := False;
     popGerarEspelhoChequeA5.Enabled := False;
   end;
+
+  popRelacaoCheques.Enabled := (IbDtstTabela.RecordCount > 0);
 end;
 
 procedure TfrmGeControleCheque.btbtnSalvarClick(Sender: TObject);
@@ -515,11 +521,11 @@ begin
 end;
 
 procedure TfrmGeControleCheque.popRelacaoChequesClick(Sender: TObject);
+var
+  sWhr : String;
 begin
   WaitAMoment(WAIT_AMOMENT_PrintPrepare);
   try
-    SetVariablesDefault(frRelacaoCheque);
-
     DMNFe.AbrirEmitente(gUsuarioLogado.Empresa);
     DMBusiness.ConfigurarEmail(gUsuarioLogado.Empresa, EmptyStr, 'Relação de Cheques', EmptyStr);
 
@@ -528,9 +534,17 @@ begin
       Close;
       ParamByName('empresa').AsString        := gUsuarioLogado.Empresa;
       ParamByName('data_inicial').AsDateTime := e1Data.Date;
-      ParamByName('data_final').AsDateTime   := e1Data.Date;
+      ParamByName('data_final').AsDateTime   := e2Data.Date;
       Open;
     end;
+
+    WaitAMomentFree;
+
+    frReport := frRelacaoCheque;
+    SetVariablesDefault(frReport);
+
+    frReport.PrepareReport;
+    frReport.ShowReport;
   finally
     WaitAMomentFree;
   end;
@@ -720,7 +734,7 @@ begin
     '((c.tipo = 2) and (c.status = ' + IntToSTr(STATUS_CHEQUE_COMPENSADO) + '))';
 
   WhereAdditional :=
-    IfThen(FChequeParaBaixa, '(c.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and ', EmptyStr) +
+    IfThen(not FChequeParaBaixa, '(c.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and ', EmptyStr) +
     '(c.data_apresentacao between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')' +
     IfThen(not FChequeParaBaixa, EmptyStr, ' and (' + sChequeBaixa + ')');

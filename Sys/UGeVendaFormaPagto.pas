@@ -6,7 +6,9 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls,
   IBUpdateSQL, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
+  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White;
 
 type
   TfrmGeVendaFormaPagto = class(TfrmGrPadrao)
@@ -163,11 +165,12 @@ begin
     Exit;
   end;
 
-  if not GetFormaPagtoCondicaoPagto(dbFormaPagto.Field.AsInteger, dbCondicaoPagto.Field.AsInteger) then
-  begin
-    ShowWarning('Forma de Pagamento não liberada para ser usada com a Condição de Pagamento selecionada!');
-    Exit;
-  end;
+  if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]) then
+    if not GetFormaPagtoCondicaoPagto(dbFormaPagto.Field.AsInteger, dbCondicaoPagto.Field.AsInteger) then
+    begin
+      ShowWarning('Forma de Pagamento não liberada para ser usada com a Condição de Pagamento selecionada!');
+      Exit;
+    end;
 
   if not CamposRequiridos(Self, TIBDataSet(dbCodigo.DataSource.DataSet), 'Forma/Condição de Pagamento') then
     try

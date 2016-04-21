@@ -694,32 +694,28 @@ end;
 
 procedure TfrmGeVendaPDV.actCarregarProdutoExecute(Sender: TObject);
 var
-  iCodigo    : Integer;
-  sCodigoAlfa,
-  sCodigoEAN ,
-  sNome      ,
-  sUnidade   : String;
+  aProduto : TProdutoServico;
   cQuantidade ,
   cValorVenda : Currency;
 begin
   if not EstaEditando then
     ShowWarning('Favor iniciar o processo de venda!')
   else
-    if SelecionarProduto(Self, iCodigo, sCodigoAlfa, sCodigoEAN, sNome, sUnidade, cValorVenda) then
+    if SelecionarProdutoParaVenda(Self, aProduto) then
     begin
       if ( Pos(COD_MLT, edProdutoCodigo.Text) = 0 ) then
         cQuantidade := 1
       else
         cQuantidade := StrToCurrDef(Copy(edProdutoCodigo.Text, 1, Pos(COD_MLT, edProdutoCodigo.Text) - 1), 1);
 
-      edProdutoCodigo.Text := Trim(Copy(edProdutoCodigo.Text, 1, Pos(COD_MLT, edProdutoCodigo.Text))) + Trim(IfThen(sCodigoEAN = EmptyStr, sCodigoAlfa, sCodigoEAN));
+      edProdutoCodigo.Text := Trim(Copy(edProdutoCodigo.Text, 1, Pos(COD_MLT, edProdutoCodigo.Text))) + Trim(IfThen(aProduto.aCodigoEAN = EmptyStr, aProduto.aCodigoAlfa, aProduto.aCodigoEAN));
       edProdutoCodigo.SetFocus;
       edProdutoCodigo.SelStart := Length(edProdutoCodigo.Text);
-      dbNomeProduto.Caption    := sNome;
-      dbUnidade.Caption        := sUnidade;
+      dbNomeProduto.Caption    := aProduto.aNome;
+      dbUnidade.Caption        := aProduto.aUnidadeCompra.aDescricao;
       dbQuantidade.Caption     := FormatFloat(',0.###', cQuantidade);
-      dbValorProduto.Caption   := FormatFloat(',0.00', cValorVenda);
-      dbTotalProduto.Caption   := FormatFloat(',0.00', cValorVenda * cQuantidade);
+      dbValorProduto.Caption   := FormatFloat(',0.00', aProduto.aValorVenda);
+      dbTotalProduto.Caption   := FormatFloat(',0.00', aProduto.aValorVenda * cQuantidade);
     end;
 end;
 

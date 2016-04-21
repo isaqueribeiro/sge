@@ -916,7 +916,7 @@ begin
           cdsTabelaItensUNID_COD.AsInteger   := FieldByName('Codunidade').AsInteger;
 
         if ( FieldByName('Codcfop').AsInteger > 0 ) then
-          cdsTabelaItensCFOP_COD.AsInteger := FieldByName('Codcfop').AsInteger;
+          cdsTabelaItensCFOP_COD.AsInteger := IfThen(IbDtstTabelaCFOP.AsInteger = 0, FieldByName('Codcfop').AsInteger, IbDtstTabelaCFOP.AsInteger);
 
         cdsTabelaItensALIQUOTA.AsCurrency              := FieldByName('Aliquota').AsCurrency;
         cdsTabelaItensALIQUOTA_CSOSN.AsCurrency        := FieldByName('Aliquota_csosn').AsCurrency;
@@ -1533,59 +1533,50 @@ end;
 
 procedure TfrmGeVenda.dbProdutoButtonClick(Sender: TObject);
 var
-  iCodigo  ,
-  iCFOP    ,
-  iUnidade : Integer;
-  iEstoque ,
-  iReserva : Currency;
-  sCodigoAlfa,
-  sDescricao ,
-  sUnidade   ,
-  sCST       : String;
-  cAliquota  ,
-  cAliquotaPIS   ,
-  cAliquotaCOFINS,
-  cPercRedBC ,
-  cValorVenda,
-  cValorPromocao,
-  cValorIPI     : Currency;
+  aProduto : TProdutoServico;
 begin
-  cValorPromocao := 0;
-
+  aProduto.aValorPromocao := 0.0;
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarProduto(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sCST, iUnidade, iCFOP, cAliquota, cAliquotaPIS, cAliquotaCOFINS,
-      cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva) ) then
+    if ( SelecionarProdutoParaVenda(Self, aProduto) ) then
     begin
-      cdsTabelaItensCODPROD.AsString     := sCodigoAlfa;
-      cdsTabelaItensDESCRI.AsString      := sDescricao;
-      cdsTabelaItensDESCRI_APRESENTACAO.AsString := sDescricao;
-      cdsTabelaItensUNP_SIGLA.AsString   := sUnidade;
-      cdsTabelaItensCST.AsString         := sCST;
-      cdsTabelaItensCFOP_COD.AsInteger   := iCFOP;
-      cdsTabelaItensALIQUOTA.AsCurrency        := cAliquota;
-      cdsTabelaItensALIQUOTA_PIS.AsCurrency    := cAliquotaPIS;
-      cdsTabelaItensALIQUOTA_COFINS.AsCurrency := cAliquotaCOFINS;
-      cdsTabelaItensPUNIT.AsCurrency     := cValorVenda;
-      cdsTabelaItensPUNIT_PROMOCAO.AsCurrency := cValorPromocao;
-      cdsTabelaItensPFINAL.AsCurrency    := cValorVenda;
-      cdsTabelaItensVALOR_IPI.AsCurrency := cValorIPI;
+      cdsTabelaItensCODPROD.AsString     := aProduto.aCodigoAlfa;
+      cdsTabelaItensDESCRI.AsString      := aProduto.aDescricao;
+      cdsTabelaItensDESCRI_APRESENTACAO.AsString := aProduto.aNome;
+      cdsTabelaItensUNID_COD.AsInteger   := aProduto.aUnidadeCompra.aCodigo;
+      cdsTabelaItensUNP_SIGLA.AsString   := aProduto.aUnidadeCompra.aSigla;
 
-      cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency := cPercRedBC;
+      cdsTabelaItensCST.AsString         := aProduto.aCST;
+      cdsTabelaItensNCM_SH.AsString      := aProduto.aNCM_SH;
+      cdsTabelaItensCFOP_COD.AsInteger   := aProduto.aCFOP;
 
-      cdsTabelaItensESTOQUE.AsCurrency := iEstoque;
-      cdsTabelaItensRESERVA.AsCurrency := iReserva;
+      cdsTabelaItensALIQUOTA.AsCurrency        := aProduto.aAliquota;
+      cdsTabelaItensALIQUOTA_PIS.AsCurrency    := aProduto.aAliquotaPIS;
+      cdsTabelaItensALIQUOTA_COFINS.AsCurrency := aProduto.aAliquotaCOFINS;
+
+      cdsTabelaItensPUNIT.AsCurrency          := aProduto.aValorVenda;
+      cdsTabelaItensPUNIT_PROMOCAO.AsCurrency := aProduto.aValorPromocao;
+      cdsTabelaItensPFINAL.AsCurrency    := aProduto.aValorVenda;
+      cdsTabelaItensVALOR_IPI.AsCurrency := aProduto.aValorIPI;
+
+      cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency := aProduto.aPercentualRedBC;
+
+      cdsTabelaItensESTOQUE.AsCurrency := aProduto.aEstoque;
+      cdsTabelaItensRESERVA.AsCurrency := aProduto.aReserva;
+
+      if not qryCFOP.Active then
+        CarregarDadosCFOP( IbDtstTabelaCFOP.AsInteger );
 
       if ( Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString) <> EmptyStr ) then
         cdsTabelaItensCST.AsString := Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString);
 
-      if ( cValorPromocao > 0 ) then
+      if ( aProduto.aValorPromocao > 0 ) then
       begin
-        cdsTabelaItensDESCONTO_VALOR.AsCurrency := cValorVenda - cValorPromocao;
+        cdsTabelaItensDESCONTO_VALOR.AsCurrency := aProduto.aValorVenda - aProduto.aValorPromocao;
         cdsTabelaItensDESCONTO.AsCurrency       := cdsTabelaItensDESCONTO_VALOR.AsCurrency / cdsTabelaItensPUNIT.AsCurrency * 100;
       end;
 
-      dbDesconto.ReadOnly      := (cValorPromocao > 0);
-      dbTotalDesconto.ReadOnly := (cValorPromocao > 0);
+      dbDesconto.ReadOnly      := (aProduto.aValorPromocao > 0);
+      dbTotalDesconto.ReadOnly := (aProduto.aValorPromocao > 0);
     end;
 end;
 

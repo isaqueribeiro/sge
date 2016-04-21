@@ -156,10 +156,10 @@ begin
     Add('  and NumVenda = ' + IntToStr(ControleVenda));
     Add('order by numlanc, parcela');
   end;
-  
+
   cdsTitulos.Open;
   if ( not cdsTitulos.IsEmpty ) then
-      cdsTitulos.Edit;
+    cdsTitulos.Edit;
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.ControlEditEnter(
@@ -239,9 +239,10 @@ end;
 
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosAfterScroll(DataSet: TDataSet);
 begin
-  dbFormaPagto.ReadOnly     := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0);
-  dbDataVencimento.ReadOnly := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0);
-  dbValor.ReadOnly          := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0);
+  // Bloquear edição dos campos quando já houver pagamentos realizados ou o título já estiver baixado
+  dbFormaPagto.ReadOnly     := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0);
+  dbDataVencimento.ReadOnly := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0);
+  dbValor.ReadOnly          := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0);
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosCalcFields(

@@ -1236,6 +1236,10 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -2084,6 +2088,10 @@ inherited frmGeProduto: TfrmGeProduto
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2402,13 +2410,12 @@ inherited frmGeProduto: TfrmGeProduto
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
-              Width = 941
+              Width = 105
               Height = 13
               Align = alTop
               Caption = 'Especifica'#231#227'o textual:'
               FocusControl = dbEspecificacao
               Transparent = True
-              ExplicitWidth = 105
             end
             object Bevel9: TBevel
               Left = 2
@@ -3774,7 +3781,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00740010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -67,6 +67,11 @@ type
     CdsEmpresas: TClientDataSet;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
+    frRelacaoVendaRotaEntrega: TfrxReport;
+    QryRelacaoVendaRotaEntrega: TIBQuery;
+    DspRelacaoVendaRotaEntrega: TDataSetProvider;
+    CdsRelacaoVendaRotaEntrega: TClientDataSet;
+    FrdsRelacaoVendaRotaEntrega: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -78,7 +83,8 @@ type
     FSQL_RelacaoVendaSintet ,
     FSQL_RelacaoVendaAnalit : TStringList;
     FSQL_RelacaoVendaClienteSintet ,
-    FSQL_RelacaoVendaClienteAnalit : TStringList;
+    FSQL_RelacaoVendaClienteAnalit ,
+    FSQL_RelacaoVendaEntrega       : TStringList;
     ICidade   : Array of Integer;
     IVendedor : Array of Integer;
     IEmpresa : Array of String;
@@ -93,6 +99,7 @@ type
     procedure MontarRelacaoVendaClienteSintetica;
     procedure MontarRelacaoVendaClienteAnalitica;
     procedure MontarRelacaoVendaClienteComparativo;
+    procedure MontarRelacaoVendaListaEntrega;
   public
     { Public declarations }
   end;
@@ -103,7 +110,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe;
+  UConstantesDGE, UDMBusiness, UDMNFe, UDMRecursos;
 
 const
   REPORT_RELACAO_VENDA_VENDEDOR_SINTETICO = 0;
@@ -112,6 +119,7 @@ const
   REPORT_RELACAO_VENDA_CLIENTE_SINTETICO  = 3;
   REPORT_RELACAO_VENDA_CLIENTE_ANALITICO  = 4;
   REPORT_RELACAO_VENDA_CLIENTE_COMPARATI  = 5;
+  REPORT_RELACAO_VENDA_LISTA_ENTREGA      = 6;
 
   SITUACAO_VENDA_PADRAO = 3; // Vendas finalizadas e com NF-e emitidas
 
@@ -170,13 +178,21 @@ begin
 
   FSQL_RelacaoVendaClienteAnalit := TStringList.Create;
   FSQL_RelacaoVendaClienteAnalit.AddStrings( QryRelacaoVendaClienteAnalitico.SQL );
+
+  FSQL_RelacaoVendaEntrega := TStringList.Create;
+  FSQL_RelacaoVendaEntrega.AddStrings( QryRelacaoVendaRotaEntrega.SQL );
 end;
 
 procedure TfrmGeVendaImpressao.FormShow(Sender: TObject);
 begin
-  CarregarEmpresa;
-  CarregarVendedores;
-  CarregarCidades;
+  WaitAMoment(WAIT_AMOMENT_LoadData);
+  try
+    CarregarEmpresa;
+    CarregarVendedores;
+    CarregarCidades;
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TfrmGeVendaImpressao.MontarRelacaoVendaVendedorSintetica;
@@ -306,6 +322,14 @@ begin
         MontarVendaCompetencia;
         MontarRelacaoVendaClienteComparativo;
         frReport := frRelacaoVendaClienteComparativo;
+      end;
+
+    // Por Cidade
+
+    REPORT_RELACAO_VENDA_LISTA_ENTREGA:
+      begin
+        MontarRelacaoVendaListaEntrega;
+        frReport := frRelacaoVendaRotaEntrega;
       end;
   end;
 
@@ -445,12 +469,23 @@ begin
     edSituacao.ItemIndex := SITUACAO_VENDA_PADRAO;
   end
   else
+  if (edRelatorio.ItemIndex = REPORT_RELACAO_VENDA_LISTA_ENTREGA) then
+  begin
+    e1Data.Date := GetDateDB - 7;
+    e2Data.Date := GetDateDB;
+
+    edSituacao.Enabled   := False;
+    edSituacao.ItemIndex := SITUACAO_VENDA_PADRAO;
+  end
+  else
   begin
     e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
     e2Data.Date := GetDateDB;
 
     edSituacao.Enabled := True;
   end;
+
+  chkNFeEmitida.Visible := (not (edRelatorio.ItemIndex in [REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI, REPORT_RELACAO_VENDA_CLIENTE_COMPARATI, REPORT_RELACAO_VENDA_LISTA_ENTREGA]));
 end;
 
 procedure TfrmGeVendaImpressao.MontarRelacaoVendaVendedorComparativo;
@@ -756,6 +791,73 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório sintético de vendas por cliente.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeVendaImpressao.MontarRelacaoVendaListaEntrega;
+var
+  sWhr : String;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    if ( edCidade.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Vendas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Vendas no período de %s a %s, para a cidade de %s.', [e1Data.Text, e2Data.Text, edCidade.Text]);
+
+    CdsRelacaoVendaRotaEntrega.Close;
+
+    with QryRelacaoVendaRotaEntrega do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoVendaEntrega );
+
+      sWhr := '(vn.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')';
+
+      if StrIsDateTime(e1Data.Text) then
+        sWhr := sWhr + '  and (vn.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)) + ')';
+
+      if StrIsDateTime(e2Data.Text) then
+        sWhr := sWhr + '  and (vn.dtvenda <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 23:59:59"', e2Data.Date)) + ')';
+
+      Case edSituacao.ItemIndex of
+        1:
+          sWhr := sWhr + '  and (vn.status = ' + IntToStr(STATUS_VND_FIN) + ')';
+
+        2:
+          sWhr := sWhr + '  and (vn.status = ' + IntToStr(STATUS_VND_NFE) + ')';
+
+        SITUACAO_VENDA_PADRAO:
+          sWhr := sWhr + '  and (vn.status between ' + IntToStr(STATUS_VND_FIN) + ' and ' + IntToStr(STATUS_VND_NFE) + ')';
+
+        4:
+          sWhr := sWhr + '  and (vn.status = ' + IntToStr(STATUS_VND_CAN) + ')';
+
+        else
+          sWhr := sWhr + '  and (vn.status > ' + IntToStr(STATUS_VND_AND) + ')'; // Todas as vendas, com excesão das vendas "em atendimento"
+      end;
+
+      if ( edVendedor.ItemIndex > 0 ) then
+        sWhr := sWhr + '  and (coalesce(vi.codvendedor, vn.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]) + ')';
+
+      if ( edCidade.ItemIndex > 0 ) then
+        sWhr := sWhr + '  and ( ((cl.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (cl.cidade = ' + QuotedStr(edCidade.Text) + ')) )';
+
+      if ( chkNFeEmitida.Visible ) then
+        if ( chkNFeEmitida.Checked ) then
+          sWhr := sWhr + '  and (v.nfe is not null)';
+
+      SQL.Text := StringReplace(SQL.Text, '1=1', sWhr, [rfReplaceAll]);
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relção de vendas para entrega por cidade.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
