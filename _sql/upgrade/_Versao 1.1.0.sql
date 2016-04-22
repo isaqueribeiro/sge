@@ -25276,3 +25276,29 @@ Historico:
     12/03/2015 - IMR :
         * Documentacao da tabela.';
 
+
+
+
+/*------ SYSDBA 22/04/2016 16:00:24 --------*/
+
+COMMENT ON COLUMN TBCONDICAOPAGTO.COND_PRAZO IS
+'Condicao a prazo:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 22/04/2016 16:00:33 --------*/
+
+COMMENT ON COLUMN TBCONDICAOPAGTO.COND_COD IS
+'Codigo';
+
+
+
+
+/*------ SYSDBA 22/04/2016 16:00:38 --------*/
+
+COMMENT ON COLUMN TBCONDICAOPAGTO.COND_DESCRICAO IS
+'Descricao';
+

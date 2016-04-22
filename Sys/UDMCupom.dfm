@@ -1113,6 +1113,8 @@ object DMCupom: TDMCupom
       '  , f.prazo_10'
       '  , f.prazo_11'
       '  , f.prazo_12'
+      '  , cast('#39' '#39' as varchar(50)) as formapagto_descricao'
+      '  , cast('#39' '#39' as varchar(50)) as condicaopagto_descricao'
       'from TBVENDAS_FORMAPAGTO f'
       ''
       'where f.ano_venda = :ano'
@@ -1212,6 +1214,16 @@ object DMCupom: TDMCupom
     object cdsVendaFormaPagtoPRAZO_12: TSmallintField
       FieldName = 'PRAZO_12'
       Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_12"'
+    end
+    object cdsVendaFormaPagtoFORMAPAGTO_DESCRICAO: TIBStringField
+      FieldName = 'FORMAPAGTO_DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsVendaFormaPagtoCONDICAOPAGTO_DESCRICAO: TIBStringField
+      FieldName = 'CONDICAOPAGTO_DESCRICAO'
+      ProviderFlags = []
+      Size = 50
     end
     object cdsVendaFormaPagtoValorTroco: TCurrencyField
       FieldKind = fkCalculated

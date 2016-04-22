@@ -1,23 +1,21 @@
-inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
-  ActiveControl = dbCondicaoPagto
-  Caption = 'Vendas PDV | Finalizar'
-  ClientHeight = 380
-  ClientWidth = 550
-  Font.Height = -16
-  ExplicitWidth = 566
-  ExplicitHeight = 419
-  DesignSize = (
-    550
-    380)
+inherited frmGeVendaPDVFormaPagto: TfrmGeVendaPDVFormaPagto
+  ActiveControl = dbFormaPagto
+  Caption = 'Vendas PDV | Forma(s) de Pagamento(s)'
+  ClientHeight = 436
+  ClientWidth = 705
+  ExplicitWidth = 721
+  ExplicitHeight = 475
   PixelsPerInch = 96
-  TextHeight = 19
+  TextHeight = 13
   object Bevel4: TBevel
     Left = 0
     Top = 0
-    Width = 550
+    Width = 705
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitLeft = -11
+    ExplicitWidth = 550
   end
   object ImgConsulta: TImage
     Left = 8
@@ -1568,244 +1566,415 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
       FFFF}
     Transparent = True
   end
-  object lblFormaPagto: TLabel
+  object grpFormaCondicaoPagto: TGroupBox
     Left = 142
     Top = 8
-    Width = 157
-    Height = 19
-    Caption = '&Forma de Pagamento:'
-    Enabled = False
-    FocusControl = dbFormaPagto
-  end
-  object lblCondicaoPagto: TLabel
-    Left = 144
-    Top = 65
-    Width = 177
-    Height = 19
-    Caption = 'Condi'#231#227'o de Pagamento:'
-    FocusControl = dbCondicaoPagto
-  end
-  object Label2: TLabel
-    Left = 344
-    Top = 129
-    Width = 179
-    Height = 19
-    Caption = 'Valor A Receber (R$):'
-    FocusControl = dbValorFormaPagto
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clBlue
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object Label1: TLabel
-    Left = 341
-    Top = 193
-    Width = 122
-    Height = 19
-    Caption = 'Recebido (R$):'
-    FocusControl = dbValorRecebidoFormaPagto
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clBlue
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object Label3: TLabel
-    Left = 344
-    Top = 257
-    Width = 105
-    Height = 19
-    Caption = 'TROCO (R$):'
-    FocusControl = dbValorTrocoFormaPagto
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clBlue
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object dbFormaPagto: TDBLookupComboBox
-    Left = 144
-    Top = 33
-    Width = 396
-    Height = 27
+    Width = 555
+    Height = 128
     Anchors = [akLeft, akTop, akRight]
-    DataField = 'FORMAPAGTO_COD'
-    DataSource = dtsFormaPagto
-    DropDownRows = 10
-    Enabled = False
     Font.Charset = ANSI_CHARSET
-    Font.Color = clBlack
+    Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'Tahoma'
     Font.Style = []
-    KeyField = 'COD'
-    ListField = 'DESCRI'
-    ListSource = dtsFormaPagtoLista
     ParentFont = False
-    ReadOnly = True
     TabOrder = 0
+    DesignSize = (
+      555
+      128)
+    object lblFormaPagto: TLabel
+      Left = 12
+      Top = 10
+      Width = 157
+      Height = 19
+      Caption = '&Forma de Pagamento:'
+      FocusControl = dbFormaPagto
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCondicaoPagto: TLabel
+      Left = 208
+      Top = 10
+      Width = 177
+      Height = 19
+      Caption = '&Condi'#231#227'o de Pagamento:'
+      FocusControl = dbCondicaoPagto
+    end
+    object lblValorFormaPagto: TLabel
+      Left = 12
+      Top = 69
+      Width = 90
+      Height = 19
+      Caption = 'Valor (R$):'
+      FocusControl = dbValorFormaPagto
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object dbFormaPagto: TDBLookupComboBox
+      Left = 12
+      Top = 35
+      Width = 190
+      Height = 27
+      Anchors = [akLeft, akTop, akRight]
+      DataField = 'FORMAPAGTO_COD'
+      DataSource = dtsFormaPagto
+      DropDownRows = 10
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      KeyField = 'COD'
+      ListField = 'DESCRI'
+      ListSource = dtsFormaPagtoLista
+      ParentFont = False
+      TabOrder = 0
+    end
+    object dbCondicaoPagto: TDBLookupComboBox
+      Left = 208
+      Top = 35
+      Width = 332
+      Height = 27
+      Anchors = [akLeft, akTop, akRight]
+      DataField = 'CONDICAOPAGTO_COD'
+      DataSource = dtsFormaPagto
+      DropDownRows = 10
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      KeyField = 'COND_COD'
+      ListField = 'COND_DESCRICAO_FULL'
+      ListSource = dtsCondicaoPagtoLista
+      ParentFont = False
+      TabOrder = 1
+      OnClick = dbCondicaoPagtoClick
+    end
+    object dbValorFormaPagto: TDBEdit
+      Left = 12
+      Top = 91
+      Width = 157
+      Height = 27
+      DataField = 'VALOR_RECEBIDO'
+      DataSource = dtsFormaPagto
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+    end
+    object btnSalvar: TcxButton
+      Left = 175
+      Top = 91
+      Width = 27
+      Height = 27
+      Anchors = [akRight, akBottom]
+      OptionsImage.Glyph.Data = {
+        36060000424D3606000000000000360000002800000020000000100000000100
+        1800000000000006000000000000000000000000000000000000FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFCDA187E5BC9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9D9D9DB7B7B7FF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFAA7457904820B47657F0CEB3FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF707070434343727272C9
+        C9C9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFA55839D07850D07040B06030CB9173FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5656567474746B6B6B5959598D
+        8D8DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        A05030D07850F09060E19C75D08860B96F42D3A486FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4E4E4E7474748B8B8B97979783838368
+        68689F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA56039
+        E08050F09060F3AF8EFFFFFFF2AA86D08860B46739EBC9AFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFF5B5B5B7B7B7B8B8B8BABABABFFFFFFA6A6A683
+        8383606060C4C4C4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1B698
+        F0A890F2AC82FFFFFFFFFFFFFFFFFFE6AA86D08860AA6841F2C7B4FFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFB2B2B2A8A8A8A6A6A6FFFFFFFFFFFFFFFFFFA5
+        A5A5838383626262C5C5C5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDE0CD
+        F7CEB6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE19C75D07850B47D56F2CCB3FFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFDDDDDDCACACAFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF979797747474767676C8C8C8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE19C74C07040C38C74F1CA
+        B0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFF9696966969698A8A8AC6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE29F79C07040D29B
+        82EBC3A8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFF9A9A9A696969999999BEBEBEFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1AF91C070
+        50E4B99BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFACACAC6E6E6EB4B4B4FFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1C1
+        A7D29172FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFBEBEBE8E8E8EFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      OptionsImage.NumGlyphs = 2
+      TabOrder = 3
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = btnSalvarClick
+    end
   end
-  object dbCondicaoPagto: TDBLookupComboBox
-    Left = 144
-    Top = 89
-    Width = 396
-    Height = 27
-    Anchors = [akLeft, akTop, akRight]
-    DataField = 'CONDICAOPAGTO_COD'
+  object dbgDados: TDBGrid
+    AlignWithMargins = True
+    Left = 8
+    Top = 142
+    Width = 689
+    Height = 287
+    Hint = 
+      'Dicas:'#13#10'CTRL + V - Alterar Valor Unit'#225'rio do item selecionado'#13#10'C' +
+      'TRL + Q - Alterar Quantidade do item selecionado'#13#10'CTRL + E - Exc' +
+      'luir item selecionado'
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = dtsFormaPagto
-    DropDownRows = 10
     Font.Charset = ANSI_CHARSET
     Font.Color = clBlack
     Font.Height = -16
-    Font.Name = 'Tahoma'
+    Font.Name = 'Courier New'
     Font.Style = []
-    KeyField = 'COND_COD'
-    ListField = 'COND_DESCRICAO_FULL'
-    ListSource = dtsCondicaoPagtoLista
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
     ParentFont = False
+    ParentShowHint = False
+    ReadOnly = True
+    ShowHint = True
     TabOrder = 1
-    OnClick = dbCondicaoPagtoClick
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clNavy
+    TitleFont.Height = -11
+    TitleFont.Name = 'Courier New'
+    TitleFont.Style = [fsBold]
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'FORMAPAGTO_DESCRICAO'
+        Title.Caption = 'Forma'
+        Width = 180
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CONDICAOPAGTO_DESCRICAO'
+        Title.Caption = 'Condi'#231#227'o'
+        Width = 150
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VALOR_FPAGTO'
+        Title.Alignment = taCenter
+        Width = 140
+        Visible = True
+      end>
   end
-  object dbValorFormaPagto: TDBEdit
-    Left = 344
-    Top = 153
-    Width = 193
-    Height = 37
-    Color = clMoneyGreen
-    DataField = 'VALOR_FPAGTO'
-    DataSource = dtsFormaPagto
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clBlue
-    Font.Height = -24
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    ReadOnly = True
+  object pnlTotalizador: TPanel
+    Left = 496
+    Top = 142
+    Width = 201
+    Height = 287
+    Anchors = [akTop, akRight, akBottom]
+    BorderWidth = 4
     TabOrder = 2
-  end
-  object dbValorRecebidoFormaPagto: TDBEdit
-    Left = 344
-    Top = 217
-    Width = 193
-    Height = 37
-    DataField = 'VALOR_RECEBIDO'
-    DataSource = dtsFormaPagto
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clBlue
-    Font.Height = -24
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 3
-  end
-  object dbValorTrocoFormaPagto: TDBEdit
-    Left = 344
-    Top = 281
-    Width = 193
-    Height = 37
-    Color = clYellow
-    DataField = 'ValorTroco'
-    DataSource = dtsFormaPagto
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clBlue
-    Font.Height = -24
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    ReadOnly = True
-    TabOrder = 4
-  end
-  object btnOk: TcxButton
-    Left = 289
-    Top = 330
-    Width = 124
-    Height = 41
-    Anchors = [akRight, akBottom]
-    Caption = 'Confirmar'
-    OptionsImage.Glyph.Data = {
-      DE010000424DDE01000000000000760000002800000024000000120000000100
-      0400000000006801000000000000000000001000000000000000000000000000
-      80000080000000808000800000008000800080800000C0C0C000808080000000
-      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
-      3333333333333333333333330000333333333333333333333333F33333333333
-      00003333344333333333333333388F3333333333000033334224333333333333
-      338338F3333333330000333422224333333333333833338F3333333300003342
-      222224333333333383333338F3333333000034222A22224333333338F338F333
-      8F33333300003222A3A2224333333338F3838F338F33333300003A2A333A2224
-      33333338F83338F338F33333000033A33333A222433333338333338F338F3333
-      0000333333333A222433333333333338F338F33300003333333333A222433333
-      333333338F338F33000033333333333A222433333333333338F338F300003333
-      33333333A222433333333333338F338F00003333333333333A22433333333333
-      3338F38F000033333333333333A223333333333333338F830000333333333333
-      333A333333333333333338330000333333333333333333333333333333333333
-      0000}
-    OptionsImage.NumGlyphs = 2
-    TabOrder = 5
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    OnClick = btnOkClick
-  end
-  object btnNao: TcxButton
-    Left = 417
-    Top = 330
-    Width = 124
-    Height = 41
-    Anchors = [akRight, akBottom]
-    Cancel = True
-    Caption = 'Cancelar'
-    ModalResult = 2
-    OptionsImage.Glyph.Data = {
-      DE010000424DDE01000000000000760000002800000024000000120000000100
-      0400000000006801000000000000000000001000000000000000000000000000
-      80000080000000808000800000008000800080800000C0C0C000808080000000
-      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
-      333333333333333333333333000033338833333333333333333F333333333333
-      0000333911833333983333333388F333333F3333000033391118333911833333
-      38F38F333F88F33300003339111183911118333338F338F3F8338F3300003333
-      911118111118333338F3338F833338F3000033333911111111833333338F3338
-      3333F8330000333333911111183333333338F333333F83330000333333311111
-      8333333333338F3333383333000033333339111183333333333338F333833333
-      00003333339111118333333333333833338F3333000033333911181118333333
-      33338333338F333300003333911183911183333333383338F338F33300003333
-      9118333911183333338F33838F338F33000033333913333391113333338FF833
-      38F338F300003333333333333919333333388333338FFF830000333333333333
-      3333333333333333333888330000333333333333333333333333333333333333
-      0000}
-    OptionsImage.NumGlyphs = 2
-    TabOrder = 6
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
+    ExplicitHeight = 231
+    DesignSize = (
+      201
+      287)
+    object lblTotalTroco: TLabel
+      Left = 4
+      Top = 135
+      Width = 105
+      Height = 19
+      Caption = 'TROCO (R$):'
+      FocusControl = dbTotalTroco
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblTotalRecebido: TLabel
+      Left = 4
+      Top = 72
+      Width = 122
+      Height = 19
+      Caption = 'Recebido (R$):'
+      FocusControl = dbTotalRecebido
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblTotalAReceber: TLabel
+      Left = 4
+      Top = 4
+      Width = 179
+      Height = 19
+      Caption = 'Valor A Receber (R$):'
+      FocusControl = dbTotalAReceber
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object dbTotalTroco: TDBEdit
+      Left = 4
+      Top = 160
+      Width = 193
+      Height = 37
+      TabStop = False
+      Color = clYellow
+      DataField = 'Troco'
+      DataSource = dtsTotal
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -24
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object dbTotalRecebido: TDBEdit
+      Left = 4
+      Top = 94
+      Width = 193
+      Height = 37
+      TabStop = False
+      Color = clMoneyGreen
+      DataField = 'Recebido'
+      DataSource = dtsTotal
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -24
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object dbTotalAReceber: TDBEdit
+      Left = 4
+      Top = 29
+      Width = 193
+      Height = 37
+      TabStop = False
+      Color = clMoneyGreen
+      DataField = 'AReceber'
+      DataSource = dtsTotal
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -24
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object btnOk: TcxButton
+      Left = 64
+      Top = 219
+      Width = 129
+      Height = 27
+      Anchors = [akRight, akBottom]
+      Caption = 'Confirmar'
+      OptionsImage.Glyph.Data = {
+        DE010000424DDE01000000000000760000002800000024000000120000000100
+        0400000000006801000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        3333333333333333333333330000333333333333333333333333F33333333333
+        00003333344333333333333333388F3333333333000033334224333333333333
+        338338F3333333330000333422224333333333333833338F3333333300003342
+        222224333333333383333338F3333333000034222A22224333333338F338F333
+        8F33333300003222A3A2224333333338F3838F338F33333300003A2A333A2224
+        33333338F83338F338F33333000033A33333A222433333338333338F338F3333
+        0000333333333A222433333333333338F338F33300003333333333A222433333
+        333333338F338F33000033333333333A222433333333333338F338F300003333
+        33333333A222433333333333338F338F00003333333333333A22433333333333
+        3338F38F000033333333333333A223333333333333338F830000333333333333
+        333A333333333333333338330000333333333333333333333333333333333333
+        0000}
+      OptionsImage.NumGlyphs = 2
+      TabOrder = 3
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = btnOkClick
+    end
+    object btnNao: TcxButton
+      Left = 64
+      Top = 252
+      Width = 129
+      Height = 27
+      Anchors = [akRight, akBottom]
+      Cancel = True
+      Caption = 'Cancelar [Esc]'
+      ModalResult = 2
+      OptionsImage.Glyph.Data = {
+        DE010000424DDE01000000000000760000002800000024000000120000000100
+        0400000000006801000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        333333333333333333333333000033338833333333333333333F333333333333
+        0000333911833333983333333388F333333F3333000033391118333911833333
+        38F38F333F88F33300003339111183911118333338F338F3F8338F3300003333
+        911118111118333338F3338F833338F3000033333911111111833333338F3338
+        3333F8330000333333911111183333333338F333333F83330000333333311111
+        8333333333338F3333383333000033333339111183333333333338F333833333
+        00003333339111118333333333333833338F3333000033333911181118333333
+        33338333338F333300003333911183911183333333383338F338F33300003333
+        9118333911183333338F33838F338F33000033333913333391113333338FF833
+        38F338F300003333333333333919333333388333338FFF830000333333333333
+        3333333333333333333888330000333333333333333333333333333333333333
+        0000}
+      OptionsImage.NumGlyphs = 2
+      TabOrder = 4
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object dtsFormaPagto: TDataSource
     DataSet = DMCupom.cdsVendaFormaPagto
-    Left = 24
-    Top = 40
-  end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    Filter = 'COND_PDV = 1'
-    Filtered = True
-    IndexFieldNames = 'COND_DESCRICAO_PDV'
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 40
-    Top = 184
+    Left = 72
+    Top = 248
   end
   object tblFormaPagto: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -1859,17 +2028,74 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     StoreDefs = True
     TableName = 'TBFORMPAGTO'
     UniDirectional = False
-    Left = 40
-    Top = 152
+    Left = 72
+    Top = 296
   end
   object dtsFormaPagtoLista: TDataSource
     DataSet = tblFormaPagto
+    Left = 104
+    Top = 296
+  end
+  object tblCondicaoPagto: TIBTable
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    Filter = 'COND_PDV = 1'
+    Filtered = True
+    IndexFieldNames = 'COND_DESCRICAO_PDV'
+    TableName = 'VW_CONDICAOPAGTO'
+    TableTypes = [ttView]
+    UniDirectional = False
     Left = 72
-    Top = 152
+    Top = 328
   end
   object dtsCondicaoPagtoLista: TDataSource
     DataSet = tblCondicaoPagto
+    Left = 104
+    Top = 328
+  end
+  object cdsTotal: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'AReceber'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'Recebido'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'Troco'
+        DataType = ftCurrency
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 224
+    Top = 296
+    object cdsTotalAReceber: TCurrencyField
+      FieldName = 'AReceber'
+      DisplayFormat = ',0.00'
+    end
+    object cdsTotalRecebido: TCurrencyField
+      FieldName = 'Recebido'
+      DisplayFormat = ',0.00'
+    end
+    object cdsTotalTroco: TCurrencyField
+      FieldName = 'Troco'
+      DisplayFormat = ',0.00'
+    end
+  end
+  object dtsTotal: TDataSource
+    DataSet = cdsTotal
+    Left = 256
+    Top = 296
+  end
+  object dtsVenda: TDataSource
+    DataSet = DMCupom.cdsVenda
     Left = 72
-    Top = 184
+    Top = 200
   end
 end

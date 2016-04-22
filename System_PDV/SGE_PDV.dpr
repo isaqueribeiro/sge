@@ -91,7 +91,8 @@ uses
   UPersonalizaEmpresa in '..\Sys\lib\UPersonalizaEmpresa.pas',
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
-  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa};
+  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
+  UGeVendaPDVFormaPagto in 'UGeVendaPDVFormaPagto.pas' {frmGeVendaPDVFormaPagto};
 
 {$R *.res}
 

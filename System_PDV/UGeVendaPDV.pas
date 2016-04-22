@@ -170,9 +170,14 @@ var
 implementation
 
 uses
-  UConstantesDGE, UFuncoes, DateUtils, UDMBusiness, UDMCupom, pcnAuxiliar,
-  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeVendaPDVDesconto, UGeVendaPDVOrcamento, UGeVendaPDVFinalizar,
-  UGeVendaPDVItem, UGeEfetuarPagtoREC, UGeVendaConfirmaTitulos, UDMNFe;
+  pcnAuxiliar, DateUtils, UConstantesDGE, UFuncoes, UDMBusiness, UDMCupom, UDMNFe,
+  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeEfetuarPagtoREC,
+  UGeVendaConfirmaTitulos,
+  UGeVendaPDVDesconto,
+  UGeVendaPDVOrcamento,
+  //UGeVendaPDVFinalizar,
+  UGeVendaPDVFormaPagto,
+  UGeVendaPDVItem;
 
 {$R *.dfm}
 
@@ -1127,7 +1132,8 @@ begin
         DataSetVenda.Edit;
 
       DataSetFormaPagto.Edit;
-      DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger := iCodigo;
+      DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger      := iCodigo;
+      DataSetFormaPagto.FieldByName('FORMAPAGTO_DESCRICAO').AsString := sNome;
       DataSetFormaPagto.Post;
     end;
   end;
@@ -1170,7 +1176,8 @@ procedure TfrmGeVendaPDV.actFinalizarVendaExecute(Sender: TObject);
   end;
 
 var
-  AForm : TfrmGeVendaPDVFinalizar;
+//  AForm : TfrmGeVendaPDVFinalizar;
+  AForm : TfrmGeVendaPDVFormaPagto;
   bConfirmado : Boolean;
 
   iGerarEstoqueCliente,
@@ -1277,283 +1284,250 @@ begin
     ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', DataSetItens.FieldByName('SEQ').AsInteger) + ' está acima da quantidade disponível no estoque.');
     if ( dbgDados.Visible and dbgDados.Enabled ) then
       dbgDados.SetFocus;
+    Exit;
   end
   else
-
-  // Chamar tela para inserir dados de Finalização de Venda
-
-  AForm := TfrmGeVendaPDVFinalizar.Create(Self);
-  try
-    if not (DataSetFormaPagto.State in [dsEdit, dsINsert]) then
-      DataSetFormaPagto.Edit;
-
-    if (DataSetFormaPagto.RecordCount = 1) then
-    begin
-      DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency   := dbValorAPagar.Field.AsCurrency;
-      DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').AsCurrency := dbValorAPagar.Field.AsCurrency;
-    end;
-
-    AForm.TotalAPagar := dbValorAPagar.Field.AsCurrency;
-
-    bConfirmado := (AForm.ShowModal = mrOk);
-
-    if not bConfirmado then
-      Exit;
-  finally
-    AForm.Free;
-
-    if bConfirmado then
-    begin
-      tblFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
-      tblCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
-
-      edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
-      edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
-    end;
-  end;
-
-  // Verificar dados da(s) Forma(s) de Pagamento(s)
-
-  if ( DataSetFormaPagto.RecordCount = 0 ) then
-    ShowWarning('Favor informar a forma e/ou condição de pagamento')
-  else
-  if ( GetTotalValorFormaPagto <= 0 ) then
-    ShowWarning('Favor informar corretamente o valor de cada forma/condição de pagamento')
-  else
-  if ( GetTotalValorFormaPagto > dbValorAPagar.Field.AsCurrency ) then
-    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.')
-  else
-  if ( GetTotalValorFormaPagto < dbValorAPagar.Field.AsCurrency ) then
-    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.')
-  else
   begin
+    // Chamar tela para inserir dados de Finalização de Venda
 
-    if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
-    begin
-      GetComprasAbertas( DataSetVenda.FieldByName('CODCLIENTE').AsInteger );
-      if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
+    AForm := TfrmGeVendaPDVFormaPagto.Create(Self);
+    try
+      if not (DataSetFormaPagto.State in [dsEdit, dsINsert]) then
+        DataSetFormaPagto.Edit;
+
+      if (DataSetFormaPagto.RecordCount = 1) then
       begin
-        ShowWarning('O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
-        Exit;
+        DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency   := dbValorAPagar.Field.AsCurrency;
+        DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').AsCurrency := dbValorAPagar.Field.AsCurrency;
       end;
-    end;
 
-    if GetGerarEstoqueCliente then
-      iGerarEstoqueCliente := 1
-    else
-      iGerarEstoqueCliente := 0;
+      AForm.SetValorAPagar(dbValorAPagar.Field.AsCurrency);
 
-    DataSetVenda.Edit;
-
-    DataSetVenda.FieldByName('STATUS').Value                := STATUS_VND_FIN;
-    DataSetVenda.FieldByName('DTVENDA').Value               := GetDateTimeDB;
-    DataSetVenda.FieldByName('DTFINALIZACAO_VENDA').Value   := GetDateTimeDB;
-    DataSetVenda.FieldByName('GERAR_ESTOQUE_CLIENTE').Value := iGerarEstoqueCliente;
-
-    DataSetVenda.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency := dbValorTotal.Field.AsCurrency;
-    DataSetVenda.FieldByName('NFE_VALOR_DESCONTO').AsCurrency      := dbValorDesconto.Field.AsCurrency;
-    DataSetVenda.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency    := dbValorAPagar.Field.AsCurrency;
-
-    TIBDataSet(DataSetVenda).Post;
-    TIBDataSet(DataSetVenda).ApplyUpdates;
-
-    // Gravar Itens da Venda
-
-    if (DataSetItens.State in [dsEdit, dsInsert]) then
-      TIBDataSet(DataSetItens).Post;
-
-    TIBDataSet(DataSetItens).ApplyUpdates;
-
-    // Gravar Forma de Pagamento
-
-    if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
-      TIBDataSet(DataSetFormaPagto).Post;
-
-    TIBDataSet(DataSetFormaPagto).ApplyUpdates;
-
-    CommitTransaction;
-
-    GerarTitulos( DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
-    CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
-
-    ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DataSetVenda.FieldByName('ANO').AsString + '/' +
-      FormatFloat('##0000000', DataSetVenda.FieldByName('CODCONTROL').AsInteger));
-
-    // Confirmar vencimentos de cada parcela
-
-    if ( gSistema.Codigo = SISTEMA_GESTAO_COM ) then
-      if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
-        if ( TitulosConfirmados(Self, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger, GetTotalValorFormaPagto_APrazo) ) then
-          CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
-
-    // Formas de Pagamento que nao seja a prazo
-
-    DataSetVenda.Edit;
-
-    DataSetFormaPagto.First;
-    while not DataSetFormaPagto.Eof do
-    begin
-      if ( DataSetFormaPagto.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
-        DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger := 1
-      else
-      if ( DataSetFormaPagto.FieldByName('VENDA_PRAZO').AsInteger = 0 ) then
-        if ( DataSetTitulo.Locate('FORMA_PAGTO', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []) ) then
-          RegistrarPagamento(
-              DataSetTitulo.FieldByName('ANOLANC').AsInteger
-            , DataSetTitulo.FieldByName('NUMLANC').AsInteger
-            , GetDateDB
-            , DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger
-            , DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency
-            , DataSetVenda.FieldByName('ANO').AsInteger
-            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
-
-      DataSetFormaPagto.Next;
-    end;
-
-    TIBDataSet(DataSetVenda).Post;
-    TIBDataSet(DataSetVenda).ApplyUpdates;
-
-    CommitTransaction;
-
-    // Registrar o Número do Caixa na Venda Finalizada
-
-    RegistrarCaixaNaVenda(
-        DataSetVenda.FieldByName('ANO').AsInteger
-      , DataSetVenda.FieldByName('CODCONTROL').AsInteger
-      , CxAno
-      , CxNumero
-      , True);
-
-    if ( CxContaCorrente > 0 ) then
-      GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
-
-    // (INICIO) - Emissão de NFC-e
-
-    if DMNFe.IsEstacaoEmiteNFCe then
-    begin
-      bConfirmado := not DataSetNotaFiscal.IsEmpty;
-      bDenegada   := False;
-
-      // -- 1. Gerar e enviar para SEFA o arquivo XML da NFC-e
+      bConfirmado := (AForm.ShowModal = mrOk);
 
       if not bConfirmado then
-        bConfirmado := DMNFe.GerarNFCeOnLineACBr(
-            DataSetVenda.FieldByName('CODEMP').AsString
-          , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-          , FormatDateTime('dd/mm/yyyy hh:mm:ss', GetDateTimeDB)
-          , DataSetVenda.FieldByName('ANO').AsInteger
-          , DataSetVenda.FieldByName('CODCONTROL').AsInteger
-          , iSerieNFCe
-          , iNumeroNFCe
-          , sFileNameXML
-          , sChaveNFE
-          , sProtocoloNFE
-          , sReciboNFE
-          , iNumeroLote
-          , bDenegada
-          , sDenegadaMotivo
-          , False);
-
-      if bDenegada then
       begin
-        DataSetVenda.Edit;
-
-        DataSetVenda.FieldByName('NFE_DENEGADA').AsInteger       := 1;
-        DataSetVenda.FieldByName('NFE_DENEGADA_MOTIVO').AsString := AnsiUpperCase(Trim(sDenegadaMotivo));
-
-        TIBDataSet(DataSetVenda).Post;
-        TIBDataSet(DataSetVenda).ApplyUpdates;
-
-        CommitTransaction;
+        ZerarFormaPagto;
+        Exit;
       end;
+    finally
+      AForm.Free;
 
-      CarregarNotaFiscal(
-          DataSetVenda.FieldByName('CODEMP').AsString
-        , DataSetVenda.FieldByName('ANO').AsInteger
-        , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
-
-      // -- 2. Salvar na base o arquivo XML da NFC-e
-
-      if bConfirmado and DataSetNotaFiscal.IsEmpty then
+      if bConfirmado then
       begin
-        DataSetNotaFiscal.Append;
+        DataSetFormaPagto.First;
 
-        DataSetNotaFiscal.FieldByName('EMPRESA').Value     := DataSetVenda.FieldByName('CODEMP').AsString;
-        DataSetNotaFiscal.FieldByName('ANOVENDA').Value    := DataSetVenda.FieldByName('ANO').Value;
-        DataSetNotaFiscal.FieldByName('NUMVENDA').Value    := DataSetVenda.FieldByName('CODCONTROL').Value;
-        DataSetNotaFiscal.FieldByName('SERIE').Value       := FormatFloat('#00', iSerieNFCe);
-        DataSetNotaFiscal.FieldByName('NUMERO').Value      := iNumeroNFCe;
-        DataSetNotaFiscal.FieldByName('MODELO').Value      := DMNFe.GetModeloDF;
-        DataSetNotaFiscal.FieldByName('VERSAO').Value      := DMNFe.GetVersaoDF;
-        DataSetNotaFiscal.FieldByName('DATAEMISSAO').Value := GetDateDB;
-        DataSetNotaFiscal.FieldByName('HORAEMISSAO').Value := GetTimeDB;
-        DataSetNotaFiscal.FieldByName('CHAVE').Value     := sChaveNFE;
-        DataSetNotaFiscal.FieldByName('PROTOCOLO').Value := sProtocoloNFE;
-        DataSetNotaFiscal.FieldByName('RECIBO').Value    := sReciboNFE;
-        DataSetNotaFiscal.FieldByName('LOTE_ANO').Value  := 0;
-        DataSetNotaFiscal.FieldByName('LOTE_NUM').Value  := 0;
+        tblFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
+        tblCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
 
-        if ( FileExists(sFileNameXML) ) then
-        begin
-          CorrigirXML_NFe(EmptyStr, sFileNameXML);
-
-          DataSetNotaFiscal.FieldByName('XML_FILENAME').Value := ExtractFileName( sFileNameXML );
-          TMemoField(DataSetNotaFiscal.FieldByName('XML_FILE')).LoadFromFile( sFileNameXML );
-        end;
-
-        TIBDataSet(DataSetNotaFiscal).Post;
-        TIBDataSet(DataSetNotaFiscal).ApplyUpdates;
-
-        CommitTransaction;
+        edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
+        edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
       end;
     end;
-    // (FINAL) - Emissão de NFC-e
 
-    // Imprimir Cupom
+    // Verificar dados da(s) Forma(s) de Pagamento(s)
 
-    if GetEmitirCupom then
-      if GetEmitirCupomAutomatico then
+    if ( DataSetFormaPagto.RecordCount = 0 ) then
+      ShowWarning('Favor informar a forma e/ou condição de pagamento')
+    else
+    if ( GetTotalValorFormaPagto <= 0 ) then
+      ShowWarning('Favor informar corretamente o valor de cada forma/condição de pagamento')
+    else
+    if ( GetTotalValorFormaPagto > dbValorAPagar.Field.AsCurrency ) then
+      ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.')
+    else
+    if ( GetTotalValorFormaPagto < dbValorAPagar.Field.AsCurrency ) then
+      ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.')
+    else
+    begin
+
+      if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
       begin
-        if DMNFe.IsEstacaoEmiteNFCe then
+        GetComprasAbertas( DataSetVenda.FieldByName('CODCLIENTE').AsInteger );
+        if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
         begin
-          // -- Carregar o arquivo XML da NFC-e para impressão, caso ela fora gerar corretamente acima
-          // -- Caso o tipo de impressora seja Daruma ou Bematech
-          if DMNFe.TipoEmissaoCupomTexto(DataSetVenda.FieldByName('CODEMP').AsString) then
-            DMNFe.ImprimirCupomNaoFiscal(
-                DataSetVenda.FieldByName('CODEMP').AsString
-              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-              , DataSetVenda.FieldByName('ANO').AsInteger
-              , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
-          else
-            DMNFe.ImprimirDANFE_ESCPOSACBr(
-                DataSetVenda.FieldByName('CODEMP').AsString
-              , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+          ShowWarning('O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
+          Exit;
+        end;
+      end;
+
+      if GetGerarEstoqueCliente then
+        iGerarEstoqueCliente := 1
+      else
+        iGerarEstoqueCliente := 0;
+
+      DataSetVenda.Edit;
+
+      DataSetVenda.FieldByName('STATUS').Value                := STATUS_VND_FIN;
+      DataSetVenda.FieldByName('DTVENDA').Value               := GetDateTimeDB;
+      DataSetVenda.FieldByName('DTFINALIZACAO_VENDA').Value   := GetDateTimeDB;
+      DataSetVenda.FieldByName('GERAR_ESTOQUE_CLIENTE').Value := iGerarEstoqueCliente;
+
+      DataSetVenda.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency := dbValorTotal.Field.AsCurrency;
+      DataSetVenda.FieldByName('NFE_VALOR_DESCONTO').AsCurrency      := dbValorDesconto.Field.AsCurrency;
+      DataSetVenda.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency    := dbValorAPagar.Field.AsCurrency;
+
+      TIBDataSet(DataSetVenda).Post;
+      TIBDataSet(DataSetVenda).ApplyUpdates;
+
+      // Gravar Itens da Venda
+
+      if (DataSetItens.State in [dsEdit, dsInsert]) then
+        TIBDataSet(DataSetItens).Post;
+
+      TIBDataSet(DataSetItens).ApplyUpdates;
+
+      // Gravar Forma de Pagamento
+
+      if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
+        TIBDataSet(DataSetFormaPagto).Post;
+
+      TIBDataSet(DataSetFormaPagto).ApplyUpdates;
+
+      CommitTransaction;
+
+      GerarTitulos( DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
+      CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
+
+      ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DataSetVenda.FieldByName('ANO').AsString + '/' +
+        FormatFloat('##0000000', DataSetVenda.FieldByName('CODCONTROL').AsInteger));
+
+      // Confirmar vencimentos de cada parcela
+
+      if ( gSistema.Codigo = SISTEMA_GESTAO_COM ) then
+        if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+          if ( TitulosConfirmados(Self, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+            CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
+
+      // Formas de Pagamento que nao seja a prazo
+
+      DataSetVenda.Edit;
+
+      DataSetFormaPagto.First;
+      while not DataSetFormaPagto.Eof do
+      begin
+        if ( DataSetFormaPagto.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+          DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger := 1
+        else
+        if ( DataSetFormaPagto.FieldByName('VENDA_PRAZO').AsInteger = 0 ) then
+          if ( DataSetTitulo.Locate('FORMA_PAGTO', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []) ) then
+            RegistrarPagamento(
+                DataSetTitulo.FieldByName('ANOLANC').AsInteger
+              , DataSetTitulo.FieldByName('NUMLANC').AsInteger
+              , GetDateDB
+              , DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger
+              , DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency
               , DataSetVenda.FieldByName('ANO').AsInteger
               , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
-        end
-        else
-        if GetCupomNaoFiscalEmitir then
-        begin
-          DMNFe.ImprimirCupomNaoFiscal(
+
+        DataSetFormaPagto.Next;
+      end;
+
+      TIBDataSet(DataSetVenda).Post;
+      TIBDataSet(DataSetVenda).ApplyUpdates;
+
+      CommitTransaction;
+
+      // Registrar o Número do Caixa na Venda Finalizada
+
+      RegistrarCaixaNaVenda(
+          DataSetVenda.FieldByName('ANO').AsInteger
+        , DataSetVenda.FieldByName('CODCONTROL').AsInteger
+        , CxAno
+        , CxNumero
+        , True);
+
+      if ( CxContaCorrente > 0 ) then
+        GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
+
+      // (INICIO) - Emissão de NFC-e
+
+      if DMNFe.IsEstacaoEmiteNFCe then
+      begin
+        bConfirmado := not DataSetNotaFiscal.IsEmpty;
+        bDenegada   := False;
+
+        // -- 1. Gerar e enviar para SEFA o arquivo XML da NFC-e
+
+        if not bConfirmado then
+          bConfirmado := DMNFe.GerarNFCeOnLineACBr(
               DataSetVenda.FieldByName('CODEMP').AsString
             , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
-            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+            , FormatDateTime('dd/mm/yyyy hh:mm:ss', GetDateTimeDB)
             , DataSetVenda.FieldByName('ANO').AsInteger
-            , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+            , DataSetVenda.FieldByName('CODCONTROL').AsInteger
+            , iSerieNFCe
+            , iNumeroNFCe
+            , sFileNameXML
+            , sChaveNFE
+            , sProtocoloNFE
+            , sReciboNFE
+            , iNumeroLote
+            , bDenegada
+            , sDenegadaMotivo
+            , False);
 
-          if DMNFe.IsEstacaoEmiteNFCeResumido then
-            ;
-        end
-        else
-          ; // Emitir Cupom Fiscal
-      end
-      else
-      begin
-        bConfirmado := ShowConfirmation('Confirma a impressão do Cupom?');
+        if bDenegada then
+        begin
+          DataSetVenda.Edit;
 
-        if bConfirmado then
-          if DMNFe.IsEstacaoEmiteNFCe and (not DataSetNotaFiscal.IsEmpty) then
+          DataSetVenda.FieldByName('NFE_DENEGADA').AsInteger       := 1;
+          DataSetVenda.FieldByName('NFE_DENEGADA_MOTIVO').AsString := AnsiUpperCase(Trim(sDenegadaMotivo));
+
+          TIBDataSet(DataSetVenda).Post;
+          TIBDataSet(DataSetVenda).ApplyUpdates;
+
+          CommitTransaction;
+        end;
+
+        CarregarNotaFiscal(
+            DataSetVenda.FieldByName('CODEMP').AsString
+          , DataSetVenda.FieldByName('ANO').AsInteger
+          , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+
+        // -- 2. Salvar na base o arquivo XML da NFC-e
+
+        if bConfirmado and DataSetNotaFiscal.IsEmpty then
+        begin
+          DataSetNotaFiscal.Append;
+
+          DataSetNotaFiscal.FieldByName('EMPRESA').Value     := DataSetVenda.FieldByName('CODEMP').AsString;
+          DataSetNotaFiscal.FieldByName('ANOVENDA').Value    := DataSetVenda.FieldByName('ANO').Value;
+          DataSetNotaFiscal.FieldByName('NUMVENDA').Value    := DataSetVenda.FieldByName('CODCONTROL').Value;
+          DataSetNotaFiscal.FieldByName('SERIE').Value       := FormatFloat('#00', iSerieNFCe);
+          DataSetNotaFiscal.FieldByName('NUMERO').Value      := iNumeroNFCe;
+          DataSetNotaFiscal.FieldByName('MODELO').Value      := DMNFe.GetModeloDF;
+          DataSetNotaFiscal.FieldByName('VERSAO').Value      := DMNFe.GetVersaoDF;
+          DataSetNotaFiscal.FieldByName('DATAEMISSAO').Value := GetDateDB;
+          DataSetNotaFiscal.FieldByName('HORAEMISSAO').Value := GetTimeDB;
+          DataSetNotaFiscal.FieldByName('CHAVE').Value     := sChaveNFE;
+          DataSetNotaFiscal.FieldByName('PROTOCOLO').Value := sProtocoloNFE;
+          DataSetNotaFiscal.FieldByName('RECIBO').Value    := sReciboNFE;
+          DataSetNotaFiscal.FieldByName('LOTE_ANO').Value  := 0;
+          DataSetNotaFiscal.FieldByName('LOTE_NUM').Value  := 0;
+
+          if ( FileExists(sFileNameXML) ) then
+          begin
+            CorrigirXML_NFe(EmptyStr, sFileNameXML);
+
+            DataSetNotaFiscal.FieldByName('XML_FILENAME').Value := ExtractFileName( sFileNameXML );
+            TMemoField(DataSetNotaFiscal.FieldByName('XML_FILE')).LoadFromFile( sFileNameXML );
+          end;
+
+          TIBDataSet(DataSetNotaFiscal).Post;
+          TIBDataSet(DataSetNotaFiscal).ApplyUpdates;
+
+          CommitTransaction;
+        end;
+      end;
+      // (FINAL) - Emissão de NFC-e
+
+      // Imprimir Cupom
+
+      if GetEmitirCupom then
+        if GetEmitirCupomAutomatico then
+        begin
+          if DMNFe.IsEstacaoEmiteNFCe then
           begin
             // -- Carregar o arquivo XML da NFC-e para impressão, caso ela fora gerar corretamente acima
             // -- Caso o tipo de impressora seja Daruma ou Bematech
@@ -1573,23 +1547,63 @@ begin
           end
           else
           if GetCupomNaoFiscalEmitir then
+          begin
             DMNFe.ImprimirCupomNaoFiscal(
                 DataSetVenda.FieldByName('CODEMP').AsString
               , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
               , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
               , DataSetVenda.FieldByName('ANO').AsInteger
-              , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
+              , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+
+            if DMNFe.IsEstacaoEmiteNFCeResumido then
+              ;
+          end
           else
             ; // Emitir Cupom Fiscal
+        end
+        else
+        begin
+          bConfirmado := ShowConfirmation('Confirma a impressão do Cupom?');
 
-      end;
+          if bConfirmado then
+            if DMNFe.IsEstacaoEmiteNFCe and (not DataSetNotaFiscal.IsEmpty) then
+            begin
+              // -- Carregar o arquivo XML da NFC-e para impressão, caso ela fora gerar corretamente acima
+              // -- Caso o tipo de impressora seja Daruma ou Bematech
+              if DMNFe.TipoEmissaoCupomTexto(DataSetVenda.FieldByName('CODEMP').AsString) then
+                DMNFe.ImprimirCupomNaoFiscal(
+                    DataSetVenda.FieldByName('CODEMP').AsString
+                  , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+                  , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+                  , DataSetVenda.FieldByName('ANO').AsInteger
+                  , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
+              else
+                DMNFe.ImprimirDANFE_ESCPOSACBr(
+                    DataSetVenda.FieldByName('CODEMP').AsString
+                  , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+                  , DataSetVenda.FieldByName('ANO').AsInteger
+                  , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
+            end
+            else
+            if GetCupomNaoFiscalEmitir then
+              DMNFe.ImprimirCupomNaoFiscal(
+                  DataSetVenda.FieldByName('CODEMP').AsString
+                , DataSetVenda.FieldByName('CODCLIENTE').AsInteger
+                , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+                , DataSetVenda.FieldByName('ANO').AsInteger
+                , DataSetVenda.FieldByName('CODCONTROL').AsInteger)
+            else
+              ; // Emitir Cupom Fiscal
 
-    // Limpar Tela
+        end;
 
-    CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
-    IniciarCupomCabecalho;
-    IniciarCupomProduto;
+      // Limpar Tela
 
+      CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
+      IniciarCupomCabecalho;
+      IniciarCupomProduto;
+
+    end;
   end;
 end;
 
