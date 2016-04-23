@@ -1,34 +1,34 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas',0,1,242,35,243,0,0,,
-File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\SOURCE\IBX\IBX.IBCustomDataSet.pas',0,1,2676,94,2677,0,0,,
-File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrRegistroEstacao.pas',0,1,119,75,138,0,0,,
-File_3=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFinalizar.pas',0,1,88,115,108,0,0,,
-File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\SOURCE\VCL\Vcl.Controls.pas',0,1,7334,109,7339,0,0,,
-File_5=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnRetConsReciNFe.pas',0,1,101,100,103,0,0,,
-File_6=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCaixa.pas',0,1,631,29,664,0,0,,
-File_7=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,904,103,906,0,0,,
-File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEfetuarPagtoREC.pas',0,1,86,118,87,0,0,,
-File_9=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrMemoData.pas',0,1,1,1,1,0,0,,
-File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeControleCheque.pas',0,1,1,1,1,0,0,,
-File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFornecedorClientePesquisa.pas',0,1,1,1,1,0,0,,
-File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UCliente.pas',0,1,1,95,11,0,0,,
-File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaIBPT.pas',0,1,210,48,213,0,0,,
-File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEmpresa.pas',0,1,361,36,372,0,0,,
+File_0=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFCe\EscPos\ACBrNFeDANFeESCPOS.pas',0,1,49,29,68,0,0,,
+File_1=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\ACBrSerial\ACBrPosPrinter.pas',0,1,894,1,1460,0,0,,
+File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas',0,1,242,35,243,0,0,,
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\SOURCE\IBX\IBX.IBCustomDataSet.pas',0,1,2676,94,2677,0,0,,
+File_4=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrRegistroEstacao.pas',0,1,119,75,138,0,0,,
+File_5=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFinalizar.pas',0,1,88,115,108,0,0,,
+File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\SOURCE\VCL\Vcl.Controls.pas',0,1,7334,109,7339,0,0,,
+File_7=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnRetConsReciNFe.pas',0,1,101,100,103,0,0,,
+File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCaixa.pas',0,1,631,29,664,0,0,,
+File_9=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,904,103,906,0,0,,
+File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEfetuarPagtoREC.pas',0,1,86,118,87,0,0,,
+File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrMemoData.pas',0,1,1,1,1,0,0,,
+File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeControleCheque.pas',0,1,1,1,1,0,0,,
+File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFornecedorClientePesquisa.pas',0,1,1,1,1,0,0,,
+File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UCliente.pas',0,1,1,95,11,0,0,,
 
 [Modules]
-Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module1=D:\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
-Module2=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module3=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
-Module4=D:\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
-Module5=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaCancelar.pas
-Module7=default.htm
-Module8=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas
-Module9=D:\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
-Module10=D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrConfigurarAmbiente.pas
-Module11=D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas
-Module12=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module2=default.htm
+Module3=D:\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module7=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
+Module8=D:\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
+Module9=D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaCancelar.pas
+Module10=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas
+Module11=D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrConfigurarAmbiente.pas
+Module12=D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas
 Module13=C:\Delphi\ACBr_2016\Fontes\PCNComum\pcnConversao.pas
 Module14=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 Module15=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
@@ -54,17 +54,28 @@ Module34=D:\Projetos\ASS\SGE\trunk\Sys\UGrAguarde.pas
 Count=35
 EditWindowCount=1
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=1
-
-[D:\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[D:\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=1
+
+[default.htm]
+ModuleType=TURLModule
+
+[D:\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj]
+ModuleType=TBaseProject
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -74,10 +85,12 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj]
-ModuleType=TBaseProject
-
 [D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -87,15 +100,7 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[default.htm]
-ModuleType=TURLModule
-
 [D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -106,11 +111,6 @@ FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -225,17 +225,17 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
 FormState=1
 FormOnTop=0
 
 [EditWindow0]
 ViewCount=35
-CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 View0=0
 View1=1
 View2=2
@@ -289,13 +289,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1341
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000000C13000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000DD2100001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000001E11000000000000013D050000000000000100000000550E000009000000446F636B536974653301000000006D1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000000C13000000000000011D0500000000000001000000004412000009000000446F636B53697465320100000000DD21000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=0
+RightPanelData=000008000101000000001E11000000000000011D0500000000000001000000004412000009000000446F636B536974653201000000006D1E000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=810
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D7245000000000000026A070000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B53697465317245000000000000022A030000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779D1D00000000000002F606000000000000FFFFFFFF
@@ -362,12 +362,12 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 [View6]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=1
-CursorY=1270
-TopLine=1254
+CursorX=7
+CursorY=6514
+TopLine=6487
 LeftCol=1
 Elisions=
-Bookmarks={1,6336,1}{2,5664,31}{8,1299,1}{9,1209,63}
+Bookmarks={1,6448,21}{2,6494,1}{8,1300,1}{9,1210,63}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View7]
@@ -610,7 +610,7 @@ TopLine=429
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
+EditViewName=Borland.FormDesignerView
 
 [View29]
 CustomEditViewType=TEditView
@@ -692,11 +692,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=351
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=351
+ClientHeight=266
 TBDockHeight=218
 LRDockWidth=13600
 Dockable=1
@@ -704,8 +704,8 @@ StayOnTop=0
 
 [Breakpoints]
 Count=2
-Breakpoint0='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5614,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint1='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5844,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint0='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5615,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint1='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5845,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -764,18 +764,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
 Left=0
 Top=23
 Width=10000
-Height=1707
+Height=569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=10000
-ClientHeight=1707
-TBDockHeight=1707
+ClientHeight=569
+TBDockHeight=569
 LRDockWidth=2767
 Dockable=1
 StayOnTop=0
@@ -789,11 +789,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=3898
+Height=2978
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
+ClientHeight=2978
 TBDockHeight=7155
 LRDockWidth=1999
 Dockable=1
@@ -808,21 +808,16 @@ State=0
 Left=0
 Top=340
 Width=1341
-Height=4952
+Height=4031
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
-ClientHeight=4952
-TBDockHeight=8765
+ClientHeight=4031
+TBDockHeight=6707
 LRDockWidth=1341
 Dockable=1
 StayOnTop=0
 SplitPos=79
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Name,AfterConnect
-ExpandedItems=LiveBindings=0,"LiveBindings Designer=0",LookAndFeel=0,Margins=0,OptionsImage=0,ProviderFlags=1,Anchors=0,Colors=0,Constraints=0,BorderIcons=0,DefaultTransaction=0,TraceFlags=0,Database=0,FieldOptions=0,Transaction=0
 
 [ModelViewTool]
 PercentageSizes=1
@@ -833,11 +828,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=8462
+Height=6404
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=8462
+ClientHeight=6404
 TBDockHeight=4879
 LRDockWidth=5306
 Dockable=1
@@ -850,7 +845,7 @@ Visible=0
 Docked=1
 State=0
 Left=-103
-Top=-102
+Top=-100
 Width=1842
 Height=3148
 MaxLeft=-1
@@ -906,8 +901,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1335
-Top=-102
+Left=-1241
+Top=-30
 Width=2845
 Height=6211
 MaxLeft=-1
@@ -926,7 +921,7 @@ Visible=0
 Docked=1
 State=0
 Left=-1435
-Top=-102
+Top=193
 Width=273
 Height=363
 MaxLeft=-1
@@ -950,11 +945,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=351
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=351
+ClientHeight=266
 TBDockHeight=412
 LRDockWidth=4948
 Dockable=1
@@ -969,11 +964,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=351
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=351
+ClientHeight=266
 TBDockHeight=218
 LRDockWidth=7409
 Dockable=1
@@ -992,11 +987,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=351
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=351
+ClientHeight=266
 TBDockHeight=1538
 LRDockWidth=3483
 Dockable=1
@@ -1011,11 +1006,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=351
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=351
+ClientHeight=266
 TBDockHeight=2058
 LRDockWidth=3483
 Dockable=1
@@ -1030,11 +1025,11 @@ State=0
 Left=0
 Top=0
 Width=2337
-Height=1174
+Height=932
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2337
-ClientHeight=1174
+ClientHeight=932
 TBDockHeight=2312
 LRDockWidth=2826
 Dockable=1
@@ -1068,11 +1063,11 @@ State=0
 Left=0
 Top=0
 Width=2337
-Height=1138
+Height=1174
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2337
-ClientHeight=1138
+ClientHeight=1174
 TBDockHeight=1150
 LRDockWidth=3672
 Dockable=1
@@ -1095,11 +1090,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=8462
+Height=6404
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=8462
+ClientHeight=6404
 TBDockHeight=4879
 LRDockWidth=7148
 Dockable=1
@@ -1111,8 +1106,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
-Top=0
+Left=297
+Top=654
 Width=2858
 Height=3208
 MaxLeft=-1
@@ -1133,11 +1128,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=351
+Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=351
+ClientHeight=266
 TBDockHeight=1550
 LRDockWidth=8743
 Dockable=1
@@ -1224,14 +1219,14 @@ Visible=0
 Docked=1
 State=0
 Left=0
-Top=0
+Top=23
 Width=3828
-Height=654
+Height=569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=654
-TBDockHeight=654
+ClientHeight=569
+TBDockHeight=569
 LRDockWidth=3828
 Dockable=1
 StayOnTop=0
@@ -1255,7 +1250,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
 ClientHeight=4564
-TBDockHeight=8765
+TBDockHeight=6707
 LRDockWidth=1309
 Dockable=1
 StayOnTop=0
@@ -1279,7 +1274,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
 ClientHeight=3511
-TBDockHeight=8765
+TBDockHeight=6707
 LRDockWidth=1341
 Dockable=1
 StayOnTop=0
@@ -1298,12 +1293,12 @@ State=0
 Left=0
 Top=427
 Width=1309
-Height=3898
+Height=2978
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
-TBDockHeight=8765
+ClientHeight=2978
+TBDockHeight=6707
 LRDockWidth=1309
 Dockable=1
 StayOnTop=0

@@ -86,7 +86,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=PrinterCupom.exe
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.15.0;InternalName=PDV Printer;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
 Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=PrinterCupom.exe;ProductName=PDV | Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.15;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=18/04/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
-        <Debugger_RunParams>14547157000146 1 2016 36071 1</Debugger_RunParams>
+        <Debugger_RunParams>15138569000195 36 2016 3496 1</Debugger_RunParams>
         <VerInfo_Release>15</VerInfo_Release>
         <DCC_ExeOutput>..\Bin\</DCC_ExeOutput>
         <DCC_DcuOutput>..\_dcu\</DCC_DcuOutput>

@@ -287,7 +287,8 @@ type
     procedure LerConfiguracao(const sCNPJEmitente : String; const tipoDANFE : TTipoDANFE = tipoDANFEFast);
     procedure GravarConfiguracao(const sCNPJEmitente : String);
     procedure ConfigurarEmail(const sCNPJEmitente, sDestinatario, sAssunto, sMensagem : String);
-    procedure GerarArquivoQRCODE(const FileNameQRCODE, StringQRCODE : String; const tamanhoQrCode : TTamanhoQrCode);
+    procedure GerarArquivoQRCODEGoogle(const FileNameQRCODE, StringQRCODE : String; const tamanhoQrCode : TTamanhoQrCode);
+    procedure GerarArquivoQrCode(const FileNameQrCode, StringQrCode : String; const tamanhoQrCode : TTamanhoQrCode);
     procedure CarregarArquivoNFe(const sCNPJEmitente, sArquivo : String;
       var aNomeArquivoXML, aEmitente, aDestinatario, aRecibo, aProtocolo, aChave : String;
       var aDataHoraEmissao : TDateTime; var NotaValida : Boolean;
@@ -6444,7 +6445,7 @@ begin
 
 end;
 
-procedure TDMNFe.GerarArquivoQRCODE(const FileNameQRCODE,
+procedure TDMNFe.GerarArquivoQRCODEGoogle(const FileNameQRCODE,
   StringQRCODE: String; const tamanhoQrCode : TTamanhoQrCode);
 var
   ImageStream : TMemoryStream;
@@ -6470,7 +6471,7 @@ begin
       end;
 
       GetQrCode(iTamQrCode, iTamQrCode, TQrImage_ErrCorrLevel(0), StringQRCODE, ImageStream);
-      
+
       if ImageStream.Size > 0 then
       begin
         ImageStream.Position := 0;
@@ -6487,6 +6488,38 @@ begin
     CmpImage.Free;
     PngImage.Free;
     ImageStream.Free;
+  end;
+end;
+
+procedure TDMNFe.GerarArquivoQrCode(const FileNameQrCode, StringQrCode : String;
+  const tamanhoQrCode : TTamanhoQrCode);
+var
+  fr : TACBrNFeFRClass;
+  pc : TImage; // TPicture;
+  iTamQrCode : Integer;
+begin
+  fr := TACBrNFeFRClass.Create(frDANFE);
+  pc := TImage.Create(nil); // TPicture.Create;
+  try
+    Case tamanhoQrCode of
+      tamQrCode150 : iTamQrCode := LENGTH_QRCODE_150;
+      tamQrCode160 : iTamQrCode := LENGTH_QRCODE_160;
+      tamQrCode175 : iTamQrCode := LENGTH_QRCODE_175;
+      tamQrCode180 : iTamQrCode := LENGTH_QRCODE_180;
+      tamQrCode200 : iTamQrCode := LENGTH_QRCODE_200;
+      tamQrCode300 : iTamQrCode := LENGTH_QRCODE_300;
+    end;
+
+    fr.PintarQRCode(StringQrCode, pc.Picture);
+
+    pc.Height  := iTamQrCode;
+    pc.Width   := iTamQrCode;
+    pc.Stretch := True;
+
+    pc.Picture.SaveToFile(FileNameQrCode);
+  finally
+    pc.Free;
+    fr.Free;
   end;
 end;
 
@@ -6786,7 +6819,10 @@ begin
               cTamQrCode := tamQrCode300;
           end;
 
-          GerarArquivoQRCODE(sArquivoBmpQrCode, sStringQrCode, cTamQrCode);
+          GerarArquivoQRCODEGoogle(sArquivoBmpQrCode, sStringQrCode, cTamQrCode);
+          // Esta função está gerando o QRCODE mas na hora da impressão a imagem
+          // está sendo sobreposta pelos textos.
+          //GerarArquivoQrCode(sArquivoBmpQrCode, sStringQrCode, cTamQrCode);
 
           if FileExists(sArquivoBmpQRCode) then
             Ecf.ImprimirQRCode( sArquivoBmpQRCode );
