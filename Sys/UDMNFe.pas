@@ -1978,7 +1978,7 @@ begin
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroNFe > ' + E.Message);
+      raise Exception.Create('UpdateNumeroNFe > ' + E.Message + #13#13 + IBSQL.SQL.Text);
   end;
 end;
 
@@ -1989,7 +1989,7 @@ begin
     begin
       SQL.Clear;
       SQL.Add('Update TBEMPRESA Set');
-      SQL.Add('    SERIE_NFCE  = ' + FormatFloat('####', Serie));
+      SQL.Add('    SERIE_NFCE  = ' + FormatFloat('####',      Serie));
       SQL.Add('  , NUMERO_NFCE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
       SQL.Add('  and NUMERO_NFCE = ' + FormatFloat('#########', Numero - 1));
@@ -1999,7 +1999,7 @@ begin
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroNFCe > ' + E.Message);
+      raise Exception.Create('UpdateNumeroNFCe > ' + E.Message + #13#13 + IBSQL.SQL.Text);
   end;
 end;
 
@@ -2018,7 +2018,7 @@ begin
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroCCe > ' + E.Message);
+      raise Exception.Create('UpdateNumeroCCe > ' + E.Message + #13#13 + IBSQL.SQL.Text);
   end;
 end;
 

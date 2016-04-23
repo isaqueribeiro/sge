@@ -397,6 +397,9 @@ type
     cdsTabelaItensNCM_SH: TIBStringField;
     IbDtstTabelaMODELO_NF: TIntegerField;
     cdsTabelaItensCODVENDEDOR: TIntegerField;
+    IbDtstTabelaCAIXA_ANO: TSmallintField;
+    IbDtstTabelaCAIXA_NUM: TIntegerField;
+    IbDtstTabelaCAIXA_PDV: TSmallintField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -569,6 +572,10 @@ end;
 procedure TfrmGeVenda.FormCreate(Sender: TObject);
 begin
 (*
+  IMR - 22/04/2016 :
+    Ativação do botão "Cancelar Vendas" para o módulo PDV para que estes possa
+    cancelar suas próprias vendas finalizadas.
+
   IMR - 12/12/2014 :
     Ajustes da verificação do antamento do processo de emissão de Nota Fiscal, trocando o campo de validaçaõ de "LOTE_NFE_NUMERO"
     para "LOTE_NFE_RECIBO"
@@ -644,7 +651,7 @@ begin
   nmEnviarEmailCliente.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   btbtnFinalizar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  btbtnCancelarVND.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  //btbtnCancelarVND.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
   ShpLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   lblLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
@@ -2084,6 +2091,11 @@ procedure TfrmGeVenda.btbtnCancelarVNDClick(Sender: TObject);
 var
  iNumero : Integer;
 begin
+{*
+  IMR - 22/04/2016 :
+    Ativação do botão "Cancelar Vendas" para o módulo PDV para que estes possa
+    cancelar suas próprias vendas finalizadas.
+*}
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -2093,12 +2105,19 @@ begin
   RecarregarRegistro;
 
   pgcGuias.ActivePage := tbsCadastro;
-  
+
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN) then
   begin
     ShowWarning('Movimento de Venda já cancelada!');
     Abort;
   end;
+
+  if (gSistema.Codigo = SISTEMA_PDV)  then
+    if (IbDtstTabelaCAIXA_PDV.AsInteger = 0) then
+    begin
+      ShowWarning('Apenas registros de vendas finalizadas pelo PDV podem ser canceladas!');
+      Exit;
+    end;
 
   if ( (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsLargeInt = 0) ) then
   begin

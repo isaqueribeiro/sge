@@ -1153,4 +1153,8 @@ object DMBusiness: TDMBusiness
         Value = Null
       end>
   end
+  object frxBarCodeObject: TfrxBarCodeObject
+    Left = 40
+    Top = 552
+  end
 end

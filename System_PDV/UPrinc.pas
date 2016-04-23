@@ -429,7 +429,20 @@ end;
 procedure TfrmPrinc.nmVendaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_MOV_VENDA_PDV_ID, True) then
+  begin
+    // Se a estação estiver configurada para a emissão de NFC-e, testar o
+    // certificado e deixar a senha deste já gravada.
+    try
+      DMNFe.LerConfiguracao(gUsuarioLogado.Empresa);
+      if DMNFe.IsEstacaoEmiteNFCe then
+        DMNFe.ACBrNFe.WebServices.StatusServico.Executar;
+    except
+      On E : Exception do
+        ShowError('Erro encontrado ao testar o Certificado para o Serviço de Emissão de NFC-e.' + #1313 + E.Message);
+    end;
+
     FormFunction.ShowModalForm(Self, 'frmGeVendaPDV');
+  end;
 end;
 
 procedure TfrmPrinc.nmOrcamentoClick(Sender: TObject);

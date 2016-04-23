@@ -19,7 +19,8 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.IBDef,
   FireDAC.Phys.FBDef, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.IBBase,
   FireDAC.Phys.IB, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
-  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI;
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI,
+  frxBarcode;
 
 type
   TSistema = record
@@ -154,6 +155,7 @@ type
     fdSetSistema: TFDStoredProc;
     fdSetRotina: TFDStoredProc;
     fdQryConfiguracoes: TFDQuery;
+    frxBarCodeObject: TfrxBarCodeObject;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -1190,7 +1192,7 @@ begin
     SQL.Add('Update TBVENDAS Set');
     SQL.Add('    caixa_ano = ' + IntToStr(AnoCaixa));
     SQL.Add('  , caixa_num = ' + IntToStr(NumCaixa));
-    SQL.Add('  , caixa_PDV = ' + IfThen(IsPDV, '1', '0'));
+    SQL.Add('  , caixa_pdv = ' + IfThen(IsPDV, '1', '0'));
     SQL.Add('where ano        = ' + IntToStr(AnoVenda));
     SQL.Add('  and codcontrol = ' + IntToStr(NumVenda));
     ExecSQL;
