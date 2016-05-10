@@ -223,7 +223,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListField = 'DESCRICAO'
           ListSource = DtsCST
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 3
         end
         object dbCSTSaida: TDBLookupComboBox
           Left = 16
@@ -242,9 +242,9 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListField = 'DESCRICAO'
           ListSource = DtsCST
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 4
         end
-        object DBCheckBox1: TDBCheckBox
+        object dbCfopDevolucao: TDBCheckBox
           Left = 304
           Top = 24
           Width = 154
@@ -258,7 +258,28 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 1
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
+        object dbCfopGerarTitulo: TDBCheckBox
+          Left = 521
+          Top = 24
+          Width = 184
+          Height = 17
+          Hint = 'Gerar t'#237'tulos A Pagar / A Receber'
+          Caption = 'CFOP Gera T'#237'tulos (CP / CR)'
+          DataField = 'CFOP_GERAR_TITULO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 2
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -277,10 +298,6 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     inherited bvlTool4: TBevel
       Left = 724
       ExplicitLeft = 724
-    end
-    inherited btbtnExcluir: TcxButton
-      ExplicitLeft = 154
-      ExplicitTop = 0
     end
     inherited btbtnFechar: TcxButton
       Left = 649
@@ -303,6 +320,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  , c.Cfop_altera_custo_produto'
       '  , c.Cfop_cst_padrao_entrada'
       '  , c.Cfop_cst_padrao_saida'
+      '  , c.Cfop_gerar_titulo'
       'from TBCFOP c')
     object IbDtstTabelaCFOP_COD: TIntegerField
       DisplayLabel = 'C'#243'digo'
@@ -353,6 +371,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       ProviderFlags = [pfInUpdate]
       Size = 3
     end
+    object IbDtstTabelaCFOP_GERAR_TITULO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'CFOP_GERAR_TITULO'
+      Origin = '"TBCFOP"."CFOP_GERAR_TITULO"'
+      ProviderFlags = [pfInUpdate]
+    end
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -364,7 +388,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  CFOP_DEVOLUCAO,'
       '  CFOP_ALTERA_CUSTO_PRODUTO,'
       '  CFOP_CST_PADRAO_ENTRADA,'
-      '  CFOP_CST_PADRAO_SAIDA'
+      '  CFOP_CST_PADRAO_SAIDA,'
+      '  CFOP_GERAR_TITULO'
       'from TBCFOP '
       'where'
       '  CFOP_COD = :CFOP_COD')
@@ -378,6 +403,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  CFOP_DESCRICAO = :CFOP_DESCRICAO,'
       '  CFOP_DEVOLUCAO = :CFOP_DEVOLUCAO,'
       '  CFOP_ESPECIFICACAO = :CFOP_ESPECIFICACAO,'
+      '  CFOP_GERAR_TITULO = :CFOP_GERAR_TITULO,'
       '  CFOP_INFORMACAO_FISCO = :CFOP_INFORMACAO_FISCO'
       'where'
       '  CFOP_COD = :OLD_CFOP_COD')
@@ -387,15 +413,17 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         '  (CFOP_ALTERA_CUSTO_PRODUTO, CFOP_COD, CFOP_CST_PADRAO_ENTRADA,' +
         ' CFOP_CST_PADRAO_SAIDA, '
       
-        '   CFOP_DESCRICAO, CFOP_DEVOLUCAO, CFOP_ESPECIFICACAO, CFOP_INFO' +
-        'RMACAO_FISCO)'
+        '   CFOP_DESCRICAO, CFOP_DEVOLUCAO, CFOP_ESPECIFICACAO, CFOP_GERA' +
+        'R_TITULO, '
+      '   CFOP_INFORMACAO_FISCO)'
       'values'
       
         '  (:CFOP_ALTERA_CUSTO_PRODUTO, :CFOP_COD, :CFOP_CST_PADRAO_ENTRA' +
         'DA, :CFOP_CST_PADRAO_SAIDA, '
       
         '   :CFOP_DESCRICAO, :CFOP_DEVOLUCAO, :CFOP_ESPECIFICACAO, :CFOP_' +
-        'INFORMACAO_FISCO)')
+        'GERAR_TITULO, '
+      '   :CFOP_INFORMACAO_FISCO)')
     DeleteSQL.Strings = (
       'delete from TBCFOP'
       'where'
@@ -403,7 +431,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -43,7 +43,9 @@ type
     lblInformacaoFisco: TLabel;
     dbInformacaoFisco: TDBEdit;
     IbDtstTabelaCFOP_DEVOLUCAO: TSmallintField;
-    DBCheckBox1: TDBCheckBox;
+    dbCfopDevolucao: TDBCheckBox;
+    IbDtstTabelaCFOP_GERAR_TITULO: TSmallintField;
+    dbCfopGerarTitulo: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -110,6 +112,7 @@ begin
   inherited;
   IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
   IbDtstTabelaCFOP_DEVOLUCAO.AsInteger            := 0;
+  IbDtstTabelaCFOP_GERAR_TITULO.AsInteger         := 1;
   IbDtstTabelaCFOP_CST_PADRAO_ENTRADA.Clear;
   IbDtstTabelaCFOP_CST_PADRAO_SAIDA.Clear;
 end;

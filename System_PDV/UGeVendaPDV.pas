@@ -220,6 +220,7 @@ begin
   edNomeCliente.Tag     := CONSUMIDOR_FINAL_CODIGO;
   edNomeCliente.Caption := CONSUMIDOR_FINAL_NOME;
   edNomeCliente.Hint    := CONSUMIDOR_FINAL_CNPJ;
+  edNomeCliente.Enabled := True;
 
   edNomeFormaPagto.Tag     := GetFormaPagtoIDDefault;
   edNomeFormaPagto.Caption := GetFormaPagtoNomeDefault;
@@ -399,6 +400,7 @@ begin
     edNomeCliente.Tag     := DataSetVenda.FieldByName('CODCLIENTE').AsInteger;
     edNomeCliente.Caption := GetClienteNome( edNomeCliente.Tag );
     edNomeCliente.Hint    := DataSetVenda.FieldByName('CODCLI').AsString;       // CPF/CNPJ
+    edNomeCliente.Enabled := (DataSetVenda.FieldByName('BLOQUEADO').AsInteger = 1);
 
     edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
     edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
@@ -439,7 +441,7 @@ begin
   if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, bBloqueado, sBloqueado) ) then
   begin
     if bBloqueado then
-      ShowWarning('Cliente selecionado se encontra bloqueado!' + #13#13 + 'Motivo:' + #13 + sBloqueado);
+      ShowWarning('Cliente selecionado com restrição!' + #13 + 'Motivo:' + #13 + sBloqueado);
 
     edNomeCliente.Tag     := iCodigo;
     edNomeCliente.Caption := sNome;
@@ -1247,21 +1249,9 @@ begin
 
   // ( F I N A L ) FORÇAR A GRAVAÇÃO DO REGISTRO NA BASE PARA DISPARAR TRIGGERS DE UPDATE
 
-  with DataSetVenda do
-  begin
-    // Verificar se cliente está bloqueado, caso a venda seja a prazo
-
-    if ( FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
-      if ( FieldByName('BLOQUEADO').AsInteger = 1 ) then
-      begin
-        ShowWarning('Cliente bloqueado!' + #13#13 + 'Motivo:' + #13 + FieldByName('BLOQUEADO_MOTIVO').AsString);
-        Exit;
-      end;
-  end;
-
   // Verificar se existe caixa aberto para o usuário do sistema
 
-  if DataSetFormaPagto.Locate('VENDA_PRAZO', 0, []) then
+  if DataSetFormaPagto.Locate('VENDA_PRAZO', 0, []) then  // Condição de Pagamento A Vista
     if ( not CaixaAberto(DataSetVenda.FieldByName('CODEMP').AsString
       , gUsuarioLogado.Login
       , GetDateDB
@@ -1304,6 +1294,17 @@ begin
       AForm.SetValorAPagar(dbValorAPagar.Field.AsCurrency);
 
       bConfirmado := (AForm.ShowModal = mrOk);
+
+      // Verificar se cliente está bloqueado, caso a venda seja a prazo
+      if bConfirmado then
+      begin
+        if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+          if GetClienteBloqueado(edNomeCliente.Tag, sMensagem) then
+          begin
+            bConfirmado := False;
+            ShowWarning('Restrição no Cliente!' + #13 + 'Motivo:' + #13 + sMensagem);
+          end;
+      end;
 
       if not bConfirmado then
       begin

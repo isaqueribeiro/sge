@@ -1794,7 +1794,9 @@ begin
 
     CommitTransaction;
 
-    GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    if GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) then
+      GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
     AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODCONTROL.AsInteger));
@@ -1809,15 +1811,18 @@ begin
 
     // Formas de Pagamento que nao seja a prazo
 
-    cdsVendaFormaPagto.First;
-    while not cdsVendaFormaPagto.Eof do
+    if GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) then
     begin
-      if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
-        if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
-          RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
-            cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
+      cdsVendaFormaPagto.First;
+      while not cdsVendaFormaPagto.Eof do
+      begin
+        if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
+          if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
+            RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
+              cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
 
-      cdsVendaFormaPagto.Next;
+        cdsVendaFormaPagto.Next;
+      end;
     end;
 
     // Registrar o Número do Caixa na Venda Finalizada
@@ -1836,15 +1841,18 @@ begin
 
     // Imprimir Cupom
 
-    if GetEmitirCupom then
-      if GetEmitirCupomAutomatico then
-        if GetCupomNaoFiscalEmitir then
-          DMNFe.ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
-            , IbDtstTabelaCODCLIENTE.AsInteger
-            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-            , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
-        else
-          ; // Emitir Cupom Fiscal
+    if (gSistema.Codigo <> SISTEMA_GESTAO_IND) then
+    begin
+      if GetEmitirCupom then
+        if GetEmitirCupomAutomatico then
+          if GetCupomNaoFiscalEmitir then
+            DMNFe.ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
+              , IbDtstTabelaCODCLIENTE.AsInteger
+              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+              , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
+          else
+            ; // Emitir Cupom Fiscal
+    end;
   end;
 end;
 
@@ -2488,8 +2496,9 @@ begin
 
   if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
     IbDtstTabela.Edit;
-    
-  IbDtstTabelaVENDA_PRAZO.AsInteger := 1;
+
+  if GetCondicaoPagtoAPrazo(GetCondicaoPagtoIDDefault) then
+    IbDtstTabelaVENDA_PRAZO.AsInteger := 1;
 end;
 
 procedure TfrmGeVenda.cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
@@ -2818,6 +2827,7 @@ begin
     AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
     AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
+//    if GetEmitirCupom and (gSistema.Codigo = SISTEMA_PDV) then
     if GetEmitirCupom then
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin

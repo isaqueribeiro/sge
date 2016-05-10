@@ -831,6 +831,8 @@ begin
     frm.fAliquota := taICMS;
 
     frm.chkProdutoComEstoque.Checked := False;
+    frm.chkProdutoComEstoque.Visible := False;
+
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
@@ -1116,6 +1118,10 @@ begin
   lblAliquotaSN.Enabled := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
   dbAliquotaSN.Enabled  := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
 *)
+  chkProdutoComEstoque.Visible := (gSistema.Codigo <> SISTEMA_GESTAO_IND);
+  if not chkProdutoComEstoque.Visible then
+    chkProdutoComEstoque.Checked := False;
+
   if (GetPermitirVendaEstoqueInsEmpresa(gUsuarioLogado.Empresa) and (gSistema.Codigo = SISTEMA_PDV)) then
     chkProdutoComEstoque.Checked := False;
 end;

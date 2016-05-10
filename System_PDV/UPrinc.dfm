@@ -26,8 +26,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 122
-    ExplicitHeight = 395
     DesignSize = (
       930
       362)
@@ -4712,7 +4710,7 @@ object frmPrinc: TfrmPrinc
           ItemName = 'BrBtnCliente'
         end>
       OneOnRow = True
-      Row = 1
+      Row = 0
       UseOwnFont = False
       Visible = True
       WholeRow = False

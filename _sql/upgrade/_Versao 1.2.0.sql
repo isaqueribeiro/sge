@@ -5068,3 +5068,569 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 06/05/2016 16:04:24 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+    ADD NFSE_EMITIR DMN_LOGICO DEFAULT 0,
+    ADD NFSE_SERIE DMN_VCHAR_05,
+    ADD NFSE_NUMERO DMN_BIGINT_NN DEFAULT 0,
+    ADD NFSE_PERCENTUAL_PIS DMN_PERCENTUAL_3,
+    ADD NFSE_PERCENTUAL_COFINS DMN_PERCENTUAL_3,
+    ADD NFSE_PERCENTUAL_CSLL DMN_PERCENTUAL_3,
+    ADD NFSE_PERCENTUAL_ISSQN DMN_PERCENTUAL_3;
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_PIS IS
+'Percentual c/ 3 casas decimais.';
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_COFINS IS
+'Percentual c/ 3 casas decimais.';
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_CSLL IS
+'Percentual c/ 3 casas decimais.';
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_ISSQN IS
+'Percentual c/ 3 casas decimais.';
+
+
+
+/*------ 06/05/2016 16:04:42 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_EMITIR IS 
+'NFS-e: Emitir Nota Fiscal de Servico Eletronica:
+0 - Nao
+1 - Sim';
+
+/*------ 06/05/2016 16:04:42 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_SERIE IS 
+'NFS-e: Serie';
+
+/*------ 06/05/2016 16:04:42 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_NUMERO IS 
+'NFS-e: Numero da ultima nota fiscal de servico emitida';
+
+/*------ 06/05/2016 16:04:42 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_PIS IS 
+'NFS-e: Percentual do PIS';
+
+/*------ 06/05/2016 16:04:42 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_COFINS IS 
+'NFS-e: Percentual do COFINS';
+
+/*------ 06/05/2016 16:04:42 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_CSLL IS 
+'NFS-e: Percentual do CSLL';
+
+/*------ 06/05/2016 16:04:42 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFSE_PERCENTUAL_ISSQN IS 
+'NFS-e: Percentual do ISSQN (Imposto Sobre Servicos de Qualquer Natureza)';
+
+
+/*------ SYSDBA 06/05/2016 16:34:30 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+    ADD NFE_SERIE DMN_SMALLINT_N,
+    ADD NFE_NUMERO DMN_BIGINT_N;
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFE_SERIE IS
+'NF-e: Serie da nota fiscal.';
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFE_NUMERO IS
+'NF-e: Numero da ultima nota fiscal emitida.';
+
+alter table TBCONFIGURACAO
+alter EMPRESA position 1;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONTA position 2;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SENHA position 3;
+
+alter table TBCONFIGURACAO
+alter EMAIL_POP position 4;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP position 5;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP_PORTA position 6;
+
+alter table TBCONFIGURACAO
+alter EMAIL_REQUER_AUTENTICACAO position 7;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONEXAO_SSL position 8;
+
+alter table TBCONFIGURACAO
+alter EMAIL_ASSUNTO_PADRAO position 9;
+
+alter table TBCONFIGURACAO
+alter EMAIL_MENSAGEM_PADRAO position 10;
+
+alter table TBCONFIGURACAO
+alter NFE_SERIE position 11;
+
+alter table TBCONFIGURACAO
+alter NFE_NUMERO position 12;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR position 13;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR_ENTRADA position 14;
+
+alter table TBCONFIGURACAO
+alter NFE_ACEITAR_NOTA_DENEGADA position 15;
+
+alter table TBCONFIGURACAO
+alter NFE_SOLICITA_DH_SAIDA position 16;
+
+alter table TBCONFIGURACAO
+alter NFE_IMPRIMIR_COD_CLIENTE position 17;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN_ID position 18;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN position 19;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_DUPLICAR_CNPJ position 20;
+
+alter table TBCONFIGURACAO
+alter CUSTO_OPER_CALCULAR position 21;
+
+alter table TBCONFIGURACAO
+alter PERMITIR_VENDA_ESTOQUE_INS position 22;
+
+alter table TBCONFIGURACAO
+alter VENDA_CARREGA_PRODUTO_EAN position 23;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_UNICO_EMPRESAS position 24;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_SATELITE_CLIENTE position 25;
+
+alter table TBCONFIGURACAO
+alter AUTORIZA_INFORMA_CLIENTE position 26;
+
+alter table TBCONFIGURACAO
+alter USUARIO position 27;
+
+alter table TBCONFIGURACAO
+alter NFSE_EMITIR position 28;
+
+alter table TBCONFIGURACAO
+alter NFSE_SERIE position 29;
+
+alter table TBCONFIGURACAO
+alter NFSE_NUMERO position 30;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_PIS position 31;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_COFINS position 32;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_CSLL position 33;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_ISSQN position 34;
+
+
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMPRESA position 1;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONTA position 2;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SENHA position 3;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_POP position 4;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP position 5;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP_PORTA position 6;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_REQUER_AUTENTICACAO position 7;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONEXAO_SSL position 8;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_ASSUNTO_PADRAO position 9;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_MENSAGEM_PADRAO position 10;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR position 11;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SERIE position 12;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_NUMERO position 13;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR_ENTRADA position 14;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_ACEITAR_NOTA_DENEGADA position 15;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SOLICITA_DH_SAIDA position 16;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_IMPRIMIR_COD_CLIENTE position 17;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN_ID position 18;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN position 19;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column CLIENTE_PERMITIR_DUPLICAR_CNPJ position 20;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column CUSTO_OPER_CALCULAR position 21;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column PERMITIR_VENDA_ESTOQUE_INS position 22;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column VENDA_CARREGA_PRODUTO_EAN position 23;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_UNICO_EMPRESAS position 24;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_SATELITE_CLIENTE position 25;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column AUTORIZA_INFORMA_CLIENTE position 26;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column USUARIO position 27;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_EMITIR position 28;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_SERIE position 29;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_NUMERO position 30;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_PIS position 31;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_COFINS position 32;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_CSLL position 33;
+
+
+/*------ SYSDBA 06/05/2016 16:34:47 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_ISSQN position 34;
+
+
+/*------ SYSDBA 06/05/2016 16:37:57 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+    ADD NFCE_EMITIR DMN_LOGICO DEFAULT 0,
+    ADD NFCE_SERIE DMN_SMALLINT_N,
+    ADD NFCE_NUMERO DMN_BIGINT_N;
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFCE_EMITIR IS
+'NFC-e: Emitir Nota Fiscal ao Consumidor Eletronica:
+0 - Nao
+1 - Sim';
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFCE_SERIE IS
+'NFC-e: Serie da nota fiscal do Consumidor.';
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFCE_NUMERO IS
+'NFC-e: Numero da ultima nota fiscal do consumidor emitida.';
+
+alter table TBCONFIGURACAO
+alter EMPRESA position 1;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONTA position 2;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SENHA position 3;
+
+alter table TBCONFIGURACAO
+alter EMAIL_POP position 4;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP position 5;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP_PORTA position 6;
+
+alter table TBCONFIGURACAO
+alter EMAIL_REQUER_AUTENTICACAO position 7;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONEXAO_SSL position 8;
+
+alter table TBCONFIGURACAO
+alter EMAIL_ASSUNTO_PADRAO position 9;
+
+alter table TBCONFIGURACAO
+alter EMAIL_MENSAGEM_PADRAO position 10;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR position 11;
+
+alter table TBCONFIGURACAO
+alter NFE_SERIE position 12;
+
+alter table TBCONFIGURACAO
+alter NFE_NUMERO position 13;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR_ENTRADA position 14;
+
+alter table TBCONFIGURACAO
+alter NFE_ACEITAR_NOTA_DENEGADA position 15;
+
+alter table TBCONFIGURACAO
+alter NFE_SOLICITA_DH_SAIDA position 16;
+
+alter table TBCONFIGURACAO
+alter NFE_IMPRIMIR_COD_CLIENTE position 17;
+
+alter table TBCONFIGURACAO
+alter NFCE_EMITIR position 18;
+
+alter table TBCONFIGURACAO
+alter NFCE_SERIE position 19;
+
+alter table TBCONFIGURACAO
+alter NFCE_NUMERO position 20;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN_ID position 21;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN position 22;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_DUPLICAR_CNPJ position 23;
+
+alter table TBCONFIGURACAO
+alter CUSTO_OPER_CALCULAR position 24;
+
+alter table TBCONFIGURACAO
+alter PERMITIR_VENDA_ESTOQUE_INS position 25;
+
+alter table TBCONFIGURACAO
+alter VENDA_CARREGA_PRODUTO_EAN position 26;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_UNICO_EMPRESAS position 27;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_SATELITE_CLIENTE position 28;
+
+alter table TBCONFIGURACAO
+alter AUTORIZA_INFORMA_CLIENTE position 29;
+
+alter table TBCONFIGURACAO
+alter USUARIO position 30;
+
+alter table TBCONFIGURACAO
+alter NFSE_EMITIR position 31;
+
+alter table TBCONFIGURACAO
+alter NFSE_SERIE position 32;
+
+alter table TBCONFIGURACAO
+alter NFSE_NUMERO position 33;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_PIS position 34;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_COFINS position 35;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_CSLL position 36;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_ISSQN position 37;
+
+
+
+
+/*------ SYSDBA 06/05/2016 16:37:58 --------*/
+
+ALTER TABLE TBCONFIGURACAO ALTER COLUMN NFE_EMITIR
+SET DEFAULT 0;
+
+
+
+
+/*------ SYSDBA 10/05/2016 14:02:05 --------*/
+
+ALTER TABLE TBCFOP
+    ADD CFOP_GERAR_TITULO DMN_LOGICO DEFAULT 1;
+
+COMMENT ON COLUMN TBCFOP.CFOP_GERAR_TITULO IS
+'CFOP gera Titulos A Receber ou A Pagar:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 10/05/2016 14:16:16 --------*/
+
+COMMENT ON TABLE TBCFOP IS 'Tabela CFOP
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar a lista de CFOPs que se pode utilizar na emissao de NF-e.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    10/05/2016 - IMR :
+        + Criacao do campo CFOP_GERAR_TITULO a fim de permitir que uma nota de saida
+          ou entrada possam ou nao gerar titulos a pagar ou a receber de acordo com
+          a natureza de emissao do NF-e.
+
+    25/06/2014 - IMR :
+        + Criacao do campo CFOP_INFORMACAO_FISCO para armazenar o texto padrao que sera informado na NF-e quando esta
+          possuir um CFOP com esta informacao.';
+

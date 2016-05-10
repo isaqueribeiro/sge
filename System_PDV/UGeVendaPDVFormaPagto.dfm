@@ -1801,7 +1801,6 @@ inherited frmGeVendaPDVFormaPagto: TfrmGeVendaPDVFormaPagto
     Anchors = [akTop, akRight, akBottom]
     BorderWidth = 4
     TabOrder = 2
-    ExplicitHeight = 231
     DesignSize = (
       201
       287)

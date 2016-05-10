@@ -930,6 +930,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       '  , v.Totalvenda'
       '  , v.Serie'
       '  , v.Nfe'
+      '  , v.Cfop'
       '  , v.Nfe_denegada'
       '  , v.Nfe_denegada_motivo'
       '  , v.Status'
@@ -1014,6 +1015,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       '  , v.Totalvenda'
       '  , v.Serie'
       '  , v.Nfe'
+      '  , v.Cfop'
       '  , v.Nfe_denegada'
       '  , v.Nfe_denegada_motivo'
       '  , v.Status'
@@ -1119,6 +1121,10 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
+    end
+    object cdsVendaCFOP: TIntegerField
+      FieldName = 'CFOP'
+      Origin = '"TBVENDAS"."CFOP"'
     end
     object cdsVendaSERIE: TIBStringField
       FieldName = 'SERIE'

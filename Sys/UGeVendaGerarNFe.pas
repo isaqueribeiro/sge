@@ -8,7 +8,13 @@ uses
   DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinOffice2007Green;
+  dxSkinOffice2007Green, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeVendaGerarNFe = class(TfrmGrPadrao)
@@ -107,6 +113,7 @@ type
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
     chkNaoInformarVencimento: TCheckBox;
+    cdsVendaCFOP: TIntegerField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -159,6 +166,8 @@ begin
       cdsVenda.ParamByName('anovenda').AsShort   := Ano;
       cdsVenda.ParamByName('numvenda').AsInteger := Numero;
       cdsVenda.Open;
+
+      chkNaoInformarVencimento.Checked := not GetCfopGerarTitulo(cdsVenda.FieldByName('CFOP').AsInteger);
 
       lblDataEmissao.Visible := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
       dbDataEmissao.Visible  := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
@@ -326,6 +335,15 @@ begin
       cdsVenda.Post;
       cdsVenda.ApplyUpdates;
       CommitTransaction;
+    end;
+
+    if not bOk then
+    begin
+      // Refeição: Duplicidade de NF-e [nRec:999999999999999]
+      // 1. Verificar se a mensagem de rejeição é sobre a duplicação da NF-e.
+      // 2. Pegar o número de recibo retornado e buscar na SEFA a NF-e correspondente
+      // 3. Identificar a venda nesta NF-e encontrada
+      // 4. ???
     end;
 
     TmrAlerta.Enabled  := False;

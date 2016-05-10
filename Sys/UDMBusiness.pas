@@ -259,6 +259,7 @@ var
   function GetCfopIDDefault : Integer;
   function GetCfopEntradaIDDefault : Integer;
   function GetCfopDevolucao(const iCfop : Integer) : Boolean;
+  function GetCfopGerarTitulo(const iCfop : Integer) : Boolean;
   function GetEmpresaIDDefault : String;
   function GetClienteIDDefault : Integer;
   function GetVendedorIDDefault : Integer;
@@ -346,6 +347,7 @@ var
   function GetClienteEmail(const iCodigo : Integer) : String;
   function GetClienteUF(const iCodigo : Integer) : String;
   function GetClienteEndereco(const aCodigo : Integer; const aQuebrarLinha : Boolean = FALSE) : String;
+  function GetClienteBloqueado(const aCodigo : Integer; var aMotivo : String) : Boolean;
   function GetFornecedorEmail(const iCodigo : Integer) : String;
   function GetFornecedorRazao(const iCodigo : Integer) : String;
   function GetFornecedorContato(const iCodigo : Integer) : String;
@@ -357,6 +359,7 @@ var
   function GetFormaPagtoCondicaoPagto(const iFormaPagto, iCondicaoPagto : Integer) : Boolean;
   function GetCondicaoPagtoNomeDefault : String;
   function GetCondicaoPagtoNome(const iCodigo : Integer) : String;
+  function GetCondicaoPagtoAPrazo(const iCodigo : Integer) : Boolean;
   function GetTabelaIBPT_Codigo(const aCodigoNCM : String) : Integer;
   function GetBancoBoletoCodigo(const aEmpresa, aCodigoFebraban : String) : Integer;
   function GetSenhaAutorizacao : String;
@@ -1650,6 +1653,21 @@ begin
   end;
 end;
 
+function GetCfopGerarTitulo(const iCfop : Integer) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cfop_gerar_titulo from TBCFOP where cfop_cod = ' + IntToStr(iCfop));
+    Open;
+
+    Result := (FieldByName('cfop_gerar_titulo').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
 function GetEmpresaIDDefault : String;
 begin
   Result := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_EMPRESA, EmptyStr);
@@ -2784,6 +2802,26 @@ begin
 end;
 
 
+function GetClienteBloqueado(const aCodigo : Integer; var aMotivo : String) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    c.bloqueado');
+    SQL.Add('  , c.bloqueado_motivo');
+    SQL.Add('from TBCLIENTE c');
+    SQL.Add('where c.codigo = ' + IntToStr(aCodigo));
+    Open;
+
+    aMotivo := Trim(FieldByName('bloqueado_motivo').AsString);
+    Result  := (FieldByName('bloqueado').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
 function GetFornecedorEmail(const iCodigo : Integer) : String;
 begin
   with DMBusiness, qryBusca do
@@ -2916,6 +2954,21 @@ begin
     Open;
 
     Result := FieldByName('cond_descricao_full').AsString;
+
+    Close;
+  end;
+end;
+
+function GetCondicaoPagtoAPrazo(const iCodigo : Integer) : Boolean;
+begin
+  with DMBusiness, qryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select COND_PRAZO from VW_CONDICAOPAGTO where cond_cod = ' + IntToStr(iCodigo));
+    Open;
+
+    Result := (FieldByName('COND_PRAZO').AsInteger = 1);
 
     Close;
   end;

@@ -174,7 +174,7 @@ procedure TfrmGeVendaPDVFormaPagto.dbCondicaoPagtoClick(Sender: TObject);
 var
   I : Integer;
 begin
-  with TIBDataSet(dbFormaPagto.DataSource.DataSet) do
+  with TIBDataSet(DataSetFormaPagto) do
   begin
 
     if ( State in [dsEdit, dsInsert] ) then
@@ -186,6 +186,15 @@ begin
           FieldByName('PRAZO_' + FormatFloat('00', I)).Clear;
           if ( not dbCondicaoPagto.ListSource.DataSet.FieldByName('Cond_prazo_' + FormatFloat('00', I)).IsNull ) then
             FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := dbCondicaoPagto.ListSource.DataSet.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
+        end;
+
+        // Sinalizar no registro principal da Venda quando esta for A Prazo
+        if ( FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+        begin
+          if not (DataSetVenda.State in [dsEdit, dsInsert]) then
+            DataSetVenda.Edit;
+
+          DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger := 1;
         end;
       end;
 

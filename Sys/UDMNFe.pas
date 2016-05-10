@@ -429,7 +429,7 @@ const
   PROCESSO_NFE_LOTE_REJEITADO = 104; // Processo: Lote processado, mas rejeitado
   PROCESSO_NFE_USO_DENEGADO   = 110; // Processo: Uso denegado
 
-  REJEICAO_NFE_DUPLICIDADE = 204;
+  REJEICAO_NFE_DUPLICIDADE = 204;    // Refeição: Duplicidade de NF-e [nRec:999999999999999]
 
   REJEICAO_NFE_NOTA_DENEGADA     = 205; // Rejeicao: NF-e esta denegada na base de dados da SEFAZ
   REJEICAO_NFE_IE_NAO_CADASTRADO = 233; // Rejeicao: IE do destinatario nao cadastrada
@@ -1535,6 +1535,7 @@ begin
     TRUE para que o XML da NF-e seja gravada na base de dados e o registro de venda receba a informação de que a NF-e fora
     denegada.
 *)
+  sErrorMsg := EmptyStr;
   try
 
     LerConfiguracao(sCNPJEmitente);
@@ -3155,6 +3156,7 @@ begin
     quer ou não informar os vencimentos das parecelas da fatura na NF-e.
 
 }
+  sErrorMsg := EmptyStr;
   try
 
     LerConfiguracao(sCNPJEmitente);
@@ -5519,6 +5521,7 @@ begin
   IMR - 09/12/2014 :
     Desenvolvimento da função.
 *)
+  sErrorMsg := EmptyStr;
   try
 
     LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
@@ -6512,8 +6515,8 @@ begin
 
     fr.PintarQRCode(StringQrCode, pc.Picture);
 
-    pc.Height  := iTamQrCode;
-    pc.Width   := iTamQrCode;
+    pc.Height  := iTamQrCode * 2;
+    pc.Width   := iTamQrCode * 2;
     pc.Stretch := True;
 
     pc.Picture.SaveToFile(FileNameQrCode);
