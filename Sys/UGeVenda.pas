@@ -998,6 +998,8 @@ begin
     btbtnFinalizar.Enabled   := (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty) and (not cdsVendaFormaPagto.IsEmpty);
     btbtnGerarNFe.Enabled    := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty);
     btbtnCancelarVND.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+
+    btnRegerarTitulo.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) and (qryTitulos.RecordCount = 0);
     btnTituloEditar.Enabled  := (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) and (not qryTitulos.IsEmpty);
 
     BtnTransporteInforme.Enabled := btbtnFinalizar.Enabled or btbtnGerarNFe.Enabled;
@@ -1026,6 +1028,9 @@ begin
     btbtnFinalizar.Enabled   := False;
     btbtnGerarNFe.Enabled    := False;
     btbtnCancelarVND.Enabled := False;
+
+    btnRegerarTitulo.Enabled := False;
+    btnTituloEditar.Enabled  := False;
 
     BtnTransporteInforme.Enabled := False;
 
@@ -1694,7 +1699,7 @@ begin
   AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
   pgcGuias.ActivePage := tbsCadastro;
-  
+
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) then
   begin
     ShowWarning('Movimento de Venda já finalizada!');
@@ -1710,14 +1715,21 @@ begin
       Exit;
     end;
 
-  // Verificar se existe caixa aberto para o usuário do sistema
+  // Verificar se existe caixa aberto para o usuário do sistema quando o CFOP
+  // permitir a geração de títulos
 
-  if cdsVendaFormaPagto.Locate('VENDA_PRAZO', 0, []) then
-    if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
-    begin
-      ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento ' + QuotedStr(cdsVendaFormaPagtoFormaPagto.AsString) + '.');
-      Exit;
-    end;
+  if GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) then
+    if cdsVendaFormaPagto.Locate('VENDA_PRAZO', 0, []) then
+      if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login
+        , GetDateDB
+        , cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger
+        , CxAno
+        , CxNumero
+        , CxContaCorrente) ) then
+      begin
+        ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento ' + QuotedStr(cdsVendaFormaPagtoFormaPagto.AsString) + '.');
+        Exit;
+      end;
 
   IbDtstTabela.Edit;
 
@@ -1767,7 +1779,7 @@ begin
   else
   if ( ShowConfirm('Confirma a finalização da venda selecionada?') ) then
   begin
-    if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+    if ( (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) and GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) ) then
     begin
       GetComprasAbertas( IbDtstTabelaCODCLIENTE.AsInteger );
       if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
@@ -2056,8 +2068,16 @@ begin
 end;
 
 procedure TfrmGeVenda.btnRegerarTituloClick(Sender: TObject);
+var
+  pPermitir : Boolean;
+const
+  UPDATE_VENDA = 'Update TBVENDAS v SET v.venda_prazo = 1 WHERE v.ano = %s AND v.codcontrol = %s';
 begin
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_FIN ) then
+  pPermitir := (IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_FIN);
+  if not pPermitir then
+    pPermitir := ((IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) and (qryTitulos.RecordCount = 0));
+
+  if (not pPermitir) then
     ShowWarning('É permitida a geração de títulos apenas para vendas finalizadas')
   else
   if ( not qryTitulos.IsEmpty ) then
@@ -2067,6 +2087,13 @@ begin
   begin
     GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
     AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
+    // A existência da parcela de número 1 (um) é evidência da venda à prazo.
+    if  qryTitulos.Locate('PARCELA', 1, []) then
+    begin
+      ExecuteScriptSQL(Format(UPDATE_VENDA, [IbDtstTabelaANO.AsString, IbDtstTabelaCODCONTROL.AsString]));
+      RecarregarRegistro;
+    end;
   end;
 end;
 

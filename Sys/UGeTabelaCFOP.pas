@@ -46,6 +46,8 @@ type
     dbCfopDevolucao: TDBCheckBox;
     IbDtstTabelaCFOP_GERAR_TITULO: TSmallintField;
     dbCfopGerarTitulo: TDBCheckBox;
+    dbCfopGerarDuplicata: TDBCheckBox;
+    IbDtstTabelaCFOP_GERAR_DUPLICATA: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -113,6 +115,7 @@ begin
   IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
   IbDtstTabelaCFOP_DEVOLUCAO.AsInteger            := 0;
   IbDtstTabelaCFOP_GERAR_TITULO.AsInteger         := 1;
+  IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger      := 1;
   IbDtstTabelaCFOP_CST_PADRAO_ENTRADA.Clear;
   IbDtstTabelaCFOP_CST_PADRAO_SAIDA.Clear;
 end;
@@ -129,6 +132,12 @@ procedure TfrmGeTabelaCFOP.btbtnSalvarClick(Sender: TObject);
 begin
   if IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.IsNull then
     IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
+
+  if IbDtstTabelaCFOP_GERAR_TITULO.IsNull then
+    IbDtstTabelaCFOP_GERAR_TITULO.AsInteger := 1;
+
+  if IbDtstTabelaCFOP_GERAR_DUPLICATA.IsNull then
+    IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 1;
 
   inherited;
 end;

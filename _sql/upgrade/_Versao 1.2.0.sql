@@ -5634,3 +5634,26 @@ Historico:
         + Criacao do campo CFOP_INFORMACAO_FISCO para armazenar o texto padrao que sera informado na NF-e quando esta
           possuir um CFOP com esta informacao.';
 
+
+
+
+/*------ SYSDBA 10/05/2016 16:01:56 --------*/
+
+COMMENT ON COLUMN TBCFOP.CFOP_GERAR_TITULO IS
+'CFOP gera Titulos A Receber:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 10/05/2016 16:02:39 --------*/
+
+ALTER TABLE TBCFOP
+    ADD CFOP_GERAR_DUPLICATA DMN_LOGICO DEFAULT 1;
+
+COMMENT ON COLUMN TBCFOP.CFOP_GERAR_DUPLICATA IS
+'CFOP gera Titulos A Pagar:
+0 - Nao
+1 - Sim';
+
