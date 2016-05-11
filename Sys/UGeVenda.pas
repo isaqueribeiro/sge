@@ -807,7 +807,8 @@ procedure TfrmGeVenda.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   pgcMaisDados.ActivePageIndex := 0;
-  
+
+  tblVendedor.Filtered        := (IbDtstTabela.State in [dsEdit, dsInsert]);
   DtSrcTabelaItens.AutoEdit   := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN );
   dtsVendaFormaPagto.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );

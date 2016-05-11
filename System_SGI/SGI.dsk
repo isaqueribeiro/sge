@@ -17,11 +17,11 @@ File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrMemoData.pas',0,1,54
 
 [Modules]
 Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
-Module2=default.htm
-Module3=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module4=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module1=default.htm
+Module2=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module3=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module5=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
 Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module7=D:\Projetos\ASS\SGE\trunk\Sys\UGeControleCheque.pas
 Module8=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
@@ -37,23 +37,23 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
 [default.htm]
 ModuleType=TURLModule
 
 [D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj]
 ModuleType=TBaseProject
 
-[D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -427,11 +427,6 @@ LRDockWidth=1341
 Dockable=1
 StayOnTop=0
 SplitPos=79
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=AllowStreamedConnected,
-ExpandedItems=Anchors=0,Constraints=0,DefaultTransaction=0,"LiveBindings Designer=0"
 
 [ModelViewTool]
 PercentageSizes=1

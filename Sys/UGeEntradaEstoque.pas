@@ -2085,7 +2085,8 @@ begin
       Close;
       SQL.Clear;
       SQL.Add('Update TBCOMPRAS Set ');
-      SQL.Add('  NFCFOP = ' + sCFOP);
+      SQL.Add('    NFCFOP   = ' + sCFOP);
+      SQL.Add('  , NATUREZA = ' + QuotedStr(sCFOP));
       SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
       SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
       SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));

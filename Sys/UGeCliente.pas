@@ -1675,9 +1675,10 @@ procedure TfrmGeCliente.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
-  if (pgcGuias.ActivePage = tbsTabela) then
-    if (CmbBxFiltrarTipo.Visible and CmbBxFiltrarTipo.Enabled) then
-      CmbBxFiltrarTipo.Setfocus;
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    if (pgcGuias.ActivePage = tbsTabela) then
+      if (CmbBxFiltrarTipo.Visible and CmbBxFiltrarTipo.Enabled) then
+        CmbBxFiltrarTipo.Setfocus;
 end;
 
 initialization

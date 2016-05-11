@@ -39,6 +39,8 @@ type
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     procedure ControleCampos;
@@ -78,6 +80,8 @@ var
 begin
   frm := TfrmGeVendedor.Create(AOwner);
   try
+    frm.WhereAdditional := '(v.ativo = 1)';
+
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;
@@ -98,6 +102,7 @@ begin
     frm.btbtnLista.Visible    := False;
     frm.btbtnFechar.Visible   := False;
 
+    frm.WhereAdditional := '(v.ativo = 1)';
     frm.AbrirTabelaAuto := True;
 
     Result := frm.SelecionarRegistro(Codigo, Nome);
@@ -112,6 +117,18 @@ begin
   dbComissao.Enabled       := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
   lblComissaoValor.Enabled := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
   dbComissaoValor.Enabled  := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
+end;
+
+procedure TfrmGeVendedor.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  if ( Sender = dbgDados ) then
+  begin
+    if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+      dbgDados.Canvas.Font.Color := clRed;
+    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+  end;
 end;
 
 procedure TfrmGeVendedor.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
@@ -129,8 +146,8 @@ begin
   ControlFirstEdit    := dbNome;
   DisplayFormatCodigo := '000';
   NomeTabela     := 'TBVENDEDOR';
-  CampoCodigo    := 'COD';
-  CampoDescricao := 'NOME';
+  CampoCodigo    := 'v.COD';
+  CampoDescricao := 'v.NOME';
 end;
 
 procedure TfrmGeVendedor.btbtnSalvarClick(Sender: TObject);

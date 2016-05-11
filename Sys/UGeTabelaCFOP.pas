@@ -106,7 +106,7 @@ begin
   CampoCodigo    := 'CFOP_COD';
   CampoDescricao := 'CFOP_DESCRICAO';
 
-  CdsCST.Open;
+  CarregarLista(CdsCST);
 end;
 
 procedure TfrmGeTabelaCFOP.IbDtstTabelaNewRecord(DataSet: TDataSet);

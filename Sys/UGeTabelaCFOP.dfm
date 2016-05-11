@@ -25,8 +25,10 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     Width = 728
     Height = 424
     ExplicitWidth = 728
-    ExplicitHeight = 403
+    ExplicitHeight = 424
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 720
       ExplicitHeight = 374
       inherited Bevel4: TBevel
@@ -77,7 +79,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 720
-      ExplicitHeight = 374
+      ExplicitHeight = 395
       inherited Bevel8: TBevel
         Top = 225
         Width = 720
@@ -172,7 +174,6 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         Align = alClient
         Caption = 'Par'#226'metros'
         TabOrder = 1
-        ExplicitHeight = 145
         object lblCSTEntrada: TLabel
           Left = 16
           Top = 70
@@ -224,7 +225,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListField = 'DESCRICAO'
           ListSource = DtsCST
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 4
         end
         object dbCSTSaida: TDBLookupComboBox
           Left = 16
@@ -243,7 +244,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListField = 'DESCRICAO'
           ListSource = DtsCST
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
         end
         object dbCfopDevolucao: TDBCheckBox
           Left = 16
@@ -301,7 +302,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ParentFont = False
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 5
+          TabOrder = 3
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -311,7 +312,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   inherited tlbBotoes: TPanel
     Top = 428
     Width = 728
-    ExplicitTop = 407
+    ExplicitTop = 428
     ExplicitWidth = 728
     inherited bvlTool3: TBevel
       Left = 645
@@ -462,7 +463,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

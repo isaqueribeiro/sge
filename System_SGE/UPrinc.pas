@@ -695,6 +695,7 @@ begin
     BrBtnVenda.Enabled             := False;
     BrBtnOrdemServico.Enabled      := False;
     BrBtnRequisicaoCliente.Enabled := False;
+    BrBtnControleCheque.Enabled    := False;
     BrBtnTesouraria.Enabled    := False;
     BrBtnContaAPagar.Enabled   := False;
     BrBtnContaAReceber.Enabled := False;

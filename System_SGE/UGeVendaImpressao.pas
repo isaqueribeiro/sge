@@ -72,6 +72,11 @@ type
     DspRelacaoVendaRotaEntrega: TDataSetProvider;
     CdsRelacaoVendaRotaEntrega: TClientDataSet;
     FrdsRelacaoVendaRotaEntrega: TfrxDBDataset;
+    frRelacaoVendaCfopSintetico: TfrxReport;
+    QryRelacaoVendaCfopSintetico: TIBQuery;
+    DspRelacaoVendaCfopSintetico: TDataSetProvider;
+    CdsRelacaoVendaCfopSintetico: TClientDataSet;
+    FrdsRelacaoVendaCfopSintetico: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -84,6 +89,7 @@ type
     FSQL_RelacaoVendaAnalit : TStringList;
     FSQL_RelacaoVendaClienteSintet ,
     FSQL_RelacaoVendaClienteAnalit ,
+    FSQL_RelacaoVendaCfopSintet    ,
     FSQL_RelacaoVendaEntrega       : TStringList;
     ICidade   : Array of Integer;
     IVendedor : Array of Integer;
@@ -99,6 +105,7 @@ type
     procedure MontarRelacaoVendaClienteSintetica;
     procedure MontarRelacaoVendaClienteAnalitica;
     procedure MontarRelacaoVendaClienteComparativo;
+    procedure MontarRelacaoVendaCfopSintetica;
     procedure MontarRelacaoVendaListaEntrega;
   public
     { Public declarations }
@@ -119,7 +126,8 @@ const
   REPORT_RELACAO_VENDA_CLIENTE_SINTETICO  = 3;
   REPORT_RELACAO_VENDA_CLIENTE_ANALITICO  = 4;
   REPORT_RELACAO_VENDA_CLIENTE_COMPARATI  = 5;
-  REPORT_RELACAO_VENDA_LISTA_ENTREGA      = 6;
+  REPORT_RELACAO_VENDA_CFOP_SINTETICO     = 6;
+  REPORT_RELACAO_VENDA_LISTA_ENTREGA      = 7;
 
   SITUACAO_VENDA_PADRAO = 3; // Vendas finalizadas e com NF-e emitidas
 
@@ -161,7 +169,7 @@ begin
   e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
   e2Data.Date := GetDateDB;
   edSituacao.ItemIndex := SITUACAO_VENDA_PADRAO; // Vendas finalizadas e com NF-e emitidas
-  
+
   inherited;
 
   FSQL_VendaCompetencia := TStringList.Create;
@@ -178,6 +186,9 @@ begin
 
   FSQL_RelacaoVendaClienteAnalit := TStringList.Create;
   FSQL_RelacaoVendaClienteAnalit.AddStrings( QryRelacaoVendaClienteAnalitico.SQL );
+
+  FSQL_RelacaoVendaCfopSintet := TStringList.Create;
+  FSQL_RelacaoVendaCfopSintet.AddStrings( QryRelacaoVendaCfopSintetico.SQL );
 
   FSQL_RelacaoVendaEntrega := TStringList.Create;
   FSQL_RelacaoVendaEntrega.AddStrings( QryRelacaoVendaRotaEntrega.SQL );
@@ -199,6 +210,8 @@ procedure TfrmGeVendaImpressao.MontarRelacaoVendaVendedorSintetica;
 begin
   try
     SubTituloRelario := edSituacao.Text;
+    if chkNFeEmitida.Visible and chkNFeEmitida.Checked then
+      SubTituloRelario := 'NF-e / NFC-e Emitidas';
 
     if ( edCidade.ItemIndex = 0 ) then
       PeriodoRelatorio := Format('Vendas no período de %s a %s.', [e1Data.Text, e2Data.Text])
@@ -231,7 +244,7 @@ begin
 
         4:
           SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_CAN));
-          
+
         else
           SQL.Add('  and v.status > ' + IntToStr(STATUS_VND_AND)); // Todas as vendas, com excesão das vendas "em atendimento"
       end;
@@ -322,6 +335,13 @@ begin
         MontarVendaCompetencia;
         MontarRelacaoVendaClienteComparativo;
         frReport := frRelacaoVendaClienteComparativo;
+      end;
+
+    // Por CFOP
+    REPORT_RELACAO_VENDA_CFOP_SINTETICO:
+      begin
+        MontarRelacaoVendaCfopSintetica;
+        frReport := frRelacaoVendaCfopSintetico;
       end;
 
     // Por Cidade
@@ -485,6 +505,14 @@ begin
     edSituacao.Enabled := True;
   end;
 
+  if (edRelatorio.ItemIndex in [REPORT_RELACAO_VENDA_CFOP_SINTETICO]) then
+  begin
+    edCidade.ItemIndex := 0;
+    edCidade.Enabled   := False;
+  end
+  else
+    edCidade.Enabled   := True;
+
   chkNFeEmitida.Visible := (not (edRelatorio.ItemIndex in [REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI, REPORT_RELACAO_VENDA_CLIENTE_COMPARATI, REPORT_RELACAO_VENDA_LISTA_ENTREGA]));
 end;
 
@@ -556,6 +584,87 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório comparativo sintético de vendas por vendedor.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeVendaImpressao.MontarRelacaoVendaCfopSintetica;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    if chkNFeEmitida.Visible and chkNFeEmitida.Checked then
+      SubTituloRelario := 'NF-e / NFC-e Emitidas';
+
+    if ( edCidade.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Vendas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Vendas no período de %s a %s, para a cidade de %s.', [e1Data.Text, e2Data.Text, edCidade.Text]);
+
+    if ( edCliente.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Vendas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Vendas no período de %s a %s, para o cliente %s.', [e1Data.Text, e2Data.Text, edCliente.Text]);
+
+    CdsRelacaoVendaCfopSintetico.Close;
+
+    with QryRelacaoVendaCfopSintetico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoVendaCfopSintet );
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and v.dtvenda <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 23:59:59"', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        1:
+          SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_FIN));
+
+        2:
+          SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_NFE));
+
+        3:
+          SQL.Add('  and v.status between ' + IntToStr(STATUS_VND_FIN) + ' and ' + IntToStr(STATUS_VND_NFE));
+
+        4:
+          SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_CAN));
+
+        else
+          SQL.Add('  and v.status > ' + IntToStr(STATUS_VND_AND)); // Todas as vendas, com excesão das vendas "em atendimento"
+      end;
+
+      if ( edVendedor.ItemIndex > 0 ) then
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+
+      if ( edCidade.ItemIndex > 0 ) then
+          SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
+
+      if ( chkNFeEmitida.Visible ) then
+        if ( chkNFeEmitida.Checked ) then
+          SQL.Add('  and v.nfe is not null ');
+
+      SQL.Add('group by');
+      SQL.Add('    v.codemp');
+      SQL.Add('  , v.competencia');
+      SQL.Add('  , m.cmp_desc');
+      SQL.Add('  , v.cfop');
+      SQL.Add('  , c.cfop_descricao');
+      SQL.Add('');
+      SQL.Add('order by');
+      SQL.Add('    v.codemp');
+      SQL.Add('  , v.competencia');
+      SQL.Add('  , v.cfop');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório sintético de vendas por CFOP.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;

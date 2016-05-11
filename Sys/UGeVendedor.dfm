@@ -37,7 +37,7 @@ inherited frmGeVendedor: TfrmGeVendedor
           item
             Expanded = False
             FieldName = 'NOME'
-            Width = 330
+            Width = 310
             Visible = True
           end
           item
@@ -60,6 +60,13 @@ inherited frmGeVendedor: TfrmGeVendedor
             Title.Caption = 'Comiss'#227'o (R$)'
             Width = 110
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ATIVO'
+            Title.Alignment = taCenter
+            Title.Caption = 'A'
+            Visible = False
           end>
       end
       inherited pnlFiltros: TPanel
@@ -281,8 +288,7 @@ inherited frmGeVendedor: TfrmGeVendedor
       '  , v.comissao_tipo'
       '  , v.comissao'
       '  , v.Comissao_vl'
-      'from TBVENDEDOR v'
-      'where v.ativo=1')
+      'from TBVENDEDOR v')
     GeneratorField.Field = 'COD'
     GeneratorField.Generator = 'GEN_GRUPOPRODUTO_COD'
     Left = 96
@@ -385,7 +391,7 @@ inherited frmGeVendedor: TfrmGeVendedor
     Left = 64
     Top = 312
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
