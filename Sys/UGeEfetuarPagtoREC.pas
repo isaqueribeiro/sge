@@ -222,6 +222,8 @@ begin
     cdsPagamentosCONTROLE_CHEQUE.AsInteger := aCheque.Codigo;
     cdsPagamentosNUMERO_CHEQUE.AsString    := aCheque.Numero;
     cdsPagamentosBANCO_FEBRABAN.AsString   := aCheque.Banco;
+    cdsPagamentosVALOR_BAIXA.AsCurrency    := aCheque.Valor;
+    cdsPagamentosDATA_PAGTO.AsDateTime     := aCheque.Data;
   end;
 end;
 

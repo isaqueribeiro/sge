@@ -63,7 +63,6 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitTop = 86
     DesignSize = (
       551
       228)
