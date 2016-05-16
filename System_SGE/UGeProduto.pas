@@ -1631,6 +1631,10 @@ end;
 
 procedure TfrmGeProduto.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
+var
+  cAliquotaIcmsInter,
+  cAliquotaIcmsIntra,
+  cAliquotaIcmsST   : Currency;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
   begin
@@ -1647,7 +1651,15 @@ begin
         IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger  := 0;
       end
       else
+      begin
+        AliquotaIcms(GetEmpresaUF(gUsuarioLogado.Empresa), GetEmpresaUF(gUsuarioLogado.Empresa)
+          , cAliquotaIcmsInter
+          , cAliquotaIcmsIntra
+          , cAliquotaIcmsST);
         IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 1;
+        IbDtstTabelaALIQUOTA.AsCurrency         := cAliquotaIcmsInter;
+        IbDtstTabelaALIQUOTA_CSOSN.AsCurrency   := cAliquotaIcmsInter;
+      end;
 
       GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
     end;

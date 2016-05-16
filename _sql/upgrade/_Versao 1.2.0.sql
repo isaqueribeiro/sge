@@ -5657,3 +5657,217 @@ COMMENT ON COLUMN TBCFOP.CFOP_GERAR_DUPLICATA IS
 0 - Nao
 1 - Sim';
 
+
+
+
+/*------ SYSDBA 13/05/2016 10:26:16 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_ALIQUOTA_ICMS (
+    UF_ORIGEM DMN_VCHAR_02,
+    UF_DESTINO DMN_VCHAR_02)
+returns (
+    ALIQUOTA_NORMAL DMN_PERCENTUAL,
+    ALIQUOTA_INTRA  DMN_PERCENTUAL,
+    ALIQUOTA_ST DMN_PERCENTUAL)
+as
+begin
+  -- Buscando o ICMS Inter (Estado de Origem - ICMS do proprio Estado)
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_origem
+    and a.uf_destino = :uf_origem
+  Into
+    aliquota_normal;
+
+  -- Buscando o ICMS Intra (Estado de Destino)
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_destino
+    and a.uf_destino = :uf_destino
+  Into
+    aliquota_intra;
+
+  -- Buscando o ICMS de Destino
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_origem
+    and a.uf_destino = :uf_destino
+  Into
+    aliquota_st;
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 13/05/2016 10:26:50 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_ALIQUOTA_ICMS (
+    UF_ORIGEM DMN_VCHAR_02,
+    UF_DESTINO DMN_VCHAR_02)
+returns (
+    ALIQUOTA_INTER DMN_PERCENTUAL,
+    ALIQUOTA_INTRA  DMN_PERCENTUAL,
+    ALIQUOTA_ST DMN_PERCENTUAL)
+as
+begin
+  -- Buscando o ICMS Inter (Estado de Origem - ICMS do proprio Estado)
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_origem
+    and a.uf_destino = :uf_origem
+  Into
+    aliquota_inter;
+
+  -- Buscando o ICMS Intra (Estado de Destino)
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_destino
+    and a.uf_destino = :uf_destino
+  Into
+    aliquota_intra;
+
+  -- Buscando o ICMS de Destino
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_origem
+    and a.uf_destino = :uf_destino
+  Into
+    aliquota_st;
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 14/05/2016 20:01:16 --------*/
+
+COMMENT ON TABLE TBTRIBUTACAO_TIPO IS 'Tabela de Tipo de Tributacao (Situacao Tributaria - ST)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :
+
+Tabela responsavel por armazenar os codigos e as descricoes CST (Codigo de
+Situacao Tributaria) para ICMS normal e de empresa do Simples Nacional.';
+
+
+
+
+/*------ SYSDBA 14/05/2016 20:01:23 --------*/
+
+COMMENT ON COLUMN TBTRIBUTACAO_TIPO.TPT_COD IS
+'Codigo';
+
+
+
+
+/*------ SYSDBA 14/05/2016 20:01:31 --------*/
+
+COMMENT ON COLUMN TBTRIBUTACAO_TIPO.TPT_DESCRICAO IS
+'Descricao';
+
+
+
+
+/*------ SYSDBA 14/05/2016 20:01:37 --------*/
+
+COMMENT ON COLUMN TBTRIBUTACAO_TIPO.TPT_SIGLA IS
+'Sigla';
+
+
+
+
+/*------ SYSDBA 14/05/2016 20:02:06 --------*/
+
+CREATE INDEX IDX_TBTRIBUTACAO_TIPO_REGIME
+ON TBTRIBUTACAO_TIPO (TPT_COD,CRT);
+
+
+
+
+/*------ SYSDBA 14/05/2016 20:02:32 --------*/
+
+COMMENT ON COLUMN TBTRIBUTACAO_TIPO.TPT_COD IS
+'Codigo CST';
+
+
+
+
+/*------ SYSDBA 14/05/2016 21:17:26 --------*/
+
+COMMENT ON TABLE TBTRIBUTACAO_TIPO IS 'Tabela de Tipo de Tributacao (Situacao Tributaria - ST)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :
+
+Tabela responsavel por armazenar os codigos e as descricoes CST (Codigo de
+Situacao Tributaria) para ICMS normal e de empresa do Simples Nacional.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    14/05/2016 - IMR :
+        * Documentacao da tabela.';
+
+
+
+
+/*------ SYSDBA 14/05/2016 21:20:08 --------*/
+
+ALTER TABLE TBTRIBUTACAO_TIPO
+    ADD OBRIGAR_CEST DMN_LOGICO DEFAULT 0;
+
+COMMENT ON COLUMN TBTRIBUTACAO_TIPO.OBRIGAR_CEST IS
+'Obrigar produto/servico informar o CEST:
+0 - Nao
+1 - Sim
+
+CEST - Codigo Especificador da Substituicao Tributaria';
+
+
+
+
+/*------ SYSDBA 14/05/2016 21:21:29 --------*/
+
+CREATE OR ALTER VIEW VW_TIPO_TRIBUTACAO(
+    TPT_COD,
+    TPT_DESCRICAO,
+    TPT_DESCRICAO_FULL,
+    TPT_SIGLA,
+    CRT,
+    obrigar_cest)
+AS
+Select
+    t.Tpt_cod
+  , t.Tpt_descricao
+  , t.Tpt_cod || ' - ' || t.Tpt_descricao as Tpt_descricao_full
+  , t.Tpt_sigla
+  , t.Crt
+  , coalesce(t.obrigar_cest, 0) as obrigar_cest
+from TBTRIBUTACAO_TIPO t
+order by
+    t.Crt
+  , t.Tpt_cod
+;
+

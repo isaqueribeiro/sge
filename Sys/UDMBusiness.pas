@@ -236,7 +236,8 @@ var
   procedure RegistrarControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess);
   {$ENDIF}
   procedure CarregarConfiguracoesEmpresa(CNPJ : String; Mensagem : String; var AssinaturaHtml, AssinaturaTXT : String);
-  procedure AliquotaIcms(const UF_Origem, UF_Destino : String; var aAliquotaNormal, aAliquotaST : Currency);
+  procedure AliquotaIcms(const UF_Origem, UF_Destino : String;
+    var aAliquotaInter, aAliquotaIntra, aAliquotaST : Currency);
   procedure SetEmpresaIDDefault(CNPJ : String);
   procedure SetSegmento(const iCodigo : Integer; const sDescricao : String);
   procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
@@ -1335,20 +1336,23 @@ begin
   end;
 end;
 
-procedure AliquotaIcms(const UF_Origem, UF_Destino : String; var aAliquotaNormal, aAliquotaST : Currency);
+procedure AliquotaIcms(const UF_Origem, UF_Destino : String;
+  var aAliquotaInter, aAliquotaIntra, aAliquotaST : Currency);
 begin
   with DMBusiness, qryBusca do
   begin
     Close;
     SQL.Clear;
     SQL.Add('Select first 1');
-    SQL.Add('    icms.aliquota_normal');
+    SQL.Add('    icms.aliquota_inter');
+    SQL.Add('  , icms.aliquota_intra');
     SQL.Add('  , icms.aliquota_st');
     SQL.Add('from GET_ALIQUOTA_ICMS(' + QuotedStr(UF_Origem) + ', ' + QuotedStr(UF_Destino) + ') icms');
     Open;
 
-    aAliquotaNormal := FieldByName('aliquota_normal').AsCurrency;
-    aAliquotaST     := FieldByName('aliquota_st').AsCurrency;
+    aAliquotaInter := FieldByName('aliquota_inter').AsCurrency;
+    aAliquotaIntra := FieldByName('aliquota_intra').AsCurrency;
+    aAliquotaST    := FieldByName('aliquota_st').AsCurrency;
 
     Close;
   end;

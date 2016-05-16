@@ -769,7 +769,8 @@ end;
 
 procedure TfrmGeNFComplementar.CarregarProdutos(const aEmpresa, aSerie : String;const aNumero, aModelo : Integer);
 var
-  cAliquotaNormal,
+  cAliquotaInter,
+  cAliquotaIntra,
   cAliquotaST    : Currency;
 begin
   AbrirTabelaItens( IbDtstTabelaNFC_NUMERO.AsInteger );
@@ -787,7 +788,8 @@ begin
       , IfThen(TTipoNF(IbDtstTabelaNFC_TIPO.AsInteger) = tnfEntrada,
           GetFornecedorUF(IbDtstTabelaDESTINATARIO_CODIGO.AsInteger),
           GetClienteUF(IbDtstTabelaDESTINATARIO_CODIGO.AsInteger))
-      , cAliquotaNormal
+      , cAliquotaInter
+      , cAliquotaIntra
       , cAliquotaST );
 
     First;
@@ -837,8 +839,9 @@ end;
 
 procedure TfrmGeNFComplementar.ControlEditExit(Sender: TObject);
 var
-  cAliquotaNormal,
-  cAliquotaST    : Currency;
+  cAliquotaInter,
+  cAliquotaIntra,
+  cAliquotaST   : Currency;
 begin
   inherited;
   if ( (Sender = dbQuantidade) or (Sender = dbValorUn) ) then
@@ -860,7 +863,8 @@ begin
         , IfThen(TTipoNF(IbDtstTabelaNFC_TIPO.AsInteger) = tnfEntrada,
             GetFornecedorUF(IbDtstTabelaDESTINATARIO_CODIGO.AsInteger),
             GetClienteUF(IbDtstTabelaDESTINATARIO_CODIGO.AsInteger))
-        , cAliquotaNormal
+        , cAliquotaInter
+        , cAliquotaIntra
         , cAliquotaST );
     end;
 
@@ -870,7 +874,7 @@ begin
       if ( cdsTabelaItensBC_ICMS.AsCurrency > 0 ) then
       begin
         cdsTabelaItensALIQUOTA_ICMS.AsCurrency := 100.0;
-        cdsTabelaItensVALOR_ICMS.AsCurrency    := cdsTabelaItensBC_ICMS.AsCurrency * cAliquotaNormal / 100;
+        cdsTabelaItensVALOR_ICMS.AsCurrency    := cdsTabelaItensBC_ICMS.AsCurrency * cAliquotaInter / 100;
       end
       else
       begin
