@@ -1053,19 +1053,19 @@ begin
   fApenasProdutos := False;
   fApenasServicos := False;
 
-  tblEmpresa.Open;
-  tblOrigem.Open;
-  tblTributacaoNM.Open;
-  tblTributacaoSN.Open;
-  tblAliquota.Open;
-  qryAliquotaPIS.Open;
-  qryAliquotaCOFINS.Open;
+  CarregarLista(tblEmpresa);
+  CarregarLista(tblOrigem);
+  CarregarLista(tblTributacaoNM);
+  CarregarLista(tblTributacaoSN);
+  CarregarLista(tblAliquota);
+  CarregarLista(qryAliquotaPIS);
+  CarregarLista(qryAliquotaCOFINS);
 
   if ( GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID ) then
   begin
-    tblCor.Open;
-    tblCombustivel.Open;
-    tblTipoVeiculo.Open;
+    CarregarLista(tblCor);
+    CarregarLista(tblCombustivel);
+    CarregarLista(tblTipoVeiculo);
   end;
 
   DisplayFormatCodigo := '###0000000';

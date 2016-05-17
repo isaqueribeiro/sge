@@ -33,7 +33,7 @@ type
     dspRelacaoEntradaGeralSintetico: TDataSetProvider;
     cdsRelacaoEntradaGeralSintetico: TClientDataSet;
     frdsRelacaoEntradaGeralSintetico: TfrxDBDataset;
-    chkNFInformada: TCheckBox;
+    chkDFInformada: TCheckBox;
     frRelacaoEntradaGeralAnalitico: TfrxReport;
     qryRelacaoEntradaGeralAnalitico: TIBQuery;
     dspRelacaoEntradaGeralAnalitico: TDataSetProvider;
@@ -49,7 +49,7 @@ type
     e2Data: TJvDateEdit;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
-    procedure chkNFInformadaClick(Sender: TObject);
+    procedure chkDFInformadaClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
   private
     { Private declarations }
@@ -192,9 +192,9 @@ begin
         if ( edTipoDocumento.ItemIndex > 0 ) then
           SQL.Add('  and c.tipo_documento = ' + Trim(Copy(edTipoDocumento.Text, 1, Pos('-', edTipoDocumento.Text) - 1)));
 
-      if ( chkNFInformada.Visible ) then
-        if ( chkNFInformada.Checked ) then
-          SQL.Add('  and c.tipo_documento in (1, 2)');
+      if ( chkDFInformada.Visible ) then
+        if ( chkDFInformada.Checked ) then
+          SQL.Add('  and c.tipo_documento not in (0, 4)');
 
       SQL.Add('group by');
       SQL.Add('    c.tipo_movimento');
@@ -230,7 +230,7 @@ begin
     Format('- Situação       : %s', [edSituacao.Text])      + #13 +
     Format('- Tipo Entrada   : %s', [edTipoEntrada.Text])   + #13 +
     Format('- Tipo Documento : %s', [edTipoDocumento.Text]) + #13 +
-    IfThen(chkNFInformada.Visible and chkNFInformada.Checked, '- Apenas com NF emitida(s)', EmptyStr);
+    IfThen(chkDFInformada.Visible and chkDFInformada.Checked, '- Apenas com DF emitido(s)', EmptyStr);
 
   Screen.Cursor         := crSQLWait;
   btnVisualizar.Enabled := False;
@@ -264,10 +264,10 @@ begin
   btnVisualizar.Enabled := True;
 end;
 
-procedure TfrmGeEntradaImpressao.chkNFInformadaClick(Sender: TObject);
+procedure TfrmGeEntradaImpressao.chkDFInformadaClick(Sender: TObject);
 begin
-  lblTipoDocumento.Enabled := not chkNFInformada.Checked;
-  edTipoDocumento.Enabled  := not chkNFInformada.Checked;
+  lblTipoDocumento.Enabled := not chkDFInformada.Checked;
+  edTipoDocumento.Enabled  := not chkDFInformada.Checked;
   if not edTipoDocumento.Enabled then
     edTipoDocumento.ItemIndex := 0;
 end;
@@ -322,9 +322,9 @@ begin
         if ( edTipoDocumento.ItemIndex > 0 ) then
           SQL.Add('  and c.tipo_documento = ' + Trim(Copy(edTipoDocumento.Text, 1, Pos('-', edTipoDocumento.Text) - 1)));
 
-      if ( chkNFInformada.Visible ) then
-        if ( chkNFInformada.Checked ) then
-          SQL.Add('  and c.tipo_documento in (1, 2)');
+      if ( chkDFInformada.Visible ) then
+        if ( chkDFInformada.Checked ) then
+          SQL.Add('  and c.tipo_documento not in (0, 4)');
 
       SQL.Add('order by');
       SQL.Add('    c.tipo_movimento');
@@ -349,7 +349,7 @@ end;
 procedure TfrmGeEntradaImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
-  chkNFInformada.Checked := (edRelatorio.ItemIndex = REPORT_RELACAO_ENTRADA_NOTA_FISCAL);
+  chkDFInformada.Checked := (edRelatorio.ItemIndex = REPORT_RELACAO_ENTRADA_NOTA_FISCAL);
 end;
 
 procedure TfrmGeEntradaImpressao.MontarEntradaRelacaoNotas;
@@ -402,9 +402,9 @@ begin
         if ( edTipoDocumento.ItemIndex > 0 ) then
           SQL.Add('  and c.tipo_documento = ' + Trim(Copy(edTipoDocumento.Text, 1, Pos('-', edTipoDocumento.Text) - 1)));
 
-      if ( chkNFInformada.Visible ) then
-        if ( chkNFInformada.Checked ) then
-          SQL.Add('  and c.tipo_documento in (1, 2)');
+      if ( chkDFInformada.Visible ) then
+        if ( chkDFInformada.Checked ) then
+          SQL.Add('  and c.tipo_documento not in (0, 4)');
 
       SQL.Add('order by');
       SQL.Add('    c.tipo_movimento');

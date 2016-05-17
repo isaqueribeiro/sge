@@ -124,6 +124,8 @@ inherited frmGeFornecedor: TfrmGeFornecedor
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel8: TBevel
@@ -891,7 +893,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         Top = 237
         Width = 836
         Height = 191
-        ActivePage = tbsDadoFinanceiro
+        ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
@@ -2516,7 +2518,7 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     Left = 640
     Top = 120
     Bitmap = {
-      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

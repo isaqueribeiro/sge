@@ -3,42 +3,42 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   Top = 238
   ActiveControl = nil
   Caption = 'Configura'#231#245'es da Empresa'
-  ClientHeight = 456
+  ClientHeight = 494
   ClientWidth = 751
   OldCreateOrder = True
   ExplicitWidth = 767
-  ExplicitHeight = 495
+  ExplicitHeight = 533
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 452
+    Top = 490
     Width = 751
     ExplicitTop = 453
     ExplicitWidth = 751
   end
   inherited Bevel3: TBevel
-    Top = 413
+    Top = 451
     Width = 751
     ExplicitTop = 414
     ExplicitWidth = 751
   end
   inherited pgcGuias: TPageControl
     Width = 751
-    Height = 413
+    Height = 451
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel4: TBevel
-        Top = 318
+        Top = 356
         Width = 743
         ExplicitTop = 319
         ExplicitWidth = 743
       end
       inherited dbgDados: TDBGrid
         Width = 743
-        Height = 318
+        Height = 356
         Columns = <
           item
             Expanded = False
@@ -64,7 +64,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 322
+        Top = 360
         Width = 743
         ExplicitTop = 322
         ExplicitWidth = 743
@@ -153,12 +153,14 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Left = 0
         Top = 85
         Width = 743
-        Height = 299
-        ActivePage = TbsNFe
+        Height = 337
+        ActivePage = TbsNFSe
         Align = alClient
         TabOrder = 1
+        ExplicitHeight = 299
         object tbsContaEmail: TTabSheet
           Caption = 'Conta de E-mail'
+          ExplicitHeight = 271
           object lblEmailConta: TLabel
             Left = 16
             Top = 8
@@ -306,9 +308,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFe: TTabSheet
           Caption = 'NF-e / NFC-e'
           ImageIndex = 1
+          ExplicitHeight = 271
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
-            Top = 86
+            Top = 165
             Width = 377
             Height = 17
             Caption = 'Solicitar Data/Hora de sa'#237'da da NF-e para impress'#227'o no DANFE'
@@ -320,13 +323,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 4
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object chkImprimirCodCliente: TDBCheckBox
             Left = 16
-            Top = 110
+            Top = 189
             Width = 377
             Height = 17
             Caption = 'Imprimir C'#243'digo Interno do Cliente no DANFE da NF-e'
@@ -339,7 +342,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 5
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
@@ -363,7 +366,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object chkNFE_SalvarNotaDenegada: TDBCheckBox
             Left = 16
-            Top = 62
+            Top = 141
             Width = 193
             Height = 17
             Caption = 'Aceitar/Salvar NF-e Denegada'
@@ -376,31 +379,37 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 3
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object grpBxToken: TGroupBox
-            Left = 16
-            Top = 134
-            Width = 321
-            Height = 121
+            Left = 352
+            Top = 141
+            Width = 373
+            Height = 73
             Caption = 'Token Principal p/ emiss'#227'o de NFC-e'
-            TabOrder = 5
+            TabOrder = 8
             DesignSize = (
-              321
-              121)
+              373
+              73)
             object lblTokenId: TLabel
               Left = 16
               Top = 24
-              Width = 89
+              Width = 101
               Height = 13
               Caption = 'Id Token / Id CSC:'
               FocusControl = edTokenId
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object lblToken: TLabel
-              Left = 16
-              Top = 64
+              Left = 127
+              Top = 24
               Width = 63
               Height = 13
               Caption = 'Token / CSC:'
@@ -409,9 +418,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             object edTokenId: TDBEdit
               Left = 16
               Top = 40
-              Width = 289
+              Width = 105
               Height = 21
-              Anchors = [akLeft, akTop, akRight]
               DataField = 'NFCE_TOKEN_ID'
               DataSource = DtSrcTabela
               Font.Charset = DEFAULT_CHARSET
@@ -423,9 +431,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               TabOrder = 0
             end
             object edToken: TDBEdit
-              Left = 16
-              Top = 80
-              Width = 289
+              Left = 127
+              Top = 40
+              Width = 230
               Height = 21
               Anchors = [akLeft, akTop, akRight]
               DataField = 'NFCE_TOKEN_ID'
@@ -437,6 +445,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               Font.Style = []
               ParentFont = False
               TabOrder = 1
+              ExplicitWidth = 178
             end
           end
           object chkNFE_EmitirEntrada: TDBCheckBox
@@ -457,10 +466,374 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
+          object grpBxNFe: TGroupBox
+            Left = 16
+            Top = 62
+            Width = 205
+            Height = 73
+            Caption = 'Numera'#231#227'o NF-e ('#218'ltima Emiss'#227'o)'
+            TabOrder = 2
+            object lblNFeSerie: TLabel
+              Left = 16
+              Top = 24
+              Width = 28
+              Height = 13
+              Caption = 'S'#233'rie:'
+              FocusControl = dbNFeSerie
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFeNumero: TLabel
+              Left = 69
+              Top = 24
+              Width = 41
+              Height = 13
+              Caption = 'N'#250'mero:'
+              FocusControl = dbNFeNumero
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object dbNFeSerie: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 47
+              Height = 21
+              DataField = 'NFE_SERIE'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object dbNFeNumero: TDBEdit
+              Left = 69
+              Top = 40
+              Width = 116
+              Height = 21
+              DataField = 'NFE_NUMERO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+          end
+          object chkNFCE_Emitir: TDBCheckBox
+            Left = 352
+            Top = 39
+            Width = 169
+            Height = 17
+            Caption = 'Permitir Emiss'#227'o de NFC-e'
+            DataField = 'NFCE_EMITIR'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 6
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object grpBxNFCe: TGroupBox
+            Left = 352
+            Top = 62
+            Width = 205
+            Height = 73
+            Caption = 'Numera'#231#227'o NFC-e ('#218'ltima Emiss'#227'o)'
+            TabOrder = 7
+            object lblNFCeSerie: TLabel
+              Left = 16
+              Top = 24
+              Width = 28
+              Height = 13
+              Caption = 'S'#233'rie:'
+              FocusControl = dbNFCeSerie
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFCeNumero: TLabel
+              Left = 69
+              Top = 24
+              Width = 41
+              Height = 13
+              Caption = 'N'#250'mero:'
+              FocusControl = dbNFCeNumero
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object dbNFCeSerie: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 47
+              Height = 21
+              DataField = 'NFCE_SERIE'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object dbNFCeNumero: TDBEdit
+              Left = 69
+              Top = 40
+              Width = 116
+              Height = 21
+              DataField = 'NFCE_NUMERO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+          end
+        end
+        object TbsNFSe: TTabSheet
+          Caption = 'NFS-e'
+          ImageIndex = 3
+          ExplicitHeight = 271
+          object chkNFSE_Emitir: TDBCheckBox
+            Left = 16
+            Top = 16
+            Width = 184
+            Height = 17
+            Caption = 'Permitir Emiss'#227'o de NFS-e'
+            DataField = 'NFSE_EMITIR'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object grpBxNFSe: TGroupBox
+            Left = 16
+            Top = 39
+            Width = 184
+            Height = 73
+            Caption = 'Numera'#231#227'o NFS-e ('#218'ltima Emiss'#227'o)'
+            TabOrder = 1
+            object lblNFSeSerie: TLabel
+              Left = 16
+              Top = 24
+              Width = 28
+              Height = 13
+              Caption = 'S'#233'rie:'
+              FocusControl = dbNFSeSerie
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFSeNumero: TLabel
+              Left = 69
+              Top = 24
+              Width = 41
+              Height = 13
+              Caption = 'N'#250'mero:'
+              FocusControl = dbNFSeNumero
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object dbNFSeSerie: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 47
+              Height = 21
+              DataField = 'NFSE_SERIE'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object dbNFSeNumero: TDBEdit
+              Left = 69
+              Top = 40
+              Width = 100
+              Height = 21
+              DataField = 'NFSE_NUMERO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+          end
+          object grpBxNFSeAliquotas: TGroupBox
+            Left = 16
+            Top = 118
+            Width = 184
+            Height = 115
+            Caption = 'Percentuais / Al'#237'quotas '
+            TabOrder = 2
+            object lblNFSePIS: TLabel
+              Left = 16
+              Top = 24
+              Width = 20
+              Height = 13
+              Caption = 'PIS:'
+              FocusControl = dbNFSePIS
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFSeCOFINS: TLabel
+              Left = 95
+              Top = 24
+              Width = 42
+              Height = 13
+              Caption = 'COFINS:'
+              FocusControl = dbNFSeCOFINS
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFSeCSLL: TLabel
+              Left = 16
+              Top = 64
+              Width = 27
+              Height = 13
+              Caption = 'CSLL:'
+              FocusControl = dbNFSeCSLL
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFSeISSQN: TLabel
+              Left = 95
+              Top = 64
+              Width = 35
+              Height = 13
+              Caption = 'ISSQN:'
+              FocusControl = dbNFSeISSQN
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object dbNFSePIS: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 73
+              Height = 21
+              DataField = 'NFSE_PERCENTUAL_PIS'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object dbNFSeCOFINS: TDBEdit
+              Left = 95
+              Top = 40
+              Width = 74
+              Height = 21
+              DataField = 'NFSE_PERCENTUAL_COFINS'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+            object dbNFSeCSLL: TDBEdit
+              Left = 16
+              Top = 80
+              Width = 73
+              Height = 21
+              DataField = 'NFSE_PERCENTUAL_CSLL'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+            end
+            object dbNFSeISSQN: TDBEdit
+              Left = 95
+              Top = 80
+              Width = 74
+              Height = 21
+              DataField = 'NFSE_PERCENTUAL_ISSQN'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 3
+            end
+          end
         end
         object TabSheet1: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
+          ExplicitHeight = 271
           object dbCustoOperacional: TDBCheckBox
             Left = 16
             Top = 16
@@ -576,7 +949,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 417
+    Top = 455
     Width = 751
     ExplicitTop = 417
     ExplicitWidth = 751
@@ -611,13 +984,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.email_conexao_ssl'
       '  , c.email_assunto_padrao'
       '  , c.email_mensagem_padrao'
-      '  , c.nfe_emitir'
-      '  , c.nfe_emitir_entrada'
-      '  , c.nfe_aceitar_nota_denegada'
-      '  , c.nfe_solicita_dh_saida'
-      '  , c.nfe_imprimir_cod_cliente'
-      '  , c.nfce_token_id'
-      '  , c.nfce_token'
       '  , c.cliente_permitir_duplicar_cnpj'
       '  , c.custo_oper_calcular'
       '  , c.permitir_venda_estoque_ins'
@@ -625,6 +991,25 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.estoque_satelite_cliente'
       '  , c.autoriza_informa_cliente'
       '  , c.usuario'
+      '  , c.nfe_emitir'
+      '  , c.nfe_serie'
+      '  , c.nfe_numero'
+      '  , c.nfe_emitir_entrada'
+      '  , c.nfe_aceitar_nota_denegada'
+      '  , c.nfe_solicita_dh_saida'
+      '  , c.nfe_imprimir_cod_cliente'
+      '  , c.nfce_emitir'
+      '  , c.nfce_serie'
+      '  , c.nfce_numero'
+      '  , c.nfce_token_id'
+      '  , c.nfce_token'
+      '  , c.nfse_emitir'
+      '  , c.nfse_serie'
+      '  , c.nfse_numero'
+      '  , c.nfse_percentual_pis'
+      '  , c.nfse_percentual_cofins'
+      '  , c.nfse_percentual_csll'
+      '  , c.nfse_percentual_issqn'
       '  , e.rzsoc'
       '  , e.nmfant'
       'from TBCONFIGURACAO c'
@@ -706,6 +1091,17 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Origin = '"TBCONFIGURACAO"."NFE_EMITIR_ENTRADA"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaNFE_SERIE: TSmallintField
+      DisplayLabel = 'NF-e: S'#233'rie'
+      FieldName = 'NFE_SERIE'
+      Origin = '"TBCONFIGURACAO"."NFE_SERIE"'
+    end
+    object IbDtstTabelaNFE_NUMERO: TIntegerField
+      DisplayLabel = 'NF-e: N'#250'mero'
+      FieldName = 'NFE_NUMERO'
+      Origin = '"TBCONFIGURACAO"."NFE_NUMERO"'
+      DisplayFormat = '###0000000'
+    end
     object IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'NFE_ACEITAR_NOTA_DENEGADA'
@@ -724,17 +1120,84 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Origin = '"TBCONFIGURACAO"."NFE_IMPRIMIR_COD_CLIENTE"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaNFCE_EMITIR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'NFCE_EMITIR'
+      Origin = '"TBCONFIGURACAO"."NFCE_EMITIR"'
+    end
+    object IbDtstTabelaNFCE_SERIE: TSmallintField
+      DisplayLabel = 'NFC-e: S'#233'rie'
+      FieldName = 'NFCE_SERIE'
+      Origin = '"TBCONFIGURACAO"."NFCE_SERIE"'
+    end
+    object IbDtstTabelaNFCE_NUMERO: TIntegerField
+      DisplayLabel = 'NFC-e: N'#250'mero'
+      FieldName = 'NFCE_NUMERO'
+      Origin = '"TBCONFIGURACAO"."NFCE_NUMERO"'
+      DisplayFormat = '###0000000'
+    end
     object IbDtstTabelaNFCE_TOKEN_ID: TIBStringField
+      DisplayLabel = 'Id Token / Id CSC'
       FieldName = 'NFCE_TOKEN_ID'
       Origin = '"TBCONFIGURACAO"."NFCE_TOKEN_ID"'
       ProviderFlags = [pfInUpdate]
       Size = 250
     end
     object IbDtstTabelaNFCE_TOKEN: TIBStringField
+      DisplayLabel = 'Token / CSC'
       FieldName = 'NFCE_TOKEN'
       Origin = '"TBCONFIGURACAO"."NFCE_TOKEN"'
       ProviderFlags = [pfInUpdate]
       Size = 250
+    end
+    object IbDtstTabelaNFSE_EMITIR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'NFSE_EMITIR'
+      Origin = '"TBCONFIGURACAO"."NFSE_EMITIR"'
+    end
+    object IbDtstTabelaNFSE_SERIE: TIBStringField
+      DisplayLabel = 'NFS-e: S'#233'rie'
+      FieldName = 'NFSE_SERIE'
+      Origin = '"TBCONFIGURACAO"."NFSE_SERIE"'
+      Size = 5
+    end
+    object IbDtstTabelaNFSE_NUMERO: TIntegerField
+      DisplayLabel = 'NFS-e: N'#250'mero'
+      FieldName = 'NFSE_NUMERO'
+      Origin = '"TBCONFIGURACAO"."NFSE_NUMERO"'
+      DisplayFormat = '###0000000'
+    end
+    object IbDtstTabelaNFSE_PERCENTUAL_PIS: TIBBCDField
+      DisplayLabel = 'NFS-e: Percentual PIS'
+      FieldName = 'NFSE_PERCENTUAL_PIS'
+      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_PIS"'
+      DisplayFormat = '##,0.00'
+      Precision = 18
+      Size = 3
+    end
+    object IbDtstTabelaNFSE_PERCENTUAL_COFINS: TIBBCDField
+      DisplayLabel = 'NFS-e: Percentual COFINS'
+      FieldName = 'NFSE_PERCENTUAL_COFINS'
+      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_COFINS"'
+      DisplayFormat = '##,0.00'
+      Precision = 18
+      Size = 3
+    end
+    object IbDtstTabelaNFSE_PERCENTUAL_CSLL: TIBBCDField
+      DisplayLabel = 'NFS-e: Percentual CSLL'
+      FieldName = 'NFSE_PERCENTUAL_CSLL'
+      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_CSLL"'
+      DisplayFormat = '##,0.00'
+      Precision = 18
+      Size = 3
+    end
+    object IbDtstTabelaNFSE_PERCENTUAL_ISSQN: TIBBCDField
+      DisplayLabel = 'NFS-e: Percentual ISSQN'
+      FieldName = 'NFSE_PERCENTUAL_ISSQN'
+      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_ISSQN"'
+      DisplayFormat = '##,0.00'
+      Precision = 18
+      Size = 3
     end
     object IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField
       Alignment = taLeftJustify
@@ -804,10 +1267,15 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  EMAIL_ASSUNTO_PADRAO,'
       '  EMAIL_MENSAGEM_PADRAO,'
       '  NFE_EMITIR,'
+      '  NFE_SERIE,'
+      '  NFE_NUMERO,'
       '  NFE_EMITIR_ENTRADA,'
       '  NFE_ACEITAR_NOTA_DENEGADA,'
       '  NFE_SOLICITA_DH_SAIDA,'
       '  NFE_IMPRIMIR_COD_CLIENTE,'
+      '  NFCE_EMITIR,'
+      '  NFCE_SERIE,'
+      '  NFCE_NUMERO,'
       '  NFCE_TOKEN_ID,'
       '  NFCE_TOKEN,'
       '  CLIENTE_PERMITIR_DUPLICAR_CNPJ,'
@@ -817,7 +1285,14 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  ESTOQUE_UNICO_EMPRESAS,'
       '  ESTOQUE_SATELITE_CLIENTE,'
       '  AUTORIZA_INFORMA_CLIENTE,'
-      '  USUARIO'
+      '  USUARIO,'
+      '  NFSE_EMITIR,'
+      '  NFSE_SERIE,'
+      '  NFSE_NUMERO,'
+      '  NFSE_PERCENTUAL_PIS,'
+      '  NFSE_PERCENTUAL_COFINS,'
+      '  NFSE_PERCENTUAL_CSLL,'
+      '  NFSE_PERCENTUAL_ISSQN'
       'from TBCONFIGURACAO '
       'where'
       '  EMPRESA = :EMPRESA')
@@ -841,13 +1316,25 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  EMPRESA = :EMPRESA,'
       '  ESTOQUE_SATELITE_CLIENTE = :ESTOQUE_SATELITE_CLIENTE,'
       '  ESTOQUE_UNICO_EMPRESAS = :ESTOQUE_UNICO_EMPRESAS,'
+      '  NFCE_EMITIR = :NFCE_EMITIR,'
+      '  NFCE_NUMERO = :NFCE_NUMERO,'
+      '  NFCE_SERIE = :NFCE_SERIE,'
       '  NFCE_TOKEN = :NFCE_TOKEN,'
       '  NFCE_TOKEN_ID = :NFCE_TOKEN_ID,'
       '  NFE_ACEITAR_NOTA_DENEGADA = :NFE_ACEITAR_NOTA_DENEGADA,'
       '  NFE_EMITIR = :NFE_EMITIR,'
       '  NFE_EMITIR_ENTRADA = :NFE_EMITIR_ENTRADA,'
       '  NFE_IMPRIMIR_COD_CLIENTE = :NFE_IMPRIMIR_COD_CLIENTE,'
+      '  NFE_NUMERO = :NFE_NUMERO,'
+      '  NFE_SERIE = :NFE_SERIE,'
       '  NFE_SOLICITA_DH_SAIDA = :NFE_SOLICITA_DH_SAIDA,'
+      '  NFSE_EMITIR = :NFSE_EMITIR,'
+      '  NFSE_NUMERO = :NFSE_NUMERO,'
+      '  NFSE_PERCENTUAL_COFINS = :NFSE_PERCENTUAL_COFINS,'
+      '  NFSE_PERCENTUAL_CSLL = :NFSE_PERCENTUAL_CSLL,'
+      '  NFSE_PERCENTUAL_ISSQN = :NFSE_PERCENTUAL_ISSQN,'
+      '  NFSE_PERCENTUAL_PIS = :NFSE_PERCENTUAL_PIS,'
+      '  NFSE_SERIE = :NFSE_SERIE,'
       '  PERMITIR_VENDA_ESTOQUE_INS = :PERMITIR_VENDA_ESTOQUE_INS,'
       '  USUARIO = :USUARIO'
       'where'
@@ -865,14 +1352,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         ', EMAIL_SMTP_PORTA, '
       
         '   EMPRESA, ESTOQUE_SATELITE_CLIENTE, ESTOQUE_UNICO_EMPRESAS, NF' +
-        'CE_TOKEN, '
+        'CE_EMITIR, '
       
-        '   NFCE_TOKEN_ID, NFE_ACEITAR_NOTA_DENEGADA, NFE_EMITIR, NFE_EMI' +
-        'TIR_ENTRADA, '
+        '   NFCE_NUMERO, NFCE_SERIE, NFCE_TOKEN, NFCE_TOKEN_ID, NFE_ACEIT' +
+        'AR_NOTA_DENEGADA, '
       
-        '   NFE_IMPRIMIR_COD_CLIENTE, NFE_SOLICITA_DH_SAIDA, PERMITIR_VEN' +
-        'DA_ESTOQUE_INS, '
-      '   USUARIO)'
+        '   NFE_EMITIR, NFE_EMITIR_ENTRADA, NFE_IMPRIMIR_COD_CLIENTE, NFE' +
+        '_NUMERO, '
+      
+        '   NFE_SERIE, NFE_SOLICITA_DH_SAIDA, NFSE_EMITIR, NFSE_NUMERO, N' +
+        'FSE_PERCENTUAL_COFINS, '
+      
+        '   NFSE_PERCENTUAL_CSLL, NFSE_PERCENTUAL_ISSQN, NFSE_PERCENTUAL_' +
+        'PIS, NFSE_SERIE, '
+      '   PERMITIR_VENDA_ESTOQUE_INS, USUARIO)'
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
@@ -885,14 +1378,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         'SMTP, :EMAIL_SMTP_PORTA, '
       
         '   :EMPRESA, :ESTOQUE_SATELITE_CLIENTE, :ESTOQUE_UNICO_EMPRESAS,' +
-        ' :NFCE_TOKEN, '
+        ' :NFCE_EMITIR, '
       
-        '   :NFCE_TOKEN_ID, :NFE_ACEITAR_NOTA_DENEGADA, :NFE_EMITIR, :NFE' +
-        '_EMITIR_ENTRADA, '
+        '   :NFCE_NUMERO, :NFCE_SERIE, :NFCE_TOKEN, :NFCE_TOKEN_ID, :NFE_' +
+        'ACEITAR_NOTA_DENEGADA, '
       
-        '   :NFE_IMPRIMIR_COD_CLIENTE, :NFE_SOLICITA_DH_SAIDA, :PERMITIR_' +
-        'VENDA_ESTOQUE_INS, '
-      '   :USUARIO)')
+        '   :NFE_EMITIR, :NFE_EMITIR_ENTRADA, :NFE_IMPRIMIR_COD_CLIENTE, ' +
+        ':NFE_NUMERO, '
+      
+        '   :NFE_SERIE, :NFE_SOLICITA_DH_SAIDA, :NFSE_EMITIR, :NFSE_NUMER' +
+        'O, :NFSE_PERCENTUAL_COFINS, '
+      
+        '   :NFSE_PERCENTUAL_CSLL, :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTU' +
+        'AL_PIS, '
+      '   :NFSE_SERIE, :PERMITIR_VENDA_ESTOQUE_INS, :USUARIO)')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'
@@ -900,7 +1399,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2366,13 +2865,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     CachedUpdates = False
     TableName = 'TBEMPRESA'
     UniDirectional = False
-    Left = 656
-    Top = 208
+    Left = 672
+    Top = 368
   end
   object dtsEmpresa: TDataSource
     DataSet = tblEmpresa
-    Left = 688
-    Top = 208
+    Left = 704
+    Top = 368
   end
   object qryConfiguracoes: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
@@ -2385,8 +2884,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  c.Empresa'
       'from TBCONFIGURACAO c'
       'where c.empresa = :empresa')
-    Left = 656
-    Top = 240
+    Left = 672
+    Top = 400
     ParamData = <
       item
         DataType = ftUnknown

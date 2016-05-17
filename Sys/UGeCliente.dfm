@@ -1,7 +1,6 @@
 inherited frmGeCliente: TfrmGeCliente
   Left = 400
   Top = 237
-  ActiveControl = dbgDados
   Caption = 'Cadastro de Clientes'
   ClientHeight = 535
   ClientWidth = 844
@@ -26,7 +25,6 @@ inherited frmGeCliente: TfrmGeCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 492
-    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 844
     ExplicitHeight = 492
@@ -3434,7 +3432,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

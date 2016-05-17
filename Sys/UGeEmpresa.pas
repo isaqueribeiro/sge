@@ -190,8 +190,8 @@ begin
 
   inherited;
 
-  tblTipoRegimeNFe.Open;
-  tblSegmento.Open;
+  CarregarLista(tblTipoRegimeNFe);
+  CarregarLista(tblSegmento);
 
   RotinaID         := ROTINA_CAD_EMPRESA_ID;
   AbrirTabelaAuto  := True;

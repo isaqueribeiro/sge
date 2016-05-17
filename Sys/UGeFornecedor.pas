@@ -319,8 +319,8 @@ begin
   RotinaID         := ROTINA_CAD_FORNECEDOR_ID;
   ControlFirstEdit := dbPessoaFisica;
 
-  tblGrupo.Open;
-  qryBancoFebraban.Open;
+  CarregarLista(tblGrupo);
+  CarregarLista(qryBancoFebraban);
 
   DisplayFormatCodigo := '##0000';
 

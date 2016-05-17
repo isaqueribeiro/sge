@@ -115,14 +115,14 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           'Finalizada / NF Emitida'
           'Cancelado')
       end
-      object chkNFInformada: TCheckBox
+      object chkDFInformada: TCheckBox
         Left = 104
         Top = 144
-        Width = 185
+        Width = 313
         Height = 17
-        Caption = 'Apenas com NF informada(s)'
+        Caption = 'Apenas com Documentos Fiscais informados'
         TabOrder = 6
-        OnClick = chkNFInformadaClick
+        OnClick = chkDFInformadaClick
       end
       object edEmpresa: TComboBox
         Left = 104

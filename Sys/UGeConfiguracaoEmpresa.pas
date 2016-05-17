@@ -81,6 +81,45 @@ type
     edToken: TDBEdit;
     IbDtstTabelaNFE_EMITIR_ENTRADA: TSmallintField;
     chkNFE_EmitirEntrada: TDBCheckBox;
+    TbsNFSe: TTabSheet;
+    IbDtstTabelaNFE_SERIE: TSmallintField;
+    IbDtstTabelaNFE_NUMERO: TIntegerField;
+    IbDtstTabelaNFCE_EMITIR: TSmallintField;
+    IbDtstTabelaNFCE_SERIE: TSmallintField;
+    IbDtstTabelaNFCE_NUMERO: TIntegerField;
+    IbDtstTabelaNFSE_EMITIR: TSmallintField;
+    IbDtstTabelaNFSE_SERIE: TIBStringField;
+    IbDtstTabelaNFSE_NUMERO: TIntegerField;
+    IbDtstTabelaNFSE_PERCENTUAL_PIS: TIBBCDField;
+    IbDtstTabelaNFSE_PERCENTUAL_COFINS: TIBBCDField;
+    IbDtstTabelaNFSE_PERCENTUAL_CSLL: TIBBCDField;
+    IbDtstTabelaNFSE_PERCENTUAL_ISSQN: TIBBCDField;
+    grpBxNFe: TGroupBox;
+    lblNFeSerie: TLabel;
+    lblNFeNumero: TLabel;
+    dbNFeSerie: TDBEdit;
+    dbNFeNumero: TDBEdit;
+    chkNFCE_Emitir: TDBCheckBox;
+    grpBxNFCe: TGroupBox;
+    lblNFCeSerie: TLabel;
+    lblNFCeNumero: TLabel;
+    dbNFCeSerie: TDBEdit;
+    dbNFCeNumero: TDBEdit;
+    chkNFSE_Emitir: TDBCheckBox;
+    grpBxNFSe: TGroupBox;
+    lblNFSeSerie: TLabel;
+    lblNFSeNumero: TLabel;
+    dbNFSeSerie: TDBEdit;
+    dbNFSeNumero: TDBEdit;
+    grpBxNFSeAliquotas: TGroupBox;
+    lblNFSePIS: TLabel;
+    dbNFSePIS: TDBEdit;
+    lblNFSeCOFINS: TLabel;
+    dbNFSeCOFINS: TDBEdit;
+    lblNFSeCSLL: TLabel;
+    dbNFSeCSLL: TDBEdit;
+    dbNFSeISSQN: TDBEdit;
+    lblNFSeISSQN: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
@@ -163,6 +202,24 @@ begin
   if IbDtstTabelaESTOQUE_SATELITE_CLIENTE.IsNull then
     IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger := 0; //Ord(False);
 
+  IbDtstTabelaNFE_SERIE.Required  := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFE_NUMERO.Required := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
+
+  IbDtstTabelaNFCE_SERIE.Required    := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFCE_NUMERO.Required   := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFCE_TOKEN_ID.Required := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFCE_TOKEN.Required    := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+
+  IbDtstTabelaNFCE_SERIE.Required  := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFCE_NUMERO.Required := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+
+  IbDtstTabelaNFSE_SERIE.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFSE_NUMERO.Required := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFSE_PERCENTUAL_PIS.Required    := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFSE_PERCENTUAL_COFINS.Required := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFSE_PERCENTUAL_CSLL.Required   := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFSE_PERCENTUAL_ISSQN.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+
   inherited;
 
   if not btbtnSalvar.Enabled then
@@ -202,8 +259,21 @@ begin
   IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger   := 0;
   IbDtstTabelaAUTORIZA_INFORMA_CLIENTE.AsInteger   := 0;
 
+  IbDtstTabelaNFSE_PERCENTUAL_PIS.AsCurrency    := 0.0;
+  IbDtstTabelaNFSE_PERCENTUAL_COFINS.AsCurrency := 0.0;
+  IbDtstTabelaNFSE_PERCENTUAL_CSLL.AsCurrency   := 0.0;
+  IbDtstTabelaNFSE_PERCENTUAL_ISSQN.AsCurrency  := 0.0;
+
+  IbDtstTabelaNFE_SERIE.Clear;
+  IbDtstTabelaNFE_NUMERO.Clear;
+
+  IbDtstTabelaNFCE_SERIE.Clear;
+  IbDtstTabelaNFCE_NUMERO.Clear;
   IbDtstTabelaNFCE_TOKEN_ID.Clear;
   IbDtstTabelaNFCE_TOKEN.Clear;
+
+  IbDtstTabelaNFSE_SERIE.Clear;
+  IbDtstTabelaNFSE_NUMERO.Clear;
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.btbtnAlterarClick(Sender: TObject);

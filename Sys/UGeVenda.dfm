@@ -6,6 +6,7 @@ inherited frmGeVenda: TfrmGeVenda
   ClientHeight = 685
   ClientWidth = 1116
   OldCreateOrder = True
+  ExplicitTop = -57
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -3451,12 +3452,14 @@ inherited frmGeVenda: TfrmGeVenda
       ExplicitLeft = 1033
     end
     object Bevel12: TBevel [5]
-      Left = 549
+      Left = 579
       Top = 0
       Width = 4
       Height = 35
       Align = alRight
       Shape = bsSpacer
+      ExplicitLeft = 589
+      ExplicitTop = -2
     end
     inherited btbtnLista: TcxButton
       Visible = True
@@ -3472,9 +3475,9 @@ inherited frmGeVenda: TfrmGeVenda
       ExplicitLeft = 913
     end
     object btnConsultarProduto: TcxButton
-      Left = 464
+      Left = 469
       Top = 0
-      Width = 85
+      Width = 110
       Height = 35
       Hint = 'Consulta Produtos'
       Align = alRight
@@ -3486,12 +3489,13 @@ inherited frmGeVenda: TfrmGeVenda
       TabOrder = 9
       TabStop = False
       OnClick = btnConsultarProdutoClick
+      ExplicitLeft = 474
     end
     object btbtnFinalizar: TcxButton
       Tag = 11
-      Left = 553
+      Left = 583
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
       Align = alRight
       Caption = '&Finalizar Venda'
@@ -3552,12 +3556,13 @@ inherited frmGeVenda: TfrmGeVenda
       ShowHint = True
       TabOrder = 6
       OnClick = btbtnFinalizarClick
+      ExplicitLeft = 598
     end
     object btbtnGerarNFe: TcxButton
       Tag = 12
-      Left = 793
+      Left = 803
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
       Align = alRight
       Caption = '&Gerar NF-e'
@@ -3618,12 +3623,13 @@ inherited frmGeVenda: TfrmGeVenda
       ShowHint = True
       TabOrder = 8
       OnClick = btbtnGerarNFeClick
+      ExplicitLeft = 808
     end
     object btbtnCancelarVND: TcxButton
       Tag = 13
-      Left = 673
+      Left = 693
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
       Hint = 'Cancelar Venda Selecionada'
       Align = alRight
@@ -3685,6 +3691,7 @@ inherited frmGeVenda: TfrmGeVenda
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnCancelarVNDClick
+      ExplicitLeft = 703
     end
   end
   inherited IbDtstTabela: TIBDataSet
@@ -4363,7 +4370,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

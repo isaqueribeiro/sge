@@ -3774,7 +3774,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5295,31 +5295,37 @@ inherited frmGeProduto: TfrmGeProduto
     FieldDefs = <
       item
         Name = 'TPT_COD'
-        DataType = ftString
+        DataType = ftWideString
         Size = 3
       end
       item
         Name = 'TPT_DESCRICAO'
-        DataType = ftString
+        DataType = ftWideString
         Size = 100
       end
       item
         Name = 'TPT_DESCRICAO_FULL'
         Attributes = [faReadonly]
-        DataType = ftString
+        DataType = ftWideString
         Size = 106
       end
       item
         Name = 'TPT_SIGLA'
-        DataType = ftString
+        DataType = ftWideString
         Size = 10
       end
       item
         Name = 'CRT'
         DataType = ftSmallint
+      end
+      item
+        Name = 'OBRIGAR_CEST'
+        Attributes = [faReadonly]
+        DataType = ftInteger
       end>
     Filter = 'CRT = 0'
     Filtered = True
+    ReadOnly = True
     StoreDefs = True
     TableName = 'VW_TIPO_TRIBUTACAO'
     TableTypes = [ttView]
@@ -5372,31 +5378,9 @@ inherited frmGeProduto: TfrmGeProduto
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
     CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'TPT_COD'
-        DataType = ftString
-        Size = 2
-      end
-      item
-        Name = 'TPT_DESCRICAO'
-        DataType = ftString
-        Size = 100
-      end
-      item
-        Name = 'TPT_DESCRICAO_FULL'
-        Attributes = [faReadonly]
-        DataType = ftString
-        Size = 105
-      end
-      item
-        Name = 'TPT_SIGLA'
-        DataType = ftString
-        Size = 10
-      end>
     Filter = 'CRT = 1'
     Filtered = True
-    StoreDefs = True
+    ReadOnly = True
     TableName = 'VW_TIPO_TRIBUTACAO'
     TableTypes = [ttView]
     UniDirectional = False

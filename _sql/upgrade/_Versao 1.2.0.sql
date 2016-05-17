@@ -5871,3 +5871,1056 @@ order by
   , t.Tpt_cod
 ;
 
+
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMPRESA position 1;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONTA position 2;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SENHA position 3;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_POP position 4;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP position 5;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP_PORTA position 6;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_REQUER_AUTENTICACAO position 7;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONEXAO_SSL position 8;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_ASSUNTO_PADRAO position 9;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_MENSAGEM_PADRAO position 10;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column CLIENTE_PERMITIR_DUPLICAR_CNPJ position 11;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column CUSTO_OPER_CALCULAR position 12;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column PERMITIR_VENDA_ESTOQUE_INS position 13;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column VENDA_CARREGA_PRODUTO_EAN position 14;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_UNICO_EMPRESAS position 15;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_SATELITE_CLIENTE position 16;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column AUTORIZA_INFORMA_CLIENTE position 17;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column USUARIO position 18;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR position 19;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SERIE position 20;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_NUMERO position 21;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR_ENTRADA position 22;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_ACEITAR_NOTA_DENEGADA position 23;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SOLICITA_DH_SAIDA position 24;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_IMPRIMIR_COD_CLIENTE position 25;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_EMITIR position 26;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_SERIE position 27;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_NUMERO position 28;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN_ID position 29;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN position 30;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_EMITIR position 31;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_SERIE position 32;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_NUMERO position 33;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_PIS position 34;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_COFINS position 35;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_CSLL position 36;
+
+
+/*------ SYSDBA 17/05/2016 00:23:37 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_ISSQN position 37;
+
+
+/*------ SYSDBA 17/05/2016 00:25:45 --------*/
+
+CREATE INDEX IDX_TBPRODUTO_NCMSH
+ON TBPRODUTO (NCM_SH);
+
+
+
+
+/*------ SYSDBA 17/05/2016 10:03:52 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_funcionario_gerar_fornecedor for tbfuncionario
+active before insert or update position 1
+AS
+  declare variable codigo_forn Integer;
+  declare variable grupo_forn Smallint;
+begin
+  if ( (new.flag_fornecedor = 1) and (trim(coalesce(new.cpf, '')) <> '') ) then
+  begin
+    /* Buscar Fornecedor referenre ao CPF */
+    Select first 1
+      f.codforn
+    from TBFORNECEDOR f
+    where f.cnpj = trim(new.cpf) -- Cpf informado
+    Into
+      codigo_forn;
+
+    -- Padronizador grupo "Colaboradores" para os Fornecedores
+    grupo_forn = 5;
+
+    if (exists(
+      Select
+        g.grf_cod
+      from TBFORNECEDOR_GRUPO g
+      where g.grf_cod = :grupo_forn
+    )) then
+      Update TBFORNECEDOR_GRUPO g Set
+        g.grf_descricao = 'COLABORADORES'
+      where g.grf_cod = :grupo_forn;
+    else
+      Insert Into TBFORNECEDOR_GRUPO (
+          grf_cod
+        , grf_descricao
+      ) values (
+          :grupo_forn
+        , 'COLABORADORES'
+      );
+
+    if ( :codigo_forn is null ) then
+    begin
+      codigo_forn = Gen_id(GEN_FORNECEDOR_ID, 1);
+      Insert Into TBFORNECEDOR (
+          CODFORN
+        , PESSOA_FISICA
+        , NOMEFORN
+        , NOMEFANT
+        , CNPJ
+        , INSCEST
+        , ENDER
+        , COMPLEMENTO
+        , NUMERO_END
+        , CEP
+        , CIDADE
+        , UF
+        , FONE
+        , FONECEL
+        , EMAIL
+        , TLG_TIPO
+        , LOG_COD
+        , BAI_COD
+        , CID_COD
+        , EST_COD
+        , PAIS_ID
+        , GRF_COD
+        , TRANSPORTADORA
+        , BANCO
+        , AGENCIA
+        , CC
+        , PRACA
+        , OBSERVACAO
+        , DTCAD
+        , ATIVO
+        , FATURAMENTO_MINIMO
+        , FORNECEDOR_FUNCIONARIO
+      ) values (
+          :codigo_forn
+        , 1
+        , new.nome_completo
+        , new.nome_completo
+        , new.cpf
+        , substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , new.ender
+        , new.complemento
+        , new.numero_end
+        , new.cep
+        , new.cidade
+        , new.uf
+        , new.fone_fixo
+        , new.fone_celular
+        , substring(new.email from 1 for 40)
+        , new.tlg_tipo
+        , new.log_cod
+        , new.bai_cod
+        , new.cid_cod
+        , new.est_cod
+        , new.pais_id
+        , :grupo_forn
+        , 0
+        , null
+        , null
+        , null
+        , null
+        , new.observacao
+        , current_date
+        , coalesce(new.ativo, 1)
+        , 0.0
+        , 1
+      );
+    end
+    else
+    begin
+      Update TBFORNECEDOR f Set
+          f.pessoa_fisica = 1
+        , f.nomeforn = new.nome_completo
+        , f.nomefant = new.nome_completo
+        , f.cnpj     = new.cpf
+        , f.inscest  = substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , f.ender    = new.ender
+        , f.complemento = new.complemento
+        , f.numero_end  = new.numero_end
+        , f.cep    = new.cep
+        , f.cidade = new.cidade
+        , f.uf     = new.uf
+        , f.fone     = new.fone_fixo
+        , f.fonecel  = new.fone_celular
+        , f.email    = substring(new.email from 1 for 40)
+        , f.tlg_tipo = new.tlg_tipo
+        , f.log_cod = new.log_cod
+        , f.bai_cod = new.bai_cod
+        , f.cid_cod = new.cid_cod
+        , f.est_cod = new.est_cod
+        , f.pais_id = new.pais_id
+        , f.ativo   = coalesce(new.ativo, 0)
+        , f.banco   = null
+        , f.agencia = null
+        , f.cc      = null
+        , f.praca   = null
+        , f.observacao = new.observacao
+        , f.fornecedor_funcionario = 1
+      where f.codforn = :codigo_forn;
+    end
+
+    if (new.fornecedor is null) then
+      new.fornecedor = :codigo_forn;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 17/05/2016 10:37:29 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_funcionario_gerar_fornecedor for tbfuncionario
+active before insert or update position 1
+AS
+  declare variable codigo_forn Integer;
+  declare variable grupo_forn Smallint;
+  declare variable mais_de_um Smallint;
+begin
+  if ( (new.flag_fornecedor = 1) and (trim(coalesce(new.cpf, '')) <> '') ) then
+  begin
+    Select
+        count(x.cnpj) as quant
+    from TBFORNECEDOR x
+    where x.cnpj = trim(new.cpf)
+    Into
+        mais_de_um;
+
+    /* Buscar Fornecedor referenre ao CPF */
+    Select first 1
+        f.codforn
+    from TBFORNECEDOR f
+    where f.cnpj = trim(new.cpf) -- Cpf informado
+    Into
+        codigo_forn;
+
+    codigo_forn = coalesce(:codigo_forn, 0);
+    mais_de_um  = coalesce(:mais_de_um, 0);
+
+    -- Padronizador grupo "Colaboradores" para os Fornecedores
+    grupo_forn = 5;
+
+    if (exists(
+      Select
+        g.grf_cod
+      from TBFORNECEDOR_GRUPO g
+      where g.grf_cod = :grupo_forn
+    )) then
+      Update TBFORNECEDOR_GRUPO g Set
+        g.grf_descricao = 'COLABORADORES'
+      where g.grf_cod = :grupo_forn;
+    else
+      Insert Into TBFORNECEDOR_GRUPO (
+          grf_cod
+        , grf_descricao
+      ) values (
+          :grupo_forn
+        , 'COLABORADORES'
+      );
+
+    if ( :codigo_forn = 0 ) then
+    begin
+      codigo_forn = Gen_id(GEN_FORNECEDOR_ID, 1);
+      Insert Into TBFORNECEDOR (
+          CODFORN
+        , PESSOA_FISICA
+        , NOMEFORN
+        , NOMEFANT
+        , CNPJ
+        , INSCEST
+        , ENDER
+        , COMPLEMENTO
+        , NUMERO_END
+        , CEP
+        , CIDADE
+        , UF
+        , FONE
+        , FONECEL
+        , EMAIL
+        , TLG_TIPO
+        , LOG_COD
+        , BAI_COD
+        , CID_COD
+        , EST_COD
+        , PAIS_ID
+        , GRF_COD
+        , TRANSPORTADORA
+        , BANCO
+        , AGENCIA
+        , CC
+        , PRACA
+        , OBSERVACAO
+        , DTCAD
+        , ATIVO
+        , FATURAMENTO_MINIMO
+        , FORNECEDOR_FUNCIONARIO
+      ) values (
+          :codigo_forn
+        , 1
+        , new.nome_completo
+        , new.nome_completo
+        , new.cpf
+        , substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , new.ender
+        , new.complemento
+        , new.numero_end
+        , new.cep
+        , new.cidade
+        , new.uf
+        , new.fone_fixo
+        , new.fone_celular
+        , substring(new.email from 1 for 40)
+        , new.tlg_tipo
+        , new.log_cod
+        , new.bai_cod
+        , new.cid_cod
+        , new.est_cod
+        , new.pais_id
+        , :grupo_forn
+        , 0
+        , null
+        , null
+        , null
+        , null
+        , new.observacao
+        , current_date
+        , coalesce(new.ativo, 1)
+        , 0.0
+        , 1
+      );
+    end
+    else
+    begin
+      Update TBFORNECEDOR f Set
+          f.pessoa_fisica = 1
+        , f.nomeforn = new.nome_completo
+        , f.nomefant = new.nome_completo
+        , f.cnpj     = new.cpf
+        , f.inscest  = substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , f.ender    = new.ender
+        , f.complemento = new.complemento
+        , f.numero_end  = new.numero_end
+        , f.cep    = new.cep
+        , f.cidade = new.cidade
+        , f.uf     = new.uf
+        , f.fone     = new.fone_fixo
+        , f.fonecel  = new.fone_celular
+        , f.email    = substring(new.email from 1 for 40)
+        , f.tlg_tipo = new.tlg_tipo
+        , f.log_cod = new.log_cod
+        , f.bai_cod = new.bai_cod
+        , f.cid_cod = new.cid_cod
+        , f.est_cod = new.est_cod
+        , f.pais_id = new.pais_id
+        , f.ativo   = coalesce(new.ativo, 0)
+        , f.banco   = null
+        , f.agencia = null
+        , f.cc      = null
+        , f.praca   = null
+        , f.observacao = new.observacao
+        , f.fornecedor_funcionario = 1
+      where ((f.cnpj    = trim(new.cpf)) and (:mais_de_um > 1))
+        or  ((f.codforn = :codigo_forn)  and (:mais_de_um = 1));
+    end
+
+    if (new.fornecedor is null) then
+      new.fornecedor = :codigo_forn;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 17/05/2016 10:38:04 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_funcionario_gerar_fornecedor for tbfuncionario
+active before insert or update position 1
+AS
+  declare variable codigo_forn Integer;
+  declare variable grupo_forn Smallint;
+  declare variable mais_de_um Smallint;
+begin
+  if ( (new.flag_fornecedor = 1) and (trim(coalesce(new.cpf, '')) <> '') ) then
+  begin
+    Select
+        count(x.cnpj) as quant
+    from TBFORNECEDOR x
+    where x.cnpj = trim(new.cpf)
+    Into
+        mais_de_um;
+
+    /* Buscar Fornecedor referenre ao CPF */
+    Select first 1
+        f.codforn
+    from TBFORNECEDOR f
+    where f.cnpj = trim(new.cpf) -- Cpf informado
+    Into
+        codigo_forn;
+
+    mais_de_um  = coalesce(:mais_de_um, 0);
+    codigo_forn = coalesce(:codigo_forn, 0);
+
+    -- Padronizador grupo "Colaboradores" para os Fornecedores
+    grupo_forn = 5;
+
+    if (exists(
+      Select
+        g.grf_cod
+      from TBFORNECEDOR_GRUPO g
+      where g.grf_cod = :grupo_forn
+    )) then
+      Update TBFORNECEDOR_GRUPO g Set
+        g.grf_descricao = 'COLABORADORES'
+      where g.grf_cod = :grupo_forn;
+    else
+      Insert Into TBFORNECEDOR_GRUPO (
+          grf_cod
+        , grf_descricao
+      ) values (
+          :grupo_forn
+        , 'COLABORADORES'
+      );
+
+    if ( :codigo_forn = 0 ) then
+    begin
+      codigo_forn = Gen_id(GEN_FORNECEDOR_ID, 1);
+      Insert Into TBFORNECEDOR (
+          CODFORN
+        , PESSOA_FISICA
+        , NOMEFORN
+        , NOMEFANT
+        , CNPJ
+        , INSCEST
+        , ENDER
+        , COMPLEMENTO
+        , NUMERO_END
+        , CEP
+        , CIDADE
+        , UF
+        , FONE
+        , FONECEL
+        , EMAIL
+        , TLG_TIPO
+        , LOG_COD
+        , BAI_COD
+        , CID_COD
+        , EST_COD
+        , PAIS_ID
+        , GRF_COD
+        , TRANSPORTADORA
+        , BANCO
+        , AGENCIA
+        , CC
+        , PRACA
+        , OBSERVACAO
+        , DTCAD
+        , ATIVO
+        , FATURAMENTO_MINIMO
+        , FORNECEDOR_FUNCIONARIO
+      ) values (
+          :codigo_forn
+        , 1
+        , new.nome_completo
+        , new.nome_completo
+        , new.cpf
+        , substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , new.ender
+        , new.complemento
+        , new.numero_end
+        , new.cep
+        , new.cidade
+        , new.uf
+        , new.fone_fixo
+        , new.fone_celular
+        , substring(new.email from 1 for 40)
+        , new.tlg_tipo
+        , new.log_cod
+        , new.bai_cod
+        , new.cid_cod
+        , new.est_cod
+        , new.pais_id
+        , :grupo_forn
+        , 0
+        , null
+        , null
+        , null
+        , null
+        , new.observacao
+        , current_date
+        , coalesce(new.ativo, 1)
+        , 0.0
+        , 1
+      );
+    end
+    else
+    begin
+      Update TBFORNECEDOR f Set
+          f.pessoa_fisica = 1
+        , f.nomeforn = new.nome_completo
+        , f.nomefant = new.nome_completo
+        , f.cnpj     = new.cpf
+        , f.inscest  = substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , f.ender    = new.ender
+        , f.complemento = new.complemento
+        , f.numero_end  = new.numero_end
+        , f.cep    = new.cep
+        , f.cidade = new.cidade
+        , f.uf     = new.uf
+        , f.fone     = new.fone_fixo
+        , f.fonecel  = new.fone_celular
+        , f.email    = substring(new.email from 1 for 40)
+        , f.tlg_tipo = new.tlg_tipo
+        , f.log_cod = new.log_cod
+        , f.bai_cod = new.bai_cod
+        , f.cid_cod = new.cid_cod
+        , f.est_cod = new.est_cod
+        , f.pais_id = new.pais_id
+        , f.ativo   = coalesce(new.ativo, 0)
+        , f.banco   = null
+        , f.agencia = null
+        , f.cc      = null
+        , f.praca   = null
+        , f.observacao = new.observacao
+        , f.fornecedor_funcionario = 1
+      where ((f.cnpj    = trim(new.cpf)) and (:mais_de_um > 1))
+        or  ((f.codforn = :codigo_forn)  and (:mais_de_um = 1));
+    end
+
+    if (new.fornecedor is null) then
+      new.fornecedor = :codigo_forn;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 17/05/2016 10:38:31 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_funcionario_gerar_fornecedor for tbfuncionario
+active before insert or update position 1
+AS
+  declare variable codigo_forn Integer;
+  declare variable grupo_forn Smallint;
+  declare variable mais_de_um Smallint;
+begin
+  if ( (new.flag_fornecedor = 1) and (trim(coalesce(new.cpf, '')) <> '') ) then
+  begin
+    Select
+        count(x.cnpj) as quant
+    from TBFORNECEDOR x
+    where x.cnpj = trim(new.cpf)
+    Into
+        mais_de_um;
+
+    /* Buscar Fornecedor referenre ao CPF */
+    Select first 1
+        f.codforn
+    from TBFORNECEDOR f
+    where f.cnpj = trim(new.cpf) -- Cpf informado
+    Into
+        codigo_forn;
+
+    mais_de_um  = coalesce(:mais_de_um, 0);
+    codigo_forn = coalesce(:codigo_forn, 0);
+
+    -- Padronizador grupo "Colaboradores" para os Fornecedores
+    grupo_forn = 5;
+
+    if (exists(
+      Select
+        g.grf_cod
+      from TBFORNECEDOR_GRUPO g
+      where g.grf_cod = :grupo_forn
+    )) then
+      Update TBFORNECEDOR_GRUPO g Set
+        g.grf_descricao = 'Colaboradores'
+      where g.grf_cod = :grupo_forn;
+    else
+      Insert Into TBFORNECEDOR_GRUPO (
+          grf_cod
+        , grf_descricao
+      ) values (
+          :grupo_forn
+        , 'Colaboradores'
+      );
+
+    if ( :codigo_forn = 0 ) then
+    begin
+      codigo_forn = Gen_id(GEN_FORNECEDOR_ID, 1);
+      Insert Into TBFORNECEDOR (
+          CODFORN
+        , PESSOA_FISICA
+        , NOMEFORN
+        , NOMEFANT
+        , CNPJ
+        , INSCEST
+        , ENDER
+        , COMPLEMENTO
+        , NUMERO_END
+        , CEP
+        , CIDADE
+        , UF
+        , FONE
+        , FONECEL
+        , EMAIL
+        , TLG_TIPO
+        , LOG_COD
+        , BAI_COD
+        , CID_COD
+        , EST_COD
+        , PAIS_ID
+        , GRF_COD
+        , TRANSPORTADORA
+        , BANCO
+        , AGENCIA
+        , CC
+        , PRACA
+        , OBSERVACAO
+        , DTCAD
+        , ATIVO
+        , FATURAMENTO_MINIMO
+        , FORNECEDOR_FUNCIONARIO
+      ) values (
+          :codigo_forn
+        , 1
+        , new.nome_completo
+        , new.nome_completo
+        , new.cpf
+        , substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , new.ender
+        , new.complemento
+        , new.numero_end
+        , new.cep
+        , new.cidade
+        , new.uf
+        , new.fone_fixo
+        , new.fone_celular
+        , substring(new.email from 1 for 40)
+        , new.tlg_tipo
+        , new.log_cod
+        , new.bai_cod
+        , new.cid_cod
+        , new.est_cod
+        , new.pais_id
+        , :grupo_forn
+        , 0
+        , null
+        , null
+        , null
+        , null
+        , new.observacao
+        , current_date
+        , coalesce(new.ativo, 1)
+        , 0.0
+        , 1
+      );
+    end
+    else
+    begin
+      Update TBFORNECEDOR f Set
+          f.pessoa_fisica = 1
+        , f.nomeforn = new.nome_completo
+        , f.nomefant = new.nome_completo
+        , f.cnpj     = new.cpf
+        , f.inscest  = substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , f.ender    = new.ender
+        , f.complemento = new.complemento
+        , f.numero_end  = new.numero_end
+        , f.cep    = new.cep
+        , f.cidade = new.cidade
+        , f.uf     = new.uf
+        , f.fone     = new.fone_fixo
+        , f.fonecel  = new.fone_celular
+        , f.email    = substring(new.email from 1 for 40)
+        , f.tlg_tipo = new.tlg_tipo
+        , f.log_cod = new.log_cod
+        , f.bai_cod = new.bai_cod
+        , f.cid_cod = new.cid_cod
+        , f.est_cod = new.est_cod
+        , f.pais_id = new.pais_id
+        , f.ativo   = coalesce(new.ativo, 0)
+        , f.banco   = null
+        , f.agencia = null
+        , f.cc      = null
+        , f.praca   = null
+        , f.observacao = new.observacao
+        , f.fornecedor_funcionario = 1
+      where ((f.cnpj    = trim(new.cpf)) and (:mais_de_um > 1))
+        or  ((f.codforn = :codigo_forn)  and (:mais_de_um = 1));
+    end
+
+    if (new.fornecedor is null) then
+      new.fornecedor = :codigo_forn;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 17/05/2016 10:39:10 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_funcionario_gerar_fornecedor for tbfuncionario
+active before insert or update position 1
+AS
+  declare variable codigo_forn Integer;
+  declare variable grupo_forn Smallint;
+  declare variable mais_de_um Smallint;
+begin
+  if ( (new.flag_fornecedor = 1) and (trim(coalesce(new.cpf, '')) <> '') ) then
+  begin
+    Select
+        count(x.cnpj) as quant
+    from TBFORNECEDOR x
+    where x.cnpj = trim(new.cpf)
+    Into
+        mais_de_um;
+
+    /* Buscar Fornecedor referenre ao CPF */
+    Select first 1
+        f.codforn
+    from TBFORNECEDOR f
+    where f.cnpj = trim(new.cpf) -- Cpf informado
+    Into
+        codigo_forn;
+
+    mais_de_um  = coalesce(:mais_de_um, 0);
+    codigo_forn = coalesce(:codigo_forn, 0);
+
+    -- Padronizador grupo "Colaboradores" para os Fornecedores
+    grupo_forn = 5;
+
+    if (exists(
+      Select
+        g.grf_cod
+      from TBFORNECEDOR_GRUPO g
+      where g.grf_cod = :grupo_forn
+    )) then
+      Update TBFORNECEDOR_GRUPO g Set
+        g.grf_descricao = 'Colaboradores'
+      where g.grf_cod = :grupo_forn;
+    else
+      Insert Into TBFORNECEDOR_GRUPO (
+          grf_cod
+        , grf_descricao
+      ) values (
+          :grupo_forn
+        , 'Colaboradores'
+      );
+
+    if ( :codigo_forn = 0 ) then
+    begin
+      codigo_forn = Gen_id(GEN_FORNECEDOR_ID, 1);
+      Insert Into TBFORNECEDOR (
+          CODFORN
+        , PESSOA_FISICA
+        , NOMEFORN
+        , NOMEFANT
+        , CNPJ
+        , INSCEST
+        , ENDER
+        , COMPLEMENTO
+        , NUMERO_END
+        , CEP
+        , CIDADE
+        , UF
+        , FONE
+        , FONECEL
+        , EMAIL
+        , TLG_TIPO
+        , LOG_COD
+        , BAI_COD
+        , CID_COD
+        , EST_COD
+        , PAIS_ID
+        , GRF_COD
+        , TRANSPORTADORA
+        , BANCO
+        , AGENCIA
+        , CC
+        , PRACA
+        , OBSERVACAO
+        , DTCAD
+        , ATIVO
+        , FATURAMENTO_MINIMO
+        , FORNECEDOR_FUNCIONARIO
+      ) values (
+          :codigo_forn
+        , 1
+        , new.nome_completo
+        , new.nome_completo
+        , new.cpf
+        , substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , new.ender
+        , new.complemento
+        , new.numero_end
+        , new.cep
+        , new.cidade
+        , new.uf
+        , new.fone_fixo
+        , new.fone_celular
+        , substring(new.email from 1 for 40)
+        , new.tlg_tipo
+        , new.log_cod
+        , new.bai_cod
+        , new.cid_cod
+        , new.est_cod
+        , new.pais_id
+        , :grupo_forn
+        , 0
+        , null
+        , null
+        , null
+        , null
+        , new.observacao
+        , current_date
+        , coalesce(new.ativo, 1)
+        , 0.0
+        , 1
+      );
+    end
+    else
+    begin
+      Update TBFORNECEDOR f Set
+          f.pessoa_fisica = 1
+        , f.nomeforn = new.nome_completo
+        , f.nomefant = new.nome_completo
+        , f.cnpj     = new.cpf
+        , f.inscest  = substring(trim(trim(coalesce(new.rg_numero, '')) || ' ' || trim(coalesce(new.rg_orgao_emissor, ''))) from 1 for 20) -- RG/Orgao Emissor
+        , f.ender    = new.ender
+        , f.complemento = new.complemento
+        , f.numero_end  = new.numero_end
+        , f.cep    = new.cep
+        , f.cidade = new.cidade
+        , f.uf     = new.uf
+        , f.fone     = new.fone_fixo
+        , f.fonecel  = new.fone_celular
+        , f.email    = substring(new.email from 1 for 40)
+        , f.tlg_tipo = new.tlg_tipo
+        , f.log_cod = new.log_cod
+        , f.bai_cod = new.bai_cod
+        , f.cid_cod = new.cid_cod
+        , f.est_cod = new.est_cod
+        , f.pais_id = new.pais_id
+        , f.ativo   = coalesce(new.ativo, 0)
+        , f.banco   = null
+        , f.agencia = null
+        , f.cc      = null
+        , f.praca   = null
+        , f.observacao = new.observacao
+        , f.fornecedor_funcionario = 1
+      where ((f.cnpj    = trim(new.cpf)) and (:mais_de_um > 1))
+        or  ((f.codforn = :codigo_forn)  and (:mais_de_um = 1));
+    end
+
+    if (new.fornecedor is null) then
+      new.fornecedor = :codigo_forn;
+  end 
+end^
+
+SET TERM ; ^
+

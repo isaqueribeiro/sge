@@ -102,6 +102,10 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 739
+      ExplicitHeight = 354
       inherited Bevel8: TBevel
         Top = 113
         Width = 739
@@ -723,7 +727,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
         Top = 237
         Width = 739
         Height = 117
-        ActivePage = tbsContato
+        ActivePage = tbsParametros
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
@@ -849,7 +853,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Caption = 'Pa'#237's:'
           end
           object lblChave: TLabel
-            Left = 152
+            Left = 344
             Top = 0
             Width = 147
             Height = 13
@@ -857,8 +861,8 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             FocusControl = dbChave
           end
           object lblTipoRegime: TLabel
-            Left = 8
-            Top = 40
+            Left = 151
+            Top = 0
             Width = 62
             Height = 13
             Caption = 'Tipo Regime:'
@@ -950,7 +954,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
           end
           object lblNumeroCCe: TLabel
-            Left = 648
+            Left = 644
             Top = 40
             Width = 68
             Height = 13
@@ -964,9 +968,9 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
           end
           object dbChave: TDBEdit
-            Left = 152
+            Left = 344
             Top = 16
-            Width = 569
+            Width = 373
             Height = 21
             CharCase = ecUpperCase
             DataField = 'CHAVE_ACESSO_NFE'
@@ -977,12 +981,12 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 1
+            TabOrder = 2
           end
           object dbTipoRegime: TDBLookupComboBox
-            Left = 8
-            Top = 56
-            Width = 137
+            Left = 151
+            Top = 16
+            Width = 186
             Height = 21
             DataField = 'TIPO_REGIME_NFE'
             DataSource = DtSrcTabela
@@ -996,7 +1000,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ListField = 'DESCRICAO'
             ListSource = dtsTipoRegimeNFe
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 1
           end
           object dbSerieNFe: TDBEdit
             Left = 152
@@ -1092,7 +1096,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           object dbNumeroNFCe: TDBEdit
             Left = 536
             Top = 56
-            Width = 105
+            Width = 102
             Height = 21
             CharCase = ecUpperCase
             Color = clMoneyGreen
@@ -1108,7 +1112,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             TabOrder = 8
           end
           object dbNumeroCCe: TDBEdit
-            Left = 648
+            Left = 644
             Top = 56
             Width = 73
             Height = 21
@@ -1645,7 +1649,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
   inherited ImgList: TImageList
     Left = 608
     Bitmap = {
-      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

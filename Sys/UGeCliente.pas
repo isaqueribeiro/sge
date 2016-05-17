@@ -1273,6 +1273,13 @@ begin
         edtFiltrar.SetFocus;
         edtFiltrar.SelStart := Length(edtFiltrar.Text);
       end;
+  end
+  else
+  if (Key = #13) then
+  begin
+    if (pgcGuias.ActivePage = tbsTabela) then
+      if (edtFiltrar.Visible and edtFiltrar.Enabled) then
+        edtFiltrar.SetFocus;
   end;
 end;
 
