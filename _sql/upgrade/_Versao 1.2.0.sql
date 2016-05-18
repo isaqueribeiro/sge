@@ -6924,3 +6924,541 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 17/05/2016 20:20:19 --------*/
+
+ALTER TABLE TBPRODUTO
+    ADD CODIGO_CEST DMN_VCHAR_10;
+
+COMMENT ON COLUMN TBPRODUTO.CODIGO_CEST IS
+'CEST - Codigo Especificador de Substituicao Tributaria';
+
+alter table TBPRODUTO
+alter CODIGO position 1;
+
+alter table TBPRODUTO
+alter COD position 2;
+
+alter table TBPRODUTO
+alter DESCRI position 3;
+
+alter table TBPRODUTO
+alter APRESENTACAO position 4;
+
+alter table TBPRODUTO
+alter DESCRI_APRESENTACAO position 5;
+
+alter table TBPRODUTO
+alter METAFONEMA position 6;
+
+alter table TBPRODUTO
+alter MODELO position 7;
+
+alter table TBPRODUTO
+alter REFERENCIA position 8;
+
+alter table TBPRODUTO
+alter NOME_AMIGO position 9;
+
+alter table TBPRODUTO
+alter ESPECIFICACAO position 10;
+
+alter table TBPRODUTO
+alter PRECO position 11;
+
+alter table TBPRODUTO
+alter PRECO_PROMOCAO position 12;
+
+alter table TBPRODUTO
+alter SECAO position 13;
+
+alter table TBPRODUTO
+alter QTDE position 14;
+
+alter table TBPRODUTO
+alter FRACIONADOR position 15;
+
+alter table TBPRODUTO
+alter PESO_BRUTO position 16;
+
+alter table TBPRODUTO
+alter PESO_LIQUIDO position 17;
+
+alter table TBPRODUTO
+alter CUBAGEM position 18;
+
+alter table TBPRODUTO
+alter VENDA_FRACIONADA position 19;
+
+alter table TBPRODUTO
+alter UNIDADE position 20;
+
+alter table TBPRODUTO
+alter ESTOQMIN position 21;
+
+alter table TBPRODUTO
+alter CODGRUPO position 22;
+
+alter table TBPRODUTO
+alter CODFABRICANTE position 23;
+
+alter table TBPRODUTO
+alter CUSTOMEDIO position 24;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARCKUP position 25;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARGEM position 26;
+
+alter table TBPRODUTO
+alter PRECO_SUGERIDO position 27;
+
+alter table TBPRODUTO
+alter CODEMP position 28;
+
+alter table TBPRODUTO
+alter CODSECAO position 29;
+
+alter table TBPRODUTO
+alter CODORIGEM position 30;
+
+alter table TBPRODUTO
+alter CODTRIBUTACAO position 31;
+
+alter table TBPRODUTO
+alter CST position 32;
+
+alter table TBPRODUTO
+alter CSOSN position 33;
+
+alter table TBPRODUTO
+alter CST_PIS position 34;
+
+alter table TBPRODUTO
+alter CST_COFINS position 35;
+
+alter table TBPRODUTO
+alter TABELA_IBPT position 36;
+
+alter table TBPRODUTO
+alter NCM_SH position 37;
+
+alter table TBPRODUTO
+alter CODIGO_NVE position 38;
+
+alter table TBPRODUTO
+alter CODIGO_CEST position 39;
+
+alter table TBPRODUTO
+alter CODCFOP position 40;
+
+alter table TBPRODUTO
+alter CODBARRA_EAN position 41;
+
+alter table TBPRODUTO
+alter CODUNIDADE position 42;
+
+alter table TBPRODUTO
+alter CODUNIDADE_FRACIONADA position 43;
+
+alter table TBPRODUTO
+alter ALIQUOTA_TIPO position 44;
+
+alter table TBPRODUTO
+alter ALIQUOTA position 45;
+
+alter table TBPRODUTO
+alter ALIQUOTA_CSOSN position 46;
+
+alter table TBPRODUTO
+alter ALIQUOTA_PIS position 47;
+
+alter table TBPRODUTO
+alter ALIQUOTA_COFINS position 48;
+
+alter table TBPRODUTO
+alter VALOR_IPI position 49;
+
+alter table TBPRODUTO
+alter PERCENTUAL_REDUCAO_BC position 50;
+
+alter table TBPRODUTO
+alter RESERVA position 51;
+
+alter table TBPRODUTO
+alter PRODUTO_NOVO position 52;
+
+alter table TBPRODUTO
+alter COR_VEICULO position 53;
+
+alter table TBPRODUTO
+alter COMBUSTIVEL_VEICULO position 54;
+
+alter table TBPRODUTO
+alter TIPO_VEICULO position 55;
+
+alter table TBPRODUTO
+alter ANO_MODELO_VEICULO position 56;
+
+alter table TBPRODUTO
+alter ANO_FABRICACAO_VEICULO position 57;
+
+alter table TBPRODUTO
+alter RENAVAM_VEICULO position 58;
+
+alter table TBPRODUTO
+alter CHASSI_VEICULO position 59;
+
+alter table TBPRODUTO
+alter KILOMETRAGEM_VEICULO position 60;
+
+alter table TBPRODUTO
+alter SITUACAO_ATUAL_VEICULO position 61;
+
+alter table TBPRODUTO
+alter SITUACAO_HISTORICO_VEICULO position 62;
+
+alter table TBPRODUTO
+alter USUARIO position 63;
+
+alter table TBPRODUTO
+alter CADASTRO_ATIVO position 64;
+
+alter table TBPRODUTO
+alter MOVIMENTA_ESTOQUE position 65;
+
+alter table TBPRODUTO
+alter COMPOR_FATURAMENTO position 66;
+
+alter table TBPRODUTO
+alter PRODUTO_IMOBILIZADO position 67;
+
+alter table TBPRODUTO
+alter ESTOQUE_APROP_LOTE position 68;
+
+alter table TBPRODUTO
+alter CUST_DESP_OFIC position 69;
+
+alter table TBPRODUTO
+alter CUST_DESP_GERAIS position 70;
+
+alter table TBPRODUTO
+alter CUST_DESP_ADM position 71;
+
+alter table TBPRODUTO
+alter CUST_COMISSAO position 72;
+
+alter table TBPRODUTO
+alter CUST_IMPOSTO position 73;
+
+alter table TBPRODUTO
+alter FI_RET_FINANC position 74;
+
+alter table TBPRODUTO
+alter FI_RET_PLANO position 75;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_DATA position 76;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_VALOR position 77;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_FORNEC position 78;
+
+alter table TBPRODUTO
+alter ARQUIVO_MORTO position 79;
+
+
+
+
+/*------ SYSDBA 17/05/2016 20:25:25 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.CODIGO_CEST IS
+'CEST - Codigo Especificador de Substituicao Tributaria.';
+
+
+
+
+/*------ SYSDBA 17/05/2016 20:26:00 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.CODIGO_CEST IS
+'CEST - Codigo Especificador de Substituicao Tributaria.
+
+Codificacao de 8 digitos, apenas numeros.';
+
+
+
+
+/*------ SYSDBA 17/05/2016 20:28:15 --------*/
+
+COMMENT ON TABLE TBPRODUTO IS 'Tabela Produtos/Servicos
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar todos os registros de todos os produtos e/ou servicos necessarios as movimentacoes de
+entrada e saida.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    17/05/2016 - IMR :
+        + Criacao do campo CODIGO_CEST com o objetivo de armazenar o Codigo Especificador
+          de Substituicao Tributaria que passar ser exijido a partir de 2016 na emissao
+          da NF-e e NFC-e.
+
+    21/01/2016 - IMR :
+        + Criacao do campo ARQUIVO_MORTO com o objetivo de ocultar do sistema os
+          registros que nao devem mas ser apresentados para o usuario mas que
+          precisam constar na base por efeito de integridade referencial.
+
+    30/05/2014 - IMR :
+        + Criacao do campo COMPOR_FATURAMENTO que ira permitir ao sistema saber quais produtos/servicos haverao de compor
+          o faturamento da empresa e quais sao de consumo interno.
+
+    03/11/2014 - IMR :
+        + Criacao do campo METAFONEMA para auxiliar da pesquisa de produtos homonimos e o campo ESPECIFICACAO como
+          campo para especificar de maneira textual o produto/servico, muito utilizado em processos de cotacao.
+
+    10/02/2014 - IMR :
+        + Criacao dos campos CADASTRO_ATIVO e PRODUTO_IMOBILIZADO para permitir que apenas os cadastro ativos sejam
+          utilizados nos processos e para designar os produtos que sao imobilizados para futuras implementacoes de
+          controles patrimoniais.
+
+    30/07/2015 - IMR :
+        + Criacao do campo NOME_AMIGO para facilitar a identificacao interna do produto/servico dentro da empresa
+          pelos usuarios do sistema. Esse dados e necessario por existir muitas situacoes onde o nome comercial do
+          servico/produto e muito diferente do nome usualmente conhecimento pelos usuarios.';
+
+
+
+
+/*------ SYSDBA 17/05/2016 20:36:22 --------*/
+
+COMMENT ON TABLE TBCFOP IS 'Tabela CFOP
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar a lista de CFOPs que se pode utilizar na emissao
+de NF-e.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    10/05/2016 - IMR :
+        + Criacao dos campos CFOP_GERAR_TITULO e CFOP_GERAR_DUPLICATA a fim de
+          permitir que uma nota de saida ou entrada possam ou nao gerar titulos
+          a pagar ou a receber de acordo com a natureza de emissao do NF-e.
+
+    25/06/2014 - IMR :
+        + Criacao do campo CFOP_INFORMACAO_FISCO para armazenar o texto padrao
+          que sera informado na NF-e quando esta possuir um CFOP com esta
+          informacao.';
+
+
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_COD position 1;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_DESCRICAO position 2;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_ESPECIFICACAO position 3;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_INFORMACAO_FISCO position 4;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_CST_PADRAO_ENTRADA position 5;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_CST_PADRAO_SAIDA position 6;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_DEVOLUCAO position 7;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_GERAR_TITULO position 8;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_GERAR_DUPLICATA position 9;
+
+
+/*------ SYSDBA 17/05/2016 21:03:28 --------*/
+
+alter table TBCFOP
+alter column CFOP_ALTERA_CUSTO_PRODUTO position 10;
+
+
+/*------ SYSDBA 17/05/2016 21:06:02 --------*/
+
+ALTER TABLE TBCFOP
+    ADD CFOP_REMESSA DMN_LOGICO DEFAULT 0;
+
+COMMENT ON COLUMN TBCFOP.CFOP_REMESSA IS
+'CFOP de Remessa:
+0 - Nao
+1 - Sim';
+
+alter table TBCFOP
+alter CFOP_COD position 1;
+
+alter table TBCFOP
+alter CFOP_DESCRICAO position 2;
+
+alter table TBCFOP
+alter CFOP_ESPECIFICACAO position 3;
+
+alter table TBCFOP
+alter CFOP_INFORMACAO_FISCO position 4;
+
+alter table TBCFOP
+alter CFOP_CST_PADRAO_ENTRADA position 5;
+
+alter table TBCFOP
+alter CFOP_CST_PADRAO_SAIDA position 6;
+
+alter table TBCFOP
+alter CFOP_DEVOLUCAO position 7;
+
+alter table TBCFOP
+alter CFOP_REMESSA position 8;
+
+alter table TBCFOP
+alter CFOP_GERAR_TITULO position 9;
+
+alter table TBCFOP
+alter CFOP_GERAR_DUPLICATA position 10;
+
+alter table TBCFOP
+alter CFOP_ALTERA_CUSTO_PRODUTO position 11;
+
+
+
+
+/*------ SYSDBA 17/05/2016 21:07:47 --------*/
+
+COMMENT ON TABLE TBCFOP IS 'Tabela CFOP
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar a lista de CFOPs que se pode utilizar na emissao
+de NF-e.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    17/05/2016 - IMR :
+        + Criacao do campo CFOP_REMESSA para sinalizar as operacoes que identificam
+          simples remessas de produtos e/ou servicos.
+
+    10/05/2016 - IMR :
+        + Criacao dos campos CFOP_GERAR_TITULO e CFOP_GERAR_DUPLICATA a fim de
+          permitir que uma nota de saida ou entrada possam ou nao gerar titulos
+          a pagar ou a receber de acordo com a natureza de emissao do NF-e.
+
+    25/06/2014 - IMR :
+        + Criacao do campo CFOP_INFORMACAO_FISCO para armazenar o texto padrao
+          que sera informado na NF-e quando esta possuir um CFOP com esta
+          informacao.';
+
+
+
+
+/*------ SYSDBA 17/05/2016 21:10:54 --------*/
+
+COMMENT ON TABLE TBCFOP IS 'Tabela CFOP
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar a lista de CFOPs que se pode utilizar na emissao
+de NF-e.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    17/05/2016 - IMR :
+        + Criacao do campo CFOP_REMESSA para sinalizar as operacoes que identificam
+          simples remessas de produtos e/ou servicos.
+          Exemplo disso sao as Remessas para Industrializacao por Conta e Ordem do
+          adquirente da mercadoria, quando esta nao transitar pelo estabelecimento
+          do adquirente.
+
+    10/05/2016 - IMR :
+        + Criacao dos campos CFOP_GERAR_TITULO e CFOP_GERAR_DUPLICATA a fim de
+          permitir que uma nota de saida ou entrada possam ou nao gerar titulos
+          a pagar ou a receber de acordo com a natureza de emissao do NF-e.
+
+    25/06/2014 - IMR :
+        + Criacao do campo CFOP_INFORMACAO_FISCO para armazenar o texto padrao
+          que sera informado na NF-e quando esta possuir um CFOP com esta
+          informacao.';
+
+
+
+
+/*------ SYSDBA 17/05/2016 21:22:06 --------*/
+
+COMMENT ON COLUMN TBCFOP.CFOP_REMESSA IS
+'CFOP de Remessa:
+0 - Nao
+1 - Sim
+
+CFOPs de remessa nao geram titulos ou duplicatas (movimentos financeiros) na
+entrada ou saida.';
+

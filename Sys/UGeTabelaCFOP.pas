@@ -48,10 +48,13 @@ type
     dbCfopGerarTitulo: TDBCheckBox;
     dbCfopGerarDuplicata: TDBCheckBox;
     IbDtstTabelaCFOP_GERAR_DUPLICATA: TSmallintField;
+    IbDtstTabelaCFOP_REMESSA: TSmallintField;
+    dbCfopRemessa: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -114,6 +117,7 @@ begin
   inherited;
   IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
   IbDtstTabelaCFOP_DEVOLUCAO.AsInteger            := 0;
+  IbDtstTabelaCFOP_REMESSA.AsInteger              := 0;
   IbDtstTabelaCFOP_GERAR_TITULO.AsInteger         := 1;
   IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger      := 1;
   IbDtstTabelaCFOP_CST_PADRAO_ENTRADA.Clear;
@@ -130,8 +134,8 @@ end;
 
 procedure TfrmGeTabelaCFOP.btbtnSalvarClick(Sender: TObject);
 begin
-  if IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.IsNull then
-    IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
+  if IbDtstTabelaCFOP_REMESSA.IsNull then
+    IbDtstTabelaCFOP_REMESSA.AsInteger := 0;
 
   if IbDtstTabelaCFOP_GERAR_TITULO.IsNull then
     IbDtstTabelaCFOP_GERAR_TITULO.AsInteger := 1;
@@ -139,7 +143,33 @@ begin
   if IbDtstTabelaCFOP_GERAR_DUPLICATA.IsNull then
     IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 1;
 
+  if IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.IsNull then
+    IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
+
+  if (IbDtstTabelaCFOP_REMESSA.AsInteger = 1) then
+  begin
+    IbDtstTabelaCFOP_GERAR_TITULO.AsInteger    := 0;
+    IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 0;
+  end;
+
   inherited;
+end;
+
+procedure TfrmGeTabelaCFOP.DtSrcTabelaDataChange(Sender: TObject;
+  Field: TField);
+begin
+  (*
+
+  Regra 1 : CFOP marcado como "Remessa" não gera movimentaçao financeira.
+
+  *)
+  inherited;
+  if (Field = IbDtstTabelaCFOP_REMESSA) then
+    if (IbDtstTabela.State in [dsEdit, dsInsert]) and (IbDtstTabelaCFOP_REMESSA.AsInteger = 1) then
+    begin
+      IbDtstTabelaCFOP_GERAR_TITULO.AsInteger    := 0;
+      IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 0;
+    end;
 end;
 
 initialization

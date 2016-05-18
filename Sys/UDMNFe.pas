@@ -228,6 +228,8 @@ type
     opdNotas: TOpenDialog;
     ACBrPosPrinter: TACBrPosPrinter;
     frrNFeEventoCCe: TfrxReport;
+    frrNFeInutilizacao: TfrxReport;
+    frrBoletoCarne: TfrxReport;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -2299,8 +2301,8 @@ begin
             Prod.xProd  := qryDadosProduto.FieldByName('DESCRI').AsString + ' ' + qryDadosProduto.FieldByName('ANO_FAB_MODELO_VEICULO').AsString;
 
           Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
-          Prod.EXTIPI   := '';
           Prod.CFOP     := qryDadosProduto.FieldByName('CFOP_COD').AsString;
+          Prod.EXTIPI   := EmptyStr;
 
           if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // Código descontinuado a partir de 2016
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
@@ -3689,8 +3691,8 @@ begin
             Prod.xProd  := qryEntradaDadosProduto.FieldByName('DESCRI').AsString + ' ' + qryEntradaDadosProduto.FieldByName('ANO_FAB_MODELO_VEICULO').AsString;
 
           Prod.NCM      := qryEntradaDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
-          Prod.EXTIPI   := '';
           Prod.CFOP     := qryEntradaDadosProduto.FieldByName('CFOP_COD').AsString;
+          Prod.EXTIPI   := EmptyStr;
 
           if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // Código descontinuado a partir de 2016
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
@@ -5891,8 +5893,8 @@ begin
             Prod.xProd  := qryDadosProduto.FieldByName('DESCRI').AsString + ' ' + qryDadosProduto.FieldByName('ANO_FAB_MODELO_VEICULO').AsString;
 
           Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponível em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
-          Prod.EXTIPI   := EmptyStr;
           Prod.CFOP     := '5101'; // qryDadosProdutoCFOP_COD.AsString;
+          Prod.EXTIPI   := EmptyStr;
 
           if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // Código descontinuado a partir de 2016
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
