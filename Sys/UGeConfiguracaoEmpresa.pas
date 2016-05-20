@@ -136,6 +136,17 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBCONFIGURACAO
+  - TBEMRESA
+
+  Views:
+
+  Procedures:
+
+*)
+
 implementation
 
 uses UConstantesDGE, UDMBusiness;

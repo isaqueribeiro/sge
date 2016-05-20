@@ -50,6 +50,13 @@ type
     IbDtstTabelaCFOP_GERAR_DUPLICATA: TSmallintField;
     IbDtstTabelaCFOP_REMESSA: TSmallintField;
     dbCfopRemessa: TDBCheckBox;
+    grpBxCfopRetorno: TGroupBox;
+    lblCfopRetornoDentro: TLabel;
+    dbCfopRetornoDentro: TDBEdit;
+    lblCfopRetornoFora: TLabel;
+    dbCfopRetornoFora: TDBEdit;
+    IbDtstTabelaCFOP_RETORNO_INTERNO: TIntegerField;
+    IbDtstTabelaCFOP_RETORNO_EXTERNO: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -60,6 +67,16 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBCFOP
+
+  Views:
+
+  Procedure:
+  - GET_CST_NORMAL
+*)
 
 var
   frmGeTabelaCFOP: TfrmGeTabelaCFOP;
@@ -122,6 +139,8 @@ begin
   IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger      := 1;
   IbDtstTabelaCFOP_CST_PADRAO_ENTRADA.Clear;
   IbDtstTabelaCFOP_CST_PADRAO_SAIDA.Clear;
+  IbDtstTabelaCFOP_RETORNO_INTERNO.Clear;
+  IbDtstTabelaCFOP_RETORNO_EXTERNO.Clear;
 end;
 
 procedure TfrmGeTabelaCFOP.btbtnAlterarClick(Sender: TObject);
@@ -150,6 +169,11 @@ begin
   begin
     IbDtstTabelaCFOP_GERAR_TITULO.AsInteger    := 0;
     IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 0;
+  end
+  else
+  begin
+    IbDtstTabelaCFOP_RETORNO_INTERNO.Clear;
+    IbDtstTabelaCFOP_RETORNO_EXTERNO.Clear;
   end;
 
   inherited;
@@ -161,15 +185,19 @@ begin
   (*
 
   Regra 1 : CFOP marcado como "Remessa" não gera movimentaçao financeira.
+  Regra 2 : Apenas CFOPs de Remessa terão CFOPs de Retorno
 
   *)
   inherited;
   if (Field = IbDtstTabelaCFOP_REMESSA) then
+  begin
     if (IbDtstTabela.State in [dsEdit, dsInsert]) and (IbDtstTabelaCFOP_REMESSA.AsInteger = 1) then
     begin
       IbDtstTabelaCFOP_GERAR_TITULO.AsInteger    := 0;
       IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 0;
     end;
+    grpBxCfopRetorno.Enabled := (IbDtstTabelaCFOP_REMESSA.AsInteger = 1);
+  end;
 end;
 
 initialization

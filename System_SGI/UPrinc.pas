@@ -673,14 +673,13 @@ begin
     BrBtnContaAReceber.Enabled := False;
   end;
 
-  if ( not DelphiIsRunning ) then
-    if not gLicencaSistema.UsarSGI then
-    begin
-      ShowWarning(
-        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
-        'Favor entrar em contato com o fornecedor do software.');
-      Application.Terminate;
-    end;
+  if not gLicencaSistema.UsarSGI then
+  begin
+    ShowWarning(
+      'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+      'Favor entrar em contato com o fornecedor do software.');
+    Application.Terminate;
+  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);

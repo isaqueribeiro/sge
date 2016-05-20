@@ -151,6 +151,18 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBEMRESA
+  - TBSEGMENTO
+
+  Views:
+  - VW_TIPO_REGIME_NFE
+
+  Procedures:
+
+*)
+
 var
   frmGeEmpresa: TfrmGeEmpresa;
 

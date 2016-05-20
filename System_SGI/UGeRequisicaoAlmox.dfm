@@ -67,8 +67,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           item
             Expanded = False
             FieldName = 'CC_ORIGEM_DESC'
-            Title.Caption = 'Centro de Custo origem'
-            Width = 330
+            Title.Caption = 'Centro de Custo Requisitante'
+            Width = 300
             Visible = True
           end
           item
@@ -2594,7 +2594,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

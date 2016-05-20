@@ -881,7 +881,7 @@ begin
 
       // Gravar Log
 
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;
@@ -899,7 +899,7 @@ begin
 
       // Executar atualização de custo
 
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;

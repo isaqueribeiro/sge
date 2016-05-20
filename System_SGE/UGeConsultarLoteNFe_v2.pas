@@ -124,6 +124,22 @@ type
     var SerieNFe, NumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE : String;
     var TipoMovimento : TTipoMovimento) : Boolean;
 
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBVENDAS
+  - TBCOMRAS
+  - TBNFE_ENVIADA
+  - TBLOG_TRANSACAO
+  - TBCLIENTE
+  - TBFORNECEDOR
+
+  Views:
+
+  Procedures:
+
+*)
+
 implementation
 
 uses UDMBusiness, UDMNFe, UConstantesDGE, UFuncoes, UDMRecursos;
@@ -244,7 +260,7 @@ function TfrmGeConsultarLoteNFe_v2.PesquisarLote(const iAno, iNumero: Integer;
   const sRecibo: String; var Ano, Controle : Integer; var Destinaratio : String): Boolean;
 begin
   try
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -508,7 +524,7 @@ begin
         begin
           if ( FTipoMovimento = tmNFeEntrada ) then
           begin
-            with DMBusiness, qryBusca do
+            with DMBusiness, fdQryBusca do
             begin
               Close;
               SQL.Clear;
@@ -523,7 +539,7 @@ begin
           else
           if ( FTipoMovimento = tmNFeSaida ) then
           begin
-            with DMBusiness, qryBusca do
+            with DMBusiness, fdQryBusca do
             begin
               Close;
               SQL.Clear;

@@ -82,7 +82,7 @@ type
     ibdtstAjustEstoqLookProdNome: TStringField;
     ibdtstAjustEstoqLookProdQtde: TIntegerField;
     ibdtstAjustEstoqLookFornec: TStringField;
-    qryBusca: TIBQuery;
+    qryBuscaXXX: TIBQuery;
     ibdtstUsersXXX: TIBDataSet;
     dtsrcUsers: TDataSource;
     IdIPWatch: TIdIPWatch;
@@ -156,6 +156,7 @@ type
     fdSetRotina: TFDStoredProc;
     fdQryConfiguracoes: TFDQuery;
     frxBarCodeObject: TfrxBarCodeObject;
+    fdQryBusca: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -886,7 +887,23 @@ procedure UpdateSequence(GeneratorName, NomeTabela, CampoChave : String; const s
 var
   ID : Largeint;
 begin
-  with DMBusiness, qryBusca do
+//  with DMBusiness, qryBusca do
+//  begin
+//    Close;
+//    SQL.Clear;
+//    SQL.Add('Select max(' + CampoChave + ') as ID from ' + NomeTabela + ' ' + sWhr);
+//    Open;
+//
+//    ID := FieldByName('ID').AsInteger;
+//
+//    Close;
+//    SQL.Clear;
+//    SQL.Add('ALTER SEQUENCE ' + GeneratorName + ' RESTART WITH ' + IntToStr(ID));
+//    ExecSQL;
+//
+//    CommitTransaction;
+//  end;
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -906,7 +923,7 @@ end;
 
 procedure ExecuteScriptSQL(sScriptSQL : String);
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -991,7 +1008,7 @@ end;
 
 procedure Desativar_Promocoes;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1032,7 +1049,7 @@ end;
 
 procedure BloquearClientes;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1065,7 +1082,7 @@ end;
 
 procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1092,7 +1109,7 @@ end;
 
 procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1122,7 +1139,7 @@ var
   bRegistrada : Boolean;
 begin
   try
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -1173,7 +1190,7 @@ end;
 
 procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1190,7 +1207,7 @@ begin
   if (AnoVenda = 0) or (NumVenda = 0) or (AnoCaixa = 0) or (NumCaixa = 0) then
     Exit;
 
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1259,7 +1276,7 @@ const
 
 begin
   // Verificar se existe apenas uma empresa no cadastro
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1339,7 +1356,7 @@ end;
 procedure AliquotaIcms(const UF_Origem, UF_Destino : String;
   var aAliquotaInter, aAliquotaIntra, aAliquotaST : Currency);
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1367,7 +1384,7 @@ end;
 procedure SetSegmento(const iCodigo : Integer; const sDescricao : String);
 begin
   try
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -1380,7 +1397,7 @@ begin
     end;
   except
     On E : Exception do
-      ShowError('SetSegmento() - ' + E.Message + #13#13 + DMBusiness.qryBusca.SQL.Text);
+      ShowError('SetSegmento() - ' + E.Message + #13#13 + DMBusiness.fdQryBusca.SQL.Text);
   end;
 end;
 
@@ -1645,7 +1662,7 @@ end;
 
 function GetCfopDevolucao(const iCfop : Integer) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1660,7 +1677,7 @@ end;
 
 function GetCfopGerarTitulo(const iCfop : Integer) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1675,7 +1692,7 @@ end;
 
 function GetCfopGerarDuplicata(const iCfop : Integer) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1803,7 +1820,7 @@ end;
 
 function GetSegmentoID(const CNPJ : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1823,7 +1840,7 @@ var
 begin
   iCompetencia := StrToInt(FormatDateTime('YYYYMM', aDataMovimento));
   sCompetencia := AnsiUpperCase(FormatDateTime('MMM/YYYY', aDataMovimento));
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1859,7 +1876,7 @@ end;
 
 function GetEmailEmpresa(const sCNPJEmpresa : String) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1874,7 +1891,7 @@ end;
 
 function GetCalcularCustoOperEmpresa(const sCNPJEmpresa : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1889,7 +1906,7 @@ end;
 
 function GetPermitirVendaEstoqueInsEmpresa(const sCNPJEmpresa : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1904,7 +1921,7 @@ end;
 
 function GetPermitirDuplicarCNPJCliente(const sCNPJEmpresa : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1919,7 +1936,7 @@ end;
 
 function GetAutorizacaoInformarCliente(const sCNPJEmpresa : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1934,7 +1951,7 @@ end;
 
 function GetSimplesNacionalInsEmpresa(const sCNPJEmpresa : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1949,7 +1966,7 @@ end;
 
 function GetEstoqueUnificadoEmpresa(const sCNPJEmpresa : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1964,7 +1981,7 @@ end;
 
 function GetEstoqueSateliteEmpresa(const sCNPJEmpresa : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1979,7 +1996,7 @@ end;
 
 function GetRegimeEmpresa(const sCNPJEmpresa : String) : TTipoRegime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1994,7 +2011,7 @@ end;
 
 function GetRazaoSocialEmpresa(const sCNPJEmpresa : String) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2009,7 +2026,7 @@ end;
 
 function GetNomeFantasiaEmpresa(const sCNPJEmpresa : String) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2024,7 +2041,7 @@ end;
 
 function GetCnpjEmpresa(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2335,7 +2352,7 @@ end;
 
 function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2364,7 +2381,7 @@ begin
   if ( sTipo <> EmptyStr ) then
     sDesc :=Trim(Copy(sDesc, Length(sTipo) + 1, Length(sDesc)));
 
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2382,7 +2399,7 @@ end;
 
 function GetGeneratorID(const GeneratorName : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2399,7 +2416,7 @@ end;
 
 function GetNextID(NomeTabela, CampoChave : String; const sWhere : String = '') : Largeint;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2412,7 +2429,7 @@ end;
 
 function GetCountID(NomeTabela : String; const sWhere : String = '') : Largeint;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2425,7 +2442,7 @@ end;
 
 function GetGuidID38 : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2440,7 +2457,7 @@ end;
 
 function GetPaisNomeDefault : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2460,7 +2477,7 @@ end;
 
 function GetEstadoNome(const iEstado : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2475,7 +2492,7 @@ end;
 
 function GetEstadoNome(const sSigla : String) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2490,7 +2507,7 @@ end;
 
 function GetEstadoID(const sSigla : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2505,7 +2522,7 @@ end;
 
 function GetEstadoUF(const iEstado : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2525,7 +2542,7 @@ end;
 
 function GetCidadeNome(const iCidade : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2540,7 +2557,7 @@ end;
 
 function GetCidadeCEP(const iCidade : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2555,7 +2572,7 @@ end;
 
 function GetCidadeID(const iEstado : Integer; const sNome : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2570,7 +2587,7 @@ end;
 
 function GetCidadeID(const sCEP : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2585,7 +2602,7 @@ end;
 
 function GetBairroNome(const iBairro : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2600,7 +2617,7 @@ end;
 
 function GetLogradouroNome(const iLogradouro : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2615,7 +2632,7 @@ end;
 
 function GetLogradouroTipo(const iLogradouro : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2639,7 +2656,7 @@ end;
 
 function GetCfopNome(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2654,7 +2671,7 @@ end;
 
 function GetCfopEntradaNomeDefault : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2669,7 +2686,7 @@ end;
 
 function GetEmpresaNome(const sCNPJEmpresa : String) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2694,7 +2711,7 @@ end;
 
 function GetEmpresaEndereco(const sCNPJEmitente : String) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2724,7 +2741,7 @@ end;
 
 function GetEmpresaUF(const sCNPJEmitente : String) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2749,7 +2766,7 @@ end;
 
 function GetClienteNome(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2764,7 +2781,7 @@ end;
 
 function GetClienteEmail(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2779,7 +2796,7 @@ end;
 
 function GetClienteUF(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2794,7 +2811,7 @@ end;
 
 function GetClienteEndereco(const aCodigo : Integer; const aQuebrarLinha : Boolean = FALSE) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2824,7 +2841,7 @@ end;
 
 function GetClienteBloqueado(const aCodigo : Integer; var aMotivo : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2844,7 +2861,7 @@ end;
 
 function GetFornecedorEmail(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2859,7 +2876,7 @@ end;
 
 function GetFornecedorRazao(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2874,7 +2891,7 @@ end;
 
 function GetFornecedorContato(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2889,7 +2906,7 @@ end;
 
 function GetFornecedorUF(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2909,7 +2926,7 @@ end;
 
 function GetVendedorNome(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2929,7 +2946,7 @@ end;
 
 function GetFormaPagtoNome(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2944,7 +2961,7 @@ end;
 
 function GetFormaPagtoCondicaoPagto(const iFormaPagto, iCondicaoPagto : Integer) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2966,7 +2983,7 @@ end;
 
 function GetCondicaoPagtoNome(const iCodigo : Integer) : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2981,7 +2998,7 @@ end;
 
 function GetCondicaoPagtoAPrazo(const iCodigo : Integer) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -2996,7 +3013,7 @@ end;
 
 function GetTabelaIBPT_Codigo(const aCodigoNCM : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3017,7 +3034,7 @@ end;
 
 function GetBancoBoletoCodigo(const aEmpresa, aCodigoFebraban : String) : Integer;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3036,7 +3053,7 @@ end;
 
 function GetSenhaAutorizacao : String;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3054,7 +3071,7 @@ end;
 
 function GetDateTimeDB : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3067,7 +3084,7 @@ end;
 
 function GetDateDB : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3098,7 +3115,7 @@ end;
 
 function GetTimeDB : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3257,7 +3274,7 @@ end;
 
 function GetPermititEmissaoNFe(const sCNPJEmitente : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3272,7 +3289,7 @@ end;
 
 function GetPermititEmissaoNFeEntrada(const sCNPJEmitente : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3287,7 +3304,7 @@ end;
 
 function GetPermititNFeDenegada(const sCNPJEmitente : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3302,7 +3319,7 @@ end;
 
 function GetSolicitaDHSaidaNFe(const sCNPJEmitente : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3317,7 +3334,7 @@ end;
 
 function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3332,7 +3349,7 @@ end;
 
 function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3358,7 +3375,7 @@ end;
 
 function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3385,7 +3402,7 @@ end;
 
 function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3412,7 +3429,7 @@ end;
 
 function GetExisteNumeroSolicitacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3439,7 +3456,7 @@ end;
 
 function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3466,7 +3483,7 @@ end;
 
 function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3493,7 +3510,7 @@ end;
 
 function GetExisteNumeroRequisicaoAlmox(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3520,7 +3537,7 @@ end;
 
 function GetMenorVencimentoAPagar : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3546,7 +3563,7 @@ end;
 
 function GetMenorVencimentoAReceber : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3572,7 +3589,7 @@ end;
 
 function GetMenorDataEmissaoReqAlmoxEnviada(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
 
@@ -3599,7 +3616,7 @@ end;
 
 function GetMenorDataApropriacaoAberta(const aEmpresa : String; const aCentroCusto : Integer) : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
 
@@ -3628,7 +3645,7 @@ end;
 
 function GetMenorDataChequePendente : TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3653,7 +3670,7 @@ end;
 
 function GetCarregarProdutoCodigoBarra(const sCNPJEmitente : String) : Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3691,7 +3708,7 @@ begin
     if Return then
       Exit;
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -3733,7 +3750,7 @@ var
   Return : Integer;
 begin
   try
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -3758,7 +3775,7 @@ var
   sReturn : String;
 begin
   try
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -3783,7 +3800,7 @@ var
   sReturn : String;
 begin
   try
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -3810,7 +3827,7 @@ begin
   try
     Return := False;
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -4194,7 +4211,7 @@ end;
 
 procedure TDMBusiness.LimparLicenca;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;

@@ -253,7 +253,7 @@ begin
     else
       sSQL := SQL_DELETE;
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add( Format(SQL_DELETE, [IbDtstTabelaCOD.AsString, cdsContaCorrenteListaCODIGO.AsString]) );

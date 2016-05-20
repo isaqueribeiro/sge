@@ -67,6 +67,19 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBCENTRO_CUSTO
+  - TBCLIENTE
+  - TBEMPRESA
+  - TBCENTRO_CUSTO_EMPRESA
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeCentroCusto: TfrmGeCentroCusto;
 
@@ -196,7 +209,7 @@ begin
     else
       sSQL := SQL_DELETE;
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add( Format(SQL_DELETE, [IbDtstTabelaCODIGO.AsString, QuotedStr(cdsEmpresaListaCNPJ.AsString)]) );

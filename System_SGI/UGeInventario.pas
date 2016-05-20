@@ -316,7 +316,7 @@ end;
 
 procedure TfrmGeInventario.nmCarregarIAClick(Sender: TObject);
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -344,7 +344,7 @@ end;
 
 procedure TfrmGeInventario.nmCarregarIEClick(Sender: TObject);
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -365,7 +365,7 @@ end;
 
 procedure TfrmGeInventario.nmCarregarICClick(Sender: TObject);
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;

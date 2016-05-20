@@ -550,7 +550,7 @@ begin
     if (gUsuarioLogado.Funcao in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_SYSTEM_ADM]) then
     begin
 
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;
@@ -566,7 +566,7 @@ begin
     else
     begin
 
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;
@@ -692,7 +692,7 @@ begin
           end;
         end;
 
-        with DMBusiness, qryBusca do
+        with DMBusiness, fdQryBusca do
         begin
           Close;
           SQL.Clear;
@@ -704,7 +704,7 @@ begin
           CommitTransaction;
         end;
 
-        with DMBusiness, qryBusca do
+        with DMBusiness, fdQryBusca do
         begin
           Close;
           SQL.Clear;

@@ -10,6 +10,10 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -737,7 +741,7 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
     Left = 576
     Top = 192
     Bitmap = {
-      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -7462,3 +7462,57 @@ COMMENT ON COLUMN TBCFOP.CFOP_REMESSA IS
 CFOPs de remessa nao geram titulos ou duplicatas (movimentos financeiros) na
 entrada ou saida.';
 
+
+
+
+/*------ SYSDBA 20/05/2016 16:04:43 --------*/
+
+ALTER TABLE TBCFOP
+    ADD CFOP_RETORNO_INTERNO DMN_INTEGER_N,
+    ADD CFOP_RETORNO_EXTERNO DMN_INTEGER_N;
+
+COMMENT ON COLUMN TBCFOP.CFOP_RETORNO_INTERNO IS
+'CFOP de Retorno Interno [Inter] (Para dentro do Estado), apenas para CFOP de Remessa.';
+
+COMMENT ON COLUMN TBCFOP.CFOP_RETORNO_EXTERNO IS
+'CFOP de Retorno Externo [Intra] (Para fora do Estado), apenas para CFOP de Remessa.';
+
+alter table TBCFOP
+alter CFOP_COD position 1;
+
+alter table TBCFOP
+alter CFOP_DESCRICAO position 2;
+
+alter table TBCFOP
+alter CFOP_ESPECIFICACAO position 3;
+
+alter table TBCFOP
+alter CFOP_INFORMACAO_FISCO position 4;
+
+alter table TBCFOP
+alter CFOP_CST_PADRAO_ENTRADA position 5;
+
+alter table TBCFOP
+alter CFOP_CST_PADRAO_SAIDA position 6;
+
+alter table TBCFOP
+alter CFOP_DEVOLUCAO position 7;
+
+alter table TBCFOP
+alter CFOP_REMESSA position 8;
+
+alter table TBCFOP
+alter CFOP_RETORNO_INTERNO position 9;
+
+alter table TBCFOP
+alter CFOP_RETORNO_EXTERNO position 10;
+
+alter table TBCFOP
+alter CFOP_GERAR_TITULO position 11;
+
+alter table TBCFOP
+alter CFOP_GERAR_DUPLICATA position 12;
+
+alter table TBCFOP
+alter CFOP_ALTERA_CUSTO_PRODUTO position 13;
+

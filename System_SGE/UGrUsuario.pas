@@ -87,6 +87,19 @@ const
   function DecriptarSenha(const Value, Key : String) : String;
   function GetSenhaFormatada(const Value : String; const WithKey : Boolean) : String;
 
+(*
+  Tabelas:
+  - TBUSERS
+  - TBFUNCAO
+  - TBVENDEDOR
+
+  Views:
+  - VW_TIPO_ALTERA_VALOR_VENDA
+
+  Procedures:
+
+*)
+
 implementation
 
 uses
@@ -247,7 +260,7 @@ begin
   if ( Trim(Login) = EmptyStr ) then
     Result := False
   else
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;

@@ -302,7 +302,7 @@ begin
           begin
             // Limpar itens
 
-            with DMBusiness, qryBusca do
+            with DMBusiness, fdQryBusca do
             begin
               Close;
               SQL.Clear;

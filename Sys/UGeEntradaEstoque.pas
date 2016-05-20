@@ -440,6 +440,24 @@ type
     property RotinaCancelarEntradaID : String read GetRotinaCancelarEntradaID;
   end;
 
+(*
+  Tabelas:
+  - TBCOMRAS
+  - TBCOMPRASITENS
+  - TBEMPRESA
+  - TBFORNECEDOR
+  - TBCFOP
+  - TBAUTORIZA_COMPRA
+  - TBAUTORIZA_COMPRAITEM
+  - TBPRODUTO
+  - TBUNIDADEPROD
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeEntradaEstoque: TfrmGeEntradaEstoque;
 
@@ -2080,7 +2098,7 @@ begin
   begin
     sCFOP := IntToStr(iCodigo);
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -2173,7 +2191,7 @@ begin
       MoveFile(PChar(sArquivoNFe2), PChar(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2)));
     end;
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;

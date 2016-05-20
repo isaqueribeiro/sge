@@ -517,6 +517,15 @@ type
     property RotinaCancelarPagtosID : String read GetRotinaCancelarPagtosID;
   end;
 
+(*
+  Tabelas:
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeVenda: TfrmGeVenda;
 
@@ -2313,7 +2322,7 @@ begin
   try
 
     try
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;
@@ -2380,7 +2389,7 @@ begin
       if ShowConfirm('Confirma a remoção do(s) registro(s) de baixa(s) do título selecionado?') then
       begin
 
-        with DMBusiness, qryBusca do
+        with DMBusiness, fdQryBusca do
         begin
           Close;
           SQL.Clear;
@@ -2392,7 +2401,7 @@ begin
           CommitTransaction;
         end;
 
-        with DMBusiness, qryBusca do
+        with DMBusiness, fdQryBusca do
         begin
           Close;
           SQL.Clear;
@@ -2703,7 +2712,7 @@ procedure TfrmGeVenda.nmGerarImprimirBoletosClick(Sender: TObject);
 (*
   function BoletosGerados : Boolean;
   begin
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -2808,7 +2817,7 @@ begin
   iReturn := False;
   try
     if GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) then
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;
@@ -3123,7 +3132,7 @@ begin
     Exit;
 
   if GetEmailValido(sEmail, False) then
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -3137,7 +3146,7 @@ end;
 
 function TfrmGeVenda.BoletosGerados: Boolean;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -3326,7 +3335,7 @@ begin
       MoveFile(PChar(sArquivoNFe2), PChar(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2)));
     end;
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -3386,7 +3395,7 @@ begin
         '* Endereço para entrega do(s) produto(s): ' + #13 + GetClienteEndereco(IbDtstTabelaCODCLIENTE.AsInteger, True);
 
     if SetDadosEntrega(Self, sDadosEntrega) then
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;
@@ -3420,7 +3429,7 @@ begin
   begin
     sCFOP := IntToStr(iCodigo);
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;

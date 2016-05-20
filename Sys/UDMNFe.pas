@@ -317,6 +317,8 @@ type
     procedure AbrirCartaCorrecao(const sCNPJEmitente : String; const ControleCCe : Integer);
     procedure AbrirDestinatarioNFC(const aCNPJEmitente : String; const aCodigoNFC : Integer);
     procedure AbrirNFC(const aCNPJEmitente : String; const aCodigoNFC : Integer);
+    procedure RenomearLogXmlEnvioRetornoNF(pNumeroLote : Integer; pNumeroRecibo : String;
+      const pExtensao : String = 'nfe');
 
     function ReciboNaoExisteNaVenda(const sRecibo : String) : Boolean;
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
@@ -1319,7 +1321,7 @@ begin
   Result := (Trim(sRecibo) = EmptyStr);
 
   if not Result then
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -1332,12 +1334,33 @@ begin
     end;
 end;
 
+procedure TDMNFe.RenomearLogXmlEnvioRetornoNF(pNumeroLote : Integer; pNumeroRecibo : String;
+  const pExtensao : String = 'nfe');
+var
+  sNovaExtensao,
+  sLogXmlEnv   ,
+  sLogXmlRec   : String;
+begin
+  sNovaExtensao := '.xml.' + IfThen(Trim(pExtensao) = EmptyStr, 'nf', Trim(pExtensao));
+
+  // Renomer no diretório os arquivos XML de envio e retorno dos lotes de NF-e
+  sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(pNumeroLote) + '-env-lot.xml', '\\', '/', [rfReplaceAll]);
+  sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(pNumeroLote) + '-rec.xml',     '\\', '/', [rfReplaceAll]);
+  RenameFile(sLogXmlEnv, StringReplace(sLogXmlEnv, '.xml', sNovaExtensao, [rfReplaceAll]));
+  RenameFile(sLogXmlRec, StringReplace(sLogXmlRec, '.xml', sNovaExtensao, [rfReplaceAll]));
+  // Renomer no diretório os arquivos XML de envio e retorno dos recibos de NF-e
+  sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + pNumeroRecibo + '-ped-rec.xml', '\\', '/', [rfReplaceAll]);
+  sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + pNumeroRecibo + '-pro-rec.xml', '\\', '/', [rfReplaceAll]);
+  RenameFile(sLogXmlEnv, StringReplace(sLogXmlEnv, '.xml', sNovaExtensao, [rfReplaceAll]));
+  RenameFile(sLogXmlRec, StringReplace(sLogXmlRec, '.xml', sNovaExtensao, [rfReplaceAll]));
+end;
+
 function TDMNFe.ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
 begin
   Result := (Trim(sRecibo) = EmptyStr);
 
   if not Result then
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       Close;
       SQL.Clear;
@@ -1362,7 +1385,7 @@ begin
   sMensagem := EmptyStr;
   sCFOP     := IntToStr(aCFOP);
 
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
     SQL.Clear;
@@ -1525,9 +1548,17 @@ function TDMNFe.GerarNFeOnLineACBr(const sCNPJEmitente : String; iCodigoCliente 
   const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE): Boolean;
 var
   DtHoraEmiss : TDateTime;
-  sErrorMsg   : String;
+  sErrorMsg   ,
+  sLogXmlEnv  ,
+  sLogXmlRec  : String;
 begin
 (*
+  IMR - 20/05/2016 :
+    Inserção da rotina que renomeia os arquivos XML de envio e retorno do Lote e
+    Recibo quando o processo de geração/envio da NFe é finalizado corretamente.
+    Neste passo o objeto "ACBrNFe.NotasFiscais" é zerado com o objetivo de
+    eliminar "lixos de dados" para os novos processos de geração/envio de NFe.
+
   IMR - 05/03/2016 :
     Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
     quer ou não informar os vencimentos das parecelas da fatura na NF-e.
@@ -1572,6 +1603,10 @@ begin
       UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
       GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFE);
+
+      // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
+      RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
+      ACBrNFe.NotasFiscais.Clear;
     end;
 
   except
@@ -3153,6 +3188,12 @@ var
   sErrorMsg   : String;
 begin
 {
+  IMR - 20/05/2016 :
+    Inserção da rotina que renomeia os arquivos XML de envio e retorno do Lote e
+    Recibo quando o processo de geração/envio da NFe é finalizado corretamente.
+    Neste passo o objeto "ACBrNFe.NotasFiscais" é zerado com o objetivo de
+    eliminar "lixos de dados" para os novos processos de geração/envio de NFe.
+
   IMR - 05/03/2016 :
     Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
     quer ou não informar os vencimentos das parecelas da fatura na NF-e.
@@ -3193,6 +3234,10 @@ begin
       UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
       GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, EmptyStr);
+
+      // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
+      RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
+      ACBrNFe.NotasFiscais.Clear;
     end;
 
   except
@@ -5515,6 +5560,12 @@ var
   sLogXmlRec  : String;
 begin
 (*
+  IMR - 20/05/2016 :
+    Inserção da rotina que renomeia os arquivos XML de envio e retorno do Lote e
+    Recibo quando o processo de geração/envio da NFCe é finalizado corretamente.
+    Neste passo o objeto "ACBrNFe.NotasFiscais" é zerado com o objetivo de
+    eliminar "lixos de dados" para os novos processos de geração/envio de NFCe.
+
   IMR - 08/03/2016 :
     Inserção do bloco de comando para que, uma vez confirmado o envio da NFC-e,
     uma consulta seja realizada para forçar a atualização do XML com os dados da
@@ -5556,11 +5607,9 @@ begin
 
       UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
 
-      // Renomer no diretório os arquivos XML de envio e retorno dos lotes de NFC-e
-      sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-env-lot.xml', '\\', '/', [rfReplaceAll]);
-      sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(iNumeroLote) + '-rec.xml',     '\\', '/', [rfReplaceAll]);
-      RenameFile(sLogXmlEnv, StringReplace(sLogXmlEnv, '.xml', '.xml.nfce', [rfReplaceAll]));
-      RenameFile(sLogXmlRec, StringReplace(sLogXmlRec, '.xml', '.xml.nfce', [rfReplaceAll]));
+      // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NFC-e
+      RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFCE, 'nfce');
+      ACBrNFe.NotasFiscais.Clear;
     end;
 
   except

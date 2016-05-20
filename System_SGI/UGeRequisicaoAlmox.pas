@@ -1325,7 +1325,7 @@ end;
 
 function TfrmGeRequisicaoAlmox.GetMenorDataEmissao: TDateTime;
 begin
-  with DMBusiness, qryBusca do
+  with DMBusiness, fdQryBusca do
   begin
     Close;
 

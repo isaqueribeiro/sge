@@ -242,6 +242,9 @@ type
 
   Views:
   - VW_STATUS_CHEQUE
+
+  Procedures:
+
 *)
 
   function SelecionarChequeBaixa(const AOnwer : TComponent;

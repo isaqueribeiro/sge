@@ -388,6 +388,29 @@ type
     procedure FiltarDados(const iTipoPesquisa : Integer); overload;
   end;
 
+(*
+  Tabelas:
+  - TBPRODUTO
+  - TBGRUPOPROD
+  - TBSECAOPROD
+  - TBUNIDADEPROD
+  - TBCFOP
+  - TBFABRICANTE
+  - RENAVAM_COR
+  - RENAVAM_COBUSTIVEL
+  - TBEMPRESA
+
+  Views:
+  - VW_ORIGEM_PRODUTO
+  - VW_TIPO_TRIBUTACAO
+  - VW_TIPO_ALIQUOTA
+  - VW_ALIQUOTA_PIS
+  - VW_ALIQUOTA_COFINS
+
+  Procedures:
+
+*)
+
 var
   frmGeProduto: TfrmGeProduto;
 

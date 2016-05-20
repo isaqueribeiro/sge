@@ -96,6 +96,18 @@ type
     procedure GravarRelacaoFormaCondicao;
   end;
 
+(*
+  Tabelas:
+  - TBCONDICAOPAGTO
+  - TBFORMPAGTO
+  - TBFORMPAGTO_CONDICAO
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeCondicaoPagto: TfrmGeCondicaoPagto;
 
@@ -371,7 +383,7 @@ begin
     else
       sSQL := SQL_DELETE;
 
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add( Format(SQL_DELETE, [cdsFormaPagtoListaCODIGO.AsString, IbDtstTabelaCOND_COD.AsString]) );

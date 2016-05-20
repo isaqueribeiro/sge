@@ -26,10 +26,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Width = 751
     Height = 451
     ExplicitWidth = 751
-    ExplicitHeight = 413
+    ExplicitHeight = 451
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 743
-      ExplicitHeight = 384
+      ExplicitHeight = 422
       inherited Bevel4: TBevel
         Top = 356
         Width = 743
@@ -66,7 +66,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       inherited pnlFiltros: TPanel
         Top = 360
         Width = 743
-        ExplicitTop = 322
+        ExplicitTop = 360
         ExplicitWidth = 743
         inherited grpBxFiltro: TGroupBox
           Left = 417
@@ -97,7 +97,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 743
-      ExplicitHeight = 384
+      ExplicitHeight = 422
       inherited Bevel8: TBevel
         Top = 81
         Width = 743
@@ -157,10 +157,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         ActivePage = TbsNFSe
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 299
         object tbsContaEmail: TTabSheet
           Caption = 'Conta de E-mail'
-          ExplicitHeight = 271
           object lblEmailConta: TLabel
             Left = 16
             Top = 8
@@ -308,7 +306,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFe: TTabSheet
           Caption = 'NF-e / NFC-e'
           ImageIndex = 1
-          ExplicitHeight = 271
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
             Top = 165
@@ -445,7 +442,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               Font.Style = []
               ParentFont = False
               TabOrder = 1
-              ExplicitWidth = 178
             end
           end
           object chkNFE_EmitirEntrada: TDBCheckBox
@@ -620,7 +616,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFSe: TTabSheet
           Caption = 'NFS-e'
           ImageIndex = 3
-          ExplicitHeight = 271
           object chkNFSE_Emitir: TDBCheckBox
             Left = 16
             Top = 16
@@ -833,7 +828,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TabSheet1: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
-          ExplicitHeight = 271
           object dbCustoOperacional: TDBCheckBox
             Left = 16
             Top = 16
@@ -951,7 +945,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   inherited tlbBotoes: TPanel
     Top = 455
     Width = 751
-    ExplicitTop = 417
+    ExplicitTop = 455
     ExplicitWidth = 751
     inherited bvlTool3: TBevel
       Left = 668
@@ -1399,7 +1393,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

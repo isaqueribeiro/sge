@@ -9,7 +9,13 @@ uses
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin,
   dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White;
+  dxSkinOffice2013White, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
@@ -116,10 +122,10 @@ function TfrmGeContaCorrente.PermitirSalvarContaCaixa: Boolean;
 begin
   Result := (IbDtstTabelaTIPO.AsInteger = 2); // Conta Banco não é analisada
   if not Result then
-    with DMBusiness, qryBusca do
+    with DMBusiness, fdQryBusca do
     begin
-      if qryBusca.Active then
-        qryBusca.Close;
+      if fdQryBusca.Active then
+        fdQryBusca.Close;
 
       SQL.Clear;
       SQL.Add('Select');
@@ -129,9 +135,9 @@ begin
       SQL.Add('  and tipo    = ' + IbDtstTabelaTIPO.AsString);
       SQL.Add('  and codigo <> ' + IbDtstTabelaCODIGO.AsString);
 
-      qryBusca.Open;
+      fdQryBusca.Open;
 
-      Result := (qryBusca.RecordCount = 0);
+      Result := (fdQryBusca.RecordCount = 0);
 
       if not Result then
         ShowWarning('Não pode haver mais de uma Conta Corrente do tipo Caixa para a mesma empresa!');
