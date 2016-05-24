@@ -7516,3 +7516,75 @@ alter CFOP_GERAR_DUPLICATA position 12;
 alter table TBCFOP
 alter CFOP_ALTERA_CUSTO_PRODUTO position 13;
 
+
+
+
+/*------ SYSDBA 21/05/2016 10:37:27 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.XML_NFE_FILENAME IS
+'Nome do arquivo XML da NF-e emitida.';
+
+
+
+
+/*------ SYSDBA 21/05/2016 10:37:34 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.XML_NFE IS
+'Arquivo XML da NF-e emitida.';
+
+
+
+
+/*------ SYSDBA 21/05/2016 10:37:59 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.XML_NFE IS
+'Arquivo XML da NF-e regada ou recebida.';
+
+
+
+
+/*------ SYSDBA 21/05/2016 10:38:08 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.XML_NFE_FILENAME IS
+'Nome do arquivo XML da NF-e gerada ou recebida.';
+
+
+
+
+/*------ SYSDBA 21/05/2016 10:47:24 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.XML_NFE IS
+'Arquivo XML da NF-e regada ou recebida.
+
+A NF-e gerada possui uma nota do tipo "entrada" registrada na tabela TBNFE_ENVIADA,
+registro esse associado ao movimento de compra pelos campos ANOCOMPRA e NUMCOMPRA.';
+
+
+
+
+/*------ SYSDBA 21/05/2016 10:47:30 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.XML_NFE_FILENAME IS
+'Nome do arquivo XML da NF-e gerada ou recebida.
+
+A NF-e gerada possui uma nota do tipo "entrada" registrada na tabela TBNFE_ENVIADA,
+registro esse associado ao movimento de compra pelos campos ANOCOMPRA e NUMCOMPRA.';
+
+
+
+
+/*------ SYSDBA 21/05/2016 10:48:01 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.NFE_ENVIADA IS
+'NF de Entrada Gerada/Enviada:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 21/05/2016 10:48:18 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.VERIFICADOR_NFE IS
+'Codigo de verificacao da NF-e gerada (Chave da NF-e).';
+

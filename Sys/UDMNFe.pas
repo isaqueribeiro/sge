@@ -324,7 +324,7 @@ type
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
     function ValidarCFOP(const aCNPJEmitente : String; const aCodigoCliente, aCodigoFornecedor, aCFOP : Integer) : Boolean;
     function GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
-    function GetInformacaoFisco : String;
+    function GetInformacaoFisco(const DataSetOrigem : TDataSet) : String;
     function GetInformacaoComplementar(const sCNPJEmitente : String) : String;
     function GetValidadeCertificado(const sCNPJEmitente : String; const Informe : Boolean = FALSE) : Boolean;
     function GetNumeroSerieCertificado(const sCNPJEmitente : String) : String;
@@ -1449,19 +1449,19 @@ begin
   Result := sInformacao;
 end;
 
-function TDMNFe.GetInformacaoFisco : String;
+function TDMNFe.GetInformacaoFisco(const DataSetOrigem : TDataSet) : String;
 var
   sTexto : String;
 begin
   sTexto := EmptyStr;
 
-  if qryCalculoImposto.Active then
-    sTexto := Trim(qryCalculoImposto.FieldByName('CFOP_INFORMACAO_FISCO').AsString)
-  else
-  if qryEntradaCalculoImposto.Active then
-    sTexto := Trim(qryEntradaCalculoImposto.FieldByName('CFOP_INFORMACAO_FISCO').AsString);
+  if (DataSetOrigem <> nil) then
+  begin
+    if DataSetOrigem.Active then
+      sTexto := Trim(DataSetOrigem.FieldByName('CFOP_INFORMACAO_FISCO').AsString);
+  end;
 
-  Result := IfThen(sTexto = EmptyStr, ConfigACBr.edInfoFisco.Text, sTexto );
+  Result := IfThen(sTexto = EmptyStr, Trim(ConfigACBr.edInfoFisco.Text), sTexto);
 end;
 
 function TDMNFe.GetPathNFeXML(const sCNPJEmitente : String) : String;
@@ -2890,7 +2890,7 @@ begin
 
       end;
 
-      sInformacaoFisco := Trim(GetInformacaoFisco);
+      sInformacaoFisco := Trim(GetInformacaoFisco(qryCalculoImposto));
       InfAdic.infCpl   := 'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
                           IfThen(OcultarVencimentos, '', ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ') + #13 +
                           'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * * * ' + #13 +
@@ -4266,7 +4266,7 @@ begin
 
       end;
 
-      sInformacaoFisco := Trim(GetInformacaoFisco);
+      sInformacaoFisco := Trim(GetInformacaoFisco(qryEntradaCalculoImposto));
       InfAdic.infCpl   := 'Compra: ' + qryEntradaCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
                           ' - Forma/Cond. Pgto.: ' + qryEntradaCalculoImposto.FieldByName('FORMA_PAGO').AsString + '/' + qryEntradaCalculoImposto.FieldByName('COND_PAGO_FULL').AsString + ' * * * ' + #13 +
                           'Usuário: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
@@ -4337,6 +4337,7 @@ begin
       if ( not DelphiIsRunning ) then
         ACBrNFe.NotasFiscais.Validar;
 
+      ACBrNFe.NotasFiscais.Items[0].NomeArq := EmptyStr;
       ACBrNFe.NotasFiscais.Items[0].GravarXML;
 
       FileNameXML := ACBrNFe.NotasFiscais.Items[0].NomeArq;
@@ -6378,7 +6379,7 @@ begin
         end;
       end;
 
-      sInformacaoFisco := Trim(GetInformacaoFisco);
+      sInformacaoFisco := Trim(GetInformacaoFisco(qryCalculoImposto));
       InfAdic.infCpl   := '* ' + #13 +
         'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
         ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * ' + #13 +

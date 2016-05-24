@@ -114,9 +114,9 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         object lblInformacaoFisco: TLabel [3]
           Left = 16
           Top = 176
-          Width = 101
+          Width = 106
           Height = 13
-          Caption = 'Informa'#231#227'o ao Fisco:'
+          Caption = 'Informa'#231#245'es ao Fisco:'
           FocusControl = dbInformacaoFisco
         end
         inherited dbCodigo: TDBEdit
@@ -180,7 +180,6 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         Align = alClient
         Caption = 'Par'#226'metros'
         TabOrder = 1
-        ExplicitTop = 227
         object lblCSTEntrada: TLabel
           Left = 304
           Top = 90
@@ -414,10 +413,6 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       Left = 724
       ExplicitLeft = 724
     end
-    inherited btbtnSalvar: TcxButton
-      ExplicitLeft = 306
-      ExplicitTop = -2
-    end
     inherited btbtnFechar: TcxButton
       Left = 649
       ExplicitLeft = 649
@@ -599,7 +594,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

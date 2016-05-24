@@ -149,7 +149,8 @@ uses
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
-  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa};
+  UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
+  UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE};
 
 {$R *.res}
 
