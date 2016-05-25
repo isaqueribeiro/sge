@@ -5196,6 +5196,11 @@ object frmPrinc: TfrmPrinc
       ItemLinks = <
         item
           Visible = True
+          ItemName = 'BrBtnGerarDanfeXML'
+        end
+        item
+          BeginGroup = True
+          Visible = True
           ItemName = 'BrBtnNotaFiscalInutilizar'
         end
         item
@@ -5219,6 +5224,10 @@ object frmPrinc: TfrmPrinc
           BeginGroup = True
           Visible = True
           ItemName = 'BrBtnNotaFiscalDownload'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnTestes'
         end>
       OneOnRow = True
       Row = 0
@@ -6057,6 +6066,17 @@ object frmPrinc: TfrmPrinc
       SyncImageIndex = False
       ImageIndex = 36
     end
+    object BrBtnGerarDanfeXML: TdxBarLargeButton
+      Caption = 'Gerar DANFE do XML da NF-e'
+      Category = 10
+      Hint = 'Gerar DANFE do XML da NF-e'
+      Visible = ivAlways
+      LargeImageIndex = 74
+      OnClick = BrBtnGerarDanfeXMLClick
+      HotImageIndex = 74
+      SyncImageIndex = False
+      ImageIndex = 74
+    end
     object BrBtnNotaFiscalInutilizar: TdxBarLargeButton
       Caption = 'Inutilizar Numera'#231#227'o'
       Category = 10
@@ -6149,6 +6169,13 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 39
       SyncImageIndex = False
       ImageIndex = 39
+    end
+    object BrBtnTestes: TdxBarLargeButton
+      Caption = 'Execu'#231#227'o de Testes'
+      Category = 10
+      Hint = 'Execu'#231#227'o de Testes'
+      Visible = ivAlways
+      OnClick = BrBtnTestesClick
     end
     object BrBtnConsultaCNPJ: TdxBarLargeButton
       Caption = 'Consultar CNPJ (Receita Federal)'

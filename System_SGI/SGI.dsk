@@ -1,52 +1,81 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeExportarNFeGerada.pas',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'C:\Program Files (x86)\FastReports\LibD21\tee.inc',0,1,62,116,65,0,0,,
-File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeConsultarLoteNFe_v2.pas',0,1,67,94,72,0,0,,
-File_3=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCentroCusto.pas',0,1,52,97,54,0,0,,
-File_4=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCondicaoPagto.pas',0,1,78,88,82,0,0,,
-File_5=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,430,72,431,0,0,,
-File_6=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeControleCheque.pas',0,1,221,61,222,0,0,,
-File_7=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeBancos.pas',0,1,103,1,121,0,0,,
-File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas',0,1,671,36,707,0,0,,
-File_9=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContasAReceber.pas',0,1,719,36,755,0,0,,
-File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas',0,1,332,30,368,0,0,,
-File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContaCorrente.pas',0,1,106,28,140,0,0,,
-File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFormaPagto.pas',0,1,237,32,256,0,0,,
-File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeCotacaoCompraFornecedor.pas',0,1,286,40,305,0,0,,
-File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoquePesquisa.pas',0,1,866,34,902,0,0,,
+File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeConsultarLoteNFe_v2.pas',0,1,213,108,215,0,0,,
+File_1=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\PCNComum\pcnConversao.pas',0,1,37,110,38,0,0,,
+File_2=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnConversaoNFe.pas',0,1,34,21,48,0,0,,
+File_3=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeExportarNFeGerada.pas',0,1,1,1,1,0,0,,
+File_4=TSourceModule,'C:\Program Files (x86)\FastReports\LibD21\tee.inc',0,1,62,116,65,0,0,,
+File_5=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCentroCusto.pas',0,1,52,97,54,0,0,,
+File_6=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCondicaoPagto.pas',0,1,78,88,82,0,0,,
+File_7=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,430,72,431,0,0,,
+File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeControleCheque.pas',0,1,221,61,222,0,0,,
+File_9=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeBancos.pas',0,1,103,1,121,0,0,,
+File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas',0,1,671,36,707,0,0,,
+File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContasAReceber.pas',0,1,719,36,755,0,0,,
+File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas',0,1,332,30,368,0,0,,
+File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContaCorrente.pas',0,1,106,28,140,0,0,,
+File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFormaPagto.pas',0,1,237,32,256,0,0,,
 
 [Modules]
 Module0=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module2=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
-Module3=default.htm
-Module4=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module7=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
-Module8=D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaCFOP.pas
-Module9=C:\Program Files (x86)\Embarcadero\Studio\15.0\source\vcl\Vcl.Consts.pas
-Module10=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-Module11=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module12=D:\Projetos\ASS\SGE\trunk\System_SGE\UGrUsuario.pas
-Module13=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
-Module14=D:\Projetos\ASS\SGE\trunk\Sys\UGeEmpresa.pas
-Module15=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas
-Module16=D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
-Count=17
+Module1=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+Module2=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
+Module3=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+Module4=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\ACBrNFeDANFEClass.pas
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaCFOP.pas
+Module7=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module8=default.htm
+Module9=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module10=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module11=D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
+Module12=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module13=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
+Module14=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module15=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module16=C:\Program Files (x86)\Embarcadero\Studio\15.0\source\vcl\Vcl.Consts.pas
+Module17=D:\Projetos\ASS\SGE\trunk\System_SGE\UGrUsuario.pas
+Module18=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
+Module19=D:\Projetos\ASS\SGE\trunk\Sys\UGeEmpresa.pas
+Module20=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas
+Count=21
 EditWindowCount=1
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
+FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\ACBrNFeDANFEClass.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaCFOP.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
 
-[C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas]
+[D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -57,7 +86,22 @@ ModuleType=TURLModule
 [D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj]
 ModuleType=TBaseProject
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -72,24 +116,9 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaCFOP.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
 [C:\Program Files (x86)\Embarcadero\Studio\15.0\source\vcl\Vcl.Consts.pas]
 ModuleType=TSourceModule
 FormState=0
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
-ModuleType=TSourceModule
-FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\System_SGE\UGrUsuario.pas]
@@ -112,11 +141,6 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
 [D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
 FormState=1
 FormOnTop=0
@@ -126,7 +150,7 @@ FormState=1
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=17
+ViewCount=21
 CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
 View0=0
 View1=1
@@ -145,6 +169,10 @@ View13=13
 View14=14
 View15=15
 View16=16
+View17=17
+View18=18
+View19=19
+View20=20
 PercentageSizes=1
 Create=1
 Visible=1
@@ -163,13 +191,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1341
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000000C13000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000DD2100001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000D411000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000B11F00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000000C13000000000000011D0500000000000001000000004412000009000000446F636B53697465320100000000DD21000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=0
+RightPanelData=00000800010100000000D411000000000000011D0500000000000001000000004412000009000000446F636B53697465320100000000B11F000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=486
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D7245000000000000022A030000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531724500000000000002E6010000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779D1D00000000000002F606000000000000FFFFFFFF
@@ -247,15 +275,59 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGE\UGrUsuario.pas
 [View7]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=98
-CursorY=6426
-TopLine=6406
+CursorX=27
+CursorY=33
+TopLine=15
 LeftCol=1
 Elisions=
 Bookmarks={1,1585,20}{2,5574,1}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View8]
+CustomEditViewType=TEditView
+Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
+CursorX=61
+CursorY=399
+TopLine=390
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
+
+[View9]
+CustomEditViewType=TEditView
+Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+CursorX=1
+CursorY=145
+TopLine=112
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+
+[View10]
+CustomEditViewType=TEditView
+Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+CursorX=35
+CursorY=1443
+TopLine=1423
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+
+[View11]
+CustomEditViewType=TEditView
+Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\ACBrNFeDANFEClass.pas
+CursorX=43
+CursorY=312
+TopLine=295
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\ACBrNFeDANFEClass.pas
+
+[View12]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 CursorX=36
@@ -266,7 +338,7 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View9]
+[View13]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
 CursorX=1
@@ -277,18 +349,18 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
 
-[View10]
+[View14]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-CursorX=1
-CursorY=682
-TopLine=329
+CursorX=30
+CursorY=403
+TopLine=387
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
 
-[View11]
+[View15]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
 CursorX=1
@@ -299,7 +371,7 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
 
-[View12]
+[View16]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
 CursorX=1
@@ -310,7 +382,7 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
 
-[View13]
+[View17]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeEmpresa.pas
 CursorX=1
@@ -321,7 +393,7 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeEmpresa.pas
 
-[View14]
+[View18]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas
 CursorX=3
@@ -332,27 +404,27 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas
 
-[View15]
+[View19]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaCFOP.pas
-CursorX=37
-CursorY=176
-TopLine=154
+CursorX=91
+CursorY=206
+TopLine=186
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View16]
+[View20]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-CursorX=69
-CursorY=111
-TopLine=23
+CursorX=48
+CursorY=630
+TopLine=597
 LeftCol=1
 Elisions=
-Bookmarks=
-EditViewName=Borland.FormDesignerView
+Bookmarks={1,145,31}
+EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
 
 [Watches]
 Count=4
@@ -372,11 +444,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=266
+Height=1429
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=266
+ClientHeight=1429
 TBDockHeight=218
 LRDockWidth=13600
 Dockable=1
@@ -445,18 +517,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
 Left=0
 Top=23
 Width=10000
-Height=569
+Height=230
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=10000
-ClientHeight=569
-TBDockHeight=569
+ClientHeight=230
+TBDockHeight=230
 LRDockWidth=2767
 Dockable=1
 StayOnTop=0
@@ -470,11 +542,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=3898
+Height=3317
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
+ClientHeight=3317
 TBDockHeight=7155
 LRDockWidth=1999
 Dockable=1
@@ -489,11 +561,11 @@ State=0
 Left=0
 Top=340
 Width=1341
-Height=4952
+Height=4370
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
-ClientHeight=4952
+ClientHeight=4370
 TBDockHeight=6707
 LRDockWidth=1341
 Dockable=1
@@ -502,8 +574,8 @@ SplitPos=79
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem="LiveBindings Designer",
-ExpandedItems=ActiveControl=0,Anchors=0,BorderIcons=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,Properties=0,Style=0,StyleDisabled=0,StyleFocused=0,StyleHot=0,Touch=0,Properties.Alignment=0,Properties.AssignedValues=0,LookAndFeel=0,Properties.ValidationOptions=0,Properties.Images=0,Constraints=0,Colors=0,Font=0,OptionsImage=1,OptionsImage.Images=0,FocusControl=0,StyleElements=0
+SelectedItem=Action,CustomHint
+ExpandedItems=Anchors=0,Constraints=0,DataBinding=1,LiveBindings=0,"LiveBindings Designer=0",Margins=0,Properties=1,DataBinding.DataSource=0,Properties.AssignedValues=0,Properties.DefaultValue=0,Properties.Alignment=0,LookAndFeel=0,OptionsImage=0,Colors=0,Font=0,ImageOptions=0,NotDocking=0,Properties.ValidationOptions=0,Style=0,StyleDisabled=0,StyleFocused=0,StyleHot=0,ProviderFlags=0,SpeedButtonOptions=0,BevelEdges=0,StyleElements=0,FilterOptions=0,ActiveControl=0,BorderIcons=0
 
 [ModelViewTool]
 PercentageSizes=1
@@ -631,11 +703,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=266
+Height=1429
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=266
+ClientHeight=1429
 TBDockHeight=412
 LRDockWidth=4948
 Dockable=1
@@ -650,11 +722,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=266
+Height=1429
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=266
+ClientHeight=1429
 TBDockHeight=218
 LRDockWidth=7409
 Dockable=1
@@ -673,11 +745,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=266
+Height=1429
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=266
+ClientHeight=1429
 TBDockHeight=1538
 LRDockWidth=3483
 Dockable=1
@@ -692,11 +764,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=266
+Height=1429
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=266
+ClientHeight=1429
 TBDockHeight=2058
 LRDockWidth=3483
 Dockable=1
@@ -814,11 +886,11 @@ State=0
 Left=0
 Top=0
 Width=3828
-Height=266
+Height=1429
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=266
+ClientHeight=1429
 TBDockHeight=1550
 LRDockWidth=8743
 Dockable=1
@@ -907,12 +979,12 @@ State=0
 Left=0
 Top=23
 Width=3828
-Height=569
+Height=230
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3828
-ClientHeight=569
-TBDockHeight=569
+ClientHeight=230
+TBDockHeight=230
 LRDockWidth=3828
 Dockable=1
 StayOnTop=0
@@ -979,11 +1051,11 @@ State=0
 Left=0
 Top=427
 Width=1309
-Height=3898
+Height=3317
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
+ClientHeight=3317
 TBDockHeight=6707
 LRDockWidth=1309
 Dockable=1

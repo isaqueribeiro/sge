@@ -210,6 +210,8 @@ type
     BrBtnRelatorioAutorizacao: TdxBarLargeButton;
     BrBtnTipoReceita: TdxBarLargeButton;
     BrBtnControleCheque: TdxBarLargeButton;
+    BrBtnTestes: TdxBarLargeButton;
+    BrBtnGerarDanfeXML: TdxBarLargeButton;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -311,6 +313,8 @@ type
     procedure BrBtnTipoReceitaClick(Sender: TObject);
     procedure BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
     procedure BrBtnControleChequeClick(Sender: TObject);
+    procedure BrBtnTestesClick(Sender: TObject);
+    procedure BrBtnGerarDanfeXMLClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -377,6 +381,44 @@ begin
     FormFunction.ShowModalForm(Self, 'frmGeFuncionario');
 end;
 
+procedure TfrmPrinc.BrBtnGerarDanfeXMLClick(Sender: TObject);
+var
+  sNomeArquivoXML,
+  sEmitente      ,
+  sDestinatario  ,
+  sRecibo   ,
+  sProtocolo,
+  sChave    : String;
+  dDataHoraEmissao : TDateTime;
+  bNotaValida : Boolean;
+  sSerieNFe  : String;
+  iNumeroNFe ,
+  iModeloNFe ,
+  iVersaoNFe : Integer;
+  tTipoNota  : TTipoNF;
+  cValorProdutoNF : Currency;
+begin
+  if DMNFe.opdNotas.Execute then
+  begin
+    DMNFe.ImprimirArquivoNFeDANFE(gUsuarioLogado.Empresa, DMNFe.opdNotas.FileName
+      , sNomeArquivoXML
+      , sEmitente
+      , sDestinatario
+      , sRecibo
+      , sProtocolo
+      , sChave
+      , dDataHoraEmissao
+      , bNotaValida
+      , sSerieNFe
+      , iNumeroNFe
+      , iModeloNFe
+      , iVersaoNFe
+      , tTipoNota
+      , cValorProdutoNF
+    );
+  end;
+end;
+
 procedure TfrmPrinc.BrBtnQuitarAReceberLoteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_ARECEBER_ID, True) then
@@ -405,6 +447,11 @@ procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TABELA_IBPT_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeTabelaIBPT');
+end;
+
+procedure TfrmPrinc.BrBtnTestesClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'frmGeImportarNFE');
 end;
 
 procedure TfrmPrinc.BrBtnTipoReceitaClick(Sender: TObject);
