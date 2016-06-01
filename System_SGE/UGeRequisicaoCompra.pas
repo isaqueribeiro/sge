@@ -422,7 +422,7 @@ begin
   IbDtstTabelaTIPO.Value             := TIPO_REQUISICAO_COMPRA;
   IbDtstTabelaINSERCAO_DATA.Value    := GetDateTimeDB;
   IbDtstTabelaEMISSAO_DATA.Value     := GetDateDB;
-  IbDtstTabelaEMISSAO_USUARIO.Value  := GetUserApp;
+  IbDtstTabelaEMISSAO_USUARIO.Value  := gUsuarioLogado.Login;
   IbDtstTabelaVALIDADE.Value         := IbDtstTabelaEMISSAO_DATA.Value + GetPrazoValidadeAutorizacaoCompra(IbDtstTabelaEMPRESA.AsString);
   IbDtstTabelaSTATUS.AsInteger       := STATUS_REQUISICAO_EDC;
 

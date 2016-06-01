@@ -243,7 +243,7 @@ begin (*
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoCredito );
-      SQL.Text := StringReplace(SQL.Text, '1=1', 'v.codemp = ' + QuotedStr(GetEmpresaIDDefault), [rfReplaceAll]); // Vendas da Empresa
+      SQL.Text := StringReplace(SQL.Text, '1=1', 'v.codemp = ' + QuotedStr(gUsuarioLogado.Empresa), [rfReplaceAll]); // Vendas da Empresa
 
       SQL.Add('where 1=1');
 

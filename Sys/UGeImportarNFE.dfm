@@ -69,7 +69,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 593
     DesignSize = (
       740
       73)
@@ -137,7 +136,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
-      ExplicitWidth = 394
     end
   end
   object GrpBxManifesto: TGroupBox
@@ -154,7 +152,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 593
     DesignSize = (
       740
       76)
@@ -186,7 +183,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
-      ExplicitWidth = 463
     end
     object btnManifesto: TcxButton
       Left = 631
@@ -198,7 +194,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       OptionsImage.ImageIndex = 39
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 1
-      ExplicitLeft = 485
     end
   end
   object btnConfirmar: TcxButton
@@ -211,7 +206,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     OptionsImage.ImageIndex = 39
     OptionsImage.Images = DMRecursos.ImgPrincipal16x16
     TabOrder = 2
-    ExplicitLeft = 403
   end
   object btFechar: TcxButton
     Left = 648
@@ -225,7 +219,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     OptionsImage.ImageIndex = 15
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
     TabOrder = 3
-    ExplicitLeft = 501
   end
   object GrpBxDadosNFe: TGroupBox
     Left = 0
@@ -242,7 +235,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = []
     ParentFont = False
     TabOrder = 4
-    ExplicitWidth = 593
     DesignSize = (
       740
       430)
@@ -274,7 +266,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Properties.Images = DMRecursos.ImgBotoes16x16
       Properties.OnButtonClick = edArquivoXMLPropertiesButtonClick
       TabOrder = 0
-      ExplicitWidth = 463
       Width = 609
     end
     object btnCarregarXML: TcxButton
@@ -288,7 +279,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
       TabOrder = 1
       OnClick = btnCarregarXMLClick
-      ExplicitLeft = 485
     end
     object pgcNFe: TPageControl
       Left = 16
@@ -298,45 +288,36 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       ActivePage = tbsEmitente
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
-      ExplicitWidth = 632
       object tbsNFe: TTabSheet
         Caption = 'NFe'
-        ExplicitWidth = 553
       end
       object tbsEmitente: TTabSheet
         Caption = 'Emitente'
         ImageIndex = 1
-        ExplicitWidth = 553
       end
       object TabSheet3: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 2
-        ExplicitWidth = 553
       end
       object TabSheet4: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
-        ExplicitWidth = 553
       end
       object TabSheet5: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
-        ExplicitWidth = 553
       end
       object TabSheet6: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
-        ExplicitWidth = 553
       end
       object TabSheet7: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
-        ExplicitWidth = 553
       end
       object TabSheet8: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
-        ExplicitWidth = 553
       end
     end
   end
@@ -376,7 +357,8 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
   end
   object dtsEmpresa: TDataSource
     DataSet = qryEmpresa
-    Left = 336
+    Left = 312
+    Top = 8
   end
   object cdsIdentificacao: TClientDataSet
     Aggregates = <>
@@ -485,5 +467,77 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Params = <>
     Left = 584
     Top = 93
+  end
+  object dtsEmitente: TDataSource
+    Left = 396
+    Top = 48
+  end
+  object dtsIdentificacao: TDataSource
+    Left = 396
+    Top = 8
+  end
+  object dtsDestinatario: TDataSource
+    Left = 396
+    Top = 104
+  end
+  object dtsDadosProdutos: TDataSource
+    Left = 436
+    Top = 8
+  end
+  object dtsParametros: TDataSource
+    Left = 436
+    Top = 48
+  end
+  object dtsDuplicatas: TDataSource
+    Left = 436
+    Top = 104
+  end
+  object dtsCalculoImposto: TDataSource
+    Left = 476
+    Top = 8
+  end
+  object dtsTransportador: TDataSource
+    Left = 476
+    Top = 48
+  end
+  object dtsVeiculo: TDataSource
+    Left = 476
+    Top = 104
+  end
+  object dtsVolumes: TDataSource
+    Left = 516
+    Top = 8
+  end
+  object dtsEventos: TDataSource
+    Left = 516
+    Top = 48
+  end
+  object dtsISSQN: TDataSource
+    Left = 516
+    Top = 104
+  end
+  object dtsFatura: TDataSource
+    Left = 556
+    Top = 8
+  end
+  object dtsLocalRetirada: TDataSource
+    Left = 556
+    Top = 48
+  end
+  object dtsLocalEntrega: TDataSource
+    Left = 556
+    Top = 104
+  end
+  object dtsInformacoesAdicionais: TDataSource
+    Left = 596
+    Top = 8
+  end
+  object dtsPagamento: TDataSource
+    Left = 596
+    Top = 48
+  end
+  object dtsInutilizacao: TDataSource
+    Left = 596
+    Top = 104
   end
 end

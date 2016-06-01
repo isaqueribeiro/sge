@@ -444,7 +444,7 @@ begin
       edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
-      if ( IEmpresa[I] = GetEmpresaIDDefault ) then
+      if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then
         P := I;
         
       Inc(I);

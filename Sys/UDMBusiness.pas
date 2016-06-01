@@ -544,7 +544,7 @@ begin
     Result := AFalse;
 end;
 
-function IfThen(AValue: Boolean; const ATrue: TDateTime; AFalse: TDateTime = 0): TDateTime; 
+function IfThen(AValue: Boolean; const ATrue: TDateTime; AFalse: TDateTime = 0): TDateTime;
 begin
   if AValue then
     Result := ATrue

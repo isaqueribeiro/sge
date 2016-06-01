@@ -4,7 +4,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
   Caption = 'Controle de Requisi'#231#245'es de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
-  ExplicitTop = -126
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -28,8 +27,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -658,10 +655,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           TabOrder = 14
           object TbsRequisicaoMotivo: TTabSheet
             Caption = 'Motivo do pedido de autoriza'#231#227'o'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -683,10 +676,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           object TbsRequisicaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -708,10 +697,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1101,10 +1086,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
         object tbsFormaPagto: TTabSheet
           Caption = 'Forma de Pagamento / Entrega'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxPagamento: TGroupBox
             Left = 0
             Top = 0
@@ -1335,11 +1316,12 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
-              Width = 160
+              Width = 1100
               Height = 13
               Align = alTop
               Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
               FocusControl = dbEnderecoEntrega
+              ExplicitWidth = 160
             end
             object Bevel5: TBevel
               Left = 0
@@ -1373,10 +1355,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
         object tbsRetirada: TTabSheet
           Caption = 'Dados de Retirada'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxRetirada: TGroupBox
             Left = 0
             Top = 0
@@ -2883,7 +2861,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
