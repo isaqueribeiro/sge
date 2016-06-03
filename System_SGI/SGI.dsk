@@ -17,13 +17,13 @@ File_14=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\source\rtl
 
 [Modules]
 Module0=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-Module1=default.htm
-Module2=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module3=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaCFOP.pas
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas
-Module7=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module2=default.htm
+Module3=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaCFOP.pas
+Module7=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas
 Module8=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
 Module9=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
 Module10=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
@@ -44,6 +44,11 @@ EditWindowCount=1
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
 
 [default.htm]
 ModuleType=TURLModule
@@ -67,11 +72,6 @@ FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -275,12 +275,12 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGE\UGrUsuario.pas
 [View7]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=73
-CursorY=739
-TopLine=727
+CursorX=19
+CursorY=5849
+TopLine=5816
 LeftCol=1
 Elisions=
-Bookmarks={1,1585,20}{2,5574,1}
+Bookmarks={1,1585,20}{2,5590,1}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View8]
@@ -571,6 +571,11 @@ LRDockWidth=1341
 Dockable=1
 StayOnTop=0
 SplitPos=79
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Action,
+ExpandedItems=ActiveControl=0,Anchors=0,BorderIcons=0
 
 [ModelViewTool]
 PercentageSizes=1

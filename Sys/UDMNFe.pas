@@ -2072,6 +2072,11 @@ var
   vTotalTributoAprox     : Currency;
 begin
 (*
+  IMR - 03/06/2016 :
+    Inclusão da instrução "Ide.indFinal := cfConsumidorFinal" para todo destinatário
+    da nota que for pessoa física, ou seja, todo destinatário que não seja
+    contribuinte de ICMS (Dest.indIEDest = inNaoContribuinte).
+
   IMR - 05/03/2016 :
     Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
     quer ou não informar os vencimentos das parecelas da fatura na NF-e.
@@ -2150,6 +2155,9 @@ begin
         Ide.finNFe  := fnDevolucao
       else
         Ide.finNFe  := fnNormal;
+
+      if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
+        Ide.indFinal := cfConsumidorFinal;
 
       if ( Ide.finNFe  = fnDevolucao ) then
         with Ide.NFref.Add, qryCalculoImposto do
@@ -3479,6 +3487,11 @@ var
   vTotalTributoAprox     : Currency;
 begin
 (*
+  IMR - 03/06/2016 :
+    Inclusão da instrução "Ide.indFinal := cfConsumidorFinal" para todo destinatário
+    da nota que for pessoa física, ou seja, todo destinatário que não seja
+    contribuinte de ICMS (Dest.indIEDest = inNaoContribuinte).
+
   IMR - 05/03/2016 :
     Intersão do parâmetro "OcultarVencimentos" para que o usuário informe se ele
     quer ou não informar os vencimentos das parecelas da fatura na NF-e.
@@ -3557,6 +3570,9 @@ begin
         Ide.finNFe  := fnDevolucao
       else
         Ide.finNFe  := fnNormal;
+
+      if ( qryFornecedorDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
+        Ide.indFinal := cfConsumidorFinal;
 
       if ( Ide.finNFe  = fnDevolucao ) then
         with Ide.NFref.Add, qryEntradaCalculoImposto do
