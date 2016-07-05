@@ -5381,7 +5381,8 @@ begin
           '  and NFE_NUMERO  = ' + qryCartaCorrecaoNFeNFE_NUMERO.AsString +
           '  and NFE_SERIE   = ' + qryCartaCorrecaoNFeNFE_SERIE.AsString  +
           '  and NFE_MODELO  = ' + qryCartaCorrecaoNFeNFE_MODELO.AsString +
-          '  and CCE_ENVIADA = 1');
+          '  and CCE_ENVIADA = 1'
+          );
 
         Configuracoes.Geral.ModeloDF := TpcnModeloDF(qryNFe.FieldByName('MODELO').AsInteger);
         Configuracoes.Geral.VersaoDF := TpcnVersaoDF(qryNFe.FieldByName('VERSAO').AsInteger);
@@ -5391,9 +5392,8 @@ begin
         TMemoField(qryNFe.FieldByName('XML_FILE')).SaveToFile( sFileNameXML );
 
         NotasFiscais.Clear;
-        if not NotasFiscais.LoadFromFile(sFileNameXML, False) then
-          raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + sFileNameXML);
-//        if not NotasFiscais.LoadFromString( qryNFe.FieldByName('XML_FILE').AsWideString ) then
+//      Bloco de comando desativado provisoriamente para se gerar arquivos de eventos CCe sem o XML da NF-e
+//        if not NotasFiscais.LoadFromFile(sFileNameXML, False) then
 //          raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + sFileNameXML);
 
         // Numero do Lote de Envio
@@ -5411,9 +5411,9 @@ begin
           infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
           infEvento.chNFe  := qryNFe.FieldByName('CHAVE').AsString;
           infEvento.CNPJ   := sCNPJEmitente;
-          infEvento.dhEvento   := GetDateTimeDB;
+          infEvento.dhEvento   := Now; //GetDateTimeDB;
           infEvento.tpEvento   := teCCe;
-          infEvento.nSeqEvento := iNumeroCarta;
+          infEvento.nSeqEvento := iNumeroEvento;
           infEvento.detEvento.descEvento := RemoveAcentos(AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE));
           infEvento.detEvento.xCorrecao  := sCorrecao;
           infEvento.detEvento.xCondUso   := RemoveAcentos(Trim(sCondicaoUso));

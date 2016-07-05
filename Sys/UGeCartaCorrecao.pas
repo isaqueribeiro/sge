@@ -237,7 +237,7 @@ begin
     if not DMNFe.GetValidadeCertificado(IbDtstTabelaCCE_EMPRESA.AsString) then
       Exit;
 
-  if DMNFe.GerarEnviarCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger, mmCondicaoUso.Lines.Text) then
+  if DMNFe.GerarEnviarCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger, Trim(mmCondicaoUso.Lines.Text)) then
     RecarregarRegistro;
     
   HabilitarDesabilitar_Btns;

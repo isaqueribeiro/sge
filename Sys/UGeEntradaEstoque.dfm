@@ -782,6 +782,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           NumGlyphs = 2
           ParentFont = False
           ParentShowHint = False
+          PopupMenu = ppCorrigirDadosNFe
           ShowHint = True
           TabOrder = 10
           OnButtonClick = dbCFOPNFButtonClick
@@ -1316,10 +1317,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         TabOrder = 4
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             1098
             157)
@@ -1868,10 +1865,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -4418,7 +4411,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

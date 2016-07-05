@@ -1972,7 +1972,7 @@ begin
   sWhr := PRD_ARQUIVO_MORTO;
 
   if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
-    sWhr := sWhr + '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
+    sWhr := sWhr + ' and (p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
   if chkProdutoComEstoque.Visible then
     if chkProdutoComEstoque.Checked then

@@ -768,7 +768,7 @@ begin
       end;
 
       if ( edCidade.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ')');
+        SQL.Add('  and (cl.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ')');
 
       SQL.Add('');
       SQL.Add('group by');

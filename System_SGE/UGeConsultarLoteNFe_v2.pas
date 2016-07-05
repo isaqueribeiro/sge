@@ -236,8 +236,8 @@ end;
 procedure TfrmGeConsultarLoteNFe_v2.FormShow(Sender: TObject);
 begin
   inherited;
-  if not qryLotesPendentesNFe.IsEmpty then
-    if not FAguardandoRetorno then
+  if not FAguardandoRetorno then
+    if not qryLotesPendentesNFe.IsEmpty then
     begin
       edAno.Text          := qryLotesPendentesNFeANO.AsString;
       edNumeroLote.Text   := qryLotesPendentesNFeLOTE.AsString;
@@ -250,7 +250,7 @@ begin
     lblInforme.Caption := 'Iniciando busca junto a SEFA. Aguarde!';
     lblInforme.Visible := True;
     Application.ProcessMessages;
-    Sleep(500);
+    Sleep(144);
 
     btnConfirmar.Click;
   end;
@@ -388,7 +388,7 @@ begin
         edJustificativa.Lines.Add(sRetorno);
 
         sFileNameXML := GetDiretorioNFe + Format(NOME_ARQUIVO_XML, [Trim(edChaveNFe.Text)]);
-        sMensagem    := 'Arquivo referenciado da NF-e:' + #13#13 + sFileNameXML;
+        sMensagem    := 'Arquivo referenciado da NF-e:' + #13#13 + ExtractFileName(sFileNameXML);
 
         // Executar Consulta por Chave NF-e para obter o arquivo e o Protocolo
 
@@ -402,8 +402,12 @@ begin
           FNumeroNFe := iNumeroNFe;
           edProtocoloTMP.Text := Trim(sProtocoloNFE);
           FFileNameXML        := sFileNameXML;
-          sMensagem := sMensagem + #13#13 + 'Arquivo a processar:' + #13#13 + sFileNameXML;
-          ShowInformation( sMensagem );
+
+          if not FAguardandoRetorno then
+          begin
+            sMensagem := sMensagem + #13#13 + 'Arquivo a processar:' + #13#13 + ExtractFileName(sFileNameXML);
+            ShowInformation( sMensagem );
+          end;
 
           if FAguardandoRetorno then
             ModalResult := mrOk;
