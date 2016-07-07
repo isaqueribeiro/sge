@@ -153,6 +153,9 @@ end;
 
 procedure TfrmGeTabelaCFOP.btbtnSalvarClick(Sender: TObject);
 begin
+  if (IbDtstTabelaCFOP_COD.AsInteger = 0) then
+    IbDtstTabelaCFOP_COD.Clear;
+
   if IbDtstTabelaCFOP_REMESSA.IsNull then
     IbDtstTabelaCFOP_REMESSA.AsInteger := 0;
 
