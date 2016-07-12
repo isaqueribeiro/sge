@@ -2725,7 +2725,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Width = 31
           Height = 13
           Caption = 'CFOP:'
-          Enabled = False
           FocusControl = dbCFOPItem
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -3293,7 +3292,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Color = clWhite
           DataField = 'CFOP'
           DataSource = DtSrcTabelaItens
-          Enabled = False
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -4411,7 +4409,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

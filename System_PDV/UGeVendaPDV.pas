@@ -1199,6 +1199,11 @@ var
   iNumeroLote  : Int64;
   bDenegada    : Boolean;
 begin
+{
+  IMR - 12/07/2016 :
+    Implementada restrição para que não seja realizada Vendas A Prazo para o cliente
+    CONSUMIDOR FINAL (1)
+}
   if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
     Exit;
 
@@ -1227,6 +1232,10 @@ begin
   // ( I N I C I O ) FORÇAR A GRAVAÇÃO DO REGISTRO NA BASE PARA DISPARAR TRIGGERS DE UPDATE
 
   DataSetVenda.Edit;
+
+  DataSetVenda.FieldByName('CODCLIENTE').Value := edNomeCliente.Tag;
+  DataSetVenda.FieldByName('CODCLI').Value     := edNomeCliente.Hint;    // CPF/CNPJ
+  DataSetVenda.FieldByName('NOME').Value       := edNomeCliente.Caption;
 
   TIBDataSet(DataSetVenda).Post;
   TIBDataSet(DataSetVenda).ApplyUpdates;
@@ -1299,6 +1308,12 @@ begin
       if bConfirmado then
       begin
         if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
+          if (edNomeCliente.Tag = CONSUMIDOR_FINAL_CODIGO) or (edNomeCliente.Hint = CONSUMIDOR_FINAL_CNPJ) then
+          begin
+            bConfirmado := False;
+            ShowWarning('Restrição no Cliente!' + #13 + 'Motivo:' + #13 + 'Não é permitido vendas A Prazo para o cliente selecionado.');
+          end
+          else
           if GetClienteBloqueado(edNomeCliente.Tag, sMensagem) then
           begin
             bConfirmado := False;
@@ -1325,6 +1340,9 @@ begin
         edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
       end;
     end;
+
+    if not bConfirmado then
+      Exit;
 
     // Verificar dados da(s) Forma(s) de Pagamento(s)
 

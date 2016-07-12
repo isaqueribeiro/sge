@@ -17,11 +17,11 @@ File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFornecedorClientePesquis
 
 [Modules]
 Module0=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
-Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module2=default.htm
-Module3=D:\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
-Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module2=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module3=default.htm
+Module4=D:\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
 Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 Module7=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module8=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas
@@ -59,6 +59,11 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 FormState=1
@@ -71,11 +76,6 @@ ModuleType=TURLModule
 ModuleType=TBaseProject
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -329,9 +329,9 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 [View3]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-CursorX=29
-CursorY=2825
-TopLine=2805
+CursorX=3
+CursorY=2844
+TopLine=2823
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -367,7 +367,7 @@ CursorY=6516
 TopLine=6487
 LeftCol=1
 Elisions=
-Bookmarks={1,6448,1}{2,6494,1}{8,1300,1}{9,1210,63}
+Bookmarks={1,6448,1}{2,6494,1}{8,1300,1}{9,1210,1}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View7]
@@ -626,9 +626,9 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrConfigurarAmbiente.pas
 [View30]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
-CursorX=75
-CursorY=2822
-TopLine=2800
+CursorX=1
+CursorY=548
+TopLine=521
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -659,12 +659,12 @@ EditViewName=Borland.FormDesignerView
 [View33]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
-CursorX=21
-CursorY=1299
-TopLine=1253
+CursorX=68
+CursorY=1236
+TopLine=1220
 LeftCol=1
 Elisions=
-Bookmarks={2,1209,34}
+Bookmarks={1,1311,15}{2,1214,34}
 EditViewName=D:\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
 
 [View34]
