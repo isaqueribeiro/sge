@@ -23,7 +23,7 @@ set googledrivesys=C:\Users\Isaque\Google Drive\_Masterdados
 copy "%pastabackuptmpsys%\%nomearquivosys%_%ymd%.7zAgil" "%pastabackupfinalsys%"
 copy "%pastabackuptmpsys%\%nomearquivosys%_%ymd%.log" "%pastarelatoriossys%"
 
-copy "%pastabackuptmpsys%\%nomearquivosys%_%ymd%.7z" "%googledrivesys%"
+copy "%pastabackuptmpsys%\%nomearquivosys%_%ymd%.7zAgil" "%googledrivesys%"
 
 del "%pastabackuptmpsys%\%nomearquivosys%_%ymd%.log"
 del "%pastabackuptmpsys%\%nomearquivosys%_%ymd%.7zAgil"
