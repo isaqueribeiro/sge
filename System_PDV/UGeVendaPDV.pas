@@ -493,7 +493,7 @@ begin
       bOrcamentoCarregado := False;
 
       CarregarVenda(gUsuarioLogado.Empresa, 0, 0);
-      
+
       pnlCaixaLivre.Visible := False;
       pnlCaixaLivre.Tag     := 0;
 
@@ -527,13 +527,16 @@ begin
       FieldByName('CODCLI').Value     := edNomeCliente.Hint;    // CPF/CNPJ
       FieldByName('NOME').Value       := edNomeCliente.Caption;
 
-      if (AnsiUpperCase(Trim(FieldByName('NOME').AsString)) <> CONSUMIDOR_FINAL_NOME) then
-      begin
-        FieldByName('CODCLIENTE').Clear;
-        FieldByName('CODCLI').Clear;
-        FieldByName('NOME').Clear;
-      end;
-
+// IMR : 30/07/2016 - Bloco de código removido para permitir que o usuário informe o Cliente mesmo
+// antes da venda ter sido inciada.
+//
+//      if (AnsiUpperCase(Trim(FieldByName('NOME').AsString)) <> CONSUMIDOR_FINAL_NOME) then
+//      begin
+//        FieldByName('CODCLIENTE').Clear;
+//        FieldByName('CODCLI').Clear;
+//        FieldByName('NOME').Clear;
+//      end;
+//
       FieldByName('FORMAPAGTO_COD').Clear;
       FieldByName('CONDICAOPAGTO_COD').Clear;
       FieldByName('SERIE').Clear;
@@ -1199,11 +1202,6 @@ var
   iNumeroLote  : Int64;
   bDenegada    : Boolean;
 begin
-{
-  IMR - 12/07/2016 :
-    Implementada restrição para que não seja realizada Vendas A Prazo para o cliente
-    CONSUMIDOR FINAL (1)
-}
   if ( dtsVenda.DataSet.IsEmpty or dtsItem.DataSet.IsEmpty ) then
     Exit;
 
@@ -1308,12 +1306,6 @@ begin
       if bConfirmado then
       begin
         if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
-          if (edNomeCliente.Tag = CONSUMIDOR_FINAL_CODIGO) or (edNomeCliente.Hint = CONSUMIDOR_FINAL_CNPJ) then
-          begin
-            bConfirmado := False;
-            ShowWarning('Restrição no Cliente!' + #13 + 'Motivo:' + #13 + 'Não é permitido vendas A Prazo para o cliente selecionado.');
-          end
-          else
           if GetClienteBloqueado(edNomeCliente.Tag, sMensagem) then
           begin
             bConfirmado := False;
@@ -1738,7 +1730,7 @@ begin
   iReturn := False;
   try
     if GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) then
-      with DMBusiness, qryBusca do
+      with DMBusiness, fdQryBusca do
       begin
         Close;
         SQL.Clear;
