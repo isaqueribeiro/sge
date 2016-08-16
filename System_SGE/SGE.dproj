@@ -106,13 +106,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Build>3</VerInfo_Build>
         <VerInfo_Release>14</VerInfo_Release>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.14.3;InternalName=SGE;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.14.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
 Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.14;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=11/05/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>

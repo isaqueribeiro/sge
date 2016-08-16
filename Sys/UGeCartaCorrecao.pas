@@ -238,8 +238,16 @@ begin
       Exit;
 
   if DMNFe.GerarEnviarCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger, Trim(mmCondicaoUso.Lines.Text)) then
+  begin
+    ExecuteScriptSQL(
+      'Update TBNFE_CARTA_CORRECAO Set ' +
+      '  CCE_ENVIADA     = 1 ' +
+      'where CCE_EMPRESA = ' + QuotedStr(IbDtstTabelaCCE_EMPRESA.AsString) +
+      '  and CCE_NUMERO  = ' + IbDtstTabelaCCE_NUMERO.AsString
+    );
     RecarregarRegistro;
-    
+  end;
+
   HabilitarDesabilitar_Btns;
 end;
 

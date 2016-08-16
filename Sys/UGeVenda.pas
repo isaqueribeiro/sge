@@ -1958,6 +1958,9 @@ begin
         , sProtocoloNFE
         , TipoMovimento);
 
+      if not bNFeGerada then
+        Exit;
+
       if ( TipoMovimento <> tmNFeSaida ) then
       begin
         ShowWarning('Tipo do movimento do recibo incompatível!');
@@ -1966,9 +1969,6 @@ begin
 
       sReciboNFE  := Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString);
       iNumeroLote := iNumeroNFe;
-
-      if not bNFeGerada then
-        Exit;
     end;
   {$ENDIF}
 

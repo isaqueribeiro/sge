@@ -5409,14 +5409,12 @@ begin
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
           infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
-          infEvento.chNFe  := qryNFe.FieldByName('CHAVE').AsString;
           infEvento.CNPJ   := sCNPJEmitente;
+          infEvento.chNFe      := qryNFe.FieldByName('CHAVE').AsString;
           infEvento.dhEvento   := Now; //GetDateTimeDB;
           infEvento.tpEvento   := teCCe;
           infEvento.nSeqEvento := iNumeroEvento;
-          infEvento.detEvento.descEvento := RemoveAcentos(AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE));
           infEvento.detEvento.xCorrecao  := sCorrecao;
-          infEvento.detEvento.xCondUso   := RemoveAcentos(Trim(sCondicaoUso));
         end;
 
         // Enviar o evento de CC-e
@@ -5455,9 +5453,10 @@ begin
               qryCartaCorrecaoNFe.Edit;
               qryCartaCorrecaoNFeCCE_DATA.Value  := GetDateDB;
               qryCartaCorrecaoNFeCCE_HORA.Value  := GetTimeDB;
-              qryCartaCorrecaoNFeNUMERO.Value    := iNumeroCarta;
-              qryCartaCorrecaoNFePROTOCOLO.Value := EventoRetorno.retEvento.Items[0].RetInfEvento.nProt;
-              qryCartaCorrecaoNFeXML.LoadFromFile( EventoNFe.ObterNomeArquivo(teCCe) );
+              qryCartaCorrecaoNFeNUMERO.Value    := iNumeroEvento; // iNumeroCarta;
+              qryCartaCorrecaoNFePROTOCOLO.Value := sProtocolo;
+              qryCartaCorrecaoNFeXML.AsString    := sRetornoXML;
+              //qryCartaCorrecaoNFeXML.LoadFromFile( EventoNFe.ObterNomeArquivo(teCCe) );
               qryCartaCorrecaoNFe.Post;
               qryCartaCorrecaoNFe.ApplyUpdates;
 

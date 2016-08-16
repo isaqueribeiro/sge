@@ -34669,7 +34669,7 @@ object DMNFe: TDMNFe
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42383.572136122700000000
+    ReportOptions.CreateDate = 42383.572136122690000000
     ReportOptions.LastChange = 42384.225217338000000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
