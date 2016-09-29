@@ -146,6 +146,13 @@ uses UDMBusiness, UDMNFe, UConstantesDGE, UFuncoes, UDMRecursos;
 
 {$R *.dfm}
 
+{*
+  IMR - 08/12/2015 :
+    Criação do atributo "FAguardandoRetorno" para gerenciar a execução automática
+    e espera do retorno de uma consulta de recibo quando esta é iniciada pelo
+    processo de geração de NF-e no Controle de Vendas.
+*}
+
 function BuscarRetornoReciboNFe(const AOnwer : TComponent; const sEmpresa, sRecibo : String;
   var SerieNFe, NumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE : String;
   var TipoMovimento : TTipoMovimento) : Boolean;
