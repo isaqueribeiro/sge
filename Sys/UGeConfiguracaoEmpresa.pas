@@ -55,7 +55,7 @@ type
     IbDtstTabelaNFE_IMPRIMIR_COD_CLIENTE: TSmallintField;
     chkImprimirCodCliente: TDBCheckBox;
     IbDtstTabelaCUSTO_OPER_CALCULAR: TSmallintField;
-    TabSheet1: TTabSheet;
+    TbsOutrasConfig: TTabSheet;
     dbCustoOperacional: TDBCheckBox;
     DBCheckBox1: TDBCheckBox;
     IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS: TSmallintField;
@@ -170,6 +170,16 @@ begin
   pgcConfigurar.ActivePage := tbsContaEmail;
 
   dbAutorizacaoInformaCliente.Visible := (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]);
+
+  TbsNFSe.TabVisible         := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  TbsOutrasConfig.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+
+  chkNFE_Emitir.Enabled             := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  chkNFE_EmitirEntrada.Enabled      := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  grpBxNFe.Enabled                  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  chkNFE_SalvarNotaDenegada.Enabled := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  chkNFE_SolicitaDHSaida.Enabled    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  chkImprimirCodCliente.Enabled     := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.DtSrcTabelaStateChange(

@@ -683,6 +683,9 @@ begin
   if (Shift = [ssCtrl]) and (Key = 46) Then
   begin
 
+    if not LiberarUso then
+      Exit;
+
     if not GetPermissaoRotinaInterna(Sender, True) then
       Abort;
 

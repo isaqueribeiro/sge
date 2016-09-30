@@ -139,6 +139,15 @@ type
     procedure ConfigurarRotuloBotoes;
   end;
 
+(*
+  Tabelas:
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmPrinc: TfrmPrinc;
 
@@ -208,6 +217,13 @@ var
   sCNPJ     ,
   sHostName : String;
 begin
+{*
+  IMR - 30/09/2016 :
+    Bloco de código que fechar a aplicação quando a licença expira foi descontinuado
+    para dar lugar a uma nova forma de controle da Licença de Uso da aplicação,
+    que permite a consulta de dados, sem inserção de novos dados, quando a licença
+    expira.
+*}
   if not DataBaseOnLine then
     Exit;
 
@@ -250,14 +266,14 @@ begin
   if GetAjustarDataHoraEstacao then
     AjustarDataHoraSistema;
 
-  if ( not DelphiIsRunning ) then
-    if not gLicencaSistema.UsarSGE then
-    begin
-      ShowWarning(
-        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
-        'Favor entrar em contato com o fornecedor do software.');
-      Application.Terminate;
-    end;
+//  if ( not DelphiIsRunning ) then
+//    if not gLicencaSistema.UsarSGE then
+//    begin
+//      ShowWarning(
+//        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+//        'Favor entrar em contato com o fornecedor do software.');
+//      Application.Terminate;
+//    end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -428,21 +444,22 @@ end;
 
 procedure TfrmPrinc.nmVendaClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_MOV_VENDA_PDV_ID, True) then
-  begin
-    // Se a estação estiver configurada para a emissão de NFC-e, testar o
-    // certificado e deixar a senha deste já gravada.
-    try
-      DMNFe.LerConfiguracao(gUsuarioLogado.Empresa);
-      if DMNFe.IsEstacaoEmiteNFCe then
-        DMNFe.ACBrNFe.WebServices.StatusServico.Executar;
-    except
-      On E : Exception do
-        ShowError('Erro encontrado ao testar o Certificado para o Serviço de Emissão de NFC-e.' + #1313 + E.Message);
-    end;
+  if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
+    if GetPermissaoRotinaSistema(ROTINA_MOV_VENDA_PDV_ID, True) then
+    begin
+      // Se a estação estiver configurada para a emissão de NFC-e, testar o
+      // certificado e deixar a senha deste já gravada.
+      try
+        DMNFe.LerConfiguracao(gUsuarioLogado.Empresa);
+        if DMNFe.IsEstacaoEmiteNFCe then
+          DMNFe.ACBrNFe.WebServices.StatusServico.Executar;
+      except
+        On E : Exception do
+          ShowError('Erro encontrado ao testar o Certificado para o Serviço de Emissão de NFC-e.' + #1313 + E.Message);
+      end;
 
-    FormFunction.ShowModalForm(Self, 'frmGeVendaPDV');
-  end;
+      FormFunction.ShowModalForm(Self, 'frmGeVendaPDV');
+    end;
 end;
 
 procedure TfrmPrinc.nmOrcamentoClick(Sender: TObject);
@@ -535,7 +552,8 @@ end;
 
 procedure TfrmPrinc.mnRegistroEstacaoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
+  if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
+    FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
 end;
 
 procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);

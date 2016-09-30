@@ -313,8 +313,6 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -954,10 +952,6 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         TabOrder = 3
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1556,7 +1550,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
   inherited ImgList: TImageList
     Left = 496
     Bitmap = {
-      494C01012B002C007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

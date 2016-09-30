@@ -1123,7 +1123,8 @@ end;
 
 procedure TfrmPrinc.nmRegistroEstacaoClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
+  if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
+    FormFunction.ShowModalForm(Self, 'FrmGrRegistroEstacao');
 end;
 
 procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);

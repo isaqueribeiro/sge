@@ -167,6 +167,10 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     object TbsGeral: TTabSheet
       BorderWidth = 4
       Caption = 'Configura'#231#245'es Geral'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GrpBxPadrao: TGroupBox
         Left = 0
         Top = 0
@@ -792,7 +796,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     TamanhoFonteEndereco = 0
     RecuoLogo = 0
     TributosSeparadamente = False
-    PosCanhoto = prCabecalho
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
     PosPrinter = ACBrPosPrinter

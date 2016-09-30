@@ -154,7 +154,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 337
-        ActivePage = TbsNFe
+        ActivePage = tbsContaEmail
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -309,7 +309,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
             Top = 165
-            Width = 377
+            Width = 330
             Height = 17
             Caption = 'Solicitar Data/Hora de sa'#237'da da NF-e para impress'#227'o no DANFE'
             DataField = 'NFE_SOLICITA_DH_SAIDA'
@@ -825,7 +825,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             end
           end
         end
-        object TabSheet1: TTabSheet
+        object TbsOutrasConfig: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
           object dbCustoOperacional: TDBCheckBox
@@ -1393,7 +1393,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

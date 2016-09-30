@@ -4237,8 +4237,8 @@ begin
   if not Result then
     if Alertar then
       ShowStop('Licença',
-        IntToStr (gLicencaSistema.Competencia)  + #13 +
-        DateToStr(gLicencaSistema.DataBloqueio) + #13#13 +
+        'Competência : ' + IntToStr (gLicencaSistema.Competencia)  + #13 +
+        'Data Expiração : ' + DateToStr(gLicencaSistema.DataBloqueio) + #13#13 +
         'A licença do sistema expirou.' + #13 +
         'Acessos a determinadas rotinas no sistema serão bloqueados!' + #13#13 +
         'Favor entrar em contato com suporte.');

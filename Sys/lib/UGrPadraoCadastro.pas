@@ -124,6 +124,7 @@ type
     property frReport : TfrxReport read _frReport write _frReport;
     property ManterDados : Boolean read GetManterDados write SetManterDados;
     property IsClearFieldEmptyStr : Boolean read _ClearFieldEmptyStr write _ClearFieldEmptyStr;
+    property LiberarUso : Boolean read fLiberarUso;
 
     property RotinaInserirID   : String read GetRotinaInserirID;
     property RotinaEditarID    : String read GetRotinaEditarID;
@@ -168,6 +169,12 @@ uses
   UConstantesDGE, UFuncoes, UGrCampoRequisitado, UDMBusiness, UDMRecursos, UDMNFe;
 
 {$R *.dfm}
+
+(*
+  IMR - 08/12/2015 :
+    Inserção da property "LiberarUso" que corresponderá a liberação de uso da
+    aplicação de acordo com a política da Licença de Uso do Sistema.
+*)
 
 procedure TfrmGrPadraoCadastro.btbtnFecharClick(Sender: TObject);
 begin

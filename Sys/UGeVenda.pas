@@ -2362,6 +2362,9 @@ var
 begin
   if (Shift = [ssCtrl]) and (Key = 46) Then
   begin
+    if not LiberarUso then
+      Exit;
+
     if ( UpperCase(Trim(qryTitulosBAIXADO_.AsString)) <> 'X' ) then
       Exit;
       
@@ -2461,6 +2464,9 @@ begin
 
   if (Shift = [ssCtrl]) and (Key = VK_INSERT) Then
   begin
+    if not LiberarUso then
+      Exit;
+
     if not dtsVendaFormaPagto.AutoEdit then
       Exit;
 
@@ -2483,6 +2489,9 @@ begin
 
   if (Shift = [ssCtrl]) and (Key = VK_RETURN) Then
   begin
+    if not LiberarUso then
+      Exit;
+
     if not dtsVendaFormaPagto.AutoEdit then
       Exit;
 
@@ -2505,6 +2514,9 @@ begin
 
   if (Shift = [ssCtrl]) and (Key = VK_DELETE) Then
   begin
+    if not LiberarUso then
+      Exit;
+
     if not dtsVendaFormaPagto.AutoEdit then
       Exit;
       

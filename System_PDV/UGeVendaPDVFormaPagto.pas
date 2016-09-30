@@ -62,6 +62,15 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
+(*
+  Tabelas:
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeVendaPDVFormaPagto: TfrmGeVendaPDVFormaPagto;
 
