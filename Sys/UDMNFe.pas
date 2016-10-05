@@ -230,6 +230,7 @@ type
     frrNFeEventoCCe: TfrxReport;
     frrNFeInutilizacao: TfrxReport;
     frrBoletoCarne: TfrxReport;
+    qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField;
     procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
@@ -5392,9 +5393,7 @@ begin
         TMemoField(qryNFe.FieldByName('XML_FILE')).SaveToFile( sFileNameXML );
 
         NotasFiscais.Clear;
-//      Bloco de comando desativado provisoriamente para se gerar arquivos de eventos CCe sem o XML da NF-e
-//        if not NotasFiscais.LoadFromFile(sFileNameXML, False) then
-//          raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + sFileNameXML);
+        NotasFiscais.LoadFromString(qryNFe.FieldByName('XML_FILE').AsWideString);
 
         // Numero do Lote de Envio
         iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
@@ -5455,8 +5454,8 @@ begin
               qryCartaCorrecaoNFeCCE_HORA.Value  := GetTimeDB;
               qryCartaCorrecaoNFeNUMERO.Value    := iNumeroEvento; // iNumeroCarta;
               qryCartaCorrecaoNFePROTOCOLO.Value := sProtocolo;
-              qryCartaCorrecaoNFeXML.AsString    := sRetornoXML;
-              //qryCartaCorrecaoNFeXML.LoadFromFile( EventoNFe.ObterNomeArquivo(teCCe) );
+              qryCartaCorrecaoNFeXML.AsString    := '<?xml version="1.0" encoding="UTF-8"?>' + sRetornoXML;
+              //qryCartaCorrecaoNFeXML_TOTAL.LoadFromFile( EventoNFe.ObterNomeArquivo(teCCe) );  // Com Erro
               qryCartaCorrecaoNFe.Post;
               qryCartaCorrecaoNFe.ApplyUpdates;
 

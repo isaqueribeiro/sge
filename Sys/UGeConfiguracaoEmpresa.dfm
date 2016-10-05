@@ -25,6 +25,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   inherited pgcGuias: TPageControl
     Width = 751
     Height = 451
+    ActivePage = tbsTabela
     ExplicitWidth = 751
     ExplicitHeight = 451
     inherited tbsTabela: TTabSheet
@@ -433,7 +434,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               Width = 230
               Height = 21
               Anchors = [akLeft, akTop, akRight]
-              DataField = 'NFCE_TOKEN_ID'
+              DataField = 'NFCE_TOKEN'
               DataSource = DtSrcTabela
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
@@ -846,7 +847,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
-          object DBCheckBox1: TDBCheckBox
+          object dbPermitirVendaSemEstoque: TDBCheckBox
             Left = 16
             Top = 40
             Width = 321
@@ -882,7 +883,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
-          object DBCheckBox2: TDBCheckBox
+          object dbDuplicarCnpj: TDBCheckBox
             Left = 16
             Top = 112
             Width = 321
@@ -896,11 +897,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 4
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
-          object DBCheckBox3: TDBCheckBox
+          object dbEstoqueSatelite: TDBCheckBox
             Left = 16
             Top = 88
             Width = 241
@@ -914,7 +915,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 3
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
@@ -1393,7 +1394,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

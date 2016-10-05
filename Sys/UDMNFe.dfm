@@ -15981,7 +15981,6 @@ object DMNFe: TDMNFe
     TamanhoFonteEndereco = 0
     RecuoLogo = 0
     TributosSeparadamente = False
-    PosCanhoto = prCabecalho
     EspessuraBorda = 1
     ExibirTotalTributosItem = False
     ExibeCampoFatura = True
@@ -17432,6 +17431,7 @@ object DMNFe: TDMNFe
       '  , cce.NUMERO'
       '  , cce.PROTOCOLO'
       '  , cce.XML'
+      '  , cce.XML_TOTAL'
       'from TBNFE_CARTA_CORRECAO cce'
       'where cce.cce_empresa = :empresa'
       '  and cce.cce_numero  = :codigo')
@@ -17505,6 +17505,13 @@ object DMNFe: TDMNFe
       BlobType = ftMemo
       Size = 8
     end
+    object qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField
+      FieldName = 'XML_TOTAL'
+      Origin = '"TBNFE_CARTA_CORRECAO"."XML_TOTAL"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftWideMemo
+      Size = 8
+    end
   end
   object updCartaCorrecaoNFe: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -17520,7 +17527,8 @@ object DMNFe: TDMNFe
       '  NFE_MODELO,'
       '  NUMERO,'
       '  PROTOCOLO,'
-      '  XML'
+      '  XML,'
+      '  XML_TOTAL'
       'from TBNFE_CARTA_CORRECAO '
       'where'
       '  CCE_NUMERO = :CCE_NUMERO')
@@ -17538,7 +17546,27 @@ object DMNFe: TDMNFe
       '  NFE_SERIE = :NFE_SERIE,'
       '  NUMERO = :NUMERO,'
       '  PROTOCOLO = :PROTOCOLO,'
-      '  XML = :XML'
+      '  XML = :XML,'
+      '  XML_TOTAL = :XML_TOTAL'
+      'where'
+      '  CCE_NUMERO = :OLD_CCE_NUMERO')
+    InsertSQL.Strings = (
+      'insert into TBNFE_CARTA_CORRECAO'
+      
+        '  (CCE_DATA, CCE_EMPRESA, CCE_ENVIADA, CCE_HORA, CCE_NUMERO, CCE' +
+        '_TEXTO, '
+      
+        '   NFE_MODELO, NFE_NUMERO, NFE_SERIE, NUMERO, PROTOCOLO, XML, XM' +
+        'L_TOTAL)'
+      'values'
+      
+        '  (:CCE_DATA, :CCE_EMPRESA, :CCE_ENVIADA, :CCE_HORA, :CCE_NUMERO' +
+        ', :CCE_TEXTO, '
+      
+        '   :NFE_MODELO, :NFE_NUMERO, :NFE_SERIE, :NUMERO, :PROTOCOLO, :X' +
+        'ML, :XML_TOTAL)')
+    DeleteSQL.Strings = (
+      'delete from TBNFE_CARTA_CORRECAO'
       'where'
       '  CCE_NUMERO = :OLD_CCE_NUMERO')
     Left = 176
@@ -17652,7 +17680,6 @@ object DMNFe: TDMNFe
   end
   object ACBrECFVirtualNaoFiscal: TACBrECFVirtualNaoFiscal
     ECF = ACBrECF
-    ExibeAvisoLegal = True
     Colunas = 48
     NumECF = 1
     NumCRO = 1
@@ -17670,6 +17697,7 @@ object DMNFe: TDMNFe
     MascaraItem = 
       'III CCCCCCCCCCCCC DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD QQQQQQQQ U' +
       'UxVVVVVVVVV AAAAAAA TTTTTTTTTTT'
+    ExibeAvisoLegal = True
     Left = 800
     Top = 56
   end
@@ -17707,7 +17735,6 @@ object DMNFe: TDMNFe
     TamanhoFonteEndereco = 0
     RecuoLogo = 0
     TributosSeparadamente = False
-    PosCanhoto = prCabecalho
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
     PosPrinter = ACBrPosPrinter
@@ -17718,6 +17745,9 @@ object DMNFe: TDMNFe
     ACBrSAT = ACBrSAT
     Mask_qCom = '0.0000'
     Mask_vUnCom = '0.000'
+    MsgAppQRCode = 
+      'Consulte o QR Code pelo aplicativo  "De olho na nota", dispon'#237've' +
+      'l na AppStore (Apple) e PlayStore (Android)'
     Left = 800
     Top = 152
   end

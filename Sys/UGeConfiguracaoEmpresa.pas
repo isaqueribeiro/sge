@@ -57,15 +57,15 @@ type
     IbDtstTabelaCUSTO_OPER_CALCULAR: TSmallintField;
     TbsOutrasConfig: TTabSheet;
     dbCustoOperacional: TDBCheckBox;
-    DBCheckBox1: TDBCheckBox;
+    dbPermitirVendaSemEstoque: TDBCheckBox;
     IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS: TSmallintField;
     IbDtstTabelaUSUARIO: TIBStringField;
     dbEstoqueUnico: TDBCheckBox;
     IbDtstTabelaESTOQUE_UNICO_EMPRESAS: TSmallintField;
     IbDtstTabelaESTOQUE_SATELITE_CLIENTE: TSmallintField;
-    DBCheckBox2: TDBCheckBox;
+    dbDuplicarCnpj: TDBCheckBox;
     IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField;
-    DBCheckBox3: TDBCheckBox;
+    dbEstoqueSatelite: TDBCheckBox;
     IbDtstTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField;
     dbAutorizacaoInformaCliente: TDBCheckBox;
     chkNFE_Emitir: TDBCheckBox;
