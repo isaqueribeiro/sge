@@ -107,6 +107,7 @@ type
   private
     { Private declarations }
     sQuebraLinha : String;
+    vTroco       : Currency;
 
     procedure CarregarEmpresa(const sCnpj : String);
     procedure CarregarXML(const sCnpj : String; aArquivoXmlNFe : String);
@@ -280,10 +281,10 @@ begin
           FieldByName('ChaveNFe').AsString          := NFe.infNFe.ID;
           FieldByName('cProd').AsString             := frDANFE.ManterCodigo( Prod.cEAN,Prod.cProd);
           FieldByName('cEAN').AsString              := Prod.cEAN;
-          FieldByName('XProd').AsString             :=   StringReplace( Prod.xProd, ';', #13, [rfReplaceAll]);
-          FieldByName('VProd').AsString             :=     ManterVprod( Prod.VProd , Prod.vDesc );
+          FieldByName('XProd').AsString             := StringReplace( Prod.xProd, ';', #13, [rfReplaceAll]);
+          FieldByName('VProd').AsString             := ManterVprod( Prod.VProd , Prod.vDesc );
           FieldByName('vTotTrib').AsString          := ManterdvTotTrib( Imposto.vTotTrib );
-          FieldByName('infAdProd').AsString         :=  ManterInfAProd( inItem, infAdProd );
+          FieldByName('infAdProd').AsString         := ManterInfAProd( inItem, infAdProd );
           FieldByName('DescricaoProduto').AsString  := ManterDescricaoProduto( FieldByName('XProd').AsString , FieldByName('infAdProd').AsString );
           FieldByName('NCM').AsString               := Prod.NCM;
           FieldByName('EXTIPI').AsString            := Prod.EXTIPI;
@@ -490,7 +491,34 @@ end;
 
 procedure TfrmGeImportarNFE.CarregaFatura;
 begin
+  with cdsFatura, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
+  begin
+    Close;
+    CreateDataSet;
 
+    Append;
+
+    FieldByName('iForma').asInteger := Integer( NFe.Ide.indPag);
+
+    case NFe.Ide.indPag of
+      ipVista : FieldByName('Pagamento').AsString := ACBrStr('PAGAMENTO À VISTA');
+      ipPrazo : FieldByName('Pagamento').AsString := ACBrStr('PAGAMENTO À PRAZO');
+      ipOutras: FieldByName('Pagamento').AsString := ACBrStr('OUTROS');
+    end;
+
+    if NaoEstaVazio(NFe.Cobr.Fat.nFat) then
+    begin
+      with NFe.Cobr.Fat do
+      begin
+        FieldByName('nfat').AsString  := nFat;
+        FieldByName('vOrig').AsFloat  := vOrig;
+        FieldByName('vDesc').AsFloat  := vDesc;
+        FieldByName('vLiq').AsFloat   := vLiq;
+      end;
+    end;
+
+    Post;
+  end;
 end;
 
 procedure TfrmGeImportarNFE.CarregaIdentificacao;
@@ -551,8 +579,104 @@ begin
 end;
 
 procedure TfrmGeImportarNFE.CarregaInformacoesAdicionais;
+var
+  i     : Integer;
+  vTemp : TStringList;
+  IndexCampo   : Integer;
+  Campos       : TSplitResult;
+  BufferInfCpl : String;
+  TmpStr       : String;
+  wContingencia: string;
+  wObs         : String;
+  wLinhasObs   : Integer;
 begin
+  with cdsInformacoesAdicionais, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
+  begin
+    Close;
+    CreateDataSet;
+    Append;
 
+    wLinhasObs := 0;
+    with NFe.InfAdic do
+    begin
+      TmpStr := '';
+      //Fisco
+      if Length(InfAdFisco) = 0 then InfAdFisco := '';
+
+      for i := 0 to ObsFisco.Count - 1 do
+      begin
+        with ObsFisco.Items[i] do
+          TmpStr := TmpStr + XCampo + ': ' + XTexto + ';';
+      end;
+      wObs := TmpStr + InfAdFisco;
+      TmpStr := '';
+
+      //Inf. Complementar
+      if Length(InfCpl) = 0 then InfCpl := '';
+
+      for i := 0 to ObsCont.Count - 1 do
+      begin
+        with ObsCont.Items[i] do
+          TmpStr := TmpStr + XCampo + ': ' + XTexto + ';';
+      end;
+      if Length(wObs) > 0 then
+        wObs := wObs + ';';
+      wObs := wObs + TmpStr + InfCpl;
+      TmpStr := '';
+
+      //Contingencia
+      if NFe.Ide.tpEmis=teNORMAL then
+        wContingencia := ''
+      else
+      begin
+        case NFe.Ide.tpEmis of
+          teOffLine,
+          teContingencia,
+          teFSDA,
+          teSCAN,
+          teSVCAN,
+          teSVCRS,
+          teSVCSP:
+            wContingencia := ACBrStr('DANFE EM CONTINGÊNCIA, IMPRESSO EM DECORRÊNCIA DE PROBLEMAS TÉCNICOS');
+
+          teDPEC:
+          begin
+            wContingencia := ACBrStr( 'DANFE IMPRESSO EM CONTINGÊNCIA - DPEC REGULARMENTE RECEBIDA PELA RECEITA FEDERAL DO BRASIL');
+            wContingencia := wContingencia + ';' +
+                             ACBrStr('DATA/HORA INÍCIO: ') + IfThenX(NFe.ide.dhCont = 0, ' ', DateTimeToStr(NFe.ide.dhCont)) + ';'+
+                             ACBrStr('MOTIVO CONTINGÊNCIA: ') + IfThenX(EstaVazio(NFe.ide.xJust), ' ', NFe.ide.xJust);
+          end;
+        end;
+      end;
+      if Length(wObs) > 0 then
+        wObs := wObs + ';';
+      wObs := wObs + wContingencia;
+
+      vTemp := TStringList.Create;
+      try
+        if Trim(wObs) <> '' then
+        begin
+          Campos := Split(';', wObs);
+          for IndexCampo := 0 to Length(Campos) - 1 do
+              vTemp.Add(Campos[IndexCampo]);
+           wLinhasObs := 1; //TotalObS(vTemp.Text);
+           TmpStr := vTemp.Text;
+
+           BufferInfCpl := TmpStr;
+        end
+        else
+           BufferInfCpl := '';
+
+      finally
+        vTemp.Free;
+      end;
+    end;
+
+    FieldByName('OBS').AsString        := BufferInfCpl;
+    FieldByName('LinhasOBS').AsInteger := wLinhasObs;
+
+    Post;
+  end;
 end;
 
 procedure TfrmGeImportarNFE.CarregaISSQN;
@@ -574,7 +698,30 @@ end;
 
 procedure TfrmGeImportarNFE.CarregaLocalEntrega;
 begin
+  { local de entrega }
+  with cdsLocalEntrega, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
+  begin
+    Close;
+    CreateDataSet;
 
+    if NaoEstaVazio(NFe.Entrega.CNPJCPF) then
+    begin
+      Append;
+
+      with NFe.Entrega do
+      begin
+        FieldByName('CNPJ').AsString    := FormatarCNPJouCPF(CNPJCPF);;
+        FieldByName('Xlgr').AsString    := XLgr;
+        FieldByName('Nro').AsString     := Nro;
+        FieldByName('XCpl').AsString    := XCpl;
+        FieldByName('XBairro').AsString := XBairro;
+        FieldByName('CMun').AsString    := inttostr(CMun);
+        FieldByName('XMun').AsString    := CollateBr(XMun);
+        FieldByName('UF').AsString      := UF;
+      end;
+      Post;
+    end;
+  end;
 end;
 
 procedure TfrmGeImportarNFE.CarregaLocalRetirada;
@@ -606,8 +753,37 @@ begin
 end;
 
 procedure TfrmGeImportarNFE.CarregaPagamento;
+var
+  i : Integer;
 begin
+  with cdsPagamento, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
+  begin
+    Close;
+    CreateDataSet;
+    for i := 0 to NFe.Pag.Count - 1 do
+    begin
+      Append;
+      with NFe.Pag[i] do
+      begin
+        FieldByName('tPag').AsString  := FormaPagamentoToDescricao( tPag );
+        FieldByName('vPag').AsFloat   := vPag;
+        // ver tpIntegra
+        FieldByName('CNPJ').AsString  := FormatarCNPJ(CNPJ);
+        FieldByName('tBand').AsString := BandeiraCartaoToDescStr( tBand );
+        FieldByName('cAut').AsString  := cAut;
+      end;
+      Post;
+    end;
 
+    // acrescenta o troco
+    if vTroco > 0 then
+    begin
+      Append;
+      FieldByName('tPag').AsString  := 'Troco R$';
+      FieldByName('vPag').AsFloat   := vTroco;
+      Post;
+    end;
+  end;
 end;
 
 procedure TfrmGeImportarNFE.CarregaParametros;
@@ -822,6 +998,7 @@ begin
   with DMNFe do
   begin
     aNotaValida := False;
+    vTroco      := 0.0;
 
     if Trim(sCnpj) = EmptyStr then
       LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFEFast)
@@ -1698,8 +1875,6 @@ begin
   cdsInutilizacao := TClientDataSet.Create(Self);
   dtsInutilizacao.DataSet := cdsInutilizacao;
 end;
-
-
 
 function TfrmGeImportarNFE.Split(const ADelimiter,
   AString: string): TSplitResult;

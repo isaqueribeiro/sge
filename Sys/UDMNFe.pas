@@ -1755,12 +1755,20 @@ end;
 
 function TDMNFe.CancelarNFeACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer; const Motivo : String) : Boolean;
 var
+  aCan : Boolean;
   FileNameXML ,
   ChaveNFE    : String;
   iNumeroLote : Integer;
   sLOG : TStringList;
 begin
+(*
+  IMR - 14/10/2016 :
+    Inserção da variável "aCan" para armazenar a situação da NF-e consultada na
+    SEFA a fim de constatar o seu cancelamento antes da criação de um evento com
+    esta finalidade.
+*)
   sLOG := TStringList.Create;
+  aCan := False;
 
   try
 
@@ -1797,105 +1805,112 @@ begin
 
       NotasFiscais.Clear;
 
-      (* Linhas de Cancelamento da NF-e em 09/04/2013
-      NotasFiscais.LoadFromFile( FileNameXML );
-
-      Result := Cancelamento( Motivo );
-      *)
-
-      // Numero do Lote de Envio
-      iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
       if not NotasFiscais.LoadFromString( qryCalculoImposto.FieldByName('XML_NFE').AsWideString ) then
         raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + FileNameXML);
 
-      // Criar o Cancelamento
+      // Numero do Lote de Envio
+      iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
 
-      EventoNFe.Evento.Clear;
-      EventoNFe.idLote := iNumeroLote;
+      // Consultar situação da NF-e na Sefa
 
-      with EventoNFe.Evento.Add do
-      begin
-        //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
-        //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
+      if ACBrNFe.Consultar then
+        aCan := ACBrNFe.NotasFiscais[0].Cancelada;
 
-        infEvento.cOrgao     := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
-        infEvento.chNFe      := qryNFeEmitidaCHAVE.AsString;
-        infEvento.CNPJ       := sCNPJEmitente;
-        infEvento.dhEvento   := GetDateTimeDB;
-        infEvento.tpEvento        := teCancelamento;
-        infEvento.detEvento.nProt := qryNFeEmitidaPROTOCOLO.AsString;
-        infEvento.detEvento.xJust := Copy(Motivo, 1, 255);
-      end;
+      // Criar o Evento de Cancelamento, caso a NF-e ainda não esteja cancelada
 
-      // Enviar o evento de cancelamento
-      if ACBrNFe.EnviarEvento(iNumeroLote) then
-      begin
-        with ACBrNFe.WebServices.EnvEvento do
-        begin
-          Result := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
-          
-          if EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
-          begin
-            raise Exception.CreateFmt(
-              'Ocorreu o seguinte erro ao cancelar a Nota Fiscal Eletrônica:'  + sLineBreak +
-              'Código: %d' + sLineBreak +
-              'Motivo: %s', [
-                EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
-                EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
-            ]);
-          end;
-
-          // Retorno
-
-          sLOG.BeginUpdate;
-          sLOG.Clear;
-          sLOG.Add('Ambiente  : ' + IntToStr( Ord(ACBrNFe.Configuracoes.WebServices.Ambiente) ));
-          sLOG.Add('-');
-          sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CANCELAR_NFE_SD));
-          sLOG.Add('Emitente  : ' + sCNPJEmitente);
-          sLOG.Add('Chave NF-e: ' + qryNFeEmitidaCHAVE.AsString);
-          sLOG.Add('-');
-          sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
-          sLOG.Add('Número Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
-          sLOG.Add('Código Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
-          sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
-          sLOG.Add('-');
-          sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
-          sLOG.EndUpdate;
-
-          // Gravar LOG
-
-          with cdsLOG do
-          begin
-            Open;
-            Append;
-
-            cdsLOGUSUARIO.AsString       := GetUserApp;
-            cdsLOGDATA_HORA.AsDateTime   := Now;
-            cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
-            cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_SD;
-            cdsLOGESPECIFICACAO.AsString := sLOG.Text;
-
-            Post;
-            ApplyUpdates;
-            CommitTransaction;
-
-          end;
-        end;
-      end
+      if aCan then
+        Result := True
       else
       begin
-        with ACBrNFe.WebServices.EnvEvento do
+
+        EventoNFe.Evento.Clear;
+        EventoNFe.idLote := iNumeroLote;
+
+        with EventoNFe.Evento.Add do
         begin
-          raise Exception.Create(
-            'Ocorreram erros ao tentar efetuar o Cancelamento:' + sLineBreak +
-            'Lote: '     + IntToStr(EventoRetorno.idLote)  + sLineBreak +
-            'Ambiente: ' + TpAmbToStr(EventoRetorno.tpAmb) + sLineBreak +
-            'Orgao: '    + IntToStr(EventoRetorno.cOrgao)  + sLineBreak + sLineBreak +
-            'Status: '   + IntToStr(EventoRetorno.cStat)   + sLineBreak +
-            'Motivo: '   + EventoRetorno.xMotivo
-          );
+          //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
+          //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
+
+          infEvento.cOrgao     := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
+          infEvento.chNFe      := qryNFeEmitidaCHAVE.AsString;
+          infEvento.CNPJ       := sCNPJEmitente;
+          infEvento.dhEvento   := GetDateTimeDB;
+          infEvento.tpEvento        := teCancelamento;
+          infEvento.detEvento.nProt := qryNFeEmitidaPROTOCOLO.AsString;
+          infEvento.detEvento.xJust := Copy(Motivo, 1, 255);
         end;
+
+        // Enviar o evento de cancelamento
+        if ACBrNFe.EnviarEvento(iNumeroLote) then
+        begin
+          with ACBrNFe.WebServices.EnvEvento do
+          begin
+            Result := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
+
+            if EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
+            begin
+              raise Exception.CreateFmt(
+                'Ocorreu o seguinte erro ao cancelar a Nota Fiscal Eletrônica:'  + sLineBreak +
+                'Código: %d' + sLineBreak +
+                'Motivo: %s', [
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
+              ]);
+            end;
+
+            // Retorno
+
+            sLOG.BeginUpdate;
+            sLOG.Clear;
+            sLOG.Add('Ambiente  : ' + IntToStr( Ord(ACBrNFe.Configuracoes.WebServices.Ambiente) ));
+            sLOG.Add('-');
+            sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CANCELAR_NFE_SD));
+            sLOG.Add('Emitente  : ' + sCNPJEmitente);
+            sLOG.Add('Chave NF-e: ' + qryNFeEmitidaCHAVE.AsString);
+            sLOG.Add('-');
+            sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
+            sLOG.Add('Número Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('Código Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
+            sLOG.Add('-');
+            sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
+            sLOG.EndUpdate;
+
+            // Gravar LOG
+
+            with cdsLOG do
+            begin
+              Open;
+              Append;
+
+              cdsLOGUSUARIO.AsString       := GetUserApp;
+              cdsLOGDATA_HORA.AsDateTime   := Now;
+              cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+              cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_SD;
+              cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+              Post;
+              ApplyUpdates;
+              CommitTransaction;
+
+            end;
+          end;
+        end
+        else
+        begin
+          with ACBrNFe.WebServices.EnvEvento do
+          begin
+            raise Exception.Create(
+              'Ocorreram erros ao tentar enviar o Evento de Cancelamento:' + sLineBreak +
+              'Lote: '     + IntToStr(EventoRetorno.idLote)  + sLineBreak +
+              'Ambiente: ' + TpAmbToStr(EventoRetorno.tpAmb) + sLineBreak +
+              'Orgao: '    + IntToStr(EventoRetorno.cOrgao)  + sLineBreak + sLineBreak +
+              'Status: '   + IntToStr(EventoRetorno.cStat)   + sLineBreak +
+              'Motivo: '   + EventoRetorno.xMotivo
+            );
+          end;
+        end;
+
       end;
 
     end;
@@ -4484,11 +4499,18 @@ end;
 function TDMNFe.CancelarNFeEntradaACBr(const sCNPJEmitente : String; const iCodFornecedor, iAnoCompra, iNumCompra: Integer;
   const Motivo: String): Boolean;
 var
+  aCan : Boolean;
   FileNameXML ,
   ChaveNFE    : String;
   iNumeroLote : Integer;
   sLOG : TStringList;
 begin
+(*
+  IMR - 14/10/2016 :
+    Inserção da variável "aCan" para armazenar a situação da NF-e consultada na
+    SEFA a fim de constatar o seu cancelamento antes da criação de um evento com
+    esta finalidade.
+*)
   sLOG := TStringList.Create;
 
   try
@@ -4526,98 +4548,112 @@ begin
 
       NotasFiscais.Clear;
 
-      // Numero do Lote de Envio
-      iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
       if not NotasFiscais.LoadFromString( qryEntradaCalculoImposto.FieldByName('XML_NFE').AsWideString ) then
         raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + FileNameXML);
 
-      // Criar o Cancelamento
-      EventoNFe.Evento.Clear;
-      EventoNFe.idLote := iNumeroLote;
+      // Numero do Lote de Envio
+      iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
 
-      with EventoNFe.Evento.Add do
-      begin
-        //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
-        //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
+      // Consultar situação da NF-e na Sefa
 
-        infEvento.cOrgao     := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
-        infEvento.chNFe      := qryNFeEmitidaEntradaCHAVE.AsString;
-        infEvento.CNPJ       := sCNPJEmitente;
-        infEvento.dhEvento   := GetDateTimeDB;
-        infEvento.tpEvento        := teCancelamento;
-        infEvento.detEvento.nProt := qryNFeEmitidaEntradaPROTOCOLO.AsString;
-        infEvento.detEvento.xJust := Copy(Motivo, 1, 255);
-      end;
+      if ACBrNFe.Consultar then
+        aCan := ACBrNFe.NotasFiscais[0].Cancelada;
 
-      // Enviar o evento de cancelamento
-      if ACBrNFe.EnviarEvento(iNumeroLote) then
-      begin
-        with ACBrNFe.WebServices.EnvEvento do
-        begin
-          Result := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
+      // Criar o Evento de Cancelamento, caso a NF-e ainda não esteja cancelada
 
-          if EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
-          begin
-            raise Exception.CreateFmt(
-              'Ocorreu o seguinte erro ao cancelar a Nota Fiscal Eletrônica:'  + sLineBreak +
-              'Código: %d' + sLineBreak +
-              'Motivo: %s', [
-                EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
-                EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
-            ]);
-          end;
-
-          // Retorno
-
-          sLOG.BeginUpdate;
-          sLOG.Clear;
-          sLOG.Add('Ambiente  : ' + IntToStr( Ord(ACBrNFe.Configuracoes.WebServices.Ambiente) ));
-          sLOG.Add('-');
-          sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CANCELAR_NFE_ET));
-          sLOG.Add('Emitente  : ' + sCNPJEmitente);
-          sLOG.Add('Chave NF-e: ' + qryNFeEmitidaEntradaCHAVE.AsString);
-          sLOG.Add('-');
-          sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
-          sLOG.Add('Número Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
-          sLOG.Add('Código Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
-          sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
-          sLOG.Add('-');
-          sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
-          sLOG.EndUpdate;
-
-          // Gravar LOG
-
-          with cdsLOG do
-          begin
-            Open;
-            Append;
-
-            cdsLOGUSUARIO.AsString       := GetUserApp;
-            cdsLOGDATA_HORA.AsDateTime   := Now;
-            cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
-            cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_ET;
-            cdsLOGESPECIFICACAO.AsString := sLOG.Text;
-
-            Post;
-            ApplyUpdates;
-            CommitTransaction;
-
-          end;
-        end;
-      end
+      if aCan then
+        Result := True
       else
       begin
-        with ACBrNFe.WebServices.EnvEvento do
+
+        EventoNFe.Evento.Clear;
+        EventoNFe.idLote := iNumeroLote;
+
+        with EventoNFe.Evento.Add do
         begin
-          raise Exception.Create(
-            'Ocorreram erros ao tentar efetuar o Cancelamento:' + sLineBreak +
-            'Lote: '     + IntToStr(EventoRetorno.idLote)  + sLineBreak +
-            'Ambiente: ' + TpAmbToStr(EventoRetorno.tpAmb) + sLineBreak +
-            'Orgao: '    + IntToStr(EventoRetorno.cOrgao)  + sLineBreak + sLineBreak +
-            'Status: '   + IntToStr(EventoRetorno.cStat)   + sLineBreak +
-            'Motivo: '   + EventoRetorno.xMotivo
-          );
+          //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
+          //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
+
+          infEvento.cOrgao     := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
+          infEvento.chNFe      := qryNFeEmitidaEntradaCHAVE.AsString;
+          infEvento.CNPJ       := sCNPJEmitente;
+          infEvento.dhEvento   := GetDateTimeDB;
+          infEvento.tpEvento        := teCancelamento;
+          infEvento.detEvento.nProt := qryNFeEmitidaEntradaPROTOCOLO.AsString;
+          infEvento.detEvento.xJust := Copy(Motivo, 1, 255);
         end;
+
+        // Enviar o evento de cancelamento
+        if ACBrNFe.EnviarEvento(iNumeroLote) then
+        begin
+          with ACBrNFe.WebServices.EnvEvento do
+          begin
+            Result := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
+
+            if EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
+            begin
+              raise Exception.CreateFmt(
+                'Ocorreu o seguinte erro ao cancelar a Nota Fiscal Eletrônica:'  + sLineBreak +
+                'Código: %d' + sLineBreak +
+                'Motivo: %s', [
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
+              ]);
+            end;
+
+            // Retorno
+
+            sLOG.BeginUpdate;
+            sLOG.Clear;
+            sLOG.Add('Ambiente  : ' + IntToStr( Ord(ACBrNFe.Configuracoes.WebServices.Ambiente) ));
+            sLOG.Add('-');
+            sLOG.Add('Evento    : ' + AnsiUpperCase(DESC_LOG_EVENTO_CANCELAR_NFE_ET));
+            sLOG.Add('Emitente  : ' + sCNPJEmitente);
+            sLOG.Add('Chave NF-e: ' + qryNFeEmitidaEntradaCHAVE.AsString);
+            sLOG.Add('-');
+            sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
+            sLOG.Add('Número Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('Código Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
+            sLOG.Add('-');
+            sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
+            sLOG.EndUpdate;
+
+            // Gravar LOG
+
+            with cdsLOG do
+            begin
+              Open;
+              Append;
+
+              cdsLOGUSUARIO.AsString       := GetUserApp;
+              cdsLOGDATA_HORA.AsDateTime   := Now;
+              cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+              cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_ET;
+              cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+              Post;
+              ApplyUpdates;
+              CommitTransaction;
+
+            end;
+          end;
+        end
+        else
+        begin
+          with ACBrNFe.WebServices.EnvEvento do
+          begin
+            raise Exception.Create(
+              'Ocorreram erros ao tentar enviar o Evento de Cancelamento:' + sLineBreak +
+              'Lote: '     + IntToStr(EventoRetorno.idLote)  + sLineBreak +
+              'Ambiente: ' + TpAmbToStr(EventoRetorno.tpAmb) + sLineBreak +
+              'Orgao: '    + IntToStr(EventoRetorno.cOrgao)  + sLineBreak + sLineBreak +
+              'Status: '   + IntToStr(EventoRetorno.cStat)   + sLineBreak +
+              'Motivo: '   + EventoRetorno.xMotivo
+            );
+          end;
+        end;
+
       end;
 
     end;

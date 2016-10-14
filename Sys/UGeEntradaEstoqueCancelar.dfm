@@ -1,14 +1,16 @@
 inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
-  Width = 617
-  Height = 474
   ActiveControl = dbMotivo
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cancelar Entrada no Estoque'
+  ClientHeight = 427
+  ClientWidth = 593
   OldCreateOrder = True
+  ExplicitWidth = 617
+  ExplicitHeight = 474
   DesignSize = (
     593
-    428)
+    427)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -362,14 +364,12 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
   end
   object btnCancelar: TcxButton
     Left = 405
-    Top = 395
+    Top = 394
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Cancelar'
-    TabOrder = 2
-    OnClick = btnCancelarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -420,19 +420,19 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
       00FF00E0C0B0E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0BEAA00FF
       0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
+    OnClick = btnCancelarClick
   end
   object btFechar: TcxButton
     Left = 500
-    Top = 395
+    Top = 394
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Fechar'
-    TabOrder = 3
-    OnClick = btFecharClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -483,12 +483,15 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 3
+    OnClick = btFecharClick
   end
   object cdsEntrada: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
+    BufferChunks = 1000
     CachedUpdates = True
     RefreshSQL.Strings = (
       '')
@@ -546,6 +549,8 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
       '')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
+    UniDirectional = False
     GeneratorField.Field = 'CODCONTROL'
     UpdateObject = updEntrada
     Left = 480
