@@ -267,6 +267,26 @@ type
     property RotinaReabrirRequisicaoID : String read GetRotinaReabrirRequisicaoID;
   end;
 
+(*
+  Tabelas:
+  - TBEMRESA
+  - TBREQUISITA_COMPRA
+  - TBREQUISITA_COMPRAITEM
+  - TBFORNECEDOR
+  - TBCLIENTE
+  - TBCENTRO_CUSTO
+  - TBPRODUTO
+  - TBUNIDADEPROD
+  - TBFORMPAGTO
+
+  Views:
+  - VW_TIPO_REQUISICAO
+  - VW_CONDICAOPAGTO
+
+  Procedures:
+
+*)
+
 var
   frmGeRequisicaoCompra: TfrmGeRequisicaoCompra;
 
@@ -381,11 +401,11 @@ begin
   ControlFirstEdit := dbEmpresa;
   iFornecedor      := 0;
 
-  tblEmpresa.Open;
-  tblTipoRequisicao.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  cdsTransportador.Open;
+  CarregarLista(tblEmpresa);
+  CarregarLista(tblTipoRequisicao);
+  CarregarLista(tblFormaPagto);
+  CarregarLista(tblCondicaoPagto);
+  CarregarLista(cdsTransportador);
 
   pgcMaisDados.Height := 190;
   RotinaID            := ROTINA_MOV_REQUISICAO_CMP_ID;
