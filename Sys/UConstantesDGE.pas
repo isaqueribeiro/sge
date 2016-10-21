@@ -134,6 +134,7 @@ const
   IMG_IDX_AJUDA_LICENCA_USO_2  = 67;
   IMG_IDX_AJUDA_SOBRE          = 68;
   IMG_IDX_UPGRADE_SYSTEM       = 77;
+  IMG_IDX_TEAM_VIEWER_REMOTE   = 78;
 
   // Constantes FR3
 
@@ -434,14 +435,16 @@ const
   LAYOUT_BOLETO_ENTREGA = 'Boleto\Boleto.fr3';
   LAYOUT_BOLETO_CARNE   = 'Boleto\BoletoCarne.fr3';
 
-  //FILE_WALLPAPER    = 'PapelDeParede.jpg';
-  FILE_COMPANY_LOGO = 'LogotipoEmpresa.png';
-  FILE_AUTOBACKUP   = 'AutoBackupGA.exe';
+  //FILE_WALLPAPER   = 'PapelDeParede.jpg';
+  FILE_COMPANY_LOGO  = 'LogotipoEmpresa.png';
+  FILE_AUTOBACKUP    = 'AutoBackupGA.exe';
+  FILE_REMOTE_ACCESS = 'TeamViewerQS_pt-idcn9zva8a.exe';
 
   DOWNLOAD_URL_COMPANY        = {$IFDEF DGE}'www.masterdados.com.br/downloads/%s'{$ELSE}'www.agilsoftwares.com.br/downloads/%s'{$ENDIF};
   DOWNLOAD_URL_AGIL_SOFTWARES = 'www.agilsoftwares.com.br';
   DOWNLOAD_URL_HOME_AUTOMACAO = 'www.homeautomacao.com/suporte/agil/';
   DOWNLOAD_URL_GOOGLE_DRIVE   = 'https://drive.google.com/uc?export=download&id=%s';
+  DOWNLOAD_URL_REMOTE_ACCESS  = 'https://get.teamviewer.com/n9zva8a';
 
   DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE  = DOWNLOAD_URL_AGIL_SOFTWARES + '/upgrade/';
   DOWNLOAD_URL_AGIL_SOFTWARES_DOWNLOAD = DOWNLOAD_URL_AGIL_SOFTWARES + '/downloads/';

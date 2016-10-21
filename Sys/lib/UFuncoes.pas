@@ -7,6 +7,8 @@ uses
   Graphics, IniFiles, PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer,
   ExcelXP, ComObj, TLHelp32;
 
+  procedure ExecuteResource(pHandle : HWND; pComand : String);
+
   function GetHostNameLocal : String;
   function GetExeVersion(const FileName : TFileName) : String; overload;
   function GetExeVersion : String; overload;
@@ -48,6 +50,11 @@ var
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
     'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
     'u', 'v', 'w', 'x', 'y', 'z');
+
+procedure ExecuteResource(pHandle : HWND; pComand : String);
+begin
+  ShellExecute(pHandle, 'Open', PChar(pComand), nil, nil, SW_NORMAL);
+end;
 
 function GetHostNameLocal : String;
 var
