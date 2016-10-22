@@ -5332,6 +5332,10 @@ object frmPrinc: TfrmPrinc
         item
           BeginGroup = True
           Visible = True
+          ItemName = 'BrBtnTeamViewer'
+        end
+        item
+          Visible = True
           ItemName = 'BrBtnUpgrade'
         end
         item
@@ -6322,16 +6326,31 @@ object frmPrinc: TfrmPrinc
       SyncImageIndex = False
       ImageIndex = 65
     end
-    object BrBtnSobre: TdxBarLargeButton
-      Caption = 'Sobre o Sistema'
+    object BrBtnTeamViewer: TdxBarLargeButton
+      Caption = 'Team Viewer'
       Category = 18
-      Hint = 'Sobre o Sistema'
+      Hint = 'Team Viewer (Conex'#227'o Remota)'
       Visible = ivAlways
-      LargeImageIndex = 68
-      OnClick = nmAboutClick
-      HotImageIndex = 68
+      ButtonStyle = bsDropDown
+      DropDownMenu = BrPpTeamViewer
+      LargeImageIndex = 78
+      HotImageIndex = 78
       SyncImageIndex = False
-      ImageIndex = 68
+      ImageIndex = 78
+    end
+    object BrBtnDownloadTeamViewer: TdxBarLargeButton
+      Caption = 'Download Team Viewer (Acesso Remoto)'
+      Category = 18
+      Hint = 'Download Team Viewer (Acesso Remoto)'
+      Visible = ivAlways
+      OnClick = BrBtnDownloadTeamViewerClick
+    end
+    object BrBtnExecuteTeamViewer: TdxBarLargeButton
+      Caption = 'Executar Team Viewer (Ativar Conex'#227'o Remota)'
+      Category = 18
+      Hint = 'Executar Team Viewer (Ativar Conex'#227'o Remota)'
+      Visible = ivAlways
+      OnClick = BrBtnExecuteTeamViewerClick
     end
     object BrBtnUpgrade: TdxBarLargeButton
       Caption = 'Atualizar Sistema'
@@ -6343,6 +6362,17 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 77
       SyncImageIndex = False
       ImageIndex = 77
+    end
+    object BrBtnSobre: TdxBarLargeButton
+      Caption = 'Sobre o Sistema'
+      Category = 18
+      Hint = 'Sobre o Sistema'
+      Visible = ivAlways
+      LargeImageIndex = 68
+      OnClick = nmAboutClick
+      HotImageIndex = 68
+      SyncImageIndex = False
+      ImageIndex = 68
     end
   end
   object BrPpEntrada: TdxBarPopupMenu
@@ -6603,5 +6633,20 @@ object frmPrinc: TfrmPrinc
   object TmrMonitorar: TTimer
     Left = 176
     Top = 240
+  end
+  object BrPpTeamViewer: TdxBarPopupMenu
+    BarManager = BrManager
+    ItemLinks = <
+      item
+        Visible = True
+        ItemName = 'BrBtnDownloadTeamViewer'
+      end
+      item
+        Visible = True
+        ItemName = 'BrBtnExecuteTeamViewer'
+      end>
+    UseOwnFont = False
+    Left = 656
+    Top = 246
   end
 end

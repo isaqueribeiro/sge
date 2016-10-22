@@ -7599,3 +7599,13 @@ ALTER TABLE TBNFE_CARTA_CORRECAO
 COMMENT ON COLUMN TBNFE_CARTA_CORRECAO.XML_TOTAL IS
 'Retorno CCe: XML Completo para impressao.';
 
+
+
+
+/*------ SYSDBA 21/10/2016 19:08:20 --------*/
+
+COMMENT ON COLUMN TBCONTA_CORRENTE.EMPRESA IS
+'Empresa / Banco Boleto.
+
+Apenas para a conta corrente que for do tipo 2 (Banco)';
+

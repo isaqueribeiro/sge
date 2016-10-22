@@ -118,6 +118,9 @@ type
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     dbDataAbertura: TJvDBDateEdit;
+    IbDtstTabelaEMPRESA_RAZAO: TIBStringField;
+    IbDtstTabelaEMPRESA_FANTASIA: TIBStringField;
+    dbEmpresaRazao: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -165,6 +168,27 @@ type
     property RotinaEncerrarCaixaID : String read GetRotinaEncerrarCaixaID;
     property RotinaCancelarCaixaID : String read GetRotinaCancelarCaixaID;
   end;
+
+(*
+  Tabelas:
+  - TBCAIXA
+  - TBCAIXA_CONSOLIDACAO
+  - TBCONTA_CORRENTE
+  - TBBANCO_BOLETO
+  - TBCAIXA_MOVIMENTO
+  - TBFORMPAGTO
+  - TBCONDICAOPAGTO
+  - TBVENDAS
+  - TBVENDAS_FORMAPAGTO
+  - TBCLIENTE
+  - TBUSERS
+
+  Views:
+  - VW_LAYOUT_REM_RET_BANCO
+
+  Stored Procedure:
+  - SET_CAIXA_CONSOLIDAR
+*)
 
 var
   frmGeCaixa: TfrmGeCaixa;

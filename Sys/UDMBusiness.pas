@@ -86,17 +86,17 @@ type
     ibdtstUsersXXX: TIBDataSet;
     dtsrcUsers: TDataSource;
     IdIPWatch: TIdIPWatch;
-    qryCaixaAberto: TIBDataSet;
-    qryCaixaAbertoANO: TSmallintField;
-    qryCaixaAbertoNUMERO: TIntegerField;
-    qryCaixaAbertoUSUARIO: TIBStringField;
-    qryCaixaAbertoDATA_ABERTURA: TDateField;
-    qryCaixaAbertoVALOR_TOTAL_CREDITO: TIBBCDField;
-    qryCaixaAbertoVALOR_TOTAL_DEBITO: TIBBCDField;
+    qryCaixaAbertoXXX: TIBDataSet;
+    qryCaixaAbertoXXXANO: TSmallintField;
+    qryCaixaAbertoXXXNUMERO: TIntegerField;
+    qryCaixaAbertoXXXUSUARIO: TIBStringField;
+    qryCaixaAbertoXXXDATA_ABERTURA: TDateField;
+    qryCaixaAbertoXXXVALOR_TOTAL_CREDITO: TIBBCDField;
+    qryCaixaAbertoXXXVALOR_TOTAL_DEBITO: TIBBCDField;
     stpCaixaMovimentoREC: TIBStoredProc;
     stpCaixaMovimentoPAG: TIBStoredProc;
     stpContaCorrenteSaldo: TIBStoredProc;
-    qryCaixaAbertoCONTA_CORRENTE: TIntegerField;
+    qryCaixaAbertoXXXCONTA_CORRENTE: TIntegerField;
     stpCaixaMovimentoREC_ESTORNO: TIBStoredProc;
     stpCaixaMovimentoPAG_ESTORNO: TIBStoredProc;
     qryEvAcessUserXXX: TIBDataSet;
@@ -157,6 +157,7 @@ type
     fdQryConfiguracoes: TFDQuery;
     frxBarCodeObject: TfrxBarCodeObject;
     fdQryBusca: TFDQuery;
+    fdQryCaixaAberto: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -410,7 +411,8 @@ var
 
   function SetAcessoEstacao(const sHostName : String) : Boolean;
 
-  function CaixaAberto(const Empresa, Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
+  function CaixaAberto(const Empresa, Usuario : String;
+    const DataRef : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 
   function SetMovimentoCaixa(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint;
     const AnoLancamento, NumLancamento, SeqPagto : Integer; const Valor : Currency; const TipoMov : TTipoMovimentoCaixa) : Boolean;
@@ -3858,24 +3860,25 @@ begin
   end;
 end;
 
-function CaixaAberto(const Empresa, Usuario : String; const Data : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
+function CaixaAberto(const Empresa, Usuario : String;
+  const DataRef : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 begin
-  with DMBusiness, qryCaixaAberto do
+  with DMBusiness, fdQryCaixaAberto do
   begin
     Close;
-    ParamByName('Empresa').AsString   := Empresa;
-    ParamByName('Usuario').AsString   := Usuario;
-    ParamByName('Data').AsDate        := Data;
-    ParamByName('FormaPagto').AsShort := FormaPagto;
+    ParamByName('Empresa').AsString      := Empresa;
+    ParamByName('Usuario').AsString      := Usuario;
+    ParamByName('Data').AsDateTime       := DataRef;
+    ParamByName('FormaPagto').AsSmallInt := FormaPagto;
     Open;
 
-    Result := ( qryCaixaAbertoANO.AsInteger > 0 );
+    Result := ( FieldByName('ANO').AsInteger > 0 );
 
     if ( Result ) then
     begin
-      CxAno           := qryCaixaAbertoANO.AsInteger;
-      CxNumero        := qryCaixaAbertoNUMERO.AsInteger; 
-      CxContaCorrente := qryCaixaAbertoCONTA_CORRENTE.AsInteger
+      CxAno           := FieldByName('ANO').AsInteger;
+      CxNumero        := FieldByName('NUMERO').AsInteger;
+      CxContaCorrente := FieldByName('CONTA_CORRENTE').AsInteger
     end;
   end;
 end;

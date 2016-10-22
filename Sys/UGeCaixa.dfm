@@ -89,6 +89,13 @@ inherited frmGeCaixa: TfrmGeCaixa
             FieldName = 'VALOR_TOTAL_DEBITO'
             Width = 100
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'EMPRESA_RAZAO'
+            Title.Caption = 'Empresa'
+            Width = 250
+            Visible = True
           end>
       end
       inherited pnlFiltros: TPanel
@@ -485,6 +492,7 @@ inherited frmGeCaixa: TfrmGeCaixa
         Align = alTop
         Caption = 'Dados de Encerramento'
         TabOrder = 1
+        ExplicitTop = 83
         DesignSize = (
           942
           108)
@@ -642,7 +650,7 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Style = []
           ParentFont = False
           ReadOnly = True
-          TabOrder = 4
+          TabOrder = 5
         end
         object dbMotivoCancel: TDBEdit
           Left = 432
@@ -660,7 +668,7 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Style = []
           ParentFont = False
           ReadOnly = True
-          TabOrder = 5
+          TabOrder = 6
         end
         object dbDataFech: TJvDBDateEdit
           Left = 16
@@ -786,6 +794,24 @@ inherited frmGeCaixa: TfrmGeCaixa
           PopupColor = clBtnFace
           ShowNullDate = False
           StartOfWeek = Sun
+          TabOrder = 4
+        end
+        object dbEmpresaRazao: TDBEdit
+          Left = 431
+          Top = 32
+          Width = 489
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'EMPRESA_RAZAO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
           TabOrder = 3
         end
       end
@@ -1125,14 +1151,17 @@ inherited frmGeCaixa: TfrmGeCaixa
       '      when cc.Tipo = 2 then '#39'Banco'#39
       '      else '#39'* Indefinido'#39
       '    end as Tipo'
-      '  , coalesce(cc.empresa, bb.empresa) as empresa'
+      '  , cc.empresa'
+      '  , e.rzsoc  as empresa_razao'
+      '  , e.nmfant as empresa_fantasia'
       'from TBCAIXA c'
       
         '  left join TBCONTA_CORRENTE cc on (cc.Codigo = c.Conta_corrente' +
         ')'
+      '  left join TBEMPRESA e on (e.cnpj = cc.empresa)'
       
-        '  left join TBBANCO_BOLETO bb on (bb.bco_cod = cc.conta_banco_bo' +
-        'leto)')
+        '  left join TBBANCO_BOLETO bb on (bb.empresa = cc.empresa and bb' +
+        '.bco_cod = cc.conta_banco_boleto)')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_CAIXA_2012'
     object IbDtstTabelaANO: TSmallintField
@@ -1235,6 +1264,18 @@ inherited frmGeCaixa: TfrmGeCaixa
       ProviderFlags = []
       Size = 18
     end
+    object IbDtstTabelaEMPRESA_RAZAO: TIBStringField
+      FieldName = 'EMPRESA_RAZAO'
+      Origin = '"TBEMPRESA"."RZSOC"'
+      ProviderFlags = []
+      Size = 60
+    end
+    object IbDtstTabelaEMPRESA_FANTASIA: TIBStringField
+      FieldName = 'EMPRESA_FANTASIA'
+      Origin = '"TBEMPRESA"."NMFANT"'
+      ProviderFlags = []
+      Size = 25
+    end
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1297,7 +1338,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

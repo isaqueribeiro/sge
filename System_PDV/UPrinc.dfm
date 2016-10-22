@@ -4574,7 +4574,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbbTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4610,6 +4609,7 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbbTabAjuda: TdxRibbonTab
+      Active = True
       Caption = 'Ajuda'
       Groups = <
         item
@@ -4687,7 +4687,7 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnOrcamento'
         end>
-      OneOnRow = True
+      OneOnRow = False
       Row = 0
       UseOwnFont = False
       Visible = True
@@ -4711,8 +4711,8 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnCliente'
         end>
-      OneOnRow = True
-      Row = 1
+      OneOnRow = False
+      Row = 0
       UseOwnFont = False
       Visible = True
       WholeRow = False
@@ -4886,6 +4886,10 @@ object frmPrinc: TfrmPrinc
         end
         item
           BeginGroup = True
+          Visible = True
+          ItemName = 'BrBtnTeamViewer'
+        end
+        item
           Visible = True
           ItemName = 'BrBtnSobre'
         end>
@@ -5173,6 +5177,32 @@ object frmPrinc: TfrmPrinc
       SyncImageIndex = False
       ImageIndex = 65
     end
+    object BrBtnTeamViewer: TdxBarLargeButton
+      Caption = 'Team Viewer'
+      Category = 6
+      Hint = 'Team Viewer (Conex'#227'o Remota)'
+      Visible = ivAlways
+      ButtonStyle = bsDropDown
+      DropDownMenu = BrPpTeamViewer
+      LargeImageIndex = 78
+      HotImageIndex = 78
+      SyncImageIndex = False
+      ImageIndex = 78
+    end
+    object BrBtnDownloadTeamViewer: TdxBarLargeButton
+      Caption = 'Download Team Viewer'
+      Category = 6
+      Hint = 'Download Team Viewer (Acesso Remoto)'
+      Visible = ivAlways
+      OnClick = BrBtnDownloadTeamViewerClick
+    end
+    object BrBtnExecuteTeamViewer: TdxBarLargeButton
+      Caption = 'Executar Team Viewer (Ativar Conex'#227'o Remota)'
+      Category = 6
+      Hint = 'Executar Team Viewer (Ativar Conex'#227'o Remota)'
+      Visible = ivAlways
+      OnClick = BrBtnExecuteTeamViewerClick
+    end
     object BrBtnSobre: TdxBarLargeButton
       Caption = 'Sobre o Sistema'
       Category = 6
@@ -5211,6 +5241,21 @@ object frmPrinc: TfrmPrinc
       end>
     UseOwnFont = False
     Left = 376
+    Top = 246
+  end
+  object BrPpTeamViewer: TdxBarPopupMenu
+    BarManager = BrManager
+    ItemLinks = <
+      item
+        Visible = True
+        ItemName = 'BrBtnDownloadTeamViewer'
+      end
+      item
+        Visible = True
+        ItemName = 'BrBtnExecuteTeamViewer'
+      end>
+    UseOwnFont = False
+    Left = 408
     Top = 246
   end
 end

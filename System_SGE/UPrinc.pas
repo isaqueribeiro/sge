@@ -196,6 +196,10 @@ type
     BrBtnTipoReceita: TdxBarLargeButton;
     BrBtnControleCheque: TdxBarLargeButton;
     BrBtnUpgrade: TdxBarLargeButton;
+    BrBtnTeamViewer: TdxBarLargeButton;
+    BrBtnDownloadTeamViewer: TdxBarLargeButton;
+    BrBtnExecuteTeamViewer: TdxBarLargeButton;
+    BrPpTeamViewer: TdxBarPopupMenu;
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -290,6 +294,8 @@ type
     procedure BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
     procedure BrBtnControleChequeClick(Sender: TObject);
     procedure BrBtnUpgradeClick(Sender: TObject);
+    procedure BrBtnDownloadTeamViewerClick(Sender: TObject);
+    procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -343,6 +349,22 @@ procedure TfrmPrinc.BrBtnControleChequeClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_CONTROLE_CHEQUE_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeControleCheque');
+end;
+
+procedure TfrmPrinc.BrBtnDownloadTeamViewerClick(Sender: TObject);
+begin
+  ExecuteResource(Handle, DOWNLOAD_URL_REMOTE_ACCESS);
+end;
+
+procedure TfrmPrinc.BrBtnExecuteTeamViewerClick(Sender: TObject);
+var
+  aArquivo : String;
+begin
+  aArquivo := ExtractFilePath(Application.ExeName) + FILE_REMOTE_ACCESS;
+  if FileExists(aArquivo) then
+    ExecuteResource(Handle, aArquivo)
+  else
+    ShowWarning(Format('O arquivo ''%s'' não fora localizado.'#13#13'Favor comunicar ao suporte.', [aArquivo]));
 end;
 
 procedure TfrmPrinc.BrBtnGerarDanfeXMLClick(Sender: TObject);

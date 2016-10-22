@@ -96,6 +96,10 @@ type
     dxRibbonBackstageViewGalleryItem2: TdxRibbonBackstageViewGalleryItem;
     dxRibbonBackstageViewGalleryItem3: TdxRibbonBackstageViewGalleryItem;
     BrManagerBar1: TdxBar;
+    BrBtnTeamViewer: TdxBarLargeButton;
+    BrBtnDownloadTeamViewer: TdxBarLargeButton;
+    BrBtnExecuteTeamViewer: TdxBarLargeButton;
+    BrPpTeamViewer: TdxBarPopupMenu;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -129,6 +133,8 @@ type
       AItem: TdxRibbonBackstageViewGalleryItem);
     procedure RibbonApplicationMenuClick(Sender: TdxCustomRibbon;
       var AHandled: Boolean);
+    procedure BrBtnDownloadTeamViewerClick(Sender: TObject);
+    procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -178,6 +184,22 @@ begin
   dh := GetDateTimeDB;
   DateTimeToSystemTime(dh, st);
   SetLocalTime(st);
+end;
+
+procedure TfrmPrinc.BrBtnDownloadTeamViewerClick(Sender: TObject);
+begin
+  ExecuteResource(Handle, DOWNLOAD_URL_REMOTE_ACCESS);
+end;
+
+procedure TfrmPrinc.BrBtnExecuteTeamViewerClick(Sender: TObject);
+var
+  aArquivo : String;
+begin
+  aArquivo := ExtractFilePath(Application.ExeName) + FILE_REMOTE_ACCESS;
+  if FileExists(aArquivo) then
+    ExecuteResource(Handle, aArquivo)
+  else
+    ShowWarning(Format('O arquivo ''%s'' não fora localizado.'#13#13'Favor comunicar ao suporte.', [aArquivo]));
 end;
 
 procedure TfrmPrinc.btnSairClick(Sender: TObject);

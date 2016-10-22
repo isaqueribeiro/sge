@@ -328,7 +328,7 @@ object DMBusiness: TDMBusiness
     Left = 112
     Top = 504
   end
-  object qryCaixaAberto: TIBDataSet
+  object qryCaixaAbertoXXX: TIBDataSet
     Database = ibdtbsBusiness
     Transaction = ibtrnsctnBusiness
     BufferChunks = 1000
@@ -378,35 +378,35 @@ object DMBusiness: TDMBusiness
     UniDirectional = False
     Left = 144
     Top = 168
-    object qryCaixaAbertoANO: TSmallintField
+    object qryCaixaAbertoXXXANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'TBCAIXA.ANO'
       Required = True
     end
-    object qryCaixaAbertoNUMERO: TIntegerField
+    object qryCaixaAbertoXXXNUMERO: TIntegerField
       FieldName = 'NUMERO'
       Origin = 'TBCAIXA.NUMERO'
       Required = True
     end
-    object qryCaixaAbertoUSUARIO: TIBStringField
+    object qryCaixaAbertoXXXUSUARIO: TIBStringField
       FieldName = 'USUARIO'
       Origin = 'TBCAIXA.USUARIO'
       Size = 12
     end
-    object qryCaixaAbertoDATA_ABERTURA: TDateField
+    object qryCaixaAbertoXXXDATA_ABERTURA: TDateField
       FieldName = 'DATA_ABERTURA'
       Origin = 'TBCAIXA.DATA_ABERTURA'
     end
-    object qryCaixaAbertoCONTA_CORRENTE: TIntegerField
+    object qryCaixaAbertoXXXCONTA_CORRENTE: TIntegerField
       FieldName = 'CONTA_CORRENTE'
       Origin = 'TBCAIXA.CONTA_CORRENTE'
     end
-    object qryCaixaAbertoVALOR_TOTAL_CREDITO: TIBBCDField
+    object qryCaixaAbertoXXXVALOR_TOTAL_CREDITO: TIBBCDField
       FieldName = 'VALOR_TOTAL_CREDITO'
       Precision = 18
       Size = 2
     end
-    object qryCaixaAbertoVALOR_TOTAL_DEBITO: TIBBCDField
+    object qryCaixaAbertoXXXVALOR_TOTAL_DEBITO: TIBBCDField
       FieldName = 'VALOR_TOTAL_DEBITO'
       Precision = 18
       Size = 2
@@ -1205,6 +1205,50 @@ object DMBusiness: TDMBusiness
         ParamType = ptInput
         Size = 20
         Value = Null
+      end>
+  end
+  object fdQryCaixaAberto: TFDQuery
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Ano'
+      '  , c.Numero'
+      '  , c.Usuario'
+      '  , c.Data_abertura'
+      '  , c.Conta_corrente'
+      '  , c.Valor_total_credito'
+      '  , c.Valor_total_debito'
+      
+        'from GET_CAIXA_ABERTO_DETALHE(:Empresa, :Usuario, :Data, :FormaP' +
+        'agto) c')
+    Left = 864
+    Top = 408
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
+      end
+      item
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 12
+      end
+      item
+        Name = 'DATA'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'FORMAPAGTO'
+        DataType = ftSmallint
+        ParamType = ptInput
       end>
   end
 end

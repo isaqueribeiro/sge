@@ -593,6 +593,7 @@ procedure TfrmGeContasAPagar.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
 end;
 
 procedure TfrmGeContasAPagar.dbgDadosDrawColumnCell(Sender: TObject;

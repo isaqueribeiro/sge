@@ -313,6 +313,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -611,9 +613,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         object lblValorAPagar: TLabel
           Left = 16
           Top = 64
-          Width = 107
+          Width = 75
           Height = 13
-          Caption = 'Valor A Pagar (R$):'
+          Caption = 'A Pagar (R$):'
           FocusControl = dbValorAPagar
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1254,7 +1256,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         'sa = p.empresa)')
     GeneratorField.Field = 'NUMLANC'
     GeneratorField.Generator = 'GEN_CONTAPAG_NUM_2013'
-    Left = 528
+    Left = 376
+    Top = 144
     object IbDtstTabelaANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTPAG.ANOLANC'
@@ -1447,7 +1450,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
-    Left = 592
+    Left = 440
+    Top = 144
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1545,12 +1549,14 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       'where'
       '  ANOLANC = :OLD_ANOLANC and'
       '  NUMLANC = :OLD_NUMLANC')
-    Left = 560
+    Left = 408
+    Top = 144
   end
   inherited ImgList: TImageList
-    Left = 496
+    Left = 344
+    Top = 144
     Bitmap = {
-      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3156,8 +3162,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 528
-    Top = 40
+    Left = 376
+    Top = 176
     object cdsPagamentosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTPAG_BAIXA.ANOLANC'
@@ -3238,8 +3244,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
   object dtsPagamentos: TDataSource
     AutoEdit = False
     DataSet = cdsPagamentos
-    Left = 592
-    Top = 40
+    Left = 440
+    Top = 176
   end
   object dtsTpDespesa: TDataSource
     DataSet = qryTipoDespesa

@@ -184,6 +184,8 @@ type
     cdsPagamentosBCO_NOME: TIBStringField;
     FrReciboA4: TfrxReport;
     popGerarReciboA5: TMenuItem;
+    lblSaldoAPagar: TLabel;
+    dbSaldoAReceber: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -939,6 +941,7 @@ procedure TfrmGeContasAReceber.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
 end;
 
 procedure TfrmGeContasAReceber.FrReciboGetValue(const VarName: string;

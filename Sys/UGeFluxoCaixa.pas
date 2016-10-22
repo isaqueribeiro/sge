@@ -399,6 +399,7 @@ begin
   RegistrarNovaRotinaSistema;
   btnRecalcularSaldo.Visible := (not btbtnSelecionar.Visible) and
     GetPermissaoRotinaInterna(btnRecalcularSaldo, False);
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
 end;
 
 procedure TfrmGeFluxoCaixa.edContaCorrentePesqChange(Sender: TObject);

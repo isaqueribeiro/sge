@@ -69,18 +69,25 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           item
             Expanded = False
             FieldName = 'VALORREC'
+            Title.Caption = 'A Receber (R$)'
+            Width = 90
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALORSALDO'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlue
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
-            Title.Caption = 'A Receber (R$)'
+            Title.Caption = 'Saldo (R$)'
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
             Title.Font.Name = 'Tahoma'
             Title.Font.Style = [fsBold]
-            Width = 110
+            Width = 90
             Visible = True
           end
           item
@@ -298,6 +305,8 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -708,6 +717,20 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object lblSaldoAPagar: TLabel
+          Left = 655
+          Top = 64
+          Width = 123
+          Height = 13
+          Caption = 'Saldo A Receber (R$):'
+          FocusControl = dbSaldoAReceber
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object dbParcela: TDBEdit
           Left = 16
           Top = 40
@@ -973,6 +996,24 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           ListSource = dtsTpReceita
           ParentFont = False
           TabOrder = 4
+        end
+        object dbSaldoAReceber: TDBEdit
+          Left = 655
+          Top = 80
+          Width = 123
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'VALORSALDO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 10
         end
       end
       object pgcMaisDados: TPageControl
@@ -1883,7 +1924,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited ImgList: TImageList
     Left = 736
     Bitmap = {
-      494C01012B002C00740010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
