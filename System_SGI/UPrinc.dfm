@@ -5224,10 +5224,6 @@ object frmPrinc: TfrmPrinc
           BeginGroup = True
           Visible = True
           ItemName = 'BrBtnNotaFiscalDownload'
-        end
-        item
-          Visible = True
-          ItemName = 'BrBtnTestes'
         end>
       OneOnRow = True
       Row = 0

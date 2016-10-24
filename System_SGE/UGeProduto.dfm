@@ -27,8 +27,6 @@ inherited frmGeProduto: TfrmGeProduto
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -749,7 +747,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = tbsTributacao
+        ActivePage = tbsValores
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -760,10 +758,6 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblCusto: TLabel
             Left = 272
             Top = 8
@@ -1242,10 +1236,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -2094,10 +2084,6 @@ inherited frmGeProduto: TfrmGeProduto
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2416,12 +2402,13 @@ inherited frmGeProduto: TfrmGeProduto
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
-              Width = 105
+              Width = 941
               Height = 13
               Align = alTop
               Caption = 'Especifica'#231#227'o textual:'
               FocusControl = dbEspecificacao
               Transparent = True
+              ExplicitWidth = 105
             end
             object Bevel9: TBevel
               Left = 2
@@ -2446,10 +2433,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             945
             249)
@@ -3791,7 +3774,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5304,54 +5287,8 @@ inherited frmGeProduto: TfrmGeProduto
     Left = 608
     Top = 448
   end
-  object tblTributacaoNM: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'TPT_COD'
-        DataType = ftWideString
-        Size = 3
-      end
-      item
-        Name = 'TPT_DESCRICAO'
-        DataType = ftWideString
-        Size = 100
-      end
-      item
-        Name = 'TPT_DESCRICAO_FULL'
-        Attributes = [faReadonly]
-        DataType = ftWideString
-        Size = 106
-      end
-      item
-        Name = 'TPT_SIGLA'
-        DataType = ftWideString
-        Size = 10
-      end
-      item
-        Name = 'CRT'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'OBRIGAR_CEST'
-        Attributes = [faReadonly]
-        DataType = ftInteger
-      end>
-    Filter = 'CRT = 0'
-    Filtered = True
-    ReadOnly = True
-    StoreDefs = True
-    TableName = 'VW_TIPO_TRIBUTACAO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 640
-    Top = 416
-  end
   object dtsTributacaoNM: TDataSource
-    DataSet = tblTributacaoNM
+    DataSet = qryTributacaoNM
     Left = 672
     Top = 416
   end
@@ -5390,22 +5327,8 @@ inherited frmGeProduto: TfrmGeProduto
     Left = 736
     Top = 416
   end
-  object tblTributacaoSN: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    Filter = 'CRT = 1'
-    Filtered = True
-    ReadOnly = True
-    TableName = 'VW_TIPO_TRIBUTACAO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 640
-    Top = 448
-  end
   object dtsTributacaoSN: TDataSource
-    DataSet = tblTributacaoSN
+    DataSet = qryTributacaoSN
     Left = 672
     Top = 448
   end
@@ -5701,5 +5624,79 @@ inherited frmGeProduto: TfrmGeProduto
       Caption = 'Etiqueta de Produtos'
       Enabled = False
     end
+  end
+  object qryTributacaoNM: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      '/*'
+      'Select'
+      '    t.tpt_cod'
+      '  , t.tpt_descricao'
+      '  , t.tpt_descricao_full'
+      '  , t.tpt_sigla'
+      '  , t.crt'
+      'from VW_TIPO_TRIBUTACAO t'
+      'where t.crt = 0'
+      '*/'
+      'Select'
+      '    t.Tpt_cod'
+      '  , t.Tpt_descricao'
+      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
+      '  , t.Tpt_sigla'
+      '  , t.Crt'
+      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
+      'from TBTRIBUTACAO_TIPO t'
+      'where coalesce(t.obrigar_cest, 0) = 0'
+      'order by'
+      '    t.Crt'
+      '  , t.Tpt_cod')
+    ModifySQL.Strings = (
+      '')
+    ParamCheck = True
+    UniDirectional = False
+    Left = 640
+    Top = 416
+  end
+  object qryTributacaoSN: TIBDataSet
+    Database = DMBusiness.ibdtbsBusiness
+    Transaction = DMBusiness.ibtrnsctnBusiness
+    BufferChunks = 1000
+    CachedUpdates = False
+    RefreshSQL.Strings = (
+      '')
+    SelectSQL.Strings = (
+      '/*'
+      'Select'
+      '    t.tpt_cod'
+      '  , t.tpt_descricao'
+      '  , t.tpt_descricao_full'
+      '  , t.tpt_sigla'
+      '  , t.crt'
+      'from VW_TIPO_TRIBUTACAO t'
+      'where t.crt = 1'
+      '*/'
+      'Select'
+      '    t.Tpt_cod'
+      '  , t.Tpt_descricao'
+      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
+      '  , t.Tpt_sigla'
+      '  , t.Crt'
+      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
+      'from TBTRIBUTACAO_TIPO t'
+      'where coalesce(t.obrigar_cest, 0) = 0'
+      'order by'
+      '    t.Crt'
+      '  , t.Tpt_cod')
+    ModifySQL.Strings = (
+      '')
+    ParamCheck = True
+    UniDirectional = False
+    Left = 640
+    Top = 448
   end
 end

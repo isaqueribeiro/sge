@@ -835,16 +835,24 @@ end;
 procedure TfrmGeApropriacaoEstoquePesquisa.nmppAtualizacaoAutomaticaClick(
   Sender: TObject);
 begin
-  SetAtulizarCustoEstoque(GetDateDB);
+  WaitAMoment(WAIT_AMOMENT_Process);
+  try
+    SetAtulizarCustoEstoque(GetDateDB);
 
-  if ( Sender = nmppAtualizacaoAutomatica ) then
-    ShowInformation('Atualização ocorrida com sucesso!');
+    if ( Sender = nmppAtualizacaoAutomatica ) then
+    begin
+      WaitAMomentFree;
+      ShowInformation('Atualização ocorrida com sucesso!');
+    end;
 
-  if CdsProduto.Active then
-  begin
-    CdsProduto.Close;
-    CdsProduto.Open;
-    CalcularPercentuais( CdsProduto );
+    if CdsProduto.Active then
+    begin
+      CdsProduto.Close;
+      CdsProduto.Open;
+      CalcularPercentuais( CdsProduto );
+    end;
+  finally
+    WaitAMomentFree;
   end;
 end;
 

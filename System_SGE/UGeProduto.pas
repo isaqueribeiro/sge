@@ -91,7 +91,6 @@ type
     Bevel5: TBevel;
     tblOrigem: TIBTable;
     dtsOrigem: TDataSource;
-    tblTributacaoNM: TIBTable;
     dtsTributacaoNM: TDataSource;
     pgcMaisDados: TPageControl;
     tbsValores: TTabSheet;
@@ -117,7 +116,6 @@ type
     lblReserva: TLabel;
     dbReserva: TDBEdit;
     IbDtstTabelaNCM_SH: TIBStringField;
-    tblTributacaoSN: TIBTable;
     dtsTributacaoSN: TDataSource;
     IbDtstTabelaCSOSN: TIBStringField;
     IbDtstTabelaALIQUOTA_CSOSN: TIBBCDField;
@@ -345,6 +343,8 @@ type
     dbUltimaCompraValor: TDBEdit;
     lblPercentualMargem: TLabel;
     dbPercentualMargem: TDBEdit;
+    qryTributacaoNM: TIBDataSet;
+    qryTributacaoSN: TIBDataSet;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -1078,8 +1078,8 @@ begin
 
   CarregarLista(tblEmpresa);
   CarregarLista(tblOrigem);
-  CarregarLista(tblTributacaoNM);
-  CarregarLista(tblTributacaoSN);
+  CarregarLista(qryTributacaoNM);
+  CarregarLista(qryTributacaoSN);
   CarregarLista(tblAliquota);
   CarregarLista(qryAliquotaPIS);
   CarregarLista(qryAliquotaCOFINS);
@@ -1324,11 +1324,11 @@ begin
   if ( not tblOrigem.IsEmpty ) then
     IbDtstTabelaCODORIGEM.Value := TRIBUTO_ORIGEM_NACIONAL; // tblOrigem.FieldByName('ORP_COD').AsString;
 
-  if ( not tblTributacaoNM.IsEmpty ) then
+  if ( not qryTributacaoNM.IsEmpty ) then
     IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_INTEG; // tblTributacaoNM.FieldByName('TPT_COD').AsString;
 
   if ( GetRegimeEmpresa(IbDtstTabelaCODEMP.AsString) = trSimplesNacional ) then
-    if ( not tblTributacaoSN.IsEmpty ) then
+    if ( not qryTributacaoSN.IsEmpty ) then
       IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN; // tblTributacaoSN.FieldByName('TPT_COD').AsString;
 
   IbDtstTabelaCST.Value        := IbDtstTabelaCODORIGEM.AsString + IbDtstTabelaCODTRIBUTACAO.AsString;
