@@ -360,8 +360,6 @@ begin
   WhereAdditional :=  'cast(a.data_apropriacao as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
-
-  UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 end;
 
 procedure TfrmGeApropriacaoEstoque.IbDtstTabelaINSERCAO_DATAGetText(

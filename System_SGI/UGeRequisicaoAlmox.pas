@@ -407,8 +407,6 @@ begin
   WhereAdditional :=  'cast(r.data_emissao as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
-
-  UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 end;
 
 procedure TfrmGeRequisicaoAlmox.IbDtstTabelaINSERCAO_DATAGetText(

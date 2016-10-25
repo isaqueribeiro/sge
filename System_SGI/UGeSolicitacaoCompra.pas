@@ -325,8 +325,6 @@ begin
   WhereAdditional :=  'cast(s.data_emissao as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
-
-  UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 end;
 
 procedure TfrmGeSolicitacaoCompra.IbDtstTabelaINSERCAO_DATAGetText(
@@ -1031,7 +1029,7 @@ begin
   begin
     IbDtstTabela.Edit;
 
-    dbEventoLOG.Lines.Add(FormatDateTime('dd/mm/yyyy hh:mm:ss - ', GetDateTimeDB) + 'Solicitação finaizada por ' + gUsuarioLogado.Login);
+    dbEventoLOG.Lines.Add(FormatDateTime('dd/mm/yyyy hh:mm:ss - ', GetDateTimeDB) + 'Solicitação finalizada por ' + gUsuarioLogado.Login);
 
     IbDtstTabelaSTATUS.Value := STATUS_SOLICITACAO_FIN;
 

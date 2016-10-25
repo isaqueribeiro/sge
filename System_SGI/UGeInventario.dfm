@@ -4551,7 +4551,7 @@ inherited frmGeInventario: TfrmGeInventario
           Highlight.Condition = '<FrdsRelacaoInventarioCC."LANCAMENTO">=0'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
-            'Finalizador por: [FrdsRelacaoInventarioCC."FECH_USUARIO_NOME"]')
+            'Finalizado por: [FrdsRelacaoInventarioCC."FECH_USUARIO_NOME"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
