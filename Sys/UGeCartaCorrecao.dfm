@@ -695,7 +695,7 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2154,19 +2154,25 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 632
+  object dtsEmpresa: TDataSource
+    DataSet = fdQryEmpresa
+    Left = 664
     Top = 64
   end
-  object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
-    Left = 664
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.cnpj'
+      '  , trim(e.rzsoc)  as rzsoc'
+      '  , trim(e.nmfant) as nmfant'
+      'from TBEMPRESA e'
+      'order by'
+      '    e.rzsoc')
+    Left = 632
     Top = 64
   end
 end

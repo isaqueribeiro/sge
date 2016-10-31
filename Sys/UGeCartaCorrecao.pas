@@ -14,12 +14,14 @@ uses
   dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmGeCartaCorrecao = class(TfrmGrPadraoCadastro)
     lblNFe: TLabel;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
@@ -54,6 +56,7 @@ type
     Bevel5: TBevel;
     BtnEnviarCCe: TcxButton;
     dbNFe: TJvDBComboEdit;
+    fdQryEmpresa: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbNFeButtonClick(Sender: TObject);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
@@ -81,6 +84,22 @@ type
     property RotinaEnviarCCeID : String read GetRotinaEnviarCCeID;
   end;
 
+(*
+  Tabelas:
+    - TBNFE_CARTA_CORRECAO
+    - TBNFE_ENVIADA
+    - TBVENDAS
+    - TBCLIENTE
+    - TBCOMPRAS
+    - TBFORNECEDOR
+    - TBEMPRESA
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeCartaCorrecao: TfrmGeCartaCorrecao;
 
@@ -106,8 +125,8 @@ begin
   AbrirTabelaAuto := True;
 
   UpdateGenerator('GEN_CARTA_CORRECAO');
-  
-  tblEmpresa.Open;
+
+  CarregarLista(fdQryEmpresa);
 
   BtnEnviarCCe.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 end;
