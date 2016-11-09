@@ -7,17 +7,14 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
   StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery,
   IBTable, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  JvExMask, JvToolEdit, JvDBControls,
+
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeCartaCorrecao = class(TfrmGrPadraoCadastro)
@@ -72,6 +69,7 @@ type
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btbtnListaClick(Sender: TObject);
   private
     { Private declarations }
     procedure HabilitarDesabilitar_Btns;
@@ -225,9 +223,21 @@ end;
 procedure TfrmGeCartaCorrecao.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
-    BtnEnviarCCe.Enabled := (IbDtstTabelaCCE_ENVIADA.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (not (IbDtstTabela.State in [dsEdit, dsInsert]))
+  begin
+    BtnEnviarCCe.Enabled := (IbDtstTabelaCCE_ENVIADA.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (not (IbDtstTabela.State in [dsEdit, dsInsert]));
+    btbtnLista.Enabled   := (IbDtstTabelaCCE_ENVIADA.AsInteger = 1) and (not IbDtstTabela.IsEmpty) and (Trim(IbDtstTabelaPROTOCOLO.AsString) <> EmptyStr);
+  end
   else
+  begin
     BtnEnviarCCe.Enabled := False;
+    btbtnLista.Enabled   := False;
+  end;
+end;
+
+procedure TfrmGeCartaCorrecao.btbtnListaClick(Sender: TObject);
+begin
+  inherited;
+  DMNFe.ImprimirCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger);
 end;
 
 procedure TfrmGeCartaCorrecao.btbtnSalvarClick(Sender: TObject);
@@ -252,9 +262,8 @@ begin
 
   RecarregarRegistro;
 
-  if ( not DelphiIsRunning ) then
-    if not DMNFe.GetValidadeCertificado(IbDtstTabelaCCE_EMPRESA.AsString) then
-      Exit;
+  if not DMNFe.GetValidadeCertificado(IbDtstTabelaCCE_EMPRESA.AsString) then
+    Exit;
 
   if DMNFe.GerarEnviarCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger, Trim(mmCondicaoUso.Lines.Text)) then
   begin

@@ -4436,6 +4436,7 @@ object frmPrinc: TfrmPrinc
       object RbnBackstageViewConfig: TdxRibbonBackstageViewTabSheet
         Left = 132
         Top = 0
+        Active = True
         Caption = 'Configura'#231#245'es Gerais'
         DesignSize = (
           357
@@ -4485,8 +4486,8 @@ object frmPrinc: TfrmPrinc
               ImageIndex = 12
             end
             object RbnBackstageGalleryConfigNFe: TdxRibbonBackstageViewGalleryItem
-              Caption = 'Configurar NF-e'
-              Description = 'Configurar dados importantes para emiss'#227'o de NF-e'
+              Caption = 'Configurar NF-e / NFC-e'
+              Description = 'Configurar dados importantes para emiss'#227'o de NF-e e NFC-e'
               ImageIndex = 9
             end
             object RbnBackstageGalleryConfigAmb: TdxRibbonBackstageViewGalleryItem
@@ -4564,7 +4565,6 @@ object frmPrinc: TfrmPrinc
       object RbnBackstageViewBackup: TdxRibbonBackstageViewTabSheet
         Left = 132
         Top = 0
-        Active = True
         Caption = 'Backup / Retore Database'
         DesignSize = (
           357

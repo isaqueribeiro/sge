@@ -170,6 +170,8 @@ begin
     else
       frmPrinc.stbMain.Panels.Items[2].Text  := Format('[%s] Licenciado a empresa %s, %s', [GetEmpresaNome(gUsuarioLogado.Empresa), gLicencaSistema.Empresa, sCNPJ]);
 
+    frmPrinc.Notificar;
+
     ModalResult := mrOk;
 
     frmPrinc.ConfigurarRotuloBotoes;

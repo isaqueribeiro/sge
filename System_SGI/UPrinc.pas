@@ -328,6 +328,7 @@ type
   public
     { Public declarations }
     procedure ConfigurarRotuloBotoes;
+    procedure Notificar;
   end;
 
 var
@@ -662,6 +663,14 @@ procedure TfrmPrinc.nmVendedorClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_VENDEDOR_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeVendedor');
+end;
+
+procedure TfrmPrinc.Notificar;
+begin
+  BrBtnNotaFiscalInutilizar.Enabled    := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+  BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
 end;
 
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
@@ -1030,11 +1039,6 @@ begin
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_GERAR_ARQUI_NFC_ID, Trim(BrBtnNotaFiscalExportar.Caption + ' -> ' + BrBtnNotaFiscalExportarNFC.Caption),   ROTINA_MENU_NOTAFISCAL_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_DOWNLOAD_NFE_ID,    Trim(BrBtnNotaFiscalDownload.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_COMPLEMENTAR_ID,    Trim(BrBtnNotaFiscalComplementar.Caption),  ROTINA_MENU_NOTAFISCAL_ID);
-
-  BrBtnNotaFiscalInutilizar.Enabled    := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
-  BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
-  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
-  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
 
   // Consultas
 

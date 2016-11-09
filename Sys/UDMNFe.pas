@@ -12,6 +12,10 @@ uses
   frxExportPDF, frxExportMail, UGeConfigurarNFeACBr, TypInfo,
   HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg, ShellApi,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
   ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, SHDocVw,
   IBX.IBUpdateSQL, IBX.IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
   ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR,
@@ -230,8 +234,7 @@ type
     frrNFeEventoCCe: TfrxReport;
     frrNFeInutilizacao: TfrxReport;
     frrBoletoCarne: TfrxReport;
-    qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField;
-    procedure SelecionarCertificado(Sender : TObject);
+    qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;
@@ -359,6 +362,8 @@ type
 
     function ImprimirDANFEACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer;
       const IsPDF : Boolean = FALSE) : Boolean;
+
+    function ImprimirCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer) : Boolean;
 
     function ImprimirDANFE_ESCPOSACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer;
       const ImprimirItens : Boolean = TRUE) : Boolean;
@@ -5404,10 +5409,7 @@ begin
       with ACBrNFe do
       begin
 
-        if ( DelphiIsRunning ) then
-          bRetorno := True
-        else
-          bRetorno := ACBrNFe.WebServices.StatusServico.Executar;
+        bRetorno := ACBrNFe.WebServices.StatusServico.Executar;
 
         if not bRetorno then
           Exit;
@@ -5490,7 +5492,7 @@ begin
               qryCartaCorrecaoNFeCCE_HORA.Value  := GetTimeDB;
               qryCartaCorrecaoNFeNUMERO.Value    := iNumeroEvento; // iNumeroCarta;
               qryCartaCorrecaoNFePROTOCOLO.Value := sProtocolo;
-              qryCartaCorrecaoNFeXML.AsString    := '<?xml version="1.0" encoding="UTF-8"?>' + sRetornoXML;
+              qryCartaCorrecaoNFeXML.AsString    := IfThen(Pos('<?xml version="1.0" encoding="UTF-8"?>', sRetornoXML) = 0, '<?xml version="1.0" encoding="UTF-8"?>' + sRetornoXML, sRetornoXML);
               //qryCartaCorrecaoNFeXML_TOTAL.LoadFromFile( EventoNFe.ObterNomeArquivo(teCCe) );  // Com Erro
               qryCartaCorrecaoNFe.Post;
               qryCartaCorrecaoNFe.ApplyUpdates;
@@ -7331,6 +7333,74 @@ begin
       ShowError('Erro ao tentar validar/carregar XML da NF-e.' + #13 +
         'Arquivo XML inválido!' + #13#13 +
         'ImprimirArquivoNFeDANFE() --> ' + e.Message);
+  end;
+end;
+
+function TDMNFe.ImprimirCCeACBr(const sCNPJEmitente: String;
+  const ControleCCe: Integer): Boolean;
+var
+  fdQryCCe : TFDQuery;
+begin
+  fdQryCCe := TFDQuery.Create(nil);
+  try
+    if Trim(sCNPJEmitente) = EmptyStr then
+      LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFEFast)
+    else
+      LerConfiguracao(sCNPJEmitente, tipoDANFEFast);
+
+    try
+      with fdQryCCe do
+      begin
+        Connection := DMBusiness.fdConexao;
+        Transaction       := DMBusiness.fdTransacao;
+        UpdateTransaction := DMBusiness.fdTransacao;
+
+        SQL.Clear;
+        SQL.Add('Select');
+        SQL.Add('    c.cce_numero');
+        SQL.Add('  , c.cce_empresa');
+        SQL.Add('  , c.cce_data');
+        SQL.Add('  , c.cce_hora');
+        SQL.Add('  , c.protocolo');
+        SQL.Add('  , c.xml as xml_cce');
+        SQL.Add('  , c.nfe_serie');
+        SQL.Add('  , c.nfe_numero');
+        SQL.Add('  , c.nfe_modelo');
+        SQL.Add('  , n.versao    as nfe_versao');
+        SQL.Add('  , n.chave     as nfe_chave');
+        SQL.Add('  , n.protocolo as nfe_protocolo');
+        SQL.Add('  , n.xml_file  as nfe_xml');
+        SQL.Add('from TBNFE_CARTA_CORRECAO c');
+        SQL.Add('  inner join TBNFE_ENVIADA n on (n.empresa = c.cce_empresa and n.serie = c.nfe_serie and n.numero = c.nfe_numero and n.modelo = c.nfe_modelo)');
+        SQL.Add('where c.cce_empresa = :empresa');
+        SQL.Add('  and c.cce_numero  = :controle');
+
+        ParamByName('empresa').AsString   := sCNPJEmitente;
+        ParamByName('controle').AsInteger := ControleCCe;
+        Open;
+      end;
+
+      with ACBrNFe do
+      begin
+        Configuracoes.Geral.ModeloDF := TpcnModeloDF(fdQryCCe.FieldByName('nfe_modelo').AsInteger);
+        Configuracoes.Geral.VersaoDF := TpcnVersaoDF(fdQryCCe.FieldByName('nfe_versao').AsInteger);
+
+        NotasFiscais.Clear;
+        NotasFiscais.LoadFromString(fdQryCCe.FieldByName('nfe_xml').AsWideString);
+
+        EventoNFe.Evento.Clear;
+        if EventoNFe.LerXMLFromString(fdQryCCe.FieldByName('xml_cce').AsWideString) then
+          ImprimirEvento;
+      end;
+    except
+      On E : Exception do
+      begin
+        ShowError('Erro ao tentar imprimir a CCe (Carta de Correção Eletrônica).' + #13#13 + 'ImprimirCCeACBr() --> ' + e.Message);
+        Result := False;
+      end;
+    end;
+  finally
+    fdQryCCe.Free;
   end;
 end;
 

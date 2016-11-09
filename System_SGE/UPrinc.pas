@@ -6,22 +6,15 @@ uses
   StdCtrls, Buttons,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm, dxRibbonBackstageView,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons, cxLookAndFeels,
-  dxBar, dxSkinsForm, dxSkinsdxBarPainter, cxControls, cxClasses, dxRibbon,
+  dxBar, cxControls, cxClasses, dxRibbon, dxRibbonCustomizationForm, cxContainer,
+  cxEdit, dxGallery, dxGalleryControl, dxRibbonBackstageViewGalleryControl, cxLabel,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinsdxStatusBarPainter, dxStatusBar,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, dxRibbonSkins, dxSkinsdxRibbonPainter,
-  dxRibbonCustomizationForm, cxContainer, cxEdit, dxGallery, dxGalleryControl,
-  dxRibbonBackstageViewGalleryControl, cxLabel, dxRibbonBackstageView;
-
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinsdxStatusBarPainter,
+  dxRibbonSkins, dxSkinsdxRibbonPainter, dxStatusBar, dxSkinsdxBarPainter,
+  dxSkinsForm;
 
 type
   TfrmPrinc = class(TdxRibbonForm)
@@ -303,6 +296,7 @@ type
   public
     { Public declarations }
     procedure ConfigurarRotuloBotoes;
+    procedure Notificar;
   end;
 
 var
@@ -642,6 +636,14 @@ procedure TfrmPrinc.nmVendedorClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_VENDEDOR_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeVendedor');
+end;
+
+procedure TfrmPrinc.Notificar;
+begin
+  BrBtnNotaFiscalInutilizar.Enabled    := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+  BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
 end;
 
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
@@ -1008,11 +1010,6 @@ begin
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_GERAR_ARQUI_NFC_ID, Trim(BrBtnNotaFiscalExportar.Caption + ' -> ' + BrBtnNotaFiscalExportarNFC.Caption),   ROTINA_MENU_NOTAFISCAL_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_DOWNLOAD_NFE_ID,    Trim(BrBtnNotaFiscalDownload.Caption),      ROTINA_MENU_NOTAFISCAL_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_NFE_COMPLEMENTAR_ID,    Trim(BrBtnNotaFiscalComplementar.Caption),  ROTINA_MENU_NOTAFISCAL_ID);
-
-  BrBtnNotaFiscalInutilizar.Enabled    := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
-  BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
-  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
-  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(GetEmpresaIDDefault);
 
   // Consultas
 
