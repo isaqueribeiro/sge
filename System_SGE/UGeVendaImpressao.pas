@@ -649,8 +649,60 @@ begin
 end;
 
 procedure TfrmGeVendaImpressao.MontarComissaoVendedor;
+var
+  sWhr1 ,
+  sWhr2 : String;
 begin
-  ;
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    if ( edVendedor.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Baixas (recebimentos) no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Baixas (recebimentos) no período de %s a %s, para o(a) vendedor(a) %s.', [e1Data.Text, e2Data.Text, edVendedor.Text]);
+
+    CdsComissaoVendedorSintetico.Close;
+
+    with fdQryComissaoVendedorSintetico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_ComissaoVendedor );
+
+      sWhr1 := '(v.codemp  = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')';
+      sWhr2 := '(c.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')';
+
+      if ( edVendedor.ItemIndex > 0 ) then
+        sWhr1 := sWhr1 + '  and (coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]) + ')';
+
+      if StrIsDateTime(e1Data.Text) then
+        sWhr2 := sWhr2 + '  and (b.data_pagto >= :data_inicial)';
+
+      if StrIsDateTime(e2Data.Text) then
+        sWhr2 := sWhr2 + '  and (b.data_pagto <= :data_final)';
+
+      if ( chkNFeEmitida.Visible ) then
+        if ( chkNFeEmitida.Checked ) then
+          sWhr1 := sWhr1 + '  and (v.nfe is not null)';
+
+      SQL.Text := StringReplace(SQL.Text, '0 = 0', sWhr1, [rfReplaceAll]);
+      SQL.Text := StringReplace(SQL.Text, '1 = 1', sWhr2, [rfReplaceAll]);
+
+      CdsComissaoVendedorSintetico.FetchParams;
+
+      if StrIsDateTime(e1Data.Text) then
+        CdsComissaoVendedorSintetico.ParamByName('data_inicial').AsDateTime := e1Data.Date;
+      if StrIsDateTime(e2Data.Text) then
+        CdsComissaoVendedorSintetico.ParamByName('data_final').AsDateTime   := e2Data.Date;
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relação de baixas realizadas para comissionamento dos vendedores.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
 end;
 
 procedure TfrmGeVendaImpressao.MontarRelacaoVendaCfopSintetica;
@@ -1028,7 +1080,7 @@ begin
   except
     On E : Exception do
     begin
-      ShowError('Erro ao tentar montar a relção de vendas para entrega por cidade.' + #13#13 + E.Message);
+      ShowError('Erro ao tentar montar a relação de vendas para entrega por cidade.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;

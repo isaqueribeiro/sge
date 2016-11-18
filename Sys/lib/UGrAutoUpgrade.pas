@@ -116,10 +116,12 @@ procedure TfrmGeAutoUpgrade.FormCreate(Sender: TObject);
 var
   sAppName : String;
 const
+//  URL_EXE = 'http://' + DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE + '%s.exe';
+//  URL_INF = 'http://' + DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE + '%s_Upgrade.inf';
 //  URL_EXE = 'http://' + DOWNLOAD_URL_HOME_AUTOMACAO_UPGRADE + '%s.exe';
 //  URL_INF = 'http://' + DOWNLOAD_URL_HOME_AUTOMACAO_UPGRADE + '%s_Upgrade.inf';
-  URL_EXE = 'http://' + DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE + '%s.exe';
-  URL_INF = 'http://' + DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE + '%s_Upgrade.inf';
+  URL_EXE = 'http://' + DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE + '%s.exe';
+  URL_INF = 'http://' + DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE + '%s_Upgrade.inf';
 begin
   sAppName := GetInternalName;
 

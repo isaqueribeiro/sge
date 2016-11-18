@@ -10953,7 +10953,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         'ntrol = v.codcontrol)'
       '    '
       '    where (0 = 0)'
-      '      and v.status > 1 -- 1. Em andamento'
+      '      and (v.status > 1) -- 1. Em andamento'
       '      --and v.codemp = '#39'09260610000107'#39
       '      --and vi.codvendedor = 9'
       '    '
@@ -10978,7 +10978,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       '  left join TBVENDEDOR d on (d.cod = tmp.venda_vendedor)'
       ''
       'where (1 = 1)'
-      '  and coalesce(tmp.venda_comissao, 0.0000) > 0'
+      '  and (coalesce(tmp.venda_comissao, 0.0000) > 0)'
       '  --and c.empresa = '#39'09260610000107'#39
       '  --and b.data_pagto between '#39'2016-01-01'#39' and '#39'2016-12-31'#39
       ''
