@@ -37,13 +37,21 @@ inherited frmGeVendedor: TfrmGeVendedor
           item
             Expanded = False
             FieldName = 'NOME'
-            Width = 310
+            Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CPF'
             Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'COMISSAO_TIPO_FLAG'
+            Title.Alignment = taCenter
+            Title.Caption = 'TC'
+            Width = 25
             Visible = True
           end
           item
@@ -288,6 +296,11 @@ inherited frmGeVendedor: TfrmGeVendedor
       '  , v.comissao_tipo'
       '  , v.comissao'
       '  , v.Comissao_vl'
+      '  , Case'
+      '      when v.comissao_tipo = 0 then '#39'D'#39
+      '      when v.comissao_tipo = 1 then '#39'P'#39
+      '      else '#39'*'#39
+      '    end comissao_tipo_flag'
       'from TBVENDEDOR v')
     GeneratorField.Field = 'COD'
     GeneratorField.Generator = 'GEN_GRUPOPRODUTO_COD'
@@ -341,6 +354,13 @@ inherited frmGeVendedor: TfrmGeVendedor
       Origin = 'TBVENDEDOR.ATIVO'
       Required = True
     end
+    object IbDtstTabelaCOMISSAO_TIPO_FLAG: TIBStringField
+      Alignment = taCenter
+      FieldName = 'COMISSAO_TIPO_FLAG'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 1
+    end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
@@ -391,7 +411,7 @@ inherited frmGeVendedor: TfrmGeVendedor
     Left = 64
     Top = 312
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1850,20 +1870,19 @@ inherited frmGeVendedor: TfrmGeVendedor
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblTipoComissao: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_COMISSAO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 600
-    Top = 200
-  end
   object dtsTipoComissao: TDataSource
-    DataSet = tblTipoComissao
-    Left = 632
-    Top = 200
+    DataSet = fdQryTipoComissao
+    Left = 624
+    Top = 256
+  end
+  object fdQryTipoComissao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_TIPO_COMISSAO')
+    Left = 596
+    Top = 257
   end
 end

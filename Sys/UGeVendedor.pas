@@ -5,11 +5,15 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  IBX.IBTable;
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, IBX.IBTable,
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeVendedor = class(TfrmGrPadraoCadastro)
@@ -28,11 +32,12 @@ type
     dbComissaoValor: TDBEdit;
     lblComissaoValor: TLabel;
     chkbxAtivo: TDBCheckBox;
-    tblTipoComissao: TIBTable;
     dtsTipoComissao: TDataSource;
     lblTipoComissao: TLabel;
     dbTipoComissao: TDBLookupComboBox;
     IbDtstTabelaCOMISSAO_TIPO: TSmallintField;
+    fdQryTipoComissao: TFDQuery;
+    IbDtstTabelaCOMISSAO_TIPO_FLAG: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -47,6 +52,17 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBVENDEDOR
+
+  Views:
+  - VW_TIPO_COMISSAO
+
+  Procedures:
+
+*)
 
 var
   frmGeVendedor: TfrmGeVendedor;
@@ -140,7 +156,7 @@ end;
 procedure TfrmGeVendedor.FormCreate(Sender: TObject);
 begin
   inherited;
-  CarregarLista(tblTipoComissao);
+  CarregarLista(fdQryTipoComissao);
 
   RotinaID            := ROTINA_CAD_VENDEDOR_ID;
   ControlFirstEdit    := dbNome;
@@ -188,6 +204,8 @@ begin
     IbDtstTabelaCOMISSAO.AsCurrency    := 0.0;
     IbDtstTabelaCOMISSAO_VL.AsCurrency := 0.0;
   end;
+
+  IbDtstTabelaCOMISSAO_TIPO_FLAG.AsString := Copy(AnsiUpperCase(Trim(dbTipoComissao.Text)), 1, 1);
 
   inherited;
 end;

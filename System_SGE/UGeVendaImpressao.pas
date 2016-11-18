@@ -7,14 +7,14 @@ uses
   Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   Buttons, ComCtrls, DBClient, Provider, DB, IBCustomDataSet, IBQuery, frxClass,
   frxDBSet, Mask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvExMask, JvToolEdit,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeVendaImpressao = class(TfrmGrPadraoImpressao)
@@ -77,6 +77,11 @@ type
     DspRelacaoVendaCfopSintetico: TDataSetProvider;
     CdsRelacaoVendaCfopSintetico: TClientDataSet;
     FrdsRelacaoVendaCfopSintetico: TfrxDBDataset;
+    frComissaoVendedorSintetico: TfrxReport;
+    DspComissaoVendedorSintetico: TDataSetProvider;
+    CdsComissaoVendedorSintetico: TClientDataSet;
+    FrdsComissaoVendedorSintetico: TfrxDBDataset;
+    fdQryComissaoVendedorSintetico: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -90,7 +95,8 @@ type
     FSQL_RelacaoVendaClienteSintet ,
     FSQL_RelacaoVendaClienteAnalit ,
     FSQL_RelacaoVendaCfopSintet    ,
-    FSQL_RelacaoVendaEntrega       : TStringList;
+    FSQL_RelacaoVendaEntrega       ,
+    FSQL_ComissaoVendedor          : TStringList;
     ICidade   : Array of Integer;
     IVendedor : Array of Integer;
     IEmpresa : Array of String;
@@ -107,9 +113,31 @@ type
     procedure MontarRelacaoVendaClienteComparativo;
     procedure MontarRelacaoVendaCfopSintetica;
     procedure MontarRelacaoVendaListaEntrega;
+    procedure MontarComissaoVendedor;
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBCIDADE
+  - TBESTADO
+  - TBVENDAS
+  - TVENDASITENS
+  - TBVENDEDOR
+  - TBCOMPETENCIA
+  - TBPRODUTO
+  - TBCLIENTE
+  - TBCONTREC
+  - TBCONTREC_BAIXA
+
+  Views:
+  - VW_STATUS_VENDA
+
+  Procedures:
+
+*)
 
 var
   frmGeVendaImpressao: TfrmGeVendaImpressao;
@@ -120,16 +148,17 @@ uses
   UConstantesDGE, UDMBusiness, UDMNFe, UDMRecursos;
 
 const
-  REPORT_RELACAO_VENDA_VENDEDOR_SINTETICO = 0;
-  REPORT_RELACAO_VENDA_VENDEDOR_ANALITICO = 1;
-  REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI = 2;
-  REPORT_RELACAO_VENDA_CLIENTE_SINTETICO  = 3;
-  REPORT_RELACAO_VENDA_CLIENTE_ANALITICO  = 4;
-  REPORT_RELACAO_VENDA_CLIENTE_COMPARATI  = 5;
-  REPORT_RELACAO_VENDA_CFOP_SINTETICO     = 6;
-  REPORT_RELACAO_VENDA_LISTA_ENTREGA      = 7;
+  REPORT_RELACAO_VENDA_VENDEDOR_SINTETICO  = 0;
+  REPORT_RELACAO_VENDA_VENDEDOR_ANALITICO  = 1;
+  REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI  = 2;
+  REPORT_RELACAO_VENDA_CLIENTE_SINTETICO   = 3;
+  REPORT_RELACAO_VENDA_CLIENTE_ANALITICO   = 4;
+  REPORT_RELACAO_VENDA_CLIENTE_COMPARATI   = 5;
+  REPORT_RELACAO_VENDA_CFOP_SINTETICO      = 6;
+  REPORT_RELACAO_VENDA_LISTA_ENTREGA       = 7;
+  REPORT_COMISSAO_VENDEDOR_BAIXA           = 8;
 
-  SITUACAO_VENDA_PADRAO = 3; // Vendas finalizadas e com NF-e emitidas
+  SITUACAO_VENDA_PADRAO = 3; // Vendas finalizadas e com NFs emitidas
 
 {$R *.dfm}
 
@@ -192,6 +221,9 @@ begin
 
   FSQL_RelacaoVendaEntrega := TStringList.Create;
   FSQL_RelacaoVendaEntrega.AddStrings( QryRelacaoVendaRotaEntrega.SQL );
+
+  FSQL_ComissaoVendedor := TStringList.Create;
+  FSQL_ComissaoVendedor.AddStrings( fdQryComissaoVendedorSintetico.SQL );
 end;
 
 procedure TfrmGeVendaImpressao.FormShow(Sender: TObject);
@@ -203,6 +235,7 @@ begin
     CarregarCidades;
   finally
     WaitAMomentFree;
+    edRelatorioChange(edRelatorio);
   end;
 end;
 
@@ -289,7 +322,7 @@ begin
     Format('- Situação : %s', [edSituacao.Text]) + #13 +
     Format('- Vendedor : %s', [edVendedor.Text]) + #13 +
     Format('- Cidade   : %s', [edCidade.Text])   + #13 +
-    IfThen(chkNFeEmitida.Visible and chkNFeEmitida.Checked, '- Apenas com NF-e emitida(s)', EmptyStr);
+    IfThen(chkNFeEmitida.Visible and chkNFeEmitida.Checked, '- Apenas com NFs emitida(s)', EmptyStr);
 
   Screen.Cursor         := crSQLWait;
   btnVisualizar.Enabled := False;
@@ -314,6 +347,12 @@ begin
         MontarVendaCompetencia;
         MontarRelacaoVendaVendedorComparativo;
         frReport := frRelacaoVendaComparativo;
+      end;
+
+    REPORT_COMISSAO_VENDEDOR_BAIXA:
+      begin
+        MontarComissaoVendedor;
+        frReport := frComissaoVendedorSintetico;
       end;
 
     // Por Clientes
@@ -480,7 +519,8 @@ end;
 procedure TfrmGeVendaImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
-  if ( (edRelatorio.ItemIndex = REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI) or (edRelatorio.ItemIndex = REPORT_RELACAO_VENDA_CLIENTE_COMPARATI) ) then
+  //if ( (edRelatorio.ItemIndex = REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI) or (edRelatorio.ItemIndex = REPORT_RELACAO_VENDA_CLIENTE_COMPARATI) ) then
+  if ( edRelatorio.ItemIndex in [REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI, REPORT_RELACAO_VENDA_CLIENTE_COMPARATI] ) then
   begin
     e1Data.Date := StrToDate('01/01/' + FormatDateTime('yyyy', GetDateDB));
     e2Data.Date := StrToDate('31/12/' + FormatDateTime('yyyy', GetDateDB));
@@ -498,6 +538,15 @@ begin
     edSituacao.ItemIndex := SITUACAO_VENDA_PADRAO;
   end
   else
+  if (edRelatorio.ItemIndex in [REPORT_COMISSAO_VENDEDOR_BAIXA]) then
+  begin
+    e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
+    e2Data.Date := GetDateDB;
+
+    edSituacao.Enabled   := False;
+    edSituacao.ItemIndex := SITUACAO_VENDA_PADRAO;
+  end
+  else
   begin
     e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
     e2Data.Date := GetDateDB;
@@ -505,7 +554,7 @@ begin
     edSituacao.Enabled := True;
   end;
 
-  if (edRelatorio.ItemIndex in [REPORT_RELACAO_VENDA_CFOP_SINTETICO]) then
+  if (edRelatorio.ItemIndex in [REPORT_RELACAO_VENDA_CFOP_SINTETICO, REPORT_COMISSAO_VENDEDOR_BAIXA]) then
   begin
     edCidade.ItemIndex := 0;
     edCidade.Enabled   := False;
@@ -513,7 +562,15 @@ begin
   else
     edCidade.Enabled   := True;
 
-  chkNFeEmitida.Visible := (not (edRelatorio.ItemIndex in [REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI, REPORT_RELACAO_VENDA_CLIENTE_COMPARATI, REPORT_RELACAO_VENDA_LISTA_ENTREGA]));
+  lblCidade.Visible := (not (edRelatorio.ItemIndex in [
+      REPORT_COMISSAO_VENDEDOR_BAIXA]));
+  edCidade.Visible  := lblCidade.Visible;
+
+  chkNFeEmitida.Visible := (not (edRelatorio.ItemIndex in [
+      REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI
+    , REPORT_RELACAO_VENDA_CLIENTE_COMPARATI
+    , REPORT_RELACAO_VENDA_LISTA_ENTREGA
+    , REPORT_COMISSAO_VENDEDOR_BAIXA]));
 end;
 
 procedure TfrmGeVendaImpressao.MontarRelacaoVendaVendedorComparativo;
@@ -589,6 +646,11 @@ begin
       btnVisualizar.Enabled := True;
     end;
   end;
+end;
+
+procedure TfrmGeVendaImpressao.MontarComissaoVendedor;
+begin
+  ;
 end;
 
 procedure TfrmGeVendaImpressao.MontarRelacaoVendaCfopSintetica;
