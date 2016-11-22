@@ -3,19 +3,19 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
-- Novo relatório de comissões por baixa de títulos
+- Novo relatório de comissões por baixa de títulos;
 - Novos relatórios de Vendas (Faturamento)
 - Financeiro / Controle de Cheques;
 - NF-e / Emissão de CC-e (Carta de Correção Eletrônica);
 - Atualização Automática;
 - Outros ajustes na otimização de processos.}
 
-#url1=http://www.agilsoftwares.com.br/upgrade/SGE.exe
-#url2=http://www.agilsoftwares.com.br/upgrade/lib/SiUSBXp._dll
-#url3=http://www.agilsoftwares.com.br/upgrade/lib/mp2032._dll
-#url4=http://www.agilsoftwares.com.br/upgrade/lib/LciLR3USB.cat
-#url5=http://www.agilsoftwares.com.br/upgrade/lib/LciLR3USB.inf
-#url6=http://www.agilsoftwares.com.br/upgrade/lib/MP2032.chm
+#url1=http://www.drhtransparencia.com.br/agil/upgrade/SGE.exe
+#url2=http://www.drhtransparencia.com.br/agil/upgrade/lib/SiUSBXp._dll
+#url3=http://www.drhtransparencia.com.br/agil/upgrade/lib/mp2032._dll
+#url4=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.cat
+#url5=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
+#url6=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 
 #method=0 (self-upgrade)
 

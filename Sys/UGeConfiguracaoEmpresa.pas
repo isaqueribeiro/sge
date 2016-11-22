@@ -7,14 +7,14 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeConfiguracaoEmpresa = class(TfrmGrPadraoCadastro)
@@ -27,7 +27,6 @@ type
     IbDtstTabelaEMAIL_MENSAGEM_PADRAO: TIBStringField;
     IbDtstTabelaRZSOC: TIBStringField;
     IbDtstTabelaNMFANT: TIBStringField;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
@@ -48,7 +47,6 @@ type
     dbEmailPorta: TDBEdit;
     dbEmailAutentica: TDBCheckBox;
     dbEmailConexaoSSL: TDBCheckBox;
-    qryConfiguracoes: TIBQuery;
     IbDtstTabelaNFE_SOLICITA_DH_SAIDA: TSmallintField;
     TbsNFe: TTabSheet;
     chkNFE_SolicitaDHSaida: TDBCheckBox;
@@ -57,7 +55,6 @@ type
     IbDtstTabelaCUSTO_OPER_CALCULAR: TSmallintField;
     TbsOutrasConfig: TTabSheet;
     dbCustoOperacional: TDBCheckBox;
-    dbPermitirVendaSemEstoque: TDBCheckBox;
     IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS: TSmallintField;
     IbDtstTabelaUSUARIO: TIBStringField;
     dbEstoqueUnico: TDBCheckBox;
@@ -120,6 +117,17 @@ type
     dbNFSeCSLL: TDBEdit;
     dbNFSeISSQN: TDBEdit;
     lblNFSeISSQN: TLabel;
+    tbsVenda: TTabSheet;
+    fdQryFormaPagto: TFDQuery;
+    lblFormaPagtoCartaCredito: TLabel;
+    dbFormaPagtoCartaCredito: TDBLookupComboBox;
+    DtsFormaPagto: TDataSource;
+    IbDtstTabelaVENDA_CARREGA_PRODUTO_EAN: TSmallintField;
+    IbDtstTabelaVENDA_FORMA_PAGTO_CARTACREDITO: TSmallintField;
+    dbPermitirVendaSemEstoque: TDBCheckBox;
+    dbCarregarProdutoPeloEAN: TDBCheckBox;
+    fdQryEmpresa: TFDQuery;
+    fdQryConfiguracoes: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
@@ -140,6 +148,7 @@ type
   Tabelas:
   - TBCONFIGURACAO
   - TBEMRESA
+  - TBFORMPAGTO
 
   Views:
 
@@ -165,7 +174,8 @@ begin
   CampoDescricao  := 'e.RZSOC';
   AbrirTabelaAuto := True;
 
-  tblEmpresa.Open;
+  CarregarLista(fdQryFormaPagto);
+  CarregarLista(fdQryEmpresa);
 
   pgcConfigurar.ActivePage := tbsContaEmail;
 
@@ -250,7 +260,7 @@ end;
 function TfrmGeConfiguracaoEmpresa.GetConfiguracaoCadastrada(
   sEmpresa: String): Boolean;
 begin
-  with qryConfiguracoes do
+  with fdQryConfiguracoes do
   begin
     Close;
     ParamByName('empresa').AsString := sEmpresa;
@@ -268,6 +278,8 @@ begin
   IbDtstTabelaEMAIL_REQUER_AUTENTICACAO.AsInteger := 0;
   IbDtstTabelaEMAIL_CONEXAO_SSL.AsInteger         := 0;
 
+  IbDtstTabelaVENDA_CARREGA_PRODUTO_EAN.AsInteger := 0;
+
   IbDtstTabelaNFE_EMITIR.AsInteger                := 0;
   IbDtstTabelaNFE_EMITIR_ENTRADA.AsInteger        := 0;
   IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA.AsInteger := 1;
@@ -284,6 +296,8 @@ begin
   IbDtstTabelaNFSE_PERCENTUAL_COFINS.AsCurrency := 0.0;
   IbDtstTabelaNFSE_PERCENTUAL_CSLL.AsCurrency   := 0.0;
   IbDtstTabelaNFSE_PERCENTUAL_ISSQN.AsCurrency  := 0.0;
+
+  IbDtstTabelaVENDA_FORMA_PAGTO_CARTACREDITO.Clear;
 
   IbDtstTabelaNFE_SERIE.Clear;
   IbDtstTabelaNFE_NUMERO.Clear;

@@ -25,7 +25,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   inherited pgcGuias: TPageControl
     Width = 751
     Height = 451
-    ActivePage = tbsTabela
     ExplicitWidth = 751
     ExplicitHeight = 451
     inherited tbsTabela: TTabSheet
@@ -155,7 +154,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 337
-        ActivePage = tbsContaEmail
+        ActivePage = tbsVenda
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -300,6 +299,73 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             DataField = 'EMAIL_CONEXAO_SSL'
             DataSource = DtSrcTabela
             TabOrder = 6
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+        end
+        object tbsVenda: TTabSheet
+          Caption = 'Vendas'
+          ImageIndex = 4
+          object lblFormaPagtoCartaCredito: TLabel
+            Left = 16
+            Top = 8
+            Width = 232
+            Height = 13
+            Caption = 'Forma de Pagamento para CARTA DE CR'#201'DITO:'
+            FocusControl = dbFormaPagtoCartaCredito
+          end
+          object dbFormaPagtoCartaCredito: TDBLookupComboBox
+            Left = 16
+            Top = 24
+            Width = 289
+            Height = 21
+            DataField = 'VENDA_FORMA_PAGTO_CARTACREDITO'
+            DataSource = DtSrcTabela
+            DropDownRows = 10
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            KeyField = 'COD'
+            ListField = 'DESCRI'
+            ListSource = DtsFormaPagto
+            ParentFont = False
+            TabOrder = 0
+          end
+          object dbPermitirVendaSemEstoque: TDBCheckBox
+            Left = 16
+            Top = 51
+            Width = 321
+            Height = 17
+            Caption = 'Permitir venda de produtos com estoque insuficiente'
+            DataField = 'PERMITIR_VENDA_ESTOQUE_INS'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object dbCarregarProdutoPeloEAN: TDBCheckBox
+            Left = 16
+            Top = 74
+            Width = 321
+            Height = 17
+            Caption = 'Carregar Produto pelo C'#243'digo EAN'
+            DataField = 'VENDA_CARREGA_PRODUTO_EAN'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 2
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
@@ -831,7 +897,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           ImageIndex = 2
           object dbCustoOperacional: TDBCheckBox
             Left = 16
-            Top = 16
+            Top = 15
             Width = 313
             Height = 17
             Caption = 'Calcular Custo Operacional nas vendas por Cliente'
@@ -847,27 +913,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
-          object dbPermitirVendaSemEstoque: TDBCheckBox
-            Left = 16
-            Top = 40
-            Width = 321
-            Height = 17
-            Caption = 'Permitir venda de produtos com estoque insuficiente'
-            DataField = 'PERMITIR_VENDA_ESTOQUE_INS'
-            DataSource = DtSrcTabela
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 1
-            ValueChecked = '1'
-            ValueUnchecked = '0'
-          end
           object dbEstoqueUnico: TDBCheckBox
             Left = 16
-            Top = 64
+            Top = 39
             Width = 257
             Height = 17
             Caption = 'Trabalhar com estoque unificado de produtos'
@@ -879,13 +927,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 1
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbDuplicarCnpj: TDBCheckBox
             Left = 16
-            Top = 112
+            Top = 87
             Width = 321
             Height = 17
             Caption = 'Permitir duplicar CPF/CNPJ no cadastro dos clientes'
@@ -897,13 +945,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 3
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbEstoqueSatelite: TDBCheckBox
             Left = 16
-            Top = 88
+            Top = 63
             Width = 241
             Height = 17
             Caption = 'Habilitar estoque satelite para clientes'
@@ -915,13 +963,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 2
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbAutorizacaoInformaCliente: TDBCheckBox
             Left = 16
-            Top = 136
+            Top = 111
             Width = 417
             Height = 17
             Caption = 
@@ -935,7 +983,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 5
+            TabOrder = 4
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
@@ -982,6 +1030,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.cliente_permitir_duplicar_cnpj'
       '  , c.custo_oper_calcular'
       '  , c.permitir_venda_estoque_ins'
+      '  , c.venda_carrega_produto_ean'
+      '  , c.venda_forma_pagto_cartacredito'
       '  , c.estoque_unico_empresas'
       '  , c.estoque_satelite_cliente'
       '  , c.autoriza_informa_cliente'
@@ -1212,6 +1262,18 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Origin = '"TBCONFIGURACAO"."PERMITIR_VENDA_ESTOQUE_INS"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaVENDA_CARREGA_PRODUTO_EAN: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'VENDA_CARREGA_PRODUTO_EAN'
+      Origin = '"TBCONFIGURACAO"."VENDA_CARREGA_PRODUTO_EAN"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaVENDA_FORMA_PAGTO_CARTACREDITO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'VENDA_FORMA_PAGTO_CARTACREDITO'
+      Origin = '"TBCONFIGURACAO"."VENDA_FORMA_PAGTO_CARTACREDITO"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaESTOQUE_UNICO_EMPRESAS: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'ESTOQUE_UNICO_EMPRESAS'
@@ -1261,6 +1323,15 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  EMAIL_CONEXAO_SSL,'
       '  EMAIL_ASSUNTO_PADRAO,'
       '  EMAIL_MENSAGEM_PADRAO,'
+      '  CLIENTE_PERMITIR_DUPLICAR_CNPJ,'
+      '  CUSTO_OPER_CALCULAR,'
+      '  PERMITIR_VENDA_ESTOQUE_INS,'
+      '  VENDA_CARREGA_PRODUTO_EAN,'
+      '  VENDA_FORMA_PAGTO_CARTACREDITO,'
+      '  ESTOQUE_UNICO_EMPRESAS,'
+      '  ESTOQUE_SATELITE_CLIENTE,'
+      '  AUTORIZA_INFORMA_CLIENTE,'
+      '  USUARIO,'
       '  NFE_EMITIR,'
       '  NFE_SERIE,'
       '  NFE_NUMERO,'
@@ -1273,14 +1344,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFCE_NUMERO,'
       '  NFCE_TOKEN_ID,'
       '  NFCE_TOKEN,'
-      '  CLIENTE_PERMITIR_DUPLICAR_CNPJ,'
-      '  CUSTO_OPER_CALCULAR,'
-      '  PERMITIR_VENDA_ESTOQUE_INS,'
-      '  VENDA_CARREGA_PRODUTO_EAN,'
-      '  ESTOQUE_UNICO_EMPRESAS,'
-      '  ESTOQUE_SATELITE_CLIENTE,'
-      '  AUTORIZA_INFORMA_CLIENTE,'
-      '  USUARIO,'
       '  NFSE_EMITIR,'
       '  NFSE_SERIE,'
       '  NFSE_NUMERO,'
@@ -1331,7 +1394,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFSE_PERCENTUAL_PIS = :NFSE_PERCENTUAL_PIS,'
       '  NFSE_SERIE = :NFSE_SERIE,'
       '  PERMITIR_VENDA_ESTOQUE_INS = :PERMITIR_VENDA_ESTOQUE_INS,'
-      '  USUARIO = :USUARIO'
+      '  USUARIO = :USUARIO,'
+      '  VENDA_CARREGA_PRODUTO_EAN = :VENDA_CARREGA_PRODUTO_EAN,'
+      
+        '  VENDA_FORMA_PAGTO_CARTACREDITO = :VENDA_FORMA_PAGTO_CARTACREDI' +
+        'TO'
       'where'
       '  EMPRESA = :OLD_EMPRESA')
     InsertSQL.Strings = (
@@ -1360,7 +1427,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       
         '   NFSE_PERCENTUAL_CSLL, NFSE_PERCENTUAL_ISSQN, NFSE_PERCENTUAL_' +
         'PIS, NFSE_SERIE, '
-      '   PERMITIR_VENDA_ESTOQUE_INS, USUARIO)'
+      
+        '   PERMITIR_VENDA_ESTOQUE_INS, USUARIO, VENDA_CARREGA_PRODUTO_EA' +
+        'N, VENDA_FORMA_PAGTO_CARTACREDITO)'
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
@@ -1386,7 +1455,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       
         '   :NFSE_PERCENTUAL_CSLL, :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTU' +
         'AL_PIS, '
-      '   :NFSE_SERIE, :PERMITIR_VENDA_ESTOQUE_INS, :USUARIO)')
+      
+        '   :NFSE_SERIE, :PERMITIR_VENDA_ESTOQUE_INS, :USUARIO, :VENDA_CA' +
+        'RREGA_PRODUTO_EAN, '
+      '   :VENDA_FORMA_PAGTO_CARTACREDITO)')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'
@@ -1394,7 +1466,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2853,39 +2925,62 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 672
-    Top = 368
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
-    Left = 704
-    Top = 368
+    DataSet = fdQryEmpresa
+    Left = 680
+    Top = 328
   end
-  object qryConfiguracoes: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.cod'
+      '  , lpad(f.cod, 2, '#39'0'#39') || '#39' - '#39' || trim(f.descri) as descri'
+      'from TBFORMPAGTO f')
+    Left = 648
+    Top = 296
+  end
+  object DtsFormaPagto: TDataSource
+    DataSet = fdQryFormaPagto
+    Left = 680
+    Top = 296
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.cnpj'
+      '  , e.rzsoc'
+      '  , e.nmfant'
+      'from TBEMPRESA e'
+      'order by'
+      '    e.rzsoc')
+    Left = 648
+    Top = 328
+  end
+  object fdQryConfiguracoes: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '  c.Empresa'
       'from TBCONFIGURACAO c'
       'where c.empresa = :empresa')
-    Left = 672
-    Top = 400
+    Left = 648
+    Top = 376
     ParamData = <
       item
-        DataType = ftUnknown
-        Name = 'empresa'
-        ParamType = ptUnknown
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
       end>
   end
 end

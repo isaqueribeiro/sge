@@ -408,6 +408,7 @@ var
   function GetQuantidadeEmpresasEmiteNFe : Integer;
   function GetTokenID_NFCe(const Empresa : String) : String;
   function GetToken_NFCe(const Empresa : String) : String;
+  function GetFormaPagtoCartaCredito(const Empresa : String) : Integer;
 
   function SetAcessoEstacao(const sHostName : String) : Boolean;
 
@@ -3819,6 +3820,32 @@ begin
 
   finally
     Result := sReturn;
+  end;
+end;
+
+function GetFormaPagtoCartaCredito(const Empresa : String) : Integer;
+var
+  iReturn : Integer;
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  coalesce(c.venda_forma_pagto_cartacredito, 0) as cd_forma_pagto');
+      SQL.Add('from TBCONFIGURACAO c');
+      SQL.Add('  inner join TBFORMPAGTO f on (f.cod = c.venda_forma_pagto_cartacredito)');
+      SQL.Add('where c.empresa = ' + QuotedStr(Empresa));
+      Open;
+
+      iReturn := FieldByName('cd_forma_pagto').AsInteger;
+
+      Close;
+    end;
+
+  finally
+    Result := iReturn;
   end;
 end;
 
