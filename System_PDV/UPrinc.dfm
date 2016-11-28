@@ -4574,6 +4574,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbbTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4609,7 +4610,6 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbbTabAjuda: TdxRibbonTab
-      Active = True
       Caption = 'Ajuda'
       Groups = <
         item
@@ -4687,7 +4687,7 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnOrcamento'
         end>
-      OneOnRow = False
+      OneOnRow = True
       Row = 0
       UseOwnFont = False
       Visible = True
@@ -4711,8 +4711,8 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnCliente'
         end>
-      OneOnRow = False
-      Row = 0
+      OneOnRow = True
+      Row = 1
       UseOwnFont = False
       Visible = True
       WholeRow = False
@@ -4888,6 +4888,10 @@ object frmPrinc: TfrmPrinc
           BeginGroup = True
           Visible = True
           ItemName = 'BrBtnTeamViewer'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnUpgrade'
         end
         item
           Visible = True
@@ -5202,6 +5206,17 @@ object frmPrinc: TfrmPrinc
       Hint = 'Executar Team Viewer (Ativar Conex'#227'o Remota)'
       Visible = ivAlways
       OnClick = BrBtnExecuteTeamViewerClick
+    end
+    object BrBtnUpgrade: TdxBarLargeButton
+      Caption = 'Atualizar Sistema'
+      Category = 6
+      Hint = 'Atualizar Sistema'
+      Visible = ivAlways
+      LargeImageIndex = 77
+      OnClick = BrBtnUpgradeClick
+      HotImageIndex = 77
+      SyncImageIndex = False
+      ImageIndex = 77
     end
     object BrBtnSobre: TdxBarLargeButton
       Caption = 'Sobre o Sistema'

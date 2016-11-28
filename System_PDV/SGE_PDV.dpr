@@ -92,7 +92,8 @@ uses
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
-  UGeVendaPDVFormaPagto in 'UGeVendaPDVFormaPagto.pas' {frmGeVendaPDVFormaPagto};
+  UGeVendaPDVFormaPagto in 'UGeVendaPDVFormaPagto.pas' {frmGeVendaPDVFormaPagto},
+  UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade};
 
 {$R *.res}
 

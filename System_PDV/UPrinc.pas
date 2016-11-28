@@ -6,27 +6,15 @@ uses
   StdCtrls, Buttons,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm,
-  
-  dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
-  dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy, dxSkinGlassOceans,
-  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
-  dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
-  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
-  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
-  dxSkinsdxBarPainter, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, dxBar, dxRibbon, cxClasses, dxSkinsForm,
-  dxGDIPlusClasses, dxRibbonSkins, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinsdxRibbonPainter,
-  dxRibbonCustomizationForm, dxSkinsdxStatusBarPainter, dxStatusBar,
-  cxContainer, cxEdit, dxGallery, dxGalleryControl,
-  dxRibbonBackstageViewGalleryControl, cxLabel, dxRibbonBackstageView;
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, dxBar, dxRibbon, cxClasses, dxSkinsForm,
+  dxGDIPlusClasses, dxRibbonCustomizationForm, dxStatusBar, cxContainer, cxEdit,
+  dxGallery, dxGalleryControl, dxRibbonBackstageViewGalleryControl, cxLabel,
+  dxRibbonBackstageView,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinsdxStatusBarPainter,
+  dxRibbonSkins, dxSkinsdxRibbonPainter, dxSkinsdxBarPainter;
 
 type
   TfrmPrinc = class(TdxRibbonForm)
@@ -100,6 +88,7 @@ type
     BrBtnDownloadTeamViewer: TdxBarLargeButton;
     BrBtnExecuteTeamViewer: TdxBarLargeButton;
     BrPpTeamViewer: TdxBarPopupMenu;
+    BrBtnUpgrade: TdxBarLargeButton;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -135,6 +124,7 @@ type
       var AHandled: Boolean);
     procedure BrBtnDownloadTeamViewerClick(Sender: TObject);
     procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
+    procedure BrBtnUpgradeClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -143,6 +133,7 @@ type
   public
     { Public declarations }
     procedure ConfigurarRotuloBotoes;
+    procedure Notificar;
   end;
 
 (*
@@ -200,6 +191,12 @@ begin
     ExecuteResource(Handle, aArquivo)
   else
     ShowWarning(Format('O arquivo ''%s'' não fora localizado.'#13#13'Favor comunicar ao suporte.', [aArquivo]));
+end;
+
+procedure TfrmPrinc.BrBtnUpgradeClick(Sender: TObject);
+begin
+  if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeAutoUpgrade');
 end;
 
 procedure TfrmPrinc.btnSairClick(Sender: TObject);
@@ -411,6 +408,14 @@ procedure TfrmPrinc.nmVendedorClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_VENDEDOR_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeVendedor');
+end;
+
+procedure TfrmPrinc.Notificar;
+begin
+//  BrBtnNotaFiscalInutilizar.Enabled    := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+//  BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+//  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+//  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
 end;
 
 procedure TfrmPrinc.nmProdutoClick(Sender: TObject);
