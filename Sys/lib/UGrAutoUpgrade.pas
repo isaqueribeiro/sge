@@ -46,7 +46,11 @@ implementation
 {$R *.dfm}
 
 uses
-  uDMRecursos, auUtils, UFuncoes, UDMBusiness, UConstantesDGE;
+  auUtils,
+  UFuncoes,
+  UConstantesDGE,
+  UDMBusiness,
+  uDMRecursos;
 
 procedure AtivarUpgradeAutomatico;
 begin

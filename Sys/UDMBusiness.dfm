@@ -971,20 +971,20 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     Left = 800
-    Top = 208
+    Top = 160
   end
   object fdIBDriverLink: TFDPhysIBDriverLink
-    Left = 800
+    Left = 832
     Top = 160
   end
   object fdFBDriverLink: TFDPhysFBDriverLink
-    Left = 832
+    Left = 864
     Top = 160
   end
   object fdTransacao: TFDTransaction
     Connection = fdConexao
     Left = 800
-    Top = 256
+    Top = 208
   end
   object fdQryUsers: TFDQuery
     CachedUpdates = True
@@ -1027,7 +1027,7 @@ object DMBusiness: TDMBusiness
   end
   object fdWaitCursor: TFDGUIxWaitCursor
     Provider = 'Forms'
-    Left = 864
+    Left = 896
     Top = 160
   end
   object fdSetSistema: TFDStoredProc

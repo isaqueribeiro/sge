@@ -15,8 +15,10 @@ type
     function StrRemoveAllAccents(const S: string): string;
     function StrFillLeft(Value: Char; const S: string; Count: Smallint): string;
     function StrFillRight(Value: Char; const S: string; Count: Smallint): string;
-    function StrIsCPF(const Num: string): Boolean;
-    function StrIsCNPJ(const Num: string): Boolean;
+    function StrIsCPF(const Num: string;
+      const PermitirVerdadeiroFalso : Boolean = FALSE): Boolean;
+    function StrIsCNPJ(const Num: string;
+      const PermitirVerdadeiroFalso : Boolean = FALSE): Boolean;
     function StrFormatarCnpj(sCnpj: String): String;
     function StrFormatarCpf(sCpf: String): String;
     function StrGetAge(const AStartDate, AEndDate: TDate): string;
@@ -126,13 +128,21 @@ begin
   Result := FormatFloat('000', Anos) + FormatFloat('00', Meses) + FormatFloat('00', Dias);
 end;
 
-function THopeString.StrIsCNPJ(const Num: string): Boolean;
+function THopeString.StrIsCNPJ(const Num: string;
+  const PermitirVerdadeiroFalso : Boolean = FALSE): Boolean;
 var
   Dig: array [1..14] of Byte;
   I, Resto: Byte;
   Dv1, Dv2: Byte;
   Total1, Total2: Integer;
   Valor: string;
+const
+  VERDADEIRO_FALSO : Array[0..9] of String = (
+      '00000000000000',
+      '11111111111111', '22222222222222', '33333333333333',
+      '44444444444444', '55555555555555', '66666666666666',
+      '77777777777777', '88888888888888', '99999999999999'
+    );
 begin
   if ( StrToIntDef(Copy(Num, 1, 2), -1) = -1 ) then
   begin
@@ -140,8 +150,8 @@ begin
     Exit;
   end;
 
+  // Remover da string caracteras não numéricos
   Valor := Num;
-
   for I := 1 to Length(Valor) do
     if not (Valor[I] in ['0'..'9']) then
       Delete(Valor, I, 1);
@@ -158,6 +168,14 @@ begin
     Result := True;
     Exit;
   end;
+
+  if not PermitirVerdadeiroFalso then
+    for I := Low(VERDADEIRO_FALSO) to High(VERDADEIRO_FALSO) do
+      if (Valor = VERDADEIRO_FALSO[I]) then
+      begin
+        Result := False;
+        Exit;
+      end;
 
   Result := False;
 
@@ -200,12 +218,20 @@ begin
   
 end;
 
-function THopeString.StrIsCPF(const Num: string): Boolean;
+function THopeString.StrIsCPF(const Num: string;
+  const PermitirVerdadeiroFalso : Boolean = FALSE): Boolean;
 var
   I, Numero, Resto: Byte ;
   Dv1, Dv2: Byte ;
   Total, Soma: Integer ;
   Valor: string;
+const
+  VERDADEIRO_FALSO : Array[0..9] of String = (
+      '00000000000',
+      '11111111111', '22222222222', '33333333333',
+      '44444444444', '55555555555', '66666666666',
+      '77777777777', '88888888888', '99999999999'
+    );
 begin
   if ( StrToIntDef(Copy(Num, 1, 2), -1) = -1 ) then
   begin
@@ -213,6 +239,7 @@ begin
     Exit;
   end;
 
+  // Remover da string caracteras não numéricos
   Valor := Num;
   for I := 1 to Length(Valor) do
     if not (Valor[I] in ['0'..'9']) then Delete(Valor, I, 1);
@@ -222,7 +249,17 @@ begin
     Result := True;
     Exit;
   end;
+
+  if not PermitirVerdadeiroFalso then
+    for I := Low(VERDADEIRO_FALSO) to High(VERDADEIRO_FALSO) do
+      if (Valor = VERDADEIRO_FALSO[I]) then
+      begin
+        Result := False;
+        Exit;
+      end;
+
   Result := False;
+
   if Length(Valor) = 11 then
   begin
     Total := 0 ;

@@ -26,8 +26,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 122
-    ExplicitHeight = 395
     DesignSize = (
       930
       362)
@@ -4687,7 +4685,7 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnOrcamento'
         end>
-      OneOnRow = True
+      OneOnRow = False
       Row = 0
       UseOwnFont = False
       Visible = True
@@ -4711,8 +4709,8 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnCliente'
         end>
-      OneOnRow = True
-      Row = 1
+      OneOnRow = False
+      Row = 0
       UseOwnFont = False
       Visible = True
       WholeRow = False
@@ -5231,6 +5229,7 @@ object frmPrinc: TfrmPrinc
     end
   end
   object TmrMonitorar: TTimer
+    Enabled = False
     Left = 384
     Top = 358
   end
@@ -5272,5 +5271,11 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 408
     Top = 246
+  end
+  object tmrAutoUpgrade: TTimer
+    Enabled = False
+    OnTimer = tmrAutoUpgradeTimer
+    Left = 384
+    Top = 403
   end
 end

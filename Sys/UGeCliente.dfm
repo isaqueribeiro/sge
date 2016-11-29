@@ -177,6 +177,7 @@ inherited frmGeCliente: TfrmGeCliente
             Top = 15
             Width = 444
             Height = 37
+            Hint = 'O cliente encontra-se bloqueado por haver t'#237'tulos em atraso.'
             TabStop = False
             Align = alClient
             BorderStyle = bsNone
@@ -185,8 +186,10 @@ inherited frmGeCliente: TfrmGeCliente
             DataField = 'BLOQUEADO_MOTIVO'
             DataSource = DtSrcTabela
             ParentCtl3D = False
+            ParentShowHint = False
             ReadOnly = True
             ScrollBars = ssVertical
+            ShowHint = True
             TabOrder = 0
           end
         end
@@ -1698,6 +1701,7 @@ inherited frmGeCliente: TfrmGeCliente
             Top = 131
             Width = 153
             Height = 17
+            Hint = 'O cliente encontra-se bloqueado por haver t'#237'tulos em atraso.'
             TabStop = False
             Caption = 'Cliente Bloqueado'
             DataField = 'BLOQUEADO'
@@ -1708,7 +1712,9 @@ inherited frmGeCliente: TfrmGeCliente
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
+            ParentShowHint = False
             ReadOnly = True
+            ShowHint = True
             TabOrder = 3
             ValueChecked = '1'
             ValueUnchecked = '0'
@@ -3432,7 +3438,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4891,291 +4897,25 @@ inherited frmGeCliente: TfrmGeCliente
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object qryTotalComprasAbertas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    g.Valor_limite'
-      '  , g.Valor_compras_abertas'
-      '  , g.Valor_limite_disponivel'
-      'from GET_LIMITE_DISPONIVEL_CLIENTE(:CLIENTE) g')
-    Left = 504
-    Top = 337
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'CLIENTE'
-        ParamType = ptUnknown
-      end>
-    object qryTotalComprasAbertasVALOR_LIMITE: TIBBCDField
-      FieldName = 'VALOR_LIMITE'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_LIMITE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TIBBCDField
-      FieldName = 'VALOR_COMPRAS_ABERTAS'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_COMPRAS_ABERTAS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TIBBCDField
-      FieldName = 'VALOR_LIMITE_DISPONIVEL'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_LIMITE_DISPONIVEL'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-  end
   object cdsTotalComprasAbertas: TDataSource
-    DataSet = qryTotalComprasAbertas
+    DataSet = fdQryTotalComprasAbertas
     Left = 536
     Top = 337
-  end
-  object qryTitulos: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    1 as tipo'
-      '  , r.Anolanc'
-      '  , r.Numlanc'
-      
-        '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
-        'amento'
-      '  , r.Parcela'
-      '  , r.Dtemiss'
-      '  , r.Dtvenc'
-      '  , r.Forma_pagto'
-      '  , f.Descri as Forma_pagto_Desc'
-      '  , r.Nossonumero'
-      '  , r.Valorrec'
-      '  , r.Valormulta'
-      '  , r.Valorrectot'
-      '  , r.Valorsaldo'
-      '  , r.Status'
-      '  , r.Situacao'
-      '  , r.Anovenda'
-      '  , r.Numvenda'
-      
-        '  , r.Anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.Numvenda, 7) as Ve' +
-        'nda'
-      '  , v.Serie'
-      '  , v.Nfe'
-      
-        '  , '#39'S'#39' || v.Serie || '#39'/'#39' || right('#39'0000000'#39' || v.Nfe, 7) as NFE' +
-        '_Serie'
-      'from TBCONTREC r'
-      '  inner join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
-      
-        '  left join TBVENDAS v on (v.Ano = r.Anovenda and v.Codcontrol =' +
-        ' r.Numvenda)'
-      'where r.Baixado = 0'
-      '  and r.Parcela > 0'
-      '  and r.Situacao = 1'
-      '  and r.Cliente = :cliente'
-      ''
-      'Union'
-      ''
-      'Select first 10'
-      '    0 as tipo'
-      '  , r.Anolanc'
-      '  , r.Numlanc'
-      
-        '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
-        'amento'
-      '  , r.Parcela'
-      '  , r.Dtemiss'
-      '  , r.Dtvenc'
-      '  , r.Forma_pagto'
-      '  , f.Descri as Forma_pagto_Desc'
-      '  , r.Nossonumero'
-      '  , r.Valorrec'
-      '  , r.Valormulta'
-      '  , r.Valorrectot'
-      '  , r.Valorsaldo'
-      '  , r.Status'
-      '  , r.Situacao'
-      '  , r.Anovenda'
-      '  , r.Numvenda'
-      
-        '  , r.Anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.Numvenda, 7) as Ve' +
-        'nda'
-      '  , v.Serie'
-      '  , v.Nfe'
-      
-        '  , '#39'S'#39' || v.Serie || '#39'/'#39' || right('#39'0000000'#39' || v.Nfe, 7) as NFE' +
-        '_Serie'
-      'from TBCONTREC r'
-      '  inner join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
-      
-        '  left join TBVENDAS v on (v.Ano = r.Anovenda and v.Codcontrol =' +
-        ' r.Numvenda)'
-      'where r.Baixado  = 1'
-      '  --and r.Parcela  = 0'
-      '  and r.Situacao = 1'
-      '  and r.Cliente  = :cliente'
-      ''
-      'order by    '
-      '    1 desc, 4 desc, 7 desc')
-    Left = 504
-    Top = 369
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'cliente'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftString
-        Name = 'cliente'
-        ParamType = ptInput
-      end>
-    object qryTitulosTIPO: TIntegerField
-      FieldName = 'TIPO'
-      ProviderFlags = []
-    end
-    object qryTitulosANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = 'TBCONTREC.ANOLANC'
-      Required = True
-    end
-    object qryTitulosNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = 'TBCONTREC.NUMLANC'
-      Required = True
-    end
-    object qryTitulosLANCAMENTO: TIBStringField
-      FieldName = 'LANCAMENTO'
-      Required = True
-      Size = 25
-    end
-    object qryTitulosPARCELA: TSmallintField
-      FieldName = 'PARCELA'
-      Origin = 'TBCONTREC.PARCELA'
-    end
-    object qryTitulosDTEMISS: TDateField
-      FieldName = 'DTEMISS'
-      Origin = 'TBCONTREC.DTEMISS'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryTitulosDTVENC: TDateField
-      FieldName = 'DTVENC'
-      Origin = 'TBCONTREC.DTVENC'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryTitulosFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = 'TBCONTREC.FORMA_PAGTO'
-    end
-    object qryTitulosFORMA_PAGTO_DESC: TIBStringField
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'TBFORMPAGTO.DESCRI'
-      Size = 30
-    end
-    object qryTitulosNOSSONUMERO: TIBStringField
-      FieldName = 'NOSSONUMERO'
-      Origin = 'TBCONTREC.NOSSONUMERO'
-    end
-    object qryTitulosVALORREC: TIBBCDField
-      FieldName = 'VALORREC'
-      Origin = 'TBCONTREC.VALORREC'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTitulosVALORMULTA: TIBBCDField
-      FieldName = 'VALORMULTA'
-      Origin = 'TBCONTREC.VALORMULTA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTitulosVALORRECTOT: TIBBCDField
-      FieldName = 'VALORRECTOT'
-      Origin = 'TBCONTREC.VALORRECTOT'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTitulosVALORSALDO: TIBBCDField
-      FieldName = 'VALORSALDO'
-      Origin = 'TBCONTREC.VALORSALDO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTitulosSTATUS: TIBStringField
-      FieldName = 'STATUS'
-      Origin = 'TBCONTREC.STATUS'
-      Size = 12
-    end
-    object qryTitulosSITUACAO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'SITUACAO'
-      Origin = 'TBCONTREC.SITUACAO'
-      OnGetText = qryTitulosSITUACAOGetText
-    end
-    object qryTitulosANOVENDA: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = 'TBCONTREC.ANOVENDA'
-    end
-    object qryTitulosNUMVENDA: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = 'TBCONTREC.NUMVENDA'
-    end
-    object qryTitulosVENDA: TIBStringField
-      FieldName = 'VENDA'
-      Size = 25
-    end
-    object qryTitulosSERIE: TIBStringField
-      FieldName = 'SERIE'
-      Origin = 'TBVENDAS.SERIE'
-      Size = 4
-    end
-    object qryTitulosNFE: TLargeintField
-      FieldName = 'NFE'
-      Origin = 'TBVENDAS.NFE'
-    end
-    object qryTitulosNFE_SERIE: TIBStringField
-      FieldName = 'NFE_SERIE'
-      Size = 34
-    end
   end
   object dtsTitulos: TDataSource
-    DataSet = qryTitulos
+    DataSet = fdQryTitulos
     Left = 536
     Top = 369
   end
-  object tblVendedor: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBVENDEDOR'
-    UniDirectional = False
-    Left = 568
-    Top = 336
-  end
   object dtsVendedor: TDataSource
-    DataSet = tblVendedor
+    DataSet = fdQryVendedor
     Left = 600
     Top = 336
   end
   object popProcesso: TPopupMenu
     Images = ImgList
-    Left = 696
-    Top = 430
+    Left = 768
+    Top = 422
     object mpClienteBloquear: TMenuItem
       Caption = '&Bloquear'
       ImageIndex = 37
@@ -5190,13 +4930,13 @@ inherited frmGeCliente: TfrmGeCliente
   object ACBrConsultaCNPJ: TACBrConsultaCNPJ
     ProxyPort = '8080'
     PesquisarIBGE = True
-    Left = 770
-    Top = 345
+    Left = 776
+    Top = 352
   end
   object ACBrConsultaCPF: TACBrConsultaCPF
     ProxyPort = '8080'
     Left = 776
-    Top = 302
+    Top = 304
   end
   object QryEstoqueSatelite: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -5422,33 +5162,20 @@ inherited frmGeCliente: TfrmGeCliente
     Left = 648
     Top = 152
   end
-  object tblTipoCnpj: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_CNPJ'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 568
-    Top = 368
-  end
   object dtsTipoCnpj: TDataSource
-    DataSet = tblTipoCnpj
+    DataSet = fdQryTipoCnpj
     Left = 600
     Top = 368
   end
   object dtsBancoFebraban: TDataSource
-    DataSet = qryBancoFebraban
+    DataSet = fdQryBancoFebraban
     Left = 600
     Top = 400
   end
-  object qryBancoFebraban: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object fdQryBancoFebraban: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    b.codigo'
@@ -5460,6 +5187,307 @@ inherited frmGeCliente: TfrmGeCliente
       'order by'
       '    b.nome')
     Left = 568
-    Top = 401
+    Top = 398
+  end
+  object fdQryTipoCnpj: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    t.codigo'
+      '  , t.descricao'
+      'from VW_TIPO_CNPJ t')
+    Left = 568
+    Top = 366
+  end
+  object fdQryVendedor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.cod'
+      '  , trim(v.nome) as nome'
+      '  , v.cpf'
+      '  , v.ativo'
+      'from TBVENDEDOR v'
+      'order by'
+      '    trim(v.nome)')
+    Left = 568
+    Top = 334
+  end
+  object fdQryTotalComprasAbertas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    g.Valor_limite'
+      '  , g.Valor_compras_abertas'
+      '  , g.Valor_limite_disponivel'
+      'from GET_LIMITE_DISPONIVEL_CLIENTE(:CLIENTE) g')
+    Left = 504
+    Top = 336
+    ParamData = <
+      item
+        Name = 'CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object fdQryTotalComprasAbertasVALOR_LIMITE: TBCDField
+      FieldName = 'VALOR_LIMITE'
+      Origin = 'VALOR_LIMITE'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TBCDField
+      FieldName = 'VALOR_COMPRAS_ABERTAS'
+      Origin = 'VALOR_COMPRAS_ABERTAS'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TBCDField
+      FieldName = 'VALOR_LIMITE_DISPONIVEL'
+      Origin = 'VALOR_LIMITE_DISPONIVEL'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object fdQryTitulos: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    1 as tipo'
+      '  , r.Anolanc'
+      '  , r.Numlanc'
+      
+        '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
+        'amento'
+      '  , r.Parcela'
+      '  , r.Dtemiss'
+      '  , r.Dtvenc'
+      '  , r.Forma_pagto'
+      '  , f.Descri as Forma_pagto_Desc'
+      '  , r.Nossonumero'
+      '  , r.Valorrec'
+      '  , r.Valormulta'
+      '  , r.Valorrectot'
+      '  , r.Valorsaldo'
+      '  , r.Status'
+      '  , r.Situacao'
+      '  , r.Anovenda'
+      '  , r.Numvenda'
+      
+        '  , r.Anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.Numvenda, 7) as Ve' +
+        'nda'
+      '  , v.Serie'
+      '  , v.Nfe'
+      
+        '  , '#39'S'#39' || v.Serie || '#39'/'#39' || right('#39'0000000'#39' || v.Nfe, 7) as NFE' +
+        '_Serie'
+      'from TBCONTREC r'
+      '  inner join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
+      
+        '  left join TBVENDAS v on (v.Ano = r.Anovenda and v.Codcontrol =' +
+        ' r.Numvenda)'
+      'where r.Baixado = 0'
+      '  and r.Parcela > 0'
+      '  and r.Situacao = 1'
+      '  and r.Cliente = :cliente'
+      ''
+      'Union'
+      ''
+      'Select first 10'
+      '    0 as tipo'
+      '  , r.Anolanc'
+      '  , r.Numlanc'
+      
+        '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
+        'amento'
+      '  , r.Parcela'
+      '  , r.Dtemiss'
+      '  , r.Dtvenc'
+      '  , r.Forma_pagto'
+      '  , f.Descri as Forma_pagto_Desc'
+      '  , r.Nossonumero'
+      '  , r.Valorrec'
+      '  , r.Valormulta'
+      '  , r.Valorrectot'
+      '  , r.Valorsaldo'
+      '  , r.Status'
+      '  , r.Situacao'
+      '  , r.Anovenda'
+      '  , r.Numvenda'
+      
+        '  , r.Anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.Numvenda, 7) as Ve' +
+        'nda'
+      '  , v.Serie'
+      '  , v.Nfe'
+      
+        '  , '#39'S'#39' || v.Serie || '#39'/'#39' || right('#39'0000000'#39' || v.Nfe, 7) as NFE' +
+        '_Serie'
+      'from TBCONTREC r'
+      '  inner join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
+      
+        '  left join TBVENDAS v on (v.Ano = r.Anovenda and v.Codcontrol =' +
+        ' r.Numvenda)'
+      'where r.Baixado  = 1'
+      '  --and r.Parcela  = 0'
+      '  and r.Situacao = 1'
+      '  and r.Cliente  = :cliente'
+      ''
+      'order by    '
+      '    1 desc, 4 desc, 7 desc')
+    Left = 504
+    Top = 368
+    ParamData = <
+      item
+        Name = 'CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object fdQryTitulosTIPO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdQryTitulosANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTitulosNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTitulosLANCAMENTO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LANCAMENTO'
+      Origin = 'LANCAMENTO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 25
+    end
+    object fdQryTitulosPARCELA: TSmallintField
+      FieldName = 'PARCELA'
+      Origin = 'PARCELA'
+    end
+    object fdQryTitulosDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTitulosDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTitulosFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object fdQryTitulosFORMA_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FORMA_PAGTO_DESC'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 30
+    end
+    object fdQryTitulosNOSSONUMERO: TStringField
+      FieldName = 'NOSSONUMERO'
+      Origin = 'NOSSONUMERO'
+    end
+    object fdQryTitulosVALORREC: TBCDField
+      FieldName = 'VALORREC'
+      Origin = 'VALORREC'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTitulosVALORMULTA: TBCDField
+      FieldName = 'VALORMULTA'
+      Origin = 'VALORMULTA'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTitulosVALORRECTOT: TBCDField
+      FieldName = 'VALORRECTOT'
+      Origin = 'VALORRECTOT'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTitulosVALORSALDO: TBCDField
+      FieldName = 'VALORSALDO'
+      Origin = 'VALORSALDO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTitulosSTATUS: TStringField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Size = 12
+    end
+    object fdQryTitulosSITUACAO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'SITUACAO'
+      Origin = 'SITUACAO'
+      OnGetText = fdQryTitulosSITUACAOGetText
+    end
+    object fdQryTitulosANOVENDA: TSmallintField
+      FieldName = 'ANOVENDA'
+      Origin = 'ANOVENDA'
+    end
+    object fdQryTitulosNUMVENDA: TIntegerField
+      FieldName = 'NUMVENDA'
+      Origin = 'NUMVENDA'
+    end
+    object fdQryTitulosVENDA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA'
+      Origin = 'VENDA'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 25
+    end
+    object fdQryTitulosSERIE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SERIE'
+      Origin = 'SERIE'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 4
+    end
+    object fdQryTitulosNFE: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE'
+      Origin = 'NFE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdQryTitulosNFE_SERIE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_SERIE'
+      Origin = 'NFE_SERIE'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 33
+    end
   end
 end

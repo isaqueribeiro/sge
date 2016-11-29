@@ -9,16 +9,15 @@ uses
   ToolWin, IBTable, IBQuery, Menus, JPEG,
   UObserverInterface, UCliente, ACBrBase, ACBrSocket, ACBrConsultaCNPJ,
   ACBrConsultaCPF, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  cxButtons, JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  cxControls, cxStyles, cxEdit, cxDBLookupComboBox, cxVGrid, cxDBVGrid,
-  cxInplaceContainer;
+  cxButtons, JvExMask, JvToolEdit, JvDBControls, cxControls, cxStyles, cxEdit,
+  cxDBLookupComboBox, cxVGrid, cxDBVGrid, cxInplaceContainer,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeCliente = class(TfrmGrPadraoCadastro, IObserver) // Observador
@@ -83,30 +82,10 @@ type
     IbDtstTabelaVALOR_LIMITE_COMPRA: TIBBCDField;
     lblTotalCompras: TLabel;
     dbTotalCompras: TDBEdit;
-    qryTotalComprasAbertas: TIBQuery;
     cdsTotalComprasAbertas: TDataSource;
-    qryTotalComprasAbertasVALOR_LIMITE: TIBBCDField;
-    qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TIBBCDField;
-    qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TIBBCDField;
     lblLimiteDisponivel: TLabel;
     dbLimiteDisponivel: TDBEdit;
-    qryTitulos: TIBQuery;
     dtsTitulos: TDataSource;
-    qryTitulosANOLANC: TSmallintField;
-    qryTitulosNUMLANC: TIntegerField;
-    qryTitulosLANCAMENTO: TIBStringField;
-    qryTitulosPARCELA: TSmallintField;
-    qryTitulosDTEMISS: TDateField;
-    qryTitulosDTVENC: TDateField;
-    qryTitulosFORMA_PAGTO: TSmallintField;
-    qryTitulosFORMA_PAGTO_DESC: TIBStringField;
-    qryTitulosNOSSONUMERO: TIBStringField;
-    qryTitulosVALORREC: TIBBCDField;
-    qryTitulosVALORMULTA: TIBBCDField;
-    qryTitulosVALORRECTOT: TIBBCDField;
-    qryTitulosVALORSALDO: TIBBCDField;
-    qryTitulosSTATUS: TIBStringField;
-    qryTitulosSITUACAO: TSmallintField;
     pnlTitulos: TPanel;
     dbgTitulos: TDBGrid;
     lblTituloEmAberto: TLabel;
@@ -114,12 +93,6 @@ type
     IbDtstTabelaDTCAD: TDateField;
     lblDataCadastro: TLabel;
     dbDataCadastro: TDBEdit;
-    qryTitulosANOVENDA: TSmallintField;
-    qryTitulosNUMVENDA: TIntegerField;
-    qryTitulosVENDA: TIBStringField;
-    qryTitulosSERIE: TIBStringField;
-    qryTitulosNFE: TLargeintField;
-    qryTitulosNFE_SERIE: TIBStringField;
     IbDtstTabelaBLOQUEADO: TSmallintField;
     IbDtstTabelaBLOQUEADO_DATA: TDateField;
     IbDtstTabelaBLOQUEADO_MOTIVO: TMemoField;
@@ -138,7 +111,6 @@ type
     dbFoneCelular: TDBEdit;
     lblFoneComercial: TLabel;
     dbFoneComercial: TDBEdit;
-    tblVendedor: TIBTable;
     dtsVendedor: TDataSource;
     IbDtstTabelaVENDEDOR_COD: TIntegerField;
     lblVendedor: TLabel;
@@ -237,7 +209,6 @@ type
     QryEstoqueSateliteUNP_SIGLA: TIBStringField;
     CmbBxFiltrarTipo: TComboBox;
     QryEstoqueSateliteVALOR_MEDIO: TIBBCDField;
-    tblTipoCnpj: TIBTable;
     dtsTipoCnpj: TDataSource;
     IbDtstTabelaTIPO: TSmallintField;
     lblTipoCNPJ: TLabel;
@@ -252,7 +223,6 @@ type
     tbsDadoFinanceiro: TTabSheet;
     tbsObservacao: TTabSheet;
     dbObservacao: TDBMemo;
-    qryBancoFebraban: TIBQuery;
     IbDtstTabelaNOMEFANT: TIBStringField;
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
@@ -303,7 +273,36 @@ type
     IbDtstTabelaCC_3: TIBStringField;
     IbDtstTabelaPRACA_3: TIBStringField;
     IbDtstTabelaBLOQUEADO_AUTOMATICO: TSmallintField;
-    qryTitulosTIPO: TIntegerField;
+    fdQryBancoFebraban: TFDQuery;
+    fdQryTipoCnpj: TFDQuery;
+    fdQryVendedor: TFDQuery;
+    fdQryTotalComprasAbertas: TFDQuery;
+    fdQryTotalComprasAbertasVALOR_LIMITE: TBCDField;
+    fdQryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TBCDField;
+    fdQryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TBCDField;
+    fdQryTitulos: TFDQuery;
+    fdQryTitulosTIPO: TIntegerField;
+    fdQryTitulosANOLANC: TSmallintField;
+    fdQryTitulosNUMLANC: TIntegerField;
+    fdQryTitulosLANCAMENTO: TStringField;
+    fdQryTitulosPARCELA: TSmallintField;
+    fdQryTitulosDTEMISS: TDateField;
+    fdQryTitulosDTVENC: TDateField;
+    fdQryTitulosFORMA_PAGTO: TSmallintField;
+    fdQryTitulosFORMA_PAGTO_DESC: TStringField;
+    fdQryTitulosNOSSONUMERO: TStringField;
+    fdQryTitulosVALORREC: TBCDField;
+    fdQryTitulosVALORMULTA: TBCDField;
+    fdQryTitulosVALORRECTOT: TBCDField;
+    fdQryTitulosVALORSALDO: TBCDField;
+    fdQryTitulosSTATUS: TStringField;
+    fdQryTitulosSITUACAO: TSmallintField;
+    fdQryTitulosANOVENDA: TSmallintField;
+    fdQryTitulosNUMVENDA: TIntegerField;
+    fdQryTitulosVENDA: TStringField;
+    fdQryTitulosSERIE: TStringField;
+    fdQryTitulosNFE: TLargeintField;
+    fdQryTitulosNFE_SERIE: TStringField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -315,8 +314,6 @@ type
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
-    procedure qryTitulosSITUACAOGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -349,6 +346,8 @@ type
     procedure dbgContaCorrenteEnter(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure CmbBxFiltrarTipoKeyPress(Sender: TObject; var Key: Char);
+    procedure fdQryTitulosSITUACAOGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -412,7 +411,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
+  UDMBusiness, UDMRecursos, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
   UGeLogradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
 
 {$R *.dfm}
@@ -558,9 +557,9 @@ begin
 
   inherited;
 
-  CarregarLista(tblVendedor);
-  CarregarLista(tblTipoCnpj);
-  CarregarLista(qryBancoFebraban);
+  CarregarLista(fdQryVendedor);
+  CarregarLista(fdQryTipoCnpj);
+  CarregarLista(fdQryBancoFebraban);
 
   BloquearClientes;
 
@@ -823,11 +822,14 @@ end;
 
 procedure TfrmGeCliente.btbtnSalvarClick(Sender: TObject);
 var
+  pTrueFalse : Boolean;
   iCodigo : Integer;
   sRazao  : String;
 begin
+  pTrueFalse := GetPermitirVerdadeiroFalsoCNPJCliente(gUsuarioLogado.Empresa);
+
   if ( IbDtstTabelaPESSOA_FISICA.AsInteger = 1 ) then
-    if ( not FuncoesString.StrIsCPF(IbDtstTabelaCNPJ.AsString) ) then
+    if ( not FuncoesString.StrIsCPF(IbDtstTabelaCNPJ.AsString, pTrueFalse) ) then
     begin
       ShowWarning('Favor informar um CPF válido.');
       Abort;
@@ -835,7 +837,7 @@ begin
 
   if ( IbDtstTabelaPESSOA_FISICA.AsInteger = 0 ) then
   begin
-    if ( not FuncoesString.StrIsCNPJ(IbDtstTabelaCNPJ.AsString) ) then
+    if ( not FuncoesString.StrIsCNPJ(IbDtstTabelaCNPJ.AsString, pTrueFalse) ) then
     begin
       ShowWarning('Favor informar um CNPJ válido.');
       Abort;
@@ -855,13 +857,13 @@ begin
   end;
 
   { DONE 1 -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (1) }
-  
+
   if GetExisteCPF_CNPJ(IbDtstTabelaCODIGO.AsInteger, IbDtstTabelaCNPJ.AsString, iCodigo, sRazao) then
     if not GetPermitirDuplicarCNPJCliente(gUsuarioLogado.Empresa) then
     begin
       ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
       Abort;
-    end  
+    end
     else
     if not ShowConfirm('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")"', iCodigo) + #13 +
       'Deseja salvar este registro assim mesmo?') then
@@ -911,14 +913,14 @@ end;
 
 procedure TfrmGeCliente.GetComprasAbertas(iCodigoCliente : Integer);
 begin
-  with qryTotalComprasAbertas do
+  with fdQryTotalComprasAbertas do
   begin
     Close;
     ParamByName('cliente').AsInteger := iCodigoCliente;
     Open;
   end;
 
-  with qryTitulos do
+  with fdQryTitulos do
   begin
     Close;
     ParamByName('cliente').AsInteger := iCodigoCliente;
@@ -930,16 +932,6 @@ procedure TfrmGeCliente.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
   GetComprasAbertas( IbDtstTabela.FieldByName('codigo').AsInteger );
-end;
-
-procedure TfrmGeCliente.qryTitulosSITUACAOGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-    
-  if ( Sender.AsInteger = 0 ) then
-    Text := 'Cancelado';
 end;
 
 procedure TfrmGeCliente.dbgContaCorrenteEnter(Sender: TObject);
@@ -978,15 +970,15 @@ begin
   if ( Sender = dbgTitulos ) then
   begin
     // Destacar Títulos em Pagamento
-    if ( (qryTitulosVALORRECTOT.AsCurrency > 0) and (qryTitulosTIPO.AsInteger = 1) ) then
+    if ( (fdQryTitulosVALORRECTOT.AsCurrency > 0) and (fdQryTitulosTIPO.AsInteger = 1) ) then
       dbgTitulos.Canvas.Font.Color := lblTituloPagando.Font.Color
     else
     // Destacar Títulos Cancelados
-    if ( qryTitulosTIPO.AsInteger = 1 ) then
+    if ( fdQryTitulosTIPO.AsInteger = 1 ) then
       dbgTitulos.Canvas.Font.Color := lblTituloEmAberto.Font.Color
     else
     // Títulos pagos de forma imediata (A Vista)
-    if ( qryTitulosTIPO.AsInteger = 0 ) then
+    if ( fdQryTitulosTIPO.AsInteger = 0 ) then
       dbgTitulos.Canvas.Font.Style := [];
 
     dbgTitulos.DefaultDrawDataCell(Rect, dbgTitulos.Columns[DataCol].Field, State);
@@ -1052,14 +1044,17 @@ begin
   if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
     if InputQuery('Desbloquear cliente:', 'Informe o motivo do desbloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
-      begin
-        iCodigo := IbDtstTabelaCODIGO.AsInteger;
-        DesbloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
+        try
+          WaitAMoment(WAIT_AMOMENT_Process);
+          iCodigo := IbDtstTabelaCODIGO.AsInteger;
+          DesbloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
 
-        IbDtstTabela.Close;
-        IbDtstTabela.Open;
-        IbDtstTabela.Locate('CODIGO', iCodigo, []);
-      end;
+          IbDtstTabela.Close;
+          IbDtstTabela.Open;
+          IbDtstTabela.Locate('CODIGO', iCodigo, []);
+        finally
+          WaitAMomentFree;
+        end;
 end;
 
 procedure TfrmGeCliente.mpClienteBloquearClick(Sender: TObject);
@@ -1070,13 +1065,16 @@ begin
   if ( IbDtstTabelaBLOQUEADO.AsInteger = 0 ) then
     if InputQuery('Bloquear cliente:', 'Informe o motivo do bloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
-      begin
+      try
+        WaitAMoment(WAIT_AMOMENT_Process);
         iCodigo := IbDtstTabelaCODIGO.AsInteger;
         BloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
 
         IbDtstTabela.Close;
         IbDtstTabela.Open;
         IbDtstTabela.Locate('CODIGO', iCodigo, []);
+      finally
+        WaitAMomentFree;
       end;
 end;
 
@@ -1472,6 +1470,16 @@ begin
   end;
 end;
 
+procedure TfrmGeCliente.fdQryTitulosSITUACAOGetText(Sender: TField;
+  var Text: string; DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  if ( Sender.AsInteger = 0 ) then
+    Text := 'Cancelado';
+end;
+
 procedure TfrmGeCliente.btnPesquisarEstoqueSateliteClick(Sender: TObject);
 begin
   EstoqueSateliteFiltarDados(edFiltrarTipoEstoqueSatelite.ItemIndex);
@@ -1518,87 +1526,100 @@ end;
 procedure TfrmGeCliente.FiltarDados(const iTipoPesquisa: Integer);
 begin
   try
+    WaitAMoment(WAIT_AMOMENT_LoadData);
 
-    if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
-    begin
-      ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
-      Abort;
-    end;
+    try
 
-    with IbDtstTabela, SelectSQL do
-    begin
-      if ( Trim(CampoOrdenacao) = EmptyStr ) then
-        CampoOrdenacao := CampoDescricao;
-
-      Close;
-      Clear;
-      AddStrings( SQLTabela );
-
-      if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
+      if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
       begin
-
-        Case iTipoPesquisa of
-          // Por Código, Razão
-          0:
-            if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
-              Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
-            else
-            begin
-              Add( 'where ((upper(cl.Nome) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '     or upper(cl.Nome) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
-              Add( '   or ((upper(cl.Nomefant) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '     or upper(cl.Nomefant) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
-            end;
-
-          // Por CPF/CNPJ
-          1:
-            Add( 'where cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') );
-
-          // Por Cidade
-          2:
-            Add( 'where ((upper(cl.Cidade) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                 '     or upper(cl.Cidade) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
-
-          // Por Telefones
-          3:
-            begin
-              Add( 'where ((cl.fone       like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
-              Add( '    or (cl.fonecel    like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
-              Add( '    or (cl.fonecomerc like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + '))');
-            end;
-        end;
-
+        WaitAMomentFree;
+        ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
+        Abort;
       end;
 
-      if ( WhereAdditional <> EmptyStr ) then
-        if ( Pos('where', SelectSQL.Text) > 0 ) then
-          Add( '  and (' + WhereAdditional + ')' )
-        else
-          Add( 'where (' + WhereAdditional + ')' );
+      with IbDtstTabela, SelectSQL do
+      begin
+        if ( Trim(CampoOrdenacao) = EmptyStr ) then
+          CampoOrdenacao := CampoDescricao;
 
-      Add( 'order by ' + CampoOrdenacao );
+        Close;
+        Clear;
+        AddStrings( SQLTabela );
 
-      Open;
-
-      try
-      
-        if ( not IsEmpty ) then
-          dbgDados.SetFocus
-        else
+        if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
         begin
-          ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
 
-          edtFiltrar.SetFocus;
-          edtFiltrar.SelectAll;
+          Case iTipoPesquisa of
+            // Por Código, Razão
+            0:
+              if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
+                Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
+              else
+              begin
+                Add( 'where ((upper(cl.Nome) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                     '     or upper(cl.Nome) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+                Add( '   or ((upper(cl.Nomefant) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                     '     or upper(cl.Nomefant) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+              end;
+
+            // Por CPF/CNPJ
+            1:
+              Add( 'where cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') );
+
+            // Por Cidade
+            2:
+              Add( 'where ((upper(cl.Cidade) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                   '     or upper(cl.Cidade) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+
+            // Por Telefones
+            3:
+              begin
+                Add( 'where ((cl.fone       like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
+                Add( '    or (cl.fonecel    like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
+                Add( '    or (cl.fonecomerc like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + '))');
+              end;
+          end;
+
         end;
 
-      except
-      end;
+        if ( WhereAdditional <> EmptyStr ) then
+          if ( Pos('where', SelectSQL.Text) > 0 ) then
+            Add( '  and (' + WhereAdditional + ')' )
+          else
+            Add( 'where (' + WhereAdditional + ')' );
 
+        Add( 'order by ' + CampoOrdenacao );
+
+        Open;
+
+        try
+
+          if ( not IsEmpty ) then
+            dbgDados.SetFocus
+          else
+          begin
+            WaitAMomentFree;
+            ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+
+            edtFiltrar.SetFocus;
+            edtFiltrar.SelectAll;
+          end;
+
+        except
+          WaitAMomentFree;
+        end;
+
+      end;
+    except
+      On E : Exception do
+      begin
+        WaitAMomentFree;
+        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + IbDtstTabela.SelectSQL.Text);
+      end;
     end;
-  except
-    On E : Exception do
-      ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + IbDtstTabela.SelectSQL.Text);
+
+  finally
+    WaitAMomentFree;
   end;
 end;
 

@@ -5,7 +5,7 @@ interface
 uses
   UGrAguarde,
   UPersonalizaEmpresa,
-  Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics;
+  Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls;
 
 type
   TDMRecursos = class(TDataModule)
@@ -51,6 +51,8 @@ begin
   finally
   end
 end;
+
+{ TDMRecursos }
 
 initialization
   gPersonalizaEmpresa := TPersonalizaEmpresa.GetInstance;

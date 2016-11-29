@@ -293,6 +293,7 @@ var
   function GetCalcularCustoOperEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetPermitirVendaEstoqueInsEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetPermitirDuplicarCNPJCliente(const sCNPJEmpresa : String) : Boolean;
+  function GetPermitirVerdadeiroFalsoCNPJCliente(const sCNPJEmpresa : String) : Boolean;
   function GetAutorizacaoInformarCliente(const sCNPJEmpresa : String) : Boolean;
   function GetSimplesNacionalInsEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetEstoqueUnificadoEmpresa(const sCNPJEmpresa : String) : Boolean;
@@ -1071,11 +1072,12 @@ begin
     SQL.Add('    Select Distinct');
     SQL.Add('      r.Cliente');
     SQL.Add('    from TBCONTREC r');
-    SQL.Add('    where r.Parcela > 0');
-    SQL.Add('      and r.Situacao = 1');
+    SQL.Add('    where r.Parcela  > 0'); // Parcelas a prazo
+    SQL.Add('      and r.Situacao = 1'); // Situação ativa
+    SQL.Add('      and r.Baixado  = 0'); // Títulos não baixados (em aberto)
+    SQL.Add('      and r.Cliente  <> ' + IntToStr(CONSUMIDOR_FINAL_CODIGO));
+    // O cliente encontra-se bloqueado por haver títulos em atraso.
     SQL.Add('      and r.Dtvenc < Current_date');
-    SQL.Add('      and r.Baixado = 0');
-    SQL.Add('      and r.Cliente <> ' + IntToStr(CONSUMIDOR_FINAL_CODIGO));
     SQL.Add('  )');
     ExecSQL;
 
@@ -1928,7 +1930,22 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select cliente_permitir_duplicar_cnpj as permitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmpresa));
+    SQL.Add('Select coalesce(cliente_permitir_duplicar_cnpj, 0) as permitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmpresa));
+    Open;
+
+    Result := (FieldByName('permitir').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetPermitirVerdadeiroFalsoCNPJCliente(const sCNPJEmpresa : String) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select coalesce(cliente_permitir_vf_cnpj, 0) as permitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmpresa));
     Open;
 
     Result := (FieldByName('permitir').AsInteger = 1);

@@ -18,6 +18,7 @@ uses
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
+  UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
   UGeTipoLogradouro in '..\Sys\UGeTipoLogradouro.pas' {frmGeTipoLogradouro},
   UGeEstado in '..\Sys\UGeEstado.pas' {frmGeEstado},

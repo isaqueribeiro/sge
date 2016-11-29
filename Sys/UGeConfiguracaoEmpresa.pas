@@ -128,6 +128,8 @@ type
     dbCarregarProdutoPeloEAN: TDBCheckBox;
     fdQryEmpresa: TFDQuery;
     fdQryConfiguracoes: TFDQuery;
+    IbDtstTabelaCLIENTE_PERMITIR_VF_CNPJ: TSmallintField;
+    dbVerdadeiroFalsoCnpj: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;

@@ -89,6 +89,7 @@ type
     BrBtnExecuteTeamViewer: TdxBarLargeButton;
     BrPpTeamViewer: TdxBarPopupMenu;
     BrBtnUpgrade: TdxBarLargeButton;
+    tmrAutoUpgrade: TTimer;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -125,11 +126,13 @@ type
     procedure BrBtnDownloadTeamViewerClick(Sender: TObject);
     procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
     procedure BrBtnUpgradeClick(Sender: TObject);
+    procedure tmrAutoUpgradeTimer(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
     procedure AjustarDataHoraSistema;
+    procedure AutoUpdateSystem;
   public
     { Public declarations }
     procedure ConfigurarRotuloBotoes;
@@ -158,6 +161,7 @@ uses
   
   UFuncoes,
   UConstantesDGE,
+  UGrAutoUpgrade,
   UGeSobre,
 
   UGeProduto,
@@ -175,6 +179,22 @@ begin
   dh := GetDateTimeDB;
   DateTimeToSystemTime(dh, st);
   SetLocalTime(st);
+end;
+
+procedure TfrmPrinc.AutoUpdateSystem;
+var
+  aInterval : Cardinal;
+begin
+  aInterval := (1000 * 60) * 25; // 25 minutos
+
+  if (tmrAutoUpgrade.Interval <> aInterval) then
+  begin
+    tmrAutoUpgrade.Enabled  := False;
+    tmrAutoUpgrade.Interval := aInterval;
+    tmrAutoUpgrade.Enabled  := True;
+
+    AtivarUpgradeAutomatico;
+  end;
 end;
 
 procedure TfrmPrinc.BrBtnDownloadTeamViewerClick(Sender: TObject);
@@ -412,10 +432,12 @@ end;
 
 procedure TfrmPrinc.Notificar;
 begin
+//  AtivarAutoUpgrade(tmrAutoUpgrade);
 //  BrBtnNotaFiscalInutilizar.Enabled    := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
 //  BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
 //  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
 //  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+  AtivarUpgradeAutomatico;
 end;
 
 procedure TfrmPrinc.nmProdutoClick(Sender: TObject);
@@ -570,6 +592,11 @@ procedure TfrmPrinc.RibbonApplicationMenuClick(Sender: TdxCustomRibbon;
   var AHandled: Boolean);
 begin
   RbnBackstageView.ActiveTab := RbnBackstageViewConfig;
+end;
+
+procedure TfrmPrinc.tmrAutoUpgradeTimer(Sender: TObject);
+begin
+  AtivarUpgradeAutomatico;
 end;
 
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

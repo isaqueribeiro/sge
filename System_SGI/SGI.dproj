@@ -101,12 +101,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Build>24</VerInfo_Build>
+        <VerInfo_Build>27</VerInfo_Build>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Release>14</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.14.24;InternalName=SGI;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.14.27;InternalName=SGI;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
 Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.14;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/10/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
@@ -132,6 +132,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrPadrao.pas">
             <Form>frmGrPadrao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\lib\UGrAutoUpgrade.pas">
+            <Form>frmGeAutoUpgrade</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeBancos.pas">
             <Form>frmGeBancos</Form>
@@ -504,19 +507,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGeControleCheque.pas">
             <Form>frmGeControleCheque</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrMemoData.pas">
             <Form>frmGrMemoData</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFornecedorClientePesquisa.pas">
             <Form>frmGeFornecedorClientePesquisa</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeImportarNFE.pas">
             <Form>frmGeImportarNFE</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">

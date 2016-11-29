@@ -154,7 +154,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 337
-        ActivePage = tbsVenda
+        ActivePage = TbsOutrasConfig
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -969,13 +969,33 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object dbAutorizacaoInformaCliente: TDBCheckBox
             Left = 16
-            Top = 111
-            Width = 417
+            Top = 133
+            Width = 438
             Height = 17
             Caption = 
               'Informar Cliente nas Autoriza'#231#245'es/Requisi'#231#245'es de Compras/Servi'#231'o' +
               's'
             DataField = 'AUTORIZA_INFORMA_CLIENTE'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 5
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object dbVerdadeiroFalsoCnpj: TDBCheckBox
+            Left = 16
+            Top = 110
+            Width = 449
+            Height = 17
+            Caption = 
+              'Permitir verdadeiro-falso na valida'#231#227'o do CPF/CNPJ no cadastro d' +
+              'os clientes'
+            DataField = 'CLIENTE_PERMITIR_VF_CNPJ'
             DataSource = DtSrcTabela
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
@@ -1028,6 +1048,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.email_assunto_padrao'
       '  , c.email_mensagem_padrao'
       '  , c.cliente_permitir_duplicar_cnpj'
+      '  , c.cliente_permitir_vf_cnpj'
       '  , c.custo_oper_calcular'
       '  , c.permitir_venda_estoque_ins'
       '  , c.venda_carrega_produto_ean'
@@ -1250,6 +1271,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Origin = '"TBCONFIGURACAO"."CLIENTE_PERMITIR_DUPLICAR_CNPJ"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaCLIENTE_PERMITIR_VF_CNPJ: TSmallintField
+      FieldName = 'CLIENTE_PERMITIR_VF_CNPJ'
+      Origin = '"TBCONFIGURACAO"."CLIENTE_PERMITIR_VF_CNPJ"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaCUSTO_OPER_CALCULAR: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'CUSTO_OPER_CALCULAR'
@@ -1324,6 +1350,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  EMAIL_ASSUNTO_PADRAO,'
       '  EMAIL_MENSAGEM_PADRAO,'
       '  CLIENTE_PERMITIR_DUPLICAR_CNPJ,'
+      '  CLIENTE_PERMITIR_VF_CNPJ,'
       '  CUSTO_OPER_CALCULAR,'
       '  PERMITIR_VENDA_ESTOQUE_INS,'
       '  VENDA_CARREGA_PRODUTO_EAN,'
@@ -1361,6 +1388,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       
         '  CLIENTE_PERMITIR_DUPLICAR_CNPJ = :CLIENTE_PERMITIR_DUPLICAR_CN' +
         'PJ,'
+      '  CLIENTE_PERMITIR_VF_CNPJ = :CLIENTE_PERMITIR_VF_CNPJ,'
       '  CUSTO_OPER_CALCULAR = :CUSTO_OPER_CALCULAR,'
       '  EMAIL_ASSUNTO_PADRAO = :EMAIL_ASSUNTO_PADRAO,'
       '  EMAIL_CONEXAO_SSL = :EMAIL_CONEXAO_SSL,'
@@ -1404,20 +1432,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     InsertSQL.Strings = (
       'insert into TBCONFIGURACAO'
       
-        '  (AUTORIZA_INFORMA_CLIENTE, CLIENTE_PERMITIR_DUPLICAR_CNPJ, CUS' +
-        'TO_OPER_CALCULAR, '
+        '  (AUTORIZA_INFORMA_CLIENTE, CLIENTE_PERMITIR_DUPLICAR_CNPJ, CLI' +
+        'ENTE_PERMITIR_VF_CNPJ, '
       
-        '   EMAIL_ASSUNTO_PADRAO, EMAIL_CONEXAO_SSL, EMAIL_CONTA, EMAIL_M' +
-        'ENSAGEM_PADRAO, '
+        '   CUSTO_OPER_CALCULAR, EMAIL_ASSUNTO_PADRAO, EMAIL_CONEXAO_SSL,' +
+        ' EMAIL_CONTA, '
       
-        '   EMAIL_POP, EMAIL_REQUER_AUTENTICACAO, EMAIL_SENHA, EMAIL_SMTP' +
-        ', EMAIL_SMTP_PORTA, '
+        '   EMAIL_MENSAGEM_PADRAO, EMAIL_POP, EMAIL_REQUER_AUTENTICACAO, ' +
+        'EMAIL_SENHA, '
       
-        '   EMPRESA, ESTOQUE_SATELITE_CLIENTE, ESTOQUE_UNICO_EMPRESAS, NF' +
-        'CE_EMITIR, '
+        '   EMAIL_SMTP, EMAIL_SMTP_PORTA, EMPRESA, ESTOQUE_SATELITE_CLIEN' +
+        'TE, ESTOQUE_UNICO_EMPRESAS, '
       
-        '   NFCE_NUMERO, NFCE_SERIE, NFCE_TOKEN, NFCE_TOKEN_ID, NFE_ACEIT' +
-        'AR_NOTA_DENEGADA, '
+        '   NFCE_EMITIR, NFCE_NUMERO, NFCE_SERIE, NFCE_TOKEN, NFCE_TOKEN_' +
+        'ID, NFE_ACEITAR_NOTA_DENEGADA, '
       
         '   NFE_EMITIR, NFE_EMITIR_ENTRADA, NFE_IMPRIMIR_COD_CLIENTE, NFE' +
         '_NUMERO, '
@@ -1433,32 +1461,34 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
-        'CUSTO_OPER_CALCULAR, '
+        'CLIENTE_PERMITIR_VF_CNPJ, '
       
-        '   :EMAIL_ASSUNTO_PADRAO, :EMAIL_CONEXAO_SSL, :EMAIL_CONTA, :EMA' +
-        'IL_MENSAGEM_PADRAO, '
+        '   :CUSTO_OPER_CALCULAR, :EMAIL_ASSUNTO_PADRAO, :EMAIL_CONEXAO_S' +
+        'SL, :EMAIL_CONTA, '
       
-        '   :EMAIL_POP, :EMAIL_REQUER_AUTENTICACAO, :EMAIL_SENHA, :EMAIL_' +
-        'SMTP, :EMAIL_SMTP_PORTA, '
+        '   :EMAIL_MENSAGEM_PADRAO, :EMAIL_POP, :EMAIL_REQUER_AUTENTICACA' +
+        'O, :EMAIL_SENHA, '
       
-        '   :EMPRESA, :ESTOQUE_SATELITE_CLIENTE, :ESTOQUE_UNICO_EMPRESAS,' +
-        ' :NFCE_EMITIR, '
+        '   :EMAIL_SMTP, :EMAIL_SMTP_PORTA, :EMPRESA, :ESTOQUE_SATELITE_C' +
+        'LIENTE, '
       
-        '   :NFCE_NUMERO, :NFCE_SERIE, :NFCE_TOKEN, :NFCE_TOKEN_ID, :NFE_' +
-        'ACEITAR_NOTA_DENEGADA, '
+        '   :ESTOQUE_UNICO_EMPRESAS, :NFCE_EMITIR, :NFCE_NUMERO, :NFCE_SE' +
+        'RIE, :NFCE_TOKEN, '
       
-        '   :NFE_EMITIR, :NFE_EMITIR_ENTRADA, :NFE_IMPRIMIR_COD_CLIENTE, ' +
-        ':NFE_NUMERO, '
+        '   :NFCE_TOKEN_ID, :NFE_ACEITAR_NOTA_DENEGADA, :NFE_EMITIR, :NFE' +
+        '_EMITIR_ENTRADA, '
       
-        '   :NFE_SERIE, :NFE_SOLICITA_DH_SAIDA, :NFSE_EMITIR, :NFSE_NUMER' +
-        'O, :NFSE_PERCENTUAL_COFINS, '
+        '   :NFE_IMPRIMIR_COD_CLIENTE, :NFE_NUMERO, :NFE_SERIE, :NFE_SOLI' +
+        'CITA_DH_SAIDA, '
       
-        '   :NFSE_PERCENTUAL_CSLL, :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTU' +
-        'AL_PIS, '
+        '   :NFSE_EMITIR, :NFSE_NUMERO, :NFSE_PERCENTUAL_COFINS, :NFSE_PE' +
+        'RCENTUAL_CSLL, '
       
-        '   :NFSE_SERIE, :PERMITIR_VENDA_ESTOQUE_INS, :USUARIO, :VENDA_CA' +
-        'RREGA_PRODUTO_EAN, '
-      '   :VENDA_FORMA_PAGTO_CARTACREDITO)')
+        '   :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTUAL_PIS, :NFSE_SERIE, :P' +
+        'ERMITIR_VENDA_ESTOQUE_INS, '
+      
+        '   :USUARIO, :VENDA_CARREGA_PRODUTO_EAN, :VENDA_FORMA_PAGTO_CART' +
+        'ACREDITO)')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'
@@ -1466,7 +1496,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

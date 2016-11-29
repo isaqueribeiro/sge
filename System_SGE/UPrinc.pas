@@ -193,6 +193,8 @@ type
     BrBtnDownloadTeamViewer: TdxBarLargeButton;
     BrBtnExecuteTeamViewer: TdxBarLargeButton;
     BrPpTeamViewer: TdxBarPopupMenu;
+    tmrAutoUpgrade: TTimer;
+    procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnContaAReceberClick(Sender: TObject);
@@ -293,6 +295,7 @@ type
     { Private declarations }
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
+    procedure AutoUpdateSystem;
   public
     { Public declarations }
     procedure ConfigurarRotuloBotoes;
@@ -311,6 +314,7 @@ uses
   UDMNFe,
   UFuncoes,
   UConstantesDGE,
+  UGrAutoUpgrade,
   UGeSobre,
 
   // Movimentação
@@ -337,6 +341,22 @@ begin
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
     FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
+end;
+
+procedure TfrmPrinc.AutoUpdateSystem;
+var
+  aInterval : Cardinal;
+begin
+  aInterval := (1000 * 60) * 15; // 15 minutos
+
+  if (tmrAutoUpgrade.Interval <> aInterval) then
+  begin
+    tmrAutoUpgrade.Enabled  := False;
+    tmrAutoUpgrade.Interval := aInterval;
+    tmrAutoUpgrade.Enabled  := True;
+
+    AtivarUpgradeAutomatico;
+  end;
 end;
 
 procedure TfrmPrinc.BrBtnControleChequeClick(Sender: TObject);
@@ -644,6 +664,8 @@ begin
   BrBtnNotaFiscalRecibo.Enabled        := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
   BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
   BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
+
+  AutoUpdateSystem;
 end;
 
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
@@ -1059,6 +1081,11 @@ procedure TfrmPrinc.RibbonApplicationMenuClick(Sender: TdxCustomRibbon;
   var AHandled: Boolean);
 begin
   RbnBackstageView.ActiveTab := RbnBackstageViewConfig;
+end;
+
+procedure TfrmPrinc.tmrAutoUpgradeTimer(Sender: TObject);
+begin
+  AtivarUpgradeAutomatico;
 end;
 
 procedure TfrmPrinc.nmGerarArquivoNFCClick(Sender: TObject);

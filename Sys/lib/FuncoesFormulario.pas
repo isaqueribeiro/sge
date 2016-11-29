@@ -35,11 +35,11 @@ var
   I: Integer;
 begin
   // Verificar se já foi Chamada
-  Result := True;
+  Result := False;
   for I := Screen.FormCount - 1 downto 0 do
     if Screen.Forms[i].name  = sForm then
     begin
-      Result := False;
+      Result := True;
       Exit;
     end;
 end;
@@ -67,7 +67,7 @@ end;
 
 class procedure TFormularios.ShowForm(const AOnwer : TComponent; NomeForm: String);
 begin
-  if TFormularios.EstaAberto(NomeForm) then
+  if not TFormularios.EstaAberto(NomeForm) then
     FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
   FForm.Show;
 end;
@@ -78,7 +78,7 @@ var
   qckrp : TComponent;
 begin
   try
-    if TFormularios.EstaAberto(NomeForm) then
+    if not TFormularios.EstaAberto(NomeForm) then
       FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
 
     qckrp := nil;
@@ -101,7 +101,7 @@ var
   qckrp : TComponent;
 begin
   try
-    if TFormularios.EstaAberto(NomeForm) then
+    if not TFormularios.EstaAberto(NomeForm) then
       FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
 
     qckrp := FForm.FindComponent(NomeQuickRep);
@@ -120,7 +120,7 @@ var
   pProp : PPropInfo;
 begin
   try
-    if TFormularios.EstaAberto(NomeForm) then
+    if not TFormularios.EstaAberto(NomeForm) then
       FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
 
     pProp := GetPropInfo( FForm.ClassInfo, NomePropriedade);
@@ -139,7 +139,7 @@ class function TFormularios.ShowModalForm(const AOnwer: TComponent;
   NomeForm: String): Boolean;
 begin
   try
-    if TFormularios.EstaAberto(NomeForm) then
+    if not TFormularios.EstaAberto(NomeForm) then
       FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
     try
       Result := (FForm.ShowModal = mrOk);
@@ -156,7 +156,7 @@ class function TFormularios.ShowModalFormObserver(const AOnwer: TComponent;
   NomeForm: String; Observador: IObserver): Boolean;
 begin
   try
-    if TFormularios.EstaAberto(NomeForm) then
+    if not TFormularios.EstaAberto(NomeForm) then
       FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
 
     // Adicionando o "Observador" no formulário "Observado"  

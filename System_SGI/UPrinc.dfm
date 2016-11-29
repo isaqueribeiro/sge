@@ -6912,4 +6912,10 @@ object frmPrinc: TfrmPrinc
     Left = 656
     Top = 246
   end
+  object tmrAutoUpgrade: TTimer
+    Enabled = False
+    OnTimer = tmrAutoUpgradeTimer
+    Left = 176
+    Top = 291
+  end
 end

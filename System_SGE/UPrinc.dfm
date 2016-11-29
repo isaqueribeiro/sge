@@ -4898,7 +4898,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 234
+      DockedLeft = 536
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -6648,5 +6648,11 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 656
     Top = 246
+  end
+  object tmrAutoUpgrade: TTimer
+    Enabled = False
+    OnTimer = tmrAutoUpgradeTimer
+    Left = 176
+    Top = 291
   end
 end

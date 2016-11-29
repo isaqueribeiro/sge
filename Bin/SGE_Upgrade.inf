@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Ajustes na Validação de CPF/CNPJ dos Clientes;
 - Novo relatório de comissões por baixa de títulos;
 - Novos relatórios de Vendas (Faturamento)
 - Financeiro / Controle de Cheques;

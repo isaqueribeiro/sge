@@ -42,14 +42,14 @@ var
   
 
 const
-  strDeleting      = 'Excluindo registros inseridos anteriormente...';
-  strInserting     = 'Inserindo registros...';
-  strEditing       = 'Editando registros...';
+  strDeleting      = 'Excluindo registro(s) inserido(s) anteriormente...';
+  strInserting     = 'Inserindo registro(s)...';
+  strEditing       = 'Editando registro(s)...';
   strLoadData      = 'Pesquisando base de dados ...';
   strCloneTable    = 'Duplicando tabela';
   strPrintPrepare  = 'Preparando impressão...';
   strMakerConsulta = 'Gerando consulta médica...';
-  strProcess       = 'Processando registros...';
+  strProcess       = 'Processando registro(s)...';
   strAutorizacao   = 'Aguardando autorização...';
 
 implementation
