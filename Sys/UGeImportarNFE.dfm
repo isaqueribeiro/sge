@@ -181,6 +181,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
+      MaxLength = 45
       ParentFont = False
       TabOrder = 0
     end
@@ -194,6 +195,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       OptionsImage.ImageIndex = 39
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 1
+      OnClick = btnManifestoClick
     end
   end
   object btnConfirmar: TcxButton
@@ -298,50 +300,26 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object TabSheet3: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 2
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object TabSheet4: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object TabSheet5: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object TabSheet6: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object TabSheet7: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object TabSheet8: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
     end
   end

@@ -512,6 +512,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>frmGeAutoUpgrade</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\UGeImportarNFE.pas">
+            <Form>frmGeImportarNFE</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="SGE.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

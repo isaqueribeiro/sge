@@ -194,6 +194,7 @@ type
     BrBtnExecuteTeamViewer: TdxBarLargeButton;
     BrPpTeamViewer: TdxBarPopupMenu;
     tmrAutoUpgrade: TTimer;
+    BrBtnTestesGerais: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -291,6 +292,7 @@ type
     procedure BrBtnUpgradeClick(Sender: TObject);
     procedure BrBtnDownloadTeamViewerClick(Sender: TObject);
     procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
+    procedure BrBtnTestesGeraisClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -450,6 +452,11 @@ procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TABELA_IBPT_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeTabelaIBPT');
+end;
+
+procedure TfrmPrinc.BrBtnTestesGeraisClick(Sender: TObject);
+begin
+  FormFunction.ShowModalForm(Self, 'frmGeImportarNFE');
 end;
 
 procedure TfrmPrinc.BrBtnTipoReceitaClick(Sender: TObject);

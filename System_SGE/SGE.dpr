@@ -142,7 +142,8 @@ uses
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
-  UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade};
+  UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade},
+  UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE};
 
 {$R *.res}
 

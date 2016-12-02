@@ -7946,3 +7946,92 @@ COMMENT ON COLUMN TBCLIENTE.BLOQUEADO IS
 Regra(s):
 29/11/2016 - O cliente encontra-se bloqueado por haver titulos em atraso.';
 
+REVOKE SELECT ON TBTRIBUTACAO_TIPO FROM "PUBLIC";
+GRANT SELECT ON TBTRIBUTACAO_TIPO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 29/11/2016 15:23:28 --------*/
+
+COMMENT ON TABLE TBUNIDADEPROD IS 'Tabela Unidade de Compra/Consumo
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :
+
+Tabela responsavel por armazenar os codigos e as descricoes das unidades de compra
+e consumo para os produtos cadastrados.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    29/11/2016 - IMR :
+        * Documentacao da tabela.';
+
+
+
+
+/*------ SYSDBA 02/12/2016 10:24:32 --------*/
+
+COMMENT ON COLUMN TBCOMPRAS.VERIFICADOR_NFE IS
+'Codigo de verificacao da NF-e regada ou recebida (Chave da NF-e).';
+
+
+
+
+/*------ SYSDBA 02/12/2016 10:30:48 --------*/
+
+CREATE INDEX IDX_TBLOG_TRANSACAO_DESC
+ON TBLOG_TRANSACAO (DESCRICAO);
+
+
+
+
+/*------ SYSDBA 02/12/2016 11:24:56 --------*/
+
+CREATE INDEX IDX_TBLOG_TRANSACAO_TIPO
+ON TBLOG_TRANSACAO (TIPO);
+
+
+
+
+/*------ SYSDBA 02/12/2016 12:26:18 --------*/
+
+ALTER TABLE TBLOG_TRANSACAO
+    ADD EMPRESA DMN_CNPJ;
+
+COMMENT ON COLUMN TBLOG_TRANSACAO.EMPRESA IS
+'Empresa';
+
+alter table TBLOG_TRANSACAO
+alter USUARIO position 1;
+
+alter table TBLOG_TRANSACAO
+alter DATA_HORA position 2;
+
+alter table TBLOG_TRANSACAO
+alter EMPRESA position 3;
+
+alter table TBLOG_TRANSACAO
+alter TIPO position 4;
+
+alter table TBLOG_TRANSACAO
+alter DESCRICAO position 5;
+
+alter table TBLOG_TRANSACAO
+alter ESPECIFICACAO position 6;
+
+
+
+
+/*------ SYSDBA 02/12/2016 12:26:36 --------*/
+
+ALTER TABLE TBLOG_TRANSACAO
+ADD CONSTRAINT FK_TBLOG_TRANSACAO_EMPRESA
+FOREIGN KEY (EMPRESA)
+REFERENCES TBEMPRESA(CNPJ);
+

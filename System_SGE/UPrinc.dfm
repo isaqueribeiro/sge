@@ -4645,7 +4645,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4687,6 +4686,7 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
+      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item
@@ -5108,6 +5108,10 @@ object frmPrinc: TfrmPrinc
           BeginGroup = True
           Visible = True
           ItemName = 'BrBtnNotaFiscalDownload'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnTestesGerais'
         end>
       OneOnRow = True
       Row = 0
@@ -5978,6 +5982,13 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 74
       SyncImageIndex = False
       ImageIndex = 74
+    end
+    object BrBtnTestesGerais: TdxBarLargeButton
+      Caption = 'Testes Gerais'
+      Category = 10
+      Hint = 'Testes Gerais'
+      Visible = ivAlways
+      OnClick = BrBtnTestesGeraisClick
     end
     object BrBtnConsultaCNPJ: TdxBarLargeButton
       Caption = 'Consultar CNPJ (Receita Federal)'

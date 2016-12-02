@@ -234,7 +234,8 @@ type
     frrNFeEventoCCe: TfrxReport;
     frrNFeInutilizacao: TfrxReport;
     frrBoletoCarne: TfrxReport;
-    qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField;    procedure SelecionarCertificado(Sender : TObject);
+    qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField;
+    cdsLOGEMPRESA: TIBStringField;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;
@@ -406,6 +407,8 @@ type
       const iAnoCaixa, iNumCaixa : Integer) : Boolean;
 
     function GerarEnviarCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer; sCondicaoUso : String) : Boolean;
+    function IsNFeManifestoDestinatarioRegistrado(const sCNPJ, sChave : String) : Boolean;
+    function ExecutarManifestoDestinatarioNFe(const sCNPJ, sChave : String; var aLog : String) : Boolean;
 
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
@@ -1888,8 +1891,9 @@ begin
               Open;
               Append;
 
-              cdsLOGUSUARIO.AsString       := GetUserApp;
+              cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
               cdsLOGDATA_HORA.AsDateTime   := Now;
+              cdsLOGEMPRESA.AsString       := sCNPJEmitente;
               cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
               cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_SD;
               cdsLOGESPECIFICACAO.AsString := sLOG.Text;
@@ -4631,8 +4635,9 @@ begin
               Open;
               Append;
 
-              cdsLOGUSUARIO.AsString       := GetUserApp;
+              cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
               cdsLOGDATA_HORA.AsDateTime   := Now;
+              cdsLOGEMPRESA.AsString       := sCNPJEmitente;
               cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
               cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_ET;
               cdsLOGESPECIFICACAO.AsString := sLOG.Text;
@@ -5207,6 +5212,131 @@ begin
 
 end;
 
+function TDMNFe.ExecutarManifestoDestinatarioNFe(const sCNPJ, sChave: String;
+  var aLog: String): Boolean;
+var
+  sLOG : TStringList;
+  sErrorMsg   ,
+  sDescricao  : String;
+  bRetorno    : Boolean;
+  iNumeroLote : Integer;
+begin
+  sLOG := TStringList.Create;
+  bRetorno   := False;
+  sDescricao := 'Execução de Manifesto Dest. NF-e';
+  try
+    try
+      LerConfiguracao(sCNPJ, tipoDANFEFast);
+
+      with ACBrNFe do
+      begin
+
+        bRetorno := ACBrNFe.WebServices.StatusServico.Executar;
+
+        if not bRetorno then
+          Exit;
+
+        NotasFiscais.Clear;
+
+        // Numero do Lote de Envio
+        iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+
+        EventoNFe.Evento.Clear;
+        EventoNFe.idLote := iNumeroLote;
+
+        with EventoNFe.Evento.Add do
+        begin
+          //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
+          //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
+
+          infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
+          infEvento.CNPJ   := sCNPJ;
+          infEvento.chNFe      := sChave;
+          infEvento.dhEvento   := Now; //GetDateTimeDB;
+          infEvento.tpEvento   := teManifDestConfirmacao;
+        end;
+
+        // Enviar o evento de Manifesto
+
+        if EnviarEvento(iNumeroLote) then
+        begin
+
+          sDescricao := 'MANIFESTO_DEST_' + sCNPJ + sChave;
+          with WebServices.EnvEvento do
+          begin
+
+            bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
+
+            // Montar LOG de Retorno
+
+            sLOG.BeginUpdate;
+            sLOG.Clear;
+            sLOG.Add('Ambiente    : ' + IntToStr( Ord(Configuracoes.WebServices.Ambiente) ));
+            sLOG.Add('-');
+            sLOG.Add('Evento      : ' + AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE));
+            sLOG.Add('Destinatário: ' + sCNPJ);
+            sLOG.Add('Chave NF-e  : ' + sChave);
+            sLOG.Add('-');
+            sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
+            sLOG.Add('Número Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('Código Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
+            sLOG.Add('-');
+            sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
+            sLOG.EndUpdate;
+
+            if not bRetorno then
+            begin
+              raise Exception.CreateFmt(
+                'Ocorreu o seguinte erro ao enviar o Evento de Manifesto de Confirmação da Nota Fiscal Eletrônica:'  + sLineBreak +
+                'Código: %d' + sLineBreak +
+                'Motivo: %s', [
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
+                  EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
+              ]);
+            end;
+
+          end;
+
+        end;
+
+      end;
+    except
+      On E : Exception do
+      begin
+        bRetorno := False;
+
+        sErrorMsg  := E.Message;
+        sLOG.Text  := sErrorMsg;
+        sDescricao := 'Tentativa de Execução de Manifesto Dest. NF-e';
+        ShowError('Erro ao tentar gerar/enviar Manifesto NF-e.' + #13#13 + 'ExecutarManifestoDestinatarioNFe() --> ' + sErrorMsg);
+      end;
+    end;
+  finally
+    // Gravar LOG
+
+    with cdsLOG do
+    begin
+      Open;
+      Append;
+
+      cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
+      cdsLOGDATA_HORA.AsDateTime   := Now;
+      cdsLOGEMPRESA.AsString       := sCNPJ;
+      cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+      cdsLOGDESCRICAO.AsString     := sDescricao;
+      cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+      Post;
+      ApplyUpdates;
+      CommitTransaction;
+    end;
+
+    sLOG.Free;
+    Result := bRetorno;
+  end;
+end;
+
 function TDMNFe.ImprimirCupomNaoFiscal(const sCNPJEmitente: String;
   iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoVenda,
   iNumVenda: Integer;
@@ -5271,6 +5401,38 @@ end;
 function TDMNFe.IsEstacaoEmiteNFCeResumido : Boolean;
 begin
   Result := ConfigACBr.ckEmitirNFCe.Checked and False;
+end;
+
+function TDMNFe.IsNFeManifestoDestinatarioRegistrado(const sCNPJ,
+  sChave: String): Boolean;
+var
+  sID : String;
+  bRetorno : Boolean;
+begin
+  bRetorno := False;
+  try
+    LerConfiguracao(sCNPJ, tipoDANFEFast);
+
+    with DMBusiness, fdQryBusca do
+    begin
+      sID := 'MANIFESTO_DEST_' + sCNPJ + sChave;
+
+      Close;
+      SQL.Clear;
+      SQL.Add('Select l.descricao');
+      SQL.Add('from TBLOG_TRANSACAO l');
+      SQL.Add('where l.tipo      = 1');  // Transação SEFA
+      SQL.Add('  and l.empresa   = ' + QuotedStr(sCNPJ));
+      SQL.Add('  and l.descricao = ' + QuotedStr(sID));
+      Open;
+
+      Result := not IsEmpty;
+
+      Close;
+    end;
+  finally
+    Result := bRetorno;
+  end;
 end;
 
 function TDMNFe.ImprimirCupomOrcamento(const sCNPJEmitente: String;
@@ -5538,8 +5700,9 @@ begin
       Open;
       Append;
 
-      cdsLOGUSUARIO.AsString       := GetUserApp;
+      cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
       cdsLOGDATA_HORA.AsDateTime   := Now;
+      cdsLOGEMPRESA.AsString       := sCNPJEmitente;
       cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
       cdsLOGDESCRICAO.AsString     := AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE);
       cdsLOGESPECIFICACAO.AsString := sLOG.Text;

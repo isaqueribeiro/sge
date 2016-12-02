@@ -8073,6 +8073,7 @@ object DMNFe: TDMNFe
       'Select'
       '    t.usuario'
       '  , t.data_hora'
+      '  , t.empresa'
       '  , t.tipo'
       '  , t.descricao'
       '  , t.especificacao'
@@ -8099,6 +8100,11 @@ object DMNFe: TDMNFe
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
+    object cdsLOGEMPRESA: TIBStringField
+      FieldName = 'EMPRESA'
+      Origin = '"TBLOG_TRANSACAO"."EMPRESA"'
+      Size = 18
+    end
     object cdsLOGTIPO: TSmallintField
       FieldName = 'TIPO'
       Origin = '"TBLOG_TRANSACAO"."TIPO"'
@@ -8123,6 +8129,7 @@ object DMNFe: TDMNFe
       'Select '
       '  USUARIO,'
       '  DATA_HORA,'
+      '  EMPRESA,'
       '  TIPO,'
       '  DESCRICAO,'
       '  ESPECIFICACAO'
@@ -8135,6 +8142,7 @@ object DMNFe: TDMNFe
       'set'
       '  DATA_HORA = :DATA_HORA,'
       '  DESCRICAO = :DESCRICAO,'
+      '  EMPRESA = :EMPRESA,'
       '  ESPECIFICACAO = :ESPECIFICACAO,'
       '  TIPO = :TIPO,'
       '  USUARIO = :USUARIO'
@@ -8143,9 +8151,11 @@ object DMNFe: TDMNFe
       '  USUARIO = :OLD_USUARIO')
     InsertSQL.Strings = (
       'insert into TBLOG_TRANSACAO'
-      '  (DATA_HORA, DESCRICAO, ESPECIFICACAO, TIPO, USUARIO)'
+      '  (DATA_HORA, DESCRICAO, EMPRESA, ESPECIFICACAO, TIPO, USUARIO)'
       'values'
-      '  (:DATA_HORA, :DESCRICAO, :ESPECIFICACAO, :TIPO, :USUARIO)')
+      
+        '  (:DATA_HORA, :DESCRICAO, :EMPRESA, :ESPECIFICACAO, :TIPO, :USU' +
+        'ARIO)')
     DeleteSQL.Strings = (
       'delete from TBLOG_TRANSACAO'
       'where'
@@ -15320,7 +15330,7 @@ object DMNFe: TDMNFe
           Frame.Width = 0.100000000000000000
         end
         object Memo23: TfrxMemoView
-          Top = 94.488250000000020000
+          Top = 94.488250000000030000
           Width = 22.677180000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -15339,7 +15349,7 @@ object DMNFe: TDMNFe
         end
         object Memo24: TfrxMemoView
           Left = 22.677180000000000000
-          Top = 94.488250000000020000
+          Top = 94.488250000000030000
           Width = 52.913420000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -15357,7 +15367,7 @@ object DMNFe: TDMNFe
         end
         object Memo25: TfrxMemoView
           Left = 75.590600000000000000
-          Top = 94.488250000000020000
+          Top = 94.488250000000030000
           Width = 419.527659130000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -15412,7 +15422,7 @@ object DMNFe: TDMNFe
         end
         object Memo21: TfrxMemoView
           Left = 540.472790000000000000
-          Top = 94.488250000000020000
+          Top = 94.488250000000030000
           Width = 37.795300000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -15430,7 +15440,7 @@ object DMNFe: TDMNFe
         end
         object Memo20: TfrxMemoView
           Left = 578.268090000000000000
-          Top = 94.488250000000020000
+          Top = 94.488250000000030000
           Width = 64.252010000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -15480,7 +15490,7 @@ object DMNFe: TDMNFe
         end
         object Memo17: TfrxMemoView
           Left = 642.520100000000000000
-          Top = 94.488250000000020000
+          Top = 94.488250000000030000
           Width = 75.590600000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -15499,7 +15509,7 @@ object DMNFe: TDMNFe
         end
         object Memo22: TfrxMemoView
           Left = 495.118430000000000000
-          Top = 94.488250000000020000
+          Top = 94.488250000000030000
           Width = 45.354323390000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET

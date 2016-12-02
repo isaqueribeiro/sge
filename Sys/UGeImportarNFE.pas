@@ -10,21 +10,17 @@ uses
   ACBrDFeUtil,
   ACBrNFe,
   ACBrValidador,
+  pcnAuxiliar,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ClipBrd, UGrPadrao,
-  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Mask,
-  Vcl.DBCtrls, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery, cxControls,
-  cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit, Vcl.ComCtrls,
-  Datasnap.DBClient, cxDBEdit, Vcl.Grids, Vcl.DBGrids;
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls, cxButtons,
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery,
+  cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit,
+  Vcl.ComCtrls, Datasnap.DBClient, cxDBEdit, Vcl.Grids, Vcl.DBGrids,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeImportarNFE = class(TfrmGrPadrao)
@@ -104,6 +100,7 @@ type
       AButtonIndex: Integer);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure btnManifestoClick(Sender: TObject);
   private
     { Private declarations }
     sQuebraLinha : String;
@@ -198,6 +195,25 @@ begin
     ShowWarning('Arquivo XML não existe!')
   else
     CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
+end;
+
+procedure TfrmGeImportarNFE.btnManifestoClick(Sender: TObject);
+var
+  sLog : String;
+begin
+  sLog := EmptyStr;
+  edChaveNFe.Text := SomenteNumeros(Trim(edChaveNFe.Text));
+
+  if not ValidarChave(edChaveNFe.Text) then
+    ShowWarning('A Chave informada é inválida!')
+  else
+  if  not DMNFe.IsNFeManifestoDestinatarioRegistrado(gUsuarioLogado.Empresa, edChaveNFe.Text) then
+  begin
+    if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, edChaveNFe.Text, sLog) then
+      ;
+  end
+  else
+    ;
 end;
 
 procedure TfrmGeImportarNFE.CarregaCalculoImposto;
