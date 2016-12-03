@@ -418,12 +418,13 @@ const
   TIPO_LOG_TRANS_SEFA    = 1;
   TIPO_LOG_TRANS_SISTEMA = 2;
 
-  DESC_LOG_EVENTO_CANCELAR_NFE_SD = 'Cancelar NF-e de Saída';
-  DESC_LOG_EVENTO_CANCELAR_NFE_ET = 'Cancelar NF-e de Entrada';
-  DESC_LOG_EVENTO_CCE_NFE         = 'Carta de Correcao Eletronica';
-  DESC_LOG_INUTILIZA_NRO_NFE      = 'Inutilização de numerão para NF-e';
-  DESC_LOG_CONSULTAR_NRO_LOTE_NFE = 'Consultar retorno do Lote/Recibo de NF-e';
-  DESC_LOG_EVENTO_ATUALIZAR_CUSTO = 'Atualização de Custo de Produto';
+  DESC_LOG_EVENTO_CANCELAR_NFE_SD   = 'Cancelar NF-e de Saída';
+  DESC_LOG_EVENTO_CANCELAR_NFE_ET   = 'Cancelar NF-e de Entrada';
+  DESC_LOG_EVENTO_CCE_NFE           = 'Carta de Correcao Eletronica';
+  DESC_LOG_EVENTO_MANIFESTO_DST_NFE = 'Manifesto Dest. de NF-e';
+  DESC_LOG_INUTILIZA_NRO_NFE        = 'Inutilização de numerão para NF-e';
+  DESC_LOG_CONSULTAR_NRO_LOTE_NFE   = 'Consultar retorno do Lote/Recibo de NF-e';
+  DESC_LOG_EVENTO_ATUALIZAR_CUSTO   = 'Atualização de Custo de Produto';
 
   CONTA_CORRENTE_TIPO_CAIXA = 1;
   CONTA_CORRENTE_TIPO_BANCO = 2;

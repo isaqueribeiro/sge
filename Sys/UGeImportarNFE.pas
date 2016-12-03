@@ -199,7 +199,14 @@ end;
 
 procedure TfrmGeImportarNFE.btnManifestoClick(Sender: TObject);
 var
+  sFile,
   sLog : String;
+
+  procedure DownloadNFe;
+  begin
+    DMNFe.DownloadNFeACBr(gUsuarioLogado.Empresa, gUsuarioLogado.Empresa, edChaveNFe.Text, sFile);
+    edArquivoXML.Text := sFile;
+  end;
 begin
   sLog := EmptyStr;
   edChaveNFe.Text := SomenteNumeros(Trim(edChaveNFe.Text));
@@ -210,10 +217,10 @@ begin
   if  not DMNFe.IsNFeManifestoDestinatarioRegistrado(gUsuarioLogado.Empresa, edChaveNFe.Text) then
   begin
     if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, edChaveNFe.Text, sLog) then
-      ;
+      DownloadNFe;
   end
   else
-    ;
+    DownloadNFe;
 end;
 
 procedure TfrmGeImportarNFE.CarregaCalculoImposto;
@@ -1211,6 +1218,14 @@ procedure TfrmGeImportarNFE.edArquivoXMLPropertiesButtonClick(Sender: TObject;
 begin
   with DMNFe do
   begin
+    edArquivoXML.Text := Trim(edArquivoXML.Text);
+    if (edArquivoXML.Text <> EmptyStr) then
+    begin
+      if not DirectoryExists(edArquivoXML.Text) then
+        ForceDirectories(edArquivoXML.Text);
+      opdNotas.InitialDir := edArquivoXML.Text;
+    end;
+
     if opdNotas.Execute then
       edArquivoXML.Text := opdNotas.FileName;
   end;
@@ -1264,6 +1279,9 @@ begin
   CarregarEmpresa(gUsuarioLogado.Empresa);
   btnManifesto.Enabled := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa);
   pgcNFe.ActivePage    := tbsEmitente;
+
+  DMNFe.LerConfiguracao(gUsuarioLogado.Empresa);
+  edArquivoXML.Text := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\Down\', '\\', '\', [rfReplaceAll]);
 end;
 
 procedure TfrmGeImportarNFE.FormKeyDown(Sender: TObject; var Key: Word;

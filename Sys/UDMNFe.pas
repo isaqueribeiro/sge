@@ -985,6 +985,7 @@ begin
         Arquivos.PathNFe     := StringReplace(Arquivos.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
         Arquivos.PathInu     := StringReplace(Arquivos.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
         Arquivos.PathEvento  := StringReplace(Arquivos.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
+        //Arquivos.DownloadNFe.PathDownload := StringReplace(Arquivos.PathSalvar + '\Downloads',   '\\', '\', [rfReplaceAll]);
         //Arquivos.PathCan    := StringReplace(Arquivos.PathSalvar + '\NFeCancelar', '\\', '\', [rfReplaceAll]);
         //Arquivos.PathCCe    := StringReplace(Arquivos.PathSalvar + '\CCe',         '\\', '\', [rfReplaceAll]);
         //Arquivos.PathMDe    := StringReplace(Arquivos.PathSalvar + '\MDe',         '\\', '\', [rfReplaceAll]);
@@ -5040,21 +5041,13 @@ begin
       DownloadNFe.Download.CNPJ             := sCNPJDestinatario;
 
       if ( WebServices.DownloadNFe.Executar ) then
-        FileNameXML := WebServices.DownloadNFe.retDownloadNFe.GetNamePath
-      else
-        raise Exception.Create('Erro ao tentar fazer download do arquivo XML do servidor da SEFA.' + #13 + WebServices.DownloadNFe.RetornoWS);
-(*
-      EventoNFe.Evento.Clear;
-      with EventoNFe.Evento.Add do
       begin
-        infEvento.chNFe := sChaveNFe;
-        infEvento.CNPJ  := IfThen(Trim(sCNPJDestinatario) = EmptyStr, sCNPJEmitente, sCNPJDestinatario);
-        infEvento.dhEvento := Now;
-        infEvento.tpEvento := teManifDestConfirmacao;
-        infEvento.cOrgao   := 91;
-      end;
-      EnviarEventoNFe(1);
-*)
+        //FileNameXML := Configuracoes.Arquivos.DownloadNFe.PathDownload + '\Down\'  + sChaveNFe + '-nfe.xml'; // WebServices.DownloadNFe.retDownloadNFe.GetNamePath
+        FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
+        FileNameXML := StringReplace(FileNameXML, '\\', '\', [rfReplaceAll]);
+      end
+      else
+        raise Exception.Create(WebServices.DownloadNFe.RetornoWS);
 
       if not FileExists(FileNameXML) then
         raise Exception.Create(Format('Arquivo %s não encontrado.', [QuotedStr(FileNameXML)]))
@@ -5065,7 +5058,7 @@ begin
   except
     On E : Exception do
     begin
-      ShowError('Erro ao tentar executar download da NF-e.' + #13#13 + 'DownloadNFeACBr() --> ' + e.Message);
+      ShowWarning('Erro ao tentar executar download da NF-e.' + #13 + 'Tente novamente mais tarde.' + #13#13 + 'DownloadNFeACBr() --> ' + E.Message);
       Result := False;
     end;
   end;
@@ -5231,7 +5224,7 @@ begin
       with ACBrNFe do
       begin
 
-        bRetorno := ACBrNFe.WebServices.StatusServico.Executar;
+        bRetorno := True;// ACBrNFe.WebServices.StatusServico.Executar;
 
         if not bRetorno then
           Exit;
@@ -5249,11 +5242,15 @@ begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
-          infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
-          infEvento.CNPJ   := sCNPJ;
-          infEvento.chNFe      := sChave;
-          infEvento.dhEvento   := Now; //GetDateTimeDB;
-          infEvento.tpEvento   := teManifDestConfirmacao;
+          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
+          infEvento.CNPJ     := sCNPJ;
+          infEvento.chNFe    := sChave;
+          infEvento.dhEvento := Now; //GetDateTimeDB;
+          infEvento.tpEvento := teManifDestConfirmacao;
+
+          // "POG" - Manobra para enviar o evento de manifesto da nota e evitar a rejeição 657.
+          if (infEvento.cOrgao = 15) then
+            infEvento.cOrgao := 91;
         end;
 
         // Enviar o evento de Manifesto
@@ -5264,6 +5261,14 @@ begin
           sDescricao := 'MANIFESTO_DEST_' + sCNPJ + sChave;
           with WebServices.EnvEvento do
           begin
+//
+//            // "POG" - Manobra para enviar o evento de manifesto da nota.
+//            if (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 657) then
+//            begin
+//              iNumeroLote := iNumeroLote - 1;
+//              EventoNFe.Evento.Items[0].InfEvento.cOrgao := EventoRetorno.cOrgao;
+//              EnviarEvento(iNumeroLote)
+//            end;
 
             bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
 
@@ -5273,7 +5278,7 @@ begin
             sLOG.Clear;
             sLOG.Add('Ambiente    : ' + IntToStr( Ord(Configuracoes.WebServices.Ambiente) ));
             sLOG.Add('-');
-            sLOG.Add('Evento      : ' + AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE));
+            sLOG.Add('Evento      : ' + AnsiUpperCase(DESC_LOG_EVENTO_MANIFESTO_DST_NFE));
             sLOG.Add('Destinatário: ' + sCNPJ);
             sLOG.Add('Chave NF-e  : ' + sChave);
             sLOG.Add('-');
@@ -5307,7 +5312,10 @@ begin
         bRetorno := False;
 
         sErrorMsg  := E.Message;
-        sLOG.Text  := sErrorMsg;
+
+        if (Trim(sLOG.Text) = EmptyStr) then
+          sLOG.Text  := sErrorMsg;
+
         sDescricao := 'Tentativa de Execução de Manifesto Dest. NF-e';
         ShowError('Erro ao tentar gerar/enviar Manifesto NF-e.' + #13#13 + 'ExecutarManifestoDestinatarioNFe() --> ' + sErrorMsg);
       end;
@@ -5411,8 +5419,6 @@ var
 begin
   bRetorno := False;
   try
-    LerConfiguracao(sCNPJ, tipoDANFEFast);
-
     with DMBusiness, fdQryBusca do
     begin
       sID := 'MANIFESTO_DEST_' + sCNPJ + sChave;
@@ -5426,7 +5432,7 @@ begin
       SQL.Add('  and l.descricao = ' + QuotedStr(sID));
       Open;
 
-      Result := not IsEmpty;
+      bRetorno := not IsEmpty;
 
       Close;
     end;
