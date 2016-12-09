@@ -13,14 +13,15 @@ uses
   pcnAuxiliar,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ClipBrd, UGrPadrao,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ClipBrd, UGrPadrao, System.TypInfo,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls, cxButtons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery,
   cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit,
   Vcl.ComCtrls, Datasnap.DBClient, cxDBEdit, Vcl.Grids, Vcl.DBGrids,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, JvExMask, JvToolEdit,
+  JvDBControls;
 
 type
   TfrmGeImportarNFE = class(TfrmGrPadrao)
@@ -29,10 +30,10 @@ type
     qryEmpresaRZSOC: TIBStringField;
     dtsEmpresa: TDataSource;
     GrpBxEmpresa: TGroupBox;
-    lblCNPJ: TLabel;
-    lblRazaoSocial: TLabel;
-    dbCNPJ: TDBEdit;
-    dbRazaoSocial: TDBEdit;
+    lblCNPJEmpresa: TLabel;
+    lblRazaoSocialEmpresa: TLabel;
+    dbCNPJEmpresa: TDBEdit;
+    dbRazaoSocialEmpresa: TDBEdit;
     Bevel1: TBevel;
     GrpBxManifesto: TGroupBox;
     lblChaveNFe: TLabel;
@@ -50,12 +51,11 @@ type
     pgcNFe: TPageControl;
     tbsNFe: TTabSheet;
     tbsEmitente: TTabSheet;
-    TabSheet3: TTabSheet;
-    TabSheet4: TTabSheet;
-    TabSheet5: TTabSheet;
-    TabSheet6: TTabSheet;
-    TabSheet7: TTabSheet;
-    TabSheet8: TTabSheet;
+    tbsProdutos: TTabSheet;
+    tbsTotais: TTabSheet;
+    tbsTransporte: TTabSheet;
+    tbsCobranca: TTabSheet;
+    tbsInformacaoAdcional: TTabSheet;
     cdsIdentificacao: TClientDataSet;
     cdsEmitente: TClientDataSet;
     cdsDadosProdutos: TClientDataSet;
@@ -92,6 +92,63 @@ type
     dtsInformacoesAdicionais: TDataSource;
     dtsPagamento: TDataSource;
     dtsInutilizacao: TDataSource;
+    lblCNPJ: TLabel;
+    dbCNPJ: TDBEdit;
+    lblFornecedorCadastro: TLabel;
+    lblXNome: TLabel;
+    dbXNome: TDBEdit;
+    lblXFant: TLabel;
+    dbXFant: TDBEdit;
+    lblIE: TLabel;
+    dbIE: TDBEdit;
+    lblIM: TLabel;
+    dbIM: TDBEdit;
+    lblCRT: TLabel;
+    dbCRT: TDBEdit;
+    dbDESCR_CST: TDBEdit;
+    lblXLgr: TLabel;
+    dbXLgr: TDBEdit;
+    lblNro: TLabel;
+    dbNro: TDBEdit;
+    lblXCpl: TLabel;
+    dbXCpl: TDBEdit;
+    lblXBairro: TLabel;
+    dbXBairro: TDBEdit;
+    lblCMun: TLabel;
+    dbCMun: TDBEdit;
+    dbXMun: TDBEdit;
+    lblUF: TLabel;
+    dbUF: TDBEdit;
+    lblCEP: TLabel;
+    dbCEP: TDBEdit;
+    lblFone: TLabel;
+    dbFone: TDBEdit;
+    edFornecedorCadastro: TJvComboEdit;
+    lblId: TLabel;
+    dbId: TDBEdit;
+    lblChave: TLabel;
+    dbChave: TDBEdit;
+    lblcUF: TLabel;
+    dbcUF: TDBEdit;
+    lblcNF: TLabel;
+    dbcNF: TDBEdit;
+    lblNatOp: TLabel;
+    dbNatOp: TDBEdit;
+    lblMod_: TLabel;
+    dbMod_: TDBEdit;
+    lblSerie: TLabel;
+    dbSerie: TDBEdit;
+    lblNNF: TLabel;
+    dbNNF: TDBEdit;
+    dbDEmi: TDBEdit;
+    lblDEmi: TLabel;
+    dbMensagemFiscal: TDBMemo;
+    lblMensagemFiscal: TLabel;
+    tbsDestinatario: TTabSheet;
+    lblCNPJCPF_Dest: TLabel;
+    dbCNPJCPF_Dest: TDBEdit;
+    dbXNome_Dest: TDBEdit;
+    lblXNome_Dest: TLabel;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -109,6 +166,7 @@ type
     procedure CarregarEmpresa(const sCnpj : String);
     procedure CarregarXML(const sCnpj : String; aArquivoXmlNFe : String);
     procedure SetDataSetsXML;
+    procedure SetControlsDataSets;
     procedure CarregaIdentificacao;
     procedure CarregaEmitente;
     procedure CarregaDestinatario;
@@ -204,23 +262,30 @@ var
 
   procedure DownloadNFe;
   begin
+    lblInforme.Caption := 'Executando download da NF-e...';
     DMNFe.DownloadNFeACBr(gUsuarioLogado.Empresa, gUsuarioLogado.Empresa, edChaveNFe.Text, sFile);
     edArquivoXML.Text := sFile;
   end;
 begin
-  sLog := EmptyStr;
-  edChaveNFe.Text := SomenteNumeros(Trim(edChaveNFe.Text));
+  try
+    sLog := EmptyStr;
+    edChaveNFe.Text    := SomenteNumeros(Trim(edChaveNFe.Text));
+    lblInforme.Visible := True;
 
-  if not ValidarChave(edChaveNFe.Text) then
-    ShowWarning('A Chave informada é inválida!')
-  else
-  if  not DMNFe.IsNFeManifestoDestinatarioRegistrado(gUsuarioLogado.Empresa, edChaveNFe.Text) then
-  begin
-    if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, edChaveNFe.Text, sLog) then
+    if not ValidarChave(edChaveNFe.Text) then
+      ShowWarning('A Chave informada é inválida!')
+    else
+    if not DMNFe.IsNFeManifestoDestinatarioRegistrado(gUsuarioLogado.Empresa, edChaveNFe.Text) then
+    begin
+      lblInforme.Caption := 'Executando manifesto da NF-e junto à Sefa...';
+      if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, edChaveNFe.Text, sLog) then
+        DownloadNFe;
+    end
+    else
       DownloadNFe;
-  end
-  else
-    DownloadNFe;
+  finally
+    lblInforme.Visible := False;
+  end;
 end;
 
 procedure TfrmGeImportarNFE.CarregaCalculoImposto;
@@ -278,6 +343,9 @@ begin
   CarregaFatura;
   CarregaPagamento;
   CarregaInformacoesAdicionais;
+
+  SetControlsDataSets;
+  pgcNFe.ActivePage := tbsNFe;
 end;
 
 procedure TfrmGeImportarNFE.CarregaDadosProdutos;
@@ -1273,12 +1341,11 @@ end;
 procedure TfrmGeImportarNFE.FormCreate(Sender: TObject);
 begin
   inherited;
-  tbsNFe.TabVisible := False; // Provisório
-
   SetDataSetsXML;
+
   CarregarEmpresa(gUsuarioLogado.Empresa);
   btnManifesto.Enabled := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa);
-  pgcNFe.ActivePage    := tbsEmitente;
+  pgcNFe.ActivePage    := tbsNFe;
 
   DMNFe.LerConfiguracao(gUsuarioLogado.Empresa);
   edArquivoXML.Text := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\Down\', '\\', '\', [rfReplaceAll]);
@@ -1565,6 +1632,32 @@ end;
 procedure TfrmGeImportarNFE.RegistrarRotinaSistema;
 begin
   ;
+end;
+
+procedure TfrmGeImportarNFE.SetControlsDataSets;
+  procedure SetControlsDataSet(const aDataSet : TClientDataSet; const sSufixo : String = '');
+  var
+    I : Integer;
+    cControle : TComponent;
+  begin
+    with aDataSet do
+      for I := 0 to Fields.Count - 1 do
+      begin
+        cControle := Self.FindComponent('db' + Fields[I].FieldName + sSufixo);
+        if Assigned(cControle) then
+        begin
+          if cControle is TDBEdit then
+            TDBEdit(cControle).DataField := Fields[I].FieldName
+          else
+          if cControle is TDBMemo then
+            TDBMemo(cControle).DataField := Fields[I].FieldName;
+        end;
+      end;
+  end;
+begin
+  SetControlsDataSet(cdsIdentificacao);
+  SetControlsDataSet(cdsEmitente);
+  SetControlsDataSet(cdsDestinatario, '_Dest');
 end;
 
 procedure TfrmGeImportarNFE.SetDataSetsXML;
