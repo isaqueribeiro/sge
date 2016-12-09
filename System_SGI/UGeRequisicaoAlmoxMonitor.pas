@@ -8,22 +8,21 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, ExtCtrls, ToolWin, ComCtrls,
-  cxControls, cxContainer, cxEdit, dxSkinsCore, dxSkinMcSkin,
-  Mask, cxGroupBox, DB, IBCustomDataSet, IBQuery, DBClient,
-  Provider, IniFiles, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
+  cxControls, cxContainer, cxEdit, Mask, cxGroupBox, DB, IBCustomDataSet, IBQuery,
+  DBClient, Provider, IniFiles, cxStyles, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridBandedTableView,
   cxGridDBBandedTableView, cxGrid, cxImageComboBox, ImgList,
-  JvExMask, JvToolEdit,
+  JvExMask, JvToolEdit, cxNavigator,
 
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, cxNavigator;
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinscxPCPainter;
 
 type
   TfrmGeRequisicaoAlmoxMonitor = class(TfrmGrPadrao)
@@ -76,6 +75,7 @@ type
     dspEmpresa: TDataSetProvider;
     cdsEmpresa: TClientDataSet;
     dtsEmpresa: TDataSource;
+    nmRequisicaoDevolver: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BtnPesquisarClick(Sender: TObject);
@@ -87,6 +87,7 @@ type
     procedure nmImprimirManifestoClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
+    procedure nmRequisicaoDevolverClick(Sender: TObject);
   private
     { Private declarations }
     fPreferenciaINI : TIniFile;
@@ -492,6 +493,52 @@ begin
       cdsRequisicaoAlmox.Refresh;
       ShowInformation(Format('Requisição de materiais "%s" cancelada.', [FieldByName('numero').AsString]));
     end;
+  end;
+end;
+
+procedure TfrmGeRequisicaoAlmoxMonitor.nmRequisicaoDevolverClick(
+  Sender: TObject);
+var
+  SQL : TStringList;
+begin
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+  with cdsRequisicaoAlmox do
+  begin
+    if ( IsEmpty ) then
+      Exit;
+
+    if (FieldByName('status').AsInteger = STATUS_REQUISICAO_ALMOX_ABR) then
+    begin
+      ShowWarning('Requisição de materiais já fora marcada como devolvida ao requisitante!');
+      Abort;
+    end;
+
+    if (FieldByName('status').AsInteger <> STATUS_REQUISICAO_ALMOX_ENV) then
+      ShowWarning('Apenas requisições de materiais enviadas podem ser marcadas como devolvidas.')
+    else
+    if ShowConfirmation('Deseja sinalizar como devolvida a requisição de materiais selecionada?') then
+      try
+        SQL := TStringList.Create;
+
+        // Marcar requisição como Recebida
+        SQL.BeginUpdate;
+        SQL.Clear;
+        SQL.Add('Update TBREQUISICAO_ALMOX r Set');
+        SQL.Add('  r.status = ' + IntToStr(STATUS_REQUISICAO_ALMOX_ABR));
+        SQL.Add('where r.ano      = ' + FieldByName('ano').AsString);
+        SQL.Add('  and r.controle = ' + FieldByName('controle').AsString);
+        SQL.EndUpdate;
+
+        ExecuteScriptSQL( SQL.Text );
+
+        cdsRequisicaoAlmox.Refresh;
+
+        ShowInformation(Format('Requisição de materiais "%s" marcada como devolvida.', [FieldByName('numero').AsString]));
+      finally
+        SQL.Free;
+      end;
   end;
 end;
 

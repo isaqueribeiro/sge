@@ -1003,6 +1003,7 @@ object DMBusiness: TDMBusiness
       '  , u.perm_alterar_valor_venda'
       '  , u.tipo_alterar_valor_venda'
       '  , u.vendedor'
+      '  , u.almox_manifesto_automatico'
       'from TBUSERS u'
       ''
       'where coalesce(u.ativo, 1) = 1'

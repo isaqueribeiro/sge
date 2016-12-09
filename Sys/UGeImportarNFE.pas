@@ -21,7 +21,13 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, JvExMask, JvToolEdit,
-  JvDBControls;
+  JvDBControls, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint;
 
 type
   TfrmGeImportarNFE = class(TfrmGrPadrao)
@@ -211,9 +217,6 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
-var
-  frmGeImportarNFE: TfrmGeImportarNFE;
-
 (*
   Tabelas:
   - TBEMPRESA
@@ -224,6 +227,9 @@ var
   Procedures:
 
 *)
+
+var
+  frmGeImportarNFE: TfrmGeImportarNFE;
 
 implementation
 

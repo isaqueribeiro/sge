@@ -7,14 +7,16 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, 
   IBTable, Menus, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
-  JvToolEdit, JvDBControls, JvExMask, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvToolEdit, JvDBControls, JvExMask,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeRequisicaoAlmox = class(TfrmGrPadraoCadastro)
@@ -227,6 +229,7 @@ type
     function GetMenorDataEmissao : TDateTime;
 
     procedure RegistrarNovaRotinaSistema;
+    procedure GerarManifestoAutomatico; virtual; abstract;
   public
     { Public declarations }
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
@@ -235,6 +238,25 @@ type
 
     procedure pgcGuiasOnChange; override;
   end;
+
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBPRODUTO
+  - TBUNIDADEPROD
+  - TBCENTRO_CUSTO
+  - TBUSERS
+  - TBREQUISICAO_ALMOX
+  - TBREQUISICAO_ALMOX_ITEM
+
+  Views:
+  - VW_TIPO_REQUISICAO_ALMOX
+
+  Procedures:
+  - GET_ESTOQUE_ALMOX_DISPONIVEL
+  - SET_REQUISICAO_ALMOX_CUSTO
+
+*)
 
 var
   frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox;
@@ -247,8 +269,8 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeRequisicaoAlmoxCancelar, UGeCentroCusto,
-  UGeApropriacaoEstoquePesquisa, UGrUsuario, RTLConsts;
+  DateUtils, SysConst, RTLConsts, UConstantesDGE, UDMBusiness, UDMNFe, UGrUsuario,
+  UGeRequisicaoAlmoxCancelar, UGeCentroCusto, UGeApropriacaoEstoquePesquisa;
 
 {$R *.dfm}
 
@@ -785,7 +807,7 @@ begin
       btnProdutoEditar.SetFocus;
   end
   else
-  if ShowConfirm('Confirma o encerramento da requisição selecionada?') then
+  if ShowConfirm('Confirma o encerramento e o envio da requisição selecionada?') then
   begin
     IbDtstTabela.Edit;
 
@@ -1192,9 +1214,40 @@ end;
 
 procedure TfrmGeRequisicaoAlmox.btnFinalizarLancamentoClick(
   Sender: TObject);
+
+  function QuantidadeInvalida : Boolean;
+  var
+    Return : Boolean;
+  begin
+    try
+
+      cdsTabelaItens.First;
+      cdsTabelaItens.DisableControls;
+      while not cdsTabelaItens.Eof do
+      begin
+        Return := (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensQTDE.AsCurrency + cdsTabelaItensDISPONIVEL.AsCurrency));
+
+        if ( Return ) then
+          Break;
+        cdsTabelaItens.Next;
+      end;
+
+    finally
+      cdsTabelaItens.EnableControls;
+      Result := Return;
+    end;
+  end;
+
 var
   cTotalCusto : Currency;
+  sMensagemMn : String;
 begin
+(*
+  IMR - 09/12/2016
+        As etapas de finalização e envio da requisição foram colocadas em apenas
+        uma a fim de simplificar o processo de encerramento das requisições de
+        materiais/produtos ao estoque.
+*)
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
@@ -1207,19 +1260,27 @@ begin
 
   pgcGuias.ActivePage := tbsCadastro;
 
-  if (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_ABR) then
+  if (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ABR, STATUS_REQUISICAO_ALMOX_ENV]) then
   begin
-    ShowWarning('Lançamento de Requisição já está finalizado!');
+    ShowWarning('Lançamento de Requisição já está finalizado e/ou enviado ao estoque!');
     Abort;
   end;
 
-  if ShowConfirm('Confirma a finalização do lançamento da requisição de materiais?') then
+  if ( QuantidadeInvalida ) then
+  begin
+    ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', cdsTabelaItensITEM.AsInteger) + ' está acima da quantidade disponível no estoque.');
+    if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
+      btnProdutoEditar.SetFocus;
+  end
+  else
+  if ShowConfirm('Confirma a finalização e o envio da requisição de materiais?') then
   begin
     ValidarToTais(cTotalCusto);
 
     IbDtstTabela.Edit;
 
-    IbDtstTabelaSTATUS.Value           := STATUS_REQUISICAO_ALMOX_ABR;
+    //IbDtstTabelaSTATUS.Value           := STATUS_REQUISICAO_ALMOX_ABR;
+    IbDtstTabelaSTATUS.Value           := STATUS_REQUISICAO_ALMOX_ENV;
     IbDtstTabelaVALOR_TOTAL.AsCurrency := cTotalCusto;
 
     if (Trim(IbDtstTabelaREQUISITANTE.AsString) = EmptyStr) then
@@ -1227,14 +1288,26 @@ begin
 
     IbDtstTabela.Post;
     IbDtstTabela.ApplyUpdates;
-
     CommitTransaction;
-
-    ShowInformation('Requisição com lançamento finalizado com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCONTROLE.AsInteger));
 
     HabilitarDesabilitar_Btns;
 
     RdgStatusRequisicao.ItemIndex := 0;
+
+    if GetUserManifestoAutomatico then
+    begin
+      sMensagemMn :=
+        'Requisição ' + IbDtstTabelaANO.AsString + '/' +
+        FormatFloat('##0000000', IbDtstTabelaCONTROLE.AsInteger) + ':' + #13#13 +
+        'O Manifesto de Saída dos materiais/produtos requisitados '    +
+        'será gerado automaticamente com a sua confirmação. Isso '     +
+        'quer dizer que as quantidades solicitadas já serão abatidas ' +
+        'do estoque.' + #13#13 + 'Confirma esse procedimento?';
+      if ShowConfirmation('Manifesto Automático', sMensagemMn) then
+        GerarManifestoAutomatico;
+    end
+    else
+      ShowInformation('Requisição finalizada e enviada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCONTROLE.AsInteger));
   end;
 end;
 
@@ -1582,7 +1655,7 @@ begin
   if not ShowConfirmation('Confirma o atendimento da requisição de materiais selecionada?') then
     Exit;
 
-  // Buscar iten não atendidos e sinalizar os atendidos
+  // Buscar item não atendidos e sinalizar os atendidos
 
   bAtendido := False;
 

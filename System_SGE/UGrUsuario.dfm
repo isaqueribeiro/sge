@@ -29,6 +29,8 @@ inherited frmGrUsuario: TfrmGrUsuario
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel4: TBevel
@@ -279,100 +281,157 @@ inherited frmGrUsuario: TfrmGrUsuario
           TabOrder = 1
         end
       end
-      object GrpBxParametros: TGroupBox
+      object pgcParametros: TPageControl
         Left = 0
         Top = 170
         Width = 743
         Height = 214
+        ActivePage = tbsControleInterno
         Align = alClient
-        Caption = 'Par'#226'metros'
         TabOrder = 2
-        object lblPercentualDesc: TLabel
-          Left = 16
-          Top = 24
-          Width = 63
-          Height = 13
-          Caption = '% Desconto:'
-          FocusControl = dbPercentualDesc
+        object tbsVendas: TTabSheet
+          Caption = 'Vendas'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 281
+          ExplicitHeight = 165
+          object GrpBxParametrosVenda: TGroupBox
+            Left = 0
+            Top = 0
+            Width = 735
+            Height = 186
+            Align = alClient
+            Caption = 'Par'#226'metros'
+            TabOrder = 0
+            ExplicitTop = 2
+            object lblPercentualDesc: TLabel
+              Left = 16
+              Top = 24
+              Width = 63
+              Height = 13
+              Caption = '% Desconto:'
+              FocusControl = dbPercentualDesc
+            end
+            object lblVendedor: TLabel
+              Left = 104
+              Top = 24
+              Width = 143
+              Height = 13
+              Caption = 'Funcion'#225'rio(a) / Vendedor(a):'
+              FocusControl = dbVendedor
+            end
+            object dbPercentualDesc: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 81
+              Height = 21
+              CharCase = ecUpperCase
+              DataField = 'LIMIDESC'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object dbAlterarValorVendaItem: TDBCheckBox
+              Left = 16
+              Top = 72
+              Width = 257
+              Height = 17
+              Caption = 'Permitir alterar valor do item na venda'
+              DataField = 'PERM_ALTERAR_VALOR_VENDA'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+              ValueChecked = '1'
+              ValueUnchecked = '0'
+            end
+            object dbVendedor: TDBLookupComboBox
+              Left = 104
+              Top = 40
+              Width = 393
+              Height = 21
+              DataField = 'VENDEDOR'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              KeyField = 'COD'
+              ListField = 'NOME'
+              ListSource = DtsVendedor
+              ParentFont = False
+              TabOrder = 1
+            end
+            object dbTipoAlteraValorVendaItem: TDBLookupComboBox
+              Left = 16
+              Top = 95
+              Width = 209
+              Height = 21
+              DataField = 'TIPO_ALTERAR_VALOR_VENDA'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              KeyField = 'CODIGO'
+              ListField = 'DESCRICAO'
+              ListSource = dtsTipoAlteraValor
+              ParentFont = False
+              TabOrder = 3
+              OnClick = dbTipoAlteraValorVendaItemClick
+            end
+          end
         end
-        object lblVendedor: TLabel
-          Left = 104
-          Top = 24
-          Width = 143
-          Height = 13
-          Caption = 'Funcion'#225'rio(a) / Vendedor(a):'
-          FocusControl = dbVendedor
-        end
-        object dbPercentualDesc: TDBEdit
-          Left = 16
-          Top = 40
-          Width = 81
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'LIMIDESC'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-        end
-        object dbAlterarValorVendaItem: TDBCheckBox
-          Left = 16
-          Top = 72
-          Width = 257
-          Height = 17
-          Caption = 'Permitir alterar valor do item na venda'
-          DataField = 'PERM_ALTERAR_VALOR_VENDA'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 2
-          ValueChecked = '1'
-          ValueUnchecked = '0'
-        end
-        object dbVendedor: TDBLookupComboBox
-          Left = 104
-          Top = 40
-          Width = 393
-          Height = 21
-          DataField = 'VENDEDOR'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          KeyField = 'COD'
-          ListField = 'NOME'
-          ListSource = DtsVendedor
-          ParentFont = False
-          TabOrder = 1
-        end
-        object dbTipoAlteraValorVendaItem: TDBLookupComboBox
-          Left = 16
-          Top = 95
-          Width = 209
-          Height = 21
-          DataField = 'TIPO_ALTERAR_VALOR_VENDA'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          KeyField = 'CODIGO'
-          ListField = 'DESCRICAO'
-          ListSource = dtsTipoAlteraValor
-          ParentFont = False
-          TabOrder = 3
-          OnClick = dbTipoAlteraValorVendaItemClick
+        object tbsControleInterno: TTabSheet
+          Caption = 'Controle Interno'
+          ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 281
+          ExplicitHeight = 165
+          object GrpBxParametrosAlmox: TGroupBox
+            Left = 0
+            Top = 0
+            Width = 735
+            Height = 186
+            Align = alClient
+            Caption = 'Par'#226'metros'
+            TabOrder = 0
+            ExplicitWidth = 734
+            ExplicitHeight = 182
+            object dbAlmoxManifestoAuto: TDBCheckBox
+              Left = 16
+              Top = 24
+              Width = 270
+              Height = 33
+              Caption = 
+                'Gerar Manifesto automaticamente a partir da Requisi'#231#227'o de Materi' +
+                'ais/Produtos ao Estoque'
+              DataField = 'ALMOX_MANIFESTO_AUTOMATICO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+              ValueChecked = '1'
+              ValueUnchecked = '0'
+              WordWrap = True
+            end
+          end
         end
       end
     end
@@ -415,6 +474,7 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  , u.perm_alterar_valor_venda'
       '  , u.tipo_alterar_valor_venda'
       '  , u.vendedor'
+      '  , u.almox_manifesto_automatico'
       '  , f.funcao as perfil'
       'from TBUSERS u'
       '  left join TBFUNCAO f on (f.cod = u.codfuncao)')
@@ -447,7 +507,6 @@ inherited frmGrUsuario: TfrmGrUsuario
       FieldName = 'CODFUNCAO'
       Origin = '"TBUSERS"."CODFUNCAO"'
       ProviderFlags = [pfInUpdate]
-      ReadOnly = True
       Required = True
     end
     object IbDtstTabelaLIMIDESC: TIBBCDField
@@ -487,6 +546,11 @@ inherited frmGrUsuario: TfrmGrUsuario
       Origin = '"TBUSERS"."VENDEDOR"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaALMOX_MANIFESTO_AUTOMATICO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ALMOX_MANIFESTO_AUTOMATICO'
+      Origin = '"TBUSERS"."ALMOX_MANIFESTO_AUTOMATICO"'
+    end
     object IbDtstTabelaPERFIL: TIBStringField
       FieldName = 'PERFIL'
       Origin = '"TBFUNCAO"."FUNCAO"'
@@ -516,13 +580,15 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  ALTERAR_SENHA,'
       '  PERM_ALTERAR_VALOR_VENDA,'
       '  TIPO_ALTERAR_VALOR_VENDA,'
-      '  VENDEDOR'
+      '  VENDEDOR,'
+      '  ALMOX_MANIFESTO_AUTOMATICO'
       'from TBUSERS '
       'where'
       '  NOME = :NOME')
     ModifySQL.Strings = (
       'update TBUSERS'
       'set'
+      '  ALMOX_MANIFESTO_AUTOMATICO = :ALMOX_MANIFESTO_AUTOMATICO,'
       '  ALTERAR_SENHA = :ALTERAR_SENHA,'
       '  ATIVO = :ATIVO,'
       '  CODFUNCAO = :CODFUNCAO,'
@@ -538,16 +604,20 @@ inherited frmGrUsuario: TfrmGrUsuario
     InsertSQL.Strings = (
       'insert into TBUSERS'
       
-        '  (ALTERAR_SENHA, ATIVO, CODFUNCAO, LIMIDESC, NOME, NOMECOMPLETO' +
-        ', PERM_ALTERAR_VALOR_VENDA, '
-      '   SENHA, TIPO_ALTERAR_VALOR_VENDA, VENDEDOR)'
+        '  (ALMOX_MANIFESTO_AUTOMATICO, ALTERAR_SENHA, ATIVO, CODFUNCAO, ' +
+        'LIMIDESC, '
+      
+        '   NOME, NOMECOMPLETO, PERM_ALTERAR_VALOR_VENDA, SENHA, TIPO_ALT' +
+        'ERAR_VALOR_VENDA, '
+      '   VENDEDOR)'
       'values'
       
-        '  (:ALTERAR_SENHA, :ATIVO, :CODFUNCAO, :LIMIDESC, :NOME, :NOMECO' +
-        'MPLETO, '
+        '  (:ALMOX_MANIFESTO_AUTOMATICO, :ALTERAR_SENHA, :ATIVO, :CODFUNC' +
+        'AO, :LIMIDESC, '
       
-        '   :PERM_ALTERAR_VALOR_VENDA, :SENHA, :TIPO_ALTERAR_VALOR_VENDA,' +
-        ' :VENDEDOR)')
+        '   :NOME, :NOMECOMPLETO, :PERM_ALTERAR_VALOR_VENDA, :SENHA, :TIP' +
+        'O_ALTERAR_VALOR_VENDA, '
+      '   :VENDEDOR)')
     DeleteSQL.Strings = (
       'delete from TBUSERS'
       'where'
@@ -555,7 +625,7 @@ inherited frmGrUsuario: TfrmGrUsuario
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2014,39 +2084,35 @@ inherited frmGrUsuario: TfrmGrUsuario
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object QryFuncao: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.cod'
-      '  , f.funcao'
-      'from TBFUNCAO f'
-      'where f.cod <> :perfil')
-    Left = 620
-    Top = 41
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'perfil'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object DtsFuncao: TDataSource
-    DataSet = QryFuncao
-    Left = 652
-    Top = 41
+    DataSet = fdQryFuncao
+    Left = 600
+    Top = 248
   end
-  object QryVendedor: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object DtsVendedor: TDataSource
+    DataSet = fdQryVendedor
+    Left = 600
+    Top = 280
+  end
+  object dtsTipoAlteraValor: TDataSource
+    DataSet = fdQryTipoAlteraValor
+    Left = 600
+    Top = 312
+  end
+  object fdQryTipoAlteraValor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_TIPO_ALTERA_VALOR_VENDA')
+    Left = 568
+    Top = 312
+  end
+  object fdQryVendedor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    v.cod'
@@ -2056,28 +2122,27 @@ inherited frmGrUsuario: TfrmGrUsuario
       ''
       'order by'
       '    v.nome')
-    Left = 620
-    Top = 89
+    Left = 568
+    Top = 280
   end
-  object DtsVendedor: TDataSource
-    DataSet = QryVendedor
-    Left = 652
-    Top = 89
-  end
-  object tblTipoAlteraValor: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_ALTERA_VALOR_VENDA'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 624
-    Top = 144
-  end
-  object dtsTipoAlteraValor: TDataSource
-    DataSet = tblTipoAlteraValor
-    Left = 656
-    Top = 144
+  object fdQryFuncao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.cod'
+      '  , f.funcao'
+      'from TBFUNCAO f'
+      'where f.cod <> :perfil')
+    Left = 568
+    Top = 248
+    ParamData = <
+      item
+        Name = 'PERFIL'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
   end
 end

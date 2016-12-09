@@ -1062,6 +1062,12 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       ImageIndex = 5
       OnClick = nmRequisicaoCancelarClick
     end
+    object nmRequisicaoDevolver: TMenuItem
+      Tag = 4
+      Caption = 'Devolver Requisi'#231#227'o'
+      ImageIndex = 2
+      OnClick = nmRequisicaoDevolverClick
+    end
   end
   object qryEmpresa: TIBQuery
     Database = DMBusiness.ibdtbsBusiness

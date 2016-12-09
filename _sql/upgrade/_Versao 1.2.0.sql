@@ -8035,3 +8035,260 @@ ADD CONSTRAINT FK_TBLOG_TRANSACAO_EMPRESA
 FOREIGN KEY (EMPRESA)
 REFERENCES TBEMPRESA(CNPJ);
 
+
+
+
+/*------ SYSDBA 09/12/2016 17:09:27 --------*/
+
+COMMENT ON COLUMN TBUSERS.PERM_ALTERAR_VALOR_VENDA IS
+'Venda - Permitir alterar valor de venda:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 09/12/2016 17:09:31 --------*/
+
+COMMENT ON COLUMN TBUSERS.TIPO_ALTERAR_VALOR_VENDA IS
+'Venda - Tipo de alteracao do valor de venda:
+0 - Nenhum
+1 - Livre
+2 - Para maior
+3 - Para menor';
+
+
+
+
+/*------ SYSDBA 09/12/2016 17:09:35 --------*/
+
+COMMENT ON COLUMN TBUSERS.VENDEDOR IS
+'Venda - Vendedor';
+
+
+
+
+/*------ SYSDBA 09/12/2016 17:12:55 --------*/
+
+ALTER TABLE TBUSERS
+    ADD ALMOX_MANIFESTO_AUTOMATICO DMN_LOGICO;
+
+COMMENT ON COLUMN TBUSERS.ALMOX_MANIFESTO_AUTOMATICO IS
+'Almoxarifado - Gerar manifesto automaticamente:
+0 - Nao
+1 - Sim
+
+Obs.: No sistema SGI, caso esta opcao esteja marcada para o usuario, ao finalizar o
+processo de Requisicao de Materiais/Produtos ao almoxarifado o manifesto de saida
+do material sera gerado automaticamente a fim de simplificar processos.';
+
+
+
+
+/*------ SYSDBA 09/12/2016 17:13:00 --------*/
+
+UPDATE TBUSERS
+SET ALMOX_MANIFESTO_AUTOMATICO = 0;
+
+
+
+
+/*------ SYSDBA 09/12/2016 17:14:50 --------*/
+
+COMMENT ON TABLE TBUSERS IS 'Tabela de Usuarios do Sistema
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2011
+
+Tabela responsavel por armazenar os registros de usuarios de acesso ao sistema.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    09/12/2016 - IMR :
+        + Criacao do campo ALMOX_MANIFESTO_AUTOMATICO para que o processo de saida de
+          materiais/produtos requisitados aos centro de custos, seja simplificado
+          automatizando alguns etapas.
+
+    09/02/2016 - IMR :
+        + Criacao dos campos TIPO_ALTERAR_VALOR_VENDA que permitira uma maior
+          restrincao no tipo de alteracao que o usuario podera fazer no valor
+          unitario de venda do item.';
+
+
+
+
+/*------ SYSDBA 09/12/2016 19:20:23 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_REQUISICAO_ALMOX_CUSTO (
+    ANO DMN_SMALLINT_NN,
+    CONTROLE DMN_BIGINT_NN,
+    EMPRESA DMN_CNPJ_NN)
+as
+declare variable ITEM DMN_SMALLINT_NN;
+declare variable CUSTO_MEDIO DMN_MONEY_4;
+declare variable SITUACAO DMN_STATUS;
+declare variable QTDE DMN_QUANTIDADE_D3;
+declare variable QTDE_ATEND DMN_QUANTIDADE_D3;
+declare variable VALOR_TOTAL DMN_MONEY;
+begin
+  -- 1. Buscar valores atualizados de custo para os produtos e atualiza-los na requisicao
+  for
+    Select
+        ri.item
+      , ri.qtde
+      , ri.qtde_atendida
+      , Cast(
+          Case when ep.custo_medio > 0.0
+            then ep.custo_medio
+            else (p.customedio / (Case when coalesce(p.fracionador, 1.0) < 1 then 1.0 else coalesce(p.fracionador, 1.0) end))
+          end
+        as DMN_MONEY_4)
+      , ri.status
+    from TBREQUISICAO_ALMOX r
+      inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)
+      inner join TBESTOQUE_ALMOX ep on (ep.id = ri.lote_atendimento)
+      inner join TBPRODUTO p on (p.cod = ri.produto)
+    where r.ano      = :ano
+      and r.controle = :controle
+      and r.empresa  = :empresa
+    Into
+        item
+      , qtde
+      , qtde_atend
+      , custo_medio
+      , situacao
+  do
+  begin
+
+    Update TBREQUISICAO_ALMOX_ITEM ri Set
+        ri.custo = :custo_medio
+      , ri.total =
+            Case :situacao
+              when 0 then :qtde * :custo_medio       -- Pendente
+              when 1 then :qtde * :custo_medio       -- Aguardando
+              when 2 then :qtde_atend * :custo_medio -- Atendido
+              when 3 then :qtde_atend * :custo_medio -- Entregue
+              when 4 then 0.0                        -- Cancelado
+              else 0.0
+            end
+    where ri.ano      = :ano
+      and ri.controle = :controle
+      and ri.item     = :item;
+
+  end
+
+  -- 2. Atualizar o custo total da requisicao
+  Select
+    sum(ri.total)
+  from TBREQUISICAO_ALMOX_ITEM ri
+  where ri.ano      = :ano
+    and ri.controle = :controle
+  Into
+    valor_total;
+
+  Update TBREQUISICAO_ALMOX r Set
+    r.valor_total = :valor_total
+  where r.ano      = :ano
+    and r.controle = :controle
+    and r.empresa  = :empresa;
+
+end^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE SET_REQUISICAO_ALMOX_CUSTO IS 'Stored Procedure Atualizar Custo Requisicao Almox.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   22/01/2015
+
+Procedimento de banco responsavel por atualizar os valores de custos das requisicoes
+de materiais/produtos feitas ao estoque de acordo com sua situacao (status).
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    22/01/2014 - IMR :
+        * DOcumentacao.';
+
+
+
+
+/*------ SYSDBA 09/12/2016 19:24:41 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_requisicao_almox_cancelar for tbrequisicao_almox
+active after update position 3
+AS
+  declare variable item        DMN_SMALLINT_NN;
+  declare variable lote_atend  DMN_GUID_38;
+  declare variable lote_requi  DMN_GUID_38;
+  declare variable quantidade  DMN_QUANTIDADE_D3;
+  declare variable tipo_requisicao DMN_SMALLINT_NN;
+begin
+  if ( (old.status = 4) and (new.status = 5) ) then /* De atendida (4) para cancelada (5) */
+  begin
+
+    tipo_requisicao = new.tipo;
+
+    -- Listar Produtos requisitados ao almoxarifado
+    for
+      Select
+          i.item
+        , i.qtde_atendida
+        , i.lote_atendimento
+        , i.lote_requisitante
+      from TBREQUISICAO_ALMOX_ITEM i
+      where i.ano      = new.ano
+        and i.controle = new.controle
+        and i.status in (2, 3) /* Atendido e/ou Entregue */
+        and i.qtde_atendida > 0
+      into
+          item
+        , quantidade
+        , lote_atend
+        , lote_requi
+    do
+    begin
+
+       -- Baixar estoque do Centro de custo requisitante caso o movimento tenha sido de Transferencia de Estoque
+      if ( :tipo_requisicao = 2 ) then
+      begin
+        Update TBESTOQUE_ALMOX e Set
+          e.qtde = coalesce(e.qtde, 0.0) - :quantidade
+        where e.id = :lote_requi;
+      end
+
+       -- Devolver o estoque do Centro de custo atendente
+      Update TBESTOQUE_ALMOX e Set
+        e.qtde = coalesce(e.qtde, 0.0) + :quantidade
+      where e.id = :lote_atend;
+
+      -- Marcar item/produto como cancelado
+      Update TBREQUISICAO_ALMOX_ITEM i Set
+        i.status = 4 /* Cancelado */
+      where i.ano      = new.ano
+        and i.controle = new.controle
+        and i.item     = :item
+        and i.status in (2, 3); /* Atendido e/ou Enregue */
+
+    end
+
+  end
+end^
+
+SET TERM ; ^
+

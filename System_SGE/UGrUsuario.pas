@@ -8,14 +8,20 @@ uses
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, cxButtons, IdCoder, IdCoder3to4, IdCoderMIME, IdBaseComponent,
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, IBX.IBTable;
+  dxBarBuiltInMenu, cxPC, IBX.IBTable, cxControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGrUsuario = class(TfrmGrPadraoCadastro)
@@ -38,25 +44,30 @@ type
     lblFuncao: TLabel;
     dbNomeCompleto: TDBEdit;
     dbUsuarioAtivo: TDBCheckBox;
-    QryFuncao: TIBQuery;
     dbFuncao: TDBLookupComboBox;
     DtsFuncao: TDataSource;
     Bevel5: TBevel;
-    GrpBxParametros: TGroupBox;
-    lblPercentualDesc: TLabel;
-    dbPercentualDesc: TDBEdit;
-    dbAlterarValorVendaItem: TDBCheckBox;
     IbDtstTabelaVENDEDOR: TIntegerField;
-    lblVendedor: TLabel;
-    dbVendedor: TDBLookupComboBox;
-    QryVendedor: TIBQuery;
     DtsVendedor: TDataSource;
     IbDtstTabelaATV: TStringField;
-    tblTipoAlteraValor: TIBTable;
     dtsTipoAlteraValor: TDataSource;
-    dbTipoAlteraValorVendaItem: TDBLookupComboBox;
     IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA: TSmallintField;
-    procedure FormCreate(Sender: TObject);
+    IbDtstTabelaALMOX_MANIFESTO_AUTOMATICO: TSmallintField;
+    fdQryTipoAlteraValor: TFDQuery;
+    fdQryVendedor: TFDQuery;
+    fdQryFuncao: TFDQuery;
+    pgcParametros: TPageControl;
+    tbsVendas: TTabSheet;
+    tbsControleInterno: TTabSheet;
+    GrpBxParametrosAlmox: TGroupBox;
+    dbAlmoxManifestoAuto: TDBCheckBox;
+    GrpBxParametrosVenda: TGroupBox;
+    lblPercentualDesc: TLabel;
+    lblVendedor: TLabel;
+    dbPercentualDesc: TDBEdit;
+    dbAlterarValorVendaItem: TDBCheckBox;
+    dbVendedor: TDBLookupComboBox;
+    dbTipoAlteraValorVendaItem: TDBLookupComboBox;    procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -202,20 +213,20 @@ end;
 
 procedure TfrmGrUsuario.FormCreate(Sender: TObject);
 begin
-  QryFuncao.Close;
-  QryVendedor.Close;
+  fdQryFuncao.Close;
+  fdQryVendedor.Close;
 
   if ( GetUserFunctionID = FUNCTION_USER_ID_SYSTEM_ADM ) then
-    QryFuncao.ParamByName('perfil').AsInteger := 99
+    fdQryFuncao.ParamByName('perfil').AsInteger := 99
   else
   begin
     WhereAdditional := '(u.codfuncao <> ' + IntToStr(FUNCTION_USER_ID_SYSTEM_ADM) + ')';
-    QryFuncao.ParamByName('perfil').AsInteger := FUNCTION_USER_ID_SYSTEM_ADM;
+    fdQryFuncao.ParamByName('perfil').AsInteger := FUNCTION_USER_ID_SYSTEM_ADM;
   end;
 
-  CarregarLista(QryFuncao);
-  CarregarLista(QryVendedor);
-  CarregarLista(tblTipoAlteraValor);
+  CarregarLista(fdQryFuncao);
+  CarregarLista(fdQryVendedor);
+  CarregarLista(fdQryTipoAlteraValor);
 
   inherited;
 
@@ -231,6 +242,9 @@ begin
 
   dbAlterarValorVendaItem.Visible    := (gSistema.Codigo = SISTEMA_GESTAO_COM);
   dbTipoAlteraValorVendaItem.Visible := (gSistema.Codigo = SISTEMA_GESTAO_COM);
+
+  pgcParametros.ActivePage      := tbsVendas;
+  tbsControleInterno.TabVisible := (gSistema.Codigo = SISTEMA_GESTAO_IND);
 end;
 
 procedure TfrmGrUsuario.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
@@ -298,12 +312,13 @@ end;
 procedure TfrmGrUsuario.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaALTERAR_SENHA.AsInteger            := 1; // Sim
-  IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger := 0; // Não
-  IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger := 0; // Nenhum
-  IbDtstTabelaATIVO.AsInteger                    := 1; // Sim
-  IbDtstTabelaLIMIDESC.AsCurrency                := 0.0;
-  IbDtstTabelaSENHA.AsString                     := USER_PASSWD_DEFAULT;
+  IbDtstTabelaALTERAR_SENHA.AsInteger              := 1; // Sim
+  IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger   := 0; // Não
+  IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger   := 0; // Nenhum
+  IbDtstTabelaATIVO.AsInteger                      := 1; // Sim
+  IbDtstTabelaLIMIDESC.AsCurrency                  := 0.0;
+  IbDtstTabelaSENHA.AsString                       := USER_PASSWD_DEFAULT;
+  IbDtstTabelaALMOX_MANIFESTO_AUTOMATICO.AsInteger := 0; // Não
   IbDtstTabelaNOME.Clear;
   IbDtstTabelaNOMECOMPLETO.Clear;
 end;
