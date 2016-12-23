@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Nova regra que não permite lançamento de duplicatas e títulos com vencimento anterior a data de emissão do documento de origem;
 - Ajustes na Validação de CPF/CNPJ dos Clientes;
 - Novo relatório de comissões por baixa de títulos;
 - Novos relatórios de Vendas (Faturamento)

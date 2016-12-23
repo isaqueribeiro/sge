@@ -587,6 +587,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
     AggregatesActive = True
     Params = <>
     ProviderName = 'dspDuplicatas'
+    BeforePost = cdsDuplicatasBeforePost
     OnCalcFields = cdsDuplicatasCalcFields
     Left = 16
     Top = 184

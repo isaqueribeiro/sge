@@ -620,6 +620,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     AggregatesActive = True
     Params = <>
     ProviderName = 'dspTitulos'
+    BeforePost = cdsTitulosBeforePost
     AfterScroll = cdsTitulosAfterScroll
     OnCalcFields = cdsTitulosCalcFields
     Left = 40
@@ -740,19 +741,19 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     Left = 40
     Top = 296
   end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 290
+  object dtsFormaPagto: TDataSource
+    DataSet = fdQryFormaPagto
+    Left = 322
     Top = 216
   end
-  object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
-    Left = 322
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBFORMPAGTO')
+    Left = 288
     Top = 216
   end
 end

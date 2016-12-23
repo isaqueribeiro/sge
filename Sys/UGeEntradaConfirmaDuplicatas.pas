@@ -6,15 +6,10 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
   ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEntradaConfirmaDuplicatas = class(TfrmGrPadrao)
@@ -74,10 +69,12 @@ type
     procedure dtsDuplicatasUpdateData(Sender: TObject);
     procedure cdsDuplicatasDiaSemanaGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure cdsDuplicatasBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     fAnoCompra ,
     fControleCompra : Integer;
+    fDataEmissaoDOC : TDateTime;
     fTotalEntrada   : Currency;
     procedure UpdateParcelas;
     procedure DisplayTotais;
@@ -85,15 +82,27 @@ type
     { Public declarations }
     property AnoCompra : Integer read fAnoCompra write fAnoCompra;
     property ControleCompra : Integer read fControleCompra write fControleCompra;
+    property DataEmissaoDOC : TDateTime read fDataEmissaoDOC write fDataEmissaoDOC;
     property TotalEntrada   : Currency read fTotalEntrada write fTotalEntrada;
 
     procedure RegistrarRotinaSistema; override;
   end;
 
+(*
+  Tabelas:
+  - TBCONTPAG
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas;
 
-  function DuplicatasConfirmadas(const AOwer : TComponent; Ano, Controle : Integer; ValorEntrada : Currency) : Boolean;
+  function DuplicatasConfirmadas(const AOwer : TComponent; Ano, Controle : Integer;
+    DataEmissaoNF : TDateTime; ValorEntrada : Currency) : Boolean;
 
 implementation
 
@@ -101,7 +110,8 @@ uses DateUtils, UDMBusiness;
 
 {$R *.dfm}
 
-function DuplicatasConfirmadas(const AOwer : TComponent; Ano, Controle : Integer; ValorEntrada : Currency) : Boolean;
+function DuplicatasConfirmadas(const AOwer : TComponent; Ano, Controle : Integer;
+  DataEmissaoNF : TDateTime; ValorEntrada : Currency) : Boolean;
 var
   frm : TfrmGeEntradaConfirmaDuplicatas;
 begin
@@ -109,6 +119,7 @@ begin
   try
     frm.AnoCompra      := Ano;
     frm.ControleCompra := Controle;
+    frm.DataEmissaoDOC := DataEmissaoNF;
     frm.TotalEntrada   := ValorEntrada;
 
     Result := (frm.ShowModal = mrOk);
@@ -127,6 +138,7 @@ begin
   inherited;
   TotalEntrada   := 0;
   AnoCompra      := 0;
+  DataEmissaoDOC := Date;
   ControleCompra := 0;
 end;
 
@@ -161,14 +173,22 @@ begin
   if ( Sender = dbValor ) then
     if ( cdsDuplicatas.State = dsEdit ) then
     begin
-      cdsDuplicatas.Post;
-
-      cdsDuplicatas.Next;
-
-      if ( not cdsDuplicatas.Eof ) then
-        dbCodigo.SetFocus
+      if (cdsDuplicatasDTVENC.AsDateTime < DataEmissaoDOC) then
+      begin
+        ShowWarning('A Data de Vencimento não pode ser menor que a Data de Emissão do Documento de Entrada');
+        if dbDataVencimento.Visible and dbDataVencimento.Enabled then dbDataVencimento.SetFocus;
+      end
       else
-        btnConfirmar.SetFocus;
+      begin
+        cdsDuplicatas.Post;
+
+        cdsDuplicatas.Next;
+
+        if ( not cdsDuplicatas.Eof ) then
+          dbCodigo.SetFocus
+        else
+          btnConfirmar.SetFocus;
+      end;
     end;
 end;
 
@@ -218,6 +238,19 @@ begin
     UpdateParcelas;
     ModalResult := mrOk;
   end;
+end;
+
+procedure TfrmGeEntradaConfirmaDuplicatas.cdsDuplicatasBeforePost(
+  DataSet: TDataSet);
+begin
+  if (cdsDuplicatasDTVENC.AsDateTime < DataEmissaoDOC) then
+  begin
+    if dbDataVencimento.Visible and dbDataVencimento.Enabled then dbDataVencimento.SetFocus;
+    ShowWarning('A Data de Vencimento não pode ser menor que a Data de Emissão do Documento de Entrada');
+    Abort;
+  end
+  else
+    inherited;
 end;
 
 procedure TfrmGeEntradaConfirmaDuplicatas.cdsDuplicatasCalcFields(

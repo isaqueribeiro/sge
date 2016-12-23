@@ -29,8 +29,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     ExplicitWidth = 1114
     ExplicitHeight = 634
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel4: TBevel
@@ -1311,16 +1309,12 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = TbsInformeNFe
+        ActivePage = tbsPagamento
         Align = alBottom
         HotTrack = True
         TabOrder = 4
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             1098
             157)
@@ -1869,10 +1863,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2013,6 +2003,14 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
               item
                 Expanded = False
                 FieldName = 'TIPPAG'
+                Width = 180
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'SITUACAO_DESC'
+                Title.Caption = 'Situa'#231#227'o'
+                Width = 60
                 Visible = True
               end
               item
@@ -4417,7 +4415,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00740010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6424,6 +6422,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  , p.Numchq'
       '  , Case when p.Dtpag is not null then '#39'X'#39' else '#39'.'#39' end as Pago_'
       '  , p.Docbaix'
+      '  , p.situacao'
+      
+        '  , Case when p.situacao = 1 then '#39'Ativa'#39' else '#39'Cancelada'#39' end a' +
+        's situacao_desc'
       'from TBCONTPAG p'
       '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
       '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
@@ -6529,6 +6531,17 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       FieldName = 'DOCBAIX'
       Origin = 'TBCONTPAG.DOCBAIX'
       Size = 15
+    end
+    object qryDuplicatasSITUACAO: TSmallintField
+      FieldName = 'SITUACAO'
+      Origin = '"TBCONTPAG"."SITUACAO"'
+      ProviderFlags = []
+    end
+    object qryDuplicatasSITUACAO_DESC: TIBStringField
+      FieldName = 'SITUACAO_DESC'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 9
     end
     object qryDuplicatasLancamento: TStringField
       Alignment = taCenter

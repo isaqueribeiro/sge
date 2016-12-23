@@ -6,15 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
   ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, cxControls, cxContainer, cxEdit, IBX.IBTable;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, cxControls,
+  cxContainer, cxEdit, IBX.IBTable,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeVendaConfirmaTitulos = class(TfrmGrPadrao)
@@ -63,11 +63,11 @@ type
     cdsTitulosVALORRECTOT: TBCDField;
     cdsTitulosVALORSALDO: TBCDField;
     cdsTitulosBAIXADO: TSmallintField;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
     cdsTitulosFORMA_PAGTO: TSmallintField;
+    fdQryFormaPagto: TFDQuery;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -82,18 +82,21 @@ type
     procedure cdsTitulosDiaSemanaGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
     procedure cdsTitulosAfterScroll(DataSet: TDataSet);
+    procedure cdsTitulosBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     fAnoVenda ,
-    fControleVenda : Integer;
-    fTotalVenda  : Currency;
+    fControleVenda  : Integer;
+    fDataEmissaoDOC : TDateTime;
+    fTotalVenda     : Currency;
     procedure UpdateParcelas;
     procedure DisplayTotais;
   public
     { Public declarations }
-    property AnoVenda      : Integer read fAnoVenda write fAnoVenda;
-    property ControleVenda : Integer read fControleVenda write fControleVenda;
-    property TotalVenda    : Currency read fTotalVenda write fTotalVenda;
+    property AnoVenda       : Integer read fAnoVenda write fAnoVenda;
+    property ControleVenda  : Integer read fControleVenda write fControleVenda;
+    property DataEmissaoDOC : TDateTime read fDataEmissaoDOC write fDataEmissaoDOC;
+    property TotalVenda     : Currency read fTotalVenda write fTotalVenda;
 
     procedure RegistrarRotinaSistema; override;
   end;
@@ -102,12 +105,19 @@ type
   Tabelas:
   - TBCONTREC
   - TBFORMPAGTO
+
+  Views:
+
+  Procedures:
+
 *)
+
 
 var
   frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos;
 
-  function TitulosConfirmados(const AOwer : TComponent; Ano, Controle : Integer; ValorVenda : Currency) : Boolean;
+  function TitulosConfirmados(const AOwer : TComponent; Ano, Controle : Integer;
+    DataEmissaoNF : TDateTime; ValorVenda : Currency) : Boolean;
 
 implementation
 
@@ -115,15 +125,17 @@ uses DateUtils, UDMBusiness;
 
 {$R *.dfm}
 
-function TitulosConfirmados(const AOwer : TComponent; Ano, Controle : Integer; ValorVenda : Currency) : Boolean;
+function TitulosConfirmados(const AOwer : TComponent; Ano, Controle : Integer;
+  DataEmissaoNF : TDateTime; ValorVenda : Currency) : Boolean;
 var
   frm : TfrmGeVendaConfirmaTitulos;
 begin
   frm := TfrmGeVendaConfirmaTitulos.Create(AOwer);
   try
-    frm.AnoVenda      := Ano;
-    frm.ControleVenda := Controle;
-    frm.TotalVenda    := ValorVenda;
+    frm.AnoVenda       := Ano;
+    frm.ControleVenda  := Controle;
+    frm.DataEmissaoDOC := DataEmissaoNF;
+    frm.TotalVenda     := ValorVenda;
 
     Result := (frm.ShowModal = mrOk);
   finally
@@ -139,11 +151,14 @@ end;
 procedure TfrmGeVendaConfirmaTitulos.FormCreate(Sender: TObject);
 begin
   inherited;
-  TotalVenda    := 0;
-  AnoVenda      := 0;
-  ControleVenda := 0;
+  TotalVenda     := 0;
+  AnoVenda       := 0;
+  DataEmissaoDOC := Date;
+  ControleVenda  := 0;
 
-  tblFormaPagto.Open;
+  fdQryFormaPagto.Open;
+  fdQryFormaPagto.Last;
+  fdQryFormaPagto.First;
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.FormShow(Sender: TObject);
@@ -178,14 +193,22 @@ begin
   if ( Sender = dbValor ) then
     if ( cdsTitulos.State = dsEdit ) then
     begin
-      cdsTitulos.Post;
-
-      cdsTitulos.Next;
-
-      if ( not cdsTitulos.Eof ) then
-        dbCodigo.SetFocus
+      if (cdsTitulosDTVENC.AsDateTime < DataEmissaoDOC) then
+      begin
+        ShowWarning('A Data de Vencimento não pode ser menor que a Data de Emissão do Documento de Saída');
+        if dbDataVencimento.Visible and dbDataVencimento.Enabled then dbDataVencimento.SetFocus;
+      end
       else
-        btnConfirmar.SetFocus;
+      begin
+        cdsTitulos.Post;
+
+        cdsTitulos.Next;
+
+        if ( not cdsTitulos.Eof ) then
+          dbCodigo.SetFocus
+        else
+          btnConfirmar.SetFocus;
+      end;
     end;
 end;
 
@@ -245,6 +268,18 @@ begin
   dbValor.ReadOnly          := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0);
 end;
 
+procedure TfrmGeVendaConfirmaTitulos.cdsTitulosBeforePost(DataSet: TDataSet);
+begin
+  if (cdsTitulosDTVENC.AsDateTime < DataEmissaoDOC) then
+  begin
+    if dbDataVencimento.Visible and dbDataVencimento.Enabled then dbDataVencimento.SetFocus;
+    ShowWarning('A Data de Vencimento não pode ser menor que a Data de Emissão do Documento de Entrada');
+    Abort;
+  end
+  else
+    inherited;
+end;
+
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosCalcFields(
   DataSet: TDataSet);
 begin
@@ -258,10 +293,10 @@ begin
   cdsTitulos.First;
   while not cdsTitulos.Eof do
   begin
-    tblFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
+    fdQryFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
 
     updParcela.Close;
-    updParcela.ParamByName('Tippag').AsString       := tblFormaPagto.FieldByName('DESCRI').AsString;
+    updParcela.ParamByName('Tippag').AsString       := fdQryFormaPagto.FieldByName('DESCRI').AsString;
     updParcela.ParamByName('Forma_Pagto').AsInteger := cdsTitulosFORMA_PAGTO.AsInteger;
     updParcela.ParamByName('vencimento').AsDateTime := cdsTitulosDTVENC.AsDateTime;
     updParcela.ParamByName('valor').AsCurrency      := cdsTitulosVALORREC.AsCurrency;

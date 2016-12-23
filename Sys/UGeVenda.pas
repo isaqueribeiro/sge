@@ -1826,7 +1826,7 @@ begin
     // Confirmar vencimentos de cada parcela
 
     if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
-      if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+      if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTVENDA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
         AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     HabilitarDesabilitar_Btns;
@@ -2117,7 +2117,7 @@ begin
   else
   if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
   begin
-    if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+    if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTVENDA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
       AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   end;
 end;

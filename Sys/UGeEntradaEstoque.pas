@@ -354,6 +354,8 @@ type
     IbDtstTabelaCALCULAR_TOTAIS: TSmallintField;
     dbCalcularTotais: TDBCheckBox;
     qryAutorizacaoProduto: TIBDataSet;
+    qryDuplicatasSITUACAO: TSmallintField;
+    qryDuplicatasSITUACAO_DESC: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -1530,7 +1532,7 @@ begin
 
     ShowInformation('Entrada finalizada com sucesso !');
 
-    if ( DuplicatasConfirmadas(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaTOTALNF.AsCurrency) ) then
+    if ( DuplicatasConfirmadas(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTEMISS.AsDateTime, IbDtstTabelaTOTALNF.AsCurrency) ) then
       AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     HabilitarDesabilitar_Btns;
