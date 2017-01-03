@@ -15995,7 +15995,7 @@ object DMNFe: TDMNFe
     ExibirTotalTributosItem = False
     ExibeCampoFatura = True
     TributosPercentual = ptValorProdutos
-    ImprimirUnQtVlComercial = False
+    ImprimirUnQtVlComercial = iuComercial
     Detalhado = False
     DescricaoViaEstabelec = 'Via do Consumidor'
     ExpandirDadosAdicionaisAuto = False

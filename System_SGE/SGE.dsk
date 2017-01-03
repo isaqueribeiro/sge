@@ -1,8 +1,8 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaConfirmaDuplicatas.pas',0,1,232,1,253,0,0,,
-File_1=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,2102,127,2120,0,0,,
-File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaConfirmaTitulos.pas',0,1,154,51,17,0,0,,
-File_3=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas',0,1,828,100,834,0,0,,
+File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeTabelaIBPTImportar.pas',0,1,250,104,254,0,0,,
+File_1=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaConfirmaDuplicatas.pas',0,1,232,1,253,0,0,,
+File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,2102,127,2120,0,0,,
+File_3=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaConfirmaTitulos.pas',0,1,154,51,17,0,0,,
 File_4=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGrUsuario.pas',0,1,1,51,18,0,0,,
 File_5=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.dfm',0,1,1,1,1,0,0,,
 File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\source\rtl\common\System.TypInfo.pas',0,1,1,6,9,0,0,,
@@ -16,36 +16,38 @@ File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,937,1,9
 File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas',0,1,327,15,345,0,0,,
 
 [Modules]
-Module0=D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
+Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 Module1=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-Module2=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module3=default.htm
-Module4=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module6=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-Module7=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module8=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeConfiguracoes.pas
-Module9=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
-Module10=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeWebService.pas
-Module11=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
-Module12=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module13=C:\Delphi\ACBr_2016\Fontes\PCNComum\pcnAuxiliar.pas
-Module14=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-Module15=D:\Projetos\ASS\SGE\trunk\Sys\UGrAguarde.pas
-Module16=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFe.pas
-Module17=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeConfiguracoes.pas
-Module18=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnEnvEventoNFe.pas
-Module19=D:\Projetos\ASS\SGE\trunk\Sys\UGeEstado.pas
-Module20=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnConversaoNFe.pas
-Module21=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
-Module22=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
-Module23=D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrConfigurarAmbiente.pas
-Module24=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeUtil.pas
-Module25=C:\Delphi\ACBr_2016\Fontes\ACBrBoleto\FC\Fast\ACBrBoletoFCFR.pas
-Count=26
+Module2=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module3=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module5=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
+Module6=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+Module7=D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
+Module8=default.htm
+Module9=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module10=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module11=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module12=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeConfiguracoes.pas
+Module13=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
+Module14=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeWebService.pas
+Module15=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
+Module16=C:\Delphi\ACBr_2016\Fontes\PCNComum\pcnAuxiliar.pas
+Module17=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
+Module18=D:\Projetos\ASS\SGE\trunk\Sys\UGrAguarde.pas
+Module19=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFe.pas
+Module20=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeConfiguracoes.pas
+Module21=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnEnvEventoNFe.pas
+Module22=D:\Projetos\ASS\SGE\trunk\Sys\UGeEstado.pas
+Module23=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnConversaoNFe.pas
+Module24=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
+Module25=D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrConfigurarAmbiente.pas
+Module26=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeUtil.pas
+Module27=C:\Delphi\ACBr_2016\Fontes\ACBrBoleto\FC\Fast\ACBrBoletoFCFR.pas
+Count=28
 EditWindowCount=1
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
@@ -53,9 +55,34 @@ FormOnTop=1
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
+FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
@@ -72,11 +99,6 @@ FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -99,11 +121,6 @@ FormOnTop=0
 [C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
-ModuleType=TSourceModule
-FormState=0
 FormOnTop=0
 
 [C:\Delphi\ACBr_2016\Fontes\PCNComum\pcnAuxiliar.pas]
@@ -146,11 +163,6 @@ ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
-[C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas]
 ModuleType=TSourceModule
 FormState=1
@@ -180,8 +192,8 @@ FormState=1
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=26
-CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
+ViewCount=28
+CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 View0=0
 View1=1
 View2=2
@@ -208,6 +220,8 @@ View22=22
 View23=23
 View24=24
 View25=25
+View26=26
+View27=27
 PercentageSizes=1
 Create=1
 Visible=1
@@ -255,9 +269,9 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dpr
 [View2]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-CursorX=36
-CursorY=424
-TopLine=405
+CursorX=3
+CursorY=454
+TopLine=440
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -310,15 +324,37 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGrAguarde.pas
 [View7]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=16
-CursorY=6082
-TopLine=6063
+CursorX=27
+CursorY=25
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks={1,5043,32}{2,7552,11}{3,1451,1}{7,7344,6}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View8]
+CustomEditViewType=TEditView
+Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+CursorX=58
+CursorY=499
+TopLine=473
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+
+[View9]
+CustomEditViewType=TEditView
+Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
+CursorX=1
+CursorY=52
+TopLine=142
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
+
+[View10]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
 CursorX=47
@@ -329,7 +365,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
 
-[View9]
+[View11]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\PCNComum\pcnAuxiliar.pas
 CursorX=3
@@ -340,7 +376,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\PCNComum\pcnAuxiliar.pas
 
-[View10]
+[View12]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnEnvEventoNFe.pas
 CursorX=1
@@ -351,7 +387,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnEnvEventoNFe.pas
 
-[View11]
+[View13]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
 CursorX=17
@@ -362,18 +398,18 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
 
-[View12]
+[View14]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
 CursorX=3
-CursorY=1156
-TopLine=1146
+CursorY=1470
+TopLine=1452
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
 
-[View13]
+[View15]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFe.pas
 CursorX=1
@@ -384,7 +420,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFe.pas
 
-[View14]
+[View16]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 CursorX=15
@@ -395,7 +431,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 
-[View15]
+[View17]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeWebService.pas
 CursorX=3
@@ -406,7 +442,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeWebService.pas
 
-[View16]
+[View18]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeConfiguracoes.pas
 CursorX=37
@@ -417,7 +453,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeConfiguracoes.pas
 
-[View17]
+[View19]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeConfiguracoes.pas
 CursorX=28
@@ -428,7 +464,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeConfiguracoes.pas
 
-[View18]
+[View20]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
 CursorX=26
@@ -439,7 +475,7 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View19]
+[View21]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrConfigurarAmbiente.pas
 CursorX=80
@@ -450,7 +486,7 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View20]
+[View22]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnConversaoNFe.pas
 CursorX=21
@@ -461,7 +497,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnConversaoNFe.pas
 
-[View21]
+[View23]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeUtil.pas
 CursorX=1
@@ -472,7 +508,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeUtil.pas
 
-[View22]
+[View24]
 CustomEditViewType=TEditView
 Module=C:\Delphi\ACBr_2016\Fontes\ACBrBoleto\FC\Fast\ACBrBoletoFCFR.pas
 CursorX=1
@@ -483,7 +519,7 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View23]
+[View25]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
 CursorX=54
@@ -494,7 +530,7 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View24]
+[View26]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
 CursorX=130
@@ -505,16 +541,16 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View25]
+[View27]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-CursorX=31
-CursorY=348
-TopLine=319
+CursorX=66
+CursorY=455
+TopLine=428
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
 
 [Watches]
 Count=0
