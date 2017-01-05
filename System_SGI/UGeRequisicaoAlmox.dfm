@@ -4,6 +4,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
   Caption = 'Controle de Requisi'#231#245'es de Materiais'
   ClientHeight = 685
   ClientWidth = 1116
+  ExplicitTop = -57
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -349,6 +350,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -2140,6 +2143,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       ParentShowHint = False
       ShowHint = True
       TabOrder = 7
+      Visible = False
       OnClick = btnEnviarRequisicaoClick
     end
     object btnCancelarRequisicao: TcxButton
@@ -2592,7 +2596,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

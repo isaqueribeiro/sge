@@ -217,6 +217,7 @@ type
     BrBtnTeamViewer: TdxBarLargeButton;
     BrPpTeamViewer: TdxBarPopupMenu;
     tmrAutoUpgrade: TTimer;
+    BrBtnUpgrade: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -323,6 +324,7 @@ type
     procedure BrBtnGerarDanfeXMLClick(Sender: TObject);
     procedure BrBtnDownloadTeamViewerClick(Sender: TObject);
     procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
+    procedure BrBtnUpgradeClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -501,6 +503,12 @@ procedure TfrmPrinc.BrBtnTipoReceitaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_RECEITA_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeTipoReceita');
+end;
+
+procedure TfrmPrinc.BrBtnUpgradeClick(Sender: TObject);
+begin
+  if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeAutoUpgrade');
 end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);

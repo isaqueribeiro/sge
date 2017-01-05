@@ -4689,7 +4689,6 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
-      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item
@@ -4737,6 +4736,7 @@ object frmPrinc: TfrmPrinc
       Index = 7
     end
     object RbnTabAjuda: TdxRibbonTab
+      Active = True
       Caption = 'Ajuda'
       Groups = <
         item
@@ -5457,6 +5457,10 @@ object frmPrinc: TfrmPrinc
           BeginGroup = True
           Visible = True
           ItemName = 'BrBtnTeamViewer'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnUpgrade'
         end
         item
           Visible = True
@@ -6596,6 +6600,17 @@ object frmPrinc: TfrmPrinc
       OnClick = BrBtnExecuteTeamViewerClick
       SyncImageIndex = False
       ImageIndex = -1
+    end
+    object BrBtnUpgrade: TdxBarLargeButton
+      Caption = 'Atualizar Sistema'
+      Category = 18
+      Hint = 'Atualizar Sistema'
+      Visible = ivAlways
+      LargeImageIndex = 77
+      OnClick = BrBtnUpgradeClick
+      HotImageIndex = 77
+      SyncImageIndex = False
+      ImageIndex = 77
     end
     object BrBtnSobre: TdxBarLargeButton
       Caption = 'Sobre o Sistema'
