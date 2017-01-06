@@ -146,19 +146,19 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           ParentFont = False
           Transparent = False
         end
-        object Label1: TLabel [2]
+        object lblLancamentoCancelado: TLabel [2]
           Left = 2
           Top = 44
-          Width = 16
+          Width = 152
           Height = 13
-          Caption = '* ?'
+          Caption = '* Lan'#231'amentos cancelados'
           Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
+          Font.Color = 7303023
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          Visible = False
+          Transparent = True
         end
         inherited grpBxFiltro: TGroupBox
           Left = 328
@@ -313,8 +313,6 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -1244,6 +1242,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  , Case when p.Quitado = 1 then '#39'X'#39' else '#39'.'#39' end as Pago_'
       '  , p.Docbaix'
       '  , p.Quitado'
+      '  , p.Situacao'
       '  , p.Codtpdesp'
       '  , p.Lote'
       '  , p.Competencia_apuracao'
@@ -1430,6 +1429,11 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       Required = True
       OnGetText = IbDtstTabelaQUITADOGetText
     end
+    object IbDtstTabelaSITUACAO: TSmallintField
+      FieldName = 'SITUACAO'
+      Origin = '"TBCONTPAG"."SITUACAO"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaANOCOMPRA: TSmallintField
       FieldName = 'ANOCOMPRA'
       Origin = '"TBCONTPAG"."ANOCOMPRA"'
@@ -1515,6 +1519,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       '  NUMLANC = :NUMLANC,'
       '  PARCELA = :PARCELA,'
       '  QUITADO = :QUITADO,'
+      '  SITUACAO = :SITUACAO,'
       '  TIPPAG = :TIPPAG,'
       '  VALORPAG = :VALORPAG,'
       '  VALORSALDO = :VALORSALDO'
@@ -1532,7 +1537,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       
         '   HISTORIC, LOTE, NOMEEMP, NOTFISC, NUMCHQ, NUMCOMPRA, NUMLANC,' +
         ' PARCELA, '
-      '   QUITADO, TIPPAG, VALORPAG, VALORSALDO)'
+      '   QUITADO, SITUACAO, TIPPAG, VALORPAG, VALORSALDO)'
       'values'
       
         '  (:ANOCOMPRA, :ANOLANC, :BANCO, :CODFORN, :CODTPDESP, :COMPETEN' +
@@ -1543,7 +1548,9 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       
         '   :HISTORIC, :LOTE, :NOMEEMP, :NOTFISC, :NUMCHQ, :NUMCOMPRA, :N' +
         'UMLANC, '
-      '   :PARCELA, :QUITADO, :TIPPAG, :VALORPAG, :VALORSALDO)')
+      
+        '   :PARCELA, :QUITADO, :SITUACAO, :TIPPAG, :VALORPAG, :VALORSALD' +
+        'O)')
     DeleteSQL.Strings = (
       'delete from TBCONTPAG'
       'where'
@@ -1556,7 +1563,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     Left = 344
     Top = 144
     Bitmap = {
-      494C01012B002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3015,118 +3022,18 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 824
-    Top = 280
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 856
     Top = 280
-  end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 824
-    Top = 312
   end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = fdQryFormaPagto
     Left = 856
     Top = 312
   end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COND_COD'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_DESCRICAO'
-        DataType = ftString
-        Size = 80
-      end
-      item
-        Name = 'COND_PRAZO'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_01'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_02'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_03'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_04'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_05'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_06'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_07'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_08'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_09'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_10'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_11'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_PRAZO_12'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'COND_DESCRICAO_FULL'
-        Attributes = [faReadonly]
-        DataType = ftString
-        Size = 177
-      end>
-    StoreDefs = True
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 824
-    Top = 344
-  end
   object dtsCondicaoPagto: TDataSource
-    DataSet = tblCondicaoPagto
+    DataSet = fdQryCondicaoPagto
     Left = 856
     Top = 344
   end
@@ -3248,7 +3155,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     Top = 176
   end
   object dtsTpDespesa: TDataSource
-    DataSet = qryTipoDespesa
+    DataSet = fdQryTipoDespesa
     Left = 856
     Top = 408
   end
@@ -3751,79 +3658,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
       end
     end
   end
-  object QryRecibo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.Parcela'
-      '  , p.Codforn'
-      '  , p.Nomeemp'
-      '  , f.Nomeforn'
-      '  , f.pessoa_fisica'
-      '  , f.Cnpj'
-      '  , p.Notfisc'
-      '  , p.Tippag'
-      '  , p.Dtemiss'
-      '  , p.Dtvenc'
-      '  , p.Dtpag'
-      '  , p.Valorpag'
-      '  , p.Banco'
-      '  , b.Bco_nome'
-      '  , p.Numchq'
-      '  , Case when p.Quitado = 1 then '#39'X'#39' else '#39'.'#39' end as Pago_'
-      '  , p.Docbaix'
-      '  , p.Quitado'
-      '  , p.Codtpdesp'
-      ''
-      '  , bx.seq'
-      '  , bx.data_pagto'
-      '  , bx.forma_pagto'
-      '  , fp.descri as forma_pagto_desc'
-      '  , bx.historico'
-      '  , bx.valor_baixa'
-      'from TBCONTPAG p'
-      '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
-      
-        '  inner join TBCONTPAG_BAIXA bx on (bx.anolanc = p.anolanc and b' +
-        'x.numlanc = p.numlanc)'
-      
-        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
-        'sa = p.empresa)'
-      '  left join TBFORMPAGTO fp on (fp.cod = bx.forma_pagto)'
-      ''
-      'where p.anolanc = :ano'
-      '  and p.numlanc = :numero'
-      '  and bx.seq    = :baixa')
-    Left = 556
-    Top = 337
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numero'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'baixa'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object DspRecibo: TDataSetProvider
-    DataSet = QryRecibo
+    DataSet = fdQryRecibo
     Left = 588
     Top = 337
   end
@@ -3866,26 +3702,29 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     object CdsReciboCODFORN: TSmallintField
       FieldName = 'CODFORN'
     end
-    object CdsReciboNOMEEMP: TWideStringField
+    object CdsReciboNOMEEMP: TStringField
       FieldName = 'NOMEEMP'
-      Size = 40
+      Size = 60
     end
-    object CdsReciboNOMEFORN: TWideStringField
+    object CdsReciboNOMEFORN: TStringField
       FieldName = 'NOMEFORN'
+      ReadOnly = True
       Size = 100
     end
     object CdsReciboPESSOA_FISICA: TSmallintField
       FieldName = 'PESSOA_FISICA'
+      ReadOnly = True
     end
-    object CdsReciboCNPJ: TWideStringField
+    object CdsReciboCNPJ: TStringField
       FieldName = 'CNPJ'
+      ReadOnly = True
       Size = 18
     end
-    object CdsReciboNOTFISC: TWideStringField
+    object CdsReciboNOTFISC: TStringField
       FieldName = 'NOTFISC'
       Size = 15
     end
-    object CdsReciboTIPPAG: TWideStringField
+    object CdsReciboTIPPAG: TStringField
       FieldName = 'TIPPAG'
       Size = 35
     end
@@ -3906,50 +3745,57 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     object CdsReciboBANCO: TSmallintField
       FieldName = 'BANCO'
     end
-    object CdsReciboBCO_NOME: TWideStringField
+    object CdsReciboBCO_NOME: TStringField
       FieldName = 'BCO_NOME'
+      ReadOnly = True
       Size = 50
     end
-    object CdsReciboNUMCHQ: TWideStringField
+    object CdsReciboNUMCHQ: TStringField
       FieldName = 'NUMCHQ'
       Size = 10
     end
-    object CdsReciboPAGO_: TWideStringField
+    object CdsReciboPAGO_: TStringField
       FieldName = 'PAGO_'
+      ReadOnly = True
       FixedChar = True
       Size = 1
     end
-    object CdsReciboDOCBAIX: TWideStringField
+    object CdsReciboDOCBAIX: TStringField
       FieldName = 'DOCBAIX'
       Size = 15
     end
     object CdsReciboQUITADO: TSmallintField
       FieldName = 'QUITADO'
+      Required = True
     end
     object CdsReciboCODTPDESP: TSmallintField
       FieldName = 'CODTPDESP'
     end
     object CdsReciboSEQ: TSmallintField
       FieldName = 'SEQ'
-      Required = True
+      ReadOnly = True
     end
     object CdsReciboDATA_PAGTO: TDateField
       FieldName = 'DATA_PAGTO'
+      ReadOnly = True
     end
     object CdsReciboFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
+      ReadOnly = True
     end
-    object CdsReciboFORMA_PAGTO_DESC: TWideStringField
+    object CdsReciboFORMA_PAGTO_DESC: TStringField
       FieldName = 'FORMA_PAGTO_DESC'
+      ReadOnly = True
       Size = 30
     end
-    object CdsReciboHISTORICO: TWideMemoField
+    object CdsReciboHISTORICO: TMemoField
       FieldName = 'HISTORICO'
-      BlobType = ftWideMemo
-      Size = 8
+      ReadOnly = True
+      BlobType = ftMemo
     end
     object CdsReciboVALOR_BAIXA: TBCDField
       FieldName = 'VALOR_BAIXA'
+      ReadOnly = True
       Precision = 18
       Size = 2
     end
@@ -4064,45 +3910,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     Left = 620
     Top = 289
   end
-  object qryTipoDespesa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select *'
-      'from TBTPDESPESA t'
-      'where (t.ativo = :ativo) or (:todos = 1)'
-      'order by t.tipodesp')
-    Left = 824
-    Top = 408
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ativo'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'todos'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object tblCompetencia: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBCOMPETENCIA'
-    UniDirectional = False
-    Left = 824
-    Top = 376
-  end
   object dtsCompetencia: TDataSource
-    DataSet = tblCompetencia
+    DataSet = fdQryCompetencia
     Left = 856
     Top = 376
   end
@@ -4566,5 +4375,186 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
         end
       end
     end
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.cnpj'
+      '  , e.rzsoc'
+      '  , e.nmfant'
+      'from TBEMPRESA e'
+      'order by'
+      '    e.rzsoc')
+    Left = 824
+    Top = 280
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '      f.cod'
+      '    , f.descri'
+      '    , count(x.conta_corrente) as conta_corrente'
+      'from TBFORMPAGTO f'
+      '  left join ('
+      '    Select'
+      '        fc.forma_pagto'
+      '      , fc.conta_corrente'
+      '      , c.descricao'
+      '    from TBFORMPAGTO_CONTACOR fc'
+      
+        '      inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corr' +
+        'ente and c.empresa = :empresa)'
+      '    where c.tipo = 1'
+      '  ) x on (x.forma_pagto = f.cod)'
+      'group by'
+      '      f.cod'
+      '    , f.descri'
+      'order by'
+      '      f.descri')
+    Left = 824
+    Top = 312
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object fdQryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cond_cod'
+      '  , c.cond_descricao'
+      '  , c.cond_descricao_full'
+      '  , c.cond_descricao_pdv'
+      '  , c.cond_prazo'
+      '  , c.cond_qtde_parcelas'
+      'from VW_CONDICAOPAGTO c'
+      'order by'
+      '    c.cond_descricao_full')
+    Left = 824
+    Top = 344
+  end
+  object fdQryCompetencia: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cmp_num'
+      '  , c.cmp_desc'
+      'from TBCOMPETENCIA c'
+      'order by'
+      '    c.cmp_num DESC')
+    Left = 824
+    Top = 376
+  end
+  object fdQryTipoDespesa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBTPDESPESA t'
+      'where (t.ativo = :ativo) or (:todos = 1)'
+      'order by t.tipodesp')
+    Left = 824
+    Top = 408
+    ParamData = <
+      item
+        Name = 'ATIVO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object fdQryRecibo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.Anolanc'
+      '  , p.Numlanc'
+      '  , p.Parcela'
+      '  , p.Codforn'
+      '  , p.Nomeemp'
+      '  , f.Nomeforn'
+      '  , f.pessoa_fisica'
+      '  , f.Cnpj'
+      '  , p.Notfisc'
+      '  , p.Tippag'
+      '  , p.Dtemiss'
+      '  , p.Dtvenc'
+      '  , p.Dtpag'
+      '  , p.Valorpag'
+      '  , p.Banco'
+      '  , b.Bco_nome'
+      '  , p.Numchq'
+      '  , Case when p.Quitado = 1 then '#39'X'#39' else '#39'.'#39' end as Pago_'
+      '  , p.Docbaix'
+      '  , p.Quitado'
+      '  , p.Codtpdesp'
+      ''
+      '  , bx.seq'
+      '  , bx.data_pagto'
+      '  , bx.forma_pagto'
+      '  , fp.descri as forma_pagto_desc'
+      '  , bx.historico'
+      '  , bx.valor_baixa'
+      'from TBCONTPAG p'
+      '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
+      
+        '  inner join TBCONTPAG_BAIXA bx on (bx.anolanc = p.anolanc and b' +
+        'x.numlanc = p.numlanc)'
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
+        'sa = p.empresa)'
+      '  left join TBFORMPAGTO fp on (fp.cod = bx.forma_pagto)'
+      ''
+      'where p.anolanc = :ano'
+      '  and p.numlanc = :numero'
+      '  and bx.seq    = :baixa')
+    Left = 560
+    Top = 336
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ano'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        Position = 2
+        Name = 'numero'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        Position = 3
+        Name = 'baixa'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 0
+      end>
   end
 end

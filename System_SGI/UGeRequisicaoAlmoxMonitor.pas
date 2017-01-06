@@ -104,6 +104,7 @@ type
     function GetRotinaReceberID : String;
     function GetRotinaAtenderID : String;
     function GetRotinaCancelarID : String;
+    function GetRotinaDevolverID : String;
   public
     { Public declarations }
     property Empresa     : String read GetEmpresa;
@@ -112,6 +113,7 @@ type
     property RotinaReceberID : String read GetRotinaReceberID;
     property RotinaAtenderID : String read GetRotinaAtenderID;
     property RotinaCancelarID : String read GetRotinaCancelarID;
+    property RotinaDevolverID : String read GetRotinaDevolverID;
 
     procedure RegistrarRotinaSistema; override;
   end;
@@ -183,6 +185,7 @@ begin
     SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaReceberID,  nmRequisicaoReceber.Caption,  RotinaID);
     SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaAtenderID,  nmRequisicaoAtender.Caption,  RotinaID);
     SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarID, nmRequisicaoCancelar.Caption, RotinaID);
+    SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaDevolverID, nmRequisicaoDevolver.Caption, RotinaID);
   end;
 end;
 
@@ -190,8 +193,7 @@ procedure TfrmGeRequisicaoAlmoxMonitor.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  fPreferenciaINI.WriteInteger(gUsuarioLogado.Login, 'CentroCusto', edCentroCusto.ItemIndex);
-  fPreferenciaINI.WriteBool   (gUsuarioLogado.Login, 'Monitorar',   False);
+  fPreferenciaINI.WriteBool(gUsuarioLogado.Login, 'Monitorar', False);
   fPreferenciaINI.UpdateFile;
 
   if Assigned(Parent) then
@@ -314,6 +316,12 @@ begin
     end;
 
     bRetorno := not cdsRequisicaoAlmox.IsEmpty;
+
+    if bRetorno then
+    begin
+      fPreferenciaINI.WriteInteger(gUsuarioLogado.Login, 'CentroCusto', CentroCusto);
+      fPreferenciaINI.UpdateFile;
+    end;
   finally
     Screen.Cursor := crDefault;
     Result := bRetorno;
@@ -500,6 +508,7 @@ procedure TfrmGeRequisicaoAlmoxMonitor.nmRequisicaoDevolverClick(
   Sender: TObject);
 var
   SQL : TStringList;
+  sControle : String;
 begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
@@ -520,6 +529,8 @@ begin
     else
     if ShowConfirmation('Deseja sinalizar como devolvida a requisição de materiais selecionada?') then
       try
+        sControle := FieldByName('numero').AsString;
+
         SQL := TStringList.Create;
 
         // Marcar requisição como Recebida
@@ -535,7 +546,7 @@ begin
 
         cdsRequisicaoAlmox.Refresh;
 
-        ShowInformation(Format('Requisição de materiais "%s" marcada como devolvida.', [FieldByName('numero').AsString]));
+        ShowInformation(Format('Requisição de materiais "%s" marcada como devolvida.', [sControle]));
       finally
         SQL.Free;
       end;
@@ -605,6 +616,11 @@ end;
 function TfrmGeRequisicaoAlmoxMonitor.GetRotinaCancelarID: String;
 begin
   Result := GetRotinaInternaID(nmRequisicaoCancelar);
+end;
+
+function TfrmGeRequisicaoAlmoxMonitor.GetRotinaDevolverID: String;
+begin
+  Result := GetRotinaInternaID(nmRequisicaoDevolver);
 end;
 
 procedure TfrmGeRequisicaoAlmoxMonitor.FormActivate(Sender: TObject);

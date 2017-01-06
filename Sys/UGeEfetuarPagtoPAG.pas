@@ -6,7 +6,13 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, DB, IBCustomDataSet, IBUpdateSQL,
   IBTable, Buttons, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin,
+  JvExMask, JvToolEdit, JvDBControls, IBX.IBQuery,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin,
   dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
   dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
@@ -14,7 +20,7 @@ uses
   dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, IBX.IBQuery;
+  dxSkinWhiteprint;
 
 type
   TfrmGeEfetuarPagtoPAG = class(TfrmGrPadrao)
@@ -43,9 +49,7 @@ type
     cdsPagamentosDOCUMENTO_BAIXA: TIBStringField;
     updPagamentos: TIBUpdateSQL;
     dtsPagamentos: TDataSource;
-    tblBanco: TIBTable;
     dtsBanco: TDataSource;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
     lblDataPagto: TLabel;
     dbValorPago: TDBEdit;
@@ -66,11 +70,13 @@ type
     dbDataPagto: TJvDBDateEdit;
     cdsPagamentosEMPRESA: TIBStringField;
     cdsPagamentosBANCO_FEBRABAN: TIBStringField;
-    qryBancoFebraban: TIBQuery;
     dtsBancoFebraban: TDataSource;
     lblNumeroCheque: TLabel;
     dbNumeroCheque: TJvDBComboEdit;
     cdsPagamentosCONTROLE_CHEQUE: TIntegerField;
+    fdQryBanco: TFDQuery;
+    fdQryFormaPagto: TFDQuery;
+    fdQryBancoFebraban: TFDQuery;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -87,6 +93,23 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBCONTPAG
+  - TBEMPRESA
+  - TBFORNECEDOR
+  - TBCONTPAG_BAIXA
+  - TBBANCO_BOLETO
+  - TBBANCO
+  - TBFORMPAGTO
+
+  Views:
+  - VW_CONDICAOPAGTO
+
+  Procedures:
+
+*)
 
 var
   frmGeEfetuarPagtoPAG: TfrmGeEfetuarPagtoPAG;
@@ -189,9 +212,10 @@ end;
 procedure TfrmGeEfetuarPagtoPAG.FormCreate(Sender: TObject);
 begin
   inherited;
-  tblBanco.Open;
-  tblFormaPagto.Open;
-  qryBancoFebraban.Open;
+  CarregarListaDB(fdQryBanco);
+  CarregarListaDB(fdQryFormaPagto);
+  CarregarListaDB(fdQryBancoFebraban);
+
   CxContaCorrente := 0;
 end;
 

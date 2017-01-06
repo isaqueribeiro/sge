@@ -8,15 +8,21 @@ uses
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, JvToolEdit, JvExMask,
-  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  JvDBControls, Datasnap.DBClient, Datasnap.Provider, IBX.IBQuery, ACBrBase,
+  ACBrExtenso, frxClass, frxDBSet,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
   dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
   dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, Datasnap.DBClient,
-  Datasnap.Provider, IBX.IBQuery, ACBrBase, ACBrExtenso, frxClass, frxDBSet;
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeContasAReceber = class(TfrmGrPadraoCadastro)
@@ -28,11 +34,8 @@ type
     dbQuitado: TDBEdit;
     lblValorAReceber: TLabel;
     dbValorAReceber: TDBEdit;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
-    tblCondicaoPagto: TIBTable;
     dtsCondicaoPagto: TDataSource;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
@@ -100,7 +103,6 @@ type
     dbTotalAReceber: TDBEdit;
     lblNossoNumero: TLabel;
     dbNossoNumero: TDBEdit;
-    tblBanco: TIBTable;
     dtsBanco: TDataSource;
     lblPercJuros: TLabel;
     dbPercJuros: TDBEdit;
@@ -134,40 +136,12 @@ type
     FrReciboA5: TfrxReport;
     FrdRecibo: TfrxDBDataset;
     ACBrExtenso: TACBrExtenso;
-    QryRecibo: TIBQuery;
     DspRecibo: TDataSetProvider;
     CdsRecibo: TClientDataSet;
     CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
     popImprimir: TPopupMenu;
     popGerarReciboA4: TMenuItem;
-    CdsReciboANOLANC: TSmallintField;
-    CdsReciboNUMLANC: TIntegerField;
-    CdsReciboPARCELA: TSmallintField;
-    CdsReciboCLIENTE: TIntegerField;
-    CdsReciboRZSOC: TWideStringField;
-    CdsReciboNOME: TWideStringField;
-    CdsReciboPESSOA_FISICA: TSmallintField;
-    CdsReciboCNPJ: TWideStringField;
-    CdsReciboTIPPAG: TWideStringField;
-    CdsReciboDTEMISS: TDateField;
-    CdsReciboDTVENC: TDateField;
-    CdsReciboDTREC: TDateField;
-    CdsReciboVALORREC: TBCDField;
-    CdsReciboBANCO: TSmallintField;
-    CdsReciboBCO_NOME: TWideStringField;
-    CdsReciboNUMERO_CHEQUE: TWideStringField;
-    CdsReciboPAGO_: TWideStringField;
-    CdsReciboDOCBAIX: TWideStringField;
-    CdsReciboBAIXADO: TSmallintField;
-    CdsReciboSEQ: TSmallintField;
-    CdsReciboDATA_PAGTO: TDateField;
-    CdsReciboFORMA_PAGTO: TSmallintField;
-    CdsReciboFORMA_PAGTO_DESC: TWideStringField;
-    CdsReciboHISTORICO: TWideMemoField;
-    CdsReciboVALOR_BAIXA: TBCDField;
-    CdsReciboEMPRESA_CNPJ: TWideStringField;
     IbDtstTabelaCOMPETENCIA_APURACAO: TIntegerField;
-    tblCompetencia: TIBTable;
     dtsCompetencia: TDataSource;
     lblEmissao: TLabel;
     dbEmissao: TJvDBDateEdit;
@@ -175,7 +149,6 @@ type
     dbVencimento: TJvDBDateEdit;
     lblCompetenciaApuracao: TLabel;
     dbCompetenciaApuracao: TDBLookupComboBox;
-    qryTipoReceita: TIBQuery;
     dtsTpReceita: TDataSource;
     lblTipoReceita: TLabel;
     dbTipoReceita: TDBLookupComboBox;
@@ -186,6 +159,40 @@ type
     popGerarReciboA5: TMenuItem;
     lblSaldoAPagar: TLabel;
     dbSaldoAReceber: TDBEdit;
+    lblLancamentoCancelado: TLabel;
+    fdQryEmpresa: TFDQuery;
+    fdQryCondicaoPagto: TFDQuery;
+    fdQryCompetencia: TFDQuery;
+    fdQryTipoReceita: TFDQuery;
+    fdQryFormaPagto: TFDQuery;
+    fdQryBanco: TFDQuery;
+    fdQryRecibo: TFDQuery;
+    CdsReciboANOLANC: TSmallintField;
+    CdsReciboNUMLANC: TIntegerField;
+    CdsReciboPARCELA: TSmallintField;
+    CdsReciboCLIENTE: TIntegerField;
+    CdsReciboRZSOC: TStringField;
+    CdsReciboEMPRESA_CNPJ: TStringField;
+    CdsReciboNOME: TStringField;
+    CdsReciboPESSOA_FISICA: TSmallintField;
+    CdsReciboCNPJ: TStringField;
+    CdsReciboTIPPAG: TStringField;
+    CdsReciboDTEMISS: TDateField;
+    CdsReciboDTVENC: TDateField;
+    CdsReciboDTREC: TDateField;
+    CdsReciboVALORREC: TBCDField;
+    CdsReciboBANCO: TSmallintField;
+    CdsReciboBCO_NOME: TStringField;
+    CdsReciboNUMERO_CHEQUE: TStringField;
+    CdsReciboPAGO_: TStringField;
+    CdsReciboDOCBAIX: TStringField;
+    CdsReciboBAIXADO: TSmallintField;
+    CdsReciboSEQ: TSmallintField;
+    CdsReciboDATA_PAGTO: TDateField;
+    CdsReciboFORMA_PAGTO: TSmallintField;
+    CdsReciboFORMA_PAGTO_DESC: TStringField;
+    CdsReciboHISTORICO: TMemoField;
+    CdsReciboVALOR_BAIXA: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -223,6 +230,7 @@ type
     procedure AbrirPagamentos(const Ano : Smallint; const Numero : Integer);
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
+    procedure CarregarFormaPagto(const pEmpresa : String);
     procedure CarregarTipoReceita(const ApenasAtivos : Boolean);
 
     function GetRotinaEfetuarPagtoID : String;
@@ -244,6 +252,12 @@ type
   - TBCONTREC_BAIXA
   - TBBANCO_BOLETO
   - TBFORMPAGTO
+
+  Views:
+  - VW_CONDICAOPAGTO
+
+  Procedures:
+
 *)
 
 var
@@ -310,11 +324,11 @@ begin
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbCliente;
 
-  tblEmpresa.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  tblBanco.Open;
-  tblCompetencia.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryCondicaoPagto);
+  CarregarLista(fdQryBanco);
+  CarregarLista(fdQryCompetencia);
+  CarregarFormaPagto(gUsuarioLogado.Empresa);
   CarregarTipoReceita(False);
 
   RotinaID            := ROTINA_FIN_CONTA_ARECEBER_ID;
@@ -456,9 +470,9 @@ procedure TfrmGeContasAReceber.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btbtnEfetuarPagto.Enabled := (IbDtstTabelaBAIXADO.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse);
-    popGerarReciboA4.Enabled  := (not cdsPagamentos.IsEmpty);
-    popGerarReciboA5.Enabled  := (not cdsPagamentos.IsEmpty);
+    btbtnEfetuarPagto.Enabled := (IbDtstTabelaSITUACAO.AsInteger = 1) and (IbDtstTabelaBAIXADO.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse);
+    popGerarReciboA4.Enabled  := (IbDtstTabelaSITUACAO.AsInteger = 1) and (not cdsPagamentos.IsEmpty);
+    popGerarReciboA5.Enabled  := (IbDtstTabelaSITUACAO.AsInteger = 1) and (not cdsPagamentos.IsEmpty);
   end
   else
   begin
@@ -607,17 +621,33 @@ end;
 procedure TfrmGeContasAReceber.IbDtstTabelaBAIXADOGetText(Sender: TField;
   var Text: String; DisplayText: Boolean);
 begin
-  Case Sender.AsInteger of
-    0 : Text := 'A Receber';
-    1 : Text := 'Baixado';
-    else
-      Text := Sender.AsString;
+  if (Sender.DataSet.FieldByName('situacao').AsInteger = 0) then
+    Text := 'Cancelado'
+  else
+    Case Sender.AsInteger of
+      0 : Text := 'A Receber';
+      1 : Text := 'Baixado';
+      else
+        Text := Sender.AsString;
+    end;
+end;
+
+procedure TfrmGeContasAReceber.CarregarFormaPagto(const pEmpresa: String);
+begin
+  with fdQryFormaPagto, Params do
+  begin
+    Close;
+    ParamByName('empresa').AsString := Trim(pEmpresa);
+    Open;
+
+    Prior;
+    Last;
   end;
 end;
 
 procedure TfrmGeContasAReceber.CarregarTipoReceita(const ApenasAtivos: Boolean);
 begin
-  with qryTipoReceita, Params do
+  with fdQryTipoReceita, Params do
   begin
     Close;
     ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
@@ -647,8 +677,8 @@ end;
 procedure TfrmGeContasAReceber.dbFormaPagtoClick(Sender: TObject);
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( tblFormaPagto.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
-      IbDtstTabelaTIPPAG.AsString := tblFormaPagto.FieldByName('descri').AsString;
+    if ( fdQryFormaPagto.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
+      IbDtstTabelaTIPPAG.AsString := fdQryFormaPagto.FieldByName('descri').AsString;
 end;
 
 procedure TfrmGeContasAReceber.dbgDadosDrawColumnCell(Sender: TObject;
@@ -657,6 +687,10 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
+    // Destacar Títulos A Pagar cancelados
+    if (IbDtstTabelaSITUACAO.AsInteger = 0) then
+      dbgDados.Canvas.Font.Color := lblLancamentoCancelado.Font.Color
+    else
     // Destacar Títulos A Pagar em aberto
     if ( not IbDtstTabelaBAIXADO.IsNull ) then
       if ( IbDtstTabelaBAIXADO.AsInteger = STATUS_ARECEBER_PENDENTE ) then
@@ -697,8 +731,8 @@ begin
       CxNumero := 0;
       CxContaCorrente := 0;
 
-      if ( tblFormaPagto.Locate('cod', IbDtstTabelaFORMA_PAGTO.AsInteger, []) ) then
-        if ( tblFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
+      if ( fdQryFormaPagto.Locate('cod', IbDtstTabelaFORMA_PAGTO.AsInteger, []) ) then
+        if ( fdQryFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
           if ( not CaixaAberto(IbDtstTabelaEMPRESA.AsString, GetUserApp, GetDateDB, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
           begin
             ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
@@ -809,13 +843,16 @@ procedure TfrmGeContasAReceber.DtSrcTabelaDataChange(Sender: TObject;
 var
   iCompetencia : Integer;
 begin
+  if ( Field = IbDtstTabelaEMPRESA ) then
+    CarregarFormaPagto(IbDtstTabelaEMPRESA.AsString)
+  else
   if ( Field = IbDtstTabelaDTEMISS ) then
     if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
       if not IbDtstTabelaDTEMISS.IsNull then
       begin
         iCompetencia := GetCompetenciaID(IbDtstTabelaDTEMISS.AsDateTime);
-        tblCompetencia.Close;
-        tblCompetencia.Open;
+        fdQryCompetencia.Close;
+        fdQryCompetencia.Open;
 
         IbDtstTabelaCOMPETENCIA_APURACAO.AsInteger := iCompetencia;
       end;
@@ -828,6 +865,7 @@ begin
   btbtnIncluirLote.Enabled := btbtnIncluir.Enabled;
   HabilitarDesabilitar_Btns;
 
+  CarregarFormaPagto(IbDtstTabelaEMPRESA.AsString);
   CarregarTipoReceita( (IbDtstTabela.State in [dsEdit, dsInsert]) );
 end;
 

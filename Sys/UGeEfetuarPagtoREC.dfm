@@ -815,33 +815,13 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
     Left = 368
     Top = 16
   end
-  object tblBanco: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBBANCO_BOLETO'
-    UniDirectional = False
-    Left = 400
-    Top = 16
-  end
   object dtsBanco: TDataSource
-    DataSet = tblBanco
+    DataSet = fdQryBanco
     Left = 432
     Top = 16
   end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 400
-    Top = 48
-  end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = fdQryFormaPagto
     Left = 432
     Top = 48
   end
@@ -852,16 +832,39 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
     Top = 245
   end
   object dtsBancoFebraban: TDataSource
-    DataSet = qryBancoFebraban
+    DataSet = fdQryBancoFebraban
     Left = 496
     Top = 16
   end
-  object qryBancoFebraban: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object fdQryBanco: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    b.bco_codigo'
+      '  , b.bco_cod'
+      '  , b.empresa'
+      '  , b.bco_nome'
+      '  , b.bco_agencia'
+      '  , b.bco_cc'
+      '  , b.bco_nome ||'
+      
+        '    coalesce('#39' - AG. '#39'  || nullif(trim(b.bco_agencia), '#39#39'), '#39#39') ' +
+        '||'
+      
+        '    coalesce('#39' - C/C. '#39' || nullif(trim(b.bco_cc), '#39#39'), '#39#39')  as b' +
+        'co_nome_agencia_conta'
+      'from TBBANCO_BOLETO b'
+      'order by'
+      '  2, 7')
+    Left = 403
+    Top = 16
+  end
+  object fdQryBancoFebraban: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    b.cod'
@@ -873,7 +876,21 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
       'from TBBANCO b'
       'order by'
       '    b.cod')
-    Left = 464
+    Left = 467
     Top = 16
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '      f.cod'
+      '    , f.descri'
+      'from TBFORMPAGTO f'
+      'order by'
+      '      f.descri')
+    Left = 403
+    Top = 48
   end
 end

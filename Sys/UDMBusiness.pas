@@ -250,6 +250,8 @@ var
   procedure SetAtulizarCustoEstoqueRequisicao(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueInventario(const aData : TDateTime);
 
+  procedure CarregarListaDB(const pDataSet : TDataSet);
+
   function EncriptSenha_Master(const Value, Key : String) : String;
   function DecriptarSenha_Master(const Value, Key : String) : String;
   function DelphiIsRunning : Boolean;
@@ -1567,6 +1569,17 @@ begin
   finally
     Screen.Cursor := crDefault;
   end;
+end;
+
+procedure CarregarListaDB(const pDataSet : TDataSet);
+begin
+  if pDataSet.Active then
+    pDataSet.Close;
+
+  pDataSet.Open;
+
+  pDataSet.Last;
+  pDataSet.First;
 end;
 
 function EncriptSenha_Master(const Value, Key : String) : String;

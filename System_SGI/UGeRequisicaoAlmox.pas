@@ -229,7 +229,7 @@ type
     function GetMenorDataEmissao : TDateTime;
 
     procedure RegistrarNovaRotinaSistema;
-    procedure GerarManifestoAutomatico; virtual; abstract;
+    procedure GerarManifestoAutomatico;
   public
     { Public declarations }
     property RotinaFinalizarID : String read GetRotinaFinalizarID;
@@ -513,9 +513,17 @@ end;
 
 procedure TfrmGeRequisicaoAlmox.HabilitarDesabilitar_Btns;
 begin
+(*
+  IMR - 06/01/2017 :
+    Dada a alteração/simplicação nas etapas de edição, finalização e envio das requisições,
+    o controle de acesso ao botão "Finalizar" foi alterado para comportar a nova realidade
+    em que uma requisição com Status "STATUS_REQUISICAO_ALMOX_ABR" possa ser enviada novamente.
+*)
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btnFinalizarLancamento.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_EDC) and (not cdsTabelaItens.IsEmpty);
+//    btnFinalizarLancamento.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_EDC) and (not cdsTabelaItens.IsEmpty);
+//    btnEnviarRequisicao.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnFinalizarLancamento.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_EDC, STATUS_REQUISICAO_ALMOX_ABR]) and (not cdsTabelaItens.IsEmpty);
     btnEnviarRequisicao.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ALMOX_ABR) and (not cdsTabelaItens.IsEmpty);
     btnCancelarRequisicao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
 
@@ -1243,7 +1251,7 @@ var
   sMensagemMn : String;
 begin
 (*
-  IMR - 09/12/2016
+  IMR - 09/12/2016:
         As etapas de finalização e envio da requisição foram colocadas em apenas
         uma a fim de simplificar o processo de encerramento das requisições de
         materiais/produtos ao estoque.
@@ -1260,7 +1268,8 @@ begin
 
   pgcGuias.ActivePage := tbsCadastro;
 
-  if (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ABR, STATUS_REQUISICAO_ALMOX_ENV]) then
+//  if (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ABR]) then
+  if (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ALMOX_ENV]) then
   begin
     ShowWarning('Lançamento de Requisição já está finalizado e/ou enviado ao estoque!');
     Abort;
@@ -1304,7 +1313,10 @@ begin
         'quer dizer que as quantidades solicitadas já serão abatidas ' +
         'do estoque.' + #13#13 + 'Confirma esse procedimento?';
       if ShowConfirmation('Manifesto Automático', sMensagemMn) then
+      begin
         GerarManifestoAutomatico;
+        nmImprimirManifesto.Click;
+      end;
     end
     else
       ShowInformation('Requisição finalizada e enviada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCONTROLE.AsInteger));
@@ -1392,6 +1404,80 @@ end;
 function TfrmGeRequisicaoAlmox.GetRotinaEnviarID: String;
 begin
   Result := GetRotinaInternaID(btnEnviarRequisicao);
+end;
+
+procedure TfrmGeRequisicaoAlmox.GerarManifestoAutomatico;
+var
+  bAtendido : Boolean;
+begin
+  try
+    cdsTabelaItens.First;
+    cdsTabelaItens.DisableControls;
+
+    // Definir a quantidade a ser atendida
+    while not cdsTabelaItens.Eof do
+    begin
+      if ( cdsTabelaItensSTATUS.AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU] ) then
+      begin
+        cdsTabelaItens.Edit;
+
+        if (cdsTabelaItensDISPONIVEL_TMP.AsCurrency <= 0) then
+          cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_AGU
+        else
+        if (cdsTabelaItensQTDE.AsCurrency > cdsTabelaItensDISPONIVEL_TMP.AsCurrency) then
+          cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensDISPONIVEL_TMP.AsCurrency
+        else
+          cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensQTDE.AsCurrency;
+
+        cdsTabelaItens.Post;
+      end;
+
+      cdsTabelaItens.Next;
+    end;
+
+    bAtendido := False;
+    cdsTabelaItens.First;
+
+    // Mudar o status dos materia/produtos para Atendidos
+    while not cdsTabelaItens.Eof do
+    begin
+      if (cdsTabelaItensQTDE_ATENDIDA.AsCurrency > 0) then
+      begin
+        cdsTabelaItens.Edit;
+        cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_ATE;
+        cdsTabelaItens.Post;
+
+        if not bAtendido then
+          bAtendido := True;
+      end;
+
+      cdsTabelaItens.Next;
+    end;
+
+    cdsTabelaItens.EnableControls;
+    cdsTabelaItens.First;
+
+    // Postar na base os atendimentos
+    if bAtendido then
+    begin
+      cdsTabelaItens.ApplyUpdates;
+
+      IbDtstTabela.Edit;
+      dbObservacao.Lines.Add('Auto-manifesto gerado por ' +  QuotedStr(gUsuarioLogado.Login));
+      IbDtstTabelaSTATUS.AsInteger          := STATUS_REQUISICAO_ALMOX_ATD;
+      IbDtstTabelaATENDIMENTO_USUARIO.Value := gUsuarioLogado.Login;
+      IbDtstTabelaATENDIMENTO_DATA.Value    := GetDateTimeDB;
+      IbDtstTabela.Post;
+      IbDtstTabela.ApplyUpdates;
+
+      CommitTransaction;
+
+      ExecuteScriptSQL('Execute Procedure SET_REQUISICAO_ALMOX_CUSTO(' +
+        IbDtstTabelaANO.AsString + ', ' + IbDtstTabelaCONTROLE.AsString + ', ' + QuotedStr(IbDtstTabelaEMPRESA.AsString) + ')');
+    end;
+  finally
+    cdsTabelaItens.EnableControls;
+  end;
 end;
 
 function TfrmGeRequisicaoAlmox.GetMenorDataEmissao: TDateTime;

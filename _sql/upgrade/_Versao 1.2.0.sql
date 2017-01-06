@@ -8292,3 +8292,17 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 06/01/2017 18:55:59 --------*/
+
+COMMENT ON COLUMN TBREQUISICAO_ALMOX.STATUS IS
+'Status:
+0 - Editando
+1 - Aberta ("Devolvida" quando a requisicao volta do controle de estoque)
+2 - Enviada
+3 - Recebida
+4 - Atendida
+5 - Cancelada';
+
