@@ -8,14 +8,20 @@ uses
   DBGrids, DB, IBCustomDataSet, IBQuery, Mask, DBCtrls, DBClient, Provider,
   ComObj, IBUpdateSQL, IBTable, IBSQL, UGrPadrao, ACBrBoleto,
   ACBrBoletoFCFR, ACBrBase, ACBrUtil, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeGerarBoleto = class(TfrmGrPadrao)
@@ -27,16 +33,6 @@ type
     ImgList: TImageList;
     Bevel2: TBevel;
     dbgDados: TDBGrid;
-    IbQryClientes: TIBQuery;
-    IbQryClientesCNPJ: TIBStringField;
-    IbQryClientesINSCEST: TIBStringField;
-    IbQryClientesNOME: TIBStringField;
-    IbQryClientesFONE: TIBStringField;
-    IbQryClientesBAIRRO: TIBStringField;
-    IbQryClientesCIDADE: TIBStringField;
-    IbQryClientesUF: TIBStringField;
-    IbQryClientesCEP: TIBStringField;
-    IbQryClientesEMAIL: TIBStringField;
     DtsClientes: TDataSource;
     Bevel3: TBevel;
     pnlFiltros: TPanel;
@@ -89,7 +85,6 @@ type
     lbltMsgInstrucoes: TLabel;
     lblbBanco: TLabel;
     cmbBanco: TComboBox;
-    IbUpdBancos: TIBUpdateSQL;
     CdsTitulosDATAPROCESSOBOLETO: TDateField;
     edtMsgInstrucoes: TEdit;
     edtDemonstrativo: TEdit;
@@ -99,49 +94,9 @@ type
     CdsTitulosNUMLANC: TIntegerField;
     CdsTitulosANOVENDA: TSmallintField;
     CdsTitulosNUMVENDA: TIntegerField;
-    IbQryClientesENDER: TIBStringField;
     ACBrBoleto: TACBrBoleto;
     ACBrBoletoFCFR: TACBrBoletoFCFR;
-    IbQryBancos: TIBQuery;
-    IbQryBancosBCO_COD: TSmallintField;
-    IbQryBancosBCO_CARTEIRA: TIBStringField;
-    IbQryBancosBCO_NOME: TIBStringField;
-    IbQryBancosBCO_CHAVE: TIBStringField;
-    IbQryBancosBCO_AGENCIA: TIBStringField;
-    IbQryBancosBCO_CC: TIBStringField;
-    IbQryBancosBCO_GERAR_BOLETO: TSmallintField;
-    IbQryBancosBCO_NOSSO_NUM_INICIO: TIBStringField;
-    IbQryBancosBCO_NOSSO_NUM_FINAL: TIBStringField;
-    IbQryBancosBCO_NOSSO_NUM_PROXIMO: TIBStringField;
-    IbQryBancosBCO_CONFG_1: TIBStringField;
-    IbQryBancosBCO_CONFG_2: TIBStringField;
-    IbQryBancosBCO_SEQUENCIAL_REM: TIntegerField;
-    IbQryBancosBCO_DIRETORIO_REMESSA: TIBStringField;
-    IbQryBancosBCO_DIRETORIO_RETORNO: TIBStringField;
-    IbQryBancosEMPRESA: TIBStringField;
-    IbQryBancosRZSOC: TIBStringField;
-    IbQryBancosNMFANT: TIBStringField;
-    IbQryBancosIE: TIBStringField;
-    IbQryBancosIM: TIBStringField;
-    IbQryBancosENDER: TIBStringField;
-    IbQryBancosCOMPLEMENTO: TIBStringField;
-    IbQryBancosNUMERO_END: TIBStringField;
-    IbQryBancosBAIRRO: TIBStringField;
-    IbQryBancosCEP: TIBStringField;
-    IbQryBancosEMAIL: TIBStringField;
-    IbQryBancosCIDADE: TIBStringField;
-    IbQryBancosUF: TIBStringField;
-    IbQryBancosBCO_CODIGO_CEDENTE: TIBStringField;
-    IbQryClientesENDER_DESC: TIBStringField;
-    IbQryClientesENDER_NUM: TIBStringField;
-    IbQryBancosBCO_PERCENTUAL_JUROS: TIBBCDField;
-    IbQryBancosBCO_PERCENTUAL_MORA: TIBBCDField;
-    IbQryBancosBCO_DIA_PROTESTO: TSmallintField;
-    IbQryBancosBCO_MSG_INSTRUCAO: TIBStringField;
-    IbQryBancosBCO_LAYOUT_REMESSA: TSmallintField;
-    IbQryBancosBCO_LAYOUT_RETORNO: TSmallintField;
     CdsTitulosPARCELA_MAXIMA: TSmallintField;
-    IbQryClientesCODIGO: TIntegerField;
     tlbBotoes: TPanel;
     Bevel5: TBevel;
     btnFechar: TcxButton;
@@ -153,6 +108,22 @@ type
     CdsTitulosSERIE: TWideStringField;
     CdsTitulosNFE: TLargeintField;
     CdsTitulosGERAR: TWideStringField;
+    fdQryClientes: TFDQuery;
+    fdQryClientesCNPJ: TStringField;
+    fdQryClientesCODIGO: TIntegerField;
+    fdQryClientesINSCEST: TStringField;
+    fdQryClientesNOME: TStringField;
+    fdQryClientesFONE: TStringField;
+    fdQryClientesENDER: TStringField;
+    fdQryClientesENDER_DESC: TStringField;
+    fdQryClientesENDER_NUM: TStringField;
+    fdQryClientesBAIRRO: TStringField;
+    fdQryClientesCIDADE: TStringField;
+    fdQryClientesUF: TStringField;
+    fdQryClientesCEP: TStringField;
+    fdQryClientesEMAIL: TStringField;
+    fdQryBancos: TFDQuery;
+    fdUpdBancos: TFDUpdateSQL;
     procedure edtFiltrarKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -178,6 +149,7 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
+    IBancoConta  : Array of Integer;
     {$IFNDEF ACBR}
     CobreBemX : Variant;
     {$ENDIF}
@@ -208,6 +180,20 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBBANCO_BOLETO
+  - TBCLIENTE
+  - TBCONTREC
+  - TBVENDAS
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeGerarBoleto : TfrmGeGerarBoleto;
@@ -264,11 +250,11 @@ begin
   try
     f := TfrmGeGerarBoleto.Create(AOwer);
 
-    f.IbQryClientes.Close;
-    f.IbQryClientes.ParamByName('nome').AsString := NomeCliente;
-    f.IbQryClientes.Open;
+    f.fdQryClientes.Close;
+    f.fdQryClientes.ParamByName('nome').AsString := NomeCliente;
+    f.fdQryClientes.Open;
 
-    if ( f.IbQryClientes.Locate('codigo', iCodigoCliente, []) ) then
+    if ( f.fdQryClientes.Locate('codigo', iCodigoCliente, []) ) then
     begin
       f.dbgDadosDblClick( f.dbgDados );
       f.FFecharAoGerar := True;
@@ -303,15 +289,15 @@ begin
   try
     f := TfrmGeGerarBoleto.Create(AOwer);
 
-    f.IbQryClientes.Close;
-    f.IbQryClientes.ParamByName('nome').AsString := sNomeCliente;
-    f.IbQryClientes.Open;
+    f.fdQryClientes.Close;
+    f.fdQryClientes.ParamByName('nome').AsString := sNomeCliente;
+    f.fdQryClientes.Open;
 
-    if ( f.IbQryClientes.Locate('codigo', iCodigoCliente, []) ) then
+    if ( f.fdQryClientes.Locate('codigo', iCodigoCliente, []) ) then
       with f do
       begin
         CarregarBancos;
-        if ( IbQryBancos.Locate('BCO_COD', iBanco, []) ) then
+        if ( fdQryBancos.Locate('BCO_COD', iBanco, []) ) then
         begin
           cmbBancoChange( cmbBanco );
           CarregarTitulos(iCodigoCliente, iBanco);
@@ -321,14 +307,14 @@ begin
 
           if CdsTitulos.IsEmpty then
           begin
-            Application.MessageBox(PChar('Não existem títulos com boletos gerados para o banco ' + IbQryBancosBCO_NOME.AsString + '.'), 'Alerta', MB_ICONWARNING);
+            Application.MessageBox(PChar('Não existem títulos com boletos gerados para o banco ' + fdQryBancos.FieldByName('BCO_NOME').AsString + '.'), 'Alerta', MB_ICONWARNING);
             Exit;
           end;
 
-          ICarteira := StrToIntDef( IbQryBancosBCO_CARTEIRA.AsString, 0 );
+          ICarteira := StrToIntDef( fdQryBancos.FieldByName('BCO_CARTEIRA').AsString, 0 );
           INossoNum := 0;
           sBanco    := Copy(cmbBanco.Text, 1, 3);
-          sCarteira := IbQryBancosBCO_CARTEIRA.AsString;
+          sCarteira := fdQryBancos.FieldByName('BCO_CARTEIRA').AsString;
 
           {$IFDEF ACBR}
           if DefinirCedenteACBr( IBanco, sCarteira ) then
@@ -414,7 +400,7 @@ begin
   if ( Trim(edtFiltrar.Text) = EmptyStr ) then
     Application.MessageBox('Digite uma palavra-chave', 'Alerta!', MB_ICONWARNING)
   else
-  with IbQryClientes do
+  with fdQryClientes do
   begin
     Close;
     ParamByName('nome').AsString := StringReplace( Trim(edtFiltrar.Text), ' ', '%', [rfReplaceAll] );
@@ -513,7 +499,7 @@ end;
 procedure TfrmGeGerarBoleto.DtsClientesDataChange(Sender: TObject;
   Field: TField);
 begin
-  CarregarTitulos(IbQryClientesCODIGO.AsInteger, 0);
+  CarregarTitulos(fdQryClientesCODIGO.AsInteger, 0);
 end;
 
 procedure TfrmGeGerarBoleto.pgcGuiasChange(Sender: TObject);
@@ -583,9 +569,6 @@ var
   sBanco    ,
   sCarteira : String;
 begin
-  if ( Application.MessageBox('Confirma a geração de boletos?','Gerar Boleto', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) <> ID_YES ) then
-    Exit;
-
   if ( cmbBanco.ItemIndex < 0 ) then
   begin
     Application.MessageBox(PChar('Favor selecionar a entidade financeira para geração dos boletos.'), 'Alerta', MB_ICONWARNING);
@@ -594,11 +577,22 @@ begin
 
   cmbBancoChange(cmbBanco);
 
+  if (fdQryBancos.FieldByName('BCO_GERAR_BOLETO').AsInteger = 0) then
+  begin
+    ShowInformation('Informe', 'Banco selecionado não está configurado para geração de Boletos!' + #13 + 'Favor entrar em contato com suporte.');
+    Exit;
+  end;
+
+//  if (not ShowConfirm('Confirma a geração de boletos?', 'Gerar Boleto', )) then
+//    Exit;
+  if ( Application.MessageBox('Confirma a geração de boletos?','Gerar Boleto', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) <> ID_YES ) then
+    Exit;
+
   IBanco    := StrToIntDef( Copy(cmbBanco.Text, 1, 3), 0 );
-  ICarteira := StrToIntDef( IbQryBancosBCO_CARTEIRA.AsString, 0 );
+  ICarteira := StrToIntDef( fdQryBancos.FieldByName('BCO_CARTEIRA').AsString, 0 );
 
   sBanco    := Copy(cmbBanco.Text, 1, 3);
-  sCarteira := IbQryBancosBCO_CARTEIRA.AsString;
+  sCarteira := fdQryBancos.FieldByName('BCO_CARTEIRA').AsString;
 
   {$IFDEF ACBR}
   if DefinirCedenteACBr( IBanco, sCarteira ) then
@@ -646,39 +640,47 @@ begin
 end;
 
 procedure TfrmGeGerarBoleto.CarregarBancos;
+var
+  I : Integer;
 begin
-  with IbQryBancos, cmbBanco do
+  with fdQryBancos, cmbBanco do
   begin
     Close;
     ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
     Open;
-    
-    if ( not IsEmpty ) then
-      Clear;
 
+    if ( not IsEmpty ) then
+    begin
+      Clear;
+      SetLength(IBancoConta, RecordCount + 1);
+    end;
+
+    I := 0;
     while not Eof do
     begin
-      Items.Add( FormatFloat('000', IbQryBancosBCO_COD.AsInteger) + ' - ' + IbQryBancosBCO_NOME.AsString );
+      Items.Add( FieldByName('BCO_NOME_AGENCIA_CONTA').AsString );
+      IBancoConta[I] := FieldByName('bco_codigo').AsInteger;
 
+      Inc(I);
       Next;
     end;
 
     First;
 
-    cmbBanco.Tag       := IbQryBancosBCO_COD.AsInteger;
+    cmbBanco.Tag       := fdQryBancos.FieldByName('BCO_COD').AsInteger;
     cmbBanco.ItemIndex := 0;
   end;
 end;
 
 procedure TfrmGeGerarBoleto.cmbBancoChange(Sender: TObject);
 begin
-  if ( not IbQryBancos.Active ) then
-    IbQryBancos.Open;
+  if ( not fdQryBancos.Active ) then
+    fdQryBancos.Open;
 
-  if ( IbQryBancos.Locate('BCO_COD', StrToIntDef(Copy(cmbBanco.Text, 1, 3), 0), []) ) then
+  if ( fdQryBancos.Locate('bco_codigo', IBancoConta[cmbBanco.ItemIndex], []) ) then
   begin
-    cmbBanco.Tag := IbQryBancosBCO_COD.AsInteger;
-    edtMsgInstrucoes.Text := '<br>' + Trim(IbQryBancosBCO_MSG_INSTRUCAO.AsString);
+    cmbBanco.Tag := fdQryBancos.FieldByName('BCO_COD').AsInteger;
+    edtMsgInstrucoes.Text := '<br>' + Trim(fdQryBancos.FieldByName('BCO_MSG_INSTRUCAO').AsString);
   end;
 end;
 
@@ -843,11 +845,11 @@ begin
       if CdsTitulos.FindKey( [pDOC, pDIG] ) then
         if ( CdsTitulosNOSSONUMERO.AsString <> Titulo.NossoNumero ) then
         begin
-          cJuros := IbQryBancosBCO_PERCENTUAL_JUROS.AsCurrency;
-          cMulta := IbQryBancosBCO_PERCENTUAL_MORA.AsCurrency;
+          cJuros := fdQryBancos.FieldByName('BCO_PERCENTUAL_JUROS').AsCurrency;
+          cMulta := fdQryBancos.FieldByName('BCO_PERCENTUAL_MORA').AsCurrency;
 
           CdsTitulos.Edit;
-          CdsTitulosCODBANCO.Value    := IbQryBancosBCO_COD.Value;
+          CdsTitulosCODBANCO.Value    := fdQryBancos.FieldByName('BCO_COD').Value;
           CdsTitulosNOSSONUMERO.Value := Titulo.NossoNumero;
           CdsTitulosDATAPROCESSOBOLETO.Value := GetDateTimeDB;
           CdsTitulosPERCENTJUROS.AsCurrency  := cJuros;
@@ -863,11 +865,12 @@ begin
 
   cmbBancoChange(cmbBanco);
 
-  if ( StrToIntDef(Trim(IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString), 0) < iProximoNossoNumero ) then
+  if ( StrToIntDef(Trim(fdQryBancos.FieldByName('BCO_NOSSO_NUM_PROXIMO').AsString), 0) < iProximoNossoNumero ) then
   begin
-    IbQryBancos.Edit;
-    IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString := RightStr( FormatFloat('0000000', iProximoNossoNumero), 6 );
-    IbQryBancos.Post;
+    fdQryBancos.Edit;
+    fdQryBancos.FieldByName('BCO_NOSSO_NUM_PROXIMO').AsString := RightStr( FormatFloat('0000000', iProximoNossoNumero), 6 );
+    fdQryBancos.Post;
+    fdQryBancos.ApplyUpdates(0);
 
     CommitTransaction;
   end;
@@ -1013,10 +1016,10 @@ begin
           end;
 
         else
-          raise Exception.Create('Sistema não adapitado para gerar boletos para o banco ' + IbQryBancosBCO_NOME.AsString);
+          raise Exception.Create('Sistema não adapitado para gerar boletos para o banco ' + fdQryBancos.FieldByName('BCO_NOME').AsString);
       end;
 
-      Case IbQryBancosBCO_LAYOUT_REMESSA.AsInteger of
+      Case fdQryBancos.FieldByName('BCO_LAYOUT_REMESSA').AsInteger of
         240: LayoutRemessa := c240;
         400: LayoutRemessa := c400;
       end;
@@ -1030,28 +1033,28 @@ begin
       Cedente.AgenciaDigito := GetAgenciaDigito;
       Cedente.Conta         := GetContaNumero;
       Cedente.ContaDigito   := GetContaDigito;
-      Cedente.Convenio      := IbQryBancosBCO_CHAVE.AsString;
+      Cedente.Convenio      := fdQryBancos.FieldByName('BCO_CHAVE').AsString;
 
       // Dados Cedente
-      if StrIsCPF(IbQryBancosEMPRESA.AsString) then
+      if StrIsCPF(fdQryBancos.FieldByName('EMPRESA').AsString) then
         Cedente.TipoInscricao := pFisica
       else
-      if StrIsCNPJ(IbQryBancosEMPRESA.AsString) then
+      if StrIsCNPJ(fdQryBancos.FieldByName('EMPRESA').AsString) then
         Cedente.TipoInscricao := pJuridica;
 
-      Cedente.CNPJCPF     := IbQryBancosEMPRESA.AsString;
-      Cedente.Nome        := IbQryBancosRZSOC.AsString;
-      Cedente.Logradouro  := IbQryBancosENDER.AsString;
-      Cedente.NumeroRes   := IbQryBancosNUMERO_END.AsString;
-      Cedente.Complemento := IbQryBancosCOMPLEMENTO.AsString;
-      Cedente.Bairro := IbQryBancosBAIRRO.AsString;
-      Cedente.CEP    := IbQryBancosCEP.AsString;
-      Cedente.Cidade := IbQryBancosCIDADE.AsString;
-      Cedente.UF     := IbQryBancosUF.AsString;
+      Cedente.CNPJCPF     := fdQryBancos.FieldByName('EMPRESA').AsString;
+      Cedente.Nome        := fdQryBancos.FieldByName('RZSOC').AsString;
+      Cedente.Logradouro  := fdQryBancos.FieldByName('ENDER').AsString;
+      Cedente.NumeroRes   := fdQryBancos.FieldByName('NUMERO_END').AsString;
+      Cedente.Complemento := fdQryBancos.FieldByName('COMPLEMENTO').AsString;
+      Cedente.Bairro := fdQryBancos.FieldByName('BAIRRO').AsString;
+      Cedente.CEP    := fdQryBancos.FieldByName('CEP').AsString;
+      Cedente.Cidade := fdQryBancos.FieldByName('CIDADE').AsString;
+      Cedente.UF     := fdQryBancos.FieldByName('UF').AsString;
 
       // Dados Convênio
-      Cedente.CodigoCedente     := Trim(IbQryBancosBCO_CODIGO_CEDENTE.AsString);
-      Cedente.Convenio          := IbQryBancosBCO_CHAVE.AsString;
+      Cedente.CodigoCedente     := Trim(fdQryBancos.FieldByName('BCO_CODIGO_CEDENTE').AsString);
+      Cedente.Convenio          := fdQryBancos.FieldByName('BCO_CHAVE').AsString;
       Cedente.CodigoTransmissao := EmptyStr;
     end;
 
@@ -1069,7 +1072,7 @@ function TfrmGeGerarBoleto.GetAgenciaNumero: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_AGENCIA.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_AGENCIA').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, 1, Pos('-', S) - 1);
@@ -1081,7 +1084,7 @@ function TfrmGeGerarBoleto.GetAgenciaDigito: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_AGENCIA.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_AGENCIA').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, Pos('-', S) + 1, Length(S))
@@ -1095,7 +1098,7 @@ function TfrmGeGerarBoleto.GetContaDigito: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_CC.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_CC').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, Pos('-', S) + 1, Length(S))
@@ -1109,7 +1112,7 @@ function TfrmGeGerarBoleto.GetContaNumero: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_CC.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_CC').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, 1, Pos('-', S) - 1);
@@ -1132,7 +1135,7 @@ begin
 
     ACBrBoleto.ListadeBoletos.Clear;
 
-    iProximoNossoNumero := StrToIntDef( Trim(IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString), 1 );
+    iProximoNossoNumero := StrToIntDef( Trim(fdQryBancos.FieldByName('BCO_NOSSO_NUM_PROXIMO').AsString), 1 );
     CdsTitulos.First;
 
     while not CdsTitulos.Eof do
@@ -1164,14 +1167,14 @@ begin
 
         Sacado.CNPJCPF    := dbCPF.Field.AsString;
         Sacado.NomeSacado := dbNome.Field.AsString;
-        Sacado.Logradouro := IbQryClientesENDER_DESC.AsString;
-        Sacado.Numero     := IbQryClientesENDER_NUM.AsString;
+        Sacado.Logradouro := fdQryClientesENDER_DESC.AsString;
+        Sacado.Numero     := fdQryClientesENDER_NUM.AsString;
         Sacado.Bairro     := dbBairro.Field.AsString;
         Sacado.Cidade     := dbCidade.Field.AsString;
         Sacado.UF         := dbUF.Field.AsString;
         Sacado.CEP        := StrOnlyNumbers(dbCEP.Field.AsString);
-        Sacado.Email      := AnsiLowerCase(Trim(IbQryClientesEMAIL.AsString));
-        Sacado.Fone       := StrOnlyNumbers(Trim(IbQryClientesFONE.AsString));
+        Sacado.Email      := AnsiLowerCase(Trim(fdQryClientesEMAIL.AsString));
+        Sacado.Fone       := StrOnlyNumbers(Trim(fdQryClientesFONE.AsString));
 
         // Dados do Documento
         LocalPagamento := 'Pagar preferêncialmente nas agências do(a) ' + ACBrBoleto.Banco.Nome;
@@ -1200,7 +1203,7 @@ begin
         else
           DataProcessamento := CdsTitulosDATAPROCESSOBOLETO.AsDateTime;
 
-        Carteira          := IbQryBancosBCO_CARTEIRA.AsString;
+        Carteira          := fdQryBancos.FieldByName('BCO_CARTEIRA').AsString;
 
         if NovosBoletos then
           NossoNumero     := IntToStr(iProximoNossoNumero)
@@ -1210,7 +1213,7 @@ begin
         // Dados de Cobrança
         ValorDocumento    := CdsTitulosVALORREC.AsCurrency;
         ValorAbatimento   := 0.0;
-        ValorMoraJuros    := (CdsTitulosVALORREC.AsCurrency * IbQryBancosBCO_PERCENTUAL_MORA.AsCurrency / 100) / 30;
+        ValorMoraJuros    := (CdsTitulosVALORREC.AsCurrency * fdQryBancos.FieldByName('BCO_PERCENTUAL_MORA').AsCurrency / 100) / 30;
         ValorDesconto     := CdsTitulosVALORREC.AsCurrency * CdsTitulosPERCENTDESCONTO.AsCurrency / 100;
         DataMoraJuros     := GetProximoDiaUtil(Vencimento);
         DataAbatimento    := StrToCurrDef(EmptyStr, 0);
@@ -1220,12 +1223,12 @@ begin
         else
           DataDesconto    := CdsTitulosDTVENC.AsDateTime;
 
-        if ( IbQryBancosBCO_DIA_PROTESTO.AsInteger = 0 ) then
+        if ( fdQryBancos.FieldByName('BCO_DIA_PROTESTO').AsInteger = 0 ) then
           DataProtesto    := StrToCurrDef(EmptyStr, 0)
         else
-          DataProtesto    := (Vencimento + IbQryBancosBCO_DIA_PROTESTO.AsInteger);
+          DataProtesto    := (Vencimento + fdQryBancos.FieldByName('BCO_DIA_PROTESTO').AsInteger);
 
-        PercentualMulta   := IbQryBancosBCO_PERCENTUAL_JUROS.AsCurrency;  // Percentual de multa por dia de atraso.
+        PercentualMulta   := fdQryBancos.FieldByName('BCO_PERCENTUAL_JUROS').AsCurrency;  // Percentual de multa por dia de atraso.
 
         OcorrenciaOriginal.Tipo := toRemessaRegistrar;
 

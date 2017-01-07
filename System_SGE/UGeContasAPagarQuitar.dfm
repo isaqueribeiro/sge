@@ -645,18 +645,8 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       Expression = 'SUM(SELECIONAR)'
     end
   end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 552
-    Top = 264
-  end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = fdQryFormaPagto
     Left = 584
     Top = 264
   end
@@ -874,5 +864,19 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       '  SEQ = :OLD_SEQ')
     Left = 104
     Top = 296
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '      f.cod'
+      '    , f.descri'
+      'from TBFORMPAGTO f'
+      'order by'
+      '      f.descri')
+    Left = 555
+    Top = 264
   end
 end

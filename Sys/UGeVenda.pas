@@ -2083,7 +2083,7 @@ var
 const
   UPDATE_VENDA = 'Update TBVENDAS v SET v.venda_prazo = 1 WHERE v.ano = %s AND v.codcontrol = %s';
 begin
-  pPermitir := (IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_FIN);
+  pPermitir := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN);
   if not pPermitir then
     pPermitir := ((IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) and (qryTitulos.RecordCount = 0));
 

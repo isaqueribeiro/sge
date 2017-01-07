@@ -7,14 +7,20 @@ uses
   Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
   StdCtrls, Buttons, ExtCtrls, Mask, DBClient, Provider, IBTable, DBCtrls,
   IBUpdateSQL, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvDBControls, JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvDBControls, JvExMask, JvToolEdit,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeContasAReceberQuitar = class(TfrmGrPadraoPesquisa)
@@ -24,7 +30,6 @@ type
     DspPesquisa: TDataSetProvider;
     CdsPesquisa: TClientDataSet;
     CdsPesquisaSelecionados: TAggregateField;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
     cdsRecebimentoLOTE: TClientDataSet;
     dtsRecebimentoLOTE: TDataSource;
@@ -80,6 +85,7 @@ type
     CdsPesquisaSELECIONAR: TIntegerField;
     CdsPesquisaSAIDA_DOC_TIPO: TWideStringField;
     cdsRecebimentosEMPRESA: TIBStringField;
+    fdQryFormaPagto: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -94,6 +100,22 @@ type
     { Public declarations }
     function ExecutarPesquisa : Boolean; override;
   end;
+
+(*
+  Tabelas:
+  - TBCONTREC
+  - TBCONTREC_BAIXA
+  - TBEMPRESA
+  - TBCLIENTE
+  - TBVENDAS
+  - TBFORMPAGTO
+  - TBBANCO_BOLETO
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar;
@@ -171,7 +193,7 @@ end;
 procedure TfrmGeContasAReceberQuitar.FormCreate(Sender: TObject);
 begin
   inherited;
-  tblFormaPagto.Open;
+  CarregarListaDB(fdQryFormaPagto);
 
   e1Data.Date := GetMenorVencimentoAReceber;
   e2Data.Date := GetDateDB;

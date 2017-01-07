@@ -1644,8 +1644,7 @@ inherited frmGeBancos: TfrmGeBancos
       '  BCO_LAYOUT_RETORNO'
       'from TBBANCO_BOLETO '
       'where'
-      '  BCO_COD = :BCO_COD and'
-      '  EMPRESA = :EMPRESA')
+      '  BCO_CODIGO = :BCO_CODIGO')
     ModifySQL.Strings = (
       'update TBBANCO_BOLETO'
       'set'
@@ -1674,8 +1673,7 @@ inherited frmGeBancos: TfrmGeBancos
       '  BCO_SEQUENCIAL_REM = :BCO_SEQUENCIAL_REM,'
       '  EMPRESA = :EMPRESA'
       'where'
-      '  BCO_COD = :OLD_BCO_COD and'
-      '  EMPRESA = :OLD_EMPRESA')
+      '  BCO_CODIGO = :OLD_BCO_CODIGO')
     InsertSQL.Strings = (
       'insert into TBBANCO_BOLETO'
       
@@ -1713,12 +1711,11 @@ inherited frmGeBancos: TfrmGeBancos
     DeleteSQL.Strings = (
       'delete from TBBANCO_BOLETO'
       'where'
-      '  BCO_COD = :OLD_BCO_COD and'
-      '  EMPRESA = :OLD_EMPRESA')
+      '  BCO_CODIGO = :OLD_BCO_CODIGO')
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3178,34 +3175,41 @@ inherited frmGeBancos: TfrmGeBancos
       000000000000}
   end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 656
     Top = 40
-  end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 624
-    Top = 40
-  end
-  object tblLayout: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_LAYOUT_REM_RET_BANCO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 624
-    Top = 88
   end
   object dtsLayout: TDataSource
-    DataSet = tblLayout
+    DataSet = fdQryLayout
     Left = 656
+    Top = 88
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.cnpj'
+      '  , e.rzsoc'
+      '  , e.nmfant'
+      'from TBEMPRESA e'
+      'order by'
+      '    e.rzsoc')
+    Left = 627
+    Top = 40
+  end
+  object fdQryLayout: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.codigo'
+      '  , v.descricao'
+      'from VW_LAYOUT_REM_RET_BANCO v')
+    Left = 627
     Top = 88
   end
 end

@@ -299,6 +299,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       '    cc.Codigo'
       '  , cc.Descricao'
       '  , cc.Tipo'
+      '  , cc.bco_codigo_cc'
       '  , cc.Empresa'
       '  , cc.Conta_banco_boleto'
       
@@ -309,8 +310,8 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
         '.Bco_cc as Banco'
       'from TBCONTA_CORRENTE cc'
       
-        '  left join TBBANCO_BOLETO cb on (cb.Bco_cod = cc.Conta_banco_bo' +
-        'leto and cb.empresa = cc.empresa)')
+        '  left join TBBANCO_BOLETO cb on (cb.bco_codigo = cc.bco_codigo_' +
+        'cc)')
     Left = 600
     object IbDtstTabelaCODIGO: TIntegerField
       DisplayLabel = 'C'#243'digo'
@@ -331,6 +332,11 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       FieldName = 'TIPO'
       Origin = 'TBCONTA_CORRENTE.TIPO'
       Required = True
+    end
+    object IbDtstTabelaBCO_CODIGO_CC: TSmallintField
+      FieldName = 'BCO_CODIGO_CC'
+      Origin = '"TBCONTA_CORRENTE"."BCO_CODIGO_CC"'
+      ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaCONTA_BANCO_BOLETO: TSmallintField
       DisplayLabel = 'Banco'
@@ -367,16 +373,18 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     RefreshSQL.Strings = (
       'Select '
       '  CODIGO,'
-      '  EMPRESA,'
       '  DESCRICAO,'
       '  TIPO,'
-      '  CONTA_BANCO_BOLETO'
+      '  BCO_CODIGO_CC,'
+      '  CONTA_BANCO_BOLETO,'
+      '  EMPRESA'
       'from TBCONTA_CORRENTE '
       'where'
       '  CODIGO = :CODIGO')
     ModifySQL.Strings = (
       'update TBCONTA_CORRENTE'
       'set'
+      '  BCO_CODIGO_CC = :BCO_CODIGO_CC,'
       '  CODIGO = :CODIGO,'
       '  CONTA_BANCO_BOLETO = :CONTA_BANCO_BOLETO,'
       '  DESCRICAO = :DESCRICAO,'
@@ -386,9 +394,14 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       '  CODIGO = :OLD_CODIGO')
     InsertSQL.Strings = (
       'insert into TBCONTA_CORRENTE'
-      '  (CODIGO, CONTA_BANCO_BOLETO, DESCRICAO, EMPRESA, TIPO)'
+      
+        '  (BCO_CODIGO_CC, CODIGO, CONTA_BANCO_BOLETO, DESCRICAO, EMPRESA' +
+        ', TIPO)'
       'values'
-      '  (:CODIGO, :CONTA_BANCO_BOLETO, :DESCRICAO, :EMPRESA, :TIPO)')
+      
+        '  (:BCO_CODIGO_CC, :CODIGO, :CONTA_BANCO_BOLETO, :DESCRICAO, :EM' +
+        'PRESA, '
+      '   :TIPO)')
     DeleteSQL.Strings = (
       'delete from TBCONTA_CORRENTE'
       'where'
@@ -398,7 +411,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1857,19 +1870,25 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 344
+  object dtsEmpresa: TDataSource
+    DataSet = fdQryEmpresa
+    Left = 376
     Top = 264
   end
-  object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
-    Left = 376
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.cnpj'
+      '  , e.rzsoc'
+      '  , e.nmfant'
+      'from TBEMPRESA e'
+      'order by'
+      '    e.rzsoc')
+    Left = 347
     Top = 264
   end
 end

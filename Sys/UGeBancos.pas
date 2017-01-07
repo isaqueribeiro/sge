@@ -7,14 +7,20 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeBancos = class(TfrmGrPadraoCadastro)
@@ -65,7 +71,6 @@ type
     IbDtstTabelaEMPRESA: TIBStringField;
     dbGerarBoleto: TDBCheckBox;
     dtsEmpresa: TDataSource;
-    tblEmpresa: TIBTable;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblCodigoCedente: TLabel;
@@ -91,13 +96,14 @@ type
     lblLayoutRemessa: TLabel;
     IbDtstTabelaBCO_LAYOUT_REMESSA: TSmallintField;
     IbDtstTabelaBCO_LAYOUT_RETORNO: TSmallintField;
-    tblLayout: TIBTable;
     dtsLayout: TDataSource;
     dbLayoutRemessa: TDBLookupComboBox;
     lblLayoutRetorno: TLabel;
     dbLayoutRetorno: TDBLookupComboBox;
     IbDtstTabelaBCO_CODIGO: TSmallintField;
     dbInstrucao: TDBComboBox;
+    fdQryEmpresa: TFDQuery;
+    fdQryLayout: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -116,6 +122,9 @@ type
 
   Views:
   - VW_LAYOUT_REM_RET_BANCO
+
+  Procedures:
+
 *)
 
 var
@@ -123,7 +132,8 @@ var
 
   procedure MostrarTabelaBancos(const AOwner : TComponent);
   function SelecionarBanco(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
-  function SelecionarBanco(const AOwner : TComponent; var Codigo : Integer; var Nome, Agencia, Conta, Empresa : String) : Boolean; overload;
+  function SelecionarBanco(const AOwner : TComponent;
+    var CodigoUnico, Codigo : Integer; var Nome, Agencia, Conta, Empresa : String) : Boolean; overload;
 
 implementation
 
@@ -156,7 +166,8 @@ begin
   end;
 end;
 
-function SelecionarBanco(const AOwner : TComponent; var Codigo : Integer; var Nome, Agencia, Conta, Empresa : String) : Boolean; overload;
+function SelecionarBanco(const AOwner : TComponent;
+  var CodigoUnico, Codigo : Integer; var Nome, Agencia, Conta, Empresa : String) : Boolean; overload;
 var
   frm : TfrmGeBancos;
 begin
@@ -166,6 +177,7 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome);
     if ( Result ) then
     begin
+      CodigoUnico := frm.IbDtstTabelaBCO_CODIGO.AsInteger;
       Agencia := frm.IbDtstTabelaBCO_AGENCIA.AsString;
       Conta   := frm.IbDtstTabelaBCO_CC.AsString;
       Empresa := frm.IbDtstTabelaEMPRESA.AsString;
@@ -195,8 +207,8 @@ begin
   CampoCodigo    := 'b.bco_cod';
   CampoDescricao := 'b.bco_nome';
 
-  tblEmpresa.Open;
-  tblLayout.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryLayout);
 end;
 
 procedure TfrmGeBancos.IbDtstTabelaNewRecord(DataSet: TDataSet);

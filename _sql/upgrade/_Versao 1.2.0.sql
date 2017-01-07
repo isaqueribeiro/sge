@@ -8306,3 +8306,318 @@ COMMENT ON COLUMN TBREQUISICAO_ALMOX.STATUS IS
 4 - Atendida
 5 - Cancelada';
 
+
+
+
+/*------ SYSDBA 07/01/2017 14:18:56 --------*/
+
+COMMENT ON COLUMN TBFORMPAGTO.CONTA_CORRENTE IS
+'Conta Corrente
+
+Obs.: Campo descontinuado pois na nova estrutura uma forma de pagamento pode esta
+associada a mais de uma conta corrente.';
+
+
+
+
+/*------ SYSDBA 07/01/2017 14:20:00 --------*/
+
+COMMENT ON COLUMN TBFORMPAGTO.CONTA_CORRENTE IS
+'Conta Corrente
+
+Obs.: Campo descontinuado pois na nova estrutura uma forma de pagamento pode esta
+associada a mais de uma conta corrente. Verificar tabela "TBFORMPAGTO_CONTACOR".';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:01:38 --------*/
+
+ALTER TABLE TBBANCO_BOLETO
+ADD CONSTRAINT UNQ_TBBANCO_BOLETO_PROVISORIO
+UNIQUE (BCO_CODIGO);
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:01:54 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$NULL_FLAG = 1
+where (RDB$FIELD_NAME = 'BCO_CODIGO') and
+(RDB$RELATION_NAME = 'TBBANCO_BOLETO')
+;
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:03:42 --------*/
+
+ALTER TABLE TBCONTA_CORRENTE
+    ADD BCO_CODIGO_CC DMN_SMALLINT_N;
+
+COMMENT ON COLUMN TBCONTA_CORRENTE.BCO_CODIGO_CC IS
+'Codigo do Banco da tabela TBBANCO_BOLETO.';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:03:50 --------*/
+
+alter table TBCONTA_CORRENTE
+alter column CODIGO position 1;
+
+
+/*------ SYSDBA 07/01/2017 15:03:50 --------*/
+
+alter table TBCONTA_CORRENTE
+alter column DESCRICAO position 2;
+
+
+/*------ SYSDBA 07/01/2017 15:03:50 --------*/
+
+alter table TBCONTA_CORRENTE
+alter column TIPO position 3;
+
+
+/*------ SYSDBA 07/01/2017 15:03:50 --------*/
+
+alter table TBCONTA_CORRENTE
+alter column BCO_CODIGO_CC position 4;
+
+
+/*------ SYSDBA 07/01/2017 15:03:50 --------*/
+
+alter table TBCONTA_CORRENTE
+alter column CONTA_BANCO_BOLETO position 5;
+
+
+/*------ SYSDBA 07/01/2017 15:03:50 --------*/
+
+alter table TBCONTA_CORRENTE
+alter column EMPRESA position 6;
+
+
+/*------ SYSDBA 07/01/2017 15:04:36 --------*/
+
+ALTER TABLE TBCONTA_CORRENTE
+ADD CONSTRAINT FK_TBCONTA_CORRENTE_BCO_CODIGO
+FOREIGN KEY (BCO_CODIGO_CC)
+REFERENCES TBBANCO_BOLETO(BCO_CODIGO);
+
+
+
+/*------ SYSDBA 07/01/2017 15:24:57 --------*/
+
+execute block
+as
+  declare variable cc Integer;
+  declare variable bc Integer;
+  declare variable ep varchar(18);
+  declare variable id Integer;
+begin
+  for
+    Select
+        c.codigo
+      , c.conta_banco_boleto
+      , c.empresa
+    from TBCONTA_CORRENTE c
+    where c.conta_banco_boleto is not null
+      and c.bco_codigo_cc is null
+    Into
+        cc
+      , bc
+      , ep
+  do
+  begin
+
+    Select first 1
+      b.bco_codigo
+    from TBBANCO_BOLETO b
+    where b.bco_cod = :bc
+      and b.empresa = :ep
+    Into
+      id;
+
+    Update TBCONTA_CORRENTE c Set
+      c.bco_codigo_cc = :id
+    where c.codigo = :cc;
+  end 
+end;
+
+/*------ SYSDBA 07/01/2017 15:25:02 --------*/
+
+COMMIT WORK;
+
+
+/*------ SYSDBA 07/01/2017 15:27:03 --------*/
+
+ALTER TABLE TBCONTA_CORRENTE DROP CONSTRAINT FK_TBCONTA_CORRENTE_BCO_EMP;
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:27:47 --------*/
+
+ALTER TABLE TBBANCO_BOLETO DROP CONSTRAINT PK_TBBANCO_BOLETO_EMPRESA;
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:28:32 --------*/
+
+ALTER TABLE TBCONTA_CORRENTE DROP CONSTRAINT FK_TBCONTA_CORRENTE_BCO_CODIGO;
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:28:38 --------*/
+
+ALTER TABLE TBBANCO_BOLETO DROP CONSTRAINT UNQ_TBBANCO_BOLETO_PROVISORIO;
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:28:42 --------*/
+
+ALTER TABLE TBBANCO_BOLETO
+ADD CONSTRAINT PK_TBBANCO_BOLETO
+PRIMARY KEY (BCO_CODIGO);
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:29:47 --------*/
+
+ALTER TABLE TBCONTA_CORRENTE
+ADD CONSTRAINT FK_TBCONTA_CORRENTE_BCO_CC
+FOREIGN KEY (BCO_CODIGO_CC)
+REFERENCES TBBANCO_BOLETO(BCO_CODIGO);
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:35:46 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_conta_corrente_bco_cc for tbconta_corrente
+active before insert or update position 1
+AS
+begin
+  if ((new.bco_codigo_cc is not null) and ((new.conta_banco_boleto is null) or (new.empresa is null))) then
+  begin
+    Select
+        bb.bco_cod
+      , bb.empresa
+    from TBBANCO_BOLETO bb
+    where bb.bco_codigo = new.bco_codigo_cc
+    Into
+        new.conta_banco_boleto
+      , new.empresa;
+  end 
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_CONTA_CORRENTE_BCO_CC IS 'Trigger Identificar Banco Febraban/Empresa (Conta Corrente)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   07/10/2017
+
+Trigger responsavel por identificar o codigo Febraban e a empresa da conta corrente
+quando estes nao forem informados juntamente com a referencia do registro do
+Banco Boleto.';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:36:42 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_conta_corrente_bco_cc for tbconta_corrente
+active before insert or update position 1
+AS
+begin
+  if ((new.bco_codigo_cc is not null) and ((new.conta_banco_boleto is null) or (new.empresa is null))) then
+  begin
+    Select
+        bb.bco_cod
+      , bb.empresa
+    from TBBANCO_BOLETO bb
+    where bb.bco_codigo = new.bco_codigo_cc
+    Into
+        new.conta_banco_boleto
+      , new.empresa;
+  end 
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_CONTA_CORRENTE_BCO_CC IS 'Trigger Identificar Banco Febraban/Empresa (Conta Corrente)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   07/10/2017
+
+Trigger responsavel por identificar o codigo Febraban e a empresa da conta corrente
+quando estes nao forem informados juntamente com a referencia do registro do
+Banco Boleto.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    07/01/2017 - IMR :
+        * Documentacao da trigger.';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:38:46 --------*/
+
+COMMENT ON COLUMN TBCONTA_CORRENTE.CONTA_BANCO_BOLETO IS
+'Banco Boleto (Sera descontinuado).';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:39:04 --------*/
+
+COMMENT ON COLUMN TBCONTA_CORRENTE.CONTA_BANCO_BOLETO IS
+'Banco Boleto.';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:39:22 --------*/
+
+COMMENT ON COLUMN TBCONTA_CORRENTE.CONTA_BANCO_BOLETO IS
+'Banco Boleto.
+
+Apenas para a conta corrente que for do tipo 2 (Banco)';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:39:26 --------*/
+
+COMMENT ON COLUMN TBCONTA_CORRENTE.BCO_CODIGO_CC IS
+'Codigo do Banco da tabela TBBANCO_BOLETO.
+
+Apenas para a conta corrente que for do tipo 2 (Banco)';
+
+
+
+
+/*------ SYSDBA 07/01/2017 15:39:41 --------*/
+
+COMMENT ON COLUMN TBCONTA_CORRENTE.CONTA_BANCO_BOLETO IS
+'Banco Boleto (Codigo Febraban).
+
+Apenas para a conta corrente que for do tipo 2 (Banco)';
+

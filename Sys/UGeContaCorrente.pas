@@ -7,15 +7,20 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
   StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery, IBTable,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  JvExMask, JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
   dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
@@ -30,11 +35,12 @@ type
     dbTipo: TDBRadioGroup;
     IbDtstTabelaTIPO_DESC: TIBStringField;
     IbDtstTabelaEMPRESA: TIBStringField;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     dbBanco: TJvDBComboEdit;
+    IbDtstTabelaBCO_CODIGO_CC: TSmallintField;
+    fdQryEmpresa: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -49,8 +55,15 @@ type
 
 (*
   Tabelas:
+  - TBEMPRESA
   - TBCONTA_CORRENTE
   - TBBANCO_BOLETO
+
+  Views:
+  - VW_CONDICAOPAGTO
+
+  Procedures:
+
 *)
 
 var
@@ -106,7 +119,7 @@ begin
   btbtnCancelar.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   btbtnSalvar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
 
-  tblEmpresa.Open;
+  CarregarLista(fdQryEmpresa);
 end;
 
 procedure TfrmGeContaCorrente.IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -115,6 +128,7 @@ begin
   IbDtstTabelaCODIGO.Value  := GetNextID(NomeTabela, CampoCodigo);
   IbDtstTabelaTIPO.Value    := CONTA_CORRENTE_TIPO_CAIXA;
   IbDtstTabelaEMPRESA.Value := gUsuarioLogado.Empresa;
+  IbDtstTabelaBCO_CODIGO_CC.Clear;
   IbDtstTabelaCONTA_BANCO_BOLETO.Clear;
 end;
 
@@ -158,15 +172,17 @@ end;
 
 procedure TfrmGeContaCorrente.dbBancoButtonClick(Sender: TObject);
 var
-  iCodigo  : Integer;
+  iCodigoUnico,
+  iCodigo     : Integer;
   sNome    ,
   sAgencia ,
   sConta   ,
   sEmpresa : String;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarBanco(Self, iCodigo, sNome, sAgencia, sConta, sEmpresa) ) then
+    if ( SelecionarBanco(Self, iCodigoUnico, iCodigo, sNome, sAgencia, sConta, sEmpresa) ) then
     begin
+      IbDtstTabelaBCO_CODIGO_CC.AsInteger      := iCodigoUnico;
       IbDtstTabelaCONTA_BANCO_BOLETO.AsInteger := iCodigo;
       IbDtstTabelaBANCO.AsString   := sNome + ' AG.: ' + sAgencia + ' C/C.: ' + sConta;
       IbDtstTabelaEMPRESA.AsString := sEmpresa
