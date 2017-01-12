@@ -26,6 +26,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 122
+    ExplicitHeight = 395
     DesignSize = (
       930
       362)

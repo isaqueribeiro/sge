@@ -73,8 +73,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.19.0;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.19;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=28/11/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.19.0;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2017 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.19;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=12/01/2017;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Release>19</VerInfo_Release>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
@@ -87,12 +87,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
         <VerInfo_Release>19</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.19.1;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.19;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=28/11/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Mainho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.19.3;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2017 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.19;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=12/01/2017;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Mainho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -101,13 +101,13 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCC_Optimize>false</DCC_Optimize>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Build>10</VerInfo_Build>
+        <VerInfo_Build>11</VerInfo_Build>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <VerInfo_Release>19</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.19.10;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2016 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.19;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=28/11/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.19.11;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2017 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.19;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=12/01/2017;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
     </PropertyGroup>
     <ItemGroup>

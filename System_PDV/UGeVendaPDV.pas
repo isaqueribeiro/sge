@@ -1416,7 +1416,7 @@ begin
 
       if ( gSistema.Codigo = SISTEMA_GESTAO_COM ) then
         if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
-          if ( TitulosConfirmados(Self, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+          if ( TitulosConfirmados(Self, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger, DataSetVenda.FieldByName('DTVENDA').AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
             CarregarTitulos( DataSetVenda.FieldByName('CODEMP').AsString, DataSetVenda.FieldByName('ANO').AsInteger, DataSetVenda.FieldByName('CODCONTROL').AsInteger );
 
       // Formas de Pagamento que nao seja a prazo
