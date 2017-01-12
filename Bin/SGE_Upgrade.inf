@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Ajustes no cadastro de novos vendedores;
 - Nova regra que não permite lançamento de duplicatas e títulos com vencimento anterior a data de emissão do documento de origem;
 - Ajustes na Validação de CPF/CNPJ dos Clientes;
 - Novo relatório de comissões por baixa de títulos;
@@ -21,4 +22,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.15.1
+#version=1.0.15.2

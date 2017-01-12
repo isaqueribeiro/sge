@@ -5,7 +5,6 @@ inherited frmGeVendedor: TfrmGeVendedor
   ClientWidth = 730
   OldCreateOrder = True
   ExplicitWidth = 746
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
@@ -20,7 +19,10 @@ inherited frmGeVendedor: TfrmGeVendedor
     Width = 730
     ExplicitWidth = 730
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 722
+      ExplicitHeight = 0
       inherited Bevel4: TBevel
         Width = 722
         ExplicitWidth = 722
@@ -107,10 +109,7 @@ inherited frmGeVendedor: TfrmGeVendedor
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 722
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 113
         Width = 722
@@ -411,7 +410,7 @@ inherited frmGeVendedor: TfrmGeVendedor
     Left = 64
     Top = 312
     Bitmap = {
-      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

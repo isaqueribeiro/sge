@@ -183,7 +183,7 @@ end;
 procedure TfrmGeVendedor.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaCOD.Value   := GetNextID(NomeTabela, CampoCodigo);
+  IbDtstTabelaCOD.Value   := GetNextID(NomeTabela, GetCampoCodigoLimpo);
   IbDtstTabelaATIVO.Value := 1;
   IbDtstTabelaCOMISSAO_TIPO.Value := 0;
 end;
