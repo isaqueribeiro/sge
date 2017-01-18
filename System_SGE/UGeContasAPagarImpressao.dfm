@@ -77,9 +77,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 313
         Height = 21
         Style = csDropDownList
-        ItemIndex = 0
         TabOrder = 3
-        Text = '(Todos)'
         Items.Strings = (
           '(Todos)'
           'Quitados'

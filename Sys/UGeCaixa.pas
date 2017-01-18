@@ -8,7 +8,9 @@ uses
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, Menus, IBStoredProc, frxClass, frxDBSet, IBQuery, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
-  JvToolEdit, JvExMask, JvDBControls, dxSkinsCore, dxSkinBlueprint,
+  JvToolEdit, JvExMask, JvDBControls,
+
+  dxSkinsCore, dxSkinBlueprint,
   dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
   dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
   dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,

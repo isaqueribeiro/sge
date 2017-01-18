@@ -8,7 +8,9 @@ uses
   Buttons, ComCtrls, Mask, frxClass, frxDBSet,
   DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  JvExMask, JvToolEdit,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
   dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
   dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
@@ -306,13 +308,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -372,13 +374,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -525,13 +527,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -591,13 +593,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -661,13 +663,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -727,13 +729,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -797,13 +799,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -864,13 +866,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -941,13 +943,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -1032,13 +1034,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -1104,13 +1106,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -1170,13 +1172,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then
@@ -1258,13 +1260,13 @@ begin
 
       Case edSituacao.ItemIndex of
         TITULO_BAIXADO:
-          SQL.Add('  and (cp.quitado = 1)');
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
 
         TITULO_PENDENTE:
-          SQL.Add('  and (cp.quitado = 0)');
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
 
         TITULO_CANCELADO:
-          SQL.Add('  and cp.situacao = 0');
+          SQL.Add('  and (cp.situacao = 0)');
       end;
 
       if ( edTipoDespesa.ItemIndex > 0 ) then

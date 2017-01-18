@@ -22248,6 +22248,7 @@ object DMNFe: TDMNFe
       'where v.status > 2'
       '  and v.caixa_ano = :anoCaixa'
       '  and v.caixa_num = :numCaixa'
+      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
       ''
       'order by'
       '    v.ano'
@@ -22264,6 +22265,12 @@ object DMNFe: TDMNFe
       item
         DataType = ftInteger
         Name = 'numCaixa'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftSmallint
+        Name = 'pdv'
         ParamType = ptInput
         Value = 0
       end>
@@ -22324,6 +22331,7 @@ object DMNFe: TDMNFe
       'where v.status > 2'
       '  and v.caixa_ano = :anoCaixa'
       '  and v.caixa_num = :numCaixa'
+      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
       ''
       'group by'
       '    c.Ano'
@@ -22369,6 +22377,12 @@ object DMNFe: TDMNFe
         Name = 'numCaixa'
         ParamType = ptInput
         Value = 0
+      end
+      item
+        DataType = ftSmallint
+        Name = 'pdv'
+        ParamType = ptInput
+        Value = 0
       end>
   end
   object qryVendasCaixaSoma: TIBQuery
@@ -22411,6 +22425,7 @@ object DMNFe: TDMNFe
       'where v.status in (3, 4, 5)'
       '  and v.caixa_ano = :anoCaixa'
       '  and v.caixa_num = :numCaixa'
+      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
       ''
       'group by'
       '    d.cod'
@@ -22428,6 +22443,12 @@ object DMNFe: TDMNFe
       item
         DataType = ftInteger
         Name = 'numCaixa'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftSmallint
+        Name = 'pdv'
         ParamType = ptInput
         Value = 0
       end>

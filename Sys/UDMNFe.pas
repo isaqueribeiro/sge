@@ -7412,6 +7412,7 @@ begin
     Close;
     ParamByName('anoCaixa').AsInteger := AnoCaixa;
     ParamByName('numCaixa').AsInteger := NumeroCaixa;
+    ParamByName('pdv').AsInteger      := IfThen(gSistema.Codigo = SISTEMA_PDV, 1, 0);
     Open;
   end;
 
@@ -7420,6 +7421,7 @@ begin
     Close;
     ParamByName('anoCaixa').AsInteger := AnoCaixa;
     ParamByName('numCaixa').AsInteger := NumeroCaixa;
+    ParamByName('pdv').AsInteger      := IfThen(gSistema.Codigo = SISTEMA_PDV, 1, 0);
     Open;
   end;
 
@@ -7428,6 +7430,7 @@ begin
     Close;
     ParamByName('anoCaixa').AsInteger := AnoCaixa;
     ParamByName('numCaixa').AsInteger := NumeroCaixa;
+    ParamByName('pdv').AsInteger      := IfThen(gSistema.Codigo = SISTEMA_PDV, 1, 0);
     Open;
   end;
 end;
