@@ -2845,8 +2845,22 @@ begin
                                                 //         (2) = mfContaTerceiros    – por conta do terceiros;
                                                 //         (3) = mfSemFrete          – sem frete;
                                                 //       TAG de grupo Transportador - <transporta> - Ocorrência 0-3
+     // Nova estrutura       = 0
+       mfContaEmitente       = 1
+     , mfContaDestinatario   = 2
+     , mfContaTerceiros      = 3
+     , mfProprioRemetente    = 4
+     , mfProprioDestinatario = 5
+     , mfSemFrete            = 6
   }
-      Transp.modFrete            := TpcnModalidadeFrete( qryCalculoImposto.FieldByName('NFE_MODALIDADE_FRETE').AsInteger );
+      case qryCalculoImposto.FieldByName('NFE_MODALIDADE_FRETE').AsInteger of
+        0 : Transp.modFrete := mfContaEmitente;
+        1 : Transp.modFrete := mfContaDestinatario;
+        3 : Transp.modFrete := mfSemFrete;
+        else
+          Transp.modFrete := mfSemFrete;
+      end;
+      //Transp.modFrete            := TpcnModalidadeFrete( qryCalculoImposto.FieldByName('NFE_MODALIDADE_FRETE').AsInteger );
 
       Transp.Transporta.CNPJCPF  := qryCalculoImposto.FieldByName('NFE_TRANSPORTADORA_CNPJ').AsString;
       Transp.Transporta.xNome    := qryCalculoImposto.FieldByName('NFE_TRANSPORTADORA_NOME').AsString;
@@ -2872,7 +2886,8 @@ begin
            placa := '';
            UF    := '';
            RNTC  := '';
-         end;}
+         end;
+         }
 
       // Adicionando Dados de Volumes a Transportar
 
