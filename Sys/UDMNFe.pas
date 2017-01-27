@@ -2320,7 +2320,7 @@ begin
         else
           Dest.indIEDest     := inContribuinte;
 
-        Dest.IE              := Trim(qryDestinatario.FieldByName('INSCEST').AsString);
+        Dest.IE              := IfThen(Dest.indIEDest = inContribuinte, Trim(qryDestinatario.FieldByName('INSCEST').AsString), EmptyStr);
         Dest.ISUF            := EmptyStr;
       end
       else
@@ -3743,7 +3743,7 @@ begin
         else
           Dest.indIEDest     := inContribuinte;
 
-        Dest.IE              := Trim(qryFornecedorDestinatario.FieldByName('INSCEST').AsString);
+        Dest.IE              := IfThen(Dest.indIEDest = inContribuinte, Trim(qryFornecedorDestinatario.FieldByName('INSCEST').AsString), EmptyStr);
         Dest.ISUF            := EmptyStr;
       end
       else
