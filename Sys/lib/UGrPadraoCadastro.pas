@@ -10,14 +10,10 @@ uses
   Dialogs, DB, UGrPadrao, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
   DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver;
+  Menus, cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
@@ -145,6 +141,7 @@ type
 
     function SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean; overload;
     function GetCampoCodigoLimpo : String;
+    function GetCampoDescricaoLimpo : String;
   end;
 
 var
@@ -399,9 +396,13 @@ begin
       fOcorreuErro := False;
       if ShowConfirmation('Salvar', 'Deseja salvar a inserção/edição do registro?') then
       begin
+        if (Trim(GetCampoDescricaoLimpo) <> EmptyStr) then
+          if Assigned( IbDtstTabela.Fields.FindField(GetCampoDescricaoLimpo) ) then
+            IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString := Trim(IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString);
+
         if Assigned( IbDtstTabela.Fields.FindField(CAMPO_USUARIO) ) then
           IbDtstTabela.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
-          
+
         IbDtstTabela.Post;
         IbDtstTabela.ApplyUpdates;
         CommitTransaction;
@@ -991,6 +992,14 @@ begin
     Result := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
   else
     Result := Trim(CampoCodigo);
+end;
+
+function TfrmGrPadraoCadastro.GetCampoDescricaoLimpo: String;
+begin
+  if ( pos('.', CampoDescricao) > 0 ) then
+    Result := Copy(CampoDescricao, pos('.', CampoDescricao) + 1, Length(CampoDescricao))
+  else
+    Result := Trim(CampoDescricao);
 end;
 
 procedure TfrmGrPadraoCadastro.pgcGuiasOnChange;

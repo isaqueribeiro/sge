@@ -1226,7 +1226,7 @@ object DMBusiness: TDMBusiness
         'from GET_CAIXA_ABERTO_DETALHE(:Empresa, :Usuario, :Data, :FormaP' +
         'agto) c')
     Left = 864
-    Top = 408
+    Top = 400
     ParamData = <
       item
         Name = 'EMPRESA'

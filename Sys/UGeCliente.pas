@@ -751,6 +751,8 @@ begin
   IbDtstTabelaCC_3.Clear;
   IbDtstTabelaPRACA_3.Clear;
   IbDtstTabelaOBSERVACAO.Clear;
+
+  GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
 end;
 
 procedure TfrmGeCliente.DtSrcTabelaStateChange(Sender: TObject);
@@ -792,9 +794,6 @@ begin
     (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaBLOQUEADO.AsInteger = 0);
   mpClienteDesbloquear.Enabled := IbDtstTabela.Active and
     (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaBLOQUEADO.AsInteger = 1);
-
-  if ( Field = IbDtstTabela.FieldByName('CODIGO') ) then
-    GetComprasAbertas( IbDtstTabela.FieldByName('CODIGO').AsInteger );
 
   if ( Field = IbDtstTabela.FieldByName('PESSOA_FISICA') ) then
   begin
@@ -869,8 +868,6 @@ begin
       'Deseja salvar este registro assim mesmo?') then
       Abort;
 
-  IbDtstTabelaUSUARIO.AsString := gUsuarioLogado.Login;
-
   if ( IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger = 1 ) then
   begin
     if ((IbDtstTabelaCUSTO_OPER_FRETE.AsCurrency < 0) or (IbDtstTabelaCUSTO_OPER_FRETE.AsCurrency > 100)) then
@@ -904,6 +901,7 @@ begin
   try
     dbgContaCorrente.DataController.DataSource := nil;
     inherited;
+    GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
   finally
     dbgContaCorrente.DataController.DataSource := DtSrcTabela;
   end;
@@ -931,7 +929,7 @@ end;
 procedure TfrmGeCliente.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  GetComprasAbertas( IbDtstTabela.FieldByName('codigo').AsInteger );
+  GetComprasAbertas( IbDtstTabela.FieldByName('CODIGO').AsInteger );
 end;
 
 procedure TfrmGeCliente.dbgContaCorrenteEnter(Sender: TObject);
@@ -1669,6 +1667,7 @@ begin
   try
     dbgContaCorrente.DataController.DataSource := nil;
     inherited;
+    GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
   finally
     dbgContaCorrente.DataController.DataSource := DtSrcTabela;
   end;
@@ -1682,7 +1681,10 @@ begin
     Abort;
   end
   else
+  begin
     inherited;
+    GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
+  end;
 end;
 
 procedure TfrmGeCliente.RegistrarNovaRotinaSistema;
