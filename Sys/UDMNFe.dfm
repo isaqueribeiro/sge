@@ -9378,9 +9378,9 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo42: TfrxMemoView
-          Left = 234.330860000000000000
-          Top = 249.448979999999900000
-          Width = 249.448980000000000000
+          Left = 188.976500000000000000
+          Top = 249.448980000000000000
+          Width = 340.157700000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -14680,9 +14680,9 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object Memo15: TfrxMemoView
-          Left = 411.968770000000000000
+          Left = 396.850650000000000000
           Top = 294.803340000000000000
-          Width = 249.448980000000000000
+          Width = 264.567100000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -14704,7 +14704,7 @@ object DMNFe: TDMNFe
         object Memo42: TfrxMemoView
           Left = 37.795300000000000000
           Top = 294.803340000000000000
-          Width = 249.448980000000000000
+          Width = 264.567100000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -15715,9 +15715,9 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo42: TfrxMemoView
-          Left = 234.330860000000000000
-          Top = 249.448979999999900000
-          Width = 249.448980000000000000
+          Left = 188.976500000000000000
+          Top = 249.448980000000000000
+          Width = 340.157700000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -20086,9 +20086,9 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo42: TfrxMemoView
-          Left = 234.330860000000000000
+          Left = 188.976500000000000000
           Top = 249.448980000000000000
-          Width = 249.448980000000000000
+          Width = 340.157700000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -21035,9 +21035,9 @@ object DMNFe: TDMNFe
         Width = 718.110700000000000000
         Stretched = True
         object Memo42: TfrxMemoView
-          Left = 234.330860000000000000
+          Left = 188.976500000000000000
           Top = 275.905690000000000000
-          Width = 249.448980000000000000
+          Width = 340.157700000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -22034,9 +22034,9 @@ object DMNFe: TDMNFe
         Width = 718.110700000000000000
         Stretched = True
         object Memo42: TfrxMemoView
-          Left = 226.771800000000000000
+          Left = 188.976500000000000000
           Top = 139.842610000000000000
-          Width = 264.567100000000000000
+          Width = 340.157700000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
