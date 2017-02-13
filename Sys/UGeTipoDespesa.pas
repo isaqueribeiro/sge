@@ -7,14 +7,19 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvExMask, JvToolEdit, JvDBControls,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmGeTipoDespesa = class(TfrmGrPadraoCadastro)
@@ -34,6 +39,11 @@ type
     dbTipoParticular: TDBCheckBox;
     dbAtivo: TDBCheckBox;
     IbDtstTabelaATIVO: TSmallintField;
+    IbDtstTabelaCLASSIFICACAO: TSmallintField;
+    lblClassificacao: TLabel;
+    dbClassificacao: TDBLookupComboBox;
+    fdQryClassificacao: TFDQuery;
+    DtsClassificacao: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -47,6 +57,18 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBTPDESPESA
+  - TBPLANO_CONTA
+
+  Views:
+  - VW_CLASSIFICAO_DESPESA
+
+  Procedures:
+
+*)
 
 var
   frmGeTipoDespesa: TfrmGeTipoDespesa;
@@ -91,10 +113,12 @@ begin
   RotinaID            := ROTINA_CAD_TIPO_DESPESA_ID;
   ControlFirstEdit    := dbDescricao;
   DisplayFormatCodigo := '##00';
-  NomeTabela     := 'TBTPDESPESA';
-  CampoCodigo    := 'COD';
-  CampoDescricao := 'TIPODESP';
-  CampoCadastroAtivo := 'ATIVO';
+  NomeTabela          := 'TBTPDESPESA';
+  CampoCodigo         := 'COD';
+  CampoDescricao      := 'TIPODESP';
+  CampoCadastroAtivo  := 'ATIVO';
+
+  CarregarLista(fdQryClassificacao);
 end;
 
 procedure TfrmGeTipoDespesa.IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -103,6 +127,7 @@ begin
   IbDtstTabelaCOD.Value                 := GetNextID(NomeTabela, CampoCodigo);
   IbDtstTabelaTIPO_PARTICULAR.AsInteger := 0;
   IbDtstTabelaATIVO.AsInteger           := 1;
+  IbDtstTabelaCLASSIFICACAO.AsInteger   := 0; // A Definir
   IbDtstTabelaPLANO_CONTA.Clear;
 end;
 

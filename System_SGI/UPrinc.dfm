@@ -4645,7 +4645,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4723,6 +4722,7 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
+      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -4903,7 +4903,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 559
+      DockedLeft = 236
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -5422,6 +5422,11 @@ object frmPrinc: TfrmPrinc
       FloatClientHeight = 0
       ItemLinks = <
         item
+          Visible = True
+          ItemName = 'BrBtnRelatorioResultadoExercicio'
+        end
+        item
+          BeginGroup = True
           Visible = True
           ItemName = 'BrBtnRelatorioAutorizacaoEntrada'
         end
@@ -6518,6 +6523,17 @@ object frmPrinc: TfrmPrinc
       Hint = 'Movimenta'#231#245'es Tesouraria'
       Visible = ivAlways
       OnClick = BrBtnRelatorioFinanceiroMVClick
+    end
+    object BrBtnRelatorioResultadoExercicio: TdxBarLargeButton
+      Caption = 'Resultado Exerc'#237'cio'
+      Category = 17
+      Hint = 'Resultado Exerc'#237'cio'
+      Visible = ivAlways
+      LargeImageIndex = 79
+      OnClick = BrBtnRelatorioResultadoExercicioClick
+      HotImageIndex = 79
+      SyncImageIndex = False
+      ImageIndex = 79
     end
     object BrBtnRelatorioAutorizacaoEntrada: TdxBarLargeButton
       Caption = 'Autoriza'#231#245'es x Entradas'

@@ -8621,3 +8621,2097 @@ COMMENT ON COLUMN TBCONTA_CORRENTE.CONTA_BANCO_BOLETO IS
 
 Apenas para a conta corrente que for do tipo 2 (Banco)';
 
+
+
+
+/*------ SYSDBA 11/02/2017 15:44:44 --------*/
+
+ALTER TABLE TBTPDESPESA
+    ADD CLASSIFICACAO DMN_SMALLINT_NN DEFAULT 0;
+
+COMMENT ON COLUMN TBTPDESPESA.CLASSIFICACAO IS
+'Classificacao:
+0 - A Definir
+1 - Custo Fixo
+2 - Custo Variavel
+3 - Despesa Fixa
+4 - Despesa Variavel
+
+Obs.: Todas as despesas associadas a producao estara classificada como "Custos"
+e as despesas da area administrativa estara relacionada a classificacao "Despesas"';
+
+alter table TBTPDESPESA
+alter COD position 1;
+
+alter table TBTPDESPESA
+alter CLASSIFICACAO position 2;
+
+alter table TBTPDESPESA
+alter TIPODESP position 3;
+
+alter table TBTPDESPESA
+alter TIPO_PARTICULAR position 4;
+
+alter table TBTPDESPESA
+alter PLANO_CONTA position 5;
+
+alter table TBTPDESPESA
+alter ATIVO position 6;
+
+
+
+
+/*------ SYSDBA 11/02/2017 15:45:10 --------*/
+
+CREATE INDEX IRDX_TBTPDESPESA_CLASSIFICACAO
+ON TBTPDESPESA (CLASSIFICACAO);
+
+
+
+
+/*------ SYSDBA 11/02/2017 15:47:44 --------*/
+
+CREATE OR ALTER VIEW VW_classificao_despesa (
+    TPE_CODIGO,
+    TPE_DESCRICAO)
+AS
+Select 0 as TPE_CODIGO , 'A Definir'          as TPE_DESCRICAO from RDB$DATABASE union
+Select 1 as TPE_CODIGO , 'Custos Fixos'       as TPE_DESCRICAO from RDB$DATABASE union
+Select 2 as TPE_CODIGO , 'Custos Variáveis'   as TPE_DESCRICAO from RDB$DATABASE union
+Select 3 as TPE_CODIGO , 'Despesas Fixas'     as TPE_DESCRICAO from RDB$DATABASE union
+Select 4 as TPE_CODIGO , 'Despesas Variáveis' as TPE_DESCRICAO from RDB$DATABASE
+;
+
+GRANT ALL ON VW_CLASSIFICAO_DESPESA TO "PUBLIC";
+
+
+
+/*------ SYSDBA 13/02/2017 11:02:45 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$NULL_FLAG = 1
+where (RDB$FIELD_NAME = 'CLASSIFICACAO') and
+(RDB$RELATION_NAME = 'TBTPDESPESA')
+;
+
+
+
+
+/*------ SYSDBA 13/02/2017 14:00:51 --------*/
+
+CREATE OR ALTER VIEW VW_CLASSIFICAO_DESPESA(
+    TPE_CODIGO,
+    TPE_DESCRICAO,
+    TPE_ORDEM)
+AS
+Select 0 as TPE_CODIGO , 'A Definir'          as TPE_DESCRICAO, 9 as TPE_ORDEM from RDB$DATABASE union
+Select 1 as TPE_CODIGO , 'Custos Fixos'       as TPE_DESCRICAO, 2 as TPE_ORDEM from RDB$DATABASE union
+Select 2 as TPE_CODIGO , 'Custos Variáveis'   as TPE_DESCRICAO, 1 as TPE_ORDEM from RDB$DATABASE union
+Select 3 as TPE_CODIGO , 'Despesas Fixas'     as TPE_DESCRICAO, 4 as TPE_ORDEM from RDB$DATABASE union
+Select 4 as TPE_CODIGO , 'Despesas Variáveis' as TPE_DESCRICAO, 3 as TPE_ORDEM from RDB$DATABASE
+;
+
+
+
+
+/*------ SYSDBA 13/02/2017 16:37:23 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and c.conta_corrente = :conta
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and c.conta_corrente = :conta
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and c.conta_corrente = :conta
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , valor
+    do
+    begin
+      marcador = '';
+      tipo     = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+end ^
+
+SET TERM ; ^
+
+GRANT EXECUTE ON PROCEDURE GET_DEMONST_RESULT_OPERACIONAL TO "PUBLIC";
+
+
+
+/*------ SYSDBA 13/02/2017 16:38:58 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and c.conta_corrente = :conta
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and c.conta_corrente = :conta
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and c.conta_corrente = :conta
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , valor
+    do
+    begin
+      marcador = '';
+      tipo     = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+end ^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE GET_DEMONST_RESULT_OPERACIONAL IS 'Store Procedure Demonstrativo de Resultados Operacionais (Gerencial).
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   13/02/2017
+
+Procedure reponsavel por montar os dados gerenciais para o Demonstrativo de Resultados
+Operacionais.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    13/02/2017 - IMR :
+        * Documentacao da store procedure.';
+
+
+
+
+/*------ SYSDBA 13/02/2017 17:13:03 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_CUSTO_FIXO  DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_custo_fixo    = 0.0;
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and c.conta_corrente = :conta
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and c.conta_corrente = :conta
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    -- Guardar o valor do custo fixo
+    if (:grupo = 1) then vl_custo_fixo = :valor;
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and c.conta_corrente = :conta
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , valor
+    do
+    begin
+      marcador = '';
+      tipo     = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+
+  marcador   = '';
+  descricao  = 'Ponto de Equilíbrio';
+  especific  = 'Custo Fixo (/) Margem de Contribuição';
+  valor      = 0.0;
+
+  if (coalesce(:vl_margem_contrib, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:vl_custo_fixo, 0.00) / coalesce(:vl_margem_contrib, 0.0);
+
+  destacar   = 1;
+  suspend;
+
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 13/02/2017 17:16:24 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_CUSTO_FIXO  DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_custo_fixo    = 0.0;
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and c.conta_corrente = :conta
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and c.conta_corrente = :conta
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    -- Guardar o valor do custo fixo
+    if (:grupo = 1) then vl_custo_fixo = :valor;
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and c.conta_corrente = :conta
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , valor
+    do
+    begin
+      marcador = '';
+      tipo     = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+
+  marcador   = '';
+  descricao  = 'Ponto de Equilíbrio';
+  especific  = 'Custo Fixo (/) Margem de Contribuição';
+
+  if (coalesce(:vl_margem_contrib, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:vl_custo_fixo, 0.00) / coalesce(:vl_margem_contrib, 0.0) * 100.0;
+
+  valor     = (:vl_total_receita * :percentual) / 100.0;
+  destacar  = 1;
+  suspend;
+  especific = null;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 13/02/2017 17:19:32 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_CUSTO_FIXO DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_custo_fixo    = 0.0;
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and ((:conta = 0) or (c.conta_corrente = :conta))
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and ((:conta = 0) or (c.conta_corrente = :conta))
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    -- Guardar o valor do custo fixo
+    if (:grupo = 1) then vl_custo_fixo = :valor;
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and ((:conta = 0) or (c.conta_corrente = :conta))
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , valor
+    do
+    begin
+      marcador = '';
+      tipo     = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+
+  marcador   = '';
+  descricao  = 'Ponto de Equilíbrio';
+  especific  = 'Custo Fixo (/) Margem de Contribuição';
+
+  if (coalesce(:vl_margem_contrib, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:vl_custo_fixo, 0.00) / coalesce(:vl_margem_contrib, 0.0) * 100.0;
+
+  valor     = (:vl_total_receita * :percentual) / 100.0;
+  destacar  = 1;
+  suspend;
+  especific = null;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 13/02/2017 17:24:22 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    ID_TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_CUSTO_FIXO DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_custo_fixo    = 0.0;
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and ((:conta = 0) or (c.conta_corrente = :conta))
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and ((:conta = 0) or (c.conta_corrente = :conta))
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    -- Guardar o valor do custo fixo
+    if (:grupo = 1) then vl_custo_fixo = :valor;
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and ((:conta = 0) or (c.conta_corrente = :conta))
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , valor
+    do
+    begin
+      marcador = '';
+      id_tipo  = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      id_tipo   = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+
+  marcador   = '';
+  descricao  = 'Ponto de Equilíbrio';
+  especific  = 'Custo Fixo (/) Margem de Contribuição';
+
+  if (coalesce(:vl_margem_contrib, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:vl_custo_fixo, 0.00) / coalesce(:vl_margem_contrib, 0.0) * 100.0;
+
+  valor     = (:vl_total_receita * :percentual) / 100.0;
+  destacar  = 1;
+  suspend;
+  especific = null;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 13/02/2017 17:26:57 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO    DMN_VCHAR_01,
+    ID_TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_CUSTO_FIXO DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_custo_fixo    = 0.0;
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and ((:conta = 0) or (c.conta_corrente = :conta))
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    destacar   = 1;
+    tipo       = 'C';
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and ((:conta = 0) or (c.conta_corrente = :conta))
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    -- Guardar o valor do custo fixo
+    if (:grupo = 1) then vl_custo_fixo = :valor;
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , c.tipo
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and ((:conta = 0) or (c.conta_corrente = :conta))
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+        , c.tipo
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , tipo
+        , valor
+    do
+    begin
+      marcador = '';
+      id_tipo  = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+      id_tipo   = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+
+  marcador   = '';
+  descricao  = 'Ponto de Equilíbrio';
+  especific  = 'Custo Fixo (/) Margem de Contribuição';
+
+  if (coalesce(:vl_margem_contrib, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:vl_custo_fixo, 0.00) / coalesce(:vl_margem_contrib, 0.0) * 100.0;
+
+  valor     = (:vl_total_receita * :percentual) / 100.0;
+  destacar  = 1;
+  suspend;
+  especific = null;
+end^
+
+SET TERM ; ^
+
+
+
+/*------ 13/02/2017 17:32:40 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO DMN_VCHAR_01,
+    ID_TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_CUSTO_FIXO DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_custo_fixo    = 0.0;
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and ((:conta = 0) or (c.conta_corrente = :conta))
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    tipo       = 'C';
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and ((:conta = 0) or (c.conta_corrente = :conta))
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    tipo     = 'D';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    -- Guardar o valor do custo fixo
+    if (:grupo = 1) then vl_custo_fixo = :valor;
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , c.tipo
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and ((:conta = 0) or (c.conta_corrente = :conta))
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+        , c.tipo
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , tipo
+        , valor
+    do
+    begin
+      marcador = '';
+      id_tipo  = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+      id_tipo   = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  grupo = null;
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+
+  marcador   = '';
+  descricao  = 'Ponto de Equilíbrio';
+  especific  = 'Custo Fixo (/) Margem de Contribuição';
+
+  if (coalesce(:vl_margem_contrib, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:vl_custo_fixo, 0.00) / coalesce(:vl_margem_contrib, 0.0) * 100.0;
+
+  valor     = (:vl_total_receita * :percentual) / 100.0;
+  destacar  = 1;
+  suspend;
+  especific = null;
+end^
+
+/*------ 13/02/2017 17:32:40 --------*/
+
+SET TERM ; ^
+
+
+/*------ SYSDBA 13/02/2017 17:40:31 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_DEMONST_RESULT_OPERACIONAL (
+    EMPRESA DMN_CNPJ,
+    CONTA DMN_INTEGER_N,
+    DATA_INICIAL DMN_DATE,
+    DATA_FINAL DMN_DATE)
+returns (
+    GRUPO DMN_SMALLINT_N,
+    MARCADOR DMN_VCHAR_03,
+    DESTACAR DMN_SMALLINT_N,
+    DESCRICAO DMN_VCHAR_100,
+    ESPECIFIC DMN_VCHAR_250,
+    TIPO DMN_VCHAR_01,
+    ID_TIPO DMN_SMALLINT_N,
+    VALOR DMN_MONEY,
+    PERCENTUAL DMN_PERCENTUAL_4)
+as
+declare variable VL_TOTAL_RECEITA DMN_MONEY;
+declare variable VL_TOTAL_DESPESA DMN_MONEY;
+declare variable VL_TOTAL_GRUPO DMN_MONEY;
+declare variable VL_CUSTO_FIXO DMN_MONEY;
+declare variable VL_MARGEM_CONTRIB DMN_MONEY;
+declare variable VL_LUCRO_OPER DMN_MONEY;
+declare variable CD_CLASSIFICACAO_DESPESA DMN_SMALLINT_N;
+declare variable CD_TIPO_DESPESA DMN_SMALLINT_N;
+declare variable DT_INCIAL DMN_DATETIME;
+declare variable DT_FINAL DMN_DATETIME;
+begin
+  dt_incial = :data_inicial + cast('00:00:00' as time);
+  dt_final  = :data_final   + cast('23:59:59' as time);
+
+  vl_custo_fixo    = 0.0;
+  vl_total_despesa = 0.0;
+
+  /* 1. Totalizar Receita */
+  for
+    Select
+        sum(c.valor) as valor
+    from TBCAIXA_MOVIMENTO c
+      left join TBTPRECEITA r on (r.cod = c.tipo_receita)
+      left join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+    where c.empresa  = :empresa
+      and c.estorno  = 0
+      and c.situacao = 1
+      and c.tipo     = 'C'
+      and ((:conta = 0) or (c.conta_corrente = :conta))
+      and c.datahora between :dt_incial and :dt_final
+    Into
+      valor
+  do
+  begin
+    --valor = 900000.00;
+    marcador   = '';
+    descricao  = 'RECEITA TOTAL';
+    percentual = 100.0;
+    tipo       = 'C';
+    destacar   = 1;
+    vl_total_receita = coalesce(:valor, 0.00);
+    suspend;
+  end 
+
+  /* 2. Totalizar grupos de despesas */
+  for
+    Select
+        g.tpe_codigo
+      , g.tpe_descricao
+      , dp.valor
+    from VW_CLASSIFICAO_DESPESA g
+      inner join (
+        Select
+            d.classificacao
+          , sum(c.valor) as valor
+        from TBCAIXA_MOVIMENTO c
+            inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+        where c.empresa  = :empresa
+          and c.estorno  = 0
+          and c.situacao = 1
+          and c.tipo     = 'D'
+          and ((:conta = 0) or (c.conta_corrente = :conta))
+          and c.datahora between :dt_incial and :data_final
+        group by
+            d.classificacao
+      ) dp on (dp.classificacao = g.tpe_codigo)
+    order by
+        g.tpe_ordem
+    Into
+        cd_classificacao_despesa
+      , descricao
+      , valor
+
+  do
+  begin
+    grupo    = :cd_classificacao_despesa;
+    marcador = '(-)';
+    tipo     = 'D';
+    vl_total_grupo   = coalesce(:valor, 0.00);
+    vl_total_despesa = :vl_total_despesa + coalesce(:valor, 0.00);
+
+    -- Guardar o valor do custo fixo
+    if (:grupo = 1) then vl_custo_fixo = :valor;
+
+    if (coalesce(:vl_total_receita, 0) = 0) then
+      percentual = 0.00;
+    else
+      percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+    destacar  = 1;
+    suspend;
+    especific = null;
+
+    /* 3. Detalhar os grupos de despesas */
+    for
+      Select
+          c.tipo_despesa
+        , d.tipodesp
+        , c.tipo
+        , sum(c.valor) as valor
+      from TBCAIXA_MOVIMENTO c
+          inner join TBTPDESPESA d on (d.cod = c.tipo_despesa)
+      where c.empresa  = :empresa
+        and c.estorno  = 0
+        and c.situacao = 1
+        and c.tipo     = 'D'
+        and d.classificacao  = :cd_classificacao_despesa
+        and ((:conta = 0) or (c.conta_corrente = :conta))
+        and c.datahora between :dt_incial and :data_final
+      group by
+          c.tipo_despesa
+        , d.tipodesp
+        , c.tipo
+      order by
+          d.tipodesp
+      Into
+          cd_tipo_despesa
+        , descricao
+        , tipo
+        , valor
+    do
+    begin
+      marcador = '';
+      id_tipo  = :cd_tipo_despesa;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+    
+      destacar  = 0;
+      suspend;
+      especific = null;
+      tipo      = null;
+      id_tipo   = null;
+    end
+
+    /* 4. Gerar resultado por grupo */
+    if (:grupo = 1) then  -- Custo Fixo
+    begin
+      marcador    = '(=)';
+      descricao   = 'LUCRO OPERACIONAL';
+      especific   = 'Margem de contribuição (-) Custos fixos';
+      valor       = :vl_margem_contrib - :vl_total_grupo;
+      vl_lucro_oper = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+    if (:grupo = 2) then  -- Custo Variavel
+    begin
+      marcador    = '(=)';
+      descricao   = 'MARGEM DE CONTRIBUIÇÃO';
+      especific   = 'Receita total (-) Custos variáveis';
+      valor       = :vl_total_receita - :vl_total_grupo;
+      vl_margem_contrib = :valor;
+
+      if (coalesce(:vl_total_receita, 0) = 0) then
+        percentual = 0.00;
+      else
+        percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+      destacar  = 1;
+      suspend;
+      especific = null;
+    end
+  end 
+
+  grupo = null;
+  tipo  = null;
+
+  /* 5. Totalizar Resultado exercicio */
+  marcador    = '(=)';
+  descricao   = 'RESULTADO';
+  especific   = 'Receita total (-) Todos os custos e despesas';
+  valor       = :vl_total_receita - :vl_total_despesa;
+
+  if (coalesce(:vl_total_receita, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:valor, 0.00) / :vl_total_receita * 100.0;
+
+  destacar  = 1;
+  suspend;
+  especific = null;
+
+  marcador   = '';
+  descricao  = 'Ponto de Equilíbrio';
+  especific  = 'Custo Fixo (/) Margem de Contribuição';
+
+  if (coalesce(:vl_margem_contrib, 0) = 0) then
+    percentual = 0.00;
+  else
+    percentual = coalesce(:vl_custo_fixo, 0.00) / coalesce(:vl_margem_contrib, 0.0) * 100.0;
+
+  valor     = (:vl_total_receita * :percentual) / 100.0;
+  destacar  = 1;
+  suspend;
+  especific = null;
+end^
+
+SET TERM ; ^
+

@@ -1,11 +1,9 @@
 inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   Left = 384
-  ActiveControl = dbgDados
   Caption = 'Tesouraria'
   ClientHeight = 597
   ClientWidth = 1132
   OldCreateOrder = True
-  ExplicitLeft = -66
   ExplicitWidth = 1148
   ExplicitHeight = 636
   PixelsPerInch = 96
@@ -25,7 +23,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited pgcGuias: TPageControl
     Width = 1132
     Height = 554
-    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 1132
     ExplicitHeight = 554
@@ -740,6 +737,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1124
       ExplicitHeight = 525
       inherited Bevel8: TBevel
@@ -1947,7 +1946,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited ImgList: TImageList
     Left = 832
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

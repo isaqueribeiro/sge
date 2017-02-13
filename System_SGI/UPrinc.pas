@@ -218,6 +218,7 @@ type
     BrPpTeamViewer: TdxBarPopupMenu;
     tmrAutoUpgrade: TTimer;
     BrBtnUpgrade: TdxBarLargeButton;
+    BrBtnRelatorioResultadoExercicio: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -325,6 +326,7 @@ type
     procedure BrBtnDownloadTeamViewerClick(Sender: TObject);
     procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
     procedure BrBtnUpgradeClick(Sender: TObject);
+    procedure BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -486,6 +488,12 @@ procedure TfrmPrinc.BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_MOV_FINANCE_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeFluxoCaixaImpressao');
+end;
+
+procedure TfrmPrinc.BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_RESULT_EXERC_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeResultadoExecicioImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
@@ -1035,6 +1043,7 @@ begin
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FATURAMENTO_ID, 'Relatórios de Faturamento', ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FINANCEIRO_ID,  'Relatórios do Financeiro',  ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_GERENCIAL_ID,   'Relatórios Gerenciais',     ROTINA_MENU_RELATORIO_ID);
 
   // Menu Aplicação
 
@@ -1116,6 +1125,10 @@ begin
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_APAGAR_ID,      Trim(BrBtnRelatorioFinanceiro.Caption + ' -> ' + BrBtnRelatorioFinanceiroAP.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ARECEBER_ID,    Trim(BrBtnRelatorioFinanceiro.Caption + ' -> ' + BrBtnRelatorioFinanceiroAR.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_MOV_FINANCE_ID, Trim(BrBtnRelatorioFinanceiro.Caption + ' -> ' + BrBtnRelatorioFinanceiroMV.Caption), ROTINA_MENU_REL_FINANCEIRO_ID);
+
+  // Relatórios -> Gerenciais
+
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_RESULT_EXERC_ID, Trim(BrBtnRelatorioResultadoExercicio.Caption), ROTINA_MENU_REL_GERENCIAL_ID);
 end;
 
 procedure TfrmPrinc.RibbonApplicationMenuClick(Sender: TdxCustomRibbon;
@@ -1321,7 +1334,7 @@ end;
 procedure TfrmPrinc.mnRelatorioEstoqueApropriacaoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_APRO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeApropriacaoEstoqueImpressao');
+    FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
 end;
 
 end.

@@ -151,7 +151,8 @@ uses
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
-  UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE};
+  UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE},
+  UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao};
 
 {$R *.res}
 
