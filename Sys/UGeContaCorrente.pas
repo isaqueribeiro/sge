@@ -41,6 +41,9 @@ type
     dbBanco: TJvDBComboEdit;
     IbDtstTabelaBCO_CODIGO_CC: TSmallintField;
     fdQryEmpresa: TFDQuery;
+    IbDtstTabelaCODIGO_CONTABIL: TIBStringField;
+    lblCodigoContabil: TLabel;
+    dbCodigoContabil: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -130,6 +133,7 @@ begin
   IbDtstTabelaEMPRESA.Value := gUsuarioLogado.Empresa;
   IbDtstTabelaBCO_CODIGO_CC.Clear;
   IbDtstTabelaCONTA_BANCO_BOLETO.Clear;
+  IbDtstTabelaCODIGO_CONTABIL.Clear;
 end;
 
 function TfrmGeContaCorrente.PermitirSalvarContaCaixa: Boolean;

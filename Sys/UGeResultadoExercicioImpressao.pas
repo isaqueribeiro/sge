@@ -57,6 +57,7 @@ type
     procedure CarregarEmpresa;
     procedure CarregarContaCorrente(const pEmpresa : String);
 
+    procedure MontarDROSimples;
     procedure MontarRelacaoSaldoConsolidadoDia;
     procedure MontarRelacaoMovimentoCaixaConta;
   public
@@ -101,16 +102,10 @@ begin
   btnVisualizar.Enabled := False;
 
   Case edRelatorio.ItemIndex of
-    REPORT_RELACAO_SALDO_CONSOLIDADO_DIA:
+    REPORT_DEMONSTRATIVO_RESULTADO_OPERACIONAL:
       begin
-        MontarRelacaoSaldoConsolidadoDia;
-        frReport := frRelacaoSaldoConsolidadoDia;
-      end;
-
-    REPORT_RELACAO_MOVIMENTO_CAIXA_CONTA:
-      begin
-        MontarRelacaoMovimentoCaixaConta;
-        frReport := frRelacaoMovimentoCaixa;
+        MontarDROSimples;
+        frReport := frDemonstResultOper;
       end;
   end;
 
@@ -208,12 +203,12 @@ begin
   e2Data.Date := GetDateDB;
 
   inherited;
-
-  FSQL_RelacaoSaldoConsolidadoDia := TStringList.Create;
-  FSQL_RelacaoSaldoConsolidadoDia.AddStrings( QryRelacaoSaldoConsolidadoDia.SQL );
-
-  FSQL_RelacaoMovimentoCaixaConta := TStringList.Create;
-  FSQL_RelacaoMovimentoCaixaConta.AddStrings( QryRelacaoMovimentoCaixa.SQL );
+//
+//  FSQL_RelacaoSaldoConsolidadoDia := TStringList.Create;
+//  FSQL_RelacaoSaldoConsolidadoDia.AddStrings( QryRelacaoSaldoConsolidadoDia.SQL );
+//
+//  FSQL_RelacaoMovimentoCaixaConta := TStringList.Create;
+//  FSQL_RelacaoMovimentoCaixaConta.AddStrings( QryRelacaoMovimentoCaixa.SQL );
 end;
 
 procedure TfrmGeResultadoExercicioImpressao.FormShow(Sender: TObject);
@@ -223,21 +218,46 @@ begin
   CarregarContaCorrente(gUsuarioLogado.Empresa);
 end;
 
+procedure TfrmGeResultadoExercicioImpressao.MontarDROSimples;
+begin
+  try
+    SubTituloRelario := edContaCorrente.Text;
+    PeriodoRelatorio := Format('Consolidação no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+
+    CdsDemonstResultOper.Close;
+    with CdsDemonstResultOper, Params do
+    begin
+      ParamByName('empresa').AsString         := IEmpresa[edEmpresa.ItemIndex];
+      ParamByName('conta_corrente').AsInteger := IConta[edContaCorrente.ItemIndex];
+      ParamByName('data_inicial').AsDateTime  := e1Data.Date;
+      ParamByName('data_final').AsDateTime    := e2Data.Date;
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a Demonstrativo de Resultado Operacional.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
 procedure TfrmGeResultadoExercicioImpressao.MontarRelacaoMovimentoCaixaConta;
 begin
   try
     SubTituloRelario := edContaCorrente.Text;
     PeriodoRelatorio := Format('Movimentos do período de %s a %s.', [e1Data.Text, e2Data.Text]);
-
-    CdsRelacaoMovimentoCaixa.Close;
-
-    with CdsRelacaoMovimentoCaixa, Params do
-    begin
-      ParamByName('empresa').AsString := IEmpresa[edEmpresa.ItemIndex];
-      ParamByName('conta').AsInteger  := IConta[edContaCorrente.ItemIndex];
-      ParamByName('data_inicial').AsDateTime := e1Data.Date;
-      ParamByName('data_final').AsDateTime   := e2Data.Date;
-    end;
+//
+//    CdsRelacaoMovimentoCaixa.Close;
+//
+//    with CdsRelacaoMovimentoCaixa, Params do
+//    begin
+//      ParamByName('empresa').AsString := IEmpresa[edEmpresa.ItemIndex];
+//      ParamByName('conta').AsInteger  := IConta[edContaCorrente.ItemIndex];
+//      ParamByName('data_inicial').AsDateTime := e1Data.Date;
+//      ParamByName('data_final').AsDateTime   := e2Data.Date;
+//    end;
   except
     On E : Exception do
     begin
@@ -254,38 +274,38 @@ begin
   try
     SubTituloRelario := edContaCorrente.Text;
     PeriodoRelatorio := Format('Consolidação no período de %s a %s.', [e1Data.Text, e2Data.Text]);
-
-    CdsRelacaoSaldoConsolidadoDia.Close;
-
-    with QryRelacaoSaldoConsolidadoDia do
-    begin
-      SQL.Clear;
-      SQL.AddStrings( FSQL_RelacaoSaldoConsolidadoDia );
-      SQL.Add('where (cx.situacao = 1)'); // Apenas movimentos ativos
-      SQL.Add('  and (cx.empresa  = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
-
-      if ( edContaCorrente.ItemIndex > 0 ) then
-        SQL.Add('  and (cx.conta_corrente = ' + IntToStr(IConta[edContaCorrente.ItemIndex]) + ')');
-
-      if StrIsDateTime(e1Data.Text) then
-        SQL.Add('  and (cast(cx.datahora as date) >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)) + ')');
-
-      if StrIsDateTime(e2Data.Text) then
-        SQL.Add('  and (cast(cx.datahora as date) <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)) + ')');
-
-      SQL.Add('');
-      SQL.Add('group by');
-      SQL.Add('    cx.conta_corrente');
-      SQL.Add('  , cc.descricao');
-      SQL.Add('  , cast(cx.datahora as date)');
-      SQL.Add('  , bb.bco_nome');
-      SQL.Add('  , bb.bco_agencia');
-      SQL.Add('  , bb.bco_cc');
-      SQL.Add(' ');
-      SQL.Add('order by');
-      SQL.Add('    cx.conta_corrente');
-      SQL.Add('  , cast(cx.datahora as date)');
-    end;
+//
+//    CdsRelacaoSaldoConsolidadoDia.Close;
+//
+//    with QryRelacaoSaldoConsolidadoDia do
+//    begin
+//      SQL.Clear;
+//      SQL.AddStrings( FSQL_RelacaoSaldoConsolidadoDia );
+//      SQL.Add('where (cx.situacao = 1)'); // Apenas movimentos ativos
+//      SQL.Add('  and (cx.empresa  = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+//
+//      if ( edContaCorrente.ItemIndex > 0 ) then
+//        SQL.Add('  and (cx.conta_corrente = ' + IntToStr(IConta[edContaCorrente.ItemIndex]) + ')');
+//
+//      if StrIsDateTime(e1Data.Text) then
+//        SQL.Add('  and (cast(cx.datahora as date) >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)) + ')');
+//
+//      if StrIsDateTime(e2Data.Text) then
+//        SQL.Add('  and (cast(cx.datahora as date) <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)) + ')');
+//
+//      SQL.Add('');
+//      SQL.Add('group by');
+//      SQL.Add('    cx.conta_corrente');
+//      SQL.Add('  , cc.descricao');
+//      SQL.Add('  , cast(cx.datahora as date)');
+//      SQL.Add('  , bb.bco_nome');
+//      SQL.Add('  , bb.bco_agencia');
+//      SQL.Add('  , bb.bco_cc');
+//      SQL.Add(' ');
+//      SQL.Add('order by');
+//      SQL.Add('    cx.conta_corrente');
+//      SQL.Add('  , cast(cx.datahora as date)');
+//    end;
   except
     On E : Exception do
     begin

@@ -103,16 +103,16 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       ExplicitWidth = 735
       ExplicitHeight = 367
       inherited Bevel8: TBevel
-        Top = 161
+        Top = 203
         Width = 735
         ExplicitTop = 161
         ExplicitWidth = 735
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 735
-        Height = 161
+        Height = 203
         ExplicitWidth = 735
-        ExplicitHeight = 161
+        ExplicitHeight = 203
         object lblNome: TLabel [1]
           Left = 88
           Top = 24
@@ -135,6 +135,20 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
           Height = 13
           Caption = 'Empresa:'
           FocusControl = dbEmpresa
+        end
+        object lblCodigoContabil: TLabel [4]
+          Left = 16
+          Top = 150
+          Width = 79
+          Height = 13
+          Caption = 'C'#243'digo Cont'#225'bil:'
+          FocusControl = dbCodigoContabil
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
@@ -267,6 +281,22 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
           TabOrder = 3
           OnButtonClick = dbBancoButtonClick
         end
+        object dbCodigoContabil: TDBEdit
+          Left = 16
+          Top = 166
+          Width = 97
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'CODIGO_CONTABIL'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 5
+        end
       end
     end
   end
@@ -302,6 +332,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       '  , cc.bco_codigo_cc'
       '  , cc.Empresa'
       '  , cc.Conta_banco_boleto'
+      '  , cc.Codigo_contabil'
       
         '  , Case when cc.Tipo = 1 then '#39'Caixa'#39' when cc.Tipo = 2 then '#39'Ba' +
         'nco'#39' else '#39#39' end Tipo_Desc'
@@ -343,6 +374,11 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       FieldName = 'CONTA_BANCO_BOLETO'
       Origin = 'TBCONTA_CORRENTE.CONTA_BANCO_BOLETO'
     end
+    object IbDtstTabelaCODIGO_CONTABIL: TIBStringField
+      DisplayLabel = 'C'#243'digo Cont'#225'bil'
+      FieldName = 'CODIGO_CONTABIL'
+      Origin = '"TBCONTA_CORRENTE"."CODIGO_CONTABIL"'
+    end
     object IbDtstTabelaEMPRESA: TIBStringField
       DisplayLabel = 'Empresa'
       FieldName = 'EMPRESA'
@@ -377,7 +413,8 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       '  TIPO,'
       '  BCO_CODIGO_CC,'
       '  CONTA_BANCO_BOLETO,'
-      '  EMPRESA'
+      '  EMPRESA,'
+      '  CODIGO_CONTABIL'
       'from TBCONTA_CORRENTE '
       'where'
       '  CODIGO = :CODIGO')
@@ -386,6 +423,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       'set'
       '  BCO_CODIGO_CC = :BCO_CODIGO_CC,'
       '  CODIGO = :CODIGO,'
+      '  CODIGO_CONTABIL = :CODIGO_CONTABIL,'
       '  CONTA_BANCO_BOLETO = :CONTA_BANCO_BOLETO,'
       '  DESCRICAO = :DESCRICAO,'
       '  EMPRESA = :EMPRESA,'
@@ -395,13 +433,14 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     InsertSQL.Strings = (
       'insert into TBCONTA_CORRENTE'
       
-        '  (BCO_CODIGO_CC, CODIGO, CONTA_BANCO_BOLETO, DESCRICAO, EMPRESA' +
-        ', TIPO)'
+        '  (BCO_CODIGO_CC, CODIGO, CODIGO_CONTABIL, CONTA_BANCO_BOLETO, D' +
+        'ESCRICAO, '
+      '   EMPRESA, TIPO)'
       'values'
       
-        '  (:BCO_CODIGO_CC, :CODIGO, :CONTA_BANCO_BOLETO, :DESCRICAO, :EM' +
-        'PRESA, '
-      '   :TIPO)')
+        '  (:BCO_CODIGO_CC, :CODIGO, :CODIGO_CONTABIL, :CONTA_BANCO_BOLET' +
+        'O, :DESCRICAO, '
+      '   :EMPRESA, :TIPO)')
     DeleteSQL.Strings = (
       'delete from TBCONTA_CORRENTE'
       'where'
@@ -411,7 +450,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

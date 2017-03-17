@@ -240,6 +240,8 @@ var
   procedure CarregarConfiguracoesEmpresa(CNPJ : String; Mensagem : String; var AssinaturaHtml, AssinaturaTXT : String);
   procedure AliquotaIcms(const UF_Origem, UF_Destino : String;
     var aAliquotaInter, aAliquotaIntra, aAliquotaST : Currency);
+  procedure AliquotaIss(const pEmpresa : String; const pUF, pCidade : Integer;
+    var aAliquotaIss, aAliquotaPis, aAliquotaConfins : Currency);
   procedure SetEmpresaIDDefault(CNPJ : String);
   procedure SetSegmento(const iCodigo : Integer; const sDescricao : String);
   procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
@@ -1378,6 +1380,28 @@ begin
     aAliquotaInter := FieldByName('aliquota_inter').AsCurrency;
     aAliquotaIntra := FieldByName('aliquota_intra').AsCurrency;
     aAliquotaST    := FieldByName('aliquota_st').AsCurrency;
+
+    Close;
+  end;
+end;
+
+procedure AliquotaIss(const pEmpresa : String; const pUF, pCidade : Integer;
+  var aAliquotaIss, aAliquotaPis, aAliquotaConfins : Currency);
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select first 1');
+    SQL.Add('    iss.aliquota_iss');
+    SQL.Add('  , iss.aliquota_pis');
+    SQL.Add('  , iss.aliquota_cofins');
+    SQL.Add('from GET_ALIQUOTA_ISS(' + QuotedStr(pEmpresa) + ', ' + IntToStr(pUF) + ', ' + IntToStr(pCidade) + ') iss');
+    Open;
+
+    aAliquotaIss     := FieldByName('aliquota_iss').AsCurrency;
+    aAliquotaPis     := FieldByName('aliquota_pis').AsCurrency;
+    aAliquotaConfins := FieldByName('aliquota_cofins').AsCurrency;
 
     Close;
   end;

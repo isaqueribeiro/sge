@@ -493,7 +493,7 @@ end;
 procedure TfrmPrinc.BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_RESULT_EXERC_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeResultadoExecicioImpressao');
+    FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);

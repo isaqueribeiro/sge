@@ -3,20 +3,23 @@ unit UGeFluxoCaixa;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, StdCtrls,
   DBClient, Provider, ACBrBase, ACBrExtenso, frxClass, frxDBSet, IBQuery,
   IBTable, JvDBControls, DBCtrls, JvExMask, JvToolEdit, Mask, Buttons,
-  ExtCtrls, Grids, DBGrids, ComCtrls, cxButtons, ToolWin, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  ExtCtrls, Grids, DBGrids, ComCtrls, cxButtons, ToolWin,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeFluxoCaixa = class(TfrmGrPadraoCadastro)
@@ -956,57 +959,64 @@ begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
 
-  Data := e1Data.Date;
-  // O saldo é recalculado apenas para o período máximo de 30 dias
-  if ( (e2Data.Date - Data) > 30 ) then
-    Data := e2Data.Date - 30;
+  try
+    WaitAMoment(WAIT_AMOMENT_PrintPrepare);
 
-  while Data <= e2Data.Date do
-  begin
-    GerarSaldoContaCorrente(IbDtstTabela.FieldByName('CONTA_CORRENTE').AsInteger, Data);
-    Data := Data + 1;
-  end;
+    Data := e1Data.Date;
+    // O saldo é recalculado apenas para o período máximo de 30 dias
+    if ( (e2Data.Date - Data) > 30 ) then
+      Data := e2Data.Date - 30;
 
-  with DMNFe do
-  begin
-
-    with qryEmitente do
+    while Data <= e2Data.Date do
     begin
-      Close;
-      ParamByName('Cnpj').AsString := gUsuarioLogado.Empresa;
-      Open;
+      GerarSaldoContaCorrente(IbDtstTabela.FieldByName('CONTA_CORRENTE').AsInteger, Data);
+      Data := Data + 1;
     end;
 
-    with qryFluxoSaldos do
+    with DMNFe do
     begin
-      Close;
-      ParamByName('Conta').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
-      ParamByName('DataInicial').AsDateTime  := e1Data.Date;
-      ParamByName('DataFinal').AsDateTime    := e2Data.Date;
-      Open;
+
+      with qryEmitente do
+      begin
+        Close;
+        ParamByName('Cnpj').AsString := gUsuarioLogado.Empresa;
+        Open;
+      end;
+
+      with qryFluxoSaldos do
+      begin
+        Close;
+        ParamByName('Conta').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
+        ParamByName('DataInicial').AsDateTime  := e1Data.Date;
+        ParamByName('DataFinal').AsDateTime    := e2Data.Date;
+        Open;
+      end;
+
+      with qryFluxoSintetico do
+      begin
+        Close;
+        ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
+        ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
+        ParamByName('Data_Final').AsDateTime    := e2Data.Date;
+        Open;
+      end;
+
+      with qryFluxoAnalitico do
+      begin
+        Close;
+        ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
+        ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
+        ParamByName('Data_Final').AsDateTime    := e2Data.Date;
+        Open;
+      end;
+
+      WaitAMomentFree;
+      if ( not qryFluxoAnalitico.IsEmpty ) then
+        frrFluxoAnalitico.ShowReport;
+
     end;
-
-    with qryFluxoSintetico do
-    begin
-      Close;
-      ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
-      ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
-      ParamByName('Data_Final').AsDateTime    := e2Data.Date;
-      Open;
-    end;
-
-    with qryFluxoAnalitico do
-    begin
-      Close;
-      ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
-      ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
-      ParamByName('Data_Final').AsDateTime    := e2Data.Date;
-      Open;
-    end;
-
-    if ( not qryFluxoAnalitico.IsEmpty ) then
-      frrFluxoAnalitico.ShowReport;
-
+  finally
+    WaitAMomentFree;
   end;
 end;
 

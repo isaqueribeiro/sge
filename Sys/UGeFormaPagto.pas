@@ -3,18 +3,26 @@ unit UGeFormaPagto;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, DBClient, Provider, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeFormaPagto = class(TfrmGrPadraoCadastro)
@@ -25,33 +33,29 @@ type
     IbDtstTabelaCOD: TSmallintField;
     IbDtstTabelaDESCRI: TIBStringField;
     IbDtstTabelaACRESCIMO: TFloatField;
-    lblContaCorrente: TLabel;
-    dbContaCorrente: TDBLookupComboBox;
-    tblContaCorrente: TIBTable;
-    dtsContaCorrente: TDataSource;
-    IbDtstTabelaCONTA_CORRENTE: TIntegerField;
-    IbDtstTabelaLkp_ContaCorrente: TStringField;
     dbDecrementarLimite: TDBCheckBox;
     IbDtstTabelaDEBITAR_LIMITE_CLIENTE: TSmallintField;
     lblFormaPagtoNCFe: TLabel;
     dbFormaPagtoNCFe: TDBLookupComboBox;
-    tblFormaPagtoNCFe: TIBTable;
     dtsFormaPagtoNCFe: TDataSource;
     IbDtstTabelaFORMAPAGTO_NFCE: TIBStringField;
     IbDtstTabelaFORMAPAGTO_PDV: TSmallintField;
     dbFormaPagtoPDV: TDBCheckBox;
-    qryContaCorrenteLista: TIBDataSet;
     dbgContaCorrente: TDBGrid;
     dtsContaCorrenteLista: TDataSource;
     dspContaCorrenteLista: TDataSetProvider;
     cdsContaCorrenteLista: TClientDataSet;
     cdsContaCorrenteListaSELECIONAR: TIntegerField;
-    cdsContaCorrenteListaCODIGO: TIntegerField;
     IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField;
     dbFormaPagtoPDVRelatorio: TDBCheckBox;
-    cdsContaCorrenteListaDESCRICAO: TWideStringField;
-    cdsContaCorrenteListaTIPO: TWideStringField;
-    cdsContaCorrenteListaRZSOC: TWideStringField;
+    IbDtstTabelaATIVA: TSmallintField;
+    dbAtiva: TDBCheckBox;
+    fdQryFormaPagtoNCFe: TFDQuery;
+    fdQryContaCorrenteLista: TFDQuery;
+    cdsContaCorrenteListaCODIGO: TIntegerField;
+    cdsContaCorrenteListaDESCRICAO: TStringField;
+    cdsContaCorrenteListaTIPO: TStringField;
+    cdsContaCorrenteListaRZSOC: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
@@ -71,6 +75,20 @@ type
     { Public declarations }
     procedure GravarRelacaoFormaConta;
   end;
+
+(*
+  Tabelas:
+  - TBFORMPAGTO
+  - TBCONTA_CORRENTE
+  - TBEMPRESA
+  - TBFORMPAGTO_CONTACOR
+
+  Views:
+  - VW_FORMA_PAGTO_NFC_E
+
+  Procedures:
+
+*)
 
 var
   frmGeFormaPagto: TfrmGeFormaPagto;
@@ -155,8 +173,7 @@ end;
 procedure TfrmGeFormaPagto.FormCreate(Sender: TObject);
 begin
   inherited;
-  tblContaCorrente.Open;
-  tblFormaPagtoNCFe.Open;
+  CarregarLista(fdQryFormaPagtoNCFe);
 
   RotinaID         := ROTINA_CAD_FORMA_PAGTO_ID;
   ControlFirstEdit := dbNome;
@@ -184,11 +201,11 @@ begin
   inherited;
   IbDtstTabelaCOD.Value       := GetNextID(NomeTabela, CampoCodigo);
   IbDtstTabelaACRESCIMO.Value := 0;
+  IbDtstTabelaATIVA.AsInteger := 1;
   IbDtstTabelaDEBITAR_LIMITE_CLIENTE.Value := 1;
   IbDtstTabelaFORMAPAGTO_PDV.Value         := 0;
   IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA.Value := 0;
   IbDtstTabelaFORMAPAGTO_NFCE.Clear;
-  IbDtstTabelaCONTA_CORRENTE.Clear;
 end;
 
 procedure TfrmGeFormaPagto.IbDtstTabelaAfterScroll(DataSet: TDataSet);
@@ -246,6 +263,7 @@ begin
     Rotina que permite a gravação de várias contas correntes para a mesma forma de pagamento.
 *)
   cdsContaCorrenteLista.First;
+  cdsContaCorrenteLista.DisableControls;
   while not cdsContaCorrenteLista.Eof do
   begin
     if cdsContaCorrenteListaSELECIONAR.AsInteger = 1 then
@@ -269,6 +287,7 @@ begin
     cdsContaCorrenteLista.Next;
   end;
   cdsContaCorrenteLista.First;
+  cdsContaCorrenteLista.EnableControls;
 end;
 
 procedure TfrmGeFormaPagto.btbtnSalvarClick(Sender: TObject);

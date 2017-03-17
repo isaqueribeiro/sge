@@ -1380,6 +1380,8 @@ begin
   IbDtstTabelaPRODUTO_IMOBILIZADO.Value    := 0;
   IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
   IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := 0;
+
+  DtSrcTabelaDataChange(DtSrcTabela, IbDtstTabelaALIQUOTA_TIPO);
 end;
 
 procedure TfrmGeProduto.FormShow(Sender: TObject);
@@ -1655,6 +1657,9 @@ end;
 procedure TfrmGeProduto.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 var
+  cAliquotaIss   ,
+  cAliquotaPis   ,
+  cAliquotaCofins,
   cAliquotaIcmsInter,
   cAliquotaIcmsIntra,
   cAliquotaIcmsST   : Currency;
@@ -1668,13 +1673,25 @@ begin
     begin
       if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
       begin
+        cAliquotaIss    := 0.0;
+        cAliquotaPis    := 0.0;
+        cAliquotaCofins := 0.0;
+        AliquotaIss(gUsuarioLogado.Empresa, 0, 0
+          , cAliquotaIss
+          , cAliquotaPis
+          , cAliquotaCofins);
         IbDtstTabelaPRODUTO_NOVO.AsInteger        := 0;
         IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger   := 0;
         IbDtstTabelaPRODUTO_IMOBILIZADO.AsInteger := 0;
         IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger  := 0;
+        IbDtstTabelaALIQUOTA.AsCurrency           := cAliquotaIss;
+        IbDtstTabelaALIQUOTA_CSOSN.AsCurrency     := cAliquotaIss;
       end
       else
       begin
+        cAliquotaIcmsInter := 0.0;
+        cAliquotaIcmsIntra := 0.0;
+        cAliquotaIcmsST    := 0.0;
         AliquotaIcms(GetEmpresaUF(gUsuarioLogado.Empresa), GetEmpresaUF(gUsuarioLogado.Empresa)
           , cAliquotaIcmsInter
           , cAliquotaIcmsIntra
@@ -1811,12 +1828,18 @@ begin
     if (IbDtstTabelaTABELA_IBPT.AsInteger = 0) then
       IbDtstTabelaTABELA_IBPT.Clear;
 
-    //if ( Length(Trim(IbDtstTabelaNCM_SH.AsString)) < STR_TAMANHO_NCMSH ) then
-    //begin
-    //  ShowWarning('Favor informar um código válido para o campo "NCM/SH"!');
-    //  Exit;
-    //end
-    //else
+    if ( ((IbDtstTabelaALIQUOTA.AsCurrency < 0) and (IbDtstTabelaALIQUOTA.AsCurrency > 100)) or ((IbDtstTabelaALIQUOTA_CSOSN.AsCurrency < 0) and (IbDtstTabelaALIQUOTA_CSOSN.AsCurrency > 100)) ) then
+    begin
+      ShowWarning('Percentual de alíquota fora da faixa permitida');
+      Exit;
+    end
+    else
+    if ( ((IbDtstTabelaALIQUOTA_PIS.AsCurrency < 0) and (IbDtstTabelaALIQUOTA_PIS.AsCurrency > 100)) or ((IbDtstTabelaALIQUOTA_COFINS.AsCurrency < 0) and (IbDtstTabelaALIQUOTA_COFINS.AsCurrency > 100)) ) then
+    begin
+      ShowWarning('Percentual de alíquota Pis/Confis fora da faixa permitida');
+      Exit;
+    end
+    else
     if ( IbDtstTabelaFRACIONADOR.AsInteger = 1 ) then
     begin
       if ( IbDtstTabelaCODUNIDADE.AsInteger <> IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger ) then
