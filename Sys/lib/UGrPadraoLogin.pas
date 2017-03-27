@@ -66,6 +66,16 @@ type
     function EfetuarLogin : Boolean; //virtual; abstract;
   end;
 
+(*
+  Tabelas:
+  - TBEMPRESA
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGrPadraoLogin: TfrmGrPadraoLogin;
 

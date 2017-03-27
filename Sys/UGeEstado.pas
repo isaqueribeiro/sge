@@ -35,6 +35,16 @@ type
     function SelecionarRegistro(var Codigo : Integer; var Descricao, UF : String) : Boolean; overload;
   end;
 
+(*
+  Tabelas:
+  - TBESTADO
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeEstado: TfrmGeEstado;
 
