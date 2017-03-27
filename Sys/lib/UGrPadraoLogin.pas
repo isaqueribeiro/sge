@@ -9,19 +9,12 @@ uses
   cxLookAndFeelPainters, Menus, cxButtons, cxControls, cxContainer, cxEdit,
   cxLabel, cxMaskEdit, cxDropDownEdit, cxTextEdit,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinBlack, dxSkinBlue, dxSkinCaramel,
-  dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy,
-  dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
-  dxSkinLondonLiquidSky, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
-  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
-  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrPadraoLogin = class(TfrmGrPadrao)
@@ -30,9 +23,6 @@ type
     lblSystemVersion: TLabel;
     BvlSystemBanner: TBevel;
     ShpLogo: TShape;
-    QryEmpresa: TIBQuery;
-    QryEmpresaCNPJ: TIBStringField;
-    QryEmpresaNMFANT: TIBStringField;
     pnlMensagem: TLabel;
     BtnFechar: TSpeedButton;
     ImgBackgroud: TImage;
@@ -44,6 +34,7 @@ type
     lblSenha: TcxLabel;
     lblEmpresa: TcxLabel;
     lblSystemName: TcxLabel;
+    fdQryEmpresa: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure BtnFecharClick(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
@@ -137,19 +128,19 @@ procedure TfrmGrPadraoLogin.CarregarEmpresa;
 begin
   edEmpresa.Properties.Items.Clear;
 
-  QryEmpresa.Open;
-  QryEmpresa.Last;
+  fdQryEmpresa.Open;
+  fdQryEmpresa.Last;
 
-  SetLength(fCNPJ, QryEmpresa.RecordCount);
-  QryEmpresa.First;
-  while not QryEmpresa.Eof do
+  SetLength(fCNPJ, fdQryEmpresa.RecordCount);
+  fdQryEmpresa.First;
+  while not fdQryEmpresa.Eof do
   begin
-    edEmpresa.Properties.Items.Add(QryEmpresaNMFANT.AsString);
-    fCNPJ[ edEmpresa.Properties.Items.Count - 1 ] := QryEmpresaCNPJ.AsString;
+    edEmpresa.Properties.Items.Add(fdQryEmpresa.FieldByName('nmfant').AsString);
+    fCNPJ[ edEmpresa.Properties.Items.Count - 1 ] := fdQryEmpresa.FieldByName('cnpj').AsString;
 
-    QryEmpresa.Next;
+    fdQryEmpresa.Next;
   end;
-  QryEmpresa.Close;
+  fdQryEmpresa.Close;
 end;
 
 function TfrmGrPadraoLogin.GetEmpresa: String;

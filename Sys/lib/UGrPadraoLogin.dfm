@@ -319,26 +319,16 @@ inherited frmGrPadraoLogin: TfrmGrPadraoLogin
     Style.IsFontAssigned = True
     Transparent = True
   end
-  object QryEmpresa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
-      'Select CNPJ, NMFANT from TBEMPRESA')
-    Left = 136
-    Top = 216
-    object QryEmpresaCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = 'TBEMPRESA.CNPJ'
-      Required = True
-      Size = 18
-    end
-    object QryEmpresaNMFANT: TIBStringField
-      FieldName = 'NMFANT'
-      Origin = 'TBEMPRESA.NMFANT'
-      Size = 25
-    end
+      'Select'
+      '    e.cnpj'
+      '  , coalesce(nullif(trim(e.nmfant), '#39#39'), e.rzsoc) as nmfant'
+      'from TBEMPRESA e')
+    Left = 32
+    Top = 224
   end
 end
