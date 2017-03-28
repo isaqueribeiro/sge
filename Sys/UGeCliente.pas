@@ -3,8 +3,10 @@ unit UGeCliente;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, IBQuery, Menus, JPEG,
   UObserverInterface, UCliente, ACBrBase, ACBrSocket, ACBrConsultaCNPJ,
@@ -303,6 +305,7 @@ type
     fdQryTitulosSERIE: TStringField;
     fdQryTitulosNFE: TLargeintField;
     fdQryTitulosNFE_SERIE: TStringField;
+    imgAjuda: TImage;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -348,6 +351,7 @@ type
     procedure CmbBxFiltrarTipoKeyPress(Sender: TObject; var Key: Char);
     procedure fdQryTitulosSITUACAOGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure imgAjudaClick(Sender: TObject);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -584,7 +588,13 @@ begin
     dbValorLimiteCompra.Enabled := False;
 
   tbsEstoqueSatelite.TabVisible := False;
-  GrpBxCustosOper.Enabled       := GetCalcularCustoOperEmpresa(gUsuarioLogado.Empresa);
+  dbCustoOperacional.Enabled    := GetCalcularCustoOperEmpresa(gUsuarioLogado.Empresa);
+
+  lblFrete.Enabled  := dbCustoOperacional.Enabled;
+  dbFrete.Enabled   := dbCustoOperacional.Enabled;
+  lblOutros.Enabled := dbCustoOperacional.Enabled;
+  dbOutros.Enabled  := dbCustoOperacional.Enabled;
+
   dbEntregaFracionada.ReadOnly  := not GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
 
   tbsDadosAdcionais.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
@@ -753,6 +763,18 @@ begin
   IbDtstTabelaOBSERVACAO.Clear;
 
   GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
+end;
+
+procedure TfrmGeCliente.imgAjudaClick(Sender: TObject);
+var
+  sMsg : String;
+begin
+  sMsg := 'Informações importantes para a geração de custos operacionais.' + #13 +
+    '---' + #13#13 +
+    '1. Estes campos são liberados através da rotina "Configurar Empresa";' + #13 +
+    '2. O custo operacional está ligado diretamente aos gastos estimados para a entrega dos produtos vendidos ao cliente.';
+
+  ShowInformation(Self.Caption, sMsg);
 end;
 
 procedure TfrmGeCliente.DtSrcTabelaStateChange(Sender: TObject);
