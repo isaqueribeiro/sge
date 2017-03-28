@@ -3,19 +3,20 @@ unit UGeProduto;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, Menus, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit,
-  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver;
+  JvDBControls,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TAliquota = (taICMS, taISS);
@@ -79,7 +80,6 @@ type
     dbDescricao: TDBEdit;
     lblReferencia: TLabel;
     dbReferencia: TDBEdit;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblModelo: TLabel;
     dbModelo: TDBEdit;
@@ -345,6 +345,7 @@ type
     dbPercentualMargem: TDBEdit;
     qryTributacaoNM: TIBDataSet;
     qryTributacaoSN: TIBDataSet;
+    fdQryEmpresa: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -1076,7 +1077,7 @@ begin
   fApenasProdutos := False;
   fApenasServicos := False;
 
-  CarregarLista(tblEmpresa);
+  CarregarLista(fdQryEmpresa);
   CarregarLista(tblOrigem);
   CarregarLista(qryTributacaoNM);
   CarregarLista(qryTributacaoSN);
@@ -1129,6 +1130,7 @@ begin
   nmProdutoLista.Caption    := 'Lista de ' + StrDescricaoProduto;
   nmProdutoFicha.Caption    := 'Ficha de ' + StrDescricaoProduto;
   nmProdutoEtiqueta.Caption := 'Etiqueta de ' + StrDescricaoProduto;
+  dbProdutoPorLote.Caption  := IfThen(gSistema.Codigo = SISTEMA_GESTAO_IND, 'Estoque Apropriado por Lote', 'Gerenciar Estoque por Lote');
 
   lblProdutoPromocao.Caption   := Format('* %s em Promoção', [StrDescricaoProduto]);
   lblProdutoSemEstoque.Caption := Format('* %s sem Estoque', [StrDescricaoProduto]);
@@ -1318,8 +1320,8 @@ begin
   IbDtstTabelaCODEMP.Value := gUsuarioLogado.Empresa;
 
   if Trim(IbDtstTabelaCODEMP.AsString) = EmptyStr then
-    if ( not tblEmpresa.IsEmpty ) then
-      IbDtstTabelaCODEMP.Value := tblEmpresa.FieldByName('CNPJ').AsString;
+    if ( not fdQryEmpresa.IsEmpty ) then
+      IbDtstTabelaCODEMP.Value := fdQryEmpresa.FieldByName('cnpj').AsString;
 
   if ( not tblOrigem.IsEmpty ) then
     IbDtstTabelaCODORIGEM.Value := TRIBUTO_ORIGEM_NACIONAL; // tblOrigem.FieldByName('ORP_COD').AsString;

@@ -30,11 +30,24 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
           end
           item
             Expanded = False
-            Width = -1
             Visible = False
           end>
       end
       inherited pnlFiltros: TPanel
+        object lblRegistroDesativado: TLabel [0]
+          Left = 2
+          Top = 44
+          Width = 197
+          Height = 13
+          Caption = '* Forma de Pagamento desativada'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 7303023
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
         inherited grpBxFiltro: TGroupBox
           Left = 401
           Width = 322
@@ -411,7 +424,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     Left = 560
     Top = 200
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -724,3 +724,104 @@ Historico:
 CREATE INDEX IDX_TBCONTA_CORRENTE_COD_CC
 ON TBCONTA_CORRENTE (CODIGO_CONTABIL);
 
+
+
+
+/*------ SYSDBA 28/03/2017 12:12:24 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.ESTOQUE_APROP_LOTE IS
+'Produto com Estoque Apropriado gerenciado por Lotes (SGI):
+0 - Nao
+1 - Sim
+
+Produto com Estoque gerenciado por Lotes (SGE):
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 28/03/2017 12:18:08 --------*/
+
+create view vw_empresa (codigo, cnpj, razao, fantasia)
+as
+Select 
+    e.codigo
+  , e.cnpj
+  , e.rzsoc as razao
+  , coalesce(nullif(trim(e.nmfant), ''), e.rzsoc) as fantasia
+from TBEMPRESA e
+order by
+    4 -- Fantasia;
+
+
+
+
+/*------ SYSDBA 28/03/2017 12:19:41 --------*/
+
+CREATE OR ALTER VIEW vw_empresa (codigo, cnpj, razao, fantasia)
+as
+Select 
+    e.codigo
+  , e.cnpj
+  , e.rzsoc as razao
+  , coalesce(nullif(trim(e.nmfant), ''), e.rzsoc) as fantasia
+from TBEMPRESA e
+order by
+    4 -- Fantasia;
+
+COMMENT ON VIEW VW_EMPRESA IS 'View Empresa
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   28/03/2017
+
+View responsavel por listar de forma padronizada a relacao de empresa cadastradas
+no sistema.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    17/05/2016 - IMR :
+        * Criacao da view.';
+
+
+
+
+/*------ SYSDBA 28/03/2017 14:33:19 --------*/
+
+CREATE OR ALTER VIEW vw_empresa (codigo, cnpj, razao, fantasia)
+as
+Select 
+    e.codigo
+  , e.cnpj
+  , e.rzsoc as razao
+  , coalesce(nullif(trim(e.nmfant), ''), e.rzsoc) as fantasia
+from TBEMPRESA e
+order by
+    4 -- Fantasia;
+
+COMMENT ON VIEW VW_EMPRESA IS 'View Empresa
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   28/03/2017
+
+View responsavel por listar de forma padronizada a relacao de empresa cadastradas
+no sistema.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    28/03/2017 - IMR :
+        * Criacao da view.';
+
+GRANT ALL ON VW_EMPRESA TO "PUBLIC";

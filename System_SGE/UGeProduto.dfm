@@ -747,7 +747,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = tbsTributacao
+        ActivePage = tbsValores
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -2613,7 +2613,7 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 0
@@ -3774,7 +3774,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5233,18 +5233,8 @@ inherited frmGeProduto: TfrmGeProduto
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 576
-    Top = 416
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 608
     Top = 416
   end
@@ -5698,5 +5688,21 @@ inherited frmGeProduto: TfrmGeProduto
     UniDirectional = False
     Left = 640
     Top = 448
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    e.codigo'
+      '  , e.cnpj'
+      '  , e.rzsoc as razao'
+      '  , coalesce(nullif(trim(e.nmfant), '#39#39'), e.rzsoc) as fantasia'
+      'from TBEMPRESA e'
+      'order by'
+      '    4 -- Fantasia')
+    Left = 576
+    Top = 416
   end
 end

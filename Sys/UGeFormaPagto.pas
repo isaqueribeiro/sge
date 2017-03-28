@@ -56,6 +56,7 @@ type
     cdsContaCorrenteListaDESCRICAO: TStringField;
     cdsContaCorrenteListaTIPO: TStringField;
     cdsContaCorrenteListaRZSOC: TStringField;
+    lblRegistroDesativado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
@@ -68,6 +69,8 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     procedure CarregarContaCorrente;
@@ -233,6 +236,17 @@ procedure TfrmGeFormaPagto.dbgContaCorrenteKeyDown(Sender: TObject;
 begin
   if ( Key = VK_SPACE ) then
     dbgContaCorrenteDblClick(Sender);
+end;
+
+procedure TfrmGeFormaPagto.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  // Destacar formas de pagamentos desativados
+  if ( IbDtstTabelaATIVA.AsInteger = 0 ) then
+    dbgDados.Canvas.Font.Color := lblRegistroDesativado.Font.Color;
+
+  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
 end;
 
 procedure TfrmGeFormaPagto.DtSrcTabelaStateChange(Sender: TObject);
