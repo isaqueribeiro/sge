@@ -590,6 +590,7 @@ begin
     para "LOTE_NFE_RECIBO"
 *)
   Desativar_Promocoes;
+  SetTipoReceitaPadrao;
 
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
   

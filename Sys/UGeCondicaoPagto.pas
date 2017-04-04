@@ -170,12 +170,15 @@ begin
 end;
 
 procedure TfrmGeCondicaoPagto.FormCreate(Sender: TObject);
+var
+  I ,
+  X : SmallInt;
 begin
   inherited;
   RotinaID            := ROTINA_CAD_CONDICAO_PAGTO_ID;
   ControlFirstEdit    := dbNome;
   DisplayFormatCodigo := '000';
-  
+
   NomeTabela     := 'TBCONDICAOPAGTO';
   CampoCodigo    := 'Cond_cod';
   CampoDescricao := 'Cond_descricao';
@@ -195,6 +198,12 @@ begin
   dbCondicaoPagtoPDV.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]);
   if not dbCondicaoPagtoPDV.Visible then
     GrpBxDadosNominais.Height := 153;
+
+  for I := -1 to 1 do
+  begin
+    X := StrToInt(FormatDateTime('YYYY', Date)) + I;
+    GerarCompetencias( X );
+  end;
 end;
 
 procedure TfrmGeCondicaoPagto.DtSrcTabelaDataChange(Sender: TObject;

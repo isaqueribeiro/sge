@@ -3,8 +3,10 @@ unit UGeClienteImpressao;
 interface
 
 uses
+  UGrPadraoImpressao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   Buttons, ComCtrls, frxClass, DB, IBCustomDataSet, IBQuery,
   DBClient, Provider, frxDBSet, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,

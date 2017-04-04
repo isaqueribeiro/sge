@@ -307,6 +307,7 @@ end;
 
 procedure TfrmGeContasAReceber.FormCreate(Sender: TObject);
 begin
+  SetTipoReceitaPadrao;
   IbDtstTabela.GeneratorField.Generator := 'GEN_CONTAREC_NUM_' + FormatFloat('0000', YearOf(Date));
 
   inherited;

@@ -200,6 +200,7 @@ var
   procedure BloquearClientes;
   procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
+  procedure GerarCompetencias(const pAno : Smallint);
   procedure RegistrarEmpresa;
   procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
   procedure RegistrarCaixaNaVenda(const AnoVenda, NumVenda, AnoCaixa, NumCaixa : Integer; const IsPDV : Boolean);
@@ -220,6 +221,9 @@ var
   procedure SetAtulizarCustoEstoqueAlmoxarifado(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueRequisicao(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueInventario(const aData : TDateTime);
+  procedure SetCentroCustoGeral(const aEmpresa : String);
+  procedure SetTipoDespesaPadrao;
+  procedure SetTipoReceitaPadrao;
 
   procedure CarregarListaDB(const pDataSet : TDataSet);
 
@@ -1113,6 +1117,24 @@ begin
   end;
 end;
 
+procedure GerarCompetencias(const pAno: Smallint);
+var
+  I : Integer;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    for I := 1 to 12 do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Execute Procedure SET_COMPETENCIA(' + Copy(IntToStr(pAno), 1, 4) + FormatFloat('00', I) + ', null)');
+      ExecSQL;
+    end;
+
+    CommitTransaction;
+  end;
+end;
+
 procedure RegistrarEmpresa;
 var
   bRegistrada : Boolean;
@@ -1557,6 +1579,150 @@ begin
     begin
       ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
       ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetCentroCustoGeral(const aEmpresa : String);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable cc Integer;');
+      SQL.Add('  declare variable ep varchar(18);');
+      SQL.Add('begin');
+      SQL.Add('  cc = 1;');
+      SQL.Add('  ep = ' + QuotedStr(aEmpresa) + '; ');
+
+      SQL.Add('  /* Cadastrar Centro de Custo 1 */');
+
+      SQL.Add('  if (not exists(');
+      SQL.Add('    Select');
+      SQL.Add('      c.descricao');
+      SQL.Add('    from TBCENTRO_CUSTO c');
+      SQL.Add('    where c.codigo = :cc');
+      SQL.Add('  )) then');
+      SQL.Add('  begin');
+      SQL.Add('    Insert into TBCENTRO_CUSTO');
+      SQL.Add('    values (');
+      SQL.Add('        :cc');
+      SQL.Add('      , ' + QuotedStr('ESTOQUE GERAL') + ' ');
+      SQL.Add('      , 1');
+      SQL.Add('      , null');
+      SQL.Add('    );');
+      SQL.Add('  end');
+
+      SQL.Add('  /* Associar Centro de Custo 1 a Empresa */');
+
+      SQL.Add('  if (not exists(');
+      SQL.Add('    Select');
+      SQL.Add('      ce.centro_custo');
+      SQL.Add('    from TBCENTRO_CUSTO_EMPRESA ce');
+      SQL.Add('    where ce.centro_custo = :cc');
+      SQL.Add('      and ce.empresa      = :ep');
+      SQL.Add('  )) then');
+      SQL.Add('  begin');
+      SQL.Add('    Insert Into TBCENTRO_CUSTO_EMPRESA');
+      SQL.Add('    values (');
+      SQL.Add('        :cc');
+      SQL.Add('      , :ep');
+      SQL.Add('    );');
+      SQL.Add('  end');
+      SQL.Add('end');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetTipoDespesaPadrao;
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable cd Integer;');
+      SQL.Add('begin');
+      SQL.Add('  cd = 1;');
+
+      SQL.Add('  if (not exists(');
+      SQL.Add('    Select');
+      SQL.Add('      d.tipodesp');
+      SQL.Add('    from TBTPDESPESA d');
+      SQL.Add('    where d.cod = :cd');
+      SQL.Add('  )) then');
+      SQL.Add('  begin');
+      SQL.Add('    Insert into TBTPDESPESA');
+      SQL.Add('    values (');
+      SQL.Add('        :cd');
+      SQL.Add('      , 0'); // A Definir
+      SQL.Add('      , ' + QuotedStr('ENTRADAS EM GERAL') + ' ');
+      SQL.Add('      , 0');
+      SQL.Add('      , null'); // Plano de Contas
+      SQL.Add('      , 1');
+      SQL.Add('    );');
+      SQL.Add('  end');
+      SQL.Add('end');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetTipoReceitaPadrao;
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable cd Integer;');
+      SQL.Add('begin');
+      SQL.Add('  cd = 1;');
+
+      SQL.Add('  if (not exists(');
+      SQL.Add('    Select');
+      SQL.Add('      r.tiporec');
+      SQL.Add('    from TBTPRECEITA r');
+      SQL.Add('    where r.cod = :cd');
+      SQL.Add('  )) then');
+      SQL.Add('  begin');
+      SQL.Add('    Insert into TBTPRECEITA');
+      SQL.Add('    values (');
+      SQL.Add('        :cd');
+      SQL.Add('      , ' + QuotedStr('SAÍDAS EM GERAL') + ' ');
+      SQL.Add('      , 0');
+      SQL.Add('      , null'); // Plano de Contas
+      SQL.Add('      , 1');
+      SQL.Add('    );');
+      SQL.Add('  end');
+      SQL.Add('end');
+      ExecSQL;
+
       CommitTransaction;
     end;
   finally
@@ -4075,6 +4241,7 @@ begin
     SetSegmento(SEGMENTO_INDUSTRIA_GERAL_ID, SEGMENTO_INDUSTRIA_GERAL_DS);
 
     RegistrarEmpresa;
+    GerarCompetencias( StrToInt(Copy(IntToStr(gLicencaSistema.Competencia), 1, 4)) );
   finally
     ini.Free;
     Arquivo.Free;
@@ -4085,6 +4252,9 @@ begin
 end;
 
 procedure TDMBusiness.DataModuleCreate(Sender: TObject);
+var
+  I ,
+  X : Integer;
 begin
   gSistema.Codigo := SISTEMA_GESTAO_COM;
   gSistema.Nome   := Application.Title;
@@ -4101,12 +4271,6 @@ begin
       Params.Add('password='  + DB_USER_PASSWORD);
       Params.Add('lc_ctype='  + DB_LC_CTYPE);
       Connected := True;
-
-//      if ( Connected ) then
-//      begin
-//        ibdtstUsers.Open;
-//        ibqryEmpresa.Open;
-//      end;
     end;
 
     // Conexão FireDAC
@@ -4163,6 +4327,11 @@ begin
     except
     end;
 
+    for I := -2 to 2 do
+    begin
+      X := StrToInt(FormatDateTime('YYYY', Date)) + I;
+      GerarCompetencias( X );
+    end;
   except
     On E : Exception do
       ShowError('Erro ao tentar conectar no Servidor/Base.' + #13#13 + E.Message);

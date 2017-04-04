@@ -278,6 +278,7 @@ end;
 
 procedure TfrmGeContasAPagar.FormCreate(Sender: TObject);
 begin
+  SetTipoDespesaPadrao;
   IbDtstTabela.GeneratorField.Generator := 'GEN_CONTAPAG_NUM_' + FormatFloat('0000', YearOf(Date));
 
   inherited;

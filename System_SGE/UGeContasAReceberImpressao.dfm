@@ -8906,9 +8906,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 257.008040000000000000
+          Left = 287.244280000000000000
           Top = 18.897650000000000000
-          Width = 461.102660000000000000
+          Width = 430.866420000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8927,9 +8927,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
-          Left = 309.921460000000000000
+          Left = 340.157700000000000000
           Top = 37.795300000000000000
-          Width = 102.047236770000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8949,9 +8949,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
-          Left = 514.016080000000000000
+          Left = 529.134200000000000000
           Top = 37.795300000000000000
-          Width = 102.047236770000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8971,9 +8971,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
-          Left = 616.063390000000000000
+          Left = 623.622450000000000000
           Top = 37.795300000000000000
-          Width = 102.047310000000000000
+          Width = 94.488250000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8995,7 +8995,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         object Memo22: TfrxMemoView
           Left = 83.149660000000000000
           Top = 18.897650000000000000
-          Width = 173.858316540000000000
+          Width = 204.094556540000000000
           Height = 37.795300000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9015,9 +9015,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
-          Left = 411.968770000000000000
+          Left = 434.645950000000000000
           Top = 37.795300000000000000
-          Width = 102.047236770000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9037,7 +9037,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
-          Left = 257.008040000000000000
+          Left = 287.244280000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
           Height = 18.897650000000000000
@@ -9094,8 +9094,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
-          Left = 616.063390000000000000
-          Width = 102.047310000000000000
+          Left = 623.622450000000000000
+          Width = 94.488250000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -9150,8 +9150,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
-          Left = 309.921460000000000000
-          Width = 102.047246540000000000
+          Left = 340.157700000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -9178,8 +9178,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
-          Left = 411.968770000000000000
-          Width = 102.047310000000000000
+          Left = 434.645950000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -9208,8 +9208,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
-          Left = 514.016080000000000000
-          Width = 102.047246540000000000
+          Left = 529.134200000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -9239,7 +9239,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
         object Memo17: TfrxMemoView
           Left = 86.929190000000000000
-          Width = 170.078850000000000000
+          Width = 200.315090000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -9264,7 +9264,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
-          Left = 257.008040000000000000
+          Left = 287.244280000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -9298,8 +9298,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
-          Left = 616.063390000000000000
-          Width = 102.047310000000000000
+          Left = 623.622450000000000000
+          Width = 94.488250000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
@@ -9316,8 +9316,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
-          Left = 514.016080000000000000
-          Width = 102.047310000000000000
+          Left = 529.134200000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -9336,8 +9336,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
-          Left = 411.968770000000000000
-          Width = 102.047310000000000000
+          Left = 434.645950000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -9356,8 +9356,8 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
-          Left = 309.921460000000000000
-          Width = 102.047310000000000000
+          Left = 340.157700000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -9376,7 +9376,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
-          Left = 257.008040000000000000
+          Left = 287.244280000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET

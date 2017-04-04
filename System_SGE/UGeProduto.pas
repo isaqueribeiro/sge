@@ -1276,6 +1276,14 @@ begin
 
   if ( Trim(IbDtstTabelaNOME_AMIGO.AsString) = EmptyStr ) then
     IbDtstTabelaNOME_AMIGO.AsString := Copy(Trim(Trim(IbDtstTabelaDESCRI.AsString) + ' ' + Trim(IbDtstTabelaAPRESENTACAO.AsString)), 1, IbDtstTabelaNOME_AMIGO.Size);
+
+  // Gerar Centro de Custo Geral para armazanamento dos Lotes do produto
+  if (IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger = 1) and (gSistema.Codigo = SISTEMA_GESTAO_COM) then
+  begin
+    SetCentroCustoGeral(IbDtstTabelaCODEMP.AsString);
+    if (IbDtstTabelaCODEMP.AsString <> gUsuarioLogado.Empresa) then
+      SetCentroCustoGeral(gUsuarioLogado.Empresa);
+  end;
 end;
 
 procedure TfrmGeProduto.dbUnidadeButtonClick(Sender: TObject);

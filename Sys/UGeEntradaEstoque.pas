@@ -652,6 +652,8 @@ procedure TfrmGeEntradaEstoque.FormCreate(Sender: TObject);
   end;
 
 begin
+  SetTipoDespesaPadrao;
+
   {$IFDEF DGE}
   OcutarCampoAutorizacao;
   {$ENDIF}
