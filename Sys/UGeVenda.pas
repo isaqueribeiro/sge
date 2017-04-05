@@ -485,6 +485,7 @@ type
     procedure GerarTitulos(const AnoVenda : Smallint; const ControleVenda : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure CarregarDadosCFOP( iCodigo : Integer );
+    procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
     procedure HabilitarDesabilitar_Btns;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure ZerarFormaPagto;
@@ -1002,6 +1003,15 @@ begin
   end;
 end;
                                                
+procedure TfrmGeVenda.CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
+begin
+  try
+    DMNFe.AbrirEmitente(pEmpresa);
+    DMBusiness.ConfigurarEmail(pEmpresa, EmptyStr, pTituloRelatorio, EmptyStr);
+  except
+  end;
+end;
+
 procedure TfrmGeVenda.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
@@ -2873,6 +2883,7 @@ begin
       Exit;
     end;
 
+    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Orçamento / Venda');
     AbrirEmitente( IbDtstTabelaCODEMP.AsString );
     AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
     AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
@@ -3237,6 +3248,7 @@ begin
 
   with DMNFe do
   begin
+    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Nota de Entrega (Termo de Recedimento)');
     AbrirEmitente( IbDtstTabelaCODEMP.AsString );
     AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
     AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
@@ -3252,6 +3264,7 @@ begin
 
   with DMNFe do
   begin
+    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Nota de Entrega à Domicílio');
     AbrirEmitente( IbDtstTabelaCODEMP.AsString );
     AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
     AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
@@ -3269,6 +3282,8 @@ begin
 
   with DMNFe do
   begin
+
+    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Carta de Crédito');
 
     AbrirEmitente( IbDtstTabelaCODEMP.AsString );
     AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );

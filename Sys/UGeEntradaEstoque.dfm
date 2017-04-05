@@ -29,8 +29,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     ExplicitWidth = 1114
     ExplicitHeight = 634
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel4: TBevel
@@ -1867,10 +1865,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2044,10 +2038,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -3486,6 +3476,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           item
             Expanded = False
             FieldName = 'DESCRI'
+            Title.Caption = 'Produto/Servi'#231'o'
             Width = 350
             Visible = True
           end
@@ -4218,6 +4209,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     end
   end
   inherited DtSrcTabela: TDataSource
+    OnDataChange = DtSrcTabelaDataChange
     Left = 872
   end
   inherited IbUpdTabela: TIBUpdateSQL
@@ -4427,7 +4419,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6057,7 +6049,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  , i.total_bruto'
       '  , i.total_liquido'
       ''
-      '  , p.Descri'
+      '  , coalesce(p.descri_apresentacao, p.Descri) as Descri'
       '  , p.Qtde as Estoque'
       '  , u.Unp_sigla'
       'from TBCOMPRASITENS i'
@@ -6264,10 +6256,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       Size = 2
     end
     object cdsTabelaItensDESCRI: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o do produto'
       FieldName = 'DESCRI'
-      Origin = 'TBPRODUTO.DESCRI'
-      Size = 50
+      ProviderFlags = []
+      Size = 100
     end
     object cdsTabelaItensUNP_SIGLA: TIBStringField
       DisplayLabel = 'Und.'

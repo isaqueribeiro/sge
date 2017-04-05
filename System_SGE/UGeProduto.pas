@@ -501,6 +501,7 @@ begin
   frm := TfrmGeProduto.Create(AOwner);
   try
     frm.fAliquota := TipoAliquota;
+    frm.chkProdutoComEstoque.Checked := False;
     frm.AddWhereAdditional;
 //
 //    if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
@@ -1332,14 +1333,22 @@ begin
       IbDtstTabelaCODEMP.Value := fdQryEmpresa.FieldByName('cnpj').AsString;
 
   if ( not tblOrigem.IsEmpty ) then
-    IbDtstTabelaCODORIGEM.Value := TRIBUTO_ORIGEM_NACIONAL; // tblOrigem.FieldByName('ORP_COD').AsString;
-
-  if ( not qryTributacaoNM.IsEmpty ) then
-    IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_INTEG; // tblTributacaoNM.FieldByName('TPT_COD').AsString;
+    IbDtstTabelaCODORIGEM.Value := TRIBUTO_ORIGEM_NACIONAL;
 
   if ( GetRegimeEmpresa(IbDtstTabelaCODEMP.AsString) = trSimplesNacional ) then
+  begin
+    if ( not qryTributacaoNM.IsEmpty ) then
+      IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_ISENTA;
     if ( not qryTributacaoSN.IsEmpty ) then
-      IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN; // tblTributacaoSN.FieldByName('TPT_COD').AsString;
+      IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN;
+  end
+  else
+  begin
+    if ( not qryTributacaoNM.IsEmpty ) then
+      IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_INTEG;
+    if ( not qryTributacaoSN.IsEmpty ) then
+      IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN;
+  end;
 
   IbDtstTabelaCST.Value        := IbDtstTabelaCODORIGEM.AsString + IbDtstTabelaCODTRIBUTACAO.AsString;
   IbDtstTabelaESTOQMIN.Value   := 0;

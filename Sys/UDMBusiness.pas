@@ -1660,13 +1660,14 @@ begin
       SQL.Add('as');
       SQL.Add('  declare variable cd Integer;');
       SQL.Add('begin');
-      SQL.Add('  cd = 1;');
+      SQL.Add('  cd = ' + IntToStr(TIPO_RECEITA_PADRAO) + ';');
 
       SQL.Add('  if (not exists(');
       SQL.Add('    Select');
       SQL.Add('      d.tipodesp');
       SQL.Add('    from TBTPDESPESA d');
-      SQL.Add('    where d.cod = :cd');
+      SQL.Add('    where (d.cod = :cd)');
+      SQL.Add('       or (d.tipodesp = ' + QuotedStr('ENTRADAS EM GERAL') + ')');
       SQL.Add('  )) then');
       SQL.Add('  begin');
       SQL.Add('    Insert into TBTPDESPESA');
@@ -1702,13 +1703,14 @@ begin
       SQL.Add('as');
       SQL.Add('  declare variable cd Integer;');
       SQL.Add('begin');
-      SQL.Add('  cd = 1;');
+      SQL.Add('  cd = ' + IntToStr(TIPO_RECEITA_PADRAO) + ';');
 
       SQL.Add('  if (not exists(');
       SQL.Add('    Select');
       SQL.Add('      r.tiporec');
       SQL.Add('    from TBTPRECEITA r');
-      SQL.Add('    where r.cod = :cd');
+      SQL.Add('    where (r.cod = :cd)');
+      SQL.Add('       or (r.tiporec = ' + QuotedStr('SAÍDAS EM GERAL') + ')');
       SQL.Add('  )) then');
       SQL.Add('  begin');
       SQL.Add('    Insert into TBTPRECEITA');
@@ -2490,13 +2492,14 @@ begin
     Case GetSegmentoID(gUsuarioLogado.Empresa)  of
       SEGMENTO_MERCADO_CARRO_ID:
         S := 'Veículo' + IfThen(NoPlural, 's', EmptyStr);
-      SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
-        s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
+//      SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
+//        s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
       else
-        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
-          s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
-        else
-          S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
+        s := IfThen(NoPlural, 'Produtos / Serviços', 'Produto / Serviço');
+//        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+//          s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
+//        else
+//          S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
     end;
 
   finally

@@ -198,7 +198,6 @@ type
     cdsTabelaItensVALOR_DESCONTO: TIBBCDField;
     cdsTabelaItensVALOR_OUTROS: TIBBCDField;
     cdsTabelaItensUNID_COD: TSmallintField;
-    cdsTabelaItensDESCRI: TIBStringField;
     cdsTabelaItensUNP_SIGLA: TIBStringField;
     cdsTabelaItensVALOR_IPI: TIBBCDField;
     IbDtstTabelaDTFINALIZACAO_COMPRA: TDateTimeField;
@@ -356,6 +355,7 @@ type
     qryAutorizacaoProduto: TIBDataSet;
     qryDuplicatasSITUACAO: TSmallintField;
     qryDuplicatasSITUACAO_DESC: TIBStringField;
+    cdsTabelaItensDESCRI: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -403,6 +403,7 @@ type
     procedure nmPpReciboNFeClick(Sender: TObject);
     procedure nmPpChaveNFeClick(Sender: TObject);
     procedure nmPpArquivoNFeClick(Sender: TObject);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     FEmpresa : String;
@@ -410,6 +411,7 @@ type
     FApenasFinalizadas : Boolean;
     SQL_Itens   ,
     SQL_Duplicatas : TStringList;
+    FValorTotalProduto : Currency;
     procedure AbrirTabelaItens(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirTabelaDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirNotaFiscal(const Empresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
@@ -731,6 +733,8 @@ end;
 procedure TfrmGeEntradaEstoque.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
+  FValorTotalProduto := 0.0;
+
   IbDtstTabelaAno.Value     := YearOf(Now);
   IbDtstTabelaDTENT.Value   := Date;
   IbDtstTabelaDTLANCAMENTO.Value := Now;
@@ -896,6 +900,14 @@ begin
           IbDtstTabela.FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := tblCondicaoPagto.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
       end;
     end;
+end;
+
+procedure TfrmGeEntradaEstoque.DtSrcTabelaDataChange(Sender: TObject;
+  Field: TField);
+begin
+  inherited;
+  if (Field = IbDtstTabelaTOTALPROD) then
+    FValorTotalProduto := IbDtstTabelaTOTALPROD.AsCurrency;
 end;
 
 procedure TfrmGeEntradaEstoque.DtSrcTabelaItensStateChange(
@@ -1299,9 +1311,12 @@ begin
       cdsTabelaItensCUSTOMEDIO.AsCurrency  := cPrecoUN + cdsTabelaItensVALOR_IPI.AsCurrency;
       cdsTabelaItensTOTAL_BRUTO.AsCurrency := cPrecoUN * cdsTabelaItensQTDE.AsCurrency;
 
-      if ( IbDtstTabelaTOTALPROD.AsCurrency > 0 ) then
+      if (FValorTotalProduto = 0.0) then
+        FValorTotalProduto := IbDtstTabelaTOTALPROD.AsCurrency;
+
+      if ( FValorTotalProduto > 0.0 ) then
       begin
-        cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency / IbDtstTabelaTOTALPROD.AsCurrency * 100;
+        cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency / FValorTotalProduto * 100;
         cdsTabelaItensVALOR_FRETE.Value        := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaFRETE.Value / 100;
         cdsTabelaItensVALOR_DESCONTO.Value     := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaDESCONTO.Value / 100;
         cdsTabelaItensVALOR_OUTROS.Value       := cdsTabelaItensPERC_PARTICIPACAO.Value * IbDtstTabelaOUTROSCUSTOS.Value / 100;

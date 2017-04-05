@@ -368,7 +368,12 @@ const
     , ROTINA_ENT_SERVICO_ID
 
   );
-  
+
+  // Tipos Padrões
+
+  TIPO_RECEITA_PADRAO = 1;
+  TIPO_DESPESA_PADRAO = 1;
+
   // Tipos de Documentos de Entrada
 
   TIPO_DOCUMENTO_ENTRADA_AVULSA      = 0;
@@ -484,6 +489,7 @@ const
   TRIBUTO_NCM_SH_PADRAO    = '00000000'; // 10203000 -- Código descontinuado a partir de 2016
   TRIBUTO_ORIGEM_NACIONAL  = '0';
   TRIBUTO_TRIBUTADA_INTEG  = '00';
+  TRIBUTO_TRIBUTADA_ISENTA = '40';
   TRIBUTO_NAO_TRIBUTADA_SN = '400';
 
   PORTA_SMTP_PADRAO = 587;
