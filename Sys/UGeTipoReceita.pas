@@ -3,18 +3,26 @@ unit UGeTipoReceita;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvExMask, JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeTipoReceita = class(TfrmGrPadraoCadastro)
@@ -34,6 +42,11 @@ type
     IbDtstTabelaATIVO: TSmallintField;
     IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField;
     IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
+    IbDtstTabelaCLASSIFICACAO: TSmallintField;
+    fdQryClassificacao: TFDQuery;
+    DtsClassificacao: TDataSource;
+    lblClassificacao: TLabel;
+    dbClassificacao: TDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -47,6 +60,18 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBTPRECEITA
+  - TBPLANO_CONTA
+
+  Views:
+  - VW_CLASSIFICAO_RECEITA
+
+  Procedures:
+
+*)
 
 var
   frmGeTipoReceita: TfrmGeTipoReceita;
@@ -91,16 +116,19 @@ begin
   RotinaID            := ROTINA_CAD_TIPO_RECEITA_ID;
   ControlFirstEdit    := dbDescricao;
   DisplayFormatCodigo := '##00';
-  NomeTabela     := 'TBTPRECEITA';
-  CampoCodigo    := 'COD';
-  CampoDescricao := 'TIPOREC';
-  CampoCadastroAtivo := 'ATIVO';
+  NomeTabela          := 'TBTPRECEITA';
+  CampoCodigo         := 'COD';
+  CampoDescricao      := 'TIPOREC';
+  CampoCadastroAtivo  := 'ATIVO';
+
+  CarregarLista(fdQryClassificacao);
 end;
 
 procedure TfrmGeTipoReceita.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaCOD.Value                 := GetNextID(NomeTabela, CampoCodigo);
+  IbDtstTabelaCLASSIFICACAO.AsInteger   := 0; // A Definir
   IbDtstTabelaTIPO_PARTICULAR.AsInteger := 0;
   IbDtstTabelaATIVO.AsInteger           := 1;
   IbDtstTabelaPLANO_CONTA.Clear;

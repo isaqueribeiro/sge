@@ -103,10 +103,10 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel8: TBevel
-        Top = 164
+        Top = 166
         Width = 733
-        ExplicitLeft = 3
-        ExplicitTop = 180
+        ExplicitLeft = 16
+        ExplicitTop = 292
         ExplicitWidth = 733
       end
       object Bevel5: TBevel [1]
@@ -152,24 +152,33 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       end
       object GrpBxDadosClassificacao: TGroupBox
         Left = 0
-        Top = 168
+        Top = 85
         Width = 733
         Height = 81
         Align = alTop
         Caption = 'Classifica'#231#227'o Cont'#225'bil'
-        TabOrder = 2
+        TabOrder = 1
+        ExplicitTop = 168
         object lblPlanoContas: TLabel
-          Left = 16
-          Top = 20
+          Left = 223
+          Top = 18
           Width = 155
           Height = 13
           Caption = 'Plano de Contas de lan'#231'amento:'
           FocusControl = dbPlanoContas
         end
-        object dbPlanoContas: TJvDBComboEdit
+        object lblClassificacao: TLabel
           Left = 16
+          Top = 18
+          Width = 122
+          Height = 13
+          Caption = 'Classifica'#231#227'o / Categoria:'
+          FocusControl = dbClassificacao
+        end
+        object dbPlanoContas: TJvDBComboEdit
+          Left = 223
           Top = 36
-          Width = 697
+          Width = 490
           Height = 21
           ButtonHint = 'Pesquisar Plano de Contas (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
           CharCase = ecUpperCase
@@ -238,18 +247,39 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 0
+          TabOrder = 1
           OnButtonClick = dbPlanoContasButtonClick
+        end
+        object dbClassificacao: TDBLookupComboBox
+          Left = 16
+          Top = 36
+          Width = 201
+          Height = 21
+          DataField = 'CLASSIFICACAO'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'TPE_CODIGO'
+          ListField = 'TPE_DESCRICAO'
+          ListSource = DtsClassificacao
+          ParentFont = False
+          TabOrder = 0
         end
       end
       object GrpBxParametros: TGroupBox
         Left = 0
-        Top = 85
+        Top = 170
         Width = 733
         Height = 79
         Align = alTop
         Caption = 'Par'#226'metros'
-        TabOrder = 1
+        TabOrder = 2
+        ExplicitLeft = 6
+        ExplicitTop = 259
         object dbTipoParticular: TDBCheckBox
           Left = 16
           Top = 26
@@ -306,6 +336,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       'Select'
       '    t.Cod'
       '  , t.Tiporec'
+      '  , t.classificacao'
       '  , t.Tipo_Particular'
       '  , t.plano_conta'
       '  , t.ativo'
@@ -333,6 +364,14 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       ProviderFlags = [pfInUpdate]
       Required = True
       Size = 50
+    end
+    object IbDtstTabelaCLASSIFICACAO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Classifica'#231#227'o / Categoria'
+      FieldName = 'CLASSIFICACAO'
+      Origin = '"TBTPRECEITA"."CLASSIFICACAO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object IbDtstTabelaTIPO_PARTICULAR: TSmallintField
       Alignment = taLeftJustify
@@ -373,6 +412,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     RefreshSQL.Strings = (
       'Select '
       '  COD,'
+      '  CLASSIFICACAO,'
       '  TIPOREC,'
       '  TIPO_PARTICULAR,'
       '  PLANO_CONTA,'
@@ -384,6 +424,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       'update TBTPRECEITA'
       'set'
       '  ATIVO = :ATIVO,'
+      '  CLASSIFICACAO = :CLASSIFICACAO,'
       '  COD = :COD,'
       '  PLANO_CONTA = :PLANO_CONTA,'
       '  TIPO_PARTICULAR = :TIPO_PARTICULAR,'
@@ -392,9 +433,13 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       '  COD = :OLD_COD')
     InsertSQL.Strings = (
       'insert into TBTPRECEITA'
-      '  (ATIVO, COD, PLANO_CONTA, TIPO_PARTICULAR, TIPOREC)'
+      
+        '  (ATIVO, CLASSIFICACAO, COD, PLANO_CONTA, TIPO_PARTICULAR, TIPO' +
+        'REC)'
       'values'
-      '  (:ATIVO, :COD, :PLANO_CONTA, :TIPO_PARTICULAR, :TIPOREC)')
+      
+        '  (:ATIVO, :CLASSIFICACAO, :COD, :PLANO_CONTA, :TIPO_PARTICULAR,' +
+        ' :TIPOREC)')
     DeleteSQL.Strings = (
       'delete from TBTPRECEITA'
       'where'
@@ -406,7 +451,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1864,5 +1909,24 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object fdQryClassificacao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.tpe_codigo'
+      '  , r.tpe_descricao'
+      'from VW_CLASSIFICAO_RECEITA r'
+      'order by '
+      '    r.tpe_codigo')
+    Left = 624
+    Top = 224
+  end
+  object DtsClassificacao: TDataSource
+    DataSet = fdQryClassificacao
+    Left = 656
+    Top = 224
   end
 end

@@ -877,3 +877,71 @@ where (RDB$FIELD_NAME = 'MODELO') and
 (RDB$RELATION_NAME = 'TBPRODUTO')
 ;
 
+
+
+
+/*------ SYSDBA 11/04/2017 15:56:08 --------*/
+
+COMMENT ON COLUMN TBTPDESPESA.CLASSIFICACAO IS
+'Classificacao/Categoria:
+0 - A Definir
+1 - Custo Fixo
+2 - Custo Variavel
+3 - Despesa Fixa
+4 - Despesa Variavel
+
+Obs.: Todas as despesas associadas a producao estara classificada como "Custos"
+e as despesas da area administrativa estara relacionada a classificacao "Despesas"';
+
+
+
+
+/*------ SYSDBA 11/04/2017 15:58:41 --------*/
+
+ALTER TABLE TBTPRECEITA
+    ADD CLASSIFICACAO DMN_SMALLINT_NN DEFAULT 0;
+
+COMMENT ON COLUMN TBTPRECEITA.CLASSIFICACAO IS
+'Classificacao/Categoria:
+0 - A Definir
+1 - Receita com Produtos
+2 - Receita com Servicos
+3 - Juros Recebidos
+4 - Outras Receitas';
+
+alter table TBTPRECEITA
+alter COD position 1;
+
+alter table TBTPRECEITA
+alter CLASSIFICACAO position 2;
+
+alter table TBTPRECEITA
+alter TIPOREC position 3;
+
+alter table TBTPRECEITA
+alter TIPO_PARTICULAR position 4;
+
+alter table TBTPRECEITA
+alter PLANO_CONTA position 5;
+
+alter table TBTPRECEITA
+alter ATIVO position 6;
+
+
+
+
+/*------ SYSDBA 11/04/2017 16:03:45 --------*/
+
+CREATE OR ALTER VIEW VW_CLASSIFICAO_RECEITA (
+    TPE_CODIGO,
+    TPE_DESCRICAO,
+    TPE_ORDEM)
+AS
+Select 0 as TPE_CODIGO , 'A Definir'            as TPE_DESCRICAO, 9 as TPE_ORDEM from RDB$DATABASE union
+Select 1 as TPE_CODIGO , 'Receita com Produtos' as TPE_DESCRICAO, 1 as TPE_ORDEM from RDB$DATABASE union
+Select 2 as TPE_CODIGO , 'Receita com Servicos' as TPE_DESCRICAO, 2 as TPE_ORDEM from RDB$DATABASE union
+Select 3 as TPE_CODIGO , 'Juros Recebidos'      as TPE_DESCRICAO, 3 as TPE_ORDEM from RDB$DATABASE union
+Select 4 as TPE_CODIGO , 'Outras Receitas'      as TPE_DESCRICAO, 4 as TPE_ORDEM from RDB$DATABASE
+;
+
+GRANT ALL ON VW_CLASSIFICAO_RECEITA TO "PUBLIC";

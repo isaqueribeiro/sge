@@ -125,9 +125,9 @@ procedure TfrmGeTipoDespesa.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaCOD.Value                 := GetNextID(NomeTabela, CampoCodigo);
+  IbDtstTabelaCLASSIFICACAO.AsInteger   := 0; // A Definir
   IbDtstTabelaTIPO_PARTICULAR.AsInteger := 0;
   IbDtstTabelaATIVO.AsInteger           := 1;
-  IbDtstTabelaCLASSIFICACAO.AsInteger   := 0; // A Definir
   IbDtstTabelaPLANO_CONTA.Clear;
 end;
 
