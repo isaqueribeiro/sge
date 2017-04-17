@@ -415,6 +415,8 @@ type
     function GetVersaoDF : Integer;
     function IsEstacaoEmiteNFCe : Boolean;
     function IsEstacaoEmiteNFCeResumido : Boolean;
+    function GetCnpjCertificado : String;
+    function ValidarCnpjDocumento(const pCnpjDocumento : String) : Boolean;
   end;
 
 var
@@ -5436,6 +5438,37 @@ end;
 function TDMNFe.IsEstacaoEmiteNFCeResumido : Boolean;
 begin
   Result := ConfigACBr.ckEmitirNFCe.Checked and False;
+end;
+
+function TDMNFe.GetCnpjCertificado : String;
+begin
+  if Assigned(ACBrNFe.SSL) then
+    Result := OnlyNumber(ACBrNFe.SSL.CertCNPJ)
+  else
+    Result := EmptyStr;
+end;
+
+function TDMNFe.ValidarCnpjDocumento(const pCnpjDocumento : String) : Boolean;
+var
+  aRetorno : Boolean;
+  sCnpj : String;
+begin
+  aRetorno := False;
+  try
+    try
+      sCnpj := OnlyNumber(pCnpjDocumento);
+      if Assigned(ACBrNFe.SSL) then
+      begin
+        ACBrNFe.SSL.ValidarCNPJCertificado(sCnpj);
+        aRetorno := True;
+      end;
+    except
+      On E : Exception do
+        ShowError('Erro ao tentar validar o Cnpj do documento.' + #13#13 + E.Message);
+    end;
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 function TDMNFe.IsNFeManifestoDestinatarioRegistrado(const sCNPJ,

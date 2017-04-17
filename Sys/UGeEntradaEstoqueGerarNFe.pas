@@ -239,6 +239,15 @@ begin
   else
     sVN := EmptyStr;
 
+  DMNFe.LerConfiguracao(cdsCompraCODEMP.AsString);
+  DMNFe.ValidarCnpjDocumento(cdsCompraCODEMP.AsString);
+  if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
+//  if (DMNFe.GetCnpjCertificado <> gUsuarioLogado.Empresa) then
+  begin
+    ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
+    Exit;
+  end;
+
   if ( ShowConfirm(sVN + 'Confirma a geração da NF-e de Entrada?') ) then
   begin
     if ( cdsCompra.State = dsEdit ) then
@@ -251,9 +260,9 @@ begin
     lblInforme.Visible := True;
     lblInforme.Caption := 'Gerando NF-e junto a SEFA. Aguarde . . . ';
     TmrAlerta.Enabled  := True;
-    
+
     Application.ProcessMessages;
-    
+
     if ( DMNFe.GerarNFeOnLine(cdsCompraCODEMP.AsString) ) then
       bOK := DMNFe.GerarNFeEntradaOnLineACBr ( cdsCompraCODEMP.AsString, cdsCompraCODFORN.AsInteger, cdsCompraANO.AsInteger, cdsCompraCODCONTROL.AsInteger,
                iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote,

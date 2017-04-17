@@ -277,6 +277,15 @@ begin
   else
     sVN := EmptyStr;
 
+  DMNFe.LerConfiguracao(cdsVendaCODEMP.AsString);
+  DMNFe.ValidarCnpjDocumento(cdsVendaCODEMP.AsString);
+  if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
+//  if (DMNFe.GetCnpjCertificado <> gUsuarioLogado.Empresa) then
+  begin
+    ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
+    Exit;
+  end;
+
   if ( ShowConfirm(sVN + 'Confirma a geração da NF-e?') ) then
   begin
     sDH := FormatDateTime('dd/mm/yyyy', cdsVendaDATAEMISSAO.AsDateTime) + ' ' +
