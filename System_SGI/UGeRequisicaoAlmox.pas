@@ -220,6 +220,7 @@ type
     procedure AbrirTabelaItens(const AnoRequisicao : Smallint; const CodigoRequisicao : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure HabilitarDesabilitar_Btns;
+    procedure MontarFiltrosAdcionais;
     procedure RecarregarRegistro;
     procedure ValidarToTais(var Total_Custo : Currency);
 
@@ -569,8 +570,10 @@ begin
         e2Data.Date := IbDtstTabelaDATA_EMISSAO.AsDateTime;
     end;
 
-    IbDtstTabela.Close;
-    IbDtstTabela.Open;
+    MontarFiltrosAdcionais;
+    FiltarDados;
+//    IbDtstTabela.Close;
+//    IbDtstTabela.Open;
     IbDtstTabela.Locate('NUMERO', sID, []);
   end;
 end;
@@ -878,26 +881,7 @@ end;
 
 procedure TfrmGeRequisicaoAlmox.btnFiltrarClick(Sender: TObject);
 begin
-  if (iCentroCustoOrigem > 0) then
-    WhereAdditional := '(r.ccusto_origem = ' + IntToStr(iCentroCustoOrigem) + ') and ' +
-      'cast(r.data_emissao as date) between ' +
-                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) )
-  else
-  if (iCentroCustoDestino > 0) then
-    WhereAdditional := '(r.ccusto_destino = ' + IntToStr(iCentroCustoDestino) + ') and ' +
-      'cast(r.data_emissao as date) between ' +
-                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) )
-  else
-    WhereAdditional := 
-      'cast(r.data_emissao as date) between ' +
-                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
-
-  if ( RdgStatusRequisicao.ItemIndex > 0 ) then
-    WhereAdditional := WhereAdditional + ' and (r.status = ' + IntToStr(RdgStatusRequisicao.ItemIndex - 1) + ')';
-
+  MontarFiltrosAdcionais;
   inherited;  
 end;
 
@@ -1399,6 +1383,29 @@ begin
       else
         Text := Sender.AsString;
     end;
+end;
+
+procedure TfrmGeRequisicaoAlmox.MontarFiltrosAdcionais;
+begin
+  if (iCentroCustoOrigem > 0) then
+    WhereAdditional := '(r.ccusto_origem = ' + IntToStr(iCentroCustoOrigem) + ') and ' +
+      'cast(r.data_emissao as date) between ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) )
+  else
+  if (iCentroCustoDestino > 0) then
+    WhereAdditional := '(r.ccusto_destino = ' + IntToStr(iCentroCustoDestino) + ') and ' +
+      'cast(r.data_emissao as date) between ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) )
+  else
+    WhereAdditional :=
+      'cast(r.data_emissao as date) between ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+
+  if ( RdgStatusRequisicao.ItemIndex > 0 ) then
+    WhereAdditional := WhereAdditional + ' and (r.status = ' + IntToStr(RdgStatusRequisicao.ItemIndex - 1) + ')';
 end;
 
 function TfrmGeRequisicaoAlmox.GetRotinaEnviarID: String;
