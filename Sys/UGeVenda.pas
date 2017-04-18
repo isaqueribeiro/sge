@@ -1184,7 +1184,7 @@ begin
   if ( not cdsTabelaItens.IsEmpty ) then
   begin
     cdsTabelaItens.Edit;
-    dbProduto.SetFocus;
+    dbQuantidade.SetFocus;
   end;
 end;
 

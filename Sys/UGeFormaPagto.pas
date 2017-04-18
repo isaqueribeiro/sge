@@ -243,10 +243,13 @@ procedure TfrmGeFormaPagto.dbgDadosDrawColumnCell(Sender: TObject;
 begin
   inherited;
   // Destacar formas de pagamentos desativados
-  if ( IbDtstTabelaATIVA.AsInteger = 0 ) then
-    dbgDados.Canvas.Font.Color := lblRegistroDesativado.Font.Color;
+  if (Sender = dbgDados) then
+  begin
+    if ( IbDtstTabelaATIVA.AsInteger = 0 ) then
+      dbgDados.Canvas.Font.Color := lblRegistroDesativado.Font.Color;
 
-  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+  end;
 end;
 
 procedure TfrmGeFormaPagto.DtSrcTabelaStateChange(Sender: TObject);
