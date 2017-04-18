@@ -1672,12 +1672,12 @@ begin
       SQL.Add('  begin');
       SQL.Add('    Insert into TBTPDESPESA');
       SQL.Add('    values (');
-      SQL.Add('        :cd');
-      SQL.Add('      , 0'); // A Definir
+      SQL.Add('        :cd');  // Codigo
+      SQL.Add('      , 0');    // Classificação
       SQL.Add('      , ' + QuotedStr('ENTRADAS EM GERAL') + ' ');
-      SQL.Add('      , 0');
+      SQL.Add('      , 0');    // Tipo particular
       SQL.Add('      , null'); // Plano de Contas
-      SQL.Add('      , 1');
+      SQL.Add('      , 1');    // Ativo
       SQL.Add('    );');
       SQL.Add('  end');
       SQL.Add('end');
@@ -1715,14 +1715,15 @@ begin
       SQL.Add('  begin');
       SQL.Add('    Insert into TBTPRECEITA');
       SQL.Add('    values (');
-      SQL.Add('        :cd');
+      SQL.Add('        :cd');  // Codigo
+      SQL.Add('      , 0');    // Classificação
       SQL.Add('      , ' + QuotedStr('SAÍDAS EM GERAL') + ' ');
-      SQL.Add('      , 0');
+      SQL.Add('      , 0');    // Tipo particular
       SQL.Add('      , null'); // Plano de Contas
-      SQL.Add('      , 1');
+      SQL.Add('      , 1');    // Ativo
       SQL.Add('    );');
       SQL.Add('  end');
-      SQL.Add('end');
+      SQL.Add('end');   //SQL.SaveToFile('_teste.sql'); ShowMessage(SQL.Text);
       ExecSQL;
 
       CommitTransaction;

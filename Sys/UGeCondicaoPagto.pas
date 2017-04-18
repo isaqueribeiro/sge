@@ -74,6 +74,7 @@ type
     dbgFormaPagto: TDBGrid;
     cdsFormaPagtoListaDESCRICAO: TWideStringField;
     cdsFormaPagtoListaUSAR_PDV: TWideStringField;
+    lblRegistroDesativado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -88,6 +89,8 @@ type
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure cdsFormaPagtoListaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     procedure CarregarFormaPagto;
@@ -408,6 +411,21 @@ begin
     cdsFormaPagtoLista.Next;
   end;
   cdsFormaPagtoLista.First;
+end;
+
+procedure TfrmGeCondicaoPagto.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  // Destacar condições de pagamentos desativadas
+  if (Sender = dbgDados) then
+  begin
+    if Assigned(IbDtstTabela.FindField('ATIVA')) then
+      if ( IbDtstTabela.FieldByName('ATIVA').AsInteger = 0 ) then
+        dbgDados.Canvas.Font.Color := lblRegistroDesativado.Font.Color;
+
+    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+  end;
 end;
 
 procedure TfrmGeCondicaoPagto.dbgFormaPagtoDblClick(Sender: TObject);

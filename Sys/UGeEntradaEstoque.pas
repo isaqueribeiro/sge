@@ -2005,7 +2005,11 @@ begin
 
   end;
 
-  inherited;
+  // Desistir na inserção de um novo produto/serviço
+  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) and (Trim(dbProduto.Text) = EmptyStr) ) then
+    cdsTabelaItens.Cancel
+  else
+    inherited;
 end;
 
 procedure TfrmGeEntradaEstoque.FormShow(Sender: TObject);

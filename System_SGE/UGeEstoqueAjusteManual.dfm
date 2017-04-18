@@ -5,11 +5,13 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Ajuste Manual de Estoque'
-  ClientHeight = 362
+  ClientHeight = 392
   ClientWidth = 593
+  ExplicitWidth = 607
+  ExplicitHeight = 429
   DesignSize = (
     593
-    362)
+    392)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
@@ -22,11 +24,12 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 325
+    Top = 355
     Width = 593
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitTop = 325
   end
   object GrpBxEmpresa: TGroupBox
     Left = 0
@@ -111,7 +114,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     Left = 0
     Top = 77
     Width = 593
-    Height = 248
+    Height = 278
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Dados para o Ajuste Manual de Estoque'
@@ -122,9 +125,10 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
+    ExplicitHeight = 248
     DesignSize = (
       593
-      248)
+      278)
     object lblMotivo: TLabel
       Left = 16
       Top = 144
@@ -255,9 +259,9 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     end
     object dbMotivo: TMemo
       Left = 16
-      Top = 160
+      Top = 163
       Width = 561
-      Height = 250
+      Height = 103
       Anchors = [akLeft, akTop, akRight, akBottom]
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -269,6 +273,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       ParentFont = False
       ScrollBars = ssVertical
       TabOrder = 9
+      ExplicitHeight = 118
     end
     object dbProdutoDesc: TDBEdit
       Left = 128
@@ -543,7 +548,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
   end
   object btnNovoAjuste: TcxButton
     Left = 0
-    Top = 329
+    Top = 359
     Width = 92
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -602,10 +607,11 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
     OnClick = btnNovoAjusteClick
+    ExplicitTop = 329
   end
   object btnConfirmar: TcxButton
     Left = 407
-    Top = 329
+    Top = 359
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -665,10 +671,11 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     OptionsImage.NumGlyphs = 2
     TabOrder = 3
     OnClick = btnConfirmarClick
+    ExplicitTop = 329
   end
   object btnCancelar: TcxButton
     Left = 501
-    Top = 329
+    Top = 359
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -729,40 +736,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     OptionsImage.NumGlyphs = 2
     TabOrder = 4
     OnClick = btnCancelarClick
-  end
-  object qryEmpresa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.cnpj'
-      '  , e.rzsoc'
-      '  , e.nmfant'
-      'from TBEMPRESA e'
-      '')
-    Left = 472
-    Top = 256
-    object qryEmpresaCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBEMPRESA"."CNPJ"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      OnGetText = qryEmpresaCNPJGetText
-      Size = 18
-    end
-    object qryEmpresaRZSOC: TIBStringField
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      Size = 60
-    end
-    object qryEmpresaNMFANT: TIBStringField
-      FieldName = 'NMFANT'
-      Origin = '"TBEMPRESA"."NMFANT"'
-      Size = 25
-    end
+    ExplicitTop = 329
   end
   object qryAjuste: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -1084,7 +1058,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     Top = 240
   end
   object dtsEmpresa: TDataSource
-    DataSet = qryEmpresa
+    DataSet = fdQryEmpresa
     Left = 504
     Top = 256
   end
@@ -1092,5 +1066,19 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     DataSet = qryProduto
     Left = 304
     Top = 272
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.codigo'
+      '  , e.rzsoc'
+      '  , e.cnpj'
+      'from TBEMPRESA e'
+      '')
+    Left = 472
+    Top = 256
   end
 end

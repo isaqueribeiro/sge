@@ -2626,8 +2626,8 @@ begin
 
   if (Shift = [ssCtrl]) and (Key = VK_INSERT) Then
     Case pgcMaisDados.ActivePageIndex of
-      0: dbgFormaPagtoKeyDown(Sender, Key, Shift);
-      1: dbgTitulosKeyDown(Sender, Key, Shift);
+      0 : dbgFormaPagtoKeyDown(Sender, Key, Shift);
+      1 : dbgTitulosKeyDown(Sender, Key, Shift);
     end
   else
 
@@ -2635,8 +2635,8 @@ begin
 
   if (Shift = [ssCtrl]) and (Key = VK_RETURN) Then
     Case pgcMaisDados.ActivePageIndex of
-      0: dbgFormaPagtoKeyDown(Sender, Key, Shift);
-      1: dbgTitulosKeyDown(Sender, Key, Shift);
+      0 : dbgFormaPagtoKeyDown(Sender, Key, Shift);
+      1 : dbgTitulosKeyDown(Sender, Key, Shift);
     end
   else
 
@@ -2650,6 +2650,10 @@ begin
   else
   if ( Key = VK_F6 ) then
     btnConsultarProduto.Click
+  else
+  // Desistir na inserção de um novo produto/serviço
+  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) and (Trim(dbProduto.Text) = EmptyStr) ) then
+    cdsTabelaItens.Cancel
   else
     inherited;
 (*

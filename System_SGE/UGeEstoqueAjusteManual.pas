@@ -3,17 +3,19 @@ unit UGeEstoqueAjusteManual;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, IBCustomDataSet, IBUpdateSQL, DB, IBQuery, StdCtrls, Buttons, ExtCtrls,
+  Dialogs, IBCustomDataSet, IBUpdateSQL, DB, IBQuery, StdCtrls, Buttons, ExtCtrls,
   Mask, DBCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvExMask, JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEstoqueAjusteManual = class(TfrmGrPadrao)
@@ -27,7 +29,6 @@ type
     lblMotivo: TLabel;
     dbMotivo: TMemo;
     Bevel2: TBevel;
-    qryEmpresa: TIBQuery;
     qryAjuste: TIBDataSet;
     updAjuste: TIBUpdateSQL;
     qryProduto: TIBDataSet;
@@ -58,9 +59,6 @@ type
     qryAjusteUSUARIO: TIBStringField;
     dtsAjuste: TDataSource;
     dtsEmpresa: TDataSource;
-    qryEmpresaCNPJ: TIBStringField;
-    qryEmpresaRZSOC: TIBStringField;
-    qryEmpresaNMFANT: TIBStringField;
     dtsProduto: TDataSource;
     qryProdutoCOD: TIBStringField;
     qryProdutoDESCRI: TIBStringField;
@@ -78,6 +76,7 @@ type
     qryProdutoMOVIMENTA_ESTOQUE: TSmallintField;
     dbProduto: TJvDBComboEdit;
     dbFornecedor: TJvDBComboEdit;
+    fdQryEmpresa: TFDQuery;
     procedure ControlEditExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
@@ -102,6 +101,19 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
+(*
+  Tabelas:
+  - TBAJUSTESTOQ
+  - TBFORNECEDOR
+  - TBPRODUTO
+  - TBUNIDADEPROD
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual;
 
@@ -117,10 +129,11 @@ begin
   inherited;
   RotinaID := ROTINA_ENT_AJUSTE_ID;
 
-  with qryEmpresa do
+  with fdQryEmpresa do
   begin
     Close;
     SQL.Add('where e.cnpj = ' + QuotedStr(gUsuarioLogado.Empresa));
+    SQL.Add('order by 2');
     Open;
   end;
 
@@ -148,6 +161,7 @@ end;
 procedure TfrmGeEstoqueAjusteManual.dtsAjusteStateChange(Sender: TObject);
 begin
   dtsAjuste.AutoEdit    := ( qryAjuste.State in [dsEdit, dsInsert] );
+  dbProduto.ReadOnly    := not ( qryAjuste.State in [dsEdit, dsInsert] );
   dbMotivo.ReadOnly     := not ( qryAjuste.State in [dsEdit, dsInsert] );
 
   btnNovoAjuste.Enabled := ( qryAjuste.Active and (qryAjuste.State = dsBrowse) );
@@ -157,9 +171,9 @@ end;
 
 procedure TfrmGeEstoqueAjusteManual.qryAjusteNewRecord(DataSet: TDataSet);
 begin
-  qryAjusteCODEMPRESA.Assign( qryEmpresaCNPJ );
+  qryAjusteCODEMPRESA.Assign( fdQryEmpresa.FieldByName('CNPJ') );
   qryAjusteDTAJUST.AsDateTime := GetDateTimeDB;
-  qryAjusteUSUARIO.AsString   := GetUserApp;
+  qryAjusteUSUARIO.AsString   := gUsuarioLogado.Login;
   qryAjusteCODPROD.Clear;
   qryAjusteCODFORN.Clear;
   qryAjusteQTDEATUAL.Clear;
@@ -210,7 +224,7 @@ end;
 procedure TfrmGeEstoqueAjusteManual.ControlEditExit(Sender: TObject);
 begin
   inherited;
-  if ( Sender = dbProduto ) then
+  if ( (Sender = dbProduto) and (StrToIntDef(dbProduto.Field.AsString, 0) > 0) ) then
     CarregarDadosProduto( IntToStr(StrToIntDef(dbProduto.Field.AsString, 0)) );
 
   if ( Sender = dbQuantidade ) then
@@ -267,7 +281,7 @@ begin
       qryProduto.Post;
       qryProduto.ApplyUpdates;
       *)
-      
+
       CommitTransaction;
     end;
 end;

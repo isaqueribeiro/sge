@@ -242,7 +242,7 @@ procedure TfrmGeFormaPagto.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
   inherited;
-  // Destacar formas de pagamentos desativados
+  // Destacar formas de pagamentos desativadas
   if (Sender = dbgDados) then
   begin
     if ( IbDtstTabelaATIVA.AsInteger = 0 ) then

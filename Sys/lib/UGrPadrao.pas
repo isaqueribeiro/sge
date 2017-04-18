@@ -16,6 +16,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure AnularBeepEnter(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     fNomeTabela     ,
@@ -241,6 +242,12 @@ begin
   if Result then
     SetFloatProp(Instance, pGetPropInfo, Value)
 
+end;
+
+procedure TfrmGrPadrao.AnularBeepEnter(Sender: TObject; var Key: Char);
+begin
+  if (Key = #13) then
+    Key := #0;
 end;
 
 procedure TfrmGrPadrao.ControlEditEnter(Sender: TObject);
