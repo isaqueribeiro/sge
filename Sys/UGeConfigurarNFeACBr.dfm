@@ -225,7 +225,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Top = 0
         Width = 375
         Height = 514
-        ActivePage = TbsArquivos
+        ActivePage = TbsWebService
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -891,6 +891,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsEmitente: TTabSheet
           Caption = 'Emitente'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lbltEmitCNPJ: TLabel
             Left = 8
             Top = 4

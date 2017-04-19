@@ -6,6 +6,9 @@ object DMNFe: TDMNFe
   object ACBrNFe: TACBrNFe
     MAIL = DMBusiness.ACBrMail
     Configuracoes.Geral.SSLLib = libCapicomDelphiSoap
+    Configuracoes.Geral.SSLCryptLib = cryCapicom
+    Configuracoes.Geral.SSLHttpLib = httpIndy
+    Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Geral.ValidarDigest = False
     Configuracoes.Geral.IncluirQRCodeXMLNFCe = False
@@ -17899,6 +17902,8 @@ object DMNFe: TDMNFe
     ACBrSAT = ACBrSAT
     Mask_qCom = '0.0000'
     Mask_vUnCom = '0.000'
+    SoftwareHouse = 'Projeto ACBr'
+    Site = 'http://www.projetoacbr.com.br'
     MsgAppQRCode = 
       'Consulte o QR Code pelo aplicativo  "De olho na nota", dispon'#237've' +
       'l na AppStore (Apple) e PlayStore (Android)'

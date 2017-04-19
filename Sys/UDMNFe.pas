@@ -7,16 +7,24 @@ uses
   PngImage,
   Variants,
 
-  Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFe, DB,
-  IBX.IBCustomDataSet, IBX.IBQuery, frxClass, frxDBSet, frxExportRTF, frxExportXLS,
-  frxExportPDF, frxExportMail, UGeConfigurarNFeACBr, TypInfo,
-  HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg, ShellApi,
+  UGeConfigurarNFeACBr,
+  ACBrNFe,
+  ACBrDFeSSL,
+  ACBrUtil,
+  pcnConversao,
+  pcnNFeW,
+  pcnNFeRTXT,
+  pcnAuxiliar,
+  SHDocVw,
+
+  Windows, SysUtils, Classes, ACBrNFeDANFEClass, DB, IBX.IBCustomDataSet, IBX.IBQuery,
+  frxClass, frxDBSet, frxExportRTF, frxExportXLS, frxExportPDF, frxExportMail,
+  TypInfo, HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg, ShellApi,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, SHDocVw,
   IBX.IBUpdateSQL, IBX.IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
   ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR,
   ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
@@ -1033,6 +1041,14 @@ begin
         SepararPorModelo   := ckSepararPorModelo.Checked;
       end;
 
+//      with ACBrNFe.Configuracoes.Geral do
+//      begin
+//        SSLLib        := libCapicom;     //libCustom; //TSSLLib(cbSSLLib.ItemIndex);
+//        SSLCryptLib   := cryCapicom;     //TSSLCryptLib(cbCryptLib.ItemIndex);
+//        SSLHttpLib    := httpWinINet;    //TSSLHttpLib(cbHttpLib.ItemIndex);
+//        SSLXmlSignLib := xsMsXmlCapicom; //TSSLXmlSignLib(cbXmlSignLib.ItemIndex);
+//      end;
+//
       ACBrNFe.Configuracoes.Geral.AtualizarXMLCancelado := ckAtualizarXML.Checked;
       ACBrNFe.Configuracoes.Geral.ExibirErroSchema      := ckExibirErroSchema.Checked;
       ACBrNFe.Configuracoes.Geral.FormatoAlerta         := edFormatoAlerta.Text;

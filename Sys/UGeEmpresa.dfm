@@ -168,9 +168,9 @@ inherited frmGeEmpresa: TfrmGeEmpresa
         object lblCNAE: TLabel [6]
           Left = 624
           Top = 64
-          Width = 60
+          Width = 73
           Height = 13
-          Caption = 'CNAE Fiscal:'
+          Caption = 'CNAE Principal:'
           FocusControl = dbCNAE
         end
         object lblSegmento: TLabel [7]
@@ -1336,8 +1336,10 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       Size = 12
     end
     object IbDtstTabelaCNAE: TIBStringField
+      DisplayLabel = 'CNAE Principal'
       FieldName = 'CNAE'
       Origin = 'TBEMPRESA.CNAE'
+      Required = True
       Size = 11
     end
     object IbDtstTabelaENDER: TIBStringField
@@ -1649,7 +1651,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
   inherited ImgList: TImageList
     Left = 608
     Bitmap = {
-      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
