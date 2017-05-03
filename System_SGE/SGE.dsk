@@ -1,7 +1,7 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeConfiguracoes.pas',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,1629,1,1632,0,0,,
-File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,1985,3,2007,0,0,,
+File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,1746,80,1774,0,0,,
+File_1=TSourceModule,'C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeConfiguracoes.pas',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,1629,1,1632,0,0,,
 File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\source\data\firedac\FireDAC.Phys.pas',0,1,6551,1,6566,0,0,,
 File_4=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeEstoqueAjusteManual.pas',0,1,1,43,21,0,0,,
 File_5=TSourceModule,'C:\Program Files (x86)\FastReports\LibD21\frxEditGroup.pas',0,1,1,1,202,0,0,,
@@ -17,19 +17,19 @@ File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeVendaImpressao.pa
 
 [Modules]
 Module0=D:\Projetos\ASS\SGE\trunk\Sys\UGeEmpresa.pas
-Module1=D:\Projetos\ASS\SGE\trunk\Sys\UGeCondicaoPagto.pas
-Module2=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module3=default.htm
-Module4=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module6=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeWebService.pas
-Module7=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
-Module8=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeConfiguracoes.pas
-Module9=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
-Module10=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
-Module11=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-Module12=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeSSL.pas
-Module13=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module1=default.htm
+Module2=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module3=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UGeCondicaoPagto.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module7=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeWebService.pas
+Module8=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
+Module9=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeConfiguracoes.pas
+Module10=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
+Module11=D:\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
+Module12=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
+Module13=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeSSL.pas
 Module14=D:\Projetos\ASS\SGE\trunk\Sys\UGeFormaPagto.pas
 Module15=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
 Module16=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
@@ -55,23 +55,28 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeCondicaoPagto.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=1
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
 [default.htm]
 ModuleType=TURLModule
 
 [D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj]
 ModuleType=TBaseProject
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeCondicaoPagto.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -109,11 +114,6 @@ FormOnTop=0
 [C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeSSL.pas]
 ModuleType=TSourceModule
 FormState=0
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeFormaPagto.pas]
@@ -201,11 +201,11 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
 FormState=1
 FormOnTop=0
 
@@ -749,7 +749,7 @@ SplitPos=79
 [PropInspDesignerSelection]
 ArrangeBy=Name
 SelectedItem=Caption,
-ExpandedItems="LiveBindings Designer=0",ProviderFlags=0,Constraints=0,FocusControl=0,Font=0
+ExpandedItems=ActiveControl=0,Anchors=0,BorderIcons=0
 
 [ModelViewTool]
 PercentageSizes=1
