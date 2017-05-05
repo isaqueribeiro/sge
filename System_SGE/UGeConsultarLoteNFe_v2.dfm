@@ -539,72 +539,9 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
     OnClick = btFecharClick
   end
   object dtsEmpresa: TDataSource
-    DataSet = qryEmpresa
+    DataSet = fdQryEmpresa
     Left = 552
     Top = 16
-  end
-  object qryEmpresa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.cnpj'
-      '  , e.rzsoc'
-      '  , e.serie_nfe'
-      '  , e.numero_nfe'
-      '  , e.lote_ano_nfe'
-      '  , e.lote_num_nfe'
-      '  , 55 as modelo_nfe'
-      'from TBEMPRESA e'
-      'where e.cnpj = :cnpj')
-    Left = 520
-    Top = 16
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'cnpj'
-        ParamType = ptInput
-        Value = ''
-      end>
-    object qryEmpresaCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBEMPRESA"."CNPJ"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      OnGetText = qryEmpresaCNPJGetText
-      Size = 18
-    end
-    object qryEmpresaRZSOC: TIBStringField
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      Size = 60
-    end
-    object qryEmpresaSERIE_NFE: TSmallintField
-      FieldName = 'SERIE_NFE'
-      Origin = '"TBEMPRESA"."SERIE_NFE"'
-      DisplayFormat = '00'
-    end
-    object qryEmpresaNUMERO_NFE: TIntegerField
-      FieldName = 'NUMERO_NFE'
-      Origin = '"TBEMPRESA"."NUMERO_NFE"'
-      DisplayFormat = '0000000'
-    end
-    object qryEmpresaLOTE_ANO_NFE: TSmallintField
-      FieldName = 'LOTE_ANO_NFE'
-      Origin = '"TBEMPRESA"."LOTE_ANO_NFE"'
-    end
-    object qryEmpresaLOTE_NUM_NFE: TIntegerField
-      FieldName = 'LOTE_NUM_NFE'
-      Origin = '"TBEMPRESA"."LOTE_NUM_NFE"'
-      DisplayFormat = '0000000'
-    end
-    object qryEmpresaMODELO_NFE: TIntegerField
-      FieldName = 'MODELO_NFE'
-      ProviderFlags = []
-    end
   end
   object cdsLOG: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -698,88 +635,6 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
       '  USUARIO = :OLD_USUARIO')
     Left = 456
     Top = 312
-  end
-  object qryLotesPendentesNFe: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.ano        as Ano'
-      '  , v.codcontrol as Numero'
-      '  , 1            as TipoNFE'
-      '  , '#39'Sa'#237'da/Venda'#39'     as Tipo'
-      '  , v.lote_nfe_numero as Lote'
-      '  , v.lote_nfe_recibo as Recibo'
-      'from TBVENDAS v'
-      'where v.codemp = :empresa_vnd'
-      '  and v.lote_nfe_numero is not null'
-      '  and v.nfe is null'
-      '  and v.nfe_enviada = 0'
-      ''
-      'union'
-      ''
-      'Select'
-      '    c.ano        as Ano'
-      '  , c.codcontrol as Numero'
-      '  , 0            as TipoNFE'
-      '  , '#39'Entrada/Compra'#39'  as Tipo'
-      '  , c.lote_nfe_numero as Lote'
-      '  , c.lote_nfe_recibo as Recibo'
-      'from TBCOMPRAS c'
-      'where c.codemp = :empresa_cmp'
-      '  and c.lote_nfe_numero is not null'
-      '  and c.nf is null'
-      '  and C.nfe_enviada = 0'
-      ''
-      'order by 5')
-    Left = 424
-    Top = 248
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa_vnd'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftString
-        Name = 'empresa_cmp'
-        ParamType = ptInput
-        Value = ''
-      end>
-    object qryLotesPendentesNFeANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = '"TBVENDAS"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryLotesPendentesNFeNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"TBVENDAS"."CODCONTROL"'
-      Required = True
-    end
-    object qryLotesPendentesNFeTIPONFE: TIntegerField
-      FieldName = 'TIPONFE'
-      ProviderFlags = []
-    end
-    object qryLotesPendentesNFeTIPO: TIBStringField
-      FieldName = 'TIPO'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 14
-    end
-    object qryLotesPendentesNFeLOTE: TIntegerField
-      FieldName = 'LOTE'
-      Origin = '"TBVENDAS"."LOTE_NFE_NUMERO"'
-    end
-    object qryLotesPendentesNFeRECIBO: TIBStringField
-      FieldName = 'RECIBO'
-      Origin = '"TBVENDAS"."LOTE_NFE_RECIBO"'
-      Size = 250
-    end
   end
   object qryNFE: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -969,5 +824,103 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
       '  SERIE = :OLD_SERIE')
     Left = 456
     Top = 280
+  end
+  object fdQryLotesPendentesNFe: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.ano        as Ano'
+      '  , v.codcontrol as Numero'
+      '  , 1            as TipoNFE'
+      '  , '#39'Sa'#237'da/Venda'#39'     as Tipo'
+      '  , v.lote_nfe_numero as Lote'
+      '  , v.lote_nfe_recibo as Recibo'
+      'from TBVENDAS v'
+      'where v.codemp = :empresa_vnd'
+      '  and ((v.lote_nfe_recibo = :recibo_vnd) or (:todos = 1))'
+      '  and v.lote_nfe_numero is not null'
+      '  and v.lote_nfe_recibo is not null'
+      '  and v.nfe is null'
+      '  and v.nfe_enviada = 0'
+      ''
+      'union'
+      ''
+      'Select'
+      '    c.ano        as Ano'
+      '  , c.codcontrol as Numero'
+      '  , 0            as TipoNFE'
+      '  , '#39'Entrada/Compra'#39'  as Tipo'
+      '  , c.lote_nfe_numero as Lote'
+      '  , c.lote_nfe_recibo as Recibo'
+      'from TBCOMPRAS c'
+      'where c.codemp = :empresa_cmp'
+      '  and ((c.lote_nfe_recibo = :recibo_cmp) or (:todos = 1))'
+      '  and c.lote_nfe_numero is not null'
+      '  and c.lote_nfe_recibo is not null'
+      '  and c.nf is null'
+      '  and C.nfe_enviada = 0'
+      ''
+      'order by 1 desc, 2 desc, 5 asc')
+    Left = 248
+    Top = 349
+    ParamData = <
+      item
+        Name = 'EMPRESA_VND'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'RECIBO_VND'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 250
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMPRESA_CMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Name = 'RECIBO_CMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 250
+      end>
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.rzsoc'
+      '  , e.serie_nfe'
+      '  , e.numero_nfe'
+      '  , e.lote_ano_nfe'
+      '  , e.lote_num_nfe'
+      '  , 55 as modelo_nfe'
+      'from TBEMPRESA e'
+      'where e.cnpj = :cnpj')
+    Left = 520
+    Top = 16
+    ParamData = <
+      item
+        Name = 'CNPJ'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
   end
 end

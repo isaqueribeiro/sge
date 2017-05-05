@@ -4989,85 +4989,91 @@ function TDMNFe.ConsultarChaveNFeACBr(const sCNPJEmitente, sChave: String;
 var
   NomeArq    : String;
   iNumeroTmp : Integer;
+  aRetorno : Boolean;
 const
   TERMINATE_FILENAME     = '-nfe.xml';
   TERMINATE_FILENAME_NEW = '-procNfe.xml';
 begin
+  aRetorno := False;
   try
+    try
 
-    LerConfiguracao(sCNPJEmitente);
+      LerConfiguracao(sCNPJEmitente);
 
-    with ACBrNFe do
-    begin
-
-      if FileExists(FileNameXML) then
+      with ACBrNFe do
       begin
 
-        // Consultar pelo Arquivo NF-e
-
-        NotasFiscais.Clear;
-        NotasFiscais.LoadFromFile(FileNameXML);
-        Result := ACBrNFe.Consultar;
-
-        if (NotasFiscais.Count = 1) then
+        if FileExists(FileNameXML) then
         begin
-          iSerieNFe   := NotasFiscais.Items[0].NFe.Ide.Serie;
-          iNumeroNFe  := NotasFiscais.Items[0].NFe.Ide.nNF;
-          iTipoNFe    := Ord(NotasFiscais.Items[0].NFe.Ide.tpNF);
-          DataEmissao := NotasFiscais.Items[0].NFe.Ide.dEmi;
+
+          // Consultar pelo Arquivo NF-e
+
+          NotasFiscais.Clear;
+          NotasFiscais.LoadFromFile(FileNameXML);
+          aRetorno := ACBrNFe.Consultar;
+
+          if (NotasFiscais.Count = 1) then
+          begin
+            iSerieNFe   := NotasFiscais.Items[0].NFe.Ide.Serie;
+            iNumeroNFe  := NotasFiscais.Items[0].NFe.Ide.nNF;
+            iTipoNFe    := Ord(NotasFiscais.Items[0].NFe.Ide.tpNF);
+            DataEmissao := NotasFiscais.Items[0].NFe.Ide.dEmi;
+          end;
+
+          // (INICIO) Adicionando TAG de Protocolo no Arquivo
+          if aRetorno then
+          begin
+            NomeArq := FileNameXML;
+
+            if ( Pos(AnsiLowerCase(TERMINATE_FILENAME), AnsiLowerCase(NomeArq)) > 0 ) then
+               NomeArq := StringReplace(NomeArq, TERMINATE_FILENAME, TERMINATE_FILENAME_NEW, [rfIgnoreCase]);
+
+            NotasFiscais.Items[0].GravarXML(ExtractFileName(NomeArq), ExtractFilePath(NomeArq));
+
+            FileNameXML := NomeArq;
+          end;
+          // (FINAL) Adicionando TAG de Protocolo no Arquivo
+
+        end
+        else
+        begin
+
+          // Consultar pela Chave NF-e
+
+          WebServices.Consulta.NFeChave := sChave;
+          aRetorno := WebServices.Consulta.Executar;
+
         end;
 
-        // (INICIO) Adicionando TAG de Protocolo no Arquivo
-        if Result then
+        if aRetorno then
         begin
-          NomeArq := FileNameXML;
+          ChaveNFE     := WebServices.Consulta.NFeChave;
+          ProtocoloNFE := WebServices.Consulta.Protocolo;
 
-          if ( Pos(AnsiLowerCase(TERMINATE_FILENAME), AnsiLowerCase(NomeArq)) > 0 ) then
-             NomeArq := StringReplace(NomeArq, TERMINATE_FILENAME, TERMINATE_FILENAME_NEW, [rfIgnoreCase]);
+          // Atualizar contador do número da NF-e
 
-          NotasFiscais.Items[0].GravarXML(ExtractFileName(NomeArq), ExtractFilePath(NomeArq));
+          iNumeroTmp := GetNextID('TBEMPRESA'
+            , 'NUMERO_NFE'
+            , 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = ' + IntToStr(iSerieNFe));
 
-          FileNameXML := NomeArq;
+          if ( iNumeroNFe = iNumeroTmp ) then
+          begin
+            UpdateNumeroNFe(sCNPJEmitente, iSerieNFe, iNumeroNFe);
+            UpdateLoteNFe(sCNPJEmitente, YearOf(DataEmissao), iNumeroNFe);
+          end;
         end;
-        // (FINAL) Adicionando TAG de Protocolo no Arquivo
-
-      end
-      else
-      begin
-
-        // Consultar pela Chave NF-e
-
-        WebServices.Consulta.NFeChave := sChave;
-        Result := WebServices.Consulta.Executar;
 
       end;
 
-      if Result then
+    except
+      On E : Exception do
       begin
-        ChaveNFE     := WebServices.Consulta.NFeChave;
-        ProtocoloNFE := WebServices.Consulta.Protocolo;
-
-        // Atualizar contador do número da NF-e
-
-        iNumeroTmp := GetNextID('TBEMPRESA'
-          , 'NUMERO_NFE'
-          , 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = ' + IntToStr(iSerieNFe));
-
-        if ( iNumeroNFe = iNumeroTmp ) then
-        begin
-          UpdateNumeroNFe(sCNPJEmitente, iSerieNFe, iNumeroNFe);
-          UpdateLoteNFe(sCNPJEmitente, YearOf(DataEmissao), iNumeroNFe);
-        end;
+        aRetorno := False;
+        ShowError('Erro ao tentar consultar NF-e pela chave.' + #13#13 + 'ConsultarChaveNFeACBr() --> ' + e.Message);
       end;
-
     end;
-
-  except
-    On E : Exception do
-    begin
-      ShowError('Erro ao tentar consultar NF-e pela chave.' + #13#13 + 'ConsultarChaveNFeACBr() --> ' + e.Message);
-      Result := False;
-    end;
+  finally
+    Result := aRetorno;
   end;
 end;
 

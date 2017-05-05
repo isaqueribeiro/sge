@@ -3,31 +3,24 @@ unit UGeConsultarLoteNFe_v2;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons,
+  Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons,
   ExtCtrls, Mask, DBCtrls, IBUpdateSQL, ClipBrd, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.Intf,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TTipoMovimento = (tmNFeEntrada, tmNFeSaida, tmNull);
   TfrmGeConsultarLoteNFe_v2 = class(TfrmGrPadrao)
     dtsEmpresa: TDataSource;
-    qryEmpresa: TIBQuery;
-    qryEmpresaCNPJ: TIBStringField;
-    qryEmpresaRZSOC: TIBStringField;
-    qryEmpresaSERIE_NFE: TSmallintField;
-    qryEmpresaNUMERO_NFE: TIntegerField;
-    qryEmpresaLOTE_ANO_NFE: TSmallintField;
-    qryEmpresaLOTE_NUM_NFE: TIntegerField;
-    qryEmpresaMODELO_NFE: TIntegerField;
     cdsLOG: TIBDataSet;
     cdsLOGUSUARIO: TIBStringField;
     cdsLOGDATA_HORA: TDateTimeField;
@@ -35,7 +28,6 @@ type
     cdsLOGDESCRICAO: TIBStringField;
     cdsLOGESPECIFICACAO: TMemoField;
     updLOG: TIBUpdateSQL;
-    qryLotesPendentesNFe: TIBQuery;
     GrpBxControle: TGroupBox;
     lblCNPJ: TLabel;
     lblRazaoSocial: TLabel;
@@ -65,12 +57,6 @@ type
     edNumeroRecibo: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    qryLotesPendentesNFeANO: TSmallintField;
-    qryLotesPendentesNFeNUMERO: TIntegerField;
-    qryLotesPendentesNFeTIPONFE: TIntegerField;
-    qryLotesPendentesNFeTIPO: TIBStringField;
-    qryLotesPendentesNFeLOTE: TIntegerField;
-    qryLotesPendentesNFeRECIBO: TIBStringField;
     qryNFE: TIBDataSet;
     qryNFEANOVENDA: TSmallintField;
     qryNFENUMVENDA: TIntegerField;
@@ -95,6 +81,8 @@ type
     edProtocoloTMP: TEdit;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
+    fdQryLotesPendentesNFe: TFDQuery;
+    fdQryEmpresa: TFDQuery;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure btFecharClick(Sender: TObject);
@@ -113,7 +101,7 @@ type
     FFileNameXML : String;
     procedure Auditar;
     procedure CarregarEmpresa(const sCnpj : String);
-    procedure CarregarLotePendente(const sCnpjEmitente : String);
+    procedure CarregarLotePendente(const sCnpjEmitente, sRecibo : String);
     function PesquisarLote(const iAno, iNumero : Integer; const sRecibo : String; var Ano, Controle : Integer; var Destinaratio : String) : Boolean;
   public
     { Public declarations }
@@ -166,7 +154,7 @@ begin
       FAguardandoRetorno := True;
 
       CarregarEmpresa(sEmpresa);
-      CarregarLotePendente(sEmpresa);
+      CarregarLotePendente(sEmpresa, sRecibo);
 
       edJustificativa.Lines.Clear;
       edJustificativa.Lines.Text := 'Busca automática de retorno do recibo de envio da NF-e';
@@ -201,7 +189,7 @@ procedure TfrmGeConsultarLoteNFe_v2.FormCreate(Sender: TObject);
 begin
   inherited;
   CarregarEmpresa(gUsuarioLogado.Empresa);
-  CarregarLotePendente(gUsuarioLogado.Empresa);
+  CarregarLotePendente(gUsuarioLogado.Empresa, EmptyStr);
 
   Auditar;
 
@@ -244,12 +232,12 @@ procedure TfrmGeConsultarLoteNFe_v2.FormShow(Sender: TObject);
 begin
   inherited;
   if not FAguardandoRetorno then
-    if not qryLotesPendentesNFe.IsEmpty then
+    if not fdQryLotesPendentesNFe.IsEmpty then
     begin
-      edAno.Text          := qryLotesPendentesNFeANO.AsString;
-      edNumeroLote.Text   := qryLotesPendentesNFeLOTE.AsString;
-      edNumeroRecibo.Text := qryLotesPendentesNFeRECIBO.AsString;
-      FTipoMovimento      := TTipoMovimento(qryLotesPendentesNFeTIPONFE.AsInteger);
+      edAno.Text          := fdQryLotesPendentesNFe.FieldByName('ANO').AsString;
+      edNumeroLote.Text   := fdQryLotesPendentesNFe.FieldByName('LOTE').AsString;
+      edNumeroRecibo.Text := fdQryLotesPendentesNFe.FieldByName('RECIBO').AsString;
+      FTipoMovimento      := TTipoMovimento(fdQryLotesPendentesNFe.FieldByName('TIPONFE').AsInteger);
     end;
 
   if FAguardandoRetorno then
@@ -355,7 +343,8 @@ var
 const
   NOME_ARQUIVO_XML = '%s-nfe.xml';
 begin
-  lblInforme.Visible := True;
+  btnConfirmar.Enabled := False;
+  lblInforme.Visible   := True;
   try
     if not GetConectedInternet then
     begin
@@ -426,7 +415,8 @@ begin
 
     end;
   finally
-    lblInforme.Visible := False;
+    btnConfirmar.Enabled := True;
+    lblInforme.Visible   := False;
   end;
 (*
   bTudo   := (Trim(edAno.Text) = EmptyStr) and (Trim(edNumeroLote.Text) = EmptyStr) and (Trim(edNumeroRecibo.Text) = EmptyStr);
@@ -598,7 +588,7 @@ end;
 
 procedure TfrmGeConsultarLoteNFe_v2.CarregarEmpresa(const sCnpj: String);
 begin
-  with qryEmpresa do
+  with fdQryEmpresa do
   begin
     Close;
     ParamByName('cnpj').AsString := sCnpj;
@@ -607,13 +597,16 @@ begin
 end;
 
 procedure TfrmGeConsultarLoteNFe_v2.CarregarLotePendente(
-  const sCnpjEmitente: String);
+  const sCnpjEmitente, sRecibo: String);
 begin
-  with qryLotesPendentesNFe do
+  with fdQryLotesPendentesNFe do
   begin
     Close;
     ParamByName('empresa_vnd').AsString := sCnpjEmitente;
     ParamByName('empresa_cmp').AsString := sCnpjEmitente;
+    ParamByName('recibo_vnd').AsString  := Trim(sRecibo);
+    ParamByName('recibo_cmp').AsString  := Trim(sRecibo);
+    ParamByName('todos').AsInteger      := IfThen(Trim(sRecibo) = EmptyStr, 1, 0);
     Open;
   end;
 end;
