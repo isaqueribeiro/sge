@@ -3,19 +3,20 @@ unit UGeEmpresa;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, Menus, ExtDlgs, cxGraphics,
+  ToolWin, IBTable, Menus, ExtDlgs, cxGraphics, JvDBControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit,
-  JvDBControls, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEmpresa = class(TfrmGrPadraoCadastro)
@@ -91,7 +92,6 @@ type
     IbDtstTabelaTIPO_REGIME_NFE: TSmallintField;
     IbDtstTabelaSERIE_NFE: TSmallintField;
     IbDtstTabelaNUMERO_NFE: TIntegerField;
-    tblTipoRegimeNFe: TIBTable;
     dtsTipoRegimeNFe: TDataSource;
     lblTipoRegime: TLabel;
     dbTipoRegime: TDBLookupComboBox;
@@ -108,11 +108,8 @@ type
     lblCNAE: TLabel;
     dbCNAE: TDBEdit;
     IbDtstTabelaCNAE: TIBStringField;
-    tblSegmento: TIBTable;
     dtsSegmento: TDataSource;
     IbDtstTabelaSEGMENTO: TSmallintField;
-    lblSegmento: TLabel;
-    dbSegmento: TDBLookupComboBox;
     IbDtstTabelaFONE2: TIBStringField;
     lblFone2: TLabel;
     dbFone2: TDBEdit;
@@ -131,6 +128,10 @@ type
     dbBairro: TJvDBComboEdit;
     dbLogradouro: TJvDBComboEdit;
     dbPais: TJvDBComboEdit;
+    fdQrySegmento: TFDQuery;
+    fdQryTipoRegimeNFe: TFDQuery;
+    lblSegmento: TLabel;
+    dbSegmento: TDBLookupComboBox;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -202,8 +203,8 @@ begin
 
   inherited;
 
-  CarregarLista(tblTipoRegimeNFe);
-  CarregarLista(tblSegmento);
+  CarregarLista(fdQryTipoRegimeNFe);
+  CarregarLista(fdQrySegmento);
 
   RotinaID         := ROTINA_CAD_EMPRESA_ID;
   AbrirTabelaAuto  := True;

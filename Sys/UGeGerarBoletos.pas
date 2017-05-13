@@ -653,6 +653,12 @@ begin
     begin
       Clear;
       SetLength(IBancoConta, RecordCount + 1);
+    end
+    else
+    begin
+      SetLength(IBancoConta, cmbBanco.Items.Count);
+      for I := 0 to cmbBanco.Items.Count - 1 do
+        IBancoConta[I] := 0;
     end;
 
     I := 0;

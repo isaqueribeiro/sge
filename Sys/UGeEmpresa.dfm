@@ -173,14 +173,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           Caption = 'CNAE Principal:'
           FocusControl = dbCNAE
         end
-        object lblSegmento: TLabel [7]
-          Left = 192
-          Top = 64
-          Width = 52
-          Height = 13
-          Caption = 'Segmento:'
-          FocusControl = dbSegmento
-        end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
           DataField = 'CODIGO'
@@ -232,7 +224,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
         object dbFantasia: TDBEdit
           Left = 16
           Top = 80
-          Width = 169
+          Width = 330
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NMFANT'
@@ -259,7 +251,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 5
         end
         object dbIM: TDBEdit
           Left = 488
@@ -275,7 +267,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 6
         end
         object dbCNAE: TDBEdit
           Left = 624
@@ -291,26 +283,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 8
-        end
-        object dbSegmento: TDBLookupComboBox
-          Left = 192
-          Top = 80
-          Width = 153
-          Height = 21
-          DataField = 'SEGMENTO'
-          DataSource = DtSrcTabela
-          DropDownRows = 10
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          KeyField = 'SEG_ID'
-          ListField = 'SEG_DESCRICAO'
-          ListSource = dtsSegmento
-          ParentFont = False
-          TabOrder = 5
+          TabOrder = 7
         end
       end
       object GroupBox1: TGroupBox
@@ -799,7 +772,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           object dbHome: TDBEdit
             Left = 8
             Top = 56
-            Width = 465
+            Width = 313
             Height = 21
             CharCase = ecLowerCase
             DataField = 'HOME_PAGE'
@@ -853,11 +826,12 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Caption = 'Pa'#237's:'
           end
           object lblChave: TLabel
-            Left = 344
-            Top = 0
-            Width = 147
+            Left = 8
+            Top = 40
+            Width = 83
             Height = 13
-            Caption = 'Descri'#231#227'o da Chave de Acesso'
+            Caption = 'Chave de Acesso'
+            Enabled = False
             FocusControl = dbChave
           end
           object lblTipoRegime: TLabel
@@ -967,26 +941,36 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
           end
+          object lblSegmento: TLabel
+            Left = 456
+            Top = 0
+            Width = 52
+            Height = 13
+            Caption = 'Segmento:'
+            FocusControl = dbSegmento
+          end
           object dbChave: TDBEdit
-            Left = 344
-            Top = 16
-            Width = 373
+            Left = 8
+            Top = 56
+            Width = 138
             Height = 21
             CharCase = ecUpperCase
+            Color = clMoneyGreen
             DataField = 'CHAVE_ACESSO_NFE'
             DataSource = DtSrcTabela
+            Enabled = False
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 3
           end
           object dbTipoRegime: TDBLookupComboBox
             Left = 151
             Top = 16
-            Width = 186
+            Width = 299
             Height = 21
             DataField = 'TIPO_REGIME_NFE'
             DataSource = DtSrcTabela
@@ -1018,7 +1002,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 3
+            TabOrder = 4
           end
           object dbNumeroNFe: TDBEdit
             Left = 232
@@ -1036,7 +1020,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 4
+            TabOrder = 5
           end
           object dbLoteAno: TDBEdit
             Left = 344
@@ -1054,7 +1038,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 5
+            TabOrder = 6
             Visible = False
           end
           object dbLoteNumero: TDBEdit
@@ -1073,7 +1057,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 6
+            TabOrder = 7
           end
           object dbSerieNFCe: TDBEdit
             Left = 456
@@ -1091,7 +1075,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 7
+            TabOrder = 8
           end
           object dbNumeroNFCe: TDBEdit
             Left = 536
@@ -1109,7 +1093,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 8
+            TabOrder = 9
           end
           object dbNumeroCCe: TDBEdit
             Left = 644
@@ -1127,7 +1111,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 9
+            TabOrder = 10
           end
           object dbPais: TJvDBComboEdit
             Left = 8
@@ -1203,6 +1187,25 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ReadOnly = True
             ShowHint = True
             TabOrder = 0
+          end
+          object dbSegmento: TDBLookupComboBox
+            Left = 456
+            Top = 16
+            Width = 261
+            Height = 21
+            DataField = 'SEGMENTO'
+            DataSource = DtSrcTabela
+            DropDownRows = 10
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            KeyField = 'SEG_ID'
+            ListField = 'SEG_DESCRICAO'
+            ListSource = dtsSegmento
+            ParentFont = False
+            TabOrder = 2
           end
         end
       end
@@ -1651,7 +1654,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
   inherited ImgList: TImageList
     Left = 608
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3129,35 +3132,38 @@ inherited frmGeEmpresa: TfrmGeEmpresa
     Left = 696
     Top = 257
   end
-  object tblTipoRegimeNFe: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_REGIME_NFE'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 544
-    Top = 8
-  end
   object dtsTipoRegimeNFe: TDataSource
-    DataSet = tblTipoRegimeNFe
+    DataSet = fdQryTipoRegimeNFe
     Left = 576
     Top = 8
-  end
-  object tblSegmento: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBSEGMENTO'
-    UniDirectional = False
-    Left = 544
-    Top = 40
   end
   object dtsSegmento: TDataSource
-    DataSet = tblSegmento
+    DataSet = fdQrySegmento
     Left = 576
     Top = 40
+  end
+  object fdQrySegmento: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    s.seg_id'
+      '  , s.seg_descricao'
+      'from TBSEGMENTO s')
+    Left = 544
+    Top = 40
+  end
+  object fdQryTipoRegimeNFe: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    t.codigo'
+      '  , t.descricao'
+      'from VW_TIPO_REGIME_NFE t')
+    Left = 544
+    Top = 8
   end
 end

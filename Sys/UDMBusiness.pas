@@ -4259,17 +4259,43 @@ procedure TDMBusiness.DataModuleCreate(Sender: TObject);
 var
   I ,
   X : Integer;
+  sServidor,
+  sPorta   ,
+  sBase    : String;
 begin
   gSistema.Codigo := SISTEMA_GESTAO_COM;
   gSistema.Nome   := Application.Title;
 
   try
+    with FileINI do
+    begin
+      if (ParamCount >= 2) then
+      begin
+        sServidor := ParamStr(1);
+        sBase     := ParamStr(2);
+      end
+      else
+      begin
+        sServidor := ReadString('Conexao', 'Servidor', 'localhost');
+        sPorta    := ReadString('Conexao', 'Porta',    '3050');
+        sBase     := ReadString('Conexao', 'Base',     'AGIL_COMERCIO');
+      end;
+
+      if Pos('/', sServidor) > 0 then
+      begin
+        sPorta    := Copy(sServidor, Pos('/', sServidor) + 1, Length(sServidor));
+        sServidor := Copy(sServidor, 1, Pos('/', sServidor) - 1);
+      end
+      else
+      if (sPorta = EmptyStr) then
+        sPorta := '3050';
+    end;
 
     // Conexão InterBase
-    with ibdtbsBusiness, FileINI do
+    with ibdtbsBusiness do
     begin
       Connected    := False;
-      DatabaseName := ReadString('Conexao', 'Servidor', EmptyStr) + ':' + ReadString('Conexao', 'Base', EmptyStr);
+      DatabaseName := sServidor + '/' + sPorta + ':' + sBase;
       Params.Clear;
       Params.Add('user_name=' + DB_USER_NAME);
       Params.Add('password='  + DB_USER_PASSWORD);
@@ -4278,15 +4304,15 @@ begin
     end;
 
     // Conexão FireDAC
-    with fdConexao, FileINI do
+    with fdConexao do
     begin
       Connected := False;
       Params.Clear;
       Params.Add('DriverID=FB');
       Params.Add('Protocol=TCPIP');
-      Params.Add('Server='       + ReadString('Conexao', 'Servidor', 'localhost'));
-      Params.Add('Port='         + ReadString('Conexao', 'Porta',    '3050'));
-      Params.Add('Database='     + ReadString('Conexao', 'Base',     'AGIL_COMERCIO'));
+      Params.Add('Server='       + sServidor);
+      Params.Add('Port='         + sPorta);
+      Params.Add('Database='     + sBase);
       Params.Add('User_Name='    + DB_USER_NAME);
       Params.Add('Password='     + DB_USER_PASSWORD);
       Params.Add('CharacterSet=' + DB_LC_CTYPE);
