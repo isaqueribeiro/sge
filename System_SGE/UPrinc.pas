@@ -1023,6 +1023,7 @@ begin
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_ESTOQUE_ID,     'Relatórios de Estoque',     ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FATURAMENTO_ID, 'Relatórios de Faturamento', ROTINA_MENU_RELATORIO_ID);
   SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_FINANCEIRO_ID,  'Relatórios do Financeiro',  ROTINA_MENU_RELATORIO_ID);
+  SetRotinaSistema(ROTINA_TIPO_MENU, ROTINA_MENU_REL_GERENCIAL_ID,   'Relatórios Gerenciais',     ROTINA_MENU_RELATORIO_ID);
 
   // Menu Aplicação
 

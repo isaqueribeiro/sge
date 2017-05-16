@@ -132,6 +132,7 @@ begin
     ImgLogo.Picture.Icon := Application.Icon;
 
   fContador := 0;
+  SplashFree;
 end;
 
 procedure TfrmGrPadraoLogin.CarregarEmpresa;

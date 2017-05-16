@@ -16,6 +16,7 @@ uses
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UDMBusiness in '..\Sys\UDMBusiness.pas' {DMBusiness: TDataModule},
   USobre in '..\Sys\USobre.pas' {frmSobre},
+  USplash in '..\Sys\USplash.pas' {frmSplash},
   UPesqProd in '..\Sys\UPesqProd.pas' {frmPesqProd},
   UfrmRelVendas in '..\Sys\UfrmRelVendas.pas' {frmRelVendas},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
@@ -153,6 +154,9 @@ begin
 
   Application.Initialize;
   Application.Title := 'SGE | Sistema Integrado de Gestão Empresarial/Comercial';
+
+  SplashShow(Application);
+
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);

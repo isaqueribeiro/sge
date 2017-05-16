@@ -222,14 +222,20 @@ end;
 
 function TfrmGrConfigurarBackup.NomeBase: String;
 begin
-  with FileINI do
-    Result := ReadString('Conexao', 'Base', 'AGIL_COMERCIO.fdb');
+  if (ParamCount >= 2) then
+    Result := ParamStr(2) // Base
+  else
+    with FileINI do
+      Result := ReadString('Conexao', 'Base', 'AGIL_COMERCIO.fdb');
 end;
 
 function TfrmGrConfigurarBackup.NomeServidor: String;
 begin
-  with FileINI do
-    Result := ReadString('Conexao', 'Servidor', 'localhost');
+  if (ParamCount >= 2) then
+    Result := ParamStr(1) // Servidor
+  else
+    with FileINI do
+      Result := ReadString('Conexao', 'Servidor', 'localhost');
 end;
 
 function TfrmGrConfigurarBackup.PathBackup: String;

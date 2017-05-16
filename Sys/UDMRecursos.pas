@@ -3,6 +3,7 @@ unit UDMRecursos;
 interface
 
 uses
+  USplash,
   UGrAguarde,
   UPersonalizaEmpresa,
   Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls;
@@ -30,6 +31,10 @@ var
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1);
 
+  procedure SplashFree;
+  procedure SplashShow(const Aonwer : TComponent);
+  procedure SplashMessage(pMessage : String);
+
 implementation
 
 {$R *.dfm}
@@ -50,6 +55,36 @@ begin
     FrmAguarde.Show;
   finally
   end
+end;
+
+procedure SplashFree;
+begin
+  if ( frmSplash <> nil ) then
+    frmSplash.Close;
+end;
+
+procedure SplashShow(const Aonwer : TComponent);
+begin
+  try
+    if (frmSplash = nil) then
+    begin
+      frmSplash := TfrmSplash.Create(Aonwer);
+      frmSplash.Show;
+
+      Sleep(500);
+    end;
+  finally
+    frmSplash.Update;
+  end
+end;
+
+procedure SplashMessage(pMessage : String);
+begin
+  if (frmSplash <> nil) then
+    try
+      frmSplash.lblCarregando.Caption := Trim(pMessage);
+    finally
+    end
 end;
 
 { TDMRecursos }

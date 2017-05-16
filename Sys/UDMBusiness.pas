@@ -513,7 +513,7 @@ const
 implementation
 
 uses
-  UFuncoes, UGrMessage;
+  UFuncoes, UGrMessage, UDMRecursos;
 
 {$R *.dfm}
 
@@ -4263,6 +4263,8 @@ var
   sPorta   ,
   sBase    : String;
 begin
+  SplashMessage('Conectando-se à base de dados...');
+
   gSistema.Codigo := SISTEMA_GESTAO_COM;
   gSistema.Nome   := Application.Title;
 

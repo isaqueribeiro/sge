@@ -130,6 +130,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\USobre.pas">
             <Form>frmSobre</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\USplash.pas">
+            <Form>frmSplash</Form>
+        </DCCReference>
         <DCCReference Include="..\Sys\UPesqProd.pas">
             <Form>frmPesqProd</Form>
         </DCCReference>
@@ -438,84 +441,64 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaDevolucaoNF.pas">
             <Form>frmGeVendaDevolucaoNF</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrConfigurarBackup.pas">
             <Form>frmGrConfigurarBackup</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="UGeProdutoImpressao.pas">
             <Form>frmGeProdutoImpressao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="UGeProdutoEstoqueImpressao.pas">
             <Form>frmGeProdutoEstoqueImpressao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeEntradaEstoqueDevolucaoNF.pas">
             <Form>frmGeEntradaEstoqueDevolucaoNF</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeNFComplementar.pas">
             <Form>frmGeNFComplementar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="UGeContasAReceberQuitar.pas">
             <Form>frmGeContasAReceberQuitar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAPagarLoteParcela.pas">
             <Form>frmGeContasAPagarLoteParcela</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAReceberLoteParcela.pas">
             <Form>frmGeContasAReceberLoteParcela</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeTabelaIBPT.pas">
             <Form>frmGeTabelaIBPT</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeTabelaIBPTImportar.pas">
             <Form>frmGeTabelaIBPTImportar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeTipoReceita.pas">
             <Form>frmGeTipoReceita</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFluxoCaixaImpressao.pas">
             <Form>frmGeFluxoCaixaImpressao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGrAguarde.pas">
             <Form>frmAguarde</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UPersonalizaEmpresa.pas"/>
         <DCCReference Include="..\Sys\UGeControleCheque.pas">
             <Form>frmGeControleCheque</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrMemoData.pas">
             <Form>frmGrMemoData</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFornecedorClientePesquisa.pas">
             <Form>frmGeFornecedorClientePesquisa</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrAutoUpgrade.pas">
             <Form>frmGeAutoUpgrade</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeImportarNFE.pas">
             <Form>frmGeImportarNFE</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeResultadoExercicioImpressao.pas">
             <Form>frmGeResultadoExercicioImpressao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGE.todo"/>
         <BuildConfiguration Include="Debug">
