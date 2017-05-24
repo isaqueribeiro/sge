@@ -3,8 +3,11 @@ unit USplash;
 interface
 
 uses
+  UConstantesDGE,
+  UGrPadrao,
+
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
   dxGDIPlusClasses, Vcl.StdCtrls, JvExControls, JvAnimatedImage, JvGIFCtrl;
 
 type
@@ -17,6 +20,7 @@ type
     lblCopyright: TLabel;
     lblCarregando: TLabel;
     lblProductName: TLabel;
+    lblManifestoAgil: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
   private
@@ -57,6 +61,7 @@ begin
   lblFileDescription.Caption := GetFileDescription;
   lblVersion.Caption         := 'Versão ' + GetExeVersion;
   lblCopyright.Caption       := GetCopyright;
+  lblManifestoAgil.Caption   := MANIFESTO_AGIL;
 
   gifCarregando.Animate := True;
 end;

@@ -284,7 +284,6 @@ inherited frmSplash: TfrmSplash
     Width = 54
     Height = 55
     AsyncDrawing = True
-    FrameIndex = 5
     Image.Data = {
       7B07000047494638396136003700B30000FFFFFF0000007878781C1C1C0E0E0E
       D8D8D8545454DCDCDCC4C4C44848488A8A8A0000000000000000000000000000
@@ -407,6 +406,26 @@ inherited frmSplash: TfrmSplash
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
+    IsControl = True
+  end
+  object lblManifestoAgil: TLabel
+    Left = 239
+    Top = 174
+    Width = 363
+    Height = 63
+    Anchors = [akLeft, akTop, akRight]
+    Caption = 
+      'Estamos descobrindo maneiras melhores de desenvolver software, f' +
+      'azendo-o n'#243's mesmos e ajudando outros a fazerem o mesmo. Atrav'#233's' +
+      ' deste trabalho, passamos a valorizar:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clGreen
+    Font.Height = -8
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+    WordWrap = True
     IsControl = True
   end
 end

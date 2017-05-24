@@ -381,7 +381,7 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'CODCONTROL'
-    Left = 168
+    Left = 448
     Top = 8
     object cdsNFeSERIE: TIBStringField
       FieldName = 'SERIE'

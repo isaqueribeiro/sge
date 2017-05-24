@@ -1670,8 +1670,14 @@ begin
       SQL.Add('       or (d.tipodesp = ' + QuotedStr('ENTRADAS EM GERAL') + ')');
       SQL.Add('  )) then');
       SQL.Add('  begin');
-      SQL.Add('    Insert into TBTPDESPESA');
-      SQL.Add('    values (');
+      SQL.Add('    Insert into TBTPDESPESA (');
+      SQL.Add('        cod');
+      SQL.Add('      , classificacao');
+      SQL.Add('      , tipodesp');
+      SQL.Add('      , tipo_particular');
+      SQL.Add('      , plano_conta');
+      SQL.Add('      , ativo');
+      SQL.Add('    ) values (');
       SQL.Add('        :cd');  // Codigo
       SQL.Add('      , 0');    // Classificação
       SQL.Add('      , ' + QuotedStr('ENTRADAS EM GERAL') + ' ');
@@ -1713,8 +1719,14 @@ begin
       SQL.Add('       or (r.tiporec = ' + QuotedStr('SAÍDAS EM GERAL') + ')');
       SQL.Add('  )) then');
       SQL.Add('  begin');
-      SQL.Add('    Insert into TBTPRECEITA');
-      SQL.Add('    values (');
+      SQL.Add('    Insert into TBTPRECEITA (');
+      SQL.Add('        cod');
+      SQL.Add('      , classificacao');
+      SQL.Add('      , tiporec');
+      SQL.Add('      , tipo_particular');
+      SQL.Add('      , plano_conta');
+      SQL.Add('      , ativo');
+      SQL.Add('    ) values (');
       SQL.Add('        :cd');  // Codigo
       SQL.Add('      , 0');    // Classificação
       SQL.Add('      , ' + QuotedStr('SAÍDAS EM GERAL') + ' ');

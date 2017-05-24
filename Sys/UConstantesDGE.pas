@@ -10,6 +10,18 @@ Uses
 
 const
   VERSION_NUMBER = '1.0.8.0';
+  MANIFESTO_AGIL =
+     'Estamos descobrindo maneiras melhores de desenvolver software, '
+   + 'fazendo-o nós mesmos e ajudando outros a fazerem o mesmo. '
+   + 'Através deste trabalho, passamos a valorizar:'
+   + #13#13
+   + 'Indivíduos e interações mais que processos e ferramentas;'
+   + #13
+   + 'Software em funcionamento mais que documentação abrangente;'
+   + #13
+   + 'Colaboração com o cliente mais que negociação de contratos;'
+   + #13
+   + 'Responder a mudanças mais que seguir um plano.';
 
   SISTEMA_GESTAO_COM = 0;
   SISTEMA_PDV        = 1;

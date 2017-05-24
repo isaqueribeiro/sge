@@ -3,17 +3,15 @@ unit UGeExportarNFeGerada;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, ExtCtrls, DB, IBCustomDataSet,
+  Dialogs, StdCtrls, Mask, ExtCtrls, DB, IBCustomDataSet,
   Buttons, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons, JvToolEdit, JvExMask, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  cxButtons, JvToolEdit, JvExMask,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeExportarNFeGerada = class(TfrmGrPadrao)
@@ -153,8 +151,9 @@ function TfrmGeExportarNFeGerada.ExportarNFe: Boolean;
   end;
 
 var
-  sPastaEntradas,
-  sPastaSaidas  ,
+//  sPastaEntradas,
+//  sPastaSaidas  ,
+  sPastaXMLs    ,
   sFileNameNFe  : String;
 begin
   edDiretorioExportacao.Text := Trim(edDiretorioExportacao.Text);
@@ -162,11 +161,14 @@ begin
   if Copy(edDiretorioExportacao.Text, Length(edDiretorioExportacao.Text), 1) <> '\' then
     edDiretorioExportacao.Text := edDiretorioExportacao.Text + '\';
 
-  sPastaEntradas := edDiretorioExportacao.Text + 'NFeEmitidas\Entradas\';
-  sPastaSaidas   := edDiretorioExportacao.Text + 'NFeEmitidas\Saidas\';
-
-  ForceDirectories(sPastaEntradas);
-  ForceDirectories(sPastaSaidas);
+//  sPastaEntradas := edDiretorioExportacao.Text + 'NFeEmitidas\Entradas\';
+//  sPastaSaidas   := edDiretorioExportacao.Text + 'NFeEmitidas\Saidas\';
+//
+//  ForceDirectories(sPastaEntradas);
+//  ForceDirectories(sPastaSaidas);
+//
+  sPastaXMLs := edDiretorioExportacao.Text + gUsuarioLogado.Empresa + '\xmlNFe\';
+  ForceDirectories(sPastaXMLs);
 
   btnExportar.Enabled := False;
   btnCancelar.Enabled := False;
@@ -176,39 +178,39 @@ begin
     try
       FileINI.WriteString('Exportacao', 'NFe', edDiretorioExportacao.Text);
       FileINI.UpdateFile;
-  
+
       lblInforme.Visible := True;
-  
+
       if cdsNFe.IsEmpty then
         Exit;
-  
+
       cdsNFe.First;
       while not cdsNFe.Eof do
       begin
         Application.ProcessMessages;
-  
+
         if ( cdsNFeENTRADA.AsInteger = 1 ) then
-          sFileNameNFe := sPastaEntradas + Trim(cdsNFeXML_FILENAME.AsString)
+          sFileNameNFe := sPastaXMLs + Trim(cdsNFeXML_FILENAME.AsString)
         else
         if ( cdsNFeSAIDA.AsInteger = 1 ) then
-          sFileNameNFe := sPastaSaidas + Trim(cdsNFeXML_FILENAME.AsString);
+          sFileNameNFe := sPastaXMLs + Trim(cdsNFeXML_FILENAME.AsString);
 
         SaveFileXML( sFileNameNFe );
-  
+
         lblInforme.Caption := Trim(cdsNFeXML_FILENAME.AsString) + ' . . .' + #13 +
           FormatFloat('0.###"%"', (cdsNFe.RecNo / lblInforme.Tag * 100));
         lblInforme.Update;
-  
+
         cdsNFe.Next;
       end;
-  
+
       Result := True;
     except
       On E : Exception do
       begin
         lblInforme.Visible := False;
         Result := False;
-        ShowError('Erro ao tentar gerar arquivos de exportação das Noas Fiscais!' + #13#13 + E.Message);
+        ShowError('Erro ao tentar gerar arquivos de exportação das Notas Fiscais!' + #13#13 + E.Message);
       end;
     end;
 
