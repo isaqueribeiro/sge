@@ -412,7 +412,7 @@ inherited frmSplash: TfrmSplash
     Left = 239
     Top = 174
     Width = 363
-    Height = 63
+    Height = 36
     Anchors = [akLeft, akTop, akRight]
     Caption = 
       'Estamos descobrindo maneiras melhores de desenvolver software, f' +
@@ -420,7 +420,7 @@ inherited frmSplash: TfrmSplash
       ' deste trabalho, passamos a valorizar:'
     Font.Charset = ANSI_CHARSET
     Font.Color = clGreen
-    Font.Height = -8
+    Font.Height = -9
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
