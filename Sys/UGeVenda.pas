@@ -1805,7 +1805,10 @@ begin
       GetComprasAbertas( IbDtstTabelaCODCLIENTE.AsInteger );
       if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
       begin
-        ShowWarning('O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
+        ShowWarning(
+            'O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.'
+          + #13#13 + 'Favor comunicar ao setor financeiro para que este verifique no Cadastro do Cliente '
+          + 'o Valor Limite de Compras e seu Saldo Disponível.');
         Exit;
       end;
     end;
@@ -1910,14 +1913,14 @@ begin
   IMR - 08/12/2015 :
     Inserção da validação do código CFOP antes da geração da Nota Fiscal.
 
+  IMR - 04/05/2015 :
+    Inclusão do bloco de código para buscar o retorno NF-e quando esta já fora
+    solicitada, mas seu retorno ainda não fora processado pela aplicação.
+
   IMR - 20/04/2015 :
     Inclusão do bloco de código para verificar se o CFOP da venda corresponde
     a uma operação de devolução. Caso esta situação seja confirmada, a NF-e de
     origem será solicitada.
-
-  IMR - 04/05/2015 :
-    Inclusão do bloco de código para buscar o retorno NF-e quando esta já fora
-    solicitada, mas seu retorno ainda não fora processado pela aplicação.
 *)
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
@@ -1961,7 +1964,7 @@ begin
     begin
       bNFeGerada := BuscarRetornoReciboNFe(Self
         , IbDtstTabelaCODEMP.AsString
-        , IbDtstTabelaLOTE_NFE_RECIBO.AsString
+        , Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString)
         , iSerieNFe
         , iNumeroNFe
         , sFileNameXML

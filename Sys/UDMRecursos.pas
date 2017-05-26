@@ -6,6 +6,7 @@ uses
   USplash,
   UGrAguarde,
   UPersonalizaEmpresa,
+  UConstantesDGE,
   Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls;
 
 type
@@ -34,6 +35,7 @@ var
   procedure SplashFree;
   procedure SplashShow(const Aonwer : TComponent);
   procedure SplashMessage(pMessage : String);
+  procedure ExcluirArquivosAlertaSistema;
 
 implementation
 
@@ -85,6 +87,19 @@ begin
       frmSplash.lblCarregando.Caption := Trim(pMessage);
     finally
     end
+end;
+
+procedure ExcluirArquivosAlertaSistema;
+var
+  tipoAlerta  : TTipoAlertaSistema;
+  aFileAlerta : String;
+begin
+  for tipoAlerta := Low(SYS_ALERTA_ARQUIVOS) to High(SYS_ALERTA_ARQUIVOS) do
+  begin
+    aFileAlerta := ExtractFilePath(ParamStr(0)) + SYS_ALERTA_ARQUIVOS[tipoAlerta];
+    if FileExists(aFileAlerta) then
+      DeleteFile(aFileAlerta);
+  end;
 end;
 
 { TDMRecursos }

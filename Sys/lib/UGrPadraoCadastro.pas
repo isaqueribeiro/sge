@@ -3,23 +3,19 @@ unit UGrPadraoCadastro;
 interface
 
 uses
+  UGrPadrao,
+
   {$IFDEF DGE}
   EUserAcs,
   {$ENDIF}
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DB, UGrPadrao, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
+  Dialogs, DB, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
   DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, cxButtons,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)

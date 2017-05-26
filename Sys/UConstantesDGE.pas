@@ -6,7 +6,12 @@ Uses
   SysUtils, Classes, ExtCtrls;
 
   Type
-    TPermissaoLista = Array [0..45] of String;
+    TTipoAlertaSistema = (tpaLicenca, tpaBackup);
+
+    TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
+
+    TTipoAlertaSistemaLista = Array[Low(TTipoAlertaSistema)..High(TTipoAlertaSistema)] of String;
+    TPermissaoLista         = Array [0..45] of String;
 
 const
   VERSION_NUMBER = '1.0.8.0';
@@ -26,6 +31,14 @@ const
   SISTEMA_GESTAO_COM = 0;
   SISTEMA_PDV        = 1;
   SISTEMA_GESTAO_IND = 2;
+
+  SYS_ALERTA_PERIODO_LICENCA = 15; // Dias
+  SYS_ALERTA_ARQUIVO_LICENCA = 'AlertaLicenca.txt';
+  SYS_ALERTA_ARQUIVO_BACKUP  = 'AlertaBackup.txt';
+  SYS_ALERTA_ARQUIVOS : TTipoAlertaSistemaLista = (
+      SYS_ALERTA_ARQUIVO_LICENCA
+    , SYS_ALERTA_ARQUIVO_BACKUP
+  );
 
   LENGTH_QRCODE_150 = 150;
   LENGTH_QRCODE_160 = 160;

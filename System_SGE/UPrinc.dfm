@@ -48,7 +48,8 @@ object frmPrinc: TfrmPrinc
       Align = alClient
       AutoSize = True
       Transparent = True
-      ExplicitHeight = 494
+      ExplicitLeft = -1
+      ExplicitTop = -5
     end
     object imgEmpresa: TImage
       Left = 8
@@ -4395,6 +4396,24 @@ object frmPrinc: TfrmPrinc
       IsControl = True
       ExplicitTop = 457
     end
+    object lblAberta: TLabel
+      Left = 777
+      Top = 6
+      Width = 261
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = '============================='
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+      Visible = False
+      WordWrap = True
+      IsControl = True
+    end
     object stbMain: TdxStatusBar
       Left = 1
       Top = 465
@@ -4427,8 +4446,8 @@ object frmPrinc: TfrmPrinc
       Font.Style = [fsBold]
     end
     object RbnBackstageView: TdxRibbonBackstageView
-      Left = 431
-      Top = 143
+      Left = 23
+      Top = 16
       Width = 489
       Height = 298
       Buttons = <>
@@ -4745,8 +4764,8 @@ object frmPrinc: TfrmPrinc
   object SknController: TdxSkinController
     NativeStyle = False
     SkinName = 'Office2007Green'
-    Left = 176
-    Top = 208
+    Left = 272
+    Top = 168
   end
   object BrManager: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
@@ -6653,8 +6672,8 @@ object frmPrinc: TfrmPrinc
     Top = 246
   end
   object TmrMonitorar: TTimer
-    Left = 176
-    Top = 240
+    Left = 864
+    Top = 216
   end
   object BrPpTeamViewer: TdxBarPopupMenu
     BarManager = BrManager
@@ -6674,7 +6693,13 @@ object frmPrinc: TfrmPrinc
   object tmrAutoUpgrade: TTimer
     Enabled = False
     OnTimer = tmrAutoUpgradeTimer
-    Left = 176
-    Top = 291
+    Left = 864
+    Top = 168
+  end
+  object TmrAlertaCliente: TTimer
+    Enabled = False
+    OnTimer = TmrAlertaClienteTimer
+    Left = 864
+    Top = 264
   end
 end

@@ -167,8 +167,8 @@ begin
 
       if Result then
       begin
-        SerieNFe      :=  FSerieNFe;
-        NumeroNFe     :=  FNumeroNFe;
+        SerieNFe      := FSerieNFe;
+        NumeroNFe     := FNumeroNFe;
         ChaveNFE      := Trim(edChaveNFe.Text);
         ProtocoloNFE  := Trim(edProtocoloTMP.Text);
         FileNameXML   := FFileNameXML;

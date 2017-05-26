@@ -4448,6 +4448,9 @@ end;
 function TDMBusiness.LiberarUsoLicenca(const dDataMovimento : TDateTime;
   const Alertar: Boolean = FALSE): Boolean;
 var
+  aFile : String;
+  aTexto: TStringList;
+  iDias : Integer;
   dData : TDateTime;
 begin
   if ( dDataMovimento = 0 ) then
@@ -4455,7 +4458,31 @@ begin
   else
     dData := dDataMovimento;
 
+  iDias  := DaysBetween(dData, gLicencaSistema.DataBloqueio);
   Result := {$IFDEF DGE}True{$ELSE}(gLicencaSistema.DataBloqueio > dData){$ENDIF};
+
+  if (iDias <= SYS_ALERTA_PERIODO_LICENCA) then
+  begin
+    aFile  := ExtractFilePath(ParamStr(0)) + SYS_ALERTA_ARQUIVO_LICENCA;
+    if not FileExists(aFile) then
+    begin
+      aTexto := TStringList.Create;
+      aTexto.Text :=
+       //123456789012345678901234567890
+        '=============================' + #13 +
+        'ALERTA!' + #13 +
+        '=============================' + #13#13 +
+        'Data de expiração da licenca de uso do sistema está para o dia ' + DateToStr(gLicencaSistema.DataBloqueio) + '.' + #13#13 +
+        'Acessos a determinadas rotinas no sistema serão bloqueados!' + #13#13 +
+        'Favor entrar em contato com suporte.';
+
+      try
+        aTexto.SaveToFile(aFile);
+      finally
+        aTexto.Free;
+      end;
+    end;
+  end;
 
   if not Result then
     if Alertar then
