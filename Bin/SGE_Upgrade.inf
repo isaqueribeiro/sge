@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento;
 - Novo relatório gerencial: Resultado de Exercício;
 - Ajustes no cadastro de tipos de despesa;
 - Ajustes no cadastro de novos vendedores;
@@ -24,4 +25,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.16.6
+#version=1.0.16.9

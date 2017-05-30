@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento;
 - Ajustes na Validação de CPF/CNPJ dos Clientes;
 - Atualização Automática;
 - Outros ajustes na otimização de processos.}
@@ -17,4 +18,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.19.2
+#version=1.0.20.0
