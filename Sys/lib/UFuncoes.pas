@@ -8,6 +8,7 @@ uses
   ExcelXP, ComObj, TLHelp32;
 
   procedure ExecuteResource(pHandle : HWND; pComand : String);
+  procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
 
   function GetHostNameLocal : String;
   function GetExeVersion(const FileName : TFileName) : String; overload;
@@ -54,6 +55,17 @@ var
 procedure ExecuteResource(pHandle : HWND; pComand : String);
 begin
   ShellExecute(pHandle, 'Open', PChar(pComand), nil, nil, SW_NORMAL);
+end;
+
+procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
+begin
+   with pListOfStrings do
+   begin
+     Clear;
+     Delimiter       := pDelimiter;
+     StrictDelimiter := True;
+     DelimitedText   := pStr;
+   end;
 end;
 
 function GetHostNameLocal : String;

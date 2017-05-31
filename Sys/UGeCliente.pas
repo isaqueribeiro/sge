@@ -39,7 +39,6 @@ type
     IbDtstTabelaCID_COD: TIntegerField;
     IbDtstTabelaEST_COD: TSmallintField;
     IbDtstTabelaLOGRADOURO: TIBStringField;
-    IbDtstTabelaBAIRRO: TIBStringField;
     IbDtstTabelaEMAIL: TIBStringField;
     dbPessoaFisica: TDBCheckBox;
     lblCNPJ: TLabel;
@@ -306,6 +305,7 @@ type
     fdQryTitulosNFE: TLargeintField;
     fdQryTitulosNFE_SERIE: TStringField;
     imgAjuda: TImage;
+    IbDtstTabelaBAIRRO: TIBStringField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -1339,7 +1339,7 @@ begin
       IbDtstTabelaCIDADE.AsString   := Copy(IbDtstTabelaCID_NOME.AsString + ' (' + Trim(EditUF.Text) + ')', 1, IbDtstTabelaCIDADE.Size);
 
       IbDtstTabelaBAI_COD.AsInteger := SetBairro(IbDtstTabelaCID_COD.AsInteger, Copy(Trim(EditBairro.Text), 1, IbDtstTabelaBAIRRO.Size));
-      IbDtstTabelaBAIRRO.AsString   := Trim(EditBairro.Text);
+      IbDtstTabelaBAIRRO.AsString   := Copy(Trim(EditBairro.Text), 1, IbDtstTabelaBAIRRO.Size);
 
       IbDtstTabelaLOG_COD.AsInteger   := SetLogradouro(IbDtstTabelaCID_COD.AsInteger, Copy(Trim(EditEndereco.Text), 1, IbDtstTabelaLOGRADOURO.Size), iTipo);
       IbDtstTabelaLOGRADOURO.AsString := Trim(GetLogradouroTipo(IbDtstTabelaLOG_COD.AsInteger) + ' ' + GetLogradouroNome(IbDtstTabelaLOG_COD.AsInteger));

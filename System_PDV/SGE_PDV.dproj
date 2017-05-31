@@ -120,6 +120,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\USobre.pas">
             <Form>frmSobre</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\USplash.pas">
+            <Form>frmSplash</Form>
+        </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrPadraoCadastro.pas">
             <Form>frmGrPadraoCadastro</Form>
         </DCCReference>

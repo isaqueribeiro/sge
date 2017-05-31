@@ -11,6 +11,7 @@ uses
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UDMBusiness in '..\Sys\UDMBusiness.pas' {DMBusiness: TDataModule},
   USobre in '..\Sys\USobre.pas' {frmSobre},
+  USplash in '..\Sys\USplash.pas' {frmSplash},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
@@ -102,6 +103,9 @@ begin
 
   Application.Initialize;
   Application.Title := 'PDV | Ponto de Venda do SGE/SGI';
+
+  SplashShow(Application);
+
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);

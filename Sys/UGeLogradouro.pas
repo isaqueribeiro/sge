@@ -8,7 +8,8 @@ uses
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, dblookup, IBQuery, IBTable, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
-  JvToolEdit, JvDBControls;
+  JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeLogradouro = class(TfrmGrPadraoCadastro)
@@ -98,6 +99,9 @@ begin
     if ( Result and (frm.tblTipo.Locate('TLG_COD', frm.IbDtstTabelaTLG_COD.AsInteger, [])) ) then
     begin
       Tipo := frm.tblTipo.FieldByName('TLG_COD').AsInteger;
+      if (Tipo = 0) then
+        TipoDesc := EmptyStr
+      else
       if ( Trim(frm.tblTipo.FieldByName('TLG_SIGLA').AsString) <> EmptyStr ) then
         TipoDesc := frm.tblTipo.FieldByName('TLG_SIGLA').AsString
       else

@@ -945,3 +945,643 @@ Select 4 as TPE_CODIGO , 'Outras Receitas'      as TPE_DESCRICAO, 4 as TPE_ORDEM
 ;
 
 GRANT ALL ON VW_CLASSIFICAO_RECEITA TO "PUBLIC";
+
+
+
+/*------ SYSDBA 31/05/2017 13:21:07 --------*/
+
+ALTER TABLE TBCONDICAOPAGTO
+    ADD ATIVA DMN_LOGICO DEFAULT 1;
+
+COMMENT ON COLUMN TBCONDICAOPAGTO.ATIVA IS
+'Ativa:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 31/05/2017 13:46:42 --------*/
+
+ALTER DOMAIN DMN_BAIRRO
+TYPE VARCHAR(100) CHARACTER SET ISO8859_2;
+
+
+
+
+/*------ SYSDBA 31/05/2017 14:40:20 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_VCHAR_250'
+where (RDB$FIELD_NAME = 'LOG_NOME') and
+(RDB$RELATION_NAME = 'TBLOGRADOURO')
+;
+
+
+
+
+/*------ SYSDBA 31/05/2017 14:40:57 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_LOGRADOURO (
+    NOM_LOGRADOURO DMN_VCHAR_250,
+    TIP_LOGRADOURO DMN_VCHAR_50,
+    COD_CIDADE integer)
+returns (
+    COD_LOGRADOURO integer,
+    COD_TIPO smallint)
+as
+declare variable TMP_TIPO smallint;
+declare variable TMP_DESC DMN_VCHAR_250;
+begin
+  /* 1. Buscar codigo do Tipo do Logradouro */
+  Select first 1
+    t.tlg_cod
+  from TBTIPO_LOGRADOURO t
+  where coalesce(t.tlg_sigla, t.tlg_descricao) like Trim(:tip_logradouro) || '%'
+  Into
+    tmp_tipo;
+
+  /* 2. Ajustar descricao do logradouro */
+  if ( coalesce(:tmp_tipo, 0) = 0 ) then
+    tmp_desc = trim(:tip_logradouro) || ' ' || trim(:nom_logradouro);
+  else
+    tmp_desc = trim(:nom_logradouro);
+
+  /* 3. Buscar codigo do Logradouro */
+  Select first 1
+    l.log_cod
+  from TBLOGRADOURO l
+  where l.cid_cod = :cod_cidade
+    and trim(l.log_nome) = Trim(:tmp_desc)
+  Into
+    cod_logradouro;
+
+  /* 4. Inserir Logradouro, caso ele nao exista */
+  if ( coalesce(:cod_logradouro, 0) = 0 ) then
+  begin
+    cod_logradouro = Gen_id(GEN_LOGRADOURO_ID, 1);
+    Insert Into TBLOGRADOURO (
+        log_cod
+      , log_nome
+      , tlg_cod
+      , cid_cod
+    ) values (
+        :cod_logradouro
+      , :tmp_desc
+      , :tmp_tipo
+      , :cod_cidade
+    );
+  end
+
+  cod_tipo = tmp_tipo;
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 31/05/2017 14:41:21 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_VCHAR_50'
+where (RDB$FIELD_NAME = 'TLG_DESCRICAO') and
+(RDB$RELATION_NAME = 'TBTIPO_LOGRADOURO')
+;
+
+
+
+
+/*------ SYSDBA 31/05/2017 14:41:34 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_VCHAR_10'
+where (RDB$FIELD_NAME = 'TLG_SIGLA') and
+(RDB$RELATION_NAME = 'TBTIPO_LOGRADOURO')
+;
+
+
+UPDATE TBLOGRADOURO SET TLG_COD = 20 WHERE TLG_COD = 21;
+
+UPDATE TBCLIENTE SET TLG_COD = 20 WHERE TLG_COD = 21;
+
+DELETE FROM TBTIPO_LOGRADOURO WHERE TLG_COD = 21;
+
+UPDATE  TBTIPO_LOGRADOURO SET TLG_COD = 21 WHERE TLG_COD = 22;
+
+COMMIT WORK;
+
+
+/*------ SYSDBA 31/05/2017 14:51:57 --------*/
+
+ALTER TABLE TBTIPO_LOGRADOURO
+ADD CONSTRAINT UNQ_TBTIPO_LOGRADOURO
+UNIQUE (TLG_DESCRICAO);
+
+
+
+
+/*------ SYSDBA 31/05/2017 14:56:28 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_BAIRRO'
+where (RDB$FIELD_NAME = 'BAI_NOME') and
+(RDB$RELATION_NAME = 'TBBAIRRO')
+;
+
+
+
+
+/*------ SYSDBA 31/05/2017 15:09:21 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_LOGRADOURO (
+    NOM_LOGRADOURO DMN_VCHAR_250,
+    TIP_LOGRADOURO DMN_VCHAR_50,
+    COD_CIDADE integer)
+returns (
+    COD_LOGRADOURO DMN_INTEGER_N,
+    COD_TIPO DMN_SMALLINT_N)
+as
+declare variable TMP_TIPO DMN_SMALLINT_N;
+declare variable TMP_DESC DMN_VCHAR_250;
+begin
+  /* 1. Buscar codigo do Tipo do Logradouro */
+  Select first 1
+    t.tlg_cod
+  from TBTIPO_LOGRADOURO t
+  where coalesce(t.tlg_sigla, t.tlg_descricao) like Trim(:tip_logradouro) || '%'
+  Into
+    tmp_tipo;
+
+  /* 2. Ajustar descricao do logradouro */
+  if ( coalesce(:tmp_tipo, 0) = 0 ) then
+    tmp_desc = trim(:tip_logradouro) || ' ' || trim(:nom_logradouro);
+  else
+    tmp_desc = trim(:nom_logradouro);
+
+  /* 3. Buscar codigo do Logradouro */
+  Select first 1
+    l.log_cod
+  from TBLOGRADOURO l
+  where l.cid_cod = :cod_cidade
+    and trim(l.log_nome) = Trim(:tmp_desc)
+  Into
+    cod_logradouro;
+
+  /* 4. Inserir Logradouro, caso ele nao exista */
+  if ( coalesce(:cod_logradouro, 0) = 0 ) then
+  begin
+    cod_logradouro = Gen_id(GEN_LOGRADOURO_ID, 1);
+    Insert Into TBLOGRADOURO (
+        log_cod
+      , log_nome
+      , tlg_cod
+      , cid_cod
+    ) values (
+        :cod_logradouro
+      , :tmp_desc
+      , :tmp_tipo
+      , :cod_cidade
+    );
+  end
+
+  cod_tipo = tmp_tipo;
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 31/05/2017 15:15:14 --------*/
+
+CREATE TABLE SYS_TIPO_PRODUTO (
+    CODIGO DMN_SMALLINT_NN NOT NULL,
+    DESCRICAO DMN_VCHAR_50);
+
+ALTER TABLE SYS_TIPO_PRODUTO
+ADD CONSTRAINT PK_SYS_TIPO_PRODUTO
+PRIMARY KEY (CODIGO);
+
+COMMENT ON COLUMN SYS_TIPO_PRODUTO.CODIGO IS
+'Codigo';
+
+COMMENT ON COLUMN SYS_TIPO_PRODUTO.DESCRICAO IS
+'Descricao';
+
+
+
+
+/*------ SYSDBA 31/05/2017 15:15:15 --------*/
+
+COMMENT ON TABLE SYS_TIPO_PRODUTO IS 'Tabela de Tipos de Produtos
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   31/05/2017
+
+Tabela responsavel por armazenar os registros fixos de tipos de produtos que o
+controle de Cadastro de Produtos em emissao de NF-e utilizara para a classificacao
+dos produtos vendidos.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    31/05/2015 - IMR :
+        * Documentacao da tabela.';
+
+GRANT ALL ON SYS_TIPO_PRODUTO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 31/05/2017 15:18:27 --------*/
+
+ALTER TABLE TBPRODUTO
+    ADD CODTIPO DMN_SMALLINT_N;
+
+COMMENT ON COLUMN TBPRODUTO.CODTIPO IS
+'Tipo do produto, quando a aliquota for ICMS (Tipo Aliquota 0)';
+
+alter table TBPRODUTO
+alter CODIGO position 1;
+
+alter table TBPRODUTO
+alter COD position 2;
+
+alter table TBPRODUTO
+alter DESCRI position 3;
+
+alter table TBPRODUTO
+alter APRESENTACAO position 4;
+
+alter table TBPRODUTO
+alter DESCRI_APRESENTACAO position 5;
+
+alter table TBPRODUTO
+alter METAFONEMA position 6;
+
+alter table TBPRODUTO
+alter MODELO position 7;
+
+alter table TBPRODUTO
+alter REFERENCIA position 8;
+
+alter table TBPRODUTO
+alter NOME_AMIGO position 9;
+
+alter table TBPRODUTO
+alter ESPECIFICACAO position 10;
+
+alter table TBPRODUTO
+alter PRECO position 11;
+
+alter table TBPRODUTO
+alter PRECO_PROMOCAO position 12;
+
+alter table TBPRODUTO
+alter SECAO position 13;
+
+alter table TBPRODUTO
+alter QTDE position 14;
+
+alter table TBPRODUTO
+alter FRACIONADOR position 15;
+
+alter table TBPRODUTO
+alter PESO_BRUTO position 16;
+
+alter table TBPRODUTO
+alter PESO_LIQUIDO position 17;
+
+alter table TBPRODUTO
+alter CUBAGEM position 18;
+
+alter table TBPRODUTO
+alter VENDA_FRACIONADA position 19;
+
+alter table TBPRODUTO
+alter UNIDADE position 20;
+
+alter table TBPRODUTO
+alter ESTOQMIN position 21;
+
+alter table TBPRODUTO
+alter CODTIPO position 22;
+
+alter table TBPRODUTO
+alter CODGRUPO position 23;
+
+alter table TBPRODUTO
+alter CODFABRICANTE position 24;
+
+alter table TBPRODUTO
+alter CUSTOMEDIO position 25;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARCKUP position 26;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARGEM position 27;
+
+alter table TBPRODUTO
+alter PRECO_SUGERIDO position 28;
+
+alter table TBPRODUTO
+alter CODEMP position 29;
+
+alter table TBPRODUTO
+alter CODSECAO position 30;
+
+alter table TBPRODUTO
+alter CODORIGEM position 31;
+
+alter table TBPRODUTO
+alter CODTRIBUTACAO position 32;
+
+alter table TBPRODUTO
+alter CST position 33;
+
+alter table TBPRODUTO
+alter CSOSN position 34;
+
+alter table TBPRODUTO
+alter CST_PIS position 35;
+
+alter table TBPRODUTO
+alter CST_COFINS position 36;
+
+alter table TBPRODUTO
+alter TABELA_IBPT position 37;
+
+alter table TBPRODUTO
+alter NCM_SH position 38;
+
+alter table TBPRODUTO
+alter CODIGO_NVE position 39;
+
+alter table TBPRODUTO
+alter CODIGO_CEST position 40;
+
+alter table TBPRODUTO
+alter CODCFOP position 41;
+
+alter table TBPRODUTO
+alter CODBARRA_EAN position 42;
+
+alter table TBPRODUTO
+alter CODUNIDADE position 43;
+
+alter table TBPRODUTO
+alter CODUNIDADE_FRACIONADA position 44;
+
+alter table TBPRODUTO
+alter ALIQUOTA_TIPO position 45;
+
+alter table TBPRODUTO
+alter ALIQUOTA position 46;
+
+alter table TBPRODUTO
+alter ALIQUOTA_CSOSN position 47;
+
+alter table TBPRODUTO
+alter ALIQUOTA_PIS position 48;
+
+alter table TBPRODUTO
+alter ALIQUOTA_COFINS position 49;
+
+alter table TBPRODUTO
+alter VALOR_IPI position 50;
+
+alter table TBPRODUTO
+alter PERCENTUAL_REDUCAO_BC position 51;
+
+alter table TBPRODUTO
+alter RESERVA position 52;
+
+alter table TBPRODUTO
+alter PRODUTO_NOVO position 53;
+
+alter table TBPRODUTO
+alter COR_VEICULO position 54;
+
+alter table TBPRODUTO
+alter COMBUSTIVEL_VEICULO position 55;
+
+alter table TBPRODUTO
+alter TIPO_VEICULO position 56;
+
+alter table TBPRODUTO
+alter ANO_MODELO_VEICULO position 57;
+
+alter table TBPRODUTO
+alter ANO_FABRICACAO_VEICULO position 58;
+
+alter table TBPRODUTO
+alter RENAVAM_VEICULO position 59;
+
+alter table TBPRODUTO
+alter CHASSI_VEICULO position 60;
+
+alter table TBPRODUTO
+alter KILOMETRAGEM_VEICULO position 61;
+
+alter table TBPRODUTO
+alter SITUACAO_ATUAL_VEICULO position 62;
+
+alter table TBPRODUTO
+alter SITUACAO_HISTORICO_VEICULO position 63;
+
+alter table TBPRODUTO
+alter USUARIO position 64;
+
+alter table TBPRODUTO
+alter CADASTRO_ATIVO position 65;
+
+alter table TBPRODUTO
+alter MOVIMENTA_ESTOQUE position 66;
+
+alter table TBPRODUTO
+alter COMPOR_FATURAMENTO position 67;
+
+alter table TBPRODUTO
+alter PRODUTO_IMOBILIZADO position 68;
+
+alter table TBPRODUTO
+alter ESTOQUE_APROP_LOTE position 69;
+
+alter table TBPRODUTO
+alter CUST_DESP_OFIC position 70;
+
+alter table TBPRODUTO
+alter CUST_DESP_GERAIS position 71;
+
+alter table TBPRODUTO
+alter CUST_DESP_ADM position 72;
+
+alter table TBPRODUTO
+alter CUST_COMISSAO position 73;
+
+alter table TBPRODUTO
+alter CUST_IMPOSTO position 74;
+
+alter table TBPRODUTO
+alter FI_RET_FINANC position 75;
+
+alter table TBPRODUTO
+alter FI_RET_PLANO position 76;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_DATA position 77;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_VALOR position 78;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_FORNEC position 79;
+
+alter table TBPRODUTO
+alter ARQUIVO_MORTO position 80;
+
+
+
+
+/*------ SYSDBA 31/05/2017 15:19:27 --------*/
+
+ALTER TABLE TBPRODUTO
+ADD CONSTRAINT FK_TBPRODUTO_TIPO
+FOREIGN KEY (CODTIPO)
+REFERENCES SYS_TIPO_PRODUTO(CODIGO);
+
+
+
+
+/*------ SYSDBA 31/05/2017 16:02:15 --------*/
+
+CREATE OR ALTER VIEW VW_CONDICAOPAGTO(
+    COND_COD,
+    COND_DESCRICAO,
+    COND_PRAZO,
+    COND_QTDE_PARCELAS,
+    COND_PRAZO_01,
+    COND_PRAZO_02,
+    COND_PRAZO_03,
+    COND_PRAZO_04,
+    COND_PRAZO_05,
+    COND_PRAZO_06,
+    COND_PRAZO_07,
+    COND_PRAZO_08,
+    COND_PRAZO_09,
+    COND_PRAZO_10,
+    COND_PRAZO_11,
+    COND_PRAZO_12,
+    COND_DESCRICAO_FULL,
+    COND_DESCRICAO_PDV,
+    COND_PDV,
+    ATIVA)
+AS
+Select
+    c.Cond_cod
+  , c.Cond_descricao
+  , c.Cond_prazo
+  , c.Cond_qtde_parcelas
+  , c.Cond_prazo_01
+  , c.Cond_prazo_02
+  , c.Cond_prazo_03
+  , c.Cond_prazo_04
+  , c.Cond_prazo_05
+  , c.Cond_prazo_06
+  , c.Cond_prazo_07
+  , c.Cond_prazo_08
+  , c.Cond_prazo_09
+  , c.Cond_prazo_10
+  , c.Cond_prazo_11
+  , c.Cond_prazo_12
+  , c.Cond_descricao || ' [' ||
+      case when c.Cond_prazo_01 is not Null then right('00' || c.Cond_prazo_01, 2) else '' end ||
+      case when c.Cond_prazo_02 is not Null then ', ' || c.Cond_prazo_02 else '' end ||
+      case when c.Cond_prazo_03 is not Null then ', ' || c.Cond_prazo_03 else '' end ||
+      case when c.Cond_prazo_04 is not Null then ', ' || c.Cond_prazo_04 else '' end ||
+      case when c.Cond_prazo_05 is not Null then ', ' || c.Cond_prazo_05 else '' end ||
+      case when c.Cond_prazo_06 is not Null then ', ' || c.Cond_prazo_06 else '' end ||
+      case when c.Cond_prazo_07 is not Null then ', ' || c.Cond_prazo_07 else '' end ||
+      case when c.Cond_prazo_08 is not Null then ', ' || c.Cond_prazo_08 else '' end ||
+      case when c.Cond_prazo_09 is not Null then ', ' || c.Cond_prazo_09 else '' end ||
+      case when c.Cond_prazo_10 is not Null then ', ' || c.Cond_prazo_10 else '' end ||
+      case when c.Cond_prazo_11 is not Null then ', ' || c.Cond_prazo_11 else '' end ||
+      case when c.Cond_prazo_12 is not Null then ', ' || c.Cond_prazo_12 else '' end || ']'
+    as Cond_descricao_full
+  , Case when c.Cond_prazo = 0
+      then '* A VISTA'
+      else coalesce(c.Cond_qtde_parcelas, 1) || 'x'
+    end as Cond_descricao_PDV
+  , coalesce(c.Cond_pdv, 0)
+  , c.ativa
+from TBCONDICAOPAGTO c
+;
+
+
+
+
+/*------ SYSDBA 31/05/2017 16:39:40 --------*/
+
+COMMENT ON TABLE TBPRODUTO IS 'Tabela Produtos/Servicos
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar todos os registros de todos os produtos e/ou servicos necessarios as movimentacoes de
+entrada e saida.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    31/05/2017 - IMR :
+        + Criacao do campo CODTIPO com o objeto de classificao o produto de acordo
+          com o seu tipo a fim de definir a carga de lotes nos XML''s das NF-e quando
+          o produto for do tipo MEDICAMENTOS.
+
+    17/05/2016 - IMR :
+        + Criacao do campo CODIGO_CEST com o objetivo de armazenar o Codigo Especificador
+          de Substituicao Tributaria que passar ser exijido a partir de 2016 na emissao
+          da NF-e e NFC-e.
+
+    21/01/2016 - IMR :
+        + Criacao do campo ARQUIVO_MORTO com o objetivo de ocultar do sistema os
+          registros que nao devem mas ser apresentados para o usuario mas que
+          precisam constar na base por efeito de integridade referencial.
+
+    30/05/2014 - IMR :
+        + Criacao do campo COMPOR_FATURAMENTO que ira permitir ao sistema saber quais produtos/servicos haverao de compor
+          o faturamento da empresa e quais sao de consumo interno.
+
+    03/11/2014 - IMR :
+        + Criacao do campo METAFONEMA para auxiliar da pesquisa de produtos homonimos e o campo ESPECIFICACAO como
+          campo para especificar de maneira textual o produto/servico, muito utilizado em processos de cotacao.
+
+    10/02/2014 - IMR :
+        + Criacao dos campos CADASTRO_ATIVO e PRODUTO_IMOBILIZADO para permitir que apenas os cadastro ativos sejam
+          utilizados nos processos e para designar os produtos que sao imobilizados para futuras implementacoes de
+          controles patrimoniais.
+
+    30/07/2015 - IMR :
+        + Criacao do campo NOME_AMIGO para facilitar a identificacao interna do produto/servico dentro da empresa
+          pelos usuarios do sistema. Esse dados e necessario por existir muitas situacoes onde o nome comercial do
+          servico/produto e muito diferente do nome usualmente conhecimento pelos usuarios.';
+

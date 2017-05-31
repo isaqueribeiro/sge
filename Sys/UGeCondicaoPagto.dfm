@@ -4,8 +4,6 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
   ActiveControl = nil
   Caption = 'Tabela de Condi'#231#245'es de Pagamento'
   OldCreateOrder = True
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
@@ -72,10 +70,6 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 185
         ExplicitTop = 185
@@ -430,6 +424,24 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
+        object dbAtiva: TDBCheckBox
+          Left = 448
+          Top = 152
+          Width = 81
+          Height = 17
+          Caption = 'Ativa'
+          DataField = 'ATIVA'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 16
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
       end
       object dbgFormaPagto: TDBGrid
         Left = 0
@@ -521,6 +533,7 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       '  , c.Cond_prazo_10'
       '  , c.Cond_prazo_11'
       '  , c.Cond_prazo_12'
+      '  , c.Ativa'
       '  , c.Cond_descricao || '#39' ['#39' ||'
       
         '      case when c.Cond_prazo_01 is not Null then c.Cond_prazo_01' +
@@ -653,6 +666,12 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       FieldName = 'COND_PRAZO_12'
       Origin = 'TBCONDICAOPAGTO.COND_PRAZO_12'
     end
+    object IbDtstTabelaATIVA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVA'
+      Origin = '"TBCONDICAOPAGTO"."ATIVA"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaCOND_DESCRICAO_FULL: TIBStringField
       DisplayLabel = 'Descri'#231#227'o'
       FieldName = 'COND_DESCRICAO_FULL'
@@ -691,13 +710,15 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       '  COND_PRAZO_09,'
       '  COND_PRAZO_10,'
       '  COND_PRAZO_11,'
-      '  COND_PRAZO_12'
+      '  COND_PRAZO_12,'
+      '  ATIVA'
       'from TBCONDICAOPAGTO '
       'where'
       '  COND_COD = :COND_COD')
     ModifySQL.Strings = (
       'update TBCONDICAOPAGTO'
       'set'
+      '  ATIVA = :ATIVA,'
       '  COND_COD = :COND_COD,'
       '  COND_DESCRICAO = :COND_DESCRICAO,'
       '  COND_PDV = :COND_PDV,'
@@ -720,19 +741,19 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
     InsertSQL.Strings = (
       'insert into TBCONDICAOPAGTO'
       
-        '  (COND_COD, COND_DESCRICAO, COND_PDV, COND_PRAZO, COND_PRAZO_01' +
-        ', COND_PRAZO_02, '
+        '  (ATIVA, COND_COD, COND_DESCRICAO, COND_PDV, COND_PRAZO, COND_P' +
+        'RAZO_01, '
       
-        '   COND_PRAZO_03, COND_PRAZO_04, COND_PRAZO_05, COND_PRAZO_06, C' +
-        'OND_PRAZO_07, '
+        '   COND_PRAZO_02, COND_PRAZO_03, COND_PRAZO_04, COND_PRAZO_05, C' +
+        'OND_PRAZO_06, '
       
-        '   COND_PRAZO_08, COND_PRAZO_09, COND_PRAZO_10, COND_PRAZO_11, C' +
-        'OND_PRAZO_12, '
-      '   COND_QTDE_PARCELAS)'
+        '   COND_PRAZO_07, COND_PRAZO_08, COND_PRAZO_09, COND_PRAZO_10, C' +
+        'OND_PRAZO_11, '
+      '   COND_PRAZO_12, COND_QTDE_PARCELAS)'
       'values'
       
-        '  (:COND_COD, :COND_DESCRICAO, :COND_PDV, :COND_PRAZO, :COND_PRA' +
-        'ZO_01, '
+        '  (:ATIVA, :COND_COD, :COND_DESCRICAO, :COND_PDV, :COND_PRAZO, :' +
+        'COND_PRAZO_01, '
       
         '   :COND_PRAZO_02, :COND_PRAZO_03, :COND_PRAZO_04, :COND_PRAZO_0' +
         '5, :COND_PRAZO_06, '
@@ -751,7 +772,7 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
     Left = 576
     Top = 192
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

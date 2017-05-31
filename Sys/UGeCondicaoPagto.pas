@@ -75,6 +75,8 @@ type
     cdsFormaPagtoListaDESCRICAO: TWideStringField;
     cdsFormaPagtoListaUSAR_PDV: TWideStringField;
     lblRegistroDesativado: TLabel;
+    dbAtiva: TDBCheckBox;
+    IbDtstTabelaATIVA: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -89,8 +91,6 @@ type
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure cdsFormaPagtoListaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
-    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     procedure CarregarFormaPagto;
@@ -185,6 +185,7 @@ begin
   NomeTabela     := 'TBCONDICAOPAGTO';
   CampoCodigo    := 'Cond_cod';
   CampoDescricao := 'Cond_descricao';
+  CampoCadastroAtivo := 'ATIVA';
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     WhereAdditional := '(c.Cond_pdv = 1)';
@@ -235,6 +236,7 @@ begin
   inherited;
   IbDtstTabelaCOND_PRAZO.AsInteger := 0;
   IbDtstTabelaCOND_PDV.AsInteger   := 0;
+  IbDtstTabelaATIVA.AsInteger      := FLAG_SIM;
   IbDtstTabelaCOND_QTDE_PARCELAS.AsInteger := 0;
   IbDtstTabelaCOND_PRAZO_01.Clear;
   IbDtstTabelaCOND_PRAZO_02.Clear;
@@ -411,21 +413,6 @@ begin
     cdsFormaPagtoLista.Next;
   end;
   cdsFormaPagtoLista.First;
-end;
-
-procedure TfrmGeCondicaoPagto.dbgDadosDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
-begin
-  inherited;
-  // Destacar condições de pagamentos desativadas
-  if (Sender = dbgDados) then
-  begin
-    if Assigned(IbDtstTabela.FindField('ATIVA')) then
-      if ( IbDtstTabela.FieldByName('ATIVA').AsInteger = 0 ) then
-        dbgDados.Canvas.Font.Color := lblRegistroDesativado.Font.Color;
-
-    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
-  end;
 end;
 
 procedure TfrmGeCondicaoPagto.dbgFormaPagtoDblClick(Sender: TObject);

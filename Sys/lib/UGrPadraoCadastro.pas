@@ -222,6 +222,10 @@ end;
 procedure TfrmGrPadraoCadastro.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
+var
+  sComponentName  : TComponentName;
+  cComponentLabel : TComponent;
+  fComponentField : TField;
 begin
   TDbGrid(Sender).Canvas.font.Color := clBlack;
 
@@ -237,6 +241,19 @@ begin
       FillRect(Rect);
       Font.Style  := [fsbold]
     end;
+
+  // Destacar os registros desativados
+  sComponentName  := 'lblRegistroDesativado';
+  cComponentLabel := Self.FindComponent(sComponentName);
+  fComponentField := TDbGrid(Sender).DataSource.DataSet.Fields.FindField(CampoCadastroAtivo);
+  if Assigned(cComponentLabel) and Assigned(fComponentField) then
+  begin
+    if ( TDbGrid(Sender).DataSource.DataSet.FieldByName(CampoCadastroAtivo).AsInteger = 0 ) then
+    begin
+      dbgDados.Canvas.Font.Color := TLabel(cComponentLabel).Font.Color;
+      dbgDados.Canvas.Font.Style := TLabel(cComponentLabel).Font.Style;
+    end;
+  end;
 
   TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
 end;

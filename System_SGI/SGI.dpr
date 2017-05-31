@@ -15,6 +15,7 @@ uses
   UEcfFactory in '..\Sys\lib\UEcfFactory.pas',
   UDMBusiness in '..\Sys\UDMBusiness.pas' {DMBusiness: TDataModule},
   USobre in '..\Sys\USobre.pas' {frmSobre},
+  USplash in '..\Sys\USplash.pas' {frmSplash},
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},

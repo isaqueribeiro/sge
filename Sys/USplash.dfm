@@ -411,8 +411,8 @@ inherited frmSplash: TfrmSplash
   object lblManifestoAgil: TLabel
     Left = 239
     Top = 174
-    Width = 363
-    Height = 36
+    Width = 359
+    Height = 134
     Anchors = [akLeft, akTop, akRight]
     Caption = 
       'Estamos descobrindo maneiras melhores de desenvolver software, f' +

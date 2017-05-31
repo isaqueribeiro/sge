@@ -3,20 +3,21 @@ unit UGeVenda;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, DBClient, Provider, IBStoredProc,
   frxClass, frxDBSet, Menus, IBQuery, ClipBrd, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit, JvDBControls,
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver;
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -116,9 +117,7 @@ type
     IbDtstTabelaNOME: TIBStringField;
     tblVendedor: TIBTable;
     dtsVendedor: TDataSource;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
-    tblCondicaoPagto: TIBTable;
     dtsCondicaoPagto: TDataSource;
     cdsTabelaItens: TIBDataSet;
     IbUpdTabelaItens: TIBUpdateSQL;
@@ -400,6 +399,8 @@ type
     IbDtstTabelaCAIXA_ANO: TSmallintField;
     IbDtstTabelaCAIXA_NUM: TIntegerField;
     IbDtstTabelaCAIXA_PDV: TSmallintField;
+    fdQryFormaPagto: TFDQuery;
+    fdQryCondicaoPagto: TFDQuery;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -520,8 +521,13 @@ type
 
 (*
   Tabelas:
+  - TBVENDAS
+  - TBCLIENTE
+  - TBFORNECEDOR
+  - TBFORMPAGTO
 
   Views:
+  - VW_CONDICAOPAGTO
 
   Procedures:
 
@@ -620,8 +626,8 @@ begin
 
   CarregarLista(tblEmpresa);
   CarregarLista(tblVendedor);
-  CarregarLista(tblFormaPagto);
-  CarregarLista(tblCondicaoPagto);
+  CarregarLista(fdQryFormaPagto);
+  CarregarLista(fdQryCondicaoPagto);
   CarregarLista(tblModalidadeFrete);
 
   Case gSistema.Codigo of
@@ -802,14 +808,14 @@ var
   I : Integer;
 begin
   if ( cdsVendaFormaPagto.State in [dsEdit, dsInsert] ) then
-    if ( tblCondicaoPagto.Locate('cond_cod', dbCondicaoPagto.Field.AsInteger, []) ) then
+    if ( fdQryCondicaoPagto.Locate('cond_cod', dbCondicaoPagto.Field.AsInteger, []) ) then
     begin
-      cdsVendaFormaPagtoVENDA_PRAZO.AsInteger := tblCondicaoPagto.FieldByName('Cond_prazo').AsInteger;
+      cdsVendaFormaPagtoVENDA_PRAZO.AsInteger := fdQryCondicaoPagto.FieldByName('Cond_prazo').AsInteger;
       for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
       begin
         cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).Clear;
-        if ( not tblCondicaoPagto.FieldByName('Cond_prazo_' + FormatFloat('00', I)).IsNull ) then
-          cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := tblCondicaoPagto.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
+        if ( not fdQryCondicaoPagto.FieldByName('Cond_prazo_' + FormatFloat('00', I)).IsNull ) then
+          cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := fdQryCondicaoPagto.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
       end;
     end;
 end;
@@ -1097,8 +1103,8 @@ end;
 procedure TfrmGeVenda.dbFormaPagtoClick(Sender: TObject);
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( tblFormaPagto.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
-      IbDtstTabelaFORMAPAG.AsString := tblFormaPagto.FieldByName('descri').AsString;
+    if ( fdQryFormaPagto.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
+      IbDtstTabelaFORMAPAG.AsString := fdQryFormaPagto.FieldByName('descri').AsString;
 end;
 
 procedure TfrmGeVenda.IbDtstTabelaAfterCancel(DataSet: TDataSet);
@@ -2391,8 +2397,8 @@ begin
       CxNumero := 0;
       CxContaCorrente := 0;
 
-      if ( tblFormaPagto.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
-        if ( tblFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
+      if ( fdQryFormaPagto.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
+        if ( fdQryFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
           if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login, GetDateDB, qryTitulosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
           begin
             ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
@@ -2484,6 +2490,12 @@ begin
     if not dtsVendaFormaPagto.AutoEdit then
       Exit;
 
+    fdQryFormaPagto.Filter   := '(ativa = 1)';
+    fdQryFormaPagto.Filtered := True;
+
+    fdQryCondicaoPagto.Filter   := '(ativa = 1)';
+    fdQryCondicaoPagto.Filtered := True;
+
     cAPagar := dbValorTotal.Field.AsCurrency - GetTotalValorFormaPagto;
 
     cdsVendaFormaPagto.Append;
@@ -2496,6 +2508,12 @@ begin
       cdsVendaFormaPagto.Post
     else
       cdsVendaFormaPagto.Cancel;
+
+    fdQryFormaPagto.Filter   := EmptyStr;
+    fdQryFormaPagto.Filtered := False;
+
+    fdQryCondicaoPagto.Filter   := EmptyStr;
+    fdQryCondicaoPagto.Filtered := False;
   end
   else
 
@@ -2511,6 +2529,12 @@ begin
 
     iFormPG := cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger;
 
+    fdQryFormaPagto.Filter   := '(ativa = 1)';
+    fdQryFormaPagto.Filtered := True;
+
+    fdQryCondicaoPagto.Filter   := '(ativa = 1)';
+    fdQryCondicaoPagto.Filtered := True;
+
     cAPagar := dbValorTotal.Field.AsCurrency + cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency;
     cAPagar := cAPagar - GetTotalValorFormaPagto;
 
@@ -2521,6 +2545,12 @@ begin
       cdsVendaFormaPagto.Post
     else
       cdsVendaFormaPagto.Cancel;
+
+    fdQryFormaPagto.Filter   := EmptyStr;
+    fdQryFormaPagto.Filtered := False;
+
+    fdQryCondicaoPagto.Filter   := EmptyStr;
+    fdQryCondicaoPagto.Filtered := False;
   end
   else
 

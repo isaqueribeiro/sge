@@ -7,10 +7,13 @@ Uses
 
   Type
     TTipoAlertaSistema = (tpaLicenca, tpaBackup);
+    TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
+    TTipoProdutoCollection       = Set of TTipoProduto;
 
     TTipoAlertaSistemaLista = Array[Low(TTipoAlertaSistema)..High(TTipoAlertaSistema)] of String;
+    TTipoProdutoLista       = Array[Low(TTipoProduto)..High(TTipoProduto)] of String;
     TPermissaoLista         = Array [0..45] of String;
 
 const
@@ -38,6 +41,14 @@ const
   SYS_ALERTA_ARQUIVOS : TTipoAlertaSistemaLista = (
       SYS_ALERTA_ARQUIVO_LICENCA
     , SYS_ALERTA_ARQUIVO_BACKUP
+  );
+
+  SYS_TIPOS_PRODUTO : TTipoProdutoLista = (
+      'Material'
+    , 'Material médico-hospitalar'
+    , 'Medicamento'
+    , 'Solução'
+    , 'Opm'
   );
 
   LENGTH_QRCODE_150 = 150;

@@ -90,6 +90,8 @@ type
     BrPpTeamViewer: TdxBarPopupMenu;
     BrBtnUpgrade: TdxBarLargeButton;
     tmrAutoUpgrade: TTimer;
+    lblAberta: TLabel;
+    TmrAlertaCliente: TTimer;
     procedure btnSairClick(Sender: TObject);
     procedure nmAboutClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -127,6 +129,7 @@ type
     procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
     procedure BrBtnUpgradeClick(Sender: TObject);
     procedure tmrAutoUpgradeTimer(Sender: TObject);
+    procedure TmrAlertaClienteTimer(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -135,6 +138,7 @@ type
     procedure AutoUpdateSystem;
   public
     { Public declarations }
+    procedure AlertarCliente;
     procedure ConfigurarRotuloBotoes;
     procedure Notificar;
   end;
@@ -179,6 +183,37 @@ begin
   dh := GetDateTimeDB;
   DateTimeToSystemTime(dh, st);
   SetLocalTime(st);
+end;
+
+procedure TfrmPrinc.AlertarCliente;
+var
+  tipoAlerta  : TTipoAlertaSistema;
+  aFileAlerta : String;
+  aTextoAlerta: TStringList;
+begin
+  aTextoAlerta := TStringList.Create;
+  try
+    lblAberta.Caption := EmptyStr;
+
+    aTextoAlerta.Clear;
+    aTextoAlerta.BeginUpdate;
+    for tipoAlerta := Low(SYS_ALERTA_ARQUIVOS) to High(SYS_ALERTA_ARQUIVOS) do
+    begin
+      aFileAlerta := ExtractFilePath(ParamStr(0)) + SYS_ALERTA_ARQUIVOS[tipoAlerta];
+      if FileExists(aFileAlerta) then
+      begin
+        aTextoAlerta.LoadFromFile(aFileAlerta);
+        aTextoAlerta.Add(#13);
+      end;
+    end;
+    aTextoAlerta.EndUpdate;
+
+    lblAberta.Caption := Trim(aTextoAlerta.Text);
+    lblAberta.Visible := Trim(lblAberta.Caption) <> EmptyStr;
+    TmrAlertaCliente.Enabled := lblAberta.Visible;
+  finally
+    aTextoAlerta.Free;
+  end;
 end;
 
 procedure TfrmPrinc.AutoUpdateSystem;
@@ -438,6 +473,7 @@ begin
 //  BrBtnNotaFiscalCartaCorrecao.Enabled := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
 //  BrBtnNotaFiscalComplementar.Enabled  := GetEstacaoEmitiNFe(IfThen(gUsuarioLogado.Empresa = EmptyStr, GetEmpresaIDDefault, gUsuarioLogado.Empresa));
   AtivarUpgradeAutomatico;
+  AlertarCliente;
 end;
 
 procedure TfrmPrinc.nmProdutoClick(Sender: TObject);
@@ -594,6 +630,15 @@ begin
   RbnBackstageView.ActiveTab := RbnBackstageViewConfig;
 end;
 
+procedure TfrmPrinc.TmrAlertaClienteTimer(Sender: TObject);
+begin
+  if lblAberta.Visible then
+    Case lblAberta.Font.Color of
+      clGreen : lblAberta.Font.Color := clRed;
+      clRed   : lblAberta.Font.Color := clGreen;
+    End;
+end;
+
 procedure TfrmPrinc.tmrAutoUpgradeTimer(Sender: TObject);
 begin
   AtivarUpgradeAutomatico;
@@ -602,6 +647,8 @@ end;
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
+  if CanClose then
+    ExcluirArquivosAlertaSistema;
 end;
 
 procedure TfrmPrinc.mnRegistroEstacaoClick(Sender: TObject);

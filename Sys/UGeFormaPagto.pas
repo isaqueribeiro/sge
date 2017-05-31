@@ -69,8 +69,6 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     procedure CarregarContaCorrente;
@@ -185,6 +183,7 @@ begin
   NomeTabela     := 'TBFORMPAGTO';
   CampoCodigo    := 'COD';
   CampoDescricao := 'DESCRI';
+  CampoCadastroAtivo := 'ATIVA';
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
@@ -236,20 +235,6 @@ procedure TfrmGeFormaPagto.dbgContaCorrenteKeyDown(Sender: TObject;
 begin
   if ( Key = VK_SPACE ) then
     dbgContaCorrenteDblClick(Sender);
-end;
-
-procedure TfrmGeFormaPagto.dbgDadosDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
-begin
-  inherited;
-  // Destacar formas de pagamentos desativadas
-  if (Sender = dbgDados) then
-  begin
-    if ( IbDtstTabelaATIVA.AsInteger = 0 ) then
-      dbgDados.Canvas.Font.Color := lblRegistroDesativado.Font.Color;
-
-    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
-  end;
 end;
 
 procedure TfrmGeFormaPagto.DtSrcTabelaStateChange(Sender: TObject);

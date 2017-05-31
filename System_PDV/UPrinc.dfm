@@ -4387,6 +4387,24 @@ object frmPrinc: TfrmPrinc
       IsControl = True
       ExplicitTop = 333
     end
+    object lblAberta: TLabel
+      Left = 661
+      Top = 6
+      Width = 261
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = '============================='
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+      Visible = False
+      WordWrap = True
+      IsControl = True
+    end
     object stbMain: TdxStatusBar
       Left = 1
       Top = 445
@@ -5280,5 +5298,11 @@ object frmPrinc: TfrmPrinc
     OnTimer = tmrAutoUpgradeTimer
     Left = 384
     Top = 403
+  end
+  object TmrAlertaCliente: TTimer
+    Enabled = False
+    OnTimer = TmrAlertaClienteTimer
+    Left = 384
+    Top = 448
   end
 end

@@ -386,8 +386,6 @@ inherited frmGeVenda: TfrmGeVenda
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -1802,7 +1800,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 427
         Width = 1108
         Height = 186
-        ActivePage = tbsITitulos
+        ActivePage = tbsRecebimento
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet
@@ -4365,7 +4363,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C001C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5855,68 +5853,13 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 960
     Top = 384
   end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COD'
-        Attributes = [faRequired]
-        DataType = ftSmallint
-      end
-      item
-        Name = 'DESCRI'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'ACRESCIMO'
-        DataType = ftFloat
-      end
-      item
-        Name = 'CONTA_CORRENTE'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DEBITAR_LIMITE_CLIENTE'
-        DataType = ftSmallint
-      end>
-    IndexDefs = <
-      item
-        Name = 'PK_TBFORMPAGTO'
-        Fields = 'COD'
-        Options = [ixUnique]
-      end
-      item
-        Name = 'FK_TBFORMPAGTO_CCORRENTE'
-        Fields = 'CONTA_CORRENTE'
-      end>
-    StoreDefs = True
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 928
-    Top = 416
-  end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = fdQryFormaPagto
     Left = 960
     Top = 416
   end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 928
-    Top = 448
-  end
   object dtsCondicaoPagto: TDataSource
-    DataSet = tblCondicaoPagto
+    DataSet = fdQryCondicaoPagto
     Left = 960
     Top = 448
   end
@@ -7338,7 +7281,6 @@ inherited frmGeVenda: TfrmGeVenda
       DisplayLabel = 'Forma de Pagamento'
       FieldKind = fkLookup
       FieldName = 'FormaPagto'
-      LookupDataSet = tblFormaPagto
       LookupKeyFields = 'COD'
       LookupResultField = 'DESCRI'
       KeyFields = 'FORMAPAGTO_COD'
@@ -7350,7 +7292,6 @@ inherited frmGeVenda: TfrmGeVenda
       DisplayLabel = 'Condi'#231#227'o de Pagamento'
       FieldKind = fkLookup
       FieldName = 'CondicaoPagto'
-      LookupDataSet = tblCondicaoPagto
       LookupKeyFields = 'COND_COD'
       LookupResultField = 'COND_DESCRICAO_FULL'
       KeyFields = 'CONDICAOPAGTO_COD'
@@ -7824,5 +7765,54 @@ inherited frmGeVenda: TfrmGeVenda
   object opdNotas: TOpenDialog
     Left = 764
     Top = 353
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    f.cod'
+      '  , f.descri'
+      '  , f.acrescimo'
+      '  , f.conta_corrente'
+      '  , f.debitar_limite_cliente'
+      '  , f.formapagto_nfce'
+      '  , f.formapagto_pdv'
+      '  , f.formapagto_pdv_cupom_extra'
+      '  , f.ativa'
+      'from TBFORMPAGTO f')
+    Left = 992
+    Top = 416
+  end
+  object fdQryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    c.cond_cod'
+      '  , c.cond_descricao'
+      '  , c.cond_prazo'
+      '  , c.cond_qtde_parcelas'
+      '  , c.cond_prazo_01'
+      '  , c.cond_prazo_02'
+      '  , c.cond_prazo_03'
+      '  , c.cond_prazo_04'
+      '  , c.cond_prazo_05'
+      '  , c.cond_prazo_06'
+      '  , c.cond_prazo_07'
+      '  , c.cond_prazo_08'
+      '  , c.cond_prazo_09'
+      '  , c.cond_prazo_10'
+      '  , c.cond_prazo_11'
+      '  , c.cond_prazo_12'
+      '  , c.cond_descricao_full'
+      '  , c.cond_descricao_pdv'
+      '  , c.cond_pdv'
+      '  , c.ativa'
+      'from VW_CONDICAOPAGTO c')
+    Left = 992
+    Top = 448
   end
 end

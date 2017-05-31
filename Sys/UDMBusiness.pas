@@ -224,6 +224,8 @@ var
   procedure SetCentroCustoGeral(const aEmpresa : String);
   procedure SetTipoDespesaPadrao;
   procedure SetTipoReceitaPadrao;
+  procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
+  procedure SetTiposProdutos;
 
   procedure CarregarListaDB(const pDataSet : TDataSet);
 
@@ -1745,6 +1747,62 @@ begin
   end;
 end;
 
+procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable cd DMN_SMALLINT_N;');
+      SQL.Add('  declare variable ds DMN_VCHAR_50;');
+      SQL.Add('begin');
+      SQL.Add('  cd = ' + IntToStr(iCodigo) + ';');
+      SQL.Add('  ds = ' + QuotedStr(sDescricao) + ';');
+
+      SQL.Add('  if (not exists(');
+      SQL.Add('    Select');
+      SQL.Add('      t.codigo ');
+      SQL.Add('    from SYS_TIPO_PRODUTO t');
+      SQL.Add('    where (r.codigo    = :cd)');
+      SQL.Add('       or (r.descricao = :ds)');
+      SQL.Add('  )) then');
+      SQL.Add('  begin');
+      SQL.Add('    Insert into SYS_TIPO_PRODUTO (');
+      SQL.Add('        codigo ');
+      SQL.Add('      , descricao ');
+      SQL.Add('    ) values (');
+      SQL.Add('        :cd ');  // Codigo
+      SQL.Add('        :ds ');  // Descrição
+      SQL.Add('    );');
+      SQL.Add('  end');
+      SQL.Add('end');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetTiposProdutos;
+var
+  tipoProduto : TTipoProduto;
+begin
+  try
+    for tipoProduto := Low(SYS_TIPOS_PRODUTO) to High(SYS_TIPOS_PRODUTO) do
+      SetTipoProduto(Ord(tipoProduto), SYS_TIPOS_PRODUTO[tipoProduto]);
+  except
+    On E : Exception do
+      ShowError('Erro ao tentar registrar tipo de produto.' + #13#13 + E.Message);
+  end;
+end;
+
 procedure CarregarListaDB(const pDataSet : TDataSet);
 begin
   if pDataSet.Active then
@@ -2580,29 +2638,50 @@ function SetLogradouro(const iCidade : Integer; const sNome : String; var Tipo :
 var
   sTipo ,
   sDesc : String;
+  sLogr : TStringList;
 begin
-  sDesc := Trim(AnsiUpperCase(sNome));
-  sTipo := Trim(Copy(sDesc, 1, Pos('.', sDesc) - 1));
+  sLogr := TStringList.Create;
+  try
+    sDesc := Trim(AnsiUpperCase(sNome));
+    sTipo := EmptyStr;
 
-  if ( sTipo = EmptyStr ) then
-    sTipo := Trim(Copy(sDesc, 1, Pos(' ', sDesc) - 1));
+    Split('.', sDesc, sLogr);
+    if (sLogr.Count > 1) then
+    begin
+      sTipo := sLogr.Strings[0];
+      if Length(sTipo) > 25 then
+        sTipo := EmptyStr;
+    end;
 
-  if ( sTipo <> EmptyStr ) then
-    sDesc :=Trim(Copy(sDesc, Length(sTipo) + 1, Length(sDesc)));
+    if ( sTipo = EmptyStr ) then
+    begin
+      Split(' ', sDesc, sLogr);
+      if (sLogr.Count > 1) then
+        sTipo := sLogr.Strings[0];
+    end;
 
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select g.cod_logradouro, g.cod_tipo from SET_LOGRADOURO(' + QuotedStr(sDesc) + ', ' + QuotedStr(sTipo) + ', ' + IntToStr(iCidade) + ') g');
-    Open;
+    if ( sTipo <> EmptyStr ) then
+      sDesc := Trim(Copy(sDesc, Length(sTipo) + 1, Length(sDesc)));
 
-    Tipo   := FieldByName('cod_tipo').AsInteger;
-    Result := FieldByName('cod_logradouro').AsInteger;
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('    g.cod_logradouro');
+      SQL.Add('  , g.cod_tipo');
+      SQL.Add('from SET_LOGRADOURO(' + QuotedStr(sDesc) + ', ' + QuotedStr(sTipo) + ', ' + IntToStr(iCidade) + ') g');
+      Open;
 
-    CommitTransaction;
+      Tipo   := FieldByName('cod_tipo').AsInteger;
+      Result := FieldByName('cod_logradouro').AsInteger;
 
-    Close;
+      CommitTransaction;
+
+      Close;
+    end;
+  finally
+    sLogr.Free;
   end;
 end;
 
