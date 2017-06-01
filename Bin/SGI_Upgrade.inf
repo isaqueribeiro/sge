@@ -22,9 +22,10 @@
 #url6=http://www.drhtransparencia.com.br/agil/upgrade/lib/mp2032._dll
 #url7=http://www.drhtransparencia.com.br/agil/upgrade/lib/msxml5._dll
 #url8=http://www.drhtransparencia.com.br/agil/upgrade/lib/msxml5r._dll
-#url9=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.cat
-#url10=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
-#url11=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
+#url9=http://www.drhtransparencia.com.br/agil/upgrade/lib/msvcr71._dll
+#url10=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.cat
+#url11=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
+#url12=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 
 #method=0 (self-upgrade)
 
