@@ -1585,3 +1585,74 @@ Historico:
           pelos usuarios do sistema. Esse dados e necessario por existir muitas situacoes onde o nome comercial do
           servico/produto e muito diferente do nome usualmente conhecimento pelos usuarios.';
 
+
+
+
+/*------ SYSDBA 07/06/2017 10:26:26 --------*/
+
+ALTER TABLE TBEMPRESA
+    ADD ATIVA DMN_LOGICO DEFAULT 1;
+
+COMMENT ON COLUMN TBEMPRESA.ATIVA IS
+'Empresa ativa:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 07/06/2017 10:26:54 --------*/
+
+CREATE INDEX IDX_TBEMPRESA_ATIVA
+ON TBEMPRESA (ATIVA);
+
+
+
+
+/*------ SYSDBA 07/06/2017 10:28:20 --------*/
+
+COMMENT ON TABLE TBEMPRESA IS 'Tabela Empresa.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :
+
+Tabela responsavel por armazenar o registro da empresa e demais dados necessarios e emissao de documentos fiscais.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    07/06/2017 - IMR :
+        + Criacao do campo ATIVA que vai possibilitar a desativacao de novos lancamentos
+          e emissao de documentos para a empresa desativada.
+
+    11/12/2014 - IMR :
+        + Criação dos campos SERIE_NFCE e NUMERO_NFCE para controle dos numeros sequenciais de emissao de NFC-e (Nota
+          Fiscal do Consumidor eletronica).';
+
+
+
+
+/*------ SYSDBA 07/06/2017 10:29:04 --------*/
+
+CREATE OR ALTER VIEW VW_EMPRESA(
+    CODIGO,
+    CNPJ,
+    RAZAO,
+    FANTASIA)
+AS
+Select 
+    e.codigo
+  , e.cnpj
+  , e.rzsoc as razao
+  , coalesce(nullif(trim(e.nmfant), ''), e.rzsoc) as fantasia
+from TBEMPRESA e
+where e.ativa = 1
+order by
+    4 -- Fantasia
+;
+
