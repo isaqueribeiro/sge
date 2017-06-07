@@ -75,6 +75,20 @@ inherited frmGeEmpresa: TfrmGeEmpresa
         Width = 739
         ExplicitTop = 292
         ExplicitWidth = 739
+        object lblRegistroDesativado: TLabel [0]
+          Left = 2
+          Top = 44
+          Width = 125
+          Height = 13
+          Caption = '* Empresa desativada'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 7303023
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
         inherited grpBxFiltro: TGroupBox
           Left = 453
           Width = 282
@@ -700,7 +714,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
         Top = 237
         Width = 739
         Height = 117
-        ActivePage = tbsParametros
+        ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
@@ -796,7 +810,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             DataSource = DtSrcTabela
             PopupMenu = ppmLogo
             Stretch = True
-            TabOrder = 4
+            TabOrder = 5
           end
           object dbFone2: TDBEdit
             Left = 168
@@ -813,6 +827,24 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             TabOrder = 1
+          end
+          object dbAtiva: TDBCheckBox
+            Left = 328
+            Top = 58
+            Width = 116
+            Height = 17
+            Caption = 'Empresa Ativa'
+            DataField = 'ATIVA'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 4
+            ValueChecked = '1'
+            ValueUnchecked = '0'
           end
         end
         object tbsParametros: TTabSheet
@@ -1274,6 +1306,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       '  , e.Numero_nfce'
       '  , e.Pais_id'
       '  , e.Usuario'
+      '  , e.Ativa'
       
         '  , cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descricao) || '#39' '#39',' +
         ' '#39#39') || l.Log_nome as varchar(250)) as Logradouro'
@@ -1500,6 +1533,12 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       ProviderFlags = [pfInUpdate]
       Size = 50
     end
+    object IbDtstTabelaATIVA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVA'
+      Origin = '"TBEMPRESA"."ATIVA"'
+      ProviderFlags = [pfInUpdate]
+    end
     object IbDtstTabelaLOGRADOURO: TIBStringField
       DisplayLabel = 'Logradouro'
       FieldName = 'LOGRADOURO'
@@ -1564,13 +1603,15 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       '  CARTA_CORRECAO_NFE,'
       '  SERIE_NFCE,'
       '  NUMERO_NFCE,'
-      '  USUARIO'
+      '  USUARIO,'
+      '  ATIVA'
       'from TBEMPRESA '
       'where'
       '  CNPJ = :CNPJ')
     ModifySQL.Strings = (
       'update TBEMPRESA'
       'set'
+      '  ATIVA = :ATIVA,'
       '  BAI_COD = :BAI_COD,'
       '  BAIRRO = :BAIRRO,'
       '  CARTA_CORRECAO_NFE = :CARTA_CORRECAO_NFE,'
@@ -1613,8 +1654,8 @@ inherited frmGeEmpresa: TfrmGeEmpresa
     InsertSQL.Strings = (
       'insert into TBEMPRESA'
       
-        '  (BAI_COD, BAIRRO, CARTA_CORRECAO_NFE, CEP, CHAVE_ACESSO_NFE, C' +
-        'ID_COD, '
+        '  (ATIVA, BAI_COD, BAIRRO, CARTA_CORRECAO_NFE, CEP, CHAVE_ACESSO' +
+        '_NFE, CID_COD, '
       
         '   CIDADE, CNAE, CNPJ, CODIGO, COMPLEMENTO, EMAIL, ENDER, EST_CO' +
         'D, FONE, '
@@ -1630,14 +1671,14 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       '   USUARIO)'
       'values'
       
-        '  (:BAI_COD, :BAIRRO, :CARTA_CORRECAO_NFE, :CEP, :CHAVE_ACESSO_N' +
-        'FE, :CID_COD, '
+        '  (:ATIVA, :BAI_COD, :BAIRRO, :CARTA_CORRECAO_NFE, :CEP, :CHAVE_' +
+        'ACESSO_NFE, '
       
-        '   :CIDADE, :CNAE, :CNPJ, :CODIGO, :COMPLEMENTO, :EMAIL, :ENDER,' +
-        ' :EST_COD, '
+        '   :CID_COD, :CIDADE, :CNAE, :CNPJ, :CODIGO, :COMPLEMENTO, :EMAI' +
+        'L, :ENDER, '
       
-        '   :FONE, :FONE2, :HOME_PAGE, :IE, :IM, :LOG_COD, :LOGO, :LOTE_A' +
-        'NO_NFE, '
+        '   :EST_COD, :FONE, :FONE2, :HOME_PAGE, :IE, :IM, :LOG_COD, :LOG' +
+        'O, :LOTE_ANO_NFE, '
       
         '   :LOTE_NUM_NFE, :NMFANT, :NUMERO_END, :NUMERO_NFCE, :NUMERO_NF' +
         'E, :PAIS_ID, '
@@ -1654,7 +1695,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
   inherited ImgList: TImageList
     Left = 608
     Bitmap = {
-      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

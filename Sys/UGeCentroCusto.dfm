@@ -8,6 +8,10 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -348,7 +352,7 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

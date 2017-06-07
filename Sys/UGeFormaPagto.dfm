@@ -3,6 +3,8 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
   Top = 215
   Caption = 'Tabela de Formas de Pagamento'
   OldCreateOrder = True
+  ExplicitWidth = 751
+  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
@@ -70,6 +72,10 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 153
         ExplicitTop = 153
@@ -418,7 +424,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     Left = 560
     Top = 200
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1907,6 +1913,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       Alignment = taCenter
       DisplayLabel = 'S'
       FieldName = 'SELECIONAR'
+      ProviderFlags = [pfInUpdate]
       OnGetText = cdsContaCorrenteListaSELECIONARGetText
     end
     object cdsContaCorrenteListaCODIGO: TIntegerField
@@ -1948,8 +1955,9 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     SQL.Strings = (
       'Select'
       
-        '    Case when f.conta_corrente is null then 0 else 1 end as sele' +
-        'cionar'
+        '--    Case when f.conta_corrente is null then 0 else 1 end as se' +
+        'lecionar'
+      '    f.selecionar'
       '  , c.codigo'
       '  , c.descricao'
       '  , Case c.tipo'
@@ -1973,6 +1981,7 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
         Name = 'FORMA_PAGTO'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
   end
 end

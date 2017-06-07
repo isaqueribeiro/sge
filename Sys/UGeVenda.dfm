@@ -6,6 +6,7 @@ inherited frmGeVenda: TfrmGeVenda
   ClientHeight = 685
   ClientWidth = 1116
   OldCreateOrder = True
+  ExplicitLeft = -50
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -386,6 +387,8 @@ inherited frmGeVenda: TfrmGeVenda
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -587,7 +590,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 2
@@ -4363,7 +4366,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5822,18 +5825,8 @@ inherited frmGeVenda: TfrmGeVenda
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 928
-    Top = 352
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 960
     Top = 352
   end
@@ -5854,12 +5847,12 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 384
   end
   object dtsFormaPagto: TDataSource
-    DataSet = fdQryFormaPagto
+    DataSet = cdsFormaPagto
     Left = 960
     Top = 416
   end
   object dtsCondicaoPagto: TDataSource
-    DataSet = fdQryCondicaoPagto
+    DataSet = cdsCondicaoPagto
     Left = 960
     Top = 448
   end
@@ -7281,6 +7274,7 @@ inherited frmGeVenda: TfrmGeVenda
       DisplayLabel = 'Forma de Pagamento'
       FieldKind = fkLookup
       FieldName = 'FormaPagto'
+      LookupDataSet = cdsFormaPagto
       LookupKeyFields = 'COD'
       LookupResultField = 'DESCRI'
       KeyFields = 'FORMAPAGTO_COD'
@@ -7292,6 +7286,7 @@ inherited frmGeVenda: TfrmGeVenda
       DisplayLabel = 'Condi'#231#227'o de Pagamento'
       FieldKind = fkLookup
       FieldName = 'CondicaoPagto'
+      LookupDataSet = cdsCondicaoPagto
       LookupKeyFields = 'COND_COD'
       LookupResultField = 'COND_DESCRICAO_FULL'
       KeyFields = 'CONDICAOPAGTO_COD'
@@ -7813,6 +7808,46 @@ inherited frmGeVenda: TfrmGeVenda
       '  , c.ativa'
       'from VW_CONDICAOPAGTO c')
     Left = 992
+    Top = 448
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 992
+    Top = 352
+  end
+  object dtpFormaPagto: TDataSetProvider
+    DataSet = fdQryFormaPagto
+    Left = 1024
+    Top = 416
+  end
+  object cdsFormaPagto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dtpFormaPagto'
+    Left = 1056
+    Top = 416
+  end
+  object dtpCondicaoPagto: TDataSetProvider
+    DataSet = fdQryCondicaoPagto
+    Left = 1024
+    Top = 448
+  end
+  object cdsCondicaoPagto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dtpCondicaoPagto'
+    Left = 1056
     Top = 448
   end
 end

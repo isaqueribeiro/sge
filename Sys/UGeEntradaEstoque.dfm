@@ -524,7 +524,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 2
@@ -4419,7 +4419,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5878,18 +5878,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 280
-    Top = 376
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 312
     Top = 376
   end
@@ -7122,5 +7112,21 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     UniDirectional = False
     Left = 960
     Top = 104
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 344
+    Top = 376
   end
 end

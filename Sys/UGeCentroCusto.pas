@@ -198,7 +198,7 @@ procedure TfrmGeCentroCusto.GravarRelacaoCentroCustoEmpresa;
 var
   sSQL : String;
 const
-  SQL_INSERT = 'Insert Into TBCENTRO_CUSTO_EMPRESA (centro_custo, empresa) values (%s, %s)';
+  SQL_INSERT = 'Insert Into TBCENTRO_CUSTO_EMPRESA (centro_custo, empresa, selecionar) values (%s, %s, 1)';
   SQL_DELETE = 'Delete from TBCENTRO_CUSTO_EMPRESA where centro_custo = %s and empresa = %s';
 begin
   cdsEmpresaLista.First;

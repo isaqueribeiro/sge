@@ -1768,8 +1768,8 @@ begin
       SQL.Add('    Select');
       SQL.Add('      t.codigo ');
       SQL.Add('    from SYS_TIPO_PRODUTO t');
-      SQL.Add('    where (r.codigo    = :cd)');
-      SQL.Add('       or (r.descricao = :ds)');
+      SQL.Add('    where (t.codigo    = :cd)');
+      SQL.Add('       or (t.descricao = :ds)');
       SQL.Add('  )) then');
       SQL.Add('  begin');
       SQL.Add('    Insert into SYS_TIPO_PRODUTO (');
@@ -1777,10 +1777,10 @@ begin
       SQL.Add('      , descricao ');
       SQL.Add('    ) values (');
       SQL.Add('        :cd ');  // Codigo
-      SQL.Add('        :ds ');  // Descrição
+      SQL.Add('      , :ds ');  // Descrição
       SQL.Add('    );');
       SQL.Add('  end');
-      SQL.Add('end');
+      SQL.Add('end');  //SQL.SaveToFile('_SYS_TIPO_PRODUTO.sql');
       ExecSQL;
 
       CommitTransaction;

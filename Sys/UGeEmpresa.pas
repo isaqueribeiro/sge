@@ -132,6 +132,9 @@ type
     fdQryTipoRegimeNFe: TFDQuery;
     lblSegmento: TLabel;
     dbSegmento: TDBLookupComboBox;
+    IbDtstTabelaATIVA: TSmallintField;
+    dbAtiva: TDBCheckBox;
+    lblRegistroDesativado: TLabel;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -213,6 +216,7 @@ begin
   NomeTabela     := 'TBEMPRESA';
   CampoCodigo    := 'codigo';
   CampoDescricao := 'Rzsoc';
+  CampoCadastroAtivo := 'ATIVA';
 
   UpdateGenerator;
 
@@ -330,7 +334,7 @@ begin
   IbDtstTabelaPESSOA_FISICA.AsInteger := 0;
   IbDtstTabelaPAIS_ID.AsString        := GetPaisIDDefault;
   IbDtstTabelaPAIS_NOME.AsString      := GetPaisNomeDefault;
-  
+
   IbDtstTabelaSERIE_NFE.Value    := 1;
   IbDtstTabelaNUMERO_NFE.Value   := 0;
   IbDtstTabelaSERIE_NFCE.Value   := 1;
@@ -339,6 +343,7 @@ begin
   IbDtstTabelaLOTE_NUM_NFE.Value := 0;
   IbDtstTabelaCARTA_CORRECAO_NFE.Value := 0;
   IbDtstTabelaSEGMENTO.Value     := SEGMENTO_PADRAO_ID;
+  IbDtstTabelaATIVA.Value        := FLAG_SIM;
 end;
 
 procedure TfrmGeEmpresa.DtSrcTabelaStateChange(Sender: TObject);

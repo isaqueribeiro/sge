@@ -21,7 +21,6 @@ uses
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
@@ -401,6 +400,11 @@ type
     IbDtstTabelaCAIXA_PDV: TSmallintField;
     fdQryFormaPagto: TFDQuery;
     fdQryCondicaoPagto: TFDQuery;
+    fdQryEmpresa: TFDQuery;
+    dtpFormaPagto: TDataSetProvider;
+    cdsFormaPagto: TClientDataSet;
+    dtpCondicaoPagto: TDataSetProvider;
+    cdsCondicaoPagto: TClientDataSet;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -624,10 +628,12 @@ begin
   AbrirTabelaAuto  := True;
   ControlFirstEdit := dbEmpresa;
 
-  CarregarLista(tblEmpresa);
+  CarregarLista(fdQryEmpresa);
   CarregarLista(tblVendedor);
-  CarregarLista(fdQryFormaPagto);
-  CarregarLista(fdQryCondicaoPagto);
+  //CarregarLista(fdQryFormaPagto);
+  CarregarLista(cdsFormaPagto);
+  //CarregarLista(fdQryCondicaoPagto);
+  CarregarLista(cdsCondicaoPagto);
   CarregarLista(tblModalidadeFrete);
 
   Case gSistema.Codigo of
@@ -808,14 +814,14 @@ var
   I : Integer;
 begin
   if ( cdsVendaFormaPagto.State in [dsEdit, dsInsert] ) then
-    if ( fdQryCondicaoPagto.Locate('cond_cod', dbCondicaoPagto.Field.AsInteger, []) ) then
+    if ( dtsCondicaoPagto.DataSet.Locate('cond_cod', dbCondicaoPagto.Field.AsInteger, []) ) then
     begin
-      cdsVendaFormaPagtoVENDA_PRAZO.AsInteger := fdQryCondicaoPagto.FieldByName('Cond_prazo').AsInteger;
+      cdsVendaFormaPagtoVENDA_PRAZO.AsInteger := dtsCondicaoPagto.DataSet.FieldByName('Cond_prazo').AsInteger;
       for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
       begin
         cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).Clear;
-        if ( not fdQryCondicaoPagto.FieldByName('Cond_prazo_' + FormatFloat('00', I)).IsNull ) then
-          cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := fdQryCondicaoPagto.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
+        if ( not dtsCondicaoPagto.DataSet.FieldByName('Cond_prazo_' + FormatFloat('00', I)).IsNull ) then
+          cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := dtsCondicaoPagto.DataSet.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
       end;
     end;
 end;
@@ -1103,8 +1109,8 @@ end;
 procedure TfrmGeVenda.dbFormaPagtoClick(Sender: TObject);
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( fdQryFormaPagto.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
-      IbDtstTabelaFORMAPAG.AsString := fdQryFormaPagto.FieldByName('descri').AsString;
+    if ( dtsFormaPagto.DataSet.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
+      IbDtstTabelaFORMAPAG.AsString := dtsFormaPagto.DataSet.FieldByName('descri').AsString;
 end;
 
 procedure TfrmGeVenda.IbDtstTabelaAfterCancel(DataSet: TDataSet);
@@ -2397,8 +2403,8 @@ begin
       CxNumero := 0;
       CxContaCorrente := 0;
 
-      if ( fdQryFormaPagto.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
-        if ( fdQryFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
+      if ( dtsFormaPagto.DataSet.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
+        if ( dtsFormaPagto.DataSet.FieldByName('Conta_corrente').AsInteger > 0 ) then
           if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login, GetDateDB, qryTitulosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
           begin
             ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
@@ -2490,11 +2496,11 @@ begin
     if not dtsVendaFormaPagto.AutoEdit then
       Exit;
 
-    fdQryFormaPagto.Filter   := '(ativa = 1)';
-    fdQryFormaPagto.Filtered := True;
+    dtsFormaPagto.DataSet.Filter   := '(ativa = 1)';
+    dtsFormaPagto.DataSet.Filtered := True;
 
-    fdQryCondicaoPagto.Filter   := '(ativa = 1)';
-    fdQryCondicaoPagto.Filtered := True;
+    dtsCondicaoPagto.DataSet.Filter   := '(ativa = 1)';
+    dtsCondicaoPagto.DataSet.Filtered := True;
 
     cAPagar := dbValorTotal.Field.AsCurrency - GetTotalValorFormaPagto;
 
@@ -2509,11 +2515,11 @@ begin
     else
       cdsVendaFormaPagto.Cancel;
 
-    fdQryFormaPagto.Filter   := EmptyStr;
-    fdQryFormaPagto.Filtered := False;
+    dtsFormaPagto.DataSet.Filter   := EmptyStr;
+    dtsFormaPagto.DataSet.Filtered := False;
 
-    fdQryCondicaoPagto.Filter   := EmptyStr;
-    fdQryCondicaoPagto.Filtered := False;
+    dtsCondicaoPagto.DataSet.Filter   := EmptyStr;
+    dtsCondicaoPagto.DataSet.Filtered := False;
   end
   else
 
@@ -2529,11 +2535,11 @@ begin
 
     iFormPG := cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger;
 
-    fdQryFormaPagto.Filter   := '(ativa = 1)';
-    fdQryFormaPagto.Filtered := True;
+    dtsFormaPagto.DataSet.Filter   := '(ativa = 1)';
+    dtsFormaPagto.DataSet.Filtered := True;
 
-    fdQryCondicaoPagto.Filter   := '(ativa = 1)';
-    fdQryCondicaoPagto.Filtered := True;
+    dtsCondicaoPagto.DataSet.Filter   := '(ativa = 1)';
+    dtsCondicaoPagto.DataSet.Filtered := True;
 
     cAPagar := dbValorTotal.Field.AsCurrency + cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency;
     cAPagar := cAPagar - GetTotalValorFormaPagto;
@@ -2546,11 +2552,11 @@ begin
     else
       cdsVendaFormaPagto.Cancel;
 
-    fdQryFormaPagto.Filter   := EmptyStr;
-    fdQryFormaPagto.Filtered := False;
+    dtsFormaPagto.DataSet.Filter   := EmptyStr;
+    dtsFormaPagto.DataSet.Filtered := False;
 
-    fdQryCondicaoPagto.Filter   := EmptyStr;
-    fdQryCondicaoPagto.Filtered := False;
+    dtsCondicaoPagto.DataSet.Filter   := EmptyStr;
+    dtsCondicaoPagto.DataSet.Filtered := False;
   end
   else
 

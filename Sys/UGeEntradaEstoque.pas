@@ -12,12 +12,15 @@ uses
   ToolWin, IBTable, IBStoredProc, Menus, IBQuery, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, cxButtons, JvDBControls, JvExMask, JvToolEdit,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEntradaEstoque = class(TfrmGrPadraoCadastro)
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
@@ -356,6 +359,7 @@ type
     qryDuplicatasSITUACAO: TSmallintField;
     qryDuplicatasSITUACAO_DESC: TIBStringField;
     cdsTabelaItensDESCRI: TIBStringField;
+    fdQryEmpresa: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -684,7 +688,7 @@ begin
   e2Data.Date      := GetDateDB;
   ControlFirstEdit := dbEmpresa;
 
-  CarregarLista(tblEmpresa);
+  CarregarLista(fdQryEmpresa);
   CarregarLista(tblFormaPagto);
   CarregarLista(tblCondicaoPagto);
   CarregarLista(tblTipoDocumento);

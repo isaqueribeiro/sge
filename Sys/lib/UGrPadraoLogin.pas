@@ -146,7 +146,7 @@ begin
   fdQryEmpresa.First;
   while not fdQryEmpresa.Eof do
   begin
-    edEmpresa.Properties.Items.Add(fdQryEmpresa.FieldByName('nmfant').AsString);
+    edEmpresa.Properties.Items.Add(fdQryEmpresa.FieldByName('fantasia').AsString);
     fCNPJ[ edEmpresa.Properties.Items.Count - 1 ] := fdQryEmpresa.FieldByName('cnpj').AsString;
 
     fdQryEmpresa.Next;

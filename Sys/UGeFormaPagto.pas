@@ -257,7 +257,7 @@ procedure TfrmGeFormaPagto.GravarRelacaoFormaConta;
 var
   sSQL : String;
 const
-  SQL_INSERT = 'Insert Into TBFORMPAGTO_CONTACOR (FORMA_PAGTO, CONTA_CORRENTE) values (%s, %s)';
+  SQL_INSERT = 'Insert Into TBFORMPAGTO_CONTACOR (FORMA_PAGTO, CONTA_CORRENTE, SELECIONAR) values (%s, %s, 1)';
   SQL_DELETE = 'Delete from TBFORMPAGTO_CONTACOR where FORMA_PAGTO = %s and CONTA_CORRENTE = %s';
 begin
 (*

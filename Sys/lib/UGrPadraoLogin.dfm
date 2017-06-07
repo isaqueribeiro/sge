@@ -326,8 +326,10 @@ inherited frmGrPadraoLogin: TfrmGrPadraoLogin
     SQL.Strings = (
       'Select'
       '    e.cnpj'
-      '  , coalesce(nullif(trim(e.nmfant), '#39#39'), e.rzsoc) as nmfant'
-      'from TBEMPRESA e')
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e')
     Left = 32
     Top = 224
   end

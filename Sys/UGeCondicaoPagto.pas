@@ -382,7 +382,7 @@ procedure TfrmGeCondicaoPagto.GravarRelacaoFormaCondicao;
 var
   sSQL : String;
 const
-  SQL_INSERT = 'Insert Into TBFORMPAGTO_CONDICAO (FORMA_PAGTO, CONDICAO_PAGTO) values (%s, %s)';
+  SQL_INSERT = 'Insert Into TBFORMPAGTO_CONDICAO (FORMA_PAGTO, CONDICAO_PAGTO, SELECIONAR) values (%s, %s, 1)';
   SQL_DELETE = 'Delete from TBFORMPAGTO_CONDICAO where FORMA_PAGTO = %s and CONDICAO_PAGTO = %s';
 begin
 (*
