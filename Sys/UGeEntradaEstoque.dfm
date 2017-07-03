@@ -6,6 +6,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   ClientHeight = 677
   ClientWidth = 1114
   OldCreateOrder = True
+  ExplicitLeft = -48
+  ExplicitTop = -49
   ExplicitWidth = 1130
   ExplicitHeight = 716
   PixelsPerInch = 96
@@ -4419,7 +4421,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6041,6 +6043,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ''
       '  , coalesce(p.descri_apresentacao, p.Descri) as Descri'
       '  , p.Qtde as Estoque'
+      '  , p.estoque_aprop_lote'
       '  , u.Unp_sigla'
       'from TBCOMPRASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
@@ -6264,6 +6267,11 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
+    end
+    object cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField
+      FieldName = 'ESTOQUE_APROP_LOTE'
+      Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
+      ProviderFlags = []
     end
   end
   object IbUpdTabelaItens: TIBUpdateSQL

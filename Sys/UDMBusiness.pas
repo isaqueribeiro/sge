@@ -4537,8 +4537,8 @@ begin
   else
     dData := dDataMovimento;
 
-  iDias  := DaysBetween(dData, gLicencaSistema.DataBloqueio);
-  Result := {$IFDEF DGE}True{$ELSE}(gLicencaSistema.DataBloqueio > dData){$ENDIF};
+  iDias  := DaysBetween(dData, (gLicencaSistema.DataBloqueio + 1));
+  Result := {$IFDEF DGE}True{$ELSE}((gLicencaSistema.DataBloqueio + 1) > dData){$ENDIF};
 
   if (iDias <= SYS_ALERTA_PERIODO_LICENCA) then
   begin

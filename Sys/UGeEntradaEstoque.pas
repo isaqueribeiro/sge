@@ -360,6 +360,7 @@ type
     qryDuplicatasSITUACAO_DESC: TIBStringField;
     cdsTabelaItensDESCRI: TIBStringField;
     fdQryEmpresa: TFDQuery;
+    cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -456,6 +457,7 @@ type
   - TBUNIDADEPROD
 
   Views:
+  - VW_EMPRESA
 
   Procedures:
 
@@ -491,9 +493,15 @@ begin
     frm.Caption       := 'Controle de Entradas de Produtos';
     frm.RotinaID      := ROTINA_ENT_PRODUTO_ID;
 
-    whr := '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
-              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
-              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+    whr :=
+      '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
+          QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+          QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ' and ' +
+      ' (c.codemp in ( ' +
+      '    Select      ' +
+      '      vw.cnpj   ' +
+      '    from VW_EMPRESA vw' +
+      ' ))';
 
     with frm, IbDtstTabela do
     begin
@@ -520,9 +528,15 @@ begin
     frm.Caption       := 'Controle de Entradas de Serviços';
     frm.RotinaID      := ROTINA_ENT_SERVICO_ID;
 
-    whr := '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
-              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
-              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+    whr :=
+      '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
+        QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+        QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ' and ' +
+      ' (c.codemp in ( ' +
+      '    Select      ' +
+      '      vw.cnpj   ' +
+      '    from VW_EMPRESA vw' +
+      ' ))';
 
     with frm, IbDtstTabela do
     begin
@@ -566,8 +580,13 @@ begin
 
     whr := whr +
       '(c.tipo_movimento = ' + IntToStr(Ord(frm.TipoMovimento)) + ') and cast(c.dtent as date) between ' +
-      QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
-      QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+        QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+        QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ' and ' +
+      ' (c.codemp in ( ' +
+      '    Select      ' +
+      '      vw.cnpj   ' +
+      '    from VW_EMPRESA vw' +
+      ' ))';
 
     with frm, IbDtstTabela do
     begin
@@ -618,9 +637,14 @@ begin
       sWhr :=
         '(c.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + ')) and ' +
         '(c.tipo_movimento = ' + IntToStr(Ord(TipoMovimento)) + ') and cast(c.dtent as date) between ' +
-        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ' and ' +
-        '(c.codemp = ' + QuotedStr(FEmpresa) + ')';
+          QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+          QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ' and ' +
+        ' (c.codemp = ' + QuotedStr(FEmpresa) + ')' + ' and ' +
+        ' (c.codemp in ( ' +
+        '    Select      ' +
+        '      vw.cnpj   ' +
+        '    from VW_EMPRESA vw' +
+        ' ))';
 
       WhereAdditional := sWhr;
 
@@ -721,12 +745,17 @@ begin
   if ApenasFinalizadas then
     WhereAdditional := '(c.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + ')) and '
   else
-    WhereAdditional := EmptyStr;  
+    WhereAdditional := EmptyStr;
 
   WhereAdditional := WhereAdditional +
     '(c.tipo_movimento = ' + IntToStr(Ord(TipoMovimento)) + ') and cast(c.dtent as date) between ' +
-    QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-    QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ' and ' +
+    ' (c.codemp in ( ' +
+    '    Select      ' +
+    '      vw.cnpj   ' +
+    '    from VW_EMPRESA vw' +
+    ' ))';
 
   if ( Trim(FEmpresa) <> EmptyStr ) then
     WhereAdditional := WhereAdditional + ' and (c.codemp = ' + QuotedStr(FEmpresa) +')';

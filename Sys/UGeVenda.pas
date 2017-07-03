@@ -532,6 +532,7 @@ type
 
   Views:
   - VW_CONDICAOPAGTO
+  - VW_EMPRESA
 
   Procedures:
 
@@ -571,9 +572,15 @@ var
 begin
   frm := TfrmGeVenda.Create(AOwner);
   try
-    whr := 'cast(v.dtvenda as date) between ' +
-            QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
-            QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+    whr :=
+      'cast(v.dtvenda as date) between ' +
+        QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+        QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ' and ' +
+      ' (v.codemp in ( ' +
+      '    Select      ' +
+      '      vw.cnpj   ' +
+      '    from VW_EMPRESA vw' +
+      ' ))';
 
     with frm, IbDtstTabela do
     begin
@@ -650,9 +657,15 @@ begin
   CampoDescricao := 'c.NOME';
   CampoOrdenacao := 'v.dtvenda, c.Nome';
 
-  WhereAdditional :=  'cast(v.dtvenda as date) between ' +
-                        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+  WhereAdditional :=
+    'cast(v.dtvenda as date) between ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ' and ' +
+    ' (v.codemp in ( ' +
+    '    Select      ' +
+    '      vw.cnpj   ' +
+    '    from VW_EMPRESA vw' +
+    ' ))';
 
   // A tela de vendas não pode atualizar generator porque este processo está gerando erros
   // UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(GetDateDB)) );
@@ -696,9 +709,15 @@ end;
 
 procedure TfrmGeVenda.btnFiltrarClick(Sender: TObject);
 begin
-  WhereAdditional :=  'cast(v.dtvenda as date) between ' +
-                        QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-                        QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );// + ' and ' +
+  WhereAdditional :=
+    'cast(v.dtvenda as date) between ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ' and ' +
+    ' (v.codemp in ( ' +
+    '    Select      ' +
+    '      vw.cnpj   ' +
+    '    from VW_EMPRESA vw' +
+    ' ))';
                         //'v.codemp = ' + QuotedStr(gUsuarioLogado.Empresa);
   if ( RdgStatusVenda.ItemIndex > 0 ) then
     WhereAdditional := WhereAdditional + ' and (v.status = ' + IntToStr(RdgStatusVenda.ItemIndex) + ')';

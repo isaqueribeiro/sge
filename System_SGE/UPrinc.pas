@@ -1257,7 +1257,10 @@ procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
   if CanClose then
+  begin
     ExcluirArquivosAlertaSistema;
+    Application.Terminate;
+  end;
 end;
 
 procedure TfrmPrinc.nmCartaCorrecaoNFeClick(Sender: TObject);

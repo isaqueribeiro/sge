@@ -346,6 +346,11 @@ type
     qryTributacaoNM: TIBDataSet;
     qryTributacaoSN: TIBDataSet;
     fdQryEmpresa: TFDQuery;
+    fdQryTipoProduto: TFDQuery;
+    dtsTipoProduto: TDataSource;
+    lblTipoProduto: TLabel;
+    dbTipoProduto: TDBLookupComboBox;
+    IbDtstTabelaCODTIPO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -384,6 +389,7 @@ type
     fApenasServicos : Boolean;
     Procedure ControleCampos;
     procedure AddWhereAdditional;
+    procedure OcultarTipoProduto;
   public
     { Public declarations }
     procedure FiltarDados(const iTipoPesquisa : Integer); overload;
@@ -399,9 +405,10 @@ type
   - TBFABRICANTE
   - RENAVAM_COR
   - RENAVAM_COBUSTIVEL
-  - TBEMPRESA
+  - SYS_TIPO_PRODUTO
 
   Views:
+  - VW_EMPRESA
   - VW_ORIGEM_PRODUTO
   - VW_TIPO_TRIBUTACAO
   - VW_TIPO_ALIQUOTA
@@ -1080,6 +1087,7 @@ begin
   fApenasProdutos := False;
   fApenasServicos := False;
 
+  CarregarLista(fdQryTipoProduto);
   CarregarLista(fdQryEmpresa);
   CarregarLista(tblOrigem);
   CarregarLista(qryTributacaoNM);
@@ -1094,6 +1102,14 @@ begin
     CarregarLista(tblCombustivel);
     CarregarLista(tblTipoVeiculo);
   end;
+
+  if (gSistema.Codigo = SISTEMA_GESTAO_IND) or (GetSegmentoID(gUsuarioLogado.Empresa) in [
+        SEGMENTO_MERCADO_CARRO_ID
+      , SEGMENTO_SERVICOS_ID
+      , SEGMENTO_VAREJO_DELIVERY_ID
+      , SEGMENTO_INDUSTRIA_METAL_ID
+      , SEGMENTO_INDUSTRIA_GERAL_ID]) then
+    OcultarTipoProduto;
 
   DisplayFormatCodigo := '###0000000';
 
@@ -1211,10 +1227,6 @@ end;
 
 procedure TfrmGeProduto.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
-(*
-  IMR - 05/10/2015 :
-    Remoção de BUG no sistema quanto a quantidade em estoque do produto.
-*)
   IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
   IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
 
@@ -1225,11 +1237,11 @@ begin
   IbDtstTabelaUSUARIO.AsString             := gUsuarioLogado.Login;
 
   if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
+  begin
+    IbDtstTabelaCODTIPO.AsInteger           := Ord(tpMaterialGeral);
     IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 0;
-(*
-  if ( IbDtstTabelaQTDE.AsCurrency < 0 ) then
-    IbDtstTabelaQTDE.Value := 0;
-*)
+  end;
+
   if ( (IbDtstTabelaRESERVA.AsCurrency < 0) or (IbDtstTabelaRESERVA.AsCurrency > IbDtstTabelaQTDE.AsCurrency) ) then
     IbDtstTabelaRESERVA.Value := 0;
 
@@ -1361,6 +1373,7 @@ begin
   IbDtstTabelaPRECO.Value      := 0;
   IbDtstTabelaCODCFOP.Value        := GetCfopIDDefault;
   IbDtstTabelaCFOP_DESCRICAO.Value := GetCfopNomeDefault;
+  IbDtstTabelaCODTIPO.AsInteger    := Ord(tpMaterialGeral);
   IbDtstTabelaALIQUOTA_TIPO.Value  := Ord(fAliquota);
   IbDtstTabelaALIQUOTA.Value       := 0;
   IbDtstTabelaALIQUOTA_CSOSN.Value := 0;
@@ -1403,6 +1416,23 @@ begin
   IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := 0;
 
   DtSrcTabelaDataChange(DtSrcTabela, IbDtstTabelaALIQUOTA_TIPO);
+end;
+
+procedure TfrmGeProduto.OcultarTipoProduto;
+begin
+  // Ocultar campo "Tipo Produto"
+  lblTipoProduto.Visible := False;
+  dbTipoProduto.Visible  := False;
+
+  // Reposicionar e redimencionar campo "Grupo"
+  lblGrupo.Left := lblTipoProduto.Left;
+  dbGrupo.Left  := dbTipoProduto.Left;
+  dbGrupo.Width := 377;
+
+  // Reposicionar e redimencionar campo "Seção"
+  lblSecao.Left := dbNomeAmigo.Left;
+  dbSecao.Left  := dbNomeAmigo.Left;
+  dbSecao.Width := 322;
 end;
 
 procedure TfrmGeProduto.FormShow(Sender: TObject);
@@ -1650,6 +1680,8 @@ end;
 
 procedure TfrmGeProduto.ControleCampos;
 begin
+  lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+  dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
 end;
 
@@ -1722,6 +1754,8 @@ begin
         IbDtstTabelaALIQUOTA_CSOSN.AsCurrency   := cAliquotaIcmsInter;
       end;
 
+      lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+      dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
       GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
     end;
 

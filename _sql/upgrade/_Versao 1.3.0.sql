@@ -1695,3 +1695,45 @@ COMMENT ON COLUMN TBCENTRO_CUSTO_EMPRESA.SELECIONAR IS
 0 - Nao
 1 - Sim';
 
+
+
+
+/*------ SYSDBA 15/06/2017 14:52:12 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.CODTIPO IS
+'Tipo do registro, quando a aliquota for ICMS (Tipo Aliquota 0)';
+
+
+
+
+/*------ SYSDBA 15/06/2017 14:54:03 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.CODTIPO IS
+'Tipo do produto, quando a aliquota for ICMS (Tipo Aliquota 0)';
+
+
+
+
+/*------ SYSDBA 15/06/2017 16:26:05 --------*/
+
+COMMENT ON COLUMN TBESTOQUE_ALMOX.LOTE IS
+'Lote
+
+Observacoes:
+1 - O lote geral para todas as movimentacoes sera 0 (zero).
+2 - Produtos que possuem lotes de fabricacao diferentes e que sao informados na entrada terao seus lotes aqui lancados';
+
+
+
+
+/*------ SYSDBA 15/06/2017 16:34:48 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.REFERENCIA IS
+'Codigo de referencia
+
+Observacoes:
+1 - Para produtos do tipo Materiais medico-hospitalares, Medicamentos e Opme este
+campo pode armazenar o codigo Anvisa.
+2 - Para produtos automotores (carros e motos) este campo pode armazenar a Placa
+do veiculo.';
+

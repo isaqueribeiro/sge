@@ -10,15 +10,10 @@ uses
   dxBar, dxRibbon, dxRibbonForm, dxRibbonSkins, cxGraphics, cxControls, cxLookAndFeels,
   cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox, cxLookupEdit,
   cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox, cxLookAndFeelPainters, cxClasses,
-  cxLabel, Vcl.ExtCtrls, Vcl.ImgList, dxRibbonBackstageView, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  cxLabel, Vcl.ExtCtrls, Vcl.ImgList, dxRibbonBackstageView,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmAguarde = class(TForm)

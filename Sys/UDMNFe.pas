@@ -482,7 +482,7 @@ const
 implementation
 
 uses
-  UDMBusiness, Forms, FileCtrl, ACBrNFeConfiguracoes,
+  UDMBusiness, UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
   pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, ACBrDFeUtil, IniFiles;
@@ -757,6 +757,8 @@ end;
 
 procedure TDMNFe.DataModuleCreate(Sender: TObject);
 begin
+  SplashMessage('Carregando parâmetros para emissão de NF-e...');
+
   if not DataBaseOnLine then
     Exit;
 
@@ -2519,6 +2521,35 @@ begin
 
           end;
 
+          // Inserir Lote do Produto na NF-e
+          // Campos específicos para venda de medicamentos
+          if (qryDadosProduto.FieldByName('estoque_aprop_lote').AsInteger = 1) and
+            (TTipoProduto(qryDadosProduto.FieldByName('codtipo').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
+          begin
+  {
+            with Prod.med.Add do
+            begin
+              cProdANVISA := qryDadosProduto.FieldByName('REFERENCIA').AsString;
+              nLote := '';
+              qLote := 0 ;
+              dFab  := now ;
+              dVal  := now ;
+              vPMC  := 0 ;
+            end;
+  }
+          end;
+
+  //Campos específicos para venda de medicamentos
+  {         with Prod.med.Add do
+            begin
+              nLote := '';
+              qLote := 0 ;
+              dFab  := now ;
+              dVal  := now ;
+              vPMC  := 0 ;
+            end;
+  }
+
 {
     property tpOP: TpcnTipoOperacao read FtpOP write FtpOP;
     property chassi: string read Fchassi write Fchassi;
@@ -2547,16 +2578,6 @@ begin
     property lota: integer read Flota write Flota;
     property tpRest: integer read FtpRest write FtpRest;
 }
-
-  //Campos específicos para venda de medicamentos
-  {         with Prod.med.Add do
-            begin
-              nLote := '';
-              qLote := 0 ;
-              dFab  := now ;
-              dVal  := now ;
-              vPMC  := 0 ;
-            end;  }
 
   //Campos específicos para venda de armamento
   {         with Prod.arma.Add do
@@ -3934,6 +3955,24 @@ begin
                 cMod     := '';        // J23 - Código Marca Modelo (Utilizar Tabela RENAVAM)
               end;
 
+          end;
+
+          // Inserir Lote do Produto na NF-e
+          // Campos específicos para compra de medicamentos
+          if (qryEntradaDadosProduto.FieldByName('estoque_aprop_lote').AsInteger = 1) and
+            (TTipoProduto(qryEntradaDadosProduto.FieldByName('codtipo').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
+          begin
+  {
+            with Prod.med.Add do
+            begin
+              cProdANVISA := qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString;
+              nLote := '';
+              qLote := 0 ;
+              dFab  := now ;
+              dVal  := now ;
+              vPMC  := 0 ;
+            end;
+  }
           end;
 
 {
