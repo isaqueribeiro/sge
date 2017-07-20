@@ -3,14 +3,12 @@ inherited frmGeLogradouro: TfrmGeLogradouro
   Top = 260
   Caption = 'Tabela de Logradouros'
   OldCreateOrder = True
+  ExplicitWidth = 751
+  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -33,6 +31,10 @@ inherited frmGeLogradouro: TfrmGeLogradouro
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited GrpBxDadosNominais: TGroupBox
         object lblNome: TLabel [1]
           Left = 216
@@ -185,9 +187,9 @@ inherited frmGeLogradouro: TfrmGeLogradouro
         '|| l.Log_nome as logradouro'
       '  , c.Cid_nome || '#39' ('#39' || e.Est_sigla || '#39')'#39' as Cid_nome'
       'from TBLOGRADOURO l'
-      '  inner join TBTIPO_LOGRADOURO t on (t.Tlg_cod = l.Tlg_cod)'
-      '  inner join TBCIDADE c on (c.Cid_cod = l.Cid_cod)'
-      '  inner join TBESTADO e on (e.Est_cod = c.Est_cod)')
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = l.Tlg_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = l.Cid_cod)'
+      '  left join TBESTADO e on (e.Est_cod = c.Est_cod)')
     GeneratorField.Field = 'LOG_COD'
     GeneratorField.Generator = 'GEN_LOGRADOURO_ID'
     object IbDtstTabelaLOG_COD: TIntegerField
@@ -256,7 +258,7 @@ inherited frmGeLogradouro: TfrmGeLogradouro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1716,18 +1718,23 @@ inherited frmGeLogradouro: TfrmGeLogradouro
       000000000000}
   end
   object dtsTipo: TDataSource
-    DataSet = tblTipo
+    DataSet = fdQryTipo
     Left = 688
     Top = 104
   end
-  object tblTipo: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBTIPO_LOGRADOURO'
-    UniDirectional = False
-    Left = 656
-    Top = 104
+  object fdQryTipo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    t.tlg_cod'
+      '  , t.tlg_descricao'
+      '  , t.tlg_sigla'
+      'from TBTIPO_LOGRADOURO t'
+      'order by'
+      '    t.tlg_descricao')
+    Left = 660
+    Top = 105
   end
 end

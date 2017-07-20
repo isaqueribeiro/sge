@@ -9,6 +9,10 @@ inherited frmGeBairro: TfrmGeBairro
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -236,12 +240,6 @@ inherited frmGeBairro: TfrmGeBairro
       end
     end
   end
-  inherited tlbBotoes: TPanel
-    inherited btbtnExcluir: TcxButton
-      ExplicitLeft = 154
-      ExplicitTop = 0
-    end
-  end
   inherited IbDtstTabela: TIBDataSet
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
@@ -253,9 +251,9 @@ inherited frmGeBairro: TfrmGeBairro
       '  , c.Cid_nome || '#39' ('#39' || e.Est_sigla || '#39')'#39' as Cid_nome'
       '  , d.Dis_nome'
       'from TBBAIRRO b'
-      '  inner join TBCIDADE c on (c.Cid_cod = b.Cid_cod)'
-      '  inner join TBESTADO e on (e.Est_cod = c.Est_cod)'
-      '  inner join TBDISTRITO d on (d.Dis_cod = b.Dis_cod)')
+      '  left join TBCIDADE c on (c.Cid_cod = b.Cid_cod)'
+      '  left join TBESTADO e on (e.Est_cod = c.Est_cod)'
+      '  left join TBDISTRITO d on (d.Dis_cod = b.Dis_cod)')
     GeneratorField.Field = 'BAI_COD'
     GeneratorField.Generator = 'GEN_BAIRRO_ID'
     object IbDtstTabelaBAI_COD: TIntegerField
@@ -324,7 +322,7 @@ inherited frmGeBairro: TfrmGeBairro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

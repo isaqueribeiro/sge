@@ -3,11 +3,16 @@ unit UGeTipoLogradouro;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeTipoLogradouro = class(TfrmGrPadraoCadastro)
@@ -24,6 +29,16 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBTIPO_LOGRADOURO
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeTipoLogradouro: TfrmGeTipoLogradouro;

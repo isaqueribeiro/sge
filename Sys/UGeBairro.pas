@@ -3,19 +3,17 @@ unit UGeBairro;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, DB, IBCustomDataSet, ImgList, IBUpdateSQL,
+  Dialogs, DB, IBCustomDataSet, ImgList, IBUpdateSQL,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
-  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvDBControls,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeBairro = class(TfrmGrPadraoCadastro)
@@ -41,6 +39,19 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBBAIRRO
+  - TBCIDADE
+  - TBESTADO
+  - TBDISTRITO
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeBairro: TfrmGeBairro;

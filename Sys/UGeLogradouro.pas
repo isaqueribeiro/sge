@@ -3,12 +3,20 @@ unit UGeLogradouro;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, dblookup, IBQuery, IBTable, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
-  JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
@@ -17,7 +25,6 @@ type
     dbNome: TDBEdit;
     lblTipo: TLabel;
     dtsTipo: TDataSource;
-    tblTipo: TIBTable;
     dbTipo: TDBLookupComboBox;
     lblCidade: TLabel;
     IbDtstTabelaLOG_COD: TIntegerField;
@@ -27,6 +34,7 @@ type
     IbDtstTabelaLOGRADOURO: TIBStringField;
     IbDtstTabelaCID_NOME: TIBStringField;
     dbCidade: TJvDBComboEdit;
+    fdQryTipo: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure dbCidadeButtonClick(Sender: TObject);
@@ -38,10 +46,24 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBLOGRADOURO
+  - TBTIPO_LOGRADOURO
+  - TBCIDADE
+  - TBESTADO
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeLogradouro: TfrmGeLogradouro;
 
   procedure MostrarTabelaLogradouros(const AOwner : TComponent);
+
   function SelecionarLogradouro(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
   function SelecionarLogradouro(const AOwner : TComponent; const Cidade : Integer; var Tipo : Smallint; var TipoDesc : String; var Codigo : Integer; var Nome : String) : Boolean; overload;
 
@@ -96,16 +118,16 @@ begin
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
-    if ( Result and (frm.tblTipo.Locate('TLG_COD', frm.IbDtstTabelaTLG_COD.AsInteger, [])) ) then
+    if ( Result and (frm.fdQryTipo.Locate('TLG_COD', frm.IbDtstTabelaTLG_COD.AsInteger, [])) ) then
     begin
-      Tipo := frm.tblTipo.FieldByName('TLG_COD').AsInteger;
+      Tipo := frm.fdQryTipo.FieldByName('TLG_COD').AsInteger;
       if (Tipo = 0) then
         TipoDesc := EmptyStr
       else
-      if ( Trim(frm.tblTipo.FieldByName('TLG_SIGLA').AsString) <> EmptyStr ) then
-        TipoDesc := frm.tblTipo.FieldByName('TLG_SIGLA').AsString
+      if ( Trim(frm.fdQryTipo.FieldByName('TLG_SIGLA').AsString) <> EmptyStr ) then
+        TipoDesc := frm.fdQryTipo.FieldByName('TLG_SIGLA').AsString
       else
-        TipoDesc := frm.tblTipo.FieldByName('TLG_DESCRICAO').AsString;
+        TipoDesc := frm.fdQryTipo.FieldByName('TLG_DESCRICAO').AsString;
     end;
   finally
     frm.Destroy;
@@ -120,7 +142,7 @@ begin
   RotinaID         := ROTINA_CAD_LOGRADOURO_ID;
   ControlFirstEdit := dbTipo;
 
-  tblTipo.Open;
+  CarregarLista(fdQryTipo);
 
   DisplayFormatCodigo := '0000';
   NomeTabela     := 'TBLOGRADOURO';
