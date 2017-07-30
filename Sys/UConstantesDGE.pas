@@ -541,10 +541,11 @@ const
   INI_KEY_PAIS      = 'PaisID';
   INI_KEY_ESTADO    = 'EstadoID';
   INI_KEY_CIDADE    = 'CidadeID';
-  INI_KEY_FORMA_PGTO = 'FormaPagtoID';
-  INI_KEY_COND_PGTO  = 'CondicaoPagtoID';
-  INI_KEY_VENDEDOR   = 'VendedorID';
-  INI_KEY_CLIENTE    = 'ClienteID';
+  INI_KEY_FORMA_PGTO  = 'FormaPagtoID';
+  INI_KEY_COND_PGTO   = 'CondicaoPagtoID';
+  INI_KEY_VENDEDOR    = 'VendedorID';
+  INI_KEY_CLIENTE     = 'ClienteID';
+  INI_KEY_FILELICENSE = 'LicenseFile';
   INI_KEY_CFOP_SAI_VALUE = '5102';
   INI_KEY_CFOP_ENT_VALUE = '5102';
   INI_KEY_CFOP_ECF_SUBST = '5929';

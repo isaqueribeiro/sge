@@ -148,12 +148,14 @@ type
     procedure MontarPermissao_Diretoria;
   public
     { Public declarations }
+    procedure CarregarLicencaAuto;
     procedure CarregarLicenca(const sNomeArquivo : String);
     procedure ValidarLicenca(const sNomeArquivo : String; var CNPJ : String);
     procedure LimparLicenca;
     procedure ConfigurarEmail(const sCNPJEmitente, sDestinatario, sAssunto, sMensagem: String);
 
     function LiberarUsoLicenca(const dDataMovimento : TDateTime; const Alertar : Boolean = FALSE) : Boolean;
+    function NovaLicencaDisponivel(const dDataLicenca : TDateTime) : Boolean;
   end;
 
 var
@@ -4273,7 +4275,6 @@ var
   ini : TIniFile;
   I : Integer;
 begin
-
   if FileExists(sNomeArquivo) then
   begin
 
@@ -4342,8 +4343,10 @@ begin
     Arquivo.Free;
 
     DeleteFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
-  end;
 
+    FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_FILELICENSE, sNomeArquivo);
+    FileINI.UpdateFile;
+  end;
 end;
 
 procedure TDMBusiness.DataModuleCreate(Sender: TObject);
@@ -4582,6 +4585,55 @@ begin
   _PermissaoPerfilDiretoria.Add( ROTINA_MENU_ENTRADA_ID );
 
   _PermissaoPerfilDiretoria.EndUpdate;
+end;
+
+function TDMBusiness.NovaLicencaDisponivel(const dDataLicenca: TDateTime): Boolean;
+var
+  aRetorno : Boolean;
+  Arquivo  : TStringList;
+  ini : TIniFile;
+  I : Integer;
+  sFile : String;
+  aData : TDateTime;
+begin
+  aRetorno := False;
+  try
+    sFile := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_FILELICENSE, EmptyStr);
+    if (Trim(sFile) <> EmptyStr) and (FileExists(sFile)) then
+    begin
+      Arquivo := TStringList.Create;
+      Arquivo.LoadFromFile(sFile);
+
+      for I := 0 to Arquivo.Count - 1 do
+        Arquivo.Strings[I] := DecriptarSenha_Master(Arquivo.Strings[I], SYS_PASSWD_KEY);
+
+      Arquivo.SaveToFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
+
+      ini      := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
+      aData    := ini.ReadDate('Licenca', 'edDataBloqueio', dDataLicenca);
+      aRetorno := (aData > dDataLicenca);
+    end;
+  finally
+    if Assigned(ini) then
+      ini.Free;
+    if Assigned(Arquivo) then
+      Arquivo.Free;
+
+    sFile := ExtractFilePath(Application.ExeName) + '_temp.ini';
+    if FileExists(sFile) then
+      DeleteFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
+
+    Result := aRetorno;
+  end;
+end;
+
+procedure TDMBusiness.CarregarLicencaAuto;
+var
+  sFile : String;
+begin
+  sFile := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_FILELICENSE, EmptyStr);
+  if (Trim(sFile) <> EmptyStr) and (FileExists(sFile)) then
+    CarregarLicenca(sFile);
 end;
 
 procedure TDMBusiness.ConfigurarEmail(const sCNPJEmitente, sDestinatario,

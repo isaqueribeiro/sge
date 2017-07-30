@@ -1161,6 +1161,8 @@ end;
 procedure TfrmPrinc.tmrAutoUpgradeTimer(Sender: TObject);
 begin
   AtivarUpgradeAutomatico;
+  if DMBusiness.NovaLicencaDisponivel(gLicencaSistema.DataBloqueio) then
+    DMBusiness.CarregarLicencaAuto;
 end;
 
 procedure TfrmPrinc.nmGerarArquivoNFCClick(Sender: TObject);
