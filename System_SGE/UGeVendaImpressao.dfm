@@ -289,24 +289,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 281
     ExplicitTop = 281
   end
-  object QryCidades: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.cid_cod'
-      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
-      'from TBCIDADE c'
-      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
-      'order by 2')
-    Left = 448
-    Top = 8
-  end
   object DpsCidades: TDataSetProvider
-    DataSet = QryCidades
+    DataSet = fdQryCidades
     Left = 480
     Top = 8
   end
@@ -1532,24 +1516,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Left = 136
     Top = 8
   end
-  object QryVendedores: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.cod'
-      '  , v.nome'
-      '  , v.cpf'
-      'from TBVENDEDOR v'
-      'order by 2')
-    Left = 448
-    Top = 40
-  end
   object DspVendedores: TDataSetProvider
-    DataSet = QryVendedores
+    DataSet = fdQryVendedores
     Left = 480
     Top = 40
   end
@@ -7610,24 +7578,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Left = 136
     Top = 80
   end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 448
-    Top = 72
-  end
   object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
+    DataSet = fdQryEmpresas
     Left = 480
     Top = 72
   end
@@ -10992,5 +10944,49 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       '  , tmp.venda_data')
     Left = 344
     Top = 176
+  end
+  object fdQryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 448
+    Top = 72
+  end
+  object fdQryVendedores: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.cod'
+      '  , v.nome'
+      '  , v.cpf'
+      'from TBVENDEDOR v'
+      'order by 2')
+    Left = 448
+    Top = 40
+  end
+  object fdQryCidades: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cid_cod'
+      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
+      'from TBCIDADE c'
+      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
+      'order by 2')
+    Left = 448
+    Top = 8
   end
 end

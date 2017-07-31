@@ -93,6 +93,7 @@ type
     procedure BtnQuitarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure QuitarDespesa;
@@ -360,6 +361,12 @@ begin
   inherited;
   if ( Key = VK_ESCAPE ) then
     Self.Close
+end;
+
+procedure TfrmGeContasAPagarQuitar.FormShow(Sender: TObject);
+begin
+  inherited;
+  Self.Caption := Self.Caption + ' - ' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa);
 end;
 
 initialization

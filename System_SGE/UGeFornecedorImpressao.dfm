@@ -2,6 +2,8 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
   Left = 752
   Top = 256
   Caption = 'Relat'#243'rio de Fornecedores'
+  ExplicitWidth = 555
+  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
@@ -750,23 +752,8 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
     Left = 104
     Top = 8
   end
-  object QryCidades: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.cid_cod'
-      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
-      'from TBCIDADE c'
-      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
-      'order by 2')
-    Left = 360
-  end
   object DpsCidades: TDataSetProvider
-    DataSet = QryCidades
+    DataSet = fdQryCidades
     Left = 392
   end
   object CdsCidades: TClientDataSet
@@ -3679,5 +3666,18 @@ inherited frmGeFornecedorImpressao: TfrmGeFornecedorImpressao
         Width = 718.110700000000000000
       end
     end
+  end
+  object fdQryCidades: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cid_cod'
+      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
+      'from TBCIDADE c'
+      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
+      'order by 2')
+    Left = 360
   end
 end

@@ -15,14 +15,8 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeResultadoExercicioImpressao = class(TfrmGrPadraoImpressao)
@@ -35,7 +29,6 @@ type
     lblData: TLabel;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    QryContaCorrente: TIBQuery;
     DspContaCorrente: TDataSetProvider;
     CdsContaCorrente: TClientDataSet;
     frDemonstResultOper: TfrxReport;
@@ -44,6 +37,7 @@ type
     FrdsDemonstResultOper: TfrxDBDataset;
     fdQryDemonstResultOper: TFDQuery;
     fdQryEmpresas: TFDQuery;
+    fdQryContaCorrente: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -72,6 +66,7 @@ type
   - TBBANCO_BOLETO
 
   Views:
+  - VW_EMPRESA
 
   Procedures:
   - GET_CAIXA_MOVIMENTO
@@ -175,7 +170,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then

@@ -1083,24 +1083,8 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
     Left = 136
     Top = 8
   end
-  object QryGrupo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    g.cod'
-      '  , g.descri'
-      'from TBGRUPOPROD g'
-      'order by'
-      '    g.descri')
-    Left = 416
-    Top = 8
-  end
   object DspGrupo: TDataSetProvider
-    DataSet = QryGrupo
+    DataSet = fdQryGrupo
     Left = 448
     Top = 8
   end
@@ -1111,24 +1095,8 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
     Left = 480
     Top = 8
   end
-  object QryFabricante: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.cod'
-      '  , f.nome'
-      'from TBFABRICANTE f'
-      'order by'
-      '    f.nome')
-    Left = 416
-    Top = 48
-  end
   object DspFabricante: TDataSetProvider
-    DataSet = QryFabricante
+    DataSet = fdQryFabricante
     Left = 448
     Top = 48
   end
@@ -3204,23 +3172,8 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
     Left = 136
     Top = 40
   end
-  object QryAno: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select distinct'
-      '  substring(c.cmp_num from 1 for 4) as ano'
-      'from TBCOMPETENCIA c'
-      'order by'
-      '  1 desc')
-    Left = 416
-    Top = 80
-  end
   object DspAno: TDataSetProvider
-    DataSet = QryAno
+    DataSet = fdQryAno
     Left = 448
     Top = 80
   end
@@ -3230,34 +3183,6 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
     ProviderName = 'DspAno'
     Left = 480
     Top = 80
-  end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 416
-    Top = 112
-  end
-  object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
-    Left = 448
-    Top = 112
-  end
-  object CdsEmpresas: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspEmpresas'
-    Left = 480
-    Top = 112
   end
   object frExtratoMovimentoProduto_IND: TfrxReport
     Version = '5.1.9'
@@ -5888,5 +5813,74 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         end
       end
     end
+  end
+  object fdQryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 416
+    Top = 112
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = fdQryEmpresas
+    Left = 448
+    Top = 112
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 480
+    Top = 112
+  end
+  object fdQryAno: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select distinct'
+      '  substring(c.cmp_num from 1 for 4) as ano'
+      'from TBCOMPETENCIA c'
+      'order by'
+      '  1 desc')
+    Left = 416
+    Top = 80
+  end
+  object fdQryFabricante: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.cod'
+      '  , f.nome'
+      'from TBFABRICANTE f'
+      'order by'
+      '    f.nome')
+    Left = 416
+    Top = 48
+  end
+  object fdQryGrupo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    g.cod'
+      '  , g.descri'
+      'from TBGRUPOPROD g'
+      'order by'
+      '    g.descri')
+    Left = 416
+    Top = 8
   end
 end

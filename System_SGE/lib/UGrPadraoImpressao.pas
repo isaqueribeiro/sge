@@ -3,18 +3,16 @@ unit UGrPadraoImpressao;
 interface
 
 uses
+  UGrPadrao,
+  UInfoVersao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, UInfoVersao, StdCtrls, Buttons, ComCtrls, ExtCtrls,
+  Dialogs, StdCtrls, Buttons, ComCtrls, ExtCtrls,
   dxGDIPlusClasses, frxClass, frxExportRTF, frxExportXLS, frxExportPDF, frxExportMail,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrPadraoImpressao = class(TfrmGrPadrao)

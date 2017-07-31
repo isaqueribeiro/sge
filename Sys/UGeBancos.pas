@@ -3,8 +3,10 @@ unit UGeBancos;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
@@ -13,14 +15,8 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeBancos = class(TfrmGrPadraoCadastro)
@@ -109,6 +105,7 @@ type
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure imgAjudaClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -118,9 +115,9 @@ type
 (*
   Tabelas:
   - TBBANCO_BOLETO
-  - TBEMPRESA
 
   Views:
+  - VW_EMPRESA
   - VW_LAYOUT_REM_RET_BANCO
 
   Procedures:
@@ -185,6 +182,18 @@ begin
   finally
     frm.Destroy;
   end;
+end;
+
+procedure TfrmGeBancos.btnFiltrarClick(Sender: TObject);
+begin
+  WhereAdditional :=
+    '(b.empresa in ( ' +
+    '  Select      ' +
+    '    e.cnpj    ' +
+    '  from VW_EMPRESA e ' +
+    '))';
+
+  inherited;
 end;
 
 procedure TfrmGeBancos.DtSrcTabelaDataChange(Sender: TObject; Field: TField);

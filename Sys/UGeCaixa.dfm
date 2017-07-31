@@ -28,6 +28,8 @@ inherited frmGeCaixa: TfrmGeCaixa
     ExplicitWidth = 950
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel4: TBevel
@@ -879,6 +881,10 @@ inherited frmGeCaixa: TfrmGeCaixa
         object tbsMovimento: TTabSheet
           Caption = 'Movimento'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbgMovimento: TDBGrid
             Left = 0
             Top = 0
@@ -1151,16 +1157,18 @@ inherited frmGeCaixa: TfrmGeCaixa
       '      else '#39'* Indefinido'#39
       '    end as Tipo'
       '  , cc.empresa'
-      '  , e.rzsoc  as empresa_razao'
-      '  , e.nmfant as empresa_fantasia'
+      '  , e.razao    as empresa_razao'
+      '  , e.fantasia as empresa_fantasia'
       'from TBCAIXA c'
       
         '  left join TBCONTA_CORRENTE cc on (cc.Codigo = c.Conta_corrente' +
         ')'
-      '  left join TBEMPRESA e on (e.cnpj = cc.empresa)'
       
-        '  left join TBBANCO_BOLETO bb on (bb.empresa = cc.empresa and bb' +
-        '.bco_cod = cc.conta_banco_boleto)')
+        '  left join TBBANCO_BOLETO bb on (bb.bco_codigo = cc.bco_codigo_' +
+        'cc)'
+      
+        '  left join VW_EMPRESA e on (e.cnpj = coalesce(cc.empresa, bb.em' +
+        'presa))')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_CAIXA_2012'
     object IbDtstTabelaANO: TSmallintField
@@ -1337,7 +1345,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2796,35 +2804,15 @@ inherited frmGeCaixa: TfrmGeCaixa
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblOperador: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBUSERS'
-    UniDirectional = False
-    Left = 720
-    Top = 8
-  end
   object dtsOperador: TDataSource
-    DataSet = tblOperador
-    Left = 752
-    Top = 8
-  end
-  object tblContaCorrente: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBCONTA_CORRENTE'
-    UniDirectional = False
-    Left = 720
-    Top = 40
+    DataSet = fdQryOperador
+    Left = 488
+    Top = 328
   end
   object dtsContaCorrente: TDataSource
-    DataSet = tblContaCorrente
-    Left = 752
-    Top = 40
+    DataSet = fdQryContaCorrente
+    Left = 488
+    Top = 376
   end
   object cdsCosolidado: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -5476,5 +5464,48 @@ inherited frmGeCaixa: TfrmGeCaixa
     BCDToCurrency = False
     Left = 848
     Top = 40
+  end
+  object fdQryOperador: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    u.nome'
+      '  , trim(u.nomecompleto) as nomecompleto'
+      'from TBUSERS u'
+      'order by'
+      '  trim(u.nomecompleto)')
+    Left = 458
+    Top = 328
+  end
+  object fdQryContaCorrente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.descricao'
+      '  , c.tipo'
+      'from TBCONTA_CORRENTE c'
+      'where ((c.empresa in ('
+      '    Select'
+      '      e.cnpj'
+      '    from VW_EMPRESA e'
+      '  )) or (c.tipo = 2)'
+      '  and ('
+      '    c.bco_codigo_cc in ('
+      '      Select'
+      '        bb.bco_codigo'
+      '      from TBBANCO_BOLETO bb'
+      '        inner join VW_EMPRESA e on (e.cnpj = bb.empresa) '
+      '    ) '
+      '  ))  '
+      ''
+      'order by'
+      '  c.descricao')
+    Left = 458
+    Top = 376
   end
 end

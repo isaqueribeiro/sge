@@ -188,47 +188,8 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
     Left = 496
     Top = 8
   end
-  object QryContaCorrente: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.codigo'
-      '  , c.descricao'
-      '  , c.tipo'
-      '  , Case c.tipo'
-      '      when 1 then '#39'Caixa Diario'#39
-      '      when 2 then '#39'Banco'#39
-      '    end as tipo_desc'
-      '  , c.empresa'
-      '  , b.bco_nome'
-      '  , b.bco_agencia'
-      '  , b.bco_cc'
-      'from TBCONTA_CORRENTE c'
-      
-        '  left join TBBANCO_BOLETO b on (b.bco_cod = c.conta_banco_bolet' +
-        'o and b.empresa = c.empresa)'
-      ''
-      'where c.empresa = :empresa'
-      ''
-      'order by'
-      '    c.tipo'
-      '  , c.descricao')
-    Left = 432
-    Top = 40
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptOutput
-        Value = ''
-      end>
-  end
   object DspContaCorrente: TDataSetProvider
-    DataSet = QryContaCorrente
+    DataSet = fdQryContaCorrente
     Left = 464
     Top = 40
   end
@@ -237,9 +198,8 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
     Params = <
       item
         DataType = ftString
-        Name = 'empresa'
-        ParamType = ptOutput
-        Value = ''
+        Name = 'EMPRESA'
+        ParamType = ptInput
       end>
     ProviderName = 'DspContaCorrente'
     Left = 496
@@ -1006,12 +966,51 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
     Left = 432
     Top = 8
+  end
+  object fdQryContaCorrente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.descricao'
+      '  , c.tipo'
+      '  , Case c.tipo'
+      '      when 1 then '#39'Caixa Diario'#39
+      '      when 2 then '#39'Banco'#39
+      '    end as tipo_desc'
+      '  , c.empresa'
+      '  , b.bco_nome'
+      '  , b.bco_agencia'
+      '  , b.bco_cc'
+      'from TBCONTA_CORRENTE c'
+      
+        '  left join TBBANCO_BOLETO b on (b.bco_cod = c.conta_banco_bolet' +
+        'o and b.empresa = c.empresa)'
+      ''
+      'where c.empresa = :empresa'
+      ''
+      'order by'
+      '    c.tipo'
+      '  , c.descricao')
+    Left = 432
+    Top = 40
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
   end
 end

@@ -801,7 +801,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     Left = 16
     Top = 197
     Bitmap = {
-      494C010121002200140010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101210022001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000009000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2046,6 +2046,11 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       '  and r.cliente = :cliente'
       '  and coalesce(r.codbanco, 0) = :banco'
       '  and r.valorrec > 0'
+      '  and r.empresa in ('
+      '    Select'
+      '      e.cnpj'
+      '    from VW_EMPRESA e'
+      '  )'
       'order by'
       '    r.numlanc'
       '  , r.parcela')

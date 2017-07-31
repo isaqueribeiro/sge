@@ -757,7 +757,9 @@ end;
 
 procedure TDMNFe.DataModuleCreate(Sender: TObject);
 begin
+  {$IFNDEF PRINTER_CUPOM}
   SplashMessage('Carregando parâmetros para emissão de NF-e...');
+  {$ENDIF}
 
   if not DataBaseOnLine then
     Exit;

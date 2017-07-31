@@ -4,6 +4,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   ClientHeight = 597
   ClientWidth = 1132
   OldCreateOrder = True
+  ExplicitLeft = -66
   ExplicitWidth = 1148
   ExplicitHeight = 636
   PixelsPerInch = 96
@@ -1335,7 +1336,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           ReadOnly = True
@@ -1946,7 +1947,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited ImgList: TImageList
     Left = 832
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3405,62 +3406,13 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblContaCorrente: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'CODIGO'
-        Attributes = [faRequired]
-        DataType = ftInteger
-      end
-      item
-        Name = 'DESCRICAO'
-        DataType = ftString
-        Size = 50
-      end
-      item
-        Name = 'TIPO'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'TIPO_DESC'
-        Attributes = [faReadonly]
-        DataType = ftString
-        Size = 12
-      end
-      item
-        Name = 'DESCRICAO_FULL'
-        Attributes = [faReadonly]
-        DataType = ftString
-        Size = 67
-      end>
-    StoreDefs = True
-    TableName = 'VW_CONTA_CORRENTE'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 1064
-    Top = 312
-  end
   object dtsContaCorrente: TDataSource
-    DataSet = tblContaCorrente
+    DataSet = fdQryContaCorrente
     Left = 1096
     Top = 312
   end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 1064
-    Top = 280
-  end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = fdQryFormaPagto
     Left = 1096
     Top = 280
   end
@@ -3547,34 +3499,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Left = 1032
     Top = 281
   end
-  object tblTipoMovimento: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'TIPO'
-        Attributes = [faReadonly, faFixed]
-        DataType = ftString
-        Size = 1
-      end
-      item
-        Name = 'TIPO_DESC'
-        Attributes = [faReadonly, faFixed]
-        DataType = ftString
-        Size = 7
-      end>
-    ReadOnly = True
-    StoreDefs = True
-    TableName = 'VW_TIPO_MOVIMENTO_CAIXA'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 1064
-    Top = 344
-  end
   object dtsTipoMovimento: TDataSource
-    DataSet = tblTipoMovimento
+    DataSet = fdQryTipoMovimento
     Left = 1096
     Top = 344
   end
@@ -4879,50 +4805,13 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Left = 1096
     Top = 376
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 824
-    Top = 280
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
-    Left = 856
-    Top = 280
-  end
-  object qryTipoDespesa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select *'
-      'from TBTPDESPESA t'
-      'where (t.ativo = :ativo) or (:todos = 1)'
-      'order by t.tipodesp')
-    Left = 824
-    Top = 312
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ativo'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'todos'
-        ParamType = ptInput
-        Value = 0
-      end>
+    DataSet = fdQryEmpresa
+    Left = 1096
+    Top = 248
   end
   object dtsTpDespesa: TDataSource
-    DataSet = qryTipoDespesa
+    DataSet = fdQryTipoDespesa
     Left = 856
     Top = 312
   end
@@ -5790,36 +5679,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       Size = 250
     end
   end
-  object qryTipoReceita: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select *'
-      'from TBTPRECEITA t'
-      'where (t.ativo = :ativo) or (:todos = 1)'
-      'order by t.tiporec'
-      '')
-    Left = 824
-    Top = 344
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ativo'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'todos'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object dtsTpReceita: TDataSource
-    DataSet = qryTipoReceita
+    DataSet = fdQryTipoReceita
     Left = 856
     Top = 344
   end
@@ -6287,5 +6148,112 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         end
       end
     end
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 1064
+    Top = 248
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.cod'
+      '  , f.descri'
+      '  , f.acrescimo'
+      '  , f.ativa'
+      'from TBFORMPAGTO f')
+    Left = 1064
+    Top = 280
+  end
+  object fdQryContaCorrente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    cc.codigo'
+      '  , cc.descricao'
+      '  , cc.descricao_full'
+      '  , cc.tipo'
+      '  , cc.empresa'
+      '  , cc.cnpj'
+      'from VW_CONTA_CORRENTE cc')
+    Left = 1064
+    Top = 312
+  end
+  object fdQryTipoMovimento: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    tm.tipo'
+      '  , tm.tipo_desc'
+      'from VW_TIPO_MOVIMENTO_CAIXA tm')
+    Left = 1064
+    Top = 344
+  end
+  object fdQryTipoDespesa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBTPDESPESA t'
+      'where (t.ativo = :ativo) or (:todos = 1)'
+      'order by t.tipodesp')
+    Left = 824
+    Top = 312
+    ParamData = <
+      item
+        Name = 'ATIVO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object fdQryTipoReceita: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBTPRECEITA t'
+      'where (t.ativo = :ativo) or (:todos = 1)'
+      'order by t.tiporec'
+      '')
+    Left = 824
+    Top = 344
+    ParamData = <
+      item
+        Name = 'ATIVO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
   end
 end

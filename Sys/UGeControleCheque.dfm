@@ -422,7 +422,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           ReadOnly = True
@@ -1566,7 +1566,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 720
     Top = 304
     Bitmap = {
-      494C01012B002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3025,18 +3025,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 328
-    Top = 296
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 360
     Top = 296
   end
@@ -3176,19 +3166,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 816
     Top = 336
   end
-  object tblBanco: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_BANCO_FEBRABAN'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 328
-    Top = 360
-  end
   object dtsBanco: TDataSource
-    DataSet = tblBanco
     Left = 360
     Top = 360
   end
@@ -4037,22 +4015,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       OnClick = popRelacaoChequesClick
     end
   end
-  object qryTipoCheque: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      
-        'Select 1 as Codigo, '#39'Emitido'#39'  as Descricao from RDB$DATABASE Un' +
-        'ion'
-      'Select 2 as Codigo, '#39'Recebido'#39' as Descricao from RDB$DATABASE')
-    Left = 328
-    Top = 328
-  end
   object dtsTipoCheque: TDataSource
-    DataSet = qryTipoCheque
     Left = 360
     Top = 328
   end
@@ -6209,5 +6172,47 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
       end
     end
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 329
+    Top = 296
+  end
+  object fdQryTipoCheque: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      
+        'Select 1 as Codigo, '#39'Emitido'#39'  as Descricao from RDB$DATABASE Un' +
+        'ion'
+      'Select 2 as Codigo, '#39'Recebido'#39' as Descricao from RDB$DATABASE')
+    Left = 329
+    Top = 328
+  end
+  object fdQryBanco: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    b.codigo'
+      '  , b.nome'
+      '  , b.codigo_nome'
+      '  , b.nome_codigo'
+      'from VW_BANCO_FEBRABAN b')
+    Left = 329
+    Top = 360
   end
 end

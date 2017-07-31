@@ -3,8 +3,10 @@ unit UGeVendaImpressao;
 interface
 
 uses
+  UGrPadraoImpressao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   Buttons, ComCtrls, DBClient, Provider, DB, IBCustomDataSet, IBQuery, frxClass,
   frxDBSet, Mask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvExMask, JvToolEdit,
@@ -18,7 +20,6 @@ uses
 
 type
   TfrmGeVendaImpressao = class(TfrmGrPadraoImpressao)
-    QryCidades: TIBQuery;
     DpsCidades: TDataSetProvider;
     CdsCidades: TClientDataSet;
     frRelacaoVendaSintetico: TfrxReport;
@@ -33,7 +34,6 @@ type
     edVendedor: TComboBox;
     lblCidade: TLabel;
     edCidade: TComboBox;
-    QryVendedores: TIBQuery;
     DspVendedores: TDataSetProvider;
     CdsVendedores: TClientDataSet;
     frRelacaoVendaAnalitico: TfrxReport;
@@ -62,7 +62,6 @@ type
     chkNFeEmitida: TCheckBox;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
-    QryEmpresas: TIBQuery;
     DspEmpresas: TDataSetProvider;
     CdsEmpresas: TClientDataSet;
     e1Data: TJvDateEdit;
@@ -82,7 +81,9 @@ type
     CdsComissaoVendedorSintetico: TClientDataSet;
     FrdsComissaoVendedorSintetico: TfrxDBDataset;
     fdQryComissaoVendedorSintetico: TFDQuery;
-    procedure FormCreate(Sender: TObject);
+    fdQryEmpresas: TFDQuery;
+    fdQryVendedores: TFDQuery;
+    fdQryCidades: TFDQuery;    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -120,7 +121,6 @@ type
 
 (*
   Tabelas:
-  - TBEMPRESA
   - TBCIDADE
   - TBESTADO
   - TBVENDAS
@@ -133,6 +133,7 @@ type
   - TBCONTREC_BAIXA
 
   Views:
+  - VW_EMPRESA
   - VW_STATUS_VENDA
 
   Procedures:
@@ -1191,7 +1192,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then

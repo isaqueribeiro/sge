@@ -3,18 +3,20 @@ unit UGeProdutoEstoqueImpressao;
 interface
 
 uses
+  UGrPadraoImpressao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoImpressao, cxGraphics, cxLookAndFeels,
+  Dialogs, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   cxButtons, ComCtrls, DBClient, Provider, DB, IBCustomDataSet,
-  IBQuery, frxClass, frxDBSet, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  IBQuery, frxClass, frxDBSet,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeProdutoEstoqueImpressao = class(TfrmGrPadraoImpressao)
@@ -24,15 +26,6 @@ type
     edGrupo: TComboBox;
     lblFabricante: TLabel;
     edFabricante: TComboBox;
-    QryGrupo: TIBQuery;
-    DspGrupo: TDataSetProvider;
-    CdsGrupo: TClientDataSet;
-    QryFabricante: TIBQuery;
-    DspFabricante: TDataSetProvider;
-    CdsFabricante: TClientDataSet;
-    QryEmpresas: TIBQuery;
-    DspEmpresas: TDataSetProvider;
-    CdsEmpresas: TClientDataSet;
     FrRelacaoEstoqueProduto: TfrxReport;
     QryRelacaoEstoqueProduto: TIBQuery;
     DspRelacaoEstoqueProduto: TDataSetProvider;
@@ -44,11 +37,20 @@ type
     FrdsDemandaEstoqueProduto: TfrxDBDataset;
     lblAno: TLabel;
     edAno: TComboBox;
-    QryAno: TIBQuery;
-    DspAno: TDataSetProvider;
-    CdsAno: TClientDataSet;
     FrDemandaEstoqueProduto: TfrxReport;
     ckSemEstoqueVenda: TCheckBox;
+    fdQryGrupo: TFDQuery;
+    DspGrupo: TDataSetProvider;
+    CdsGrupo: TClientDataSet;
+    fdQryFabricante: TFDQuery;
+    DspFabricante: TDataSetProvider;
+    CdsFabricante: TClientDataSet;
+    CdsAno: TClientDataSet;
+    DspAno: TDataSetProvider;
+    fdQryAno: TFDQuery;
+    fdQryEmpresas: TFDQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -70,6 +72,35 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBPRODUTO
+  - TBGRUPOPROD
+  - TBSECAOPROD
+  - TBUNIDADEPROD
+  - TBFABRICANTE
+  - TBCOMPETENCIA
+  - TBEMPRESA
+  - TBAJUSTESTOQ
+  - TBCOMPRAS
+  - TBCOMPRASITENS
+  - TBINVENTARIO_ALMOX
+  - TBINVENTARIO_ALMOX_ITEM
+  - TBAPROPRIACAO_ALMOX
+  - TBAPROPRIACAO_ALMOX_ITEM
+  - TBREQUISICAO_ALMOX
+  - TBREQUISICAO_ALMOX_ITEM
+  - TBESTOQUE_ALMOX
+  - TBCENTRO_CUSTO
+
+  Views:
+  - VW_EMPRESA
+  - VW_PRODUTO_DEMANDA_ANUAL
+
+  Procedures:
+
+*)
 
 var
   frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao;
@@ -113,7 +144,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       Inc(I);

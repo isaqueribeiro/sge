@@ -4357,7 +4357,9 @@ var
   sPorta   ,
   sBase    : String;
 begin
+  {$IFNDEF PRINTER_CUPOM}
   SplashMessage('Conectando-se à base de dados...');
+  {$ENDIF}
 
   gSistema.Codigo := SISTEMA_GESTAO_COM;
   gSistema.Nome   := Application.Title;

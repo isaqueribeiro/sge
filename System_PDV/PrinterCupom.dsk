@@ -16,15 +16,15 @@ File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UInfoVersao.pas',0,1,13
 File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas',0,1,1,45,2,0,0,,
 
 [Modules]
-Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=default.htm
-Module2=D:\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj
-Module3=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas
-Module4=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfWindowsPrinter.pas
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module7=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-Module8=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module2=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module3=default.htm
+Module4=D:\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfWindowsPrinter.pas
+Module7=D:\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas
+Module8=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 Module9=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfFactory.pas
 Module10=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfGenerico.pas
 Module11=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfBematechNaoFiscal.pas
@@ -33,10 +33,20 @@ Module13=D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
 Count=14
 EditWindowCount=1
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
+FormOnTop=0
+
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
 
 [default.htm]
 ModuleType=TURLModule
@@ -59,19 +69,9 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
 [C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas]
 ModuleType=TSourceModule
 FormState=0
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfFactory.pas]
@@ -101,7 +101,7 @@ FormOnTop=0
 
 [EditWindow0]
 ViewCount=14
-CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 View0=0
 View1=1
 View2=2
@@ -134,13 +134,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1341
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000002010000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000AA1C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000001E11000000000000013D050000000000000100000000550E000009000000446F636B536974653301000000006D1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000002010000000000000011D0500000000000001000000004412000009000000446F636B53697465320100000000AA1C000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1262
+RightPanelData=000008000101000000001E11000000000000011D0500000000000001000000004412000009000000446F636B536974653201000000006D1E000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=810
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B5369746531724500000000000002EE040000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B53697465317245000000000000022A030000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779D1D00000000000002F606000000000000FFFFFFFF
@@ -163,13 +163,13 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dpr
 [View2]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-CursorX=32
-CursorY=1693
-TopLine=1660
+CursorX=3
+CursorY=4363
+TopLine=4342
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 
 [View3]
 CustomEditViewType=TEditView
@@ -185,12 +185,12 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 [View4]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=7
-CursorY=6841
-TopLine=6816
+CursorX=3
+CursorY=763
+TopLine=742
 LeftCol=1
 Elisions=
-Bookmarks={1,6406,1}
+Bookmarks={1,6408,1}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View5]
@@ -207,9 +207,9 @@ EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 [View6]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-CursorX=12
-CursorY=6
-TopLine=1
+CursorX=3
+CursorY=43
+TopLine=19
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -382,12 +382,12 @@ State=0
 Left=0
 Top=23
 Width=10000
-Height=1041
+Height=569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=10000
-ClientHeight=1041
-TBDockHeight=1041
+ClientHeight=569
+TBDockHeight=569
 LRDockWidth=2767
 Dockable=1
 StayOnTop=0
@@ -401,11 +401,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=2506
+Height=2978
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=2506
+ClientHeight=2978
 TBDockHeight=7155
 LRDockWidth=1999
 Dockable=1
@@ -420,11 +420,11 @@ State=0
 Left=0
 Top=340
 Width=1341
-Height=3559
+Height=4031
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
-ClientHeight=3559
+ClientHeight=4031
 TBDockHeight=8765
 LRDockWidth=1341
 Dockable=1
@@ -905,11 +905,11 @@ State=0
 Left=0
 Top=427
 Width=1309
-Height=2506
+Height=2978
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=2506
+ClientHeight=2978
 TBDockHeight=8765
 LRDockWidth=1309
 Dockable=1

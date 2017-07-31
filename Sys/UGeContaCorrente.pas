@@ -3,8 +3,10 @@ unit UGeContaCorrente;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
   StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery, IBTable,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvExMask, JvToolEdit, JvDBControls,
@@ -13,14 +15,8 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
@@ -49,6 +45,7 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure dbBancoButtonClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
     function PermitirSalvarContaCaixa : Boolean;
@@ -58,11 +55,11 @@ type
 
 (*
   Tabelas:
-  - TBEMPRESA
   - TBCONTA_CORRENTE
   - TBBANCO_BOLETO
 
   Views:
+  - VW_EMPRESA
   - VW_CONDICAOPAGTO
 
   Procedures:
@@ -170,6 +167,26 @@ begin
 
   if not PermitirSalvarContaCaixa then
     Abort;
+
+  inherited;
+end;
+
+procedure TfrmGeContaCorrente.btnFiltrarClick(Sender: TObject);
+begin
+  WhereAdditional :=
+    '((cc.empresa in ( ' +
+    '    Select      ' +
+    '      e.cnpj    ' +
+    '    from VW_EMPRESA e ' +
+    '  )) or (cc.tipo = 2) ' +
+    '  and (               ' +
+    '    cc.bco_codigo_cc in ( ' +
+    '      Select             ' +
+    '        bb.bco_codigo    ' +
+    '      from TBBANCO_BOLETO bb                             ' +
+    '        inner join VW_EMPRESA e on (e.cnpj = bb.empresa) ' +
+    '    ) ' +
+    '  ))  ';
 
   inherited;
 end;

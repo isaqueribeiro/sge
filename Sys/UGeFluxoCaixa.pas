@@ -12,22 +12,18 @@ uses
   IBTable, JvDBControls, DBCtrls, JvExMask, JvToolEdit, Mask, Buttons,
   ExtCtrls, Grids, DBGrids, ComCtrls, cxButtons, ToolWin,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeFluxoCaixa = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
     lblContaCorrentePesq: TLabel;
-    tblContaCorrente: TIBTable;
     dtsContaCorrente: TDataSource;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
     IbDtstTabelaANO: TSmallintField;
     IbDtstTabelaNUMERO: TIntegerField;
@@ -101,7 +97,6 @@ type
     dbSituacao: TDBEdit;
     lblSituacao: TLabel;
     lblMovCaixaCancelado: TLabel;
-    tblTipoMovimento: TIBTable;
     dtsTipoMovimento: TDataSource;
     lblCaixa: TLabel;
     d1Caixa: TDBEdit;
@@ -155,11 +150,9 @@ type
     frrFluxoAnalitico: TfrxReport;
     qryFluxoSaldos: TIBQuery;
     frdFluxoSaldos: TfrxDBDataset;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
-    qryTipoDespesa: TIBQuery;
     dtsTpDespesa: TDataSource;
     lblTipoDespesa: TLabel;
     dbTipoDespesa: TDBLookupComboBox;
@@ -215,12 +208,17 @@ type
     lblTipoReceita: TLabel;
     dbTipoReceita: TDBLookupComboBox;
     IbDtstTabelaTIPO_RECEITA: TSmallintField;
-    qryTipoReceita: TIBQuery;
     dtsTpReceita: TDataSource;
     nmImprimirReciboA4: TMenuItem;
     FrReciboA4: TfrxReport;
     btnRecalcularSaldo: TcxButton;
     bvlRecalcularSaldo: TBevel;
+    fdQryEmpresa: TFDQuery;
+    fdQryFormaPagto: TFDQuery;
+    fdQryContaCorrente: TFDQuery;
+    fdQryTipoMovimento: TFDQuery;
+    fdQryTipoDespesa: TFDQuery;
+    fdQryTipoReceita: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -283,6 +281,7 @@ type
   - TBBANCO_BOLETO
 
   Views:
+  - VW_EMPRESA
   - VW_CONTA_CORRENTE
   - VW_TIPO_MOVIMENTO_CAIXA
 
@@ -319,7 +318,7 @@ begin
       '(cast(m.Datahora as date) between ' +
       QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and '  +
       QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ') and ' +
-      'm.Conta_corrente = ' + IntToStr( frm.tblContaCorrente.FieldByName('codigo').AsInteger );
+      'm.Conta_corrente = ' + IntToStr( frm.fdQryContaCorrente.FieldByName('codigo').AsInteger );
 
     with frm, IbDtstTabela do
     begin
@@ -367,9 +366,10 @@ begin
   e2Data.Date := Date;
   ControlFirstEdit := dbDataMov;
 
-  tblEmpresa.Open;
-  tblFormaPagto.Open;
-  tblTipoMovimento.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryFormaPagto);
+  CarregarLista(fdQryTipoMovimento);
+
   CarregarTipoReceita(False);
   CarregarTipoDespesa(False);
 
@@ -407,18 +407,18 @@ end;
 
 procedure TfrmGeFluxoCaixa.edContaCorrentePesqChange(Sender: TObject);
 begin
-  if ( not tblContaCorrente.IsEmpty ) then
-    tblContaCorrente.Locate('Descricao_FULL', edContaCorrentePesq.Text, []);
+  if ( not fdQryContaCorrente.IsEmpty ) then
+    fdQryContaCorrente.Locate('Descricao_FULL', edContaCorrentePesq.Text, []);
 end;
 
 procedure TfrmGeFluxoCaixa.btnFiltrarClick(Sender: TObject);
 var
-  Data : TDateTime;
+  aData : TDateTime;
 begin
   WaitAMoment(WAIT_AMOMENT_LoadData);
   try
 
-    with tblContaCorrente do
+    with fdQryContaCorrente do
     begin
 
       if not Locate('Descricao_FULL', edContaCorrentePesq.Text, []) then
@@ -437,15 +437,15 @@ begin
       // Recalcular Saldo da Conta Corrente
       if ( FieldByName('codigo').AsInteger > 0 ) then
       begin
-        Data := e1Data.Date;
+        aData := e1Data.Date;
         // O saldo é recalculado apenas para o período máximo de 30 dias
-        if ( (e2Data.Date - Data) > 30 ) then
-          Data := e2Data.Date - 30;
+        if ( (e2Data.Date - aData) > 30 ) then
+          aData := e2Data.Date - 30;
 
-        while Data <= e2Data.Date do
+        while aData <= e2Data.Date do
         begin
-          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, Data);
-          Data := Data + 1;
+          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, aData);
+          aData := aData + 1;
         end;
       end;
 
@@ -475,7 +475,7 @@ begin
   WaitAMoment(WAIT_AMOMENT_Process);
   try
 
-    with tblContaCorrente do
+    with fdQryContaCorrente do
     begin
 
       if not Locate('Descricao_FULL', edContaCorrentePesq.Text, []) then
@@ -513,7 +513,7 @@ begin
   with qrySaldosDias do
   begin
     Close;
-    ParamByName('Conta').AsInteger    := tblContaCorrente.FieldByName('codigo').AsInteger;
+    ParamByName('Conta').AsInteger    := fdQryContaCorrente.FieldByName('codigo').AsInteger;
     ParamByName('DataInicial').AsDate := e1Data.Date;
     ParamByName('DataFinal').AsDate   := e2Data.Date;
     Open;
@@ -522,7 +522,7 @@ begin
   with qryConsolidadoFormaPagto do
   begin
     Close;
-    ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
+    ParamByName('Conta_Corrente').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
     ParamByName('Data_Inicial').AsDate := e1Data.Date;
     ParamByName('Data_Final').AsDate   := e2Data.Date;
     Open;
@@ -531,7 +531,7 @@ end;
 
 procedure TfrmGeFluxoCaixa.CarregarTipoDespesa(const ApenasAtivos: Boolean);
 begin
-  with qryTipoDespesa, Params do
+  with fdQryTipoDespesa, Params do
   begin
     Close;
     ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
@@ -545,7 +545,7 @@ end;
 
 procedure TfrmGeFluxoCaixa.CarregarTipoReceita(const ApenasAtivos: Boolean);
 begin
-  with qryTipoReceita, Params do
+  with fdQryTipoReceita, Params do
   begin
     Close;
     ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
@@ -807,7 +807,7 @@ begin
       end
       else
       begin
-        IbDtstTabelaCONTA_CORRENTE.Value := tblContaCorrente.FieldByName('codigo').AsInteger;
+        IbDtstTabelaCONTA_CORRENTE.Value := fdQryContaCorrente.FieldByName('codigo').AsInteger;
         IbDtstTabelaCAIXA_ANO.Clear;
         IbDtstTabelaCAIXA_NUM.Clear;
       end;
@@ -947,7 +947,7 @@ begin
   begin
     IbDtstTabelaANO.AsInteger        := iAno;
     IbDtstTabelaNUMERO.AsInteger     := iNum;
-    IbDtstTabelaCONTA_CORRENTE.Value := tblContaCorrente.FieldByName('codigo').AsInteger;
+    IbDtstTabelaCONTA_CORRENTE.Value := fdQryContaCorrente.FieldByName('codigo').AsInteger;
   end;
 end;
 
@@ -986,7 +986,7 @@ begin
       with qryFluxoSaldos do
       begin
         Close;
-        ParamByName('Conta').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
+        ParamByName('Conta').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
         ParamByName('DataInicial').AsDateTime  := e1Data.Date;
         ParamByName('DataFinal').AsDateTime    := e2Data.Date;
         Open;
@@ -995,7 +995,7 @@ begin
       with qryFluxoSintetico do
       begin
         Close;
-        ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
+        ParamByName('Conta_Corrente').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
         ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
         ParamByName('Data_Final').AsDateTime    := e2Data.Date;
         Open;
@@ -1004,7 +1004,7 @@ begin
       with qryFluxoAnalitico do
       begin
         Close;
-        ParamByName('Conta_Corrente').AsInteger := tblContaCorrente.FieldByName('codigo').AsInteger;
+        ParamByName('Conta_Corrente').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
         ParamByName('Data_Inicial').AsDateTime  := e1Data.Date;
         ParamByName('Data_Final').AsDateTime    := e2Data.Date;
         Open;
@@ -1079,7 +1079,7 @@ begin
   edContaCorrentePesq.OnChange := nil;
   try
 
-    with tblContaCorrente do
+    with fdQryContaCorrente do
     begin
       Filter   := 'cnpj = ' + QuotedStr(gUsuarioLogado.Empresa);
       Filtered := True;

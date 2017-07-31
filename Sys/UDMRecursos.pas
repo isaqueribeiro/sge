@@ -3,7 +3,9 @@ unit UDMRecursos;
 interface
 
 uses
+  {$IFNDEF PRINTER_CUPOM}
   USplash,
+  {$ENDIF}
   UGrAguarde,
   UPersonalizaEmpresa,
   UConstantesDGE,
@@ -32,9 +34,11 @@ var
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1);
 
+  {$IFNDEF PRINTER_CUPOM}
   procedure SplashFree;
   procedure SplashShow(const Aonwer : TComponent);
   procedure SplashMessage(pMessage : String);
+  {$ENDIF}
   procedure ExcluirArquivosAlertaSistema;
 
 implementation
@@ -59,6 +63,7 @@ begin
   end
 end;
 
+{$IFNDEF PRINTER_CUPOM}
 procedure SplashFree;
 begin
   if ( frmSplash <> nil ) then
@@ -88,6 +93,7 @@ begin
     finally
     end
 end;
+{$ENDIF}
 
 procedure ExcluirArquivosAlertaSistema;
 var

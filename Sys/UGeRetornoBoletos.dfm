@@ -993,6 +993,9 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
   object ACBrBoletoFCFR: TACBrBoletoFCFR
     ACBrBoleto = ACBrBoleto
     LayOut = lPadraoEntrega
+    ModoThread = False
+    IncorporarBackgroundPdf = False
+    IncorporarFontesPdf = False
     Left = 376
     Top = 245
   end

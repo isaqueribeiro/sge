@@ -3,21 +3,22 @@ unit UGeControleCheque;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, JvToolEdit, JvExMask,
-  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, Datasnap.DBClient,
-  Datasnap.Provider, IBX.IBQuery, ACBrBase, ACBrExtenso, frxClass, frxDBSet,
-  cxControls, cxContainer, cxEdit, cxImage, cxDBEdit;
+  JvDBControls, Datasnap.DBClient, Datasnap.Provider, IBX.IBQuery, ACBrBase,
+  ACBrExtenso, frxClass, frxDBSet, cxControls, cxContainer, cxEdit, cxImage, cxDBEdit,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TChequeBaixa = record
@@ -38,7 +39,6 @@ type
     dbStatus: TDBEdit;
     lblValor: TLabel;
     dbValor: TDBEdit;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblBanco: TLabel;
     dbBanco: TDBLookupComboBox;
@@ -55,7 +55,6 @@ type
     dbAgencia: TDBEdit;
     lblEmissorCnpj: TLabel;
     dbEmissorCnpj: TDBEdit;
-    tblBanco: TIBTable;
     dtsBanco: TDataSource;
     lblData: TLabel;
     btbtnAlterarSituacao: TcxButton;
@@ -76,7 +75,6 @@ type
     dbEmissao: TJvDBDateEdit;
     lblApresentacao: TLabel;
     dbApresentacao: TJvDBDateEdit;
-    qryTipoCheque: TIBQuery;
     dtsTipoCheque: TDataSource;
     FrChequeA4: TfrxReport;
     popGerarEspelhoChequeA5: TMenuItem;
@@ -173,6 +171,9 @@ type
     CdsRelacaoCheque: TClientDataSet;
     frdsRelacaoCheque: TfrxDBDataset;
     frRelacaoCheque: TfrxReport;
+    fdQryEmpresa: TFDQuery;
+    fdQryTipoCheque: TFDQuery;
+    fdQryBanco: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -241,6 +242,7 @@ type
   - TBEMPRESA
 
   Views:
+  - VW_EMPRESA
   - VW_STATUS_CHEQUE
 
   Procedures:
@@ -302,9 +304,9 @@ begin
 
   inherited;
 
-  CarregarLista(tblEmpresa);
-  CarregarLista(qryTipoCheque);
-  CarregarLista(tblBanco);
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryTipoCheque);
+  CarregarLista(fdQryBanco);
 
   SQL_Baixas := TStringList.Create;
   SQL_Baixas.AddStrings( qryBaixas.SelectSQL );
@@ -898,6 +900,7 @@ end;
 procedure TfrmGeControleCheque.FormShow(Sender: TObject);
 begin
   inherited;
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
   RegistrarNovaRotinaSistema;
 
   btbtnAlterarSituacao.Enabled := GetPermissaoRotinaSistema(RotinaAlterarSituacaoID, False);

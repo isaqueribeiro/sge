@@ -3,19 +3,17 @@ unit UGeRemessaBoletos;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, DB, IBCustomDataSet, IBTable, ComCtrls,
   IBSQL, DBClient, Provider, IBUpdateSQL, IBQuery, Buttons, ToolWin, Grids,
-  DBGrids, ComObj, frxClass, frxDBSet, UGrPadrao, ACBrBoleto, ACBrBoletoFCFR,
+  DBGrids, ComObj, frxClass, frxDBSet, ACBrBoleto, ACBrBoletoFCFR,
   ACBrBase, Mask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvExMask, JvToolEdit,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeRemessaBoleto = class(TfrmGrPadrao)
@@ -169,6 +167,21 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBBANCO_BOLETO
+  - TBCONTREC
+  - TBVENDAS
+  - TBCLIENTE
+
+  Views:
+  - VW_EMPRESA
+
+  Procedures:
+
+*)
+
 var
   frmGeRemessaBoleto: TfrmGeRemessaBoleto;
 
@@ -241,6 +254,8 @@ end;
 
 procedure TfrmGeRemessaBoleto.FormShow(Sender: TObject);
 begin
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
+
   CarregarBancos;
   edBancoChange(edBanco);
 end;

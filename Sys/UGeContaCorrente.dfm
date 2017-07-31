@@ -201,7 +201,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 4
@@ -450,7 +450,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1920,13 +1920,13 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
-      '    e.codigo'
-      '  , e.cnpj'
-      '  , e.rzsoc'
-      '  , e.nmfant'
-      'from TBEMPRESA e'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
       'order by'
-      '    e.rzsoc')
+      '    e.razao')
     Left = 347
     Top = 264
   end

@@ -3,10 +3,12 @@ unit UGeGerarBoletos;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ToolWin, ComCtrls, ExtCtrls, StdCtrls, Buttons, ImgList, Grids,
   DBGrids, DB, IBCustomDataSet, IBQuery, Mask, DBCtrls, DBClient, Provider,
-  ComObj, IBUpdateSQL, IBTable, IBSQL, UGrPadrao, ACBrBoleto,
+  ComObj, IBUpdateSQL, IBTable, IBSQL, ACBrBoleto,
   ACBrBoletoFCFR, ACBrBase, ACBrUtil, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
 
@@ -14,14 +16,8 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeGerarBoleto = class(TfrmGrPadrao)
@@ -190,6 +186,7 @@ type
   - TBVENDAS
 
   Views:
+  - VW_EMPRESA
 
   Procedures:
 
@@ -459,6 +456,8 @@ end;
 
 procedure TfrmGeGerarBoleto.FormShow(Sender: TObject);
 begin
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
+
   {$IFDEF ACBR}
   lbltMsgInstrucoes.Enabled := False;
   edtMsgInstrucoes.Enabled  := False;

@@ -3,21 +3,21 @@ unit UGeCaixa;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, Menus, IBStoredProc, frxClass, frxDBSet, IBQuery, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
   JvToolEdit, JvExMask, JvDBControls,
 
-  dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeCaixa = class(TfrmGrPadraoCadastro)
@@ -34,9 +34,7 @@ type
     IbDtstTabelaVALOR_TOTAL_DEBITO: TIBBCDField;
     IbDtstTabelaDESCRICAO: TIBStringField;
     IbDtstTabelaTIPO: TIBStringField;
-    tblOperador: TIBTable;
     dtsOperador: TDataSource;
-    tblContaCorrente: TIBTable;
     dtsContaCorrente: TDataSource;
     lblOperador: TLabel;
     dbOperador: TDBLookupComboBox;
@@ -123,6 +121,8 @@ type
     IbDtstTabelaEMPRESA_RAZAO: TIBStringField;
     IbDtstTabelaEMPRESA_FANTASIA: TIBStringField;
     dbEmpresaRazao: TDBEdit;
+    fdQryOperador: TFDQuery;
+    fdQryContaCorrente: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -186,6 +186,7 @@ type
   - TBUSERS
 
   Views:
+  - VW_EMPRESA
   - VW_LAYOUT_REM_RET_BANCO
 
   Stored Procedure:
@@ -364,8 +365,8 @@ begin
   ControlFirstEdit   := dbDataAbertura;
   pgcMaisDados.ActivePage := tbsConsolidado;
 
-  tblOperador.Open;
-  tblContaCorrente.Open;
+  CarregarLista(fdQryOperador);
+  CarregarLista(fdQryContaCorrente);
 
   DisplayFormatCodigo := '###0000000';
   
@@ -377,8 +378,8 @@ begin
   if (gSistema.Codigo = SISTEMA_PDV) then
   begin
     WhereAdditional := '(cc.tipo = 1)';
-    tblContaCorrente.Filter   := 'TIPO = 1';
-    tblContaCorrente.Filtered := True;
+    fdQryContaCorrente.Filter   := 'TIPO = 1';
+    fdQryContaCorrente.Filtered := True;
   end;
 
   with IbDtstTabela, GeneratorField do
@@ -779,11 +780,11 @@ end;
 procedure TfrmGeCaixa.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
   inherited;
-  if ( tblContaCorrente.Locate('CODIGO', IbDtstTabelaCONTA_CORRENTE.AsInteger, []) ) then
-    if ( tblContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
+  if ( fdQryContaCorrente.Locate('CODIGO', IbDtstTabelaCONTA_CORRENTE.AsInteger, []) ) then
+    if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
       IbDtstTabelaTIPO.Value := 'Caixa'
     else
-    if ( tblContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
+    if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
       IbDtstTabelaTIPO.Value := 'Banco';
 end;
 
@@ -924,9 +925,10 @@ end;
 
 procedure TfrmGeCaixa.btnFiltrarClick(Sender: TObject);
 begin
-  WhereAdditional := 'c.Data_abertura between ' +
-    QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
-    QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+  WhereAdditional := '((c.Conta_corrente is null) or (e.cnpj is not null)) ' +
+    ' and (c.Data_abertura between ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
+      QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     WhereAdditional := '(cc.tipo = 1) and (' + WhereAdditional + ')';
