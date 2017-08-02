@@ -38703,4 +38703,66 @@ object DMNFe: TDMNFe
       end
     end
   end
+  object fdQryEmissaoNFePendente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.ano        as Ano'
+      '  , v.codcontrol as Numero'
+      '  , cast(v.dtvenda as date) as Data'
+      '  , 1            as TipoNFE'
+      '  , '#39'Sa'#237'da/Venda'#39'     as Tipo'
+      '  , v.lote_nfe_numero as Lote'
+      '  , v.lote_nfe_recibo as Recibo'
+      'from TBVENDAS v'
+      'where v.codemp      = :empresa'
+      '  and v.status      = 3 -- Finalizada'
+      '  and v.nfe_enviada = 0 -- NF-e nao enviada'
+      
+        '  and v.dtvenda between (current_timestamp - 60) and current_tim' +
+        'estamp'
+      ''
+      '  and v.lote_nfe_numero is not null'
+      '  and v.lote_nfe_recibo is not null'
+      '  and v.nfe is null'
+      ''
+      'union'
+      ''
+      'Select'
+      '    c.ano        as Ano'
+      '  , c.codcontrol as Numero'
+      '  , c.dtent      as Data'
+      '  , 0            as TipoNFE'
+      '  , '#39'Entrada/Compra'#39'  as Tipo'
+      '  , c.lote_nfe_numero as Lote'
+      '  , c.lote_nfe_recibo as Recibo'
+      'from TBCOMPRAS c'
+      'where c.codemp      = :empresa'
+      '  and c.status      = 2 -- Finalizada'
+      '  and c.nfe_enviada = 0'
+      
+        '  and c.dtemiss between (current_timestamp - 60) and current_tim' +
+        'estamp'
+      ''
+      '  and c.lote_nfe_numero is not null'
+      '  and c.lote_nfe_recibo is not null'
+      '  and c.nf is null'
+      ''
+      'order by'
+      '    1 desc'
+      '  , 3 desc'
+      '  , 7 asc')
+    Left = 56
+    Top = 24
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+  end
 end

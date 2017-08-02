@@ -994,9 +994,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       '  , b.bco_agencia'
       '  , b.bco_cc'
       'from TBCONTA_CORRENTE c'
-      
-        '  left join TBBANCO_BOLETO b on (b.bco_cod = c.conta_banco_bolet' +
-        'o and b.empresa = c.empresa)'
+      '  left join TBBANCO_BOLETO b on (b.bco_codigo = c.bco_codigo_cc)'
       ''
       'where c.empresa = :empresa'
       ''

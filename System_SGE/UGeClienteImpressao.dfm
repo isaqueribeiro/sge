@@ -2,6 +2,8 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
   Left = 397
   Top = 220
   Caption = 'Relat'#243'rio de Clientes'
+  ExplicitWidth = 555
+  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
@@ -749,31 +751,6 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     ProviderName = 'DspRelacaoCliente'
     Left = 104
     Top = 8
-  end
-  object QryCidades: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.cid_cod'
-      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
-      'from TBCIDADE c'
-      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
-      'order by 2')
-    Left = 360
-  end
-  object DpsCidades: TDataSetProvider
-    DataSet = QryCidades
-    Left = 392
-  end
-  object CdsCidades: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DpsCidades'
-    Left = 424
   end
   object frRelacaoClienteCidade: TfrxReport
     Version = '5.1.9'
@@ -3658,5 +3635,31 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         Width = 718.110700000000000000
       end
     end
+  end
+  object fdQryCidades: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cid_cod'
+      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
+      'from TBCIDADE c'
+      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
+      'order by 2')
+    Left = 448
+    Top = 8
+  end
+  object DpsCidades: TDataSetProvider
+    DataSet = fdQryCidades
+    Left = 480
+    Top = 8
+  end
+  object CdsCidades: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DpsCidades'
+    Left = 512
+    Top = 8
   end
 end

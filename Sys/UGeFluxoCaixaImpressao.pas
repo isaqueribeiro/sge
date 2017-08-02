@@ -3,35 +3,31 @@ unit UGeFluxoCaixaImpressao;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoImpressao, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, Vcl.StdCtrls, cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls,
-  Datasnap.DBClient, Datasnap.Provider, Data.DB, IBX.IBCustomDataSet,
-  IBX.IBQuery, Vcl.Mask, JvExMask, JvToolEdit, frxClass, frxDBSet;
+  UGrPadraoImpressao,
+
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls,
+  cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls, Datasnap.DBClient, Datasnap.Provider,
+  Data.DB, IBX.IBCustomDataSet, IBX.IBQuery, Vcl.Mask, JvExMask, JvToolEdit,
+  frxClass, frxDBSet,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeFluxoCaixaImpressao = class(TfrmGrPadraoImpressao)
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
-    QryEmpresas: TIBQuery;
-    DspEmpresas: TDataSetProvider;
-    CdsEmpresas: TClientDataSet;
     lblContaCorrente: TLabel;
     edContaCorrente: TComboBox;
     lblData: TLabel;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    QryContaCorrente: TIBQuery;
-    DspContaCorrente: TDataSetProvider;
-    CdsContaCorrente: TClientDataSet;
     frRelacaoSaldoConsolidadoDia: TfrxReport;
     QryRelacaoSaldoConsolidadoDia: TIBQuery;
     DspRelacaoSaldoConsolidadoDia: TDataSetProvider;
@@ -42,6 +38,12 @@ type
     DspRelacaoMovimentoCaixa: TDataSetProvider;
     CdsRelacaoMovimentoCaixa: TClientDataSet;
     FrdsRelacaoMovimentoCaixa: TfrxDBDataset;
+    fdQryEmpresas: TFDQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
+    fdQryContaCorrente: TFDQuery;
+    DspContaCorrente: TDataSetProvider;
+    CdsContaCorrente: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -70,6 +72,7 @@ type
   - TBBANCO_BOLETO
 
   Procedures:
+  - VW_EMPRESA
   - GET_CAIXA_MOVIMENTO
 *)
 
@@ -178,7 +181,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then

@@ -244,7 +244,8 @@ type
     frrBoletoCarne: TfrxReport;
     qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField;
     cdsLOGEMPRESA: TIBStringField;
-    frrBoletoFatura: TfrxReport;    procedure SelecionarCertificado(Sender : TObject);
+    frrBoletoFatura: TfrxReport;
+    fdQryEmissaoNFePendente: TFDQuery;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;
@@ -425,6 +426,7 @@ type
     function IsEstacaoEmiteNFCeResumido : Boolean;
     function GetCnpjCertificado : String;
     function ValidarCnpjDocumento(const pCnpjDocumento : String) : Boolean;
+    function EmissaoNFE_Pendente(const pEmpresa : String; const pAlertar : Boolean = TRUE) : Boolean;
   end;
 
 var
@@ -5534,6 +5536,31 @@ begin
   end;
 end;
 
+function TDMNFe.EmissaoNFE_Pendente(const pEmpresa : String; const pAlertar : Boolean = TRUE) : Boolean;
+var
+  aRetorno : Boolean;
+begin
+  aRetorno := False;
+  try
+    with fdQryEmissaoNFePendente do
+    begin
+      Close;
+      ParamByName('empresa').AsString := Trim(pEmpresa);
+      Open;
+
+      aRetorno := (RecordCount > 0);
+      if aRetorno and pAlertar then
+        ShowWarning('Emissão pendente de NF-e:'  + #13#13 +
+          FieldByName('tipo').AsString   + ' : ' +
+          FieldByName('ano').AsString    + '/'   +
+          FieldByName('numero').AsString + #13   +
+          'Recibo : ' + FieldByName('recibo').AsString);
+    end;
+  finally
+    Result := aRetorno;
+  end;
+end;
+
 function TDMNFe.IsNFeManifestoDestinatarioRegistrado(const sCNPJ,
   sChave: String): Boolean;
 var
@@ -7476,7 +7503,7 @@ begin
           , FormatFloat(',0.00',  qryVendasCaixaDetalhe.FieldByName('Valor').AsCurrency) +
               IfThen(qryVendasCaixaDetalhe.FieldByName('SituacaoMov').AsInteger = 1, ' +', ' -')
         );
-        
+
         qryVendasCaixaDetalhe.Next;
       end;
       qryVendasCaixaDetalhe.Close;

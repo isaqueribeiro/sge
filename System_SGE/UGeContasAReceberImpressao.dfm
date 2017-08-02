@@ -3105,61 +3105,29 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
     end
   end
-  object QryCompetencia: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.cmp_num'
-      '  , c.cmp_desc'
-      'from TBCOMPETENCIA c'
-      'order by'
-      '    c.cmp_num desc')
-    Left = 456
-  end
   object DspCompetencia: TDataSetProvider
-    DataSet = QryCompetencia
+    DataSet = fdQryCompetencia
     Left = 488
+    Top = 64
   end
   object CdsCompetencia: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspCompetencia'
     Left = 520
-  end
-  object QryCliente: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.codigo'
-      '  , c.nome'
-      '  , c.pessoa_fisica'
-      '  , c.cnpj'
-      'from TBCLIENTE c'
-      ''
-      'order by'
-      '    c.nome')
-    Left = 456
-    Top = 32
+    Top = 64
   end
   object DspCliente: TDataSetProvider
-    DataSet = QryCliente
+    DataSet = fdQryCliente
     Left = 488
-    Top = 32
+    Top = 96
   end
   object CdsCliente: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspCliente'
     Left = 520
-    Top = 32
+    Top = 96
   end
   object frRelacaoAReceberESintetico: TfrxReport
     Version = '5.1.9'
@@ -9765,62 +9733,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     Left = 136
     Top = 104
   end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 456
-    Top = 64
-  end
-  object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
-    Left = 488
-    Top = 64
-  end
-  object CdsEmpresas: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspEmpresas'
-    Left = 520
-    Top = 64
-  end
-  object QryCidades: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.cid_cod'
-      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
-      'from TBCIDADE c'
-      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
-      'order by 2')
-    Left = 456
-    Top = 96
-  end
-  object DpsCidades: TDataSetProvider
-    DataSet = QryCidades
-    Left = 488
-    Top = 96
-  end
-  object CdsCidades: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DpsCidades'
-    Left = 520
-    Top = 96
-  end
   object frRelacaoAReceberVCidade: TfrxReport
     Version = '5.1.9'
     DotMatrixReport = False
@@ -11067,5 +10979,87 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     BCDToCurrency = True
     Left = 136
     Top = 152
+  end
+  object fdQryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 456
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = fdQryEmpresas
+    Left = 488
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 520
+  end
+  object fdQryCidades: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cid_cod'
+      '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
+      'from TBCIDADE c'
+      '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
+      'order by 2')
+    Left = 456
+    Top = 32
+  end
+  object DpsCidades: TDataSetProvider
+    DataSet = fdQryCidades
+    Left = 488
+    Top = 32
+  end
+  object CdsCidades: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DpsCidades'
+    Left = 520
+    Top = 32
+  end
+  object fdQryCompetencia: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cmp_num'
+      '  , c.cmp_desc'
+      'from TBCOMPETENCIA c'
+      'order by'
+      '    c.cmp_num desc')
+    Left = 456
+    Top = 64
+  end
+  object fdQryCliente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.nome'
+      '  , c.pessoa_fisica'
+      '  , c.cnpj'
+      'from TBCLIENTE c'
+      ''
+      'order by'
+      '    c.nome')
+    Left = 456
+    Top = 96
   end
 end

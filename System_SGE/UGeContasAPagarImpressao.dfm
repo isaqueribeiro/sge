@@ -3126,65 +3126,29 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
     end
   end
-  object QryTipoDespesa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    t.cod'
-      '  , t.tipodesp'
-      '  , t.tipo_particular'
-      'from TBTPDESPESA t'
-      'order by'
-      '    t.tipodesp')
-    Left = 424
-    Top = 8
-  end
   object DspTipoDespesa: TDataSetProvider
-    DataSet = QryTipoDespesa
-    Left = 456
-    Top = 8
+    DataSet = fdQryTipoDespesa
+    Left = 488
+    Top = 32
   end
   object CdsTipoDespesa: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspTipoDespesa'
-    Left = 488
-    Top = 8
-  end
-  object QryFornecedor: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.codforn'
-      '  , f.nomeforn'
-      '  , f.pessoa_fisica'
-      '  , f.cnpj'
-      'from TBFORNECEDOR f'
-      ''
-      'order by'
-      '    f.nomeforn')
-    Left = 424
-    Top = 40
+    Left = 520
+    Top = 32
   end
   object DspFornecedor: TDataSetProvider
-    DataSet = QryFornecedor
-    Left = 456
-    Top = 40
+    DataSet = fdQryFornecedor
+    Left = 488
+    Top = 64
   end
   object CdsFornecedor: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspFornecedor'
-    Left = 488
-    Top = 40
+    Left = 520
+    Top = 64
   end
   object frRelacaoAPagarESintetico: TfrxReport
     Version = '5.1.9'
@@ -12360,34 +12324,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Left = 136
     Top = 104
   end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 424
-    Top = 72
-  end
-  object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
-    Left = 456
-    Top = 72
-  end
-  object CdsEmpresas: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspEmpresas'
-    Left = 488
-    Top = 72
-  end
   object QryRelacaoAPagarTPDespesaFornecedor: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -17151,5 +17087,62 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         end
       end
     end
+  end
+  object fdQryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 456
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = fdQryEmpresas
+    Left = 488
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 520
+  end
+  object fdQryTipoDespesa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    t.cod'
+      '  , t.tipodesp'
+      '  , t.tipo_particular'
+      'from TBTPDESPESA t'
+      'order by'
+      '    t.tipodesp')
+    Left = 456
+    Top = 32
+  end
+  object fdQryFornecedor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.codforn'
+      '  , f.nomeforn'
+      '  , f.pessoa_fisica'
+      '  , f.cnpj'
+      'from TBFORNECEDOR f'
+      ''
+      'order by'
+      '    f.nomeforn')
+    Left = 456
+    Top = 64
   end
 end

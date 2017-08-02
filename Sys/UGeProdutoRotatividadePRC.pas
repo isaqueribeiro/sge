@@ -15,17 +15,11 @@ uses
   DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, ToolWin,
   cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridBandedTableView, cxGridDBBandedTableView, cxClasses,
-  cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons, dxSkinsForm, 
+  cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons, dxSkinsForm,
+  cxNavigator, IdExplicitTLSClientServerBase, IdSMTPBase,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator,
-  IdExplicitTLSClientServerBase, IdSMTPBase;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TFrmGeProdutoRotatividadePRC = class(TfrmGrPadrao)
@@ -458,6 +452,7 @@ type
     procedure btbtnIncluirClick(Sender: TObject);
     procedure dbgFabTblDblClick(Sender: TObject);
     procedure btBtnEnviarEmailClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FSQLTotal   ,
@@ -471,6 +466,25 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBPRODUTO
+  - TBVENDAS
+  - TBCOMPRAS
+  - TBGRUPOPROD
+  - TBFABRICANTE
+  - TBUNIDADEPROD
+  - TBPRODUTO_ROTATIVIDADE
+  - TBESTOQUE_ALMOX
+  - TBCENTRO_CUSTO
+
+  Views:
+
+  Procedures:
+  - SET_PRODUTO_ROTATIVIDADE
+
+*)
 
 var
   FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC;
@@ -813,6 +827,12 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TFrmGeProdutoRotatividadePRC.FormShow(Sender: TObject);
+begin
+  inherited;
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
 end;
 
 procedure TFrmGeProdutoRotatividadePRC.NovaPesquisaKeyPress(Sender: TObject;

@@ -1941,6 +1941,10 @@ var
   bNFeGerada    : Boolean;
 begin
 (*
+  IMR - 02/08/2017 :
+    Inserção da função "EmissaoNFE_Pendente()" para impedir que uma nota fiscal
+    seja emitida se houver um outro pedido de emissão pendente.
+
   IMR - 08/12/2015 :
     Inserção da validação do código CFOP antes da geração da Nota Fiscal.
 
@@ -2018,6 +2022,10 @@ begin
   {$ENDIF}
 
   if not bNFeGerada then
+  begin
+    if DMNFe.EmissaoNFE_Pendente(IbDtstTabelaCODEMP.AsString, True) then
+      Abort;
+
     bNFeGerada := GerarNFe(Self
       , IbDtstTabelaANO.Value
       , IbDtstTabelaCODCONTROL.Value
@@ -2029,6 +2037,7 @@ begin
       , sReciboNFE
       , iNumeroLote
       , sMensagem);
+  end;
 
   if bNFeGerada then
     with IbDtstTabela do

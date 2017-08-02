@@ -248,28 +248,6 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       end
     end
   end
-  object tblTipoEntrada: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_ENTRADA'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 504
-    Top = 8
-  end
-  object tblTipoDocumento: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_DOCUMENTO_ENTRADA'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 504
-    Top = 40
-  end
   object frRelacaoEntradaGeralSintetico: TfrxReport
     Version = '5.1.9'
     DotMatrixReport = False
@@ -4331,29 +4309,56 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       end
     end
   end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object fdQryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 360
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 448
+    Top = 8
   end
   object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
-    Left = 392
+    DataSet = fdQryEmpresas
+    Left = 480
+    Top = 8
   end
   object CdsEmpresas: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspEmpresas'
-    Left = 424
+    Left = 512
+    Top = 8
+  end
+  object fdQryTipoEntrada: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    te.tpe_codigo'
+      '  , te.tpe_descricao'
+      'from VW_TIPO_ENTRADA te')
+    Left = 448
+    Top = 40
+  end
+  object fdQryTipoDocumento: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    tde.tpd_codigo'
+      '  , tde.tpd_descricao'
+      'from VW_TIPO_DOCUMENTO_ENTRADA tde')
+    Left = 448
+    Top = 72
   end
 end

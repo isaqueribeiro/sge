@@ -3,19 +3,20 @@ unit UGeEntradaImpressao;
 interface
 
 uses
+  UGrPadraoImpressao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  Buttons, ComCtrls, Mask, DB, IBCustomDataSet,
-  IBTable, frxClass, frxDBSet, DBClient, Provider, IBQuery, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
-  JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask, DB,
+  IBCustomDataSet, IBTable, frxClass, frxDBSet, DBClient, Provider, IBQuery,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
+  JvToolEdit,
+
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.Intf,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEntradaImpressao = class(TfrmGrPadraoImpressao)
@@ -24,10 +25,8 @@ type
     edSituacao: TComboBox;
     lblTipoEntrada: TLabel;
     edTipoEntrada: TComboBox;
-    tblTipoEntrada: TIBTable;
     lblTipoDocumento: TLabel;
     edTipoDocumento: TComboBox;
-    tblTipoDocumento: TIBTable;
     frRelacaoEntradaGeralSintetico: TfrxReport;
     qryRelacaoEntradaGeralSintetico: TIBQuery;
     dspRelacaoEntradaGeralSintetico: TDataSetProvider;
@@ -42,11 +41,13 @@ type
     frRelacaoEntradaNotaFiscal: TfrxReport;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
-    QryEmpresas: TIBQuery;
-    DspEmpresas: TDataSetProvider;
-    CdsEmpresas: TClientDataSet;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
+    fdQryEmpresas: TFDQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
+    fdQryTipoEntrada: TFDQuery;
+    fdQryTipoDocumento: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure chkDFInformadaClick(Sender: TObject);
@@ -67,6 +68,22 @@ type
     procedure MontarEntradaRelacaoNotas;
   end;
 
+(*
+  Tabelas:
+  - TBCOMPRAS
+  - TBTPDESPESA
+  - TBFORNECEDOR
+  - TBCOMPETENCIA
+
+  Views:
+  - VW_EMPRESA
+  - VW_TIPO_ENTRADA
+  - VW_TIPO_DOCUMENTO_ENTRADA
+
+  Procedures:
+
+*)
+
 var
   frmGeEntradaImpressao: TfrmGeEntradaImpressao;
 
@@ -86,7 +103,7 @@ const
 
 procedure TfrmGeEntradaImpressao.CarregarTipoDocumento;
 begin
-  with edTipoDocumento, tblTipoDocumento do
+  with edTipoDocumento, fdQryTipoDocumento do
   begin
     Items.Clear;
     Items.Add('(Todos)');
@@ -105,7 +122,7 @@ end;
 
 procedure TfrmGeEntradaImpressao.CarregarTipoEntrada;
 begin
-  with edTipoEntrada, tblTipoEntrada do
+  with edTipoEntrada, fdQryTipoEntrada do
   begin
     Items.Clear;
     Items.Add('(Todos)');
@@ -441,7 +458,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then

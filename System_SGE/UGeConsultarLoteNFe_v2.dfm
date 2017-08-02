@@ -389,7 +389,7 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
     end
     object edJustificativa: TMemo
       Left = 16
-      Top = 160
+      Top = 163
       Width = 561
       Height = 172
       Anchors = [akLeft, akTop, akRight, akBottom]

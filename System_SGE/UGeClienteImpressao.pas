@@ -9,14 +9,13 @@ uses
   Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   Buttons, ComCtrls, frxClass, DB, IBCustomDataSet, IBQuery,
   DBClient, Provider, frxDBSet, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmGeClienteImpressao = class(TfrmGrPadraoImpressao)
@@ -29,9 +28,6 @@ type
     edTipoCliente: TComboBox;
     lblCidade: TLabel;
     edCidade: TComboBox;
-    QryCidades: TIBQuery;
-    DpsCidades: TDataSetProvider;
-    CdsCidades: TClientDataSet;
     frRelacaoClienteCidade: TfrxReport;
     frRelacaoClienteCredito: TfrxReport;
     QryRelacaoClienteCredito: TIBQuery;
@@ -39,6 +35,9 @@ type
     CdsRelacaoClienteCredito: TClientDataSet;
     FrdsRelacaoClienteCredito: TfrxDBDataset;
     frFichaCliente: TfrxReport;
+    fdQryCidades: TFDQuery;
+    DpsCidades: TDataSetProvider;
+    CdsCidades: TClientDataSet;
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -55,13 +54,26 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBCLIENTE
+  - TBBANCO
+  - TBCIDADE
+  - TBESTADO
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeClienteImpressao: TfrmGeClienteImpressao;
 
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness;
+  UConstantesDGE, UDMBusiness, UDMRecursos;
 
 const
   REPORT_RELACAO_CLIENTE         = 0;
@@ -191,7 +203,13 @@ end;
 
 procedure TfrmGeClienteImpressao.FormShow(Sender: TObject);
 begin
-  CarregarCidades;
+  WaitAMoment(WAIT_AMOMENT_LoadData);
+  try
+    CarregarCidades;
+  finally
+    WaitAMomentFree;
+    edRelatorioChange(edRelatorio);
+  end;
 end;
 
 procedure TfrmGeClienteImpressao.MontarRelacaoClientePorCidade;

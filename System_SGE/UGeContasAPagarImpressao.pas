@@ -3,21 +3,18 @@ unit UGeContasAPagarImpressao;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoImpressao, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  Buttons, ComCtrls, Mask, frxClass, frxDBSet,
-  DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit,
+  UGrPadraoImpressao,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask,
+  frxClass, frxDBSet, DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmGeContasAPagarImpressao = class(TfrmGrPadraoImpressao)
@@ -36,12 +33,10 @@ type
     frRelacaoAPagarVAnalitico: TfrxReport;
     lblTipoDespesa: TLabel;
     edTipoDespesa: TComboBox;
-    QryTipoDespesa: TIBQuery;
     DspTipoDespesa: TDataSetProvider;
     CdsTipoDespesa: TClientDataSet;
     lblFornecedor: TLabel;
     edFornecedor: TComboBox;
-    QryFornecedor: TIBQuery;
     DspFornecedor: TDataSetProvider;
     CdsFornecedor: TClientDataSet;
     frRelacaoAPagarESintetico: TfrxReport;
@@ -64,9 +59,6 @@ type
     DspRelacaoAPagarVFornecedor: TDataSetProvider;
     CdsRelacaoAPagarVFornecedor: TClientDataSet;
     FrdsRelacaoAPagarVFornecedor: TfrxDBDataset;
-    QryEmpresas: TIBQuery;
-    DspEmpresas: TDataSetProvider;
-    CdsEmpresas: TClientDataSet;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
     e1Data: TJvDateEdit;
@@ -79,6 +71,11 @@ type
     frRelacaoAPagarAPSintetico: TfrxReport;
     frRelacaoAPagarAPAnalitico: TfrxReport;
     frRelacaoAPagarAPFornecedor: TfrxReport;
+    fdQryEmpresas: TFDQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
+    fdQryTipoDespesa: TFDQuery;
+    fdQryFornecedor: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -116,6 +113,24 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBCONTPAG
+  - TBFORNECEDOR
+  - TBTPDESPESA
+  - TBCOMPRAS
+  - TBFORMPAGTO
+  - TBCOMPETENCIA
+  - TBCIDADE
+  - TBESTADO
+
+  Views:
+  - VW_EMPRESA
+
+  Procedures:
+
+*)
 
 var
   frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao;
@@ -1335,7 +1350,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then

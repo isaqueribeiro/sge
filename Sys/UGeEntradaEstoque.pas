@@ -478,7 +478,7 @@ implementation
 uses
   UConstantesDGE, DateUtils, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
   UGeFornecedor, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe, UDMNFe,
-  UGeEntradaEstoqueDevolucaoNF, UFuncoes;
+  UGeEntradaEstoqueDevolucaoNF, UFuncoes, UGeConsultarLoteNFe_v2;
 
 {$R *.dfm}
 
@@ -1751,16 +1751,25 @@ var
   iNumero    ,
   iSerieNFe  ,
   iNumeroNFe : Integer;
-  sFileNameXML ,
-  sChaveNFE    ,
-  sProtocoloNFE,
-  sReciboNFE   : String;
-  iNumeroLote  : Int64;
-  bNFeGerada   : Boolean;
+  sFileNameXML  ,
+  sChaveNFE     ,
+  sProtocoloNFE ,
+  sReciboNFE    : String;
+  iNumeroLote   : Int64;
+  bNFeGerada    : Boolean;
+  TipoMovimento : TTipoMovimento;
 begin
 {
+  IMR - 02/08/2017 :
+    Inserção da função "EmissaoNFE_Pendente()" para impedir que uma nota fiscal
+    seja emitida se houver um outro pedido de emissão pendente.
+
   IMR - 08/12/2015 :
     Inserção da validação do código CFOP antes da geração da Nota Fiscal.
+
+  IMR - 04/05/2015 :
+    Inclusão do bloco de código para buscar o retorno NF-e quando esta já fora
+    solicitada, mas seu retorno ainda não fora processado pela aplicação.
 
   IMR - 23/05/2015 :
     Inclusão do bloco de código para verificar se o CFOP da entrada corresponde
@@ -1802,16 +1811,47 @@ begin
     if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
       Exit;
 
-  if ( IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0 ) then
-  begin
-    ShowWarning('O processo de geração de NF-e para este movimento de entrada já foi solicitado, mas não fora concluído.' + #13 +
-      'Favor consultar junto a SEFA e processar o Recibo/Lote de número ' +
-        IbDtstTabelaLOTE_NFE_RECIBO.AsString + '/' +
-        FormatFloat('#########0', IbDtstTabelaLOTE_NFE_NUMERO.AsInteger));
-    Exit;
-  end;
+//  if ( IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0 ) then
+//  begin
+//    ShowWarning('O processo de geração de NF-e para este movimento de entrada já foi solicitado, mas não fora concluído.' + #13 +
+//      'Favor consultar junto a SEFA e processar o Recibo/Lote de número ' +
+//        IbDtstTabelaLOTE_NFE_RECIBO.AsString + '/' +
+//        FormatFloat('#########0', IbDtstTabelaLOTE_NFE_NUMERO.AsInteger));
+//    Exit;
+//  end;
+//
+  // Buscar retorno do envio pendente, caso ele tenha ocorrido
+  if not bNFeGerada then
+    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr ) then
+    begin
+      bNFeGerada := BuscarRetornoReciboNFe(Self
+        , IbDtstTabelaCODEMP.AsString
+        , Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString)
+        , iSerieNFe
+        , iNumeroNFe
+        , sFileNameXML
+        , sChaveNFE
+        , sProtocoloNFE
+        , TipoMovimento);
+
+      if not bNFeGerada then
+        Exit;
+
+      if ( TipoMovimento <> tmNFeEntrada ) then
+      begin
+        ShowWarning('Tipo do movimento do recibo incompatível!');
+        Exit;
+      end;
+
+      sReciboNFE  := Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString);
+      iNumeroLote := iNumeroNFe;
+    end;
 
   if not bNFeGerada then
+  begin
+    if DMNFe.EmissaoNFE_Pendente(IbDtstTabelaCODEMP.AsString, True) then
+      Abort;
+
     bNFeGerada := GerarNFeEntrada(Self
       , IbDtstTabelaANO.Value
       , IbDtstTabelaCODCONTROL.Value
@@ -1822,6 +1862,7 @@ begin
       , sProtocoloNFE
       , sReciboNFE
       , iNumeroLote);
+  end;
 
   if bNFeGerada then
     with IbDtstTabela do
