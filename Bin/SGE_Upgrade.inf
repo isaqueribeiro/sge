@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Desativação do cadastro da empresa quando necessário;
 - Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento;
 - Novo relatório gerencial: Resultado de Exercício;
 - Ajustes no cadastro de tipos de despesa;
@@ -25,4 +26,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.16.9
+#version=1.0.17.1
