@@ -891,10 +891,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsEmitente: TTabSheet
           Caption = 'Emitente'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lbltEmitCNPJ: TLabel
             Left = 8
             Top = 4
@@ -1301,6 +1297,37 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             NumGlyphs = 2
             OnClick = sbPathEventoClick
           end
+          object lblPathDownload: TLabel
+            Left = 16
+            Top = 437
+            Width = 109
+            Height = 13
+            Caption = 'Pasta Arquivos Evento'
+            Enabled = False
+            FocusControl = edPathDownload
+          end
+          object sbPathDownload: TSpeedButton
+            Left = 330
+            Top = 451
+            Width = 23
+            Height = 24
+            Enabled = False
+            Glyph.Data = {
+              76010000424D7601000000000000760000002800000020000000100000000100
+              04000000000000010000130B0000130B00001000000000000000000000000000
+              800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+              333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+              0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+              07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+              07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+              0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+              33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+              B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+              3BB33773333773333773B333333B3333333B7333333733333337}
+            NumGlyphs = 2
+            OnClick = sbPathDownloadClick
+          end
           object ckSalvarArqs: TCheckBox
             Left = 16
             Top = 11
@@ -1410,6 +1437,15 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Enabled = False
             ReadOnly = True
             TabOrder = 12
+          end
+          object edPathDownload: TEdit
+            Left = 16
+            Top = 453
+            Width = 308
+            Height = 21
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 13
           end
         end
       end

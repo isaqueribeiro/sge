@@ -850,12 +850,13 @@ begin
       WriteBool  (sSecaoArquivos, 'SalvarCCeCanPathEvento', ckSalvaCCeCancelamentoPathEvento.Checked) ;
       WriteBool  (sSecaoArquivos, 'SepararPorCNPJ'        , ckSepararPorCNPJ.Checked) ;
       WriteBool  (sSecaoArquivos, 'SepararPorModelo'      , ckSepararPorModelo.Checked) ;
-      WriteString(sSecaoArquivos, 'PathNFe'    , edPathNFe.Text) ;
-      WriteString(sSecaoArquivos, 'PathCan'    , edPathCan.Text) ;
-      WriteString(sSecaoArquivos, 'PathInu'    , edPathInu.Text) ;
-      WriteString(sSecaoArquivos, 'PathDPEC'   , edPathDPEC.Text) ;
-      WriteString(sSecaoArquivos, 'PathCCe'    , edPathCCe.Text) ;
-      WriteString(sSecaoArquivos, 'PathEvento' , edPathEvento.Text) ;
+      WriteString(sSecaoArquivos, 'PathNFe'     , edPathNFe.Text) ;
+      WriteString(sSecaoArquivos, 'PathCan'     , edPathCan.Text) ;
+      WriteString(sSecaoArquivos, 'PathInu'     , edPathInu.Text) ;
+      WriteString(sSecaoArquivos, 'PathDPEC'    , edPathDPEC.Text) ;
+      WriteString(sSecaoArquivos, 'PathCCe'     , edPathCCe.Text) ;
+      WriteString(sSecaoArquivos, 'PathEvento'  , edPathEvento.Text) ;
+      WriteString(sSecaoArquivos, 'PathDownload', edPathDownload.Text) ;
 
       WriteString (sSecaoWebService, 'UF'        , cbUF.Text) ;
       WriteInteger(sSecaoWebService, 'Ambiente'  , rgTipoAmb.ItemIndex) ;
@@ -971,7 +972,7 @@ begin
          edtNumSerie.Visible := False;
          Label25.Visible     := False;
          sbtnGetCert.Visible := False;
-         
+
          ACBrNFe.Configuracoes.Certificados.Certificado  := Trim(edtCaminho.Text);
          ACBrNFe.Configuracoes.Certificados.Senha        := Trim(edtSenha.Text);
       {$ELSE}
@@ -1013,7 +1014,7 @@ begin
         Arquivos.PathNFe     := StringReplace(Arquivos.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
         Arquivos.PathInu     := StringReplace(Arquivos.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
         Arquivos.PathEvento  := StringReplace(Arquivos.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
-        //Arquivos.DownloadNFe.PathDownload := StringReplace(Arquivos.PathSalvar + '\Downloads',   '\\', '\', [rfReplaceAll]);
+        Arquivos.DownloadNFe.PathDownload := StringReplace(Arquivos.PathSalvar + '\Down',   '\\', '\', [rfReplaceAll]);
         //Arquivos.PathCan    := StringReplace(Arquivos.PathSalvar + '\NFeCancelar', '\\', '\', [rfReplaceAll]);
         //Arquivos.PathCCe    := StringReplace(Arquivos.PathSalvar + '\CCe',         '\\', '\', [rfReplaceAll]);
         //Arquivos.PathMDe    := StringReplace(Arquivos.PathSalvar + '\MDe',         '\\', '\', [rfReplaceAll]);
@@ -1028,9 +1029,10 @@ begin
       ckSepararPorCNPJ.Checked                 := ReadBool(sSecaoArquivos, 'SepararPorCNPJ'        , False);
       ckSepararPorModelo.Checked               := ReadBool(sSecaoArquivos, 'SepararPorModelo'      , False);
 
-      edPathNFe.Text    := ACBrNFe.Configuracoes.Arquivos.PathNFe;
-      edPathInu.Text    := ACBrNFe.Configuracoes.Arquivos.PathInu;
-      edPathEvento.Text := ACBrNFe.Configuracoes.Arquivos.PathEvento;
+      edPathNFe.Text      := ACBrNFe.Configuracoes.Arquivos.PathNFe;
+      edPathInu.Text      := ACBrNFe.Configuracoes.Arquivos.PathInu;
+      edPathEvento.Text   := ACBrNFe.Configuracoes.Arquivos.PathEvento;
+      edPathDownload.Text := ACBrNFe.Configuracoes.Arquivos.DownloadNFe.PathDownload;
       //ACBrNFe.Configuracoes.Arquivos.PathCan;
       //ACBrNFe.Configuracoes.Arquivos.PathCCe;
       //ACBrNFe.Configuracoes.Arquivos.PathMDe;
@@ -5122,39 +5124,55 @@ end;
 
 function TDMNFe.DownloadNFeACBr(const sCNPJEmitente, sCNPJDestinatario, sChaveNFe: String;
   var FileNameXML: String): Boolean;
+var
+  aXML : TStringList;
 begin
+(*
+  IMR - 10/08/2017 :
+    Alteração na forma de execução do download das NFs, a partir da nova função
+    "DistribuicaoDFePorChaveNFe()".
+*)
+  aXML := TStringList.Create;
+  aXML.Clear;
   try
+    try
+      LerConfiguracao(sCNPJEmitente);
 
-    LerConfiguracao(sCNPJEmitente);
-
-    with ACBrNFe do
-    begin
-
-      DownloadNFe.Download.Chaves.Clear;
-      DownloadNFe.Download.Chaves.Add.chNFe := sChaveNFe;
-      DownloadNFe.Download.CNPJ             := sCNPJDestinatario;
-
-      if ( WebServices.DownloadNFe.Executar ) then
+      with ACBrNFe do
       begin
-        //FileNameXML := Configuracoes.Arquivos.DownloadNFe.PathDownload + '\Down\'  + sChaveNFe + '-nfe.xml'; // WebServices.DownloadNFe.retDownloadNFe.GetNamePath
-        FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
-        FileNameXML := StringReplace(FileNameXML, '\\', '\', [rfReplaceAll]);
-      end
-      else
-        raise Exception.Create(WebServices.DownloadNFe.RetornoWS);
+        // Troquei do ACBrNFe1.Download. para ACBrNFe1.DistribuicaoDFePorChaveNFe(uf,cnpj,chave);
+  //      DownloadNFe.Download.Chaves.Clear;
+  //      DownloadNFe.Download.Chaves.Add.chNFe := sChaveNFe;
+  //      DownloadNFe.Download.CNPJ             := sCNPJDestinatario;
+  //
+  //      if ( WebServices.DownloadNFe.Executar ) then
+        if DistribuicaoDFePorChaveNFe(GetEstadoID(Configuracoes.WebServices.UF), sCNPJDestinatario, sChaveNFe) then
+        begin
+          FileNameXML := Configuracoes.Arquivos.DownloadNFe.PathDownload + '\'  + sChaveNFe + '-nfe.xml';
+          FileNameXML := StringReplace(FileNameXML, '\\', '\', [rfReplaceAll]);
+          aXML.Text   := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[0].XML;
+          aXML.SaveToFile(FileNameXML);
+  //        FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
+        end
+        else
+  //        raise Exception.Create(WebServices.DownloadNFe.RetornoWS);
+          raise Exception.Create(WebServices.DistribuicaoDFe.RetornoWS);
 
-      if not FileExists(FileNameXML) then
-        raise Exception.Create(Format('Arquivo %s não encontrado.', [QuotedStr(FileNameXML)]))
-      else
-        Result := True;
-    end;
+        if not FileExists(FileNameXML) then
+          raise Exception.Create(Format('Arquivo %s não encontrado.', [QuotedStr(FileNameXML)]))
+        else
+          Result := True;
+      end;
 
-  except
-    On E : Exception do
-    begin
-      ShowWarning('Erro ao tentar executar download da NF-e.' + #13 + 'Tente novamente mais tarde.' + #13#13 + 'DownloadNFeACBr() --> ' + E.Message);
-      Result := False;
+    except
+      On E : Exception do
+      begin
+        ShowWarning('Erro ao tentar executar download da NF-e.' + #13 + 'Tente novamente mais tarde.' + #13#13 + 'DownloadNFeACBr() --> ' + E.Message);
+        Result := False;
+      end;
     end;
+  finally
+    aXML.Free;
   end;
 end;
 

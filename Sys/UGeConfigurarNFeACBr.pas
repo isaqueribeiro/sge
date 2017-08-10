@@ -158,11 +158,14 @@ type
     lblPathDPEC: TLabel;
     edPathDPEC: TEdit;
     sbPathDPEC: TSpeedButton;
+    lblInfoComplementar: TLabel;
+    edInfoComplementar: TEdit;
     lblPathEvento: TLabel;
     edPathEvento: TEdit;
     sbPathEvento: TSpeedButton;
-    lblInfoComplementar: TLabel;
-    edInfoComplementar: TEdit;
+    lblPathDownload: TLabel;
+    edPathDownload: TEdit;
+    sbPathDownload: TSpeedButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -180,6 +183,7 @@ type
     procedure sbPathInuClick(Sender: TObject);
     procedure sbPathDPECClick(Sender: TObject);
     procedure sbPathEventoClick(Sender: TObject);
+    procedure sbPathDownloadClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -247,6 +251,11 @@ end;
 procedure TfrmGeConfigurarNFeACBr.sbPathCCeClick(Sender: TObject);
 begin
   PathClick(edPathCCe);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.sbPathDownloadClick(Sender: TObject);
+begin
+  PathClick(edPathDownload);
 end;
 
 procedure TfrmGeConfigurarNFeACBr.sbPathDPECClick(Sender: TObject);
