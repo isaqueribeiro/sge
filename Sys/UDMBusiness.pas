@@ -1616,8 +1616,12 @@ begin
       SQL.Add('    where c.codigo = :cc');
       SQL.Add('  )) then');
       SQL.Add('  begin');
-      SQL.Add('    Insert into TBCENTRO_CUSTO');
-      SQL.Add('    values (');
+      SQL.Add('    Insert into TBCENTRO_CUSTO (');
+      SQL.Add('        codigo     ');
+      SQL.Add('      , descricao  ');
+      SQL.Add('      , ativo      ');
+      SQL.Add('      , codcliente ');
+      SQL.Add('    ) values (');
       SQL.Add('        :cc');
       SQL.Add('      , ' + QuotedStr('ESTOQUE GERAL') + ' ');
       SQL.Add('      , 1');
@@ -1635,10 +1639,14 @@ begin
       SQL.Add('      and ce.empresa      = :ep');
       SQL.Add('  )) then');
       SQL.Add('  begin');
-      SQL.Add('    Insert Into TBCENTRO_CUSTO_EMPRESA');
-      SQL.Add('    values (');
+      SQL.Add('    Insert Into TBCENTRO_CUSTO_EMPRESA (');
+      SQL.Add('        centro_custo ');
+      SQL.Add('      , empresa      ');
+      SQL.Add('      , selecionar   ');
+      SQL.Add('    ) values (');
       SQL.Add('        :cc');
       SQL.Add('      , :ep');
+      SQL.Add('      , 1');
       SQL.Add('    );');
       SQL.Add('  end');
       SQL.Add('end');
@@ -4505,7 +4513,7 @@ begin
 
     ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
 
-    CNPJ := ini.ReadString('Licenca', 'edCGC', '');
+    CNPJ := Trim(ini.ReadString('Licenca', 'edCGC', ''));
 
   finally
     ini.Free;
@@ -4631,11 +4639,19 @@ end;
 
 procedure TDMBusiness.CarregarLicencaAuto;
 var
+  sCNPJ ,
   sFile : String;
 begin
   sFile := FileINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_FILELICENSE, EmptyStr);
   if (Trim(sFile) <> EmptyStr) and (FileExists(sFile)) then
-    CarregarLicenca(sFile);
+  begin
+    ValidarLicenca(sFile, sCNPJ);
+    if (sCNPJ = gLicencaSistema.CNPJ) then
+    begin
+      LimparLicenca;
+      CarregarLicenca(sFile);
+    end;
+  end;
 end;
 
 procedure TDMBusiness.ConfigurarEmail(const sCNPJEmitente, sDestinatario,

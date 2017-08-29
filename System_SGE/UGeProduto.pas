@@ -8,15 +8,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, Menus, cxGraphics,
+  ToolWin, IBTable, Menus, cxGraphics, JvDBControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit,
-  JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, FireDAC.Stan.Intf,
-  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TAliquota = (taICMS, taISS);
@@ -26,8 +26,6 @@ type
     aDescricao,
     aSigla    : String;
   end;
-
-  ProdutoServicoPonteiro = ^TProdutoServico;
 
   TProdutoServico = record
     aCodigo      : Integer;
@@ -54,6 +52,8 @@ type
     aEstoque ,
     aReserva : Currency
   end;
+
+  ProdutoServicoPonteiro = ^TProdutoServico;
 
   TfrmGeProduto = class(TfrmGrPadraoCadastro)
     IbDtstTabelaCODIGO: TIntegerField;
@@ -380,6 +380,7 @@ type
     procedure dbNCM_SHButtonClick(Sender: TObject);
     procedure ppMnAtualizarTabelaIBPTClick(Sender: TObject);
     procedure ppMnAtualizarNomeAmigoClick(Sender: TObject);
+    procedure pgcGuiasChange(Sender: TObject);
   private
     { Private declarations }
     fOrdenado : Boolean;
@@ -390,6 +391,7 @@ type
     Procedure ControleCampos;
     procedure AddWhereAdditional;
     procedure OcultarTipoProduto;
+    procedure ConfigurarLabels;
   public
     { Public declarations }
     procedure FiltarDados(const iTipoPesquisa : Integer); overload;
@@ -1292,7 +1294,8 @@ begin
   if ( Trim(IbDtstTabelaNOME_AMIGO.AsString) = EmptyStr ) then
     IbDtstTabelaNOME_AMIGO.AsString := Copy(Trim(Trim(IbDtstTabelaDESCRI.AsString) + ' ' + Trim(IbDtstTabelaAPRESENTACAO.AsString)), 1, IbDtstTabelaNOME_AMIGO.Size);
 
-  // Gerar Centro de Custo Geral para armazanamento dos Lotes do produto
+  // Gerar Centro de Custo Geral para armazanamento dos Lotes do produto quando
+  // o sistema for de Gestão Comercial.
   if (IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger = 1) and (gSistema.Codigo = SISTEMA_GESTAO_COM) then
   begin
     SetCentroCustoGeral(IbDtstTabelaCODEMP.AsString);
@@ -1462,17 +1465,7 @@ begin
   tbsHistoricoVeiculo.TabVisible := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
   tbsCustoVeiculo.TabVisible     := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
 
-  if ( pnlVeiculo.Visible ) then
-  begin
-    lblDescricao.Caption                  := 'Modelo Veículo:';
-    IbDtstTabelaDESCRI.DisplayLabel       := 'Modelo Veículo';
-    lblApresentacao.Caption               := 'Linha:';
-    IbDtstTabelaAPRESENTACAO.DisplayLabel := 'Linha';
-    lblReferencia.Caption                 := 'Placa:';
-    IbDtstTabelaREFERENCIA.DisplayLabel   := 'Placa';
-    lblGrupo.Caption                         := 'Família:';
-    IbDtstTabelaDESCRICAO_GRUPO.DisplayLabel := 'Família';
-  end;
+  ConfigurarLabels;
 
   IbDtstTabelaCOR_VEICULO.Required            := pnlVeiculo.Visible;
   IbDtstTabelaCOMBUSTIVEL_VEICULO.Required    := pnlVeiculo.Visible;
@@ -1678,6 +1671,32 @@ begin
     edtFiltrar.SetFocus;
 end;
 
+procedure TfrmGeProduto.ConfigurarLabels;
+begin
+  if ( pnlVeiculo.Visible ) then
+  begin
+    lblDescricao.Caption                  := 'Modelo Veículo:';
+    IbDtstTabelaDESCRI.DisplayLabel       := 'Modelo Veículo';
+    lblApresentacao.Caption               := 'Linha:';
+    IbDtstTabelaAPRESENTACAO.DisplayLabel := 'Linha';
+    lblReferencia.Caption                 := 'Placa:';
+    IbDtstTabelaREFERENCIA.DisplayLabel   := 'Placa';
+    lblGrupo.Caption                         := 'Família:';
+    IbDtstTabelaDESCRICAO_GRUPO.DisplayLabel := 'Família';
+  end
+  else
+  if (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
+  begin
+    lblReferencia.Caption                 := 'Código Anvisa:';
+    IbDtstTabelaREFERENCIA.DisplayLabel   := 'Código Anvisa';
+  end
+  else
+  begin
+    lblReferencia.Caption                 := 'Referência:';
+    IbDtstTabelaREFERENCIA.DisplayLabel   := 'Referência';
+  end;
+end;
+
 procedure TfrmGeProduto.ControleCampos;
 begin
   lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
@@ -1768,6 +1787,9 @@ begin
 
     if ( Field = IbDtstTabelaMOVIMENTA_ESTOQUE ) then
       dbProdutoPorLote.Enabled := (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = 1);
+
+    if ( Field = IbDtstTabelaCODTIPO ) then
+      ConfigurarLabels;
   end;
 end;
 
@@ -1933,6 +1955,12 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TfrmGeProduto.pgcGuiasChange(Sender: TObject);
+begin
+  inherited;
+  ControleCampos;
 end;
 
 procedure TfrmGeProduto.ppMnAtualizarMetafonemaClick(Sender: TObject);

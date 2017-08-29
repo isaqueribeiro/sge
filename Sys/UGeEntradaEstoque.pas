@@ -430,6 +430,8 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaGerarNFeID : String;
     function GetRotinaCancelarEntradaID : String;
+    function LoteProdutoPendente  : Boolean; virtual; abstract;
+    function LoteProdutoInformado : Boolean; virtual; abstract;
 
     procedure RegistrarNovaRotinaSistema;
     procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
@@ -1537,6 +1539,10 @@ begin
     Abort;
   end;
 
+  if LoteProdutoPendente then
+    if not LoteProdutoInformado then
+      Abort;
+
   IbDtstTabela.Edit;
 
   if ( IbDtstTabelaCODFORN.AsInteger = 0 ) then
@@ -1577,13 +1583,16 @@ begin
     IbDtstTabela.ApplyUpdates;
     CommitTransaction;
 
-    GerarDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) then
+      GerarDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+
     AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     ShowInformation('Entrada finalizada com sucesso !');
 
-    if ( DuplicatasConfirmadas(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTEMISS.AsDateTime, IbDtstTabelaTOTALNF.AsCurrency) ) then
-      AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) then
+      if ( DuplicatasConfirmadas(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTEMISS.AsDateTime, IbDtstTabelaTOTALNF.AsCurrency) ) then
+        AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     HabilitarDesabilitar_Btns;
   end;

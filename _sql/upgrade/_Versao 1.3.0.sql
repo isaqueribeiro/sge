@@ -1737,3 +1737,22 @@ campo pode armazenar o codigo Anvisa.
 2 - Para produtos automotores (carros e motos) este campo pode armazenar a Placa
 do veiculo.';
 
+
+
+/*------ SYSDBA 11/08/2017 16:04:08 --------*/
+
+Insert into TBCENTRO_CUSTO (
+    codigo
+  , descricao  
+  , ativo      
+  , codcliente 
+) values (
+    :cc
+  , ''
+  , 1
+  , null
+);
+
+/*------ SYSDBA 11/08/2017 16:04:15 --------*/
+
+ROLLBACK WORK;
