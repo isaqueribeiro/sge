@@ -17,6 +17,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+
     procedure addObserver(Observer: IObserver);
     procedure removeObserver(Observer: IObserver);
     procedure Notify; overload;

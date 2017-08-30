@@ -430,8 +430,7 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaGerarNFeID : String;
     function GetRotinaCancelarEntradaID : String;
-    function LoteProdutoPendente  : Boolean; virtual; abstract;
-    function LoteProdutoInformado : Boolean; virtual; abstract;
+    function LoteProdutoPendente  : Boolean;
 
     procedure RegistrarNovaRotinaSistema;
     procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
@@ -478,9 +477,11 @@ var
 implementation
 
 uses
-  UConstantesDGE, DateUtils, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
-  UGeFornecedor, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe, UDMNFe,
-  UGeEntradaEstoqueDevolucaoNF, UFuncoes, UGeConsultarLoteNFe_v2;
+  UConstantesDGE, DateUtils, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, UGeFornecedor,
+  UFuncoes, UDMNFe, UGeConsultarLoteNFe_v2,
+  {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
+  UGeEntradaEstoqueLote, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe,
+  UGeEntradaEstoqueDevolucaoNF;
 
 {$R *.dfm}
 
@@ -917,6 +918,37 @@ begin
 
       Next;
     end;
+  end;
+end;
+
+function TfrmGeEntradaEstoque.LoteProdutoPendente: Boolean;
+var
+  aRetorno : Boolean;
+begin
+  aRetorno := False;
+  try
+    aRetorno := (TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto);
+
+    // Verificar a pendência na informação de lotes caso a entrada seja de produtos
+    if aRetorno then
+      with DMBusiness, fdQryBusca do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Select');
+        SQL.Add('  count(ci.seq) as pendentes');
+        SQL.Add('from TBCOMPRASITENS ci');
+        SQL.Add('  inner join TBPRODUTO pr on (pr.cod = ci.codprod and pr.estoque_aprop_lote = 1)');
+        SQL.Add('where ci.ano        = ' + IbDtstTabelaANO.AsString);
+        SQL.Add('  and ci.codcontrol = ' + IbDtstTabelaCODCONTROL.AsString);
+        Open;
+
+        aRetorno := (FieldByName('pendentes').AsInteger > 0);
+
+        Close;
+      end;
+  finally
+    Result := aRetorno;
   end;
 end;
 
@@ -1539,9 +1571,10 @@ begin
     Abort;
   end;
 
-  if LoteProdutoPendente then
-    if not LoteProdutoInformado then
-      Abort;
+  if (gSistema.Codigo = SISTEMA_GESTAO_COM) then
+    if LoteProdutoPendente then
+      if not LotesProdutosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger) then
+        Abort;
 
   IbDtstTabela.Edit;
 

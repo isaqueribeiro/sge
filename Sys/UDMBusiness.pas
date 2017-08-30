@@ -1604,7 +1604,7 @@ begin
       SQL.Add('  declare variable cc Integer;');
       SQL.Add('  declare variable ep varchar(18);');
       SQL.Add('begin');
-      SQL.Add('  cc = 1;');
+      SQL.Add('  cc = ' + IntToStr(CENTRO_CUSTO_ESTOQUE_GERAL) + ';');
       SQL.Add('  ep = ' + QuotedStr(aEmpresa) + '; ');
 
       SQL.Add('  /* Cadastrar Centro de Custo 1 */');

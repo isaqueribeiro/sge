@@ -145,7 +145,8 @@ uses
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
   UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade},
   UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE},
-  UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao};
+  UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao},
+  UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote};
 
 {$R *.res}
 

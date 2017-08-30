@@ -470,6 +470,8 @@ const
   DESC_LOG_CONSULTAR_NRO_LOTE_NFE   = 'Consultar retorno do Lote/Recibo de NF-e';
   DESC_LOG_EVENTO_ATUALIZAR_CUSTO   = 'Atualização de Custo de Produto';
 
+  CENTRO_CUSTO_ESTOQUE_GERAL = 1;
+
   CONTA_CORRENTE_TIPO_CAIXA = 1;
   CONTA_CORRENTE_TIPO_BANCO = 2;
 
@@ -586,6 +588,7 @@ const
   SYS_PASSWD_KEY    = 'TheLordIsGod';
   SYS_SYSDBA_LOGIN  = 'SYSDBA';
   SYS_SYSDBA_PWD    = 'masterkey';
+  SYS_EMPTY_DATE    = '30/12/1899';
 
   KEY_REG_VERSAO    = 'Versão';
   KEY_REG_DATA      = 'Data acesso';

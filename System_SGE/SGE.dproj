@@ -500,6 +500,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeResultadoExercicioImpressao.pas">
             <Form>frmGeResultadoExercicioImpressao</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\UGeEntradaEstoqueLote.pas">
+            <Form>frmGeEntradaEstoqueLote</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="SGE.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

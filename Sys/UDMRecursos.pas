@@ -9,9 +9,28 @@ uses
   UGrAguarde,
   UPersonalizaEmpresa,
   UConstantesDGE,
+  UBaseObject,
   Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls;
 
 type
+  TLoteProduto = class(TBaseObject)
+    private
+      aCodigo : Integer;
+      aDescricao : String;
+      aFabricacao,
+      aValidade  : TDateTime;
+      procedure SetID(const Value: String);
+      function GetID: String;
+    public
+      property Codigo : Integer read aCodigo write aCodigo;
+      property ID : String read GetID write SetID;
+      property Descricao  : String read aDescricao write aDescricao;
+      property Fabricacao : TDateTime read aFabricacao write aFabricacao;
+      property Validade   : TDateTime read aValidade write aValidade;
+
+      constructor Create;
+  end;
+
   TDMRecursos = class(TDataModule)
     ImgPrincipalEnabled: TcxImageList;
     ImgPrincipalDisabled: TcxImageList;
@@ -106,6 +125,26 @@ begin
     if FileExists(aFileAlerta) then
       DeleteFile(aFileAlerta);
   end;
+end;
+
+{ TLoteProduto }
+
+constructor TLoteProduto.Create;
+begin
+  inherited Create;
+  aDescricao  := EmptyStr;
+  aFabricacao := StrToDate(SYS_EMPTY_DATE);
+  aValidade   := StrToDate(SYS_EMPTY_DATE);
+end;
+
+function TLoteProduto.GetID: String;
+begin
+  Result := IDGuid;
+end;
+
+procedure TLoteProduto.SetID(const Value: String);
+begin
+  IDGuid := Trim(Value);
 end;
 
 { TDMRecursos }

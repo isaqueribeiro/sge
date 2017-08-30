@@ -3,8 +3,10 @@ unit UGeEntradaConfirmaDuplicatas;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
+  Dialogs, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
   ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
 

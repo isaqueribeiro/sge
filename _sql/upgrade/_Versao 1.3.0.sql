@@ -1756,3 +1756,426 @@ Insert into TBCENTRO_CUSTO (
 /*------ SYSDBA 11/08/2017 16:04:15 --------*/
 
 ROLLBACK WORK;
+
+
+/*------ SYSDBA 30/08/2017 10:29:11 --------*/
+
+ALTER TABLE TBCOMPRASITENS
+    ADD LOTE_ID DMN_GUID_38,
+    ADD LOTE_DESCRICAO DMN_VCHAR_30,
+    ADD LOTE_DATA_FAB DMN_DATE,
+    ADD LOTE_DATA_VAL DMN_DATE;
+
+COMMENT ON COLUMN TBCOMPRASITENS.LOTE_ID IS
+'Lote : ID (Guid -> Identificacao unica no Estoque/Almoxaifado)';
+
+COMMENT ON COLUMN TBCOMPRASITENS.LOTE_DESCRICAO IS
+'Lote : Descricao';
+
+COMMENT ON COLUMN TBCOMPRASITENS.LOTE_DATA_FAB IS
+'Lote : Data de fabricacao.';
+
+COMMENT ON COLUMN TBCOMPRASITENS.LOTE_DATA_VAL IS
+'Lote : Data de validade.';
+
+
+
+
+/*------ SYSDBA 30/08/2017 10:30:06 --------*/
+
+CREATE INDEX IDX_TBCOMPRASITENS_LTDT
+ON TBCOMPRASITENS (LOTE_DATA_FAB,LOTE_DATA_VAL);
+
+CREATE INDEX IDX_TBCOMPRASITENS_LTDS
+ON TBCOMPRASITENS (LOTE_DESCRICAO);
+
+CREATE INDEX IDX_TBCOMPRASITENS_LTID
+ON TBCOMPRASITENS (LOTE_ID);
+
+
+
+
+/*------ SYSDBA 30/08/2017 16:56:41 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure SET_LOTE_PRODUTO (
+    EMPRESA varchar(18),
+    CENTRO_CUSTO integer,
+    PRODUTO varchar(10),
+    LOTE_DESCRICAO varchar(30),
+    LOTE_FAB date,
+    LOTE_VAL date,
+    LOTE_QTDE numeric(18,3) = 0)
+returns (
+    LOTE_ID varchar(38))
+as
+declare variable LOTE Integer;
+declare variable QTDE_NOVA numeric(18,3);
+declare variable QTDE numeric(18,3);
+declare variable fracionador numeric(15,3);
+declare variable unidade smallint;
+begin
+  if (exists(
+    Select
+      cc.centro_custo
+    from TBCENTRO_CUSTO_EMPRESA cc
+    where cc.centro_custo = :centro_custo
+      and cc.empresa      = :empresa
+  ) and (trim(coalesce(:lote_descricao, '')) <> '')) then
+  begin
+    -- Buscar identificacao do Lote
+    Select
+        ea.id
+      , ea.qtde
+      , ea.lote
+    from TBESTOQUE_ALMOX ea
+    where ea.empresa      = :empresa
+      and ea.centro_custo = :centro_custo
+      and ea.produto      = :produto
+      and ea.descricao    = :lote_descricao
+    Into
+        lote_id
+      , qtde
+      , lote;
+
+    qtde_nova = coalesce(:qtde, 0.000) + coalesce(:lote_qtde, 0.000);
+
+    -- Buscar dados importantes do produto
+    Select
+        pr.fracionador
+      , pr.codunidade_fracionada
+    from TBPRODUTO pr
+    where pr.cod = :produto
+    Into
+        fracionador
+      , unidade;
+
+    if ( trim(coalesce(:lote_id, '')) = '' ) then
+    begin
+        Select
+          g.hex_uuid_format
+        from GET_GUID_UUID_HEX g
+        Into
+          lote_id;
+
+        Select
+            max(ea.lote)
+        from TBESTOQUE_ALMOX ea
+        where ea.empresa      = :empresa
+          and ea.centro_custo = :centro_custo
+          and ea.produto      = :produto
+        Into
+            lote;
+
+        lote = coalesce(:lote, 0) + 1;
+
+        Insert Into TBESTOQUE_ALMOX (
+            empresa
+          , centro_custo
+          , produto
+          , lote
+          , data_fabricacao
+          , data_validade
+          , qtde
+          , fracionador
+          , unidade
+          , custo_medio
+          , id
+        ) values (
+            :empresa
+          , :centro_custo
+          , :produto
+          , :lote
+          , :lote_fab
+          , :lote_val
+          , :qtde_nova   -- Informando a quantidade fracionada
+          , :fracionador
+          , :unidade
+          , null         -- Informando o custo medio fracionado
+          , :lote_id
+        );
+    end
+    else
+    begin
+      Update TBESTOQUE_ALMOX ea Set
+          ea.qtde        = :qtde_nova -- Informando a quantidade fracionada
+        , ea.fracionador = :fracionador
+        , ea.unidade     = :unidade
+      where ea.empresa      = :empresa
+        and ea.centro_custo = :centro_custo
+        and ea.produto      = :produto
+        and ea.lote         = :lote;
+    end
+
+    suspend;
+  end 
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 30/08/2017 16:58:28 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_LOTE_PRODUTO (
+    EMPRESA varchar(18),
+    CENTRO_CUSTO integer,
+    PRODUTO varchar(10),
+    LOTE_DESCRICAO varchar(30),
+    LOTE_FAB date,
+    LOTE_VAL date,
+    LOTE_QTDE numeric(18,3) = 0)
+returns (
+    LOTE_ID varchar(38))
+as
+declare variable LOTE Integer;
+declare variable QTDE_NOVA numeric(18,3);
+declare variable QTDE numeric(18,3);
+declare variable fracionador numeric(15,3);
+declare variable unidade smallint;
+begin
+  if (exists(
+    Select
+      cc.centro_custo
+    from TBCENTRO_CUSTO_EMPRESA cc
+    where cc.centro_custo = :centro_custo
+      and cc.empresa      = :empresa
+  ) and (trim(coalesce(:lote_descricao, '')) <> '')) then
+  begin
+    -- Buscar identificacao do Lote
+    Select
+        ea.id
+      , ea.qtde
+      , ea.lote
+    from TBESTOQUE_ALMOX ea
+    where ea.empresa      = :empresa
+      and ea.centro_custo = :centro_custo
+      and ea.produto      = :produto
+      and ea.descricao    = :lote_descricao
+    Into
+        lote_id
+      , qtde
+      , lote;
+
+    qtde_nova = coalesce(:qtde, 0.000) + coalesce(:lote_qtde, 0.000);
+
+    -- Buscar dados importantes do produto
+    Select
+        pr.fracionador
+      , pr.codunidade_fracionada
+    from TBPRODUTO pr
+    where pr.cod = :produto
+    Into
+        fracionador
+      , unidade;
+
+    if ( trim(coalesce(:lote_id, '')) = '' ) then
+    begin
+        Select
+          g.hex_uuid_format
+        from GET_GUID_UUID_HEX g
+        Into
+          lote_id;
+
+        Select
+            max(ea.lote)
+        from TBESTOQUE_ALMOX ea
+        where ea.empresa      = :empresa
+          and ea.centro_custo = :centro_custo
+          and ea.produto      = :produto
+        Into
+            lote;
+
+        lote = coalesce(:lote, 0) + 1;
+
+        Insert Into TBESTOQUE_ALMOX (
+            empresa
+          , centro_custo
+          , produto
+          , lote
+          , data_fabricacao
+          , data_validade
+          , qtde
+          , fracionador
+          , unidade
+          , custo_medio
+          , id
+        ) values (
+            :empresa
+          , :centro_custo
+          , :produto
+          , :lote
+          , :lote_fab
+          , :lote_val
+          , :qtde_nova   -- Informando a quantidade fracionada
+          , :fracionador
+          , :unidade
+          , null         -- Informando o custo medio fracionado
+          , :lote_id
+        );
+    end
+    else
+    begin
+      Update TBESTOQUE_ALMOX ea Set
+          ea.qtde        = :qtde_nova -- Informando a quantidade fracionada
+        , ea.fracionador = :fracionador
+        , ea.unidade     = :unidade
+      where ea.empresa      = :empresa
+        and ea.centro_custo = :centro_custo
+        and ea.produto      = :produto
+        and ea.lote         = :lote;
+    end
+
+    suspend;
+  end 
+end^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE SET_LOTE_PRODUTO IS 'Store Procedure Inserir Lote Produto.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   30/08/2017
+
+Procedure reponsavel por montar verificar a insercao/atualizacao dos lotes de
+produtos informados no movimento de entrada (Sistema de Gestao Comercial).
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    30/08/2017 - IMR :
+        * Documentacao da store procedure.';
+
+
+
+
+/*------ SYSDBA 30/08/2017 17:23:20 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_LOTE_PRODUTO (
+    EMPRESA varchar(18),
+    CENTRO_CUSTO integer,
+    PRODUTO varchar(10),
+    LOTE_DESCRICAO varchar(30),
+    LOTE_FAB date,
+    LOTE_VAL date,
+    LOTE_QTDE numeric(18,3) = 0)
+returns (
+    LOTE_ID varchar(38))
+as
+declare variable LOTE integer;
+declare variable QTDE_NOVA numeric(18,3);
+declare variable QTDE numeric(18,3);
+declare variable FRACIONADOR numeric(15,3);
+declare variable UNIDADE smallint;
+begin
+  if (exists(
+    Select
+      cc.centro_custo
+    from TBCENTRO_CUSTO_EMPRESA cc
+    where cc.centro_custo = :centro_custo
+      and cc.empresa      = :empresa
+  ) and (trim(coalesce(:lote_descricao, '')) <> '')) then
+  begin
+    -- Buscar identificacao do Lote
+    Select
+        ea.id
+      , ea.qtde
+      , ea.lote
+    from TBESTOQUE_ALMOX ea
+    where ea.empresa      = :empresa
+      and ea.centro_custo = :centro_custo
+      and ea.produto      = :produto
+      and ea.descricao    = :lote_descricao
+    Into
+        lote_id
+      , qtde
+      , lote;
+
+    qtde_nova = coalesce(:qtde, 0.000) + coalesce(:lote_qtde, 0.000);
+
+    -- Buscar dados importantes do produto
+    Select
+        pr.fracionador
+      , pr.codunidade_fracionada
+    from TBPRODUTO pr
+    where pr.cod = :produto
+    Into
+        fracionador
+      , unidade;
+
+    if ( trim(coalesce(:lote_id, '')) = '' ) then
+    begin
+        Select
+          g.hex_uuid_format
+        from GET_GUID_UUID_HEX g
+        Into
+          lote_id;
+
+        Select
+            max(ea.lote)
+        from TBESTOQUE_ALMOX ea
+        where ea.empresa      = :empresa
+          and ea.centro_custo = :centro_custo
+          and ea.produto      = :produto
+        Into
+            lote;
+
+        lote = coalesce(:lote, 0) + 1;
+
+        Insert Into TBESTOQUE_ALMOX (
+            empresa
+          , centro_custo
+          , produto
+          , lote
+          , descricao
+          , data_fabricacao
+          , data_validade
+          , qtde
+          , fracionador
+          , unidade
+          , custo_medio
+          , id
+        ) values (
+            :empresa
+          , :centro_custo
+          , :produto
+          , :lote
+          , trim(:lote_descricao)
+          , :lote_fab
+          , :lote_val
+          , :qtde_nova   -- Informando a quantidade fracionada
+          , :fracionador
+          , :unidade
+          , null         -- Informando o custo medio fracionado
+          , :lote_id
+        );
+    end
+    else
+    begin
+      Update TBESTOQUE_ALMOX ea Set
+          ea.qtde        = :qtde_nova -- Informando a quantidade fracionada
+        , ea.fracionador = :fracionador
+        , ea.unidade     = :unidade
+      where ea.empresa      = :empresa
+        and ea.centro_custo = :centro_custo
+        and ea.produto      = :produto
+        and ea.lote         = :lote;
+    end
+
+    suspend;
+  end 
+end^
+
+SET TERM ; ^
+
