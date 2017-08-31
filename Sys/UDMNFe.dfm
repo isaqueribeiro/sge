@@ -146,6 +146,7 @@ object DMNFe: TDMNFe
         '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
         'acao'
       '  , coalesce(p.Modelo, '#39#39') as Modelo'
+      '  , coalesce(p.Anvisa, '#39#39') as Anvisa'
       '  , coalesce(p.Referencia, '#39#39') as Referencia'
       '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
       '  , coalesce(ib.aliqnacional_ibpt, 0.0)      as Ncm_aliquota_nac'
@@ -3310,6 +3311,7 @@ object DMNFe: TDMNFe
         '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
         'acao'
       '  , p.Modelo'
+      '  , coalesce(p.Anvisa, '#39#39') as Anvisa'
       '  , p.Referencia'
       '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
       '  , coalesce(ib.aliqnacional_ibpt,      0.0) as Ncm_aliquota_nac'

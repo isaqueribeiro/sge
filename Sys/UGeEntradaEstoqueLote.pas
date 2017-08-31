@@ -9,14 +9,15 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, Vcl.StdCtrls, Vcl.Mask,
   Vcl.DBCtrls, JvExMask, JvToolEdit, Vcl.DBGrids, Vcl.ExtCtrls,
   JvDBControls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, cxButtons, Vcl.Grids,
   cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox, cxControls, cxContainer,
+  cxDBLookupComboBox, cxControls, cxContainer, cxButtons, Vcl.Grids,
 
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet;
+  FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEntradaEstoqueLote = class(TfrmGrPadrao)
@@ -80,11 +81,12 @@ type
   Tabelas:
   - TBCOMPRASITENS
   - TBPRODUTO
+  - TBESTOQUE_ALMOX
 
   Views:
 
   Procedures:
-
+  - SET_LOTE_PRODUTO
 *)
 
   function LotesProdutosConfirmados(const AOwner : TComponent; Ano, Controle : Integer) : Boolean;
@@ -147,8 +149,9 @@ begin
     if fdQryLotes.Active then
       fdQryLotes.Close;
 
-    ParamByName('empresa').AsString := aEmpresa;
-    ParamByName('produto').AsString := aProduto;
+    ParamByName('empresa').AsString       := aEmpresa;
+    ParamByName('centro_custo').AsInteger := CENTRO_CUSTO_ESTOQUE_GERAL;
+    ParamByName('produto').AsString       := aProduto;
 
     OpenOrExecute;
     First;
@@ -215,12 +218,16 @@ begin
       if (dbDescricao.ItemIndex >= 0) then
       begin
         aLote := TLoteProduto(dbDescricao.Items.Objects[dbDescricao.ItemIndex]);
-        fdQryCompraItensLOTE_ID.AsString := aLote.ID;
+        fdQryCompraItensLOTE_ID.AsString         := aLote.ID;
         fdQryCompraItensLOTE_DATA_FAB.AsDateTime := aLote.Fabricacao;
         fdQryCompraItensLOTE_DATA_VAL.AsDateTime := aLote.Validade;
       end
       else
+      begin
         fdQryCompraItensLOTE_ID.Clear;
+        fdQryCompraItensLOTE_DATA_FAB.Clear;
+        fdQryCompraItensLOTE_DATA_VAL.Clear;
+      end;
     end;
 
   end

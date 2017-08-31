@@ -2530,12 +2530,12 @@ begin
           // Inserir Lote do Produto na NF-e
           // Campos específicos para venda de medicamentos
           if (qryDadosProduto.FieldByName('estoque_aprop_lote').AsInteger = 1) and
-            (TTipoProduto(qryDadosProduto.FieldByName('codtipo').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
+             (TTipoProduto(qryDadosProduto.FieldByName('codtipo').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
           begin
   {
             with Prod.med.Add do
             begin
-              cProdANVISA := qryDadosProduto.FieldByName('REFERENCIA').AsString;
+              cProdANVISA := qryDadosProduto.FieldByName('ANVISA').AsString;
               nLote := '';
               qLote := 0 ;
               dFab  := now ;

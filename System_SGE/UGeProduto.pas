@@ -351,6 +351,9 @@ type
     lblTipoProduto: TLabel;
     dbTipoProduto: TDBLookupComboBox;
     IbDtstTabelaCODTIPO: TSmallintField;
+    lblCodigoAnvisa: TLabel;
+    dbCodigoAnvisa: TDBEdit;
+    IbDtstTabelaANVISA: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -1229,8 +1232,9 @@ end;
 
 procedure TfrmGeProduto.IbDtstTabelaBeforePost(DataSet: TDataSet);
 begin
-  IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
-  IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
+//  IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
+//  IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
+//  IbDtstTabelaANVISA.Required := dbCodigoAnvisa.Visible;
 
   inherited;
 
@@ -1395,6 +1399,7 @@ begin
 
   IbDtstTabelaPERCENTUAL_REDUCAO_BC.Value := 0;
 
+  IbDtstTabelaANVISA.Clear;
   IbDtstTabelaCOR_VEICULO.Clear;
   IbDtstTabelaCOMBUSTIVEL_VEICULO.Clear;
   IbDtstTabelaTIPO_VEICULO.Clear;
@@ -1683,17 +1688,6 @@ begin
     IbDtstTabelaREFERENCIA.DisplayLabel   := 'Placa';
     lblGrupo.Caption                         := 'Família:';
     IbDtstTabelaDESCRICAO_GRUPO.DisplayLabel := 'Família';
-  end
-  else
-  if (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
-  begin
-    lblReferencia.Caption                 := 'Código Anvisa:';
-    IbDtstTabelaREFERENCIA.DisplayLabel   := 'Código Anvisa';
-  end
-  else
-  begin
-    lblReferencia.Caption                 := 'Referência:';
-    IbDtstTabelaREFERENCIA.DisplayLabel   := 'Referência';
   end;
 end;
 
@@ -1702,6 +1696,11 @@ begin
   lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+
+  lblCodigoAnvisa.Visible := (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
+  dbCodigoAnvisa.Visible  := (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
+  lblModelo.Visible := not lblCodigoAnvisa.Visible;
+  dbModelo.Visible  := not dbCodigoAnvisa.Visible;
 end;
 
 procedure TfrmGeProduto.btnFiltrarClick(Sender: TObject);
@@ -1789,7 +1788,10 @@ begin
       dbProdutoPorLote.Enabled := (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = 1);
 
     if ( Field = IbDtstTabelaCODTIPO ) then
+    begin
+      ControleCampos;
       ConfigurarLabels;
+    end;
   end;
 end;
 
@@ -1954,6 +1956,10 @@ begin
             , IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency) / 100);
   end;
 
+  IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
+  IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
+  IbDtstTabelaANVISA.Required := dbCodigoAnvisa.Visible;
+
   inherited;
 end;
 
@@ -1961,6 +1967,7 @@ procedure TfrmGeProduto.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
   ControleCampos;
+  ConfigurarLabels;
 end;
 
 procedure TfrmGeProduto.ppMnAtualizarMetafonemaClick(Sender: TObject);

@@ -317,9 +317,19 @@ inherited frmGeProduto: TfrmGeProduto
       inherited GrpBxDadosNominais: TGroupBox
         Width = 953
         Height = 153
+        ExplicitTop = -2
         ExplicitWidth = 953
         ExplicitHeight = 153
-        object lblDescricao: TLabel [1]
+        object lblCodigoAnvisa: TLabel [0]
+          Left = 17
+          Top = 107
+          Width = 72
+          Height = 13
+          Caption = 'C'#243'digo Ansiva:'
+          FocusControl = dbCodigoAnvisa
+          Visible = False
+        end
+        object lblDescricao: TLabel [2]
           Left = 400
           Top = 24
           Width = 97
@@ -327,39 +337,39 @@ inherited frmGeProduto: TfrmGeProduto
           Caption = 'Descri'#231#227'o comercial:'
           FocusControl = dbDescricao
         end
-        object lblReferencia: TLabel [2]
+        object lblReferencia: TLabel [3]
           Left = 208
-          Top = 64
+          Top = 107
           Width = 56
           Height = 13
           Caption = 'Refer'#234'ncia:'
           FocusControl = dbReferencia
         end
-        object lblModelo: TLabel [3]
-          Left = 16
-          Top = 64
+        object lblModelo: TLabel [4]
+          Left = 17
+          Top = 107
           Width = 38
           Height = 13
           Caption = 'Modelo:'
           FocusControl = dbModelo
         end
-        object lblSecao: TLabel [4]
-          Left = 492
+        object lblSecao: TLabel [5]
+          Left = 728
           Top = 107
           Width = 33
           Height = 13
           Caption = 'Se'#231#227'o:'
           FocusControl = dbSecao
         end
-        object lblGrupo: TLabel [5]
-          Left = 208
+        object lblGrupo: TLabel [6]
+          Left = 400
           Top = 107
           Width = 33
           Height = 13
           Caption = 'Grupo:'
           FocusControl = dbGrupo
         end
-        object lblCodigoEAN: TLabel [6]
+        object lblCodigoEAN: TLabel [7]
           Left = 88
           Top = 24
           Width = 60
@@ -367,15 +377,15 @@ inherited frmGeProduto: TfrmGeProduto
           Caption = 'C'#243'digo EAN:'
           FocusControl = dbCodigoEAN
         end
-        object lblFabricante: TLabel [7]
+        object lblFabricante: TLabel [8]
           Left = 728
-          Top = 107
+          Top = 64
           Width = 55
           Height = 13
           Caption = 'Fabricante:'
           FocusControl = dbFabricante
         end
-        object lblApresentacao: TLabel [8]
+        object lblApresentacao: TLabel [9]
           Left = 728
           Top = 24
           Width = 118
@@ -383,7 +393,7 @@ inherited frmGeProduto: TfrmGeProduto
           Caption = 'Apresenta'#231#227'o comercial:'
           FocusControl = dbApresentacao
         end
-        object lblTipoCadastro: TLabel [9]
+        object lblTipoCadastro: TLabel [10]
           Left = 208
           Top = 24
           Width = 71
@@ -391,21 +401,70 @@ inherited frmGeProduto: TfrmGeProduto
           Caption = 'Tipo Cadastro:'
           FocusControl = dbTipoCadastro
         end
-        object lblNomeAmigo: TLabel [10]
-          Left = 400
+        object lblNomeAmigo: TLabel [11]
+          Left = 208
           Top = 64
           Width = 232
           Height = 13
           Caption = 'Nome amigo (Descri'#231#227'o p/ identifica'#231#227'o interna):'
           FocusControl = dbNomeAmigo
         end
-        object lblTipoProduto: TLabel [11]
-          Left = 16
-          Top = 107
+        object lblTipoProduto: TLabel [12]
+          Left = 17
+          Top = 64
           Width = 65
           Height = 13
           Caption = 'Tipo Produto:'
           FocusControl = dbTipoProduto
+        end
+        object dbCodigoAnvisa: TDBEdit [13]
+          Left = 17
+          Top = 123
+          Width = 185
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'ANVISA'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 9
+          Visible = False
+        end
+        object dbModelo: TDBEdit [14]
+          Left = 17
+          Top = 123
+          Width = 185
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'MODELO'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 8
+        end
+        object dbReferencia: TDBEdit [15]
+          Left = 208
+          Top = 123
+          Width = 186
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'REFERENCIA'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 10
         end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
@@ -426,38 +485,6 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Style = []
           ParentFont = False
           TabOrder = 3
-        end
-        object dbReferencia: TDBEdit
-          Left = 208
-          Top = 80
-          Width = 186
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'REFERENCIA'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 6
-        end
-        object dbModelo: TDBEdit
-          Left = 16
-          Top = 80
-          Width = 185
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'MODELO'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 5
         end
         object dbCodigoEAN: TDBEdit
           Left = 88
@@ -510,9 +537,9 @@ inherited frmGeProduto: TfrmGeProduto
           TabOrder = 2
         end
         object dbGrupo: TJvDBComboEdit
-          Left = 208
+          Left = 400
           Top = 123
-          Width = 278
+          Width = 322
           Height = 21
           ButtonHint = 'Pesquisar Grupo (Ctrl+P)'
           CharCase = ecUpperCase
@@ -581,12 +608,12 @@ inherited frmGeProduto: TfrmGeProduto
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 9
+          TabOrder = 11
           OnButtonClick = dbGrupoButtonClick
         end
         object dbFabricante: TJvDBComboEdit
           Left = 728
-          Top = 123
+          Top = 80
           Width = 209
           Height = 21
           ButtonHint = 'Pesquisar Fabricante (Ctrl+P)'
@@ -656,13 +683,13 @@ inherited frmGeProduto: TfrmGeProduto
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 11
+          TabOrder = 7
           OnButtonClick = dbFabricanteButtonClick
         end
         object dbSecao: TJvDBComboEdit
-          Left = 492
+          Left = 728
           Top = 123
-          Width = 230
+          Width = 209
           Height = 21
           ButtonHint = 'Pesquisar Se'#231#227'o (Ctrl+P)'
           CharCase = ecUpperCase
@@ -731,13 +758,13 @@ inherited frmGeProduto: TfrmGeProduto
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 10
+          TabOrder = 12
           OnButtonClick = dbSecaoButtonClick
         end
         object dbNomeAmigo: TDBEdit
-          Left = 400
+          Left = 208
           Top = 80
-          Width = 537
+          Width = 514
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NOME_AMIGO'
@@ -748,11 +775,11 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 6
         end
         object dbTipoProduto: TDBLookupComboBox
-          Left = 16
-          Top = 123
+          Left = 17
+          Top = 80
           Width = 185
           Height = 21
           DataField = 'CODTIPO'
@@ -767,7 +794,7 @@ inherited frmGeProduto: TfrmGeProduto
           ListField = 'DESCRICAO'
           ListSource = dtsTipoProduto
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 5
         end
       end
       object pgcMaisDados: TPageControl
@@ -775,7 +802,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = tbsValores
+        ActivePage = TbsEspecificacao
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -2872,6 +2899,7 @@ inherited frmGeProduto: TfrmGeProduto
       '  , p.Descri_apresentacao'
       '  , p.Metafonema'
       '  , p.Modelo'
+      '  , p.Anvisa'
       '  , p.Referencia'
       '  , p.Nome_amigo'
       '  , p.Especificacao'
@@ -3027,6 +3055,12 @@ inherited frmGeProduto: TfrmGeProduto
       FieldName = 'MODELO'
       Origin = 'TBPRODUTO.MODELO'
       Size = 40
+    end
+    object IbDtstTabelaANVISA: TIBStringField
+      DisplayLabel = 'C'#243'digo Anvisa'
+      FieldName = 'ANVISA'
+      Origin = '"TBPRODUTO"."ANVISA"'
+      Size = 30
     end
     object IbDtstTabelaPRECO: TIBBCDField
       DisplayLabel = 'Pre'#231'o (R$)'
@@ -3585,6 +3619,7 @@ inherited frmGeProduto: TfrmGeProduto
       '  DESCRI_APRESENTACAO,'
       '  METAFONEMA,'
       '  MODELO,'
+      '  ANVISA,'
       '  REFERENCIA,'
       '  NOME_AMIGO,'
       '  ESPECIFICACAO,'
@@ -3706,6 +3741,7 @@ inherited frmGeProduto: TfrmGeProduto
       '  KILOMETRAGEM_VEICULO = :KILOMETRAGEM_VEICULO,'
       '  METAFONEMA = :METAFONEMA,'
       '  MODELO = :MODELO,'
+      '  ANVISA = :ANVISA,'
       '  MOVIMENTA_ESTOQUE = :MOVIMENTA_ESTOQUE,'
       '  NCM_SH = :NCM_SH,'
       '  NOME_AMIGO = :NOME_AMIGO,'
@@ -3761,8 +3797,8 @@ inherited frmGeProduto: TfrmGeProduto
         '   ESPECIFICACAO, ESTOQMIN, ESTOQUE_APROP_LOTE, FRACIONADOR, KIL' +
         'OMETRAGEM_VEICULO, '
       
-        '   METAFONEMA, MODELO, MOVIMENTA_ESTOQUE, NCM_SH, NOME_AMIGO, PE' +
-        'RCENTUAL_MARCKUP, '
+        '   METAFONEMA, MODELO, ANVISA, MOVIMENTA_ESTOQUE, NCM_SH, NOME_A' +
+        'MIGO, PERCENTUAL_MARCKUP, '
       
         '   PERCENTUAL_MARGEM, PERCENTUAL_REDUCAO_BC, PESO_BRUTO, PESO_LI' +
         'QUIDO, '
@@ -3802,8 +3838,8 @@ inherited frmGeProduto: TfrmGeProduto
         '   :DESCRI, :DESCRI_APRESENTACAO, :ESPECIFICACAO, :ESTOQMIN, :ES' +
         'TOQUE_APROP_LOTE, '
       
-        '   :FRACIONADOR, :KILOMETRAGEM_VEICULO, :METAFONEMA, :MODELO, :M' +
-        'OVIMENTA_ESTOQUE, '
+        '   :FRACIONADOR, :KILOMETRAGEM_VEICULO, :METAFONEMA, :MODELO, :A' +
+        'NVISA, :MOVIMENTA_ESTOQUE, '
       
         '   :NCM_SH, :NOME_AMIGO, :PERCENTUAL_MARCKUP, :PERCENTUAL_MARGEM' +
         ', :PERCENTUAL_REDUCAO_BC, '
@@ -3831,7 +3867,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00D40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

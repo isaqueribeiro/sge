@@ -474,6 +474,8 @@ type
     procedure nmPpCarregarArquivoNFeClick(Sender: TObject);
     procedure nmPpCorrigirDadosEntregaClick(Sender: TObject);
     procedure btnTituloEditarClick(Sender: TObject);
+    procedure IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;
+      var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -3369,6 +3371,18 @@ end;
 procedure TfrmGeVenda.IbDtstTabelaAfterScroll(DataSet: TDataSet);
 begin
   HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeVenda.IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;
+  var Text: string; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+  begin
+    if (Sender.AsCurrency > 100.0) then
+      Text := '+100'
+    else
+      Text := FormatFloat(',0.0###', Sender.AsCurrency);
+  end;
 end;
 
 procedure TfrmGeVenda.nmPpLimparDadosNFeClick(Sender: TObject);

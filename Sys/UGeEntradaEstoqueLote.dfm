@@ -713,8 +713,8 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       '  , e.data_fabricacao'
       '  , e.data_validade'
       'from TBESTOQUE_ALMOX e'
-      'where e.centro_custo = 1'
-      '  and e.empresa = :empresa'
+      'where e.empresa = :empresa'
+      '  and e.centro_custo = :centro_custo'
       '  and e.produto = :produto'
       'order by'
       '  e.descricao')
@@ -727,6 +727,11 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
         ParamType = ptInput
         Size = 18
         Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
       end
       item
         Name = 'PRODUTO'

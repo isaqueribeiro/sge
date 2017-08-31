@@ -2179,3 +2179,269 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 31/08/2017 17:11:35 --------*/
+
+ALTER TABLE TBPRODUTO
+    ADD ANVISA DMN_VCHAR_30;
+
+COMMENT ON COLUMN TBPRODUTO.ANVISA IS
+'Identificacao Anvisa, quando o tipo do produto for:
+1. Material Medico-Hospitalar
+2. Medicamento
+3. Solucao ou
+4. OPME';
+
+alter table TBPRODUTO
+alter CODIGO position 1;
+
+alter table TBPRODUTO
+alter COD position 2;
+
+alter table TBPRODUTO
+alter DESCRI position 3;
+
+alter table TBPRODUTO
+alter APRESENTACAO position 4;
+
+alter table TBPRODUTO
+alter DESCRI_APRESENTACAO position 5;
+
+alter table TBPRODUTO
+alter METAFONEMA position 6;
+
+alter table TBPRODUTO
+alter MODELO position 7;
+
+alter table TBPRODUTO
+alter ANVISA position 8;
+
+alter table TBPRODUTO
+alter REFERENCIA position 9;
+
+alter table TBPRODUTO
+alter NOME_AMIGO position 10;
+
+alter table TBPRODUTO
+alter ESPECIFICACAO position 11;
+
+alter table TBPRODUTO
+alter PRECO position 12;
+
+alter table TBPRODUTO
+alter PRECO_PROMOCAO position 13;
+
+alter table TBPRODUTO
+alter SECAO position 14;
+
+alter table TBPRODUTO
+alter QTDE position 15;
+
+alter table TBPRODUTO
+alter FRACIONADOR position 16;
+
+alter table TBPRODUTO
+alter PESO_BRUTO position 17;
+
+alter table TBPRODUTO
+alter PESO_LIQUIDO position 18;
+
+alter table TBPRODUTO
+alter CUBAGEM position 19;
+
+alter table TBPRODUTO
+alter VENDA_FRACIONADA position 20;
+
+alter table TBPRODUTO
+alter UNIDADE position 21;
+
+alter table TBPRODUTO
+alter ESTOQMIN position 22;
+
+alter table TBPRODUTO
+alter CODTIPO position 23;
+
+alter table TBPRODUTO
+alter CODGRUPO position 24;
+
+alter table TBPRODUTO
+alter CODFABRICANTE position 25;
+
+alter table TBPRODUTO
+alter CUSTOMEDIO position 26;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARCKUP position 27;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARGEM position 28;
+
+alter table TBPRODUTO
+alter PRECO_SUGERIDO position 29;
+
+alter table TBPRODUTO
+alter CODEMP position 30;
+
+alter table TBPRODUTO
+alter CODSECAO position 31;
+
+alter table TBPRODUTO
+alter CODORIGEM position 32;
+
+alter table TBPRODUTO
+alter CODTRIBUTACAO position 33;
+
+alter table TBPRODUTO
+alter CST position 34;
+
+alter table TBPRODUTO
+alter CSOSN position 35;
+
+alter table TBPRODUTO
+alter CST_PIS position 36;
+
+alter table TBPRODUTO
+alter CST_COFINS position 37;
+
+alter table TBPRODUTO
+alter TABELA_IBPT position 38;
+
+alter table TBPRODUTO
+alter NCM_SH position 39;
+
+alter table TBPRODUTO
+alter CODIGO_NVE position 40;
+
+alter table TBPRODUTO
+alter CODIGO_CEST position 41;
+
+alter table TBPRODUTO
+alter CODCFOP position 42;
+
+alter table TBPRODUTO
+alter CODBARRA_EAN position 43;
+
+alter table TBPRODUTO
+alter CODUNIDADE position 44;
+
+alter table TBPRODUTO
+alter CODUNIDADE_FRACIONADA position 45;
+
+alter table TBPRODUTO
+alter ALIQUOTA_TIPO position 46;
+
+alter table TBPRODUTO
+alter ALIQUOTA position 47;
+
+alter table TBPRODUTO
+alter ALIQUOTA_CSOSN position 48;
+
+alter table TBPRODUTO
+alter ALIQUOTA_PIS position 49;
+
+alter table TBPRODUTO
+alter ALIQUOTA_COFINS position 50;
+
+alter table TBPRODUTO
+alter VALOR_IPI position 51;
+
+alter table TBPRODUTO
+alter PERCENTUAL_REDUCAO_BC position 52;
+
+alter table TBPRODUTO
+alter RESERVA position 53;
+
+alter table TBPRODUTO
+alter PRODUTO_NOVO position 54;
+
+alter table TBPRODUTO
+alter COR_VEICULO position 55;
+
+alter table TBPRODUTO
+alter COMBUSTIVEL_VEICULO position 56;
+
+alter table TBPRODUTO
+alter TIPO_VEICULO position 57;
+
+alter table TBPRODUTO
+alter ANO_MODELO_VEICULO position 58;
+
+alter table TBPRODUTO
+alter ANO_FABRICACAO_VEICULO position 59;
+
+alter table TBPRODUTO
+alter RENAVAM_VEICULO position 60;
+
+alter table TBPRODUTO
+alter CHASSI_VEICULO position 61;
+
+alter table TBPRODUTO
+alter KILOMETRAGEM_VEICULO position 62;
+
+alter table TBPRODUTO
+alter SITUACAO_ATUAL_VEICULO position 63;
+
+alter table TBPRODUTO
+alter SITUACAO_HISTORICO_VEICULO position 64;
+
+alter table TBPRODUTO
+alter USUARIO position 65;
+
+alter table TBPRODUTO
+alter CADASTRO_ATIVO position 66;
+
+alter table TBPRODUTO
+alter MOVIMENTA_ESTOQUE position 67;
+
+alter table TBPRODUTO
+alter COMPOR_FATURAMENTO position 68;
+
+alter table TBPRODUTO
+alter PRODUTO_IMOBILIZADO position 69;
+
+alter table TBPRODUTO
+alter ESTOQUE_APROP_LOTE position 70;
+
+alter table TBPRODUTO
+alter CUST_DESP_OFIC position 71;
+
+alter table TBPRODUTO
+alter CUST_DESP_GERAIS position 72;
+
+alter table TBPRODUTO
+alter CUST_DESP_ADM position 73;
+
+alter table TBPRODUTO
+alter CUST_COMISSAO position 74;
+
+alter table TBPRODUTO
+alter CUST_IMPOSTO position 75;
+
+alter table TBPRODUTO
+alter FI_RET_FINANC position 76;
+
+alter table TBPRODUTO
+alter FI_RET_PLANO position 77;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_DATA position 78;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_VALOR position 79;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_FORNEC position 80;
+
+alter table TBPRODUTO
+alter ARQUIVO_MORTO position 81;
+
+
+
+
+/*------ SYSDBA 31/08/2017 17:12:01 --------*/
+
+CREATE INDEX IDX_TBPRODUTO_ANVISA
+ON TBPRODUTO (ANVISA);
+
