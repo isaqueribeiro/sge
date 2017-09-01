@@ -319,7 +319,7 @@ begin
         fdSetLoteProduto.ParamByName('produto').AsString := fdQryCompraItensCODPROD.AsString;
         fdSetLoteProduto.ParamByName('centro_custo').AsInteger  := CENTRO_CUSTO_ESTOQUE_GERAL;
         fdSetLoteProduto.ParamByName('lote_descricao').AsString := fdQryCompraItensLOTE_DESCRICAO.AsString;
-        fdSetLoteProduto.ParamByName('lote_qtde').AsCurrency    := fdQryCompraItensQTDE.AsCurrency;
+        fdSetLoteProduto.ParamByName('lote_qtde').AsCurrency    := fdQryCompraItensQTDE.AsCurrency * fdQryCompraItensFRACIONADOR.AsCurrency;
 
         if not fdQryCompraItensLOTE_DATA_FAB.IsNull then
           fdSetLoteProduto.ParamByName('lote_fab').AsDateTime := fdQryCompraItensLOTE_DATA_FAB.AsDateTime

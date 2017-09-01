@@ -6,6 +6,7 @@ inherited frmGeVenda: TfrmGeVenda
   ClientHeight = 685
   ClientWidth = 1116
   OldCreateOrder = True
+  ExplicitLeft = -50
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -917,9 +918,6 @@ inherited frmGeVenda: TfrmGeVenda
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
-        DesignSize = (
-          1108
-          117)
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -1067,11 +1065,10 @@ inherited frmGeVenda: TfrmGeVenda
           FocusControl = dbTotalDesconto
         end
         object lblProdutoPromocao: TLabel
-          Left = 961
-          Top = 99
+          Left = 960
+          Top = 10
           Width = 142
           Height = 13
-          Anchors = [akRight, akBottom]
           Caption = '* Produtos em Promo'#231#227'o'
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlue
@@ -1079,7 +1076,6 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitTop = 98
         end
         object lblPercRedBC: TLabel
           Left = 168
@@ -1094,6 +1090,15 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+        end
+        object lblLoteProduto: TLabel
+          Left = 934
+          Top = 64
+          Width = 25
+          Height = 13
+          Caption = 'Lote:'
+          FocusControl = dbLoteProduto
+          Visible = False
         end
         object dbProdutoNome: TDBEdit
           Left = 184
@@ -1238,7 +1243,7 @@ inherited frmGeVenda: TfrmGeVenda
         object dbValorIPI: TDBEdit
           Left = 848
           Top = 80
-          Width = 97
+          Width = 80
           Height = 21
           Color = clMoneyGreen
           DataField = 'VALOR_IPI'
@@ -1252,6 +1257,7 @@ inherited frmGeVenda: TfrmGeVenda
           ReadOnly = True
           TabOrder = 13
           Visible = False
+          OnExit = ControlEditExit
         end
         object dbCFOPDescricao: TDBEdit
           Left = 720
@@ -1794,6 +1800,27 @@ inherited frmGeVenda: TfrmGeVenda
           ShowHint = True
           TabOrder = 12
           OnButtonClick = dbTotalDescontoButtonClick
+          OnExit = ControlEditExit
+        end
+        object dbLoteProduto: TDBLookupComboBox
+          Left = 934
+          Top = 80
+          Width = 138
+          Height = 21
+          DataField = 'LOTE_ID'
+          DataSource = DtSrcTabelaItens
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'ID'
+          ListField = 'DESCRICAO'
+          ListSource = dtsLotes
+          ParentFont = False
+          TabOrder = 15
+          Visible = False
           OnExit = ControlEditExit
         end
       end
@@ -3773,8 +3800,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
       '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)')
     GeneratorField.ApplyEvent = gamOnNewRecord
-    Left = 992
-    Top = 80
+    Left = 320
+    Top = 296
     object IbDtstTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'TBVENDAS.ANO'
@@ -4152,8 +4179,8 @@ inherited frmGeVenda: TfrmGeVenda
     end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 1056
-    Top = 80
+    Left = 384
+    Top = 296
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -4359,14 +4386,14 @@ inherited frmGeVenda: TfrmGeVenda
       'where'
       '  ANO = :OLD_ANO and'
       '  CODCONTROL = :OLD_CODCONTROL')
-    Left = 1024
-    Top = 80
+    Left = 352
+    Top = 296
   end
   inherited ImgList: TImageList
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00380110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5830,19 +5857,8 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 960
     Top = 352
   end
-  object tblVendedor: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    Filter = 'ativo = 1'
-    TableName = 'TBVENDEDOR'
-    UniDirectional = False
-    Left = 928
-    Top = 384
-  end
   object dtsVendedor: TDataSource
-    DataSet = tblVendedor
+    DataSet = fdQryVendedor
     Left = 960
     Top = 384
   end
@@ -5859,6 +5875,7 @@ inherited frmGeVenda: TfrmGeVenda
   object cdsTabelaItens: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    AfterScroll = cdsTabelaItensAfterScroll
     OnNewRecord = cdsTabelaItensNewRecord
     BufferChunks = 1000
     CachedUpdates = True
@@ -5876,6 +5893,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , i.Codvendedor'
       '  , i.Dtvenda'
       '  , i.Qtde'
+      '  , i.Lote_id'
       '  , i.Punit'
       '  , i.Punit_Promocao'
       '  , i.Desconto'
@@ -5902,6 +5920,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , u.Unp_sigla'
       '  , o.Cfop_descricao'
       '  , p.Movimenta_Estoque'
+      '  , p.estoque_aprop_lote'
       '  , coalesce(ib.ncm_ibpt, p.ncm_sh) as ncm_sh'
       'from TVENDASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
@@ -5913,8 +5932,8 @@ inherited frmGeVenda: TfrmGeVenda
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 992
-    Top = 112
+    Left = 320
+    Top = 328
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'TVENDASITENS.ANO'
@@ -5974,6 +5993,12 @@ inherited frmGeVenda: TfrmGeVenda
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
+    end
+    object cdsTabelaItensLOTE_ID: TIBStringField
+      DisplayLabel = 'Lote'
+      FieldName = 'LOTE_ID'
+      Origin = '"TVENDASITENS"."LOTE_ID"'
+      Size = 38
     end
     object cdsTabelaItensPUNIT: TIBBCDField
       DisplayLabel = 'Valor Unit'#225'rio'
@@ -6155,6 +6180,10 @@ inherited frmGeVenda: TfrmGeVenda
       Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
       ProviderFlags = []
     end
+    object cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField
+      FieldName = 'ESTOQUE_APROP_LOTE'
+      Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
+    end
     object cdsTabelaItensNCM_SH: TIBStringField
       FieldName = 'NCM_SH'
       ProviderFlags = []
@@ -6166,13 +6195,15 @@ inherited frmGeVenda: TfrmGeVenda
       'Select '
       '  ANO,'
       '  CODCONTROL,'
+      '  CODEMP,'
       '  SEQ,'
       '  CODPROD,'
-      '  CODEMP,'
       '  CODCLIENTE,'
       '  CODCLI,'
+      '  CODVENDEDOR,'
       '  DTVENDA,'
       '  QTDE,'
+      '  LOTE_ID,'
       '  PUNIT,'
       '  PUNIT_PROMOCAO,'
       '  DESCONTO,'
@@ -6191,7 +6222,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  PERCENTUAL_REDUCAO_BC,'
       '  TOTAL_BRUTO,'
       '  TOTAL_DESCONTO,'
-      '  TOTAL_LIQUIDO'
+      '  TOTAL_LIQUIDO,'
+      '  TOTAL_COMISSAO'
       'from TVENDASITENS '
       'where'
       '  ANO = :ANO and'
@@ -6209,15 +6241,16 @@ inherited frmGeVenda: TfrmGeVenda
       '  CFOP_COD = :CFOP_COD,'
       '  CODCLI = :CODCLI,'
       '  CODCLIENTE = :CODCLIENTE,'
-      '  CODVENDEDOR = :CODVENDEDOR,'
       '  CODCONTROL = :CODCONTROL,'
       '  CODEMP = :CODEMP,'
       '  CODPROD = :CODPROD,'
-      '  CST = :CST,'
+      '  CODVENDEDOR = :CODVENDEDOR,'
       '  CSOSN = :CSOSN,'
+      '  CST = :CST,'
       '  DESCONTO = :DESCONTO,'
       '  DESCONTO_VALOR = :DESCONTO_VALOR,'
       '  DTVENDA = :DTVENDA,'
+      '  LOTE_ID = :LOTE_ID,'
       '  PERCENTUAL_REDUCAO_BC = :PERCENTUAL_REDUCAO_BC,'
       '  PFINAL = :PFINAL,'
       '  PUNIT = :PUNIT,'
@@ -6241,29 +6274,29 @@ inherited frmGeVenda: TfrmGeVenda
         '  (ALIQUOTA, ALIQUOTA_COFINS, ALIQUOTA_CSOSN, ALIQUOTA_PIS, ANO,' +
         ' CFOP_COD, '
       
-        '   CODCLI, CODCLIENTE, CODVENDEDOR, CODCONTROL, CODEMP, CODPROD,' +
-        ' CST, CSOSN, DESCONTO, DESCONTO_VALOR, '
+        '   CODCLI, CODCLIENTE, CODCONTROL, CODEMP, CODPROD, CODVENDEDOR,' +
+        ' CSOSN, '
       
-        '   DTVENDA, PERCENTUAL_REDUCAO_BC, PFINAL, PUNIT, PUNIT_PROMOCAO' +
-        ', QTDE, '
+        '   CST, DESCONTO, DESCONTO_VALOR, DTVENDA, LOTE_ID, PERCENTUAL_R' +
+        'EDUCAO_BC, '
       
-        '   QTDEFINAL, SEQ, TOTAL_BRUTO, TOTAL_DESCONTO, TOTAL_LIQUIDO, U' +
-        'NID_COD, '
-      '   VALOR_IPI)'
+        '   PFINAL, PUNIT, PUNIT_PROMOCAO, QTDE, QTDEFINAL, SEQ, TOTAL_BR' +
+        'UTO, TOTAL_DESCONTO, '
+      '   TOTAL_LIQUIDO, UNID_COD, VALOR_IPI)'
       'values'
       
         '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
         ':ANO, :CFOP_COD, '
       
-        '   :CODCLI, :CODCLIENTE, :CODVENDEDOR, :CODCONTROL, :CODEMP, :CO' +
-        'DPROD, :CST, :CSOSN, :DESCONTO, '
+        '   :CODCLI, :CODCLIENTE, :CODCONTROL, :CODEMP, :CODPROD, :CODVEN' +
+        'DEDOR, '
       
-        '   :DESCONTO_VALOR, :DTVENDA, :PERCENTUAL_REDUCAO_BC, :PFINAL, :' +
-        'PUNIT, '
+        '   :CSOSN, :CST, :DESCONTO, :DESCONTO_VALOR, :DTVENDA, :LOTE_ID,' +
+        ' :PERCENTUAL_REDUCAO_BC, '
       
-        '   :PUNIT_PROMOCAO, :QTDE, :QTDEFINAL, :SEQ, :TOTAL_BRUTO, :TOTA' +
-        'L_DESCONTO, '
-      '   :TOTAL_LIQUIDO, :UNID_COD, :VALOR_IPI)')
+        '   :PFINAL, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :QTDEFINAL, :SEQ, :T' +
+        'OTAL_BRUTO, '
+      '   :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNID_COD, :VALOR_IPI)')
     DeleteSQL.Strings = (
       'delete from TVENDASITENS'
       'where'
@@ -6271,15 +6304,15 @@ inherited frmGeVenda: TfrmGeVenda
       '  CODCONTROL = :OLD_CODCONTROL and'
       '  CODPROD = :OLD_CODPROD and'
       '  SEQ = :OLD_SEQ')
-    Left = 1024
-    Top = 112
+    Left = 352
+    Top = 328
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 1056
-    Top = 112
+    Left = 384
+    Top = 328
   end
   object qryTitulos: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -6317,8 +6350,8 @@ inherited frmGeVenda: TfrmGeVenda
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 992
-    Top = 144
+    Left = 320
+    Top = 360
     object qryTitulosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTREC.ANOLANC'
@@ -6464,15 +6497,15 @@ inherited frmGeVenda: TfrmGeVenda
     AutoEdit = False
     DataSet = qryTitulos
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 1056
-    Top = 144
+    Left = 384
+    Top = 360
   end
   object IbStrPrcGerarTitulos: TIBStoredProc
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     StoredProcName = 'SET_GERAR_TITULOS'
-    Left = 1024
-    Top = 144
+    Left = 352
+    Top = 360
     ParamData = <
       item
         DataType = ftString
@@ -6931,8 +6964,8 @@ inherited frmGeVenda: TfrmGeVenda
     ParamCheck = True
     UniDirectional = False
     UpdateObject = updNFE
-    Left = 992
-    Top = 176
+    Left = 320
+    Top = 392
     object qryNFEEMPRESA: TIBStringField
       FieldName = 'EMPRESA'
       Origin = '"TBNFE_ENVIADA"."EMPRESA"'
@@ -7097,8 +7130,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  MODELO = :OLD_MODELO and'
       '  NUMERO = :OLD_NUMERO and'
       '  SERIE = :OLD_SERIE')
-    Left = 1024
-    Top = 176
+    Left = 352
+    Top = 392
   end
   object qryTotalComprasAbertas: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
@@ -7112,8 +7145,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  , g.Valor_compras_abertas'
       '  , g.Valor_limite_disponivel'
       'from GET_LIMITE_DISPONIVEL_CLIENTE(:CODIGO) g')
-    Left = 1024
-    Top = 209
+    Left = 456
+    Top = 297
     ParamData = <
       item
         DataType = ftInteger
@@ -7145,8 +7178,8 @@ inherited frmGeVenda: TfrmGeVenda
   end
   object cdsTotalComprasAbertas: TDataSource
     DataSet = qryTotalComprasAbertas
-    Left = 1056
-    Top = 209
+    Left = 488
+    Top = 297
   end
   object cdsVendaFormaPagto: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -7183,8 +7216,8 @@ inherited frmGeVenda: TfrmGeVenda
     ParamCheck = True
     UniDirectional = False
     UpdateObject = updVendaFormaPagto
-    Left = 992
-    Top = 240
+    Left = 424
+    Top = 328
     object cdsVendaFormaPagtoANO_VENDA: TSmallintField
       FieldName = 'ANO_VENDA'
       Origin = '"TBVENDAS_FORMAPAGTO"."ANO_VENDA"'
@@ -7373,14 +7406,14 @@ inherited frmGeVenda: TfrmGeVenda
       '  ANO_VENDA = :OLD_ANO_VENDA and'
       '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
       '  FORMAPAGTO_COD = :OLD_FORMAPAGTO_COD')
-    Left = 1024
-    Top = 240
+    Left = 456
+    Top = 328
   end
   object dtsVendaFormaPagto: TDataSource
     AutoEdit = False
     DataSet = cdsVendaFormaPagto
-    Left = 1056
-    Top = 240
+    Left = 488
+    Top = 328
   end
   object tblModalidadeFrete: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -7423,8 +7456,8 @@ inherited frmGeVenda: TfrmGeVenda
     ParamCheck = True
     UniDirectional = False
     UpdateObject = updVendaVolume
-    Left = 992
-    Top = 272
+    Left = 424
+    Top = 360
     object cdsVendaVolumeANO_VENDA: TSmallintField
       FieldName = 'ANO_VENDA'
       Origin = '"TBVENDAS_VOLUME"."ANO_VENDA"'
@@ -7531,14 +7564,14 @@ inherited frmGeVenda: TfrmGeVenda
       '  ANO_VENDA = :OLD_ANO_VENDA and'
       '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
       '  SEQUENCIAL = :OLD_SEQUENCIAL')
-    Left = 1024
-    Top = 272
+    Left = 456
+    Top = 360
   end
   object dtsVendaVolume: TDataSource
     AutoEdit = False
     DataSet = cdsVendaVolume
-    Left = 1056
-    Top = 272
+    Left = 488
+    Top = 360
   end
   object popupAuditoria: TPopupMenu
     Left = 60
@@ -7611,6 +7644,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , p.Valor_ipi'
       '  , p.Reserva'
       '  , p.Movimenta_Estoque'
+      '  , p. estoque_aprop_lote'
       '  , case when coalesce(p.Reserva, 0) > 0'
       '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
       '      else coalesce(p.Qtde, 0)'
@@ -7658,8 +7692,8 @@ inherited frmGeVenda: TfrmGeVenda
   end
   object dtsNFE: TDataSource
     DataSet = qryNFE
-    Left = 1056
-    Top = 176
+    Left = 384
+    Top = 392
   end
   object ppCorrigirDadosNFe: TPopupMenu
     Left = 92
@@ -7849,5 +7883,60 @@ inherited frmGeVenda: TfrmGeVenda
     ProviderName = 'dtpCondicaoPagto'
     Left = 1056
     Top = 448
+  end
+  object fdQryVendedor: TFDQuery
+    Filter = 'ativo = 1'
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    v.*'
+      'from TBVENDEDOR v')
+    Left = 992
+    Top = 384
+  end
+  object fdQryLotes: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.id'
+      '  , e.descricao'
+      '  , e.data_fabricacao'
+      '  , e.data_validade'
+      'from TBESTOQUE_ALMOX e'
+      'where e.empresa = :empresa'
+      '  and e.centro_custo = :centro_custo'
+      '  and e.produto = :produto'
+      '  and (e.qtde > 0.0)'
+      'order by'
+      '  e.descricao')
+    Left = 992
+    Top = 320
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'PRODUTO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end>
+  end
+  object dtsLotes: TDataSource
+    DataSet = fdQryLotes
+    Left = 960
+    Top = 320
   end
 end

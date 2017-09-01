@@ -2131,7 +2131,8 @@ procedure TDMNFe.GerarNFeACBr(const sCNPJEmitente : String; iCodigoCliente : Int
   const OcultarVencimentos : Boolean = FALSE);
 var
   sErros ,
-  sInformacaoFisco : String;
+  sInformacaoProduto,
+  sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
 begin
@@ -2457,17 +2458,32 @@ begin
 
           // Informação Adicional do Produto
 
+          sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
+          begin
             if ( Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
-              infAdProd    := 'Ref.: ' + qryDadosProduto.FieldByName('REFERENCIA').AsString
-            else
-              infAdProd    := EmptyStr
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Ref.: ' + qryDadosProduto.FieldByName('REFERENCIA').AsString;
+
+            if ( Trim(qryDadosProduto.FieldByName('ANVISA').AsString) <> EmptyStr ) then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Anvisa: ' + qryDadosProduto.FieldByName('ANVISA').AsString;
+
+            if ( Trim(qryDadosProduto.FieldByName('LOTE').AsString) <> EmptyStr ) then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Lote: ' + qryDadosProduto.FieldByName('LOTE').AsString +
+                  IfThen(qryDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' Fabricação: ' + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
+                  IfThen(qryDadosProduto.FieldByName('LOTE_VALIDADE').IsNull  , '', ' Validade: '   + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime));
+          end
           else
-            infAdProd      := 'Cor: '         + qryDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString + #13 +
-                              'Placa: '       + qryDadosProduto.FieldByName('REFERENCIA').AsString      + #13 +
-                              'Renavam: '     + qryDadosProduto.FieldByName('RENAVAM_VEICULO').AsString + #13 +
-                              'Chassi: '      + qryDadosProduto.FieldByName('CHASSI_VEICULO').AsString  + #13 +
-                              'Combustivel: ' + qryDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString;
+            sInformacaoProduto :=
+              'Cor: '         + qryDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString + #13 +
+              'Placa: '       + qryDadosProduto.FieldByName('REFERENCIA').AsString      + #13 +
+              'Renavam: '     + qryDadosProduto.FieldByName('RENAVAM_VEICULO').AsString + #13 +
+              'Chassi: '      + qryDadosProduto.FieldByName('CHASSI_VEICULO').AsString  + #13 +
+              'Combustivel: ' + qryDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString;
+
+          infAdProd := sInformacaoProduto;
 
   //Declaração de Importação. Pode ser adicionada várias através do comando Prod.DI.Add
 
@@ -2530,19 +2546,17 @@ begin
           // Inserir Lote do Produto na NF-e
           // Campos específicos para venda de medicamentos
           if (qryDadosProduto.FieldByName('estoque_aprop_lote').AsInteger = 1) and
-             (TTipoProduto(qryDadosProduto.FieldByName('codtipo').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
+             (TTipoProduto(qryDadosProduto.FieldByName('codtipo').AsInteger) in [tpMedicamento, tpSolucao] ) then
           begin
-  {
             with Prod.med.Add do
             begin
               cProdANVISA := qryDadosProduto.FieldByName('ANVISA').AsString;
-              nLote := '';
-              qLote := 0 ;
-              dFab  := now ;
-              dVal  := now ;
-              vPMC  := 0 ;
+              nLote       := qryDadosProduto.FieldByName('LOTE').AsString;
+              qLote       := Prod.qTrib;
+              dFab        := qryDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime;
+              dVal        := qryDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime;
+              vPMC        := 0; //Prod.vProd;
             end;
-  }
           end;
 
   //Campos específicos para venda de medicamentos
@@ -3580,7 +3594,8 @@ procedure TDMNFe.GerarNFeEntradaACBr(const sCNPJEmitente : String; const iCodFor
   var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String;
   const OcultarVencimentos : Boolean = FALSE);
 var
-  sInformacaoFisco : String;
+  sInformacaoProduto,
+  sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
 begin
@@ -3892,21 +3907,36 @@ begin
           Prod.vDesc     := qryEntradaDadosProduto.FieldByName('TOTAL_DESCONTO').AsCurrency; // I17 - Valor do Desconto
 
           // Informação Adicional do Produto
-          
+
+          sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
+          begin
             if ( Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
-              infAdProd    := 'Ref.: ' + qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString
-            else
-              infAdProd    := EmptyStr
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Ref.: ' + qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString;
+
+            if ( Trim(qryEntradaDadosProduto.FieldByName('ANVISA').AsString) <> EmptyStr ) then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Anvisa: ' + qryEntradaDadosProduto.FieldByName('ANVISA').AsString;
+
+            if ( Trim(qryEntradaDadosProduto.FieldByName('LOTE').AsString) <> EmptyStr ) then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Lote: ' + qryEntradaDadosProduto.FieldByName('LOTE').AsString +
+                  IfThen(qryEntradaDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' Fabricação: ' + FormatDateTime('dd/mm/yyyy', qryEntradaDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
+                  IfThen(qryEntradaDadosProduto.FieldByName('LOTE_VALIDADE').IsNull  , '', ' Validade: '   + FormatDateTime('dd/mm/yyyy', qryEntradaDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime));
+          end
           else
-            infAdProd      := 'Cor: '         + qryEntradaDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString + #13 +
-                              'Placa: '       + qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString      + #13 +
-                              'Renavam: '     + qryEntradaDadosProduto.FieldByName('RENAVAM_VEICULO').AsString + #13 +
-                              'Chassi: '      + qryEntradaDadosProduto.FieldByName('CHASSI_VEICULO').AsString  + #13 +
-                              'Combustivel: ' + qryEntradaDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString;
+            sInformacaoProduto :=
+              'Cor: '         + qryEntradaDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString + #13 +
+              'Placa: '       + qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString      + #13 +
+              'Renavam: '     + qryEntradaDadosProduto.FieldByName('RENAVAM_VEICULO').AsString + #13 +
+              'Chassi: '      + qryEntradaDadosProduto.FieldByName('CHASSI_VEICULO').AsString  + #13 +
+              'Combustivel: ' + qryEntradaDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString;
+
+          infAdProd := sInformacaoProduto;
 
   //Declaração de Importação. Pode ser adicionada várias através do comando Prod.DI.Add
-  
+
   {         with Prod.DI.Add do
             begin
               nDi         := '';
@@ -3966,19 +3996,17 @@ begin
           // Inserir Lote do Produto na NF-e
           // Campos específicos para compra de medicamentos
           if (qryEntradaDadosProduto.FieldByName('estoque_aprop_lote').AsInteger = 1) and
-            (TTipoProduto(qryEntradaDadosProduto.FieldByName('codtipo').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] ) then
+             (TTipoProduto(qryEntradaDadosProduto.FieldByName('codtipo').AsInteger) in [tpMedicamento, tpSolucao] ) then
           begin
-  {
             with Prod.med.Add do
             begin
-              cProdANVISA := qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString;
-              nLote := '';
-              qLote := 0 ;
-              dFab  := now ;
-              dVal  := now ;
-              vPMC  := 0 ;
+              cProdANVISA := qryEntradaDadosProduto.FieldByName('ANVISA').AsString;
+              nLote       := qryEntradaDadosProduto.FieldByName('LOTE').AsString;
+              qLote       := Prod.qTrib;
+              dFab        := qryEntradaDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime;
+              dVal        := qryEntradaDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime;
+              vPMC        := 0; //Prod.vProd;
             end;
-  }
           end;
 
 {
@@ -5572,7 +5600,8 @@ begin
           FieldByName('tipo').AsString   + ' : ' +
           FieldByName('ano').AsString    + '/'   +
           FieldByName('numero').AsString + #13   +
-          'Recibo : ' + FieldByName('recibo').AsString);
+          'Recibo : ' + FieldByName('recibo').AsString + #13#13 +
+          'Uma nova emissão somente será possível com a resolução desta pendência.');
     end;
   finally
     Result := aRetorno;

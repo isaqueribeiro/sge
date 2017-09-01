@@ -114,7 +114,6 @@ type
     IbDtstTabelaPRAZO_11: TSmallintField;
     IbDtstTabelaPRAZO_12: TSmallintField;
     IbDtstTabelaNOME: TIBStringField;
-    tblVendedor: TIBTable;
     dtsVendedor: TDataSource;
     dtsFormaPagto: TDataSource;
     dtsCondicaoPagto: TDataSource;
@@ -405,6 +404,13 @@ type
     cdsFormaPagto: TClientDataSet;
     dtpCondicaoPagto: TDataSetProvider;
     cdsCondicaoPagto: TClientDataSet;
+    lblLoteProduto: TLabel;
+    dbLoteProduto: TDBLookupComboBox;
+    cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
+    cdsTabelaItensLOTE_ID: TIBStringField;
+    fdQryVendedor: TFDQuery;
+    fdQryLotes: TFDQuery;
+    dtsLotes: TDataSource;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -476,6 +482,7 @@ type
     procedure btnTituloEditarClick(Sender: TObject);
     procedure IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
+    procedure cdsTabelaItensAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -493,11 +500,13 @@ type
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
+    procedure CarregarLotes(const aEmpresa, aProduto : String);
     procedure HabilitarDesabilitar_Btns;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure ZerarFormaPagto;
     procedure RecarregarRegistro;
     procedure GravarEmailCliente(iCliente : Integer; sEmail : String);
+    procedure ControleCampoLote;
 
     //function ValidarQuantidade(Codigo : Integer; Quantidade : Integer) : Boolean;
     function PossuiTitulosPagos(AnoVenda : Smallint; NumVenda : Integer) : Boolean;
@@ -531,6 +540,7 @@ type
   - TBCLIENTE
   - TBFORNECEDOR
   - TBFORMPAGTO
+  - TBVENDEDOR
 
   Views:
   - VW_CONDICAOPAGTO
@@ -638,7 +648,7 @@ begin
   ControlFirstEdit := dbEmpresa;
 
   CarregarLista(fdQryEmpresa);
-  CarregarLista(tblVendedor);
+  CarregarLista(fdQryVendedor);
   //CarregarLista(fdQryFormaPagto);
   CarregarLista(cdsFormaPagto);
   //CarregarLista(fdQryCondicaoPagto);
@@ -852,7 +862,7 @@ begin
   inherited;
   pgcMaisDados.ActivePageIndex := 0;
 
-  tblVendedor.Filtered        := (IbDtstTabela.State in [dsEdit, dsInsert]);
+  fdQryVendedor.Filtered      := (IbDtstTabela.State in [dsEdit, dsInsert]);
   DtSrcTabelaItens.AutoEdit   := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN );
   dtsVendaFormaPagto.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
@@ -886,6 +896,8 @@ begin
   cdsTabelaItens.Open;
 
   HabilitarDesabilitar_Btns;
+  ControleCampoLote;
+  CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString);
 end;
 
 procedure TfrmGeVenda.AbrirTabelaFormasPagto(const AnoVenda : Smallint; const ControleVenda : Integer);
@@ -983,17 +995,18 @@ begin
           cdsTabelaItensCSOSN.AsString     := FieldByName('Csosn').AsString;
 
         CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
-          
+
         if ( Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString) <> EmptyStr ) then
           cdsTabelaItensCST.AsString := Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString);
 
         cdsTabelaItensPUNIT.AsCurrency          := FieldByName('Preco').AsCurrency;
         cdsTabelaItensPUNIT_PROMOCAO.AsCurrency := FieldByName('Preco_Promocao').AsCurrency;
         cdsTabelaItensVALOR_IPI.AsCurrency      := FieldByName('Valor_ipi').AsCurrency;
-        
-        cdsTabelaItensESTOQUE.AsCurrency          := FieldByName('Qtde').AsCurrency;
-        cdsTabelaItensRESERVA.AsCurrency          := FieldByName('Reserva').AsCurrency;
-        cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger := FieldByName('Movimenta_Estoque').AsInteger;
+
+        cdsTabelaItensESTOQUE.AsCurrency           := FieldByName('Qtde').AsCurrency;
+        cdsTabelaItensRESERVA.AsCurrency           := FieldByName('Reserva').AsCurrency;
+        cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger  := FieldByName('Movimenta_Estoque').AsInteger;
+        cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger := FieldByName('estoque_aprop_lote').AsInteger;
 
         if ( cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0 ) then
         begin
@@ -1003,6 +1016,9 @@ begin
 
         dbDesconto.ReadOnly      := (cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0);
         dbTotalDesconto.ReadOnly := (cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0);
+
+        ControleCampoLote;
+        CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString);
       end
       else
       begin
@@ -1012,6 +1028,20 @@ begin
           dbProduto.SetFocus;
       end;
     end;
+  end;
+end;
+
+procedure TfrmGeVenda.CarregarLotes(const aEmpresa, aProduto: String);
+begin
+  with fdQryLotes do
+  begin
+    fdQryLotes.Close;
+
+    ParamByName('empresa').AsString       := aEmpresa;
+    ParamByName('centro_custo').AsInteger := CENTRO_CUSTO_ESTOQUE_GERAL;
+    ParamByName('produto').AsString       := aProduto;
+
+    fdQryLotes.OpenOrExecute;
   end;
 end;
 
@@ -1334,6 +1364,12 @@ begin
       dbQuantidade.SetFocus;
     end
     else
+    if ( dbLoteProduto.Visible and (fdQryLotes.RecordCount > 0) and (Trim(cdsTabelaItensLOTE_ID.AsString) = EmptyStr) ) then
+    begin
+      ShowWarning('Selecionar o Lote do Produto.');
+      dbLoteProduto.SetFocus;
+    end
+    else
     if ( cdsTabelaItensPUNIT.Value <= 0 ) then
     begin
       ShowWarning('Valor unitário inválida.');
@@ -1357,6 +1393,9 @@ begin
       if ( Trim(cdsTabelaItensCST.AsString) = EmptyStr ) then
         cdsTabelaItensCST.Clear;
         
+      if ( Trim(cdsTabelaItensLOTE_ID.AsString) = EmptyStr ) then
+        cdsTabelaItensLOTE_ID.Clear;
+
       cdsTabelaItens.Post;
 
       GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido, cValorBaseIcms, cValorIcms);
@@ -1480,6 +1519,12 @@ begin
   end;
 end;
 
+procedure TfrmGeVenda.ControleCampoLote;
+begin
+  lblLoteProduto.Visible := (cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
+  dbLoteProduto.Visible  := (cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
+end;
+
 procedure TfrmGeVenda.ControlEditExit(Sender: TObject);
 var
   limitedesc,
@@ -1521,10 +1566,13 @@ begin
       cdsTabelaItensTOTAL_LIQUIDO.AsCurrency  := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensTOTAL_DESCONTO.AsCurrency;
     end;
 
-  if ( Sender = dbValorLiq ) then
+  if ( (Sender = dbValorLiq) and (not dbLoteProduto.Visible) ) then
     if ( btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled ) then
       btnProdutoSalvar.SetFocus;
 
+  if ( Sender = dbLoteProduto ) then
+    if ( btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled ) then
+      btnProdutoSalvar.SetFocus;
 end;
 
 procedure TfrmGeVenda.pgcGuiasChange(Sender: TObject);
@@ -1629,6 +1677,9 @@ begin
       cdsTabelaItensESTOQUE.AsCurrency := aProduto.aEstoque;
       cdsTabelaItensRESERVA.AsCurrency := aProduto.aReserva;
 
+      cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger  := IfThen(aProduto.aMovimentaEstoque, FLAG_SIM, FLAG_NAO);
+      cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger := IfThen(aProduto.aEstoquePorLote, FLAG_SIM, FLAG_NAO);
+
       if not qryCFOP.Active then
         CarregarDadosCFOP( IbDtstTabelaCFOP.AsInteger );
 
@@ -1643,6 +1694,9 @@ begin
 
       dbDesconto.ReadOnly      := (aProduto.aValorPromocao > 0);
       dbTotalDesconto.ReadOnly := (aProduto.aValorPromocao > 0);
+
+      ControleCampoLote;
+      CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString);
     end;
 end;
 
@@ -1657,6 +1711,12 @@ begin
       cdsTabelaItensCFOP_COD.AsInteger      := iCodigo;
       cdsTabelaItensCFOP_DESCRICAO.AsString := sDescricao;
     end;
+end;
+
+procedure TfrmGeVenda.cdsTabelaItensAfterScroll(DataSet: TDataSet);
+begin
+  ControleCampoLote;
+  CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString);
 end;
 
 procedure TfrmGeVenda.cdsTabelaItensNewRecord(DataSet: TDataSet);
@@ -1696,6 +1756,9 @@ begin
   cdsTabelaItensDESCONTO.Value        := 0;
   cdsTabelaItensDESCONTO_VALOR.Value  := 0;
   cdsTabelaItensPERCENTUAL_REDUCAO_BC.Value := 0.0;
+  cdsTabelaItensESTOQUE_APROP_LOTE.Value    := FLAG_NAO;
+
+  cdsTabelaItensLOTE_ID.Clear;
 end;
 
 procedure TfrmGeVenda.btbtnFinalizarClick(Sender: TObject);

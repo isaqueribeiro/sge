@@ -50,7 +50,9 @@ type
     aValorCusto     ,
     aPercentualRedBC,
     aEstoque ,
-    aReserva : Currency
+    aReserva : Currency;
+    aMovimentaEstoque,
+    aEstoquePorLote  : Boolean;
   end;
 
   ProdutoServicoPonteiro = ^TProdutoServico;
@@ -614,6 +616,9 @@ begin
 
         aEstoque := IbDtstTabelaQTDE.AsCurrency;
         aReserva := IbDtstTabelaRESERVA.AsCurrency;
+
+        aMovimentaEstoque := (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = FLAG_SIM);
+        aEstoquePorLote   := (IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
       end;
   finally
     AForm.Destroy;
