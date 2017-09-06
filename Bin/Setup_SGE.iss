@@ -34,16 +34,24 @@ Name: brazilianportuguese; MessagesFile: compiler:Languages\BrazilianPortuguese.
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
 
 [Files]
-Source: D:\Projetos\ASS\SGE\trunk\Bin\SGE.exe; DestDir: {app}; Flags: ignoreversion
-Source: D:\Projetos\ASS\SGE\trunk\Bin\Conexao.ini; DestDir: {app}; Flags: ignoreversion
-Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\Capicom\capicom.exe; DestDir: {app}; Flags: ignoreversion
-Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\Capicom\*.dll; DestDir: {app}; Flags: ignoreversion
-Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\MSVCR\*.dll; DestDir: {app}; Flags: ignoreversion
-Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\OpenSSL\*.dll; DestDir: {app}; Flags: ignoreversion
-Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\XMLSec\*.dll; DestDir: {app}; Flags: ignoreversion
-Source: D:\Projetos\ASS\SGE\trunk\Bin\Boleto\*.fr3; DestDir: {app}\Boleto; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: D:\Projetos\ASS\SGE\trunk\Bin\Imagens\*; DestDir: {app}\Imagens; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: D:\Projetos\ASS\SGE\trunk\Bin\Schemas\*; DestDir: {app}\Schemas; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: D:\Projetos\ASS\SGE\trunk\Bin\SGE.exe; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\Bin\SGE_PDV.exe; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\Bin\Setup\Conexao.ini; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\Capicom\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\MSVCR\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\OpenSSL\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\XMLSec\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\Bin\Boleto\*.fr3; DestDir: {app}\Boleto; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\Bin\Report\*.fr3; DestDir: {app}\Report; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\Bin\Imagens\*; DestDir: {app}\Imagens; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\Bin\Schemas\*; DestDir: {app}\Schemas; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Servidor Cliente Personalisado
+Source: ..\_diversos\miniprinter_delphi\MP2032.chm; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: ..\_diversos\miniprinter_delphi\MP2032.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: ..\_diversos\miniprinter_delphi\MP2032.lib; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: ..\_diversos\miniprinter_delphi\UsbIO\*; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: ..\..\..\..\..\db\Agil\AGIL_COMERCIO.FDB; DestDir: {app}\db; Flags: ignoreversion comparetimestamp uninsneveruninstall; Components: Servidor
+Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\Capicom\capicom.exe; DestDir: {app}\apps; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: C:\Users\Isaque\Downloads\FireBird\Firebird-2.5.5.26952_0_Win32.exe; DestDir: {app}\apps; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -51,14 +59,12 @@ Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}
 Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desktopicon
 
 [Run]
-Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}; Flags: nowait postinstall skipifsilent
-Filename: {app}\capicom.exe; Description: Capicom; Flags: waituntilidle postinstall runasoriginaluser
+Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}; Flags: nowait postinstall skipifsilent unchecked
+Filename: {app}\apps\capicom.exe; Description: Capicom; Flags: waituntilidle postinstall runasoriginaluser
+Filename: {app}\apps\Firebird-2.5.5.26952_0_Win32.exe; Description: Firebird_2_5; Flags: waituntilidle postinstall runasoriginaluser
+Filename: {app}\Conexao.ini; WorkingDir: {app}; Description: Arquivo de Configurações; Flags: postinstall; Tasks: ; Languages: 
 
-[_ISToolDownload]
-
-[Code]
-// Function generated by ISTool.
-function NextButtonClick(CurPage: Integer): Boolean;
-begin
-	Result := istool_download(CurPage);
-end;
+[Components]
+Name: Servidor; Description: Servidor; Types: full; Languages: ; Flags: fixed
+Name: Cliente; Description: Cliente; Types: compact; Flags: fixed
+Name: Personalisado; Description: Personalisado; Types: custom; Flags: fixed
