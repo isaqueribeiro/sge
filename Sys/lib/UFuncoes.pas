@@ -11,6 +11,7 @@ uses
   procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
 
   function GetHostNameLocal : String;
+  function GetIPLocal : String;
   function GetExeVersion(const FileName : TFileName) : String; overload;
   function GetExeVersion : String; overload;
   function GetVersion : String;
@@ -79,6 +80,29 @@ begin
     Result := EmptyStr
   else
     Result := RemoteHost.h_name;
+end;
+
+function GetIPLocal : String;
+var
+  WSAData : TWSAData;
+  HostEnt : PHostEnt;
+  aName   : String;
+begin
+  WSAStartup(2, WSAData);
+  SetLength(aName, 255);
+  Gethostname(PAnsiChar(aName), 255);
+  SetLength(aName, StrLen(PChar(aName)));
+
+  HostEnt := gethostbyname(PAnsiChar(aName));
+
+  with HostEnt^ do
+  begin
+    Result := Format('%d.%d.%d.%d'
+      , [Byte(h_addr^[0]),Byte(h_addr^[1])
+      , Byte(h_addr^[2]),Byte(h_addr^[3])]);
+  end;
+
+  WSACleanup;
 end;
 
 function GetExeVersion(const FileName : TFileName) : String;

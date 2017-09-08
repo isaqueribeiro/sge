@@ -28,8 +28,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     ExplicitWidth = 751
     ExplicitHeight = 451
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 743
       ExplicitHeight = 422
       inherited Bevel4: TBevel
@@ -156,15 +154,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 337
-        ActivePage = TbsOutrasConfig
+        ActivePage = tbsContaEmail
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
           Caption = 'Conta de E-mail'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblEmailConta: TLabel
             Left = 16
             Top = 8
@@ -312,10 +306,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object tbsVenda: TTabSheet
           Caption = 'Vendas'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFormaPagtoCartaCredito: TLabel
             Left = 16
             Top = 8
@@ -383,10 +373,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFe: TTabSheet
           Caption = 'NF-e / NFC-e'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
             Top = 165
@@ -697,10 +683,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFSe: TTabSheet
           Caption = 'NFS-e'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object chkNFSE_Emitir: TDBCheckBox
             Left = 16
             Top = 16
@@ -913,10 +895,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsOutrasConfig: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbCustoOperacional: TDBCheckBox
             Left = 16
             Top = 15
@@ -1518,7 +1496,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

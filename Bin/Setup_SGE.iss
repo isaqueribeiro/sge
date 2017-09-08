@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "SGE"
-#define MyAppVersion "SGE v1.18.0"
+#define MyAppVersion "SGE v1.0.18"
 #define MyAppPublisher "Agil Soluções em Softwares"
 #define MyAppURL "http://www.agilsotwares.com.br/"
 #define MyAppExeName "SGE.exe"
@@ -36,6 +36,7 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 [Files]
 Source: D:\Projetos\ASS\SGE\trunk\Bin\SGE.exe; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: D:\Projetos\ASS\SGE\trunk\Bin\SGE_PDV.exe; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: D:\Projetos\ASS\SGE\trunk\Bin\PrinterCupom.exe; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: D:\Projetos\ASS\SGE\trunk\Bin\Setup\Conexao.ini; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\Capicom\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: D:\Projetos\ASS\SGE\trunk\_diversos\DLLs\MSVCR\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado

@@ -290,6 +290,8 @@ begin
 
   IbDtstTabelaNFE_EMITIR.AsInteger                := 0;
   IbDtstTabelaNFE_EMITIR_ENTRADA.AsInteger        := 0;
+  IbDtstTabelaNFCE_EMITIR.AsInteger               := 0;
+  IbDtstTabelaNFSE_EMITIR.AsInteger               := 0;
   IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA.AsInteger := 1;
   IbDtstTabelaNFE_SOLICITA_DH_SAIDA.AsInteger     := 0;
   IbDtstTabelaNFE_IMPRIMIR_COD_CLIENTE.AsInteger  := 0;
@@ -300,6 +302,8 @@ begin
   IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger   := 0;
   IbDtstTabelaAUTORIZA_INFORMA_CLIENTE.AsInteger   := 0;
 
+  IbDtstTabelaNFSE_SERIE.AsString               := '99';
+  IbDtstTabelaNFSE_NUMERO.AsCurrency            := 0;
   IbDtstTabelaNFSE_PERCENTUAL_PIS.AsCurrency    := 0.0;
   IbDtstTabelaNFSE_PERCENTUAL_COFINS.AsCurrency := 0.0;
   IbDtstTabelaNFSE_PERCENTUAL_CSLL.AsCurrency   := 0.0;
@@ -314,9 +318,6 @@ begin
   IbDtstTabelaNFCE_NUMERO.Clear;
   IbDtstTabelaNFCE_TOKEN_ID.Clear;
   IbDtstTabelaNFCE_TOKEN.Clear;
-
-  IbDtstTabelaNFSE_SERIE.Clear;
-  IbDtstTabelaNFSE_NUMERO.Clear;
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.btbtnAlterarClick(Sender: TObject);

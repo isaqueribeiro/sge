@@ -7,12 +7,12 @@ uses
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinMcSkin, Vcl.StdCtrls,
-  cxButtons, Vcl.ExtCtrls, cxControls, dxBarBuiltInMenu, cxPC, IB_Services,
-  cxContainer, cxEdit, cxTextEdit, cxMemo, Vcl.Mask, JvExMask, JvToolEdit,
+  cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxControls,
+  cxPC, dxBarBuiltInMenu, IB_Services, cxContainer, cxEdit, cxTextEdit, cxMemo,
+  Vcl.Mask, JvExMask, JvToolEdit,
 
-  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinscxPCPainter;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinscxPCPainter;
 
 type
   TfrmGrConfigurarBackup = class(TfrmGrPadrao)

@@ -4,8 +4,6 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
   Caption = 'Configurar / Gerar Backup'
   ClientHeight = 295
   ClientWidth = 541
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   object PnlBotoes: TPanel

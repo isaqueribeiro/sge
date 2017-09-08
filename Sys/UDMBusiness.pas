@@ -176,6 +176,8 @@ var
   function IfThen(AValue: Boolean; const ATrue: Integer; AFalse: Integer = 0): Integer; overload;
   function IfThen(AValue: Boolean; const ATrue: Currency; AFalse: Currency = 0.0): Currency; overload;
   function IfThen(AValue: Boolean; const ATrue: Boolean; AFalse: Boolean = False): Boolean; overload;
+  function EstacaoServidora(aServidor : String): Boolean;
+  function ControlFBSvr(aStart : Boolean): Boolean;
   function DataBaseOnLine : Boolean;
 
   function ShowConfirmation(sTitle, sMsg : String) : Boolean; overload;
@@ -692,6 +694,70 @@ begin
   end;
 end;
 *)
+
+function EstacaoServidora(aServidor : String): Boolean;
+var
+  aRetorno : Boolean;
+  sEstacaoNM,
+  sEstacaoIP,
+  sServidor : String;
+begin
+  aRetorno  := False;
+
+  try
+    sEstacaoIP := GetIPLocal;
+    sEstacaoNM := GetHostNameLocal;
+    sServidor  := AnsiLowerCase(aServidor);
+
+    aRetorno := (sEstacaoIP = sServidor) or (sEstacaoNM = sServidor)
+      or (sServidor = 'localhost')
+      or (sServidor = '127.0.0.1')
+      or (sServidor = '.');
+  finally
+    Result := aRetorno;
+  end;
+end;
+
+function ControlFBSvr(aStart : Boolean): Boolean;
+var
+  aRetorno : Boolean;
+  szBuff   : String;
+begin
+  aRetorno := False;
+
+  with TRegistry.Create do
+  begin
+    try
+      RootKey  := HKEY_LOCAL_MACHINE;
+      aRetorno := OpenKey('SOFTWARE\Firebird Project\Firebird Server\Instances', False);
+
+      if not aRetorno then
+      begin
+        CloseKey;
+        RootKey  := HKEY_LOCAL_MACHINE;
+        aRetorno := OpenKey('SOFTWARE\Wow6432Node\Firebird Project\Firebird Server\Instances', False);
+      end;
+
+      if aRetorno then
+      begin
+        szBuff   := ReadString('DefaultInstance') + 'bin\instsvc.exe';
+        aRetorno := FileExists(szBuff);
+
+        if aRetorno then
+          case aStart of
+            True  : ShellExecute(0, nil, PChar(szBuff), '-s start', nil, SW_HIDE);   // -s Superserver
+            False : ShellExecute(0, nil, PChar(szBuff), '-s stop', nil, SW_HIDE);    // -c ClientServer
+          end;
+
+        CloseKey;
+      end;
+    finally
+      Free;
+      Result := aRetorno;
+    end;
+  end;
+
+end;
 
 function DataBaseOnLine : Boolean;
 begin
@@ -4395,6 +4461,10 @@ begin
       else
       if (sPorta = EmptyStr) then
         sPorta := '3050';
+
+      // Se a estação é o host servidor do banco, iniciar servidor FireBird
+      if EstacaoServidora( ReadString('Conexao', 'Servidor', 'localhost') ) then
+        ControlFBSvr(True);
     end;
 
     // Conexão InterBase

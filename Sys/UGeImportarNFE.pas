@@ -695,7 +695,7 @@ begin
           FieldByName('MensagemFiscal').AsString := ACBrStr('ÁREA DE MENSAGEM FISCAL');
       end;
 
-      FieldByName('URL').AsString := TACBrNFe(ACBrNFe).GetURLConsultaNFCe(NFe.Ide.cUF, NFe.Ide.tpAmb);
+      FieldByName('URL').AsString := TACBrNFe(ACBrNFe).GetURLConsultaNFCe(NFe.Ide.cUF, NFe.Ide.tpAmb, VersaoDFToDbl(Configuracoes.Geral.VersaoDF));
     end
     else
     begin
