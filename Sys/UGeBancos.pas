@@ -232,6 +232,8 @@ begin
   IbDtstTabelaBCO_SEQUENCIAL_REM.Value    := 1;
   IbDtstTabelaBCO_CODIGO_CEDENTE.Clear;
 
+  IbDtstTabelaBCO_LAYOUT_REMESSA.AsInteger    := 400; // cnab400
+  IbDtstTabelaBCO_LAYOUT_RETORNO.AsInteger    := 400; // cnab400
   IbDtstTabelaBCO_PERCENTUAL_JUROS.AsCurrency := 0.0;
   IbDtstTabelaBCO_PERCENTUAL_MORA.AsCurrency  := 0.0;
   IbDtstTabelaBCO_DIA_PROTESTO.AsInteger      := 0;
