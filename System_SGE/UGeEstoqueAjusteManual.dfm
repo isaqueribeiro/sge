@@ -125,23 +125,13 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitHeight = 248
-    DesignSize = (
-      593
-      278)
-    object lblMotivo: TLabel
-      Left = 16
-      Top = 144
-      Width = 143
-      Height = 13
-      Caption = 'Motivo do ajuste manual:'
-      FocusControl = dbMotivo
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
+    object Bevel3: TBevel
+      Left = 2
+      Top = 15
+      Width = 589
+      Height = 128
+      Align = alTop
+      Shape = bsSpacer
     end
     object lblProduto: TLabel
       Left = 16
@@ -256,24 +246,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-    end
-    object dbMotivo: TMemo
-      Left = 16
-      Top = 163
-      Width = 561
-      Height = 103
-      Anchors = [akLeft, akTop, akRight, akBottom]
-      Color = clWhite
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      MaxLength = 40
-      ParentFont = False
-      ScrollBars = ssVertical
-      TabOrder = 9
-      ExplicitHeight = 118
     end
     object dbProdutoDesc: TDBEdit
       Left = 128
@@ -545,6 +517,255 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       TabOrder = 3
       OnButtonClick = dbFornecedorButtonClick
     end
+    object pnlMotivo: TPanel
+      AlignWithMargins = True
+      Left = 5
+      Top = 192
+      Width = 583
+      Height = 81
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 10
+      ExplicitLeft = 2
+      ExplicitTop = 199
+      ExplicitWidth = 589
+      ExplicitHeight = 76
+      DesignSize = (
+        583
+        81)
+      object lblMotivo: TLabel
+        Left = 11
+        Top = 0
+        Width = 143
+        Height = 13
+        Caption = 'Motivo do ajuste manual:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object dbMotivo: TMemo
+        Left = 11
+        Top = 15
+        Width = 561
+        Height = 65
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Color = clWhite
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        MaxLength = 40
+        ParentFont = False
+        ScrollBars = ssVertical
+        TabOrder = 0
+        ExplicitHeight = 60
+      end
+    end
+    object pnlLote: TPanel
+      AlignWithMargins = True
+      Left = 5
+      Top = 146
+      Width = 583
+      Height = 40
+      Align = alTop
+      BevelOuter = bvNone
+      TabOrder = 9
+      Visible = False
+      object lblDescricao: TLabel
+        Left = 11
+        Top = 2
+        Width = 103
+        Height = 13
+        Caption = 'Descri'#231#227'o do Lote:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblDataFabricacao: TLabel
+        Left = 356
+        Top = 2
+        Width = 94
+        Height = 13
+        Caption = 'Data Fabrica'#231#227'o:'
+        FocusControl = dbDataFabricacao
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblDataValidade: TLabel
+        Left = 467
+        Top = 2
+        Width = 81
+        Height = 13
+        Caption = 'Data Validade:'
+        FocusControl = dbDataValidade
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object dbDescricao: TDBComboBox
+        Left = 11
+        Top = 19
+        Width = 339
+        Height = 21
+        CharCase = ecUpperCase
+        DataField = 'LOTE_DESCRICAO'
+        DataSource = dtsAjuste
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnExit = ControlEditExit
+      end
+      object dbDataFabricacao: TJvDBDateEdit
+        Left = 356
+        Top = 19
+        Width = 105
+        Height = 21
+        DataField = 'LOTE_DATA_FAB'
+        DataSource = dtsAjuste
+        Color = clWhite
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
+        NumGlyphs = 2
+        ParentFont = False
+        PopupColor = clBtnFace
+        ShowNullDate = False
+        TabOrder = 1
+        OnExit = ControlEditExit
+      end
+      object dbDataValidade: TJvDBDateEdit
+        Left = 467
+        Top = 19
+        Width = 105
+        Height = 21
+        DataField = 'LOTE_DATA_VAL'
+        DataSource = dtsAjuste
+        Color = clWhite
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
+        NumGlyphs = 2
+        ParentFont = False
+        PopupColor = clBtnFace
+        ShowNullDate = False
+        TabOrder = 2
+        OnExit = ControlEditExit
+      end
+    end
   end
   object btnNovoAjuste: TcxButton
     Left = 0
@@ -607,7 +828,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
     OnClick = btnNovoAjusteClick
-    ExplicitTop = 329
   end
   object btnConfirmar: TcxButton
     Left = 407
@@ -671,7 +891,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     OptionsImage.NumGlyphs = 2
     TabOrder = 3
     OnClick = btnConfirmarClick
-    ExplicitTop = 329
   end
   object btnCancelar: TcxButton
     Left = 501
@@ -736,7 +955,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     OptionsImage.NumGlyphs = 2
     TabOrder = 4
     OnClick = btnCancelarClick
-    ExplicitTop = 329
   end
   object qryAjuste: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -754,9 +972,14 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  , a.qtdeatual'
       '  , a.qtdenova'
       '  , a.qtdefinal'
+      '  , a.fracionador'
       '  , a.motivo'
       '  , a.dtajust'
       '  , a.usuario'
+      '  , a.lote_id'
+      '  , a.lote_descricao'
+      '  , a.lote_data_fab'
+      '  , a.lote_data_val'
       '  , f.nomeforn'
       'from TBAJUSTESTOQ a'
       '  left join TBFORNECEDOR f on (f.codforn = a.codforn)'
@@ -764,8 +987,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     ParamCheck = True
     UniDirectional = False
     UpdateObject = updAjuste
-    Left = 240
-    Top = 240
+    Left = 344
     object qryAjusteCONTROLE: TIntegerField
       FieldName = 'CONTROLE'
       Origin = '"TBAJUSTESTOQ"."CONTROLE"'
@@ -823,6 +1045,12 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       Precision = 18
       Size = 3
     end
+    object qryAjusteFRACIONADOR: TIBBCDField
+      FieldName = 'FRACIONADOR'
+      Origin = '"TBAJUSTESTOQ"."FRACIONADOR"'
+      Precision = 18
+      Size = 3
+    end
     object qryAjusteMOTIVO: TIBStringField
       FieldName = 'MOTIVO'
       Origin = '"TBAJUSTESTOQ"."MOTIVO"'
@@ -839,6 +1067,28 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       Origin = '"TBAJUSTESTOQ"."USUARIO"'
       ProviderFlags = [pfInUpdate]
       Size = 50
+    end
+    object qryAjusteLOTE_ID: TIBStringField
+      FieldName = 'LOTE_ID'
+      Origin = '"TBAJUSTESTOQ"."LOTE_ID"'
+      ProviderFlags = [pfInUpdate]
+      Size = 38
+    end
+    object qryAjusteLOTE_DESCRICAO: TIBStringField
+      FieldName = 'LOTE_DESCRICAO'
+      Origin = '"TBAJUSTESTOQ"."LOTE_DESCRICAO"'
+      ProviderFlags = [pfInUpdate]
+      Size = 30
+    end
+    object qryAjusteLOTE_DATA_FAB: TDateField
+      FieldName = 'LOTE_DATA_FAB'
+      Origin = '"TBAJUSTESTOQ"."LOTE_DATA_FAB"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object qryAjusteLOTE_DATA_VAL: TDateField
+      FieldName = 'LOTE_DATA_VAL'
+      Origin = '"TBAJUSTESTOQ"."LOTE_DATA_VAL"'
+      ProviderFlags = [pfInUpdate]
     end
     object qryAjusteNOMEFORN: TIBStringField
       FieldName = 'NOMEFORN'
@@ -857,10 +1107,15 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  QTDEATUAL,'
       '  QTDENOVA,'
       '  QTDEFINAL,'
+      '  FRACIONADOR,'
       '  MOTIVO,'
       '  DOC,'
       '  DTAJUST,'
-      '  USUARIO'
+      '  USUARIO,'
+      '  LOTE_ID,'
+      '  LOTE_DESCRICAO,'
+      '  LOTE_DATA_FAB,'
+      '  LOTE_DATA_VAL'
       'from TBAJUSTESTOQ '
       'where'
       '  CONTROLE = :CONTROLE')
@@ -873,6 +1128,11 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  CONTROLE = :CONTROLE,'
       '  DOC = :DOC,'
       '  DTAJUST = :DTAJUST,'
+      '  FRACIONADOR = :FRACIONADOR,'
+      '  LOTE_DATA_FAB = :LOTE_DATA_FAB,'
+      '  LOTE_DATA_VAL = :LOTE_DATA_VAL,'
+      '  LOTE_DESCRICAO = :LOTE_DESCRICAO,'
+      '  LOTE_ID = :LOTE_ID,'
       '  MOTIVO = :MOTIVO,'
       '  QTDEATUAL = :QTDEATUAL,'
       '  QTDEFINAL = :QTDEFINAL,'
@@ -883,20 +1143,25 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     InsertSQL.Strings = (
       'insert into TBAJUSTESTOQ'
       
-        '  (CODEMPRESA, CODFORN, CODPROD, CONTROLE, DOC, DTAJUST, MOTIVO,' +
-        ' QTDEATUAL, '
-      '   QTDEFINAL, QTDENOVA, USUARIO)'
+        '  (CODEMPRESA, CODFORN, CODPROD, CONTROLE, DOC, DTAJUST, FRACION' +
+        'ADOR, LOTE_DATA_FAB, '
+      
+        '   LOTE_DATA_VAL, LOTE_DESCRICAO, LOTE_ID, MOTIVO, QTDEATUAL, QT' +
+        'DEFINAL, '
+      '   QTDENOVA, USUARIO)'
       'values'
       
         '  (:CODEMPRESA, :CODFORN, :CODPROD, :CONTROLE, :DOC, :DTAJUST, :' +
-        'MOTIVO, '
+        'FRACIONADOR, '
+      
+        '   :LOTE_DATA_FAB, :LOTE_DATA_VAL, :LOTE_DESCRICAO, :LOTE_ID, :M' +
+        'OTIVO, '
       '   :QTDEATUAL, :QTDEFINAL, :QTDENOVA, :USUARIO)')
     DeleteSQL.Strings = (
       'delete from TBAJUSTESTOQ'
       'where'
       '  CONTROLE = :OLD_CONTROLE')
-    Left = 272
-    Top = 240
+    Left = 376
   end
   object qryProduto: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -913,7 +1178,9 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  , p.apresentacao'
       '  , p.descri_apresentacao'
       '  , p.qtde'
+      '  , p.fracionador'
       '  , p.movimenta_estoque'
+      '  , p.estoque_aprop_lote'
       '  , u.unp_sigla'
       'from TBPRODUTO p'
       '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
@@ -923,8 +1190,8 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     UniDirectional = False
     GeneratorField.Field = 'CODCONTROL'
     UpdateObject = updProduto
-    Left = 240
-    Top = 272
+    Left = 344
+    Top = 32
     object qryProdutoCOD: TIBStringField
       FieldName = 'COD'
       Origin = '"TBPRODUTO"."COD"'
@@ -958,9 +1225,19 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       Precision = 18
       Size = 3
     end
+    object qryProdutoFRACIONADOR: TIBBCDField
+      FieldName = 'FRACIONADOR'
+      Origin = '"TBPRODUTO"."FRACIONADOR"'
+      Precision = 18
+      Size = 3
+    end
     object qryProdutoMOVIMENTA_ESTOQUE: TSmallintField
       FieldName = 'MOVIMENTA_ESTOQUE'
       Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
+    end
+    object qryProdutoESTOQUE_APROP_LOTE: TSmallintField
+      FieldName = 'ESTOQUE_APROP_LOTE'
+      Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
     end
     object qryProdutoUNP_SIGLA: TIBStringField
       FieldName = 'UNP_SIGLA'
@@ -1047,25 +1324,23 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       'delete from TBPRODUTO'
       'where'
       '  COD = :OLD_COD')
-    Left = 272
-    Top = 272
+    Left = 376
+    Top = 32
   end
   object dtsAjuste: TDataSource
     AutoEdit = False
     DataSet = qryAjuste
     OnStateChange = dtsAjusteStateChange
-    Left = 304
-    Top = 240
+    Left = 408
   end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
-    Left = 504
-    Top = 256
+    Left = 536
   end
   object dtsProduto: TDataSource
     DataSet = qryProduto
-    Left = 304
-    Top = 272
+    Left = 408
+    Top = 32
   end
   object fdQryEmpresa: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -1078,7 +1353,112 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  , e.cnpj'
       'from TBEMPRESA e'
       '')
-    Left = 472
-    Top = 256
+    Left = 504
+  end
+  object fdQryLotes: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.id'
+      '  , e.descricao'
+      '  , e.data_fabricacao'
+      '  , e.data_validade'
+      'from TBESTOQUE_ALMOX e'
+      'where e.empresa = :empresa'
+      '  and e.centro_custo = :centro_custo'
+      '  and e.produto = :produto'
+      '  and (e.qtde > 0.0)'
+      'order by'
+      '  e.descricao')
+    Left = 536
+    Top = 32
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'PRODUTO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end>
+  end
+  object dtsLotes: TDataSource
+    DataSet = fdQryLotes
+    Left = 504
+    Top = 32
+  end
+  object fdSetLoteProduto: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_LOTE_PRODUTO'
+    Left = 344
+    Top = 64
+    ParamData = <
+      item
+        Position = 1
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Position = 2
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'PRODUTO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        Position = 4
+        Name = 'LOTE_DESCRICAO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 30
+      end
+      item
+        Position = 5
+        Name = 'LOTE_FAB'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Position = 6
+        Name = 'LOTE_VAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Position = 7
+        Name = 'LOTE_QTDE'
+        DataType = ftFMTBcd
+        Precision = 18
+        NumericScale = 3
+        ParamType = ptInput
+      end
+      item
+        Position = 8
+        Name = 'LOTE_ID'
+        DataType = ftString
+        ParamType = ptOutput
+        Size = 38
+      end>
   end
 end

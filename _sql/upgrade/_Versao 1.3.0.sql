@@ -3345,3 +3345,463 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 12/09/2017 11:56:56 --------*/
+
+ALTER TABLE TBAJUSTESTOQ
+    ADD LOTE_ID DMN_GUID_38,
+    ADD LOTE_DESCRICAO DMN_VCHAR_30,
+    ADD LOTE_DATA_FAB DMN_DATE,
+    ADD LOTE_DATA_VAL DMN_DATE;
+
+COMMENT ON COLUMN TBAJUSTESTOQ.LOTE_ID IS
+'Lote : ID (Guid -> Identificacao unica no Estoque/Almoxaifado)';
+
+COMMENT ON COLUMN TBAJUSTESTOQ.LOTE_DESCRICAO IS
+'Lote : Descricao';
+
+COMMENT ON COLUMN TBAJUSTESTOQ.LOTE_DATA_FAB IS
+'Lote : Data de fabricacao';
+
+COMMENT ON COLUMN TBAJUSTESTOQ.LOTE_DATA_VAL IS
+'Lote : Data de validade';
+
+
+
+
+/*------ SYSDBA 12/09/2017 11:57:17 --------*/
+
+CREATE INDEX IDX_TBAJUSTESTOQ_LOTE
+ON TBAJUSTESTOQ (LOTE_ID);
+
+
+
+
+/*------ SYSDBA 12/09/2017 11:57:39 --------*/
+
+COMMENT ON COLUMN TBCOMPRASITENS.LOTE_DATA_FAB IS
+'Lote : Data de fabricacao';
+
+
+
+
+/*------ SYSDBA 12/09/2017 11:57:42 --------*/
+
+COMMENT ON COLUMN TBCOMPRASITENS.LOTE_DATA_VAL IS
+'Lote : Data de validade';
+
+
+
+
+/*------ SYSDBA 12/09/2017 11:59:15 --------*/
+
+CREATE INDEX IDX_TBAJUSTESTOQ_DATA
+ON TBAJUSTESTOQ (DTAJUST);
+
+
+
+
+
+
+
+
+/*------ SYSDBA 12/09/2017 12:06:25 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_AJUSTE_ESTOQUE_VENDA (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10,
+    QTDE_ATUAL DMN_QUANTIDADE_D3,
+    QTDE_NOVA DMN_QUANTIDADE_D3,
+    MOTIVO DMN_VCHAR_250,
+    DATA_HORA DMN_DATETIME,
+    USUARIO DMN_USUARIO,
+    DOCUMENTO DMN_VCHAR_10)
+as
+declare variable CONTROLE DMN_BIGINT_N;
+declare variable QTDE_FINAL DMN_QUANTIDADE_D3;
+begin
+  if (not exists(
+    Select
+      p.codigo
+    from TBPRODUTO p
+    where p.cod = :produto
+  )) then
+    Exit;
+
+  Select
+    max(a.controle)
+  from TBAJUSTESTOQ a
+  Into
+    controle;
+
+  controle   = coalesce(:controle, 0) + 1;
+  qtde_final = coalesce(:qtde_atual, 0) + coalesce(:qtde_nova, 0);
+
+  Insert Into TBAJUSTESTOQ (
+      controle
+    , codprod
+    , codempresa
+    , codforn
+    , qtdeatual
+    , qtdenova
+    , qtdefinal
+    , motivo
+    --, doc
+    , dtajust
+    , usuario
+  ) values (
+      :controle
+    , :produto
+    , :empresa
+    , null
+    , :qtde_atual
+    , :qtde_nova
+    , :qtde_final
+    , :motivo
+    --, :documento
+    , :data_hora
+    , :usuario
+  );
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 12/09/2017 12:06:41 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_ajust_estoque_historico for tbajustestoq
+active after insert position 0
+AS
+begin
+  update TBPRODUTO p set
+    p.qtde = coalesce(p.qtde, 0.0) + coalesce(new.qtdenova, 0.0)
+  where p.cod = new.codprod;
+
+  Insert Into TBPRODHIST (
+      Codempresa
+    , Codprod
+    --, Doc
+    , Historico
+    , Dthist
+    , Qtdeatual
+    , Qtdenova
+    , Qtdefinal
+    , Resp
+    , Motivo
+  ) values (
+      new.codempresa
+    , new.codprod
+    --, new.doc
+    , case when new.qtdenova > 0 then 'AJUSTE DE ESTOQUE - ENTRADA' else 'AJUSTE DE ESTOQUE - SAIDA' end
+    , new.dtajust
+    , new.qtdeatual
+    , new.qtdenova
+    , new.qtdefinal
+    , coalesce(new.Usuario, user)
+    , substring(trim(new.motivo) from 1 for 250)
+  );
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 12/09/2017 12:07:02 --------*/
+
+ALTER TABLE TBAJUSTESTOQ DROP DOC;
+
+
+
+
+/*------ SYSDBA 12/09/2017 12:07:27 --------*/
+
+ALTER TABLE TBAJUSTESTOQ
+    ADD DOC DMN_VCHAR_10;
+
+COMMENT ON COLUMN TBAJUSTESTOQ.DOC IS
+'Documento';
+
+alter table TBAJUSTESTOQ
+alter CONTROLE position 1;
+
+alter table TBAJUSTESTOQ
+alter CODPROD position 2;
+
+alter table TBAJUSTESTOQ
+alter CODEMPRESA position 3;
+
+alter table TBAJUSTESTOQ
+alter CODFORN position 4;
+
+alter table TBAJUSTESTOQ
+alter QTDEATUAL position 5;
+
+alter table TBAJUSTESTOQ
+alter QTDENOVA position 6;
+
+alter table TBAJUSTESTOQ
+alter QTDEFINAL position 7;
+
+alter table TBAJUSTESTOQ
+alter MOTIVO position 8;
+
+alter table TBAJUSTESTOQ
+alter DOC position 9;
+
+alter table TBAJUSTESTOQ
+alter DTAJUST position 10;
+
+alter table TBAJUSTESTOQ
+alter USUARIO position 11;
+
+alter table TBAJUSTESTOQ
+alter LOTE_ID position 12;
+
+alter table TBAJUSTESTOQ
+alter LOTE_DESCRICAO position 13;
+
+alter table TBAJUSTESTOQ
+alter LOTE_DATA_FAB position 14;
+
+alter table TBAJUSTESTOQ
+alter LOTE_DATA_VAL position 15;
+
+
+
+
+/*------ SYSDBA 12/09/2017 12:07:51 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_AJUSTE_ESTOQUE_VENDA (
+    EMPRESA DMN_CNPJ,
+    PRODUTO DMN_VCHAR_10,
+    QTDE_ATUAL DMN_QUANTIDADE_D3,
+    QTDE_NOVA DMN_QUANTIDADE_D3,
+    MOTIVO DMN_VCHAR_250,
+    DATA_HORA DMN_DATETIME,
+    USUARIO DMN_USUARIO,
+    DOCUMENTO DMN_VCHAR_10)
+as
+declare variable CONTROLE DMN_BIGINT_N;
+declare variable QTDE_FINAL DMN_QUANTIDADE_D3;
+begin
+  if (not exists(
+    Select
+      p.codigo
+    from TBPRODUTO p
+    where p.cod = :produto
+  )) then
+    Exit;
+
+  Select
+    max(a.controle)
+  from TBAJUSTESTOQ a
+  Into
+    controle;
+
+  controle   = coalesce(:controle, 0) + 1;
+  qtde_final = coalesce(:qtde_atual, 0) + coalesce(:qtde_nova, 0);
+
+  Insert Into TBAJUSTESTOQ (
+      controle
+    , codprod
+    , codempresa
+    , codforn
+    , qtdeatual
+    , qtdenova
+    , qtdefinal
+    , motivo
+    , doc
+    , dtajust
+    , usuario
+  ) values (
+      :controle
+    , :produto
+    , :empresa
+    , null
+    , :qtde_atual
+    , :qtde_nova
+    , :qtde_final
+    , :motivo
+    , :documento
+    , :data_hora
+    , :usuario
+  );
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 12/09/2017 12:08:02 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_ajust_estoque_historico for tbajustestoq
+active after insert position 0
+AS
+begin
+  update TBPRODUTO p set
+    p.qtde = coalesce(p.qtde, 0.0) + coalesce(new.qtdenova, 0.0)
+  where p.cod = new.codprod;
+
+  Insert Into TBPRODHIST (
+      Codempresa
+    , Codprod
+    , Doc
+    , Historico
+    , Dthist
+    , Qtdeatual
+    , Qtdenova
+    , Qtdefinal
+    , Resp
+    , Motivo
+  ) values (
+      new.codempresa
+    , new.codprod
+    , new.doc
+    , case when new.qtdenova > 0 then 'AJUSTE DE ESTOQUE - ENTRADA' else 'AJUSTE DE ESTOQUE - SAIDA' end
+    , new.dtajust
+    , new.qtdeatual
+    , new.qtdenova
+    , new.qtdefinal
+    , coalesce(new.Usuario, user)
+    , substring(trim(new.motivo) from 1 for 250)
+  );
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 12/09/2017 13:33:50 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_DATETIME'
+where (RDB$FIELD_NAME = 'DTAJUST') and
+(RDB$RELATION_NAME = 'TBAJUSTESTOQ')
+;
+
+
+
+
+/*------ SYSDBA 12/09/2017 14:55:07 --------*/
+
+ALTER TABLE TBAJUSTESTOQ
+    ADD FRACIONADOR DMN_PERCENTUAL_3 DEFAULT 1;
+
+COMMENT ON COLUMN TBAJUSTESTOQ.FRACIONADOR IS
+'Fracionador';
+
+alter table TBAJUSTESTOQ
+alter CONTROLE position 1;
+
+alter table TBAJUSTESTOQ
+alter CODPROD position 2;
+
+alter table TBAJUSTESTOQ
+alter CODEMPRESA position 3;
+
+alter table TBAJUSTESTOQ
+alter CODFORN position 4;
+
+alter table TBAJUSTESTOQ
+alter QTDEATUAL position 5;
+
+alter table TBAJUSTESTOQ
+alter QTDENOVA position 6;
+
+alter table TBAJUSTESTOQ
+alter QTDEFINAL position 7;
+
+alter table TBAJUSTESTOQ
+alter FRACIONADOR position 8;
+
+alter table TBAJUSTESTOQ
+alter MOTIVO position 9;
+
+alter table TBAJUSTESTOQ
+alter DOC position 10;
+
+alter table TBAJUSTESTOQ
+alter DTAJUST position 11;
+
+alter table TBAJUSTESTOQ
+alter USUARIO position 12;
+
+alter table TBAJUSTESTOQ
+alter LOTE_ID position 13;
+
+alter table TBAJUSTESTOQ
+alter LOTE_DESCRICAO position 14;
+
+alter table TBAJUSTESTOQ
+alter LOTE_DATA_FAB position 15;
+
+alter table TBAJUSTESTOQ
+alter LOTE_DATA_VAL position 16;
+
+
+
+
+/*------ SYSDBA 12/09/2017 15:34:53 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_ajust_estoque_historico for tbajustestoq
+active after insert position 0
+AS
+  declare variable estoque DMN_QUANTIDADE_D3;
+begin
+  Select
+    coalesce(p.qtde, 0.0)
+  from TBPRODUTO p
+  where p.cod = new.codprod
+  Into
+    estoque;
+
+  estoque = coalesce(:estoque, 0.0) + coalesce(new.qtdenova, 0.0);
+
+  update TBPRODUTO p set
+    p.qtde = :estoque
+  where p.cod = new.codprod;
+
+  Insert Into TBPRODHIST (
+      Codempresa
+    , Codprod
+    , Doc
+    , Historico
+    , Dthist
+    , Qtdeatual
+    , Qtdenova
+    , Qtdefinal
+    , Resp
+    , Motivo
+  ) values (
+      new.codempresa
+    , new.codprod
+    , new.doc
+    , case when new.qtdenova > 0 then 'AJUSTE DE ESTOQUE - ENTRADA' else 'AJUSTE DE ESTOQUE - SAIDA' end
+    , new.dtajust
+    , new.qtdeatual
+    , new.qtdenova
+    , new.qtdefinal
+    , coalesce(new.Usuario, user)
+    , substring(trim(new.motivo) from 1 for 250)
+  );
+end^
+
+SET TERM ; ^
+

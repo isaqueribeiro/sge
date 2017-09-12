@@ -26,8 +26,6 @@ type
     dbRazaoSocial: TDBEdit;
     Bevel1: TBevel;
     GrpBxDadosAjuste: TGroupBox;
-    lblMotivo: TLabel;
-    dbMotivo: TMemo;
     Bevel2: TBevel;
     qryAjuste: TIBDataSet;
     updAjuste: TIBUpdateSQL;
@@ -77,6 +75,27 @@ type
     dbProduto: TJvDBComboEdit;
     dbFornecedor: TJvDBComboEdit;
     fdQryEmpresa: TFDQuery;
+    qryAjusteLOTE_ID: TIBStringField;
+    qryAjusteLOTE_DESCRICAO: TIBStringField;
+    qryAjusteLOTE_DATA_FAB: TDateField;
+    qryAjusteLOTE_DATA_VAL: TDateField;
+    fdQryLotes: TFDQuery;
+    dtsLotes: TDataSource;
+    Bevel3: TBevel;
+    pnlMotivo: TPanel;
+    lblMotivo: TLabel;
+    dbMotivo: TMemo;
+    pnlLote: TPanel;
+    lblDescricao: TLabel;
+    dbDescricao: TDBComboBox;
+    dbDataFabricacao: TJvDBDateEdit;
+    lblDataFabricacao: TLabel;
+    dbDataValidade: TJvDBDateEdit;
+    lblDataValidade: TLabel;
+    qryProdutoESTOQUE_APROP_LOTE: TSmallintField;
+    fdSetLoteProduto: TFDStoredProc;
+    qryAjusteFRACIONADOR: TIBBCDField;
+    qryProdutoFRACIONADOR: TIBBCDField;
     procedure ControlEditExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
@@ -96,6 +115,8 @@ type
     { Private declarations }
     FSQLProduto : TStringList;
     procedure CarregarDadosProduto(const Codigo : String);
+    procedure CarregarLotes(const aEmpresa, aProduto : String);
+    procedure UpdateLotes;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -107,11 +128,12 @@ type
   - TBFORNECEDOR
   - TBPRODUTO
   - TBUNIDADEPROD
+  - TBESTOQUE_ALMOX
 
   Views:
 
   Procedures:
-
+  - SET_LOTE_PRODUTO
 *)
 
 var
@@ -120,7 +142,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UGeProduto, UGeFornecedor;
+  UConstantesDGE, UDMBusiness, UDMRecursos, UGeProduto, UGeFornecedor;
 
 {$R *.dfm}
 
@@ -172,8 +194,14 @@ end;
 procedure TfrmGeEstoqueAjusteManual.qryAjusteNewRecord(DataSet: TDataSet);
 begin
   qryAjusteCODEMPRESA.Assign( fdQryEmpresa.FieldByName('CNPJ') );
-  qryAjusteDTAJUST.AsDateTime := GetDateTimeDB;
-  qryAjusteUSUARIO.AsString   := gUsuarioLogado.Login;
+  qryAjusteDTAJUST.AsDateTime     := GetDateTimeDB;
+  qryAjusteUSUARIO.AsString       := gUsuarioLogado.Login;
+  qryAjusteFRACIONADOR.AsCurrency := 1;
+
+  qryAjusteLOTE_ID.Clear;
+  qryAjusteLOTE_DESCRICAO.Clear;
+  qryAjusteLOTE_DATA_FAB.Clear;
+  qryAjusteLOTE_DATA_VAL.Clear;
   qryAjusteCODPROD.Clear;
   qryAjusteCODFORN.Clear;
   qryAjusteQTDEATUAL.Clear;
@@ -214,22 +242,88 @@ begin
 
     if (not IsEmpty) and (qryAjuste.State in [dsEdit, dsInsert]) then
     begin
-      qryAjusteCODPROD.AsString     := qryProdutoCOD.AsString;
-      qryAjusteQTDEATUAL.AsCurrency := qryProdutoQTDE.AsCurrency;
+      qryAjusteCODPROD.AsString       := qryProdutoCOD.AsString;
+      qryAjusteQTDEATUAL.AsCurrency   := qryProdutoQTDE.AsCurrency;
+      qryAjusteFRACIONADOR.AsCurrency := qryProdutoFRACIONADOR.AsCurrency;
     end;
-  end;
 
+    pnlLote.Visible := (qryProdutoESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
+  end;
+end;
+
+procedure TfrmGeEstoqueAjusteManual.CarregarLotes(const aEmpresa,
+  aProduto: String);
+var
+  aLote : TLoteProduto;
+begin
+  with fdQryLotes do
+  begin
+    if fdQryLotes.Active then
+      fdQryLotes.Close;
+
+    ParamByName('empresa').AsString       := aEmpresa;
+    ParamByName('centro_custo').AsInteger := CENTRO_CUSTO_ESTOQUE_GERAL;
+    ParamByName('produto').AsString       := aProduto;
+
+    OpenOrExecute;
+    First;
+
+    dbDescricao.Clear;
+    dbDescricao.Items.BeginUpdate;
+    while not Eof do
+    begin
+      aLote := TLoteProduto.Create;
+
+      aLote.ID         := FieldByName('id').AsString;
+      aLote.Descricao  := FieldByName('descricao').AsString;
+      aLote.Fabricacao := FieldByName('data_fabricacao').AsDateTime;
+      aLote.Validade   := FieldByName('data_validade').AsDateTime;
+
+      dbDescricao.Items.AddObject(aLote.Descricao, aLote);
+      Next;
+    end;
+    dbDescricao.Items.EndUpdate;
+
+    fdQryLotes.Close;
+  end;
 end;
 
 procedure TfrmGeEstoqueAjusteManual.ControlEditExit(Sender: TObject);
+var
+  aLote : TLoteProduto;
 begin
   inherited;
   if ( (Sender = dbProduto) and (StrToIntDef(dbProduto.Field.AsString, 0) > 0) ) then
+  begin
     CarregarDadosProduto( IntToStr(StrToIntDef(dbProduto.Field.AsString, 0)) );
+    CarregarLotes(qryAjusteCODEMPRESA.AsString, dbProduto.Field.AsString);
+  end;
 
   if ( Sender = dbQuantidade ) then
     if ( qryAjuste.State in [dsEdit, dsInsert] ) then
       qryAjusteQTDEFINAL.AsCurrency := qryAjusteQTDEATUAL.AsCurrency + qryAjusteQTDENOVA.AsCurrency;
+
+  if ( (Sender = dbDescricao) and (dbDescricao.ItemIndex >= 0) ) then
+  begin
+
+    if ( qryAjuste.State in [dsEdit, dsInsert] ) then
+    begin
+      if (dbDescricao.ItemIndex >= 0) then
+      begin
+        aLote := TLoteProduto(dbDescricao.Items.Objects[dbDescricao.ItemIndex]);
+        qryAjusteLOTE_ID.AsString         := aLote.ID;
+        qryAjusteLOTE_DATA_FAB.AsDateTime := aLote.Fabricacao;
+        qryAjusteLOTE_DATA_VAL.AsDateTime := aLote.Validade;
+      end
+      else
+      begin
+        qryAjusteLOTE_ID.Clear;
+        qryAjusteLOTE_DATA_FAB.Clear;
+        qryAjusteLOTE_DATA_VAL.Clear;
+      end;
+    end;
+
+  end
 end;
 
 procedure TfrmGeEstoqueAjusteManual.qryProdutoQTDEGetText(Sender: TField;
@@ -271,18 +365,22 @@ begin
       qryAjusteCONTROLE.AsInteger := GetNextID('TBAJUSTESTOQ', 'CONTROLE');
       qryAjusteMOTIVO.AsString    := AnsiUpperCase( (dbMotivo.Lines.Text) );
       qryAjuste.Post;
-      qryAjuste.ApplyUpdates;
 
-      (*
-      // Bloco de código descontinuado por haver a trigger TG_AJUST_ESTOQUE_HISTORICO responsável por esta tarefa
+      if pnlLote.Visible then
+        UpdateLotes
+      else
+      begin
+        qryAjuste.ApplyUpdates;
+        (*
+        // Bloco de código descontinuado por haver a trigger TG_AJUST_ESTOQUE_HISTORICO responsável por esta tarefa
 
-      qryProduto.Edit;
-      qryProdutoQTDE.AsCurrency := qryAjusteQTDEFINAL.AsCurrency;
-      qryProduto.Post;
-      qryProduto.ApplyUpdates;
-      *)
-
-      CommitTransaction;
+        qryProduto.Edit;
+        qryProdutoQTDE.AsCurrency := qryAjusteQTDEFINAL.AsCurrency;
+        qryProduto.Post;
+        qryProduto.ApplyUpdates;
+        *)
+        CommitTransaction;
+      end;
     end;
 end;
 
@@ -294,7 +392,10 @@ var
 begin
   if ( qryAjuste.State in [dsEdit, dsInsert] ) then
     if SelecionarProdutoParaAjuste(Self, gUsuarioLogado.Empresa, iCodigo, sCodigoAlfa, sNome) then
+    begin
       CarregarDadosProduto( sCodigoAlfa );
+      CarregarLotes(gUsuarioLogado.Empresa, sCodigoAlfa);
+    end;
 end;
 
 procedure TfrmGeEstoqueAjusteManual.dbFornecedorButtonClick(
@@ -315,6 +416,48 @@ end;
 procedure TfrmGeEstoqueAjusteManual.RegistrarRotinaSistema;
 begin
   ;
+end;
+
+procedure TfrmGeEstoqueAjusteManual.UpdateLotes;
+begin
+  if (qryAjuste.State in [dsEdit, dsInsert]) then
+    qryAjuste.Post;
+
+  try
+    if fdSetLoteProduto.Active then
+      fdSetLoteProduto.Close;
+
+    if (Trim(qryAjusteLOTE_DESCRICAO.AsString) <> EmptyStr) then
+    begin
+      fdSetLoteProduto.ParamByName('empresa').AsString := qryAjusteCODEMPRESA.AsString;
+      fdSetLoteProduto.ParamByName('produto').AsString := qryAjusteCODPROD.AsString;
+      fdSetLoteProduto.ParamByName('centro_custo').AsInteger  := CENTRO_CUSTO_ESTOQUE_GERAL;
+      fdSetLoteProduto.ParamByName('lote_descricao').AsString := Trim(qryAjusteLOTE_DESCRICAO.AsString);
+      fdSetLoteProduto.ParamByName('lote_qtde').AsCurrency    := qryAjusteQTDENOVA.AsCurrency * qryAjusteFRACIONADOR.AsCurrency;
+
+      if not qryAjusteLOTE_DATA_FAB.IsNull then
+        fdSetLoteProduto.ParamByName('lote_fab').AsDateTime := qryAjusteLOTE_DATA_FAB.AsDateTime
+      else
+        fdSetLoteProduto.ParamByName('lote_fab').Clear;
+
+      if not qryAjusteLOTE_DATA_VAL.IsNull then
+        fdSetLoteProduto.ParamByName('lote_val').AsDateTime := qryAjusteLOTE_DATA_VAL.AsDateTime
+      else
+        fdSetLoteProduto.ParamByName('lote_val').Clear;
+
+      if fdSetLoteProduto.OpenOrExecute then
+      begin
+        qryAjuste.Edit;
+        qryAjusteLOTE_ID.AsString := fdSetLoteProduto.FieldByName('lote_id').AsString;
+        qryAjuste.Post;
+
+        fdSetLoteProduto.Close;
+      end;
+    end;
+  finally
+    qryAjuste.ApplyUpdates();
+    CommitTransaction;
+  end;
 end;
 
 initialization

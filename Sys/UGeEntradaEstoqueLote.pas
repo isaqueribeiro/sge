@@ -273,6 +273,8 @@ end;
 procedure TfrmGeEntradaEstoqueLote.fdQryCompraItensBeforePost(
   DataSet: TDataSet);
 begin
+  fdQryCompraItensLOTE_DESCRICAO.AsString := Trim(fdQryCompraItensLOTE_DESCRICAO.AsString);
+
   if (Trim(fdQryCompraItensLOTE_DESCRICAO.AsString) = EmptyStr) then
     fdQryCompraItensLOTE_DESCRICAO.Clear;
 
@@ -318,7 +320,7 @@ begin
         fdSetLoteProduto.ParamByName('empresa').AsString := fdQryCompraItensCODEMP.AsString;
         fdSetLoteProduto.ParamByName('produto').AsString := fdQryCompraItensCODPROD.AsString;
         fdSetLoteProduto.ParamByName('centro_custo').AsInteger  := CENTRO_CUSTO_ESTOQUE_GERAL;
-        fdSetLoteProduto.ParamByName('lote_descricao').AsString := fdQryCompraItensLOTE_DESCRICAO.AsString;
+        fdSetLoteProduto.ParamByName('lote_descricao').AsString := Trim(fdQryCompraItensLOTE_DESCRICAO.AsString);
         fdSetLoteProduto.ParamByName('lote_qtde').AsCurrency    := fdQryCompraItensQTDE.AsCurrency * fdQryCompraItensFRACIONADOR.AsCurrency;
 
         if not fdQryCompraItensLOTE_DATA_FAB.IsNull then
