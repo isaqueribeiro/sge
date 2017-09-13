@@ -20,7 +20,8 @@ uses
   FireDAC.Phys.FBDef, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.IBBase,
   FireDAC.Phys.IB, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI,
-  frxBarcode;
+  frxBarcode, FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
+  FireDAC.Comp.Script;
 
 type
   TSistema = record
@@ -127,6 +128,7 @@ type
     frxBarCodeObject: TfrxBarCodeObject;
     fdQryBusca: TFDQuery;
     fdQryCaixaAberto: TFDQuery;
+    fdScript: TFDScript;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -193,6 +195,7 @@ var
   procedure ShowErrorNotify(Sender: TObject; E: Exception);
   procedure UpdateSequence(GeneratorName, NomeTabela, CampoChave : String; const sWhr : String = '');
   procedure ExecuteScriptSQL(sScriptSQL : String);
+  procedure ExecuteScriptMetaData(aFileName : String);
   procedure CommitTransaction;
 
   procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
@@ -984,6 +987,17 @@ begin
 
     CommitTransaction;
   end;
+end;
+
+procedure ExecuteScriptMetaData(aFileName : String);
+begin
+  if FileExists(aFileName) then
+    with DMBusiness, fdScript do
+    begin
+      SQLScriptFileName := aFileName;
+      ValidateAll;
+      ExecuteAll;
+    end;
 end;
 
 procedure CommitTransaction;
@@ -4431,6 +4445,13 @@ var
   sPorta   ,
   sBase    : String;
 begin
+(*
+-- EXTRAIR METADATA DA BASE FIREBIRD:
+C:\Program Files (x86)\Firebird\Firebird_2_5\bin>isql -extract -o d:\agil.sql AGIL_COMERCIO -u sysdba -p masterkey
+
+-- EXECUTAR SCRIPT NA BASE:
+isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA -p masterkey
+*)
   {$IFNDEF PRINTER_CUPOM}
   SplashMessage('Conectando-se à base de dados...');
   {$ENDIF}
@@ -4494,13 +4515,10 @@ begin
       Params.Add('CharacterSet=' + DB_LC_CTYPE);
 
       Connected := True;
-
-      if ( Connected ) then
-      begin
-        fdQryUsers.Open;
-        fdQryEmpresa.Open;
-      end;
     end;
+
+    // Upgrade DB
+    ExecuteScriptMetaData('Upgrade.sql');
 
     MontarPermissao;
 
@@ -4537,6 +4555,12 @@ begin
     begin
       X := StrToInt(FormatDateTime('YYYY', Date)) + I;
       GerarCompetencias( X );
+    end;
+
+    if ( fdConexao.Connected ) then
+    begin
+      fdQryUsers.Open;
+      fdQryEmpresa.Open;
     end;
   except
     On E : Exception do

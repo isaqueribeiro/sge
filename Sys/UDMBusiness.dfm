@@ -846,4 +846,13 @@ object DMBusiness: TDMBusiness
         ParamType = ptInput
       end>
   end
+  object fdScript: TFDScript
+    SQLScripts = <>
+    Connection = fdConexao
+    Transaction = fdTransacao
+    Params = <>
+    Macros = <>
+    Left = 800
+    Top = 256
+  end
 end
