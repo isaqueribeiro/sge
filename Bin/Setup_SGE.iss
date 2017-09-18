@@ -62,7 +62,7 @@ Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desk
 [Run]
 Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}; Flags: nowait postinstall skipifsilent unchecked
 Filename: {app}\apps\capicom.exe; Description: Capicom; Flags: waituntilidle postinstall runasoriginaluser
-Filename: {app}\apps\Firebird-2.5.5.26952_0_Win32.exe; Description: Firebird_2_5; Flags: waituntilidle postinstall runasoriginaluser
+Filename: {app}\apps\Firebird-2.5.5.26952_0_Win32.exe; Description: Firebird_2_5; Flags: waituntilidle runasoriginaluser
 Filename: {app}\Conexao.ini; WorkingDir: {app}; Description: Arquivo de Configurações; Flags: postinstall; Tasks: ; Languages: 
 
 [Components]
