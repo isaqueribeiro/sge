@@ -16,7 +16,13 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TAliquota = (taICMS, taISS);
@@ -91,7 +97,6 @@ type
     IbDtstTabelaCFOP_DESCRICAO: TIBStringField;
     IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField;
     Bevel5: TBevel;
-    tblOrigem: TIBTable;
     dtsOrigem: TDataSource;
     dtsTributacaoNM: TDataSource;
     pgcMaisDados: TPageControl;
@@ -345,7 +350,6 @@ type
     dbUltimaCompraValor: TDBEdit;
     lblPercentualMargem: TLabel;
     dbPercentualMargem: TDBEdit;
-    qryTributacaoNM: TIBDataSet;
     qryTributacaoSN: TIBDataSet;
     fdQryEmpresa: TFDQuery;
     fdQryTipoProduto: TFDQuery;
@@ -356,6 +360,20 @@ type
     lblCodigoAnvisa: TLabel;
     dbCodigoAnvisa: TDBEdit;
     IbDtstTabelaANVISA: TIBStringField;
+    dbGerarSubproduto: TDBCheckBox;
+    fdQryOrigem: TFDQuery;
+    IbDtstTabelaALTURA: TIBBCDField;
+    IbDtstTabelaLARGURA: TIBBCDField;
+    IbDtstTabelaESPESSURA: TIBBCDField;
+    IbDtstTabelaGERAR_SUBPRODUTO: TSmallintField;
+    IbDtstTabelaPRODUTO_PAI: TIBStringField;
+    lblAltura: TLabel;
+    dbAltura: TDBEdit;
+    dbLargura: TDBEdit;
+    lblLargura: TLabel;
+    dbEspessura: TDBEdit;
+    lblEspessura: TLabel;
+    fdQryTributacaoNM: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
@@ -1099,8 +1117,8 @@ begin
 
   CarregarLista(fdQryTipoProduto);
   CarregarLista(fdQryEmpresa);
-  CarregarLista(tblOrigem);
-  CarregarLista(qryTributacaoNM);
+  CarregarLista(fdQryOrigem);
+  CarregarLista(fdQryTributacaoNM);
   CarregarLista(qryTributacaoSN);
   CarregarLista(tblAliquota);
   CarregarLista(qryAliquotaPIS);
@@ -1165,6 +1183,7 @@ begin
   lblProdutoSemEstoque.Caption := Format('* %s sem Estoque', [StrDescricaoProduto]);
   lblProdutoDesativado.Caption := Format('* %s desativado', [StrDescricaoProduto]);
 
+  dbProdutoNovo.Enabled          := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
   dbProdutoEhImobilizado.Enabled := (gSistema.Codigo = SISTEMA_GESTAO_IND);
 (*
   lblTipoTributacaoSN.Enabled := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
@@ -1358,19 +1377,19 @@ begin
     if ( not fdQryEmpresa.IsEmpty ) then
       IbDtstTabelaCODEMP.Value := fdQryEmpresa.FieldByName('cnpj').AsString;
 
-  if ( not tblOrigem.IsEmpty ) then
+  if ( not fdQryOrigem.IsEmpty ) then
     IbDtstTabelaCODORIGEM.Value := TRIBUTO_ORIGEM_NACIONAL;
 
   if ( GetRegimeEmpresa(IbDtstTabelaCODEMP.AsString) = trSimplesNacional ) then
   begin
-    if ( not qryTributacaoNM.IsEmpty ) then
+    if ( not fdQryTributacaoNM.IsEmpty ) then
       IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_ISENTA;
     if ( not qryTributacaoSN.IsEmpty ) then
       IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN;
   end
   else
   begin
-    if ( not qryTributacaoNM.IsEmpty ) then
+    if ( not fdQryTributacaoNM.IsEmpty ) then
       IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_INTEG;
     if ( not qryTributacaoSN.IsEmpty ) then
       IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN;
@@ -1395,8 +1414,14 @@ begin
   IbDtstTabelaPERCENTUAL_MARGEM.Value  := 20.0; // 20%
   IbDtstTabelaPERCENTUAL_MARCKUP.Value := 0;
   IbDtstTabelaPRECO_SUGERIDO.Value     := 0;
+  IbDtstTabelaGERAR_SUBPRODUTO.Value   := FLAG_NAO;
+
   IbDtstTabelaPESO_BRUTO.AsCurrency    := 0.0;
   IbDtstTabelaPESO_LIQUIDO.AsCurrency  := 0.0;
+
+  IbDtstTabelaALTURA.AsCurrency        := 0.0;
+  IbDtstTabelaLARGURA.AsCurrency       := 0.0;
+  IbDtstTabelaESPESSURA.AsCurrency     := 0.0;
   IbDtstTabelaCUBAGEM.AsCurrency       := 0.0;
 
   IbDtstTabelaFRACIONADOR.Value        := 1;
@@ -1416,17 +1441,18 @@ begin
   IbDtstTabelaULTIMA_COMPRA_DATA.Clear;
   IbDtstTabelaULTIMA_COMPRA_VALOR.Clear;
   IbDtstTabelaULTIMA_COMPRA_FORNEC.Clear;
+  IbDtstTabelaPRODUTO_PAI.Clear;
 
   IbDtstTabelaTABELA_IBPT.AsInteger := GetTabelaIBPT_Codigo(TRIBUTO_NCM_SH_PADRAO);
-  IbDtstTabelaCST_PIS.AsString    := '99';
-  IbDtstTabelaCST_COFINS.AsString := '99';
+  IbDtstTabelaCST_PIS.AsString      := '99';
+  IbDtstTabelaCST_COFINS.AsString   := '99';
   IbDtstTabelaALIQUOTA_PIS.AsCurrency      := 0.0;
   IbDtstTabelaALIQUOTA_COFINS.AsCurrency   := 0.0;
-  IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger  := 1;
-  IbDtstTabelaCADASTRO_ATIVO.Value         := 1;
-  IbDtstTabelaPRODUTO_IMOBILIZADO.Value    := 0;
+  IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger  := FLAG_SIM;
+  IbDtstTabelaCADASTRO_ATIVO.Value         := FLAG_SIM;
+  IbDtstTabelaPRODUTO_IMOBILIZADO.Value    := FLAG_NAO;
   IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
-  IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := 0;
+  IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := FLAG_NAO;
 
   DtSrcTabelaDataChange(DtSrcTabela, IbDtstTabelaALIQUOTA_TIPO);
 end;
@@ -1797,6 +1823,9 @@ begin
       ControleCampos;
       ConfigurarLabels;
     end;
+
+    if ( (Field = IbDtstTabelaALTURA) or (Field = IbDtstTabelaLARGURA) or (Field = IbDtstTabelaESPESSURA) ) then
+      IbDtstTabelaCUBAGEM.AsCurrency := IbDtstTabelaALTURA.AsCurrency * IbDtstTabelaLARGURA.AsCurrency * IbDtstTabelaESPESSURA.AsCurrency;
   end;
 end;
 

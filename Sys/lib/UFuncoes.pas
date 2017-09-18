@@ -14,7 +14,8 @@ uses
   function GetIPLocal : String;
   function GetExeVersion(const FileName : TFileName) : String; overload;
   function GetExeVersion : String; overload;
-  function GetVersion : String;
+  function GetVersion   : String;
+  function GetVersionID : Currency;
   function GetCopyright : String;
   function GetInternalName : String;
   function GetProductName : String;
@@ -182,6 +183,29 @@ begin
   {$ELSE}
   Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
   {$ENDIF}
+end;
+
+function GetVersionID : Currency;
+var
+  I : Integer;
+  sVersao   ,
+  sVersaoID : String;
+  aVersao   : TArray<String>;
+  aRetorno  : Currency;
+begin
+  {$IFDEF DGE}
+  sVersao := VERSION_NUMBER;
+  {$ELSE}
+  sVersao := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
+  {$ENDIF}
+
+  aVersao   := sVersao.Split(['.'], 4);
+  sVersaoID := EmptyStr;
+
+  for I := Low(aVersao) to High(aVersao) do
+    sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
+
+  Result := StrToCurrDef(sVersaoID, 0);
 end;
 
 function GetCopyright : String;

@@ -181,10 +181,12 @@ var
   function EstacaoServidora(aServidor : String): Boolean;
   function ControlFBSvr(aStart : Boolean): Boolean;
   function DataBaseOnLine : Boolean;
+  function GetVersionDB : Currency;
 
   function ShowConfirmation(sTitle, sMsg : String) : Boolean; overload;
   function ShowConfirmation(sMsg : String) : Boolean; overload;
 
+  procedure UpgradeDataBase;
   procedure ShowInformation(sTitle, sMsg : String); overload;
   procedure ShowInformation(sMsg : String); overload;
   procedure ShowWarning(sMsg : String); overload;
@@ -767,6 +769,11 @@ begin
   Result := DMBusiness.ibdtbsBusiness.Connected;
 end;
 
+function GetVersionDB : Currency;
+begin
+  Result := 01001600.0; // 1.0.16.0
+end;
+
 function ShowConfirmation(sTitle, sMsg : String) : Boolean;
 var
   fMsg : TfrmGeMessage;
@@ -788,6 +795,25 @@ end;
 function ShowConfirmation(sMsg : String) : Boolean;
 begin
   Result := ShowConfirmation('Confirmar', sMsg);
+end;
+
+procedure UpgradeDataBase;
+var
+  aFileUpgrade : String;
+  aVersaoUpgrade,
+  aVersaoBase   ,
+  aVersaoApp    : Currency;
+begin
+  aVersaoBase    := GetVersionDB + 1;
+  aVersaoApp     := GetVersionID;
+  aVersaoUpgrade := aVersaoBase;
+  while (aVersaoUpgrade <= aVersaoApp) do
+  begin
+    aFileUpgrade := ExtractFilePath(ParamStr(0)) + CurrToStr(aVersaoUpgrade) + '.sql';
+    ExecuteScriptMetaData(aFileUpgrade);
+
+    aVersaoUpgrade := aVersaoUpgrade + 1;
+  end;
 end;
 
 procedure ShowInformation(sTitle, sMsg : String);
@@ -4518,7 +4544,7 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
     end;
 
     // Upgrade DB
-    ExecuteScriptMetaData('Upgrade.sql');
+    UpgradeDataBase;
 
     MontarPermissao;
 

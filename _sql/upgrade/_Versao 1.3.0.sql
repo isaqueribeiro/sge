@@ -3514,18 +3514,7 @@ SET TERM ; ^
 
 
 
-
-/*------ SYSDBA 12/09/2017 12:07:02 --------*/
-
-ALTER TABLE TBAJUSTESTOQ DROP DOC;
-
-
-
-
 /*------ SYSDBA 12/09/2017 12:07:27 --------*/
-
-ALTER TABLE TBAJUSTESTOQ
-    ADD DOC DMN_VCHAR_10;
 
 COMMENT ON COLUMN TBAJUSTESTOQ.DOC IS
 'Documento';
@@ -3694,6 +3683,11 @@ where (RDB$FIELD_NAME = 'DTAJUST') and
 (RDB$RELATION_NAME = 'TBAJUSTESTOQ')
 ;
 
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_VCHAR_10'
+where (RDB$FIELD_NAME = 'DOC') and
+(RDB$RELATION_NAME = 'TBAJUSTESTOQ')
+;
 
 
 
@@ -3806,3 +3800,704 @@ end^
 SET TERM ; ^
 
 GRANT EXECUTE ON PROCEDURE SET_LOTE_PRODUTO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 18/09/2017 13:28:10 --------*/
+
+ALTER TABLE TBPRODUTO
+    ADD LARGURA DMN_MONEY_DESCONTO_4,
+    ADD ALTURA DMN_MONEY_DESCONTO_4,
+    ADD ESPESSURA DMN_MONEY_DESCONTO_4;
+
+COMMENT ON COLUMN TBPRODUTO.LARGURA IS
+'Dimensao: Largura (m)';
+
+COMMENT ON COLUMN TBPRODUTO.ALTURA IS
+'Dimensao: Altura (m)';
+
+COMMENT ON COLUMN TBPRODUTO.ESPESSURA IS
+'Dimensao: Espessura (m)';
+
+COMMENT ON COLUMN TBPRODUTO.CUBAGEM IS
+'Cubagem (m3).
+
+Observacao: Para lancamento livre ou calculado (Largura x Altura x Espessura).';
+
+alter table TBPRODUTO
+alter CODIGO position 1;
+
+alter table TBPRODUTO
+alter COD position 2;
+
+alter table TBPRODUTO
+alter DESCRI position 3;
+
+alter table TBPRODUTO
+alter APRESENTACAO position 4;
+
+alter table TBPRODUTO
+alter DESCRI_APRESENTACAO position 5;
+
+alter table TBPRODUTO
+alter METAFONEMA position 6;
+
+alter table TBPRODUTO
+alter MODELO position 7;
+
+alter table TBPRODUTO
+alter ANVISA position 8;
+
+alter table TBPRODUTO
+alter REFERENCIA position 9;
+
+alter table TBPRODUTO
+alter NOME_AMIGO position 10;
+
+alter table TBPRODUTO
+alter ESPECIFICACAO position 11;
+
+alter table TBPRODUTO
+alter PRECO position 12;
+
+alter table TBPRODUTO
+alter PRECO_PROMOCAO position 13;
+
+alter table TBPRODUTO
+alter SECAO position 14;
+
+alter table TBPRODUTO
+alter QTDE position 15;
+
+alter table TBPRODUTO
+alter FRACIONADOR position 16;
+
+alter table TBPRODUTO
+alter PESO_BRUTO position 17;
+
+alter table TBPRODUTO
+alter PESO_LIQUIDO position 18;
+
+alter table TBPRODUTO
+alter LARGURA position 19;
+
+alter table TBPRODUTO
+alter ALTURA position 20;
+
+alter table TBPRODUTO
+alter ESPESSURA position 21;
+
+alter table TBPRODUTO
+alter CUBAGEM position 22;
+
+alter table TBPRODUTO
+alter VENDA_FRACIONADA position 23;
+
+alter table TBPRODUTO
+alter UNIDADE position 24;
+
+alter table TBPRODUTO
+alter ESTOQMIN position 25;
+
+alter table TBPRODUTO
+alter CODTIPO position 26;
+
+alter table TBPRODUTO
+alter CODGRUPO position 27;
+
+alter table TBPRODUTO
+alter CODFABRICANTE position 28;
+
+alter table TBPRODUTO
+alter CUSTOMEDIO position 29;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARCKUP position 30;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARGEM position 31;
+
+alter table TBPRODUTO
+alter PRECO_SUGERIDO position 32;
+
+alter table TBPRODUTO
+alter CODEMP position 33;
+
+alter table TBPRODUTO
+alter CODSECAO position 34;
+
+alter table TBPRODUTO
+alter CODORIGEM position 35;
+
+alter table TBPRODUTO
+alter CODTRIBUTACAO position 36;
+
+alter table TBPRODUTO
+alter CST position 37;
+
+alter table TBPRODUTO
+alter CSOSN position 38;
+
+alter table TBPRODUTO
+alter CST_PIS position 39;
+
+alter table TBPRODUTO
+alter CST_COFINS position 40;
+
+alter table TBPRODUTO
+alter TABELA_IBPT position 41;
+
+alter table TBPRODUTO
+alter NCM_SH position 42;
+
+alter table TBPRODUTO
+alter CODIGO_NVE position 43;
+
+alter table TBPRODUTO
+alter CODIGO_CEST position 44;
+
+alter table TBPRODUTO
+alter CODCFOP position 45;
+
+alter table TBPRODUTO
+alter CODBARRA_EAN position 46;
+
+alter table TBPRODUTO
+alter CODUNIDADE position 47;
+
+alter table TBPRODUTO
+alter CODUNIDADE_FRACIONADA position 48;
+
+alter table TBPRODUTO
+alter ALIQUOTA_TIPO position 49;
+
+alter table TBPRODUTO
+alter ALIQUOTA position 50;
+
+alter table TBPRODUTO
+alter ALIQUOTA_CSOSN position 51;
+
+alter table TBPRODUTO
+alter ALIQUOTA_PIS position 52;
+
+alter table TBPRODUTO
+alter ALIQUOTA_COFINS position 53;
+
+alter table TBPRODUTO
+alter VALOR_IPI position 54;
+
+alter table TBPRODUTO
+alter PERCENTUAL_REDUCAO_BC position 55;
+
+alter table TBPRODUTO
+alter RESERVA position 56;
+
+alter table TBPRODUTO
+alter PRODUTO_NOVO position 57;
+
+alter table TBPRODUTO
+alter COR_VEICULO position 58;
+
+alter table TBPRODUTO
+alter COMBUSTIVEL_VEICULO position 59;
+
+alter table TBPRODUTO
+alter TIPO_VEICULO position 60;
+
+alter table TBPRODUTO
+alter ANO_MODELO_VEICULO position 61;
+
+alter table TBPRODUTO
+alter ANO_FABRICACAO_VEICULO position 62;
+
+alter table TBPRODUTO
+alter RENAVAM_VEICULO position 63;
+
+alter table TBPRODUTO
+alter CHASSI_VEICULO position 64;
+
+alter table TBPRODUTO
+alter KILOMETRAGEM_VEICULO position 65;
+
+alter table TBPRODUTO
+alter SITUACAO_ATUAL_VEICULO position 66;
+
+alter table TBPRODUTO
+alter SITUACAO_HISTORICO_VEICULO position 67;
+
+alter table TBPRODUTO
+alter USUARIO position 68;
+
+alter table TBPRODUTO
+alter CADASTRO_ATIVO position 69;
+
+alter table TBPRODUTO
+alter MOVIMENTA_ESTOQUE position 70;
+
+alter table TBPRODUTO
+alter COMPOR_FATURAMENTO position 71;
+
+alter table TBPRODUTO
+alter PRODUTO_IMOBILIZADO position 72;
+
+alter table TBPRODUTO
+alter ESTOQUE_APROP_LOTE position 73;
+
+alter table TBPRODUTO
+alter CUST_DESP_OFIC position 74;
+
+alter table TBPRODUTO
+alter CUST_DESP_GERAIS position 75;
+
+alter table TBPRODUTO
+alter CUST_DESP_ADM position 76;
+
+alter table TBPRODUTO
+alter CUST_COMISSAO position 77;
+
+alter table TBPRODUTO
+alter CUST_IMPOSTO position 78;
+
+alter table TBPRODUTO
+alter FI_RET_FINANC position 79;
+
+alter table TBPRODUTO
+alter FI_RET_PLANO position 80;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_DATA position 81;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_VALOR position 82;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_FORNEC position 83;
+
+alter table TBPRODUTO
+alter ARQUIVO_MORTO position 84;
+
+
+
+
+/*------ SYSDBA 18/09/2017 13:46:55 --------*/
+
+ALTER TABLE TBPRODUTO
+    ADD GERAR_SUBPRODUTO DMN_LOGICO DEFAULT 0,
+    ADD PRODUTO_PAI DMN_VCHAR_10;
+
+COMMENT ON COLUMN TBPRODUTO.GERAR_SUBPRODUTO IS
+'Gerar subproduto:
+0 - Nao
+1 - Sim';
+
+COMMENT ON COLUMN TBPRODUTO.PRODUTO_PAI IS
+'Material/Produto pai (de origem).';
+
+alter table TBPRODUTO
+alter CODIGO position 1;
+
+alter table TBPRODUTO
+alter COD position 2;
+
+alter table TBPRODUTO
+alter DESCRI position 3;
+
+alter table TBPRODUTO
+alter APRESENTACAO position 4;
+
+alter table TBPRODUTO
+alter DESCRI_APRESENTACAO position 5;
+
+alter table TBPRODUTO
+alter METAFONEMA position 6;
+
+alter table TBPRODUTO
+alter MODELO position 7;
+
+alter table TBPRODUTO
+alter ANVISA position 8;
+
+alter table TBPRODUTO
+alter REFERENCIA position 9;
+
+alter table TBPRODUTO
+alter NOME_AMIGO position 10;
+
+alter table TBPRODUTO
+alter ESPECIFICACAO position 11;
+
+alter table TBPRODUTO
+alter PRECO position 12;
+
+alter table TBPRODUTO
+alter PRECO_PROMOCAO position 13;
+
+alter table TBPRODUTO
+alter SECAO position 14;
+
+alter table TBPRODUTO
+alter QTDE position 15;
+
+alter table TBPRODUTO
+alter FRACIONADOR position 16;
+
+alter table TBPRODUTO
+alter PESO_BRUTO position 17;
+
+alter table TBPRODUTO
+alter PESO_LIQUIDO position 18;
+
+alter table TBPRODUTO
+alter LARGURA position 19;
+
+alter table TBPRODUTO
+alter ALTURA position 20;
+
+alter table TBPRODUTO
+alter ESPESSURA position 21;
+
+alter table TBPRODUTO
+alter CUBAGEM position 22;
+
+alter table TBPRODUTO
+alter VENDA_FRACIONADA position 23;
+
+alter table TBPRODUTO
+alter UNIDADE position 24;
+
+alter table TBPRODUTO
+alter ESTOQMIN position 25;
+
+alter table TBPRODUTO
+alter CODTIPO position 26;
+
+alter table TBPRODUTO
+alter CODGRUPO position 27;
+
+alter table TBPRODUTO
+alter CODFABRICANTE position 28;
+
+alter table TBPRODUTO
+alter CUSTOMEDIO position 29;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARCKUP position 30;
+
+alter table TBPRODUTO
+alter PERCENTUAL_MARGEM position 31;
+
+alter table TBPRODUTO
+alter PRECO_SUGERIDO position 32;
+
+alter table TBPRODUTO
+alter CODEMP position 33;
+
+alter table TBPRODUTO
+alter CODSECAO position 34;
+
+alter table TBPRODUTO
+alter CODORIGEM position 35;
+
+alter table TBPRODUTO
+alter CODTRIBUTACAO position 36;
+
+alter table TBPRODUTO
+alter CST position 37;
+
+alter table TBPRODUTO
+alter CSOSN position 38;
+
+alter table TBPRODUTO
+alter CST_PIS position 39;
+
+alter table TBPRODUTO
+alter CST_COFINS position 40;
+
+alter table TBPRODUTO
+alter TABELA_IBPT position 41;
+
+alter table TBPRODUTO
+alter NCM_SH position 42;
+
+alter table TBPRODUTO
+alter CODIGO_NVE position 43;
+
+alter table TBPRODUTO
+alter CODIGO_CEST position 44;
+
+alter table TBPRODUTO
+alter CODCFOP position 45;
+
+alter table TBPRODUTO
+alter CODBARRA_EAN position 46;
+
+alter table TBPRODUTO
+alter CODUNIDADE position 47;
+
+alter table TBPRODUTO
+alter CODUNIDADE_FRACIONADA position 48;
+
+alter table TBPRODUTO
+alter ALIQUOTA_TIPO position 49;
+
+alter table TBPRODUTO
+alter ALIQUOTA position 50;
+
+alter table TBPRODUTO
+alter ALIQUOTA_CSOSN position 51;
+
+alter table TBPRODUTO
+alter ALIQUOTA_PIS position 52;
+
+alter table TBPRODUTO
+alter ALIQUOTA_COFINS position 53;
+
+alter table TBPRODUTO
+alter VALOR_IPI position 54;
+
+alter table TBPRODUTO
+alter PERCENTUAL_REDUCAO_BC position 55;
+
+alter table TBPRODUTO
+alter RESERVA position 56;
+
+alter table TBPRODUTO
+alter PRODUTO_NOVO position 57;
+
+alter table TBPRODUTO
+alter COR_VEICULO position 58;
+
+alter table TBPRODUTO
+alter COMBUSTIVEL_VEICULO position 59;
+
+alter table TBPRODUTO
+alter TIPO_VEICULO position 60;
+
+alter table TBPRODUTO
+alter ANO_MODELO_VEICULO position 61;
+
+alter table TBPRODUTO
+alter ANO_FABRICACAO_VEICULO position 62;
+
+alter table TBPRODUTO
+alter RENAVAM_VEICULO position 63;
+
+alter table TBPRODUTO
+alter CHASSI_VEICULO position 64;
+
+alter table TBPRODUTO
+alter KILOMETRAGEM_VEICULO position 65;
+
+alter table TBPRODUTO
+alter SITUACAO_ATUAL_VEICULO position 66;
+
+alter table TBPRODUTO
+alter SITUACAO_HISTORICO_VEICULO position 67;
+
+alter table TBPRODUTO
+alter USUARIO position 68;
+
+alter table TBPRODUTO
+alter CADASTRO_ATIVO position 69;
+
+alter table TBPRODUTO
+alter MOVIMENTA_ESTOQUE position 70;
+
+alter table TBPRODUTO
+alter COMPOR_FATURAMENTO position 71;
+
+alter table TBPRODUTO
+alter PRODUTO_IMOBILIZADO position 72;
+
+alter table TBPRODUTO
+alter ESTOQUE_APROP_LOTE position 73;
+
+alter table TBPRODUTO
+alter CUST_DESP_OFIC position 74;
+
+alter table TBPRODUTO
+alter CUST_DESP_GERAIS position 75;
+
+alter table TBPRODUTO
+alter CUST_DESP_ADM position 76;
+
+alter table TBPRODUTO
+alter CUST_COMISSAO position 77;
+
+alter table TBPRODUTO
+alter CUST_IMPOSTO position 78;
+
+alter table TBPRODUTO
+alter FI_RET_FINANC position 79;
+
+alter table TBPRODUTO
+alter FI_RET_PLANO position 80;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_DATA position 81;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_VALOR position 82;
+
+alter table TBPRODUTO
+alter ULTIMA_COMPRA_FORNEC position 83;
+
+alter table TBPRODUTO
+alter GERAR_SUBPRODUTO position 84;
+
+alter table TBPRODUTO
+alter PRODUTO_PAI position 85;
+
+alter table TBPRODUTO
+alter ARQUIVO_MORTO position 86;
+
+
+
+
+/*------ SYSDBA 18/09/2017 13:55:11 --------*/
+
+COMMENT ON TABLE TBPRODUTO IS 'Tabela Produtos/Servicos
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar todos os registros de todos os produtos e/ou servicos necessarios as movimentacoes de
+entrada e saida.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    18/09/2017 - IMR :
+        + Criacao dos campos LARGURA, ALTURA, ESPESSURA, GERAR_SUBPRODUTO e PRODUTO_PAI
+          que serao essenciais no processo de Fracionamento Industrial/Metalurgico
+          ocorrido atraves do sistema SGI.
+
+    31/05/2017 - IMR :
+        + Criacao do campo CODTIPO com o objeto de classificao o produto de acordo
+          com o seu tipo a fim de definir a carga de lotes nos XML''s das NF-e quando
+          o produto for do tipo MEDICAMENTOS.
+
+    17/05/2016 - IMR :
+        + Criacao do campo CODIGO_CEST com o objetivo de armazenar o Codigo Especificador
+          de Substituicao Tributaria que passar ser exijido a partir de 2016 na emissao
+          da NF-e e NFC-e.
+
+    21/01/2016 - IMR :
+        + Criacao do campo ARQUIVO_MORTO com o objetivo de ocultar do sistema os
+          registros que nao devem mas ser apresentados para o usuario mas que
+          precisam constar na base por efeito de integridade referencial.
+
+    30/05/2014 - IMR :
+        + Criacao do campo COMPOR_FATURAMENTO que ira permitir ao sistema saber quais produtos/servicos haverao de compor
+          o faturamento da empresa e quais sao de consumo interno.
+
+    03/11/2014 - IMR :
+        + Criacao do campo METAFONEMA para auxiliar da pesquisa de produtos homonimos e o campo ESPECIFICACAO como
+          campo para especificar de maneira textual o produto/servico, muito utilizado em processos de cotacao.
+
+    10/02/2014 - IMR :
+        + Criacao dos campos CADASTRO_ATIVO e PRODUTO_IMOBILIZADO para permitir que apenas os cadastro ativos sejam
+          utilizados nos processos e para designar os produtos que sao imobilizados para futuras implementacoes de
+          controles patrimoniais.
+
+    30/07/2015 - IMR :
+        + Criacao do campo NOME_AMIGO para facilitar a identificacao interna do produto/servico dentro da empresa
+          pelos usuarios do sistema. Esse dados e necessario por existir muitas situacoes onde o nome comercial do
+          servico/produto e muito diferente do nome usualmente conhecimento pelos usuarios.';
+
+
+
+
+/*------ SYSDBA 18/09/2017 13:56:01 --------*/
+
+COMMENT ON TABLE TBPRODUTO IS 'Tabela Produtos/Servicos
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar todos os registros de todos os produtos e/ou servicos necessarios as movimentacoes de
+entrada e saida.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    18/09/2017 - IMR :
+        + Criacao dos campos LARGURA, ALTURA, ESPESSURA, GERAR_SUBPRODUTO e PRODUTO_PAI
+          que serao essenciais no processo de Fracionamento Industrial/Metalurgico
+          ocorrido atraves do sistema SGI.
+
+    31/05/2017 - IMR :
+        + Criacao do campo CODTIPO com o objeto de classificao o produto de acordo
+          com o seu tipo a fim de definir a carga de lotes nos XML''s das NF-e quando
+          o produto for do tipo MEDICAMENTOS.
+
+    17/05/2016 - IMR :
+        + Criacao do campo CODIGO_CEST com o objetivo de armazenar o Codigo Especificador
+          de Substituicao Tributaria que passar ser exijido a partir de 2016 na emissao
+          da NF-e e NFC-e.
+
+    21/01/2016 - IMR :
+        + Criacao do campo ARQUIVO_MORTO com o objetivo de ocultar do sistema os
+          registros que nao devem mas ser apresentados para o usuario mas que
+          precisam constar na base por efeito de integridade referencial.
+
+    30/07/2015 - IMR :
+        + Criacao do campo NOME_AMIGO para facilitar a identificacao interna do produto/servico dentro da empresa
+          pelos usuarios do sistema. Esse dados e necessario por existir muitas situacoes onde o nome comercial do
+          servico/produto e muito diferente do nome usualmente conhecimento pelos usuarios.
+
+    03/11/2014 - IMR :
+        + Criacao do campo METAFONEMA para auxiliar da pesquisa de produtos homonimos e o campo ESPECIFICACAO como
+          campo para especificar de maneira textual o produto/servico, muito utilizado em processos de cotacao.
+
+    30/05/2014 - IMR :
+        + Criacao do campo COMPOR_FATURAMENTO que ira permitir ao sistema saber quais produtos/servicos haverao de compor
+          o faturamento da empresa e quais sao de consumo interno.
+
+    10/02/2014 - IMR :
+        + Criacao dos campos CADASTRO_ATIVO e PRODUTO_IMOBILIZADO para permitir que apenas os cadastro ativos sejam
+          utilizados nos processos e para designar os produtos que sao imobilizados para futuras implementacoes de
+          controles patrimoniais.';
+
+
+
+
+/*------ SYSDBA 18/09/2017 13:57:01 --------*/
+
+CREATE INDEX IDX_TBPRODUTO_PRODPAI
+ON TBPRODUTO (PRODUTO_PAI);
+
+
+
+
+/*------ SYSDBA 18/09/2017 16:40:20 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.LARGURA IS
+'Dimensao: Largura (m).';
+
+
+
+
+/*------ SYSDBA 18/09/2017 16:40:26 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.ALTURA IS
+'Dimensao: Altura (m).';
+
+
+
+
+/*------ SYSDBA 18/09/2017 16:40:30 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.ESPESSURA IS
+'Dimensao: Espessura (m).';
+

@@ -28,8 +28,6 @@ inherited frmGeProduto: TfrmGeProduto
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -803,7 +801,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = TbsEspecificacao
+        ActivePage = tbsValores
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -814,10 +812,6 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblCusto: TLabel
             Left = 272
             Top = 8
@@ -1164,7 +1158,7 @@ inherited frmGeProduto: TfrmGeProduto
           object GrpBxParametroProdudo: TGroupBox
             Left = 306
             Top = 127
-            Width = 235
+            Width = 494
             Height = 106
             Caption = 'Par'#226'metros p/ Produto'
             TabOrder = 10
@@ -1202,6 +1196,18 @@ inherited frmGeProduto: TfrmGeProduto
               DataField = 'ESTOQUE_APROP_LOTE'
               DataSource = DtSrcTabela
               TabOrder = 2
+              ValueChecked = '1'
+              ValueUnchecked = '0'
+            end
+            object dbGerarSubproduto: TDBCheckBox
+              Left = 236
+              Top = 27
+              Width = 150
+              Height = 17
+              Caption = 'Gerar Subproduto'
+              DataField = 'GERAR_SUBPRODUTO'
+              DataSource = DtSrcTabela
+              TabOrder = 3
               ValueChecked = '1'
               ValueUnchecked = '0'
             end
@@ -1296,10 +1302,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -1594,10 +1596,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsTributacao: TTabSheet
           Caption = 'Tributa'#231#245'es'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 233
@@ -2385,8 +2383,9 @@ inherited frmGeProduto: TfrmGeProduto
               Width = 945
               Height = 64
               Align = alClient
-              Caption = 'Peso / Volume'
+              Caption = 'Pesos, Dimens'#245'es e Volume'
               TabOrder = 0
+              ExplicitTop = -4
               object lblPesoBruto: TLabel
                 Left = 16
                 Top = 16
@@ -2394,6 +2393,12 @@ inherited frmGeProduto: TfrmGeProduto
                 Height = 13
                 Caption = 'Peso bruto (Kg):'
                 FocusControl = dbPesoBruto
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
               end
               object lblPesoLiquido: TLabel
                 Left = 136
@@ -2402,14 +2407,44 @@ inherited frmGeProduto: TfrmGeProduto
                 Height = 13
                 Caption = 'Peso l'#237'quido (Kg):'
                 FocusControl = dbPesoLiquido
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
               end
               object lblCubagem: TLabel
-                Left = 256
+                Left = 591
                 Top = 16
                 Width = 74
                 Height = 13
                 Caption = 'Cubagem (m3):'
                 FocusControl = dbCubagem
+              end
+              object lblAltura: TLabel
+                Left = 256
+                Top = 16
+                Width = 52
+                Height = 13
+                Caption = 'Altura (m):'
+                FocusControl = dbAltura
+              end
+              object lblLargura: TLabel
+                Left = 367
+                Top = 16
+                Width = 60
+                Height = 13
+                Caption = 'Largura (m):'
+                FocusControl = dbLargura
+              end
+              object lblEspessura: TLabel
+                Left = 488
+                Top = 16
+                Width = 72
+                Height = 13
+                Caption = 'Espessura (m):'
+                FocusControl = dbEspessura
               end
               object dbPesoBruto: TDBEdit
                 Left = 16
@@ -2442,7 +2477,7 @@ inherited frmGeProduto: TfrmGeProduto
                 TabOrder = 1
               end
               object dbCubagem: TDBEdit
-                Left = 256
+                Left = 591
                 Top = 32
                 Width = 113
                 Height = 21
@@ -2454,7 +2489,52 @@ inherited frmGeProduto: TfrmGeProduto
                 Font.Name = 'MS Sans Serif'
                 Font.Style = []
                 ParentFont = False
+                TabOrder = 5
+              end
+              object dbAltura: TDBEdit
+                Left = 256
+                Top = 32
+                Width = 105
+                Height = 21
+                DataField = 'ALTURA'
+                DataSource = DtSrcTabela
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
                 TabOrder = 2
+              end
+              object dbLargura: TDBEdit
+                Left = 367
+                Top = 32
+                Width = 113
+                Height = 21
+                DataField = 'LARGURA'
+                DataSource = DtSrcTabela
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 3
+              end
+              object dbEspessura: TDBEdit
+                Left = 488
+                Top = 32
+                Width = 97
+                Height = 21
+                DataField = 'ESPESSURA'
+                DataSource = DtSrcTabela
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 4
               end
             end
           end
@@ -2501,10 +2581,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             945
             249)
@@ -2930,6 +3006,9 @@ inherited frmGeProduto: TfrmGeProduto
       '  , p.fracionador'
       '  , p.peso_bruto'
       '  , p.peso_liquido'
+      '  , p.altura'
+      '  , p.largura'
+      '  , p.espessura'
       '  , p.cubagem'
       '  , p.venda_fracionada'
       '  , p.codunidade_fracionada'
@@ -2981,6 +3060,8 @@ inherited frmGeProduto: TfrmGeProduto
       '  , p.Ultima_compra_data'
       '  , p.Ultima_compra_valor'
       '  , p.Ultima_compra_fornec'
+      '  , p.gerar_subproduto'
+      '  , p.produto_pai'
       '  , case when coalesce(p.Reserva, 0) > 0'
       '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
       '      else coalesce(p.Qtde, 0)'
@@ -3452,6 +3533,30 @@ inherited frmGeProduto: TfrmGeProduto
       Precision = 18
       Size = 3
     end
+    object IbDtstTabelaALTURA: TIBBCDField
+      DisplayLabel = 'Altura (m)'
+      FieldName = 'ALTURA'
+      Origin = '"TBPRODUTO"."ALTURA"'
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 4
+    end
+    object IbDtstTabelaLARGURA: TIBBCDField
+      DisplayLabel = 'Largura (m)'
+      FieldName = 'LARGURA'
+      Origin = '"TBPRODUTO"."LARGURA"'
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 4
+    end
+    object IbDtstTabelaESPESSURA: TIBBCDField
+      DisplayLabel = 'Espessura (m)'
+      FieldName = 'ESPESSURA'
+      Origin = '"TBPRODUTO"."ESPESSURA"'
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 4
+    end
     object IbDtstTabelaCUBAGEM: TIBBCDField
       DisplayLabel = 'Cubagem (m3)'
       FieldName = 'CUBAGEM'
@@ -3573,6 +3678,10 @@ inherited frmGeProduto: TfrmGeProduto
       Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaGERAR_SUBPRODUTO: TSmallintField
+      FieldName = 'GERAR_SUBPRODUTO'
+      Origin = '"TBPRODUTO"."GERAR_SUBPRODUTO"'
+    end
     object IbDtstTabelaULTIMA_COMPRA_DATA: TDateField
       FieldName = 'ULTIMA_COMPRA_DATA'
       Origin = '"TBPRODUTO"."ULTIMA_COMPRA_DATA"'
@@ -3621,6 +3730,11 @@ inherited frmGeProduto: TfrmGeProduto
       Precision = 18
       Size = 5
     end
+    object IbDtstTabelaPRODUTO_PAI: TIBStringField
+      FieldName = 'PRODUTO_PAI'
+      Origin = '"TBPRODUTO"."PRODUTO_PAI"'
+      Size = 10
+    end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
@@ -3647,6 +3761,9 @@ inherited frmGeProduto: TfrmGeProduto
       '  FRACIONADOR,'
       '  PESO_BRUTO,'
       '  PESO_LIQUIDO,'
+      '  LARGURA,'
+      '  ALTURA,'
+      '  ESPESSURA,'
       '  CUBAGEM,'
       '  VENDA_FRACIONADA,'
       '  UNIDADE,'
@@ -3709,6 +3826,8 @@ inherited frmGeProduto: TfrmGeProduto
       '  ULTIMA_COMPRA_DATA,'
       '  ULTIMA_COMPRA_VALOR,'
       '  ULTIMA_COMPRA_FORNEC,'
+      '  GERAR_SUBPRODUTO,'
+      '  PRODUTO_PAI,'
       '  ARQUIVO_MORTO'
       'from TBPRODUTO '
       'where'
@@ -3721,8 +3840,10 @@ inherited frmGeProduto: TfrmGeProduto
       '  ALIQUOTA_CSOSN = :ALIQUOTA_CSOSN,'
       '  ALIQUOTA_PIS = :ALIQUOTA_PIS,'
       '  ALIQUOTA_TIPO = :ALIQUOTA_TIPO,'
+      '  ALTURA = :ALTURA,'
       '  ANO_FABRICACAO_VEICULO = :ANO_FABRICACAO_VEICULO,'
       '  ANO_MODELO_VEICULO = :ANO_MODELO_VEICULO,'
+      '  ANVISA = :ANVISA,'
       '  APRESENTACAO = :APRESENTACAO,'
       '  CADASTRO_ATIVO = :CADASTRO_ATIVO,'
       '  CHASSI_VEICULO = :CHASSI_VEICULO,'
@@ -3752,13 +3873,15 @@ inherited frmGeProduto: TfrmGeProduto
       '  DESCRI = :DESCRI,'
       '  DESCRI_APRESENTACAO = :DESCRI_APRESENTACAO,'
       '  ESPECIFICACAO = :ESPECIFICACAO,'
+      '  ESPESSURA = :ESPESSURA,'
       '  ESTOQMIN = :ESTOQMIN,'
       '  ESTOQUE_APROP_LOTE = :ESTOQUE_APROP_LOTE,'
       '  FRACIONADOR = :FRACIONADOR,'
+      '  GERAR_SUBPRODUTO = :GERAR_SUBPRODUTO,'
       '  KILOMETRAGEM_VEICULO = :KILOMETRAGEM_VEICULO,'
+      '  LARGURA = :LARGURA,'
       '  METAFONEMA = :METAFONEMA,'
       '  MODELO = :MODELO,'
-      '  ANVISA = :ANVISA,'
       '  MOVIMENTA_ESTOQUE = :MOVIMENTA_ESTOQUE,'
       '  NCM_SH = :NCM_SH,'
       '  NOME_AMIGO = :NOME_AMIGO,'
@@ -3772,6 +3895,7 @@ inherited frmGeProduto: TfrmGeProduto
       '  PRECO_SUGERIDO = :PRECO_SUGERIDO,'
       '  PRODUTO_IMOBILIZADO = :PRODUTO_IMOBILIZADO,'
       '  PRODUTO_NOVO = :PRODUTO_NOVO,'
+      '  PRODUTO_PAI = :PRODUTO_PAI,'
       '  QTDE = :QTDE,'
       '  REFERENCIA = :REFERENCIA,'
       '  RENAVAM_VEICULO = :RENAVAM_VEICULO,'
@@ -3796,67 +3920,73 @@ inherited frmGeProduto: TfrmGeProduto
         '  (ALIQUOTA, ALIQUOTA_COFINS, ALIQUOTA_CSOSN, ALIQUOTA_PIS, ALIQ' +
         'UOTA_TIPO, '
       
-        '   ANO_FABRICACAO_VEICULO, ANO_MODELO_VEICULO, APRESENTACAO, CAD' +
-        'ASTRO_ATIVO, '
+        '   ALTURA, ANO_FABRICACAO_VEICULO, ANO_MODELO_VEICULO, ANVISA, A' +
+        'PRESENTACAO, '
       
-        '   CHASSI_VEICULO, COD, CODBARRA_EAN, CODCFOP, CODEMP, CODFABRIC' +
-        'ANTE, CODGRUPO, '
+        '   CADASTRO_ATIVO, CHASSI_VEICULO, COD, CODBARRA_EAN, CODCFOP, C' +
+        'ODEMP, '
       
-        '   CODIGO, CODIGO_NVE, CODORIGEM, CODSECAO, CODTIPO, CODTRIBUTAC' +
-        'AO, CODUNIDADE, '
+        '   CODFABRICANTE, CODGRUPO, CODIGO, CODIGO_NVE, CODORIGEM, CODSE' +
+        'CAO, CODTIPO, '
       
-        '   CODUNIDADE_FRACIONADA, COMBUSTIVEL_VEICULO, COMPOR_FATURAMENT' +
-        'O, COR_VEICULO, '
+        '   CODTRIBUTACAO, CODUNIDADE, CODUNIDADE_FRACIONADA, COMBUSTIVEL' +
+        '_VEICULO, '
       
-        '   CSOSN, CST, CST_COFINS, CST_PIS, CUBAGEM, CUSTOMEDIO, DESCRI,' +
-        ' DESCRI_APRESENTACAO, '
+        '   COMPOR_FATURAMENTO, COR_VEICULO, CSOSN, CST, CST_COFINS, CST_' +
+        'PIS, CUBAGEM, '
       
-        '   ESPECIFICACAO, ESTOQMIN, ESTOQUE_APROP_LOTE, FRACIONADOR, KIL' +
-        'OMETRAGEM_VEICULO, '
+        '   CUSTOMEDIO, DESCRI, DESCRI_APRESENTACAO, ESPECIFICACAO, ESPES' +
+        'SURA, ESTOQMIN, '
       
-        '   METAFONEMA, MODELO, ANVISA, MOVIMENTA_ESTOQUE, NCM_SH, NOME_A' +
-        'MIGO, PERCENTUAL_MARCKUP, '
+        '   ESTOQUE_APROP_LOTE, FRACIONADOR, GERAR_SUBPRODUTO, KILOMETRAG' +
+        'EM_VEICULO, '
       
-        '   PERCENTUAL_MARGEM, PERCENTUAL_REDUCAO_BC, PESO_BRUTO, PESO_LI' +
-        'QUIDO, '
+        '   LARGURA, METAFONEMA, MODELO, MOVIMENTA_ESTOQUE, NCM_SH, NOME_' +
+        'AMIGO, '
       
-        '   PRECO, PRECO_PROMOCAO, PRECO_SUGERIDO, PRODUTO_IMOBILIZADO, P' +
-        'RODUTO_NOVO, '
+        '   PERCENTUAL_MARCKUP, PERCENTUAL_MARGEM, PERCENTUAL_REDUCAO_BC,' +
+        ' PESO_BRUTO, '
       
-        '   QTDE, REFERENCIA, RENAVAM_VEICULO, RESERVA, SECAO, SITUACAO_A' +
-        'TUAL_VEICULO, '
+        '   PESO_LIQUIDO, PRECO, PRECO_PROMOCAO, PRECO_SUGERIDO, PRODUTO_' +
+        'IMOBILIZADO, '
       
-        '   SITUACAO_HISTORICO_VEICULO, TABELA_IBPT, TIPO_VEICULO, ULTIMA' +
-        '_COMPRA_DATA, '
+        '   PRODUTO_NOVO, PRODUTO_PAI, QTDE, REFERENCIA, RENAVAM_VEICULO,' +
+        ' RESERVA, '
       
-        '   ULTIMA_COMPRA_FORNEC, ULTIMA_COMPRA_VALOR, UNIDADE, USUARIO, ' +
-        'VALOR_IPI, '
-      '   VENDA_FRACIONADA)'
+        '   SECAO, SITUACAO_ATUAL_VEICULO, SITUACAO_HISTORICO_VEICULO, TA' +
+        'BELA_IBPT, '
+      
+        '   TIPO_VEICULO, ULTIMA_COMPRA_DATA, ULTIMA_COMPRA_FORNEC, ULTIM' +
+        'A_COMPRA_VALOR, '
+      '   UNIDADE, USUARIO, VALOR_IPI, VENDA_FRACIONADA)'
       'values'
       
         '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
         ':ALIQUOTA_TIPO, '
       
-        '   :ANO_FABRICACAO_VEICULO, :ANO_MODELO_VEICULO, :APRESENTACAO, ' +
-        ':CADASTRO_ATIVO, '
+        '   :ALTURA, :ANO_FABRICACAO_VEICULO, :ANO_MODELO_VEICULO, :ANVIS' +
+        'A, :APRESENTACAO, '
       
-        '   :CHASSI_VEICULO, :COD, :CODBARRA_EAN, :CODCFOP, :CODEMP, :COD' +
-        'FABRICANTE, '
+        '   :CADASTRO_ATIVO, :CHASSI_VEICULO, :COD, :CODBARRA_EAN, :CODCF' +
+        'OP, :CODEMP, '
       
-        '   :CODGRUPO, :CODIGO, :CODIGO_NVE, :CODORIGEM, :CODSECAO, :CODT' +
-        'IPO, :CODTRIBUTACAO, '
+        '   :CODFABRICANTE, :CODGRUPO, :CODIGO, :CODIGO_NVE, :CODORIGEM, ' +
+        ':CODSECAO, '
       
-        '   :CODUNIDADE, :CODUNIDADE_FRACIONADA, :COMBUSTIVEL_VEICULO, :C' +
-        'OMPOR_FATURAMENTO, '
+        '   :CODTIPO, :CODTRIBUTACAO, :CODUNIDADE, :CODUNIDADE_FRACIONADA' +
+        ', :COMBUSTIVEL_VEICULO, '
       
-        '   :COR_VEICULO, :CSOSN, :CST, :CST_COFINS, :CST_PIS, :CUBAGEM, ' +
-        ':CUSTOMEDIO, '
+        '   :COMPOR_FATURAMENTO, :COR_VEICULO, :CSOSN, :CST, :CST_COFINS,' +
+        ' :CST_PIS, '
       
-        '   :DESCRI, :DESCRI_APRESENTACAO, :ESPECIFICACAO, :ESTOQMIN, :ES' +
-        'TOQUE_APROP_LOTE, '
+        '   :CUBAGEM, :CUSTOMEDIO, :DESCRI, :DESCRI_APRESENTACAO, :ESPECI' +
+        'FICACAO, '
       
-        '   :FRACIONADOR, :KILOMETRAGEM_VEICULO, :METAFONEMA, :MODELO, :A' +
-        'NVISA, :MOVIMENTA_ESTOQUE, '
+        '   :ESPESSURA, :ESTOQMIN, :ESTOQUE_APROP_LOTE, :FRACIONADOR, :GE' +
+        'RAR_SUBPRODUTO, '
+      
+        '   :KILOMETRAGEM_VEICULO, :LARGURA, :METAFONEMA, :MODELO, :MOVIM' +
+        'ENTA_ESTOQUE, '
       
         '   :NCM_SH, :NOME_AMIGO, :PERCENTUAL_MARCKUP, :PERCENTUAL_MARGEM' +
         ', :PERCENTUAL_REDUCAO_BC, '
@@ -3864,11 +3994,11 @@ inherited frmGeProduto: TfrmGeProduto
         '   :PESO_BRUTO, :PESO_LIQUIDO, :PRECO, :PRECO_PROMOCAO, :PRECO_S' +
         'UGERIDO, '
       
-        '   :PRODUTO_IMOBILIZADO, :PRODUTO_NOVO, :QTDE, :REFERENCIA, :REN' +
-        'AVAM_VEICULO, '
+        '   :PRODUTO_IMOBILIZADO, :PRODUTO_NOVO, :PRODUTO_PAI, :QTDE, :RE' +
+        'FERENCIA, '
       
-        '   :RESERVA, :SECAO, :SITUACAO_ATUAL_VEICULO, :SITUACAO_HISTORIC' +
-        'O_VEICULO, '
+        '   :RENAVAM_VEICULO, :RESERVA, :SECAO, :SITUACAO_ATUAL_VEICULO, ' +
+        ':SITUACAO_HISTORICO_VEICULO, '
       
         '   :TABELA_IBPT, :TIPO_VEICULO, :ULTIMA_COMPRA_DATA, :ULTIMA_COM' +
         'PRA_FORNEC, '
@@ -3884,7 +4014,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00D80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5345,52 +5475,15 @@ inherited frmGeProduto: TfrmGeProduto
   end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
-    Left = 288
-    Top = 480
-  end
-  object tblOrigem: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'ORP_COD'
-        DataType = ftString
-        Size = 1
-      end
-      item
-        Name = 'ORP_DESCRICAO'
-        DataType = ftString
-        Size = 50
-      end
-      item
-        Name = 'ORP_DESCRICAO_FULL'
-        Attributes = [faReadonly]
-        DataType = ftString
-        Size = 54
-      end
-      item
-        Name = 'ORP_SIGLA'
-        DataType = ftString
-        Size = 5
-      end>
-    StoreDefs = True
-    TableName = 'VW_ORIGEM_PRODUTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 576
-    Top = 448
+    Left = 280
   end
   object dtsOrigem: TDataSource
-    DataSet = tblOrigem
-    Left = 608
-    Top = 448
+    DataSet = fdQryOrigem
+    Left = 344
   end
   object dtsTributacaoNM: TDataSource
-    DataSet = qryTributacaoNM
-    Left = 672
-    Top = 416
+    DataSet = fdQryTributacaoNM
+    Left = 408
   end
   object tblAliquota: TIBTable
     Database = DMBusiness.ibdtbsBusiness
@@ -5725,43 +5818,6 @@ inherited frmGeProduto: TfrmGeProduto
       Enabled = False
     end
   end
-  object qryTributacaoNM: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      '/*'
-      'Select'
-      '    t.tpt_cod'
-      '  , t.tpt_descricao'
-      '  , t.tpt_descricao_full'
-      '  , t.tpt_sigla'
-      '  , t.crt'
-      'from VW_TIPO_TRIBUTACAO t'
-      'where t.crt = 0'
-      '*/'
-      'Select'
-      '    t.Tpt_cod'
-      '  , t.Tpt_descricao'
-      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
-      '  , t.Tpt_sigla'
-      '  , t.Crt'
-      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
-      'from TBTRIBUTACAO_TIPO t'
-      'where coalesce(t.obrigar_cest, 0) = 0'
-      'order by'
-      '    t.Crt'
-      '  , t.Tpt_cod')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 640
-    Top = 416
-  end
   object qryTributacaoSN: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -5812,8 +5868,7 @@ inherited frmGeProduto: TfrmGeProduto
       'from VW_EMPRESA e'
       'order by'
       '    e.razao')
-    Left = 256
-    Top = 480
+    Left = 248
   end
   object fdQryTipoProduto: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -5824,12 +5879,48 @@ inherited frmGeProduto: TfrmGeProduto
       '    t.codigo'
       '  , t.descricao'
       'from SYS_TIPO_PRODUTO t')
-    Left = 192
-    Top = 480
+    Left = 184
   end
   object dtsTipoProduto: TDataSource
     DataSet = fdQryTipoProduto
-    Left = 224
-    Top = 480
+    Left = 216
+  end
+  object fdQryOrigem: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_ORIGEM_PRODUTO')
+    Left = 312
+  end
+  object fdQryTributacaoNM: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      '/*'
+      'Select'
+      '    t.tpt_cod'
+      '  , t.tpt_descricao'
+      '  , t.tpt_descricao_full'
+      '  , t.tpt_sigla'
+      '  , t.crt'
+      'from VW_TIPO_TRIBUTACAO t'
+      'where t.crt = 0'
+      '*/'
+      'Select'
+      '    t.Tpt_cod'
+      '  , t.Tpt_descricao'
+      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
+      '  , t.Tpt_sigla'
+      '  , t.Crt'
+      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
+      'from TBTRIBUTACAO_TIPO t'
+      'where coalesce(t.obrigar_cest, 0) = 0'
+      'order by'
+      '    t.Crt'
+      '  , t.Tpt_cod')
+    Left = 376
   end
 end

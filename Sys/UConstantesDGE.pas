@@ -17,7 +17,8 @@ Uses
     TPermissaoLista         = Array [0..45] of String;
 
 const
-  VERSION_NUMBER = '1.0.8.0';
+  VERSION_NUMBER = '1.0.17.0';
+
   MANIFESTO_AGIL =
      'Estamos descobrindo maneiras melhores de desenvolver software, '
    + 'fazendo-o nós mesmos e ajudando outros a fazerem o mesmo. '
