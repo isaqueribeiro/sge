@@ -1464,15 +1464,20 @@ begin
   lblTipoProduto.Visible := False;
   dbTipoProduto.Visible  := False;
 
-  // Reposicionar e redimencionar campo "Grupo"
-  lblGrupo.Left := lblTipoProduto.Left;
-  dbGrupo.Left  := dbTipoProduto.Left;
-  dbGrupo.Width := 377;
+  // Redefinir o tamanho do campo "Nome Amigo"
+  lblNomeAmigo.Left := lblCodigo.Left;
+  dbNomeAmigo.Left  := dbCodigo.Left;
+  dbNomeAmigo.Width := 706;
 
-  // Reposicionar e redimencionar campo "Seção"
-  lblSecao.Left := dbNomeAmigo.Left;
-  dbSecao.Left  := dbNomeAmigo.Left;
-  dbSecao.Width := 322;
+//  // Reposicionar e redimencionar campo "Grupo"
+//  lblGrupo.Left := lblTipoProduto.Left;
+//  dbGrupo.Left  := dbTipoProduto.Left;
+//  dbGrupo.Width := 377;
+//
+//  // Reposicionar e redimencionar campo "Seção"
+//  lblSecao.Left := dbNomeAmigo.Left;
+//  dbSecao.Left  := dbNomeAmigo.Left;
+//  dbSecao.Width := 322;
 end;
 
 procedure TfrmGeProduto.FormShow(Sender: TObject);
@@ -1729,8 +1734,8 @@ begin
   dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
 
-  lblCodigoAnvisa.Visible := (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
-  dbCodigoAnvisa.Visible  := (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
+  lblCodigoAnvisa.Visible := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
+  dbCodigoAnvisa.Visible  := lblCodigoAnvisa.Visible;
   lblModelo.Visible := not lblCodigoAnvisa.Visible;
   dbModelo.Visible  := not dbCodigoAnvisa.Visible;
 end;

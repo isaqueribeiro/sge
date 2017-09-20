@@ -4532,3 +4532,1277 @@ COMMENT ON COLUMN TBESTOQUE_ALMOX.ESPESSURA IS
 COMMENT ON COLUMN TBESTOQUE_ALMOX.CUBAGEM IS
 'Cubagem/Volume (m3)';
 
+
+
+
+/*------ SYSDBA 20/09/2017 13:46:47 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_estoque_almox_volume for tbestoque_almox
+active before insert or update position 1
+AS
+begin
+  Select first 1
+      coalesce(nullif(new.largura     , 0.0), p.largura)
+    , coalesce(nullif(new.altura      , 0.0), p.altura)
+    , coalesce(nullif(new.espessura   , 0.0), p.espessura)
+    , coalesce(nullif(new.cubagem     , 0.0), p.cubagem)
+    , coalesce(nullif(new.peso_bruto  , 0.0), p.peso_bruto)
+    , coalesce(nullif(new.peso_liquido, 0.0), p.peso_liquido)
+  from TBPRODUTO p
+  where p.cod = new.produto
+  Into
+      new.largura
+    , new.altura
+    , new.espessura
+    , new.cubagem
+    , new.peso_bruto
+    , new.peso_liquido;
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_ESTOQUE_ALMOX_VOLUME IS 'Trigger Definir Volume do Item da Entrada.
+    
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   20/09/2017
+
+Trigger responsavel por recuperar os dados de pesagem e dimensoes do cadastro do
+material/produto para a entrada.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    20/09/2017 - IMR :
+        * COnstrucao dos objetos relacionados e documentacao.';
+
+
+
+
+/*------ SYSDBA 20/09/2017 13:52:02 --------*/
+
+ALTER TABLE TBCOMPRASITENS
+    ADD PESO_BRUTO DMN_MONEY_DESCONTO,
+    ADD PESO_LIQUIDO DMN_MONEY_DESCONTO,
+    ADD LARGURA DMN_MONEY_DESCONTO_4,
+    ADD ALTURA DMN_MONEY_DESCONTO_4,
+    ADD ESPESSURA DMN_MONEY_DESCONTO_4,
+    ADD CUBAGEM DMN_MONEY_DESCONTO_4;
+
+COMMENT ON COLUMN TBCOMPRASITENS.PESO_BRUTO IS
+'Peso bruto.';
+
+COMMENT ON COLUMN TBCOMPRASITENS.PESO_LIQUIDO IS
+'Peso liquido.';
+
+COMMENT ON COLUMN TBCOMPRASITENS.LARGURA IS
+'Dimensao - Largura (m).';
+
+COMMENT ON COLUMN TBCOMPRASITENS.ALTURA IS
+'Dimensao - Altura (m).';
+
+COMMENT ON COLUMN TBCOMPRASITENS.ESPESSURA IS
+'Dimensao - Espessura (m).';
+
+COMMENT ON COLUMN TBCOMPRASITENS.CUBAGEM IS
+'Cubagem/Volume (m3).';
+
+alter table TBCOMPRASITENS
+alter ANO position 1;
+
+alter table TBCOMPRASITENS
+alter CODCONTROL position 2;
+
+alter table TBCOMPRASITENS
+alter CODEMP position 3;
+
+alter table TBCOMPRASITENS
+alter SEQ position 4;
+
+alter table TBCOMPRASITENS
+alter CODFORN position 5;
+
+alter table TBCOMPRASITENS
+alter CODPROD position 6;
+
+alter table TBCOMPRASITENS
+alter QTDE position 7;
+
+alter table TBCOMPRASITENS
+alter PESO_BRUTO position 8;
+
+alter table TBCOMPRASITENS
+alter PESO_LIQUIDO position 9;
+
+alter table TBCOMPRASITENS
+alter LARGURA position 10;
+
+alter table TBCOMPRASITENS
+alter ALTURA position 11;
+
+alter table TBCOMPRASITENS
+alter ESPESSURA position 12;
+
+alter table TBCOMPRASITENS
+alter CUBAGEM position 13;
+
+alter table TBCOMPRASITENS
+alter PRECOUNIT position 14;
+
+alter table TBCOMPRASITENS
+alter CUSTOMEDIO position 15;
+
+alter table TBCOMPRASITENS
+alter DTENT position 16;
+
+alter table TBCOMPRASITENS
+alter NF position 17;
+
+alter table TBCOMPRASITENS
+alter QTDEANTES position 18;
+
+alter table TBCOMPRASITENS
+alter QTDEFINAL position 19;
+
+alter table TBCOMPRASITENS
+alter PERC_PARTICIPACAO position 20;
+
+alter table TBCOMPRASITENS
+alter VALOR_FRETE position 21;
+
+alter table TBCOMPRASITENS
+alter VALOR_DESCONTO position 22;
+
+alter table TBCOMPRASITENS
+alter VALOR_OUTROS position 23;
+
+alter table TBCOMPRASITENS
+alter VALOR_IPI position 24;
+
+alter table TBCOMPRASITENS
+alter UNID_COD position 25;
+
+alter table TBCOMPRASITENS
+alter NCM_SH position 26;
+
+alter table TBCOMPRASITENS
+alter CST position 27;
+
+alter table TBCOMPRASITENS
+alter CSOSN position 28;
+
+alter table TBCOMPRASITENS
+alter CFOP position 29;
+
+alter table TBCOMPRASITENS
+alter ALIQUOTA position 30;
+
+alter table TBCOMPRASITENS
+alter ALIQUOTA_CSOSN position 31;
+
+alter table TBCOMPRASITENS
+alter ALIQUOTA_PIS position 32;
+
+alter table TBCOMPRASITENS
+alter ALIQUOTA_COFINS position 33;
+
+alter table TBCOMPRASITENS
+alter PERCENTUAL_REDUCAO_BC position 34;
+
+alter table TBCOMPRASITENS
+alter TOTAL_BRUTO position 35;
+
+alter table TBCOMPRASITENS
+alter TOTAL_LIQUIDO position 36;
+
+alter table TBCOMPRASITENS
+alter LOTE_ID position 37;
+
+alter table TBCOMPRASITENS
+alter LOTE_DESCRICAO position 38;
+
+alter table TBCOMPRASITENS
+alter LOTE_DATA_FAB position 39;
+
+alter table TBCOMPRASITENS
+alter LOTE_DATA_VAL position 40;
+
+
+
+
+/*------ SYSDBA 20/09/2017 14:20:22 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_comprasitens_volume for tbcomprasitens
+active before insert or update position 0
+AS
+begin
+  Select first 1
+      coalesce(nullif(new.largura     , 0.0), p.largura)
+    , coalesce(nullif(new.altura      , 0.0), p.altura)
+    , coalesce(nullif(new.espessura   , 0.0), p.espessura)
+    , coalesce(nullif(new.cubagem     , 0.0), p.cubagem)
+    , coalesce(nullif(new.peso_bruto  , 0.0), p.peso_bruto)
+    , coalesce(nullif(new.peso_liquido, 0.0), p.peso_liquido)
+  from TBPRODUTO p
+  where p.cod = new.codprod
+  Into
+      new.largura
+    , new.altura
+    , new.espessura
+    , new.cubagem
+    , new.peso_bruto
+    , new.peso_liquido;
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_COMPRASITENS_VOLUME IS 'Trigger Definir Volume do Item da Compra.
+    
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   20/09/2017
+
+Trigger responsavel por recuperar os dados de pesagem e dimensoes do cadastro do
+material/produto para a compra.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    20/09/2017 - IMR :
+        * COnstrucao dos objetos relacionados e documentacao.';
+
+
+
+
+/*------ SYSDBA 20/09/2017 14:20:45 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_estoque_almox_volume for tbestoque_almox
+active before insert or update position 1
+AS
+begin
+  Select first 1
+      coalesce(nullif(new.largura     , 0.0), p.largura)
+    , coalesce(nullif(new.altura      , 0.0), p.altura)
+    , coalesce(nullif(new.espessura   , 0.0), p.espessura)
+    , coalesce(nullif(new.cubagem     , 0.0), p.cubagem)
+    , coalesce(nullif(new.peso_bruto  , 0.0), p.peso_bruto)
+    , coalesce(nullif(new.peso_liquido, 0.0), p.peso_liquido)
+  from TBPRODUTO p
+  where p.cod = new.produto
+  Into
+      new.largura
+    , new.altura
+    , new.espessura
+    , new.cubagem
+    , new.peso_bruto
+    , new.peso_liquido;
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_ESTOQUE_ALMOX_VOLUME IS 'Trigger Definir Volume do Item da Entrada.
+    
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   20/09/2017
+
+Trigger responsavel por recuperar os dados de pesagem e dimensoes do cadastro do
+material/produto para a entrada no estoque do lote.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    20/09/2017 - IMR :
+        * COnstrucao dos objetos relacionados e documentacao.';
+
+
+
+
+/*------ SYSDBA 20/09/2017 15:17:59 --------*/
+
+CREATE OR ALTER VIEW VW_PRODUTO_DEMANDA_ANUAL(
+    EMPRESA_CNPJ,
+    EMPRESA_RAZAO,
+    TIPO,
+    TIPO_DESC,
+    COD,
+    COD_X,
+    DESCRI,
+    APRESENTACAO,
+    DESCRI_APRESENTACAO,
+    MODELO,
+    REFERENCIA,
+    GRUPO_COD,
+    GRUPO_DESC,
+    SECAO_COD,
+    SECAO_DESC,
+    FABRICANTE_COD,
+    FABRICANTE_NOME,
+    ESPECIFICACAO,
+    UND_COMPRA,
+    VALOR_CUSTOMEDIO,
+    VALOR_VENDA,
+    PERCENTUAL_MARCKUP,
+    PERCENTUAL_MARGEM,
+    COMPOR_FATURAMENTO,
+    PRODUTO_NOVO,
+    MOVIMENTA_ESTOQUE,
+    ESTOQUE_MINIMO,
+    ESTOQUE,
+    ESTOQUE_ALMOX,
+    peso_kg,
+    total_kg_almox,
+    ANO,
+    CJAN,
+    VJAN,
+    AJAN,
+    SJAN,
+    CFEV,
+    VFEV,
+    AFEV,
+    SFEV,
+    CMAR,
+    VMAR,
+    AMAR,
+    SMAR,
+    CABR,
+    VABR,
+    AABR,
+    SABR,
+    CMAI,
+    VMAI,
+    AMAI,
+    SMAI,
+    CJUN,
+    VJUN,
+    AJUN,
+    SJUN,
+    CJUL,
+    VJUL,
+    AJUL,
+    SJUL,
+    CAGO,
+    VAGO,
+    AAGO,
+    SAGO,
+    CSET,
+    VSET,
+    ASET,
+    SSET,
+    COUT,
+    VOUT,
+    AOUT,
+    SOUT,
+    CNOV,
+    VNOV,
+    ANOV,
+    SNOV,
+    CDEZ,
+    VDEZ,
+    ADEZ,
+    SDEZ)
+AS
+Select
+    p.codemp as empresa_cnpj
+  , e.rzsoc  as empresa_razao
+  , case when p.aliquota_tipo = 0 then 'P' else 'S' end as tipo
+  , case when p.aliquota_tipo = 0 then 'Produto(s)' else 'Serviço(s)' end as tipo_desc
+  , p.cod
+  , coalesce(pc.item, pv.item, pa.item) as cod_x
+  , p.descri
+  , p.apresentacao
+  , p.descri_apresentacao
+  , p.modelo
+  , p.referencia
+  , coalesce(p.codgrupo, 0) as grupo_cod
+  , coalesce(g.descri, '* Indefinido')   as grupo_desc
+  , coalesce(p.codsecao, 0)                     as secao_cod
+  , coalesce(s.scp_descricao, '* Indefinida')   as secao_desc
+  , coalesce(p.codfabricante, 0)     as fabricante_cod
+  , coalesce(f.nome, '* Indefinido') as fabricante_nome
+  , p.especificacao
+  , substring(coalesce(nullif(trim(u.unp_sigla), ''), trim(u.unp_descricao)) from 1 for 3) as und_compra
+  , p.customedio as valor_customedio
+  , p.preco      as valor_venda
+
+  , p.percentual_marckup
+  , p.percentual_margem
+  , p.compor_faturamento
+  , p.produto_novo
+  , p.movimenta_estoque
+
+  , p.estoqmin as estoque_minimo
+  , p.qtde     as estoque
+  , coalesce(pe.estoque_almox, 0)  as estoque_almox
+  , p.qtde * p.peso_liquido as peso_kg
+  , coalesce(pe.total_kg_almox, 0) as total_kg_almox
+
+  , coalesce(pc.ano, pv.ano, pa.ano) as ano
+
+  , coalesce(pc.jan, 0.0) as cjan
+  , coalesce(pv.jan, 0.0) as vjan
+  , coalesce(pa.jan, 0.0) as ajan
+  , coalesce(pc.jan, 0.0) - coalesce(pv.jan, 0.0) + coalesce(pa.jan, 0.0) as sjan
+
+  , coalesce(pc.fev, 0.0) as cfev
+  , coalesce(pv.fev, 0.0) as vfev
+  , coalesce(pa.fev, 0.0) as afev
+  , coalesce(pc.fev, 0.0) - coalesce(pv.fev, 0.0) + coalesce(pa.fev, 0.0) as sfev
+
+  , coalesce(pc.mar, 0.0) as cmar
+  , coalesce(pv.mar, 0.0) as vmar
+  , coalesce(pa.mar, 0.0) as amar
+  , coalesce(pc.mar, 0.0) - coalesce(pv.mar, 0.0) + coalesce(pa.mar, 0.0) as smar
+
+  , coalesce(pc.abr, 0.0) as cabr
+  , coalesce(pv.abr, 0.0) as vabr
+  , coalesce(pa.abr, 0.0) as aabr
+  , coalesce(pc.abr, 0.0) - coalesce(pv.abr, 0.0) + coalesce(pa.abr, 0.0) as sabr
+
+  , coalesce(pc.mai, 0.0) as cmai
+  , coalesce(pv.mai, 0.0) as vmai
+  , coalesce(pa.mai, 0.0) as amai
+  , coalesce(pc.mai, 0.0) - coalesce(pv.mai, 0.0) + coalesce(pa.mai, 0.0) as smai
+
+  , coalesce(pc.jun, 0.0) as cjun
+  , coalesce(pv.jun, 0.0) as vjun
+  , coalesce(pa.jun, 0.0) as ajun
+  , coalesce(pc.jun, 0.0) - coalesce(pv.jun, 0.0) + coalesce(pa.jun, 0.0) as sjun
+
+  , coalesce(pc.jul, 0.0) as cjul
+  , coalesce(pv.jul, 0.0) as vjul
+  , coalesce(pa.jul, 0.0) as ajul
+  , coalesce(pc.jul, 0.0) - coalesce(pv.jul, 0.0) + coalesce(pa.jul, 0.0) as sjul
+
+  , coalesce(pc.ago, 0.0) as cago
+  , coalesce(pv.ago, 0.0) as vago
+  , coalesce(pa.ago, 0.0) as aago
+  , coalesce(pc.ago, 0.0) - coalesce(pv.ago, 0.0) + coalesce(pa.ago, 0.0) as sago
+
+  , coalesce(pc.se, 0.0)  as cset
+  , coalesce(pv.se, 0.0)  as vset
+  , coalesce(pa.se, 0.0)  as aset
+  , coalesce(pc.se, 0.0) - coalesce(pv.se, 0.0) + coalesce(pa.se, 0.0) as sset
+
+  , coalesce(pc.out, 0.0) as cout
+  , coalesce(pv.out, 0.0) as vout
+  , coalesce(pa.out, 0.0) as aout
+  , coalesce(pc.out, 0.0) - coalesce(pv.out, 0.0) + coalesce(pa.out, 0.0) as sout
+
+  , coalesce(pc.nov, 0.0) as cnov
+  , coalesce(pv.nov, 0.0) as vnov
+  , coalesce(pa.nov, 0.0) as anov
+  , coalesce(pc.nov, 0.0) - coalesce(pv.nov, 0.0) + coalesce(pa.nov, 0.0) as snov
+
+  , coalesce(pc.dez, 0.0) as cdez
+  , coalesce(pv.dez, 0.0) as vdez
+  , coalesce(pa.dez, 0.0) as adez
+  , coalesce(pc.dez, 0.0) - coalesce(pv.dez, 0.0) + coalesce(pa.dez, 0.0) as sdez
+from TBEMPRESA e
+
+  /* Vendas */
+  left join (
+
+    select
+        vi.codprod as item
+      , vi.codemp as empresa
+      , extract(year from vi.dtvenda) as ano
+      , sum(case when extract(month from vi.dtvenda) = 1 then vi.qtde else 0 end) as JAN,
+              sum(case when extract(month from vi.dtvenda) = 2 then vi.qtde else 0 end) as FEV,
+              sum(case when extract(month from vi.dtvenda) = 3 then vi.qtde else 0 end) as MAR,
+              sum(case when extract(month from vi.dtvenda) = 4 then vi.qtde else 0 end) as ABR,
+              sum(case when extract(month from vi.dtvenda) = 5 then vi.qtde else 0 end) as MAI,
+              sum(case when extract(month from vi.dtvenda) = 6 then vi.qtde else 0 end) as JUN,
+              sum(case when extract(month from vi.dtvenda) = 7 then vi.qtde else 0 end) as JUL,
+              sum(case when extract(month from vi.dtvenda) = 8 then vi.qtde else 0 end) as AGO,
+              sum(case when extract(month from vi.dtvenda) = 9 then vi.qtde else 0 end) as SE,
+              sum(case when extract(month from vi.dtvenda) = 10 then vi.qtde else 0 end) as OUT,
+              sum(case when extract(month from vi.dtvenda) = 11 then vi.qtde else 0 end) as NOV,
+              sum(case when extract(month from vi.dtvenda) = 12 then vi.qtde else 0 end) as DEZ
+    from TBVENDAS v
+      inner join TVENDASITENS vi on (v.ano = vi.ano and v.codcontrol = vi.codcontrol and v.codemp = vi.codemp)
+    where v.status in (3, 4)
+    group by
+        vi.codprod
+      , vi.codemp
+      , extract(year from vi.dtvenda)
+
+  ) PV on (pv.empresa = e.cnpj)
+
+  /* Compras */
+  left join (
+
+    select
+        ci.codprod as item
+      , ci.codemp as empresa
+      , extract(year from ci.dtent) as ano
+      , sum(case when extract(month from ci.dtent) = 1 then ci.qtde else 0 end) as JAN
+      , sum(case when extract(month from ci.dtent) = 2 then ci.qtde else 0 end) as FEV
+      , sum(case when extract(month from ci.dtent) = 3 then ci.qtde else 0 end) as MAR
+      , sum(case when extract(month from ci.dtent) = 4 then ci.qtde else 0 end) as ABR
+      , sum(case when extract(month from ci.dtent) = 5 then ci.qtde else 0 end) as MAI
+      , sum(case when extract(month from ci.dtent) = 6 then ci.qtde else 0 end) as JUN
+      , sum(case when extract(month from ci.dtent) = 7 then ci.qtde else 0 end) as JUL
+      , sum(case when extract(month from ci.dtent) = 8 then ci.qtde else 0 end) as AGO
+      , sum(case when extract(month from ci.dtent) = 9 then ci.qtde else 0 end) as SE
+      , sum(case when extract(month from ci.dtent) = 10 then ci.qtde else 0 end) as OUT
+      , sum(case when extract(month from ci.dtent) = 11 then ci.qtde else 0 end) as NOV
+      , sum(case when extract(month from ci.dtent) = 12 then ci.qtde else 0 end) as DEZ
+    from TBCOMPRAS c
+      inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+    where c.status in (2,4)
+    group by
+        ci.codprod
+      , ci.codemp
+      , extract(year from ci.dtent)
+
+  ) PC on (pc.empresa = e.cnpj and pc.item = pv.item and pc.ano = pv.ano)
+
+  /* Estoque Almoxarifado */
+  left join (
+
+    Select
+        e.produto as item
+      , e.empresa
+      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as estoque_almox
+      , sum( (e.qtde / coalesce(nullif(e.fracionador, 0), 1)) * e.peso_liquido ) as total_kg_almox
+      , sum( (e.qtde / coalesce(nullif(e.fracionador, 0), 1)) * e.cubagem )      as total_volume_almox
+    from TBESTOQUE_ALMOX e
+      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo and c.codcliente is null)
+    where e.qtde > 0
+    group by
+        e.produto
+      , e.empresa
+
+  ) PE on (pe.empresa = e.cnpj and pe.item = pc.item)
+
+  /* Ajustes */
+  left join (
+
+    select
+        a.codprod as item
+      , a.codempresa as empresa
+      , extract(year from a.dtajust) as ano
+      , sum(case when extract(month from a.dtajust) = 1 then a.qtdeatual else 0 end) as JAN,
+        sum(case when extract(month from a.dtajust) = 2 then a.qtdeatual else 0 end) as FEV,
+        sum(case when extract(month from a.dtajust) = 3 then a.qtdeatual else 0 end) as MAR,
+        sum(case when extract(month from a.dtajust) = 4 then a.qtdeatual else 0 end) as ABR,
+        sum(case when extract(month from a.dtajust) = 5 then a.qtdeatual else 0 end) as MAI,
+        sum(case when extract(month from a.dtajust) = 6 then a.qtdeatual else 0 end) as JUN,
+        sum(case when extract(month from a.dtajust) = 7 then a.qtdeatual else 0 end) as JUL,
+        sum(case when extract(month from a.dtajust) = 8 then a.qtdeatual else 0 end) as AGO,
+        sum(case when extract(month from a.dtajust) = 9 then a.qtdeatual else 0 end) as SE,
+        sum(case when extract(month from a.dtajust) = 10 then a.qtdeatual else 0 end) as OUT,
+        sum(case when extract(month from a.dtajust) = 11 then a.qtdeatual else 0 end) as NOV,
+        sum(case when extract(month from a.dtajust) = 12 then a.qtdeatual else 0 end) as DEZ
+    from TBAJUSTESTOQ a
+    group by
+        a.codprod
+      , a.codempresa
+      , extract(year from a.dtajust)
+
+  ) PA on (pa.empresa = e.cnpj and pa.item = pv.item and pa.ano = pv.ano)
+
+  inner join TBPRODUTO p on (p.cod = coalesce(pv.item, pc.item, pa.item))
+
+  left join TBGRUPOPROD g on (g.cod = p.codgrupo)
+  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)
+  left join TBFABRICANTE f on (f.cod = p.codfabricante)
+  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)
+
+order by
+    e.rzsoc
+  , p.aliquota_tipo
+  , coalesce(g.descri, '* Indefinido')
+  , coalesce(f.nome, '* Indefinido')
+  , p.descri_apresentacao
+  , coalesce(pc.ano, pv.ano, pa.ano)
+;
+
+
+
+
+/*------ SYSDBA 20/09/2017 15:19:40 --------*/
+
+CREATE OR ALTER VIEW VW_PRODUTO_DEMANDA_ANUAL(
+    EMPRESA_CNPJ,
+    EMPRESA_RAZAO,
+    TIPO,
+    TIPO_DESC,
+    COD,
+    COD_X,
+    DESCRI,
+    APRESENTACAO,
+    DESCRI_APRESENTACAO,
+    MODELO,
+    REFERENCIA,
+    GRUPO_COD,
+    GRUPO_DESC,
+    SECAO_COD,
+    SECAO_DESC,
+    FABRICANTE_COD,
+    FABRICANTE_NOME,
+    ESPECIFICACAO,
+    UND_COMPRA,
+    VALOR_CUSTOMEDIO,
+    VALOR_VENDA,
+    PERCENTUAL_MARCKUP,
+    PERCENTUAL_MARGEM,
+    COMPOR_FATURAMENTO,
+    PRODUTO_NOVO,
+    MOVIMENTA_ESTOQUE,
+    ESTOQUE_MINIMO,
+    ESTOQUE,
+    ESTOQUE_ALMOX,
+    peso_kg,
+    total_kg_almox,
+    volume,
+    total_volume_almox,
+    ANO,
+    CJAN,
+    VJAN,
+    AJAN,
+    SJAN,
+    CFEV,
+    VFEV,
+    AFEV,
+    SFEV,
+    CMAR,
+    VMAR,
+    AMAR,
+    SMAR,
+    CABR,
+    VABR,
+    AABR,
+    SABR,
+    CMAI,
+    VMAI,
+    AMAI,
+    SMAI,
+    CJUN,
+    VJUN,
+    AJUN,
+    SJUN,
+    CJUL,
+    VJUL,
+    AJUL,
+    SJUL,
+    CAGO,
+    VAGO,
+    AAGO,
+    SAGO,
+    CSET,
+    VSET,
+    ASET,
+    SSET,
+    COUT,
+    VOUT,
+    AOUT,
+    SOUT,
+    CNOV,
+    VNOV,
+    ANOV,
+    SNOV,
+    CDEZ,
+    VDEZ,
+    ADEZ,
+    SDEZ)
+AS
+Select
+    p.codemp as empresa_cnpj
+  , e.rzsoc  as empresa_razao
+  , case when p.aliquota_tipo = 0 then 'P' else 'S' end as tipo
+  , case when p.aliquota_tipo = 0 then 'Produto(s)' else 'Serviço(s)' end as tipo_desc
+  , p.cod
+  , coalesce(pc.item, pv.item, pa.item) as cod_x
+  , p.descri
+  , p.apresentacao
+  , p.descri_apresentacao
+  , p.modelo
+  , p.referencia
+  , coalesce(p.codgrupo, 0) as grupo_cod
+  , coalesce(g.descri, '* Indefinido')   as grupo_desc
+  , coalesce(p.codsecao, 0)                     as secao_cod
+  , coalesce(s.scp_descricao, '* Indefinida')   as secao_desc
+  , coalesce(p.codfabricante, 0)     as fabricante_cod
+  , coalesce(f.nome, '* Indefinido') as fabricante_nome
+  , p.especificacao
+  , substring(coalesce(nullif(trim(u.unp_sigla), ''), trim(u.unp_descricao)) from 1 for 3) as und_compra
+  , p.customedio as valor_customedio
+  , p.preco      as valor_venda
+
+  , p.percentual_marckup
+  , p.percentual_margem
+  , p.compor_faturamento
+  , p.produto_novo
+  , p.movimenta_estoque
+
+  , p.estoqmin as estoque_minimo
+  , p.qtde     as estoque
+  , coalesce(pe.estoque_almox, 0)  as estoque_almox
+  , p.qtde * p.peso_liquido as peso_kg
+  , coalesce(pe.total_kg_almox, 0) as total_kg_almox
+  , p.qtde * p.cubagem as volume
+  , coalesce(pe.total_volume_almox, 0) as total_volume_almox
+
+  , coalesce(pc.ano, pv.ano, pa.ano) as ano
+
+  , coalesce(pc.jan, 0.0) as cjan
+  , coalesce(pv.jan, 0.0) as vjan
+  , coalesce(pa.jan, 0.0) as ajan
+  , coalesce(pc.jan, 0.0) - coalesce(pv.jan, 0.0) + coalesce(pa.jan, 0.0) as sjan
+
+  , coalesce(pc.fev, 0.0) as cfev
+  , coalesce(pv.fev, 0.0) as vfev
+  , coalesce(pa.fev, 0.0) as afev
+  , coalesce(pc.fev, 0.0) - coalesce(pv.fev, 0.0) + coalesce(pa.fev, 0.0) as sfev
+
+  , coalesce(pc.mar, 0.0) as cmar
+  , coalesce(pv.mar, 0.0) as vmar
+  , coalesce(pa.mar, 0.0) as amar
+  , coalesce(pc.mar, 0.0) - coalesce(pv.mar, 0.0) + coalesce(pa.mar, 0.0) as smar
+
+  , coalesce(pc.abr, 0.0) as cabr
+  , coalesce(pv.abr, 0.0) as vabr
+  , coalesce(pa.abr, 0.0) as aabr
+  , coalesce(pc.abr, 0.0) - coalesce(pv.abr, 0.0) + coalesce(pa.abr, 0.0) as sabr
+
+  , coalesce(pc.mai, 0.0) as cmai
+  , coalesce(pv.mai, 0.0) as vmai
+  , coalesce(pa.mai, 0.0) as amai
+  , coalesce(pc.mai, 0.0) - coalesce(pv.mai, 0.0) + coalesce(pa.mai, 0.0) as smai
+
+  , coalesce(pc.jun, 0.0) as cjun
+  , coalesce(pv.jun, 0.0) as vjun
+  , coalesce(pa.jun, 0.0) as ajun
+  , coalesce(pc.jun, 0.0) - coalesce(pv.jun, 0.0) + coalesce(pa.jun, 0.0) as sjun
+
+  , coalesce(pc.jul, 0.0) as cjul
+  , coalesce(pv.jul, 0.0) as vjul
+  , coalesce(pa.jul, 0.0) as ajul
+  , coalesce(pc.jul, 0.0) - coalesce(pv.jul, 0.0) + coalesce(pa.jul, 0.0) as sjul
+
+  , coalesce(pc.ago, 0.0) as cago
+  , coalesce(pv.ago, 0.0) as vago
+  , coalesce(pa.ago, 0.0) as aago
+  , coalesce(pc.ago, 0.0) - coalesce(pv.ago, 0.0) + coalesce(pa.ago, 0.0) as sago
+
+  , coalesce(pc.se, 0.0)  as cset
+  , coalesce(pv.se, 0.0)  as vset
+  , coalesce(pa.se, 0.0)  as aset
+  , coalesce(pc.se, 0.0) - coalesce(pv.se, 0.0) + coalesce(pa.se, 0.0) as sset
+
+  , coalesce(pc.out, 0.0) as cout
+  , coalesce(pv.out, 0.0) as vout
+  , coalesce(pa.out, 0.0) as aout
+  , coalesce(pc.out, 0.0) - coalesce(pv.out, 0.0) + coalesce(pa.out, 0.0) as sout
+
+  , coalesce(pc.nov, 0.0) as cnov
+  , coalesce(pv.nov, 0.0) as vnov
+  , coalesce(pa.nov, 0.0) as anov
+  , coalesce(pc.nov, 0.0) - coalesce(pv.nov, 0.0) + coalesce(pa.nov, 0.0) as snov
+
+  , coalesce(pc.dez, 0.0) as cdez
+  , coalesce(pv.dez, 0.0) as vdez
+  , coalesce(pa.dez, 0.0) as adez
+  , coalesce(pc.dez, 0.0) - coalesce(pv.dez, 0.0) + coalesce(pa.dez, 0.0) as sdez
+from TBEMPRESA e
+
+  /* Vendas */
+  left join (
+
+    select
+        vi.codprod as item
+      , vi.codemp as empresa
+      , extract(year from vi.dtvenda) as ano
+      , sum(case when extract(month from vi.dtvenda) = 1 then vi.qtde else 0 end) as JAN,
+              sum(case when extract(month from vi.dtvenda) = 2 then vi.qtde else 0 end) as FEV,
+              sum(case when extract(month from vi.dtvenda) = 3 then vi.qtde else 0 end) as MAR,
+              sum(case when extract(month from vi.dtvenda) = 4 then vi.qtde else 0 end) as ABR,
+              sum(case when extract(month from vi.dtvenda) = 5 then vi.qtde else 0 end) as MAI,
+              sum(case when extract(month from vi.dtvenda) = 6 then vi.qtde else 0 end) as JUN,
+              sum(case when extract(month from vi.dtvenda) = 7 then vi.qtde else 0 end) as JUL,
+              sum(case when extract(month from vi.dtvenda) = 8 then vi.qtde else 0 end) as AGO,
+              sum(case when extract(month from vi.dtvenda) = 9 then vi.qtde else 0 end) as SE,
+              sum(case when extract(month from vi.dtvenda) = 10 then vi.qtde else 0 end) as OUT,
+              sum(case when extract(month from vi.dtvenda) = 11 then vi.qtde else 0 end) as NOV,
+              sum(case when extract(month from vi.dtvenda) = 12 then vi.qtde else 0 end) as DEZ
+    from TBVENDAS v
+      inner join TVENDASITENS vi on (v.ano = vi.ano and v.codcontrol = vi.codcontrol and v.codemp = vi.codemp)
+    where v.status in (3, 4)
+    group by
+        vi.codprod
+      , vi.codemp
+      , extract(year from vi.dtvenda)
+
+  ) PV on (pv.empresa = e.cnpj)
+
+  /* Compras */
+  left join (
+
+    select
+        ci.codprod as item
+      , ci.codemp as empresa
+      , extract(year from ci.dtent) as ano
+      , sum(case when extract(month from ci.dtent) = 1 then ci.qtde else 0 end) as JAN
+      , sum(case when extract(month from ci.dtent) = 2 then ci.qtde else 0 end) as FEV
+      , sum(case when extract(month from ci.dtent) = 3 then ci.qtde else 0 end) as MAR
+      , sum(case when extract(month from ci.dtent) = 4 then ci.qtde else 0 end) as ABR
+      , sum(case when extract(month from ci.dtent) = 5 then ci.qtde else 0 end) as MAI
+      , sum(case when extract(month from ci.dtent) = 6 then ci.qtde else 0 end) as JUN
+      , sum(case when extract(month from ci.dtent) = 7 then ci.qtde else 0 end) as JUL
+      , sum(case when extract(month from ci.dtent) = 8 then ci.qtde else 0 end) as AGO
+      , sum(case when extract(month from ci.dtent) = 9 then ci.qtde else 0 end) as SE
+      , sum(case when extract(month from ci.dtent) = 10 then ci.qtde else 0 end) as OUT
+      , sum(case when extract(month from ci.dtent) = 11 then ci.qtde else 0 end) as NOV
+      , sum(case when extract(month from ci.dtent) = 12 then ci.qtde else 0 end) as DEZ
+    from TBCOMPRAS c
+      inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+    where c.status in (2,4)
+    group by
+        ci.codprod
+      , ci.codemp
+      , extract(year from ci.dtent)
+
+  ) PC on (pc.empresa = e.cnpj and pc.item = pv.item and pc.ano = pv.ano)
+
+  /* Estoque Almoxarifado */
+  left join (
+
+    Select
+        e.produto as item
+      , e.empresa
+      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as estoque_almox
+      , sum( (e.qtde / coalesce(nullif(e.fracionador, 0), 1)) * e.peso_liquido ) as total_kg_almox
+      , sum( (e.qtde / coalesce(nullif(e.fracionador, 0), 1)) * e.cubagem )      as total_volume_almox
+    from TBESTOQUE_ALMOX e
+      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo and c.codcliente is null)
+    where e.qtde > 0
+    group by
+        e.produto
+      , e.empresa
+
+  ) PE on (pe.empresa = e.cnpj and pe.item = pc.item)
+
+  /* Ajustes */
+  left join (
+
+    select
+        a.codprod as item
+      , a.codempresa as empresa
+      , extract(year from a.dtajust) as ano
+      , sum(case when extract(month from a.dtajust) = 1 then a.qtdeatual else 0 end) as JAN,
+        sum(case when extract(month from a.dtajust) = 2 then a.qtdeatual else 0 end) as FEV,
+        sum(case when extract(month from a.dtajust) = 3 then a.qtdeatual else 0 end) as MAR,
+        sum(case when extract(month from a.dtajust) = 4 then a.qtdeatual else 0 end) as ABR,
+        sum(case when extract(month from a.dtajust) = 5 then a.qtdeatual else 0 end) as MAI,
+        sum(case when extract(month from a.dtajust) = 6 then a.qtdeatual else 0 end) as JUN,
+        sum(case when extract(month from a.dtajust) = 7 then a.qtdeatual else 0 end) as JUL,
+        sum(case when extract(month from a.dtajust) = 8 then a.qtdeatual else 0 end) as AGO,
+        sum(case when extract(month from a.dtajust) = 9 then a.qtdeatual else 0 end) as SE,
+        sum(case when extract(month from a.dtajust) = 10 then a.qtdeatual else 0 end) as OUT,
+        sum(case when extract(month from a.dtajust) = 11 then a.qtdeatual else 0 end) as NOV,
+        sum(case when extract(month from a.dtajust) = 12 then a.qtdeatual else 0 end) as DEZ
+    from TBAJUSTESTOQ a
+    group by
+        a.codprod
+      , a.codempresa
+      , extract(year from a.dtajust)
+
+  ) PA on (pa.empresa = e.cnpj and pa.item = pv.item and pa.ano = pv.ano)
+
+  inner join TBPRODUTO p on (p.cod = coalesce(pv.item, pc.item, pa.item))
+
+  left join TBGRUPOPROD g on (g.cod = p.codgrupo)
+  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)
+  left join TBFABRICANTE f on (f.cod = p.codfabricante)
+  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)
+
+order by
+    e.rzsoc
+  , p.aliquota_tipo
+  , coalesce(g.descri, '* Indefinido')
+  , coalesce(f.nome, '* Indefinido')
+  , p.descri_apresentacao
+  , coalesce(pc.ano, pv.ano, pa.ano)
+;
+
+
+
+
+/*------ SYSDBA 20/09/2017 15:21:40 --------*/
+
+CREATE OR ALTER VIEW VW_PRODUTO_DEMANDA_ANUAL_IND(
+    EMPRESA_CNPJ,
+    EMPRESA_RAZAO,
+    TIPO,
+    TIPO_DESC,
+    COD,
+    COD_X,
+    DESCRI,
+    APRESENTACAO,
+    DESCRI_APRESENTACAO,
+    MODELO,
+    REFERENCIA,
+    GRUPO_COD,
+    GRUPO_DESC,
+    SECAO_COD,
+    SECAO_DESC,
+    FABRICANTE_COD,
+    FABRICANTE_NOME,
+    ESPECIFICACAO,
+    UND_COMPRA,
+    VALOR_CUSTOMEDIO,
+    VALOR_VENDA,
+    PERCENTUAL_MARCKUP,
+    PERCENTUAL_MARGEM,
+    COMPOR_FATURAMENTO,
+    PRODUTO_NOVO,
+    MOVIMENTA_ESTOQUE,
+    ESTOQUE_MINIMO,
+    ESTOQUE,
+    ESTOQUE_ALMOX,
+    peso_kg,
+    total_kg_almox,
+    volume,
+    total_volume_almox,
+    ANO,
+    CJAN,
+    ACJAN,
+    VJAN,
+    AJAN,
+    SJAN,
+    CFEV,
+    ACFEV,
+    VFEV,
+    AFEV,
+    SFEV,
+    CMAR,
+    ACMAR,
+    VMAR,
+    AMAR,
+    SMAR,
+    CABR,
+    ACABR,
+    VABR,
+    AABR,
+    SABR,
+    CMAI,
+    ACMAI,
+    VMAI,
+    AMAI,
+    SMAI,
+    CJUN,
+    ACJUN,
+    VJUN,
+    AJUN,
+    SJUN,
+    CJUL,
+    ACJUL,
+    VJUL,
+    AJUL,
+    SJUL,
+    CAGO,
+    ACAGO,
+    VAGO,
+    AAGO,
+    SAGO,
+    CSET,
+    ACSET,
+    VSET,
+    ASET,
+    SSET,
+    COUT,
+    ACOUT,
+    VOUT,
+    AOUT,
+    SOUT,
+    CNOV,
+    ACNOV,
+    VNOV,
+    ANOV,
+    SNOV,
+    CDEZ,
+    ACDEZ,
+    VDEZ,
+    ADEZ,
+    SDEZ)
+AS
+Select
+    p.codemp as empresa_cnpj
+  , e.rzsoc  as empresa_razao
+  , case when p.aliquota_tipo = 0 then 'P' else 'S' end as tipo
+  , case when p.aliquota_tipo = 0 then 'Produto(s)' else 'Serviço(s)' end as tipo_desc
+  , p.cod
+  , coalesce(pc.item, pv.item, pa.item) as cod_x
+  , p.descri
+  , p.apresentacao
+  , p.descri_apresentacao
+  , p.modelo
+  , p.referencia
+  , coalesce(p.codgrupo, 0) as grupo_cod
+  , coalesce(g.descri, '* Indefinido')   as grupo_desc
+  , coalesce(p.codsecao, 0)                     as secao_cod
+  , coalesce(s.scp_descricao, '* Indefinida')   as secao_desc
+  , coalesce(p.codfabricante, 0)     as fabricante_cod
+  , coalesce(f.nome, '* Indefinido') as fabricante_nome
+  , p.especificacao
+  , substring(coalesce(nullif(trim(u.unp_sigla), ''), trim(u.unp_descricao)) from 1 for 3) as und_compra
+  , p.customedio as valor_customedio
+  , p.preco      as valor_venda
+
+  , p.percentual_marckup
+  , p.percentual_margem
+  , p.compor_faturamento
+  , p.produto_novo
+  , p.movimenta_estoque
+
+  , p.estoqmin as estoque_minimo
+  , p.qtde     as estoque
+  , coalesce(pe.estoque_almox, 0) as estoque_almox
+  , p.qtde * p.peso_liquido as peso_kg
+  , coalesce(pe.total_kg_almox, 0) as total_kg_almox
+  , p.qtde * p.cubagem as volume
+  , coalesce(pe.total_volume_almox, 0) as total_volume_almox
+
+  , coalesce(pc.ano, pv.ano, pa.ano) as ano
+
+  , coalesce(pc.jan, 0.0)  as cjan
+  , coalesce(pac.jan, 0.0) as acjan
+  , coalesce(pv.jan, 0.0) as vjan
+  , coalesce(pa.jan, 0.0) as ajan
+  , coalesce(pc.jan, 0.0) - coalesce(pv.jan, 0.0) + coalesce(pa.jan, 0.0) as sjan
+
+  , coalesce(pc.fev, 0.0)  as cfev
+  , coalesce(pac.fev, 0.0) as acfev
+  , coalesce(pv.fev, 0.0) as vfev
+  , coalesce(pa.fev, 0.0) as afev
+  , coalesce(pc.fev, 0.0) - coalesce(pv.fev, 0.0) + coalesce(pa.fev, 0.0) as sfev
+
+  , coalesce(pc.mar, 0.0)  as cmar
+  , coalesce(pac.mar, 0.0) as acmar
+  , coalesce(pv.mar, 0.0) as vmar
+  , coalesce(pa.mar, 0.0) as amar
+  , coalesce(pc.mar, 0.0) - coalesce(pv.mar, 0.0) + coalesce(pa.mar, 0.0) as smar
+
+  , coalesce(pc.abr, 0.0)  as cabr
+  , coalesce(pac.abr, 0.0) as acabr
+  , coalesce(pv.abr, 0.0) as vabr
+  , coalesce(pa.abr, 0.0) as aabr
+  , coalesce(pc.abr, 0.0) - coalesce(pv.abr, 0.0) + coalesce(pa.abr, 0.0) as sabr
+
+  , coalesce(pc.mai, 0.0)  as cmai
+  , coalesce(pac.mai, 0.0) as acmai
+  , coalesce(pv.mai, 0.0) as vmai
+  , coalesce(pa.mai, 0.0) as amai
+  , coalesce(pc.mai, 0.0) - coalesce(pv.mai, 0.0) + coalesce(pa.mai, 0.0) as smai
+
+  , coalesce(pc.jun, 0.0)  as cjun
+  , coalesce(pac.jun, 0.0) as acjun
+  , coalesce(pv.jun, 0.0) as vjun
+  , coalesce(pa.jun, 0.0) as ajun
+  , coalesce(pc.jun, 0.0) - coalesce(pv.jun, 0.0) + coalesce(pa.jun, 0.0) as sjun
+
+  , coalesce(pc.jul, 0.0)  as cjul
+  , coalesce(pac.jul, 0.0) as acjul
+  , coalesce(pv.jul, 0.0) as vjul
+  , coalesce(pa.jul, 0.0) as ajul
+  , coalesce(pc.jul, 0.0) - coalesce(pv.jul, 0.0) + coalesce(pa.jul, 0.0) as sjul
+
+  , coalesce(pc.ago, 0.0)  as cago
+  , coalesce(pac.ago, 0.0) as acago
+  , coalesce(pv.ago, 0.0) as vago
+  , coalesce(pa.ago, 0.0) as aago
+  , coalesce(pc.ago, 0.0) - coalesce(pv.ago, 0.0) + coalesce(pa.ago, 0.0) as sago
+
+  , coalesce(pc.se, 0.0)   as cset
+  , coalesce(pac.se, 0.0)  as acset
+  , coalesce(pv.se, 0.0)  as vset
+  , coalesce(pa.se, 0.0)  as aset
+  , coalesce(pc.se, 0.0) - coalesce(pv.se, 0.0) + coalesce(pa.se, 0.0) as sset
+
+  , coalesce(pc.out, 0.0)  as cout
+  , coalesce(pac.out, 0.0) as acout
+  , coalesce(pv.out, 0.0) as vout
+  , coalesce(pa.out, 0.0) as aout
+  , coalesce(pc.out, 0.0) - coalesce(pv.out, 0.0) + coalesce(pa.out, 0.0) as sout
+
+  , coalesce(pc.nov, 0.0)  as cnov
+  , coalesce(pac.nov, 0.0) as acnov
+  , coalesce(pv.nov, 0.0) as vnov
+  , coalesce(pa.nov, 0.0) as anov
+  , coalesce(pc.nov, 0.0) - coalesce(pv.nov, 0.0) + coalesce(pa.nov, 0.0) as snov
+
+  , coalesce(pc.dez, 0.0)  as cdez
+  , coalesce(pac.dez, 0.0) as acdez
+  , coalesce(pv.dez, 0.0) as vdez
+  , coalesce(pa.dez, 0.0) as adez
+  , coalesce(pc.dez, 0.0) - coalesce(pv.dez, 0.0) + coalesce(pa.dez, 0.0) as sdez
+from TBEMPRESA e
+
+  /* Compras */
+  left join (
+
+    select
+        ci.codprod as item
+      , ci.codemp as empresa
+      , extract(year from ci.dtent) as ano
+      , sum(case when extract(month from ci.dtent) = 1 then ci.qtde else 0 end) as JAN
+      , sum(case when extract(month from ci.dtent) = 2 then ci.qtde else 0 end) as FEV
+      , sum(case when extract(month from ci.dtent) = 3 then ci.qtde else 0 end) as MAR
+      , sum(case when extract(month from ci.dtent) = 4 then ci.qtde else 0 end) as ABR
+      , sum(case when extract(month from ci.dtent) = 5 then ci.qtde else 0 end) as MAI
+      , sum(case when extract(month from ci.dtent) = 6 then ci.qtde else 0 end) as JUN
+      , sum(case when extract(month from ci.dtent) = 7 then ci.qtde else 0 end) as JUL
+      , sum(case when extract(month from ci.dtent) = 8 then ci.qtde else 0 end) as AGO
+      , sum(case when extract(month from ci.dtent) = 9 then ci.qtde else 0 end) as SE
+      , sum(case when extract(month from ci.dtent) = 10 then ci.qtde else 0 end) as OUT
+      , sum(case when extract(month from ci.dtent) = 11 then ci.qtde else 0 end) as NOV
+      , sum(case when extract(month from ci.dtent) = 12 then ci.qtde else 0 end) as DEZ
+    from TBCOMPRAS c
+      inner join TBCOMPRASITENS ci on (c.ano = ci.ano and c.codcontrol = ci.codcontrol and c.codemp = ci.codemp)
+    where c.status in (2,4)
+    group by
+        ci.codprod
+      , ci.codemp
+      , extract(year from ci.dtent)
+
+  ) PC on (pc.empresa = e.cnpj)
+
+  /* Apropriacao de Estoque */
+  left join (
+
+    select
+        ai.produto as item
+      , ae.empresa
+      , extract(year from ae.data_apropriacao) as ano
+      , sum(case when extract(month from ae.data_apropriacao) = 1 then ai.qtde else 0 end) as JAN
+      , sum(case when extract(month from ae.data_apropriacao) = 2 then ai.qtde else 0 end) as FEV
+      , sum(case when extract(month from ae.data_apropriacao) = 3 then ai.qtde else 0 end) as MAR
+      , sum(case when extract(month from ae.data_apropriacao) = 4 then ai.qtde else 0 end) as ABR
+      , sum(case when extract(month from ae.data_apropriacao) = 5 then ai.qtde else 0 end) as MAI
+      , sum(case when extract(month from ae.data_apropriacao) = 6 then ai.qtde else 0 end) as JUN
+      , sum(case when extract(month from ae.data_apropriacao) = 7 then ai.qtde else 0 end) as JUL
+      , sum(case when extract(month from ae.data_apropriacao) = 8 then ai.qtde else 0 end) as AGO
+      , sum(case when extract(month from ae.data_apropriacao) = 9 then ai.qtde else 0 end) as SE
+      , sum(case when extract(month from ae.data_apropriacao) = 10 then ai.qtde else 0 end) as OUT
+      , sum(case when extract(month from ae.data_apropriacao) = 11 then ai.qtde else 0 end) as NOV
+      , sum(case when extract(month from ae.data_apropriacao) = 12 then ai.qtde else 0 end) as DEZ
+    from TBAPROPRIACAO_ALMOX ae
+      inner join TBAPROPRIACAO_ALMOX_ITEM ai on (ai.ano = ae.ano and ai.controle = ae.controle)
+    where ae.status = 2
+    group by
+        ai.produto
+      , ae.empresa
+      , extract(year from ae.data_apropriacao)
+
+  ) PAC on (pac.empresa = e.cnpj and pac.item = pc.item)
+
+  /* Estoque Almoxarifado */
+  left join (
+
+    Select
+        e.produto as item
+      , e.empresa
+      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as estoque_almox
+      , sum( (e.qtde / coalesce(nullif(e.fracionador, 0), 1)) * e.peso_liquido ) as total_kg_almox
+      , sum( (e.qtde / coalesce(nullif(e.fracionador, 0), 1)) * e.cubagem )      as total_volume_almox
+    from TBESTOQUE_ALMOX e
+      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo and c.codcliente is null)
+    where e.qtde > 0
+    group by
+        e.produto
+      , e.empresa
+
+  ) PE on (pe.empresa = e.cnpj and pe.item = pc.item)
+
+  /* Vendas */
+  left join (
+
+    select
+        vi.codprod as item
+      , vi.codemp as empresa
+      , extract(year from vi.dtvenda) as ano
+      , sum(case when extract(month from vi.dtvenda) = 1 then vi.qtde else 0 end) as JAN,
+              sum(case when extract(month from vi.dtvenda) = 2 then vi.qtde else 0 end) as FEV,
+              sum(case when extract(month from vi.dtvenda) = 3 then vi.qtde else 0 end) as MAR,
+              sum(case when extract(month from vi.dtvenda) = 4 then vi.qtde else 0 end) as ABR,
+              sum(case when extract(month from vi.dtvenda) = 5 then vi.qtde else 0 end) as MAI,
+              sum(case when extract(month from vi.dtvenda) = 6 then vi.qtde else 0 end) as JUN,
+              sum(case when extract(month from vi.dtvenda) = 7 then vi.qtde else 0 end) as JUL,
+              sum(case when extract(month from vi.dtvenda) = 8 then vi.qtde else 0 end) as AGO,
+              sum(case when extract(month from vi.dtvenda) = 9 then vi.qtde else 0 end) as SE,
+              sum(case when extract(month from vi.dtvenda) = 10 then vi.qtde else 0 end) as OUT,
+              sum(case when extract(month from vi.dtvenda) = 11 then vi.qtde else 0 end) as NOV,
+              sum(case when extract(month from vi.dtvenda) = 12 then vi.qtde else 0 end) as DEZ
+    from TBVENDAS v
+      inner join TVENDASITENS vi on (v.ano = vi.ano and v.codcontrol = vi.codcontrol and v.codemp = vi.codemp)
+    where v.status in (3, 4)
+    group by
+        vi.codprod
+      , vi.codemp
+      , extract(year from vi.dtvenda)
+
+  ) PV on (pv.empresa = e.cnpj and pv.item = pc.item and pv.ano = pc.ano)
+
+  /* Ajustes */
+  left join (
+
+    select
+        a.codprod as item
+      , a.codempresa as empresa
+      , extract(year from a.dtajust) as ano
+      , sum(case when extract(month from a.dtajust) = 1 then a.qtdeatual else 0 end) as JAN,
+        sum(case when extract(month from a.dtajust) = 2 then a.qtdeatual else 0 end) as FEV,
+        sum(case when extract(month from a.dtajust) = 3 then a.qtdeatual else 0 end) as MAR,
+        sum(case when extract(month from a.dtajust) = 4 then a.qtdeatual else 0 end) as ABR,
+        sum(case when extract(month from a.dtajust) = 5 then a.qtdeatual else 0 end) as MAI,
+        sum(case when extract(month from a.dtajust) = 6 then a.qtdeatual else 0 end) as JUN,
+        sum(case when extract(month from a.dtajust) = 7 then a.qtdeatual else 0 end) as JUL,
+        sum(case when extract(month from a.dtajust) = 8 then a.qtdeatual else 0 end) as AGO,
+        sum(case when extract(month from a.dtajust) = 9 then a.qtdeatual else 0 end) as SE,
+        sum(case when extract(month from a.dtajust) = 10 then a.qtdeatual else 0 end) as OUT,
+        sum(case when extract(month from a.dtajust) = 11 then a.qtdeatual else 0 end) as NOV,
+        sum(case when extract(month from a.dtajust) = 12 then a.qtdeatual else 0 end) as DEZ
+    from TBAJUSTESTOQ a
+    group by
+        a.codprod
+      , a.codempresa
+      , extract(year from a.dtajust)
+
+  ) PA on (pa.empresa = e.cnpj and pa.item = pc.item and pa.ano = pc.ano)
+
+  inner join TBPRODUTO p on (p.cod = coalesce(pv.item, pc.item, pa.item))
+
+  left join TBGRUPOPROD g on (g.cod = p.codgrupo)
+  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)
+  left join TBFABRICANTE f on (f.cod = p.codfabricante)
+  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)
+
+order by
+    e.rzsoc
+  , p.aliquota_tipo
+  , coalesce(g.descri, '* Indefinido')
+  , coalesce(f.nome, '* Indefinido')
+  , p.descri_apresentacao
+  , coalesce(pc.ano, pv.ano, pa.ano)
+;
+

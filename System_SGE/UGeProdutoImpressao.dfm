@@ -265,6 +265,12 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         Value = 
           'IIF(<SistemaCodigo> = 2,<FrdsRelacaoProduto."ESTOQUE_ALMOX">,<Fr' +
           'dsRelacaoProduto."ESTOQUE">)'
+      end
+      item
+        Name = 'Peso'
+        Value = 
+          'IIF(<SistemaCodigo> = 2,<FrdsRelacaoProduto."TOTAL_KG_ALMOX">,<F' +
+          'rdsRelacaoProduto."TOTAL_KG">)'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -532,10 +538,12 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         DataSet = FrdsRelacaoProduto
         DataSetName = 'FrdsRelacaoProduto'
         RowCount = 0
+        Stretched = True
         object Memo7: TfrxMemoView
-          Left = 623.622450000000000000
-          Width = 64.252010000000000000
+          Left = 570.709030000000000000
+          Width = 56.692950000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -565,6 +573,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Left = 56.692950000000000000
           Width = 56.692950000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -589,8 +598,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         end
         object Memo13: TfrxMemoView
           Left = 113.385900000000000000
-          Width = 298.582870000000000000
+          Width = 264.567100000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -610,13 +620,13 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Memo.UTF8W = (
             ' [FrdsRelacaoProduto."DESCRI_APRESENTACAO"]')
           ParentFont = False
-          WordWrap = False
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
-          Left = 548.031850000000000000
+          Left = 495.118430000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -640,9 +650,10 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
-          Left = 411.968770000000000000
-          Width = 136.063080000000000000
+          Left = 377.953000000000000000
+          Width = 117.165430000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -662,12 +673,12 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Memo.UTF8W = (
             ' [FrdsRelacaoProduto."FABRICANTE_NOME"]')
           ParentFont = False
-          WordWrap = False
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
           Width = 56.692950000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -692,9 +703,10 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
-          Left = 687.874460000000000000
-          Width = 30.236240000000000000
+          Left = 627.401980000000000000
+          Width = 26.456710000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -714,6 +726,36 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             '[FrdsRelacaoProduto."UND_COMPRA"]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo27: TfrxMemoView
+          Left = 653.858690000000000000
+          Width = 64.252010000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<FrdsRelacaoProduto."TIPO">='#39'P'#39') and (<Estoque> <= 0)'
+          Highlight.FillType = ftBrush
+          Memo.UTF8W = (
+            
+              '[IIF(<FrdsRelacaoProduto."TIPO">='#39'S'#39', '#39#39', IIF(<Peso><>0, FormatF' +
+              'loat('#39',0.##'#39',<Peso>), '#39#39'))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -781,9 +823,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         Condition = 'FrdsRelacaoProduto."GRUPO_COD"'
         ReprintOnNewPage = True
         object Memo6: TfrxMemoView
-          Left = 623.622450000000000000
+          Left = 570.709030000000000000
           Top = 18.897650000000000000
-          Width = 64.252010000000000000
+          Width = 56.692950000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -824,7 +866,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
         object Memo12: TfrxMemoView
           Left = 113.385900000000000000
           Top = 18.897650000000000000
-          Width = 298.582870000000000000
+          Width = 264.567100000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -842,7 +884,7 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
-          Left = 548.031850000000000000
+          Left = 495.118430000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -862,9 +904,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
-          Left = 411.968770000000000000
+          Left = 377.953000000000000000
           Top = 18.897650000000000000
-          Width = 136.063080000000000000
+          Width = 117.165430000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -901,9 +943,9 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
-          Left = 687.874460000000000000
+          Left = 627.401980000000000000
           Top = 18.897650000000000000
-          Width = 30.236240000000000000
+          Width = 26.456710000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -958,6 +1000,27 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo26: TfrxMemoView
+          Left = 653.858690000000000000
+          Top = 18.897650000000000000
+          Width = 64.252010000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Peso (Kg) ')
+          ParentFont = False
+          VAlign = vaCenter
+        end
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
@@ -1009,6 +1072,11 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       '  , p.produto_novo'
       '  , p.movimenta_estoque'
       '  , p.cadastro_ativo'
+      ''
+      '  , (p.peso_liquido * p.qtde) as total_kg'
+      '  , (p.cubagem * p.qtde)      as total_volume'
+      '  , ep.total_kg_almox'
+      '  , ep.total_volume_almox'
       'from TBPRODUTO p'
       '  left join TBEMPRESA e on (e.cnpj = p.codemp)'
       '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
@@ -1017,18 +1085,24 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
       '  left join ('
       '    Select'
-      '        e.produto'
+      '        ea.produto'
       
-        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
-        ' estoque_almox'
-      '    from TBESTOQUE_ALMOX e'
+        '      , sum( ea.qtde / coalesce(nullif(ea.fracionador, 0), 1) ) ' +
+        'as estoque_almox'
       
-        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
-        'and c.codcliente is null)'
+        '      , sum( (ea.qtde / coalesce(nullif(ea.fracionador, 0), 1)) ' +
+        '* ea.peso_liquido ) as total_kg_almox'
+      
+        '      , sum( (ea.qtde / coalesce(nullif(ea.fracionador, 0), 1)) ' +
+        '* ea.cubagem )      as total_volume_almox'
+      '    from TBESTOQUE_ALMOX ea'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = ea.centro_custo' +
+        ' and c.codcliente is null)'
       '    where 0=0'
-      '      and e.qtde > 0'
+      '      and ea.qtde > 0'
       '    group by'
-      '       e.produto'
+      '       ea.produto'
       '  ) ep on (ep.produto = p.cod)')
     Left = 40
     Top = 8
@@ -1077,7 +1151,11 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
       'COMPOR_FATURAMENTO=COMPOR_FATURAMENTO'
       'PRODUTO_NOVO=PRODUTO_NOVO'
       'MOVIMENTA_ESTOQUE=MOVIMENTA_ESTOQUE'
-      'CADASTRO_ATIVO=CADASTRO_ATIVO')
+      'CADASTRO_ATIVO=CADASTRO_ATIVO'
+      'TOTAL_KG=TOTAL_KG'
+      'TOTAL_VOLUME=TOTAL_VOLUME'
+      'TOTAL_KG_ALMOX=TOTAL_KG_ALMOX'
+      'TOTAL_VOLUME_ALMOX=TOTAL_VOLUME_ALMOX')
     DataSet = CdsRelacaoProduto
     BCDToCurrency = True
     Left = 136
