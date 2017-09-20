@@ -16,13 +16,13 @@ File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeConfiguracaoEmpresa.pas'
 File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEmpresa.pas',0,1,148,1,166,0,0,,
 
 [Modules]
-Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=default.htm
-Module2=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module3=D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
-Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module6=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
+Module0=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module2=default.htm
+Module3=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module7=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
 Module8=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
 Module9=D:\Projetos\ASS\SGE\trunk\Sys\UGeFormaPagto.pas
@@ -36,6 +36,11 @@ Module16=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
 Module17=C:\Program Files (x86)\Embarcadero\Studio\15.0\source\vcl\Vcl.Consts.pas
 Count=18
 EditWindowCount=1
+
+[D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
@@ -61,11 +66,6 @@ FormOnTop=0
 [D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 FormState=0
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
-ModuleType=TSourceModule
-FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
@@ -133,7 +133,7 @@ FormOnTop=0
 
 [EditWindow0]
 ViewCount=18
-CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+CurrentEditView=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
 View0=0
 View1=1
 View2=2
@@ -170,13 +170,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1341
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000001E11000000000000013D050000000000000100000000550E000009000000446F636B536974653301000000006D1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000000C13000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000DD2100001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000001E11000000000000011D0500000000000001000000004412000009000000446F636B536974653201000000006D1E000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=810
+RightPanelData=000008000101000000000C13000000000000011D0500000000000001000000004412000009000000446F636B53697465320100000000DD21000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=0
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B53697465317245000000000000022A030000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D7245000000000000022A030000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779D1D00000000000002F606000000000000FFFFFFFF
@@ -342,13 +342,13 @@ EditViewName=Borland.FormDesignerView
 [View15]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
-CursorX=21
-CursorY=438
-TopLine=416
+CursorX=34
+CursorY=1188
+TopLine=1154
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
 
 [View16]
 CustomEditViewType=TEditView
@@ -462,7 +462,7 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
@@ -487,11 +487,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=2978
+Height=3898
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=2978
+ClientHeight=3898
 TBDockHeight=7155
 LRDockWidth=1999
 Dockable=1
@@ -506,11 +506,11 @@ State=0
 Left=0
 Top=340
 Width=1341
-Height=4031
+Height=4952
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
-ClientHeight=4031
+ClientHeight=4952
 TBDockHeight=8765
 LRDockWidth=1341
 Dockable=1
@@ -519,8 +519,8 @@ SplitPos=79
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem="LiveBindings Designer",
-ExpandedItems="LiveBindings Designer=0"
+SelectedItem=Name,
+ExpandedItems=ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0,ResourceOptions=0,Anchors=0,Constraints=0,DataSource=0,Font=0,LiveBindings=0,Margins=0,StyleElements=0
 
 [ModelViewTool]
 PercentageSizes=1
@@ -996,11 +996,11 @@ State=0
 Left=0
 Top=427
 Width=1309
-Height=2978
+Height=3898
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=2978
+ClientHeight=3898
 TBDockHeight=8765
 LRDockWidth=1309
 Dockable=1

@@ -2385,7 +2385,6 @@ inherited frmGeProduto: TfrmGeProduto
               Align = alClient
               Caption = 'Pesos, Dimens'#245'es e Volume'
               TabOrder = 0
-              ExplicitTop = -4
               object lblPesoBruto: TLabel
                 Left = 16
                 Top = 16
@@ -4014,7 +4013,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00E00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
