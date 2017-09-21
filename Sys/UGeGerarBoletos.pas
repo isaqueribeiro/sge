@@ -1027,6 +1027,13 @@ begin
             Cedente.Modalidade    := EmptyStr;
           end;
 
+        CODIGO_BANCO_AMAZONIA:
+          begin
+            TipoCobranca          := cobBancoDaAmazonia;
+            TamanhoMaximoNossoNum := 15;
+            Cedente.Modalidade    := EmptyStr;
+          end;
+
         CODIGO_BANCO_BRADESCO:
           begin
             TipoCobranca          := cobBradesco;
