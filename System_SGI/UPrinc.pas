@@ -327,6 +327,7 @@ type
     procedure BrBtnExecuteTeamViewerClick(Sender: TObject);
     procedure BrBtnUpgradeClick(Sender: TObject);
     procedure BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
+    procedure BrBtnTabelaCNAEClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -494,6 +495,12 @@ procedure TfrmPrinc.BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_RESULT_EXERC_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
+end;
+
+procedure TfrmPrinc.BrBtnTabelaCNAEClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CAD_CNAE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeTabelaCNAE');
 end;
 
 procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);

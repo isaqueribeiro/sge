@@ -60,10 +60,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       object tbsClientes: TTabSheet
         Caption = '&Clientes'
         ImageIndex = 12
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Bevel3: TBevel
           Left = 0
           Top = 296
@@ -801,7 +797,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     Left = 16
     Top = 197
     Bitmap = {
-      494C0101210022001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010121002200200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000009000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2035,13 +2031,17 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       '  , r.dataprocessoboleto'
       '  , r.ANOVENDA'
       '  , r.NUMVENDA'
-      '  , v.serie'
-      '  , v.nfe'
+      '  , r.ANOOS'
+      '  , r.NUMOS'
+      '  , r.especie_boleto'
+      '  , coalesce(o.nfs_serie, v.serie) as serie'
+      '  , coalesce(o.nfs_numero, v.nfe)  as nfe'
       '  , '#39'.'#39' as Gerar'
       'from TBCONTREC r'
       
         '  left join TBVENDAS v on (v.ano = r.anovenda and v.codcontrol =' +
         ' r.numvenda)'
+      '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)'
       'where r.baixado = 0'
       '  and r.cliente = :cliente'
       '  and coalesce(r.codbanco, 0) = :banco'
@@ -2210,6 +2210,16 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     end
     object CdsTitulosNUMVENDA: TIntegerField
       FieldName = 'NUMVENDA'
+    end
+    object CdsTitulosANOOS: TSmallintField
+      FieldName = 'ANOOS'
+    end
+    object CdsTitulosNUMOS: TIntegerField
+      FieldName = 'NUMOS'
+    end
+    object CdsTitulosESPECIE_BOLETO: TWideStringField
+      FieldName = 'ESPECIE_BOLETO'
+      Size = 3
     end
     object CdsTitulosSERIE: TWideStringField
       FieldName = 'SERIE'

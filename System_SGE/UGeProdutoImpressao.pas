@@ -273,7 +273,7 @@ begin
 
       if ( edEmpresa.ItemIndex > 0 ) then
       begin
-        SQL.Text := StringReplace(SQL.Text, '0=0', 'e.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
+        SQL.Text := StringReplace(SQL.Text, '0=0', 'ea.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
         SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
       end;
 

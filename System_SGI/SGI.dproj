@@ -523,6 +523,28 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>frmGeEntradaEstoqueLote</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\UGeTabelaCNAE.pas">
+            <Form>frmGeTabelaCNAE</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeOS.pas">
+            <Form>frmGeOS</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeEquipamento.pas">
+            <Form>frmGeEquipamento</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeOSCancelar.pas">
+            <Form>frmGeOSCancelar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeOSConfirmaTitulos.pas">
+            <Form>frmGeOSConfirmaTitulos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeOSFormaPagto.pas">
+            <Form>frmGeOSFormaPagto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
@@ -560,9 +582,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\Bin\SGI.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="SGI.todo" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
-                        <RemoteName>SGI.exe</RemoteName>
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -572,9 +594,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="SGI.todo" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="..\Bin\SGI.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
+                        <RemoteName>SGI.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

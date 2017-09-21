@@ -526,10 +526,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 10
-      ExplicitLeft = 2
-      ExplicitTop = 199
-      ExplicitWidth = 589
-      ExplicitHeight = 76
       DesignSize = (
         583
         81)
@@ -562,7 +558,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
         ParentFont = False
         ScrollBars = ssVertical
         TabOrder = 0
-        ExplicitHeight = 60
       end
     end
     object pnlLote: TPanel

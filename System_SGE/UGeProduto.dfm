@@ -801,7 +801,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = TbsEspecificacao
+        ActivePage = tbsValores
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -3113,32 +3113,33 @@ inherited frmGeProduto: TfrmGeProduto
       Alignment = taCenter
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
-      Origin = 'TBPRODUTO.CODIGO'
+      Origin = '"TBPRODUTO"."CODIGO"'
       DisplayFormat = '###0000000'
     end
     object IbDtstTabelaCOD: TIBStringField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'COD'
-      Origin = 'TBPRODUTO.COD'
+      Origin = '"TBPRODUTO"."COD"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Size = 10
     end
     object IbDtstTabelaDESCRI: TIBStringField
       DisplayLabel = 'Descri'#231#227'o'
       FieldName = 'DESCRI'
-      Origin = 'TBPRODUTO.DESCRI'
+      Origin = '"TBPRODUTO"."DESCRI"'
       Required = True
       Size = 50
     end
     object IbDtstTabelaAPRESENTACAO: TIBStringField
       DisplayLabel = 'Apresenta'#231#227'o'
       FieldName = 'APRESENTACAO'
-      Origin = 'TBPRODUTO.APRESENTACAO'
+      Origin = '"TBPRODUTO"."APRESENTACAO"'
       Size = 50
     end
     object IbDtstTabelaDESCRI_APRESENTACAO: TIBStringField
       DisplayLabel = 'Descri'#231#227'o + Apresenta'#231#227'o'
       FieldName = 'DESCRI_APRESENTACAO'
-      Origin = 'TBPRODUTO.DESCRI_APRESENTACAO'
+      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
       Size = 100
     end
     object IbDtstTabelaMETAFONEMA: TIBStringField
@@ -3150,7 +3151,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaMODELO: TIBStringField
       DisplayLabel = 'Modelo'
       FieldName = 'MODELO'
-      Origin = 'TBPRODUTO.MODELO'
+      Origin = '"TBPRODUTO"."MODELO"'
       Size = 40
     end
     object IbDtstTabelaANVISA: TIBStringField
@@ -3162,14 +3163,14 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaPRECO: TIBBCDField
       DisplayLabel = 'Pre'#231'o (R$)'
       FieldName = 'PRECO'
-      Origin = 'TBPRODUTO.PRECO'
+      Origin = '"TBPRODUTO"."PRECO"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object IbDtstTabelaPRECO_PROMOCAO: TIBBCDField
       FieldName = 'PRECO_PROMOCAO'
-      Origin = 'TBPRODUTO.PRECO_PROMOCAO'
+      Origin = '"TBPRODUTO"."PRECO_PROMOCAO"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -3184,7 +3185,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaREFERENCIA: TIBStringField
       DisplayLabel = 'Refer'#234'ncia'
       FieldName = 'REFERENCIA'
-      Origin = 'TBPRODUTO.REFERENCIA'
+      Origin = '"TBPRODUTO"."REFERENCIA"'
       Size = 15
     end
     object IbDtstTabelaNOME_AMIGO: TIBStringField
@@ -3261,28 +3262,28 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaCODGRUPO: TSmallintField
       DisplayLabel = 'Grupo'
       FieldName = 'CODGRUPO'
-      Origin = 'TBPRODUTO.CODGRUPO'
+      Origin = '"TBPRODUTO"."CODGRUPO"'
     end
     object IbDtstTabelaCODSECAO: TSmallintField
       DisplayLabel = 'Se'#231#227'o'
       FieldName = 'CODSECAO'
-      Origin = 'TBPRODUTO.CODSECAO'
+      Origin = '"TBPRODUTO"."CODSECAO"'
     end
     object IbDtstTabelaSECAO: TIBStringField
       DisplayLabel = 'Se'#231#227'o'
       FieldName = 'SECAO'
-      Origin = 'TBPRODUTO.SECAO'
+      Origin = '"TBPRODUTO"."SECAO"'
     end
     object IbDtstTabelaCODFABRICANTE: TIntegerField
       DisplayLabel = 'Fabricante'
       FieldName = 'CODFABRICANTE'
-      Origin = 'TBPRODUTO.CODFABRICANTE'
+      Origin = '"TBPRODUTO"."CODFABRICANTE"'
       ProviderFlags = [pfInUpdate]
     end
     object IbDtstTabelaCUSTOMEDIO: TIBBCDField
       DisplayLabel = 'Custo (R$)'
       FieldName = 'CUSTOMEDIO'
-      Origin = 'TBPRODUTO.CUSTOMEDIO'
+      Origin = '"TBPRODUTO"."CUSTOMEDIO"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -3304,46 +3305,46 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaCODEMP: TIBStringField
       DisplayLabel = 'Empresa'
       FieldName = 'CODEMP'
-      Origin = 'TBPRODUTO.CODEMP'
+      Origin = '"TBPRODUTO"."CODEMP"'
       Size = 18
     end
     object IbDtstTabelaCODORIGEM: TIBStringField
       DisplayLabel = 'Origem'
       FieldName = 'CODORIGEM'
-      Origin = 'TBPRODUTO.CODORIGEM'
+      Origin = '"TBPRODUTO"."CODORIGEM"'
       Required = True
       Size = 1
     end
     object IbDtstTabelaCODTRIBUTACAO: TIBStringField
       DisplayLabel = 'Tipo Tributa'#231#227'o'
       FieldName = 'CODTRIBUTACAO'
-      Origin = 'TBPRODUTO.CODTRIBUTACAO'
+      Origin = '"TBPRODUTO"."CODTRIBUTACAO"'
       Required = True
       Size = 2
     end
     object IbDtstTabelaCST: TIBStringField
       FieldName = 'CST'
-      Origin = 'TBPRODUTO.CST'
+      Origin = '"TBPRODUTO"."CST"'
       Required = True
       Size = 3
     end
     object IbDtstTabelaCSOSN: TIBStringField
       DisplayLabel = 'Tipo Tributa'#231#227'o ICMS (SN)'
       FieldName = 'CSOSN'
-      Origin = 'TBPRODUTO.CSOSN'
+      Origin = '"TBPRODUTO"."CSOSN"'
       Required = True
       Size = 3
     end
     object IbDtstTabelaCST_PIS: TIBStringField
       DisplayLabel = 'CST PIS'
       FieldName = 'CST_PIS'
-      Origin = 'TBPRODUTO.CST_PIS'
+      Origin = '"TBPRODUTO"."CST_PIS"'
       Size = 3
     end
     object IbDtstTabelaCST_COFINS: TIBStringField
       DisplayLabel = 'CST COFINS'
       FieldName = 'CST_COFINS'
-      Origin = 'TBPRODUTO.CST_COFINS'
+      Origin = '"TBPRODUTO"."CST_COFINS"'
       Size = 3
     end
     object IbDtstTabelaTABELA_IBPT: TIntegerField
@@ -3355,7 +3356,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaNCM_SH: TIBStringField
       DisplayLabel = 'NCM/SH'
       FieldName = 'NCM_SH'
-      Origin = 'TBPRODUTO.NCM_SH'
+      Origin = '"TBPRODUTO"."NCM_SH"'
       Size = 10
     end
     object IbDtstTabelaCODIGO_NVE: TIBStringField
@@ -3368,30 +3369,30 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaCODCFOP: TIntegerField
       DisplayLabel = 'CFOP'
       FieldName = 'CODCFOP'
-      Origin = 'TBPRODUTO.CODCFOP'
+      Origin = '"TBPRODUTO"."CODCFOP"'
     end
     object IbDtstTabelaCODBARRA_EAN: TIBStringField
       DisplayLabel = 'C'#243'digo EAN'
       FieldName = 'CODBARRA_EAN'
-      Origin = 'TBPRODUTO.CODBARRA_EAN'
+      Origin = '"TBPRODUTO"."CODBARRA_EAN"'
       Size = 15
     end
     object IbDtstTabelaCODUNIDADE: TSmallintField
       DisplayLabel = 'Unidade'
       FieldName = 'CODUNIDADE'
-      Origin = 'TBPRODUTO.CODUNIDADE'
+      Origin = '"TBPRODUTO"."CODUNIDADE"'
       Required = True
     end
     object IbDtstTabelaALIQUOTA_TIPO: TSmallintField
       FieldName = 'ALIQUOTA_TIPO'
-      Origin = 'TBPRODUTO.ALIQUOTA_TIPO'
+      Origin = '"TBPRODUTO"."ALIQUOTA_TIPO"'
       Required = True
       DisplayFormat = 'Al'#237'quota'
     end
     object IbDtstTabelaALIQUOTA: TIBBCDField
       DisplayLabel = '% Al'#237'quota'
       FieldName = 'ALIQUOTA'
-      Origin = 'TBPRODUTO.ALIQUOTA'
+      Origin = '"TBPRODUTO"."ALIQUOTA"'
       Required = True
       DisplayFormat = ',0.00'
       Precision = 18
@@ -3400,7 +3401,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaALIQUOTA_CSOSN: TIBBCDField
       DisplayLabel = '% Al'#237'quota SN'
       FieldName = 'ALIQUOTA_CSOSN'
-      Origin = 'TBPRODUTO.ALIQUOTA_CSOSN'
+      Origin = '"TBPRODUTO"."ALIQUOTA_CSOSN"'
       Required = True
       DisplayFormat = ',0.00'
       Precision = 18
@@ -3409,7 +3410,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaALIQUOTA_PIS: TIBBCDField
       DisplayLabel = '% Al'#237'quota PIS'
       FieldName = 'ALIQUOTA_PIS'
-      Origin = 'TBPRODUTO.ALIQUOTA_PIS'
+      Origin = '"TBPRODUTO"."ALIQUOTA_PIS"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -3417,7 +3418,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaALIQUOTA_COFINS: TIBBCDField
       DisplayLabel = '% Al'#237'quota COFINS'
       FieldName = 'ALIQUOTA_COFINS'
-      Origin = 'TBPRODUTO.ALIQUOTA_COFINS'
+      Origin = '"TBPRODUTO"."ALIQUOTA_COFINS"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -3425,7 +3426,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaVALOR_IPI: TIBBCDField
       DisplayLabel = 'Valor IPI (R$)'
       FieldName = 'VALOR_IPI'
-      Origin = 'TBPRODUTO.VALOR_IPI'
+      Origin = '"TBPRODUTO"."VALOR_IPI"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -3446,70 +3447,71 @@ inherited frmGeProduto: TfrmGeProduto
       Alignment = taLeftJustify
       DisplayLabel = 'Produto Novo'
       FieldName = 'PRODUTO_NOVO'
-      Origin = 'TBPRODUTO.PRODUTO_NOVO'
+      Origin = '"TBPRODUTO"."PRODUTO_NOVO"'
       Required = True
     end
     object IbDtstTabelaCOR_VEICULO: TIBStringField
       DisplayLabel = 'Cor'
       FieldName = 'COR_VEICULO'
-      Origin = 'TBPRODUTO.COR_VEICULO'
+      Origin = '"TBPRODUTO"."COR_VEICULO"'
       Size = 3
     end
     object IbDtstTabelaCOMBUSTIVEL_VEICULO: TIBStringField
       DisplayLabel = 'Combust'#237'vel'
       FieldName = 'COMBUSTIVEL_VEICULO'
-      Origin = 'TBPRODUTO.COMBUSTIVEL_VEICULO'
+      Origin = '"TBPRODUTO"."COMBUSTIVEL_VEICULO"'
       Size = 3
     end
     object IbDtstTabelaTIPO_VEICULO: TIBStringField
       DisplayLabel = 'Tipo'
       FieldName = 'TIPO_VEICULO'
-      Origin = 'TBPRODUTO.TIPO_VEICULO'
+      Origin = '"TBPRODUTO"."TIPO_VEICULO"'
       Size = 3
     end
     object IbDtstTabelaRENAVAM_VEICULO: TIBStringField
       DisplayLabel = 'Renavam'
       FieldName = 'RENAVAM_VEICULO'
-      Origin = 'TBPRODUTO.RENAVAM_VEICULO'
+      Origin = '"TBPRODUTO"."RENAVAM_VEICULO"'
       Size = 50
     end
     object IbDtstTabelaCHASSI_VEICULO: TIBStringField
       DisplayLabel = 'Chassi'
       FieldName = 'CHASSI_VEICULO'
-      Origin = 'TBPRODUTO.CHASSI_VEICULO'
+      Origin = '"TBPRODUTO"."CHASSI_VEICULO"'
       Size = 50
     end
     object IbDtstTabelaANO_MODELO_VEICULO: TSmallintField
       DisplayLabel = 'Ano Modelo'
       FieldName = 'ANO_MODELO_VEICULO'
-      Origin = 'TBPRODUTO.ANO_MODELO_VEICULO'
+      Origin = '"TBPRODUTO"."ANO_MODELO_VEICULO"'
     end
     object IbDtstTabelaANO_FABRICACAO_VEICULO: TSmallintField
       DisplayLabel = 'Ano Fabrica'#231#227'o'
       FieldName = 'ANO_FABRICACAO_VEICULO'
-      Origin = 'TBPRODUTO.ANO_FABRICACAO_VEICULO'
+      Origin = '"TBPRODUTO"."ANO_FABRICACAO_VEICULO"'
     end
     object IbDtstTabelaKILOMETRAGEM_VEICULO: TIntegerField
       DisplayLabel = 'Kilometragem'
       FieldName = 'KILOMETRAGEM_VEICULO'
-      Origin = 'TBPRODUTO.KILOMETRAGEM_VEICULO'
+      Origin = '"TBPRODUTO"."KILOMETRAGEM_VEICULO"'
     end
     object IbDtstTabelaSITUACAO_ATUAL_VEICULO: TIBStringField
       DisplayLabel = 'Situa'#231#227'o Ve'#237'culo'
       FieldName = 'SITUACAO_ATUAL_VEICULO'
-      Origin = 'TBPRODUTO.SITUACAO_ATUAL_VEICULO'
+      Origin = '"TBPRODUTO"."SITUACAO_ATUAL_VEICULO"'
       Size = 100
     end
     object IbDtstTabelaSITUACAO_HISTORICO_VEICULO: TMemoField
       FieldName = 'SITUACAO_HISTORICO_VEICULO'
-      Origin = 'TBPRODUTO.SITUACAO_HISTORICO_VEICULO'
+      Origin = '"TBPRODUTO"."SITUACAO_HISTORICO_VEICULO"'
+      ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
     end
     object IbDtstTabelaPERCENTUAL_REDUCAO_BC: TIBBCDField
       DisplayLabel = '% Redu'#231#227'o da Base de C'#225'lculo (BC)'
       FieldName = 'PERCENTUAL_REDUCAO_BC'
-      Origin = 'TBPRODUTO.PERCENTUAL_REDUCAO_BC'
+      Origin = '"TBPRODUTO"."PERCENTUAL_REDUCAO_BC"'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -3568,42 +3570,44 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaDESCRICAO_GRUPO: TIBStringField
       DisplayLabel = 'Grupo'
       FieldName = 'DESCRICAO_GRUPO'
-      Origin = 'TBGRUPOPROD.DESCRI'
+      Origin = '"TBGRUPOPROD"."DESCRI"'
       Size = 30
     end
     object IbDtstTabelaDESCRICAO_SECAO: TIBStringField
       DisplayLabel = 'Se'#231#227'o'
       FieldName = 'DESCRICAO_SECAO'
+      ProviderFlags = []
       Size = 50
     end
     object IbDtstTabelaNOME_FABRICANTE: TIBStringField
       DisplayLabel = 'Fabricante'
       FieldName = 'NOME_FABRICANTE'
-      Origin = 'TBFABRICANTE.NOME'
+      Origin = '"TBFABRICANTE"."NOME"'
       ProviderFlags = []
       Size = 50
     end
     object IbDtstTabelaDESCRICAO_UNIDADE: TIBStringField
       DisplayLabel = 'Unidade'
       FieldName = 'DESCRICAO_UNIDADE'
+      ProviderFlags = []
       Size = 50
     end
     object IbDtstTabelaUNP_SIGLA: TIBStringField
       Alignment = taCenter
       DisplayLabel = 'UND'
       FieldName = 'UNP_SIGLA'
-      Origin = 'TBUNIDADEPROD.UNP_SIGLA'
+      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
       Size = 5
     end
     object IbDtstTabelaCFOP_DESCRICAO: TIBStringField
       FieldName = 'CFOP_DESCRICAO'
-      Origin = 'TBCFOP.CFOP_DESCRICAO'
+      Origin = '"TBCFOP"."CFOP_DESCRICAO"'
       ProviderFlags = []
       Size = 250
     end
     object IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField
       FieldName = 'CFOP_ESPECIFICACAO'
-      Origin = 'TBCFOP.CFOP_ESPECIFICACAO'
+      Origin = '"TBCFOP"."CFOP_ESPECIFICACAO"'
       ProviderFlags = []
       BlobType = ftMemo
       Size = 8
@@ -3611,7 +3615,7 @@ inherited frmGeProduto: TfrmGeProduto
     object IbDtstTabelaDESCRICAO_COR: TIBStringField
       DisplayLabel = 'Cor'
       FieldName = 'DESCRICAO_COR'
-      Origin = 'RENAVAM_COR.DESCRICAO'
+      Origin = '"RENAVAM_COR"."DESCRICAO"'
       ProviderFlags = []
       Size = 50
     end
@@ -4013,7 +4017,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

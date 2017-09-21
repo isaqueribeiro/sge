@@ -65,6 +65,24 @@ const
   ROTINA_TIPO_FUNCAO   = 2;
   ROTINA_TIPO_PROCESSO = 3;
 
+  // Códigos de Teclas
+
+  SYS_KEY_DEL = 46;
+  SYS_KEY_A   = 65;
+  SYS_KEY_B   = 66;
+  SYS_KEY_C   = 67;
+  SYS_KEY_D   = 68;
+  SYS_KEY_E   = 69;
+  SYS_KEY_F   = 70;
+  SYS_KEY_L   = 76;
+  SYS_KEY_M   = 77;
+  SYS_KEY_N   = 78;
+  SYS_KEY_O   = 79;
+  SYS_KEY_R   = 82;
+  SYS_KEY_S   = 83;
+  SYS_KEY_T   = 84;
+
+
   // Constantes Wait A Moment...
 
   WAIT_AMOMENT_Deleting      = 0;
@@ -81,22 +99,6 @@ const
 
   FLAG_NAO = 0;
   FLAG_SIM = 1;
-
-  // Códigos de Teclas
-
-  SYS_KEY_A = 65;
-  SYS_KEY_B = 66;
-  SYS_KEY_C = 67;
-  SYS_KEY_D = 68;
-  SYS_KEY_E = 69;
-  SYS_KEY_F = 70;
-  SYS_KEY_L = 76;
-  SYS_KEY_M = 77;
-  SYS_KEY_N = 78;
-  SYS_KEY_O = 79;
-  SYS_KEY_R = 82;
-  SYS_KEY_S = 83;
-  SYS_KEY_T = 84;
 
   // Indices de Imagens no ImageList de Recursos (ImgPrincipal16x16, ImgPrincipalEnabled, ...)
 
@@ -241,6 +243,7 @@ const
   ROTINA_CAD_CONDICAO_PAGTO_ID = '0080140000';
   ROTINA_CAD_TABELA_IBPT_ID    = '0080150000';
   ROTINA_CAD_TIPO_RECEITA_ID   = '0080160000';
+  ROTINA_CAD_CNAE_ID           = '0080170000';
 
   // Menu da Aplicação
 
@@ -462,6 +465,9 @@ const
   TIPO_LOG_TRANS_NOTIFIC = 0;
   TIPO_LOG_TRANS_SEFA    = 1;
   TIPO_LOG_TRANS_SISTEMA = 2;
+
+  TIPO_EQUIPAMENTO_CARRO = 1;
+  TIPO_EQUIPAMENTO_MOTO  = 2;
 
   DESC_LOG_EVENTO_CANCELAR_NFE_SD   = 'Cancelar NF-e de Saída';
   DESC_LOG_EVENTO_CANCELAR_NFE_ET   = 'Cancelar NF-e de Entrada';

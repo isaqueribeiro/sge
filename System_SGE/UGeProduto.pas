@@ -1651,14 +1651,21 @@ begin
       Exit;
     end
     else
-    if ( ((ActiveControl = dbComporFaturamento) or (ActiveControl = dbProdutoPorLote)) and tbsCustoVeiculo.TabVisible ) then
+    if ( (ActiveControl = dbProdutoPorLote) and dbGerarSubproduto.Visible ) then
+    begin
+      if dbGerarSubproduto.Enabled then
+        dbGerarSubproduto.SetFocus;
+      Exit;
+    end
+    else
+    if ( ((ActiveControl = dbComporFaturamento) or (ActiveControl = dbProdutoPorLote) or (ActiveControl = dbGerarSubproduto)) and tbsCustoVeiculo.TabVisible ) then
     begin
       pgcMaisDados.ActivePage := tbsCustoVeiculo;
       dbValorCompraVeiculo.SetFocus;
       Exit;
     end
     else
-    if ( ((ActiveControl = dbComporFaturamento) or (ActiveControl = dbProdutoPorLote)) and tbsTributacao.TabVisible ) then
+    if ( ((ActiveControl = dbComporFaturamento) or (ActiveControl = dbProdutoPorLote) or (ActiveControl = dbGerarSubproduto)) and tbsTributacao.TabVisible ) then
     begin
       pgcMaisDados.ActivePage := tbsTributacao;
       dbOrigem.SetFocus;

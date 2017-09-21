@@ -3,17 +3,15 @@ unit UGrMemo;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, StdCtrls, cxButtons, ExtCtrls, ToolWin, ComCtrls, dxSkinsCore,
-  dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, StdCtrls, cxButtons, ExtCtrls, ToolWin, ComCtrls,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinVS2010;
 
 type
   TfrmGrMemo = class(TfrmGrPadrao)
@@ -37,6 +35,7 @@ type
   function SetMemoObservacao(const AOnwer : TComponent; var sObservacao : TStringList) : Boolean;
   function SetMemoMotivo(const AOnwer : TComponent; var sMotivo : TStringList) : Boolean;
   function SetDadosEntrega(const AOnwer : TComponent; var sDadosEntrega : TStringList) : Boolean;
+  function SetEvento(const AOnwer : TComponent; var sEvento : TStringList) : Boolean;
 
 implementation
 
@@ -110,12 +109,35 @@ begin
   end;
 end;
 
+function SetEvento(const AOnwer : TComponent; var sEvento : TStringList) : Boolean;
+var
+  AForm : TfrmGrMemo;
+begin
+  AForm := TfrmGrMemo.Create(AOnwer);
+  try
+    AForm.Caption := 'Histórico do Evento:';
+    AForm.edObservacao.Clear;
+    AForm.edObservacao.MaxLength := 1024;
+    AForm.edObservacao.Lines.AddStrings( sEvento );
+    AForm.edObservacao.Font.Name := 'Lucida Console';
+
+    Result := (AForm.ShowModal = mrOk);
+    if Result then
+    begin
+      sEvento.Clear;
+      sEvento.AddStrings( AForm.edObservacao.Lines );
+    end;
+  finally
+    AForm.Free;
+  end;
+end;
+
 procedure TfrmGrMemo.BtnConfirmarClick(Sender: TObject);
 begin
   if ( Length(Trim(edObservacao.Lines.Text)) < 15 ) then
     ShowWarning('Favor informar texto com, no mínimo, 15 caracteres!')
   else
-    ModalResult := mrOk;  
+    ModalResult := mrOk;
 end;
 
 procedure TfrmGrMemo.RegistrarRotinaSistema;

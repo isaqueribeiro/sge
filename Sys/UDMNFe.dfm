@@ -12,6 +12,7 @@ object DMNFe: TDMNFe
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Geral.ValidarDigest = False
     Configuracoes.Geral.IncluirQRCodeXMLNFCe = False
+    Configuracoes.Arquivos.OrdenacaoPath = <>
     Configuracoes.WebServices.UF = 'PA'
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.QuebradeLinha = '|'
@@ -16152,7 +16153,6 @@ object DMNFe: TDMNFe
     LogoemCima = False
     TamanhoFonteEndereco = 0
     RecuoLogo = 0
-    TributosSeparadamente = False
     EspessuraBorda = 1
     ExibirTotalTributosItem = False
     ExibeCampoFatura = True
@@ -16165,6 +16165,7 @@ object DMNFe: TDMNFe
     QuebraLinhaEmDetalhamentoEspecifico = True
     IncorporarBackgroundPdf = True
     IncorporarFontesPdf = True
+    ImprimirDadosDocReferenciados = True
     Left = 24
     Top = 72
   end
@@ -17906,7 +17907,6 @@ object DMNFe: TDMNFe
     LogoemCima = False
     TamanhoFonteEndereco = 0
     RecuoLogo = 0
-    TributosSeparadamente = False
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
     PosPrinter = ACBrPosPrinter
@@ -22731,7 +22731,6 @@ object DMNFe: TDMNFe
         DataSetName = 'CalculoImposto'
       end
       item
-        DataSet = frxDadosProdutos.Owner
         DataSetName = 'DadosProdutos'
       end
       item
@@ -22799,7 +22798,6 @@ object DMNFe: TDMNFe
         Top = 1062.047930000000000000
         Width = 744.567410000000000000
         OnAfterPrint = 'DadosProdutosOnAfterPrint'
-        DataSet = frxDadosProdutos.Owner
         DataSetName = 'DadosProdutos'
         RowCount = 0
         Stretched = True
@@ -26817,7 +26815,6 @@ object DMNFe: TDMNFe
         DataSetName = 'Destinatario'
       end
       item
-        DataSet = frxDadosProdutos.Owner
         DataSetName = 'DadosProdutos'
       end
       item
@@ -26885,7 +26882,6 @@ object DMNFe: TDMNFe
         Height = 12.472440940000000000
         Top = 740.787880000000000000
         Width = 1084.725110000000000000
-        DataSet = frxDadosProdutos.Owner
         DataSetName = 'DadosProdutos'
         RowCount = 0
         Stretched = True
@@ -33546,7 +33542,6 @@ object DMNFe: TDMNFe
         DataSetName = 'Destinatario'
       end
       item
-        DataSet = frxDadosProdutos.Owner
         DataSetName = 'DadosProdutos'
       end
       item
@@ -34915,7 +34910,6 @@ object DMNFe: TDMNFe
         DataSetName = 'Destinatario'
       end
       item
-        DataSet = frxDadosProdutos.Owner
         DataSetName = 'DadosProdutos'
       end
       item

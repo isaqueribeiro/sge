@@ -288,6 +288,9 @@ type
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       const BlocoImpressaoCupom : TBlocoImpressaoCupom = bicCupomRelatorioGerencial) : Boolean;
 
+    function ImprimirCupomOS_PORTA(const sCNPJEmitente : String; iCodigoCliente : Integer;
+      const sDataHoraSaida : String; const iAnoOS, iNumOS : Integer) : Boolean;
+
     function ImprimirCupomNaoFiscal_ESCPOS(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean; virtual; abstract;
 
@@ -409,6 +412,9 @@ type
     function ImprimirCupomNaoFiscal(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       const BlocoImpressaoCupom : TBlocoImpressaoCupom = bicCupomRelatorioGerencial) : Boolean;
+
+    function ImprimirCupomOS(const sCNPJEmitente : String; iCodigoCliente : Integer;
+      const sDataHoraSaida : String; const iAnoOS, iNumOS : Integer) : Boolean;
 
     function ImprimirCupomOrcamento(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean;
@@ -5498,6 +5504,13 @@ begin
     , BlocoImpressaoCupom);
 end;
 
+function TDMNFe.ImprimirCupomOS(const sCNPJEmitente: String;
+  iCodigoCliente: Integer; const sDataHoraSaida: String;
+  const iAnoOS, iNumOS: Integer): Boolean;
+begin
+  Result := ImprimirCupomOS_PORTA(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoOS, iNumOS);
+end;
+
 procedure TDMNFe.AbrirVendaCartaCredito(AnoVenda, NumeroVenda: Integer);
 begin
   if (not qryCalculoImposto.Active) or qryCalculoImposto.IsEmpty then
@@ -7459,6 +7472,13 @@ begin
     ShowError('Arquivo não localizado!' + #13 + sCmd);
 
   {$ENDIF}
+end;
+
+function TDMNFe.ImprimirCupomOS_PORTA(const sCNPJEmitente: String;
+  iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoOS,
+  iNumOS: Integer): Boolean;
+begin
+  Result := False;
 end;
 
 function TDMNFe.ImprimirCupomFechamentoCaixa_PORTA(const sEmpresa: String;

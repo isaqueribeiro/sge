@@ -14,14 +14,10 @@ uses
   DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, cxButtons,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
@@ -146,8 +142,10 @@ type
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
     procedure FiltarDados; overload;
     procedure FecharAbrirTabela(const Tabela : TIBDataSet; const Vazia : Boolean = FALSE); overload;
+    procedure GerarSequencial(const pDataSet : TIBDataSet; const pCampo : String; var pSequencial : Integer);
 
     function SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean; overload;
+    function SelecionarRegistro(var Codigo, Descricao : String; const FiltroAdicional : String = '') : Boolean; overload;
     function GetCampoCodigoLimpo : String;
     function GetCampoDescricaoLimpo : String;
   end;
@@ -654,6 +652,55 @@ begin
   end;
 end;
 
+function TfrmGrPadraoCadastro.SelecionarRegistro(var Codigo, Descricao: String;
+  const FiltroAdicional: String): Boolean;
+var
+ sCampoCodigo    ,
+ sCampoDescricao : String;
+begin
+  try
+    fOcorreuErro     := False;
+    fWhereAdditional := Trim(FiltroAdicional);
+
+    if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
+    begin
+      ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
+      Abort;
+    end;
+
+    if ( pos('.', CampoCodigo) > 0 ) then
+      sCampoCodigo := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
+    else
+      sCampoCodigo := Trim(CampoCodigo);
+
+    if ( pos('.', CampoDescricao) > 0 ) then
+      sCampoDescricao := Copy(CampoDescricao, pos('.', CampoDescricao) + 1, Length(CampoDescricao))
+    else
+      sCampoDescricao := Trim(CampoDescricao);
+
+    Self.btbtnSelecionar.Visible := True;
+
+    Result := (ShowModal = mrOk) and (not IbDtstTabela.IsEmpty);
+
+    if ( Result ) then
+    begin
+      Codigo    := Trim(IbDtstTabela.FieldByName(sCampoCodigo).AsString);
+      Descricao := Trim(IbDtstTabela.FieldByName(sCampoDescricao).AsString);
+    end
+    else
+    begin
+      Codigo    := EmptyStr;
+      Descricao := EmptyStr;
+    end;
+  except
+    On E : Exception do
+    begin
+      fOcorreuErro := True;
+      ShowWarning('Erro ao tentar selecionar o registros da tabela.' + #13#13 + E.Message);
+    end;
+  end;
+end;
+
 procedure TfrmGrPadraoCadastro.FormShow(Sender: TObject);
 begin
   inherited;
@@ -1009,6 +1056,17 @@ procedure TfrmGrPadraoCadastro.btbtnListaClick(Sender: TObject);
 begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
+end;
+
+procedure TfrmGrPadraoCadastro.GerarSequencial(const pDataSet: TIBDataSet;
+  const pCampo: String; var pSequencial: Integer);
+begin
+  pSequencial := pDataSet.RecordCount + 1;
+
+  if (pDataSet.RecordCount > 0) then
+    if ( Trim(pCampo) <> EmptyStr ) then
+      while pDataSet.Locate(pCampo, pSequencial, []) do
+        pSequencial := pSequencial + 1;
 end;
 
 function TfrmGrPadraoCadastro.GetCampoCodigoLimpo: String;

@@ -4659,6 +4659,7 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
+      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -4722,7 +4723,6 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
-      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -5805,9 +5805,9 @@ object frmPrinc: TfrmPrinc
     object BrBtnTabelaCNAE: TdxBarLargeButton
       Caption = 'Tabela CNAE'
       Category = 5
-      Enabled = False
       Hint = 'Tabela CNAE'
       Visible = ivAlways
+      OnClick = BrBtnTabelaCNAEClick
     end
     object BrBtnTabelaIBPT: TdxBarLargeButton
       Caption = 'Tabela de Tributa'#231#245'es IBPT'

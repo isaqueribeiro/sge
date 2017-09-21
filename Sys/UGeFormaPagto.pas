@@ -142,6 +142,12 @@ begin
     frm.btbtnSalvar.Visible   := False;
     frm.btbtnLista.Visible    := False;
 
+//    frm.WhereAdditional := '(p.FormaPagto_PDV = 1)';
+//
+//    if (gSistema.Codigo <> SISTEMA_PDV) then
+//      frm.WhereAdditional := frm.WhereAdditional + ' and ' +
+//        '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
+
     frm.WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
       '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
 

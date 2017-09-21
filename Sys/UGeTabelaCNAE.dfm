@@ -1,537 +1,337 @@
-object frmGrPadraoCadastro: TfrmGrPadraoCadastro
-  Left = 389
-  Top = 211
-  ActiveControl = dbCodigo
-  BorderIcons = [biSystemMenu, biMinimize]
-  Caption = 'Tabela Padr'#227'o de Cadastro'
-  ClientHeight = 401
-  ClientWidth = 735
-  Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
-  Font.Style = []
-  KeyPreview = True
-  OldCreateOrder = False
-  Position = poMainFormCenter
-  OnActivate = FormActivate
-  OnCloseQuery = FormCloseQuery
-  OnCreate = FormCreate
-  OnKeyDown = FormKeyDown
-  OnShow = FormShow
+inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
+  Left = 398
+  Top = 210
+  Caption = 'Tabela CNAE (C'#243'digo Nacional de Atividades Empresariais)'
+  ClientHeight = 445
+  ClientWidth = 728
+  OldCreateOrder = True
+  ExplicitWidth = 744
+  ExplicitHeight = 484
   PixelsPerInch = 96
   TextHeight = 13
-  object Bevel1: TBevel
-    Left = 0
-    Top = 397
-    Width = 735
-    Height = 4
-    Align = alBottom
-    Shape = bsSpacer
-    ExplicitTop = 398
+  inherited Bevel1: TBevel
+    Top = 441
+    Width = 728
+    ExplicitTop = 442
+    ExplicitWidth = 728
   end
-  object Bevel3: TBevel
-    Left = 0
-    Top = 358
-    Width = 735
-    Height = 4
-    Align = alBottom
-    Shape = bsSpacer
-    ExplicitTop = 359
+  inherited Bevel3: TBevel
+    Top = 402
+    Width = 728
+    ExplicitTop = 403
+    ExplicitWidth = 728
   end
-  object pgcGuias: TPageControl
-    Left = 0
-    Top = 0
-    Width = 735
-    Height = 358
-    ActivePage = tbsCadastro
-    Align = alClient
-    Images = ImgList
-    TabOrder = 0
-    object tbsTabela: TTabSheet
-      Caption = '&Lista'
-      ImageIndex = 37
-      object Bevel4: TBevel
-        Left = 0
-        Top = 263
-        Width = 727
-        Height = 4
-        Align = alBottom
-        Shape = bsSpacer
-        ExplicitTop = 264
+  inherited pgcGuias: TPageControl
+    Width = 728
+    Height = 402
+    ExplicitWidth = 728
+    ExplicitHeight = 402
+    inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      inherited Bevel4: TBevel
+        Top = 308
+        Width = 720
+        ExplicitTop = 308
+        ExplicitWidth = 720
       end
-      object dbgDados: TDBGrid
-        Left = 0
-        Top = 0
-        Width = 727
-        Height = 263
-        Align = alClient
-        DataSource = DtSrcTabela
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 0
-        TitleFont.Charset = ANSI_CHARSET
-        TitleFont.Color = clBlack
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = [fsBold]
-        OnDrawColumnCell = dbgDadosDrawColumnCell
-        OnDblClick = dbgDadosDblClick
-        OnKeyDown = dbgDadosKeyDown
-        OnKeyPress = dbgDadosKeyPress
+      inherited dbgDados: TDBGrid
+        Width = 720
+        Height = 308
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'CODIGO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRICAO_RESUMIDA'
+            Width = 600
+            Visible = True
+          end>
       end
-      object pnlFiltros: TPanel
-        Left = 0
-        Top = 267
-        Width = 727
-        Height = 62
-        Align = alBottom
-        BevelOuter = bvNone
-        BorderWidth = 4
-        TabOrder = 1
-        object grpBxFiltro: TGroupBox
-          Left = 471
-          Top = 4
-          Width = 252
-          Height = 54
-          Align = alRight
-          Caption = 'Pesquisar ...'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 0
-          DesignSize = (
-            252
-            54)
-          object lbltFiltrar: TLabel
-            Left = 6
-            Top = 25
-            Width = 41
-            Height = 13
-            Caption = 'Tabela:'
-            FocusControl = edtFiltrar
+      inherited pnlFiltros: TPanel
+        Top = 312
+        Width = 720
+        ExplicitTop = 312
+        ExplicitWidth = 720
+        inherited grpBxFiltro: TGroupBox
+          Left = 464
+          ExplicitLeft = 464
+          inherited lbltFiltrar: TLabel
+            Left = 14
+            Width = 31
+            Caption = 'CNAE:'
+            ExplicitLeft = 14
+            ExplicitWidth = 31
           end
-          object edtFiltrar: TEdit
-            Left = 55
-            Top = 21
-            Width = 148
-            Height = 21
-            Hint = 'Digite aqui a palavra-chave da pesquisa'
-            Anchors = [akLeft, akTop, akRight]
-            CharCase = ecUpperCase
-            ParentShowHint = False
-            ShowHint = True
-            TabOrder = 0
-            OnKeyDown = edtFiltrarKeyDown
-          end
-          object btnFiltrar: TcxButton
-            Tag = 5
-            Left = 207
-            Top = 16
-            Width = 29
-            Height = 27
-            Hint = 'Clique aqui para executar a pesquisa ...'
-            Anchors = [akTop, akRight, akBottom]
-            OptionsImage.Glyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              20000000000000040000C30E0000C30E00000000000000000000000000000000
-              00000000000000000000000000000000000000000000AC6B2CBAAC6B2CCC0000
-              0000000000000000000000000000000000000000000000000000000000000000
-              00000000000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B
-              2CD1B5712F29B87330BDB87330CAB974306B0000000000000000000000000000
-              000000000000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B
-              2CFFAC6B2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF00000000000000000000
-              000000000000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B
-              2CFFAC6B2C830000000000000000AC6B2C22AC6B2CFFB16F2EA3000000000000
-              000000000000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B
-              2CFF00000000000000000000000000000000AC6B2CA9AF6D2DFF000000000000
-              000000000000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B
-              2CFF00000000000000000000000000000000AD6C2C93AF6D2DFF000000000000
-              000000000000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B
-              2CFFAD6C2C31000000000000000000000000AC6B2CFFB06D2DCB000000000000
-              000000000000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B
-              2CFCAC6B2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF00000000000000000000
-              0000000000006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C666000000000000
-              0000AE6C2C9BAC6B2CFFAC6B2CFFAD6C2CCA0000000000000000000000000000
-              0000000000006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A
-              7A1E000000000000000000000000000000000000000000000000000000000000
-              00006E6E6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDF
-              DFFF727272FE6E6E6E5C00000000000000000000000000000000000000006E6E
-              6E3B6E6E6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFC
-              FCFFCECECEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E
-              6EE86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3
-              C3FFFFFFFFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E
-              6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C
-              7CFFFAFAFAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E
-              6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E
-              6EFF707070FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D00000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000}
-            ParentShowHint = False
-            ShowHint = True
-            SpeedButtonOptions.CanBeFocused = False
-            SpeedButtonOptions.Flat = True
-            SpeedButtonOptions.Transparent = True
-            TabOrder = 1
-            TabStop = False
-            OnClick = btnFiltrarClick
+          inherited edtFiltrar: TEdit
+            Left = 48
+            Width = 155
+            ExplicitLeft = 48
+            ExplicitWidth = 155
           end
         end
       end
     end
-    object tbsCadastro: TTabSheet
-      Caption = '&Dados'
-      ImageIndex = 39
-      object Bevel8: TBevel
-        Left = 0
-        Top = 121
-        Width = 727
-        Height = 4
-        Align = alTop
-        Shape = bsSpacer
+    inherited tbsCadastro: TTabSheet
+      inherited Bevel8: TBevel
+        Top = 225
+        Width = 720
+        ExplicitTop = 225
+        ExplicitWidth = 720
       end
-      object GrpBxDadosNominais: TGroupBox
-        Left = 0
-        Top = 0
-        Width = 727
-        Height = 121
-        Align = alTop
-        Caption = 'Dados nominais'
-        TabOrder = 0
-        object lblCodigo: TLabel
-          Left = 16
+      inherited GrpBxDadosNominais: TGroupBox
+        Width = 720
+        Height = 225
+        ExplicitWidth = 720
+        ExplicitHeight = 225
+        object lblDescricaoResumida: TLabel [1]
+          Left = 88
           Top = 24
-          Width = 41
+          Width = 96
           Height = 13
-          Caption = 'C'#243'digo:'
-          FocusControl = dbCodigo
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
+          Caption = 'Descri'#231#227'o resumida:'
+          FocusControl = dbDescricaoResumida
         end
-        object dbCodigo: TDBEdit
+        object lblNotaExplicativa: TLabel [2]
           Left = 16
+          Top = 104
+          Width = 81
+          Height = 13
+          Caption = 'Nota Explicativa:'
+          FocusControl = dbNotaExplicativa
+        end
+        object lblDescricaoCompleta: TLabel [3]
+          Left = 16
+          Top = 64
+          Width = 96
+          Height = 13
+          Caption = 'Descri'#231#227'o completa:'
+          FocusControl = dbDescricaoCompleta
+        end
+        inherited dbCodigo: TDBEdit
+          DataField = 'CODIGO'
+          ReadOnly = False
+        end
+        object dbDescricaoResumida: TDBEdit
+          Left = 88
           Top = 40
-          Width = 65
+          Width = 617
           Height = 21
+          CharCase = ecUpperCase
+          DataField = 'DESCRICAO_RESUMIDA'
           DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
+          Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
           ParentFont = False
-          ReadOnly = True
+          TabOrder = 1
+        end
+        object dbNotaExplicativa: TDBMemo
+          Left = 16
+          Top = 120
+          Width = 689
+          Height = 89
+          DataField = 'NOTA_EXPLICATIVA'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          ScrollBars = ssVertical
+          TabOrder = 3
+        end
+        object dbDescricaoCompleta: TDBEdit
+          Left = 16
+          Top = 80
+          Width = 689
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'DESCRICAO_COMPLETA'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+        end
+      end
+      object GrpBxParametros: TGroupBox
+        Left = 0
+        Top = 229
+        Width = 720
+        Height = 144
+        Align = alClient
+        Caption = 'Par'#226'metros'
+        TabOrder = 1
+        object dbAtivo: TDBCheckBox
+          Left = 16
+          Top = 24
+          Width = 105
+          Height = 17
+          Caption = 'Cadastro ativo'
+          DataField = 'ATIVA'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 0
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
+        object dbObrigaInscEstadual: TDBCheckBox
+          Left = 16
+          Top = 48
+          Width = 193
+          Height = 17
+          Caption = #201' obrigat'#243'rio a Inscri'#231#227'o Estadual'
+          DataField = 'OBRIGA_INSC_ESTADUAL'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          ValueChecked = '1'
+          ValueUnchecked = '0'
         end
       end
     end
   end
-  object tlbBotoes: TPanel
-    Left = 0
-    Top = 362
-    Width = 735
-    Height = 35
-    Align = alBottom
-    BevelOuter = bvNone
-    ParentColor = True
-    TabOrder = 1
-    object Bevel2: TBevel
-      Left = 0
-      Top = 0
-      Width = 4
-      Height = 35
-      Align = alLeft
-      Shape = bsSpacer
+  inherited tlbBotoes: TPanel
+    Top = 406
+    Width = 728
+    ExplicitTop = 406
+    ExplicitWidth = 728
+    inherited bvlTool3: TBevel
+      Left = 645
+      ExplicitLeft = 645
     end
-    object bvlTool1: TBevel
-      Left = 229
-      Top = 0
-      Width = 4
-      Height = 35
-      Align = alLeft
-      Shape = bsSpacer
+    inherited bvlTool4: TBevel
+      Left = 724
+      ExplicitLeft = 724
     end
-    object bvlTool2: TBevel
-      Left = 383
-      Top = 0
-      Width = 4
-      Height = 35
-      Align = alLeft
-      Shape = bsSpacer
+    inherited btbtnFechar: TcxButton
+      Left = 649
+      ExplicitLeft = 649
     end
-    object bvlTool3: TBevel
-      Left = 652
-      Top = 0
-      Width = 4
-      Height = 35
-      Align = alRight
-      Shape = bsSpacer
-    end
-    object bvlTool4: TBevel
-      Left = 731
-      Top = 0
-      Width = 4
-      Height = 35
-      Align = alRight
-      Shape = bsSpacer
-    end
-    object btbtnIncluir: TcxButton
-      Tag = 1
-      Left = 4
-      Top = 0
-      Width = 75
-      Height = 35
-      Hint = 'Incluir'
-      Align = alLeft
-      Caption = '&Incluir'
-      OptionsImage.ImageIndex = 6
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 0
-      OnClick = btbtnIncluirClick
-    end
-    object btbtnAlterar: TcxButton
-      Tag = 2
-      Left = 79
-      Top = 0
-      Width = 75
-      Height = 35
-      Hint = 'Alterar'
-      Align = alLeft
-      Caption = '&Alterar'
-      OptionsImage.ImageIndex = 3
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-      OnClick = btbtnAlterarClick
-    end
-    object btbtnExcluir: TcxButton
-      Tag = 3
-      Left = 154
-      Top = 0
-      Width = 75
-      Height = 35
-      Hint = 'Excluir'
-      Align = alLeft
-      Caption = '&Excluir'
-      OptionsImage.ImageIndex = 4
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 2
-      OnClick = btbtnExcluirClick
-    end
-    object btbtnCancelar: TcxButton
-      Left = 233
-      Top = 0
-      Width = 75
-      Height = 35
-      Hint = 'Cancelar Inser'#231#227'o/Edi'#231#227'o'
-      Align = alLeft
-      Caption = '&Cancelar'
-      OptionsImage.ImageIndex = 2
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 4
-      OnClick = btbtnCancelarClick
-    end
-    object btbtnSalvar: TcxButton
-      Left = 308
-      Top = 0
-      Width = 75
-      Height = 35
-      Hint = 'Salvar Inser'#231#227'o/Edi'#231#227'o'
-      Align = alLeft
-      Caption = '&Salvar'
-      OptionsImage.ImageIndex = 9
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 3
-      OnClick = btbtnSalvarClick
-    end
-    object btbtnLista: TcxButton
-      Tag = 4
-      Left = 387
-      Top = 0
-      Width = 75
-      Height = 35
-      Hint = 'Imprimir Lista'
-      Align = alLeft
-      Caption = 'Im&primir'
-      OptionsImage.ImageIndex = 5
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 5
-      Visible = False
-      OnClick = btbtnListaClick
-    end
-    object btbtnFechar: TcxButton
-      Left = 656
-      Top = 0
-      Width = 75
-      Height = 35
-      Hint = 'Fechar'
-      Align = alRight
-      Caption = 'Fechar'
-      OptionsImage.ImageIndex = 15
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 7
-      OnClick = btbtnFecharClick
-    end
-    object btbtnSelecionar: TcxButton
-      Tag = 5
-      Left = 532
-      Top = 0
-      Width = 120
-      Height = 35
-      Hint = 'Selecionar registro'
-      Align = alRight
-      Caption = 'Selecionar (F2)'
-      OptionsImage.ImageIndex = 10
-      OptionsImage.Images = DMRecursos.ImgBotoes16x16
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 6
-      Visible = False
-      OnClick = btbtnSelecionarClick
+    inherited btbtnSelecionar: TcxButton
+      Left = 525
+      ExplicitLeft = 525
     end
   end
-  object IbDtstTabela: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    OnUpdateError = IbDtstTabelaUpdateError
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
+  inherited IbDtstTabela: TIBDataSet
+    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
-      '    b.bco_cod'
-      '  , b.bco_carteira'
-      '  , b.bco_nome'
-      '  , b.bco_chave'
-      '  , b.bco_agencia'
-      '  , b.bco_cc'
-      '  , b.bco_nosso_num_inicio'
-      '  , b.bco_nosso_num_final'
-      '  , b.bco_nosso_num_proximo'
-      '  , b.bco_confg_1'
-      '  , b.bco_confg_2'
-      '  , b.bco_diretorio_remessa'
-      '  , b.bco_diretorio_retorno'
-      '  , b.bco_sequencial_rem'
-      'from TBBANCO_BOLETO b')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.ApplyEvent = gamOnPost
-    UpdateObject = IbUpdTabela
-    Left = 624
-    Top = 8
+      '    c.codigo'
+      '  , c.descricao_resumida'
+      '  , c.descricao_completa'
+      '  , c.nota_explicativa'
+      '  , c.obriga_insc_estadual'
+      '  , c.ativa'
+      'from TBCNAE c')
+    object IbDtstTabelaCODIGO: TIBStringField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = '"TBCNAE"."CODIGO"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField
+      DisplayLabel = 'Descri'#231#227'o resumida'
+      FieldName = 'DESCRICAO_RESUMIDA'
+      Origin = '"TBCNAE"."DESCRICAO_RESUMIDA"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 100
+    end
+    object IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField
+      DisplayLabel = 'Descri'#231#227'o completa'
+      FieldName = 'DESCRICAO_COMPLETA'
+      Origin = '"TBCNAE"."DESCRICAO_COMPLETA"'
+      ProviderFlags = [pfInUpdate]
+      Size = 250
+    end
+    object IbDtstTabelaNOTA_EXPLICATIVA: TMemoField
+      DisplayLabel = 'Nota explicativa'
+      FieldName = 'NOTA_EXPLICATIVA'
+      Origin = '"TBCNAE"."NOTA_EXPLICATIVA"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IbDtstTabelaOBRIGA_INSC_ESTADUAL: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'OBRIGA_INSC_ESTADUAL'
+      Origin = '"TBCNAE"."OBRIGA_INSC_ESTADUAL"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaATIVA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVA'
+      Origin = '"TBCNAE"."ATIVA"'
+      ProviderFlags = [pfInUpdate]
+    end
   end
-  object DtSrcTabela: TDataSource
-    AutoEdit = False
-    DataSet = IbDtstTabela
-    OnStateChange = DtSrcTabelaStateChange
-    Left = 688
-    Top = 8
-  end
-  object IbUpdTabela: TIBUpdateSQL
+  inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
-      '  BCO_COD,'
-      '  BCO_CARTEIRA,'
-      '  BCO_NOME,'
-      '  BCO_CHAVE,'
-      '  BCO_AGENCIA,'
-      '  BCO_CC,'
-      '  BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_CONFG_1,'
-      '  BCO_CONFG_2,'
-      '  BCO_SEQUENCIAL_REM,'
-      '  BCO_DIRETORIO_REMESSA,'
-      '  BCO_DIRETORIO_RETORNO'
-      'from TBBANCO_BOLETO '
+      '  CODIGO,'
+      '  DESCRICAO_RESUMIDA,'
+      '  DESCRICAO_COMPLETA,'
+      '  NOTA_EXPLICATIVA,'
+      '  OBRIGA_INSC_ESTADUAL,'
+      '  ATIVA'
+      'from TBCNAE '
       'where'
-      '  BCO_COD = :BCO_COD')
+      '  CODIGO = :CODIGO')
     ModifySQL.Strings = (
-      'update TBBANCO_BOLETO'
+      'update TBCNAE'
       'set'
-      '  BCO_COD = :BCO_COD,'
-      '  BCO_CARTEIRA = :BCO_CARTEIRA,'
-      '  BCO_NOME = :BCO_NOME,'
-      '  BCO_CHAVE = :BCO_CHAVE,'
-      '  BCO_AGENCIA = :BCO_AGENCIA,'
-      '  BCO_CC = :BCO_CC,'
-      '  BCO_NOSSO_NUM_INICIO = :BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_FINAL = :BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_PROXIMO = :BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_CONFG_1 = :BCO_CONFG_1,'
-      '  BCO_CONFG_2 = :BCO_CONFG_2,'
-      '  BCO_DIRETORIO_REMESSA = :BCO_DIRETORIO_REMESSA,'
-      '  BCO_DIRETORIO_RETORNO = :BCO_DIRETORIO_RETORNO,'
-      '  BCO_SEQUENCIAL_REM = :BCO_SEQUENCIAL_REM'
+      '  ATIVA = :ATIVA,'
+      '  CODIGO = :CODIGO,'
+      '  DESCRICAO_COMPLETA = :DESCRICAO_COMPLETA,'
+      '  DESCRICAO_RESUMIDA = :DESCRICAO_RESUMIDA,'
+      '  NOTA_EXPLICATIVA = :NOTA_EXPLICATIVA,'
+      '  OBRIGA_INSC_ESTADUAL = :OBRIGA_INSC_ESTADUAL'
       'where'
-      '  BCO_COD = :OLD_BCO_COD')
+      '  CODIGO = :OLD_CODIGO')
     InsertSQL.Strings = (
-      'insert into TBBANCO_BOLETO'
+      'insert into TBCNAE'
       
-        '  (BCO_COD, BCO_CARTEIRA, BCO_NOME, BCO_CHAVE, BCO_AGENCIA, BCO_' +
-        'CC, BCO_NOSSO_NUM_INICIO, '
-      
-        '   BCO_NOSSO_NUM_FINAL, BCO_NOSSO_NUM_PROXIMO, BCO_CONFG_1, BCO_' +
-        'CONFG_2, '
-      
-        '   BCO_DIRETORIO_REMESSA, BCO_DIRETORIO_RETORNO, BCO_SEQUENCIAL_' +
-        'REM)'
+        '  (ATIVA, CODIGO, DESCRICAO_COMPLETA, DESCRICAO_RESUMIDA, NOTA_E' +
+        'XPLICATIVA, '
+      '   OBRIGA_INSC_ESTADUAL)'
       'values'
       
-        '  (:BCO_COD, :BCO_CARTEIRA, :BCO_NOME, :BCO_CHAVE, :BCO_AGENCIA,' +
-        ' :BCO_CC, '
-      
-        '   :BCO_NOSSO_NUM_INICIO, :BCO_NOSSO_NUM_FINAL, :BCO_NOSSO_NUM_P' +
-        'ROXIMO, '
-      
-        '   :BCO_CONFG_1, :BCO_CONFG_2, :BCO_DIRETORIO_REMESSA, :BCO_DIRE' +
-        'TORIO_RETORNO, '
-      '   :BCO_SEQUENCIAL_REM)')
+        '  (:ATIVA, :CODIGO, :DESCRICAO_COMPLETA, :DESCRICAO_RESUMIDA, :N' +
+        'OTA_EXPLICATIVA, '
+      '   :OBRIGA_INSC_ESTADUAL)')
     DeleteSQL.Strings = (
-      'delete from TBBANCO_BOLETO'
+      'delete from TBCNAE'
       'where'
-      '  BCO_COD = :OLD_BCO_COD')
-    Left = 656
-    Top = 8
+      '  CODIGO = :OLD_CODIGO')
   end
-  object ImgList: TImageList
-    Left = 592
-    Top = 8
+  inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

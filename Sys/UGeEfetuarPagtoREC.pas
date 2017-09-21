@@ -3,8 +3,10 @@ unit UGeEfetuarPagtoREC;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, DB,
+  Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, DB,
   IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, IBStoredProc, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvExMask, JvToolEdit, JvDBControls, IBX.IBQuery,
@@ -13,16 +15,11 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
+  TTipoOrigemRecebimento = (toRecebimentoOutros, toRecebimentoVenda, toRecebimentoOS);
   TfrmGeEfetuarPagtoREC = class(TfrmGrPadrao)
     GrpBxPagamento: TGroupBox;
     Bevel1: TBevel;
@@ -117,7 +114,8 @@ var
   function PagamentoConfirmado(const AOwner : TComponent; const Empresa : String;
     const Ano, Lancamento, FormaPagto : Integer; const Cliente : String;
     var ContaCorrente : Integer; var DataPagto : TDateTime; var AReceber : Currency) : Boolean;
-  function RegistrarPagamento(LancAno, LanNumero : Integer; DataPagto : TDateTime; FormaPagto : Integer; ValorPago : Currency; VendaAno, VendaNumero : Integer) : Boolean;
+  function RegistrarPagamento(LancAno, LanNumero : Integer; DataPagto : TDateTime; FormaPagto : Integer; ValorPago : Currency;
+    pTipoOrigem : TTipoOrigemRecebimento; pAno, pControle : Integer) : Boolean;
 
 implementation
 
@@ -178,7 +176,8 @@ begin
   end;
 end;
 
-function RegistrarPagamento(LancAno, LanNumero : Integer; DataPagto : TDateTime; FormaPagto : Integer; ValorPago : Currency; VendaAno, VendaNumero : Integer) : Boolean;
+function RegistrarPagamento(LancAno, LanNumero : Integer; DataPagto : TDateTime; FormaPagto : Integer; ValorPago : Currency;
+  pTipoOrigem : TTipoOrigemRecebimento; pAno, pControle : Integer) : Boolean;
 var
   frm : TfrmGeEfetuarPagtoREC;
 begin
@@ -204,8 +203,10 @@ begin
       cdsPagamentosDATA_PAGTO.AsDateTime  := DataPagto;
       cdsPagamentosFORMA_PAGTO.AsInteger  := FormaPagto;
       cdsPagamentosVALOR_BAIXA.AsCurrency := ValorPago;
-      cdsPagamentosDOCUMENTO_BAIXA.AsString := FormatFloat('0000', VendaAno) + FormatFloat('000000', VendaNumero);
-      cdsPagamentosHISTORICO.AsString       := 'BAIXA AUTOMATICA NA CONFIRMACAO DA VENDA No. ' + FormatFloat('0000', VendaAno) + '/' + FormatFloat('000000', VendaNumero);
+      cdsPagamentosDOCUMENTO_BAIXA.AsString := FormatFloat('0000', pAno) + FormatFloat('000000', pControle);
+      cdsPagamentosHISTORICO.AsString       := 'BAIXA AUTOMATICA NA CONFIRMACAO DA ' +
+        IfThen(pTipoOrigem = toRecebimentoVenda, 'VENDA', IfThen(pTipoOrigem = toRecebimentoOS, 'OS','OUT' ))  +
+        ' No. ' + FormatFloat('0000', pAno) + '/' + FormatFloat('000000', pControle);
       cdsPagamentosCONTROLE_CHEQUE.Clear;
 
       cdsPagamentos.Post;

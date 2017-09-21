@@ -1,11 +1,13 @@
-inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
-  Left = 384
-  Top = 216
+inherited frmGeOSCancelar: TfrmGeOSCancelar
+  Left = 387
+  Top = 193
+  ActiveControl = dbMotivo
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
-  Caption = 'Cancelar Apropria'#231#227'o de Estoque'
+  Caption = 'Cancelar Ordem de Servi'#231'o'
   ClientHeight = 427
   ClientWidth = 593
+  OldCreateOrder = True
   ExplicitWidth = 617
   ExplicitHeight = 474
   DesignSize = (
@@ -42,7 +44,6 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    Visible = False
   end
   object GrpBxControle: TGroupBox
     Left = 0
@@ -50,7 +51,7 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
     Width = 593
     Height = 121
     Align = alTop
-    Caption = 'Controle da Apropria'#231#227'o'
+    Caption = 'Controle da Ordem de Servi'#231'o'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -61,9 +62,9 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
     object lblCodigo: TLabel
       Left = 16
       Top = 24
-      Width = 92
+      Width = 38
       Height = 13
-      Caption = 'No. Apropria'#231#227'o:'
+      Caption = 'No. OS:'
       FocusControl = dbCodigo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -72,13 +73,13 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblCentroCusto: TLabel
-      Left = 120
+    object lblCliente: TLabel
+      Left = 112
       Top = 24
-      Width = 188
+      Width = 42
       Height = 13
-      Caption = 'Departamento / Centro de Custo:'
-      FocusControl = dbCentroCusto
+      Caption = 'Cliente:'
+      FocusControl = dbCliente
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -86,13 +87,13 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblDataApropriacao: TLabel
-      Left = 15
+    object lblNFSe: TLabel
+      Left = 16
       Top = 64
-      Width = 30
+      Width = 35
       Height = 13
-      Caption = 'Data:'
-      FocusControl = dbDataApropriacao
+      Caption = 'NFS-e:'
+      FocusControl = dbNFSe
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -100,13 +101,27 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblEntrada: TLabel
-      Left = 119
+    object lblDataEmissao: TLabel
+      Left = 144
       Top = 64
-      Width = 47
+      Width = 79
       Height = 13
-      Caption = 'Entrada:'
-      FocusControl = dbEntrada
+      Caption = 'Data Emiss'#227'o:'
+      FocusControl = dbDataEmissao
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblHoraEmissao: TLabel
+      Left = 232
+      Top = 64
+      Width = 79
+      Height = 13
+      Caption = 'Hora Emiss'#227'o:'
+      FocusControl = dbHoraEmissao
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -117,12 +132,12 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
     object dbCodigo: TDBEdit
       Left = 16
       Top = 40
-      Width = 97
+      Width = 89
       Height = 21
       TabStop = False
       Color = clMoneyGreen
       DataField = 'NUMERO'
-      DataSource = dtsApropriacao
+      DataSource = dtsOS
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -132,15 +147,15 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       ReadOnly = True
       TabOrder = 0
     end
-    object dbCentroCusto: TDBEdit
-      Left = 120
+    object dbCliente: TDBEdit
+      Left = 112
       Top = 40
-      Width = 457
+      Width = 465
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'CC_DESCRICAO'
-      DataSource = dtsApropriacao
+      DataField = 'TOMADOR_RAZAO'
+      DataSource = dtsOS
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -150,15 +165,15 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       ReadOnly = True
       TabOrder = 1
     end
-    object dbDataApropriacao: TDBEdit
+    object dbNFSe: TDBEdit
       Left = 16
       Top = 80
-      Width = 97
+      Width = 121
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'DATA_APROPRIACAO'
-      DataSource = dtsApropriacao
+      DataField = 'NFS'
+      DataSource = dtsOS
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -168,15 +183,15 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       ReadOnly = True
       TabOrder = 2
     end
-    object dbEntrada: TDBEdit
-      Left = 120
+    object dbDataEmissao: TDBEdit
+      Left = 144
       Top = 80
-      Width = 113
+      Width = 81
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'ENTRADA'
-      DataSource = dtsApropriacao
+      DataField = 'NFS_DATAEMISSAO'
+      DataSource = dtsOS
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -186,15 +201,15 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       ReadOnly = True
       TabOrder = 3
     end
-    object dbFornecedor: TDBEdit
-      Left = 240
+    object dbHoraEmissao: TDBEdit
+      Left = 232
       Top = 80
-      Width = 337
+      Width = 81
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'NOMEFORN'
-      DataSource = dtsApropriacao
+      DataField = 'NFS_HORAEMISSAO'
+      DataSource = dtsOS
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -281,6 +296,7 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       ParentFont = False
       ScrollBars = ssVertical
       TabOrder = 2
+      OnKeyPress = dbMotivoKeyPress
     end
     object dbCancelUsuario: TEdit
       Left = 16
@@ -442,7 +458,7 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
     TabOrder = 3
     OnClick = btFecharClick
   end
-  object cdsApropriacao: TIBDataSet
+  object cdsOS: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
@@ -452,142 +468,334 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       '')
     SelectSQL.Strings = (
       'Select'
-      '    a.ano'
-      '  , a.controle'
-      '  , a.numero'
-      '  , a.empresa'
-      '  , a.centro_custo'
-      '  , a.status'
-      ''
-      '  , a.data_apropriacao'
-      ''
-      '  , a.cancel_usuario'
-      '  , a.cancel_datahora'
-      '  , a.cancel_motivo'
-      ''
-      '  , c.descricao as cc_descricao'
-      ''
-      '  , a.compra_ano || '#39'/'#39' || lpad(a.compra_num, 7, '#39'0'#39') as entrada'
-      '  , f.nomeforn'
-      'from TBAPROPRIACAO_ALMOX a'
-      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
+      '    o.*'
+      '  , o.ano || '#39'/'#39' || right('#39'0000000'#39' || o.controle, 7) as numero'
       
-        '  left join TBCOMPRAS co on (co.ano = a.compra_ano and co.codcon' +
-        'trol = a.compra_num and co.codemp = a.compra_emp)'
-      '  left join TBFORNECEDOR f on (f.codforn = co.codforn)'
+        '  , right('#39'0000000'#39' || o.nfs_numero, 7) || '#39'-'#39' || o.nfs_serie as' +
+        ' nfs'
+      '  , st.descricao as status_descricao'
       ''
-      'where a.ano      = :ano'
-      '  and a.controle = :controle')
+      '  , cl.pessoa_fisica as tomador_pf'
+      '  , cl.cnpj     as tomador_cnpj'
+      '  , cl.nome     as tomador_razao'
+      
+        '  , coalesce(nullif(trim(cl.nomefant), '#39#39'), cl.nome) as tomador_' +
+        'fantasia'
+      'from TBOS o'
+      '  left join VW_STATUS_OS st on (st.codigo = o.status)'
+      '  left join TBCLIENTE cl on (cl.codigo = o.cliente)'
+      ''
+      'where o.ano      = :ano'
+      '  and o.controle = :num'
+      '')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updApropriacao
-    Left = 472
-    Top = 72
-    object cdsApropriacaoANO: TSmallintField
+    UpdateObject = updOS
+    Left = 480
+    Top = 96
+    object cdsOSANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."ANO"'
+      Origin = '"TBOS"."ANO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsApropriacaoCONTROLE: TIntegerField
+    object cdsOSCONTROLE: TIntegerField
       FieldName = 'CONTROLE'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CONTROLE"'
+      Origin = '"TBOS"."CONTROLE"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
     end
-    object cdsApropriacaoNUMERO: TIBStringField
-      FieldName = 'NUMERO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsApropriacaoEMPRESA: TIBStringField
+    object cdsOSEMPRESA: TIBStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = '"TBOS"."EMPRESA"'
+      Required = True
       Size = 18
     end
-    object cdsApropriacaoCENTRO_CUSTO: TIntegerField
-      FieldName = 'CENTRO_CUSTO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CENTRO_CUSTO"'
-      ProviderFlags = [pfInUpdate]
+    object cdsOSCLIENTE: TIntegerField
+      FieldName = 'CLIENTE'
+      Origin = '"TBOS"."CLIENTE"'
+      Required = True
     end
-    object cdsApropriacaoSTATUS: TSmallintField
-      FieldName = 'STATUS'
-      Origin = '"TBAPROPRIACAO_ALMOX"."STATUS"'
-      ProviderFlags = [pfInUpdate]
+    object cdsOSDATA_CADASTRO: TDateTimeField
+      FieldName = 'DATA_CADASTRO'
+      Origin = '"TBOS"."DATA_CADASTRO"'
     end
-    object cdsApropriacaoDATA_APROPRIACAO: TDateField
-      FieldName = 'DATA_APROPRIACAO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."DATA_APROPRIACAO"'
-      ProviderFlags = [pfInUpdate]
+    object cdsOSDATA_EMISSAO: TDateField
+      FieldName = 'DATA_EMISSAO'
+      Origin = '"TBOS"."DATA_EMISSAO"'
+      Required = True
     end
-    object cdsApropriacaoCANCEL_USUARIO: TIBStringField
-      FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_USUARIO"'
-      ProviderFlags = [pfInUpdate]
+    object cdsOSDATA_PREVISAO_CONCLUSAO: TDateField
+      FieldName = 'DATA_PREVISAO_CONCLUSAO'
+      Origin = '"TBOS"."DATA_PREVISAO_CONCLUSAO"'
+    end
+    object cdsOSUSUARIO: TIBStringField
+      FieldName = 'USUARIO'
+      Origin = '"TBOS"."USUARIO"'
       Size = 12
     end
-    object cdsApropriacaoCANCEL_DATAHORA: TDateTimeField
-      FieldName = 'CANCEL_DATAHORA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_DATAHORA"'
-      ProviderFlags = [pfInUpdate]
+    object cdsOSVENDEDOR: TIntegerField
+      FieldName = 'VENDEDOR'
+      Origin = '"TBOS"."VENDEDOR"'
     end
-    object cdsApropriacaoCANCEL_MOTIVO: TMemoField
-      FieldName = 'CANCEL_MOTIVO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_MOTIVO"'
+    object cdsOSSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = '"TBOS"."STATUS"'
+    end
+    object cdsOSOBSERVACOES: TMemoField
+      FieldName = 'OBSERVACOES'
+      Origin = '"TBOS"."OBSERVACOES"'
       ProviderFlags = [pfInUpdate]
       BlobType = ftMemo
       Size = 8
     end
-    object cdsApropriacaoCC_DESCRICAO: TIBStringField
-      FieldName = 'CC_DESCRICAO'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+    object cdsOSRELATO_SOLICITACAO: TMemoField
+      FieldName = 'RELATO_SOLICITACAO'
+      Origin = '"TBOS"."RELATO_SOLICITACAO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object cdsOSDADOS_ENTREGA: TMemoField
+      FieldName = 'DADOS_ENTREGA'
+      Origin = '"TBOS"."DADOS_ENTREGA"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object cdsOSTOTAL_SERVICO: TIBBCDField
+      FieldName = 'TOTAL_SERVICO'
+      Origin = '"TBOS"."TOTAL_SERVICO"'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSTOTAL_PRODUTO: TIBBCDField
+      FieldName = 'TOTAL_PRODUTO'
+      Origin = '"TBOS"."TOTAL_PRODUTO"'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSTOTAL_DESCONTOS_SERVICOS: TIBBCDField
+      FieldName = 'TOTAL_DESCONTOS_SERVICOS'
+      Origin = '"TBOS"."TOTAL_DESCONTOS_SERVICOS"'
+      Precision = 18
+      Size = 3
+    end
+    object cdsOSTOTAL_DESCONTOS_PRODUTOS: TIBBCDField
+      FieldName = 'TOTAL_DESCONTOS_PRODUTOS'
+      Origin = '"TBOS"."TOTAL_DESCONTOS_PRODUTOS"'
+      Precision = 18
+      Size = 3
+    end
+    object cdsOSTOTAL_DESCONTOS: TIBBCDField
+      FieldName = 'TOTAL_DESCONTOS'
+      Origin = '"TBOS"."TOTAL_DESCONTOS"'
+      Precision = 18
+      Size = 3
+    end
+    object cdsOSTOTAL_OS: TIBBCDField
+      FieldName = 'TOTAL_OS'
+      Origin = '"TBOS"."TOTAL_OS"'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSTOTAL_BRUTO: TIBBCDField
+      FieldName = 'TOTAL_BRUTO'
+      Origin = '"TBOS"."TOTAL_BRUTO"'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSTOTAL_LIQUIDO: TIBBCDField
+      FieldName = 'TOTAL_LIQUIDO'
+      Origin = '"TBOS"."TOTAL_LIQUIDO"'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSTOTAL_APROVADO_SERVICO: TIBBCDField
+      FieldName = 'TOTAL_APROVADO_SERVICO'
+      Origin = '"TBOS"."TOTAL_APROVADO_SERVICO"'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSTOTAL_APROVADO_PRODUTO: TIBBCDField
+      FieldName = 'TOTAL_APROVADO_PRODUTO'
+      Origin = '"TBOS"."TOTAL_APROVADO_PRODUTO"'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSDATA_APROVACAO: TDateField
+      FieldName = 'DATA_APROVACAO'
+      Origin = '"TBOS"."DATA_APROVACAO"'
+    end
+    object cdsOSDATA_FINALIZACAO: TDateField
+      FieldName = 'DATA_FINALIZACAO'
+      Origin = '"TBOS"."DATA_FINALIZACAO"'
+    end
+    object cdsOSDATA_FATURA: TDateField
+      FieldName = 'DATA_FATURA'
+      Origin = '"TBOS"."DATA_FATURA"'
+    end
+    object cdsOSCOMPETENCIA: TIntegerField
+      FieldName = 'COMPETENCIA'
+      Origin = '"TBOS"."COMPETENCIA"'
+    end
+    object cdsOSNFS_LOTE: TIBStringField
+      FieldName = 'NFS_LOTE'
+      Origin = '"TBOS"."NFS_LOTE"'
+      Size = 15
+    end
+    object cdsOSNFS_SERIE: TIBStringField
+      FieldName = 'NFS_SERIE'
+      Origin = '"TBOS"."NFS_SERIE"'
+      Size = 4
+    end
+    object cdsOSNFS_NUMERO: TIntegerField
+      FieldName = 'NFS_NUMERO'
+      Origin = '"TBOS"."NFS_NUMERO"'
+    end
+    object cdsOSNFS_DATAEMISSAO: TDateField
+      FieldName = 'NFS_DATAEMISSAO'
+      Origin = '"TBOS"."NFS_DATAEMISSAO"'
+    end
+    object cdsOSNFS_HORAEMISSAO: TTimeField
+      FieldName = 'NFS_HORAEMISSAO'
+      Origin = '"TBOS"."NFS_HORAEMISSAO"'
+    end
+    object cdsOSNFS_CNAE: TIBStringField
+      FieldName = 'NFS_CNAE'
+      Origin = '"TBOS"."NFS_CNAE"'
+      Size = 10
+    end
+    object cdsOSNFS_NCM: TIBStringField
+      FieldName = 'NFS_NCM'
+      Origin = '"TBOS"."NFS_NCM"'
+      Size = 10
+    end
+    object cdsOSNFS_DESCRICAO_SERVICO: TMemoField
+      FieldName = 'NFS_DESCRICAO_SERVICO'
+      Origin = '"TBOS"."NFS_DESCRICAO_SERVICO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object cdsOSNFS_ENVIADA: TSmallintField
+      FieldName = 'NFS_ENVIADA'
+      Origin = '"TBOS"."NFS_ENVIADA"'
+    end
+    object cdsOSCAIXA_ANO: TSmallintField
+      FieldName = 'CAIXA_ANO'
+      Origin = '"TBOS"."CAIXA_ANO"'
+    end
+    object cdsOSCAIXA_NUM: TIntegerField
+      FieldName = 'CAIXA_NUM'
+      Origin = '"TBOS"."CAIXA_NUM"'
+    end
+    object cdsOSNUMERO: TIBStringField
+      FieldName = 'NUMERO'
+      ProviderFlags = []
+      Size = 25
+    end
+    object cdsOSNFS: TIBStringField
+      FieldName = 'NFS'
+      ProviderFlags = []
+      Size = 23
+    end
+    object cdsOSSTATUS_DESCRICAO: TIBStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'STATUS_DESCRICAO'
+      Origin = '"VW_STATUS_OS"."DESCRICAO"'
+      ReadOnly = True
+      FixedChar = True
+      Size = 11
+    end
+    object cdsOSTOMADOR_PF: TSmallintField
+      FieldName = 'TOMADOR_PF'
+      Origin = '"TBCLIENTE"."PESSOA_FISICA"'
+    end
+    object cdsOSTOMADOR_CNPJ: TIBStringField
+      FieldName = 'TOMADOR_CNPJ'
+      Origin = '"TBCLIENTE"."CNPJ"'
+      Size = 18
+    end
+    object cdsOSTOMADOR_RAZAO: TIBStringField
+      FieldName = 'TOMADOR_RAZAO'
+      Origin = '"TBCLIENTE"."NOME"'
+      Size = 100
+    end
+    object cdsOSTOMADOR_FANTASIA: TIBStringField
+      FieldName = 'TOMADOR_FANTASIA'
       ProviderFlags = []
       Size = 100
     end
-    object cdsApropriacaoENTRADA: TIBStringField
-      FieldName = 'ENTRADA'
-      ProviderFlags = []
-      Size = 14
+    object cdsOSCANCEL_DATAHORA: TDateTimeField
+      FieldName = 'CANCEL_DATAHORA'
+      Origin = '"TBOS"."CANCEL_DATAHORA"'
     end
-    object cdsApropriacaoNOMEFORN: TIBStringField
-      FieldName = 'NOMEFORN'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      ProviderFlags = []
-      Size = 100
+    object cdsOSCANCEL_USUARIO: TIBStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = '"TBOS"."CANCEL_USUARIO"'
+      Size = 12
+    end
+    object cdsOSCANCEL_MOTIVO: TMemoField
+      FieldName = 'CANCEL_MOTIVO'
+      Origin = '"TBOS"."CANCEL_MOTIVO"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
     end
   end
-  object updApropriacao: TIBUpdateSQL
+  object updOS: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO,'
       '  CONTROLE,'
-      '  NUMERO,'
       '  EMPRESA,'
-      '  CENTRO_CUSTO,'
-      '  TIPO,'
-      '  COMPRA_ANO,'
-      '  COMPRA_NUM,'
-      '  COMPRA_EMP,'
-      '  INSERCAO_DATA,'
-      '  DATA_APROPRIACAO,'
-      '  COMPETENCIA,'
+      '  CLIENTE,'
+      '  DATA_CADASTRO,'
+      '  DATA_EMISSAO,'
+      '  DATA_PREVISAO_CONCLUSAO,'
       '  USUARIO,'
+      '  VENDEDOR,'
       '  STATUS,'
-      '  MOTIVO,'
-      '  OBS,'
-      '  VALOR_TOTAL,'
-      '  CANCEL_USUARIO,'
+      '  OBSERVACOES,'
+      '  RELATO_SOLICITACAO,'
+      '  DADOS_ENTREGA,'
+      '  TOTAL_SERVICO,'
+      '  TOTAL_PRODUTO,'
+      '  TOTAL_DESCONTOS_SERVICOS,'
+      '  TOTAL_DESCONTOS_PRODUTOS,'
+      '  TOTAL_DESCONTOS,'
+      '  TOTAL_OS,'
+      '  TOTAL_BRUTO,'
+      '  TOTAL_LIQUIDO,'
+      '  TOTAL_APROVADO_SERVICO,'
+      '  TOTAL_APROVADO_PRODUTO,'
+      '  DATA_APROVACAO,'
+      '  DATA_FINALIZACAO,'
+      '  DATA_FATURA,'
+      '  COMPETENCIA,'
+      '  NFS_LOTE,'
+      '  NFS_SERIE,'
+      '  NFS_NUMERO,'
+      '  NFS_DATAEMISSAO,'
+      '  NFS_HORAEMISSAO,'
+      '  NFS_CNAE,'
+      '  NFS_NCM,'
+      '  NFS_DESCRICAO_SERVICO,'
+      '  NFS_ENVIADA,'
+      '  CAIXA_ANO,'
+      '  CAIXA_NUM,'
       '  CANCEL_DATAHORA,'
+      '  CANCEL_USUARIO,'
       '  CANCEL_MOTIVO'
-      'from TBAPROPRIACAO_ALMOX '
+      'from TBOS '
       'where'
       '  ANO = :ANO and'
       '  CONTROLE = :CONTROLE')
     ModifySQL.Strings = (
-      'update TBAPROPRIACAO_ALMOX'
+      'update TBOS'
       'set'
       '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
       '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
@@ -598,13 +806,13 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       '  CONTROLE = :OLD_CONTROLE')
     InsertSQL.Strings = (
       '')
-    Left = 504
-    Top = 72
+    Left = 512
+    Top = 96
   end
-  object dtsApropriacao: TDataSource
+  object dtsOS: TDataSource
     AutoEdit = False
-    DataSet = cdsApropriacao
-    Left = 536
-    Top = 72
+    DataSet = cdsOS
+    Left = 544
+    Top = 96
   end
 end

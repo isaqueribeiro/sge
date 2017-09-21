@@ -16,10 +16,11 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
+  TipoORigemTitulo = (toBoletoOutros, toBoletoVenda, toBoletoOS);
   TfrmGeGerarBoleto = class(TfrmGrPadrao)
     pnlGuias: TPanel;
     pgcGuias: TPageControl;
@@ -120,6 +121,9 @@ type
     fdQryClientesEMAIL: TStringField;
     fdQryBancos: TFDQuery;
     fdUpdBancos: TFDUpdateSQL;
+    CdsTitulosANOOS: TSmallintField;
+    CdsTitulosNUMOS: TIntegerField;
+    CdsTitulosESPECIE_BOLETO: TWideStringField;
     procedure edtFiltrarKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -156,7 +160,8 @@ type
     {$ELSE}
     procedure GravarBoletosGerados;
     {$ENDIF}
-    procedure UpdateTitulo( iAno : Smallint; iLancamento : Int64; iBanco : Integer; sNossoNumero : String; Data : TDateTime;
+    procedure UpdateTitulo( iAno : Smallint; iLancamento : Int64; iBanco : Integer;
+      sNossoNumero, sEspecieDOC : String; Data : TDateTime;
       const cJuros : Currency = 0.0; const cMulta : Currency = 0.0);
 
     function GetAgenciaNumero : String;
@@ -184,6 +189,7 @@ type
   - TBCLIENTE
   - TBCONTREC
   - TBVENDAS
+  - TBOS
 
   Views:
   - VW_EMPRESA
@@ -216,9 +222,11 @@ const
 {$ENDIF}
 
   procedure GerarBoleto(const AOwer : TComponent); overload;
-  procedure GerarBoleto(const AOwer : TComponent; const NomeCliente : String; const iCodigoCliente : Integer; iAno, iVenda : Integer); overload;
+  procedure GerarBoleto(const AOwer : TComponent; const NomeCliente : String; const iCodigoCliente : Integer; aAno, aControle : Integer;
+    const TipoOrigem : TipoORigemTitulo); overload;
 
-  function ReImprimirBoleto(const AOwer : TComponent; sNomeCliente : String; iCodigoCliente, iAno, iVenda, iBanco : Integer;
+  function ReImprimirBoleto(const AOwer : TComponent; sNomeCliente : String; iCodigoCliente, aAno, aControle, iBanco : Integer;
+    const TipoOrigem : TipoORigemTitulo;
     var sFileNamePDF : String; const SomenteGerarPDF : Boolean = FALSE) : Boolean;
 
 implementation
@@ -240,7 +248,8 @@ begin
   end;
 end;
 
-procedure GerarBoleto(const AOwer : TComponent; const NomeCliente : String; const iCodigoCliente : Integer; iAno, iVenda : Integer); overload;
+procedure GerarBoleto(const AOwer : TComponent; const NomeCliente : String; const iCodigoCliente : Integer; aAno, aControle : Integer;
+  const TipoOrigem : TipoORigemTitulo); overload;
 var
   f : TfrmGeGerarBoleto;
 begin
@@ -258,7 +267,12 @@ begin
 
       f.CarregarTitulos(iCodigoCliente, 0);
 
-      f.CdsTitulos.Filter   := 'ANOVENDA = ' + IntToStr(iAno) + ' and NUMVENDA = ' + IntToStr(iVenda);
+      if ( TipoOrigem = toBoletoVenda ) then
+        f.CdsTitulos.Filter   := 'ANOVENDA = ' + IntToStr(aAno) + ' and NUMVENDA = ' + IntToStr(aControle)
+      else
+      if ( TipoOrigem = toBoletoOS ) then
+        f.CdsTitulos.Filter   := 'ANOOS = ' + IntToStr(aAno) + ' and NUMOS = ' + IntToStr(aControle);
+
       f.CdsTitulos.Filtered := True;
       f.ShowModal;
     end
@@ -270,18 +284,27 @@ begin
   end;
 end;
 
-function ReImprimirBoleto(const AOwer : TComponent; sNomeCliente : String; iCodigoCliente, iAno, iVenda, iBanco : Integer;
+function ReImprimirBoleto(const AOwer : TComponent; sNomeCliente : String; iCodigoCliente, aAno, aControle, iBanco : Integer;
+  const TipoOrigem : TipoORigemTitulo;
   var sFileNamePDF : String; const SomenteGerarPDF : Boolean = FALSE) : Boolean;
 var
   f : TfrmGeGerarBoleto;
   INossoNum ,
   ICarteira : Integer;
+  sOrigem   ,
   sBanco    ,
   sCarteira : String;
   bReturn   : Boolean;
 begin
+  Case TipoOrigem of
+    toBoletoVenda : sOrigem := 'VND';
+    toBoletoOS    : sOrigem := 'OS';
+    else
+      sOrigem := 'OUT';
+  end;
+
   bReturn      := False;
-  sFileNamePDF := GetDirectoryTempApp + FormatFloat('0000"."', iAno) + FormatFloat('##000000".pdf"', iVenda);
+  sFileNamePDF := GetDirectoryTempApp + sOrigem + FormatFloat('0000"."', aAno) + FormatFloat('##000000".pdf"', aControle);
 
   try
     f := TfrmGeGerarBoleto.Create(AOwer);
@@ -299,7 +322,12 @@ begin
           cmbBancoChange( cmbBanco );
           CarregarTitulos(iCodigoCliente, iBanco);
 
-          CdsTitulos.Filter   := 'ANOVENDA = ' + IntToStr(iAno) + ' and NUMVENDA = ' + IntToStr(iVenda);
+          if ( TipoOrigem = toBoletoVenda ) then
+            CdsTitulos.Filter   := 'ANOVENDA = ' + IntToStr(aAno) + ' and NUMVENDA = ' + IntToStr(aControle)
+          else
+          if ( TipoOrigem = toBoletoOS ) then
+            CdsTitulos.Filter   := 'ANOOS = ' + IntToStr(aAno) + ' and NUMOS = ' + IntToStr(aControle);
+
           CdsTitulos.Filtered := True;
 
           if CdsTitulos.IsEmpty then
@@ -793,6 +821,7 @@ begin
         CdsTitulos.Edit;
         CdsTitulosCODBANCO.Value    := IbQryBancosBCO_COD.Value;
         CdsTitulosNOSSONUMERO.Value := CobreBemX.DocumentosCobranca[i].NossoNumero;
+        CdsTitulosESPECIE_BOLETO.Value     := CobreBemX.DocumentosCobranca[i].EspecieDocumento;
         CdsTitulosDATAPROCESSOBOLETO.Value := GetDateTimeDB;
         CdsTitulosPERCENTJUROS.AsCurrency  := IbQryBancosBCO_PERCENTUAL_JUROS.AsCurrency;
         CdsTitulosPERCENTMULTA.AsCurrency  := IbQryBancosBCO_PERCENTUAL_MORA.AsCurrency;
@@ -800,7 +829,12 @@ begin
 
         CommitTransaction;
 
-        UpdateTitulo(CdsTitulosANOLANC.Value, CdsTitulosNUMLANC.Value, CdsTitulosCODBANCO.Value, CdsTitulosNOSSONUMERO.Value, GetDateTimeDB);
+        UpdateTitulo(CdsTitulosANOLANC.Value
+          , CdsTitulosNUMLANC.Value
+          , CdsTitulosCODBANCO.Value
+          , CdsTitulosNOSSONUMERO.Value
+          , CdsTitulosESPECIE_BOLETO.Value
+          , GetDateTimeDB);
       end;
   end;
 
@@ -856,6 +890,7 @@ begin
           CdsTitulos.Edit;
           CdsTitulosCODBANCO.Value    := fdQryBancos.FieldByName('BCO_COD').Value;
           CdsTitulosNOSSONUMERO.Value := Titulo.NossoNumero;
+          CdsTitulosESPECIE_BOLETO.Value     := Titulo.EspecieDoc;
           CdsTitulosDATAPROCESSOBOLETO.Value := GetDateTimeDB;
           CdsTitulosPERCENTJUROS.AsCurrency  := cJuros;
           CdsTitulosPERCENTMULTA.AsCurrency  := cMulta;
@@ -863,8 +898,14 @@ begin
 
           CommitTransaction;
 
-          UpdateTitulo(CdsTitulosANOLANC.Value, CdsTitulosNUMLANC.Value, CdsTitulosCODBANCO.Value, CdsTitulosNOSSONUMERO.Value,
-            GetDateTimeDB, cJuros, cMulta);
+          UpdateTitulo(CdsTitulosANOLANC.Value
+            , CdsTitulosNUMLANC.Value
+            , CdsTitulosCODBANCO.Value
+            , CdsTitulosNOSSONUMERO.Value
+            , CdsTitulosESPECIE_BOLETO.Value
+            , GetDateTimeDB
+            , cJuros
+            , cMulta);
         end;
     end;
 
@@ -888,7 +929,7 @@ begin
 end;
 
 procedure TfrmGeGerarBoleto.UpdateTitulo(iAno : Smallint; iLancamento: Int64; iBanco: Integer;
-  sNossoNumero: String; Data: TDateTime; const cJuros : Currency = 0.0; const cMulta : Currency = 0.0);
+  sNossoNumero, sEspecieDOC: String; Data: TDateTime; const cJuros : Currency = 0.0; const cMulta : Currency = 0.0);
 var
   sSQL : TStringList;
 begin
@@ -898,8 +939,9 @@ begin
     sSQL.BeginUpdate;
     sSQL.Clear;
     sSQL.Add( ' Update TBCONTREC Set ' );
-    sSQL.Add( '     nossonumero = ' + QuotedStr(sNossoNumero) );
-    sSQL.Add( '   , codbanco    = ' + IntToStr(iBanco) );
+    sSQL.Add( '     nossonumero    = ' + QuotedStr(sNossoNumero) );
+    sSQL.Add( '   , especie_boleto = ' + QuotedStr(sEspecieDOC) );
+    sSQL.Add( '   , codbanco       = ' + IntToStr(iBanco) );
     sSQL.Add( '   , dataprocessoboleto = ' + QuotedStr(FormatDateTime('yyyy-mm-dd', Data)) );
     sSQL.Add( '   , percentjuros       = ' + StringReplace(FormatFloat('########0.###', cJuros), ',', '.', [rfReplaceAll]) );
     sSQL.Add( '   , percentmulta       = ' + StringReplace(FormatFloat('########0.###', cMulta), ',', '.', [rfReplaceAll]) );
@@ -1202,6 +1244,14 @@ begin
         Parcela           := CdsTitulosPARCELA.AsInteger;
         EspecieDoc        := 'DM'; // Duplicata Mercantil
         EspecieMod        := 'R$';
+
+        if ( CdsTitulosANOVENDA.AsInteger > 0 ) then
+          EspecieDoc := 'DM'  // Duplicata Mercantil
+        else
+        if CdsTitulosANOOS.AsInteger > 0 then
+          EspecieDoc := 'DS'  // Duplicata de Serviço
+        else
+          EspecieDoc := 'OU'; // Outros
 
         if NovosBoletos then
           DataProcessamento := Now

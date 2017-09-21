@@ -213,6 +213,7 @@ var
   procedure RegistrarEmpresa;
   procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
   procedure RegistrarCaixaNaVenda(const AnoVenda, NumVenda, AnoCaixa, NumCaixa : Integer; const IsPDV : Boolean);
+  procedure RegistrarCaixaNaOS(const AnoOS, NumOS, AnoCaixa, NumCaixa : Integer);
   {$IFDEF DGE}
   procedure RegistrarControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess);
   {$ENDIF}
@@ -225,6 +226,7 @@ var
   procedure SetSegmento(const iCodigo : Integer; const sDescricao : String);
   procedure SetSistema(iCodigo : Smallint; sNome, sVersao : String);
   procedure SetRotinaSistema(iTipo : Smallint; sCodigo, sDescricao, sRotinaPai : String);
+  procedure SetCompetencia(const aData : TDateTime);
   procedure SetAtulizarCustoEstoque(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueApropriacao(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueAlmoxarifado(const aData : TDateTime);
@@ -259,6 +261,7 @@ var
   function GetCondicaoPagtoIDDefault : Integer;
   function GetEstacaoEmitiBoleto : Boolean;
   function GetEstacaoEmitiNFe(const sCNPJEmpresa : String) : Boolean;
+  function GetEstacaoEmitiNFSe : Boolean;
   function GetCondicaoPagtoIDBoleto_Descontinuada : Integer;  // Descontinuada
   function GetEmitirApenasOrcamento : Boolean;
   function GetEmitirCupom : Boolean;
@@ -290,8 +293,10 @@ var
   function GetRazaoSocialEmpresa(const sCNPJEmpresa : String) : String;
   function GetNomeFantasiaEmpresa(const sCNPJEmpresa : String) : String;
   function GetCnpjEmpresa(const iCodigo : Integer) : String;
+  function GetCnaeEmpresa(const sCNPJEmpresa : String) : String;
   function GetPrazoValidadeAutorizacaoCompra(const sCNPJEmpresa : String) : Integer;
   function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
+  function GetMenorDataEmissaoOS : TDateTime;
 
   function StrIsCNPJ(const Num: string): Boolean;
   function StrIsCPF(const Num: string): Boolean;
@@ -340,6 +345,7 @@ var
   function GetClienteEmail(const iCodigo : Integer) : String;
   function GetClienteUF(const iCodigo : Integer) : String;
   function GetClienteEndereco(const aCodigo : Integer; const aQuebrarLinha : Boolean = FALSE) : String;
+  function GetClienteCnpfCpf(const aCodigo : Integer) : String;
   function GetClienteBloqueado(const aCodigo : Integer; var aMotivo : String) : Boolean;
   function GetFornecedorEmail(const iCodigo : Integer) : String;
   function GetFornecedorRazao(const iCodigo : Integer) : String;
@@ -427,6 +433,17 @@ const
   STATUS_VND_FIN = 3;
   STATUS_VND_NFE = 4;
   STATUS_VND_CAN = 5;
+
+  STATUS_OS_EDT = 0; // Em edição
+  STATUS_OS_ABR = 1; // Aberta
+  STATUS_OS_AVL = 2; // Em avaliação pelo técnico
+  STATUS_OS_PAR = 3; // Parecer
+  STATUS_OS_APR = 4; // Aprovada
+  STATUS_OS_ATE = 5; // Em atendimento pelo técnico
+  STATUS_OS_FIN = 6; // Finalizada em atendimento
+  STATUS_OS_FAT = 7; // Faturada
+  STATUS_OS_NFS = 8; // Nota Fiscal de Serviço emitida
+  STATUS_OS_CAN = 9; // Cancelada
 
   STATUS_CMP_ABR = 1;
   STATUS_CMP_FIN = 2;
@@ -1334,6 +1351,26 @@ begin
   end;
 end;
 
+procedure RegistrarCaixaNaOS(const AnoOS, NumOS, AnoCaixa, NumCaixa : Integer);
+begin
+  if (AnoOS = 0) or (NumOS = 0) or (AnoCaixa = 0) or (NumCaixa = 0) then
+    Exit;
+
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Update TBOS Set');
+    SQL.Add('    caixa_ano = ' + IntToStr(AnoCaixa));
+    SQL.Add('  , caixa_num = ' + IntToStr(NumCaixa));
+    SQL.Add('where ano      = ' + IntToStr(AnoOS));
+    SQL.Add('  and controle = ' + IntToStr(NumOS));
+    ExecSQL;
+
+    CommitTransaction;
+  end;
+end;
+
 {$IFDEF DGE}
 procedure RegistrarControleAcesso(const AOnwer : TComponent; const EvUserAcesso : TEvUserAccess);
 begin
@@ -1573,6 +1610,32 @@ begin
   except
     On E : Exception do
       ShowError('SetRotinaSistema() - ' + E.Message);
+  end;
+end;
+
+procedure SetCompetencia(const aData : TDateTime);
+var
+  sCodigo    ,
+  sDescricao : String;
+begin
+  try
+    sCodigo    := FormatDateTime('YYYYMM', aData);
+    sDescricao := AnsiUpperCase(FormatDateTime('MMM/YYYY', aData));
+
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Execute Procedure SET_COMPETENCIA(' + sCodigo + ', ' + QuotedStr(Trim(sDescricao)) + ')');
+      ExecSQL;
+
+      CommitTransaction;
+
+      Close;
+    end;
+  except
+    On E : Exception do
+      ShowError('SetCompetencia() - ' + E.Message + #13#13 + DMBusiness.fdQryBusca.SQL.Text);
   end;
 end;
 
@@ -2117,6 +2180,11 @@ begin
   Result := GetPermititEmissaoNFe(sCNPJEmpresa) and (Trim(FileINI.ReadString(sSecaoCertificado, 'NumSerie', EmptyStr)) <> EmptyStr);
 end;
 
+function GetEstacaoEmitiNFSe : Boolean;
+begin
+  Result := False
+end;
+
 function GetCondicaoPagtoIDBoleto_Descontinuada : Integer; // Descontinuada
 begin
   Result := FileINI.ReadInteger('Boleto', INI_KEY_FORMA_PGTO, 1);
@@ -2436,6 +2504,21 @@ begin
   end;
 end;
 
+function GetCnaeEmpresa(const sCNPJEmpresa : String) : String;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cnae from TBEMPRESA where cnpj = ' + QuotedStr(sCNPJEmpresa));
+    Open;
+
+    Result := AnsiUpperCase( Trim(FieldByName('cnae').AsString) );
+
+    Close;
+  end;
+end;
+
 function GetPrazoValidadeAutorizacaoCompra(const sCNPJEmpresa : String) : Integer;
 begin
   Result := 5;
@@ -2444,6 +2527,27 @@ end;
 function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
 begin
   Result := 15;
+end;
+
+function GetMenorDataEmissaoOS : TDateTime;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  min(o.data_emissao) as data_emissao');
+    SQL.Add('from TBOS o');
+    SQL.Add('where o.status < 7 -- Faturada');
+    Open;
+
+    if not FieldByName('data_emissao').IsNull then
+      Result := FieldByName('data_emissao').AsDateTime
+    else
+      Result := GetDateDB;
+
+    Close;
+  end;
 end;
 
 function StrIsCNPJ(const Num: string): Boolean;
@@ -3242,6 +3346,20 @@ begin
   end;
 end;
 
+function GetClienteCnpfCpf(const aCodigo : Integer) : String;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cnpj from TBCLIENTE where Codigo = ' + IntToStr(aCodigo));
+    Open;
+
+    Result := AnsiLowerCase(Trim(FieldByName('cnpj').AsString));
+
+    Close;
+  end;
+end;
 
 function GetClienteBloqueado(const aCodigo : Integer; var aMotivo : String) : Boolean;
 begin

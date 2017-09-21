@@ -154,7 +154,13 @@ uses
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
   UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE},
   UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao},
-  UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote};
+  UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote},
+  UGeTabelaCNAE in '..\Sys\UGeTabelaCNAE.pas' {frmGeTabelaCNAE},
+  UGeOS in '..\Sys\UGeOS.pas' {frmGeOS},
+  UGeEquipamento in '..\Sys\UGeEquipamento.pas' {frmGeEquipamento},
+  UGeOSCancelar in '..\Sys\UGeOSCancelar.pas' {frmGeOSCancelar},
+  UGeOSConfirmaTitulos in '..\Sys\UGeOSConfirmaTitulos.pas' {frmGeOSConfirmaTitulos},
+  UGeOSFormaPagto in '..\Sys\UGeOSFormaPagto.pas' {frmGeOSFormaPagto};
 
 {$R *.res}
 

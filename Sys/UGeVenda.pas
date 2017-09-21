@@ -17,7 +17,13 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -1951,7 +1957,7 @@ begin
         if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
           if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
             RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
-              cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
+              cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, toRecebimentoVenda, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
 
         cdsVendaFormaPagto.Next;
       end;
@@ -2376,7 +2382,7 @@ begin
   if ( not qryTitulos.IsEmpty ) then
   begin
     GerarBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
+      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, toBoletoVenda);
     AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
   end;
 end;
@@ -2928,7 +2934,7 @@ begin
   if BoletosGerados then
   begin
     ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, sFileNamePDF);
+      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF);
     Exit;
   end;
 
@@ -2962,7 +2968,7 @@ begin
       ShowWarning('Não existem títulos com boletos gerados para o movimento de venda.')
     else
       ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-        IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, sFileNamePDF);
+        IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF);
   finally
     qryTitulos.Filter   := EmptyStr;
     qryTitulos.Filtered := False;
@@ -3274,7 +3280,7 @@ begin
 
   if BoletosGerados then
     ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, sFileNamePDF, True);
+      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF, True);
 
 
   // 2. Gerar XML/PDF da NF-e e enviar por e-mail
