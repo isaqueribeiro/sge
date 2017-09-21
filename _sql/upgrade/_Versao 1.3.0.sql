@@ -5806,3 +5806,91 @@ order by
   , coalesce(pc.ano, pv.ano, pa.ano)
 ;
 
+
+
+
+/*------ SYSDBA 21/09/2017 16:58:19 --------*/
+
+COMMENT ON COLUMN TBOS.VENDEDOR IS
+'Vendedor / Tecnico principal / Responsavel tecnico';
+
+
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+CREATE TABLE TBCNAE (
+    CODIGO                DMN_VCHAR_10_KEY NOT NULL /* DMN_VCHAR_10_KEY = VARCHAR(10) NOT NULL */,
+    DESCRICAO_RESUMIDA    DMN_VCHAR_100 /* DMN_VCHAR_100 = VARCHAR(100) */,
+    DESCRICAO_COMPLETA    DMN_VCHAR_250 /* DMN_VCHAR_250 = VARCHAR(250) */,
+    NOTA_EXPLICATIVA      DMN_TEXTO /* DMN_TEXTO = BLOB SUB_TYPE 1 SEGMENT SIZE 80 */,
+    OBRIGA_INSC_ESTADUAL  DMN_LOGICO DEFAULT 0 /* DMN_LOGICO = SMALLINT DEFAULT 0 NOT NULL CHECK (value between 0 and 1) */,
+    ATIVA                 DMN_LOGICO DEFAULT 1 /* DMN_LOGICO = SMALLINT DEFAULT 0 NOT NULL CHECK (value between 0 and 1) */
+);
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+ALTER TABLE TBCNAE ADD CONSTRAINT PK_TBCNAE PRIMARY KEY (CODIGO);
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+CREATE INDEX IDX_TBCNAE_ATIVA ON TBCNAE (ATIVA);
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+COMMENT ON TABLE TBCNAE IS 
+'Tabela de CNAE
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   16/10/2015
+
+Tabela responsavel por armazenar os registros de CNAEs (Codigos Nacionais de Atividades Empresariais) que poderao ser
+utilizadas na emissao de ordens de servicos e/ou ordens de producao.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    16/10/2015 - IMR :
+        * Documentacao da tabela.';
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+COMMENT ON COLUMN TBCNAE.CODIGO IS 
+'Codigo';
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+COMMENT ON COLUMN TBCNAE.DESCRICAO_RESUMIDA IS 
+'Descricao resumida';
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+COMMENT ON COLUMN TBCNAE.DESCRICAO_COMPLETA IS 
+'Descricao completa';
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+COMMENT ON COLUMN TBCNAE.NOTA_EXPLICATIVA IS 
+'Nota Explicativa';
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+COMMENT ON COLUMN TBCNAE.OBRIGA_INSC_ESTADUAL IS 
+'Inscricao Estadual obrigatoria:
+0 - Nao
+1 - Sim';
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+COMMENT ON COLUMN TBCNAE.ATIVA IS 
+'Ativa:
+0 - Nao
+1 - Sim';
+
+/*------ 21/09/2017 17:01:54 --------*/
+
+GRANT ALL ON TBCNAE TO PUBLIC;

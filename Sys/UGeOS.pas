@@ -241,7 +241,6 @@ type
     lblServicoAliquota: TLabel;
     Bevel12: TBevel;
     lblServicoTotalDesconto: TLabel;
-    dbServico: TRxDBComboEdit;
     dbServicoNome: TDBEdit;
     dbServicoQuantidade: TDBEdit;
     dbServicoValorUnit: TDBEdit;
@@ -253,7 +252,6 @@ type
     BtnServicoEditar: TBitBtn;
     BtnServicoExcluir: TBitBtn;
     BtnServicoSalvar: TBitBtn;
-    dbServicoTotalDesconto: TRxDBComboEdit;
     Bevel13: TBevel;
     dbgServicos: TDBGrid;
     dbServicoAprovado: TDBCheckBox;
@@ -492,6 +490,8 @@ type
     N3: TMenuItem;
     dbCnae: TJvDBComboEdit;
     dbNCM: TJvDBComboEdit;
+    dbServico: TJvDBComboEdit;
+    dbServicoTotalDesconto: TJvDBComboEdit;
     procedure FiltrarTecnicosChange(Sender: TObject);
     procedure OpcoesImprimirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

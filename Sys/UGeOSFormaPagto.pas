@@ -3,9 +3,15 @@ unit UGeOSFormaPagto;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls,
-  IBUpdateSQL, ExtCtrls, Buttons;
+  Dialogs, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls,
+  IBUpdateSQL, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeOSFormaPagto = class(TfrmGrPadrao)
@@ -55,8 +61,8 @@ type
     dbValorFormaPagto: TDBEdit;
     Label2: TLabel;
     Bevel2: TBevel;
-    btnConfirmar: TBitBtn;
-    btnCancelar: TBitBtn;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure dbCondicaoPagtoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -73,6 +79,15 @@ type
 
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+
+  Views:
+
+  Procedures:
+
+*)
 
   function InserirFormaPagto(const AOnwer : TComponent; APagar : Currency) : Boolean;
 
