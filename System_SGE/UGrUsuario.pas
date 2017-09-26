@@ -240,7 +240,7 @@ begin
   CampoDescricao := 'nome';
   CampoOrdenacao := 'nomecompleto';
 
-  dbAlterarValorVendaItem.Visible    := (gSistema.Codigo = SISTEMA_GESTAO_COM);
+  dbAlterarValorVendaItem.Visible    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   dbTipoAlteraValorVendaItem.Visible := (gSistema.Codigo = SISTEMA_GESTAO_COM);
 
   pgcParametros.ActivePage      := tbsVendas;

@@ -4659,7 +4659,6 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
-      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -4676,6 +4675,7 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
+      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item
@@ -5948,10 +5948,10 @@ object frmPrinc: TfrmPrinc
     object BrBtnOrdemServico: TdxBarLargeButton
       Caption = 'Ordens de Servi'#231'os'
       Category = 7
-      Enabled = False
       Hint = 'Ordens de Servi'#231'os'
       Visible = ivAlways
       LargeImageIndex = 27
+      OnClick = BrBtnOrdemServicoClick
       HotImageIndex = 27
       SyncImageIndex = False
       ImageIndex = 27

@@ -852,6 +852,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     Params = <>
     Macros = <>
+    OnError = fdScriptError
+    BeforeExecute = fdScriptBeforeExecute
     Left = 800
     Top = 256
   end

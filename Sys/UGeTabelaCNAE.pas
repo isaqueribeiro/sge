@@ -26,11 +26,11 @@ type
     dbDescricaoCompleta: TDBEdit;
     dbObrigaInscEstadual: TDBCheckBox;
     IbDtstTabelaCODIGO: TIBStringField;
-    IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
     IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField;
     IbDtstTabelaNOTA_EXPLICATIVA: TMemoField;
     IbDtstTabelaOBRIGA_INSC_ESTADUAL: TSmallintField;
     IbDtstTabelaATIVA: TSmallintField;
+    IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
   private

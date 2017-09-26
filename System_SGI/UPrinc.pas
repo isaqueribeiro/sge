@@ -328,6 +328,7 @@ type
     procedure BrBtnUpgradeClick(Sender: TObject);
     procedure BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
     procedure BrBtnTabelaCNAEClick(Sender: TObject);
+    procedure BrBtnOrdemServicoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -465,6 +466,12 @@ begin
       , cValorProdutoNF
     );
   end;
+end;
+
+procedure TfrmPrinc.BrBtnOrdemServicoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_MOV_ORDEM_SERV_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeOS');
 end;
 
 procedure TfrmPrinc.BrBtnQuitarAReceberLoteClick(Sender: TObject);

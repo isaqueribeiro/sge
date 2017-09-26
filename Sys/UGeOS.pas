@@ -11,11 +11,15 @@ uses
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, JvExMask, JvToolEdit,
   JvDBControls, IBQuery, IBStoredProc, Menus, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters,
+  cxLookAndFeelPainters, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinVS2010, RxDBCtrl, RxToolEdit, cxButtons;
+  dxSkinOffice2013White, RxToolEdit;
 
 type
   TfrmGeOS = class(TfrmGrPadraoCadastro)
@@ -30,7 +34,6 @@ type
     dbDataHora: TDBEdit;
     dbEmpresa: TDBLookupComboBox;
     lblEmpresa: TLabel;
-    dbCliente: TRxDBComboEdit;
     lblCliente: TLabel;
     tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
@@ -157,7 +160,6 @@ type
     lblEquipamentoModelo: TLabel;
     dbEquipamentoModelo: TDBEdit;
     lblEquimanetoDescricao: TLabel;
-    dbEquimanetoDescricao: TRxDBComboEdit;
     lblEquipamentoTipo: TLabel;
     dbEquipamentoTipo: TDBEdit;
     lblEquipamentoReferencia: TLabel;
@@ -273,7 +275,6 @@ type
     lblProdutoTotalDesconto: TLabel;
     lblProdutoValorFinal: TLabel;
     lblProdutoUnidade: TLabel;
-    dbProduto: TRxDBComboEdit;
     dbProdutoNome: TDBEdit;
     dbProdutoQuantidade: TDBEdit;
     dbProdutoValorUnit: TDBEdit;
@@ -285,7 +286,6 @@ type
     BtnProdutoEditar: TBitBtn;
     BtnProdutoExcluir: TBitBtn;
     BtnProdutoSalvar: TBitBtn;
-    dbProdutoTotalDesconto: TRxDBComboEdit;
     dbProdutoAprovado: TDBCheckBox;
     dbProdutoValorFinal: TDBEdit;
     dbProdutoUnidade: TDBEdit;
@@ -315,7 +315,6 @@ type
     cdsOSProdutosALIQUOTA: TIBBCDField;
     dbgProdutos: TDBGrid;
     TbsTecnico: TTabSheet;
-    imgOS: TImageList;
     GrpBxDadosTecnico: TGroupBox;
     lblTecnico: TLabel;
     lblTecnicoTipoComissao: TLabel;
@@ -381,10 +380,8 @@ type
     IbStrPrcGerarTitulos: TIBStoredProc;
     dtsTitulos: TDataSource;
     dbgTitulos: TDBGrid;
-    btnConsultarServico: TBitBtn;
     Bevel21: TBevel;
     ppControleOS: TPopupMenu;
-    btbtnControleOS: TBitBtn;
     mnFinalizarEdicao: TMenuItem;
     mnIniciarAvaliacao: TMenuItem;
     mnLancarParecer: TMenuItem;
@@ -394,9 +391,6 @@ type
     mnFinalizarOS: TMenuItem;
     N2: TMenuItem;
     mnFaturarOS: TMenuItem;
-    btbtnGerarNFSe: TBitBtn;
-    btbtnCancelarOS: TBitBtn;
-    Bevel22: TBevel;
     cdsOSEventos: TIBDataSet;
     updOSEventos: TIBUpdateSQL;
     dtsOSEventos: TDataSource;
@@ -446,31 +440,30 @@ type
     IbDtstTabelaBLOQUEADO_MOTIVO: TMemoField;
     cdsOSFormaPagtoFormaPagtoDescricao: TStringField;
     cdsOSFormaPagtoCondicaoPagtoDescricao: TStringField;
-    qryServicoProduto: TIBDataSet;
     pnlLegendas: TPanel;
     Label3: TLabel;
     bvlLegendas: TBevel;
     shpOSEmEdicao: TShape;
-    Label4: TLabel;
+    lblStatusOSEdicao: TLabel;
     shpOSAberta: TShape;
-    Label5: TLabel;
+    lblStatusOSAberta: TLabel;
     shpOSAvaliacao: TShape;
-    Label6: TLabel;
+    lblStatusOSAvaliacao: TLabel;
     shpOSParecer: TShape;
-    Label7: TLabel;
+    lblStatusOSParecer: TLabel;
     IbDtstTabelaLegenda: TSmallintField;
     shpOSAprovada: TShape;
-    Label8: TLabel;
+    lblStatusOSAprovada: TLabel;
     shpOSAtendimento: TShape;
-    Label9: TLabel;
+    lblStatusOSAtendimento: TLabel;
     shpOSFinalizada: TShape;
-    Label10: TLabel;
+    lblStatusOSFinalizada: TLabel;
     shpOSFaturada: TShape;
-    Label11: TLabel;
+    lblStatusOSFaturada: TLabel;
     shpOSNFSeEmitida: TShape;
-    Label12: TLabel;
+    lblStatusOSNFS: TLabel;
     shpOSCancelada: TShape;
-    Label13: TLabel;
+    lblStatusOSCancelada: TLabel;
     IbDtstTabelaDATA_CADASTRO: TDateTimeField;
     BtnTecnicoAtualizarComissao: TBitBtn;
     BtnProdutoAprovar: TBitBtn;
@@ -482,16 +475,27 @@ type
     mnpCorrigirEnderecoEntrega: TMenuItem;
     lblValorTotalLiquidoOS: TLabel;
     dbValorTotalLiquidoOS: TDBEdit;
-    qryTotalTitulosAbertos: TIBQuery;
-    qryTotalTitulosAbertosVALOR_LIMITE: TIBBCDField;
-    qryTotalTitulosAbertosVALOR_COMPRAS_ABERTAS: TIBBCDField;
-    qryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL: TIBBCDField;
     dtsTotalTitulosAbertos: TDataSource;
     N3: TMenuItem;
     dbCnae: TJvDBComboEdit;
     dbNCM: TJvDBComboEdit;
     dbServico: TJvDBComboEdit;
     dbServicoTotalDesconto: TJvDBComboEdit;
+    dbProduto: TJvDBComboEdit;
+    dbProdutoTotalDesconto: TJvDBComboEdit;
+    dbCliente: TJvDBComboEdit;
+    dbEquimanetoDescricao: TJvDBComboEdit;
+    btnConsultarServico: TcxButton;
+    btbtnControleOS: TcxButton;
+    btbtnGerarNFSe: TcxButton;
+    btbtnCancelarOS: TcxButton;
+    Bevel22: TBevel;
+    fdQryServicoProduto: TFDQuery;
+    fdQryTotalTitulosAbertos: TFDQuery;
+    fdQryTotalTitulosAbertosVALOR_LIMITE: TBCDField;
+    fdQryTotalTitulosAbertosVALOR_COMPRAS_ABERTAS: TBCDField;
+    fdQryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL: TBCDField;
+    imgOS: TcxImageList;
     procedure FiltrarTecnicosChange(Sender: TObject);
     procedure OpcoesImprimirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -762,6 +766,19 @@ begin
     WhereAdditional := WhereAdditional + ' and (os.status = ' + IntToStr(RdgStatusOS.ItemIndex - 1) + ')';
 
   PosicionarGuias;
+
+  TbsLocalRealizacao.Caption := IfThen(gSistema.Codigo = SISTEMA_GESTAO_IND, 'Local de Realização', 'Local de Entrega/Realização');
+
+  if GetUserPermitirAlterarValorVenda then
+  begin
+    dbServicoValorUnit.ReadOnly := False;
+    dbServicoValorUnit.TabStop  := True;
+    dbServicoValorUnit.Color    := dbProduto.Color;
+
+    dbProdutoValorUnit.ReadOnly := False;
+    dbProdutoValorUnit.TabStop  := True;
+    dbProdutoValorUnit.Color    := dbProduto.Color;
+  end;
 end;
 
 procedure TfrmGeOS.btbtnIncluirClick(Sender: TObject);
@@ -833,7 +850,7 @@ procedure TfrmGeOS.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    TbsEquipamento.TabVisible   := (IbDtstTabelaSTATUS.AsInteger = STATUS_OS_EDT) or ((IbDtstTabelaSTATUS.AsInteger > STATUS_OS_EDT) and (cdsOSEquipamentos.RecordCount > 0));
+    TbsEquipamento.TabVisible   := (gSistema.Codigo = SISTEMA_GESTAO_COM) and ((IbDtstTabelaSTATUS.AsInteger = STATUS_OS_EDT) or ((IbDtstTabelaSTATUS.AsInteger > STATUS_OS_EDT) and (cdsOSEquipamentos.RecordCount > 0)));
     btbtnControleOS.Enabled     := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger < STATUS_OS_NFS);
 
     mnFinalizarEdicao.Enabled   := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_OS_EDT);
@@ -1129,6 +1146,9 @@ begin
     cdsOSFormaPagto.Post;
 
   cValorAPagar := GetTotalValorServicos;
+
+  if (btbtnSalvar.Visible and btbtnSalvar.Enabled) then
+    btbtnSalvar.SetFocus;
 
   // Verificar dados da(s) Forma(s) de Pagamento(s)
 
@@ -1447,7 +1467,7 @@ end;
 
 procedure TfrmGeOS.btnConsultarServicoClick(Sender: TObject);
 begin
-  MostrarTabelaProdutos(Self, taISS);
+  MostrarTabelaServicos(Self);
 end;
 
 procedure TfrmGeOS.btbtnControleOSClick(Sender: TObject);
@@ -2291,6 +2311,18 @@ begin
       dbServicoValorUnit.SetFocus;
     end
     else
+//    if ( (cdsOSServicosDESCONTO.AsCurrency < 0) or (cdsOSServicosDESCONTO.AsCurrency > 100) ) then
+//    begin
+//      ShowWarning('Percentual de desconto inválido.');
+//      dbServicoDesconto.SetFocus;
+//    end
+//    else
+    if ( (cdsOSServicosDESCONTO.AsCurrency > GetLimiteDescontoUser) and (cdsOSServicosPUNIT_PROMOCAO.AsCurrency = 0) ) then
+    begin
+      ShowWarning('Limite de Desconto = ' + FormatFloat('0.00', GetLimiteDescontoUser) + '%');
+      dbServicoDesconto.SetFocus;
+    end
+    else
     begin
       if ( cdsOSServicosDESCONTO.AsCurrency < 0 ) then
       begin
@@ -2356,7 +2388,7 @@ begin
   else
   if ( pDataSet.State in [dsEdit, dsInsert] ) then
   begin
-    with qryServicoProduto do
+    with fdQryServicoProduto do
     begin
       Close;
       ParamByName('codigo').AsInteger := StrToInt(pCodigo);;
@@ -2674,6 +2706,18 @@ begin
       dbProdutoValorUnit.SetFocus;
     end
     else
+//    if ( (cdsOSProdutosDESCONTO.AsCurrency < 0) or (cdsOSProdutosDESCONTO.AsCurrency > 100) ) then
+//    begin
+//      ShowWarning('Percentual de desconto inválido.');
+//      dbProdutoDesconto.SetFocus;
+//    end
+//    else
+    if ( (cdsOSProdutosDESCONTO.AsCurrency > GetLimiteDescontoUser) and (cdsOSProdutosPUNIT_PROMOCAO.AsCurrency = 0) ) then
+    begin
+      ShowWarning('Limite de Desconto = ' + FormatFloat('0.00', GetLimiteDescontoUser) + '%');
+      dbProdutoDesconto.SetFocus;
+    end
+    else
     begin
       if ( cdsOSProdutosDESCONTO.AsCurrency < 0 ) then
       begin
@@ -2892,7 +2936,80 @@ begin
     if (Shift = [ssCtrl]) and (Key = SYS_KEY_DEL) Then
       Key := 0;
 
-  inherited;
+  if (pgcGuias.ActivePage = tbsTabela) then
+    if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
+      pnlLegendas.Visible := True;
+
+  // Inserir
+
+  if (Shift = [ssCtrl]) and (Key = VK_INSERT) Then
+    Case pgcServicoFinalizar.ActivePageIndex of
+      0 : dbgFormaPagtoKeyDown(Sender, Key, Shift);
+      1 : dbgTitulosKeyDown(Sender, Key, Shift);
+    end
+  else
+
+  // Editar
+
+  if (Shift = [ssCtrl]) and (Key = VK_RETURN) Then
+    Case pgcServicoFinalizar.ActivePageIndex of
+      0 : dbgFormaPagtoKeyDown(Sender, Key, Shift);
+      1 : dbgTitulosKeyDown(Sender, Key, Shift);
+    end
+  else
+
+  // Excluir Tudo e reiniciar forma de pagamento
+
+  if (Shift = [ssCtrl]) and (Key = VK_DELETE) Then
+    Case pgcServicoFinalizar.ActivePageIndex of
+      0: dbgFormaPagtoKeyDown(Sender, Key, Shift);
+      1: dbgTitulosKeyDown(Sender, Key, Shift);
+    end
+  else
+  if ( Key = VK_F6 ) then
+    btnConsultarServico.Click
+  else
+  // Desistir na inserção de um novo equipamento, produto/serviço e ou técnico
+  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) ) then
+  begin
+    Case pgcServicoDetalhe.ActivePageIndex of
+      0 : // Equipamento(s)
+        begin
+          if ( (cdsOSEquipamentos.State in [dsEdit, dsInsert]) and (Trim(dbEquimanetoDescricao.Text) = EmptyStr) ) then
+            cdsOSEquipamentos.Cancel
+          else
+            inherited;
+        end;
+
+      1 : // Serviço(s) a realizar
+        begin
+          Case pgcServicoProduto.ActivePageIndex of
+            0 : // Serviços
+              if ( (cdsOSServicos.State in [dsEdit, dsInsert]) and (Trim(dbServico.Text) = EmptyStr) ) then
+                cdsOSServicos.Cancel
+              else
+                inherited;
+            1 : // Produtos
+              if ( (cdsOSProdutos.State in [dsEdit, dsInsert]) and (Trim(dbProduto.Text) = EmptyStr) ) then
+                cdsOSProdutos.Cancel
+              else
+                inherited;
+            2 : // Técnicos
+              if ( (cdsOSTecnicos.State in [dsEdit, dsInsert]) and (Trim(dbTecnico.Text) = EmptyStr) ) then
+                cdsOSTecnicos.Cancel
+              else
+                inherited;
+            else
+              inherited;
+          end;
+        end;
+
+      else
+        inherited;
+    end;
+  end
+  else
+    inherited;
 end;
 
 procedure TfrmGeOS.BtnEventoInserirClick(Sender: TObject);
@@ -3699,7 +3816,7 @@ begin
     if cdsOSFormaPagto.Locate('PAGTO_PRAZO', 1, []) then
     begin
       GetTitulosAbertos( IbDtstTabelaCLIENTE.AsInteger );
-      if ( GetTotalValorFormaPagto_APrazo > qryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
+      if ( GetTotalValorFormaPagto_APrazo > fdQryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
       begin
         ShowWarning('O Valor Total A Prazo está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
         Exit;
@@ -3927,7 +4044,7 @@ end;
 
 procedure TfrmGeOS.GetTitulosAbertos(pCliente: Integer);
 begin
-  with qryTotalTitulosAbertos do
+  with fdQryTotalTitulosAbertos do
   begin
     Close;
     ParamByName('cliente').AsInteger := pCliente;

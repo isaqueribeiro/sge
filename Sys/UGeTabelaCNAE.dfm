@@ -27,19 +27,17 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
     ExplicitWidth = 728
     ExplicitHeight = 402
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 720
+      ExplicitHeight = 373
       inherited Bevel4: TBevel
-        Top = 308
+        Top = 307
         Width = 720
         ExplicitTop = 308
         ExplicitWidth = 720
       end
       inherited dbgDados: TDBGrid
         Width = 720
-        Height = 308
+        Height = 307
         Columns = <
           item
             Expanded = False
@@ -54,9 +52,9 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 312
+        Top = 311
         Width = 720
-        ExplicitTop = 312
+        ExplicitTop = 311
         ExplicitWidth = 720
         inherited grpBxFiltro: TGroupBox
           Left = 464
@@ -78,6 +76,10 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 720
+      ExplicitHeight = 373
       inherited Bevel8: TBevel
         Top = 225
         Width = 720
@@ -246,6 +248,8 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
       '  , c.obriga_insc_estadual'
       '  , c.ativa'
       'from TBCNAE c')
+    Left = 352
+    Top = 304
     object IbDtstTabelaCODIGO: TIBStringField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
@@ -260,7 +264,7 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
       Origin = '"TBCNAE"."DESCRICAO_RESUMIDA"'
       ProviderFlags = [pfInUpdate]
       Required = True
-      Size = 100
+      Size = 250
     end
     object IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField
       DisplayLabel = 'Descri'#231#227'o completa'
@@ -289,6 +293,10 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
       Origin = '"TBCNAE"."ATIVA"'
       ProviderFlags = [pfInUpdate]
     end
+  end
+  inherited DtSrcTabela: TDataSource
+    Left = 416
+    Top = 304
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -328,10 +336,14 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
       'delete from TBCNAE'
       'where'
       '  CODIGO = :OLD_CODIGO')
+    Left = 384
+    Top = 304
   end
   inherited ImgList: TImageList
+    Left = 320
+    Top = 304
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -29,8 +29,6 @@ inherited frmGrUsuario: TfrmGrUsuario
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel4: TBevel
@@ -105,8 +103,6 @@ inherited frmGrUsuario: TfrmGrUsuario
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel8: TBevel
@@ -286,15 +282,11 @@ inherited frmGrUsuario: TfrmGrUsuario
         Top = 170
         Width = 743
         Height = 214
-        ActivePage = tbsControleInterno
+        ActivePage = tbsVendas
         Align = alClient
         TabOrder = 2
         object tbsVendas: TTabSheet
           Caption = 'Vendas'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 281
-          ExplicitHeight = 165
           object GrpBxParametrosVenda: TGroupBox
             Left = 0
             Top = 0
@@ -303,7 +295,6 @@ inherited frmGrUsuario: TfrmGrUsuario
             Align = alClient
             Caption = 'Par'#226'metros'
             TabOrder = 0
-            ExplicitTop = 2
             object lblPercentualDesc: TLabel
               Left = 16
               Top = 24
@@ -339,9 +330,9 @@ inherited frmGrUsuario: TfrmGrUsuario
             object dbAlterarValorVendaItem: TDBCheckBox
               Left = 16
               Top = 72
-              Width = 257
+              Width = 297
               Height = 17
-              Caption = 'Permitir alterar valor do item na venda'
+              Caption = 'Permitir alterar valor do item na Venda e/ou OS'
               DataField = 'PERM_ALTERAR_VALOR_VENDA'
               DataSource = DtSrcTabela
               Font.Charset = ANSI_CHARSET
@@ -396,10 +387,6 @@ inherited frmGrUsuario: TfrmGrUsuario
         object tbsControleInterno: TTabSheet
           Caption = 'Controle Interno'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 281
-          ExplicitHeight = 165
           object GrpBxParametrosAlmox: TGroupBox
             Left = 0
             Top = 0
@@ -408,8 +395,6 @@ inherited frmGrUsuario: TfrmGrUsuario
             Align = alClient
             Caption = 'Par'#226'metros'
             TabOrder = 0
-            ExplicitWidth = 734
-            ExplicitHeight = 182
             object dbAlmoxManifestoAuto: TDBCheckBox
               Left = 16
               Top = 24
@@ -625,7 +610,7 @@ inherited frmGrUsuario: TfrmGrUsuario
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

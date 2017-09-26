@@ -448,6 +448,7 @@ var
   frmGeProduto: TfrmGeProduto;
 
   procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota);
+  procedure MostrarTabelaServicos(const AOwner : TComponent);
 
   function SelecionarProdutoParaAjuste(const AOwner : TComponent; const Empresa : String;
     var Codigo : Integer;
@@ -533,6 +534,8 @@ begin
   frm := TfrmGeProduto.Create(AOwner);
   try
     frm.fAliquota := TipoAliquota;
+//    frm.fApenasProdutos := (frm.fAliquota = taICMS);
+//    frm.fApenasServicos := (frm.fAliquota = taISS);
     frm.chkProdutoComEstoque.Checked := False;
     frm.AddWhereAdditional;
 //
@@ -550,6 +553,24 @@ begin
     frm.ShowModal;
   finally
     frm.Destroy;
+  end;
+end;
+
+procedure MostrarTabelaServicos(const AOwner : TComponent);
+var
+  AForm : TfrmGeProduto;
+begin
+  AForm := TfrmGeProduto.Create(AOwner);
+  try
+    AForm.fAliquota := taISS;
+    AForm.fApenasProdutos := False;
+    AForm.fApenasServicos := True;
+    AForm.chkProdutoComEstoque.Checked := False;
+    AForm.AddWhereAdditional;
+
+    AForm.ShowModal;
+  finally
+    AForm.Destroy;
   end;
 end;
 

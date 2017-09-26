@@ -130,6 +130,9 @@ type
     fdQryCaixaAberto: TFDQuery;
     fdScript: TFDScript;
     procedure DataModuleCreate(Sender: TObject);
+    procedure fdScriptBeforeExecute(Sender: TObject);
+    procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
+      var AException: Exception);
   private
     { Private declarations }
 
@@ -196,9 +199,9 @@ var
   procedure ShowError(sMsg : String);
   procedure ShowErrorNotify(Sender: TObject; E: Exception);
   procedure UpdateSequence(GeneratorName, NomeTabela, CampoChave : String; const sWhr : String = '');
+  procedure CommitTransaction;
   procedure ExecuteScriptSQL(sScriptSQL : String);
   procedure ExecuteScriptMetaData(aFileName : String);
-  procedure CommitTransaction;
 
   procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
 
@@ -308,6 +311,7 @@ var
   function StrFormatarCEP(sCEP: String): String;
   function StrFormatarFONE(sFone: String): String;
   function StrDescricaoProduto(const NoPlural : Boolean = TRUE) : String;
+  function StrDescricaoProdutoBtn(const NoPlural : Boolean = TRUE) : String;
   function StrOnlyNumbers(const Str : String) : String;
   Function StrInscricaoEstadual(const IE, UF : String) : Boolean;
 
@@ -1019,6 +1023,17 @@ begin
   end;
 end;
 
+procedure CommitTransaction;
+begin
+  with DMBusiness do
+  begin
+    ibtrnsctnBusiness.CommitRetaining;
+
+    if fdConexao.InTransaction then
+      fdConexao.CommitRetaining;
+  end;
+end;
+
 procedure ExecuteScriptSQL(sScriptSQL : String);
 begin
   with DMBusiness, fdQryBusca do
@@ -1040,18 +1055,10 @@ begin
       SQLScriptFileName := aFileName;
       ValidateAll;
       ExecuteAll;
+      CommitTransaction;
+
+      RenameFile(aFileName, ChangeFileExt(aFileName, '.upgraded'));
     end;
-end;
-
-procedure CommitTransaction;
-begin
-  with DMBusiness do
-  begin
-    ibtrnsctnBusiness.CommitRetaining;
-
-    if fdConexao.InTransaction then
-      fdConexao.CommitRetaining;
-  end;
 end;
 
 procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
@@ -2787,6 +2794,31 @@ begin
 //        s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
       else
         s := IfThen(NoPlural, 'Produtos / Serviços', 'Produto / Serviço');
+//        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+//          s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
+//        else
+//          S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
+    end;
+
+  finally
+    Result := S;
+  end;
+end;
+
+function StrDescricaoProdutoBtn(const NoPlural : Boolean = TRUE) : String;
+var
+  S : String;
+begin
+  try
+    S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
+
+    Case GetSegmentoID(gUsuarioLogado.Empresa)  of
+      SEGMENTO_MERCADO_CARRO_ID:
+        S := 'Veículo' + IfThen(NoPlural, 's', EmptyStr);
+//      SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
+//        s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
+//      else
+//        s := IfThen(NoPlural, 'Produtos / Serviços', 'Produto / Serviço');
 //        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
 //          s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
 //        else
@@ -4709,6 +4741,43 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
   except
     On E : Exception do
       ShowError('Erro ao tentar conectar no Servidor/Base.' + #13#13 + E.Message);
+  end;
+end;
+
+procedure TDMBusiness.fdScriptBeforeExecute(Sender: TObject);
+begin
+  {$IFNDEF PRINTER_CUPOM}
+  SplashMessage('Atualizando base de dados...');
+  {$ENDIF}
+end;
+
+procedure TDMBusiness.fdScriptError(ASender: TObject;
+  const AInitiator: IFDStanObject; var AException: Exception);
+var
+  sLOG_Error : TStringList;
+begin
+  sLOG_Error := TStringList.Create;
+  try
+    sLOG_Error.BeginUpdate;
+    sLOG_Error.Add('Aplicativo: ' + Application.Title);
+    sLOG_Error.Add('Versão    : ' + GetVersion);
+
+    if (fdScript.SQLScripts.Count > 0) then
+    begin
+      sLOG_Error.Add('-');
+      sLOG_Error.Add('SCRIPT:');
+      sLOG_Error.AddStrings(fdScript.SQLScripts.Items[fdScript.SQLScripts.Count - 1].SQL);
+    end;
+
+    sLOG_Error.Add('-');
+    sLOG_Error.Add('ERRO:');
+    sLOG_Error.Add(AException.Message);
+    sLOG_Error.EndUpdate;
+
+    ForceDirectories(ExtractFilePath(Application.ExeName) + '_logError\');
+    sLOG_Error.SaveToFile(ExtractFilePath(Application.ExeName) + '_logError\' + FormatDateTime('yyyy-mm-dd.hhmmss".sql"', Now));
+  finally
+    sLOG_Error.Free;
   end;
 end;
 
