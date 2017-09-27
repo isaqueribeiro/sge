@@ -1754,6 +1754,19 @@ begin
     lblGrupo.Caption                         := 'Família:';
     IbDtstTabelaDESCRICAO_GRUPO.DisplayLabel := 'Família';
   end;
+
+  if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS) then
+  begin
+    lblCusto.Caption := 'Custo (R$):';
+    IbDtstTabelaCUSTOMEDIO.DisplayLabel := 'Custo (R$)';
+    GrpBxParametroProdudo.Font.Color    := clBlack;
+  end
+  else
+  begin
+    lblCusto.Caption := 'Custo Oper.(R$):';
+    IbDtstTabelaCUSTOMEDIO.DisplayLabel := 'Custo Oper.(R$)';
+    GrpBxParametroProdudo.Font.Color    := clGray;
+  end;
 end;
 
 procedure TfrmGeProduto.ControleCampos;

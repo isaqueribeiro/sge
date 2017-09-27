@@ -5920,3 +5920,955 @@ where (RDB$FIELD_NAME = 'DESCRICAO_RESUMIDA') and
 (RDB$RELATION_NAME = 'TBCNAE')
 ;
 
+
+
+
+/*------ SYSDBA 27/09/2017 10:37:19 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.CUSTOMEDIO IS
+'Custo medio operacional.';
+
+
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODIGO position 1;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column COD position 2;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column DESCRI position 3;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column APRESENTACAO position 4;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column DESCRI_APRESENTACAO position 5;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column METAFONEMA position 6;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column MODELO position 7;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ANVISA position 8;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column REFERENCIA position 9;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column NOME_AMIGO position 10;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ESPECIFICACAO position 11;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column SECAO position 12;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column QTDE position 13;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column FRACIONADOR position 14;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PESO_BRUTO position 15;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PESO_LIQUIDO position 16;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column LARGURA position 17;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ALTURA position 18;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ESPESSURA position 19;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CUBAGEM position 20;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column VENDA_FRACIONADA position 21;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column UNIDADE position 22;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ESTOQMIN position 23;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODTIPO position 24;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODGRUPO position 25;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODFABRICANTE position 26;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PERCENTUAL_MARCKUP position 27;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PERCENTUAL_MARGEM position 28;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PRECO_SUGERIDO position 29;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODEMP position 30;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODSECAO position 31;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODORIGEM position 32;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODTRIBUTACAO position 33;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CST position 34;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CSOSN position 35;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CST_PIS position 36;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CST_COFINS position 37;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column TABELA_IBPT position 38;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column NCM_SH position 39;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODIGO_NVE position 40;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODIGO_CEST position 41;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODCFOP position 42;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODBARRA_EAN position 43;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODUNIDADE position 44;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CODUNIDADE_FRACIONADA position 45;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ALIQUOTA_TIPO position 46;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ALIQUOTA position 47;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ALIQUOTA_CSOSN position 48;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ALIQUOTA_PIS position 49;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ALIQUOTA_COFINS position 50;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column VALOR_IPI position 51;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PERCENTUAL_REDUCAO_BC position 52;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column RESERVA position 53;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PRODUTO_NOVO position 54;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column COR_VEICULO position 55;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column COMBUSTIVEL_VEICULO position 56;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column TIPO_VEICULO position 57;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ANO_MODELO_VEICULO position 58;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ANO_FABRICACAO_VEICULO position 59;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column RENAVAM_VEICULO position 60;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CHASSI_VEICULO position 61;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column KILOMETRAGEM_VEICULO position 62;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column SITUACAO_ATUAL_VEICULO position 63;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column SITUACAO_HISTORICO_VEICULO position 64;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column USUARIO position 65;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CADASTRO_ATIVO position 66;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column MOVIMENTA_ESTOQUE position 67;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column COMPOR_FATURAMENTO position 68;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PRODUTO_IMOBILIZADO position 69;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ESTOQUE_APROP_LOTE position 70;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PRECO position 71;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PRECO_PROMOCAO position 72;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CUSTOMEDIO position 73;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CUST_DESP_OFIC position 74;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CUST_DESP_GERAIS position 75;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CUST_DESP_ADM position 76;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CUST_COMISSAO position 77;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column CUST_IMPOSTO position 78;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column FI_RET_FINANC position 79;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column FI_RET_PLANO position 80;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ULTIMA_COMPRA_DATA position 81;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ULTIMA_COMPRA_VALOR position 82;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ULTIMA_COMPRA_FORNEC position 83;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column GERAR_SUBPRODUTO position 84;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column PRODUTO_PAI position 85;
+
+
+/*------ SYSDBA 27/09/2017 10:39:33 --------*/
+
+alter table TBPRODUTO
+alter column ARQUIVO_MORTO position 86;
+
+
+/*------ SYSDBA 27/09/2017 10:56:05 --------*/
+
+ALTER TABLE TBOS_PRODUTO
+    ADD CUSTO DMN_MONEY,
+    ADD TOTAL_CUSTO DMN_MONEY;
+
+COMMENT ON COLUMN TBOS_PRODUTO.CUSTO IS
+'Valor Unitario de Custo';
+
+COMMENT ON COLUMN TBOS_PRODUTO.TOTAL_CUSTO IS
+'Total Custo (Quantidade * Valor de Custo)';
+
+alter table TBOS_PRODUTO
+alter ANO position 1;
+
+alter table TBOS_PRODUTO
+alter CONTROLE position 2;
+
+alter table TBOS_PRODUTO
+alter SEQ position 3;
+
+alter table TBOS_PRODUTO
+alter EMPRESA position 4;
+
+alter table TBOS_PRODUTO
+alter CLIENTE position 5;
+
+alter table TBOS_PRODUTO
+alter PRODUTO position 6;
+
+alter table TBOS_PRODUTO
+alter QTDE position 7;
+
+alter table TBOS_PRODUTO
+alter UNIDADE position 8;
+
+alter table TBOS_PRODUTO
+alter CUSTO position 9;
+
+alter table TBOS_PRODUTO
+alter PUNIT position 10;
+
+alter table TBOS_PRODUTO
+alter PUNIT_PROMOCAO position 11;
+
+alter table TBOS_PRODUTO
+alter DESCONTO position 12;
+
+alter table TBOS_PRODUTO
+alter DESCONTO_VALOR position 13;
+
+alter table TBOS_PRODUTO
+alter PFINAL position 14;
+
+alter table TBOS_PRODUTO
+alter TOTAL_CUSTO position 15;
+
+alter table TBOS_PRODUTO
+alter TOTAL_BRUTO position 16;
+
+alter table TBOS_PRODUTO
+alter TOTAL_DESCONTO position 17;
+
+alter table TBOS_PRODUTO
+alter TOTAL_LIQUIDO position 18;
+
+alter table TBOS_PRODUTO
+alter APROVADO position 19;
+
+
+
+
+/*------ SYSDBA 27/09/2017 10:57:07 --------*/
+
+ALTER TABLE TBOS_SERVICO
+    ADD CUSTO DMN_MONEY,
+    ADD TOTAL_CUSTO DMN_MONEY;
+
+COMMENT ON COLUMN TBOS_SERVICO.CUSTO IS
+'Valor Unitario de Custo';
+
+COMMENT ON COLUMN TBOS_SERVICO.TOTAL_CUSTO IS
+'Total Custo (Quantidade * Valor de Custo)';
+
+alter table TBOS_SERVICO
+alter ANO position 1;
+
+alter table TBOS_SERVICO
+alter CONTROLE position 2;
+
+alter table TBOS_SERVICO
+alter SEQ position 3;
+
+alter table TBOS_SERVICO
+alter EMPRESA position 4;
+
+alter table TBOS_SERVICO
+alter CLIENTE position 5;
+
+alter table TBOS_SERVICO
+alter SERVICO position 6;
+
+alter table TBOS_SERVICO
+alter QTDE position 7;
+
+alter table TBOS_SERVICO
+alter UNIDADE position 8;
+
+alter table TBOS_SERVICO
+alter CUSTO position 9;
+
+alter table TBOS_SERVICO
+alter PUNIT position 10;
+
+alter table TBOS_SERVICO
+alter PUNIT_PROMOCAO position 11;
+
+alter table TBOS_SERVICO
+alter DESCONTO position 12;
+
+alter table TBOS_SERVICO
+alter DESCONTO_VALOR position 13;
+
+alter table TBOS_SERVICO
+alter PFINAL position 14;
+
+alter table TBOS_SERVICO
+alter TOTAL_CUSTO position 15;
+
+alter table TBOS_SERVICO
+alter TOTAL_BRUTO position 16;
+
+alter table TBOS_SERVICO
+alter TOTAL_DESCONTO position 17;
+
+alter table TBOS_SERVICO
+alter TOTAL_LIQUIDO position 18;
+
+alter table TBOS_SERVICO
+alter APROVADO position 19;
+
+
+
+
+/*------ SYSDBA 27/09/2017 10:58:24 --------*/
+
+ALTER TABLE TBOS
+    ADD TOTAL_CUSTO DMN_MONEY DEFAULT 0.0;
+
+COMMENT ON COLUMN TBOS.TOTAL_CUSTO IS
+'Valor Total de Custo do(s) Servico(s) e Produto(s)';
+
+alter table TBOS
+alter ANO position 1;
+
+alter table TBOS
+alter CONTROLE position 2;
+
+alter table TBOS
+alter EMPRESA position 3;
+
+alter table TBOS
+alter CLIENTE position 4;
+
+alter table TBOS
+alter DATA_CADASTRO position 5;
+
+alter table TBOS
+alter DATA_EMISSAO position 6;
+
+alter table TBOS
+alter DATA_PREVISAO_CONCLUSAO position 7;
+
+alter table TBOS
+alter USUARIO position 8;
+
+alter table TBOS
+alter VENDEDOR position 9;
+
+alter table TBOS
+alter STATUS position 10;
+
+alter table TBOS
+alter OBSERVACOES position 11;
+
+alter table TBOS
+alter RELATO_SOLICITACAO position 12;
+
+alter table TBOS
+alter DADOS_ENTREGA position 13;
+
+alter table TBOS
+alter TOTAL_CUSTO position 14;
+
+alter table TBOS
+alter TOTAL_SERVICO position 15;
+
+alter table TBOS
+alter TOTAL_PRODUTO position 16;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_SERVICOS position 17;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_PRODUTOS position 18;
+
+alter table TBOS
+alter TOTAL_DESCONTOS position 19;
+
+alter table TBOS
+alter TOTAL_OS position 20;
+
+alter table TBOS
+alter TOTAL_BRUTO position 21;
+
+alter table TBOS
+alter TOTAL_LIQUIDO position 22;
+
+alter table TBOS
+alter TOTAL_APROVADO_SERVICO position 23;
+
+alter table TBOS
+alter TOTAL_APROVADO_PRODUTO position 24;
+
+alter table TBOS
+alter DATA_APROVACAO position 25;
+
+alter table TBOS
+alter DATA_FINALIZACAO position 26;
+
+alter table TBOS
+alter DATA_FATURA position 27;
+
+alter table TBOS
+alter COMPETENCIA position 28;
+
+alter table TBOS
+alter NFS_LOTE position 29;
+
+alter table TBOS
+alter NFS_SERIE position 30;
+
+alter table TBOS
+alter NFS_NUMERO position 31;
+
+alter table TBOS
+alter NFS_DATAEMISSAO position 32;
+
+alter table TBOS
+alter NFS_HORAEMISSAO position 33;
+
+alter table TBOS
+alter NFS_CNAE position 34;
+
+alter table TBOS
+alter NFS_NCM position 35;
+
+alter table TBOS
+alter NFS_DESCRICAO_SERVICO position 36;
+
+alter table TBOS
+alter NFS_ENVIADA position 37;
+
+alter table TBOS
+alter CAIXA_ANO position 38;
+
+alter table TBOS
+alter CAIXA_NUM position 39;
+
+alter table TBOS
+alter CANCEL_DATAHORA position 40;
+
+alter table TBOS
+alter CANCEL_USUARIO position 41;
+
+alter table TBOS
+alter CANCEL_MOTIVO position 42;
+
+
+
+
+/*------ SYSDBA 27/09/2017 11:42:58 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_os_valor_custo for tbos
+active before update position 3
+AS
+  declare variable total_custo_servico DMN_MONEY;
+  declare variable total_custo_produto DMN_MONEY;
+begin
+  Select
+    sum(coalesce(s.total_custo, 0.0))
+  from TBOS_SERVICO s
+  where s.ano      = new.ano
+    and s.controle = new.controle
+  Into
+    total_custo_servico;
+    
+  Select
+    sum(coalesce(p.total_custo, 0.0))
+  from TBOS_PRODUTO p
+  where p.ano      = new.ano
+    and p.controle = new.controle
+  Into
+    total_custo_produto;
+    
+  new.total_custo = coalesce(:total_custo_servico, 0.0) + coalesce(:total_custo_produto, 0.0);
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 27/09/2017 11:47:21 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_os_valor_custo for tbos
+active before update position 3
+AS
+  declare variable total_custo_servico DMN_MONEY;
+  declare variable total_custo_produto DMN_MONEY;
+begin
+  Select
+    sum(coalesce(s.total_custo, 0.0))
+  from TBOS_SERVICO s
+  where s.ano      = new.ano
+    and s.controle = new.controle
+  Into
+    total_custo_servico;
+    
+  Select
+    sum(coalesce(p.total_custo, 0.0))
+  from TBOS_PRODUTO p
+  where p.ano      = new.ano
+    and p.controle = new.controle
+  Into
+    total_custo_produto;
+    
+  new.total_custo = coalesce(:total_custo_servico, 0.0) + coalesce(:total_custo_produto, 0.0);
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_OS_VALOR_CUSTO IS 'Trigger Atualizar Total Custo (Controle de OS)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   27/09/2017
+
+Trigger responsavel por totalizar o valor total do custo operacinal de cada ordem
+de servico.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    27/09/2017 - IMR :
+        * Documentacao da tabela.';
+
+
+
+
+/*------ SYSDBA 27/09/2017 11:48:29 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_os_valor_aprovado for tbos
+active before update position 2
+AS
+  declare variable valor_aprov_servico DMN_MONEY;
+  declare variable valor_aprov_produto DMN_MONEY;
+begin
+  /* Ao aprovar a OS */
+  if ( (old.status <> new.status) and (new.status = 4) ) then
+  begin 
+    Select
+      sum(coalesce(s.total_liquido, 0.0))
+    from TBOS_SERVICO s
+    where s.ano      = new.ano
+      and s.controle = new.controle
+      and s.aprovado = 1 -- Servico aprovado
+    Into
+      valor_aprov_servico;
+
+    Select
+      sum(coalesce(p.total_liquido, 0.0))
+    from TBOS_PRODUTO p
+    where p.ano      = new.ano
+      and p.controle = new.controle
+      and p.aprovado = 1 -- Material/produto aprovado
+    Into
+      valor_aprov_produto;
+
+    new.total_aprovado_servico = coalesce(:valor_aprov_servico, 0.0);
+    new.total_aprovado_produto = coalesce(:valor_aprov_produto, 0.0);
+  end
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_OS_VALOR_APROVADO IS 'Trigger Atualizar Total Aprovado (Controle de OS)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   27/09/2017
+
+Trigger responsavel por totalizar o valor total aprovado pelo cliente em cada
+ordem de servico.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    27/09/2017 - IMR :
+        * Documentacao da tabela.';
+

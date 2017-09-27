@@ -7,7 +7,6 @@ inherited frmGeOS: TfrmGeOS
   ClientHeight = 689
   ClientWidth = 1145
   OldCreateOrder = True
-  ExplicitTop = -61
   ExplicitWidth = 1161
   ExplicitHeight = 728
   PixelsPerInch = 96
@@ -28,7 +27,6 @@ inherited frmGeOS: TfrmGeOS
     Width = 1145
     Height = 646
     OnChange = pgcGuiasChange
-    ExplicitTop = -2
     ExplicitWidth = 1145
     ExplicitHeight = 646
     inherited tbsTabela: TTabSheet
@@ -546,6 +544,8 @@ inherited frmGeOS: TfrmGeOS
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1137
       ExplicitHeight = 617
       inherited Bevel8: TBevel
@@ -2067,7 +2067,6 @@ inherited frmGeOS: TfrmGeOS
             Align = alClient
             Images = imgOS
             TabOrder = 1
-            ExplicitTop = 118
             object TbsServico: TTabSheet
               Caption = 'Servi'#231'o(s)'
               ImageIndex = 2
@@ -2966,7 +2965,7 @@ inherited frmGeOS: TfrmGeOS
               end
             end
             object TbsProduto: TTabSheet
-              Caption = 'Produto(s)'
+              Caption = 'Insumo(s) / Produto(s)'
               ImageIndex = 3
               object Bevel16: TBevel
                 Left = 601
@@ -3558,9 +3557,9 @@ inherited frmGeOS: TfrmGeOS
                 object dbProdutoAprovado: TDBCheckBox
                   Left = 88
                   Top = 144
-                  Width = 121
+                  Width = 241
                   Height = 17
-                  Caption = 'Produto Aprovado'
+                  Caption = 'Produto Aprovado (Incluir valor na OS)'
                   DataField = 'APROVADO'
                   DataSource = dtsOSProdutos
                   Font.Charset = ANSI_CHARSET
@@ -5856,6 +5855,13 @@ inherited frmGeOS: TfrmGeOS
       Origin = '"TBOS"."COMPETENCIA"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaTOTAL_CUSTO: TIBBCDField
+      FieldName = 'TOTAL_CUSTO'
+      Origin = '"TBOS"."TOTAL_CUSTO"'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
     object IbDtstTabelaTOTAL_SERVICO: TIBBCDField
       FieldName = 'TOTAL_SERVICO'
       Origin = '"TBOS"."TOTAL_SERVICO"'
@@ -6066,6 +6072,7 @@ inherited frmGeOS: TfrmGeOS
       '  OBSERVACOES,'
       '  RELATO_SOLICITACAO,'
       '  DADOS_ENTREGA,'
+      '  TOTAL_CUSTO,'
       '  TOTAL_SERVICO,'
       '  TOTAL_PRODUTO,'
       '  TOTAL_DESCONTOS_SERVICOS,'
@@ -6088,7 +6095,12 @@ inherited frmGeOS: TfrmGeOS
       '  NFS_CNAE,'
       '  NFS_NCM,'
       '  NFS_DESCRICAO_SERVICO,'
-      '  NFS_ENVIADA'
+      '  NFS_ENVIADA,'
+      '  CAIXA_ANO,'
+      '  CAIXA_NUM,'
+      '  CANCEL_DATAHORA,'
+      '  CANCEL_USUARIO,'
+      '  CANCEL_MOTIVO'
       'from TBOS '
       'where'
       '  ANO = :ANO and'
@@ -6123,6 +6135,7 @@ inherited frmGeOS: TfrmGeOS
       '  TOTAL_APROVADO_PRODUTO = :TOTAL_APROVADO_PRODUTO,'
       '  TOTAL_APROVADO_SERVICO = :TOTAL_APROVADO_SERVICO,'
       '  TOTAL_BRUTO = :TOTAL_BRUTO,'
+      '  TOTAL_CUSTO = :TOTAL_CUSTO,'
       '  TOTAL_DESCONTOS = :TOTAL_DESCONTOS,'
       '  TOTAL_DESCONTOS_PRODUTOS = :TOTAL_DESCONTOS_PRODUTOS,'
       '  TOTAL_DESCONTOS_SERVICOS = :TOTAL_DESCONTOS_SERVICOS,'
@@ -6153,11 +6166,12 @@ inherited frmGeOS: TfrmGeOS
         '   RELATO_SOLICITACAO, STATUS, TOTAL_APROVADO_PRODUTO, TOTAL_APR' +
         'OVADO_SERVICO, '
       
-        '   TOTAL_BRUTO, TOTAL_DESCONTOS, TOTAL_DESCONTOS_PRODUTOS, TOTAL' +
-        '_DESCONTOS_SERVICOS, '
+        '   TOTAL_BRUTO, TOTAL_CUSTO, TOTAL_DESCONTOS, TOTAL_DESCONTOS_PR' +
+        'ODUTOS, '
       
-        '   TOTAL_LIQUIDO, TOTAL_OS, TOTAL_PRODUTO, TOTAL_SERVICO, USUARI' +
-        'O, VENDEDOR)'
+        '   TOTAL_DESCONTOS_SERVICOS, TOTAL_LIQUIDO, TOTAL_OS, TOTAL_PROD' +
+        'UTO, TOTAL_SERVICO, '
+      '   USUARIO, VENDEDOR)'
       'values'
       
         '  (:ANO, :CLIENTE, :COMPETENCIA, :CONTROLE, :DADOS_ENTREGA, :DAT' +
@@ -6175,12 +6189,12 @@ inherited frmGeOS: TfrmGeOS
         '   :RELATO_SOLICITACAO, :STATUS, :TOTAL_APROVADO_PRODUTO, :TOTAL' +
         '_APROVADO_SERVICO, '
       
-        '   :TOTAL_BRUTO, :TOTAL_DESCONTOS, :TOTAL_DESCONTOS_PRODUTOS, :T' +
-        'OTAL_DESCONTOS_SERVICOS, '
+        '   :TOTAL_BRUTO, :TOTAL_CUSTO, :TOTAL_DESCONTOS, :TOTAL_DESCONTO' +
+        'S_PRODUTOS, '
       
-        '   :TOTAL_LIQUIDO, :TOTAL_OS, :TOTAL_PRODUTO, :TOTAL_SERVICO, :U' +
-        'SUARIO, '
-      '   :VENDEDOR)')
+        '   :TOTAL_DESCONTOS_SERVICOS, :TOTAL_LIQUIDO, :TOTAL_OS, :TOTAL_' +
+        'PRODUTO, '
+      '   :TOTAL_SERVICO, :USUARIO, :VENDEDOR)')
     DeleteSQL.Strings = (
       'delete from TBOS'
       'where'
@@ -6191,7 +6205,7 @@ inherited frmGeOS: TfrmGeOS
   inherited ImgList: TImageList
     Left = 704
     Bitmap = {
-      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -8232,11 +8246,13 @@ inherited frmGeOS: TfrmGeOS
       '  , s.servico'
       '  , s.qtde'
       '  , s.unidade'
+      '  , s.custo'
       '  , s.punit'
       '  , s.punit_promocao'
       '  , s.desconto'
       '  , s.desconto_valor'
       '  , s.pfinal'
+      '  , s.total_custo'
       '  , s.total_bruto'
       '  , s.total_desconto'
       '  , s.total_liquido'
@@ -8305,6 +8321,12 @@ inherited frmGeOS: TfrmGeOS
       Origin = '"TBOS_SERVICO"."UNIDADE"'
       ProviderFlags = [pfInUpdate]
     end
+    object cdsOSServicosCUSTO: TIBBCDField
+      FieldName = 'CUSTO'
+      Origin = '"TBOS_SERVICO"."CUSTO"'
+      Precision = 18
+      Size = 2
+    end
     object cdsOSServicosPUNIT: TIBBCDField
       FieldName = 'PUNIT'
       Origin = '"TBOS_SERVICO"."PUNIT"'
@@ -8342,6 +8364,12 @@ inherited frmGeOS: TfrmGeOS
       Origin = '"TBOS_SERVICO"."PFINAL"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSServicosTOTAL_CUSTO: TIBBCDField
+      FieldName = 'TOTAL_CUSTO'
+      Origin = '"TBOS_SERVICO"."TOTAL_CUSTO"'
       Precision = 18
       Size = 2
     end
@@ -8425,11 +8453,13 @@ inherited frmGeOS: TfrmGeOS
       '  SERVICO,'
       '  QTDE,'
       '  UNIDADE,'
+      '  CUSTO,'
       '  PUNIT,'
       '  PUNIT_PROMOCAO,'
       '  DESCONTO,'
       '  DESCONTO_VALOR,'
       '  PFINAL,'
+      '  TOTAL_CUSTO,'
       '  TOTAL_BRUTO,'
       '  TOTAL_DESCONTO,'
       '  TOTAL_LIQUIDO,'
@@ -8446,6 +8476,7 @@ inherited frmGeOS: TfrmGeOS
       '  APROVADO = :APROVADO,'
       '  CLIENTE = :CLIENTE,'
       '  CONTROLE = :CONTROLE,'
+      '  CUSTO = :CUSTO,'
       '  DESCONTO = :DESCONTO,'
       '  DESCONTO_VALOR = :DESCONTO_VALOR,'
       '  EMPRESA = :EMPRESA,'
@@ -8456,6 +8487,7 @@ inherited frmGeOS: TfrmGeOS
       '  SEQ = :SEQ,'
       '  SERVICO = :SERVICO,'
       '  TOTAL_BRUTO = :TOTAL_BRUTO,'
+      '  TOTAL_CUSTO = :TOTAL_CUSTO,'
       '  TOTAL_DESCONTO = :TOTAL_DESCONTO,'
       '  TOTAL_LIQUIDO = :TOTAL_LIQUIDO,'
       '  UNIDADE = :UNIDADE'
@@ -8466,20 +8498,20 @@ inherited frmGeOS: TfrmGeOS
     InsertSQL.Strings = (
       'insert into TBOS_SERVICO'
       
-        '  (ANO, APROVADO, CLIENTE, CONTROLE, DESCONTO, DESCONTO_VALOR, E' +
-        'MPRESA, '
+        '  (ANO, APROVADO, CLIENTE, CONTROLE, CUSTO, DESCONTO, DESCONTO_V' +
+        'ALOR, EMPRESA, '
       
         '   PFINAL, PUNIT, PUNIT_PROMOCAO, QTDE, SEQ, SERVICO, TOTAL_BRUT' +
-        'O, TOTAL_DESCONTO, '
-      '   TOTAL_LIQUIDO, UNIDADE)'
+        'O, TOTAL_CUSTO, '
+      '   TOTAL_DESCONTO, TOTAL_LIQUIDO, UNIDADE)'
       'values'
       
-        '  (:ANO, :APROVADO, :CLIENTE, :CONTROLE, :DESCONTO, :DESCONTO_VA' +
-        'LOR, :EMPRESA, '
+        '  (:ANO, :APROVADO, :CLIENTE, :CONTROLE, :CUSTO, :DESCONTO, :DES' +
+        'CONTO_VALOR, '
       
-        '   :PFINAL, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :SEQ, :SERVICO, :TOT' +
-        'AL_BRUTO, '
-      '   :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNIDADE)')
+        '   :EMPRESA, :PFINAL, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :SEQ, :SER' +
+        'VICO, :TOTAL_BRUTO, '
+      '   :TOTAL_CUSTO, :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNIDADE)')
     DeleteSQL.Strings = (
       'delete from TBOS_SERVICO'
       'where'
@@ -8514,11 +8546,13 @@ inherited frmGeOS: TfrmGeOS
       '  , sp.produto'
       '  , sp.qtde'
       '  , sp.unidade'
+      '  , sp.custo'
       '  , sp.punit'
       '  , sp.punit_promocao'
       '  , sp.desconto'
       '  , sp.desconto_valor'
       '  , sp.pfinal'
+      '  , sp.total_custo'
       '  , sp.total_bruto'
       '  , sp.total_desconto'
       '  , sp.total_liquido'
@@ -8586,6 +8620,12 @@ inherited frmGeOS: TfrmGeOS
       Origin = '"TBOS_PRODUTO"."UNIDADE"'
       ProviderFlags = [pfInUpdate]
     end
+    object cdsOSProdutosCUSTO: TIBBCDField
+      FieldName = 'CUSTO'
+      Origin = '"TBOS_PRODUTO"."CUSTO"'
+      Precision = 18
+      Size = 2
+    end
     object cdsOSProdutosPUNIT: TIBBCDField
       FieldName = 'PUNIT'
       Origin = '"TBOS_PRODUTO"."PUNIT"'
@@ -8623,6 +8663,12 @@ inherited frmGeOS: TfrmGeOS
       Origin = '"TBOS_PRODUTO"."PFINAL"'
       ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsOSProdutosTOTAL_CUSTO: TIBBCDField
+      FieldName = 'TOTAL_CUSTO'
+      Origin = '"TBOS_PRODUTO"."TOTAL_CUSTO"'
       Precision = 18
       Size = 2
     end
@@ -8705,11 +8751,13 @@ inherited frmGeOS: TfrmGeOS
       '  PRODUTO,'
       '  QTDE,'
       '  UNIDADE,'
+      '  CUSTO,'
       '  PUNIT,'
       '  PUNIT_PROMOCAO,'
       '  DESCONTO,'
       '  DESCONTO_VALOR,'
       '  PFINAL,'
+      '  TOTAL_CUSTO,'
       '  TOTAL_BRUTO,'
       '  TOTAL_DESCONTO,'
       '  TOTAL_LIQUIDO,'
@@ -8726,6 +8774,7 @@ inherited frmGeOS: TfrmGeOS
       '  APROVADO = :APROVADO,'
       '  CLIENTE = :CLIENTE,'
       '  CONTROLE = :CONTROLE,'
+      '  CUSTO = :CUSTO,'
       '  DESCONTO = :DESCONTO,'
       '  DESCONTO_VALOR = :DESCONTO_VALOR,'
       '  EMPRESA = :EMPRESA,'
@@ -8736,6 +8785,7 @@ inherited frmGeOS: TfrmGeOS
       '  QTDE = :QTDE,'
       '  SEQ = :SEQ,'
       '  TOTAL_BRUTO = :TOTAL_BRUTO,'
+      '  TOTAL_CUSTO = :TOTAL_CUSTO,'
       '  TOTAL_DESCONTO = :TOTAL_DESCONTO,'
       '  TOTAL_LIQUIDO = :TOTAL_LIQUIDO,'
       '  UNIDADE = :UNIDADE'
@@ -8746,20 +8796,20 @@ inherited frmGeOS: TfrmGeOS
     InsertSQL.Strings = (
       'insert into TBOS_PRODUTO'
       
-        '  (ANO, APROVADO, CLIENTE, CONTROLE, DESCONTO, DESCONTO_VALOR, E' +
-        'MPRESA, '
+        '  (ANO, APROVADO, CLIENTE, CONTROLE, CUSTO, DESCONTO, DESCONTO_V' +
+        'ALOR, EMPRESA, '
       
         '   PFINAL, PRODUTO, PUNIT, PUNIT_PROMOCAO, QTDE, SEQ, TOTAL_BRUT' +
-        'O, TOTAL_DESCONTO, '
-      '   TOTAL_LIQUIDO, UNIDADE)'
+        'O, TOTAL_CUSTO, '
+      '   TOTAL_DESCONTO, TOTAL_LIQUIDO, UNIDADE)'
       'values'
       
-        '  (:ANO, :APROVADO, :CLIENTE, :CONTROLE, :DESCONTO, :DESCONTO_VA' +
-        'LOR, :EMPRESA, '
+        '  (:ANO, :APROVADO, :CLIENTE, :CONTROLE, :CUSTO, :DESCONTO, :DES' +
+        'CONTO_VALOR, '
       
-        '   :PFINAL, :PRODUTO, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :SEQ, :TOT' +
-        'AL_BRUTO, '
-      '   :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNIDADE)')
+        '   :EMPRESA, :PFINAL, :PRODUTO, :PUNIT, :PUNIT_PROMOCAO, :QTDE, ' +
+        ':SEQ, :TOTAL_BRUTO, '
+      '   :TOTAL_CUSTO, :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNIDADE)')
     DeleteSQL.Strings = (
       'delete from TBOS_PRODUTO'
       'where'

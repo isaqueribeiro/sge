@@ -496,6 +496,11 @@ type
     fdQryTotalTitulosAbertosVALOR_COMPRAS_ABERTAS: TBCDField;
     fdQryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL: TBCDField;
     imgOS: TcxImageList;
+    IbDtstTabelaTOTAL_CUSTO: TIBBCDField;
+    cdsOSServicosCUSTO: TIBBCDField;
+    cdsOSServicosTOTAL_CUSTO: TIBBCDField;
+    cdsOSProdutosCUSTO: TIBBCDField;
+    cdsOSProdutosTOTAL_CUSTO: TIBBCDField;
     procedure FiltrarTecnicosChange(Sender: TObject);
     procedure OpcoesImprimirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -963,6 +968,7 @@ begin
 
       cdsOSServicosDESCONTO_VALOR.AsCurrency := cPrecoVND * cdsOSServicosDESCONTO.AsCurrency / 100;
       cdsOSServicosPFINAL.AsCurrency         := cPrecoVND - cdsOSServicosDESCONTO_VALOR.AsCurrency;
+      cdsOSServicosTOTAL_CUSTO.AsCurrency    := cdsOSServicosQTDE.AsCurrency * cdsOSServicosCUSTO.AsCurrency;
       cdsOSServicosTOTAL_BRUTO.AsCurrency    := cdsOSServicosQTDE.AsCurrency * cPrecoVND;
       cdsOSServicosTOTAL_DESCONTO.AsCurrency := cdsOSServicosQTDE.AsCurrency * cdsOSServicosDESCONTO_VALOR.AsCurrency;
       cdsOSServicosTOTAL_LIQUIDO.AsCurrency  := cdsOSServicosTOTAL_BRUTO.AsCurrency - cdsOSServicosTOTAL_DESCONTO.AsCurrency;;
@@ -984,6 +990,7 @@ begin
 
       cdsOSProdutosDESCONTO_VALOR.AsCurrency := cPrecoVND * cdsOSProdutosDESCONTO.AsCurrency / 100;
       cdsOSProdutosPFINAL.AsCurrency         := cPrecoVND - cdsOSProdutosDESCONTO_VALOR.AsCurrency;
+      cdsOSProdutosTOTAL_CUSTO.AsCurrency    := cdsOSProdutosQTDE.AsCurrency * cdsOSProdutosCUSTO.AsCurrency;
       cdsOSProdutosTOTAL_BRUTO.AsCurrency    := cdsOSProdutosQTDE.AsCurrency * cPrecoVND;
       cdsOSProdutosTOTAL_DESCONTO.AsCurrency := cdsOSProdutosQTDE.AsCurrency * cdsOSProdutosDESCONTO_VALOR.AsCurrency;
       cdsOSProdutosTOTAL_LIQUIDO.AsCurrency  := cdsOSProdutosTOTAL_BRUTO.AsCurrency - cdsOSProdutosTOTAL_DESCONTO.AsCurrency;;
@@ -1548,12 +1555,14 @@ begin
   cdsOSServicosEMPRESA.Assign( IbDtstTabelaEMPRESA );
   cdsOSServicosCLIENTE.Assign( IbDtstTabelaCLIENTE );
   cdsOSServicosQTDE.Value           := 1;
+  cdsOSServicosCUSTO.Value          := 0.0;
   cdsOSServicosPUNIT.Value          := 0.0;
   cdsOSServicosPUNIT_PROMOCAO.Value := 0.0;
   cdsOSServicosAPROVADO.Value       := 0;
   cdsOSServicosDESCONTO.Value       := 0.0;
   cdsOSServicosDESCONTO_VALOR.Value := 0.0;
   cdsOSServicosPFINAL.Value         := 0.0;
+  cdsOSServicosTOTAL_CUSTO.Value    := 0.0;
   cdsOSServicosTOTAL_BRUTO.Value    := 0.0;
   cdsOSServicosTOTAL_DESCONTO.Value := 0.0;
   cdsOSServicosTOTAL_LIQUIDO.Value  := 0.0;
@@ -1573,12 +1582,14 @@ begin
   cdsOSProdutosEMPRESA.Assign( IbDtstTabelaEMPRESA );
   cdsOSProdutosCLIENTE.Assign( IbDtstTabelaCLIENTE );
   cdsOSProdutosQTDE.Value           := 1;
+  cdsOSProdutosCUSTO.Value          := 0.0;
   cdsOSProdutosPUNIT.Value          := 0.0;
   cdsOSProdutosPUNIT_PROMOCAO.Value := 0.0;
   cdsOSProdutosAPROVADO.Value       := 0;
   cdsOSProdutosDESCONTO.Value       := 0.0;
   cdsOSProdutosDESCONTO_VALOR.Value := 0.0;
   cdsOSProdutosPFINAL.Value         := 0.0;
+  cdsOSProdutosTOTAL_CUSTO.Value    := 0.0;
   cdsOSProdutosTOTAL_BRUTO.Value    := 0.0;
   cdsOSProdutosTOTAL_DESCONTO.Value := 0.0;
   cdsOSProdutosTOTAL_LIQUIDO.Value  := 0.0;
@@ -1773,6 +1784,8 @@ begin
   IbDtstTabelaNFS_CNAE.Value      := GetCnaeEmpresa(gUsuarioLogado.Empresa);
   IbDtstTabelaSTATUS.Value        := STATUS_OS_EDT;
   IbDtstTabelaUSUARIO.Value       := gUsuarioLogado.Login;
+  // O valor total de custo da OS é atualizado via trigger
+  IbDtstTabelaTOTAL_CUSTO.Value    := 0;
   IbDtstTabelaTOTAL_SERVICO.Value  := 0;
   IbDtstTabelaTOTAL_PRODUTO.Value  := 0;
   IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.Value  := 0;
@@ -2236,6 +2249,7 @@ begin
       IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency := cDescontos;
       IbDtstTabelaTOTAL_OS.AsCurrency                 := cTotalLiquido;
 
+      // O valor total de custo da OS é atualizado via trigger
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
@@ -2262,7 +2276,7 @@ end;
 
 procedure TfrmGeOS.BtnServicoSalvarClick(Sender: TObject);
 
-  procedure GetToTais(var pTotalBruto, pDescontos, pTotalLiquido : Currency);
+  procedure GetTotais(var pTotalBruto, pDescontos, pTotalLiquido : Currency);
   var
     Item : Integer;
   begin
@@ -2271,6 +2285,7 @@ procedure TfrmGeOS.BtnServicoSalvarClick(Sender: TObject);
     pDescontos    := 0.0;
     pTotalLiquido := 0.0;
 
+    cdsOSServicos.DisableControls;
     cdsOSServicos.First;
 
     while not cdsOSServicos.Eof do
@@ -2283,6 +2298,7 @@ procedure TfrmGeOS.BtnServicoSalvarClick(Sender: TObject);
     end;
 
     cdsOSServicos.Locate('SEQ', Item, []);
+    cdsOSServicos.EnableControls;
   end;
 
 var
@@ -2305,7 +2321,7 @@ begin
       dbServicoQuantidade.SetFocus;
     end
     else
-    if ( cdsOSServicosPUNIT.AsCurrency <= 0 ) then
+    if ( cdsOSServicosPUNIT.AsCurrency < 0 ) then
     begin
       ShowWarning('Favor informar o Valor Unitário.');
       dbServicoValorUnit.SetFocus;
@@ -2332,7 +2348,7 @@ begin
 
       cdsOSServicos.Post;
 
-      GetToTais(cTotalBruto, cDescontos, cTotalLiquido);
+      GetTotais(cTotalBruto, cDescontos, cTotalLiquido);
 
       if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
         IbDtstTabela.Edit;
@@ -2341,6 +2357,7 @@ begin
       IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency := cDescontos;
       IbDtstTabelaTOTAL_OS.AsCurrency                 := cTotalLiquido;
 
+      // O valor total de custo da OS é atualizado via trigger
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
@@ -2403,6 +2420,7 @@ begin
           pDataSet.FieldByName('DESCRI_APRESENTACAO').AsString := FieldByName('descri_apresentacao').AsString;
           pDataSet.FieldByName('UNIDADE').AsInteger            := FieldByName('codunidade').AsInteger;
           pDataSet.FieldByName('UNP_SIGLA').AsString           := FieldByName('unp_sigla').AsString;
+          pDataSet.FieldByName('CUSTO').AsCurrency             := FieldByName('customedio').AsCurrency;
           pDataSet.FieldByName('PUNIT').AsCurrency             := FieldByName('preco').AsCurrency;
           pDataSet.FieldByName('PUNIT_PROMOCAO').AsCurrency    := FieldByName('preco_Promocao').AsCurrency;
           pDataSet.FieldByName('ALIQUOTA').AsCurrency          := FieldByName('aliquota').AsCurrency;
@@ -2631,6 +2649,7 @@ begin
       IbDtstTabelaTOTAL_PRODUTO.AsCurrency            := cTotalBruto;
       IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency := cDescontos;
 
+      // O valor total de custo da OS é atualizado via trigger
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
@@ -2657,7 +2676,7 @@ end;
 
 procedure TfrmGeOS.BtnProdutoSalvarClick(Sender: TObject);
 
-  procedure GetToTais(var pTotalBruto, pDescontos, pTotalLiquido : Currency);
+  procedure GetTotais(var pTotalBruto, pDescontos, pTotalLiquido : Currency);
   var
     Item : Integer;
   begin
@@ -2666,6 +2685,7 @@ procedure TfrmGeOS.BtnProdutoSalvarClick(Sender: TObject);
     pDescontos    := 0.0;
     pTotalLiquido := 0.0;
 
+    cdsOSProdutos.DisableControls;
     cdsOSProdutos.First;
 
     while not cdsOSProdutos.Eof do
@@ -2678,6 +2698,7 @@ procedure TfrmGeOS.BtnProdutoSalvarClick(Sender: TObject);
     end;
 
     cdsOSProdutos.Locate('SEQ', Item, []);
+    cdsOSProdutos.EnableControls;
   end;
 
 var
@@ -2700,7 +2721,7 @@ begin
       dbProdutoQuantidade.SetFocus;
     end
     else
-    if ( cdsOSProdutosPUNIT.AsCurrency <= 0 ) then
+    if ( cdsOSProdutosPUNIT.AsCurrency < 0 ) then
     begin
       ShowWarning('Favor informar o Valor Unitário.');
       dbProdutoValorUnit.SetFocus;
@@ -2727,7 +2748,7 @@ begin
 
       cdsOSProdutos.Post;
 
-      GetToTais(cTotalBruto, cDescontos, cTotalLiquido);
+      GetTotais(cTotalBruto, cDescontos, cTotalLiquido);
 
       if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
         IbDtstTabela.Edit;
@@ -2735,6 +2756,7 @@ begin
       IbDtstTabelaTOTAL_PRODUTO.AsCurrency            := cTotalBruto;
       IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency := cDescontos;
 
+      // O valor total de custo da OS é atualizado via trigger
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
@@ -3434,22 +3456,27 @@ begin
     if (cdsOSServicosAPROVADO.AsInteger = 1) then
       Exit;
 
-    cdsOSServicos.Edit;
-    cdsOSServicosAPROVADO.AsInteger := 1;
-    cdsOSServicos.Post;
-
-    if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+    if (cdsOSServicosPUNIT.AsCurrency = 0) then
+      ShowWarning('Serviço sem valor informado!')
+    else
     begin
-      cdsOSServicos.ApplyUpdates;
-      CommitTransaction;
-    end;
+      cdsOSServicos.Edit;
+      cdsOSServicosAPROVADO.AsInteger := 1;
+      cdsOSServicos.Post;
 
-    GravarEventoAutomatico('Aprovação de Orçamento (Serviço)',
-      Format('* Serviço "%s" marcado como tido aprovação do cliente pelo usuário %s em %s às %s.', [
-        cdsOSServicosDESCRI_APRESENTACAO.AsString,
-        gUsuarioLogado.Login,
-        FormatDateTime('dd/mm/yyyy', GetDateDB),
-        FormatDateTime('hh"h"mm', GetTimeDB)]), False);
+      if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+      begin
+        cdsOSServicos.ApplyUpdates;
+        CommitTransaction;
+      end;
+
+      GravarEventoAutomatico('Aprovação de Orçamento (Serviço)',
+        Format('* Serviço "%s" marcado como tido aprovação do cliente pelo usuário %s em %s às %s.', [
+          cdsOSServicosDESCRI_APRESENTACAO.AsString,
+          gUsuarioLogado.Login,
+          FormatDateTime('dd/mm/yyyy', GetDateDB),
+          FormatDateTime('hh"h"mm', GetTimeDB)]), False);
+    end;
   end;
 end;
 
@@ -3463,22 +3490,27 @@ begin
     if (cdsOSProdutosAPROVADO.AsInteger = 1) then
       Exit;
 
-    cdsOSProdutos.Edit;
-    cdsOSProdutosAPROVADO.AsInteger := 1;
-    cdsOSProdutos.Post;
-
-    if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+    if (cdsOSProdutosPUNIT.AsCurrency = 0) then
+      ShowWarning('Material/Produto sem valor informado!')
+    else
     begin
-      cdsOSProdutos.ApplyUpdates;
-      CommitTransaction;
-    end;
+      cdsOSProdutos.Edit;
+      cdsOSProdutosAPROVADO.AsInteger := 1;
+      cdsOSProdutos.Post;
 
-    GravarEventoAutomatico('Aprovação de Orçamento (Produto)',
-      Format('* Material/produto "%s" marcado como tido aprovação do cliente pelo usuário %s em %s às %s.', [
-        cdsOSProdutosDESCRI_APRESENTACAO.AsString,
-        gUsuarioLogado.Login,
-        FormatDateTime('dd/mm/yyyy', GetDateDB),
-        FormatDateTime('hh"h"mm', GetTimeDB)]), False);
+      if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+      begin
+        cdsOSProdutos.ApplyUpdates;
+        CommitTransaction;
+      end;
+
+      GravarEventoAutomatico('Aprovação de Orçamento (Produto)',
+        Format('* Material/produto "%s" marcado como tido aprovação do cliente pelo usuário %s em %s às %s.', [
+          cdsOSProdutosDESCRI_APRESENTACAO.AsString,
+          gUsuarioLogado.Login,
+          FormatDateTime('dd/mm/yyyy', GetDateDB),
+          FormatDateTime('hh"h"mm', GetTimeDB)]), False);
+    end;
   end;
 end;
 
@@ -4034,12 +4066,18 @@ function TfrmGeOS.GetTotalValorServicos: Currency;
 var
   cValorServico : Currency;
 begin
-  if ( IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency > 0 ) then
-    cValorServico := IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency
+//  if ( IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency > 0 ) then
+//    cValorServico := IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency
+//  else
+//    cValorServico := IbDtstTabelaTOTAL_OS.AsCurrency;
+  if ( (IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency > 0) or (IbDtstTabelaTOTAL_APROVADO_PRODUTO.AsCurrency > 0) ) then
+    cValorServico :=
+      IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency +
+      IbDtstTabelaTOTAL_APROVADO_PRODUTO.AsCurrency
   else
     cValorServico := IbDtstTabelaTOTAL_OS.AsCurrency;
 
-  Result := cValorServico;  
+  Result := cValorServico;
 end;
 
 procedure TfrmGeOS.GetTitulosAbertos(pCliente: Integer);
