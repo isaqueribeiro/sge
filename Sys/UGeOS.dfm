@@ -7,6 +7,7 @@ inherited frmGeOS: TfrmGeOS
   ClientHeight = 689
   ClientWidth = 1145
   OldCreateOrder = True
+  ExplicitTop = -61
   ExplicitWidth = 1161
   ExplicitHeight = 728
   PixelsPerInch = 96
@@ -544,8 +545,6 @@ inherited frmGeOS: TfrmGeOS
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1137
       ExplicitHeight = 617
       inherited Bevel8: TBevel
@@ -6205,7 +6204,7 @@ inherited frmGeOS: TfrmGeOS
   inherited ImgList: TImageList
     Left = 704
     Bitmap = {
-      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -9473,11 +9472,10 @@ inherited frmGeOS: TfrmGeOS
     Top = 576
     object nmImprimirOS: TMenuItem
       Caption = 'Ordem de &Servi'#231'os'
-      Enabled = False
     end
     object nmImprimirOrcamento: TMenuItem
       Caption = '&Or'#231'amento'
-      Enabled = False
+      OnClick = nmImprimirOrcamentoClick
     end
     object N3: TMenuItem
       Caption = '-'

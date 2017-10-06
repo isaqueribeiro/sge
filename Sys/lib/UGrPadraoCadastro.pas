@@ -409,24 +409,23 @@ begin
         ClearFieldEmptyStr;
 
       if ( CamposRequiridos(Self, TClientDataSet(IbDtstTabela), Self.Caption) ) then
+        fOcorreuErro := True
+      else
       begin
-        fOcorreuErro := True;
-        Exit;
-      end;
+        fOcorreuErro := False;
+        if ShowConfirmation('Salvar', 'Deseja salvar a inserção/edição do registro?') then
+        begin
+          if (Trim(GetCampoDescricaoLimpo) <> EmptyStr) then
+            if Assigned( IbDtstTabela.Fields.FindField(GetCampoDescricaoLimpo) ) then
+              IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString := Trim(IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString);
 
-      fOcorreuErro := False;
-      if ShowConfirmation('Salvar', 'Deseja salvar a inserção/edição do registro?') then
-      begin
-        if (Trim(GetCampoDescricaoLimpo) <> EmptyStr) then
-          if Assigned( IbDtstTabela.Fields.FindField(GetCampoDescricaoLimpo) ) then
-            IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString := Trim(IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString);
+          if Assigned( IbDtstTabela.Fields.FindField(CAMPO_USUARIO) ) then
+            IbDtstTabela.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
 
-        if Assigned( IbDtstTabela.Fields.FindField(CAMPO_USUARIO) ) then
-          IbDtstTabela.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
-
-        IbDtstTabela.Post;
-        IbDtstTabela.ApplyUpdates;
-        CommitTransaction;
+          IbDtstTabela.Post;
+          IbDtstTabela.ApplyUpdates;
+          CommitTransaction;
+        end;
       end;
     except
       On E : Exception do

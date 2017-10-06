@@ -3,21 +3,22 @@ unit UGeFornecedor;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, ACBrConsultaCPF, ACBrBase,
   ACBrSocket, ACBrConsultaCNPJ, JPEG, IBQuery, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
-  JvDBControls, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxControls, cxStyles,
-  cxEdit, cxDBLookupComboBox, cxVGrid, cxDBVGrid, cxInplaceContainer;
+  JvDBControls, cxControls, cxStyles, cxEdit, cxDBLookupComboBox,
+  cxVGrid, cxDBVGrid, cxInplaceContainer,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmGeFornecedor = class(TfrmGrPadraoCadastro)
@@ -80,7 +81,6 @@ type
     lblContato: TLabel;
     dbContato: TDBEdit;
     IbDtstTabelaCONTATO: TIBStringField;
-    tblGrupo: TIBTable;
     dtsGrupo: TDataSource;
     lblGrupo: TLabel;
     dbGrupo: TDBLookupComboBox;
@@ -142,7 +142,6 @@ type
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
     IbDtstTabelaNOMEFANT: TIBStringField;
-    qryBancoFebraban: TIBQuery;
     dtsBancoFebraban: TDataSource;
     tbsDadoFinanceiro: TTabSheet;
     tbsObservacao: TTabSheet;
@@ -198,6 +197,8 @@ type
     dbAgencia3: TcxDBEditorRow;
     dbContaCorrente3: TcxDBEditorRow;
     dbPracaCobranca3: TcxDBEditorRow;
+    fdQryGrupo: TFDQuery;
+    fdQryBancoFebraban: TFDQuery;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -229,6 +230,24 @@ type
     { Public declarations }
     procedure FiltarDados(const iTipoPesquisa: Integer); overload;
   end;
+
+(*
+  Tabelas:
+  - TBFORNECEDOR
+  - TBTIPO_LOGRADOURO
+  - TBLOGRADOURO
+  - TBBAIRRO
+  - TBCIDADE
+  - TBESTADO
+  - TBPAIS
+  - TBFORNECEDOR_GRUPO
+
+  Views:
+  - VW_BANCO_FEBRABAN
+
+  Procedures:
+
+*)
 
 var
   frmGeFornecedor: TfrmGeFornecedor;
@@ -319,8 +338,8 @@ begin
   RotinaID         := ROTINA_CAD_FORNECEDOR_ID;
   ControlFirstEdit := dbPessoaFisica;
 
-  CarregarLista(tblGrupo);
-  CarregarLista(qryBancoFebraban);
+  CarregarLista(fdQryGrupo);
+  CarregarLista(fdQryBancoFebraban);
 
   DisplayFormatCodigo := '##0000';
 
@@ -476,7 +495,12 @@ begin
   IbDtstTabelaDTCAD.AsDateTime         := GetDateTimeDB;
   IbDtstTabelaFATURAMENTO_MINIMO.Value := 0.0;
   IbDtstTabelaATIVO.Value              := 1;
-  IbDtstTabelaGRF_COD.Clear;
+
+  if (fdQryGrupo.RecordCount > 0) then
+    IbDtstTabelaGRF_COD.Value := fdQryGrupo.FieldByName('GRF_COD').AsInteger
+  else
+    IbDtstTabelaGRF_COD.Clear;
+
   IbDtstTabelaBANCO.Clear;
   IbDtstTabelaAGENCIA.Clear;
   IbDtstTabelaCC.Clear;

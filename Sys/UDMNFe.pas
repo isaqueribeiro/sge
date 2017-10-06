@@ -6,6 +6,7 @@ uses
   UInfoVersao,
   PngImage,
   Variants,
+  UDMBusiness,
 
   UGeConfigurarNFeACBr,
   ACBrNFe,
@@ -34,12 +35,10 @@ uses
   ACBrPosPrinter;
 
 type
-  TTipoDANFE = (tipoDANFEFast, tipoDANFE_ESCPOS); 
   TQrImage_ErrCorrLevel = (L, M, Q, H);
   TTamanhoQrCode = (tamQrCode150, tamQrCode160, tamQrCode175, tamQrCode180, tamQrCode200, tamQrCode300);
   TFormaNFDevolucao = (fdNFeEletronica, fdNFeModelo1_1A, fdNFProdutorRural, fdCupomFiscal);
   TTipoNF = (tnfEntrada, tnfSaida);
-  TBlocoImpressaoCupom = (bicCupomRelatorioGerencial, bicCupom, bicRelatorioGerencial);
   TDMNFe = class(TDataModule)
     ACBrNFe: TACBrNFe;
     frDANFE: TACBrNFeDANFEFR;
@@ -288,9 +287,6 @@ type
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       const BlocoImpressaoCupom : TBlocoImpressaoCupom = bicCupomRelatorioGerencial) : Boolean;
 
-    function ImprimirCupomOS_PORTA(const sCNPJEmitente : String; iCodigoCliente : Integer;
-      const sDataHoraSaida : String; const iAnoOS, iNumOS : Integer) : Boolean;
-
     function ImprimirCupomNaoFiscal_ESCPOS(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean; virtual; abstract;
 
@@ -413,9 +409,6 @@ type
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       const BlocoImpressaoCupom : TBlocoImpressaoCupom = bicCupomRelatorioGerencial) : Boolean;
 
-    function ImprimirCupomOS(const sCNPJEmitente : String; iCodigoCliente : Integer;
-      const sDataHoraSaida : String; const iAnoOS, iNumOS : Integer) : Boolean;
-
     function ImprimirCupomOrcamento(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer) : Boolean;
 
@@ -490,7 +483,7 @@ const
 implementation
 
 uses
-  UDMBusiness, UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
+  UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
   pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, ACBrDFeUtil, IniFiles;
@@ -5504,13 +5497,6 @@ begin
     , BlocoImpressaoCupom);
 end;
 
-function TDMNFe.ImprimirCupomOS(const sCNPJEmitente: String;
-  iCodigoCliente: Integer; const sDataHoraSaida: String;
-  const iAnoOS, iNumOS: Integer): Boolean;
-begin
-  Result := ImprimirCupomOS_PORTA(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoOS, iNumOS);
-end;
-
 procedure TDMNFe.AbrirVendaCartaCredito(AnoVenda, NumeroVenda: Integer);
 begin
   if (not qryCalculoImposto.Active) or qryCalculoImposto.IsEmpty then
@@ -7472,13 +7458,6 @@ begin
     ShowError('Arquivo não localizado!' + #13 + sCmd);
 
   {$ENDIF}
-end;
-
-function TDMNFe.ImprimirCupomOS_PORTA(const sCNPJEmitente: String;
-  iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoOS,
-  iNumOS: Integer): Boolean;
-begin
-  Result := False;
 end;
 
 function TDMNFe.ImprimirCupomFechamentoCaixa_PORTA(const sEmpresa: String;

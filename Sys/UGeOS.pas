@@ -3,6 +3,8 @@ unit UGeOS;
 interface
 
 uses
+  UGrPadrao,
+  UGrMemo,
   UGrPadraoCadastro,
   UGeProduto,
 
@@ -596,6 +598,7 @@ type
     procedure btbtnCancelarOSClick(Sender: TObject);
     procedure dbCnaeButtonClick(Sender: TObject);
     procedure dbNCMButtonClick(Sender: TObject);
+    procedure nmImprimirOrcamentoClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -618,6 +621,7 @@ type
     procedure AbrirNotaFiscalServico(const Empresa : String; const aAnoOS : Smallint; const aControleOS : Integer); virtual; abstract;
     procedure GerarTitulos(const aAno : Smallint; const aControle : Integer);
 
+    procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
     procedure CarregarDadosServicoProduto(const pDataSet : TIBDataSet;
       pCodigo : String; pTipo : TAliquota; const ApenasValidar : Boolean = FALSE);
 
@@ -670,9 +674,10 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UFuncoes, UDMBusiness, UDMNFe, UGrPadrao, UGrMemo,
-  UGeCliente, UGeTabelaCNAE, UGeTabelaIBPT, UGeCondicaoPagto, UGeGerarBoletos, UGeEfetuarPagtoREC, UGeEquipamento,
-  UGeOSFormaPagto, UGeOSConfirmaTitulos, UGeOSCancelar;
+  DateUtils, SysConst, UConstantesDGE, UFuncoes, UDMBusiness, UDMNFe, UDMNFSe,
+  UGeCliente, UGeTabelaCNAE, UGeTabelaIBPT, UGeCondicaoPagto, UGeGerarBoletos,
+  UGeEfetuarPagtoREC, UGeEquipamento, UGeOSFormaPagto, UGeOSConfirmaTitulos,
+  UGeOSCancelar;
 
 {$R *.dfm}
 
@@ -858,10 +863,13 @@ begin
     TbsEquipamento.TabVisible   := (gSistema.Codigo = SISTEMA_GESTAO_COM) and ((IbDtstTabelaSTATUS.AsInteger = STATUS_OS_EDT) or ((IbDtstTabelaSTATUS.AsInteger > STATUS_OS_EDT) and (cdsOSEquipamentos.RecordCount > 0)));
     btbtnControleOS.Enabled     := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger < STATUS_OS_NFS);
 
+    nmImprimirOS.Enabled        := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger <> STATUS_OS_EDT);
+    nmImprimirOrcamento.Enabled := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger <> STATUS_OS_EDT) and (IbDtstTabelaSTATUS.AsInteger <> STATUS_OS_CAN);
+
     mnFinalizarEdicao.Enabled   := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_OS_EDT);
     mnIniciarAvaliacao.Enabled  := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_OS_ABR);
     mnLancarParecer.Enabled     := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_ABR, STATUS_OS_AVL, STATUS_OS_PAR]); // Pode ser lançado mais de 1 parecer/diagnóstico
-    mnAprovarOS.Enabled         := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_OS_PAR) and (IbDtstTabelaTOTAL_SERVICO.AsCurrency > 0);
+    mnAprovarOS.Enabled         := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_ABR, STATUS_OS_AVL, STATUS_OS_PAR]) and (IbDtstTabelaTOTAL_SERVICO.AsCurrency > 0);
     mnLancarAtendimento.Enabled := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_APR, STATUS_OS_ATE]); // Marcar OS como atendimento iniciado
     mnFinalizarOS.Enabled       := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_APR, STATUS_OS_ATE]); // Marcar OS como atendimento finalizado
     mnFaturarOS.Enabled         := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_OS_FIN);
@@ -2208,6 +2216,7 @@ procedure TfrmGeOS.BtnServicoExcluirClick(Sender: TObject);
   var
     Item : Integer;
   begin
+    // Varrer Serviços
     Item          := cdsOSServicosSEQ.AsInteger;
     pTotalBruto   := 0.0;
     pDescontos    := 0.0;
@@ -2225,6 +2234,20 @@ procedure TfrmGeOS.BtnServicoExcluirClick(Sender: TObject);
     end;
 
     cdsOSServicos.Locate('SEQ', Item, []);
+
+    // Varrer Produtos
+    Item := cdsOSProdutosSEQ.AsInteger;
+
+    cdsOSProdutos.First;
+
+    while not cdsOSProdutos.Eof do
+    begin
+      pTotalLiquido := pTotalLiquido + cdsOSProdutosTOTAL_LIQUIDO.AsCurrency;
+
+      cdsOSProdutos.Next;
+    end;
+
+    cdsOSProdutos.Locate('SEQ', Item, []);
   end;
 
 var
@@ -2247,12 +2270,12 @@ begin
 
       IbDtstTabelaTOTAL_SERVICO.AsCurrency            := cTotalBruto;
       IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency := cDescontos;
-      IbDtstTabelaTOTAL_OS.AsCurrency                 := cTotalLiquido;
 
       // O valor total de custo da OS é atualizado via trigger
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
+      IbDtstTabelaTOTAL_OS.AsCurrency        := cTotalLiquido;
 
       if ( IbDtstTabelaTOTAL_SERVICO.AsCurrency < 0 ) then
         IbDtstTabelaTOTAL_SERVICO.AsCurrency := 0;
@@ -2280,6 +2303,7 @@ procedure TfrmGeOS.BtnServicoSalvarClick(Sender: TObject);
   var
     Item : Integer;
   begin
+    // Varrer Serviços
     Item          := cdsOSServicosSEQ.AsInteger;
     pTotalBruto   := 0.0;
     pDescontos    := 0.0;
@@ -2299,6 +2323,22 @@ procedure TfrmGeOS.BtnServicoSalvarClick(Sender: TObject);
 
     cdsOSServicos.Locate('SEQ', Item, []);
     cdsOSServicos.EnableControls;
+
+    // Varrer Produtos
+    Item := cdsOSProdutosSEQ.AsInteger;
+
+    cdsOSProdutos.DisableControls;
+    cdsOSProdutos.First;
+
+    while not cdsOSProdutos.Eof do
+    begin
+      pTotalLiquido := pTotalLiquido + cdsOSProdutosTOTAL_LIQUIDO.AsCurrency;
+
+      cdsOSProdutos.Next;
+    end;
+
+    cdsOSProdutos.Locate('SEQ', Item, []);
+    cdsOSProdutos.EnableControls;
   end;
 
 var
@@ -2355,12 +2395,12 @@ begin
 
       IbDtstTabelaTOTAL_SERVICO.AsCurrency            := cTotalBruto;
       IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency := cDescontos;
-      IbDtstTabelaTOTAL_OS.AsCurrency                 := cTotalLiquido;
 
       // O valor total de custo da OS é atualizado via trigger
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
+      IbDtstTabelaTOTAL_OS.AsCurrency        := cTotalLiquido;
 
       if ( IbDtstTabelaTOTAL_SERVICO.AsCurrency < 0 ) then
         IbDtstTabelaTOTAL_SERVICO.AsCurrency := 0;
@@ -2383,6 +2423,16 @@ begin
       if BtnServicoInserir.Visible and BtnServicoInserir.Enabled then
         BtnServicoInserir.SetFocus;
     end;
+  end;
+end;
+
+procedure TfrmGeOS.CarregarDadosEmpresa(const pEmpresa,
+  pTituloRelatorio: String);
+begin
+  try
+    DMNFe.AbrirEmitente(pEmpresa);
+    DMBusiness.ConfigurarEmail(pEmpresa, EmptyStr, pTituloRelatorio, EmptyStr);
+  except
   end;
 end;
 
@@ -2421,7 +2471,7 @@ begin
           pDataSet.FieldByName('UNIDADE').AsInteger            := FieldByName('codunidade').AsInteger;
           pDataSet.FieldByName('UNP_SIGLA').AsString           := FieldByName('unp_sigla').AsString;
           pDataSet.FieldByName('CUSTO').AsCurrency             := FieldByName('customedio').AsCurrency;
-          pDataSet.FieldByName('PUNIT').AsCurrency             := FieldByName('preco').AsCurrency;
+          pDataSet.FieldByName('PUNIT').AsCurrency             := IfThen(FieldByName('preco').AsCurrency > 0.0, FieldByName('preco').AsCurrency, FieldByName('customedio').AsCurrency);
           pDataSet.FieldByName('PUNIT_PROMOCAO').AsCurrency    := FieldByName('preco_Promocao').AsCurrency;
           pDataSet.FieldByName('ALIQUOTA').AsCurrency          := FieldByName('aliquota').AsCurrency;
 
@@ -2605,14 +2655,16 @@ end;
 
 procedure TfrmGeOS.BtnProdutoExcluirClick(Sender: TObject);
 
-  procedure GetToTais(var pTotalBruto, pDescontos, pTotalLiquido : Currency);
+  procedure GetToTais(var pTotalBruto, pDescontos, pTotalLiquido, pTotalOS : Currency);
   var
     Item : Integer;
   begin
+    // Varrer Produtos
     Item          := cdsOSProdutosSEQ.AsInteger;
     pTotalBruto   := 0.0;
     pDescontos    := 0.0;
     pTotalLiquido := 0.0;
+    pTotalOS      := 0.0;
 
     cdsOSProdutos.First;
 
@@ -2622,16 +2674,34 @@ procedure TfrmGeOS.BtnProdutoExcluirClick(Sender: TObject);
       pDescontos    := pDescontos    + cdsOSProdutosTOTAL_DESCONTO.AsCurrency;
       pTotalLiquido := pTotalLiquido + cdsOSProdutosTOTAL_LIQUIDO.AsCurrency;
 
+      if (cdsOSProdutosAPROVADO.AsInteger = 1) then
+        pTotalOS := pTotalOS + cdsOSProdutosTOTAL_LIQUIDO.AsCurrency;
+
       cdsOSProdutos.Next;
     end;
 
     cdsOSProdutos.Locate('SEQ', Item, []);
+
+    // Varrer Serviços
+    Item := cdsOSServicosSEQ.AsInteger;
+
+    cdsOSServicos.First;
+
+    while not cdsOSServicos.Eof do
+    begin
+      pTotalOS := pTotalOS + cdsOSServicosTOTAL_LIQUIDO.AsCurrency;
+
+      cdsOSServicos.Next;
+    end;
+
+    cdsOSServicos.Locate('SEQ', Item, []);
   end;
 
 var
-  cDescontos    ,
-  cTotalBruto   ,
-  cTotalLiquido : Currency;
+  cDescontos   ,
+  cTotalBruto  ,
+  cTotalLiquido,
+  cTotalOS     : Currency;
 begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
@@ -2641,7 +2711,7 @@ begin
     begin
       cdsOSProdutos.Delete;
 
-      GetToTais(cTotalBruto, cDescontos, cTotalLiquido);
+      GetToTais(cTotalBruto, cDescontos, cTotalLiquido, cTotalOS);
 
       if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
         IbDtstTabela.Edit;
@@ -2653,6 +2723,7 @@ begin
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
+      IbDtstTabelaTOTAL_OS.AsCurrency        := cTotalOS;
 
       if ( IbDtstTabelaTOTAL_PRODUTO.AsCurrency < 0 ) then
         IbDtstTabelaTOTAL_PRODUTO.AsCurrency := 0;
@@ -2676,14 +2747,16 @@ end;
 
 procedure TfrmGeOS.BtnProdutoSalvarClick(Sender: TObject);
 
-  procedure GetTotais(var pTotalBruto, pDescontos, pTotalLiquido : Currency);
+  procedure GetTotais(var pTotalBruto, pDescontos, pTotalLiquido, pTotalOS : Currency);
   var
     Item : Integer;
   begin
+    // Varrer Produtos
     Item          := cdsOSProdutosSEQ.AsInteger;
     pTotalBruto   := 0.0;
     pDescontos    := 0.0;
     pTotalLiquido := 0.0;
+    pTotalOS      := 0.0;
 
     cdsOSProdutos.DisableControls;
     cdsOSProdutos.First;
@@ -2694,17 +2767,37 @@ procedure TfrmGeOS.BtnProdutoSalvarClick(Sender: TObject);
       pDescontos    := pDescontos    + cdsOSProdutosTOTAL_DESCONTO.AsCurrency;
       pTotalLiquido := pTotalLiquido + cdsOSProdutosTOTAL_LIQUIDO.AsCurrency;
 
+      if (cdsOSProdutosAPROVADO.AsInteger = 1) then
+        pTotalOS := pTotalOS + cdsOSProdutosTOTAL_LIQUIDO.AsCurrency;
+
       cdsOSProdutos.Next;
     end;
 
     cdsOSProdutos.Locate('SEQ', Item, []);
     cdsOSProdutos.EnableControls;
+
+    // Varrer Serviços
+    Item := cdsOSServicosSEQ.AsInteger;
+
+    cdsOSServicos.DisableControls;
+    cdsOSServicos.First;
+
+    while not cdsOSServicos.Eof do
+    begin
+      pTotalOS := pTotalOS + cdsOSServicosTOTAL_LIQUIDO.AsCurrency;
+
+      cdsOSServicos.Next;
+    end;
+
+    cdsOSServicos.Locate('SEQ', Item, []);
+    cdsOSServicos.EnableControls;
   end;
 
 var
-  cDescontos    ,
-  cTotalBruto   ,
-  cTotalLiquido : Currency;
+  cDescontos   ,
+  cTotalBruto  ,
+  cTotalLiquido,
+  cTotalOS     : Currency;
 begin
   if ( cdsOSProdutos.State in [dsEdit, dsInsert] ) then
   begin
@@ -2748,7 +2841,7 @@ begin
 
       cdsOSProdutos.Post;
 
-      GetTotais(cTotalBruto, cDescontos, cTotalLiquido);
+      GetTotais(cTotalBruto, cDescontos, cTotalLiquido, cTotalOS);
 
       if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
         IbDtstTabela.Edit;
@@ -2760,6 +2853,7 @@ begin
       IbDtstTabelaTOTAL_BRUTO.AsCurrency     := IbDtstTabelaTOTAL_SERVICO.AsCurrency + IbDtstTabelaTOTAL_PRODUTO.AsCurrency;
       IbDtstTabelaTOTAL_DESCONTOS.AsCurrency := IbDtstTabelaTOTAL_DESCONTOS_SERVICOS.AsCurrency + IbDtstTabelaTOTAL_DESCONTOS_PRODUTOS.AsCurrency;
       IbDtstTabelaTOTAL_LIQUIDO.AsCurrency   := IbDtstTabelaTOTAL_BRUTO.AsCurrency - IbDtstTabelaTOTAL_DESCONTOS.AsCurrency;
+      IbDtstTabelaTOTAL_OS.AsCurrency        := cTotalOS;
 
       if ( IbDtstTabelaTOTAL_PRODUTO.AsCurrency < 0 ) then
         IbDtstTabelaTOTAL_PRODUTO.AsCurrency := 0;
@@ -3392,9 +3486,9 @@ begin
     Abort;
 
   RecarregarRegistro;
-  if not (IbDtstTabelaSTATUS.AsInteger = STATUS_OS_PAR) then
+  if not (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_ABR, STATUS_OS_AVL, STATUS_OS_PAR]) then
   begin
-    ShowWarning('Apenas Ordens de Serviços com parecer técnico podem ser aprovadas.');
+    ShowWarning('Apenas Ordens de Serviços abertas, com avaliação ou com parecer técnico podem ser aprovadas.');
     Abort;
   end;
 
@@ -3418,12 +3512,13 @@ begin
       Abort;
     end;
 
-  if ( IbDtstTabelaTOTAL_PRODUTO.AsCurrency > 0 ) then
-    if not ProdutosAprovados then
-    begin
-      ShowWarning('Nenhum material/produto fora marcado como aprovado pelo cliente!');
-      Abort;
-    end;
+  if (gSistema.Codigo = SISTEMA_GESTAO_COM) then
+    if ( IbDtstTabelaTOTAL_PRODUTO.AsCurrency > 0 ) then
+      if not ProdutosAprovados then
+      begin
+        ShowWarning('Nenhum material/produto fora marcado como aprovado pelo cliente!');
+        Abort;
+      end;
 
   if ( ShowConfirm('Deseja marcar Ordem de Serviço (OS) como aprovada pelo cliente?') ) then
   begin
@@ -3743,6 +3838,77 @@ begin
       end;
   finally
     sDadosEntrega.Free;
+  end;
+end;
+
+procedure TfrmGeOS.nmImprimirOrcamentoClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  with DMNFe, DMNFSe do
+  begin
+
+    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_OS_CAN ) then
+    begin
+      ShowWarning('Ordem de Serviço cancelada não pode ser impressa!');
+      Exit;
+    end;
+
+    CarregarDadosEmpresa(IbDtstTabelaEMPRESA.AsString, 'Orçamento');
+    AbrirEmitente( IbDtstTabelaEMPRESA.AsString );
+    AbrirTomador( IbDtstTabelaCLIENTE.AsInteger );
+    AbrirOS( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
+
+    if GetEmitirCupom then
+      if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
+      begin
+//        if DMNFe.IsEstacaoEmiteNFCe and ((IbDtstTabelaNFE.AsCurrency > 0) and (IbDtstTabelaMODELO_NF.AsInteger = 1)) then // Modelo 1 (NFC-e [65])
+//        begin
+//          if DMNFe.TipoEmissaoCupomTexto(IbDtstTabela.FieldByName('CODEMP').AsString) then
+//            DMNFe.ImprimirCupomNaoFiscal(
+//                IbDtstTabela.FieldByName('CODEMP').AsString
+//              , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
+//              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+//              , IbDtstTabela.FieldByName('ANO').AsInteger
+//              , IbDtstTabela.FieldByName('CODCONTROL').AsInteger)
+//          else
+//            DMNFe.ImprimirDANFE_ESCPOSACBr(
+//                IbDtstTabela.FieldByName('CODEMP').AsString
+//              , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
+//              , IbDtstTabela.FieldByName('ANO').AsInteger
+//              , IbDtstTabela.FieldByName('CODCONTROL').AsInteger);
+//        end
+//        else
+        if GetCupomNaoFiscalEmitir and (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FAT, STATUS_OS_NFS]) then
+          ImprimirCupomNaoFiscalOS(
+              IbDtstTabelaEMPRESA.AsString
+            , IbDtstTabelaCLIENTE.AsInteger
+            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+            , IbDtstTabelaANO.Value
+            , IbDtstTabelaCONTROLE.Value)
+        else
+        if ( GetModeloEmissaoCupom = MODELO_CUPOM_ORCAMENTO ) then
+        begin
+          ImprimirCupomOrcamento(
+              IbDtstTabelaCODEMP.AsString
+            , IbDtstTabelaCODCLIENTE.AsInteger
+            , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+            , IbDtstTabelaANO.Value
+            , IbDtstTabelaCODCONTROL.Value)
+        end
+        else
+        if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
+        begin
+          FrECFPooler.PrepareReport;
+          FrECFPooler.Print;
+        end;
+
+        Exit;
+      end;
+
+    frrOSOrcamento.ShowReport;
+
   end;
 end;
 

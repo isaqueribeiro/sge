@@ -9,15 +9,10 @@ uses
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ComCtrls, IniFiles, DB,
   DBClient, Printers, ACBrNFeDANFEClass, ACBrNFeDANFeESCPOS, TypInfo,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, ACBrBase,
-  ACBrPosPrinter;
+  ACBrBase, ACBrPosPrinter,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)

@@ -65,6 +65,9 @@ type
     UsarSGF : Boolean;
   end;
 
+  TBlocoImpressaoCupom = (bicCupomRelatorioGerencial, bicCupom, bicRelatorioGerencial);
+  TTipoDANFE = (tipoDANFEFast, tipoDANFE_ESCPOS);
+
   TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
   TTipoMovimentoCaixa = (tmcxCredito, tmcxDebito);
   TTipoMovimentoEntrada = (tmeProduto, tmeServico);

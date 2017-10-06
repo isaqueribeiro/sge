@@ -795,7 +795,6 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     LogoemCima = False
     TamanhoFonteEndereco = 0
     RecuoLogo = 0
-    TributosSeparadamente = False
     ImprimeEmUmaLinha = False
     ImprimeDescAcrescItem = False
     PosPrinter = ACBrPosPrinter

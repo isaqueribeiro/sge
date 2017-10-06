@@ -3015,7 +3015,7 @@ begin
 
     if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN ) then
     begin
-      ShowWarning('Vanda cancelada não pode ser impressa!');
+      ShowWarning('Venda cancelada não pode ser impressa!');
       Exit;
     end;
 

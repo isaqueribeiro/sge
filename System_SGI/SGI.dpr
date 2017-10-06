@@ -160,7 +160,8 @@ uses
   UGeEquipamento in '..\Sys\UGeEquipamento.pas' {frmGeEquipamento},
   UGeOSCancelar in '..\Sys\UGeOSCancelar.pas' {frmGeOSCancelar},
   UGeOSConfirmaTitulos in '..\Sys\UGeOSConfirmaTitulos.pas' {frmGeOSConfirmaTitulos},
-  UGeOSFormaPagto in '..\Sys\UGeOSFormaPagto.pas' {frmGeOSFormaPagto};
+  UGeOSFormaPagto in '..\Sys\UGeOSFormaPagto.pas' {frmGeOSFormaPagto},
+  UDMNFSe in '..\Sys\UDMNFSe.pas' {DMNFSe: TDataModule};
 
 {$R *.res}
 
@@ -172,6 +173,7 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
+  Application.CreateForm(TDMNFSe, DMNFSe);
   Application.CreateForm(TfrmPrinc, frmPrinc);
   Application.CreateForm(TfrmPesq, frmPesq);
   Application.Run;
