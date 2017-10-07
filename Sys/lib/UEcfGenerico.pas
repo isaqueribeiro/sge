@@ -32,7 +32,9 @@ Uses
       procedure Titulo_Cupom(Str : String); override;
       procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); override;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); override;
+      procedure Identifica_CupomOS(Data : TDateTime; sID, sNomeResponsavel : String); override;
       procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco, sFones : String); override;
+      procedure Identifica_ConsumidorOS(sCNPJ_CPF, sNome, sEndereco, sFones : String); override;
       procedure Linha; override;
       procedure Pular_Linha(Num : Integer); override;
       procedure Finalizar; override;
@@ -201,6 +203,26 @@ begin
   Self.Linha;
 end;
 
+procedure TEcfGenerico.Identifica_CupomOS(Data: TDateTime; sID,
+  sNomeResponsavel: String);
+var
+  dh : String;
+begin
+  dh := FormatDateTime('dd/MM/yy hh:mm:ss', Data);
+  ID_Venda := sID;
+  Write  ( Corpo_Cupom, cMargem + dh);
+  Writeln( Corpo_Cupom, Alinhar_Direita(Num_Colunas - Length(dh + cMargem), 'COD: ' + ID_Venda) );
+
+  NomeVendedor := RemoveAcentos(Trim(sNomeResponsavel));
+
+  if NomeVendedor <> EmptyStr then
+  begin
+    Write  ( Corpo_Cupom, cMargem + 'Responsavel : ');
+    Writeln( Corpo_Cupom, Alinhar_Esquerda(Num_Colunas - 15, NomeVendedor) );
+  end;
+  Self.Linha;
+end;
+
 procedure TEcfGenerico.Incluir_Forma_Pgto(Descricao, Valor: String);
 begin
   if (Length(Trim(Descricao)) <> 0) then begin
@@ -335,6 +357,25 @@ begin
 
   Writeln( Corpo_Cupom, c12cpi + cIExpandido +
                        cMargem + Centralizar(Round(Num_Colunas / 2), 'CONSUMIDOR')  +
+                       cFExpandido );
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'CNPJ/CPF: ') );
+  Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sCNPJ_CPF) );
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'NOME    : ') );
+  Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sNome) );
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'Endereco: ') );
+  Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sEndereco) );
+  Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'Fone(s) : ') );
+  Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sFones) );
+  Self.Linha;
+end;
+
+procedure TEcfGenerico.Identifica_ConsumidorOS(sCNPJ_CPF, sNome, sEndereco,
+  sFones: String);
+begin
+  Self.Compactar_Fonte;
+
+  Writeln( Corpo_Cupom, c12cpi + cIExpandido +
+                       cMargem + Centralizar(Round(Num_Colunas / 2), 'TOMADOR')  +
                        cFExpandido );
   Write  ( Corpo_Cupom, cMargem + Alinhar_Esquerda(10, 'CNPJ/CPF: ') );
   Writeln( Corpo_Cupom, cMargem + Alinhar_Esquerda(Num_Colunas - 10, sCNPJ_CPF) );

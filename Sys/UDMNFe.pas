@@ -26,7 +26,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  IBX.IBUpdateSQL, IBX.IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
+  IBX.IBUpdateSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
   ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR,
   ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
   ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal, ACBrSATExtratoClass,
@@ -91,7 +91,6 @@ type
     qryEmitentePAIS_ID: TIBStringField;
     qryEmitentePAIS_NOME: TIBStringField;
     qryCalculoImposto: TIBDataSet;
-    IBSQL: TIBSQL;
     qryEmitenteCNAE: TIBStringField;
     FrECFPooler: TfrxReport;
     qryFormaPagtos: TIBQuery;
@@ -167,7 +166,6 @@ type
     frrCotacaoCompra: TfrxReport;
     qryCotacaoCompraFornecedor: TIBQuery;
     frdCotacaoCompraFornecedor: TfrxDBDataset;
-    ACBrValidador: TACBrValidador;
     qryCotacaoCompraFornecedorItem: TIBQuery;
     frdCotacaoCompraFornecedorItem: TfrxDBDataset;
     frrCotacaoCompraMapaPreco: TfrxReport;
@@ -2046,7 +2044,7 @@ end;
 procedure TDMNFe.UpdateLoteNFe(const sCNPJEmitente : String; const Ano, Numero: Integer);
 begin
   try
-    with IBSQL do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add('Update TBEMPRESA Set');
@@ -2054,7 +2052,7 @@ begin
       SQL.Add('  , LOTE_NUM_NFE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
 
-      ExecQuery;
+      ExecSQL;
       CommitTransaction;
     end;
   except
@@ -2066,7 +2064,7 @@ end;
 procedure TDMNFe.UpdateNumeroNFe(const sCNPJEmitente : String; const Serie, Numero: Integer);
 begin
   try
-    with IBSQL do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add('Update TBEMPRESA Set');
@@ -2075,19 +2073,19 @@ begin
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
       SQL.Add('  and NUMERO_NFE = ' + FormatFloat('#########', Numero - 1));
 
-      ExecQuery;
+      ExecSQL;
       CommitTransaction;
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroNFe > ' + E.Message + #13#13 + IBSQL.SQL.Text);
+      raise Exception.Create('UpdateNumeroNFe > ' + E.Message + #13#13 + DMBusiness.fdQryBusca.SQL.Text);
   end;
 end;
 
 procedure TDMNFe.UpdateNumeroNFCe(const sCNPJEmitente : String; const Serie, Numero: Integer);
 begin
   try
-    with IBSQL do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add('Update TBEMPRESA Set');
@@ -2096,31 +2094,31 @@ begin
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
       SQL.Add('  and NUMERO_NFCE = ' + FormatFloat('#########', Numero - 1));
 
-      ExecQuery;
+      ExecSQL;
       CommitTransaction;
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroNFCe > ' + E.Message + #13#13 + IBSQL.SQL.Text);
+      raise Exception.Create('UpdateNumeroNFCe > ' + E.Message + #13#13 + DMBusiness.fdQryBusca.SQL.Text);
   end;
 end;
 
 procedure TDMNFe.UpdateNumeroCCe(const sCNPJEmitente : String; const Numero : Integer);
 begin
   try
-    with IBSQL do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add('Update TBEMPRESA Set');
       SQL.Add('  CARTA_CORRECAO_NFE = ' + FormatFloat('#########', Numero));
       SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
 
-      ExecQuery;
+      ExecSQL;
       CommitTransaction;
     end;
   except
     On E : Exception do
-      raise Exception.Create('UpdateNumeroCCe > ' + E.Message + #13#13 + IBSQL.SQL.Text);
+      raise Exception.Create('UpdateNumeroCCe > ' + E.Message + #13#13 + DMBusiness.fdQryBusca.SQL.Text);
   end;
 end;
 
@@ -3186,7 +3184,7 @@ begin
     sCST_PIS_ID[32] := '99'; // Outras Operações
 
     for I := Low(sCST_PIS_ID) to High(sCST_PIS_ID) do
-      with IBSQL do
+      with DMBusiness, fdQryBusca do
       begin
         SQL.Clear;
         SQL.Add( 'Execute Procedure SET_CST_PIS ('     );
@@ -3195,7 +3193,7 @@ begin
         SQL.Add( '  , ' + IntToStr(Ord(TpcnCstIpi(I))) );
         SQL.Add( ')' );
 
-        ExecQuery;
+        ExecSQL;
         CommitTransaction;
       end;
   except
@@ -3281,7 +3279,7 @@ const
 begin
   try
     for I := Low(sCST_PIS_ID) to High(sCST_PIS_ID) do
-      with IBSQL do
+      with DMBusiness, fdQryBusca do
       begin
         SQL.Clear;
         SQL.Add( 'Execute Procedure SET_CST_COFINS ('     );
@@ -3290,7 +3288,7 @@ begin
         SQL.Add( '  , ' + IntToStr(Ord(TpcnCstCofins(I))) );
         SQL.Add( ')' );
 
-        ExecQuery;
+        ExecSQL;
         CommitTransaction;
       end;
   except
@@ -4943,7 +4941,7 @@ procedure TDMNFe.GuardarLoteNFeVenda(const sCNPJEmitente: String;
   const Ano, Numero, NumeroLote: Integer; const Recibo : String);
 begin
   try
-    with IBSQL do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add('Update TBVENDAS Set');
@@ -4954,7 +4952,7 @@ begin
       SQL.Add('  and ANO        = ' + FormatFloat('#########', Ano));
       SQL.Add('  and CODCONTROL = ' + FormatFloat('#########', Numero));
 
-      ExecQuery;
+      ExecSQL;
       CommitTransaction;
     end;
   except
@@ -4967,7 +4965,7 @@ procedure TDMNFe.GuardarLoteNFeEntrada(const sCNPJEmitente: String;
   const Ano, Numero, NumeroLote: Integer; const Recibo : String);
 begin
   try
-    with IBSQL do
+    with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
       SQL.Add('Update TBCOMPRAS Set');
@@ -4978,7 +4976,7 @@ begin
       SQL.Add('  and ANO        = ' + FormatFloat('#########', Ano));
       SQL.Add('  and CODCONTROL = ' + FormatFloat('#########', Numero));
 
-      ExecQuery;
+      ExecSQL;
       CommitTransaction;
     end;
   except

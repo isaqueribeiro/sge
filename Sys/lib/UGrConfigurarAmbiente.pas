@@ -185,7 +185,8 @@ begin
   For I := Ord(Low(TEcfBematech)) to Ord(High(TEcfBematech)) do
     edCupomNaoFiscalModeloEsp.Items.Add(GetEnumName(TypeInfo(TEcfBematech), I));
 
-  TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV];
+  //TbsPDV.TabVisible := gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV];
+  chkOrcamentoEmitir.Enabled := gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV];
 
   // Carregar Fontes do Windows
 

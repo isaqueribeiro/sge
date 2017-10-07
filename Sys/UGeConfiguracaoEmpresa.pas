@@ -136,6 +136,13 @@ type
     fdQryConfiguracoes: TFDQuery;
     IbDtstTabelaCLIENTE_PERMITIR_VF_CNPJ: TSmallintField;
     dbVerdadeiroFalsoCnpj: TDBCheckBox;
+    IbDtstTabelaRPS_SERIE: TIBStringField;
+    IbDtstTabelaRPS_NUMERO: TIntegerField;
+    grpBxRPS: TGroupBox;
+    lblRPSSerie: TLabel;
+    lblRPSNumero: TLabel;
+    dbRPSSerie: TDBEdit;
+    dbRPSNumero: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
@@ -252,6 +259,8 @@ begin
   IbDtstTabelaNFCE_SERIE.Required  := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
   IbDtstTabelaNFCE_NUMERO.Required := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
 
+  IbDtstTabelaRPS_SERIE.Required   := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+  IbDtstTabelaRPS_NUMERO.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
   IbDtstTabelaNFSE_SERIE.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
   IbDtstTabelaNFSE_NUMERO.Required := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
   IbDtstTabelaNFSE_PERCENTUAL_PIS.Required    := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
@@ -260,7 +269,6 @@ begin
   IbDtstTabelaNFSE_PERCENTUAL_ISSQN.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
 
   inherited;
-
   if not btbtnSalvar.Enabled then
     Aplicar_ModeloEstoque;
 end;
@@ -302,6 +310,8 @@ begin
   IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger   := 0;
   IbDtstTabelaAUTORIZA_INFORMA_CLIENTE.AsInteger   := 0;
 
+  IbDtstTabelaRPS_SERIE.AsString                := '99';
+  IbDtstTabelaRPS_NUMERO.AsCurrency             := 0;
   IbDtstTabelaNFSE_SERIE.AsString               := '99';
   IbDtstTabelaNFSE_NUMERO.AsCurrency            := 0;
   IbDtstTabelaNFSE_PERCENTUAL_PIS.AsCurrency    := 0.0;

@@ -34,7 +34,9 @@ Uses
       procedure Titulo_Cupom(Str : String); override;
       procedure Titulo_Cupom_DANFE(sTitulo1, sTitulo2, sTitulo3, sTitulo4 : String); override;
       procedure Identifica_Cupom(Data : TDateTime; sID, sNomeVendedor : String); override;
+      procedure Identifica_CupomOS(Data : TDateTime; sID, sNomeResponsavel : String); override;
       procedure Identifica_Consumidor(sCNPJ_CPF, sNome, sEndereco, sFones : String); override;
+      procedure Identifica_ConsumidorOS(sCNPJ_CPF, sNome, sEndereco, sFones : String); override;
       procedure Linha; override;
       procedure Pular_Linha(Num : Integer); override;
       procedure Finalizar; override;
@@ -216,6 +218,26 @@ begin
   Self.Linha;
 end;
 
+procedure TEcfWindowsPrinter.Identifica_ConsumidorOS(sCNPJ_CPF, sNome,
+  sEndereco, sFones: String);
+begin
+  Texto_Cupom.Add( '\n' + Centralizar(Num_Colunas, 'TOMADOR') );
+
+  Texto_Cupom.Add( Alinhar_Esquerda(10, 'CNPJ/CPF: ') +
+    Alinhar_Esquerda(Num_Colunas - 10, sCNPJ_CPF) );
+
+  Texto_Cupom.Add( Alinhar_Esquerda(10, 'NOME    : ') +
+    Alinhar_Esquerda(Num_Colunas - 10, sNome) );
+
+  Texto_Cupom.Add( Alinhar_Esquerda(10, 'Endereco: ') +
+    Alinhar_Esquerda(Num_Colunas - 10, sEndereco) );
+
+  Texto_Cupom.Add( Alinhar_Esquerda(10, 'Fone(s) : ') +
+    Alinhar_Esquerda(Num_Colunas - 10, sFones) );
+
+  Self.Linha;
+end;
+
 procedure TEcfWindowsPrinter.Identifica_Cupom(Data: TDateTime; sID,
   sNomeVendedor: String);
 var
@@ -229,6 +251,23 @@ begin
 
   if NomeVendedor <> EmptyStr then
     Texto_Cupom.Add( 'Vendedor(a) : ' + Alinhar_Esquerda(Num_Colunas - 15, NomeVendedor) );
+
+  Self.Linha;
+end;
+
+procedure TEcfWindowsPrinter.Identifica_CupomOS(Data: TDateTime; sID,
+  sNomeResponsavel: String);
+var
+  dh : String;
+begin
+  dh := FormatDateTime('dd/MM/yy hh:mm:ss', Data);
+  ID_Venda := sID;
+  Texto_Cupom.Add( '\n' + dh + Alinhar_Direita(Num_Colunas - 18, 'COD: ' + ID_Venda) );
+
+  NomeVendedor := RemoveAcentos(Trim(sNomeResponsavel));
+
+  if NomeVendedor <> EmptyStr then
+    Texto_Cupom.Add( 'Responsavel : ' + Alinhar_Esquerda(Num_Colunas - 15, NomeVendedor) );
 
   Self.Linha;
 end;

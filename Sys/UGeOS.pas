@@ -3858,7 +3858,7 @@ begin
     CarregarDadosEmpresa(IbDtstTabelaEMPRESA.AsString, 'Orçamento');
     AbrirEmitente( IbDtstTabelaEMPRESA.AsString );
     AbrirTomador( IbDtstTabelaCLIENTE.AsInteger );
-    AbrirOS( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
+    AbrirOS( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, False );
 
     if GetEmitirCupom then
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
@@ -3890,18 +3890,18 @@ begin
         else
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_ORCAMENTO ) then
         begin
-          ImprimirCupomOrcamento(
-              IbDtstTabelaCODEMP.AsString
-            , IbDtstTabelaCODCLIENTE.AsInteger
+          ImprimirCupomOrcamentoOS(
+              IbDtstTabelaEMPRESA.AsString
+            , IbDtstTabelaCLIENTE.AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
             , IbDtstTabelaANO.Value
-            , IbDtstTabelaCODCONTROL.Value)
+            , IbDtstTabelaCONTROLE.Value)
         end
         else
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
         begin
-          FrECFPooler.PrepareReport;
-          FrECFPooler.Print;
+          frrECFPoolerOS.PrepareReport;
+          frrECFPoolerOS.Print;
         end;
 
         Exit;
@@ -4085,13 +4085,13 @@ begin
     begin
       if GetEmitirCupomAutomatico then
         if GetCupomNaoFiscalEmitir then
-          DMNFe.ImprimirCupomOS(IbDtstTabelaEMPRESA.AsString
+          DMNFSe.ImprimirCupomNaoFiscalOS(IbDtstTabelaEMPRESA.AsString
             , IbDtstTabelaCLIENTE.AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
             , IbDtstTabelaANO.Value, IbDtstTabelaCONTROLE.Value);
     end
     else
-      ShowInformation('Faturamento', 'Ordem de Serviço faturada com sucesso.');            
+      ShowInformation('Faturamento', 'Ordem de Serviço faturada com sucesso.');
   end;
 
 (*

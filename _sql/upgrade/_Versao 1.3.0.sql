@@ -6872,3 +6872,172 @@ Historico:
     27/09/2017 - IMR :
         * Documentacao da tabela.';
 
+
+
+
+/*------ SYSDBA 07/10/2017 13:17:47 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+    ADD RPS_SERIE DMN_VCHAR_05,
+    ADD RPS_NUMERO DMN_BIGINT_NN;
+
+COMMENT ON COLUMN TBCONFIGURACAO.RPS_SERIE IS
+'RPS: Serie';
+
+COMMENT ON COLUMN TBCONFIGURACAO.RPS_NUMERO IS
+'RPS: Numero';
+
+alter table TBCONFIGURACAO
+alter EMPRESA position 1;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONTA position 2;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SENHA position 3;
+
+alter table TBCONFIGURACAO
+alter EMAIL_POP position 4;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP position 5;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP_PORTA position 6;
+
+alter table TBCONFIGURACAO
+alter EMAIL_REQUER_AUTENTICACAO position 7;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONEXAO_SSL position 8;
+
+alter table TBCONFIGURACAO
+alter EMAIL_ASSUNTO_PADRAO position 9;
+
+alter table TBCONFIGURACAO
+alter EMAIL_MENSAGEM_PADRAO position 10;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_DUPLICAR_CNPJ position 11;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_VF_CNPJ position 12;
+
+alter table TBCONFIGURACAO
+alter CUSTO_OPER_CALCULAR position 13;
+
+alter table TBCONFIGURACAO
+alter PERMITIR_VENDA_ESTOQUE_INS position 14;
+
+alter table TBCONFIGURACAO
+alter VENDA_CARREGA_PRODUTO_EAN position 15;
+
+alter table TBCONFIGURACAO
+alter VENDA_FORMA_PAGTO_CARTACREDITO position 16;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_UNICO_EMPRESAS position 17;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_SATELITE_CLIENTE position 18;
+
+alter table TBCONFIGURACAO
+alter AUTORIZA_INFORMA_CLIENTE position 19;
+
+alter table TBCONFIGURACAO
+alter USUARIO position 20;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR position 21;
+
+alter table TBCONFIGURACAO
+alter NFE_SERIE position 22;
+
+alter table TBCONFIGURACAO
+alter NFE_NUMERO position 23;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR_ENTRADA position 24;
+
+alter table TBCONFIGURACAO
+alter NFE_ACEITAR_NOTA_DENEGADA position 25;
+
+alter table TBCONFIGURACAO
+alter NFE_SOLICITA_DH_SAIDA position 26;
+
+alter table TBCONFIGURACAO
+alter NFE_IMPRIMIR_COD_CLIENTE position 27;
+
+alter table TBCONFIGURACAO
+alter NFCE_EMITIR position 28;
+
+alter table TBCONFIGURACAO
+alter NFCE_SERIE position 29;
+
+alter table TBCONFIGURACAO
+alter NFCE_NUMERO position 30;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN_ID position 31;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN position 32;
+
+alter table TBCONFIGURACAO
+alter NFSE_EMITIR position 33;
+
+alter table TBCONFIGURACAO
+alter RPS_SERIE position 34;
+
+alter table TBCONFIGURACAO
+alter RPS_NUMERO position 35;
+
+alter table TBCONFIGURACAO
+alter NFSE_SERIE position 36;
+
+alter table TBCONFIGURACAO
+alter NFSE_NUMERO position 37;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_PIS position 38;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_COFINS position 39;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_CSLL position 40;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_ISSQN position 41;
+
+
+
+
+/*------ SYSDBA 07/10/2017 13:18:20 --------*/
+
+ALTER TABLE TBCONFIGURACAO ALTER COLUMN RPS_NUMERO
+SET DEFAULT 0
+;
+
+
+
+
+/*------ SYSDBA 07/10/2017 13:18:37 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_BIGINT_N'
+where (RDB$FIELD_NAME = 'NFSE_NUMERO') and
+(RDB$RELATION_NAME = 'TBCONFIGURACAO')
+;
+
+
+
+
+/*------ SYSDBA 07/10/2017 13:18:45 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$FIELD_SOURCE = 'DMN_BIGINT_N'
+where (RDB$FIELD_NAME = 'RPS_NUMERO') and
+(RDB$RELATION_NAME = 'TBCONFIGURACAO')
+;
+

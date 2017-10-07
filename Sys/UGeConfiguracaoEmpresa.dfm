@@ -3,42 +3,42 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   Top = 238
   ActiveControl = nil
   Caption = 'Configura'#231#245'es da Empresa'
-  ClientHeight = 494
+  ClientHeight = 506
   ClientWidth = 751
   OldCreateOrder = True
   ExplicitWidth = 767
-  ExplicitHeight = 533
+  ExplicitHeight = 545
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 490
+    Top = 502
     Width = 751
     ExplicitTop = 453
     ExplicitWidth = 751
   end
   inherited Bevel3: TBevel
-    Top = 451
+    Top = 463
     Width = 751
     ExplicitTop = 414
     ExplicitWidth = 751
   end
   inherited pgcGuias: TPageControl
     Width = 751
-    Height = 451
+    Height = 463
     ExplicitWidth = 751
     ExplicitHeight = 451
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 743
       ExplicitHeight = 422
       inherited Bevel4: TBevel
-        Top = 356
+        Top = 368
         Width = 743
         ExplicitTop = 319
         ExplicitWidth = 743
       end
       inherited dbgDados: TDBGrid
         Width = 743
-        Height = 356
+        Height = 368
         Columns = <
           item
             Expanded = False
@@ -56,15 +56,31 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           item
             Expanded = False
-            Visible = False
+            FieldName = 'NFE_EMITIR'
+            Title.Alignment = taCenter
+            Title.Caption = 'NFe'
+            Width = 35
+            Visible = True
           end
           item
             Expanded = False
-            Visible = False
+            FieldName = 'NFCE_EMITIR'
+            Title.Alignment = taCenter
+            Title.Caption = 'NFCe'
+            Width = 35
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NFSE_EMITIR'
+            Title.Alignment = taCenter
+            Title.Caption = 'NFSe'
+            Width = 35
+            Visible = True
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 360
+        Top = 372
         Width = 743
         ExplicitTop = 360
         ExplicitWidth = 743
@@ -153,12 +169,14 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Left = 0
         Top = 85
         Width = 743
-        Height = 337
+        Height = 349
         ActivePage = tbsContaEmail
         Align = alClient
         TabOrder = 1
+        ExplicitHeight = 337
         object tbsContaEmail: TTabSheet
           Caption = 'Conta de E-mail'
+          ExplicitHeight = 309
           object lblEmailConta: TLabel
             Left = 16
             Top = 8
@@ -306,6 +324,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object tbsVenda: TTabSheet
           Caption = 'Vendas'
           ImageIndex = 4
+          ExplicitHeight = 309
           object lblFormaPagtoCartaCredito: TLabel
             Left = 16
             Top = 8
@@ -373,6 +392,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFe: TTabSheet
           Caption = 'NF-e / NFC-e'
           ImageIndex = 1
+          ExplicitHeight = 309
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
             Top = 165
@@ -683,6 +703,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFSe: TTabSheet
           Caption = 'NFS-e'
           ImageIndex = 3
+          ExplicitHeight = 309
           object chkNFSE_Emitir: TDBCheckBox
             Left = 16
             Top = 16
@@ -703,11 +724,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object grpBxNFSe: TGroupBox
             Left = 16
-            Top = 39
+            Top = 118
             Width = 184
             Height = 73
             Caption = 'Numera'#231#227'o NFS-e ('#218'ltima Emiss'#227'o)'
-            TabOrder = 1
+            TabOrder = 2
             object lblNFSeSerie: TLabel
               Left = 16
               Top = 24
@@ -769,11 +790,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object grpBxNFSeAliquotas: TGroupBox
             Left = 16
-            Top = 118
+            Top = 197
             Width = 184
             Height = 115
             Caption = 'Percentuais / Al'#237'quotas '
-            TabOrder = 2
+            TabOrder = 3
             object lblNFSePIS: TLabel
               Left = 16
               Top = 24
@@ -891,10 +912,77 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               TabOrder = 3
             end
           end
+          object grpBxRPS: TGroupBox
+            Left = 16
+            Top = 39
+            Width = 184
+            Height = 73
+            Caption = 'Numera'#231#227'o RPS ('#218'ltima Emiss'#227'o)'
+            TabOrder = 1
+            object lblRPSSerie: TLabel
+              Left = 16
+              Top = 24
+              Width = 28
+              Height = 13
+              Caption = 'S'#233'rie:'
+              FocusControl = dbRPSSerie
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblRPSNumero: TLabel
+              Left = 69
+              Top = 24
+              Width = 41
+              Height = 13
+              Caption = 'N'#250'mero:'
+              FocusControl = dbRPSNumero
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object dbRPSSerie: TDBEdit
+              Left = 16
+              Top = 40
+              Width = 47
+              Height = 21
+              DataField = 'RPS_SERIE'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object dbRPSNumero: TDBEdit
+              Left = 69
+              Top = 40
+              Width = 100
+              Height = 21
+              DataField = 'RPS_NUMERO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+          end
         end
         object TbsOutrasConfig: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
+          ExplicitHeight = 309
           object dbCustoOperacional: TDBCheckBox
             Left = 16
             Top = 15
@@ -1012,7 +1100,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 455
+    Top = 467
     Width = 751
     ExplicitTop = 455
     ExplicitWidth = 751
@@ -1069,6 +1157,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.nfce_numero'
       '  , c.nfce_token_id'
       '  , c.nfce_token'
+      '  , c.rps_serie'
+      '  , c.rps_numero'
       '  , c.nfse_emitir'
       '  , c.nfse_serie'
       '  , c.nfse_numero'
@@ -1081,6 +1171,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       'from TBCONFIGURACAO c'
       '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
       '')
+    Left = 376
+    Top = 0
     object IbDtstTabelaEMPRESA: TIBStringField
       DisplayLabel = 'Empresa'
       FieldName = 'EMPRESA'
@@ -1216,6 +1308,18 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       ProviderFlags = [pfInUpdate]
       Size = 250
     end
+    object IbDtstTabelaRPS_SERIE: TIBStringField
+      DisplayLabel = 'RPS: S'#233'rie'
+      FieldName = 'RPS_SERIE'
+      Origin = '"TBCONFIGURACAO"."RPS_SERIE"'
+      Size = 5
+    end
+    object IbDtstTabelaRPS_NUMERO: TIntegerField
+      DisplayLabel = 'RPS: N'#250'mero'
+      FieldName = 'RPS_NUMERO'
+      Origin = '"TBCONFIGURACAO"."RPS_NUMERO"'
+      DisplayFormat = '###0000000'
+    end
     object IbDtstTabelaNFSE_EMITIR: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'NFSE_EMITIR'
@@ -1336,6 +1440,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       Size = 25
     end
   end
+  inherited DtSrcTabela: TDataSource
+    Left = 440
+    Top = 0
+  end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
@@ -1372,6 +1480,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFCE_TOKEN_ID,'
       '  NFCE_TOKEN,'
       '  NFSE_EMITIR,'
+      '  RPS_SERIE,'
+      '  RPS_NUMERO,'
       '  NFSE_SERIE,'
       '  NFSE_NUMERO,'
       '  NFSE_PERCENTUAL_PIS,'
@@ -1422,6 +1532,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFSE_PERCENTUAL_PIS = :NFSE_PERCENTUAL_PIS,'
       '  NFSE_SERIE = :NFSE_SERIE,'
       '  PERMITIR_VENDA_ESTOQUE_INS = :PERMITIR_VENDA_ESTOQUE_INS,'
+      '  RPS_NUMERO = :RPS_NUMERO,'
+      '  RPS_SERIE = :RPS_SERIE,'
       '  USUARIO = :USUARIO,'
       '  VENDA_CARREGA_PRODUTO_EAN = :VENDA_CARREGA_PRODUTO_EAN,'
       
@@ -1456,8 +1568,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         '   NFSE_PERCENTUAL_CSLL, NFSE_PERCENTUAL_ISSQN, NFSE_PERCENTUAL_' +
         'PIS, NFSE_SERIE, '
       
-        '   PERMITIR_VENDA_ESTOQUE_INS, USUARIO, VENDA_CARREGA_PRODUTO_EA' +
-        'N, VENDA_FORMA_PAGTO_CARTACREDITO)'
+        '   PERMITIR_VENDA_ESTOQUE_INS, RPS_NUMERO, RPS_SERIE, USUARIO, V' +
+        'ENDA_CARREGA_PRODUTO_EAN, '
+      '   VENDA_FORMA_PAGTO_CARTACREDITO)'
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
@@ -1487,16 +1600,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         '   :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTUAL_PIS, :NFSE_SERIE, :P' +
         'ERMITIR_VENDA_ESTOQUE_INS, '
       
-        '   :USUARIO, :VENDA_CARREGA_PRODUTO_EAN, :VENDA_FORMA_PAGTO_CART' +
-        'ACREDITO)')
+        '   :RPS_NUMERO, :RPS_SERIE, :USUARIO, :VENDA_CARREGA_PRODUTO_EAN' +
+        ', :VENDA_FORMA_PAGTO_CARTACREDITO)')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'
       '  EMPRESA = :OLD_EMPRESA')
+    Left = 408
+    Top = 0
   end
   inherited ImgList: TImageList
+    Left = 336
+    Top = 0
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3003,7 +3120,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       'from TBCONFIGURACAO c'
       'where c.empresa = :empresa')
     Left = 648
-    Top = 376
+    Top = 360
     ParamData = <
       item
         Name = 'EMPRESA'
