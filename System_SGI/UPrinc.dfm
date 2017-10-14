@@ -4659,6 +4659,7 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
+      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -4675,7 +4676,6 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
-      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item
@@ -5720,9 +5720,9 @@ object frmPrinc: TfrmPrinc
       ImageIndex = 15
     end
     object BrBtnVendedor: TdxBarLargeButton
-      Caption = 'Vendedor'
+      Caption = 'Vendedor / Respons'#225'vel'
       Category = 4
-      Hint = 'Vendedor'
+      Hint = 'Vendedor / Respons'#225'vel'
       Visible = ivAlways
       LargeImageIndex = 4
       OnClick = nmVendedorClick

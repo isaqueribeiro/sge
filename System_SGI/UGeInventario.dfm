@@ -3555,7 +3555,7 @@ inherited frmGeInventario: TfrmGeInventario
   end
   object StyleRepository: TcxStyleRepository
     Left = 928
-    Top = 288
+    Top = 264
     PixelsPerInch = 96
     object StyleSelecao: TcxStyle
       AssignedValues = [svColor, svFont, svTextColor]

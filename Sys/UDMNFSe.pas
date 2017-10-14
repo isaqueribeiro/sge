@@ -42,6 +42,9 @@ type
     fdQryOSDadosItemPooler: TFDQuery;
     ACBrNFSe: TACBrNFSe;
     frDANFE_NFSe: TACBrNFSeDANFSeFR;
+    frdOSEventos: TfrxDBDataset;
+    fdQryOSEventos: TFDQuery;
+    frrOS: TfrxReport;
   private
     { Private declarations }
     procedure LerConfiguracaoNFSe(const sCNPJEmitente : String; const tipoDANFE : TTipoDANFE = tipoDANFEFast);
@@ -152,6 +155,14 @@ begin
   end;
 
   with fdQryOSDuplicatas do
+  begin
+    Close;
+    ParamByName('ano').AsInteger      := AnoOS;
+    ParamByName('controle').AsInteger := NumeroOS;
+    Open;
+  end;
+
+  with fdQryOSEventos do
   begin
     Close;
     ParamByName('ano').AsInteger      := AnoOS;

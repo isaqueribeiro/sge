@@ -6,21 +6,17 @@ uses
   StdCtrls, Buttons,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxStatusBar, dxRibbonForm, dxRibbonSkins,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons, cxLookAndFeels,
   dxBar, dxSkinsForm, dxSkinsdxBarPainter, cxControls, cxClasses, dxRibbon,
-
-  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinsdxStatusBarPainter, dxStatusBar,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, dxRibbonSkins, dxSkinsdxRibbonPainter,
   dxRibbonCustomizationForm, cxContainer, cxEdit, dxGallery, dxGalleryControl,
-  dxRibbonBackstageViewGalleryControl, cxLabel, dxRibbonBackstageView;
+  dxRibbonBackstageViewGalleryControl, cxLabel, dxRibbonBackstageView,
+
+  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinsdxStatusBarPainter, dxSkinsdxRibbonPainter;
 
 
 type

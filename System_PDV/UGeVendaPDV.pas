@@ -1364,7 +1364,7 @@ begin
       if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
       begin
         GetComprasAbertas( DataSetVenda.FieldByName('CODCLIENTE').AsInteger );
-        if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
+        if ( (qryTotalComprasAbertasVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
         begin
           ShowWarning('O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
           Exit;

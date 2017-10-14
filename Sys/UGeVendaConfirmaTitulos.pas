@@ -3,8 +3,10 @@ unit UGeVendaConfirmaTitulos;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
+  Dialogs, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
   ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, cxControls,
   cxContainer, cxEdit, IBX.IBTable,
@@ -13,8 +15,10 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeVendaConfirmaTitulos = class(TfrmGrPadrao)
@@ -156,9 +160,7 @@ begin
   DataEmissaoDOC := Date;
   ControleVenda  := 0;
 
-  fdQryFormaPagto.Open;
-  fdQryFormaPagto.Last;
-  fdQryFormaPagto.First;
+  CarregarListaDB(fdQryFormaPagto);
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.FormShow(Sender: TObject);

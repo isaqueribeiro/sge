@@ -7041,3 +7041,163 @@ where (RDB$FIELD_NAME = 'RPS_NUMERO') and
 (RDB$RELATION_NAME = 'TBCONFIGURACAO')
 ;
 
+
+
+
+/*------ SYSDBA 13/10/2017 10:58:37 --------*/
+
+ALTER TABLE TBOS
+    ADD PAGTO_PRAZO DMN_LOGICO DEFAULT 0;
+
+COMMENT ON COLUMN TBOS.PAGTO_PRAZO IS
+'Com pagamento a prazo:
+0 - Nao
+1 - Sim';
+
+alter table TBOS
+alter ANO position 1;
+
+alter table TBOS
+alter CONTROLE position 2;
+
+alter table TBOS
+alter EMPRESA position 3;
+
+alter table TBOS
+alter CLIENTE position 4;
+
+alter table TBOS
+alter DATA_CADASTRO position 5;
+
+alter table TBOS
+alter DATA_EMISSAO position 6;
+
+alter table TBOS
+alter DATA_PREVISAO_CONCLUSAO position 7;
+
+alter table TBOS
+alter USUARIO position 8;
+
+alter table TBOS
+alter VENDEDOR position 9;
+
+alter table TBOS
+alter STATUS position 10;
+
+alter table TBOS
+alter OBSERVACOES position 11;
+
+alter table TBOS
+alter RELATO_SOLICITACAO position 12;
+
+alter table TBOS
+alter DADOS_ENTREGA position 13;
+
+alter table TBOS
+alter TOTAL_CUSTO position 14;
+
+alter table TBOS
+alter TOTAL_SERVICO position 15;
+
+alter table TBOS
+alter TOTAL_PRODUTO position 16;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_SERVICOS position 17;
+
+alter table TBOS
+alter TOTAL_DESCONTOS_PRODUTOS position 18;
+
+alter table TBOS
+alter TOTAL_DESCONTOS position 19;
+
+alter table TBOS
+alter TOTAL_OS position 20;
+
+alter table TBOS
+alter TOTAL_BRUTO position 21;
+
+alter table TBOS
+alter TOTAL_LIQUIDO position 22;
+
+alter table TBOS
+alter TOTAL_APROVADO_SERVICO position 23;
+
+alter table TBOS
+alter TOTAL_APROVADO_PRODUTO position 24;
+
+alter table TBOS
+alter DATA_APROVACAO position 25;
+
+alter table TBOS
+alter DATA_FINALIZACAO position 26;
+
+alter table TBOS
+alter DATA_FATURA position 27;
+
+alter table TBOS
+alter PAGTO_PRAZO position 28;
+
+alter table TBOS
+alter COMPETENCIA position 29;
+
+alter table TBOS
+alter NFS_LOTE position 30;
+
+alter table TBOS
+alter NFS_SERIE position 31;
+
+alter table TBOS
+alter NFS_NUMERO position 32;
+
+alter table TBOS
+alter NFS_DATAEMISSAO position 33;
+
+alter table TBOS
+alter NFS_HORAEMISSAO position 34;
+
+alter table TBOS
+alter NFS_CNAE position 35;
+
+alter table TBOS
+alter NFS_NCM position 36;
+
+alter table TBOS
+alter NFS_DESCRICAO_SERVICO position 37;
+
+alter table TBOS
+alter NFS_ENVIADA position 38;
+
+alter table TBOS
+alter CAIXA_ANO position 39;
+
+alter table TBOS
+alter CAIXA_NUM position 40;
+
+alter table TBOS
+alter CANCEL_DATAHORA position 41;
+
+alter table TBOS
+alter CANCEL_USUARIO position 42;
+
+alter table TBOS
+alter CANCEL_MOTIVO position 43;
+
+
+
+
+/*------ SYSDBA 13/10/2017 11:13:56 --------*/
+
+COMMENT ON COLUMN TBOS.STATUS IS
+'Status:
+0 - Editando
+1 - Aberta
+2 - Avaliacao   (Em avaliacao pelo tecnico)
+3 - Parecer     (Parecer lancado pelo tecnico)
+4 - Aprovada    (Aprovacao dada pelo cliente)
+5 - Atendimento (Em atendimento pelo tecnico)
+6 - Finalizada  (Finalizado o servico pelo tecnico)
+7 - Faturada    (Faturada pelo financeiro para que os Titulos A Receber possam ser gerados)
+8 - NFS
+9 - Cancelada';
+

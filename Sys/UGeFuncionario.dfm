@@ -25,8 +25,6 @@ inherited frmGeFuncionario: TfrmGeFuncionario
     ExplicitWidth = 844
     ExplicitHeight = 457
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel4: TBevel
@@ -901,7 +899,7 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         Top = 269
         Width = 836
         Height = 159
-        ActivePage = tbsContato
+        ActivePage = tbsDadosAdcionais
         Align = alClient
         TabOrder = 3
         object tbsContato: TTabSheet
@@ -1009,10 +1007,6 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbFoto3x4: TDBImage
             Left = 696
             Top = 0
@@ -1030,7 +1024,7 @@ inherited frmGeFuncionario: TfrmGeFuncionario
             AlignWithMargins = True
             Left = 3
             Top = 3
-            Width = 185
+            Width = 297
             Height = 125
             Align = alLeft
             Caption = 'Par'#226'metros do Funcion'#225'rio'
@@ -1050,9 +1044,9 @@ inherited frmGeFuncionario: TfrmGeFuncionario
             object dbFlagVendedor: TDBCheckBox
               Left = 20
               Top = 50
-              Width = 152
+              Width = 261
               Height = 17
-              Caption = 'Pode realizar vendas'
+              Caption = 'Pode realizar vendas e/ou atender OS'
               DataField = 'FLAG_VENDEDOR'
               DataSource = DtSrcTabela
               TabOrder = 1
@@ -1074,13 +1068,14 @@ inherited frmGeFuncionario: TfrmGeFuncionario
           end
           object GrpBxAcessos: TGroupBox
             AlignWithMargins = True
-            Left = 194
+            Left = 306
             Top = 3
             Width = 260
             Height = 125
             Align = alLeft
             Caption = 'Controles de acessos'
             TabOrder = 1
+            ExplicitLeft = 194
             object lblUsuario: TLabel
               Left = 18
               Top = 21
@@ -1168,10 +1163,6 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         object tbsObservacao: TTabSheet
           Caption = '&3. Observa'#231#245'es'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1528,6 +1519,7 @@ inherited frmGeFuncionario: TfrmGeFuncionario
   end
   inherited DtSrcTabela: TDataSource
     Left = 808
+    Top = 8
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1650,11 +1642,12 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       'where'
       '  CODIGO = :OLD_CODIGO')
     Left = 776
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

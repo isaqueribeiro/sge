@@ -11,17 +11,18 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, JvExMask, JvToolEdit,
+  ToolWin, IBTable, JvExMask, JvToolEdit, RxToolEdit,
   JvDBControls, IBQuery, IBStoredProc, Menus, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, cxButtons,
+  cxLookAndFeelPainters, cxButtons, Datasnap.DBClient, Datasnap.Provider,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, RxToolEdit;
+  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeOS = class(TfrmGrPadraoCadastro)
@@ -37,7 +38,6 @@ type
     dbEmpresa: TDBLookupComboBox;
     lblEmpresa: TLabel;
     lblCliente: TLabel;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblSerieNFSe: TLabel;
     dbSerieNFSe: TDBEdit;
@@ -80,7 +80,6 @@ type
     IbDtstTabelaCNPJ: TIBStringField;
     IbDtstTabelaPESSOA_FISICA: TSmallintField;
     lblCnae: TLabel;
-    tblVendedorTecnico: TIBTable;
     dtsVendedorTecnico: TDataSource;
     lblTecnicoPrincipal: TLabel;
     dbTecnicoPrincipal: TDBLookupComboBox;
@@ -183,9 +182,7 @@ type
     lblEquipamentoEstadoEntrega: TLabel;
     dbEquipamentoEstadoEntrega: TDBMemo;
     dbDadosEntrega: TDBMemo;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
-    tblCondicaoPagto: TIBTable;
     dtsCondicaoPagto: TDataSource;
     cdsOSFormaPagto: TIBDataSet;
     updOSFormaPagto: TIBUpdateSQL;
@@ -343,7 +340,6 @@ type
     dbTecnicoTipoComissao: TDBLookupComboBox;
     lblTecnicoPercentualComissao: TLabel;
     dbTecnicoPercentualComissao: TDBEdit;
-    qryTipoComissao: TIBQuery;
     dtsTipoComissao: TDataSource;
     lblTecnicoValorComissao: TLabel;
     dbTecnicoValorComissao: TDBEdit;
@@ -503,6 +499,16 @@ type
     cdsOSServicosTOTAL_CUSTO: TIBBCDField;
     cdsOSProdutosCUSTO: TIBBCDField;
     cdsOSProdutosTOTAL_CUSTO: TIBBCDField;
+    fdQryEmpresa: TFDQuery;
+    fdQryVendedorTecnico: TFDQuery;
+    fdQryTipoComissao: TFDQuery;
+    fdQryFormaPagto: TFDQuery;
+    dtpFormaPagto: TDataSetProvider;
+    cdsFormaPagto: TClientDataSet;
+    fdQryCondicaoPagto: TFDQuery;
+    dtpCondicaoPagto: TDataSetProvider;
+    cdsCondicaoPagto: TClientDataSet;
+    IbDtstTabelaPAGTO_PRAZO: TSmallintField;
     procedure FiltrarTecnicosChange(Sender: TObject);
     procedure OpcoesImprimirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -599,6 +605,9 @@ type
     procedure dbCnaeButtonClick(Sender: TObject);
     procedure dbNCMButtonClick(Sender: TObject);
     procedure nmImprimirOrcamentoClick(Sender: TObject);
+    procedure btnTituloEditarClick(Sender: TObject);
+    procedure cdsOSFormaPagtoBeforePost(DataSet: TDataSet);
+    procedure nmImprimirOSClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -637,6 +646,7 @@ type
     function GetRotinaInserirServicosID : String;
     function GetRotinaInserirProdutosID : String;
     function GetRotinaInserirTecnicosID : String;
+    function GetRotinaInserirEventosID : String;
     function GetRotinaFinalizarEdicaoID : String;
     function GetRotinaIniciarAvaliacaoID : String;
     function GetRotinaLancarParecerID : String;
@@ -644,10 +654,11 @@ type
     function GetRotinaLancarAtendimentoID : String;
     function GetRotinaFinalizarOrdemServicoID : String;
     function GetRotinaFaturarOrdemServicoID : String;
+    function GetRotinaGerarImprimirBoletoID : String;
 
     function PossuiTitulosPagos(const aAno : Smallint; const aControle : Integer) : Boolean;
     function GetTotalValorFormaPagto : Currency;
-    function GetTotalValorFormaPagto_APrazo : Currency; 
+    function GetTotalValorFormaPagto_APrazo : Currency;
     function GetTotalValorServicos : Currency;
     function GetGerarEstoqueCliente : Integer; virtual; abstract;
     function BoletosGerados : Boolean; virtual; abstract;
@@ -659,6 +670,7 @@ type
     property RotinaInserirServicosID  : String read GetRotinaInserirServicosID;
     property RotinaInserirProdutosID  : String read GetRotinaInserirProdutosID;
     property RotinaInserirTecnicosID  : String read GetRotinaInserirTecnicosID;
+    property RotinaInserirEventosID   : String read GetRotinaInserirEventosID;
     property RotinaFinalizarEdicaoID  : String read GetRotinaFinalizarEdicaoID;
     property RotinaIniciarAvaliacaoID : String read GetRotinaIniciarAvaliacaoID;
     property RotinaLancarParecerID    : String read GetRotinaLancarParecerID;
@@ -666,7 +678,35 @@ type
     property RotinaLancarAtendimentoID     : String read GetRotinaLancarAtendimentoID;
     property RotinaFinalizarOrdemServicoID : String read GetRotinaFinalizarOrdemServicoID;
     property RotinaFaturarOrdemServicoID   : String read GetRotinaFaturarOrdemServicoID;
+    property RotinaGerarImprimirBoletoID   : String read GetRotinaGerarImprimirBoletoID;
   end;
+
+(*
+  Tabelas:
+  - TBOS
+  - TBOS_FORMAPAGTO
+  - TBOS_SERVICO
+  - TBOS_PRODUTO
+  - TBOS_TECNICO
+  - TBOS_EVENTO
+  - TBCONTREC
+  - TBPRODUTO
+  - TBUNIDADEPROD
+  - TBCLIENTE
+  - TBOS_EQUIPAMENTO
+  - TBCLIENTE_EQUIPAMENTO
+  - SYS_TIPO_EQUIPAMENTO
+  - TBFORMPAGTO
+  - TBVENDEDOR
+
+  Views:
+  - VW_CONDICAOPAGTO
+  - VW_EMPRESA
+
+  Procedures:
+  - GET_LIMITE_DISPONIVEL_CLIENTE
+
+*)
 
 var
   frmGeOS: TfrmGeOS;
@@ -747,11 +787,11 @@ begin
 
   RotinaID := ROTINA_MOV_ORDEM_SERV_ID;
 
-  tblEmpresa.Open;
-  tblVendedorTecnico.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  qryTipoComissao.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryVendedorTecnico);
+  CarregarLista(cdsFormaPagto);
+  CarregarLista(cdsCondicaoPagto);
+  CarregarLista(fdQryTipoComissao);
 
   TbsNFSe.TabVisible     := False;
   btbtnGerarNFSe.Visible := False;
@@ -876,6 +916,11 @@ begin
 
     BtnTecnicoAtualizarComissao.Enabled := (IbDtstTabelaANO.AsInteger > 0) and (IbDtstTabelaSTATUS.AsInteger >= STATUS_OS_APR) and (IbDtstTabelaSTATUS.AsInteger <= STATUS_OS_FAT) and (cdsOSTecnicos.RecordCount > 0);
 
+//    btnRegerarTitulo.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FIN, STATUS_OS_FAT]) and (qryTitulos.RecordCount = 0);
+//    btnTituloEditar.Enabled  := (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FIN, STATUS_OS_FAT]) and (not qryTitulos.IsEmpty);
+    btnRegerarTitulo.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FAT]) and (qryTitulos.RecordCount = 0);
+    btnTituloEditar.Enabled  := (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FAT]) and (not qryTitulos.IsEmpty);
+
 (*
     btbtnFinalizar.Enabled   := (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty) and (not cdsVendaFormaPagto.IsEmpty);
     btbtnGerarNFe.Enabled    := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty);
@@ -915,6 +960,9 @@ begin
     mnFaturarOS.Enabled         := False;
 
     BtnTecnicoAtualizarComissao.Enabled := False;
+
+    btnRegerarTitulo.Enabled := False;
+    btnTituloEditar.Enabled  := False;
 (*
     btbtnFinalizar.Enabled   := False;
     btbtnGerarNFe.Enabled    := False;
@@ -1511,7 +1559,7 @@ end;
 
 procedure TfrmGeOS.FiltrarTecnicosChange(Sender: TObject);
 begin
-  tblVendedorTecnico.Filtered := (TDataSource(Sender).DataSet.State in [dsEdit, dsInsert]);
+  fdQryVendedorTecnico.Filtered := (TDataSource(Sender).DataSet.State in [dsEdit, dsInsert]);
 end;
 
 procedure TfrmGeOS.ZerarFormaPagto;
@@ -1528,13 +1576,25 @@ begin
 
   cdsOSFormaPagto.Append;
   cdsOSFormaPagtoFORMAPAGTO.Value    := GetFormaPagtoIDDefault;
-  //cdsOSFormaPagtoCONDICAOPAGTO.Value := GetCondicaoPagtoIDDefault;
   cdsOSFormaPagtoVALOR_FPAGTO.Value  := dbValorTotalLiquido.Field.AsCurrency;
   cdsOSFormaPagtoPAGTO_PRAZO.Value   := 0;
   cdsOSFormaPagtoCONDICAOPAGTO.Clear;
 
   if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
     IbDtstTabela.Edit;
+
+  IbDtstTabelaPAGTO_PRAZO.AsInteger := FLAG_NAO;
+end;
+
+procedure TfrmGeOS.cdsOSFormaPagtoBeforePost(DataSet: TDataSet);
+begin
+  if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = 1 ) then
+  begin
+    if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+      IbDtstTabela.Edit;
+
+    IbDtstTabelaPAGTO_PRAZO.AsInteger := FLAG_SIM;
+  end;
 end;
 
 procedure TfrmGeOS.cdsOSFormaPagtoNewRecord(DataSet: TDataSet);
@@ -1660,8 +1720,8 @@ begin
       CxNumero := 0;
       CxContaCorrente := 0;
 
-      if ( tblFormaPagto.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
-        if ( tblFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
+      if ( fdQryFormaPagto.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
+        if ( fdQryFormaPagto.FieldByName('Conta_corrente').AsInteger > 0 ) then
           if ( not CaixaAberto(IbDtstTabelaEMPRESA.AsString, GetUserApp, GetDateDB, qryTitulosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
           begin
             ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
@@ -1804,6 +1864,7 @@ begin
   IbDtstTabelaTOTAL_OS.Value         := 0;
   IbDtstTabelaTOTAL_BRUTO.Value      := 0;
   IbDtstTabelaTOTAL_LIQUIDO.Value    := 0;
+  IbDtstTabelaPAGTO_PRAZO.Value      := FLAG_NAO;
   IbDtstTabelaNFS_ENVIADA.Value      := 0;
 
 
@@ -2576,6 +2637,9 @@ begin
     if BtnTecnicoInserir.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaInserirTecnicosID, 'Inserção/Ediçao de Técnicos', RotinaID);
 
+    if BtnEventoInserir.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaInserirEventosID, 'Inserção/Ediçao de Eventos', RotinaID);
+
     if mnFinalizarEdicao.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFinalizarEdicaoID, mnFinalizarEdicao.Caption, RotinaID);
 
@@ -2596,6 +2660,9 @@ begin
 
     if mnFaturarOS.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaFaturarOrdemServicoID, mnFaturarOS.Caption, RotinaID);
+
+    if btnRegerarTitulo.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaGerarImprimirBoletoID, 'Gerar/Imprimir Boletos', RotinaID);
   end;
 end;
 
@@ -2618,6 +2685,11 @@ end;
 function TfrmGeOS.GetRotinaInserirTecnicosID: String;
 begin
   Result := GetRotinaInternaID(BtnTecnicoInserir);
+end;
+
+function TfrmGeOS.GetRotinaInserirEventosID: String;
+begin
+  Result := GetRotinaInternaID(BtnEventoInserir);
 end;
 
 procedure TfrmGeOS.BtnProdutoInserirClick(Sender: TObject);
@@ -2948,6 +3020,23 @@ begin
       if BtnTecnicoInserir.Visible and BtnTecnicoInserir.Enabled then
         BtnTecnicoInserir.SetFocus;
     end;
+  end;
+end;
+
+procedure TfrmGeOS.btnTituloEditarClick(Sender: TObject);
+begin
+//  if ( not (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FIN, STATUS_OS_FAT]) ) then
+//    ShowWarning('É permitida a edição de títulos apenas para ordens de serviços finalizadas ou faturadas')
+  if ( not (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FAT]) ) then
+    ShowWarning('É permitida a edição de títulos apenas para ordens de serviços faturadas')
+  else
+  if ( qryTitulos.IsEmpty ) then
+    ShowWarning('Não existe(m) título(s) gerado(s) para esta venda')
+  else
+  if ( IbDtstTabelaPAGTO_PRAZO.AsInteger = FLAG_SIM ) then
+  begin
+    if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, IbDtstTabelaDATA_FATURA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
+      AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
   end;
 end;
 
@@ -3400,6 +3489,24 @@ begin
 
     dbgEventos.DefaultDrawDataCell(Rect, dbgEventos.Columns[DataCol].Field, State);
   end;
+
+  if (Sender = dbgServicos) then
+    if (Column.Field = cdsOSServicosAPROVADO) then
+    begin
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      ImgList.Draw(TDBGrid(Sender).Canvas, Rect.Left + 4, Rect.Top + 1, 43);
+      if (Column.Field.AsInteger = 1) then
+        ImgList.Draw(TDBGrid(Sender).Canvas, Rect.Left + 4, Rect.Top + 1, 14);
+    end;
+
+  if (Sender = dbgProdutos) then
+    if (Column.Field = cdsOSProdutosAPROVADO) then
+    begin
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      ImgList.Draw(TDBGrid(Sender).Canvas, Rect.Left + 4, Rect.Top + 1, 43);
+      if (Column.Field.AsInteger = 1) then
+        ImgList.Draw(TDBGrid(Sender).Canvas, Rect.Left + 4, Rect.Top + 1, 14);
+    end;
 end;
 
 procedure TfrmGeOS.mnLancarParecerClick(Sender: TObject);
@@ -3533,7 +3640,7 @@ begin
     CommitTransaction;
 
     GravarEventoAutomatico('Aprovação do(s) Serviço(s)', 
-      Format('* Ordem de Serviço marcada como sido aprovada pelo cliente pelo usuário %s em %s às %s.', [
+      Format('* Ordem de Serviço marcada como sido aprovada pelo cliente, segundo o usuário %s, registrado em %s às %s.', [
         gUsuarioLogado.Login, FormatDateTime('dd/mm/yyyy', GetDateDB), FormatDateTime('hh"h"mm', GetTimeDB)]), False);
 
     RecarregarRegistro;
@@ -3675,29 +3782,55 @@ begin
 end;
 
 procedure TfrmGeOS.mnLancarAtendimentoClick(Sender: TObject);
+var
+  eEvento : TStringList;
 begin
   if not mnLancarAtendimento.Enabled then
     Exit;
-    
+
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  if ( ShowConfirm('Deseja marcar Ordem de Serviço (OS) como estando atendimento?') ) then
-  begin
-    IbDtstTabela.Edit;
+//  if ( ShowConfirm('Deseja marcar Ordem de Serviço (OS) como estando atendimento?') ) then
+//  begin
+//    IbDtstTabela.Edit;
+//
+//    IbDtstTabelaSTATUS.Value := STATUS_OS_ATE;
+//
+//    IbDtstTabela.Post;
+//    IbDtstTabela.ApplyUpdates;
+//
+//    CommitTransaction;
+//
+//    GravarEventoAutomatico('Atendimento da OS',
+//      Format('* Sinalização de início de atendimento lançada por %s em %s às %s.', [
+//        gUsuarioLogado.Login, FormatDateTime('dd/mm/yyyy', GetDateDB), FormatDateTime('hh"h"mm', GetTimeDB)]), False);
+//
+//    HabilitarDesabilitar_Btns;
+//  end;
 
-    IbDtstTabelaSTATUS.Value := STATUS_OS_ATE;
+  eEvento := TStringList.Create;
+  try
+    if SetEvento(Self, eEvento) then
+    begin
+      IbDtstTabela.Edit;
 
-    IbDtstTabela.Post;
-    IbDtstTabela.ApplyUpdates;
+      IbDtstTabelaSTATUS.Value := STATUS_OS_ATE;
 
-    CommitTransaction;
+      IbDtstTabela.Post;
+      IbDtstTabela.ApplyUpdates;
 
-    GravarEventoAutomatico('Atendimento da OS',
-      Format('* Sinalização de início de atendimento lançada por %s em %s às %s.', [
-        gUsuarioLogado.Login, FormatDateTime('dd/mm/yyyy', GetDateDB), FormatDateTime('hh"h"mm', GetTimeDB)]), False);
+      CommitTransaction;
 
-    HabilitarDesabilitar_Btns;
+      GravarEventoAutomatico('Atendimento da OS',
+        IfThen(Trim(eEvento.Text) = EmptyStr, EmptyStr, AnsiUpperCase(Trim(eEvento.Text)) + #13#13) +
+        Format('* Sinalização de início/andamento de atendimento lançada por %s em %s às %s.', [
+          gUsuarioLogado.Login, FormatDateTime('dd/mm/yyyy', GetDateDB), FormatDateTime('hh"h"mm', GetTimeDB)]), False);
+
+      HabilitarDesabilitar_Btns;
+    end;
+  finally
+    eEvento.Free;
   end;
 end;
 
@@ -3728,7 +3861,7 @@ begin
     IbDtstTabela.ApplyUpdates;
 
     CalcularValorComissao;
-    
+
     CommitTransaction;
 
     GravarEventoAutomatico('Finalização da OS',
@@ -3741,8 +3874,10 @@ end;
 
 procedure TfrmGeOS.btnRegerarTituloClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_OS_FIN ) then
-    ShowWarning('É permitida a geração de títulos apenas para Ordem de Serviços finalizadas')
+//  if ( not (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FIN, STATUS_OS_FAT]) ) then
+//    ShowWarning('É permitida a geração de títulos apenas para Ordem de Serviços finalizadas ou faturadas')
+  if ( not (IbDtstTabelaSTATUS.AsInteger in [STATUS_OS_FAT]) ) then
+    ShowWarning('É permitida a geração de títulos apenas para Ordem de Serviços faturadas')
   else
   if ( not qryTitulos.IsEmpty ) then
     ShowWarning('Já existe(m) título(s) gerado(s) para esta venda')
@@ -3912,6 +4047,28 @@ begin
   end;
 end;
 
+procedure TfrmGeOS.nmImprimirOSClick(Sender: TObject);
+begin
+  if ( IbDtstTabela.IsEmpty ) then
+    Exit;
+
+  with DMNFe, DMNFSe do
+  begin
+    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_OS_CAN ) then
+    begin
+      ShowWarning('Ordem de Serviço cancelada não pode ser impressa!');
+      Exit;
+    end;
+
+    CarregarDadosEmpresa(IbDtstTabelaEMPRESA.AsString, 'Ordem de Serviço');
+    AbrirEmitente( IbDtstTabelaEMPRESA.AsString );
+    AbrirTomador( IbDtstTabelaCLIENTE.AsInteger );
+    AbrirOS( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, False );
+
+    frrOS.ShowReport;
+  end;
+end;
+
 procedure TfrmGeOS.mnFaturarOSClick(Sender: TObject);
 var
   cValorAPagar : Currency;
@@ -3971,11 +4128,12 @@ begin
   cValorAPagar := GetTotalValorServicos;
 
 
-  if ( cdsOSTecnicos.RecordCount = 0 ) then
-    if ShowConfirmation('Comissão', 'Não existem registros para pagamento de comissão nesta Ordem de Serviço.' + #13#13 + 'Deseja continuar o processo de faturamento?') then
-      Exit;
-
-  CalcularValorComissao;
+//  if ( cdsOSTecnicos.RecordCount = 0 ) then
+//    if ShowConfirmation('Comissão', 'Não existem registros para pagamento de comissão nesta Ordem de Serviço.' + #13#13 + 'Deseja continuar o processo de faturamento?') then
+//      Exit;
+//
+  if ( cdsOSTecnicos.RecordCount > 0 ) then
+    CalcularValorComissao;
 
   IbDtstTabela.Edit;
         
@@ -4014,7 +4172,7 @@ begin
     if cdsOSFormaPagto.Locate('PAGTO_PRAZO', 1, []) then
     begin
       GetTitulosAbertos( IbDtstTabelaCLIENTE.AsInteger );
-      if ( GetTotalValorFormaPagto_APrazo > fdQryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
+      if ( (fdQryTotalTitulosAbertosVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > fdQryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
       begin
         ShowWarning('O Valor Total A Prazo está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
         Exit;
@@ -4043,7 +4201,7 @@ begin
     // Confirmar vencimentos de cada parcela
 
     if cdsOSFormaPagto.Locate('PAGTO_PRAZO', 1, []) then
-      if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, GetTotalValorFormaPagto_APrazo) ) then
+      if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, IbDtstTabelaDATA_FATURA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
         AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
 
     HabilitarDesabilitar_Btns;
@@ -4236,6 +4394,9 @@ begin
 //    cValorServico := IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency
 //  else
 //    cValorServico := IbDtstTabelaTOTAL_OS.AsCurrency;
+  if (IbDtstTabelaSTATUS.AsInteger > STATUS_OS_FIN) then
+    cValorServico := IbDtstTabelaTOTAL_OS.AsCurrency
+  else
   if ( (IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency > 0) or (IbDtstTabelaTOTAL_APROVADO_PRODUTO.AsCurrency > 0) ) then
     cValorServico :=
       IbDtstTabelaTOTAL_APROVADO_SERVICO.AsCurrency +
@@ -4345,6 +4506,11 @@ end;
 function TfrmGeOS.GetRotinaFaturarOrdemServicoID: String;
 begin
   Result := GetRotinaInternaID(mnFaturarOS);
+end;
+
+function TfrmGeOS.GetRotinaGerarImprimirBoletoID : String;
+begin
+  Result := GetRotinaInternaID(btnRegerarTitulo);
 end;
 
 function TfrmGeOS.GetRotinaFinalizarOrdemServicoID: String;

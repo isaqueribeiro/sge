@@ -3,20 +3,19 @@ unit UGeFuncionario;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoCadastro, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  UGrPadraoCadastro,
+
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.ImgList,
+  IBX.IBCustomDataSet, IBX.IBUpdateSQL, Data.DB, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
+  JvExMask, JvToolEdit, JvDBControls, IBX.IBTable, Vcl.ExtDlgs, IBX.IBStoredProc,
+
+  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
   dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, Vcl.ImgList, IBX.IBCustomDataSet, IBX.IBUpdateSQL, Data.DB,
-  Vcl.Mask, Vcl.DBCtrls, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Grids,
-  Vcl.DBGrids, Vcl.ComCtrls, JvExMask, JvToolEdit, JvDBControls, IBX.IBTable,
-  Vcl.ExtDlgs, IBX.IBStoredProc;
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeFuncionario = class(TfrmGrPadraoCadastro)
@@ -154,6 +153,25 @@ type
 
     procedure FiltarDados(const iTipoPesquisa: Integer); overload;
   end;
+
+(*
+  Tabelas:
+  - TBFUNCIONARIO
+  - TBTIPO_LOGRADOURO
+  - TBLOGRADOURO
+  - TBBAIRRO
+  - TBCIDADE
+  - TBESTADO
+  - TBPAIS
+
+  Views:
+  - VW_SEXO
+
+  Procedures:
+  - SET_USUARIO_FUNCIONARIO
+  - SET_VENDEDOR_FUNCIONARIO
+
+*)
 
 var
   frmGeFuncionario: TfrmGeFuncionario;
@@ -383,7 +401,7 @@ begin
   UpdateGenerator;
 
   pgcMaisDados.ActivePageIndex := 0;
-  dbFlagVendedor.Enabled       := gLicencaSistema.UsarSGE;
+  dbFlagVendedor.Enabled       := gLicencaSistema.UsarSGE or gLicencaSistema.UsarSGI;
 end;
 
 function TfrmGeFuncionario.GravarUsuarioFuncinario: Boolean;
@@ -446,7 +464,7 @@ begin
     if not GravarUsuarioFuncinario then
       Abort;
 
-  if ( IbDtstTabelaVENDEDOR.AsInteger = 1 ) then
+  if ( IbDtstTabelaFLAG_VENDEDOR.AsInteger = 1 ) then
     if not GravarVendedorFuncinario then
       Abort;
 end;

@@ -17,7 +17,10 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -547,6 +550,7 @@ type
   - VW_EMPRESA
 
   Procedures:
+  - GET_LIMITE_DISPONIVEL_CLIENTE
 
 *)
 
@@ -1899,7 +1903,7 @@ begin
     if ( (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) and GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) ) then
     begin
       GetComprasAbertas( IbDtstTabelaCODCLIENTE.AsInteger );
-      if ( GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency ) then
+      if ( (qryTotalComprasAbertasVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
       begin
         ShowWarning(
             'O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.'

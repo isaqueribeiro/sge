@@ -4,46 +4,43 @@ inherited frmGeOS: TfrmGeOS
   ActiveControl = dbEmpresa
   BorderIcons = [biSystemMenu, biMinimize, biMaximize]
   Caption = 'Controle de OS (Ordens de Servi'#231'os)'
-  ClientHeight = 689
+  ClientHeight = 694
   ClientWidth = 1145
   OldCreateOrder = True
-  ExplicitTop = -61
   ExplicitWidth = 1161
-  ExplicitHeight = 728
+  ExplicitHeight = 733
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 685
+    Top = 690
     Width = 1145
     ExplicitTop = 686
     ExplicitWidth = 1145
   end
   inherited Bevel3: TBevel
-    Top = 646
+    Top = 651
     Width = 1145
     ExplicitTop = 647
     ExplicitWidth = 1145
   end
   inherited pgcGuias: TPageControl
     Width = 1145
-    Height = 646
+    Height = 651
     OnChange = pgcGuiasChange
     ExplicitWidth = 1145
-    ExplicitHeight = 646
+    ExplicitHeight = 651
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1137
-      ExplicitHeight = 617
+      ExplicitHeight = 622
       inherited Bevel4: TBevel
-        Top = 551
+        Top = 556
         Width = 1137
         ExplicitTop = 552
         ExplicitWidth = 1137
       end
       inherited dbgDados: TDBGrid
         Width = 1137
-        Height = 551
+        Height = 556
         Hint = 
           'Dicas:'#13#10'1 - Clique na coluna "L" para visualizar o painel de Leg' +
           'endas'#13#10'2 - Tecle "Enter" ou d'#234' "dois cliques" com o registro sel' +
@@ -120,9 +117,9 @@ inherited frmGeOS: TfrmGeOS
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 555
+        Top = 560
         Width = 1137
-        ExplicitTop = 555
+        ExplicitTop = 560
         ExplicitWidth = 1137
         object lblOSAberta: TLabel [0]
           Left = 2
@@ -299,7 +296,7 @@ inherited frmGeOS: TfrmGeOS
       end
       object pnlLegendas: TPanel
         Left = 794
-        Top = 256
+        Top = 261
         Width = 321
         Height = 289
         Anchors = [akRight, akBottom]
@@ -316,11 +313,12 @@ inherited frmGeOS: TfrmGeOS
         object Label3: TLabel
           Left = 5
           Top = 5
-          Width = 79
+          Width = 311
           Height = 13
           Align = alTop
           Caption = 'Legendas (L) :'
           Transparent = True
+          ExplicitWidth = 79
         end
         object bvlLegendas: TBevel
           Left = 5
@@ -546,8 +544,10 @@ inherited frmGeOS: TfrmGeOS
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1137
-      ExplicitHeight = 617
+      ExplicitHeight = 622
       inherited Bevel8: TBevel
         Top = 465
         Width = 1137
@@ -763,7 +763,7 @@ inherited frmGeOS: TfrmGeOS
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 2
@@ -1158,10 +1158,6 @@ inherited frmGeOS: TfrmGeOS
         object TbsEquipamento: TTabSheet
           Caption = '&Equipamento(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel11: TBevel
             Left = 0
             Top = 169
@@ -1316,10 +1312,11 @@ inherited frmGeOS: TfrmGeOS
               TabOrder = 0
               object BtnEquipamentoInserir: TBitBtn
                 Left = 0
-                Top = 1
+                Top = 0
                 Width = 70
                 Height = 25
                 Hint = 'Inserir Equipamento'
+                Align = alTop
                 Caption = 'Inserir'
                 Enabled = False
                 Glyph.Data = {
@@ -1385,6 +1382,7 @@ inherited frmGeOS: TfrmGeOS
                 Width = 70
                 Height = 25
                 Hint = 'Editar Equipamento'
+                Align = alTop
                 Caption = 'Editar'
                 Enabled = False
                 Glyph.Data = {
@@ -1446,10 +1444,11 @@ inherited frmGeOS: TfrmGeOS
               end
               object BtnEquipamentoExcluir: TBitBtn
                 Left = 0
-                Top = 49
+                Top = 50
                 Width = 70
                 Height = 25
                 Hint = 'Excluir Equipamento'
+                Align = alTop
                 Caption = 'Excluir'
                 Enabled = False
                 Glyph.Data = {
@@ -1511,10 +1510,11 @@ inherited frmGeOS: TfrmGeOS
               end
               object BtnEquipamentoSalvar: TBitBtn
                 Left = 0
-                Top = 73
+                Top = 75
                 Width = 70
                 Height = 25
                 Hint = 'Salvar Equipamento'
+                Align = alTop
                 Caption = 'Salvar'
                 Enabled = False
                 Glyph.Data = {
@@ -1580,6 +1580,7 @@ inherited frmGeOS: TfrmGeOS
                 Width = 70
                 Height = 25
                 Hint = 'Devolver Equipamento selecionado'
+                Align = alBottom
                 Caption = 'Devol. '
                 Enabled = False
                 Glyph.Data = {
@@ -2011,10 +2012,6 @@ inherited frmGeOS: TfrmGeOS
         end
         object TbsServicoARealizar: TTabSheet
           Caption = '&Servi'#231'o(s) a realizar'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 112
@@ -2040,10 +2037,11 @@ inherited frmGeOS: TfrmGeOS
             object lblRelatoSolicitacao: TLabel
               Left = 0
               Top = 0
-              Width = 113
+              Width = 1129
               Height = 13
               Align = alTop
               Caption = 'Relato / Solicita'#231#227'o:'
+              ExplicitWidth = 113
             end
             object Bevel15: TBevel
               Left = 0
@@ -2070,17 +2068,13 @@ inherited frmGeOS: TfrmGeOS
             Top = 116
             Width = 1129
             Height = 196
-            ActivePage = TbsProduto
+            ActivePage = TbsServico
             Align = alClient
             Images = imgOS
             TabOrder = 1
             object TbsServico: TTabSheet
               Caption = 'Servi'#231'o(s)'
               ImageIndex = 2
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object Bevel13: TBevel
                 Left = 601
                 Top = 0
@@ -2342,10 +2336,11 @@ inherited frmGeOS: TfrmGeOS
                   object BtnServicoInserir: TBitBtn
                     Tag = 6
                     Left = 0
-                    Top = 1
+                    Top = 0
                     Width = 70
                     Height = 25
                     Hint = 'Inserir Servi'#231'o'
+                    Align = alTop
                     Caption = 'Inserir'
                     Enabled = False
                     Glyph.Data = {
@@ -2412,6 +2407,7 @@ inherited frmGeOS: TfrmGeOS
                     Width = 70
                     Height = 25
                     Hint = 'Editar Servi'#231'o'
+                    Align = alTop
                     Caption = 'Editar'
                     Enabled = False
                     Glyph.Data = {
@@ -2474,10 +2470,11 @@ inherited frmGeOS: TfrmGeOS
                   object BtnServicoExcluir: TBitBtn
                     Tag = 6
                     Left = 0
-                    Top = 49
+                    Top = 50
                     Width = 70
                     Height = 25
                     Hint = 'Excluir Servi'#231'o'
+                    Align = alTop
                     Caption = 'Excluir'
                     Enabled = False
                     Glyph.Data = {
@@ -2539,10 +2536,11 @@ inherited frmGeOS: TfrmGeOS
                   end
                   object BtnServicoSalvar: TBitBtn
                     Left = 0
-                    Top = 73
+                    Top = 75
                     Width = 70
                     Height = 25
                     Hint = 'Salvar Servi'#231'o'
+                    Align = alTop
                     Caption = 'Salvar'
                     Enabled = False
                     Glyph.Data = {
@@ -2608,6 +2606,7 @@ inherited frmGeOS: TfrmGeOS
                     Width = 70
                     Height = 25
                     Hint = 'Aprovado pelo cliente'
+                    Align = alBottom
                     Caption = 'Aprova'
                     Enabled = False
                     Glyph.Data = {
@@ -2978,10 +2977,6 @@ inherited frmGeOS: TfrmGeOS
             object TbsProduto: TTabSheet
               Caption = 'Insumo(s) / Produto(s)'
               ImageIndex = 3
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object Bevel16: TBevel
                 Left = 601
                 Top = 0
@@ -3243,10 +3238,11 @@ inherited frmGeOS: TfrmGeOS
                   object BtnProdutoInserir: TBitBtn
                     Tag = 7
                     Left = 0
-                    Top = 1
+                    Top = 0
                     Width = 70
                     Height = 25
                     Hint = 'Inserir Produto'
+                    Align = alTop
                     Caption = 'Inserir'
                     Enabled = False
                     Glyph.Data = {
@@ -3313,6 +3309,7 @@ inherited frmGeOS: TfrmGeOS
                     Width = 70
                     Height = 25
                     Hint = 'Editar Produto'
+                    Align = alTop
                     Caption = 'Editar'
                     Enabled = False
                     Glyph.Data = {
@@ -3375,10 +3372,11 @@ inherited frmGeOS: TfrmGeOS
                   object BtnProdutoExcluir: TBitBtn
                     Tag = 7
                     Left = 0
-                    Top = 49
+                    Top = 50
                     Width = 70
                     Height = 25
                     Hint = 'Excluir Produto'
+                    Align = alTop
                     Caption = 'Excluir'
                     Enabled = False
                     Glyph.Data = {
@@ -3440,10 +3438,11 @@ inherited frmGeOS: TfrmGeOS
                   end
                   object BtnProdutoSalvar: TBitBtn
                     Left = 0
-                    Top = 73
+                    Top = 75
                     Width = 70
                     Height = 25
                     Hint = 'Salvar Produto'
+                    Align = alTop
                     Caption = 'Salvar'
                     Enabled = False
                     Glyph.Data = {
@@ -3509,6 +3508,7 @@ inherited frmGeOS: TfrmGeOS
                     Width = 70
                     Height = 25
                     Hint = 'Aprovado pelo cliente'
+                    Align = alBottom
                     Caption = 'Aprova'
                     Enabled = False
                     Glyph.Data = {
@@ -3879,10 +3879,6 @@ inherited frmGeOS: TfrmGeOS
             object TbsTecnico: TTabSheet
               Caption = 'T'#233'cnico(s)'
               ImageIndex = 4
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object Bevel18: TBevel
                 Left = 489
                 Top = 0
@@ -3960,7 +3956,7 @@ inherited frmGeOS: TfrmGeOS
                 object pnlBotoesTecnico: TPanel
                   Left = 6
                   Top = 15
-                  Width = 70
+                  Width = 76
                   Height = 150
                   Align = alLeft
                   AutoSize = True
@@ -3975,10 +3971,11 @@ inherited frmGeOS: TfrmGeOS
                   object BtnTecnicoInserir: TBitBtn
                     Tag = 8
                     Left = 0
-                    Top = 1
-                    Width = 70
+                    Top = 0
+                    Width = 76
                     Height = 25
                     Hint = 'Inserir T'#233'cnico'
+                    Align = alTop
                     Caption = 'Inserir'
                     Enabled = False
                     Glyph.Data = {
@@ -4042,9 +4039,10 @@ inherited frmGeOS: TfrmGeOS
                     Tag = 8
                     Left = 0
                     Top = 25
-                    Width = 70
+                    Width = 76
                     Height = 25
                     Hint = 'Editar T'#233'cnico'
+                    Align = alTop
                     Caption = 'Editar'
                     Enabled = False
                     Glyph.Data = {
@@ -4107,10 +4105,11 @@ inherited frmGeOS: TfrmGeOS
                   object BtnTecnicoExcluir: TBitBtn
                     Tag = 8
                     Left = 0
-                    Top = 49
-                    Width = 70
+                    Top = 50
+                    Width = 76
                     Height = 25
                     Hint = 'Excluir T'#233'cnico'
+                    Align = alTop
                     Caption = 'Excluir'
                     Enabled = False
                     Glyph.Data = {
@@ -4172,10 +4171,11 @@ inherited frmGeOS: TfrmGeOS
                   end
                   object BtnTecnicoSalvar: TBitBtn
                     Left = 0
-                    Top = 73
-                    Width = 70
+                    Top = 75
+                    Width = 76
                     Height = 25
                     Hint = 'Salvar T'#233'cnico'
+                    Align = alTop
                     Caption = 'Salvar'
                     Enabled = False
                     Glyph.Data = {
@@ -4239,9 +4239,10 @@ inherited frmGeOS: TfrmGeOS
                     Tag = 8
                     Left = 0
                     Top = 125
-                    Width = 70
+                    Width = 76
                     Height = 25
                     Hint = 'Atualizar Valores de Comiss'#227'o'
+                    Align = alBottom
                     Caption = 'Comis. '
                     Enabled = False
                     Glyph.Data = {
@@ -4405,15 +4406,8 @@ inherited frmGeOS: TfrmGeOS
                 Columns = <
                   item
                     Expanded = False
-                    FieldName = 'SEQ'
-                    Title.Alignment = taCenter
-                    Title.Caption = '#'
-                    Width = 23
-                    Visible = True
-                  end
-                  item
-                    Expanded = False
                     FieldName = 'TECNICO'
+                    Title.Alignment = taCenter
                     Title.Caption = 'C'#243'digo'
                     Width = 50
                     Visible = True
@@ -4453,10 +4447,6 @@ inherited frmGeOS: TfrmGeOS
         object TbsEvento: TTabSheet
           Caption = '&Hist'#243'rico (Eventos)'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel24: TBevel
             Left = 0
             Top = 169
@@ -4574,7 +4564,7 @@ inherited frmGeOS: TfrmGeOS
             object pnlBotoesEvento: TPanel
               Left = 6
               Top = 15
-              Width = 70
+              Width = 76
               Height = 152
               Align = alLeft
               AutoSize = True
@@ -4589,10 +4579,11 @@ inherited frmGeOS: TfrmGeOS
               object BtnEventoInserir: TBitBtn
                 Tag = 9
                 Left = 0
-                Top = 1
-                Width = 70
+                Top = 0
+                Width = 76
                 Height = 25
                 Hint = 'Inserir Evento'
+                Align = alTop
                 Caption = 'Inserir'
                 Enabled = False
                 Glyph.Data = {
@@ -4656,9 +4647,10 @@ inherited frmGeOS: TfrmGeOS
                 Tag = 9
                 Left = 0
                 Top = 25
-                Width = 70
+                Width = 76
                 Height = 25
                 Hint = 'Editar Evento'
+                Align = alTop
                 Caption = 'Editar'
                 Enabled = False
                 Glyph.Data = {
@@ -4720,10 +4712,11 @@ inherited frmGeOS: TfrmGeOS
               end
               object BtnEventoCancelar: TBitBtn
                 Left = 0
-                Top = 49
-                Width = 70
+                Top = 50
+                Width = 76
                 Height = 25
                 Hint = 'Cancelar Edi'#231#227'o'
+                Align = alTop
                 Caption = 'Canc.  '
                 Enabled = False
                 Glyph.Data = {
@@ -4785,10 +4778,11 @@ inherited frmGeOS: TfrmGeOS
               end
               object BtnEventoSalvar: TBitBtn
                 Left = 0
-                Top = 73
-                Width = 70
+                Top = 75
+                Width = 76
                 Height = 25
                 Hint = 'Salvar Evento'
+                Align = alTop
                 Caption = 'Salvar'
                 Enabled = False
                 Glyph.Data = {
@@ -5037,37 +5031,34 @@ inherited frmGeOS: TfrmGeOS
         Left = 0
         Top = 469
         Width = 1137
-        Height = 148
-        ActivePage = TbsRecebimento
+        Height = 153
+        ActivePage = TbsTitulo
         Align = alClient
         TabOrder = 2
         object TbsRecebimento: TTabSheet
           Caption = 'Recebimento'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
             Width = 488
-            Height = 120
+            Height = 125
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 0
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 67
+              Width = 488
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
+              ExplicitWidth = 67
             end
             object Bevel7: TBevel
               Left = 484
               Top = 17
               Width = 4
-              Height = 103
+              Height = 108
               Align = alRight
               Shape = bsSpacer
               ExplicitHeight = 104
@@ -5084,7 +5075,7 @@ inherited frmGeOS: TfrmGeOS
               Left = 0
               Top = 17
               Width = 484
-              Height = 103
+              Height = 108
               Align = alClient
               DataField = 'OBSERVACOES'
               DataSource = DtSrcTabela
@@ -5096,7 +5087,7 @@ inherited frmGeOS: TfrmGeOS
             Left = 488
             Top = 0
             Width = 641
-            Height = 120
+            Height = 125
             Align = alRight
             BevelOuter = bvNone
             Font.Charset = ANSI_CHARSET
@@ -5136,9 +5127,9 @@ inherited frmGeOS: TfrmGeOS
             end
             object dbgFormaPagto: TDBGrid
               Left = 0
-              Top = 16
+              Top = 20
               Width = 641
-              Height = 59
+              Height = 62
               Hint = 
                 'Para inserir nova Forma/Condi'#231#227'o de Pagamento CTRL + INSERT'#13#10#13#10'P' +
                 'ara editar Forma/Condi'#231#227'o de Pagamento selecionada CTRL + ENTER'#13 +
@@ -5192,9 +5183,9 @@ inherited frmGeOS: TfrmGeOS
             end
             object pnlValoresTotais: TPanel
               Left = 0
-              Top = 75
+              Top = 82
               Width = 641
-              Height = 45
+              Height = 43
               Align = alBottom
               BevelOuter = bvNone
               TabOrder = 1
@@ -5407,15 +5398,11 @@ inherited frmGeOS: TfrmGeOS
         object TbsTitulo: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel19: TBevel
             Left = 0
             Top = 0
             Width = 4
-            Height = 120
+            Height = 125
             Align = alLeft
             Shape = bsSpacer
             ExplicitHeight = 121
@@ -5424,7 +5411,7 @@ inherited frmGeOS: TfrmGeOS
             Left = 74
             Top = 0
             Width = 4
-            Height = 120
+            Height = 125
             Align = alLeft
             Shape = bsSpacer
             ExplicitHeight = 121
@@ -5433,7 +5420,7 @@ inherited frmGeOS: TfrmGeOS
             Left = 4
             Top = 0
             Width = 70
-            Height = 120
+            Height = 125
             Align = alLeft
             AutoSize = True
             BevelOuter = bvNone
@@ -5445,11 +5432,13 @@ inherited frmGeOS: TfrmGeOS
             ParentFont = False
             TabOrder = 0
             object btnRegerarTitulo: TBitBtn
+              Tag = 20
               Left = 0
-              Top = 1
+              Top = 0
               Width = 70
               Height = 25
               Hint = 'Regerar T'#237'tulo(s)'
+              Align = alTop
               Caption = 'T'#237'tulo(s)'
               Enabled = False
               NumGlyphs = 2
@@ -5459,11 +5448,13 @@ inherited frmGeOS: TfrmGeOS
               OnClick = btnRegerarTituloClick
             end
             object btnGerarBoleto: TBitBtn
+              Tag = 20
               Left = 0
               Top = 25
               Width = 70
               Height = 25
               Hint = 'Gerar Boleto(s)'
+              Align = alTop
               Caption = 'Boleto(s)'
               NumGlyphs = 2
               ParentShowHint = False
@@ -5474,25 +5465,26 @@ inherited frmGeOS: TfrmGeOS
             end
             object btnTituloEditar: TBitBtn
               Left = 0
-              Top = 49
+              Top = 50
               Width = 70
               Height = 25
-              Hint = 'Editar T'#237'tulo'
+              Hint = 'Editar T'#237'tulo (Vencimentos e Valores)'
+              Align = alTop
               Caption = 'Editar'
-              Enabled = False
               NumGlyphs = 2
               ParentShowHint = False
               ShowHint = True
               TabOrder = 2
               TabStop = False
-              Visible = False
+              OnClick = btnTituloEditarClick
             end
             object btnTituloExcluir: TBitBtn
               Left = 0
-              Top = 73
+              Top = 75
               Width = 70
               Height = 25
               Hint = 'Excluir T'#237'tulo'
+              Align = alTop
               Caption = 'Excluir'
               Enabled = False
               NumGlyphs = 2
@@ -5503,10 +5495,11 @@ inherited frmGeOS: TfrmGeOS
             end
             object btnTituloQuitar: TBitBtn
               Left = 0
-              Top = 97
+              Top = 100
               Width = 70
               Height = 25
               Hint = 'Baixar T'#237'tulo'
+              Align = alTop
               Caption = 'Baixar'
               Enabled = False
               Font.Charset = ANSI_CHARSET
@@ -5527,7 +5520,7 @@ inherited frmGeOS: TfrmGeOS
             Left = 78
             Top = 0
             Width = 1051
-            Height = 120
+            Height = 125
             Hint = 
               'Para a exclus'#227'o de baixas basta pressionar CTRL + DELETE'#13#10#13#10'Obse' +
               'rva'#231#227'o:'#13#10'======================='#13#10'Apenas usu'#225'rios nas fun'#231#245'es Di' +
@@ -5625,15 +5618,11 @@ inherited frmGeOS: TfrmGeOS
         object TbsLocalRealizacao: TTabSheet
           Caption = 'Local de Entrega/Realiza'#231#227'o'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbDadosEntrega: TDBMemo
             Left = 0
             Top = 0
             Width = 1129
-            Height = 120
+            Height = 125
             Align = alClient
             Color = clWhite
             DataField = 'DADOS_ENTREGA'
@@ -5652,18 +5641,14 @@ inherited frmGeOS: TfrmGeOS
         object TbsNFSe: TTabSheet
           Caption = 'Dados de Gera'#231#227'o/Envio da NFS-e'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 650
+    Top = 655
     Width = 1145
-    ExplicitTop = 650
+    ExplicitTop = 655
     ExplicitWidth = 1145
     inherited bvlTool3: TBevel
       Left = 948
@@ -5993,6 +5978,10 @@ inherited frmGeOS: TfrmGeOS
       Origin = '"TBOS"."DATA_FATURA"'
       ProviderFlags = [pfInUpdate]
     end
+    object IbDtstTabelaPAGTO_PRAZO: TSmallintField
+      FieldName = 'PAGTO_PRAZO'
+      Origin = '"TBOS"."PAGTO_PRAZO"'
+    end
     object IbDtstTabelaNFS_LOTE: TIBStringField
       FieldName = 'NFS_LOTE'
       Origin = '"TBOS"."NFS_LOTE"'
@@ -6093,6 +6082,7 @@ inherited frmGeOS: TfrmGeOS
   end
   inherited DtSrcTabela: TDataSource
     Left = 800
+    Top = 8
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -6124,6 +6114,7 @@ inherited frmGeOS: TfrmGeOS
       '  DATA_APROVACAO,'
       '  DATA_FINALIZACAO,'
       '  DATA_FATURA,'
+      '  PAGTO_PRAZO,'
       '  COMPETENCIA,'
       '  NFS_LOTE,'
       '  NFS_SERIE,'
@@ -6168,6 +6159,7 @@ inherited frmGeOS: TfrmGeOS
       '  NFS_NUMERO = :NFS_NUMERO,'
       '  NFS_SERIE = :NFS_SERIE,'
       '  OBSERVACOES = :OBSERVACOES,'
+      '  PAGTO_PRAZO = :PAGTO_PRAZO,'
       '  RELATO_SOLICITACAO = :RELATO_SOLICITACAO,'
       '  STATUS = :STATUS,'
       '  TOTAL_APROVADO_PRODUTO = :TOTAL_APROVADO_PRODUTO,'
@@ -6201,8 +6193,8 @@ inherited frmGeOS: TfrmGeOS
         '   NFS_HORAEMISSAO, NFS_LOTE, NFS_NCM, NFS_NUMERO, NFS_SERIE, OB' +
         'SERVACOES, '
       
-        '   RELATO_SOLICITACAO, STATUS, TOTAL_APROVADO_PRODUTO, TOTAL_APR' +
-        'OVADO_SERVICO, '
+        '   PAGTO_PRAZO, RELATO_SOLICITACAO, STATUS, TOTAL_APROVADO_PRODU' +
+        'TO, TOTAL_APROVADO_SERVICO, '
       
         '   TOTAL_BRUTO, TOTAL_CUSTO, TOTAL_DESCONTOS, TOTAL_DESCONTOS_PR' +
         'ODUTOS, '
@@ -6224,27 +6216,158 @@ inherited frmGeOS: TfrmGeOS
         '   :NFS_HORAEMISSAO, :NFS_LOTE, :NFS_NCM, :NFS_NUMERO, :NFS_SERI' +
         'E, :OBSERVACOES, '
       
-        '   :RELATO_SOLICITACAO, :STATUS, :TOTAL_APROVADO_PRODUTO, :TOTAL' +
-        '_APROVADO_SERVICO, '
+        '   :PAGTO_PRAZO, :RELATO_SOLICITACAO, :STATUS, :TOTAL_APROVADO_P' +
+        'RODUTO, '
       
-        '   :TOTAL_BRUTO, :TOTAL_CUSTO, :TOTAL_DESCONTOS, :TOTAL_DESCONTO' +
-        'S_PRODUTOS, '
+        '   :TOTAL_APROVADO_SERVICO, :TOTAL_BRUTO, :TOTAL_CUSTO, :TOTAL_D' +
+        'ESCONTOS, '
       
-        '   :TOTAL_DESCONTOS_SERVICOS, :TOTAL_LIQUIDO, :TOTAL_OS, :TOTAL_' +
-        'PRODUTO, '
-      '   :TOTAL_SERVICO, :USUARIO, :VENDEDOR)')
+        '   :TOTAL_DESCONTOS_PRODUTOS, :TOTAL_DESCONTOS_SERVICOS, :TOTAL_' +
+        'LIQUIDO, '
+      
+        '   :TOTAL_OS, :TOTAL_PRODUTO, :TOTAL_SERVICO, :USUARIO, :VENDEDO' +
+        'R)')
     DeleteSQL.Strings = (
       'delete from TBOS'
       'where'
       '  ANO = :OLD_ANO and'
       '  CONTROLE = :OLD_CONTROLE')
     Left = 768
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 704
     Bitmap = {
-      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
-      000000000000360000002800000040000000B0000000010020000000000000B0
+      494C01012C00F000800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      000000000000360000002800000040000000C0000000010020000000000000C0
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7654,12 +7777,16 @@ inherited frmGeOS: TfrmGeOS
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000424D3E000000000000003E000000
-      2800000040000000B00000000100010000000000800500000000000000000000
-      000000000000000000000000FFFFFF00FFFFFFFFFFFF0000C001C001C0010000
-      DFFDC001C0010000DCFDC001C0010000D87DC001C0010000D01DC001C0010000
-      D11DC001C0010000DB8DC001C0010000DFC5C001C0010000DFE1C001C0010000
-      D801C001C0010000DBCDC001C0010000DC5DC001C0010000C1C1C001C0010000
-      FC1FFFFFFFFF0000FFFFFFFFFFFF0000FFFFE01FE01FFFFF8001E01FE01FC001
+      2800000040000000C00000000100010000000000000600000000000000000000
+      000000000000000000000000FFFFFF0000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000FFFFFFFFFFFFFFFFC001C001C001FFFF
+      DFFDC001C001FFFFDCFDC001C001FFFFD87DC001C001FFFFD01DC001C001FFFF
+      D11DC001C001FFFFDB8DC001C001FFFFDFC5C001C001FFFFDFE1C001C001FFFF
+      D801C001C001FFFFDBCDC001C001FFFFDC5DC001C001FFFFC1C1C001C001FFFF
+      FC1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE01FE01FFFFF8001E01FE01FC001
       9001E01FE01FC0019B51E01FE01FC0019EA9E010E010C0019F51E01FE01FC001
       A0E9E019E019C001A63DE010E010C001AF05E039E039C001AF01E079E079C001
       A601BFF9BFF9C001A0019FFF9FFFC001BFFD8FF98FF9C00180019FFF9FFFC001
@@ -7702,36 +7829,15 @@ inherited frmGeOS: TfrmGeOS
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 1040
-    Top = 416
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
-    Left = 1072
-    Top = 416
-  end
-  object tblVendedorTecnico: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    Filter = '(TIPO > 0)'
-    TableName = 'TBVENDEDOR'
-    UniDirectional = False
-    Left = 1040
-    Top = 448
+    DataSet = fdQryEmpresa
+    Left = 912
+    Top = 88
   end
   object dtsVendedorTecnico: TDataSource
-    DataSet = tblVendedorTecnico
-    Left = 1072
-    Top = 448
+    DataSet = fdQryVendedorTecnico
+    Left = 912
+    Top = 120
   end
   object cdsOSEquipamentos: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -7941,87 +8047,20 @@ inherited frmGeOS: TfrmGeOS
     Left = 800
     Top = 40
   end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COD'
-        Attributes = [faRequired]
-        DataType = ftSmallint
-      end
-      item
-        Name = 'DESCRI'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'ACRESCIMO'
-        DataType = ftFloat
-      end
-      item
-        Name = 'CONTA_CORRENTE'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DEBITAR_LIMITE_CLIENTE'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'FORMAPAGTO_NFCE'
-        DataType = ftString
-        Size = 2
-      end
-      item
-        Name = 'FORMAPAGTO_PDV'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'FORMAPAGTO_PDV_CUPOM_EXTRA'
-        DataType = ftSmallint
-      end>
-    IndexDefs = <
-      item
-        Name = 'PK_TBFORMPAGTO'
-        Fields = 'COD'
-        Options = [ixUnique]
-      end
-      item
-        Name = 'FK_TBFORMPAGTO_CCORRENTE'
-        Fields = 'CONTA_CORRENTE'
-      end>
-    StoreDefs = True
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 1040
-    Top = 480
-  end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
-    Left = 1072
-    Top = 480
-  end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 1040
-    Top = 512
+    DataSet = cdsFormaPagto
+    Left = 976
+    Top = 152
   end
   object dtsCondicaoPagto: TDataSource
-    DataSet = tblCondicaoPagto
-    Left = 1072
-    Top = 512
+    DataSet = cdsCondicaoPagto
+    Left = 976
+    Top = 184
   end
   object cdsOSFormaPagto: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
+    BeforePost = cdsOSFormaPagtoBeforePost
     OnNewRecord = cdsOSFormaPagtoNewRecord
     BufferChunks = 1000
     CachedUpdates = True
@@ -8161,7 +8200,7 @@ inherited frmGeOS: TfrmGeOS
     object cdsOSFormaPagtoFormaPagtoDescricao: TStringField
       FieldKind = fkLookup
       FieldName = 'FormaPagtoDescricao'
-      LookupDataSet = tblFormaPagto
+      LookupDataSet = cdsFormaPagto
       LookupKeyFields = 'COD'
       LookupResultField = 'DESCRI'
       KeyFields = 'FORMAPAGTO'
@@ -8171,7 +8210,7 @@ inherited frmGeOS: TfrmGeOS
     object cdsOSFormaPagtoCondicaoPagtoDescricao: TStringField
       FieldKind = fkLookup
       FieldName = 'CondicaoPagtoDescricao'
-      LookupDataSet = tblCondicaoPagto
+      LookupDataSet = cdsCondicaoPagto
       LookupKeyFields = 'COND_COD'
       LookupResultField = 'COND_DESCRICAO_FULL'
       KeyFields = 'CONDICAOPAGTO'
@@ -8323,6 +8362,7 @@ inherited frmGeOS: TfrmGeOS
       Required = True
     end
     object cdsOSServicosSEQ: TSmallintField
+      Alignment = taCenter
       FieldName = 'SEQ'
       Origin = '"TBOS_SERVICO"."SEQ"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -8623,9 +8663,11 @@ inherited frmGeOS: TfrmGeOS
       Required = True
     end
     object cdsOSProdutosSEQ: TSmallintField
+      Alignment = taCenter
       FieldName = 'SEQ'
       Origin = '"TBOS_PRODUTO"."SEQ"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      OnGetText = cdsOSEquipamentosEQUIPAMENTOGetText
     end
     object cdsOSProdutosEMPRESA: TIBStringField
       FieldName = 'EMPRESA'
@@ -8904,10 +8946,12 @@ inherited frmGeOS: TfrmGeOS
       Required = True
     end
     object cdsOSTecnicosTECNICO: TIntegerField
+      Alignment = taCenter
       FieldName = 'TECNICO'
       Origin = '"TBOS_TECNICO"."TECNICO"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
+      DisplayFormat = '##000'
     end
     object cdsOSTecnicosUSUARIO: TIBStringField
       FieldName = 'USUARIO'
@@ -9008,26 +9052,10 @@ inherited frmGeOS: TfrmGeOS
     Left = 800
     Top = 168
   end
-  object qryTipoComissao: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      
-        'Select 0 as CODIGO , '#39'Por Percentual'#39' as DESCRICAO from RDB$DATA' +
-        'BASE union'
-      
-        'Select 1 as CODIGO , '#39'Por Valor (R$)'#39' as DESCRICAO from RDB$DATA' +
-        'BASE')
-    Left = 1040
-    Top = 544
-  end
   object dtsTipoComissao: TDataSource
-    DataSet = qryTipoComissao
-    Left = 1072
-    Top = 544
+    DataSet = fdQryTipoComissao
+    Left = 912
+    Top = 216
   end
   object qryTitulos: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -9511,6 +9539,7 @@ inherited frmGeOS: TfrmGeOS
     Top = 576
     object nmImprimirOS: TMenuItem
       Caption = 'Ordem de &Servi'#231'os'
+      OnClick = nmImprimirOSClick
     end
     object nmImprimirOrcamento: TMenuItem
       Caption = '&Or'#231'amento'
@@ -9850,5 +9879,122 @@ inherited frmGeOS: TfrmGeOS
           0000000000000000000000000000000000000000000000000000000000002717
           073B9F6429EB9F6429EB2717073B000000000000000000000000}
       end>
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 880
+    Top = 88
+  end
+  object fdQryVendedorTecnico: TFDQuery
+    Filter = '(ativo = 1)'
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.*'
+      'from TBVENDEDOR v'
+      'order by'
+      '    v.nome')
+    Left = 880
+    Top = 120
+  end
+  object fdQryTipoComissao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      
+        'Select 0 as CODIGO , '#39'Por Percentual'#39' as DESCRICAO from RDB$DATA' +
+        'BASE union'
+      
+        'Select 1 as CODIGO , '#39'Por Valor (R$)'#39' as DESCRICAO from RDB$DATA' +
+        'BASE')
+    Left = 880
+    Top = 216
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    f.cod'
+      '  , f.descri'
+      '  , f.acrescimo'
+      '  , f.conta_corrente'
+      '  , f.debitar_limite_cliente'
+      '  , f.formapagto_nfce'
+      '  , f.formapagto_pdv'
+      '  , f.formapagto_pdv_cupom_extra'
+      '  , f.ativa'
+      'from TBFORMPAGTO f')
+    Left = 880
+    Top = 152
+  end
+  object dtpFormaPagto: TDataSetProvider
+    DataSet = fdQryFormaPagto
+    Left = 912
+    Top = 152
+  end
+  object cdsFormaPagto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dtpFormaPagto'
+    Left = 944
+    Top = 152
+  end
+  object fdQryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    c.cond_cod'
+      '  , c.cond_descricao'
+      '  , c.cond_prazo'
+      '  , c.cond_qtde_parcelas'
+      '  , c.cond_prazo_01'
+      '  , c.cond_prazo_02'
+      '  , c.cond_prazo_03'
+      '  , c.cond_prazo_04'
+      '  , c.cond_prazo_05'
+      '  , c.cond_prazo_06'
+      '  , c.cond_prazo_07'
+      '  , c.cond_prazo_08'
+      '  , c.cond_prazo_09'
+      '  , c.cond_prazo_10'
+      '  , c.cond_prazo_11'
+      '  , c.cond_prazo_12'
+      '  , c.cond_descricao_full'
+      '  , c.cond_descricao_pdv'
+      '  , c.cond_pdv'
+      '  , c.ativa'
+      'from VW_CONDICAOPAGTO c')
+    Left = 880
+    Top = 184
+  end
+  object dtpCondicaoPagto: TDataSetProvider
+    DataSet = fdQryCondicaoPagto
+    Left = 912
+    Top = 184
+  end
+  object cdsCondicaoPagto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dtpCondicaoPagto'
+    Left = 944
+    Top = 184
   end
 end
