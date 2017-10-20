@@ -375,7 +375,6 @@ type
     qryTitulosFORMA_PAGTO: TSmallintField;
     qryTitulosLancamento: TStringField;
     qryTitulosSTATUS: TIBStringField;
-    IbStrPrcGerarTitulos: TIBStoredProc;
     dtsTitulos: TDataSource;
     dbgTitulos: TDBGrid;
     Bevel21: TBevel;
@@ -509,6 +508,7 @@ type
     dtpCondicaoPagto: TDataSetProvider;
     cdsCondicaoPagto: TClientDataSet;
     IbDtstTabelaPAGTO_PRAZO: TSmallintField;
+    fdStpGerarTitulos: TFDStoredProc;
     procedure FiltrarTecnicosChange(Sender: TObject);
     procedure OpcoesImprimirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -717,7 +717,7 @@ uses
   DateUtils, SysConst, UConstantesDGE, UFuncoes, UDMBusiness, UDMNFe, UDMNFSe,
   UGeCliente, UGeTabelaCNAE, UGeTabelaIBPT, UGeCondicaoPagto, UGeGerarBoletos,
   UGeEfetuarPagtoREC, UGeEquipamento, UGeOSFormaPagto, UGeOSConfirmaTitulos,
-  UGeOSCancelar;
+  UGeOSCancelar, UGrMemoData;
 
 {$R *.dfm}
 
@@ -1577,7 +1577,7 @@ begin
   cdsOSFormaPagto.Append;
   cdsOSFormaPagtoFORMAPAGTO.Value    := GetFormaPagtoIDDefault;
   cdsOSFormaPagtoVALOR_FPAGTO.Value  := dbValorTotalLiquido.Field.AsCurrency;
-  cdsOSFormaPagtoPAGTO_PRAZO.Value   := 0;
+  cdsOSFormaPagtoPAGTO_PRAZO.Value   := FLAG_NAO;
   cdsOSFormaPagtoCONDICAOPAGTO.Clear;
 
   if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
@@ -1588,7 +1588,7 @@ end;
 
 procedure TfrmGeOS.cdsOSFormaPagtoBeforePost(DataSet: TDataSet);
 begin
-  if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = 1 ) then
+  if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = FLAG_SIM ) then
   begin
     if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
       IbDtstTabela.Edit;
@@ -1796,7 +1796,7 @@ begin
     cdsOSFormaPagtoFORMAPAGTO.Clear;
     cdsOSFormaPagtoCONDICAOPAGTO.Clear;
     cdsOSFormaPagtoVALOR_FPAGTO.Value := cAPagar;
-    cdsOSFormaPagtoPAGTO_PRAZO.Value  := 0;
+    cdsOSFormaPagtoPAGTO_PRAZO.Value  := FLAG_NAO;
 
     if InserirFormaPagto(Self, cAPagar) then
       cdsOSFormaPagto.Post
@@ -3896,7 +3896,7 @@ begin
 
     try
 
-      with IbStrPrcGerarTitulos do
+      with fdStpGerarTitulos do
       begin
         ParamByName('ano_os').AsInteger := aAno;
         ParamByName('num_os').AsInteger := aControle;
@@ -4075,6 +4075,8 @@ var
   iCxAno   ,
   iCxNumero,
   iCxContaCorrente : Integer;
+  aDataFatura : TDateTime;
+  aObservacao : TStringList;
 begin
   if not mnFaturarOS.Enabled then
     Exit;
@@ -4088,6 +4090,10 @@ begin
 
   RecarregarRegistro;
 
+  aDataFatura := GetDateDB;
+  aObservacao := TStringList.Create;
+  aObservacao.Add('Ordem de Serviço: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('###00000', IbDtstTabelaCONTROLE.AsInteger));
+
   AbrirTabelaFormasPagto ( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
   AbrirTabelaServicos    ( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
   AbrirTabelaProdutos    ( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
@@ -4100,7 +4106,7 @@ begin
 
   // Verificar se cliente está bloqueado, caso algum pagamento da OS seja a prazo
 
-  if cdsOSFormaPagto.Locate('PAGTO_PRAZO', 1, []) then
+  if cdsOSFormaPagto.Locate('PAGTO_PRAZO', FLAG_SIM, []) then
     if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
     begin
       ShowWarning('Cliente bloqueado!' + #13#13 + 'Motivo:' + #13 + IbDtstTabelaBLOQUEADO_MOTIVO.AsString);
@@ -4113,7 +4119,9 @@ begin
   cdsOSFormaPagto.First;
   while not cdsOSFormaPagto.Eof do
   begin
-    if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = 0 ) then
+    aObservacao.Add('- ' + cdsOSFormaPagtoFormaPagtoDescricao.AsString + ' ' + cdsOSFormaPagtoCondicaoPagtoDescricao.AsString);
+    aObservacao.Add('- R$ ' + FormatFloat(',0.00', cdsOSFormaPagtoVALOR_FPAGTO.AsCurrency));
+    if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = FLAG_NAO ) then
       if ( not CaixaAberto(IbDtstTabelaEMPRESA.AsString, gUsuarioLogado.Login, GetDateDB, cdsOSFormaPagtoFORMAPAGTO.AsInteger, iCxAno, iCxNumero, iCxContaCorrente) ) then
       begin
         ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento ' + QuotedStr(cdsOSFormaPagtoFormaPagtoDescricao.AsString) + '.');
@@ -4127,7 +4135,6 @@ begin
 
   cValorAPagar := GetTotalValorServicos;
 
-
 //  if ( cdsOSTecnicos.RecordCount = 0 ) then
 //    if ShowConfirmation('Comissão', 'Não existem registros para pagamento de comissão nesta Ordem de Serviço.' + #13#13 + 'Deseja continuar o processo de faturamento?') then
 //      Exit;
@@ -4136,7 +4143,7 @@ begin
     CalcularValorComissao;
 
   IbDtstTabela.Edit;
-        
+
   // Verificar dados da(s) Forma(s) de Pagamento(s)
 
   if ( cdsOSFormaPagto.RecordCount = 0 ) then
@@ -4167,9 +4174,10 @@ begin
     dbgFormaPagto.SetFocus;
   end
   else
-  if ( ShowConfirm('Confirma o faturamento da Ordem de Serviço selecionada?') ) then
+  //if ( ShowConfirm('Confirma o faturamento da Ordem de Serviço selecionada?') ) then
+  if SetMemoFaturaData(Self, aDataFatura, aObservacao, 'Observações') then
   begin
-    if cdsOSFormaPagto.Locate('PAGTO_PRAZO', 1, []) then
+    if cdsOSFormaPagto.Locate('PAGTO_PRAZO', FLAG_SIM, []) then
     begin
       GetTitulosAbertos( IbDtstTabelaCLIENTE.AsInteger );
       if ( (fdQryTotalTitulosAbertosVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > fdQryTotalTitulosAbertosVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
@@ -4181,8 +4189,11 @@ begin
 
     IbDtstTabela.Edit;
 
-    IbDtstTabelaSTATUS.Value      := STATUS_OS_FAT;
-    IbDtstTabelaDATA_FATURA.Value := GetDateDB;
+    IbDtstTabelaSTATUS.Value         := STATUS_OS_FAT;
+    IbDtstTabelaDATA_FATURA.Value    := aDataFatura;
+    IbDtstTabelaOBSERVACOES.AsString := IfThen(Trim(IbDtstTabelaOBSERVACOES.AsString) = EmptyStr
+      , aObservacao.Text
+      , IbDtstTabelaOBSERVACOES.AsString + #13#13 + aObservacao.Text);
 
     IbDtstTabela.Post;
     IbDtstTabela.ApplyUpdates;
@@ -4200,7 +4211,7 @@ begin
 
     // Confirmar vencimentos de cada parcela
 
-    if cdsOSFormaPagto.Locate('PAGTO_PRAZO', 1, []) then
+    if cdsOSFormaPagto.Locate('PAGTO_PRAZO', FLAG_SIM, []) then
       if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, IbDtstTabelaDATA_FATURA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
         AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
 
@@ -4211,7 +4222,7 @@ begin
     cdsOSFormaPagto.First;
     while not cdsOSFormaPagto.Eof do
     begin
-      if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = 0 ) then
+      if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = FLAG_NAO ) then
         if ( qryTitulos.Locate('FORMA_PAGTO', cdsOSFormaPagtoFORMAPAGTO.AsInteger, []) ) then
           RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger,
             GetDateDB,
@@ -4250,6 +4261,11 @@ begin
     end
     else
       ShowInformation('Faturamento', 'Ordem de Serviço faturada com sucesso.');
+  end
+  else
+  begin
+    if (IbDtstTabela.State = dsEdit) then
+      IbDtstTabela.Cancel;
   end;
 
 (*
@@ -4549,7 +4565,7 @@ begin
     First;
     while not Eof do
     begin
-      if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = 1 ) then
+      if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = FLAG_SIM ) then
         cReturn := cReturn + cdsOSFormaPagtoVALOR_FPAGTO.AsCurrency;
       Next;
     end;

@@ -18,7 +18,9 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeContasAReceber = class(TfrmGrPadraoCadastro)
@@ -189,6 +191,11 @@ type
     CdsReciboFORMA_PAGTO_DESC: TStringField;
     CdsReciboHISTORICO: TMemoField;
     CdsReciboVALOR_BAIXA: TBCDField;
+    IbDtstTabelaANOOS: TSmallintField;
+    IbDtstTabelaNUMOS: TIntegerField;
+    IbDtstTabelaNFS_SERIE: TIBStringField;
+    IbDtstTabelaNFS_NUMERO: TIntegerField;
+    IbDtstTabelaNFSE_OS: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -217,6 +224,7 @@ type
     procedure btbtnListaClick(Sender: TObject);
     procedure CdsReciboCalcFields(DataSet: TDataSet);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     FDataAtual     : TDateTime;
@@ -225,6 +233,7 @@ type
     FImprimirCabecalho : Boolean;
     procedure AbrirPagamentos(const Ano : Smallint; const Numero : Integer);
     procedure HabilitarDesabilitar_Btns;
+    procedure ControleLabels;
     procedure RecarregarRegistro;
     procedure CarregarFormaPagto(const pEmpresa : String);
     procedure CarregarTipoReceita(const ApenasAtivos : Boolean);
@@ -484,6 +493,7 @@ procedure TfrmGeContasAReceber.btbtnSalvarClick(Sender: TObject);
 begin
   inherited;
   HabilitarDesabilitar_Btns;
+  ControleLabels;
 end;
 
 procedure TfrmGeContasAReceber.pgcGuiasChange(Sender: TObject);
@@ -613,7 +623,14 @@ begin
 
     if ( not OcorreuErro ) then
       AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
+
+    ControleLabels;
   end;
+end;
+
+procedure TfrmGeContasAReceber.IbDtstTabelaAfterScroll(DataSet: TDataSet);
+begin
+  ControleLabels;
 end;
 
 procedure TfrmGeContasAReceber.IbDtstTabelaBAIXADOGetText(Sender: TField;
@@ -670,6 +687,25 @@ begin
 //    if ( (Sender = dbValorAReceber) or (Sender = dbValorMulta) ) then
 //      IbDtstTabelaVALORSALDO.Value := IbDtstTabelaVALORREC.AsCurrency + IbDtstTabelaVALORMULTA.AsCurrency - IbDtstTabelaVALORRECTOT.AsCurrency;
 
+end;
+
+procedure TfrmGeContasAReceber.ControleLabels;
+begin
+  lblVenda.Caption  := 'No. Venda:';
+  daVenda.DataField := 'ANOVENDA';
+  dnVenda.DataField := 'NUMVENDA';
+
+  lblNFe.Caption  := 'NF-e:';
+  dbNFe.DataField := 'NFE_VENDA';
+  if (IbDtstTabelaNUMOS.AsInteger > 0) then
+  begin
+    lblVenda.Caption  := 'No. OS:';
+    daVenda.DataField := 'ANOOS';
+    dnVenda.DataField := 'NUMOS';
+
+    lblNFe.Caption  := 'NFS-e:';
+    dbNFe.DataField := 'NFSE_OS';
+  end;
 end;
 
 procedure TfrmGeContasAReceber.dbFormaPagtoClick(Sender: TObject);
@@ -862,6 +898,7 @@ begin
   dbValorAReceber.ReadOnly := (not cdsPagamentos.IsEmpty);
   btbtnIncluirLote.Enabled := btbtnIncluir.Enabled;
   HabilitarDesabilitar_Btns;
+  ControleLabels;
 
   CarregarFormaPagto(IbDtstTabelaEMPRESA.AsString);
   CarregarTipoReceita( (IbDtstTabela.State in [dsEdit, dsInsert]) );
@@ -872,6 +909,8 @@ begin
   inherited;
   if ( not OcorreuErro ) then
     AbrirPagamentos( IbDtstTabelaANOLANC.AsInteger, IbDtstTabelaNUMLANC.AsInteger );
+
+  ControleLabels;
 end;
 
 procedure TfrmGeContasAReceber.btbtnIncluirClick(Sender: TObject);

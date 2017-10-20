@@ -9,9 +9,10 @@ uses
   Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, StdCtrls, cxButtons, ExtCtrls, ToolWin, ComCtrls,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinVS2010;
+  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrMemo = class(TfrmGrPadrao)

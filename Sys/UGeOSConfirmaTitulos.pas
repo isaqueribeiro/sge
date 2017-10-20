@@ -38,7 +38,6 @@ type
     cdsTitulosANOLANC: TSmallintField;
     cdsTitulosNUMLANC: TIntegerField;
     cdsTitulosPARCELA: TSmallintField;
-    cdsTitulosTIPPAG: TStringField;
     cdsTitulosDTEMISS: TDateField;
     cdsTitulosDTVENC: TDateField;
     cdsTitulosLancamento: TStringField;
@@ -55,7 +54,6 @@ type
     Label3: TLabel;
     lblTotalDiferenca: TLabel;
     cdsTitulosDiaSemana: TSmallintField;
-    cdsTitulosCNPJ: TStringField;
     cdsTitulosVALORREC: TBCDField;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
@@ -71,6 +69,8 @@ type
     cdsTitulosVALORRECTOT: TBCDField;
     cdsTitulosVALORSALDO: TBCDField;
     cdsTitulosBAIXADO: TSmallintField;
+    cdsTitulosCNPJ: TWideStringField;
+    cdsTitulosTIPPAG: TWideStringField;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

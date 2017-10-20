@@ -6238,7 +6238,7 @@ inherited frmGeOS: TfrmGeOS
   inherited ImgList: TImageList
     Left = 704
     Bitmap = {
-      494C01012C00F000800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012C00F000840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -9236,89 +9236,6 @@ inherited frmGeOS: TfrmGeOS
       Size = 12
     end
   end
-  object IbStrPrcGerarTitulos: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_GERAR_TITULOS_OS'
-    Left = 768
-    Top = 200
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'EMPRESA'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftInteger
-        Name = 'CLIENTE_COD'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftString
-        Name = 'CLIENTE_CNPJ'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'PARCELAS'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_TOTAL'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'PARCELA'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'EMISSAO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'VENCIMENTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_DOCUMENTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'FORMA_PAGTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'DATA_FINALIZ_OS'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANO_LANC'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUM_LANC'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANO_OS'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUM_OS'
-        ParamType = ptInput
-      end>
-  end
   object dtsTitulos: TDataSource
     AutoEdit = False
     DataSet = qryTitulos
@@ -9996,5 +9913,110 @@ inherited frmGeOS: TfrmGeOS
     ProviderName = 'dtpCondicaoPagto'
     Left = 944
     Top = 184
+  end
+  object fdStpGerarTitulos: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_GERAR_TITULOS_OS'
+    Left = 768
+    Top = 200
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO_OS'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'NUM_OS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptOutput
+        Size = 18
+      end
+      item
+        Position = 4
+        Name = 'CLIENTE_COD'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end
+      item
+        Position = 5
+        Name = 'CLIENTE_CNPJ'
+        DataType = ftString
+        ParamType = ptOutput
+        Size = 18
+      end
+      item
+        Position = 6
+        Name = 'PARCELAS'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 7
+        Name = 'VALOR_TOTAL'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 2
+        ParamType = ptOutput
+      end
+      item
+        Position = 8
+        Name = 'PARCELA'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 9
+        Name = 'EMISSAO'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 10
+        Name = 'VENCIMENTO'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 11
+        Name = 'VALOR_DOCUMENTO'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 2
+        ParamType = ptOutput
+      end
+      item
+        Position = 12
+        Name = 'FORMA_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 13
+        Name = 'DATA_FINALIZ_OS'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 14
+        Name = 'ANO_LANC'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 15
+        Name = 'NUM_LANC'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end>
   end
 end

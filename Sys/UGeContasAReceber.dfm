@@ -1405,7 +1405,8 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     inherited btbtnExcluir: TcxButton
       Left = 238
       TabOrder = 3
-      ExplicitLeft = 238
+      ExplicitLeft = 236
+      ExplicitTop = -2
     end
     inherited btbtnCancelar: TcxButton
       Left = 317
@@ -1518,6 +1519,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     end
   end
   inherited IbDtstTabela: TIBDataSet
+    AfterScroll = IbDtstTabelaAfterScroll
     BeforePost = IbDtstTabelaBeforePost
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
@@ -1553,6 +1555,8 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  , r.Enviado'
       '  , r.Anovenda'
       '  , r.Numvenda'
+      '  , r.AnoOS'
+      '  , r.NumOS'
       '  , r.Situacao'
       '  , r.Competencia_apuracao'
       '  , c.Nome as NomeCliente'
@@ -1562,11 +1566,19 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       
         '  , right('#39'0000000'#39' || vn.Nfe, 7) || '#39'/'#39' || trim(vn.Serie) as NF' +
         'E_VENDA'
+      '  , os.nfs_serie'
+      '  , os.nfs_numero'
+      
+        '  , right('#39'0000000'#39' || os.nfs_numero, 7) || '#39'/'#39' || trim(os.nfs_s' +
+        'erie) as NFSE_OS'
       'from TBCONTREC r'
       '  left join TBCLIENTE c on (c.Codigo = r.Cliente)'
       
         '  left join TBVENDAS vn on (vn.Ano = r.Anovenda and vn.Codcontro' +
-        'l = r.Numvenda)')
+        'l = r.Numvenda)'
+      
+        '  left join TBOS os on (os.Ano = r.AnoOS and os.Controle = r.Num' +
+        'OS)')
     GeneratorField.Field = 'NUMLANC'
     GeneratorField.Generator = 'GEN_CONTAREC_NUM_2011'
     Left = 768
@@ -1778,6 +1790,16 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       Origin = 'TBCONTREC.NUMVENDA'
       DisplayFormat = '0000000'
     end
+    object IbDtstTabelaANOOS: TSmallintField
+      FieldName = 'ANOOS'
+      Origin = '"TBCONTREC"."ANOOS"'
+      DisplayFormat = '0000'
+    end
+    object IbDtstTabelaNUMOS: TIntegerField
+      FieldName = 'NUMOS'
+      Origin = '"TBCONTREC"."NUMOS"'
+      DisplayFormat = '0000000'
+    end
     object IbDtstTabelaPAGO_: TIBStringField
       Alignment = taCenter
       DisplayLabel = 'Baixado?'
@@ -1809,6 +1831,20 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       DisplayLabel = 'NF-e'
       FieldName = 'NFE_VENDA'
       Size = 33
+    end
+    object IbDtstTabelaNFS_SERIE: TIBStringField
+      FieldName = 'NFS_SERIE'
+      Origin = '"TBOS"."NFS_SERIE"'
+      Size = 4
+    end
+    object IbDtstTabelaNFS_NUMERO: TIntegerField
+      FieldName = 'NFS_NUMERO'
+      Origin = '"TBOS"."NFS_NUMERO"'
+    end
+    object IbDtstTabelaNFSE_OS: TIBStringField
+      FieldName = 'NFSE_OS'
+      ProviderFlags = []
+      Size = 23
     end
   end
   inherited DtSrcTabela: TDataSource
@@ -1935,11 +1971,12 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  ANOLANC = :OLD_ANOLANC and'
       '  NUMLANC = :OLD_NUMLANC')
     Left = 800
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 736
     Bitmap = {
-      494C01012B002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

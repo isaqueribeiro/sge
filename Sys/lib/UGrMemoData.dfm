@@ -1,8 +1,6 @@
 inherited frmGrMemoData: TfrmGrMemoData
   ActiveControl = edData
   Caption = '  Observa'#231#227'o'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   object lblObservacao: TLabel [2]

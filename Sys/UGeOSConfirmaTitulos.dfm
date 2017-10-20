@@ -639,14 +639,12 @@ inherited frmGeOSConfirmaTitulos: TfrmGeOSConfirmaTitulos
       ProviderFlags = [pfInUpdate]
       DisplayFormat = '00'
     end
-    object cdsTitulosCNPJ: TStringField
+    object cdsTitulosCNPJ: TWideStringField
       FieldName = 'CNPJ'
-      ProviderFlags = [pfInUpdate]
       Size = 18
     end
-    object cdsTitulosTIPPAG: TStringField
+    object cdsTitulosTIPPAG: TWideStringField
       FieldName = 'TIPPAG'
-      ProviderFlags = [pfInUpdate]
       Size = 35
     end
     object cdsTitulosVALORREC: TBCDField
@@ -725,7 +723,9 @@ inherited frmGeOSConfirmaTitulos: TfrmGeOSConfirmaTitulos
       '')
     SelectSQL.Strings = (
       'Update TBCONTREC Set'
-      '  Dtvenc = :Vencimento, Valorrec = :Valor'
+      
+        '    Tippag = :Tippag, Forma_Pagto = :Forma_Pagto, Dtvenc = :Venc' +
+        'imento, Valorrec = :Valor'
       'where AnoOS = :AnoOS'
       '  and NumOS = :NumOS'
       '  and Anolanc = :Anolanc'
