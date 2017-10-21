@@ -4664,6 +4664,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4705,7 +4706,6 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
-      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item

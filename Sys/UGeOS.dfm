@@ -7,6 +7,7 @@ inherited frmGeOS: TfrmGeOS
   ClientHeight = 694
   ClientWidth = 1145
   OldCreateOrder = True
+  ExplicitTop = -66
   ExplicitWidth = 1161
   ExplicitHeight = 733
   PixelsPerInch = 96
@@ -5032,7 +5033,7 @@ inherited frmGeOS: TfrmGeOS
         Top = 469
         Width = 1137
         Height = 153
-        ActivePage = TbsTitulo
+        ActivePage = TbsRecebimento
         Align = alClient
         TabOrder = 2
         object TbsRecebimento: TTabSheet
@@ -5462,6 +5463,8 @@ inherited frmGeOS: TfrmGeOS
               TabOrder = 1
               TabStop = False
               OnClick = btnGerarBoletoClick
+              ExplicitLeft = -2
+              ExplicitTop = 19
             end
             object btnTituloEditar: TBitBtn
               Left = 0
@@ -6238,7 +6241,7 @@ inherited frmGeOS: TfrmGeOS
   inherited ImgList: TImageList
     Left = 704
     Bitmap = {
-      494C01012C00F000840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012C00F000880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -9468,7 +9471,7 @@ inherited frmGeOS: TfrmGeOS
     object nmGerarImprimirBoletos: TMenuItem
       Tag = 20
       Caption = 'Gerar / Imprimir &Boletos'
-      Enabled = False
+      OnClick = nmGerarImprimirBoletosClick
     end
   end
   object ppCorrigirDadosGerais: TPopupMenu

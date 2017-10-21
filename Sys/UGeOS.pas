@@ -608,6 +608,7 @@ type
     procedure btnTituloEditarClick(Sender: TObject);
     procedure cdsOSFormaPagtoBeforePost(DataSet: TDataSet);
     procedure nmImprimirOSClick(Sender: TObject);
+    procedure nmGerarImprimirBoletosClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -661,7 +662,8 @@ type
     function GetTotalValorFormaPagto_APrazo : Currency;
     function GetTotalValorServicos : Currency;
     function GetGerarEstoqueCliente : Integer; virtual; abstract;
-    function BoletosGerados : Boolean; virtual; abstract;
+    function FormaPagtoEmitiBoleto(const aFormaPagto : Integer) : Boolean;
+    function BoletosGerados : Boolean;
 
     function ServicosAprovados : Boolean;
     function ProdutosAprovados : Boolean;
@@ -1521,6 +1523,51 @@ begin
   end;
 
   qryTitulos.Open;
+end;
+
+function TfrmGeOS.FormaPagtoEmitiBoleto(const aFormaPagto : Integer) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select distinct');
+    SQL.Add('    r.forma_pagto');
+    SQL.Add('from TBCONTREC r');
+    SQL.Add('  inner join TBFORMPAGTO_CONTACOR f on (f.forma_pagto = r.forma_pagto)');
+    SQL.Add('  inner join TBBANCO_BOLETO c on (c.bco_codigo = f.conta_corrente and c.empresa = r.empresa and c.bco_gerar_boleto = 1)');
+    SQL.Add('where r.cliente  = ' + IbDtstTabelaCLIENTE.AsString);
+    SQL.Add('  and r.anoos    = ' + IbDtstTabelaANO.AsString);
+    SQL.Add('  and r.numos    = ' + IbDtstTabelaCONTROLE.AsString);
+
+    if (aFormaPagto > 0) then
+      SQL.Add('  and r.forma_pagto = ' + IntToStr(aFormaPagto));
+
+    Open;
+
+    Result := (FieldByName('forma_pagto').AsInteger > 0);
+
+    Close;
+  end;
+end;
+
+function TfrmGeOS.BoletosGerados: Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select b.nossonumero from TBCONTREC b');
+    SQL.Add('where b.cliente  = ' + IbDtstTabelaCLIENTE.AsString);
+    SQL.Add('  and b.anoos    = ' + IbDtstTabelaANO.AsString);
+    SQL.Add('  and b.numos    = ' + IbDtstTabelaCONTROLE.AsString);
+    SQL.Add('  and b.codbanco > 0');
+    Open;
+
+    Result := (Trim(FieldByName('nossonumero').AsString) <> EmptyStr);
+
+    Close;
+  end;
 end;
 
 procedure TfrmGeOS.qryTitulosCalcFields(DataSet: TDataSet);
@@ -3918,9 +3965,9 @@ end;
 
 procedure TfrmGeOS.btnGerarBoletoClick(Sender: TObject);
 begin
-  if ( not GetEstacaoEmitiBoleto ) then
+  if ( not FormaPagtoEmitiBoleto(0) ) then
   begin
-    ShowWarning('Estação de trabalho não habilitada para gerar boletos!');
+    ShowWarning('Forma(s) de Pagamento(s) não permite a emissão de boletos!');
     Exit;
   end;
 
@@ -3973,6 +4020,87 @@ begin
       end;
   finally
     sDadosEntrega.Free;
+  end;
+end;
+
+procedure TfrmGeOS.nmGerarImprimirBoletosClick(Sender: TObject);
+var
+  bExisteTitulo,
+  bProsseguir  : Boolean;
+  sDestinatario,
+  sMensagem    ,
+  sDocumento   ,
+  sFileNamePDF : String;
+const
+  MSG_REF_NFE = 'Referente a NFS-e %s';
+  MSG_REF_DOC = 'Referente a Ordem de Serviço No. %s';
+begin
+  if IbDtstTabela.IsEmpty then
+    Exit;
+
+  if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+  if (IbDtstTabela.State in [dsEdit, dsInsert]) then
+    Exit;
+
+  // Montar identificação do documento para título de e-mail
+
+  if ( IbDtstTabelaNFS_NUMERO.AsLargeInt > 0 ) then
+  begin
+    sMensagem  := Format(MSG_REF_NFE, [FormatFloat('###0000000', IbDtstTabelaNFS_NUMERO.AsLargeInt)]);
+    sDocumento := 'NFSe ' + FormatFloat('###0000000', IbDtstTabelaNFS_NUMERO.AsLargeInt) + '-' + IbDtstTabelaNFS_SERIE.AsString;
+  end
+  else
+  begin
+    sMensagem  := Format(MSG_REF_DOC, [IbDtstTabelaANO.AsString + '/' + FormatFloat('##00000', IbDtstTabelaCONTROLE.AsInteger)]);
+    sDocumento := 'OS. ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##00000', IbDtstTabelaCONTROLE.AsInteger);
+  end;
+
+  sDestinatario := GetClienteEmail(IbDtstTabelaCLIENTE.AsInteger);
+
+  DMNFe.ConfigurarEmail(IbDtstTabelaEMPRESA.AsString, sDestinatario, 'Boleta Bancária - ' + sDocumento, sMensagem);
+
+  AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger );
+  bExisteTitulo := not qryTitulos.IsEmpty;
+
+  if BoletosGerados then
+  begin
+    ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCLIENTE.AsInteger,
+      IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoOS, sFileNamePDF);
+    Exit;
+  end;
+
+  try
+    if (not BoletosGerados) and bExisteTitulo then
+    begin
+      bProsseguir := FormaPagtoEmitiBoleto(0);
+      if not bProsseguir then
+        ShowWarning('Forma(s) de Pagamento(s) não permite a emissão de boletos!');
+
+      if bProsseguir then
+        bProsseguir := cdsOSFormaPagto.Locate('PAGTO_PRAZO', FLAG_SIM, []);
+
+      if bProsseguir then
+        bProsseguir := ShowConfirm('Deseja gerar boletos para os títulos da Ordem de Serviço?');
+
+      if bProsseguir then
+      begin
+        btnGerarBoleto.Click;
+        Exit;
+      end
+      else
+        Exit;
+    end;
+
+    if (not BoletosGerados) then
+      ShowWarning('Não existem títulos com boletos gerados para a Ordem de Serviço.')
+    else
+      ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCLIENTE.AsInteger,
+        IbDtstTabelaANO.AsInteger, IbDtstTabelaCONTROLE.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoOS, sFileNamePDF);
+  finally
+    qryTitulos.Filter   := EmptyStr;
+    qryTitulos.Filtered := False;
   end;
 end;
 

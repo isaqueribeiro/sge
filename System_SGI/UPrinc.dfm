@@ -4645,6 +4645,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4659,7 +4660,6 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
-      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -6609,9 +6609,9 @@ object frmPrinc: TfrmPrinc
       ImageIndex = -1
     end
     object BrBtnExecuteTeamViewer: TdxBarLargeButton
-      Caption = 'Executar Team Viewer Ativar Conex'#227'o Remota)'
+      Caption = 'Executar Team Viewer (Ativar Conex'#227'o Remota)'
       Category = 18
-      Hint = 'Executar Team Viewer Ativar Conex'#227'o Remota)'
+      Hint = 'Executar Team Viewer (Ativar Conex'#227'o Remota)'
       Visible = ivAlways
       OnClick = BrBtnExecuteTeamViewerClick
       SyncImageIndex = False

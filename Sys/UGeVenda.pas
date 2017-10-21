@@ -516,6 +516,7 @@ type
     function GetTotalValorFormaPagto : Currency;
     function GetTotalValorFormaPagto_APrazo : Currency;
     function GetGerarEstoqueCliente(const Alertar : Boolean = TRUE) : Boolean;
+    function FormaPagtoEmitiBoleto(const aFormaPagto : Integer) : Boolean;
     function BoletosGerados : Boolean;
 
     function GetRotinaFinalizarID : String;
@@ -2371,9 +2372,9 @@ end;
 
 procedure TfrmGeVenda.btnGerarBoletoClick(Sender: TObject);
 begin
-  if ( not GetEstacaoEmitiBoleto ) then
+  if ( not FormaPagtoEmitiBoleto(0) ) then
   begin
-    ShowWarning('Estação de trabalho não habilitada para gerar boletos!');
+    ShowWarning('Forma(s) de Pagamento(s) não permite a emissão de boletos!');
     Exit;
   end;
 
@@ -2929,6 +2930,9 @@ begin
 
   DMNFe.ConfigurarEmail(IbDtstTabelaCODEMP.AsString, sDestinatario, 'Boleta Bancária - ' + sDocumento, sMensagem);
 
+  AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  bExisteTitulo := not qryTitulos.IsEmpty;
+
   if BoletosGerados then
   begin
     ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
@@ -2936,13 +2940,12 @@ begin
     Exit;
   end;
 
-  AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  bExisteTitulo := not qryTitulos.IsEmpty;
-
   try
     if (not BoletosGerados) and bExisteTitulo then
     begin
-      bProsseguir := GetEstacaoEmitiBoleto;
+      bProsseguir := FormaPagtoEmitiBoleto(0);
+      if not bProsseguir then
+        ShowWarning('Forma(s) de Pagamento(s) não permite a emissão de boletos!');
 
       if bProsseguir then
         bProsseguir := cdsVendaFormaPagto.Locate('VENDA_PRAZO', 1, []);
@@ -3306,6 +3309,32 @@ begin
 
       CommitTransaction;
     end;
+end;
+
+function TfrmGeVenda.FormaPagtoEmitiBoleto(const aFormaPagto : Integer) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select distinct');
+    SQL.Add('    r.forma_pagto');
+    SQL.Add('from TBCONTREC r');
+    SQL.Add('  inner join TBFORMPAGTO_CONTACOR f on (f.forma_pagto = r.forma_pagto)');
+    SQL.Add('  inner join TBBANCO_BOLETO c on (c.bco_codigo = f.conta_corrente and c.empresa = r.empresa and c.bco_gerar_boleto = 1)');
+    SQL.Add('where r.cliente  = ' + IbDtstTabelaCODCLIENTE.AsString);
+    SQL.Add('  and r.anovenda = ' + IbDtstTabelaANO.AsString);
+    SQL.Add('  and r.numvenda = ' + IbDtstTabelaCODCONTROL.AsString);
+
+    if (aFormaPagto > 0) then
+      SQL.Add('  and r.forma_pagto = ' + IntToStr(aFormaPagto));
+
+    Open;
+
+    Result := (FieldByName('forma_pagto').AsInteger > 0);
+
+    Close;
+  end;
 end;
 
 function TfrmGeVenda.BoletosGerados: Boolean;

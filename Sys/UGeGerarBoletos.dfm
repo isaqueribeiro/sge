@@ -60,6 +60,10 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       object tbsClientes: TTabSheet
         Caption = '&Clientes'
         ImageIndex = 12
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Bevel3: TBevel
           Left = 0
           Top = 296
@@ -797,7 +801,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     Left = 16
     Top = 197
     Bitmap = {
-      494C010121002200200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010121002200280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000009000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2013,8 +2017,8 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       '     Select'
       '       max(x.parcela)'
       '     from TBCONTREC x'
-      '     where x.anovenda = r.anovenda'
-      '       and x.numvenda = r.numvenda'
+      '     where (x.anovenda = r.anovenda and x.numvenda = r.numvenda)'
+      '        or (x.anoos = r.anoos and x.numos = r.numos)'
       '    ), r.parcela) as parcela_maxima'
       '  , r.codbanco'
       '  , r.nossonumero'
