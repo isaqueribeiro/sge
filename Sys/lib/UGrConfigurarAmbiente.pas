@@ -12,7 +12,7 @@ uses
   ACBrBase, ACBrPosPrinter,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)

@@ -1,19 +1,19 @@
 inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
-  ActiveControl = dbEmpresa
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Contas A Receber - Incluir Lote (Parcelas)'
-  ClientHeight = 481
+  ClientHeight = 522
   ClientWidth = 702
   ExplicitWidth = 716
-  ExplicitHeight = 518
+  ExplicitHeight = 559
   PixelsPerInch = 96
   TextHeight = 13
   object lblInforme: TLabel
-    Left = 16
-    Top = 442
+    Left = 8
+    Top = 486
     Width = 320
     Height = 32
+    Anchors = [akLeft, akBottom]
     Caption = 
       'Favor verificar os dados do lan'#231'amento antes de confirmar o lote' +
       ' de parcelas.'
@@ -28,7 +28,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
   end
   object Bevel1: TBevel
     Left = 0
-    Top = 115
+    Top = 155
     Width = 702
     Height = 4
     Align = alTop
@@ -38,7 +38,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 436
+    Top = 476
     Width = 702
     Height = 4
     Align = alTop
@@ -49,7 +49,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
   end
   object btnConfirmar: TcxButton
     Left = 531
-    Top = 443
+    Top = 484
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -109,10 +109,11 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 0
     OnClick = btnConfirmarClick
+    ExplicitTop = 443
   end
   object btnCancelar: TcxButton
     Left = 619
-    Top = 443
+    Top = 484
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -172,12 +173,13 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 1
     OnClick = btnCancelarClick
+    ExplicitTop = 443
   end
   object GrpBxLancamento: TGroupBox
     Left = 0
     Top = 0
     Width = 702
-    Height = 115
+    Height = 155
     Align = alTop
     Caption = 'Dados nominais'
     TabOrder = 2
@@ -187,6 +189,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       Width = 45
       Height = 13
       Caption = 'Empresa:'
+      Enabled = False
       FocusControl = dbEmpresa
     end
     object lblCliente: TLabel
@@ -198,8 +201,8 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       FocusControl = dbCliente
     end
     object lblEmissao: TLabel
-      Left = 489
-      Top = 64
+      Left = 17
+      Top = 104
       Width = 42
       Height = 13
       Caption = 'Emiss'#227'o:'
@@ -212,7 +215,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       ParentFont = False
     end
     object lblFormaPagto: TLabel
-      Left = 16
+      Left = 279
       Top = 64
       Width = 106
       Height = 13
@@ -220,7 +223,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       FocusControl = dbFormaPagto
     end
     object lblBanco: TLabel
-      Left = 167
+      Left = 430
       Top = 64
       Width = 33
       Height = 13
@@ -234,8 +237,8 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       ParentFont = False
     end
     object lblNotaFiscal: TLabel
-      Left = 600
-      Top = 64
+      Left = 128
+      Top = 104
       Width = 56
       Height = 13
       Caption = 'Nota Fiscal:'
@@ -248,6 +251,14 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       Font.Style = []
       ParentFont = False
     end
+    object Label1: TLabel
+      Left = 16
+      Top = 64
+      Width = 78
+      Height = 13
+      Caption = '&Tipo de Receita:'
+      FocusControl = dbTipoReceita
+    end
     object dbEmpresa: TDBLookupComboBox
       Left = 16
       Top = 40
@@ -256,13 +267,14 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       DataField = 'Empresa'
       DataSource = dtsDadosNominais
       DropDownRows = 10
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       KeyField = 'CNPJ'
-      ListField = 'RZSOC'
+      ListField = 'RAZAO'
       ListSource = dtsEmpresa
       ParentFont = False
       ReadOnly = True
@@ -344,8 +356,8 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       OnButtonClick = dbClienteButtonClick
     end
     object dbEmissao: TJvDBDateEdit
-      Left = 489
-      Top = 80
+      Left = 17
+      Top = 120
       Width = 105
       Height = 21
       DataField = 'Emissao'
@@ -408,7 +420,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       TabOrder = 4
     end
     object dbFormaPagto: TDBLookupComboBox
-      Left = 16
+      Left = 279
       Top = 80
       Width = 145
       Height = 21
@@ -427,9 +439,9 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       TabOrder = 2
     end
     object dbBanco: TDBLookupComboBox
-      Left = 167
+      Left = 430
       Top = 80
-      Width = 316
+      Width = 259
       Height = 21
       DataField = 'Banco'
       DataSource = dtsDadosNominais
@@ -447,8 +459,8 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       TabOrder = 3
     end
     object dbNotaFiscal: TDBEdit
-      Left = 600
-      Top = 80
+      Left = 128
+      Top = 120
       Width = 89
       Height = 21
       DataField = 'NotaFiscal'
@@ -462,15 +474,35 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       ParentFont = False
       TabOrder = 5
     end
+    object dbTipoReceita: TDBLookupComboBox
+      Left = 16
+      Top = 80
+      Width = 257
+      Height = 21
+      DataField = 'TipoReceita'
+      DataSource = dtsDadosNominais
+      DropDownRows = 10
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      KeyField = 'COD'
+      ListField = 'TIPOREC'
+      ListSource = dtsTpReceita
+      ParentFont = False
+      TabOrder = 6
+    end
   end
   object pnlParcelas: TPanel
     Left = 0
-    Top = 119
+    Top = 159
     Width = 702
     Height = 317
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitTop = 119
     object Bevel3: TBevel
       Left = 305
       Top = 0
@@ -756,6 +788,8 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
         TabOrder = 0
         OnEnter = dbgParcelasEnter
         OnExit = dbgParcelasExit
+        ExplicitLeft = 3
+        ExplicitTop = 19
         object dbgParcelasTbl: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = dtsParcelas
@@ -805,6 +839,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
               item
                 FieldName = 'CMP_DESC'
               end>
+            Properties.ListOptions.ShowHeader = False
             Properties.ListSource = dtsCompetencia
             Options.Filtering = False
             Options.Moving = False
@@ -866,8 +901,8 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
   object tmrAlerta: TTimer
     Interval = 500
     OnTimer = tmrAlertaTimer
-    Left = 344
-    Top = 447
+    Left = 16
+    Top = 487
   end
   object cdsDadosNominais: TClientDataSet
     Aggregates = <>
@@ -890,6 +925,10 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
         Name = 'ClienteCNPJ'
         DataType = ftString
         Size = 20
+      end
+      item
+        Name = 'TipoReceita'
+        DataType = ftSmallint
       end
       item
         Name = 'FormaPagto'
@@ -932,8 +971,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     Params = <>
     StoreDefs = True
     OnNewRecord = cdsDadosNominaisNewRecord
-    Left = 96
-    Top = 16
+    Left = 136
     object cdsDadosNominaisEmpresa: TStringField
       FieldName = 'Empresa'
     end
@@ -947,6 +985,11 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     end
     object cdsDadosNominaisClienteCNPJ: TStringField
       FieldName = 'ClienteCNPJ'
+    end
+    object cdsDadosNominaisTipoReceita: TSmallintField
+      DisplayLabel = 'Tipo de Receita'
+      FieldName = 'TipoReceita'
+      Required = True
     end
     object cdsDadosNominaisFormaPagto: TSmallintField
       DisplayLabel = 'Forma de Pagamento'
@@ -991,40 +1034,9 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       DisplayFormat = '00'
     end
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 336
-    Top = 256
-  end
-  object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
-    Left = 368
-    Top = 256
-  end
   object dtsDadosNominais: TDataSource
     DataSet = cdsDadosNominais
-    Left = 128
-    Top = 16
-  end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 336
-    Top = 288
-  end
-  object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
-    Left = 368
-    Top = 288
+    Left = 168
   end
   object cdsParcelas: TClientDataSet
     Aggregates = <>
@@ -1108,6 +1120,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  , r.empresa'
       '  , r.cliente'
       '  , r.cnpj'
+      '  , r.codtprec'
       '  , r.forma_pagto'
       '  , r.historic'
       '  , r.dtemiss'
@@ -1160,6 +1173,10 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       Origin = '"TBCONTREC"."CNPJ"'
       ProviderFlags = [pfInUpdate]
       Size = 18
+    end
+    object cdsContaAReceberCODTPREC: TSmallintField
+      FieldName = 'CODTPREC'
+      Origin = '"TBCONTREC"."CODTPREC"'
     end
     object cdsContaAReceberFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
@@ -1260,7 +1277,9 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  PARCELA,'
       '  STATUS,'
       '  CODBANCO,'
+      '  BANCO_FEBRABAN,'
       '  NOSSONUMERO,'
+      '  ESPECIE_BOLETO,'
       '  REMESSA,'
       '  PERCENTJUROS,'
       '  PERCENTMULTA,'
@@ -1270,6 +1289,9 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  ENVIADO,'
       '  ANOVENDA,'
       '  NUMVENDA,'
+      '  ANOOS,'
+      '  NUMOS,'
+      '  CODTPREC,'
       '  SITUACAO,'
       '  LOTE,'
       '  COMPETENCIA_APURACAO'
@@ -1284,6 +1306,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       '  BAIXADO = :BAIXADO,'
       '  CLIENTE = :CLIENTE,'
       '  CNPJ = :CNPJ,'
+      '  CODTPREC = :CODTPREC,'
       '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
       '  DTEMISS = :DTEMISS,'
       '  DTVENC = :DTVENC,'
@@ -1304,20 +1327,22 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     InsertSQL.Strings = (
       'insert into TBCONTREC'
       
-        '  (ANOLANC, BAIXADO, CLIENTE, CNPJ, COMPETENCIA_APURACAO, DTEMIS' +
-        'S, DTVENC, '
+        '  (ANOLANC, BAIXADO, CLIENTE, CNPJ, CODTPREC, COMPETENCIA_APURAC' +
+        'AO, DTEMISS, '
       
-        '   EMPRESA, ENVIADO, FORMA_PAGTO, HISTORIC, LOTE, NUMLANC, PARCE' +
-        'LA, SITUACAO, '
-      '   VALORREC, VALORRECTOT, VALORSALDO)'
+        '   DTVENC, EMPRESA, ENVIADO, FORMA_PAGTO, HISTORIC, LOTE, NUMLAN' +
+        'C, PARCELA, '
+      '   SITUACAO, VALORREC, VALORRECTOT, VALORSALDO)'
       'values'
       
-        '  (:ANOLANC, :BAIXADO, :CLIENTE, :CNPJ, :COMPETENCIA_APURACAO, :' +
-        'DTEMISS, '
+        '  (:ANOLANC, :BAIXADO, :CLIENTE, :CNPJ, :CODTPREC, :COMPETENCIA_' +
+        'APURACAO, '
       
-        '   :DTVENC, :EMPRESA, :ENVIADO, :FORMA_PAGTO, :HISTORIC, :LOTE, ' +
-        ':NUMLANC, '
-      '   :PARCELA, :SITUACAO, :VALORREC, :VALORRECTOT, :VALORSALDO)')
+        '   :DTEMISS, :DTVENC, :EMPRESA, :ENVIADO, :FORMA_PAGTO, :HISTORI' +
+        'C, :LOTE, '
+      
+        '   :NUMLANC, :PARCELA, :SITUACAO, :VALORREC, :VALORRECTOT, :VALO' +
+        'RSALDO)')
     DeleteSQL.Strings = (
       'delete from TBCONTREC'
       'where'
@@ -1326,35 +1351,145 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     Left = 632
     Top = 288
   end
-  object tblBanco: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBBANCO_BOLETO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 336
+  object dtsCompetencia: TDataSource
+    DataSet = fdQryCompetencia
+    Left = 368
     Top = 320
+  end
+  object fdQryTipoReceita: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBTPRECEITA r'
+      'where (r.ativo = :ativo) or (:todos = 1)'
+      'order by r.tiporec'
+      '')
+    Left = 336
+    Top = 352
+    ParamData = <
+      item
+        Name = 'ATIVO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object dtsTpReceita: TDataSource
+    DataSet = fdQryTipoReceita
+    Left = 368
+    Top = 352
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 336
+    Top = 216
+  end
+  object dtsEmpresa: TDataSource
+    DataSet = fdQryEmpresa
+    Left = 368
+    Top = 216
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '      f.cod'
+      '    , f.descri'
+      '    , count(x.conta_corrente) as conta_corrente'
+      'from TBFORMPAGTO f'
+      '  left join ('
+      '    Select'
+      '        fc.forma_pagto'
+      '      , fc.conta_corrente'
+      '      , c.descricao'
+      '    from TBFORMPAGTO_CONTACOR fc'
+      
+        '      inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corr' +
+        'ente and c.empresa = :empresa)'
+      '    where c.tipo = 1'
+      '  ) x on (x.forma_pagto = f.cod)'
+      'group by'
+      '      f.cod'
+      '    , f.descri'
+      'order by'
+      '      f.descri')
+    Left = 336
+    Top = 248
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object dtsFormaPagto: TDataSource
+    DataSet = fdQryFormaPagto
+    Left = 368
+    Top = 248
+  end
+  object fdQryBanco: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    b.bco_codigo'
+      '  , b.bco_cod'
+      '  , b.empresa'
+      '  , b.bco_nome'
+      '  , b.bco_agencia'
+      '  , b.bco_cc'
+      '  , b.bco_nome ||'
+      
+        '    coalesce('#39' - AG. '#39'  || nullif(trim(b.bco_agencia), '#39#39'), '#39#39') ' +
+        '||'
+      
+        '    coalesce('#39' - C/C. '#39' || nullif(trim(b.bco_cc), '#39#39'), '#39#39')  as b' +
+        'co_nome_agencia_conta'
+      'from TBBANCO_BOLETO b'
+      'order by'
+      '  2, 7')
+    Left = 336
+    Top = 280
   end
   object dtsBanco: TDataSource
-    DataSet = tblBanco
+    DataSet = fdQryBanco
     Left = 368
-    Top = 320
+    Top = 280
   end
-  object tblCompetencia: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBCOMPETENCIA'
-    UniDirectional = False
+  object fdQryCompetencia: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.cmp_num'
+      '  , c.cmp_desc'
+      'from TBCOMPETENCIA c'
+      'order by c.cmp_desc')
     Left = 336
-    Top = 352
-  end
-  object dtsCompetencia: TDataSource
-    DataSet = tblCompetencia
-    Left = 368
-    Top = 352
+    Top = 312
   end
 end

@@ -15,6 +15,10 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, cxCalendar, cxCurrencyEdit,
   IBX.IBUpdateSQL, cxTextEdit, cxDBLookupComboBox, Data.DB,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
@@ -34,8 +38,6 @@ type
     cdsDadosNominaisDiaVencimento: TSmallintField;
     cdsDadosNominaisNumeroDias: TIntegerField;
     Bevel1: TBevel;
-    tblEmpresa: TIBTable;
-    dtsEmpresa: TDataSource;
     dtsDadosNominais: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
@@ -44,15 +46,9 @@ type
     lblEmissao: TLabel;
     dbEmissao: TJvDBDateEdit;
     cdsDadosNominaisFornecedorNome: TStringField;
-    tblFormaPagto: TIBTable;
-    dtsFormaPagto: TDataSource;
     cdsDadosNominaisFormaPagto: TSmallintField;
     cdsDadosNominaisCondicaoPagto: TSmallintField;
     cdsDadosNominaisTipoDespesa: TIntegerField;
-    tblCondicaoPagto: TIBTable;
-    dtsCondicaoPagto: TDataSource;
-    qryTipoDespesa: TIBQuery;
-    dtsTpDespesa: TDataSource;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
     lblCondicaoPagto: TLabel;
@@ -122,8 +118,16 @@ type
     cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField;
     cdsParcelasCompetencia: TIntegerField;
     dbgParcelasTblCompetencia: TcxGridDBColumn;
-    tblCompetencia: TIBTable;
+    fdQryEmpresa: TFDQuery;
+    dtsEmpresa: TDataSource;
+    fdQryFormaPagto: TFDQuery;
+    dtsFormaPagto: TDataSource;
+    fdQryCondicaoPagto: TFDQuery;
+    dtsCondicaoPagto: TDataSource;
+    fdQryCompetencia: TFDQuery;
     dtsCompetencia: TDataSource;
+    fdQryTipoDespesa: TFDQuery;
+    dtsTpDespesa: TDataSource;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -140,6 +144,8 @@ type
   private
     { Private declarations }
     FLote : String;
+    procedure CarregarLista(const pDataSet : TDataSet);
+    procedure CarregarFormaPagto(const pEmpresa : String);
     procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
 
     function GerarLancamentos : Boolean;
@@ -154,6 +160,24 @@ type
     var aEmpresa, aLote : String;
     var aFornecedor : Integer;
     var aDataEmissao, aVencimentoFirst, aVencimentoLast : TDateTime) : Boolean;
+
+(*
+  Tabelas:
+  - TBCONTPAG
+  - TBEMPRESA
+  - TBFORNECEDOR
+  - TBCONTPAG_BAIXA
+  - TBBANCO_BOLETO
+  - TBFORMPAGTO
+  - TBCOMPETENCIA
+
+  Views:
+  - VW_EMPRESA
+  - VW_CONDICAOPAGTO
+
+  Procedures:
+
+*)
 
 implementation
 
@@ -336,10 +360,35 @@ begin
   end;
 end;
 
+procedure TfrmGeContasAPagarLoteParcela.CarregarFormaPagto(
+  const pEmpresa: String);
+begin
+  with fdQryFormaPagto, Params do
+  begin
+    Close;
+    ParamByName('empresa').AsString := Trim(pEmpresa);
+    Open;
+
+    Last;
+    First;
+  end;
+end;
+
+procedure TfrmGeContasAPagarLoteParcela.CarregarLista(const pDataSet: TDataSet);
+begin
+  if pDataSet.Active then
+    pDataSet.Close;
+
+  pDataSet.Open;
+
+  pDataSet.Last;
+  pDataSet.First;
+end;
+
 procedure TfrmGeContasAPagarLoteParcela.CarregarTipoDespesa(
   const ApenasAtivos: Boolean);
 begin
-  with qryTipoDespesa, Params do
+  with fdQryTipoDespesa, Params do
   begin
     Close;
     ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
@@ -428,10 +477,10 @@ begin
   inherited;
   cdsContaAPagar.GeneratorField.Generator := 'GEN_CONTAPAG_NUM_' + FormatFloat('0000', YearOf(Date));
 
-  tblEmpresa.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  tblCompetencia.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryCompetencia);
+  CarregarFormaPagto(gUsuarioLogado.Empresa);
+  CarregarLista(fdQryCondicaoPagto);
   CarregarTipoDespesa(True);
 
   cdsDadosNominais.CreateDataSet;

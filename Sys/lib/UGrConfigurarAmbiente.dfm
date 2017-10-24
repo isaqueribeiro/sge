@@ -167,6 +167,10 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     object TbsGeral: TTabSheet
       BorderWidth = 4
       Caption = 'Configura'#231#245'es Geral'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GrpBxPadrao: TGroupBox
         Left = 0
         Top = 0
@@ -510,6 +514,10 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     object TbsPDV: TTabSheet
       Caption = 'Impress'#227'o Cupom / PDV'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GrpBxImpressaoCupomNFiscal: TGroupBox
         AlignWithMargins = True
         Left = 3

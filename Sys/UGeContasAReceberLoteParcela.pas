@@ -16,6 +16,10 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, cxCalendar, cxCurrencyEdit,
   IBX.IBUpdateSQL, cxTextEdit, cxDBLookupComboBox,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
@@ -35,8 +39,6 @@ type
     cdsDadosNominaisDiaVencimento: TSmallintField;
     cdsDadosNominaisNumeroDias: TIntegerField;
     Bevel1: TBevel;
-    tblEmpresa: TIBTable;
-    dtsEmpresa: TDataSource;
     dtsDadosNominais: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
@@ -44,8 +46,6 @@ type
     dbCliente: TJvDBComboEdit;
     lblEmissao: TLabel;
     dbEmissao: TJvDBDateEdit;
-    tblFormaPagto: TIBTable;
-    dtsFormaPagto: TDataSource;
     cdsDadosNominaisFormaPagto: TSmallintField;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
@@ -110,14 +110,24 @@ type
     cdsDadosNominaisCliente: TIntegerField;
     cdsDadosNominaisClienteNome: TStringField;
     cdsDadosNominaisClienteCNPJ: TStringField;
-    tblBanco: TIBTable;
-    dtsBanco: TDataSource;
     cdsDadosNominaisBanco: TIntegerField;
     cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField;
     cdsParcelasCompetencia: TIntegerField;
     dbgParcelasTblCompetencia: TcxGridDBColumn;
-    tblCompetencia: TIBTable;
     dtsCompetencia: TDataSource;
+    Label1: TLabel;
+    dbTipoReceita: TDBLookupComboBox;
+    cdsDadosNominaisTipoReceita: TSmallintField;
+    fdQryTipoReceita: TFDQuery;
+    dtsTpReceita: TDataSource;
+    fdQryEmpresa: TFDQuery;
+    dtsEmpresa: TDataSource;
+    fdQryFormaPagto: TFDQuery;
+    dtsFormaPagto: TDataSource;
+    fdQryBanco: TFDQuery;
+    dtsBanco: TDataSource;
+    fdQryCompetencia: TFDQuery;
+    cdsContaAReceberCODTPREC: TSmallintField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -134,6 +144,10 @@ type
   private
     { Private declarations }
     FLote : String;
+    procedure CarregarLista(const pDataSet : TDataSet);
+    procedure CarregarFormaPagto(const pEmpresa : String);
+    procedure CarregarTipoReceita(const ApenasAtivos : Boolean);
+
     function GerarLancamentos : Boolean;
   public
     { Public declarations }
@@ -146,6 +160,21 @@ type
     var aEmpresa, aLote : String;
     var aCliente : Integer;
     var aDataEmissao, aVencimentoFirst, aVencimentoLast : TDateTime) : Boolean;
+
+(*
+  Tabelas:
+  - TBCONTREC
+  - TBEMPRESA
+  - TBCLIENTE
+  - TBBANCO_BOLETO
+  - TBFORMPAGTO
+
+  Views:
+  - VW_EMPRESA
+
+  Procedures:
+
+*)
 
 implementation
 
@@ -328,6 +357,47 @@ begin
   end;
 end;
 
+procedure TfrmGeContasAReceberLoteParcela.CarregarFormaPagto(
+  const pEmpresa: String);
+begin
+  with fdQryFormaPagto, Params do
+  begin
+    Close;
+    ParamByName('empresa').AsString := Trim(pEmpresa);
+    Open;
+
+    Last;
+    First;
+  end;
+end;
+
+procedure TfrmGeContasAReceberLoteParcela.CarregarLista(
+  const pDataSet: TDataSet);
+begin
+  if pDataSet.Active then
+    pDataSet.Close;
+
+  pDataSet.Open;
+
+  pDataSet.Last;
+  pDataSet.First;
+end;
+
+procedure TfrmGeContasAReceberLoteParcela.CarregarTipoReceita(
+  const ApenasAtivos: Boolean);
+begin
+  with fdQryTipoReceita, Params do
+  begin
+    Close;
+    ParamByName('ativo').AsInteger := IfThen(ApenasAtivos, 1, 0);
+    ParamByName('todos').AsInteger := IfThen(ApenasAtivos, 0, 1);
+    Open;
+
+    Last;
+    First;
+  end;
+end;
+
 procedure TfrmGeContasAReceberLoteParcela.cdsDadosNominaisNewRecord(
   DataSet: TDataSet);
 begin
@@ -409,10 +479,11 @@ begin
   inherited;
   cdsContaAReceber.GeneratorField.Generator := 'GEN_CONTAREC_NUM_' + FormatFloat('0000', YearOf(Date));
 
-  tblEmpresa.Open;
-  tblFormaPagto.Open;
-  tblBanco.Open;
-  tblCompetencia.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryBanco);
+  CarregarLista(fdQryCompetencia);
+  CarregarFormaPagto(gUsuarioLogado.Empresa);
+  CarregarTipoReceita(True);
 
   cdsDadosNominais.CreateDataSet;
 end;
@@ -438,6 +509,7 @@ begin
         cdsContaAReceberEMPRESA.Value  := cdsDadosNominaisEmpresa.AsString;
         cdsContaAReceberCLIENTE.Value  := cdsDadosNominaisCliente.AsInteger;
         cdsContaAReceberCNPJ.Value     := cdsDadosNominaisClienteCNPJ.AsString;
+        cdsContaAReceberCODTPREC.Value    := cdsDadosNominaisTipoReceita.AsInteger;
         cdsContaAReceberFORMA_PAGTO.Value := cdsDadosNominaisFormaPagto.AsInteger;
         cdsContaAReceberHISTORIC.Value    := '---' + #13 + cdsParcelasObservacao.AsString;
         cdsContaAReceberDTEMISS.Value  := cdsDadosNominaisEmissao.AsDateTime;
