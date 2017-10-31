@@ -459,6 +459,7 @@ const
 
   REJEICAO_NFE_DUPLICIDADE = 204;    // Refeição: Duplicidade de NF-e [nRec:999999999999999]
 
+  REJEICAO_NFE_EMISSOR_NAO_HABIL = 203; // Rejeicao: Emitente não habilitado para emissão de NF-e
   REJEICAO_NFE_NOTA_DENEGADA     = 205; // Rejeicao: NF-e esta denegada na base de dados da SEFAZ
   REJEICAO_NFE_IE_NAO_CADASTRADO = 233; // Rejeicao: IE do destinatario nao cadastrada
   REJEICAO_NFE_IE_NAO_VINCULADO  = 234; // Rejeicao: IE do destinatario nao vinculada ao CNPJ
@@ -1599,6 +1600,10 @@ var
 begin
 (*
   IMR - 20/05/2016 :
+    Inclusão da rejeição 203 para que o recibo de envio não seja guardado no
+    registro de origem (Venda ou Compra) da NF-e.
+
+  IMR - 20/05/2016 :
     Inserção da rotina que renomeia os arquivos XML de envio e retorno do Lote e
     Recibo quando o processo de geração/envio da NFe é finalizado corretamente.
     Neste passo o objeto "ACBrNFe.NotasFiscais" é zerado com o objetivo de
@@ -1707,6 +1712,9 @@ begin
                 'Favor gerar NF-e novamente!';
             end;
 
+          REJEICAO_NFE_EMISSOR_NAO_HABIL,
+          REJEICAO_NFE_IE_NAO_CADASTRADO,
+          REJEICAO_NFE_IE_NAO_VINCULADO ,
           REJEICAO_NFE_BC_ICMS_ERR,
           REJEICAO_NFE_TO_ICMS_ERR,
           REJEICAO_NFE_TO_PROD_ERR,
@@ -5977,6 +5985,10 @@ var
 begin
 (*
   IMR - 20/05/2016 :
+    Inclusão da rejeição 203 para que o recibo de envio não seja guardado no
+    registro de origem (Venda ou Compra) da NF-e.
+
+  IMR - 20/05/2016 :
     Inserção da rotina que renomeia os arquivos XML de envio e retorno do Lote e
     Recibo quando o processo de geração/envio da NFCe é finalizado corretamente.
     Neste passo o objeto "ACBrNFe.NotasFiscais" é zerado com o objetivo de
@@ -6079,6 +6091,9 @@ begin
                 'Favor gerar NFC-e novamente!';
             end;
 
+          REJEICAO_NFE_EMISSOR_NAO_HABIL,
+          REJEICAO_NFE_IE_NAO_CADASTRADO,
+          REJEICAO_NFE_IE_NAO_VINCULADO ,
           REJEICAO_NFE_BC_ICMS_ERR,
           REJEICAO_NFE_TO_ICMS_ERR,
           REJEICAO_NFE_TO_PROD_ERR,

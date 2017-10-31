@@ -16,12 +16,12 @@ File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeEfetuarLogin.pas'
 
 [Modules]
 Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-Module2=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-Module3=default.htm
-Module4=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module2=default.htm
+Module3=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module4=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
 Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
 Module7=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module8=D:\Projetos\ASS\SGE\trunk\Sys\lib\UBaseObject.pas
 Module9=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnNFe.pas
@@ -51,15 +51,10 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
 
-[D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=1
+FormOnTop=0
 
 [default.htm]
 ModuleType=TURLModule
@@ -67,12 +62,17 @@ ModuleType=TURLModule
 [D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj]
 ModuleType=TBaseProject
 
+[D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -183,10 +183,6 @@ FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
 FormState=1
 FormOnTop=0
 
@@ -312,12 +308,12 @@ EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\lib\UBaseObject.pas
 [View6]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=15
-CursorY=273
-TopLine=273
+CursorX=33
+CursorY=462
+TopLine=443
 LeftCol=1
 Elisions=
-Bookmarks={1,2462,24}{2,3909,1}{3,1475,1}{7,7527,1}
+Bookmarks={1,2470,24}{2,3917,1}{3,1476,1}{7,7542,1}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View7]
