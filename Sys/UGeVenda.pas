@@ -2051,6 +2051,9 @@ begin
     Exit;
   end;
 
+  if not DMNFe.ValidarEnderecoCliente(IbDtstTabelaCODCLIENTE.AsInteger) then
+    Exit;
+
   if not DMNFe.ValidarCFOP(IbDtstTabelaCODEMP.AsString, IbDtstTabelaCODCLIENTE.AsInteger, 0, IbDtstTabelaCFOP.AsInteger) then
     Exit;
 

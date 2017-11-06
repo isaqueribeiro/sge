@@ -335,6 +335,7 @@ type
     function ReciboNaoExisteNaVenda(const sRecibo : String) : Boolean;
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
     function ValidarCFOP(const aCNPJEmitente : String; const aCodigoCliente, aCodigoFornecedor, aCFOP : Integer) : Boolean;
+    function ValidarEnderecoCliente(const aCliente : Integer) : Boolean;
     function GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
     function GetInformacaoFisco(const DataSetOrigem : TDataSet) : String;
     function GetInformacaoComplementar(const sCNPJEmitente : String) : String;
@@ -1475,13 +1476,28 @@ begin
     ShowStop(sMensagem);
 end;
 
+function TDMNFe.ValidarEnderecoCliente(const aCliente : Integer) : Boolean;
+var
+  sCliente  ,
+  sMensagem : String;
+begin
+  sMensagem := EmptyStr;
+  sCliente  := IntToStr(aCliente);
+
+  // Desenvolver algorítimo de validação do endereço
+
+  Result := (Trim(sMensagem) = EmptyStr);
+  if not Result then
+    ShowStop(sMensagem);
+end;
+
 function TDMNFe.GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
 begin
   if Trim(sCNPJEmitente) = EmptyStr then
     LerConfiguracao(gUsuarioLogado.Empresa)
   else
     LerConfiguracao(sCNPJEmitente);
-      
+
   Result := (ConfigACBr.rgModoGerarNFe.ItemIndex = 1);
 end;
 
