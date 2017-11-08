@@ -1484,7 +1484,44 @@ begin
   sMensagem := EmptyStr;
   sCliente  := IntToStr(aCliente);
 
-  // Desenvolver algorítimo de validação do endereço
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    c.codigo');
+    SQL.Add('  , c.ender');
+    SQL.Add('  , c.numero_end');
+    SQL.Add('  , c.complemento');
+    SQL.Add('  , c.bairro');
+    SQL.Add('  , c.cidade');
+    SQL.Add('  , c.uf');
+    SQL.Add('  , m.cid_ibge');
+    SQL.Add('  , c.cep');
+    SQL.Add('  , coalesce(c.ender, '''')');
+    SQL.Add('    || coalesce('', ''  || nullif(trim(c.numero_end), ''''), '''')');
+    SQL.Add('    || coalesce('' - '' || nullif(trim(c.bairro), ''''), '''')');
+    SQL.Add('    || coalesce('' - '' || nullif(trim(c.cidade), ''''), '''')');
+    SQL.Add('    || coalesce('' - CEP '' || substring(nullif(trim(c.cep), '''') from 1 for 2) || ''.'' || substring(nullif(trim(c.cep), '''') from 3 for 3) || ''-'' || substring(nullif(trim(c.cep), '''') from 6 for 3), '''')');
+    SQL.Add('    as endereco_completo');
+    SQL.Add('from TBCLIENTE c');
+    SQL.Add('  left join TBCIDADE m on (m.cid_cod = c.cid_cod)');
+    SQL.Add('where c.codigo = ' + sCliente);
+    Open;
+
+    if (Trim(FieldByName('ender').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Logradouro não informado' + #13;
+    if (Trim(FieldByName('bairro').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Bairro não informado' + #13;
+    if (Trim(FieldByName('cidade').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Cidade não informada' + #13;
+    if (Trim(FieldByName('cid_ibge').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Código IBGE da cidade não informado' + #13;
+    if (Trim(FieldByName('cep').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Número do CEP não informado' + #13;
+
+    Close;
+  end;
 
   Result := (Trim(sMensagem) = EmptyStr);
   if not Result then
@@ -3032,13 +3069,14 @@ begin
       end;
 
       sInformacaoFisco := Trim(GetInformacaoFisco(qryCalculoImposto));
-      InfAdic.infCpl   := 'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
-                          IfThen(OcultarVencimentos, '', ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ') + #13 +
-                          'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * * * ' + #13 +
-                          'Observações: ' + qryCalculoImposto.FieldByName('OBS').AsString +
-                          IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-                            FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
-                            FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
+      InfAdic.infCpl   := #13 +
+        'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
+        IfThen(OcultarVencimentos, '', ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ') + #13 +
+        'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * * * ' + #13 +
+        'Observações: ' + qryCalculoImposto.FieldByName('OBS').AsString +
+        IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+          FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
+          FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
 
       if (sInformacaoFisco <> EmptyStr) then
         InfAdic.infAdFisco := sInformacaoFisco;
@@ -4448,13 +4486,14 @@ begin
       end;
 
       sInformacaoFisco := Trim(GetInformacaoFisco(qryEntradaCalculoImposto));
-      InfAdic.infCpl   := 'Compra: ' + qryEntradaCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
-                          ' - Forma/Cond. Pgto.: ' + qryEntradaCalculoImposto.FieldByName('FORMA_PAGO').AsString + '/' + qryEntradaCalculoImposto.FieldByName('COND_PAGO_FULL').AsString + ' * * * ' + #13 +
-                          'Usuário: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
-                          'Observações: ' + qryEntradaCalculoImposto.FieldByName('OBS').AsString +
-                          IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-                            FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
-                            FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
+      InfAdic.infCpl   := #13 +
+        'Compra: ' + qryEntradaCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
+        ' - Forma/Cond. Pgto.: ' + qryEntradaCalculoImposto.FieldByName('FORMA_PAGO').AsString + '/' + qryEntradaCalculoImposto.FieldByName('COND_PAGO_FULL').AsString + ' * * * ' + #13 +
+        'Usuário: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
+        'Observações: ' + qryEntradaCalculoImposto.FieldByName('OBS').AsString +
+        IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+          FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
+          FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
 
       if ( sInformacaoFisco <> EmptyStr ) then
         InfAdic.infAdFisco := sInformacaoFisco;
