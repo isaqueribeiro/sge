@@ -491,17 +491,18 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       '  , r.valorsaldo as valor_areceber'
       ''
       
-        '  , cast(r.anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.numvenda, 7) ' +
-        'as varchar(30)) as saida'
-      '  , r.anovenda     as saida_ano'
-      '  , r.numvenda     as saida_numero'
-      '  , Case when e.nfe is null'
-      '      then '#39'Venda sem Nota Fiscal'#39
+        '  , cast(coalesce(r.anovenda, r.anoos) || '#39'/'#39' || right('#39'0000000'#39 +
+        ' || coalesce(r.numvenda, r.numos), 7) as varchar(30)) as saida'
+      '  , coalesce(r.anovenda, r.anoos) as saida_ano'
+      '  , coalesce(r.numvenda, r.numos) as saida_numero'
+      '  , Case when coalesce(e.nfe, o.nfs_numero) is null'
+      '      then '#39'Saida sem Nota Fiscal'#39
       '      else '#39'Notal Fiscal'#39
       '    end as saida_doc_tipo'
       
-        '  , cast(right('#39'0000000'#39' || e.nfe, 7) || coalesce('#39'-'#39' || nullif(' +
-        'trim(e.serie), '#39#39'), '#39#39') as varchar(30)) as saida_doc'
+        '  , cast(right('#39'0000000'#39' || coalesce(e.nfe, o.nfs_numero), 7) ||' +
+        ' coalesce('#39'-'#39' || coalesce(nullif(trim(e.serie), '#39#39'), nullif(trim' +
+        '(o.nfs_serie), '#39#39')), '#39#39') as varchar(30)) as saida_doc'
       '  , e.nfe   as saida_doc_numero'
       '  , e.serie as saida_doc_serie'
       '  , f.nome  as saida_fornecedor'
@@ -513,7 +514,8 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       
         '  left join TBVENDAS e on (e.ano = r.anovenda and e.codcontrol =' +
         ' r.numvenda)'
-      '')
+      '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)')
+    ParamData = <>
   end
   inherited DtsPesquisa: TDataSource
     DataSet = CdsPesquisa

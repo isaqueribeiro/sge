@@ -4437,6 +4437,7 @@ object frmPrinc: TfrmPrinc
       object RbnBackstageViewConfig: TdxRibbonBackstageViewTabSheet
         Left = 132
         Top = 0
+        Active = True
         Caption = 'Configura'#231#245'es Gerais'
         DesignSize = (
           357
@@ -4464,7 +4465,7 @@ object frmPrinc: TfrmPrinc
           Left = 20
           Top = 52
           Width = 300
-          Height = 206
+          Height = 221
           Anchors = [akLeft, akTop, akBottom]
           BorderStyle = cxcbsNone
           Images = DMRecursos.ImgPrincipalEnabled
@@ -4488,6 +4489,13 @@ object frmPrinc: TfrmPrinc
             object RbnBackstageGalleryConfigNFe: TdxRibbonBackstageViewGalleryItem
               Caption = 'Configurar NF-e'
               Description = 'Configurar dados importantes para emiss'#227'o de NF-e'
+              ImageIndex = 9
+            end
+            object dxRibbonBackstageViewGalleryGroup1Item1: TdxRibbonBackstageViewGalleryItem
+              Caption = 'Configurar NFS-e'
+              Description = 
+                'Configurar dados importantes para emiss'#227'o de NFS-e (Nota Fiscal ' +
+                'de Servi'#231'os)'
               ImageIndex = 9
             end
             object RbnBackstageGalleryConfigAmb: TdxRibbonBackstageViewGalleryItem
@@ -4565,7 +4573,6 @@ object frmPrinc: TfrmPrinc
       object RbnBackstageViewBackup: TdxRibbonBackstageViewTabSheet
         Left = 132
         Top = 0
-        Active = True
         Caption = 'Backup / Retore Database'
         DesignSize = (
           357
@@ -5611,10 +5618,21 @@ object frmPrinc: TfrmPrinc
     object BrBtnConfigurarNFe: TdxBarLargeButton
       Caption = 'Configurar NF-e'
       Category = 2
-      Hint = 'Configurar NF-e'
+      Hint = 'Configurar NF-e (Nota Fiscal de Vendas)'
       Visible = ivAlways
       LargeImageIndex = 9
       OnClick = nmConfigurarNFeACBrClick
+      HotImageIndex = 9
+      SyncImageIndex = False
+      ImageIndex = 9
+    end
+    object BrBtnConfigurarNFSe: TdxBarLargeButton
+      Caption = 'Configurar NFS-e'
+      Category = 2
+      Hint = 'Configurar NFS-e (Nota Fiscal de Servi'#231'os)'
+      Visible = ivAlways
+      LargeImageIndex = 9
+      OnClick = BrBtnConfigurarNFSeClick
       HotImageIndex = 9
       SyncImageIndex = False
       ImageIndex = 9

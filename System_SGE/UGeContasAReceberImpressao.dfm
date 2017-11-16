@@ -2124,8 +2124,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             
-              ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."V' +
-              'ENDA_DATA">)]')
+              ' [IIF(<FrdsRelacaoAReceberVAnalitico."VENDA_DATA">=0,'#39#39',FormatDa' +
+              'teTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."VENDA_DATA"' +
+              '>))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2782,7 +2783,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Venda')
+            ' Venda')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2846,7 +2847,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Venda')
+            'Dados de Origem')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -4834,8 +4835,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             
-              ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."V' +
-              'ENDA_DATA">)]')
+              ' [IIF(<FrdsRelacaoAReceberVAnalitico."VENDA_DATA">=0,'#39#39',FormatDa' +
+              'teTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."VENDA_DATA"' +
+              '>))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -5492,7 +5494,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Venda')
+            ' Venda')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -5556,7 +5558,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Venda')
+            'Dados de Origem')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -7519,8 +7521,9 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             
-              ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."V' +
-              'ENDA_DATA">)]')
+              ' [IIF(<FrdsRelacaoAReceberVAnalitico."VENDA_DATA">=0,'#39#39',FormatDa' +
+              'teTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAReceberVAnalitico."VENDA_DATA"' +
+              '>))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8177,7 +8180,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Venda')
+            ' Venda/OS')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8219,7 +8222,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' NF-e')
+            ' NF-e/NFS-e')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8241,7 +8244,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Venda')
+            'Dados da Origem')
           ParentFont = False
           VAlign = vaCenter
         end

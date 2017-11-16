@@ -2803,7 +2803,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Compra')
+            ' Compra')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2867,7 +2867,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Compra')
+            'Dados de Origem')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -5515,7 +5515,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Compra')
+            ' Compra')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -5579,7 +5579,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Compra')
+            'Dados de Origem')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -8202,7 +8202,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Compra')
+            ' Compra')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8266,7 +8266,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Compra')
+            'Dados de Origem')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -10751,7 +10751,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Despesa')
+            ' Compra')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -10815,7 +10815,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Compra')
+            'Dados de Origem')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15695,7 +15695,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' No. Compra')
+            ' Compra')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -15759,7 +15759,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados da Compra')
+            'Dados de Origem')
           ParentFont = False
           VAlign = vaCenter
         end

@@ -3,19 +3,19 @@ unit UGeApropriacaoEstoqueImpressao;
 interface
 
 uses
+  UGrPadraoImpressao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoImpressao, cxGraphics, cxLookAndFeels,
+  Dialogs, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, StdCtrls, dxGDIPlusClasses, ExtCtrls,
   cxButtons, ComCtrls, Mask, DBClient, Provider, DB,
   IBCustomDataSet, IBQuery, IBTable, frxClass, frxDBSet, JvExMask,
-  JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvToolEdit,
+
+  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeApropriacaoEstoqueImpressao = class(TfrmGrPadraoImpressao)
@@ -94,6 +94,31 @@ type
     procedure MontarApropriacaoSintetico;
     procedure MontarApropriacaoAnalitico;
   end;
+
+(*
+  Tabelas:
+  - TBPRODUTO
+  - TBESTOQUE_ALMOX
+  - TBEMPRESA
+  - TBCENTRO_CUSTO
+  - TBGRUPOPROD
+  - TBSECAOPROD
+  - TBFABRICANTE
+  - TBUNIDADEPROD
+  - TBCLIENTE
+  - TBFORNECEDOR
+  - TBAPROPRIACAO_ALMOX
+  - TBCOMPETENCIA
+  - TBCOMPRAS
+  - TBAUTORIZA_COMPRA
+
+  Views:
+  - VW_TIPO_APROPRIACAO
+
+  Procedures:
+  - GET_LIMITE_DISPONIVEL_CLIENTE
+
+*)
 
 var
   frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao;

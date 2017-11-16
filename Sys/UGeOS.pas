@@ -1319,6 +1319,12 @@ begin
         cdsOSFormaPagto.Post;
         cdsOSFormaPagto.ApplyUpdates;
 
+        if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+        begin
+          IbDtstTabela.Post;
+          IbDtstTabela.ApplyUpdates;
+        end;
+
         CommitTransaction;
       end;
     end;
@@ -1635,7 +1641,7 @@ end;
 
 procedure TfrmGeOS.cdsOSFormaPagtoBeforePost(DataSet: TDataSet);
 begin
-  if ( cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = FLAG_SIM ) then
+  if ( (cdsOSFormaPagtoPAGTO_PRAZO.AsInteger = FLAG_SIM) and (IbDtstTabelaPAGTO_PRAZO.AsInteger = FLAG_NAO) ) then
   begin
     if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
       IbDtstTabela.Edit;

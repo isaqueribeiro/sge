@@ -215,6 +215,8 @@ type
     tmrAutoUpgrade: TTimer;
     BrBtnUpgrade: TdxBarLargeButton;
     BrBtnRelatorioResultadoExercicio: TdxBarLargeButton;
+    dxRibbonBackstageViewGalleryGroup1Item1: TdxRibbonBackstageViewGalleryItem;
+    BrBtnConfigurarNFSe: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -325,6 +327,7 @@ type
     procedure BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
     procedure BrBtnTabelaCNAEClick(Sender: TObject);
     procedure BrBtnOrdemServicoClick(Sender: TObject);
+    procedure BrBtnConfigurarNFSeClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -396,6 +399,18 @@ begin
 
     AtivarUpgradeAutomatico;
   end;
+end;
+
+procedure TfrmPrinc.BrBtnConfigurarNFSeClick(Sender: TObject);
+begin
+  ShowInformation('Configurar NFS-e', 'Opção do sistema não disponível nesta versão!');
+//  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
+//    ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
+//  else
+//  if not GetPermititEmissaoNFe( gUsuarioLogado.Empresa ) then
+//    ShowInformation('Empresa selecionada não habilitada para emissão de NFS-e.' + #13 + 'Favor entrar em contato com suporte.')
+//  else
+//    ; //ConfigurarNFeACBr( gUsuarioLogado.Empresa );
 end;
 
 procedure TfrmPrinc.BrBtnControleChequeClick(Sender: TObject);
@@ -1023,6 +1038,9 @@ begin
       if BrBtnConfigurarNFe.Enabled then
         BrBtnConfigurarNFe.Click;
     2:
+      if BrBtnConfigurarNFSe.Enabled then
+        BrBtnConfigurarNFSe.Click;
+    3:
       if BrBtnConfigurarAmbiente.Enabled then
         BrBtnConfigurarAmbiente.Click;
   end;
@@ -1344,7 +1362,7 @@ end;
 procedure TfrmPrinc.mnRelatorioEstoqueApropriacaoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_APRO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
+    FormFunction.ShowModalForm(Self, 'frmGeApropriacaoEstoqueImpressao');
 end;
 
 end.
