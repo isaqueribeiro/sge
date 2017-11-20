@@ -15,7 +15,9 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeContasAPagarImpressao = class(TfrmGrPadraoImpressao)
@@ -77,6 +79,8 @@ type
     CdsEmpresas: TClientDataSet;
     fdQryTipoDespesa: TFDQuery;
     fdQryFornecedor: TFDQuery;
+    frRelacaoExtratoFornVSintetico: TfrxReport;
+    frRelacaoExtratoFornVAnalitico: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -98,13 +102,15 @@ type
     procedure CarregarTipoDespesa;
     procedure CarregarCliente;
 
-    procedure MontarRelacaoAPagarPorEmissaoSintetico;
-    procedure MontarRelacaoAPagarPorEmissaoAnalitico;
     procedure MontarRelacaoAPagarPorVencimentoSintetico;
     procedure MontarRelacaoAPagarPorVencimentoAnalitico;
     procedure MontarRelacaoAPagarPorVencimentoFornecedor;
+    procedure MontarRelacaoAPagarPorEmissaoSintetico;
+    procedure MontarRelacaoAPagarPorEmissaoAnalitico;
     procedure MontarRelacaoAPagarPorBaixaSintetico;
     procedure MontarRelacaoAPagarPorBaixaAnalitico;
+    procedure MontarRelacaoExtratoFornPorVencimentoSintetico;
+    procedure MontarRelacaoExtratoFornPorVencimentoAnalitico;
     procedure MontarRelacaoAPagarPorTPDespesaSintetico;
     procedure MontarRelacaoAPagarPorTPDespesaAnalitico;
     procedure MontarRelacaoAPagarPorTPDespesaFornecedor;
@@ -144,12 +150,14 @@ const
   REPORT_RELACAO_APAGAR_POR_EMISSAO_ANALITICO     = 4;
   REPORT_RELACAO_APAGAR_POR_BAIXA_SINTETICO       = 5;
   REPORT_RELACAO_APAGAR_POR_BAIXA_ANALITICO       = 6;
-  REPORT_RELACAO_APAGAR_POR_TPDESPESA_SINTETICO   = 7;
-  REPORT_RELACAO_APAGAR_POR_TPDESPESA_ANALITICO   = 8;
-  REPORT_RELACAO_APAGAR_POR_TPDESPESA_FORNECEDOR  = 9;
-  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_SINTETICO  = 10;
-  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_ANALITICO  = 11;
-  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_FORNECEDOR = 12;
+  REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO = 7;
+  REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO = 8;
+  REPORT_RELACAO_APAGAR_POR_TPDESPESA_SINTETICO   = 9;
+  REPORT_RELACAO_APAGAR_POR_TPDESPESA_ANALITICO   = 10;
+  REPORT_RELACAO_APAGAR_POR_TPDESPESA_FORNECEDOR  = 11;
+  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_SINTETICO  = 12;
+  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_ANALITICO  = 13;
+  REPORT_RELACAO_APAGAR_POR_CMP_APURACAO_FORNECEDOR = 14;
 
 implementation
 
@@ -196,6 +204,18 @@ end;
 procedure TfrmGeContasAPagarImpressao.btnVisualizarClick(
   Sender: TObject);
 begin
+  if (Sender = btnVisualizar) then
+  begin
+    if (edRelatorio.ItemIndex in [REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO, REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO]) then
+      if (edFornecedor.ItemIndex = 0) then
+      begin
+        ShowWarning('Favor selecionar o fornecedor');
+        if edFornecedor.Visible and edFornecedor.Enabled then
+          edFornecedor.SetFocus;
+        Exit;
+      end;
+  end;
+
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '       + #13 +
     Format('- Período  : %s a %s', [e1Data.Text, e2Data.Text]) + #13 +
     Format('- Situação : %s', [edSituacao.Text]);
@@ -222,6 +242,18 @@ begin
       begin
         MontarRelacaoAPagarPorVencimentoFornecedor;
         frReport := frRelacaoAPagarVFornecedor;
+      end;
+
+    REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO:
+      begin
+        MontarRelacaoExtratoFornPorVencimentoSintetico;
+        frReport := frRelacaoExtratoFornVSintetico;
+      end;
+
+    REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO:
+      begin
+        MontarRelacaoExtratoFornPorVencimentoAnalitico;
+        frReport := frRelacaoExtratoFornVAnalitico;
       end;
 
     // Por Data de Emissão
@@ -430,6 +462,144 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório sintético de contas a pagar por vencimento.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeContasAPagarImpressao.MontarRelacaoExtratoFornPorVencimentoAnalitico;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    PeriodoRelatorio := Format('Despesas com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+
+    if (edTipoDespesa.ItemIndex > 0) then
+      PeriodoRelatorio := '[' + Trim(AnsiUpperCase(edTipoDespesa.Text)) +  '] ' + PeriodoRelatorio;
+
+    CdsRelacaoAPagarVAnalitico.Close;
+
+    with QryRelacaoAPagarVAnalitico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAPagarAnalit );
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and cp.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and (cp.situacao = 0)');
+      end;
+
+      if ( edTipoDespesa.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
+
+      if ( edFornecedor.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
+      SQL.Add('');
+      SQL.Add('order by');
+      SQL.Add('    extract(year from cp.dtvenc) || right(''00'' || extract(month from cp.dtvenc), 2)');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , fn.nomeforn');
+      SQL.Add('  , cp.codforn');
+      SQL.Add('  , d.tipodesp');
+      SQL.Add('  , cp.codtpdesp');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório analítico de extrato do fornecedor por vencimento.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeContasAPagarImpressao.MontarRelacaoExtratoFornPorVencimentoSintetico;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    if (edFornecedor.ItemIndex = 0) then
+      PeriodoRelatorio := Format('Despesas com vencimento no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Despesas com vencimento no período de %s a %s (%s).', [e1Data.Text, e2Data.Text, edFornecedor.Text]) + #13;
+
+    if (edTipoDespesa.ItemIndex > 0) then
+      PeriodoRelatorio := '[' + Trim(AnsiUpperCase(edTipoDespesa.Text)) +  '] ' + PeriodoRelatorio;
+
+    CdsRelacaoAPagarVSintetico.Close;
+
+    with QryRelacaoAPagarVSintetico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAPagarVencimentoSintet );
+      SQL.Add('where (cp.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and cp.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and cp.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and ((cp.quitado = 1) and (cp.situacao = 1))');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and ((cp.quitado = 0) and (cp.situacao = 1))');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and (cp.situacao = 0)');
+      end;
+
+      if ( edTipoDespesa.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
+
+      if ( edFornecedor.ItemIndex > 0 ) then
+        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+
+      if ( dbDespesaParticular.Checked ) then
+        SQL.Add('  and (d.tipo_particular = 0)');
+
+      SQL.Add('');
+      SQL.Add('group by');
+      SQL.Add('    extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , cv.cmp_desc');
+      SQL.Add('  , cp.competencia_apuracao');
+      SQL.Add('  , ca.cmp_desc');
+      SQL.Add('  , cp.codtpdesp');
+      SQL.Add('  , d.tipodesp');
+      SQL.Add('  , cp.situacao');
+      SQL.Add('  , fp.descri');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
+      SQL.Add('  , cp.dtvenc');
+      SQL.Add('  , d.tipodesp');
+      SQL.Add('  , cp.codtpdesp');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório sintético de extrato do fornecedor por vencimento.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
@@ -1010,7 +1180,10 @@ end;
 procedure TfrmGeContasAPagarImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
-  if ( (edRelatorio.ItemIndex = REPORT_RELACAO_APAGAR_POR_BAIXA_SINTETICO) or (edRelatorio.ItemIndex = REPORT_RELACAO_APAGAR_POR_BAIXA_ANALITICO) ) then
+  if ( (edRelatorio.ItemIndex = REPORT_RELACAO_APAGAR_POR_BAIXA_SINTETICO)
+    or (edRelatorio.ItemIndex = REPORT_RELACAO_APAGAR_POR_BAIXA_ANALITICO)
+    or (edRelatorio.ItemIndex = REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO)
+    or (edRelatorio.ItemIndex = REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO) ) then
   begin
     edSituacao.Enabled   := False;
     edSituacao.ItemIndex := TITULO_TODOS;

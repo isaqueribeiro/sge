@@ -15,7 +15,9 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeContasAReceberImpressao = class(TfrmGrPadraoImpressao)
@@ -75,6 +77,8 @@ type
     CdsCidades: TClientDataSet;
     fdQryCompetencia: TFDQuery;
     fdQryCliente: TFDQuery;
+    frRelacaoExtratoVSintetico: TfrxReport;
+    frRelacaoExtratoVAnalitico: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -99,14 +103,16 @@ type
     procedure CarregarCliente;
     procedure CarregarCidades;
 
-    procedure MontarRelacaoAReceberPorEmissaoSintetico;
-    procedure MontarRelacaoAReceberPorEmissaoAnalitico;
     procedure MontarRelacaoAReceberPorVencimentoSintetico;
     procedure MontarRelacaoAReceberPorVencimentoAnalitico;
     procedure MontarRelacaoAReceberPorVencimentoCliente;
     procedure MontarRelacaoAReceberPorVencimentoCidade;
+    procedure MontarRelacaoAReceberPorEmissaoSintetico;
+    procedure MontarRelacaoAReceberPorEmissaoAnalitico;
     procedure MontarRelacaoAReceberPorBaixaSintetico;
     procedure MontarRelacaoAReceberPorBaixaAnalitico;
+    procedure MontarRelacaoExtratoClientePorVencimentoSintetico;
+    procedure MontarRelacaoExtratoClientePorVencimentoAnalitico;
   public
     { Public declarations }
   end;
@@ -140,6 +146,8 @@ const
   REPORT_RELACAO_ARECEBER_POR_EMISSAO_ANALITICO    = 5;
   REPORT_RELACAO_ARECEBER_POR_BAIXA_SINTETICO      = 6;
   REPORT_RELACAO_ARECEBER_POR_BAIXA_ANALITICO      = 7;
+  REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO  = 8;
+  REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO  = 9;
 
 implementation
 
@@ -186,6 +194,18 @@ end;
 procedure TfrmGeContasAReceberImpressao.btnVisualizarClick(
   Sender: TObject);
 begin
+  if (Sender = btnVisualizar) then
+  begin
+    if (edRelatorio.ItemIndex in [REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO, REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO]) then
+      if (edCliente.ItemIndex = 0) then
+      begin
+        ShowWarning('Favor selecionar o cliente');
+        if edCliente.Visible and edCliente.Enabled then
+          edCliente.SetFocus;
+        Exit;
+      end;
+  end;
+
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '       + #13 +
     Format('- Período  : %s a %s', [e1Periodo.Text, e2Periodo.Text]) + #13 +
     Format('- Situação : %s', [edSituacao.Text]);
@@ -218,6 +238,18 @@ begin
       begin
         MontarRelacaoAReceberPorVencimentoCidade;
         frReport := frRelacaoAReceberVCidade;
+      end;
+
+    REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO:
+      begin
+        MontarRelacaoExtratoClientePorVencimentoSintetico;
+        frReport := frRelacaoExtratoVSintetico;
+      end;
+
+    REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO:
+      begin
+        MontarRelacaoExtratoClientePorVencimentoAnalitico;
+        frReport := frRelacaoExtratoVAnalitico;
       end;
 
     // Por Data de Emissão
@@ -362,6 +394,120 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório sintético de contas a receber por vencimento.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeContasAReceberImpressao.MontarRelacaoExtratoClientePorVencimentoAnalitico;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text]);
+
+    CdsRelacaoAReceberVAnalitico.Close;
+
+    with QryRelacaoAReceberVAnalitico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAReceberAnalit );
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+      SQL.Add('  and (cr.parcela > 0)');
+
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
+
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and ((cr.baixado = 1) and (cr.situacao = 1))');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and ((cr.baixado = 0) and (cr.situacao = 1))');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and (cr.situacao = 0)');
+      end;
+
+      if ( edCliente.ItemIndex > 0 ) then
+        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+
+      SQL.Add('');
+      SQL.Add('order by');
+      SQL.Add('    cl.nome');
+      SQL.Add('  , extract(year from cr.dtvenc) || right(''00'' || extract(month from cr.dtvenc), 2)');
+      SQL.Add('  , cr.cliente');
+      SQL.Add('  , cr.dtvenc');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório analítico de extrato do cliente por vencimento.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeContasAReceberImpressao.MontarRelacaoExtratoClientePorVencimentoSintetico;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    if (edCliente.ItemIndex = 0) then
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s.', [e1Periodo.Text, e2Periodo.Text])
+    else
+      PeriodoRelatorio := Format('Títulos com vencimento no período de %s a %s (%s).', [e1Periodo.Text, e2Periodo.Text, edCliente.Text]) + #13;
+
+    CdsRelacaoAReceberVSintetico.Close;
+
+    with QryRelacaoAReceberVSintetico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoAReceberVencimentoSintet );
+      SQL.Add('where (cr.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+      SQL.Add('  and (cr.parcela > 0)');
+
+      if StrIsDateTime(e1Periodo.Text) then
+        SQL.Add('  and cr.dtvenc >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Periodo.Date)));
+
+      if StrIsDateTime(e2Periodo.Text) then
+        SQL.Add('  and cr.dtvenc <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Periodo.Date)));
+
+      Case edSituacao.ItemIndex of
+        TITULO_BAIXADO:
+          SQL.Add('  and ((cr.baixado = 1) and (cr.situacao = 1))');
+
+        TITULO_PENDENTE:
+          SQL.Add('  and ((cr.baixado = 0) and (cr.situacao = 1))');
+
+        TITULO_CANCELADO:
+          SQL.Add('  and (cr.situacao = 0)');
+      end;
+
+      if ( edCliente.ItemIndex > 0 ) then
+        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+
+      SQL.Add('');
+      SQL.Add('group by');
+      SQL.Add('    extract(year from cr.dtvenc)  || right(''00'' || extract(month from cr.dtvenc),  2)');
+      SQL.Add('  , cr.dtvenc');
+      SQL.Add('  , cv.cmp_desc');
+      SQL.Add('  , cr.situacao');
+      SQL.Add('  , fp.descri');
+      SQL.Add(' ');
+      SQL.Add('order by');
+      SQL.Add('    extract(year from cr.dtvenc)  || right(''00'' || extract(month from cr.dtvenc),  2)');
+      SQL.Add('  , cr.dtvenc');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório sintético de extrato do cliente por vencimento.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
@@ -731,7 +877,10 @@ end;
 procedure TfrmGeContasAReceberImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
-  if ( (edRelatorio.ItemIndex = REPORT_RELACAO_ARECEBER_POR_BAIXA_SINTETICO) or (edRelatorio.ItemIndex = REPORT_RELACAO_ARECEBER_POR_BAIXA_ANALITICO) ) then
+  if ( (edRelatorio.ItemIndex = REPORT_RELACAO_ARECEBER_POR_BAIXA_SINTETICO)
+    or (edRelatorio.ItemIndex = REPORT_RELACAO_ARECEBER_POR_BAIXA_ANALITICO)
+    or (edRelatorio.ItemIndex = REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_SINTETICO)
+    or (edRelatorio.ItemIndex = REPORT_RELACAO_EXTRATO_POR_VENCIMENTO_ANALITICO) ) then
   begin
     edSituacao.Enabled   := False;
     edSituacao.ItemIndex := TITULO_TODOS;
@@ -746,6 +895,7 @@ begin
   edCidade.Visible   := (edRelatorio.ItemIndex = REPORT_RELACAO_ARECEBER_POR_VENCIMENTO_CIDADE);
   lblCliente.Enabled := not edCidade.Visible;
   edCliente.Enabled  := not edCidade.Visible;
+
   if not edCliente.Enabled then
     edCliente.ItemIndex := 0;
 end;
