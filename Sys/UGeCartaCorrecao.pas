@@ -265,6 +265,12 @@ begin
   if not DMNFe.GetValidadeCertificado(IbDtstTabelaCCE_EMPRESA.AsString) then
     Exit;
 
+  if DMNFe.ConfigurarParamentoNFE(IbDtstTabelaCCE_EMPRESA.AsString) then
+  begin
+    ShowInformation('A emissão da CC-e exige a configuração dos parâmetros da empresa.' + #13 + 'Favor entrar em contrato com suporte.');
+    Exit;
+  end;
+
   if DMNFe.GerarEnviarCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger, Trim(mmCondicaoUso.Lines.Text)) then
   begin
     ExecuteScriptSQL(

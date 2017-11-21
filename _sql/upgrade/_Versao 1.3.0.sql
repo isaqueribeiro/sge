@@ -7488,3 +7488,532 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 21/11/2017 11:25:57 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+    ADD NFE_CARTA_CORRECAO DMN_BIGINT_N DEFAULT 0;
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFE_CARTA_CORRECAO IS
+'NF-e: Numero da ultima carta de correcao eletronica emitida.';
+
+alter table TBCONFIGURACAO
+alter EMPRESA position 1;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONTA position 2;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SENHA position 3;
+
+alter table TBCONFIGURACAO
+alter EMAIL_POP position 4;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP position 5;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP_PORTA position 6;
+
+alter table TBCONFIGURACAO
+alter EMAIL_REQUER_AUTENTICACAO position 7;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONEXAO_SSL position 8;
+
+alter table TBCONFIGURACAO
+alter EMAIL_ASSUNTO_PADRAO position 9;
+
+alter table TBCONFIGURACAO
+alter EMAIL_MENSAGEM_PADRAO position 10;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_DUPLICAR_CNPJ position 11;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_VF_CNPJ position 12;
+
+alter table TBCONFIGURACAO
+alter CUSTO_OPER_CALCULAR position 13;
+
+alter table TBCONFIGURACAO
+alter PERMITIR_VENDA_ESTOQUE_INS position 14;
+
+alter table TBCONFIGURACAO
+alter VENDA_CARREGA_PRODUTO_EAN position 15;
+
+alter table TBCONFIGURACAO
+alter VENDA_FORMA_PAGTO_CARTACREDITO position 16;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_UNICO_EMPRESAS position 17;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_SATELITE_CLIENTE position 18;
+
+alter table TBCONFIGURACAO
+alter AUTORIZA_INFORMA_CLIENTE position 19;
+
+alter table TBCONFIGURACAO
+alter USUARIO position 20;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR position 21;
+
+alter table TBCONFIGURACAO
+alter NFE_SERIE position 22;
+
+alter table TBCONFIGURACAO
+alter NFE_NUMERO position 23;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR_ENTRADA position 24;
+
+alter table TBCONFIGURACAO
+alter NFE_ACEITAR_NOTA_DENEGADA position 25;
+
+alter table TBCONFIGURACAO
+alter NFE_SOLICITA_DH_SAIDA position 26;
+
+alter table TBCONFIGURACAO
+alter NFE_IMPRIMIR_COD_CLIENTE position 27;
+
+alter table TBCONFIGURACAO
+alter NFE_CARTA_CORRECAO position 28;
+
+alter table TBCONFIGURACAO
+alter NFCE_EMITIR position 29;
+
+alter table TBCONFIGURACAO
+alter NFCE_SERIE position 30;
+
+alter table TBCONFIGURACAO
+alter NFCE_NUMERO position 31;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN_ID position 32;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN position 33;
+
+alter table TBCONFIGURACAO
+alter NFSE_EMITIR position 34;
+
+alter table TBCONFIGURACAO
+alter RPS_SERIE position 35;
+
+alter table TBCONFIGURACAO
+alter RPS_NUMERO position 36;
+
+alter table TBCONFIGURACAO
+alter NFSE_SERIE position 37;
+
+alter table TBCONFIGURACAO
+alter NFSE_NUMERO position 38;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_PIS position 39;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_COFINS position 40;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_CSLL position 41;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_ISSQN position 42;
+
+
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMPRESA position 1;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONTA position 2;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SENHA position 3;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_POP position 4;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP position 5;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP_PORTA position 6;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_REQUER_AUTENTICACAO position 7;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONEXAO_SSL position 8;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_ASSUNTO_PADRAO position 9;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_MENSAGEM_PADRAO position 10;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column CLIENTE_PERMITIR_DUPLICAR_CNPJ position 11;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column CLIENTE_PERMITIR_VF_CNPJ position 12;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column CUSTO_OPER_CALCULAR position 13;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column PERMITIR_VENDA_ESTOQUE_INS position 14;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column VENDA_CARREGA_PRODUTO_EAN position 15;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column VENDA_FORMA_PAGTO_CARTACREDITO position 16;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_UNICO_EMPRESAS position 17;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_SATELITE_CLIENTE position 18;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column AUTORIZA_INFORMA_CLIENTE position 19;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column USUARIO position 20;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR position 21;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SERIE position 22;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_NUMERO position 23;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_CARTA_CORRECAO position 24;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR_ENTRADA position 25;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_ACEITAR_NOTA_DENEGADA position 26;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SOLICITA_DH_SAIDA position 27;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_IMPRIMIR_COD_CLIENTE position 28;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_EMITIR position 29;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_SERIE position 30;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_NUMERO position 31;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN_ID position 32;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN position 33;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_EMITIR position 34;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column RPS_SERIE position 35;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column RPS_NUMERO position 36;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_SERIE position 37;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_NUMERO position 38;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_PIS position 39;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_COFINS position 40;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_CSLL position 41;
+
+
+/*------ SYSDBA 21/11/2017 11:26:10 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_ISSQN position 42;
+
+
+/*------ SYSDBA 21/11/2017 11:49:38 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+    ADD NFE_LOTE DMN_BIGINT_N;
+
+COMMENT ON COLUMN TBCONFIGURACAO.NFE_LOTE IS
+'NF-e: Numero da ultimo lote enviado.';
+
+alter table TBCONFIGURACAO
+alter EMPRESA position 1;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONTA position 2;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SENHA position 3;
+
+alter table TBCONFIGURACAO
+alter EMAIL_POP position 4;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP position 5;
+
+alter table TBCONFIGURACAO
+alter EMAIL_SMTP_PORTA position 6;
+
+alter table TBCONFIGURACAO
+alter EMAIL_REQUER_AUTENTICACAO position 7;
+
+alter table TBCONFIGURACAO
+alter EMAIL_CONEXAO_SSL position 8;
+
+alter table TBCONFIGURACAO
+alter EMAIL_ASSUNTO_PADRAO position 9;
+
+alter table TBCONFIGURACAO
+alter EMAIL_MENSAGEM_PADRAO position 10;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_DUPLICAR_CNPJ position 11;
+
+alter table TBCONFIGURACAO
+alter CLIENTE_PERMITIR_VF_CNPJ position 12;
+
+alter table TBCONFIGURACAO
+alter CUSTO_OPER_CALCULAR position 13;
+
+alter table TBCONFIGURACAO
+alter PERMITIR_VENDA_ESTOQUE_INS position 14;
+
+alter table TBCONFIGURACAO
+alter VENDA_CARREGA_PRODUTO_EAN position 15;
+
+alter table TBCONFIGURACAO
+alter VENDA_FORMA_PAGTO_CARTACREDITO position 16;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_UNICO_EMPRESAS position 17;
+
+alter table TBCONFIGURACAO
+alter ESTOQUE_SATELITE_CLIENTE position 18;
+
+alter table TBCONFIGURACAO
+alter AUTORIZA_INFORMA_CLIENTE position 19;
+
+alter table TBCONFIGURACAO
+alter USUARIO position 20;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR position 21;
+
+alter table TBCONFIGURACAO
+alter NFE_SERIE position 22;
+
+alter table TBCONFIGURACAO
+alter NFE_NUMERO position 23;
+
+alter table TBCONFIGURACAO
+alter NFE_LOTE position 24;
+
+alter table TBCONFIGURACAO
+alter NFE_CARTA_CORRECAO position 25;
+
+alter table TBCONFIGURACAO
+alter NFE_EMITIR_ENTRADA position 26;
+
+alter table TBCONFIGURACAO
+alter NFE_ACEITAR_NOTA_DENEGADA position 27;
+
+alter table TBCONFIGURACAO
+alter NFE_SOLICITA_DH_SAIDA position 28;
+
+alter table TBCONFIGURACAO
+alter NFE_IMPRIMIR_COD_CLIENTE position 29;
+
+alter table TBCONFIGURACAO
+alter NFCE_EMITIR position 30;
+
+alter table TBCONFIGURACAO
+alter NFCE_SERIE position 31;
+
+alter table TBCONFIGURACAO
+alter NFCE_NUMERO position 32;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN_ID position 33;
+
+alter table TBCONFIGURACAO
+alter NFCE_TOKEN position 34;
+
+alter table TBCONFIGURACAO
+alter NFSE_EMITIR position 35;
+
+alter table TBCONFIGURACAO
+alter RPS_SERIE position 36;
+
+alter table TBCONFIGURACAO
+alter RPS_NUMERO position 37;
+
+alter table TBCONFIGURACAO
+alter NFSE_SERIE position 38;
+
+alter table TBCONFIGURACAO
+alter NFSE_NUMERO position 39;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_PIS position 40;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_COFINS position 41;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_CSLL position 42;
+
+alter table TBCONFIGURACAO
+alter NFSE_PERCENTUAL_ISSQN position 43;
+

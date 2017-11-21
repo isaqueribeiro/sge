@@ -26,10 +26,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Width = 751
     Height = 463
     ExplicitWidth = 751
-    ExplicitHeight = 451
+    ExplicitHeight = 463
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 743
-      ExplicitHeight = 422
+      ExplicitHeight = 434
       inherited Bevel4: TBevel
         Top = 368
         Width = 743
@@ -82,7 +82,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       inherited pnlFiltros: TPanel
         Top = 372
         Width = 743
-        ExplicitTop = 360
+        ExplicitTop = 372
         ExplicitWidth = 743
         inherited grpBxFiltro: TGroupBox
           Left = 417
@@ -113,7 +113,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 743
-      ExplicitHeight = 422
+      ExplicitHeight = 434
       inherited Bevel8: TBevel
         Top = 81
         Width = 743
@@ -170,13 +170,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 349
-        ActivePage = tbsContaEmail
+        ActivePage = TbsNFe
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 337
         object tbsContaEmail: TTabSheet
           Caption = 'Conta de E-mail'
-          ExplicitHeight = 309
           object lblEmailConta: TLabel
             Left = 16
             Top = 8
@@ -324,7 +322,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object tbsVenda: TTabSheet
           Caption = 'Vendas'
           ImageIndex = 4
-          ExplicitHeight = 309
           object lblFormaPagtoCartaCredito: TLabel
             Left = 16
             Top = 8
@@ -392,10 +389,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFe: TTabSheet
           Caption = 'NF-e / NFC-e'
           ImageIndex = 1
-          ExplicitHeight = 309
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
-            Top = 165
+            Top = 244
             Width = 330
             Height = 17
             Caption = 'Solicitar Data/Hora de sa'#237'da da NF-e para impress'#227'o no DANFE'
@@ -413,7 +409,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object chkImprimirCodCliente: TDBCheckBox
             Left = 16
-            Top = 189
+            Top = 268
             Width = 377
             Height = 17
             Caption = 'Imprimir C'#243'digo Interno do Cliente no DANFE da NF-e'
@@ -450,7 +446,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object chkNFE_SalvarNotaDenegada: TDBCheckBox
             Left = 16
-            Top = 141
+            Top = 220
             Width = 193
             Height = 17
             Caption = 'Aceitar/Salvar NF-e Denegada'
@@ -553,7 +549,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Left = 16
             Top = 62
             Width = 205
-            Height = 73
+            Height = 152
             Caption = 'Numera'#231#227'o NF-e ('#218'ltima Emiss'#227'o)'
             TabOrder = 2
             object lblNFeSerie: TLabel
@@ -577,6 +573,34 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               Height = 13
               Caption = 'N'#250'mero:'
               FocusControl = dbNFeNumero
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFeCartaCorrecao: TLabel
+              Left = 16
+              Top = 72
+              Width = 28
+              Height = 13
+              Caption = 'CC-e:'
+              FocusControl = dbNFeCartaCorrecao
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object lblNFeLote: TLabel
+              Left = 69
+              Top = 72
+              Width = 25
+              Height = 13
+              Caption = 'Lote:'
+              FocusControl = dbNFeLote
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -613,6 +637,36 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               Font.Style = []
               ParentFont = False
               TabOrder = 1
+            end
+            object dbNFeCartaCorrecao: TDBEdit
+              Left = 16
+              Top = 88
+              Width = 47
+              Height = 21
+              DataField = 'NFE_CARTA_CORRECAO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+            end
+            object dbNFeLote: TDBEdit
+              Left = 69
+              Top = 88
+              Width = 116
+              Height = 21
+              DataField = 'NFE_LOTE'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 3
             end
           end
           object chkNFCE_Emitir: TDBCheckBox
@@ -703,7 +757,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsNFSe: TTabSheet
           Caption = 'NFS-e'
           ImageIndex = 3
-          ExplicitHeight = 309
           object chkNFSE_Emitir: TDBCheckBox
             Left = 16
             Top = 16
@@ -982,7 +1035,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsOutrasConfig: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
-          ExplicitHeight = 309
           object dbCustoOperacional: TDBCheckBox
             Left = 16
             Top = 15
@@ -1102,7 +1154,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
   inherited tlbBotoes: TPanel
     Top = 467
     Width = 751
-    ExplicitTop = 455
+    ExplicitTop = 467
     ExplicitWidth = 751
     inherited bvlTool3: TBevel
       Left = 668
@@ -1148,6 +1200,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.nfe_emitir'
       '  , c.nfe_serie'
       '  , c.nfe_numero'
+      '  , c.nfe_lote'
+      '  , c.nfe_carta_correcao'
       '  , c.nfe_emitir_entrada'
       '  , c.nfe_aceitar_nota_denegada'
       '  , c.nfe_solicita_dh_saida'
@@ -1258,6 +1312,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       DisplayLabel = 'NF-e: N'#250'mero'
       FieldName = 'NFE_NUMERO'
       Origin = '"TBCONFIGURACAO"."NFE_NUMERO"'
+      DisplayFormat = '###0000000'
+    end
+    object IbDtstTabelaNFE_CARTA_CORRECAO: TIntegerField
+      DisplayLabel = 'NF-e: Carta de Corre'#231#227'o'
+      FieldName = 'NFE_CARTA_CORRECAO'
+      Origin = '"TBCONFIGURACAO"."NFE_CARTA_CORRECAO"'
+      ProviderFlags = [pfInUpdate]
+      DisplayFormat = '###000'
+    end
+    object IbDtstTabelaNFE_LOTE: TIntegerField
+      DisplayLabel = 'NF-e: Lote'
+      FieldName = 'NFE_LOTE'
+      Origin = '"TBCONFIGURACAO"."NFE_LOTE"'
+      ProviderFlags = [pfInUpdate]
       DisplayFormat = '###0000000'
     end
     object IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA: TSmallintField
@@ -1470,6 +1538,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFE_EMITIR,'
       '  NFE_SERIE,'
       '  NFE_NUMERO,'
+      '  NFE_LOTE,'
+      '  NFE_CARTA_CORRECAO,'
       '  NFE_EMITIR_ENTRADA,'
       '  NFE_ACEITAR_NOTA_DENEGADA,'
       '  NFE_SOLICITA_DH_SAIDA,'
@@ -1518,9 +1588,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFCE_TOKEN = :NFCE_TOKEN,'
       '  NFCE_TOKEN_ID = :NFCE_TOKEN_ID,'
       '  NFE_ACEITAR_NOTA_DENEGADA = :NFE_ACEITAR_NOTA_DENEGADA,'
+      '  NFE_CARTA_CORRECAO = :NFE_CARTA_CORRECAO,'
       '  NFE_EMITIR = :NFE_EMITIR,'
       '  NFE_EMITIR_ENTRADA = :NFE_EMITIR_ENTRADA,'
       '  NFE_IMPRIMIR_COD_CLIENTE = :NFE_IMPRIMIR_COD_CLIENTE,'
+      '  NFE_LOTE = :NFE_LOTE,'
       '  NFE_NUMERO = :NFE_NUMERO,'
       '  NFE_SERIE = :NFE_SERIE,'
       '  NFE_SOLICITA_DH_SAIDA = :NFE_SOLICITA_DH_SAIDA,'
@@ -1559,18 +1631,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         '   NFCE_EMITIR, NFCE_NUMERO, NFCE_SERIE, NFCE_TOKEN, NFCE_TOKEN_' +
         'ID, NFE_ACEITAR_NOTA_DENEGADA, '
       
-        '   NFE_EMITIR, NFE_EMITIR_ENTRADA, NFE_IMPRIMIR_COD_CLIENTE, NFE' +
-        '_NUMERO, '
+        '   NFE_CARTA_CORRECAO, NFE_EMITIR, NFE_EMITIR_ENTRADA, NFE_IMPRI' +
+        'MIR_COD_CLIENTE, '
       
-        '   NFE_SERIE, NFE_SOLICITA_DH_SAIDA, NFSE_EMITIR, NFSE_NUMERO, N' +
-        'FSE_PERCENTUAL_COFINS, '
+        '   NFE_LOTE, NFE_NUMERO, NFE_SERIE, NFE_SOLICITA_DH_SAIDA, NFSE_' +
+        'EMITIR, '
       
-        '   NFSE_PERCENTUAL_CSLL, NFSE_PERCENTUAL_ISSQN, NFSE_PERCENTUAL_' +
-        'PIS, NFSE_SERIE, '
+        '   NFSE_NUMERO, NFSE_PERCENTUAL_COFINS, NFSE_PERCENTUAL_CSLL, NF' +
+        'SE_PERCENTUAL_ISSQN, '
       
-        '   PERMITIR_VENDA_ESTOQUE_INS, RPS_NUMERO, RPS_SERIE, USUARIO, V' +
-        'ENDA_CARREGA_PRODUTO_EAN, '
-      '   VENDA_FORMA_PAGTO_CARTACREDITO)'
+        '   NFSE_PERCENTUAL_PIS, NFSE_SERIE, PERMITIR_VENDA_ESTOQUE_INS, ' +
+        'RPS_NUMERO, '
+      
+        '   RPS_SERIE, USUARIO, VENDA_CARREGA_PRODUTO_EAN, VENDA_FORMA_PA' +
+        'GTO_CARTACREDITO)'
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
@@ -1588,20 +1662,21 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         '   :ESTOQUE_UNICO_EMPRESAS, :NFCE_EMITIR, :NFCE_NUMERO, :NFCE_SE' +
         'RIE, :NFCE_TOKEN, '
       
-        '   :NFCE_TOKEN_ID, :NFE_ACEITAR_NOTA_DENEGADA, :NFE_EMITIR, :NFE' +
-        '_EMITIR_ENTRADA, '
+        '   :NFCE_TOKEN_ID, :NFE_ACEITAR_NOTA_DENEGADA, :NFE_CARTA_CORREC' +
+        'AO, :NFE_EMITIR, '
       
-        '   :NFE_IMPRIMIR_COD_CLIENTE, :NFE_NUMERO, :NFE_SERIE, :NFE_SOLI' +
-        'CITA_DH_SAIDA, '
+        '   :NFE_EMITIR_ENTRADA, :NFE_IMPRIMIR_COD_CLIENTE, :NFE_LOTE, :N' +
+        'FE_NUMERO, '
       
-        '   :NFSE_EMITIR, :NFSE_NUMERO, :NFSE_PERCENTUAL_COFINS, :NFSE_PE' +
-        'RCENTUAL_CSLL, '
+        '   :NFE_SERIE, :NFE_SOLICITA_DH_SAIDA, :NFSE_EMITIR, :NFSE_NUMER' +
+        'O, :NFSE_PERCENTUAL_COFINS, '
       
-        '   :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTUAL_PIS, :NFSE_SERIE, :P' +
-        'ERMITIR_VENDA_ESTOQUE_INS, '
+        '   :NFSE_PERCENTUAL_CSLL, :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTU' +
+        'AL_PIS, '
       
-        '   :RPS_NUMERO, :RPS_SERIE, :USUARIO, :VENDA_CARREGA_PRODUTO_EAN' +
-        ', :VENDA_FORMA_PAGTO_CARTACREDITO)')
+        '   :NFSE_SERIE, :PERMITIR_VENDA_ESTOQUE_INS, :RPS_NUMERO, :RPS_S' +
+        'ERIE, :USUARIO, '
+      '   :VENDA_CARREGA_PRODUTO_EAN, :VENDA_FORMA_PAGTO_CARTACREDITO)')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'
@@ -1613,7 +1688,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Left = 336
     Top = 0
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

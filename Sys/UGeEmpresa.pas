@@ -222,22 +222,22 @@ begin
 
   pgcMaisDados.ActivePageIndex := 0;
 
-  if (gUsuarioLogado.Funcao in [FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM]) then
-  begin
-    dbSerieNFe.ReadOnly   := False;
-    dbNumeroNFe.ReadOnly  := False;
-    dbLoteNumero.ReadOnly := False;
-    dbSerieNFCe.ReadOnly  := False;
-    dbNumeroNFCe.ReadOnly := False;
-    dbNumeroCCe.ReadOnly  := False;
-
-    dbSerieNFe.Color   := clWindow;
-    dbNumeroNFe.Color  := clWindow;
-    dbLoteNumero.Color := clWindow;
-    dbSerieNFCe.Color  := clWindow;
-    dbNumeroNFCe.Color := clWindow;
-    dbNumeroCCe.Color  := clWindow;
-  end;
+//  if (gUsuarioLogado.Funcao in [FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM]) then
+//  begin
+//    dbSerieNFe.ReadOnly   := False;
+//    dbNumeroNFe.ReadOnly  := False;
+//    dbLoteNumero.ReadOnly := False;
+//    dbSerieNFCe.ReadOnly  := False;
+//    dbNumeroNFCe.ReadOnly := False;
+//    dbNumeroCCe.ReadOnly  := False;
+//
+//    dbSerieNFe.Color   := clWindow;
+//    dbNumeroNFe.Color  := clWindow;
+//    dbLoteNumero.Color := clWindow;
+//    dbSerieNFCe.Color  := clWindow;
+//    dbNumeroNFCe.Color := clWindow;
+//    dbNumeroCCe.Color  := clWindow;
+//  end;
 end;
 
 procedure TfrmGeEmpresa.ProximoCampoKeyPress(Sender: TObject;

@@ -1868,15 +1868,26 @@ object DMNFe: TDMNFe
       '  , e.Home_page'
       '  , e.Chave_acesso_nfe'
       '  , e.Tipo_Regime_nfe'
-      '  , e.Serie_nfe'
-      '  , e.Numero_nfe'
-      '  , e.Lote_Ano_nfe'
-      '  , e.Lote_Num_nfe'
+      '  , coalesce(cf.nfe_serie , e.Serie_nfe)  as Serie_nfe'
+      '  , coalesce(cf.nfe_numero, e.Numero_nfe) as Numero_nfe'
+      
+        '  , coalesce(extract(year from current_date), e.Lote_Ano_nfe) as' +
+        ' Lote_Ano_nfe'
+      '  , coalesce(cf.nfe_lote, e.Lote_Num_nfe) as Lote_Num_nfe'
       '  , e.Pais_id'
-      '  , e.Serie_nfce'
-      '  , e.Numero_nfce'
+      '  , coalesce(cf.nfce_serie , e.Serie_nfce)  as Serie_nfce'
+      '  , coalesce(cf.nfce_numero, e.Numero_nfce) as Numero_nfce'
       '  , pa.Pais_nome'
+      '  , case'
+      '      when (e.Numero_nfe   > coalesce(cf.nfe_numero, 0)) then 1'
+      '      when (e.lote_num_nfe > coalesce(cf.nfe_lote, 0))   then 1'
+      
+        '      when (e.carta_correcao_nfe > coalesce(cf.nfe_carta_correca' +
+        'o, 0))   then 1'
+      '      else 0'
+      '    end reconfigurar'
       'from TBEMPRESA e'
+      '  left join TBCONFIGURACAO cf on (cf.empresa = e.cnpj)'
       '  left join TBESTADO uf on (uf.Est_cod = e.Est_cod)'
       '  left join TBCIDADE cd on (cd.Cid_cod = e.Cid_cod)'
       '  left join TBBAIRRO br on (br.Bai_cod = e.Bai_cod)'
@@ -2081,6 +2092,10 @@ object DMNFe: TDMNFe
       FieldName = 'PAIS_NOME'
       Origin = '"TBPAIS"."PAIS_NOME"'
       Size = 150
+    end
+    object qryEmitenteRECONFIGURAR: TIntegerField
+      FieldName = 'RECONFIGURAR'
+      ProviderFlags = []
     end
   end
   object qryCalculoImposto: TIBDataSet

@@ -143,6 +143,12 @@ type
     lblRPSNumero: TLabel;
     dbRPSSerie: TDBEdit;
     dbRPSNumero: TDBEdit;
+    IbDtstTabelaNFE_LOTE: TIntegerField;
+    IbDtstTabelaNFE_CARTA_CORRECAO: TIntegerField;
+    lblNFeCartaCorrecao: TLabel;
+    dbNFeCartaCorrecao: TDBEdit;
+    lblNFeLote: TLabel;
+    dbNFeLote: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
@@ -250,6 +256,8 @@ begin
 
   IbDtstTabelaNFE_SERIE.Required  := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
   IbDtstTabelaNFE_NUMERO.Required := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFE_LOTE.Required           := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
+  IbDtstTabelaNFE_CARTA_CORRECAO.Required := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
 
   IbDtstTabelaNFCE_SERIE.Required    := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
   IbDtstTabelaNFCE_NUMERO.Required   := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
@@ -323,6 +331,8 @@ begin
 
   IbDtstTabelaNFE_SERIE.Clear;
   IbDtstTabelaNFE_NUMERO.Clear;
+  IbDtstTabelaNFE_LOTE.Clear;
+  IbDtstTabelaNFE_CARTA_CORRECAO.Clear;
 
   IbDtstTabelaNFCE_SERIE.Clear;
   IbDtstTabelaNFCE_NUMERO.Clear;

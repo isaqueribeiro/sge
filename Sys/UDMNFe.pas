@@ -242,7 +242,8 @@ type
     qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField;
     cdsLOGEMPRESA: TIBStringField;
     frrBoletoFatura: TfrxReport;
-    fdQryEmissaoNFePendente: TFDQuery;    procedure SelecionarCertificado(Sender : TObject);
+    fdQryEmissaoNFePendente: TFDQuery;
+    qryEmitenteRECONFIGURAR: TIntegerField;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;
@@ -332,6 +333,7 @@ type
     procedure RenomearLogXmlEnvioRetornoNF(pNumeroLote : Integer; pNumeroRecibo : String;
       const pExtensao : String = 'nfe');
 
+    function ConfigurarParamentoNFE(const pEmpresa : String) : Boolean;
     function ReciboNaoExisteNaVenda(const sRecibo : String) : Boolean;
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
     function ValidarCFOP(const aCNPJEmitente : String; const aCodigoCliente, aCodigoFornecedor, aCFOP : Integer) : Boolean;
@@ -1363,6 +1365,19 @@ begin
   MyWebBrowser.Navigate( PathWithDelim(ExtractFileDir(application.ExeName)) + 'temp.xml' );
 end;
 
+function TDMNFe.ConfigurarParamentoNFE(const pEmpresa : String) : Boolean;
+var
+  bRetorno : Boolean;
+begin
+  bRetorno := True;
+  try
+    AbrirEmitente(pEmpresa);
+    bRetorno := (qryEmitente.RecordCount = 0) or (qryEmitenteRECONFIGURAR.AsInteger = 1);
+  finally
+    Result := bRetorno;
+  end;
+end;
+
 function TDMNFe.ReciboNaoExisteNaVenda(const sRecibo : String) : Boolean;
 begin
   Result := (Trim(sRecibo) = EmptyStr);
@@ -1525,7 +1540,7 @@ begin
 
   Result := (Trim(sMensagem) = EmptyStr);
   if not Result then
-    ShowStop(sMensagem);
+    ShowStop('Endereço do cliente incompleto:' + #13 + sMensagem);
 end;
 
 function TDMNFe.GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
@@ -1687,7 +1702,8 @@ begin
     GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida,
       iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
-    iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
+//    iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
+    iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
 
@@ -2108,10 +2124,13 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-      SQL.Add('Update TBEMPRESA Set');
-      SQL.Add('    LOTE_ANO_NFE = ' + FormatFloat('####', Ano));
-      SQL.Add('  , LOTE_NUM_NFE = ' + FormatFloat('#########', Numero));
-      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+//      SQL.Add('Update TBEMPRESA Set');
+//      SQL.Add('    LOTE_ANO_NFE = ' + FormatFloat('####', Ano));
+//      SQL.Add('  , LOTE_NUM_NFE = ' + FormatFloat('#########', Numero));
+//      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+      SQL.Add('Update TBCONFIGURACAO Set');
+      SQL.Add('    NFE_LOTE  = ' + FormatFloat('#########', Numero));
+      SQL.Add('Where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
       ExecSQL;
       CommitTransaction;
@@ -2128,11 +2147,15 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-      SQL.Add('Update TBEMPRESA Set');
-      SQL.Add('    SERIE_NFE  = ' + FormatFloat('####',      Serie));
-      SQL.Add('  , NUMERO_NFE = ' + FormatFloat('#########', Numero));
-      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
-      SQL.Add('  and NUMERO_NFE = ' + FormatFloat('#########', Numero - 1));
+//      SQL.Add('Update TBEMPRESA Set');
+//      SQL.Add('    SERIE_NFE  = ' + FormatFloat('####',      Serie));
+//      SQL.Add('  , NUMERO_NFE = ' + FormatFloat('#########', Numero));
+//      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+//      SQL.Add('  and NUMERO_NFE = ' + FormatFloat('#########', Numero - 1));
+      SQL.Add('Update TBCONFIGURACAO Set');
+      SQL.Add('    NFE_SERIE  = ' + FormatFloat('####',      Serie));
+      SQL.Add('  , NFE_NUMERO = ' + FormatFloat('#########', Numero));
+      SQL.Add('Where EMPRESA  = ' + QuotedStr(sCNPJEmitente));
 
       ExecSQL;
       CommitTransaction;
@@ -2149,11 +2172,15 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-      SQL.Add('Update TBEMPRESA Set');
-      SQL.Add('    SERIE_NFCE  = ' + FormatFloat('####',      Serie));
-      SQL.Add('  , NUMERO_NFCE = ' + FormatFloat('#########', Numero));
-      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
-      SQL.Add('  and NUMERO_NFCE = ' + FormatFloat('#########', Numero - 1));
+//      SQL.Add('Update TBEMPRESA Set');
+//      SQL.Add('    SERIE_NFCE  = ' + FormatFloat('####',      Serie));
+//      SQL.Add('  , NUMERO_NFCE = ' + FormatFloat('#########', Numero));
+//      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+//      SQL.Add('  and NUMERO_NFCE = ' + FormatFloat('#########', Numero - 1));
+      SQL.Add('Update TBCONFIGURACAO Set');
+      SQL.Add('    NFCE_SERIE  = ' + FormatFloat('####',      Serie));
+      SQL.Add('  , NFCE_NUMERO = ' + FormatFloat('#########', Numero));
+      SQL.Add('Where EMPRESA   = ' + QuotedStr(sCNPJEmitente));
 
       ExecSQL;
       CommitTransaction;
@@ -2170,9 +2197,12 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-      SQL.Add('Update TBEMPRESA Set');
-      SQL.Add('  CARTA_CORRECAO_NFE = ' + FormatFloat('#########', Numero));
-      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+//      SQL.Add('Update TBEMPRESA Set');
+//      SQL.Add('  CARTA_CORRECAO_NFE = ' + FormatFloat('#########', Numero));
+//      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
+      SQL.Add('Update TBCONFIGURACAO Set');
+      SQL.Add('  NFE_CARTA_CORRECAO = ' + FormatFloat('#########', Numero));
+      SQL.Add('Where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
       ExecSQL;
       CommitTransaction;
@@ -2234,7 +2264,8 @@ begin
     AbrirVenda( iAnoVenda, iNumVenda );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
-    iNumeroNFe  := GetNextID('TBEMPRESA', 'NUMERO_NFE',   'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = '    + qryEmitenteSERIE_NFE.AsString);
+//    iNumeroNFe  := GetNextID('TBEMPRESA', 'NUMERO_NFE',   'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = '    + qryEmitenteSERIE_NFE.AsString);
+    iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
     DtHoraEmiss := GetDateTimeDB;
 
     ACBrNFe.NotasFiscais.Clear;
@@ -3394,7 +3425,8 @@ begin
 
     GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
-    iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
+//    iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
+    iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
 
@@ -3698,7 +3730,8 @@ begin
     AbrirCompra( iAnoCompra, iNumCompra );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
-    iNumeroNFe  := GetNextID('TBEMPRESA', 'NUMERO_NFE',   'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = '    + qryEmitenteSERIE_NFE.AsString);
+//    iNumeroNFe  := GetNextID('TBEMPRESA', 'NUMERO_NFE',   'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = '    + qryEmitenteSERIE_NFE.AsString);
+    iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
     DtHoraEmiss := GetDateTimeDB;
 
     ACBrNFe.NotasFiscais.Clear;
@@ -5185,9 +5218,10 @@ begin
 
           // Atualizar contador do número da NF-e
 
-          iNumeroTmp := GetNextID('TBEMPRESA'
-            , 'NUMERO_NFE'
-            , 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = ' + IntToStr(iSerieNFe));
+//          iNumeroTmp := GetNextID('TBEMPRESA'
+//            , 'NUMERO_NFE'
+//            , 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = ' + IntToStr(iSerieNFe));
+            iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
           if ( iNumeroNFe = iNumeroTmp ) then
           begin
@@ -5839,7 +5873,8 @@ begin
         if not bRetorno then
           Exit;
 
-        iNumeroCarta  := GetNextID('TBEMPRESA', 'CARTA_CORRECAO_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente));
+//        iNumeroCarta  := GetNextID('TBEMPRESA', 'CARTA_CORRECAO_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente));
+        iNumeroCarta  := GetNextID('TBCONFIGURACAO', 'NFE_CARTA_CORRECAO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
         iNumeroEvento := GetCountID('TBNFE_CARTA_CORRECAO',
           'where CCE_EMPRESA = ' + QuotedStr(sCNPJEmitente) +
           '  and NFE_NUMERO  = ' + qryCartaCorrecaoNFeNFE_NUMERO.AsString +
@@ -6250,7 +6285,8 @@ begin
       raise Exception.Create('O segmento da empresa não permite a emissão de NFC-e!');
 
     iSerieNFCe  := qryEmitenteSERIE_NFCE.AsInteger;
-    iNumeroNFCe := GetNextID('TBEMPRESA', 'NUMERO_NFCE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFCE = ' + qryEmitenteSERIE_NFCE.AsString);
+//    iNumeroNFCe := GetNextID('TBEMPRESA', 'NUMERO_NFCE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFCE = ' + qryEmitenteSERIE_NFCE.AsString);
+    iNumeroNFCe := GetNextID('TBCONFIGURACAO', 'NFCE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
     DtHoraEmiss := Now; // GetDateTimeDB; // Porque a validação do XML ocorre pela data/hora local da máquina
 
     ACBrNFe.NotasFiscais.Clear;

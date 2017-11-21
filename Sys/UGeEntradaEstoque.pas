@@ -1842,6 +1842,12 @@ begin
     Abort;
   end;
 
+  if DMNFe.ConfigurarParamentoNFE(IbDtstTabelaCODEMP.AsString) then
+  begin
+    ShowInformation('A emissão da NF-e exige a configuração dos parâmetros da empresa.' + #13 + 'Favor entrar em contrato com suporte.');
+    Exit;
+  end;
+
   if not GetPermititEmissaoNFeEntrada( IbDtstTabelaCODEMP.AsString ) then
   begin
     ShowInformation('Empresa selecionada não habilitada para emissão de NF-e p/ Entradas.' + #13 + 'Favor entrar em contato com suporte.');

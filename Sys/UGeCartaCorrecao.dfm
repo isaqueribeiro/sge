@@ -113,6 +113,8 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 855
       ExplicitHeight = 431
       inherited Bevel8: TBevel
@@ -693,12 +695,11 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
       'delete from TBNFE_CARTA_CORRECAO'
       'where'
       '  CCE_NUMERO = :OLD_CCE_NUMERO')
-    Left = 632
   end
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
