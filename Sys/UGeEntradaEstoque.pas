@@ -1861,9 +1861,10 @@ begin
     if not DMNFe.GetValidadeCertificado(IbDtstTabelaCODEMP.AsString) then
       Exit;
 
-  if GetCfopDevolucao( IbDtstTabelaNFCFOP.AsInteger ) then
-    if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
-      Exit;
+  if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
+    if GetCfopDevolucao( IbDtstTabelaNFCFOP.AsInteger ) then
+      if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
+        Exit;
 
 //  if ( IbDtstTabelaLOTE_NFE_NUMERO.AsInteger > 0 ) then
 //  begin

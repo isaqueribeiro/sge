@@ -2068,9 +2068,10 @@ begin
       Exit;
 
   {$IFNDEF PDV}
-  if GetCfopDevolucao( IbDtstTabelaCFOP.AsInteger ) then
-    if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
-      Exit;
+  if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
+    if GetCfopDevolucao( IbDtstTabelaCFOP.AsInteger ) then
+      if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
+        Exit;
 
   // Buscar retorno do envio pendente, caso ele tenha ocorrido
   if not bNFeGerada then
