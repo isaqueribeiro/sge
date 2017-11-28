@@ -750,6 +750,8 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.btnFiltrarClick(Sender: TObject);
+var
+  aValor : Currency;
 begin
   if ApenasFinalizadas then
     WhereAdditional := '(c.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + ')) and '
@@ -768,6 +770,11 @@ begin
 
   if ( Trim(FEmpresa) <> EmptyStr ) then
     WhereAdditional := WhereAdditional + ' and (c.codemp = ' + QuotedStr(FEmpresa) +')';
+
+  // Buscar registro pelo Valor
+  aValor := StrToCurrDef(StringReplace(Trim(edtFiltrar.Text), '.', '', [rfReplaceAll]), 0) * 100;
+  if ((Pos(',', Trim(edtFiltrar.Text)) > 0) and (aValor > 0.0)) then
+    WhereAdditional := WhereAdditional + ' and (c.index_valor = ' + CurrToStr(aValor) + ')';
 
   inherited;
 end;

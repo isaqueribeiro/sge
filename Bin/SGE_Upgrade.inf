@@ -1,22 +1,23 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 21/11/2017 13:04:00     #
+#    Gerado por AGIL SOFTWARES em : 28/11/2017 11:08:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
-- Novas configurações para emissão de NF-e
-- Inserção de Lotes na Entrada no Estoque dos Materiais/Produtos quando sua gerência é por lote;
-- Inserção de Lotes de Medicamentos na NF-e;
-- Desativação do cadastro da empresa quando necessário;
-- Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento;
-- Novo relatório gerencial: Resultado de Exercício;
-- Ajustes no cadastro de tipos de despesa;
-- Ajustes no cadastro de novos vendedores;
-- Nova regra que não permite lançamento de duplicatas e títulos com vencimento anterior a data de emissão do documento de origem;
-- Ajustes na Validação de CPF/CNPJ dos Clientes;
-- Novo relatório de comissões por baixa de títulos;
-- Novos relatórios de Vendas (Faturamento)
-- Financeiro / Controle de Cheques;
-- NF-e / Emissão de CC-e (Carta de Correção Eletrônica);
+- Pesquisa de vendas ou entradas de produtos pelo valor líquido do movimento.
+- Novas configurações para emissão de NF-e.
+- Inserção de Lotes na Entrada no Estoque dos Materiais/Produtos quando sua gerência é por lote.
+- Inserção de Lotes de Medicamentos na NF-e.
+- Desativação do cadastro da empresa quando necessário.
+- Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento.
+- Novo relatório gerencial: Resultado de Exercício.
+- Ajustes no cadastro de tipos de despesa.
+- Ajustes no cadastro de novos vendedores.
+- Nova regra que não permite lançamento de duplicatas e títulos com vencimento anterior a data de emissão do documento de origem.
+- Ajustes na Validação de CPF/CNPJ dos Clientes.
+- Novo relatório de comissões por baixa de títulos.
+- Novos relatórios de Vendas (Faturamento).
+- Financeiro / Controle de Cheques.
+- NF-e / Emissão de CC-e (Carta de Correção Eletrônica).
 - Outros ajustes na otimização de processos.}
 
 #url1=http://www.drhtransparencia.com.br/agil/upgrade/SGE.exe

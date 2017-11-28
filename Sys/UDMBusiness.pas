@@ -358,6 +358,7 @@ var
   function GetFornecedorRazao(const iCodigo : Integer) : String;
   function GetFornecedorContato(const iCodigo : Integer) : String;
   function GetFornecedorUF(const iCodigo : Integer) : String;
+  function GetFornecedorCodigo(const aCnpj : String) : Integer;
   function GetVendedorNomeDefault : String;
   function GetVendedorNome(const iCodigo : Integer) : String;
   function GetFormaPagtoNomeDefault : String;
@@ -3471,6 +3472,21 @@ begin
     Open;
 
     Result := AnsiLowerCase(Trim(FieldByName('uf').AsString));
+
+    Close;
+  end;
+end;
+
+function GetFornecedorCodigo(const aCnpj : String) : Integer;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select CODFORN from TBFORNECEDOR where CNPJ = ' + QuotedStr(aCnpj));
+    Open;
+
+    Result := FieldByName('CODFORN').AsInteger;
 
     Close;
   end;

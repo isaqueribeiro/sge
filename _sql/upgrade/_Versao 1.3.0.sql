@@ -8017,3 +8017,726 @@ alter NFSE_PERCENTUAL_CSLL position 42;
 alter table TBCONFIGURACAO
 alter NFSE_PERCENTUAL_ISSQN position 43;
 
+
+
+
+/*------ SYSDBA 28/11/2017 09:54:35 --------*/
+
+CREATE DOMAIN DMN_INTEIRO_LONGO_N AS
+BIGINT;CREATE DOMAIN DMN_INTEIRO_LONGO_NN AS
+BIGINT
+DEFAULT 0
+NOT NULL;
+
+
+/*------ SYSDBA 28/11/2017 09:55:28 --------*/
+
+ALTER TABLE TBVENDAS
+    ADD INDEX_VALOR DMN_INTEIRO_LONGO_N;
+
+COMMENT ON COLUMN TBVENDAS.INDEX_VALOR IS
+'Campo indexado para busca de revistro pelo valor da venda.';
+
+alter table TBVENDAS
+alter ANO position 1;
+
+alter table TBVENDAS
+alter CODCONTROL position 2;
+
+alter table TBVENDAS
+alter CODEMP position 3;
+
+alter table TBVENDAS
+alter CODCLIENTE position 4;
+
+alter table TBVENDAS
+alter CODCLI position 5;
+
+alter table TBVENDAS
+alter DTVENDA position 6;
+
+alter table TBVENDAS
+alter COMPETENCIA position 7;
+
+alter table TBVENDAS
+alter STATUS position 8;
+
+alter table TBVENDAS
+alter TOTALVENDA_BRUTA position 9;
+
+alter table TBVENDAS
+alter DESCONTO position 10;
+
+alter table TBVENDAS
+alter DESCONTO_CUPOM position 11;
+
+alter table TBVENDAS
+alter TOTALVENDA position 12;
+
+alter table TBVENDAS
+alter TOTALCUSTO position 13;
+
+alter table TBVENDAS
+alter INDEX_VALOR position 14;
+
+alter table TBVENDAS
+alter DTFINALIZACAO_VENDA position 15;
+
+alter table TBVENDAS
+alter OBS position 16;
+
+alter table TBVENDAS
+alter DADOS_ENTREGA position 17;
+
+alter table TBVENDAS
+alter FORMAPAG position 18;
+
+alter table TBVENDAS
+alter FATDIAS position 19;
+
+alter table TBVENDAS
+alter SERIE position 20;
+
+alter table TBVENDAS
+alter NFE position 21;
+
+alter table TBVENDAS
+alter MODELO_NF position 22;
+
+alter table TBVENDAS
+alter DATAEMISSAO position 23;
+
+alter table TBVENDAS
+alter HORAEMISSAO position 24;
+
+alter table TBVENDAS
+alter CFOP position 25;
+
+alter table TBVENDAS
+alter VERIFICADOR_NFE position 26;
+
+alter table TBVENDAS
+alter XML_NFE position 27;
+
+alter table TBVENDAS
+alter XML_NFE_FILENAME position 28;
+
+alter table TBVENDAS
+alter VENDEDOR_COD position 29;
+
+alter table TBVENDAS
+alter USUARIO position 30;
+
+alter table TBVENDAS
+alter FORMAPAGTO_COD position 31;
+
+alter table TBVENDAS
+alter CONDICAOPAGTO_COD position 32;
+
+alter table TBVENDAS
+alter VENDA_PRAZO position 33;
+
+alter table TBVENDAS
+alter PRAZO_01 position 34;
+
+alter table TBVENDAS
+alter PRAZO_02 position 35;
+
+alter table TBVENDAS
+alter PRAZO_03 position 36;
+
+alter table TBVENDAS
+alter PRAZO_04 position 37;
+
+alter table TBVENDAS
+alter PRAZO_05 position 38;
+
+alter table TBVENDAS
+alter PRAZO_06 position 39;
+
+alter table TBVENDAS
+alter PRAZO_07 position 40;
+
+alter table TBVENDAS
+alter PRAZO_08 position 41;
+
+alter table TBVENDAS
+alter PRAZO_09 position 42;
+
+alter table TBVENDAS
+alter PRAZO_10 position 43;
+
+alter table TBVENDAS
+alter PRAZO_11 position 44;
+
+alter table TBVENDAS
+alter PRAZO_12 position 45;
+
+alter table TBVENDAS
+alter LOTE_NFE_ANO position 46;
+
+alter table TBVENDAS
+alter LOTE_NFE_NUMERO position 47;
+
+alter table TBVENDAS
+alter LOTE_NFE_RECIBO position 48;
+
+alter table TBVENDAS
+alter NFE_ENVIADA position 49;
+
+alter table TBVENDAS
+alter NFE_DENEGADA position 50;
+
+alter table TBVENDAS
+alter NFE_DENEGADA_MOTIVO position 51;
+
+alter table TBVENDAS
+alter CANCEL_USUARIO position 52;
+
+alter table TBVENDAS
+alter CANCEL_DATAHORA position 53;
+
+alter table TBVENDAS
+alter CANCEL_MOTIVO position 54;
+
+alter table TBVENDAS
+alter NFE_MODALIDADE_FRETE position 55;
+
+alter table TBVENDAS
+alter NFE_TRANSPORTADORA position 56;
+
+alter table TBVENDAS
+alter NFE_PLACA_VEICULO position 57;
+
+alter table TBVENDAS
+alter NFE_PLACA_UF position 58;
+
+alter table TBVENDAS
+alter NFE_PLACA_RNTC position 59;
+
+alter table TBVENDAS
+alter NFE_VALOR_BASE_ICMS position 60;
+
+alter table TBVENDAS
+alter NFE_VALOR_ICMS position 61;
+
+alter table TBVENDAS
+alter NFE_VALOR_BASE_ICMS_SUBST position 62;
+
+alter table TBVENDAS
+alter NFE_VALOR_ICMS_SUBST position 63;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_PRODUTO position 64;
+
+alter table TBVENDAS
+alter NFE_VALOR_FRETE position 65;
+
+alter table TBVENDAS
+alter NFE_VALOR_SEGURO position 66;
+
+alter table TBVENDAS
+alter NFE_VALOR_DESCONTO position 67;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_II position 68;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_IPI position 69;
+
+alter table TBVENDAS
+alter NFE_VALOR_PIS position 70;
+
+alter table TBVENDAS
+alter NFE_VALOR_COFINS position 71;
+
+alter table TBVENDAS
+alter NFE_VALOR_OUTROS position 72;
+
+alter table TBVENDAS
+alter NFE_VALOR_TOTAL_NOTA position 73;
+
+alter table TBVENDAS
+alter CUSTO_OPER_PERCENTUAL position 74;
+
+alter table TBVENDAS
+alter CUSTO_OPER_FRETE position 75;
+
+alter table TBVENDAS
+alter CUSTO_OPER_OUTROS position 76;
+
+alter table TBVENDAS
+alter GERAR_ESTOQUE_CLIENTE position 77;
+
+alter table TBVENDAS
+alter CAIXA_ANO position 78;
+
+alter table TBVENDAS
+alter CAIXA_NUM position 79;
+
+alter table TBVENDAS
+alter CAIXA_PDV position 80;
+
+alter table TBVENDAS
+alter DNFE_COMPRA_ANO position 81;
+
+alter table TBVENDAS
+alter DNFE_COMPRA_COD position 82;
+
+alter table TBVENDAS
+alter DNFE_FORMA position 83;
+
+alter table TBVENDAS
+alter DNFE_UF position 84;
+
+alter table TBVENDAS
+alter DNFE_CNPJ_CPF position 85;
+
+alter table TBVENDAS
+alter DNFE_IE position 86;
+
+alter table TBVENDAS
+alter DNFE_COMPETENCIA position 87;
+
+alter table TBVENDAS
+alter DNFE_SERIE position 88;
+
+alter table TBVENDAS
+alter DNFE_NUMERO position 89;
+
+alter table TBVENDAS
+alter DNFE_MODELO position 90;
+
+alter table TBVENDAS
+alter DNFE_CHAVE position 91;
+
+alter table TBVENDAS
+alter DECF_MODELO position 92;
+
+alter table TBVENDAS
+alter DECF_NUMERO position 93;
+
+alter table TBVENDAS
+alter DECF_COO position 94;
+
+
+
+
+/*------ SYSDBA 28/11/2017 09:56:10 --------*/
+
+CREATE INDEX IDX_VENDAS_VALOR
+ON TBVENDAS (INDEX_VALOR);
+
+
+
+
+/*------ SYSDBA 28/11/2017 09:58:24 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_vendas_indexvalor for tbvendas
+active before insert or update position 10
+AS
+begin
+  new.index_valor = cast((new.totalvenda * 100) as bigint);
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 28/11/2017 10:03:17 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendas_indexvalor for tbvendas
+active before insert or update position 10
+AS
+begin
+  new.index_valor = cast((new.totalvenda * 100) as bigint);
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_VENDAS_INDEXVALOR IS 'Trigger Calcular Valor Indexado (Venda)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   28/11/2017
+
+Trigger responsavel por calcular o valor indexido para a busca do registro de
+venda.';
+
+
+
+
+/*------ SYSDBA 28/11/2017 10:04:41 --------*/
+
+ALTER TABLE TBCOMPRAS
+    ADD INDEX_VALOR DMN_INTEIRO_LONGO_N;
+
+COMMENT ON COLUMN TBCOMPRAS.INDEX_VALOR IS
+'Campo indexado para busca de revistro pelo valor da compra (entrada).';
+
+alter table TBCOMPRAS
+alter ANO position 1;
+
+alter table TBCOMPRAS
+alter CODCONTROL position 2;
+
+alter table TBCOMPRAS
+alter CODEMP position 3;
+
+alter table TBCOMPRAS
+alter CODFORN position 4;
+
+alter table TBCOMPRAS
+alter TIPO_ENTRADA position 5;
+
+alter table TBCOMPRAS
+alter TIPO_DOCUMENTO position 6;
+
+alter table TBCOMPRAS
+alter TIPO_MOVIMENTO position 7;
+
+alter table TBCOMPRAS
+alter NF position 8;
+
+alter table TBCOMPRAS
+alter NFSERIE position 9;
+
+alter table TBCOMPRAS
+alter MODELO_NF position 10;
+
+alter table TBCOMPRAS
+alter LOTE_NFE_ANO position 11;
+
+alter table TBCOMPRAS
+alter LOTE_NFE_NUMERO position 12;
+
+alter table TBCOMPRAS
+alter LOTE_NFE_RECIBO position 13;
+
+alter table TBCOMPRAS
+alter NFE_ENVIADA position 14;
+
+alter table TBCOMPRAS
+alter NFE_DENEGADA position 15;
+
+alter table TBCOMPRAS
+alter NFE_DENEGADA_MOTIVO position 16;
+
+alter table TBCOMPRAS
+alter VERIFICADOR_NFE position 17;
+
+alter table TBCOMPRAS
+alter XML_NFE position 18;
+
+alter table TBCOMPRAS
+alter XML_NFE_FILENAME position 19;
+
+alter table TBCOMPRAS
+alter DTLANCAMENTO position 20;
+
+alter table TBCOMPRAS
+alter DTEMISS position 21;
+
+alter table TBCOMPRAS
+alter HREMISS position 22;
+
+alter table TBCOMPRAS
+alter DTENT position 23;
+
+alter table TBCOMPRAS
+alter NFCFOP position 24;
+
+alter table TBCOMPRAS
+alter NATUREZA position 25;
+
+alter table TBCOMPRAS
+alter STATUS position 26;
+
+alter table TBCOMPRAS
+alter CALCULAR_TOTAIS position 27;
+
+alter table TBCOMPRAS
+alter IPI position 28;
+
+alter table TBCOMPRAS
+alter ICMSBASE position 29;
+
+alter table TBCOMPRAS
+alter ICMSVALOR position 30;
+
+alter table TBCOMPRAS
+alter ICMSSUBSTBASE position 31;
+
+alter table TBCOMPRAS
+alter ICMSSUBSTVALOR position 32;
+
+alter table TBCOMPRAS
+alter FRETE position 33;
+
+alter table TBCOMPRAS
+alter OUTROSCUSTOS position 34;
+
+alter table TBCOMPRAS
+alter DESCONTO position 35;
+
+alter table TBCOMPRAS
+alter VALORSEGURO position 36;
+
+alter table TBCOMPRAS
+alter VALORTOTAL_II position 37;
+
+alter table TBCOMPRAS
+alter VALORTOTAL_IPI position 38;
+
+alter table TBCOMPRAS
+alter VALORPIS position 39;
+
+alter table TBCOMPRAS
+alter VALORCOFINS position 40;
+
+alter table TBCOMPRAS
+alter TOTALPROD position 41;
+
+alter table TBCOMPRAS
+alter TOTALNF position 42;
+
+alter table TBCOMPRAS
+alter INDEX_VALOR position 43;
+
+alter table TBCOMPRAS
+alter OBS position 44;
+
+alter table TBCOMPRAS
+alter USUARIO position 45;
+
+alter table TBCOMPRAS
+alter FORMAPAGTO_COD position 46;
+
+alter table TBCOMPRAS
+alter CONDICAOPAGTO_COD position 47;
+
+alter table TBCOMPRAS
+alter COMPRA_PRAZO position 48;
+
+alter table TBCOMPRAS
+alter PRAZO_01 position 49;
+
+alter table TBCOMPRAS
+alter PRAZO_02 position 50;
+
+alter table TBCOMPRAS
+alter PRAZO_03 position 51;
+
+alter table TBCOMPRAS
+alter PRAZO_04 position 52;
+
+alter table TBCOMPRAS
+alter PRAZO_05 position 53;
+
+alter table TBCOMPRAS
+alter PRAZO_06 position 54;
+
+alter table TBCOMPRAS
+alter PRAZO_07 position 55;
+
+alter table TBCOMPRAS
+alter PRAZO_08 position 56;
+
+alter table TBCOMPRAS
+alter PRAZO_09 position 57;
+
+alter table TBCOMPRAS
+alter PRAZO_10 position 58;
+
+alter table TBCOMPRAS
+alter PRAZO_11 position 59;
+
+alter table TBCOMPRAS
+alter PRAZO_12 position 60;
+
+alter table TBCOMPRAS
+alter DTFINALIZACAO_COMPRA position 61;
+
+alter table TBCOMPRAS
+alter TIPO_DESPESA position 62;
+
+alter table TBCOMPRAS
+alter CANCEL_USUARIO position 63;
+
+alter table TBCOMPRAS
+alter CANCEL_DATAHORA position 64;
+
+alter table TBCOMPRAS
+alter CANCEL_MOTIVO position 65;
+
+alter table TBCOMPRAS
+alter AUTORIZACAO_ANO position 66;
+
+alter table TBCOMPRAS
+alter AUTORIZACAO_CODIGO position 67;
+
+alter table TBCOMPRAS
+alter AUTORIZACAO_EMPRESA position 68;
+
+alter table TBCOMPRAS
+alter DNFE_ENTRADA_ANO position 69;
+
+alter table TBCOMPRAS
+alter DNFE_ENTRADA_COD position 70;
+
+alter table TBCOMPRAS
+alter DNFE_SAIDA_ANO position 71;
+
+alter table TBCOMPRAS
+alter DNFE_SAIDA_COD position 72;
+
+alter table TBCOMPRAS
+alter DNFE_FORMA position 73;
+
+alter table TBCOMPRAS
+alter DNFE_UF position 74;
+
+alter table TBCOMPRAS
+alter DNFE_CNPJ_CPF position 75;
+
+alter table TBCOMPRAS
+alter DNFE_IE position 76;
+
+alter table TBCOMPRAS
+alter DNFE_COMPETENCIA position 77;
+
+alter table TBCOMPRAS
+alter DNFE_SERIE position 78;
+
+alter table TBCOMPRAS
+alter DNFE_NUMERO position 79;
+
+alter table TBCOMPRAS
+alter DNFE_MODELO position 80;
+
+alter table TBCOMPRAS
+alter DNFE_CHAVE position 81;
+
+alter table TBCOMPRAS
+alter DECF_MODELO position 82;
+
+alter table TBCOMPRAS
+alter DECF_NUMERO position 83;
+
+alter table TBCOMPRAS
+alter DECF_COO position 84;
+
+
+
+
+/*------ SYSDBA 28/11/2017 10:05:24 --------*/
+
+CREATE INDEX IDX_COMPRAS_VALOR
+ON TBCOMPRAS (INDEX_VALOR);
+
+
+
+
+/*------ SYSDBA 28/11/2017 10:06:57 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_compras_indexvalor for tbcompras
+active before insert or update position 10
+AS
+begin
+  new.index_valor = cast((new.totalnf * 100) as bigint);
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_COMPRAS_INDEXVALOR IS 'Trigger Calcular Valor Indexado (Compra)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   28/11/2017
+
+Trigger responsavel por calcular o valor indexido para a busca do registro de
+compra (movimento de entrada).';
+
+
+
+
+/*------ SYSDBA 28/11/2017 10:10:50 --------*/
+
+COMMENT ON TABLE TBVENDAS IS 'Tabela Vendas
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar todos os registros de vendas realizados pelo sistema.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    28/11/2017 - IMR:
+        + Cricao do campo INDEX_VALOR para armazenar o valor da venda de forma indexada
+          a fim de proporcionar um meio de busca dos registros pelo valor liquido da venda.
+
+    20/08/2014 - IMR:
+        + Criacao do campo DESCONTO_CUPOM para armazenar o valor de desconto concedido no PDV (Novo sistema em
+          desenvolvimento).
+
+    04/09/2014 - IMR:
+        + Criacao dos campos NFE_DENEGADA e NFE_DENEGADA_MOTIVO para sinalizar as NF-e que foram denegadas na SEFA e
+          armazenar o motivo da denegacao.
+
+    24/02/2015 - IMR:
+        + Criacao dos campos CAIXA_ANO, CAIXA_NUM e CAIXA_PDV para facilitar a identificacao de vendas realizadas, mas
+          que ainda nao geraram movimentacao de caixa, nos caixas do usuarios.';
+
+
+
+
+/*------ SYSDBA 28/11/2017 10:11:08 --------*/
+
+COMMENT ON TABLE TBCOMPRAS IS 'Tabela Entrada (Compras)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar todos os registros de movimento de entrada no estoque.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    28/11/2017 - IMR:
+        + Cricao do campo INDEX_VALOR para armazenar o valor da compra de forma indexada
+          a fim de proporcionar um meio de busca dos registros pelo valor liquido da compra.
+
+    20/05/2014 - IMR :
+        + Criacao do campo TIPO_DESPESA para permitir que os registros de Contas A Pagar ja possam ser gerados com o
+          devido Tipo de Despesa informado. Este campo passa a ser obrigatorio para uma melhor classificacao das Contas
+          A Pagar.
+
+    29/05/2014 - IMR:
+        + Criacao dos campos TIPO_ENTRADA e TIPO_DOCUMENTO para que os movimentos de entrada possam ser classificados quanto
+          a sua finalidade (Consumo, Producao/Faturamento, Imobilizado, ETC.) e ao tipo de documento usado para efeturar
+          essa entrada (Cupom, NF, ETC.).
+
+    04/09/2014 - IMR:
+        + Criacao dos campos NFE_DENEGADA e NFE_DENEGADA_MOTIVO para sinalizar as NF-e que foram denegadas na SEFA e
+          armazenar o motivo da denegacao.
+
+    30/07/2015 - IMR:
+        + Criacao do campo CALCULAR_TOTAIS para que o sistema possa, atraves dele, calcular de forma automatica os valores
+          totais que compoem o registro de entrada de Produtos e/ou Servicos.';
+

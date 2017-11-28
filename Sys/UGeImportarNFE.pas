@@ -19,21 +19,15 @@ uses
   cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit,
   Vcl.ComCtrls, Datasnap.DBClient, cxDBEdit, Vcl.Grids, Vcl.DBGrids,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, JvExMask, JvToolEdit,
-  JvDBControls, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, JvExMask, JvToolEdit;
 
 type
   TfrmGeImportarNFE = class(TfrmGrPadrao)
-    qryEmpresa: TIBQuery;
-    qryEmpresaCNPJ: TIBStringField;
-    qryEmpresaRZSOC: TIBStringField;
     dtsEmpresa: TDataSource;
     GrpBxEmpresa: TGroupBox;
     lblCNPJEmpresa: TLabel;
@@ -155,6 +149,8 @@ type
     dbCNPJCPF_Dest: TDBEdit;
     dbXNome_Dest: TDBEdit;
     lblXNome_Dest: TLabel;
+    fdQryEmpresa: TFDQuery;
+    dbProdutos: TDBGrid;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -164,6 +160,7 @@ type
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
     procedure btnManifestoClick(Sender: TObject);
+    procedure edFornecedorCadastroButtonClick(Sender: TObject);
   private
     { Private declarations }
     sQuebraLinha : String;
@@ -190,6 +187,10 @@ type
     procedure CarregaPagamento;
     procedure CarregaInformacoesAdicionais;
     procedure CarregaDadosNFe;
+
+    procedure LimparDadosRelacao;
+    procedure IdentificarFornecedor(const aCnpj : String);
+    procedure IdentificarProduto(aCampo : TField; const aProduto, aCnpjFornecedor : String);
 
     function IfThenX(AValue: Boolean; const ATrue: String; AFalse: string = ''): string;
     function QuebraLinha: String;
@@ -235,7 +236,8 @@ implementation
 
 uses
   System.DateUtils, System.StrUtils,
-  UDMBusiness, UDMNFe, UConstantesDGE, UFuncoes, UDMRecursos;
+  UDMBusiness, UDMNFe, UConstantesDGE, UFuncoes, UDMRecursos,
+  UGeFornecedor;
 
 {$R *.dfm}
 
@@ -258,7 +260,14 @@ begin
   if not FileExists(Trim(edArquivoXML.Text)) then
     ShowWarning('Arquivo XML não existe!')
   else
+  begin
     CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
+    btnConfirmar.Enabled := (gUsuarioLogado.Empresa = StrOnlyNumbers(cdsDestinatario.FieldByName('CNPJCPF').AsString));
+    if (not btnConfirmar.Enabled) then
+      ShowWarning('Arquivo XML de NF-e não pertence a empresa ' + QuotedStr(dbRazaoSocialEmpresa.Field.AsString) + '.')
+    else
+      IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
+  end;
 end;
 
 procedure TfrmGeImportarNFE.btnManifestoClick(Sender: TObject);
@@ -375,7 +384,12 @@ begin
         Append;
         with NFe.Det.Items[inItem] do
         begin
+          IdentificarProduto(FieldByName('ID')
+            , Trim(Prod.cProd)
+            , StrOnlyNumbers(cdsEmitente.FieldByName('CNPJ').AsString));
+
           FieldByName('ChaveNFe').AsString          := NFe.infNFe.ID;
+          //FieldByName('ID').AsString                := IndentificarProduto(Trim(Prod.cProd), StrOnlyNumbers(cdsEmitente.FieldByName('CNPJ').AsString));
           FieldByName('cProd').AsString             := frDANFE.ManterCodigo( Prod.cEAN,Prod.cProd);
           FieldByName('cEAN').AsString              := Prod.cEAN;
           FieldByName('XProd').AsString             := StringReplace( Prod.xProd, ';', #13, [rfReplaceAll]);
@@ -1096,7 +1110,7 @@ end;
 
 procedure TfrmGeImportarNFE.CarregarEmpresa(const sCnpj: String);
 begin
-  with qryEmpresa do
+  with fdQryEmpresa do
   begin
     Close;
     ParamByName('cnpj').AsString := sCnpj;
@@ -1164,7 +1178,10 @@ begin
             aVersao := Ord(ve300)
           else
           if ( Trim(sVersao) = 'versao="3.10"' ) then
-            aVersao := Ord(ve310);
+            aVersao := Ord(ve310)
+          else
+          if ( Trim(sVersao) = 'versao="4.00"' ) then
+            aVersao := Ord(ve400);
         end;
 
         if ( (NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC) or (not Assigned(NotasFiscais.Items[0].NFe.procNFe)) ) then
@@ -1336,6 +1353,18 @@ begin
   end;
 end;
 
+procedure TfrmGeImportarNFE.edFornecedorCadastroButtonClick(Sender: TObject);
+var
+  aCodigo : Integer;
+  aCNPJ   ,
+  aNome   : String;
+begin
+  aCnpj := dbCNPJ.Text;
+  aNome := dbXNome.Text;
+  if SelecionarFornecedor(Self, aCodigo, aCnpj, aNome) then
+    IdentificarFornecedor(aCNPJ);
+end;
+
 function TfrmGeImportarNFE.Explode(sPart, sInput: String): ArrOfStr;
 begin
   while Pos(sPart, sInput) <> 0 do
@@ -1401,6 +1430,19 @@ begin
     inherited;
 end;
 
+procedure TfrmGeImportarNFE.IdentificarFornecedor(const aCnpj: String);
+begin
+  edFornecedorCadastro.Text := FormatFloat('###00000', GetFornecedorCodigo(StrOnlyNumbers(aCnpj)));
+  edFornecedorCadastro.Hint := aCnpj;
+end;
+
+procedure TfrmGeImportarNFE.IdentificarProduto(aCampo: TField; const aProduto,
+  aCnpjFornecedor: String);
+begin
+  if (aCampo.DataSet.State in [dsEdit, dsInsert]) then
+    aCampo.AsString := '0';
+end;
+
 function TfrmGeImportarNFE.IfThenX(AValue: Boolean; const ATrue: String;
   AFalse: string): string;
 begin
@@ -1408,6 +1450,12 @@ begin
     Result := ATrue
   else
     Result := AFalse;
+end;
+
+procedure TfrmGeImportarNFE.LimparDadosRelacao;
+begin
+  edFornecedorCadastro.Text := EmptyStr;
+  edFornecedorCadastro.Hint := EmptyStr;
 end;
 
 function TfrmGeImportarNFE.ManterArma(inItem: integer): String;
@@ -1785,6 +1833,7 @@ begin
   cdsDadosProdutos   := TClientDataSet.Create(Self);
   with cdsDadosProdutos do
   begin
+    FieldDefs.Add('ID'        , ftString, 10);
     FieldDefs.Add('CProd'     , ftString, 60);
     FieldDefs.Add('cEAN'      , ftString, 60);
     FieldDefs.Add('XProd'     , ftString, 120);

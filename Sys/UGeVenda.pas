@@ -725,6 +725,8 @@ begin
 end;
 
 procedure TfrmGeVenda.btnFiltrarClick(Sender: TObject);
+var
+  aValor : Currency;
 begin
   WhereAdditional :=
     'cast(v.dtvenda as date) between ' +
@@ -738,6 +740,11 @@ begin
                         //'v.codemp = ' + QuotedStr(gUsuarioLogado.Empresa);
   if ( RdgStatusVenda.ItemIndex > 0 ) then
     WhereAdditional := WhereAdditional + ' and (v.status = ' + IntToStr(RdgStatusVenda.ItemIndex) + ')';
+
+  // Buscar registro pelo Valor
+  aValor := StrToCurrDef(StringReplace(Trim(edtFiltrar.Text), '.', '', [rfReplaceAll]), 0) * 100;
+  if ((Pos(',', Trim(edtFiltrar.Text)) > 0) and (aValor > 0.0)) then
+    WhereAdditional := WhereAdditional + ' and (v.index_valor = ' + CurrToStr(aValor) + ')';
 
   inherited;
 end;

@@ -546,9 +546,10 @@ begin
         AddStrings( sSQL );
 
         if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
-          if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
+          if ( (StrToIntDef(Trim(edtFiltrar.Text), 0) > 0) and (Pos(',', Trim(edtFiltrar.Text)) = 0) ) then
             Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
           else
+          if ( Pos(',', Trim(edtFiltrar.Text)) = 0 ) then
             Add( 'where (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
                  '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
 

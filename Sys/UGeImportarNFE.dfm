@@ -174,6 +174,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Top = 40
       Width = 609
       Height = 21
+      Hint = 'Pressione F5 para recuperar a Chave da '#225'rea de transfer'#234'ncia.'
       Anchors = [akLeft, akTop, akRight]
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -183,6 +184,8 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Font.Style = [fsBold]
       MaxLength = 45
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
     end
     object btnManifesto: TcxButton
@@ -287,15 +290,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Top = 67
       Width = 708
       Height = 350
-      ActivePage = tbsEmitente
+      ActivePage = tbsProdutos
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
       object tbsNFe: TTabSheet
         Caption = 'NFe'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lblId: TLabel
           Left = 16
           Top = 16
@@ -1052,6 +1051,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           NumGlyphs = 2
           TabOrder = 0
           Text = ''
+          OnButtonClick = edFornecedorCadastroButtonClick
         end
       end
       object tbsDestinatario: TTabSheet
@@ -1111,81 +1111,42 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsProdutos: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
+        object dbProdutos: TDBGrid
+          Left = 0
+          Top = 0
+          Width = 700
+          Height = 322
+          Align = alClient
+          DataSource = dtsDadosProdutos
+          ReadOnly = True
+          TabOrder = 0
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+        end
       end
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
     end
   end
-  object qryEmpresa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.cnpj'
-      '  , e.rzsoc'
-      'from TBEMPRESA e'
-      'where e.cnpj = :cnpj')
-    Left = 304
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'cnpj'
-        ParamType = ptInput
-        Value = ''
-      end>
-    object qryEmpresaCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBEMPRESA"."CNPJ"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      OnGetText = qryEmpresaCNPJGetText
-      Size = 18
-    end
-    object qryEmpresaRZSOC: TIBStringField
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      Size = 60
-    end
-  end
   object dtsEmpresa: TDataSource
-    DataSet = qryEmpresa
+    DataSet = fdQryEmpresa
     Left = 312
     Top = 8
   end
@@ -1368,5 +1329,24 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
   object dtsInutilizacao: TDataSource
     Left = 596
     Top = 104
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.rzsoc'
+      'from TBEMPRESA e'
+      'where e.cnpj = :cnpj')
+    Left = 300
+    ParamData = <
+      item
+        Name = 'CNPJ'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
   end
 end
