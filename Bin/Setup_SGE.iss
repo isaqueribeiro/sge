@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "SGE"
-#define MyAppVersion "SGE v1.0.18"
+#define MyAppVersion "SGE v1.0.19"
 #define MyAppPublisher "Agil Soluções em Softwares"
 #define MyAppURL "http://www.agilsotwares.com.br/"
 #define MyAppExeName "SGE.exe"

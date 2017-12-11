@@ -7321,6 +7321,7 @@ begin
             sUrlConsultaNFCe :=
               ACBrNFe.GetURLConsultaNFCe(ACBrNFe.Configuracoes.WebServices.UFCodigo
                 , ACBrNFe.Configuracoes.WebServices.Ambiente
+                , ACBrNFe.NotasFiscais.Items[0].NFe.infNFe.Versao
               )
           else
             sUrlConsultaNFCe := '';
@@ -7354,6 +7355,7 @@ begin
               , qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency   // Valor da Nota Fiscal
               , qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency         // Valor do ICMS da Nota Fiscal
               , EmptyStr                                                           // Assinatura Digital (A1 ou A3)
+              , ACBrNFe.NotasFiscais[0].NFe.infNFe.Versao
             )
           else
           begin
@@ -7379,7 +7381,8 @@ begin
               , ACBrNFe.NotasFiscais[0].NFe.Ide.dEmi
               , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vNF
               , ACBrNFe.NotasFiscais[0].NFe.Total.ICMSTot.vICMS
-              , ACBrNFe.NotasFiscais[0].NFe.signature.DigestValue);
+              , ACBrNFe.NotasFiscais[0].NFe.signature.DigestValue
+              , ACBrNFe.NotasFiscais[0].NFe.infNFe.Versao);
 
           if Copy(sStringQRCode, 1, 1) = '?' then
             sStringQRCode := sUrlConsultaNFCe + sStringQRCode;

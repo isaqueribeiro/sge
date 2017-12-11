@@ -1437,6 +1437,7 @@ begin
               , GetDateDB
               , DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger
               , DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency
+              , toRecebimentoVenda
               , DataSetVenda.FieldByName('ANO').AsInteger
               , DataSetVenda.FieldByName('CODCONTROL').AsInteger);
 

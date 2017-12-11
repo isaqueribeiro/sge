@@ -8740,3 +8740,74 @@ Historico:
         + Criacao do campo CALCULAR_TOTAIS para que o sistema possa, atraves dele, calcular de forma automatica os valores
           totais que compoem o registro de entrada de Produtos e/ou Servicos.';
 
+
+
+
+/*------ SYSDBA 08/12/2017 12:17:40 --------*/
+
+CREATE TABLE SYS_MEGASENA (
+    CONCURSO DMN_INTEGER_NN NOT NULL,
+    DATA DMN_DATE,
+    N1 DMN_INTEGER_N,
+    N2 DMN_INTEGER_N,
+    N3 DMN_INTEGER_N,
+    N4 DMN_INTEGER_N,
+    N5 DMN_INTEGER_N,
+    N6 DMN_INTEGER_N,
+    SOMA DMN_INTEGER_N);
+
+ALTER TABLE SYS_MEGASENA
+ADD CONSTRAINT PK_SYS_MEGASENA
+PRIMARY KEY (CONCURSO);
+
+
+
+
+/*------ SYSDBA 08/12/2017 12:19:15 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_megasena_soma for sys_megasena
+active before insert or update position 0
+AS
+begin
+  new.soma =
+    coalesce(new.n1, 0) +
+    coalesce(new.n2, 0) +
+    coalesce(new.n3, 0) +
+    coalesce(new.n4, 0) +
+    coalesce(new.n5, 0) +
+    coalesce(new.n6, 0);
+end^
+
+SET TERM ; ^
+
+GRANT ALL ON SYS_MEGASENA TO "PUBLIC";
+
+
+
+/*------ SYSDBA 08/12/2017 12:20:09 --------*/
+
+CREATE INDEX IDX_SYS_MEGASENA_SOMA
+ON SYS_MEGASENA (SOMA);
+
+CREATE INDEX IDX_SYS_MEGASENA_DATA
+ON SYS_MEGASENA (DATA);
+
+
+
+
+/*------ SYSDBA 11/12/2017 11:23:27 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_sistema_data for sys_sistema
+active before insert or update position 0
+AS
+begin
+  if (old.sis_versao <> new.sis_versao) then
+    new.sis_atualizacao = current_timestamp;
+end^
+
+SET TERM ; ^
+
