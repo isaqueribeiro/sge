@@ -4657,17 +4657,17 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
   try
     with FileINI do
     begin
+      sServidor := ReadString('Conexao', 'Servidor', 'localhost');
+      sPorta    := ReadString('Conexao', 'Porta',    '3050');
+      sBase     := ReadString('Conexao', 'Base',     'AGIL_COMERCIO');
+
+      {$IFNDEF PRINTER_CUPOM}
       if (ParamCount >= 2) then
       begin
         sServidor := ParamStr(1);
         sBase     := ParamStr(2);
-      end
-      else
-      begin
-        sServidor := ReadString('Conexao', 'Servidor', 'localhost');
-        sPorta    := ReadString('Conexao', 'Porta',    '3050');
-        sBase     := ReadString('Conexao', 'Base',     'AGIL_COMERCIO');
       end;
+      {$ENDIF}
 
       if Pos('/', sServidor) > 0 then
       begin

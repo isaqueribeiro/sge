@@ -1,12 +1,11 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 11/12/2017 15:49:00     #
+#    Gerado por AGIL SOFTWARES em : 14/12/2017 15:51:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Ajustes na emissão de NF-e e NFC-e.
 - Pesquisa de vendas de produtos pelo valor líquido do movimento.
-- Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento;
-- Ajustes na Validação de CPF/CNPJ dos Clientes;
-- Atualização Automática;
+- Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento.
 - Outros ajustes na otimização de processos.}
 
 #url1=http://www.drhtransparencia.com.br/agil/upgrade/SGE_PDV.exe
@@ -19,4 +18,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.21.2
+#version=1.0.21.4

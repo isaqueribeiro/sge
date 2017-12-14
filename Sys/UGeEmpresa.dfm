@@ -865,6 +865,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Caption = 'Chave de Acesso'
             Enabled = False
             FocusControl = dbChave
+            Visible = False
           end
           object lblTipoRegime: TLabel
             Left = 151
@@ -887,6 +888,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
+            Visible = False
           end
           object lblNumeroNFe: TLabel
             Left = 232
@@ -901,6 +903,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
+            Visible = False
           end
           object lblLoteAno: TLabel
             Left = 344
@@ -930,6 +933,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
+            Visible = False
           end
           object lblSerieNFCe: TLabel
             Left = 456
@@ -944,6 +948,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
+            Visible = False
           end
           object lblNumeroNFCe: TLabel
             Left = 536
@@ -958,6 +963,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
+            Visible = False
           end
           object lblNumeroCCe: TLabel
             Left = 644
@@ -972,6 +978,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
+            Visible = False
           end
           object lblSegmento: TLabel
             Left = 456
@@ -998,6 +1005,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Font.Style = []
             ParentFont = False
             TabOrder = 3
+            Visible = False
           end
           object dbTipoRegime: TDBLookupComboBox
             Left = 151
@@ -1035,6 +1043,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
             ReadOnly = True
             TabOrder = 4
+            Visible = False
           end
           object dbNumeroNFe: TDBEdit
             Left = 232
@@ -1053,6 +1062,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
             ReadOnly = True
             TabOrder = 5
+            Visible = False
           end
           object dbLoteAno: TDBEdit
             Left = 344
@@ -1076,7 +1086,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           object dbLoteNumero: TDBEdit
             Left = 344
             Top = 56
-            Width = 105
+            Width = 106
             Height = 21
             CharCase = ecUpperCase
             Color = clMoneyGreen
@@ -1090,6 +1100,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
             ReadOnly = True
             TabOrder = 7
+            Visible = False
           end
           object dbSerieNFCe: TDBEdit
             Left = 456
@@ -1108,6 +1119,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
             ReadOnly = True
             TabOrder = 8
+            Visible = False
           end
           object dbNumeroNFCe: TDBEdit
             Left = 536
@@ -1126,6 +1138,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
             ReadOnly = True
             TabOrder = 9
+            Visible = False
           end
           object dbNumeroCCe: TDBEdit
             Left = 644
@@ -1144,6 +1157,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ParentFont = False
             ReadOnly = True
             TabOrder = 10
+            Visible = False
           end
           object dbPais: TJvDBComboEdit
             Left = 8
@@ -1563,6 +1577,7 @@ inherited frmGeEmpresa: TfrmGeEmpresa
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
     Left = 704
+    Top = 8
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1691,11 +1706,12 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       'where'
       '  CNPJ = :OLD_CNPJ')
     Left = 672
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 608
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
