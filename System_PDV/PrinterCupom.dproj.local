@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2015/11/25 22:35:16.000.750,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.dfm</Transaction>
-    <Transaction>2015/11/25 22:35:43.000.474,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj</Transaction>
+    <Transaction>2015/11/25 22:35:16.000.750,D:\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.dfm=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2015/11/25 22:35:43.000.474,D:\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
   </Transactions>
 </BorlandProject>
