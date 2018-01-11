@@ -27,7 +27,7 @@ object frmPrinc: TfrmPrinc
     Color = clBlack
     TabOrder = 0
     ExplicitTop = 122
-    ExplicitHeight = 395
+    ExplicitHeight = 499
     DesignSize = (
       930
       466)
@@ -4436,7 +4436,6 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitTop = 341
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 8

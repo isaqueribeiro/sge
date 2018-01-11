@@ -16,13 +16,13 @@ File_13=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\source\dat
 File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrMemoData.pas',0,1,102,44,116,0,0,,
 
 [Modules]
-Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module0=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module2=default.htm
 Module3=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module4=D:\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas
-Module5=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module6=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module5=D:\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas
+Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 Module7=C:\Delphi\ACBr_2016\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
 Module8=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
 Module9=D:\Projetos\ASS\SGE\trunk\Sys\lib\UEcfWindowsPrinter.pas
@@ -38,15 +38,15 @@ Module18=C:\Program Files (x86)\Embarcadero\Studio\15.0\source\vcl\Vcl.Consts.pa
 Count=19
 EditWindowCount=1
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
+FormOnTop=0
 
 [default.htm]
 ModuleType=TURLModule
@@ -54,17 +54,17 @@ ModuleType=TURLModule
 [D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj]
 ModuleType=TBaseProject
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -139,7 +139,7 @@ FormOnTop=0
 
 [EditWindow0]
 ViewCount=19
-CurrentEditView=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+CurrentEditView=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
 View0=0
 View1=1
 View2=2
@@ -177,13 +177,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1341
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000000C13000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000DD2100001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000007911000000000000013D050000000000000100000000550E000009000000446F636B536974653301000000000F1F00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000000C13000000000000011D0500000000000001000000004412000009000000446F636B53697465320100000000DD21000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=0
+RightPanelData=000008000101000000007911000000000000011D0500000000000001000000004412000009000000446F636B536974653201000000000F1F000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=648
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D7245000000000000027B03000000000000FFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B536974653172450000000000000288020000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779D1D00000000000002F606000000000000FFFFFFFF
@@ -255,7 +255,7 @@ CursorY=4053
 TopLine=4038
 LeftCol=1
 Elisions=
-Bookmarks={1,4757,1}{2,824,3}
+Bookmarks={1,4757,1}{2,824,1}
 EditViewName=Borland.FormDesignerView
 
 [View7]
@@ -266,7 +266,7 @@ CursorY=1699
 TopLine=1680
 LeftCol=1
 Elisions=
-Bookmarks={1,406,1}{2,284,14}
+Bookmarks={1,406,1}{2,284,1}
 EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View8]
@@ -371,13 +371,13 @@ EditViewName=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\ACBrNFeDANFEClass.
 [View17]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-CursorX=90
-CursorY=406
-TopLine=404
+CursorX=1
+CursorY=733
+TopLine=729
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
 
 [View18]
 CustomEditViewType=TEditView
@@ -482,18 +482,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
 Left=0
-Top=0
-Width=2767
-Height=654
+Top=23
+Width=10000
+Height=400
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2767
-ClientHeight=654
-TBDockHeight=654
+ClientWidth=10000
+ClientHeight=400
+TBDockHeight=400
 LRDockWidth=2767
 Dockable=1
 StayOnTop=0
@@ -507,11 +507,11 @@ State=0
 Left=0
 Top=0
 Width=1309
-Height=3898
+Height=3148
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
+ClientHeight=3148
 TBDockHeight=7155
 LRDockWidth=1999
 Dockable=1
@@ -526,21 +526,16 @@ State=0
 Left=0
 Top=340
 Width=1341
-Height=4952
+Height=4201
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
-ClientHeight=4952
+ClientHeight=4201
 TBDockHeight=8765
 LRDockWidth=1341
 Dockable=1
 StayOnTop=0
 SplitPos=79
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem="LiveBindings Designer",
-ExpandedItems="LiveBindings Designer=0"
 
 [ModelViewTool]
 PercentageSizes=1
@@ -1016,11 +1011,11 @@ State=0
 Left=0
 Top=427
 Width=1309
-Height=3898
+Height=3148
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1309
-ClientHeight=3898
+ClientHeight=3148
 TBDockHeight=8765
 LRDockWidth=1309
 Dockable=1
