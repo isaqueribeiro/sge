@@ -289,7 +289,8 @@ end;
 procedure TfrmPrinc.FormActivate(Sender: TObject);
 var
   sCNPJ     ,
-  sHostName : String;
+  sHostName ,
+  aProcesso : String;
 begin
 {*
   IMR - 30/09/2016 :
@@ -340,14 +341,18 @@ begin
   if GetAjustarDataHoraEstacao then
     AjustarDataHoraSistema;
 
-//  if ( not DelphiIsRunning ) then
-//    if not gLicencaSistema.UsarSGE then
-//    begin
-//      ShowWarning(
-//        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
-//        'Favor entrar em contato com o fornecedor do software.');
-//      Application.Terminate;
-//    end;
+  if (not gLicencaSistema.UsarSGE) and (not gLicencaSistema.UsarSGI) then
+  begin
+    ShowWarning(
+      'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+      'Favor entrar em contato com o fornecedor do software.');
+    Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -642,10 +647,19 @@ begin
 end;
 
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+var
+  aProcesso : String;
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
   if CanClose then
+  begin
     ExcluirArquivosAlertaSistema;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 procedure TfrmPrinc.mnRegistroEstacaoClick(Sender: TObject);

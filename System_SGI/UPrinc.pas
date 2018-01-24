@@ -764,7 +764,8 @@ end;
 procedure TfrmPrinc.FormActivate(Sender: TObject);
 var
   sCNPJ     ,
-  sHostName : String;
+  sHostName ,
+  aProcesso : String;
 begin
   if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
     sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
@@ -822,6 +823,11 @@ begin
       'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
       'Favor entrar em contato com o fornecedor do software.');
     Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
   end;
 end;
 
@@ -1274,8 +1280,17 @@ begin
 end;
 
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+var
+  aProcesso : String;
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
+  if CanClose then
+  begin
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 procedure TfrmPrinc.nmCartaCorrecaoNFeClick(Sender: TObject);

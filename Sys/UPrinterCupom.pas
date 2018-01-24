@@ -23,6 +23,7 @@ type
     edBlocoImpressaoCupom: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnImprimirCupomClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -45,6 +46,7 @@ uses UConstantesDGE, UDMBusiness, UDMRecursos, UFuncoes, UDMNFe;
 procedure ImprimiCupom;
 var
   AForm : TfrmPrinterCupom;
+  aProcesso : String;
 begin
   AForm := TfrmPrinterCupom.Create(Application);
   try
@@ -52,6 +54,11 @@ begin
     AForm.ImprimirEFechar;
   finally
     AForm.Free;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
   end;
 end;
 procedure TfrmPrinterCupom.btnImprimirCupomClick(Sender: TObject);
@@ -77,6 +84,16 @@ begin
   edCliente.Enabled  := (Trim(edCliente.Text) = EmptyStr);
   edAno.Enabled      := (Trim(edAno.Text) = EmptyStr);
   edControle.Enabled := (Trim(edControle.Text) = EmptyStr);
+end;
+
+procedure TfrmPrinterCupom.FormClose(Sender: TObject; var Action: TCloseAction);
+var
+  aProcesso : String;
+begin
+  // Remover processo da memória do Windows
+  aProcesso := ParamStr(0);
+  aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+  KillTask(aProcesso);
 end;
 
 procedure TfrmPrinterCupom.FormCreate(Sender: TObject);
