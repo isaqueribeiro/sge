@@ -35,6 +35,7 @@ type
     Funcao   : Integer;
     Empresa  : String;
     Vendedor : Integer;
+    Logado   : Boolean;
   end;
 
   TContaEmail = record
@@ -4636,9 +4637,10 @@ procedure TDMBusiness.DataModuleCreate(Sender: TObject);
 var
   I ,
   X : Integer;
-  sServidor,
-  sPorta   ,
-  sBase    : String;
+  sServidor ,
+  sPorta    ,
+  sBase     ,
+  aProcesso : String;
 begin
 (*
 -- EXTRAIR METADATA DA BASE FIREBIRD:
@@ -4726,6 +4728,11 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
       begin
         ShowWarning('Licença', 'Sistema não registrado!' + #13 + 'Favor carregar arquivo de licença');
         Application.Terminate;
+
+        // Remover processo da memória do Windows
+        aProcesso := ParamStr(0);
+        aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+        KillTask(aProcesso);
       end;
     end
     else

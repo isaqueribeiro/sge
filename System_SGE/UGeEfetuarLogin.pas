@@ -22,6 +22,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -96,6 +97,12 @@ begin
   end;
 end;
 
+procedure TFrmEfetuarLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  ;
+end;
+
 procedure TFrmEfetuarLogin.FormCreate(Sender: TObject);
 var
   sFileImageBackgroud : String;
@@ -150,6 +157,7 @@ begin
     gUsuarioLogado.Funcao   := GetUserFunctionID;
     gUsuarioLogado.Empresa  := Empresa;
     gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
+    gUsuarioLogado.Logado   := True;
 
     SetEmpresaIDDefault( Empresa );
 
@@ -171,7 +179,10 @@ begin
       frmPrinc.nmUsuarioAlterarSenhaClick( frmPrinc.BrBtnAlterarSenha );
   end
   else
-    Contador := Contador + 1; 
+  begin
+    Contador := Contador + 1;
+    gUsuarioLogado.Logado := False;
+  end;
 end;
 
 initialization

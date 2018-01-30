@@ -760,13 +760,13 @@ var
   sHostName ,
   aProcesso : String;
 begin
+  if not DataBaseOnLine then
+    Exit;
+
   if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
     sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
   else
     sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
-
-  if not DataBaseOnLine then
-    Exit;
 
   stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
   BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);

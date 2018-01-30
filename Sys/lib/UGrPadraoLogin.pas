@@ -40,6 +40,7 @@ type
     procedure BtnEntrarClick(Sender: TObject);
     procedure edNomeChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     fFinalizarAplicacao : Boolean;
@@ -108,6 +109,22 @@ begin
   edNome.Text := Value;
 end;
 
+procedure TfrmGrPadraoLogin.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+var
+  aProcesso : String;
+begin
+  if not gUsuarioLogado.Logado then
+  begin
+    Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
+end;
+
 procedure TfrmGrPadraoLogin.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -172,11 +189,20 @@ begin
 end;
 
 procedure TfrmGrPadraoLogin.BtnFecharClick(Sender: TObject);
+var
+  aProcesso : String;
 begin
   if fFinalizarAplicacao then
-    Application.Terminate
+  begin
+    Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end
   else
-    Self.Close;  
+    Self.Close;
 end;
 
 procedure TfrmGrPadraoLogin.BtnEntrarClick(Sender: TObject);
@@ -197,11 +223,15 @@ begin
     gUsuarioLogado.Funcao   := GetUserFunctionID;
     gUsuarioLogado.Empresa  := Empresa;
     gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
+    gUsuarioLogado.Logado   := True;
 
     ModalResult := mrOk;
   end
   else
+  begin
     Inc(fContador);
+    gUsuarioLogado.Logado := False;
+  end;
 end;
 
 procedure TfrmGrPadraoLogin.edNomeChange(Sender: TObject);
@@ -220,10 +250,19 @@ begin
 end;
 
 procedure TfrmGrPadraoLogin.FormShow(Sender: TObject);
+var
+  aProcesso : String;
 begin
   inherited;
   if not DataBaseOnLine then
+  begin
     Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 end.

@@ -1526,6 +1526,8 @@ begin
 
     if (Trim(FieldByName('ender').AsString) = EmptyStr) then
       sMensagem := sMensagem + '- Logradouro não informado' + #13;
+    if (Trim(FieldByName('numero_end').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Númedo do endereço não informado' + #13;
     if (Trim(FieldByName('bairro').AsString) = EmptyStr) then
       sMensagem := sMensagem + '- Bairro não informado' + #13;
     if (Trim(FieldByName('cidade').AsString) = EmptyStr) then
@@ -1606,8 +1608,8 @@ var
   aCodigo ,
   aModelo : Integer;
   sPrefixoSecao,
-  sSecaoGeral  : String;
-  sChave : AnsiString;
+  sSecaoGeral  ,
+  sChave       : String;
 begin
   if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
     sPrefixoSecao := Trim(sCNPJEmitente) + '_'
