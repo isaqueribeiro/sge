@@ -1841,6 +1841,7 @@ begin
         end;
 
       ShowError('Erro ao tentar gerar NF-e.' +
+        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
         IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
         #13#13 + 'GerarNFeOnLineACBr() --> ' + sErrorMsg);
 
@@ -3465,17 +3466,43 @@ begin
 
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
-          REJEICAO_NFE_DUPLICIDADE, REJEICAO_NFE_NOTA_DENEGADA:
+          REJEICAO_NFE_DUPLICIDADE  ,
+          REJEICAO_NFE_NOTA_DENEGADA:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
               UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
 
-              // Remover Lote da Venda
+              // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 'Favor gerar NF-e novamente!';
             end;
+
+          REJEICAO_NFE_EMISSOR_NAO_HABIL,
+          REJEICAO_NFE_IE_NAO_CADASTRADO,
+          REJEICAO_NFE_IE_NAO_VINCULADO ,
+          REJEICAO_NFE_BC_ICMS_ERR,
+          REJEICAO_NFE_TO_ICMS_ERR,
+          REJEICAO_NFE_TO_PROD_ERR,
+          REJEICAO_NFE_NCM_INEXIST:
+            begin
+              // Remover Lote da Entrada
+              GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
+
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                'Favor validar dados e NF-e novamente!';
+            end;
+
+          REJEICAO_NFE_NAO_CATALOG:
+            begin
+              // Remover Lote da Entrada
+              GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
+
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
+            end;
+
           else
           begin
 
@@ -3511,6 +3538,7 @@ begin
         end;
 
       ShowError('Erro ao tentar gerar NF-e de Entrada.' +
+        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
         IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
         #13#13 + 'GerarNFeEntradaOnLineACBr() --> ' + sErrorMsg);
 
@@ -5126,6 +5154,7 @@ begin
           sTextoRetorno.Add( '---' );
           sTextoRetorno.Add( 'Emitente    : ' + sCNPJEmitente );
           sTextoRetorno.Add( 'Chave NF-e  : ' + WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].chNFe );
+          sTextoRetorno.Add( 'Status      : ' + IntToStr(WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat) );
           sTextoRetorno.Add( 'Motivo      : ' + WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].xMotivo );
           sTextoRetorno.Add( 'Mensagem    : ' + WebServices.Recibo.NFeRetorno.xMsg );
           sTextoRetorno.Add( '---' );
@@ -6239,6 +6268,7 @@ begin
         end;
 
       ShowError('Erro ao tentar gerar NFC-e.' +
+        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
         IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
         #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);
 
