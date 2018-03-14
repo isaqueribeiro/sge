@@ -2794,19 +2794,15 @@ begin
   try
     S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
 
-    Case GetSegmentoID(gUsuarioLogado.Empresa)  of
-      SEGMENTO_MERCADO_CARRO_ID:
-        S := 'Veículo' + IfThen(NoPlural, 's', EmptyStr);
-//      SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
-//        s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
-      else
-        s := IfThen(NoPlural, 'Produtos / Serviços', 'Produto / Serviço');
-//        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
-//          s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
-//        else
-//          S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
+    if (gSistema.Codigo <> SISTEMA_GESTAO_OPME) then
+    begin
+      Case GetSegmentoID(gUsuarioLogado.Empresa)  of
+        SEGMENTO_MERCADO_CARRO_ID:
+          S := 'Veículo' + IfThen(NoPlural, 's', EmptyStr);
+        else
+          s := IfThen(NoPlural, 'Produtos / Serviços', 'Produto / Serviço');
+      end;
     end;
-
   finally
     Result := S;
   end;
