@@ -19,6 +19,7 @@ uses
 type
   TFrmEfetuarLogin = class(TfrmGrPadraoLogin)
     ImgLogoIndustria: TImage;
+    ImgLogoOPME: TImage;
     procedure FormShow(Sender: TObject);
     procedure BtnEntrarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -122,6 +123,7 @@ begin
   inherited;
   ImgLogo.Visible          := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]);
   ImgLogoIndustria.Visible := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+  ImgLogoOPME.Visible      := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
 
   if ( DelphiIsRunning ) then
   begin

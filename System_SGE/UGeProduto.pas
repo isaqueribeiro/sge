@@ -447,7 +447,8 @@ type
 var
   frmGeProduto: TfrmGeProduto;
 
-  procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota);
+  procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota); overload;
+  procedure MostrarTabelaProdutos(const AOwner : TComponent); overload;
   procedure MostrarTabelaServicos(const AOwner : TComponent);
 
   function SelecionarProdutoParaAjuste(const AOwner : TComponent; const Empresa : String;
@@ -529,30 +530,51 @@ const
 
 procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota);
 var
-  frm : TfrmGeProduto;
+  AForm : TfrmGeProduto;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  AForm := TfrmGeProduto.Create(AOwner);
   try
-    frm.fAliquota := TipoAliquota;
-//    frm.fApenasProdutos := (frm.fAliquota = taICMS);
-//    frm.fApenasServicos := (frm.fAliquota = taISS);
-    frm.chkProdutoComEstoque.Checked := False;
-    frm.AddWhereAdditional;
+    AForm.fAliquota       := TipoAliquota;
+    AForm.fApenasProdutos := True;
+    AForm.fApenasServicos := False;
+//    AForm.fApenasProdutos := (frm.fAliquota = taICMS);
+//    AForm.fApenasServicos := (frm.fAliquota = taISS);
+    AForm.chkProdutoComEstoque.Checked := False;
+    AForm.AddWhereAdditional;
 //
 //    if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
-//      frm.WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
+//      AForm.WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
 //    else
-//      frm.WhereAdditional := '(1 = 1)';
+//      AForm.WhereAdditional := '(1 = 1)';
 //
 //    // Carregar apenas produtos com estoque e serviços em geral
-//    if frm.chkProdutoComEstoque.Checked then
-//      frm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
+//    if AForm.chkProdutoComEstoque.Checked then
+//      AForm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
 //
-//    frm.WhereAdditional := frm.WhereAdditional + '  and (' + PRD_ARQUIVO_MORTO + ')';
+//    AForm.WhereAdditional := frm.WhereAdditional + '  and (' + PRD_ARQUIVO_MORTO + ')';
 //
-    frm.ShowModal;
+    AForm.ShowModal;
   finally
-    frm.Destroy;
+    AForm.Destroy;
+  end;
+end;
+
+procedure MostrarTabelaProdutos(const AOwner : TComponent);
+var
+  AForm : TfrmGeProduto;
+begin
+  AForm := TfrmGeProduto.Create(AOwner);
+  try
+    AForm.fAliquota       := taICMS;
+    AForm.fApenasProdutos := True;
+    AForm.fApenasServicos := False;
+
+    AForm.chkProdutoComEstoque.Checked := False;
+    AForm.AddWhereAdditional;
+
+    AForm.ShowModal;
+  finally
+    AForm.Destroy;
   end;
 end;
 
@@ -1183,17 +1205,17 @@ begin
   dbPrecoVendaSugestao.Visible  := True;
   {$ENDIF}
 
-  tbsCadastro.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  btbtnIncluir.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  btbtnAlterar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  btbtnExcluir.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  btbtnCancelar.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  btbtnSalvar.Visible    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  tbsCadastro.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  btbtnIncluir.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  btbtnAlterar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  btbtnExcluir.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  btbtnCancelar.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  btbtnSalvar.Visible    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
-  ShpLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  lblLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  ShpLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  lblLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+  ShpLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  lblLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  ShpLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  lblLucroNegativo.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
   nmProdutoLista.Caption    := 'Lista de ' + StrDescricaoProduto;
   nmProdutoFicha.Caption    := 'Ficha de ' + StrDescricaoProduto;
@@ -1346,7 +1368,7 @@ begin
 
   // Gerar Centro de Custo Geral para armazanamento dos Lotes do produto quando
   // o sistema for de Gestão Comercial.
-  if (IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger = 1) and (gSistema.Codigo = SISTEMA_GESTAO_COM) then
+  if (IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger = 1) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
   begin
     SetCentroCustoGeral(IbDtstTabelaCODEMP.AsString);
     if (IbDtstTabelaCODEMP.AsString <> gUsuarioLogado.Empresa) then
@@ -1474,7 +1496,7 @@ begin
   IbDtstTabelaCADASTRO_ATIVO.Value         := FLAG_SIM;
   IbDtstTabelaPRODUTO_IMOBILIZADO.Value    := FLAG_NAO;
   IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
-  IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := FLAG_NAO;
+  IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, FLAG_SIM, FLAG_NAO);
 
   DtSrcTabelaDataChange(DtSrcTabela, IbDtstTabelaALIQUOTA_TIPO);
 end;
@@ -1606,7 +1628,7 @@ begin
 
   dbgDados.Columns[COLUMN_LUCRO].Visible := ( gUsuarioLogado.Funcao in [FUNCTION_USER_ID_DIRETORIA..FUNCTION_USER_ID_GERENTE_FIN,
     FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SUPORTE_TI, FUNCTION_USER_ID_SYSTEM_ADM] )
-    and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
+    and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 end;
 
 procedure TfrmGeProduto.dbgDadosDrawColumnCell(Sender: TObject;
@@ -1771,11 +1793,14 @@ end;
 
 procedure TfrmGeProduto.ControleCampos;
 begin
+  lblTipoCadastro.Enabled := (gSistema.Codigo <> SISTEMA_GESTAO_OPME);
+  dbTipoCadastro.Enabled  := (gSistema.Codigo <> SISTEMA_GESTAO_OPME);
+
   lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
 
-  lblCodigoAnvisa.Visible := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
+  lblCodigoAnvisa.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
   dbCodigoAnvisa.Visible  := lblCodigoAnvisa.Visible;
   lblModelo.Visible := not lblCodigoAnvisa.Visible;
   dbModelo.Visible  := not dbCodigoAnvisa.Visible;

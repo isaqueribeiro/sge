@@ -28,6 +28,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     ExplicitWidth = 751
     ExplicitHeight = 463
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 743
       ExplicitHeight = 434
       inherited Bevel4: TBevel
@@ -175,6 +177,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         TabOrder = 1
         object tbsContaEmail: TTabSheet
           Caption = 'Conta de E-mail'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblEmailConta: TLabel
             Left = 16
             Top = 8
@@ -322,6 +328,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object tbsVenda: TTabSheet
           Caption = 'Vendas'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFormaPagtoCartaCredito: TLabel
             Left = 16
             Top = 8
@@ -753,10 +763,32 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
               TabOrder = 1
             end
           end
+          object chkImprimirCodReferencia: TDBCheckBox
+            Left = 16
+            Top = 291
+            Width = 377
+            Height = 17
+            Caption = 'Imprimir Refer'#234'ncia como C'#243'digo do Produto no DANFE da NF-e'
+            DataField = 'NFE_IMPRIMIR_COD_REFERENCIA'
+            DataSource = DtSrcTabela
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 9
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
         end
         object TbsNFSe: TTabSheet
           Caption = 'NFS-e'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object chkNFSE_Emitir: TDBCheckBox
             Left = 16
             Top = 16
@@ -1035,6 +1067,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsOutrasConfig: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbCustoOperacional: TDBCheckBox
             Left = 16
             Top = 15
@@ -1206,6 +1242,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.nfe_aceitar_nota_denegada'
       '  , c.nfe_solicita_dh_saida'
       '  , c.nfe_imprimir_cod_cliente'
+      '  , c.nfe_imprimir_cod_referencia'
       '  , c.nfce_emitir'
       '  , c.nfce_serie'
       '  , c.nfce_numero'
@@ -1345,6 +1382,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       FieldName = 'NFE_IMPRIMIR_COD_CLIENTE'
       Origin = '"TBCONFIGURACAO"."NFE_IMPRIMIR_COD_CLIENTE"'
       ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaNFE_IMPRIMIR_COD_REFERENCIA: TSmallintField
+      FieldName = 'NFE_IMPRIMIR_COD_REFERENCIA'
+      Origin = '"TBCONFIGURACAO"."NFE_IMPRIMIR_COD_REFERENCIA"'
     end
     object IbDtstTabelaNFCE_EMITIR: TSmallintField
       Alignment = taLeftJustify
@@ -1544,6 +1585,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFE_ACEITAR_NOTA_DENEGADA,'
       '  NFE_SOLICITA_DH_SAIDA,'
       '  NFE_IMPRIMIR_COD_CLIENTE,'
+      '  NFE_IMPRIMIR_COD_REFERENCIA,'
       '  NFCE_EMITIR,'
       '  NFCE_SERIE,'
       '  NFCE_NUMERO,'
@@ -1592,6 +1634,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFE_EMITIR = :NFE_EMITIR,'
       '  NFE_EMITIR_ENTRADA = :NFE_EMITIR_ENTRADA,'
       '  NFE_IMPRIMIR_COD_CLIENTE = :NFE_IMPRIMIR_COD_CLIENTE,'
+      '  NFE_IMPRIMIR_COD_REFERENCIA = :NFE_IMPRIMIR_COD_REFERENCIA,'
       '  NFE_LOTE = :NFE_LOTE,'
       '  NFE_NUMERO = :NFE_NUMERO,'
       '  NFE_SERIE = :NFE_SERIE,'
@@ -1634,17 +1677,17 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         '   NFE_CARTA_CORRECAO, NFE_EMITIR, NFE_EMITIR_ENTRADA, NFE_IMPRI' +
         'MIR_COD_CLIENTE, '
       
-        '   NFE_LOTE, NFE_NUMERO, NFE_SERIE, NFE_SOLICITA_DH_SAIDA, NFSE_' +
-        'EMITIR, '
+        '   NFE_IMPRIMIR_COD_REFERENCIA, NFE_LOTE, NFE_NUMERO, NFE_SERIE,' +
+        ' NFE_SOLICITA_DH_SAIDA, '
       
-        '   NFSE_NUMERO, NFSE_PERCENTUAL_COFINS, NFSE_PERCENTUAL_CSLL, NF' +
-        'SE_PERCENTUAL_ISSQN, '
+        '   NFSE_EMITIR, NFSE_NUMERO, NFSE_PERCENTUAL_COFINS, NFSE_PERCEN' +
+        'TUAL_CSLL, '
       
-        '   NFSE_PERCENTUAL_PIS, NFSE_SERIE, PERMITIR_VENDA_ESTOQUE_INS, ' +
-        'RPS_NUMERO, '
+        '   NFSE_PERCENTUAL_ISSQN, NFSE_PERCENTUAL_PIS, NFSE_SERIE, PERMI' +
+        'TIR_VENDA_ESTOQUE_INS, '
       
-        '   RPS_SERIE, USUARIO, VENDA_CARREGA_PRODUTO_EAN, VENDA_FORMA_PA' +
-        'GTO_CARTACREDITO)'
+        '   RPS_NUMERO, RPS_SERIE, USUARIO, VENDA_CARREGA_PRODUTO_EAN, VE' +
+        'NDA_FORMA_PAGTO_CARTACREDITO)'
       'values'
       
         '  (:AUTORIZA_INFORMA_CLIENTE, :CLIENTE_PERMITIR_DUPLICAR_CNPJ, :' +
@@ -1665,18 +1708,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         '   :NFCE_TOKEN_ID, :NFE_ACEITAR_NOTA_DENEGADA, :NFE_CARTA_CORREC' +
         'AO, :NFE_EMITIR, '
       
-        '   :NFE_EMITIR_ENTRADA, :NFE_IMPRIMIR_COD_CLIENTE, :NFE_LOTE, :N' +
-        'FE_NUMERO, '
+        '   :NFE_EMITIR_ENTRADA, :NFE_IMPRIMIR_COD_CLIENTE, :NFE_IMPRIMIR' +
+        '_COD_REFERENCIA, '
       
-        '   :NFE_SERIE, :NFE_SOLICITA_DH_SAIDA, :NFSE_EMITIR, :NFSE_NUMER' +
-        'O, :NFSE_PERCENTUAL_COFINS, '
+        '   :NFE_LOTE, :NFE_NUMERO, :NFE_SERIE, :NFE_SOLICITA_DH_SAIDA, :' +
+        'NFSE_EMITIR, '
       
-        '   :NFSE_PERCENTUAL_CSLL, :NFSE_PERCENTUAL_ISSQN, :NFSE_PERCENTU' +
-        'AL_PIS, '
+        '   :NFSE_NUMERO, :NFSE_PERCENTUAL_COFINS, :NFSE_PERCENTUAL_CSLL,' +
+        ' :NFSE_PERCENTUAL_ISSQN, '
       
-        '   :NFSE_SERIE, :PERMITIR_VENDA_ESTOQUE_INS, :RPS_NUMERO, :RPS_S' +
-        'ERIE, :USUARIO, '
-      '   :VENDA_CARREGA_PRODUTO_EAN, :VENDA_FORMA_PAGTO_CARTACREDITO)')
+        '   :NFSE_PERCENTUAL_PIS, :NFSE_SERIE, :PERMITIR_VENDA_ESTOQUE_IN' +
+        'S, :RPS_NUMERO, '
+      
+        '   :RPS_SERIE, :USUARIO, :VENDA_CARREGA_PRODUTO_EAN, :VENDA_FORM' +
+        'A_PAGTO_CARTACREDITO)')
     DeleteSQL.Strings = (
       'delete from TBCONFIGURACAO'
       'where'
@@ -1688,7 +1733,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Left = 336
     Top = 0
     Bitmap = {
-      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

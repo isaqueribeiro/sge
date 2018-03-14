@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{DD04DC33-DC3D-437B-B842-479CD83A1150}</ProjectGuid>
-        <MainSource>SGE.dpr</MainSource>
+        <MainSource>SGO.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>1</TargetedPlatforms>
@@ -66,18 +66,19 @@
         <DCC_UsePackage>vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;dbexpress;dbxcds;indy;dclOffice2k;BcBarMenus60;Instalar;FIBDBMidas6;LabelPack;WinSkinD6R;PackageXPMenu;RxCtl6;RxDB6;RxBDE6;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_UNSAFE_CODE>true</DCC_UNSAFE_CODE>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <SanitizedProjectName>SGE</SanitizedProjectName>
+        <SanitizedProjectName>SGO</SanitizedProjectName>
         <DCC_N>true</DCC_N>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.11.4;InternalName=SGE;LegalCopyright=Copyright 2013 - 2015 © Ágil Soluções em Softwares - ME;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=05/04/2016;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <DCC_DcuOutput>..\_dcu\</DCC_DcuOutput>
         <DCC_ExeOutput>..\Bin\</DCC_ExeOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <Icon_MainIcon>SGO_Icon_v3.ico</Icon_MainIcon>
         <VerInfo_Build>0</VerInfo_Build>
         <VerInfo_Release>20</VerInfo_Release>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.20.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2018 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.20;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/03/2018;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.20.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2018 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.20;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/03/2018;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
     </PropertyGroup>
@@ -91,12 +92,13 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <Icon_MainIcon>SGO_Icon_v3.ico</Icon_MainIcon>
         <VerInfo_Build>0</VerInfo_Build>
         <VerInfo_Release>20</VerInfo_Release>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.20.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2018 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.20;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/03/2018;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.20.0;InternalName=SGO;LegalCopyright=Copyright 2013 - 2018 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.20;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/03/2018;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
@@ -104,13 +106,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <Icon_MainIcon>SGO_Icon_v3.ico</Icon_MainIcon>
         <VerInfo_Build>0</VerInfo_Build>
         <VerInfo_Release>20</VerInfo_Release>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comercial;FileVersion=1.0.20.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2018 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.20;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/03/2018;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.20.0;InternalName=SGO;LegalCopyright=Copyright 2013 - 2018 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.20;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/03/2018;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -193,7 +196,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeVendedor.pas">
             <Form>frmGeVendedor</Form>
         </DCCReference>
-        <DCCReference Include="UGeProduto.pas">
+        <DCCReference Include="..\System_SGE\UGeProduto.pas">
             <Form>frmGeProduto</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeVenda.pas">
@@ -289,13 +292,13 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeVendaTransporte.pas">
             <Form>frmGeVendaTransporte</Form>
         </DCCReference>
-        <DCCReference Include="UGeSobre.pas">
+        <DCCReference Include="..\System_SGE\UGeSobre.pas">
             <Form>frmGeSobre</Form>
         </DCCReference>
-        <DCCReference Include="UGrUsuarioAlterarSenha_v2.pas">
+        <DCCReference Include="..\System_SGE\UGrUsuarioAlterarSenha_v2.pas">
             <Form>frmGrUsuarioAlterarSenha</Form>
         </DCCReference>
-        <DCCReference Include="UGrPesq.pas">
+        <DCCReference Include="..\System_SGE\UGrPesq.pas">
             <Form>frmPesq</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaConfirmaTitulos.pas">
@@ -316,10 +319,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeInutilizarNumeroNFe.pas">
             <Form>frmGeInutilizarNumeroNFe</Form>
         </DCCReference>
-        <DCCReference Include="UGeProdutoEstoqueMinimo.pas">
+        <DCCReference Include="..\System_SGE\UGeProdutoEstoqueMinimo.pas">
             <Form>FrmGeProdutoEstoqueMinimo</Form>
         </DCCReference>
-        <DCCReference Include="UGeConsultarLoteNFe_v2.pas">
+        <DCCReference Include="..\System_SGE\UGeConsultarLoteNFe_v2.pas">
             <Form>frmGeConsultarLoteNFe_v2</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrPadraoLogin.pas">
@@ -331,25 +334,25 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\lib\UObserverInterface.pas"/>
         <DCCReference Include="..\Sys\lib\UBaseObject.pas"/>
         <DCCReference Include="..\Sys\lib\UCliente.pas"/>
-        <DCCReference Include="lib\UGrPadraoImpressao.pas">
+        <DCCReference Include="..\System_SGE\lib\UGrPadraoImpressao.pas">
             <Form>frmGrPadraoImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGeClienteImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeClienteImpressao.pas">
             <Form>frmGeClienteImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGeEstoqueAjusteManual.pas">
+        <DCCReference Include="..\System_SGE\UGeEstoqueAjusteManual.pas">
             <Form>frmGeEstoqueAjusteManual</Form>
         </DCCReference>
-        <DCCReference Include="UGeRequisicaoCliente.pas">
+        <DCCReference Include="..\System_SGE\UGeRequisicaoCliente.pas">
             <Form>frmGeRequisicaoCliente</Form>
         </DCCReference>
-        <DCCReference Include="UGrUsuario.pas">
+        <DCCReference Include="..\System_SGE\UGrUsuario.pas">
             <Form>frmGrUsuario</Form>
         </DCCReference>
-        <DCCReference Include="UGeVendaImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeVendaImpressao.pas">
             <Form>frmGeVendaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGeEfetuarLogin.pas">
+        <DCCReference Include="..\System_SGE\UGeEfetuarLogin.pas">
             <Form>FrmEfetuarLogin</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrMessage.pas">
@@ -361,56 +364,56 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeExportarNFC.pas">
             <Form>frmGeExportarNFC</Form>
         </DCCReference>
-        <DCCReference Include="UGeContasAReceberImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeContasAReceberImpressao.pas">
             <Form>frmGeContasAReceberImpressao</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrConfigurarAmbiente.pas">
             <Form>frmGrConfigurarAmbiente</Form>
         </DCCReference>
-        <DCCReference Include="UGeAutorizacaoCompra.pas">
+        <DCCReference Include="..\System_SGE\UGeAutorizacaoCompra.pas">
             <Form>frmGeAutorizacaoCompra</Form>
         </DCCReference>
-        <DCCReference Include="UGeAutorizacaoCompraCancelar.pas">
+        <DCCReference Include="..\System_SGE\UGeAutorizacaoCompraCancelar.pas">
             <Form>frmGeAutorizacaoCompraCancelar</Form>
         </DCCReference>
-        <DCCReference Include="UGeContasAPagarImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeContasAPagarImpressao.pas">
             <Form>frmGeContasAPagarImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGeEntradaImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeEntradaImpressao.pas">
             <Form>frmGeEntradaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGeContasAPagarQuitar.pas">
+        <DCCReference Include="..\System_SGE\UGeContasAPagarQuitar.pas">
             <Form>frmGeContasAPagarQuitar</Form>
         </DCCReference>
-        <DCCReference Include="UGrUsuarioPerfil.pas">
+        <DCCReference Include="..\System_SGE\UGrUsuarioPerfil.pas">
             <Form>frmGrUsuarioPerfil</Form>
         </DCCReference>
-        <DCCReference Include="UGrUsuarioCopiarPerfil.pas">
+        <DCCReference Include="..\System_SGE\UGrUsuarioCopiarPerfil.pas">
             <Form>frmGrUsuarioCopiarPerfil</Form>
         </DCCReference>
-        <DCCReference Include="UGeCotacaoCompra.pas">
+        <DCCReference Include="..\System_SGE\UGeCotacaoCompra.pas">
             <Form>frmGeCotacaoCompra</Form>
         </DCCReference>
-        <DCCReference Include="UGeCotacaoCompraCancelar.pas">
+        <DCCReference Include="..\System_SGE\UGeCotacaoCompraCancelar.pas">
             <Form>frmGeCotacaoCompraCancelar</Form>
         </DCCReference>
-        <DCCReference Include="UGeCotacaoCompraFornecedor.pas">
+        <DCCReference Include="..\System_SGE\UGeCotacaoCompraFornecedor.pas">
             <Form>frmGeCotacaoCompraFornecedor</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UEcfWindowsPrinter.pas"/>
-        <DCCReference Include="UGeFornecedorImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeFornecedorImpressao.pas">
             <Form>frmGeFornecedorImpressao</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrRegistroEstacao.pas">
             <Form>FrmGrRegistroEstacao</Form>
         </DCCReference>
-        <DCCReference Include="UGeRequisicaoCompra.pas">
+        <DCCReference Include="..\System_SGE\UGeRequisicaoCompra.pas">
             <Form>frmGeRequisicaoCompra</Form>
         </DCCReference>
-        <DCCReference Include="UGeRequisicaoCompraCancelar.pas">
+        <DCCReference Include="..\System_SGE\UGeRequisicaoCompraCancelar.pas">
             <Form>frmGeRequisicaoCompraCancelar</Form>
         </DCCReference>
-        <DCCReference Include="UGeRequisicaoCompraPesquisa.pas">
+        <DCCReference Include="..\System_SGE\UGeRequisicaoCompraPesquisa.pas">
             <Form>frmGeRequisicaoCompraPesquisa</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeCartaCorrecao.pas">
@@ -445,10 +448,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\lib\UGrConfigurarBackup.pas">
             <Form>frmGrConfigurarBackup</Form>
         </DCCReference>
-        <DCCReference Include="UGeProdutoImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeProdutoImpressao.pas">
             <Form>frmGeProdutoImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGeProdutoEstoqueImpressao.pas">
+        <DCCReference Include="..\System_SGE\UGeProdutoEstoqueImpressao.pas">
             <Form>frmGeProdutoEstoqueImpressao</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeEntradaEstoqueDevolucaoNF.pas">
@@ -457,7 +460,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeNFComplementar.pas">
             <Form>frmGeNFComplementar</Form>
         </DCCReference>
-        <DCCReference Include="UGeContasAReceberQuitar.pas">
+        <DCCReference Include="..\System_SGE\UGeContasAReceberQuitar.pas">
             <Form>frmGeContasAReceberQuitar</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAPagarLoteParcela.pas">
@@ -504,7 +507,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>frmGeEntradaEstoqueLote</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <None Include="SGE.todo"/>
+        <None Include="SGO.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -523,7 +526,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">SGE.dpr</Source>
+                    <Source Name="MainSource">SGO.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\QR506RunDXE7.bpl">QuickReport 5.05 Runtime Package</Excluded_Packages>
@@ -535,27 +538,22 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                 <Platform value="Win64">False</Platform>
             </Platforms>
             <Deployment>
-                <DeployFile LocalName="..\Bin\SGE.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="..\Bin\SGO.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>SGE.exe</RemoteName>
+                        <RemoteName>SGO.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="SGE.todo" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="SGO.todo" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="SGE.todo" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="SGE.todo" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="..\Bin\SGO.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="..\Bin\SGE.exe" Configuration="Release" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>SGE.exe</RemoteName>
+                        <RemoteName>SGO.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

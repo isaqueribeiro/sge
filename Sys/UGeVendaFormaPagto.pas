@@ -165,7 +165,7 @@ begin
     Exit;
   end;
 
-  if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV]) then
+  if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_OPME]) then
     if not GetFormaPagtoCondicaoPagto(dbFormaPagto.Field.AsInteger, dbCondicaoPagto.Field.AsInteger) then
     begin
       ShowWarning('Forma de Pagamento não liberada para ser usada com a Condição de Pagamento selecionada!');

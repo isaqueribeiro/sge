@@ -282,9 +282,9 @@ begin
 
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 
-  lblCentroCusto.Enabled       := (gSistema.Codigo = SISTEMA_GESTAO_IND);
-  dbCentroCusto.Enabled        := (gSistema.Codigo = SISTEMA_GESTAO_IND);
-  dbCentroCusto.Button.Enabled := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+  lblCentroCusto.Enabled       := (gSistema.Codigo in [SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  dbCentroCusto.Enabled        := (gSistema.Codigo in [SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  dbCentroCusto.Button.Enabled := (gSistema.Codigo in [SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 end;
 
 procedure TfrmGeInventario.RegistrarRotinaSistema;
@@ -462,7 +462,7 @@ begin
   qryInventarioINSERCAO_USUARIO.AsString        := gUsuarioLogado.Login;
   qryInventarioUSUARIO_ABERTURA.AsString        := gUsuarioLogado.Nome;
   qryInventarioDATA.AsDateTime                  := GetDateDB;
-  qryInventarioCONFERIR_ESTOQUE_VENDA.AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_COM, 1, 0);
+  qryInventarioCONFERIR_ESTOQUE_VENDA.AsInteger := IfThen((gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]), 1, 0);
   qryInventarioBLOQUEAR_MOVIMENTO.AsInteger     := 0;
 
   qryInventarioCOMPETENCIA.Clear;
@@ -510,7 +510,7 @@ procedure TfrmGeInventario.qryInventarioCENTRO_CUSTO_DESCGetText(
   Sender: TField; var Text: String; DisplayText: Boolean);
 begin
   if not Sender.IsNull then
-    Text := IfThen(gSistema.Codigo = SISTEMA_GESTAO_COM, '(ESTOQUE DE VENDA)', Sender.AsString);
+    Text := IfThen((gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]), '(ESTOQUE DE VENDA)', Sender.AsString);
 end;
 
 procedure TfrmGeInventario.qryInventarioSTATUSGetText(Sender: TField;
@@ -529,7 +529,7 @@ procedure TfrmGeInventario.BtnSalvarClick(Sender: TObject);
 begin
   if (qryInventario.State in [dsEdit, dsInsert]) then
   begin
-    qryInventarioCENTRO_CUSTO.Required := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+    qryInventarioCENTRO_CUSTO.Required := (gSistema.Codigo in [SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
     ClearFieldEmptyStr;
     if CamposRequiridos(Self, TClientDataSet(qryInventario), Self.Caption) then
@@ -638,7 +638,7 @@ begin
         qryMaterialFRACIONADOR.AsCurrency       := FieldByName('fracionador').AsCurrency;
         qryMaterialUNIDADE.AsInteger            := FieldByName('unidade').AsInteger;
 
-        if (gSistema.Codigo = SISTEMA_GESTAO_COM) then
+        if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
           qryMaterialCUSTO.AsCurrency           := FieldByName('preco').AsCurrency        // Custo médio inteiro
         else
         if ( FieldByName('custo_medio').AsCurrency > 0.0 ) then

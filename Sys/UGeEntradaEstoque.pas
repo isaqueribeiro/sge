@@ -698,8 +698,9 @@ begin
   {$ENDIF}
 
   {$IFNDEF DGE}
-  if not (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
-    OcutarCampoAutorizacao;
+  if (gSistema.Codigo <> SISTEMA_GESTAO_OPME) then
+    if not (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
+      OcutarCampoAutorizacao;
   {$ENDIF}
 
   IbDtstTabela.GeneratorField.Generator := 'GEN_COMPRAS_CONTROLE_' + FormatFloat('0000', YearOf(Date));
@@ -1206,7 +1207,7 @@ begin
   else
   if ( cdsTabelaItens.Active ) then
   begin
-    if ( gSistema.Codigo = SISTEMA_GESTAO_IND ) then
+    if ( gSistema.Codigo in [SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME] ) then
       if ( IbDtstTabelaAUTORIZACAO_CODIGO.Value > 0 ) then
         if ShowConfirmation('Deseja carregar automaticamente os itens da autorização selecionada?') then
         begin
@@ -1584,7 +1585,7 @@ begin
     Abort;
   end;
 
-  if (gSistema.Codigo = SISTEMA_GESTAO_COM) then
+  if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
     if LoteProdutoPendente then
       if not LotesProdutosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger) then
         Abort;

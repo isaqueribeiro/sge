@@ -29,6 +29,8 @@ inherited frmGrUsuario: TfrmGrUsuario
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel4: TBevel
@@ -287,6 +289,10 @@ inherited frmGrUsuario: TfrmGrUsuario
         TabOrder = 2
         object tbsVendas: TTabSheet
           Caption = 'Vendas / OS'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object GrpBxParametrosVenda: TGroupBox
             Left = 0
             Top = 0
@@ -387,6 +393,10 @@ inherited frmGrUsuario: TfrmGrUsuario
         object tbsControleInterno: TTabSheet
           Caption = 'Controle Interno'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object GrpBxParametrosAlmox: TGroupBox
             Left = 0
             Top = 0
@@ -610,7 +620,7 @@ inherited frmGrUsuario: TfrmGrUsuario
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

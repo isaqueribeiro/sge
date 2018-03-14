@@ -295,6 +295,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       TabOrder = 2
       object tbsNFe: TTabSheet
         Caption = 'NFe'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblId: TLabel
           Left = 16
           Top = 16
@@ -549,6 +553,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsEmitente: TTabSheet
         Caption = 'Emitente'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblCNPJ: TLabel
           Left = 119
           Top = 16
@@ -1057,6 +1065,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsDestinatario: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 8
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblCNPJCPF_Dest: TLabel
           Left = 16
           Top = 16
@@ -1111,6 +1123,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsProdutos: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object dbProdutos: TDBGrid
           Left = 0
           Top = 0
@@ -1130,18 +1146,34 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
     end
   end

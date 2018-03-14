@@ -241,6 +241,7 @@ begin
 
     Case gSistema.Codigo of
       SISTEMA_GESTAO_COM ,
+      SISTEMA_GESTAO_OPME,
       SISTEMA_GESTAO_IND : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_ID;
       SISTEMA_PDV        : frm.RotinaID := ROTINA_FIN_GERENCIAR_CAIXA_PDV_ID;
     end;

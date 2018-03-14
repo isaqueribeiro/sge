@@ -197,7 +197,7 @@ type
     function SubstrCount(const ASubString, AString: string): Integer;
     function Split(const ADelimiter, AString: string): TSplitResult;
     function CollateBr(Str: String): String;
-    function Explode(sPart, sInput: String): ArrOfStr;
+    //function Explode(sPart, sInput: String): ArrOfStr;
     function ManterVprod(dVProd, dvDesc: Double): String;
     function ManterdvTotTrib(dvTotTrib: Double):  String;
     function ManterVDesc(dvDesc: Currency; dVUnCom , dQCom : double ) : Double;
@@ -284,7 +284,7 @@ var
 begin
   try
     sLog := EmptyStr;
-    edChaveNFe.Text    := SomenteNumeros(Trim(edChaveNFe.Text));
+    edChaveNFe.Text    := OnlyNumber(Trim(edChaveNFe.Text));
     lblInforme.Visible := True;
 
     if not ValidarChave(edChaveNFe.Text) then
@@ -1365,19 +1365,19 @@ begin
     IdentificarFornecedor(aCNPJ);
 end;
 
-function TfrmGeImportarNFE.Explode(sPart, sInput: String): ArrOfStr;
-begin
-  while Pos(sPart, sInput) <> 0 do
-    begin
-      SetLength(Result, Length(Result) + 1);
-      Result[Length(Result) - 1] := Copy(sInput, 0, Pos(sPart, sInput) - 1);
-      Delete(sInput, 1, Pos(sPart, sInput));
-    end;
-
-  SetLength(Result, Length(Result) + 1);
-  Result[Length(Result) - 1] := sInput;
-end;
-
+//function TfrmGeImportarNFE.Explode(sPart, sInput: String): ArrOfStr;
+//begin
+//  while Pos(sPart, sInput) <> 0 do
+//    begin
+//      SetLength(Result, Length(Result) + 1);
+//      Result[Length(Result) - 1] := Copy(sInput, 0, Pos(sPart, sInput) - 1);
+//      Delete(sInput, 1, Pos(sPart, sInput));
+//    end;
+//
+//  SetLength(Result, Length(Result) + 1);
+//  Result[Length(Result) - 1] := sInput;
+//end;
+//
 function TfrmGeImportarNFE.FormatQuantidade(dValor: Double): String;
 begin
   With cdsParametros do

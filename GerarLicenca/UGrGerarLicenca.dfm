@@ -467,7 +467,6 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Caption = 'Carregar Licen'#231'a'
     TabOrder = 9
     OnClick = BtnCarregarLicencaClick
-    ExplicitTop = 310
   end
   object BtnGerarLicenca: TButton
     Left = 296
@@ -478,7 +477,6 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Caption = 'Gerar Licen'#231'a'
     TabOrder = 10
     OnClick = BtnGerarLicencaClick
-    ExplicitTop = 310
   end
   object edDataBloqueio: TEdit
     Left = 160
@@ -516,6 +514,14 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Height = 17
     Caption = 'SGF - Sistema de Gest'#227'o para Folha de Pagamento'
     TabOrder = 13
+  end
+  object chkSGO: TCheckBox
+    Left = 160
+    Top = 365
+    Width = 321
+    Height = 17
+    Caption = 'SGO - Sistema para Gest'#227'o de OPME'
+    TabOrder = 14
   end
   object XPManifest: TXPManifest
     Left = 8

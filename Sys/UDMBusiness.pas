@@ -64,6 +64,7 @@ type
     UsarSGE : Boolean;
     UsarSGI : Boolean;
     UsarSGF : Boolean;
+    UsarSGO : Boolean;
   end;
 
   TBlocoImpressaoCupom = (bicCupomRelatorioGerencial, bicCupom, bicRelatorioGerencial);
@@ -392,6 +393,7 @@ var
   function GetPermititNFeDenegada(const sCNPJEmitente : String) : Boolean;
   function GetSolicitaDHSaidaNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
+  function GetImprimirCodReferenciaProdutoNFe(const sCNPJEmitente : String) : Boolean;
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
@@ -3877,6 +3879,21 @@ begin
   end;
 end;
 
+function GetImprimirCodReferenciaProdutoNFe(const sCNPJEmitente : String) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select nfe_imprimir_cod_referencia from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := (FieldByName('nfe_imprimir_cod_referencia').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
 function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
 begin
   with DMBusiness, fdQryBusca do
@@ -4610,6 +4627,7 @@ begin
     gLicencaSistema.UsarSGE  := ini.ReadBool('Licenca', 'chkSGE', False);
     gLicencaSistema.UsarSGI  := ini.ReadBool('Licenca', 'chkSGI', False);
     gLicencaSistema.UsarSGF  := ini.ReadBool('Licenca', 'chkSGF', False);
+    gLicencaSistema.UsarSGO  := ini.ReadBool('Licenca', 'chkSGO', False);
 
     SetSegmento(SEGMENTO_PADRAO_ID,          SEGMENTO_PADRAO_DS);
     SetSegmento(SEGMENTO_VAREJO_ATACADO_ID,  SEGMENTO_VAREJO_ATACADO_DS);

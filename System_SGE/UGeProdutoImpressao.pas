@@ -171,7 +171,8 @@ begin
   // VW_PRODUTO_DEMANDA_ANUAL_IND -- Para Indústria
 
   Case gSistema.Codigo of
-    SISTEMA_GESTAO_COM:
+    SISTEMA_GESTAO_COM ,
+    SISTEMA_GESTAO_OPME:
       QryDemandaProduto.SQL.Text := 'Select p.* from VW_PRODUTO_DEMANDA_ANUAL p';
 (*
         'Select ' +

@@ -32,9 +32,10 @@ const
    + #13
    + 'Responder a mudanças mais que seguir um plano.';
 
-  SISTEMA_GESTAO_COM = 0;
-  SISTEMA_PDV        = 1;
-  SISTEMA_GESTAO_IND = 2;
+  SISTEMA_GESTAO_COM  = 0;
+  SISTEMA_PDV         = 1;
+  SISTEMA_GESTAO_IND  = 2;
+  SISTEMA_GESTAO_OPME = 3;
 
   SYS_ALERTA_PERIODO_LICENCA = 15; // Dias
   SYS_ALERTA_ARQUIVO_LICENCA = 'AlertaLicenca.txt';

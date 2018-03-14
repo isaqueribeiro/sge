@@ -37,6 +37,7 @@ type
     chkSGF: TCheckBox;
     Label1: TLabel;
     ImgLogoEmpresa: TImage;
+    chkSGO: TCheckBox;
     procedure BtnCarregarLicencaClick(Sender: TObject);
     procedure BtnGerarLicencaClick(Sender: TObject);
 
@@ -112,6 +113,7 @@ begin
     chkSGE.Checked := ini.ReadBool('Licenca', chkSGE.Name, False);
     chkSGI.Checked := ini.ReadBool('Licenca', chkSGI.Name, False);
     chkSGF.Checked := ini.ReadBool('Licenca', chkSGF.Name, False);
+    chkSGO.Checked := ini.ReadBool('Licenca', chkSGO.Name, False);
 
     edCompetenciaChange( edCompetencia );
   finally
@@ -144,6 +146,7 @@ begin
     ini.WriteBool    ('Licenca', chkSGE.Name, chkSGE.Checked);
     ini.WriteBool    ('Licenca', chkSGI.Name, chkSGI.Checked);
     ini.WriteBool    ('Licenca', chkSGF.Name, chkSGF.Checked);
+    ini.WriteBool    ('Licenca', chkSGO.Name, chkSGO.Checked);
 
     ini.UpdateFile;
 

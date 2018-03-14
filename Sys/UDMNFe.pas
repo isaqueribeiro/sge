@@ -10,8 +10,12 @@ uses
 
   UGeConfigurarNFeACBr,
   ACBrNFe,
+  ACBrDFe,
   ACBrDFeSSL,
+  ACBrDFeUtil,
   ACBrUtil,
+  ACBrECFVirtualBuffer,
+  ACBrPosPrinter,
   pcnConversao,
   pcnNFeW,
   pcnNFeRTXT,
@@ -31,8 +35,7 @@ uses
   ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
   ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal, ACBrSATExtratoClass,
   ACBrSATExtratoESCPOS, ACBrNFeDANFeESCPOS, ACBrSAT, Xml.xmldom, Xml.XMLIntf,
-  Xml.XMLDoc, ACBrNFeDANFEFRDM, Vcl.Dialogs, ACBrECFVirtualBuffer, ACBrDFe,
-  ACBrPosPrinter;
+  Xml.XMLDoc, ACBrNFeDANFEFRDM, Vcl.Dialogs;
 
 type
   TQrImage_ErrCorrLevel = (L, M, Q, H);
@@ -488,7 +491,7 @@ uses
   UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
-  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, ACBrDFeUtil, IniFiles;
+  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, IniFiles;
 
 {$R *.dfm}
 
@@ -1652,7 +1655,7 @@ begin
       aDataEmissao := qryEntradaCalculoImposto.FieldByName('DtEnt').AsDateTime;
   end;
 
-  GerarChave(sChave, aUF, aNumero, aModelo, aSerie, aNumero, aTE, aDataEmissao, sCNPJEmitente);
+  sChave := GerarChaveAcesso(aUF, aDataEmissao, sCNPJEmitente, aSerie, aNumero, aTE, aNumero, aModelo);
   sChave := StrOnlyNumbers(StringReplace(sChave, 'NFe', '', [rfReplaceAll]));
 
   Result := sChave;
@@ -2226,8 +2229,13 @@ var
   sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
+  PorReferencia : Boolean;
 begin
 (*
+  IMR - 14/03/2018 :
+    Implementação da rotina que inseri a Referência como Código do Produto na nota
+    fiscal de acordo com a configuração da empresa.
+
   IMR - 03/06/2016 :
     Inclusão da instrução "Ide.indFinal := cfConsumidorFinal" para todo destinatário
     da nota que for pessoa física, ou seja, todo destinatário que não seja
@@ -2267,7 +2275,6 @@ begin
     AbrirVenda( iAnoVenda, iNumVenda );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
-//    iNumeroNFe  := GetNextID('TBEMPRESA', 'NUMERO_NFE',   'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = '    + qryEmitenteSERIE_NFE.AsString);
     iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
     DtHoraEmiss := GetDateTimeDB;
 
@@ -2483,6 +2490,7 @@ begin
 
       // Adicionando Produtos
 
+      PorReferencia      := GetImprimirCodReferenciaProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox := 0.0;
 
       qryDadosProduto.First;
@@ -2492,8 +2500,14 @@ begin
 
         with Det.Add do
         begin
-          Prod.nItem    := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // Número sequencial, para cada item deve ser incrementado
-          Prod.cProd    := qryDadosProduto.FieldByName('CODPROD').AsString;
+          Prod.nItem := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // Número sequencial, para cada item deve ser incrementado
+
+          if PorReferencia then
+            Prod.cProd := IfThen(Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr,
+              Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString),
+              Trim(qryDadosProduto.FieldByName('CODPROD').AsString))
+          else
+            Prod.cProd := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
 
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
             Prod.xProd  := qryDadosProduto.FieldByName('DESCRI_APRESENTACAO').AsString
@@ -2553,6 +2567,10 @@ begin
           sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
           begin
+            if PorReferencia then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Cód.: ' + qryDadosProduto.FieldByName('CODPROD').AsString
+            else
             if ( Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
                 'Ref.: ' + qryDadosProduto.FieldByName('REFERENCIA').AsString;
@@ -3719,8 +3737,13 @@ var
   sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
+  PorReferencia : Boolean;
 begin
 (*
+  IMR - 14/03/2018 :
+    Implementação da rotina que inseri a Referência como Código do Produto na nota
+    fiscal de acordo com a configuração da empresa.
+
   IMR - 03/06/2016 :
     Inclusão da instrução "Ide.indFinal := cfConsumidorFinal" para todo destinatário
     da nota que for pessoa física, ou seja, todo destinatário que não seja
@@ -3969,17 +3992,24 @@ begin
 
   //Adicionando Produtos
 
+      PorReferencia      := GetImprimirCodReferenciaProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox := 0.0;
-      
+
       qryEntradaDadosProduto.First;
-      
+
       while not qryEntradaDadosProduto.Eof do
       begin
 
         with Det.Add do
         begin
-          Prod.nItem    := qryEntradaDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // Número sequencial, para cada item deve ser incrementado
-          Prod.cProd    := qryEntradaDadosProduto.FieldByName('CODPROD').AsString;
+          Prod.nItem := qryEntradaDadosProduto.RecNo; // qryEntradaDadosProdutoSEQ.AsInteger; // Número sequencial, para cada item deve ser incrementado
+
+          if PorReferencia then
+            Prod.cProd := IfThen(Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr,
+              Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString),
+              Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString))
+          else
+            Prod.cProd := Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString);
 
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
             Prod.xProd  := qryEntradaDadosProduto.FieldByName('DESCRI_APRESENTACAO').AsString
@@ -4009,7 +4039,7 @@ begin
             Prod.cEANTrib := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString
           else
             Prod.cEANTrib := EmptyStr;
-              
+
           Prod.uTrib     := qryEntradaDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qTrib     := qryEntradaDadosProduto.FieldByName('QTDE').AsCurrency;
 
@@ -4033,6 +4063,10 @@ begin
           sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
           begin
+            if PorReferencia then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Cód.: ' + qryEntradaDadosProduto.FieldByName('CODPROD').AsString
+            else
             if ( Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
                 'Ref.: ' + qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString;

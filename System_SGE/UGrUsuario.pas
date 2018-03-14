@@ -17,7 +17,8 @@ uses
   dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
   dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinMcSkin;
 
 type
   TfrmGrUsuario = class(TfrmGrPadraoCadastro)
@@ -236,8 +237,8 @@ begin
   CampoDescricao := 'nome';
   CampoOrdenacao := 'nomecompleto';
 
-  dbAlterarValorVendaItem.Visible    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
-  dbTipoAlteraValorVendaItem.Visible := (gSistema.Codigo = SISTEMA_GESTAO_COM);
+  dbAlterarValorVendaItem.Visible    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  dbTipoAlteraValorVendaItem.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]);
 
   pgcParametros.ActivePage      := tbsVendas;
   tbsControleInterno.TabVisible := (gSistema.Codigo = SISTEMA_GESTAO_IND);
