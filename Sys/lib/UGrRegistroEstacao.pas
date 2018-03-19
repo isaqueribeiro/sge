@@ -116,8 +116,10 @@ begin
       cdsRegistroEST_IP.AsString       := DMBusiness.IdIPWatch.LocalIP;
       cdsRegistroEST_REGISTRO.AsString := EncriptSenha(gUsuarioLogado.Login + DateTimeToStr(Now), USER_PASSWD_KEY);
       cdsRegistroEST_ULTIMO_ACESSO.AsDateTime := Now;
+
       cdsRegistro.Post;
       cdsRegistro.ApplyUpdates;
+      CommitTransaction;
 
       ShowInformation('Estação de trabalho registrada com sucesso.');
       dbgRegistro.SetFocus;
@@ -156,6 +158,7 @@ begin
   begin
     cdsRegistro.Delete;
     cdsRegistro.ApplyUpdates;
+    CommitTransaction;
   end;
 end;
 

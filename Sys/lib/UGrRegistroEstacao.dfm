@@ -165,8 +165,6 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
       ShowHint = True
       TabOrder = 0
       OnClick = btbtnIncluirClick
-      ExplicitTop = 2
-      ExplicitHeight = 31
     end
     object btbtnExcluir: TcxButton
       Tag = 3
@@ -195,9 +193,6 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
       ShowHint = True
       TabOrder = 1
       OnClick = btbtnExcluirClick
-      ExplicitLeft = 89
-      ExplicitTop = 2
-      ExplicitHeight = 31
     end
     object lblHostName: TcxLabel
       Left = 182
@@ -220,7 +215,7 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
     Left = 136
     Top = 80
     Bitmap = {
-      494C01012F003100100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F003100140010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B
