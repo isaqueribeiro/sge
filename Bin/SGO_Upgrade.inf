@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 14/03/2018 15:53:00     #
+#    Gerado por AGIL SOFTWARES em : 20/03/2018 14:13:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Ajustes para o Cadastro de Serviços.
 - Atualização das Taxas Tributárias para JAN/2018.
 - Ajustes na emissão de NF-e e NFC-e.
 - Pesquisa de vendas ou entradas de produtos pelo valor líquido do movimento.
@@ -21,4 +22,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.20.0
+#version=1.0.20.1

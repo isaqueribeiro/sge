@@ -375,13 +375,13 @@ type
     lblEspessura: TLabel;
     fdQryTributacaoNM: TFDQuery;
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure dbUnidadeButtonClick(Sender: TObject);
     procedure dbCFOPButtonClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure FormShow(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -404,6 +404,7 @@ type
     procedure ppMnAtualizarTabelaIBPTClick(Sender: TObject);
     procedure ppMnAtualizarNomeAmigoClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
+    procedure btbtnIncluirClick(Sender: TObject);
   private
     { Private declarations }
     fOrdenado : Boolean;
@@ -1226,9 +1227,9 @@ begin
   lblProdutoSemEstoque.Caption := Format('* %s sem Estoque', [StrDescricaoProduto]);
   lblProdutoDesativado.Caption := Format('* %s desativado', [StrDescricaoProduto]);
 
-  dbProdutoNovo.Enabled          := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
-  dbProdutoEhImobilizado.Enabled := (gSistema.Codigo = SISTEMA_GESTAO_IND);
-  dbGerarSubproduto.Enabled      := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+//  dbProdutoNovo.Enabled          := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
+//  dbProdutoEhImobilizado.Enabled := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+//  dbGerarSubproduto.Enabled      := (gSistema.Codigo = SISTEMA_GESTAO_IND);
 (*
   lblTipoTributacaoSN.Enabled := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
   dbTipoTributacaoSN.Enabled  := GetSimplesNacionalInsEmpresa(gUsuarioLogado.Empresa);
@@ -1527,6 +1528,14 @@ procedure TfrmGeProduto.FormShow(Sender: TObject);
 var
   S : String;
 begin
+  if (not fOrdenado) then
+  begin
+    IbDtstTabela.SelectSQL.Add( 'order by ' + CampoDescricao );
+    fOrdenado := True;
+  end;
+
+  inherited;
+
   S := StrDescricaoProduto;
   Case fAliquota of
     taICMS :
@@ -1536,14 +1545,6 @@ begin
     else
       Caption := 'Cadastro de ' + S + '/Serviços';
   end;
-
-  if (not fOrdenado) then
-  begin
-    IbDtstTabela.SelectSQL.Add( 'order by ' + CampoDescricao );
-    fOrdenado := True;
-  end;
-
-  inherited;
 
   // Configurar Legendas de acordo com o segmento
   pnlVeiculo.Visible             := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
@@ -1799,11 +1800,22 @@ begin
   lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+  pnlVolume.Visible             := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+
+  lblFabricante.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+  dbFabricante.Enabled  := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+  lblModelo.Enabled     := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+  dbModelo.Enabled      := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
 
   lblCodigoAnvisa.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
   dbCodigoAnvisa.Visible  := lblCodigoAnvisa.Visible;
   lblModelo.Visible := not lblCodigoAnvisa.Visible;
   dbModelo.Visible  := not dbCodigoAnvisa.Visible;
+
+  dbProdutoNovo.Enabled          := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
+  dbProdutoEhImobilizado.Enabled := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+  dbProdutoMovEstoque.Enabled    := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+  dbGerarSubproduto.Enabled      := (gSistema.Codigo = SISTEMA_GESTAO_IND);
 end;
 
 procedure TfrmGeProduto.btnFiltrarClick(Sender: TObject);
@@ -2207,6 +2219,13 @@ begin
     sWhr := sWhr + ' and (p.compor_faturamento = 1)';
 
   WhereAdditional := '(' + sWhr + ')';
+end;
+
+procedure TfrmGeProduto.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if not OcorreuErro then
+    ControleCampos;
 end;
 
 procedure TfrmGeProduto.btbtnAlterarClick(Sender: TObject);

@@ -36,7 +36,7 @@ object frmPrinc: TfrmPrinc
     Color = clBlack
     TabOrder = 0
     ExplicitTop = 122
-    ExplicitHeight = 519
+    ExplicitHeight = 485
     DesignSize = (
       1044
       452)
@@ -4445,7 +4445,6 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitTop = 465
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 23
@@ -4648,7 +4647,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvNone
     DockSite = True
     TabOrder = 1
-    ExplicitHeight = 486
   end
   object Ribbon: TdxRibbon
     Left = 0
@@ -4667,7 +4665,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4682,6 +4679,7 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
+      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -5614,9 +5612,9 @@ object frmPrinc: TfrmPrinc
       ImageIndex = 5
     end
     object BrBtnTabelaProduto: TdxBarLargeButton
-      Caption = 'Produto'
+      Caption = 'Produtos / Servi'#231'os'
       Category = 4
-      Hint = 'Produto'
+      Hint = 'Produtos / Servi'#231'os'
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpTabelaProduto
@@ -5750,16 +5748,16 @@ object frmPrinc: TfrmPrinc
       OnClick = nmCentroCustoClick
     end
     object BrBtnGrupoProduto: TdxBarLargeButton
-      Caption = 'Grupos de Produtos'
+      Caption = 'Grupos de Produtos/Servi'#231'os'
       Category = 6
-      Hint = 'Grupos de Produtos'
+      Hint = 'Grupos de Produtos/Servi'#231'os'
       Visible = ivAlways
       OnClick = nmGruposProdutoClick
     end
     object BrBtnSecaoProduto: TdxBarLargeButton
-      Caption = 'Se'#231#245'es de Produtos'
+      Caption = 'Se'#231#245'es de Produtos/Servi'#231'os'
       Category = 6
-      Hint = 'Se'#231#245'es de Produtos'
+      Hint = 'Se'#231#245'es de Produtos/Servi'#231'os'
       Visible = ivAlways
       OnClick = nmSecaoProdutoClick
     end
@@ -5798,6 +5796,13 @@ object frmPrinc: TfrmPrinc
       HotImageIndex = 16
       SyncImageIndex = False
       ImageIndex = 16
+    end
+    object BrBtnServico: TdxBarLargeButton
+      Caption = 'Servi'#231'os'
+      Category = 6
+      Hint = 'Servi'#231'os'
+      Visible = ivAlways
+      OnClick = BrBtnServicoClick
     end
     object BrBtnVenda: TdxBarLargeButton
       Caption = 'Vendas'
@@ -6537,6 +6542,10 @@ object frmPrinc: TfrmPrinc
       item
         Visible = True
         ItemName = 'BrBtnPromocao'
+      end
+      item
+        Visible = True
+        ItemName = 'BrBtnServico'
       end>
     UseOwnFont = False
     Left = 336

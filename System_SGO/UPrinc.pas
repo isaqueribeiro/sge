@@ -198,6 +198,7 @@ type
     BrBtnRelatorioResultadoExercicio: TdxBarLargeButton;
     lblAberta: TLabel;
     TmrAlertaCliente: TTimer;
+    BrBtnServico: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -298,6 +299,7 @@ type
     procedure BrBtnTestesGeraisClick(Sender: TObject);
     procedure BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
     procedure TmrAlertaClienteTimer(Sender: TObject);
+    procedure BrBtnServicoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -501,6 +503,12 @@ begin
     FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
 end;
 
+procedure TfrmPrinc.BrBtnServicoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_CAD_PRODUTO_ID, True) then
+    MostrarTabelaServicos(Self);
+end;
+
 procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TABELA_IBPT_ID, True) then
@@ -562,12 +570,13 @@ begin
 //  BrBtnProduto.Caption           := StrDescricaoProduto;
 //  BrBtnRelatorioProduto.Caption  := StrDescricaoProduto;
 //  BrBtnRelatorioEntrada.Caption  := 'Entradas de ' + StrDescricaoProduto;
-  BrBtnGrupoProduto.Caption      := 'Grupos de Produtos / Servidos';
-  BrBtnSecaoProduto.Caption      := 'Seções de Produtos / Servidos';
-  BrBtnTabelaProduto.Caption     := 'Produtos';
-  BrBtnProduto.Caption           := 'Produtos';
-  BrBtnRelatorioProduto.Caption  := 'Produtos / Serviços';
-  BrBtnRelatorioEntrada.Caption  := 'Entradas de Produtos / Serviços';
+
+//  BrBtnGrupoProduto.Caption      := 'Grupos de Produtos / Servidos';
+//  BrBtnSecaoProduto.Caption      := 'Seções de Produtos / Servidos';
+//  BrBtnTabelaProduto.Caption     := 'Produtos';
+//  BrBtnProduto.Caption           := 'Produtos';
+//  BrBtnRelatorioProduto.Caption  := 'Produtos / Serviços';
+//  BrBtnRelatorioEntrada.Caption  := 'Entradas de Produtos / Serviços';
 end;
 
 procedure TfrmPrinc.RbnBackstageGalleryAcessoItemClick(

@@ -85,8 +85,11 @@ end;
 {$IFNDEF PRINTER_CUPOM}
 procedure SplashFree;
 begin
-  if ( frmSplash <> nil ) then
-    frmSplash.Close;
+  try
+    if ( frmSplash <> nil ) then
+      frmSplash.Close;
+  finally
+  end
 end;
 
 procedure SplashShow(const Aonwer : TComponent);
@@ -100,17 +103,20 @@ begin
       Sleep(500);
     end;
   finally
-    frmSplash.Update;
+    try
+      frmSplash.Update;
+    except
+    end
   end
 end;
 
 procedure SplashMessage(pMessage : String);
 begin
-  if (frmSplash <> nil) then
-    try
-      frmSplash.lblCarregando.Caption := Trim(pMessage);
-    finally
-    end
+  try
+    if (frmSplash <> nil) then
+        frmSplash.lblCarregando.Caption := Trim(pMessage);
+  finally
+  end
 end;
 {$ENDIF}
 
