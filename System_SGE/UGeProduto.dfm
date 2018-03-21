@@ -295,6 +295,8 @@ inherited frmGeProduto: TfrmGeProduto
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel8: TBevel
@@ -369,9 +371,9 @@ inherited frmGeProduto: TfrmGeProduto
         object lblCodigoEAN: TLabel [7]
           Left = 88
           Top = 24
-          Width = 60
+          Width = 78
           Height = 13
-          Caption = 'C'#243'digo EAN:'
+          Caption = 'C'#243'digo Externo:'
           FocusControl = dbCodigoEAN
         end
         object lblFabricante: TLabel [8]
@@ -3376,7 +3378,7 @@ inherited frmGeProduto: TfrmGeProduto
       Origin = '"TBPRODUTO"."CODCFOP"'
     end
     object IbDtstTabelaCODBARRA_EAN: TIBStringField
-      DisplayLabel = 'C'#243'digo EAN'
+      DisplayLabel = 'C'#243'digo Externo'
       FieldName = 'CODBARRA_EAN'
       Origin = '"TBPRODUTO"."CODBARRA_EAN"'
       Size = 15
@@ -4021,7 +4023,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited ImgList: TImageList
     Left = 720
     Bitmap = {
-      494C01012B002C00000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

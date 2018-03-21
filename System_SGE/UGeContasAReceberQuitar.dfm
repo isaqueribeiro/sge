@@ -515,7 +515,6 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
         '  left join TBVENDAS e on (e.ano = r.anovenda and e.codcontrol =' +
         ' r.numvenda)'
       '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)')
-    ParamData = <>
   end
   inherited DtsPesquisa: TDataSource
     DataSet = CdsPesquisa

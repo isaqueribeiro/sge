@@ -1743,7 +1743,10 @@ begin
       if pnlVeiculo.Visible then
         dbTipoVeiculo.SetFocus
       else
-        dbPesoBruto.SetFocus;  
+      if pnlVolume.Visible then
+        dbPesoBruto.SetFocus
+      else
+        dbEspecificacao.SetFocus;
       Exit;
     end
     else
@@ -1813,7 +1816,7 @@ begin
   dbModelo.Visible  := not dbCodigoAnvisa.Visible;
 
   dbProdutoNovo.Enabled          := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
-  dbProdutoEhImobilizado.Enabled := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+  dbProdutoEhImobilizado.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS); //(gSistema.Codigo = SISTEMA_GESTAO_IND);
   dbProdutoMovEstoque.Enabled    := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
   dbGerarSubproduto.Enabled      := (gSistema.Codigo = SISTEMA_GESTAO_IND);
 end;

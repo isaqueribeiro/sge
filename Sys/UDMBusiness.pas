@@ -394,6 +394,7 @@ var
   function GetSolicitaDHSaidaNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodReferenciaProdutoNFe(const sCNPJEmitente : String) : Boolean;
+  function GetImprimirCodigoExternoProdutoNFe(const sCNPJEmitente : String) : Boolean;
   function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
@@ -3876,6 +3877,21 @@ begin
 end;
 
 function GetImprimirCodReferenciaProdutoNFe(const sCNPJEmitente : String) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select nfe_imprimir_cod_referencia from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := (FieldByName('nfe_imprimir_cod_referencia').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetImprimirCodigoExternoProdutoNFe(const sCNPJEmitente : String) : Boolean;
 begin
   with DMBusiness, fdQryBusca do
   begin

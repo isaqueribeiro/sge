@@ -286,7 +286,7 @@ begin
     CdsPesquisa.DisableControls;
     CdsPesquisa.First;
 
-    if ( not CaixaAberto(gUsuarioLogado.Empresa, GetUserApp, GetDateDB, cdsPagamentoLOTEFormaPagto.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+    if ( not CaixaAberto(gUsuarioLogado.Empresa, gUsuarioLogado.Login, cdsPagamentoLOTEDataPagto.AsDateTime, cdsPagamentoLOTEFormaPagto.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
     begin
       ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento desta quitação.');
       Exit;

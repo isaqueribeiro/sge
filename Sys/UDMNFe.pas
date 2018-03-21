@@ -2229,7 +2229,7 @@ var
   sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
-  PorReferencia : Boolean;
+  PorCodigoExterno : Boolean;
 begin
 (*
   IMR - 14/03/2018 :
@@ -2490,7 +2490,7 @@ begin
 
       // Adicionando Produtos
 
-      PorReferencia      := GetImprimirCodReferenciaProdutoNFe(sCNPJEmitente);
+      PorCodigoExterno   := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox := 0.0;
 
       qryDadosProduto.First;
@@ -2502,9 +2502,9 @@ begin
         begin
           Prod.nItem := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // Número sequencial, para cada item deve ser incrementado
 
-          if PorReferencia then
-            Prod.cProd := IfThen(Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr,
-              Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString),
+          if PorCodigoExterno then
+            Prod.cProd := IfThen(Trim(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) <> EmptyStr,
+              Trim(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString),
               Trim(qryDadosProduto.FieldByName('CODPROD').AsString))
           else
             Prod.cProd := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
@@ -2567,7 +2567,7 @@ begin
           sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
           begin
-            if PorReferencia then
+            if PorCodigoExterno then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
                 'Cód.: ' + qryDadosProduto.FieldByName('CODPROD').AsString
             else
@@ -3737,7 +3737,7 @@ var
   sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
-  PorReferencia : Boolean;
+  PorCodigoExterno : Boolean;
 begin
 (*
   IMR - 14/03/2018 :
@@ -3992,7 +3992,7 @@ begin
 
   //Adicionando Produtos
 
-      PorReferencia      := GetImprimirCodReferenciaProdutoNFe(sCNPJEmitente);
+      PorCodigoExterno   := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox := 0.0;
 
       qryEntradaDadosProduto.First;
@@ -4004,9 +4004,9 @@ begin
         begin
           Prod.nItem := qryEntradaDadosProduto.RecNo; // qryEntradaDadosProdutoSEQ.AsInteger; // Número sequencial, para cada item deve ser incrementado
 
-          if PorReferencia then
-            Prod.cProd := IfThen(Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr,
-              Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString),
+          if PorCodigoExterno then
+            Prod.cProd := IfThen(Trim(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) <> EmptyStr,
+              Trim(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString),
               Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString))
           else
             Prod.cProd := Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString);
@@ -4063,7 +4063,7 @@ begin
           sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
           begin
-            if PorReferencia then
+            if PorCodigoExterno then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
                 'Cód.: ' + qryEntradaDadosProduto.FieldByName('CODPROD').AsString
             else
