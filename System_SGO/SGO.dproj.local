@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2017/05/16 11:35:47.000.910,D:\Projetos\ASS\SGE\trunk\System_SGE\Unit1.dfm=D:\Projetos\ASS\SGE\trunk\Sys\USplash.dfm</Transaction>
-    <Transaction>2017/08/30 10:17:52.000.948,D:\Projetos\ASS\SGE\trunk\System_SGE\Unit1.dfm=D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueLote.dfm</Transaction>
-    <Transaction>2018/03/14 15:29:31.000.442,D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj=D:\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj</Transaction>
-    <Transaction>2018/03/14 15:55:38.000.726,D:\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.dfm=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.dfm</Transaction>
+    <Transaction>2017/05/16 11:35:47.000.910,D:\Projetos\ASS\SGE\trunk\Sys\USplash.dfm=D:\Projetos\ASS\SGE\trunk\System_SGE\Unit1.dfm</Transaction>
+    <Transaction>2017/08/30 10:17:52.000.948,D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueLote.dfm=D:\Projetos\ASS\SGE\trunk\System_SGE\Unit1.dfm</Transaction>
+    <Transaction>2018/03/14 15:29:31.000.442,D:\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj</Transaction>
+    <Transaction>2018/03/14 15:55:38.000.726,D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.dfm=D:\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.dfm</Transaction>
   </Transactions>
 </BorlandProject>

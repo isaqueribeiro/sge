@@ -6,6 +6,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   ClientHeight = 677
   ClientWidth = 1114
   OldCreateOrder = True
+  ExplicitTop = -104
   ExplicitWidth = 1130
   ExplicitHeight = 716
   PixelsPerInch = 96
@@ -82,12 +83,21 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           item
             Expanded = False
             FieldName = 'NOMEFORN'
+            Width = 350
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QT_ITENS'
+            Title.Alignment = taCenter
+            Title.Caption = 'Itens'
+            Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTALPROD'
-            Width = 110
+            Width = 100
             Visible = True
           end
           item
@@ -1568,6 +1578,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitLeft = 2
+            ExplicitTop = 19
           end
           object dbFormaPagto: TDBLookupComboBox
             Left = 0
@@ -3827,13 +3839,21 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  , f.Nomeforn'
       '  , f.Cnpj'
       '  , n.Cfop_descricao'
+      '  , coalesce(('
+      '      Select'
+      '        count(i.seq)'
+      '      from TBCOMPRASITENS i'
+      '      where i.ano        = c.ano'
+      '        and i.codcontrol = c.codcontrol'
+      '    ), 0) as qt_itens'
       'from TBCOMPRAS c'
       '  left join TBFORNECEDOR f on (f.Codforn = c.Codforn)'
       '  left join TBCFOP n on (n.Cfop_cod = c.Nfcfop)')
     GeneratorField.Field = 'CODCONTROL'
     GeneratorField.Generator = 'GEN_COMPRAS_CONTROLE_2011'
     GeneratorField.ApplyEvent = gamOnNewRecord
-    Left = 808
+    Left = 920
+    Top = 0
     object IbDtstTabelaANO: TSmallintField
       DisplayLabel = 'Ano'
       FieldName = 'ANO'
@@ -4203,12 +4223,19 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     object IbDtstTabelaCFOP_DESCRICAO: TIBStringField
       FieldName = 'CFOP_DESCRICAO'
       Origin = 'TBCFOP.CFOP_DESCRICAO'
+      ProviderFlags = []
       Size = 250
+    end
+    object IbDtstTabelaQT_ITENS: TIntegerField
+      FieldName = 'QT_ITENS'
+      ProviderFlags = []
+      DisplayFormat = ',0'
     end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
-    Left = 872
+    Left = 984
+    Top = 0
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -4412,12 +4439,13 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'where'
       '  ANO = :OLD_ANO and'
       '  CODCONTROL = :OLD_CODCONTROL')
-    Left = 840
+    Left = 952
+    Top = 0
   end
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -361,6 +361,7 @@ type
     cdsTabelaItensDESCRI: TIBStringField;
     fdQryEmpresa: TFDQuery;
     cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
+    IbDtstTabelaQT_ITENS: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -1104,7 +1105,7 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btbtnFinalizar.Enabled   := ( IbDtstTabelaSTATUS.AsInteger < STATUS_CMP_FIN) and (not cdsTabelaItens.IsEmpty);
-    btbtnCancelarENT.Enabled := ((IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE)) and (not cdsTabelaItens.IsEmpty);
+    btbtnCancelarENT.Enabled := ((IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE)); // and (not cdsTabelaItens.IsEmpty);
     btbtnGerarNFe.Enabled    := ( IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) and (not cdsTabelaItens.IsEmpty);
 
     nmImprimirDANFE.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_NFE);
@@ -1308,6 +1309,9 @@ begin
     end
     else
     begin
+
+      if cdsTabelaItensSEQ.IsNull then
+        cdsTabelaItensSEQ.AsInteger := 1;
 
       cdsTabelaItens.Post;
 
@@ -1579,6 +1583,12 @@ begin
     Abort;
   end;
 
+  if (cdsTabelaItens.RecordCount = 0) then
+  begin
+    ShowWarning('Movimento de Entrada sem produto(s)!');
+    Abort;
+  end;
+
   if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
     if LoteProdutoPendente then
       if not LotesProdutosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger) then
@@ -1624,14 +1634,14 @@ begin
     IbDtstTabela.ApplyUpdates;
     CommitTransaction;
 
-    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) then
+    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) or (FTipoMovimento = tmeServico) then
       GerarDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     ShowInformation('Entrada finalizada com sucesso !');
 
-    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) then
+    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) or (FTipoMovimento = tmeServico) then
       if ( DuplicatasConfirmadas(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTEMISS.AsDateTime, IbDtstTabelaTOTALNF.AsCurrency) ) then
         AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
@@ -2174,7 +2184,8 @@ begin
     dbgProdutos.Columns[1].Title.Caption := 'Serviço';
     dbgProdutos.Columns[2].Title.Caption := 'Descrição do Serviço';
 
-    dbgDados.Columns[7].Title.Caption    := 'Total Serviço';
+    dbgDados.Columns[7].Visible       := False;
+    dbgDados.Columns[8].Title.Caption := 'Total Serviço';
   end;
 
   RegistrarNovaRotinaSistema;

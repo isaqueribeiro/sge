@@ -1407,6 +1407,9 @@ begin
       if ( Trim(cdsTabelaItensLOTE_ID.AsString) = EmptyStr ) then
         cdsTabelaItensLOTE_ID.Clear;
 
+      if cdsTabelaItensSEQ.IsNull then
+        cdsTabelaItensSEQ.AsInteger := 1;
+
       cdsTabelaItens.Post;
 
       GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido, cValorBaseIcms, cValorIcms);
@@ -1831,6 +1834,12 @@ begin
   if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) then
   begin
     ShowWarning('Movimento de Venda já finalizada!');
+    Abort;
+  end;
+
+  if (cdsTabelaItens.RecordCount = 0) then
+  begin
+    ShowWarning('Movimento de Venda sem produto(s)!');
     Abort;
   end;
 
@@ -2797,8 +2806,8 @@ begin
 
   if (Shift = [ssCtrl]) and (Key = VK_DELETE) Then
     Case pgcMaisDados.ActivePageIndex of
-      0: dbgFormaPagtoKeyDown(Sender, Key, Shift);
-      1: dbgTitulosKeyDown(Sender, Key, Shift);
+      0 : dbgFormaPagtoKeyDown(Sender, Key, Shift);
+      1 : dbgTitulosKeyDown(Sender, Key, Shift);
     end
   else
   if ( Key = VK_F6 ) then
