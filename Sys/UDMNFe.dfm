@@ -148,7 +148,10 @@ object DMNFe: TDMNFe
         'acao'
       '  , coalesce(p.Modelo, '#39#39') as Modelo'
       '  , coalesce(p.Anvisa, '#39#39') as Anvisa'
-      '  , coalesce(p.Referencia, '#39#39') as Referencia'
+      '  , coalesce(p.referencia, '#39#39') as Referencia_produto'
+      
+        '  , coalesce(nullif(trim(i.referencia), '#39#39'), nullif(trim(p.refer' +
+        'encia), '#39#39'), '#39#39') as Referencia'
       '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
       '  , coalesce(ib.aliqnacional_ibpt, 0.0)      as Ncm_aliquota_nac'
       '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
@@ -542,7 +545,7 @@ object DMNFe: TDMNFe
         end
         object frdFone: TfrxMemoView
           Left = 143.622140000000000000
-          Top = 34.015770000000000000
+          Top = 34.015770000000010000
           Width = 411.968770000000000000
           Height = 15.118120000000000000
           DataSet = frdCliente
@@ -560,7 +563,7 @@ object DMNFe: TDMNFe
         end
         object Memo11: TfrxMemoView
           Left = 143.622140000000000000
-          Top = 49.133890000000000000
+          Top = 49.133889999999990000
           Width = 411.968770000000000000
           Height = 15.118120000000000000
           DataSet = frdCliente
@@ -616,10 +619,12 @@ object DMNFe: TDMNFe
         DataSet = frdItens
         DataSetName = 'frdItens'
         RowCount = 0
+        Stretched = True
         object frdItensCODPROD: TfrxMemoView
           Left = 22.677180000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -636,6 +641,7 @@ object DMNFe: TDMNFe
         object frdItensSEQ: TfrxMemoView
           Width = 22.677180000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -654,6 +660,7 @@ object DMNFe: TDMNFe
           Left = 75.590600000000000000
           Width = 291.023639130000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -663,16 +670,27 @@ object DMNFe: TDMNFe
           Font.Style = []
           Memo.UTF8W = (
             
-              ' [frdItens."DESCRI"] [IIF(Trim(<frdItens."REFERENCIA">)='#39#39','#39#39','#39'(' +
-              'Ref.: '#39' + <frdItens."REFERENCIA"> + '#39')'#39')]')
+              ' [frdItens."DESCRI_APRESENTACAO"] [IIF(Trim(<frdItens."REFERENCI' +
+              'A">)='#39#39','#39#39','#39'(Ref.: '#39' + <frdItens."REFERENCIA"> + '#39')'#39')] [IIF(Trim' +
+              '(<frdItens."LOTE">) = '#39#39', '#39#39', '#39'(Lote: '#39' + <frdItens."LOTE"> + '#39' ' +
+              '- Fabrica'#231#227'o :'#39' + FormatDateTime('#39'dd/mm/yyyy'#39', <frdItens."LOTE_F' +
+              'ABRICACAO">) + '#39' - Validade : '#39' + FormatDateTime('#39'dd/mm/yyyy'#39', <' +
+              'frdItens."LOTE_VALIDADE">))]')
           ParentFont = False
-          WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end
+            item
+            end>
         end
         object Memo4: TfrxMemoView
           Left = 366.614410000000000000
           Width = 45.354360000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -691,6 +709,7 @@ object DMNFe: TDMNFe
           Left = 642.520100000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -709,6 +728,7 @@ object DMNFe: TDMNFe
           Left = 411.968770000000000000
           Width = 37.795300000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -726,6 +746,7 @@ object DMNFe: TDMNFe
           Left = 449.764070000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -744,6 +765,7 @@ object DMNFe: TDMNFe
           Left = 514.016080000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -762,6 +784,7 @@ object DMNFe: TDMNFe
           Left = 578.268090000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -857,7 +880,7 @@ object DMNFe: TDMNFe
         end
         object Memo13: TfrxMemoView
           Left = 623.622450000000000000
-          Top = 11.338590000000000000
+          Top = 11.338590000000010000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -875,13 +898,13 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Line2: TfrxLineView
-          Top = 79.370130000000000000
+          Top = 79.370129999999990000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo23: TfrxMemoView
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 22.677180000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -899,7 +922,7 @@ object DMNFe: TDMNFe
         end
         object Memo24: TfrxMemoView
           Left = 22.677180000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 52.913420000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -916,7 +939,7 @@ object DMNFe: TDMNFe
         end
         object Memo25: TfrxMemoView
           Left = 75.590600000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 291.023639130000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -932,7 +955,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
-          Top = 30.236240000000000000
+          Top = 30.236240000000010000
           Width = 718.110700000000000000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -948,7 +971,7 @@ object DMNFe: TDMNFe
         end
         object Memo21: TfrxMemoView
           Left = 411.968770000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 37.795300000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -965,7 +988,7 @@ object DMNFe: TDMNFe
         end
         object Memo20: TfrxMemoView
           Left = 449.764070000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 64.252010000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -983,7 +1006,7 @@ object DMNFe: TDMNFe
         end
         object Memo19: TfrxMemoView
           Left = 514.016080000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 64.252010000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1001,7 +1024,7 @@ object DMNFe: TDMNFe
         end
         object Memo16: TfrxMemoView
           Left = 578.268090000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 64.252010000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1019,7 +1042,7 @@ object DMNFe: TDMNFe
         end
         object Memo17: TfrxMemoView
           Left = 642.520100000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 75.590600000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1037,7 +1060,7 @@ object DMNFe: TDMNFe
         end
         object Memo22: TfrxMemoView
           Left = 366.614410000000000000
-          Top = 64.252010000000000000
+          Top = 64.252010000000010000
           Width = 45.354323390000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1055,7 +1078,7 @@ object DMNFe: TDMNFe
         end
         object Memo9: TfrxMemoView
           Left = 415.748300000000000000
-          Top = 11.338590000000000000
+          Top = 11.338590000000010000
           Width = 207.874150000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1075,7 +1098,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
-          Top = 41.574830000000000000
+          Top = 41.574829999999990000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1095,7 +1118,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object frdVendaNOME: TfrxMemoView
-          Top = 11.338590000000000000
+          Top = 11.338590000000010000
           Width = 415.748300000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1158,7 +1181,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
-          Top = 98.267780000000000000
+          Top = 98.267780000000010000
           Width = 366.614410000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1188,7 +1211,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Line3: TfrxLineView
-          Top = 22.677180000000000000
+          Top = 22.677180000000020000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
@@ -1210,7 +1233,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
-          Top = 26.456710000000000000
+          Top = 26.456709999999990000
           Width = 718.110700000000000000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1224,7 +1247,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
-          Top = 68.031540000000000000
+          Top = 68.031540000000010000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1240,7 +1263,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
-          Top = 56.692950000000000000
+          Top = 56.692949999999990000
           Width = 718.110700000000000000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1255,7 +1278,7 @@ object DMNFe: TDMNFe
         end
         object Memo34: TfrxMemoView
           Left = 366.614410000000000000
-          Top = 98.267780000000000000
+          Top = 98.267780000000010000
           Width = 128.504020000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1290,7 +1313,7 @@ object DMNFe: TDMNFe
         end
         object Memo36: TfrxMemoView
           Left = 495.118430000000000000
-          Top = 98.267780000000000000
+          Top = 98.267780000000010000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1325,7 +1348,7 @@ object DMNFe: TDMNFe
         end
         object Memo38: TfrxMemoView
           Left = 589.606680000000000000
-          Top = 98.267780000000000000
+          Top = 98.267780000000010000
           Width = 128.504020000000000000
           Height = 18.897650000000000000
           DataSet = frdVenda
@@ -1386,7 +1409,7 @@ object DMNFe: TDMNFe
       object bndChildSummary: TfrxChild
         FillType = ftBrush
         Height = 158.740260000000000000
-        Top = 563.149970000000000000
+        Top = 563.149970000000100000
         Width = 718.110700000000000000
         OnAfterCalcHeight = 'bndChildSummaryOnAfterCalcHeight'
         object Memo42: TfrxMemoView
@@ -1408,7 +1431,7 @@ object DMNFe: TDMNFe
         end
         object mmTextoAutorizacao: TfrxMemoView
           Left = 37.795300000000000000
-          Top = 26.456710000000000000
+          Top = 26.456710000000040000
           Width = 623.622450000000000000
           Height = 45.354360000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1737,12 +1760,15 @@ object DMNFe: TDMNFe
       'APRESENTACAO=APRESENTACAO'
       'DESCRI_APRESENTACAO=DESCRI_APRESENTACAO'
       'MODELO=MODELO'
+      'ANVISA=ANVISA'
+      'REFERENCIA_PRODUTO=REFERENCIA_PRODUTO'
       'REFERENCIA=REFERENCIA'
       'NCM_SH=NCM_SH'
       'NCM_ALIQUOTA_NAC=NCM_ALIQUOTA_NAC'
       'NCM_ALIQUOTA_IMP=NCM_ALIQUOTA_IMP'
       'NCM_ALIQUOTA_EST=NCM_ALIQUOTA_EST'
       'NCM_ALIQUOTA_MUN=NCM_ALIQUOTA_MUN'
+      'CODTIPO=CODTIPO'
       'CODORIGEM=CODORIGEM'
       'CODTRIBUTACAO=CODTRIBUTACAO'
       'CST_PIS=CST_PIS'
@@ -1776,6 +1802,7 @@ object DMNFe: TDMNFe
       'TOTAL_DESCONTO=TOTAL_DESCONTO'
       'TOTAL_LIQUIDO=TOTAL_LIQUIDO'
       'ESTOQUE=ESTOQUE'
+      'ESTOQUE_APROP_LOTE=ESTOQUE_APROP_LOTE'
       'RESERVA=RESERVA'
       'PRODUTO_NOVO=PRODUTO_NOVO'
       'COR_VEICULO=COR_VEICULO'
@@ -1790,7 +1817,11 @@ object DMNFe: TDMNFe
       'RENAVAM_VEICULO=RENAVAM_VEICULO'
       'CHASSI_VEICULO=CHASSI_VEICULO'
       'KILOMETRAGEM_VEICULO=KILOMETRAGEM_VEICULO'
-      'DISPONIVEL=DISPONIVEL')
+      'DISPONIVEL=DISPONIVEL'
+      'LOTE_ID=LOTE_ID'
+      'LOTE=LOTE'
+      'LOTE_FABRICACAO=LOTE_FABRICACAO'
+      'LOTE_VALIDADE=LOTE_VALIDADE')
     DataSet = qryDadosProduto
     BCDToCurrency = False
     Left = 180

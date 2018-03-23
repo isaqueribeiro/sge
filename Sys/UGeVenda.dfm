@@ -6,6 +6,7 @@ inherited frmGeVenda: TfrmGeVenda
   ClientHeight = 685
   ClientWidth = 1116
   OldCreateOrder = True
+  ExplicitLeft = -50
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -386,6 +387,8 @@ inherited frmGeVenda: TfrmGeVenda
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -1029,13 +1032,13 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = []
           ParentFont = False
         end
-        object lblValorIPI: TLabel
-          Left = 848
+        object lblReferencia: TLabel
+          Left = 847
           Top = 64
-          Width = 69
+          Width = 56
           Height = 13
-          Caption = 'Valor IPI (R$):'
-          FocusControl = dbValorIPI
+          Caption = 'Refer'#234'ncia:'
+          FocusControl = dbReferencia
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -1089,8 +1092,8 @@ inherited frmGeVenda: TfrmGeVenda
           ParentFont = False
         end
         object lblLoteProduto: TLabel
-          Left = 934
-          Top = 64
+          Left = 944
+          Top = 65
           Width = 25
           Height = 13
           Caption = 'Lote:'
@@ -1237,13 +1240,14 @@ inherited frmGeVenda: TfrmGeVenda
           ParentFont = False
           TabOrder = 8
         end
-        object dbValorIPI: TDBEdit
+        object dbReferencia: TDBEdit
           Left = 848
           Top = 80
-          Width = 80
+          Width = 90
           Height = 21
-          Color = clMoneyGreen
-          DataField = 'VALOR_IPI'
+          CharCase = ecUpperCase
+          Color = clWhite
+          DataField = 'REFERENCIA'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1251,7 +1255,6 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          ReadOnly = True
           TabOrder = 13
           Visible = False
           OnExit = ControlEditExit
@@ -1800,9 +1803,9 @@ inherited frmGeVenda: TfrmGeVenda
           OnExit = ControlEditExit
         end
         object dbLoteProduto: TDBLookupComboBox
-          Left = 934
+          Left = 944
           Top = 80
-          Width = 138
+          Width = 128
           Height = 21
           DataField = 'LOTE_ID'
           DataSource = DtSrcTabelaItens
@@ -4390,7 +4393,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C007C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00800110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5891,6 +5894,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , i.Dtvenda'
       '  , i.Qtde'
       '  , i.Lote_id'
+      '  , i.Referencia'
       '  , i.Punit'
       '  , i.Punit_Promocao'
       '  , i.Desconto'
@@ -5996,6 +6000,12 @@ inherited frmGeVenda: TfrmGeVenda
       FieldName = 'LOTE_ID'
       Origin = '"TVENDASITENS"."LOTE_ID"'
       Size = 38
+    end
+    object cdsTabelaItensREFERENCIA: TIBStringField
+      FieldName = 'REFERENCIA'
+      Origin = '"TVENDASITENS"."REFERENCIA"'
+      ProviderFlags = [pfInUpdate]
+      Size = 15
     end
     object cdsTabelaItensPUNIT: TIBBCDField
       DisplayLabel = 'Valor Unit'#225'rio'
@@ -6195,6 +6205,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  CODEMP,'
       '  SEQ,'
       '  CODPROD,'
+      '  REFERENCIA,'
       '  CODCLIENTE,'
       '  CODCLI,'
       '  CODVENDEDOR,'
@@ -6254,6 +6265,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  PUNIT_PROMOCAO = :PUNIT_PROMOCAO,'
       '  QTDE = :QTDE,'
       '  QTDEFINAL = :QTDEFINAL,'
+      '  REFERENCIA = :REFERENCIA,'
       '  SEQ = :SEQ,'
       '  TOTAL_BRUTO = :TOTAL_BRUTO,'
       '  TOTAL_DESCONTO = :TOTAL_DESCONTO,'
@@ -6277,9 +6289,9 @@ inherited frmGeVenda: TfrmGeVenda
         '   CST, DESCONTO, DESCONTO_VALOR, DTVENDA, LOTE_ID, PERCENTUAL_R' +
         'EDUCAO_BC, '
       
-        '   PFINAL, PUNIT, PUNIT_PROMOCAO, QTDE, QTDEFINAL, SEQ, TOTAL_BR' +
-        'UTO, TOTAL_DESCONTO, '
-      '   TOTAL_LIQUIDO, UNID_COD, VALOR_IPI)'
+        '   PFINAL, PUNIT, PUNIT_PROMOCAO, QTDE, QTDEFINAL, REFERENCIA, S' +
+        'EQ, TOTAL_BRUTO, '
+      '   TOTAL_DESCONTO, TOTAL_LIQUIDO, UNID_COD, VALOR_IPI)'
       'values'
       
         '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
@@ -6291,9 +6303,11 @@ inherited frmGeVenda: TfrmGeVenda
         '   :CSOSN, :CST, :DESCONTO, :DESCONTO_VALOR, :DTVENDA, :LOTE_ID,' +
         ' :PERCENTUAL_REDUCAO_BC, '
       
-        '   :PFINAL, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :QTDEFINAL, :SEQ, :T' +
-        'OTAL_BRUTO, '
-      '   :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNID_COD, :VALOR_IPI)')
+        '   :PFINAL, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :QTDEFINAL, :REFEREN' +
+        'CIA, :SEQ, '
+      
+        '   :TOTAL_BRUTO, :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNID_COD, :VA' +
+        'LOR_IPI)')
     DeleteSQL.Strings = (
       'delete from TVENDASITENS'
       'where'
@@ -7617,6 +7631,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , p.Preco'
       '  , p.Preco_Promocao'
       '  , p.Referencia'
+      '  , r.referencia as referencia_cliente'
       '  , p.Secao'
       '  , p.Qtde'
       '  , p.Unidade'
@@ -7657,6 +7672,9 @@ inherited frmGeVenda: TfrmGeVenda
       '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
       '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
       '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
+      
+        '  left join TBPRODUTO_CLIENTE r on (r.produto = p.cod and r.clie' +
+        'nte = :cliente)'
       'where p.Codigo = :Codigo')
     ModifySQL.Strings = (
       '')

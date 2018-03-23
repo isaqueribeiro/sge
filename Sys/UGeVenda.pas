@@ -51,8 +51,8 @@ type
     dbAliquota: TDBEdit;
     lblCST: TLabel;
     dbCST: TDBEdit;
-    lblValorIPI: TLabel;
-    dbValorIPI: TDBEdit;
+    lblReferencia: TLabel;
+    dbReferencia: TDBEdit;
     dbCFOPDescricao: TDBEdit;
     Bevel7: TBevel;
     pnlBotoesProduto: TPanel;
@@ -411,6 +411,7 @@ type
     fdQryVendedor: TFDQuery;
     fdQryLotes: TFDQuery;
     dtsLotes: TDataSource;
+    cdsTabelaItensREFERENCIA: TIBStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -719,6 +720,8 @@ begin
     btbtnLista.OnClick := ImprimirOpcoesClick;
   end;
 
+  lblReferencia.Visible := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
+  dbReferencia.Visible  := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
 end;
 
 procedure TfrmGeVenda.btnFiltrarClick(Sender: TObject);
@@ -1016,6 +1019,7 @@ begin
         cdsTabelaItensRESERVA.AsCurrency           := FieldByName('Reserva').AsCurrency;
         cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger  := FieldByName('Movimenta_Estoque').AsInteger;
         cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger := FieldByName('estoque_aprop_lote').AsInteger;
+        cdsTabelaItensREFERENCIA.AsString          := FieldByName('referencia_cliente').AsString;
 
         if ( cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0 ) then
         begin
@@ -1407,6 +1411,9 @@ begin
       if ( Trim(cdsTabelaItensLOTE_ID.AsString) = EmptyStr ) then
         cdsTabelaItensLOTE_ID.Clear;
 
+      if ( Trim(cdsTabelaItensREFERENCIA.AsString) = EmptyStr ) then
+        cdsTabelaItensREFERENCIA.Clear;
+
       if cdsTabelaItensSEQ.IsNull then
         cdsTabelaItensSEQ.AsInteger := 1;
 
@@ -1580,7 +1587,11 @@ begin
       cdsTabelaItensTOTAL_LIQUIDO.AsCurrency  := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensTOTAL_DESCONTO.AsCurrency;
     end;
 
-  if ( (Sender = dbValorLiq) and (not dbLoteProduto.Visible) ) then
+  if ( (Sender = dbValorLiq) and (not dbReferencia.Visible) and (not dbLoteProduto.Visible) ) then
+    if ( btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled ) then
+      btnProdutoSalvar.SetFocus;
+
+  if ( (Sender = dbReferencia) and (not dbLoteProduto.Visible) ) then
     if ( btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled ) then
       btnProdutoSalvar.SetFocus;
 
@@ -1773,6 +1784,7 @@ begin
   cdsTabelaItensESTOQUE_APROP_LOTE.Value    := FLAG_NAO;
 
   cdsTabelaItensLOTE_ID.Clear;
+  cdsTabelaItensREFERENCIA.Clear;
 end;
 
 procedure TfrmGeVenda.btbtnFinalizarClick(Sender: TObject);
