@@ -12,7 +12,7 @@ uses
   FuncoesFormulario, UConstantesDGE, IBX.IBUpdateSQL, DBClient,
   Provider, Dialogs, Registry, frxChart, frxCross, frxRich, frxExportMail,
   frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF, ACBrBase,
-  ACBrValidador, ACBrMail,
+  ACBrValidador, ACBrMail, ACBrUtil,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
@@ -134,6 +134,8 @@ type
     fdQryBusca: TFDQuery;
     fdQryCaixaAberto: TFDQuery;
     fdScript: TFDScript;
+    fdQryUpgrade: TFDQuery;
+    fdUpdUpgrade: TFDUpdateSQL;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
@@ -189,7 +191,7 @@ var
   function EstacaoServidora(aServidor : String): Boolean;
   function ControlFBSvr(aStart : Boolean): Boolean;
   function DataBaseOnLine : Boolean;
-  function GetVersionDB : Currency;
+  function GetVersionDB(aSistema : Integer) : Currency;
 
   function ShowConfirmation(sTitle, sMsg : String) : Boolean; overload;
   function ShowConfirmation(sMsg : String) : Boolean; overload;
@@ -798,9 +800,36 @@ begin
   Result := DMBusiness.ibdtbsBusiness.Connected;
 end;
 
-function GetVersionDB : Currency;
+function GetVersionDB(aSistema : Integer) : Currency;
+var
+  aRetorno : Currency;
 begin
-  Result := 01001600.0; // 1.0.16.0
+  aRetorno := 01002000; // 1.0.20.0
+  try
+    try
+      with DMBusiness, fdQryBusca do
+      begin
+          Close;
+          SQL.Clear;
+          SQL.Add('Select');
+          SQL.Add('  coalesce(x.sis_version, 01002000) as sis_version');
+          SQL.Add('from (');
+          SQL.Add('  Select');
+          SQL.Add('    max(u.sis_version) as sis_version');
+          SQL.Add('  from SYS_UPGRADE u');
+          SQL.Add('  where u.upgrade_ok = 1');
+          SQL.Add('    and u.sis_cod = ' + IntToStr(aSistema));
+          SQL.Add(') x');
+          Open;
+
+          aRetorno := FieldByName('sis_version').AsCurrency;
+      end;
+    except
+      aRetorno := 01002000; // 1.0.20.0
+    end;
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 function ShowConfirmation(sTitle, sMsg : String) : Boolean;
@@ -833,12 +862,12 @@ var
   aVersaoBase   ,
   aVersaoApp    : Currency;
 begin
-  aVersaoBase    := GetVersionDB + 1;
+  aVersaoBase    := GetVersionDB(gSistema.Codigo) + 1;
   aVersaoApp     := GetVersionID;
   aVersaoUpgrade := aVersaoBase;
   while (aVersaoUpgrade <= aVersaoApp) do
   begin
-    aFileUpgrade := ExtractFilePath(ParamStr(0)) + CurrToStr(aVersaoUpgrade) + '.sql';
+    aFileUpgrade := ExtractFilePath(ParamStr(0)) + FormatFloat('00000000', aVersaoUpgrade) + '.sql';
     ExecuteScriptMetaData(aFileUpgrade);
 
     aVersaoUpgrade := aVersaoUpgrade + 1;
@@ -1056,17 +1085,64 @@ begin
 end;
 
 procedure ExecuteScriptMetaData(aFileName : String);
-begin
-  if FileExists(aFileName) then
-    with DMBusiness, fdScript do
-    begin
-      SQLScriptFileName := aFileName;
-      ValidateAll;
-      ExecuteAll;
-      CommitTransaction;
+var
+  aScript : TStringList;
+  aVersao : Currency;
 
-      RenameFile(aFileName, ChangeFileExt(aFileName, '.upgraded'));
+  procedure GravarSriptSQL(aSistema : SmallInt; aError : WideString; aOK : Boolean);
+  begin
+    with DMBusiness do
+    begin
+      fdQryUpgrade.Close;
+      fdQryUpgrade.ParamByName('sistema').AsSmallInt := aSistema;
+      fdQryUpgrade.ParamByName('versao').AsCurrency  := aVersao;
+      fdQryUpgrade.OpenOrExecute;
+
+      if fdQryUpgrade.IsEmpty then
+      begin
+        fdQryUpgrade.Append;
+        fdQryUpgrade.FieldByName('sis_cod').AsInteger      := aSistema;
+        fdQryUpgrade.FieldByName('sis_version').AsCurrency := aVersao;
+      end
+      else
+        fdQryUpgrade.Edit;
+
+      fdQryUpgrade.FieldByName('upgrade_sql').AsWideString   := aScript.Text;
+      fdQryUpgrade.FieldByName('upgrade_data').AsDateTime    := Now;
+      fdQryUpgrade.FieldByName('upgrade_error').AsWideString := aError;
+      fdQryUpgrade.FieldByName('upgrade_ok').AsInteger       := IfThen(aOK, 1, 0);
+
+      fdQryUpgrade.Post;
+      fdQryUpgrade.ApplyUpdates;
+
+      CommitTransaction;
     end;
+  end;
+begin
+  aScript := TStringList.Create;
+  try
+    try
+      if FileExists(aFileName) then
+        with DMBusiness, fdScript do
+        begin
+          aScript.LoadFromFile(aFileName);
+          aVersao := StrToCurr( OnlyNumber(ExtractFileName(aFileName)) );
+
+          SQLScriptFileName := aFileName;
+          ValidateAll;
+          ExecuteAll;
+          CommitTransaction;
+
+          GravarSriptSQL(gSistema.Codigo, EmptyStr, True);
+          RenameFile(aFileName, ChangeFileExt(aFileName, '.upgraded'));
+        end;
+    except
+      On E : Exception do
+        GravarSriptSQL(gSistema.Codigo, E.Message, False);
+    end;
+  finally
+    aScript.Free;
+  end;
 end;
 
 procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
@@ -4743,9 +4819,6 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
 
       Connected := True;
     end;
-
-    // Upgrade DB
-    UpgradeDataBase;
 
     MontarPermissao;
 

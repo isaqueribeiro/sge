@@ -262,7 +262,9 @@ begin
     aProcesso := ParamStr(0);
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
-  end;
+  end
+  else
+    UpgradeDataBase;
 end;
 
 end.

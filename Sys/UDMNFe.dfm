@@ -410,6 +410,18 @@ object DMNFe: TDMNFe
       item
         Name = 'Descontos'
         Value = '<frdVenda."DESCONTO">+<frdVenda."DESCONTO_CUPOM">'
+      end
+      item
+        Name = 'DataFabricacao'
+        Value = 
+          'IIF(<frdItens."LOTE_FABRICACAO">=0,'#39#39',FormatDateTime('#39'dd/mm/yyyy' +
+          #39', <frdItens."LOTE_FABRICACAO">))'
+      end
+      item
+        Name = 'DataValidade'
+        Value = 
+          'IIF(<frdItens."LOTE_VALIDADE">=0,'#39#39',FormatDateTime('#39'dd/mm/yyyy'#39',' +
+          ' <frdItens."LOTE_VALIDADE">))'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -632,6 +644,15 @@ object DMNFe: TDMNFe
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             ' [frdItens."CODPROD"]')
           ParentFont = False
@@ -650,6 +671,15 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           HAlign = haCenter
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             '[Line]')
           ParentFont = False
@@ -668,14 +698,22 @@ object DMNFe: TDMNFe
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             
-              ' [frdItens."DESCRI_APRESENTACAO"] [IIF(Trim(<frdItens."REFERENCI' +
-              'A">)='#39#39','#39#39','#39'(Ref.: '#39' + <frdItens."REFERENCIA"> + '#39')'#39')] [IIF(Trim' +
-              '(<frdItens."LOTE">) = '#39#39', '#39#39', '#39'(Lote: '#39' + <frdItens."LOTE"> + '#39' ' +
-              '- Fabrica'#231#227'o :'#39' + FormatDateTime('#39'dd/mm/yyyy'#39', <frdItens."LOTE_F' +
-              'ABRICACAO">) + '#39' - Validade : '#39' + FormatDateTime('#39'dd/mm/yyyy'#39', <' +
-              'frdItens."LOTE_VALIDADE">))]')
+              '[frdItens."DESCRI_APRESENTACAO"] [IIF(Trim(<frdItens."REFERENCIA' +
+              '">)='#39#39','#39#39','#39'(Ref.: '#39' + <frdItens."REFERENCIA"> + '#39')'#39')] [IIF(Trim(' +
+              '<frdItens."LOTE">) = '#39#39', '#39#39', '#39'(Lote: '#39' + <frdItens."LOTE"> + '#39' -' +
+              ' Fabrica'#231#227'o : '#39' + <DataFabricacao> + '#39' - Validade : '#39' + <DataVal' +
+              'idade>)]')
           ParentFont = False
           VAlign = vaCenter
           Formats = <
@@ -699,6 +737,15 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           HAlign = haRight
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             '[FormatFloat('#39',0.###'#39',<frdItens."QTDE">)] ')
           ParentFont = False
@@ -718,6 +765,15 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           HAlign = haRight
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdItens."TOTAL_LIQUIDO">)] ')
           ParentFont = False
@@ -736,6 +792,15 @@ object DMNFe: TDMNFe
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             ' [frdItens."UNP_SIGLA"]')
           ParentFont = False
@@ -755,6 +820,15 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           HAlign = haRight
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdItens."PUNIT">)] ')
           ParentFont = False
@@ -774,6 +848,15 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           HAlign = haRight
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdItens."DESCONTO_VALOR">)] ')
           ParentFont = False
@@ -793,6 +876,15 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           HAlign = haRight
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clBlack
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Lucida Console'
+          Highlight.Font.Style = []
+          Highlight.Condition = '((<Line#> mod 2) = 1)'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Fill.ForeColor = clBtnFace
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdItens."PFINAL">)] ')
           ParentFont = False
@@ -1468,7 +1560,7 @@ object DMNFe: TDMNFe
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo43: TfrxMemoView
-          Top = 3.779530000000000000
+          Top = 3.779530000000001000
           Width = 75.590600000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1485,7 +1577,7 @@ object DMNFe: TDMNFe
         end
         object Memo45: TfrxMemoView
           Left = 75.590600000000000000
-          Top = 3.779530000000000000
+          Top = 3.779530000000001000
           Width = 75.590600000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1502,7 +1594,7 @@ object DMNFe: TDMNFe
         end
         object Memo46: TfrxMemoView
           Left = 151.181200000000000000
-          Top = 3.779530000000000000
+          Top = 3.779530000000001000
           Width = 90.708720000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1519,7 +1611,7 @@ object DMNFe: TDMNFe
         end
         object Memo47: TfrxMemoView
           Left = 241.889920000000000000
-          Top = 3.779530000000000000
+          Top = 3.779530000000001000
           Width = 90.708720000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1537,7 +1629,7 @@ object DMNFe: TDMNFe
         end
         object Memo48: TfrxMemoView
           Left = 332.598640000000000000
-          Top = 3.779530000000000000
+          Top = 3.779530000000001000
           Width = 385.512060000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET

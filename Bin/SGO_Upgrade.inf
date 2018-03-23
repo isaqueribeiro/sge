@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 20/03/2018 14:13:00     #
+#    Gerado por AGIL SOFTWARES em : 23/03/2018 17:36:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Impressão dos lotes no Orçamento de Venda.
 - Ajustes para o Cadastro de Serviços.
 - Atualização das Taxas Tributárias para JAN/2018.
 - Ajustes na emissão de NF-e e NFC-e.
@@ -22,4 +23,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.20.2
+#version=1.0.21.1

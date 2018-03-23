@@ -857,4 +857,69 @@ object DMBusiness: TDMBusiness
     Left = 800
     Top = 256
   end
+  object fdQryUpgrade: TFDQuery
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    UpdateObject = fdUpdUpgrade
+    SQL.Strings = (
+      'Select'
+      '    u.sis_cod'
+      '  , u.sis_version'
+      '  , u.upgrade_sql'
+      '  , u.upgrade_data'
+      '  , u.upgrade_error'
+      '  , u.upgrade_ok'
+      'from SYS_UPGRADE u'
+      'where u.sis_cod = :sistema'
+      '  and u.sis_version = :versao')
+    Left = 864
+    Top = 448
+    ParamData = <
+      item
+        Name = 'SISTEMA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'VERSAO'
+        DataType = ftLargeint
+        ParamType = ptInput
+      end>
+  end
+  object fdUpdUpgrade: TFDUpdateSQL
+    Connection = fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO SYS_UPGRADE'
+      '(SIS_COD, SIS_VERSION, UPGRADE_SQL, UPGRADE_DATA, '
+      '  UPGRADE_ERROR, UPGRADE_OK)'
+      
+        'VALUES (:NEW_SIS_COD, :NEW_SIS_VERSION, :NEW_UPGRADE_SQL, :NEW_U' +
+        'PGRADE_DATA, '
+      '  :NEW_UPGRADE_ERROR, :NEW_UPGRADE_OK)')
+    ModifySQL.Strings = (
+      'UPDATE SYS_UPGRADE'
+      
+        'SET SIS_COD = :NEW_SIS_COD, SIS_VERSION = :NEW_SIS_VERSION, UPGR' +
+        'ADE_SQL = :NEW_UPGRADE_SQL, '
+      
+        '  UPGRADE_DATA = :NEW_UPGRADE_DATA, UPGRADE_ERROR = :NEW_UPGRADE' +
+        '_ERROR, '
+      '  UPGRADE_OK = :NEW_UPGRADE_OK'
+      'WHERE SIS_COD = :OLD_SIS_COD AND SIS_VERSION = :OLD_SIS_VERSION')
+    DeleteSQL.Strings = (
+      'DELETE FROM SYS_UPGRADE'
+      'WHERE SIS_COD = :OLD_SIS_COD AND SIS_VERSION = :OLD_SIS_VERSION')
+    FetchRowSQL.Strings = (
+      
+        'SELECT SIS_COD, SIS_VERSION, UPGRADE_SQL, UPGRADE_DATA, UPGRADE_' +
+        'ERROR, '
+      '  UPGRADE_OK'
+      'FROM SYS_UPGRADE'
+      'WHERE SIS_COD = :SIS_COD AND SIS_VERSION = :SIS_VERSION')
+    Left = 896
+    Top = 448
+  end
 end
