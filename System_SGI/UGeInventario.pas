@@ -7,29 +7,16 @@ uses
   UGrPadrao, 
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore, dxSkinMcSkin,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  cxGroupBox, StdCtrls, Mask, DBCtrls, DB, IBCustomDataSet, IBTable,
-  cxCheckBox, cxDBEdit, Menus, cxButtons, ToolWin,
-  ComCtrls, IBUpdateSQL, cxStyles, dxSkinscxPCPainter, cxCustomData,
-  cxFilter, cxData, cxDataStorage, cxDBData, cxCurrencyEdit, cxGridLevel,
-  cxGridCustomTableView, cxGridTableView, cxGridBandedTableView,
-  cxGridDBBandedTableView, cxClasses, cxGridCustomView, cxGrid, DBClient,
-  frxClass, frxDBSet, Provider, IBQuery, dxSkinBlack, dxSkinBlue,
-  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy,
-  dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
-  dxSkinLondonLiquidSky, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
-  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
-  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
-  JvToolEdit, JvDBControls, JvExMask, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
-  cxNavigator;
+  Dialogs, ExtCtrls, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  cxContainer, cxEdit, cxGroupBox, StdCtrls, Mask, DBCtrls, DB, IBCustomDataSet, IBTable,
+  cxCheckBox, cxDBEdit, Menus, cxButtons, ToolWin, ComCtrls, IBUpdateSQL, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxDBData, cxCurrencyEdit, cxGridLevel,
+  cxGridCustomTableView, cxGridTableView, cxGridBandedTableView, cxGridDBBandedTableView,
+  cxClasses, cxGridCustomView, cxGrid, DBClient, frxClass, frxDBSet, Provider, IBQuery,
+  JvToolEdit, JvDBControls, JvExMask, dxSkinBlueprint, cxNavigator,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinscxPCPainter;
 
 type
   TfrmGeInventario = class(TfrmGrPadrao)
@@ -178,6 +165,7 @@ type
     dbCustoUnitario: TDBEdit;
     dbCentroCusto: TJvDBComboEdit;
     dbData: TJvDBDateEdit;
+    qryInventarioSISTEMA: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure nmCarregarIAClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -227,6 +215,17 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBINVENTARIO_ALMOX
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeInventario: TfrmGeInventario;
@@ -457,6 +456,7 @@ begin
   qryInventarioCONTROLE.AsInteger := iNum;
   qryInventarioEMPRESA.AsString   := gUsuarioLogado.Empresa;
   qryInventarioSTATUS.AsInteger   := STATUS_INVENTARIO_ALMOX_EML;
+  qryInventarioSISTEMA.AsInteger  := gSistema.Codigo;
   qryInventarioSTATUS_DESCRICAO.AsString        := 'Em lançamento';
   qryInventarioINSERCAO_DATAHORA.AsDateTime     := GetDateTimeDB;
   qryInventarioINSERCAO_USUARIO.AsString        := gUsuarioLogado.Login;
@@ -465,10 +465,19 @@ begin
   qryInventarioCONFERIR_ESTOQUE_VENDA.AsInteger := IfThen((gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]), 1, 0);
   qryInventarioBLOQUEAR_MOVIMENTO.AsInteger     := 0;
 
+  if (gSistema.Codigo = SISTEMA_GESTAO_OPME) then
+  begin
+    qryInventarioCENTRO_CUSTO.AsInteger     := CENTRO_CUSTO_ESTOQUE_GERAL;
+    qryInventarioCENTRO_CUSTO_DESC.AsString := CENTRO_CUSTO_ESTOQUE_GERAL_DSC ;
+  end
+  else
+  begin
+    qryInventarioCENTRO_CUSTO.Clear;
+    qryInventarioCENTRO_CUSTO_DESC.Clear;
+  end;
+
   qryInventarioCOMPETENCIA.Clear;
   qryInventarioTIPO.Clear;
-  qryInventarioCENTRO_CUSTO.Clear;
-  qryInventarioCENTRO_CUSTO_DESC.Clear;
   qryInventarioFECH_DATAHORA.Clear;
   qryInventarioFECH_USUARIO.Clear;
   qryInventarioOBS.Clear;

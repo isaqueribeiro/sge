@@ -1883,7 +1883,7 @@ begin
       SQL.Add('      , codcliente ');
       SQL.Add('    ) values (');
       SQL.Add('        :cc');
-      SQL.Add('      , ' + QuotedStr('ESTOQUE GERAL') + ' ');
+      SQL.Add('      , ' + QuotedStr(CENTRO_CUSTO_ESTOQUE_GERAL_DSC) + ' ');
       SQL.Add('      , 1');
       SQL.Add('      , null');
       SQL.Add('    );');

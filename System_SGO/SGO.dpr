@@ -123,7 +123,6 @@ uses
   UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
   UEcfBematechNaoFiscal in '..\Sys\lib\UEcfBematechNaoFiscal.pas',
   UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
-  UGeInventario in '..\System_SGI\UGeInventario.pas' {frmGeInventario},
   UGrMemo in '..\Sys\lib\UGrMemo.pas' {frmGrMemo},
   UGeVendaDevolucaoNF in '..\Sys\UGeVendaDevolucaoNF.pas' {frmGeVendaDevolucaoNF},
   UGrConfigurarBackup in '..\Sys\lib\UGrConfigurarBackup.pas' {frmGrConfigurarBackup},
@@ -146,7 +145,8 @@ uses
   UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade},
   UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE},
   UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao},
-  UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote};
+  UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote},
+  UGeInventario in '..\System_SGI\UGeInventario.pas' {frmGeInventario};
 
 {$R *.res}
 

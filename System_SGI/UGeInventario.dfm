@@ -1348,6 +1348,7 @@ inherited frmGeInventario: TfrmGeInventario
       '    i.ano'
       '  , i.controle'
       '  , i.tipo'
+      '  , i.sistema'
       '  , i.empresa'
       '  , i.centro_custo'
       '  , i.conferir_estoque_venda'
@@ -1419,6 +1420,11 @@ inherited frmGeInventario: TfrmGeInventario
       Origin = '"TBINVENTARIO_ALMOX"."TIPO"'
       ProviderFlags = [pfInUpdate]
       Required = True
+    end
+    object qryInventarioSISTEMA: TSmallintField
+      FieldName = 'SISTEMA'
+      Origin = '"TBINVENTARIO_ALMOX"."SISTEMA"'
+      ProviderFlags = [pfInUpdate]
     end
     object qryInventarioCENTRO_CUSTO: TIntegerField
       DisplayLabel = 'Centro de Custo'
@@ -1539,6 +1545,7 @@ inherited frmGeInventario: TfrmGeInventario
       '  ANO,'
       '  CONTROLE,'
       '  TIPO,'
+      '  SISTEMA,'
       '  EMPRESA,'
       '  CENTRO_CUSTO,'
       '  CONFERIR_ESTOQUE_VENDA,'
@@ -1577,6 +1584,7 @@ inherited frmGeInventario: TfrmGeInventario
       '  INSERCAO_DATAHORA = :INSERCAO_DATAHORA,'
       '  INSERCAO_USUARIO = :INSERCAO_USUARIO,'
       '  OBS = :OBS,'
+      '  SISTEMA = :SISTEMA,'
       '  STATUS = :STATUS,'
       '  TIPO = :TIPO'
       'where'
@@ -1593,7 +1601,7 @@ inherited frmGeInventario: TfrmGeInventario
       
         '   FECH_DATAHORA, FECH_USUARIO, INSERCAO_DATAHORA, INSERCAO_USUA' +
         'RIO, OBS, '
-      '   STATUS, TIPO)'
+      '   SISTEMA, STATUS, TIPO)'
       'values'
       
         '  (:ANO, :BLOQUEAR_MOVIMENTO, :CANCEL_DATAHORA, :CANCEL_MOVITO, ' +
@@ -1604,7 +1612,7 @@ inherited frmGeInventario: TfrmGeInventario
       
         '   :EMPRESA, :FECH_DATAHORA, :FECH_USUARIO, :INSERCAO_DATAHORA, ' +
         ':INSERCAO_USUARIO, '
-      '   :OBS, :STATUS, :TIPO)')
+      '   :OBS, :SISTEMA, :STATUS, :TIPO)')
     DeleteSQL.Strings = (
       'delete from TBINVENTARIO_ALMOX'
       'where'

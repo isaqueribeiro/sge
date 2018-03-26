@@ -436,9 +436,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
             <Form>DMRecursos</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\System_SGI\UGeInventario.pas">
-            <Form>frmGeInventario</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrMemo.pas">
             <Form>frmGrMemo</Form>
         </DCCReference>
@@ -505,6 +502,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGeEntradaEstoqueLote.pas">
             <Form>frmGeEntradaEstoqueLote</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\System_SGI\UGeInventario.pas">
+            <Form>frmGeInventario</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGO.todo"/>
