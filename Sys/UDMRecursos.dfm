@@ -1,5 +1,6 @@
 object DMRecursos: TDMRecursos
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 467
   Width = 672
   object ImgPrincipalEnabled: TcxImageList

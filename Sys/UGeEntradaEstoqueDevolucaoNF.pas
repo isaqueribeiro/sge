@@ -9,14 +9,12 @@ uses
   Vcl.Menus, cxButtons, Data.DB, IBX.IBCustomDataSet, IBX.IBUpdateSQL,
   JvExMask, JvToolEdit, JvDBControls, IBX.IBTable,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEntradaEstoqueDevolucaoNF = class(TfrmGrPadrao)
@@ -31,7 +29,6 @@ type
     dtsCompra: TDataSource;
     lblEntrada: TLabel;
     dbEntrada: TJvDBComboEdit;
-    tblFormaDevolucao: TIBTable;
     dtsFormaDevolucao: TDataSource;
     dbFormaDevolucao: TDBLookupComboBox;
     lblFormaDevolucao: TLabel;
@@ -46,11 +43,9 @@ type
     lblNFModelo: TLabel;
     dbNFModelo: TDBEdit;
     lblNFe: TLabel;
-    tblUF: TIBTable;
     dtsUF: TDataSource;
     lblNFUF: TLabel;
     dbNFUF: TDBLookupComboBox;
-    qryCompetencia: TIBDataSet;
     dtsCompetencia: TDataSource;
     lblNFCompetencia: TLabel;
     dbNFCompetencia: TDBLookupComboBox;
@@ -65,7 +60,6 @@ type
     dbCPNumeroCOO: TDBEdit;
     lblNFIE: TLabel;
     dbNFIE: TDBEdit;
-    tblModeloCupom: TIBTable;
     dtsModeloCupom: TDataSource;
     cdsCompraANO: TSmallintField;
     cdsCompraCODCONTROL: TIntegerField;
@@ -86,6 +80,10 @@ type
     cdsCompraDECF_COO: TIntegerField;
     cdsCompraDNFE_SAIDA_ANO: TSmallintField;
     cdsCompraDNFE_SAIDA_COD: TIntegerField;
+    fdQryFormaDevolucao: TFDQuery;
+    fdQryUF: TFDQuery;
+    fdQryCompetencia: TFDQuery;
+    fdQryModeloCupom: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure cdsCompraCODCONTROLGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
@@ -105,6 +103,20 @@ type
   end;
 
   function InformarDocumentoReferenciado(const AOwer : TComponent; Ano : Smallint; Numero : Integer) : Boolean;
+
+(*
+  Tabelas:
+  - TBCOMPRAS
+  - TBESTADO
+  - TBCOMPETENCIA
+
+  Views:
+  - VW_FORMA_DEVOLUCAO
+  - VW_MODELO_CUPOM_FISCAL
+
+  Procedures:
+
+*)
 
 implementation
 
@@ -315,10 +327,10 @@ end;
 procedure TfrmGeEntradaEstoqueDevolucaoNF.FormCreate(Sender: TObject);
 begin
   inherited;
-  tblFormaDevolucao.Open;
-  tblUF.Open;
-  qryCompetencia.Open;
-  tblModeloCupom.Open;
+  CarregarListaDB(fdQryFormaDevolucao);
+  CarregarListaDB(fdQryUF);
+  CarregarListaDB(fdQryCompetencia);
+  CarregarListaDB(fdQryModeloCupom);
 end;
 
 procedure TfrmGeEntradaEstoqueDevolucaoNF.RegistrarRotinaSistema;

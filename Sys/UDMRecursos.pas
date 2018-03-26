@@ -10,6 +10,7 @@ uses
   UPersonalizaEmpresa,
   UConstantesDGE,
   UBaseObject,
+  Winapi.Windows,
   Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls;
 
 type
@@ -40,6 +41,7 @@ type
     ImgBotoesDisabled: TcxImageList;
     ImgBotoesHot: TcxImageList;
     ImgBotoes16x16: TcxImageList;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,6 +54,7 @@ var
 
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1);
+  procedure InstalarFonteWindows(aFontName, aFontDescription : String);
 
   {$IFNDEF PRINTER_CUPOM}
   procedure SplashFree;
@@ -80,6 +83,17 @@ begin
     FrmAguarde.Show;
   finally
   end
+end;
+
+procedure InstalarFonteWindows(aFontName, aFontDescription : String);
+var
+  aExiste : Boolean;
+  aFileName : String;
+begin
+  aExiste   := (Screen.Fonts.IndexOf(Trim(aFontName)) > 0) or (Screen.Fonts.IndexOf(Trim(aFontDescription)) > 0);
+  aFileName := ExtractFilePath(ParamStr(0)) + aFontName;
+  if (not aExiste) and FileExists(aFileName) then
+    AddFontResource(PChar(aFileName));
 end;
 
 {$IFNDEF PRINTER_CUPOM}
@@ -154,6 +168,11 @@ begin
 end;
 
 { TDMRecursos }
+
+procedure TDMRecursos.DataModuleCreate(Sender: TObject);
+begin
+  InstalarFonteWindows(SYS_BAUHS93, SYS_BAUHS93_DESCRIPTION);
+end;
 
 initialization
   gPersonalizaEmpresa := TPersonalizaEmpresa.GetInstance;

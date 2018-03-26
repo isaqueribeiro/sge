@@ -2,17 +2,17 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Confirma'#231#227'o de Lotes de Entrada no Estoque'
-  ClientHeight = 340
-  ClientWidth = 596
+  ClientHeight = 394
+  ClientWidth = 712
   Position = poOwnerFormCenter
-  ExplicitWidth = 610
-  ExplicitHeight = 377
+  ExplicitWidth = 726
+  ExplicitHeight = 431
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel2: TBevel
     Left = 0
     Top = 113
-    Width = 596
+    Width = 712
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -21,17 +21,18 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
   end
   object Bevel1: TBevel
     Left = 0
-    Top = 302
-    Width = 596
+    Top = 356
+    Width = 712
     Height = 38
     Align = alBottom
     Shape = bsTopLine
+    ExplicitTop = 302
     ExplicitWidth = 534
   end
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 596
+    Width = 712
     Height = 113
     Align = alTop
     Caption = ' Dados do(s) Lote(s)'
@@ -42,8 +43,9 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 683
     DesignSize = (
-      596
+      712
       113)
     object lblCodigo: TLabel
       Left = 16
@@ -101,10 +103,11 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       ParentFont = False
     end
     object lblDataFabricacao: TLabel
-      Left = 369
+      Left = 485
       Top = 64
       Width = 82
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Data Fabrica'#231#227'o:'
       FocusControl = dbDataFabricacao
       Font.Charset = ANSI_CHARSET
@@ -113,12 +116,14 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 369
     end
     object lblDataValidade: TLabel
-      Left = 480
+      Left = 596
       Top = 64
       Width = 70
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Data Validade:'
       FocusControl = dbDataValidade
       Font.Charset = ANSI_CHARSET
@@ -127,6 +132,23 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 480
+    end
+    object lblQTDE: TLabel
+      Left = 596
+      Top = 24
+      Width = 37
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = 'Quant.'
+      FocusControl = dbQTDE
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitLeft = 567
     end
     object dbCodigo: TDBEdit
       Left = 17
@@ -167,7 +189,7 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     object dbProduto: TDBEdit
       Left = 160
       Top = 40
-      Width = 425
+      Width = 430
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -182,9 +204,10 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       ParentFont = False
       ReadOnly = True
       TabOrder = 2
+      ExplicitWidth = 401
     end
     object dbDataFabricacao: TJvDBDateEdit
-      Left = 369
+      Left = 485
       Top = 80
       Width = 105
       Height = 21
@@ -243,15 +266,17 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
         80008080800080808000808080008080800080808000FF00FF00}
       ImageKind = ikCustom
       NumGlyphs = 2
+      Anchors = [akTop, akRight]
       ParentFont = False
       PopupColor = clBtnFace
       ShowNullDate = False
-      TabOrder = 4
+      TabOrder = 5
       OnEnter = ControlEditEnter
       OnExit = ControlEditExit
+      ExplicitLeft = 456
     end
     object dbDataValidade: TJvDBDateEdit
-      Left = 480
+      Left = 596
       Top = 80
       Width = 105
       Height = 21
@@ -310,18 +335,21 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
         80008080800080808000808080008080800080808000FF00FF00}
       ImageKind = ikCustom
       NumGlyphs = 2
+      Anchors = [akTop, akRight]
       ParentFont = False
       PopupColor = clBtnFace
       ShowNullDate = False
-      TabOrder = 5
+      TabOrder = 6
       OnEnter = ControlEditEnter
       OnExit = ControlEditExit
+      ExplicitLeft = 567
     end
     object dbDescricao: TDBComboBox
       Left = 17
       Top = 80
-      Width = 346
+      Width = 462
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
       DataField = 'LOTE_DESCRICAO'
       DataSource = dtsCompraItens
@@ -331,16 +359,37 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 4
       OnEnter = ControlEditEnter
       OnExit = ControlEditExit
+      ExplicitWidth = 433
+    end
+    object dbQTDE: TDBEdit
+      Left = 596
+      Top = 40
+      Width = 105
+      Height = 21
+      TabStop = False
+      Anchors = [akTop, akRight]
+      Color = clMoneyGreen
+      DataField = 'QTDE'
+      DataSource = dtsCompraItens
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 3
+      ExplicitLeft = 567
     end
   end
   object dbgTitulos: TDBGrid
     Left = 0
     Top = 117
-    Width = 596
-    Height = 185
+    Width = 712
+    Height = 239
     TabStop = False
     Align = alClient
     DataSource = dtsCompraItens
@@ -358,27 +407,35 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = [fsBold]
+    OnDrawColumnCell = dbgTitulosDrawColumnCell
     Columns = <
       item
         Expanded = False
         FieldName = 'SEQ'
         Title.Alignment = taCenter
         Title.Caption = '#'
-        Width = 35
+        Width = 30
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'DESCRI_APRESENTACAO'
         Title.Caption = 'Produto'
-        Width = 200
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'QTDE'
+        Title.Caption = 'Quant.'
+        Width = 50
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'LOTE_DESCRICAO'
         Title.Caption = 'Lote'
-        Width = 150
+        Width = 125
         Visible = True
       end
       item
@@ -397,8 +454,8 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       end>
   end
   object btnConfirmar: TcxButton
-    Left = 406
-    Top = 307
+    Left = 522
+    Top = 361
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -457,10 +514,12 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
     OnClick = btnConfirmarClick
+    ExplicitLeft = 493
+    ExplicitTop = 354
   end
   object btnFechar: TcxButton
-    Left = 504
-    Top = 307
+    Left = 620
+    Top = 361
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -519,6 +578,8 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     OptionsImage.NumGlyphs = 2
     TabOrder = 3
     OnClick = btnFecharClick
+    ExplicitLeft = 591
+    ExplicitTop = 354
   end
   object fdQryCompraItens: TFDQuery
     BeforePost = fdQryCompraItensBeforePost
@@ -626,6 +687,7 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       FieldName = 'QTDE'
       Origin = 'QTDE'
       Required = True
+      DisplayFormat = ',0'
       Precision = 18
       Size = 3
     end

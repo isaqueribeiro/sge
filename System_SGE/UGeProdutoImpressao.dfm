@@ -2,8 +2,6 @@ inherited frmGeProdutoImpressao: TfrmGeProdutoImpressao
   Left = 411
   Top = 231
   Caption = 'Relat'#243'rio de Produtos'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel

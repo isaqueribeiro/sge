@@ -6,7 +6,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   ClientHeight = 677
   ClientWidth = 1114
   OldCreateOrder = True
-  ExplicitTop = -104
   ExplicitWidth = 1130
   ExplicitHeight = 716
   PixelsPerInch = 96
@@ -1578,8 +1577,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
-            ExplicitLeft = 2
-            ExplicitTop = 19
           end
           object dbFormaPagto: TDBLookupComboBox
             Left = 0
@@ -4445,7 +4442,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00D40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

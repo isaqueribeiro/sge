@@ -1003,46 +1003,51 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
     OnDataChange = dtsCompraDataChange
     Left = 352
   end
-  object tblFormaDevolucao: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_FORMA_DEVOLUCAO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 317
-    Top = 32
-  end
   object dtsFormaDevolucao: TDataSource
-    DataSet = tblFormaDevolucao
+    DataSet = fdQryFormaDevolucao
     Left = 349
     Top = 32
-  end
-  object tblUF: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBESTADO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 317
-    Top = 64
   end
   object dtsUF: TDataSource
-    DataSet = tblUF
+    DataSet = fdQryUF
     Left = 349
     Top = 64
   end
-  object qryCompetencia: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+  object dtsCompetencia: TDataSource
+    DataSet = fdQryCompetencia
+    Left = 349
+    Top = 96
+  end
+  object dtsModeloCupom: TDataSource
+    DataSet = fdQryModeloCupom
+    Left = 349
+    Top = 128
+  end
+  object fdQryFormaDevolucao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_FORMA_DEVOLUCAO')
+    Left = 320
+    Top = 32
+  end
+  object fdQryUF: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBESTADO')
+    Left = 320
+    Top = 64
+  end
+  object fdQryCompetencia: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       '    right(c.cmp_num, 4) as codigo'
       
@@ -1055,32 +1060,17 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
       ''
       'order by'
       '    1')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 317
-    Top = 98
-  end
-  object dtsCompetencia: TDataSource
-    DataSet = qryCompetencia
-    Left = 349
+    Left = 320
     Top = 96
   end
-  object tblModeloCupom: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_MODELO_CUPOM_FISCAL'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 317
-    Top = 128
-  end
-  object dtsModeloCupom: TDataSource
-    DataSet = tblModeloCupom
-    Left = 349
+  object fdQryModeloCupom: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_MODELO_CUPOM_FISCAL')
+    Left = 320
     Top = 128
   end
 end

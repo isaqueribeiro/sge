@@ -1123,10 +1123,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsProdutos: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object dbProdutos: TDBGrid
           Left = 0
           Top = 0

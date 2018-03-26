@@ -26,6 +26,8 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     ExplicitWidth = 741
     ExplicitHeight = 365
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel4: TBevel
@@ -444,14 +446,13 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       'delete from TBTPRECEITA'
       'where'
       '  COD = :OLD_COD')
-    Left = 632
     Top = 112
   end
   inherited ImgList: TImageList
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

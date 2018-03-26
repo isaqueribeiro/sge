@@ -59,6 +59,8 @@ type
     fdQryCompraItensQTDE: TBCDField;
     fdQryCompraItensFRACIONADOR: TBCDField;
     fdSetLoteProduto: TFDStoredProc;
+    lblQTDE: TLabel;
+    dbQTDE: TDBEdit;
     procedure ControlEditEnter(Sender: TObject);
     procedure ControlEditExit(Sender: TObject);
     procedure fdQryCompraItensAfterScroll(DataSet: TDataSet);
@@ -66,6 +68,8 @@ type
     procedure fdQryCompraItensBeforePost(DataSet: TDataSet);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dbgTitulosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     procedure CarregarLotes(const aEmpresa, aProduto : String);
@@ -199,7 +203,7 @@ end;
 procedure TfrmGeEntradaEstoqueLote.ControlEditEnter(Sender: TObject);
 begin
   inherited;
-  if ( (Sender = dbDescricao) or (Sender = dbDataFabricacao) or (Sender = dbDataValidade) ) then
+  if ( (Sender = dbDescricao) or (Sender = dbQTDE) or (Sender = dbDataFabricacao) or (Sender = dbDataValidade) ) then
     if ( not fdQryCompraItens.IsEmpty ) then
       if ( fdQryCompraItens.State <> dsEdit ) then
         fdQryCompraItens.Edit;
@@ -262,6 +266,25 @@ begin
     end;
 
   end;
+end;
+
+procedure TfrmGeEntradaEstoqueLote.dbgTitulosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  TDbGrid(Sender).Canvas.font.Color := clBlack;
+
+  if odd(TDbGrid(Sender).DataSource.DataSet.RecNo) then
+    TDBGrid(Sender).Canvas.Brush.Color:= clMenuBar
+  else
+    TDBGrid(Sender).Canvas.Brush.Color:= clCream;
+
+  if gdSelected in State then
+    with (Sender as TDBGrid).Canvas do
+    begin
+      Brush.Color :=  clMoneyGreen;
+      FillRect(Rect);
+      Font.Style  := [fsbold]
+    end;
 end;
 
 procedure TfrmGeEntradaEstoqueLote.fdQryCompraItensAfterScroll(

@@ -2,8 +2,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
   Left = 387
   Top = 219
   Caption = 'Relat'#243'rios de Contas A Pagar'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel

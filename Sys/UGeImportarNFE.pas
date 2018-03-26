@@ -16,15 +16,15 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ClipBrd, UGrPadrao, System.TypInfo,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls, cxButtons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery,
-  cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit,
-  Vcl.ComCtrls, Datasnap.DBClient, cxDBEdit, Vcl.Grids, Vcl.DBGrids,
+  cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit, Vcl.ComCtrls,
+  Datasnap.DBClient, cxDBEdit, Vcl.Grids, Vcl.DBGrids, JvExMask, JvToolEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, JvExMask, JvToolEdit;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeImportarNFE = class(TfrmGrPadrao)

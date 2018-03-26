@@ -2,8 +2,6 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
   Left = 397
   Top = 220
   Caption = 'Relat'#243'rio de Clientes'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel

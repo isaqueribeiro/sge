@@ -169,6 +169,10 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     object TbsConfigurar: TcxTabSheet
       Caption = 'Configurar'
       ImageIndex = 0
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblServidorBase: TLabel
         Left = 43
         Top = 19

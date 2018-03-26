@@ -83,6 +83,10 @@ const
   SYS_KEY_S   = 83;
   SYS_KEY_T   = 84;
 
+  // Fontes
+
+  SYS_BAUHS93 = 'BAUHS93.TTF';
+  SYS_BAUHS93_DESCRIPTION = 'Bauhaus 93';
 
   // Constantes Wait A Moment...
 

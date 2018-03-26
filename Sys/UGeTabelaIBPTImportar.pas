@@ -3,19 +3,16 @@ unit UGeTabelaIBPTImportar;
 interface
 
 uses
+  UGrPadrao,
+
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, Vcl.ExtCtrls, Vcl.StdCtrls, cxButtons, ACBrBase,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls, cxButtons, ACBrBase,
   ACBrSocket, ACBrIBPTax, Data.DB, Datasnap.DBClient, ACBrNCMs, Vcl.ComCtrls,
-  Vcl.OleCtrls, SHDocVw, IBX.IBCustomDataSet, IBX.IBUpdateSQL, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Vcl.OleCtrls, SHDocVw, IBX.IBCustomDataSet, IBX.IBUpdateSQL,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeTabelaIBPTImportar = class(TfrmGrPadrao)

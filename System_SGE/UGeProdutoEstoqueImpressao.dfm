@@ -2,8 +2,6 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   Left = 690
   Top = 295
   Caption = 'Relat'#243'rio de Estoque de Produtos'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
