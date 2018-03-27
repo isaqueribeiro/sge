@@ -1289,7 +1289,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       'where e.empresa = :empresa'
       '  and e.centro_custo = :centro_custo'
       '  and e.produto = :produto'
-      '  and (e.qtde > 0.0)'
+      '  --and (e.qtde > 0.0)'
       'order by'
       '  e.descricao')
     Left = 536

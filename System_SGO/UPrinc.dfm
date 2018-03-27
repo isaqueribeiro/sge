@@ -35,6 +35,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 122
+    ExplicitHeight = 485
     DesignSize = (
       1044
       452)
@@ -4663,6 +4665,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4685,7 +4688,6 @@ object frmPrinc: TfrmPrinc
       Index = 1
     end
     object RbnTabEntrada: TdxRibbonTab
-      Active = True
       Caption = 'Entradas'
       Groups = <
         item

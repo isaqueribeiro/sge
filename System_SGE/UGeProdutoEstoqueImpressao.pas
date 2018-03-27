@@ -51,10 +51,13 @@ type
     fdQryEmpresas: TFDQuery;
     DspEmpresas: TDataSetProvider;
     CdsEmpresas: TClientDataSet;
+    ckComEstoqueVenda: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
+    procedure ckSemEstoqueVendaClick(Sender: TObject);
+    procedure ckComEstoqueVendaClick(Sender: TObject);
   private
     { Private declarations }
     FSQL_RelacaoEstoqueProduto ,
@@ -219,6 +222,18 @@ begin
   edGrupo.ItemIndex := 0;
 end;
 
+procedure TfrmGeProdutoEstoqueImpressao.ckComEstoqueVendaClick(Sender: TObject);
+begin
+  if ckComEstoqueVenda.Checked and ckSemEstoqueVenda.Checked then
+    ckSemEstoqueVenda.Checked := False;
+end;
+
+procedure TfrmGeProdutoEstoqueImpressao.ckSemEstoqueVendaClick(Sender: TObject);
+begin
+  if ckSemEstoqueVenda.Checked and ckComEstoqueVenda.Checked then
+    ckComEstoqueVenda.Checked := False;
+end;
+
 procedure TfrmGeProdutoEstoqueImpressao.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -233,7 +248,10 @@ begin
   SetAtulizarCustoEstoque(GetDateDB);
 
   if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
-    ckSemEstoqueVenda.Caption := 'Apenas produtos sem estoque para apropriação';
+  begin
+    ckSemEstoqueVenda.Caption := 'Apenas produtos SEM Estoque para Apropriação';
+    ckComEstoqueVenda.Caption := 'Apenas produtos COM Estoque para Apropriação';
+  end;
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.FormShow(Sender: TObject);
@@ -265,8 +283,22 @@ begin
       if ( edEmpresa.ItemIndex > 0 ) then
         SQL.Add('  and coalesce(xx.empresa, yy.empresa, p.codemp) = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
-      if ckSemEstoqueVenda.Checked then
-        SQL.Add('  and p.qtde <= 0');
+      if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+      begin
+        if ckSemEstoqueVenda.Checked then
+          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <= 0.0')
+        else
+        if ckComEstoqueVenda.Checked then
+          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <> 0.0');
+      end
+      else
+      begin
+        if ckSemEstoqueVenda.Checked then
+          SQL.Add('  and p.qtde <= 0.0')
+        else
+        if ckComEstoqueVenda.Checked then
+          SQL.Add('  and p.qtde <> 0.0');
+      end;
 
       SQL.Add('order by');
       SQL.Add('    e.rzsoc');
@@ -306,8 +338,22 @@ begin
       if ( edEmpresa.ItemIndex > 0 ) then
         SQL.Add('  and coalesce(xx.empresa, p.codemp) = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
-      if ckSemEstoqueVenda.Checked then
-        SQL.Add('  and p.qtde <= 0');
+      if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+      begin
+        if ckSemEstoqueVenda.Checked then
+          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <= 0.0')
+        else
+        if ckComEstoqueVenda.Checked then
+          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <> 0.0');
+      end
+      else
+      begin
+        if ckSemEstoqueVenda.Checked then
+          SQL.Add('  and p.qtde <= 0.0')
+        else
+        if ckComEstoqueVenda.Checked then
+          SQL.Add('  and p.qtde <> 0.0');
+      end;
 
       SQL.Add('order by');
       SQL.Add('    e.rzsoc');

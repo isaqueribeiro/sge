@@ -105,8 +105,18 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
         Top = 123
         Width = 313
         Height = 17
-        Caption = 'Apenas produtos sem estoque de venda'
+        Caption = 'Apenas produtos SEM Estoque de Venda'
         TabOrder = 4
+        OnClick = ckSemEstoqueVendaClick
+      end
+      object ckComEstoqueVenda: TCheckBox
+        Left = 104
+        Top = 146
+        Width = 313
+        Height = 17
+        Caption = 'Apenas produtos COM Estoque de Venda'
+        TabOrder = 5
+        OnClick = ckComEstoqueVendaClick
       end
     end
   end
@@ -594,7 +604,9 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
-            ' [FrdsRelacaoEstoqueProduto."MODELO"]')
+            
+              ' [IIF(<SistemaCodigo> = 3, <FrdsRelacaoEstoqueProduto."ANVISA">,' +
+              ' <FrdsRelacaoEstoqueProduto."MODELO">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -979,7 +991,9 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Estoque sem Aproria'#231#227'o')
+            
+              '[IIF(<SistemaCodigo> = 3, '#39'Estoque p/ Venda'#39', '#39'Estoque sem Apror' +
+              'ia'#231#227'o'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -1021,7 +1035,9 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Estoque com Aproria'#231#227'o')
+            
+              '[IIF(<SistemaCodigo> = 3, '#39'Estoque Lote(s)'#39', '#39'Estoque com Aprori' +
+              'a'#231#227'o'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -1062,7 +1078,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' Modelo')
+            ' [IIF(<SistemaCodigo> = 3, '#39'Anvisa'#39', '#39'Modelo'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -1242,6 +1258,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       '  , p.descri_apresentacao'
       '  , p.modelo'
       '  , p.referencia'
+      '  , p.anvisa'
       '  , coalesce(p.codgrupo, 0) as grupo_cod'
       '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
       '  , coalesce(p.codsecao, 0)                     as secao_cod'
@@ -1316,6 +1333,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'DESCRI_APRESENTACAO=DESCRI_APRESENTACAO'
       'MODELO=MODELO'
       'REFERENCIA=REFERENCIA'
+      'ANVISA=ANVISA'
       'GRUPO_COD=GRUPO_COD'
       'GRUPO_DESC=GRUPO_DESC'
       'SECAO_COD=SECAO_COD'
@@ -1337,7 +1355,6 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'CUSTO_VNV_TOTAL=CUSTO_VNV_TOTAL'
       'VENDA_VNV_TOTAL=VENDA_VNV_TOTAL'
       'ESTOQUE_APR=ESTOQUE_APR'
-      'CUSTO_APR_UNITARIO=CUSTO_APR_UNITARIO'
       'CUSTO_APR_TOTAL=CUSTO_APR_TOTAL')
     DataSet = CdsRelacaoEstoqueProduto
     BCDToCurrency = True
@@ -1360,6 +1377,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       '  , p.descri_apresentacao'
       '  , p.modelo'
       '  , p.referencia'
+      '  , p.anvisa'
       '  , coalesce(p.codgrupo, 0) as grupo_cod'
       '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
       '  , coalesce(p.codsecao, 0)                     as secao_cod'
@@ -1464,6 +1482,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'DESCRI_APRESENTACAO=DESCRI_APRESENTACAO'
       'MODELO=MODELO'
       'REFERENCIA=REFERENCIA'
+      'ANVISA=ANVISA'
       'GRUPO_COD=GRUPO_COD'
       'GRUPO_DESC=GRUPO_DESC'
       'SECAO_COD=SECAO_COD'
@@ -2396,7 +2415,9 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Estoque sem Aproria'#231#227'o')
+            
+              '[IIF(<SistemaCodigo> = 3, '#39'Estoque p/ Venda'#39', '#39'Estoque sem Apror' +
+              'ia'#231#227'o'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -2438,7 +2459,9 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Estoque com Aproria'#231#227'o')
+            
+              '[IIF(<SistemaCodigo> = 3, '#39'Estoque Lote(s)'#39', '#39'Estoque com Aprori' +
+              'a'#231#227'o'#39')]')
           ParentFont = False
           VAlign = vaCenter
         end
