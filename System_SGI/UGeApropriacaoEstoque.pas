@@ -360,6 +360,9 @@ begin
   WhereAdditional :=  'cast(a.data_apropriacao as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+
+  if (gSistema.Codigo <> SISTEMA_GESTAO_IND) then
+    raise Exception.Create('Rotina se aplica apenas ao Sistema de Gestão Industrial (SGI)');
 end;
 
 procedure TfrmGeApropriacaoEstoque.IbDtstTabelaINSERCAO_DATAGetText(

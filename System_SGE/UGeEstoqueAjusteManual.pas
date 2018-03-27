@@ -15,13 +15,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeEstoqueAjusteManual = class(TfrmGrPadrao)
@@ -36,7 +30,6 @@ type
     qryAjuste: TIBDataSet;
     updAjuste: TIBUpdateSQL;
     qryProduto: TIBDataSet;
-    updProduto: TIBUpdateSQL;
     lblProduto: TLabel;
     lblProdutoDesc: TLabel;
     dbProdutoDesc: TDBEdit;
@@ -102,6 +95,7 @@ type
     fdSetLoteProduto: TFDStoredProc;
     qryAjusteFRACIONADOR: TIBBCDField;
     qryProdutoFRACIONADOR: TIBBCDField;
+    qryAjusteSISTEMA: TSmallintField;
     procedure ControlEditExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
@@ -200,6 +194,7 @@ end;
 procedure TfrmGeEstoqueAjusteManual.qryAjusteNewRecord(DataSet: TDataSet);
 begin
   qryAjusteCODEMPRESA.Assign( fdQryEmpresa.FieldByName('CNPJ') );
+  qryAjusteSISTEMA.AsInteger      := gSistema.Codigo;
   qryAjusteDTAJUST.AsDateTime     := GetDateTimeDB;
   qryAjusteUSUARIO.AsString       := gUsuarioLogado.Login;
   qryAjusteFRACIONADOR.AsCurrency := 1;
@@ -363,6 +358,9 @@ begin
     if ( dbQuantidade.Field.AsInteger = 0 ) then
       ShowWarning('Favor informar a quantidade do ajuste manual de estoque para produto selecionado.')
     else
+    if ( pnlLote.Visible and (Trim(dbDescricao.Text) = EmptyStr) ) then
+      ShowWarning('Favor informar o Lote, Data de Fabricação e/ou Data de Validade.')
+    else
     if ( qryProdutoMOVIMENTA_ESTOQUE.AsInteger = 0 ) then
       ShowWarning('Ajuste manual de estoque não permitido!' + #13 + 'Produto selecionado está marcado para NÃO MOVIMENTAR ESTOQUE.')
     else
@@ -372,19 +370,13 @@ begin
       qryAjusteMOTIVO.AsString    := AnsiUpperCase( (dbMotivo.Lines.Text) );
       qryAjuste.Post;
 
+      // Se o estoque do produto for gerenciado por Lote
       if pnlLote.Visible then
         UpdateLotes
       else
       begin
+        // Disparar trigger TG_AJUST_ESTOQUE_HISTORICO para atualizar estoque e gerar histórico
         qryAjuste.ApplyUpdates;
-        (*
-        // Bloco de código descontinuado por haver a trigger TG_AJUST_ESTOQUE_HISTORICO responsável por esta tarefa
-
-        qryProduto.Edit;
-        qryProdutoQTDE.AsCurrency := qryAjusteQTDEFINAL.AsCurrency;
-        qryProduto.Post;
-        qryProduto.ApplyUpdates;
-        *)
         CommitTransaction;
       end;
     end;
@@ -435,9 +427,10 @@ begin
 
     if (Trim(qryAjusteLOTE_DESCRICAO.AsString) <> EmptyStr) then
     begin
-      fdSetLoteProduto.ParamByName('empresa').AsString := qryAjusteCODEMPRESA.AsString;
-      fdSetLoteProduto.ParamByName('produto').AsString := qryAjusteCODPROD.AsString;
+      fdSetLoteProduto.ParamByName('empresa').AsString        := qryAjusteCODEMPRESA.AsString;
       fdSetLoteProduto.ParamByName('centro_custo').AsInteger  := CENTRO_CUSTO_ESTOQUE_GERAL;
+      fdSetLoteProduto.ParamByName('sistema').AsSmallInt      := gSistema.Codigo;
+      fdSetLoteProduto.ParamByName('produto').AsString        := qryAjusteCODPROD.AsString;
       fdSetLoteProduto.ParamByName('lote_descricao').AsString := Trim(qryAjusteLOTE_DESCRICAO.AsString);
       fdSetLoteProduto.ParamByName('lote_qtde').AsCurrency    := qryAjusteQTDENOVA.AsCurrency * qryAjusteFRACIONADOR.AsCurrency;
 

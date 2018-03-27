@@ -963,6 +963,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  , a.codprod'
       '  , a.codempresa'
       '  , a.codforn'
+      '  , a.sistema'
       '  , a.doc'
       '  , a.qtdeatual'
       '  , a.qtdenova'
@@ -1005,6 +1006,11 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     object qryAjusteCODFORN: TIntegerField
       FieldName = 'CODFORN'
       Origin = '"TBAJUSTESTOQ"."CODFORN"'
+      ProviderFlags = [pfInUpdate]
+    end
+    object qryAjusteSISTEMA: TSmallintField
+      FieldName = 'SISTEMA'
+      Origin = '"TBAJUSTESTOQ"."SISTEMA"'
       ProviderFlags = [pfInUpdate]
     end
     object qryAjusteDOC: TIBStringField
@@ -1099,6 +1105,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  CODPROD,'
       '  CODEMPRESA,'
       '  CODFORN,'
+      '  SISTEMA,'
       '  QTDEATUAL,'
       '  QTDENOVA,'
       '  QTDEFINAL,'
@@ -1132,6 +1139,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       '  QTDEATUAL = :QTDEATUAL,'
       '  QTDEFINAL = :QTDEFINAL,'
       '  QTDENOVA = :QTDENOVA,'
+      '  SISTEMA = :SISTEMA,'
       '  USUARIO = :USUARIO'
       'where'
       '  CONTROLE = :OLD_CONTROLE')
@@ -1143,7 +1151,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       
         '   LOTE_DATA_VAL, LOTE_DESCRICAO, LOTE_ID, MOTIVO, QTDEATUAL, QT' +
         'DEFINAL, '
-      '   QTDENOVA, USUARIO)'
+      '   QTDENOVA, SISTEMA, USUARIO)'
       'values'
       
         '  (:CODEMPRESA, :CODFORN, :CODPROD, :CONTROLE, :DOC, :DTAJUST, :' +
@@ -1151,7 +1159,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       
         '   :LOTE_DATA_FAB, :LOTE_DATA_VAL, :LOTE_DESCRICAO, :LOTE_ID, :M' +
         'OTIVO, '
-      '   :QTDEATUAL, :QTDEFINAL, :QTDENOVA, :USUARIO)')
+      '   :QTDEATUAL, :QTDEFINAL, :QTDENOVA, :SISTEMA, :USUARIO)')
     DeleteSQL.Strings = (
       'delete from TBAJUSTESTOQ'
       'where'
@@ -1184,7 +1192,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updProduto
     Left = 344
     Top = 32
     object qryProdutoCOD: TIBStringField
@@ -1241,87 +1248,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
       Size = 5
     end
   end
-  object updProduto: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  CODIGO,'
-      '  COD,'
-      '  DESCRI,'
-      '  APRESENTACAO,'
-      '  DESCRI_APRESENTACAO,'
-      '  MODELO,'
-      '  PRECO,'
-      '  PRECO_PROMOCAO,'
-      '  REFERENCIA,'
-      '  SECAO,'
-      '  QTDE,'
-      '  FRACIONADOR,'
-      '  PESO_BRUTO,'
-      '  PESO_LIQUIDO,'
-      '  CUBAGEM,'
-      '  VENDA_FRACIONADA,'
-      '  CODUNIDADE_FRACIONADA,'
-      '  UNIDADE,'
-      '  ESTOQMIN,'
-      '  CODGRUPO,'
-      '  CODFABRICANTE,'
-      '  CUSTOMEDIO,'
-      '  PERCENTUAL_MARCKUP,'
-      '  PERCENTUAL_MARGEM,'
-      '  PRECO_SUGERIDO,'
-      '  CODEMP,'
-      '  CODSECAO,'
-      '  CODORIGEM,'
-      '  CODTRIBUTACAO,'
-      '  CST,'
-      '  CSOSN,'
-      '  CST_PIS,'
-      '  CST_COFINS,'
-      '  NCM_SH,'
-      '  CODCFOP,'
-      '  CODBARRA_EAN,'
-      '  CODUNIDADE,'
-      '  ALIQUOTA_TIPO,'
-      '  ALIQUOTA,'
-      '  ALIQUOTA_CSOSN,'
-      '  ALIQUOTA_PIS,'
-      '  ALIQUOTA_COFINS,'
-      '  VALOR_IPI,'
-      '  RESERVA,'
-      '  PRODUTO_NOVO,'
-      '  COR_VEICULO,'
-      '  COMBUSTIVEL_VEICULO,'
-      '  TIPO_VEICULO,'
-      '  ANO_MODELO_VEICULO,'
-      '  ANO_FABRICACAO_VEICULO,'
-      '  RENAVAM_VEICULO,'
-      '  CHASSI_VEICULO,'
-      '  KILOMETRAGEM_VEICULO,'
-      '  SITUACAO_ATUAL_VEICULO,'
-      '  SITUACAO_HISTORICO_VEICULO,'
-      '  PERCENTUAL_REDUCAO_BC,'
-      '  USUARIO'
-      'from TBPRODUTO '
-      'where'
-      '  COD = :COD')
-    ModifySQL.Strings = (
-      'update TBPRODUTO'
-      'set'
-      '  QTDE = :QTDE'
-      'where'
-      '  COD = :OLD_COD')
-    InsertSQL.Strings = (
-      'insert into TBPRODUTO'
-      '  (QTDE)'
-      'values'
-      '  (:QTDE)')
-    DeleteSQL.Strings = (
-      'delete from TBPRODUTO'
-      'where'
-      '  COD = :OLD_COD')
-    Left = 376
-    Top = 32
-  end
   object dtsAjuste: TDataSource
     AutoEdit = False
     DataSet = qryAjuste
@@ -1334,7 +1260,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
   end
   object dtsProduto: TDataSource
     DataSet = qryProduto
-    Left = 408
+    Left = 376
     Top = 32
   end
   object fdQryEmpresa: TFDQuery
@@ -1412,6 +1338,12 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
         Position = 2
         Name = 'CENTRO_CUSTO'
         DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'SISTEMA'
+        DataType = ftSmallint
         ParamType = ptInput
       end
       item
