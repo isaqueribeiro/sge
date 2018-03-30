@@ -1,5 +1,5 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 26/03/2018 26:48:00     #
+#    Gerado por AGIL SOFTWARES em : 31/03/2018 26:48:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
@@ -19,7 +19,8 @@
 #url5=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
 #url6=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 #url7=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
+#url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002100.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.19.6
+#version=1.0.21.0

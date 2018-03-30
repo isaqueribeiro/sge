@@ -3,7 +3,7 @@ object frmPrinc: TfrmPrinc
   Left = 491
   Top = 226
   Caption = 'PDV | Controle do Ponto de Venda do SGE'
-  ClientHeight = 621
+  ClientHeight = 599
   ClientWidth = 930
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,19 +21,21 @@ object frmPrinc: TfrmPrinc
     Left = 0
     Top = 155
     Width = 930
-    Height = 466
+    Height = 444
     Align = alClient
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 122
+    ExplicitHeight = 499
     DesignSize = (
       930
-      466)
+      444)
     object imgFundo: TImage
       Left = 1
       Top = 1
       Width = 928
-      Height = 444
+      Height = 422
       Align = alClient
       AutoSize = True
       Transparent = True
@@ -42,7 +44,7 @@ object frmPrinc: TfrmPrinc
     end
     object imgEmpresa: TImage
       Left = 8
-      Top = 329
+      Top = 307
       Width = 110
       Height = 110
       Anchors = [akLeft, akBottom]
@@ -4317,7 +4319,7 @@ object frmPrinc: TfrmPrinc
     end
     object ProductName: TLabel
       Left = 128
-      Top = 339
+      Top = 317
       Width = 38
       Height = 23
       Anchors = [akLeft, akBottom]
@@ -4334,7 +4336,7 @@ object frmPrinc: TfrmPrinc
     end
     object Copyright: TLabel
       Left = 128
-      Top = 377
+      Top = 355
       Width = 279
       Height = 26
       Anchors = [akLeft, akBottom]
@@ -4353,7 +4355,7 @@ object frmPrinc: TfrmPrinc
     end
     object FileDescription: TLabel
       Left = 128
-      Top = 362
+      Top = 340
       Width = 296
       Height = 13
       Anchors = [akLeft, akBottom]
@@ -4370,7 +4372,7 @@ object frmPrinc: TfrmPrinc
     end
     object Version: TLabel
       Left = 128
-      Top = 408
+      Top = 386
       Width = 72
       Height = 13
       Anchors = [akLeft, akBottom]
@@ -4405,7 +4407,7 @@ object frmPrinc: TfrmPrinc
     end
     object stbMain: TdxStatusBar
       Left = 1
-      Top = 445
+      Top = 423
       Width = 928
       Height = 20
       Images = DMRecursos.ImgPrincipal16x16
@@ -4434,6 +4436,7 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
+      ExplicitTop = 445
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 8

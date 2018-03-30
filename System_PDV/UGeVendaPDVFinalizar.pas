@@ -3,12 +3,15 @@ unit UGeVendaPDVFinalizar;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, DB, IBCustomDataSet,
+  Dialogs, ExtCtrls, StdCtrls, Buttons, DB, IBCustomDataSet,
   IBTable, DBCtrls, Mask, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeVendaPDVFinalizar = class(TfrmGrPadrao)
