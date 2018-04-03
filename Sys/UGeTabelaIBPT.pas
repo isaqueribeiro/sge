@@ -3,13 +3,20 @@ unit UGeTabelaIBPT;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
-  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery, IBTable,
-  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White;
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls, StdCtrls,
+  Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, dblookup, IBQuery, IBTable,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
+  JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TTipoTabelaIBPT = (tIbptGeral, tIbptProdutos, tIbptServicos);
@@ -27,13 +34,11 @@ type
     dbCodigoNCM: TDBEdit;
     dbDescricao: TDBMemo;
     lblDescricao: TLabel;
-    qryNivelIBPT: TIBQuery;
     dtsNivelIBPT: TDataSource;
     lblExcecao: TLabel;
     dbExcecao: TDBLookupComboBox;
     lblTabela: TLabel;
     dbTabela: TDBLookupComboBox;
-    qryTabelaIBPT: TIBQuery;
     dtsTabelaIBPT: TDataSource;
     GrpBxAliquotas: TGroupBox;
     lblAliquotaNAC: TLabel;
@@ -50,6 +55,8 @@ type
     IbDtstTabelaATIVO: TSmallintField;
     dbAtivo: TDBCheckBox;
     lblNCMDesativado: TLabel;
+    fdQryNivelIBPT: TFDQuery;
+    fdQryTabelaIBPT: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btnFiltrarClick(Sender: TObject);
@@ -65,6 +72,16 @@ type
     { Public declarations }
     procedure FiltarDados(const aTipo : Integer = 0); overload;
   end;
+
+(*
+  Tabelas:
+  - SYS_IBPT
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeTabelaIBPT: TfrmGeTabelaIBPT;
@@ -225,8 +242,8 @@ begin
 
   UpdateGenerator;
 
-  qryNivelIBPT.Open;
-  qryTabelaIBPT.Open;
+  CarregarLista(fdQryNivelIBPT);
+  CarregarLista(fdQryTabelaIBPT);
 end;
 
 procedure TfrmGeTabelaIBPT.IbDtstTabelaCalcFields(DataSet: TDataSet);

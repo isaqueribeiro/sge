@@ -27,8 +27,6 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     ExplicitWidth = 809
     ExplicitHeight = 429
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 801
       ExplicitHeight = 400
       inherited Bevel4: TBevel
@@ -651,7 +649,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     Left = 168
     Top = 128
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2110,12 +2108,20 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object qryNivelIBPT: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object dtsNivelIBPT: TDataSource
+    DataSet = fdQryNivelIBPT
+    Left = 92
+    Top = 265
+  end
+  object dtsTabelaIBPT: TDataSource
+    DataSet = fdQryTabelaIBPT
+    Left = 92
+    Top = 297
+  end
+  object fdQryNivelIBPT: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       
         'Select '#39'0'#39' as Codigo , '#39'Exce'#231#227'o 0'#39' as Descricao from RDB$DATABAS' +
@@ -2150,17 +2156,10 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     Left = 60
     Top = 265
   end
-  object dtsNivelIBPT: TDataSource
-    DataSet = qryNivelIBPT
-    Left = 92
-    Top = 265
-  end
-  object qryTabelaIBPT: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object fdQryTabelaIBPT: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       
         'Select '#39'0'#39' as Codigo , '#39'Materiais/Produtos'#39' as Descricao from RD' +
@@ -2172,11 +2171,6 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
         'Select '#39'2'#39' as Codigo , '#39'Servi'#231'os Gerais'#39' as Descricao from RDB$D' +
         'ATABASE')
     Left = 60
-    Top = 297
-  end
-  object dtsTabelaIBPT: TDataSource
-    DataSet = qryTabelaIBPT
-    Left = 92
     Top = 297
   end
 end
