@@ -1114,8 +1114,8 @@ begin
     TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
     nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
     BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
-    BtnCorrigirDadosNFe.Enabled      := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
-    nmPpCorrigirDadosNFeCFOP.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_CMP_FIN) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
+    BtnCorrigirDadosNFe.Enabled      := (IbDtstTabelaSTATUS.AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
+    nmPpCorrigirDadosNFeCFOP.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
   end
   else
   begin
