@@ -1566,6 +1566,8 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.btbtnFinalizarClick(Sender: TObject);
+var
+  aGerarTitulos : Boolean;
 begin
   if ( IbDtstTabela.IsEmpty ) then
     Exit;
@@ -1574,6 +1576,7 @@ begin
     Abort;
 
   RecarregarRegistro;
+  aGerarTitulos := GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) or (FTipoMovimento = tmeServico);
 
   pgcGuias.ActivePage := tbsCadastro;
 
@@ -1634,14 +1637,14 @@ begin
     IbDtstTabela.ApplyUpdates;
     CommitTransaction;
 
-    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) or (FTipoMovimento = tmeServico) then
+    if aGerarTitulos then
       GerarDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     ShowInformation('Entrada finalizada com sucesso !');
 
-    if GetCfopGerarDuplicata(IbDtstTabelaNFCFOP.AsInteger) or (FTipoMovimento = tmeServico) then
+    if aGerarTitulos then
       if ( DuplicatasConfirmadas(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTEMISS.AsDateTime, IbDtstTabelaTOTALNF.AsCurrency) ) then
         AbrirTabelaDuplicatas( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
@@ -1820,6 +1823,10 @@ var
   TipoMovimento : TTipoMovimento;
 begin
 {
+  IMR - 23/04/2018 :
+    Validar o Tipo de CFOP (Entrada ou Saída) antes da emissão da Nota Fiscal de
+    Entrada.
+
   IMR - 02/08/2017 :
     Inserção da função "EmissaoNFE_Pendente()" para impedir que uma nota fiscal
     seja emitida se houver um outro pedido de emissão pendente.
@@ -1866,7 +1873,16 @@ begin
     Exit;
   end;
 
+  if (GetCfopTipo(IbDtstTabelaNFCFOP.AsInteger) <> tcfopEntrada) then
+  begin
+    ShowInformation('CFOP ' + QuotedStr(IbDtstTabelaNFCFOP.AsString) + ' não permitida para a Emissão de Notas Fiscais de Entrada.' + #13 + 'Favor corrigir número de CFOP.');
+    Exit;
+  end;
+
   if not DMNFe.ValidarCFOP(IbDtstTabelaCODEMP.AsString, 0, IbDtstTabelaCODFORN.AsInteger, IbDtstTabelaNFCFOP.AsInteger) then
+    Exit;
+
+  if not DMNFe.ValidarEnderecoFornecedor(IbDtstTabelaCODFORN.AsInteger) then
     Exit;
 
   if ( not DelphiIsRunning ) then

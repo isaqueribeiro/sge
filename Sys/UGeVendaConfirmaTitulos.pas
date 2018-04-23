@@ -15,10 +15,8 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeVendaConfirmaTitulos = class(TfrmGrPadrao)
@@ -275,7 +273,7 @@ begin
   if (cdsTitulosDTVENC.AsDateTime < DataEmissaoDOC) then
   begin
     if dbDataVencimento.Visible and dbDataVencimento.Enabled then dbDataVencimento.SetFocus;
-    ShowWarning('A Data de Vencimento não pode ser menor que a Data de Emissão do Documento de Entrada');
+    ShowWarning('A Data de Vencimento não pode ser menor que a Data de Emissão do Documento de Venda');
     Abort;
   end
   else

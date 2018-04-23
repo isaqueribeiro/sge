@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, HPL_Strings, StdCtrls, DBCtrls, IBX.IBCustomDataSet, DB, DBClient,
   ExtCtrls, Mask, Grids, DBGrids, TypInfo, StrUtils,  ComCtrls,
-  JvExMask, JvToolEdit, JvDBControls;
+  JvExMask, JvToolEdit, JvDBControls, cxDBEdit, cxImageComboBox;
 
 type
   TfrmGrPadrao = class(TForm)
@@ -261,7 +261,7 @@ var
   sClass     : ShortString;
   DataSource : Boolean;
 begin
-  ppi        := GetPropInfo( Sender, 'DataSource');
+  ppi := GetPropInfo( Sender, 'DataSource');
   DataSource := Assigned(ppi);
 
   sClass := LowerCase(Sender.ClassName);
@@ -562,6 +562,16 @@ begin
         TJvDBComboEdit(Win.Components[i]).OnEnter := ControlEditEnter;
       if ( not Assigned(TJvDBComboEdit(Win.Components[i]).OnExit) ) then
         TJvDBComboEdit(Win.Components[i]).OnExit  := ControlEditExit;
+    end;
+
+    // Controls DB Dev Express
+
+    if ( Win.Components[i] is TcxDBImageComboBox ) then
+    begin
+      if ( not Assigned(TcxDBImageComboBox(Win.Components[i]).OnEnter) ) then
+        TcxDBImageComboBox(Win.Components[i]).OnEnter := ControlEditEnter;
+      if ( not Assigned(TcxDBImageComboBox(Win.Components[i]).OnExit) ) then
+        TcxDBImageComboBox(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
   end;

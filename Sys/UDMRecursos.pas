@@ -100,8 +100,11 @@ end;
 procedure SplashFree;
 begin
   try
-    if ( frmSplash <> nil ) then
-      frmSplash.Close;
+    try
+      if ( frmSplash <> nil ) then
+        frmSplash.Close;
+    except
+    end
   finally
   end
 end;
@@ -109,13 +112,16 @@ end;
 procedure SplashShow(const Aonwer : TComponent);
 begin
   try
-    if (frmSplash = nil) then
-    begin
-      frmSplash := TfrmSplash.Create(Aonwer);
-      frmSplash.Show;
+    try
+      if (frmSplash = nil) then
+      begin
+        frmSplash := TfrmSplash.Create(Aonwer);
+        frmSplash.Show;
 
-      Sleep(500);
-    end;
+        Sleep(500);
+      end;
+    except
+    end
   finally
     try
       frmSplash.Update;
@@ -127,8 +133,11 @@ end;
 procedure SplashMessage(pMessage : String);
 begin
   try
-    if (frmSplash <> nil) then
-        frmSplash.lblCarregando.Caption := Trim(pMessage);
+    try
+      if (frmSplash <> nil) then
+          frmSplash.lblCarregando.Caption := Trim(pMessage);
+    except
+    end
   finally
   end
 end;

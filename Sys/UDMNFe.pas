@@ -341,6 +341,7 @@ type
     function ReciboNaoExisteNaEntrada(const sRecibo : String) : Boolean;
     function ValidarCFOP(const aCNPJEmitente : String; const aCodigoCliente, aCodigoFornecedor, aCFOP : Integer) : Boolean;
     function ValidarEnderecoCliente(const aCliente : Integer) : Boolean;
+    function ValidarEnderecoFornecedor(const aFornecedor : Integer) : Boolean;
     function GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
     function GetInformacaoFisco(const DataSetOrigem : TDataSet) : String;
     function GetInformacaoComplementar(const sCNPJEmitente : String) : String;
@@ -1525,6 +1526,61 @@ begin
     SQL.Add('from TBCLIENTE c');
     SQL.Add('  left join TBCIDADE m on (m.cid_cod = c.cid_cod)');
     SQL.Add('where c.codigo = ' + sCliente);
+    Open;
+
+    if (Trim(FieldByName('ender').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Logradouro não informado' + #13;
+    if (Trim(FieldByName('numero_end').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Númedo do endereço não informado' + #13;
+    if (Trim(FieldByName('bairro').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Bairro não informado' + #13;
+    if (Trim(FieldByName('cidade').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Cidade não informada' + #13;
+    if (Trim(FieldByName('cid_ibge').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Código IBGE da cidade não informado' + #13;
+    if (Trim(FieldByName('cep').AsString) = EmptyStr) then
+      sMensagem := sMensagem + '- Número do CEP não informado' + #13;
+
+    Close;
+  end;
+
+  Result := (Trim(sMensagem) = EmptyStr);
+  if not Result then
+    ShowStop('Endereço do cliente incompleto:' + #13 + sMensagem);
+end;
+
+function TDMNFe.ValidarEnderecoFornecedor(const aFornecedor : Integer) : Boolean;
+var
+  sFornecedor,
+  sMensagem  : String;
+begin
+  sMensagem   := EmptyStr;
+  sFornecedor := IntToStr(aFornecedor);
+
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    f.codforn');
+    SQL.Add('  , f.ender');
+    SQL.Add('  , f.numero_end');
+    SQL.Add('  , f.complemento');
+    SQL.Add('  , b.bai_nome as bairro');
+    SQL.Add('  , m.cid_nome as cidade');
+    SQL.Add('  , f.uf');
+    SQL.Add('  , m.cid_ibge');
+    SQL.Add('  , f.cep');
+    SQL.Add('  , coalesce(f.ender, '''')');
+    SQL.Add('    || coalesce('', ''  || nullif(trim(f.numero_end), ''''), '''')');
+    SQL.Add('    || coalesce('' - '' || nullif(trim(b.bai_nome), ''''), '''')');
+    SQL.Add('    || coalesce('' - '' || nullif(trim(m.cid_nome), ''''), '''')');
+    SQL.Add('    || coalesce('' - CEP '' || substring(nullif(trim(f.cep), '''') from 1 for 2) || ''.'' || substring(nullif(trim(f.cep), '''') from 3 for 3) || ''-'' || substring(nullif(trim(f.cep), '''') from 6 for 3), '''')');
+    SQL.Add('    as endereco_completo');
+    SQL.Add('from TBFORNECEDOR f');
+    SQL.Add('  left join TBCIDADE m on (m.cid_cod = f.cid_cod)');
+    SQL.Add('  left join TBBAIRRO b on (b.bai_cod = f.bai_cod)');
+    SQL.Add('where f.codforn = ' + sFornecedor);
     Open;
 
     if (Trim(FieldByName('ender').AsString) = EmptyStr) then
@@ -2958,12 +3014,18 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-                infAdProd := infAdProd +
-                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                infAdProd := infAdProd +
+//                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                    FormatFloat(',0.00', vTotTrib),
+//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
+//                  ]));
+                sInformacaoProduto := sInformacaoProduto +
+                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                     FormatFloat(',0.00', vTotTrib),
                     FormatFloat(',0.##"%"', cPercentualTributoAprox)
                   ]));
-                  
+                infAdProd := sInformacaoProduto;
+
                 vTotalTributoAprox := vTotalTributoAprox + vTotTrib;
               end;
             end;
@@ -4453,11 +4515,17 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-                infAdProd := infAdProd +
-                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                infAdProd := infAdProd +
+//                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                    FormatFloat(',0.00', vTotTrib),
+//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
+//                  ]));
+                sInformacaoProduto := sInformacaoProduto +
+                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                     FormatFloat(',0.00', vTotTrib),
                     FormatFloat(',0.##"%"', cPercentualTributoAprox)
                   ]));
+                infAdProd := sInformacaoProduto;
 
                 vTotalTributoAprox := vTotalTributoAprox + vTotTrib;
               end;
@@ -6318,7 +6386,9 @@ procedure TDMNFe.GerarNFCeACBr(const sCNPJEmitente: String;
   iNumeroNFCe: Integer; var FileNameXML: String);
 var
   sErros ,
-  sInformacaoFisco : String;
+  sInformacaoProduto,
+  sInformacaoFisco  : String;
+  PorCodigoExterno  : Boolean;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
   // Totalizar Valores
@@ -6510,6 +6580,7 @@ begin
 
       // Adicionando Produtos
 
+      PorCodigoExterno     := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox   := 0.0;
       cTotal_ICMSTot_vBC   := 0.0;
       cTotal_ICMSTot_vICMS := 0.0;
@@ -6579,10 +6650,36 @@ begin
 
           // Informação Adicional do Produto
 
-          if ( Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
-            infAdProd    := 'Ref.: ' + qryDadosProduto.FieldByName('REFERENCIA').AsString
+          sInformacaoProduto := EmptyStr;
+          if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
+          begin
+            if PorCodigoExterno then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Cód.: ' + qryDadosProduto.FieldByName('CODPROD').AsString
+            else
+            if ( Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Ref.: ' + qryDadosProduto.FieldByName('REFERENCIA').AsString;
+
+            if ( Trim(qryDadosProduto.FieldByName('ANVISA').AsString) <> EmptyStr ) then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Anvisa: ' + qryDadosProduto.FieldByName('ANVISA').AsString;
+
+            if ( Trim(qryDadosProduto.FieldByName('LOTE').AsString) <> EmptyStr ) then
+              sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
+                'Lote: ' + qryDadosProduto.FieldByName('LOTE').AsString +
+                  IfThen(qryDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' Fabricação: ' + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
+                  IfThen(qryDadosProduto.FieldByName('LOTE_VALIDADE').IsNull  , '', ' Validade: '   + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime));
+          end
           else
-            infAdProd    := EmptyStr;
+            sInformacaoProduto :=
+              'Cor: '         + qryDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString + #13 +
+              'Placa: '       + qryDadosProduto.FieldByName('REFERENCIA').AsString      + #13 +
+              'Renavam: '     + qryDadosProduto.FieldByName('RENAVAM_VEICULO').AsString + #13 +
+              'Chassi: '      + qryDadosProduto.FieldByName('CHASSI_VEICULO').AsString  + #13 +
+              'Combustivel: ' + qryDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString;
+
+          infAdProd := sInformacaoProduto;
 
   //Declaração de Importação. Pode ser adicionada várias através do comando Prod.DI.Add
 
@@ -6895,12 +6992,18 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-                infAdProd := infAdProd +
-                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                infAdProd := infAdProd +
+//                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                    FormatFloat(',0.00', vTotTrib),
+//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
+//                  ]));
+                sInformacaoProduto := sInformacaoProduto +
+                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                     FormatFloat(',0.00', vTotTrib),
                     FormatFloat(',0.##"%"', cPercentualTributoAprox)
                   ]));
-                  
+                infAdProd := sInformacaoProduto;
+
                 vTotalTributoAprox := vTotalTributoAprox + vTotTrib;
               end;
             end;

@@ -544,17 +544,17 @@ begin
 
         if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
           if ( (StrToIntDef(Trim(edtFiltrar.Text), 0) > 0) and (Pos(',', Trim(edtFiltrar.Text)) = 0) ) then
-            Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
+            Add( 'WHERE (' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) + ')' )
           else
           if ( Pos(',', Trim(edtFiltrar.Text)) = 0 ) then
-            Add( 'where (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
+            Add( 'WHERE (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
                  '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
 
         if (WhereAdditional <> EmptyStr ) then
-          if ( Pos('where', SelectSQL.Text) > 0 ) then
+          if ( Pos('WHERE', SelectSQL.Text) > 0 ) then
             Add( '  and (' + WhereAdditional + ')' )
           else
-            Add( 'where (' + WhereAdditional + ')' );
+            Add( 'WHERE (' + WhereAdditional + ')' );
 
         Add( 'order by ' + CampoOrdenacao );
 

@@ -412,6 +412,7 @@ type
     fdQryLotes: TFDQuery;
     dtsLotes: TDataSource;
     cdsTabelaItensREFERENCIA: TIBStringField;
+    Bevel18: TBevel;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -1825,6 +1826,7 @@ var
   CxAno    ,
   CxNumero ,
   CxContaCorrente : Integer;
+  aGerarTitulos   : Boolean;
 begin
   if ( IbDtstTabela.IsEmpty or cdsTabelaItens.IsEmpty ) then
     Exit;
@@ -1837,6 +1839,7 @@ begin
   CxContaCorrente := 0;
 
   RecarregarRegistro;
+  aGerarTitulos := GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger);
 
   AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
   AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
@@ -1857,7 +1860,7 @@ begin
 
   // Verificar se cliente está bloqueado, caso a venda seja a prazo
 
-  if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+  if ( aGerarTitulos and (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) ) then
     if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
     begin
       ShowWarning('Cliente bloqueado!' + #13#13 + 'Motivo:' + #13 + IbDtstTabelaBLOQUEADO_MOTIVO.AsString);
@@ -1867,7 +1870,7 @@ begin
   // Verificar se existe caixa aberto para o usuário do sistema quando o CFOP
   // permitir a geração de títulos
 
-  if GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) then
+  if aGerarTitulos then
     if cdsVendaFormaPagto.Locate('VENDA_PRAZO', 0, []) then
       if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login
         , GetDateDB
@@ -1928,7 +1931,7 @@ begin
   else
   if ( ShowConfirm('Confirma a finalização da venda selecionada?') ) then
   begin
-    if ( (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) and GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) ) then
+    if ( aGerarTitulos and (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) ) then
     begin
       GetComprasAbertas( IbDtstTabelaCODCLIENTE.AsInteger );
       if ( (qryTotalComprasAbertasVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
@@ -1958,7 +1961,7 @@ begin
 
     CommitTransaction;
 
-    if GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) then
+    if aGerarTitulos then
       GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
     AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
@@ -1967,7 +1970,7 @@ begin
 
     // Confirmar vencimentos de cada parcela
 
-    if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+    if ( aGerarTitulos and (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) ) then
       if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTVENDA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
         AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
@@ -1975,7 +1978,7 @@ begin
 
     // Formas de Pagamento que nao seja a prazo
 
-    if GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger) then
+    if aGerarTitulos then
     begin
       cdsVendaFormaPagto.First;
       while not cdsVendaFormaPagto.Eof do
@@ -2038,6 +2041,10 @@ var
   bNFeGerada    : Boolean;
 begin
 (*
+  IMR - 23/04/2018 :
+    Validar o Tipo de CFOP (Entrada ou Saída) antes da emissão da Nota Fiscal de
+    Entrada.
+
   IMR - 02/08/2017 :
     Inserção da função "EmissaoNFE_Pendente()" para impedir que uma nota fiscal
     seja emitida se houver um outro pedido de emissão pendente.
@@ -2084,10 +2091,16 @@ begin
     Exit;
   end;
 
-  if not DMNFe.ValidarEnderecoCliente(IbDtstTabelaCODCLIENTE.AsInteger) then
+  if (GetCfopTipo(IbDtstTabelaCFOP.AsInteger) <> tcfopSaida) then
+  begin
+    ShowInformation('CFOP ' + QuotedStr(IbDtstTabelaCFOP.AsString) + ' não permitida para a Emissão de Notas Fiscais de Saída.' + #13 + 'Favor corrigir número de CFOP.');
     Exit;
+  end;
 
   if not DMNFe.ValidarCFOP(IbDtstTabelaCODEMP.AsString, IbDtstTabelaCODCLIENTE.AsInteger, 0, IbDtstTabelaCFOP.AsInteger) then
+    Exit;
+
+  if not DMNFe.ValidarEnderecoCliente(IbDtstTabelaCODCLIENTE.AsInteger) then
     Exit;
 
   if ( not DelphiIsRunning ) then

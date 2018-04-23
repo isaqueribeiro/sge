@@ -6,7 +6,6 @@ inherited frmGeVenda: TfrmGeVenda
   ClientHeight = 685
   ClientWidth = 1116
   OldCreateOrder = True
-  ExplicitLeft = -50
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -206,6 +205,17 @@ inherited frmGeVenda: TfrmGeVenda
           ParentFont = False
           Transparent = True
         end
+        object Bevel18: TBevel [6]
+          Left = 485
+          Top = 4
+          Width = 4
+          Height = 62
+          Align = alRight
+          Shape = bsSpacer
+          ExplicitLeft = 645
+          ExplicitTop = 0
+          ExplicitHeight = 35
+        end
         inherited grpBxFiltro: TGroupBox
           Left = 489
           Width = 615
@@ -366,7 +376,7 @@ inherited frmGeVenda: TfrmGeVenda
           end
         end
         object RdgStatusVenda: TRadioGroup
-          Left = 233
+          Left = 229
           Top = 4
           Width = 256
           Height = 62
@@ -383,6 +393,7 @@ inherited frmGeVenda: TfrmGeVenda
             'Cancelada')
           TabOrder = 0
           OnClick = RdgStatusVendaClick
+          ExplicitLeft = 233
         end
       end
     end
@@ -2308,10 +2319,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsDadosEntrega: TTabSheet
           Caption = 'Dados para Entrega'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlDadosEntrega: TPanel
             Left = 0
             Top = 0
@@ -2329,7 +2336,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDadosEntrega: TLabel
               Left = 0
               Top = 0
-              Width = 214
+              Width = 1100
               Height = 13
               Align = alTop
               Caption = '&Dados gerais para entrega do(s) produto(s):'
@@ -2340,6 +2347,7 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
+              ExplicitWidth = 214
             end
             object Bevel11: TBevel
               Left = 1096
@@ -2377,10 +2385,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsITitulos: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel9: TBevel
             Left = 74
             Top = 0
@@ -2594,10 +2598,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsTransporte: TTabSheet
           Caption = 'Dados Transporte'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             1100
             158)
@@ -2843,10 +2843,6 @@ inherited frmGeVenda: TfrmGeVenda
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -4408,7 +4404,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00840110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00900110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

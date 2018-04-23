@@ -56,9 +56,21 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         Width = 720
         ExplicitTop = 354
         ExplicitWidth = 720
+        object Bevel5: TBevel [0]
+          Left = 452
+          Top = 4
+          Width = 4
+          Height = 54
+          Align = alRight
+          Shape = bsSpacer
+          ExplicitLeft = 645
+          ExplicitTop = 0
+          ExplicitHeight = 35
+        end
         inherited grpBxFiltro: TGroupBox
           Left = 456
           Width = 260
+          TabOrder = 1
           ExplicitLeft = 456
           ExplicitWidth = 260
           inherited lbltFiltrar: TLabel
@@ -78,6 +90,21 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
             Left = 215
             ExplicitLeft = 215
           end
+        end
+        object rgpTipo: TRadioGroup
+          Left = 229
+          Top = 4
+          Width = 223
+          Height = 54
+          Align = alRight
+          Caption = '&Tipo'
+          Columns = 3
+          ItemIndex = 0
+          Items.Strings = (
+            '(Todas)'
+            'Entrada'
+            'Sa'#237'da')
+          TabOrder = 0
         end
       end
     end
@@ -119,6 +146,14 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Caption = 'Informa'#231#245'es ao Fisco:'
           FocusControl = dbInformacaoFisco
         end
+        object lblTipo: TLabel [4]
+          Left = 584
+          Top = 24
+          Width = 24
+          Height = 13
+          Caption = 'Tipo:'
+          FocusControl = dbTipo
+        end
         inherited dbCodigo: TDBEdit
           DataField = 'CFOP_COD'
           ReadOnly = False
@@ -126,7 +161,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         object dbNome: TDBEdit
           Left = 88
           Top = 40
-          Width = 617
+          Width = 490
           Height = 21
           CharCase = ecUpperCase
           DataField = 'CFOP_DESCRICAO'
@@ -153,7 +188,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Style = []
           ParentFont = False
           ScrollBars = ssVertical
-          TabOrder = 2
+          TabOrder = 3
         end
         object dbInformacaoFisco: TDBEdit
           Left = 16
@@ -169,7 +204,27 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 4
+        end
+        object dbTipo: TcxDBImageComboBox
+          Left = 584
+          Top = 40
+          DataBinding.DataField = 'CFOP_TIPO'
+          DataBinding.DataSource = DtSrcTabela
+          Properties.Images = ImgList
+          Properties.Items = <
+            item
+              Description = 'Entrada'
+              ImageIndex = 18
+              Value = 1
+            end
+            item
+              Description = 'Sa'#237'da'
+              ImageIndex = 18
+              Value = 2
+            end>
+          TabOrder = 2
+          Width = 121
         end
       end
       object GrpBxParametros: TGroupBox
@@ -430,6 +485,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  , c.Cfop_descricao'
       '  , c.Cfop_especificacao'
       '  , c.Cfop_informacao_fisco'
+      '  , c.Cfop_tipo'
       '  , c.Cfop_devolucao'
       '  , c.Cfop_remessa'
       '  , c.Cfop_retorno_interno'
@@ -440,6 +496,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  , c.Cfop_gerar_titulo'
       '  , c.Cfop_gerar_duplicata'
       'from TBCFOP c')
+    Left = 672
     object IbDtstTabelaCFOP_COD: TIntegerField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CFOP_COD'
@@ -452,6 +509,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       FieldName = 'CFOP_DESCRICAO'
       Origin = 'TBCFOP.CFOP_DESCRICAO'
       ProviderFlags = [pfInUpdate]
+      Required = True
       Size = 250
     end
     object IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField
@@ -474,6 +532,14 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       FieldName = 'CFOP_ALTERA_CUSTO_PRODUTO'
       Origin = '"TBCFOP"."CFOP_ALTERA_CUSTO_PRODUTO"'
       ProviderFlags = [pfInUpdate]
+    end
+    object IbDtstTabelaCFOP_TIPO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo'
+      FieldName = 'CFOP_TIPO'
+      Origin = '"TBCFOP"."CFOP_TIPO"'
+      ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object IbDtstTabelaCFOP_DEVOLUCAO: TSmallintField
       Alignment = taLeftJustify
@@ -526,6 +592,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
+    Left = 688
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -534,6 +601,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  CFOP_DESCRICAO,'
       '  CFOP_ESPECIFICACAO,'
       '  CFOP_INFORMACAO_FISCO,'
+      '  CFOP_TIPO,'
       '  CFOP_CST_PADRAO_ENTRADA,'
       '  CFOP_CST_PADRAO_SAIDA,'
       '  CFOP_DEVOLUCAO,'
@@ -561,7 +629,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  CFOP_INFORMACAO_FISCO = :CFOP_INFORMACAO_FISCO,'
       '  CFOP_REMESSA = :CFOP_REMESSA,'
       '  CFOP_RETORNO_EXTERNO = :CFOP_RETORNO_EXTERNO,'
-      '  CFOP_RETORNO_INTERNO = :CFOP_RETORNO_INTERNO'
+      '  CFOP_RETORNO_INTERNO = :CFOP_RETORNO_INTERNO,'
+      '  CFOP_TIPO = :CFOP_TIPO'
       'where'
       '  CFOP_COD = :OLD_CFOP_COD')
     InsertSQL.Strings = (
@@ -575,7 +644,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       
         '   CFOP_GERAR_TITULO, CFOP_INFORMACAO_FISCO, CFOP_REMESSA, CFOP_' +
         'RETORNO_EXTERNO, '
-      '   CFOP_RETORNO_INTERNO)'
+      '   CFOP_RETORNO_INTERNO, CFOP_TIPO)'
       'values'
       
         '  (:CFOP_ALTERA_CUSTO_PRODUTO, :CFOP_COD, :CFOP_CST_PADRAO_ENTRA' +
@@ -586,15 +655,17 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       
         '   :CFOP_GERAR_TITULO, :CFOP_INFORMACAO_FISCO, :CFOP_REMESSA, :C' +
         'FOP_RETORNO_EXTERNO, '
-      '   :CFOP_RETORNO_INTERNO)')
+      '   :CFOP_RETORNO_INTERNO, :CFOP_TIPO)')
     DeleteSQL.Strings = (
       'delete from TBCFOP'
       'where'
       '  CFOP_COD = :OLD_CFOP_COD')
+    Left = 680
   end
   inherited ImgList: TImageList
+    Left = 640
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -7,21 +7,16 @@ uses
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, cxLookAndFeelPainters,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, DBClient, Provider, IBQuery, cxGraphics, cxLookAndFeels, Menus, cxButtons,
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin,
+  DBClient, Provider, IBQuery, cxGraphics, cxLookAndFeels, Menus, cxButtons, cxControls,
+  cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox, cxDBEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeTabelaCFOP = class(TfrmGrPadraoCadastro)
@@ -63,11 +58,17 @@ type
     IbDtstTabelaCFOP_RETORNO_INTERNO: TIntegerField;
     IbDtstTabelaCFOP_RETORNO_EXTERNO: TIntegerField;
     fdQryCST: TFDQuery;
+    IbDtstTabelaCFOP_TIPO: TSmallintField;
+    lblTipo: TLabel;
+    dbTipo: TcxDBImageComboBox;
+    rgpTipo: TRadioGroup;
+    Bevel5: TBevel;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -144,6 +145,7 @@ begin
   IbDtstTabelaCFOP_REMESSA.AsInteger              := 0;
   IbDtstTabelaCFOP_GERAR_TITULO.AsInteger         := 1;
   IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger      := 1;
+  IbDtstTabelaCFOP_TIPO.Clear;
   IbDtstTabelaCFOP_CST_PADRAO_ENTRADA.Clear;
   IbDtstTabelaCFOP_CST_PADRAO_SAIDA.Clear;
   IbDtstTabelaCFOP_RETORNO_INTERNO.Clear;
@@ -185,6 +187,16 @@ begin
     IbDtstTabelaCFOP_RETORNO_INTERNO.Clear;
     IbDtstTabelaCFOP_RETORNO_EXTERNO.Clear;
   end;
+
+  inherited;
+end;
+
+procedure TfrmGeTabelaCFOP.btnFiltrarClick(Sender: TObject);
+begin
+  WhereAdditional := EmptyStr;
+
+  if ( rgpTipo.ItemIndex > 0 ) then
+    WhereAdditional := '(c.Cfop_tipo = ' + IntToStr(rgpTipo.ItemIndex) + ')';
 
   inherited;
 end;

@@ -8,6 +8,7 @@ Uses
   Type
     TTipoAlertaSistema = (tpaLicenca, tpaBackup);
     TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
+    TTipoCFOP    = (tcfopADefinir, tcfopEntrada, tcfopSaida);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
     TTipoProdutoCollection       = Set of TTipoProduto;
@@ -516,8 +517,8 @@ const
   DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE  = DOWNLOAD_URL_GERASYS_TI_DRH + 'upgrade/';
   DOWNLOAD_URL_GERASYS_TI_DRH_DOWNLOAD = DOWNLOAD_URL_GERASYS_TI_DRH + 'downloads/';
 
-  DOWNLOAD_IDFILE_TABELA_IBPT = '1GimMbvBEpYF3b8ZAnGCeRQrGbsur9QQv'; //'0B-sA8UJ9iK-Qc2ttUlBoQThKR1U';
-  DOWNLOAD_NMFILE_TABELA_IBPT = 'TabelaIBPT_PA2018.01.csv';
+  DOWNLOAD_IDFILE_TABELA_IBPT = '17nQe_r0MqDptvo5hTP_0TO524y8JxVuc';
+  DOWNLOAD_NMFILE_TABELA_IBPT = 'TabelaIBPT_PA2018.02.csv';
 
   COND_PARCELA_MIN = 1;
   COND_PARCELA_MAX = 12;
