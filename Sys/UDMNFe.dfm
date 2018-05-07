@@ -422,6 +422,12 @@ object DMNFe: TDMNFe
         Value = 
           'IIF(<frdItens."LOTE_VALIDADE">=0,'#39#39',FormatDateTime('#39'dd/mm/yyyy'#39',' +
           ' <frdItens."LOTE_VALIDADE">))'
+      end
+      item
+        Name = 'Anvisa'
+        Value = 
+          'IIF(Trim(<frdItens."ANVISA">) = '#39#39', '#39#39', Chr(13) + '#39'C'#243'digo Anvisa' +
+          ': '#39' + Trim(<frdItens."ANVISA">))'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -713,10 +719,12 @@ object DMNFe: TDMNFe
               '">)='#39#39','#39#39','#39'(Ref.: '#39' + <frdItens."REFERENCIA"> + '#39')'#39')] [IIF(Trim(' +
               '<frdItens."LOTE">) = '#39#39', '#39#39', '#39'(Lote: '#39' + <frdItens."LOTE"> + '#39' -' +
               ' Fabrica'#231#227'o : '#39' + <DataFabricacao> + '#39' - Validade : '#39' + <DataVal' +
-              'idade>)]')
+              'idade>)][Anvisa]')
           ParentFont = False
           VAlign = vaCenter
           Formats = <
+            item
+            end
             item
             end
             item
@@ -1501,7 +1509,7 @@ object DMNFe: TDMNFe
       object bndChildSummary: TfrxChild
         FillType = ftBrush
         Height = 158.740260000000000000
-        Top = 563.149970000000100000
+        Top = 563.149970000000000000
         Width = 718.110700000000000000
         OnAfterCalcHeight = 'bndChildSummaryOnAfterCalcHeight'
         object Memo42: TfrxMemoView

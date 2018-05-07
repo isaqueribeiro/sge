@@ -393,7 +393,6 @@ inherited frmGeVenda: TfrmGeVenda
             'Cancelada')
           TabOrder = 0
           OnClick = RdgStatusVendaClick
-          ExplicitLeft = 233
         end
       end
     end
@@ -4404,7 +4403,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00900110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00940110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6367,7 +6366,20 @@ inherited frmGeVenda: TfrmGeVenda
       '  , r.Dtrec'
       '  , r.forma_pagto'
       '  , r.status'
-      'from TBCONTREC r')
+      ''
+      '  , b.seq         as pgto_seq'
+      '  , b.usuario     as pgto_usuario'
+      '  , b.data_pagto  as pgto_data'
+      '  , b.data_pagto  as pgto_forma'
+      '  , b.valor_baixa as pgto_valor'
+      '  , Case when r.valorrectot = b.valor_baixa'
+      '      then 1'
+      '      else 0'
+      '    end as pgto_ok'
+      'from TBCONTREC r'
+      
+        '  left join TBCONTREC_BAIXA b on (b.anolanc = r.anolanc and b.nu' +
+        'mlanc = r.numlanc and b.seq = 1)')
     ModifySQL.Strings = (
       '')
     ParamCheck = True
@@ -6513,6 +6525,38 @@ inherited frmGeVenda: TfrmGeVenda
       FieldName = 'STATUS'
       Origin = 'TBCONTREC.STATUS'
       Size = 12
+    end
+    object qryTitulosPGTO_SEQ: TSmallintField
+      FieldName = 'PGTO_SEQ'
+      Origin = '"TBCONTREC_BAIXA"."SEQ"'
+      ProviderFlags = []
+    end
+    object qryTitulosPGTO_USUARIO: TIBStringField
+      FieldName = 'PGTO_USUARIO'
+      Origin = '"TBCONTREC_BAIXA"."USUARIO"'
+      ProviderFlags = []
+      Size = 12
+    end
+    object qryTitulosPGTO_DATA: TDateField
+      FieldName = 'PGTO_DATA'
+      Origin = '"TBCONTREC_BAIXA"."DATA_PAGTO"'
+      ProviderFlags = []
+    end
+    object qryTitulosPGTO_FORMA: TDateField
+      FieldName = 'PGTO_FORMA'
+      Origin = '"TBCONTREC_BAIXA"."DATA_PAGTO"'
+      ProviderFlags = []
+    end
+    object qryTitulosPGTO_VALOR: TIBBCDField
+      FieldName = 'PGTO_VALOR'
+      Origin = '"TBCONTREC_BAIXA"."VALOR_BAIXA"'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object qryTitulosPGTO_OK: TIntegerField
+      FieldName = 'PGTO_OK'
+      ProviderFlags = []
     end
   end
   object dtsTitulos: TDataSource

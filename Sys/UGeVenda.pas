@@ -413,6 +413,12 @@ type
     dtsLotes: TDataSource;
     cdsTabelaItensREFERENCIA: TIBStringField;
     Bevel18: TBevel;
+    qryTitulosPGTO_SEQ: TSmallintField;
+    qryTitulosPGTO_DATA: TDateField;
+    qryTitulosPGTO_FORMA: TDateField;
+    qryTitulosPGTO_VALOR: TIBBCDField;
+    qryTitulosPGTO_OK: TIntegerField;
+    qryTitulosPGTO_USUARIO: TIBStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -2520,7 +2526,7 @@ begin
   finally
 
   end;
-  
+
   Result := bReturn;
 end;
 
@@ -2534,6 +2540,11 @@ var
   MovNumero : Integer;
   DataPagto : TDateTime;
 begin
+(*
+  IMR - 04/05/2018
+    Implementação bloco que código (2179..2599 - Registrar Estorno) com o objetivo
+    de gravar um registro de estorno do caixa dos valores já baixados.
+*)
   if (Shift = [ssCtrl]) and (Key = 46) Then
   begin
     if not LiberarUso then
@@ -2541,7 +2552,7 @@ begin
 
     if ( UpperCase(Trim(qryTitulosBAIXADO_.AsString)) <> 'X' ) then
       Exit;
-      
+
     if not GetPermissaoRotinaInterna(Sender, True) then
       Abort;
 
@@ -2565,6 +2576,31 @@ begin
 
       if ShowConfirm('Confirma a remoção do(s) registro(s) de baixa(s) do título selecionado?') then
       begin
+
+        // Registrar Estorno
+
+        if (CxContaCorrente = 0) and (not qryTitulosPGTO_DATA.IsNull) then
+        begin
+          DataPagto := qryTitulosDTREC.AsDateTime;
+          CaixaAberto(IbDtstTabelaCODEMP.AsString
+            , qryTitulosPGTO_USUARIO.AsString
+            , qryTitulosPGTO_DATA.AsDateTime
+            , qryTitulosPGTO_FORMA.AsInteger
+            , CxAno, CxNumero, CxContaCorrente);
+        end;
+
+        if ( CxContaCorrente > 0 ) then
+        begin
+          SetMovimentoCaixaEstorno(
+            GetUserApp,
+            qryTitulosPGTO_DATA.AsDateTime + Time,
+            qryTitulosPGTO_FORMA.AsInteger,
+            qryTitulosANOLANC.AsInteger,
+            qryTitulosNUMLANC.AsInteger,
+            qryTitulosPGTO_SEQ.AsInteger,
+            qryTitulosVALORRECTOT.AsCurrency,
+            tmcxCredito);
+        end;
 
         with DMBusiness, fdQryBusca do
         begin
@@ -2595,7 +2631,7 @@ begin
         if ( CxContaCorrente > 0 ) then
           GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
 
-        ShowInformation('Registro(s) de baixa(s) de título removido(s) com sucesso.');  
+        ShowInformation('Registro(s) de baixa(s) de título removido(s) com sucesso.');
       end;
     end;
   end;
