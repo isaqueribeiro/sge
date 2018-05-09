@@ -1,8 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 31/03/2018 13:47:00     #
+#    Gerado por AGIL SOFTWARES em : 09/05/2018 16:37:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Nova definição para os tipos de CFOPs.
+- Atualização das Taxas Tributárias para ABR/2018.
 - Ajustes na Confirmação de Entrada dos Lotes de Produtos.
 - Impressão dos lotes no Orçamento de Venda.
 - Ajustes para o Cadastro de Serviços.
@@ -22,8 +24,8 @@
 #url5=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
 #url6=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 #url7=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
-#url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002200.sql
+#url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002300.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.22.0
+#version=1.0.23.0
