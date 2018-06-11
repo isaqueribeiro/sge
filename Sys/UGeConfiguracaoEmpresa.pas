@@ -13,14 +13,10 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeConfiguracaoEmpresa = class(TfrmGrPadraoCadastro)
@@ -151,6 +147,7 @@ type
     dbNFeLote: TDBEdit;
     chkImprimirCodReferencia: TDBCheckBox;
     IbDtstTabelaNFE_IMPRIMIR_COD_REFERENCIA: TSmallintField;
+    imgGrid: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
@@ -158,6 +155,8 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     procedure Aplicar_ModeloEstoque;
@@ -281,6 +280,39 @@ begin
   inherited;
   if not btbtnSalvar.Enabled then
     Aplicar_ModeloEstoque;
+end;
+
+procedure TfrmGeConfiguracaoEmpresa.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  aImage : Byte;
+begin
+  inherited;
+  if (dbgDados = Sender) then
+  begin
+
+    if (AnsiUpperCase(Column.Field.FieldName) = 'NFE_EMITIR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      dbgDados.Canvas.FillRect(Rect);
+      imgGrid.Draw(dbgDados.Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'NFCE_EMITIR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      dbgDados.Canvas.FillRect(Rect);
+      imgGrid.Draw(dbgDados.Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'NFSE_EMITIR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      dbgDados.Canvas.FillRect(Rect);
+      imgGrid.Draw(dbgDados.Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+    end;
+
+  end;
 end;
 
 function TfrmGeConfiguracaoEmpresa.GetConfiguracaoCadastrada(

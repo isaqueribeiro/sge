@@ -933,6 +933,10 @@ Var
   sSecaoArquivos   : String;
 begin
 (*
+  IMR - 11/06/2018 :
+    Remoção da linha "ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True"
+    na nova versão do código-fonte ACBr.
+
   IMR - 29/05/2015 :
     Inserção de novos controles WebService para controle do envio e recebimento das NFs.
 
@@ -1073,7 +1077,7 @@ begin
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
       ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoDF.ItemIndex); // ve310;
-      ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := False;
+      //ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := False;
 
       if ( tipoDANFE = tipoDANFEFast ) then
         ACBrNFe.DANFE := frDANFE
@@ -6396,6 +6400,10 @@ var
   cTotal_ICMSTot_vICMS : Currency;
 begin
 (*
+  IMR - 11/06/2018 :
+    Remoção da linha "ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True"
+    na nova versão do código-fonte ACBr.
+
   IMR - 08/12/2015 :
     Alteração nas regras de operação da tag "idDest" para a emissão de Notas Fiscais
     para fora do Estado.
@@ -6411,7 +6419,7 @@ begin
     ACBrNFe.Configuracoes.Geral.RetirarAcentos       := True;
     ACBrNFe.Configuracoes.Geral.ModeloDF             := moNFCe;
     ACBrNFe.Configuracoes.Geral.VersaoDF             := TpcnVersaoDF(ConfigACBr.cbVersaoDF.ItemIndex);
-    ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True;
+    //ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True;
 
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatario( iCodigoCliente );

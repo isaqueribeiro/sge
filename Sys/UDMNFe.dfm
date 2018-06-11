@@ -11,7 +11,7 @@ object DMNFe: TDMNFe
     Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Geral.ValidarDigest = False
-    Configuracoes.Geral.IncluirQRCodeXMLNFCe = False
+    Configuracoes.Geral.VersaoQRCode = veqr000
     Configuracoes.Arquivos.OrdenacaoPath = <>
     Configuracoes.WebServices.UF = 'PA'
     Configuracoes.WebServices.AguardarConsultaRet = 0
@@ -32865,8 +32865,8 @@ object DMNFe: TDMNFe
       ''
       'order by'
       '    f.nome_completo')
-    Left = 760
-    Top = 248
+    Left = 768
+    Top = 224
   end
   object frdListaFuncionario: TfrxDBDataset
     UserName = 'frdListaFuncionario'
@@ -32887,8 +32887,8 @@ object DMNFe: TDMNFe
       'ATIVO=ATIVO')
     DataSet = qryListaFuncionario
     BCDToCurrency = False
-    Left = 792
-    Top = 248
+    Left = 800
+    Top = 224
   end
   object frrListaFuncionario: TfrxReport
     Version = '5.1.9'
@@ -32907,8 +32907,8 @@ object DMNFe: TDMNFe
       ''
       'end.')
     OnGetValue = frrAutorizacaoCompraGetValue
-    Left = 824
-    Top = 248
+    Left = 832
+    Top = 224
     Datasets = <
       item
         DataSet = frdEmpresa
