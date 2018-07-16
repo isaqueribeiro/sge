@@ -66,9 +66,6 @@ object frmPesquisaEAN: TfrmPesquisaEAN
     TabOrder = 3
     object TabSheet1: TTabSheet
       Caption = 'Resposta'
-      ExplicitLeft = 0
-      ExplicitWidth = 281
-      ExplicitHeight = 165
       object mmResposta: TMemo
         Left = 0
         Top = 0
@@ -82,8 +79,6 @@ object frmPesquisaEAN: TfrmPesquisaEAN
     object TabSheet2: TTabSheet
       Caption = 'Objeto JSON'
       ImageIndex = 1
-      ExplicitWidth = 281
-      ExplicitHeight = 165
     end
   end
   object restClient: TRESTClient

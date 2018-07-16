@@ -36,48 +36,17 @@ implementation
 
 {$R *.dfm}
 
+uses
+  System.JSON;
+
 procedure TfrmPesquisaEAN.Button1Click(Sender: TObject);
 var
   str ,
-  url ,
   pes : string;
+  aResponseCosmos : TJSONValue;
 begin
-//  mmResposta.Clear;
-//
-//  try  *
-//    Case cmbTipo.ItemIndex of
-//      0 : pes := 'ncms/' + Trim(edtNumero.Text) + '.json'; // gtins/7891910000197.json'
-//      1 : pes := 'gtins/' + Trim(edtNumero.Text) + '.json'; // gtins/7891910000197.json'
-//    end;
-//
-//    url := 'https://api.cosmos.bluesoft.com.br/' + pes;
-//
-////    IdHTTP1.Request.ExtraHeaders.Values['X-Cosmos-Token'] := 'QLEJmWiWiYAwBl482AMYnA';
-////    IdHTTP1.Request.ContentType := 'application/json;charset=UTF-8';
-//
-//    IdHTTP1.Request.CustomHeaders.Clear;
-//    IdHTTP1.Request.CustomHeaders.AddValue('X-Cosmos-Token', 'QLEJmWiWiYAwBl482AMYnA');
-//    IdHTTP1.Request.ContentType := 'application/json';
-//    IdHTTP1.Request.CharSet     := 'UTF-8';
-//
-//    Screen.Cursor := crHourGlass;
-//    str := IdHTTP1.Get(url);
-//
-//  except
-//    on E: Exception do
-//    Begin
-//      mmResposta.Lines.Add('Resposta da exceção:');
-//      mmResposta.Lines.Add('--> '+E.Message);
-//    End;
-//  end;
-//
-//  mmResposta.Lines.Add('HTTP Status Code:');
-//  mmResposta.Lines.Add('--> '+IdHTTP1.ResponseText);
-//
-//  mmResposta.Lines.Add('Resposta da consulta:');
-//  mmResposta.Lines.Add('--> ' + UTF8Decode(str));
-//
-//  Screen.Cursor := crDefault;
+  // https://www.projetoacbr.com.br/forum/topic/27116-integracao-api-bluesoft-cosmos/
+
   mmResposta.Lines.Clear;
 
   restClient.BaseURL   := 'http://cosmos.bluesoft.com.br/api';
@@ -86,8 +55,6 @@ begin
   restRequest.Method   := rmGET;
 
     Case cmbTipo.ItemIndex of
-//      0 : pes := 'ncms/' + Trim(edtNumero.Text) + '.json'; // gtins/7891910000197.json'
-//      1 : pes := 'gtins/' + Trim(edtNumero.Text) + '.json'; // gtins/7891910000197.json'
       0 : pes := '/ncms/{codigo}/products';
       1 : pes := '/gtins/{codigo}';
     end;
@@ -98,7 +65,28 @@ begin
   restRequest.Execute;
 
   if (restResponse.StatusCode = 200) then
-    mmResposta.Lines.Add(restResponse.JSONText)
+  begin
+    mmResposta.Lines.Add(restResponse.JSONText);
+
+//    aResponseCosmos := TJSONValue(restResponse.JSONText);
+//    // Para pegar a description que está de exemplo no site:
+//    str := aResponseCosmos.GetValue<TJSONString>('description').Value;
+//    // Para pegar a o code do NCM que está de exemplo no site:
+//    str := str + #13 + aResponseCosmos.GetValue<TJSONObject>('ncm').GetValue<TJSONString>('code').Value;
+//    str := str + #13 + aResponseCosmos.GetValue<TJSONObject>('ncm').GetValue<TJSONString>('description').Value;
+//    str := str + #13 + aResponseCosmos.GetValue<TJSONObject>('ncm').GetValue<TJSONString>('full_description').Value;
+
+    aResponseCosmos := restResponse.JSONValue;
+
+    // Para pegar a description que está de exemplo no site:
+    str := 'Produto : ' + aResponseCosmos.GetValue<TJSONString>('description').Value;
+    // Para pegar a o code do NCM que está de exemplo no site:
+    str := str + #13 + 'NCM : ' + aResponseCosmos.GetValue<TJSONObject>('ncm').GetValue<TJSONString>('code').Value;
+    str := str + #13 + aResponseCosmos.GetValue<TJSONObject>('ncm').GetValue<TJSONString>('description').Value;
+    str := str + #13 + aResponseCosmos.GetValue<TJSONObject>('ncm').GetValue<TJSONString>('full_description').Value;
+
+    ShowMessage(str);
+  end
   else
     mmResposta.Lines.Add(restResponse.StatusText);
 end;
