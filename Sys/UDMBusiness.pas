@@ -858,7 +858,7 @@ end;
 
 procedure UpgradeDataBase;
 var
-  aFileUpgrade : String;
+  aFileUpgrade  : String;
   aVersaoUpgrade,
   aVersaoBase   ,
   aVersaoApp    : Currency;
