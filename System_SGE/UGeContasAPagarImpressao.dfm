@@ -55,7 +55,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object lblFornecedor: TLabel
         Left = 26
-        Top = 124
+        Top = 123
         Width = 67
         Height = 13
         Alignment = taRightJustify
@@ -99,18 +99,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           'Baixados'
           'Pendentes'
           'Cancelados')
-      end
-      object edFornecedor: TComboBox
-        Left = 104
-        Top = 120
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemIndex = 0
-        TabOrder = 5
-        Text = '(Todos)'
-        Items.Strings = (
-          '(Todos)')
       end
       object dbDespesaParticular: TCheckBox
         Left = 104
@@ -243,6 +231,25 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         PopupColor = clBtnFace
         ShowNullDate = False
         TabOrder = 2
+      end
+      object edFornecedor: TcxLookupComboBox
+        Left = 104
+        Top = 120
+        Properties.KeyFieldNames = 'CODFORN'
+        Properties.ListColumns = <
+          item
+            Caption = 'Nome Fornecedor'
+            Width = 120
+            FieldName = 'NOMEFORN'
+          end
+          item
+            Caption = 'CFP / CNPJ'
+            FieldName = 'CNPJ'
+          end>
+        Properties.ListSource = dtsFornecedor
+        EditValue = 0
+        TabOrder = 5
+        Width = 313
       end
     end
   end
@@ -17134,6 +17141,15 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
+      '    0 as codforn'
+      '  , '#39'(Todos)'#39' as nomeforn'
+      '  , 0 as pessoa_fisica'
+      '  , '#39#39' as cnpj'
+      'from RDB$DATABASE x'
+      ''
+      'union'
+      ''
+      'Select'
       '    f.codforn'
       '  , f.nomeforn'
       '  , f.pessoa_fisica'
@@ -17141,7 +17157,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'from TBFORNECEDOR f'
       ''
       'order by'
-      '    f.nomeforn')
+      '    2')
     Left = 456
     Top = 64
   end
@@ -19693,5 +19709,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         end
       end
     end
+  end
+  object dtsFornecedor: TDataSource
+    DataSet = CdsFornecedor
+    Left = 425
+    Top = 64
   end
 end

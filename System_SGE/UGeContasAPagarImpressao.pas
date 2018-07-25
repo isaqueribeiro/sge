@@ -9,13 +9,17 @@ uses
   Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask,
   frxClass, frxDBSet, DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+  cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeContasAPagarImpressao = class(TfrmGrPadraoImpressao)
@@ -37,7 +41,6 @@ type
     DspTipoDespesa: TDataSetProvider;
     CdsTipoDespesa: TClientDataSet;
     lblFornecedor: TLabel;
-    edFornecedor: TComboBox;
     DspFornecedor: TDataSetProvider;
     CdsFornecedor: TClientDataSet;
     frRelacaoAPagarESintetico: TfrxReport;
@@ -79,6 +82,8 @@ type
     fdQryFornecedor: TFDQuery;
     frRelacaoExtratoFornVSintetico: TfrxReport;
     frRelacaoExtratoFornVAnalitico: TfrxReport;
+    dtsFornecedor: TDataSource;
+    edFornecedor: TcxLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -94,7 +99,6 @@ type
     FSQL_RelacaoAPagarTPDespesaFornec : TStringList;
     IEmpresa : Array of String;
     ITipoDespesa : Array of Integer;
-    IFornecedor  : Array of Integer;
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
     procedure CarregarTipoDespesa;
@@ -366,8 +370,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -380,6 +384,8 @@ begin
       SQL.Add('  , cp.codforn');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -432,8 +438,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -455,6 +461,8 @@ begin
       SQL.Add('  , cp.dtvenc');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -504,8 +512,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -518,6 +526,8 @@ begin
       SQL.Add('  , cp.codforn');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -570,8 +580,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -593,6 +603,8 @@ begin
       SQL.Add('  , cp.dtvenc');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -650,40 +662,12 @@ begin
 end;
 
 procedure TfrmGeContasAPagarImpressao.CarregarCliente;
-var
-  I : Integer;
-const
-  NOME_FORNECEDOR = '%s - %s';
 begin
-  with CdsFornecedor do
+  if not CdsFornecedor.Active then
   begin
-    Open;
-
-    edFornecedor.Clear;
-    SetLength(IFornecedor, RecordCount + 1);
-
-    edFornecedor.Items.Add('(Todos)');
-    IFornecedor[0] := 0;
-
-    I := 1;
-
-    while not Eof do
-    begin
-      edFornecedor.Items.Add( Format(NOME_FORNECEDOR, [
-        IfThen(FieldByName('pessoa_fisica').AsInteger = 1,
-          StrFormatarCpf(FieldByName('cnpj').AsString),
-          StrFormatarCnpj(FieldByName('cnpj').AsString)),
-        FieldByName('nomeforn').AsString]) );
-      IFornecedor[I] := FieldByName('codforn').AsInteger;
-
-      Inc(I);
-      Next;
-    end;
-
-    Close;
+    CdsFornecedor.Open;
+    edFornecedor.EditValue := 0;
   end;
-
-  edFornecedor.ItemIndex := 0;
 end;
 
 procedure TfrmGeContasAPagarImpressao.MontarRelacaoAPagarPorEmissaoAnalitico;
@@ -723,8 +707,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -737,6 +721,8 @@ begin
       SQL.Add('  , cp.codforn');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -789,8 +775,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -810,6 +796,8 @@ begin
       SQL.Add('  , cp.dtemiss');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -859,8 +847,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -873,6 +861,8 @@ begin
       SQL.Add('  , cp.codforn');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -925,8 +915,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -946,6 +936,8 @@ begin
       SQL.Add('  , cp.dtpag');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -995,8 +987,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -1010,6 +1002,8 @@ begin
       SQL.Add('  , cp.codforn');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -1062,8 +1056,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -1087,6 +1081,8 @@ begin
       SQL.Add('  , cp.dtvenc');
       SQL.Add('  , fn.nomeforn');
       SQL.Add('  , fn.cnpj');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -1139,8 +1135,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -1163,6 +1159,8 @@ begin
       SQL.Add('  , cp.dtvenc');
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , cp.codtpdesp');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -1233,8 +1231,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -1256,6 +1254,8 @@ begin
       SQL.Add('  , d.tipodesp');
       SQL.Add('  , extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
       SQL.Add('  , cp.dtvenc');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -1305,8 +1305,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -1319,6 +1319,8 @@ begin
       SQL.Add('  , cp.codforn');
       SQL.Add('  , extract(year from cp.dtvenc) || right(''00'' || extract(month from cp.dtvenc), 2)');
       SQL.Add('  , cp.dtvenc');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -1371,8 +1373,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -1398,6 +1400,8 @@ begin
       SQL.Add('  , cp.dtvenc');
       SQL.Add('  , fn.nomeforn');
       SQL.Add('  , fn.cnpj');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do
@@ -1459,8 +1463,8 @@ begin
       if ( edTipoDespesa.ItemIndex > 0 ) then
         SQL.Add('  and (cp.codtpdesp = ' + IntToStr(ITipoDespesa[edTipoDespesa.ItemIndex]) + ')');
 
-      if ( edFornecedor.ItemIndex > 0 ) then
-        SQL.Add('  and (cp.codforn = ' + IntToStr(IFornecedor[edFornecedor.ItemIndex]) + ')');
+      if ( edFornecedor.ItemIndex > 0 ) and ( VarToStr(edFornecedor.EditValue) <> '0' ) then
+        SQL.Add('  and (cp.codforn = ' + VarToStr(edFornecedor.EditValue) + ')');
 
       if ( dbDespesaParticular.Checked ) then
         SQL.Add('  and (d.tipo_particular = 0)');
@@ -1483,6 +1487,8 @@ begin
       SQL.Add('  , cp.dtvenc');
       SQL.Add('  , fn.nomeforn');
       SQL.Add('  , fn.cnpj');
+
+      SQL.SaveToFile('log.sql');
     end;
   except
     On E : Exception do

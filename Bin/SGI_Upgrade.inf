@@ -1,8 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 26/03/2018 13:46:00     #
+#    Gerado por AGIL SOFTWARES em : 25/07/2018 12:35:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Nova definição para os tipos de CFOPs.
+- Atualização das Taxas Tributárias para ABR/2018.
 - Atualização das Taxas Tributárias para JAN/2018;
 - Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento;
 - Novo relatório gerencial: Resultado do Exercício;
@@ -28,7 +30,9 @@
 #url11=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
 #url12=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 #url13=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
+#url14=http://www.drhtransparencia.com.br/agil/upgrade/db/01002001.sql
+
 
 #method=0 (self-upgrade)
 
-#version=1.0.18.1
+#version=1.0.20.1

@@ -6,7 +6,10 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, HPL_Strings, StdCtrls, DBCtrls, IBX.IBCustomDataSet, DB, DBClient,
   ExtCtrls, Mask, Grids, DBGrids, TypInfo, StrUtils,  ComCtrls,
-  JvExMask, JvToolEdit, JvDBControls, cxDBEdit, cxImageComboBox;
+  JvExMask, JvToolEdit, JvDBControls,
+
+  cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox,
+  cxLookupEdit, cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox;
 
 type
   TfrmGrPadrao = class(TForm)
@@ -71,6 +74,10 @@ uses
 {$R *.dfm}
 
 function CustomKeyDown(Frm : TForm; var Key: Word; Shift : TShiftState) : Boolean;
+var
+  cDropDown,
+  AControl : TWinControl;
+  EControl : TcxCustomEdit;
 begin
 
   if (not Assigned(Frm)) or (Key = 0) then
@@ -89,6 +96,10 @@ begin
       or (Frm.ActiveControl is TJvComboEdit)
       or (Frm.ActiveControl is TJvDateEdit)
       or (Frm.ActiveControl is TJvDirectoryEdit)
+//      // Controls DevExpress
+//      or (Frm.ActiveControl is TcxCustomInnerTextEdit)
+//      or (Frm.ActiveControl is TcxCustomLookupComboBox)
+//      or (Frm.ActiveControl is TcxLookupComboBox)
       // DB Controls
       or (Frm.ActiveControl is TDBEdit)
       or (Frm.ActiveControl is TDBCheckBox)
@@ -155,6 +166,13 @@ begin
       if (Frm.ActiveControl is TJvDBComboEdit) then
         Result := not ( Assigned(TJvDBComboEdit(Frm.ActiveControl).OnKeyPress) or Assigned(TJvDBComboEdit(Frm.ActiveControl).OnKeyDown) )
       else
+//      // Controls DevExpress
+//      if (Frm.ActiveControl is TcxCustomLookupComboBox) then
+//        Result := not ( Assigned(TcxCustomLookupComboBox(Frm.ActiveControl).OnKeyPress) or Assigned(TcxCustomLookupComboBox(Frm.ActiveControl).OnKeyDown) )
+//      else
+//      if (Frm.ActiveControl is TcxLookupComboBox) then
+//        Result := not ( Assigned(TcxLookupComboBox(Frm.ActiveControl).OnKeyPress) or Assigned(TcxLookupComboBox(Frm.ActiveControl).OnKeyDown) )
+//      else
         Result := True
 
     else
@@ -166,6 +184,37 @@ begin
     else
     if ( (Frm.ActiveControl is TMemo) and TMemo(Frm.ActiveControl).Enabled and (not TMemo(Frm.ActiveControl).ReadOnly) ) then
       Result := False;
+
+    // Controles DevExpress
+    if (Frm.ActiveControl is TcxCustomDropDownInnerEdit) then
+    begin
+      AControl := Screen.ActiveControl;
+      if Supports(AControl, IcxInnerEditHelper) or Supports(AControl, IcxContainerInnerControl) then
+        EControl := TcxCustomEdit(AControl.Owner)
+      else
+        if AControl is TcxCustomEdit then
+          EControl := TcxCustomEdit(AControl);
+
+      cDropDown := TWinControl(Frm.FindComponent(EControl.Name));
+
+      if (cDropDown is TcxComboBox ) then
+        Result := not TcxComboBox(cDropDown).DroppedDown
+      else
+      if (cDropDown is TcxImageComboBox ) then
+        Result := not TcxImageComboBox(cDropDown).DroppedDown
+      else
+      if (cDropDown is TcxLookupComboBox ) then
+        Result := not TcxLookupComboBox(cDropDown).DroppedDown
+      else
+      if (cDropDown is TcxDBComboBox ) then
+        Result := not TcxDBComboBox(cDropDown).DroppedDown
+      else
+      if (cDropDown is TcxDBImageComboBox ) then
+        Result := not TcxDBImageComboBox(cDropDown).DroppedDown
+      else
+      if (cDropDown is TcxDBLookupComboBox ) then
+        Result := not TcxDBLookupComboBox(cDropDown).DroppedDown;
+    end;
 
     if Result then
     begin
@@ -562,6 +611,16 @@ begin
         TJvDBComboEdit(Win.Components[i]).OnEnter := ControlEditEnter;
       if ( not Assigned(TJvDBComboEdit(Win.Components[i]).OnExit) ) then
         TJvDBComboEdit(Win.Components[i]).OnExit  := ControlEditExit;
+    end;
+
+    // Controls Dev Express
+
+    if ( Win.Components[i] is TcxLookupComboBox ) then
+    begin
+      if ( not Assigned(TcxLookupComboBox(Win.Components[i]).OnEnter) ) then
+        TcxLookupComboBox(Win.Components[i]).OnEnter := ControlEditEnter;
+      if ( not Assigned(TcxLookupComboBox(Win.Components[i]).OnExit) ) then
+        TcxLookupComboBox(Win.Components[i]).OnExit  := ControlEditExit;
     end;
 
     // Controls DB Dev Express
