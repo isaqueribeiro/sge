@@ -174,3 +174,118 @@ end^
 
 SET TERM ; ^
 
+/*------ SYSDBA 30/07/2018 16:28:04 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendas_estoque_atualizar for tbvendas
+active after update position 1
+AS
+  declare variable produto varchar(10);
+  declare variable empresa varchar(18);
+  declare variable cliente Integer;
+  declare variable lote_id DMN_GUID_38;
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable estoque_lt DMN_QUANTIDADE_D3;
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable valor_produto numeric(15,2);
+  declare variable Movimentar Smallint;
+  declare variable referencia DMN_VCHAR_15;
+begin
+  --declare variable reserva    DMN_QUANTIDADE_D3;
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 3)) then /* 3. Finalizada */
+  begin
+
+    -- Baixar produto do Estoque
+    for
+      Select
+          i.Codprod
+        , i.Codemp
+        , i.codcliente
+        , i.Qtde
+        , coalesce(p.Qtde, 0)
+        --, coalesce(p.Reserva, 0)
+        , coalesce(p.Preco, 0)
+        , coalesce(p.movimenta_estoque, 1)
+        , coalesce(e.qtde, 0)  -- Estoque fracionado do lote
+        , nullif(trim(i.lote_id), '')
+        , upper(coalesce(trim(i.referencia), ''))
+      from TVENDASITENS i
+        inner join TBPRODUTO p on (p.Cod = i.Codprod)
+        left join TBESTOQUE_ALMOX e on (e.id = i.lote_id)
+      where i.Ano = new.Ano
+        and i.Codcontrol = new.Codcontrol
+      into
+          produto
+        , empresa
+        , cliente
+        , quantidade
+        , estoque
+        --, reserva
+        , valor_produto
+        , Movimentar
+        , estoque_lt
+        , lote_id
+        , referencia
+    do
+    begin
+      --reserva = :reserva - :Quantidade;  -- Descontinuada RESERVA
+      estoque = Case when :Movimentar = 1 then (:Estoque - :Quantidade) else :Estoque end;
+
+      -- Baixar estoque
+      Update TBPRODUTO p Set
+          p.Qtde    = :Estoque
+        --, p.Reserva = :Reserva               -- Descontinuada RESERVA
+      where (p.Cod  = :Produto);
+
+      -- Baixar estoque do Lote
+      if ( (:movimentar = 1) and (:lote_id is not null) ) then
+      begin
+        Update TBESTOQUE_ALMOX e Set
+          e.qtde  = :estoque_lt - (:quantidade * e.fracionador)
+        where (e.id = :lote_id);
+      end
+
+      -- Gravar posicao de estoque
+      Update TVENDASITENS i Set
+        i.Qtdefinal = :Estoque
+      where i.Ano        = new.Ano
+        and i.Codcontrol = new.Codcontrol
+        and i.Codemp     = new.Codemp
+        and i.Codprod    = :Produto;
+
+      -- Gerar historico
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :Empresa
+        , :Produto
+        , new.Ano || '/' || new.Codcontrol
+        , Trim('SAIDA - VENDA ' || Case when :Movimentar = 1 then '' else '*' end)
+        , Current_time
+        , :Estoque + :Quantidade
+        , :Quantidade
+        , :Estoque
+        , new.Usuario
+        , replace('Venda no valor de R$ ' || :Valor_produto, '.', ',')
+      );
+
+      -- Inserir armazenar codigo de referencia do produto no cliente
+      if (:referencia <> '') then
+        execute procedure SET_PRODUTO_CLIENTE(:produto, :cliente, :referencia);
+    end
+     
+  end 
+end^
+
+SET TERM ; ^
+
