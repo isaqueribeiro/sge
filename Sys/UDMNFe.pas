@@ -1805,6 +1805,7 @@ begin
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
+      begin
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
           REJEICAO_NFE_NOTA_DENEGADA:
             begin
@@ -1903,10 +1904,12 @@ begin
           end;
         end;
 
-      ShowError('Erro ao tentar gerar NF-e.' +
-        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
-        IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
-        #13#13 + 'GerarNFeOnLineACBr() --> ' + sErrorMsg);
+        ShowError('Erro ao tentar gerar NF-e.' +
+          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
+          IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+          #13#13 + 'GerarNFeOnLineACBr() --> ' + sErrorMsg);
+
+      end;
 
       Result := False;
     end;
@@ -3549,6 +3552,7 @@ begin
           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
+      begin
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
           REJEICAO_NFE_DUPLICIDADE  ,
           REJEICAO_NFE_NOTA_DENEGADA:
@@ -3621,10 +3625,12 @@ begin
           end;
         end;
 
-      ShowError('Erro ao tentar gerar NF-e de Entrada.' +
-        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
-        IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
-        #13#13 + 'GerarNFeEntradaOnLineACBr() --> ' + sErrorMsg);
+        ShowError('Erro ao tentar gerar NF-e de Entrada.' +
+          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
+          IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+          #13#13 + 'GerarNFeEntradaOnLineACBr() --> ' + sErrorMsg);
+
+      end;
 
       Result := False;
     end;
