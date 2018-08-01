@@ -16,7 +16,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green;
 
 type
   TTipoOrigemRecebimento = (toRecebimentoOutros, toRecebimentoVenda, toRecebimentoOS);
@@ -320,7 +320,7 @@ begin
     begin
       if ( not CaixaAberto(cdsPagamentosEMPRESA.AsString, gUsuarioLogado.Login, cdsPagamentosDATA_PAGTO.AsDateTime, cdsPagamentosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
       begin
-        ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
+        ShowWarning('Não existe caixa aberto para o usuário ' + QuotedStr(gUsuarioLogado.Login) + ' na forma de pagamento deste movimento.');
         Exit;
       end;
 
