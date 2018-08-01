@@ -109,7 +109,6 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 0
     OnClick = btnConfirmarClick
-    ExplicitTop = 443
   end
   object btnCancelar: TcxButton
     Left = 619
@@ -173,7 +172,6 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 1
     OnClick = btnCancelarClick
-    ExplicitTop = 443
   end
   object GrpBxLancamento: TGroupBox
     Left = 0
@@ -417,7 +415,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       ParentFont = False
       PopupColor = clBtnFace
       ShowNullDate = False
-      TabOrder = 4
+      TabOrder = 5
     end
     object dbFormaPagto: TDBLookupComboBox
       Left = 279
@@ -436,7 +434,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       ListField = 'DESCRI'
       ListSource = dtsFormaPagto
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 3
     end
     object dbBanco: TDBLookupComboBox
       Left = 430
@@ -456,7 +454,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       ListField = 'BCO_NOME'
       ListSource = dtsBanco
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 4
     end
     object dbNotaFiscal: TDBEdit
       Left = 128
@@ -472,7 +470,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 6
     end
     object dbTipoReceita: TDBLookupComboBox
       Left = 16
@@ -491,7 +489,7 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       ListField = 'TIPOREC'
       ListSource = dtsTpReceita
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 2
     end
   end
   object pnlParcelas: TPanel
@@ -502,7 +500,6 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitTop = 119
     object Bevel3: TBevel
       Left = 305
       Top = 0
@@ -788,8 +785,6 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
         TabOrder = 0
         OnEnter = dbgParcelasEnter
         OnExit = dbgParcelasExit
-        ExplicitLeft = 3
-        ExplicitTop = 19
         object dbgParcelasTbl: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = dtsParcelas
