@@ -325,8 +325,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -2403,7 +2401,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       '  , a.cancelado_usuario'
       '  , a.cancelado_motivo'
       
-        '  , (Select count(x.seq) from TBAUTORIZA_COMPRAITEM x WHERE x.an' +
+        '  , (Select count(x.seq) from TBAUTORIZA_COMPRAITEM x where x.an' +
         'o = a.ano and x.codigo = a.codigo and x.empresa = a.empresa) as ' +
         'itens'
       '  , f.nomeforn'
@@ -2852,7 +2850,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

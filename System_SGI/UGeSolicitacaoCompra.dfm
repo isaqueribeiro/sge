@@ -321,6 +321,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -639,6 +641,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoMotivo: TTabSheet
             Caption = 'Motivo da Solicita'#231#227'o'
             ImageIndex = 3
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -660,6 +666,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -681,6 +691,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1855,7 +1869,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       '  , s.cancelado_motivo'
       '  , s.log_evento'
       
-        '  , (Select count(x.seq) from TBSOLICITACAO_ITEM x WHERE x.ano =' +
+        '  , (Select count(x.seq) from TBSOLICITACAO_ITEM x where x.ano =' +
         ' s.ano and x.codigo = s.codigo) as itens'
       '  , c.descricao as centro_custo_nome'
       'from TBSOLICITACAO s'
@@ -2121,7 +2135,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     Left = 896
     Top = 352
     Bitmap = {
-      494C01012F003100180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F0031001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B

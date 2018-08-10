@@ -328,6 +328,8 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -2416,7 +2418,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  , r.cancelado_usuario'
       '  , r.cancelado_motivo'
       
-        '  , (Select count(x.seq) from TBREQUISITA_COMPRAITEM x WHERE x.a' +
+        '  , (Select count(x.seq) from TBREQUISITA_COMPRAITEM x where x.a' +
         'no = r.ano and x.codigo = r.codigo and x.empresa = r.empresa) as' +
         ' itens'
       
@@ -2871,7 +2873,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

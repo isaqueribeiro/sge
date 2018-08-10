@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 25/07/2018 12:35:00     #
+#    Gerado por AGIL SOFTWARES em : 10/08/2018 17:49:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Correção nos filtros de pesquisas.
 - Nova definição para os tipos de CFOPs.
 - Atualização das Taxas Tributárias para ABR/2018.
 - Atualização das Taxas Tributárias para JAN/2018;
@@ -35,4 +36,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.20.1
+#version=1.0.20.2
