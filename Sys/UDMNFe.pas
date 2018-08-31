@@ -246,7 +246,13 @@ type
     cdsLOGEMPRESA: TIBStringField;
     frrBoletoFatura: TfrxReport;
     fdQryEmissaoNFePendente: TFDQuery;
-    qryEmitenteRECONFIGURAR: TIntegerField;    procedure SelecionarCertificado(Sender : TObject);
+    qryEmitenteRECONFIGURAR: TIntegerField;
+    fdQryListaTipoDespesa: TFDQuery;
+    frdListaTipoDespesa: TfrxDBDataset;
+    frrListaTipoDespesa: TfrxReport;
+    fdQryListaTipoReceita: TFDQuery;
+    frdListaTipoReceita: TfrxDBDataset;
+    frrListaTipoReceita: TfrxReport;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;

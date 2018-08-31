@@ -4,7 +4,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   ClientHeight = 597
   ClientWidth = 1132
   OldCreateOrder = True
-  ExplicitLeft = -66
+  ExplicitLeft = -49
   ExplicitWidth = 1148
   ExplicitHeight = 636
   PixelsPerInch = 96
@@ -613,7 +613,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Align = alRight
           BorderStyle = bsSingle
           TabOrder = 1
-          object DBText1: TDBText
+          object dbtDESCRICAO_FULL: TDBText
             Left = 1
             Top = 23
             Width = 542
@@ -1947,7 +1947,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited ImgList: TImageList
     Left = 832
     Bitmap = {
-      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3416,86 +3416,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Left = 1096
     Top = 280
   end
-  object qrySaldosDias: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    s.Saldo_anterior_data'
-      '  , s.Saldo_anterior_valor'
-      '  , s.Saldo_inicial_data'
-      '  , s.Saldo_inicial_valor'
-      '  , s.Saldo_final_data'
-      '  , s.Saldo_final_valor'
-      
-        'from GET_CONTA_CORRENTE_SALDO(:Conta, :DataInicial, :DataFinal) ' +
-        's')
-    Left = 1000
-    Top = 281
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'Conta'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftDateTime
-        Name = 'DataInicial'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftDateTime
-        Name = 'DataFinal'
-        ParamType = ptInput
-        Value = 0d
-      end>
-    object qrySaldosDiasSALDO_ANTERIOR_DATA: TDateField
-      Alignment = taCenter
-      FieldName = 'SALDO_ANTERIOR_DATA'
-      Origin = 'GET_CONTA_CORRENTE_SALDO.SALDO_ANTERIOR_DATA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qrySaldosDiasSALDO_ANTERIOR_VALOR: TIBBCDField
-      FieldName = 'SALDO_ANTERIOR_VALOR'
-      Origin = 'GET_CONTA_CORRENTE_SALDO.SALDO_ANTERIOR_VALOR'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qrySaldosDiasSALDO_INICIAL_DATA: TDateField
-      Alignment = taCenter
-      FieldName = 'SALDO_INICIAL_DATA'
-      Origin = 'GET_CONTA_CORRENTE_SALDO.SALDO_INICIAL_DATA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qrySaldosDiasSALDO_INICIAL_VALOR: TIBBCDField
-      FieldName = 'SALDO_INICIAL_VALOR'
-      Origin = 'GET_CONTA_CORRENTE_SALDO.SALDO_INICIAL_VALOR'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qrySaldosDiasSALDO_FINAL_DATA: TDateField
-      Alignment = taCenter
-      FieldName = 'SALDO_FINAL_DATA'
-      Origin = 'GET_CONTA_CORRENTE_SALDO.SALDO_FINAL_DATA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qrySaldosDiasSALDO_FINAL_VALOR: TIBBCDField
-      FieldName = 'SALDO_FINAL_VALOR'
-      Origin = 'GET_CONTA_CORRENTE_SALDO.SALDO_FINAL_VALOR'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-  end
   object dtsSaldosDias: TDataSource
-    DataSet = qrySaldosDias
+    DataSet = fdQrySaldosDias
     Left = 1032
     Top = 281
   end
@@ -3504,90 +3426,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Left = 1096
     Top = 344
   end
-  object qryConsolidadoFormaPagto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    OnCalcFields = qryConsolidadoFormaPagtoCalcFields
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.Data'
-      '  , f.Forma_pagto'
-      '  , f.Forma_pagto_desc'
-      '  , Case when f.Forma_pagto = 0 then f.Saldo else 0 end as Saldo'
-      '  , sum(f.Entrada) as Entrada'
-      '  , sum(f.Saida) as Saida'
-      
-        'from GET_FLUXO_CAIXA(:Conta_Corrente, :Data_Inicial, :Data_Final' +
-        ') f'
-      'group by 1, 2, 3, 4')
-    Left = 1000
-    Top = 313
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'Conta_Corrente'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'Data_Inicial'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'Data_Final'
-        ParamType = ptUnknown
-      end>
-    object qryConsolidadoFormaPagtoDATA: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data'
-      FieldName = 'DATA'
-      Origin = 'GET_FLUXO_CAIXA.DATA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryConsolidadoFormaPagtoFORMA_PAGTO: TIntegerField
-      FieldName = 'FORMA_PAGTO'
-      Origin = 'GET_FLUXO_CAIXA.FORMA_PAGTO'
-    end
-    object qryConsolidadoFormaPagtoFORMA_PAGTO_DESC: TIBStringField
-      DisplayLabel = 'Descricao'
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'GET_FLUXO_CAIXA.FORMA_PAGTO_DESC'
-      Size = 50
-    end
-    object qryConsolidadoFormaPagtoSALDO: TIBBCDField
-      DisplayLabel = 'Saldo'
-      FieldName = 'SALDO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryConsolidadoFormaPagtoENTRADA: TIBBCDField
-      DisplayLabel = 'Entradas'
-      FieldName = 'ENTRADA'
-      DisplayFormat = '"+ ",0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryConsolidadoFormaPagtoSAIDA: TIBBCDField
-      DisplayLabel = 'Sa'#237'das'
-      FieldName = 'SAIDA'
-      DisplayFormat = '"- ",0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryConsolidadoFormaPagtoSaldoDisplay: TStringField
-      Alignment = taRightJustify
-      FieldKind = fkCalculated
-      FieldName = 'SaldoDisplay'
-      Calculated = True
-    end
-  end
   object dtsConsolidadoFormaPagto: TDataSource
-    DataSet = qryConsolidadoFormaPagto
+    DataSet = fdQryConsolidadoFormaPagto
     Left = 1032
     Top = 313
   end
@@ -4812,8 +4652,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   end
   object dtsTpDespesa: TDataSource
     DataSet = fdQryTipoDespesa
-    Left = 856
-    Top = 312
+    Left = 840
+    Top = 152
   end
   object ppImprimir: TPopupMenu
     Left = 256
@@ -5681,8 +5521,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   end
   object dtsTpReceita: TDataSource
     DataSet = fdQryTipoReceita
-    Left = 856
-    Top = 344
+    Left = 840
+    Top = 184
   end
   object FrReciboA4: TfrxReport
     Version = '5.1.9'
@@ -6216,8 +6056,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       'from TBTPDESPESA t'
       'where (t.ativo = :ativo) or (:todos = 1)'
       'order by t.tipodesp')
-    Left = 824
-    Top = 312
+    Left = 808
+    Top = 152
     ParamData = <
       item
         Name = 'ATIVO'
@@ -6241,8 +6081,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       'where (t.ativo = :ativo) or (:todos = 1)'
       'order by t.tiporec'
       '')
-    Left = 824
-    Top = 344
+    Left = 808
+    Top = 184
     ParamData = <
       item
         Name = 'ATIVO'
@@ -6255,5 +6095,170 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         DataType = ftInteger
         ParamType = ptInput
       end>
+  end
+  object fdQrySaldosDias: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    s.Saldo_anterior_data'
+      '  , s.Saldo_anterior_valor'
+      '  , s.Saldo_inicial_data'
+      '  , s.Saldo_inicial_valor'
+      '  , s.Saldo_final_data'
+      '  , s.Saldo_final_valor'
+      
+        'from GET_CONTA_CORRENTE_SALDO(:Conta, :DataInicial, :DataFinal) ' +
+        's')
+    Left = 1000
+    Top = 280
+    ParamData = <
+      item
+        Name = 'CONTA'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATAINICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'DATAFINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+    object fdQrySaldosDiasSALDO_ANTERIOR_DATA: TDateField
+      Alignment = taCenter
+      FieldName = 'SALDO_ANTERIOR_DATA'
+      Origin = 'SALDO_ANTERIOR_DATA'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQrySaldosDiasSALDO_ANTERIOR_VALOR: TBCDField
+      FieldName = 'SALDO_ANTERIOR_VALOR'
+      Origin = 'SALDO_ANTERIOR_VALOR'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQrySaldosDiasSALDO_INICIAL_DATA: TDateField
+      Alignment = taCenter
+      FieldName = 'SALDO_INICIAL_DATA'
+      Origin = 'SALDO_INICIAL_DATA'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQrySaldosDiasSALDO_INICIAL_VALOR: TBCDField
+      FieldName = 'SALDO_INICIAL_VALOR'
+      Origin = 'SALDO_INICIAL_VALOR'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQrySaldosDiasSALDO_FINAL_DATA: TDateField
+      Alignment = taCenter
+      FieldName = 'SALDO_FINAL_DATA'
+      Origin = 'SALDO_FINAL_DATA'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQrySaldosDiasSALDO_FINAL_VALOR: TBCDField
+      FieldName = 'SALDO_FINAL_VALOR'
+      Origin = 'SALDO_FINAL_VALOR'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object fdQryConsolidadoFormaPagto: TFDQuery
+    OnCalcFields = fdQryConsolidadoFormaPagtoCalcFields
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.Data'
+      '  , f.Forma_pagto'
+      '  , f.Forma_pagto_desc'
+      '  , Case when f.Forma_pagto = 0 then f.Saldo else 0 end as Saldo'
+      '  , sum(f.Entrada) as Entrada'
+      '  , sum(f.Saida) as Saida'
+      
+        'from GET_FLUXO_CAIXA(:Conta_Corrente, :Data_Inicial, :Data_Final' +
+        ') f'
+      'group by 1, 2, 3, 4')
+    Left = 1000
+    Top = 312
+    ParamData = <
+      item
+        Name = 'CONTA_CORRENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATA_INICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'DATA_FINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+    object fdQryConsolidadoFormaPagtoDATA: TDateField
+      Alignment = taCenter
+      DisplayLabel = 'Data'
+      FieldName = 'DATA'
+      Origin = '"DATA"'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryConsolidadoFormaPagtoFORMA_PAGTO: TIntegerField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object fdQryConsolidadoFormaPagtoFORMA_PAGTO_DESC: TStringField
+      DisplayLabel = 'Descricao'
+      FieldName = 'FORMA_PAGTO_DESC'
+      Origin = 'FORMA_PAGTO_DESC'
+      Size = 50
+    end
+    object fdQryConsolidadoFormaPagtoSALDO: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Saldo'
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      ProviderFlags = []
+      ReadOnly = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryConsolidadoFormaPagtoENTRADA: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Entradas'
+      FieldName = 'ENTRADA'
+      Origin = 'ENTRADA'
+      ProviderFlags = []
+      ReadOnly = True
+      DisplayFormat = '"+ ",0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryConsolidadoFormaPagtoSAIDA: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Sa'#237'das'
+      FieldName = 'SAIDA'
+      Origin = 'SAIDA'
+      ProviderFlags = []
+      ReadOnly = True
+      DisplayFormat = '"- ",0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryConsolidadoFormaPagtoSaldoDIsplay: TStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'SaldoDisplay'
+    end
   end
 end

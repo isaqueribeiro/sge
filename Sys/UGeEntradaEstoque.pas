@@ -16,10 +16,23 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinOffice2007Green, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinMcSkin;
 
 type
+  TLancamentoEntrada = record
+    Ano      : Smallint;
+    Controle : Integer;
+    Emissao  : TDateTime;
+  end;
+
+  TDocumentoEntrada = record
+    Fornecedor : Integer;
+    Tipo       : Smallint;
+    Numero     : Integer;
+  end;
+
   TfrmGeEntradaEstoque = class(TfrmGrPadraoCadastro)
     dtsEmpresa: TDataSource;
     lblDataHora: TLabel;
@@ -439,6 +452,8 @@ type
     { Public declarations }
     procedure pgcGuiasOnChange; override;
 
+    function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
+
     property TipoMovimento : TTipoMovimentoEntrada read FTipoMovimento write FTipoMovimento;
     property ApenasFinalizadas : Boolean read FApenasFinalizadas write FApenasFinalizadas;
     property RotinaFinalizarID       : String read GetRotinaFinalizarID;
@@ -482,7 +497,7 @@ uses
   UFuncoes, UDMNFe, UGeConsultarLoteNFe_v2,
   {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
   UGeEntradaEstoqueLote, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe,
-  UGeEntradaEstoqueDevolucaoNF;
+  UGeEntradaEstoqueDevolucaoNF, UDMRecursos;
 
 {$R *.dfm}
 
@@ -978,6 +993,59 @@ begin
     end;
 end;
 
+function TfrmGeEntradaEstoque.DocumentoDuplicado(
+  const aEntrada: TLancamentoEntrada;
+  const aDocumento: TDocumentoEntrada): Boolean;
+var
+  aRetorno : Boolean;
+  aSQL : TStringList;
+begin
+  aRetorno := False;
+  aSQL := TStringList.Create;
+  try
+    aSQL.Clear;
+    aSQL.BeginUpdate;
+    aSQL.Add('Select');
+    aSQL.Add('    c.ano');
+    aSQL.Add('  , c.codcontrol');
+    aSQL.Add('  , c.dtemiss');
+    aSQL.Add('  , t.tpd_descricao as tipo');
+    aSQL.Add('from TBCOMPRAS c');
+    aSQL.Add('  left join VW_TIPO_DOCUMENTO_ENTRADA t on (t.tpd_codigo = c.tipo_documento)');
+    aSQL.Add('where (c.status <> 3)');
+    //aSQL.Add('  and ((c.ano        <> ' + IntToStr(aEntrada.Ano) + ')');
+    aSQL.Add('  and ((c.ano         = ' + IntToStr(aEntrada.Ano) + ')');
+    aSQL.Add('  and  (c.codcontrol <> ' + IntToStr(aEntrada.Controle) + '))');
+    aSQL.Add('  and ((c.codforn        = ' + IntToStr(aDocumento.Fornecedor) + ')');
+    aSQL.Add('  and  (c.tipo_documento = ' + IntToStr(aDocumento.Tipo)       + ')');
+    aSQL.Add('  and  (c.nf             = ' + IntToStr(aDocumento.Numero)     + '))');
+    aSQL.EndUpdate;
+
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.AddStrings(aSQL);
+      OpenOrExecute;
+      aRetorno := (RecordCount > 0);
+
+      if aRetorno then
+        ShowWarning(
+          'Documento ' + QuotedStr(Trim(FieldByName('tipo').AsString)) + ' já lançado.' + #13#13 +
+          'Favor pesquisar o lançamento ' +
+            FormatFloat('###0000000', FieldByName('codcontrol').AsInteger) + '/' +
+            FormatFloat('0000', FieldByName('ano').AsInteger) + ' com emissão em ' +
+            FormatDateTime('dd/mm/yyyy', FieldByName('dtemiss').AsDateTime));
+    end;
+  finally
+    aSQL.Free;
+    if DMBusiness.fdQryBusca.Active then
+      DMBusiness.fdQryBusca.Close;
+
+    Result := aRetorno;
+  end;
+end;
+
 procedure TfrmGeEntradaEstoque.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
@@ -1334,6 +1402,9 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.btbtnSalvarClick(Sender: TObject);
+var
+  aEntrada   : TLancamentoEntrada;
+  aDocumento : TDocumentoEntrada;
 begin
   if ( cdsTabelaItens.IsEmpty ) then
     ShowWarning('Favor informar o(s) ' + IfThen(FTipoMovimento = tmeProduto, 'produto(s)', 'serviço(s)') + ' da entrada.')
@@ -1348,18 +1419,27 @@ begin
     IbDtstTabelaNF.Required      := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NOTA_FISCAL, TIPO_DOCUMENTO_ENTRADA_CUPOM, TIPO_DOCUMENTO_ENTRADA_NFE, TIPO_DOCUMENTO_ENTRADA_NFCE, TIPO_DOCUMENTO_ENTRADA_NFSE, TIPO_DOCUMENTO_ENTRADA_CTE]);
     IbDtstTabelaNFSERIE.Required := (IbDtstTabelaTIPO_DOCUMENTO.AsInteger in [TIPO_DOCUMENTO_ENTRADA_NOTA_FISCAL, TIPO_DOCUMENTO_ENTRADA_NFE, TIPO_DOCUMENTO_ENTRADA_NFCE]) and (TTipoMovimentoEntrada(IbDtstTabelaTIPO_MOVIMENTO.AsInteger) = tmeProduto);
 
-    inherited;
+    aEntrada.Ano      := IbDtstTabelaANO.AsInteger;
+    aEntrada.Controle := IbDtstTabelaCODCONTROL.AsInteger;
+    aDocumento.Fornecedor := IbDtstTabelaCODFORN.AsInteger;
+    aDocumento.Tipo       := IbDtstTabelaTIPO_DOCUMENTO.AsInteger;
+    aDocumento.Numero     := IbDtstTabelaNF.AsInteger;
 
-    if ( not OcorreuErro ) then
+    if not DocumentoDuplicado(aEntrada, aDocumento) then
     begin
-      if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-        cdsTabelaItens.Post;
+      inherited;
 
-      cdsTabelaItens.ApplyUpdates;
-      CommitTransaction;
+      if ( not OcorreuErro ) then
+      begin
+        if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+          cdsTabelaItens.Post;
+
+        cdsTabelaItens.ApplyUpdates;
+        CommitTransaction;
+      end;
+
+      HabilitarDesabilitar_Btns;
     end;
-
-    HabilitarDesabilitar_Btns;
   end;
 end;
 
@@ -1568,11 +1648,22 @@ end;
 procedure TfrmGeEntradaEstoque.btbtnFinalizarClick(Sender: TObject);
 var
   aGerarTitulos : Boolean;
+  aEntrada      : TLancamentoEntrada;
+  aDocumento    : TDocumentoEntrada;
 begin
   if ( IbDtstTabela.IsEmpty ) then
-    Exit;
+    Abort;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
+    Abort;
+
+  aEntrada.Ano      := IbDtstTabelaANO.AsInteger;
+  aEntrada.Controle := IbDtstTabelaCODCONTROL.AsInteger;
+  aDocumento.Fornecedor := IbDtstTabelaCODFORN.AsInteger;
+  aDocumento.Tipo       := IbDtstTabelaTIPO_DOCUMENTO.AsInteger;
+  aDocumento.Numero     := IbDtstTabelaNF.AsInteger;
+
+  if DocumentoDuplicado(aEntrada, aDocumento) then
     Abort;
 
   RecarregarRegistro;

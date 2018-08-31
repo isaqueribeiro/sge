@@ -26,8 +26,6 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     ExplicitWidth = 741
     ExplicitHeight = 365
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel4: TBevel
@@ -160,7 +158,6 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
         Align = alTop
         Caption = 'Classifica'#231#227'o Cont'#225'bil'
         TabOrder = 1
-        ExplicitTop = 168
         object lblPlanoContas: TLabel
           Left = 223
           Top = 18
@@ -280,8 +277,6 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
         Align = alTop
         Caption = 'Par'#226'metros'
         TabOrder = 2
-        ExplicitLeft = 6
-        ExplicitTop = 259
         object dbTipoParticular: TDBCheckBox
           Left = 16
           Top = 26
@@ -321,6 +316,9 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     inherited bvlTool4: TBevel
       Left = 737
       ExplicitLeft = 737
+    end
+    inherited btbtnLista: TcxButton
+      Visible = True
     end
     inherited btbtnFechar: TcxButton
       Left = 662
@@ -452,7 +450,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

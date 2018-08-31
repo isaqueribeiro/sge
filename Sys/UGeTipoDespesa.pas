@@ -52,6 +52,7 @@ type
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btbtnListaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -79,7 +80,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGePlanoContas;
+  UDMBusiness, UConstantesDGE, UGePlanoContas, UDMNFe;
 
 {$R *.dfm}
 
@@ -136,6 +137,12 @@ begin
   inherited;
   IbDtstTabelaTIPODESP.AsString             := Trim(IbDtstTabelaTIPODESP.AsString);
   IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
+end;
+
+procedure TfrmGeTipoDespesa.btbtnListaClick(Sender: TObject);
+begin
+  inherited;
+  DMNFe.frrListaTipoDespesa.ShowReport;
 end;
 
 procedure TfrmGeTipoDespesa.dbgDadosDrawColumnCell(Sender: TObject;

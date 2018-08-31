@@ -16,7 +16,9 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeTipoReceita = class(TfrmGrPadraoCadastro)
@@ -49,6 +51,7 @@ type
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btbtnListaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,7 +79,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGePlanoContas;
+  UDMBusiness, UConstantesDGE, UGePlanoContas, UDMNFe;
 
 {$R *.dfm}
 
@@ -133,6 +136,12 @@ begin
   inherited;
   IbDtstTabelaTIPOREC.AsString              := Trim(IbDtstTabelaTIPOREC.AsString);
   IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
+end;
+
+procedure TfrmGeTipoReceita.btbtnListaClick(Sender: TObject);
+begin
+  inherited;
+  DMNFe.frrListaTipoReceita.ShowReport;
 end;
 
 procedure TfrmGeTipoReceita.dbgDadosDrawColumnCell(Sender: TObject;

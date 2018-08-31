@@ -118,6 +118,8 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel8: TBevel
@@ -1075,7 +1077,6 @@ inherited frmGeFuncionario: TfrmGeFuncionario
             Align = alLeft
             Caption = 'Controles de acessos'
             TabOrder = 1
-            ExplicitLeft = 194
             object lblUsuario: TLabel
               Left = 18
               Top = 21
@@ -1647,7 +1648,7 @@ inherited frmGeFuncionario: TfrmGeFuncionario
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

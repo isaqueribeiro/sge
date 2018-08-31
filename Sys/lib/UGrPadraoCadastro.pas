@@ -14,10 +14,9 @@ uses
   DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, cxButtons,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
@@ -509,8 +508,13 @@ begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  FiltarDados;
-  CentralizarCodigo;  
+  WaitAMoment(WAIT_AMOMENT_LoadData);
+  try
+    FiltarDados;
+    CentralizarCodigo;
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TfrmGrPadraoCadastro.edtFiltrarKeyDown(Sender: TObject; var Key: Word;

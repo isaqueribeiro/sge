@@ -17,7 +17,9 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeFluxoCaixa = class(TfrmGrPadraoCadastro)
@@ -57,7 +59,6 @@ type
     IbDtstTabelaTITULO: TIBStringField;
     IbDtstTabelaCOMPRA: TIBStringField;
     IbDtstTabelaDUPLICATA: TIBStringField;
-    qrySaldosDias: TIBQuery;
     dtsSaldosDias: TDataSource;
     pnlSaldosDias: TPanel;
     Panel1: TPanel;
@@ -79,12 +80,6 @@ type
     Bevel12: TBevel;
     dbLSaldoAnterior: TDBText;
     Bevel13: TBevel;
-    qrySaldosDiasSALDO_ANTERIOR_DATA: TDateField;
-    qrySaldosDiasSALDO_ANTERIOR_VALOR: TIBBCDField;
-    qrySaldosDiasSALDO_INICIAL_DATA: TDateField;
-    qrySaldosDiasSALDO_INICIAL_VALOR: TIBBCDField;
-    qrySaldosDiasSALDO_FINAL_DATA: TDateField;
-    qrySaldosDiasSALDO_FINAL_VALOR: TIBBCDField;
     Bevel14: TBevel;
     Bevel15: TBevel;
     Bevel16: TBevel;
@@ -128,21 +123,13 @@ type
     IbDtstTabelaSITUACAO_CAIXA: TSmallintField;
     IbDtstTabelaDATA_FECH: TDateField;
     IbDtstTabelaDATA_CANCEL: TDateField;
-    qryConsolidadoFormaPagto: TIBQuery;
     dtsConsolidadoFormaPagto: TDataSource;
-    qryConsolidadoFormaPagtoDATA: TDateField;
-    qryConsolidadoFormaPagtoFORMA_PAGTO_DESC: TIBStringField;
-    qryConsolidadoFormaPagtoSALDO: TIBBCDField;
-    qryConsolidadoFormaPagtoENTRADA: TIBBCDField;
-    qryConsolidadoFormaPagtoSAIDA: TIBBCDField;
     Panel6: TPanel;
-    DBText1: TDBText;
+    dbtDESCRICAO_FULL: TDBText;
     Bevel19: TBevel;
     Bevel20: TBevel;
     Panel7: TPanel;
     dbgConsolidadoFormaPagto: TDBGrid;
-    qryConsolidadoFormaPagtoSaldoDisplay: TStringField;
-    qryConsolidadoFormaPagtoFORMA_PAGTO: TIntegerField;
     qryFluxoSintetico: TIBQuery;
     frdFluxoSintetico: TfrxDBDataset;
     frdFluxoAnalitico: TfrxDBDataset;
@@ -219,6 +206,21 @@ type
     fdQryTipoMovimento: TFDQuery;
     fdQryTipoDespesa: TFDQuery;
     fdQryTipoReceita: TFDQuery;
+    fdQrySaldosDias: TFDQuery;
+    fdQrySaldosDiasSALDO_ANTERIOR_DATA: TDateField;
+    fdQrySaldosDiasSALDO_ANTERIOR_VALOR: TBCDField;
+    fdQrySaldosDiasSALDO_INICIAL_DATA: TDateField;
+    fdQrySaldosDiasSALDO_INICIAL_VALOR: TBCDField;
+    fdQrySaldosDiasSALDO_FINAL_DATA: TDateField;
+    fdQrySaldosDiasSALDO_FINAL_VALOR: TBCDField;
+    fdQryConsolidadoFormaPagto: TFDQuery;
+    fdQryConsolidadoFormaPagtoDATA: TDateField;
+    fdQryConsolidadoFormaPagtoFORMA_PAGTO: TIntegerField;
+    fdQryConsolidadoFormaPagtoFORMA_PAGTO_DESC: TStringField;
+    fdQryConsolidadoFormaPagtoSALDO: TBCDField;
+    fdQryConsolidadoFormaPagtoENTRADA: TBCDField;
+    fdQryConsolidadoFormaPagtoSAIDA: TBCDField;
+    fdQryConsolidadoFormaPagtoSaldoDIsplay: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -235,7 +237,6 @@ type
     procedure ControlEditExit(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
-    procedure qryConsolidadoFormaPagtoCalcFields(DataSet: TDataSet);
     procedure btbtnListaClick(Sender: TObject);
     procedure frrFluxoAnaliticoGetValue(const VarName: String;
       var Value: Variant);
@@ -247,6 +248,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnRecalcularSaldoClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
+    procedure fdQryConsolidadoFormaPagtoCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -411,6 +413,18 @@ begin
     fdQryContaCorrente.Locate('Descricao_FULL', edContaCorrentePesq.Text, []);
 end;
 
+procedure TfrmGeFluxoCaixa.fdQryConsolidadoFormaPagtoCalcFields(
+  DataSet: TDataSet);
+begin
+  if ( fdQryConsolidadoFormaPagtoFORMA_PAGTO.AsInteger > 0 ) then
+    fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := EmptyStr
+  else
+    if ( fdQryConsolidadoFormaPagtoSALDO.AsCurrency >= 0 ) then
+      fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat(',0.00', fdQryConsolidadoFormaPagtoSALDO.AsCurrency)
+    else
+      fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat('"- ",0.00', fdQryConsolidadoFormaPagtoSALDO.AsCurrency);
+end;
+
 procedure TfrmGeFluxoCaixa.btnFiltrarClick(Sender: TObject);
 var
   aData : TDateTime;
@@ -510,7 +524,7 @@ begin
   dbLSaldoFinal.Visible := (e1Data.Date <> e2Data.Date);
   BvSaldoFinal.Visible  := (e1Data.Date <> e2Data.Date);
 
-  with qrySaldosDias do
+  with fdQrySaldosDias do
   begin
     Close;
     ParamByName('Conta').AsInteger    := fdQryContaCorrente.FieldByName('codigo').AsInteger;
@@ -519,7 +533,7 @@ begin
     Open;
   end;
 
-  with qryConsolidadoFormaPagto do
+  with fdQryConsolidadoFormaPagto do
   begin
     Close;
     ParamByName('Conta_Corrente').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
@@ -874,18 +888,6 @@ begin
     Exit;
 
   inherited;
-end;
-
-procedure TfrmGeFluxoCaixa.qryConsolidadoFormaPagtoCalcFields(
-  DataSet: TDataSet);
-begin
-  if ( qryConsolidadoFormaPagtoFORMA_PAGTO.AsInteger > 0 ) then
-    qryConsolidadoFormaPagtoSaldoDisplay.AsString := EmptyStr
-  else
-    if ( qryConsolidadoFormaPagtoSALDO.AsCurrency >= 0 ) then
-      qryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat(',0.00', qryConsolidadoFormaPagtoSALDO.AsCurrency)
-    else
-      qryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat('"- ",0.00', qryConsolidadoFormaPagtoSALDO.AsCurrency);  
 end;
 
 procedure TfrmGeFluxoCaixa.RegistrarNovaRotinaSistema;
