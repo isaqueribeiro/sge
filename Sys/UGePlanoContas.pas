@@ -18,6 +18,15 @@ uses
 
 type
   TTipoPlanoConta = (tpNull = -1, tpAgrupador = 0, tpLancamento = 1);
+  TPlanoConta = record
+    Codigo         : Integer;
+    CodigoContabil ,
+    Descricao      ,
+    Empresa        ,
+    RazaoSocial    ,
+    Fantasia       : String;
+  end;
+
   TfrmGePlanoContas = class(TfrmGrPadraoCadastro)
     lblDescricaoResumida: TLabel;
     dbDescricaoResumida: TDBEdit;
@@ -60,8 +69,9 @@ type
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblRegistroDesativado: TLabel;
-    IbDtstTabelaRZSOC: TIBStringField;
     chkPlanoContaAtivo: TCheckBox;
+    IbDtstTabelaRAZAO: TIBStringField;
+    IbDtstTabelaFANTASIA: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
@@ -96,7 +106,10 @@ var
 
   function SelecionarPlanoConta(const AOwner : TComponent;
     const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
-    const aEmpresa : String; var Codigo : Integer; var Descricao : String) : Boolean;
+    const aEmpresa : String; var Codigo : Integer; var Descricao : String) : Boolean; overload;
+  function SelecionarPlanoConta(const AOwner : TComponent;
+    const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
+    const aEmpresa : String; var aPlanoConta : TPlanoConta) : Boolean; overload;
 
 implementation
 
@@ -108,28 +121,75 @@ function SelecionarPlanoConta(const AOwner : TComponent;
   const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
   const aEmpresa : String; var Codigo : Integer; var Descricao : String) : Boolean;
 var
-  AForm : TfrmGePlanoContas;
-  sEmpresa : String;
+  AForm  : TfrmGePlanoContas;
+  sWhere : String;
 begin
   AForm := TfrmGePlanoContas.Create(AOwner);
   try
-    sEmpresa := '(p.situacao = 1) and (p.empresa is null)';
+    sWhere := '(p.situacao = 1)';
     if (Trim(aEmpresa) <> EmptyStr) then
-      sEmpresa := '(' + sEmpresa + ' or (p.empresa = ' + QuotedStr(aEmpresa) + '))';
+      sWhere := sWhere + ' and ((p.empresa is null) or (p.empresa = ' + QuotedStr(aEmpresa) + '))';
 
     if ( Exercicio = 0 ) then
-      AForm.WhereAdditional := sEmpresa + ' and (p.exercicio = 0)'
+      AForm.WhereAdditional := sWhere + ' and (p.exercicio = 0)'
     else
-      AForm.WhereAdditional := sEmpresa + ' and (p.exercicio = ' + IntToStr(Exercicio) + ')';
+      AForm.WhereAdditional := sWhere + ' and (p.exercicio = ' + IntToStr(Exercicio) + ')';
 
     if ( TipoPlanoConta <> tpNull ) then
       AForm.WhereAdditional := AForm.WhereAdditional + ' and (p.tipo = ' + IntToStr(Ord(TipoPlanoConta)) + ')';
 
     AForm.chkPlanoContaAtivo.Checked := True;
     AForm.chkPlanoContaAtivo.Enabled := False;
+    AForm.DisableCadastro;
     AForm.FiltarDados;
 
     Result := AForm.SelecionarRegistro(Codigo, Descricao, AForm.WhereAdditional);
+  finally
+    AForm.Free;
+  end;
+end;
+
+function SelecionarPlanoConta(const AOwner : TComponent;
+  const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
+  const aEmpresa : String; var aPlanoConta : TPlanoConta) : Boolean;
+var
+  AForm  : TfrmGePlanoContas;
+  aCodigo   : Integer;
+  aDescricao,
+  sWhere    : String;
+begin
+  AForm := TfrmGePlanoContas.Create(AOwner);
+  try
+    sWhere := '(p.situacao = 1)';
+    if (Trim(aEmpresa) <> EmptyStr) then
+      sWhere := sWhere + ' and ((p.empresa is null) or (p.empresa = ' + QuotedStr(aEmpresa) + '))';
+
+    if ( Exercicio = 0 ) then
+      AForm.WhereAdditional := sWhere + ' and (p.exercicio = 0)'
+    else
+      AForm.WhereAdditional := sWhere + ' and (p.exercicio = ' + IntToStr(Exercicio) + ')';
+
+    if ( TipoPlanoConta <> tpNull ) then
+      AForm.WhereAdditional := AForm.WhereAdditional + ' and (p.tipo = ' + IntToStr(Ord(TipoPlanoConta)) + ')';
+
+    AForm.chkPlanoContaAtivo.Checked := True;
+    AForm.chkPlanoContaAtivo.Enabled := False;
+    AForm.DisableCadastro;
+    AForm.FiltarDados;
+
+    aCodigo    := 0;
+    aDescricao := EmptyStr;
+
+    Result := AForm.SelecionarRegistro(aCodigo, aDescricao, AForm.WhereAdditional);
+    if Result then
+    begin
+      aPlanoConta.Codigo         := aCodigo;
+      aPlanoConta.Descricao      := aDescricao;
+      aPlanoConta.CodigoContabil := Trim(AForm.DtSrcTabela.DataSet.FieldByName('codigo_contabil').AsString);
+      aPlanoConta.Empresa        := Trim(AForm.DtSrcTabela.DataSet.FieldByName('empresa').AsString);
+      aPlanoConta.RazaoSocial    := Trim(AForm.DtSrcTabela.DataSet.FieldByName('razao').AsString);
+      aPlanoConta.Fantasia       := Trim(AForm.DtSrcTabela.DataSet.FieldByName('fantasia').AsString);
+    end;
   finally
     AForm.Free;
   end;
@@ -145,8 +205,8 @@ begin
   DisplayFormatCodigo := '0000';
 
   NomeTabela         := 'TBPLANO_CONTA';
-  CampoCodigo        := 'codigo';
-  CampoDescricao     := 'descricao_resumida';
+  CampoCodigo        := 'p.codigo';
+  CampoDescricao     := 'p.descricao_resumida';
   CampoOrdenacao     := 'p.codigo_contabil, p.descricao_resumida';
   CampoCadastroAtivo := 'situacao';
   UpdateGenerator;
@@ -197,12 +257,19 @@ end;
 
 procedure TfrmGePlanoContas.btnFiltrarClick(Sender: TObject);
 var
+  sWhere ,
   sAtivo : String;
 begin
   if chkPlanoContaAtivo.Checked then
     sAtivo := '(p.situacao = 1)'
   else
     sAtivo := EmptyStr;
+
+  sWhere := StringReplace(WhereAdditional, '(p.situacao = 1) and ', '', []);
+  sWhere := StringReplace(sWhere, ' and (p.situacao = 1)', '', []);
+  sWhere := StringReplace(sWhere, '(p.situacao = 1)', '', []);
+
+  WhereAdditional := sWhere;
 
   if (sAtivo <> EmptyStr) then
     if (WhereAdditional = EmptyStr) then

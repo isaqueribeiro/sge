@@ -1,42 +1,44 @@
 inherited frmGeTipoReceita: TfrmGeTipoReceita
   Left = 390
   Caption = 'Cadastro de Tipos de Receita'
-  ClientHeight = 437
+  ClientHeight = 459
   ClientWidth = 741
   OldCreateOrder = True
   ExplicitWidth = 757
-  ExplicitHeight = 476
+  ExplicitHeight = 498
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 433
+    Top = 455
     Width = 741
     ExplicitTop = 405
     ExplicitWidth = 741
   end
   inherited Bevel3: TBevel
-    Top = 394
+    Top = 416
     Width = 741
     ExplicitTop = 366
     ExplicitWidth = 741
   end
   inherited pgcGuias: TPageControl
     Width = 741
-    Height = 394
+    Height = 416
     ExplicitWidth = 741
-    ExplicitHeight = 365
+    ExplicitHeight = 416
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 733
-      ExplicitHeight = 336
+      ExplicitHeight = 365
       inherited Bevel4: TBevel
-        Top = 299
+        Top = 321
         Width = 733
         ExplicitTop = 271
         ExplicitWidth = 733
       end
       inherited dbgDados: TDBGrid
         Width = 733
-        Height = 299
+        Height = 321
         Columns = <
           item
             Expanded = False
@@ -65,10 +67,24 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 303
+        Top = 325
         Width = 733
-        ExplicitTop = 274
+        ExplicitTop = 303
         ExplicitWidth = 733
+        object lblRegistroDesativado: TLabel [0]
+          Left = 2
+          Top = 44
+          Width = 181
+          Height = 13
+          Caption = '* Tipos de Receitas desativados'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 7303023
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
         inherited grpBxFiltro: TGroupBox
           Left = 439
           Width = 290
@@ -99,7 +115,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     end
     inherited tbsCadastro: TTabSheet
       ExplicitWidth = 733
-      ExplicitHeight = 336
+      ExplicitHeight = 387
       inherited Bevel8: TBevel
         Top = 166
         Width = 733
@@ -256,7 +272,6 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           ReadOnly = True
           ShowHint = True
           TabOrder = 1
-          OnButtonClick = dbPlanoContasButtonClick
         end
         object dbClassificacao: TDBLookupComboBox
           Left = 16
@@ -311,12 +326,130 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           ValueUnchecked = '0'
         end
       end
+      object GrpBxPlanoConta: TGroupBox
+        Left = 0
+        Top = 253
+        Width = 733
+        Height = 134
+        Align = alClient
+        Caption = 'Planos de Contas'
+        TabOrder = 3
+        object PnlPlanoContaBtn: TPanel
+          AlignWithMargins = True
+          Left = 5
+          Top = 18
+          Width = 33
+          Height = 111
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 0
+          object Bevel7: TBevel
+            Left = 0
+            Top = 33
+            Width = 33
+            Height = 4
+            Align = alTop
+            Shape = bsSpacer
+            Visible = False
+            ExplicitTop = 366
+            ExplicitWidth = 741
+          end
+          object BtnPlanoAdicionar: TcxButton
+            Tag = 1
+            Left = 0
+            Top = 0
+            Width = 33
+            Height = 33
+            Hint = 'Incluir Plano de Contas'#13#10'(Ctrl + Ins)'
+            Align = alTop
+            Enabled = False
+            OptionsImage.ImageIndex = 6
+            OptionsImage.Images = DMRecursos.ImgBotoes16x16
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            OnClick = BtnPlanoAdicionarClick
+          end
+          object BtnPlanoExcluir: TcxButton
+            Tag = 1
+            Left = 0
+            Top = 37
+            Width = 33
+            Height = 33
+            Hint = 'Excluir Plano de Contas'#13#10'(Ctrl + Delete)'
+            Align = alTop
+            Enabled = False
+            OptionsImage.ImageIndex = 4
+            OptionsImage.Images = DMRecursos.ImgBotoes16x16
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 1
+            Visible = False
+          end
+        end
+        object dbgPlanoContas: TDBGrid
+          AlignWithMargins = True
+          Left = 44
+          Top = 18
+          Width = 684
+          Height = 111
+          Hint = 
+            'Dica:'#13#10#13#10'Pressione a tecla "Espa'#231'o" para marcar o desmarcar o Pl' +
+            'ano de Contas'#13#10'selecionado. E atente para o fato de que o plano ' +
+            'de contas marcado est'#225#13#10'relacionado a empresa em quest'#227'o.'
+          Align = alClient
+          BorderStyle = bsNone
+          DataSource = dtsPlanoConta
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 1
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clBlack
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = [fsBold]
+          OnDrawColumnCell = dbgDadosDrawColumnCell
+          OnDblClick = dbgPlanoContasDblClick
+          OnKeyDown = dbgPlanoContasKeyDown
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'SELECIONAR'
+              Title.Alignment = taCenter
+              Title.Caption = 'S'
+              Width = 25
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PLANO_CONTA'
+              Title.Caption = 'Plano de Contas'
+              Width = 370
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'EMPRESA_RAZAO'
+              Title.Caption = 'Empresa'
+              Width = 250
+              Visible = True
+            end>
+        end
+      end
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 398
+    Top = 420
     Width = 741
-    ExplicitTop = 369
+    ExplicitTop = 420
     ExplicitWidth = 741
     inherited bvlTool3: TBevel
       Left = 658
@@ -339,6 +472,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     end
   end
   inherited IbDtstTabela: TIBDataSet
+    AfterScroll = IbDtstTabelaAfterScroll
     BeforePost = IbDtstTabelaBeforePost
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
@@ -356,7 +490,10 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
         '  , coalesce(nullif(trim(p.codigo_contabil), '#39#39') || '#39' - '#39', '#39#39') |' +
         '| p.descricao_resumida as descricao_resumida'
       'from TBTPRECEITA t'
-      '  left join TBPLANO_CONTA p on (p.codigo = t.plano_conta)')
+      
+        '  left join TBTPRECEITA_PLANO x on (x.receita = t.cod and x.empr' +
+        'esa = :empresa)'
+      '  left join TBPLANO_CONTA p on (p.codigo = x.plano)')
     Left = 600
     Top = 112
     object IbDtstTabelaCOD: TSmallintField
@@ -459,7 +596,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1935,6 +2072,110 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
   object DtsClassificacao: TDataSource
     DataSet = fdQryClassificacao
     Left = 656
+    Top = 224
+  end
+  object fdQryPlanoConta: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.receita'
+      '  , r.plano'
+      '  , r.empresa'
+      '  , r.selecionar'
+      '  , p.codigo_contabil'
+      '  , p.descricao_resumida'
+      
+        '  , p.codigo_contabil || '#39' - '#39' || p.descricao_resumida as plano_' +
+        'conta'
+      '  , coalesce(e.rzsoc, '#39'(Todas)'#39') as empresa_razao'
+      '  , coalesce(e.nmfant, '#39'(Todas)'#39') as empresa_fantasia'
+      'from TBTPRECEITA_PLANO r'
+      '  left join TBPLANO_CONTA p on (p.codigo = r.plano)'
+      
+        '  left join TBEMPRESA e on (e.cnpj = coalesce(r.empresa, p.empre' +
+        'sa))'
+      ''
+      'where r.receita = :receita'
+      ''
+      'order by'
+      '    p.codigo_contabil'
+      '  , p.descricao_resumida')
+    Left = 232
+    Top = 224
+    ParamData = <
+      item
+        Position = 1
+        Name = 'RECEITA'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+  end
+  object dspPlanoConta: TDataSetProvider
+    DataSet = fdQryPlanoConta
+    Left = 264
+    Top = 224
+  end
+  object cdsPlanoConta: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'RECEITA'
+        ParamType = ptInput
+      end>
+    ProviderName = 'dspPlanoConta'
+    Left = 296
+    Top = 224
+    object cdsPlanoContaRECEITA: TSmallintField
+      FieldName = 'RECEITA'
+      Required = True
+    end
+    object cdsPlanoContaPLANO: TIntegerField
+      FieldName = 'PLANO'
+      Required = True
+    end
+    object cdsPlanoContaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Size = 18
+    end
+    object cdsPlanoContaSELECIONAR: TSmallintField
+      Alignment = taCenter
+      FieldName = 'SELECIONAR'
+      Required = True
+      OnGetText = cdsPlanoContaSELECIONARGetText
+    end
+    object cdsPlanoContaCODIGO_CONTABIL: TStringField
+      FieldName = 'CODIGO_CONTABIL'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsPlanoContaDESCRICAO_RESUMIDA: TStringField
+      FieldName = 'DESCRICAO_RESUMIDA'
+      ProviderFlags = []
+      Size = 100
+    end
+    object cdsPlanoContaPLANO_CONTA: TStringField
+      FieldName = 'PLANO_CONTA'
+      ProviderFlags = []
+      Size = 133
+    end
+    object cdsPlanoContaEMPRESA_RAZAO: TStringField
+      FieldName = 'EMPRESA_RAZAO'
+      ProviderFlags = []
+      Size = 60
+    end
+    object cdsPlanoContaEMPRESA_FANTASIA: TStringField
+      FieldName = 'EMPRESA_FANTASIA'
+      ProviderFlags = []
+      Size = 25
+    end
+  end
+  object dtsPlanoConta: TDataSource
+    AutoEdit = False
+    DataSet = cdsPlanoConta
+    Left = 328
     Top = 224
   end
 end

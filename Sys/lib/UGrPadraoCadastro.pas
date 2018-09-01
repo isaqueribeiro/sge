@@ -136,6 +136,7 @@ type
     procedure RegistrarRotinaSistema; override;
     procedure pgcGuiasOnChange; virtual;
     procedure CarregarLista(const pDataSet : TDataSet);
+    procedure DisableCadastro;
   protected
     procedure CentralizarCodigo;
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
@@ -291,6 +292,20 @@ begin
     if Assigned(pgcGuias.OnChange) then
       pgcGuias.OnChange(pgcGuias);
   end;
+end;
+
+procedure TfrmGrPadraoCadastro.DisableCadastro;
+begin
+  if (pgcGuias.ActivePage = tbsCadastro) then
+    pgcGuias.ActivePage := tbsTabela;
+
+  tbsCadastro.TabVisible := False;
+  btbtnIncluir.Visible   := False;
+  btbtnAlterar.Visible   := False;
+  btbtnExcluir.Visible   := False;
+  btbtnCancelar.Visible  := False;
+  btbtnSalvar.Visible    := False;
+  btbtnLista.Visible     := False;
 end;
 
 procedure TfrmGrPadraoCadastro.DtSrcTabelaStateChange(Sender: TObject);

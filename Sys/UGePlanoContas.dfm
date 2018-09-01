@@ -66,7 +66,8 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           end
           item
             Expanded = False
-            FieldName = 'RZSOC'
+            FieldName = 'RAZAO'
+            Title.Caption = 'Empresa'
             Width = 320
             Visible = True
           end
@@ -137,7 +138,6 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitTop = 23
       ExplicitWidth = 788
       ExplicitHeight = 410
       inherited Bevel8: TBevel
@@ -469,7 +469,8 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       '  , p.descricao_completa'
       '  , p.situacao'
       '  , t.descricao as tipo_descricao'
-      '  , coalesce(e.rzsoc, '#39'Todas'#39') as rzsoc'
+      '  , coalesce(e.rzsoc,  '#39'Todas'#39') as razao'
+      '  , coalesce(e.nmfant, '#39'Todas'#39') as fantasia'
       'from TBPLANO_CONTA p'
       '  left join VW_TIPO_PLANO_CONTA t on (t.codigo = p.tipo)'
       '  left join TBEMPRESA e on (e.cnpj = p.empresa)')
@@ -564,12 +565,15 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       FixedChar = True
       Size = 10
     end
-    object IbDtstTabelaRZSOC: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
+    object IbDtstTabelaRAZAO: TIBStringField
+      FieldName = 'RAZAO'
       ProviderFlags = []
       Size = 60
+    end
+    object IbDtstTabelaFANTASIA: TIBStringField
+      FieldName = 'FANTASIA'
+      ProviderFlags = []
+      Size = 25
     end
     object IbDtstTabelaAtivo: TStringField
       Alignment = taCenter
@@ -641,7 +645,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
     Left = 24
     Top = 296
     Bitmap = {
-      494C01012B002C00780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

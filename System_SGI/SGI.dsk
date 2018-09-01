@@ -1,29 +1,26 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGePlanoContas.pas',0,1,106,47,129,0,0,,
-File_1=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas',0,1,1,1,30,0,0,,
-File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFormaPagto.pas',0,1,1,51,20,0,0,,
+File_0=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGePlanoContas.pas',0,1,258,1,268,0,0,,
+File_1=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFormaPagto.pas',0,1,119,109,121,0,0,,
+File_2=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas',0,1,1,1,30,0,0,,
 File_3=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas',0,1,1,1,1,0,0,,
-File_4=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas',0,1,530,1,527,0,0,,
-File_5=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContaCorrente.pas',0,1,106,1,123,0,0,,
-File_6=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeResultadoExercicioImpressao.pas',0,1,26,15,52,0,0,,
-File_7=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarImpressao.pas',0,1,353,1,373,0,0,,{1
-File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAReceberImpressao.pas',0,1,886,1,891,0,0,,
-File_9=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,1005,97,1040,0,0,,{1
-File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGrAguarde.pas',0,1,24,30,48,0,0,,
-File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,1587,85,1615,0,0,,
-File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFuncionario.pas',0,1,187,1,190,0,0,,
-File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas',0,1,518,8,536,0,0,,
-File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeVendaImpressao.pas',0,1,1,43,22,0,0,,
+File_4=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeContaCorrente.pas',0,1,106,1,123,0,0,,
+File_5=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeResultadoExercicioImpressao.pas',0,1,26,15,52,0,0,,
+File_6=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarImpressao.pas',0,1,353,1,373,0,0,,{1
+File_7=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAReceberImpressao.pas',0,1,886,1,891,0,0,,
+File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,1005,97,1040,0,0,,{1
+File_9=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGrAguarde.pas',0,1,24,30,48,0,0,,
+File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,1587,85,1615,0,0,,
+File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFuncionario.pas',0,1,187,1,190,0,0,,
 
 [Modules]
 Module0=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoReceita.pas
-Module2=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoDespesa.pas
-Module3=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-Module4=default.htm
-Module5=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module7=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module1=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module2=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoReceita.pas
+Module3=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoDespesa.pas
+Module4=D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module5=default.htm
+Module6=D:\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module7=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 Module8=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFR.pas
 Module9=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 Module10=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeConfiguracoes.pas
@@ -46,15 +43,20 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoReceita.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=1
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoReceita.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoDespesa.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
+FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
@@ -68,11 +70,6 @@ ModuleType=TURLModule
 ModuleType=TBaseProject
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -147,15 +144,11 @@ ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
-FormState=1
-FormOnTop=0
-
 [D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\System_SGE\lib\UGrPadraoImpressao.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
 FormState=1
 FormOnTop=0
 
@@ -200,9 +193,9 @@ ClientHeight=9068
 DockedToMainForm=1
 BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
-LeftPanelSize=1341
+LeftPanelSize=1608
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000001E11000000000000013D050000000000000100000000550E000009000000446F636B536974653301000000006D1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000001E110000000000000148060000000000000100000000550E000009000000446F636B536974653301000000006D1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=000008000101000000001E11000000000000011D0500000000000001000000004412000009000000446F636B536974653201000000006D1E000009000000446F636B5369746534FFFFFFFF
@@ -429,24 +422,24 @@ EditViewName=Borland.FormDesignerView
 [View20]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoDespesa.pas
-CursorX=24
-CursorY=91
-TopLine=81
+CursorX=1
+CursorY=238
+TopLine=217
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoDespesa.pas
 
 [View21]
 CustomEditViewType=TEditView
 Module=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoReceita.pas
-CursorX=31
-CursorY=118
-TopLine=108
+CursorX=1
+CursorY=237
+TopLine=203
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoReceita.pas
 
 [Watches]
 Count=4
@@ -582,17 +575,17 @@ Docked=1
 State=0
 Left=0
 Top=340
-Width=1341
+Width=1608
 Height=4031
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1341
+ClientWidth=1608
 ClientHeight=4031
 TBDockHeight=6707
-LRDockWidth=1341
+LRDockWidth=1608
 Dockable=1
 StayOnTop=0
-SplitPos=106
+SplitPos=114
 
 [ModelViewTool]
 PercentageSizes=1
@@ -619,7 +612,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-103
+Left=-123
 Top=-100
 Width=1842
 Height=3148
@@ -928,11 +921,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1341
+Width=1608
 Height=3511
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1341
+ClientWidth=1608
 ClientHeight=3511
 TBDockHeight=3680
 LRDockWidth=1895
@@ -1043,14 +1036,14 @@ Docked=1
 State=0
 Left=0
 Top=23
-Width=1341
+Width=1608
 Height=3511
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1341
+ClientWidth=1608
 ClientHeight=3511
 TBDockHeight=6707
-LRDockWidth=1341
+LRDockWidth=1608
 Dockable=1
 StayOnTop=0
 TabPosition=1

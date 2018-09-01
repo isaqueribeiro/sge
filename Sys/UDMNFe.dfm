@@ -38927,13 +38927,24 @@ object DMNFe: TDMNFe
       
         '  left join VW_CLASSIFICAO_DESPESA c on (c.tpe_codigo = d.classi' +
         'ficacao)'
-      '  left join TBPLANO_CONTA p on (p.codigo = d.plano_conta)'
+      
+        '  left join TBTPDESPESA_PLANO x on (x.despesa = d.cod and x.empr' +
+        'esa = :empresa)'
+      '  left join TBPLANO_CONTA p on (p.codigo = x.plano)'
       ''
       'order by'
       '    d.classificacao'
       '  , d.tipodesp')
     Left = 784
     Top = 312
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
+      end>
   end
   object frdListaTipoDespesa: TfrxDBDataset
     UserName = 'frdListaTipoDespesa'
@@ -39565,13 +39576,24 @@ object DMNFe: TDMNFe
       
         '  left join VW_CLASSIFICAO_RECEITA c on (c.tpe_codigo = r.classi' +
         'ficacao)'
-      '  left join TBPLANO_CONTA p on (p.codigo = r.plano_conta)'
+      
+        '  left join TBTPRECEITA_PLANO x on (x.receita = r.cod and x.empr' +
+        'esa = :empresa)'
+      '  left join TBPLANO_CONTA p on (p.codigo = x.plano)'
       ''
       'order by'
       '    r.classificacao'
       '  , r.tiporec')
     Left = 784
     Top = 360
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
+      end>
   end
   object frdListaTipoReceita: TfrxDBDataset
     UserName = 'frdListaTipoReceita'
