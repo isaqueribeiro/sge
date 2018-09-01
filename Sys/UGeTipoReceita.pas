@@ -43,6 +43,7 @@ type
     DtsClassificacao: TDataSource;
     lblClassificacao: TLabel;
     dbClassificacao: TDBLookupComboBox;
+    Bevel6: TBevel;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -61,7 +62,9 @@ type
 (*
   Tabelas:
   - TBTPRECEITA
+  - TBTPRECEITA_PLANO
   - TBPLANO_CONTA
+  - TBEMPRESA
 
   Views:
   - VW_CLASSIFICAO_RECEITA
@@ -112,7 +115,7 @@ begin
   inherited;
   RotinaID            := ROTINA_CAD_TIPO_RECEITA_ID;
   ControlFirstEdit    := dbDescricao;
-  DisplayFormatCodigo := '##00';
+  DisplayFormatCodigo := '##000';
   NomeTabela          := 'TBTPRECEITA';
   CampoCodigo         := 'COD';
   CampoDescricao      := 'TIPOREC';
@@ -158,33 +161,33 @@ begin
 end;
 
 procedure TfrmGeTipoReceita.dbPlanoContasButtonClick(Sender: TObject);
-var
-  iCodigo    : Integer;
-  sDescricao : String;
+//var
+//  iCodigo    : Integer;
+//  sDescricao : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarPlanoConta(Self, tpLancamento, 0, iCodigo, sDescricao) ) then
-    begin
-      IbDtstTabelaPLANO_CONTA.AsInteger       := iCodigo;
-      IbDtstTabelaDESCRICAO_RESUMIDA.AsString := sDescricao;
-    end;
+//  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+//    if ( SelecionarPlanoConta(Self, tpLancamento, 0, EmptyStr, iCodigo, sDescricao) ) then
+//    begin
+//      IbDtstTabelaPLANO_CONTA.AsInteger       := iCodigo;
+//      IbDtstTabelaDESCRICAO_RESUMIDA.AsString := sDescricao;
+//    end;
 end;
 
 procedure TfrmGeTipoReceita.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
-  begin
-
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-      if ( dbPlanoContas.Focused ) then
-      begin
-        IbDtstTabelaPLANO_CONTA.Clear;
-        IbDtstTabelaDESCRICAO_RESUMIDA.Clear;
-      end;
-
-  end;
-
+//  if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
+//  begin
+//
+//    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+//      if ( dbPlanoContas.Focused ) then
+//      begin
+//        IbDtstTabelaPLANO_CONTA.Clear;
+//        IbDtstTabelaDESCRICAO_RESUMIDA.Clear;
+//      end;
+//
+//  end;
+//
   inherited;
 end;
 

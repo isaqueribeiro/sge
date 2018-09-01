@@ -1,7 +1,5 @@
 inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
   Caption = 'Relat'#243'rios de Fluxo de Caixa (Movimenta'#231#245'es Tesouraria)'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel

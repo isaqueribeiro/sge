@@ -1,7 +1,5 @@
 inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
   Caption = 'Resultado Exerc'#237'cio'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
@@ -305,6 +303,12 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       item
         Name = 'SubTitulo'
         Value = #39#39
+      end
+      item
+        Name = 'Tipo'
+        Value = 
+          'IIF(<FrdsDemonstResultOper."ID_TIPO">=0,'#39#39',FormatFloat('#39'000" - "' +
+          #39',<FrdsDemonstResultOper."ID_TIPO">))'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -611,7 +615,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
         end
         object Memo7: TfrxMemoView
           Left = 26.456710000000000000
-          Width = 234.330860000000000000
+          Width = 257.008040000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -637,13 +641,13 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Highlight.Frame.RightLine.Width = 0.100000000000000000
           Highlight.Frame.BottomLine.Width = 0.100000000000000000
           Memo.UTF8W = (
-            '[FrdsDemonstResultOper."DESCRICAO"]')
+            '[Tipo][FrdsDemonstResultOper."DESCRICAO"]')
           ParentFont = False
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 260.787570000000000000
-          Width = 260.787570000000000000
+          Left = 283.464750000000000000
+          Width = 238.110390000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -752,8 +756,8 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
         Width = 718.110700000000000000
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
-          Top = 7.559059999999988000
-          Width = 260.787570000000000000
+          Top = 7.559060000000000000
+          Width = 283.464750000000000000
           Height = 37.795300000000000000
           CharSpacing = 2.000000000000000000
           DataSet = DMNFe.frdEmpresa
@@ -818,9 +822,9 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
-          Left = 260.787570000000000000
-          Top = 7.559059999999988000
-          Width = 260.787570000000000000
+          Left = 283.464750000000000000
+          Top = 7.559060000000000000
+          Width = 238.110390000000000000
           Height = 37.795300000000000000
           CharSpacing = 2.000000000000000000
           DataSet = DMNFe.frdEmpresa

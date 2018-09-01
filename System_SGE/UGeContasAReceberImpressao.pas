@@ -15,7 +15,10 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, cxControls, cxContainer, cxEdit,
+  cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
+  cxDBLookupComboBox;
 
 type
   TfrmGeContasAReceberImpressao = class(TfrmGrPadraoImpressao)
@@ -34,8 +37,6 @@ type
     edCompetencia: TComboBox;
     DspCompetencia: TDataSetProvider;
     CdsCompetencia: TClientDataSet;
-    lblCliente: TLabel;
-    edCliente: TComboBox;
     DspCliente: TDataSetProvider;
     CdsCliente: TClientDataSet;
     frRelacaoAReceberESintetico: TfrxReport;
@@ -59,8 +60,6 @@ type
     edEmpresa: TComboBox;
     e1Periodo: TJvDateEdit;
     e2Periodo: TJvDateEdit;
-    lblCidade: TLabel;
-    edCidade: TComboBox;
     frRelacaoAReceberVCidade: TfrxReport;
     QryRelacaoAReceberVCidade: TIBQuery;
     DspRelacaoAReceberVCidade: TDataSetProvider;
@@ -77,6 +76,12 @@ type
     fdQryCliente: TFDQuery;
     frRelacaoExtratoVSintetico: TfrxReport;
     frRelacaoExtratoVAnalitico: TfrxReport;
+    dtsCliente: TDataSource;
+    lblCliente: TLabel;
+    edCliente: TcxLookupComboBox;
+    dtsCidades: TDataSource;
+    lblCidade: TLabel;
+    edCidade: TcxLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -93,8 +98,6 @@ type
     FSQL_RelacaoAReceberBaixaSintet      : TStringList;
     IEmpresa : Array of String;
     ICompetencia : Array of Integer;
-    ICliente     : Array of Integer;
-    ICidade      : Array of Integer;
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
     procedure CarregarCompetencia;
@@ -317,8 +320,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('order by');
@@ -373,8 +376,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -431,8 +434,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('order by');
@@ -487,8 +490,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -577,71 +580,21 @@ begin
 end;
 
 procedure TfrmGeContasAReceberImpressao.CarregarCidades;
-var
-  I : Integer;
 begin
-  with CdsCidades do
+  if not CdsCidades.Active then
   begin
-    Open;
-
-    edCidade.Clear;
-    SetLength(ICidade, RecordCount + 1);
-
-    edCidade.Items.Add('(Todas)');
-    ICidade[0] := 0;
-
-    I := 1;
-
-    while not Eof do
-    begin
-      edCidade.Items.Add( FieldByName('cid_nome').AsString );
-      ICidade[I] := FieldByName('cid_cod').AsInteger;
-
-      Inc(I);
-      Next;
-    end;
-
-    Close;
+    CdsCidades.Open;
+    edCidade.EditValue := 0;
   end;
-
-  edCidade.ItemIndex := 0;
 end;
 
 procedure TfrmGeContasAReceberImpressao.CarregarCliente;
-var
-  I : Integer;
-const
-  NOME_CLINTE = '%s - %s';
 begin
-  with CdsCliente do
+  if not CdsCliente.Active then
   begin
-    Open;
-
-    edCliente.Clear;
-    SetLength(ICliente, RecordCount + 1);
-
-    edCliente.Items.Add('(Todos)');
-    ICliente[0] := 0;
-
-    I := 1;
-
-    while not Eof do
-    begin
-      edCliente.Items.Add( Format(NOME_CLINTE, [
-        IfThen(FieldByName('pessoa_fisica').AsInteger = 1,
-          StrFormatarCpf(FieldByName('cnpj').AsString),
-          StrFormatarCnpj(FieldByName('cnpj').AsString)),
-        FieldByName('nome').AsString]) );
-      ICliente[I] := FieldByName('codigo').AsInteger;
-
-      Inc(I);
-      Next;
-    end;
-
-    Close;
+    CdsCliente.Open;
+    edCliente.EditValue := 0;
   end;
-
-  edCliente.ItemIndex := 0;
 end;
 
 procedure TfrmGeContasAReceberImpressao.MontarRelacaoAReceberPorEmissaoAnalitico;
@@ -676,8 +629,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('order by');
@@ -732,8 +685,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -790,8 +743,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('order by');
@@ -846,8 +799,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -933,8 +886,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCidade.ItemIndex > 0 ) then
-        SQL.Add('  and (cl.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ')');
+      if ( edCidade.ItemIndex > 0 ) and ( VarToStr(edCidade.EditValue) <> '0' ) then
+        SQL.Add('  and (cl.cid_cod = ' + VarToStr(edCidade.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('group by');
@@ -1003,8 +956,8 @@ begin
           SQL.Add('  and (cr.situacao = 0)');
       end;
 
-      if ( edCliente.ItemIndex > 0 ) then
-        SQL.Add('  and (cr.cliente = ' + IntToStr(ICliente[edCliente.ItemIndex]) + ')');
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (cr.cliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       SQL.Add('');
       SQL.Add('group by');

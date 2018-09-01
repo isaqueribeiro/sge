@@ -1,42 +1,42 @@
 inherited frmGeTipoReceita: TfrmGeTipoReceita
   Left = 390
   Caption = 'Cadastro de Tipos de Receita'
-  ClientHeight = 408
+  ClientHeight = 437
   ClientWidth = 741
   OldCreateOrder = True
   ExplicitWidth = 757
-  ExplicitHeight = 447
+  ExplicitHeight = 476
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 404
+    Top = 433
     Width = 741
     ExplicitTop = 405
     ExplicitWidth = 741
   end
   inherited Bevel3: TBevel
-    Top = 365
+    Top = 394
     Width = 741
     ExplicitTop = 366
     ExplicitWidth = 741
   end
   inherited pgcGuias: TPageControl
     Width = 741
-    Height = 365
+    Height = 394
     ExplicitWidth = 741
     ExplicitHeight = 365
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel4: TBevel
-        Top = 270
+        Top = 299
         Width = 733
         ExplicitTop = 271
         ExplicitWidth = 733
       end
       inherited dbgDados: TDBGrid
         Width = 733
-        Height = 270
+        Height = 299
         Columns = <
           item
             Expanded = False
@@ -65,7 +65,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 274
+        Top = 303
         Width = 733
         ExplicitTop = 274
         ExplicitWidth = 733
@@ -98,8 +98,6 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel8: TBevel
@@ -116,6 +114,15 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
         Height = 4
         Align = alTop
         Shape = bsSpacer
+      end
+      object Bevel6: TBevel [2]
+        Left = 0
+        Top = 249
+        Width = 733
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+        ExplicitTop = 318
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 733
@@ -164,6 +171,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           Width = 155
           Height = 13
           Caption = 'Plano de Contas de lan'#231'amento:'
+          Enabled = False
           FocusControl = dbPlanoContas
         end
         object lblClassificacao: TLabel
@@ -185,6 +193,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           Color = clMoneyGreen
           DataField = 'DESCRICAO_RESUMIDA'
           DataSource = DtSrcTabela
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -305,7 +314,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 369
+    Top = 398
     Width = 741
     ExplicitTop = 369
     ExplicitWidth = 741
@@ -450,7 +459,7 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

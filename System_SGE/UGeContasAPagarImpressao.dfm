@@ -11617,6 +11617,31 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVFornecedor'
         RowCount = 0
         Stretched = True
+        object Memo28: TfrxMemoView
+          Left = 83.149660000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
+          Highlight.FillType = ftBrush
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
         object Memo7: TfrxMemoView
           Left = 631.181510000000000000
           Width = 86.929190000000000000
@@ -11785,7 +11810,9 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
-            '[FrdsRelacaoAPagarVFornecedor."FORNECEDOR_NOME"]')
+            
+              '[FrdsRelacaoAPagarVFornecedor."FORNECEDOR_NOME"] ([FrdsRelacaoAP' +
+              'agarVFornecedor."FORNECEDOR_CODIGO"])')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -11814,31 +11841,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.FillType = ftBrush
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarVFornecedor."QUANTIDADE">)] ')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo28: TfrxMemoView
-          Left = 83.149660000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
-          Highlight.FillType = ftBrush
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -12196,8 +12198,8 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         ' from cp.dtvenc),  2) as competencia_vencimento'
       '  , cv.cmp_desc as competencia_vencimento_desc'
       '  , cp.dtvenc'
-      '  , cp.competencia_apuracao'
-      '  , ca.cmp_desc as competencia_apuracao_desc'
+      '  ----, cp.competencia_apuracao'
+      '  ----, ca.cmp_desc as competencia_apuracao_desc'
       '  --, cp.codtpdesp'
       '  --, d.tipodesp'
       '  , cp.situacao'

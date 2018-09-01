@@ -1,42 +1,42 @@
 inherited frmGeTipoDespesa: TfrmGeTipoDespesa
   Left = 390
   Caption = 'Cadastro de Tipos de Despesas'
-  ClientHeight = 408
+  ClientHeight = 437
   ClientWidth = 741
   OldCreateOrder = True
   ExplicitWidth = 757
-  ExplicitHeight = 447
+  ExplicitHeight = 476
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 404
+    Top = 433
     Width = 741
     ExplicitTop = 405
     ExplicitWidth = 741
   end
   inherited Bevel3: TBevel
-    Top = 365
+    Top = 394
     Width = 741
     ExplicitTop = 366
     ExplicitWidth = 741
   end
   inherited pgcGuias: TPageControl
     Width = 741
-    Height = 365
+    Height = 394
     ExplicitWidth = 741
     ExplicitHeight = 365
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel4: TBevel
-        Top = 270
+        Top = 299
         Width = 733
         ExplicitTop = 271
         ExplicitWidth = 733
       end
       inherited dbgDados: TDBGrid
         Width = 733
-        Height = 270
+        Height = 299
         Columns = <
           item
             Expanded = False
@@ -66,7 +66,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 274
+        Top = 303
         Width = 733
         ExplicitTop = 274
         ExplicitWidth = 733
@@ -97,8 +97,6 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel8: TBevel
@@ -115,6 +113,16 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
         Height = 4
         Align = alTop
         Shape = bsSpacer
+      end
+      object Bevel6: TBevel [2]
+        Left = 0
+        Top = 249
+        Width = 733
+        Height = 4
+        Align = alTop
+        Shape = bsSpacer
+        ExplicitLeft = -3
+        ExplicitTop = 294
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 733
@@ -163,6 +171,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
           Width = 155
           Height = 13
           Caption = 'Plano de Contas de lan'#231'amento:'
+          Enabled = False
           FocusControl = dbPlanoContas
         end
         object lblClassificacao: TLabel
@@ -184,6 +193,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
           Color = clMoneyGreen
           DataField = 'DESCRICAO_RESUMIDA'
           DataSource = DtSrcTabela
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -276,6 +286,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
         Align = alTop
         Caption = 'Par'#226'metros'
         TabOrder = 2
+        ExplicitTop = 172
         object dbTipoParticular: TDBCheckBox
           Left = 16
           Top = 26
@@ -304,7 +315,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 369
+    Top = 398
     Width = 741
     ExplicitTop = 369
     ExplicitWidth = 741
@@ -445,7 +456,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1922,5 +1933,90 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
     DataSet = fdQryClassificacao
     Left = 656
     Top = 224
+  end
+  object fdQryPlanoContaLista: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      
+        '--    Case when f.conta_corrente is null then 0 else 1 end as se' +
+        'lecionar'
+      '    f.selecionar'
+      '  , c.codigo'
+      '  , c.descricao'
+      '  , Case c.tipo'
+      '      when 1 then '#39'Caixa'#39
+      '      when 2 then '#39'Banco'#39
+      '    end as tipo'
+      '  , e.rzsoc'
+      'from TBCONTA_CORRENTE c'
+      '  left join TBEMPRESA e on (e.cnpj = c.empresa)'
+      
+        '  left join TBFORMPAGTO_CONTACOR f on (f.conta_corrente = c.codi' +
+        'go and f.forma_pagto = :forma_pagto)'
+      ''
+      'order by'
+      '    c.descricao')
+    Left = 235
+    Top = 224
+    ParamData = <
+      item
+        Position = 1
+        Name = 'FORMA_PAGTO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object dspPlanoContaLista: TDataSetProvider
+    DataSet = fdQryPlanoContaLista
+    Left = 268
+    Top = 225
+  end
+  object cdsPlanoContaLista: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'FORMA_PAGTO'
+        ParamType = ptInput
+      end>
+    ProviderName = 'dspPlanoContaLista'
+    Left = 300
+    Top = 225
+    object cdsPlanoContaListaSELECIONAR: TIntegerField
+      Alignment = taCenter
+      DisplayLabel = 'S'
+      FieldName = 'SELECIONAR'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsPlanoContaListaCODIGO: TIntegerField
+      Alignment = taCenter
+      FieldName = 'CODIGO'
+      Required = True
+      DisplayFormat = '0000'
+    end
+    object cdsPlanoContaListaDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object cdsPlanoContaListaTIPO: TStringField
+      FieldName = 'TIPO'
+      ReadOnly = True
+      FixedChar = True
+      Size = 5
+    end
+    object cdsPlanoContaListaRZSOC: TStringField
+      FieldName = 'RZSOC'
+      ReadOnly = True
+      Size = 60
+    end
+  end
+  object dtsPlanoContaLista: TDataSource
+    DataSet = cdsPlanoContaLista
+    Left = 332
+    Top = 225
   end
 end

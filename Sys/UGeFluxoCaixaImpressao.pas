@@ -17,7 +17,8 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeFluxoCaixaImpressao = class(TfrmGrPadraoImpressao)

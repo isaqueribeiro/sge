@@ -16,10 +16,9 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type
   TfrmGeContasAPagarImpressao = class(TfrmGrPadraoImpressao)
@@ -102,7 +101,7 @@ type
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
     procedure CarregarTipoDespesa;
-    procedure CarregarCliente;
+    procedure CarregarFornecedor;
 
     procedure MontarRelacaoAPagarPorVencimentoSintetico;
     procedure MontarRelacaoAPagarPorVencimentoAnalitico;
@@ -658,10 +657,10 @@ begin
   inherited;
   CarregarEmpresa;
   CarregarTipoDespesa;
-  CarregarCliente;
+  CarregarFornecedor;
 end;
 
-procedure TfrmGeContasAPagarImpressao.CarregarCliente;
+procedure TfrmGeContasAPagarImpressao.CarregarFornecedor;
 begin
   if not CdsFornecedor.Active then
   begin
@@ -1082,6 +1081,7 @@ begin
       SQL.Add('  , fn.nomeforn');
       SQL.Add('  , fn.cnpj');
 
+      SQL.Text := StringReplace(SQL.Text, '----', '', [rfReplaceAll]);
       SQL.SaveToFile('log.sql');
     end;
   except
@@ -1474,8 +1474,8 @@ begin
       SQL.Add('    extract(year from cp.dtvenc)  || right(''00'' || extract(month from cp.dtvenc),  2)');
       SQL.Add('  , cv.cmp_desc');
       SQL.Add('  , cp.dtvenc');
-      SQL.Add('  , cp.competencia_apuracao');
-      SQL.Add('  , ca.cmp_desc');
+      //SQL.Add('  , cp.competencia_apuracao');
+      //SQL.Add('  , ca.cmp_desc');
       SQL.Add('  , cp.situacao');
       SQL.Add('  , cp.codforn');
       SQL.Add('  , fn.nomeforn');

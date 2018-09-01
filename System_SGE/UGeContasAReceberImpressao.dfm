@@ -30,15 +30,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         Caption = 'Situa'#231#227'o:'
         FocusControl = edSituacao
       end
-      object lblCliente: TLabel
-        Left = 56
-        Top = 102
-        Width = 42
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'Cliente:'
-        FocusControl = edCliente
-      end
       object lblEmpresa: TLabel
         Left = 46
         Top = 27
@@ -48,15 +39,23 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         Caption = 'Empresa:'
         FocusControl = edEmpresa
       end
+      object lblCliente: TLabel
+        Left = 56
+        Top = 102
+        Width = 42
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Cliente:'
+        FocusControl = edCliente
+      end
       object lblCidade: TLabel
         Left = 57
-        Top = 126
+        Top = 125
         Width = 41
         Height = 13
         Alignment = taRightJustify
         Caption = 'Cidade:'
         FocusControl = edCidade
-        Visible = False
       end
       object edSituacao: TComboBox
         Left = 104
@@ -88,18 +87,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           'Baixados'
           'Pendentes'
           'Cancelados')
-      end
-      object edCliente: TComboBox
-        Left = 104
-        Top = 98
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemIndex = 0
-        TabOrder = 6
-        Text = '(Todos)'
-        Items.Strings = (
-          '(Todos)')
       end
       object edEmpresa: TComboBox
         Left = 104
@@ -225,19 +212,6 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         TabOrder = 4
         Visible = False
       end
-      object edCidade: TComboBox
-        Left = 104
-        Top = 122
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemIndex = 0
-        TabOrder = 7
-        Text = '(Todos)'
-        Visible = False
-        Items.Strings = (
-          '(Todos)')
-      end
       object chkPeriodo: TCheckBox
         Left = 15
         Top = 51
@@ -246,6 +220,39 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         Caption = 'Por Per'#237'odo:'
         TabOrder = 1
         OnClick = chkPeriodoClick
+      end
+      object edCliente: TcxLookupComboBox
+        Left = 104
+        Top = 99
+        Properties.KeyFieldNames = 'CODIGO'
+        Properties.ListColumns = <
+          item
+            Caption = 'Nome Cliente'
+            Width = 120
+            FieldName = 'NOME'
+          end
+          item
+            Caption = 'CFP / CNPJ'
+            FieldName = 'CNPJ'
+          end>
+        Properties.ListSource = dtsCliente
+        EditValue = 0
+        TabOrder = 6
+        Width = 313
+      end
+      object edCidade: TcxLookupComboBox
+        Left = 104
+        Top = 122
+        Properties.KeyFieldNames = 'CID_COD'
+        Properties.ListColumns = <
+          item
+            Caption = 'Cidade'
+            FieldName = 'CID_NOME'
+          end>
+        Properties.ListSource = dtsCidades
+        EditValue = 0
+        TabOrder = 7
+        Width = 313
       end
     end
   end
@@ -9754,7 +9761,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       ''
       'end.')
     Left = 8
-    Top = 152
+    Top = 144
     Datasets = <
       item
         DataSet = DMNFe.frdEmpresa
@@ -10938,19 +10945,19 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       '  , cr.cnpj'
       '*/')
     Left = 40
-    Top = 152
+    Top = 144
   end
   object DspRelacaoAReceberVCidade: TDataSetProvider
     DataSet = QryRelacaoAReceberVCidade
     Left = 72
-    Top = 152
+    Top = 144
   end
   object CdsRelacaoAReceberVCidade: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DspRelacaoAReceberVCidade'
     Left = 104
-    Top = 152
+    Top = 144
   end
   object FrdsRelacaoAReceberVCidade: TfrxDBDataset
     UserName = 'FrdsRelacaoAReceberVCidade'
@@ -10981,7 +10988,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     DataSet = CdsRelacaoAReceberVCidade
     BCDToCurrency = True
     Left = 136
-    Top = 152
+    Top = 144
   end
   object fdQryEmpresas: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -11014,10 +11021,18 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
+      '    0 as cid_cod'
+      '  , '#39'(Todas)'#39' as cid_nome'
+      'from RDB$DATABASE x'
+      ''
+      'union'
+      ''
+      'Select'
       '    c.cid_cod'
       '  , c.cid_nome || '#39' ('#39' || e.est_sigla || '#39')'#39' as cid_nome'
       'from TBCIDADE c'
       '  inner join TBESTADO e on (e.est_cod = c.est_cod)'
+      ''
       'order by 2')
     Left = 456
     Top = 32
@@ -11054,6 +11069,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
+      '    0 as codigo'
+      '  , '#39'(Todos)'#39' as nome'
+      '  , 0 as pessoa_fisica'
+      '  , '#39#39' as cnpj'
+      'from RDB$DATABASE x'
+      ''
+      'union'
+      ''
+      'Select'
       '    c.codigo'
       '  , c.nome'
       '  , c.pessoa_fisica'
@@ -11061,7 +11085,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       'from TBCLIENTE c'
       ''
       'order by'
-      '    c.nome')
+      '    2')
     Left = 456
     Top = 96
   end
@@ -13619,5 +13643,15 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
         end
       end
     end
+  end
+  object dtsCliente: TDataSource
+    DataSet = CdsCliente
+    Left = 424
+    Top = 96
+  end
+  object dtsCidades: TDataSource
+    DataSet = CdsCidades
+    Left = 424
+    Top = 32
   end
 end

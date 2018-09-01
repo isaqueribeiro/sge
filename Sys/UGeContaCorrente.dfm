@@ -27,8 +27,6 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     ExplicitWidth = 743
     ExplicitHeight = 396
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 735
       ExplicitHeight = 367
       inherited Bevel4: TBevel
@@ -451,7 +449,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

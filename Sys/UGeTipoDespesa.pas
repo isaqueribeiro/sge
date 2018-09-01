@@ -19,7 +19,8 @@ uses
   dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.DBClient,
+  Datasnap.Provider;
 
 type
   TfrmGeTipoDespesa = class(TfrmGrPadraoCadastro)
@@ -44,6 +45,16 @@ type
     dbClassificacao: TDBLookupComboBox;
     fdQryClassificacao: TFDQuery;
     DtsClassificacao: TDataSource;
+    fdQryPlanoContaLista: TFDQuery;
+    dspPlanoContaLista: TDataSetProvider;
+    cdsPlanoContaLista: TClientDataSet;
+    cdsPlanoContaListaSELECIONAR: TIntegerField;
+    cdsPlanoContaListaCODIGO: TIntegerField;
+    cdsPlanoContaListaDESCRICAO: TStringField;
+    cdsPlanoContaListaTIPO: TStringField;
+    cdsPlanoContaListaRZSOC: TStringField;
+    dtsPlanoContaLista: TDataSource;
+    Bevel6: TBevel;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
@@ -62,7 +73,9 @@ type
 (*
   Tabelas:
   - TBTPDESPESA
+  - TBTPDESPESA_PLANO
   - TBPLANO_CONTA
+  - TBEMPRESA
 
   Views:
   - VW_CLASSIFICAO_DESPESA
@@ -113,7 +126,7 @@ begin
   inherited;
   RotinaID            := ROTINA_CAD_TIPO_DESPESA_ID;
   ControlFirstEdit    := dbDescricao;
-  DisplayFormatCodigo := '##00';
+  DisplayFormatCodigo := '##000';
   NomeTabela          := 'TBTPDESPESA';
   CampoCodigo         := 'COD';
   CampoDescricao      := 'TIPODESP';
@@ -159,33 +172,33 @@ begin
 end;
 
 procedure TfrmGeTipoDespesa.dbPlanoContasButtonClick(Sender: TObject);
-var
-  iCodigo    : Integer;
-  sDescricao : String;
+//var
+//  iCodigo    : Integer;
+//  sDescricao : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarPlanoConta(Self, tpLancamento, 0, iCodigo, sDescricao) ) then
-    begin
-      IbDtstTabelaPLANO_CONTA.AsInteger       := iCodigo;
-      IbDtstTabelaDESCRICAO_RESUMIDA.AsString := sDescricao;
-    end;
+//  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+//    if ( SelecionarPlanoConta(Self, tpLancamento, 0, EmptyStr, iCodigo, sDescricao) ) then
+//    begin
+//      IbDtstTabelaPLANO_CONTA.AsInteger       := iCodigo;
+//      IbDtstTabelaDESCRICAO_RESUMIDA.AsString := sDescricao;
+//    end;
 end;
 
 procedure TfrmGeTipoDespesa.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
-  begin
-
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-      if ( dbPlanoContas.Focused ) then
-      begin
-        IbDtstTabelaPLANO_CONTA.Clear;
-        IbDtstTabelaDESCRICAO_RESUMIDA.Clear;
-      end;
-
-  end;
-
+//  if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
+//  begin
+//
+//    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+//      if ( dbPlanoContas.Focused ) then
+//      begin
+//        IbDtstTabelaPLANO_CONTA.Clear;
+//        IbDtstTabelaDESCRICAO_RESUMIDA.Clear;
+//      end;
+//
+//  end;
+//
   inherited;
 end;
 
