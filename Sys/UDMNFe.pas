@@ -2299,8 +2299,17 @@ var
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
   PorCodigoExterno : Boolean;
+  aParcela : Integer;
 begin
 (*
+  IMR - 03/09/2018 :
+    Dados de fatura da Nota Fical agora são apenas informados quando a(s) duplicata(s)
+    for(em) informada(s) pelo usuário na nota.
+
+  IMR - 03/09/2018 :
+    Dados de fatura da Nota Fical agora são apenas informados quando a(s) duplicata(s)
+    for(em) informada(s) pelo usuário na nota.
+
   IMR - 14/03/2018 :
     Implementação da rotina que inseri a Referência como Código do Produto na nota
     fiscal de acordo com a configuração da empresa.
@@ -3162,18 +3171,32 @@ begin
       if ( Ide.finNFe = fnNormal ) then
       begin
 
-        // Dados da Fatura
+        // Formas de Pagamentos
 
-        Cobr.Fat.nFat  := FormatFloat('0000', qryCalculoImposto.FieldByName('ANO').AsInteger) + '/' + FormatFloat('0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger);
-        Cobr.Fat.vOrig := qryCalculoImposto.FieldByName('TOTALVENDABRUTA').AsCurrency;
-        Cobr.Fat.vDesc := qryCalculoImposto.FieldByName('DESCONTO').AsCurrency ;
-        Cobr.Fat.vLiq  := qryCalculoImposto.FieldByName('TOTALVENDA').AsCurrency ;
-
-        // Dados da(s) Duplicata(s)
+        with pag.Add do
+        begin
+          indPag := ipNenhum;
+          tPag   := fpSemPagamento;
+          vPag   := 0.0;
+//          tpIntegra := tiNaoInformado;
+//          CNPJ      := EmptyStr;
+//          tBand     := bcOutros;
+//          cAut      := EmptyStr;
+        end;
 
         if not OcultarVencimentos then
         begin
 
+          // Dados da Fatura
+
+          Cobr.Fat.nFat  := FormatFloat('0000', qryCalculoImposto.FieldByName('ANO').AsInteger) + '/' + FormatFloat('0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger);
+          Cobr.Fat.vOrig := qryCalculoImposto.FieldByName('TOTALVENDABRUTA').AsCurrency;
+          Cobr.Fat.vDesc := qryCalculoImposto.FieldByName('DESCONTO').AsCurrency ;
+          Cobr.Fat.vLiq  := qryCalculoImposto.FieldByName('TOTALVENDA').AsCurrency ;
+
+          // Dados da(s) Duplicata(s)
+
+          aParcela := 1;
           if ( qryCalculoImposto.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
           begin
             qryDuplicatas.First;
@@ -3181,12 +3204,14 @@ begin
             begin
               with Cobr.Dup.Add do
               begin
-                nDup  := FormatFloat('0000', qryDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' +
-                  FormatFloat('0000000', qryDuplicatas.FieldByName('NUMLANC').AsInteger);
+                //nDup  := FormatFloat('0000', qryDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' + FormatFloat('0000000', qryDuplicatas.FieldByName('NUMLANC').AsInteger);
+                //nDup  := FormatFloat('000', qryDuplicatas.FieldByName('parcela').AsInteger);
+                nDup  := FormatFloat('000', aParcela);
                 dVenc := qryDuplicatas.FieldByName('DTVENC').AsDateTime;
                 vDup  := qryDuplicatas.FieldByName('VALORREC').AsCurrency;
               end;
 
+              Inc(aParcela);
               qryDuplicatas.Next;
             end;
           end;
@@ -3816,6 +3841,7 @@ var
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
   PorCodigoExterno : Boolean;
+  aParcela : Integer;
 begin
 (*
   IMR - 14/03/2018 :
@@ -4633,18 +4659,32 @@ begin
       if ( Ide.finNFe = fnNormal ) then
       begin
 
-        // Dados da Fatura
+        // Formas de Pagamentos
 
-        Cobr.Fat.nFat  := FormatFloat('0000', qryEntradaCalculoImposto.FieldByName('ANO').AsInteger) + '/' + FormatFloat('0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger);
-        Cobr.Fat.vOrig := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency + qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency;
-        Cobr.Fat.vDesc := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency ;
-        Cobr.Fat.vLiq  := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency ;
-
-        // Dados da(s) Duplicata(s)
+        with pag.Add do
+        begin
+          indPag := ipNenhum;
+          tPag   := fpSemPagamento;
+          vPag   := 0.0;
+//          tpIntegra := tiNaoInformado;
+//          CNPJ      := EmptyStr;
+//          tBand     := bcOutros;
+//          cAut      := EmptyStr;
+        end;
 
         if not OcultarVencimentos then
         begin
 
+          // Dados da Fatura
+
+          Cobr.Fat.nFat  := FormatFloat('0000', qryEntradaCalculoImposto.FieldByName('ANO').AsInteger) + '/' + FormatFloat('0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger);
+          Cobr.Fat.vOrig := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency + qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency;
+          Cobr.Fat.vDesc := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency ;
+          Cobr.Fat.vLiq  := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency ;
+
+          // Dados da(s) Duplicata(s)
+
+          aParcela := 1;
           if ( qryEntradaCalculoImposto.FieldByName('COMPRA_PRAZO').AsInteger = 1 ) then
           begin
             qryEntradaDuplicatas.First;
@@ -4652,12 +4692,14 @@ begin
             begin
               with Cobr.Dup.Add do
               begin
-                nDup  := FormatFloat('0000', qryEntradaDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' +
-                  FormatFloat('0000000', qryEntradaDuplicatas.FieldByName('NUMLANC').AsInteger);
+                //nDup  := FormatFloat('0000', qryEntradaDuplicatas.FieldByName('ANOLANC').AsInteger) + '/' + FormatFloat('0000000', qryEntradaDuplicatas.FieldByName('NUMLANC').AsInteger);
+                //nDup  := FormatFloat('000', qryEntradaDuplicatas.FieldByName('parcela').AsInteger);
+                nDup  := FormatFloat('000', aParcela);
                 dVenc := qryEntradaDuplicatas.FieldByName('DTVENC').AsDateTime;
                 vDup  := qryEntradaDuplicatas.FieldByName('VALORPAG').AsCurrency;
               end;
 
+              Inc(aParcela);
               qryEntradaDuplicatas.Next;
             end;
           end;

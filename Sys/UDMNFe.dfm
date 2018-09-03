@@ -111,7 +111,9 @@ object DMNFe: TDMNFe
       '  , r.dtrec '
       'from TBCONTREC r'
       'where r.Anovenda = :AnoVenda'
-      '  and r.Numvenda = :NumVenda')
+      '  and r.Numvenda = :NumVenda'
+      'order by'
+      '    r.Parcela')
     Left = 144
     Top = 216
     ParamData = <
@@ -3660,7 +3662,9 @@ object DMNFe: TDMNFe
       '  , 0.0 as Percentdesconto'
       'from TBCONTPAG p'
       'where p.anocompra = :AnoCompra'
-      '  and p.numcompra = :NumCompra')
+      '  and p.numcompra = :NumCompra'
+      'order by'
+      '    p.Parcela')
     Left = 224
     Top = 216
     ParamData = <
