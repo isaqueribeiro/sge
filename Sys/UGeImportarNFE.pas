@@ -4,6 +4,7 @@ interface
 
 uses
   ACBrNFeDANFEFRDM,
+  pcnNFe,
   pcnConversaoNFe,
   pcnConversao,
   ACBrUtil,
@@ -227,6 +228,8 @@ type
 
   Procedures:
 
+  Arquivo:
+  - C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
 *)
 
 var
@@ -547,25 +550,27 @@ var
 begin
   cdsDuplicatas.Close;
   cdsDuplicatas.CreateDataSet;
-  if Not ( DMNFe.frDANFE.ExibeCampoFatura and (DMNFe.ACBrNFe.NotasFiscais.Items[0].NFe.Ide.indPag = ipVista) ) then
-  Begin
-
-    with cdsDuplicatas, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
+  with DMNFe.ACBrNFe.NotasFiscais.Items[0] do
+    if Not ( DMNFe.frDANFE.ExibeCampoFatura and (NFe.Ide.indPag = ipVista) and (NFe.infNFe.Versao <= 3.10) ) then
     begin
-      for i := 0 to NFe.Cobr.Dup.Count - 1 do
+
+      with cdsDuplicatas, DMNFe, ACBrNFe do
       begin
-        Append;
-        with NFe.Cobr.Dup[i] do
+        for i := 0 to NFe.Cobr.Dup.Count - 1 do
         begin
-          FieldByName('ChaveNFe').AsString  := NFe.infNFe.ID;
-          FieldByName('NDup').AsString      := NDup;
-          FieldByName('DVenc').AsString     := FormatDateBr(DVenc);
-          FieldByName('VDup').AsFloat       := VDup;
+          Append;
+          with NFe.Cobr.Dup[i] do
+          begin
+            FieldByName('ChaveNFe').AsString  := NFe.infNFe.ID;
+            FieldByName('NDup').AsString      := NDup;
+            FieldByName('DVenc').AsString     := FormatDateBr(DVenc);
+            FieldByName('VDup').AsFloat       := VDup;
+          end;
+          Post;
         end;
-        Post;
       end;
+
     end;
-  End;
 end;
 
 procedure TfrmGeImportarNFE.CarregaEmitente;
@@ -1232,6 +1237,8 @@ begin
 end;
 
 procedure TfrmGeImportarNFE.CarregaTransportador;
+var
+  ok : Boolean;
 begin
   with cdsTransportador, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
   begin
@@ -1239,9 +1246,9 @@ begin
     CreateDataSet;
     Append;
 
-    with NFe.Transp do
+    with NFe, NFe.Transp do
     begin
-      FieldByName('ModFrete').AsString :=modFreteToDesStr( ModFrete );
+      FieldByName('ModFrete').AsString := modFreteToDesStr( ModFrete, DblToVersaoDF(ok, infNFe.Versao) );
       with Transporta do
       begin
         FieldByName('CNPJCPF').AsString := FormatarCNPJouCPF(CNPJCPF);
