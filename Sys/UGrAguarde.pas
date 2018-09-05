@@ -12,7 +12,8 @@ uses
   cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox, cxLookAndFeelPainters, cxClasses,
   cxLabel, Vcl.ExtCtrls, Vcl.ImgList, dxRibbonBackstageView,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White;
 
 type

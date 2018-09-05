@@ -4652,6 +4652,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4729,7 +4730,6 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
-      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -4837,7 +4837,7 @@ object frmPrinc: TfrmPrinc
     ImageOptions.Images = DMRecursos.ImgPrincipal16x16
     ImageOptions.LargeImages = DMRecursos.ImgPrincipalEnabled
     LookAndFeel.Kind = lfUltraFlat
-    LookAndFeel.SkinName = 'MoneyTwins'
+    LookAndFeel.SkinName = 'Office2007Green'
     PopupMenuLinks = <>
     UseSystemFont = True
     Left = 272
@@ -4910,7 +4910,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 559
+      DockedLeft = 236
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
