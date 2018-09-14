@@ -432,6 +432,7 @@ type
 
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
+    function GetDiretorioXmlNFe : String;
     function IsEstacaoEmiteNFCe : Boolean;
     function IsEstacaoEmiteNFCeResumido : Boolean;
     function GetCnpjCertificado : String;
@@ -2137,6 +2138,12 @@ begin
     AbrirDestinatario( iCodigoCliente );
     AbrirVenda( iAnoVenda, iNumVenda );
     AbrirNFeEmitida( iAnoVenda, iNumVenda );
+
+    if (Trim(qryCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString) = EmptyStr) then
+    begin
+      ShowWarning('Arquivo XML da Nota Fiscal não carregado.' + #13 + 'Favor informar ao Suporte.');
+      Exit;
+    end;
 
     if ( IsPDF ) then // Para exportação em envio
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString
@@ -4809,6 +4816,12 @@ begin
     AbrirCompra( iAnoCompra, iNumCompra );
     AbrirNFeEmitidaEntrada( iAnoCompra, iNumCompra );
 
+    if (Trim(qryEntradaCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString) = EmptyStr) then
+    begin
+      ShowWarning('Arquivo XML da Nota Fiscal não carregado.' + #13 + 'Favor informar ao Suporte.');
+      Exit;
+    end;
+
     if ( IsPDF ) then
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryEntradaCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString
     else
@@ -5842,6 +5855,18 @@ begin
     Result := OnlyNumber(ACBrNFe.SSL.CertCNPJ)
   else
     Result := EmptyStr;
+end;
+
+function TDMNFe.GetDiretorioXmlNFe: String;
+var
+  aRetorno : String;
+begin
+  with ACBrNFe.Configuracoes do
+  begin
+    aRetorno := Arquivos.PathSalvar  + '\NFe\';
+    aRetorno := StringReplace(aRetorno, '\\', '\', [rfReplaceAll]);
+  end;
+  Result := Trim(aRetorno);
 end;
 
 function TDMNFe.ValidarCnpjDocumento(const pCnpjDocumento : String) : Boolean;

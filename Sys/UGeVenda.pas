@@ -17,7 +17,8 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -2172,6 +2173,10 @@ begin
 
       with qryNFE do
       begin
+        // Analisar o nome do arquivo XML retornado
+        if (Trim(sFileNameXML) = EmptyStr) and (not FileExists(sFileNameXML)) then
+          sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
+
         AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
         Append;
