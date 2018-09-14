@@ -16,6 +16,7 @@ execute block (
 as
   declare variable dt_inicial       DMN_DATE;
   declare variable dt_saldo_inicial DMN_DATE;
+  declare variable nr_ordem         DMN_SMALLINT_N;
 begin
   Select
     min(dt.dt_dia)
@@ -55,6 +56,7 @@ begin
 
   vl_inicial = 0.00;
 
+  /*
   for
     Select
         dt.nr_semana
@@ -132,5 +134,94 @@ begin
     suspend;
 
   end
-end 
+  */
+
+  for
+    Select
+        'C'
+      , 'ENTRADAS'
+      , cr.tpe_codigo
+      , cr.tpe_descricao
+      , cr.tpe_ordem
+    from VW_CLASSIFICAO_RECEITA cr
+
+    union
+
+    Select
+        'D'
+      , 'SAIDAS'
+      , cd.tpe_codigo
+      , cd.tpe_descricao
+      , cd.tpe_ordem
+    from VW_CLASSIFICAO_DESPESA cd
+
+    order by 1, 5
+
+    Into
+        cd_grupo
+      , ds_grupo
+      , cd_classificacao
+      , ds_classificacao
+      , nr_ordem
+  do
+  begin
+    for
+        Select
+            dt.nr_semana
+          , dt.nr_dia
+          , dt.dt_dia
+          , ra.vl_realizado
+        from GET_PERIODO_MENSAL(:data_base) dt
+          left join (
+    
+            Select
+                extract(week from cx.datahora) as nr_semana
+              , cast(cx.datahora as date)      as dt_dia
+              , sum(cx.valor) as vl_realizado
+            from TBCAIXA_MOVIMENTO cx
+              left join TBTPRECEITA tr on (tr.cod = cx.tipo_receita)
+            where (cx.tipo = :cd_grupo and :cd_grupo = 'C')
+              and (cx.situacao = 1)
+              and (cx.empresa  = :empresa)
+              and (coalesce(tr.classificacao, 0) = :cd_classificacao)
+              and ((coalesce(:conta, 0) = 0) or (cx.conta_corrente = :conta))
+              and (cast(cx.datahora as date) > :dt_inicial)
+    
+            group by
+                extract(week from cx.datahora)
+              , cast(cx.datahora as date)
+            
+            union
+            
+            Select
+                extract(week from cx.datahora) as nr_semana
+              , cast(cx.datahora as date)      as dt_dia
+              , sum(cx.valor) as vl_realizado
+            from TBCAIXA_MOVIMENTO cx
+              left join TBTPDESPESA td on (td.cod = cx.tipo_despesa)
+            where (cx.tipo = :cd_grupo and :cd_grupo = 'D')
+              and (cx.situacao = 1)
+              and (cx.empresa  = :empresa)
+              and (coalesce(td.classificacao, 0) = :cd_classificacao)
+              and ((coalesce(:conta, 0) = 0) or (cx.conta_corrente = :conta))
+              and (cast(cx.datahora as date) > :dt_inicial)
+
+            group by
+                extract(week from cx.datahora)
+              , cast(cx.datahora as date)
+    
+          ) ra on (ra.dt_dia = dt.dt_dia)
+        Into
+            nr_semana
+          , nr_dia
+          , dt_dia
+          , vl_realizado
+    do
+    begin
+
+      suspend;
+
+    end 
+  end 
+end
 

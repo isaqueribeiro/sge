@@ -8,6 +8,8 @@ execute block (
   , cd_classificacao DMN_SMALLINT_N
   , ds_classificacao DMN_VCHAR_30
   , nr_semana        DMN_INTEGER_N
+  , dt_inicial       DMN_DATE
+  , dt_final         DMN_DATE
   , vl_inicial       DMN_MONEY
   , vl_previsto      DMN_MONEY
   , vl_realizado     DMN_MONEY
@@ -22,9 +24,7 @@ begin
       , cs.ds_classificacao
       , cs.nr_semana
       , sum(cs.vl_inicial)
-    from GET_MOV_MENSAL_PREVISTO(:data_base, :empresa, :conta) cs
-    where (cs.cd_grupo = 'S')
-      and (cs.vl_inicial <> 0.00)
+    from GET_MOV_MENSAL_PREVISTO(:data_base, :empresa, :conta, 'S') cs
     group by
         cs.cd_grupo
       , cs.ds_grupo
@@ -52,8 +52,17 @@ begin
       , pv.cd_classificacao
       , pv.ds_classificacao
       , pv.nr_semana
+      , min(pv.dt_dia)
+      , max(pv.dt_dia)
       , sum(pv.vl_previsto)
-    from GET_MOV_MENSAL_PREVISTO(:data_base, :empresa, :conta) pv
+      , sum(ra.vl_realizado)
+    from GET_MOV_MENSAL_PREVISTO(:data_base, :empresa, :conta, 'T') pv
+      inner join GET_MOV_MENSAL_REALIZADO(:data_base, :empresa, :conta, 'T') ra on (
+            ra.cd_grupo = pv.cd_grupo
+        and ra.cd_classificacao = pv.cd_classificacao
+        and ra.dt_dia    = pv.dt_dia
+        and ra.nr_semana = pv.nr_semana
+      )
     where (pv.cd_grupo <> 'S')
     group by
         pv.cd_grupo
@@ -71,19 +80,15 @@ begin
       , cd_classificacao
       , ds_classificacao
       , nr_semana
+      , dt_inicial
+      , dt_final
       , vl_previsto
+      , vl_realizado
   do
   begin
-    Select
-      sum(vl_realizado)
-    from GET_MOV_MENSAL_REALIZADO(:data_base, :empresa, :conta) ra
-    where ra.cd_grupo = :cd_grupo
-      and ra.cd_classificacao = :cd_classificacao
-      and ra.nr_semana = :nr_semana
-    Into
-      vl_realizado;
 
     suspend;
+
   end 
 end
 

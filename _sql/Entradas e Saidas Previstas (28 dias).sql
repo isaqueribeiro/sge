@@ -16,6 +16,7 @@ execute block (
 as
   declare variable dt_inicial       DMN_DATE;
   declare variable dt_saldo_inicial DMN_DATE;
+  declare variable nr_ordem         DMN_SMALLINT_N;
 begin
   Select
     min(dt.dt_dia)
@@ -55,6 +56,7 @@ begin
 
   vl_inicial = 0.00;
 
+  /*
   for
     Select
         dt.nr_semana
@@ -124,5 +126,90 @@ begin
     suspend;
 
   end
-end 
+  */
+
+  for
+    Select
+        'C'
+      , 'ENTRADAS'
+      , cr.tpe_codigo
+      , cr.tpe_descricao
+      , cr.tpe_ordem
+    from VW_CLASSIFICAO_RECEITA cr
+
+    union
+
+    Select
+        'D'
+      , 'SAIDAS'
+      , cd.tpe_codigo
+      , cd.tpe_descricao
+      , cd.tpe_ordem
+    from VW_CLASSIFICAO_DESPESA cd
+
+    order by 1, 5
+
+    Into
+        cd_grupo
+      , ds_grupo
+      , cd_classificacao
+      , ds_classificacao
+      , nr_ordem
+  do
+  begin
+    for
+        Select
+            dt.nr_semana
+          , dt.nr_dia
+          , dt.dt_dia
+          , pv.vl_previsto
+        from GET_PERIODO_MENSAL(:data_base) dt
+          left join (
+        
+            Select
+                extract(week from rb.dtvenc) as nr_semana
+              , rb.dtvenc        as dt_dia
+              , sum(rb.valorrec) as vl_previsto
+            from TBCONTREC rb
+              left join TBTPRECEITA tp on (tp.cod = rb.codtprec)
+            where rb.empresa  = :empresa
+              and rb.situacao = 1
+              and (:cd_grupo  = 'C')
+              and coalesce(tp.classificacao, 0) = :cd_classificacao
+            group by
+                extract(week from rb.dtvenc)
+              , rb.dtvenc
+
+            union
+
+            Select
+                extract(week from pg.dtvenc) as nr_semana
+              , pg.dtvenc        as dt_dia
+              , sum(pg.valorpag) as vl_previsto
+            from TBCONTPAG pg
+              left join TBTPRECEITA tp on (tp.cod = pg.codtpdesp)
+            where pg.empresa  = :empresa
+              and pg.situacao = 1
+              and (:cd_grupo  = 'D')
+              and coalesce(tp.classificacao, 0) = :cd_classificacao
+            group by
+                extract(week from pg.dtvenc)
+              , pg.dtvenc
+
+          ) pv on (pv.dt_dia = dt.dt_dia)
+
+        where 1 = 1
+        Into
+            nr_semana
+          , nr_dia
+          , dt_dia
+          , vl_previsto
+    do
+    begin
+
+      suspend;
+
+    end 
+  end
+end
 
