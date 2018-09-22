@@ -4,6 +4,7 @@ interface
 
 uses
   UGrPadraoImpressao,
+  UConstantesDGE,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, Vcl.StdCtrls, cxButtons,
@@ -39,10 +40,20 @@ type
     fdQryDemonstResultOper: TFDQuery;
     fdQryEmpresas: TFDQuery;
     fdQryContaCorrente: TFDQuery;
+    frMovFinanceiroMensal: TfrxReport;
+    QryMovFinanceiroMensal: TFDQuery;
+    DspMovFinanceiroMensal: TDataSetProvider;
+    CdsMovFinanceiroMensal: TClientDataSet;
+    FrdsMovFinanceiroMensal: TfrxDBDataset;
+    QrySaldoFinanceiroMensal: TFDQuery;
+    DspSaldoFinanceiroMensal: TDataSetProvider;
+    CdsSaldoFinanceiroMensal: TClientDataSet;
+    FrdsSaldoFinanceiroMensal: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
+    procedure edRelatorioChange(Sender: TObject);
   private
     { Private declarations }
     FSQL_DemonstResultOper : TStringList;
@@ -51,7 +62,10 @@ type
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
     procedure CarregarContaCorrente(const pEmpresa : String);
+    procedure CarregarPeriodo(const aDataBase : TDateTime; var aDataInicial, aDataFinal : TDateTime);
+    procedure CarregarSemanas(const aDataBase : TDateTime; var aSemanas : TArrayInteger);
 
+    procedure MontarMovimentoFinanceiroMensal;
     procedure MontarDROSimples;
     procedure MontarRelacaoSaldoConsolidadoDia;
     procedure MontarRelacaoMovimentoCaixaConta;
@@ -68,8 +82,14 @@ type
 
   Views:
   - VW_EMPRESA
+  - VW_CLASSIFICAO_RECEITA
+  - VW_CLASSIFICAO_DESPESA
 
   Procedures:
+  - GET_PERIODO_MENSAL
+  - GET_MOV_MENSAL_PREVISTO
+  - GET_MOV_MENSAL_REALIZADO
+  - GET_MOV_MENSAL
   - GET_CAIXA_MOVIMENTO
 *)
 
@@ -77,12 +97,13 @@ var
   frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao;
 
 const
-  REPORT_DEMONSTRATIVO_RESULTADO_OPERACIONAL  = 0;
+  REPORT_MOVIMENTO_FINANCEIRO_MENSAL_PR       = 0;
+  REPORT_DEMONSTRATIVO_RESULTADO_OPERACIONAL  = 1;
 
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, DateUtils, UDMNFe;
+  UDMBusiness, DateUtils, UDMNFe, UDMRecursos;
 
 {$R *.dfm}
 
@@ -98,6 +119,12 @@ begin
   btnVisualizar.Enabled := False;
 
   Case edRelatorio.ItemIndex of
+    REPORT_MOVIMENTO_FINANCEIRO_MENSAL_PR:
+      begin
+        MontarMovimentoFinanceiroMensal;
+        frReport := frMovFinanceiroMensal;
+      end;
+
     REPORT_DEMONSTRATIVO_RESULTADO_OPERACIONAL:
       begin
         MontarDROSimples;
@@ -187,10 +214,123 @@ begin
   edEmpresa.ItemIndex := P;
 end;
 
+procedure TfrmGeResultadoExercicioImpressao.CarregarPeriodo(
+  const aDataBase: TDateTime; var aDataInicial, aDataFinal : TDateTime);
+var
+  aSQL : TStringList;
+begin
+  aSQL := TStringList.Create;
+  try
+    aSQL.BeginUpdate;
+    aSQL.Clear;
+    aSQL.Add('Select');
+    aSQL.Add('    min(x.dt_dia) as dt_inicial');
+    aSQL.Add('  , max(x.dt_dia) as dt_final  ');
+    aSQL.Add('  , max(x.dt_dia) - min(x.dt_dia) as qt_dia');
+    aSQL.Add('from GET_PERIODO_MENSAL(' + QuotedStr(FormatDateTime('yyyy-mm-dd', aDataBase)) + ') x ');
+    aSQL.EndUpdate;
+
+    with DMBusiness do
+    begin
+      if fdQryBusca.Active then
+        fdQryBusca.Close;
+
+      fdQryBusca.SQL.Clear;
+      fdQryBusca.SQL.AddStrings( aSQL );
+      fdQryBusca.OpenOrExecute;
+
+      if not fdQryBusca.IsEmpty then
+      begin
+        aDataInicial := fdQryBusca.FieldByName('dt_inicial').AsDateTime;
+        aDataFinal   := fdQryBusca.FieldByName('dt_final').AsDateTime;
+      end;
+
+      fdQryBusca.Close;
+    end;
+  finally
+    aSQL.Free;
+  end;
+end;
+
+procedure TfrmGeResultadoExercicioImpressao.CarregarSemanas(
+  const aDataBase: TDateTime; var aSemanas: TArrayInteger);
+var
+  aSQL : TStringList;
+  I    : Integer;
+begin
+  aSQL := TStringList.Create;
+  try
+    aSQL.BeginUpdate;
+    aSQL.Clear;
+    aSQL.Add('Select');
+    aSQL.Add('    x.nr_semana');
+    aSQL.Add('  , min(x.dt_dia) as dt_inicial');
+    aSQL.Add('  , max(x.dt_dia) as dt_final  ');
+    aSQL.Add('from GET_PERIODO_MENSAL(' + QuotedStr(FormatDateTime('yyyy-mm-dd', aDataBase)) + ') x ');
+    aSQL.Add('group by       ');
+    aSQL.Add('    x.nr_semana');
+    aSQL.Add('order by       ');
+    aSQL.Add('    x.nr_semana');
+    aSQL.EndUpdate;
+
+    with DMBusiness do
+    begin
+      if fdQryBusca.Active then
+        fdQryBusca.Close;
+
+      fdQryBusca.SQL.Clear;
+      fdQryBusca.SQL.AddStrings( aSQL );
+      fdQryBusca.OpenOrExecute;
+
+      if not fdQryBusca.IsEmpty then
+        SetLength(aSemanas, fdQryBusca.RecordCount);
+
+      I := 0;
+      while not fdQryBusca.Eof do
+      begin
+        aSemanas[I] := fdQryBusca.FieldByName('nr_semana').AsInteger;
+        Inc(I);
+        fdQryBusca.Next;
+      end;
+
+      fdQryBusca.Close;
+    end;
+  finally
+    aSQL.Free;
+  end;
+end;
+
 procedure TfrmGeResultadoExercicioImpressao.edEmpresaChange(Sender: TObject);
 begin
   if ( edEmpresa.ItemIndex > -1 ) then
     CarregarContaCorrente(IEmpresa[edEmpresa.ItemIndex]);
+end;
+
+procedure TfrmGeResultadoExercicioImpressao.edRelatorioChange(Sender: TObject);
+var
+  aDia  : Integer;
+  aData : TDateTime;
+begin
+  inherited;
+  Case edRelatorio.ItemIndex of
+    REPORT_MOVIMENTO_FINANCEIRO_MENSAL_PR :
+      begin
+        aDia  := DayOfWeek(GetDateDB);
+        aData := GetDateDB + (7 - aDia) + 1;
+
+        lblData.Caption := 'Data base final:';
+        e1Data.Date     := aData;
+      end;
+
+    REPORT_DEMONSTRATIVO_RESULTADO_OPERACIONAL :
+      begin
+        lblData.Caption := 'Período:';
+        e1Data.Date     := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
+      end;
+  end;
+
+  e1Data.Visible := (edRelatorio.ItemIndex in [REPORT_MOVIMENTO_FINANCEIRO_MENSAL_PR, REPORT_DEMONSTRATIVO_RESULTADO_OPERACIONAL]);
+  e2Data.Visible := (edRelatorio.ItemIndex in [REPORT_DEMONSTRATIVO_RESULTADO_OPERACIONAL]);
 end;
 
 procedure TfrmGeResultadoExercicioImpressao.FormCreate(Sender: TObject);
@@ -199,6 +339,7 @@ begin
   e2Data.Date := GetDateDB;
 
   inherited;
+  edRelatorioChange(edRelatorio);
 //
 //  FSQL_RelacaoSaldoConsolidadoDia := TStringList.Create;
 //  FSQL_RelacaoSaldoConsolidadoDia.AddStrings( QryRelacaoSaldoConsolidadoDia.SQL );
@@ -232,6 +373,50 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a Demonstrativo de Resultado Operacional.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeResultadoExercicioImpressao.MontarMovimentoFinanceiroMensal;
+var
+  aDataInicial,
+  aDataFinal  : TDateTime;
+  aSemanas    : TArrayInteger;
+begin
+  try
+    CarregarPeriodo(e1Data.Date, aDataInicial, aDataFinal);
+    CarregarSemanas(e1Data.Date, aSemanas);
+
+    SubTituloRelario := edContaCorrente.Text;
+    PeriodoRelatorio := Format('Movimento Financeiro de %s a %s.', [FormatDateTime('dd/mm/yyyy', aDataInicial), FormatDateTime('dd/mm/yyyy', aDataFinal)]);
+
+    CdsSaldoFinanceiroMensal.Close;
+    with CdsSaldoFinanceiroMensal, Params do
+    begin
+      ParamByName('empresa').AsString     := IEmpresa[edEmpresa.ItemIndex];
+      ParamByName('conta').AsInteger      := IConta[edContaCorrente.ItemIndex];
+      ParamByName('data_base').AsDateTime := e1Data.Date;
+    end;
+
+    CdsMovFinanceiroMensal.Close;
+    with CdsMovFinanceiroMensal, Params do
+    begin
+      ParamByName('empresa').AsString      := IEmpresa[edEmpresa.ItemIndex];
+      ParamByName('conta').AsInteger       := IConta[edContaCorrente.ItemIndex];
+      ParamByName('data_base').AsDateTime  := e1Data.Date;
+      ParamByName('nr_semana_1').AsInteger := aSemanas[0];
+      ParamByName('nr_semana_2').AsInteger := aSemanas[1];
+      ParamByName('nr_semana_3').AsInteger := aSemanas[2];
+      ParamByName('nr_semana_4').AsInteger := aSemanas[3];
+    end;
+
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório de movimentações financeiras da(s) conta(s).' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;

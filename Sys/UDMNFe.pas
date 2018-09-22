@@ -2307,6 +2307,9 @@ var
   vTotalTributoAprox     : Currency;
   PorCodigoExterno : Boolean;
   aParcela : Integer;
+  // Totalizar Valores
+  cTotal_ICMSTot_vBC   ,
+  cTotal_ICMSTot_vICMS : Currency;
 begin
 (*
   IMR - 03/09/2018 :
@@ -2575,8 +2578,10 @@ begin
 
       // Adicionando Produtos
 
-      PorCodigoExterno   := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
-      vTotalTributoAprox := 0.0;
+      PorCodigoExterno     := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
+      vTotalTributoAprox   := 0.0;
+      cTotal_ICMSTot_vBC   := 0.0;
+      cTotal_ICMSTot_vICMS := 0.0;
 
       qryDadosProduto.First;
 
@@ -2832,6 +2837,8 @@ begin
           begin
             with ICMS do
             begin
+              ICMS.orig := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProduto.FieldByName('CST').AsString, 1, 1)) );
+
               if ( Emit.CRT = crtSimplesNacional ) then
               begin
 
@@ -2854,6 +2861,15 @@ begin
                 pCredSN     := qryDadosProduto.FieldByName('ALIQUOTA_CSOSN').AsCurrency;
                 vCredICMSSN := qryDadosProduto.FieldByName('PFINAL').AsCurrency * pCredSN / 100;
 
+//                if (CSOSN = csosn900) then
+//                begin
+//                  ICMS.vBC   := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+//                  ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
+//                  ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+//
+//                  cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
+//                  cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
+//                end;
               end
               else
               begin
@@ -2891,17 +2907,17 @@ begin
                 ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
                 ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
 
+                cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
+                cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
               end;
 
               // ICMS ST (Substituição Tributária)
-              ICMS.orig    := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProduto.FieldByName('CST').AsString, 1, 1)) );
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
               ICMS.pRedBCST:= 0;
               ICMS.vBCST   := 0;
               ICMS.pICMSST := 0;
               ICMS.vICMSST := 0;
-
             end;
 
             with PIS do
@@ -3065,8 +3081,8 @@ begin
         qryDadosProduto.Next;
       end;
 
-      Total.ICMSTot.vBC      := qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
-      Total.ICMSTot.vICMS    := qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
+      Total.ICMSTot.vBC      := cTotal_ICMSTot_vBC;   // qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
+      Total.ICMSTot.vICMS    := cTotal_ICMSTot_vICMS; // qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
       Total.ICMSTot.vBCST    := qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS_SUBST').AsCurrency;
       Total.ICMSTot.vST      := qryCalculoImposto.FieldByName('NFE_VALOR_ICMS_SUBST').AsCurrency;
       Total.ICMSTot.vProd    := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency;
@@ -3849,6 +3865,9 @@ var
   vTotalTributoAprox     : Currency;
   PorCodigoExterno : Boolean;
   aParcela : Integer;
+  // Totalizar Valores
+  cTotal_ICMSTot_vBC   ,
+  cTotal_ICMSTot_vICMS : Currency;
 begin
 (*
   IMR - 14/03/2018 :
@@ -4103,8 +4122,10 @@ begin
 
   //Adicionando Produtos
 
-      PorCodigoExterno   := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
-      vTotalTributoAprox := 0.0;
+      PorCodigoExterno     := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
+      vTotalTributoAprox   := 0.0;
+      cTotal_ICMSTot_vBC   := 0.0;
+      cTotal_ICMSTot_vICMS := 0.0;
 
       qryEntradaDadosProduto.First;
 
@@ -4353,11 +4374,13 @@ begin
           begin
             with ICMS do
             begin
+              ICMS.orig := TpcnOrigemMercadoria( StrToInt(Copy(qryEntradaDadosProduto.FieldByName('CST').AsString, 1, 1)) );
+
               if ( Emit.CRT = crtSimplesNacional ) then
               begin
 
                 // csosnVazio, csosn101, csosn102, csosn103, csosn201, csosn202, csosn203, csosn300, csosn400, csosn500, csosn900
-                
+
                 Case qryEntradaDadosProduto.FieldByName('CSOSN').AsInteger of
                   101 : CSOSN := csosn101;
                   102 : CSOSN := csosn102;
@@ -4375,6 +4398,15 @@ begin
                 pCredSN     := qryEntradaDadosProduto.FieldByName('ALIQUOTA_CSOSN').AsCurrency;
                 vCredICMSSN := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency * pCredSN / 100;
 
+//                if (CSOSN = csosn900) then
+//                begin
+//                  ICMS.vBC   := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+//                  ICMS.pICMS := qryEntradaDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
+//                  ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+//
+//                  cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
+//                  cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
+//                end;
               end
               else
               begin
@@ -4404,7 +4436,6 @@ begin
                 else
                   ICMS.pRedBC := (100.0 - qryEntradaDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency); // qryEntradaDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-
                 if (ICMS.pRedBC > 0) or (qryEntradaDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency > 0) then
                   ICMS.vBC := qryEntradaDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency
                 else
@@ -4413,9 +4444,11 @@ begin
                 ICMS.pICMS := qryEntradaDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
                 ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
 
+                cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
+                cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
               end;
 
-              ICMS.orig    := TpcnOrigemMercadoria( StrToInt(Copy(qryEntradaDadosProduto.FieldByName('CST').AsString, 1, 1)) );
+              // ICMS ST (Substituição Tributária)
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
               ICMS.pRedBCST:= 0;
@@ -4586,8 +4619,8 @@ begin
         qryEntradaDadosProduto.Next;
       end;
 
-      Total.ICMSTot.vBC     := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
-      Total.ICMSTot.vICMS   := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
+      Total.ICMSTot.vBC     := cTotal_ICMSTot_vBC;   // qryEntradaCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
+      Total.ICMSTot.vICMS   := cTotal_ICMSTot_vICMS; // qryEntradaCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
       Total.ICMSTot.vBCST   := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS_SUBST').AsCurrency;
       Total.ICMSTot.vST     := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_ICMS_SUBST').AsCurrency;
       Total.ICMSTot.vProd   := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency;
@@ -6866,6 +6899,8 @@ begin
           begin
             with ICMS do
             begin
+              ICMS.orig := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProduto.FieldByName('CST').AsString, 1, 1)) );
+
               if ( Emit.CRT = crtSimplesNacional ) then
               begin
 
@@ -6888,6 +6923,15 @@ begin
                 pCredSN     := qryDadosProduto.FieldByName('ALIQUOTA_CSOSN').AsCurrency;
                 vCredICMSSN := qryDadosProduto.FieldByName('PFINAL').AsCurrency * pCredSN / 100;
 
+//                if (CSOSN = csosn900) then
+//                begin
+//                  ICMS.vBC   := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+//                  ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
+//                  ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+//
+//                  cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
+//                  cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
+//                end;
               end
               else
               begin
@@ -6925,12 +6969,11 @@ begin
                 ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
                 ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
 
-                cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + ICMS.vBC;
-                cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
+                cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
+                cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
               end;
 
               // ICMS ST (Substituição Tributária)
-              ICMS.orig    := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProduto.FieldByName('CST').AsString, 1, 1)) );
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
               ICMS.pRedBCST:= 0;
@@ -7101,20 +7144,20 @@ begin
         qryDadosProduto.Next;
       end;
 
-      Total.ICMSTot.vBC      := cTotal_ICMSTot_vBC;   // qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
-      Total.ICMSTot.vICMS    := cTotal_ICMSTot_vICMS; // qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
-      Total.ICMSTot.vBCST    := qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS_SUBST').AsCurrency;
-      Total.ICMSTot.vST      := qryCalculoImposto.FieldByName('NFE_VALOR_ICMS_SUBST').AsCurrency;
-      Total.ICMSTot.vProd    := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency;
-      Total.ICMSTot.vFrete   := qryCalculoImposto.FieldByName('NFE_VALOR_FRETE').AsCurrency;
-      Total.ICMSTot.vSeg     := qryCalculoImposto.FieldByName('NFE_VALOR_SEGURO').AsCurrency;
-      Total.ICMSTot.vDesc    := qryCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency;
-      Total.ICMSTot.vII      := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_II').AsCurrency;
-      Total.ICMSTot.vIPI     := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_IPI').AsCurrency;
-      Total.ICMSTot.vPIS     := qryCalculoImposto.FieldByName('NFE_VALOR_PIS').AsCurrency;
-      Total.ICMSTot.vCOFINS  := qryCalculoImposto.FieldByName('NFE_VALOR_COFINS').AsCurrency;
-      Total.ICMSTot.vOutro   := qryCalculoImposto.FieldByName('NFE_VALOR_OUTROS').AsCurrency;
-      Total.ICMSTot.vNF      := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency;
+      Total.ICMSTot.vBC     := cTotal_ICMSTot_vBC;   // qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency;
+      Total.ICMSTot.vICMS   := cTotal_ICMSTot_vICMS; // qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency;
+      Total.ICMSTot.vBCST   := qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS_SUBST').AsCurrency;
+      Total.ICMSTot.vST     := qryCalculoImposto.FieldByName('NFE_VALOR_ICMS_SUBST').AsCurrency;
+      Total.ICMSTot.vProd   := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_PRODUTO').AsCurrency;
+      Total.ICMSTot.vFrete  := qryCalculoImposto.FieldByName('NFE_VALOR_FRETE').AsCurrency;
+      Total.ICMSTot.vSeg    := qryCalculoImposto.FieldByName('NFE_VALOR_SEGURO').AsCurrency;
+      Total.ICMSTot.vDesc   := qryCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency;
+      Total.ICMSTot.vII     := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_II').AsCurrency;
+      Total.ICMSTot.vIPI    := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_IPI').AsCurrency;
+      Total.ICMSTot.vPIS    := qryCalculoImposto.FieldByName('NFE_VALOR_PIS').AsCurrency;
+      Total.ICMSTot.vCOFINS := qryCalculoImposto.FieldByName('NFE_VALOR_COFINS').AsCurrency;
+      Total.ICMSTot.vOutro  := qryCalculoImposto.FieldByName('NFE_VALOR_OUTROS').AsCurrency;
+      Total.ICMSTot.vNF     := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency;
 
       if ( vTotalTributoAprox > 0.0 ) then
         Total.ICMSTot.vTotTrib := vTotalTributoAprox;

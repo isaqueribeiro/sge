@@ -193,6 +193,9 @@ object DMNFe: TDMNFe
       
         '  , coalesce(i.Pfinal, 0) * coalesce(i.Percentual_reducao_bc, 0.' +
         '0) / 100 as valor_reducao_bc'
+      
+        '  , coalesce(i.Total_liquido, 0) * coalesce(i.Percentual_reducao' +
+        '_bc, 0.0) / 100 as total_reducao_bc'
       '  , i.Total_bruto'
       '  , i.Total_desconto'
       '  , i.Total_liquido'
@@ -3508,6 +3511,9 @@ object DMNFe: TDMNFe
       
         '  , coalesce(i.customedio, 0) * coalesce(i.Percentual_reducao_bc' +
         ', 0.0) / 100 as valor_reducao_bc'
+      
+        '  , coalesce(i.Total_liquido, 0) * coalesce(i.Percentual_reducao' +
+        '_bc, 0.0) / 100 as total_reducao_bc'
       '  , i.Total_Bruto'
       '  , i.valor_desconto as Total_desconto'
       '  , i.Total_liquido'

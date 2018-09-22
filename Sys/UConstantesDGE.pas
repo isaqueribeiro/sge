@@ -6,6 +6,7 @@ Uses
   SysUtils, Classes, ExtCtrls;
 
   Type
+    TArrayInteger      = Array of Integer;
     TTipoAlertaSistema = (tpaLicenca, tpaBackup);
     TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
     TTipoCFOP    = (tcfopADefinir, tcfopEntrada, tcfopSaida);

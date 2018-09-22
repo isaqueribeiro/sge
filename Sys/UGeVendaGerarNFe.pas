@@ -6,15 +6,13 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, StdCtrls, Mask,
   DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinOffice2007Green, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, cxControls, cxContainer,
+  cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils, cxSpinEdit, cxTimeEdit, cxTextEdit,
+  cxMaskEdit, cxDropDownEdit, cxCalendar;
 
 type
   TfrmGeVendaGerarNFe = class(TfrmGrPadrao)
@@ -79,7 +77,6 @@ type
     cdsVendaDESCONTO: TIBBCDField;
     cdsVendaTOTALVENDA_BRUTA: TIBBCDField;
     TmrAlerta: TTimer;
-    edDataHoraSaida: TMaskEdit;
     lblDataHoraSaida: TLabel;
     cdsVendaCODCLIENTE: TIntegerField;
     cdsVendaNFE_VALOR_BASE_ICMS: TIBBCDField;
@@ -114,6 +111,8 @@ type
     btnCancelar: TcxButton;
     chkNaoInformarVencimento: TCheckBox;
     cdsVendaCFOP: TIntegerField;
+    edDataSaida: TcxDateEdit;
+    edHoraSaida: TcxTimeEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -139,6 +138,9 @@ type
 
 (*
   Tabelas:
+  - TBVENDAS
+  - TVENDASITENS
+  - TBPRODUTO
 
   Views:
 
@@ -169,8 +171,6 @@ begin
   try
     with frm do
     begin
-      edDataHoraSaida.Text := FormatDateTime('dd/mm/yyyy hh:mm:ss', GetDateTimeDB);
-
       cdsVenda.Close;
       cdsVenda.ParamByName('anovenda').AsShort   := Ano;
       cdsVenda.ParamByName('numvenda').AsInteger := Numero;
@@ -178,12 +178,20 @@ begin
 
       chkNaoInformarVencimento.Checked := not GetCfopGerarTitulo(cdsVenda.FieldByName('CFOP').AsInteger);
 
-      lblDataEmissao.Visible := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
-      dbDataEmissao.Visible  := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
-      lblHoraEmissao.Visible := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
-      dbHoraEmissao.Visible  := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+      lblDataEmissao.Visible   := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+      dbDataEmissao.Visible    := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+      lblHoraEmissao.Visible   := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+      dbHoraEmissao.Visible    := not GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+
       lblDataHoraSaida.Visible := GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
-      edDataHoraSaida.Visible  := GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+      edDataSaida.Visible      := GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+      edHoraSaida.Visible      := GetSolicitaDHSaidaNFe( cdsVendaCODEMP.AsString );
+
+      if edDataSaida.Visible then
+      begin
+        edDataSaida.EditValue := FormatDateTime('dd/mm/yyyy', GetDateTimeDB);
+        edHoraSaida.EditValue := FormatDateTime('hh:mm:ss', GetDateTimeDB);
+      end;
 
       if ( not cdsVenda.IsEmpty ) then
       begin
@@ -256,7 +264,9 @@ procedure TfrmGeVendaGerarNFe.btnConfirmarClick(Sender: TObject);
 var
   bOK : Boolean;
   sDH ,
+  sSD ,
   sVN : String;
+  aDataHora : TDateTime;
 begin
 (*
   IMR - 09/09/2014 :
@@ -290,21 +300,23 @@ begin
   begin
     sDH := FormatDateTime('dd/mm/yyyy', cdsVendaDATAEMISSAO.AsDateTime) + ' ' +
       FormatDateTime('hh:mm:ss', cdsVendaHORAEMISSAO.AsDateTime);
+    sSD := FormatDateTime('dd/mm/yyyy', edDataSaida.Date) + ' ' +
+      FormatDateTime('hh:mm:ss', edHoraSaida.Time);
 
     // Validar Data/Hora de saída na NF-e
-    if edDataHoraSaida.Visible then
+    if edDataSaida.Visible and (Trim(edDataSaida.EditValue) <> EmptyStr) and TryStrToDateTime(Trim(sSD), aDataHora) then
     begin
-      if not StrIsDateTime(edDataHoraSaida.Text) then
+      if not StrIsDateTime(sSD) then
       begin
         ShowWarning('Data/Hora de saída inválida!');
-        edDataHoraSaida.SetFocus;
+        edDataSaida.SetFocus;
         Exit;
       end
       else
-      if ( StrToDateTime(edDataHoraSaida.Text) < StrToDateTime(sDH) ) then
+      if ( StrToDateTime(sSD) < StrToDateTime(sDH) ) then
       begin
         ShowWarning('Data/Hora de saída não pode ser menor que da Data/Hora de emissão da NF-e!');
-        edDataHoraSaida.SetFocus;
+        edDataSaida.SetFocus;
         Exit;
       end;
     end;
@@ -322,8 +334,8 @@ begin
 
     Application.ProcessMessages;
 
-    if edDataHoraSaida.Visible then
-      sDH := edDataHoraSaida.Text
+    if edDataSaida.Visible and (Trim(edDataSaida.Text) <> EmptyStr) and TryStrToDateTime(Trim(sSD), aDataHora) then
+      sDH := Trim(sSD)
     else
       sDH := EmptyStr;
 
@@ -393,8 +405,8 @@ end;
 procedure TfrmGeVendaGerarNFe.FormShow(Sender: TObject);
 begin
   inherited;
-  if ( edDataHoraSaida.Visible and edDataHoraSaida.Enabled ) then
-    edDataHoraSaida.SetFocus;
+  if ( edDataSaida.Visible and edDataSaida.Enabled ) then
+    edDataSaida.SetFocus;
 end;
 
 procedure TfrmGeVendaGerarNFe.RegistrarRotinaSistema;

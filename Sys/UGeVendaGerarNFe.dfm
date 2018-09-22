@@ -149,12 +149,11 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       ParentFont = False
     end
     object lblDataHoraSaida: TLabel
-      Left = 408
+      Left = 407
       Top = 24
       Width = 107
       Height = 13
       Caption = 'Data/Hora de Sa'#237'a:'
-      FocusControl = edDataHoraSaida
       Font.Charset = ANSI_CHARSET
       Font.Color = clRed
       Font.Height = -11
@@ -271,22 +270,18 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       ReadOnly = True
       TabOrder = 5
     end
-    object edDataHoraSaida: TMaskEdit
-      Left = 408
+    object edDataSaida: TcxDateEdit
+      Left = 407
       Top = 40
-      Width = 169
-      Height = 21
-      EditMask = '!00/00/0000 00:00:00;1; '
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      MaxLength = 19
-      ParentFont = False
       TabOrder = 6
-      Text = '  /  /       :  :  '
-      Visible = False
+      Width = 107
+    end
+    object edHoraSaida: TcxTimeEdit
+      Left = 520
+      Top = 40
+      Properties.TimeFormat = tfHourMin
+      TabOrder = 7
+      Width = 57
     end
   end
   object GrpBxImposto: TGroupBox
