@@ -1138,48 +1138,234 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
         Value = Null
       end
       item
-        Name = 'SaldoPrevisto_1'
-        Value = 
-          '<FrdsSaldoFinanceiroMensal."VL_INICIAL">+SUM(<Entrada_Prevista_1' +
-          '>)-SUM(<Saida_Prevista_1>)'
+        Name = 'vlso_total_previsto_1'
+        Value = '(<vle_total_previsto_1> - <vls_total_previsto_1>)'
       end
       item
-        Name = 'SaldoRealizado_1'
+        Name = 'vlso_total_realizado_1'
+        Value = '(<vle_total_realizado_1> - <vls_total_realizado_1>)'
+      end
+      item
+        Name = 'vlso_total_previsto_2'
+        Value = '(<vle_total_previsto_2> - <vls_total_previsto_2>)'
+      end
+      item
+        Name = 'vlso_total_realizado_2'
+        Value = '(<vle_total_realizado_2> - <vls_total_realizado_2>)'
+      end
+      item
+        Name = 'vlso_total_previsto_3'
+        Value = '(<vle_total_previsto_3> - <vls_total_previsto_3>)'
+      end
+      item
+        Name = 'vlso_total_previsto_4'
+        Value = '(<vle_total_previsto_4> - <vls_total_previsto_4>)'
+      end
+      item
+        Name = 'vlso_total_realizado_3'
+        Value = '(<vle_total_realizado_3> - <vls_total_realizado_3>)'
+      end
+      item
+        Name = 'vlso_total_realizado_4'
+        Value = '(<vle_total_realizado_4> - <vls_total_realizado_4>)'
+      end
+      item
+        Name = 'vlso_total_previsto'
+        Value = '(<vle_total_previsto> - <vls_total_previsto>)'
+      end
+      item
+        Name = 'vlso_total_realizado'
+        Value = '(<vle_total_realizado> - <vls_total_realizado>)'
+      end
+      item
+        Name = 'vlsi_total_previsto_1'
         Value = 
-          '<FrdsSaldoFinanceiroMensal."VL_INICIAL">+SUM(<Entrada_Realizada_' +
-          '1>)-SUM(<Saida_Realizada_1>)'
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_previsto_1' +
+          '>)'
+      end
+      item
+        Name = 'vlsi_total_realizado_1'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_realizado_' +
+          '1>)'
+      end
+      item
+        Name = 'vlsi_total_previsto_2'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_previsto_1' +
+          '>+<vlso_total_previsto_2>)'
+      end
+      item
+        Name = 'vlsi_total_realizado_2'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_realizado_' +
+          '1>+<vlso_total_realizado_2>)'
+      end
+      item
+        Name = 'vlsi_total_previsto_3'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_previsto_1' +
+          '>+<vlso_total_previsto_2>+<vlso_total_previsto_3>)'
+      end
+      item
+        Name = 'vlsi_total_realizado_3'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_realizado_' +
+          '1>+<vlso_total_realizado_2>+<vlso_total_realizado_3>)'
+      end
+      item
+        Name = 'vlsi_total_previsto_4'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_previsto_1' +
+          '>+<vlso_total_previsto_2>+<vlso_total_previsto_3>+<vlso_total_pr' +
+          'evisto_4>)'
+      end
+      item
+        Name = 'vlsi_total_realizado_4'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL">+<vlso_total_realizado_' +
+          '1>+<vlso_total_realizado_2>+<vlso_total_realizado_3>+<vlso_total' +
+          '_realizado_4>)'
+      end
+      item
+        Name = 'vlsi_total_previsto'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL"> + (<vle_total_previsto' +
+          '> - <vls_total_previsto>))'
+      end
+      item
+        Name = 'vlsi_total_realizado'
+        Value = 
+          '(<FrdsSaldoFinanceiroMensal."VL_INICIAL"> + (<vle_total_realizad' +
+          'o> - <vls_total_realizado>))'
       end
       item
         Name = ' Entradas'
         Value = Null
       end
       item
-        Name = 'Entrada_Prevista_1'
+        Name = 'vle_total_previsto_1'
         Value = 
-          'IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinanceiroM' +
-          'ensal."VL_PREVISTO_1">,0.00)'
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_1">,0.00),BndMasterData,1)'
       end
       item
-        Name = 'Entrada_Realizada_1'
+        Name = 'vle_total_realizado_1'
         Value = 
-          'IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinanceiroM' +
-          'ensal."VL_REALIZADO_1">,0.00)'
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_1">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_previsto_2'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_2">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_realizado_2'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_2">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_previsto_3'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_3">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_realizado_3'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_3">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_previsto_4'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_4">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_realizado_4'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_4">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_previsto'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vle_total_realizado'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'C'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO">,0.00),BndMasterData,1)'
       end
       item
         Name = ' Saidas'
         Value = Null
       end
       item
-        Name = 'Saida_Prevista_1'
+        Name = 'vls_total_previsto_1'
         Value = 
-          'IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinanceiroM' +
-          'ensal."VL_PREVISTO_1">,0.00)'
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_1">,0.00),BndMasterData,1)'
       end
       item
-        Name = 'Saida_Realizada_1'
+        Name = 'vls_total_realizado_1'
         Value = 
-          'IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinanceiroM' +
-          'ensal."VL_REALIZADO_1">,0.00)'
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_1">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_previsto_2'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_2">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_realizado_2'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_2">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_previsto_3'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_3">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_realizado_3'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_3">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_previsto_4'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO_4">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_realizado_4'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO_4">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_previsto'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_PREVISTO">,0.00),BndMasterData,1)'
+      end
+      item
+        Name = 'vls_total_realizado'
+        Value = 
+          'SUM(IIF(<FrdsMovFinanceiroMensal."CD_GRUPO">='#39'D'#39',<FrdsMovFinance' +
+          'iroMensal."VL_REALIZADO">,0.00),BndMasterData,1)'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -1391,7 +1577,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
         Height = 30.236240000000000000
-        Top = 529.134199999999900000
+        Top = 619.842920000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           Width = 910.866730000000000000
@@ -1446,7 +1632,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
         Height = 18.897650000000000000
-        Top = 400.630180000000000000
+        Top = 351.496290000000000000
         Width = 1046.929810000000000000
         DataSet = FrdsMovFinanceiroMensal
         DataSetName = 'FrdsMovFinanceiroMensal'
@@ -1482,7 +1668,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Sans Typewriter'
-          Font.Style = []
+          Font.Style = [fsBold]
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
@@ -1503,7 +1689,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Lucida Sans Typewriter'
-          Font.Style = []
+          Font.Style = [fsBold]
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
@@ -1700,45 +1886,16 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           VAlign = vaCenter
         end
       end
-      object BndMasterDataSaldo: TfrxMasterData
-        FillType = ftBrush
-        Height = 26.456692913385830000
-        Top = 309.921460000000000000
-        Width = 1046.929810000000000000
-        DataSet = FrdsSaldoFinanceiroMensal
-        DataSetName = 'FrdsSaldoFinanceiroMensal'
-        RowCount = 0
-        object Memo35: TfrxMemoView
-          Width = 139.842610000000000000
-          Height = 18.897650000000000000
-          CharSpacing = 2.000000000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' [Uppercase(<FrdsSaldoFinanceiroMensal."DS_CLASSIFICACAO">)]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-      end
       object GrpHeader: TfrxGroupHeader
         FillType = ftBrush
         Height = 18.897650000000000000
-        Top = 359.055350000000000000
+        Top = 309.921460000000000000
         Width = 1046.929810000000000000
         Condition = 'FrdsMovFinanceiroMensal."CD_GRUPO"'
         object Memo29: TfrxMemoView
           Width = 1046.929810000000000000
           Height = 18.897650000000000000
-          CharSpacing = 2.000000000000000000
+          CharSpacing = 1.000000000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1754,17 +1911,22 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
         end
       end
       object GrpFooter: TfrxGroupFooter
         FillType = ftBrush
         Height = 26.456710000000000000
-        Top = 442.205010000000000000
+        Top = 393.071120000000000000
         Width = 1046.929810000000000000
         object Memo38: TfrxMemoView
           Width = 139.842610000000000000
           Height = 18.897650000000000000
-          CharSpacing = 2.000000000000000000
+          CharSpacing = 1.000000000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -1861,6 +2023,132 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
             
               '[FormatFloat('#39',0.00'#39', SUM(<FrdsMovFinanceiroMensal."VL_REALIZADO' +
               '_1">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo5: TfrxSysMemoView
+          Left = 502.677490000000000000
+          Width = 90.708720000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsMovFinanceiroMensal."VL_PREVISTO_' +
+              '3">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo6: TfrxSysMemoView
+          Left = 593.386210000000000000
+          Width = 90.708720000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsMovFinanceiroMensal."VL_REALIZADO' +
+              '_3">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo7: TfrxSysMemoView
+          Left = 684.094930000000000000
+          Width = 90.708720000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsMovFinanceiroMensal."VL_PREVISTO_' +
+              '4">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo8: TfrxSysMemoView
+          Left = 774.803650000000000000
+          Width = 90.708720000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsMovFinanceiroMensal."VL_REALIZADO' +
+              '_4">,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo9: TfrxSysMemoView
+          Left = 865.512370000000000000
+          Width = 90.708720000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsMovFinanceiroMensal."VL_PREVISTO"' +
+              '>,BndMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object SysMemo10: TfrxSysMemoView
+          Left = 956.221090000000000000
+          Width = 90.708720000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<FrdsMovFinanceiroMensal."VL_REALIZADO' +
+              '">,BndMasterData))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -2234,10 +2522,10 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
             end>
         end
         object Memo39: TfrxMemoView
-          Top = 7.559059999999988000
+          Top = 7.559060000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
-          CharSpacing = 2.000000000000000000
+          CharSpacing = 1.000000000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -2249,13 +2537,13 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' SALDO')
+            ' Saldo Inicial')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
         end
         object Memo40: TfrxMemoView
-          Top = 26.456709999999960000
+          Top = 26.456710000000000000
           Width = 139.842551420000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -2265,7 +2553,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Color = clBlue
           Font.Height = -9
           Font.Name = 'Lucida Sans Typewriter'
-          Font.Style = []
+          Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
@@ -2273,6 +2561,543 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
             
               '[FormatFloat('#39',0.00'#39', <FrdsSaldoFinanceiroMensal."VL_INICIAL">)]' +
               ' ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+      end
+      object BndColumnFooter: TfrxColumnFooter
+        FillType = ftBrush
+        Height = 117.165430000000000000
+        Top = 480.000310000000000000
+        Width = 1046.929810000000000000
+        object Memo63: TfrxMemoView
+          Left = 956.221090000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_realizado>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo64: TfrxMemoView
+          Left = 865.512370000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_previsto>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo61: TfrxMemoView
+          Left = 774.803650000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_realizado_4>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo62: TfrxMemoView
+          Left = 684.094930000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_previsto_4>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo57: TfrxMemoView
+          Left = 593.386210000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_realizado_3>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo58: TfrxMemoView
+          Left = 502.677490000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_previsto_3>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo55: TfrxMemoView
+          Left = 411.968770000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_realizado_2>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo56: TfrxMemoView
+          Left = 321.260050000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_previsto_2>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo52: TfrxMemoView
+          Left = 230.551330000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_realizado_1>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo53: TfrxMemoView
+          Left = 139.842610000000000000
+          Top = 37.795300000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlsi_total_previsto_1>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo50: TfrxMemoView
+          Left = 956.221090000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_realizado>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo51: TfrxMemoView
+          Left = 865.512370000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_previsto>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo46: TfrxMemoView
+          Left = 774.803650000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_realizado_4>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo47: TfrxMemoView
+          Left = 684.094930000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_previsto_4>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo48: TfrxMemoView
+          Left = 593.386210000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_realizado_3>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo49: TfrxMemoView
+          Left = 502.677490000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_previsto_3>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo43: TfrxMemoView
+          Left = 411.968770000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_realizado_2>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo45: TfrxMemoView
+          Left = 321.260050000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_previsto_2>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo42: TfrxMemoView
+          Left = 230.551330000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_realizado_1>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo41: TfrxMemoView
+          Left = 139.842610000000000000
+          Top = 18.897650000000000000
+          Width = 90.708661420000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = []
+          Frame.Typ = [ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<vlso_total_previsto_1>)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo37: TfrxMemoView
+          Top = 18.897650000000000000
+          Width = 139.842610000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Memo.UTF8W = (
+            ' Saldo Operacional ('#185')')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo54: TfrxMemoView
+          Width = 1046.929810000000000000
+          Height = 18.897650000000000000
+          CharSpacing = 1.000000000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' SALDOS')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo35: TfrxMemoView
+          Top = 37.795300000000000000
+          Width = 139.842610000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Sans Typewriter'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Saldo Resultante ('#178')')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo59: TfrxMemoView
+          Top = 60.472480000000000000
+          Width = 1046.929810000000000000
+          Height = 18.897650000000000000
+          CharSpacing = 1.000000000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = 14211288
+          Memo.UTF8W = (
+            ' ('#185') Saldo Operacional = Total de Entradas - Total de Sa'#237'das')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo60: TfrxMemoView
+          Top = 79.370130000000000000
+          Width = 1046.929810000000000000
+          Height = 18.897650000000000000
+          CharSpacing = 1.000000000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            
+              ' ('#178') Saldo Resultante '#233' acumulativo partido do saldo inicial e a' +
+              'gregando-se a ele o saldo operacional semanalmente')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

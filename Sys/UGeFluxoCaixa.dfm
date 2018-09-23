@@ -4,7 +4,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   ClientHeight = 597
   ClientWidth = 1132
   OldCreateOrder = True
-  ExplicitLeft = -49
   ExplicitWidth = 1148
   ExplicitHeight = 636
   PixelsPerInch = 96
@@ -1582,6 +1581,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       ShowHint = True
       TabOrder = 8
       OnClick = btnRecalcularSaldoClick
+      ExplicitLeft = 803
+      ExplicitTop = -2
     end
   end
   inherited IbDtstTabela: TIBDataSet
@@ -1947,7 +1948,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
   inherited ImgList: TImageList
     Left = 832
     Bitmap = {
-      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

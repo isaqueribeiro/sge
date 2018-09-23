@@ -1,8 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 10/08/2018 17:49:00     #
+#    Gerado por AGIL SOFTWARES em : 23/09/2018 13:46:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Novo relatório de Movimentação Financeira Mensal.
+- Ajustes na emissão de NF-e 4.0.
 - Correção nos filtros de pesquisas.
 - Nova definição para os tipos de CFOPs.
 - Atualização das Taxas Tributárias para ABR/2018.
@@ -15,7 +17,6 @@
 - Novos relatórios de Vendas (Faturamento)
 - Financeiro / Controle de Cheques;
 - NF-e / Emissão de CC-e (Carta de Correção Eletrônica);
-- Atualização Automática;
 - Outros ajustes na otimização de processos.}
 
 #url1=http://www.drhtransparencia.com.br/agil/upgrade/SGI.exe
@@ -32,8 +33,10 @@
 #url12=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 #url13=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
 #url14=http://www.drhtransparencia.com.br/agil/upgrade/db/01002001.sql
+#url15=http://www.drhtransparencia.com.br/agil/upgrade/db/01002400.sql
+#url16=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
 
 
 #method=0 (self-upgrade)
 
-#version=1.0.20.2
+#version=1.0.25.0

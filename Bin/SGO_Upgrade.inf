@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 03/09/2018 17:28:00     #
+#    Gerado por AGIL SOFTWARES em : 23/09/2018 13:46:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Novo relatório de Movimentação Financeira Mensal.
 - Ajustes na emissão de NF-e 4.0.
 - Nova definição para os tipos de CFOPs.
 - Atualização das Taxas Tributárias para ABR/2018.
@@ -27,7 +28,8 @@
 #url7=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
 #url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002300.sql
 #url9=http://www.drhtransparencia.com.br/agil/upgrade/db/01002400.sql
+#url10=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.24.0
+#version=1.0.25.0

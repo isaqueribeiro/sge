@@ -198,6 +198,7 @@ type
     BrBtnRelatorioResultadoExercicio: TdxBarLargeButton;
     lblAberta: TLabel;
     TmrAlertaCliente: TTimer;
+    BrBtnRelatorioFinanceiroAPxAR: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -298,6 +299,8 @@ type
     procedure BrBtnTestesGeraisClick(Sender: TObject);
     procedure BrBtnRelatorioResultadoExercicioClick(Sender: TObject);
     procedure TmrAlertaClienteTimer(Sender: TObject);
+    procedure BrBtnRelatorioAutorizacaoEntradaClick(Sender: TObject);
+    procedure BrBtnRelatorioFinanceiroAPxARClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -483,10 +486,22 @@ begin
     FormFunction.ShowModalForm(Self, 'frmGeContasAReceberQuitar');
 end;
 
+procedure TfrmPrinc.BrBtnRelatorioAutorizacaoEntradaClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_AUTOR_ENTRAD_ID, True) then
+    ; //FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
+end;
+
 procedure TfrmPrinc.BrBtnRelatorioEstoqueReqClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_REQ_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeRequisicaoAlmoxImpressao');
+end;
+
+procedure TfrmPrinc.BrBtnRelatorioFinanceiroAPxARClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_APAG_AREC_ID, True) then
+    ; //FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
@@ -1149,6 +1164,9 @@ begin
   // Relatórios -> Gerenciais
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_RESULT_EXERC_ID, Trim(BrBtnRelatorioResultadoExercicio.Caption), ROTINA_MENU_REL_GERENCIAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_AUTOR_ENTRAD_ID, Trim(BrBtnRelatorioAutorizacaoEntrada.Caption), ROTINA_MENU_REL_GERENCIAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ENTRAD_SAIDA_ID, Trim(BrBtnRelatorioEntradaSaida.Caption),       ROTINA_MENU_REL_GERENCIAL_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_APAG_AREC_ID,    Trim(BrBtnRelatorioFinanceiroAPxAR.Caption),    ROTINA_MENU_REL_GERENCIAL_ID);
 end;
 
 procedure TfrmPrinc.RibbonApplicationMenuClick(Sender: TdxCustomRibbon;

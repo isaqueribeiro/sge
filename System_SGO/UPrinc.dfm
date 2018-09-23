@@ -4665,7 +4665,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4740,6 +4739,7 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
+      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -5320,6 +5320,10 @@ object frmPrinc: TfrmPrinc
         item
           Visible = True
           ItemName = 'BrBtnRelatorioEntradaSaida'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnRelatorioFinanceiroAPxAR'
         end>
       OneOnRow = False
       Row = 0
@@ -6328,6 +6332,7 @@ object frmPrinc: TfrmPrinc
       Enabled = False
       Hint = 'Autoriza'#231#245'es x Entradas'
       Visible = ivAlways
+      OnClick = BrBtnRelatorioAutorizacaoEntradaClick
     end
     object BrBtnRelatorioEntradaSaida: TdxBarLargeButton
       Caption = 'Entradas x Sa'#237'das'
@@ -6344,6 +6349,17 @@ object frmPrinc: TfrmPrinc
       Enabled = False
       Hint = 'Entradas x Vendas'
       Visible = ivAlways
+    end
+    object BrBtnRelatorioFinanceiroAPxAR: TdxBarLargeButton
+      Caption = 'A Pagar x A Receber'
+      Category = 17
+      Hint = 'Contas A Pagar x Contas A Receber (Financeiro)'
+      Visible = ivAlways
+      LargeImageIndex = 81
+      OnClick = BrBtnRelatorioFinanceiroAPxARClick
+      HotImageIndex = 81
+      SyncImageIndex = False
+      ImageIndex = 81
     end
     object BrBtnCarregarLicenca: TdxBarLargeButton
       Caption = 'Carregar Licen'#231'a'
