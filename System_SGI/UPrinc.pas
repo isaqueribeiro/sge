@@ -502,7 +502,7 @@ end;
 
 procedure TfrmPrinc.BrBtnRelatorioAutorizacaoEntradaClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_REL_AUTOR_ENTRAD_, True) then
+  if GetPermissaoRotinaSistema(ROTINA_REL_AUTOR_ENTRAD_ID, True) then
     ; //FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
 end;
 
