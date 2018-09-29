@@ -3188,9 +3188,24 @@ begin
 
           qryDadosVolume.Next;
         end;
-        
+
       end;
 
+      if ( Ide.finNFe = fnDevolucao ) then
+      begin
+        // Sem forma de Pagamento
+        with pag.Add do
+        begin
+          indPag := ipNenhum;
+          tPag   := fpSemPagamento;
+          vPag   := 0.0;
+//          tpIntegra := tiNaoInformado;
+//          CNPJ      := EmptyStr;
+//          tBand     := bcOutros;
+//          cAut      := EmptyStr;
+        end;
+      end
+      else
       if ( Ide.finNFe = fnNormal ) then
       begin
 
@@ -4696,6 +4711,22 @@ begin
           //Lacres.Add.nLacre := '';
         end;
 
+
+      if ( Ide.finNFe = fnDevolucao ) then
+      begin
+        // Sem forma de Pagamento
+        with pag.Add do
+        begin
+          indPag := ipNenhum;
+          tPag   := fpSemPagamento;
+          vPag   := 0.0;
+//          tpIntegra := tiNaoInformado;
+//          CNPJ      := EmptyStr;
+//          tBand     := bcOutros;
+//          cAut      := EmptyStr;
+        end;
+      end
+      else
       if ( Ide.finNFe = fnNormal ) then
       begin
 
