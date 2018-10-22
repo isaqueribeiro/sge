@@ -416,10 +416,10 @@ type
     Bevel18: TBevel;
     qryTitulosPGTO_SEQ: TSmallintField;
     qryTitulosPGTO_DATA: TDateField;
-    qryTitulosPGTO_FORMA: TDateField;
     qryTitulosPGTO_VALOR: TIBBCDField;
     qryTitulosPGTO_OK: TIntegerField;
     qryTitulosPGTO_USUARIO: TIBStringField;
+    qryTitulosPGTO_FORMA: TSmallintField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

@@ -4403,7 +4403,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00940110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C009C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6370,7 +6370,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , b.seq         as pgto_seq'
       '  , b.usuario     as pgto_usuario'
       '  , b.data_pagto  as pgto_data'
-      '  , b.data_pagto  as pgto_forma'
+      '  , b.forma_pagto as pgto_forma'
       '  , b.valor_baixa as pgto_valor'
       '  , Case when r.valorrectot = b.valor_baixa'
       '      then 1'
@@ -6542,10 +6542,9 @@ inherited frmGeVenda: TfrmGeVenda
       Origin = '"TBCONTREC_BAIXA"."DATA_PAGTO"'
       ProviderFlags = []
     end
-    object qryTitulosPGTO_FORMA: TDateField
+    object qryTitulosPGTO_FORMA: TSmallintField
       FieldName = 'PGTO_FORMA'
-      Origin = '"TBCONTREC_BAIXA"."DATA_PAGTO"'
-      ProviderFlags = []
+      Origin = '"TBCONTREC_BAIXA"."FORMA_PAGTO"'
     end
     object qryTitulosPGTO_VALOR: TIBBCDField
       FieldName = 'PGTO_VALOR'
