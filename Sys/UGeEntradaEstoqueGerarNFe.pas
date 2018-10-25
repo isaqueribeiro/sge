@@ -286,6 +286,30 @@ begin
                iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE,
                chkNaoInformarVencimento.Checked, False);
 
+//    if bDenegada then
+//    begin
+//      cdsVenda.Edit;
+//
+//      cdsVendaNFE_DENEGADA.AsInteger       := 1;
+//      cdsVendaNFE_DENEGADA_MOTIVO.AsString := AnsiUpperCase(Trim(sDenegadaMotivo));
+//
+//      cdsVenda.Post;
+//      cdsVenda.ApplyUpdates;
+//      CommitTransaction;
+//    end;
+//
+    if not bOk then
+    begin
+      // Refeição: Duplicidade de NF-e [nRec:999999999999999]
+      // 1. Verificar se a mensagem de rejeição é sobre a duplicação da NF-e.
+      // 2. Pegar o número de recibo retornado e buscar na SEFA a NF-e correspondente
+      // 3. Identificar a venda nesta NF-e encontrada
+      // 4. Comparar a venda encontrada com a venda corrente
+      // 5. Se as vendas forem iguais, colocar [nRec:999999999999999] na venda corrente
+      if ((DMNFe.MensagemErro) <> EmptyStr) then
+        ;
+    end;
+
     TmrAlerta.Enabled  := False;
     lblInforme.Visible := False;
 

@@ -269,6 +269,7 @@ type
     fr3Designer: TfrxDesigner;
 
     FImprimirCabecalho : Boolean;
+    FMensagemErro      : String;
 
     procedure GerarTabela_CST_PIS;
     procedure GerarTabela_CST_COFINS;
@@ -291,6 +292,8 @@ type
     procedure GerarNFeComplementarACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String); virtual; abstract;
 
+    function GetMensagemErro : String;
+
     function ImprimirCupomNaoFiscal_PORTA(const sCNPJEmitente : String; iCodigoCliente : Integer;
       const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       const BlocoImpressaoCupom : TBlocoImpressaoCupom = bicCupomRelatorioGerencial) : Boolean;
@@ -305,6 +308,7 @@ type
     { Public declarations }
     property ConfigACBr : TfrmGeConfigurarNFeACBr read frmACBr write frmACBr;
     property ImprimirCabecalho : Boolean read FImprimirCabecalho write FImprimirCabecalho;
+    property MensagemErro : String read GetMensagemErro;
 
     procedure LoadXML(MyMemo: TStringList; MyWebBrowser: TWebBrowser);
 
@@ -1739,6 +1743,12 @@ var
   sLogXmlRec  : String;
 begin
 (*
+  IMR - 24/10/2018 :
+    * Inserção do bloco de código para guarda o número do recibo de envio, caso ele
+    exista, mesmo quando o retorno do envio seja FALSE.
+    * Comentado o bloco de código que remove o número do recibo de envio da venda
+    mesmo que a rejeição seja de duplicidade de nota.
+
   IMR - 20/05/2016 :
     Inclusão da rejeição 203 para que o recibo de envio não seja guardado no
     registro de origem (Venda ou Compra) da NF-e.
@@ -1762,6 +1772,7 @@ begin
   try
 
     LerConfiguracao(sCNPJEmitente);
+    FMensagemErro := EmptyStr;
 
     if ( DelphiIsRunning ) then
       Result := True
@@ -1798,7 +1809,15 @@ begin
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
       ACBrNFe.NotasFiscais.Clear;
-    end;
+    end
+    // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
+    else
+    if Assigned(ACBrNFe.WebServices.Retorno) then
+      if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+      begin
+        ReciboNFE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
+        GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFE);
+      end;
 
   except
     On E : Exception do
@@ -1844,12 +1863,12 @@ begin
 
           REJEICAO_NFE_DUPLICIDADE:
             begin
-              UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
-              UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
-
-              // Remover Lote da Venda
-              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
-
+//              UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
+//              UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
+//
+//              // Remover Lote da Venda
+//              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+//
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 'Favor gerar NF-e novamente!';
             end;
@@ -1918,6 +1937,7 @@ begin
 
       end;
 
+      FMensagemErro := Trim(sErrorMsg);
       Result := False;
     end;
   end;
@@ -3557,6 +3577,12 @@ var
   sErrorMsg   : String;
 begin
 {
+  IMR - 24/10/2018 :
+    * Inserção do bloco de código para guarda o número do recibo de envio, caso ele
+    exista, mesmo quando o retorno do envio seja FALSE.
+    * Comentado o bloco de código que remove o número do recibo de envio da compra
+    mesmo que a rejeição seja de duplicidade de nota.
+
   IMR - 20/05/2016 :
     Inserção da rotina que renomeia os arquivos XML de envio e retorno do Lote e
     Recibo quando o processo de geração/envio da NFe é finalizado corretamente.
@@ -3572,6 +3598,7 @@ begin
   try
 
     LerConfiguracao(sCNPJEmitente);
+    FMensagemErro := EmptyStr;
 
     if ( DelphiIsRunning ) then
       Result := True
@@ -3608,7 +3635,15 @@ begin
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
       ACBrNFe.NotasFiscais.Clear;
-    end;
+    end
+    // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
+    else
+    if Assigned(ACBrNFe.WebServices.Retorno) then
+      if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+      begin
+        ReciboNFE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
+        GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ReciboNFE);
+      end;
 
   except
     On E : Exception do
@@ -3623,7 +3658,18 @@ begin
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
       begin
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
-          REJEICAO_NFE_DUPLICIDADE  ,
+          REJEICAO_NFE_DUPLICIDADE  :
+            begin
+//              UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
+//              UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
+//
+//              // Remover Lote da Entrada
+//              GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
+//
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
+                'Favor gerar NF-e novamente!';
+            end;
+
           REJEICAO_NFE_NOTA_DENEGADA:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
@@ -3701,6 +3747,7 @@ begin
 
       end;
 
+      FMensagemErro := Trim(sErrorMsg);
       Result := False;
     end;
   end;
@@ -6354,6 +6401,12 @@ var
   sLogXmlRec  : String;
 begin
 (*
+  IMR - 24/10/2018 :
+    * Inserção do bloco de código para guarda o número do recibo de envio, caso ele
+    exista, mesmo quando o retorno do envio seja FALSE.
+    * Comentado o bloco de código que remove o número do recibo de envio da venda
+    mesmo que a rejeição seja de duplicidade de nota.
+
   IMR - 20/05/2016 :
     Inclusão da rejeição 203 para que o recibo de envio não seja guardado no
     registro de origem (Venda ou Compra) da NF-e.
@@ -6376,6 +6429,7 @@ begin
   try
 
     LerConfiguracao(sCNPJEmitente, tipoDANFE_ESCPOS);
+    FMensagemErro := EmptyStr;
 
     if ( DelphiIsRunning ) then
       Result := True
@@ -6408,7 +6462,15 @@ begin
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NFC-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFCE, 'nfce');
       ACBrNFe.NotasFiscais.Clear;
-    end;
+    end
+    // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
+    else
+    if Assigned(ACBrNFe.WebServices.Retorno) then
+      if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+      begin
+        ReciboNFCE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
+        GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFCE);
+      end;
 
   except
     On E : Exception do
@@ -6452,11 +6514,11 @@ begin
 
           REJEICAO_NFE_DUPLICIDADE:
             begin
-              UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
-
-              // Remover Lote da Venda
-              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
-
+//              UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
+//
+//              // Remover Lote da Venda
+//              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
+//
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 'Favor gerar NFC-e novamente!';
             end;
@@ -6521,6 +6583,7 @@ begin
         IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
         #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);
 
+      FMensagemErro := Trim(sErrorMsg);
       Result := False;
     end;
   end;
@@ -7427,6 +7490,11 @@ begin
     pc.Free;
     fr.Free;
   end;
+end;
+
+function TDMNFe.GetMensagemErro : String;
+begin
+  Result := Trim(FMensagemErro);
 end;
 
 function TDMNFe.ImprimirCupomNaoFiscal_PORTA(const sCNPJEmitente: String;

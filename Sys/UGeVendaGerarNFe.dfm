@@ -279,6 +279,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     object edHoraSaida: TcxTimeEdit
       Left = 520
       Top = 40
+      EditValue = 0d
       Properties.TimeFormat = tfHourMin
       TabOrder = 7
       Width = 57
