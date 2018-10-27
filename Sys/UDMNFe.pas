@@ -470,10 +470,11 @@ const
   DIRECTORY_PRINT  = 'NFe\Imprimir\';
   DIRECTORY_CLIENT = 'NFe\Clientes\';
 
-  PROCESSO_NFE_AUTORIZADA     = 100;
-  PROCESSO_NFE_LOTE_PROCES    = 103; // Processo: Lote recebido com Sucesso
-  PROCESSO_NFE_LOTE_REJEITADO = 104; // Processo: Lote processado, mas rejeitado
-  PROCESSO_NFE_USO_DENEGADO   = 110; // Processo: Uso denegado
+  PROCESSO_NFE_AUTORIZADA       = 100;
+  PROCESSO_NFE_LOTE_PROCES      = 103; // Processo: Lote recebido com Sucesso
+  PROCESSO_NFE_LOTE_REJEITADO   = 104; // Processo: Lote processado, mas rejeitado
+  PROCESSO_NFE_LOTE_PROCESSANDO = 105; // Processo: Lote em processamento
+  PROCESSO_NFE_USO_DENEGADO     = 110; // Processo: Uso denegado
 
   REJEICAO_NFE_DUPLICIDADE = 204;    // Refeição: Duplicidade de NF-e [nRec:999999999999999]
 
@@ -1785,7 +1786,6 @@ begin
     GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida,
       iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
-//    iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
     iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
@@ -3600,18 +3600,17 @@ begin
     LerConfiguracao(sCNPJEmitente);
     FMensagemErro := EmptyStr;
 
+    // Verificar o status do serviço
     if ( DelphiIsRunning ) then
       Result := True
     else
       Result := ACBrNFe.WebServices.StatusServico.Executar;
-
 
     if not Result then
       Exit;
 
     GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
-//    iNumeroLote := GetNextID('TBEMPRESA', 'LOTE_NUM_NFE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and LOTE_ANO_NFE = ' + qryEmitenteLOTE_ANO_NFE.AsString);
     iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
     Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
@@ -3712,7 +3711,6 @@ begin
             sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
               ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
-
 
             if Assigned(ACBrNFe.WebServices.Recibo) then                        // Se possuir recibo de envio
             begin

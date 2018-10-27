@@ -16271,6 +16271,7 @@ object DMNFe: TDMNFe
     MostrarStatus = True
     TipoDANFE = tiRetrato
     NumCopias = 1
+    AgruparNumCopias = False
     ImprimeNomeFantasia = False
     ImprimirDescPorc = False
     ImprimirTotalLiquido = False
@@ -16311,6 +16312,7 @@ object DMNFe: TDMNFe
     IncorporarBackgroundPdf = True
     IncorporarFontesPdf = True
     ImprimirDadosDocReferenciados = True
+    BorderIcon = [biSystemMenu, biMinimize, biMaximize]
     Left = 24
     Top = 72
   end
@@ -18025,6 +18027,7 @@ object DMNFe: TDMNFe
     MostrarStatus = True
     TipoDANFE = tiNFCe
     NumCopias = 1
+    AgruparNumCopias = False
     ImprimeNomeFantasia = False
     ImprimirDescPorc = False
     ImprimirTotalLiquido = True
