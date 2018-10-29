@@ -157,7 +157,7 @@ var
 
 implementation
 
-uses UDMBusiness, UDMNFe, UFuncoes;
+uses UDMBusiness, UDMNFe, UFuncoes, UGeConsultarLoteNFe_v2;
 
 {$R *.dfm}
 
@@ -262,13 +262,22 @@ end;
 
 procedure TfrmGeVendaGerarNFe.btnConfirmarClick(Sender: TObject);
 var
+  bRT ,
   bOK : Boolean;
   sDH ,
   sSD ,
-  sVN : String;
+  sVN ,
+  sRecibo   ,
+  sVendaID  : String;
   aDataHora : TDateTime;
+  aTipoMovimento : TTipoMovimento;
+  aFileXML       : TStringList;
 begin
 (*
+  IMR - 29/10/2018 :
+    Implementação da rotina de tratamento das rejeições sobre a duplicidade de notas
+    fiscais.
+
   IMR - 09/09/2014 :
     Declaração dos campos referidos a NF-e DENEGADA para que estas informações possam ser gravadas na tabela de venda a apartir dela
     bloquear o cancelamento da venda/nota.
@@ -374,15 +383,67 @@ begin
       // 3. Identificar a venda nesta NF-e encontrada
       // 4. Comparar a venda encontrada com a venda corrente
       // 5. Se as vendas forem iguais, colocar [nRec:999999999999999] na venda corrente
+
       if ((DMNFe.MensagemErro) <> EmptyStr) then
-        ;
+      begin
+        aFileXML := TStringList.Create;
+        try
+          if (Pos('Duplicidade de NF-e', DMNFe.MensagemErro) > 0) then   // Passo 1
+          begin
+            sRecibo := StrOnlyNumbers( Copy(DMNFe.MensagemErro,          // Passo 2.1
+              Pos('[nRec:', DMNFe.MensagemErro),
+              Pos(']', DMNFe.MensagemErro)) );
+            if (Trim(sRecibo) <> EmptyStr) then                          // Passo 2.2
+            begin
+              bRT := BuscarRetornoReciboNFe(Self
+                , cdsVendaCODEMP.AsString
+                , Trim(sRecibo)
+                , iSerieNFe
+                , iNumeroNFe
+                , sFileNameXML
+                , sChaveNFE
+                , sProtocoloNFE
+                , aTipoMovimento);
+
+              if bRT and (aTipoMovimento = tmNFeSaida) then
+              begin
+                // Analisar o nome do arquivo XML retornado
+                if (Trim(sFileNameXML) = EmptyStr) and (not FileExists(sFileNameXML)) then
+                  sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
+
+                if FileExists(sFileNameXML) then                         // Passo 3
+                begin
+                  aFileXML.LoadFromFile(sFileNameXML);
+                  sVendaID := 'Venda: ' + cdsVenda.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', cdsVenda.FieldByName('CODCONTROL').AsInteger);
+                  if (Pos(sVendaID, aFileXML.Text) > 0) then             // Passo 3, 4
+                  begin
+                    sReciboNFE  := Trim(sRecibo);
+                    iNumeroLote := iNumeroNFe;
+                    DMNFe.GuardarLoteNFeVenda(
+                        cdsVendaCODEMP.AsString
+                      , cdsVenda.FieldByName('ANO').AsInteger
+                      , cdsVenda.FieldByName('CODCONTROL').AsInteger
+                      , iNumeroLote
+                      , sReciboNFE);                                     // Passo 5
+                  end;
+                end;
+              end;
+            end;
+          end;
+        finally
+          aFileXML.Free;
+        end;
+      end;
+
     end;
 
     TmrAlerta.Enabled  := False;
     lblInforme.Visible := False;
 
     if ( bOK ) then
-      ModalResult := mrOk;
+      ModalResult := mrOk
+    else
+      ModalResult := mrCancel;
   end;
 end;
 

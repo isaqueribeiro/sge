@@ -44,7 +44,7 @@ const
   strLoadData      = 'Pesquisando base de dados ...';
   strCloneTable    = 'Duplicando tabela';
   strPrintPrepare  = 'Preparando impressão...';
-  strMakerConsulta = 'Gerando registros...';
+  strMakerConsulta = 'Executando consulta(s)...';
   strProcess       = 'Processando registro(s)...';
   strAutorizacao   = 'Aguardando autorização...';
 

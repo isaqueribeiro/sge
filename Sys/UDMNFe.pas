@@ -278,8 +278,6 @@ type
     procedure UpdateNumeroNFCe(const sCNPJEmitente : String; const Serie, Numero : Integer);
     procedure UpdateNumeroCCe(const sCNPJEmitente : String; const Numero : Integer);
     procedure UpdateLoteNFe(const sCNPJEmitente : String; const Ano, Numero : Integer);
-    procedure GuardarLoteNFeVenda(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
-    procedure GuardarLoteNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
 
     procedure GerarNFeACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const sDataHoraSaida : String; const iAnoVenda, iNumVenda : Integer;
       var DtHoraEmiss : TDateTime; var iSerieNFe, iNumeroNFe : Integer; var FileNameXML : String;
@@ -311,6 +309,8 @@ type
     property MensagemErro : String read GetMensagemErro;
 
     procedure LoadXML(MyMemo: TStringList; MyWebBrowser: TWebBrowser);
+    procedure GuardarLoteNFeVenda(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
+    procedure GuardarLoteNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
 
     procedure LerConfiguracao(const sCNPJEmitente : String; const tipoDANFE : TTipoDANFE = tipoDANFEFast);
     procedure GravarConfiguracao(const sCNPJEmitente : String);
@@ -5252,7 +5252,10 @@ begin
           aVersao := Ord(ve300)
         else
         if ( Trim(sVersao) = 'versao="3.10"' ) then
-          aVersao := Ord(ve310);
+          aVersao := Ord(ve310)
+        else
+        if ( Trim(sVersao) = 'versao="4.00"' ) then
+          aVersao := Ord(ve400);
       end;
 
       NotaValida := True;
@@ -5530,11 +5533,7 @@ begin
           ProtocoloNFE := WebServices.Consulta.Protocolo;
 
           // Atualizar contador do número da NF-e
-
-//          iNumeroTmp := GetNextID('TBEMPRESA'
-//            , 'NUMERO_NFE'
-//            , 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = ' + IntToStr(iSerieNFe));
-            iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+          iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
 
           if ( iNumeroNFe = iNumeroTmp ) then
           begin
@@ -8168,7 +8167,10 @@ begin
           aVersao := Ord(ve300)
         else
         if ( Trim(sVersao) = 'versao="3.10"' ) then
-          aVersao := Ord(ve310);
+          aVersao := Ord(ve310)
+        else
+        if ( Trim(sVersao) = 'versao="4.00"' ) then
+          aVersao := Ord(ve400);
       end;
 
       if ( not DelphiIsRunning ) then

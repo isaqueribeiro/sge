@@ -2232,7 +2232,6 @@ procedure TfrmGeVenda.GerarTitulos(const AnoVenda: Smallint;
   const ControleVenda: Integer);
 begin
   try
-
     try
 
       UpdateSequence('GEN_CONTAREC_NUM_' + IntToStr(AnoVenda), 'TBCONTREC', 'NUMLANC', 'where ANOLANC = ' + IntToStr(AnoVenda));
@@ -2252,7 +2251,6 @@ begin
         ShowError('Erro ao tentar gerar títulos de recebimento.' + #13#13 + E.Message);
       end;
     end;
-
   finally
   end;
 end;
