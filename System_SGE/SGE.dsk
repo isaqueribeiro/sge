@@ -17,20 +17,20 @@ File_14=TSourceModule,'C:\Delphi\FIBPlus_7.7\FIBPlatforms.pas',0,1,150,1,168,0,0
 
 [Modules]
 Module0=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeConfiguracoes.pas
-Module1=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeSSL.pas
-Module2=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module3=C:\Delphi\ACBr_2016\Fontes\ACBrTCP\ACBrIBGE.pas
-Module4=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-Module5=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
-Module6=D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas
-Module7=D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueGerarNFe.pas
-Module8=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module9=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnConversaoNFe.pas
-Module10=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module11=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module12=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
-Module13=default.htm
-Module14=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module1=default.htm
+Module2=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module3=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeSSL.pas
+Module4=D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module5=C:\Delphi\ACBr_2016\Fontes\ACBrTCP\ACBrIBGE.pas
+Module6=D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module7=D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module8=D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
+Module9=D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas
+Module10=D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueGerarNFe.pas
+Module11=D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module12=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\PCNNFe\pcnConversaoNFe.pas
+Module13=D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module14=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
 Module15=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas
 Module16=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 Module17=C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeWebService.pas
@@ -59,6 +59,12 @@ ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
+[default.htm]
+ModuleType=TURLModule
+
+[D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj]
+ModuleType=TBaseProject
+
 [C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrDFeSSL.pas]
 ModuleType=TSourceModule
 FormState=0
@@ -67,7 +73,7 @@ FormOnTop=0
 [D:\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
+FormOnTop=0
 
 [C:\Delphi\ACBr_2016\Fontes\ACBrTCP\ACBrIBGE.pas]
 ModuleType=TSourceModule
@@ -79,10 +85,15 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
+[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
 ModuleType=TSourceModule
 FormState=1
-FormOnTop=1
+FormOnTop=0
 
 [D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas]
 ModuleType=TSourceModule
@@ -104,11 +115,6 @@ ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
 [D:\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 FormState=0
@@ -118,12 +124,6 @@ FormOnTop=0
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
-
-[default.htm]
-ModuleType=TURLModule
-
-[D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj]
-ModuleType=TBaseProject
 
 [C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\ACBrNFeWebServices.pas]
 ModuleType=TSourceModule
@@ -225,11 +225,11 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
 FormState=1
 FormOnTop=0
 
-[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas]
+[D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas]
 FormState=1
 FormOnTop=0
 
@@ -289,13 +289,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1341
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000004B11000000000000013D050000000000000100000000550E000009000000446F636B53697465330100000000BE1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
-RightPanelSize=1465
+LeftPanelData=000008000101000000001E11000000000000013D050000000000000100000000550E000009000000446F636B536974653301000000006D1E00001100000050726F7065727479496E73706563746F72FFFFFFFF
+RightPanelSize=1309
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000004B1100000000000001B90500000000000001000000004412000009000000446F636B53697465320100000000BE1E000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=729
+RightPanelData=000008000101000000001E11000000000000011D0500000000000001000000004412000009000000446F636B536974653201000000006D1E000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=810
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B5369746531724500000000000002D9020000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B53697465317245000000000000022A030000000000000100000000724500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779D1D00000000000002F606000000000000FFFFFFFF
@@ -750,11 +750,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1465
+Width=1309
 Height=4262
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1465
+ClientWidth=1309
 ClientHeight=4262
 TBDockHeight=5896
 LRDockWidth=2350
@@ -770,12 +770,12 @@ State=0
 Left=0
 Top=23
 Width=10000
-Height=484
+Height=569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=10000
-ClientHeight=484
-TBDockHeight=484
+ClientHeight=569
+TBDockHeight=569
 LRDockWidth=2767
 Dockable=1
 StayOnTop=0
@@ -788,12 +788,12 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1465
-Height=3063
+Width=1309
+Height=2978
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1465
-ClientHeight=3063
+ClientWidth=1309
+ClientHeight=2978
 TBDockHeight=7155
 LRDockWidth=1999
 Dockable=1
@@ -808,21 +808,16 @@ State=0
 Left=0
 Top=340
 Width=1341
-Height=4116
+Height=4031
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1341
-ClientHeight=4116
+ClientHeight=4031
 TBDockHeight=8765
 LRDockWidth=1341
 Dockable=1
 StayOnTop=0
 SplitPos=79
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Name,
-ExpandedItems=FieldOptions=0,"LiveBindings Designer=0",LiveBindings=0,LookAndFeel=0,Margins=0,OptionsImage=0,DefaultTransaction=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0
 
 [ModelViewTool]
 PercentageSizes=1
@@ -1249,14 +1244,14 @@ Docked=1
 State=0
 Left=0
 Top=23
-Width=1465
+Width=1309
 Height=4564
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1465
+ClientWidth=1309
 ClientHeight=4564
 TBDockHeight=8765
-LRDockWidth=1465
+LRDockWidth=1309
 Dockable=1
 StayOnTop=0
 TabPosition=1
@@ -1297,14 +1292,14 @@ Docked=1
 State=0
 Left=0
 Top=427
-Width=1465
-Height=3063
+Width=1309
+Height=2978
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1465
-ClientHeight=3063
+ClientWidth=1309
+ClientHeight=2978
 TBDockHeight=8765
-LRDockWidth=1465
+LRDockWidth=1309
 Dockable=1
 StayOnTop=0
 TabPosition=1
