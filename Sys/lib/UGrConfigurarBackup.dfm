@@ -169,10 +169,6 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     object TbsConfigurar: TcxTabSheet
       Caption = 'Configurar'
       ImageIndex = 0
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblServidorBase: TLabel
         Left = 43
         Top = 19
@@ -230,7 +226,6 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
         Width = 401
         Height = 21
         Hint = 'Selecionar diret'#243'rio'
-        DialogKind = dkWin32
         TabOrder = 1
         Text = ''
       end
@@ -240,7 +235,6 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
         Width = 401
         Height = 21
         Hint = 'Selecionar diret'#243'rio'
-        DialogKind = dkWin32
         TabOrder = 2
         Text = ''
       end
@@ -250,7 +244,6 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
         Width = 401
         Height = 21
         Hint = 'Selecionar diret'#243'rio'
-        DialogKind = dkWin32
         TabOrder = 3
         Text = ''
       end
@@ -258,10 +251,6 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     object TbsVerbose: TcxTabSheet
       Caption = 'Verbose'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object mmVerbose: TcxMemo
         AlignWithMargins = True
         Left = 3

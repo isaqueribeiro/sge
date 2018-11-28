@@ -364,11 +364,13 @@ object DMBusiness: TDMBusiness
     ShowProgress = True
     OverwritePrompt = False
     DataOnly = False
+    OpenAfterExport = False
     PrintOptimized = False
     Outline = False
     Background = False
     HTMLTags = True
     Quality = 95
+    Transparency = False
     Author = 'FastReport'
     Subject = 'FastReport PDF export'
     ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
@@ -378,6 +380,7 @@ object DMBusiness: TDMBusiness
     FitWindow = False
     CenterWindow = False
     PrintScaling = False
+    PdfA = False
     Left = 40
     Top = 168
   end
@@ -402,6 +405,7 @@ object DMBusiness: TDMBusiness
     OverwritePrompt = False
     DataOnly = False
     PictureType = gpPNG
+    OpenAfterExport = False
     Wysiwyg = True
     Creator = 'FastReport'
     SuppressPageHeadersFooters = False
@@ -431,6 +435,7 @@ object DMBusiness: TDMBusiness
     TimeOut = 60
     ConfurmReading = False
     UseMAPI = SMTP
+    MAPISendFlag = 0
     Left = 40
     Top = 360
   end
@@ -447,7 +452,7 @@ object DMBusiness: TDMBusiness
     Top = 504
   end
   object fastReport: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -479,6 +484,7 @@ object DMBusiness: TDMBusiness
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
     end
   end
   object ACBrValidador: TACBrValidador
@@ -852,7 +858,6 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     Params = <>
     Macros = <>
-    OnError = fdScriptError
     BeforeExecute = fdScriptBeforeExecute
     Left = 800
     Top = 256

@@ -3,12 +3,14 @@ inherited frmGeLogradouro: TfrmGeLogradouro
   Top = 260
   Caption = 'Tabela de Logradouros'
   OldCreateOrder = True
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -258,7 +260,7 @@ inherited frmGeLogradouro: TfrmGeLogradouro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

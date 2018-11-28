@@ -18,7 +18,9 @@ uses
 
   dxSkinsCore, dxSkinOffice2007Green, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinMcSkin;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinMcSkin,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TLancamentoEntrada = record
@@ -911,7 +913,8 @@ begin
         cdsTabelaItensQTDE.Assign          ( FieldByName('quantidade') );
         cdsTabelaItensUNID_COD.Assign      ( FieldByName('unidade') );
         cdsTabelaItensUNP_SIGLA.Assign     ( FieldByName('unp_sigla') );
-        cdsTabelaItensCFOP.Assign          ( FieldByName('codcfop') );
+        //cdsTabelaItensCFOP.Assign          ( FieldByName('codcfop') );
+        cdsTabelaItensCFOP.Assign          ( IbDtstTabela.FieldByName('NFCFOP') );
         cdsTabelaItensCST.Assign           ( FieldByName('cst') );
         cdsTabelaItensCSOSN.Assign         ( FieldByName('csosn') );
         cdsTabelaItensALIQUOTA.Assign      ( FieldByName('aliquota') );
@@ -2039,6 +2042,7 @@ begin
   end;
 
   if bNFeGerada then
+  begin
     with IbDtstTabela do
     begin
       iNumero := IbDtstTabelaCODCONTROL.AsInteger;
@@ -2096,6 +2100,9 @@ begin
 
       nmImprimirDANFE.Click;
     end;
+  end
+  else
+    RecarregarRegistro;
 end;
 
 procedure TfrmGeEntradaEstoque.btbtnListaClick(Sender: TObject);

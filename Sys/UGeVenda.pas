@@ -18,7 +18,9 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -2167,6 +2169,7 @@ begin
   end;
 
   if bNFeGerada then
+  begin
     with IbDtstTabela do
     begin
       iNumero := IbDtstTabelaCODCONTROL.AsInteger;
@@ -2226,6 +2229,9 @@ begin
 
       nmImprimirDANFE.Click;
     end;
+  end
+  else
+    RecarregarRegistro;
 end;
 
 procedure TfrmGeVenda.GerarTitulos(const AnoVenda: Smallint;

@@ -772,6 +772,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     MostrarStatus = True
     TipoDANFE = tiSemGeracao
     NumCopias = 1
+    AgruparNumCopias = False
     ImprimeNomeFantasia = False
     ImprimirDescPorc = False
     ImprimirTotalLiquido = True

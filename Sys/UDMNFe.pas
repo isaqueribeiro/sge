@@ -436,6 +436,7 @@ type
 
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
+    function GetDiretorioLoteXml : String;
     function GetDiretorioXmlNFe : String;
     function IsEstacaoEmiteNFCe : Boolean;
     function IsEstacaoEmiteNFCeResumido : Boolean;
@@ -476,9 +477,8 @@ const
   PROCESSO_NFE_LOTE_PROCESSANDO = 105; // Processo: Lote em processamento
   PROCESSO_NFE_USO_DENEGADO     = 110; // Processo: Uso denegado
 
-  REJEICAO_NFE_DUPLICIDADE = 204;    // Refeição: Duplicidade de NF-e [nRec:999999999999999]
-
   REJEICAO_NFE_EMISSOR_NAO_HABIL = 203; // Rejeicao: Emitente não habilitado para emissão de NF-e
+  REJEICAO_NFE_DUPLICIDADE       = 204; // Refeição: Duplicidade de NF-e [nRec:999999999999999]
   REJEICAO_NFE_NOTA_DENEGADA     = 205; // Rejeicao: NF-e esta denegada na base de dados da SEFAZ
   REJEICAO_NFE_IE_NAO_CADASTRADO = 233; // Rejeicao: IE do destinatario nao cadastrada
   REJEICAO_NFE_IE_NAO_VINCULADO  = 234; // Rejeicao: IE do destinatario nao vinculada ao CNPJ
@@ -1407,7 +1407,10 @@ begin
     begin
       Close;
       SQL.Clear;
-      SQL.Add('Select lote_nfe_recibo as recibo from TBVENDAS where lote_nfe_recibo = ' + QuotedStr(sRecibo));
+      SQL.Add('Select ');
+      SQL.Add('  lote_nfe_recibo as recibo ');
+      SQL.Add('from TBVENDAS ');
+      SQL.Add('where lote_nfe_recibo = ' + QuotedStr(sRecibo));
       Open;
 
       Result := IsEmpty;
@@ -1869,8 +1872,7 @@ begin
 //              // Remover Lote da Venda
 //              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 //
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
-                'Favor gerar NF-e novamente!';
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
@@ -3650,6 +3652,7 @@ begin
       sErrorMsg := E.Message;
 
       // Diretrizes de tomada de decisão quando a NFe enviada não é aceita
+
       if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
         if ReciboNaoExisteNaEntrada(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
@@ -3665,8 +3668,7 @@ begin
 //              // Remover Lote da Entrada
 //              GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 //
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
-                'Favor gerar NF-e novamente!';
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
             end;
 
           REJEICAO_NFE_NOTA_DENEGADA:
@@ -5965,6 +5967,18 @@ begin
     Result := EmptyStr;
 end;
 
+function TDMNFe.GetDiretorioLoteXml: String;
+var
+  aRetorno : String;
+begin
+  with ACBrNFe.Configuracoes do
+  begin
+    aRetorno := Arquivos.PathSalvar  + '\';
+    aRetorno := StringReplace(aRetorno, '\\', '\', [rfReplaceAll]);
+  end;
+  Result := Trim(aRetorno);
+end;
+
 function TDMNFe.GetDiretorioXmlNFe: String;
 var
   aRetorno : String;
@@ -6478,7 +6492,7 @@ begin
 
       if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
-          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, ACBrNFe.WebServices.Retorno.Recibo);
+          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
@@ -6516,8 +6530,7 @@ begin
 //              // Remover Lote da Venda
 //              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 //
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
-                'Favor gerar NFC-e novamente!';
+              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,

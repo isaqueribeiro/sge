@@ -12,7 +12,9 @@ uses
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, cxControls, cxContainer,
   cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils, cxSpinEdit, cxTimeEdit, cxTextEdit,
-  cxMaskEdit, cxDropDownEdit, cxCalendar;
+  cxMaskEdit, cxDropDownEdit, cxCalendar, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaGerarNFe = class(TfrmGrPadrao)
@@ -296,7 +298,7 @@ begin
   else
     sVN := EmptyStr;
 
-  DMNFe.LerConfiguracao(cdsVendaCODEMP.AsString);
+  DMNFe.LerConfiguracao(cdsVendaCODEMP.AsString, tipoDANFEFast);
   DMNFe.ValidarCnpjDocumento(cdsVendaCODEMP.AsString);
   if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
 //  if (DMNFe.GetCnpjCertificado <> gUsuarioLogado.Empresa) then
@@ -393,7 +395,7 @@ begin
             sRecibo := StrOnlyNumbers( Copy(DMNFe.MensagemErro,          // Passo 2.1
               Pos('[nRec:', DMNFe.MensagemErro),
               Pos(']', DMNFe.MensagemErro)) );
-            if (Trim(sRecibo) <> EmptyStr) then                          // Passo 2.2
+            if ((Trim(sRecibo) <> EmptyStr) and (Trim(sRecibo) <> '000000000000000')) then // Passo 2.2
             begin
               bRT := BuscarRetornoReciboNFe(Self
                 , cdsVendaCODEMP.AsString
@@ -408,7 +410,7 @@ begin
               if bRT and (aTipoMovimento = tmNFeSaida) then
               begin
                 // Analisar o nome do arquivo XML retornado
-                if (Trim(sFileNameXML) = EmptyStr) and (not FileExists(sFileNameXML)) then
+                if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
                   sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
 
                 if FileExists(sFileNameXML) then                         // Passo 3

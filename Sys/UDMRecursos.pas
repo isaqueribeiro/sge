@@ -11,7 +11,8 @@ uses
   UConstantesDGE,
   UBaseObject,
   Winapi.Windows,
-  Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls;
+  Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls,
+  System.ImageList;
 
 type
   TLoteProduto = class(TBaseObject)

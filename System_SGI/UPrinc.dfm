@@ -36,8 +36,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 127
-    ExplicitHeight = 514
     DesignSize = (
       1044
       481)
@@ -4477,6 +4475,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = RbnBackstageGalleryConfigItemClick
           object dxRibbonBackstageViewGalleryGroup1: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Configura'#231#245'es Gerais'
@@ -4548,6 +4547,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = dxRibbonBackstageViewGalleryControl1ItemClick
           object dxRibbonBackstageViewGalleryGroup2: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Controle de Acesso'
@@ -4612,6 +4612,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = RbnBackstageGalleryBackupItemClick
           object dxRibbonBackstageViewGalleryGroup3: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Backup / Restore Database'
@@ -6981,6 +6982,6 @@ object frmPrinc: TfrmPrinc
     Enabled = False
     OnTimer = tmrAutoUpgradeTimer
     Left = 176
-    Top = 291
+    Top = 275
   end
 end
