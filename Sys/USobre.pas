@@ -11,7 +11,8 @@ uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmSobre = class(TForm)
@@ -25,8 +26,10 @@ type
     Bevel1: TBevel;
     OKButton: TcxButton;
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    procedure LabelTransparente;
   public
     { Public declarations }
   end;
@@ -78,6 +81,23 @@ begin
   Copyright.Caption    := GetCopyright;
   {$ENDIF}
   Comments.Caption    := 'Licenciado a empresa ' + gLicencaSistema.Empresa + ' CPF/CNPJ.: ' + sCNPJ ;
+end;
+
+procedure TfrmSobre.FormShow(Sender: TObject);
+begin
+  LabelTransparente;
+end;
+
+procedure TfrmSobre.LabelTransparente;
+var
+  I : Integer;
+begin
+  for I := 0 to Self.ComponentCount - 1 do
+    if (Components[I] is TLabel) then
+    begin
+      TLabel(Components[I]).Transparent := False;
+      TLabel(Components[I]).Transparent := True;
+    end;
 end;
 
 end.

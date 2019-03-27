@@ -215,7 +215,7 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
     Left = 136
     Top = 80
     Bitmap = {
-      494C01012F003100140010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F003100180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B
@@ -1806,15 +1806,20 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object cdsRegistro: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
+  object dtsRegistro: TDataSource
+    AutoEdit = False
+    DataSet = cdsRegistro
+    OnStateChange = dtsRegistroStateChange
+    Left = 200
+    Top = 128
+  end
+  object cdsRegistro: TFDQuery
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updRegistro
+    SQL.Strings = (
       'Select'
       '    e.EST_LOCAL'
       '  , e.EST_NOME'
@@ -1826,93 +1831,64 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
       'order by'
       '    e.EST_LOCAL'
       '  , e.EST_NOME')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'EST_NOME'
-    GeneratorField.ApplyEvent = gamOnPost
-    UpdateObject = updRegistro
-    Left = 136
+    Left = 137
     Top = 128
-    object cdsRegistroSEQ: TIntegerField
-      Alignment = taCenter
-      FieldKind = fkCalculated
-      FieldName = 'SEQ'
-      OnGetText = cdsRegistroSEQGetText
-      Calculated = True
+    object cdsRegistroEST_LOCAL: TStringField
+      FieldName = 'EST_LOCAL'
+      Origin = 'EST_LOCAL'
+      Size = 100
     end
-    object cdsRegistroEST_NOME: TIBStringField
+    object cdsRegistroEST_NOME: TStringField
       FieldName = 'EST_NOME'
-      Origin = '"SYS_ESTACAO"."EST_NOME"'
+      Origin = 'EST_NOME'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 60
     end
-    object cdsRegistroEST_LOCAL: TIBStringField
-      FieldName = 'EST_LOCAL'
-      Origin = '"SYS_ESTACAO"."EST_LOCAL"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object cdsRegistroEST_IP: TIBStringField
+    object cdsRegistroEST_IP: TStringField
       FieldName = 'EST_IP'
-      Origin = '"SYS_ESTACAO"."EST_IP"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'EST_IP'
       Size = 30
     end
-    object cdsRegistroEST_REGISTRO: TIBStringField
+    object cdsRegistroEST_REGISTRO: TStringField
       FieldName = 'EST_REGISTRO'
-      Origin = '"SYS_ESTACAO"."EST_REGISTRO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'EST_REGISTRO'
       Size = 250
     end
-    object cdsRegistroEST_ULTIMO_ACESSO: TDateTimeField
+    object cdsRegistroEST_ULTIMO_ACESSO: TSQLTimeStampField
       FieldName = 'EST_ULTIMO_ACESSO'
-      Origin = '"SYS_ESTACAO"."EST_ULTIMO_ACESSO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'EST_ULTIMO_ACESSO'
     end
   end
-  object updRegistro: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  EST_NOME,'
-      '  EST_IP,'
-      '  EST_LOCAL,'
-      '  EST_REGISTRO,'
-      '  EST_ULTIMO_ACESSO'
-      'from SYS_ESTACAO '
-      'where'
-      '  EST_NOME = :EST_NOME')
-    ModifySQL.Strings = (
-      'update SYS_ESTACAO'
-      'set'
-      '  EST_IP = :EST_IP,'
-      '  EST_LOCAL = :EST_LOCAL,'
-      '  EST_NOME = :EST_NOME,'
-      '  EST_REGISTRO = :EST_REGISTRO,'
-      '  EST_ULTIMO_ACESSO = :EST_ULTIMO_ACESSO'
-      'where'
-      '  EST_NOME = :OLD_EST_NOME')
+  object updRegistro: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'insert into SYS_ESTACAO'
-      '  (EST_IP, EST_LOCAL, EST_NOME, EST_REGISTRO, EST_ULTIMO_ACESSO)'
-      'values'
+      'INSERT INTO SYS_ESTACAO'
+      '(EST_NOME, EST_IP, EST_LOCAL, EST_REGISTRO, '
+      '  EST_ULTIMO_ACESSO)'
       
-        '  (:EST_IP, :EST_LOCAL, :EST_NOME, :EST_REGISTRO, :EST_ULTIMO_AC' +
-        'ESSO)')
+        'VALUES (:NEW_EST_NOME, :NEW_EST_IP, :NEW_EST_LOCAL, :NEW_EST_REG' +
+        'ISTRO, '
+      '  :NEW_EST_ULTIMO_ACESSO)')
+    ModifySQL.Strings = (
+      'UPDATE SYS_ESTACAO'
+      
+        'SET EST_NOME = :NEW_EST_NOME, EST_IP = :NEW_EST_IP, EST_LOCAL = ' +
+        ':NEW_EST_LOCAL, '
+      
+        '  EST_REGISTRO = :NEW_EST_REGISTRO, EST_ULTIMO_ACESSO = :NEW_EST' +
+        '_ULTIMO_ACESSO'
+      'WHERE EST_NOME = :OLD_EST_NOME')
     DeleteSQL.Strings = (
-      'delete from SYS_ESTACAO'
-      'where'
-      '  EST_NOME = :OLD_EST_NOME')
-    Left = 168
-    Top = 128
-  end
-  object dtsRegistro: TDataSource
-    AutoEdit = False
-    DataSet = cdsRegistro
-    OnStateChange = dtsRegistroStateChange
-    Left = 200
+      'DELETE FROM SYS_ESTACAO'
+      'WHERE EST_NOME = :OLD_EST_NOME')
+    FetchRowSQL.Strings = (
+      
+        'SELECT EST_NOME, EST_IP, EST_LOCAL, EST_REGISTRO, EST_ULTIMO_ACE' +
+        'SSO'
+      'FROM SYS_ESTACAO'
+      'WHERE EST_NOME = :EST_NOME')
+    Left = 169
     Top = 128
   end
 end

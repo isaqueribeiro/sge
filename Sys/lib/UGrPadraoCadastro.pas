@@ -242,6 +242,14 @@ begin
       if (Generator <> EmptyStr) and (Field <> EmptyStr) then
         IbDtstTabela.FieldByName(Field).Required := False;
     end;
+  end
+  else
+  begin
+    with fdQryTabela.UpdateOptions do
+    begin
+      if (GeneratorName <> EmptyStr) and (KeyFields <> EmptyStr) then
+        fdQryTabela.FieldByName(KeyFields).Required := False;
+    end;
   end;
 end;
 
@@ -1012,10 +1020,18 @@ begin
     if ( (CampoCodigo = EmptyStr) and (Trim(IbDtstTabela.GeneratorField.Field) <> EmptyStr) ) then
       CampoCodigo := IbDtstTabela.GeneratorField.Field;
 
-    sGenerator   := IbDtstTabela.GeneratorField.Generator;
+    sGenerator := IbDtstTabela.GeneratorField.Generator;
+  end
+  else
+  begin
+    if ( (CampoCodigo = EmptyStr) and (Trim(fdQryTabela.UpdateOptions.KeyFields) <> EmptyStr) ) then
+      CampoCodigo := fdQryTabela.UpdateOptions.KeyFields;
+
+    sGenerator := fdQryTabela.UpdateOptions.GeneratorName;
   end;
 
-  sTabela      := NomeTabela;
+  sTabela := NomeTabela;
+
   if ( pos('.', CampoCodigo) > 0 ) then
     sCampoCodigo := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
   else

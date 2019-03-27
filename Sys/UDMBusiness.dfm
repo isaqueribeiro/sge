@@ -26,174 +26,6 @@ object DMBusiness: TDMBusiness
     Left = 40
     Top = 64
   end
-  object dtsrcAjustEstoq: TDataSource
-    DataSet = ibdtstAjustEstoq
-    Left = 144
-    Top = 64
-  end
-  object ibdtstAjustEstoq: TIBDataSet
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    DeleteSQL.Strings = (
-      'delete from TBAJUSTESTOQ'
-      'where'
-      '  CODPROD = :OLD_CODPROD')
-    InsertSQL.Strings = (
-      'insert into TBAJUSTESTOQ'
-      
-        '  (CODPROD, CODFORN, QTDEATUAL, QTDENOVA, QTDEFINAL, MOTIVO, DOC' +
-        ', DTAJUST)'
-      'values'
-      
-        '  (:CODPROD, :CODFORN, :QTDEATUAL, :QTDENOVA, :QTDEFINAL, :MOTIV' +
-        'O, :DOC, '
-      '   :DTAJUST)')
-    RefreshSQL.Strings = (
-      'Select '
-      '  CODPROD,'
-      '  CODFORN,'
-      '  QTDEATUAL,'
-      '  QTDENOVA,'
-      '  QTDEFINAL,'
-      '  MOTIVO,'
-      '  DOC,'
-      '  DTAJUST'
-      'from TBAJUSTESTOQ '
-      'where'
-      '  CODPROD = :CODPROD')
-    SelectSQL.Strings = (
-      'select * from TBAJUSTESTOQ')
-    ModifySQL.Strings = (
-      'update TBAJUSTESTOQ'
-      'set'
-      '  CODPROD = :CODPROD,'
-      '  CODFORN = :CODFORN,'
-      '  QTDEATUAL = :QTDEATUAL,'
-      '  QTDENOVA = :QTDENOVA,'
-      '  QTDEFINAL = :QTDEFINAL,'
-      '  MOTIVO = :MOTIVO,'
-      '  DOC = :DOC,'
-      '  DTAJUST = :DTAJUST'
-      'where'
-      '  CODPROD = :OLD_CODPROD')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 144
-    Top = 8
-    object ibdtstAjustEstoqCODPROD: TIBStringField
-      FieldName = 'CODPROD'
-      Origin = 'TBAJUSTESTOQ.CODPROD'
-      Required = True
-      Size = 10
-    end
-    object ibdtstAjustEstoqCODFORN: TIntegerField
-      FieldName = 'CODFORN'
-      Origin = 'TBAJUSTESTOQ.CODFORN'
-    end
-    object ibdtstAjustEstoqMOTIVO: TIBStringField
-      FieldName = 'MOTIVO'
-      Origin = 'TBAJUSTESTOQ.MOTIVO'
-      Size = 40
-    end
-    object ibdtstAjustEstoqDOC: TIBStringField
-      FieldName = 'DOC'
-      Origin = 'TBAJUSTESTOQ.DOC'
-      Size = 10
-    end
-    object ibdtstAjustEstoqDTAJUST: TDateTimeField
-      FieldName = 'DTAJUST'
-      Origin = 'TBAJUSTESTOQ.DTAJUST'
-    end
-    object ibdtstAjustEstoqLookProdNome: TStringField
-      FieldKind = fkLookup
-      FieldName = 'LookProdNome'
-      LookupDataSet = ibdtstProduto
-      LookupKeyFields = 'COD'
-      LookupResultField = 'DESCRI'
-      KeyFields = 'CODPROD'
-      Lookup = True
-    end
-    object ibdtstAjustEstoqLookProdQtde: TIntegerField
-      FieldKind = fkLookup
-      FieldName = 'LookProdQtde'
-      LookupDataSet = ibdtstProduto
-      LookupKeyFields = 'COD'
-      LookupResultField = 'QTDE'
-      KeyFields = 'CODPROD'
-      Lookup = True
-    end
-    object ibdtstAjustEstoqLookFornec: TStringField
-      FieldKind = fkLookup
-      FieldName = 'LookFornec'
-      LookupDataSet = ibdtstFornec
-      LookupKeyFields = 'CODFORN'
-      LookupResultField = 'NOMEFORN'
-      KeyFields = 'CODFORN'
-      Lookup = True
-    end
-    object ibdtstAjustEstoqCONTROLE: TIntegerField
-      FieldName = 'CONTROLE'
-      Origin = '"TBAJUSTESTOQ"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object ibdtstAjustEstoqCODEMPRESA: TIBStringField
-      FieldName = 'CODEMPRESA'
-      Origin = '"TBAJUSTESTOQ"."CODEMPRESA"'
-      Size = 18
-    end
-    object ibdtstAjustEstoqQTDEATUAL: TIBBCDField
-      FieldName = 'QTDEATUAL'
-      Origin = '"TBAJUSTESTOQ"."QTDEATUAL"'
-      Precision = 18
-      Size = 3
-    end
-    object ibdtstAjustEstoqQTDENOVA: TIBBCDField
-      FieldName = 'QTDENOVA'
-      Origin = '"TBAJUSTESTOQ"."QTDENOVA"'
-      Precision = 18
-      Size = 3
-    end
-    object ibdtstAjustEstoqQTDEFINAL: TIBBCDField
-      FieldName = 'QTDEFINAL'
-      Origin = '"TBAJUSTESTOQ"."QTDEFINAL"'
-      Precision = 18
-      Size = 3
-    end
-    object ibdtstAjustEstoqUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBAJUSTESTOQ"."USUARIO"'
-      Size = 50
-    end
-  end
-  object ibdtstProduto: TIBDataSet
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    SelectSQL.Strings = (
-      'select COD, DESCRI, QTDE from TBPRODUTO'
-      'order by cod')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 232
-    Top = 8
-  end
-  object ibdtstFornec: TIBDataSet
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    SelectSQL.Strings = (
-      'select CODFORN, NOMEFORN from TBFORNECEDOR'
-      'order by NOMEFORN')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 312
-    Top = 8
-  end
   object dtsrcUsers: TDataSource
     DataSet = fdQryUsers
     Left = 896
@@ -205,159 +37,11 @@ object DMBusiness: TDMBusiness
     Left = 112
     Top = 504
   end
-  object stpCaixaMovimentoREC: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SET_CAIXA_MOVIMENTO_REC'
-    Left = 144
-    Top = 216
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'USUARIO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDateTime
-        Name = 'DATA_PAGTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'FORMA_PAGTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANOLANC'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUMLANC'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'SEQ'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_BAIXA'
-        ParamType = ptInput
-      end>
-  end
-  object stpCaixaMovimentoPAG: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG'
-    Left = 144
-    Top = 264
-  end
-  object stpContaCorrenteSaldo: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SET_CONTA_CORRENTE_SALDO'
-    Left = 144
-    Top = 312
-  end
-  object stpCaixaMovimentoREC_ESTORNO: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SET_CAIXA_MOVIMENTO_REC_ESTORNO'
-    Left = 320
-    Top = 216
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'USUARIO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDateTime
-        Name = 'DATA_PAGTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'FORMA_PAGTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANOLANC'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUMLANC'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'SEQ'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_BAIXA'
-        ParamType = ptInput
-      end>
-  end
-  object stpCaixaMovimentoPAG_ESTORNO: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG_ESTORNO'
-    Left = 320
-    Top = 264
-  end
-  object cdsLicenca: TIBDataSet
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    DeleteSQL.Strings = (
-      'delete from SYS_LICENCA'
-      'where'
-      '  LINHA_CONTROLE = :OLD_LINHA_CONTROLE')
-    InsertSQL.Strings = (
-      'insert into SYS_LICENCA'
-      '  (LINHA_CONTROLE)'
-      'values'
-      '  (:LINHA_CONTROLE)')
-    RefreshSQL.Strings = (
-      'Select '
-      '  LINHA_CONTROLE'
-      'from SYS_LICENCA '
-      'where'
-      '  LINHA_CONTROLE = :LINHA_CONTROLE')
-    SelectSQL.Strings = (
-      'Select * from SYS_LICENCA')
-    ModifySQL.Strings = (
-      'update SYS_LICENCA'
-      'set'
-      '  LINHA_CONTROLE = :LINHA_CONTROLE'
-      'where'
-      '  LINHA_CONTROLE = :OLD_LINHA_CONTROLE')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.ApplyEvent = gamOnServer
-    Left = 416
-    Top = 32
-    object cdsLicencaLINHA_CONTROLE: TIBStringField
-      FieldName = 'LINHA_CONTROLE'
-      Origin = '"SYS_LICENCA"."LINHA_CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 250
-    end
-  end
   object opdLicenca: TOpenDialog
     Filter = 'Arquivo Licen'#231'a (*.lnc)|*.lnc'
     Title = 'Carregar arquivo Licen'#231'a'
-    Left = 448
-    Top = 32
+    Left = 216
+    Top = 24
   end
   object frxPDF: TfrxPDFExport
     UseFileCache = True
@@ -504,59 +188,6 @@ object DMBusiness: TDMBusiness
     Left = 112
     Top = 456
   end
-  object spAtualizarCustoApEntrada: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_APROP_ENTRADA'
-    Left = 580
-    Top = 240
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO'
-        ParamType = ptInput
-      end>
-  end
-  object spAtualizarCustoApAutorizacao: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_APROP_AUTORIZ'
-    Left = 580
-    Top = 288
-  end
-  object spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_APROP'
-    Left = 580
-    Top = 336
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO'
-        ParamType = ptInput
-      end>
-  end
-  object spAtualizarCustoEstoqueRequisicao: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_REQUI'
-    Left = 580
-    Top = 384
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO_MOVIMENTO'
-        ParamType = ptInput
-      end>
-  end
-  object spAtualizarCustoEstoqueInventario: TIBStoredProc
-    Database = ibdtbsBusiness
-    Transaction = ibtrnsctnBusiness
-    StoredProcName = 'SP_UPD_CUSTO_INVENTARIO_ALMOX'
-    Left = 580
-    Top = 432
-  end
   object fdConexao: TFDConnection
     Params.Strings = (
       'User_Name=sysdba'
@@ -567,6 +198,7 @@ object DMBusiness: TDMBusiness
       'Port=3050'
       'Server=localhost'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
@@ -926,5 +558,335 @@ object DMBusiness: TDMBusiness
       'WHERE SIS_COD = :SIS_COD AND SIS_VERSION = :SIS_VERSION')
     Left = 896
     Top = 448
+  end
+  object cdsLicenca: TFDTable
+    CachedUpdates = True
+    IndexFieldNames = 'LINHA_CONTROLE'
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    UpdateOptions.UpdateTableName = 'SYS_LICENCA'
+    TableName = 'SYS_LICENCA'
+    Left = 184
+    Top = 24
+    object cdsLicencaLINHA_CONTROLE: TStringField
+      FieldName = 'LINHA_CONTROLE'
+      Origin = 'LINHA_CONTROLE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 250
+    end
+  end
+  object stpCaixaMovimentoREC: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_CAIXA_MOVIMENTO_REC'
+    Left = 184
+    Top = 72
+    ParamData = <
+      item
+        Position = 1
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 12
+      end
+      item
+        Position = 2
+        Name = 'DATA_PAGTO'
+        DataType = ftTimeStamp
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'FORMA_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'ANOLANC'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 5
+        Name = 'NUMLANC'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 6
+        Name = 'SEQ'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 7
+        Name = 'VALOR_BAIXA'
+        DataType = ftFMTBcd
+        Precision = 18
+        NumericScale = 2
+        ParamType = ptInput
+      end>
+  end
+  object stpCaixaMovimentoPAG: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG'
+    Left = 184
+    Top = 120
+    ParamData = <
+      item
+        Position = 1
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 12
+      end
+      item
+        Position = 2
+        Name = 'DATA_PAGTO'
+        DataType = ftTimeStamp
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'FORMA_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'ANOLANC'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 5
+        Name = 'NUMLANC'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 6
+        Name = 'SEQ'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 7
+        Name = 'VALOR_BAIXA'
+        DataType = ftFMTBcd
+        Precision = 18
+        NumericScale = 2
+        ParamType = ptInput
+      end>
+  end
+  object stpContaCorrenteSaldo: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_CONTA_CORRENTE_SALDO'
+    Left = 184
+    Top = 168
+    ParamData = <
+      item
+        Position = 1
+        Name = 'CONTA_CORRENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'DATA_MOVIMENTO'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+  end
+  object stpCaixaMovimentoREC_ESTORNO: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_CAIXA_MOVIMENTO_REC_ESTORNO'
+    Left = 184
+    Top = 216
+    ParamData = <
+      item
+        Position = 1
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 12
+      end
+      item
+        Position = 2
+        Name = 'DATA_PAGTO'
+        DataType = ftTimeStamp
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'FORMA_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'ANOLANC'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 5
+        Name = 'NUMLANC'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 6
+        Name = 'SEQ'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 7
+        Name = 'VALOR_BAIXA'
+        DataType = ftFMTBcd
+        Precision = 18
+        NumericScale = 2
+        ParamType = ptInput
+      end>
+  end
+  object stpCaixaMovimentoPAG_ESTORNO: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG_ESTORNO'
+    Left = 184
+    Top = 264
+    ParamData = <
+      item
+        Position = 1
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 12
+      end
+      item
+        Position = 2
+        Name = 'DATA_PAGTO'
+        DataType = ftTimeStamp
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'FORMA_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'ANOLANC'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 5
+        Name = 'NUMLANC'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 6
+        Name = 'SEQ'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 7
+        Name = 'VALOR_BAIXA'
+        DataType = ftFMTBcd
+        Precision = 18
+        NumericScale = 2
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoApEntrada: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SP_UPD_CUSTO_APROP_ENTRADA'
+    Left = 376
+    Top = 24
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoApAutorizacao: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SP_UPD_CUSTO_APROP_AUTORIZ'
+    Left = 376
+    Top = 72
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoEstoqueAlmoxarifado: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_APROP'
+    Left = 376
+    Top = 120
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoEstoqueRequisicao: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_REQUI'
+    Left = 376
+    Top = 168
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO_MOVIMENTO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+  end
+  object spAtualizarCustoEstoqueInventario: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SP_UPD_CUSTO_INVENTARIO_ALMOX'
+    Left = 376
+    Top = 216
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO_MOVIMENTO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
   end
 end

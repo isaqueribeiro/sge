@@ -4,8 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, DB,
-  IBCustomDataSet, IBQuery, cxGraphics, cxLookAndFeels,
+  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, DB, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, cxControls, cxContainer, cxEdit,
   cxLabel, cxMaskEdit, cxDropDownEdit, cxTextEdit,
 

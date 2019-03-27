@@ -3,16 +3,17 @@ unit UDMBusiness;
 interface
 
 uses
-  {$IFDEF DGE}
-  EUserAcs, EMsgDlg,
-  {$ENDIF}
-  Windows, Forms, SysUtils, Classes, Controls, IBX.IBDatabase, DB, IBX.IBCustomDataSet, IniFIles,
+  FuncoesFormulario,
+  UConstantesDGE,
+
+  Windows, Forms, SysUtils, Classes, Controls, IBX.IBDatabase, IniFIles,
   ShellApi, Printers, DateUtils, IBX.IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
-  frxClass, frxDBSet, IdBaseComponent, IdComponent, IdIPWatch, IBX.IBStoredProc,
-  FuncoesFormulario, UConstantesDGE, IBX.IBUpdateSQL, DBClient,
-  Provider, Dialogs, Registry, frxChart, frxCross, frxRich, frxExportMail,
-  frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF, ACBrBase,
-  ACBrValidador, ACBrMail, ACBrUtil,
+  frxClass, frxDBSet, IdBaseComponent, IdComponent, IdIPWatch,
+  DB, DBClient, Provider, Dialogs, Registry,
+  frxBarcode,frxChart, frxCross, frxRich, frxExportMail,
+  frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF, frxExportBaseDialog,
+
+  ACBrBase, ACBrValidador, ACBrMail, ACBrUtil,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
@@ -20,8 +21,8 @@ uses
   FireDAC.Phys.FBDef, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.IBBase,
   FireDAC.Phys.IB, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI,
-  frxBarcode, FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
-  FireDAC.Comp.Script, frxExportBaseDialog;
+  FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
+  FireDAC.Comp.Script;
 
 type
   TSistema = record
@@ -76,33 +77,8 @@ type
   TDMBusiness = class(TDataModule)
     ibdtbsBusiness: TIBDatabase;
     ibtrnsctnBusiness: TIBTransaction;
-    dtsrcAjustEstoq: TDataSource;
-    ibdtstAjustEstoq: TIBDataSet;
-    ibdtstProduto: TIBDataSet;
-    ibdtstFornec: TIBDataSet;
-    ibdtstAjustEstoqCODPROD: TIBStringField;
-    ibdtstAjustEstoqCODFORN: TIntegerField;
-    ibdtstAjustEstoqMOTIVO: TIBStringField;
-    ibdtstAjustEstoqDOC: TIBStringField;
-    ibdtstAjustEstoqDTAJUST: TDateTimeField;
-    ibdtstAjustEstoqLookProdNome: TStringField;
-    ibdtstAjustEstoqLookProdQtde: TIntegerField;
-    ibdtstAjustEstoqLookFornec: TStringField;
     dtsrcUsers: TDataSource;
     IdIPWatch: TIdIPWatch;
-    stpCaixaMovimentoREC: TIBStoredProc;
-    stpCaixaMovimentoPAG: TIBStoredProc;
-    stpContaCorrenteSaldo: TIBStoredProc;
-    stpCaixaMovimentoREC_ESTORNO: TIBStoredProc;
-    stpCaixaMovimentoPAG_ESTORNO: TIBStoredProc;
-    ibdtstAjustEstoqCONTROLE: TIntegerField;
-    ibdtstAjustEstoqCODEMPRESA: TIBStringField;
-    ibdtstAjustEstoqQTDEATUAL: TIBBCDField;
-    ibdtstAjustEstoqQTDENOVA: TIBBCDField;
-    ibdtstAjustEstoqQTDEFINAL: TIBBCDField;
-    ibdtstAjustEstoqUSUARIO: TIBStringField;
-    cdsLicenca: TIBDataSet;
-    cdsLicencaLINHA_CONTROLE: TIBStringField;
     opdLicenca: TOpenDialog;
     frxPDF: TfrxPDFExport;
     frxXLS: TfrxXLSExport;
@@ -115,11 +91,6 @@ type
     fastReport: TfrxReport;
     ACBrValidador: TACBrValidador;
     ACBrMail: TACBrMail;
-    spAtualizarCustoApEntrada: TIBStoredProc;
-    spAtualizarCustoApAutorizacao: TIBStoredProc;
-    spAtualizarCustoEstoqueAlmoxarifado: TIBStoredProc;
-    spAtualizarCustoEstoqueRequisicao: TIBStoredProc;
-    spAtualizarCustoEstoqueInventario: TIBStoredProc;
     fdConexao: TFDConnection;
     fdIBDriverLink: TFDPhysIBDriverLink;
     fdFBDriverLink: TFDPhysFBDriverLink;
@@ -136,6 +107,18 @@ type
     fdScript: TFDScript;
     fdQryUpgrade: TFDQuery;
     fdUpdUpgrade: TFDUpdateSQL;
+    cdsLicenca: TFDTable;
+    cdsLicencaLINHA_CONTROLE: TStringField;
+    stpCaixaMovimentoREC: TFDStoredProc;
+    stpCaixaMovimentoPAG: TFDStoredProc;
+    stpContaCorrenteSaldo: TFDStoredProc;
+    stpCaixaMovimentoREC_ESTORNO: TFDStoredProc;
+    stpCaixaMovimentoPAG_ESTORNO: TFDStoredProc;
+    spAtualizarCustoApEntrada: TFDStoredProc;
+    spAtualizarCustoApAutorizacao: TFDStoredProc;
+    spAtualizarCustoEstoqueAlmoxarifado: TFDStoredProc;
+    spAtualizarCustoEstoqueRequisicao: TFDStoredProc;
+    spAtualizarCustoEstoqueInventario: TFDStoredProc;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
@@ -215,7 +198,7 @@ var
   procedure ExportarFR3_ToXSL(const FrrLayout: TfrxReport; var sFileName : String);
 
   procedure Desativar_Promocoes;
-  procedure GerarSaldoContaCorrente(const ContaCorrente : Integer; const Data : TDateTime);
+  procedure GerarSaldoContaCorrente(const pContaCorrente : Integer; const pData : TDateTime);
   procedure BloquearClientes;
   procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
@@ -426,9 +409,9 @@ var
   function CaixaAberto(const Empresa, Usuario : String;
     const DataRef : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
 
-  function SetMovimentoCaixa(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint;
+  function SetMovimentoCaixa(const Usuario : String; const pData : TDateTime; const FormaPagto : Smallint;
     const AnoLancamento, NumLancamento, SeqPagto : Integer; const Valor : Currency; const TipoMov : TTipoMovimentoCaixa) : Boolean;
-  function SetMovimentoCaixaEstorno(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint;
+  function SetMovimentoCaixaEstorno(const Usuario : String; const pData : TDateTime; const FormaPagto : Smallint;
     const AnoLancamento, NumLancamento, SeqPagto : Integer; const Valor : Currency; const TipoMov : TTipoMovimentoCaixa) : Boolean;
 
 const
@@ -798,7 +781,8 @@ end;
 
 function DataBaseOnLine : Boolean;
 begin
-  Result := DMBusiness.ibdtbsBusiness.Connected;
+  //Result := DMBusiness.ibdtbsBusiness.Connected;
+  Result := DMBusiness.fdConexao.Connected;
 end;
 
 function GetVersionDB(aSistema : Integer) : Currency;
@@ -1065,9 +1049,9 @@ procedure CommitTransaction;
 begin
   with DMBusiness do
   begin
-    if ibdtbsBusiness.Connected then
-      ibtrnsctnBusiness.CommitRetaining;
-
+//    if ibdtbsBusiness.Connected then
+//      ibtrnsctnBusiness.CommitRetaining;
+//
     if fdConexao.InTransaction then
       fdConexao.CommitRetaining;
   end;
@@ -1149,16 +1133,16 @@ end;
 
 procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
 var
-  qry : TIBQuery;
+  qry : TFDQuery;
   dsp : TDataSetProvider;
   cds : TClientDataSet;
 begin
-  qry := TIBQuery.Create(nil);
+  qry := TFDQuery.Create(nil);
   dsp := TDataSetProvider.Create(nil);
   cds := TClientDataSet.Create(nil);
   try
-    qry.Database    := DMBusiness.ibdtbsBusiness;
-    qry.Transaction := DMBusiness.ibtrnsctnBusiness;
+    qry.Connection  := DMBusiness.fdConexao;
+    qry.Transaction := DMBusiness.fdTransacao;
 
     with qry do
     begin
@@ -1222,7 +1206,7 @@ begin
   end;
 end;
 
-procedure GerarSaldoContaCorrente(const ContaCorrente : Integer; const Data : TDateTime);
+procedure GerarSaldoContaCorrente(const pContaCorrente : Integer; const pData : TDateTime);
 begin
   try
 
@@ -1230,8 +1214,8 @@ begin
 
       with DMBusiness, stpContaCorrenteSaldo do
       begin
-        ParamByName('CONTA_CORRENTE').AsInteger  := ContaCorrente;
-        ParamByName('DATA_MOVIMENTO').AsDateTime := Data;
+        ParamByName('CONTA_CORRENTE').AsInteger  := pContaCorrente;
+        ParamByName('DATA_MOVIMENTO').AsDateTime := pData;
 
         ExecProc;
         CommitTransaction;
@@ -1240,7 +1224,9 @@ begin
     except
       On E : Exception do
       begin
-        DMBusiness.ibtrnsctnBusiness.Rollback;
+        if DMBusiness.fdConexao.InTransaction then
+          DMBusiness.fdConexao.RollbackRetaining;
+
         ShowError('Erro ao tentar atualizar saldo diário de conta corrente.' + #13#13 + E.Message);
       end;
     end;
@@ -4559,7 +4545,7 @@ begin
   end;
 end;
 
-function SetMovimentoCaixa(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint;
+function SetMovimentoCaixa(const Usuario : String; const pData : TDateTime; const FormaPagto : Smallint;
   const AnoLancamento, NumLancamento, SeqPagto : Integer; const Valor : Currency; const TipoMov : TTipoMovimentoCaixa) : Boolean;
 var
   Return : Boolean;
@@ -4570,13 +4556,13 @@ begin
 
     try
 
-      UpdateSequence('GEN_CX_MOVIMENTO_' + IntToStr(YearOf(Data)), 'TBCAIXA_MOVIMENTO', 'NUMERO', 'where ANO = ' + IntToStr(YearOf(Data)));
+      UpdateSequence('GEN_CX_MOVIMENTO_' + IntToStr(YearOf(pData)), 'TBCAIXA_MOVIMENTO', 'NUMERO', 'where ANO = ' + IntToStr(YearOf(pData)));
 
       if ( TipoMov = tmcxCredito ) then
         with DMBusiness, stpCaixaMovimentoREC do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := Data;
+          ParamByName('DATA_PAGTO').AsDateTime  := pData;
           ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
           ParamByName('ANOLANC').AsInteger      := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
@@ -4591,7 +4577,7 @@ begin
         with DMBusiness, stpCaixaMovimentoPAG do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := Data;
+          ParamByName('DATA_PAGTO').AsDateTime  := pData;
           ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
           ParamByName('ANOLANC').AsInteger      := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
@@ -4607,7 +4593,9 @@ begin
     except
       On E : Exception do
       begin
-        DMBusiness.ibtrnsctnBusiness.Rollback;
+        if DMBusiness.fdConexao.InTransaction then
+          DMBusiness.fdConexao.RollbackRetaining;
+
         ShowError('Erro ao tentar registrar o pagamento no movimento de caixa.' + #13#13 + E.Message);
       end;
     end;
@@ -4617,7 +4605,7 @@ begin
   end;
 end;
 
-function SetMovimentoCaixaEstorno(const Usuario : String; const Data : TDateTime; const FormaPagto : Smallint;
+function SetMovimentoCaixaEstorno(const Usuario : String; const pData : TDateTime; const FormaPagto : Smallint;
   const AnoLancamento, NumLancamento, SeqPagto : Integer; const Valor : Currency; const TipoMov : TTipoMovimentoCaixa) : Boolean;
 var
   Return : Boolean;
@@ -4628,13 +4616,13 @@ begin
 
     try
 
-      UpdateSequence('GEN_CX_MOVIMENTO_' + IntToStr(YearOf(Data)), 'TBCAIXA_MOVIMENTO', 'NUMERO', 'where ANO = ' + IntToStr(YearOf(Data)));
+      UpdateSequence('GEN_CX_MOVIMENTO_' + IntToStr(YearOf(pData)), 'TBCAIXA_MOVIMENTO', 'NUMERO', 'where ANO = ' + IntToStr(YearOf(pData)));
 
       if ( TipoMov = tmcxCredito ) then
         with DMBusiness, stpCaixaMovimentoREC_ESTORNO do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := Data;
+          ParamByName('DATA_PAGTO').AsDateTime  := pData;
           ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
           ParamByName('ANOLANC').AsInteger      := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
@@ -4649,7 +4637,7 @@ begin
         with DMBusiness, stpCaixaMovimentoPAG_ESTORNO do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := Data;
+          ParamByName('DATA_PAGTO').AsDateTime  := pData;
           ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
           ParamByName('ANOLANC').AsInteger      := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
@@ -4665,7 +4653,9 @@ begin
     except
       On E : Exception do
       begin
-        DMBusiness.ibtrnsctnBusiness.Rollback;
+        if DMBusiness.fdConexao.InTransaction then
+          DMBusiness.fdConexao.RollbackRetaining;
+
         ShowError('Erro ao tentar registrar o estorno de movimento no caixa.' + #13#13 + E.Message);
       end;
     end;
@@ -4808,18 +4798,18 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
         ControlFBSvr(True);
     end;
 
-    // Conexão InterBase
-    with ibdtbsBusiness do
-    begin
-      Connected    := False;
-      DatabaseName := sServidor + '/' + sPorta + ':' + sBase;
-      Params.Clear;
-      Params.Add('user_name=' + DB_USER_NAME);
-      Params.Add('password='  + DB_USER_PASSWORD);
-      Params.Add('lc_ctype='  + DB_LC_CTYPE);
-      Connected := True;
-    end;
-
+//    // Conexão InterBase
+//    with ibdtbsBusiness do
+//    begin
+//      Connected    := False;
+//      DatabaseName := sServidor + '/' + sPorta + ':' + sBase;
+//      Params.Clear;
+//      Params.Add('user_name=' + DB_USER_NAME);
+//      Params.Add('password='  + DB_USER_PASSWORD);
+//      Params.Add('lc_ctype='  + DB_LC_CTYPE);
+//      Connected := True;
+//    end;
+//
     // Conexão FireDAC
     with fdConexao do
     begin
@@ -4856,9 +4846,7 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
       end;
     end
     else
-    begin
       CarregarLicenca(EmptyStr);
-    end;
 
     try
       with RegistroSistema do
@@ -5004,7 +4992,7 @@ begin
     dData := dDataMovimento;
 
   iDias  := DaysBetween(dData, (gLicencaSistema.DataBloqueio + 1));
-  Result := {$IFDEF DGE}True{$ELSE}((gLicencaSistema.DataBloqueio + 1) > dData){$ENDIF};
+  Result := ((gLicencaSistema.DataBloqueio + 1) > dData);
 
   if (iDias <= SYS_ALERTA_PERIODO_LICENCA) then
   begin

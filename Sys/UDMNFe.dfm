@@ -7244,110 +7244,6 @@ object DMNFe: TDMNFe
     Left = 344
     Top = 448
   end
-  object qryAutorizacaoCompra: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    a.ano'
-      '  , a.codigo'
-      '  , a.numero'
-      '  , a.tipo'
-      '  , case a.tipo'
-      '      when 1 then '#39'Compra'#39
-      '      when 2 then '#39'Servi'#231'o'#39
-      '      when 3 then '#39'Compra/Servi'#231'o'#39
-      '    end as tipo_desc'
-      '  , a.status'
-      '  , case a.status'
-      '      when 0 then '#39'Em Edi'#231#227'o'#39
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Autorizada'#39
-      '      when 3 then '#39'Faturada'#39
-      '      when 4 then '#39'Cancelada'#39
-      '    end as status_desc'
-      '  , a.empresa'
-      '  , a.fornecedor'
-      '  , a.emissao_data'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = a.emissao_usuario)    as usuario_emissor'
-      '  , a.autorizado_data'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = a.autorizado_usuario) as usuario_autorizador'
-      '  , a.transportador'
-      '  , t.nomeforn as transportador_nome'
-      '  , t.cnpj     as transportador_cnpj'
-      '  , a.nome_contato'
-      '  , a.recebedor_nome'
-      '  , a.recebedor_funcao'
-      '  , a.recebedor_cpf'
-      '  , a.movito'
-      '  , a.cliente  as cliente_codigo'
-      '  , ci.nome     as cliente_nome'
-      '  , ci.cnpj     as cliente_cnpf'
-      '  , a.observacao'
-      '  , a.endereco_entrega'
-      '  , a.forma_pagto'
-      '  , f.descri as forma_pagto_desc'
-      '  , a.condicao_pagto'
-      '  , c.cond_descricao      as condicao_pagto_desc'
-      '  , c.cond_descricao_full as condicao_pagto_desc2'
-      '  , a.valor_bruto    as valor_total_bruto'
-      '  , a.valor_total_frete'
-      '  , a.valor_total_ipi'
-      '  , a.valor_desconto as valor_total_desconto'
-      '  , a.valor_total    as valor_total_liquido'
-      '  , i.seq'
-      '  , i.produto'
-      '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.referencia'
-      '  , i.quantidade'
-      
-        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      '  , i.valor_unitario'
-      '  , i.ipi_percentual  as percentual_ipi'
-      '  , i.ipi_valor_total as valor_ipi'
-      '  , i.valor_total'
-      'from TBAUTORIZA_COMPRA a'
-      
-        '  inner join TBAUTORIZA_COMPRAITEM i on (i.ano = a.ano and i.cod' +
-        'igo = a.codigo and i.empresa = a.empresa)'
-      '  inner join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBFORNECEDOR t on (t.codforn = a.transportador)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      '  left join TBFORMPAGTO f on (f.cod = a.forma_pagto)'
-      
-        '  left join VW_CONDICAOPAGTO c on (c.cond_cod = a.condicao_pagto' +
-        ')'
-      '  left join TBCLIENTE ci on (ci.codigo = a.cliente)'
-      ''
-      'where a.ano    = :ano'
-      '  and a.codigo = :cod'
-      ''
-      '')
-    Left = 536
-    Top = 176
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object frdAutorizacaoCompra: TfrxDBDataset
     UserName = 'frdAutorizacaoCompra'
     CloseDataSource = False
@@ -8611,104 +8507,6 @@ object DMNFe: TDMNFe
       end
     end
   end
-  object qryCotacaoCompra: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.ano'
-      '  , c.codigo'
-      '  , c.numero'
-      '  , c.tipo'
-      '  , case c.tipo'
-      '      when 1 then '#39'Compra'#39
-      '      when 2 then '#39'Servi'#231'o'#39
-      '      when 3 then '#39'Compra/Servi'#231'o'#39
-      '    end as tipo_desc'
-      '  , c.status'
-      '  , case c.status'
-      '      when 0 then '#39'Em Edi'#231#227'o'#39
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Em Cota'#231#227'o'#39
-      '      when 3 then '#39'Autorizada/Encerrada'#39
-      '      when 4 then '#39'Cancelada'#39
-      '    end as status_desc'
-      '  , c.empresa'
-      '  , c.emissao_data'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = c.emissao_usuario)    as usuario_emissor'
-      '  , c.autorizada_data'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = c.autorizada_usuario) as usuario_autorizador'
-      '  , c.descricao_resumo'
-      '  , c.nome_contato_int'
-      '  , c.movito'
-      '  , c.observacao'
-      '  , c.log_evento'
-      '  , c.valor_ref_total'
-      '  , c.valor_max_bruto'
-      '  , c.valor_max_desconto'
-      '  , c.valor_max_total'
-      '  , c.valor_min_bruto'
-      '  , c.valor_min_desconto'
-      '  , c.valor_min_total'
-      '  , c.valor_media_bruto'
-      '  , c.valor_media_desconto'
-      '  , c.valor_media_total'
-      ''
-      '  , i.seq'
-      '  , i.produto'
-      '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.referencia'
-      '  , i.quantidade'
-      
-        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      '  , i.valor_unitario_ref'
-      '  , i.valor_total_ref'
-      '  , i.valor_unitario_max'
-      '  , i.valor_total_max'
-      '  , i.valor_unitario_min'
-      '  , i.valor_total_min'
-      '  , i.valor_unitario_media'
-      '  , i.valor_total_media'
-      'from TBCOTACAO_COMPRA c'
-      
-        '  inner join TBCOTACAO_COMPRAITEM i on (i.ano = c.ano and i.codi' +
-        'go = c.codigo and i.empresa = c.empresa)'
-      '  inner join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      ''
-      'where c.ano    = :ano'
-      '  and c.codigo = :cod'
-      '  and c.empresa    = :emp')
-    Left = 536
-    Top = 224
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftUnknown
-        Name = 'emp'
-        ParamType = ptUnknown
-      end>
-  end
   object frdCotacaoCompra: TfrxDBDataset
     UserName = 'frdCotacaoCompra'
     CloseDataSource = False
@@ -9940,89 +9738,6 @@ object DMNFe: TDMNFe
       end
     end
   end
-  object qryCotacaoCompraFornecedor: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.ano'
-      '  , c.codigo'
-      '  , c.empresa'
-      '  , c.fornecedor'
-      '  , c.nome_contato'
-      '  , c.email_envio'
-      '  , c.forma_pagto'
-      '  , c.condicao_pagto'
-      '  , c.prazo_entrega_data'
-      '  , c.prazo_entreda_dia'
-      '  , c.observacao'
-      '  , c.ativo'
-      '  , c.usuario'
-      '  , c.valor_total_bruto'
-      '  , c.valor_total_desconto'
-      '  , c.valor_total_liquido'
-      '  , c.vencedor'
-      '  , f.nomeforn'
-      '  , f.cnpj'
-      '  , f.pessoa_fisica'
-      '  , f.email'
-      '  , fp.descri as forma_pagto_desc'
-      '  , cp.cond_descricao as condicap_pagto_desc'
-      
-        '  , (Select count(x.item) from TBCOTACAO_COMPRAFORN_ITEM x where' +
-        ' x.ano = c.ano and x.codigo = c.codigo and x.empresa = c.empresa' +
-        ' and x.fornecedor = c.fornecedor) as Itens'
-      'from TBCOTACAO_COMPRAFORN c'
-      '  left join TBFORNECEDOR f on (f.codforn = c.fornecedor)'
-      '  left join TBFORMPAGTO fp on (fp.cod = c.forma_pagto)'
-      
-        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicao_pag' +
-        'to)'
-      ''
-      'where c.ano        = :ano'
-      '  and c.codigo     = :cod'
-      '  and c.empresa    = :emp'
-      '  and ((c.fornecedor = :frn) or (:todos = 1))'
-      ''
-      'order by'
-      '    c.ano'
-      '  , c.codigo'
-      '  , c.empresa'
-      '  , c.fornecedor')
-    Left = 536
-    Top = 272
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftUnknown
-        Name = 'emp'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'frn'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'todos'
-        ParamType = ptUnknown
-      end>
-  end
   object frdCotacaoCompraFornecedor: TfrxDBDataset
     UserName = 'frdCotacaoCompraFornecedor'
     CloseDataSource = False
@@ -10055,81 +9770,6 @@ object DMNFe: TDMNFe
     BCDToCurrency = False
     Left = 568
     Top = 272
-  end
-  object qryCotacaoCompraFornecedorItem: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    right('#39'00000'#39' || fi.fornecedor, 5) as fornecedor'
-      '  , fi.item'
-      '  , ci.produto'
-      '  , pr.descri_apresentacao'
-      '  , ci.quantidade'
-      '  , ci.unidade'
-      '  , un.unp_descricao'
-      '  , un.unp_sigla'
-      ''
-      '  , ci.valor_unitario_ref'
-      '  , ci.valor_total_ref'
-      '  , ci.valor_unitario_max'
-      '  , ci.valor_total_max'
-      '  , ci.valor_unitario_min'
-      '  , ci.valor_total_min'
-      '  , ci.valor_unitario_media'
-      '  , ci.valor_total_media'
-      ''
-      '  , fi.valor_unitario'
-      '  , fi.valor_total'
-      'from TBCOTACAO_COMPRAFORN_ITEM fi'
-      
-        '  left join TBCOTACAO_COMPRAITEM ci on (ci.ano = fi.ano and ci.c' +
-        'odigo = fi.codigo and ci.empresa = fi.empresa and ci.seq = fi.it' +
-        'em)'
-      '  left join TBPRODUTO pr on (pr.cod = ci.produto)'
-      '  left join TBUNIDADEPROD un on (un.unp_cod = ci.unidade)'
-      ''
-      'where fi.ano        = :ano'
-      '  and fi.codigo     = :cod'
-      '  and fi.empresa    = :emp'
-      '  and ((fi.fornecedor = :frn) or (:todos = 1))'
-      ''
-      'order by'
-      '    fi.fornecedor'
-      '  , pr.descri_apresentacao')
-    Left = 536
-    Top = 320
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftUnknown
-        Name = 'emp'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'frn'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'todos'
-        ParamType = ptUnknown
-      end>
   end
   object frdCotacaoCompraFornecedorItem: TfrxDBDataset
     UserName = 'frdCotacaoCompraFornecedorItem'
@@ -13686,110 +13326,6 @@ object DMNFe: TDMNFe
       end
     end
   end
-  object qryRequisicaoCompra: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.codigo'
-      '  , r.numero'
-      '  , r.tipo'
-      '  , case r.tipo'
-      '      when 1 then '#39'Compra'#39
-      '      when 2 then '#39'Servi'#231'o'#39
-      '      when 3 then '#39'Compra/Servi'#231'o'#39
-      '    end as tipo_desc'
-      '  , r.status'
-      '  , case r.status'
-      '      when 0 then '#39'Em Edi'#231#227'o'#39
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Requisitada'#39
-      '      when 3 then '#39'Faturada'#39
-      '      when 4 then '#39'Cancelada'#39
-      '    end as status_desc'
-      '  , r.empresa'
-      '  , r.fornecedor'
-      '  , r.emissao_data'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = r.emissao_usuario)    as usuario_emissor'
-      '  , r.requisitado_data'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = r.requisitado_usuario) as usuario_autorizador'
-      '  , r.transportador'
-      '  , t.nomeforn as transportador_nome'
-      '  , t.cnpj     as transportador_cnpj'
-      '  , r.nome_contato'
-      '  , r.recebedor_nome'
-      '  , r.recebedor_funcao'
-      '  , r.recebedor_cpf'
-      '  , r.movito'
-      '  , r.cliente  as cliente_codigo'
-      '  , ci.nome     as cliente_nome'
-      '  , ci.cnpj     as cliente_cnpf'
-      '  , r.observacao'
-      '  , r.endereco_entrega'
-      '  , r.forma_pagto'
-      '  , f.descri as forma_pagto_desc'
-      '  , r.condicao_pagto'
-      '  , c.cond_descricao      as condicao_pagto_desc'
-      '  , c.cond_descricao_full as condicao_pagto_desc2'
-      '  , r.valor_bruto    as valor_total_bruto'
-      '  , r.valor_total_frete'
-      '  , r.valor_total_ipi'
-      '  , r.valor_desconto as valor_total_desconto'
-      '  , r.valor_total    as valor_total_liquido'
-      '  , i.seq'
-      '  , i.produto'
-      '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.referencia'
-      '  , i.quantidade'
-      
-        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      '  , i.valor_unitario'
-      '  , i.ipi_percentual  as percentual_ipi'
-      '  , i.ipi_valor_total as valor_ipi'
-      '  , i.valor_total'
-      'from TBREQUISITA_COMPRA r'
-      
-        '  inner join TBREQUISITA_COMPRAITEM i on (i.ano = r.ano and i.co' +
-        'digo = r.codigo and i.empresa = r.empresa)'
-      '  inner join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBFORNECEDOR t on (t.codforn = r.transportador)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      '  left join TBFORMPAGTO f on (f.cod = r.forma_pagto)'
-      
-        '  left join VW_CONDICAOPAGTO c on (c.cond_cod = r.condicao_pagto' +
-        ')'
-      '  left join TBCLIENTE ci on (ci.codigo = r.cliente)'
-      ''
-      'where r.ano    = :ano'
-      '  and r.codigo = :cod'
-      ''
-      '')
-    Left = 536
-    Top = 368
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object frdRequisicaoCompra: TfrxDBDataset
     UserName = 'frdRequisicaoCompra'
     CloseDataSource = False
@@ -16789,101 +16325,6 @@ object DMNFe: TDMNFe
     Left = 800
     Top = 104
   end
-  object qryApropriacaoEstoque: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    a.ano'
-      '  , a.controle'
-      '  , a.numero'
-      '  , a.tipo'
-      '  , t.descricao as tipo_desc'
-      '  , a.status'
-      '  , case a.status'
-      '      when 0 then '#39'Em Edi'#231#227'o'#39
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Encerrada'#39
-      '      when 3 then '#39'Cancelada'#39
-      '    end as status_desc'
-      '  , a.empresa'
-      '  , a.centro_custo'
-      '  , c.descricao as centro_custo_nome'
-      '  , c.codcliente     as cliente_codigo'
-      '  , ci.nome          as cliente_nome'
-      '  , ci.cnpj          as cliente_cpf_cnpj'
-      '  , ci.pessoa_fisica as cliente_pf'
-      '  , a.compra_ano'
-      '  , a.compra_num'
-      '  , a.compra_emp'
-      '  , a.autorizacao_ano'
-      '  , a.autorizacao_num'
-      '  , a.autorizacao_emp'
-      '  , f.nomeforn      as fornecedor_nome'
-      '  , f.pessoa_fisica as fornecedor_pf'
-      '  , f.cnpj          as fornecedor_cpf_cnpj'
-      '  , a.data_apropriacao'
-      '  , a.motivo'
-      '  , a.obs'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = a.usuario) as usuario_emissor'
-      '  , a.competencia'
-      '  , cp.cmp_desc as competencia_desc'
-      '  , a.valor_total'
-      '  , i.item'
-      '  , i.produto'
-      '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.referencia'
-      '  , i.qtde'
-      
-        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      '  , i.custo_unitario'
-      '  , i.custo_total'
-      'from TBAPROPRIACAO_ALMOX a'
-      
-        '  inner join TBAPROPRIACAO_ALMOX_ITEM i on (i.ano = a.ano and i.' +
-        'controle = a.controle)'
-      '  inner join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join VW_TIPO_APROPRIACAO t on (t.codigo = a.tipo)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
-      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
-      '  left join TBCOMPETENCIA cp on (cp.cmp_num = a.competencia)'
-      
-        '  left join TBCOMPRAS cm on (cm.ano = a.compra_ano and cm.codcon' +
-        'trol = a.compra_num and cm.codemp = a.compra_emp)'
-      
-        '  left join TBAUTORIZA_COMPRA ac on (ac.ano = a.autorizacao_ano ' +
-        'and ac.codigo = a.autorizacao_num and ac.empresa = a.autorizacao' +
-        '_emp)'
-      
-        '  left join TBFORNECEDOR f on (f.codforn = coalesce(cm.codforn, ' +
-        'ac.fornecedor))'
-      ''
-      'where a.ano      = :ano'
-      '  and a.controle = :cod')
-    Left = 568
-    Top = 472
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object frdApropriacaoEstoque: TfrxDBDataset
     UserName = 'frdApropriacaoEstoque'
     CloseDataSource = False
@@ -18014,105 +17455,6 @@ object DMNFe: TDMNFe
         end
       end
     end
-  end
-  object qryRequisicaoAlmox: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.tipo'
-      '  , t.descricao as tipo_desc'
-      '  , r.status'
-      '  , case r.status'
-      '      when 0 then '#39'Editando'#39
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Enviada'#39
-      '      when 3 then '#39'Recebida'#39
-      '      when 4 then '#39'Atendida'#39
-      '      when 5 then '#39'Cancelada'#39
-      '    end as status_desc'
-      '  , r.empresa'
-      '  , r.ccusto_origem'
-      '  , co.descricao as ccusto_origem_nome'
-      '  , co.codcliente    as cliente_codigo'
-      '  , ci.nome          as cliente_nome'
-      '  , ci.cnpj          as cliente_cpf_cnpj'
-      '  , ci.pessoa_fisica as cliente_pf'
-      '  , r.ccusto_destino'
-      '  , cd.descricao as ccusto_destino_nome'
-      '  , r.data_emissao'
-      '  , r.atendimento_data as data_atendimento'
-      '  , r.motivo'
-      '  , r.obs'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = r.insercao_usuario)    as usuario_emissor'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = r.requisitante)        as usuario_requisitante'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = r.atendimento_usuario) as usuario_atendente'
-      '  , r.competencia'
-      '  , cp.cmp_desc as competencia_desc'
-      '  , r.valor_total'
-      '  , i.item'
-      '  , i.produto'
-      '  , p.descri'
-      
-        '  , coalesce(nullif(trim(p.nome_amigo), '#39#39'), p.descri_apresentac' +
-        'ao) as descri_apresentacao'
-      '  , p.referencia'
-      '  , i.qtde'
-      '  , i.qtde_atendida'
-      
-        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      '  , i.custo'
-      '  , i.total'
-      '  , i.status as status_item'
-      'from TBREQUISICAO_ALMOX r'
-      
-        '  inner join TBREQUISICAO_ALMOX_ITEM i on (i.ano = r.ano and i.c' +
-        'ontrole = r.controle)'
-      '  inner join TBPRODUTO p on (p.cod = i.produto)'
-      ''
-      '  left join VW_TIPO_REQUISICAO_ALMOX t on (t.codigo = r.tipo)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
-      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
-      '  left join TBCLIENTE ci on (ci.codigo = co.codcliente)'
-      '  left join TBCOMPETENCIA cp on (cp.cmp_num = r.competencia)'
-      ''
-      'where r.ano      = :ano'
-      '  and r.controle = :cod'
-      '  and ((i.status = 2) or (:todos_itens = 1))')
-    Left = 568
-    Top = 520
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftUnknown
-        Name = 'todos_itens'
-        ParamType = ptUnknown
-      end>
   end
   object frdRequisicaoAlmox: TfrxDBDataset
     UserName = 'frdRequisicaoAlmox'
@@ -20236,91 +19578,6 @@ object DMNFe: TDMNFe
         end
       end
     end
-  end
-  object qrySolicitacaoCompra: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    s.ano'
-      '  , s.codigo'
-      '  , s.numero'
-      '  , s.tipo'
-      '  , case s.tipo'
-      '      when 1 then '#39'Compra'#39
-      '      when 2 then '#39'Servi'#231'o'#39
-      '      when 3 then '#39'Compra/Servi'#231'o'#39
-      '    end as tipo_desc'
-      '  , s.status'
-      '  , v.descricao as status_desc'
-      '  , s.empresa'
-      '  , s.data_emissao'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = s.insercao_usuario) as usuario_inservao'
-      '  , s.aprovacao_data'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = s.aprovacao_usuario) as aprovacao_usuario'
-      '  , s.objeto_solicitacao'
-      '  , s.nome_solicitante'
-      '  , s.movito'
-      '  , s.observacao'
-      '  , s.log_evento'
-      ''
-      '  , i.centro_custo'
-      '  , c.descricao as centro_custo_nome'
-      ''
-      '  , i.seq'
-      '  , i.item_codigo'
-      '  , i.item_descricao'
-      '  , i.item_cadastrado'
-      '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.referencia'
-      '  , i.quantidade'
-      
-        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      'from TBSOLICITACAO s'
-      
-        '  inner join TBSOLICITACAO_ITEM i on (i.ano = s.ano and i.codigo' +
-        ' = s.codigo)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
-      '  left join TBPRODUTO p on (p.cod = i.item_codigo)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      '  left join VW_STATUS_SOLICITACAO v on (v.codigo = s.status)'
-      ''
-      'where s.ano    = :ano'
-      '  and s.codigo = :cod'
-      '  and s.empresa    = :emp'
-      ''
-      'order by'
-      '    c.descricao'
-      '  , i.seq')
-    Left = 536
-    Top = 416
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'cod'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftUnknown
-        Name = 'emp'
-        ParamType = ptUnknown
-      end>
   end
   object frdSolicitacaoCompra: TfrxDBDataset
     UserName = 'frdSolicitacaoCompra'
@@ -43064,6 +42321,729 @@ object DMNFe: TDMNFe
         DataType = ftString
         ParamType = ptInput
         Size = 18
+      end>
+  end
+  object qryAutorizacaoCompra: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    a.ano'
+      '  , a.codigo'
+      '  , a.numero'
+      '  , a.tipo'
+      '  , case a.tipo'
+      '      when 1 then '#39'Compra'#39
+      '      when 2 then '#39'Servi'#231'o'#39
+      '      when 3 then '#39'Compra/Servi'#231'o'#39
+      '    end as tipo_desc'
+      '  , a.status'
+      '  , case a.status'
+      '      when 0 then '#39'Em Edi'#231#227'o'#39
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Autorizada'#39
+      '      when 3 then '#39'Faturada'#39
+      '      when 4 then '#39'Cancelada'#39
+      '    end as status_desc'
+      '  , a.empresa'
+      '  , a.fornecedor'
+      '  , a.emissao_data'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = a.emissao_usuario)    as usuario_emissor'
+      '  , a.autorizado_data'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = a.autorizado_usuario) as usuario_autorizador'
+      '  , a.transportador'
+      '  , t.nomeforn as transportador_nome'
+      '  , t.cnpj     as transportador_cnpj'
+      '  , a.nome_contato'
+      '  , a.recebedor_nome'
+      '  , a.recebedor_funcao'
+      '  , a.recebedor_cpf'
+      '  , a.movito'
+      '  , a.cliente  as cliente_codigo'
+      '  , ci.nome     as cliente_nome'
+      '  , ci.cnpj     as cliente_cnpf'
+      '  , a.observacao'
+      '  , a.endereco_entrega'
+      '  , a.forma_pagto'
+      '  , f.descri as forma_pagto_desc'
+      '  , a.condicao_pagto'
+      '  , c.cond_descricao      as condicao_pagto_desc'
+      '  , c.cond_descricao_full as condicao_pagto_desc2'
+      '  , a.valor_bruto    as valor_total_bruto'
+      '  , a.valor_total_frete'
+      '  , a.valor_total_ipi'
+      '  , a.valor_desconto as valor_total_desconto'
+      '  , a.valor_total    as valor_total_liquido'
+      '  , i.seq'
+      '  , i.produto'
+      '  , p.descri'
+      '  , p.descri_apresentacao'
+      '  , p.referencia'
+      '  , i.quantidade'
+      
+        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      '  , i.valor_unitario'
+      '  , i.ipi_percentual  as percentual_ipi'
+      '  , i.ipi_valor_total as valor_ipi'
+      '  , i.valor_total'
+      'from TBAUTORIZA_COMPRA a'
+      
+        '  inner join TBAUTORIZA_COMPRAITEM i on (i.ano = a.ano and i.cod' +
+        'igo = a.codigo and i.empresa = a.empresa)'
+      '  inner join TBPRODUTO p on (p.cod = i.produto)'
+      '  left join TBFORNECEDOR t on (t.codforn = a.transportador)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join TBFORMPAGTO f on (f.cod = a.forma_pagto)'
+      
+        '  left join VW_CONDICAOPAGTO c on (c.cond_cod = a.condicao_pagto' +
+        ')'
+      '  left join TBCLIENTE ci on (ci.codigo = a.cliente)'
+      ''
+      'where a.ano    = :ano'
+      '  and a.codigo = :cod'
+      ''
+      '')
+    Left = 536
+    Top = 176
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryCotacaoCompra: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.numero'
+      '  , c.tipo'
+      '  , case c.tipo'
+      '      when 1 then '#39'Compra'#39
+      '      when 2 then '#39'Servi'#231'o'#39
+      '      when 3 then '#39'Compra/Servi'#231'o'#39
+      '    end as tipo_desc'
+      '  , c.status'
+      '  , case c.status'
+      '      when 0 then '#39'Em Edi'#231#227'o'#39
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Em Cota'#231#227'o'#39
+      '      when 3 then '#39'Autorizada/Encerrada'#39
+      '      when 4 then '#39'Cancelada'#39
+      '    end as status_desc'
+      '  , c.empresa'
+      '  , c.emissao_data'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = c.emissao_usuario)    as usuario_emissor'
+      '  , c.autorizada_data'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = c.autorizada_usuario) as usuario_autorizador'
+      '  , c.descricao_resumo'
+      '  , c.nome_contato_int'
+      '  , c.movito'
+      '  , c.observacao'
+      '  , c.log_evento'
+      '  , c.valor_ref_total'
+      '  , c.valor_max_bruto'
+      '  , c.valor_max_desconto'
+      '  , c.valor_max_total'
+      '  , c.valor_min_bruto'
+      '  , c.valor_min_desconto'
+      '  , c.valor_min_total'
+      '  , c.valor_media_bruto'
+      '  , c.valor_media_desconto'
+      '  , c.valor_media_total'
+      ''
+      '  , i.seq'
+      '  , i.produto'
+      '  , p.descri'
+      '  , p.descri_apresentacao'
+      '  , p.referencia'
+      '  , i.quantidade'
+      
+        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      '  , i.valor_unitario_ref'
+      '  , i.valor_total_ref'
+      '  , i.valor_unitario_max'
+      '  , i.valor_total_max'
+      '  , i.valor_unitario_min'
+      '  , i.valor_total_min'
+      '  , i.valor_unitario_media'
+      '  , i.valor_total_media'
+      'from TBCOTACAO_COMPRA c'
+      
+        '  inner join TBCOTACAO_COMPRAITEM i on (i.ano = c.ano and i.codi' +
+        'go = c.codigo and i.empresa = c.empresa)'
+      '  inner join TBPRODUTO p on (p.cod = i.produto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      ''
+      'where c.ano    = :ano'
+      '  and c.codigo = :cod'
+      '  and c.empresa    = :emp')
+    Left = 536
+    Top = 224
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
+  end
+  object qryCotacaoCompraFornecedor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.empresa'
+      '  , c.fornecedor'
+      '  , c.nome_contato'
+      '  , c.email_envio'
+      '  , c.forma_pagto'
+      '  , c.condicao_pagto'
+      '  , c.prazo_entrega_data'
+      '  , c.prazo_entreda_dia'
+      '  , c.observacao'
+      '  , c.ativo'
+      '  , c.usuario'
+      '  , c.valor_total_bruto'
+      '  , c.valor_total_desconto'
+      '  , c.valor_total_liquido'
+      '  , c.vencedor'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      '  , f.pessoa_fisica'
+      '  , f.email'
+      '  , fp.descri as forma_pagto_desc'
+      '  , cp.cond_descricao as condicap_pagto_desc'
+      
+        '  , (Select count(x.item) from TBCOTACAO_COMPRAFORN_ITEM x where' +
+        ' x.ano = c.ano and x.codigo = c.codigo and x.empresa = c.empresa' +
+        ' and x.fornecedor = c.fornecedor) as Itens'
+      'from TBCOTACAO_COMPRAFORN c'
+      '  left join TBFORNECEDOR f on (f.codforn = c.fornecedor)'
+      '  left join TBFORMPAGTO fp on (fp.cod = c.forma_pagto)'
+      
+        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicao_pag' +
+        'to)'
+      ''
+      'where c.ano        = :ano'
+      '  and c.codigo     = :cod'
+      '  and c.empresa    = :emp'
+      '  and ((c.fornecedor = :frn) or (:todos = 1))'
+      ''
+      'order by'
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.empresa'
+      '  , c.fornecedor')
+    Left = 536
+    Top = 272
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Name = 'FRN'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryCotacaoCompraFornecedorItem: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    right('#39'00000'#39' || fi.fornecedor, 5) as fornecedor'
+      '  , fi.item'
+      '  , ci.produto'
+      '  , pr.descri_apresentacao'
+      '  , ci.quantidade'
+      '  , ci.unidade'
+      '  , un.unp_descricao'
+      '  , un.unp_sigla'
+      ''
+      '  , ci.valor_unitario_ref'
+      '  , ci.valor_total_ref'
+      '  , ci.valor_unitario_max'
+      '  , ci.valor_total_max'
+      '  , ci.valor_unitario_min'
+      '  , ci.valor_total_min'
+      '  , ci.valor_unitario_media'
+      '  , ci.valor_total_media'
+      ''
+      '  , fi.valor_unitario'
+      '  , fi.valor_total'
+      'from TBCOTACAO_COMPRAFORN_ITEM fi'
+      
+        '  left join TBCOTACAO_COMPRAITEM ci on (ci.ano = fi.ano and ci.c' +
+        'odigo = fi.codigo and ci.empresa = fi.empresa and ci.seq = fi.it' +
+        'em)'
+      '  left join TBPRODUTO pr on (pr.cod = ci.produto)'
+      '  left join TBUNIDADEPROD un on (un.unp_cod = ci.unidade)'
+      ''
+      'where fi.ano        = :ano'
+      '  and fi.codigo     = :cod'
+      '  and fi.empresa    = :emp'
+      '  and ((fi.fornecedor = :frn) or (:todos = 1))'
+      ''
+      'order by'
+      '    fi.fornecedor'
+      '  , pr.descri_apresentacao')
+    Left = 536
+    Top = 320
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Name = 'FRN'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryRequisicaoCompra: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.codigo'
+      '  , r.numero'
+      '  , r.tipo'
+      '  , case r.tipo'
+      '      when 1 then '#39'Compra'#39
+      '      when 2 then '#39'Servi'#231'o'#39
+      '      when 3 then '#39'Compra/Servi'#231'o'#39
+      '    end as tipo_desc'
+      '  , r.status'
+      '  , case r.status'
+      '      when 0 then '#39'Em Edi'#231#227'o'#39
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Requisitada'#39
+      '      when 3 then '#39'Faturada'#39
+      '      when 4 then '#39'Cancelada'#39
+      '    end as status_desc'
+      '  , r.empresa'
+      '  , r.fornecedor'
+      '  , r.emissao_data'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = r.emissao_usuario)    as usuario_emissor'
+      '  , r.requisitado_data'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = r.requisitado_usuario) as usuario_autorizador'
+      '  , r.transportador'
+      '  , t.nomeforn as transportador_nome'
+      '  , t.cnpj     as transportador_cnpj'
+      '  , r.nome_contato'
+      '  , r.recebedor_nome'
+      '  , r.recebedor_funcao'
+      '  , r.recebedor_cpf'
+      '  , r.movito'
+      '  , r.cliente  as cliente_codigo'
+      '  , ci.nome     as cliente_nome'
+      '  , ci.cnpj     as cliente_cnpf'
+      '  , r.observacao'
+      '  , r.endereco_entrega'
+      '  , r.forma_pagto'
+      '  , f.descri as forma_pagto_desc'
+      '  , r.condicao_pagto'
+      '  , c.cond_descricao      as condicao_pagto_desc'
+      '  , c.cond_descricao_full as condicao_pagto_desc2'
+      '  , r.valor_bruto    as valor_total_bruto'
+      '  , r.valor_total_frete'
+      '  , r.valor_total_ipi'
+      '  , r.valor_desconto as valor_total_desconto'
+      '  , r.valor_total    as valor_total_liquido'
+      '  , i.seq'
+      '  , i.produto'
+      '  , p.descri'
+      '  , p.descri_apresentacao'
+      '  , p.referencia'
+      '  , i.quantidade'
+      
+        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      '  , i.valor_unitario'
+      '  , i.ipi_percentual  as percentual_ipi'
+      '  , i.ipi_valor_total as valor_ipi'
+      '  , i.valor_total'
+      'from TBREQUISITA_COMPRA r'
+      
+        '  inner join TBREQUISITA_COMPRAITEM i on (i.ano = r.ano and i.co' +
+        'digo = r.codigo and i.empresa = r.empresa)'
+      '  inner join TBPRODUTO p on (p.cod = i.produto)'
+      '  left join TBFORNECEDOR t on (t.codforn = r.transportador)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join TBFORMPAGTO f on (f.cod = r.forma_pagto)'
+      
+        '  left join VW_CONDICAOPAGTO c on (c.cond_cod = r.condicao_pagto' +
+        ')'
+      '  left join TBCLIENTE ci on (ci.codigo = r.cliente)'
+      ''
+      'where r.ano    = :ano'
+      '  and r.codigo = :cod'
+      ''
+      '')
+    Left = 536
+    Top = 368
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qrySolicitacaoCompra: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    s.ano'
+      '  , s.codigo'
+      '  , s.numero'
+      '  , s.tipo'
+      '  , case s.tipo'
+      '      when 1 then '#39'Compra'#39
+      '      when 2 then '#39'Servi'#231'o'#39
+      '      when 3 then '#39'Compra/Servi'#231'o'#39
+      '    end as tipo_desc'
+      '  , s.status'
+      '  , v.descricao as status_desc'
+      '  , s.empresa'
+      '  , s.data_emissao'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = s.insercao_usuario) as usuario_inservao'
+      '  , s.aprovacao_data'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = s.aprovacao_usuario) as aprovacao_usuario'
+      '  , s.objeto_solicitacao'
+      '  , s.nome_solicitante'
+      '  , s.movito'
+      '  , s.observacao'
+      '  , s.log_evento'
+      ''
+      '  , i.centro_custo'
+      '  , c.descricao as centro_custo_nome'
+      ''
+      '  , i.seq'
+      '  , i.item_codigo'
+      '  , i.item_descricao'
+      '  , i.item_cadastrado'
+      '  , p.descri'
+      '  , p.descri_apresentacao'
+      '  , p.referencia'
+      '  , i.quantidade'
+      
+        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      'from TBSOLICITACAO s'
+      
+        '  inner join TBSOLICITACAO_ITEM i on (i.ano = s.ano and i.codigo' +
+        ' = s.codigo)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
+      '  left join TBPRODUTO p on (p.cod = i.item_codigo)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join VW_STATUS_SOLICITACAO v on (v.codigo = s.status)'
+      ''
+      'where s.ano    = :ano'
+      '  and s.codigo = :cod'
+      '  and s.empresa    = :emp'
+      ''
+      'order by'
+      '    c.descricao'
+      '  , i.seq')
+    Left = 536
+    Top = 416
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
+  end
+  object qryApropriacaoEstoque: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    a.ano'
+      '  , a.controle'
+      '  , a.numero'
+      '  , a.tipo'
+      '  , t.descricao as tipo_desc'
+      '  , a.status'
+      '  , case a.status'
+      '      when 0 then '#39'Em Edi'#231#227'o'#39
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Encerrada'#39
+      '      when 3 then '#39'Cancelada'#39
+      '    end as status_desc'
+      '  , a.empresa'
+      '  , a.centro_custo'
+      '  , c.descricao as centro_custo_nome'
+      '  , c.codcliente     as cliente_codigo'
+      '  , ci.nome          as cliente_nome'
+      '  , ci.cnpj          as cliente_cpf_cnpj'
+      '  , ci.pessoa_fisica as cliente_pf'
+      '  , a.compra_ano'
+      '  , a.compra_num'
+      '  , a.compra_emp'
+      '  , a.autorizacao_ano'
+      '  , a.autorizacao_num'
+      '  , a.autorizacao_emp'
+      '  , f.nomeforn      as fornecedor_nome'
+      '  , f.pessoa_fisica as fornecedor_pf'
+      '  , f.cnpj          as fornecedor_cpf_cnpj'
+      '  , a.data_apropriacao'
+      '  , a.motivo'
+      '  , a.obs'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = a.usuario) as usuario_emissor'
+      '  , a.competencia'
+      '  , cp.cmp_desc as competencia_desc'
+      '  , a.valor_total'
+      '  , i.item'
+      '  , i.produto'
+      '  , p.descri'
+      '  , p.descri_apresentacao'
+      '  , p.referencia'
+      '  , i.qtde'
+      
+        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      '  , i.custo_unitario'
+      '  , i.custo_total'
+      'from TBAPROPRIACAO_ALMOX a'
+      
+        '  inner join TBAPROPRIACAO_ALMOX_ITEM i on (i.ano = a.ano and i.' +
+        'controle = a.controle)'
+      '  inner join TBPRODUTO p on (p.cod = i.produto)'
+      '  left join VW_TIPO_APROPRIACAO t on (t.codigo = a.tipo)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
+      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
+      '  left join TBCOMPETENCIA cp on (cp.cmp_num = a.competencia)'
+      
+        '  left join TBCOMPRAS cm on (cm.ano = a.compra_ano and cm.codcon' +
+        'trol = a.compra_num and cm.codemp = a.compra_emp)'
+      
+        '  left join TBAUTORIZA_COMPRA ac on (ac.ano = a.autorizacao_ano ' +
+        'and ac.codigo = a.autorizacao_num and ac.empresa = a.autorizacao' +
+        '_emp)'
+      
+        '  left join TBFORNECEDOR f on (f.codforn = coalesce(cm.codforn, ' +
+        'ac.fornecedor))'
+      ''
+      'where a.ano      = :ano'
+      '  and a.controle = :cod')
+    Left = 568
+    Top = 472
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryRequisicaoAlmox: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.tipo'
+      '  , t.descricao as tipo_desc'
+      '  , r.status'
+      '  , case r.status'
+      '      when 0 then '#39'Editando'#39
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Enviada'#39
+      '      when 3 then '#39'Recebida'#39
+      '      when 4 then '#39'Atendida'#39
+      '      when 5 then '#39'Cancelada'#39
+      '    end as status_desc'
+      '  , r.empresa'
+      '  , r.ccusto_origem'
+      '  , co.descricao as ccusto_origem_nome'
+      '  , co.codcliente    as cliente_codigo'
+      '  , ci.nome          as cliente_nome'
+      '  , ci.cnpj          as cliente_cpf_cnpj'
+      '  , ci.pessoa_fisica as cliente_pf'
+      '  , r.ccusto_destino'
+      '  , cd.descricao as ccusto_destino_nome'
+      '  , r.data_emissao'
+      '  , r.atendimento_data as data_atendimento'
+      '  , r.motivo'
+      '  , r.obs'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = r.insercao_usuario)    as usuario_emissor'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = r.requisitante)        as usuario_requisitante'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = r.atendimento_usuario) as usuario_atendente'
+      '  , r.competencia'
+      '  , cp.cmp_desc as competencia_desc'
+      '  , r.valor_total'
+      '  , i.item'
+      '  , i.produto'
+      '  , p.descri'
+      
+        '  , coalesce(nullif(trim(p.nome_amigo), '#39#39'), p.descri_apresentac' +
+        'ao) as descri_apresentacao'
+      '  , p.referencia'
+      '  , i.qtde'
+      '  , i.qtde_atendida'
+      
+        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      '  , i.custo'
+      '  , i.total'
+      '  , i.status as status_item'
+      'from TBREQUISICAO_ALMOX r'
+      
+        '  inner join TBREQUISICAO_ALMOX_ITEM i on (i.ano = r.ano and i.c' +
+        'ontrole = r.controle)'
+      '  inner join TBPRODUTO p on (p.cod = i.produto)'
+      ''
+      '  left join VW_TIPO_REQUISICAO_ALMOX t on (t.codigo = r.tipo)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
+      '  left join TBCLIENTE ci on (ci.codigo = co.codcliente)'
+      '  left join TBCOMPETENCIA cp on (cp.cmp_num = r.competencia)'
+      ''
+      'where r.ano      = :ano'
+      '  and r.controle = :cod'
+      '  and ((i.status = 2) or (:todos_itens = 1))')
+    Left = 568
+    Top = 520
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'TODOS_ITENS'
+        DataType = ftInteger
+        ParamType = ptInput
       end>
   end
 end

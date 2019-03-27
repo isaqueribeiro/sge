@@ -31,6 +31,7 @@ type
     fRotinaID       : String;
     procedure SetRotinaID(Value : String);
     procedure SetOnEnterExit( const Win : TWinControl );
+    procedure LabelTransparente;
 
     function GetRotinaPaiID : String;
   public
@@ -639,6 +640,7 @@ end;
 procedure TfrmGrPadrao.FormShow(Sender: TObject);
 begin
   RegistrarRotinaSistema;
+  LabelTransparente;
 end;
 
 procedure TfrmGrPadrao.SetRotinaID(Value: String);
@@ -688,6 +690,18 @@ begin
     Result := EmptyStr
   else
     Result := Copy(Copy(pRotina, 1, 8) + FormatFloat('00', TComponent(Sender).Tag) + sComplemento, 1, ROTINA_LENGTH_ID);
+end;
+
+procedure TfrmGrPadrao.LabelTransparente;
+var
+  I : Integer;
+begin
+  for I := 0 to Self.ComponentCount - 1 do
+    if (Components[I] is TLabel) then
+    begin
+      TLabel(Components[I]).Transparent := False;
+      TLabel(Components[I]).Transparent := True;
+    end;
 end;
 
 function TfrmGrPadrao.GetPermissaoRotinaInterna(const Sender: TObject;

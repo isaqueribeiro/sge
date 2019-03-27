@@ -17,7 +17,8 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TfrmGeCaixa = class(TfrmGrPadraoCadastro)
@@ -61,40 +62,12 @@ type
     tbsMovimento: TTabSheet;
     dbgMovimento: TDBGrid;
     dbgConsolidado: TDBGrid;
-    cdsCosolidado: TIBDataSet;
-    IbUpdConsolidado: TIBUpdateSQL;
     DtSrcConsolidado: TDataSource;
     dtsMovimento: TDataSource;
-    qryMovimento: TIBDataSet;
-    cdsCosolidadoANO: TSmallintField;
-    cdsCosolidadoNUMERO: TIntegerField;
-    cdsCosolidadoSEQ: TSmallintField;
-    cdsCosolidadoFORMA_PAGTO: TSmallintField;
-    cdsCosolidadoDESCRICAO: TIBStringField;
-    cdsCosolidadoTOTAL_CREDITO: TIBBCDField;
-    cdsCosolidadoTOTAL_DEBITO: TIBBCDField;
     lblCaixaAberto: TLabel;
     lblCaixaCancelado: TLabel;
     Label1: TLabel;
     Bevel6: TBevel;
-    qryMovimentoANO: TSmallintField;
-    qryMovimentoNUMERO: TIntegerField;
-    qryMovimentoFORMA_PAGTO: TSmallintField;
-    qryMovimentoFORMA_PAGTO_DESC: TIBStringField;
-    qryMovimentoDATAHORA: TDateTimeField;
-    qryMovimentoTIPO: TIBStringField;
-    qryMovimentoHISTORICO: TIBStringField;
-    qryMovimentoVALOR: TIBBCDField;
-    qryMovimentoSITUACAO: TSmallintField;
-    qryMovimentoVENDA_ANO: TSmallintField;
-    qryMovimentoVENDA_NUM: TIntegerField;
-    qryMovimentoCLIENTE: TIBStringField;
-    qryMovimentoCOMPRA_ANO: TSmallintField;
-    qryMovimentoCOMPRA_NUM: TIntegerField;
-    qryMovimentoFORNECEDOR: TIntegerField;
-    qryMovimentoControleVenda: TStringField;
-    qryMovimentoControleCompra: TStringField;
-    qryMovimentoControleMov: TStringField;
     ppImprimir: TPopupMenu;
     nmImprimirCaixaEncerrado: TMenuItem;
     N1: TMenuItem;
@@ -102,12 +75,9 @@ type
     nmImprimirCaixaAnalitico: TMenuItem;
     lblData: TLabel;
     Bevel7: TBevel;
-    IBStrPrcCaixaConsolidar: TIBStoredProc;
-    qryCaixaSintetico: TIBQuery;
     frdCaixaSintetico: TfrxDBDataset;
     frrCaixaSintetico: TfrxReport;
     frrCaixaAnalitico: TfrxReport;
-    qryCaixaAnalitico: TIBQuery;
     frdCaixaAnalitico: TfrxDBDataset;
     Label2: TLabel;
     IbDtstTabelaEMPRESA: TIBStringField;
@@ -123,6 +93,54 @@ type
     dbEmpresaRazao: TDBEdit;
     fdQryOperador: TFDQuery;
     fdQryContaCorrente: TFDQuery;
+    fdStrPrcCaixaConsolidar: TFDStoredProc;
+    qryCaixaSintetico: TFDQuery;
+    qryCaixaAnalitico: TFDQuery;
+    qryMovimento: TFDQuery;
+    qryMovimentoANO: TSmallintField;
+    qryMovimentoNUMERO: TIntegerField;
+    qryMovimentoFORMA_PAGTO: TSmallintField;
+    qryMovimentoFORMA_PAGTO_DESC: TStringField;
+    qryMovimentoDATAHORA: TSQLTimeStampField;
+    qryMovimentoTIPO: TStringField;
+    qryMovimentoHISTORICO: TStringField;
+    qryMovimentoVALOR: TBCDField;
+    qryMovimentoSITUACAO: TIntegerField;
+    qryMovimentoVENDA_ANO: TSmallintField;
+    qryMovimentoVENDA_NUM: TIntegerField;
+    qryMovimentoCLIENTE: TStringField;
+    qryMovimentoCOMPRA_ANO: TSmallintField;
+    qryMovimentoCOMPRA_NUM: TIntegerField;
+    qryMovimentoFORNECEDOR: TIntegerField;
+    qryMovimentoControleMov: TStringField;
+    qryMovimentoControleVenda: TStringField;
+    qryMovimentoControleCompra: TStringField;
+    cdsCosolidado: TFDQuery;
+    updConsolidado: TFDUpdateSQL;
+    cdsCosolidadoANO: TSmallintField;
+    cdsCosolidadoNUMERO: TIntegerField;
+    cdsCosolidadoSEQ: TSmallintField;
+    cdsCosolidadoFORMA_PAGTO: TSmallintField;
+    cdsCosolidadoDESCRICAO: TStringField;
+    cdsCosolidadoTOTAL_CREDITO: TBCDField;
+    cdsCosolidadoTOTAL_DEBITO: TBCDField;
+    fdQryTabelaANO: TSmallintField;
+    fdQryTabelaNUMERO: TIntegerField;
+    fdQryTabelaDATA_ABERTURA: TDateField;
+    fdQryTabelaDATA_FECH: TDateField;
+    fdQryTabelaDATA_CANCEL: TDateField;
+    fdQryTabelaUSUARIO: TStringField;
+    fdQryTabelaUSUARIO_CANCEL: TStringField;
+    fdQryTabelaSITUACAO: TSmallintField;
+    fdQryTabelaCONTA_CORRENTE: TIntegerField;
+    fdQryTabelaVALOR_TOTAL_CREDITO: TBCDField;
+    fdQryTabelaVALOR_TOTAL_DEBITO: TBCDField;
+    fdQryTabelaMOTIVO_CANCEL: TStringField;
+    fdQryTabelaDESCRICAO: TStringField;
+    fdQryTabelaTIPO: TStringField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaEMPRESA_RAZAO: TStringField;
+    fdQryTabelaEMPRESA_FANTASIA: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -138,7 +156,6 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnEncerrarClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure qryMovimentoCalcFields(DataSet: TDataSet);
     procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
@@ -147,6 +164,7 @@ type
     procedure btnFiltrarClick(Sender: TObject);
     procedure btbtnCancelarCaixaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure qryMovimentoCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -347,11 +365,11 @@ begin
 
   SQL_Consolidado := TStringList.Create;
   SQL_Consolidado.Clear;
-  SQL_Consolidado.AddStrings( cdsCosolidado.SelectSQL );
+  SQL_Consolidado.AddStrings( cdsCosolidado.SQL );
 
   SQL_Movimento := TStringList.Create;
   SQL_Movimento.Clear;
-  SQL_Movimento.AddStrings( qryMovimento.SelectSQL );
+  SQL_Movimento.AddStrings( qryMovimento.SQL );
 
   SQL_CaixaSintetico := TStringList.Create;
   SQL_CaixaSintetico.Clear;
@@ -388,6 +406,14 @@ begin
     Field       := CampoCodigo;
     Generator   := sGeneratorName;
     IncrementBy := 1;
+  end;
+
+  with fdQryTabela, UpdateOptions do
+  begin
+    KeyFields     := CampoCodigo;
+    GeneratorName := sGeneratorName;
+    FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
+    FieldByName(CampoCodigo).AutoGenerateValue := TAutoRefreshFlag.arAutoInc;
   end;
 
   UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
@@ -449,7 +475,7 @@ begin
 
   cdsCosolidado.Close;
 
-  with cdsCosolidado, SelectSQL do
+  with cdsCosolidado, SQL do
   begin
     Clear;
     AddStrings( SQL_Consolidado );
@@ -814,7 +840,7 @@ begin
 
     try
 
-      with IBStrPrcCaixaConsolidar do
+      with fdStrPrcCaixaConsolidar do
       begin
         ParamByName('Ano_Caixa').AsInteger := AnoCaixa;
         ParamByName('Num_Caixa').AsInteger := NumeroCaixa;
@@ -826,7 +852,9 @@ begin
     except
       On E : Exception do
       begin
-        DMBusiness.ibtrnsctnBusiness.Rollback;
+        if DMBusiness.fdConexao.InTransaction then
+          DMBusiness.fdConexao.RollbackRetaining;
+
         ShowError('Erro ao tentar consolidar a movimentação do caixa selecionado.' + #13#13 + E.Message);
       end;
     end;

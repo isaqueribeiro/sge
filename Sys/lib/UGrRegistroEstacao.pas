@@ -4,17 +4,18 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ToolWin, ComCtrls,
-  Grids, DBGrids, ImgList, DB, IBCustomDataSet, IBUpdateSQL, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, cxControls, cxContainer, cxEdit, cxLabel;
+  System.ImageList, Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ToolWin, ComCtrls,
+  Grids, DBGrids, ImgList, DB, IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLabel,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, cxControls, cxContainer, cxEdit,
+
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TFrmGrRegistroEstacao = class(TfrmGrPadrao)
@@ -24,26 +25,25 @@ type
     TbsLista: TTabSheet;
     ImgList: TImageList;
     dbgRegistro: TDBGrid;
-    cdsRegistro: TIBDataSet;
-    updRegistro: TIBUpdateSQL;
     dtsRegistro: TDataSource;
-    cdsRegistroEST_LOCAL: TIBStringField;
-    cdsRegistroEST_IP: TIBStringField;
-    cdsRegistroEST_ULTIMO_ACESSO: TDateTimeField;
-    cdsRegistroSEQ: TIntegerField;
     tlbBotoes: TPanel;
     Bevel2: TBevel;
     btbtnIncluir: TcxButton;
     btbtnExcluir: TcxButton;
-    cdsRegistroEST_NOME: TIBStringField;
-    cdsRegistroEST_REGISTRO: TIBStringField;
     Bevel4: TBevel;
     Bevel5: TBevel;
     lblHostName: TcxLabel;
+    cdsRegistro: TFDQuery;
+    updRegistro: TFDUpdateSQL;
+    cdsRegistroEST_LOCAL: TStringField;
+    cdsRegistroEST_NOME: TStringField;
+    cdsRegistroEST_IP: TStringField;
+    cdsRegistroEST_REGISTRO: TStringField;
+    cdsRegistroEST_ULTIMO_ACESSO: TSQLTimeStampField;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
-    procedure cdsRegistroSEQGetText(Sender: TField; var Text: String;
+    procedure cdsRegistroXSEQGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure dtsRegistroStateChange(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -129,7 +129,7 @@ begin
   end;
 end;
 
-procedure TFrmGrRegistroEstacao.cdsRegistroSEQGetText(Sender: TField;
+procedure TFrmGrRegistroEstacao.cdsRegistroXSEQGetText(Sender: TField;
   var Text: String; DisplayText: Boolean);
 begin
   Text := IntToStr(cdsRegistro.RecNo);  

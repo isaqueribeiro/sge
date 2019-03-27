@@ -22,7 +22,7 @@ uses
   pcnAuxiliar,
   SHDocVw,
 
-  Windows, SysUtils, Classes, ACBrNFeDANFEClass, DB, IBX.IBCustomDataSet, IBX.IBQuery,
+  Windows, SysUtils, Classes, ACBrNFeDANFEClass, DB,
   frxClass, frxDBSet, frxExportRTF, frxExportXLS, frxExportPDF, frxExportMail,
   TypInfo, HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg, ShellApi,
 
@@ -61,21 +61,16 @@ type
     frrRequisicaoCliente: TfrxReport;
     FrrECFPoolerRequisicaoCliente: TfrxReport;
     frdRequisicaoCliente: TfrxDBDataset;
-    qryAutorizacaoCompra: TIBQuery;
     frdAutorizacaoCompra: TfrxDBDataset;
     frrAutorizacaoCompra: TfrxReport;
-    qryCotacaoCompra: TIBQuery;
     frdCotacaoCompra: TfrxDBDataset;
     frrCotacaoCompra: TfrxReport;
-    qryCotacaoCompraFornecedor: TIBQuery;
     frdCotacaoCompraFornecedor: TfrxDBDataset;
-    qryCotacaoCompraFornecedorItem: TIBQuery;
     frdCotacaoCompraFornecedorItem: TfrxDBDataset;
     frrCotacaoCompraMapaPreco: TfrxReport;
     frrNotaEntrega: TfrxReport;
     frdVendaCartaCredito: TfrxDBDataset;
     frrVendaCartaCredito: TfrxReport;
-    qryRequisicaoCompra: TIBQuery;
     frdRequisicaoCompra: TfrxDBDataset;
     frrRequisicaoCompra: TfrxReport;
     frrCartaCorrecaoE: TfrxReport;
@@ -87,14 +82,11 @@ type
     nfcDANFE: TACBrNFeDANFeESCPOS;
     ACBrSATExtratoESCPOS: TACBrSATExtratoESCPOS;
     ACBrSAT: TACBrSAT;
-    qryApropriacaoEstoque: TIBQuery;
     frdApropriacaoEstoque: TfrxDBDataset;
     frrApropriacaoEstoque: TfrxReport;
-    qryRequisicaoAlmox: TIBQuery;
     frdRequisicaoAlmox: TfrxDBDataset;
     frrRequisicaoAlmox: TfrxReport;
     frrManifestoAlmox: TfrxReport;
-    qrySolicitacaoCompra: TIBQuery;
     frdSolicitacaoCompra: TfrxDBDataset;
     frrSolicitacaoCompra: TfrxReport;
     frrNFeRetrato: TfrxReport;
@@ -239,7 +231,15 @@ type
     qryNFCDestinatario: TFDQuery;
     qryCalculoImposto: TFDQuery;
     qryEntradaCalculoImposto: TFDQuery;
-    qryNFCCalculoImposto: TFDQuery;    procedure SelecionarCertificado(Sender : TObject);
+    qryNFCCalculoImposto: TFDQuery;
+    qryAutorizacaoCompra: TFDQuery;
+    qryCotacaoCompra: TFDQuery;
+    qryCotacaoCompraFornecedor: TFDQuery;
+    qryCotacaoCompraFornecedorItem: TFDQuery;
+    qryRequisicaoCompra: TFDQuery;
+    qrySolicitacaoCompra: TFDQuery;
+    qryApropriacaoEstoque: TFDQuery;
+    qryRequisicaoAlmox: TFDQuery;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;
