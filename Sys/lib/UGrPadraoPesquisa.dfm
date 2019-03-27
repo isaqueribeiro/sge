@@ -186,6 +186,17 @@ inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
       OnKeyPress = dbgDadosKeyPress
     end
   end
+  object DtsPesquisa: TDataSource
+    DataSet = fdQryPesquisa
+    Left = 360
+    Top = 240
+  end
+  object fdQryPesquisa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    Left = 360
+    Top = 208
+  end
   object QryPesquisa: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -230,7 +241,7 @@ inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
       '  and r.Parcela > 0'
       '  and r.Cnpj = :cliente')
     Left = 360
-    Top = 177
+    Top = 176
     ParamData = <
       item
         DataType = ftString
@@ -238,10 +249,5 @@ inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
         ParamType = ptInput
         Value = ''
       end>
-  end
-  object DtsPesquisa: TDataSource
-    DataSet = QryPesquisa
-    Left = 392
-    Top = 177
   end
 end

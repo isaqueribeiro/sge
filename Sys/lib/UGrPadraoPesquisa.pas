@@ -4,16 +4,16 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, ExtCtrls, Buttons, StdCtrls, DB, IBCustomDataSet,
-  IBQuery, Grids, DBGrids, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Dialogs, UGrPadrao, ExtCtrls, Buttons, StdCtrls, DB, IBCustomDataSet, cxButtons,
+  IBQuery, Grids, DBGrids, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGrPadraoPesquisa = class(TfrmGrPadrao)
@@ -25,11 +25,12 @@ type
     lblTipoPesquisa: TLabel;
     lblPesquisar: TLabel;
     edPesquisar: TEdit;
-    QryPesquisa: TIBQuery;
     DtsPesquisa: TDataSource;
     PnlTabela: TPanel;
     dbgDados: TDBGrid;
     BrnPesquisar: TcxButton;
+    fdQryPesquisa: TFDQuery;
+    QryPesquisa: TIBQuery;
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormCreate(Sender: TObject);
@@ -84,8 +85,17 @@ end;
 procedure TfrmGrPadraoPesquisa.FormCreate(Sender: TObject);
 begin
   inherited;
+  if (fdQryPesquisa.Connection = nil) then
+  begin
+    fdQryPesquisa.Connection  := DMBusiness.fdConexao;
+    fdQryPesquisa.Transaction := DMBusiness.fdTransacao;
+  end;
+
   sSQL := TStringList.Create;
-  sSQL.AddStrings( QryPesquisa.SQL );
+  if (DtsPesquisa.DataSet = QryPesquisa) then
+    sSQL.AddStrings( QryPesquisa.SQL )
+  else
+    sSQL.AddStrings( fdQryPesquisa.SQL );
 end;
 
 procedure TfrmGrPadraoPesquisa.BrnPesquisarClick(Sender: TObject);

@@ -4,6 +4,8 @@ interface
 
 uses
   ACBrNFeDANFEFRDM,
+  ACBrNFeDANFEFR,
+  ACBrNFeDANFEClass,
   pcnNFe,
   pcnConversaoNFe,
   pcnConversao,
@@ -12,6 +14,9 @@ uses
   ACBrNFe,
   ACBrValidador,
   pcnAuxiliar,
+
+  System.DateUtils,
+//  System.StrUtils,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ClipBrd, UGrPadrao, System.TypInfo,
@@ -195,26 +200,26 @@ type
     procedure IdentificarProduto(aCampo : TField; const aProduto, aCnpjFornecedor : String);
 
     function IfThenX(AValue: Boolean; const ATrue: String; AFalse: string = ''): string;
-    function QuebraLinha: String;
+//    function QuebraLinha: String;
     function SubstrCount(const ASubString, AString: string): Integer;
     function Split(const ADelimiter, AString: string): TSplitResult;
     function CollateBr(Str: String): String;
-    //function Explode(sPart, sInput: String): ArrOfStr;
-    function ManterVprod(dVProd, dvDesc: Double): String;
-    function ManterdvTotTrib(dvTotTrib: Double):  String;
-    function ManterVDesc(dvDesc: Currency; dVUnCom , dQCom : double ) : Double;
-    function ManterCst(dCRT: TpcnCRT; dCSOSN: TpcnCSOSNIcms;
-      dCST: TpcnCSTIcms): String;
-    function ManterArma(inItem: integer): String;
-    function ManterMedicamentos(inItem: integer): String;
-    function ManterVeiculos( inItem : integer): String;
-    function ManterValAprox( inItem : Integer ): String;
-    function ManterInfAProd( inItem : Integer; sinfAdProd : String ) : String;
-    function ManterDescricaoProduto(sXProd, sinfAdProd: String): String;
-    function ManterVTribPerc(dVTotTrib, dVProd, dVNF: Double): Double;
-    function ManterCombustivel(inItem: integer): String;
-    function FormatQuantidade(dValor: Double): String;
-    function FormatValorUnitario(dValor: Double): String;
+//    //function Explode(sPart, sInput: String): ArrOfStr;
+//    function ManterVprod(dVProd, dvDesc: Double): String;
+//    function ManterdvTotTrib(dvTotTrib: Double):  String;
+//    function ManterVDesc(dvDesc: Currency; dVUnCom , dQCom : double ) : Double;
+//    function ManterCst(dCRT: TpcnCRT; dCSOSN: TpcnCSOSNIcms;
+//      dCST: TpcnCSTIcms): String;
+//    function ManterArma(inItem: integer): String;
+//    function ManterMedicamentos(inItem: integer): String;
+//    function ManterVeiculos( inItem : integer): String;
+//    function ManterValAprox( inItem : Integer ): String;
+//    function ManterInfAProd( inItem : Integer; sinfAdProd : String ) : String;
+//    function ManterDescricaoProduto(sXProd, sinfAdProd: String): String;
+//    function ManterVTribPerc(dVTotTrib, dVProd, dVNF: Double): Double;
+//    function ManterCombustivel(inItem: integer): String;
+//    function FormatQuantidade(dValor: Double): String;
+//    function FormatValorUnitario(dValor: Double): String;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -231,6 +236,9 @@ type
 
   Arquivo:
   - C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+
+  Referências:
+  - FDANFEClassOwner -> FrDANFE
 *)
 
 var
@@ -239,7 +247,6 @@ var
 implementation
 
 uses
-  System.DateUtils, System.StrUtils,
   UDMBusiness, UDMNFe, UConstantesDGE, UFuncoes, UDMRecursos,
   UGeFornecedor;
 
@@ -325,6 +332,7 @@ begin
       FieldByName('VFrete').AsFloat       := VFrete;
       FieldByName('VSeg').AsFloat         := VSeg;
       FieldByName('VDesc').AsFloat        := VDesc;
+      FieldByName('vICMSDeson').AsFloat   := vICMSDeson;
       FieldByName('VII').AsFloat          := VII;
       FieldByName('VIPI').AsFloat         := VIPI;
       FieldByName('VPIS').AsFloat         := VPIS;
@@ -332,14 +340,20 @@ begin
       FieldByName('VOutro').AsFloat       := VOutro;
       FieldByName('VNF').AsFloat          := VNF;
       FieldByName('VTotTrib').AsFloat     := VTotTrib;
-      FieldByName('ValorApagar').AsFloat  := VProd- VDesc + VOutro;
-      FieldByName('VTribPerc').AsFloat    := ManterVTribPerc( VTotTrib , VProd ,VNF );
-      if NaoEstaVazio(frDANFE.TributosFonte) then
-        FieldByName('VTribFonte').AsString := '(Fonte: ' + frDANFE.TributosFonte + ')';
+      FieldByName('ValorApagar').AsFloat  := VProd - VDesc - vICMSDeson + VOutro;
+      FieldByName('VFCP').AsFloat         := VFCP;
+      FieldByName('VFCPST').AsFloat       := VFCPST;
+      FieldByName('VFCPSTRet').AsFloat    := vFCPSTRet;
+      FieldByName('VIPIDevol').AsFloat    := vIPIDevol;
+      if (DANFE.Owner is TACBrNFeDANFEClass) then
+        FieldByName('VTribPerc').AsFloat := frDANFE.ManterVTribPerc(VTotTrib, VProd, VNF);
+
+      if NaoEstaVazio(frDANFE.FonteTributos) then
+        FieldByName('VTribFonte').AsString := '(Fonte: ' + frDANFE.FonteTributos + ')';
     end;
 
-    FieldByName('vTroco').AsCurrency    := frDANFE.vTroco;
-    FieldByName('vTotPago').AsCurrency  := frDANFE.vTroco + FieldByName('VProd').AsFloat;
+    FieldByName('vTroco').AsCurrency    := NFe.pag.vTroco;
+    FieldByName('vTotPago').AsCurrency  := NFe.pag.vTroco + FieldByName('VProd').AsFloat;
     Post;
   end;
 end;
@@ -373,15 +387,16 @@ var
 begin
   if not cdsParametros.Active then
     CarregaParametros;
+
   cdsParametros.First;
 
   // verificar se e DANFE detalhado
   // dados dos produtos
-  with cdsDadosProdutos, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
+  with cdsDadosProdutos, DMNFe, ACBrNFe, NotasFiscais.Items[0], frDANFE do
   begin
     Close;
     CreateDataSet;
-    if (NFe.Ide.modelo <> 65) or frDANFE.Detalhado then
+    if (NFe.Ide.modelo <> 65) then
     begin
       for inItem := 0 to NFe.Det.Count - 1 do
       begin
@@ -399,8 +414,8 @@ begin
           FieldByName('XProd').AsString             := StringReplace( Prod.xProd, ';', #13, [rfReplaceAll]);
           FieldByName('VProd').AsString             := ManterVprod( Prod.VProd , Prod.vDesc );
           FieldByName('vTotTrib').AsString          := ManterdvTotTrib( Imposto.vTotTrib );
-          FieldByName('infAdProd').AsString         := ManterInfAProd( inItem, infAdProd );
-          FieldByName('DescricaoProduto').AsString  := ManterDescricaoProduto( FieldByName('XProd').AsString , FieldByName('infAdProd').AsString );
+          FieldByName('infAdProd').AsString         := ManterinfAdProd(NFe, inItem);
+          FieldByName('DescricaoProduto').AsString  := ManterXProd(NFe, inItem);
           FieldByName('NCM').AsString               := Prod.NCM;
           FieldByName('EXTIPI').AsString            := Prod.EXTIPI;
           FieldByName('genero').AsString            := '';
@@ -445,34 +460,45 @@ begin
 //            end;
 //          end;
 
-          case frDANFE.ImprimirUnQtVlComercial of
-          iuComercial:
-            begin
-              FieldByName('Unidade').AsString       := FieldByName('Ucom').AsString;
-              FieldByName('Quantidade').AsString    := FormatQuantidade( FieldByName('QCom').AsFloat );
-              FieldByName('ValorUnitario').AsString := FormatValorUnitario( FieldByName('VUnCom').AsFloat );
-            end;
-          iuTributavel:
-            begin
-              FieldByName('Unidade').AsString       := FieldByName('UTrib').AsString;
-              FieldByName('Quantidade').AsString    := FormatQuantidade( FieldByName('QTrib').AsFloat );
-              FieldByName('ValorUnitario').AsString := FormatValorUnitario( FieldByName('VUnTrib').AsFloat);
-            end;
-          iuComercialETributavel:
-            begin
-              if FieldByName('Ucom').AsString = FieldByName('UTrib').AsString then
+          if DANFE.Owner is TACBrNFeDANFEClass then
+          begin
+            case TACBrNFeDANFEClass(DANFE.Owner).ImprimeValor of
+            iuComercial:
               begin
                 FieldByName('Unidade').AsString       := FieldByName('Ucom').AsString;
-                FieldByName('Quantidade').AsString    := FormatQuantidade( FieldByName('QCom').AsFloat );
-                FieldByName('ValorUnitario').AsString := FormatValorUnitario( FieldByName('VUnCom').AsFloat );
-              end
-              else
+                FieldByName('Quantidade').AsString    := frDANFE.FormatarQuantidade( FieldByName('QCom').AsFloat );
+                FieldByName('ValorUnitario').AsString := frDANFE.FormatarValorUnitario( FieldByName('VUnCom').AsFloat );
+              end;
+            iuTributavel:
               begin
-                FieldByName('Unidade').AsString       := frDANFE.ManterUnidades(FieldByName('Ucom').AsString, FieldByName('UTrib').AsString);
-                FieldByName('Quantidade').AsString    := frDANFE.ManterQuantidades(FieldByName('QCom').AsFloat, FieldByName('QTrib').AsFloat);
-                FieldByName('ValorUnitario').AsString := frDANFE.ManterValoresUnitarios(FieldByName('VUnCom').AsFloat, FieldByName('VUnTrib').AsFloat);
+                FieldByName('Unidade').AsString       := FieldByName('UTrib').AsString;
+                FieldByName('Quantidade').AsString    := frDANFE.FormatarQuantidade( FieldByName('QTrib').AsFloat );
+                FieldByName('ValorUnitario').AsString := frDANFE.FormatarValorUnitario( FieldByName('VUnTrib').AsFloat);
+              end;
+            iuComercialETributavel:
+              begin
+                if FieldByName('Ucom').AsString = FieldByName('UTrib').AsString then
+                begin
+                  FieldByName('Unidade').AsString       := FieldByName('Ucom').AsString;
+                  FieldByName('Quantidade').AsString    := frDANFE.FormatarQuantidade( FieldByName('QCom').AsFloat );
+                  FieldByName('ValorUnitario').AsString := frDANFE.FormatarValorUnitario( FieldByName('VUnCom').AsFloat );
+                end
+                else
+                begin
+                  FieldByName('Unidade').AsString       := frDANFE.ManterUnidades(FieldByName('Ucom').AsString, FieldByName('UTrib').AsString);
+                  FieldByName('Quantidade').AsString    := frDANFE.ManterQuantidades(FieldByName('QCom').AsFloat, FieldByName('QTrib').AsFloat);
+                  FieldByName('ValorUnitario').AsString := frDANFE.ManterValoresUnitarios(FieldByName('VUnCom').AsFloat, FieldByName('VUnTrib').AsFloat);
+                end;
               end;
             end;
+            FieldByName('vDesc').AsString  := FormatFloatBr( TACBrNFeDANFEClass(frDANFE).ManterVDesc( Prod.vDesc , Prod.VUnCom , Prod.QCom),'###,###,##0.00');
+          end
+          else
+          begin
+            FieldByName('Unidade').AsString       := FieldByName('Ucom').AsString;
+            FieldByName('Quantidade').AsString    := frDANFE.FormatarQuantidade( FieldByName('QCom').AsFloat );
+            FieldByName('ValorUnitario').AsString := frDANFE.FormatarValorUnitario( FieldByName('VUnCom').AsFloat );
+            FieldByName('vDesc').AsString         := FormatFloatBr( Prod.vDesc,'###,###,##0.00');
           end;
 
           Post;
@@ -485,7 +511,7 @@ end;
 procedure TfrmGeImportarNFE.CarregaDestinatario;
 begin
   { destinatário }
-  with cdsDestinatario, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
+  with cdsDestinatario, DMNFe, ACBrNFe, NotasFiscais.Items[0], frDANFE do
   begin
     Close;
     CreateDataSet;
@@ -939,6 +965,7 @@ var
   vChave_Contingencia : String;
   vStream             : TMemoryStream;
   vStringStream       : TStringStream;
+  P: Integer;
 begin
   { parâmetros }
   with cdsParametros, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
@@ -954,14 +981,24 @@ begin
     FieldByName('ConsultaAutenticidade').AsString := 'Consulta de autenticidade no portal nacional da NF-e'+#13+
                                                      'www.nfe.fazenda.gov.br/portal ou no site da Sefaz autorizadora';
 
+    if frDANFE.Owner is TACBrNFeDANFEClass then
+      FieldByName('poscanhoto').AsString := IntToStr( Ord(TACBrNFeDANFEClass(frDANFE.Owner).PosCanhoto))
+    else if frDANFE.Owner is TACBrNFeDANFCEClass then
+    begin
+      if TACBrNFeDANFCEClass(frDANFE.Owner).ViaConsumidor then
+        FieldByName('DescricaoViaEstabelec').AsString := 'Via Consumidor'
+      else
+        FieldByName('DescricaoViaEstabelec').AsString := 'Via Estabelecimento';
+    end;
+
     if Assigned(NFe) then
     begin
-      if frDANFE.ExibirResumoCanhoto then
+      if (frDANFE.Owner is TACBrNFeDANFEClass) and TACBrNFeDANFEClass(frDANFE.Owner).ExibeResumoCanhoto then
       begin
-         if EstaVazio(frDANFE.ExibirResumoCanhoto_Texto) then
+         if EstaVazio(TACBrNFeDANFEClass(frDANFE.Owner).TextoResumoCanhoto) then
           FieldByName('ResumoCanhoto').AsString := ACBrStr('Emissão: ' )+ FormatDateBr(NFe.Ide.DEmi) + '  Dest/Reme: ' + NFe.Dest.XNome + '  Valor Total: ' + FormatFloatBr(NFe.Total.ICMSTot.VNF)
         else
-          FieldByName('ResumoCanhoto').AsString := frDANFE.ExibirResumoCanhoto_Texto;
+          FieldByName('ResumoCanhoto').AsString := TACBrNFeDANFEClass(frDANFE).TextoResumoCanhoto;
       end;
 
       if (NFe.Ide.TpAmb = taHomologacao) then
@@ -982,8 +1019,8 @@ begin
       begin
         if not (NFe.Ide.tpEmis in [teContingencia, teFSDA, teSVCAN, teSVCRS, teSVCSP]) then
         begin
-          //prioridade para opção NFeCancelada
-          if (frDANFE.NFeCancelada) or
+          //prioridade para opção Cancelada
+          if (frDANFE.Cancelada) or
              ((NaoEstaVazio(NFe.procNFe.nProt)) and
               (NFe.procNFe.cStat in [101,135,151,155])) then
             FieldByName('Mensagem0').AsString := 'NFe Cancelada'
@@ -992,7 +1029,7 @@ begin
                   ( NFe.procNFe.cStat = 302 ) or
                   ( NFe.procNFe.cStat = 303 ) then
             FieldByName('Mensagem0').AsString := 'NFe denegada pelo Fisco'
-          else if ((EstaVazio(frDANFE.ProtocoloNFe)) and
+          else if ((EstaVazio(frDANFE.Protocolo)) and
                    (EstaVazio(NFe.procNFe.nProt))) then
             FieldByName('Mensagem0').AsString := ACBrStr( 'NFe sem Autorização de Uso da SEFAZ')
           else if (NFe.Ide.tpImp = tiSimplificado) then
@@ -1009,7 +1046,7 @@ begin
                       FieldByName('ChaveAcesso_Descricao').AsString := 'CHAVE DE ACESSO';
                       FieldByName('Contingencia_ID').AsString := '';
 
-                      if ((frDANFE.NFeCancelada) or (NFe.procNFe.cStat in [101,151,155])) then
+                      if ((frDANFE.Cancelada) or (NFe.procNFe.cStat in [101,151,155])) then
                         FieldByName('Contingencia_Descricao').AsString := ACBrStr('PROTOCOLO DE HOMOLOGAÇÃO DO CANCELAMENTO' )
                       else if ( NFe.procNFe.cStat = 110 ) or
                               ( NFe.procNFe.cStat = 301 ) or
@@ -1019,15 +1056,34 @@ begin
                       else
                         FieldByName('Contingencia_Descricao').AsString := ACBrStr('PROTOCOLO DE AUTORIZAÇÃO DE USO');
 
-                      if EstaVazio(frDANFE.ProtocoloNFe) then
+                      if EstaVazio(frDANFE.Protocolo) then
                       begin
                         if EstaVazio(NFe.procNFe.nProt) then
                           FieldByName('Contingencia_Valor').AsString := ACBrStr('NFe sem Autorização de Uso da SEFAZ')
                         else
-                          FieldByName('Contingencia_Valor').AsString := NFe.procNFe.nProt + ' ' + IfThenX(NFe.procNFe.dhRecbto <> 0, DateTimeToStr(NFe.procNFe.dhRecbto), '');
+                        begin
+                          FieldByName('Contingencia_Valor').AsString := NFe.procNFe.nProt + ' ' + IfThen(NFe.procNFe.dhRecbto <> 0, FormatDateTimeBr(NFe.procNFe.dhRecbto), '');
+                          FieldByName('nProt').AsString := NFe.procNfe.nProt;
+                          FieldByName('dhRecbto').AsDateTime := NFe.procNFe.dhRecbto;
+                        end;
                       end
                       else
-                        FieldByName('Contingencia_Valor').AsString := frDANFE.ProtocoloNFe;
+                      begin
+                        FieldByName('Contingencia_Valor').AsString := FrDANFE.Protocolo;
+                        P := Pos('-', FrDANFE.Protocolo);
+                        if P = 0 then
+                        begin
+                          FieldByName('nProt').AsString := Trim(FrDANFE.Protocolo);
+                          FieldByName('dhRecbto').AsDateTime := 0;
+                        end
+                        else
+                        begin
+                          FieldByName('nProt').AsString := Trim(Copy(FrDANFE.Protocolo, 1, P - 1));
+                          FieldByName('dhRecbto').AsDateTime := StringToDateTimeDef(Trim(
+                            Copy(FrDANFE.Protocolo, P + 1, Length(FrDANFE.Protocolo) - P)
+                            ), 0, 'dd/mm/yyyy hh:nn:ss');
+                        end;
+                      end;
                     end;
 
         teContingencia ,
@@ -1044,18 +1100,20 @@ begin
                       if NaoEstaVazio(NFe.procNFe.nProt) then // DPEC TRANSMITIDO
                       begin
                         FieldByName('Contingencia_Descricao').AsString := ACBrStr( 'PROTOCOLO DE AUTORIZAÇÃO DE USO');
-                        FieldByName('Contingencia_Valor').AsString     := NFe.procNFe.nProt + ' ' + IfThenX(NFe.procNFe.dhRecbto <> 0, DateTimeToStr(NFe.procNFe.dhRecbto), '');
+                        FieldByName('Contingencia_Valor').AsString     := NFe.procNFe.nProt + ' ' + IfThen(NFe.procNFe.dhRecbto <> 0, FormatDateTimeBr(NFe.procNFe.dhRecbto), '');
                       end
                       else
                       begin
                         FieldByName('Contingencia_Descricao').AsString := ACBrStr('NÚMERO DE REGISTRO DPEC');
-                        if NaoEstaVazio(frDANFE.ProtocoloNFe) then
-                          FieldByName('Contingencia_Valor').AsString := frDANFE.ProtocoloNFe;
+                        if NaoEstaVazio(frDANFE.Protocolo) then
+                          FieldByName('Contingencia_Valor').AsString := frDANFE.Protocolo;
                       end;
                     end;
 
          teOffLine: begin
-                      FieldByName('Contingencia_Valor').AsString := NFe.procNFe.nProt + ' ' + IfThenX(NFe.procNFe.dhRecbto <> 0, DateTimeToStr(NFe.procNFe.dhRecbto), '');
+                      FieldByName('Contingencia_Valor').AsString := NFe.procNFe.nProt + ' ' + IfThen(NFe.procNFe.dhRecbto <> 0, FormatDateTimeBr(NFe.procNFe.dhRecbto), '');
+                      FieldByName('nProt').AsString      := NFe.procNfe.nProt;
+                      FieldByName('dhRecbto').AsDateTime := NFe.procNFe.dhRecbto;
                     end;
       end;
 
@@ -1066,25 +1124,26 @@ begin
     if NaoEstaVazio(FieldByName('Mensagem0').AsString) then
       FieldByName('Mensagem0').AsString  := FieldByName('Mensagem0').AsString+#10#13;
 
-    FieldByName('Mensagem0').AsString                   := FieldByName('Mensagem0').AsString + frDANFE.MarcaDaguaMSG;
-    FieldByName('LogoExpandido').AsString               := IfThenX( frDANFE.ExpandirLogoMarca, '1' , '0' );
-    FieldByName('Sistema').AsString                     := IfThenX( frDANFE.Sistema <> '' , frDANFE.Sistema, 'Projeto ACBr - http://acbr.sf.net');
-    FieldByName('Usuario').AsString                     := IfThenX( frDANFE.Usuario <> '' , ' - ' + frDANFE.Usuario , '' );
-    FieldByName('Fax').AsString                         := IfThenX( frDANFE.Fax     <> '' , ' - FAX ' + frDANFE.Fax , '');
+    FieldByName('Mensagem0').AsString                   := FieldByName('Mensagem0').AsString + IfThen(frDANFE is TACBrNFeDANFEFR, TACBrNFeDANFEFR(frDANFE).MarcaDaguaMSG, '');
+    FieldByName('LogoExpandido').AsString               := IfThen( frDANFE.ExpandeLogoMarca, '1' , '0' );
+    FieldByName('Sistema').AsString                     := IfThen( frDANFE.Sistema <> '' , frDANFE.Sistema, 'Projeto ACBr - http://acbr.sf.net');
+    FieldByName('Usuario').AsString                     := IfThen( frDANFE.Usuario <> '' , ' - ' + frDANFE.Usuario , '' );
+    FieldByName('Fax').AsString                         := IfThen( frDANFE.Fax     <> '' , ' - FAX ' + frDANFE.Fax , '');
     FieldByName('Site').AsString                        := frDANFE.Site;
     FieldByName('Email').AsString                       := frDANFE.Email;
-    FieldByName('Desconto').AsString                    := IfThenX( frDANFE.ImprimirDescPorc , '%' , 'VALOR');
-    FieldByName('TotalLiquido').AsString                := IfThenX( frDANFE.ImprimirTotalLiquido ,ACBrStr('LÍQUIDO') ,'TOTAL');
-    FieldByName('LinhasPorPagina').AsInteger            := frDANFE.ProdutosPorPagina;
-    FieldByName('ExpandirDadosAdicionaisAuto').AsString := IfThenX( frDANFE.ExpandirDadosAdicionaisAuto , 'S' , 'N');
+    FieldByName('Desconto').AsString                    := IfThen( (frDANFE is TACBrNFeDANFEClass) and TACBrNFeDANFEClass(frDANFE).ImprimeDescPorPercentual , '%' , 'VALOR');
+    FieldByName('TotalLiquido').AsString                := IfThen( frDANFE.ImprimeTotalLiquido ,ACBrStr('LÍQUIDO') ,'TOTAL');
+    FieldByName('LinhasPorPagina').AsInteger            := 0;
+    FieldByName('ExpandirDadosAdicionaisAuto').AsString := IfThen(TACBrNFeDANFEFR(frDANFE).ExpandirDadosAdicionaisAuto , 'S' , 'N');
     FieldByName('sDisplayFormat').AsString              := '###,###,###,##0.%.*d';
     FieldByName('iFormato').AsInteger                   := integer( frDANFE.CasasDecimais.Formato );
-    FieldByName('Mask_qCom').AsString                   := frDANFE.CasasDecimais._Mask_qCom;
-    FieldByName('Mask_vUnCom').AsString                 := frDANFE.CasasDecimais._Mask_vUnCom;
-    FieldByName('Casas_qCom').AsInteger                 := frDANFE.CasasDecimais._qCom;
-    FieldByName('Casas_vUnCom').AsInteger               := frDANFE.CasasDecimais._vUnCom;
-    FieldByName('DescricaoViaEstabelec').AsString       := frDANFE.DescricaoViaEstabelec;
-    FieldByName('ImprimeDescAcrescItem').AsInteger      := IfThen( frDANFE.ImprimeDescAcrescItem, 1 , 0 );
+    FieldByName('Mask_qCom').AsString                   := frDANFE.CasasDecimais.MaskqCom;
+    FieldByName('Mask_vUnCom').AsString                 := frDANFE.CasasDecimais.MaskvUnCom;
+    FieldByName('Casas_qCom').AsInteger                 := frDANFE.CasasDecimais.qCom;
+    FieldByName('Casas_vUnCom').AsInteger               := frDANFE.CasasDecimais.vUnCom;
+
+//    if (frDANFE is TACBrNFeDANFCEClass) then
+//      FieldByName('ImprimeDescAcrescItem').AsInteger    := IfThen( TACBrNFeDANFCEFR(frDANFE).ImprimeDescAcrescItem, 1 , 0 );
 
     // Carregamento da imagem
     if NaoEstaVazio(frDANFE.Logo) then
@@ -1199,7 +1258,7 @@ begin
           WebServices.Consulta.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
           WebServices.Consulta.Executar;
 
-          DANFE.ProtocoloNFe := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
+          DANFE.Protocolo := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
         end;
 
         aNotaValida := Assigned(NotasFiscais.Items[0].NFe.procNFe);
@@ -1386,31 +1445,31 @@ end;
 //  Result[Length(Result) - 1] := sInput;
 //end;
 //
-function TfrmGeImportarNFE.FormatQuantidade(dValor: Double): String;
-begin
-  With cdsParametros do
-  begin
-     case FieldByName('iFormato').AsInteger of
-      0 : Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_qCom').AsInteger, 0]));
-      1 : Result := FormatFloatBr( dValor , FieldByName('Mask_qCom').AsString);
-      else
-        Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_qCom').AsInteger, 0]));
-    end;
-  end;
-end;
-
-function TfrmGeImportarNFE.FormatValorUnitario(dValor: Double): String;
-begin
-  With cdsParametros do
-  begin
-    case FieldByName('iFormato').AsInteger of
-      0 : Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_vUnCom').AsInteger, 0]));
-      1 : Result := FormatFloatBr( dValor , FieldByName('Mask_vUnCom').AsString);
-      else
-        Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_vUnCom').AsInteger, 0]));
-    end;
-  end;
-end;
+//function TfrmGeImportarNFE.FormatQuantidade(dValor: Double): String;
+//begin
+//  With cdsParametros do
+//  begin
+//     case FieldByName('iFormato').AsInteger of
+//      0 : Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_qCom').AsInteger, 0]));
+//      1 : Result := FormatFloatBr( dValor , FieldByName('Mask_qCom').AsString);
+//      else
+//        Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_qCom').AsInteger, 0]));
+//    end;
+//  end;
+//end;
+//
+//function TfrmGeImportarNFE.FormatValorUnitario(dValor: Double): String;
+//begin
+//  With cdsParametros do
+//  begin
+//    case FieldByName('iFormato').AsInteger of
+//      0 : Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_vUnCom').AsInteger, 0]));
+//      1 : Result := FormatFloatBr( dValor , FieldByName('Mask_vUnCom').AsString);
+//      else
+//        Result := FormatFloatBr( dValor , format(FieldByName('sDisplayFormat').AsString, [FieldByName('Casas_vUnCom').AsInteger, 0]));
+//    end;
+//  end;
+//end;
 
 procedure TfrmGeImportarNFE.FormCreate(Sender: TObject);
 begin
@@ -1466,240 +1525,243 @@ begin
   edFornecedorCadastro.Hint := EmptyStr;
 end;
 
-function TfrmGeImportarNFE.ManterArma(inItem: integer): String;
-Var
-  i : Integer;
-begin
-  Result := '';
-  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
-  begin
-    if (frDANFE.ImprimirDadosArma) and ( arma.Count > 0) then
-    begin
-      Result := sQuebraLinha;
-      for i := 0 to arma.Count - 1 do
-      begin
-        Result := Result + ACBrStr('TIPO DE ARMA: ')   + ArmaTipoStr( arma.Items[i].tpArma ) + sQuebraLinha;
-        Result := Result + ACBrStr('No. SÉRIE ARMA: ') + arma.Items[i].nSerie + sQuebraLinha;
-        Result := Result + ACBrStr('No. SÉRIE CANO: ') + arma.Items[i].nCano + sQuebraLinha;
-        Result := Result + ACBrStr('DESCRIÇÃO ARMA: ') + arma.Items[i].descr + ';';
-       end;
-    end;
-  end;
-end;
-
-function TfrmGeImportarNFE.ManterCombustivel(inItem: integer): String;
-begin
-  Result := '';
-  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
-  begin
-    if comb.cProdANP > 0 then
-    begin
-      Result := sQuebraLinha;
-      Result := Result + ACBrStr( 'CÓD. PRODUTO ANP: ') + IntToStr(comb.cProdANP) + sQuebraLinha;
-      Result := Result + IfThenX( comb.CODIF > '', ACBrStr( 'AUTORIZAÇÃO/CODIF: ') + comb.CODIF + sQuebraLinha , '');
-      Result := Result + IfThenX( comb.qTemp > 0 , ACBrStr( 'QTD. FATURADA TEMP. AMBIENTE: ' ) + FormatFloat('###,##0.0000', comb.qTemp) + sQuebraLinha , '');
-      Result := Result + ACBrStr('UF DE CONSUMO: ') + comb.UFcons + sQuebraLinha;
-      if comb.CIDE.qBCProd > 0 then
-      begin
-        Result := Result + ACBrStr('BASE DE CÁLCULO CIDE: ') + FormatFloat('###,##0.0000', comb.CIDE.qBCProd) + sQuebraLinha;
-        Result := Result + ACBrStr('ALÍQUOTA CIDE: ') + FormatFloat('###,##0.0000', comb.CIDE.vAliqProd) + sQuebraLinha;
-        Result := Result + ACBrStr('VALOR CIDE: ') + FormatFloat('###,##0.00', comb.CIDE.vCIDE);
-      end;
-      if comb.encerrante.nBico > 0  then
-      begin
-        Result := Result + 'ENCERRANTE' + sQuebraLinha;
-        Result := Result + 'BICO: ' +  IntToStr( comb.encerrante.nBico ) + sQuebraLinha;
-        Result := Result + IfThenX( comb.encerrante.nBomba > 0, 'BOMBA: ' + IntToStr(comb.encerrante.nBomba) + sQuebraLinha , '');
-        Result := Result + 'TANQUE: ' + IntToStr(comb.encerrante.nTanque) + sQuebraLinha;
-        Result := Result + ACBrStr('NO INÍCIO: ' ) + FormatFloat('###,##0.000', comb.encerrante.vEncIni) + sQuebraLinha;
-        Result := Result + 'NO FINAL: ' + FormatFloat('###,##0.000', comb.encerrante.vEncFin) + sQuebraLinha;
-      end;
-    end;
-  end;
-end;
-
-function TfrmGeImportarNFE.ManterCst(dCRT: TpcnCRT; dCSOSN: TpcnCSOSNIcms;
-  dCST: TpcnCSTIcms): String;
-begin
-  if dCRT = crtSimplesNacional then
-    Result := CSOSNIcmsToStr(dCSOSN)
-  else
-    Result := CSTICMSToStr(dCST);
-end;
-
-function TfrmGeImportarNFE.ManterDescricaoProduto(sXProd,
-  sinfAdProd: String): String;
-begin
-  Result := trim( sXProd );
-  if sinfAdProd <> '' then
-    Result := Result +#13+ trim( sinfAdProd );
-end;
-
-function TfrmGeImportarNFE.ManterdvTotTrib(dvTotTrib: Double): String;
-Var
-  dValor : Double;
-begin
-  if DMNFe.frDANFE.ExibirTotalTributosItem then
-    dValor := dvTotTrib
-  else
-    dValor := 0;
-  Result := FormatFloatBr( dValor,'###,###,##0.00');
-end;
-
-function TfrmGeImportarNFE.ManterInfAProd(inItem: Integer;
-  sinfAdProd: String): String;
-var
-  Campos2     : TSplitResult;
-  IndexCampo2 : Integer;
-  vTemp2      : TStringList;
-begin
-  vTemp2  := TStringList.create;
-  try
-    Result  := sinfAdProd;
-    Result  := Result + ManterValAprox( inItem );
-    if DMNFe.frDANFE.ImprimirDetalhamentoEspecifico then
-    begin
-      sQuebraLinha := QuebraLinha;
-      Result := Result + ManterVeiculos( inItem  );
-      Result := Result + ManterMedicamentos( inItem  );
-      Result := Result + ManterArma( inItem  );
-      Result := Result + ManterCombustivel( inItem );
-    end;
-    if Trim(Result) <> '' then
-    begin
-      Campos2 := Split(';', Result);
-
-      for IndexCampo2 := 0 to Length(Campos2) - 1 do
-        vTemp2.Add(Trim(Campos2[IndexCampo2]));
-
-      Result  := #13 + Trim(vTemp2.Text);
-    end;
-  finally
-    vTemp2.free;
-  end;
-end;
-
-function TfrmGeImportarNFE.ManterMedicamentos(inItem: integer): String;
-Var
-  i : Integer;
-begin
-  Result := '';
-  { detalhamento específico de medicamentos }
-  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
-  begin
-    if med.Count > 0 then
-    begin
-      Result := sQuebraLinha;
-      for i := 0 to med.Count - 1 do
-      begin
-        Result := Result + 'LOTE: ' + med.Items[i].nLote+ sQuebraLinha;
-        Result := Result + 'QTD: '  + FormatFloatBr(med.Items[i].qLote)+ sQuebraLinha;
-        Result := Result + 'FAB: '  + FormatDateBr(med.Items[i].dFab)+ sQuebraLinha;
-        Result := Result + 'VAL: '  + FormatDateBr(med.Items[i].dVal)+ sQuebraLinha;
-        Result := Result + IfThenX( med.Items[i].vPMC  > 0, 'PMC: ' + FormatFloatBr(med.Items[i].vPMC) + ';' , '');
-      end;
-    end;
-  end;
-end;
-
-function TfrmGeImportarNFE.ManterValAprox(inItem: Integer): String;
-begin
-  Result := '';
-  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem] do
-  begin
-    if (Imposto.vTotTrib <> 0)  and (frDANFE.ExibirTotalTributosItem) then
-    begin
-      Result := '';
-      with Imposto do
-      begin
-        Result := Result+'Val Aprox Tributos: '+ FloatToStrF(Imposto.vTotTrib,ffCurrency,15,2);
-        if frDANFE.TributosPercentual = ptValorNF then
-          Result := Result+' ('+FloatToStrF(((StringToFloatDef(FloatToStr(Imposto.vTotTrib),0)*100)/(StringToFloatDef(FloatToStr(Prod.VProd),0) +
-                                StringToFloatDef(FloatToStr(Prod.vFrete),0)  +
-                                StringToFloatDef(FloatToStr(Prod.vOutro),0)  +
-                                StringToFloatDef(FloatToStr(Prod.vSeg),0)    +
-                                StringToFloatDef(FloatToStr(IPI.vIPI), 0)    +
-                                StringToFloatDef(FloatToStr(ICMS.vICMSST), 0))),ffNumber,15,2)+'%)'
-        else
-          Result := Result+' ('+FloatToStrF(((StringToFloatDef(FloatToStr(Imposto.vTotTrib),0)*100)/(StringToFloatDef(FloatToStr(Prod.VProd),0))),ffNumber,15,2)+'%)';
-      end;
-    end;
-  end;
-end;
-
-function TfrmGeImportarNFE.ManterVDesc(dvDesc: Currency; dVUnCom,
-  dQCom: double): Double;
-begin
-  if ( DMNFe.frDANFE.ImprimirDescPorc ) then
-  begin
-    if ( ( dvDesc  > 0 ) and ( dVUnCom > 0 ) and ( dQCom   > 0 ) ) then
-      Result := (( dvDesc*100 ) / (dVUnCom * dQCom) )
-    else
-      Result := 0;
-  end
-  else
-    Result := dvDesc;
-end;
-
-function TfrmGeImportarNFE.ManterVeiculos(inItem: integer): String;
-begin
-  Result := '';
-{ detalhamento especifico de veículos }
-  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
-  begin
-    if veicProd.chassi > '' then
-    begin
-      Result := sQuebraLinha;
-	    Result := Result + ACBrStr('TIPO DE OPERAÇÃO: ' + VeiculosTipoOperStr( veicProd.tpOP ) ) + sQuebraLinha;
-	    Result := Result + ACBrStr('CHASSI: ' )+ veicProd.chassi + sQuebraLinha;
-	    Result := Result + ACBrStr('CÓDIGO DA COR: ' )+ veicProd.cCor + sQuebraLinha;
-	    Result := Result + ACBrStr('NOME DA COR: ') + veicProd.xCor + sQuebraLinha;
-	    Result := Result + ACBrStr('POTÊNCIA DO MOTOR: ') + veicProd.pot + sQuebraLinha;
-	    Result := Result + ACBrStr('CILINDRADAS: ') + veicProd.Cilin + sQuebraLinha;
-	    Result := Result + ACBrStr('PESO LÍQUIDO: ') + veicProd.pesoL + sQuebraLinha;
-	    Result := Result + ACBrStr('PESO BRUTO: ' )+ veicProd.pesoB + sQuebraLinha;
-	    Result := Result + ACBrStr('NÚMERO DE SÉRIE: ') + veicProd.nSerie + sQuebraLinha;
-	    Result := Result + ACBrStr('COMBUSTÍVEL: ' + VeiculosCombustivelStr( veicProd.tpComb ) ) + sQuebraLinha;
-	    Result := Result + ACBrStr('NÚMERO DO MOTOR: ') + veicProd.nMotor + sQuebraLinha;
-	    Result := Result + ACBrStr('CAP. MÁX. TRAÇÃO: ') + veicProd.CMT + sQuebraLinha;
-	    Result := Result + ACBrStr('DISTÂNCIA ENTRE EIXOS: ') + veicProd.dist + sQuebraLinha;
-	    Result := Result + ACBrStr('ANO DO MODELO: ' )+ IntToStr(veicProd.anoMod) + sQuebraLinha;
-	    Result := Result + ACBrStr('ANO DE FABRICAÇÃO: ') + IntToStr(veicProd.anoFab) + sQuebraLinha;
-	    Result := Result + ACBrStr('TIPO DE PINTURA: ') + veicProd.tpPint + sQuebraLinha;
-	    Result := Result + ACBrStr('TIPO DE VEÍCULO: ' + VeiculosTipoStr( veicProd.tpVeic ) )+ sQuebraLinha;
-	    Result := Result + ACBrStr('ESPÉCIE DO VEÍCULO: ' +VeiculosEspecieStr( veicProd.espVeic )) + sQuebraLinha;
-	    Result := Result + ACBrStr('VIN (CHASSI): ' + VeiculosVinStr( veicProd.VIN ) )+ sQuebraLinha;
-	    Result := Result + ACBrStr('CONDIÇÃO DO VEÍCULO: ' +VeiculosCondicaoStr( veicProd.condVeic)) + sQuebraLinha;
-	    Result := Result + ACBrStr('CÓDIGO MARCA MODELO: ') + veicProd.cMod + sQuebraLinha;
-	    Result := Result + ACBrStr('CÓDIGO COR DENATRAN: ' +VeiculosCorDENATRANSTr( veicProd.cCorDENATRAN )) + sQuebraLinha;
-	    Result := Result + ACBrStr('CAP.MÁXIMA DE LOTAÇÃO: ') +IntToStr(veicProd.lota) + sQuebraLinha;
-	    Result := Result + ACBrStr('RESTRIÇÃO: ' +VeiculosRestricaoStr( veicProd.tpRest ) )+ ';';
-    end;
-  end;
-end;
-
-function TfrmGeImportarNFE.ManterVprod(dVProd, dvDesc: Double): String;
-Var
-  dValor : Double;
-begin
-  if DMNFe.frDANFE.ImprimirTotalLiquido then
-    dValor := dVProd - dvDesc
-  else
-    dValor := dVProd;
-
-  Result := FormatFloatBr( dValor,'###,###,##0.00');
-end;
-
-function TfrmGeImportarNFE.ManterVTribPerc(dVTotTrib, dVProd,
-  dVNF: Double): Double;
-begin
-  Result := 0;
-  case DMNFe.frDANFE.TributosPercentual of
-    ptPersonalizado   : Result := DMNFe.frDANFE.TributosPercentualPersonalizado;
-    ptValorProdutos   : if (dVProd > 0) then Result := dVTotTrib*100/dVProd;
-    ptValorNF         : if (dVNF   > 0) then Result := dVTotTrib*100/dVNF;
-  end;
-end;
+//function TfrmGeImportarNFE.ManterArma(inItem: integer): String;
+//Var
+//  i : Integer;
+//begin
+//  Result := '';
+//  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
+//  begin
+//    if Assigned(arma) and ( arma.Count > 0) then
+//    begin
+//      Result := sQuebraLinha;
+//      for i := 0 to arma.Count - 1 do
+//      begin
+//        Result := Result + ACBrStr('TIPO DE ARMA: ')   + ArmaTipoStr( arma.Items[i].tpArma ) + sQuebraLinha;
+//        Result := Result + ACBrStr('No. SÉRIE ARMA: ') + arma.Items[i].nSerie + sQuebraLinha;
+//        Result := Result + ACBrStr('No. SÉRIE CANO: ') + arma.Items[i].nCano + sQuebraLinha;
+//        Result := Result + ACBrStr('DESCRIÇÃO ARMA: ') + arma.Items[i].descr + ';';
+//       end;
+//    end;
+//  end;
+//end;
+//
+//function TfrmGeImportarNFE.ManterCombustivel(inItem: integer): String;
+//begin
+//  Result := '';
+//  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
+//  begin
+//    if comb.cProdANP > 0 then
+//    begin
+//      Result := sQuebraLinha;
+//      Result := Result + ACBrStr( 'CÓD. PRODUTO ANP: ') + IntToStr(comb.cProdANP) + sQuebraLinha;
+//      Result := Result + IfThenX( comb.CODIF > '', ACBrStr( 'AUTORIZAÇÃO/CODIF: ') + comb.CODIF + sQuebraLinha , '');
+//      Result := Result + IfThenX( comb.qTemp > 0 , ACBrStr( 'QTD. FATURADA TEMP. AMBIENTE: ' ) + FormatFloat('###,##0.0000', comb.qTemp) + sQuebraLinha , '');
+//      Result := Result + ACBrStr('UF DE CONSUMO: ') + comb.UFcons + sQuebraLinha;
+//      if comb.CIDE.qBCProd > 0 then
+//      begin
+//        Result := Result + ACBrStr('BASE DE CÁLCULO CIDE: ') + FormatFloat('###,##0.0000', comb.CIDE.qBCProd) + sQuebraLinha;
+//        Result := Result + ACBrStr('ALÍQUOTA CIDE: ') + FormatFloat('###,##0.0000', comb.CIDE.vAliqProd) + sQuebraLinha;
+//        Result := Result + ACBrStr('VALOR CIDE: ') + FormatFloat('###,##0.00', comb.CIDE.vCIDE);
+//      end;
+//      if comb.encerrante.nBico > 0  then
+//      begin
+//        Result := Result + 'ENCERRANTE' + sQuebraLinha;
+//        Result := Result + 'BICO: ' +  IntToStr( comb.encerrante.nBico ) + sQuebraLinha;
+//        Result := Result + IfThenX( comb.encerrante.nBomba > 0, 'BOMBA: ' + IntToStr(comb.encerrante.nBomba) + sQuebraLinha , '');
+//        Result := Result + 'TANQUE: ' + IntToStr(comb.encerrante.nTanque) + sQuebraLinha;
+//        Result := Result + ACBrStr('NO INÍCIO: ' ) + FormatFloat('###,##0.000', comb.encerrante.vEncIni) + sQuebraLinha;
+//        Result := Result + 'NO FINAL: ' + FormatFloat('###,##0.000', comb.encerrante.vEncFin) + sQuebraLinha;
+//      end;
+//    end;
+//  end;
+//end;
+//
+//function TfrmGeImportarNFE.ManterCst(dCRT: TpcnCRT; dCSOSN: TpcnCSOSNIcms;
+//  dCST: TpcnCSTIcms): String;
+//begin
+//  if dCRT = crtSimplesNacional then
+//    Result := CSOSNIcmsToStr(dCSOSN)
+//  else
+//    Result := CSTICMSToStr(dCST);
+//end;
+//
+//function TfrmGeImportarNFE.ManterDescricaoProduto(sXProd,
+//  sinfAdProd: String): String;
+//begin
+//  Result := trim( sXProd );
+//  if sinfAdProd <> '' then
+//    Result := Result +#13+ trim( sinfAdProd );
+//end;
+//
+//function TfrmGeImportarNFE.ManterdvTotTrib(dvTotTrib: Double): String;
+//Var
+//  dValor : Double;
+//begin
+//  if DMNFe.frDANFE.ExibeTotalTributosItem then
+//    dValor := dvTotTrib
+//  else
+//    dValor := 0;
+//  Result := FormatFloatBr( dValor,'###,###,##0.00');
+//end;
+//
+//function TfrmGeImportarNFE.ManterInfAProd(inItem: Integer;
+//  sinfAdProd: String): String;
+//var
+//  Campos2     : TSplitResult;
+//  IndexCampo2 : Integer;
+//  vTemp2      : TStringList;
+//begin
+//  vTemp2  := TStringList.create;
+//  try
+//    Result  := sinfAdProd;
+//    Result  := Result + ManterValAprox( inItem );
+////    if DMNFe.frDANFE.ImprimirDetalhamentoEspecifico then
+//    if DMNFe.frDANFE.ExpandirDadosAdicionaisAuto then
+//    begin
+//      sQuebraLinha := QuebraLinha;
+//      Result := Result + ManterVeiculos( inItem  );
+//      Result := Result + ManterMedicamentos( inItem  );
+//      Result := Result + ManterArma( inItem  );
+//      Result := Result + ManterCombustivel( inItem );
+//    end;
+//
+//    if Trim(Result) <> '' then
+//    begin
+//      Campos2 := Split(';', Result);
+//
+//      for IndexCampo2 := 0 to Length(Campos2) - 1 do
+//        vTemp2.Add(Trim(Campos2[IndexCampo2]));
+//
+//      Result  := #13 + Trim(vTemp2.Text);
+//    end;
+//  finally
+//    vTemp2.free;
+//  end;
+//end;
+//
+//function TfrmGeImportarNFE.ManterMedicamentos(inItem: integer): String;
+//Var
+//  i : Integer;
+//begin
+//  Result := '';
+//  { detalhamento específico de medicamentos }
+//  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
+//  begin
+//    if med.Count > 0 then
+//    begin
+//      Result := sQuebraLinha;
+//      for i := 0 to med.Count - 1 do
+//      begin
+//        Result := Result + 'LOTE: ' + med.Items[i].nLote+ sQuebraLinha;
+//        Result := Result + 'QTD: '  + FormatFloatBr(med.Items[i].qLote)+ sQuebraLinha;
+//        Result := Result + 'FAB: '  + FormatDateBr(med.Items[i].dFab)+ sQuebraLinha;
+//        Result := Result + 'VAL: '  + FormatDateBr(med.Items[i].dVal)+ sQuebraLinha;
+//        Result := Result + IfThenX( med.Items[i].vPMC  > 0, 'PMC: ' + FormatFloatBr(med.Items[i].vPMC) + ';' , '');
+//      end;
+//    end;
+//  end;
+//end;
+//
+//function TfrmGeImportarNFE.ManterValAprox(inItem: Integer): String;
+//begin
+//  Result := '';
+//  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem] do
+//  begin
+//    if (Imposto.vTotTrib <> 0)  and (frDANFE.ExibeTotalTributosItem) then
+//    begin
+//      Result := '';
+//      with Imposto do
+//      begin
+//        Result := Result+'Val Aprox Tributos: '+ FloatToStrF(Imposto.vTotTrib,ffCurrency,15,2);
+//        if frDANFE.TributosPercentual = ptValorNF then
+//          Result := Result+' ('+FloatToStrF(((StringToFloatDef(FloatToStr(Imposto.vTotTrib),0)*100)/(StringToFloatDef(FloatToStr(Prod.VProd),0) +
+//                                StringToFloatDef(FloatToStr(Prod.vFrete),0)  +
+//                                StringToFloatDef(FloatToStr(Prod.vOutro),0)  +
+//                                StringToFloatDef(FloatToStr(Prod.vSeg),0)    +
+//                                StringToFloatDef(FloatToStr(IPI.vIPI), 0)    +
+//                                StringToFloatDef(FloatToStr(ICMS.vICMSST), 0))),ffNumber,15,2)+'%)'
+//        else
+//          Result := Result+' ('+FloatToStrF(((StringToFloatDef(FloatToStr(Imposto.vTotTrib),0)*100)/(StringToFloatDef(FloatToStr(Prod.VProd),0))),ffNumber,15,2)+'%)';
+//      end;
+//    end;
+//  end;
+//end;
+//
+//function TfrmGeImportarNFE.ManterVDesc(dvDesc: Currency; dVUnCom,
+//  dQCom: double): Double;
+//begin
+////  if ( DMNFe.frDANFE.ImprimirDescPorc ) then
+//  if ( True ) then
+//  begin
+//    if ( ( dvDesc  > 0 ) and ( dVUnCom > 0 ) and ( dQCom   > 0 ) ) then
+//      Result := (( dvDesc*100 ) / (dVUnCom * dQCom) )
+//    else
+//      Result := 0;
+//  end
+//  else
+//    Result := dvDesc;
+//end;
+//
+//function TfrmGeImportarNFE.ManterVeiculos(inItem: integer): String;
+//begin
+//  Result := '';
+//{ detalhamento especifico de veículos }
+//  with DMNFe, ACBrNFe, NotasFiscais.Items[0].NFe.Det.Items[inItem].Prod do
+//  begin
+//    if veicProd.chassi > '' then
+//    begin
+//      Result := sQuebraLinha;
+//	    Result := Result + ACBrStr('TIPO DE OPERAÇÃO: ' + VeiculosTipoOperStr( veicProd.tpOP ) ) + sQuebraLinha;
+//	    Result := Result + ACBrStr('CHASSI: ' )+ veicProd.chassi + sQuebraLinha;
+//	    Result := Result + ACBrStr('CÓDIGO DA COR: ' )+ veicProd.cCor + sQuebraLinha;
+//	    Result := Result + ACBrStr('NOME DA COR: ') + veicProd.xCor + sQuebraLinha;
+//	    Result := Result + ACBrStr('POTÊNCIA DO MOTOR: ') + veicProd.pot + sQuebraLinha;
+//	    Result := Result + ACBrStr('CILINDRADAS: ') + veicProd.Cilin + sQuebraLinha;
+//	    Result := Result + ACBrStr('PESO LÍQUIDO: ') + veicProd.pesoL + sQuebraLinha;
+//	    Result := Result + ACBrStr('PESO BRUTO: ' )+ veicProd.pesoB + sQuebraLinha;
+//	    Result := Result + ACBrStr('NÚMERO DE SÉRIE: ') + veicProd.nSerie + sQuebraLinha;
+//	    Result := Result + ACBrStr('COMBUSTÍVEL: ' + VeiculosCombustivelStr( veicProd.tpComb ) ) + sQuebraLinha;
+//	    Result := Result + ACBrStr('NÚMERO DO MOTOR: ') + veicProd.nMotor + sQuebraLinha;
+//	    Result := Result + ACBrStr('CAP. MÁX. TRAÇÃO: ') + veicProd.CMT + sQuebraLinha;
+//	    Result := Result + ACBrStr('DISTÂNCIA ENTRE EIXOS: ') + veicProd.dist + sQuebraLinha;
+//	    Result := Result + ACBrStr('ANO DO MODELO: ' )+ IntToStr(veicProd.anoMod) + sQuebraLinha;
+//	    Result := Result + ACBrStr('ANO DE FABRICAÇÃO: ') + IntToStr(veicProd.anoFab) + sQuebraLinha;
+//	    Result := Result + ACBrStr('TIPO DE PINTURA: ') + veicProd.tpPint + sQuebraLinha;
+//	    Result := Result + ACBrStr('TIPO DE VEÍCULO: ' + VeiculosTipoStr( veicProd.tpVeic ) )+ sQuebraLinha;
+//	    Result := Result + ACBrStr('ESPÉCIE DO VEÍCULO: ' +VeiculosEspecieStr( veicProd.espVeic )) + sQuebraLinha;
+//	    Result := Result + ACBrStr('VIN (CHASSI): ' + VeiculosVinStr( veicProd.VIN ) )+ sQuebraLinha;
+//	    Result := Result + ACBrStr('CONDIÇÃO DO VEÍCULO: ' +VeiculosCondicaoStr( veicProd.condVeic)) + sQuebraLinha;
+//	    Result := Result + ACBrStr('CÓDIGO MARCA MODELO: ') + veicProd.cMod + sQuebraLinha;
+//	    Result := Result + ACBrStr('CÓDIGO COR DENATRAN: ' +VeiculosCorDENATRANSTr( veicProd.cCorDENATRAN )) + sQuebraLinha;
+//	    Result := Result + ACBrStr('CAP.MÁXIMA DE LOTAÇÃO: ') +IntToStr(veicProd.lota) + sQuebraLinha;
+//	    Result := Result + ACBrStr('RESTRIÇÃO: ' +VeiculosRestricaoStr( veicProd.tpRest ) )+ ';';
+//    end;
+//  end;
+//end;
+//
+//function TfrmGeImportarNFE.ManterVprod(dVProd, dvDesc: Double): String;
+//Var
+//  dValor : Double;
+//begin
+//  if DMNFe.frDANFE.ImprimirTotalLiquido then
+//    dValor := dVProd - dvDesc
+//  else
+//    dValor := dVProd;
+//
+//  Result := FormatFloatBr( dValor,'###,###,##0.00');
+//end;
+//
+//function TfrmGeImportarNFE.ManterVTribPerc(dVTotTrib, dVProd,
+//  dVNF: Double): Double;
+//begin
+//  Result := 0;
+//  case DMNFe.frDANFE.TributosPercentual of
+//    ptPersonalizado   : Result := DMNFe.frDANFE.TributosPercentualPersonalizado;
+//    ptValorProdutos   : if (dVProd > 0) then Result := dVTotTrib*100/dVProd;
+//    ptValorNF         : if (dVNF   > 0) then Result := dVTotTrib*100/dVNF;
+//  end;
+//end;
 
 procedure TfrmGeImportarNFE.qryEmpresaCNPJGetText(Sender: TField;
   var Text: string; DisplayText: Boolean);
@@ -1714,14 +1776,14 @@ begin
     Text := StrFormatarCpf(Sender.AsString);
 end;
 
-function TfrmGeImportarNFE.QuebraLinha: String;
-begin
-  if DMNFe.frDANFE.QuebraLinhaEmDetalhamentoEspecifico then
-    Result := ';'
-  else
-    Result := ' - ';
-end;
-
+//function TfrmGeImportarNFE.QuebraLinha: String;
+//begin
+//  if DMNFe.frDANFE.QuebraLinhaEmDetalhamentoEspecifico then
+//    Result := ';'
+//  else
+//    Result := ' - ';
+//end;
+//
 procedure TfrmGeImportarNFE.RegistrarRotinaSistema;
 begin
   ;
@@ -2156,7 +2218,7 @@ begin
   i := 0;
   repeat
     Inc(Result);
-    i := PosEx(ASubString, AString, i + 1);
+    i := Pos(ASubString, AString, i + 1);
   until i = 0;
 end;
 

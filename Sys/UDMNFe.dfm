@@ -20,251 +20,6 @@ object DMNFe: TDMNFe
     Left = 24
     Top = 24
   end
-  object qryDestinatario: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.Codigo'
-      '  , c.Pessoa_fisica'
-      '  , c.Cnpj'
-      '  , c.Nome'
-      '  , coalesce(nullif(trim(c.NomeFant), '#39#39'), c.Nome) as NomeFant'
-      '  , c.Inscest'
-      '  , c.Inscmun'
-      ''
-      '  , coalesce(c.Fone, '#39#39') as Fone'
-      '  , coalesce(c.fonecel, '#39#39') as fonecel'
-      '  , coalesce(c.fonecomerc, '#39#39') as fonecomerc'
-      
-        '  , coalesce(c.Fone || '#39' / '#39', '#39#39') || coalesce(c.fonecel || '#39' / '#39 +
-        ', '#39#39') || coalesce(c.fonecomerc || '#39#39', '#39#39') as fones'
-      '  , coalesce(c.Email, '#39#39') as Email'
-      '  , coalesce(c.Site, '#39#39') as Site'
-      ''
-      '  , c.Tlg_tipo'
-      '  , tl.Tlg_descricao'
-      '  , tl.Tlg_sigla'
-      '  , c.Log_cod'
-      '  , lg.Log_nome'
-      '  , coalesce(c.Complemento, '#39#39') as Complemento'
-      '  , c.Numero_end'
-      '  , c.Cep'
-      ''
-      '  , c.Bai_cod'
-      '  , br.Bai_nome'
-      ''
-      '  , c.Cid_cod'
-      '  , cd.Cid_nome'
-      '  , cd.Cid_siafi'
-      '  , cd.Cid_ibge'
-      '  , cd.Cid_ddd'
-      ''
-      '  , c.Est_cod'
-      '  , uf.Est_nome'
-      '  , uf.Est_sigla'
-      '  , uf.Est_siafi'
-      ''
-      '  , c.Pais_id'
-      '  , pa.Pais_nome'
-      'from TBCLIENTE c'
-      '  left join TBESTADO uf on (uf.Est_cod = c.Est_cod)'
-      '  left join TBCIDADE cd on (cd.Cid_cod = c.Cid_cod)'
-      '  left join TBBAIRRO br on (br.Bai_cod = c.Bai_cod)'
-      '  left join TBLOGRADOURO lg on (lg.Log_cod = c.Log_cod)'
-      '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = c.Tlg_tipo)'
-      '  left Join TBPAIS pa on (pa.Pais_id = c.Pais_id)'
-      ''
-      'where c.Codigo = :Codigo')
-    Left = 144
-    Top = 72
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'Codigo'
-        ParamType = ptUnknown
-      end>
-  end
-  object qryDuplicatas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.Anolanc'
-      '  , r.Numlanc'
-      '  , r.Parcela'
-      '  , r.Dtemiss'
-      '  , r.Dtvenc'
-      '  , r.Valorrec'
-      '  , r.Valormulta'
-      '  , r.Percentdesconto'
-      '  , r.valorrectot'
-      '  , r.valorsaldo'
-      '  , r.historic'
-      '  , r.tippag'
-      '  , r.baixado'
-      '  , r.dtrec '
-      'from TBCONTREC r'
-      'where r.Anovenda = :AnoVenda'
-      '  and r.Numvenda = :NumVenda'
-      'order by'
-      '    r.Parcela')
-    Left = 144
-    Top = 216
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'AnoVenda'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'NumVenda'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object qryDadosProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq'
-      '  , i.Codprod'
-      '  , coalesce(p.Codbarra_ean, '#39#39') as Codbarra_ean'
-      '  , p.Descri'
-      '  , coalesce(p.Apresentacao, '#39#39') as Apresentacao'
-      
-        '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
-        'acao'
-      '  , coalesce(p.Modelo, '#39#39') as Modelo'
-      '  , coalesce(p.Anvisa, '#39#39') as Anvisa'
-      '  , coalesce(p.referencia, '#39#39') as Referencia_produto'
-      
-        '  , coalesce(nullif(trim(i.referencia), '#39#39'), nullif(trim(p.refer' +
-        'encia), '#39#39'), '#39#39') as Referencia'
-      '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
-      '  , coalesce(ib.aliqnacional_ibpt, 0.0)      as Ncm_aliquota_nac'
-      '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
-      '  , coalesce(ib.aliqestadual_ibpt, 0.0)      as Ncm_aliquota_est'
-      '  , coalesce(ib.aliqmunicipal_ibpt, 0.0)     as Ncm_aliquota_mun'
-      '  , p.Codtipo'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst_pis'
-      '  , p.Cst_cofins'
-      '  , coalesce(ps.Indice_acbr, 32) as Cst_pis_indice_ACBr'
-      '  , coalesce(cs.Indice_acbr, 32) as Cst_cofins_indice_ACBr'
-      '  , i.Codemp'
-      '  , i.Codcli'
-      '  , i.Dtvenda'
-      '  , i.Qtde'
-      '  , i.Punit'
-      '  , i.Punit_promocao'
-      '  , i.Desconto'
-      '  , i.Desconto_valor'
-      '  , i.Pfinal'
-      '  , i.Qtdefinal'
-      '  , i.Unid_cod'
-      '  , u.Unp_descricao'
-      '  , u.Unp_sigla'
-      '  , i.Cfop_cod'
-      '  , coalesce(nullif(trim(i.cst), '#39#39'), p.Cst) as Cst'
-      '  , coalesce(nullif(trim(i.Csosn), '#39#39'), p.Csosn) as Csosn'
-      '  , i.Aliquota'
-      '  , i.Aliquota_csosn'
-      '  , coalesce(i.Aliquota_pis, 0.0) as Aliquota_pis'
-      '  , coalesce(i.Aliquota_cofins, 0.0) as Aliquota_cofins'
-      '  , i.Valor_ipi'
-      
-        '  , coalesce(i.Percentual_reducao_bc, 0.0) as Percentual_reducao' +
-        '_bc'
-      
-        '  , coalesce(i.Pfinal, 0) * coalesce(i.Percentual_reducao_bc, 0.' +
-        '0) / 100 as valor_reducao_bc'
-      
-        '  , coalesce(i.Total_liquido, 0) * coalesce(i.Percentual_reducao' +
-        '_bc, 0.0) / 100 as total_reducao_bc'
-      '  , i.Total_bruto'
-      '  , i.Total_desconto'
-      '  , i.Total_liquido'
-      '  , p.Qtde as Estoque'
-      '  , p.estoque_aprop_lote'
-      '  , p.Reserva'
-      '  , p.Produto_novo'
-      '  , coalesce(p.Cor_veiculo, '#39#39') as Cor_veiculo'
-      '  , coalesce(cr.Descricao, '#39#39') as Cor_veiculo_descricao'
-      '  , coalesce(p.Combustivel_veiculo, '#39#39') as Combustivel_veiculo'
-      '  , coalesce(cb.Descricao, '#39#39') as Combustivel_veiculo_descricao'
-      
-        '  , coalesce(p.Ano_fabricacao_veiculo, 0) as Ano_fabricacao_veic' +
-        'ulo'
-      '  , coalesce(p.Ano_modelo_veiculo, 0) as Ano_modelo_veiculo'
-      
-        '  , p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_veiculo as a' +
-        'no_fab_modelo_veiculo'
-      '  , p.Tipo_veiculo'
-      '  , tv.Descricao as Tipo_veiculo_descricao'
-      '  , p.Renavam_veiculo'
-      '  , p.Chassi_veiculo'
-      '  , p.Kilometragem_veiculo'
-      '  , coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0) as Disponivel'
-      '  , i.lote_id'
-      '  , lt.descricao       as lote'
-      '  , lt.data_fabricacao as lote_fabricacao'
-      '  , lt.data_validade   as lote_validade'
-      'from TVENDASITENS i'
-      '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
-      '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.Unid_cod)'
-      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
-      
-        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
-        'veiculo)'
-      
-        '  left join RENAVAM_TIPOVEICULO tv on (tv.Codigo = p.Tipo_veicul' +
-        'o)'
-      '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
-      '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
-      
-        '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
-        'ivo = 1)'
-      '  left join TBESTOQUE_ALMOX lt on (lt.id = i.lote_id)'
-      ''
-      'where i.Ano = :anovenda'
-      '  and i.Codcontrol = :numvenda'
-      ''
-      'order by'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq')
-    Left = 144
-    Top = 168
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'anovenda'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numvenda'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object frdEmpresa: TfrxDBDataset
     UserName = 'frdEmpresa'
     CloseDataSource = False
@@ -2028,423 +1783,6 @@ object DMNFe: TDMNFe
     Left = 180
     Top = 217
   end
-  object qryEmitente: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    e.Codigo'
-      '  , e.Pessoa_fisica'
-      '  , e.Cnpj'
-      '  , e.Rzsoc'
-      '  , e.Nmfant'
-      '  , e.Ie'
-      '  , e.Im'
-      '  , e.Cnae'
-      ''
-      '  , e.Fone'
-      '  , e.Logo'
-      ''
-      '  , e.Tlg_tipo'
-      '  , tl.Tlg_descricao'
-      '  , tl.Tlg_sigla'
-      '  , e.Log_cod'
-      '  , lg.Log_nome'
-      '  , e.Complemento'
-      '  , e.Numero_end'
-      '  , e.Cep'
-      ''
-      '  , e.Bai_cod'
-      '  , br.Bai_nome'
-      ''
-      '  , e.Cid_cod'
-      '  , cd.Cid_nome'
-      '  , cd.Cid_siafi'
-      '  , cd.Cid_ibge'
-      '  , cd.Cid_ddd'
-      ''
-      '  , e.Est_cod'
-      '  , uf.Est_nome'
-      '  , uf.Est_sigla'
-      '  , uf.Est_siafi'
-      ''
-      '  , e.Email'
-      '  , e.Home_page'
-      '  , e.Chave_acesso_nfe'
-      '  , e.Tipo_Regime_nfe'
-      '  , coalesce(cf.nfe_serie , e.Serie_nfe)  as Serie_nfe'
-      '  , coalesce(cf.nfe_numero, e.Numero_nfe) as Numero_nfe'
-      
-        '  , coalesce(extract(year from current_date), e.Lote_Ano_nfe) as' +
-        ' Lote_Ano_nfe'
-      '  , coalesce(cf.nfe_lote, e.Lote_Num_nfe) as Lote_Num_nfe'
-      '  , e.Pais_id'
-      '  , coalesce(cf.nfce_serie , e.Serie_nfce)  as Serie_nfce'
-      '  , coalesce(cf.nfce_numero, e.Numero_nfce) as Numero_nfce'
-      '  , pa.Pais_nome'
-      '  , case'
-      '      when (e.Numero_nfe   > coalesce(cf.nfe_numero, 0)) then 1'
-      '      when (e.lote_num_nfe > coalesce(cf.nfe_lote, 0))   then 1'
-      
-        '      when (e.carta_correcao_nfe > coalesce(cf.nfe_carta_correca' +
-        'o, 0))   then 1'
-      '      else 0'
-      '    end reconfigurar'
-      'from TBEMPRESA e'
-      '  left join TBCONFIGURACAO cf on (cf.empresa = e.cnpj)'
-      '  left join TBESTADO uf on (uf.Est_cod = e.Est_cod)'
-      '  left join TBCIDADE cd on (cd.Cid_cod = e.Cid_cod)'
-      '  left join TBBAIRRO br on (br.Bai_cod = e.Bai_cod)'
-      '  left join TBLOGRADOURO lg on (lg.Log_cod = e.Log_cod)'
-      '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = e.Tlg_tipo)'
-      '  left Join TBPAIS pa on (pa.Pais_id = e.Pais_id)'
-      'where e.Cnpj = :Cnpj')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.ApplyEvent = gamOnPost
-    Left = 144
-    Top = 24
-    object qryEmitenteCODIGO: TIntegerField
-      FieldName = 'CODIGO'
-      Origin = '"TBEMPRESA"."CODIGO"'
-    end
-    object qryEmitentePESSOA_FISICA: TSmallintField
-      FieldName = 'PESSOA_FISICA'
-      Origin = '"TBEMPRESA"."PESSOA_FISICA"'
-    end
-    object qryEmitenteCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBEMPRESA"."CNPJ"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Size = 18
-    end
-    object qryEmitenteRZSOC: TIBStringField
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      Size = 60
-    end
-    object qryEmitenteNMFANT: TIBStringField
-      FieldName = 'NMFANT'
-      Origin = '"TBEMPRESA"."NMFANT"'
-      Size = 25
-    end
-    object qryEmitenteIE: TIBStringField
-      FieldName = 'IE'
-      Origin = '"TBEMPRESA"."IE"'
-      Size = 11
-    end
-    object qryEmitenteIM: TIBStringField
-      FieldName = 'IM'
-      Origin = '"TBEMPRESA"."IM"'
-      Size = 12
-    end
-    object qryEmitenteCNAE: TIBStringField
-      FieldName = 'CNAE'
-      Origin = '"TBEMPRESA"."CNAE"'
-      Size = 11
-    end
-    object qryEmitenteFONE: TIBStringField
-      FieldName = 'FONE'
-      Origin = '"TBEMPRESA"."FONE"'
-      Size = 11
-    end
-    object qryEmitenteLOGO: TBlobField
-      FieldName = 'LOGO'
-      Origin = '"TBEMPRESA"."LOGO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 8
-    end
-    object qryEmitenteTLG_TIPO: TSmallintField
-      FieldName = 'TLG_TIPO'
-      Origin = '"TBEMPRESA"."TLG_TIPO"'
-    end
-    object qryEmitenteTLG_DESCRICAO: TIBStringField
-      FieldName = 'TLG_DESCRICAO'
-      Origin = '"TBTIPO_LOGRADOURO"."TLG_DESCRICAO"'
-      Size = 50
-    end
-    object qryEmitenteTLG_SIGLA: TIBStringField
-      FieldName = 'TLG_SIGLA'
-      Origin = '"TBTIPO_LOGRADOURO"."TLG_SIGLA"'
-      Size = 10
-    end
-    object qryEmitenteLOG_COD: TIntegerField
-      FieldName = 'LOG_COD'
-      Origin = '"TBEMPRESA"."LOG_COD"'
-    end
-    object qryEmitenteLOG_NOME: TIBStringField
-      FieldName = 'LOG_NOME'
-      Origin = '"TBLOGRADOURO"."LOG_NOME"'
-      Size = 250
-    end
-    object qryEmitenteCOMPLEMENTO: TIBStringField
-      FieldName = 'COMPLEMENTO'
-      Origin = '"TBEMPRESA"."COMPLEMENTO"'
-      Size = 50
-    end
-    object qryEmitenteNUMERO_END: TIBStringField
-      FieldName = 'NUMERO_END'
-      Origin = '"TBEMPRESA"."NUMERO_END"'
-      Size = 10
-    end
-    object qryEmitenteCEP: TIBStringField
-      FieldName = 'CEP'
-      Origin = '"TBEMPRESA"."CEP"'
-      Size = 8
-    end
-    object qryEmitenteBAI_COD: TIntegerField
-      FieldName = 'BAI_COD'
-      Origin = '"TBEMPRESA"."BAI_COD"'
-    end
-    object qryEmitenteBAI_NOME: TIBStringField
-      FieldName = 'BAI_NOME'
-      Origin = '"TBBAIRRO"."BAI_NOME"'
-      Size = 100
-    end
-    object qryEmitenteCID_COD: TIntegerField
-      FieldName = 'CID_COD'
-      Origin = '"TBEMPRESA"."CID_COD"'
-    end
-    object qryEmitenteCID_NOME: TIBStringField
-      FieldName = 'CID_NOME'
-      Origin = '"TBCIDADE"."CID_NOME"'
-      Size = 100
-    end
-    object qryEmitenteCID_SIAFI: TIntegerField
-      FieldName = 'CID_SIAFI'
-      Origin = '"TBCIDADE"."CID_SIAFI"'
-    end
-    object qryEmitenteCID_IBGE: TIntegerField
-      FieldName = 'CID_IBGE'
-      Origin = '"TBCIDADE"."CID_IBGE"'
-    end
-    object qryEmitenteCID_DDD: TSmallintField
-      FieldName = 'CID_DDD'
-      Origin = '"TBCIDADE"."CID_DDD"'
-    end
-    object qryEmitenteEST_COD: TSmallintField
-      FieldName = 'EST_COD'
-      Origin = '"TBEMPRESA"."EST_COD"'
-    end
-    object qryEmitenteEST_NOME: TIBStringField
-      FieldName = 'EST_NOME'
-      Origin = '"TBESTADO"."EST_NOME"'
-      Size = 100
-    end
-    object qryEmitenteEST_SIGLA: TIBStringField
-      FieldName = 'EST_SIGLA'
-      Origin = '"TBESTADO"."EST_SIGLA"'
-      Size = 2
-    end
-    object qryEmitenteEST_SIAFI: TIntegerField
-      FieldName = 'EST_SIAFI'
-      Origin = '"TBESTADO"."EST_SIAFI"'
-    end
-    object qryEmitenteEMAIL: TIBStringField
-      FieldName = 'EMAIL'
-      Origin = '"TBEMPRESA"."EMAIL"'
-      Size = 100
-    end
-    object qryEmitenteHOME_PAGE: TIBStringField
-      FieldName = 'HOME_PAGE'
-      Origin = '"TBEMPRESA"."HOME_PAGE"'
-      Size = 100
-    end
-    object qryEmitenteCHAVE_ACESSO_NFE: TIBStringField
-      FieldName = 'CHAVE_ACESSO_NFE'
-      Origin = '"TBEMPRESA"."CHAVE_ACESSO_NFE"'
-      Size = 250
-    end
-    object qryEmitenteTIPO_REGIME_NFE: TSmallintField
-      FieldName = 'TIPO_REGIME_NFE'
-      Origin = '"TBEMPRESA"."TIPO_REGIME_NFE"'
-    end
-    object qryEmitenteSERIE_NFE: TSmallintField
-      FieldName = 'SERIE_NFE'
-      Origin = '"TBEMPRESA"."SERIE_NFE"'
-    end
-    object qryEmitenteNUMERO_NFE: TIntegerField
-      FieldName = 'NUMERO_NFE'
-      Origin = '"TBEMPRESA"."NUMERO_NFE"'
-    end
-    object qryEmitenteLOTE_ANO_NFE: TSmallintField
-      FieldName = 'LOTE_ANO_NFE'
-      Origin = '"TBEMPRESA"."LOTE_ANO_NFE"'
-    end
-    object qryEmitenteLOTE_NUM_NFE: TIntegerField
-      FieldName = 'LOTE_NUM_NFE'
-      Origin = '"TBEMPRESA"."LOTE_NUM_NFE"'
-    end
-    object qryEmitenteSERIE_NFCE: TSmallintField
-      FieldName = 'SERIE_NFCE'
-      Origin = '"TBEMPRESA"."SERIE_NFCE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryEmitenteNUMERO_NFCE: TIntegerField
-      FieldName = 'NUMERO_NFCE'
-      Origin = '"TBEMPRESA"."NUMERO_NFCE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryEmitentePAIS_ID: TIBStringField
-      FieldName = 'PAIS_ID'
-      Origin = '"TBEMPRESA"."PAIS_ID"'
-      Size = 5
-    end
-    object qryEmitentePAIS_NOME: TIBStringField
-      FieldName = 'PAIS_NOME'
-      Origin = '"TBPAIS"."PAIS_NOME"'
-      Size = 150
-    end
-    object qryEmitenteRECONFIGURAR: TIntegerField
-      FieldName = 'RECONFIGURAR'
-      ProviderFlags = []
-    end
-  end
-  object qryCalculoImposto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    v.Ano'
-      '  , v.Codcontrol'
-      '  , v.Codemp'
-      '  , v.Codcli'
-      '  , v.Dtvenda'
-      '  , v.Status'
-      '  , v.totalvenda_bruta as TotalvendaBruta'
-      '  , v.Desconto'
-      '  , v.Desconto_Cupom'
-      '  , v.Totalvenda'
-      '  , v.Dtfinalizacao_venda'
-      '  , v.Obs'
-      '  , v.Dados_entrega'
-      '  , v.Serie'
-      '  , v.Nfe'
-      '  , coalesce(v.Modelo_Nf, 0) as Modelo_Nf'
-      '  , v.Lote_nfe_ano'
-      '  , v.Lote_nfe_numero'
-      '  , v.Nfe_enviada'
-      '  , v.Dataemissao'
-      '  , v.Horaemissao'
-      '  , v.Cancel_usuario'
-      '  , v.Cancel_datahora'
-      '  , v.Cancel_motivo'
-      '  , v.Cfop'
-      '  , cf.Cfop_descricao'
-      '  , cf.cfop_informacao_fisco'
-      '  , cf.Cfop_devolucao'
-      '  , v.Verificador_nfe'
-      '  , v.Xml_nfe_filename'
-      '  , v.Xml_nfe'
-      '  , v.Vendedor_cod'
-      '  , vd.Nome as vendedor_nome'
-      '  , vd.Cpf as vendedor_cpf'
-      '  , v.Usuario'
-      ''
-      '  , ('
-      '    Select list(fp.descri)'
-      '    from TBVENDAS_FORMAPAGTO x'
-      '      inner join TBFORMPAGTO fp on (fp.cod = x.formapagto_cod)'
-      '    where x.ano_venda = v.ano'
-      '      and x.controle_venda = v.codcontrol'
-      '    ) as lista_forma_pago'
-      ''
-      '  , ('
-      '    Select list(cp.cond_descricao)'
-      '    from TBVENDAS_FORMAPAGTO y'
-      
-        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
-        'opagto_cod)'
-      '    where y.ano_venda = v.ano'
-      '      and y.controle_venda = v.codcontrol'
-      '    ) as lista_cond_pago'
-      ''
-      '  , ('
-      
-        '    Select list(case when y.venda_prazo = 1 then cp.cond_descric' +
-        'ao_full else cp.cond_descricao end)'
-      '    from TBVENDAS_FORMAPAGTO y'
-      
-        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
-        'opagto_cod)'
-      '    where y.ano_venda = v.ano'
-      '      and y.controle_venda = v.codcontrol'
-      '    ) as lista_cond_pago_full'
-      ''
-      '  , v.Venda_prazo'
-      '  , v.Nfe_valor_base_icms'
-      '  , v.Nfe_valor_icms'
-      '  , v.Nfe_valor_base_icms_subst'
-      '  , v.Nfe_valor_icms_subst'
-      '  , v.Nfe_valor_total_produto'
-      '  , v.Nfe_valor_frete'
-      '  , v.Nfe_valor_seguro'
-      '  , v.Nfe_valor_desconto'
-      '  , v.Nfe_valor_total_ii'
-      '  , v.Nfe_valor_total_ipi'
-      '  , v.Nfe_valor_pis'
-      '  , v.Nfe_valor_cofins'
-      '  , v.Nfe_valor_outros'
-      '  , v.Nfe_valor_total_nota'
-      ''
-      '  , v.nfe_modalidade_frete'
-      '  , v.nfe_transportadora'
-      '  , tr.nomeforn as nfe_transportadora_nome'
-      '  , tr.cnpj     as nfe_transportadora_cnpj'
-      '  , tr.inscest  as nfe_transportadora_iest'
-      '  , tr.ender    as nfe_transportadora_ender'
-      '  , tc.cid_nome as nfe_transportadora_cidade'
-      '  , tr.uf       as nfe_transportadora_uf'
-      '  , v.nfe_placa_veiculo'
-      '  , v.nfe_placa_uf'
-      '  , v.nfe_placa_rntc'
-      ''
-      '  , v.dnfe_compra_ano'
-      '  , v.dnfe_compra_cod'
-      '  , v.dnfe_forma'
-      '  , v.dnfe_chave'
-      '  , v.dnfe_uf'
-      '  , v.dnfe_cnpj_cpf'
-      '  , v.dnfe_ie'
-      '  , v.dnfe_competencia'
-      '  , v.dnfe_serie'
-      '  , v.dnfe_numero'
-      '  , v.dnfe_modelo'
-      '  , v.decf_modelo'
-      '  , v.decf_numero'
-      '  , v.decf_coo'
-      ''
-      'from TBVENDAS v'
-      '  inner join TBCFOP cf on (cf.Cfop_cod = v.Cfop)'
-      '  inner join TBVENDEDOR vd on (vd.Cod = v.Vendedor_cod)'
-      
-        '  left join TBFORNECEDOR tr on (tr.codforn = v.nfe_transportador' +
-        'a)'
-      '  left join TBCIDADE tc on (tc.cid_cod = tr.cid_cod)'
-      ''
-      'where v.Ano = :anovenda'
-      '  and v.Codcontrol = :numvenda'
-      '')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.ApplyEvent = gamOnPost
-    Left = 144
-    Top = 120
-  end
   object FrECFPooler: TfrxReport
     Version = '6.0.7'
     DotMatrixReport = False
@@ -3197,63 +2535,6 @@ object DMNFe: TDMNFe
       end
     end
   end
-  object qryFormaPagtos: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.formapagto_cod'
-      '  , fp.Descri'
-      '  , fp.Acrescimo'
-      '  , fp.FormaPagto_NFCe'
-      '  , fp.Formapagto_PDV'
-      '  , fp.Formapagto_PDV_Cupom_Extra'
-      '  , v.Condicaopagto_cod'
-      '  , cp.Cond_descricao'
-      '  , cp.Cond_descricao_full'
-      '  , cp.Cond_descricao_pdv'
-      '  , v.Venda_prazo'
-      '  , v.valor_fpagto'
-      '  , v.valor_recebido'
-      '  , v.Prazo_01'
-      '  , v.Prazo_02'
-      '  , v.Prazo_03'
-      '  , v.Prazo_04'
-      '  , v.Prazo_05'
-      '  , v.Prazo_06'
-      '  , v.Prazo_07'
-      '  , v.Prazo_08'
-      '  , v.Prazo_09'
-      '  , v.Prazo_10'
-      '  , v.Prazo_11'
-      '  , v.Prazo_12'
-      ''
-      'from TBVENDAS_FORMAPAGTO v'
-      '  inner join TBFORMPAGTO fp on (fp.Cod = v.Formapagto_cod)'
-      
-        '  inner join VW_CONDICAOPAGTO cp on (cp.Cond_cod = v.Condicaopag' +
-        'to_cod)'
-      'where v.ano_venda      = :anovenda'
-      '  and v.controle_venda = :numvenda')
-    Left = 144
-    Top = 264
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'AnoVenda'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'NumVenda'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object frdFormaPagtos: TfrxDBDataset
     UserName = 'frdFormaPagtos'
     CloseDataSource = False
@@ -3286,69 +2567,7 @@ object DMNFe: TDMNFe
     DataSet = qryFormaPagtos
     BCDToCurrency = False
     Left = 180
-    Top = 265
-  end
-  object qryFornecedorDestinatario: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.codforn as Codigo'
-      '  , f.pessoa_fisica'
-      '  , f.cnpj'
-      '  , f.nomeforn as Nome'
-      '  , f.inscest'
-      '  , f.inscmun'
-      ''
-      '  , f.fone'
-      '  , f.email'
-      '  , f.site'
-      ''
-      '  , f.tlg_tipo'
-      '  , tl.Tlg_descricao'
-      '  , tl.Tlg_sigla'
-      '  , f.log_cod'
-      '  , lg.Log_nome'
-      '  , f.complemento'
-      '  , f.numero_end'
-      '  , f.cep'
-      ''
-      '  , f.bai_cod'
-      '  , br.Bai_nome'
-      ''
-      '  , f.cid_cod'
-      '  , cd.Cid_nome'
-      '  , cd.Cid_siafi'
-      '  , cd.Cid_ibge'
-      '  , cd.Cid_ddd'
-      ''
-      '  , f.est_cod'
-      '  , uf.Est_nome'
-      '  , uf.Est_sigla'
-      '  , uf.Est_siafi'
-      ''
-      '  , f.pais_id'
-      '  , pa.Pais_nome'
-      'from TBFORNECEDOR f'
-      '  left join TBESTADO uf on (uf.Est_cod = f.Est_cod)'
-      '  left join TBCIDADE cd on (cd.Cid_cod = f.Cid_cod)'
-      '  left join TBBAIRRO br on (br.Bai_cod = f.Bai_cod)'
-      '  left join TBLOGRADOURO lg on (lg.Log_cod = f.Log_cod)'
-      '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = f.Tlg_tipo)'
-      '  left Join TBPAIS pa on (pa.Pais_id = f.Pais_id)'
-      'where f.Codforn = :Codigo')
-    Left = 224
-    Top = 72
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'Codigo'
-        ParamType = ptInput
-        Value = 0
-      end>
+    Top = 273
   end
   object frdFornecedor: TfrxDBDataset
     UserName = 'frdFornecedor'
@@ -3445,242 +2664,6 @@ object DMNFe: TDMNFe
     Left = 264
     Top = 120
   end
-  object qryEntradaCalculoImposto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    c.Ano'
-      '  , c.Codcontrol'
-      '  , c.Codemp'
-      '  , c.codforn'
-      '  , f.cnpj as codforn_cnpj'
-      '  , c.dtent'
-      '  , c.status'
-      '  , c.desconto'
-      '  , c.dtfinalizacao_compra'
-      '  , c.obs'
-      '  , c.nfserie as Serie'
-      '  , c.nf'
-      '  , c.Lote_nfe_ano'
-      '  , c.Lote_nfe_numero'
-      '  , c.Nfe_enviada'
-      '  , c.dtemiss as Dataemissao'
-      '  , c.hremiss as Horaemissao'
-      '  , c.Cancel_usuario'
-      '  , c.Cancel_datahora'
-      '  , c.Cancel_motivo'
-      '  , c.nfcfop as Cfop'
-      '  , cf.Cfop_descricao'
-      '  , cf.cfop_informacao_fisco'
-      '  , cf.cfop_devolucao'
-      '  , c.Verificador_nfe'
-      '  , c.Xml_nfe_filename'
-      '  , c.Xml_nfe'
-      '  , c.Usuario'
-      '  , usr.nome_completo  as usuario_nome_completo'
-      '  , usr.funcao_usuario as usuario_funcao'
-      ''
-      '  , fp.descri as forma_pago'
-      '  , cp.cond_descricao as cond_pago'
-      '  , cp.cond_descricao_full as cond_pago_full'
-      ''
-      '  , c.compra_prazo'
-      '  , c.icmsbase  as Nfe_valor_base_icms'
-      '  , c.icmsvalor as Nfe_valor_icms'
-      '  , c.icmssubstbase  as Nfe_valor_base_icms_subst'
-      '  , c.icmssubstvalor as Nfe_valor_icms_subst'
-      '  , c.totalprod   as Nfe_valor_total_produto'
-      '  , c.frete       as Nfe_valor_frete'
-      '  , c.valorseguro as Nfe_valor_seguro'
-      '  , c.desconto    as Nfe_valor_desconto'
-      '  , c.valortotal_ii  as Nfe_valor_total_ii'
-      '  , c.valortotal_ipi as Nfe_valor_total_ipi'
-      '  , c.valorpis     as Nfe_valor_pis'
-      '  , c.valorcofins  as Nfe_valor_cofins'
-      '  , c.outroscustos as Nfe_valor_outros'
-      '  , c.totalnf      as Nfe_valor_total_nota'
-      ''
-      '  , c.dnfe_entrada_ano'
-      '  , c.dnfe_entrada_cod'
-      '  , c.dnfe_forma'
-      '  , c.dnfe_chave'
-      '  , c.dnfe_uf'
-      '  , c.dnfe_cnpj_cpf'
-      '  , c.dnfe_ie'
-      '  , c.dnfe_competencia'
-      '  , c.dnfe_serie'
-      '  , c.dnfe_numero'
-      '  , c.dnfe_modelo'
-      '  , c.decf_modelo'
-      '  , c.decf_numero'
-      '  , c.decf_coo'
-      ''
-      'from TBCOMPRAS c'
-      '  inner join TBCFOP cf on (cf.Cfop_cod = c.nfcfop)'
-      '  inner join TBFORMPAGTO fp on (fp.cod = c.formapagto_cod)'
-      
-        '  inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicaopag' +
-        'to_cod)'
-      '  inner join TBFORNECEDOR f on (f.codforn = c.codforn)'
-      '  left join ('
-      '    Select'
-      '        cast(u.nome as varchar(50)) as Usuario'
-      '      , u.nomecompleto as nome_completo'
-      '      , fu.funcao as funcao_usuario'
-      '    from TBUSERS u'
-      '      left join TBFUNCAO fu on (fu.cod = u.codfuncao)'
-      '  ) usr on (usr.usuario = c.usuario)'
-      'where c.ano = :anocompra'
-      '  and c.codcontrol = :numcompra')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.ApplyEvent = gamOnPost
-    Left = 224
-    Top = 120
-  end
-  object qryEntradaDadosProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq'
-      '  , i.Codprod'
-      '  , p.Codbarra_ean'
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      
-        '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
-        'acao'
-      '  , p.Modelo'
-      '  , coalesce(p.Anvisa, '#39#39') as Anvisa'
-      '  , p.Referencia'
-      '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
-      '  , coalesce(ib.aliqnacional_ibpt,      0.0) as Ncm_aliquota_nac'
-      '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
-      '  , coalesce(ib.aliqestadual_ibpt,      0.0) as Ncm_aliquota_est'
-      '  , coalesce(ib.aliqmunicipal_ibpt,     0.0) as Ncm_aliquota_mun'
-      '  , p.Codtipo'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , coalesce(nullif(trim(i.cst), '#39#39'), p.Cst) as Cst'
-      '  , coalesce(nullif(trim(i.Csosn), '#39#39'), p.Csosn) as Csosn'
-      '  , p.Cst_pis'
-      '  , p.Cst_cofins'
-      '  , coalesce(ps.Indice_acbr, 32) as Cst_pis_indice_ACBr'
-      '  , coalesce(cs.Indice_acbr, 32) as Cst_cofins_indice_ACBr'
-      '  , i.Codemp'
-      '  , i.codforn'
-      '  , f.cnpj as codforn_cnpj'
-      '  , i.dtent'
-      '  , i.Qtde'
-      
-        '--  , ( coalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0' +
-        ') / coalesce(i.Qtde, 1)) ) as PUNIT'
-      '  , i.precounit as PUNIT'
-      
-        '  , ( (coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1)) / (c' +
-        'oalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0) / coale' +
-        'sce(i.Qtde, 1))) * 100 ) as Desconto'
-      
-        '  , ( coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1) ) as d' +
-        'esconto_valor'
-      '  , i.customedio as PFINAL'
-      '  , i.Qtdefinal'
-      '  , i.Unid_cod'
-      '  , u.Unp_descricao'
-      '  , u.Unp_sigla'
-      '  , i.Cfop as Cfop_cod'
-      '  , i.Aliquota'
-      '  , i.Aliquota_csosn'
-      '  , coalesce(i.Aliquota_pis, 0.0) as Aliquota_pis'
-      '  , coalesce(i.Aliquota_cofins, 0.0) as Aliquota_cofins'
-      '  , i.Valor_ipi'
-      
-        '  , coalesce(i.Percentual_reducao_bc, 0.0) as Percentual_reducao' +
-        '_bc'
-      
-        '  , coalesce(i.customedio, 0) * coalesce(i.Percentual_reducao_bc' +
-        ', 0.0) / 100 as valor_reducao_bc'
-      
-        '  , coalesce(i.Total_liquido, 0) * coalesce(i.Percentual_reducao' +
-        '_bc, 0.0) / 100 as total_reducao_bc'
-      '  , i.Total_Bruto'
-      '  , i.valor_desconto as Total_desconto'
-      '  , i.Total_liquido'
-      '  , p.Qtde as Estoque'
-      '  , p.estoque_aprop_lote'
-      '  , p.Reserva'
-      '  , p.Produto_novo'
-      '  , p.Cor_veiculo'
-      '  , cr.Descricao as Cor_veiculo_descricao'
-      '  , p.Combustivel_veiculo'
-      '  , cb.Descricao as Combustivel_veiculo_descricao'
-      '  , p.Ano_fabricacao_veiculo'
-      '  , p.Ano_modelo_veiculo'
-      
-        '  , p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_veiculo as a' +
-        'no_fab_modelo_veiculo'
-      '  , p.Tipo_veiculo'
-      '  , tv.Descricao as Tipo_veiculo_descricao'
-      '  , p.Renavam_veiculo'
-      '  , p.Chassi_veiculo'
-      '  , p.Kilometragem_veiculo'
-      '  , coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0) as Disponivel'
-      '  , i.lote_id'
-      '  , i.lote_descricao as lote'
-      '  , i.lote_data_fab  as lote_fabricacao'
-      '  , i.lote_data_val  as lote_validade'
-      'from TBCOMPRASITENS i'
-      '  inner join TBPRODUTO p on (p.Cod = i.codprod)'
-      '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.unid_cod)'
-      '  inner join TBFORNECEDOR f on (f.codforn = i.codforn)'
-      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
-      
-        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
-        'veiculo)'
-      
-        '  left join RENAVAM_TIPOVEICULO tv on (tv.Codigo = p.Tipo_veicul' +
-        'o)'
-      '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
-      '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
-      
-        '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
-        'ivo = 1)'
-      ''
-      'where i.Ano = :anoCompra'
-      '  and i.Codcontrol = :numCompra'
-      ''
-      'order by '
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq')
-    Left = 232
-    Top = 168
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'anoCompra'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'numCompra'
-        ParamType = ptUnknown
-      end>
-  end
   object frdEntradaItens: TfrxDBDataset
     UserName = 'frdEntradaItens'
     CloseDataSource = False
@@ -3753,41 +2736,6 @@ object DMNFe: TDMNFe
     Left = 260
     Top = 169
   end
-  object qryEntradaDuplicatas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.anolanc'
-      '  , p.numlanc'
-      '  , p.Parcela'
-      '  , p.Dtemiss'
-      '  , p.Dtvenc'
-      '  , p.valorpag'
-      '  , 0.0 as Valormulta'
-      '  , 0.0 as Percentdesconto'
-      'from TBCONTPAG p'
-      'where p.anocompra = :AnoCompra'
-      '  and p.numcompra = :NumCompra'
-      'order by'
-      '    p.Parcela')
-    Left = 224
-    Top = 216
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'AnoCompra'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'NumCompra'
-        ParamType = ptUnknown
-      end>
-  end
   object frdEntradaDuplicata: TfrxDBDataset
     UserName = 'frdEntradaDuplicata'
     CloseDataSource = False
@@ -3804,277 +2752,6 @@ object DMNFe: TDMNFe
     BCDToCurrency = False
     Left = 260
     Top = 217
-  end
-  object qryNFeEmitida: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    n.ANOVENDA'
-      '  , n.NUMVENDA'
-      '  , n.EMPRESA'
-      '  , n.DATAEMISSAO'
-      '  , n.HORAEMISSAO'
-      '  , n.SERIE'
-      '  , n.NUMERO'
-      '  , n.MODELO'
-      '  , n.VERSAO'
-      '  , n.CHAVE'
-      '  , n.PROTOCOLO'
-      '  , n.RECIBO'
-      '  , n.XML_FILENAME'
-      '  , n.XML_FILE'
-      '  , n.LOTE_ANO'
-      '  , n.LOTE_NUM'
-      'from TBNFE_ENVIADA n'
-      'where n.ANOVENDA = :anovenda'
-      '  and n.NUMVENDA = :numvenda')
-    Left = 144
-    Top = 360
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'AnoVenda'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'NumVenda'
-        ParamType = ptInput
-        Value = 0
-      end>
-    object qryNFeEmitidaANOVENDA: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = '"TBNFE_ENVIADA"."ANOVENDA"'
-    end
-    object qryNFeEmitidaNUMVENDA: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = '"TBNFE_ENVIADA"."NUMVENDA"'
-    end
-    object qryNFeEmitidaEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBNFE_ENVIADA"."EMPRESA"'
-      Size = 18
-    end
-    object qryNFeEmitidaDATAEMISSAO: TDateField
-      FieldName = 'DATAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."DATAEMISSAO"'
-    end
-    object qryNFeEmitidaHORAEMISSAO: TTimeField
-      FieldName = 'HORAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."HORAEMISSAO"'
-    end
-    object qryNFeEmitidaSERIE: TIBStringField
-      FieldName = 'SERIE'
-      Origin = '"TBNFE_ENVIADA"."SERIE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 4
-    end
-    object qryNFeEmitidaNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"TBNFE_ENVIADA"."NUMERO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryNFeEmitidaMODELO: TSmallintField
-      FieldName = 'MODELO'
-      Origin = '"TBNFE_ENVIADA"."MODELO"'
-    end
-    object qryNFeEmitidaVERSAO: TSmallintField
-      FieldName = 'VERSAO'
-      Origin = '"TBNFE_ENVIADA"."VERSAO"'
-    end
-    object qryNFeEmitidaCHAVE: TIBStringField
-      FieldName = 'CHAVE'
-      Origin = '"TBNFE_ENVIADA"."CHAVE"'
-      Size = 250
-    end
-    object qryNFeEmitidaPROTOCOLO: TIBStringField
-      FieldName = 'PROTOCOLO'
-      Origin = '"TBNFE_ENVIADA"."PROTOCOLO"'
-      Size = 250
-    end
-    object qryNFeEmitidaRECIBO: TIBStringField
-      FieldName = 'RECIBO'
-      Origin = '"TBNFE_ENVIADA"."RECIBO"'
-      Size = 250
-    end
-    object qryNFeEmitidaXML_FILENAME: TIBStringField
-      FieldName = 'XML_FILENAME'
-      Origin = '"TBNFE_ENVIADA"."XML_FILENAME"'
-      Size = 250
-    end
-    object qryNFeEmitidaXML_FILE: TMemoField
-      FieldName = 'XML_FILE'
-      Origin = '"TBNFE_ENVIADA"."XML_FILE"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryNFeEmitidaLOTE_ANO: TSmallintField
-      FieldName = 'LOTE_ANO'
-      Origin = '"TBNFE_ENVIADA"."LOTE_ANO"'
-    end
-    object qryNFeEmitidaLOTE_NUM: TIntegerField
-      FieldName = 'LOTE_NUM'
-      Origin = '"TBNFE_ENVIADA"."LOTE_NUM"'
-      Required = True
-    end
-  end
-  object qryDadosVolume: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.sequencial'
-      '  , v.numero'
-      '  , v.quantidade'
-      '  , v.especie'
-      '  , v.marca'
-      '  , v.peso_bruto'
-      '  , v.peso_liquido'
-      'from TBVENDAS_VOLUME v'
-      'where v.ano_venda = :anovenda'
-      '  and v.controle_venda = :numvenda'
-      '')
-    Left = 144
-    Top = 312
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'AnoVenda'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'NumVenda'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object qryLoteNFePendente: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.ano        as Ano'
-      '  , v.codcontrol as Numero'
-      '  , 1            as TipoNFE'
-      '  , '#39'Sa'#237'da/Venda'#39'     as Tipo'
-      '  , v.lote_nfe_numero as Lote'
-      '  , v.lote_nfe_recibo as Recibo'
-      'from TBVENDAS v'
-      'where v.codemp = :empresa'
-      '  and v.lote_nfe_numero is not null'
-      '  and v.nfe is null'
-      '  and v.nfe_enviada = 0'
-      ''
-      'union'
-      ''
-      'Select'
-      '    c.ano        as Ano'
-      '  , c.codcontrol as Numero'
-      '  , 0            as TipoNFE'
-      '  , '#39'Entrada/Compra'#39'  as Tipo'
-      '  , c.lote_nfe_numero as Lote'
-      '  , c.lote_nfe_recibo as Recibo'
-      'from TBCOMPRAS c'
-      'where c.codemp = :empresa'
-      '  and c.lote_nfe_numero is not null'
-      '  and c.nf is null'
-      '  and C.nfe_enviada = 0'
-      ''
-      'order by 5')
-    Left = 144
-    Top = 456
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'empresa'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'empresa'
-        ParamType = ptUnknown
-      end>
-    object SmallintField1: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = '"TBNFE_ENVIADA"."ANOVENDA"'
-    end
-    object IntegerField1: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = '"TBNFE_ENVIADA"."NUMVENDA"'
-    end
-    object DateField1: TDateField
-      FieldName = 'DATAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."DATAEMISSAO"'
-    end
-    object TimeField1: TTimeField
-      FieldName = 'HORAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."HORAEMISSAO"'
-    end
-    object IBStringField1: TIBStringField
-      FieldName = 'SERIE'
-      Origin = '"TBNFE_ENVIADA"."SERIE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 4
-    end
-    object IntegerField2: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"TBNFE_ENVIADA"."NUMERO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object IBStringField2: TIBStringField
-      FieldName = 'CHAVE'
-      Origin = '"TBNFE_ENVIADA"."CHAVE"'
-      Size = 250
-    end
-    object IBStringField3: TIBStringField
-      FieldName = 'PROTOCOLO'
-      Origin = '"TBNFE_ENVIADA"."PROTOCOLO"'
-      Size = 250
-    end
-    object IBStringField4: TIBStringField
-      FieldName = 'RECIBO'
-      Origin = '"TBNFE_ENVIADA"."RECIBO"'
-      Size = 250
-    end
-    object IBStringField5: TIBStringField
-      FieldName = 'XML_FILENAME'
-      Origin = '"TBNFE_ENVIADA"."XML_FILENAME"'
-      Size = 250
-    end
-    object MemoField1: TMemoField
-      FieldName = 'XML_FILE'
-      Origin = '"TBNFE_ENVIADA"."XML_FILE"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object SmallintField2: TSmallintField
-      FieldName = 'LOTE_ANO'
-      Origin = '"TBNFE_ENVIADA"."LOTE_ANO"'
-    end
-    object IntegerField3: TIntegerField
-      FieldName = 'LOTE_NUM'
-      Origin = '"TBNFE_ENVIADA"."LOTE_NUM"'
-      Required = True
-    end
   end
   object frrBoletoEntrega: TfrxReport
     Tag = 1
@@ -8538,69 +7215,6 @@ object DMNFe: TDMNFe
       end
     end
   end
-  object qryRequisicaoCliente: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.numero'
-      '  , r.situacao'
-      '  , case r.situacao'
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Autorizada'#39
-      '      when 3 then '#39'Fechada'#39
-      '      when 4 then '#39'Cancelada'#39
-      '    end as situacao_desc'
-      '  , r.codempresa'
-      '  , r.codcliente'
-      '  , r.data_movimento'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = r.insercao_usuario) as insercao_usuario'
-      
-        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
-        'e = r.autorizacao_usuario) as autorizacao_usuario'
-      '  , r.recebedor_nome'
-      '  , r.recebedor_rg'
-      '  , r.observacoes'
-      '  , i.item'
-      '  , i.codproduto'
-      '  , p.descri'
-      '  , p.referencia'
-      '  , i.quantidade'
-      
-        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      '  , i.valor_medio'
-      '  , (i.quantidade * i.valor_medio) as total_medio'
-      'from TBCLIENTE_REQUISICAO r'
-      
-        '  inner join TBCLIENTE_REQUISICAO_ITEM i on (i.ano = r.ano and i' +
-        '.numero = r.numero)'
-      '  inner join TBPRODUTO p on (p.cod = i.codproduto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      ''
-      'where r.ano    = :ano'
-      '  and r.numero = :num'
-      '')
-    Left = 312
-    Top = 448
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'ano'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'num'
-        ParamType = ptUnknown
-      end>
-  end
   object frdRequisicaoCliente: TfrxDBDataset
     UserName = 'frdRequisicaoCliente'
     CloseDataSource = False
@@ -8629,230 +7243,6 @@ object DMNFe: TDMNFe
     BCDToCurrency = False
     Left = 344
     Top = 448
-  end
-  object cdsLOG: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    t.usuario'
-      '  , t.data_hora'
-      '  , t.empresa'
-      '  , t.tipo'
-      '  , t.descricao'
-      '  , t.especificacao'
-      'from TBLOG_TRANSACAO t'
-      'where 1=0')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updLOG
-    Left = 336
-    Top = 8
-    object cdsLOGUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBLOG_TRANSACAO"."USUARIO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 50
-    end
-    object cdsLOGDATA_HORA: TDateTimeField
-      FieldName = 'DATA_HORA'
-      Origin = '"TBLOG_TRANSACAO"."DATA_HORA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsLOGEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBLOG_TRANSACAO"."EMPRESA"'
-      Size = 18
-    end
-    object cdsLOGTIPO: TSmallintField
-      FieldName = 'TIPO'
-      Origin = '"TBLOG_TRANSACAO"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsLOGDESCRICAO: TIBStringField
-      FieldName = 'DESCRICAO'
-      Origin = '"TBLOG_TRANSACAO"."DESCRICAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object cdsLOGESPECIFICACAO: TMemoField
-      FieldName = 'ESPECIFICACAO'
-      Origin = '"TBLOG_TRANSACAO"."ESPECIFICACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-  end
-  object updLOG: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  USUARIO,'
-      '  DATA_HORA,'
-      '  EMPRESA,'
-      '  TIPO,'
-      '  DESCRICAO,'
-      '  ESPECIFICACAO'
-      'from TBLOG_TRANSACAO '
-      'where'
-      '  DATA_HORA = :DATA_HORA and'
-      '  USUARIO = :USUARIO')
-    ModifySQL.Strings = (
-      'update TBLOG_TRANSACAO'
-      'set'
-      '  DATA_HORA = :DATA_HORA,'
-      '  DESCRICAO = :DESCRICAO,'
-      '  EMPRESA = :EMPRESA,'
-      '  ESPECIFICACAO = :ESPECIFICACAO,'
-      '  TIPO = :TIPO,'
-      '  USUARIO = :USUARIO'
-      'where'
-      '  DATA_HORA = :OLD_DATA_HORA and'
-      '  USUARIO = :OLD_USUARIO')
-    InsertSQL.Strings = (
-      'insert into TBLOG_TRANSACAO'
-      '  (DATA_HORA, DESCRICAO, EMPRESA, ESPECIFICACAO, TIPO, USUARIO)'
-      'values'
-      
-        '  (:DATA_HORA, :DESCRICAO, :EMPRESA, :ESPECIFICACAO, :TIPO, :USU' +
-        'ARIO)')
-    DeleteSQL.Strings = (
-      'delete from TBLOG_TRANSACAO'
-      'where'
-      '  DATA_HORA = :OLD_DATA_HORA and'
-      '  USUARIO = :OLD_USUARIO')
-    Left = 368
-    Top = 8
-  end
-  object qryNFeEmitidaEntrada: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    n.ANOCOMPRA'
-      '  , n.NUMCOMPRA'
-      '  , n.EMPRESA'
-      '  , n.DATAEMISSAO'
-      '  , n.HORAEMISSAO'
-      '  , n.SERIE'
-      '  , n.NUMERO'
-      '  , n.MODELO'
-      '  , n.VERSAO'
-      '  , n.CHAVE'
-      '  , n.PROTOCOLO'
-      '  , n.RECIBO'
-      '  , n.XML_FILENAME'
-      '  , n.XML_FILE'
-      '  , n.LOTE_ANO'
-      '  , n.LOTE_NUM'
-      'from TBNFE_ENVIADA n'
-      'where n.ANOCOMPRA = :anocompra'
-      '  and n.NUMCOMPRA = :numcompra')
-    Left = 144
-    Top = 408
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'anocompra'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numcompra'
-        ParamType = ptInput
-        Value = 0
-      end>
-    object qryNFeEmitidaEntradaANOCOMPRA: TSmallintField
-      FieldName = 'ANOCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."ANOCOMPRA"'
-    end
-    object qryNFeEmitidaEntradaNUMCOMPRA: TIntegerField
-      FieldName = 'NUMCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."NUMCOMPRA"'
-    end
-    object qryNFeEmitidaEntradaEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBNFE_ENVIADA"."EMPRESA"'
-      Size = 18
-    end
-    object qryNFeEmitidaEntradaDATAEMISSAO: TDateField
-      FieldName = 'DATAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."DATAEMISSAO"'
-    end
-    object qryNFeEmitidaEntradaHORAEMISSAO: TTimeField
-      FieldName = 'HORAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."HORAEMISSAO"'
-    end
-    object qryNFeEmitidaEntradaSERIE: TIBStringField
-      FieldName = 'SERIE'
-      Origin = '"TBNFE_ENVIADA"."SERIE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 4
-    end
-    object qryNFeEmitidaEntradaNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"TBNFE_ENVIADA"."NUMERO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryNFeEmitidaEntradaMODELO: TSmallintField
-      FieldName = 'MODELO'
-      Origin = '"TBNFE_ENVIADA"."MODELO"'
-    end
-    object qryNFeEmitidaEntradaVERSAO: TSmallintField
-      FieldName = 'VERSAO'
-      Origin = '"TBNFE_ENVIADA"."VERSAO"'
-    end
-    object qryNFeEmitidaEntradaCHAVE: TIBStringField
-      FieldName = 'CHAVE'
-      Origin = '"TBNFE_ENVIADA"."CHAVE"'
-      Size = 250
-    end
-    object qryNFeEmitidaEntradaPROTOCOLO: TIBStringField
-      FieldName = 'PROTOCOLO'
-      Origin = '"TBNFE_ENVIADA"."PROTOCOLO"'
-      Size = 250
-    end
-    object qryNFeEmitidaEntradaRECIBO: TIBStringField
-      FieldName = 'RECIBO'
-      Origin = '"TBNFE_ENVIADA"."RECIBO"'
-      Size = 250
-    end
-    object qryNFeEmitidaEntradaXML_FILENAME: TIBStringField
-      FieldName = 'XML_FILENAME'
-      Origin = '"TBNFE_ENVIADA"."XML_FILENAME"'
-      Size = 250
-    end
-    object qryNFeEmitidaEntradaXML_FILE: TMemoField
-      FieldName = 'XML_FILE'
-      Origin = '"TBNFE_ENVIADA"."XML_FILE"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryNFeEmitidaEntradaLOTE_ANO: TSmallintField
-      FieldName = 'LOTE_ANO'
-      Origin = '"TBNFE_ENVIADA"."LOTE_ANO"'
-    end
-    object qryNFeEmitidaEntradaLOTE_NUM: TIntegerField
-      FieldName = 'LOTE_NUM'
-      Origin = '"TBNFE_ENVIADA"."LOTE_NUM"'
-      Required = True
-    end
   end
   object qryAutorizacaoCompra: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
@@ -14330,67 +12720,6 @@ object DMNFe: TDMNFe
       end
     end
   end
-  object qryVendaCartaCredito: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.cod_cliente'
-      '  , e.cod_produto'
-      '  , e.quantidade'
-      '  , e.valor_medio'
-      '  , e.quantidade * e.valor_medio as total_medio'
-      '  , e.usuario'
-      '  , e.ano_venda_ult'
-      '  , e.cod_venda_ult'
-      ''
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao'
-      '  , p.Modelo'
-      '  , p.Referencia'
-      '  , p.Secao'
-      '  , p.Preco'
-      '  , p.Unidade'
-      '  , g.Descri as Descricao_Grupo'
-      '  , f.Nome   as Nome_Fabricante'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      'from TBCLIENTE_ESTOQUE e'
-      '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
-      ''
-      'where e.ano_venda_ult = :anovenda'
-      '  and e.cod_venda_ult = :numvenda'
-      '  and e.quantidade > 0'
-      ''
-      'order by'
-      '    p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao')
-    Left = 312
-    Top = 496
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'anovenda'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numvenda'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object frdVendaCartaCredito: TfrxDBDataset
     UserName = 'frdVendaCartaCredito'
     CloseDataSource = False
@@ -18272,227 +16601,6 @@ object DMNFe: TDMNFe
         end
       end
     end
-  end
-  object qryNFe: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    n.ANOVENDA'
-      '  , n.NUMVENDA'
-      '  , n.EMPRESA'
-      '  , n.DATAEMISSAO'
-      '  , n.HORAEMISSAO'
-      '  , n.SERIE'
-      '  , n.NUMERO'
-      '  , n.MODELO'
-      '  , n.VERSAO'
-      '  , n.CHAVE'
-      '  , n.PROTOCOLO'
-      '  , n.RECIBO'
-      '  , n.XML_FILENAME'
-      '  , n.XML_FILE'
-      '  , n.LOTE_ANO'
-      '  , n.LOTE_NUM'
-      'from TBNFE_ENVIADA n'
-      'where n.empresa = :empresa'
-      '  and n.modelo  = :modelo'
-      '  and n.serie   = :serie'
-      '  and n.numero  = :numero'
-      '')
-    Left = 144
-    Top = 504
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftInteger
-        Name = 'modelo'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftString
-        Name = 'serie'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftInteger
-        Name = 'numero'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object qryCartaCorrecaoNFe: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    cce.CCE_NUMERO'
-      '  , cce.CCE_EMPRESA'
-      '  , cce.CCE_DATA'
-      '  , cce.CCE_HORA'
-      '  , cce.CCE_ENVIADA'
-      '  , cce.CCE_TEXTO'
-      '  , cce.NFE_SERIE'
-      '  , cce.NFE_NUMERO'
-      '  , cce.NFE_MODELO'
-      '  , cce.NUMERO'
-      '  , cce.PROTOCOLO'
-      '  , cce.XML'
-      '  , cce.XML_TOTAL'
-      'from TBNFE_CARTA_CORRECAO cce'
-      'where cce.cce_empresa = :empresa'
-      '  and cce.cce_numero  = :codigo')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updCartaCorrecaoNFe
-    Left = 144
-    Top = 552
-    object qryCartaCorrecaoNFeCCE_NUMERO: TIntegerField
-      FieldName = 'CCE_NUMERO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_NUMERO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryCartaCorrecaoNFeCCE_EMPRESA: TIBStringField
-      FieldName = 'CCE_EMPRESA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_EMPRESA"'
-      Required = True
-      Size = 18
-    end
-    object qryCartaCorrecaoNFeCCE_DATA: TDateField
-      FieldName = 'CCE_DATA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_DATA"'
-    end
-    object qryCartaCorrecaoNFeCCE_HORA: TTimeField
-      FieldName = 'CCE_HORA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_HORA"'
-    end
-    object qryCartaCorrecaoNFeCCE_ENVIADA: TSmallintField
-      FieldName = 'CCE_ENVIADA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_ENVIADA"'
-    end
-    object qryCartaCorrecaoNFeCCE_TEXTO: TMemoField
-      FieldName = 'CCE_TEXTO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_TEXTO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryCartaCorrecaoNFeNFE_SERIE: TIBStringField
-      FieldName = 'NFE_SERIE'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_SERIE"'
-      Required = True
-      Size = 3
-    end
-    object qryCartaCorrecaoNFeNFE_NUMERO: TIntegerField
-      FieldName = 'NFE_NUMERO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_NUMERO"'
-      Required = True
-    end
-    object qryCartaCorrecaoNFeNFE_MODELO: TSmallintField
-      FieldName = 'NFE_MODELO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_MODELO"'
-    end
-    object qryCartaCorrecaoNFeNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NUMERO"'
-    end
-    object qryCartaCorrecaoNFePROTOCOLO: TIBStringField
-      FieldName = 'PROTOCOLO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."PROTOCOLO"'
-      Size = 250
-    end
-    object qryCartaCorrecaoNFeXML: TMemoField
-      FieldName = 'XML'
-      Origin = '"TBNFE_CARTA_CORRECAO"."XML"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryCartaCorrecaoNFeXML_TOTAL: TWideMemoField
-      FieldName = 'XML_TOTAL'
-      Origin = '"TBNFE_CARTA_CORRECAO"."XML_TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
-    end
-  end
-  object updCartaCorrecaoNFe: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  CCE_NUMERO,'
-      '  CCE_EMPRESA,'
-      '  CCE_DATA,'
-      '  CCE_HORA,'
-      '  CCE_ENVIADA,'
-      '  CCE_TEXTO,'
-      '  NFE_SERIE,'
-      '  NFE_NUMERO,'
-      '  NFE_MODELO,'
-      '  NUMERO,'
-      '  PROTOCOLO,'
-      '  XML,'
-      '  XML_TOTAL'
-      'from TBNFE_CARTA_CORRECAO '
-      'where'
-      '  CCE_NUMERO = :CCE_NUMERO')
-    ModifySQL.Strings = (
-      'update TBNFE_CARTA_CORRECAO'
-      'set'
-      '  CCE_DATA = :CCE_DATA,'
-      '  CCE_EMPRESA = :CCE_EMPRESA,'
-      '  CCE_ENVIADA = :CCE_ENVIADA,'
-      '  CCE_HORA = :CCE_HORA,'
-      '  CCE_NUMERO = :CCE_NUMERO,'
-      '  CCE_TEXTO = :CCE_TEXTO,'
-      '  NFE_MODELO = :NFE_MODELO,'
-      '  NFE_NUMERO = :NFE_NUMERO,'
-      '  NFE_SERIE = :NFE_SERIE,'
-      '  NUMERO = :NUMERO,'
-      '  PROTOCOLO = :PROTOCOLO,'
-      '  XML = :XML,'
-      '  XML_TOTAL = :XML_TOTAL'
-      'where'
-      '  CCE_NUMERO = :OLD_CCE_NUMERO')
-    InsertSQL.Strings = (
-      'insert into TBNFE_CARTA_CORRECAO'
-      
-        '  (CCE_DATA, CCE_EMPRESA, CCE_ENVIADA, CCE_HORA, CCE_NUMERO, CCE' +
-        '_TEXTO, '
-      
-        '   NFE_MODELO, NFE_NUMERO, NFE_SERIE, NUMERO, PROTOCOLO, XML, XM' +
-        'L_TOTAL)'
-      'values'
-      
-        '  (:CCE_DATA, :CCE_EMPRESA, :CCE_ENVIADA, :CCE_HORA, :CCE_NUMERO' +
-        ', :CCE_TEXTO, '
-      
-        '   :NFE_MODELO, :NFE_NUMERO, :NFE_SERIE, :NUMERO, :PROTOCOLO, :X' +
-        'ML, :XML_TOTAL)')
-    DeleteSQL.Strings = (
-      'delete from TBNFE_CARTA_CORRECAO'
-      'where'
-      '  CCE_NUMERO = :OLD_CCE_NUMERO')
-    Left = 176
-    Top = 552
   end
   object ACBrECF: TACBrECF
     QuebraLinhaRodape = False
@@ -23085,290 +21193,6 @@ object DMNFe: TDMNFe
         end
       end
     end
-  end
-  object qryVendasCaixaDetalhe: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.Ano'
-      '  , c.Numero'
-      '  , c.Data_abertura'
-      '  , c.Data_fech'
-      '  , c.Data_cancel'
-      '  , c.Usuario'
-      '  , u.Nomecompleto'
-      '  , c.Usuario_cancel'
-      '  , c.Situacao'
-      '  , Case'
-      '      when c.Situacao = 0 then '#39'Aberto'#39
-      '      when c.Situacao = 1 then '#39'Fechado'#39
-      '      when c.Situacao = 2 then '#39'Cancelado'#39
-      '      else '#39'* Indefinido'#39
-      '    end as Situacao_Desc'
-      '  , c.Conta_corrente'
-      '  , c.Valor_total_credito'
-      '  , c.Valor_total_debito'
-      '  , c.Motivo_cancel'
-      '  , cc.Descricao as Conta_corrente_Desc'
-      '  , Case'
-      '      when cc.Tipo = 1 then '#39'Caixa'#39
-      '      when cc.Tipo = 2 then '#39'Banco'#39
-      '      else '#39'* Indefinido'#39
-      '    end as Tipo'
-      '  , vf.ano_venda        as AnoMov'
-      '  , vf.controle_venda   as NumMov'
-      
-        '  , vf.ano_venda || '#39'/'#39' || right('#39'0000000'#39' || vf.controle_venda,' +
-        ' 7) as Movimento'
-      '  , vf.formapagto_cod   as Forma_pagto'
-      '  , f.Descri            as Forma_pagto_Desc'
-      '  , v.dtvenda as dataemissao'
-      '  , Case when v.status = 5'
-      '      then '#39'VENDA CANCELADA'#39
-      '      else '#39'VENDA NO CAIXA'#39
-      '    end as Historico'
-      '  , Case when v.status = 5'
-      '      then 0'
-      '      else 1'
-      '    end as SituacaoMov'
-      '  , Case when v.status = 5'
-      '      then '#39'D'#39
-      '      else '#39'C'#39
-      '    end as TipoMov'
-      '  , vf.valor_fpagto as Valor'
-      '  , Case when v.status in (3, 4)'
-      '      then vf.valor_fpagto'
-      '      else 0'
-      '    end as Valor_Credito'
-      '  , Case when v.status = 5'
-      '      then vf.valor_fpagto'
-      '      else 0'
-      '    end as Valor_Debito'
-      'from TBVENDAS v'
-      
-        '  inner join TBCAIXA c on (c.ano = v.caixa_ano and c.numero = v.' +
-        'caixa_num)'
-      
-        '  inner join TBVENDAS_FORMAPAGTO vf on (vf.ano_venda = v.ano and' +
-        ' vf.controle_venda = v.codcontrol)'
-      ''
-      
-        '  left join TBCONTA_CORRENTE cc on (cc.Codigo = c.Conta_corrente' +
-        ')'
-      '  left join TBFORMPAGTO f on (f.Cod = vf.formapagto_cod)'
-      '  left join TBUSERS u on (u.Nome = c.Usuario)'
-      ''
-      'where v.status > 2'
-      '  and v.caixa_ano = :anoCaixa'
-      '  and v.caixa_num = :numCaixa'
-      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
-      ''
-      'order by'
-      '    v.ano'
-      '  , v.codcontrol')
-    Left = 496
-    Top = 96
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'anoCaixa'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numCaixa'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftSmallint
-        Name = 'pdv'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object qryVendasCaixaFormaPagto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.Ano'
-      '  , c.Numero'
-      '  , c.Data_abertura'
-      '  , c.Data_fech'
-      '  , c.Data_cancel'
-      '  , c.Usuario'
-      '  , u.Nomecompleto'
-      '  , c.Usuario_cancel'
-      '  , c.Situacao'
-      '  , Case'
-      '      when c.Situacao = 0 then '#39'Aberto'#39
-      '      when c.Situacao = 1 then '#39'Fechado'#39
-      '      when c.Situacao = 2 then '#39'Cancelado'#39
-      '      else '#39'* Indefinido'#39
-      '    end as Situacao_Desc'
-      '  , vf.formapagto_cod   as Forma_pagto'
-      '  , f.Descri            as Forma_pagto_Desc'
-      '  , Case when v.status = 5'
-      '      then 0'
-      '      else 1'
-      '    end as SituacaoMov'
-      '  , Case when v.status = 5'
-      '      then '#39'D'#39
-      '      else '#39'C'#39
-      '    end as TipoMov'
-      '  , sum( vf.valor_fpagto ) as Valor'
-      '  , sum( Case when v.status in (3, 4)'
-      '      then vf.valor_fpagto'
-      '      else 0'
-      '    end ) as Valor_Credito'
-      '  , sum( Case when v.status = 5'
-      '      then vf.valor_fpagto'
-      '      else 0'
-      '    end ) as Valor_Debito'
-      'from TBVENDAS v'
-      
-        '  inner join TBCAIXA c on (c.ano = v.caixa_ano and c.numero = v.' +
-        'caixa_num)'
-      
-        '  inner join TBVENDAS_FORMAPAGTO vf on (vf.ano_venda = v.ano and' +
-        ' vf.controle_venda = v.codcontrol)'
-      ''
-      '  left join TBFORMPAGTO f on (f.Cod = vf.formapagto_cod)'
-      '  left join TBUSERS u on (u.Nome = c.Usuario)'
-      ''
-      'where v.status > 2'
-      '  and v.caixa_ano = :anoCaixa'
-      '  and v.caixa_num = :numCaixa'
-      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
-      ''
-      'group by'
-      '    c.Ano'
-      '  , c.Numero'
-      '  , c.Data_abertura'
-      '  , c.Data_fech'
-      '  , c.Data_cancel'
-      '  , c.Usuario'
-      '  , u.Nomecompleto'
-      '  , c.Usuario_cancel'
-      '  , c.Situacao'
-      '  , Case'
-      '      when c.Situacao = 0 then '#39'Aberto'#39
-      '      when c.Situacao = 1 then '#39'Fechado'#39
-      '      when c.Situacao = 2 then '#39'Cancelado'#39
-      '      else '#39'* Indefinido'#39
-      '    end'
-      '  , vf.formapagto_cod'
-      '  , f.Descri'
-      '  , Case when v.status = 5'
-      '      then 0'
-      '      else 1'
-      '    end'
-      '  , Case when v.status = 5'
-      '      then '#39'D'#39
-      '      else '#39'C'#39
-      '    end'
-      ''
-      'order by'
-      '    f.descri'
-      '')
-    Left = 496
-    Top = 48
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'anoCaixa'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numCaixa'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftSmallint
-        Name = 'pdv'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object qryVendasCaixaSoma: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    d.cod'
-      '  , d.nome'
-      '  , d.cpf'
-      
-        '  , sum( Case when v.status <> 5 then v.desconto + v.desconto_cu' +
-        'pom else 0.0 end) as total_desconto'
-      
-        '  , sum( Case when v.status <> 5 then v.totalvenda_bruta        ' +
-        '         else 0.0 end) as totalvenda_bruta'
-      
-        '  , sum( Case when v.status <> 5 then v.totalvenda              ' +
-        '         else 0.0 end) as totalvenda'
-      
-        '  , sum( Case when v.status  = 5 then v.desconto + v.desconto_cu' +
-        'pom else 0.0 end) as total_desconto_c'
-      
-        '  , sum( Case when v.status  = 5 then v.totalvenda_bruta        ' +
-        '         else 0.0 end) as totalvenda_bruta_c'
-      
-        '  , sum( Case when v.status  = 5 then v.totalvenda              ' +
-        '         else 0.0 end) as totalvenda_c'
-      '  , sum( v.totalvenda ) as totalvenda_geral'
-      'from TBVENDAS v'
-      
-        '  inner join TBCAIXA c on (c.ano = v.caixa_ano and c.numero = v.' +
-        'caixa_num)'
-      '  left join TBUSERS u on (u.nome = c.usuario)'
-      '  left join TBVENDEDOR d on (d.cod = u.vendedor)'
-      ''
-      'where v.status in (3, 4, 5)'
-      '  and v.caixa_ano = :anoCaixa'
-      '  and v.caixa_num = :numCaixa'
-      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
-      ''
-      'group by'
-      '    d.cod'
-      '  , d.nome'
-      '  , d.cpf')
-    Left = 496
-    Top = 8
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'anoCaixa'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numCaixa'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftSmallint
-        Name = 'pdv'
-        ParamType = ptInput
-        Value = 0
-      end>
   end
   object frrNFeRetrato: TfrxReport
     Tag = 1
@@ -33637,91 +31461,6 @@ object DMNFe: TDMNFe
     Left = 464
     Top = 608
   end
-  object qryNFCDestinatario: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    coalesce(f.codforn, c.codigo) as Codigo'
-      '  , coalesce(f.pessoa_fisica, c.pessoa_fisica) as pessoa_fisica'
-      '  , coalesce(f.cnpj, c.cnpj) as cnpj'
-      '  , coalesce(f.nomeforn, c.nome) as Nome'
-      '  , coalesce(f.inscest, c.inscest) as inscest'
-      '  , coalesce(f.inscmun, c.inscmun) as inscmun'
-      ''
-      '  , coalesce(f.fone, c.fone) as fone'
-      '  , coalesce(f.email, c.email) as email'
-      '  , coalesce(f.site, c.site) as site'
-      ''
-      '  , coalesce(f.tlg_tipo, c.tlg_tipo) as tlg_tipo'
-      '  , tl.Tlg_descricao'
-      '  , tl.Tlg_sigla'
-      '  , coalesce(f.log_cod, c.log_cod) as log_cod'
-      '  , lg.Log_nome'
-      '  , coalesce(f.complemento, c.complemento) as complemento'
-      '  , coalesce(f.numero_end, c.numero_end) as numero_end'
-      '  , coalesce(f.cep, c.cep) as cep'
-      ''
-      '  , coalesce(f.bai_cod, c.bai_cod) as bai_cod'
-      '  , br.Bai_nome'
-      ''
-      '  , coalesce(f.cid_cod, c.cid_cod) as cid_cod'
-      '  , cd.Cid_nome'
-      '  , cd.Cid_siafi'
-      '  , cd.Cid_ibge'
-      '  , cd.Cid_ddd'
-      ''
-      '  , coalesce(f.est_cod, c.est_cod) as est_cod'
-      '  , uf.Est_nome'
-      '  , uf.Est_sigla'
-      '  , uf.Est_siafi'
-      ''
-      '  , coalesce(f.pais_id, c.pais_id) as pais_id'
-      '  , pa.Pais_nome'
-      'from TBNFE_COMPLEMENTAR n'
-      '  left join TBFORNECEDOR f on (f.codforn = n.fornecedor)'
-      '  left join TBCLIENTE c on (c.codigo = n.cliente)'
-      ''
-      
-        '  left join TBESTADO uf on (uf.Est_cod = coalesce(f.Est_cod, c.e' +
-        'st_cod))'
-      
-        '  left join TBCIDADE cd on (cd.Cid_cod = coalesce(f.Cid_cod, c.c' +
-        'id_cod))'
-      
-        '  left join TBBAIRRO br on (br.Bai_cod = coalesce(f.Bai_cod, c.b' +
-        'ai_cod))'
-      
-        '  left join TBLOGRADOURO lg on (lg.Log_cod = coalesce(f.Log_cod,' +
-        ' c.log_cod))'
-      
-        '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = coalesce(f.Tlg' +
-        '_tipo, c.tlg_tipo))'
-      
-        '  left join TBPAIS pa on (pa.Pais_id = coalesce(f.Pais_id, c.pai' +
-        's_id))'
-      ''
-      'where n.nfc_numero  = :numero'
-      '  and n.nfc_empresa = :empresa')
-    Left = 304
-    Top = 72
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'numero'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end>
-  end
   object frdNFCDestinatario: TfrxDBDataset
     UserName = 'frdNFCDestinatario'
     CloseDataSource = False
@@ -33834,278 +31573,6 @@ object DMNFe: TDMNFe
     BCDToCurrency = False
     Left = 344
     Top = 120
-  end
-  object qryNFCCalculoImposto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    n.nfc_numero'
-      '  , n.nfc_empresa'
-      '  , n.nfc_tipo'
-      '  , coalesce(v.Ano, c.ano) as ano'
-      '  , coalesce(v.Codcontrol, c.Codcontrol) as Codcontrol'
-      '  , coalesce(v.Codemp, c.Codemp) as Codemp'
-      '  , coalesce(n.cliente, n.fornecedor) as Destinatario_Codigo'
-      '  , n.nfc_data'
-      '  , n.nfc_hora'
-      '  , n.nfc_emissao'
-      '  , n.nfc_emissor'
-      '  , n.nfc_texto as Obs'
-      '  , n.serie'
-      '  , n.numero'
-      '  , n.recibo'
-      '  , n.nfc_enviada'
-      '  , n.cancelada'
-      '  , n.cancelada_usuario'
-      '  , n.cancelada_datahora'
-      '  , n.cancelada_motivo'
-      '  , coalesce(v.Cfop, c.nfcfop) as Cfop'
-      '  , cf.Cfop_descricao'
-      '  , cf.cfop_informacao_fisco'
-      '  , cf.Cfop_devolucao'
-      '  , ne.chave        as Verificador_nfe'
-      '  , nc.protocolo    as protocolo_nfe'
-      '  , nc.xml_filename as xml_nfe_filename'
-      '  , nc.xml_file     as xml_nfe'
-      '  , n.nfc_emissor   as Usuario'
-      '  , un.nomecompleto as Usuario_nome_completo'
-      ''
-      '  , ('
-      '    Select list(fp.descri)'
-      '    from TBVENDAS_FORMAPAGTO x'
-      '      inner join TBFORMPAGTO fp on (fp.cod = x.formapagto_cod)'
-      '    where x.ano_venda = v.ano'
-      '      and x.controle_venda = v.codcontrol'
-      '    ) as lista_forma_pago'
-      ''
-      '  , ('
-      '    Select list(cp.cond_descricao)'
-      '    from TBVENDAS_FORMAPAGTO y'
-      
-        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
-        'opagto_cod)'
-      '    where y.ano_venda = v.ano'
-      '      and y.controle_venda = v.codcontrol'
-      '    ) as lista_cond_pago'
-      ''
-      '  , ('
-      
-        '    Select list(case when y.venda_prazo = 1 then cp.cond_descric' +
-        'ao_full else cp.cond_descricao end)'
-      '    from TBVENDAS_FORMAPAGTO y'
-      
-        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
-        'opagto_cod)'
-      '    where y.ano_venda = v.ano'
-      '      and y.controle_venda = v.codcontrol'
-      '    ) as lista_cond_pago_full'
-      ''
-      '  , 0 as Venda_prazo'
-      '  , n.Nfc_valor_base_icms'
-      '  , n.Nfc_valor_icms'
-      '  , n.Nfc_valor_base_icms_subst'
-      '  , n.Nfc_valor_icms_subst'
-      '  , n.Nfc_valor_total_produto'
-      '  , n.Nfc_valor_frete'
-      '  , n.Nfc_valor_seguro'
-      '  , n.Nfc_valor_desconto'
-      '  , n.Nfc_valor_total_ii'
-      '  , n.Nfc_valor_total_ipi'
-      '  , n.Nfc_valor_pis'
-      '  , n.Nfc_valor_cofins'
-      '  , n.Nfc_valor_outros'
-      '  , n.Nfc_valor_total_nota'
-      ''
-      '  , v.nfe_modalidade_frete'
-      '  , v.nfe_transportadora'
-      '  , tr.nomeforn as nfe_transportadora_nome'
-      '  , tr.cnpj     as nfe_transportadora_cnpj'
-      '  , tr.inscest  as nfe_transportadora_iest'
-      '  , tr.ender    as nfe_transportadora_ender'
-      '  , tc.cid_nome as nfe_transportadora_cidade'
-      '  , tr.uf       as nfe_transportadora_uf'
-      '  , v.nfe_placa_veiculo'
-      '  , v.nfe_placa_uf'
-      '  , v.nfe_placa_rntc'
-      ''
-      '  -- Nota Referenciada'
-      '  , 0 as dnfe_forma'
-      '  , ne.chave     as dnfe_chave'
-      '  , ne.protocolo as dnfe_uf'
-      '  , ne.serie     as dnfe_serie'
-      '  , ne.numero    as dnfe_numero'
-      '  , ne.modelo    as dnfe_modelo'
-      ''
-      'from TBNFE_COMPLEMENTAR n'
-      
-        '  inner join TBNFE_ENVIADA ne on (ne.empresa = n.nfc_empresa and' +
-        ' ne.serie = n.nfe_serie and ne.numero = n.nfe_numero and ne.mode' +
-        'lo = n.nfe_modelo)'
-      ''
-      
-        '  left join TBVENDAS v on (v.ano = ne.anovenda and v.codcontrol ' +
-        '= ne.numvenda and v.codemp = ne.empresa)'
-      
-        '  left join TBCOMPRAS c on (c.ano = ne.anocompra and c.codcontro' +
-        'l = ne.numcompra and c.codemp = ne.empresa)'
-      ''
-      
-        '  left join TBCFOP cf on (cf.Cfop_cod = coalesce(v.Cfop, c.nfcfo' +
-        'p))'
-      '  left join TBUSERS un on (un.nome = n.nfc_emissor)'
-      
-        '  left join TBFORNECEDOR tr on (tr.codforn = v.nfe_transportador' +
-        'a)'
-      '  left join TBCIDADE tc on (tc.cid_cod = tr.cid_cod)'
-      ''
-      '  left join TBNFE_ENVIADA nc on (nc.nfc_numero = n.nfc_numero)'
-      ''
-      'where n.nfc_numero  = :numero'
-      '  and n.nfc_empresa = :empresa')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.ApplyEvent = gamOnPost
-    Left = 304
-    Top = 120
-  end
-  object qryNFCDadosProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq'
-      '  , i.Codprod'
-      '  , p.Codbarra_ean'
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      
-        '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
-        'acao'
-      '  , p.Modelo'
-      '  , p.Referencia'
-      '  , p.Ncm_sh'
-      '--  , ib.ncm_aliquota_nac as Ncm_aliquota_nac'
-      '--  , ib.ncm_aliquota_imp as Ncm_aliquota_imp'
-      '  , coalesce(ib.aliqnacional_ibpt,      0.0) as Ncm_aliquota_nac'
-      '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
-      '  , coalesce(ib.aliqestadual_ibpt,      0.0) as Ncm_aliquota_est'
-      '  , coalesce(ib.aliqmunicipal_ibpt,     0.0) as Ncm_aliquota_mun'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Cst_pis'
-      '  , p.Cst_cofins'
-      '  , coalesce(ps.Indice_acbr, 32) as Cst_pis_indice_ACBr'
-      '  , coalesce(cs.Indice_acbr, 32) as Cst_cofins_indice_ACBr'
-      '  , i.Codemp'
-      '  , i.codforn'
-      '  , f.cnpj as codforn_cnpj'
-      '  , i.dtent'
-      '  , i.Qtde'
-      
-        '--  , ( coalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0' +
-        ') / coalesce(i.Qtde, 1)) ) as PUNIT'
-      '  , i.precounit as PUNIT'
-      
-        '  , ( (coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1)) / (c' +
-        'oalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0) / coale' +
-        'sce(i.Qtde, 1))) * 100 ) as Desconto'
-      
-        '  , ( coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1) ) as d' +
-        'esconto_valor'
-      '  , i.customedio as PFINAL'
-      '  , i.Qtdefinal'
-      '  , i.Unid_cod'
-      '  , u.Unp_descricao'
-      '  , u.Unp_sigla'
-      '  , i.Cfop as Cfop_cod'
-      '  , i.Aliquota'
-      '  , i.Aliquota_csosn'
-      '  , coalesce(i.Aliquota_pis, 0.0) as Aliquota_pis'
-      '  , coalesce(i.Aliquota_cofins, 0.0) as Aliquota_cofins'
-      '  , i.Valor_ipi'
-      
-        '  , coalesce(i.Percentual_reducao_bc, 0.0) as Percentual_reducao' +
-        '_bc'
-      
-        '  , coalesce(i.customedio, 0) * coalesce(i.Percentual_reducao_bc' +
-        ', 0.0) / 100 as valor_reducao_bc'
-      
-        '--  , (i.Qtde * coalesce(i.precounit, 0)) + i.valor_desconto as ' +
-        'Total_bruto'
-      '  , i.Qtde * i.precounit as Total_Bruto'
-      '  , i.Qtde * i.customedio as Total_liquido'
-      '  , i.valor_desconto as Total_desconto'
-      '  , p.Qtde as Estoque'
-      '  , p.Reserva'
-      '  , p.Produto_novo'
-      '  , p.Cor_veiculo'
-      '  , cr.Descricao as Cor_veiculo_descricao'
-      '  , p.Combustivel_veiculo'
-      '  , cb.Descricao as Combustivel_veiculo_descricao'
-      '  , p.Ano_fabricacao_veiculo'
-      '  , p.Ano_modelo_veiculo'
-      
-        '  , p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_veiculo as a' +
-        'no_fab_modelo_veiculo'
-      '  , p.Tipo_veiculo'
-      '  , tv.Descricao as Tipo_veiculo_descricao'
-      '  , p.Renavam_veiculo'
-      '  , p.Chassi_veiculo'
-      '  , p.Kilometragem_veiculo'
-      '  , coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0) as Disponivel'
-      'from TBCOMPRASITENS i'
-      '  inner join TBPRODUTO p on (p.Cod = i.codprod)'
-      '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.unid_cod)'
-      '  inner join TBFORNECEDOR f on (f.codforn = i.codforn)'
-      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
-      
-        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
-        'veiculo)'
-      
-        '  left join RENAVAM_TIPOVEICULO tv on (tv.Codigo = p.Tipo_veicul' +
-        'o)'
-      '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
-      '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
-      
-        '--  left join VW_TABELA_IBPT ib on (ib.ncm_sh = coalesce(nullif(' +
-        'trim(p.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39'))'
-      '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt)'
-      ''
-      'where i.Ano = :anoCompra'
-      '  and i.Codcontrol = :numCompra'
-      ''
-      'order by '
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq')
-    Left = 304
-    Top = 168
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'anoCompra'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'numCompra'
-        ParamType = ptUnknown
-      end>
   end
   object frdNFCDadosProduto: TfrxDBDataset
     UserName = 'frdNFCDadosProduto'
@@ -35262,36 +32729,6 @@ object DMNFe: TDMNFe
         end
       end
     end
-  end
-  object qryListaFuncionario: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.codigo'
-      '  , f.nome_completo'
-      '  , f.sexo'
-      '  , f.data_nascimento'
-      '  , f.cpf'
-      
-        '  , trim(coalesce(f.rg_numero, '#39#39') || '#39' '#39' || coalesce(f.rg_orgao' +
-        '_emissor, '#39#39')) as rg'
-      '  , f.ender as endereco'
-      '  , f.numero_end as endereco_num'
-      '  , f.bairro'
-      '  , f.cidade'
-      '  , f.uf'
-      '  , f.cep'
-      '  , f.ativo'
-      'from TBFUNCIONARIO f'
-      ''
-      'order by'
-      '    f.nome_completo')
-    Left = 768
-    Top = 224
   end
   object frdListaFuncionario: TfrxDBDataset
     UserName = 'frdListaFuncionario'
@@ -43147,5 +40584,2486 @@ object DMNFe: TDMNFe
         Width = 718.110700000000000000
       end
     end
+  end
+  object cdsLOG: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updLOG
+    SQL.Strings = (
+      'Select'
+      '    t.usuario'
+      '  , t.data_hora'
+      '  , t.empresa'
+      '  , t.tipo'
+      '  , t.descricao'
+      '  , t.especificacao'
+      'from TBLOG_TRANSACAO t'
+      'where 1=0')
+    Left = 312
+    Top = 576
+    object cdsLOGUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 50
+    end
+    object cdsLOGDATA_HORA: TSQLTimeStampField
+      FieldName = 'DATA_HORA'
+      Origin = 'DATA_HORA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsLOGEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Size = 18
+    end
+    object cdsLOGTIPO: TSmallintField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+    end
+    object cdsLOGDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Size = 100
+    end
+    object cdsLOGESPECIFICACAO: TMemoField
+      FieldName = 'ESPECIFICACAO'
+      Origin = 'ESPECIFICACAO'
+      BlobType = ftMemo
+    end
+  end
+  object updLOG: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBLOG_TRANSACAO'
+      '(USUARIO, DATA_HORA, EMPRESA, TIPO, DESCRICAO, '
+      '  ESPECIFICACAO)'
+      
+        'VALUES (:NEW_USUARIO, :NEW_DATA_HORA, :NEW_EMPRESA, :NEW_TIPO, :' +
+        'NEW_DESCRICAO, '
+      '  :NEW_ESPECIFICACAO)')
+    ModifySQL.Strings = (
+      'UPDATE TBLOG_TRANSACAO'
+      
+        'SET USUARIO = :NEW_USUARIO, DATA_HORA = :NEW_DATA_HORA, EMPRESA ' +
+        '= :NEW_EMPRESA, '
+      
+        '  TIPO = :NEW_TIPO, DESCRICAO = :NEW_DESCRICAO, ESPECIFICACAO = ' +
+        ':NEW_ESPECIFICACAO'
+      'WHERE USUARIO = :OLD_USUARIO AND DATA_HORA = :OLD_DATA_HORA')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBLOG_TRANSACAO'
+      'WHERE USUARIO = :OLD_USUARIO AND DATA_HORA = :OLD_DATA_HORA')
+    FetchRowSQL.Strings = (
+      
+        'SELECT USUARIO, DATA_HORA, EMPRESA, TIPO, DESCRICAO, ESPECIFICAC' +
+        'AO'
+      'FROM TBLOG_TRANSACAO'
+      'WHERE USUARIO = :USUARIO AND DATA_HORA = :DATA_HORA')
+    Left = 344
+    Top = 576
+  end
+  object qryCartaCorrecaoNFe: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updCartaCorrecaoNFe
+    SQL.Strings = (
+      'Select'
+      '    cce.CCE_NUMERO'
+      '  , cce.CCE_EMPRESA'
+      '  , cce.CCE_DATA'
+      '  , cce.CCE_HORA'
+      '  , cce.CCE_ENVIADA'
+      '  , cce.CCE_TEXTO'
+      '  , cce.NFE_SERIE'
+      '  , cce.NFE_NUMERO'
+      '  , cce.NFE_MODELO'
+      '  , cce.NUMERO'
+      '  , cce.PROTOCOLO'
+      '  , cce.XML'
+      '  , cce.XML_TOTAL'
+      'from TBNFE_CARTA_CORRECAO cce'
+      'where cce.cce_empresa = :empresa'
+      '  and cce.cce_numero  = :codigo')
+    Left = 312
+    Top = 624
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
+      end
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object qryCartaCorrecaoNFeCCE_NUMERO: TIntegerField
+      FieldName = 'CCE_NUMERO'
+      Origin = 'CCE_NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryCartaCorrecaoNFeCCE_EMPRESA: TStringField
+      FieldName = 'CCE_EMPRESA'
+      Origin = 'CCE_EMPRESA'
+      Required = True
+      Size = 18
+    end
+    object qryCartaCorrecaoNFeCCE_DATA: TDateField
+      FieldName = 'CCE_DATA'
+      Origin = 'CCE_DATA'
+    end
+    object qryCartaCorrecaoNFeCCE_HORA: TTimeField
+      FieldName = 'CCE_HORA'
+      Origin = 'CCE_HORA'
+    end
+    object qryCartaCorrecaoNFeCCE_ENVIADA: TSmallintField
+      FieldName = 'CCE_ENVIADA'
+      Origin = 'CCE_ENVIADA'
+      Required = True
+    end
+    object qryCartaCorrecaoNFeCCE_TEXTO: TMemoField
+      FieldName = 'CCE_TEXTO'
+      Origin = 'CCE_TEXTO'
+      BlobType = ftMemo
+    end
+    object qryCartaCorrecaoNFeNFE_SERIE: TStringField
+      FieldName = 'NFE_SERIE'
+      Origin = 'NFE_SERIE'
+      Required = True
+      Size = 3
+    end
+    object qryCartaCorrecaoNFeNFE_NUMERO: TIntegerField
+      FieldName = 'NFE_NUMERO'
+      Origin = 'NFE_NUMERO'
+      Required = True
+    end
+    object qryCartaCorrecaoNFeNFE_MODELO: TSmallintField
+      FieldName = 'NFE_MODELO'
+      Origin = 'NFE_MODELO'
+      Required = True
+    end
+    object qryCartaCorrecaoNFeNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+    end
+    object qryCartaCorrecaoNFePROTOCOLO: TStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'PROTOCOLO'
+      Size = 250
+    end
+    object qryCartaCorrecaoNFeXML: TMemoField
+      FieldName = 'XML'
+      Origin = 'XML'
+      BlobType = ftMemo
+    end
+    object qryCartaCorrecaoNFeXML_TOTAL: TMemoField
+      FieldName = 'XML_TOTAL'
+      Origin = 'XML_TOTAL'
+      BlobType = ftMemo
+    end
+  end
+  object updCartaCorrecaoNFe: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBNFE_CARTA_CORRECAO'
+      '(CCE_NUMERO, CCE_EMPRESA, CCE_DATA, CCE_HORA, '
+      '  CCE_ENVIADA, CCE_TEXTO, NFE_SERIE, NFE_NUMERO, '
+      '  NFE_MODELO, NUMERO, PROTOCOLO, XML, '
+      '  XML_TOTAL)'
+      
+        'VALUES (:NEW_CCE_NUMERO, :NEW_CCE_EMPRESA, :NEW_CCE_DATA, :NEW_C' +
+        'CE_HORA, '
+      
+        '  :NEW_CCE_ENVIADA, :NEW_CCE_TEXTO, :NEW_NFE_SERIE, :NEW_NFE_NUM' +
+        'ERO, '
+      '  :NEW_NFE_MODELO, :NEW_NUMERO, :NEW_PROTOCOLO, :NEW_XML, '
+      '  :NEW_XML_TOTAL)')
+    ModifySQL.Strings = (
+      'UPDATE TBNFE_CARTA_CORRECAO'
+      
+        'SET CCE_NUMERO = :NEW_CCE_NUMERO, CCE_EMPRESA = :NEW_CCE_EMPRESA' +
+        ', '
+      
+        '  CCE_DATA = :NEW_CCE_DATA, CCE_HORA = :NEW_CCE_HORA, CCE_ENVIAD' +
+        'A = :NEW_CCE_ENVIADA, '
+      '  CCE_TEXTO = :NEW_CCE_TEXTO, NFE_SERIE = :NEW_NFE_SERIE, '
+      '  NFE_NUMERO = :NEW_NFE_NUMERO, NFE_MODELO = :NEW_NFE_MODELO, '
+      
+        '  NUMERO = :NEW_NUMERO, PROTOCOLO = :NEW_PROTOCOLO, XML = :NEW_X' +
+        'ML, '
+      '  XML_TOTAL = :NEW_XML_TOTAL'
+      'WHERE CCE_NUMERO = :OLD_CCE_NUMERO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBNFE_CARTA_CORRECAO'
+      'WHERE CCE_NUMERO = :OLD_CCE_NUMERO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT CCE_NUMERO, CCE_EMPRESA, CCE_DATA, CCE_HORA, CCE_ENVIADA,' +
+        ' CCE_TEXTO, '
+      '  NFE_SERIE, NFE_NUMERO, NFE_MODELO, NUMERO, PROTOCOLO, XML, '
+      '  XML_TOTAL'
+      'FROM TBNFE_CARTA_CORRECAO'
+      'WHERE CCE_NUMERO = :CCE_NUMERO')
+    Left = 344
+    Top = 624
+  end
+  object qryEmitente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.Codigo'
+      '  , e.Pessoa_fisica'
+      '  , e.Cnpj'
+      '  , e.Rzsoc'
+      '  , e.Nmfant'
+      '  , e.Ie'
+      '  , e.Im'
+      '  , e.Cnae'
+      ''
+      '  , e.Fone'
+      '  , e.Logo'
+      ''
+      '  , e.Tlg_tipo'
+      '  , tl.Tlg_descricao'
+      '  , tl.Tlg_sigla'
+      '  , e.Log_cod'
+      '  , lg.Log_nome'
+      '  , e.Complemento'
+      '  , e.Numero_end'
+      '  , e.Cep'
+      ''
+      '  , e.Bai_cod'
+      '  , br.Bai_nome'
+      ''
+      '  , e.Cid_cod'
+      '  , cd.Cid_nome'
+      '  , cd.Cid_siafi'
+      '  , cd.Cid_ibge'
+      '  , cd.Cid_ddd'
+      ''
+      '  , e.Est_cod'
+      '  , uf.Est_nome'
+      '  , uf.Est_sigla'
+      '  , uf.Est_siafi'
+      ''
+      '  , e.Email'
+      '  , e.Home_page'
+      '  , e.Chave_acesso_nfe'
+      '  , e.Tipo_Regime_nfe'
+      '  , coalesce(cf.nfe_serie , e.Serie_nfe)  as Serie_nfe'
+      '  , coalesce(cf.nfe_numero, e.Numero_nfe) as Numero_nfe'
+      
+        '  , coalesce(extract(year from current_date), e.Lote_Ano_nfe) as' +
+        ' Lote_Ano_nfe'
+      '  , coalesce(cf.nfe_lote, e.Lote_Num_nfe) as Lote_Num_nfe'
+      '  , e.Pais_id'
+      '  , coalesce(cf.nfce_serie , e.Serie_nfce)  as Serie_nfce'
+      '  , coalesce(cf.nfce_numero, e.Numero_nfce) as Numero_nfce'
+      '  , pa.Pais_nome'
+      '  , case'
+      '      when (e.Numero_nfe   > coalesce(cf.nfe_numero, 0)) then 1'
+      '      when (e.lote_num_nfe > coalesce(cf.nfe_lote, 0))   then 1'
+      
+        '      when (e.carta_correcao_nfe > coalesce(cf.nfe_carta_correca' +
+        'o, 0))   then 1'
+      '      else 0'
+      '    end reconfigurar'
+      'from TBEMPRESA e'
+      '  left join TBCONFIGURACAO cf on (cf.empresa = e.cnpj)'
+      '  left join TBESTADO uf on (uf.Est_cod = e.Est_cod)'
+      '  left join TBCIDADE cd on (cd.Cid_cod = e.Cid_cod)'
+      '  left join TBBAIRRO br on (br.Bai_cod = e.Bai_cod)'
+      '  left join TBLOGRADOURO lg on (lg.Log_cod = e.Log_cod)'
+      '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = e.Tlg_tipo)'
+      '  left Join TBPAIS pa on (pa.Pais_id = e.Pais_id)'
+      'where e.Cnpj = :Cnpj')
+    Left = 144
+    Top = 24
+    ParamData = <
+      item
+        Name = 'CNPJ'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
+      end>
+    object qryEmitenteCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object qryEmitentePESSOA_FISICA: TSmallintField
+      FieldName = 'PESSOA_FISICA'
+      Origin = 'PESSOA_FISICA'
+      Required = True
+    end
+    object qryEmitenteCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object qryEmitenteRZSOC: TStringField
+      FieldName = 'RZSOC'
+      Origin = 'RZSOC'
+      Size = 60
+    end
+    object qryEmitenteNMFANT: TStringField
+      FieldName = 'NMFANT'
+      Origin = 'NMFANT'
+      Size = 25
+    end
+    object qryEmitenteIE: TStringField
+      FieldName = 'IE'
+      Origin = 'IE'
+      Size = 11
+    end
+    object qryEmitenteIM: TStringField
+      FieldName = 'IM'
+      Origin = 'IM'
+      Size = 12
+    end
+    object qryEmitenteCNAE: TStringField
+      FieldName = 'CNAE'
+      Origin = 'CNAE'
+      Size = 11
+    end
+    object qryEmitenteFONE: TStringField
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      Size = 11
+    end
+    object qryEmitenteLOGO: TBlobField
+      FieldName = 'LOGO'
+      Origin = 'LOGO'
+    end
+    object qryEmitenteTLG_TIPO: TSmallintField
+      FieldName = 'TLG_TIPO'
+      Origin = 'TLG_TIPO'
+    end
+    object qryEmitenteTLG_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TLG_DESCRICAO'
+      Origin = 'TLG_DESCRICAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object qryEmitenteTLG_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TLG_SIGLA'
+      Origin = 'TLG_SIGLA'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 10
+    end
+    object qryEmitenteLOG_COD: TIntegerField
+      FieldName = 'LOG_COD'
+      Origin = 'LOG_COD'
+    end
+    object qryEmitenteLOG_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOG_NOME'
+      Origin = 'LOG_NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 250
+    end
+    object qryEmitenteCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 50
+    end
+    object qryEmitenteNUMERO_END: TStringField
+      FieldName = 'NUMERO_END'
+      Origin = 'NUMERO_END'
+      Size = 10
+    end
+    object qryEmitenteCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 8
+    end
+    object qryEmitenteBAI_COD: TIntegerField
+      FieldName = 'BAI_COD'
+      Origin = 'BAI_COD'
+    end
+    object qryEmitenteBAI_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BAI_NOME'
+      Origin = 'BAI_NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object qryEmitenteCID_COD: TIntegerField
+      FieldName = 'CID_COD'
+      Origin = 'CID_COD'
+    end
+    object qryEmitenteCID_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CID_NOME'
+      Origin = 'CID_NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object qryEmitenteCID_SIAFI: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CID_SIAFI'
+      Origin = 'CID_SIAFI'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteCID_IBGE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CID_IBGE'
+      Origin = 'CID_IBGE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteCID_DDD: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'CID_DDD'
+      Origin = 'CID_DDD'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteEST_COD: TSmallintField
+      FieldName = 'EST_COD'
+      Origin = 'EST_COD'
+    end
+    object qryEmitenteEST_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EST_NOME'
+      Origin = 'EST_NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object qryEmitenteEST_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EST_SIGLA'
+      Origin = 'EST_SIGLA'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 2
+    end
+    object qryEmitenteEST_SIAFI: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'EST_SIAFI'
+      Origin = 'EST_SIAFI'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 100
+    end
+    object qryEmitenteHOME_PAGE: TStringField
+      FieldName = 'HOME_PAGE'
+      Origin = 'HOME_PAGE'
+      Size = 100
+    end
+    object qryEmitenteCHAVE_ACESSO_NFE: TStringField
+      FieldName = 'CHAVE_ACESSO_NFE'
+      Origin = 'CHAVE_ACESSO_NFE'
+      Size = 250
+    end
+    object qryEmitenteTIPO_REGIME_NFE: TSmallintField
+      FieldName = 'TIPO_REGIME_NFE'
+      Origin = 'TIPO_REGIME_NFE'
+    end
+    object qryEmitenteSERIE_NFE: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'SERIE_NFE'
+      Origin = 'SERIE_NFE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteNUMERO_NFE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NUMERO_NFE'
+      Origin = 'NUMERO_NFE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteLOTE_ANO_NFE: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE_ANO_NFE'
+      Origin = 'LOTE_ANO_NFE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteLOTE_NUM_NFE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE_NUM_NFE'
+      Origin = 'LOTE_NUM_NFE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitentePAIS_ID: TStringField
+      FieldName = 'PAIS_ID'
+      Origin = 'PAIS_ID'
+      Size = 5
+    end
+    object qryEmitenteSERIE_NFCE: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'SERIE_NFCE'
+      Origin = 'SERIE_NFCE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteNUMERO_NFCE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NUMERO_NFCE'
+      Origin = 'NUMERO_NFCE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitentePAIS_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAIS_NOME'
+      Origin = 'PAIS_NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 150
+    end
+    object qryEmitenteRECONFIGURAR: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'RECONFIGURAR'
+      Origin = 'RECONFIGURAR'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object qryVendasCaixaSoma: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    d.cod'
+      '  , d.nome'
+      '  , d.cpf'
+      
+        '  , sum( Case when v.status <> 5 then v.desconto + v.desconto_cu' +
+        'pom else 0.0 end) as total_desconto'
+      
+        '  , sum( Case when v.status <> 5 then v.totalvenda_bruta        ' +
+        '         else 0.0 end) as totalvenda_bruta'
+      
+        '  , sum( Case when v.status <> 5 then v.totalvenda              ' +
+        '         else 0.0 end) as totalvenda'
+      
+        '  , sum( Case when v.status  = 5 then v.desconto + v.desconto_cu' +
+        'pom else 0.0 end) as total_desconto_c'
+      
+        '  , sum( Case when v.status  = 5 then v.totalvenda_bruta        ' +
+        '         else 0.0 end) as totalvenda_bruta_c'
+      
+        '  , sum( Case when v.status  = 5 then v.totalvenda              ' +
+        '         else 0.0 end) as totalvenda_c'
+      '  , sum( v.totalvenda ) as totalvenda_geral'
+      'from TBVENDAS v'
+      
+        '  inner join TBCAIXA c on (c.ano = v.caixa_ano and c.numero = v.' +
+        'caixa_num)'
+      '  left join TBUSERS u on (u.nome = c.usuario)'
+      '  left join TBVENDEDOR d on (d.cod = u.vendedor)'
+      ''
+      'where v.status in (3, 4, 5)'
+      '  and v.caixa_ano = :anoCaixa'
+      '  and v.caixa_num = :numCaixa'
+      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
+      ''
+      'group by'
+      '    d.cod'
+      '  , d.nome'
+      '  , d.cpf')
+    Left = 496
+    Top = 8
+    ParamData = <
+      item
+        Name = 'ANOCAIXA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCAIXA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'PDV'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryVendasCaixaFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Ano'
+      '  , c.Numero'
+      '  , c.Data_abertura'
+      '  , c.Data_fech'
+      '  , c.Data_cancel'
+      '  , c.Usuario'
+      '  , u.Nomecompleto'
+      '  , c.Usuario_cancel'
+      '  , c.Situacao'
+      '  , Case'
+      '      when c.Situacao = 0 then '#39'Aberto'#39
+      '      when c.Situacao = 1 then '#39'Fechado'#39
+      '      when c.Situacao = 2 then '#39'Cancelado'#39
+      '      else '#39'* Indefinido'#39
+      '    end as Situacao_Desc'
+      '  , vf.formapagto_cod   as Forma_pagto'
+      '  , f.Descri            as Forma_pagto_Desc'
+      '  , Case when v.status = 5'
+      '      then 0'
+      '      else 1'
+      '    end as SituacaoMov'
+      '  , Case when v.status = 5'
+      '      then '#39'D'#39
+      '      else '#39'C'#39
+      '    end as TipoMov'
+      '  , sum( vf.valor_fpagto ) as Valor'
+      '  , sum( Case when v.status in (3, 4)'
+      '      then vf.valor_fpagto'
+      '      else 0'
+      '    end ) as Valor_Credito'
+      '  , sum( Case when v.status = 5'
+      '      then vf.valor_fpagto'
+      '      else 0'
+      '    end ) as Valor_Debito'
+      'from TBVENDAS v'
+      
+        '  inner join TBCAIXA c on (c.ano = v.caixa_ano and c.numero = v.' +
+        'caixa_num)'
+      
+        '  inner join TBVENDAS_FORMAPAGTO vf on (vf.ano_venda = v.ano and' +
+        ' vf.controle_venda = v.codcontrol)'
+      ''
+      '  left join TBFORMPAGTO f on (f.Cod = vf.formapagto_cod)'
+      '  left join TBUSERS u on (u.Nome = c.Usuario)'
+      ''
+      'where v.status > 2'
+      '  and v.caixa_ano = :anoCaixa'
+      '  and v.caixa_num = :numCaixa'
+      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
+      ''
+      'group by'
+      '    c.Ano'
+      '  , c.Numero'
+      '  , c.Data_abertura'
+      '  , c.Data_fech'
+      '  , c.Data_cancel'
+      '  , c.Usuario'
+      '  , u.Nomecompleto'
+      '  , c.Usuario_cancel'
+      '  , c.Situacao'
+      '  , Case'
+      '      when c.Situacao = 0 then '#39'Aberto'#39
+      '      when c.Situacao = 1 then '#39'Fechado'#39
+      '      when c.Situacao = 2 then '#39'Cancelado'#39
+      '      else '#39'* Indefinido'#39
+      '    end'
+      '  , vf.formapagto_cod'
+      '  , f.Descri'
+      '  , Case when v.status = 5'
+      '      then 0'
+      '      else 1'
+      '    end'
+      '  , Case when v.status = 5'
+      '      then '#39'D'#39
+      '      else '#39'C'#39
+      '    end'
+      ''
+      'order by'
+      '    f.descri'
+      '')
+    Left = 496
+    Top = 56
+    ParamData = <
+      item
+        Name = 'ANOCAIXA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCAIXA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'PDV'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryVendasCaixaDetalhe: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Ano'
+      '  , c.Numero'
+      '  , c.Data_abertura'
+      '  , c.Data_fech'
+      '  , c.Data_cancel'
+      '  , c.Usuario'
+      '  , u.Nomecompleto'
+      '  , c.Usuario_cancel'
+      '  , c.Situacao'
+      '  , Case'
+      '      when c.Situacao = 0 then '#39'Aberto'#39
+      '      when c.Situacao = 1 then '#39'Fechado'#39
+      '      when c.Situacao = 2 then '#39'Cancelado'#39
+      '      else '#39'* Indefinido'#39
+      '    end as Situacao_Desc'
+      '  , c.Conta_corrente'
+      '  , c.Valor_total_credito'
+      '  , c.Valor_total_debito'
+      '  , c.Motivo_cancel'
+      '  , cc.Descricao as Conta_corrente_Desc'
+      '  , Case'
+      '      when cc.Tipo = 1 then '#39'Caixa'#39
+      '      when cc.Tipo = 2 then '#39'Banco'#39
+      '      else '#39'* Indefinido'#39
+      '    end as Tipo'
+      '  , vf.ano_venda        as AnoMov'
+      '  , vf.controle_venda   as NumMov'
+      
+        '  , vf.ano_venda || '#39'/'#39' || right('#39'0000000'#39' || vf.controle_venda,' +
+        ' 7) as Movimento'
+      '  , vf.formapagto_cod   as Forma_pagto'
+      '  , f.Descri            as Forma_pagto_Desc'
+      '  , v.dtvenda as dataemissao'
+      '  , Case when v.status = 5'
+      '      then '#39'VENDA CANCELADA'#39
+      '      else '#39'VENDA NO CAIXA'#39
+      '    end as Historico'
+      '  , Case when v.status = 5'
+      '      then 0'
+      '      else 1'
+      '    end as SituacaoMov'
+      '  , Case when v.status = 5'
+      '      then '#39'D'#39
+      '      else '#39'C'#39
+      '    end as TipoMov'
+      '  , vf.valor_fpagto as Valor'
+      '  , Case when v.status in (3, 4)'
+      '      then vf.valor_fpagto'
+      '      else 0'
+      '    end as Valor_Credito'
+      '  , Case when v.status = 5'
+      '      then vf.valor_fpagto'
+      '      else 0'
+      '    end as Valor_Debito'
+      'from TBVENDAS v'
+      
+        '  inner join TBCAIXA c on (c.ano = v.caixa_ano and c.numero = v.' +
+        'caixa_num)'
+      
+        '  inner join TBVENDAS_FORMAPAGTO vf on (vf.ano_venda = v.ano and' +
+        ' vf.controle_venda = v.codcontrol)'
+      ''
+      
+        '  left join TBCONTA_CORRENTE cc on (cc.Codigo = c.Conta_corrente' +
+        ')'
+      '  left join TBFORMPAGTO f on (f.Cod = vf.formapagto_cod)'
+      '  left join TBUSERS u on (u.Nome = c.Usuario)'
+      ''
+      'where v.status > 2'
+      '  and v.caixa_ano = :anoCaixa'
+      '  and v.caixa_num = :numCaixa'
+      '  and ((:pdv = 0) or (v.caixa_pdv = 1))'
+      ''
+      'order by'
+      '    v.ano'
+      '  , v.codcontrol')
+    Left = 496
+    Top = 104
+    ParamData = <
+      item
+        Name = 'ANOCAIXA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCAIXA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'PDV'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryNFe: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    n.ANOVENDA'
+      '  , n.NUMVENDA'
+      '  , n.EMPRESA'
+      '  , n.DATAEMISSAO'
+      '  , n.HORAEMISSAO'
+      '  , n.SERIE'
+      '  , n.NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
+      '  , n.CHAVE'
+      '  , n.PROTOCOLO'
+      '  , n.RECIBO'
+      '  , n.XML_FILENAME'
+      '  , n.XML_FILE'
+      '  , n.LOTE_ANO'
+      '  , n.LOTE_NUM'
+      'from TBNFE_ENVIADA n'
+      'where n.empresa = :empresa'
+      '  and n.modelo  = :modelo'
+      '  and n.serie   = :serie'
+      '  and n.numero  = :numero')
+    Left = 144
+    Top = 504
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'MODELO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'SERIE'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 4
+      end
+      item
+        Name = 'NUMERO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryLoteNFePendente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.ano        as Ano'
+      '  , v.codcontrol as Numero'
+      '  , 1            as TipoNFE'
+      '  , '#39'Sa'#237'da/Venda'#39'     as Tipo'
+      '  , v.lote_nfe_numero as Lote'
+      '  , v.lote_nfe_recibo as Recibo'
+      'from TBVENDAS v'
+      'where v.codemp = :empresa'
+      '  and v.lote_nfe_numero is not null'
+      '  and v.nfe is null'
+      '  and v.nfe_enviada = 0'
+      ''
+      'union'
+      ''
+      'Select'
+      '    c.ano        as Ano'
+      '  , c.codcontrol as Numero'
+      '  , 0            as TipoNFE'
+      '  , '#39'Entrada/Compra'#39'  as Tipo'
+      '  , c.lote_nfe_numero as Lote'
+      '  , c.lote_nfe_recibo as Recibo'
+      'from TBCOMPRAS c'
+      'where c.codemp = :empresa'
+      '  and c.lote_nfe_numero is not null'
+      '  and c.nf is null'
+      '  and C.nfe_enviada = 0'
+      ''
+      'order by 5')
+    Left = 144
+    Top = 456
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+  end
+  object qryNFeEmitidaEntrada: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    n.ANOCOMPRA'
+      '  , n.NUMCOMPRA'
+      '  , n.EMPRESA'
+      '  , n.DATAEMISSAO'
+      '  , n.HORAEMISSAO'
+      '  , n.SERIE'
+      '  , n.NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
+      '  , n.CHAVE'
+      '  , n.PROTOCOLO'
+      '  , n.RECIBO'
+      '  , n.XML_FILENAME'
+      '  , n.XML_FILE'
+      '  , n.LOTE_ANO'
+      '  , n.LOTE_NUM'
+      'from TBNFE_ENVIADA n'
+      'where n.ANOCOMPRA = :anocompra'
+      '  and n.NUMCOMPRA = :numcompra')
+    Left = 144
+    Top = 416
+    ParamData = <
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object qryNFeEmitidaEntradaANOCOMPRA: TSmallintField
+      FieldName = 'ANOCOMPRA'
+      Origin = 'ANOCOMPRA'
+    end
+    object qryNFeEmitidaEntradaNUMCOMPRA: TIntegerField
+      FieldName = 'NUMCOMPRA'
+      Origin = 'NUMCOMPRA'
+    end
+    object qryNFeEmitidaEntradaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object qryNFeEmitidaEntradaDATAEMISSAO: TDateField
+      FieldName = 'DATAEMISSAO'
+      Origin = 'DATAEMISSAO'
+    end
+    object qryNFeEmitidaEntradaHORAEMISSAO: TTimeField
+      FieldName = 'HORAEMISSAO'
+      Origin = 'HORAEMISSAO'
+    end
+    object qryNFeEmitidaEntradaSERIE: TStringField
+      FieldName = 'SERIE'
+      Origin = 'SERIE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 4
+    end
+    object qryNFeEmitidaEntradaNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryNFeEmitidaEntradaMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryNFeEmitidaEntradaVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = 'VERSAO'
+    end
+    object qryNFeEmitidaEntradaCHAVE: TStringField
+      FieldName = 'CHAVE'
+      Origin = 'CHAVE'
+      Size = 250
+    end
+    object qryNFeEmitidaEntradaPROTOCOLO: TStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'PROTOCOLO'
+      Size = 250
+    end
+    object qryNFeEmitidaEntradaRECIBO: TStringField
+      FieldName = 'RECIBO'
+      Origin = 'RECIBO'
+      Size = 250
+    end
+    object qryNFeEmitidaEntradaXML_FILENAME: TStringField
+      FieldName = 'XML_FILENAME'
+      Origin = 'XML_FILENAME'
+      Size = 250
+    end
+    object qryNFeEmitidaEntradaXML_FILE: TMemoField
+      FieldName = 'XML_FILE'
+      Origin = 'XML_FILE'
+      BlobType = ftMemo
+    end
+    object qryNFeEmitidaEntradaLOTE_ANO: TSmallintField
+      FieldName = 'LOTE_ANO'
+      Origin = 'LOTE_ANO'
+    end
+    object qryNFeEmitidaEntradaLOTE_NUM: TIntegerField
+      FieldName = 'LOTE_NUM'
+      Origin = 'LOTE_NUM'
+      Required = True
+    end
+  end
+  object qryNFeEmitida: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    n.ANOVENDA'
+      '  , n.NUMVENDA'
+      '  , n.EMPRESA'
+      '  , n.DATAEMISSAO'
+      '  , n.HORAEMISSAO'
+      '  , n.SERIE'
+      '  , n.NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
+      '  , n.CHAVE'
+      '  , n.PROTOCOLO'
+      '  , n.RECIBO'
+      '  , n.XML_FILENAME'
+      '  , n.XML_FILE'
+      '  , n.LOTE_ANO'
+      '  , n.LOTE_NUM'
+      'from TBNFE_ENVIADA n'
+      'where n.ANOVENDA = :anovenda'
+      '  and n.NUMVENDA = :numvenda')
+    Left = 144
+    Top = 368
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object qryNFeEmitidaANOVENDA: TSmallintField
+      FieldName = 'ANOVENDA'
+      Origin = 'ANOVENDA'
+    end
+    object qryNFeEmitidaNUMVENDA: TIntegerField
+      FieldName = 'NUMVENDA'
+      Origin = 'NUMVENDA'
+    end
+    object qryNFeEmitidaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object qryNFeEmitidaDATAEMISSAO: TDateField
+      FieldName = 'DATAEMISSAO'
+      Origin = 'DATAEMISSAO'
+    end
+    object qryNFeEmitidaHORAEMISSAO: TTimeField
+      FieldName = 'HORAEMISSAO'
+      Origin = 'HORAEMISSAO'
+    end
+    object qryNFeEmitidaSERIE: TStringField
+      FieldName = 'SERIE'
+      Origin = 'SERIE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 4
+    end
+    object qryNFeEmitidaNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryNFeEmitidaMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryNFeEmitidaVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = 'VERSAO'
+    end
+    object qryNFeEmitidaCHAVE: TStringField
+      FieldName = 'CHAVE'
+      Origin = 'CHAVE'
+      Size = 250
+    end
+    object qryNFeEmitidaPROTOCOLO: TStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'PROTOCOLO'
+      Size = 250
+    end
+    object qryNFeEmitidaRECIBO: TStringField
+      FieldName = 'RECIBO'
+      Origin = 'RECIBO'
+      Size = 250
+    end
+    object qryNFeEmitidaXML_FILENAME: TStringField
+      FieldName = 'XML_FILENAME'
+      Origin = 'XML_FILENAME'
+      Size = 250
+    end
+    object qryNFeEmitidaXML_FILE: TMemoField
+      FieldName = 'XML_FILE'
+      Origin = 'XML_FILE'
+      BlobType = ftMemo
+    end
+    object qryNFeEmitidaLOTE_ANO: TSmallintField
+      FieldName = 'LOTE_ANO'
+      Origin = 'LOTE_ANO'
+    end
+    object qryNFeEmitidaLOTE_NUM: TIntegerField
+      FieldName = 'LOTE_NUM'
+      Origin = 'LOTE_NUM'
+      Required = True
+    end
+  end
+  object qryDadosVolume: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.sequencial'
+      '  , v.numero'
+      '  , v.quantidade'
+      '  , v.especie'
+      '  , v.marca'
+      '  , v.peso_bruto'
+      '  , v.peso_liquido'
+      'from TBVENDAS_VOLUME v'
+      'where v.ano_venda = :anovenda'
+      '  and v.controle_venda = :numvenda')
+    Left = 144
+    Top = 320
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryFormaPagtos: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.formapagto_cod'
+      '  , fp.Descri'
+      '  , fp.Acrescimo'
+      '  , fp.FormaPagto_NFCe'
+      '  , fp.Formapagto_PDV'
+      '  , fp.Formapagto_PDV_Cupom_Extra'
+      '  , v.Condicaopagto_cod'
+      '  , cp.Cond_descricao'
+      '  , cp.Cond_descricao_full'
+      '  , cp.Cond_descricao_pdv'
+      '  , v.Venda_prazo'
+      '  , v.valor_fpagto'
+      '  , v.valor_recebido'
+      '  , v.Prazo_01'
+      '  , v.Prazo_02'
+      '  , v.Prazo_03'
+      '  , v.Prazo_04'
+      '  , v.Prazo_05'
+      '  , v.Prazo_06'
+      '  , v.Prazo_07'
+      '  , v.Prazo_08'
+      '  , v.Prazo_09'
+      '  , v.Prazo_10'
+      '  , v.Prazo_11'
+      '  , v.Prazo_12'
+      ''
+      'from TBVENDAS_FORMAPAGTO v'
+      '  inner join TBFORMPAGTO fp on (fp.Cod = v.Formapagto_cod)'
+      
+        '  inner join VW_CONDICAOPAGTO cp on (cp.Cond_cod = v.Condicaopag' +
+        'to_cod)'
+      'where v.ano_venda      = :anovenda'
+      '  and v.controle_venda = :numvenda')
+    Left = 144
+    Top = 272
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryListaFuncionario: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.codigo'
+      '  , f.nome_completo'
+      '  , f.sexo'
+      '  , f.data_nascimento'
+      '  , f.cpf'
+      
+        '  , trim(coalesce(f.rg_numero, '#39#39') || '#39' '#39' || coalesce(f.rg_orgao' +
+        '_emissor, '#39#39')) as rg'
+      '  , f.ender as endereco'
+      '  , f.numero_end as endereco_num'
+      '  , f.bairro'
+      '  , f.cidade'
+      '  , f.uf'
+      '  , f.cep'
+      '  , f.ativo'
+      'from TBFUNCIONARIO f'
+      ''
+      'order by'
+      '    f.nome_completo')
+    Left = 768
+    Top = 224
+  end
+  object qryDuplicatas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.Anolanc'
+      '  , r.Numlanc'
+      '  , r.Parcela'
+      '  , r.Dtemiss'
+      '  , r.Dtvenc'
+      '  , r.Valorrec'
+      '  , r.Valormulta'
+      '  , r.Percentdesconto'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.historic'
+      '  , r.tippag'
+      '  , r.baixado'
+      '  , r.dtrec '
+      'from TBCONTREC r'
+      'where r.Anovenda = :AnoVenda'
+      '  and r.Numvenda = :NumVenda'
+      'order by'
+      '    r.Parcela')
+    Left = 144
+    Top = 216
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryEntradaDuplicatas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.anolanc'
+      '  , p.numlanc'
+      '  , p.Parcela'
+      '  , p.Dtemiss'
+      '  , p.Dtvenc'
+      '  , p.valorpag'
+      '  , 0.0 as Valormulta'
+      '  , 0.0 as Percentdesconto'
+      'from TBCONTPAG p'
+      'where p.anocompra = :AnoCompra'
+      '  and p.numcompra = :NumCompra'
+      'order by'
+      '    p.Parcela')
+    Left = 224
+    Top = 216
+    ParamData = <
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryDadosProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    i.Ano'
+      '  , i.Codcontrol'
+      '  , i.Seq'
+      '  , i.Codprod'
+      '  , coalesce(p.Codbarra_ean, '#39#39') as Codbarra_ean'
+      '  , p.Descri'
+      '  , coalesce(p.Apresentacao, '#39#39') as Apresentacao'
+      
+        '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
+        'acao'
+      '  , coalesce(p.Modelo, '#39#39') as Modelo'
+      '  , coalesce(p.Anvisa, '#39#39') as Anvisa'
+      '  , coalesce(p.referencia, '#39#39') as Referencia_produto'
+      
+        '  , coalesce(nullif(trim(i.referencia), '#39#39'), nullif(trim(p.refer' +
+        'encia), '#39#39'), '#39#39') as Referencia'
+      '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
+      '  , coalesce(ib.aliqnacional_ibpt, 0.0)      as Ncm_aliquota_nac'
+      '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
+      '  , coalesce(ib.aliqestadual_ibpt, 0.0)      as Ncm_aliquota_est'
+      '  , coalesce(ib.aliqmunicipal_ibpt, 0.0)     as Ncm_aliquota_mun'
+      '  , p.Codtipo'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , p.Cst_pis'
+      '  , p.Cst_cofins'
+      '  , coalesce(ps.Indice_acbr, 32) as Cst_pis_indice_ACBr'
+      '  , coalesce(cs.Indice_acbr, 32) as Cst_cofins_indice_ACBr'
+      '  , i.Codemp'
+      '  , i.Codcli'
+      '  , i.Dtvenda'
+      '  , i.Qtde'
+      '  , i.Punit'
+      '  , i.Punit_promocao'
+      '  , i.Desconto'
+      '  , i.Desconto_valor'
+      '  , i.Pfinal'
+      '  , i.Qtdefinal'
+      '  , i.Unid_cod'
+      '  , u.Unp_descricao'
+      '  , u.Unp_sigla'
+      '  , i.Cfop_cod'
+      '  , coalesce(nullif(trim(i.cst), '#39#39'), p.Cst) as Cst'
+      '  , coalesce(nullif(trim(i.Csosn), '#39#39'), p.Csosn) as Csosn'
+      '  , i.Aliquota'
+      '  , i.Aliquota_csosn'
+      '  , coalesce(i.Aliquota_pis, 0.0) as Aliquota_pis'
+      '  , coalesce(i.Aliquota_cofins, 0.0) as Aliquota_cofins'
+      '  , i.Valor_ipi'
+      
+        '  , coalesce(i.Percentual_reducao_bc, 0.0) as Percentual_reducao' +
+        '_bc'
+      
+        '  , coalesce(i.Pfinal, 0) * coalesce(i.Percentual_reducao_bc, 0.' +
+        '0) / 100 as valor_reducao_bc'
+      
+        '  , coalesce(i.Total_liquido, 0) * coalesce(i.Percentual_reducao' +
+        '_bc, 0.0) / 100 as total_reducao_bc'
+      '  , i.Total_bruto'
+      '  , i.Total_desconto'
+      '  , i.Total_liquido'
+      '  , p.Qtde as Estoque'
+      '  , p.estoque_aprop_lote'
+      '  , p.Reserva'
+      '  , p.Produto_novo'
+      '  , coalesce(p.Cor_veiculo, '#39#39') as Cor_veiculo'
+      '  , coalesce(cr.Descricao, '#39#39') as Cor_veiculo_descricao'
+      '  , coalesce(p.Combustivel_veiculo, '#39#39') as Combustivel_veiculo'
+      '  , coalesce(cb.Descricao, '#39#39') as Combustivel_veiculo_descricao'
+      
+        '  , coalesce(p.Ano_fabricacao_veiculo, 0) as Ano_fabricacao_veic' +
+        'ulo'
+      '  , coalesce(p.Ano_modelo_veiculo, 0) as Ano_modelo_veiculo'
+      
+        '  , p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_veiculo as a' +
+        'no_fab_modelo_veiculo'
+      '  , p.Tipo_veiculo'
+      '  , tv.Descricao as Tipo_veiculo_descricao'
+      '  , p.Renavam_veiculo'
+      '  , p.Chassi_veiculo'
+      '  , p.Kilometragem_veiculo'
+      '  , coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0) as Disponivel'
+      '  , i.lote_id'
+      '  , lt.descricao       as lote'
+      '  , lt.data_fabricacao as lote_fabricacao'
+      '  , lt.data_validade   as lote_validade'
+      'from TVENDASITENS i'
+      '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
+      '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.Unid_cod)'
+      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
+      
+        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
+        'veiculo)'
+      
+        '  left join RENAVAM_TIPOVEICULO tv on (tv.Codigo = p.Tipo_veicul' +
+        'o)'
+      '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
+      '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
+      
+        '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
+        'ivo = 1)'
+      '  left join TBESTOQUE_ALMOX lt on (lt.id = i.lote_id)'
+      ''
+      'where i.Ano = :anovenda'
+      '  and i.Codcontrol = :numvenda'
+      ''
+      'order by'
+      '    i.Ano'
+      '  , i.Codcontrol'
+      '  , i.Seq')
+    Left = 144
+    Top = 168
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryEntradaDadosProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    i.Ano'
+      '  , i.Codcontrol'
+      '  , i.Seq'
+      '  , i.Codprod'
+      '  , p.Codbarra_ean'
+      '  , p.Descri'
+      '  , p.Apresentacao'
+      
+        '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
+        'acao'
+      '  , p.Modelo'
+      '  , coalesce(p.Anvisa, '#39#39') as Anvisa'
+      '  , p.Referencia'
+      '  , coalesce(trim(p.ncm_sh), '#39'00000000'#39')     as Ncm_sh'
+      '  , coalesce(ib.aliqnacional_ibpt,      0.0) as Ncm_aliquota_nac'
+      '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
+      '  , coalesce(ib.aliqestadual_ibpt,      0.0) as Ncm_aliquota_est'
+      '  , coalesce(ib.aliqmunicipal_ibpt,     0.0) as Ncm_aliquota_mun'
+      '  , p.Codtipo'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , coalesce(nullif(trim(i.cst), '#39#39'), p.Cst) as Cst'
+      '  , coalesce(nullif(trim(i.Csosn), '#39#39'), p.Csosn) as Csosn'
+      '  , p.Cst_pis'
+      '  , p.Cst_cofins'
+      '  , coalesce(ps.Indice_acbr, 32) as Cst_pis_indice_ACBr'
+      '  , coalesce(cs.Indice_acbr, 32) as Cst_cofins_indice_ACBr'
+      '  , i.Codemp'
+      '  , i.codforn'
+      '  , f.cnpj as codforn_cnpj'
+      '  , i.dtent'
+      '  , i.Qtde'
+      
+        '--  , ( coalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0' +
+        ') / coalesce(i.Qtde, 1)) ) as PUNIT'
+      '  , i.precounit as PUNIT'
+      
+        '  , ( (coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1)) / (c' +
+        'oalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0) / coale' +
+        'sce(i.Qtde, 1))) * 100 ) as Desconto'
+      
+        '  , ( coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1) ) as d' +
+        'esconto_valor'
+      '  , i.customedio as PFINAL'
+      '  , i.Qtdefinal'
+      '  , i.Unid_cod'
+      '  , u.Unp_descricao'
+      '  , u.Unp_sigla'
+      '  , i.Cfop as Cfop_cod'
+      '  , i.Aliquota'
+      '  , i.Aliquota_csosn'
+      '  , coalesce(i.Aliquota_pis, 0.0) as Aliquota_pis'
+      '  , coalesce(i.Aliquota_cofins, 0.0) as Aliquota_cofins'
+      '  , i.Valor_ipi'
+      
+        '  , coalesce(i.Percentual_reducao_bc, 0.0) as Percentual_reducao' +
+        '_bc'
+      
+        '  , coalesce(i.customedio, 0) * coalesce(i.Percentual_reducao_bc' +
+        ', 0.0) / 100 as valor_reducao_bc'
+      
+        '  , coalesce(i.Total_liquido, 0) * coalesce(i.Percentual_reducao' +
+        '_bc, 0.0) / 100 as total_reducao_bc'
+      '  , i.Total_Bruto'
+      '  , i.valor_desconto as Total_desconto'
+      '  , i.Total_liquido'
+      '  , p.Qtde as Estoque'
+      '  , p.estoque_aprop_lote'
+      '  , p.Reserva'
+      '  , p.Produto_novo'
+      '  , p.Cor_veiculo'
+      '  , cr.Descricao as Cor_veiculo_descricao'
+      '  , p.Combustivel_veiculo'
+      '  , cb.Descricao as Combustivel_veiculo_descricao'
+      '  , p.Ano_fabricacao_veiculo'
+      '  , p.Ano_modelo_veiculo'
+      
+        '  , p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_veiculo as a' +
+        'no_fab_modelo_veiculo'
+      '  , p.Tipo_veiculo'
+      '  , tv.Descricao as Tipo_veiculo_descricao'
+      '  , p.Renavam_veiculo'
+      '  , p.Chassi_veiculo'
+      '  , p.Kilometragem_veiculo'
+      '  , coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0) as Disponivel'
+      '  , i.lote_id'
+      '  , i.lote_descricao as lote'
+      '  , i.lote_data_fab  as lote_fabricacao'
+      '  , i.lote_data_val  as lote_validade'
+      'from TBCOMPRASITENS i'
+      '  inner join TBPRODUTO p on (p.Cod = i.codprod)'
+      '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.unid_cod)'
+      '  inner join TBFORNECEDOR f on (f.codforn = i.codforn)'
+      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
+      
+        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
+        'veiculo)'
+      
+        '  left join RENAVAM_TIPOVEICULO tv on (tv.Codigo = p.Tipo_veicul' +
+        'o)'
+      '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
+      '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
+      
+        '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
+        'ivo = 1)'
+      ''
+      'where i.Ano = :anoCompra'
+      '  and i.Codcontrol = :numCompra'
+      ''
+      'order by '
+      '    i.Ano'
+      '  , i.Codcontrol'
+      '  , i.Seq')
+    Left = 224
+    Top = 168
+    ParamData = <
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryNFCDadosProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    i.Ano'
+      '  , i.Codcontrol'
+      '  , i.Seq'
+      '  , i.Codprod'
+      '  , p.Codbarra_ean'
+      '  , p.Descri'
+      '  , p.Apresentacao'
+      
+        '  , coalesce(p.Descri_apresentacao, p.Descri) as Descri_apresent' +
+        'acao'
+      '  , p.Modelo'
+      '  , p.Referencia'
+      '  , p.Ncm_sh'
+      '--  , ib.ncm_aliquota_nac as Ncm_aliquota_nac'
+      '--  , ib.ncm_aliquota_imp as Ncm_aliquota_imp'
+      '  , coalesce(ib.aliqnacional_ibpt,      0.0) as Ncm_aliquota_nac'
+      '  , coalesce(ib.aliqinternacional_ibpt, 0.0) as Ncm_aliquota_imp'
+      '  , coalesce(ib.aliqestadual_ibpt,      0.0) as Ncm_aliquota_est'
+      '  , coalesce(ib.aliqmunicipal_ibpt,     0.0) as Ncm_aliquota_mun'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , p.Cst'
+      '  , p.Csosn'
+      '  , p.Cst_pis'
+      '  , p.Cst_cofins'
+      '  , coalesce(ps.Indice_acbr, 32) as Cst_pis_indice_ACBr'
+      '  , coalesce(cs.Indice_acbr, 32) as Cst_cofins_indice_ACBr'
+      '  , i.Codemp'
+      '  , i.codforn'
+      '  , f.cnpj as codforn_cnpj'
+      '  , i.dtent'
+      '  , i.Qtde'
+      
+        '--  , ( coalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0' +
+        ') / coalesce(i.Qtde, 1)) ) as PUNIT'
+      '  , i.precounit as PUNIT'
+      
+        '  , ( (coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1)) / (c' +
+        'oalesce(i.precounit, 0) + (coalesce(i.valor_desconto, 0) / coale' +
+        'sce(i.Qtde, 1))) * 100 ) as Desconto'
+      
+        '  , ( coalesce(i.valor_desconto, 0) / coalesce(i.Qtde, 1) ) as d' +
+        'esconto_valor'
+      '  , i.customedio as PFINAL'
+      '  , i.Qtdefinal'
+      '  , i.Unid_cod'
+      '  , u.Unp_descricao'
+      '  , u.Unp_sigla'
+      '  , i.Cfop as Cfop_cod'
+      '  , i.Aliquota'
+      '  , i.Aliquota_csosn'
+      '  , coalesce(i.Aliquota_pis, 0.0) as Aliquota_pis'
+      '  , coalesce(i.Aliquota_cofins, 0.0) as Aliquota_cofins'
+      '  , i.Valor_ipi'
+      
+        '  , coalesce(i.Percentual_reducao_bc, 0.0) as Percentual_reducao' +
+        '_bc'
+      
+        '  , coalesce(i.customedio, 0) * coalesce(i.Percentual_reducao_bc' +
+        ', 0.0) / 100 as valor_reducao_bc'
+      
+        '--  , (i.Qtde * coalesce(i.precounit, 0)) + i.valor_desconto as ' +
+        'Total_bruto'
+      '  , i.Qtde * i.precounit as Total_Bruto'
+      '  , i.Qtde * i.customedio as Total_liquido'
+      '  , i.valor_desconto as Total_desconto'
+      '  , p.Qtde as Estoque'
+      '  , p.Reserva'
+      '  , p.Produto_novo'
+      '  , p.Cor_veiculo'
+      '  , cr.Descricao as Cor_veiculo_descricao'
+      '  , p.Combustivel_veiculo'
+      '  , cb.Descricao as Combustivel_veiculo_descricao'
+      '  , p.Ano_fabricacao_veiculo'
+      '  , p.Ano_modelo_veiculo'
+      
+        '  , p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_veiculo as a' +
+        'no_fab_modelo_veiculo'
+      '  , p.Tipo_veiculo'
+      '  , tv.Descricao as Tipo_veiculo_descricao'
+      '  , p.Renavam_veiculo'
+      '  , p.Chassi_veiculo'
+      '  , p.Kilometragem_veiculo'
+      '  , coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0) as Disponivel'
+      'from TBCOMPRASITENS i'
+      '  inner join TBPRODUTO p on (p.Cod = i.codprod)'
+      '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.unid_cod)'
+      '  inner join TBFORNECEDOR f on (f.codforn = i.codforn)'
+      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
+      
+        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
+        'veiculo)'
+      
+        '  left join RENAVAM_TIPOVEICULO tv on (tv.Codigo = p.Tipo_veicul' +
+        'o)'
+      '  left join TBCST_PIS ps on (ps.Codigo = p.Cst_pis)'
+      '  left join TBCST_COFINS cs on (cs.Codigo = p.Cst_cofins)'
+      
+        '--  left join VW_TABELA_IBPT ib on (ib.ncm_sh = coalesce(nullif(' +
+        'trim(p.ncm_sh), '#39'00000000'#39'), '#39'10203000'#39'))'
+      '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt)'
+      ''
+      'where i.Ano = :anoCompra'
+      '  and i.Codcontrol = :numCompra'
+      ''
+      'order by '
+      '    i.Ano'
+      '  , i.Codcontrol'
+      '  , i.Seq')
+    Left = 304
+    Top = 168
+    ParamData = <
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryRequisicaoCliente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.numero'
+      '  , r.situacao'
+      '  , case r.situacao'
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Autorizada'#39
+      '      when 3 then '#39'Fechada'#39
+      '      when 4 then '#39'Cancelada'#39
+      '    end as situacao_desc'
+      '  , r.codempresa'
+      '  , r.codcliente'
+      '  , r.data_movimento'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = r.insercao_usuario) as insercao_usuario'
+      
+        '  , (Select first 1 us.nomecompleto from TBUSERS us where us.nom' +
+        'e = r.autorizacao_usuario) as autorizacao_usuario'
+      '  , r.recebedor_nome'
+      '  , r.recebedor_rg'
+      '  , r.observacoes'
+      '  , i.item'
+      '  , i.codproduto'
+      '  , p.descri'
+      '  , p.referencia'
+      '  , i.quantidade'
+      
+        '  , coalesce(nullif(Trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      '  , i.valor_medio'
+      '  , (i.quantidade * i.valor_medio) as total_medio'
+      'from TBCLIENTE_REQUISICAO r'
+      
+        '  inner join TBCLIENTE_REQUISICAO_ITEM i on (i.ano = r.ano and i' +
+        '.numero = r.numero)'
+      '  inner join TBPRODUTO p on (p.cod = i.codproduto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      ''
+      'where r.ano    = :ano'
+      '  and r.numero = :num'
+      '')
+    Left = 312
+    Top = 448
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUM'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryVendaCartaCredito: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cod_cliente'
+      '  , e.cod_produto'
+      '  , e.quantidade'
+      '  , e.valor_medio'
+      '  , e.quantidade * e.valor_medio as total_medio'
+      '  , e.usuario'
+      '  , e.ano_venda_ult'
+      '  , e.cod_venda_ult'
+      ''
+      '  , p.Descri'
+      '  , p.Apresentacao'
+      '  , p.Descri_apresentacao'
+      '  , p.Modelo'
+      '  , p.Referencia'
+      '  , p.Secao'
+      '  , p.Preco'
+      '  , p.Unidade'
+      '  , g.Descri as Descricao_Grupo'
+      '  , f.Nome   as Nome_Fabricante'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      'from TBCLIENTE_ESTOQUE e'
+      '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
+      ''
+      'where e.ano_venda_ult = :anovenda'
+      '  and e.cod_venda_ult = :numvenda'
+      '  and e.quantidade > 0'
+      ''
+      'order by'
+      '    p.Descri'
+      '  , p.Apresentacao'
+      '  , p.Descri_apresentacao')
+    Left = 312
+    Top = 496
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryDestinatario: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Codigo'
+      '  , c.Pessoa_fisica'
+      '  , c.Cnpj'
+      '  , c.Nome'
+      '  , coalesce(nullif(trim(c.NomeFant), '#39#39'), c.Nome) as NomeFant'
+      '  , c.Inscest'
+      '  , c.Inscmun'
+      ''
+      '  , coalesce(c.Fone, '#39#39') as Fone'
+      '  , coalesce(c.fonecel, '#39#39') as fonecel'
+      '  , coalesce(c.fonecomerc, '#39#39') as fonecomerc'
+      
+        '  , coalesce(c.Fone || '#39' / '#39', '#39#39') || coalesce(c.fonecel || '#39' / '#39 +
+        ', '#39#39') || coalesce(c.fonecomerc || '#39#39', '#39#39') as fones'
+      '  , coalesce(c.Email, '#39#39') as Email'
+      '  , coalesce(c.Site, '#39#39') as Site'
+      ''
+      '  , c.Tlg_tipo'
+      '  , tl.Tlg_descricao'
+      '  , tl.Tlg_sigla'
+      '  , c.Log_cod'
+      '  , lg.Log_nome'
+      '  , coalesce(c.Complemento, '#39#39') as Complemento'
+      '  , c.Numero_end'
+      '  , c.Cep'
+      ''
+      '  , c.Bai_cod'
+      '  , br.Bai_nome'
+      ''
+      '  , c.Cid_cod'
+      '  , cd.Cid_nome'
+      '  , cd.Cid_siafi'
+      '  , cd.Cid_ibge'
+      '  , cd.Cid_ddd'
+      ''
+      '  , c.Est_cod'
+      '  , uf.Est_nome'
+      '  , uf.Est_sigla'
+      '  , uf.Est_siafi'
+      ''
+      '  , c.Pais_id'
+      '  , pa.Pais_nome'
+      'from TBCLIENTE c'
+      '  left join TBESTADO uf on (uf.Est_cod = c.Est_cod)'
+      '  left join TBCIDADE cd on (cd.Cid_cod = c.Cid_cod)'
+      '  left join TBBAIRRO br on (br.Bai_cod = c.Bai_cod)'
+      '  left join TBLOGRADOURO lg on (lg.Log_cod = c.Log_cod)'
+      '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = c.Tlg_tipo)'
+      '  left Join TBPAIS pa on (pa.Pais_id = c.Pais_id)'
+      ''
+      'where c.Codigo = :Codigo')
+    Left = 144
+    Top = 72
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object qryFornecedorDestinatario: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.codforn as Codigo'
+      '  , f.pessoa_fisica'
+      '  , f.cnpj'
+      '  , f.nomeforn as Nome'
+      '  , f.inscest'
+      '  , f.inscmun'
+      ''
+      '  , f.fone'
+      '  , f.email'
+      '  , f.site'
+      ''
+      '  , f.tlg_tipo'
+      '  , tl.Tlg_descricao'
+      '  , tl.Tlg_sigla'
+      '  , f.log_cod'
+      '  , lg.Log_nome'
+      '  , f.complemento'
+      '  , f.numero_end'
+      '  , f.cep'
+      ''
+      '  , f.bai_cod'
+      '  , br.Bai_nome'
+      ''
+      '  , f.cid_cod'
+      '  , cd.Cid_nome'
+      '  , cd.Cid_siafi'
+      '  , cd.Cid_ibge'
+      '  , cd.Cid_ddd'
+      ''
+      '  , f.est_cod'
+      '  , uf.Est_nome'
+      '  , uf.Est_sigla'
+      '  , uf.Est_siafi'
+      ''
+      '  , f.pais_id'
+      '  , pa.Pais_nome'
+      'from TBFORNECEDOR f'
+      '  left join TBESTADO uf on (uf.Est_cod = f.Est_cod)'
+      '  left join TBCIDADE cd on (cd.Cid_cod = f.Cid_cod)'
+      '  left join TBBAIRRO br on (br.Bai_cod = f.Bai_cod)'
+      '  left join TBLOGRADOURO lg on (lg.Log_cod = f.Log_cod)'
+      '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = f.Tlg_tipo)'
+      '  left Join TBPAIS pa on (pa.Pais_id = f.Pais_id)'
+      'where f.Codforn = :Codigo')
+    Left = 224
+    Top = 72
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object qryNFCDestinatario: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    coalesce(f.codforn, c.codigo) as Codigo'
+      '  , coalesce(f.pessoa_fisica, c.pessoa_fisica) as pessoa_fisica'
+      '  , coalesce(f.cnpj, c.cnpj) as cnpj'
+      '  , coalesce(f.nomeforn, c.nome) as Nome'
+      '  , coalesce(f.inscest, c.inscest) as inscest'
+      '  , coalesce(f.inscmun, c.inscmun) as inscmun'
+      ''
+      '  , coalesce(f.fone, c.fone) as fone'
+      '  , coalesce(f.email, c.email) as email'
+      '  , coalesce(f.site, c.site) as site'
+      ''
+      '  , coalesce(f.tlg_tipo, c.tlg_tipo) as tlg_tipo'
+      '  , tl.Tlg_descricao'
+      '  , tl.Tlg_sigla'
+      '  , coalesce(f.log_cod, c.log_cod) as log_cod'
+      '  , lg.Log_nome'
+      '  , coalesce(f.complemento, c.complemento) as complemento'
+      '  , coalesce(f.numero_end, c.numero_end) as numero_end'
+      '  , coalesce(f.cep, c.cep) as cep'
+      ''
+      '  , coalesce(f.bai_cod, c.bai_cod) as bai_cod'
+      '  , br.Bai_nome'
+      ''
+      '  , coalesce(f.cid_cod, c.cid_cod) as cid_cod'
+      '  , cd.Cid_nome'
+      '  , cd.Cid_siafi'
+      '  , cd.Cid_ibge'
+      '  , cd.Cid_ddd'
+      ''
+      '  , coalesce(f.est_cod, c.est_cod) as est_cod'
+      '  , uf.Est_nome'
+      '  , uf.Est_sigla'
+      '  , uf.Est_siafi'
+      ''
+      '  , coalesce(f.pais_id, c.pais_id) as pais_id'
+      '  , pa.Pais_nome'
+      'from TBNFE_COMPLEMENTAR n'
+      '  left join TBFORNECEDOR f on (f.codforn = n.fornecedor)'
+      '  left join TBCLIENTE c on (c.codigo = n.cliente)'
+      ''
+      
+        '  left join TBESTADO uf on (uf.Est_cod = coalesce(f.Est_cod, c.e' +
+        'st_cod))'
+      
+        '  left join TBCIDADE cd on (cd.Cid_cod = coalesce(f.Cid_cod, c.c' +
+        'id_cod))'
+      
+        '  left join TBBAIRRO br on (br.Bai_cod = coalesce(f.Bai_cod, c.b' +
+        'ai_cod))'
+      
+        '  left join TBLOGRADOURO lg on (lg.Log_cod = coalesce(f.Log_cod,' +
+        ' c.log_cod))'
+      
+        '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = coalesce(f.Tlg' +
+        '_tipo, c.tlg_tipo))'
+      
+        '  left join TBPAIS pa on (pa.Pais_id = coalesce(f.Pais_id, c.pai' +
+        's_id))'
+      ''
+      'where n.nfc_numero  = :numero'
+      '  and n.nfc_empresa = :empresa')
+    Left = 304
+    Top = 72
+    ParamData = <
+      item
+        Name = 'NUMERO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
+  end
+  object qryCalculoImposto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.Ano'
+      '  , v.Codcontrol'
+      '  , v.Codemp'
+      '  , v.Codcli'
+      '  , v.Dtvenda'
+      '  , v.Status'
+      '  , v.totalvenda_bruta as TotalvendaBruta'
+      '  , v.Desconto'
+      '  , v.Desconto_Cupom'
+      '  , v.Totalvenda'
+      '  , v.Dtfinalizacao_venda'
+      '  , v.Obs'
+      '  , v.Dados_entrega'
+      '  , v.Serie'
+      '  , v.Nfe'
+      '  , coalesce(v.Modelo_Nf, 0) as Modelo_Nf'
+      '  , v.Lote_nfe_ano'
+      '  , v.Lote_nfe_numero'
+      '  , v.Nfe_enviada'
+      '  , v.Dataemissao'
+      '  , v.Horaemissao'
+      '  , v.Cancel_usuario'
+      '  , v.Cancel_datahora'
+      '  , v.Cancel_motivo'
+      '  , v.Cfop'
+      '  , cf.Cfop_descricao'
+      '  , cf.cfop_informacao_fisco'
+      '  , cf.Cfop_devolucao'
+      '  , v.Verificador_nfe'
+      '  , v.Xml_nfe_filename'
+      '  , v.Xml_nfe'
+      '  , v.Vendedor_cod'
+      '  , vd.Nome as vendedor_nome'
+      '  , vd.Cpf as vendedor_cpf'
+      '  , v.Usuario'
+      ''
+      '  , ('
+      '    Select list(fp.descri)'
+      '    from TBVENDAS_FORMAPAGTO x'
+      '      inner join TBFORMPAGTO fp on (fp.cod = x.formapagto_cod)'
+      '    where x.ano_venda = v.ano'
+      '      and x.controle_venda = v.codcontrol'
+      '    ) as lista_forma_pago'
+      ''
+      '  , ('
+      '    Select list(cp.cond_descricao)'
+      '    from TBVENDAS_FORMAPAGTO y'
+      
+        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
+        'opagto_cod)'
+      '    where y.ano_venda = v.ano'
+      '      and y.controle_venda = v.codcontrol'
+      '    ) as lista_cond_pago'
+      ''
+      '  , ('
+      
+        '    Select list(case when y.venda_prazo = 1 then cp.cond_descric' +
+        'ao_full else cp.cond_descricao end)'
+      '    from TBVENDAS_FORMAPAGTO y'
+      
+        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
+        'opagto_cod)'
+      '    where y.ano_venda = v.ano'
+      '      and y.controle_venda = v.codcontrol'
+      '    ) as lista_cond_pago_full'
+      ''
+      '  , v.Venda_prazo'
+      '  , v.Nfe_valor_base_icms'
+      '  , v.Nfe_valor_icms'
+      '  , v.Nfe_valor_base_icms_subst'
+      '  , v.Nfe_valor_icms_subst'
+      '  , v.Nfe_valor_total_produto'
+      '  , v.Nfe_valor_frete'
+      '  , v.Nfe_valor_seguro'
+      '  , v.Nfe_valor_desconto'
+      '  , v.Nfe_valor_total_ii'
+      '  , v.Nfe_valor_total_ipi'
+      '  , v.Nfe_valor_pis'
+      '  , v.Nfe_valor_cofins'
+      '  , v.Nfe_valor_outros'
+      '  , v.Nfe_valor_total_nota'
+      ''
+      '  , v.nfe_modalidade_frete'
+      '  , v.nfe_transportadora'
+      '  , tr.nomeforn as nfe_transportadora_nome'
+      '  , tr.cnpj     as nfe_transportadora_cnpj'
+      '  , tr.inscest  as nfe_transportadora_iest'
+      '  , tr.ender    as nfe_transportadora_ender'
+      '  , tc.cid_nome as nfe_transportadora_cidade'
+      '  , tr.uf       as nfe_transportadora_uf'
+      '  , v.nfe_placa_veiculo'
+      '  , v.nfe_placa_uf'
+      '  , v.nfe_placa_rntc'
+      ''
+      '  , v.dnfe_compra_ano'
+      '  , v.dnfe_compra_cod'
+      '  , v.dnfe_forma'
+      '  , v.dnfe_chave'
+      '  , v.dnfe_uf'
+      '  , v.dnfe_cnpj_cpf'
+      '  , v.dnfe_ie'
+      '  , v.dnfe_competencia'
+      '  , v.dnfe_serie'
+      '  , v.dnfe_numero'
+      '  , v.dnfe_modelo'
+      '  , v.decf_modelo'
+      '  , v.decf_numero'
+      '  , v.decf_coo'
+      ''
+      'from TBVENDAS v'
+      '  inner join TBCFOP cf on (cf.Cfop_cod = v.Cfop)'
+      '  inner join TBVENDEDOR vd on (vd.Cod = v.Vendedor_cod)'
+      
+        '  left join TBFORNECEDOR tr on (tr.codforn = v.nfe_transportador' +
+        'a)'
+      '  left join TBCIDADE tc on (tc.cid_cod = tr.cid_cod)'
+      ''
+      'where v.Ano = :anovenda'
+      '  and v.Codcontrol = :numvenda'
+      '')
+    Left = 144
+    Top = 120
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryEntradaCalculoImposto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Ano'
+      '  , c.Codcontrol'
+      '  , c.Codemp'
+      '  , c.codforn'
+      '  , f.cnpj as codforn_cnpj'
+      '  , c.dtent'
+      '  , c.status'
+      '  , c.desconto'
+      '  , c.dtfinalizacao_compra'
+      '  , c.obs'
+      '  , c.nfserie as Serie'
+      '  , c.nf'
+      '  , c.Lote_nfe_ano'
+      '  , c.Lote_nfe_numero'
+      '  , c.Nfe_enviada'
+      '  , c.dtemiss as Dataemissao'
+      '  , c.hremiss as Horaemissao'
+      '  , c.Cancel_usuario'
+      '  , c.Cancel_datahora'
+      '  , c.Cancel_motivo'
+      '  , c.nfcfop as Cfop'
+      '  , cf.Cfop_descricao'
+      '  , cf.cfop_informacao_fisco'
+      '  , cf.cfop_devolucao'
+      '  , c.Verificador_nfe'
+      '  , c.Xml_nfe_filename'
+      '  , c.Xml_nfe'
+      '  , c.Usuario'
+      '  , usr.nome_completo  as usuario_nome_completo'
+      '  , usr.funcao_usuario as usuario_funcao'
+      ''
+      '  , fp.descri as forma_pago'
+      '  , cp.cond_descricao as cond_pago'
+      '  , cp.cond_descricao_full as cond_pago_full'
+      ''
+      '  , c.compra_prazo'
+      '  , c.icmsbase  as Nfe_valor_base_icms'
+      '  , c.icmsvalor as Nfe_valor_icms'
+      '  , c.icmssubstbase  as Nfe_valor_base_icms_subst'
+      '  , c.icmssubstvalor as Nfe_valor_icms_subst'
+      '  , c.totalprod   as Nfe_valor_total_produto'
+      '  , c.frete       as Nfe_valor_frete'
+      '  , c.valorseguro as Nfe_valor_seguro'
+      '  , c.desconto    as Nfe_valor_desconto'
+      '  , c.valortotal_ii  as Nfe_valor_total_ii'
+      '  , c.valortotal_ipi as Nfe_valor_total_ipi'
+      '  , c.valorpis     as Nfe_valor_pis'
+      '  , c.valorcofins  as Nfe_valor_cofins'
+      '  , c.outroscustos as Nfe_valor_outros'
+      '  , c.totalnf      as Nfe_valor_total_nota'
+      ''
+      '  , c.dnfe_entrada_ano'
+      '  , c.dnfe_entrada_cod'
+      '  , c.dnfe_forma'
+      '  , c.dnfe_chave'
+      '  , c.dnfe_uf'
+      '  , c.dnfe_cnpj_cpf'
+      '  , c.dnfe_ie'
+      '  , c.dnfe_competencia'
+      '  , c.dnfe_serie'
+      '  , c.dnfe_numero'
+      '  , c.dnfe_modelo'
+      '  , c.decf_modelo'
+      '  , c.decf_numero'
+      '  , c.decf_coo'
+      ''
+      'from TBCOMPRAS c'
+      '  inner join TBCFOP cf on (cf.Cfop_cod = c.nfcfop)'
+      '  inner join TBFORMPAGTO fp on (fp.cod = c.formapagto_cod)'
+      
+        '  inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicaopag' +
+        'to_cod)'
+      '  inner join TBFORNECEDOR f on (f.codforn = c.codforn)'
+      '  left join ('
+      '    Select'
+      '        cast(u.nome as varchar(50)) as Usuario'
+      '      , u.nomecompleto as nome_completo'
+      '      , fu.funcao as funcao_usuario'
+      '    from TBUSERS u'
+      '      left join TBFUNCAO fu on (fu.cod = u.codfuncao)'
+      '  ) usr on (usr.usuario = c.usuario)'
+      'where c.ano = :anocompra'
+      '  and c.codcontrol = :numcompra')
+    Left = 224
+    Top = 120
+    ParamData = <
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryNFCCalculoImposto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    n.nfc_numero'
+      '  , n.nfc_empresa'
+      '  , n.nfc_tipo'
+      '  , coalesce(v.Ano, c.ano) as ano'
+      '  , coalesce(v.Codcontrol, c.Codcontrol) as Codcontrol'
+      '  , coalesce(v.Codemp, c.Codemp) as Codemp'
+      '  , coalesce(n.cliente, n.fornecedor) as Destinatario_Codigo'
+      '  , n.nfc_data'
+      '  , n.nfc_hora'
+      '  , n.nfc_emissao'
+      '  , n.nfc_emissor'
+      '  , n.nfc_texto as Obs'
+      '  , n.serie'
+      '  , n.numero'
+      '  , n.recibo'
+      '  , n.nfc_enviada'
+      '  , n.cancelada'
+      '  , n.cancelada_usuario'
+      '  , n.cancelada_datahora'
+      '  , n.cancelada_motivo'
+      '  , coalesce(v.Cfop, c.nfcfop) as Cfop'
+      '  , cf.Cfop_descricao'
+      '  , cf.cfop_informacao_fisco'
+      '  , cf.Cfop_devolucao'
+      '  , ne.chave        as Verificador_nfe'
+      '  , nc.protocolo    as protocolo_nfe'
+      '  , nc.xml_filename as xml_nfe_filename'
+      '  , nc.xml_file     as xml_nfe'
+      '  , n.nfc_emissor   as Usuario'
+      '  , un.nomecompleto as Usuario_nome_completo'
+      ''
+      '  , ('
+      '    Select list(fp.descri)'
+      '    from TBVENDAS_FORMAPAGTO x'
+      '      inner join TBFORMPAGTO fp on (fp.cod = x.formapagto_cod)'
+      '    where x.ano_venda = v.ano'
+      '      and x.controle_venda = v.codcontrol'
+      '    ) as lista_forma_pago'
+      ''
+      '  , ('
+      '    Select list(cp.cond_descricao)'
+      '    from TBVENDAS_FORMAPAGTO y'
+      
+        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
+        'opagto_cod)'
+      '    where y.ano_venda = v.ano'
+      '      and y.controle_venda = v.codcontrol'
+      '    ) as lista_cond_pago'
+      ''
+      '  , ('
+      
+        '    Select list(case when y.venda_prazo = 1 then cp.cond_descric' +
+        'ao_full else cp.cond_descricao end)'
+      '    from TBVENDAS_FORMAPAGTO y'
+      
+        '      inner join VW_CONDICAOPAGTO cp on (cp.cond_cod = y.condica' +
+        'opagto_cod)'
+      '    where y.ano_venda = v.ano'
+      '      and y.controle_venda = v.codcontrol'
+      '    ) as lista_cond_pago_full'
+      ''
+      '  , 0 as Venda_prazo'
+      '  , n.Nfc_valor_base_icms'
+      '  , n.Nfc_valor_icms'
+      '  , n.Nfc_valor_base_icms_subst'
+      '  , n.Nfc_valor_icms_subst'
+      '  , n.Nfc_valor_total_produto'
+      '  , n.Nfc_valor_frete'
+      '  , n.Nfc_valor_seguro'
+      '  , n.Nfc_valor_desconto'
+      '  , n.Nfc_valor_total_ii'
+      '  , n.Nfc_valor_total_ipi'
+      '  , n.Nfc_valor_pis'
+      '  , n.Nfc_valor_cofins'
+      '  , n.Nfc_valor_outros'
+      '  , n.Nfc_valor_total_nota'
+      ''
+      '  , v.nfe_modalidade_frete'
+      '  , v.nfe_transportadora'
+      '  , tr.nomeforn as nfe_transportadora_nome'
+      '  , tr.cnpj     as nfe_transportadora_cnpj'
+      '  , tr.inscest  as nfe_transportadora_iest'
+      '  , tr.ender    as nfe_transportadora_ender'
+      '  , tc.cid_nome as nfe_transportadora_cidade'
+      '  , tr.uf       as nfe_transportadora_uf'
+      '  , v.nfe_placa_veiculo'
+      '  , v.nfe_placa_uf'
+      '  , v.nfe_placa_rntc'
+      ''
+      '  -- Nota Referenciada'
+      '  , 0 as dnfe_forma'
+      '  , ne.chave     as dnfe_chave'
+      '  , ne.protocolo as dnfe_uf'
+      '  , ne.serie     as dnfe_serie'
+      '  , ne.numero    as dnfe_numero'
+      '  , ne.modelo    as dnfe_modelo'
+      ''
+      'from TBNFE_COMPLEMENTAR n'
+      
+        '  inner join TBNFE_ENVIADA ne on (ne.empresa = n.nfc_empresa and' +
+        ' ne.serie = n.nfe_serie and ne.numero = n.nfe_numero and ne.mode' +
+        'lo = n.nfe_modelo)'
+      ''
+      
+        '  left join TBVENDAS v on (v.ano = ne.anovenda and v.codcontrol ' +
+        '= ne.numvenda and v.codemp = ne.empresa)'
+      
+        '  left join TBCOMPRAS c on (c.ano = ne.anocompra and c.codcontro' +
+        'l = ne.numcompra and c.codemp = ne.empresa)'
+      ''
+      
+        '  left join TBCFOP cf on (cf.Cfop_cod = coalesce(v.Cfop, c.nfcfo' +
+        'p))'
+      '  left join TBUSERS un on (un.nome = n.nfc_emissor)'
+      
+        '  left join TBFORNECEDOR tr on (tr.codforn = v.nfe_transportador' +
+        'a)'
+      '  left join TBCIDADE tc on (tc.cid_cod = tr.cid_cod)'
+      ''
+      '  left join TBNFE_ENVIADA nc on (nc.nfc_numero = n.nfc_numero)'
+      ''
+      'where n.nfc_numero  = :numero'
+      '  and n.nfc_empresa = :empresa')
+    Left = 304
+    Top = 120
+    ParamData = <
+      item
+        Name = 'NUMERO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
   end
 end

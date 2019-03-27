@@ -5,20 +5,22 @@ interface
 uses
   UGrPadrao,
 
-  {$IFDEF DGE}
-  EUserAcs,
-  {$ENDIF}
+  System.ImageList,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
   DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, cxButtons,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
@@ -56,6 +58,8 @@ type
     btbtnFechar: TcxButton;
     btbtnSelecionar: TcxButton;
     bvlTool4: TBevel;
+    fdQryTabela: TFDQuery;
+    fdUpdTabela: TFDUpdateSQL;
     procedure dbgDadosKeyPressENTER(Sender: TObject; var Key: Char);
     procedure dbgDadosKeyPressNO_ENTER(Sender: TObject; var Key: Char);
     procedure btbtnFecharClick(Sender: TObject);
@@ -84,6 +88,8 @@ type
       UpdateKind: TUpdateKind; var UpdateAction: TIBUpdateAction);
     procedure btbtnListaClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure fdQryTabelaUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
   private
     { Private declarations }
     fDisplayFormat  ,
@@ -144,6 +150,7 @@ type
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
     procedure FiltarDados; overload;
     procedure FecharAbrirTabela(const Tabela : TIBDataSet; const Vazia : Boolean = FALSE); overload;
+    procedure FecharAbrirTabela(const Tabela : TFDQuery; const Vazia : Boolean = FALSE); overload;
     procedure GerarSequencial(const pDataSet : TIBDataSet; const pCampo : String; var pSequencial : Integer);
 
     function SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean; overload;
@@ -208,7 +215,10 @@ begin
     IbDtstTabela.Database := DMBusiness.ibdtbsBusiness;
 
   sSQL := TStringList.Create;
-  sSQL.AddStrings( IbDtstTabela.SelectSQL );
+  if (DtSrcTabela.DataSet = IbDtstTabela) then
+    sSQL.AddStrings( IbDtstTabela.SelectSQL )
+  else
+    sSQL.AddStrings( fdQryTabela.SQL );
 
   dbCodigo.TabStop    := not dbCodigo.ReadOnly;
   pgcGuias.ActivePage := tbsTabela;
@@ -217,11 +227,21 @@ begin
 
   CarregarControleAcesso;
 
-  // Remover a obrigatoriedade de informar código quando o GENERATOR é responsável por sua geração
-  with IbDtstTabela.GeneratorField do
+  if ( fdQryTabela.Connection = nil ) then
   begin
-    if (Generator <> EmptyStr) and (Field <> EmptyStr) then
-      IbDtstTabela.FieldByName(Field).Required := False;
+    fdQryTabela.Connection  := DMBusiness.fdConexao;
+    fdQryTabela.Transaction := DMBusiness.fdTransacao;
+    fdUpdTabela.Connection  := DMBusiness.fdConexao;
+  end;
+
+  // Remover a obrigatoriedade de informar código quando o GENERATOR é responsável por sua geração
+  if (DtSrcTabela.DataSet = IbDtstTabela) then
+  begin
+    with IbDtstTabela.GeneratorField do
+    begin
+      if (Generator <> EmptyStr) and (Field <> EmptyStr) then
+        IbDtstTabela.FieldByName(Field).Required := False;
+    end;
   end;
 end;
 
@@ -312,19 +332,32 @@ end;
 
 procedure TfrmGrPadraoCadastro.DtSrcTabelaStateChange(Sender: TObject);
 begin
-  dbgDados.Enabled    := not (IbDtstTabela.State in [dsEdit, dsInsert]);
-  grpBxFiltro.Enabled := not (IbDtstTabela.State in [dsEdit, dsInsert]);
+//  dbgDados.Enabled    := not (IbDtstTabela.State in [dsEdit, dsInsert]);
+//  grpBxFiltro.Enabled := not (IbDtstTabela.State in [dsEdit, dsInsert]);
+//
+//  btbtnIncluir.Enabled    := (IbDtstTabela.State in [dsBrowse]) and fLiberarUso;
+//  btbtnAlterar.Enabled    := (IbDtstTabela.State in [dsBrowse]) and (not IbDtstTabela.IsEmpty) and fLiberarUso;
+//  btbtnExcluir.Enabled    := (IbDtstTabela.State in [dsBrowse]) and (not IbDtstTabela.IsEmpty) and fLiberarUso;
+//  btbtnCancelar.Enabled   := (IbDtstTabela.State in [dsEdit, dsInsert]);
+//  btbtnSalvar.Enabled     := (IbDtstTabela.State in [dsEdit, dsInsert]);
+//  btbtnLista.Enabled      := (IbDtstTabela.State in [dsBrowse]);
+//  btbtnFechar.Enabled     := (IbDtstTabela.State in [dsBrowse]) or (not IbDtstTabela.Active);
+//  btbtnSelecionar.Enabled := (IbDtstTabela.State in [dsBrowse]) and (not IbDtstTabela.IsEmpty);
+//
+//  DtSrcTabela.AutoEdit   := (IbDtstTabela.State in [dsEdit, dsInsert]);
+  dbgDados.Enabled    := not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+  grpBxFiltro.Enabled := not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 
-  btbtnIncluir.Enabled    := (IbDtstTabela.State in [dsBrowse]) and fLiberarUso;
-  btbtnAlterar.Enabled    := (IbDtstTabela.State in [dsBrowse]) and (not IbDtstTabela.IsEmpty) and fLiberarUso;
-  btbtnExcluir.Enabled    := (IbDtstTabela.State in [dsBrowse]) and (not IbDtstTabela.IsEmpty) and fLiberarUso;
-  btbtnCancelar.Enabled   := (IbDtstTabela.State in [dsEdit, dsInsert]);
-  btbtnSalvar.Enabled     := (IbDtstTabela.State in [dsEdit, dsInsert]);
-  btbtnLista.Enabled      := (IbDtstTabela.State in [dsBrowse]);
-  btbtnFechar.Enabled     := (IbDtstTabela.State in [dsBrowse]) or (not IbDtstTabela.Active);
-  btbtnSelecionar.Enabled := (IbDtstTabela.State in [dsBrowse]) and (not IbDtstTabela.IsEmpty);
+  btbtnIncluir.Enabled    := (DtSrcTabela.DataSet.State in [dsBrowse]) and fLiberarUso;
+  btbtnAlterar.Enabled    := (DtSrcTabela.DataSet.State in [dsBrowse]) and (not DtSrcTabela.DataSet.IsEmpty) and fLiberarUso;
+  btbtnExcluir.Enabled    := (DtSrcTabela.DataSet.State in [dsBrowse]) and (not DtSrcTabela.DataSet.IsEmpty) and fLiberarUso;
+  btbtnCancelar.Enabled   := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+  btbtnSalvar.Enabled     := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+  btbtnLista.Enabled      := (DtSrcTabela.DataSet.State in [dsBrowse]);
+  btbtnFechar.Enabled     := (DtSrcTabela.DataSet.State in [dsBrowse]) or (not DtSrcTabela.DataSet.Active);
+  btbtnSelecionar.Enabled := (DtSrcTabela.DataSet.State in [dsBrowse]) and (not DtSrcTabela.DataSet.IsEmpty);
 
-  DtSrcTabela.AutoEdit   := (IbDtstTabela.State in [dsEdit, dsInsert]);
+  DtSrcTabela.AutoEdit   := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
   if ( DtSrcTabela.AutoEdit ) then
   begin
     fOcorreuErro        := False;
@@ -337,7 +370,7 @@ end;
 procedure TfrmGrPadraoCadastro.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
-  if ( IbDtstTabela.Active ) then
+  if ( DtSrcTabela.DataSet.Active ) then
     if ( not btbtnFechar.Enabled ) then
     begin
       CanClose := False;
@@ -353,13 +386,17 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( not IbDtstTabela.Active ) then
-    FecharAbrirTabela(IbDtstTabela, True);
+  if ( not DtSrcTabela.DataSet.Active ) then
+    if (DtSrcTabela.DataSet is TIBDataSet) then
+      FecharAbrirTabela(IbDtstTabela, True)
+    else
+    if (DtSrcTabela.DataSet is TFDQuery) then
+      FecharAbrirTabela(fdQryTabela, True);
 
   if ( (pgcGuias.ActivePage = tbsTabela) and edtFiltrar.Visible and edtFiltrar.Enabled ) then
     edtFiltrar.SetFocus;
-    
-  IbDtstTabela.Append;
+
+  DtSrcTabela.DataSet.Append;
 end;
 
 procedure TfrmGrPadraoCadastro.btbtnAlterarClick(Sender: TObject);
@@ -370,13 +407,13 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( not IbDtstTabela.Active ) then
+  if ( not DtSrcTabela.DataSet.Active ) then
     Exit;
     
   if ( (pgcGuias.ActivePage = tbsTabela) and edtFiltrar.Visible and edtFiltrar.Enabled ) then
     edtFiltrar.SetFocus;
     
-  IbDtstTabela.Edit;
+  DtSrcTabela.DataSet.Edit;
 end;
 
 procedure TfrmGrPadraoCadastro.btbtnExcluirClick(Sender: TObject);
@@ -387,14 +424,24 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( not IbDtstTabela.Active ) then
+  if ( not DtSrcTabela.DataSet.Active ) then
     Exit;
+
   try
     fOcorreuErro := False;
     if ShowConfirmation('Excluir', 'Deseja excluir o registro selecionado?') then
     begin
-      IbDtstTabela.Delete;
-      IbDtstTabela.ApplyUpdates;
+      if (DtSrcTabela.DataSet = IbDtstTabela) then
+      begin
+        IbDtstTabela.Delete;
+        IbDtstTabela.ApplyUpdates;
+      end
+      else
+      begin
+        fdQryTabela.Delete;
+        fdQryTabela.ApplyUpdates;
+      end;
+
       CommitTransaction;
     end;
   except
@@ -411,9 +458,9 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ShowConfirmation('Cancelar', 'Deseja cancelar a inserção/edição do registro?') then
-      IbDtstTabela.Cancel;
+      DtSrcTabela.DataSet.Cancel;
 end;
 
 procedure TfrmGrPadraoCadastro.btbtnSalvarClick(Sender: TObject);
@@ -421,12 +468,12 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     try
       if IsClearFieldEmptyStr then
         ClearFieldEmptyStr;
 
-      if ( CamposRequiridos(Self, TClientDataSet(IbDtstTabela), Self.Caption) ) then
+      if ( CamposRequiridos(Self, TClientDataSet(DtSrcTabela.DataSet), Self.Caption) ) then
         fOcorreuErro := True
       else
       begin
@@ -434,14 +481,23 @@ begin
         if ShowConfirmation('Salvar', 'Deseja salvar a inserção/edição do registro?') then
         begin
           if (Trim(GetCampoDescricaoLimpo) <> EmptyStr) then
-            if Assigned( IbDtstTabela.Fields.FindField(GetCampoDescricaoLimpo) ) then
-              IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString := Trim(IbDtstTabela.FieldByName(GetCampoDescricaoLimpo).AsString);
+            if Assigned( DtSrcTabela.DataSet.Fields.FindField(GetCampoDescricaoLimpo) ) then
+              DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).AsString := Trim(DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).AsString);
 
-          if Assigned( IbDtstTabela.Fields.FindField(CAMPO_USUARIO) ) then
-            IbDtstTabela.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
+          if Assigned( DtSrcTabela.DataSet.Fields.FindField(CAMPO_USUARIO) ) then
+            DtSrcTabela.DataSet.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
 
-          IbDtstTabela.Post;
-          IbDtstTabela.ApplyUpdates;
+          if (DtSrcTabela.DataSet = IbDtstTabela) then
+          begin
+            IbDtstTabela.Post;
+            IbDtstTabela.ApplyUpdates;
+          end
+          else
+          begin
+            fdQryTabela.Post;
+            fdQryTabela.ApplyUpdates;
+          end;
+
           CommitTransaction;
         end;
       end;
@@ -483,13 +539,13 @@ begin
     VK_F2 : if ( btbtnSelecionar.Visible and btbtnSelecionar.Enabled ) then
               btbtnSelecionar.Click;
 
-    VK_F5 : if ( (pgcGuias.ActivePage = tbsTabela) and IbDtstTabela.Active ) then
+    VK_F5 : if ( (pgcGuias.ActivePage = tbsTabela) and DtSrcTabela.DataSet.Active ) then
             begin
               DtSrcTabela.DataSet.Close;
               DtSrcTabela.DataSet.Open;
             end;
 
-    VK_ESCAPE : if (IbDtstTabela.State in [dsEdit, dsInsert]) then
+    VK_ESCAPE : if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
                   btbtnCancelar.Click
                 else
                 if ( pgcGuias.ActivePageIndex <> 0 ) then
@@ -510,11 +566,11 @@ begin
                 if ( pgcGuias.ActivePageIndex = 0 ) then
                   if ( btbtnFechar.Enabled ) then
                     btbtnFechar.Click;
-    VK_UP : if ( (IbDtstTabela.Active) and (ActiveControl = edtFiltrar) ) then
-              IbDtstTabela.Prior;
+    VK_UP : if ( (DtSrcTabela.DataSet.Active) and (ActiveControl = edtFiltrar) ) then
+              DtSrcTabela.DataSet.Prior;
 
-    VK_DOWN : if ( (IbDtstTabela.Active) and (ActiveControl = edtFiltrar) ) then
-                IbDtstTabela.Next;
+    VK_DOWN : if ( (DtSrcTabela.DataSet.Active) and (ActiveControl = edtFiltrar) ) then
+                DtSrcTabela.DataSet.Next;
     else
       CustomKeyDown(Self, Key, Shift);            
   end;
@@ -541,6 +597,21 @@ begin
     btnFiltrar.Click;
 end;
 
+procedure TfrmGrPadraoCadastro.fdQryTabelaUpdateError(ASender: TDataSet; AException: EFDException;
+  ARow: TFDDatSRow; ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+begin
+  Case ARequest of
+    arUpdate:
+      ShowError('Erro ao tentar gravar atualização do registro.' + #13#13 + AException.Message);
+
+    arInsert:
+      ShowError('Erro ao tentar gravar novo registro.' + #13#13 + AException.Message);
+
+    arDelete:
+      ShowError('Erro ao tentar gravar excluir registro.' + #13#13 + AException.Message);
+  end;
+end;
+
 procedure TfrmGrPadraoCadastro.FiltarDados;
 begin
   Screen.Cursor := crSQLWait;
@@ -556,50 +627,97 @@ begin
         Abort;
       end;
 
-      with IbDtstTabela, SelectSQL do
-      begin
-        if ( Trim(CampoOrdenacao) = EmptyStr ) then
-          CampoOrdenacao := CampoDescricao;
+      if (DtSrcTabela.DataSet = IbDtstTabela) then
+        with IbDtstTabela, SelectSQL do
+        begin
+          if ( Trim(CampoOrdenacao) = EmptyStr ) then
+            CampoOrdenacao := CampoDescricao;
 
-        Close;
-        Clear;
-        AddStrings( sSQL );
+          Close;
+          Clear;
+          AddStrings( sSQL );
 
-        if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
-          if ( (StrToIntDef(Trim(edtFiltrar.Text), 0) > 0) and (Pos(',', Trim(edtFiltrar.Text)) = 0) ) then
-            Add( 'WHERE (' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) + ')' )
-          else
-          if ( Pos(',', Trim(edtFiltrar.Text)) = 0 ) then
-            Add( 'WHERE (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                 '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
-
-        if (WhereAdditional <> EmptyStr ) then
-          if ( Pos('WHERE', SelectSQL.Text) > 0 ) then
-            Add( '  and (' + WhereAdditional + ')' )
-          else
-            Add( 'WHERE (' + WhereAdditional + ')' );
-
-        Add( 'order by ' + CampoOrdenacao );
-
-        Open;
-
-        try
-
-          if Showing and (pgcGuias.ActivePage = tbsTabela) then
-            if ( not IsEmpty ) then
-              dbgDados.SetFocus
+          if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
+            if ( (StrToIntDef(Trim(edtFiltrar.Text), 0) > 0) and (Pos(',', Trim(edtFiltrar.Text)) = 0) ) then
+              Add( 'WHERE (' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) + ')' )
             else
-            begin
-              ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+            if ( Pos(',', Trim(edtFiltrar.Text)) = 0 ) then
+              Add( 'WHERE (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                   '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
 
-              edtFiltrar.SetFocus;
-              edtFiltrar.SelectAll;
-            end;
+          if (WhereAdditional <> EmptyStr ) then
+            if ( Pos('WHERE', SelectSQL.Text) > 0 ) then
+              Add( '  and (' + WhereAdditional + ')' )
+            else
+              Add( 'WHERE (' + WhereAdditional + ')' );
 
-        except
+          Add( 'order by ' + CampoOrdenacao );
+
+          Open;
+
+          try
+
+            if Showing and (pgcGuias.ActivePage = tbsTabela) then
+              if ( not IsEmpty ) then
+                dbgDados.SetFocus
+              else
+              begin
+                ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+
+                edtFiltrar.SetFocus;
+                edtFiltrar.SelectAll;
+              end;
+
+          except
+          end;
+
+        end
+      else
+        with fdQryTabela, SQL do
+        begin
+          if ( Trim(CampoOrdenacao) = EmptyStr ) then
+            CampoOrdenacao := CampoDescricao;
+
+          Close;
+          Clear;
+          AddStrings( sSQL );
+
+          if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
+            if ( (StrToIntDef(Trim(edtFiltrar.Text), 0) > 0) and (Pos(',', Trim(edtFiltrar.Text)) = 0) ) then
+              Add( 'WHERE (' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) + ')' )
+            else
+            if ( Pos(',', Trim(edtFiltrar.Text)) = 0 ) then
+              Add( 'WHERE (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                   '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
+
+          if (WhereAdditional <> EmptyStr ) then
+            if ( Pos('WHERE', SQL.Text) > 0 ) then
+              Add( '  and (' + WhereAdditional + ')' )
+            else
+              Add( 'WHERE (' + WhereAdditional + ')' );
+
+          Add( 'order by ' + CampoOrdenacao );
+
+          Open;
+
+          try
+
+            if Showing and (pgcGuias.ActivePage = tbsTabela) then
+              if ( not IsEmpty ) then
+                dbgDados.SetFocus
+              else
+              begin
+                ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+
+                edtFiltrar.SetFocus;
+                edtFiltrar.SelectAll;
+              end;
+
+          except
+          end;
+
         end;
 
-      end;
     except
       On E : Exception do
       begin
@@ -621,6 +739,18 @@ begin
     if ( Vazia ) then
       if ( Pos('where', LowerCase(SelectSQL.Text)) = 0 ) then
         SelectSQL.Add('where 1=0');
+    Open;
+  end;
+end;
+
+procedure TfrmGrPadraoCadastro.FecharAbrirTabela(const Tabela : TFDQuery; const Vazia : Boolean = FALSE);
+begin
+  with Tabela do
+  begin
+    Close;
+    if ( Vazia ) then
+      if ( Pos('where', LowerCase(SQL.Text)) = 0 ) then
+        SQL.Add('where 1=0');
     Open;
   end;
 end;
@@ -652,12 +782,12 @@ begin
 
     Self.btbtnSelecionar.Visible := True;
 
-    Result := (ShowModal = mrOk) and (not IbDtstTabela.IsEmpty);
+    Result := (ShowModal = mrOk) and (not DtSrcTabela.DataSet.IsEmpty);
 
     if ( Result ) then
     begin
-      Codigo    := IbDtstTabela.FieldByName(sCampoCodigo).AsInteger;
-      Descricao := IbDtstTabela.FieldByName(sCampoDescricao).AsString;
+      Codigo    := DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsInteger;
+      Descricao := DtSrcTabela.DataSet.FieldByName(sCampoDescricao).AsString;
     end
     else
     begin
@@ -701,12 +831,12 @@ begin
 
     Self.btbtnSelecionar.Visible := True;
 
-    Result := (ShowModal = mrOk) and (not IbDtstTabela.IsEmpty);
+    Result := (ShowModal = mrOk) and (not DtSrcTabela.DataSet.IsEmpty);
 
     if ( Result ) then
     begin
-      Codigo    := Trim(IbDtstTabela.FieldByName(sCampoCodigo).AsString);
-      Descricao := Trim(IbDtstTabela.FieldByName(sCampoDescricao).AsString);
+      Codigo    := Trim(DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsString);
+      Descricao := Trim(DtSrcTabela.DataSet.FieldByName(sCampoDescricao).AsString);
     end
     else
     begin
@@ -727,29 +857,42 @@ begin
   inherited;
   CentralizarCodigo;
 
-  if ( not IbDtstTabela.Active ) then
+  if ( not DtSrcTabela.DataSet.Active ) then
   begin
     if ( AbrirTabelaAuto ) then
     begin
-      IbDtstTabela.Close;
+      DtSrcTabela.DataSet.Close;
       if ( WhereAdditional <> EmptyStr ) then
 
-      if ( Pos('where', IbDtstTabela.SelectSQL.Text) > 0 ) then
-        IbDtstTabela.SelectSQL.Add( '  and (' + WhereAdditional + ')' )
+      if (DtSrcTabela.DataSet = IbDtstTabela) then
+      begin
+        if ( Pos('where', IbDtstTabela.SelectSQL.Text) > 0 ) then
+          IbDtstTabela.SelectSQL.Add( '  and (' + WhereAdditional + ')' )
+        else
+          IbDtstTabela.SelectSQL.Add( 'where (' + WhereAdditional + ')' );
+
+        if ( (Pos('order by', IbDtstTabela.SelectSQL.Text) = 0) and (CampoOrdenacao <> EmptyStr) ) then
+          IbDtstTabela.SelectSQL.Add( 'order by ' + CampoOrdenacao );
+      end
       else
-        IbDtstTabela.SelectSQL.Add( 'where (' + WhereAdditional + ')' );
+      begin
+        if ( Pos('where', fdQryTabela.SQL.Text) > 0 ) then
+          fdQryTabela.SQL.Add( '  and (' + WhereAdditional + ')' )
+        else
+          fdQryTabela.SQL.Add( 'where (' + WhereAdditional + ')' );
 
-      if ( (Pos('order by', IbDtstTabela.SelectSQL.Text) = 0) and (CampoOrdenacao <> EmptyStr) ) then
-        IbDtstTabela.SelectSQL.Add( 'order by ' + CampoOrdenacao );
+        if ( (Pos('order by', fdQryTabela.SQL.Text) = 0) and (CampoOrdenacao <> EmptyStr) ) then
+          fdQryTabela.SQL.Add( 'order by ' + CampoOrdenacao );
+      end;
 
-      IbDtstTabela.Open;
+      DtSrcTabela.DataSet.Open;
     end;
 
     DtSrcTabelaStateChange( DtSrcTabela );
   end
   else
   if ( not AbrirTabelaAuto ) then
-    IbDtstTabela.Close;
+    DtSrcTabela.DataSet.Close;
 
   if ( tbsTabela.TabVisible and (pgcGuias.ActivePage = tbsTabela) and (edtFiltrar.Visible) and (edtFiltrar.Enabled) ) then
     edtFiltrar.SetFocus;
@@ -804,17 +947,17 @@ begin
     else
       sCampoCodigo := Trim(CampoCodigo);
 
-    if ( StrToCurrDef(IbDtstTabela.FieldByName(sCampoCodigo).AsString, 0) = 0 ) then
+    if ( StrToCurrDef(DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsString, 0) = 0 ) then
       Exit;
 
     dbgDados.Columns[0].Alignment       := taCenter;
     dbgDados.Columns[0].Title.Alignment := taCenter;
 
-    IbDtstTabela.FieldByName(sCampoCodigo).Alignment := taCenter;
-    IbDtstTabela.FieldByName(sCampoCodigo).Required  := False;
+    DtSrcTabela.DataSet.FieldByName(sCampoCodigo).Alignment := taCenter;
+    DtSrcTabela.DataSet.FieldByName(sCampoCodigo).Required  := False;
 
-    if (IbDtstTabela.FieldByName(sCampoCodigo).Size < 10) then
-      TCurrencyField(IbDtstTabela.FieldByName(sCampoCodigo)).DisplayFormat := DisplayFormatCodigo;
+    if (DtSrcTabela.DataSet.FieldByName(sCampoCodigo).Size < 10) then
+      TCurrencyField(DtSrcTabela.DataSet.FieldByName(sCampoCodigo)).DisplayFormat := DisplayFormatCodigo;
   end;
 end;
 
@@ -833,7 +976,7 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( not IbDtstTabela.Active ) then
+  if ( not DtSrcTabela.DataSet.Active ) then
     Exit;
 
   if Trim(CampoCadastroAtivo) <> EmptyStr then
@@ -843,8 +986,8 @@ begin
     else
       sCampoCadastroAtivo := Trim(CampoCadastroAtivo);
 
-    if Assigned(IbDtstTabela.Fields.FindField(sCampoCadastroAtivo)) then
-      if (IbDtstTabela.FieldByName(sCampoCadastroAtivo).AsInteger = FLAG_NAO) then
+    if Assigned(DtSrcTabela.DataSet.Fields.FindField(sCampoCadastroAtivo)) then
+      if (DtSrcTabela.DataSet.FieldByName(sCampoCadastroAtivo).AsInteger = FLAG_NAO) then
       begin
         ShowWarning('O Cadastro selecionado não está ativo!');
         Exit;
@@ -864,10 +1007,14 @@ begin
   sTabela      := EmptyStr;
   sCampoCodigo := EmptyStr;
 
-  if ( (CampoCodigo = EmptyStr) and (Trim(IbDtstTabela.GeneratorField.Field) <> EmptyStr) ) then
-    CampoCodigo := IbDtstTabela.GeneratorField.Field;
+  if (DtSrcTabela.DataSet = IbDtstTabela) then
+  begin
+    if ( (CampoCodigo = EmptyStr) and (Trim(IbDtstTabela.GeneratorField.Field) <> EmptyStr) ) then
+      CampoCodigo := IbDtstTabela.GeneratorField.Field;
 
-  sGenerator   := IbDtstTabela.GeneratorField.Generator;
+    sGenerator   := IbDtstTabela.GeneratorField.Generator;
+  end;
+
   sTabela      := NomeTabela;
   if ( pos('.', CampoCodigo) > 0 ) then
     sCampoCodigo := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
@@ -892,18 +1039,32 @@ var
   I : Integer;
 begin
 
-  for I := 0 to IbDtstTabela.Fields.Count - 1 do
-  begin
-    if (IbDtstTabela.Fields[I] is TStringField)     or
-       (IbDtstTabela.Fields[I] is TMemoField)       or
-       (IbDtstTabela.Fields[I] is TWideStringField) or
-       (IbDtstTabela.Fields[I] is TWideMemoField) then
-      IbDtstTabela.Fields[I].AsString := Trim(IbDtstTabela.Fields[I].AsString);
+  if (DtSrcTabela.DataSet = IbDtstTabela) then
+    for I := 0 to IbDtstTabela.Fields.Count - 1 do
+    begin
+      if (IbDtstTabela.Fields[I] is TStringField)     or
+         (IbDtstTabela.Fields[I] is TMemoField)       or
+         (IbDtstTabela.Fields[I] is TWideStringField) or
+         (IbDtstTabela.Fields[I] is TWideMemoField) then
+        IbDtstTabela.Fields[I].AsString := Trim(IbDtstTabela.Fields[I].AsString);
 
-    if ( IbDtstTabela.Fields[I].Required ) then
-      if ( Trim(IbDtstTabela.Fields[I].AsString) = EmptyStr ) then
-        IbDtstTabela.Fields[I].Clear;
-  end;
+      if ( IbDtstTabela.Fields[I].Required ) then
+        if ( Trim(IbDtstTabela.Fields[I].AsString) = EmptyStr ) then
+          IbDtstTabela.Fields[I].Clear;
+    end
+  else
+    for I := 0 to DtSrcTabela.DataSet.Fields.Count - 1 do
+    begin
+      if (DtSrcTabela.DataSet.Fields[I] is TStringField)     or
+         (DtSrcTabela.DataSet.Fields[I] is TMemoField)       or
+         (DtSrcTabela.DataSet.Fields[I] is TWideStringField) or
+         (DtSrcTabela.DataSet.Fields[I] is TWideMemoField) then
+        DtSrcTabela.DataSet.Fields[I].AsString := Trim(DtSrcTabela.DataSet.Fields[I].AsString);
+
+      if ( DtSrcTabela.DataSet.Fields[I].Required ) then
+        if ( Trim(DtSrcTabela.DataSet.Fields[I].AsString) = EmptyStr ) then
+          DtSrcTabela.DataSet.Fields[I].Clear;
+    end;
 
 end;
 
@@ -917,7 +1078,7 @@ begin
 
     ukInsert:
       ShowError('Erro ao tentar gravar novo registro.' + #13#13 + E.Message);
-      
+
     ukDelete:
       ShowError('Erro ao tentar gravar excluir registro.' + #13#13 + E.Message);
   end;

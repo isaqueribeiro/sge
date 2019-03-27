@@ -1,8 +1,6 @@
 inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
   Left = 390
   Top = 212
-  Width = 593
-  Height = 408
   Caption = 'Padr'#227'o Cadastro Simples'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -10,31 +8,36 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
   object Bevel1: TBevel
     Left = 0
     Top = 33
-    Width = 577
+    Width = 539
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitWidth = 577
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 366
-    Width = 577
+    Top = 289
+    Width = 539
     Height = 4
     Align = alBottom
     Shape = bsSpacer
+    ExplicitTop = 366
+    ExplicitWidth = 577
   end
   object Bevel4: TBevel
     Left = 0
-    Top = 327
-    Width = 577
+    Top = 250
+    Width = 539
     Height = 4
     Align = alBottom
     Shape = bsSpacer
+    ExplicitTop = 327
+    ExplicitWidth = 577
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 577
+    Width = 539
     Height = 33
     Align = alTop
     Alignment = taLeftJustify
@@ -49,8 +52,8 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
   end
   object tlbBotoes: TPanel
     Left = 0
-    Top = 331
-    Width = 577
+    Top = 254
+    Width = 539
     Height = 35
     Align = alBottom
     BevelOuter = bvNone
@@ -73,12 +76,13 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Shape = bsSpacer
     end
     object bvlTool2: TBevel
-      Left = 573
+      Left = 535
       Top = 0
       Width = 4
       Height = 35
       Align = alRight
       Shape = bsSpacer
+      ExplicitLeft = 573
     end
     object btbtnIncluir: TcxButton
       Left = 4
@@ -86,12 +90,9 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Width = 75
       Height = 35
       Hint = 'Incluir'
-      Caption = '&Incluir'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 0
       Align = alLeft
-      Glyph.Data = {
+      Caption = '&Incluir'
+      OptionsImage.Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
         800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
@@ -104,7 +105,10 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         FFF037F3337337333FF700FBFBFB0FFF000077F333337FF37777E0BFBFB000FF
         0FF077FF3337773F7F37EE0BFB0BFB0F0F03777FF3733F737F73EEE0BFBF00FF
         00337777FFFF77FF7733EEEE0000000003337777777777777333}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
     end
     object btbtnAlterar: TcxButton
       Left = 79
@@ -112,12 +116,9 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Width = 75
       Height = 35
       Hint = 'Alterar'
-      Caption = '&Alterar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
       Align = alLeft
-      Glyph.Data = {
+      Caption = '&Alterar'
+      OptionsImage.Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
         800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
@@ -130,7 +131,10 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         FFF03337777373333FF7333330B0FFFF00003333373733FF777733330B0FF00F
         0FF03333737F37737F373330B00FFFFF0F033337F77F33337F733309030FFFFF
         00333377737FFFFF773333303300000003333337337777777333}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
     end
     object btbtnExcluir: TcxButton
       Left = 154
@@ -138,12 +142,9 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Width = 75
       Height = 35
       Hint = 'Excluir'
-      Caption = '&Excluir'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 2
       Align = alLeft
-      Glyph.Data = {
+      Caption = '&Excluir'
+      OptionsImage.Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
         800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
@@ -156,7 +157,10 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         B05557FF575F5757F7F5000EEE0BFBF0B055777FF575FFF7F7F50000EEE00000
         B0557777FF577777F7F500000E055550805577777F7555575755500000555555
         05555777775555557F5555000555555505555577755555557555}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
     end
     object btbtnCancelar: TcxButton
       Left = 233
@@ -164,12 +168,9 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Width = 75
       Height = 35
       Hint = 'Cancelar Inser'#231#227'o/Edi'#231#227'o'
-      Caption = '&Cancelar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 4
       Align = alLeft
-      Glyph.Data = {
+      Caption = '&Cancelar'
+      OptionsImage.Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
         800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
@@ -182,7 +183,10 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         FFF03337777373333FF7333330B0FFFF00003333373733FF777733330B0FF00F
         0FF03333737F37737F373330B00FFFFF0F033337F77F33337F733309030FFFFF
         00333377737FFFFF773333303300000003333337337777777333}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 4
     end
     object btbtnSalvar: TcxButton
       Left = 308
@@ -190,12 +194,9 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
       Width = 75
       Height = 35
       Hint = 'Salvar Inser'#231#227'o/Edi'#231#227'o'
-      Caption = '&Salvar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 3
       Align = alLeft
-      Glyph.Data = {
+      Caption = '&Salvar'
+      OptionsImage.Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
         800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
@@ -208,20 +209,20 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         B05557FF575F5757F7F5000EEE0BFBF0B055777FF575FFF7F7F50000EEE00000
         B0557777FF577777F7F500000E055550805577777F7555575755500000555555
         05555777775555557F5555000555555505555577755555557555}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
     end
     object btbtnFechar: TcxButton
-      Left = 498
+      Left = 460
       Top = 0
       Width = 75
       Height = 35
       Hint = 'Fechar'
-      Caption = 'Fechar'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 5
       Align = alRight
-      Glyph.Data = {
+      Caption = 'Fechar'
+      OptionsImage.Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
         800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
@@ -234,7 +235,10 @@ inherited frmGrPadraoCadastroSimples: TfrmGrPadraoCadastroSimples
         EE33337F33777F33337F33EEEEE00EEEEE33337F33377FF3337F33EEEEEE00EE
         EE33337F333377F3337F33EEEEEE00EEEE33337F33337733337F33EEEEEEEEEE
         EE33337FFFFFFFFFFF7F33EEEEEEEEEEEE333377777777777773}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 5
     end
   end
 end

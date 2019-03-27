@@ -4,7 +4,7 @@ object DMBusiness: TDMBusiness
   Height = 648
   Width = 1043
   object ibdtbsBusiness: TIBDatabase
-    DatabaseName = 'localhost:AGIL_COMERCIO'
+    DatabaseName = 'localhost/3050:JRCOMERCIO'
     Params.Strings = (
       'user_name=SYSDBA'
       'Password=masterkey'
@@ -561,7 +561,7 @@ object DMBusiness: TDMBusiness
     Params.Strings = (
       'User_Name=sysdba'
       'Password=masterkey'
-      'Database=AGIL_COMERCIO'
+      'Database=JRCOMERCIO'
       'Protocol=TCPIP'
       'CharacterSet=ISO8859_2'
       'Port=3050'

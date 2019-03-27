@@ -1065,7 +1065,8 @@ procedure CommitTransaction;
 begin
   with DMBusiness do
   begin
-    ibtrnsctnBusiness.CommitRetaining;
+    if ibdtbsBusiness.Connected then
+      ibtrnsctnBusiness.CommitRetaining;
 
     if fdConexao.InTransaction then
       fdConexao.CommitRetaining;

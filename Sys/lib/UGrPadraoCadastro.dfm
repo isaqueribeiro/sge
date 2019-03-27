@@ -192,10 +192,6 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121
@@ -453,15 +449,14 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
     UniDirectional = False
     GeneratorField.ApplyEvent = gamOnPost
     UpdateObject = IbUpdTabela
-    Left = 624
-    Top = 8
+    Left = 640
   end
   object DtSrcTabela: TDataSource
     AutoEdit = False
     DataSet = IbDtstTabela
     OnStateChange = DtSrcTabelaStateChange
     Left = 640
-    Top = 24
+    Top = 64
   end
   object IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -528,14 +523,13 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       'delete from TBBANCO_BOLETO'
       'where'
       '  BCO_COD = :OLD_BCO_COD')
-    Left = 632
-    Top = 16
+    Left = 672
   end
   object ImgList: TImageList
     Left = 592
     Top = 8
     Bitmap = {
-      494C01012B002C007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1993,5 +1987,20 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object fdQryTabela: TFDQuery
+    CachedUpdates = True
+    OnUpdateError = fdQryTabelaUpdateError
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = fdUpdTabela
+    Left = 640
+    Top = 32
+  end
+  object fdUpdTabela: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    Left = 672
+    Top = 32
   end
 end
