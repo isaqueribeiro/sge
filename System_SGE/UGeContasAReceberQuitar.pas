@@ -14,7 +14,8 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeContasAReceberQuitar = class(TfrmGrPadraoPesquisa)
@@ -140,7 +141,7 @@ begin
 
     CdsPesquisa.Close;
 
-    with QryPesquisa do
+    with fdQryPesquisa do
     begin
       SQL.Clear;
       SQL.AddStrings( SQLSelect );

@@ -4,17 +4,17 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoPesquisa, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery, Vcl.Grids,
-  Vcl.DBGrids, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls;
+  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Comp.Client,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TTipoEmissorCheque = (tecNenhum, tecFornecedor, tecCliente);
@@ -26,24 +26,21 @@ type
     btnSelecionar: TcxButton;
     btnFechar: TcxButton;
     bvlBotoes1: TBevel;
-    QryPesquisaTIPO: TIntegerField;
-    QryPesquisaID: TIBStringField;
-    QryPesquisaCODIGO: TIntegerField;
-    QryPesquisaNOME: TIBStringField;
-    QryPesquisaCNPJ: TIBStringField;
-    QryPesquisaPF: TSmallintField;
-    QryPesquisaATIVO: TSmallintField;
-    procedure QryPesquisaTIPOGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
-    procedure QryPesquisaCNPJGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
+    fdQryPesquisaTIPO: TIntegerField;
+    fdQryPesquisaID: TStringField;
+    fdQryPesquisaCODIGO: TIntegerField;
+    fdQryPesquisaNOME: TStringField;
+    fdQryPesquisaCNPJ: TStringField;
+    fdQryPesquisaPF: TSmallintField;
+    fdQryPesquisaATIVO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
-    procedure QryPesquisaATIVOGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
     procedure QryPesquisaAfterScroll(DataSet: TDataSet);
     procedure btnSelecionarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure fdQryPesquisaTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryPesquisaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryPesquisaATIVOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -74,10 +71,10 @@ begin
     Result := (AForm.ShowModal = mrOk);
     if Result then
     begin
-      pTipoEmissor := TTipoEmissorCheque(AForm.QryPesquisaTIPO.AsInteger);
-      pCodigo      := AForm.QryPesquisaCODIGO.AsInteger;
-      pNome        := AForm.QryPesquisaNOME.AsString;
-      pCnpj        := AForm.QryPesquisaCNPJ.AsString;
+      pTipoEmissor := TTipoEmissorCheque(AForm.fdQryPesquisaTIPO.AsInteger);
+      pCodigo      := AForm.fdQryPesquisaCODIGO.AsInteger;
+      pNome        := AForm.fdQryPesquisaNOME.AsString;
+      pCnpj        := AForm.fdQryPesquisaCNPJ.AsString;
     end;
   finally
     AForm.Free;
@@ -125,14 +122,14 @@ begin
         sSQL[2] := sSQL[2] + ' and ((c.nome like '     + QuotedStr(edPesquisar.Text + '%') + ') or (c.nomefant like ' + QuotedStr(edPesquisar.Text + '%') + '))';
       end;
 
-      QryPesquisa.Close;
-      QryPesquisa.SQL.Clear;
-      QryPesquisa.SQL.AddStrings( SQLSelect );
-      QryPesquisa.SQL.Text := StringReplace(QryPesquisa.SQL.Text, '1=1', '(' + sSQL[1] + ')', [rfReplaceAll]);
-      QryPesquisa.SQL.Text := StringReplace(QryPesquisa.SQL.Text, '2=2', '(' + sSQL[2] + ')', [rfReplaceAll]);
-      QryPesquisa.Open;
+      fdQryPesquisa.Close;
+      fdQryPesquisa.SQL.Clear;
+      fdQryPesquisa.SQL.AddStrings( SQLSelect );
+      fdQryPesquisa.SQL.Text := StringReplace(fdQryPesquisa.SQL.Text, '1=1', '(' + sSQL[1] + ')', [rfReplaceAll]);
+      fdQryPesquisa.SQL.Text := StringReplace(fdQryPesquisa.SQL.Text, '2=2', '(' + sSQL[2] + ')', [rfReplaceAll]);
+      fdQryPesquisa.Open;
 
-      bRetorno := not QryPesquisa.IsEmpty;
+      bRetorno := not fdQryPesquisa.IsEmpty;
     except
       On E : Exception do
         ShowErrorNotify(Self, E);
@@ -140,6 +137,37 @@ begin
   finally
     WaitAMomentFree;
     Result := bRetorno;
+  end;
+end;
+
+procedure TfrmGeFornecedorClientePesquisa.fdQryPesquisaATIVOGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Case Sender.AsInteger of
+      0 : Text := '.';
+      1 : Text := 'X';
+    end;
+end;
+
+procedure TfrmGeFornecedorClientePesquisa.fdQryPesquisaCNPJGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+  begin
+    if ( Sender.DataSet.FieldByName('pf').AsInteger = 1 ) then
+      Text := StrFormatarCpf(Trim(Sender.AsString))
+    else
+      Text := StrFormatarCnpj(Trim(Sender.AsString));
+  end;
+end;
+
+procedure TfrmGeFornecedorClientePesquisa.fdQryPesquisaTIPOGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  Case Sender.AsInteger of
+    1 : Text := 'Fornecedor';
+    2 : Text := 'Cliente';
   end;
 end;
 
@@ -160,44 +188,13 @@ end;
 
 procedure TfrmGeFornecedorClientePesquisa.PermitirSelecao;
 begin
-  btnSelecionar.Enabled := (QryPesquisaATIVO.AsInteger = 1);
+  btnSelecionar.Enabled := (fdQryPesquisaATIVO.AsInteger = 1);
 end;
 
 procedure TfrmGeFornecedorClientePesquisa.QryPesquisaAfterScroll(
   DataSet: TDataSet);
 begin
   PermitirSelecao;
-end;
-
-procedure TfrmGeFornecedorClientePesquisa.QryPesquisaATIVOGetText(
-  Sender: TField; var Text: string; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-    Case Sender.AsInteger of
-      0 : Text := '.';
-      1 : Text := 'X';
-    end;
-end;
-
-procedure TfrmGeFornecedorClientePesquisa.QryPesquisaCNPJGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-  begin
-    if ( Sender.DataSet.FieldByName('pf').AsInteger = 1 ) then
-      Text := StrFormatarCpf(Trim(Sender.AsString))
-    else
-      Text := StrFormatarCnpj(Trim(Sender.AsString));
-  end;
-end;
-
-procedure TfrmGeFornecedorClientePesquisa.QryPesquisaTIPOGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
-begin
-  Case Sender.AsInteger of
-    1 : Text := 'Fornecedor';
-    2 : Text := 'Cliente';
-  end;
 end;
 
 end.

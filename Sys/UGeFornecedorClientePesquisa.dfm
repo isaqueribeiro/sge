@@ -28,19 +28,25 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
   end
   inherited pnlPesquisa: TPanel
     Width = 747
+    ExplicitWidth = 747
     inherited GrpBxPesquisar: TGroupBox
       Width = 519
+      ExplicitWidth = 519
       inherited edPesquisar: TEdit
         Width = 459
+        ExplicitWidth = 459
       end
       inherited BrnPesquisar: TcxButton
         Left = 482
+        ExplicitLeft = 482
       end
     end
   end
   inherited PnlTabela: TPanel
     Width = 747
     Height = 320
+    ExplicitWidth = 747
+    ExplicitHeight = 320
     inherited dbgDados: TDBGrid
       Width = 739
       Height = 312
@@ -48,24 +54,28 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
         item
           Expanded = False
           FieldName = 'TIPO'
+          Title.Caption = 'Tipo '
           Width = 100
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'ID'
+          Title.Caption = 'ID '
           Width = 80
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'NOME'
+          Title.Caption = 'Fornecedor / Cliente '
           Width = 320
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'CNPJ'
+          Title.Caption = 'CPF / CNPJ '
           Width = 150
           Visible = True
         end
@@ -73,6 +83,7 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
           Expanded = False
           FieldName = 'ATIVO'
           Title.Alignment = taCenter
+          Title.Caption = 'Ativo '
           Width = 40
           Visible = True
         end
@@ -95,8 +106,6 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 2
-    ExplicitTop = 412
-    ExplicitWidth = 777
     object Bevel2: TBevel
       Left = 664
       Top = 0
@@ -129,8 +138,6 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
       ShowHint = True
       TabOrder = 0
       OnClick = btnSelecionarClick
-      ExplicitLeft = 400
-      ExplicitTop = 2
     end
     object btnFechar: TcxButton
       Left = 668
@@ -146,7 +153,87 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
       ShowHint = True
       TabOrder = 1
       OnClick = btnFecharClick
-      ExplicitLeft = 680
+    end
+  end
+  inherited DtsPesquisa: TDataSource
+    Left = 112
+    Top = 152
+  end
+  inherited fdQryPesquisa: TFDQuery
+    SQL.Strings = (
+      'Select'
+      '    1 as Tipo -- Fornecedor'
+      '  , '#39'01'#39' || right('#39'0000000'#39' || f.codforn, 7) as ID'
+      '  , f.codforn        as Codigo'
+      '  , trim(f.nomeforn) as Nome'
+      '  , f.cnpj           as Cnpj'
+      '  , f.pessoa_fisica  as PF'
+      '  , f.ativo'
+      'from TBFORNECEDOR f'
+      'where 1=1'
+      '  and f.cliente_origem_cod is null'
+      ''
+      'union'
+      ''
+      'Select'
+      '    2 as Tipo -- Cliente'
+      '  , '#39'02'#39' || right('#39'0000000'#39' || c.codigo, 7) as ID'
+      '  , c.codigo        as Codigo'
+      '  , trim(c.nome)    as Nome'
+      '  , c.cnpj          as Cnpj'
+      '  , c.pessoa_fisica as PF'
+      '  , c.ativo'
+      'from TBCLIENTE c'
+      'where 2=2'
+      ''
+      'order by'
+      '    4, 5')
+    Left = 80
+    Top = 152
+    object fdQryPesquisaTIPO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      ProviderFlags = []
+      ReadOnly = True
+      OnGetText = fdQryPesquisaTIPOGetText
+    end
+    object fdQryPesquisaID: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdQryPesquisaCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODFORN'
+      Required = True
+    end
+    object fdQryPesquisaNOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object fdQryPesquisaCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      OnGetText = fdQryPesquisaCNPJGetText
+      Size = 18
+    end
+    object fdQryPesquisaPF: TSmallintField
+      FieldName = 'PF'
+      Origin = 'PESSOA_FISICA'
+      Required = True
+    end
+    object fdQryPesquisaATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+      OnGetText = fdQryPesquisaATIVOGetText
     end
   end
   inherited QryPesquisa: TIBQuery
@@ -179,52 +266,7 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
       ''
       'order by'
       '    4, 5')
-    Left = 80
-    Top = 153
-    ParamData = <>
-    object QryPesquisaTIPO: TIntegerField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      ProviderFlags = []
-      OnGetText = QryPesquisaTIPOGetText
-    end
-    object QryPesquisaID: TIBStringField
-      FieldName = 'ID'
-      ProviderFlags = []
-    end
-    object QryPesquisaCODIGO: TIntegerField
-      FieldName = 'CODIGO'
-      Origin = '"TBFORNECEDOR"."CODFORN"'
-      Required = True
-    end
-    object QryPesquisaNOME: TIBStringField
-      DisplayLabel = 'Fornecedor / Cliente'
-      FieldName = 'NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object QryPesquisaCNPJ: TIBStringField
-      DisplayLabel = 'CPF / CNPJ'
-      FieldName = 'CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      OnGetText = QryPesquisaCNPJGetText
-      Size = 18
-    end
-    object QryPesquisaPF: TSmallintField
-      FieldName = 'PF'
-      Origin = '"TBFORNECEDOR"."PESSOA_FISICA"'
-    end
-    object QryPesquisaATIVO: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = 'Ativo'
-      FieldName = 'ATIVO'
-      Origin = '"TBFORNECEDOR"."ATIVO"'
-      OnGetText = QryPesquisaATIVOGetText
-    end
-  end
-  inherited DtsPesquisa: TDataSource
-    Left = 112
-    Top = 153
+    Left = 384
+    Top = 337
   end
 end

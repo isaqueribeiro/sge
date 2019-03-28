@@ -16,6 +16,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -175,7 +176,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
       'a;'#13#10'- Outros ajustes na otimiza'#231#227'o de processos.'
     InfoFileURL = 'http://www.homeautomacao.com/suporte/itransito/digitoseven.inf'
     VersionControl = byNumber
-    VersionDate = '11/18/2016'
+    VersionDate = '03/27/2019'
     VersionDateAutoSet = True
     VersionNumber = '1.0.15.0'
     ShowMessages = [mAskUpgrade, mConnLost, mHostUnreachable, mLostFile, mNoInfoFile, mNoUpdateAvailable, mPasswordRequest]

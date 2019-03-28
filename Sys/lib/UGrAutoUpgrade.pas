@@ -30,8 +30,10 @@ type
     procedure AutoUpgraderProNoUpdateAvailable(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure AutoUpgraderProFileDone(Sender: TObject; const FileName: string);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    procedure LabelTransparente;
   public
     { Public declarations }
   end;
@@ -135,6 +137,23 @@ begin
   AutoUpgraderPro.InfoFileURL   := lblURLInfo.Caption;
   AutoUpgraderPro.VersionNumber := GetFileVersion;
   AutoUpgraderPro.VersionDate   := GetReleaseDate;
+end;
+
+procedure TfrmGeAutoUpgrade.FormShow(Sender: TObject);
+begin
+  LabelTransparente;
+end;
+
+procedure TfrmGeAutoUpgrade.LabelTransparente;
+var
+  I : Integer;
+begin
+  for I := 0 to Self.ComponentCount - 1 do
+    if (Components[I] is TLabel) then
+    begin
+      TLabel(Components[I]).Transparent := False;
+      TLabel(Components[I]).Transparent := True;
+    end;
 end;
 
 initialization

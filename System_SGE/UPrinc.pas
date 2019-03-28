@@ -10,13 +10,12 @@ uses
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons, cxLookAndFeels,
   dxBar, cxControls, cxClasses, dxRibbon, dxRibbonCustomizationForm, cxContainer,
   cxEdit, dxGallery, dxGalleryControl, dxRibbonBackstageViewGalleryControl, cxLabel,
+  dxRibbonSkins, dxStatusBar,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinsdxStatusBarPainter,
-  dxRibbonSkins, dxSkinsdxRibbonPainter, dxStatusBar, dxSkinsdxBarPainter,
-  dxSkinsForm, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsdxStatusBarPainter,
+  dxSkinsdxRibbonPainter, dxSkinsdxBarPainter, dxSkinsForm;
 
 type
   TfrmPrinc = class(TdxRibbonForm)

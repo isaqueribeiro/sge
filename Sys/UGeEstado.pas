@@ -3,19 +3,24 @@ unit UGeEstado;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  cxButtons, System.ImageList,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeEstado = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaEST_COD: TSmallintField;
-    IbDtstTabelaEST_NOME: TIBStringField;
-    IbDtstTabelaEST_SIGLA: TIBStringField;
-    IbDtstTabelaEST_SIAFI: TIntegerField;
     lblNome: TLabel;
     dbNome: TDBEdit;
     lblSigla: TLabel;
@@ -25,7 +30,11 @@ type
     GrpBxTributacoes: TGroupBox;
     lblAliquotaICMS: TLabel;
     dbAliquotaICMS: TDBEdit;
-    IbDtstTabelaALIQUOTA_ICMS: TIBBCDField;
+    fdQryTabelaEST_COD: TSmallintField;
+    fdQryTabelaEST_NOME: TStringField;
+    fdQryTabelaEST_SIGLA: TStringField;
+    fdQryTabelaEST_SIAFI: TIntegerField;
+    fdQryTabelaALIQUOTA_ICMS: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
   private
@@ -105,15 +114,19 @@ begin
 
   CampoCodigo     := 'est_cod';
   CampoDescricao  := 'est_nome';
+  CampoOrdenacao  := 'est_nome';
 
   AbrirTabelaAuto := True;
 end;
 
 procedure TfrmGeEstado.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
-  IbDtstTabelaEST_SIGLA.Clear;
-  IbDtstTabelaEST_SIAFI.Clear;
-  IbDtstTabelaALIQUOTA_ICMS.Clear;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('EST_SIGLA').Clear;
+    FieldByName('EST_SIAFI').Clear;
+    FieldByName('ALIQUOTA_ICMS').Clear;
+  end;
 end;
 
 function TfrmGeEstado.SelecionarRegistro(var Codigo: Integer;
@@ -122,13 +135,13 @@ begin
   try
     Self.btbtnSelecionar.Visible := True;
 
-    Result := (ShowModal = mrOk) and (not IbDtstTabela.IsEmpty);
+    Result := (ShowModal = mrOk) and (not DtSrcTabela.DataSet.IsEmpty);
 
     if ( Result ) then
     begin
-      Codigo    := IbDtstTabela.FieldByName('est_cod').AsInteger;
-      Descricao := IbDtstTabela.FieldByName('est_nome').AsString;
-      UF        := IbDtstTabela.FieldByName('est_sigla').AsString;
+      Codigo    := DtSrcTabela.DataSet.FieldByName('est_cod').AsInteger;
+      Descricao := DtSrcTabela.DataSet.FieldByName('est_nome').AsString;
+      UF        := DtSrcTabela.DataSet.FieldByName('est_sigla').AsString;
     end
     else
     begin

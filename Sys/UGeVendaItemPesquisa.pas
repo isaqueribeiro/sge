@@ -6,24 +6,32 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
   StdCtrls, Buttons, ExtCtrls, Mask, JvExMask, JvToolEdit, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TFrmGeVendaItemPesquisa = class(TfrmGrPadraoPesquisa)
     lblData: TLabel;
-    QryPesquisaCODPROD: TIBStringField;
-    QryPesquisaPRODUTO: TIBStringField;
-    QryPesquisaGRUPO: TIBStringField;
-    QryPesquisaUNIDADE: TIBStringField;
-    QryPesquisaTOTAL_BRUTO: TIBBCDField;
-    QryPesquisaTOTAL_DESCONTO: TIBBCDField;
-    QryPesquisaTOTAL_FINAL: TIBBCDField;
-    QryPesquisaVENDEDOR: TIBStringField;
-    QryPesquisaCLIENTE_CPF: TIBStringField;
-    QryPesquisaCLIENTE_NOME: TIBStringField;
-    QryPesquisaQUANTIDADE: TIBBCDField;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
+    fdQryPesquisaCODPROD: TStringField;
+    fdQryPesquisaPRODUTO: TStringField;
+    fdQryPesquisaGRUPO: TStringField;
+    fdQryPesquisaUNIDADE: TStringField;
+    fdQryPesquisaQUANTIDADE: TBCDField;
+    fdQryPesquisaTOTAL_BRUTO: TBCDField;
+    fdQryPesquisaTOTAL_DESCONTO: TBCDField;
+    fdQryPesquisaTOTAL_FINAL: TBCDField;
+    fdQryPesquisaVENDEDOR: TStringField;
+    fdQryPesquisaCLIENTE_CPF: TStringField;
+    fdQryPesquisaCLIENTE_NOME: TStringField;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -32,6 +40,22 @@ type
     { Public declarations }
     function ExecutarPesquisa : Boolean; override;
   end;
+
+(*
+  Tabelas:
+  - TBVENDAS
+  - TBVENDEDOR
+  - TBCLIENTE
+  - TVENDASITENS
+  - TBPRODUTO
+  - TBUNIDADEPROD
+  - TBGRUPOPROD
+
+  Views:
+
+  Stored Procedure:
+
+*)
 
 var
   FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa;
@@ -71,9 +95,9 @@ begin
     sDataFinal       := FormatDateTime('yyyy-mm-dd', StrToDateDef(e2Data.Text, Date));
     edPesquisar.Text := Trim(edPesquisar.Text);
 
-    QryPesquisa.Close;
+    fdQryPesquisa.Close;
 
-    with QryPesquisa do
+    with fdQryPesquisa do
     begin
       SQL.Clear;
       SQL.AddStrings( SQLSelect );
@@ -167,9 +191,9 @@ begin
       end;
     end;
 
-    QryPesquisa.Open;
+    fdQryPesquisa.Open;
 
-    Result := not QryPesquisa.IsEmpty;
+    Result := not fdQryPesquisa.IsEmpty;
   finally
     ConfigurarColunas;
     Screen.Cursor := crDefault;

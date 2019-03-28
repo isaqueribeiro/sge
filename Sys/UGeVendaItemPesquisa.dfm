@@ -1,14 +1,11 @@
 inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
   Left = 387
   Top = 208
-  Width = 1132
-  Height = 677
   ActiveControl = nil
   Caption = 'Consultar Vendas de Produtos'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlPesquisa: TPanel
-    Width = 1116
     inherited GrpBxTipoPesquisa: TGroupBox
       inherited lblTipoPesquisa: TLabel
         Enabled = True
@@ -24,12 +21,9 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       end
     end
     inherited GrpBxPesquisar: TGroupBox
-      Width = 888
-      DesignSize = (
-        888
-        73)
       inherited lblPesquisar: TLabel
         Left = 240
+        ExplicitLeft = 240
       end
       object lblData: TLabel [1]
         Left = 16
@@ -43,10 +37,13 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
         Left = 240
         Width = 604
         TabOrder = 2
+        ExplicitLeft = 240
+        ExplicitWidth = 604
       end
       inherited BrnPesquisar: TcxButton
         Left = 851
         TabOrder = 3
+        ExplicitLeft = 851
       end
       object e1Data: TJvDateEdit
         Left = 16
@@ -102,6 +99,7 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
         ImageKind = ikCustom
         NumGlyphs = 2
         PopupColor = clBtnFace
+        ShowNullDate = False
         TabOrder = 0
       end
       object e2Data: TJvDateEdit
@@ -158,16 +156,13 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
         ImageKind = ikCustom
         NumGlyphs = 2
         PopupColor = clBtnFace
+        ShowNullDate = False
         TabOrder = 1
       end
     end
   end
   inherited PnlTabela: TPanel
-    Width = 1116
-    Height = 558
     inherited dbgDados: TDBGrid
-      Width = 1108
-      Height = 550
       Columns = <
         item
           Expanded = False
@@ -240,7 +235,94 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
         end>
     end
   end
-  inherited QryPesquisa: TIBQuery
+  inherited fdQryPesquisa: TFDQuery
+    SQL.Strings = (
+      'Select'
+      '    i.codprod'
+      '  , p.descri as Produto'
+      '  , g.descri as Grupo'
+      '  , u.unp_sigla as Unidade'
+      '  , sum(i.qtde) as Quantidade'
+      '  , sum(i.total_bruto)    as total_bruto'
+      '  , sum(i.total_desconto) as total_desconto'
+      '  , sum(i.total_liquido)  as total_final'
+      '  , vd.nome  as Vendedor'
+      '  , v.codcli as Cliente_Cpf'
+      '  , cl.nome  as Cliente_Nome'
+      'from TBVENDAS v'
+      '  inner join TBVENDEDOR vd on (vd.cod = v.vendedor_cod)'
+      '  inner join TBCLIENTE cl on (cl.codigo = v.codcliente)'
+      
+        '  inner join TVENDASITENS i on (i.ano = v.ano and i.codcontrol =' +
+        ' v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = i.codprod)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unid_cod)'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)')
+    object fdQryPesquisaCODPROD: TStringField
+      FieldName = 'CODPROD'
+      Origin = 'CODPROD'
+      Required = True
+      Size = 10
+    end
+    object fdQryPesquisaPRODUTO: TStringField
+      FieldName = 'PRODUTO'
+      Origin = 'PRODUTO'
+      Size = 50
+    end
+    object fdQryPesquisaGRUPO: TStringField
+      FieldName = 'GRUPO'
+      Origin = 'GRUPO'
+      Size = 30
+    end
+    object fdQryPesquisaUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+      Size = 5
+    end
+    object fdQryPesquisaQUANTIDADE: TBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryPesquisaTOTAL_BRUTO: TBCDField
+      FieldName = 'TOTAL_BRUTO'
+      Origin = 'TOTAL_BRUTO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaTOTAL_DESCONTO: TBCDField
+      FieldName = 'TOTAL_DESCONTO'
+      Origin = 'TOTAL_DESCONTO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaTOTAL_FINAL: TBCDField
+      FieldName = 'TOTAL_FINAL'
+      Origin = 'TOTAL_FINAL'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVENDEDOR: TStringField
+      FieldName = 'VENDEDOR'
+      Origin = 'VENDEDOR'
+      Size = 60
+    end
+    object fdQryPesquisaCLIENTE_CPF: TStringField
+      FieldName = 'CLIENTE_CPF'
+      Origin = 'CLIENTE_CPF'
+      Size = 18
+    end
+    object fdQryPesquisaCLIENTE_NOME: TStringField
+      FieldName = 'CLIENTE_NOME'
+      Origin = 'CLIENTE_NOME'
+      Size = 100
+    end
+  end
+  inherited QryPesquisaXXX: TIBQuery
     SQL.Strings = (
       'Select'
       '    i.codprod'
@@ -264,69 +346,5 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unid_cod)'
       '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
       '')
-    object QryPesquisaCODPROD: TIBStringField
-      FieldName = 'CODPROD'
-      Origin = '"TVENDASITENS"."CODPROD"'
-      Required = True
-      Size = 10
-    end
-    object QryPesquisaPRODUTO: TIBStringField
-      FieldName = 'PRODUTO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryPesquisaGRUPO: TIBStringField
-      FieldName = 'GRUPO'
-      ProviderFlags = []
-      Size = 30
-    end
-    object QryPesquisaUNIDADE: TIBStringField
-      FieldName = 'UNIDADE'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryPesquisaQUANTIDADE: TIBBCDField
-      FieldName = 'QUANTIDADE'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object QryPesquisaTOTAL_BRUTO: TIBBCDField
-      FieldName = 'TOTAL_BRUTO'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object QryPesquisaTOTAL_DESCONTO: TIBBCDField
-      FieldName = 'TOTAL_DESCONTO'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object QryPesquisaTOTAL_FINAL: TIBBCDField
-      FieldName = 'TOTAL_FINAL'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object QryPesquisaVENDEDOR: TIBStringField
-      FieldName = 'VENDEDOR'
-      ProviderFlags = []
-      Size = 60
-    end
-    object QryPesquisaCLIENTE_CPF: TIBStringField
-      FieldName = 'CLIENTE_CPF'
-      ProviderFlags = []
-      Size = 18
-    end
-    object QryPesquisaCLIENTE_NOME: TIBStringField
-      FieldName = 'CLIENTE_NOME'
-      ProviderFlags = []
-      Size = 60
-    end
   end
 end

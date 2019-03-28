@@ -8,7 +8,12 @@ uses
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
-  JvDBControls;
+  JvDBControls, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
+  System.ImageList;
 
 type
   TfrmGeCidade = class(TfrmGrPadraoCadastro)
@@ -46,6 +51,19 @@ type
     dbOutros: TDBEdit;
     Bevel5: TBevel;
     dbEstado: TJvDBComboEdit;
+    fdQryTabelaCID_COD: TIntegerField;
+    fdQryTabelaCID_NOME: TStringField;
+    fdQryTabelaEST_COD: TSmallintField;
+    fdQryTabelaCID_SIAFI: TIntegerField;
+    fdQryTabelaCID_IBGE: TIntegerField;
+    fdQryTabelaCID_DDD: TSmallintField;
+    fdQryTabelaCID_CEP_INICIAL: TIntegerField;
+    fdQryTabelaCID_CEP_FINAL: TIntegerField;
+    fdQryTabelaCUSTO_OPER_PERCENTUAL: TSmallintField;
+    fdQryTabelaCUSTO_OPER_FRETE: TBCDField;
+    fdQryTabelaCUSTO_OPER_OUTROS: TBCDField;
+    fdQryTabelaEST_NOME: TStringField;
+    fdQryTabelaEST_SIGLA: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);

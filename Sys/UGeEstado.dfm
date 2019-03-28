@@ -3,26 +3,22 @@ inherited frmGeEstado: TfrmGeEstado
   Top = 215
   Caption = 'Tabela de Estados (UF)'
   OldCreateOrder = True
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
             Expanded = False
             FieldName = 'EST_COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EST_NOME'
+            Title.Caption = 'Nome '
             Width = 350
             Visible = True
           end
@@ -49,10 +45,6 @@ inherited frmGeEstado: TfrmGeEstado
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 75
         ExplicitTop = 81
@@ -178,40 +170,9 @@ inherited frmGeEstado: TfrmGeEstado
       '  , e.Est_siafi'
       '  , e.Aliquota_icms'
       'from TBESTADO e')
-    object IbDtstTabelaEST_COD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'EST_COD'
-      Origin = 'TBESTADO.EST_COD'
-      Required = True
-    end
-    object IbDtstTabelaEST_NOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'EST_NOME'
-      Origin = 'TBESTADO.EST_NOME'
-      Size = 100
-    end
-    object IbDtstTabelaEST_SIGLA: TIBStringField
-      DisplayLabel = 'SIGLA'
-      FieldName = 'EST_SIGLA'
-      Origin = 'TBESTADO.EST_SIGLA'
-      Required = True
-      Size = 2
-    end
-    object IbDtstTabelaEST_SIAFI: TIntegerField
-      DisplayLabel = 'SIAFI'
-      FieldName = 'EST_SIAFI'
-      Origin = 'TBESTADO.EST_SIAFI'
-    end
-    object IbDtstTabelaALIQUOTA_ICMS: TIBBCDField
-      Alignment = taCenter
-      DisplayLabel = '% Aliquota ICMS'
-      FieldName = 'ALIQUOTA_ICMS'
-      Origin = '"TBESTADO"."ALIQUOTA_ICMS"'
-      Required = True
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -246,7 +207,7 @@ inherited frmGeEstado: TfrmGeEstado
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1704,5 +1665,71 @@ inherited frmGeEstado: TfrmGeEstado
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    SQL.Strings = (
+      'Select'
+      '    e.Est_cod'
+      '  , e.Est_nome'
+      '  , e.Est_sigla'
+      '  , e.Est_siafi'
+      '  , e.Aliquota_icms'
+      'from TBESTADO e')
+    object fdQryTabelaEST_COD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'EST_COD'
+      Origin = 'EST_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaEST_NOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'EST_NOME'
+      Origin = 'EST_NOME'
+      Size = 100
+    end
+    object fdQryTabelaEST_SIGLA: TStringField
+      DisplayLabel = 'Sigla'
+      FieldName = 'EST_SIGLA'
+      Origin = 'EST_SIGLA'
+      Size = 2
+    end
+    object fdQryTabelaEST_SIAFI: TIntegerField
+      DisplayLabel = 'SIAFI'
+      FieldName = 'EST_SIAFI'
+      Origin = 'EST_SIAFI'
+    end
+    object fdQryTabelaALIQUOTA_ICMS: TBCDField
+      DisplayLabel = '% Aliquota ICMS'
+      FieldName = 'ALIQUOTA_ICMS'
+      Origin = 'ALIQUOTA_ICMS'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBESTADO'
+      '(EST_COD, EST_NOME, EST_SIGLA, EST_SIAFI, '
+      '  ALIQUOTA_ICMS)'
+      
+        'VALUES (:NEW_EST_COD, :NEW_EST_NOME, :NEW_EST_SIGLA, :NEW_EST_SI' +
+        'AFI, '
+      '  :NEW_ALIQUOTA_ICMS)')
+    ModifySQL.Strings = (
+      'UPDATE TBESTADO'
+      
+        'SET EST_COD = :NEW_EST_COD, EST_NOME = :NEW_EST_NOME, EST_SIGLA ' +
+        '= :NEW_EST_SIGLA, '
+      '  EST_SIAFI = :NEW_EST_SIAFI, ALIQUOTA_ICMS = :NEW_ALIQUOTA_ICMS'
+      'WHERE EST_COD = :OLD_EST_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBESTADO'
+      'WHERE EST_COD = :OLD_EST_COD')
+    FetchRowSQL.Strings = (
+      'SELECT EST_COD, EST_NOME, EST_SIGLA, EST_SIAFI, ALIQUOTA_ICMS'
+      'FROM TBESTADO'
+      'WHERE EST_COD = :EST_COD')
   end
 end

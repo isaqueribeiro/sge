@@ -6,34 +6,34 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
   StdCtrls, Buttons, ExtCtrls, Mask, JvToolEdit, JvExMask, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeProdutoKardex = class(TfrmGrPadraoPesquisa)
     lblData: TLabel;
     lblProduto: TLabel;
-    QryPesquisaCODEMPRESA: TIBStringField;
-    QryPesquisaCODPROD: TIBStringField;
-    QryPesquisaDOC: TIBStringField;
-    QryPesquisaHISTORICO: TIBStringField;
-    QryPesquisaDTHIST: TDateTimeField;
-    QryPesquisaQTDEATUAL: TIBBCDField;
-    QryPesquisaQTDENOVA: TIBBCDField;
-    QryPesquisaQTDEFINAL: TIBBCDField;
-    QryPesquisaUNIDADE: TIBStringField;
-    QryPesquisaRESP: TIBStringField;
-    QryPesquisaMOTIVO: TIBStringField;
     edProduto: TJvComboEdit;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
+    fdQryPesquisaCODEMPRESA: TStringField;
+    fdQryPesquisaCODPROD: TStringField;
+    fdQryPesquisaDOC: TStringField;
+    fdQryPesquisaHISTORICO: TStringField;
+    fdQryPesquisaDTHIST: TSQLTimeStampField;
+    fdQryPesquisaQTDEATUAL: TBCDField;
+    fdQryPesquisaQTDENOVA: TBCDField;
+    fdQryPesquisaQTDEFINAL: TBCDField;
+    fdQryPesquisaUNIDADE: TStringField;
+    fdQryPesquisaRESP: TStringField;
+    fdQryPesquisaMOTIVO: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure edProdutoButtonClick(Sender: TObject);
     procedure edProdutoKeyPress(Sender: TObject; var Key: Char);
@@ -45,6 +45,18 @@ type
     { Public declarations }
     function ExecutarPesquisa : Boolean; override;
   end;
+
+(*
+  Tabelas:
+  - TBPRODHIST
+  - TBPRODUTO
+  - TBUNIDADEPROD
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeProdutoKardex: TfrmGeProdutoKardex;
@@ -75,9 +87,9 @@ begin
     sDataFinal       := FormatDateTime('yyyy-mm-dd', StrToDateDef(e2Data.Text, Date)) + ' 23:59:59';
     edPesquisar.Text := Trim(edPesquisar.Text);
 
-    QryPesquisa.Close;
+    fdQryPesquisa.Close;
 
-    with QryPesquisa do
+    with fdQryPesquisa do
     begin
       SQL.Clear;
       SQL.AddStrings( SQLSelect );
@@ -87,9 +99,9 @@ begin
       SQL.Add('order by ph.dthist');
     end;
 
-    QryPesquisa.Open;
+    fdQryPesquisa.Open;
 
-    Result := not QryPesquisa.IsEmpty;
+    Result := not fdQryPesquisa.IsEmpty;
   finally
     Screen.Cursor := crDefault;
   end;
@@ -140,4 +152,3 @@ initialization
   FormFunction.RegisterForm('frmGeProdutoKardex', TfrmGeProdutoKardex);
 
 end.
- 

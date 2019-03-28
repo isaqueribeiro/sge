@@ -325,7 +325,11 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
         end>
     end
   end
-  inherited QryPesquisa: TIBQuery
+  inherited DtsPesquisa: TDataSource
+    Left = 72
+    Top = 153
+  end
+  inherited fdQryPesquisa: TFDQuery
     SQL.Strings = (
       'Select'
       '    ph.codempresa'
@@ -345,71 +349,95 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
       '  inner join TBPRODUTO p on (p.cod = ph.codprod)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
     Left = 40
-    Top = 153
-    object QryPesquisaCODEMPRESA: TIBStringField
+    Top = 152
+    object fdQryPesquisaCODEMPRESA: TStringField
       FieldName = 'CODEMPRESA'
-      Origin = '"TBPRODHIST"."CODEMPRESA"'
+      Origin = 'CODEMPRESA'
       Size = 18
     end
-    object QryPesquisaCODPROD: TIBStringField
+    object fdQryPesquisaCODPROD: TStringField
       FieldName = 'CODPROD'
-      Origin = '"TBPRODHIST"."CODPROD"'
+      Origin = 'CODPROD'
       Required = True
       Size = 10
     end
-    object QryPesquisaDOC: TIBStringField
+    object fdQryPesquisaDOC: TStringField
       FieldName = 'DOC'
-      Origin = '"TBPRODHIST"."DOC"'
+      Origin = 'DOC'
     end
-    object QryPesquisaHISTORICO: TIBStringField
+    object fdQryPesquisaHISTORICO: TStringField
       FieldName = 'HISTORICO'
-      Origin = '"TBPRODHIST"."HISTORICO"'
+      Origin = 'HISTORICO'
       Size = 40
     end
-    object QryPesquisaDTHIST: TDateTimeField
+    object fdQryPesquisaDTHIST: TSQLTimeStampField
       FieldName = 'DTHIST'
-      Origin = '"TBPRODHIST"."DTHIST"'
+      Origin = 'DTHIST'
       DisplayFormat = 'dd/mm/yyyy hh:mm'
     end
-    object QryPesquisaQTDEATUAL: TIBBCDField
+    object fdQryPesquisaQTDEATUAL: TBCDField
       FieldName = 'QTDEATUAL'
-      Origin = '"TBPRODHIST"."QTDEATUAL"'
+      Origin = 'QTDEATUAL'
+      Required = True
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object QryPesquisaQTDENOVA: TIBBCDField
+    object fdQryPesquisaQTDENOVA: TBCDField
       FieldName = 'QTDENOVA'
-      Origin = '"TBPRODHIST"."QTDENOVA"'
+      Origin = 'QTDENOVA'
+      Required = True
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object QryPesquisaQTDEFINAL: TIBBCDField
+    object fdQryPesquisaQTDEFINAL: TBCDField
       FieldName = 'QTDEFINAL'
-      Origin = '"TBPRODHIST"."QTDEFINAL"'
+      Origin = 'QTDEFINAL'
+      Required = True
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object QryPesquisaUNIDADE: TIBStringField
+    object fdQryPesquisaUNIDADE: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
       ProviderFlags = []
+      ReadOnly = True
       Size = 50
     end
-    object QryPesquisaRESP: TIBStringField
+    object fdQryPesquisaRESP: TStringField
       FieldName = 'RESP'
-      Origin = '"TBPRODHIST"."RESP"'
+      Origin = 'RESP'
       Size = 60
     end
-    object QryPesquisaMOTIVO: TIBStringField
+    object fdQryPesquisaMOTIVO: TStringField
       FieldName = 'MOTIVO'
-      Origin = '"TBPRODHIST"."MOTIVO"'
+      Origin = 'MOTIVO'
       Size = 250
     end
   end
-  inherited DtsPesquisa: TDataSource
-    Left = 72
-    Top = 153
+  inherited QryPesquisaXXX: TIBQuery
+    SQL.Strings = (
+      'Select'
+      '    ph.codempresa'
+      '  , ph.codprod'
+      '  , ph.doc'
+      '  , ph.historico'
+      '  , ph.dthist'
+      '  , ph.qtdeatual'
+      '  , ph.qtdenova'
+      '  , ph.qtdefinal'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3) as unidade'
+      '  , ph.resp'
+      '  , ph.motivo'
+      'from TBPRODHIST ph'
+      '  inner join TBPRODUTO p on (p.cod = ph.codprod)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
+    Left = 240
+    Top = 329
   end
 end

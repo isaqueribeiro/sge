@@ -28,6 +28,8 @@ inherited frmGeCaixa: TfrmGeCaixa
     ExplicitWidth = 950
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel4: TBevel
@@ -302,6 +304,8 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel8: TBevel
@@ -830,6 +834,10 @@ inherited frmGeCaixa: TfrmGeCaixa
         TabStop = False
         object tbsConsolidado: TTabSheet
           Caption = 'Consolidado'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbgConsolidado: TDBGrid
             Left = 0
             Top = 0
@@ -887,6 +895,10 @@ inherited frmGeCaixa: TfrmGeCaixa
         object tbsMovimento: TTabSheet
           Caption = 'Movimento'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbgMovimento: TDBGrid
             Left = 0
             Top = 0
@@ -1357,7 +1369,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2817,7 +2829,6 @@ inherited frmGeCaixa: TfrmGeCaixa
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
-    Active = True
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_CAIXA_2012'
@@ -2858,7 +2869,6 @@ inherited frmGeCaixa: TfrmGeCaixa
     object fdQryTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'ANO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object fdQryTabelaNUMERO: TIntegerField

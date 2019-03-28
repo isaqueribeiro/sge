@@ -470,7 +470,11 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       end
     end
   end
-  inherited QryPesquisa: TIBQuery
+  inherited DtsPesquisa: TDataSource
+    DataSet = CdsPesquisa
+    Top = 257
+  end
+  inherited fdQryPesquisa: TFDQuery
     SQL.Strings = (
       'Select'
       '    r.anolanc'
@@ -516,15 +520,58 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
         ' r.numvenda)'
       '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)')
   end
-  inherited DtsPesquisa: TDataSource
-    DataSet = CdsPesquisa
-    Left = 360
-    Top = 273
+  inherited QryPesquisaXXX: TIBQuery
+    SQL.Strings = (
+      'Select'
+      '    r.anolanc'
+      '  , r.numlanc'
+      
+        '  , cast(r.anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.numlanc, 7) as' +
+        ' varchar(30)) as lancamento'
+      '  , r.empresa'
+      '  , r.parcela'
+      '  , r.tippag'
+      '  , r.dtemiss'
+      '  , r.dtvenc'
+      '  , r.dtrec'
+      '  , r.valorrec'
+      '  , r.valormulta'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.valorsaldo as valor_areceber'
+      ''
+      
+        '  , cast(coalesce(r.anovenda, r.anoos) || '#39'/'#39' || right('#39'0000000'#39 +
+        ' || coalesce(r.numvenda, r.numos), 7) as varchar(30)) as saida'
+      '  , coalesce(r.anovenda, r.anoos) as saida_ano'
+      '  , coalesce(r.numvenda, r.numos) as saida_numero'
+      '  , Case when coalesce(e.nfe, o.nfs_numero) is null'
+      '      then '#39'Saida sem Nota Fiscal'#39
+      '      else '#39'Notal Fiscal'#39
+      '    end as saida_doc_tipo'
+      
+        '  , cast(right('#39'0000000'#39' || coalesce(e.nfe, o.nfs_numero), 7) ||' +
+        ' coalesce('#39'-'#39' || coalesce(nullif(trim(e.serie), '#39#39'), nullif(trim' +
+        '(o.nfs_serie), '#39#39')), '#39#39') as varchar(30)) as saida_doc'
+      '  , e.nfe   as saida_doc_numero'
+      '  , e.serie as saida_doc_serie'
+      '  , f.nome  as saida_fornecedor'
+      '  , f.cnpj  as saida_fornecedor_cnpj'
+      ''
+      '  , 0 as selecionar'
+      'from TBCONTREC r'
+      '  left join TBCLIENTE f on (f.codigo = r.cliente)'
+      
+        '  left join TBVENDAS e on (e.ano = r.anovenda and e.codcontrol =' +
+        ' r.numvenda)'
+      '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)')
+    Left = 488
+    Top = 168
   end
   object DspPesquisa: TDataSetProvider
-    DataSet = QryPesquisa
+    DataSet = fdQryPesquisa
     Left = 360
-    Top = 209
+    Top = 177
   end
   object CdsPesquisa: TClientDataSet
     Aggregates = <>
@@ -532,7 +579,7 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
     Params = <>
     ProviderName = 'DspPesquisa'
     Left = 360
-    Top = 241
+    Top = 217
     object CdsPesquisaANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Required = True

@@ -13,14 +13,9 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeContasAPagarQuitar = class(TfrmGrPadraoPesquisa)
@@ -29,20 +24,6 @@ type
     GrpBxControleQuitacao: TGroupBox;
     DspPesquisa: TDataSetProvider;
     CdsPesquisa: TClientDataSet;
-    CdsPesquisaANOLANC: TSmallintField;
-    CdsPesquisaNUMLANC: TIntegerField;
-    CdsPesquisaPARCELA: TSmallintField;
-    CdsPesquisaDTEMISS: TDateField;
-    CdsPesquisaDTVENC: TDateField;
-    CdsPesquisaDTPAG: TDateField;
-    CdsPesquisaVALORPAG: TBCDField;
-    CdsPesquisaVALORMULTA: TBCDField;
-    CdsPesquisaVALORPAGTOT: TBCDField;
-    CdsPesquisaVALORSALDO: TBCDField;
-    CdsPesquisaVALOR_APAGAR: TBCDField;
-    CdsPesquisaENTRADA_ANO: TSmallintField;
-    CdsPesquisaENTRADA_NUMERO: TIntegerField;
-    CdsPesquisaSELECIONAR: TIntegerField;
     CdsPesquisaSelecionados: TAggregateField;
     dtsFormaPagto: TDataSource;
     cdsPagamentoLOTE: TClientDataSet;
@@ -55,37 +36,51 @@ type
     dbFormaPagto: TDBLookupComboBox;
     lblHistorico: TLabel;
     dbHistorico: TDBMemo;
-    cdsPagamentos: TIBDataSet;
+    BtnQuitar: TcxButton;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    dbDataPagto: TJvDBDateEdit;
+    fdQryFormaPagto: TFDQuery;
+    CdsPesquisaANOLANC: TSmallintField;
+    CdsPesquisaNUMLANC: TIntegerField;
+    CdsPesquisaLANCAMENTO: TStringField;
+    CdsPesquisaEMPRESA: TStringField;
+    CdsPesquisaPARCELA: TSmallintField;
+    CdsPesquisaTIPPAG: TStringField;
+    CdsPesquisaDTEMISS: TDateField;
+    CdsPesquisaDTVENC: TDateField;
+    CdsPesquisaDTPAG: TDateField;
+    CdsPesquisaVALORPAG: TBCDField;
+    CdsPesquisaVALORMULTA: TBCDField;
+    CdsPesquisaVALORPAGTOT: TBCDField;
+    CdsPesquisaVALORSALDO: TBCDField;
+    CdsPesquisaVALOR_APAGAR: TBCDField;
+    CdsPesquisaENTRADA: TStringField;
+    CdsPesquisaENTRADA_ANO: TSmallintField;
+    CdsPesquisaENTRADA_NUMERO: TIntegerField;
+    CdsPesquisaENTRADA_DOC_TIPO: TStringField;
+    CdsPesquisaENTRADA_DOC: TStringField;
+    CdsPesquisaENTRADA_DOC_NUMERO: TIntegerField;
+    CdsPesquisaENTRADA_DOC_SERIE: TStringField;
+    CdsPesquisaENTRADA_FORNECEDOR: TStringField;
+    CdsPesquisaENTRADA_FORNECEDOR_CNPJ: TStringField;
+    CdsPesquisaSELECIONAR: TIntegerField;
+    cdsPagamentos: TFDQuery;
+    updPagamentos: TFDUpdateSQL;
     cdsPagamentosANOLANC: TSmallintField;
     cdsPagamentosNUMLANC: TIntegerField;
     cdsPagamentosSEQ: TSmallintField;
     cdsPagamentosHISTORICO: TMemoField;
     cdsPagamentosDATA_PAGTO: TDateField;
     cdsPagamentosFORMA_PAGTO: TSmallintField;
-    cdsPagamentosFORMA_PAGTO_DESC: TIBStringField;
-    cdsPagamentosVALOR_BAIXA: TIBBCDField;
-    cdsPagamentosNUMERO_CHEQUE: TIBStringField;
+    cdsPagamentosFORMA_PAGTO_DESC: TStringField;
+    cdsPagamentosVALOR_BAIXA: TBCDField;
+    cdsPagamentosNUMERO_CHEQUE: TStringField;
+    cdsPagamentosEMPRESA: TStringField;
     cdsPagamentosBANCO: TSmallintField;
-    cdsPagamentosBCO_NOME: TIBStringField;
-    cdsPagamentosDOCUMENTO_BAIXA: TIBStringField;
-    cdsPagamentosUSUARIO: TIBStringField;
-    updPagamentos: TIBUpdateSQL;
-    BtnQuitar: TcxButton;
-    e1Data: TJvDateEdit;
-    e2Data: TJvDateEdit;
-    dbDataPagto: TJvDBDateEdit;
-    CdsPesquisaLANCAMENTO: TWideStringField;
-    CdsPesquisaEMPRESA: TWideStringField;
-    CdsPesquisaTIPPAG: TWideStringField;
-    CdsPesquisaENTRADA: TWideStringField;
-    CdsPesquisaENTRADA_DOC_TIPO: TWideStringField;
-    CdsPesquisaENTRADA_DOC: TWideStringField;
-    CdsPesquisaENTRADA_DOC_NUMERO: TIntegerField;
-    CdsPesquisaENTRADA_DOC_SERIE: TWideStringField;
-    CdsPesquisaENTRADA_FORNECEDOR: TWideStringField;
-    CdsPesquisaENTRADA_FORNECEDOR_CNPJ: TWideStringField;
-    cdsPagamentosEMPRESA: TIBStringField;
-    fdQryFormaPagto: TFDQuery;
+    cdsPagamentosBCO_NOME: TStringField;
+    cdsPagamentosDOCUMENTO_BAIXA: TStringField;
+    cdsPagamentosUSUARIO: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -147,7 +142,7 @@ begin
 
     CdsPesquisa.Close;
 
-    with QryPesquisa do
+    with fdQryPesquisa do
     begin
       SQL.Clear;
       SQL.AddStrings( SQLSelect );

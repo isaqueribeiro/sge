@@ -30,7 +30,7 @@ type
     dbgDados: TDBGrid;
     BrnPesquisar: TcxButton;
     fdQryPesquisa: TFDQuery;
-    QryPesquisa: TIBQuery;
+    QryPesquisaXXX: TIBQuery;
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormCreate(Sender: TObject);
@@ -92,10 +92,7 @@ begin
   end;
 
   sSQL := TStringList.Create;
-  if (DtsPesquisa.DataSet = QryPesquisa) then
-    sSQL.AddStrings( QryPesquisa.SQL )
-  else
-    sSQL.AddStrings( fdQryPesquisa.SQL );
+  sSQL.AddStrings( fdQryPesquisa.SQL );
 end;
 
 procedure TfrmGrPadraoPesquisa.BrnPesquisarClick(Sender: TObject);

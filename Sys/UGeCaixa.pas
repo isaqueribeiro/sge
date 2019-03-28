@@ -410,8 +410,9 @@ begin
 
   with fdQryTabela, UpdateOptions do
   begin
-    KeyFields     := CampoCodigo;
-    GeneratorName := sGeneratorName;
+    AutoIncFields  := CampoCodigo;
+    KeyFields      := CampoCodigo;
+    GeneratorName  := sGeneratorName;
     FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
     FieldByName(CampoCodigo).AutoGenerateValue := TAutoRefreshFlag.arAutoInc;
   end;

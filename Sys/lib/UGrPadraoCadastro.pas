@@ -870,25 +870,33 @@ begin
     if ( AbrirTabelaAuto ) then
     begin
       DtSrcTabela.DataSet.Close;
-      if ( WhereAdditional <> EmptyStr ) then
 
+      if ( WhereAdditional <> EmptyStr ) then
+      begin
+        if (DtSrcTabela.DataSet = IbDtstTabela) then
+        begin
+          if ( Pos('where', IbDtstTabela.SelectSQL.Text) > 0 ) then
+            IbDtstTabela.SelectSQL.Add( '  and (' + WhereAdditional + ')' )
+          else
+            IbDtstTabela.SelectSQL.Add( 'where (' + WhereAdditional + ')' );
+        end
+        else
+        begin
+          if ( Pos('where', fdQryTabela.SQL.Text) > 0 ) then
+            fdQryTabela.SQL.Add( '  and (' + WhereAdditional + ')' )
+          else
+            fdQryTabela.SQL.Add( 'where (' + WhereAdditional + ')' );
+        end;
+      end;
+
+      // Inserir ORDER BY na script caso não exista
       if (DtSrcTabela.DataSet = IbDtstTabela) then
       begin
-        if ( Pos('where', IbDtstTabela.SelectSQL.Text) > 0 ) then
-          IbDtstTabela.SelectSQL.Add( '  and (' + WhereAdditional + ')' )
-        else
-          IbDtstTabela.SelectSQL.Add( 'where (' + WhereAdditional + ')' );
-
         if ( (Pos('order by', IbDtstTabela.SelectSQL.Text) = 0) and (CampoOrdenacao <> EmptyStr) ) then
           IbDtstTabela.SelectSQL.Add( 'order by ' + CampoOrdenacao );
       end
       else
       begin
-        if ( Pos('where', fdQryTabela.SQL.Text) > 0 ) then
-          fdQryTabela.SQL.Add( '  and (' + WhereAdditional + ')' )
-        else
-          fdQryTabela.SQL.Add( 'where (' + WhereAdditional + ')' );
-
         if ( (Pos('order by', fdQryTabela.SQL.Text) = 0) and (CampoOrdenacao <> EmptyStr) ) then
           fdQryTabela.SQL.Add( 'order by ' + CampoOrdenacao );
       end;

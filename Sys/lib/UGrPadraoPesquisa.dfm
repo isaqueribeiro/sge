@@ -189,15 +189,15 @@ inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
   object DtsPesquisa: TDataSource
     DataSet = fdQryPesquisa
     Left = 360
-    Top = 240
+    Top = 176
   end
   object fdQryPesquisa: TFDQuery
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
-    Left = 360
-    Top = 208
+    Left = 328
+    Top = 176
   end
-  object QryPesquisa: TIBQuery
+  object QryPesquisaXXX: TIBQuery
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -240,8 +240,8 @@ inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
       'where r.Baixado = 0'
       '  and r.Parcela > 0'
       '  and r.Cnpj = :cliente')
-    Left = 360
-    Top = 176
+    Left = 504
+    Top = 296
     ParamData = <
       item
         DataType = ftString

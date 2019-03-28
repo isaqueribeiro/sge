@@ -4,17 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
+  Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids, Menus, cxButtons,
   StdCtrls, Buttons, ExtCtrls, Mask, DBClient, Provider, IBTable, IBUpdateSQL, IBStoredProc,
   JvToolEdit, JvExMask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeRequisicaoCompraPesquisa = class(TfrmGrPadraoPesquisa)
@@ -23,72 +23,33 @@ type
     CdsPesquisa: TClientDataSet;
     lblTipoRequisicao: TLabel;
     edTipoRequisicao: TComboBox;
-    tblTipoRequisicao: TIBTable;
     lblFornecedor: TLabel;
-    cdsAutorizacao: TIBDataSet;
-    cdsAutorizacaoANO: TSmallintField;
-    cdsAutorizacaoCODIGO: TIntegerField;
-    cdsAutorizacaoEMPRESA: TIBStringField;
-    cdsAutorizacaoNUMERO: TIBStringField;
-    cdsAutorizacaoFORNECEDOR: TIntegerField;
-    cdsAutorizacaoNOME_CONTATO: TIBStringField;
-    cdsAutorizacaoTIPO: TSmallintField;
-    cdsAutorizacaoINSERCAO_DATA: TDateTimeField;
-    cdsAutorizacaoEMISSAO_DATA: TDateField;
-    cdsAutorizacaoEMISSAO_USUARIO: TIBStringField;
-    cdsAutorizacaoVALIDADE: TDateField;
-    cdsAutorizacaoCOMPETENCIA: TIntegerField;
-    cdsAutorizacaoCLIENTE: TIntegerField;
-    cdsAutorizacaoMOVITO: TMemoField;
-    cdsAutorizacaoOBSERVACAO: TMemoField;
-    cdsAutorizacaoENDERECO_ENTREGA: TMemoField;
-    cdsAutorizacaoSTATUS: TSmallintField;
-    cdsAutorizacaoRECEBEDOR_NOME: TIBStringField;
-    cdsAutorizacaoRECEBEDOR_CPF: TIBStringField;
-    cdsAutorizacaoRECEBEDOR_FUNCAO: TIBStringField;
-    cdsAutorizacaoFORMA_PAGTO: TSmallintField;
-    cdsAutorizacaoCONDICAO_PAGTO: TSmallintField;
-    cdsAutorizacaoTRANSPORTADOR: TIntegerField;
-    cdsAutorizacaoVALOR_BRUTO: TIBBCDField;
-    cdsAutorizacaoVALOR_DESCONTO: TIBBCDField;
-    cdsAutorizacaoVALOR_TOTAL_FRETE: TIBBCDField;
-    cdsAutorizacaoVALOR_TOTAL_IPI: TIBBCDField;
-    cdsAutorizacaoVALOR_TOTAL: TIBBCDField;
-    cdsAutorizacaoAUTORIZADO_DATA: TDateField;
-    cdsAutorizacaoDATA_FATURA: TDateField;
-    cdsAutorizacaoAUTORIZADO_USUARIO: TIBStringField;
-    cdsAutorizacaoCANCELADO_DATA: TDateField;
-    cdsAutorizacaoCANCELADO_USUARIO: TIBStringField;
-    cdsAutorizacaoCANCELADO_MOTIVO: TMemoField;
-    updAutorizacao: TIBUpdateSQL;
-    CdsPesquisaANO: TSmallintField;
-    CdsPesquisaCODIGO: TIntegerField;
-    CdsPesquisaSELECIONAR: TIntegerField;
     BtnConverter: TSpeedButton;
-    stpGerarAutorizacaoItens: TIBStoredProc;
-    cdsAutorizacaoCENTRO_CUSTO: TIntegerField;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     edFornecedor: TJvComboEdit;
-    CdsPesquisaEMPRESA: TWideStringField;
-    CdsPesquisaNUMERO: TWideStringField;
+    CdsPesquisaSELECIONAR: TIntegerField;
+    CdsPesquisaANO: TSmallintField;
+    CdsPesquisaCODIGO: TIntegerField;
+    CdsPesquisaEMPRESA: TStringField;
+    CdsPesquisaNUMERO: TStringField;
     CdsPesquisaFORNECEDOR: TIntegerField;
-    CdsPesquisaNOME_CONTATO: TWideStringField;
+    CdsPesquisaNOME_CONTATO: TStringField;
     CdsPesquisaTIPO: TSmallintField;
-    CdsPesquisaINSERCAO_DATA: TDateTimeField;
+    CdsPesquisaINSERCAO_DATA: TSQLTimeStampField;
     CdsPesquisaEMISSAO_DATA: TDateField;
-    CdsPesquisaEMISSAO_USUARIO: TWideStringField;
+    CdsPesquisaEMISSAO_USUARIO: TStringField;
     CdsPesquisaVALIDADE: TDateField;
     CdsPesquisaCOMPETENCIA: TIntegerField;
-    CdsPesquisaMOVITO: TWideMemoField;
-    CdsPesquisaOBSERVACAO: TWideMemoField;
+    CdsPesquisaMOVITO: TMemoField;
+    CdsPesquisaOBSERVACAO: TMemoField;
     CdsPesquisaCLIENTE: TIntegerField;
     CdsPesquisaCENTRO_CUSTO: TIntegerField;
-    CdsPesquisaENDERECO_ENTREGA: TWideMemoField;
+    CdsPesquisaENDERECO_ENTREGA: TMemoField;
     CdsPesquisaSTATUS: TSmallintField;
-    CdsPesquisaRECEBEDOR_NOME: TWideStringField;
-    CdsPesquisaRECEBEDOR_CPF: TWideStringField;
-    CdsPesquisaRECEBEDOR_FUNCAO: TWideStringField;
+    CdsPesquisaRECEBEDOR_NOME: TStringField;
+    CdsPesquisaRECEBEDOR_CPF: TStringField;
+    CdsPesquisaRECEBEDOR_FUNCAO: TStringField;
     CdsPesquisaFORMA_PAGTO: TSmallintField;
     CdsPesquisaCONDICAO_PAGTO: TSmallintField;
     CdsPesquisaTRANSPORTADOR: TIntegerField;
@@ -100,17 +61,56 @@ type
     CdsPesquisaVALOR_TOTAL: TBCDField;
     CdsPesquisaREQUISITADO_DATA: TDateField;
     CdsPesquisaDATA_FATURA: TDateField;
-    CdsPesquisaREQUISITADO_USUARIO: TWideStringField;
+    CdsPesquisaREQUISITADO_USUARIO: TStringField;
     CdsPesquisaCANCELADO_DATA: TDateField;
-    CdsPesquisaCANCELADO_USUARIO: TWideStringField;
-    CdsPesquisaCANCELADO_MOTIVO: TWideMemoField;
-    CdsPesquisaNOMEFORN: TWideStringField;
-    CdsPesquisaCNPJ: TWideStringField;
+    CdsPesquisaCANCELADO_USUARIO: TStringField;
+    CdsPesquisaCANCELADO_MOTIVO: TMemoField;
+    CdsPesquisaNOMEFORN: TStringField;
+    CdsPesquisaCNPJ: TStringField;
     CdsPesquisaPESSOA_FISICA: TSmallintField;
     CdsPesquisaFATURAMENTO_MINIMO: TBCDField;
-    CdsPesquisaTRANSPORTADOR_NOME: TWideStringField;
-    CdsPesquisaTRANSPORTADOR_CPF_CNPJ: TWideStringField;
-    CdsPesquisaNOMECLIENTE: TWideStringField;
+    CdsPesquisaTRANSPORTADOR_NOME: TStringField;
+    CdsPesquisaTRANSPORTADOR_CPF_CNPJ: TStringField;
+    CdsPesquisaNOMECLIENTE: TStringField;
+    tblTipoRequisicao: TFDTable;
+    cdsAutorizacao: TFDQuery;
+    updAutorizacao: TFDUpdateSQL;
+    cdsAutorizacaoANO: TSmallintField;
+    cdsAutorizacaoCODIGO: TIntegerField;
+    cdsAutorizacaoEMPRESA: TStringField;
+    cdsAutorizacaoNUMERO: TStringField;
+    cdsAutorizacaoFORNECEDOR: TIntegerField;
+    cdsAutorizacaoNOME_CONTATO: TStringField;
+    cdsAutorizacaoTIPO: TSmallintField;
+    cdsAutorizacaoINSERCAO_DATA: TSQLTimeStampField;
+    cdsAutorizacaoEMISSAO_DATA: TDateField;
+    cdsAutorizacaoEMISSAO_USUARIO: TStringField;
+    cdsAutorizacaoVALIDADE: TDateField;
+    cdsAutorizacaoCOMPETENCIA: TIntegerField;
+    cdsAutorizacaoMOVITO: TMemoField;
+    cdsAutorizacaoOBSERVACAO: TMemoField;
+    cdsAutorizacaoCLIENTE: TIntegerField;
+    cdsAutorizacaoCENTRO_CUSTO: TIntegerField;
+    cdsAutorizacaoENDERECO_ENTREGA: TMemoField;
+    cdsAutorizacaoSTATUS: TSmallintField;
+    cdsAutorizacaoRECEBEDOR_NOME: TStringField;
+    cdsAutorizacaoRECEBEDOR_CPF: TStringField;
+    cdsAutorizacaoRECEBEDOR_FUNCAO: TStringField;
+    cdsAutorizacaoFORMA_PAGTO: TSmallintField;
+    cdsAutorizacaoCONDICAO_PAGTO: TSmallintField;
+    cdsAutorizacaoTRANSPORTADOR: TIntegerField;
+    cdsAutorizacaoVALOR_BRUTO: TBCDField;
+    cdsAutorizacaoVALOR_DESCONTO: TBCDField;
+    cdsAutorizacaoVALOR_TOTAL_FRETE: TBCDField;
+    cdsAutorizacaoVALOR_TOTAL_IPI: TBCDField;
+    cdsAutorizacaoVALOR_TOTAL: TBCDField;
+    cdsAutorizacaoAUTORIZADO_DATA: TDateField;
+    cdsAutorizacaoDATA_FATURA: TDateField;
+    cdsAutorizacaoAUTORIZADO_USUARIO: TStringField;
+    cdsAutorizacaoCANCELADO_DATA: TDateField;
+    cdsAutorizacaoCANCELADO_USUARIO: TStringField;
+    cdsAutorizacaoCANCELADO_MOTIVO: TMemoField;
+    stpGerarAutorizacaoItens: TFDStoredProc;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -138,6 +138,24 @@ type
     { Public declarations }
     function ExecutarPesquisa : Boolean; override;
   end;
+
+(*
+  Tabelas:
+  - TBREQUISITA_COMPRA
+  - TBREQUISITA_COMPRAITEM
+  - TBAUTORIZA_REQUISITA
+  - TBAUTORIZA_COMPRA
+  - TBFORNECEDOR
+  - TBFORNECEDOR
+  - TBCLIENTE
+
+  Views:
+  - VW_TIPO_REQUISICAO
+
+  Procedures:
+  - SET_AUTORIZACAO_ITENS_REQ
+
+*)
 
 var
   frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa;
@@ -357,8 +375,13 @@ begin
       sTextoMotivo   := EmptyStr;
       sGeneratorName := 'GEN_AUTORIZA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
 
-      cdsAutorizacao.GeneratorField.Generator := sGeneratorName;
-      cdsAutorizacao.GeneratorField.Field     := 'codigo';
+      with cdsAutorizacao, UpdateOptions do
+      begin
+        GeneratorName := sGeneratorName;
+        UpdateOptions.KeyFields     := 'codigo';
+        UpdateOptions.AutoIncFields := 'codigo';
+        UpdateOptions.FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
+      end;
 
       iAno := YearOf(GetDateDB);
       iNum := GetGeneratorID(sGeneratorName);
@@ -378,8 +401,8 @@ begin
       cdsAutorizacaoNUMERO.AsString  := FormatFloat('##0000000', cdsAutorizacaoCODIGO.AsInteger) + '/' + Copy(cdsAutorizacaoANO.AsString, 3, 2);
       cdsAutorizacaoEMPRESA.Value    := gUsuarioLogado.Empresa;
       cdsAutorizacaoTIPO.Value       := GetTipoRequisicao;
-      cdsAutorizacaoINSERCAO_DATA.Value    := GetDateTimeDB;
-      cdsAutorizacaoEMISSAO_DATA.Value     := GetDateDB;
+      cdsAutorizacaoINSERCAO_DATA.AsDateTime := GetDateTimeDB;
+      cdsAutorizacaoEMISSAO_DATA.AsDateTime  := GetDateDB;
       cdsAutorizacaoEMISSAO_USUARIO.Value  := gUsuarioLogado.Login;
       cdsAutorizacaoVALIDADE.Value         := cdsAutorizacaoEMISSAO_DATA.Value + GetPrazoValidadeAutorizacaoCompra(gUsuarioLogado.Empresa);
       cdsAutorizacaoSTATUS.AsInteger       := STATUS_AUTORIZACAO_EDC;
