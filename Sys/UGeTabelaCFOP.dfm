@@ -42,11 +42,13 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           item
             Expanded = False
             FieldName = 'CFOP_COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CFOP_DESCRICAO'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 600
             Visible = True
           end>
@@ -496,103 +498,10 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  , c.Cfop_gerar_titulo'
       '  , c.Cfop_gerar_duplicata'
       'from TBCFOP c')
-    Left = 672
-    object IbDtstTabelaCFOP_COD: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CFOP_COD'
-      Origin = 'TBCFOP.CFOP_COD'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object IbDtstTabelaCFOP_DESCRICAO: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'CFOP_DESCRICAO'
-      Origin = 'TBCFOP.CFOP_DESCRICAO'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 250
-    end
-    object IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField
-      DisplayLabel = 'Especifica'#231#227'o'
-      FieldName = 'CFOP_ESPECIFICACAO'
-      Origin = 'TBCFOP.CFOP_ESPECIFICACAO'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaCFOP_INFORMACAO_FISCO: TIBStringField
-      DisplayLabel = 'Informa'#231#227'o ao Fisco'
-      FieldName = 'CFOP_INFORMACAO_FISCO'
-      Origin = '"TBCFOP"."CFOP_INFORMACAO_FISCO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CFOP_ALTERA_CUSTO_PRODUTO'
-      Origin = '"TBCFOP"."CFOP_ALTERA_CUSTO_PRODUTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCFOP_TIPO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo'
-      FieldName = 'CFOP_TIPO'
-      Origin = '"TBCFOP"."CFOP_TIPO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaCFOP_DEVOLUCAO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CFOP_DEVOLUCAO'
-      Origin = '"TBCFOP"."CFOP_DEVOLUCAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCFOP_REMESSA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CFOP_REMESSA'
-      Origin = '"TBCFOP"."CFOP_REMESSA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCFOP_RETORNO_INTERNO: TIntegerField
-      DisplayLabel = 'CFOP de Retorno para Dentro do Estado'
-      FieldName = 'CFOP_RETORNO_INTERNO'
-      Origin = '"TBCFOP"."CFOP_RETORNO_INTERNO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCFOP_RETORNO_EXTERNO: TIntegerField
-      DisplayLabel = 'CFOP de Retorno para Fora do Estado'
-      FieldName = 'CFOP_RETORNO_EXTERNO'
-      Origin = '"TBCFOP"."CFOP_RETORNO_EXTERNO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCFOP_CST_PADRAO_ENTRADA: TIBStringField
-      FieldName = 'CFOP_CST_PADRAO_ENTRADA'
-      Origin = '"TBCFOP"."CFOP_CST_PADRAO_ENTRADA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 3
-    end
-    object IbDtstTabelaCFOP_CST_PADRAO_SAIDA: TIBStringField
-      FieldName = 'CFOP_CST_PADRAO_SAIDA'
-      Origin = '"TBCFOP"."CFOP_CST_PADRAO_SAIDA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 3
-    end
-    object IbDtstTabelaCFOP_GERAR_TITULO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CFOP_GERAR_TITULO'
-      Origin = '"TBCFOP"."CFOP_GERAR_TITULO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCFOP_GERAR_DUPLICATA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CFOP_GERAR_DUPLICATA'
-      Origin = '"TBCFOP"."CFOP_GERAR_DUPLICATA"'
-      ProviderFlags = [pfInUpdate]
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 688
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -660,12 +569,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       'delete from TBCFOP'
       'where'
       '  CFOP_COD = :OLD_CFOP_COD')
-    Left = 680
   end
   inherited ImgList: TImageList
-    Left = 640
+    Left = 512
+    Top = 0
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2123,6 +2032,167 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    SQL.Strings = (
+      'Select'
+      '    c.Cfop_cod'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_especificacao'
+      '  , c.Cfop_informacao_fisco'
+      '  , c.Cfop_tipo'
+      '  , c.Cfop_devolucao'
+      '  , c.Cfop_remessa'
+      '  , c.Cfop_retorno_interno'
+      '  , c.Cfop_retorno_externo'
+      '  , c.Cfop_altera_custo_produto'
+      '  , c.Cfop_cst_padrao_entrada'
+      '  , c.Cfop_cst_padrao_saida'
+      '  , c.Cfop_gerar_titulo'
+      '  , c.Cfop_gerar_duplicata'
+      'from TBCFOP c')
+    object fdQryTabelaCFOP_COD: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CFOP_COD'
+      Origin = 'CFOP_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaCFOP_DESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'CFOP_DESCRICAO'
+      Origin = 'CFOP_DESCRICAO'
+      Required = True
+      Size = 250
+    end
+    object fdQryTabelaCFOP_ESPECIFICACAO: TMemoField
+      DisplayLabel = 'Especifica'#231#227'o'
+      FieldName = 'CFOP_ESPECIFICACAO'
+      Origin = 'CFOP_ESPECIFICACAO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaCFOP_INFORMACAO_FISCO: TStringField
+      DisplayLabel = 'Informa'#231#227'o ao Fisco'
+      FieldName = 'CFOP_INFORMACAO_FISCO'
+      Origin = 'CFOP_INFORMACAO_FISCO'
+      Size = 250
+    end
+    object fdQryTabelaCFOP_TIPO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo'
+      FieldName = 'CFOP_TIPO'
+      Origin = 'CFOP_TIPO'
+      Required = True
+    end
+    object fdQryTabelaCFOP_DEVOLUCAO: TSmallintField
+      FieldName = 'CFOP_DEVOLUCAO'
+      Origin = 'CFOP_DEVOLUCAO'
+      Required = True
+    end
+    object fdQryTabelaCFOP_REMESSA: TSmallintField
+      FieldName = 'CFOP_REMESSA'
+      Origin = 'CFOP_REMESSA'
+      Required = True
+    end
+    object fdQryTabelaCFOP_RETORNO_INTERNO: TIntegerField
+      DisplayLabel = 'CFOP de Retorno para Dentro do Estado'
+      FieldName = 'CFOP_RETORNO_INTERNO'
+      Origin = 'CFOP_RETORNO_INTERNO'
+    end
+    object fdQryTabelaCFOP_RETORNO_EXTERNO: TIntegerField
+      DisplayLabel = 'CFOP de Retorno para Fora do Estado'
+      FieldName = 'CFOP_RETORNO_EXTERNO'
+      Origin = 'CFOP_RETORNO_EXTERNO'
+    end
+    object fdQryTabelaCFOP_ALTERA_CUSTO_PRODUTO: TSmallintField
+      FieldName = 'CFOP_ALTERA_CUSTO_PRODUTO'
+      Origin = 'CFOP_ALTERA_CUSTO_PRODUTO'
+      Required = True
+    end
+    object fdQryTabelaCFOP_CST_PADRAO_ENTRADA: TStringField
+      FieldName = 'CFOP_CST_PADRAO_ENTRADA'
+      Origin = 'CFOP_CST_PADRAO_ENTRADA'
+      Size = 3
+    end
+    object fdQryTabelaCFOP_CST_PADRAO_SAIDA: TStringField
+      FieldName = 'CFOP_CST_PADRAO_SAIDA'
+      Origin = 'CFOP_CST_PADRAO_SAIDA'
+      Size = 3
+    end
+    object fdQryTabelaCFOP_GERAR_TITULO: TSmallintField
+      FieldName = 'CFOP_GERAR_TITULO'
+      Origin = 'CFOP_GERAR_TITULO'
+      Required = True
+    end
+    object fdQryTabelaCFOP_GERAR_DUPLICATA: TSmallintField
+      FieldName = 'CFOP_GERAR_DUPLICATA'
+      Origin = 'CFOP_GERAR_DUPLICATA'
+      Required = True
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCFOP'
+      '(CFOP_COD, CFOP_DESCRICAO, CFOP_ESPECIFICACAO, '
+      '  CFOP_INFORMACAO_FISCO, CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA, '
+      '  CFOP_CST_PADRAO_SAIDA, CFOP_DEVOLUCAO, CFOP_REMESSA, '
+      
+        '  CFOP_RETORNO_INTERNO, CFOP_RETORNO_EXTERNO, CFOP_GERAR_TITULO,' +
+        ' '
+      '  CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRODUTO)'
+      
+        'VALUES (:NEW_CFOP_COD, :NEW_CFOP_DESCRICAO, :NEW_CFOP_ESPECIFICA' +
+        'CAO, '
+      
+        '  :NEW_CFOP_INFORMACAO_FISCO, :NEW_CFOP_TIPO, :NEW_CFOP_CST_PADR' +
+        'AO_ENTRADA, '
+      
+        '  :NEW_CFOP_CST_PADRAO_SAIDA, :NEW_CFOP_DEVOLUCAO, :NEW_CFOP_REM' +
+        'ESSA, '
+      
+        '  :NEW_CFOP_RETORNO_INTERNO, :NEW_CFOP_RETORNO_EXTERNO, :NEW_CFO' +
+        'P_GERAR_TITULO, '
+      '  :NEW_CFOP_GERAR_DUPLICATA, :NEW_CFOP_ALTERA_CUSTO_PRODUTO)')
+    ModifySQL.Strings = (
+      'UPDATE TBCFOP'
+      
+        'SET CFOP_COD = :NEW_CFOP_COD, CFOP_DESCRICAO = :NEW_CFOP_DESCRIC' +
+        'AO, '
+      
+        '  CFOP_ESPECIFICACAO = :NEW_CFOP_ESPECIFICACAO, CFOP_INFORMACAO_' +
+        'FISCO = :NEW_CFOP_INFORMACAO_FISCO, '
+      
+        '  CFOP_TIPO = :NEW_CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA = :NEW_CFO' +
+        'P_CST_PADRAO_ENTRADA, '
+      
+        '  CFOP_CST_PADRAO_SAIDA = :NEW_CFOP_CST_PADRAO_SAIDA, CFOP_DEVOL' +
+        'UCAO = :NEW_CFOP_DEVOLUCAO, '
+      
+        '  CFOP_REMESSA = :NEW_CFOP_REMESSA, CFOP_RETORNO_INTERNO = :NEW_' +
+        'CFOP_RETORNO_INTERNO, '
+      
+        '  CFOP_RETORNO_EXTERNO = :NEW_CFOP_RETORNO_EXTERNO, CFOP_GERAR_T' +
+        'ITULO = :NEW_CFOP_GERAR_TITULO, '
+      
+        '  CFOP_GERAR_DUPLICATA = :NEW_CFOP_GERAR_DUPLICATA, CFOP_ALTERA_' +
+        'CUSTO_PRODUTO = :NEW_CFOP_ALTERA_CUSTO_PRODUTO'
+      'WHERE CFOP_COD = :OLD_CFOP_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCFOP'
+      'WHERE CFOP_COD = :OLD_CFOP_COD')
+    FetchRowSQL.Strings = (
+      
+        'SELECT CFOP_COD, CFOP_DESCRICAO, CFOP_ESPECIFICACAO, CFOP_INFORM' +
+        'ACAO_FISCO, '
+      '  CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA, CFOP_CST_PADRAO_SAIDA, '
+      
+        '  CFOP_DEVOLUCAO, CFOP_REMESSA, CFOP_RETORNO_INTERNO, CFOP_RETOR' +
+        'NO_EXTERNO, '
+      
+        '  CFOP_GERAR_TITULO, CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRO' +
+        'DUTO'
+      'FROM TBCFOP'
+      'WHERE CFOP_COD = :CFOP_COD')
   end
   object DspCST: TDataSetProvider
     DataSet = fdQryCST

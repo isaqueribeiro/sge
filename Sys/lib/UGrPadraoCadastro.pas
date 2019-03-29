@@ -963,7 +963,8 @@ begin
     else
       sCampoCodigo := Trim(CampoCodigo);
 
-    if ( StrToCurrDef(DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsString, 0) = 0 ) then
+    // Testar se o valor do campo código é do tipo numérico
+    if ( StrToCurrDef(DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsString, -1) = -1 ) then
       Exit;
 
     dbgDados.Columns[0].Alignment       := taCenter;
@@ -1035,7 +1036,12 @@ begin
     if ( (CampoCodigo = EmptyStr) and (Trim(fdQryTabela.UpdateOptions.KeyFields) <> EmptyStr) ) then
       CampoCodigo := fdQryTabela.UpdateOptions.KeyFields;
 
-    sGenerator := fdQryTabela.UpdateOptions.GeneratorName;
+    sGenerator := Trim(fdQryTabela.UpdateOptions.GeneratorName);
+
+    // Gerar o código com o GENERATOR imediatamente ao comando de APPEND no DataSet
+    if (sGenerator <> EmptyStr) then
+      if (fdQryTabela.UpdateOptions.FetchGeneratorsPoint <> TFDFetchGeneratorsPoint.gpImmediate) then
+        fdQryTabela.UpdateOptions.FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
   end;
 
   sTabela := NomeTabela;

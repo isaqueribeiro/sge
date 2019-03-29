@@ -4,7 +4,6 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
   Caption = 'Tabela de Tributa'#231#245'es IBPT, Importar!'
   ClientHeight = 433
   ClientWidth = 541
-  ExplicitWidth = 555
   ExplicitHeight = 470
   PixelsPerInch = 96
   TextHeight = 13
@@ -396,15 +395,18 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
     Title = 'Abrir arquivo'
     Left = 448
   end
-  object qryTabelaIBPT: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
+  object qryTabelaIBPT: TFDQuery
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_IBPT_ID'
+    UpdateOptions.KeyFields = 'ID_IBPT'
+    UpdateOptions.AutoIncFields = 'ID_IBPT'
+    UpdateObject = updTabelaIBPT
+    SQL.Strings = (
       'Select'
       '    t.id_ibpt'
       '  , t.ncm_ibpt'
@@ -418,132 +420,126 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
       '  , t.ativo'
       'from SYS_IBPT t'
       'where t.ncm_ibpt = :ncm_ibpt'
-      '  and t.ex_ibpt = :ex_ibpt'
-      '')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'ID_IBPT'
-    GeneratorField.Generator = 'GEN_IBPT_ID'
-    UpdateObject = updTabelaIBPT
-    Left = 400
-    Top = 280
-    object qryTabelaIBPTID_IBPT: TIntegerField
+      '  and t.ex_ibpt = :ex_ibpt')
+    Left = 273
+    Top = 256
+    ParamData = <
+      item
+        Name = 'NCM_IBPT'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+        Value = Null
+      end
+      item
+        Name = 'EX_IBPT'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 3
+      end>
+    object qryTabelaIBPTID_IBPT: TFDAutoIncField
       FieldName = 'ID_IBPT'
-      Origin = '"SYS_IBPT"."ID_IBPT"'
+      Origin = 'ID_IBPT'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+      IdentityInsert = True
     end
-    object qryTabelaIBPTNCM_IBPT: TIBStringField
+    object qryTabelaIBPTNCM_IBPT: TStringField
       FieldName = 'NCM_IBPT'
-      Origin = '"SYS_IBPT"."NCM_IBPT"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'NCM_IBPT'
+      Required = True
       Size = 10
     end
-    object qryTabelaIBPTEX_IBPT: TIBStringField
+    object qryTabelaIBPTEX_IBPT: TStringField
       FieldName = 'EX_IBPT'
-      Origin = '"SYS_IBPT"."EX_IBPT"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'EX_IBPT'
+      Required = True
       Size = 3
     end
-    object qryTabelaIBPTTABELA_IBPT: TIBStringField
+    object qryTabelaIBPTTABELA_IBPT: TStringField
       FieldName = 'TABELA_IBPT'
-      Origin = '"SYS_IBPT"."TABELA_IBPT"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'TABELA_IBPT'
+      Required = True
       Size = 3
     end
-    object qryTabelaIBPTDESCRICAO_IBPT: TWideMemoField
+    object qryTabelaIBPTDESCRICAO_IBPT: TMemoField
       FieldName = 'DESCRICAO_IBPT'
-      Origin = '"SYS_IBPT"."DESCRICAO_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
+      Origin = 'DESCRICAO_IBPT'
+      BlobType = ftMemo
     end
-    object qryTabelaIBPTALIQNACIONAL_IBPT: TIBBCDField
+    object qryTabelaIBPTALIQNACIONAL_IBPT: TBCDField
       FieldName = 'ALIQNACIONAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQNACIONAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'ALIQNACIONAL_IBPT'
       Precision = 18
       Size = 2
     end
-    object qryTabelaIBPTALIQINTERNACIONAL_IBPT: TIBBCDField
+    object qryTabelaIBPTALIQINTERNACIONAL_IBPT: TBCDField
       FieldName = 'ALIQINTERNACIONAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQINTERNACIONAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'ALIQINTERNACIONAL_IBPT'
       Precision = 18
       Size = 2
     end
-    object qryTabelaIBPTALIQESTADUAL_IBPT: TIBBCDField
+    object qryTabelaIBPTALIQESTADUAL_IBPT: TBCDField
       FieldName = 'ALIQESTADUAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQESTADUAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'ALIQESTADUAL_IBPT'
       Precision = 18
       Size = 2
     end
-    object qryTabelaIBPTALIQMUNICIPAL_IBPT: TIBBCDField
+    object qryTabelaIBPTALIQMUNICIPAL_IBPT: TBCDField
       FieldName = 'ALIQMUNICIPAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQMUNICIPAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'ALIQMUNICIPAL_IBPT'
       Precision = 18
       Size = 2
     end
     object qryTabelaIBPTATIVO: TSmallintField
       FieldName = 'ATIVO'
-      Origin = '"SYS_IBPT"."ATIVO"'
+      Origin = 'ATIVO'
+      Required = True
     end
   end
-  object updTabelaIBPT: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ID_IBPT,'
-      '  NCM_IBPT,'
-      '  EX_IBPT,'
-      '  TABELA_IBPT,'
-      '  DESCRICAO_IBPT,'
-      '  ALIQNACIONAL_IBPT,'
-      '  ALIQINTERNACIONAL_IBPT,'
-      '  ALIQESTADUAL_IBPT,'
-      '  ALIQMUNICIPAL_IBPT,'
-      '  ATIVO'
-      'from SYS_IBPT '
-      'where'
-      '  ID_IBPT = :ID_IBPT')
-    ModifySQL.Strings = (
-      'update SYS_IBPT'
-      'set'
-      '  ALIQESTADUAL_IBPT = :ALIQESTADUAL_IBPT,'
-      '  ALIQINTERNACIONAL_IBPT = :ALIQINTERNACIONAL_IBPT,'
-      '  ALIQMUNICIPAL_IBPT = :ALIQMUNICIPAL_IBPT,'
-      '  ALIQNACIONAL_IBPT = :ALIQNACIONAL_IBPT,'
-      '  ATIVO = :ATIVO,'
-      '  DESCRICAO_IBPT = :DESCRICAO_IBPT,'
-      '  EX_IBPT = :EX_IBPT,'
-      '  ID_IBPT = :ID_IBPT,'
-      '  NCM_IBPT = :NCM_IBPT,'
-      '  TABELA_IBPT = :TABELA_IBPT'
-      'where'
-      '  ID_IBPT = :OLD_ID_IBPT')
+  object updTabelaIBPT: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'insert into SYS_IBPT'
+      'INSERT INTO SYS_IBPT'
+      '(ID_IBPT, NCM_IBPT, EX_IBPT, TABELA_IBPT, '
+      '  DESCRICAO_IBPT, ALIQNACIONAL_IBPT, ALIQINTERNACIONAL_IBPT, '
+      '  ALIQESTADUAL_IBPT, ALIQMUNICIPAL_IBPT, ATIVO)'
       
-        '  (ALIQESTADUAL_IBPT, ALIQINTERNACIONAL_IBPT, ALIQMUNICIPAL_IBPT' +
-        ', ALIQNACIONAL_IBPT, '
+        'VALUES (:NEW_ID_IBPT, :NEW_NCM_IBPT, :NEW_EX_IBPT, :NEW_TABELA_I' +
+        'BPT, '
       
-        '   ATIVO, DESCRICAO_IBPT, EX_IBPT, ID_IBPT, NCM_IBPT, TABELA_IBP' +
-        'T)'
-      'values'
+        '  :NEW_DESCRICAO_IBPT, :NEW_ALIQNACIONAL_IBPT, :NEW_ALIQINTERNAC' +
+        'IONAL_IBPT, '
+      '  :NEW_ALIQESTADUAL_IBPT, :NEW_ALIQMUNICIPAL_IBPT, :NEW_ATIVO)')
+    ModifySQL.Strings = (
+      'UPDATE SYS_IBPT'
       
-        '  (:ALIQESTADUAL_IBPT, :ALIQINTERNACIONAL_IBPT, :ALIQMUNICIPAL_I' +
-        'BPT, :ALIQNACIONAL_IBPT, '
+        'SET ID_IBPT = :NEW_ID_IBPT, NCM_IBPT = :NEW_NCM_IBPT, EX_IBPT = ' +
+        ':NEW_EX_IBPT, '
       
-        '   :ATIVO, :DESCRICAO_IBPT, :EX_IBPT, :ID_IBPT, :NCM_IBPT, :TABE' +
-        'LA_IBPT)')
+        '  TABELA_IBPT = :NEW_TABELA_IBPT, DESCRICAO_IBPT = :NEW_DESCRICA' +
+        'O_IBPT, '
+      
+        '  ALIQNACIONAL_IBPT = :NEW_ALIQNACIONAL_IBPT, ALIQINTERNACIONAL_' +
+        'IBPT = :NEW_ALIQINTERNACIONAL_IBPT, '
+      
+        '  ALIQESTADUAL_IBPT = :NEW_ALIQESTADUAL_IBPT, ALIQMUNICIPAL_IBPT' +
+        ' = :NEW_ALIQMUNICIPAL_IBPT, '
+      '  ATIVO = :NEW_ATIVO'
+      'WHERE ID_IBPT = :OLD_ID_IBPT')
     DeleteSQL.Strings = (
-      'delete from SYS_IBPT'
-      'where'
-      '  ID_IBPT = :OLD_ID_IBPT')
-    Left = 432
-    Top = 280
+      'DELETE FROM SYS_IBPT'
+      'WHERE ID_IBPT = :OLD_ID_IBPT')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ID_IBPT, NCM_IBPT, EX_IBPT, TABELA_IBPT, DESCRICAO_IBPT, ' +
+        'ALIQNACIONAL_IBPT, '
+      
+        '  ALIQINTERNACIONAL_IBPT, ALIQESTADUAL_IBPT, ALIQMUNICIPAL_IBPT,' +
+        ' '
+      '  ATIVO'
+      'FROM SYS_IBPT'
+      'WHERE ID_IBPT = :ID_IBPT')
+    Left = 305
+    Top = 256
   end
 end

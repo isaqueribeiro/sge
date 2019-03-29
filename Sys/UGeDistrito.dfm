@@ -3,8 +3,6 @@ inherited frmGeDistrito: TfrmGeDistrito
   Top = 222
   Caption = 'Tabela de Distritos'
   OldCreateOrder = True
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
@@ -14,11 +12,13 @@ inherited frmGeDistrito: TfrmGeDistrito
           item
             Expanded = False
             FieldName = 'DIS_COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DIS_NOME'
+            Title.Caption = 'Nome '
             Width = 350
             Visible = True
           end>
@@ -66,12 +66,6 @@ inherited frmGeDistrito: TfrmGeDistrito
       end
     end
   end
-  inherited tlbBotoes: TPanel
-    inherited btbtnExcluir: TcxButton
-      ExplicitLeft = 154
-      ExplicitTop = 0
-    end
-  end
   inherited IbDtstTabela: TIBDataSet
     SelectSQL.Strings = (
       'Select'
@@ -80,19 +74,9 @@ inherited frmGeDistrito: TfrmGeDistrito
       'from TBDISTRITO d')
     GeneratorField.Field = 'DIS_COD'
     GeneratorField.Generator = 'GEN_DISTRITO_ID'
-    object IbDtstTabelaDIS_COD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'DIS_COD'
-      Origin = 'TBDISTRITO.DIS_COD'
-      Required = True
-    end
-    object IbDtstTabelaDIS_NOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'DIS_NOME'
-      Origin = 'TBDISTRITO.DIS_NOME'
-      Required = True
-      Size = 100
-    end
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -121,7 +105,7 @@ inherited frmGeDistrito: TfrmGeDistrito
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1579,5 +1563,47 @@ inherited frmGeDistrito: TfrmGeDistrito
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_DISTRITO_ID'
+    UpdateOptions.KeyFields = 'DIS_COD'
+    UpdateOptions.AutoIncFields = 'DIS_COD'
+    SQL.Strings = (
+      'Select'
+      '    d.Dis_cod'
+      '  , d.Dis_nome'
+      'from TBDISTRITO d')
+    object fdQryTabelaDIS_COD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'DIS_COD'
+      Origin = 'DIS_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaDIS_NOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'DIS_NOME'
+      Origin = 'DIS_NOME'
+      Size = 100
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBDISTRITO'
+      '(DIS_COD, DIS_NOME)'
+      'VALUES (:NEW_DIS_COD, :NEW_DIS_NOME)')
+    ModifySQL.Strings = (
+      'UPDATE TBDISTRITO'
+      'SET DIS_COD = :NEW_DIS_COD, DIS_NOME = :NEW_DIS_NOME'
+      'WHERE DIS_COD = :OLD_DIS_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBDISTRITO'
+      'WHERE DIS_COD = :OLD_DIS_COD')
+    FetchRowSQL.Strings = (
+      'SELECT DIS_COD, DIS_NOME'
+      'FROM TBDISTRITO'
+      'WHERE DIS_COD = :DIS_COD')
   end
 end

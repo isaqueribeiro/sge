@@ -6,13 +6,18 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, DBClient, Provider, IBQuery, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeTabelaCNAE = class(TfrmGrPadraoCadastro)
@@ -25,12 +30,12 @@ type
     lblDescricaoCompleta: TLabel;
     dbDescricaoCompleta: TDBEdit;
     dbObrigaInscEstadual: TDBCheckBox;
-    IbDtstTabelaCODIGO: TIBStringField;
-    IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField;
-    IbDtstTabelaNOTA_EXPLICATIVA: TMemoField;
-    IbDtstTabelaOBRIGA_INSC_ESTADUAL: TSmallintField;
-    IbDtstTabelaATIVA: TSmallintField;
-    IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
+    fdQryTabelaCODIGO: TStringField;
+    fdQryTabelaDESCRICAO_RESUMIDA: TStringField;
+    fdQryTabelaDESCRICAO_COMPLETA: TStringField;
+    fdQryTabelaNOTA_EXPLICATIVA: TMemoField;
+    fdQryTabelaOBRIGA_INSC_ESTADUAL: TSmallintField;
+    fdQryTabelaATIVA: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
   private
@@ -84,18 +89,22 @@ begin
   AbrirTabelaAuto     := True;
 
   NomeTabela     := 'TBCNAE';
-  CampoCodigo    := 'CODIGO';
-  CampoDescricao := 'DESCRICAO_RESUMIDA';
+  CampoCodigo    := 'c.CODIGO';
+  CampoDescricao := 'c.DESCRICAO_RESUMIDA';
+  CampoOrdenacao := 'c.DESCRICAO_RESUMIDA';
 end;
 
 procedure TfrmGeTabelaCNAE.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaATIVA.AsInteger                := 1;
-  IbDtstTabelaOBRIGA_INSC_ESTADUAL.AsInteger := 0;
-  IbDtstTabelaCODIGO.Clear;
-  IbDtstTabelaDESCRICAO_RESUMIDA.Clear;
-  IbDtstTabelaDESCRICAO_COMPLETA.Clear;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('ATIVA').AsInteger                := 1;
+    FieldByName('OBRIGA_INSC_ESTADUAL').AsInteger := 0;
+    FieldByName('CODIGO').Clear;
+    FieldByName('DESCRICAO_RESUMIDA').Clear;
+    FieldByName('DESCRICAO_COMPLETA').Clear;
+  end;
 end;
 
 initialization

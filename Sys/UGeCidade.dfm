@@ -47,6 +47,10 @@ inherited frmGeCidade: TfrmGeCidade
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 225
         ExplicitTop = 225
@@ -384,86 +388,9 @@ inherited frmGeCidade: TfrmGeCidade
       '')
     GeneratorField.Field = 'CID_COD'
     GeneratorField.Generator = 'GEN_CIDADE_ID'
-    object IbDtstTabelaCID_COD: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CID_COD'
-      Origin = 'TBCIDADE.CID_COD'
-      Required = True
-    end
-    object IbDtstTabelaCID_NOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'CID_NOME'
-      Origin = 'TBCIDADE.CID_NOME'
-      Size = 100
-    end
-    object IbDtstTabelaEST_COD: TSmallintField
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_COD'
-      Origin = 'TBCIDADE.EST_COD'
-      Required = True
-    end
-    object IbDtstTabelaCID_SIAFI: TIntegerField
-      DisplayLabel = 'SIAFI'
-      FieldName = 'CID_SIAFI'
-      Origin = 'TBCIDADE.CID_SIAFI'
-    end
-    object IbDtstTabelaCID_IBGE: TIntegerField
-      DisplayLabel = 'IBGE'
-      FieldName = 'CID_IBGE'
-      Origin = 'TBCIDADE.CID_IBGE'
-    end
-    object IbDtstTabelaCID_DDD: TSmallintField
-      DisplayLabel = 'DDD'
-      FieldName = 'CID_DDD'
-      Origin = 'TBCIDADE.CID_DDD'
-    end
-    object IbDtstTabelaCID_CEP_INICIAL: TIntegerField
-      DisplayLabel = 'CEP Inicial'
-      FieldName = 'CID_CEP_INICIAL'
-      Origin = 'TBCIDADE.CID_CEP_INICIAL'
-      EditFormat = '00.000-000;0; '
-    end
-    object IbDtstTabelaCID_CEP_FINAL: TIntegerField
-      DisplayLabel = 'CEP Final'
-      FieldName = 'CID_CEP_FINAL'
-      Origin = 'TBCIDADE.CID_CEP_FINAL'
-      EditFormat = '00.000-000;0; '
-    end
-    object IbDtstTabelaCUSTO_OPER_PERCENTUAL: TSmallintField
-      FieldName = 'CUSTO_OPER_PERCENTUAL'
-      Origin = '"TBCIDADE"."CUSTO_OPER_PERCENTUAL"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCUSTO_OPER_FRETE: TIBBCDField
-      FieldName = 'CUSTO_OPER_FRETE'
-      Origin = '"TBCIDADE"."CUSTO_OPER_FRETE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaCUSTO_OPER_OUTROS: TIBBCDField
-      FieldName = 'CUSTO_OPER_OUTROS'
-      Origin = '"TBCIDADE"."CUSTO_OPER_OUTROS"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaEST_NOME: TIBStringField
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_NOME'
-      Origin = 'TBESTADO.EST_NOME'
-      Size = 100
-    end
-    object IbDtstTabelaEST_SIGLA: TIBStringField
-      DisplayLabel = 'UF'
-      FieldName = 'EST_SIGLA'
-      Origin = 'TBESTADO.EST_SIGLA'
-      Size = 2
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
   end
   inherited IbUpdTabela: TIBUpdateSQL
@@ -523,7 +450,7 @@ inherited frmGeCidade: TfrmGeCidade
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1983,6 +1910,11 @@ inherited frmGeCidade: TfrmGeCidade
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CIDADE_ID'
+    UpdateOptions.KeyFields = 'CID_COD'
+    UpdateOptions.AutoIncFields = 'CID_COD'
     SQL.Strings = (
       'Select'
       '    c.Cid_cod'
@@ -2002,38 +1934,47 @@ inherited frmGeCidade: TfrmGeCidade
       '  inner join TBESTADO e on (e.Est_cod = c.Est_cod)'
       '')
     object fdQryTabelaCID_COD: TIntegerField
+      DisplayLabel = 'C'#243'digo'
       FieldName = 'CID_COD'
       Origin = 'CID_COD'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object fdQryTabelaCID_NOME: TStringField
+      DisplayLabel = 'Nome'
       FieldName = 'CID_NOME'
       Origin = 'CID_NOME'
+      Required = True
       Size = 100
     end
     object fdQryTabelaEST_COD: TSmallintField
+      DisplayLabel = 'Estado'
       FieldName = 'EST_COD'
       Origin = 'EST_COD'
       Required = True
     end
     object fdQryTabelaCID_SIAFI: TIntegerField
+      DisplayLabel = 'SIAFI'
       FieldName = 'CID_SIAFI'
       Origin = 'CID_SIAFI'
     end
     object fdQryTabelaCID_IBGE: TIntegerField
+      DisplayLabel = 'IBGE'
       FieldName = 'CID_IBGE'
       Origin = 'CID_IBGE'
     end
     object fdQryTabelaCID_DDD: TSmallintField
+      DisplayLabel = 'DDD'
       FieldName = 'CID_DDD'
       Origin = 'CID_DDD'
     end
     object fdQryTabelaCID_CEP_INICIAL: TIntegerField
+      DisplayLabel = 'CEP Inicial'
       FieldName = 'CID_CEP_INICIAL'
       Origin = 'CID_CEP_INICIAL'
     end
     object fdQryTabelaCID_CEP_FINAL: TIntegerField
+      DisplayLabel = 'CEP Final'
       FieldName = 'CID_CEP_FINAL'
       Origin = 'CID_CEP_FINAL'
     end
@@ -2055,18 +1996,18 @@ inherited frmGeCidade: TfrmGeCidade
     end
     object fdQryTabelaEST_NOME: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'Estado'
       FieldName = 'EST_NOME'
       Origin = 'EST_NOME'
       ProviderFlags = []
-      ReadOnly = True
       Size = 100
     end
     object fdQryTabelaEST_SIGLA: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'UF'
       FieldName = 'EST_SIGLA'
       Origin = 'EST_SIGLA'
       ProviderFlags = []
-      ReadOnly = True
       Size = 2
     end
   end

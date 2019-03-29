@@ -6,7 +6,7 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBQuery, IBTable, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
@@ -16,10 +16,9 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeLogradouro = class(TfrmGrPadraoCadastro)
@@ -29,14 +28,14 @@ type
     dtsTipo: TDataSource;
     dbTipo: TDBLookupComboBox;
     lblCidade: TLabel;
-    IbDtstTabelaLOG_COD: TIntegerField;
-    IbDtstTabelaLOG_NOME: TIBStringField;
-    IbDtstTabelaTLG_COD: TSmallintField;
-    IbDtstTabelaCID_COD: TIntegerField;
-    IbDtstTabelaLOGRADOURO: TIBStringField;
-    IbDtstTabelaCID_NOME: TIBStringField;
     dbCidade: TJvDBComboEdit;
     fdQryTipo: TFDQuery;
+    fdQryTabelaLOG_COD: TIntegerField;
+    fdQryTabelaLOG_NOME: TStringField;
+    fdQryTabelaTLG_COD: TSmallintField;
+    fdQryTabelaCID_COD: TIntegerField;
+    fdQryTabelaLOGRADOURO: TStringField;
+    fdQryTabelaCID_NOME: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure dbCidadeButtonClick(Sender: TObject);
@@ -44,6 +43,7 @@ type
   private
     { Private declarations }
     fCidade : Integer;
+    function GetTipoSigla(const pCodigo : Integer) : String;
   public
     { Public declarations }
   end;
@@ -111,25 +111,19 @@ begin
 
     whr := 'l.cid_cod = ' + IntToStr(Cidade);
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + whr);
+      SQL.Add('where ' + whr);
       Open;
     end;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
-    if ( Result and (frm.fdQryTipo.Locate('TLG_COD', frm.IbDtstTabelaTLG_COD.AsInteger, [])) ) then
+    if ( Result ) then
     begin
-      Tipo := frm.fdQryTipo.FieldByName('TLG_COD').AsInteger;
-      if (Tipo = 0) then
-        TipoDesc := EmptyStr
-      else
-      if ( Trim(frm.fdQryTipo.FieldByName('TLG_SIGLA').AsString) <> EmptyStr ) then
-        TipoDesc := frm.fdQryTipo.FieldByName('TLG_SIGLA').AsString
-      else
-        TipoDesc := frm.fdQryTipo.FieldByName('TLG_DESCRICAO').AsString;
+      Tipo     := frm.fdQryTipo.FieldByName('TLG_COD').AsInteger;
+      TipoDesc := frm.GetTipoSigla(Tipo);
     end;
   finally
     frm.Destroy;
@@ -148,25 +142,50 @@ begin
 
   DisplayFormatCodigo := '0000';
   NomeTabela     := 'TBLOGRADOURO';
-  CampoCodigo    := 'log_cod';
-  CampoDescricao := 'log_nome';
+  CampoCodigo    := 'l.log_cod';
+  CampoDescricao := 'l.log_nome';
+  CampoOrdenacao := '5'; // Logradouro
+end;
 
-  UpdateGenerator;
+function TfrmGeLogradouro.GetTipoSigla(const pCodigo: Integer): String;
+var
+  aTipo : String;
+begin
+  aTipo := EmptyStr;
+
+  with fdQryTipo do
+  begin
+    if not Active then
+      Open();
+
+    if Locate('TLG_COD', pCodigo, []) then
+    begin
+      if ( Trim(FieldByName('TLG_SIGLA').AsString) <> EmptyStr ) then
+        aTipo := FieldByName('TLG_SIGLA').AsString
+      else
+        aTipo := FieldByName('TLG_DESCRICAO').AsString;
+    end;
+  end;
+
+  Result := Trim(aTipo);
 end;
 
 procedure TfrmGeLogradouro.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  if ( fCidade > 0 ) then
+  with DtSrcTabela.DataSet do
   begin
-    IbDtstTabelaCID_COD.AsInteger := fCidade;
-    IbDtstTabelaCID_NOME.AsString := GetCidadeNome( fCidade );
-  end
-  else
-  if ( GetCidadeIDDefault > 0 ) then
-  begin
-    IbDtstTabelaCID_COD.AsInteger := GetCidadeIDDefault;
-    IbDtstTabelaCID_NOME.AsString := GetCidadeNomeDefault;
+    if ( fCidade > 0 ) then
+    begin
+      FieldByName('CID_COD').AsInteger := fCidade;
+      FieldByName('CID_NOME').AsString := GetCidadeNome( fCidade );
+    end
+    else
+    if ( GetCidadeIDDefault > 0 ) then
+    begin
+      FieldByName('CID_COD').AsInteger := GetCidadeIDDefault;
+      FieldByName('CID_NOME').AsString := GetCidadeNomeDefault;
+    end;
   end;
 end;
 
@@ -175,18 +194,31 @@ var
   iCidade : Integer;
   sCidade : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCidade(Self, iCidade, sCidade) ) then
-    begin
-      IbDtstTabelaCID_COD.AsInteger := iCidade;
-      IbDtstTabelaCID_NOME.AsString := sCidade;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarCidade(Self, iCidade, sCidade) ) then
+      begin
+        FieldByName('CID_COD').AsInteger := iCidade;
+        FieldByName('CID_NOME').AsString := sCidade;
+      end;
+  end;
 end;
 
 procedure TfrmGeLogradouro.btbtnSalvarClick(Sender: TObject);
+var
+  aTipo : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    IbDtstTabelaLOGRADOURO.AsString := Trim(dbTipo.Text + ' ' + dbNome.Text);
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      with DtSrcTabela.DataSet do
+      begin
+        aTipo := GetTipoSigla(FieldByName('TLG_COD').AsInteger);
+        FieldByName('LOGRADOURO').AsString := Trim(aTipo + ' ' + dbNome.Text);
+      end;
+  end;
+
   inherited;
 end;
 

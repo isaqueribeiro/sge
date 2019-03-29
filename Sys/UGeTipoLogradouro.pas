@@ -6,23 +6,27 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons,
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeTipoLogradouro = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaTLG_COD: TSmallintField;
-    IbDtstTabelaTLG_DESCRICAO: TIBStringField;
-    IbDtstTabelaTLG_SIGLA: TIBStringField;
     lblNome: TLabel;
     dbNome: TDBEdit;
     lblSigla: TLabel;
     dbSigla: TDBEdit;
+    fdQryTabelaTLG_COD: TSmallintField;
+    fdQryTabelaTLG_DESCRICAO: TStringField;
+    fdQryTabelaTLG_SIGLA: TStringField;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -73,6 +77,7 @@ begin
   DisplayFormatCodigo := '00';
   CampoCodigo    := 'tlg_cod';
   CampoDescricao := 'tlg_descricao';
+  CampoOrdenacao := 'tlg_descricao';
 end;
 
 initialization

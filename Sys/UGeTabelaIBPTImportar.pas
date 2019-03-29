@@ -6,13 +6,17 @@ uses
   UGrPadrao,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels, Vcl.OleCtrls, SHDocVw,
   cxLookAndFeelPainters, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls, cxButtons, ACBrBase,
   ACBrSocket, ACBrIBPTax, Data.DB, Datasnap.DBClient, ACBrNCMs, Vcl.ComCtrls,
-  Vcl.OleCtrls, SHDocVw, IBX.IBCustomDataSet, IBX.IBUpdateSQL,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeTabelaIBPTImportar = class(TfrmGrPadrao)
@@ -58,18 +62,18 @@ type
     Label6: TLabel;
     prgImportacao: TProgressBar;
     WebBrowser: TWebBrowser;
-    qryTabelaIBPT: TIBDataSet;
-    updTabelaIBPT: TIBUpdateSQL;
-    qryTabelaIBPTID_IBPT: TIntegerField;
-    qryTabelaIBPTNCM_IBPT: TIBStringField;
-    qryTabelaIBPTEX_IBPT: TIBStringField;
-    qryTabelaIBPTTABELA_IBPT: TIBStringField;
-    qryTabelaIBPTDESCRICAO_IBPT: TWideMemoField;
-    qryTabelaIBPTALIQNACIONAL_IBPT: TIBBCDField;
-    qryTabelaIBPTALIQINTERNACIONAL_IBPT: TIBBCDField;
-    qryTabelaIBPTALIQESTADUAL_IBPT: TIBBCDField;
-    qryTabelaIBPTALIQMUNICIPAL_IBPT: TIBBCDField;
     edURL: TComboBox;
+    qryTabelaIBPT: TFDQuery;
+    updTabelaIBPT: TFDUpdateSQL;
+    qryTabelaIBPTID_IBPT: TFDAutoIncField;
+    qryTabelaIBPTNCM_IBPT: TStringField;
+    qryTabelaIBPTEX_IBPT: TStringField;
+    qryTabelaIBPTTABELA_IBPT: TStringField;
+    qryTabelaIBPTDESCRICAO_IBPT: TMemoField;
+    qryTabelaIBPTALIQNACIONAL_IBPT: TBCDField;
+    qryTabelaIBPTALIQINTERNACIONAL_IBPT: TBCDField;
+    qryTabelaIBPTALIQESTADUAL_IBPT: TBCDField;
+    qryTabelaIBPTALIQMUNICIPAL_IBPT: TBCDField;
     qryTabelaIBPTATIVO: TSmallintField;
     procedure btnDownloadClick(Sender: TObject);
     procedure btnImportarClick(Sender: TObject);
@@ -84,6 +88,16 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - SYS_IBPT
+
+  Views:
+
+  Procedures:
+
+*)
 
   function ImportarTabelaIBPT(const AOnwer : TComponent) : Boolean;
 

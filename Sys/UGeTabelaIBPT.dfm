@@ -27,8 +27,6 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     ExplicitWidth = 809
     ExplicitHeight = 429
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 801
       ExplicitHeight = 400
       inherited Bevel4: TBevel
@@ -44,12 +42,14 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
           item
             Expanded = False
             FieldName = 'ID_IBPT'
+            Title.Caption = 'C'#243'digo '
             Width = 55
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NCM_IBPT'
+            Title.Caption = 'C'#243'digo NCM '
             Width = 110
             Visible = True
           end
@@ -57,6 +57,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
             Expanded = False
             FieldName = 'EX_IBPT'
             Title.Alignment = taCenter
+            Title.Caption = '# '
             Width = 25
             Visible = True
           end
@@ -64,40 +65,41 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
             Expanded = False
             FieldName = 'TABELA_IBPT'
             Title.Alignment = taCenter
-            Title.Caption = 'Tab.'
+            Title.Caption = 'Tab. '
             Width = 30
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 350
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ALIQNACIONAL_IBPT'
-            Title.Caption = 'Nacional'
+            Title.Caption = 'Nacional '
             Width = 60
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ALIQINTERNACIONAL_IBPT'
-            Title.Caption = 'Tax. Int.'
+            Title.Caption = 'Tax. Int. '
             Visible = False
           end
           item
             Expanded = False
             FieldName = 'ALIQESTADUAL_IBPT'
-            Title.Caption = 'Estadual'
+            Title.Caption = 'Estadual '
             Width = 60
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ALIQMUNICIPAL_IBPT'
-            Title.Caption = 'Municipal'
+            Title.Caption = 'Municipal '
             Width = 60
             Visible = True
           end>
@@ -165,7 +167,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
         ExplicitWidth = 801
         ExplicitHeight = 201
         object lblCodigoNCM: TLabel [1]
-          Left = 88
+          Left = 104
           Top = 24
           Width = 62
           Height = 13
@@ -197,13 +199,15 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
           FocusControl = dbTabela
         end
         inherited dbCodigo: TDBEdit
+          Width = 82
           Color = clMoneyGreen
           DataField = 'ID_IBPT'
+          ExplicitWidth = 82
         end
         object dbCodigoNCM: TDBEdit
-          Left = 88
+          Left = 104
           Top = 40
-          Width = 137
+          Width = 121
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NCM_IBPT'
@@ -473,7 +477,6 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnCalcFields = IbDtstTabelaCalcFields
     OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
@@ -494,105 +497,9 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     GeneratorField.ApplyEvent = gamOnNewRecord
     Left = 200
     Top = 128
-    object IbDtstTabelaID_IBPT: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'ID_IBPT'
-      Origin = '"SYS_IBPT"."ID_IBPT"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '0000000'
-    end
-    object IbDtstTabelaNCM_IBPT: TIBStringField
-      DisplayLabel = 'C'#243'digo NCM'
-      FieldName = 'NCM_IBPT'
-      Origin = '"SYS_IBPT"."NCM_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaEX_IBPT: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = '#'
-      FieldName = 'EX_IBPT'
-      Origin = '"SYS_IBPT"."EX_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Size = 3
-    end
-    object IbDtstTabelaTABELA_IBPT: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'Tabela'
-      FieldName = 'TABELA_IBPT'
-      Origin = '"SYS_IBPT"."TABELA_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 3
-    end
-    object IbDtstTabelaDESCRICAO_IBPT: TWideMemoField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRICAO_IBPT'
-      Origin = '"SYS_IBPT"."DESCRICAO_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      BlobType = ftWideMemo
-      Size = 8
-    end
-    object IbDtstTabelaALIQNACIONAL_IBPT: TIBBCDField
-      DisplayLabel = 'Tributa'#231#227'o Nacional'
-      FieldName = 'ALIQNACIONAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQNACIONAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = '0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaALIQINTERNACIONAL_IBPT: TIBBCDField
-      DisplayLabel = 'Tributa'#231#227'o Internacional'
-      FieldName = 'ALIQINTERNACIONAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQINTERNACIONAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = '0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaALIQESTADUAL_IBPT: TIBBCDField
-      DisplayLabel = 'Tributa'#231#227'o Estadual'
-      FieldName = 'ALIQESTADUAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQESTADUAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = '0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaALIQMUNICIPAL_IBPT: TIBBCDField
-      DisplayLabel = 'Tributa'#231#227'o Municipal'
-      FieldName = 'ALIQMUNICIPAL_IBPT'
-      Origin = '"SYS_IBPT"."ALIQMUNICIPAL_IBPT"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = '0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVO'
-      Origin = '"SYS_IBPT"."ATIVO"'
-    end
-    object IbDtstTabelaDESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldKind = fkCalculated
-      FieldName = 'DESCRICAO'
-      ProviderFlags = []
-      Size = 250
-      Calculated = True
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 264
-    Top = 128
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -651,7 +558,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
     Left = 168
     Top = 128
     Bitmap = {
-      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2110,15 +2017,160 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    OnCalcFields = fdQryTabelaCalcFields
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_IBPT_ID'
+    UpdateOptions.KeyFields = 'ID_IBPT'
+    UpdateOptions.AutoIncFields = 'ID_IBPT'
+    SQL.Strings = (
+      'Select'
+      '    t.id_ibpt'
+      '  , t.ncm_ibpt'
+      '  , t.ex_ibpt'
+      '  , t.tabela_ibpt'
+      '  , t.descricao_ibpt'
+      '  , t.aliqnacional_ibpt'
+      '  , t.aliqinternacional_ibpt'
+      '  , t.aliqestadual_ibpt'
+      '  , t.aliqmunicipal_ibpt'
+      '  , t.ativo'
+      'from SYS_IBPT t'
+      '')
+    object fdQryTabelaID_IBPT: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_IBPT'
+      Origin = 'ID_IBPT'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaNCM_IBPT: TStringField
+      DisplayLabel = 'C'#243'digo NCM'
+      FieldName = 'NCM_IBPT'
+      Origin = 'NCM_IBPT'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaEX_IBPT: TStringField
+      Alignment = taCenter
+      DisplayLabel = '#'
+      FieldName = 'EX_IBPT'
+      Origin = 'EX_IBPT'
+      Required = True
+      Size = 3
+    end
+    object fdQryTabelaTABELA_IBPT: TStringField
+      Alignment = taCenter
+      DisplayLabel = 'Tabela'
+      FieldName = 'TABELA_IBPT'
+      Origin = 'TABELA_IBPT'
+      Required = True
+      Size = 3
+    end
+    object fdQryTabelaDESCRICAO_IBPT: TMemoField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRICAO_IBPT'
+      Origin = 'DESCRICAO_IBPT'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaALIQNACIONAL_IBPT: TBCDField
+      DisplayLabel = 'Tributa'#231#227'o Nacional'
+      FieldName = 'ALIQNACIONAL_IBPT'
+      Origin = 'ALIQNACIONAL_IBPT'
+      DisplayFormat = '0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaALIQINTERNACIONAL_IBPT: TBCDField
+      DisplayLabel = 'Tributa'#231#227'o Internacional'
+      FieldName = 'ALIQINTERNACIONAL_IBPT'
+      Origin = 'ALIQINTERNACIONAL_IBPT'
+      DisplayFormat = '0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaALIQESTADUAL_IBPT: TBCDField
+      DisplayLabel = 'Tributa'#231#227'o Estadual'
+      FieldName = 'ALIQESTADUAL_IBPT'
+      Origin = 'ALIQESTADUAL_IBPT'
+      DisplayFormat = '0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaALIQMUNICIPAL_IBPT: TBCDField
+      DisplayLabel = 'Tributa'#231#227'o Municipal'
+      FieldName = 'ALIQMUNICIPAL_IBPT'
+      Origin = 'ALIQMUNICIPAL_IBPT'
+      DisplayFormat = '0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object fdQryTabelaDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldKind = fkInternalCalc
+      FieldName = 'DESCRICAO'
+      Size = 250
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO SYS_IBPT'
+      '(ID_IBPT, NCM_IBPT, EX_IBPT, TABELA_IBPT, '
+      '  DESCRICAO_IBPT, ALIQNACIONAL_IBPT, ALIQINTERNACIONAL_IBPT, '
+      '  ALIQESTADUAL_IBPT, ALIQMUNICIPAL_IBPT, ATIVO)'
+      
+        'VALUES (:NEW_ID_IBPT, :NEW_NCM_IBPT, :NEW_EX_IBPT, :NEW_TABELA_I' +
+        'BPT, '
+      
+        '  :NEW_DESCRICAO_IBPT, :NEW_ALIQNACIONAL_IBPT, :NEW_ALIQINTERNAC' +
+        'IONAL_IBPT, '
+      '  :NEW_ALIQESTADUAL_IBPT, :NEW_ALIQMUNICIPAL_IBPT, :NEW_ATIVO)')
+    ModifySQL.Strings = (
+      'UPDATE SYS_IBPT'
+      
+        'SET ID_IBPT = :NEW_ID_IBPT, NCM_IBPT = :NEW_NCM_IBPT, EX_IBPT = ' +
+        ':NEW_EX_IBPT, '
+      
+        '  TABELA_IBPT = :NEW_TABELA_IBPT, DESCRICAO_IBPT = :NEW_DESCRICA' +
+        'O_IBPT, '
+      
+        '  ALIQNACIONAL_IBPT = :NEW_ALIQNACIONAL_IBPT, ALIQINTERNACIONAL_' +
+        'IBPT = :NEW_ALIQINTERNACIONAL_IBPT, '
+      
+        '  ALIQESTADUAL_IBPT = :NEW_ALIQESTADUAL_IBPT, ALIQMUNICIPAL_IBPT' +
+        ' = :NEW_ALIQMUNICIPAL_IBPT, '
+      '  ATIVO = :NEW_ATIVO'
+      'WHERE ID_IBPT = :OLD_ID_IBPT')
+    DeleteSQL.Strings = (
+      'DELETE FROM SYS_IBPT'
+      'WHERE ID_IBPT = :OLD_ID_IBPT')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ID_IBPT, NCM_IBPT, EX_IBPT, TABELA_IBPT, DESCRICAO_IBPT, ' +
+        'ALIQNACIONAL_IBPT, '
+      
+        '  ALIQINTERNACIONAL_IBPT, ALIQESTADUAL_IBPT, ALIQMUNICIPAL_IBPT,' +
+        ' '
+      '  ATIVO'
+      'FROM SYS_IBPT'
+      'WHERE ID_IBPT = :ID_IBPT')
+  end
   object dtsNivelIBPT: TDataSource
     DataSet = fdQryNivelIBPT
-    Left = 92
-    Top = 265
+    Left = 676
+    Top = 113
   end
   object dtsTabelaIBPT: TDataSource
     DataSet = fdQryTabelaIBPT
-    Left = 92
-    Top = 297
+    Left = 676
+    Top = 145
   end
   object fdQryNivelIBPT: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -2155,8 +2207,8 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       
         'Select '#39'9'#39' as Codigo , '#39'Exce'#231#227'o 9'#39'  as Descricao from RDB$DATABA' +
         'SE')
-    Left = 60
-    Top = 265
+    Left = 644
+    Top = 113
   end
   object fdQryTabelaIBPT: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -2172,7 +2224,7 @@ inherited frmGeTabelaIBPT: TfrmGeTabelaIBPT
       
         'Select '#39'2'#39' as Codigo , '#39'Servi'#231'os Gerais'#39' as Descricao from RDB$D' +
         'ATABASE')
-    Left = 60
-    Top = 297
+    Left = 644
+    Top = 145
   end
 end

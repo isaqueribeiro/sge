@@ -5,7 +5,7 @@ interface
 uses
   UGrPadraoCadastro,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, System.ImageList,
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, cxLookAndFeelPainters,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin,
   DBClient, Provider, IBQuery, cxGraphics, cxLookAndFeels, Menus, cxButtons, cxControls,
@@ -16,53 +16,54 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeTabelaCFOP = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
-    IbDtstTabelaCFOP_COD: TIntegerField;
-    IbDtstTabelaCFOP_DESCRICAO: TIBStringField;
-    IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField;
     lblEspecificacao: TLabel;
     dbEspecificacao: TDBMemo;
     GrpBxParametros: TGroupBox;
     dbCustoOperacional: TDBCheckBox;
-    IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO: TSmallintField;
     DspCST: TDataSetProvider;
     CdsCST: TClientDataSet;
     DtsCST: TDataSource;
     lblCSTEntrada: TLabel;
     dbCSTEntrada: TDBLookupComboBox;
-    IbDtstTabelaCFOP_CST_PADRAO_ENTRADA: TIBStringField;
-    IbDtstTabelaCFOP_CST_PADRAO_SAIDA: TIBStringField;
     lblCSTSaida: TLabel;
     dbCSTSaida: TDBLookupComboBox;
-    IbDtstTabelaCFOP_INFORMACAO_FISCO: TIBStringField;
     lblInformacaoFisco: TLabel;
     dbInformacaoFisco: TDBEdit;
-    IbDtstTabelaCFOP_DEVOLUCAO: TSmallintField;
     dbCfopDevolucao: TDBCheckBox;
-    IbDtstTabelaCFOP_GERAR_TITULO: TSmallintField;
     dbCfopGerarTitulo: TDBCheckBox;
     dbCfopGerarDuplicata: TDBCheckBox;
-    IbDtstTabelaCFOP_GERAR_DUPLICATA: TSmallintField;
-    IbDtstTabelaCFOP_REMESSA: TSmallintField;
     dbCfopRemessa: TDBCheckBox;
     grpBxCfopRetorno: TGroupBox;
     lblCfopRetornoDentro: TLabel;
     dbCfopRetornoDentro: TDBEdit;
     lblCfopRetornoFora: TLabel;
     dbCfopRetornoFora: TDBEdit;
-    IbDtstTabelaCFOP_RETORNO_INTERNO: TIntegerField;
-    IbDtstTabelaCFOP_RETORNO_EXTERNO: TIntegerField;
     fdQryCST: TFDQuery;
-    IbDtstTabelaCFOP_TIPO: TSmallintField;
     lblTipo: TLabel;
     dbTipo: TcxDBImageComboBox;
     rgpTipo: TRadioGroup;
     Bevel5: TBevel;
+    fdQryTabelaCFOP_COD: TIntegerField;
+    fdQryTabelaCFOP_DESCRICAO: TStringField;
+    fdQryTabelaCFOP_ESPECIFICACAO: TMemoField;
+    fdQryTabelaCFOP_INFORMACAO_FISCO: TStringField;
+    fdQryTabelaCFOP_TIPO: TSmallintField;
+    fdQryTabelaCFOP_DEVOLUCAO: TSmallintField;
+    fdQryTabelaCFOP_REMESSA: TSmallintField;
+    fdQryTabelaCFOP_RETORNO_INTERNO: TIntegerField;
+    fdQryTabelaCFOP_RETORNO_EXTERNO: TIntegerField;
+    fdQryTabelaCFOP_ALTERA_CUSTO_PRODUTO: TSmallintField;
+    fdQryTabelaCFOP_CST_PADRAO_ENTRADA: TStringField;
+    fdQryTabelaCFOP_CST_PADRAO_SAIDA: TStringField;
+    fdQryTabelaCFOP_GERAR_TITULO: TSmallintField;
+    fdQryTabelaCFOP_GERAR_DUPLICATA: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -131,8 +132,9 @@ begin
 
   DisplayFormatCodigo := '0000';
   NomeTabela     := 'TBCFOP';
-  CampoCodigo    := 'CFOP_COD';
-  CampoDescricao := 'CFOP_DESCRICAO';
+  CampoCodigo    := 'c.CFOP_COD';
+  CampoDescricao := 'c.CFOP_DESCRICAO';
+  CampoOrdenacao := 'c.CFOP_COD';
 
   CarregarLista(CdsCST);
 end;
@@ -140,52 +142,61 @@ end;
 procedure TfrmGeTabelaCFOP.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
-  IbDtstTabelaCFOP_DEVOLUCAO.AsInteger            := 0;
-  IbDtstTabelaCFOP_REMESSA.AsInteger              := 0;
-  IbDtstTabelaCFOP_GERAR_TITULO.AsInteger         := 1;
-  IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger      := 1;
-  IbDtstTabelaCFOP_TIPO.Clear;
-  IbDtstTabelaCFOP_CST_PADRAO_ENTRADA.Clear;
-  IbDtstTabelaCFOP_CST_PADRAO_SAIDA.Clear;
-  IbDtstTabelaCFOP_RETORNO_INTERNO.Clear;
-  IbDtstTabelaCFOP_RETORNO_EXTERNO.Clear;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').AsInteger := 1;
+    FieldByName('CFOP_DEVOLUCAO').AsInteger            := 0;
+    FieldByName('CFOP_REMESSA').AsInteger              := 0;
+    FieldByName('CFOP_GERAR_TITULO').AsInteger         := 1;
+    FieldByName('CFOP_GERAR_DUPLICATA').AsInteger      := 1;
+    FieldByName('CFOP_TIPO').Clear;
+    FieldByName('CFOP_CST_PADRAO_ENTRADA').Clear;
+    FieldByName('CFOP_CST_PADRAO_SAIDA').Clear;
+    FieldByName('CFOP_RETORNO_INTERNO').Clear;
+    FieldByName('CFOP_RETORNO_EXTERNO').Clear;
+  end;
 end;
 
 procedure TfrmGeTabelaCFOP.btbtnAlterarClick(Sender: TObject);
 begin
   inherited;
   if not btbtnAlterar.Enabled then
-    if IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.IsNull then
-      IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
+    with DtSrcTabela.DataSet do
+    begin
+      if FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').IsNull then
+        FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').AsInteger := 1;
+    end;
 end;
 
 procedure TfrmGeTabelaCFOP.btbtnSalvarClick(Sender: TObject);
 begin
-  if (IbDtstTabelaCFOP_COD.AsInteger = 0) then
-    IbDtstTabelaCFOP_COD.Clear;
-
-  if IbDtstTabelaCFOP_REMESSA.IsNull then
-    IbDtstTabelaCFOP_REMESSA.AsInteger := 0;
-
-  if IbDtstTabelaCFOP_GERAR_TITULO.IsNull then
-    IbDtstTabelaCFOP_GERAR_TITULO.AsInteger := 1;
-
-  if IbDtstTabelaCFOP_GERAR_DUPLICATA.IsNull then
-    IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 1;
-
-  if IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.IsNull then
-    IbDtstTabelaCFOP_ALTERA_CUSTO_PRODUTO.AsInteger := 1;
-
-  if (IbDtstTabelaCFOP_REMESSA.AsInteger = 1) then
+  with DtSrcTabela.DataSet do
   begin
-    IbDtstTabelaCFOP_GERAR_TITULO.AsInteger    := 0;
-    IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 0;
-  end
-  else
-  begin
-    IbDtstTabelaCFOP_RETORNO_INTERNO.Clear;
-    IbDtstTabelaCFOP_RETORNO_EXTERNO.Clear;
+    if (FieldByName('CFOP_COD').AsInteger = 0) then
+      FieldByName('CFOP_COD').Clear;
+
+    if FieldByName('CFOP_REMESSA').IsNull then
+      FieldByName('CFOP_REMESSA').AsInteger := 0;
+
+    if FieldByName('CFOP_GERAR_TITULO').IsNull then
+      FieldByName('CFOP_GERAR_TITULO').AsInteger := 1;
+
+    if FieldByName('CFOP_GERAR_DUPLICATA').IsNull then
+      FieldByName('CFOP_GERAR_DUPLICATA').AsInteger := 1;
+
+    if FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').IsNull then
+      FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').AsInteger := 1;
+
+    if (FieldByName('CFOP_REMESSA').AsInteger = 1) then
+    begin
+      FieldByName('CFOP_GERAR_TITULO').AsInteger    := 0;
+      FieldByName('CFOP_GERAR_DUPLICATA').AsInteger := 0;
+    end
+    else
+    begin
+      FieldByName('CFOP_RETORNO_INTERNO').Clear;
+      FieldByName('CFOP_RETORNO_EXTERNO').Clear;
+    end;
   end;
 
   inherited;
@@ -211,14 +222,18 @@ begin
 
   *)
   inherited;
-  if (Field = IbDtstTabelaCFOP_REMESSA) then
+  with DtSrcTabela.DataSet do
   begin
-    if (IbDtstTabela.State in [dsEdit, dsInsert]) and (IbDtstTabelaCFOP_REMESSA.AsInteger = 1) then
+    if (Field = FieldByName('CFOP_REMESSA')) then
     begin
-      IbDtstTabelaCFOP_GERAR_TITULO.AsInteger    := 0;
-      IbDtstTabelaCFOP_GERAR_DUPLICATA.AsInteger := 0;
+      if (State in [dsEdit, dsInsert]) and (FieldByName('CFOP_REMESSA').AsInteger = 1) then
+      begin
+        FieldByName('CFOP_GERAR_TITULO').AsInteger    := 0;
+        FieldByName('CFOP_GERAR_DUPLICATA').AsInteger := 0;
+      end;
+
+      grpBxCfopRetorno.Enabled := (FieldByName('CFOP_REMESSA').AsInteger = 1);
     end;
-    grpBxCfopRetorno.Enabled := (IbDtstTabelaCFOP_REMESSA.AsInteger = 1);
   end;
 end;
 

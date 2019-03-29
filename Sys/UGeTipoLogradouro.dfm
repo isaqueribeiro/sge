@@ -12,16 +12,19 @@ inherited frmGeTipoLogradouro: TfrmGeTipoLogradouro
           item
             Expanded = False
             FieldName = 'TLG_COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TLG_DESCRICAO'
+            Title.Caption = 'Descri'#231#227'o '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TLG_SIGLA'
+            Title.Caption = 'SIGLA '
             Visible = True
           end>
       end
@@ -119,24 +122,9 @@ inherited frmGeTipoLogradouro: TfrmGeTipoLogradouro
       'from TBTIPO_LOGRADOURO t')
     GeneratorField.Field = 'TLG_COD'
     GeneratorField.Generator = 'GEN_TIPO_LOGRADOURO_ID'
-    object IbDtstTabelaTLG_COD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'TLG_COD'
-      Origin = 'TBTIPO_LOGRADOURO.TLG_COD'
-      Required = True
-    end
-    object IbDtstTabelaTLG_DESCRICAO: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'TLG_DESCRICAO'
-      Origin = 'TBTIPO_LOGRADOURO.TLG_DESCRICAO'
-      Size = 50
-    end
-    object IbDtstTabelaTLG_SIGLA: TIBStringField
-      DisplayLabel = 'SIGLA'
-      FieldName = 'TLG_SIGLA'
-      Origin = 'TBTIPO_LOGRADOURO.TLG_SIGLA'
-      Size = 10
-    end
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -167,7 +155,7 @@ inherited frmGeTipoLogradouro: TfrmGeTipoLogradouro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1625,5 +1613,55 @@ inherited frmGeTipoLogradouro: TfrmGeTipoLogradouro
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_TIPO_LOGRADOURO_ID'
+    UpdateOptions.KeyFields = 'TLG_COD'
+    UpdateOptions.AutoIncFields = 'TLG_COD'
+    SQL.Strings = (
+      'Select'
+      '    t.Tlg_cod'
+      '  , t.Tlg_descricao'
+      '  , t.Tlg_sigla'
+      'from TBTIPO_LOGRADOURO t')
+    object fdQryTabelaTLG_COD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'TLG_COD'
+      Origin = 'TLG_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaTLG_DESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'TLG_DESCRICAO'
+      Origin = 'TLG_DESCRICAO'
+      Size = 50
+    end
+    object fdQryTabelaTLG_SIGLA: TStringField
+      DisplayLabel = 'SIGLA'
+      FieldName = 'TLG_SIGLA'
+      Origin = 'TLG_SIGLA'
+      Size = 10
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBTIPO_LOGRADOURO'
+      '(TLG_COD, TLG_DESCRICAO, TLG_SIGLA)'
+      'VALUES (:NEW_TLG_COD, :NEW_TLG_DESCRICAO, :NEW_TLG_SIGLA)')
+    ModifySQL.Strings = (
+      'UPDATE TBTIPO_LOGRADOURO'
+      'SET TLG_COD = :NEW_TLG_COD, TLG_DESCRICAO = :NEW_TLG_DESCRICAO, '
+      '  TLG_SIGLA = :NEW_TLG_SIGLA'
+      'WHERE TLG_COD = :OLD_TLG_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBTIPO_LOGRADOURO'
+      'WHERE TLG_COD = :OLD_TLG_COD')
+    FetchRowSQL.Strings = (
+      'SELECT TLG_COD, TLG_DESCRICAO, TLG_SIGLA'
+      'FROM TBTIPO_LOGRADOURO'
+      'WHERE TLG_COD = :TLG_COD')
   end
 end

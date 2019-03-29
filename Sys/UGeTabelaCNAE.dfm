@@ -42,11 +42,13 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
           item
             Expanded = False
             FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_RESUMIDA'
+            Title.Caption = 'Descri'#231#227'o resumida '
             Width = 600
             Visible = True
           end>
@@ -250,53 +252,10 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
       'from TBCNAE c')
     Left = 352
     Top = 304
-    object IbDtstTabelaCODIGO: TIBStringField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = '"TBCNAE"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o resumida'
-      FieldName = 'DESCRICAO_RESUMIDA'
-      Origin = '"TBCNAE"."DESCRICAO_RESUMIDA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 250
-    end
-    object IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o completa'
-      FieldName = 'DESCRICAO_COMPLETA'
-      Origin = '"TBCNAE"."DESCRICAO_COMPLETA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaNOTA_EXPLICATIVA: TMemoField
-      DisplayLabel = 'Nota explicativa'
-      FieldName = 'NOTA_EXPLICATIVA'
-      Origin = '"TBCNAE"."NOTA_EXPLICATIVA"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaOBRIGA_INSC_ESTADUAL: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'OBRIGA_INSC_ESTADUAL'
-      Origin = '"TBCNAE"."OBRIGA_INSC_ESTADUAL"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaATIVA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVA'
-      Origin = '"TBCNAE"."ATIVA"'
-      ProviderFlags = [pfInUpdate]
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 416
-    Top = 304
+    DataSet = fdQryTabela
+    Top = 72
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -343,7 +302,7 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
     Left = 320
     Top = 304
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1801,5 +1760,87 @@ inherited frmGeTabelaCNAE: TfrmGeTabelaCNAE
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.descricao_resumida'
+      '  , c.descricao_completa'
+      '  , c.nota_explicativa'
+      '  , c.obriga_insc_estadual'
+      '  , c.ativa'
+      'from TBCNAE c')
+    object fdQryTabelaCODIGO: TStringField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaDESCRICAO_RESUMIDA: TStringField
+      DisplayLabel = 'Descri'#231#227'o resumida'
+      FieldName = 'DESCRICAO_RESUMIDA'
+      Origin = 'DESCRICAO_RESUMIDA'
+      Required = True
+      Size = 250
+    end
+    object fdQryTabelaDESCRICAO_COMPLETA: TStringField
+      DisplayLabel = 'Descri'#231#227'o completa'
+      FieldName = 'DESCRICAO_COMPLETA'
+      Origin = 'DESCRICAO_COMPLETA'
+      Size = 250
+    end
+    object fdQryTabelaNOTA_EXPLICATIVA: TMemoField
+      DisplayLabel = 'Nota explicativa'
+      FieldName = 'NOTA_EXPLICATIVA'
+      Origin = 'NOTA_EXPLICATIVA'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaOBRIGA_INSC_ESTADUAL: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'OBRIGA_INSC_ESTADUAL'
+      Origin = 'OBRIGA_INSC_ESTADUAL'
+      Required = True
+    end
+    object fdQryTabelaATIVA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVA'
+      Origin = 'ATIVA'
+      Required = True
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCNAE'
+      '(CODIGO, DESCRICAO_RESUMIDA, DESCRICAO_COMPLETA, '
+      '  NOTA_EXPLICATIVA, OBRIGA_INSC_ESTADUAL, ATIVA)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_DESCRICAO_RESUMIDA, :NEW_DESCRICAO_COM' +
+        'PLETA, '
+      '  :NEW_NOTA_EXPLICATIVA, :NEW_OBRIGA_INSC_ESTADUAL, :NEW_ATIVA)')
+    ModifySQL.Strings = (
+      'UPDATE TBCNAE'
+      
+        'SET CODIGO = :NEW_CODIGO, DESCRICAO_RESUMIDA = :NEW_DESCRICAO_RE' +
+        'SUMIDA, '
+      
+        '  DESCRICAO_COMPLETA = :NEW_DESCRICAO_COMPLETA, NOTA_EXPLICATIVA' +
+        ' = :NEW_NOTA_EXPLICATIVA, '
+      
+        '  OBRIGA_INSC_ESTADUAL = :NEW_OBRIGA_INSC_ESTADUAL, ATIVA = :NEW' +
+        '_ATIVA'
+      'WHERE CODIGO = :OLD_CODIGO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCNAE'
+      'WHERE CODIGO = :OLD_CODIGO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT CODIGO, DESCRICAO_RESUMIDA, DESCRICAO_COMPLETA, NOTA_EXPL' +
+        'ICATIVA, '
+      '  OBRIGA_INSC_ESTADUAL, ATIVA'
+      'FROM TBCNAE'
+      'WHERE CODIGO = :CODIGO')
   end
 end

@@ -7,26 +7,25 @@ inherited frmGeLogradouro: TfrmGeLogradouro
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
             Expanded = False
             FieldName = 'LOG_COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'LOGRADOURO'
+            Title.Caption = 'Nome '
             Width = 400
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CID_NOME'
+            Title.Caption = 'Cidade '
             Width = 200
             Visible = True
           end>
@@ -194,40 +193,9 @@ inherited frmGeLogradouro: TfrmGeLogradouro
       '  left join TBESTADO e on (e.Est_cod = c.Est_cod)')
     GeneratorField.Field = 'LOG_COD'
     GeneratorField.Generator = 'GEN_LOGRADOURO_ID'
-    object IbDtstTabelaLOG_COD: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'LOG_COD'
-      Origin = 'TBLOGRADOURO.LOG_COD'
-    end
-    object IbDtstTabelaLOG_NOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'LOG_NOME'
-      Origin = 'TBLOGRADOURO.LOG_NOME'
-      Size = 250
-    end
-    object IbDtstTabelaTLG_COD: TSmallintField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TLG_COD'
-      Origin = 'TBLOGRADOURO.TLG_COD'
-      Required = True
-    end
-    object IbDtstTabelaCID_COD: TIntegerField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_COD'
-      Origin = 'TBLOGRADOURO.CID_COD'
-      Required = True
-    end
-    object IbDtstTabelaLOGRADOURO: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'LOGRADOURO'
-      Required = True
-      Size = 300
-    end
-    object IbDtstTabelaCID_NOME: TIBStringField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_NOME'
-      Size = 105
-    end
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -260,7 +228,7 @@ inherited frmGeLogradouro: TfrmGeLogradouro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1718,6 +1686,89 @@ inherited frmGeLogradouro: TfrmGeLogradouro
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_LOGRADOURO_ID'
+    UpdateOptions.KeyFields = 'LOG_COD'
+    UpdateOptions.AutoIncFields = 'LOG_COD'
+    SQL.Strings = (
+      'Select'
+      '    l.Log_cod'
+      '  , l.Log_nome'
+      '  , l.Tlg_cod'
+      '  , l.Cid_cod'
+      
+        '  , trim(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descricao) || '#39' '#39',' +
+        ' '#39#39') || l.Log_nome) as logradouro'
+      '  , c.Cid_nome || '#39' ('#39' || e.Est_sigla || '#39')'#39' as Cid_nome'
+      'from TBLOGRADOURO l'
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = l.Tlg_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = l.Cid_cod)'
+      '  left join TBESTADO e on (e.Est_cod = c.Est_cod)')
+    object fdQryTabelaLOG_COD: TIntegerField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'LOG_COD'
+      Origin = 'LOG_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdQryTabelaLOG_NOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'LOG_NOME'
+      Origin = 'LOG_NOME'
+      Size = 250
+    end
+    object fdQryTabelaTLG_COD: TSmallintField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TLG_COD'
+      Origin = 'TLG_COD'
+      Required = True
+    end
+    object fdQryTabelaCID_COD: TIntegerField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CID_COD'
+      Origin = 'CID_COD'
+      Required = True
+    end
+    object fdQryTabelaLOGRADOURO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Nome'
+      FieldName = 'LOGRADOURO'
+      Origin = 'LOGRADOURO'
+      ProviderFlags = []
+      Required = True
+      Size = 301
+    end
+    object fdQryTabelaCID_NOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cidade'
+      FieldName = 'CID_NOME'
+      Origin = 'CID_NOME'
+      ProviderFlags = []
+      Size = 105
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBLOGRADOURO'
+      '(LOG_COD, LOG_NOME, TLG_COD, CID_COD)'
+      'VALUES (:NEW_LOG_COD, :NEW_LOG_NOME, :NEW_TLG_COD, :NEW_CID_COD)')
+    ModifySQL.Strings = (
+      'UPDATE TBLOGRADOURO'
+      
+        'SET LOG_COD = :NEW_LOG_COD, LOG_NOME = :NEW_LOG_NOME, TLG_COD = ' +
+        ':NEW_TLG_COD, '
+      '  CID_COD = :NEW_CID_COD'
+      'WHERE LOG_COD = :OLD_LOG_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBLOGRADOURO'
+      'WHERE LOG_COD = :OLD_LOG_COD')
+    FetchRowSQL.Strings = (
+      'SELECT LOG_COD, LOG_NOME, TLG_COD, CID_COD'
+      'FROM TBLOGRADOURO'
+      'WHERE LOG_COD = :LOG_COD')
   end
   object dtsTipo: TDataSource
     DataSet = fdQryTipo

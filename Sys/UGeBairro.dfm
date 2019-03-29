@@ -3,38 +3,36 @@ inherited frmGeBairro: TfrmGeBairro
   Top = 217
   Caption = 'Tabela de Bairros'
   OldCreateOrder = True
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
             Expanded = False
             FieldName = 'BAI_COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'BAI_NOME'
+            Title.Caption = 'Nome '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CID_NOME'
+            Title.Caption = 'Cidade '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DIS_NOME'
+            Title.Caption = 'Distrito '
             Width = 150
             Visible = True
           end>
@@ -256,40 +254,9 @@ inherited frmGeBairro: TfrmGeBairro
       '  left join TBDISTRITO d on (d.Dis_cod = b.Dis_cod)')
     GeneratorField.Field = 'BAI_COD'
     GeneratorField.Generator = 'GEN_BAIRRO_ID'
-    object IbDtstTabelaBAI_COD: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'BAI_COD'
-      Origin = 'TBBAIRRO.BAI_COD'
-    end
-    object IbDtstTabelaBAI_NOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'BAI_NOME'
-      Origin = 'TBBAIRRO.BAI_NOME'
-      Required = True
-      Size = 100
-    end
-    object IbDtstTabelaCID_COD: TIntegerField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_COD'
-      Origin = 'TBBAIRRO.CID_COD'
-      Required = True
-    end
-    object IbDtstTabelaDIS_COD: TSmallintField
-      DisplayLabel = 'Distrito'
-      FieldName = 'DIS_COD'
-      Origin = 'TBBAIRRO.DIS_COD'
-    end
-    object IbDtstTabelaCID_NOME: TIBStringField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_NOME'
-      Size = 105
-    end
-    object IbDtstTabelaDIS_NOME: TIBStringField
-      DisplayLabel = 'Distrito'
-      FieldName = 'DIS_NOME'
-      Origin = 'TBDISTRITO.DIS_NOME'
-      Size = 100
-    end
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -322,7 +289,7 @@ inherited frmGeBairro: TfrmGeBairro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1780,5 +1747,85 @@ inherited frmGeBairro: TfrmGeBairro
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_BAIRRO_ID'
+    UpdateOptions.KeyFields = 'BAI_COD'
+    UpdateOptions.AutoIncFields = 'BAI_COD'
+    SQL.Strings = (
+      'Select'
+      '    b.Bai_cod'
+      '  , b.Bai_nome'
+      '  , b.Cid_cod'
+      '  , b.Dis_cod'
+      '  , c.Cid_nome || '#39' ('#39' || e.Est_sigla || '#39')'#39' as Cid_nome'
+      '  , d.Dis_nome'
+      'from TBBAIRRO b'
+      '  left join TBCIDADE c on (c.Cid_cod = b.Cid_cod)'
+      '  left join TBESTADO e on (e.Est_cod = c.Est_cod)'
+      '  left join TBDISTRITO d on (d.Dis_cod = b.Dis_cod)')
+    object fdQryTabelaBAI_COD: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'BAI_COD'
+      Origin = 'BAI_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaBAI_NOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'BAI_NOME'
+      Origin = 'BAI_NOME'
+      Required = True
+      Size = 100
+    end
+    object fdQryTabelaCID_COD: TIntegerField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CID_COD'
+      Origin = 'CID_COD'
+      Required = True
+    end
+    object fdQryTabelaDIS_COD: TSmallintField
+      DisplayLabel = 'Distrito'
+      FieldName = 'DIS_COD'
+      Origin = 'DIS_COD'
+    end
+    object fdQryTabelaCID_NOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cidade'
+      FieldName = 'CID_NOME'
+      Origin = 'CID_NOME'
+      ProviderFlags = []
+      Size = 105
+    end
+    object fdQryTabelaDIS_NOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Distrito'
+      FieldName = 'DIS_NOME'
+      Origin = 'DIS_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBBAIRRO'
+      '(BAI_COD, BAI_NOME, CID_COD, DIS_COD)'
+      'VALUES (:NEW_BAI_COD, :NEW_BAI_NOME, :NEW_CID_COD, :NEW_DIS_COD)')
+    ModifySQL.Strings = (
+      'UPDATE TBBAIRRO'
+      
+        'SET BAI_COD = :NEW_BAI_COD, BAI_NOME = :NEW_BAI_NOME, CID_COD = ' +
+        ':NEW_CID_COD, '
+      '  DIS_COD = :NEW_DIS_COD'
+      'WHERE BAI_COD = :OLD_BAI_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBBAIRRO'
+      'WHERE BAI_COD = :OLD_BAI_COD')
+    FetchRowSQL.Strings = (
+      'SELECT BAI_COD, BAI_NOME, CID_COD, DIS_COD'
+      'FROM TBBAIRRO'
+      'WHERE BAI_COD = :BAI_COD')
   end
 end

@@ -3,27 +3,24 @@ unit UGeCidade;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
-  JvDBControls, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, FireDAC.Stan.Intf,
-  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
-  System.ImageList;
+  Dialogs, System.ImageList, ImgList, IBCustomDataSet, IBUpdateSQL, DB, JvDBControls,
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, JvToolEdit,
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet,
+
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeCidade = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaCID_COD: TIntegerField;
-    IbDtstTabelaCID_NOME: TIBStringField;
-    IbDtstTabelaEST_COD: TSmallintField;
-    IbDtstTabelaCID_SIAFI: TIntegerField;
-    IbDtstTabelaCID_IBGE: TIntegerField;
-    IbDtstTabelaEST_NOME: TIBStringField;
-    IbDtstTabelaEST_SIGLA: TIBStringField;
     lblNome: TLabel;
     dbNome: TDBEdit;
     lblBGE: TLabel;
@@ -31,9 +28,6 @@ type
     lblSIAFI: TLabel;
     dbSIAFI: TDBEdit;
     lblEstado: TLabel;
-    IbDtstTabelaCID_DDD: TSmallintField;
-    IbDtstTabelaCID_CEP_INICIAL: TIntegerField;
-    IbDtstTabelaCID_CEP_FINAL: TIntegerField;
     lblDDD: TLabel;
     dbDDD: TDBEdit;
     lblCEPInicial: TLabel;
@@ -42,9 +36,6 @@ type
     dbCEPFinal: TDBEdit;
     GrpBxCustosOper: TGroupBox;
     dbCustoOperacional: TDBCheckBox;
-    IbDtstTabelaCUSTO_OPER_PERCENTUAL: TSmallintField;
-    IbDtstTabelaCUSTO_OPER_FRETE: TIBBCDField;
-    IbDtstTabelaCUSTO_OPER_OUTROS: TIBBCDField;
     lblFrete: TLabel;
     dbFrete: TDBEdit;
     lblOutros: TLabel;
@@ -77,10 +68,22 @@ type
     { Public declarations }
   end;
 
+(*
+  Tabelas:
+  - TBCIDADE
+  - TBESTADO
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeCidade: TfrmGeCidade;
 
   procedure MostrarTabelaCidades(const AOwner : TComponent);
+
   function SelecionarCidade(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
   function SelecionarCidade(const AOwner : TComponent; const Estado : Smallint; var Codigo : Integer; var Nome : String) : Boolean; overload;
 
@@ -124,10 +127,10 @@ begin
   try
     whr    := 'c.est_cod = ' + IntToStr(Estado);
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + whr);
+      SQL.Add('where ' + whr);
       Open;
     end;
 
@@ -144,8 +147,9 @@ begin
   ControlFirstEdit := dbNome;
 
   NomeTabela     := 'TBCIDADE';
-  CampoCodigo    := 'cid_cod';
-  CampoDescricao := 'cid_nome';
+  CampoCodigo    := 'c.cid_cod';
+  CampoDescricao := 'c.cid_nome';
+  CampoOrdenacao := 'c.cid_nome';
 
   UpdateGenerator;
 
@@ -157,69 +161,82 @@ var
   iEstado : Integer;
   sEstado : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarEstado(Self, iEstado, sEstado) ) then
-    begin
-      IbDtstTabelaEST_COD.AsInteger := iEstado;
-      IbDtstTabelaEST_NOME.AsString := sEstado;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarEstado(Self, iEstado, sEstado) ) then
+      begin
+        FieldByName('EST_COD').AsInteger := iEstado;
+        FieldByName('EST_NOME').AsString := sEstado;
+      end;
+  end;
 end;
 
 procedure TfrmGeCidade.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  if ( GetEstadoIDDefault > 0 ) then
+  with DtSrcTabela.DataSet do
   begin
-    IbDtstTabelaEST_COD.AsInteger := GetEstadoIDDefault;
-    IbDtstTabelaEST_NOME.AsString := GetEstadoNomeDefault;
-  end;
+    if ( GetEstadoIDDefault > 0 ) then
+    begin
+      FieldByName('EST_COD').AsInteger := GetEstadoIDDefault;
+      FieldByName('EST_NOME').AsString := GetEstadoNomeDefault;
+    end;
 
-  IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 0; // Ord(False);
-  IbDtstTabelaCUSTO_OPER_FRETE.Clear;
-  IbDtstTabelaCUSTO_OPER_OUTROS.Clear;
+    FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 0; // Ord(False);
+    FieldByName('CUSTO_OPER_FRETE').Clear;
+    FieldByName('CUSTO_OPER_OUTROS').Clear;
+  end;
 end;
 
 procedure TfrmGeCidade.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
-  if ( Field = IbDtstTabelaCUSTO_OPER_PERCENTUAL ) then
-    if ( IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger = 1 ) then
-    begin
-      lblFrete.Caption  := 'Frete (%):';
-      lblOutros.Caption := 'Outros (%):';
-    end
-    else
-    begin
-      lblFrete.Caption  := 'Frete (R$):';
-      lblOutros.Caption := 'Outros (R$):';
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( Field = FieldByName('CUSTO_OPER_PERCENTUAL') ) then
+      if ( FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger = 1 ) then
+      begin
+        lblFrete.Caption  := 'Frete (%):';
+        lblOutros.Caption := 'Outros (%):';
+      end
+      else
+      begin
+        lblFrete.Caption  := 'Frete (R$):';
+        lblOutros.Caption := 'Outros (R$):';
+      end;
+  end;
 end;
 
 procedure TfrmGeCidade.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  DtSrcTabelaDataChange(IbDtstTabelaCUSTO_OPER_PERCENTUAL, IbDtstTabelaCUSTO_OPER_PERCENTUAL);
+  with DtSrcTabela.DataSet do
+    DtSrcTabelaDataChange(FieldByName('CUSTO_OPER_PERCENTUAL'), FieldByName('CUSTO_OPER_PERCENTUAL'));
 end;
 
 procedure TfrmGeCidade.btbtnSalvarClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger = 1 ) then
+  with DtSrcTabela.DataSet do
   begin
-    if ((IbDtstTabelaCUSTO_OPER_FRETE.AsCurrency < 0) or (IbDtstTabelaCUSTO_OPER_FRETE.AsCurrency > 100)) then
+    if ( FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger = 1 ) then
     begin
-      ShowWarning('Percentual de custo operacional para "Frete" inválido!');
-      Exit;
+      if ((FieldByName('CUSTO_OPER_FRETE').AsCurrency < 0) or (FieldByName('CUSTO_OPER_FRETE').AsCurrency > 100)) then
+      begin
+        ShowWarning('Percentual de custo operacional para "Frete" inválido!');
+        Exit;
+      end;
+
+      if ((FieldByName('CUSTO_OPER_OUTROS').AsCurrency < 0) or (FieldByName('CUSTO_OPER_OUTROS').AsCurrency > 100)) then
+      begin
+        ShowWarning('Percentual de custo operacional para "Outros" inválido!');
+        Exit;
+      end;
     end;
 
-    if ((IbDtstTabelaCUSTO_OPER_OUTROS.AsCurrency < 0) or (IbDtstTabelaCUSTO_OPER_OUTROS.AsCurrency > 100)) then
-    begin
-      ShowWarning('Percentual de custo operacional para "Outros" inválido!');
-      Exit;
-    end;
+    if FieldByName('CUSTO_OPER_PERCENTUAL').IsNull then
+      FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 1;
   end;
-
-  if IbDtstTabelaCUSTO_OPER_PERCENTUAL.IsNull then
-    IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 1;
 
   inherited;
 end;
@@ -227,12 +244,15 @@ end;
 procedure TfrmGeCidade.btbtnAlterarClick(Sender: TObject);
 begin
   inherited;
-  if (not btbtnAlterar.Enabled) then
-    if IbDtstTabelaCUSTO_OPER_PERCENTUAL.IsNull then
-      IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 1;
+  with DtSrcTabela.DataSet do
+  begin
+    if (not btbtnAlterar.Enabled) then
+      if FieldByName('CUSTO_OPER_PERCENTUAL').IsNull then
+        FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 1;
+  end;
 end;
 
 initialization
   FormFunction.RegisterForm('frmGeCidade', TfrmGeCidade);
-  
+
 end.

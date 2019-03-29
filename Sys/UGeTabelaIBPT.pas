@@ -9,7 +9,7 @@ uses
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls, StdCtrls,
   Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, IBQuery, IBTable,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
-  JvToolEdit, JvDBControls,
+  JvToolEdit, JvDBControls, System.ImageList,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
@@ -18,20 +18,11 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinVisualStudio2013Light;
 
 type
   TTipoTabelaIBPT = (tIbptGeral, tIbptProdutos, tIbptServicos);
   TfrmGeTabelaIBPT = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaID_IBPT: TIntegerField;
-    IbDtstTabelaNCM_IBPT: TIBStringField;
-    IbDtstTabelaEX_IBPT: TIBStringField;
-    IbDtstTabelaTABELA_IBPT: TIBStringField;
-    IbDtstTabelaDESCRICAO_IBPT: TWideMemoField;
-    IbDtstTabelaALIQNACIONAL_IBPT: TIBBCDField;
-    IbDtstTabelaALIQINTERNACIONAL_IBPT: TIBBCDField;
-    IbDtstTabelaALIQESTADUAL_IBPT: TIBBCDField;
-    IbDtstTabelaALIQMUNICIPAL_IBPT: TIBBCDField;
     lblCodigoNCM: TLabel;
     dbCodigoNCM: TDBEdit;
     dbDescricao: TDBMemo;
@@ -52,21 +43,30 @@ type
     dbAliquotaMUN: TDBEdit;
     lblAliquotaMUN: TLabel;
     btnImportar: TcxButton;
-    IbDtstTabelaDESCRICAO: TStringField;
     Bevel5: TBevel;
-    IbDtstTabelaATIVO: TSmallintField;
     dbAtivo: TDBCheckBox;
     lblNCMDesativado: TLabel;
     fdQryNivelIBPT: TFDQuery;
     fdQryTabelaIBPT: TFDQuery;
+    fdQryTabelaID_IBPT: TIntegerField;
+    fdQryTabelaNCM_IBPT: TStringField;
+    fdQryTabelaEX_IBPT: TStringField;
+    fdQryTabelaTABELA_IBPT: TStringField;
+    fdQryTabelaDESCRICAO_IBPT: TMemoField;
+    fdQryTabelaALIQNACIONAL_IBPT: TBCDField;
+    fdQryTabelaALIQINTERNACIONAL_IBPT: TBCDField;
+    fdQryTabelaALIQESTADUAL_IBPT: TBCDField;
+    fdQryTabelaALIQMUNICIPAL_IBPT: TBCDField;
+    fdQryTabelaATIVO: TSmallintField;
+    fdQryTabelaDESCRICAO: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btnFiltrarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
-    procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
     procedure btnImportarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     FTipoTabela : TTipoTabelaIBPT;
@@ -115,7 +115,7 @@ begin
     Result := frm.SelecionarRegistro(aIndice, aDescricao);
 
     if Result then
-      aCodigo := frm.IbDtstTabelaNCM_IBPT.AsString;
+      aCodigo := frm.DtSrcTabela.DataSet.FieldByName('NCM_IBPT').AsString;
   finally
     frm.Destroy;
   end;
@@ -130,6 +130,7 @@ begin
 
   //inherited;
   FiltarDados(0);
+  CentralizarCodigo;
 end;
 
 procedure TfrmGeTabelaIBPT.btnImportarClick(Sender: TObject);
@@ -143,7 +144,7 @@ procedure TfrmGeTabelaIBPT.dbgDadosDrawColumnCell(Sender: TObject;
 begin
   inherited;
   // Destacar códigos NCM desativados
-  if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
     dbgDados.Canvas.Font.Color := lblNCMDesativado.Font.Color;
 
   dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -153,6 +154,12 @@ procedure TfrmGeTabelaIBPT.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   btnImportar.Enabled := btbtnIncluir.Enabled;
+end;
+
+procedure TfrmGeTabelaIBPT.fdQryTabelaCalcFields(DataSet: TDataSet);
+begin
+  with DataSet do
+   FieldByName('DESCRICAO').AsString := Copy(FieldByName('DESCRICAO_IBPT').AsString, 1, FieldByName('DESCRICAO').Size);
 end;
 
 procedure TfrmGeTabelaIBPT.FiltarDados(const aTipo: Integer);
@@ -165,7 +172,7 @@ begin
       Abort;
     end;
 
-    with IbDtstTabela, SelectSQL do
+    with fdQryTabela, SQL do
     begin
       if ( Trim(CampoOrdenacao) = EmptyStr ) then
         CampoOrdenacao := CampoDescricao;
@@ -195,7 +202,7 @@ begin
       end;
 
       if ( WhereAdditional <> EmptyStr ) then
-        if ( Pos('where', SelectSQL.Text) > 0 ) then
+        if ( Pos('where', SQL.Text) > 0 ) then
           Add( '  and (' + WhereAdditional + ')' )
         else
           Add( 'where (' + WhereAdditional + ')' );
@@ -248,22 +255,20 @@ begin
   CarregarLista(fdQryTabelaIBPT);
 end;
 
-procedure TfrmGeTabelaIBPT.IbDtstTabelaCalcFields(DataSet: TDataSet);
-begin
-  IbDtstTabelaDESCRICAO.AsString := Copy(IbDtstTabelaDESCRICAO_IBPT.AsString, 1, IbDtstTabelaDESCRICAO.Size);
-end;
-
 procedure TfrmGeTabelaIBPT.IbDtstTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEX_IBPT.Value := '0';
-  IbDtstTabelaALIQNACIONAL_IBPT.Value      := 0.0;
-  IbDtstTabelaALIQINTERNACIONAL_IBPT.Value := 0.0;
-  IbDtstTabelaALIQESTADUAL_IBPT.Value      := 0.0;
-  IbDtstTabelaALIQMUNICIPAL_IBPT.Value     := 0.0;
-  IbDtstTabelaATIVO.Value                  := 1;
-  IbDtstTabelaTABELA_IBPT.Clear;
-  IbDtstTabelaDESCRICAO_IBPT.Clear;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('EX_IBPT').Value := '0';
+    FieldByName('ALIQNACIONAL_IBPT').Value      := 0.0;
+    FieldByName('ALIQINTERNACIONAL_IBPT').Value := 0.0;
+    FieldByName('ALIQESTADUAL_IBPT').Value      := 0.0;
+    FieldByName('ALIQMUNICIPAL_IBPT').Value     := 0.0;
+    FieldByName('ATIVO').Value                  := 1;
+    FieldByName('TABELA_IBPT').Clear;
+    FieldByName('DESCRICAO_IBPT').Clear;
+  end;
 end;
 
 initialization
