@@ -20,27 +20,10 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, JvMaskEdit;
 
 type
-  TfrmGeCliente = class(TfrmGrPadraoCadastro, IObserver) // Observador
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaPESSOA_FISICA: TSmallintField;
-    IbDtstTabelaCNPJ: TIBStringField;
-    IbDtstTabelaENDER: TIBStringField;
-    IbDtstTabelaCOMPLEMENTO: TIBStringField;
-    IbDtstTabelaNUMERO_END: TIBStringField;
-    IbDtstTabelaCEP: TIBStringField;
-    IbDtstTabelaCIDADE: TIBStringField;
-    IbDtstTabelaUF: TIBStringField;
-    IbDtstTabelaFONE: TIBStringField;
-    IbDtstTabelaTLG_TIPO: TSmallintField;
-    IbDtstTabelaLOG_COD: TIntegerField;
-    IbDtstTabelaBAI_COD: TIntegerField;
-    IbDtstTabelaCID_COD: TIntegerField;
-    IbDtstTabelaEST_COD: TSmallintField;
-    IbDtstTabelaLOGRADOURO: TIBStringField;
-    IbDtstTabelaEMAIL: TIBStringField;
+  TfrmGeCliente = class(TfrmGrPadraoCadastro, IObserver)
     dbPessoaFisica: TDBCheckBox;
     lblCNPJ: TLabel;
     lblRazao: TLabel;
@@ -59,7 +42,6 @@ type
     lblBairro: TLabel;
     lblLogradouro: TLabel;
     lblCEP: TLabel;
-    dbCEP: TDBEdit;
     lblNumero: TLabel;
     dbNumero: TDBEdit;
     lblComplemento: TLabel;
@@ -70,18 +52,9 @@ type
     dbEmail: TDBEdit;
     lblHome: TLabel;
     dbHome: TDBEdit;
-    IbDtstTabelaPAIS_ID: TIBStringField;
-    IbDtstTabelaEST_NOME: TIBStringField;
-    IbDtstTabelaCID_NOME: TIBStringField;
-    IbDtstTabelaPAIS_NOME: TIBStringField;
-    IbDtstTabelaNOME: TIBStringField;
-    IbDtstTabelaINSCEST: TIBStringField;
-    IbDtstTabelaINSCMUN: TIBStringField;
-    IbDtstTabelaSITE: TIBStringField;
     lblPais: TLabel;
     lblValorLimiteCompra: TLabel;
     dbValorLimiteCompra: TDBEdit;
-    IbDtstTabelaVALOR_LIMITE_COMPRA: TIBBCDField;
     lblTotalCompras: TLabel;
     dbTotalCompras: TDBEdit;
     cdsTotalComprasAbertas: TDataSource;
@@ -92,32 +65,22 @@ type
     dbgTitulos: TDBGrid;
     lblTituloEmAberto: TLabel;
     lblTituloPagando: TLabel;
-    IbDtstTabelaDTCAD: TDateField;
     lblDataCadastro: TLabel;
     dbDataCadastro: TDBEdit;
-    IbDtstTabelaBLOQUEADO: TSmallintField;
-    IbDtstTabelaBLOQUEADO_DATA: TDateField;
-    IbDtstTabelaBLOQUEADO_MOTIVO: TMemoField;
-    IbDtstTabelaBLOQUEADO_USUARIO: TIBStringField;
     GrpBxBloqueio: TGroupBox;
     Bevel6: TBevel;
     Bevel7: TBevel;
     Bevel9: TBevel;
     dbmMotivoBloqueio: TDBMemo;
     dbcBloqueio: TDBCheckBox;
-    IbDtstTabelaDESBLOQUEADO_DATA: TDateField;
     Bevel10: TBevel;
-    IbDtstTabelaFONECEL: TIBStringField;
-    IbDtstTabelaFONECOMERC: TIBStringField;
     lblFoneCelular: TLabel;
     dbFoneCelular: TDBEdit;
     lblFoneComercial: TLabel;
     dbFoneComercial: TDBEdit;
     dtsVendedor: TDataSource;
-    IbDtstTabelaVENDEDOR_COD: TIntegerField;
     lblVendedor: TLabel;
     dbVendedor: TDBLookupComboBox;
-    IbDtstTabelaUSUARIO: TIBStringField;
     popProcesso: TPopupMenu;
     mpClienteBloquear: TMenuItem;
     mpClienteDesbloquear: TMenuItem;
@@ -165,18 +128,13 @@ type
     lblCPFX: TLabel;
     tbsDadosAdcionais: TTabSheet;
     dbNFeDevolucao: TDBCheckBox;
-    IbDtstTabelaEMITIR_NFE_DEVOLUCAO: TSmallintField;
     GrpBxCustosOper: TGroupBox;
     lblFrete: TLabel;
     lblOutros: TLabel;
     dbCustoOperacional: TDBCheckBox;
     dbFrete: TDBEdit;
     dbOutros: TDBEdit;
-    IbDtstTabelaCUSTO_OPER_PERCENTUAL: TSmallintField;
-    IbDtstTabelaCUSTO_OPER_FRETE: TIBBCDField;
-    IbDtstTabelaCUSTO_OPER_OUTROS: TIBBCDField;
     dbEntregaFracionada: TDBCheckBox;
-    IbDtstTabelaENTREGA_FRACIONADA_VENDA: TSmallintField;
     tbsEstoqueSatelite: TTabSheet;
     pnlPesquisarEstoqueSatelite: TPanel;
     GroupBox2: TGroupBox;
@@ -212,20 +170,13 @@ type
     CmbBxFiltrarTipo: TComboBox;
     QryEstoqueSateliteVALOR_MEDIO: TIBBCDField;
     dtsTipoCnpj: TDataSource;
-    IbDtstTabelaTIPO: TSmallintField;
     lblTipoCNPJ: TLabel;
     dbTipoCNPJ: TDBLookupComboBox;
     QryEstoqueSateliteCOD_CLIENTE: TIntegerField;
-    IbDtstTabelaBANCO: TIBStringField;
-    IbDtstTabelaAGENCIA: TIBStringField;
-    IbDtstTabelaCC: TIBStringField;
-    IbDtstTabelaPRACA: TIBStringField;
-    IbDtstTabelaOBSERVACAO: TMemoField;
     dtsBancoFebraban: TDataSource;
     tbsDadoFinanceiro: TTabSheet;
     tbsObservacao: TTabSheet;
     dbObservacao: TDBMemo;
-    IbDtstTabelaNOMEFANT: TIBStringField;
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
     QryEstoqueSateliteQUANTIDADE: TIBBCDField;
@@ -245,7 +196,6 @@ type
     dbBairro: TJvDBComboEdit;
     dbLogradouro: TJvDBComboEdit;
     dbPais: TJvDBComboEdit;
-    IbDtstTabelaATIVO: TSmallintField;
     dbCadastroAtivo: TDBCheckBox;
     lblClienteDesativado: TLabel;
     lblDataNasc: TLabel;
@@ -266,15 +216,6 @@ type
     dbAgencia3: TcxDBEditorRow;
     dbContaCorrente3: TcxDBEditorRow;
     dbPracaCobranca3: TcxDBEditorRow;
-    IbDtstTabelaBANCO_2: TIBStringField;
-    IbDtstTabelaAGENCIA_2: TIBStringField;
-    IbDtstTabelaCC_2: TIBStringField;
-    IbDtstTabelaPRACA_2: TIBStringField;
-    IbDtstTabelaBANCO_3: TIBStringField;
-    IbDtstTabelaAGENCIA_3: TIBStringField;
-    IbDtstTabelaCC_3: TIBStringField;
-    IbDtstTabelaPRACA_3: TIBStringField;
-    IbDtstTabelaBLOQUEADO_AUTOMATICO: TSmallintField;
     fdQryBancoFebraban: TFDQuery;
     fdQryTipoCnpj: TFDQuery;
     fdQryVendedor: TFDQuery;
@@ -306,14 +247,72 @@ type
     fdQryTitulosNFE: TLargeintField;
     fdQryTitulosNFE_SERIE: TStringField;
     imgAjuda: TImage;
-    IbDtstTabelaBAIRRO: TIBStringField;
+    fdQryTabelaCODIGO: TIntegerField;
+    fdQryTabelaPESSOA_FISICA: TSmallintField;
+    fdQryTabelaCNPJ: TStringField;
+    fdQryTabelaTIPO: TSmallintField;
+    fdQryTabelaNOME: TStringField;
+    fdQryTabelaNOMEFANT: TStringField;
+    fdQryTabelaINSCEST: TStringField;
+    fdQryTabelaINSCMUN: TStringField;
+    fdQryTabelaENDER: TStringField;
+    fdQryTabelaCOMPLEMENTO: TStringField;
+    fdQryTabelaNUMERO_END: TStringField;
+    fdQryTabelaBAIRRO: TStringField;
+    fdQryTabelaCEP: TStringField;
+    fdQryTabelaCIDADE: TStringField;
+    fdQryTabelaUF: TStringField;
+    fdQryTabelaFONE: TStringField;
+    fdQryTabelaFONECEL: TStringField;
+    fdQryTabelaFONECOMERC: TStringField;
+    fdQryTabelaTLG_TIPO: TSmallintField;
+    fdQryTabelaLOG_COD: TIntegerField;
+    fdQryTabelaBAI_COD: TIntegerField;
+    fdQryTabelaCID_COD: TIntegerField;
+    fdQryTabelaEST_COD: TSmallintField;
+    fdQryTabelaEMAIL: TStringField;
+    fdQryTabelaSITE: TStringField;
+    fdQryTabelaPAIS_ID: TStringField;
+    fdQryTabelaVALOR_LIMITE_COMPRA: TBCDField;
+    fdQryTabelaVENDEDOR_COD: TIntegerField;
+    fdQryTabelaDTCAD: TDateField;
+    fdQryTabelaBLOQUEADO: TSmallintField;
+    fdQryTabelaBLOQUEADO_DATA: TDateField;
+    fdQryTabelaBLOQUEADO_MOTIVO: TMemoField;
+    fdQryTabelaBLOQUEADO_USUARIO: TStringField;
+    fdQryTabelaBLOQUEADO_AUTOMATICO: TSmallintField;
+    fdQryTabelaDESBLOQUEADO_DATA: TDateField;
+    fdQryTabelaUSUARIO: TStringField;
+    fdQryTabelaEMITIR_NFE_DEVOLUCAO: TSmallintField;
+    fdQryTabelaCUSTO_OPER_PERCENTUAL: TSmallintField;
+    fdQryTabelaCUSTO_OPER_FRETE: TBCDField;
+    fdQryTabelaCUSTO_OPER_OUTROS: TBCDField;
+    fdQryTabelaENTREGA_FRACIONADA_VENDA: TSmallintField;
+    fdQryTabelaBANCO: TStringField;
+    fdQryTabelaAGENCIA: TStringField;
+    fdQryTabelaCC: TStringField;
+    fdQryTabelaPRACA: TStringField;
+    fdQryTabelaBANCO_2: TStringField;
+    fdQryTabelaAGENCIA_2: TStringField;
+    fdQryTabelaCC_2: TStringField;
+    fdQryTabelaPRACA_2: TStringField;
+    fdQryTabelaBANCO_3: TStringField;
+    fdQryTabelaAGENCIA_3: TStringField;
+    fdQryTabelaCC_3: TStringField;
+    fdQryTabelaPRACA_3: TStringField;
+    fdQryTabelaOBSERVACAO: TMemoField;
+    fdQryTabelaATIVO: TSmallintField;
+    fdQryTabelaLOGRADOURO: TStringField;
+    fdQryTabelaCID_NOME: TStringField;
+    fdQryTabelaEST_NOME: TStringField;
+    fdQryTabelaPAIS_NOME: TStringField;
+    dbCEP: TJvDBMaskEdit;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
     procedure dbCidadeButtonClick(Sender: TObject);
     procedure dbBairroButtonClick(Sender: TObject);
     procedure dbLogradouroButtonClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -333,7 +332,6 @@ type
     procedure edCNPJKeyPress(Sender: TObject; var Key: Char);
     procedure btnConsultarCPFClick(Sender: TObject);
     procedure edCaptchaKeyPress(Sender: TObject; var Key: Char);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
     procedure btnPesquisarEstoqueSateliteClick(Sender: TObject);
@@ -353,6 +351,8 @@ type
     procedure fdQryTitulosSITUACAOGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
     procedure imgAjudaClick(Sender: TObject);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -457,7 +457,7 @@ begin
 
     Result := frm.SelecionarRegistro(Codigo, Nome);
     if ( Result ) then
-      CNPJ := frm.IbDtstTabelaCNPJ.AsString;
+      CNPJ := frm.DtSrcTabela.DataSet.FieldByName('CNPJ').AsString;
   finally
     frm.Destroy;
   end;
@@ -471,7 +471,7 @@ begin
   try
     Result := frm.SelecionarRegistro(Codigo, Nome);
     if ( Result ) then
-      CNPJ      := frm.IbDtstTabelaCNPJ.AsString;
+      CNPJ      := frm.DtSrcTabela.DataSet.FieldByName('CNPJ').AsString;
   finally
     frm.Destroy;
   end;
@@ -486,11 +486,11 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome);
     if ( Result ) then
     begin
-      CNPJ      := frm.IbDtstTabelaCNPJ.AsString;
-      Bloqueado := (frm.IbDtstTabelaBLOQUEADO.AsInteger = 1);
+      CNPJ      := frm.DtSrcTabela.DataSet.FieldByName('CNPJ').AsString;
+      Bloqueado := (frm.DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1);
 
       if Bloqueado then
-        MotivoBloqueio := frm.IbDtstTabelaBLOQUEADO_MOTIVO.AsString
+        MotivoBloqueio := frm.DtSrcTabela.DataSet.FieldByName('BLOQUEADO_MOTIVO').AsString
       else
         MotivoBloqueio := EmptyStr;
     end;
@@ -518,7 +518,6 @@ begin
       btbtnLista.Visible    := False;
       bvlTool3.Visible      := False;
       btbtnFechar.TabStop   := False;
-//      btbtnFechar.Visible   := False;
 
       btbtnFechar.Cancel    := True;
 
@@ -531,10 +530,10 @@ begin
 
       AbrirTabelaAuto := True;
 
-      IbDtstTabela.SelectSQL.Add('where cl.codigo = ' + IntToStr(iCodigo));
-      IbDtstTabela.Open;
+      fdQryTabela.SQL.Add('where cl.codigo = ' + IntToStr(iCodigo));
+      fdQryTabela.Open;
 
-      Caption := 'Cliente : ' + FormatFloat('00000', iCodigo) + ' - ' + IbDtstTabelaNOME.AsString;
+      Caption := 'Cliente : ' + FormatFloat('00000', iCodigo) + ' - ' + DtSrcTabela.DataSet.FieldByName('NOME').AsString;
 
       pgcMaisDados.ActivePage := tbsEstoqueSatelite;
       tbsTabela.TabVisible    := False;
@@ -578,8 +577,8 @@ begin
   CampoDescricao     := 'nome';
   CampoCadastroAtivo := 'ativo';
   CampoOrdenacao     := CampoDescricao;
-
-  UpdateGenerator;
+//
+//  UpdateGenerator;
 
   pgcMaisDados.ActivePageIndex := 0;
   tbsConsultarCNPJ.TabVisible  := False;
@@ -629,13 +628,16 @@ var
   sEstado ,
   sUF     : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarEstado(Self, iEstado, sEstado, sUF) ) then
-    begin
-      IbDtstTabelaEST_COD.AsInteger := iEstado;
-      IbDtstTabelaEST_NOME.AsString := sEstado;
-      IbDtstTabelaUF.AsString       := sUF;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarEstado(Self, iEstado, sEstado, sUF) ) then
+      begin
+        FieldByName('EST_COD').AsInteger := iEstado;
+        FieldByName('EST_NOME').AsString := sEstado;
+        FieldByName('UF').AsString       := sUF;
+      end;
+  end;
 end;
 
 procedure TfrmGeCliente.dbCidadeButtonClick(Sender: TObject);
@@ -643,20 +645,23 @@ var
   iCidade : Integer;
   sCidade : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( IbDtstTabelaEST_COD.AsInteger = 0 ) then
-    begin
-      ShowWarning('Favor informar o Estado primeiramente!');
-      dbEstado.SetFocus;
-    end
-    else
-    if ( SelecionarCidade(Self, IbDtstTabelaEST_COD.AsInteger, iCidade, sCidade) ) then
-    begin
-      IbDtstTabelaCID_COD.AsInteger := iCidade;
-      IbDtstTabelaCID_NOME.AsString := sCidade;
-      IbDtstTabelaCIDADE.AsString   := Copy(sCidade + ' (' + IbDtstTabelaUF.AsString + ')', 1, IbDtstTabelaCIDADE.Size);
-      IbDtstTabelaCEP.AsString      := GetCidadeCEP(iCidade);
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( FieldByName('EST_COD').AsInteger = 0 ) then
+      begin
+        ShowWarning('Favor informar o Estado primeiramente!');
+        dbEstado.SetFocus;
+      end
+      else
+      if ( SelecionarCidade(Self, FieldByName('EST_COD').AsInteger, iCidade, sCidade) ) then
+      begin
+        FieldByName('CID_COD').AsInteger := iCidade;
+        FieldByName('CID_NOME').AsString := sCidade;
+        FieldByName('CIDADE').AsString   := Copy(sCidade + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
+        FieldByName('CEP').AsString      := GetCidadeCEP(iCidade);
+      end;
+  end;
 end;
 
 procedure TfrmGeCliente.dbBairroButtonClick(Sender: TObject);
@@ -664,18 +669,21 @@ var
   iBairro : Integer;
   sBairro : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( IbDtstTabelaCID_COD.AsInteger = 0 ) then
-    begin
-      ShowWarning('Favor informar a Cidade primeiramente!');
-      dbCidade.SetFocus;
-    end
-    else
-    if ( SelecionarBairro(Self, IbDtstTabelaCID_COD.AsInteger, iBairro, sBairro) ) then
-    begin
-      IbDtstTabelaBAI_COD.AsInteger := iBairro;
-      IbDtstTabelaBAIRRO.AsString   := sBairro;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( FieldByName('CID_COD').AsInteger = 0 ) then
+      begin
+        ShowWarning('Favor informar a Cidade primeiramente!');
+        dbCidade.SetFocus;
+      end
+      else
+      if ( SelecionarBairro(Self, FieldByName('CID_COD').AsInteger, iBairro, sBairro) ) then
+      begin
+        FieldByName('BAI_COD').AsInteger := iBairro;
+        FieldByName('BAIRRO').AsString   := sBairro;
+      end;
+  end;
 end;
 
 procedure TfrmGeCliente.dbLogradouroButtonClick(Sender: TObject);
@@ -685,85 +693,23 @@ var
   iLogradouro : Integer;
   sLogradouro : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( IbDtstTabelaCID_COD.AsInteger = 0 ) then
-    begin
-      ShowWarning('Favor informar a Cidade primeiramente!');
-      dbCidade.SetFocus;
-    end
-    else
-    if ( SelecionarLogradouro(Self, IbDtstTabelaCID_COD.AsInteger, iTipo, sTipo, iLogradouro, sLogradouro) ) then
-    begin
-      IbDtstTabelaTLG_TIPO.AsInteger  := iTipo;
-      IbDtstTabelaLOG_COD.AsInteger   := iLogradouro;
-      IbDtstTabelaLOGRADOURO.AsString := Trim(sTipo + ' ' + sLogradouro);
-      IbDtstTabelaENDER.AsString      := Trim(sTipo + ' ' + sLogradouro);
-    end;
-end;
-
-procedure TfrmGeCliente.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  if (gSistema.Codigo = SISTEMA_PDV) then
-    if (Trim(edtFiltrar.Text) <> EmptyStr) then
-      if StrIsCPF(Trim(edtFiltrar.Text)) then
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( FieldByName('CID_COD').AsInteger = 0 ) then
       begin
-        IbDtstTabelaPESSOA_FISICA.AsInteger := 1;
-        IbDtstTabelaCNPJ.AsString           := Trim(edtFiltrar.Text);
+        ShowWarning('Favor informar a Cidade primeiramente!');
+        dbCidade.SetFocus;
       end
       else
-      if StrIsCNPJ(Trim(edtFiltrar.Text)) then
+      if ( SelecionarLogradouro(Self, FieldByName('CID_COD').AsInteger, iTipo, sTipo, iLogradouro, sLogradouro) ) then
       begin
-        IbDtstTabelaPESSOA_FISICA.AsInteger := 0;
-        IbDtstTabelaCNPJ.AsString           := Trim(edtFiltrar.Text);
-      end
-      else
-        IbDtstTabelaPESSOA_FISICA.AsInteger := 1
-    else
-      IbDtstTabelaPESSOA_FISICA.AsInteger := 1
-  else
-    IbDtstTabelaPESSOA_FISICA.AsInteger  := 1;
-
-  IbDtstTabelaTIPO.AsInteger             := 0;
-  IbDtstTabelaVALOR_LIMITE_COMPRA.Value  := 0;
-  IbDtstTabelaPAIS_ID.AsString           := GetPaisIDDefault;
-  IbDtstTabelaPAIS_NOME.AsString         := GetPaisNomeDefault;
-  IbDtstTabelaEST_COD.AsInteger          := GetEstadoIDDefault;
-  IbDtstTabelaEST_NOME.AsString          := GetEstadoNomeDefault;
-  IbDtstTabelaUF.AsString                := GetEstadoUF(GetEstadoIDDefault);
-  IbDtstTabelaCID_COD.AsInteger          := GetCidadeIDDefault;
-  IbDtstTabelaCID_NOME.AsString          := GetCidadeNomeDefault;
-  IbDtstTabelaCIDADE.AsString            := Copy(GetCidadeNomeDefault + ' (' + IbDtstTabelaUF.AsString + ')', 1, IbDtstTabelaCIDADE.Size);
-  IbDtstTabelaCEP.AsString               := GetCidadeCEP(GetCidadeIDDefault);
-  IbDtstTabelaNUMERO_END.AsString        := 'S/N';
-  IbDtstTabelaCOMPLEMENTO.AsString       := EmptyStr;
-  IbDtstTabelaDTCAD.AsDateTime           := GetDateDB;
-  IbDtstTabelaATIVO.Value                := 1;
-  IbDtstTabelaBLOQUEADO.AsInteger             := 0; // Ord(False);
-  IbDtstTabelaBLOQUEADO_AUTOMATICO.AsInteger  := 0;
-  IbDtstTabelaEMITIR_NFE_DEVOLUCAO.AsInteger  := 0; // Ord(False);
-  IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 0; // Ord(False);
-  IbDtstTabelaENTREGA_FRACIONADA_VENDA.Value  := 0; // Ord(False);
-
-  IbDtstTabelaVENDEDOR_COD.Clear;
-  IbDtstTabelaBLOQUEADO_DATA.Clear;
-  IbDtstTabelaBLOQUEADO_MOTIVO.Clear;
-  IbDtstTabelaBLOQUEADO_USUARIO.Clear;
-  IbDtstTabelaBANCO.Clear;
-  IbDtstTabelaAGENCIA.Clear;
-  IbDtstTabelaCC.Clear;
-  IbDtstTabelaPRACA.Clear;
-  IbDtstTabelaBANCO_2.Clear;
-  IbDtstTabelaAGENCIA_2.Clear;
-  IbDtstTabelaCC_2.Clear;
-  IbDtstTabelaPRACA_2.Clear;
-  IbDtstTabelaBANCO_3.Clear;
-  IbDtstTabelaAGENCIA_3.Clear;
-  IbDtstTabelaCC_3.Clear;
-  IbDtstTabelaPRACA_3.Clear;
-  IbDtstTabelaOBSERVACAO.Clear;
-
-  GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
+        FieldByName('TLG_TIPO').AsInteger  := iTipo;
+        FieldByName('LOG_COD').AsInteger   := iLogradouro;
+        FieldByName('LOGRADOURO').AsString := Trim(sTipo + ' ' + sLogradouro);
+        FieldByName('ENDER').AsString      := Trim(sTipo + ' ' + sLogradouro);
+      end;
+  end;
 end;
 
 procedure TfrmGeCliente.imgAjudaClick(Sender: TObject);
@@ -781,65 +727,65 @@ end;
 procedure TfrmGeCliente.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  with DtSrcTabela.DataSet do
   begin
-    pgcMaisDados.ActivePageIndex := 0;
+    if ( State in [dsEdit, dsInsert] ) then
+    begin
+      pgcMaisDados.ActivePageIndex := 0;
 
-    if ( IbDtstTabelaPESSOA_FISICA.AsInteger = 1 ) then
-      IbDtstTabelaCNPJ.EditMask := '999.999.999-99;0; '
+      if ( FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
+        FieldByName('CNPJ').EditMask := '000\.000\.000\-00;0; '
+      else
+        FieldByName('CNPJ').EditMask := '00\.000\.000\/0000\-00;0; ';
+    end
     else
-      IbDtstTabelaCNPJ.EditMask := '99.999.999/9999-99;0; ';
-  end
-  else
-  begin
-    IbDtstTabelaCNPJ.EditMask   := EmptyStr;
-    tbsConsultarCNPJ.TabVisible := False;
-    tbsConsultarCPF.TabVisible  := False;
+    begin
+      FieldByName('CNPJ').EditMask := EmptyStr;
+      tbsConsultarCNPJ.TabVisible  := False;
+      tbsConsultarCPF.TabVisible   := False;
+    end;
+
+    BtBtnProcesso.Enabled := Active and (not (State in [dsEdit, dsInsert]));
+
+    mpClienteBloquear.Enabled    := Active and (not (State in [dsEdit, dsInsert])) and (FieldByName('BLOQUEADO').AsInteger = 0);
+    mpClienteDesbloquear.Enabled := Active and (not (State in [dsEdit, dsInsert])) and (FieldByName('BLOQUEADO').AsInteger = 1);
   end;
-
-  BtBtnProcesso.Enabled := IbDtstTabela.Active and
-    (not (IbDtstTabela.State in [dsEdit, dsInsert]));
-
-  mpClienteBloquear.Enabled    := IbDtstTabela.Active and
-    (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaBLOQUEADO.AsInteger = 0);
-  mpClienteDesbloquear.Enabled := IbDtstTabela.Active and
-    (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaBLOQUEADO.AsInteger = 1);
 end;
 
 procedure TfrmGeCliente.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
   inherited;
-  BtBtnProcesso.Enabled := IbDtstTabela.Active and
-    (not (IbDtstTabela.State in [dsEdit, dsInsert]));
-
-  mpClienteBloquear.Enabled    := IbDtstTabela.Active and
-    (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaBLOQUEADO.AsInteger = 0);
-  mpClienteDesbloquear.Enabled := IbDtstTabela.Active and
-    (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaBLOQUEADO.AsInteger = 1);
-
-  if ( Field = IbDtstTabela.FieldByName('PESSOA_FISICA') ) then
+  with DtSrcTabela.DataSet do
   begin
-    lblTipoCNPJ.Enabled := (IbDtstTabelaPESSOA_FISICA.AsInteger = 0);
-    dbTipoCNPJ.Enabled  := (IbDtstTabelaPESSOA_FISICA.AsInteger = 0);
+    BtBtnProcesso.Enabled := Active and (not (State in [dsEdit, dsInsert]));
 
-    if ( IbDtstTabelaPESSOA_FISICA.AsInteger = 1 ) then
-      IbDtstTabelaCNPJ.EditMask := '999.999.999-99;0; '
-    else
-      IbDtstTabelaCNPJ.EditMask := '99.999.999/9999-99;0; ';
-  end;
+    mpClienteBloquear.Enabled    := Active and (not (State in [dsEdit, dsInsert])) and (FieldByName('BLOQUEADO').AsInteger = 0);
+    mpClienteDesbloquear.Enabled := Active and (not (State in [dsEdit, dsInsert])) and (FieldByName('BLOQUEADO').AsInteger = 1);
 
-  if ( Field = IbDtstTabelaCUSTO_OPER_PERCENTUAL ) then
-    if ( IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger = 1 ) then
+    if ( Field = FieldByName('PESSOA_FISICA') ) then
     begin
-      lblFrete.Caption  := 'Frete (%):';
-      lblOutros.Caption := 'Outros (%):';
-    end
-    else
-    begin
-      lblFrete.Caption  := 'Frete (R$):';
-      lblOutros.Caption := 'Outros (R$):';
+      lblTipoCNPJ.Enabled := (FieldByName('PESSOA_FISICA').AsInteger = 0);
+      dbTipoCNPJ.Enabled  := (FieldByName('PESSOA_FISICA').AsInteger = 0);
+
+      if ( FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
+        FieldByName('CNPJ').EditMask := '000\.000\.000\-00;0; '
+      else
+        FieldByName('CNPJ').EditMask := '00\.000\.000\/0000\-00;0; ';
     end;
+
+    if ( Field = FieldByName('CUSTO_OPER_PERCENTUAL') ) then
+      if ( FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger = 1 ) then
+      begin
+        lblFrete.Caption  := 'Frete (%):';
+        lblOutros.Caption := 'Outros (%):';
+      end
+      else
+      begin
+        lblFrete.Caption  := 'Frete (R$):';
+        lblOutros.Caption := 'Outros (R$):';
+      end;
+  end;
 end;
 
 procedure TfrmGeCliente.btbtnSalvarClick(Sender: TObject);
@@ -850,83 +796,92 @@ var
 begin
   pTrueFalse := GetPermitirVerdadeiroFalsoCNPJCliente(gUsuarioLogado.Empresa);
 
-  if ( IbDtstTabelaPESSOA_FISICA.AsInteger = 1 ) then
-    if ( not FuncoesString.StrIsCPF(IbDtstTabelaCNPJ.AsString, pTrueFalse) ) then
-    begin
-      ShowWarning('Favor informar um CPF válido.');
-      Abort;
-    end;
-
-  if ( IbDtstTabelaPESSOA_FISICA.AsInteger = 0 ) then
+  if (Length(Trim(dbCEP.Field.AsString)) < 10) then
   begin
-    if ( not FuncoesString.StrIsCNPJ(IbDtstTabelaCNPJ.AsString, pTrueFalse) ) then
-    begin
-      ShowWarning('Favor informar um CNPJ válido.');
-      Abort;
-    end;
-
-    if ( (Trim(IbDtstTabelaUF.AsString) = EmptyStr) or (IbDtstTabelaEST_COD.AsInteger = 0) ) then
-    begin
-      ShowWarning('Favor selecionar o Estado.');
-      Abort;
-    end;
-
-    if ( not StrInscricaoEstadual(Trim(IbDtstTabelaINSCEST.AsString), Trim(IbDtstTabelaUF.AsString)) ) then
-    begin
-      ShowWarning('Favor informar uma Inscrição Estadual válida.');
-      Abort;
-    end;
+    ShowWarning('Favor informar um número de CEP válido.');
+    Abort;
   end;
 
-  { DONE 1 -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (1) }
-
-  if GetExisteCPF_CNPJ(IbDtstTabelaCODIGO.AsInteger, IbDtstTabelaCNPJ.AsString, iCodigo, sRazao) then
-    if not GetPermitirDuplicarCNPJCliente(gUsuarioLogado.Empresa) then
-    begin
-      ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
-      Abort;
-    end
-    else
-    if not ShowConfirm('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")"', iCodigo) + #13 +
-      'Deseja salvar este registro assim mesmo?') then
-      Abort;
-
-  if ( IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger = 1 ) then
+  with DtSrcTabela.DataSet do
   begin
-    if ((IbDtstTabelaCUSTO_OPER_FRETE.AsCurrency < 0) or (IbDtstTabelaCUSTO_OPER_FRETE.AsCurrency > 100)) then
+    if ( FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
+      if ( not FuncoesString.StrIsCPF(FieldByName('CNPJ').AsString, pTrueFalse) ) then
+      begin
+        ShowWarning('Favor informar um CPF válido.');
+        Abort;
+      end;
+
+    if ( FieldByName('PESSOA_FISICA').AsInteger = 0 ) then
     begin
-      ShowWarning('Percentual de custo operacional para "Frete" inválido!');
-      Exit;
+      if ( not FuncoesString.StrIsCNPJ(FieldByName('CNPJ').AsString, pTrueFalse) ) then
+      begin
+        ShowWarning('Favor informar um CNPJ válido.');
+        Abort;
+      end;
+
+      if ( (Trim(FieldByName('UF').AsString) = EmptyStr) or (FieldByName('EST_COD').AsInteger = 0) ) then
+      begin
+        ShowWarning('Favor selecionar o Estado.');
+        Abort;
+      end;
+
+      if ( not StrInscricaoEstadual(Trim(FieldByName('INSCEST').AsString), Trim(FieldByName('UF').AsString)) ) then
+      begin
+        ShowWarning('Favor informar uma Inscrição Estadual válida.');
+        Abort;
+      end;
     end;
 
-    if ((IbDtstTabelaCUSTO_OPER_OUTROS.AsCurrency < 0) or (IbDtstTabelaCUSTO_OPER_OUTROS.AsCurrency > 100)) then
+    { DONE 1 -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (1) }
+
+    if GetExisteCPF_CNPJ(FieldByName('CODIGO').AsInteger, FieldByName('CNPJ').AsString, iCodigo, sRazao) then
+      if not GetPermitirDuplicarCNPJCliente(gUsuarioLogado.Empresa) then
+      begin
+        ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
+        Abort;
+      end
+      else
+      if not ShowConfirm('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")"', iCodigo) + #13 +
+        'Deseja salvar este registro assim mesmo?') then
+        Abort;
+
+    if ( FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger = 1 ) then
     begin
-      ShowWarning('Percentual de custo operacional para "Outros" inválido!');
-      Exit;
+      if ((FieldByName('CUSTO_OPER_FRETE').AsCurrency < 0) or (FieldByName('CUSTO_OPER_FRETE').AsCurrency > 100)) then
+      begin
+        ShowWarning('Percentual de custo operacional para "Frete" inválido!');
+        Exit;
+      end;
+
+      if ((FieldByName('CUSTO_OPER_OUTROS').AsCurrency < 0) or (FieldByName('CUSTO_OPER_OUTROS').AsCurrency > 100)) then
+      begin
+        ShowWarning('Percentual de custo operacional para "Outros" inválido!');
+        Exit;
+      end;
     end;
-  end;
 
-  if IbDtstTabelaCUSTO_OPER_PERCENTUAL.IsNull then
-    IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 1;
+    if FieldByName('CUSTO_OPER_PERCENTUAL').IsNull then
+      FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 1;
 
-  if IbDtstTabelaEMITIR_NFE_DEVOLUCAO.IsNull then
-    IbDtstTabelaEMITIR_NFE_DEVOLUCAO.Value := 0;
+    if FieldByName('EMITIR_NFE_DEVOLUCAO').IsNull then
+      FieldByName('EMITIR_NFE_DEVOLUCAO').AsInteger := 0;
 
-  if IbDtstTabelaENTREGA_FRACIONADA_VENDA.IsNull then
-    IbDtstTabelaENTREGA_FRACIONADA_VENDA.Value := 0;
+    if FieldByName('ENTREGA_FRACIONADA_VENDA').IsNull then
+      FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := 0;
 
-  if IbDtstTabelaBLOQUEADO_AUTOMATICO.IsNull then
-    IbDtstTabelaBLOQUEADO_AUTOMATICO.Value := 0;
+    if FieldByName('BLOQUEADO_AUTOMATICO').IsNull then
+      FieldByName('BLOQUEADO_AUTOMATICO').AsInteger := 0;
 
-  if (IbDtstTabelaPESSOA_FISICA.AsInteger = 1) then
-    IbDtstTabelaTIPO.AsInteger := 0;
+    if (FieldByName('PESSOA_FISICA').AsInteger = 1) then
+      FieldByName('TIPO').AsInteger := 0;
 
-  try
-    dbgContaCorrente.DataController.DataSource := nil;
-    inherited;
-    GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
-  finally
-    dbgContaCorrente.DataController.DataSource := DtSrcTabela;
+    try
+      dbgContaCorrente.DataController.DataSource := nil;
+      inherited;
+      GetComprasAbertas( FieldByName('CODIGO').AsInteger );
+    finally
+      dbgContaCorrente.DataController.DataSource := DtSrcTabela;
+    end;
   end;
 
   HabilitarAbaEstoque;
@@ -952,7 +907,7 @@ end;
 procedure TfrmGeCliente.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  GetComprasAbertas( IbDtstTabela.FieldByName('CODIGO').AsInteger );
+  GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
 end;
 
 procedure TfrmGeCliente.dbgContaCorrenteEnter(Sender: TObject);
@@ -963,7 +918,7 @@ end;
 procedure TfrmGeCliente.dbgContaCorrenteExit(Sender: TObject);
 begin
   Self.OnKeyDown := FormKeyDown;
-  if ( IbDtstTabela.State = dsInsert ) then
+  if ( DtSrcTabela.DataSet.State = dsInsert ) then
   begin
     pgcMaisDados.ActivePage := tbsObservacao;
     dbObservacao.SetFocus;
@@ -978,11 +933,11 @@ begin
   if ( Sender = dbgDados ) then
   begin
     // Cliente bloqueado
-    if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1 ) then
       dbgDados.Canvas.Font.Color := GrpBxBloqueio.Font.Color;
 
     // Destacar clientes desativados
-    if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
       dbgDados.Canvas.Font.Color := lblClienteDesativado.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -1032,7 +987,7 @@ end;
 
 procedure TfrmGeCliente.btbtnAlterarClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaCODIGO.AsInteger = CONSUMIDOR_FINAL_CODIGO ) then
+  if ( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger = CONSUMIDOR_FINAL_CODIGO ) then
   begin
     ShowWarning('Este registro não pode ser alterado!');
     Abort;
@@ -1042,17 +997,17 @@ begin
     inherited;
     if ( not btbtnAlterar.Enabled ) then
     begin
-      if IbDtstTabelaCUSTO_OPER_PERCENTUAL.IsNull then
-        IbDtstTabelaCUSTO_OPER_PERCENTUAL.AsInteger := 1;
+      if DtSrcTabela.DataSet.FieldByName('CUSTO_OPER_PERCENTUAL').IsNull then
+        DtSrcTabela.DataSet.FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 1;
 
-      if IbDtstTabelaEMITIR_NFE_DEVOLUCAO.IsNull then
-        IbDtstTabelaEMITIR_NFE_DEVOLUCAO.Value := 0;
+      if DtSrcTabela.DataSet.FieldByName('EMITIR_NFE_DEVOLUCAO').IsNull then
+        DtSrcTabela.DataSet.FieldByName('EMITIR_NFE_DEVOLUCAO').AsInteger := 0;
 
-      if IbDtstTabelaENTREGA_FRACIONADA_VENDA.IsNull then
-        IbDtstTabelaENTREGA_FRACIONADA_VENDA.Value := 0;
+      if DtSrcTabela.DataSet.FieldByName('ENTREGA_FRACIONADA_VENDA').IsNull then
+        DtSrcTabela.DataSet.FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := 0;
 
-      if ( IbDtstTabelaDTCAD.IsNull ) then
-        IbDtstTabelaDTCAD.AsDateTime := GetDateTimeDB;
+      if ( DtSrcTabela.DataSet.FieldByName('DTCAD').IsNull ) then
+        DtSrcTabela.DataSet.FieldByName('DTCAD').AsDateTime := GetDateTimeDB;
     end;
   end;
 end;
@@ -1062,17 +1017,15 @@ var
   iCodigo : Integer;
   sMotivo : String;
 begin
-  if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1 ) then
     if InputQuery('Desbloquear cliente:', 'Informe o motivo do desbloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
         try
           WaitAMoment(WAIT_AMOMENT_Process);
-          iCodigo := IbDtstTabelaCODIGO.AsInteger;
+          iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
           DesbloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
 
-          IbDtstTabela.Close;
-          IbDtstTabela.Open;
-          IbDtstTabela.Locate('CODIGO', iCodigo, []);
+          fdQryTabela.RefreshRecord();
         finally
           WaitAMomentFree;
         end;
@@ -1083,17 +1036,15 @@ var
   iCodigo : Integer;
   sMotivo : String;
 begin
-  if ( IbDtstTabelaBLOQUEADO.AsInteger = 0 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 0 ) then
     if InputQuery('Bloquear cliente:', 'Informe o motivo do bloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
       try
         WaitAMoment(WAIT_AMOMENT_Process);
-        iCodigo := IbDtstTabelaCODIGO.AsInteger;
+        iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
         BloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
 
-        IbDtstTabela.Close;
-        IbDtstTabela.Open;
-        IbDtstTabela.Locate('CODIGO', iCodigo, []);
+        fdQryTabela.RefreshRecord();
       finally
         WaitAMomentFree;
       end;
@@ -1310,50 +1261,53 @@ begin
   bCPF := (pgcGuias.ActivePage = tbsConsultarCPF);
   btnVoltar.Click;
 
-  if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
-    Exit;
-
-  if ShowConfirm('Deseja carregar os dados consultados para o cadastro?') then
+  with DtSrcTabela.DataSet do
   begin
-    if bCPF then
-    begin
-      IbDtstTabelaCNPJ.AsString := StrOnlyNumbers(edCPF.Text);
-      IbDtstTabelaNOME.AsString := Copy(Trim(EditRazaoSocial.Text), 1, IbDtstTabelaNOME.Size);
-    end
-    else
-    begin
-      IbDtstTabelaCNPJ.AsString       := StrOnlyNumbers(edCNPJ.Text);
-      IbDtstTabelaNOME.AsString       := Copy(Trim(EditRazaoSocial.Text), 1, IbDtstTabelaNOME.Size);
-      IbDtstTabelaNOMEFANT.AsString   := Copy(Trim(EditFantasia.Text),    1, IbDtstTabelaNOMEFANT.Size);
-      IbDtstTabelaEST_COD.AsInteger   := GetEstadoID( Trim(EditUF.Text) );
-      IbDtstTabelaEST_NOME.AsString   := GetEstadoNome( Trim(EditUF.Text) );
-      IbDtstTabelaUF.AsString         := Trim(EditUF.Text);
-      IbDtstTabelaCID_COD.AsInteger   := GetCidadeID(IbDtstTabelaEST_COD.AsInteger, EditCidade.Text);
-      IbDtstTabelaCID_NOME.AsString   := GetCidadeNome(IbDtstTabelaCID_COD.AsInteger);
+    if not (State in [dsEdit, dsInsert]) then
+      Exit;
 
-      if ( (IbDtstTabelaCID_COD.AsInteger = 0) and (Trim(EditCEP.Text) <> EmptyStr) ) then
+    if ShowConfirm('Deseja carregar os dados consultados para o cadastro?') then
+    begin
+      if bCPF then
       begin
-        IbDtstTabelaCID_COD.AsInteger  := GetCidadeID(Trim(EditCEP.Text));
-        IbDtstTabelaCID_NOME.AsString  := GetCidadeNome(IbDtstTabelaCID_COD.AsInteger);
-      end;
-
-      IbDtstTabelaCIDADE.AsString   := Copy(IbDtstTabelaCID_NOME.AsString + ' (' + Trim(EditUF.Text) + ')', 1, IbDtstTabelaCIDADE.Size);
-
-      IbDtstTabelaBAI_COD.AsInteger := SetBairro(IbDtstTabelaCID_COD.AsInteger, Copy(Trim(EditBairro.Text), 1, IbDtstTabelaBAIRRO.Size));
-      IbDtstTabelaBAIRRO.AsString   := Copy(Trim(EditBairro.Text), 1, IbDtstTabelaBAIRRO.Size);
-
-      IbDtstTabelaLOG_COD.AsInteger   := SetLogradouro(IbDtstTabelaCID_COD.AsInteger, Copy(Trim(EditEndereco.Text), 1, IbDtstTabelaLOGRADOURO.Size), iTipo);
-      IbDtstTabelaLOGRADOURO.AsString := Trim(GetLogradouroTipo(IbDtstTabelaLOG_COD.AsInteger) + ' ' + GetLogradouroNome(IbDtstTabelaLOG_COD.AsInteger));
-      IbDtstTabelaENDER.AsString      := Trim(IbDtstTabelaLOGRADOURO.AsString);
-
-      if (iTipo = 0) then
-        IbDtstTabelaTLG_TIPO.Clear
+        FieldByName('CNPJ').AsString := StrOnlyNumbers(edCPF.Text);
+        FieldByName('NOME').AsString := Copy(Trim(EditRazaoSocial.Text), 1, FieldByName('NOME').Size);
+      end
       else
-        IbDtstTabelaTLG_TIPO.AsInteger := iTipo;
+      begin
+        FieldByName('CNPJ').AsString       := StrOnlyNumbers(edCNPJ.Text);
+        FieldByName('NOME').AsString       := Copy(Trim(EditRazaoSocial.Text), 1, FieldByName('NOME').Size);
+        FieldByName('NOMEFANT').AsString   := Copy(Trim(EditFantasia.Text),    1, FieldByName('NOMEFANT').Size);
+        FieldByName('EST_COD').AsInteger   := GetEstadoID( Trim(EditUF.Text) );
+        FieldByName('EST_NOME').AsString   := GetEstadoNome( Trim(EditUF.Text) );
+        FieldByName('UF').AsString         := Trim(EditUF.Text);
+        FieldByName('CID_COD').AsInteger   := GetCidadeID(FieldByName('EST_COD').AsInteger, EditCidade.Text);
+        FieldByName('CID_NOME').AsString   := GetCidadeNome(FieldByName('CID_COD').AsInteger);
 
-      IbDtstTabelaCOMPLEMENTO.AsString := Copy(Trim(EditComplemento.Text), 1, IbDtstTabelaCOMPLEMENTO.Size);
-      IbDtstTabelaNUMERO_END.AsString  := Copy(Trim(EditNumero.Text),      1, IbDtstTabelaNUMERO_END.Size);
-      IbDtstTabelaCEP.AsString         := Copy(StrOnlyNumbers(Trim(EditCEP.Text)), 1, IbDtstTabelaCEP.Size);
+        if ( (FieldByName('CID_COD').AsInteger = 0) and (Trim(EditCEP.Text) <> EmptyStr) ) then
+        begin
+          FieldByName('CID_COD').AsInteger  := GetCidadeID(Trim(EditCEP.Text));
+          FieldByName('CID_NOME').AsString  := GetCidadeNome(FieldByName('CID_COD').AsInteger);
+        end;
+
+        FieldByName('CIDADE').AsString   := Copy(FieldByName('CID_NOME').AsString + ' (' + Trim(EditUF.Text) + ')', 1, FieldByName('CIDADE').Size);
+
+        FieldByName('BAI_COD').AsInteger := SetBairro(FieldByName('CID_COD').AsInteger, Copy(Trim(EditBairro.Text), 1, FieldByName('BAIRRO').Size));
+        FieldByName('BAIRRO').AsString   := Copy(Trim(EditBairro.Text), 1, FieldByName('BAIRRO').Size);
+
+        FieldByName('LOG_COD').AsInteger   := SetLogradouro(FieldByName('CID_COD').AsInteger, Copy(Trim(EditEndereco.Text), 1, FieldByName('LOGRADOURO').Size), iTipo);
+        FieldByName('LOGRADOURO').AsString := Trim(GetLogradouroTipo(FieldByName('LOG_COD').AsInteger) + ' ' + GetLogradouroNome(FieldByName('LOG_COD').AsInteger));
+        FieldByName('ENDER').AsString      := Trim(FieldByName('LOGRADOURO').AsString);
+
+        if (iTipo = 0) then
+          FieldByName('TLG_TIPO').Clear
+        else
+          FieldByName('TLG_TIPO').AsInteger := iTipo;
+
+        FieldByName('COMPLEMENTO').AsString := Copy(Trim(EditComplemento.Text), 1, FieldByName('COMPLEMENTO').Size);
+        FieldByName('NUMERO_END').AsString  := Copy(Trim(EditNumero.Text),      1, FieldByName('NUMERO_END').Size);
+        FieldByName('CEP').AsString         := Copy(StrOnlyNumbers(Trim(EditCEP.Text)), 1, FieldByName('CEP').Size);
+      end;
     end;
   end;
 end;
@@ -1398,15 +1352,10 @@ begin
       btnConsultarCPF.Click;
 end;
 
-procedure TfrmGeCliente.IbDtstTabelaAfterScroll(DataSet: TDataSet);
-begin
-  HabilitarAbaEstoque;
-  QryEstoqueSatelite.Close;
-end;
-
 procedure TfrmGeCliente.HabilitarAbaEstoque;
 begin
-  tbsEstoqueSatelite.TabVisible := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) and (IbDtstTabelaENTREGA_FRACIONADA_VENDA.AsInteger = 1)
+  tbsEstoqueSatelite.TabVisible := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa)
+    and (DtSrcTabela.DataSet.FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger = 1)
     and GetUserVisualizaEstoque;
 end;
 
@@ -1464,9 +1413,9 @@ begin
       end;
 
       if ( Pos('where', SelectSQL.Text) > 0 ) then
-        Add( '  and (e.cod_cliente = ' + IbDtstTabelaCODIGO.AsString + ')' )
+        Add( '  and (e.cod_cliente = ' + FieldByName('CODIGO').AsString + ')' )
       else
-        Add( 'where (e.cod_cliente = ' + IbDtstTabelaCODIGO.AsString + ')' );
+        Add( 'where (e.cod_cliente = ' + FieldByName('CODIGO').AsString + ')' );
 
       if chkProdutoComEstoque.Checked then
         Add('  and (e.quantidade > 0)');
@@ -1488,6 +1437,81 @@ begin
   except
     On E : Exception do
       ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + QryEstoqueSatelite.SelectSQL.Text);
+  end;
+end;
+
+procedure TfrmGeCliente.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  HabilitarAbaEstoque;
+  QryEstoqueSatelite.Close;
+end;
+
+procedure TfrmGeCliente.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    if (gSistema.Codigo = SISTEMA_PDV) then
+      if (Trim(edtFiltrar.Text) <> EmptyStr) then
+        if StrIsCPF(Trim(edtFiltrar.Text)) then
+        begin
+          FieldByName('PESSOA_FISICA').AsInteger := 1;
+          FieldByName('CNPJ').AsString           := Trim(edtFiltrar.Text);
+        end
+        else
+        if StrIsCNPJ(Trim(edtFiltrar.Text)) then
+        begin
+          FieldByName('PESSOA_FISICA').AsInteger := 0;
+          FieldByName('CNPJ').AsString           := Trim(edtFiltrar.Text);
+        end
+        else
+          FieldByName('PESSOA_FISICA').AsInteger := 1
+      else
+        FieldByName('PESSOA_FISICA').AsInteger := 1
+    else
+      FieldByName('PESSOA_FISICA').AsInteger  := 1;
+
+    FieldByName('TIPO').AsInteger             := 0;
+    FieldByName('VALOR_LIMITE_COMPRA').AsCurrency := 0;
+    FieldByName('PAIS_ID').AsString           := GetPaisIDDefault;
+    FieldByName('PAIS_NOME').AsString         := GetPaisNomeDefault;
+    FieldByName('EST_COD').AsInteger          := GetEstadoIDDefault;
+    FieldByName('EST_NOME').AsString          := GetEstadoNomeDefault;
+    FieldByName('UF').AsString                := GetEstadoUF(GetEstadoIDDefault);
+    FieldByName('CID_COD').AsInteger          := GetCidadeIDDefault;
+    FieldByName('CID_NOME').AsString          := GetCidadeNomeDefault;
+    FieldByName('CIDADE').AsString            := Copy(GetCidadeNomeDefault + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
+    FieldByName('CEP').AsString               := GetCidadeCEP(GetCidadeIDDefault);
+    FieldByName('NUMERO_END').AsString        := 'S/N';
+    FieldByName('COMPLEMENTO').AsString       := EmptyStr;
+    FieldByName('DTCAD').AsDateTime           := GetDateDB;
+    FieldByName('ATIVO').AsInteger            := 1;
+    FieldByName('BLOQUEADO').AsInteger                := 0; // Ord(False);
+    FieldByName('BLOQUEADO_AUTOMATICO').AsInteger     := 0;
+    FieldByName('EMITIR_NFE_DEVOLUCAO').AsInteger     := 0; // Ord(False);
+    FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger    := 0; // Ord(False);
+    FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := 0; // Ord(False);
+
+    FieldByName('VENDEDOR_COD').Clear;
+    FieldByName('BLOQUEADO_DATA').Clear;
+    FieldByName('BLOQUEADO_MOTIVO').Clear;
+    FieldByName('BLOQUEADO_USUARIO').Clear;
+    FieldByName('BANCO').Clear;
+    FieldByName('AGENCIA').Clear;
+    FieldByName('CC').Clear;
+    FieldByName('PRACA').Clear;
+    FieldByName('BANCO_2').Clear;
+    FieldByName('AGENCIA_2').Clear;
+    FieldByName('CC_2').Clear;
+    FieldByName('PRACA_2').Clear;
+    FieldByName('BANCO_3').Clear;
+    FieldByName('AGENCIA_3').Clear;
+    FieldByName('CC_3').Clear;
+    FieldByName('PRACA_3').Clear;
+    FieldByName('OBSERVACAO').Clear;
+
+    GetComprasAbertas( FieldByName('CODIGO').AsInteger );
   end;
 end;
 
@@ -1558,7 +1582,7 @@ begin
         Abort;
       end;
 
-      with IbDtstTabela, SelectSQL do
+      with fdQryTabela, SQL do
       begin
         if ( Trim(CampoOrdenacao) = EmptyStr ) then
           CampoOrdenacao := CampoDescricao;
@@ -1604,7 +1628,7 @@ begin
         end;
 
         if ( WhereAdditional <> EmptyStr ) then
-          if ( Pos('where', SelectSQL.Text) > 0 ) then
+          if ( Pos('where', SQL.Text) > 0 ) then
             Add( '  and (' + WhereAdditional + ')' )
           else
             Add( 'where (' + WhereAdditional + ')' );
@@ -1635,7 +1659,7 @@ begin
       On E : Exception do
       begin
         WaitAMomentFree;
-        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + IbDtstTabela.SelectSQL.Text);
+        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + fdQryTabela.SQL.Text);
       end;
     end;
 
@@ -1649,7 +1673,7 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( not IbDtstTabela.Active ) then
+  if ( not DtSrcTabela.DataSet.Active ) then
     Exit;
 
   if ( not QryEstoqueSatelite.Active ) then
@@ -1674,10 +1698,10 @@ var
   sRazao  : String;  
 begin
   { DONE -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (2) }
-  
-  if ( dbCNPJ.Focused and (Key = VK_RETURN) and (IbDtstTabela.State in [dsEdit, dsInsert]) )  then
+
+  if ( dbCNPJ.Focused and (Key = VK_RETURN) and (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) )  then
     if ( Length(dbCNPJ.Text) > 10 ) then
-      if GetExisteCPF_CNPJ(IbDtstTabelaCODIGO.AsInteger, dbCNPJ.Text, iCodigo, sRazao) then
+      if GetExisteCPF_CNPJ(DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger, dbCNPJ.Text, iCodigo, sRazao) then
         ShowWarning(
           'CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
 
@@ -1690,7 +1714,7 @@ begin
   try
     dbgContaCorrente.DataController.DataSource := nil;
     inherited;
-    GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
+    GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
   finally
     dbgContaCorrente.DataController.DataSource := DtSrcTabela;
   end;
@@ -1698,7 +1722,7 @@ end;
 
 procedure TfrmGeCliente.btbtnExcluirClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaCODIGO.AsInteger = CONSUMIDOR_FINAL_CODIGO ) then
+  if ( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger = CONSUMIDOR_FINAL_CODIGO ) then
   begin
     ShowWarning('Este registro não pode ser excluído!');
     Abort;
@@ -1706,7 +1730,7 @@ begin
   else
   begin
     inherited;
-    GetComprasAbertas( IbDtstTabelaCODIGO.AsInteger );
+    GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
   end;
 end;
 

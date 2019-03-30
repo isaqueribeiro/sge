@@ -304,7 +304,7 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1842,9 +1842,15 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
       'DELETE FROM TBCENTRO_CUSTO'
       'WHERE CODIGO = :OLD_CODIGO')
     FetchRowSQL.Strings = (
-      'SELECT CODIGO, DESCRICAO, ATIVO, CODCLIENTE'
-      'FROM TBCENTRO_CUSTO'
-      'WHERE CODIGO = :CODIGO')
+      'Select'
+      '    c.codigo'
+      '  , c.descricao'
+      '  , c.ativo'
+      '  , c.codcliente'
+      '  , cc.nome'
+      'from TBCENTRO_CUSTO c'
+      '  left join TBCLIENTE cc on (cc.codigo = c.codcliente)'
+      'WHERE c.CODIGO = :CODIGO')
   end
   object dspEmpresaLista: TDataSetProvider
     DataSet = qryEmpresaLista

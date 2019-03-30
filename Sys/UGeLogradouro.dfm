@@ -32,10 +32,6 @@ inherited frmGeLogradouro: TfrmGeLogradouro
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited GrpBxDadosNominais: TGroupBox
         object lblNome: TLabel [1]
           Left = 216
@@ -228,7 +224,7 @@ inherited frmGeLogradouro: TfrmGeLogradouro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1766,9 +1762,20 @@ inherited frmGeLogradouro: TfrmGeLogradouro
       'DELETE FROM TBLOGRADOURO'
       'WHERE LOG_COD = :OLD_LOG_COD')
     FetchRowSQL.Strings = (
-      'SELECT LOG_COD, LOG_NOME, TLG_COD, CID_COD'
-      'FROM TBLOGRADOURO'
-      'WHERE LOG_COD = :LOG_COD')
+      'Select'
+      '    l.Log_cod'
+      '  , l.Log_nome'
+      '  , l.Tlg_cod'
+      '  , l.Cid_cod'
+      
+        '  , trim(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descricao) || '#39' '#39',' +
+        ' '#39#39') || l.Log_nome) as logradouro'
+      '  , c.Cid_nome || '#39' ('#39' || e.Est_sigla || '#39')'#39' as Cid_nome'
+      'from TBLOGRADOURO l'
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = l.Tlg_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = l.Cid_cod)'
+      '  left join TBESTADO e on (e.Est_cod = c.Est_cod)'
+      'WHERE l.LOG_COD = :LOG_COD')
   end
   object dtsTipo: TDataSource
     DataSet = fdQryTipo

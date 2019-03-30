@@ -44,31 +44,35 @@ inherited frmGeCliente: TfrmGeCliente
           item
             Expanded = False
             FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
+            Title.Caption = 'Nome / Raz'#227'o Social '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOMEFANT'
+            Title.Caption = 'Nome Fantasia '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CNPJ'
+            Title.Caption = 'CPF / CNPJ '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CIDADE'
-            Title.Caption = 'Cidade (UF)'
+            Title.Caption = 'Cidade (UF) '
             Width = 150
             Visible = True
           end>
@@ -582,23 +586,6 @@ inherited frmGeCliente: TfrmGeCliente
           Height = 13
           Caption = 'Pa'#237's:'
         end
-        object dbCEP: TDBEdit
-          Left = 696
-          Top = 40
-          Width = 121
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'CEP'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          MaxLength = 10
-          ParentFont = False
-          TabOrder = 3
-        end
         object dbNumero: TDBEdit
           Left = 456
           Top = 80
@@ -1006,13 +993,24 @@ inherited frmGeCliente: TfrmGeCliente
           ShowHint = True
           TabOrder = 7
         end
+        object dbCEP: TJvDBMaskEdit
+          Left = 696
+          Top = 40
+          Width = 120
+          Height = 21
+          DataField = 'CEP'
+          DataSource = DtSrcTabela
+          MaxLength = 10
+          TabOrder = 3
+          EditMask = '99.999-999;0; '
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
         Top = 237
         Width = 836
         Height = 226
-        ActivePage = tbsDadosAdcionais
+        ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
         TabStop = False
@@ -1121,7 +1119,7 @@ inherited frmGeCliente: TfrmGeCliente
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
-            MaxLength = 13
+            MaxLength = 14
             ParentFont = False
             TabOrder = 1
           end
@@ -3479,10 +3477,6 @@ inherited frmGeCliente: TfrmGeCliente
       Height = 31
       Shape = bsSpacer
     end
-    inherited btbtnExcluir: TcxButton
-      ExplicitLeft = 154
-      ExplicitTop = 0
-    end
     inherited btbtnFechar: TcxButton
       Left = 765
       TabOrder = 8
@@ -3563,8 +3557,6 @@ inherited frmGeCliente: TfrmGeCliente
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    cl.Codigo'
@@ -3637,370 +3629,9 @@ inherited frmGeCliente: TfrmGeCliente
       '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)')
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_CLIENTE_ID'
-    object IbDtstTabelaCODIGO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = 'TBEMPRESA.CODIGO'
-    end
-    object IbDtstTabelaPESSOA_FISICA: TSmallintField
-      DisplayLabel = 'Pessoa F'#237'sica'
-      FieldName = 'PESSOA_FISICA'
-      Origin = 'TBEMPRESA.PESSOA_FISICA'
-      Required = True
-    end
-    object IbDtstTabelaCNPJ: TIBStringField
-      DisplayLabel = 'CPF / CNPJ'
-      FieldName = 'CNPJ'
-      Origin = 'TBEMPRESA.CNPJ'
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaTIPO: TSmallintField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = '"TBCLIENTE"."TIPO"'
-      Required = True
-    end
-    object IbDtstTabelaNOME: TIBStringField
-      DisplayLabel = 'Nome / Raz'#227'o Social'
-      FieldName = 'NOME'
-      Origin = 'TBCLIENTE.NOME'
-      Required = True
-      Size = 60
-    end
-    object IbDtstTabelaNOMEFANT: TIBStringField
-      DisplayLabel = 'Nome Fantasia'
-      FieldName = 'NOMEFANT'
-      Origin = '"TBCLIENTE"."NOMEFANT"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaINSCEST: TIBStringField
-      DisplayLabel = 'RG / Inscri'#231#227'o Estadual'
-      FieldName = 'INSCEST'
-      Origin = 'TBCLIENTE.INSCEST'
-    end
-    object IbDtstTabelaINSCMUN: TIBStringField
-      DisplayLabel = 'Inscri'#231#227'o Estadual'
-      FieldName = 'INSCMUN'
-      Origin = 'TBCLIENTE.INSCMUN'
-    end
-    object IbDtstTabelaENDER: TIBStringField
-      DisplayLabel = 'Endere'#231'o'
-      FieldName = 'ENDER'
-      Origin = 'TBEMPRESA.ENDER'
-      Size = 250
-    end
-    object IbDtstTabelaCOMPLEMENTO: TIBStringField
-      DisplayLabel = 'Complemento'
-      FieldName = 'COMPLEMENTO'
-      Origin = 'TBEMPRESA.COMPLEMENTO'
-      Size = 50
-    end
-    object IbDtstTabelaNUMERO_END: TIBStringField
-      DisplayLabel = 'N'#250'mero'
-      FieldName = 'NUMERO_END'
-      Origin = 'TBEMPRESA.NUMERO_END'
-      Required = True
-      Size = 10
-    end
-    object IbDtstTabelaBAIRRO: TIBStringField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAIRRO'
-      Origin = '"TBCLIENTE"."BAIRRO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaCEP: TIBStringField
-      FieldName = 'CEP'
-      Origin = 'TBEMPRESA.CEP'
-      Required = True
-      EditMask = '99.999-999;0; '
-      Size = 8
-    end
-    object IbDtstTabelaCIDADE: TIBStringField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CIDADE'
-      Origin = 'TBEMPRESA.CIDADE'
-      Size = 30
-    end
-    object IbDtstTabelaUF: TIBStringField
-      FieldName = 'UF'
-      Origin = 'TBEMPRESA.UF'
-      FixedChar = True
-      Size = 2
-    end
-    object IbDtstTabelaFONE: TIBStringField
-      DisplayLabel = 'Telefone Fixo'
-      FieldName = 'FONE'
-      Origin = 'TBEMPRESA.FONE'
-      EditMask = '(99)9999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaFONECEL: TIBStringField
-      DisplayLabel = 'Telefone Celular'
-      FieldName = 'FONECEL'
-      Origin = '"TBCLIENTE"."FONECEL"'
-      EditMask = '(99)99999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaFONECOMERC: TIBStringField
-      DisplayLabel = 'Telefone Comercial'
-      FieldName = 'FONECOMERC'
-      Origin = '"TBCLIENTE"."FONECOMERC"'
-      EditMask = '(99)9999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaTLG_TIPO: TSmallintField
-      DisplayLabel = 'Tipo End.'
-      FieldName = 'TLG_TIPO'
-      Origin = 'TBEMPRESA.TLG_TIPO'
-    end
-    object IbDtstTabelaLOG_COD: TIntegerField
-      DisplayLabel = 'Logradouro'
-      FieldName = 'LOG_COD'
-      Origin = 'TBEMPRESA.LOG_COD'
-    end
-    object IbDtstTabelaBAI_COD: TIntegerField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAI_COD'
-      Origin = 'TBEMPRESA.BAI_COD'
-    end
-    object IbDtstTabelaCID_COD: TIntegerField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_COD'
-      Origin = 'TBEMPRESA.CID_COD'
-    end
-    object IbDtstTabelaEST_COD: TSmallintField
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_COD'
-      Origin = 'TBEMPRESA.EST_COD'
-    end
-    object IbDtstTabelaEMAIL: TIBStringField
-      DisplayLabel = 'E-mail'
-      FieldName = 'EMAIL'
-      Origin = 'TBEMPRESA.EMAIL'
-      Size = 100
-    end
-    object IbDtstTabelaSITE: TIBStringField
-      DisplayLabel = 'Home page'
-      FieldName = 'SITE'
-      Origin = 'TBCLIENTE.SITE'
-      Size = 40
-    end
-    object IbDtstTabelaPAIS_ID: TIBStringField
-      DisplayLabel = 'Pa'#237's'
-      FieldName = 'PAIS_ID'
-      Origin = 'TBEMPRESA.PAIS_ID'
-      Size = 5
-    end
-    object IbDtstTabelaLOGRADOURO: TIBStringField
-      DisplayLabel = 'Logradouro'
-      FieldName = 'LOGRADOURO'
-      Size = 250
-    end
-    object IbDtstTabelaCID_NOME: TIBStringField
-      FieldName = 'CID_NOME'
-      Origin = 'TBCIDADE.CID_NOME'
-      Size = 100
-    end
-    object IbDtstTabelaEST_NOME: TIBStringField
-      FieldName = 'EST_NOME'
-      Origin = 'TBESTADO.EST_NOME'
-      Size = 100
-    end
-    object IbDtstTabelaPAIS_NOME: TIBStringField
-      FieldName = 'PAIS_NOME'
-      Origin = 'TBPAIS.PAIS_NOME'
-      Size = 150
-    end
-    object IbDtstTabelaVALOR_LIMITE_COMPRA: TIBBCDField
-      DisplayLabel = 'Valor Limite p/ Compra'
-      FieldName = 'VALOR_LIMITE_COMPRA'
-      Origin = 'TBCLIENTE.VALOR_LIMITE_COMPRA'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaVENDEDOR_COD: TIntegerField
-      DisplayLabel = 'Vendedor repons'#225'vel'
-      FieldName = 'VENDEDOR_COD'
-      Origin = '"TBCLIENTE"."VENDEDOR_COD"'
-    end
-    object IbDtstTabelaDTCAD: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data Cadastro'
-      FieldName = 'DTCAD'
-      Origin = 'TBCLIENTE.DTCAD'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      FieldName = 'ATIVO'
-      Origin = '"TBCLIENTE"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaBLOQUEADO: TSmallintField
-      FieldName = 'BLOQUEADO'
-      Origin = 'TBCLIENTE.BLOQUEADO'
-      Required = True
-    end
-    object IbDtstTabelaBLOQUEADO_DATA: TDateField
-      FieldName = 'BLOQUEADO_DATA'
-      Origin = 'TBCLIENTE.BLOQUEADO_DATA'
-    end
-    object IbDtstTabelaBLOQUEADO_MOTIVO: TMemoField
-      FieldName = 'BLOQUEADO_MOTIVO'
-      Origin = 'TBCLIENTE.BLOQUEADO_MOTIVO'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaBLOQUEADO_USUARIO: TIBStringField
-      FieldName = 'BLOQUEADO_USUARIO'
-      Origin = 'TBCLIENTE.BLOQUEADO_USUARIO'
-      Size = 50
-    end
-    object IbDtstTabelaBLOQUEADO_AUTOMATICO: TSmallintField
-      FieldName = 'BLOQUEADO_AUTOMATICO'
-      Origin = '"TBCLIENTE"."BLOQUEADO_AUTOMATICO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaDESBLOQUEADO_DATA: TDateField
-      FieldName = 'DESBLOQUEADO_DATA'
-      Origin = 'TBCLIENTE.DESBLOQUEADO_DATA'
-    end
-    object IbDtstTabelaEMITIR_NFE_DEVOLUCAO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'EMITIR_NFE_DEVOLUCAO'
-      Origin = '"TBCLIENTE"."EMITIR_NFE_DEVOLUCAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCUSTO_OPER_PERCENTUAL: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CUSTO_OPER_PERCENTUAL'
-      Origin = '"TBCLIENTE"."CUSTO_OPER_PERCENTUAL"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCUSTO_OPER_FRETE: TIBBCDField
-      FieldName = 'CUSTO_OPER_FRETE'
-      Origin = '"TBCLIENTE"."CUSTO_OPER_FRETE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaCUSTO_OPER_OUTROS: TIBBCDField
-      FieldName = 'CUSTO_OPER_OUTROS'
-      Origin = '"TBCLIENTE"."CUSTO_OPER_OUTROS"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaENTREGA_FRACIONADA_VENDA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ENTREGA_FRACIONADA_VENDA'
-      Origin = '"TBCLIENTE"."ENTREGA_FRACIONADA_VENDA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBCLIENTE"."USUARIO"'
-      Size = 50
-    end
-    object IbDtstTabelaBANCO: TIBStringField
-      DisplayLabel = 'Banco (1)'
-      FieldName = 'BANCO'
-      Origin = '"TBCLIENTE"."BANCO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaAGENCIA: TIBStringField
-      DisplayLabel = 'Ag'#234'ncia (1)'
-      FieldName = 'AGENCIA'
-      Origin = '"TBCLIENTE"."AGENCIA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaCC: TIBStringField
-      DisplayLabel = 'N'#250'mero da Conta (1)'
-      FieldName = 'CC'
-      Origin = '"TBCLIENTE"."CC"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaPRACA: TIBStringField
-      DisplayLabel = 'Pra'#231'a de Cobran'#231'a'
-      FieldName = 'PRACA'
-      Origin = '"TBCLIENTE"."PRACA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaBANCO_2: TIBStringField
-      DisplayLabel = 'Banco (2)'
-      FieldName = 'BANCO_2'
-      Origin = '"TBCLIENTE"."BANCO_2"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaAGENCIA_2: TIBStringField
-      DisplayLabel = 'Ag'#234'ncia (2)'
-      FieldName = 'AGENCIA_2'
-      Origin = '"TBCLIENTE"."AGENCIA_2"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaCC_2: TIBStringField
-      DisplayLabel = 'N'#250'mero da Conta (2)'
-      FieldName = 'CC_2'
-      Origin = '"TBCLIENTE"."CC_2"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaPRACA_2: TIBStringField
-      FieldName = 'PRACA_2'
-      Origin = '"TBCLIENTE"."PRACA_2"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaBANCO_3: TIBStringField
-      DisplayLabel = 'Banco (3)'
-      FieldName = 'BANCO_3'
-      Origin = '"TBCLIENTE"."BANCO_3"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaAGENCIA_3: TIBStringField
-      DisplayLabel = 'Ag'#234'ncia (3)'
-      FieldName = 'AGENCIA_3'
-      Origin = '"TBCLIENTE"."AGENCIA_3"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaCC_3: TIBStringField
-      DisplayLabel = 'N'#250'mero da Conta (3)'
-      FieldName = 'CC_3'
-      Origin = '"TBCLIENTE"."CC_3"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaPRACA_3: TIBStringField
-      FieldName = 'PRACA_3'
-      Origin = '"TBCLIENTE"."PRACA_3"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaOBSERVACAO: TMemoField
-      DisplayLabel = 'Observa'#231#245'es'
-      FieldName = 'OBSERVACAO'
-      Origin = '"TBCLIENTE"."OBSERVACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
   end
   inherited IbUpdTabela: TIBUpdateSQL
@@ -4186,7 +3817,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5644,6 +5275,616 @@ inherited frmGeCliente: TfrmGeCliente
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    Active = True
+    AfterScroll = fdQryTabelaAfterScroll
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CLIENTE_ID'
+    UpdateOptions.KeyFields = 'CODIGO'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    cl.Codigo'
+      '  , cl.Pessoa_fisica'
+      '  , cl.Cnpj'
+      '  , cl.Tipo'
+      '  , cl.Nome'
+      '  , cl.NomeFant'
+      '  , cl.Inscest'
+      '  , cl.Inscmun'
+      '  , cl.Ender'
+      '  , cl.Complemento'
+      '  , cl.Numero_end'
+      '  , cl.Bairro'
+      '  , cl.Cep'
+      '  , cl.Cidade'
+      '  , cl.Uf'
+      '  , cl.Fone'
+      '  , cl.FoneCel'
+      '  , cl.FoneComerc'
+      '  , cl.Tlg_tipo'
+      '  , cl.Log_cod'
+      '  , cl.Bai_cod'
+      '  , cl.Cid_cod'
+      '  , cl.Est_cod'
+      '  , cl.Email'
+      '  , cl.Site'
+      '  , cl.Pais_id'
+      '  , cl.Valor_limite_compra'
+      '  , cl.Vendedor_cod'
+      '  , coalesce(cl.DtCad, current_date) as DtCad'
+      '  , cl.Bloqueado'
+      '  , cl.Bloqueado_data'
+      '  , cl.Bloqueado_motivo'
+      '  , cl.Bloqueado_usuario'
+      '  , cl.Bloqueado_automatico'
+      '  , cl.DesBloqueado_data'
+      '  , cl.Usuario'
+      '  , cl.emitir_nfe_devolucao'
+      '  , cl.custo_oper_percentual'
+      '  , cl.custo_oper_frete'
+      '  , cl.custo_oper_outros'
+      '  , cl.entrega_fracionada_venda'
+      '  , cl.banco'
+      '  , cl.agencia'
+      '  , cl.cc'
+      '  , cl.praca'
+      '  , cl.banco_2'
+      '  , cl.agencia_2'
+      '  , cl.cc_2'
+      '  , cl.praca_2'
+      '  , cl.banco_3'
+      '  , cl.agencia_3'
+      '  , cl.cc_3'
+      '  , cl.praca_3'
+      '  , cl.observacao'
+      '  , cl.ativo'
+      
+        '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
+        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), cl.Ender ) as Log' +
+        'radouro'
+      '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
+      '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
+      '  , p.Pais_nome'
+      'from TBCLIENTE cl'
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
+      '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = cl.Cid_cod)'
+      '  left join TBESTADO u on (u.Est_cod = cl.Est_cod)'
+      '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)')
+    object fdQryTabelaCODIGO: TIntegerField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdQryTabelaPESSOA_FISICA: TSmallintField
+      DisplayLabel = 'Pessoa F'#237'sica'
+      FieldName = 'PESSOA_FISICA'
+      Origin = 'PESSOA_FISICA'
+      Required = True
+    end
+    object fdQryTabelaCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaTIPO: TSmallintField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+    end
+    object fdQryTabelaNOME: TStringField
+      DisplayLabel = 'Nome / Raz'#227'o Social'
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 100
+    end
+    object fdQryTabelaNOMEFANT: TStringField
+      DisplayLabel = 'Nome Fantasia'
+      FieldName = 'NOMEFANT'
+      Origin = 'NOMEFANT'
+      Size = 100
+    end
+    object fdQryTabelaINSCEST: TStringField
+      DisplayLabel = 'RG / Inscri'#231#227'o Estadual'
+      FieldName = 'INSCEST'
+      Origin = 'INSCEST'
+    end
+    object fdQryTabelaINSCMUN: TStringField
+      DisplayLabel = 'Inscri'#231#227'o Estadual'
+      FieldName = 'INSCMUN'
+      Origin = 'INSCMUN'
+    end
+    object fdQryTabelaENDER: TStringField
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'ENDER'
+      Origin = 'ENDER'
+      Size = 250
+    end
+    object fdQryTabelaCOMPLEMENTO: TStringField
+      DisplayLabel = 'Complemento'
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 50
+    end
+    object fdQryTabelaNUMERO_END: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'NUMERO_END'
+      Origin = 'NUMERO_END'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaBAIRRO: TStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 100
+    end
+    object fdQryTabelaCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Required = True
+      Size = 8
+    end
+    object fdQryTabelaCIDADE: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CIDADE'
+      Origin = 'CIDADE'
+      Required = True
+      Size = 30
+    end
+    object fdQryTabelaUF: TStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object fdQryTabelaFONE: TStringField
+      DisplayLabel = 'Telefone Fixo'
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      EditMask = '!\(00\)0000-0000;1; '
+      Size = 11
+    end
+    object fdQryTabelaFONECEL: TStringField
+      DisplayLabel = 'Telefone Celular'
+      FieldName = 'FONECEL'
+      Origin = 'FONECEL'
+      EditMask = '!\(00\)00000-0000;1; '
+      Size = 11
+    end
+    object fdQryTabelaFONECOMERC: TStringField
+      DisplayLabel = 'Telefone Comercial'
+      FieldName = 'FONECOMERC'
+      Origin = 'FONECOMERC'
+      EditMask = '!\(00\)0000-0000;1; '
+      Size = 11
+    end
+    object fdQryTabelaTLG_TIPO: TSmallintField
+      DisplayLabel = 'Tipo End.'
+      FieldName = 'TLG_TIPO'
+      Origin = 'TLG_TIPO'
+    end
+    object fdQryTabelaLOG_COD: TIntegerField
+      DisplayLabel = 'Logradouro'
+      FieldName = 'LOG_COD'
+      Origin = 'LOG_COD'
+    end
+    object fdQryTabelaBAI_COD: TIntegerField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAI_COD'
+      Origin = 'BAI_COD'
+    end
+    object fdQryTabelaCID_COD: TIntegerField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CID_COD'
+      Origin = 'CID_COD'
+    end
+    object fdQryTabelaEST_COD: TSmallintField
+      DisplayLabel = 'Estado'
+      FieldName = 'EST_COD'
+      Origin = 'EST_COD'
+    end
+    object fdQryTabelaEMAIL: TStringField
+      DisplayLabel = 'E-mail'
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 60
+    end
+    object fdQryTabelaSITE: TStringField
+      DisplayLabel = 'Home page'
+      FieldName = 'SITE'
+      Origin = 'SITE'
+      Size = 40
+    end
+    object fdQryTabelaPAIS_ID: TStringField
+      DisplayLabel = 'Pa'#237's'
+      FieldName = 'PAIS_ID'
+      Origin = 'PAIS_ID'
+      Size = 5
+    end
+    object fdQryTabelaVALOR_LIMITE_COMPRA: TBCDField
+      DisplayLabel = 'Valor Limite p/ Compra'
+      FieldName = 'VALOR_LIMITE_COMPRA'
+      Origin = 'VALOR_LIMITE_COMPRA'
+      Required = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVENDEDOR_COD: TIntegerField
+      DisplayLabel = 'Vendedor repons'#225'vel'
+      FieldName = 'VENDEDOR_COD'
+      Origin = 'VENDEDOR_COD'
+    end
+    object fdQryTabelaDTCAD: TDateField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Data Cadastro'
+      FieldName = 'DTCAD'
+      Origin = 'DTCAD'
+      ProviderFlags = []
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTabelaBLOQUEADO: TSmallintField
+      FieldName = 'BLOQUEADO'
+      Origin = 'BLOQUEADO'
+      Required = True
+    end
+    object fdQryTabelaBLOQUEADO_DATA: TDateField
+      FieldName = 'BLOQUEADO_DATA'
+      Origin = 'BLOQUEADO_DATA'
+    end
+    object fdQryTabelaBLOQUEADO_MOTIVO: TMemoField
+      FieldName = 'BLOQUEADO_MOTIVO'
+      Origin = 'BLOQUEADO_MOTIVO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaBLOQUEADO_USUARIO: TStringField
+      FieldName = 'BLOQUEADO_USUARIO'
+      Origin = 'BLOQUEADO_USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaBLOQUEADO_AUTOMATICO: TSmallintField
+      FieldName = 'BLOQUEADO_AUTOMATICO'
+      Origin = 'BLOQUEADO_AUTOMATICO'
+      Required = True
+    end
+    object fdQryTabelaDESBLOQUEADO_DATA: TDateField
+      FieldName = 'DESBLOQUEADO_DATA'
+      Origin = 'DESBLOQUEADO_DATA'
+    end
+    object fdQryTabelaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaEMITIR_NFE_DEVOLUCAO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'EMITIR_NFE_DEVOLUCAO'
+      Origin = 'EMITIR_NFE_DEVOLUCAO'
+    end
+    object fdQryTabelaCUSTO_OPER_PERCENTUAL: TSmallintField
+      FieldName = 'CUSTO_OPER_PERCENTUAL'
+      Origin = 'CUSTO_OPER_PERCENTUAL'
+    end
+    object fdQryTabelaCUSTO_OPER_FRETE: TBCDField
+      FieldName = 'CUSTO_OPER_FRETE'
+      Origin = 'CUSTO_OPER_FRETE'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+    end
+    object fdQryTabelaCUSTO_OPER_OUTROS: TBCDField
+      FieldName = 'CUSTO_OPER_OUTROS'
+      Origin = 'CUSTO_OPER_OUTROS'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+    end
+    object fdQryTabelaENTREGA_FRACIONADA_VENDA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ENTREGA_FRACIONADA_VENDA'
+      Origin = 'ENTREGA_FRACIONADA_VENDA'
+      Required = True
+    end
+    object fdQryTabelaBANCO: TStringField
+      DisplayLabel = 'Banco (1)'
+      FieldName = 'BANCO'
+      Origin = 'BANCO'
+      Size = 10
+    end
+    object fdQryTabelaAGENCIA: TStringField
+      DisplayLabel = 'Ag'#234'ncia (1)'
+      FieldName = 'AGENCIA'
+      Origin = 'AGENCIA'
+      Size = 10
+    end
+    object fdQryTabelaCC: TStringField
+      DisplayLabel = 'N'#250'mero da Conta (1)'
+      FieldName = 'CC'
+      Origin = 'CC'
+      Size = 10
+    end
+    object fdQryTabelaPRACA: TStringField
+      DisplayLabel = 'Pra'#231'a de Cobran'#231'a'
+      FieldName = 'PRACA'
+      Origin = 'PRACA'
+      Size = 250
+    end
+    object fdQryTabelaBANCO_2: TStringField
+      DisplayLabel = 'Banco (2)'
+      FieldName = 'BANCO_2'
+      Origin = 'BANCO_2'
+      Size = 10
+    end
+    object fdQryTabelaAGENCIA_2: TStringField
+      DisplayLabel = 'Ag'#234'ncia (2)'
+      FieldName = 'AGENCIA_2'
+      Origin = 'AGENCIA_2'
+      Size = 10
+    end
+    object fdQryTabelaCC_2: TStringField
+      DisplayLabel = 'N'#250'mero da Conta (2)'
+      FieldName = 'CC_2'
+      Origin = 'CC_2'
+      Size = 10
+    end
+    object fdQryTabelaPRACA_2: TStringField
+      FieldName = 'PRACA_2'
+      Origin = 'PRACA_2'
+      Size = 250
+    end
+    object fdQryTabelaBANCO_3: TStringField
+      DisplayLabel = 'Banco (3)'
+      FieldName = 'BANCO_3'
+      Origin = 'BANCO_3'
+      Size = 10
+    end
+    object fdQryTabelaAGENCIA_3: TStringField
+      DisplayLabel = 'Ag'#234'ncia (3)'
+      FieldName = 'AGENCIA_3'
+      Origin = 'AGENCIA_3'
+      Size = 10
+    end
+    object fdQryTabelaCC_3: TStringField
+      DisplayLabel = 'N'#250'mero da Conta (3)'
+      FieldName = 'CC_3'
+      Origin = 'CC_3'
+      Size = 10
+    end
+    object fdQryTabelaPRACA_3: TStringField
+      FieldName = 'PRACA_3'
+      Origin = 'PRACA_3'
+      Size = 250
+    end
+    object fdQryTabelaOBSERVACAO: TMemoField
+      DisplayLabel = 'Observa'#231#245'es'
+      FieldName = 'OBSERVACAO'
+      Origin = 'OBSERVACAO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object fdQryTabelaLOGRADOURO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Logradouro'
+      FieldName = 'LOGRADOURO'
+      Origin = 'LOGRADOURO'
+      ProviderFlags = []
+      Size = 250
+    end
+    object fdQryTabelaCID_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CID_NOME'
+      Origin = 'CID_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaEST_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EST_NOME'
+      Origin = 'EST_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaPAIS_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAIS_NOME'
+      Origin = 'PAIS_NOME'
+      ProviderFlags = []
+      Size = 150
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCLIENTE'
+      '(CODIGO, TIPO, PESSOA_FISICA, CNPJ, NOME, '
+      '  NOMEFANT, INSCEST, INSCMUN, ENDER, COMPLEMENTO, '
+      '  BAIRRO, CEP, CIDADE, UF, FONE, '
+      '  FONECEL, FONECOMERC, EMAIL, SITE, TLG_TIPO, '
+      '  LOG_COD, BAI_COD, CID_COD, EST_COD, '
+      '  NUMERO_END, PAIS_ID, VALOR_LIMITE_COMPRA, '
+      '  BLOQUEADO, BLOQUEADO_DATA, BLOQUEADO_MOTIVO, '
+      '  BLOQUEADO_USUARIO, BLOQUEADO_AUTOMATICO, DESBLOQUEADO_DATA, '
+      '  VENDEDOR_COD, USUARIO, EMITIR_NFE_DEVOLUCAO, '
+      '  CUSTO_OPER_PERCENTUAL, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS, '
+      '  ENTREGA_FRACIONADA_VENDA, BANCO, AGENCIA, '
+      '  CC, PRACA, BANCO_2, AGENCIA_2, CC_2, '
+      '  PRACA_2, BANCO_3, AGENCIA_3, CC_3, PRACA_3, '
+      '  OBSERVACAO, ATIVO)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_TIPO, :NEW_PESSOA_FISICA, :NEW_CNPJ, :' +
+        'NEW_NOME, '
+      
+        '  :NEW_NOMEFANT, :NEW_INSCEST, :NEW_INSCMUN, :NEW_ENDER, :NEW_CO' +
+        'MPLEMENTO, '
+      '  :NEW_BAIRRO, :NEW_CEP, :NEW_CIDADE, :NEW_UF, :NEW_FONE, '
+      
+        '  :NEW_FONECEL, :NEW_FONECOMERC, :NEW_EMAIL, :NEW_SITE, :NEW_TLG' +
+        '_TIPO, '
+      '  :NEW_LOG_COD, :NEW_BAI_COD, :NEW_CID_COD, :NEW_EST_COD, '
+      '  :NEW_NUMERO_END, :NEW_PAIS_ID, :NEW_VALOR_LIMITE_COMPRA, '
+      '  :NEW_BLOQUEADO, :NEW_BLOQUEADO_DATA, :NEW_BLOQUEADO_MOTIVO, '
+      
+        '  :NEW_BLOQUEADO_USUARIO, :NEW_BLOQUEADO_AUTOMATICO, :NEW_DESBLO' +
+        'QUEADO_DATA, '
+      '  :NEW_VENDEDOR_COD, :NEW_USUARIO, :NEW_EMITIR_NFE_DEVOLUCAO, '
+      
+        '  :NEW_CUSTO_OPER_PERCENTUAL, :NEW_CUSTO_OPER_FRETE, :NEW_CUSTO_' +
+        'OPER_OUTROS, '
+      '  :NEW_ENTREGA_FRACIONADA_VENDA, :NEW_BANCO, :NEW_AGENCIA, '
+      '  :NEW_CC, :NEW_PRACA, :NEW_BANCO_2, :NEW_AGENCIA_2, :NEW_CC_2, '
+      
+        '  :NEW_PRACA_2, :NEW_BANCO_3, :NEW_AGENCIA_3, :NEW_CC_3, :NEW_PR' +
+        'ACA_3, '
+      '  :NEW_OBSERVACAO, :NEW_ATIVO)'
+      
+        'RETURNING CODIGO, VALOR_LIMITE_COMPRA, BLOQUEADO, BLOQUEADO_DATA' +
+        ', BLOQUEADO_MOTIVO, BLOQUEADO_USUARIO, BLOQUEADO_AUTOMATICO, DTC' +
+        'AD')
+    ModifySQL.Strings = (
+      'UPDATE TBCLIENTE'
+      
+        'SET CODIGO = :NEW_CODIGO, TIPO = :NEW_TIPO, PESSOA_FISICA = :NEW' +
+        '_PESSOA_FISICA, '
+      '  CNPJ = :NEW_CNPJ, NOME = :NEW_NOME, NOMEFANT = :NEW_NOMEFANT, '
+      
+        '  INSCEST = :NEW_INSCEST, INSCMUN = :NEW_INSCMUN, ENDER = :NEW_E' +
+        'NDER, '
+      
+        '  COMPLEMENTO = :NEW_COMPLEMENTO, BAIRRO = :NEW_BAIRRO, CEP = :N' +
+        'EW_CEP, '
+      
+        '  CIDADE = :NEW_CIDADE, UF = :NEW_UF, FONE = :NEW_FONE, FONECEL ' +
+        '= :NEW_FONECEL, '
+      
+        '  FONECOMERC = :NEW_FONECOMERC, EMAIL = :NEW_EMAIL, SITE = :NEW_' +
+        'SITE, '
+      
+        '  TLG_TIPO = :NEW_TLG_TIPO, LOG_COD = :NEW_LOG_COD, BAI_COD = :N' +
+        'EW_BAI_COD, '
+      
+        '  CID_COD = :NEW_CID_COD, EST_COD = :NEW_EST_COD, NUMERO_END = :' +
+        'NEW_NUMERO_END, '
+      
+        '  PAIS_ID = :NEW_PAIS_ID, VALOR_LIMITE_COMPRA = :NEW_VALOR_LIMIT' +
+        'E_COMPRA, '
+      
+        '  BLOQUEADO = :NEW_BLOQUEADO, BLOQUEADO_DATA = :NEW_BLOQUEADO_DA' +
+        'TA, '
+      
+        '  BLOQUEADO_MOTIVO = :NEW_BLOQUEADO_MOTIVO, BLOQUEADO_USUARIO = ' +
+        ':NEW_BLOQUEADO_USUARIO, '
+      
+        '  BLOQUEADO_AUTOMATICO = :NEW_BLOQUEADO_AUTOMATICO, DESBLOQUEADO' +
+        '_DATA = :NEW_DESBLOQUEADO_DATA, '
+      '  VENDEDOR_COD = :NEW_VENDEDOR_COD, USUARIO = :NEW_USUARIO, '
+      
+        '  EMITIR_NFE_DEVOLUCAO = :NEW_EMITIR_NFE_DEVOLUCAO, CUSTO_OPER_P' +
+        'ERCENTUAL = :NEW_CUSTO_OPER_PERCENTUAL, '
+      
+        '  CUSTO_OPER_FRETE = :NEW_CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS = ' +
+        ':NEW_CUSTO_OPER_OUTROS, '
+      '  ENTREGA_FRACIONADA_VENDA = :NEW_ENTREGA_FRACIONADA_VENDA, '
+      '  BANCO = :NEW_BANCO, AGENCIA = :NEW_AGENCIA, CC = :NEW_CC, '
+      
+        '  PRACA = :NEW_PRACA, BANCO_2 = :NEW_BANCO_2, AGENCIA_2 = :NEW_A' +
+        'GENCIA_2, '
+      
+        '  CC_2 = :NEW_CC_2, PRACA_2 = :NEW_PRACA_2, BANCO_3 = :NEW_BANCO' +
+        '_3, '
+      
+        '  AGENCIA_3 = :NEW_AGENCIA_3, CC_3 = :NEW_CC_3, PRACA_3 = :NEW_P' +
+        'RACA_3, '
+      '  OBSERVACAO = :NEW_OBSERVACAO, ATIVO = :NEW_ATIVO'
+      'WHERE CODIGO = :OLD_CODIGO'
+      
+        'RETURNING CODIGO, VALOR_LIMITE_COMPRA, BLOQUEADO, BLOQUEADO_DATA' +
+        ', BLOQUEADO_MOTIVO, BLOQUEADO_USUARIO, BLOQUEADO_AUTOMATICO, DTC' +
+        'AD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCLIENTE'
+      'WHERE CODIGO = :OLD_CODIGO')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    cl.Codigo'
+      '  , cl.Pessoa_fisica'
+      '  , cl.Cnpj'
+      '  , cl.Tipo'
+      '  , cl.Nome'
+      '  , cl.NomeFant'
+      '  , cl.Inscest'
+      '  , cl.Inscmun'
+      '  , cl.Ender'
+      '  , cl.Complemento'
+      '  , cl.Numero_end'
+      '  , cl.Bairro'
+      '  , cl.Cep'
+      '  , cl.Cidade'
+      '  , cl.Uf'
+      '  , cl.Fone'
+      '  , cl.FoneCel'
+      '  , cl.FoneComerc'
+      '  , cl.Tlg_tipo'
+      '  , cl.Log_cod'
+      '  , cl.Bai_cod'
+      '  , cl.Cid_cod'
+      '  , cl.Est_cod'
+      '  , cl.Email'
+      '  , cl.Site'
+      '  , cl.Pais_id'
+      '  , cl.Valor_limite_compra'
+      '  , cl.Vendedor_cod'
+      '  , coalesce(cl.DtCad, current_date) as DtCad'
+      '  , cl.Bloqueado'
+      '  , cl.Bloqueado_data'
+      '  , cl.Bloqueado_motivo'
+      '  , cl.Bloqueado_usuario'
+      '  , cl.Bloqueado_automatico'
+      '  , cl.DesBloqueado_data'
+      '  , cl.Usuario'
+      '  , cl.emitir_nfe_devolucao'
+      '  , cl.custo_oper_percentual'
+      '  , cl.custo_oper_frete'
+      '  , cl.custo_oper_outros'
+      '  , cl.entrega_fracionada_venda'
+      '  , cl.banco'
+      '  , cl.agencia'
+      '  , cl.cc'
+      '  , cl.praca'
+      '  , cl.banco_2'
+      '  , cl.agencia_2'
+      '  , cl.cc_2'
+      '  , cl.praca_2'
+      '  , cl.banco_3'
+      '  , cl.agencia_3'
+      '  , cl.cc_3'
+      '  , cl.praca_3'
+      '  , cl.observacao'
+      '  , cl.ativo'
+      
+        '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
+        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), cl.Ender ) as Log' +
+        'radouro'
+      '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
+      '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
+      '  , p.Pais_nome'
+      'from TBCLIENTE cl'
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
+      '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = cl.Cid_cod)'
+      '  left join TBESTADO u on (u.Est_cod = cl.Est_cod)'
+      '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)'
+      'WHERE d.CODIGO = :CODIGO')
   end
   object cdsTotalComprasAbertas: TDataSource
     DataSet = fdQryTotalComprasAbertas

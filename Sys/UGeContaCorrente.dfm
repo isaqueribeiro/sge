@@ -102,8 +102,6 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 735
       ExplicitHeight = 367
       inherited Bevel8: TBevel
@@ -401,7 +399,7 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1966,12 +1964,25 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       'DELETE FROM TBCONTA_CORRENTE'
       'WHERE CODIGO = :OLD_CODIGO')
     FetchRowSQL.Strings = (
+      'Select'
+      '    cc.Codigo'
+      '  , cc.Descricao'
+      '  , cc.Tipo'
+      '  , cc.bco_codigo_cc'
+      '  , cc.Empresa'
+      '  , cc.Conta_banco_boleto'
+      '  , cc.Codigo_contabil'
       
-        'SELECT CODIGO, DESCRICAO, TIPO, BCO_CODIGO_CC, CONTA_BANCO_BOLET' +
-        'O, '
-      '  EMPRESA, CODIGO_CONTABIL'
-      'FROM TBCONTA_CORRENTE'
-      'WHERE CODIGO = :CODIGO')
+        '  , Case when cc.Tipo = 1 then '#39'Caixa'#39' when cc.Tipo = 2 then '#39'Ba' +
+        'nco'#39' else '#39#39' end Tipo_Desc'
+      
+        '  , cb.Bco_nome || '#39' AG.: '#39' || cb.Bco_agencia || '#39' C/C.: '#39' || cb' +
+        '.Bco_cc as Banco'
+      'from TBCONTA_CORRENTE cc'
+      
+        '  left join TBBANCO_BOLETO cb on (cb.bco_codigo = cc.bco_codigo_' +
+        'cc)'
+      'WHERE cc.CODIGO = :CODIGO')
     Left = 688
     Top = 40
   end

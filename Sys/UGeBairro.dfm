@@ -39,10 +39,6 @@ inherited frmGeBairro: TfrmGeBairro
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited GrpBxDadosNominais: TGroupBox
         object lblCidade: TLabel [1]
           Left = 16
@@ -289,7 +285,7 @@ inherited frmGeBairro: TfrmGeBairro
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1824,8 +1820,17 @@ inherited frmGeBairro: TfrmGeBairro
       'DELETE FROM TBBAIRRO'
       'WHERE BAI_COD = :OLD_BAI_COD')
     FetchRowSQL.Strings = (
-      'SELECT BAI_COD, BAI_NOME, CID_COD, DIS_COD'
-      'FROM TBBAIRRO'
-      'WHERE BAI_COD = :BAI_COD')
+      'Select'
+      '    b.Bai_cod'
+      '  , b.Bai_nome'
+      '  , b.Cid_cod'
+      '  , b.Dis_cod'
+      '  , c.Cid_nome || '#39' ('#39' || e.Est_sigla || '#39')'#39' as Cid_nome'
+      '  , d.Dis_nome'
+      'from TBBAIRRO b'
+      '  left join TBCIDADE c on (c.Cid_cod = b.Cid_cod)'
+      '  left join TBESTADO e on (e.Est_cod = c.Est_cod)'
+      '  left join TBDISTRITO d on (d.Dis_cod = b.Dis_cod)'
+      'WHERE b.BAI_COD = :BAI_COD')
   end
 end

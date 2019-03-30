@@ -119,6 +119,7 @@ type
     function GetRotinaExcluirID   : String;
     function GetRotinaImprimirID  : String;
     function GetRotinaPesquisarID : String;
+    function ExecutarRefreshRecord : Boolean;
   public
     { Public declarations }
     property ver : TInfoVersao read _ver;
@@ -514,7 +515,9 @@ begin
             fdQryTabela.CommitUpdates;
 
             CommitTransaction;
-            fdQryTabela.RefreshRecord();
+
+            if ExecutarRefreshRecord then
+              fdQryTabela.RefreshRecord();
           end;
         end;
       end;
@@ -612,6 +615,24 @@ procedure TfrmGrPadraoCadastro.edtFiltrarKeyDown(Sender: TObject; var Key: Word;
 begin
   if ( Key = 13 ) then
     btnFiltrar.Click;
+end;
+
+function TfrmGrPadraoCadastro.ExecutarRefreshRecord: Boolean;
+var
+  aScriptSelect  ,
+  aScriptFetchRow,
+  aRetorno       : Boolean;
+begin
+  aRetorno := False;
+  try
+    // Buscar junção entre tabelas nos scripts de consulta dos objetos
+    aScriptSelect   := (Pos('JOIN', AnsiUpperCase(fdQryTabela.SQL.Text)) > 0);
+    aScriptFetchRow := (Pos('JOIN', AnsiUpperCase(fdUpdTabela.FetchRowSQL.Text)) > 0);
+
+    aRetorno := (aScriptSelect = aScriptFetchRow);
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 procedure TfrmGrPadraoCadastro.fdQryTabelaUpdateError(ASender: TDataSet; AException: EFDException;

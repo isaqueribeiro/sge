@@ -536,7 +536,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2103,12 +2103,25 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
       'DELETE FROM TBTPDESPESA'
       'WHERE COD = :OLD_COD')
     FetchRowSQL.Strings = (
+      'Select'
+      '    t.Cod'
+      '  , t.Tipodesp'
+      '  , t.Tipo_Particular'
+      '  , t.classificacao'
+      '  , t.plano_conta'
+      '  , t.ativo'
       
-        'SELECT COD, CLASSIFICACAO, TIPODESP, TIPO_PARTICULAR, PLANO_CONT' +
-        'A, '
-      '  ATIVO'
-      'FROM TBTPDESPESA'
-      'WHERE COD = :COD')
+        '  , Case when t.Tipo_Particular = 1 then '#39'S'#39' else '#39#39' end Tipo_Pa' +
+        'rticular_Desc'
+      
+        '  , coalesce(nullif(trim(p.codigo_contabil), '#39#39') || '#39' - '#39', '#39#39') |' +
+        '| p.descricao_resumida as descricao_resumida'
+      'from TBTPDESPESA t'
+      
+        '  left join TBTPDESPESA_PLANO x on (x.despesa = t.cod and x.empr' +
+        'esa = :empresa)'
+      '  left join TBPLANO_CONTA p on (p.codigo = x.plano)'
+      'WHERE t.COD = :COD')
   end
   object fdQryClassificacao: TFDQuery
     Connection = DMBusiness.fdConexao

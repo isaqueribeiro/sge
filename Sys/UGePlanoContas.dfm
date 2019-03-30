@@ -144,8 +144,6 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 788
       ExplicitHeight = 410
       inherited Bevel8: TBevel
@@ -541,7 +539,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
     Left = 24
     Top = 296
     Bitmap = {
-      494C01012B002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2159,13 +2157,25 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       'DELETE FROM TBPLANO_CONTA'
       'WHERE CODIGO = :OLD_CODIGO')
     FetchRowSQL.Strings = (
-      
-        'SELECT CODIGO, EXERCICIO, EMPRESA, GRUPO, NIVEL, TIPO, CODIGO_CO' +
-        'NTABIL, '
-      '  CODIGO_RESUMIDO, DESCRICAO_RESUMIDA, DESCRICAO_COMPLETA, '
-      '  SITUACAO'
-      'FROM TBPLANO_CONTA'
-      'WHERE CODIGO = :CODIGO')
+      'Select'
+      '    p.codigo'
+      '  , p.exercicio'
+      '  , p.empresa'
+      '  , p.grupo'
+      '  , p.nivel'
+      '  , p.tipo'
+      '  , p.codigo_contabil'
+      '  , p.codigo_resumido'
+      '  , p.descricao_resumida'
+      '  , p.descricao_completa'
+      '  , p.situacao'
+      '  , t.descricao as tipo_descricao'
+      '  , coalesce(e.rzsoc,  '#39'Todas'#39') as razao'
+      '  , coalesce(e.nmfant, '#39'Todas'#39') as fantasia'
+      'from TBPLANO_CONTA p'
+      '  left join VW_TIPO_PLANO_CONTA t on (t.codigo = p.tipo)'
+      '  left join TBEMPRESA e on (e.cnpj = p.empresa)'
+      'WHERE p.CODIGO = :CODIGO')
   end
   object dtsGrupo: TDataSource
     DataSet = fdQryGrupo

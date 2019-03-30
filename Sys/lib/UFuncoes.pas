@@ -5,7 +5,7 @@ interface
 uses
   Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers,
   Graphics, IniFiles, PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer,
-  ExcelXP, ComObj, TLHelp32;
+  ExcelXP, ComObj, TLHelp32, Winapi.ShlObj;
 
   procedure ExecuteResource(pHandle : HWND; pComand : String);
   procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
@@ -436,17 +436,29 @@ end;
 end;
 
 function Path_MeusDocumentos : String;
+var
+  aPath : String;
+  r     : Bool;
+  cPath : array [0 .. Max_Path] of Char;
 begin
-  Result := GetEnvironmentVariable('USERPROFILE');
+  r := ShGetSpecialFolderPath(0, cPath, CSIDL_Personal, False);
+  if not r then
+  begin
+    aPath := GetEnvironmentVariable('USERPROFILE');
 
-  if Pos('Documents', Result) = 0 then
-    Result := GetEnvironmentVariable('USERPROFILE') + '\Documents';
+    if Pos('Documents', aPath) = 0 then
+      aPath := GetEnvironmentVariable('USERPROFILE') + '\Documents';
 
-  if not DirectoryExists(Result) then
-    Result := GetEnvironmentVariable('USERPROFILE') + '\Documentos';
+    if not DirectoryExists(aPath) then
+      aPath := GetEnvironmentVariable('USERPROFILE') + '\Documentos';
 
-  if not DirectoryExists(Result) then
-    Result := GetEnvironmentVariable('USERPROFILE') + '\Meus Documentos';
+    if not DirectoryExists(aPath) then
+      aPath := GetEnvironmentVariable('USERPROFILE') + '\Meus Documentos';
+  end
+  else
+    aPath := cPath;
+
+  Result := Trim(aPath);
 end;
 
 function Path_Windows : String;

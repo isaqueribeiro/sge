@@ -136,7 +136,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE;
+  UDMBusiness, UConstantesDGE, UFuncoes;
 
 {$R *.dfm}
 
@@ -221,7 +221,7 @@ begin
       FieldByName('BCO_DIRETORIO_REMESSA').AsString := Trim(FieldByName('BCO_DIRETORIO_REMESSA').AsString);
 
       if ( FieldByName('BCO_DIRETORIO_REMESSA').AsString = EmptyStr ) then
-        FieldByName('BCO_DIRETORIO_REMESSA').AsString := 'C:\Banco\Remessa\';
+        FieldByName('BCO_DIRETORIO_REMESSA').AsString  := Path_MeusDocumentos + '\Banco\Remessa\';
 
       if ( Copy(FieldByName('BCO_DIRETORIO_REMESSA').AsString, Length(FieldByName('BCO_DIRETORIO_REMESSA').AsString), 1) <> '\' ) then
         FieldByName('BCO_DIRETORIO_REMESSA').AsString := FieldByName('BCO_DIRETORIO_REMESSA').AsString + '\';
@@ -233,7 +233,7 @@ begin
       FieldByName('BCO_DIRETORIO_RETORNO').AsString := Trim(FieldByName('BCO_DIRETORIO_RETORNO').AsString);
 
       if ( FieldByName('BCO_DIRETORIO_RETORNO').AsString = EmptyStr ) then
-        FieldByName('BCO_DIRETORIO_RETORNO').AsString := 'C:\Banco\Retorno\';
+        FieldByName('BCO_DIRETORIO_RETORNO').AsString  := Path_MeusDocumentos + '\Banco\Retorno\';
 
       if ( Copy(FieldByName('BCO_DIRETORIO_RETORNO').AsString, Length(FieldByName('BCO_DIRETORIO_RETORNO').AsString), 1) <> '\' ) then
         FieldByName('BCO_DIRETORIO_RETORNO').AsString := FieldByName('BCO_DIRETORIO_RETORNO').AsString + '\';
@@ -262,8 +262,11 @@ begin
     FieldByName('BCO_NOSSO_NUM_INICIO').AsString  := FormatFloat('0000000', 1);
     FieldByName('BCO_NOSSO_NUM_FINAL').AsString   := FormatFloat('0000000', 999999);
     FieldByName('BCO_NOSSO_NUM_PROXIMO').AsString := FormatFloat('0000000', 1);
-    FieldByName('BCO_SEQUENCIAL_REM').AsInteger    := 1;
+    FieldByName('BCO_SEQUENCIAL_REM').AsInteger   := 1;
     FieldByName('BCO_CODIGO_CEDENTE').Clear;
+
+    FieldByName('BCO_DIRETORIO_REMESSA').AsString  := Path_MeusDocumentos + '\Banco\Remessa\';
+    FieldByName('BCO_DIRETORIO_RETORNO').AsString  := Path_MeusDocumentos + '\Banco\Retorno\';
 
     FieldByName('BCO_LAYOUT_REMESSA').AsInteger    := 400; // cnab400
     FieldByName('BCO_LAYOUT_RETORNO').AsInteger    := 400; // cnab400

@@ -43,29 +43,34 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           item
             Expanded = False
             FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'RZSOC'
+            Title.Caption = 'Raz'#227'o Social '
             Width = 250
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CNPJ'
+            Title.Caption = 'CPF/CNPJ '
             Width = 140
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'IE'
+            Title.Caption = 'Inscri'#231#227'o Estadual '
             Width = 120
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'IM'
+            Title.Caption = 'Inscri'#231#227'o Municipal '
             Width = 120
             Visible = True
           end>
@@ -116,8 +121,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 739
       ExplicitHeight = 354
       inherited Bevel8: TBevel
@@ -342,7 +345,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           Width = 23
           Height = 13
           Caption = 'CEP:'
-          FocusControl = dbCEP
         end
         object lblNumero: TLabel
           Left = 416
@@ -359,22 +361,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           Height = 13
           Caption = 'Complemento:'
           FocusControl = dbComplemento
-        end
-        object dbCEP: TDBEdit
-          Left = 616
-          Top = 40
-          Width = 105
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'CEP'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 3
         end
         object dbNumero: TDBEdit
           Left = 416
@@ -708,13 +694,24 @@ inherited frmGeEmpresa: TfrmGeEmpresa
           TabOrder = 4
           OnButtonClick = dbLogradouroButtonClick
         end
+        object dbCEP: TJvDBMaskEdit
+          Left = 616
+          Top = 40
+          Width = 105
+          Height = 21
+          DataField = 'CEP'
+          DataSource = DtSrcTabela
+          MaxLength = 10
+          TabOrder = 3
+          EditMask = '99.999-999;0; '
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
         Top = 237
         Width = 739
         Height = 117
-        ActivePage = tbsParametros
+        ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
@@ -847,8 +844,8 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ValueUnchecked = '0'
           end
         end
-        object tbsParametros: TTabSheet
-          Caption = 'Par'#226'metros p/ NF-e'
+        object tbsInforme: TTabSheet
+          Caption = 'Outras informa'#231#245'es'
           ImageIndex = 1
           object lblPais: TLabel
             Left = 8
@@ -856,16 +853,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Width = 23
             Height = 13
             Caption = 'Pa'#237's:'
-          end
-          object lblChave: TLabel
-            Left = 8
-            Top = 40
-            Width = 83
-            Height = 13
-            Caption = 'Chave de Acesso'
-            Enabled = False
-            FocusControl = dbChave
-            Visible = False
           end
           object lblTipoRegime: TLabel
             Left = 151
@@ -875,111 +862,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Caption = 'Tipo Regime:'
             FocusControl = dbTipoRegime
           end
-          object lblSerieNFe: TLabel
-            Left = 152
-            Top = 40
-            Width = 54
-            Height = 13
-            Caption = 'S'#233'rie NF-e:'
-            FocusControl = dbSerieNFe
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
-          object lblNumeroNFe: TLabel
-            Left = 232
-            Top = 40
-            Width = 67
-            Height = 13
-            Caption = 'N'#250'mero NF-e:'
-            FocusControl = dbNumeroNFe
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
-          object lblLoteAno: TLabel
-            Left = 344
-            Top = 40
-            Width = 47
-            Height = 13
-            Caption = 'Ano Lote:'
-            FocusControl = dbLoteAno
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
-          object lblLoteNumero: TLabel
-            Left = 344
-            Top = 40
-            Width = 65
-            Height = 13
-            Caption = 'N'#250'mero Lote:'
-            FocusControl = dbLoteNumero
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
-          object lblSerieNFCe: TLabel
-            Left = 456
-            Top = 40
-            Width = 61
-            Height = 13
-            Caption = 'S'#233'rie NFC-e:'
-            FocusControl = dbSerieNFCe
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
-          object lblNumeroNFCe: TLabel
-            Left = 536
-            Top = 40
-            Width = 74
-            Height = 13
-            Caption = 'N'#250'mero NFC-e:'
-            FocusControl = dbNumeroNFCe
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
-          object lblNumeroCCe: TLabel
-            Left = 644
-            Top = 40
-            Width = 68
-            Height = 13
-            Caption = 'N'#250'mero CC-e:'
-            FocusControl = dbNumeroCCe
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
           object lblSegmento: TLabel
             Left = 456
             Top = 0
@@ -987,25 +869,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             Height = 13
             Caption = 'Segmento:'
             FocusControl = dbSegmento
-          end
-          object dbChave: TDBEdit
-            Left = 8
-            Top = 56
-            Width = 138
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'CHAVE_ACESSO_NFE'
-            DataSource = DtSrcTabela
-            Enabled = False
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 3
-            Visible = False
           end
           object dbTipoRegime: TDBLookupComboBox
             Left = 151
@@ -1025,139 +888,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
             ListSource = dtsTipoRegimeNFe
             ParentFont = False
             TabOrder = 1
-          end
-          object dbSerieNFe: TDBEdit
-            Left = 152
-            Top = 56
-            Width = 73
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'SERIE_NFE'
-            DataSource = DtSrcTabela
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            TabOrder = 4
-            Visible = False
-          end
-          object dbNumeroNFe: TDBEdit
-            Left = 232
-            Top = 56
-            Width = 105
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'NUMERO_NFE'
-            DataSource = DtSrcTabela
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            TabOrder = 5
-            Visible = False
-          end
-          object dbLoteAno: TDBEdit
-            Left = 344
-            Top = 56
-            Width = 65
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'LOTE_ANO_NFE'
-            DataSource = DtSrcTabela
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            TabOrder = 6
-            Visible = False
-          end
-          object dbLoteNumero: TDBEdit
-            Left = 344
-            Top = 56
-            Width = 106
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'LOTE_NUM_NFE'
-            DataSource = DtSrcTabela
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            TabOrder = 7
-            Visible = False
-          end
-          object dbSerieNFCe: TDBEdit
-            Left = 456
-            Top = 56
-            Width = 73
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'SERIE_NFCE'
-            DataSource = DtSrcTabela
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            TabOrder = 8
-            Visible = False
-          end
-          object dbNumeroNFCe: TDBEdit
-            Left = 536
-            Top = 56
-            Width = 102
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'NUMERO_NFCE'
-            DataSource = DtSrcTabela
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            TabOrder = 9
-            Visible = False
-          end
-          object dbNumeroCCe: TDBEdit
-            Left = 644
-            Top = 56
-            Width = 73
-            Height = 21
-            CharCase = ecUpperCase
-            Color = clMoneyGreen
-            DataField = 'CARTA_CORRECAO_NFE'
-            DataSource = DtSrcTabela
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            TabOrder = 10
-            Visible = False
           end
           object dbPais: TJvDBComboEdit
             Left = 8
@@ -1280,7 +1010,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    e.Codigo'
@@ -1335,249 +1064,12 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       '  left join TBPAIS p on (p.Pais_id = e.Pais_id)')
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_EMPRESA_ID'
-    Left = 640
-    object IbDtstTabelaCODIGO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = 'TBEMPRESA.CODIGO'
-      Required = True
-    end
-    object IbDtstTabelaPESSOA_FISICA: TSmallintField
-      DisplayLabel = 'Pessoa F'#237'sica'
-      FieldName = 'PESSOA_FISICA'
-      Origin = 'TBEMPRESA.PESSOA_FISICA'
-      Required = True
-    end
-    object IbDtstTabelaCNPJ: TIBStringField
-      DisplayLabel = 'CPF/CNPJ'
-      FieldName = 'CNPJ'
-      Origin = 'TBEMPRESA.CNPJ'
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaRZSOC: TIBStringField
-      DisplayLabel = 'Raz'#227'o Social'
-      FieldName = 'RZSOC'
-      Origin = 'TBEMPRESA.RZSOC'
-      Size = 60
-    end
-    object IbDtstTabelaNMFANT: TIBStringField
-      DisplayLabel = 'Nome Fantasia'
-      FieldName = 'NMFANT'
-      Origin = 'TBEMPRESA.NMFANT'
-      Size = 25
-    end
-    object IbDtstTabelaSEGMENTO: TSmallintField
-      DisplayLabel = 'Segmento'
-      FieldName = 'SEGMENTO'
-      Origin = 'TBEMPRESA.SEGMENTO'
-      Required = True
-    end
-    object IbDtstTabelaIE: TIBStringField
-      DisplayLabel = 'Inscri'#231#227'o Estadual'
-      FieldName = 'IE'
-      Origin = 'TBEMPRESA.IE'
-      Size = 11
-    end
-    object IbDtstTabelaIM: TIBStringField
-      DisplayLabel = 'Inscri'#231#227'o Municipal'
-      FieldName = 'IM'
-      Origin = 'TBEMPRESA.IM'
-      Size = 12
-    end
-    object IbDtstTabelaCNAE: TIBStringField
-      DisplayLabel = 'CNAE Principal'
-      FieldName = 'CNAE'
-      Origin = 'TBEMPRESA.CNAE'
-      Required = True
-      Size = 11
-    end
-    object IbDtstTabelaENDER: TIBStringField
-      DisplayLabel = 'Endere'#231'o'
-      FieldName = 'ENDER'
-      Origin = 'TBEMPRESA.ENDER'
-      Size = 250
-    end
-    object IbDtstTabelaCOMPLEMENTO: TIBStringField
-      DisplayLabel = 'Complemento'
-      FieldName = 'COMPLEMENTO'
-      Origin = 'TBEMPRESA.COMPLEMENTO'
-      Size = 50
-    end
-    object IbDtstTabelaNUMERO_END: TIBStringField
-      DisplayLabel = 'N'#250'mero'
-      FieldName = 'NUMERO_END'
-      Origin = 'TBEMPRESA.NUMERO_END'
-      Size = 10
-    end
-    object IbDtstTabelaBAIRRO: TIBStringField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAIRRO'
-      Origin = 'TBEMPRESA.BAIRRO'
-      Size = 25
-    end
-    object IbDtstTabelaCEP: TIBStringField
-      FieldName = 'CEP'
-      Origin = 'TBEMPRESA.CEP'
-      EditMask = '99.999-999;0; '
-      Size = 8
-    end
-    object IbDtstTabelaCIDADE: TIBStringField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CIDADE'
-      Origin = 'TBEMPRESA.CIDADE'
-      Size = 30
-    end
-    object IbDtstTabelaUF: TIBStringField
-      FieldName = 'UF'
-      Origin = 'TBEMPRESA.UF'
-      FixedChar = True
-      Size = 2
-    end
-    object IbDtstTabelaFONE: TIBStringField
-      DisplayLabel = 'Fone 1'
-      FieldName = 'FONE'
-      Origin = 'TBEMPRESA.FONE'
-      EditMask = '(99)9999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaFONE2: TIBStringField
-      DisplayLabel = 'Fone 2'
-      FieldName = 'FONE2'
-      Origin = '"TBEMPRESA"."FONE2"'
-      EditMask = '(99)9999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaLOGO: TBlobField
-      DisplayLabel = 'Logotipo'
-      FieldName = 'LOGO'
-      Origin = 'TBEMPRESA.LOGO'
-      Size = 8
-    end
-    object IbDtstTabelaTLG_TIPO: TSmallintField
-      DisplayLabel = 'Tipo End.'
-      FieldName = 'TLG_TIPO'
-      Origin = 'TBEMPRESA.TLG_TIPO'
-    end
-    object IbDtstTabelaLOG_COD: TIntegerField
-      DisplayLabel = 'Logradouro'
-      FieldName = 'LOG_COD'
-      Origin = 'TBEMPRESA.LOG_COD'
-    end
-    object IbDtstTabelaBAI_COD: TIntegerField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAI_COD'
-      Origin = 'TBEMPRESA.BAI_COD'
-    end
-    object IbDtstTabelaCID_COD: TIntegerField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_COD'
-      Origin = 'TBEMPRESA.CID_COD'
-    end
-    object IbDtstTabelaEST_COD: TSmallintField
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_COD'
-      Origin = 'TBEMPRESA.EST_COD'
-    end
-    object IbDtstTabelaEMAIL: TIBStringField
-      DisplayLabel = 'E-mail'
-      FieldName = 'EMAIL'
-      Origin = 'TBEMPRESA.EMAIL'
-      Size = 100
-    end
-    object IbDtstTabelaHOME_PAGE: TIBStringField
-      DisplayLabel = 'Home page'
-      FieldName = 'HOME_PAGE'
-      Origin = 'TBEMPRESA.HOME_PAGE'
-      Size = 100
-    end
-    object IbDtstTabelaCHAVE_ACESSO_NFE: TIBStringField
-      DisplayLabel = 'Chave de acesso NF-e'
-      FieldName = 'CHAVE_ACESSO_NFE'
-      Origin = 'TBEMPRESA.CHAVE_ACESSO_NFE'
-      Size = 250
-    end
-    object IbDtstTabelaTIPO_REGIME_NFE: TSmallintField
-      DisplayLabel = 'Tipo Regime'
-      FieldName = 'TIPO_REGIME_NFE'
-      Origin = 'TBEMPRESA.TIPO_REGIME_NFE'
-    end
-    object IbDtstTabelaSERIE_NFE: TSmallintField
-      DisplayLabel = 'S'#233'rie NF-e'
-      FieldName = 'SERIE_NFE'
-      Origin = 'TBEMPRESA.SERIE_NFE'
-    end
-    object IbDtstTabelaNUMERO_NFE: TIntegerField
-      DisplayLabel = 'N'#250'mero NF-e'
-      FieldName = 'NUMERO_NFE'
-      Origin = 'TBEMPRESA.NUMERO_NFE'
-    end
-    object IbDtstTabelaLOTE_ANO_NFE: TSmallintField
-      FieldName = 'LOTE_ANO_NFE'
-      Origin = 'TBEMPRESA.LOTE_ANO_NFE'
-    end
-    object IbDtstTabelaLOTE_NUM_NFE: TIntegerField
-      FieldName = 'LOTE_NUM_NFE'
-      Origin = 'TBEMPRESA.LOTE_NUM_NFE'
-    end
-    object IbDtstTabelaCARTA_CORRECAO_NFE: TIntegerField
-      FieldName = 'CARTA_CORRECAO_NFE'
-      Origin = '"TBEMPRESA"."CARTA_CORRECAO_NFE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaSERIE_NFCE: TSmallintField
-      FieldName = 'SERIE_NFCE'
-      Origin = '"TBEMPRESA"."SERIE_NFCE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNUMERO_NFCE: TIntegerField
-      FieldName = 'NUMERO_NFCE'
-      Origin = '"TBEMPRESA"."NUMERO_NFCE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaPAIS_ID: TIBStringField
-      DisplayLabel = 'Pa'#237's'
-      FieldName = 'PAIS_ID'
-      Origin = 'TBEMPRESA.PAIS_ID'
-      Size = 5
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBEMPRESA"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object IbDtstTabelaATIVA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVA'
-      Origin = '"TBEMPRESA"."ATIVA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaLOGRADOURO: TIBStringField
-      DisplayLabel = 'Logradouro'
-      FieldName = 'LOGRADOURO'
-      Size = 250
-    end
-    object IbDtstTabelaCID_NOME: TIBStringField
-      FieldName = 'CID_NOME'
-      Origin = 'TBCIDADE.CID_NOME'
-      Size = 100
-    end
-    object IbDtstTabelaEST_NOME: TIBStringField
-      FieldName = 'EST_NOME'
-      Origin = 'TBESTADO.EST_NOME'
-      Size = 100
-    end
-    object IbDtstTabelaPAIS_NOME: TIBStringField
-      FieldName = 'PAIS_NOME'
-      Origin = 'TBPAIS.PAIS_NOME'
-      Size = 150
-    end
+    Top = 8
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 704
-    Top = 8
+    Top = 72
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1705,13 +1197,12 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       'delete from TBEMPRESA'
       'where'
       '  CNPJ = :OLD_CNPJ')
-    Left = 672
     Top = 8
   end
   inherited ImgList: TImageList
     Left = 608
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3169,6 +2660,447 @@ inherited frmGeEmpresa: TfrmGeEmpresa
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_EMPRESA_ID'
+    UpdateOptions.KeyFields = 'CNPJ'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    e.Codigo'
+      '  , e.Pessoa_fisica'
+      '  , e.Cnpj'
+      '  , e.Rzsoc'
+      '  , e.Nmfant'
+      '  , e.Ie'
+      '  , e.Im'
+      '  , e.Cnae'
+      '  , e.Segmento'
+      '  , e.Ender'
+      '  , e.Complemento'
+      '  , e.Numero_end'
+      '  , e.Bairro'
+      '  , e.Cep'
+      '  , e.Cidade'
+      '  , e.Uf'
+      '  , e.Fone'
+      '  , e.Fone2'
+      '  , e.Logo'
+      '  , e.Tlg_tipo'
+      '  , e.Log_cod'
+      '  , e.Bai_cod'
+      '  , e.Cid_cod'
+      '  , e.Est_cod'
+      '  , e.Email'
+      '  , e.Home_page'
+      '  , e.Chave_acesso_nfe'
+      '  , e.Tipo_Regime_nfe'
+      '  , e.Serie_nfe'
+      '  , e.Numero_nfe'
+      '  , e.Lote_Ano_nfe'
+      '  , e.Lote_Num_nfe'
+      '  , e.Carta_correcao_nfe'
+      '  , e.Serie_nfce'
+      '  , e.Numero_nfce'
+      '  , e.Pais_id'
+      '  , e.Usuario'
+      '  , e.Ativa'
+      
+        '  , cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descricao) || '#39' '#39',' +
+        ' '#39#39') || l.Log_nome as varchar(250)) as Logradouro'
+      '  , c.Cid_nome'
+      '  , u.Est_nome'
+      '  , p.Pais_nome'
+      'from TBEMPRESA e'
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = e.Tlg_tipo)'
+      '  left join TBLOGRADOURO l on (l.Log_cod = e.Log_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = e.Cid_cod)'
+      '  left join TBESTADO u on (u.Est_cod = e.Est_cod)'
+      '  left join TBPAIS p on (p.Pais_id = e.Pais_id)')
+    Top = 40
+    object fdQryTabelaCODIGO: TIntegerField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdQryTabelaPESSOA_FISICA: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Pessoa F'#237'sica'
+      FieldName = 'PESSOA_FISICA'
+      Origin = 'PESSOA_FISICA'
+      Required = True
+    end
+    object fdQryTabelaCNPJ: TStringField
+      DisplayLabel = 'CPF/CNPJ'
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaRZSOC: TStringField
+      DisplayLabel = 'Raz'#227'o Social'
+      FieldName = 'RZSOC'
+      Origin = 'RZSOC'
+      Required = True
+      Size = 60
+    end
+    object fdQryTabelaNMFANT: TStringField
+      DisplayLabel = 'Nome Fantasia'
+      FieldName = 'NMFANT'
+      Origin = 'NMFANT'
+      Size = 25
+    end
+    object fdQryTabelaSEGMENTO: TSmallintField
+      DisplayLabel = 'Segmento'
+      FieldName = 'SEGMENTO'
+      Origin = 'SEGMENTO'
+      Required = True
+      Visible = False
+    end
+    object fdQryTabelaIE: TStringField
+      DisplayLabel = 'Inscri'#231#227'o Estadual'
+      FieldName = 'IE'
+      Origin = 'IE'
+      Size = 11
+    end
+    object fdQryTabelaIM: TStringField
+      DisplayLabel = 'Inscri'#231#227'o Municipal'
+      FieldName = 'IM'
+      Origin = 'IM'
+      Size = 12
+    end
+    object fdQryTabelaCNAE: TStringField
+      DisplayLabel = 'CNAE Principal'
+      FieldName = 'CNAE'
+      Origin = 'CNAE'
+      Required = True
+      Size = 11
+    end
+    object fdQryTabelaENDER: TStringField
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'ENDER'
+      Origin = 'ENDER'
+      Size = 250
+    end
+    object fdQryTabelaCOMPLEMENTO: TStringField
+      DisplayLabel = 'Complemento'
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 50
+    end
+    object fdQryTabelaNUMERO_END: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'NUMERO_END'
+      Origin = 'NUMERO_END'
+      Size = 10
+    end
+    object fdQryTabelaBAIRRO: TStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 100
+    end
+    object fdQryTabelaCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 8
+    end
+    object fdQryTabelaCIDADE: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CIDADE'
+      Origin = 'CIDADE'
+      Size = 30
+    end
+    object fdQryTabelaUF: TStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object fdQryTabelaFONE: TStringField
+      DisplayLabel = 'Fone 1'
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      EditMask = '!\(00\)0000-0000;0; '
+      Size = 11
+    end
+    object fdQryTabelaFONE2: TStringField
+      DisplayLabel = 'Fone 2'
+      FieldName = 'FONE2'
+      Origin = 'FONE2'
+      EditMask = '!\(00\)0000-0000;0; '
+      Size = 11
+    end
+    object fdQryTabelaLOGO: TBlobField
+      DisplayLabel = 'Logotipo'
+      FieldName = 'LOGO'
+      Origin = 'LOGO'
+    end
+    object fdQryTabelaTLG_TIPO: TSmallintField
+      DisplayLabel = 'Tipo End.'
+      FieldName = 'TLG_TIPO'
+      Origin = 'TLG_TIPO'
+    end
+    object fdQryTabelaLOG_COD: TIntegerField
+      DisplayLabel = 'Logradouro'
+      FieldName = 'LOG_COD'
+      Origin = 'LOG_COD'
+    end
+    object fdQryTabelaBAI_COD: TIntegerField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAI_COD'
+      Origin = 'BAI_COD'
+    end
+    object fdQryTabelaCID_COD: TIntegerField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CID_COD'
+      Origin = 'CID_COD'
+    end
+    object fdQryTabelaEST_COD: TSmallintField
+      DisplayLabel = 'Estado'
+      FieldName = 'EST_COD'
+      Origin = 'EST_COD'
+    end
+    object fdQryTabelaEMAIL: TStringField
+      DisplayLabel = 'E-mail'
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 100
+    end
+    object fdQryTabelaHOME_PAGE: TStringField
+      DisplayLabel = 'Home page'
+      FieldName = 'HOME_PAGE'
+      Origin = 'HOME_PAGE'
+      Size = 100
+    end
+    object fdQryTabelaCHAVE_ACESSO_NFE: TStringField
+      DisplayLabel = 'Chave de acesso NF-e'
+      FieldName = 'CHAVE_ACESSO_NFE'
+      Origin = 'CHAVE_ACESSO_NFE'
+      Size = 250
+    end
+    object fdQryTabelaTIPO_REGIME_NFE: TSmallintField
+      DisplayLabel = 'Tipo Regime'
+      FieldName = 'TIPO_REGIME_NFE'
+      Origin = 'TIPO_REGIME_NFE'
+      Required = True
+      Visible = False
+    end
+    object fdQryTabelaSERIE_NFE: TSmallintField
+      FieldName = 'SERIE_NFE'
+      Origin = 'SERIE_NFE'
+    end
+    object fdQryTabelaNUMERO_NFE: TIntegerField
+      FieldName = 'NUMERO_NFE'
+      Origin = 'NUMERO_NFE'
+    end
+    object fdQryTabelaLOTE_ANO_NFE: TSmallintField
+      FieldName = 'LOTE_ANO_NFE'
+      Origin = 'LOTE_ANO_NFE'
+    end
+    object fdQryTabelaLOTE_NUM_NFE: TIntegerField
+      FieldName = 'LOTE_NUM_NFE'
+      Origin = 'LOTE_NUM_NFE'
+    end
+    object fdQryTabelaCARTA_CORRECAO_NFE: TIntegerField
+      FieldName = 'CARTA_CORRECAO_NFE'
+      Origin = 'CARTA_CORRECAO_NFE'
+    end
+    object fdQryTabelaSERIE_NFCE: TSmallintField
+      FieldName = 'SERIE_NFCE'
+      Origin = 'SERIE_NFCE'
+    end
+    object fdQryTabelaNUMERO_NFCE: TIntegerField
+      FieldName = 'NUMERO_NFCE'
+      Origin = 'NUMERO_NFCE'
+    end
+    object fdQryTabelaPAIS_ID: TStringField
+      DisplayLabel = 'Pa'#237's'
+      FieldName = 'PAIS_ID'
+      Origin = 'PAIS_ID'
+      Size = 5
+    end
+    object fdQryTabelaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaATIVA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVA'
+      Origin = 'ATIVA'
+      Required = True
+    end
+    object fdQryTabelaLOGRADOURO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Logradouro'
+      FieldName = 'LOGRADOURO'
+      Origin = 'LOGRADOURO'
+      ProviderFlags = []
+      Size = 250
+    end
+    object fdQryTabelaCID_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CID_NOME'
+      Origin = 'CID_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaEST_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EST_NOME'
+      Origin = 'EST_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaPAIS_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAIS_NOME'
+      Origin = 'PAIS_NOME'
+      ProviderFlags = []
+      Size = 150
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBEMPRESA'
+      '(CODIGO, PESSOA_FISICA, CNPJ, RZSOC, NMFANT, '
+      '  IE, IM, SEGMENTO, CNAE, ENDER, '
+      '  COMPLEMENTO, BAIRRO, CEP, CIDADE, UF, '
+      '  FONE, FONE2, LOGO, TLG_TIPO, LOG_COD, '
+      '  BAI_COD, CID_COD, EST_COD, NUMERO_END, '
+      '  EMAIL, HOME_PAGE, CHAVE_ACESSO_NFE, PAIS_ID, '
+      '  TIPO_REGIME_NFE, SERIE_NFE, NUMERO_NFE, LOTE_ANO_NFE, '
+      '  LOTE_NUM_NFE, CARTA_CORRECAO_NFE, SERIE_NFCE, '
+      '  NUMERO_NFCE, USUARIO, ATIVA)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_PESSOA_FISICA, :NEW_CNPJ, :NEW_RZSOC, ' +
+        ':NEW_NMFANT, '
+      '  :NEW_IE, :NEW_IM, :NEW_SEGMENTO, :NEW_CNAE, :NEW_ENDER, '
+      
+        '  :NEW_COMPLEMENTO, :NEW_BAIRRO, :NEW_CEP, :NEW_CIDADE, :NEW_UF,' +
+        ' '
+      
+        '  :NEW_FONE, :NEW_FONE2, :NEW_LOGO, :NEW_TLG_TIPO, :NEW_LOG_COD,' +
+        ' '
+      '  :NEW_BAI_COD, :NEW_CID_COD, :NEW_EST_COD, :NEW_NUMERO_END, '
+      
+        '  :NEW_EMAIL, :NEW_HOME_PAGE, :NEW_CHAVE_ACESSO_NFE, :NEW_PAIS_I' +
+        'D, '
+      
+        '  :NEW_TIPO_REGIME_NFE, :NEW_SERIE_NFE, :NEW_NUMERO_NFE, :NEW_LO' +
+        'TE_ANO_NFE, '
+      '  :NEW_LOTE_NUM_NFE, :NEW_CARTA_CORRECAO_NFE, :NEW_SERIE_NFCE, '
+      '  :NEW_NUMERO_NFCE, :NEW_USUARIO, :NEW_ATIVA)'
+      
+        'RETURNING CODIGO, CHAVE_ACESSO_NFE, SERIE_NFE, NUMERO_NFE, LOTE_' +
+        'ANO_NFE, LOTE_NUM_NFE, CARTA_CORRECAO_NFE, SERIE_NFCE, NUMERO_NF' +
+        'CE')
+    ModifySQL.Strings = (
+      'UPDATE TBEMPRESA'
+      
+        'SET CODIGO = :NEW_CODIGO, PESSOA_FISICA = :NEW_PESSOA_FISICA, CN' +
+        'PJ = :NEW_CNPJ, '
+      '  RZSOC = :NEW_RZSOC, NMFANT = :NEW_NMFANT, IE = :NEW_IE, '
+      '  IM = :NEW_IM, SEGMENTO = :NEW_SEGMENTO, CNAE = :NEW_CNAE, '
+      
+        '  ENDER = :NEW_ENDER, COMPLEMENTO = :NEW_COMPLEMENTO, BAIRRO = :' +
+        'NEW_BAIRRO, '
+      
+        '  CEP = :NEW_CEP, CIDADE = :NEW_CIDADE, UF = :NEW_UF, FONE = :NE' +
+        'W_FONE, '
+      
+        '  FONE2 = :NEW_FONE2, LOGO = :NEW_LOGO, TLG_TIPO = :NEW_TLG_TIPO' +
+        ', '
+      
+        '  LOG_COD = :NEW_LOG_COD, BAI_COD = :NEW_BAI_COD, CID_COD = :NEW' +
+        '_CID_COD, '
+      
+        '  EST_COD = :NEW_EST_COD, NUMERO_END = :NEW_NUMERO_END, EMAIL = ' +
+        ':NEW_EMAIL, '
+      
+        '  HOME_PAGE = :NEW_HOME_PAGE, CHAVE_ACESSO_NFE = :NEW_CHAVE_ACES' +
+        'SO_NFE, '
+      
+        '  PAIS_ID = :NEW_PAIS_ID, TIPO_REGIME_NFE = :NEW_TIPO_REGIME_NFE' +
+        ', '
+      '  SERIE_NFE = :NEW_SERIE_NFE, NUMERO_NFE = :NEW_NUMERO_NFE, '
+      
+        '  LOTE_ANO_NFE = :NEW_LOTE_ANO_NFE, LOTE_NUM_NFE = :NEW_LOTE_NUM' +
+        '_NFE, '
+      
+        '  CARTA_CORRECAO_NFE = :NEW_CARTA_CORRECAO_NFE, SERIE_NFCE = :NE' +
+        'W_SERIE_NFCE, '
+      '  NUMERO_NFCE = :NEW_NUMERO_NFCE, USUARIO = :NEW_USUARIO, '
+      '  ATIVA = :NEW_ATIVA'
+      'WHERE CNPJ = :OLD_CNPJ'
+      
+        'RETURNING CODIGO, CHAVE_ACESSO_NFE, SERIE_NFE, NUMERO_NFE, LOTE_' +
+        'ANO_NFE, LOTE_NUM_NFE, CARTA_CORRECAO_NFE, SERIE_NFCE, NUMERO_NF' +
+        'CE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBEMPRESA'
+      'WHERE CNPJ = :OLD_CNPJ')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    e.Codigo'
+      '  , e.Pessoa_fisica'
+      '  , e.Cnpj'
+      '  , e.Rzsoc'
+      '  , e.Nmfant'
+      '  , e.Ie'
+      '  , e.Im'
+      '  , e.Cnae'
+      '  , e.Segmento'
+      '  , e.Ender'
+      '  , e.Complemento'
+      '  , e.Numero_end'
+      '  , e.Bairro'
+      '  , e.Cep'
+      '  , e.Cidade'
+      '  , e.Uf'
+      '  , e.Fone'
+      '  , e.Fone2'
+      '  , e.Logo'
+      '  , e.Tlg_tipo'
+      '  , e.Log_cod'
+      '  , e.Bai_cod'
+      '  , e.Cid_cod'
+      '  , e.Est_cod'
+      '  , e.Email'
+      '  , e.Home_page'
+      '  , e.Chave_acesso_nfe'
+      '  , e.Tipo_Regime_nfe'
+      '  , e.Serie_nfe'
+      '  , e.Numero_nfe'
+      '  , e.Lote_Ano_nfe'
+      '  , e.Lote_Num_nfe'
+      '  , e.Carta_correcao_nfe'
+      '  , e.Serie_nfce'
+      '  , e.Numero_nfce'
+      '  , e.Pais_id'
+      '  , e.Usuario'
+      '  , e.Ativa'
+      
+        '  , cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descricao) || '#39' '#39',' +
+        ' '#39#39') || l.Log_nome as varchar(250)) as Logradouro'
+      '  , c.Cid_nome'
+      '  , u.Est_nome'
+      '  , p.Pais_nome'
+      'from TBEMPRESA e'
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = e.Tlg_tipo)'
+      '  left join TBLOGRADOURO l on (l.Log_cod = e.Log_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = e.Cid_cod)'
+      '  left join TBESTADO u on (u.Est_cod = e.Est_cod)'
+      '  left join TBPAIS p on (p.Pais_id = e.Pais_id)'
+      'WHERE e.CNPJ = :CNPJ')
+    Top = 40
   end
   object ppmLogo: TPopupMenu
     Images = ImgList
