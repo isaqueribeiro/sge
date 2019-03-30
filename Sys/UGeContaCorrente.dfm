@@ -27,8 +27,6 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     ExplicitWidth = 743
     ExplicitHeight = 396
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 735
       ExplicitHeight = 367
       inherited Bevel4: TBevel
@@ -44,24 +42,28 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
           item
             Expanded = False
             FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 240
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO_DESC'
+            Title.Caption = 'Tipo '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'BANCO'
+            Title.Caption = 'Banco '
             Width = 300
             Visible = True
           end>
@@ -325,7 +327,6 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    cc.Codigo'
@@ -345,67 +346,14 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       
         '  left join TBBANCO_BOLETO cb on (cb.bco_codigo = cc.bco_codigo_' +
         'cc)')
-    Left = 600
-    object IbDtstTabelaCODIGO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = 'TBCONTA_CORRENTE.CODIGO'
-      Required = True
-    end
-    object IbDtstTabelaDESCRICAO: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRICAO'
-      Origin = 'TBCONTA_CORRENTE.DESCRICAO'
-      Required = True
-      Size = 50
-    end
-    object IbDtstTabelaTIPO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = 'TBCONTA_CORRENTE.TIPO'
-      Required = True
-    end
-    object IbDtstTabelaBCO_CODIGO_CC: TSmallintField
-      FieldName = 'BCO_CODIGO_CC'
-      Origin = '"TBCONTA_CORRENTE"."BCO_CODIGO_CC"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCONTA_BANCO_BOLETO: TSmallintField
-      DisplayLabel = 'Banco'
-      FieldName = 'CONTA_BANCO_BOLETO'
-      Origin = 'TBCONTA_CORRENTE.CONTA_BANCO_BOLETO'
-    end
-    object IbDtstTabelaCODIGO_CONTABIL: TIBStringField
-      DisplayLabel = 'C'#243'digo Cont'#225'bil'
-      FieldName = 'CODIGO_CONTABIL'
-      Origin = '"TBCONTA_CORRENTE"."CODIGO_CONTABIL"'
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBCONTA_CORRENTE"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaTIPO_DESC: TIBStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO_DESC'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 5
-    end
-    object IbDtstTabelaBANCO: TIBStringField
-      DisplayLabel = 'Banco'
-      FieldName = 'BANCO'
-      ProviderFlags = []
-      Size = 83
-    end
+    Left = 656
+    Top = 8
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 664
+    Left = 656
+    Top = 72
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -447,11 +395,13 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       'delete from TBCONTA_CORRENTE'
       'where'
       '  CODIGO = :OLD_CODIGO')
+    Left = 688
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1909,6 +1859,121 @@ inherited frmGeContaCorrente: TfrmGeContaCorrente
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    cc.Codigo'
+      '  , cc.Descricao'
+      '  , cc.Tipo'
+      '  , cc.bco_codigo_cc'
+      '  , cc.Empresa'
+      '  , cc.Conta_banco_boleto'
+      '  , cc.Codigo_contabil'
+      
+        '  , Case when cc.Tipo = 1 then '#39'Caixa'#39' when cc.Tipo = 2 then '#39'Ba' +
+        'nco'#39' else '#39#39' end Tipo_Desc'
+      
+        '  , cb.Bco_nome || '#39' AG.: '#39' || cb.Bco_agencia || '#39' C/C.: '#39' || cb' +
+        '.Bco_cc as Banco'
+      'from TBCONTA_CORRENTE cc'
+      
+        '  left join TBBANCO_BOLETO cb on (cb.bco_codigo = cc.bco_codigo_' +
+        'cc)')
+    Left = 656
+    Top = 40
+    object fdQryTabelaCODIGO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Required = True
+      Size = 50
+    end
+    object fdQryTabelaTIPO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+    end
+    object fdQryTabelaBCO_CODIGO_CC: TSmallintField
+      FieldName = 'BCO_CODIGO_CC'
+      Origin = 'BCO_CODIGO_CC'
+    end
+    object fdQryTabelaEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaCONTA_BANCO_BOLETO: TSmallintField
+      DisplayLabel = 'Banco'
+      FieldName = 'CONTA_BANCO_BOLETO'
+      Origin = 'CONTA_BANCO_BOLETO'
+    end
+    object fdQryTabelaCODIGO_CONTABIL: TStringField
+      DisplayLabel = 'C'#243'digo Cont'#225'bil'
+      FieldName = 'CODIGO_CONTABIL'
+      Origin = 'CODIGO_CONTABIL'
+    end
+    object fdQryTabelaTIPO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO_DESC'
+      Origin = 'TIPO_DESC'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 5
+    end
+    object fdQryTabelaBANCO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Banco'
+      FieldName = 'BANCO'
+      Origin = 'BANCO'
+      ProviderFlags = []
+      Size = 83
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTA_CORRENTE'
+      '(CODIGO, DESCRICAO, TIPO, BCO_CODIGO_CC, '
+      '  CONTA_BANCO_BOLETO, EMPRESA, CODIGO_CONTABIL)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_DESCRICAO, :NEW_TIPO, :NEW_BCO_CODIGO_' +
+        'CC, '
+      '  :NEW_CONTA_BANCO_BOLETO, :NEW_EMPRESA, :NEW_CODIGO_CONTABIL)')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTA_CORRENTE'
+      
+        'SET CODIGO = :NEW_CODIGO, DESCRICAO = :NEW_DESCRICAO, TIPO = :NE' +
+        'W_TIPO, '
+      
+        '  BCO_CODIGO_CC = :NEW_BCO_CODIGO_CC, CONTA_BANCO_BOLETO = :NEW_' +
+        'CONTA_BANCO_BOLETO, '
+      '  EMPRESA = :NEW_EMPRESA, CODIGO_CONTABIL = :NEW_CODIGO_CONTABIL'
+      'WHERE CODIGO = :OLD_CODIGO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTA_CORRENTE'
+      'WHERE CODIGO = :OLD_CODIGO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT CODIGO, DESCRICAO, TIPO, BCO_CODIGO_CC, CONTA_BANCO_BOLET' +
+        'O, '
+      '  EMPRESA, CODIGO_CONTABIL'
+      'FROM TBCONTA_CORRENTE'
+      'WHERE CODIGO = :CODIGO')
+    Left = 688
+    Top = 40
   end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa

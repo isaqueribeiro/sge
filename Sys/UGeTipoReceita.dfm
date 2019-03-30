@@ -26,10 +26,8 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     ExplicitWidth = 741
     ExplicitHeight = 416
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 733
-      ExplicitHeight = 365
+      ExplicitHeight = 387
       inherited Bevel4: TBevel
         Top = 321
         Width = 733
@@ -43,18 +41,21 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
           item
             Expanded = False
             FieldName = 'COD'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPOREC'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 280
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_RESUMIDA'
+            Title.Caption = 'Plano de Contas '
             Width = 300
             Visible = True
           end
@@ -62,14 +63,14 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
             Expanded = False
             FieldName = 'TIPO_PARTICULAR_DESC'
             Title.Alignment = taCenter
-            Title.Caption = 'Particular'
+            Title.Caption = 'Particular '
             Visible = True
           end>
       end
       inherited pnlFiltros: TPanel
         Top = 325
         Width = 733
-        ExplicitTop = 303
+        ExplicitTop = 325
         ExplicitWidth = 733
         object lblRegistroDesativado: TLabel [0]
           Left = 2
@@ -472,9 +473,6 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    BeforePost = IbDtstTabelaBeforePost
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    t.Cod'
@@ -494,65 +492,9 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
         '  left join TBTPRECEITA_PLANO x on (x.receita = t.cod and x.empr' +
         'esa = :empresa)'
       '  left join TBPLANO_CONTA p on (p.codigo = x.plano)')
-    Left = 600
-    Top = 112
-    object IbDtstTabelaCOD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = '"TBTPRECEITA"."COD"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object IbDtstTabelaTIPOREC: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'TIPOREC'
-      Origin = '"TBTPRECEITA"."TIPOREC"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 50
-    end
-    object IbDtstTabelaCLASSIFICACAO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Classifica'#231#227'o / Categoria'
-      FieldName = 'CLASSIFICACAO'
-      Origin = '"TBTPRECEITA"."CLASSIFICACAO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaTIPO_PARTICULAR: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'TIPO_PARTICULAR'
-      Origin = '"TBTPRECEITA"."TIPO_PARTICULAR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaPLANO_CONTA: TIntegerField
-      FieldName = 'PLANO_CONTA'
-      Origin = '"TBTPRECEITA"."PLANO_CONTA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVO'
-      Origin = '"TBTPRECEITA"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField
-      Alignment = taCenter
-      FieldName = 'TIPO_PARTICULAR_DESC'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 1
-    end
-    object IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField
-      DisplayLabel = 'Plano de Contas'
-      FieldName = 'DESCRICAO_RESUMIDA'
-      ProviderFlags = []
-      Size = 133
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 664
-    Top = 112
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -590,13 +532,12 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       'delete from TBTPRECEITA'
       'where'
       '  COD = :OLD_COD')
-    Top = 112
   end
   inherited ImgList: TImageList
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2054,6 +1995,122 @@ inherited frmGeTipoReceita: TfrmGeTipoReceita
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    AfterScroll = fdQryTabelaAfterScroll
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    t.Cod'
+      '  , t.Tiporec'
+      '  , t.classificacao'
+      '  , t.Tipo_Particular'
+      '  , t.plano_conta'
+      '  , t.ativo'
+      
+        '  , Case when t.Tipo_Particular = 1 then '#39'S'#39' else '#39#39' end Tipo_Pa' +
+        'rticular_Desc'
+      
+        '  , coalesce(nullif(trim(p.codigo_contabil), '#39#39') || '#39' - '#39', '#39#39') |' +
+        '| p.descricao_resumida as descricao_resumida'
+      'from TBTPRECEITA t'
+      
+        '  left join TBTPRECEITA_PLANO x on (x.receita = t.cod and x.empr' +
+        'esa = :empresa)'
+      '  left join TBPLANO_CONTA p on (p.codigo = x.plano)')
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+    object fdQryTabelaCOD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = 'COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaTIPOREC: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'TIPOREC'
+      Origin = 'TIPOREC'
+      Required = True
+      Size = 50
+    end
+    object fdQryTabelaCLASSIFICACAO: TSmallintField
+      DisplayLabel = 'Classifica'#231#227'o / Categoria'
+      FieldName = 'CLASSIFICACAO'
+      Origin = 'CLASSIFICACAO'
+      Required = True
+    end
+    object fdQryTabelaTIPO_PARTICULAR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'TIPO_PARTICULAR'
+      Origin = 'TIPO_PARTICULAR'
+      Required = True
+    end
+    object fdQryTabelaPLANO_CONTA: TIntegerField
+      FieldName = 'PLANO_CONTA'
+      Origin = 'PLANO_CONTA'
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object fdQryTabelaTIPO_PARTICULAR_DESC: TStringField
+      Alignment = taCenter
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO_PARTICULAR_DESC'
+      Origin = 'TIPO_PARTICULAR_DESC'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 1
+    end
+    object fdQryTabelaDESCRICAO_RESUMIDA: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Plano de Contas'
+      FieldName = 'DESCRICAO_RESUMIDA'
+      Origin = 'DESCRICAO_RESUMIDA'
+      ProviderFlags = []
+      Size = 133
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBTPRECEITA'
+      '(COD, CLASSIFICACAO, TIPOREC, TIPO_PARTICULAR, '
+      '  PLANO_CONTA, ATIVO)'
+      
+        'VALUES (:NEW_COD, :NEW_CLASSIFICACAO, :NEW_TIPOREC, :NEW_TIPO_PA' +
+        'RTICULAR, '
+      '  :NEW_PLANO_CONTA, :NEW_ATIVO)'
+      'RETURNING COD')
+    ModifySQL.Strings = (
+      'UPDATE TBTPRECEITA'
+      
+        'SET COD = :NEW_COD, CLASSIFICACAO = :NEW_CLASSIFICACAO, TIPOREC ' +
+        '= :NEW_TIPOREC, '
+      
+        '  TIPO_PARTICULAR = :NEW_TIPO_PARTICULAR, PLANO_CONTA = :NEW_PLA' +
+        'NO_CONTA, '
+      '  ATIVO = :NEW_ATIVO'
+      'WHERE COD = :OLD_COD'
+      'RETURNING COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBTPRECEITA'
+      'WHERE COD = :OLD_COD')
+    FetchRowSQL.Strings = (
+      
+        'SELECT COD, CLASSIFICACAO, TIPOREC, TIPO_PARTICULAR, PLANO_CONTA' +
+        ', ATIVO'
+      'FROM TBTPRECEITA'
+      'WHERE COD = :COD')
   end
   object fdQryClassificacao: TFDQuery
     Connection = DMBusiness.fdConexao

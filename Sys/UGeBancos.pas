@@ -9,14 +9,15 @@ uses
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons,
+  cxLookAndFeelPainters, Menus, cxButtons, System.ImageList,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeBancos = class(TfrmGrPadraoCadastro)
@@ -49,29 +50,12 @@ type
     dbNossoNumeroF: TDBEdit;
     dbNossoNumeroP: TDBEdit;
     dbProximaRemessa: TDBEdit;
-    IbDtstTabelaBCO_COD: TSmallintField;
-    IbDtstTabelaBCO_CARTEIRA: TIBStringField;
-    IbDtstTabelaBCO_NOME: TIBStringField;
-    IbDtstTabelaBCO_CHAVE: TIBStringField;
-    IbDtstTabelaBCO_AGENCIA: TIBStringField;
-    IbDtstTabelaBCO_CC: TIBStringField;
-    IbDtstTabelaBCO_NOSSO_NUM_INICIO: TIBStringField;
-    IbDtstTabelaBCO_NOSSO_NUM_FINAL: TIBStringField;
-    IbDtstTabelaBCO_NOSSO_NUM_PROXIMO: TIBStringField;
-    IbDtstTabelaBCO_CONFG_1: TIBStringField;
-    IbDtstTabelaBCO_CONFG_2: TIBStringField;
-    IbDtstTabelaBCO_DIRETORIO_REMESSA: TIBStringField;
-    IbDtstTabelaBCO_DIRETORIO_RETORNO: TIBStringField;
-    IbDtstTabelaBCO_SEQUENCIAL_REM: TIntegerField;
-    IbDtstTabelaBCO_GERAR_BOLETO: TSmallintField;
-    IbDtstTabelaEMPRESA: TIBStringField;
     dbGerarBoleto: TDBCheckBox;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblCodigoCedente: TLabel;
     dbCodigoCedente: TDBEdit;
-    IbDtstTabelaBCO_CODIGO_CEDENTE: TIBStringField;
     imgAjuda: TImage;
     GrpBxDadosEmissao: TGroupBox;
     lblProtesto: TLabel;
@@ -85,27 +69,44 @@ type
     dbMora: TDBEdit;
     Label4: TLabel;
     lblInstrucao: TLabel;
-    IbDtstTabelaBCO_PERCENTUAL_JUROS: TIBBCDField;
-    IbDtstTabelaBCO_PERCENTUAL_MORA: TIBBCDField;
-    IbDtstTabelaBCO_DIA_PROTESTO: TSmallintField;
-    IbDtstTabelaBCO_MSG_INSTRUCAO: TIBStringField;
     lblLayoutRemessa: TLabel;
-    IbDtstTabelaBCO_LAYOUT_REMESSA: TSmallintField;
-    IbDtstTabelaBCO_LAYOUT_RETORNO: TSmallintField;
     dtsLayout: TDataSource;
     dbLayoutRemessa: TDBLookupComboBox;
     lblLayoutRetorno: TLabel;
     dbLayoutRetorno: TDBLookupComboBox;
-    IbDtstTabelaBCO_CODIGO: TSmallintField;
     dbInstrucao: TDBComboBox;
     fdQryEmpresa: TFDQuery;
     fdQryLayout: TFDQuery;
+    fdQryTabelaBCO_CODIGO: TSmallintField;
+    fdQryTabelaBCO_COD: TSmallintField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaBCO_CARTEIRA: TStringField;
+    fdQryTabelaBCO_NOME: TStringField;
+    fdQryTabelaBCO_AGENCIA: TStringField;
+    fdQryTabelaBCO_CC: TStringField;
+    fdQryTabelaBCO_CODIGO_CEDENTE: TStringField;
+    fdQryTabelaBCO_CHAVE: TStringField;
+    fdQryTabelaBCO_GERAR_BOLETO: TSmallintField;
+    fdQryTabelaBCO_NOSSO_NUM_INICIO: TStringField;
+    fdQryTabelaBCO_NOSSO_NUM_FINAL: TStringField;
+    fdQryTabelaBCO_NOSSO_NUM_PROXIMO: TStringField;
+    fdQryTabelaBCO_CONFG_1: TStringField;
+    fdQryTabelaBCO_CONFG_2: TStringField;
+    fdQryTabelaBCO_DIRETORIO_REMESSA: TStringField;
+    fdQryTabelaBCO_DIRETORIO_RETORNO: TStringField;
+    fdQryTabelaBCO_SEQUENCIAL_REM: TIntegerField;
+    fdQryTabelaBCO_PERCENTUAL_JUROS: TBCDField;
+    fdQryTabelaBCO_PERCENTUAL_MORA: TBCDField;
+    fdQryTabelaBCO_DIA_PROTESTO: TSmallintField;
+    fdQryTabelaBCO_MSG_INSTRUCAO: TStringField;
+    fdQryTabelaBCO_LAYOUT_REMESSA: TSmallintField;
+    fdQryTabelaBCO_LAYOUT_RETORNO: TSmallintField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure imgAjudaClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -134,7 +135,8 @@ var
 
 implementation
 
-uses UDMBusiness, UConstantesDGE;
+uses
+  UDMBusiness, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -173,12 +175,13 @@ begin
     // frm.WhereAdditional := '(b.Empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
     Result := frm.SelecionarRegistro(Codigo, Nome);
     if ( Result ) then
-    begin
-      CodigoUnico := frm.IbDtstTabelaBCO_CODIGO.AsInteger;
-      Agencia := frm.IbDtstTabelaBCO_AGENCIA.AsString;
-      Conta   := frm.IbDtstTabelaBCO_CC.AsString;
-      Empresa := frm.IbDtstTabelaEMPRESA.AsString;
-    end;
+      with frm.DtSrcTabela.DataSet do
+      begin
+        CodigoUnico := FieldByName('BCO_CODIGO').AsInteger;
+        Agencia     := FieldByName('BCO_AGENCIA').AsString;
+        Conta       := FieldByName('BCO_CC').AsString;
+        Empresa     := FieldByName('EMPRESA').AsString;
+      end;
   finally
     frm.Destroy;
   end;
@@ -198,75 +201,46 @@ end;
 
 procedure TfrmGeBancos.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( (Field = IbDtstTabelaBCO_PERCENTUAL_JUROS) or (Field = IbDtstTabelaBCO_PERCENTUAL_MORA) ) then
-      if ( (IbDtstTabelaBCO_PERCENTUAL_JUROS.AsCurrency + IbDtstTabelaBCO_PERCENTUAL_MORA.AsCurrency) = 0.0 ) then
-        IbDtstTabelaBCO_MSG_INSTRUCAO.AsString := dbInstrucao.Items.Strings[0]
-      else
-        IbDtstTabelaBCO_MSG_INSTRUCAO.AsString := dbInstrucao.Items.Strings[1];
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( (Field = FieldByName('BCO_PERCENTUAL_JUROS')) or (Field = FieldByName('BCO_PERCENTUAL_MORA')) ) then
+        if ( (FieldByName('BCO_PERCENTUAL_JUROS').AsCurrency + FieldByName('BCO_PERCENTUAL_MORA').AsCurrency) = 0.0 ) then
+          FieldByName('BCO_MSG_INSTRUCAO').AsString := dbInstrucao.Items.Strings[0]
+        else
+          FieldByName('BCO_MSG_INSTRUCAO').AsString := dbInstrucao.Items.Strings[1];
+  end;
 end;
 
-procedure TfrmGeBancos.FormCreate(Sender: TObject);
-begin
-  inherited;
-  RotinaID         := ROTINA_CAD_BANCO_ID;
-  ControlFirstEdit := dbCodigo;
-
-  DisplayFormatCodigo := '0000';
-  CampoCodigo    := 'b.bco_cod';
-  CampoDescricao := 'b.bco_nome';
-
-  CarregarLista(fdQryEmpresa);
-  CarregarLista(fdQryLayout);
-end;
-
-procedure TfrmGeBancos.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaBCO_CODIGO.AsInteger        := GetNextID('TBBANCO_BOLETO', 'BCO_CODIGO');
-  IbDtstTabelaEMPRESA.AsString            := gUsuarioLogado.Empresa;
-  IbDtstTabelaBCO_GERAR_BOLETO.Value      := 0;
-  IbDtstTabelaBCO_NOSSO_NUM_INICIO.Value  := FormatFloat('0000000', 1);
-  IbDtstTabelaBCO_NOSSO_NUM_FINAL.Value   := FormatFloat('0000000', 999999);
-  IbDtstTabelaBCO_NOSSO_NUM_PROXIMO.Value := FormatFloat('0000000', 1);
-  IbDtstTabelaBCO_SEQUENCIAL_REM.Value    := 1;
-  IbDtstTabelaBCO_CODIGO_CEDENTE.Clear;
-
-  IbDtstTabelaBCO_LAYOUT_REMESSA.AsInteger    := 400; // cnab400
-  IbDtstTabelaBCO_LAYOUT_RETORNO.AsInteger    := 400; // cnab400
-  IbDtstTabelaBCO_PERCENTUAL_JUROS.AsCurrency := 0.0;
-  IbDtstTabelaBCO_PERCENTUAL_MORA.AsCurrency  := 0.0;
-  IbDtstTabelaBCO_DIA_PROTESTO.AsInteger      := 0;
-  IbDtstTabelaBCO_MSG_INSTRUCAO.AsString      := 'Não receber pagamento após o vencimento.';
-end;
-
-procedure TfrmGeBancos.IbDtstTabelaBeforePost(DataSet: TDataSet);
+procedure TfrmGeBancos.fdQryTabelaBeforePost(DataSet: TDataSet);
 begin
   try
     // Normalizando diretório de remessa
+    with DtSrcTabela.DataSet do
+    begin
+      FieldByName('BCO_DIRETORIO_REMESSA').AsString := Trim(FieldByName('BCO_DIRETORIO_REMESSA').AsString);
 
-    IbDtstTabelaBCO_DIRETORIO_REMESSA.Value := Trim(IbDtstTabelaBCO_DIRETORIO_REMESSA.AsString);
+      if ( FieldByName('BCO_DIRETORIO_REMESSA').AsString = EmptyStr ) then
+        FieldByName('BCO_DIRETORIO_REMESSA').AsString := 'C:\Banco\Remessa\';
 
-    if ( IbDtstTabelaBCO_DIRETORIO_REMESSA.AsString = EmptyStr ) then
-      IbDtstTabelaBCO_DIRETORIO_REMESSA.Value := 'C:\Remessa\';
+      if ( Copy(FieldByName('BCO_DIRETORIO_REMESSA').AsString, Length(FieldByName('BCO_DIRETORIO_REMESSA').AsString), 1) <> '\' ) then
+        FieldByName('BCO_DIRETORIO_REMESSA').AsString := FieldByName('BCO_DIRETORIO_REMESSA').AsString + '\';
 
-    if ( Copy(IbDtstTabelaBCO_DIRETORIO_REMESSA.AsString, Length(IbDtstTabelaBCO_DIRETORIO_REMESSA.AsString), 1) <> '\' ) then
-      IbDtstTabelaBCO_DIRETORIO_REMESSA.Value := IbDtstTabelaBCO_DIRETORIO_REMESSA.AsString + '\';
+      ForceDirectories(FieldByName('BCO_DIRETORIO_REMESSA').AsString);
 
-    ForceDirectories(IbDtstTabelaBCO_DIRETORIO_REMESSA.AsString);
+      // Normalizando diretório de retorno
 
-    // Normalizando diretório de retorno
+      FieldByName('BCO_DIRETORIO_RETORNO').AsString := Trim(FieldByName('BCO_DIRETORIO_RETORNO').AsString);
 
-    IbDtstTabelaBCO_DIRETORIO_RETORNO.Value := Trim(IbDtstTabelaBCO_DIRETORIO_RETORNO.AsString);
+      if ( FieldByName('BCO_DIRETORIO_RETORNO').AsString = EmptyStr ) then
+        FieldByName('BCO_DIRETORIO_RETORNO').AsString := 'C:\Banco\Retorno\';
 
-    if ( IbDtstTabelaBCO_DIRETORIO_RETORNO.AsString = EmptyStr ) then
-      IbDtstTabelaBCO_DIRETORIO_RETORNO.Value := 'C:\Retorno\';
+      if ( Copy(FieldByName('BCO_DIRETORIO_RETORNO').AsString, Length(FieldByName('BCO_DIRETORIO_RETORNO').AsString), 1) <> '\' ) then
+        FieldByName('BCO_DIRETORIO_RETORNO').AsString := FieldByName('BCO_DIRETORIO_RETORNO').AsString + '\';
 
-    if ( Copy(IbDtstTabelaBCO_DIRETORIO_RETORNO.AsString, Length(IbDtstTabelaBCO_DIRETORIO_RETORNO.AsString), 1) <> '\' ) then
-      IbDtstTabelaBCO_DIRETORIO_RETORNO.Value := IbDtstTabelaBCO_DIRETORIO_RETORNO.AsString + '\';
+      ForceDirectories(FieldByName('BCO_DIRETORIO_RETORNO').AsString);
+    end;
 
-    ForceDirectories(IbDtstTabelaBCO_DIRETORIO_RETORNO.AsString);
-    
     inherited;
   except
     On E : Exception do
@@ -277,12 +251,51 @@ begin
   end;
 end;
 
+procedure TfrmGeBancos.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('BCO_CODIGO').AsInteger           := GetNextID(NomeTabela, 'BCO_CODIGO'); // Código interno de controle
+    FieldByName('EMPRESA').AsString               := gUsuarioLogado.Empresa;
+    FieldByName('BCO_GERAR_BOLETO').AsInteger     := 0;
+    FieldByName('BCO_NOSSO_NUM_INICIO').AsString  := FormatFloat('0000000', 1);
+    FieldByName('BCO_NOSSO_NUM_FINAL').AsString   := FormatFloat('0000000', 999999);
+    FieldByName('BCO_NOSSO_NUM_PROXIMO').AsString := FormatFloat('0000000', 1);
+    FieldByName('BCO_SEQUENCIAL_REM').AsInteger    := 1;
+    FieldByName('BCO_CODIGO_CEDENTE').Clear;
+
+    FieldByName('BCO_LAYOUT_REMESSA').AsInteger    := 400; // cnab400
+    FieldByName('BCO_LAYOUT_RETORNO').AsInteger    := 400; // cnab400
+    FieldByName('BCO_PERCENTUAL_JUROS').AsCurrency := 0.0;
+    FieldByName('BCO_PERCENTUAL_MORA').AsCurrency  := 0.0;
+    FieldByName('BCO_DIA_PROTESTO').AsInteger      := 0;
+    FieldByName('BCO_MSG_INSTRUCAO').AsString      := 'Não receber pagamento após o vencimento.';
+  end;
+end;
+
+procedure TfrmGeBancos.FormCreate(Sender: TObject);
+begin
+  inherited;
+  RotinaID         := ROTINA_CAD_BANCO_ID;
+  ControlFirstEdit := dbCodigo;
+
+  DisplayFormatCodigo := '0000';
+  NomeTabela     := 'TBBANCO_BOLETO';
+  CampoCodigo    := 'b.bco_cod';
+  CampoDescricao := 'b.bco_nome';
+  CampoOrdenacao := 'b.bco_nome';
+
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryLayout);
+end;
+
 procedure TfrmGeBancos.imgAjudaClick(Sender: TObject);
 var
   sMsg : String;
 begin
   sMsg := 'Informações importantes para a geração de boletos.' + #13 +
-    '---' + #13#13 + 
+    '---' + #13#13 +
     '1. Para alguns bancos o "Código da Empresa" informado por eles é o mesmo "Código do Cedente" solicitado pela aplicação.' + #13 +
     '2. O código da Agência deve ser informada com o dígito. Ex: 1232-1' + #13 +
     '3. A Conta Corrente (C/C) deverá ser informanda fundamentalmente com o seu dígito. Ex: 06598-7' + #13 +

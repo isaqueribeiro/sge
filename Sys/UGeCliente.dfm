@@ -29,8 +29,6 @@ inherited frmGeCliente: TfrmGeCliente
     ExplicitWidth = 844
     ExplicitHeight = 492
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel4: TBevel
@@ -198,8 +196,6 @@ inherited frmGeCliente: TfrmGeCliente
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel8: TBevel
@@ -1022,10 +1018,6 @@ inherited frmGeCliente: TfrmGeCliente
         TabStop = False
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFoneFixo: TLabel
             Left = 8
             Top = 0
@@ -2031,10 +2023,6 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsDadoFinanceiro: TTabSheet
           Caption = '&3. Dados Financeiro'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgContaCorrente: TcxDBVerticalGrid
             Left = 0
             Top = 0
@@ -2219,10 +2207,6 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsObservacao: TTabSheet
           Caption = '&4. Observa'#231#245'es'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -2237,10 +2221,6 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsCompra: TTabSheet
           Caption = '&5. Compras'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             828
             198)
@@ -2491,10 +2471,6 @@ inherited frmGeCliente: TfrmGeCliente
     object tbsConsultarCNPJ: TTabSheet
       Caption = 'Consultar CNPJ'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object BvlConsultar: TBevel
         Left = 377
         Top = 0
@@ -3082,10 +3058,6 @@ inherited frmGeCliente: TfrmGeCliente
     object tbsConsultarCPF: TTabSheet
       Caption = 'Consultar CPF'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnlConsultarCPF: TPanel
         Left = 0
         Top = 0
@@ -3183,10 +3155,6 @@ inherited frmGeCliente: TfrmGeCliente
     object tbsEstoqueSatelite: TTabSheet
       Caption = 'Estoque &Sat'#233'lite'
       ImageIndex = 30
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel11: TBevel
         Left = 0
         Top = 62
@@ -3511,6 +3479,10 @@ inherited frmGeCliente: TfrmGeCliente
       Height = 31
       Shape = bsSpacer
     end
+    inherited btbtnExcluir: TcxButton
+      ExplicitLeft = 154
+      ExplicitTop = 0
+    end
     inherited btbtnFechar: TcxButton
       Left = 765
       TabOrder = 8
@@ -3665,7 +3637,6 @@ inherited frmGeCliente: TfrmGeCliente
       '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)')
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_CLIENTE_ID'
-    Left = 584
     object IbDtstTabelaCODIGO: TIntegerField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
@@ -4031,7 +4002,6 @@ inherited frmGeCliente: TfrmGeCliente
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
-    Left = 648
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -4212,12 +4182,11 @@ inherited frmGeCliente: TfrmGeCliente
       'delete from TBCLIENTE'
       'where'
       '  CODIGO = :OLD_CODIGO')
-    Left = 616
   end
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

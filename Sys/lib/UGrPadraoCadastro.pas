@@ -443,14 +443,19 @@ begin
       begin
         IbDtstTabela.Delete;
         IbDtstTabela.ApplyUpdates;
+
+        CommitTransaction;
       end
       else
       begin
         fdQryTabela.Delete;
-        fdQryTabela.ApplyUpdates;
+        fdQryTabela.ApplyUpdates(0);
+        fdQryTabela.CommitUpdates;
+
+        CommitTransaction;
+        fdQryTabela.RefreshRecord();
       end;
 
-      CommitTransaction;
     end;
   except
     On E : Exception do
@@ -499,14 +504,18 @@ begin
           begin
             IbDtstTabela.Post;
             IbDtstTabela.ApplyUpdates;
+
+            CommitTransaction;
           end
           else
           begin
             fdQryTabela.Post;
-            fdQryTabela.ApplyUpdates;
-          end;
+            fdQryTabela.ApplyUpdates(0);
+            fdQryTabela.CommitUpdates;
 
-          CommitTransaction;
+            CommitTransaction;
+            fdQryTabela.RefreshRecord();
+          end;
         end;
       end;
     except

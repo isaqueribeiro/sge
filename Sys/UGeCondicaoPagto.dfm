@@ -8,21 +8,19 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
             Expanded = False
             FieldName = 'COND_COD'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'COND_DESCRICAO_FULL'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 550
             Visible = True
           end
@@ -30,7 +28,7 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
             Expanded = False
             FieldName = 'APrazo'
             Title.Alignment = taCenter
-            Title.Caption = 'A Prazo?'
+            Title.Caption = 'A Prazo? '
             Width = 60
             Visible = True
           end>
@@ -74,6 +72,10 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 185
         ExplicitTop = 185
@@ -498,7 +500,6 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
           item
             Expanded = False
             FieldName = 'DESCRICAO'
-            Title.Caption = 'Forma de Pagamento'
             Width = 400
             Visible = True
           end
@@ -514,10 +515,6 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    BeforePost = IbDtstTabelaBeforePost
-    OnCalcFields = IbDtstTabelaCalcFields
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    c.Cond_cod'
@@ -579,121 +576,12 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       'from TBCONDICAOPAGTO c')
     GeneratorField.Field = 'COND_COD'
     GeneratorField.Generator = 'GEN_CONDICAOPAGTO_COD'
-    Left = 608
-    Top = 192
-    object IbDtstTabelaCOND_COD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COND_COD'
-      Origin = 'TBCONDICAOPAGTO.COND_COD'
-      Required = True
-    end
-    object IbDtstTabelaCOND_DESCRICAO: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'COND_DESCRICAO'
-      Origin = 'TBCONDICAOPAGTO.COND_DESCRICAO'
-      Size = 80
-    end
-    object IbDtstTabelaCOND_PRAZO: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = 'A Prazo?'
-      FieldName = 'COND_PRAZO'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO'
-      Required = True
-    end
-    object IbDtstTabelaCOND_PDV: TSmallintField
-      FieldName = 'COND_PDV'
-      Origin = '"TBCONDICAOPAGTO"."COND_PDV"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCOND_QTDE_PARCELAS: TSmallintField
-      FieldName = 'COND_QTDE_PARCELAS'
-      Origin = '"TBCONDICAOPAGTO"."COND_QTDE_PARCELAS"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCOND_PRAZO_01: TSmallintField
-      DisplayLabel = 'Prazo 1'
-      FieldName = 'COND_PRAZO_01'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_01'
-    end
-    object IbDtstTabelaCOND_PRAZO_02: TSmallintField
-      DisplayLabel = 'Prazo 2'
-      FieldName = 'COND_PRAZO_02'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_02'
-    end
-    object IbDtstTabelaCOND_PRAZO_03: TSmallintField
-      DisplayLabel = 'Prazo 3'
-      FieldName = 'COND_PRAZO_03'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_03'
-    end
-    object IbDtstTabelaCOND_PRAZO_04: TSmallintField
-      DisplayLabel = 'Prazo 4'
-      FieldName = 'COND_PRAZO_04'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_04'
-    end
-    object IbDtstTabelaCOND_PRAZO_05: TSmallintField
-      DisplayLabel = 'Prazo 5'
-      FieldName = 'COND_PRAZO_05'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_05'
-    end
-    object IbDtstTabelaCOND_PRAZO_06: TSmallintField
-      DisplayLabel = 'Prazo 6'
-      FieldName = 'COND_PRAZO_06'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_06'
-    end
-    object IbDtstTabelaCOND_PRAZO_07: TSmallintField
-      DisplayLabel = 'Prazo 7'
-      FieldName = 'COND_PRAZO_07'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_07'
-    end
-    object IbDtstTabelaCOND_PRAZO_08: TSmallintField
-      DisplayLabel = 'Prazo 8'
-      FieldName = 'COND_PRAZO_08'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_08'
-    end
-    object IbDtstTabelaCOND_PRAZO_09: TSmallintField
-      DisplayLabel = 'Prazo 9'
-      FieldName = 'COND_PRAZO_09'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_09'
-    end
-    object IbDtstTabelaCOND_PRAZO_10: TSmallintField
-      DisplayLabel = 'Prazo 10'
-      FieldName = 'COND_PRAZO_10'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_10'
-    end
-    object IbDtstTabelaCOND_PRAZO_11: TSmallintField
-      DisplayLabel = 'Prazo 11'
-      FieldName = 'COND_PRAZO_11'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_11'
-    end
-    object IbDtstTabelaCOND_PRAZO_12: TSmallintField
-      DisplayLabel = 'Prazo 12'
-      FieldName = 'COND_PRAZO_12'
-      Origin = 'TBCONDICAOPAGTO.COND_PRAZO_12'
-    end
-    object IbDtstTabelaATIVA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVA'
-      Origin = '"TBCONDICAOPAGTO"."ATIVA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCOND_DESCRICAO_FULL: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'COND_DESCRICAO_FULL'
-      Size = 175
-    end
-    object IbDtstTabelaAPrazo: TStringField
-      Alignment = taCenter
-      FieldKind = fkCalculated
-      FieldName = 'APrazo'
-      ProviderFlags = []
-      Size = 1
-      Calculated = True
-    end
+    Top = 72
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 672
-    Top = 192
+    Top = 136
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -769,14 +657,13 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       'delete from TBCONDICAOPAGTO'
       'where'
       '  COND_COD = :OLD_COND_COD')
-    Left = 640
-    Top = 192
+    Top = 72
   end
   inherited ImgList: TImageList
     Left = 576
     Top = 192
     Bitmap = {
-      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2235,12 +2122,300 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object qryFormaPagtoLista: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    SelectSQL.Strings = (
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    AfterScroll = fdQryTabelaAfterScroll
+    OnCalcFields = fdQryTabelaCalcFields
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CONDICAOPAGTO_COD'
+    UpdateOptions.KeyFields = 'COND_COD'
+    UpdateOptions.AutoIncFields = 'COND_COD'
+    SQL.Strings = (
+      'Select'
+      '    c.Cond_cod'
+      '  , c.Cond_descricao'
+      '  , c.Cond_prazo'
+      '  , c.Cond_pdv'
+      '  , c.Cond_qtde_parcelas'
+      '  , c.Cond_prazo_01'
+      '  , c.Cond_prazo_02'
+      '  , c.Cond_prazo_03'
+      '  , c.Cond_prazo_04'
+      '  , c.Cond_prazo_05'
+      '  , c.Cond_prazo_06'
+      '  , c.Cond_prazo_07'
+      '  , c.Cond_prazo_08'
+      '  , c.Cond_prazo_09'
+      '  , c.Cond_prazo_10'
+      '  , c.Cond_prazo_11'
+      '  , c.Cond_prazo_12'
+      '  , c.Ativa'
+      '  , c.Cond_descricao || '#39' ['#39' ||'
+      
+        '      case when c.Cond_prazo_01 is not Null then c.Cond_prazo_01' +
+        ' else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_02 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_02 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_03 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_03 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_04 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_04 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_05 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_05 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_06 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_06 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_07 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_07 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_08 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_08 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_09 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_09 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_10 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_10 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_11 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_11 else '#39#39' end ||'
+      
+        '      case when c.Cond_prazo_12 is not Null then '#39', '#39' || c.Cond_' +
+        'prazo_12 else '#39#39' end || '#39']'#39
+      '    as Cond_descricao_full'
+      'from TBCONDICAOPAGTO c')
+    Top = 104
+    object fdQryTabelaCOND_COD: TSmallintField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COND_COD'
+      Origin = 'COND_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdQryTabelaCOND_DESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'COND_DESCRICAO'
+      Origin = 'COND_DESCRICAO'
+      Required = True
+      Size = 80
+    end
+    object fdQryTabelaCOND_PRAZO: TSmallintField
+      Alignment = taCenter
+      DisplayLabel = 'A Prazo?'
+      FieldName = 'COND_PRAZO'
+      Origin = 'COND_PRAZO'
+      Required = True
+    end
+    object fdQryTabelaCOND_PDV: TSmallintField
+      FieldName = 'COND_PDV'
+      Origin = 'COND_PDV'
+      Required = True
+    end
+    object fdQryTabelaCOND_QTDE_PARCELAS: TSmallintField
+      FieldName = 'COND_QTDE_PARCELAS'
+      Origin = 'COND_QTDE_PARCELAS'
+    end
+    object fdQryTabelaCOND_PRAZO_01: TSmallintField
+      DisplayLabel = 'Prazo 1'
+      FieldName = 'COND_PRAZO_01'
+      Origin = 'COND_PRAZO_01'
+    end
+    object fdQryTabelaCOND_PRAZO_02: TSmallintField
+      DisplayLabel = 'Prazo 2'
+      FieldName = 'COND_PRAZO_02'
+      Origin = 'COND_PRAZO_02'
+    end
+    object fdQryTabelaCOND_PRAZO_03: TSmallintField
+      DisplayLabel = 'Prazo 3'
+      FieldName = 'COND_PRAZO_03'
+      Origin = 'COND_PRAZO_03'
+    end
+    object fdQryTabelaCOND_PRAZO_04: TSmallintField
+      DisplayLabel = 'Prazo 4'
+      FieldName = 'COND_PRAZO_04'
+      Origin = 'COND_PRAZO_04'
+    end
+    object fdQryTabelaCOND_PRAZO_05: TSmallintField
+      DisplayLabel = 'Prazo5'
+      FieldName = 'COND_PRAZO_05'
+      Origin = 'COND_PRAZO_05'
+    end
+    object fdQryTabelaCOND_PRAZO_06: TSmallintField
+      DisplayLabel = 'Prazo 6'
+      FieldName = 'COND_PRAZO_06'
+      Origin = 'COND_PRAZO_06'
+    end
+    object fdQryTabelaCOND_PRAZO_07: TSmallintField
+      DisplayLabel = 'Prazo 7'
+      FieldName = 'COND_PRAZO_07'
+      Origin = 'COND_PRAZO_07'
+    end
+    object fdQryTabelaCOND_PRAZO_08: TSmallintField
+      DisplayLabel = 'Prazo 8'
+      FieldName = 'COND_PRAZO_08'
+      Origin = 'COND_PRAZO_08'
+    end
+    object fdQryTabelaCOND_PRAZO_09: TSmallintField
+      DisplayLabel = 'Prazo 9'
+      FieldName = 'COND_PRAZO_09'
+      Origin = 'COND_PRAZO_09'
+    end
+    object fdQryTabelaCOND_PRAZO_10: TSmallintField
+      DisplayLabel = 'Prazo 10'
+      FieldName = 'COND_PRAZO_10'
+      Origin = 'COND_PRAZO_10'
+    end
+    object fdQryTabelaCOND_PRAZO_11: TSmallintField
+      DisplayLabel = 'Prazo 11'
+      FieldName = 'COND_PRAZO_11'
+      Origin = 'COND_PRAZO_11'
+    end
+    object fdQryTabelaCOND_PRAZO_12: TSmallintField
+      DisplayLabel = 'Prazo 12'
+      FieldName = 'COND_PRAZO_12'
+      Origin = 'COND_PRAZO_12'
+    end
+    object fdQryTabelaATIVA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVA'
+      Origin = 'ATIVA'
+      Required = True
+    end
+    object fdQryTabelaCOND_DESCRICAO_FULL: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'COND_DESCRICAO_FULL'
+      Origin = 'COND_DESCRICAO_FULL'
+      ProviderFlags = []
+      Size = 177
+    end
+    object fdQryTabelaAPrazo: TStringField
+      Alignment = taCenter
+      DisplayWidth = 1
+      FieldKind = fkInternalCalc
+      FieldName = 'APrazo'
+      Size = 1
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONDICAOPAGTO'
+      '(COND_COD, COND_DESCRICAO, COND_PRAZO, COND_PDV, '
+      '  COND_QTDE_PARCELAS, COND_PRAZO_01, COND_PRAZO_02, '
+      '  COND_PRAZO_03, COND_PRAZO_04, COND_PRAZO_05, '
+      '  COND_PRAZO_06, COND_PRAZO_07, COND_PRAZO_08, '
+      '  COND_PRAZO_09, COND_PRAZO_10, COND_PRAZO_11, '
+      '  COND_PRAZO_12, ATIVA)'
+      
+        'VALUES (:NEW_COND_COD, :NEW_COND_DESCRICAO, :NEW_COND_PRAZO, :NE' +
+        'W_COND_PDV, '
+      
+        '  :NEW_COND_QTDE_PARCELAS, :NEW_COND_PRAZO_01, :NEW_COND_PRAZO_0' +
+        '2, '
+      '  :NEW_COND_PRAZO_03, :NEW_COND_PRAZO_04, :NEW_COND_PRAZO_05, '
+      '  :NEW_COND_PRAZO_06, :NEW_COND_PRAZO_07, :NEW_COND_PRAZO_08, '
+      '  :NEW_COND_PRAZO_09, :NEW_COND_PRAZO_10, :NEW_COND_PRAZO_11, '
+      '  :NEW_COND_PRAZO_12, :NEW_ATIVA)'
+      'RETURNING COND_QTDE_PARCELAS')
+    ModifySQL.Strings = (
+      'UPDATE TBCONDICAOPAGTO'
+      
+        'SET COND_COD = :NEW_COND_COD, COND_DESCRICAO = :NEW_COND_DESCRIC' +
+        'AO, '
+      '  COND_PRAZO = :NEW_COND_PRAZO, COND_PDV = :NEW_COND_PDV, '
+      
+        '  COND_QTDE_PARCELAS = :NEW_COND_QTDE_PARCELAS, COND_PRAZO_01 = ' +
+        ':NEW_COND_PRAZO_01, '
+      
+        '  COND_PRAZO_02 = :NEW_COND_PRAZO_02, COND_PRAZO_03 = :NEW_COND_' +
+        'PRAZO_03, '
+      
+        '  COND_PRAZO_04 = :NEW_COND_PRAZO_04, COND_PRAZO_05 = :NEW_COND_' +
+        'PRAZO_05, '
+      
+        '  COND_PRAZO_06 = :NEW_COND_PRAZO_06, COND_PRAZO_07 = :NEW_COND_' +
+        'PRAZO_07, '
+      
+        '  COND_PRAZO_08 = :NEW_COND_PRAZO_08, COND_PRAZO_09 = :NEW_COND_' +
+        'PRAZO_09, '
+      
+        '  COND_PRAZO_10 = :NEW_COND_PRAZO_10, COND_PRAZO_11 = :NEW_COND_' +
+        'PRAZO_11, '
+      '  COND_PRAZO_12 = :NEW_COND_PRAZO_12, ATIVA = :NEW_ATIVA'
+      'WHERE COND_COD = :OLD_COND_COD'
+      'RETURNING COND_QTDE_PARCELAS')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONDICAOPAGTO'
+      'WHERE COND_COD = :OLD_COND_COD')
+    FetchRowSQL.Strings = (
+      
+        'SELECT COND_COD, COND_DESCRICAO, COND_PRAZO, COND_PDV, COND_QTDE' +
+        '_PARCELAS, '
+      '  COND_PRAZO_01, COND_PRAZO_02, COND_PRAZO_03, COND_PRAZO_04, '
+      '  COND_PRAZO_05, COND_PRAZO_06, COND_PRAZO_07, COND_PRAZO_08, '
+      '  COND_PRAZO_09, COND_PRAZO_10, COND_PRAZO_11, COND_PRAZO_12, '
+      '  ATIVA'
+      'FROM TBCONDICAOPAGTO'
+      'WHERE COND_COD = :COND_COD')
+    Top = 104
+  end
+  object dspFormaPagtoLista: TDataSetProvider
+    DataSet = qryFormaPagtoLista
+    Left = 176
+    Top = 280
+  end
+  object cdsFormaPagtoLista: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'CONDICAO_PAGTO'
+        ParamType = ptInput
+        Value = 0
+      end>
+    ProviderName = 'dspFormaPagtoLista'
+    Left = 208
+    Top = 280
+    object cdsFormaPagtoListaSELECIONAR: TIntegerField
+      Alignment = taCenter
+      FieldName = 'SELECIONAR'
+      OnGetText = cdsFormaPagtoListaSELECIONARGetText
+    end
+    object cdsFormaPagtoListaCODIGO: TSmallintField
+      Alignment = taCenter
+      FieldName = 'CODIGO'
+      Required = True
+      DisplayFormat = '00'
+    end
+    object cdsFormaPagtoListaDESCRICAO: TStringField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'DESCRICAO'
+      Size = 30
+    end
+    object cdsFormaPagtoListaUSAR_PDV: TStringField
+      Alignment = taCenter
+      FieldName = 'USAR_PDV'
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object dtsFormaPagtoLista: TDataSource
+    DataSet = cdsFormaPagtoLista
+    Left = 240
+    Top = 280
+  end
+  object qryFormaPagtoLista: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       
         '    Case when c.condicao_pagto is null then 0 else 1 end as sele' +
@@ -2257,53 +2432,40 @@ inherited frmGeCondicaoPagto: TfrmGeCondicaoPagto
       ''
       'order by'
       '    f.cod')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 140
-    Top = 281
-  end
-  object dspFormaPagtoLista: TDataSetProvider
-    DataSet = qryFormaPagtoLista
-    Left = 172
-    Top = 281
-  end
-  object cdsFormaPagtoLista: TClientDataSet
-    Aggregates = <>
-    Params = <
+    Left = 144
+    Top = 280
+    ParamData = <
       item
-        DataType = ftSmallint
+        Position = 1
         Name = 'CONDICAO_PAGTO'
+        DataType = ftSmallint
         ParamType = ptInput
         Value = 0
       end>
-    ProviderName = 'dspFormaPagtoLista'
-    Left = 204
-    Top = 281
-    object cdsFormaPagtoListaSELECIONAR: TIntegerField
-      Alignment = taCenter
+    object qryFormaPagtoListaSELECIONAR: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'SELECIONAR'
-      OnGetText = cdsFormaPagtoListaSELECIONARGetText
+      Origin = 'SELECIONAR'
+      ProviderFlags = []
     end
-    object cdsFormaPagtoListaCODIGO: TSmallintField
-      Alignment = taCenter
+    object qryFormaPagtoListaCODIGO: TSmallintField
       FieldName = 'CODIGO'
+      Origin = 'COD'
       Required = True
-      DisplayFormat = '00'
     end
-    object cdsFormaPagtoListaDESCRICAO: TWideStringField
+    object qryFormaPagtoListaDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
+      Origin = 'DESCRI'
       Size = 30
     end
-    object cdsFormaPagtoListaUSAR_PDV: TWideStringField
-      Alignment = taCenter
+    object qryFormaPagtoListaUSAR_PDV: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'USAR_PDV'
+      Origin = 'USAR_PDV'
+      ProviderFlags = []
+      ReadOnly = True
       FixedChar = True
       Size = 1
     end
-  end
-  object dtsFormaPagtoLista: TDataSource
-    DataSet = cdsFormaPagtoLista
-    Left = 236
-    Top = 281
   end
 end

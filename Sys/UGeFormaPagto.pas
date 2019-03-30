@@ -6,7 +6,7 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, DBClient, Provider, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
@@ -15,9 +15,9 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeFormaPagto = class(TfrmGrPadraoCadastro)
@@ -25,25 +25,17 @@ type
     dbNome: TDBEdit;
     lblAcrescimo: TLabel;
     dbAcrescimo: TDBEdit;
-    IbDtstTabelaCOD: TSmallintField;
-    IbDtstTabelaDESCRI: TIBStringField;
-    IbDtstTabelaACRESCIMO: TFloatField;
     dbDecrementarLimite: TDBCheckBox;
-    IbDtstTabelaDEBITAR_LIMITE_CLIENTE: TSmallintField;
     lblFormaPagtoNCFe: TLabel;
     dbFormaPagtoNCFe: TDBLookupComboBox;
     dtsFormaPagtoNCFe: TDataSource;
-    IbDtstTabelaFORMAPAGTO_NFCE: TIBStringField;
-    IbDtstTabelaFORMAPAGTO_PDV: TSmallintField;
     dbFormaPagtoPDV: TDBCheckBox;
     dbgContaCorrente: TDBGrid;
     dtsContaCorrenteLista: TDataSource;
     dspContaCorrenteLista: TDataSetProvider;
     cdsContaCorrenteLista: TClientDataSet;
     cdsContaCorrenteListaSELECIONAR: TIntegerField;
-    IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField;
     dbFormaPagtoPDVRelatorio: TDBCheckBox;
-    IbDtstTabelaATIVA: TSmallintField;
     dbAtiva: TDBCheckBox;
     fdQryFormaPagtoNCFe: TFDQuery;
     fdQryContaCorrenteLista: TFDQuery;
@@ -52,9 +44,15 @@ type
     cdsContaCorrenteListaTIPO: TStringField;
     cdsContaCorrenteListaRZSOC: TStringField;
     lblRegistroDesativado: TLabel;
+    fdQryTabelaCOD: TSmallintField;
+    fdQryTabelaDESCRI: TStringField;
+    fdQryTabelaACRESCIMO: TSingleField;
+    fdQryTabelaFORMAPAGTO_NFCE: TStringField;
+    fdQryTabelaFORMAPAGTO_PDV: TSmallintField;
+    fdQryTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField;
+    fdQryTabelaDEBITAR_LIMITE_CLIENTE: TSmallintField;
+    fdQryTabelaATIVA: TSmallintField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure dbgContaCorrenteDblClick(Sender: TObject);
     procedure dbgContaCorrenteKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -64,6 +62,8 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure CarregarContaCorrente;
@@ -146,11 +146,11 @@ begin
     frm.WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
       '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + frm.WhereAdditional);
-      SelectSQL.Add('order by p.Cod');  
+      SQL.Add('where ' + frm.WhereAdditional);
+      SQL.Add('order by p.Cod');
       Open;
     end;
 
@@ -167,7 +167,7 @@ begin
   with cdsContaCorrenteLista, Params do
   begin
     Close;
-    ParamByName('forma_pagto').AsInteger := IbDtstTabelaCOD.AsInteger;
+    ParamByName('forma_pagto').AsInteger := DtSrcTabela.DataSet.FieldByName('COD').AsInteger;
     Open;
   end;
 end;
@@ -184,6 +184,7 @@ begin
   NomeTabela     := 'TBFORMPAGTO';
   CampoCodigo    := 'COD';
   CampoDescricao := 'DESCRI';
+  CampoOrdenacao := 'COD';
   CampoCadastroAtivo := 'ATIVA';
 
   if (gSistema.Codigo = SISTEMA_PDV) then
@@ -197,24 +198,6 @@ begin
 
   dbDecrementarLimite.Enabled := (GetUserFunctionID in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_ADM, FUNCTION_USER_ID_GERENTE_VND,
     FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_AUX_FINANC1, FUNCTION_USER_ID_AUX_FINANC2, FUNCTION_USER_ID_SYSTEM_ADM]);
-end;
-
-procedure TfrmGeFormaPagto.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaCOD.Value       := GetNextID(NomeTabela, CampoCodigo);
-  IbDtstTabelaACRESCIMO.Value := 0;
-  IbDtstTabelaATIVA.AsInteger := 1;
-  IbDtstTabelaDEBITAR_LIMITE_CLIENTE.Value := 1;
-  IbDtstTabelaFORMAPAGTO_PDV.Value         := 0;
-  IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA.Value := 0;
-  IbDtstTabelaFORMAPAGTO_NFCE.Clear;
-end;
-
-procedure TfrmGeFormaPagto.IbDtstTabelaAfterScroll(DataSet: TDataSet);
-begin
-  inherited;
-  CarregarContaCorrente;
 end;
 
 procedure TfrmGeFormaPagto.dbgContaCorrenteDblClick(Sender: TObject);
@@ -241,7 +224,28 @@ end;
 procedure TfrmGeFormaPagto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  dtsContaCorrenteLista.AutoEdit := (IbDtstTabela.State in [dsEdit, dsInsert]);
+  dtsContaCorrenteLista.AutoEdit := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+end;
+
+procedure TfrmGeFormaPagto.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  CarregarContaCorrente;
+end;
+
+procedure TfrmGeFormaPagto.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('COD').AsInteger        := GetNextID(NomeTabela, 'COD');
+    FieldByName('ACRESCIMO').AsCurrency := 0;
+    FieldByName('ATIVA').AsInteger      := 1;
+    FieldByName('DEBITAR_LIMITE_CLIENTE').AsInteger     := 1;
+    FieldByName('FORMAPAGTO_PDV').AsInteger             := 0;
+    FieldByName('FORMAPAGTO_PDV_CUPOM_EXTRA').AsInteger := 0;
+    FieldByName('FORMAPAGTO_NFCE').Clear;
+  end;
 end;
 
 procedure TfrmGeFormaPagto.cdsContaCorrenteListaSELECIONARGetText(
@@ -277,11 +281,11 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-      SQL.Add( Format(SQL_DELETE, [IbDtstTabelaCOD.AsString, cdsContaCorrenteListaCODIGO.AsString]) );
+      SQL.Add( Format(SQL_DELETE, [DtSrcTabela.DataSet.FieldByName('COD').AsString, cdsContaCorrenteListaCODIGO.AsString]) );
       ExecSQL;
 
       SQL.Clear;
-      SQL.Add( Format(sSQL, [IbDtstTabelaCOD.AsString, cdsContaCorrenteListaCODIGO.AsString]) );
+      SQL.Add( Format(sSQL, [DtSrcTabela.DataSet.FieldByName('COD').AsString, cdsContaCorrenteListaCODIGO.AsString]) );
       ExecSQL;
 
       CommitTransaction;
@@ -299,9 +303,9 @@ begin
   IMR - 15/10/2014 :
     Rotina que permite a gravação de várias contas correntes para a mesma forma de pagamento.
 *)
-  IbDtstTabela.AfterScroll := nil;
+  fdQryTabela.AfterScroll := nil;
   inherited;
-  IbDtstTabela.AfterScroll := IbDtstTabelaAfterScroll;
+  fdQryTabela.AfterScroll := fdQryTabelaAfterScroll;
 
   if ( not OcorreuErro ) then
     GravarRelacaoFormaConta;

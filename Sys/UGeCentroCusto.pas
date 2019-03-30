@@ -4,48 +4,51 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, DBClient, 
+  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
+  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, DBClient,
   Provider, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvExMask, JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeCentroCusto = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaDESCRICAO: TIBStringField;
-    IbDtstTabelaATIVO: TSmallintField;
-    IbDtstTabelaCODCLIENTE: TIntegerField;
-    IbDtstTabelaNOME: TIBStringField;
     lblDesricao: TLabel;
     dbDesricao: TDBEdit;
-    IbDtstTabelaATIVO_TEMP: TStringField;
     lblCliente: TLabel;
     dbAtivo: TDBCheckBox;
-    qryEmpresaLista: TIBDataSet;
     dspEmpresaLista: TDataSetProvider;
     cdsEmpresaLista: TClientDataSet;
     dtsEmpresaLista: TDataSource;
     dbgEmpresaLista: TDBGrid;
-    cdsEmpresaListaSELECIONAR: TIntegerField;
     dbCliente: TJvDBComboEdit;
-    cdsEmpresaListaCNPJ: TWideStringField;
-    cdsEmpresaListaRZSOC: TWideStringField;
+    qryEmpresaLista: TFDQuery;
+    qryEmpresaListaSELECIONAR: TIntegerField;
+    qryEmpresaListaCNPJ: TStringField;
+    qryEmpresaListaRZSOC: TStringField;
+    qryEmpresaListaCENTRO_CUSTO: TIntegerField;
+    qryEmpresaListaEMPRESA: TStringField;
+    cdsEmpresaListaSELECIONAR: TIntegerField;
+    cdsEmpresaListaCNPJ: TStringField;
+    cdsEmpresaListaRZSOC: TStringField;
     cdsEmpresaListaCENTRO_CUSTO: TIntegerField;
-    cdsEmpresaListaEMPRESA: TWideStringField;
+    cdsEmpresaListaEMPRESA: TStringField;
+    fdQryTabelaCODIGO: TIntegerField;
+    fdQryTabelaDESCRICAO: TStringField;
+    fdQryTabelaATIVO: TSmallintField;
+    fdQryTabelaCODCLIENTE: TIntegerField;
+    fdQryTabelaNOME: TStringField;
+    fdQryTabelaATIVO_TEMP: TStringField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure dbgEmpresaListaDblClick(Sender: TObject);
@@ -55,6 +58,9 @@ type
     procedure dbgEmpresaListaKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     fCodigoCliente : Integer;
@@ -115,12 +121,12 @@ begin
     else
       frm.WhereAdditional := EmptyStr;
 
-    frm.IbDtstTabela.SelectSQL.Add('where 1=1 ' + IfThen(frm.WhereAdditional = EmptyStr, '', ' and ' + frm.WhereAdditional));
+    frm.fdQryTabela.SQL.Add('where 1=1 ' + IfThen(frm.WhereAdditional = EmptyStr, '', ' and ' + frm.WhereAdditional));
 
     Result := frm.SelecionarRegistro(Codigo, Nome);
 
     if Result then
-      ClienteIDRetorno := frm.IbDtstTabelaCODCLIENTE.AsInteger;
+      ClienteIDRetorno := frm.DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger;
   finally
     frm.Destroy;
   end;
@@ -144,22 +150,20 @@ begin
   UpdateGenerator;
 end;
 
-procedure TfrmGeCentroCusto.IbDtstTabelaCalcFields(DataSet: TDataSet);
-begin
-  IbDtstTabelaATIVO_TEMP.AsString := IfThen(IbDtstTabelaATIVO.AsInteger = 1, 'X', '.');
-end;
-
 procedure TfrmGeCentroCusto.dbClienteButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
   sNome : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCliente(Self, iCodigo, sNome) ) then
-    begin
-      IbDtstTabelaCODCLIENTE.AsInteger := iCodigo;
-      IbDtstTabelaNOME.AsString        := sNome;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarCliente(Self, iCodigo, sNome) ) then
+      begin
+        FieldByName('CODCLIENTE').AsInteger := iCodigo;
+        FieldByName('NOME').AsString        := sNome;
+      end;
+  end;
 end;
 
 procedure TfrmGeCentroCusto.FormKeyDown(Sender: TObject; var Key: Word;
@@ -167,21 +171,18 @@ procedure TfrmGeCentroCusto.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
   begin
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-      if ( dbCliente.Focused ) then
-      begin
-        IbDtstTabelaCODCLIENTE.Clear;
-        IbDtstTabelaNOME.Clear;
-      end
+    with DtSrcTabela.DataSet do
+    begin
+      if ( State in [dsEdit, dsInsert] ) then
+        if ( dbCliente.Focused ) then
+        begin
+          FieldByName('CODCLIENTE').Clear;
+          FieldByName('NOME').Clear;
+        end
+    end;
   end
   else
     inherited;
-end;
-
-procedure TfrmGeCentroCusto.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaATIVO.AsInteger := 1;
 end;
 
 procedure TfrmGeCentroCusto.CarregarEmpresa;
@@ -189,7 +190,7 @@ begin
   with cdsEmpresaLista, Params do
   begin
     Close;
-    ParamByName('centro_custo').AsInteger := IbDtstTabelaCODIGO.AsInteger;
+    ParamByName('centro_custo').AsInteger := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
     Open;
   end;
 end;
@@ -202,6 +203,7 @@ const
   SQL_DELETE = 'Delete from TBCENTRO_CUSTO_EMPRESA where centro_custo = %s and empresa = %s';
 begin
   cdsEmpresaLista.First;
+  cdsEmpresaLista.DisableControls;
   while not cdsEmpresaLista.Eof do
   begin
     if cdsEmpresaListaSELECIONAR.AsInteger = 1 then
@@ -212,11 +214,11 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-      SQL.Add( Format(SQL_DELETE, [IbDtstTabelaCODIGO.AsString, QuotedStr(cdsEmpresaListaCNPJ.AsString)]) );
+      SQL.Add( Format(SQL_DELETE, [DtSrcTabela.DataSet.FieldByName('CODIGO').AsString, QuotedStr(cdsEmpresaListaCNPJ.AsString)]) );
       ExecSQL;
 
       SQL.Clear;
-      SQL.Add( Format(sSQL, [IbDtstTabelaCODIGO.AsString, QuotedStr(cdsEmpresaListaCNPJ.AsString)]) );
+      SQL.Add( Format(sSQL, [DtSrcTabela.DataSet.FieldByName('CODIGO').AsString, QuotedStr(cdsEmpresaListaCNPJ.AsString)]) );
       ExecSQL;
 
       CommitTransaction;
@@ -224,12 +226,8 @@ begin
 
     cdsEmpresaLista.Next;
   end;
-end;
-
-procedure TfrmGeCentroCusto.IbDtstTabelaAfterScroll(DataSet: TDataSet);
-begin
-  inherited;
-  CarregarEmpresa;
+  cdsEmpresaLista.First;
+  cdsEmpresaLista.EnableControls;
 end;
 
 procedure TfrmGeCentroCusto.btbtnCancelarClick(Sender: TObject);
@@ -245,16 +243,16 @@ begin
   IMR - 19/11/2014 :
     Rotina que permite a gravação de várias Empresas para o mesmo Centro de Custo.
 *)
-  if (IbDtstTabelaCODCLIENTE.AsInteger = 0) then
+  if (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger = 0) then
     if not EmpresaSelecionada then
     begin
       ShowWarning('Favor selecionar a empresa, caso o Departamento/Centro de Custo seja interno.');
       Exit;
     end;
 
-  IbDtstTabela.AfterScroll := nil;
+  fdQryTabela.AfterScroll := nil;
   inherited;
-  IbDtstTabela.AfterScroll := IbDtstTabelaAfterScroll;
+  fdQryTabela.AfterScroll := fdQryTabelaAfterScroll;
 
   if ( not OcorreuErro ) then
     GravarRelacaoCentroCustoEmpresa;
@@ -277,7 +275,7 @@ end;
 procedure TfrmGeCentroCusto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  dtsEmpresaLista.AutoEdit := (IbDtstTabela.State in [dsEdit, dsInsert]);
+  dtsEmpresaLista.AutoEdit := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 end;
 
 function TfrmGeCentroCusto.EmpresaSelecionada: Boolean;
@@ -304,6 +302,24 @@ begin
 
     Result := bRetorno;
   end;
+end;
+
+procedure TfrmGeCentroCusto.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  CarregarEmpresa;
+end;
+
+procedure TfrmGeCentroCusto.fdQryTabelaCalcFields(DataSet: TDataSet);
+begin
+  inherited;
+  DtSrcTabela.DataSet.FieldByName('ATIVO_TEMP').AsString := IfThen(DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 1, 'X', '.');
+end;
+
+procedure TfrmGeCentroCusto.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger := 1;
 end;
 
 procedure TfrmGeCentroCusto.cdsEmpresaListaSELECIONARGetText(

@@ -9,46 +9,44 @@ uses
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
   StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, IBQuery, IBTable,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls,
+  JvExMask, JvToolEdit, JvDBControls, System.ImageList,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeContaCorrente = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaDESCRICAO: TIBStringField;
-    IbDtstTabelaTIPO: TSmallintField;
-    IbDtstTabelaCONTA_BANCO_BOLETO: TSmallintField;
-    IbDtstTabelaBANCO: TIBStringField;
     lblBanco: TLabel;
     dbTipo: TDBRadioGroup;
-    IbDtstTabelaTIPO_DESC: TIBStringField;
-    IbDtstTabelaEMPRESA: TIBStringField;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     dbBanco: TJvDBComboEdit;
-    IbDtstTabelaBCO_CODIGO_CC: TSmallintField;
     fdQryEmpresa: TFDQuery;
-    IbDtstTabelaCODIGO_CONTABIL: TIBStringField;
     lblCodigoContabil: TLabel;
     dbCodigoContabil: TDBEdit;
+    fdQryTabelaCODIGO: TIntegerField;
+    fdQryTabelaDESCRICAO: TStringField;
+    fdQryTabelaTIPO: TSmallintField;
+    fdQryTabelaBCO_CODIGO_CC: TSmallintField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaCONTA_BANCO_BOLETO: TSmallintField;
+    fdQryTabelaCODIGO_CONTABIL: TStringField;
+    fdQryTabelaTIPO_DESC: TStringField;
+    fdQryTabelaBANCO: TStringField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure dbBancoButtonClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     function PermitirSalvarContaCaixa : Boolean;
@@ -113,8 +111,9 @@ begin
 
   DisplayFormatCodigo := '000';
   NomeTabela     := 'TBCONTA_CORRENTE';
-  CampoCodigo    := 'Codigo';
-  CampoDescricao := 'Descricao';
+  CampoCodigo    := 'cc.Codigo';
+  CampoDescricao := 'cc.Descricao';
+  CampoOrdenacao := 'cc.Descricao';
 
   btbtnIncluir.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   btbtnAlterar.Visible  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
@@ -125,20 +124,9 @@ begin
   CarregarLista(fdQryEmpresa);
 end;
 
-procedure TfrmGeContaCorrente.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaCODIGO.Value  := GetNextID(NomeTabela, CampoCodigo);
-  IbDtstTabelaTIPO.Value    := CONTA_CORRENTE_TIPO_CAIXA;
-  IbDtstTabelaEMPRESA.Value := gUsuarioLogado.Empresa;
-  IbDtstTabelaBCO_CODIGO_CC.Clear;
-  IbDtstTabelaCONTA_BANCO_BOLETO.Clear;
-  IbDtstTabelaCODIGO_CONTABIL.Clear;
-end;
-
 function TfrmGeContaCorrente.PermitirSalvarContaCaixa: Boolean;
 begin
-  Result := (IbDtstTabelaTIPO.AsInteger = 2); // Conta Banco não é analisada
+  Result := (DtSrcTabela.DataSet.FieldByName('TIPO').AsInteger = 2); // Conta Banco não é analisada
   if not Result then
     with DMBusiness, fdQryBusca do
     begin
@@ -149,9 +137,9 @@ begin
       SQL.Add('Select');
       SQL.Add('  codigo');
       SQL.Add('from TBCONTA_CORRENTE');
-      SQL.Add('where empresa = ' + QuotedStr(IbDtstTabelaEMPRESA.AsString));
-      SQL.Add('  and tipo    = ' + IbDtstTabelaTIPO.AsString);
-      SQL.Add('  and codigo <> ' + IbDtstTabelaCODIGO.AsString);
+      SQL.Add('where empresa = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString));
+      SQL.Add('  and tipo    = ' + DtSrcTabela.DataSet.FieldByName('TIPO').AsString);
+      SQL.Add('  and codigo <> ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString);
 
       fdQryBusca.Open;
 
@@ -164,9 +152,11 @@ end;
 
 procedure TfrmGeContaCorrente.btbtnSalvarClick(Sender: TObject);
 begin
-  IbDtstTabelaCONTA_BANCO_BOLETO.Required := (IbDtstTabelaTIPO.AsInteger = CONTA_CORRENTE_TIPO_BANCO);
-
-  IbDtstTabelaTIPO_DESC.AsString := dbTipo.Items[ dbTipo.ItemIndex ];
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('CONTA_BANCO_BOLETO').Required := (FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
+    FieldByName('TIPO_DESC').AsString          := dbTipo.Items[ dbTipo.ItemIndex ];
+  end;
 
   if not PermitirSalvarContaCaixa then
     Abort;
@@ -203,23 +193,41 @@ var
   sConta   ,
   sEmpresa : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarBanco(Self, iCodigoUnico, iCodigo, sNome, sAgencia, sConta, sEmpresa) ) then
-    begin
-      IbDtstTabelaBCO_CODIGO_CC.AsInteger      := iCodigoUnico;
-      IbDtstTabelaCONTA_BANCO_BOLETO.AsInteger := iCodigo;
-      IbDtstTabelaBANCO.AsString   := sNome + ' AG.: ' + sAgencia + ' C/C.: ' + sConta;
-      IbDtstTabelaEMPRESA.AsString := sEmpresa
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarBanco(Self, iCodigoUnico, iCodigo, sNome, sAgencia, sConta, sEmpresa) ) then
+      begin
+        FieldByName('BCO_CODIGO_CC').AsInteger      := iCodigoUnico;
+        FieldByName('CONTA_BANCO_BOLETO').AsInteger := iCodigo;
+        FieldByName('BANCO').AsString   := Trim(sNome + ' AG.: ' + sAgencia + ' C/C.: ' + sConta);
+        FieldByName('EMPRESA').AsString := sEmpresa
+      end;
+  end;
 end;
 
 procedure TfrmGeContaCorrente.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
-  if ( Field = IbDtstTabela.FieldByName('TIPO') ) then
+  with DtSrcTabela.DataSet do
+    if ( Field = FieldByName('TIPO') ) then
+    begin
+      dbBanco.Button.Enabled := (FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
+      dbEmpresa.ReadOnly     := (FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
+    end;
+end;
+
+procedure TfrmGeContaCorrente.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
   begin
-    dbBanco.Button.Enabled := (IbDtstTabela.FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
-    dbEmpresa.ReadOnly     := (IbDtstTabela.FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
+    FieldByName('CODIGO').AsInteger := GetNextID(NomeTabela, 'CODIGO');
+    FieldByName('TIPO').AsInteger   := CONTA_CORRENTE_TIPO_CAIXA;
+    FieldByName('EMPRESA').AsString := gUsuarioLogado.Empresa;
+    FieldByName('BCO_CODIGO_CC').Clear;
+    FieldByName('CONTA_BANCO_BOLETO').Clear;
+    FieldByName('CODIGO_CONTABIL').Clear;
   end;
 end;
 

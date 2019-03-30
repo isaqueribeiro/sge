@@ -2,33 +2,30 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
   Left = 394
   Top = 218
   Caption = 'Tabela de Departamentos / Centros de Custos'
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
             Expanded = False
             FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
+            Title.Caption = 'Cliente '
             Width = 300
             Visible = True
           end
@@ -36,6 +33,7 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
             Expanded = False
             FieldName = 'ATIVO_TEMP'
             Title.Alignment = taCenter
+            Title.Caption = 'Ativo '
             Width = 35
             Visible = True
           end>
@@ -70,10 +68,6 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 145
         ExplicitTop = 145
@@ -248,13 +242,14 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
             Expanded = False
             FieldName = 'SELECIONAR'
             Title.Alignment = taCenter
+            Title.Caption = 'S'
             Width = 30
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'RZSOC'
-            Title.Caption = 'Empresa'
+            Title.Caption = 'Empresa '
             Width = 450
             Visible = True
           end>
@@ -262,9 +257,6 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    OnCalcFields = IbDtstTabelaCalcFields
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    c.codigo'
@@ -277,49 +269,9 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_CENTRO_CUSTO'
     GeneratorField.ApplyEvent = gamOnNewRecord
-    object IbDtstTabelaCODIGO: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = '"TBCENTRO_CUSTO"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      DisplayFormat = '0000'
-    end
-    object IbDtstTabelaDESCRICAO: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRICAO'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Ativo?'
-      FieldName = 'ATIVO'
-      Origin = '"TBCENTRO_CUSTO"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCODCLIENTE: TIntegerField
-      DisplayLabel = 'Cliente'
-      FieldName = 'CODCLIENTE'
-      Origin = '"TBCENTRO_CUSTO"."CODCLIENTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNOME: TIBStringField
-      DisplayLabel = 'Cliente'
-      FieldName = 'NOME'
-      Origin = '"TBCLIENTE"."NOME"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaATIVO_TEMP: TStringField
-      Alignment = taCenter
-      DisplayLabel = 'Ativo'
-      FieldKind = fkCalculated
-      FieldName = 'ATIVO_TEMP'
-      Size = 1
-      Calculated = True
-    end
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -352,7 +304,7 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1811,12 +1763,140 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object qryEmpresaLista: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    SelectSQL.Strings = (
+  inherited fdQryTabela: TFDQuery
+    AfterScroll = fdQryTabelaAfterScroll
+    OnCalcFields = fdQryTabelaCalcFields
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CENTRO_CUSTO'
+    UpdateOptions.KeyFields = 'CODIGO'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.descricao'
+      '  , c.ativo'
+      '  , c.codcliente'
+      '  , cc.nome'
+      'from TBCENTRO_CUSTO c'
+      '  left join TBCLIENTE cc on (cc.codigo = c.codcliente)')
+    object fdQryTabelaCODIGO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Required = True
+      Size = 100
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Ativo?'
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object fdQryTabelaCODCLIENTE: TIntegerField
+      FieldName = 'CODCLIENTE'
+      Origin = 'CODCLIENTE'
+    end
+    object fdQryTabelaNOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cliente'
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaATIVO_TEMP: TStringField
+      Alignment = taCenter
+      DisplayLabel = 'Ativo'
+      FieldKind = fkInternalCalc
+      FieldName = 'ATIVO_TEMP'
+      Size = 1
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCENTRO_CUSTO'
+      '(CODIGO, DESCRICAO, ATIVO, CODCLIENTE)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_DESCRICAO, :NEW_ATIVO, :NEW_CODCLIENTE' +
+        ')'
+      'RETURNING CODIGO, CODCLIENTE')
+    ModifySQL.Strings = (
+      'UPDATE TBCENTRO_CUSTO'
+      
+        'SET CODIGO = :NEW_CODIGO, DESCRICAO = :NEW_DESCRICAO, ATIVO = :N' +
+        'EW_ATIVO, '
+      '  CODCLIENTE = :NEW_CODCLIENTE'
+      'WHERE CODIGO = :OLD_CODIGO'
+      'RETURNING CODIGO, CODCLIENTE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCENTRO_CUSTO'
+      'WHERE CODIGO = :OLD_CODIGO')
+    FetchRowSQL.Strings = (
+      'SELECT CODIGO, DESCRICAO, ATIVO, CODCLIENTE'
+      'FROM TBCENTRO_CUSTO'
+      'WHERE CODIGO = :CODIGO')
+  end
+  object dspEmpresaLista: TDataSetProvider
+    DataSet = qryEmpresaLista
+    Left = 216
+    Top = 224
+  end
+  object cdsEmpresaLista: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CENTRO_CUSTO'
+        ParamType = ptInput
+        Value = 0
+      end>
+    ProviderName = 'dspEmpresaLista'
+    Left = 248
+    Top = 224
+    object cdsEmpresaListaSELECIONAR: TIntegerField
+      Alignment = taCenter
+      FieldName = 'SELECIONAR'
+      OnGetText = cdsEmpresaListaSELECIONARGetText
+    end
+    object cdsEmpresaListaCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Required = True
+      Size = 18
+    end
+    object cdsEmpresaListaRZSOC: TStringField
+      FieldName = 'RZSOC'
+      Size = 60
+    end
+    object cdsEmpresaListaCENTRO_CUSTO: TIntegerField
+      FieldName = 'CENTRO_CUSTO'
+      ReadOnly = True
+    end
+    object cdsEmpresaListaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      ReadOnly = True
+      Size = 18
+    end
+  end
+  object dtsEmpresaLista: TDataSource
+    DataSet = cdsEmpresaLista
+    Left = 280
+    Top = 224
+  end
+  object qryEmpresaLista: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       
         '    Case when c.centro_custo is null then 0 else 1 end as seleci' +
@@ -1832,55 +1912,48 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
       ''
       'order by'
       '    e.rzsoc')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 180
-    Top = 225
-  end
-  object dspEmpresaLista: TDataSetProvider
-    DataSet = qryEmpresaLista
-    Left = 212
-    Top = 225
-  end
-  object cdsEmpresaLista: TClientDataSet
-    Aggregates = <>
-    Params = <
+    Left = 184
+    Top = 224
+    ParamData = <
       item
-        DataType = ftInteger
+        Position = 1
         Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
         ParamType = ptInput
         Value = 0
       end>
-    ProviderName = 'dspEmpresaLista'
-    Left = 244
-    Top = 225
-    object cdsEmpresaListaSELECIONAR: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'S'
+    object qryEmpresaListaSELECIONAR: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'SELECIONAR'
+      Origin = 'SELECIONAR'
       ProviderFlags = []
-      OnGetText = cdsEmpresaListaSELECIONARGetText
     end
-    object cdsEmpresaListaCNPJ: TWideStringField
+    object qryEmpresaListaCNPJ: TStringField
       FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 18
     end
-    object cdsEmpresaListaRZSOC: TWideStringField
+    object qryEmpresaListaRZSOC: TStringField
       FieldName = 'RZSOC'
+      Origin = 'RZSOC'
       Size = 60
     end
-    object cdsEmpresaListaCENTRO_CUSTO: TIntegerField
+    object qryEmpresaListaCENTRO_CUSTO: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'CENTRO_CUSTO'
+      Origin = 'CENTRO_CUSTO'
+      ProviderFlags = []
+      ReadOnly = True
     end
-    object cdsEmpresaListaEMPRESA: TWideStringField
+    object qryEmpresaListaEMPRESA: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = []
+      ReadOnly = True
       Size = 18
     end
-  end
-  object dtsEmpresaLista: TDataSource
-    DataSet = cdsEmpresaLista
-    Left = 276
-    Top = 225
   end
 end

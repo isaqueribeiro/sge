@@ -26,10 +26,8 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
     ExplicitWidth = 741
     ExplicitHeight = 416
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 733
-      ExplicitHeight = 365
+      ExplicitHeight = 387
       inherited Bevel4: TBevel
         Top = 321
         Width = 733
@@ -43,12 +41,14 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
           item
             Expanded = False
             FieldName = 'COD'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPODESP'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 280
             Visible = True
           end
@@ -70,7 +70,7 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
       inherited pnlFiltros: TPanel
         Top = 325
         Width = 733
-        ExplicitTop = 303
+        ExplicitTop = 325
         ExplicitWidth = 733
         object lblRegistroDesativado: TLabel [0]
           Left = 2
@@ -472,9 +472,6 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    BeforePost = IbDtstTabelaBeforePost
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    t.Cod'
@@ -494,61 +491,9 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
         '  left join TBTPDESPESA_PLANO x on (x.despesa = t.cod and x.empr' +
         'esa = :empresa)'
       '  left join TBPLANO_CONTA p on (p.codigo = x.plano)')
-    Left = 600
-    Top = 112
-    object IbDtstTabelaCOD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = '"TBTPDESPESA"."COD"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object IbDtstTabelaTIPODESP: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'TIPODESP'
-      Origin = '"TBTPDESPESA"."TIPODESP"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 50
-    end
-    object IbDtstTabelaTIPO_PARTICULAR: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'TIPO_PARTICULAR'
-      Origin = '"TBTPDESPESA"."TIPO_PARTICULAR"'
-    end
-    object IbDtstTabelaCLASSIFICACAO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Classifica'#231#227'o'
-      FieldName = 'CLASSIFICACAO'
-      Origin = '"TBTPDESPESA"."CLASSIFICACAO"'
-    end
-    object IbDtstTabelaPLANO_CONTA: TIntegerField
-      FieldName = 'PLANO_CONTA'
-      Origin = '"TBTPDESPESA"."PLANO_CONTA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField
-      Alignment = taCenter
-      FieldName = 'TIPO_PARTICULAR_DESC'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 1
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      FieldName = 'ATIVO'
-      Origin = '"TBTPDESPESA"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField
-      FieldName = 'DESCRICAO_RESUMIDA'
-      Origin = '"TBPLANO_CONTA"."DESCRICAO_RESUMIDA"'
-      ProviderFlags = []
-      Size = 100
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 664
-    Top = 112
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -586,13 +531,12 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
       'delete from TBTPDESPESA'
       'where'
       '  COD = :OLD_COD')
-    Top = 112
   end
   inherited ImgList: TImageList
     Left = 568
     Top = 112
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2050,6 +1994,121 @@ inherited frmGeTipoDespesa: TfrmGeTipoDespesa
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    Active = True
+    BeforePost = fdQryTabelaBeforePost
+    AfterScroll = fdQryTabelaAfterScroll
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    t.Cod'
+      '  , t.Tipodesp'
+      '  , t.Tipo_Particular'
+      '  , t.classificacao'
+      '  , t.plano_conta'
+      '  , t.ativo'
+      
+        '  , Case when t.Tipo_Particular = 1 then '#39'S'#39' else '#39#39' end Tipo_Pa' +
+        'rticular_Desc'
+      
+        '  , coalesce(nullif(trim(p.codigo_contabil), '#39#39') || '#39' - '#39', '#39#39') |' +
+        '| p.descricao_resumida as descricao_resumida'
+      'from TBTPDESPESA t'
+      
+        '  left join TBTPDESPESA_PLANO x on (x.despesa = t.cod and x.empr' +
+        'esa = :empresa)'
+      '  left join TBPLANO_CONTA p on (p.codigo = x.plano)')
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+    object fdQryTabelaCOD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = 'COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaTIPODESP: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'TIPODESP'
+      Origin = 'TIPODESP'
+      Required = True
+      Size = 50
+    end
+    object fdQryTabelaTIPO_PARTICULAR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'TIPO_PARTICULAR'
+      Origin = 'TIPO_PARTICULAR'
+      Required = True
+    end
+    object fdQryTabelaCLASSIFICACAO: TSmallintField
+      DisplayLabel = 'Classifica'#231#227'o'
+      FieldName = 'CLASSIFICACAO'
+      Origin = 'CLASSIFICACAO'
+      Required = True
+    end
+    object fdQryTabelaPLANO_CONTA: TIntegerField
+      FieldName = 'PLANO_CONTA'
+      Origin = 'PLANO_CONTA'
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object fdQryTabelaTIPO_PARTICULAR_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO_PARTICULAR_DESC'
+      Origin = 'TIPO_PARTICULAR_DESC'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 1
+    end
+    object fdQryTabelaDESCRICAO_RESUMIDA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO_RESUMIDA'
+      Origin = 'DESCRICAO_RESUMIDA'
+      ProviderFlags = []
+      Size = 133
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBTPDESPESA'
+      '(COD, CLASSIFICACAO, TIPODESP, TIPO_PARTICULAR, '
+      '  PLANO_CONTA, ATIVO)'
+      
+        'VALUES (:NEW_COD, :NEW_CLASSIFICACAO, :NEW_TIPODESP, :NEW_TIPO_P' +
+        'ARTICULAR, '
+      '  :NEW_PLANO_CONTA, :NEW_ATIVO)'
+      'RETURNING COD')
+    ModifySQL.Strings = (
+      'UPDATE TBTPDESPESA'
+      
+        'SET COD = :NEW_COD, CLASSIFICACAO = :NEW_CLASSIFICACAO, TIPODESP' +
+        ' = :NEW_TIPODESP, '
+      
+        '  TIPO_PARTICULAR = :NEW_TIPO_PARTICULAR, PLANO_CONTA = :NEW_PLA' +
+        'NO_CONTA, '
+      '  ATIVO = :NEW_ATIVO'
+      'WHERE COD = :OLD_COD'
+      'RETURNING COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBTPDESPESA'
+      'WHERE COD = :OLD_COD')
+    FetchRowSQL.Strings = (
+      
+        'SELECT COD, CLASSIFICACAO, TIPODESP, TIPO_PARTICULAR, PLANO_CONT' +
+        'A, '
+      '  ATIVO'
+      'FROM TBTPDESPESA'
+      'WHERE COD = :COD')
   end
   object fdQryClassificacao: TFDQuery
     Connection = DMBusiness.fdConexao

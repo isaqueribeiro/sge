@@ -3,8 +3,6 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
   Top = 215
   Caption = 'Tabela de Formas de Pagamento'
   OldCreateOrder = True
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
@@ -14,18 +12,21 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
           item
             Expanded = False
             FieldName = 'COD'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ACRESCIMO'
+            Title.Caption = '% Acr'#233'scimo '
             Visible = True
           end
           item
@@ -304,8 +305,6 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    p.Cod'
@@ -319,60 +318,9 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       'from TBFORMPAGTO p')
     GeneratorField.Field = 'COD'
     GeneratorField.Generator = 'GEN_GRUPOPRODUTO_COD'
-    Left = 592
-    Top = 200
-    object IbDtstTabelaCOD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = 'TBFORMPAGTO.COD'
-      Required = True
-    end
-    object IbDtstTabelaDESCRI: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRI'
-      Origin = 'TBFORMPAGTO.DESCRI'
-      Required = True
-      Size = 30
-    end
-    object IbDtstTabelaACRESCIMO: TFloatField
-      DisplayLabel = '% Acr'#233'scimo'
-      FieldName = 'ACRESCIMO'
-      Origin = 'TBFORMPAGTO.ACRESCIMO'
-      DisplayFormat = ',0.00'
-    end
-    object IbDtstTabelaFORMAPAGTO_NFCE: TIBStringField
-      DisplayLabel = 'Forma de Pagamento NFC-e'
-      FieldName = 'FORMAPAGTO_NFCE'
-      Origin = '"TBFORMPAGTO"."FORMAPAGTO_NFCE"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 2
-    end
-    object IbDtstTabelaFORMAPAGTO_PDV: TSmallintField
-      FieldName = 'FORMAPAGTO_PDV'
-      Origin = '"TBFORMPAGTO"."FORMAPAGTO_PDV"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField
-      FieldName = 'FORMAPAGTO_PDV_CUPOM_EXTRA'
-      Origin = '"TBFORMPAGTO"."FORMAPAGTO_PDV_CUPOM_EXTRA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaDEBITAR_LIMITE_CLIENTE: TSmallintField
-      FieldName = 'DEBITAR_LIMITE_CLIENTE'
-      Origin = 'TBFORMPAGTO.DEBITAR_LIMITE_CLIENTE'
-      Required = True
-    end
-    object IbDtstTabelaATIVA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVA'
-      Origin = '"TBFORMPAGTO"."ATIVA"'
-      ProviderFlags = [pfInUpdate]
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 656
-    Top = 200
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -417,14 +365,12 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       'delete from TBFORMPAGTO'
       'where'
       '  COD = :OLD_COD')
-    Left = 624
-    Top = 200
   end
   inherited ImgList: TImageList
     Left = 560
     Top = 200
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1883,10 +1829,111 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    AfterScroll = fdQryTabelaAfterScroll
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    p.Cod'
+      '  , p.Descri'
+      '  , p.Acrescimo'
+      '  , p.FormaPagto_NFCe'
+      '  , p.FormaPagto_PDV'
+      '  , p.Formapagto_PDV_Cupom_Extra'
+      '  , p.Debitar_limite_cliente'
+      '  , p.Ativa'
+      'from TBFORMPAGTO p')
+    object fdQryTabelaCOD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = 'COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaDESCRI: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRI'
+      Origin = 'DESCRI'
+      Required = True
+      Size = 30
+    end
+    object fdQryTabelaACRESCIMO: TSingleField
+      DisplayLabel = '% Acr'#233'scimo'
+      FieldName = 'ACRESCIMO'
+      Origin = 'ACRESCIMO'
+      DisplayFormat = ',0.00'
+    end
+    object fdQryTabelaFORMAPAGTO_NFCE: TStringField
+      DisplayLabel = 'Forma de Pagamento NFC-e'
+      FieldName = 'FORMAPAGTO_NFCE'
+      Origin = 'FORMAPAGTO_NFCE'
+      Required = True
+      Size = 2
+    end
+    object fdQryTabelaFORMAPAGTO_PDV: TSmallintField
+      FieldName = 'FORMAPAGTO_PDV'
+      Origin = 'FORMAPAGTO_PDV'
+      Required = True
+    end
+    object fdQryTabelaFORMAPAGTO_PDV_CUPOM_EXTRA: TSmallintField
+      FieldName = 'FORMAPAGTO_PDV_CUPOM_EXTRA'
+      Origin = 'FORMAPAGTO_PDV_CUPOM_EXTRA'
+      Required = True
+    end
+    object fdQryTabelaDEBITAR_LIMITE_CLIENTE: TSmallintField
+      FieldName = 'DEBITAR_LIMITE_CLIENTE'
+      Origin = 'DEBITAR_LIMITE_CLIENTE'
+      Required = True
+    end
+    object fdQryTabelaATIVA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVA'
+      Origin = 'ATIVA'
+      Required = True
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBFORMPAGTO'
+      '(COD, DESCRI, ACRESCIMO, DEBITAR_LIMITE_CLIENTE, '
+      '  FORMAPAGTO_NFCE, FORMAPAGTO_PDV, FORMAPAGTO_PDV_CUPOM_EXTRA, '
+      '  ATIVA)'
+      
+        'VALUES (:NEW_COD, :NEW_DESCRI, :NEW_ACRESCIMO, :NEW_DEBITAR_LIMI' +
+        'TE_CLIENTE, '
+      
+        '  :NEW_FORMAPAGTO_NFCE, :NEW_FORMAPAGTO_PDV, :NEW_FORMAPAGTO_PDV' +
+        '_CUPOM_EXTRA, '
+      '  :NEW_ATIVA)')
+    ModifySQL.Strings = (
+      'UPDATE TBFORMPAGTO'
+      
+        'SET COD = :NEW_COD, DESCRI = :NEW_DESCRI, ACRESCIMO = :NEW_ACRES' +
+        'CIMO, '
+      
+        '  DEBITAR_LIMITE_CLIENTE = :NEW_DEBITAR_LIMITE_CLIENTE, FORMAPAG' +
+        'TO_NFCE = :NEW_FORMAPAGTO_NFCE, '
+      
+        '  FORMAPAGTO_PDV = :NEW_FORMAPAGTO_PDV, FORMAPAGTO_PDV_CUPOM_EXT' +
+        'RA = :NEW_FORMAPAGTO_PDV_CUPOM_EXTRA, '
+      '  ATIVA = :NEW_ATIVA'
+      'WHERE COD = :OLD_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBFORMPAGTO'
+      'WHERE COD = :OLD_COD')
+    FetchRowSQL.Strings = (
+      
+        'SELECT COD, DESCRI, ACRESCIMO, CONTA_CORRENTE, DEBITAR_LIMITE_CL' +
+        'IENTE, '
+      '  FORMAPAGTO_NFCE, FORMAPAGTO_PDV, FORMAPAGTO_PDV_CUPOM_EXTRA, '
+      '  ATIVA'
+      'FROM TBFORMPAGTO'
+      'WHERE COD = :COD')
+  end
   object dtsFormaPagtoNCFe: TDataSource
     DataSet = fdQryFormaPagtoNCFe
-    Left = 624
-    Top = 248
+    Left = 672
+    Top = 96
   end
   object dtsContaCorrenteLista: TDataSource
     DataSet = cdsContaCorrenteLista
@@ -1945,8 +1992,8 @@ inherited frmGeFormaPagto: TfrmGeFormaPagto
     SQL.Strings = (
       'Select *'
       'from VW_FORMA_PAGTO_NFC_E')
-    Left = 595
-    Top = 248
+    Left = 643
+    Top = 96
   end
   object fdQryContaCorrenteLista: TFDQuery
     Connection = DMBusiness.fdConexao

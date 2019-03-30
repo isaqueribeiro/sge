@@ -4,7 +4,6 @@ inherited frmGeBancos: TfrmGeBancos
   Caption = 'Tabela de Bancos'
   ClientHeight = 471
   OldCreateOrder = True
-  ExplicitWidth = 751
   ExplicitHeight = 510
   PixelsPerInch = 96
   TextHeight = 13
@@ -31,27 +30,32 @@ inherited frmGeBancos: TfrmGeBancos
           item
             Expanded = False
             FieldName = 'BCO_COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMPRESA'
+            Title.Caption = 'Empresa '
             Width = 120
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'BCO_NOME'
+            Title.Caption = 'Nome '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'BCO_AGENCIA'
+            Title.Caption = 'Ag'#234'ncia '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'BCO_CC'
+            Title.Caption = 'C/C '
             Visible = True
           end>
       end
@@ -1440,8 +1444,6 @@ inherited frmGeBancos: TfrmGeBancos
     ExplicitTop = 432
   end
   inherited IbDtstTabela: TIBDataSet
-    BeforePost = IbDtstTabelaBeforePost
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    b.bco_codigo'
@@ -1469,150 +1471,9 @@ inherited frmGeBancos: TfrmGeBancos
       '  , b.bco_layout_remessa'
       '  , b.bco_layout_retorno'
       'from TBBANCO_BOLETO b')
-    object IbDtstTabelaBCO_CODIGO: TSmallintField
-      FieldName = 'BCO_CODIGO'
-      Origin = '"TBBANCO_BOLETO"."BCO_CODIGO"'
-    end
-    object IbDtstTabelaBCO_COD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'BCO_COD'
-      Origin = 'TBBANCO_BOLETO.BCO_COD'
-      Required = True
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBBANCO_BOLETO"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaBCO_CARTEIRA: TIBStringField
-      DisplayLabel = 'Carteira'
-      FieldName = 'BCO_CARTEIRA'
-      Origin = 'TBBANCO_BOLETO.BCO_CARTEIRA'
-      Required = True
-      Size = 10
-    end
-    object IbDtstTabelaBCO_NOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'BCO_NOME'
-      Origin = 'TBBANCO_BOLETO.BCO_NOME'
-      Size = 50
-    end
-    object IbDtstTabelaBCO_AGENCIA: TIBStringField
-      DisplayLabel = 'Ag'#234'ncia'
-      FieldName = 'BCO_AGENCIA'
-      Origin = 'TBBANCO_BOLETO.BCO_AGENCIA'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CC: TIBStringField
-      DisplayLabel = 'C/C'
-      FieldName = 'BCO_CC'
-      Origin = 'TBBANCO_BOLETO.BCO_CC'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CODIGO_CEDENTE: TIBStringField
-      DisplayLabel = 'C'#243'digo Cedente'
-      FieldName = 'BCO_CODIGO_CEDENTE'
-      Origin = '"TBBANCO_BOLETO"."BCO_CODIGO_CEDENTE"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CHAVE: TIBStringField
-      DisplayLabel = 'Conv'#234'nio / Contrato'
-      FieldName = 'BCO_CHAVE'
-      Origin = 'TBBANCO_BOLETO.BCO_CHAVE'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_GERAR_BOLETO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'BCO_GERAR_BOLETO'
-      Origin = '"TBBANCO_BOLETO"."BCO_GERAR_BOLETO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaBCO_NOSSO_NUM_INICIO: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_INICIO'
-      Origin = 'TBBANCO_BOLETO.BCO_NOSSO_NUM_INICIO'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_NOSSO_NUM_FINAL: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_FINAL'
-      Origin = 'TBBANCO_BOLETO.BCO_NOSSO_NUM_FINAL'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_NOSSO_NUM_PROXIMO: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_PROXIMO'
-      Origin = 'TBBANCO_BOLETO.BCO_NOSSO_NUM_PROXIMO'
-      Size = 10
-    end
-    object IbDtstTabelaBCO_CONFG_1: TIBStringField
-      FieldName = 'BCO_CONFG_1'
-      Origin = 'TBBANCO_BOLETO.BCO_CONFG_1'
-    end
-    object IbDtstTabelaBCO_CONFG_2: TIBStringField
-      FieldName = 'BCO_CONFG_2'
-      Origin = 'TBBANCO_BOLETO.BCO_CONFG_2'
-    end
-    object IbDtstTabelaBCO_DIRETORIO_REMESSA: TIBStringField
-      FieldName = 'BCO_DIRETORIO_REMESSA'
-      Origin = 'TBBANCO_BOLETO.BCO_DIRETORIO_REMESSA'
-      Size = 100
-    end
-    object IbDtstTabelaBCO_DIRETORIO_RETORNO: TIBStringField
-      FieldName = 'BCO_DIRETORIO_RETORNO'
-      Origin = 'TBBANCO_BOLETO.BCO_DIRETORIO_RETORNO'
-      Size = 100
-    end
-    object IbDtstTabelaBCO_SEQUENCIAL_REM: TIntegerField
-      FieldName = 'BCO_SEQUENCIAL_REM'
-      Origin = 'TBBANCO_BOLETO.BCO_SEQUENCIAL_REM'
-      Required = True
-    end
-    object IbDtstTabelaBCO_PERCENTUAL_JUROS: TIBBCDField
-      FieldName = 'BCO_PERCENTUAL_JUROS'
-      Origin = '"TBBANCO_BOLETO"."BCO_PERCENTUAL_JUROS"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaBCO_PERCENTUAL_MORA: TIBBCDField
-      FieldName = 'BCO_PERCENTUAL_MORA'
-      Origin = '"TBBANCO_BOLETO"."BCO_PERCENTUAL_MORA"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaBCO_DIA_PROTESTO: TSmallintField
-      FieldName = 'BCO_DIA_PROTESTO'
-      Origin = '"TBBANCO_BOLETO"."BCO_DIA_PROTESTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaBCO_MSG_INSTRUCAO: TIBStringField
-      FieldName = 'BCO_MSG_INSTRUCAO'
-      Origin = '"TBBANCO_BOLETO"."BCO_MSG_INSTRUCAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaBCO_LAYOUT_REMESSA: TSmallintField
-      DisplayLabel = 'Layout de Remessa'
-      FieldName = 'BCO_LAYOUT_REMESSA'
-      Origin = '"TBBANCO_BOLETO"."BCO_LAYOUT_REMESSA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaBCO_LAYOUT_RETORNO: TSmallintField
-      DisplayLabel = 'Layout de Retorno'
-      FieldName = 'BCO_LAYOUT_RETORNO'
-      Origin = '"TBBANCO_BOLETO"."BCO_LAYOUT_RETORNO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
   end
   inherited IbUpdTabela: TIBUpdateSQL
@@ -1715,7 +1576,7 @@ inherited frmGeBancos: TfrmGeBancos
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3174,15 +3035,274 @@ inherited frmGeBancos: TfrmGeBancos
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    b.bco_codigo'
+      '  , b.bco_cod'
+      '  , b.empresa'
+      '  , b.bco_carteira'
+      '  , b.bco_nome'
+      '  , b.bco_agencia'
+      '  , b.bco_cc'
+      '  , b.bco_codigo_cedente'
+      '  , b.bco_chave'
+      '  , b.bco_gerar_boleto'
+      '  , b.bco_nosso_num_inicio'
+      '  , b.bco_nosso_num_final'
+      '  , b.bco_nosso_num_proximo'
+      '  , b.bco_confg_1'
+      '  , b.bco_confg_2'
+      '  , b.bco_diretorio_remessa'
+      '  , b.bco_diretorio_retorno'
+      '  , b.bco_sequencial_rem'
+      '  , b.bco_percentual_juros'
+      '  , b.bco_percentual_mora'
+      '  , b.bco_dia_protesto'
+      '  , b.bco_msg_instrucao'
+      '  , b.bco_layout_remessa'
+      '  , b.bco_layout_retorno'
+      'from TBBANCO_BOLETO b')
+    object fdQryTabelaBCO_CODIGO: TSmallintField
+      FieldName = 'BCO_CODIGO'
+      Origin = 'BCO_CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaBCO_COD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'BCO_COD'
+      Origin = 'BCO_COD'
+      Required = True
+    end
+    object fdQryTabelaEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaBCO_CARTEIRA: TStringField
+      DisplayLabel = 'Carteira'
+      FieldName = 'BCO_CARTEIRA'
+      Origin = 'BCO_CARTEIRA'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaBCO_NOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'BCO_NOME'
+      Origin = 'BCO_NOME'
+      Required = True
+      Size = 50
+    end
+    object fdQryTabelaBCO_AGENCIA: TStringField
+      DisplayLabel = 'Ag'#234'ncia'
+      FieldName = 'BCO_AGENCIA'
+      Origin = 'BCO_AGENCIA'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaBCO_CC: TStringField
+      DisplayLabel = 'C/C'
+      FieldName = 'BCO_CC'
+      Origin = 'BCO_CC'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaBCO_CODIGO_CEDENTE: TStringField
+      DisplayLabel = 'C'#243'digo Cedente'
+      FieldName = 'BCO_CODIGO_CEDENTE'
+      Origin = 'BCO_CODIGO_CEDENTE'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaBCO_CHAVE: TStringField
+      DisplayLabel = 'Conv'#234'nio / Contrato'
+      FieldName = 'BCO_CHAVE'
+      Origin = 'BCO_CHAVE'
+      Size = 10
+    end
+    object fdQryTabelaBCO_GERAR_BOLETO: TSmallintField
+      FieldName = 'BCO_GERAR_BOLETO'
+      Origin = 'BCO_GERAR_BOLETO'
+    end
+    object fdQryTabelaBCO_NOSSO_NUM_INICIO: TStringField
+      FieldName = 'BCO_NOSSO_NUM_INICIO'
+      Origin = 'BCO_NOSSO_NUM_INICIO'
+      Size = 10
+    end
+    object fdQryTabelaBCO_NOSSO_NUM_FINAL: TStringField
+      FieldName = 'BCO_NOSSO_NUM_FINAL'
+      Origin = 'BCO_NOSSO_NUM_FINAL'
+      Size = 10
+    end
+    object fdQryTabelaBCO_NOSSO_NUM_PROXIMO: TStringField
+      FieldName = 'BCO_NOSSO_NUM_PROXIMO'
+      Origin = 'BCO_NOSSO_NUM_PROXIMO'
+      Size = 10
+    end
+    object fdQryTabelaBCO_CONFG_1: TStringField
+      FieldName = 'BCO_CONFG_1'
+      Origin = 'BCO_CONFG_1'
+    end
+    object fdQryTabelaBCO_CONFG_2: TStringField
+      FieldName = 'BCO_CONFG_2'
+      Origin = 'BCO_CONFG_2'
+    end
+    object fdQryTabelaBCO_DIRETORIO_REMESSA: TStringField
+      FieldName = 'BCO_DIRETORIO_REMESSA'
+      Origin = 'BCO_DIRETORIO_REMESSA'
+      Size = 100
+    end
+    object fdQryTabelaBCO_DIRETORIO_RETORNO: TStringField
+      FieldName = 'BCO_DIRETORIO_RETORNO'
+      Origin = 'BCO_DIRETORIO_RETORNO'
+      Size = 100
+    end
+    object fdQryTabelaBCO_SEQUENCIAL_REM: TIntegerField
+      FieldName = 'BCO_SEQUENCIAL_REM'
+      Origin = 'BCO_SEQUENCIAL_REM'
+      Required = True
+    end
+    object fdQryTabelaBCO_PERCENTUAL_JUROS: TBCDField
+      FieldName = 'BCO_PERCENTUAL_JUROS'
+      Origin = 'BCO_PERCENTUAL_JUROS'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaBCO_PERCENTUAL_MORA: TBCDField
+      FieldName = 'BCO_PERCENTUAL_MORA'
+      Origin = 'BCO_PERCENTUAL_MORA'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaBCO_DIA_PROTESTO: TSmallintField
+      FieldName = 'BCO_DIA_PROTESTO'
+      Origin = 'BCO_DIA_PROTESTO'
+    end
+    object fdQryTabelaBCO_MSG_INSTRUCAO: TStringField
+      FieldName = 'BCO_MSG_INSTRUCAO'
+      Origin = 'BCO_MSG_INSTRUCAO'
+      Size = 250
+    end
+    object fdQryTabelaBCO_LAYOUT_REMESSA: TSmallintField
+      DisplayLabel = 'Layout de Remessa'
+      FieldName = 'BCO_LAYOUT_REMESSA'
+      Origin = 'BCO_LAYOUT_REMESSA'
+      Required = True
+    end
+    object fdQryTabelaBCO_LAYOUT_RETORNO: TSmallintField
+      DisplayLabel = 'Layout de Retorno'
+      FieldName = 'BCO_LAYOUT_RETORNO'
+      Origin = 'BCO_LAYOUT_RETORNO'
+      Required = True
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBBANCO_BOLETO'
+      '(BCO_CODIGO, BCO_COD, EMPRESA, BCO_CARTEIRA, '
+      '  BCO_NOME, BCO_AGENCIA, BCO_CC, BCO_CODIGO_CEDENTE, '
+      '  BCO_CHAVE, BCO_GERAR_BOLETO, BCO_NOSSO_NUM_INICIO, '
+      '  BCO_NOSSO_NUM_FINAL, BCO_NOSSO_NUM_PROXIMO, BCO_CONFG_1, '
+      '  BCO_CONFG_2, BCO_SEQUENCIAL_REM, BCO_DIRETORIO_REMESSA, '
+      
+        '  BCO_DIRETORIO_RETORNO, BCO_PERCENTUAL_JUROS, BCO_PERCENTUAL_MO' +
+        'RA, '
+      '  BCO_DIA_PROTESTO, BCO_MSG_INSTRUCAO, BCO_LAYOUT_REMESSA, '
+      '  BCO_LAYOUT_RETORNO)'
+      
+        'VALUES (:NEW_BCO_CODIGO, :NEW_BCO_COD, :NEW_EMPRESA, :NEW_BCO_CA' +
+        'RTEIRA, '
+      
+        '  :NEW_BCO_NOME, :NEW_BCO_AGENCIA, :NEW_BCO_CC, :NEW_BCO_CODIGO_' +
+        'CEDENTE, '
+      
+        '  :NEW_BCO_CHAVE, :NEW_BCO_GERAR_BOLETO, :NEW_BCO_NOSSO_NUM_INIC' +
+        'IO, '
+      
+        '  :NEW_BCO_NOSSO_NUM_FINAL, :NEW_BCO_NOSSO_NUM_PROXIMO, :NEW_BCO' +
+        '_CONFG_1, '
+      
+        '  :NEW_BCO_CONFG_2, :NEW_BCO_SEQUENCIAL_REM, :NEW_BCO_DIRETORIO_' +
+        'REMESSA, '
+      
+        '  :NEW_BCO_DIRETORIO_RETORNO, :NEW_BCO_PERCENTUAL_JUROS, :NEW_BC' +
+        'O_PERCENTUAL_MORA, '
+      
+        '  :NEW_BCO_DIA_PROTESTO, :NEW_BCO_MSG_INSTRUCAO, :NEW_BCO_LAYOUT' +
+        '_REMESSA, '
+      '  :NEW_BCO_LAYOUT_RETORNO)')
+    ModifySQL.Strings = (
+      'UPDATE TBBANCO_BOLETO'
+      
+        'SET BCO_CODIGO = :NEW_BCO_CODIGO, BCO_COD = :NEW_BCO_COD, EMPRES' +
+        'A = :NEW_EMPRESA, '
+      '  BCO_CARTEIRA = :NEW_BCO_CARTEIRA, BCO_NOME = :NEW_BCO_NOME, '
+      
+        '  BCO_AGENCIA = :NEW_BCO_AGENCIA, BCO_CC = :NEW_BCO_CC, BCO_CODI' +
+        'GO_CEDENTE = :NEW_BCO_CODIGO_CEDENTE, '
+      
+        '  BCO_CHAVE = :NEW_BCO_CHAVE, BCO_GERAR_BOLETO = :NEW_BCO_GERAR_' +
+        'BOLETO, '
+      
+        '  BCO_NOSSO_NUM_INICIO = :NEW_BCO_NOSSO_NUM_INICIO, BCO_NOSSO_NU' +
+        'M_FINAL = :NEW_BCO_NOSSO_NUM_FINAL, '
+      
+        '  BCO_NOSSO_NUM_PROXIMO = :NEW_BCO_NOSSO_NUM_PROXIMO, BCO_CONFG_' +
+        '1 = :NEW_BCO_CONFG_1, '
+      
+        '  BCO_CONFG_2 = :NEW_BCO_CONFG_2, BCO_SEQUENCIAL_REM = :NEW_BCO_' +
+        'SEQUENCIAL_REM, '
+      
+        '  BCO_DIRETORIO_REMESSA = :NEW_BCO_DIRETORIO_REMESSA, BCO_DIRETO' +
+        'RIO_RETORNO = :NEW_BCO_DIRETORIO_RETORNO, '
+      
+        '  BCO_PERCENTUAL_JUROS = :NEW_BCO_PERCENTUAL_JUROS, BCO_PERCENTU' +
+        'AL_MORA = :NEW_BCO_PERCENTUAL_MORA, '
+      
+        '  BCO_DIA_PROTESTO = :NEW_BCO_DIA_PROTESTO, BCO_MSG_INSTRUCAO = ' +
+        ':NEW_BCO_MSG_INSTRUCAO, '
+      
+        '  BCO_LAYOUT_REMESSA = :NEW_BCO_LAYOUT_REMESSA, BCO_LAYOUT_RETOR' +
+        'NO = :NEW_BCO_LAYOUT_RETORNO'
+      'WHERE BCO_CODIGO = :OLD_BCO_CODIGO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBBANCO_BOLETO'
+      'WHERE BCO_CODIGO = :OLD_BCO_CODIGO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT BCO_CODIGO, BCO_COD, EMPRESA, BCO_CARTEIRA, BCO_NOME, BCO' +
+        '_AGENCIA, '
+      '  BCO_CC, BCO_CODIGO_CEDENTE, BCO_CHAVE, BCO_GERAR_BOLETO, '
+      
+        '  BCO_NOSSO_NUM_INICIO, BCO_NOSSO_NUM_FINAL, BCO_NOSSO_NUM_PROXI' +
+        'MO, '
+      
+        '  BCO_CONFG_1, BCO_CONFG_2, BCO_SEQUENCIAL_REM, BCO_DIRETORIO_RE' +
+        'MESSA, '
+      
+        '  BCO_DIRETORIO_RETORNO, BCO_PERCENTUAL_JUROS, BCO_PERCENTUAL_MO' +
+        'RA, '
+      '  BCO_DIA_PROTESTO, BCO_MSG_INSTRUCAO, BCO_LAYOUT_REMESSA, '
+      '  BCO_LAYOUT_RETORNO'
+      'FROM TBBANCO_BOLETO'
+      'WHERE BCO_CODIGO = :BCO_CODIGO')
+  end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
-    Left = 656
-    Top = 40
+    Left = 672
+    Top = 104
   end
   object dtsLayout: TDataSource
     DataSet = fdQryLayout
-    Left = 656
-    Top = 88
+    Left = 672
+    Top = 152
   end
   object fdQryEmpresa: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -3197,8 +3317,8 @@ inherited frmGeBancos: TfrmGeBancos
       'from VW_EMPRESA e'
       'order by'
       '    e.razao')
-    Left = 627
-    Top = 40
+    Left = 640
+    Top = 104
   end
   object fdQryLayout: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -3209,7 +3329,7 @@ inherited frmGeBancos: TfrmGeBancos
       '    v.codigo'
       '  , v.descricao'
       'from VW_LAYOUT_REM_RET_BANCO v')
-    Left = 627
-    Top = 88
+    Left = 640
+    Top = 152
   end
 end

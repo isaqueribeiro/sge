@@ -6,15 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, cxButtons,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, Menus,
-  ToolWin, IBTable, IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  ToolWin, IBTable, IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, System.ImageList,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TTipoPlanoConta = (tpNull = -1, tpAgrupador = 0, tpLancamento = 1);
@@ -45,18 +45,6 @@ type
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
     dtsTipo: TDataSource;
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaEXERCICIO: TSmallintField;
-    IbDtstTabelaGRUPO: TIntegerField;
-    IbDtstTabelaNIVEL: TSmallintField;
-    IbDtstTabelaTIPO: TSmallintField;
-    IbDtstTabelaCODIGO_CONTABIL: TIBStringField;
-    IbDtstTabelaCODIGO_RESUMIDO: TIBStringField;
-    IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
-    IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField;
-    IbDtstTabelaSITUACAO: TSmallintField;
-    IbDtstTabelaTIPO_DESCRICAO: TIBStringField;
-    IbDtstTabelaAtivo: TStringField;
     lblNivel: TLabel;
     dbNivel: TDBLookupComboBox;
     dtsNivel: TDataSource;
@@ -65,16 +53,26 @@ type
     fdQryTipo: TFDQuery;
     fdQryNivel: TFDQuery;
     fdQryGrupo: TFDQuery;
-    IbDtstTabelaEMPRESA: TIBStringField;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblRegistroDesativado: TLabel;
     chkPlanoContaAtivo: TCheckBox;
-    IbDtstTabelaRAZAO: TIBStringField;
-    IbDtstTabelaFANTASIA: TIBStringField;
+    fdQryTabelaCODIGO: TIntegerField;
+    fdQryTabelaEXERCICIO: TSmallintField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaGRUPO: TIntegerField;
+    fdQryTabelaNIVEL: TSmallintField;
+    fdQryTabelaTIPO: TSmallintField;
+    fdQryTabelaCODIGO_CONTABIL: TStringField;
+    fdQryTabelaCODIGO_RESUMIDO: TStringField;
+    fdQryTabelaDESCRICAO_RESUMIDA: TStringField;
+    fdQryTabelaDESCRICAO_COMPLETA: TStringField;
+    fdQryTabelaSITUACAO: TSmallintField;
+    fdQryTabelaTIPO_DESCRICAO: TStringField;
+    fdQryTabelaRAZAO: TStringField;
+    fdQryTabelaFANTASIA: TStringField;
+    fdQryTabelaAtivo: TStringField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -82,6 +80,9 @@ type
       Shift: TShiftState);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -217,36 +218,18 @@ begin
   CarregarLista(fdQryGrupo);
 end;
 
-procedure TfrmGePlanoContas.IbDtstTabelaCalcFields(DataSet: TDataSet);
-begin
-  IbDtstTabelaAtivo.AsString := IfThen(IbDtstTabelaSITUACAO.AsInteger = 1, 'X', '.');
-end;
-
-procedure TfrmGePlanoContas.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaTIPO.AsInteger      := 0;
-  IbDtstTabelaSITUACAO.AsInteger  := 1;
-  IbDtstTabelaEXERCICIO.AsInteger := 0;
-  IbDtstTabelaEMPRESA.Clear;
-  IbDtstTabelaNIVEL.Clear;
-  IbDtstTabelaGRUPO.Clear;
-  IbDtstTabelaCODIGO_CONTABIL.Clear;
-  IbDtstTabelaCODIGO_RESUMIDO.Clear;
-end;
-
 procedure TfrmGePlanoContas.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 var
   sFiltro : String;
 begin
-  if ((Field = IbDtstTabelaNIVEL) or (Field = IbDtstTabelaEMPRESA)) then
+  if ((Field = DtSrcTabela.DataSet.FieldByName('NIVEL')) or (Field = DtSrcTabela.DataSet.FieldByName('EMPRESA'))) then
   begin
-    sFiltro := '(nivel = ' + IntToStr(IbDtstTabelaNIVEL.AsInteger - 1) + ')';
-    if (IbDtstTabelaEMPRESA.IsNull) then
+    sFiltro := '(nivel = ' + IntToStr(DtSrcTabela.DataSet.FieldByName('NIVEL').AsInteger - 1) + ')';
+    if (DtSrcTabela.DataSet.FieldByName('EMPRESA').IsNull) then
       sFiltro := '(' + sFiltro + '  and (empresa is null))'
     else
-      sFiltro := '(' + sFiltro + '  and ((empresa is null) or (empresa = ' + QuotedStr(IbDtstTabelaEMPRESA.AsString) + ')))';
+      sFiltro := '(' + sFiltro + '  and ((empresa is null) or (empresa = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString) + ')))';
 
     fdQryGrupo.Close;
     fdQryGrupo.Filter   := sFiltro;
@@ -286,7 +269,7 @@ procedure TfrmGePlanoContas.dbgDadosDrawColumnCell(Sender: TObject;
 begin
   inherited;
 //  // Destacar Planos de Contas desativados
-//  if ( IbDtstTabelaSITUACAO.AsInteger = 0 ) then
+//  if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = 0 ) then
 //    dbgDados.Canvas.Font.Color := clRed;
 //
 //  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -297,20 +280,21 @@ procedure TfrmGePlanoContas.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
   begin
-
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-      if ( dbNivel.Focused ) then
-        IbDtstTabelaNIVEL.Clear
-      else
-      if ( dbTipo.Focused ) then
-        IbDtstTabelaTIPO.Clear
-      else
-      if ( dbGrupo.Focused ) then
-        IbDtstTabelaGRUPO.Clear
-      else
-      if ( dbEmpresa.Focused ) then
-        IbDtstTabelaEMPRESA.Clear;
-
+    with DtSrcTabela.DataSet do
+    begin
+      if ( State in [dsEdit, dsInsert] ) then
+        if ( dbNivel.Focused ) then
+          FieldByName('NIVEL').Clear
+        else
+        if ( dbTipo.Focused ) then
+          FieldByName('TIPO').Clear
+        else
+        if ( dbGrupo.Focused ) then
+          FieldByName('GRUPO').Clear
+        else
+        if ( dbEmpresa.Focused ) then
+          FieldByName('EMPRESA').Clear;
+    end;
   end;
 
   inherited;
@@ -319,7 +303,37 @@ end;
 procedure TfrmGePlanoContas.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  fdQryGrupo.Filtered := (IbDtstTabela.State in [dsEdit, dsInsert]);
+  fdQryGrupo.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+end;
+
+procedure TfrmGePlanoContas.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+    if Trim(FieldByName('EMPRESA').AsString) = EmptyStr then
+      FieldByName('EMPRESA').Clear;
+end;
+
+procedure TfrmGePlanoContas.fdQryTabelaCalcFields(DataSet: TDataSet);
+begin
+  with DtSrcTabela.DataSet do
+    FieldByName('Ativo').AsString := IfThen(FieldByName('SITUACAO').AsInteger = 1, 'X', '.');
+end;
+
+procedure TfrmGePlanoContas.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('TIPO').AsInteger      := 0;
+    FieldByName('SITUACAO').AsInteger  := 1;
+    FieldByName('EXERCICIO').AsInteger := 0;
+    FieldByName('EMPRESA').Clear;
+    FieldByName('NIVEL').Clear;
+    FieldByName('GRUPO').Clear;
+    FieldByName('CODIGO_CONTABIL').Clear;
+    FieldByName('CODIGO_RESUMIDO').Clear;
+  end;
 end;
 
 initialization

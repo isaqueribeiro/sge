@@ -7,35 +7,20 @@ uses
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons, DBClient, Provider, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver;
+  cxButtons, DBClient, Provider, System.ImageList,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeCondicaoPagto = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
-    IbDtstTabelaCOND_COD: TSmallintField;
-    IbDtstTabelaCOND_DESCRICAO: TIBStringField;
-    IbDtstTabelaCOND_PRAZO: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_01: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_02: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_03: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_04: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_05: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_06: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_07: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_08: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_09: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_10: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_11: TSmallintField;
-    IbDtstTabelaCOND_PRAZO_12: TSmallintField;
-    IbDtstTabelaCOND_DESCRICAO_FULL: TIBStringField;
     dbPrazo: TDBCheckBox;
     lblPrazo01: TLabel;
     dbPrazo01: TDBEdit;
@@ -62,35 +47,55 @@ type
     dbPrazo12: TDBEdit;
     lblPrazo12: TLabel;
     dbCondicaoPagtoPDV: TDBCheckBox;
-    IbDtstTabelaCOND_PDV: TSmallintField;
-    IbDtstTabelaCOND_QTDE_PARCELAS: TSmallintField;
-    IbDtstTabelaAPrazo: TStringField;
-    qryFormaPagtoLista: TIBDataSet;
     dspFormaPagtoLista: TDataSetProvider;
     cdsFormaPagtoLista: TClientDataSet;
     dtsFormaPagtoLista: TDataSource;
     cdsFormaPagtoListaSELECIONAR: TIntegerField;
     cdsFormaPagtoListaCODIGO: TSmallintField;
     dbgFormaPagto: TDBGrid;
-    cdsFormaPagtoListaDESCRICAO: TWideStringField;
-    cdsFormaPagtoListaUSAR_PDV: TWideStringField;
     lblRegistroDesativado: TLabel;
     dbAtiva: TDBCheckBox;
-    IbDtstTabelaATIVA: TSmallintField;
+    qryFormaPagtoLista: TFDQuery;
+    fdQryTabelaCOND_COD: TSmallintField;
+    fdQryTabelaCOND_DESCRICAO: TStringField;
+    fdQryTabelaCOND_PRAZO: TSmallintField;
+    fdQryTabelaCOND_PDV: TSmallintField;
+    fdQryTabelaCOND_QTDE_PARCELAS: TSmallintField;
+    fdQryTabelaCOND_PRAZO_01: TSmallintField;
+    fdQryTabelaCOND_PRAZO_02: TSmallintField;
+    fdQryTabelaCOND_PRAZO_03: TSmallintField;
+    fdQryTabelaCOND_PRAZO_04: TSmallintField;
+    fdQryTabelaCOND_PRAZO_05: TSmallintField;
+    fdQryTabelaCOND_PRAZO_06: TSmallintField;
+    fdQryTabelaCOND_PRAZO_07: TSmallintField;
+    fdQryTabelaCOND_PRAZO_08: TSmallintField;
+    fdQryTabelaCOND_PRAZO_09: TSmallintField;
+    fdQryTabelaCOND_PRAZO_10: TSmallintField;
+    fdQryTabelaCOND_PRAZO_11: TSmallintField;
+    fdQryTabelaCOND_PRAZO_12: TSmallintField;
+    fdQryTabelaATIVA: TSmallintField;
+    fdQryTabelaCOND_DESCRICAO_FULL: TStringField;
+    fdQryTabelaAPrazo: TStringField;
+    cdsFormaPagtoListaDESCRICAO: TStringField;
+    cdsFormaPagtoListaUSAR_PDV: TStringField;
+    qryFormaPagtoListaSELECIONAR: TIntegerField;
+    qryFormaPagtoListaCODIGO: TSmallintField;
+    qryFormaPagtoListaDESCRICAO: TStringField;
+    qryFormaPagtoListaUSAR_PDV: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
-    procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
     procedure dbgFormaPagtoDblClick(Sender: TObject);
     procedure dbgFormaPagtoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure cdsFormaPagtoListaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure CarregarFormaPagto;
@@ -156,16 +161,19 @@ var
 begin
   frm := TfrmGeCondicaoPagto.Create(AOwner);
   try
-    Result := frm.SelecionarRegistro(Codigo, Nome);
-
-    if ( Result ) then
+    with frm, DtSrcTabela.DataSet do
     begin
-      for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
-        if ( not frm.IbDtstTabela.FieldByName('COND_PRAZO_' + FormatFloat('00', I)).IsNull ) then
-        begin
-          //SetLength(Prazos, Length(Prazos) + I);;
-          Prazos[I] := frm.IbDtstTabela.FieldByName('COND_PRAZO_' + FormatFloat('00', I)).AsInteger;
-        end;
+      Result := SelecionarRegistro(Codigo, Nome);
+
+      if ( Result ) then
+      begin
+        for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
+          if ( not FieldByName('COND_PRAZO_' + FormatFloat('00', I)).IsNull ) then
+          begin
+            //SetLength(Prazos, Length(Prazos) + I);;
+            Prazos[I] := FieldByName('COND_PRAZO_' + FormatFloat('00', I)).AsInteger;
+          end;
+      end;
     end;
   finally
     frm.Destroy;
@@ -185,6 +193,7 @@ begin
   NomeTabela     := 'TBCONDICAOPAGTO';
   CampoCodigo    := 'Cond_cod';
   CampoDescricao := 'Cond_descricao';
+  CampoOrdenacao := '3, 19'; // Cond_prazo, Cond_descricao_full
   CampoCadastroAtivo := 'ATIVA';
 
   if (gSistema.Codigo = SISTEMA_PDV) then
@@ -214,158 +223,24 @@ procedure TfrmGeCondicaoPagto.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
   inherited;
-  if ( Field = IbDtstTabela.FieldByName('COND_PRAZO') ) then
+  with DtSrcTabela.DataSet do
   begin
-    dbPrazo01.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo02.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo03.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo04.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo05.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo06.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo07.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo08.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo09.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo10.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo11.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
-    dbPrazo12.ReadOnly := (IbDtstTabelaCOND_PRAZO.AsInteger = 0);
+    if ( Field = FieldByName('COND_PRAZO') ) then
+    begin
+      dbPrazo01.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo02.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo03.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo04.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo05.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo06.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo07.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo08.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo09.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo10.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo11.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+      dbPrazo12.ReadOnly := (FieldByName('COND_PRAZO').AsInteger = 0);
+    end;
   end;
-end;
-
-procedure TfrmGeCondicaoPagto.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaCOND_PRAZO.AsInteger := 0;
-  IbDtstTabelaCOND_PDV.AsInteger   := 0;
-  IbDtstTabelaATIVA.AsInteger      := FLAG_SIM;
-  IbDtstTabelaCOND_QTDE_PARCELAS.AsInteger := 0;
-  IbDtstTabelaCOND_PRAZO_01.Clear;
-  IbDtstTabelaCOND_PRAZO_02.Clear;
-  IbDtstTabelaCOND_PRAZO_03.Clear;
-  IbDtstTabelaCOND_PRAZO_04.Clear;
-  IbDtstTabelaCOND_PRAZO_05.Clear;
-  IbDtstTabelaCOND_PRAZO_06.Clear;
-  IbDtstTabelaCOND_PRAZO_07.Clear;
-  IbDtstTabelaCOND_PRAZO_08.Clear;
-  IbDtstTabelaCOND_PRAZO_09.Clear;
-  IbDtstTabelaCOND_PRAZO_10.Clear;
-  IbDtstTabelaCOND_PRAZO_11.Clear;
-  IbDtstTabelaCOND_PRAZO_12.Clear;
-end;
-
-procedure TfrmGeCondicaoPagto.IbDtstTabelaBeforePost(DataSet: TDataSet);
-var
-  I     ,
-  iQtde : Integer;
-  sCmp  ,
-  Str   : String;
-begin
-  inherited;
-(*
-  IMR - 22/10/2014 :
-    Inserção da variável QTDE para que esta defina o número de parcelas da condição de pagamento a prazo a partir dos prazos de vencimentos.
-*)
-
-
-  iQtde := 0;
-
-  // limpar campos de prazos vazios
-
-  for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
-  begin
-    sCmp := 'COND_PRAZO_' + FormatFloat('00', I);
-    if IbDtstTabela.Fields.FindField(sCmp) <> nil then
-      if Trim(IbDtstTabela.FieldByName(sCmp).AsString) = EmptyStr then
-        IbDtstTabela.FieldByName(sCmp).Clear;
-  end;
-
-  if ( IbDtstTabelaCOND_PRAZO.AsInteger = 0 ) then
-    Str := Trim(IbDtstTabelaCOND_DESCRICAO.AsString)
-  else
-  begin
-    Str := Trim(IbDtstTabelaCOND_DESCRICAO.AsString) + ' [';
-
-    if ( not IbDtstTabelaCOND_PRAZO_01.IsNull ) then
-    begin
-      Str   := Str + IbDtstTabelaCOND_PRAZO_01.AsString;
-      iQtde := 1;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_02.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_02.AsString;
-      iQtde := 2;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_03.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_03.AsString;
-      iQtde := 3;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_04.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_04.AsString;
-      iQtde := 4;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_05.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_05.AsString;
-      iQtde := 5;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_06.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_06.AsString;
-      iQtde := 6;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_07.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_07.AsString;
-      iQtde := 7;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_08.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_08.AsString;
-      iQtde := 8;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_09.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_09.AsString;
-      iQtde := 9;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_10.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_10.AsString;
-      iQtde := 10;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_11.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_11.AsString;
-      iQtde := 11;
-    end;
-
-    if ( not IbDtstTabelaCOND_PRAZO_12.IsNull ) then
-    begin
-      Str   := Str + ', ' + IbDtstTabelaCOND_PRAZO_12.AsString;
-      iQtde := 12;
-    end;
-
-    Str := Str + ']';
-  end;
-
-  IbDtstTabelaCOND_QTDE_PARCELAS.AsInteger := iQtde;
-  IbDtstTabelaCOND_DESCRICAO_FULL.AsString := Str;
-end;
-
-procedure TfrmGeCondicaoPagto.IbDtstTabelaCalcFields(DataSet: TDataSet);
-begin
-  IbDtstTabelaAPrazo.AsString := IfThen(IbDtstTabelaCOND_PRAZO.AsInteger = 1, 'X', '.');
 end;
 
 procedure TfrmGeCondicaoPagto.CarregarFormaPagto;
@@ -373,7 +248,7 @@ begin
   with cdsFormaPagtoLista, Params do
   begin
     Close;
-    ParamByName('condicao_pagto').AsInteger := IbDtstTabelaCOND_COD.AsInteger;
+    ParamByName('condicao_pagto').AsInteger := DtSrcTabela.DataSet.FieldByName('COND_COD').AsInteger;
     Open;
   end;
 end;
@@ -400,11 +275,11 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-      SQL.Add( Format(SQL_DELETE, [cdsFormaPagtoListaCODIGO.AsString, IbDtstTabelaCOND_COD.AsString]) );
+      SQL.Add( Format(SQL_DELETE, [cdsFormaPagtoListaCODIGO.AsString, DtSrcTabela.DataSet.FieldByName('COND_COD').AsString]) );
       ExecSQL;
 
       SQL.Clear;
-      SQL.Add( Format(sSQL, [cdsFormaPagtoListaCODIGO.AsString, IbDtstTabelaCOND_COD.AsString]) );
+      SQL.Add( Format(sSQL, [cdsFormaPagtoListaCODIGO.AsString, DtSrcTabela.DataSet.FieldByName('COND_COD').AsString]) );
       ExecSQL;
 
       CommitTransaction;
@@ -436,12 +311,6 @@ begin
     dbgFormaPagtoDblClick(Sender);
 end;
 
-procedure TfrmGeCondicaoPagto.IbDtstTabelaAfterScroll(DataSet: TDataSet);
-begin
-  inherited;
-  CarregarFormaPagto;
-end;
-
 procedure TfrmGeCondicaoPagto.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
@@ -455,9 +324,9 @@ begin
   IMR - 11/03/2015 :
     Rotina que permite a gravação de várias formas de pagamentos para a mesma condição de pagamento.
 *)
-  IbDtstTabela.AfterScroll := nil;
+  fdQryTabela.AfterScroll := nil;
   inherited;
-  IbDtstTabela.AfterScroll := IbDtstTabelaAfterScroll;
+  fdQryTabela.AfterScroll := fdQryTabelaAfterScroll;
 
   if ( not OcorreuErro ) then
     GravarRelacaoFormaCondicao;
@@ -466,7 +335,158 @@ end;
 procedure TfrmGeCondicaoPagto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  dtsFormaPagtoLista.AutoEdit := (IbDtstTabela.State in [dsEdit, dsInsert]);
+  dtsFormaPagtoLista.AutoEdit := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+end;
+
+procedure TfrmGeCondicaoPagto.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  CarregarFormaPagto;
+end;
+
+procedure TfrmGeCondicaoPagto.fdQryTabelaBeforePost(DataSet: TDataSet);
+var
+  I     ,
+  iQtde : Integer;
+  sCmp  ,
+  Str   : String;
+begin
+  inherited;
+(*
+  IMR - 22/10/2014 :
+    Inserção da variável QTDE para que esta defina o número de parcelas da condição de pagamento a prazo a partir dos prazos de vencimentos.
+*)
+
+
+  iQtde := 0;
+
+  // limpar campos de prazos vazios
+
+  with DtSrcTabela.DataSet do
+  begin
+    for I := COND_PARCELA_MIN to COND_PARCELA_MAX do
+    begin
+      sCmp := 'COND_PRAZO_' + FormatFloat('00', I);
+      if Fields.FindField(sCmp) <> nil then
+        if Trim(FieldByName(sCmp).AsString) = EmptyStr then
+          FieldByName(sCmp).Clear;
+    end;
+
+    if ( FieldByName('COND_PRAZO').AsInteger = 0 ) then
+      Str := Trim(FieldByName('COND_DESCRICAO').AsString)
+    else
+    begin
+      Str := Trim(FieldByName('COND_DESCRICAO').AsString) + ' [';
+
+      if ( not FieldByName('COND_PRAZO_01').IsNull ) then
+      begin
+        Str   := Str + FieldByName('COND_PRAZO_01').AsString;
+        iQtde := 1;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_02').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_02').AsString;
+        iQtde := 2;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_03').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_03').AsString;
+        iQtde := 3;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_04').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_04').AsString;
+        iQtde := 4;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_05').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_05').AsString;
+        iQtde := 5;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_06').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_06').AsString;
+        iQtde := 6;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_07').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_07').AsString;
+        iQtde := 7;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_08').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_08').AsString;
+        iQtde := 8;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_09').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_09').AsString;
+        iQtde := 9;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_10').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_10').AsString;
+        iQtde := 10;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_11').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_11').AsString;
+        iQtde := 11;
+      end;
+
+      if ( not FieldByName('COND_PRAZO_12').IsNull ) then
+      begin
+        Str   := Str + ', ' + FieldByName('COND_PRAZO_12').AsString;
+        iQtde := 12;
+      end;
+
+      Str := Str + ']';
+    end;
+
+    FieldByName('COND_QTDE_PARCELAS').AsInteger := iQtde;
+    FieldByName('COND_DESCRICAO_FULL').AsString := Str;
+  end;
+end;
+
+procedure TfrmGeCondicaoPagto.fdQryTabelaCalcFields(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+    FieldByName('APrazo').AsString := IfThen(FieldByName('COND_PRAZO').AsInteger = 1, 'X', '.');
+end;
+
+procedure TfrmGeCondicaoPagto.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('COND_PRAZO').AsInteger := 0;
+    FieldByName('COND_PDV').AsInteger   := 0;
+    FieldByName('ATIVA').AsInteger      := FLAG_SIM;
+    FieldByName('COND_QTDE_PARCELAS').AsInteger := 0;
+    FieldByName('COND_PRAZO_01').Clear;
+    FieldByName('COND_PRAZO_02').Clear;
+    FieldByName('COND_PRAZO_03').Clear;
+    FieldByName('COND_PRAZO_04').Clear;
+    FieldByName('COND_PRAZO_05').Clear;
+    FieldByName('COND_PRAZO_06').Clear;
+    FieldByName('COND_PRAZO_07').Clear;
+    FieldByName('COND_PRAZO_08').Clear;
+    FieldByName('COND_PRAZO_09').Clear;
+    FieldByName('COND_PRAZO_10').Clear;
+    FieldByName('COND_PRAZO_11').Clear;
+    FieldByName('COND_PRAZO_12').Clear;
+  end;
 end;
 
 procedure TfrmGeCondicaoPagto.cdsFormaPagtoListaSELECIONARGetText(

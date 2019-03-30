@@ -43,37 +43,42 @@ inherited frmGePlanoContas: TfrmGePlanoContas
           item
             Expanded = False
             FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo '
             Width = 60
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CODIGO_CONTABIL'
+            Title.Caption = 'C'#243'digo Cont'#225'bil '
             Width = 120
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_RESUMIDA'
+            Title.Caption = 'Descri'#231#227'o resumida '
             Width = 400
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO_DESCRICAO'
+            Title.Caption = 'Tipo '
             Width = 120
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'RAZAO'
-            Title.Caption = 'Empresa'
+            Title.Caption = 'Empresa '
             Width = 320
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EXERCICIO'
+            Title.Caption = 'Exerc'#237'cio '
             Width = 60
             Visible = True
           end
@@ -81,6 +86,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
             Expanded = False
             FieldName = 'Ativo'
             Title.Alignment = taCenter
+            Title.Caption = 'Ativo? '
             Width = 45
             Visible = True
           end>
@@ -138,6 +144,8 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 788
       ExplicitHeight = 410
       inherited Bevel8: TBevel
@@ -453,8 +461,6 @@ inherited frmGePlanoContas: TfrmGePlanoContas
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnCalcFields = IbDtstTabelaCalcFields
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    p.codigo'
@@ -477,118 +483,10 @@ inherited frmGePlanoContas: TfrmGePlanoContas
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_PLANO_CONTA'
     GeneratorField.ApplyEvent = gamOnNewRecord
-    Left = 56
-    Top = 296
-    object IbDtstTabelaCODIGO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = '"TBPLANO_CONTA"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '0000'
-    end
-    object IbDtstTabelaEXERCICIO: TSmallintField
-      DisplayLabel = 'Exerc'#237'cio'
-      FieldName = 'EXERCICIO'
-      Origin = '"TBPLANO_CONTA"."EXERCICIO"'
-      ProviderFlags = [pfInUpdate]
-      ReadOnly = True
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBPLANO_CONTA"."EMPRESA"'
-      Size = 18
-    end
-    object IbDtstTabelaGRUPO: TIntegerField
-      DisplayLabel = 'Grupo'
-      FieldName = 'GRUPO'
-      Origin = '"TBPLANO_CONTA"."GRUPO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNIVEL: TSmallintField
-      DisplayLabel = 'N'#237'vel'
-      FieldName = 'NIVEL'
-      Origin = '"TBPLANO_CONTA"."NIVEL"'
-      ProviderFlags = [pfInUpdate]
-      ReadOnly = True
-    end
-    object IbDtstTabelaTIPO: TSmallintField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = '"TBPLANO_CONTA"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-      ReadOnly = True
-    end
-    object IbDtstTabelaCODIGO_CONTABIL: TIBStringField
-      DisplayLabel = 'C'#243'digo Cont'#225'bil'
-      FieldName = 'CODIGO_CONTABIL'
-      Origin = '"TBPLANO_CONTA"."CODIGO_CONTABIL"'
-      ProviderFlags = [pfInUpdate]
-      Size = 30
-    end
-    object IbDtstTabelaCODIGO_RESUMIDO: TIBStringField
-      DisplayLabel = 'C'#243'digo Resumido'
-      FieldName = 'CODIGO_RESUMIDO'
-      Origin = '"TBPLANO_CONTA"."CODIGO_RESUMIDO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o resumida'
-      FieldName = 'DESCRICAO_RESUMIDA'
-      Origin = '"TBPLANO_CONTA"."DESCRICAO_RESUMIDA"'
-      ProviderFlags = [pfInUpdate]
-      ReadOnly = True
-      Size = 100
-    end
-    object IbDtstTabelaDESCRICAO_COMPLETA: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o completa'
-      FieldName = 'DESCRICAO_COMPLETA'
-      Origin = '"TBPLANO_CONTA"."DESCRICAO_COMPLETA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaSITUACAO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Ativo'
-      FieldName = 'SITUACAO'
-      Origin = '"TBPLANO_CONTA"."SITUACAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaTIPO_DESCRICAO: TIBStringField
-      DisplayLabel = 'Tipo'
-      FieldKind = fkInternalCalc
-      FieldName = 'TIPO_DESCRICAO'
-      Origin = '"VW_TIPO_PLANO_CONTA"."DESCRICAO"'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 50
-    end
-    object IbDtstTabelaRAZAO: TIBStringField
-      FieldName = 'RAZAO'
-      ProviderFlags = []
-      Size = 60
-    end
-    object IbDtstTabelaFANTASIA: TIBStringField
-      FieldName = 'FANTASIA'
-      ProviderFlags = []
-      Size = 25
-    end
-    object IbDtstTabelaAtivo: TStringField
-      Alignment = taCenter
-      DisplayLabel = 'Ativo?'
-      FieldKind = fkCalculated
-      FieldName = 'Ativo'
-      ProviderFlags = []
-      Size = 1
-      Calculated = True
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 120
-    Top = 296
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -638,14 +536,12 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       'delete from TBPLANO_CONTA'
       'where'
       '  CODIGO = :OLD_CODIGO')
-    Left = 88
-    Top = 296
   end
   inherited ImgList: TImageList
     Left = 24
     Top = 296
     Bitmap = {
-      494C01012B002C00800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00840010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2103,6 +1999,173 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    OnCalcFields = fdQryTabelaCalcFields
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_PLANO_CONTA'
+    UpdateOptions.KeyFields = 'CODIGO'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    p.codigo'
+      '  , p.exercicio'
+      '  , p.empresa'
+      '  , p.grupo'
+      '  , p.nivel'
+      '  , p.tipo'
+      '  , p.codigo_contabil'
+      '  , p.codigo_resumido'
+      '  , p.descricao_resumida'
+      '  , p.descricao_completa'
+      '  , p.situacao'
+      '  , t.descricao as tipo_descricao'
+      '  , coalesce(e.rzsoc,  '#39'Todas'#39') as razao'
+      '  , coalesce(e.nmfant, '#39'Todas'#39') as fantasia'
+      'from TBPLANO_CONTA p'
+      '  left join VW_TIPO_PLANO_CONTA t on (t.codigo = p.tipo)'
+      '  left join TBEMPRESA e on (e.cnpj = p.empresa)')
+    object fdQryTabelaCODIGO: TIntegerField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdQryTabelaEXERCICIO: TSmallintField
+      DisplayLabel = 'Exerc'#237'cio'
+      FieldName = 'EXERCICIO'
+      Origin = 'EXERCICIO'
+    end
+    object fdQryTabelaEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Size = 18
+    end
+    object fdQryTabelaGRUPO: TIntegerField
+      DisplayLabel = 'Grupo'
+      FieldName = 'GRUPO'
+      Origin = 'GRUPO'
+    end
+    object fdQryTabelaNIVEL: TSmallintField
+      DisplayLabel = 'N'#237'vel'
+      FieldName = 'NIVEL'
+      Origin = 'NIVEL'
+      Required = True
+    end
+    object fdQryTabelaTIPO: TSmallintField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+    end
+    object fdQryTabelaCODIGO_CONTABIL: TStringField
+      DisplayLabel = 'C'#243'digo Cont'#225'bil'
+      FieldName = 'CODIGO_CONTABIL'
+      Origin = 'CODIGO_CONTABIL'
+      Size = 30
+    end
+    object fdQryTabelaCODIGO_RESUMIDO: TStringField
+      DisplayLabel = 'C'#243'digo Resumido'
+      FieldName = 'CODIGO_RESUMIDO'
+      Origin = 'CODIGO_RESUMIDO'
+      Size = 10
+    end
+    object fdQryTabelaDESCRICAO_RESUMIDA: TStringField
+      DisplayLabel = 'Descri'#231#227'o resumida'
+      FieldName = 'DESCRICAO_RESUMIDA'
+      Origin = 'DESCRICAO_RESUMIDA'
+      Required = True
+      Size = 100
+    end
+    object fdQryTabelaDESCRICAO_COMPLETA: TStringField
+      DisplayLabel = 'Descri'#231#227'o completa'
+      FieldName = 'DESCRICAO_COMPLETA'
+      Origin = 'DESCRICAO_COMPLETA'
+      Required = True
+      Size = 250
+    end
+    object fdQryTabelaSITUACAO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Ativo'
+      FieldName = 'SITUACAO'
+      Origin = 'SITUACAO'
+      Required = True
+    end
+    object fdQryTabelaTIPO_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO_DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 22
+    end
+    object fdQryTabelaRAZAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'RAZAO'
+      Origin = 'RAZAO'
+      ProviderFlags = []
+      Size = 60
+    end
+    object fdQryTabelaFANTASIA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FANTASIA'
+      Origin = 'FANTASIA'
+      ProviderFlags = []
+      Size = 25
+    end
+    object fdQryTabelaAtivo: TStringField
+      Alignment = taCenter
+      DisplayLabel = 'Ativo?'
+      FieldKind = fkInternalCalc
+      FieldName = 'Ativo'
+      Size = 1
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBPLANO_CONTA'
+      '(CODIGO, EXERCICIO, EMPRESA, GRUPO, NIVEL, '
+      '  TIPO, CODIGO_CONTABIL, CODIGO_RESUMIDO, DESCRICAO_RESUMIDA, '
+      '  DESCRICAO_COMPLETA, SITUACAO)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_EXERCICIO, :NEW_EMPRESA, :NEW_GRUPO, :' +
+        'NEW_NIVEL, '
+      
+        '  :NEW_TIPO, :NEW_CODIGO_CONTABIL, :NEW_CODIGO_RESUMIDO, :NEW_DE' +
+        'SCRICAO_RESUMIDA, '
+      '  :NEW_DESCRICAO_COMPLETA, :NEW_SITUACAO)'
+      'RETURNING CODIGO')
+    ModifySQL.Strings = (
+      'UPDATE TBPLANO_CONTA'
+      
+        'SET CODIGO = :NEW_CODIGO, EXERCICIO = :NEW_EXERCICIO, EMPRESA = ' +
+        ':NEW_EMPRESA, '
+      '  GRUPO = :NEW_GRUPO, NIVEL = :NEW_NIVEL, TIPO = :NEW_TIPO, '
+      
+        '  CODIGO_CONTABIL = :NEW_CODIGO_CONTABIL, CODIGO_RESUMIDO = :NEW' +
+        '_CODIGO_RESUMIDO, '
+      
+        '  DESCRICAO_RESUMIDA = :NEW_DESCRICAO_RESUMIDA, DESCRICAO_COMPLE' +
+        'TA = :NEW_DESCRICAO_COMPLETA, '
+      '  SITUACAO = :NEW_SITUACAO'
+      'WHERE CODIGO = :OLD_CODIGO'
+      'RETURNING CODIGO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBPLANO_CONTA'
+      'WHERE CODIGO = :OLD_CODIGO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT CODIGO, EXERCICIO, EMPRESA, GRUPO, NIVEL, TIPO, CODIGO_CO' +
+        'NTABIL, '
+      '  CODIGO_RESUMIDO, DESCRICAO_RESUMIDA, DESCRICAO_COMPLETA, '
+      '  SITUACAO'
+      'FROM TBPLANO_CONTA'
+      'WHERE CODIGO = :CODIGO')
   end
   object dtsGrupo: TDataSource
     DataSet = fdQryGrupo

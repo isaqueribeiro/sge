@@ -863,6 +863,8 @@ procedure ShowInformation(sTitle, sMsg : String);
 var
   fMsg : TfrmGeMessage;
 begin
+  WaitAMomentFree;
+
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TfrmGeMessage.Create(Application);
@@ -879,6 +881,8 @@ procedure ShowInformation(sMsg : String);
 var
   fMsg : TfrmGeMessage;
 begin
+  WaitAMomentFree;
+
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TfrmGeMessage.Create(Application);
@@ -895,6 +899,8 @@ procedure ShowWarning(sMsg : String);
 var
   fMsg : TfrmGeMessage;
 begin
+  WaitAMomentFree;
+
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TfrmGeMessage.Create(Application);
@@ -911,6 +917,8 @@ procedure ShowWarning(sTitulo, sMsg : String);
 var
   fMsg : TfrmGeMessage;
 begin
+  WaitAMomentFree;
+
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TfrmGeMessage.Create(Application);
@@ -927,6 +935,8 @@ procedure ShowStop(sMsg : String);
 var
   fMsg : TfrmGeMessage;
 begin
+  WaitAMomentFree;
+
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TfrmGeMessage.Create(Application);
@@ -943,6 +953,8 @@ procedure ShowStop(sTitulo, sMsg : String);
 var
   fMsg : TfrmGeMessage;
 begin
+  WaitAMomentFree;
+
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TfrmGeMessage.Create(Application);
@@ -959,6 +971,8 @@ procedure ShowError(sMsg : String);
 var
   sLOG_Error : TStringList;
 begin
+  WaitAMomentFree;
+
   sLOG_Error := TStringList.Create;
   try
     sLOG_Error.BeginUpdate;
@@ -983,6 +997,8 @@ var
   sLOG_File  : String;
   sLOG_Error : TStringList;
 begin
+  WaitAMomentFree;
+
   sLOG_File  := ExtractFilePath(Application.ExeName) + '_logError\' + FormatDateTime('yyyy-mm-dd.hhmmss".log"', Now);
   sLOG_Error := TStringList.Create;
   try

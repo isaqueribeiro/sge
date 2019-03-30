@@ -6,20 +6,18 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls,
+  JvExMask, JvToolEdit, JvDBControls, Datasnap.DBClient, Datasnap.Provider,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  Datasnap.DBClient, Datasnap.Provider;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeTipoReceita = class(TfrmGrPadraoCadastro)
@@ -32,14 +30,6 @@ type
     Bevel5: TBevel;
     dbTipoParticular: TDBCheckBox;
     dbAtivo: TDBCheckBox;
-    IbDtstTabelaCOD: TSmallintField;
-    IbDtstTabelaTIPOREC: TIBStringField;
-    IbDtstTabelaTIPO_PARTICULAR: TSmallintField;
-    IbDtstTabelaPLANO_CONTA: TIntegerField;
-    IbDtstTabelaATIVO: TSmallintField;
-    IbDtstTabelaTIPO_PARTICULAR_DESC: TIBStringField;
-    IbDtstTabelaDESCRICAO_RESUMIDA: TIBStringField;
-    IbDtstTabelaCLASSIFICACAO: TSmallintField;
     fdQryClassificacao: TFDQuery;
     DtsClassificacao: TDataSource;
     lblClassificacao: TLabel;
@@ -65,13 +55,18 @@ type
     BtnPlanoExcluir: TcxButton;
     dbgPlanoContas: TDBGrid;
     lblRegistroDesativado: TLabel;
+    fdQryTabelaCOD: TSmallintField;
+    fdQryTabelaTIPOREC: TStringField;
+    fdQryTabelaCLASSIFICACAO: TSmallintField;
+    fdQryTabelaTIPO_PARTICULAR: TSmallintField;
+    fdQryTabelaPLANO_CONTA: TIntegerField;
+    fdQryTabelaATIVO: TSmallintField;
+    fdQryTabelaTIPO_PARTICULAR_DESC: TStringField;
+    fdQryTabelaDESCRICAO_RESUMIDA: TStringField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btbtnListaClick(Sender: TObject);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -82,6 +77,9 @@ type
     procedure dbgPlanoContasKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DtSrcTabelaStateChange(Sender: TObject);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure CarregarPlanoConta;
@@ -138,7 +136,7 @@ var
 begin
   frm := TfrmGeTipoReceita.Create(AOwner);
   try
-    frm.IbDtstTabela.ParamByName('empresa').AsString := aEmpresa;
+    frm.fdQryTabela.ParamByName('empresa').AsString := aEmpresa;
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
     frm.Destroy;
@@ -154,34 +152,11 @@ begin
   NomeTabela          := 'TBTPRECEITA';
   CampoCodigo         := 'COD';
   CampoDescricao      := 'TIPOREC';
+  CampoOrdenacao      := 'TIPOREC';
   CampoCadastroAtivo  := 'ATIVO';
 
   CarregarLista(fdQryClassificacao);
-  IbDtstTabela.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
-end;
-
-procedure TfrmGeTipoReceita.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaCOD.Value                 := GetNextID(NomeTabela, CampoCodigo);
-  IbDtstTabelaCLASSIFICACAO.AsInteger   := 0; // A Definir
-  IbDtstTabelaTIPO_PARTICULAR.AsInteger := 0;
-  IbDtstTabelaATIVO.AsInteger           := 1;
-  IbDtstTabelaPLANO_CONTA.Clear;
-  CarregarPlanoConta;
-end;
-
-procedure TfrmGeTipoReceita.IbDtstTabelaAfterScroll(DataSet: TDataSet);
-begin
-  inherited;
-  CarregarPlanoConta;
-end;
-
-procedure TfrmGeTipoReceita.IbDtstTabelaBeforePost(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaTIPOREC.AsString              := Trim(IbDtstTabelaTIPOREC.AsString);
-  IbDtstTabelaTIPO_PARTICULAR_DESC.AsString := IfThen(IbDtstTabelaTIPO_PARTICULAR.AsInteger = 1, 'S', EmptyStr);
+  fdQryTabela.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
 end;
 
 procedure TfrmGeTipoReceita.btbtnCancelarClick(Sender: TObject);
@@ -208,12 +183,12 @@ end;
 procedure TfrmGeTipoReceita.btbtnSalvarClick(Sender: TObject);
 begin
   try
-    IbDtstTabela.AfterScroll := nil;
+    fdQryTabela.AfterScroll := nil;
     inherited;
     if (not OcorreuErro) then
       GravarRelacaoPlanoConta;
   finally
-    IbDtstTabela.AfterScroll := IbDtstTabelaAfterScroll;
+    fdQryTabela.AfterScroll := fdQryTabelaAfterScroll;
   end;
 end;
 
@@ -225,7 +200,7 @@ begin
   aPlanoConta.CodigoContabil := EmptyStr;
   aPlanoConta.Descricao      := EmptyStr;
   aPlanoConta.Empresa        := EmptyStr;
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( SelecionarPlanoConta(Self, tpLancamento, 0, EmptyStr, aPlanoConta) ) then
     begin
       if CdsPlanoConta.Locate('plano;empresa', VarArrayOf([aPlanoConta.Codigo, aPlanoConta.Empresa]), []) then
@@ -237,7 +212,7 @@ begin
         with CdsPlanoConta do
         begin
           Append;
-          FieldByName('receita').AsInteger    := IbDtstTabelaCOD.AsInteger;
+          FieldByName('receita').AsInteger    := DtSrcTabela.DataSet.FieldByName('COD').AsInteger;
           FieldByName('selecionar').AsInteger := 1;
           FieldByName('plano').AsInteger      := aPlanoConta.Codigo;
           FieldByName('plano_conta').AsString := aPlanoConta.CodigoContabil + ' - ' + aPlanoConta.Descricao;
@@ -259,7 +234,7 @@ begin
   with CdsPlanoConta do
   begin
     Close;
-    ParamByName('receita').AsInteger := IbDtstTabela.FieldByName('cod').AsInteger;
+    ParamByName('receita').AsInteger := DtSrcTabela.DataSet.FieldByName('cod').AsInteger;
     Open;
   end;
 end;
@@ -303,23 +278,53 @@ begin
   dtsPlanoConta.AutoEdit    := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 end;
 
+procedure TfrmGeTipoReceita.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  CarregarPlanoConta;
+end;
+
+procedure TfrmGeTipoReceita.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('TIPOREC').AsString              := Trim(FieldByName('TIPOREC').AsString);
+    FieldByName('TIPO_PARTICULAR_DESC').AsString := IfThen(FieldByName('TIPO_PARTICULAR').AsInteger = 1, 'S', EmptyStr);
+  end;
+end;
+
+procedure TfrmGeTipoReceita.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('COD').AsInteger             := GetNextID(NomeTabela, 'COD');
+    FieldByName('CLASSIFICACAO').AsInteger   := 0; // A Definir
+    FieldByName('TIPO_PARTICULAR').AsInteger := 0;
+    FieldByName('ATIVO').AsInteger           := 1;
+    FieldByName('PLANO_CONTA').Clear;
+  end;
+  CarregarPlanoConta;
+end;
+
 procedure TfrmGeTipoReceita.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
 //  if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
 //  begin
 //
-//    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+//    if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
 //      if ( dbPlanoContas.Focused ) then
 //      begin
-//        IbDtstTabelaPLANO_CONTA.Clear;
-//        IbDtstTabelaDESCRICAO_RESUMIDA.Clear;
+//        DtSrcTabela.DataSet.FieldByName('PLANO_CONTA').Clear;
+//        DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMIDA').Clear;
 //      end;
 //
 //  end;
 //
   if (Shift = [ssCtrl]) and (Key = VK_INSERT) Then
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
       BtnPlanoAdicionar.Click;
 
   inherited;
