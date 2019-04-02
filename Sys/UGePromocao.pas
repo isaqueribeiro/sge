@@ -3,27 +3,30 @@ unit UGePromocao;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvToolEdit, JvDBControls, JvExMask;
+  JvToolEdit, JvDBControls, JvExMask,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGePromocao = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaDESCRICAO: TIBStringField;
-    IbDtstTabelaDATA_INICIO: TDateField;
-    IbDtstTabelaDATA_FINAL: TDateField;
-    IbDtstTabelaPERCENTUAL_DESCONTO: TIBBCDField;
     lblDataInicio: TLabel;
     lblDataFinal: TLabel;
     lblDescontoProm: TLabel;
     dbDescontoProm: TDBEdit;
-    cdsProdutos: TIBDataSet;
-    IbUpdProdutos: TIBUpdateSQL;
     DtSrcProdutos: TDataSource;
     GrpBxDadosProduto: TGroupBox;
     lblProduto: TLabel;
@@ -43,42 +46,91 @@ type
     btnProdutoSalvar: TBitBtn;
     Bevel6: TBevel;
     dbgProdutos: TDBGrid;
-    cdsProdutosCODIGO_PROM: TIntegerField;
-    cdsProdutosCODIGO_PROD: TIBStringField;
-    cdsProdutosPRECO_VENDA: TIBBCDField;
-    cdsProdutosDESCONTO: TIBBCDField;
-    cdsProdutosPRECO_PROMOCAO: TIBBCDField;
-    cdsProdutosUSUARIO: TIBStringField;
-    cdsProdutosDESCRI: TIBStringField;
-    cdsProdutosUNIDADE: TIBStringField;
-    IbDtstTabelaATIVA: TSmallintField;
     dbAtiva: TDBCheckBox;
-    qryProduto: TIBDataSet;
-    cdsProdutosSequencial: TIntegerField;
     dbProduto: TJvDBComboEdit;
     dbValorPromocao: TJvDBComboEdit;
     dbDataInicio: TJvDBDateEdit;
     dbDataFinal: TJvDBDateEdit;
+    fdQryTabelaCODIGO: TIntegerField;
+    fdQryTabelaDESCRICAO: TStringField;
+    fdQryTabelaDATA_INICIO: TDateField;
+    fdQryTabelaDATA_FINAL: TDateField;
+    fdQryTabelaPERCENTUAL_DESCONTO: TBCDField;
+    fdQryTabelaATIVA: TSmallintField;
+    qryProduto: TFDQuery;
+    qryProdutoCODIGO: TIntegerField;
+    qryProdutoPESSOA_FISICA: TSmallintField;
+    qryProdutoCNPJ: TStringField;
+    qryProdutoRZSOC: TStringField;
+    qryProdutoNMFANT: TStringField;
+    qryProdutoIE: TStringField;
+    qryProdutoIM: TStringField;
+    qryProdutoCNAE: TStringField;
+    qryProdutoFONE: TStringField;
+    qryProdutoLOGO: TBlobField;
+    qryProdutoTLG_TIPO: TSmallintField;
+    qryProdutoTLG_DESCRICAO: TStringField;
+    qryProdutoTLG_SIGLA: TStringField;
+    qryProdutoLOG_COD: TIntegerField;
+    qryProdutoLOG_NOME: TStringField;
+    qryProdutoCOMPLEMENTO: TStringField;
+    qryProdutoNUMERO_END: TStringField;
+    qryProdutoCEP: TStringField;
+    qryProdutoBAI_COD: TIntegerField;
+    qryProdutoBAI_NOME: TStringField;
+    qryProdutoCID_COD: TIntegerField;
+    qryProdutoCID_NOME: TStringField;
+    qryProdutoCID_SIAFI: TIntegerField;
+    qryProdutoCID_IBGE: TIntegerField;
+    qryProdutoCID_DDD: TSmallintField;
+    qryProdutoEST_COD: TSmallintField;
+    qryProdutoEST_NOME: TStringField;
+    qryProdutoEST_SIGLA: TStringField;
+    qryProdutoEST_SIAFI: TIntegerField;
+    qryProdutoEMAIL: TStringField;
+    qryProdutoHOME_PAGE: TStringField;
+    qryProdutoCHAVE_ACESSO_NFE: TStringField;
+    qryProdutoTIPO_REGIME_NFE: TSmallintField;
+    qryProdutoSERIE_NFE: TSmallintField;
+    qryProdutoNUMERO_NFE: TIntegerField;
+    qryProdutoLOTE_ANO_NFE: TSmallintField;
+    qryProdutoLOTE_NUM_NFE: TIntegerField;
+    qryProdutoPAIS_ID: TStringField;
+    qryProdutoSERIE_NFCE: TSmallintField;
+    qryProdutoNUMERO_NFCE: TIntegerField;
+    qryProdutoPAIS_NOME: TStringField;
+    qryProdutoRECONFIGURAR: TIntegerField;
+    cdsProdutos: TFDQuery;
+    IbUpdProdutos: TFDUpdateSQL;
+    cdsProdutosCODIGO_PROM: TIntegerField;
+    cdsProdutosCODIGO_PROD: TStringField;
+    cdsProdutosPRECO_VENDA: TBCDField;
+    cdsProdutosDESCONTO: TBCDField;
+    cdsProdutosPRECO_PROMOCAO: TBCDField;
+    cdsProdutosUSUARIO: TStringField;
+    cdsProdutosDESCRI: TStringField;
+    cdsProdutosUNIDADE: TStringField;
+    cdsProdutosSequencial: TIntegerField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure DtSrcProdutosStateChange(Sender: TObject);
     procedure dbProdutoButtonClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
-    procedure cdsProdutosNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
+    procedure cdsProdutosXXXNewRecord(DataSet: TDataSet);
     procedure btnProdutoInserirClick(Sender: TObject);
     procedure btnProdutoEditarClick(Sender: TObject);
     procedure btnProdutoExcluirClick(Sender: TObject);
     procedure btnProdutoSalvarClick(Sender: TObject);
     procedure ControlEditExit(Sender: TObject);
     procedure dbValorPromocaoButtonClick(Sender: TObject);
-    procedure cdsProdutosCalcFields(DataSet: TDataSet);
+    procedure cdsProdutosXXXCalcFields(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
   private
     { Private declarations }
     SQL_Produtos : TStringList;
@@ -87,6 +139,21 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBPROMOCAO
+  - TBPRODUTO
+  - TBGRUPOPROD
+  - TBSECAOPROD
+  - TBUNIDADEPROD
+  - TBCFOP
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGePromocao: TfrmGePromocao;
@@ -130,7 +197,7 @@ procedure TfrmGePromocao.AbrirTabelaProdutos(const PromocaoID: Integer);
 begin
   cdsProdutos.Close;
 
-  with cdsProdutos, SelectSQL do
+  with cdsProdutos, SQL do
   begin
     Clear;
     AddStrings( SQL_Produtos );
@@ -144,45 +211,40 @@ procedure TfrmGePromocao.FormCreate(Sender: TObject);
 begin
   inherited;
   Desativar_Promocoes;
-  
+
   DisplayFormatCodigo := '0000';
   RotinaID            := ROTINA_CAD_PROMOCAO_ID;
   ControlFirstEdit    := dbNome;
 
   NomeTabela     := 'TBPROMOCAO';
-  CampoCodigo    := 'CODIGO';
-  CampoDescricao := 'DESCRICAO';
+  CampoCodigo    := 'p.CODIGO';
+  CampoDescricao := 'p.DESCRICAO';
+  CampoOrdenacao := 'p.Ativa DESC, p.Data_inicio ASC, p.DESCRICAO ASC';
 
   UpdateGenerator;
 
   SQL_Produtos := TStringList.Create;
-  SQL_Produtos.AddStrings( cdsProdutos.SelectSQL );
-end;
-
-procedure TfrmGePromocao.IbDtstTabelaAfterCancel(DataSet: TDataSet);
-begin
-  inherited;
-  AbrirTabelaProdutos( IbDtstTabelaCODIGO.AsInteger );
+  SQL_Produtos.AddStrings( cdsProdutos.SQL );
 end;
 
 procedure TfrmGePromocao.btbtnExcluirClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
-    AbrirTabelaProdutos( IbDtstTabelaCODIGO.AsInteger );
+    AbrirTabelaProdutos( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
 end;
 
 procedure TfrmGePromocao.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  AbrirTabelaProdutos( IbDtstTabelaCODIGO.Value );
+  AbrirTabelaProdutos( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
 end;
 
 procedure TfrmGePromocao.btbtnAlterarClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
-    AbrirTabelaProdutos( IbDtstTabelaCODIGO.AsInteger );
+    AbrirTabelaProdutos( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
 end;
 
 procedure TfrmGePromocao.DtSrcProdutosStateChange(Sender: TObject);
@@ -219,24 +281,33 @@ end;
 procedure TfrmGePromocao.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  dbAtiva.ReadOnly       := ( IbDtstTabela.State in [dsInsert] );
-  DtSrcProdutos.AutoEdit := ( IbDtstTabela.State in [dsEdit, dsInsert] );
+  dbAtiva.ReadOnly       := ( DtSrcTabela.DataSet.State in [dsInsert] );
+  DtSrcProdutos.AutoEdit := ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] );
   DtSrcProdutosStateChange( DtSrcProdutos );
 end;
 
-procedure TfrmGePromocao.cdsProdutosNewRecord(DataSet: TDataSet);
-begin
-  cdsProdutosCODIGO_PROM.Value := IbDtstTabelaCODIGO.Value;
-  cdsProdutosDESCONTO.Value    := 0.0;
-end;
-
-procedure TfrmGePromocao.IbDtstTabelaNewRecord(DataSet: TDataSet);
+procedure TfrmGePromocao.fdQryTabelaAfterCancel(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaATIVA.Value               := 0;
-  IbDtstTabelaDATA_INICIO.Value         := GetDateDB;
-  IbDtstTabelaPERCENTUAL_DESCONTO.Value := 0;
-  AbrirTabelaProdutos( IbDtstTabelaCODIGO.AsInteger );
+  AbrirTabelaProdutos( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
+end;
+
+procedure TfrmGePromocao.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('ATIVA').AsInteger                := 0;
+    FieldByName('DATA_INICIO').AsDateTime         := GetDateDB;
+    FieldByName('PERCENTUAL_DESCONTO').AsCurrency := 0.0;
+    AbrirTabelaProdutos( FieldByName('CODIGO').AsInteger );
+  end;
+end;
+
+procedure TfrmGePromocao.cdsProdutosXXXNewRecord(DataSet: TDataSet);
+begin
+  cdsProdutosCODIGO_PROM.Value := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+  cdsProdutosDESCONTO.Value    := 0.0;
 end;
 
 procedure TfrmGePromocao.btnProdutoInserirClick(Sender: TObject);
@@ -244,8 +315,8 @@ begin
   if ( cdsProdutos.Active ) then
   begin
     cdsProdutos.Append;
-    cdsProdutosCODIGO_PROM.AsInteger := IbDtstTabelaCODIGO.AsInteger;
-    cdsProdutosDESCONTO.AsCurrency   := IbDtstTabelaPERCENTUAL_DESCONTO.AsCurrency;
+    cdsProdutosCODIGO_PROM.AsInteger := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+    cdsProdutosDESCONTO.AsCurrency   := DtSrcTabela.DataSet.FieldByName('PERCENTUAL_DESCONTO').AsCurrency;
     dbProduto.SetFocus;
   end;
 end;
@@ -376,7 +447,7 @@ begin
   end;
 end;
 
-procedure TfrmGePromocao.cdsProdutosCalcFields(DataSet: TDataSet);
+procedure TfrmGePromocao.cdsProdutosXXXCalcFields(DataSet: TDataSet);
 begin
   cdsProdutosSequencial.Value := cdsProdutos.RecNo;
 end;
@@ -390,6 +461,8 @@ begin
       cdsProdutos.Post;
 
     cdsProdutos.ApplyUpdates;
+    cdsProdutos.CommitUpdates;
+
     CommitTransaction;
   end;
 end;
@@ -401,7 +474,7 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    if ( IbDtstTabelaATIVA.AsInteger = 0 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('ATIVA').AsInteger = 0 ) then
       dbgDados.Canvas.Font.Color := clRed;
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end;

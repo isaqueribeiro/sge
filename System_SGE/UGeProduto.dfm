@@ -28,8 +28,6 @@ inherited frmGeProduto: TfrmGeProduto
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -46,19 +44,21 @@ inherited frmGeProduto: TfrmGeProduto
           item
             Expanded = False
             FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo '
             Width = 60
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
+            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o '
             Width = 280
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTDE'
-            Title.Caption = 'Estoque'
+            Title.Caption = 'Estoque '
             Width = 75
             Visible = True
           end
@@ -70,6 +70,7 @@ inherited frmGeProduto: TfrmGeProduto
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Dispon'#237'vel '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
@@ -81,31 +82,35 @@ inherited frmGeProduto: TfrmGeProduto
           item
             Expanded = False
             FieldName = 'REFERENCIA'
+            Title.Caption = 'Refer'#234'ncia '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'MODELO_FABRICACAO'
+            Title.Caption = 'Ano/Modelo '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_COR'
+            Title.Caption = 'Cor '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_COMBUSTIVEL'
+            Title.Caption = 'Combust'#237'vel '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'KILOMETRAGEM_VEICULO'
-            Title.Caption = 'Km'
+            Title.Caption = 'Km '
             Width = 80
             Visible = True
           end
@@ -113,12 +118,14 @@ inherited frmGeProduto: TfrmGeProduto
             Expanded = False
             FieldName = 'UNP_SIGLA'
             Title.Alignment = taCenter
+            Title.Caption = 'UND '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CUSTOMEDIO'
+            Title.Caption = 'Custo (R$) '
             Visible = False
           end
           item
@@ -129,6 +136,7 @@ inherited frmGeProduto: TfrmGeProduto
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Pre'#231'o (R$) '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
@@ -140,13 +148,14 @@ inherited frmGeProduto: TfrmGeProduto
           item
             Expanded = False
             FieldName = 'PERCENTUAL_MARCKUP'
-            Title.Caption = '% Markup'
+            Title.Caption = '% Markup '
             Width = 70
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_GRUPO'
+            Title.Caption = 'Grupo '
             Visible = True
           end>
       end
@@ -812,10 +821,6 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblCusto: TLabel
             Left = 272
             Top = 8
@@ -1312,10 +1317,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -1610,10 +1611,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsTributacao: TTabSheet
           Caption = 'Tributa'#231#245'es'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 233
@@ -2168,10 +2165,6 @@ inherited frmGeProduto: TfrmGeProduto
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2571,12 +2564,13 @@ inherited frmGeProduto: TfrmGeProduto
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
-              Width = 105
+              Width = 941
               Height = 13
               Align = alTop
               Caption = 'Especifica'#231#227'o textual:'
               FocusControl = dbEspecificacao
               Transparent = True
+              ExplicitWidth = 105
             end
             object Bevel9: TBevel
               Left = 2
@@ -2601,10 +2595,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             945
             249)
@@ -3005,8 +2995,6 @@ inherited frmGeProduto: TfrmGeProduto
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    BeforePost = IbDtstTabelaBeforePost
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    p.Codigo'
@@ -3133,640 +3121,14 @@ inherited frmGeProduto: TfrmGeProduto
         'veiculo)')
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_PRODUTO_ID'
-    Left = 752
-    object IbDtstTabelaCODIGO: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = '"TBPRODUTO"."CODIGO"'
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaCOD: TIBStringField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = '"TBPRODUTO"."COD"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Size = 10
-    end
-    object IbDtstTabelaDESCRI: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRI'
-      Origin = '"TBPRODUTO"."DESCRI"'
-      Required = True
-      Size = 50
-    end
-    object IbDtstTabelaAPRESENTACAO: TIBStringField
-      DisplayLabel = 'Apresenta'#231#227'o'
-      FieldName = 'APRESENTACAO'
-      Origin = '"TBPRODUTO"."APRESENTACAO"'
-      Size = 50
-    end
-    object IbDtstTabelaDESCRI_APRESENTACAO: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o + Apresenta'#231#227'o'
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
-      Size = 100
-    end
-    object IbDtstTabelaMETAFONEMA: TIBStringField
-      FieldName = 'METAFONEMA'
-      Origin = '"TBPRODUTO"."METAFONEMA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaMODELO: TIBStringField
-      DisplayLabel = 'Modelo'
-      FieldName = 'MODELO'
-      Origin = '"TBPRODUTO"."MODELO"'
-      Size = 40
-    end
-    object IbDtstTabelaANVISA: TIBStringField
-      DisplayLabel = 'C'#243'digo Anvisa'
-      FieldName = 'ANVISA'
-      Origin = '"TBPRODUTO"."ANVISA"'
-      Size = 30
-    end
-    object IbDtstTabelaPRECO: TIBBCDField
-      DisplayLabel = 'Pre'#231'o (R$)'
-      FieldName = 'PRECO'
-      Origin = '"TBPRODUTO"."PRECO"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaPRECO_PROMOCAO: TIBBCDField
-      FieldName = 'PRECO_PROMOCAO'
-      Origin = '"TBPRODUTO"."PRECO_PROMOCAO"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaPRECO_SUGERIDO: TIBBCDField
-      FieldName = 'PRECO_SUGERIDO'
-      Origin = '"TBPRODUTO"."PRECO_SUGERIDO"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaREFERENCIA: TIBStringField
-      DisplayLabel = 'Refer'#234'ncia'
-      FieldName = 'REFERENCIA'
-      Origin = '"TBPRODUTO"."REFERENCIA"'
-      Size = 15
-    end
-    object IbDtstTabelaNOME_AMIGO: TIBStringField
-      DisplayLabel = 'Nome Amigo'
-      FieldName = 'NOME_AMIGO'
-      Origin = '"TBPRODUTO"."NOME_AMIGO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 100
-    end
-    object IbDtstTabelaESPECIFICACAO: TBlobField
-      FieldName = 'ESPECIFICACAO'
-      Origin = '"TBPRODUTO"."ESPECIFICACAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 8
-    end
-    object IbDtstTabelaQTDE: TIBBCDField
-      DisplayLabel = 'Quantidade'
-      FieldName = 'QTDE'
-      Origin = '"TBPRODUTO"."QTDE"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaUNIDADE: TIBStringField
-      FieldName = 'UNIDADE'
-      Origin = '"TBPRODUTO"."UNIDADE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 5
-    end
-    object IbDtstTabelaESTOQMIN: TIBBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQMIN'
-      Origin = '"TBPRODUTO"."ESTOQMIN"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaRESERVA: TIBBCDField
-      DisplayLabel = 'Reserva'
-      FieldName = 'RESERVA'
-      Origin = '"TBPRODUTO"."RESERVA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaFRACIONADOR: TIBBCDField
-      DisplayLabel = 'Fracionador'
-      FieldName = 'FRACIONADOR'
-      Origin = '"TBPRODUTO"."FRACIONADOR"'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaVENDA_FRACIONADA: TSmallintField
-      FieldName = 'VENDA_FRACIONADA'
-      Origin = '"TBPRODUTO"."VENDA_FRACIONADA"'
-    end
-    object IbDtstTabelaCODUNIDADE_FRACIONADA: TSmallintField
-      DisplayLabel = 'Unidade da Fra'#231#227'o'
-      FieldName = 'CODUNIDADE_FRACIONADA'
-      Origin = '"TBPRODUTO"."CODUNIDADE_FRACIONADA"'
-    end
-    object IbDtstTabelaCODTIPO: TSmallintField
-      DisplayLabel = 'Tipo do Produto'
-      FieldName = 'CODTIPO'
-      Origin = '"TBPRODUTO"."CODTIPO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCODGRUPO: TSmallintField
-      DisplayLabel = 'Grupo'
-      FieldName = 'CODGRUPO'
-      Origin = '"TBPRODUTO"."CODGRUPO"'
-    end
-    object IbDtstTabelaCODSECAO: TSmallintField
-      DisplayLabel = 'Se'#231#227'o'
-      FieldName = 'CODSECAO'
-      Origin = '"TBPRODUTO"."CODSECAO"'
-    end
-    object IbDtstTabelaSECAO: TIBStringField
-      DisplayLabel = 'Se'#231#227'o'
-      FieldName = 'SECAO'
-      Origin = '"TBPRODUTO"."SECAO"'
-    end
-    object IbDtstTabelaCODFABRICANTE: TIntegerField
-      DisplayLabel = 'Fabricante'
-      FieldName = 'CODFABRICANTE'
-      Origin = '"TBPRODUTO"."CODFABRICANTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCUSTOMEDIO: TIBBCDField
-      DisplayLabel = 'Custo (R$)'
-      FieldName = 'CUSTOMEDIO'
-      Origin = '"TBPRODUTO"."CUSTOMEDIO"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaPERCENTUAL_MARCKUP: TIBBCDField
-      FieldName = 'PERCENTUAL_MARCKUP'
-      Origin = '"TBPRODUTO"."PERCENTUAL_MARCKUP"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaPERCENTUAL_MARGEM: TIBBCDField
-      FieldName = 'PERCENTUAL_MARGEM'
-      Origin = '"TBPRODUTO"."PERCENTUAL_MARGEM"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaCODEMP: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'CODEMP'
-      Origin = '"TBPRODUTO"."CODEMP"'
-      Size = 18
-    end
-    object IbDtstTabelaCODORIGEM: TIBStringField
-      DisplayLabel = 'Origem'
-      FieldName = 'CODORIGEM'
-      Origin = '"TBPRODUTO"."CODORIGEM"'
-      Required = True
-      Size = 1
-    end
-    object IbDtstTabelaCODTRIBUTACAO: TIBStringField
-      DisplayLabel = 'Tipo Tributa'#231#227'o'
-      FieldName = 'CODTRIBUTACAO'
-      Origin = '"TBPRODUTO"."CODTRIBUTACAO"'
-      Required = True
-      Size = 2
-    end
-    object IbDtstTabelaCST: TIBStringField
-      FieldName = 'CST'
-      Origin = '"TBPRODUTO"."CST"'
-      Required = True
-      Size = 3
-    end
-    object IbDtstTabelaCSOSN: TIBStringField
-      DisplayLabel = 'Tipo Tributa'#231#227'o ICMS (SN)'
-      FieldName = 'CSOSN'
-      Origin = '"TBPRODUTO"."CSOSN"'
-      Required = True
-      Size = 3
-    end
-    object IbDtstTabelaCST_PIS: TIBStringField
-      DisplayLabel = 'CST PIS'
-      FieldName = 'CST_PIS'
-      Origin = '"TBPRODUTO"."CST_PIS"'
-      Size = 3
-    end
-    object IbDtstTabelaCST_COFINS: TIBStringField
-      DisplayLabel = 'CST COFINS'
-      FieldName = 'CST_COFINS'
-      Origin = '"TBPRODUTO"."CST_COFINS"'
-      Size = 3
-    end
-    object IbDtstTabelaTABELA_IBPT: TIntegerField
-      DisplayLabel = 'Tabela IBPT (NCM/SH)'
-      FieldName = 'TABELA_IBPT'
-      Origin = '"TBPRODUTO"."TABELA_IBPT"'
-      Required = True
-    end
-    object IbDtstTabelaNCM_SH: TIBStringField
-      DisplayLabel = 'NCM/SH'
-      FieldName = 'NCM_SH'
-      Origin = '"TBPRODUTO"."NCM_SH"'
-      Size = 10
-    end
-    object IbDtstTabelaCODIGO_NVE: TIBStringField
-      DisplayLabel = 'C'#243'digo NVE'
-      FieldName = 'CODIGO_NVE'
-      Origin = '"TBPRODUTO"."CODIGO_NVE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaCODCFOP: TIntegerField
-      DisplayLabel = 'CFOP'
-      FieldName = 'CODCFOP'
-      Origin = '"TBPRODUTO"."CODCFOP"'
-    end
-    object IbDtstTabelaCODBARRA_EAN: TIBStringField
-      DisplayLabel = 'C'#243'digo Externo'
-      FieldName = 'CODBARRA_EAN'
-      Origin = '"TBPRODUTO"."CODBARRA_EAN"'
-      Size = 15
-    end
-    object IbDtstTabelaCODUNIDADE: TSmallintField
-      DisplayLabel = 'Unidade'
-      FieldName = 'CODUNIDADE'
-      Origin = '"TBPRODUTO"."CODUNIDADE"'
-      Required = True
-    end
-    object IbDtstTabelaALIQUOTA_TIPO: TSmallintField
-      FieldName = 'ALIQUOTA_TIPO'
-      Origin = '"TBPRODUTO"."ALIQUOTA_TIPO"'
-      Required = True
-      DisplayFormat = 'Al'#237'quota'
-    end
-    object IbDtstTabelaALIQUOTA: TIBBCDField
-      DisplayLabel = '% Al'#237'quota'
-      FieldName = 'ALIQUOTA'
-      Origin = '"TBPRODUTO"."ALIQUOTA"'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaALIQUOTA_CSOSN: TIBBCDField
-      DisplayLabel = '% Al'#237'quota SN'
-      FieldName = 'ALIQUOTA_CSOSN'
-      Origin = '"TBPRODUTO"."ALIQUOTA_CSOSN"'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaALIQUOTA_PIS: TIBBCDField
-      DisplayLabel = '% Al'#237'quota PIS'
-      FieldName = 'ALIQUOTA_PIS'
-      Origin = '"TBPRODUTO"."ALIQUOTA_PIS"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaALIQUOTA_COFINS: TIBBCDField
-      DisplayLabel = '% Al'#237'quota COFINS'
-      FieldName = 'ALIQUOTA_COFINS'
-      Origin = '"TBPRODUTO"."ALIQUOTA_COFINS"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaVALOR_IPI: TIBBCDField
-      DisplayLabel = 'Valor IPI (R$)'
-      FieldName = 'VALOR_IPI'
-      Origin = '"TBPRODUTO"."VALOR_IPI"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaCADASTRO_ATIVO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CADASTRO_ATIVO'
-      Origin = '"TBPRODUTO"."CADASTRO_ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaPRODUTO_IMOBILIZADO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'PRODUTO_IMOBILIZADO'
-      Origin = '"TBPRODUTO"."PRODUTO_IMOBILIZADO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaPRODUTO_NOVO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Produto Novo'
-      FieldName = 'PRODUTO_NOVO'
-      Origin = '"TBPRODUTO"."PRODUTO_NOVO"'
-      Required = True
-    end
-    object IbDtstTabelaCOR_VEICULO: TIBStringField
-      DisplayLabel = 'Cor'
-      FieldName = 'COR_VEICULO'
-      Origin = '"TBPRODUTO"."COR_VEICULO"'
-      Size = 3
-    end
-    object IbDtstTabelaCOMBUSTIVEL_VEICULO: TIBStringField
-      DisplayLabel = 'Combust'#237'vel'
-      FieldName = 'COMBUSTIVEL_VEICULO'
-      Origin = '"TBPRODUTO"."COMBUSTIVEL_VEICULO"'
-      Size = 3
-    end
-    object IbDtstTabelaTIPO_VEICULO: TIBStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO_VEICULO'
-      Origin = '"TBPRODUTO"."TIPO_VEICULO"'
-      Size = 3
-    end
-    object IbDtstTabelaRENAVAM_VEICULO: TIBStringField
-      DisplayLabel = 'Renavam'
-      FieldName = 'RENAVAM_VEICULO'
-      Origin = '"TBPRODUTO"."RENAVAM_VEICULO"'
-      Size = 50
-    end
-    object IbDtstTabelaCHASSI_VEICULO: TIBStringField
-      DisplayLabel = 'Chassi'
-      FieldName = 'CHASSI_VEICULO'
-      Origin = '"TBPRODUTO"."CHASSI_VEICULO"'
-      Size = 50
-    end
-    object IbDtstTabelaANO_MODELO_VEICULO: TSmallintField
-      DisplayLabel = 'Ano Modelo'
-      FieldName = 'ANO_MODELO_VEICULO'
-      Origin = '"TBPRODUTO"."ANO_MODELO_VEICULO"'
-    end
-    object IbDtstTabelaANO_FABRICACAO_VEICULO: TSmallintField
-      DisplayLabel = 'Ano Fabrica'#231#227'o'
-      FieldName = 'ANO_FABRICACAO_VEICULO'
-      Origin = '"TBPRODUTO"."ANO_FABRICACAO_VEICULO"'
-    end
-    object IbDtstTabelaKILOMETRAGEM_VEICULO: TIntegerField
-      DisplayLabel = 'Kilometragem'
-      FieldName = 'KILOMETRAGEM_VEICULO'
-      Origin = '"TBPRODUTO"."KILOMETRAGEM_VEICULO"'
-    end
-    object IbDtstTabelaSITUACAO_ATUAL_VEICULO: TIBStringField
-      DisplayLabel = 'Situa'#231#227'o Ve'#237'culo'
-      FieldName = 'SITUACAO_ATUAL_VEICULO'
-      Origin = '"TBPRODUTO"."SITUACAO_ATUAL_VEICULO"'
-      Size = 100
-    end
-    object IbDtstTabelaSITUACAO_HISTORICO_VEICULO: TMemoField
-      FieldName = 'SITUACAO_HISTORICO_VEICULO'
-      Origin = '"TBPRODUTO"."SITUACAO_HISTORICO_VEICULO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaPERCENTUAL_REDUCAO_BC: TIBBCDField
-      DisplayLabel = '% Redu'#231#227'o da Base de C'#225'lculo (BC)'
-      FieldName = 'PERCENTUAL_REDUCAO_BC'
-      Origin = '"TBPRODUTO"."PERCENTUAL_REDUCAO_BC"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaPESO_BRUTO: TIBBCDField
-      DisplayLabel = 'Peso Bruto (Kg)'
-      FieldName = 'PESO_BRUTO'
-      Origin = '"TBPRODUTO"."PESO_BRUTO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaPESO_LIQUIDO: TIBBCDField
-      DisplayLabel = 'Peso L'#237'quido (Kg)'
-      FieldName = 'PESO_LIQUIDO'
-      Origin = '"TBPRODUTO"."PESO_LIQUIDO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaALTURA: TIBBCDField
-      DisplayLabel = 'Altura (m)'
-      FieldName = 'ALTURA'
-      Origin = '"TBPRODUTO"."ALTURA"'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaLARGURA: TIBBCDField
-      DisplayLabel = 'Largura (m)'
-      FieldName = 'LARGURA'
-      Origin = '"TBPRODUTO"."LARGURA"'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaESPESSURA: TIBBCDField
-      DisplayLabel = 'Espessura (m)'
-      FieldName = 'ESPESSURA'
-      Origin = '"TBPRODUTO"."ESPESSURA"'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaCUBAGEM: TIBBCDField
-      DisplayLabel = 'Cubagem (m3)'
-      FieldName = 'CUBAGEM'
-      Origin = '"TBPRODUTO"."CUBAGEM"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.000#'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaDESCRICAO_GRUPO: TIBStringField
-      DisplayLabel = 'Grupo'
-      FieldName = 'DESCRICAO_GRUPO'
-      Origin = '"TBGRUPOPROD"."DESCRI"'
-      Size = 30
-    end
-    object IbDtstTabelaDESCRICAO_SECAO: TIBStringField
-      DisplayLabel = 'Se'#231#227'o'
-      FieldName = 'DESCRICAO_SECAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaNOME_FABRICANTE: TIBStringField
-      DisplayLabel = 'Fabricante'
-      FieldName = 'NOME_FABRICANTE'
-      Origin = '"TBFABRICANTE"."NOME"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaDESCRICAO_UNIDADE: TIBStringField
-      DisplayLabel = 'Unidade'
-      FieldName = 'DESCRICAO_UNIDADE'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaUNP_SIGLA: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'UND'
-      FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
-      Size = 5
-    end
-    object IbDtstTabelaCFOP_DESCRICAO: TIBStringField
-      FieldName = 'CFOP_DESCRICAO'
-      Origin = '"TBCFOP"."CFOP_DESCRICAO"'
-      ProviderFlags = []
-      Size = 250
-    end
-    object IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField
-      FieldName = 'CFOP_ESPECIFICACAO'
-      Origin = '"TBCFOP"."CFOP_ESPECIFICACAO"'
-      ProviderFlags = []
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaDESCRICAO_COR: TIBStringField
-      DisplayLabel = 'Cor'
-      FieldName = 'DESCRICAO_COR'
-      Origin = '"RENAVAM_COR"."DESCRICAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaDESCRICAO_COMBUSTIVEL: TIBStringField
-      DisplayLabel = 'Combust'#237'vel'
-      FieldName = 'DESCRICAO_COMBUSTIVEL'
-      Origin = 'RENAVAM_COBUSTIVEL.DESCRICAO'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaMODELO_FABRICACAO: TIBStringField
-      DisplayLabel = 'Ano/Modelo'
-      FieldName = 'MODELO_FABRICACAO'
-      ProviderFlags = []
-      Size = 13
-    end
-    object IbDtstTabelaLUCRO_CALCULADO: TIBBCDField
-      FieldName = 'LUCRO_CALCULADO'
-      ProviderFlags = []
-      DisplayFormat = ',0.00##'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaLUCRO_VALOR: TIBBCDField
-      FieldName = 'LUCRO_VALOR'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaDESCRICAO_UNIDADE_FRAC: TIBStringField
-      FieldName = 'DESCRICAO_UNIDADE_FRAC'
-      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaUNP_SIGLA_FRAC: TIBStringField
-      FieldName = 'UNP_SIGLA_FRAC'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
-      ProviderFlags = []
-      Size = 5
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBPRODUTO"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object IbDtstTabelaMOVIMENTA_ESTOQUE: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'MOVIMENTA_ESTOQUE'
-      Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCOMPOR_FATURAMENTO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'COMPOR_FATURAMENTO'
-      Origin = '"TBPRODUTO"."COMPOR_FATURAMENTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaESTOQUE_APROP_LOTE: TSmallintField
-      FieldName = 'ESTOQUE_APROP_LOTE'
-      Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaGERAR_SUBPRODUTO: TSmallintField
-      FieldName = 'GERAR_SUBPRODUTO'
-      Origin = '"TBPRODUTO"."GERAR_SUBPRODUTO"'
-    end
-    object IbDtstTabelaULTIMA_COMPRA_DATA: TDateField
-      FieldName = 'ULTIMA_COMPRA_DATA'
-      Origin = '"TBPRODUTO"."ULTIMA_COMPRA_DATA"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaULTIMA_COMPRA_VALOR: TIBBCDField
-      FieldName = 'ULTIMA_COMPRA_VALOR'
-      Origin = '"TBPRODUTO"."ULTIMA_COMPRA_VALOR"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaULTIMA_COMPRA_FORNEC: TIntegerField
-      FieldName = 'ULTIMA_COMPRA_FORNEC'
-      Origin = '"TBPRODUTO"."ULTIMA_COMPRA_FORNEC"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaDISPONIVEL: TIBBCDField
-      DisplayLabel = 'Dispon'#237'vel'
-      FieldName = 'DISPONIVEL'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaPRECO_FRAC: TFMTBCDField
-      FieldName = 'PRECO_FRAC'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 5
-    end
-    object IbDtstTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField
-      FieldName = 'PRECO_PROMOCAO_FRAC'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 5
-    end
-    object IbDtstTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField
-      FieldName = 'PRECO_SUGERIDO_FRAC'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 5
-    end
-    object IbDtstTabelaPRODUTO_PAI: TIBStringField
-      FieldName = 'PRODUTO_PAI'
-      Origin = '"TBPRODUTO"."PRODUTO_PAI"'
-      Size = 10
-    end
+    Left = 872
+    Top = 296
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 816
+    Left = 872
+    Top = 360
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -4037,12 +3399,14 @@ inherited frmGeProduto: TfrmGeProduto
       'delete from TBPRODUTO'
       'where'
       '  COD = :OLD_COD')
-    Left = 784
+    Left = 904
+    Top = 296
   end
   inherited ImgList: TImageList
-    Left = 720
+    Left = 840
+    Top = 296
     Bitmap = {
-      494C01012B002C00180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C001C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5501,6 +4865,1081 @@ inherited frmGeProduto: TfrmGeProduto
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_PRODUTO_ID'
+    UpdateOptions.KeyFields = 'COD'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    p.Codigo'
+      '  , p.Cod'
+      '  , p.Descri'
+      '  , p.Apresentacao'
+      '  , p.Descri_apresentacao'
+      '  , p.Metafonema'
+      '  , p.Modelo'
+      '  , p.Anvisa'
+      '  , p.Referencia'
+      '  , p.Nome_amigo'
+      '  , p.Especificacao'
+      '  , p.Preco'
+      '  , p.Preco_Promocao'
+      '  , p.Preco_Sugerido'
+      '  , p.Secao'
+      '  , p.Qtde'
+      '  , p.Unidade'
+      '  , p.Estoqmin'
+      '  , p.fracionador'
+      '  , p.peso_bruto'
+      '  , p.peso_liquido'
+      '  , p.altura'
+      '  , p.largura'
+      '  , p.espessura'
+      '  , p.cubagem'
+      '  , p.venda_fracionada'
+      '  , p.codunidade_fracionada'
+      '  , p.Codtipo'
+      '  , p.Codgrupo'
+      '  , p.Codfabricante'
+      '  , p.Customedio'
+      '  , p.Percentual_marckup'
+      '  , p.Percentual_margem'
+      '  , p.Codemp'
+      '  , p.Codsecao'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , p.Cst'
+      '  , p.Csosn'
+      '  , p.Cst_pis'
+      '  , p.Cst_cofins'
+      '  , p.Tabela_IBPT'
+      '  , p.NCM_SH'
+      '  , p.Codigo_NVE'
+      '  , p.Codcfop'
+      '  , p.Codbarra_ean'
+      '  , p.Codunidade'
+      '  , p.Aliquota_tipo'
+      '  , p.Aliquota'
+      '  , p.Aliquota_CSOSN'
+      '  , p.Aliquota_pis'
+      '  , p.Aliquota_cofins'
+      '  , p.Valor_ipi'
+      '  , p.Reserva'
+      '  , p.Produto_novo'
+      '  , p.Cor_veiculo'
+      '  , p.Combustivel_veiculo'
+      '  , p.Tipo_veiculo'
+      '  , p.Renavam_veiculo'
+      '  , p.Chassi_veiculo'
+      '  , p.Ano_modelo_veiculo'
+      '  , p.Ano_fabricacao_veiculo'
+      '  , p.Kilometragem_veiculo'
+      '  , p.Situacao_atual_veiculo'
+      '  , p.Situacao_historico_veiculo'
+      '  , p.Percentual_reducao_BC'
+      '  , p.Usuario'
+      '  , p.Cadastro_ativo'
+      '  , p.Produto_imobilizado'
+      '  , p.Movimenta_estoque'
+      '  , p.Compor_faturamento'
+      '  , p.Estoque_Aprop_lote'
+      '  , p.Ultima_compra_data'
+      '  , p.Ultima_compra_valor'
+      '  , p.Ultima_compra_fornec'
+      '  , p.gerar_subproduto'
+      '  , p.produto_pai'
+      '  , case when coalesce(p.Reserva, 0) > 0'
+      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
+      '      else coalesce(p.Qtde, 0)'
+      '    end as Disponivel'
+      '  , g.Descri as Descricao_Grupo'
+      '  , f.Nome   as Nome_Fabricante'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      '  , uf.unp_descricao as Descricao_Unidade_frac'
+      '  , uf.unp_sigla as unp_sigla_frac'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_especificacao'
+      '  , cr.Descricao as descricao_cor'
+      '  , coalesce(cb.Apelido, cb.Descricao) as descricao_combustivel'
+      
+        '  , coalesce(p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_vei' +
+        'culo, '#39#39') as modelo_fabricacao'
+      '  , Case when p.Customedio > 0'
+      '      then ((p.Preco / p.Customedio) - 1) * 100'
+      '      else 100.0'
+      '    end Lucro_Calculado'
+      '  , (p.Preco - p.Customedio) as Lucro_Valor'
+      
+        '  , p.preco / coalesce(nullif(p.fracionador, 0), 1) as preco_fra' +
+        'c'
+      
+        '  , p.preco_promocao / coalesce(nullif(p.fracionador, 0), 1) as ' +
+        'preco_promocao_frac'
+      
+        '  , p.preco_sugerido / coalesce(nullif(p.fracionador, 0), 1) as ' +
+        'preco_sugerido_frac'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      
+        '  left join TBUNIDADEPROD uf on (uf.Unp_cod = p.codunidade_fraci' +
+        'onada)'
+      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
+      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
+      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
+      
+        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
+        'veiculo)')
+    Left = 872
+    Top = 328
+    object fdQryTabelaCODIGO: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      Required = True
+      IdentityInsert = True
+    end
+    object fdQryTabelaCOD: TStringField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = 'COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaDESCRI: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRI'
+      Origin = 'DESCRI'
+      Required = True
+      Size = 50
+    end
+    object fdQryTabelaAPRESENTACAO: TStringField
+      DisplayLabel = 'Apresenta'#231#227'o'
+      FieldName = 'APRESENTACAO'
+      Origin = 'APRESENTACAO'
+      Required = True
+      Size = 50
+    end
+    object fdQryTabelaDESCRI_APRESENTACAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o + Apresenta'#231#227'o'
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = 'DESCRI_APRESENTACAO'
+      Size = 100
+    end
+    object fdQryTabelaMETAFONEMA: TStringField
+      FieldName = 'METAFONEMA'
+      Origin = 'METAFONEMA'
+      Size = 100
+    end
+    object fdQryTabelaMODELO: TStringField
+      DisplayLabel = 'Modelo'
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      Size = 40
+    end
+    object fdQryTabelaANVISA: TStringField
+      DisplayLabel = 'C'#243'digo Anvisa'
+      FieldName = 'ANVISA'
+      Origin = 'ANVISA'
+      Size = 30
+    end
+    object fdQryTabelaREFERENCIA: TStringField
+      DisplayLabel = 'Refer'#234'ncia'
+      FieldName = 'REFERENCIA'
+      Origin = 'REFERENCIA'
+      Size = 15
+    end
+    object fdQryTabelaNOME_AMIGO: TStringField
+      DisplayLabel = 'Nome Amigo'
+      FieldName = 'NOME_AMIGO'
+      Origin = 'NOME_AMIGO'
+      Required = True
+      Size = 100
+    end
+    object fdQryTabelaESPECIFICACAO: TBlobField
+      DisplayLabel = 'Especifica'#231#227'o'
+      FieldName = 'ESPECIFICACAO'
+      Origin = 'ESPECIFICACAO'
+    end
+    object fdQryTabelaPRECO: TBCDField
+      DisplayLabel = 'Pre'#231'o (R$)'
+      FieldName = 'PRECO'
+      Origin = 'PRECO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaPRECO_PROMOCAO: TBCDField
+      FieldName = 'PRECO_PROMOCAO'
+      Origin = 'PRECO_PROMOCAO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaPRECO_SUGERIDO: TBCDField
+      FieldName = 'PRECO_SUGERIDO'
+      Origin = 'PRECO_SUGERIDO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaSECAO: TStringField
+      DisplayLabel = 'Se'#231#227'o'
+      FieldName = 'SECAO'
+      Origin = 'SECAO'
+    end
+    object fdQryTabelaQTDE: TBCDField
+      DisplayLabel = 'Quantidade'
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaRESERVA: TBCDField
+      DisplayLabel = 'Reserva'
+      FieldName = 'RESERVA'
+      Origin = 'RESERVA'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+    end
+    object fdQryTabelaESTOQMIN: TBCDField
+      DisplayLabel = 'M'#237'nimo'
+      FieldName = 'ESTOQMIN'
+      Origin = 'ESTOQMIN'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaFRACIONADOR: TBCDField
+      DisplayLabel = 'Fracionador'
+      FieldName = 'FRACIONADOR'
+      Origin = 'FRACIONADOR'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaPESO_BRUTO: TBCDField
+      DisplayLabel = 'Peso Bruto (Kg)'
+      FieldName = 'PESO_BRUTO'
+      Origin = 'PESO_BRUTO'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaPESO_LIQUIDO: TBCDField
+      DisplayLabel = 'Peso L'#237'quido (Kg)'
+      FieldName = 'PESO_LIQUIDO'
+      Origin = 'PESO_LIQUIDO'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaALTURA: TBCDField
+      DisplayLabel = 'Altura (m)'
+      FieldName = 'ALTURA'
+      Origin = 'ALTURA'
+      DisplayFormat = ',0.###'
+      Precision = 18
+    end
+    object fdQryTabelaLARGURA: TBCDField
+      DisplayLabel = 'Largura (m)'
+      FieldName = 'LARGURA'
+      Origin = 'LARGURA'
+      DisplayFormat = ',0.###'
+      Precision = 18
+    end
+    object fdQryTabelaESPESSURA: TBCDField
+      DisplayLabel = 'Espessura (m)'
+      FieldName = 'ESPESSURA'
+      Origin = 'ESPESSURA'
+      DisplayFormat = ',0.###'
+      Precision = 18
+    end
+    object fdQryTabelaCUBAGEM: TBCDField
+      DisplayLabel = 'Cubagem (m3)'
+      FieldName = 'CUBAGEM'
+      Origin = 'CUBAGEM'
+      DisplayFormat = ',0.000#'
+      Precision = 18
+    end
+    object fdQryTabelaVENDA_FRACIONADA: TSmallintField
+      FieldName = 'VENDA_FRACIONADA'
+      Origin = 'VENDA_FRACIONADA'
+      Required = True
+    end
+    object fdQryTabelaCODUNIDADE_FRACIONADA: TSmallintField
+      DisplayLabel = 'Unidade da Fra'#231#227'o'
+      FieldName = 'CODUNIDADE_FRACIONADA'
+      Origin = 'CODUNIDADE_FRACIONADA'
+      Required = True
+    end
+    object fdQryTabelaCODTIPO: TSmallintField
+      DisplayLabel = 'Tipo do Produto'
+      FieldName = 'CODTIPO'
+      Origin = 'CODTIPO'
+      Required = True
+    end
+    object fdQryTabelaCODGRUPO: TSmallintField
+      DisplayLabel = 'Grupo'
+      FieldName = 'CODGRUPO'
+      Origin = 'CODGRUPO'
+    end
+    object fdQryTabelaCODFABRICANTE: TIntegerField
+      DisplayLabel = 'Fabricante'
+      FieldName = 'CODFABRICANTE'
+      Origin = 'CODFABRICANTE'
+    end
+    object fdQryTabelaCUSTOMEDIO: TBCDField
+      DisplayLabel = 'Custo (R$)'
+      FieldName = 'CUSTOMEDIO'
+      Origin = 'CUSTOMEDIO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaPERCENTUAL_MARCKUP: TBCDField
+      FieldName = 'PERCENTUAL_MARCKUP'
+      Origin = 'PERCENTUAL_MARCKUP'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaPERCENTUAL_MARGEM: TBCDField
+      FieldName = 'PERCENTUAL_MARGEM'
+      Origin = 'PERCENTUAL_MARGEM'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaCODEMP: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'CODEMP'
+      Origin = 'CODEMP'
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaCODSECAO: TSmallintField
+      DisplayLabel = 'Se'#231#227'o'
+      FieldName = 'CODSECAO'
+      Origin = 'CODSECAO'
+    end
+    object fdQryTabelaCODORIGEM: TStringField
+      DisplayLabel = 'Origem'
+      FieldName = 'CODORIGEM'
+      Origin = 'CODORIGEM'
+      Required = True
+      Size = 1
+    end
+    object fdQryTabelaCODTRIBUTACAO: TStringField
+      DisplayLabel = 'Tipo Tributa'#231#227'o'
+      FieldName = 'CODTRIBUTACAO'
+      Origin = 'CODTRIBUTACAO'
+      Required = True
+      Size = 2
+    end
+    object fdQryTabelaCST: TStringField
+      FieldName = 'CST'
+      Origin = 'CST'
+      Required = True
+      Size = 3
+    end
+    object fdQryTabelaCSOSN: TStringField
+      DisplayLabel = 'Tipo Tributa'#231#227'o ICMS (SN)'
+      FieldName = 'CSOSN'
+      Origin = 'CSOSN'
+      Required = True
+      Size = 3
+    end
+    object fdQryTabelaCST_PIS: TStringField
+      DisplayLabel = 'CST PIS'
+      FieldName = 'CST_PIS'
+      Origin = 'CST_PIS'
+      Size = 3
+    end
+    object fdQryTabelaCST_COFINS: TStringField
+      DisplayLabel = 'CST COFINS'
+      FieldName = 'CST_COFINS'
+      Origin = 'CST_COFINS'
+      Size = 3
+    end
+    object fdQryTabelaTABELA_IBPT: TIntegerField
+      DisplayLabel = 'Tabela IBPT (NCM/SH)'
+      FieldName = 'TABELA_IBPT'
+      Origin = 'TABELA_IBPT'
+      Required = True
+    end
+    object fdQryTabelaNCM_SH: TStringField
+      DisplayLabel = 'NCM/SH'
+      FieldName = 'NCM_SH'
+      Origin = 'NCM_SH'
+      Size = 10
+    end
+    object fdQryTabelaCODIGO_NVE: TStringField
+      DisplayLabel = 'C'#243'digo NVE'
+      FieldName = 'CODIGO_NVE'
+      Origin = 'CODIGO_NVE'
+      Size = 10
+    end
+    object fdQryTabelaCODCFOP: TIntegerField
+      DisplayLabel = 'CFOP'
+      FieldName = 'CODCFOP'
+      Origin = 'CODCFOP'
+    end
+    object fdQryTabelaCODBARRA_EAN: TStringField
+      DisplayLabel = 'C'#243'digo Externo'
+      FieldName = 'CODBARRA_EAN'
+      Origin = 'CODBARRA_EAN'
+      Size = 15
+    end
+    object fdQryTabelaCODUNIDADE: TSmallintField
+      DisplayLabel = 'Unidade'
+      FieldName = 'CODUNIDADE'
+      Origin = 'CODUNIDADE'
+      Required = True
+    end
+    object fdQryTabelaALIQUOTA_TIPO: TSmallintField
+      DisplayLabel = 'Al'#237'quota'
+      FieldName = 'ALIQUOTA_TIPO'
+      Origin = 'ALIQUOTA_TIPO'
+      Required = True
+    end
+    object fdQryTabelaALIQUOTA: TBCDField
+      DisplayLabel = '% Al'#237'quota'
+      FieldName = 'ALIQUOTA'
+      Origin = 'ALIQUOTA'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaALIQUOTA_CSOSN: TBCDField
+      DisplayLabel = '% Al'#237'quota SN'
+      FieldName = 'ALIQUOTA_CSOSN'
+      Origin = 'ALIQUOTA_CSOSN'
+      Required = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaALIQUOTA_PIS: TBCDField
+      DisplayLabel = '% Al'#237'quota PIS'
+      FieldName = 'ALIQUOTA_PIS'
+      Origin = 'ALIQUOTA_PIS'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaALIQUOTA_COFINS: TBCDField
+      DisplayLabel = '% Al'#237'quota COFINS'
+      FieldName = 'ALIQUOTA_COFINS'
+      Origin = 'ALIQUOTA_COFINS'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_IPI: TBCDField
+      DisplayLabel = 'Valor IPI (R$)'
+      FieldName = 'VALOR_IPI'
+      Origin = 'VALOR_IPI'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaPRODUTO_NOVO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'PRODUTO_NOVO'
+      Origin = 'PRODUTO_NOVO'
+      Required = True
+    end
+    object fdQryTabelaCOR_VEICULO: TStringField
+      DisplayLabel = 'Cor'
+      FieldName = 'COR_VEICULO'
+      Origin = 'COR_VEICULO'
+      Size = 3
+    end
+    object fdQryTabelaCOMBUSTIVEL_VEICULO: TStringField
+      DisplayLabel = 'Combust'#237'vel'
+      FieldName = 'COMBUSTIVEL_VEICULO'
+      Origin = 'COMBUSTIVEL_VEICULO'
+      Size = 3
+    end
+    object fdQryTabelaTIPO_VEICULO: TStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO_VEICULO'
+      Origin = 'TIPO_VEICULO'
+      Size = 3
+    end
+    object fdQryTabelaRENAVAM_VEICULO: TStringField
+      DisplayLabel = 'Renavam'
+      FieldName = 'RENAVAM_VEICULO'
+      Origin = 'RENAVAM_VEICULO'
+      Size = 50
+    end
+    object fdQryTabelaCHASSI_VEICULO: TStringField
+      DisplayLabel = 'Chassi'
+      FieldName = 'CHASSI_VEICULO'
+      Origin = 'CHASSI_VEICULO'
+      Size = 50
+    end
+    object fdQryTabelaANO_MODELO_VEICULO: TSmallintField
+      DisplayLabel = 'Ano Modelo'
+      FieldName = 'ANO_MODELO_VEICULO'
+      Origin = 'ANO_MODELO_VEICULO'
+    end
+    object fdQryTabelaANO_FABRICACAO_VEICULO: TSmallintField
+      DisplayLabel = 'Ano Fabrica'#231#227'o'
+      FieldName = 'ANO_FABRICACAO_VEICULO'
+      Origin = 'ANO_FABRICACAO_VEICULO'
+    end
+    object fdQryTabelaKILOMETRAGEM_VEICULO: TIntegerField
+      DisplayLabel = 'Kilometragem'
+      FieldName = 'KILOMETRAGEM_VEICULO'
+      Origin = 'KILOMETRAGEM_VEICULO'
+    end
+    object fdQryTabelaSITUACAO_ATUAL_VEICULO: TStringField
+      DisplayLabel = 'Situa'#231#227'o Ve'#237'culo'
+      FieldName = 'SITUACAO_ATUAL_VEICULO'
+      Origin = 'SITUACAO_ATUAL_VEICULO'
+      Size = 100
+    end
+    object fdQryTabelaSITUACAO_HISTORICO_VEICULO: TMemoField
+      FieldName = 'SITUACAO_HISTORICO_VEICULO'
+      Origin = 'SITUACAO_HISTORICO_VEICULO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaPERCENTUAL_REDUCAO_BC: TBCDField
+      DisplayLabel = '% Redu'#231#227'o da Base de C'#225'lculo (BC)'
+      FieldName = 'PERCENTUAL_REDUCAO_BC'
+      Origin = 'PERCENTUAL_REDUCAO_BC'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaCADASTRO_ATIVO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'CADASTRO_ATIVO'
+      Origin = 'CADASTRO_ATIVO'
+      Required = True
+    end
+    object fdQryTabelaPRODUTO_IMOBILIZADO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'PRODUTO_IMOBILIZADO'
+      Origin = 'PRODUTO_IMOBILIZADO'
+      Required = True
+    end
+    object fdQryTabelaMOVIMENTA_ESTOQUE: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'MOVIMENTA_ESTOQUE'
+      Origin = 'MOVIMENTA_ESTOQUE'
+      Required = True
+    end
+    object fdQryTabelaCOMPOR_FATURAMENTO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'COMPOR_FATURAMENTO'
+      Origin = 'COMPOR_FATURAMENTO'
+      Required = True
+    end
+    object fdQryTabelaESTOQUE_APROP_LOTE: TSmallintField
+      FieldName = 'ESTOQUE_APROP_LOTE'
+      Origin = 'ESTOQUE_APROP_LOTE'
+      Required = True
+    end
+    object fdQryTabelaULTIMA_COMPRA_DATA: TDateField
+      FieldName = 'ULTIMA_COMPRA_DATA'
+      Origin = 'ULTIMA_COMPRA_DATA'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTabelaULTIMA_COMPRA_VALOR: TBCDField
+      FieldName = 'ULTIMA_COMPRA_VALOR'
+      Origin = 'ULTIMA_COMPRA_VALOR'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaULTIMA_COMPRA_FORNEC: TIntegerField
+      FieldName = 'ULTIMA_COMPRA_FORNEC'
+      Origin = 'ULTIMA_COMPRA_FORNEC'
+    end
+    object fdQryTabelaGERAR_SUBPRODUTO: TSmallintField
+      FieldName = 'GERAR_SUBPRODUTO'
+      Origin = 'GERAR_SUBPRODUTO'
+      Required = True
+    end
+    object fdQryTabelaPRODUTO_PAI: TStringField
+      FieldName = 'PRODUTO_PAI'
+      Origin = 'PRODUTO_PAI'
+      Size = 10
+    end
+    object fdQryTabelaDISPONIVEL: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Dispon'#237'vel'
+      FieldName = 'DISPONIVEL'
+      Origin = 'DISPONIVEL'
+      ProviderFlags = []
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaDESCRICAO_GRUPO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Grupo'
+      FieldName = 'DESCRICAO_GRUPO'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryTabelaNOME_FABRICANTE: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Fabricante'
+      FieldName = 'NOME_FABRICANTE'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 50
+    end
+    object fdQryTabelaDESCRICAO_SECAO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Se'#231#227'o'
+      FieldName = 'DESCRICAO_SECAO'
+      Origin = 'DESCRICAO_SECAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object fdQryTabelaDESCRICAO_UNIDADE: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Unidade'
+      FieldName = 'DESCRICAO_UNIDADE'
+      Origin = 'DESCRICAO_UNIDADE'
+      ProviderFlags = []
+      Size = 50
+    end
+    object fdQryTabelaUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'UND'
+      FieldName = 'UNP_SIGLA'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      Size = 5
+    end
+    object fdQryTabelaDESCRICAO_UNIDADE_FRAC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO_UNIDADE_FRAC'
+      Origin = 'UNP_DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object fdQryTabelaUNP_SIGLA_FRAC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_SIGLA_FRAC'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      Size = 5
+    end
+    object fdQryTabelaCFOP_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CFOP_DESCRICAO'
+      Origin = 'CFOP_DESCRICAO'
+      ProviderFlags = []
+      Size = 250
+    end
+    object fdQryTabelaCFOP_ESPECIFICACAO: TMemoField
+      AutoGenerateValue = arDefault
+      FieldName = 'CFOP_ESPECIFICACAO'
+      Origin = 'CFOP_ESPECIFICACAO'
+      ProviderFlags = []
+      BlobType = ftMemo
+    end
+    object fdQryTabelaDESCRICAO_COR: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cor'
+      FieldName = 'DESCRICAO_COR'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object fdQryTabelaDESCRICAO_COMBUSTIVEL: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Combust'#237'vel'
+      FieldName = 'DESCRICAO_COMBUSTIVEL'
+      Origin = 'DESCRICAO_COMBUSTIVEL'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaMODELO_FABRICACAO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Ano/Modelo'
+      FieldName = 'MODELO_FABRICACAO'
+      Origin = 'MODELO_FABRICACAO'
+      ProviderFlags = []
+      Size = 13
+    end
+    object fdQryTabelaLUCRO_CALCULADO: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = ',0.00##'
+      FieldName = 'LUCRO_CALCULADO'
+      Origin = 'LUCRO_CALCULADO'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object fdQryTabelaLUCRO_VALOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'LUCRO_VALOR'
+      Origin = 'LUCRO_VALOR'
+      ProviderFlags = []
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaPRECO_FRAC: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PRECO_FRAC'
+      Origin = 'PRECO_FRAC'
+      ProviderFlags = []
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 5
+    end
+    object fdQryTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PRECO_PROMOCAO_FRAC'
+      Origin = 'PRECO_PROMOCAO_FRAC'
+      ProviderFlags = []
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 5
+    end
+    object fdQryTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PRECO_SUGERIDO_FRAC'
+      Origin = 'PRECO_SUGERIDO_FRAC'
+      ProviderFlags = []
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 5
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBPRODUTO'
+      '(CODIGO, COD, APRESENTACAO, DESCRI_APRESENTACAO, '
+      '  METAFONEMA, MODELO, ANVISA, REFERENCIA, '
+      '  NOME_AMIGO, ESPECIFICACAO, SECAO, QTDE, '
+      '  FRACIONADOR, PESO_BRUTO, PESO_LIQUIDO, LARGURA, '
+      '  ALTURA, ESPESSURA, CUBAGEM, VENDA_FRACIONADA, '
+      '  UNIDADE, ESTOQMIN, CODTIPO, CODGRUPO, '
+      '  CODFABRICANTE, PERCENTUAL_MARCKUP, PERCENTUAL_MARGEM, '
+      '  PRECO_SUGERIDO, CODEMP, CODSECAO, CODORIGEM, '
+      '  CODTRIBUTACAO, CST, CSOSN, CST_PIS, '
+      '  CST_COFINS, TABELA_IBPT, NCM_SH, CODIGO_NVE, '
+      '  CODCFOP, CODBARRA_EAN, CODUNIDADE, CODUNIDADE_FRACIONADA, '
+      '  ALIQUOTA_TIPO, ALIQUOTA, ALIQUOTA_CSOSN, '
+      '  ALIQUOTA_PIS, ALIQUOTA_COFINS, VALOR_IPI, '
+      '  PERCENTUAL_REDUCAO_BC, RESERVA, PRODUTO_NOVO, '
+      '  COR_VEICULO, COMBUSTIVEL_VEICULO, TIPO_VEICULO, '
+      '  ANO_MODELO_VEICULO, ANO_FABRICACAO_VEICULO, RENAVAM_VEICULO, '
+      '  CHASSI_VEICULO, KILOMETRAGEM_VEICULO, SITUACAO_ATUAL_VEICULO, '
+      '  SITUACAO_HISTORICO_VEICULO, USUARIO, CADASTRO_ATIVO, '
+      '  MOVIMENTA_ESTOQUE, COMPOR_FATURAMENTO, PRODUTO_IMOBILIZADO, '
+      '  ESTOQUE_APROP_LOTE, PRECO, PRECO_PROMOCAO, '
+      '  CUSTOMEDIO, ULTIMA_COMPRA_DATA, ULTIMA_COMPRA_VALOR, '
+      '  ULTIMA_COMPRA_FORNEC, GERAR_SUBPRODUTO, PRODUTO_PAI)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_COD, :NEW_APRESENTACAO, :NEW_DESCRI_AP' +
+        'RESENTACAO, '
+      '  :NEW_METAFONEMA, :NEW_MODELO, :NEW_ANVISA, :NEW_REFERENCIA, '
+      '  :NEW_NOME_AMIGO, :NEW_ESPECIFICACAO, :NEW_SECAO, :NEW_QTDE, '
+      
+        '  :NEW_FRACIONADOR, :NEW_PESO_BRUTO, :NEW_PESO_LIQUIDO, :NEW_LAR' +
+        'GURA, '
+      
+        '  :NEW_ALTURA, :NEW_ESPESSURA, :NEW_CUBAGEM, :NEW_VENDA_FRACIONA' +
+        'DA, '
+      '  :NEW_UNIDADE, :NEW_ESTOQMIN, :NEW_CODTIPO, :NEW_CODGRUPO, '
+      
+        '  :NEW_CODFABRICANTE, :NEW_PERCENTUAL_MARCKUP, :NEW_PERCENTUAL_M' +
+        'ARGEM, '
+      
+        '  :NEW_PRECO_SUGERIDO, :NEW_CODEMP, :NEW_CODSECAO, :NEW_CODORIGE' +
+        'M, '
+      '  :NEW_CODTRIBUTACAO, :NEW_CST, :NEW_CSOSN, :NEW_CST_PIS, '
+      
+        '  :NEW_CST_COFINS, :NEW_TABELA_IBPT, :NEW_NCM_SH, :NEW_CODIGO_NV' +
+        'E, '
+      
+        '  :NEW_CODCFOP, :NEW_CODBARRA_EAN, :NEW_CODUNIDADE, :NEW_CODUNID' +
+        'ADE_FRACIONADA, '
+      '  :NEW_ALIQUOTA_TIPO, :NEW_ALIQUOTA, :NEW_ALIQUOTA_CSOSN, '
+      '  :NEW_ALIQUOTA_PIS, :NEW_ALIQUOTA_COFINS, :NEW_VALOR_IPI, '
+      '  :NEW_PERCENTUAL_REDUCAO_BC, :NEW_RESERVA, :NEW_PRODUTO_NOVO, '
+      
+        '  :NEW_COR_VEICULO, :NEW_COMBUSTIVEL_VEICULO, :NEW_TIPO_VEICULO,' +
+        ' '
+      
+        '  :NEW_ANO_MODELO_VEICULO, :NEW_ANO_FABRICACAO_VEICULO, :NEW_REN' +
+        'AVAM_VEICULO, '
+      
+        '  :NEW_CHASSI_VEICULO, :NEW_KILOMETRAGEM_VEICULO, :NEW_SITUACAO_' +
+        'ATUAL_VEICULO, '
+      
+        '  :NEW_SITUACAO_HISTORICO_VEICULO, :NEW_USUARIO, :NEW_CADASTRO_A' +
+        'TIVO, '
+      
+        '  :NEW_MOVIMENTA_ESTOQUE, :NEW_COMPOR_FATURAMENTO, :NEW_PRODUTO_' +
+        'IMOBILIZADO, '
+      '  :NEW_ESTOQUE_APROP_LOTE, :NEW_PRECO, :NEW_PRECO_PROMOCAO, '
+      
+        '  :NEW_CUSTOMEDIO, :NEW_ULTIMA_COMPRA_DATA, :NEW_ULTIMA_COMPRA_V' +
+        'ALOR, '
+      
+        '  :NEW_ULTIMA_COMPRA_FORNEC, :NEW_GERAR_SUBPRODUTO, :NEW_PRODUTO' +
+        '_PAI)'
+      
+        'RETURNING CODIGO, DESCRI, SITUACAO_ATUAL_VEICULO, SITUACAO_HISTO' +
+        'RICO_VEICULO, USUARIO, CADASTRO_ATIVO')
+    ModifySQL.Strings = (
+      'UPDATE TBPRODUTO'
+      
+        'SET CODIGO = :NEW_CODIGO, COD = :NEW_COD, APRESENTACAO = :NEW_AP' +
+        'RESENTACAO, '
+      
+        '  DESCRI_APRESENTACAO = :NEW_DESCRI_APRESENTACAO, METAFONEMA = :' +
+        'NEW_METAFONEMA, '
+      
+        '  MODELO = :NEW_MODELO, ANVISA = :NEW_ANVISA, REFERENCIA = :NEW_' +
+        'REFERENCIA, '
+      
+        '  NOME_AMIGO = :NEW_NOME_AMIGO, ESPECIFICACAO = :NEW_ESPECIFICAC' +
+        'AO, '
+      
+        '  SECAO = :NEW_SECAO, QTDE = :NEW_QTDE, FRACIONADOR = :NEW_FRACI' +
+        'ONADOR, '
+      
+        '  PESO_BRUTO = :NEW_PESO_BRUTO, PESO_LIQUIDO = :NEW_PESO_LIQUIDO' +
+        ', '
+      
+        '  LARGURA = :NEW_LARGURA, ALTURA = :NEW_ALTURA, ESPESSURA = :NEW' +
+        '_ESPESSURA, '
+      
+        '  CUBAGEM = :NEW_CUBAGEM, VENDA_FRACIONADA = :NEW_VENDA_FRACIONA' +
+        'DA, '
+      
+        '  UNIDADE = :NEW_UNIDADE, ESTOQMIN = :NEW_ESTOQMIN, CODTIPO = :N' +
+        'EW_CODTIPO, '
+      '  CODGRUPO = :NEW_CODGRUPO, CODFABRICANTE = :NEW_CODFABRICANTE, '
+      
+        '  PERCENTUAL_MARCKUP = :NEW_PERCENTUAL_MARCKUP, PERCENTUAL_MARGE' +
+        'M = :NEW_PERCENTUAL_MARGEM, '
+      '  PRECO_SUGERIDO = :NEW_PRECO_SUGERIDO, CODEMP = :NEW_CODEMP, '
+      
+        '  CODSECAO = :NEW_CODSECAO, CODORIGEM = :NEW_CODORIGEM, CODTRIBU' +
+        'TACAO = :NEW_CODTRIBUTACAO, '
+      '  CST = :NEW_CST, CSOSN = :NEW_CSOSN, CST_PIS = :NEW_CST_PIS, '
+      '  CST_COFINS = :NEW_CST_COFINS, TABELA_IBPT = :NEW_TABELA_IBPT, '
+      
+        '  NCM_SH = :NEW_NCM_SH, CODIGO_NVE = :NEW_CODIGO_NVE, CODCFOP = ' +
+        ':NEW_CODCFOP, '
+      
+        '  CODBARRA_EAN = :NEW_CODBARRA_EAN, CODUNIDADE = :NEW_CODUNIDADE' +
+        ', '
+      
+        '  CODUNIDADE_FRACIONADA = :NEW_CODUNIDADE_FRACIONADA, ALIQUOTA_T' +
+        'IPO = :NEW_ALIQUOTA_TIPO, '
+      
+        '  ALIQUOTA = :NEW_ALIQUOTA, ALIQUOTA_CSOSN = :NEW_ALIQUOTA_CSOSN' +
+        ', '
+      
+        '  ALIQUOTA_PIS = :NEW_ALIQUOTA_PIS, ALIQUOTA_COFINS = :NEW_ALIQU' +
+        'OTA_COFINS, '
+      
+        '  VALOR_IPI = :NEW_VALOR_IPI, PERCENTUAL_REDUCAO_BC = :NEW_PERCE' +
+        'NTUAL_REDUCAO_BC, '
+      '  RESERVA = :NEW_RESERVA, PRODUTO_NOVO = :NEW_PRODUTO_NOVO, '
+      
+        '  COR_VEICULO = :NEW_COR_VEICULO, COMBUSTIVEL_VEICULO = :NEW_COM' +
+        'BUSTIVEL_VEICULO, '
+      
+        '  TIPO_VEICULO = :NEW_TIPO_VEICULO, ANO_MODELO_VEICULO = :NEW_AN' +
+        'O_MODELO_VEICULO, '
+      
+        '  ANO_FABRICACAO_VEICULO = :NEW_ANO_FABRICACAO_VEICULO, RENAVAM_' +
+        'VEICULO = :NEW_RENAVAM_VEICULO, '
+      
+        '  CHASSI_VEICULO = :NEW_CHASSI_VEICULO, KILOMETRAGEM_VEICULO = :' +
+        'NEW_KILOMETRAGEM_VEICULO, '
+      
+        '  SITUACAO_ATUAL_VEICULO = :NEW_SITUACAO_ATUAL_VEICULO, SITUACAO' +
+        '_HISTORICO_VEICULO = :NEW_SITUACAO_HISTORICO_VEICULO, '
+      '  USUARIO = :NEW_USUARIO, CADASTRO_ATIVO = :NEW_CADASTRO_ATIVO, '
+      
+        '  MOVIMENTA_ESTOQUE = :NEW_MOVIMENTA_ESTOQUE, COMPOR_FATURAMENTO' +
+        ' = :NEW_COMPOR_FATURAMENTO, '
+      
+        '  PRODUTO_IMOBILIZADO = :NEW_PRODUTO_IMOBILIZADO, ESTOQUE_APROP_' +
+        'LOTE = :NEW_ESTOQUE_APROP_LOTE, '
+      '  PRECO = :NEW_PRECO, PRECO_PROMOCAO = :NEW_PRECO_PROMOCAO, '
+      
+        '  CUSTOMEDIO = :NEW_CUSTOMEDIO, ULTIMA_COMPRA_DATA = :NEW_ULTIMA' +
+        '_COMPRA_DATA, '
+      
+        '  ULTIMA_COMPRA_VALOR = :NEW_ULTIMA_COMPRA_VALOR, ULTIMA_COMPRA_' +
+        'FORNEC = :NEW_ULTIMA_COMPRA_FORNEC, '
+      
+        '  GERAR_SUBPRODUTO = :NEW_GERAR_SUBPRODUTO, PRODUTO_PAI = :NEW_P' +
+        'RODUTO_PAI'
+      'WHERE COD = :OLD_COD'
+      
+        'RETURNING CODIGO, DESCRI, SITUACAO_ATUAL_VEICULO, SITUACAO_HISTO' +
+        'RICO_VEICULO, USUARIO, CADASTRO_ATIVO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBPRODUTO'
+      'WHERE COD = :OLD_COD')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    p.Codigo'
+      '  , p.Cod'
+      '  , p.Descri'
+      '  , p.Apresentacao'
+      '  , p.Descri_apresentacao'
+      '  , p.Metafonema'
+      '  , p.Modelo'
+      '  , p.Anvisa'
+      '  , p.Referencia'
+      '  , p.Nome_amigo'
+      '  , p.Especificacao'
+      '  , p.Preco'
+      '  , p.Preco_Promocao'
+      '  , p.Preco_Sugerido'
+      '  , p.Secao'
+      '  , p.Qtde'
+      '  , p.Unidade'
+      '  , p.Estoqmin'
+      '  , p.fracionador'
+      '  , p.peso_bruto'
+      '  , p.peso_liquido'
+      '  , p.altura'
+      '  , p.largura'
+      '  , p.espessura'
+      '  , p.cubagem'
+      '  , p.venda_fracionada'
+      '  , p.codunidade_fracionada'
+      '  , p.Codtipo'
+      '  , p.Codgrupo'
+      '  , p.Codfabricante'
+      '  , p.Customedio'
+      '  , p.Percentual_marckup'
+      '  , p.Percentual_margem'
+      '  , p.Codemp'
+      '  , p.Codsecao'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , p.Cst'
+      '  , p.Csosn'
+      '  , p.Cst_pis'
+      '  , p.Cst_cofins'
+      '  , p.Tabela_IBPT'
+      '  , p.NCM_SH'
+      '  , p.Codigo_NVE'
+      '  , p.Codcfop'
+      '  , p.Codbarra_ean'
+      '  , p.Codunidade'
+      '  , p.Aliquota_tipo'
+      '  , p.Aliquota'
+      '  , p.Aliquota_CSOSN'
+      '  , p.Aliquota_pis'
+      '  , p.Aliquota_cofins'
+      '  , p.Valor_ipi'
+      '  , p.Reserva'
+      '  , p.Produto_novo'
+      '  , p.Cor_veiculo'
+      '  , p.Combustivel_veiculo'
+      '  , p.Tipo_veiculo'
+      '  , p.Renavam_veiculo'
+      '  , p.Chassi_veiculo'
+      '  , p.Ano_modelo_veiculo'
+      '  , p.Ano_fabricacao_veiculo'
+      '  , p.Kilometragem_veiculo'
+      '  , p.Situacao_atual_veiculo'
+      '  , p.Situacao_historico_veiculo'
+      '  , p.Percentual_reducao_BC'
+      '  , p.Usuario'
+      '  , p.Cadastro_ativo'
+      '  , p.Produto_imobilizado'
+      '  , p.Movimenta_estoque'
+      '  , p.Compor_faturamento'
+      '  , p.Estoque_Aprop_lote'
+      '  , p.Ultima_compra_data'
+      '  , p.Ultima_compra_valor'
+      '  , p.Ultima_compra_fornec'
+      '  , p.gerar_subproduto'
+      '  , p.produto_pai'
+      '  , case when coalesce(p.Reserva, 0) > 0'
+      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
+      '      else coalesce(p.Qtde, 0)'
+      '    end as Disponivel'
+      '  , g.Descri as Descricao_Grupo'
+      '  , f.Nome   as Nome_Fabricante'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      '  , uf.unp_descricao as Descricao_Unidade_frac'
+      '  , uf.unp_sigla as unp_sigla_frac'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_especificacao'
+      '  , cr.Descricao as descricao_cor'
+      '  , coalesce(cb.Apelido, cb.Descricao) as descricao_combustivel'
+      
+        '  , coalesce(p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_vei' +
+        'culo, '#39#39') as modelo_fabricacao'
+      '  , Case when p.Customedio > 0'
+      '      then ((p.Preco / p.Customedio) - 1) * 100'
+      '      else 100.0'
+      '    end Lucro_Calculado'
+      '  , (p.Preco - p.Customedio) as Lucro_Valor'
+      
+        '  , p.preco / coalesce(nullif(p.fracionador, 0), 1) as preco_fra' +
+        'c'
+      
+        '  , p.preco_promocao / coalesce(nullif(p.fracionador, 0), 1) as ' +
+        'preco_promocao_frac'
+      
+        '  , p.preco_sugerido / coalesce(nullif(p.fracionador, 0), 1) as ' +
+        'preco_sugerido_frac'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      
+        '  left join TBUNIDADEPROD uf on (uf.Unp_cod = p.codunidade_fraci' +
+        'onada)'
+      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
+      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
+      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
+      
+        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
+        'veiculo)'
+      'WHERE p.COD = :COD')
+    Left = 904
+    Top = 328
+  end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
     Left = 280
@@ -5513,178 +5952,33 @@ inherited frmGeProduto: TfrmGeProduto
     DataSet = fdQryTributacaoNM
     Left = 408
   end
-  object tblAliquota: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'CODIGO'
-        Attributes = [faReadonly]
-        DataType = ftInteger
-      end
-      item
-        Name = 'DESCRICAO'
-        Attributes = [faReadonly]
-        DataType = ftString
-        Size = 4
-      end
-      item
-        Name = 'TIPO'
-        Attributes = [faReadonly]
-        DataType = ftString
-        Size = 7
-      end>
-    StoreDefs = True
-    TableName = 'VW_TIPO_ALIQUOTA'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 704
-    Top = 416
-  end
   object dtsAliquota: TDataSource
     DataSet = tblAliquota
-    Left = 736
-    Top = 416
+    Left = 728
   end
   object dtsTributacaoSN: TDataSource
     DataSet = qryTributacaoSN
-    Left = 672
-    Top = 448
-  end
-  object tblCor: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'CODIGO'
-        DataType = ftString
-        Size = 3
-      end
-      item
-        Name = 'DESCRICAO'
-        DataType = ftString
-        Size = 50
-      end>
-    StoreDefs = True
-    TableName = 'RENAVAM_COR'
-    UniDirectional = False
-    Left = 768
-    Top = 416
+    Left = 472
   end
   object dtsCor: TDataSource
     DataSet = tblCor
-    Left = 800
-    Top = 416
-  end
-  object tblCombustivel: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'CODIGO'
-        DataType = ftString
-        Size = 3
-      end
-      item
-        Name = 'DESCRICAO'
-        DataType = ftString
-        Size = 100
-      end>
-    StoreDefs = True
-    TableName = 'RENAVAM_COBUSTIVEL'
-    UniDirectional = False
-    Left = 704
-    Top = 448
+    Left = 792
   end
   object dtsCombustivel: TDataSource
     DataSet = tblCombustivel
-    Left = 736
-    Top = 448
-  end
-  object tblTipoVeiculo: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'CODIGO'
-        DataType = ftString
-        Size = 3
-      end
-      item
-        Name = 'DESCRICAO'
-        DataType = ftString
-        Size = 100
-      end>
-    StoreDefs = True
-    TableName = 'RENAVAM_TIPOVEICULO'
-    UniDirectional = False
-    Left = 768
-    Top = 448
+    Left = 536
   end
   object dtsTipoVeiculo: TDataSource
     DataSet = tblTipoVeiculo
-    Left = 800
-    Top = 448
+    Left = 600
   end
   object dtsAliquotaPIS: TDataSource
     DataSet = qryAliquotaPIS
-    Left = 864
-    Top = 416
+    Left = 856
   end
   object dtsAliquotaCOFINS: TDataSource
     DataSet = qryAliquotaCOFINS
-    Left = 864
-    Top = 448
-  end
-  object qryAliquotaPIS: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'select'
-      '    Codigo'
-      '  , Descricao_FULL'
-      '  , Descricao'
-      '  , Indice_acbr'
-      'from VW_ALIQUOTA_PIS')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 832
-    Top = 416
-  end
-  object qryAliquotaCOFINS: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'select'
-      '    Codigo'
-      '  , Descricao_FULL'
-      '  , Descricao'
-      '  , Indice_acbr'
-      'from VW_ALIQUOTA_COFINS')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 832
-    Top = 448
+    Left = 664
   end
   object popFerramentas: TPopupMenu
     Left = 528
@@ -5846,43 +6140,6 @@ inherited frmGeProduto: TfrmGeProduto
       Enabled = False
     end
   end
-  object qryTributacaoSN: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      '/*'
-      'Select'
-      '    t.tpt_cod'
-      '  , t.tpt_descricao'
-      '  , t.tpt_descricao_full'
-      '  , t.tpt_sigla'
-      '  , t.crt'
-      'from VW_TIPO_TRIBUTACAO t'
-      'where t.crt = 1'
-      '*/'
-      'Select'
-      '    t.Tpt_cod'
-      '  , t.Tpt_descricao'
-      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
-      '  , t.Tpt_sigla'
-      '  , t.Crt'
-      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
-      'from TBTRIBUTACAO_TIPO t'
-      'where coalesce(t.obrigar_cest, 0) = 0'
-      'order by'
-      '    t.Crt'
-      '  , t.Tpt_cod')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 640
-    Top = 448
-  end
   object fdQryEmpresa: TFDQuery
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -5950,5 +6207,92 @@ inherited frmGeProduto: TfrmGeProduto
       '    t.Crt'
       '  , t.Tpt_cod')
     Left = 376
+  end
+  object qryTributacaoSN: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      '/*'
+      'Select'
+      '    t.tpt_cod'
+      '  , t.tpt_descricao'
+      '  , t.tpt_descricao_full'
+      '  , t.tpt_sigla'
+      '  , t.crt'
+      'from VW_TIPO_TRIBUTACAO t'
+      'where t.crt = 1'
+      '*/'
+      'Select'
+      '    t.Tpt_cod'
+      '  , t.Tpt_descricao'
+      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
+      '  , t.Tpt_sigla'
+      '  , t.Crt'
+      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
+      'from TBTRIBUTACAO_TIPO t'
+      'where coalesce(t.obrigar_cest, 0) = 0'
+      'order by'
+      '    t.Crt'
+      '  , t.Tpt_cod')
+    Left = 440
+  end
+  object tblAliquota: TFDTable
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.UpdateTableName = 'VW_TIPO_ALIQUOTA'
+    TableName = 'VW_TIPO_ALIQUOTA'
+    Left = 696
+  end
+  object tblCombustivel: TFDTable
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.UpdateTableName = 'RENAVAM_COBUSTIVEL'
+    TableName = 'RENAVAM_COBUSTIVEL'
+    Left = 504
+  end
+  object tblCor: TFDTable
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.UpdateTableName = 'RENAVAM_COR'
+    TableName = 'RENAVAM_COR'
+    Left = 760
+  end
+  object tblTipoVeiculo: TFDTable
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.UpdateTableName = 'RENAVAM_TIPOVEICULO'
+    TableName = 'RENAVAM_TIPOVEICULO'
+    Left = 568
+  end
+  object qryAliquotaPIS: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'select'
+      '    Codigo'
+      '  , Descricao_FULL'
+      '  , Descricao'
+      '  , Indice_acbr'
+      'from VW_ALIQUOTA_PIS')
+    Left = 824
+  end
+  object qryAliquotaCOFINS: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'select'
+      '    Codigo'
+      '  , Descricao_FULL'
+      '  , Descricao'
+      '  , Indice_acbr'
+      'from VW_ALIQUOTA_COFINS')
+    Left = 632
   end
 end

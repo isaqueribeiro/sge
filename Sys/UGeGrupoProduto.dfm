@@ -3,8 +3,6 @@ inherited frmGeGrupoProduto: TfrmGeGrupoProduto
   Top = 220
   Caption = 'Tabela de Grupos de Produtos'
   OldCreateOrder = True
-  ExplicitWidth = 751
-  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
@@ -14,17 +12,20 @@ inherited frmGeGrupoProduto: TfrmGeGrupoProduto
           item
             Expanded = False
             FieldName = 'COD'
+            Title.Caption = 'C'#243'digo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 350
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PERC_VENDA_COMISSAO'
+            Title.Caption = '% Comiss'#227'o '
             Width = 75
             Visible = True
           end>
@@ -120,27 +121,9 @@ inherited frmGeGrupoProduto: TfrmGeGrupoProduto
       'from TBGRUPOPROD g')
     GeneratorField.Field = 'COD'
     GeneratorField.Generator = 'GEN_GRUPOPRODUTO_COD'
-    object IbDtstTabelaCOD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = 'TBGRUPOPROD.COD'
-      Required = True
-    end
-    object IbDtstTabelaDESCRI: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o:'
-      FieldName = 'DESCRI'
-      Origin = 'TBGRUPOPROD.DESCRI'
-      Size = 30
-    end
-    object IbDtstTabelaPERC_VENDA_COMISSAO: TIBBCDField
-      DisplayLabel = '% Comiss'#227'o'
-      FieldName = 'PERC_VENDA_COMISSAO'
-      Origin = '"TBGRUPOPROD"."PERC_VENDA_COMISSAO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -171,7 +154,7 @@ inherited frmGeGrupoProduto: TfrmGeGrupoProduto
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1629,5 +1612,62 @@ inherited frmGeGrupoProduto: TfrmGeGrupoProduto
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_GRUPOPRODUTO_COD'
+    UpdateOptions.KeyFields = 'COD'
+    UpdateOptions.AutoIncFields = 'COD'
+    SQL.Strings = (
+      'Select'
+      '    g.Cod'
+      '  , g.Descri'
+      '  , g.perc_venda_comissao'
+      'from TBGRUPOPROD g')
+    object fdQryTabelaCOD: TSmallintField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = 'COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaDESCRI: TStringField
+      DisplayLabel = 'Descri'#231#227'o:'
+      FieldName = 'DESCRI'
+      Origin = 'DESCRI'
+      Required = True
+      Size = 30
+    end
+    object fdQryTabelaPERC_VENDA_COMISSAO: TBCDField
+      DisplayLabel = '% Comiss'#227'o'
+      FieldName = 'PERC_VENDA_COMISSAO'
+      Origin = 'PERC_VENDA_COMISSAO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBGRUPOPROD'
+      '(COD, DESCRI, PERC_VENDA_COMISSAO)'
+      'VALUES (:NEW_COD, :NEW_DESCRI, :NEW_PERC_VENDA_COMISSAO)'
+      'RETURNING COD')
+    ModifySQL.Strings = (
+      'UPDATE TBGRUPOPROD'
+      
+        'SET COD = :NEW_COD, DESCRI = :NEW_DESCRI, PERC_VENDA_COMISSAO = ' +
+        ':NEW_PERC_VENDA_COMISSAO'
+      'WHERE COD = :OLD_COD'
+      'RETURNING COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBGRUPOPROD'
+      'WHERE COD = :OLD_COD')
+    FetchRowSQL.Strings = (
+      'SELECT COD, DESCRI, PERC_VENDA_COMISSAO'
+      'FROM TBGRUPOPROD'
+      'WHERE COD = :COD')
   end
 end

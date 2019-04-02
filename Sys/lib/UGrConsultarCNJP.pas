@@ -7,7 +7,9 @@ uses
   Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons,
   ACBrBase, ACBrSocket, ACBrConsultaCNPJ, JPEG, Mask,
   UObserverInterface, UCliente, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 
 type
@@ -65,6 +67,7 @@ type
     { Private declarations }
     FObservers: TInterfaceList;
     FCliente : TCliente;
+    procedure LabelTransparente;
   public
     { Public declarations }
     procedure addObserver(Observer: IObserver);
@@ -148,6 +151,8 @@ begin
 
   if Trim(FCliente.CpfCnpj) <> EmptyStr then
     edCNPJ.Text := StrFormatarCnpj(FCliente.CpfCnpj);
+
+  LabelTransparente;
 end;
 
 procedure TfrmGrConsultarCNJP.LabAtualizarCaptchaClick(Sender: TObject);
@@ -168,6 +173,18 @@ begin
   finally
     Stream.Free;
   end;
+end;
+
+procedure TfrmGrConsultarCNJP.LabelTransparente;
+var
+  I : Integer;
+begin
+  for I := 0 to Self.ComponentCount - 1 do
+    if (Components[I] is TLabel) then
+    begin
+      TLabel(Components[I]).Transparent := False;
+      TLabel(Components[I]).Transparent := True;
+    end;
 end;
 
 procedure TfrmGrConsultarCNJP.tmrCaptchaTimer(Sender: TObject);

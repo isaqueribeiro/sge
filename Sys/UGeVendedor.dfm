@@ -19,10 +19,7 @@ inherited frmGeVendedor: TfrmGeVendedor
     Width = 730
     ExplicitWidth = 730
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 722
-      ExplicitHeight = 0
       inherited Bevel4: TBevel
         Width = 722
         ExplicitWidth = 722
@@ -33,18 +30,21 @@ inherited frmGeVendedor: TfrmGeVendedor
           item
             Expanded = False
             FieldName = 'COD'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
+            Title.Caption = 'Nome '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CPF'
+            Title.Caption = 'CPF '
             Width = 100
             Visible = True
           end
@@ -52,14 +52,14 @@ inherited frmGeVendedor: TfrmGeVendedor
             Expanded = False
             FieldName = 'COMISSAO_TIPO_FLAG'
             Title.Alignment = taCenter
-            Title.Caption = 'TC'
+            Title.Caption = 'TC '
             Width = 25
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'COMISSAO'
-            Title.Caption = 'Comiss'#227'o (%)'
+            Title.Caption = 'Comiss'#227'o (%) '
             Width = 85
             Visible = True
           end
@@ -67,7 +67,7 @@ inherited frmGeVendedor: TfrmGeVendedor
             Expanded = False
             FieldName = 'COMISSAO_VL'
             Title.Alignment = taRightJustify
-            Title.Caption = 'Comiss'#227'o (R$)'
+            Title.Caption = 'Comiss'#227'o (R$) '
             Width = 110
             Visible = True
           end
@@ -75,7 +75,7 @@ inherited frmGeVendedor: TfrmGeVendedor
             Expanded = False
             FieldName = 'ATIVO'
             Title.Alignment = taCenter
-            Title.Caption = 'A'
+            Title.Caption = 'A '
             Visible = False
           end>
       end
@@ -109,7 +109,10 @@ inherited frmGeVendedor: TfrmGeVendedor
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 722
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 113
         Width = 722
@@ -283,9 +286,6 @@ inherited frmGeVendedor: TfrmGeVendedor
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    BeforePost = IbDtstTabelaBeforePost
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    v.Cod'
@@ -303,68 +303,10 @@ inherited frmGeVendedor: TfrmGeVendedor
       'from TBVENDEDOR v')
     GeneratorField.Field = 'COD'
     GeneratorField.Generator = 'GEN_GRUPOPRODUTO_COD'
-    Left = 96
-    Top = 312
-    object IbDtstTabelaCOD: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = 'TBVENDEDOR.COD'
-      Required = True
-    end
-    object IbDtstTabelaNOME: TIBStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'NOME'
-      Origin = 'TBVENDEDOR.NOME'
-      Required = True
-      Size = 60
-    end
-    object IbDtstTabelaCPF: TIBStringField
-      FieldName = 'CPF'
-      Origin = 'TBVENDEDOR.CPF'
-      Required = True
-      EditMask = '000.000.000-00;0; '
-      Size = 12
-    end
-    object IbDtstTabelaCOMISSAO_TIPO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'COMISSAO_TIPO'
-      Origin = '"TBVENDEDOR"."COMISSAO_TIPO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCOMISSAO: TIBBCDField
-      FieldName = 'COMISSAO'
-      Origin = 'TBVENDEDOR.COMISSAO'
-      DisplayFormat = '#0.00'
-      Precision = 9
-      Size = 2
-    end
-    object IbDtstTabelaCOMISSAO_VL: TIBBCDField
-      DisplayLabel = 'Valor Comiss'#227'o'
-      FieldName = 'COMISSAO_VL'
-      Origin = 'TBVENDEDOR.COMISSAO_VL'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 9
-      Size = 2
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVO'
-      Origin = 'TBVENDEDOR.ATIVO'
-      Required = True
-    end
-    object IbDtstTabelaCOMISSAO_TIPO_FLAG: TIBStringField
-      Alignment = taCenter
-      FieldName = 'COMISSAO_TIPO_FLAG'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 1
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 160
-    Top = 312
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -403,14 +345,12 @@ inherited frmGeVendedor: TfrmGeVendedor
       'delete from TBVENDEDOR'
       'where'
       '  COD = :OLD_COD')
-    Left = 128
-    Top = 312
   end
   inherited ImgList: TImageList
-    Left = 64
-    Top = 312
+    Left = 600
+    Top = 0
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1868,6 +1808,120 @@ inherited frmGeVendedor: TfrmGeVendedor
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    AfterScroll = fdQryTabelaAfterScroll
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    v.Cod'
+      '  , v.Nome'
+      '  , v.Cpf'
+      '  , v.Ativo'
+      '  , v.comissao_tipo'
+      '  , v.comissao'
+      '  , v.Comissao_vl'
+      '  , Case'
+      '      when v.comissao_tipo = 0 then '#39'D'#39
+      '      when v.comissao_tipo = 1 then '#39'P'#39
+      '      else '#39'*'#39
+      '    end comissao_tipo_flag'
+      'from TBVENDEDOR v')
+    object fdQryTabelaCOD: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = 'COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaNOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 60
+    end
+    object fdQryTabelaCPF: TStringField
+      FieldName = 'CPF'
+      Origin = 'CPF'
+      Required = True
+      EditMask = '000\.000\.000\-00;0; '
+      Size = 12
+    end
+    object fdQryTabelaCOMISSAO_TIPO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'COMISSAO_TIPO'
+      Origin = 'COMISSAO_TIPO'
+    end
+    object fdQryTabelaCOMISSAO: TCurrencyField
+      DisplayLabel = '% Comiss'#227'o'
+      FieldName = 'COMISSAO'
+      Origin = 'COMISSAO'
+      Required = True
+      DisplayFormat = '#0.00'
+    end
+    object fdQryTabelaCOMISSAO_VL: TCurrencyField
+      DisplayLabel = 'Valor Comiss'#227'o'
+      FieldName = 'COMISSAO_VL'
+      Origin = 'COMISSAO_VL'
+      Required = True
+      DisplayFormat = ',0.00'
+    end
+    object fdQryTabelaCOMISSAO_TIPO_FLAG: TStringField
+      Alignment = taCenter
+      AutoGenerateValue = arDefault
+      FieldName = 'COMISSAO_TIPO_FLAG'
+      Origin = 'COMISSAO_TIPO_FLAG'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 1
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBVENDEDOR'
+      '(COD, NOME, CPF, COMISSAO_TIPO, COMISSAO, '
+      '  COMISSAO_VL, ATIVO)'
+      
+        'VALUES (:NEW_COD, :NEW_NOME, :NEW_CPF, :NEW_COMISSAO_TIPO, :NEW_' +
+        'COMISSAO, '
+      '  :NEW_COMISSAO_VL, :NEW_ATIVO)'
+      'RETURNING COD, TIPO')
+    ModifySQL.Strings = (
+      'UPDATE TBVENDEDOR'
+      
+        'SET COD = :NEW_COD, NOME = :NEW_NOME, CPF = :NEW_CPF, COMISSAO_T' +
+        'IPO = :NEW_COMISSAO_TIPO, '
+      '  COMISSAO = :NEW_COMISSAO, COMISSAO_VL = :NEW_COMISSAO_VL, '
+      '  ATIVO = :NEW_ATIVO'
+      'WHERE COD = :OLD_COD'
+      'RETURNING COD, TIPO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBVENDEDOR'
+      'WHERE COD = :OLD_COD')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    v.Cod'
+      '  , v.Nome'
+      '  , v.Cpf'
+      '  , v.Ativo'
+      '  , v.comissao_tipo'
+      '  , v.comissao'
+      '  , v.Comissao_vl'
+      '  , Case'
+      '      when v.comissao_tipo = 0 then '#39'D'#39
+      '      when v.comissao_tipo = 1 then '#39'P'#39
+      '      else '#39'*'#39
+      '    end comissao_tipo_flag'
+      'from TBVENDEDOR v'
+      'WHERE v.COD = :COD')
   end
   object dtsTipoComissao: TDataSource
     DataSet = fdQryTipoComissao

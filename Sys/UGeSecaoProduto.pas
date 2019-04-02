@@ -3,24 +3,43 @@ unit UGeSecaoProduto;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeSecaoProduto = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
-    IbDtstTabelaSCP_COD: TSmallintField;
-    IbDtstTabelaSCP_DESCRICAO: TIBStringField;
+    fdQryTabelaSCP_COD: TSmallintField;
+    fdQryTabelaSCP_DESCRICAO: TStringField;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBSECAOPROD
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeSecaoProduto: TfrmGeSecaoProduto;
@@ -67,9 +86,12 @@ begin
   Self.Caption     := 'Tabela de Seções de ' + StrDescricaoProduto;
 
   DisplayFormatCodigo := '000';
+  AbrirTabelaAuto     := True;
+
   NomeTabela     := 'TBSECAOPROD';
-  CampoCodigo    := 'SCP_COD';
-  CampoDescricao := 'SCP_DESCRICAO';
+  CampoCodigo    := 's.SCP_COD';
+  CampoDescricao := 's.SCP_DESCRICAO';
+  CampoOrdenacao := 's.SCP_DESCRICAO';
 
   UpdateGenerator;
 end;

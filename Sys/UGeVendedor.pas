@@ -24,31 +24,31 @@ type
     dbNome: TDBEdit;
     lblCPF: TLabel;
     dbCPF: TDBEdit;
-    IbDtstTabelaCOD: TIntegerField;
-    IbDtstTabelaNOME: TIBStringField;
-    IbDtstTabelaCPF: TIBStringField;
     dbComissao: TDBEdit;
     lblComissao: TLabel;
-    IbDtstTabelaCOMISSAO: TIBBCDField;
-    IbDtstTabelaATIVO: TSmallintField;
-    IbDtstTabelaCOMISSAO_VL: TIBBCDField;
     dbComissaoValor: TDBEdit;
     lblComissaoValor: TLabel;
     chkbxAtivo: TDBCheckBox;
     dtsTipoComissao: TDataSource;
     lblTipoComissao: TLabel;
     dbTipoComissao: TDBLookupComboBox;
-    IbDtstTabelaCOMISSAO_TIPO: TSmallintField;
     fdQryTipoComissao: TFDQuery;
-    IbDtstTabelaCOMISSAO_TIPO_FLAG: TIBStringField;
+    fdQryTabelaCOD: TIntegerField;
+    fdQryTabelaNOME: TStringField;
+    fdQryTabelaCPF: TStringField;
+    fdQryTabelaATIVO: TSmallintField;
+    fdQryTabelaCOMISSAO_TIPO: TSmallintField;
+    fdQryTabelaCOMISSAO: TCurrencyField;
+    fdQryTabelaCOMISSAO_VL: TCurrencyField;
+    fdQryTabelaCOMISSAO_TIPO_FLAG: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure ControleCampos;
@@ -132,10 +132,13 @@ end;
 
 procedure TfrmGeVendedor.ControleCampos;
 begin
-  lblComissao.Enabled      := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
-  dbComissao.Enabled       := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
-  lblComissaoValor.Enabled := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
-  dbComissaoValor.Enabled  := (IbDtstTabelaCOMISSAO_TIPO.AsInteger = 0);
+  with DtSrcTabela.DataSet do
+  begin
+    lblComissao.Enabled      := (FieldByName('COMISSAO_TIPO').AsInteger = 0);
+    dbComissao.Enabled       := (FieldByName('COMISSAO_TIPO').AsInteger = 0);
+    lblComissaoValor.Enabled := (FieldByName('COMISSAO_TIPO').AsInteger = 0);
+    dbComissaoValor.Enabled  := (FieldByName('COMISSAO_TIPO').AsInteger = 0);
+  end;
 end;
 
 procedure TfrmGeVendedor.dbgDadosDrawColumnCell(Sender: TObject;
@@ -144,7 +147,7 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
       dbgDados.Canvas.Font.Color := clRed;
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end;
@@ -152,8 +155,48 @@ end;
 
 procedure TfrmGeVendedor.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
 begin
-  if (Field = IbDtstTabelaCOMISSAO_TIPO) then
+  if (Field = DtSrcTabela.DataSet.FieldByName('COMISSAO_TIPO')) then
     ControleCampos;
+end;
+
+procedure TfrmGeVendedor.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  ControleCampos;
+end;
+
+procedure TfrmGeVendedor.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if ( FieldByName('ATIVO').IsNull ) then
+      FieldByName('ATIVO').AsInteger := 1;
+
+    if ( FieldByName('COMISSAO_TIPO').AsInteger = 1 ) then
+    begin
+      FieldByName('COMISSAO').AsCurrency    := 0.0;
+      FieldByName('COMISSAO_VL').AsCurrency := 0.0;
+    end;
+
+    if (Length(Trim(FieldByName('CPF').AsString)) < 11) then
+      FieldByName('CPF').Clear;
+
+    FieldByName('COMISSAO_TIPO_FLAG').AsString := Copy(AnsiUpperCase(Trim(dbTipoComissao.Text)), 1, 1);
+  end;
+  inherited;
+end;
+
+procedure TfrmGeVendedor.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('COD').AsInteger   := GetNextID(NomeTabela, GetCampoCodigoLimpo);
+    FieldByName('ATIVO').AsInteger := 1;
+    FieldByName('COMISSAO_TIPO').AsInteger := 0;
+    FieldByName('COMISSAO').AsCurrency     := 0.0;
+    FieldByName('COMISSAO_VL').AsCurrency  := 0.0;
+  end;
 end;
 
 procedure TfrmGeVendedor.FormCreate(Sender: TObject);
@@ -167,6 +210,7 @@ begin
   NomeTabela     := 'TBVENDEDOR';
   CampoCodigo    := 'v.COD';
   CampoDescricao := 'v.NOME';
+  CampoOrdenacao := 'v.NOME';
 
   if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
     Self.Caption := 'Cadastro de Vendedores / Responsáveis';
@@ -174,46 +218,16 @@ end;
 
 procedure TfrmGeVendedor.btbtnSalvarClick(Sender: TObject);
 begin
-  if ( not FuncoesString.StrIsCPF(IbDtstTabelaCPF.AsString) ) then
+  if ( not FuncoesString.StrIsCPF(DtSrcTabela.DataSet.FieldByName('CPF').AsString) ) then
   begin
     ShowWarning('Favor informar um CPF válido.');
     Abort;
   end;
 
-  if (IbDtstTabelaCOMISSAO.AsCurrency < 0) or (IbDtstTabelaCOMISSAO.AsCurrency > 100) then
+  if (DtSrcTabela.DataSet.FieldByName('COMISSAO').AsCurrency < 0) or (DtSrcTabela.DataSet.FieldByName('COMISSAO').AsCurrency > 100) then
     ShowWarning('Favor informar um percentual válido de comissão!')
   else
     inherited;
-end;
-
-procedure TfrmGeVendedor.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaCOD.Value   := GetNextID(NomeTabela, GetCampoCodigoLimpo);
-  IbDtstTabelaATIVO.Value := 1;
-  IbDtstTabelaCOMISSAO_TIPO.Value := 0;
-end;
-
-procedure TfrmGeVendedor.IbDtstTabelaAfterScroll(DataSet: TDataSet);
-begin
-  inherited;
-  ControleCampos;
-end;
-
-procedure TfrmGeVendedor.IbDtstTabelaBeforePost(DataSet: TDataSet);
-begin
-  if ( IbDtstTabelaATIVO.IsNull ) then
-    IbDtstTabelaATIVO.Value := 1;
-
-  if ( IbDtstTabelaCOMISSAO_TIPO.AsInteger = 1 ) then
-  begin
-    IbDtstTabelaCOMISSAO.AsCurrency    := 0.0;
-    IbDtstTabelaCOMISSAO_VL.AsCurrency := 0.0;
-  end;
-
-  IbDtstTabelaCOMISSAO_TIPO_FLAG.AsString := Copy(AnsiUpperCase(Trim(dbTipoComissao.Text)), 1, 1);
-
-  inherited;
 end;
 
 initialization

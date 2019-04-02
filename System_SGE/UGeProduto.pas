@@ -6,7 +6,7 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, Menus, cxGraphics, JvDBControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit,
@@ -15,11 +15,9 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TAliquota = (taICMS, taISS);
@@ -61,26 +59,6 @@ type
   ProdutoServicoPonteiro = ^TProdutoServico;
 
   TfrmGeProduto = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaCOD: TIBStringField;
-    IbDtstTabelaDESCRI: TIBStringField;
-    IbDtstTabelaMODELO: TIBStringField;
-    IbDtstTabelaPRECO: TIBBCDField;
-    IbDtstTabelaREFERENCIA: TIBStringField;
-    IbDtstTabelaSECAO: TIBStringField;
-    IbDtstTabelaCODGRUPO: TSmallintField;
-    IbDtstTabelaCUSTOMEDIO: TIBBCDField;
-    IbDtstTabelaCODEMP: TIBStringField;
-    IbDtstTabelaCODSECAO: TSmallintField;
-    IbDtstTabelaCODORIGEM: TIBStringField;
-    IbDtstTabelaCODTRIBUTACAO: TIBStringField;
-    IbDtstTabelaCST: TIBStringField;
-    IbDtstTabelaCODCFOP: TIntegerField;
-    IbDtstTabelaCODBARRA_EAN: TIBStringField;
-    IbDtstTabelaCODUNIDADE: TSmallintField;
-    IbDtstTabelaDESCRICAO_GRUPO: TIBStringField;
-    IbDtstTabelaDESCRICAO_SECAO: TIBStringField;
-    IbDtstTabelaDESCRICAO_UNIDADE: TIBStringField;
     lblDescricao: TLabel;
     dbDescricao: TDBEdit;
     lblReferencia: TLabel;
@@ -90,16 +68,12 @@ type
     dbModelo: TDBEdit;
     lblSecao: TLabel;
     lblGrupo: TLabel;
-    IbDtstTabelaALIQUOTA: TIBBCDField;
-    IbDtstTabelaCFOP_DESCRICAO: TIBStringField;
-    IbDtstTabelaCFOP_ESPECIFICACAO: TMemoField;
     Bevel5: TBevel;
     dtsOrigem: TDataSource;
     dtsTributacaoNM: TDataSource;
     pgcMaisDados: TPageControl;
     tbsValores: TTabSheet;
     tbsHistoricoVeiculo: TTabSheet;
-    IbDtstTabelaUNP_SIGLA: TIBStringField;
     GrpBxDadosEstoque: TGroupBox;
     lblEstoqueQtde: TLabel;
     dbEstoqueQtde: TDBEdit;
@@ -113,56 +87,27 @@ type
     dbPreco: TDBEdit;
     lblCodigoEAN: TLabel;
     dbCodigoEAN: TDBEdit;
-    tblAliquota: TIBTable;
     dtsAliquota: TDataSource;
-    IbDtstTabelaALIQUOTA_TIPO: TSmallintField;
-    IbDtstTabelaVALOR_IPI: TIBBCDField;
     lblReserva: TLabel;
     dbReserva: TDBEdit;
-    IbDtstTabelaNCM_SH: TIBStringField;
     dtsTributacaoSN: TDataSource;
-    IbDtstTabelaCSOSN: TIBStringField;
-    IbDtstTabelaALIQUOTA_CSOSN: TIBBCDField;
-    IbDtstTabelaPRECO_PROMOCAO: TIBBCDField;
     lblPrecoPromocao: TLabel;
     dbPrecoPromocao: TDBEdit;
     lblProdutoPromocao: TLabel;
     lblProdutoSemEstoque: TLabel;
     lblProdutoDesativado: TLabel;
     lblFabricante: TLabel;
-    IbDtstTabelaCODFABRICANTE: TIntegerField;
-    IbDtstTabelaNOME_FABRICANTE: TIBStringField;
-    IbDtstTabelaAPRESENTACAO: TIBStringField;
-    IbDtstTabelaDESCRI_APRESENTACAO: TIBStringField;
-    IbDtstTabelaPRODUTO_NOVO: TSmallintField;
     TbsEspecificacao: TTabSheet;
     lblApresentacao: TLabel;
     dbApresentacao: TDBEdit;
-    IbDtstTabelaCOR_VEICULO: TIBStringField;
-    IbDtstTabelaCOMBUSTIVEL_VEICULO: TIBStringField;
-    IbDtstTabelaTIPO_VEICULO: TIBStringField;
-    IbDtstTabelaRENAVAM_VEICULO: TIBStringField;
-    IbDtstTabelaCHASSI_VEICULO: TIBStringField;
-    IbDtstTabelaANO_MODELO_VEICULO: TSmallintField;
-    IbDtstTabelaANO_FABRICACAO_VEICULO: TSmallintField;
-    IbDtstTabelaKILOMETRAGEM_VEICULO: TIntegerField;
-    IbDtstTabelaDESCRICAO_COR: TIBStringField;
-    IbDtstTabelaDESCRICAO_COMBUSTIVEL: TIBStringField;
-    IbDtstTabelaMODELO_FABRICACAO: TIBStringField;
-    tblCor: TIBTable;
     dtsCor: TDataSource;
-    tblCombustivel: TIBTable;
     dtsCombustivel: TDataSource;
-    tblTipoVeiculo: TIBTable;
     dtsTipoVeiculo: TDataSource;
-    IbDtstTabelaSITUACAO_ATUAL_VEICULO: TIBStringField;
-    IbDtstTabelaSITUACAO_HISTORICO_VEICULO: TMemoField;
     lblSituacaoVeiculo: TLabel;
     dbSituacaoVeiculo: TDBEdit;
     lblHistoricoSituacaoVeiculo: TLabel;
     dbHistoricoSituacaoVeiculo: TDBMemo;
     tbsTributacao: TTabSheet;
-    IbDtstTabelaPERCENTUAL_REDUCAO_BC: TIBBCDField;
     GrpBxDadosTributoICMS: TGroupBox;
     lblOrigem: TLabel;
     lblTipoTributacaoNM: TLabel;
@@ -190,39 +135,23 @@ type
     lblCSTCOFINS: TLabel;
     dbCSTCOFINS: TDBLookupComboBox;
     chkProdutoComEstoque: TCheckBox;
-    IbDtstTabelaCST_PIS: TIBStringField;
-    IbDtstTabelaCST_COFINS: TIBStringField;
-    IbDtstTabelaALIQUOTA_PIS: TIBBCDField;
-    IbDtstTabelaALIQUOTA_COFINS: TIBBCDField;
     lblAliquotaCOFINS: TLabel;
     dbAliquotaCOFINS: TDBEdit;
     lblAliquotaPIS: TLabel;
     dbAliquotaPIS: TDBEdit;
     dtsAliquotaPIS: TDataSource;
     dtsAliquotaCOFINS: TDataSource;
-    qryAliquotaPIS: TIBDataSet;
-    qryAliquotaCOFINS: TIBDataSet;
     lblPercentualMarkup: TLabel;
     dbPercentualMarkup: TDBEdit;
     lblPrecoVendaSugestao: TLabel;
     dbPrecoVendaSugestao: TDBEdit;
-    IbDtstTabelaPRECO_SUGERIDO: TIBBCDField;
-    IbDtstTabelaPERCENTUAL_MARCKUP: TIBBCDField;
     CmbBxFiltrarTipo: TComboBox;
     lblLucroValor: TLabel;
     dbLucroValor: TDBEdit;
-    IbDtstTabelaLUCRO_CALCULADO: TIBBCDField;
     ShpLucroZerado: TShape;
     lblLucroZerado: TLabel;
     ShpLucroNegativo: TShape;
     lblLucroNegativo: TLabel;
-    IbDtstTabelaLUCRO_VALOR: TIBBCDField;
-    IbDtstTabelaPERCENTUAL_MARGEM: TIBBCDField;
-    IbDtstTabelaFRACIONADOR: TIBBCDField;
-    IbDtstTabelaVENDA_FRACIONADA: TSmallintField;
-    IbDtstTabelaCODUNIDADE_FRACIONADA: TSmallintField;
-    IbDtstTabelaDESCRICAO_UNIDADE_FRAC: TIBStringField;
-    IbDtstTabelaUNP_SIGLA_FRAC: TIBStringField;
     GrpBxFracionamentoPreco: TGroupBox;
     lblPrecoFrac: TLabel;
     dbPrecoFrac: TDBEdit;
@@ -260,27 +189,11 @@ type
     dbPesoLiquido: TDBEdit;
     lblCubagem: TLabel;
     dbCubagem: TDBEdit;
-    IbDtstTabelaPESO_BRUTO: TIBBCDField;
-    IbDtstTabelaPESO_LIQUIDO: TIBBCDField;
-    IbDtstTabelaCUBAGEM: TIBBCDField;
-    IbDtstTabelaUSUARIO: TIBStringField;
     lblNVE: TLabel;
     dbNVE: TDBEdit;
-    IbDtstTabelaCODIGO_NVE: TIBStringField;
-    IbDtstTabelaQTDE: TIBBCDField;
-    IbDtstTabelaDISPONIVEL: TIBBCDField;
-    IbDtstTabelaRESERVA: TIBBCDField;
-    IbDtstTabelaESTOQMIN: TIBBCDField;
-    IbDtstTabelaMOVIMENTA_ESTOQUE: TSmallintField;
-    IbDtstTabelaPRECO_FRAC: TFMTBCDField;
-    IbDtstTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField;
-    IbDtstTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField;
     lblUnidade: TLabel;
     lblTipoCadastro: TLabel;
     dbTipoCadastro: TDBLookupComboBox;
-    IbDtstTabelaCOMPOR_FATURAMENTO: TSmallintField;
-    IbDtstTabelaMETAFONEMA: TIBStringField;
-    IbDtstTabelaESPECIFICACAO: TBlobField;
     pnlEspecificacao: TPanel;
     lblEspecificacao: TLabel;
     dbEspecificacao: TDBMemo;
@@ -291,8 +204,6 @@ type
     nmProdutoLista: TMenuItem;
     nmProdutoFicha: TMenuItem;
     nmProdutoEtiqueta: TMenuItem;
-    IbDtstTabelaCADASTRO_ATIVO: TSmallintField;
-    IbDtstTabelaPRODUTO_IMOBILIZADO: TSmallintField;
     dbCFOP: TJvDBComboEdit;
     dbGrupo: TJvDBComboEdit;
     dbFabricante: TJvDBComboEdit;
@@ -322,24 +233,17 @@ type
     dbValorRetornoVeiculo: TDBEdit;
     GrpBxParametroGeral: TGroupBox;
     GrpBxParametroProdudo: TGroupBox;
-    IbDtstTabelaUNIDADE: TIBStringField;
     dbCadastroAtivo: TDBCheckBox;
     dbProdutoNovo: TDBCheckBox;
     dbComporFaturamento: TDBCheckBox;
     dbProdutoMovEstoque: TDBCheckBox;
     dbProdutoEhImobilizado: TDBCheckBox;
     dbProdutoPorLote: TDBCheckBox;
-    IbDtstTabelaESTOQUE_APROP_LOTE: TSmallintField;
     ppMnAtualizarTabelaIBPT: TMenuItem;
-    IbDtstTabelaTABELA_IBPT: TIntegerField;
     dbNCM_SH: TJvDBComboEdit;
     lblNomeAmigo: TLabel;
     dbNomeAmigo: TDBEdit;
-    IbDtstTabelaNOME_AMIGO: TIBStringField;
     ppMnAtualizarNomeAmigo: TMenuItem;
-    IbDtstTabelaULTIMA_COMPRA_DATA: TDateField;
-    IbDtstTabelaULTIMA_COMPRA_VALOR: TIBBCDField;
-    IbDtstTabelaULTIMA_COMPRA_FORNEC: TIntegerField;
     GrpBxUltimaCompra: TGroupBox;
     lblUltimaCompraData: TLabel;
     lblUltimaCompraValor: TLabel;
@@ -347,23 +251,15 @@ type
     dbUltimaCompraValor: TDBEdit;
     lblPercentualMargem: TLabel;
     dbPercentualMargem: TDBEdit;
-    qryTributacaoSN: TIBDataSet;
     fdQryEmpresa: TFDQuery;
     fdQryTipoProduto: TFDQuery;
     dtsTipoProduto: TDataSource;
     lblTipoProduto: TLabel;
     dbTipoProduto: TDBLookupComboBox;
-    IbDtstTabelaCODTIPO: TSmallintField;
     lblCodigoAnvisa: TLabel;
     dbCodigoAnvisa: TDBEdit;
-    IbDtstTabelaANVISA: TIBStringField;
     dbGerarSubproduto: TDBCheckBox;
     fdQryOrigem: TFDQuery;
-    IbDtstTabelaALTURA: TIBBCDField;
-    IbDtstTabelaLARGURA: TIBBCDField;
-    IbDtstTabelaESPESSURA: TIBBCDField;
-    IbDtstTabelaGERAR_SUBPRODUTO: TSmallintField;
-    IbDtstTabelaPRODUTO_PAI: TIBStringField;
     lblAltura: TLabel;
     dbAltura: TDBEdit;
     dbLargura: TDBEdit;
@@ -371,14 +267,114 @@ type
     dbEspessura: TDBEdit;
     lblEspessura: TLabel;
     fdQryTributacaoNM: TFDQuery;
+    qryTributacaoSN: TFDQuery;
+    tblAliquota: TFDTable;
+    tblCombustivel: TFDTable;
+    tblCor: TFDTable;
+    tblTipoVeiculo: TFDTable;
+    qryAliquotaPIS: TFDQuery;
+    qryAliquotaCOFINS: TFDQuery;
+    fdQryTabelaCODIGO: TFDAutoIncField;
+    fdQryTabelaCOD: TStringField;
+    fdQryTabelaDESCRI: TStringField;
+    fdQryTabelaAPRESENTACAO: TStringField;
+    fdQryTabelaDESCRI_APRESENTACAO: TStringField;
+    fdQryTabelaMETAFONEMA: TStringField;
+    fdQryTabelaMODELO: TStringField;
+    fdQryTabelaANVISA: TStringField;
+    fdQryTabelaREFERENCIA: TStringField;
+    fdQryTabelaNOME_AMIGO: TStringField;
+    fdQryTabelaESPECIFICACAO: TBlobField;
+    fdQryTabelaPRECO: TBCDField;
+    fdQryTabelaPRECO_PROMOCAO: TBCDField;
+    fdQryTabelaPRECO_SUGERIDO: TBCDField;
+    fdQryTabelaSECAO: TStringField;
+    fdQryTabelaQTDE: TBCDField;
+    fdQryTabelaUNIDADE: TStringField;
+    fdQryTabelaESTOQMIN: TBCDField;
+    fdQryTabelaFRACIONADOR: TBCDField;
+    fdQryTabelaPESO_BRUTO: TBCDField;
+    fdQryTabelaPESO_LIQUIDO: TBCDField;
+    fdQryTabelaALTURA: TBCDField;
+    fdQryTabelaLARGURA: TBCDField;
+    fdQryTabelaESPESSURA: TBCDField;
+    fdQryTabelaCUBAGEM: TBCDField;
+    fdQryTabelaVENDA_FRACIONADA: TSmallintField;
+    fdQryTabelaCODUNIDADE_FRACIONADA: TSmallintField;
+    fdQryTabelaCODTIPO: TSmallintField;
+    fdQryTabelaCODGRUPO: TSmallintField;
+    fdQryTabelaCODFABRICANTE: TIntegerField;
+    fdQryTabelaCUSTOMEDIO: TBCDField;
+    fdQryTabelaPERCENTUAL_MARCKUP: TBCDField;
+    fdQryTabelaPERCENTUAL_MARGEM: TBCDField;
+    fdQryTabelaCODEMP: TStringField;
+    fdQryTabelaCODSECAO: TSmallintField;
+    fdQryTabelaCODORIGEM: TStringField;
+    fdQryTabelaCODTRIBUTACAO: TStringField;
+    fdQryTabelaCST: TStringField;
+    fdQryTabelaCSOSN: TStringField;
+    fdQryTabelaCST_PIS: TStringField;
+    fdQryTabelaCST_COFINS: TStringField;
+    fdQryTabelaTABELA_IBPT: TIntegerField;
+    fdQryTabelaNCM_SH: TStringField;
+    fdQryTabelaCODIGO_NVE: TStringField;
+    fdQryTabelaCODCFOP: TIntegerField;
+    fdQryTabelaCODBARRA_EAN: TStringField;
+    fdQryTabelaCODUNIDADE: TSmallintField;
+    fdQryTabelaALIQUOTA_TIPO: TSmallintField;
+    fdQryTabelaALIQUOTA: TBCDField;
+    fdQryTabelaALIQUOTA_CSOSN: TBCDField;
+    fdQryTabelaALIQUOTA_PIS: TBCDField;
+    fdQryTabelaALIQUOTA_COFINS: TBCDField;
+    fdQryTabelaVALOR_IPI: TBCDField;
+    fdQryTabelaRESERVA: TBCDField;
+    fdQryTabelaPRODUTO_NOVO: TSmallintField;
+    fdQryTabelaCOR_VEICULO: TStringField;
+    fdQryTabelaCOMBUSTIVEL_VEICULO: TStringField;
+    fdQryTabelaTIPO_VEICULO: TStringField;
+    fdQryTabelaRENAVAM_VEICULO: TStringField;
+    fdQryTabelaCHASSI_VEICULO: TStringField;
+    fdQryTabelaANO_MODELO_VEICULO: TSmallintField;
+    fdQryTabelaANO_FABRICACAO_VEICULO: TSmallintField;
+    fdQryTabelaKILOMETRAGEM_VEICULO: TIntegerField;
+    fdQryTabelaSITUACAO_ATUAL_VEICULO: TStringField;
+    fdQryTabelaSITUACAO_HISTORICO_VEICULO: TMemoField;
+    fdQryTabelaPERCENTUAL_REDUCAO_BC: TBCDField;
+    fdQryTabelaUSUARIO: TStringField;
+    fdQryTabelaCADASTRO_ATIVO: TSmallintField;
+    fdQryTabelaPRODUTO_IMOBILIZADO: TSmallintField;
+    fdQryTabelaMOVIMENTA_ESTOQUE: TSmallintField;
+    fdQryTabelaCOMPOR_FATURAMENTO: TSmallintField;
+    fdQryTabelaESTOQUE_APROP_LOTE: TSmallintField;
+    fdQryTabelaULTIMA_COMPRA_DATA: TDateField;
+    fdQryTabelaULTIMA_COMPRA_VALOR: TBCDField;
+    fdQryTabelaULTIMA_COMPRA_FORNEC: TIntegerField;
+    fdQryTabelaGERAR_SUBPRODUTO: TSmallintField;
+    fdQryTabelaPRODUTO_PAI: TStringField;
+    fdQryTabelaDISPONIVEL: TBCDField;
+    fdQryTabelaDESCRICAO_GRUPO: TStringField;
+    fdQryTabelaNOME_FABRICANTE: TStringField;
+    fdQryTabelaDESCRICAO_SECAO: TStringField;
+    fdQryTabelaDESCRICAO_UNIDADE: TStringField;
+    fdQryTabelaUNP_SIGLA: TStringField;
+    fdQryTabelaDESCRICAO_UNIDADE_FRAC: TStringField;
+    fdQryTabelaUNP_SIGLA_FRAC: TStringField;
+    fdQryTabelaCFOP_DESCRICAO: TStringField;
+    fdQryTabelaCFOP_ESPECIFICACAO: TMemoField;
+    fdQryTabelaDESCRICAO_COR: TStringField;
+    fdQryTabelaDESCRICAO_COMBUSTIVEL: TStringField;
+    fdQryTabelaMODELO_FABRICACAO: TStringField;
+    fdQryTabelaLUCRO_CALCULADO: TBCDField;
+    fdQryTabelaLUCRO_VALOR: TBCDField;
+    fdQryTabelaPRECO_FRAC: TFMTBCDField;
+    fdQryTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField;
+    fdQryTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
     procedure dbSecaoButtonClick(Sender: TObject);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure dbUnidadeButtonClick(Sender: TObject);
     procedure dbCFOPButtonClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -402,6 +398,8 @@ type
     procedure ppMnAtualizarNomeAmigoClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     fOrdenado : Boolean;
@@ -421,14 +419,15 @@ type
 (*
   Tabelas:
   - TBPRODUTO
+  - SYS_TIPO_PRODUTO
   - TBGRUPOPROD
   - TBSECAOPROD
+  - TBFABRICANTE
   - TBUNIDADEPROD
   - TBCFOP
-  - TBFABRICANTE
   - RENAVAM_COR
   - RENAVAM_COBUSTIVEL
-  - SYS_TIPO_PRODUTO
+  - TBTRIBUTACAO_TIPO
 
   Views:
   - VW_EMPRESA
@@ -617,7 +616,7 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-      CodigoAlfa := frm.IbDtstTabelaCOD.Value;
+      CodigoAlfa := frm.DtSrcTabela.DataSet.FieldByName('COD').AsString;
   finally
     frm.Destroy;
   end;
@@ -639,45 +638,45 @@ begin
     Result := AForm.SelecionarRegistro(iCodigo, sDescricao, AForm.WhereAdditional);
 
     if Result then
-      with AForm, pProduto do
+      with AForm, DtSrcTabela.DataSet, pProduto do
       begin
-        aCodigo     := IbDtstTabelaCODIGO.AsInteger;
-        aCodigoAlfa := IbDtstTabelaCOD.AsString;
-        aCodigoEAN  := IbDtstTabelaCODBARRA_EAN.AsString;
+        aCodigo     := FieldByName('CODIGO').AsInteger;
+        aCodigoAlfa := FieldByName('COD').AsString;
+        aCodigoEAN  := FieldByName('CODBARRA_EAN').AsString;
 
-        aDescricao    := IbDtstTabelaDESCRI.AsString;
-        aApresentacao := IbDtstTabelaAPRESENTACAO.AsString;
-        aNome         := IbDtstTabelaDESCRI_APRESENTACAO.AsString;
+        aDescricao    := FieldByName('DESCRI').AsString;
+        aApresentacao := FieldByName('APRESENTACAO').AsString;
+        aNome         := FieldByName('DESCRI_APRESENTACAO').AsString;
 
-        aUnidadeCompra.aCodigo     := IbDtstTabelaCODUNIDADE.AsInteger;
-        aUnidadeCompra.aDescricao  := IbDtstTabelaDESCRICAO_UNIDADE.AsString;
-        aUnidadeCompra.aSigla      := IbDtstTabelaUNP_SIGLA.AsString;
+        aUnidadeCompra.aCodigo     := FieldByName('CODUNIDADE').AsInteger;
+        aUnidadeCompra.aDescricao  := FieldByName('DESCRICAO_UNIDADE').AsString;
+        aUnidadeCompra.aSigla      := FieldByName('UNP_SIGLA').AsString;
 
-        aUnidadeConsumo.aCodigo    := IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger;
-        aUnidadeConsumo.aDescricao := IbDtstTabelaDESCRICAO_UNIDADE_FRAC.AsString;
-        aUnidadeConsumo.aSigla     := IbDtstTabelaUNP_SIGLA_FRAC.AsString;
+        aUnidadeConsumo.aCodigo    := FieldByName('CODUNIDADE_FRACIONADA').AsInteger;
+        aUnidadeConsumo.aDescricao := FieldByName('DESCRICAO_UNIDADE_FRAC').AsString;
+        aUnidadeConsumo.aSigla     := FieldByName('UNP_SIGLA_FRAC').AsString;
 
-        aCST       := IbDtstTabelaCST.AsString;
-        aNCM_SH    := IbDtstTabelaNCM_SH.AsString;
-        aCFOP      := IbDtstTabelaCODCFOP.AsInteger;
+        aCST       := FieldByName('CST').AsString;
+        aNCM_SH    := FieldByName('NCM_SH').AsString;
+        aCFOP      := FieldByName('CODCFOP').AsInteger;
         aCNAE      := 0;
 
-        aAliquota       := IbDtstTabelaALIQUOTA.AsCurrency;
-        aAliquotaPIS    := IbDtstTabelaALIQUOTA_PIS.AsCurrency;
-        aAliquotaCOFINS := IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
+        aAliquota       := FieldByName('ALIQUOTA').AsCurrency;
+        aAliquotaPIS    := FieldByName('ALIQUOTA_PIS').AsCurrency;
+        aAliquotaCOFINS := FieldByName('ALIQUOTA_COFINS').AsCurrency;
 
-        aValorVenda     := IbDtstTabelaPRECO.AsCurrency;
-        aValorPromocao  := IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-        aValorIPI       := IbDtstTabelaVALOR_IPI.AsCurrency;
-        aValorCusto     := IbDtstTabelaCUSTOMEDIO.AsCurrency;
+        aValorVenda     := FieldByName('PRECO').AsCurrency;
+        aValorPromocao  := FieldByName('PRECO_PROMOCAO').AsCurrency;
+        aValorIPI       := FieldByName('VALOR_IPI').AsCurrency;
+        aValorCusto     := FieldByName('CUSTOMEDIO').AsCurrency;
 
-        aPercentualRedBC := IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+        aPercentualRedBC := FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-        aEstoque := IbDtstTabelaQTDE.AsCurrency;
-        aReserva := IbDtstTabelaRESERVA.AsCurrency;
+        aEstoque := FieldByName('QTDE').AsCurrency;
+        aReserva := FieldByName('RESERVA').AsCurrency;
 
-        aMovimentaEstoque := (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = FLAG_SIM);
-        aEstoquePorLote   := (IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
+        aMovimentaEstoque := (FieldByName('MOVIMENTA_ESTOQUE').AsInteger  = FLAG_SIM);
+        aEstoquePorLote   := (FieldByName('ESTOQUE_APROP_LOTE').AsInteger = FLAG_SIM);
       end;
   finally
     AForm.Destroy;
@@ -724,7 +723,7 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-      CodigoAlfa := frm.IbDtstTabelaCOD.Value;
+      CodigoAlfa := frm.DtSrcTabela.DataSet.FieldByName('COD').AsString;
   finally
     frm.Destroy;
   end;
@@ -757,14 +756,17 @@ begin
 
     if ( Result ) then
     begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.Value;
-      CodigoEAN  := frm.IbDtstTabelaCODBARRA_EAN.Value;
-      Unidade    := frm.IbDtstTabelaUNIDADE.Value;
-      
-      if ( frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency = 0 ) then
-        ValorVenda := frm.IbDtstTabelaPRECO.AsCurrency
-      else
-        ValorVenda := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        CodigoEAN  := FieldByName('CODBARRA_EAN').AsString;
+        Unidade    := FieldByName('UNIDADE').AsString;
+
+        if ( FieldByName('PRECO_PROMOCAO').AsCurrency = 0 ) then
+          ValorVenda := FieldByName('PRECO').AsCurrency
+        else
+          ValorVenda := FieldByName('PRECO_PROMOCAO').AsCurrency;
+      end;
     end;
   finally
     frm.Destroy;
@@ -799,24 +801,25 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
-      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
-      CST        := frm.IbDtstTabelaCST.AsString;
-      CFOP       := frm.IbDtstTabelaCODCFOP.AsInteger;
-      Aliquota       := frm.IbDtstTabelaALIQUOTA.AsCurrency;
-      AliquotaPIS    := frm.IbDtstTabelaALIQUOTA_PIS.AsCurrency;
-      AliquotaCOFINS := frm.IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
-      ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-      ValorIPI       := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        iUnidade   := FieldByName('CODUNIDADE').AsInteger;
+        sUnidade   := FieldByName('UNP_SIGLA').AsString;
+        CST        := FieldByName('CST').AsString;
+        CFOP       := FieldByName('CODCFOP').AsInteger;
+        Aliquota       := FieldByName('ALIQUOTA').AsCurrency;
+        AliquotaPIS    := FieldByName('ALIQUOTA_PIS').AsCurrency;
+        AliquotaCOFINS := FieldByName('ALIQUOTA_COFINS').AsCurrency;
+        ValorVenda     := FieldByName('PRECO').AsCurrency;
+        ValorPromocao  := FieldByName('PRECO_PROMOCAO').AsCurrency;
+        ValorIPI       := FieldByName('VALOR_IPI').AsCurrency;
 
-      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+        PercentualRedBC := FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
-      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
-    end;
+        Estoque := FieldByName('QTDE').AsCurrency;
+        Reserva := FieldByName('RESERVA').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -1186,22 +1189,15 @@ begin
   CampoCodigo        := 'p.Codigo';
   CampoDescricao     := 'p.Descri';
   CampoCadastroAtivo := 'p.cadastro_ativo';
-  {$IFNDEF DGE}
-  CampoDescricao := 'p.Descri_apresentacao';
-  {$ENDIF}
+  CampoDescricao     := 'p.Descri_apresentacao';
+  CampoOrdenacao     := 'p.Descri_apresentacao';
 
-  UpdateGenerator;
-
+//  UpdateGenerator;
+//
   pgcMaisDados.ActivePageIndex := 0;
-
-  {$IFNDEF DGE}
-  //dbPercentualMarckup.Color    := clWindow;
-  //dbPercentualMarckup.ReadOnly := False;
-  //dbPercentualMarckup.TabStop  := True;
 
   lblPrecoVendaSugestao.Visible := True;
   dbPrecoVendaSugestao.Visible  := True;
-  {$ENDIF}
 
   tbsCadastro.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   btbtnIncluir.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
@@ -1296,7 +1292,123 @@ begin
     end;
 end;
 
-procedure TfrmGeProduto.IbDtstTabelaBeforePost(DataSet: TDataSet);
+procedure TfrmGeProduto.dbUnidadeButtonClick(Sender: TObject);
+var
+  iCodigo    : Integer;
+  sDescricao,
+  sSigla    : String;
+begin
+  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
+    begin
+      IbDtstTabelaCODUNIDADE.AsInteger       := iCodigo;
+      IbDtstTabelaUNIDADE.AsString           := AnsiUpperCase(Copy(sDescricao, 1, IbDtstTabelaUNIDADE.Size));
+      IbDtstTabelaDESCRICAO_UNIDADE.AsString := sDescricao;
+      IbDtstTabelaUNP_SIGLA.AsString         := sSigla;
+
+      if ( IbDtstTabelaFRACIONADOR.AsInteger = 1 ) then
+      begin
+        IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger := iCodigo;
+        IbDtstTabelaDESCRICAO_UNIDADE_FRAC.AsString := sDescricao;
+        IbDtstTabelaUNP_SIGLA_FRAC.AsString         := sSigla;
+      end;
+    end;
+end;
+
+procedure TfrmGeProduto.dbCFOPButtonClick(Sender: TObject);
+var
+  iCodigo    : Integer;
+  sDescricao : String;
+begin
+  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+    begin
+      IbDtstTabelaCODCFOP.AsInteger       := iCodigo;
+      IbDtstTabelaCFOP_DESCRICAO.AsString := sDescricao;
+    end;
+end;
+
+procedure TfrmGeProduto.OcultarTipoProduto;
+begin
+  // Ocultar campo "Tipo Produto"
+  lblTipoProduto.Visible := False;
+  dbTipoProduto.Visible  := False;
+
+  // Redefinir o tamanho do campo "Nome Amigo"
+  lblNomeAmigo.Left := lblCodigo.Left;
+  dbNomeAmigo.Left  := dbCodigo.Left;
+  dbNomeAmigo.Width := 706;
+
+//  // Reposicionar e redimencionar campo "Grupo"
+//  lblGrupo.Left := lblTipoProduto.Left;
+//  dbGrupo.Left  := dbTipoProduto.Left;
+//  dbGrupo.Width := 377;
+//
+//  // Reposicionar e redimencionar campo "Seção"
+//  lblSecao.Left := dbNomeAmigo.Left;
+//  dbSecao.Left  := dbNomeAmigo.Left;
+//  dbSecao.Width := 322;
+end;
+
+procedure TfrmGeProduto.FormShow(Sender: TObject);
+var
+  S : String;
+begin
+  if (not fOrdenado) then
+  begin
+    IbDtstTabela.SelectSQL.Add( 'order by ' + CampoOrdenacao );
+    fOrdenado := True;
+  end;
+
+  inherited;
+
+  S := StrDescricaoProduto;
+  Case fAliquota of
+    taICMS :
+      Caption := 'Cadastro de ' + S;
+    taISS :
+      Caption := 'Cadastro de Serviços';
+    else
+      Caption := 'Cadastro de ' + S + '/Serviços';
+  end;
+
+  // Configurar Legendas de acordo com o segmento
+  pnlVeiculo.Visible             := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
+  tbsHistoricoVeiculo.TabVisible := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
+  tbsCustoVeiculo.TabVisible     := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
+
+  ConfigurarLabels;
+
+  IbDtstTabelaCOR_VEICULO.Required            := pnlVeiculo.Visible;
+  IbDtstTabelaCOMBUSTIVEL_VEICULO.Required    := pnlVeiculo.Visible;
+  IbDtstTabelaTIPO_VEICULO.Required           := pnlVeiculo.Visible;
+  IbDtstTabelaRENAVAM_VEICULO.Required        := pnlVeiculo.Visible;
+  IbDtstTabelaCHASSI_VEICULO.Required         := pnlVeiculo.Visible;
+  IbDtstTabelaKILOMETRAGEM_VEICULO.Required   := pnlVeiculo.Visible;
+  IbDtstTabelaANO_MODELO_VEICULO.Required     := pnlVeiculo.Visible;
+  IbDtstTabelaANO_FABRICACAO_VEICULO.Required := pnlVeiculo.Visible;
+
+  with dbgDados do
+  begin
+    Columns[2].Visible  := not pnlVeiculo.Visible;
+    Columns[4].Visible  := pnlVeiculo.Visible;
+    Columns[5].Visible  := pnlVeiculo.Visible;
+    Columns[6].Visible  := pnlVeiculo.Visible;
+    Columns[7].Visible  := pnlVeiculo.Visible;
+    Columns[8].Visible  := pnlVeiculo.Visible;
+    Columns[9].Visible  := not pnlVeiculo.Visible;
+    Columns[COLUMN_GRUPO].Visible := not pnlVeiculo.Visible;
+  end;
+end;
+
+procedure TfrmGeProduto.DtSrcTabelaStateChange(Sender: TObject);
+begin
+  inherited;
+  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+    pgcMaisDados.ActivePageIndex := 0;
+end;
+
+procedure TfrmGeProduto.fdQryTabelaBeforePost(DataSet: TDataSet);
 begin
 //  IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
 //  IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
@@ -1374,43 +1486,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.dbUnidadeButtonClick(Sender: TObject);
-var
-  iCodigo    : Integer;
-  sDescricao,
-  sSigla    : String;
-begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
-    begin
-      IbDtstTabelaCODUNIDADE.AsInteger       := iCodigo;
-      IbDtstTabelaUNIDADE.AsString           := AnsiUpperCase(Copy(sDescricao, 1, IbDtstTabelaUNIDADE.Size));
-      IbDtstTabelaDESCRICAO_UNIDADE.AsString := sDescricao;
-      IbDtstTabelaUNP_SIGLA.AsString         := sSigla;
-
-      if ( IbDtstTabelaFRACIONADOR.AsInteger = 1 ) then
-      begin
-        IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger := iCodigo;
-        IbDtstTabelaDESCRICAO_UNIDADE_FRAC.AsString := sDescricao;
-        IbDtstTabelaUNP_SIGLA_FRAC.AsString         := sSigla;
-      end;
-    end;
-end;
-
-procedure TfrmGeProduto.dbCFOPButtonClick(Sender: TObject);
-var
-  iCodigo    : Integer;
-  sDescricao : String;
-begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
-    begin
-      IbDtstTabelaCODCFOP.AsInteger       := iCodigo;
-      IbDtstTabelaCFOP_DESCRICAO.AsString := sDescricao;
-    end;
-end;
-
-procedure TfrmGeProduto.IbDtstTabelaNewRecord(DataSet: TDataSet);
+procedure TfrmGeProduto.fdQryTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   IbDtstTabelaCODEMP.Value := gUsuarioLogado.Empresa;
@@ -1497,86 +1573,6 @@ begin
   IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, FLAG_SIM, FLAG_NAO);
 
   DtSrcTabelaDataChange(DtSrcTabela, IbDtstTabelaALIQUOTA_TIPO);
-end;
-
-procedure TfrmGeProduto.OcultarTipoProduto;
-begin
-  // Ocultar campo "Tipo Produto"
-  lblTipoProduto.Visible := False;
-  dbTipoProduto.Visible  := False;
-
-  // Redefinir o tamanho do campo "Nome Amigo"
-  lblNomeAmigo.Left := lblCodigo.Left;
-  dbNomeAmigo.Left  := dbCodigo.Left;
-  dbNomeAmigo.Width := 706;
-
-//  // Reposicionar e redimencionar campo "Grupo"
-//  lblGrupo.Left := lblTipoProduto.Left;
-//  dbGrupo.Left  := dbTipoProduto.Left;
-//  dbGrupo.Width := 377;
-//
-//  // Reposicionar e redimencionar campo "Seção"
-//  lblSecao.Left := dbNomeAmigo.Left;
-//  dbSecao.Left  := dbNomeAmigo.Left;
-//  dbSecao.Width := 322;
-end;
-
-procedure TfrmGeProduto.FormShow(Sender: TObject);
-var
-  S : String;
-begin
-  if (not fOrdenado) then
-  begin
-    IbDtstTabela.SelectSQL.Add( 'order by ' + CampoDescricao );
-    fOrdenado := True;
-  end;
-
-  inherited;
-
-  S := StrDescricaoProduto;
-  Case fAliquota of
-    taICMS :
-      Caption := 'Cadastro de ' + S;
-    taISS :
-      Caption := 'Cadastro de Serviços';
-    else
-      Caption := 'Cadastro de ' + S + '/Serviços';
-  end;
-
-  // Configurar Legendas de acordo com o segmento
-  pnlVeiculo.Visible             := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
-  tbsHistoricoVeiculo.TabVisible := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
-  tbsCustoVeiculo.TabVisible     := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
-
-  ConfigurarLabels;
-
-  IbDtstTabelaCOR_VEICULO.Required            := pnlVeiculo.Visible;
-  IbDtstTabelaCOMBUSTIVEL_VEICULO.Required    := pnlVeiculo.Visible;
-  IbDtstTabelaTIPO_VEICULO.Required           := pnlVeiculo.Visible;
-  IbDtstTabelaRENAVAM_VEICULO.Required        := pnlVeiculo.Visible;
-  IbDtstTabelaCHASSI_VEICULO.Required         := pnlVeiculo.Visible;
-  IbDtstTabelaKILOMETRAGEM_VEICULO.Required   := pnlVeiculo.Visible;
-  IbDtstTabelaANO_MODELO_VEICULO.Required     := pnlVeiculo.Visible;
-  IbDtstTabelaANO_FABRICACAO_VEICULO.Required := pnlVeiculo.Visible;
-
-  with dbgDados do
-  begin
-    Columns[2].Visible  := not pnlVeiculo.Visible;
-    Columns[4].Visible  := pnlVeiculo.Visible;
-    Columns[5].Visible  := pnlVeiculo.Visible;
-    Columns[6].Visible  := pnlVeiculo.Visible;
-    Columns[7].Visible  := pnlVeiculo.Visible;
-    Columns[8].Visible  := pnlVeiculo.Visible;
-    Columns[9].Visible  := not pnlVeiculo.Visible;
-    Columns[COLUMN_GRUPO].Visible := not pnlVeiculo.Visible;
-  end;
-end;
-
-procedure TfrmGeProduto.DtSrcTabelaStateChange(Sender: TObject);
-begin
-  inherited;
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    pgcMaisDados.ActivePageIndex := 0;
 end;
 
 procedure TfrmGeProduto.FormActivate(Sender: TObject);
@@ -1923,7 +1919,7 @@ begin
       Abort;
     end;
 
-    with IbDtstTabela, SelectSQL do
+    with fdQryTabela, SQL do
     begin
       if ( Trim(CampoOrdenacao) = EmptyStr ) then
         CampoOrdenacao := CampoDescricao;

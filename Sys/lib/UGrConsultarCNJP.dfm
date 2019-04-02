@@ -542,13 +542,13 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
       Width = 123
       Height = 57
       Caption = 'Consultar'
+      TabOrder = 3
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
       OnClick = btnBuscarClick
     end
   end
@@ -561,6 +561,7 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
   end
   object ACBrConsultaCNPJ: TACBrConsultaCNPJ
     ProxyPort = '8080'
+    PesquisarIBGE = False
     Left = 74
     Top = 65
   end

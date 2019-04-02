@@ -3,21 +3,30 @@ unit UGeUnidade;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons;
+  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeUnidade = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
-    IbDtstTabelaUNP_COD: TSmallintField;
-    IbDtstTabelaUNP_DESCRICAO: TIBStringField;
-    IbDtstTabelaUNP_SIGLA: TIBStringField;
     lblSigla: TLabel;
     dbSigla: TDBEdit;
+    fdQryTabelaUNP_COD: TSmallintField;
+    fdQryTabelaUNP_DESCRICAO: TStringField;
+    fdQryTabelaUNP_SIGLA: TStringField;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -25,6 +34,16 @@ type
     { Public declarations }
     function SelecionarRegistro(var Codigo : Integer; var Descricao, Sigla : String) : Boolean; overload;
   end;
+
+(*
+  Tabelas:
+  - TBUNIDADEPROD
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeUnidade: TfrmGeUnidade;
@@ -83,9 +102,12 @@ begin
   ControlFirstEdit := dbNome;
 
   DisplayFormatCodigo := '000';
+  AbrirTabelaAuto     := True;
+
   NomeTabela     := 'TBUNIDADEPROD';
-  CampoCodigo    := 'UNP_COD';
-  CampoDescricao := 'UNP_DESCRICAO';
+  CampoCodigo    := 'u.UNP_COD';
+  CampoDescricao := 'u.UNP_DESCRICAO';
+  CampoOrdenacao := 'u.UNP_DESCRICAO';
 
   UpdateGenerator;
 end;
@@ -94,21 +116,24 @@ function TfrmGeUnidade.SelecionarRegistro(var Codigo: Integer;
   var Descricao, Sigla: String): Boolean;
 begin
   try
-    Self.btbtnSelecionar.Visible := True;
-
-    Result := (ShowModal = mrOk) and (not IbDtstTabela.IsEmpty);
-
-    if ( Result ) then
+    with DtSrcTabela.DataSet do
     begin
-      Codigo    := IbDtstTabela.FieldByName('UNP_COD').AsInteger;
-      Descricao := IbDtstTabela.FieldByName('UNP_DESCRICAO').AsString;
-      Sigla     := IbDtstTabela.FieldByName('UNP_SIGLA').AsString;
-    end
-    else
-    begin
-      Codigo    := 0;
-      Descricao := EmptyStr;
-      Sigla     := EmptyStr;
+      Self.btbtnSelecionar.Visible := True;
+
+      Result := (ShowModal = mrOk) and (not IsEmpty);
+
+      if ( Result ) then
+      begin
+        Codigo    := FieldByName('UNP_COD').AsInteger;
+        Descricao := FieldByName('UNP_DESCRICAO').AsString;
+        Sigla     := FieldByName('UNP_SIGLA').AsString;
+      end
+      else
+      begin
+        Codigo    := 0;
+        Descricao := EmptyStr;
+        Sigla     := EmptyStr;
+      end;
     end;
   except
     On E : Exception do

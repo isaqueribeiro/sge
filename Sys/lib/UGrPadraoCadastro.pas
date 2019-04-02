@@ -935,6 +935,8 @@ begin
     end;
 
     DtSrcTabelaStateChange( DtSrcTabela );
+    if Trim(DisplayFormatCodigo) <> EmptyStr then
+      CentralizarCodigo;
   end
   else
   if ( not AbrirTabelaAuto ) then
