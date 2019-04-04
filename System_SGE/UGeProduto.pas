@@ -852,26 +852,27 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
-      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
-      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
-      CST        := frm.IbDtstTabelaCST.AsString;
-      CFOP       := frm.IbDtstTabelaCODCFOP.AsInteger;
-      Aliquota       := frm.IbDtstTabelaALIQUOTA.AsCurrency;
-      AliquotaPIS    := frm.IbDtstTabelaALIQUOTA_PIS.AsCurrency;
-      AliquotaCOFINS := frm.IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
-      ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-      ValorIPI       := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
-      ValorCusto     := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        iUnidade   := FieldByName('CODUNIDADE').AsInteger;
+        sUnidade   := FieldByName('UNP_SIGLA').AsString;
+        sNCM_SH    := FieldByName('NCM_SH').AsString;
+        CST        := FieldByName('CST').AsString;
+        CFOP       := FieldByName('CODCFOP').AsInteger;
+        Aliquota       := FieldByName('ALIQUOTA').AsCurrency;
+        AliquotaPIS    := FieldByName('ALIQUOTA_PIS').AsCurrency;
+        AliquotaCOFINS := FieldByName('ALIQUOTA_COFINS').AsCurrency;
+        ValorVenda     := FieldByName('PRECO').AsCurrency;
+        ValorPromocao  := FieldByName('PRECO_PROMOCAO').AsCurrency;
+        ValorIPI       := FieldByName('VALOR_IPI').AsCurrency;
+        ValorCusto     := FieldByName('CUSTOMEDIO').AsCurrency;
 
-      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+        PercentualRedBC := FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
-      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
-    end;
+        Estoque := FieldByName('QTDE').AsCurrency;
+        Reserva := FieldByName('RESERVA').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -902,19 +903,20 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
-      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
-      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
-      CST        := frm.IbDtstTabelaCST.AsString;
-      CNAE       := 0; //frm.IbDtstTabelaCODCFOP.AsInteger;
-      Aliquota       := frm.IbDtstTabelaALIQUOTA.AsCurrency;
-      AliquotaPIS    := frm.IbDtstTabelaALIQUOTA_PIS.AsCurrency;
-      AliquotaCOFINS := frm.IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
-      ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-    end;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        iUnidade   := FieldByName('CODUNIDADE').AsInteger;
+        sUnidade   := FieldByName('UNP_SIGLA').AsString;
+        sNCM_SH    := FieldByName('NCM_SH').AsString;
+        CST        := FieldByName('CST').AsString;
+        CNAE       := 0; //FieldByName('CODCFOP').AsInteger;
+        Aliquota       := FieldByName('ALIQUOTA').AsCurrency;
+        AliquotaPIS    := FieldByName('ALIQUOTA_PIS').AsCurrency;
+        AliquotaCOFINS := FieldByName('ALIQUOTA_COFINS').AsCurrency;
+        ValorVenda     := FieldByName('PRECO').AsCurrency;
+        ValorPromocao  := FieldByName('PRECO_PROMOCAO').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -943,30 +945,31 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
-      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
-      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
-      CST        := frm.IbDtstTabelaCST.AsString;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        iUnidade   := FieldByName('CODUNIDADE').AsInteger;
+        sUnidade   := FieldByName('UNP_SIGLA').AsString;
+        sNCM_SH    := FieldByName('NCM_SH').AsString;
+        CST        := FieldByName('CST').AsString;
 
-      if ( TAliquota(frm.IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
-        CFOP_CNAE  := frm.IbDtstTabelaCODCFOP.AsInteger
-      else
-        CFOP_CNAE  := 0;
+        if ( TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS ) then
+          CFOP_CNAE  := FieldByName('CODCFOP').AsInteger
+        else
+          CFOP_CNAE  := 0;
 
-      Aliquota       := frm.IbDtstTabelaALIQUOTA.AsCurrency;
-      AliquotaPIS    := frm.IbDtstTabelaALIQUOTA_PIS.AsCurrency;
-      AliquotaCOFINS := frm.IbDtstTabelaALIQUOTA_COFINS.AsCurrency;
-      ValorVenda     := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao  := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-      ValorIPI       := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+        Aliquota       := FieldByName('ALIQUOTA').AsCurrency;
+        AliquotaPIS    := FieldByName('ALIQUOTA_PIS').AsCurrency;
+        AliquotaCOFINS := FieldByName('ALIQUOTA_COFINS').AsCurrency;
+        ValorVenda     := FieldByName('PRECO').AsCurrency;
+        ValorPromocao  := FieldByName('PRECO_PROMOCAO').AsCurrency;
+        ValorIPI       := FieldByName('VALOR_IPI').AsCurrency;
 
-      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+        PercentualRedBC := FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
-      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
-    end;
+        Estoque := FieldByName('QTDE').AsCurrency;
+        Reserva := FieldByName('RESERVA').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -999,23 +1002,24 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
-      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
-      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
-      CST        := frm.IbDtstTabelaCST.AsString;
-      CFOP       := frm.IbDtstTabelaCODCFOP.AsInteger;
-      ValorCusto    := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
-      ValorVenda    := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-      ValorIPI      := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        iUnidade   := FieldByName('CODUNIDADE').AsInteger;
+        sUnidade   := FieldByName('UNP_SIGLA').AsString;
+        sNCM_SH    := FieldByName('NCM_SH').AsString;
+        CST        := FieldByName('CST').AsString;
+        CFOP       := FieldByName('CODCFOP').AsInteger;
+        ValorCusto    := FieldByName('CUSTOMEDIO').AsCurrency;
+        ValorVenda    := FieldByName('PRECO').AsCurrency;
+        ValorPromocao := FieldByName('PRECO_PROMOCAO').AsCurrency;
+        ValorIPI      := FieldByName('VALOR_IPI').AsCurrency;
 
-      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+        PercentualRedBC := FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
-      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
-    end;
+        Estoque := FieldByName('QTDE').AsCurrency;
+        Reserva := FieldByName('RESERVA').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -1046,17 +1050,18 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
-      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
-      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
-      CST        := frm.IbDtstTabelaCST.AsString;
-      CNAE       := 0; //frm.IbDtstTabelaCODCFOP.AsInteger;
-      ValorCusto    := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
-      ValorVenda    := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-    end;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        iUnidade   := FieldByName('CODUNIDADE').AsInteger;
+        sUnidade   := FieldByName('UNP_SIGLA').AsString;
+        sNCM_SH    := FieldByName('NCM_SH').AsString;
+        CST        := FieldByName('CST').AsString;
+        CNAE       := 0; //FieldByName('CODCFOP').AsInteger;
+        ValorCusto    := FieldByName('CUSTOMEDIO').AsCurrency;
+        ValorVenda    := FieldByName('PRECO').AsCurrency;
+        ValorPromocao := FieldByName('PRECO_PROMOCAO').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -1083,28 +1088,29 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      iUnidade   := frm.IbDtstTabelaCODUNIDADE.AsInteger;
-      sUnidade   := frm.IbDtstTabelaUNP_SIGLA.AsString;
-      sNCM_SH    := frm.IbDtstTabelaNCM_SH.AsString;
-      CST        := frm.IbDtstTabelaCST.AsString;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        iUnidade   := FieldByName('CODUNIDADE').AsInteger;
+        sUnidade   := FieldByName('UNP_SIGLA').AsString;
+        sNCM_SH    := FieldByName('NCM_SH').AsString;
+        CST        := FieldByName('CST').AsString;
 
-      if ( TAliquota(frm.IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
-        CFOP_CNAE  := frm.IbDtstTabelaCODCFOP.AsInteger
-      else
-        CFOP_CNAE  := 0;
+        if ( TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS ) then
+          CFOP_CNAE  := FieldByName('CODCFOP').AsInteger
+        else
+          CFOP_CNAE  := 0;
 
-      ValorCusto    := frm.IbDtstTabelaCUSTOMEDIO.AsCurrency;
-      ValorVenda    := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-      ValorIPI      := frm.IbDtstTabelaVALOR_IPI.AsCurrency;
+        ValorCusto    := FieldByName('CUSTOMEDIO').AsCurrency;
+        ValorVenda    := FieldByName('PRECO').AsCurrency;
+        ValorPromocao := FieldByName('PRECO_PROMOCAO').AsCurrency;
+        ValorIPI      := FieldByName('VALOR_IPI').AsCurrency;
 
-      PercentualRedBC := frm.IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency;
+        PercentualRedBC := FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
-      Estoque := frm.IbDtstTabelaQTDE.AsCurrency;
-      Reserva := frm.IbDtstTabelaRESERVA.AsCurrency;
-    end;
+        Estoque := FieldByName('QTDE').AsCurrency;
+        Reserva := FieldByName('RESERVA').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -1133,12 +1139,13 @@ begin
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
-    begin
-      CodigoAlfa := frm.IbDtstTabelaCOD.AsString;
-      Unidade    := frm.IbDtstTabelaUNIDADE.AsString;
-      ValorVenda := frm.IbDtstTabelaPRECO.AsCurrency;
-      ValorPromocao := frm.IbDtstTabelaPRECO_PROMOCAO.AsCurrency;
-    end;
+      with frm, DtSrcTabela.DataSet do
+      begin
+        CodigoAlfa := FieldByName('COD').AsString;
+        Unidade    := FieldByName('UNIDADE').AsString;
+        ValorVenda := FieldByName('PRECO').AsCurrency;
+        ValorPromocao := FieldByName('PRECO_PROMOCAO').AsCurrency;
+      end;
   finally
     frm.Destroy;
   end;
@@ -1192,8 +1199,6 @@ begin
   CampoDescricao     := 'p.Descri_apresentacao';
   CampoOrdenacao     := 'p.Descri_apresentacao';
 
-//  UpdateGenerator;
-//
   pgcMaisDados.ActivePageIndex := 0;
 
   lblPrecoVendaSugestao.Visible := True;
@@ -1242,11 +1247,11 @@ var
   iCodigo    : Integer;
   sDescricao : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( SelecionarGrupoProduto(Self, iCodigo, sDescricao) ) then
     begin
-      IbDtstTabelaCODGRUPO.AsInteger       := iCodigo;
-      IbDtstTabelaDESCRICAO_GRUPO.AsString := sDescricao;
+      DtSrcTabela.DataSet.FieldByName('CODGRUPO').AsInteger       := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('DESCRICAO_GRUPO').AsString := sDescricao;
     end;
 end;
 
@@ -1257,22 +1262,22 @@ var
   sDescricao : String;
   TipoTabela : TTipoTabelaIBPT;
 begin
-  if TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS then
+  if TAliquota(DtSrcTabela.DataSet.FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS then
     TipoTabela := tIbptProdutos
   else
     TipoTabela := tIbptServicos;
 
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( SelecionarCodigoIBPT(Self, TipoTabela, iCodigo, sCodigo, sDescricao) ) then
     begin
-      IbDtstTabelaTABELA_IBPT.AsInteger := iCodigo;
-      IbDtstTabelaNCM_SH.AsString       := sCodigo;
+      DtSrcTabela.DataSet.FieldByName('TABELA_IBPT').AsInteger := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('NCM_SH').AsString       := sCodigo;
     end;
 end;
 
 procedure TfrmGeProduto.dbProdutoMovEstoqueClick(Sender: TObject);
 begin
-  if (IbDtstTabela.State in [dsEdit, dsInsert]) then
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     if Assigned(dbProdutoPorLote.Field) then
       if (dbProdutoMovEstoque.Field.AsInteger = 0) then
         dbProdutoPorLote.Field.AsInteger := 0;
@@ -1283,12 +1288,12 @@ var
   iCodigo    : Integer;
   sDescricao : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( SelecionarSecaoProduto(Self, iCodigo, sDescricao) ) then
     begin
-      IbDtstTabelaCODSECAO.AsInteger       := iCodigo;
-      IbDtstTabelaSECAO.AsString           := sDescricao;
-      IbDtstTabelaDESCRICAO_SECAO.AsString := sDescricao;
+      DtSrcTabela.DataSet.FieldByName('CODSECAO').AsInteger       := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('SECAO').AsString           := sDescricao;
+      DtSrcTabela.DataSet.FieldByName('DESCRICAO_SECAO').AsString := sDescricao;
     end;
 end;
 
@@ -1298,21 +1303,24 @@ var
   sDescricao,
   sSigla    : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
-    begin
-      IbDtstTabelaCODUNIDADE.AsInteger       := iCodigo;
-      IbDtstTabelaUNIDADE.AsString           := AnsiUpperCase(Copy(sDescricao, 1, IbDtstTabelaUNIDADE.Size));
-      IbDtstTabelaDESCRICAO_UNIDADE.AsString := sDescricao;
-      IbDtstTabelaUNP_SIGLA.AsString         := sSigla;
-
-      if ( IbDtstTabelaFRACIONADOR.AsInteger = 1 ) then
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
       begin
-        IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger := iCodigo;
-        IbDtstTabelaDESCRICAO_UNIDADE_FRAC.AsString := sDescricao;
-        IbDtstTabelaUNP_SIGLA_FRAC.AsString         := sSigla;
+        FieldByName('CODUNIDADE').AsInteger       := iCodigo;
+        FieldByName('UNIDADE').AsString           := AnsiUpperCase(Copy(sDescricao, 1, FieldByName('UNIDADE').Size));
+        FieldByName('DESCRICAO_UNIDADE').AsString := sDescricao;
+        FieldByName('UNP_SIGLA').AsString         := sSigla;
+
+        if ( FieldByName('FRACIONADOR').AsInteger = 1 ) then
+        begin
+          FieldByName('CODUNIDADE_FRACIONADA').AsInteger := iCodigo;
+          FieldByName('DESCRICAO_UNIDADE_FRAC').AsString := sDescricao;
+          FieldByName('UNP_SIGLA_FRAC').AsString         := sSigla;
+        end;
       end;
-    end;
+  end;
 end;
 
 procedure TfrmGeProduto.dbCFOPButtonClick(Sender: TObject);
@@ -1320,11 +1328,11 @@ var
   iCodigo    : Integer;
   sDescricao : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtsrCTabela.State in [dsEdit, dsInsert] ) then
     if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
     begin
-      IbDtstTabelaCODCFOP.AsInteger       := iCodigo;
-      IbDtstTabelaCFOP_DESCRICAO.AsString := sDescricao;
+      DtSrcTabela.DataSet.FieldByName('CODCFOP').AsInteger       := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('CFOP_DESCRICAO').AsString := sDescricao;
     end;
 end;
 
@@ -1356,7 +1364,7 @@ var
 begin
   if (not fOrdenado) then
   begin
-    IbDtstTabela.SelectSQL.Add( 'order by ' + CampoOrdenacao );
+    fdQryTabela.SQL.Add( 'order by ' + CampoOrdenacao );
     fOrdenado := True;
   end;
 
@@ -1379,14 +1387,17 @@ begin
 
   ConfigurarLabels;
 
-  IbDtstTabelaCOR_VEICULO.Required            := pnlVeiculo.Visible;
-  IbDtstTabelaCOMBUSTIVEL_VEICULO.Required    := pnlVeiculo.Visible;
-  IbDtstTabelaTIPO_VEICULO.Required           := pnlVeiculo.Visible;
-  IbDtstTabelaRENAVAM_VEICULO.Required        := pnlVeiculo.Visible;
-  IbDtstTabelaCHASSI_VEICULO.Required         := pnlVeiculo.Visible;
-  IbDtstTabelaKILOMETRAGEM_VEICULO.Required   := pnlVeiculo.Visible;
-  IbDtstTabelaANO_MODELO_VEICULO.Required     := pnlVeiculo.Visible;
-  IbDtstTabelaANO_FABRICACAO_VEICULO.Required := pnlVeiculo.Visible;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('COR_VEICULO').Required            := pnlVeiculo.Visible;
+    FieldByName('COMBUSTIVEL_VEICULO').Required    := pnlVeiculo.Visible;
+    FieldByName('TIPO_VEICULO').Required           := pnlVeiculo.Visible;
+    FieldByName('RENAVAM_VEICULO').Required        := pnlVeiculo.Visible;
+    FieldByName('CHASSI_VEICULO').Required         := pnlVeiculo.Visible;
+    FieldByName('KILOMETRAGEM_VEICULO').Required   := pnlVeiculo.Visible;
+    FieldByName('ANO_MODELO_VEICULO').Required     := pnlVeiculo.Visible;
+    FieldByName('ANO_FABRICACAO_VEICULO').Required := pnlVeiculo.Visible;
+  end;
 
   with dbgDados do
   begin
@@ -1404,175 +1415,190 @@ end;
 procedure TfrmGeProduto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     pgcMaisDados.ActivePageIndex := 0;
 end;
 
 procedure TfrmGeProduto.fdQryTabelaBeforePost(DataSet: TDataSet);
 begin
-//  IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
-//  IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
-//  IbDtstTabelaANVISA.Required := dbCodigoAnvisa.Visible;
-
-  inherited;
-
-  IbDtstTabelaDESCRI_APRESENTACAO.AsString := AnsiUpperCase(Trim(IbDtstTabelaDESCRI.AsString + ' ' + IbDtstTabelaAPRESENTACAO.AsString));
-  IbDtstTabelaMETAFONEMA.AsString          := Metafonema(IbDtstTabelaDESCRI_APRESENTACAO.AsString);
-  IbDtstTabelaUSUARIO.AsString             := gUsuarioLogado.Login;
-
-  if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
+  with DtSrcTabela.DataSet do
   begin
-    IbDtstTabelaCODTIPO.AsInteger           := Ord(tpMaterialGeral);
-    IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 0;
-  end;
+  //  FieldByName('FRACIONADOR').Required           := (FieldByName('VENDA_FRACIONADA').AsInteger = 1);
+  //  FieldByName('CODUNIDADE_FRACIONADA').Required := (FieldByName('VENDA_FRACIONADA').AsInteger = 1);
+  //  FieldByName('ANVISA').Required := dbCodigoAnvisa.Visible;
 
-  if ( (IbDtstTabelaRESERVA.AsCurrency < 0) or (IbDtstTabelaRESERVA.AsCurrency > IbDtstTabelaQTDE.AsCurrency) ) then
-    IbDtstTabelaRESERVA.Value := 0;
+    inherited;
 
-  if ( IbDtstTabelaPRODUTO_NOVO.IsNull ) then
-    IbDtstTabelaPRODUTO_NOVO.Value := 0;
+    FieldByName('DESCRI_APRESENTACAO').AsString := AnsiUpperCase(Trim(FieldByName('DESCRI').AsString + ' ' + FieldByName('APRESENTACAO').AsString));
+    FieldByName('METAFONEMA').AsString          := Metafonema(FieldByName('DESCRI_APRESENTACAO').AsString);
+    FieldByName('USUARIO').AsString             := gUsuarioLogado.Login;
 
-  if ( IbDtstTabelaMOVIMENTA_ESTOQUE.IsNull ) then
-    IbDtstTabelaMOVIMENTA_ESTOQUE.Value := 1;
+    if (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taISS) then
+    begin
+      FieldByName('CODTIPO').AsInteger           := Ord(tpMaterialGeral);
+      FieldByName('MOVIMENTA_ESTOQUE').AsInteger := 0;
+    end;
 
-  if ( IbDtstTabelaCOMPOR_FATURAMENTO.IsNull ) then
-    IbDtstTabelaCOMPOR_FATURAMENTO.Value := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
+    if ( (FieldByName('RESERVA').AsCurrency < 0) or (FieldByName('RESERVA').AsCurrency > FieldByName('QTDE').AsCurrency) ) then
+      FieldByName('RESERVA').AsCurrency := 0;
 
-  if ( (IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency < 0) or (IbDtstTabelaPERCENTUAL_REDUCAO_BC.AsCurrency > 100) ) then
-    IbDtstTabelaPERCENTUAL_REDUCAO_BC.Value := 0;
+    if ( FieldByName('PRODUTO_NOVO').IsNull ) then
+      FieldByName('PRODUTO_NOVO').AsInteger := 0;
 
-  IbDtstTabelaDISPONIVEL.AsCurrency := IbDtstTabelaQTDE.AsCurrency - IbDtstTabelaRESERVA.AsCurrency;
+    if ( FieldByName('MOVIMENTA_ESTOQUE').IsNull ) then
+      FieldByName('MOVIMENTA_ESTOQUE').AsInteger := 1;
 
-  IbDtstTabelaCST.Value := IbDtstTabelaCODORIGEM.AsString + IbDtstTabelaCODTRIBUTACAO.AsString;
+    if ( FieldByName('COMPOR_FATURAMENTO').IsNull ) then
+      FieldByName('COMPOR_FATURAMENTO').AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
 
-  if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 0 ) then
-  begin
-    IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency  := 0.0;
-    IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency := 0.0;
-  end
-  else
-  if ( IbDtstTabelaPERCENTUAL_MARGEM.IsNull and (not IbDtstTabelaPERCENTUAL_MARCKUP.IsNull) ) then
-    IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency := IbDtstTabelaPERCENTUAL_MARCKUP.Value;
+    if ( (FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency < 0) or (FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency > 100) ) then
+      FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency := 0;
 
-  if ( IbDtstTabela.State = dsInsert ) then
-    if ( Trim(IbDtstTabelaCOD.AsString) = EmptyStr ) then
-      IbDtstTabelaCOD.Value := FormatFloat(DisplayFormatCodigo, IbDtstTabelaCODIGO.AsInteger);
+    FieldByName('DISPONIVEL').AsCurrency := FieldByName('QTDE').AsCurrency - FieldByName('RESERVA').AsCurrency;
 
-  if Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.OldValue)) <> Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.NewValue)) then
-    if (Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.OldValue)) <> EmptyStr) and (Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.NewValue)) <> EmptyStr) then
-      IbDtstTabelaSITUACAO_HISTORICO_VEICULO.AsString :=
-        FormatDateTime('dd/mm/yyyy hh:mm', GetDateTimeDB)           + ' - '  +
-        Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.OldValue)) + ' -> ' +
-        Trim(VarToStr(IbDtstTabelaSITUACAO_ATUAL_VEICULO.NewValue)) + ' (' + gUsuarioLogado.Login + ')' + #13 +
-        Trim(IbDtstTabelaSITUACAO_HISTORICO_VEICULO.AsString);
+    FieldByName('CST').AsString := FieldByName('CODORIGEM').AsString + FieldByName('CODTRIBUTACAO').AsString;
 
-  IbDtstTabelaDESCRICAO_COR.AsString         := dbCorVeiculo.Text;
-  IbDtstTabelaDESCRICAO_COMBUSTIVEL.AsString := dbTipoCombustivel.Text;
-  IbDtstTabelaMODELO_FABRICACAO.AsString     := dbAnoFabricacao.Text + '/' + dbAnoModelo.Text;
+    if ( FieldByName('COMPOR_FATURAMENTO').AsInteger = 0 ) then
+    begin
+      FieldByName('PERCENTUAL_MARGEM').AsCurrency  := 0.0;
+      FieldByName('PERCENTUAL_MARCKUP').AsCurrency := 0.0;
+    end
+    else
+    if ( FieldByName('PERCENTUAL_MARGEM').IsNull and (not FieldByName('PERCENTUAL_MARCKUP').IsNull) ) then
+      FieldByName('PERCENTUAL_MARGEM').AsCurrency := FieldByName('PERCENTUAL_MARCKUP').AsCurrency;
 
-  if ( IbDtstTabelaFRACIONADOR.AsCurrency <= 0 ) then
-    IbDtstTabelaFRACIONADOR.AsCurrency := 1;
+    if ( DtSrcTabela.DataSet.State = dsInsert ) then
+      if ( Trim(FieldByName('COD').AsString) = EmptyStr ) then
+        FieldByName('COD').Value := FormatFloat(DisplayFormatCodigo, FieldByName('CODIGO').AsInteger);
 
-  if ( Trim(IbDtstTabelaNOME_AMIGO.AsString) = EmptyStr ) then
-    IbDtstTabelaNOME_AMIGO.AsString := Copy(Trim(Trim(IbDtstTabelaDESCRI.AsString) + ' ' + Trim(IbDtstTabelaAPRESENTACAO.AsString)), 1, IbDtstTabelaNOME_AMIGO.Size);
+    if Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').OldValue)) <> Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').NewValue)) then
+      if (Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').OldValue)) <> EmptyStr) and (Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').NewValue)) <> EmptyStr) then
+        FieldByName('SITUACAO_HISTORICO_VEICULO').AsString :=
+          FormatDateTime('dd/mm/yyyy hh:mm', GetDateTimeDB)           + ' - '  +
+          Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').OldValue)) + ' -> ' +
+          Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').NewValue)) + ' (' + gUsuarioLogado.Login + ')' + #13 +
+          Trim(FieldByName('SITUACAO_HISTORICO_VEICULO').AsString);
 
-  // Gerar Centro de Custo Geral para armazanamento dos Lotes do produto quando
-  // o sistema for de Gestão Comercial.
-  if (IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger = 1) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
-  begin
-    SetCentroCustoGeral(IbDtstTabelaCODEMP.AsString);
-    if (IbDtstTabelaCODEMP.AsString <> gUsuarioLogado.Empresa) then
-      SetCentroCustoGeral(gUsuarioLogado.Empresa);
+    FieldByName('DESCRICAO_COR').AsString         := dbCorVeiculo.Text;
+    FieldByName('DESCRICAO_COMBUSTIVEL').AsString := dbTipoCombustivel.Text;
+    FieldByName('MODELO_FABRICACAO').AsString     := dbAnoFabricacao.Text + '/' + dbAnoModelo.Text;
+
+    if ( FieldByName('FRACIONADOR').AsCurrency <= 0 ) then
+      FieldByName('FRACIONADOR').AsCurrency := 1;
+
+    if ( Trim(FieldByName('NOME_AMIGO').AsString) = EmptyStr ) then
+      FieldByName('NOME_AMIGO').AsString := Copy(Trim(Trim(FieldByName('DESCRI').AsString) + ' ' + Trim(FieldByName('APRESENTACAO').AsString)), 1, FieldByName('NOME_AMIGO').Size);
+
+    // Gerar Centro de Custo Geral para armazanamento dos Lotes do produto quando
+    // o sistema for de Gestão Comercial.
+    if (FieldByName('ESTOQUE_APROP_LOTE').AsInteger = 1) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
+    begin
+      SetCentroCustoGeral(FieldByName('CODEMP').AsString);
+      if (FieldByName('CODEMP').AsString <> gUsuarioLogado.Empresa) then
+        SetCentroCustoGeral(gUsuarioLogado.Empresa);
+    end;
+
+    if ( Trim(FieldByName('TIPO_VEICULO').AsString) = EmptyStr ) then
+      FieldByName('TIPO_VEICULO').Clear;
+
+    if ( Trim(FieldByName('COR_VEICULO').AsString) = EmptyStr ) then
+      FieldByName('COR_VEICULO').Clear;
+
+    if ( Trim(FieldByName('COMBUSTIVEL_VEICULO').AsString) = EmptyStr ) then
+      FieldByName('COMBUSTIVEL_VEICULO').Clear;
   end;
 end;
 
 procedure TfrmGeProduto.fdQryTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaCODEMP.Value := gUsuarioLogado.Empresa;
-
-  if Trim(IbDtstTabelaCODEMP.AsString) = EmptyStr then
-    if ( not fdQryEmpresa.IsEmpty ) then
-      IbDtstTabelaCODEMP.Value := fdQryEmpresa.FieldByName('cnpj').AsString;
-
-  if ( not fdQryOrigem.IsEmpty ) then
-    IbDtstTabelaCODORIGEM.Value := TRIBUTO_ORIGEM_NACIONAL;
-
-  if ( GetRegimeEmpresa(IbDtstTabelaCODEMP.AsString) = trSimplesNacional ) then
+  with DtSrcTabela.DataSet do
   begin
-    if ( not fdQryTributacaoNM.IsEmpty ) then
-      IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_ISENTA;
-    if ( not qryTributacaoSN.IsEmpty ) then
-      IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN;
-  end
-  else
-  begin
-    if ( not fdQryTributacaoNM.IsEmpty ) then
-      IbDtstTabelaCODTRIBUTACAO.Value := TRIBUTO_TRIBUTADA_INTEG;
-    if ( not qryTributacaoSN.IsEmpty ) then
-      IbDtstTabelaCSOSN.Value := TRIBUTO_NAO_TRIBUTADA_SN;
+    FieldByName('CODEMP').AsString := gUsuarioLogado.Empresa;
+
+    if Trim(FieldByName('CODEMP').AsString) = EmptyStr then
+      if ( not fdQryEmpresa.IsEmpty ) then
+        FieldByName('CODEMP').AsString := fdQryEmpresa.FieldByName('cnpj').AsString;
+
+    if ( not fdQryOrigem.IsEmpty ) then
+      FieldByName('CODORIGEM').AsString := TRIBUTO_ORIGEM_NACIONAL;
+
+    if ( GetRegimeEmpresa(FieldByName('CODEMP').AsString) = trSimplesNacional ) then
+    begin
+      if ( not fdQryTributacaoNM.IsEmpty ) then
+        FieldByName('CODTRIBUTACAO').AsString := TRIBUTO_TRIBUTADA_ISENTA;
+      if ( not qryTributacaoSN.IsEmpty ) then
+        FieldByName('CSOSN').AsString := TRIBUTO_NAO_TRIBUTADA_SN;
+    end
+    else
+    begin
+      if ( not fdQryTributacaoNM.IsEmpty ) then
+        FieldByName('CODTRIBUTACAO').AsString := TRIBUTO_TRIBUTADA_INTEG;
+      if ( not qryTributacaoSN.IsEmpty ) then
+        FieldByName('CSOSN').AsString := TRIBUTO_NAO_TRIBUTADA_SN;
+    end;
+
+    FieldByName('CST').AsString            := FieldByName('CODORIGEM').AsString + FieldByName('CODTRIBUTACAO').AsString;
+    FieldByName('ESTOQMIN').AsCurrency     := 0;
+    FieldByName('QTDE').AsCurrency         := 0;
+    FieldByName('ESTOQMIN').AsCurrency     := 0;
+    FieldByName('RESERVA').AsCurrency      := 0;
+    FieldByName('CUSTOMEDIO').AsCurrency   := 0;
+    FieldByName('PRECO').AsCurrency        := 0;
+    FieldByName('CODCFOP').AsInteger       := GetCfopIDDefault;
+    FieldByName('CFOP_DESCRICAO').AsString := GetCfopNomeDefault;
+    FieldByName('CODTIPO').AsInteger       := Ord(tpMaterialGeral);
+    FieldByName('ALIQUOTA_TIPO').AsInteger := Ord(fAliquota);
+    FieldByName('ALIQUOTA').AsCurrency       := 0;
+    FieldByName('ALIQUOTA_CSOSN').AsCurrency := 0;
+    FieldByName('VALOR_IPI').AsCurrency      := 0;
+    FieldByName('RESERVA').AsCurrency        := 0;
+    FieldByName('PRODUTO_NOVO').AsInteger    := 0;
+    FieldByName('PERCENTUAL_MARGEM').AsCurrency  := 20.0; // 20%
+    FieldByName('PERCENTUAL_MARCKUP').AsCurrency := 0;
+    FieldByName('PRECO_SUGERIDO').AsCurrency     := 0;
+    FieldByName('GERAR_SUBPRODUTO').AsInteger    := FLAG_NAO;
+
+    FieldByName('PESO_BRUTO').AsCurrency    := 0.0;
+    FieldByName('PESO_LIQUIDO').AsCurrency  := 0.0;
+
+    FieldByName('ALTURA').AsCurrency        := 0.0;
+    FieldByName('LARGURA').AsCurrency       := 0.0;
+    FieldByName('ESPESSURA').AsCurrency     := 0.0;
+    FieldByName('CUBAGEM').AsCurrency       := 0.0;
+
+    FieldByName('FRACIONADOR').AsInteger        := 1;
+    FieldByName('VENDA_FRACIONADA').AsInteger   := 0;
+
+    FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency := 0;
+
+    FieldByName('ANVISA').Clear;
+    FieldByName('COR_VEICULO').Clear;
+    FieldByName('COMBUSTIVEL_VEICULO').Clear;
+    FieldByName('TIPO_VEICULO').Clear;
+    FieldByName('RENAVAM_VEICULO').Clear;
+    FieldByName('CHASSI_VEICULO').Clear;
+    FieldByName('ANO_MODELO_VEICULO').Clear;
+    FieldByName('ANO_FABRICACAO_VEICULO').Clear;
+    FieldByName('NCM_SH').Clear;
+    FieldByName('ULTIMA_COMPRA_DATA').Clear;
+    FieldByName('ULTIMA_COMPRA_VALOR').Clear;
+    FieldByName('ULTIMA_COMPRA_FORNEC').Clear;
+    FieldByName('PRODUTO_PAI').Clear;
+
+    FieldByName('TABELA_IBPT').AsInteger := GetTabelaIBPT_Codigo(TRIBUTO_NCM_SH_PADRAO);
+    FieldByName('CST_PIS').AsString      := '99';
+    FieldByName('CST_COFINS').AsString   := '99';
+    FieldByName('ALIQUOTA_PIS').AsCurrency       := 0.0;
+    FieldByName('ALIQUOTA_COFINS').AsCurrency    := 0.0;
+    FieldByName('MOVIMENTA_ESTOQUE').AsInteger   := FLAG_SIM;
+    FieldByName('CADASTRO_ATIVO').AsInteger      := FLAG_SIM;
+    FieldByName('PRODUTO_IMOBILIZADO').AsInteger := FLAG_NAO;
+    FieldByName('COMPOR_FATURAMENTO').AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
+    FieldByName('ESTOQUE_APROP_LOTE').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, FLAG_SIM, FLAG_NAO);
+
+    DtSrcTabelaDataChange(DtSrcTabela, FieldByName('ALIQUOTA_TIPO'));
   end;
-
-  IbDtstTabelaCST.Value        := IbDtstTabelaCODORIGEM.AsString + IbDtstTabelaCODTRIBUTACAO.AsString;
-  IbDtstTabelaESTOQMIN.Value   := 0;
-  IbDtstTabelaQTDE.Value       := 0;
-  IbDtstTabelaESTOQMIN.Value   := 0;
-  IbDtstTabelaRESERVA.Value    := 0;
-  IbDtstTabelaCUSTOMEDIO.Value := 0;
-  IbDtstTabelaPRECO.Value      := 0;
-  IbDtstTabelaCODCFOP.Value        := GetCfopIDDefault;
-  IbDtstTabelaCFOP_DESCRICAO.Value := GetCfopNomeDefault;
-  IbDtstTabelaCODTIPO.AsInteger    := Ord(tpMaterialGeral);
-  IbDtstTabelaALIQUOTA_TIPO.Value  := Ord(fAliquota);
-  IbDtstTabelaALIQUOTA.Value       := 0;
-  IbDtstTabelaALIQUOTA_CSOSN.Value := 0;
-  IbDtstTabelaVALOR_IPI.Value      := 0;
-  IbDtstTabelaRESERVA.Value        := 0;
-  IbDtstTabelaPRODUTO_NOVO.Value   := 0;
-  IbDtstTabelaPERCENTUAL_MARGEM.Value  := 20.0; // 20%
-  IbDtstTabelaPERCENTUAL_MARCKUP.Value := 0;
-  IbDtstTabelaPRECO_SUGERIDO.Value     := 0;
-  IbDtstTabelaGERAR_SUBPRODUTO.Value   := FLAG_NAO;
-
-  IbDtstTabelaPESO_BRUTO.AsCurrency    := 0.0;
-  IbDtstTabelaPESO_LIQUIDO.AsCurrency  := 0.0;
-
-  IbDtstTabelaALTURA.AsCurrency        := 0.0;
-  IbDtstTabelaLARGURA.AsCurrency       := 0.0;
-  IbDtstTabelaESPESSURA.AsCurrency     := 0.0;
-  IbDtstTabelaCUBAGEM.AsCurrency       := 0.0;
-
-  IbDtstTabelaFRACIONADOR.Value        := 1;
-  IbDtstTabelaVENDA_FRACIONADA.Value   := 0;
-
-  IbDtstTabelaPERCENTUAL_REDUCAO_BC.Value := 0;
-
-  IbDtstTabelaANVISA.Clear;
-  IbDtstTabelaCOR_VEICULO.Clear;
-  IbDtstTabelaCOMBUSTIVEL_VEICULO.Clear;
-  IbDtstTabelaTIPO_VEICULO.Clear;
-  IbDtstTabelaRENAVAM_VEICULO.Clear;
-  IbDtstTabelaCHASSI_VEICULO.Clear;
-  IbDtstTabelaANO_MODELO_VEICULO.Clear;
-  IbDtstTabelaANO_FABRICACAO_VEICULO.Clear;
-  IbDtstTabelaNCM_SH.Clear;
-  IbDtstTabelaULTIMA_COMPRA_DATA.Clear;
-  IbDtstTabelaULTIMA_COMPRA_VALOR.Clear;
-  IbDtstTabelaULTIMA_COMPRA_FORNEC.Clear;
-  IbDtstTabelaPRODUTO_PAI.Clear;
-
-  IbDtstTabelaTABELA_IBPT.AsInteger := GetTabelaIBPT_Codigo(TRIBUTO_NCM_SH_PADRAO);
-  IbDtstTabelaCST_PIS.AsString      := '99';
-  IbDtstTabelaCST_COFINS.AsString   := '99';
-  IbDtstTabelaALIQUOTA_PIS.AsCurrency      := 0.0;
-  IbDtstTabelaALIQUOTA_COFINS.AsCurrency   := 0.0;
-  IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger  := FLAG_SIM;
-  IbDtstTabelaCADASTRO_ATIVO.Value         := FLAG_SIM;
-  IbDtstTabelaPRODUTO_IMOBILIZADO.Value    := FLAG_NAO;
-  IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
-  IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, FLAG_SIM, FLAG_NAO);
-
-  DtSrcTabelaDataChange(DtSrcTabela, IbDtstTabelaALIQUOTA_TIPO);
 end;
 
 procedure TfrmGeProduto.FormActivate(Sender: TObject);
@@ -1630,32 +1656,35 @@ procedure TfrmGeProduto.dbgDadosDrawColumnCell(Sender: TObject;
   State: TGridDrawState);
 begin
   inherited;
-  // Destacar serviços/produtos desativados
-  if ( IbDtstTabelaCADASTRO_ATIVO.AsInteger = 0 ) then
-    dbgDados.Canvas.Font.Color := lblProdutoDesativado.Font.Color
-  else
+  with DtSrcTabela.DataSet do
   begin
-    // Destacar produtos sem Estoque
-    if ( TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS ) then
-      if ( IbDtstTabelaQTDE.AsCurrency <= 0 ) then
-        if lblProdutoSemEstoque.Visible then
-          dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color;
+    // Destacar serviços/produtos desativados
+    if ( FieldByName('CADASTRO_ATIVO').AsInteger = 0 ) then
+      dbgDados.Canvas.Font.Color := lblProdutoDesativado.Font.Color
+    else
+    begin
+      // Destacar produtos sem Estoque
+      if ( TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS ) then
+        if ( FieldByName('QTDE').AsCurrency <= 0 ) then
+          if lblProdutoSemEstoque.Visible then
+            dbgDados.Canvas.Font.Color := lblProdutoSemEstoque.Font.Color;
 
-    // Destacar produtos em Promocao
-    if ( IbDtstTabelaPRECO_PROMOCAO.AsCurrency > 0 ) then
-      if lblProdutoPromocao.Visible then
-        dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
+      // Destacar produtos em Promocao
+      if ( FieldByName('PRECO_PROMOCAO').AsCurrency > 0 ) then
+        if lblProdutoPromocao.Visible then
+          dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
 
-    // Destacar alerta de lucros
-    if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 1 ) then
-      if (not IbDtstTabelaLUCRO_CALCULADO.IsNull) then
-      begin
-        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger = 0 ) then
-          dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
-        else
-        if ( IbDtstTabelaLUCRO_CALCULADO.AsInteger < 0 ) then
-          dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
-      end;
+      // Destacar alerta de lucros
+      if ( FieldByName('COMPOR_FATURAMENTO').AsInteger = 1 ) then
+        if (not FieldByName('LUCRO_CALCULADO').IsNull) then
+        begin
+          if ( FieldByName('LUCRO_CALCULADO').AsInteger = 0 ) then
+            dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
+          else
+          if ( FieldByName('LUCRO_CALCULADO').AsInteger < 0 ) then
+            dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
+        end;
+    end;
   end;
 
   dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -1666,11 +1695,11 @@ var
   iCodigo : Integer;
   sNome   : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( SelecionarFabricante(Self, iCodigo, sNome) ) then
     begin
-      IbDtstTabelaCODFABRICANTE.AsInteger  := iCodigo;
-      IbDtstTabelaNOME_FABRICANTE.AsString := sNome;
+      DtSrcTabela.DataSet.FieldByName('CODFABRICANTE').AsInteger  := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('NOME_FABRICANTE').AsString := sNome;
     end;
 end;
 
@@ -1762,56 +1791,62 @@ end;
 
 procedure TfrmGeProduto.ConfigurarLabels;
 begin
-  if ( pnlVeiculo.Visible ) then
+  with DtSrcTabela.DataSet do
   begin
-    lblDescricao.Caption                  := 'Modelo Veículo:';
-    IbDtstTabelaDESCRI.DisplayLabel       := 'Modelo Veículo';
-    lblApresentacao.Caption               := 'Linha:';
-    IbDtstTabelaAPRESENTACAO.DisplayLabel := 'Linha';
-    lblReferencia.Caption                 := 'Placa:';
-    IbDtstTabelaREFERENCIA.DisplayLabel   := 'Placa';
-    lblGrupo.Caption                         := 'Família:';
-    IbDtstTabelaDESCRICAO_GRUPO.DisplayLabel := 'Família';
-  end;
+    if ( pnlVeiculo.Visible ) then
+    begin
+      lblDescricao.Caption               := 'Modelo Veículo:';
+      FieldByName('DESCRI').DisplayLabel := 'Modelo Veículo';
+      lblApresentacao.Caption                  := 'Linha:';
+      FieldByName('APRESENTACAO').DisplayLabel := 'Linha';
+      lblReferencia.Caption                  := 'Placa:';
+      FieldByName('REFERENCIA').DisplayLabel := 'Placa';
+      lblGrupo.Caption                            := 'Família:';
+      FieldByName('DESCRICAO_GRUPO').DisplayLabel := 'Família';
+    end;
 
-  if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS) then
-  begin
-    lblCusto.Caption := 'Custo (R$):';
-    IbDtstTabelaCUSTOMEDIO.DisplayLabel := 'Custo (R$)';
-    GrpBxParametroProdudo.Font.Color    := clBlack;
-  end
-  else
-  begin
-    lblCusto.Caption := 'Custo Oper.(R$):';
-    IbDtstTabelaCUSTOMEDIO.DisplayLabel := 'Custo Oper.(R$)';
-    GrpBxParametroProdudo.Font.Color    := clGray;
+    if (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS) then
+    begin
+      lblCusto.Caption := 'Custo (R$):';
+      FieldByName('CUSTOMEDIO').DisplayLabel := 'Custo (R$)';
+      GrpBxParametroProdudo.Font.Color       := clBlack;
+    end
+    else
+    begin
+      lblCusto.Caption := 'Custo Oper.(R$):';
+      FieldByName('CUSTOMEDIO').DisplayLabel := 'Custo Oper.(R$)';
+      GrpBxParametroProdudo.Font.Color       := clGray;
+    end;
   end;
 end;
 
 procedure TfrmGeProduto.ControleCampos;
 begin
-  lblTipoCadastro.Enabled := (gSistema.Codigo <> SISTEMA_GESTAO_OPME);
-  dbTipoCadastro.Enabled  := (gSistema.Codigo <> SISTEMA_GESTAO_OPME);
+  with DtSrcTabela.DataSet do
+  begin
+    lblTipoCadastro.Enabled := (gSistema.Codigo <> SISTEMA_GESTAO_OPME);
+    dbTipoCadastro.Enabled  := (gSistema.Codigo <> SISTEMA_GESTAO_OPME);
 
-  lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-  dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-  GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-  pnlVolume.Visible             := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+    lblTipoProduto.Enabled        := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+    dbTipoProduto.Enabled         := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+    GrpBxParametroProdudo.Enabled := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+    pnlVolume.Visible             := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
 
-  lblFabricante.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-  dbFabricante.Enabled  := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-  lblModelo.Enabled     := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-  dbModelo.Enabled      := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+    lblFabricante.Enabled := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+    dbFabricante.Enabled  := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+    lblModelo.Enabled     := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+    dbModelo.Enabled      := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
 
-  lblCodigoAnvisa.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (TTipoProduto(IbDtstTabelaCODTIPO.AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
-  dbCodigoAnvisa.Visible  := lblCodigoAnvisa.Visible;
-  lblModelo.Visible := not lblCodigoAnvisa.Visible;
-  dbModelo.Visible  := not dbCodigoAnvisa.Visible;
+    lblCodigoAnvisa.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (TTipoProduto(FieldByName('CODTIPO').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
+    dbCodigoAnvisa.Visible  := lblCodigoAnvisa.Visible;
+    lblModelo.Visible := not lblCodigoAnvisa.Visible;
+    dbModelo.Visible  := not dbCodigoAnvisa.Visible;
 
-  dbProdutoNovo.Enabled          := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
-  dbProdutoEhImobilizado.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS); //(gSistema.Codigo = SISTEMA_GESTAO_IND);
-  dbProdutoMovEstoque.Enabled    := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-  dbGerarSubproduto.Enabled      := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+    dbProdutoNovo.Enabled          := (gSistema.Codigo = SISTEMA_GESTAO_COM) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
+    dbProdutoEhImobilizado.Enabled := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS); //(gSistema.Codigo = SISTEMA_GESTAO_IND);
+    dbProdutoMovEstoque.Enabled    := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+    dbGerarSubproduto.Enabled      := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+  end;
 end;
 
 procedure TfrmGeProduto.btnFiltrarClick(Sender: TObject);
@@ -1846,67 +1881,68 @@ var
   cAliquotaIcmsIntra,
   cAliquotaIcmsST   : Currency;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-  begin
-    if (IbDtstTabela.State = dsInsert) and ((Field = IbDtstTabelaDESCRI) or (Field = IbDtstTabelaAPRESENTACAO)) then
-      IbDtstTabelaNOME_AMIGO.AsString := Copy(Trim(Trim(IbDtstTabelaDESCRI.AsString) + ' ' + Trim(IbDtstTabelaAPRESENTACAO.AsString)), 1, IbDtstTabelaNOME_AMIGO.Size);
-
-    if ( Field = IbDtstTabelaALIQUOTA_TIPO ) then
+  with DtSrcTabela.DataSet do
+    if ( State in [dsEdit, dsInsert] ) then
     begin
-      if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
+      if (State = dsInsert) and ((Field = FieldByName('DESCRI')) or (Field = FieldByName('APRESENTACAO'))) then
+        FieldByName('NOME_AMIGO').AsString := Copy(Trim(Trim(FieldByName('DESCRI').AsString) + ' ' + Trim(FieldByName('APRESENTACAO').AsString)), 1, FieldByName('NOME_AMIGO').Size);
+
+      if ( Field = FieldByName('ALIQUOTA_TIPO') ) then
       begin
-        cAliquotaIss    := 0.0;
-        cAliquotaPis    := 0.0;
-        cAliquotaCofins := 0.0;
-        AliquotaIss(gUsuarioLogado.Empresa, 0, 0
-          , cAliquotaIss
-          , cAliquotaPis
-          , cAliquotaCofins);
-        IbDtstTabelaPRODUTO_NOVO.AsInteger        := 0;
-        IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger   := 0;
-        IbDtstTabelaPRODUTO_IMOBILIZADO.AsInteger := 0;
-        IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger  := 0;
-        IbDtstTabelaALIQUOTA.AsCurrency           := cAliquotaIss;
-        IbDtstTabelaALIQUOTA_CSOSN.AsCurrency     := cAliquotaIss;
-      end
-      else
-      begin
-        cAliquotaIcmsInter := 0.0;
-        cAliquotaIcmsIntra := 0.0;
-        cAliquotaIcmsST    := 0.0;
-        AliquotaIcms(GetEmpresaUF(gUsuarioLogado.Empresa), GetEmpresaUF(gUsuarioLogado.Empresa)
-          , cAliquotaIcmsInter
-          , cAliquotaIcmsIntra
-          , cAliquotaIcmsST);
-        IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger := 1;
-        IbDtstTabelaALIQUOTA.AsCurrency         := cAliquotaIcmsInter;
-        IbDtstTabelaALIQUOTA_CSOSN.AsCurrency   := cAliquotaIcmsInter;
+        if (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taISS) then
+        begin
+          cAliquotaIss    := 0.0;
+          cAliquotaPis    := 0.0;
+          cAliquotaCofins := 0.0;
+          AliquotaIss(gUsuarioLogado.Empresa, 0, 0
+            , cAliquotaIss
+            , cAliquotaPis
+            , cAliquotaCofins);
+          FieldByName('PRODUTO_NOVO').AsInteger        := 0;
+          FieldByName('MOVIMENTA_ESTOQUE').AsInteger   := 0;
+          FieldByName('PRODUTO_IMOBILIZADO').AsInteger := 0;
+          FieldByName('ESTOQUE_APROP_LOTE').AsInteger  := 0;
+          FieldByName('ALIQUOTA').AsCurrency           := cAliquotaIss;
+          FieldByName('ALIQUOTA_CSOSN').AsCurrency     := cAliquotaIss;
+        end
+        else
+        begin
+          cAliquotaIcmsInter := 0.0;
+          cAliquotaIcmsIntra := 0.0;
+          cAliquotaIcmsST    := 0.0;
+          AliquotaIcms(GetEmpresaUF(gUsuarioLogado.Empresa), GetEmpresaUF(gUsuarioLogado.Empresa)
+            , cAliquotaIcmsInter
+            , cAliquotaIcmsIntra
+            , cAliquotaIcmsST);
+          FieldByName('MOVIMENTA_ESTOQUE').AsInteger := 1;
+          FieldByName('ALIQUOTA').AsCurrency         := cAliquotaIcmsInter;
+          FieldByName('ALIQUOTA_CSOSN').AsCurrency   := cAliquotaIcmsInter;
+        end;
+
+        lblTipoProduto.Enabled        := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+        dbTipoProduto.Enabled         := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
+        GrpBxParametroProdudo.Enabled := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
       end;
 
-      lblTipoProduto.Enabled        := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-      dbTipoProduto.Enabled         := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
-      GrpBxParametroProdudo.Enabled := (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taICMS);
+      if ( (Field = FieldByName('PERCENTUAL_MARCKUP')) or (Field = FieldByName('PERCENTUAL_MARGEM')) ) then
+        FieldByName('PRECO_SUGERIDO').AsCurrency := FieldByName('CUSTOMEDIO').AsCurrency +
+          (FieldByName('CUSTOMEDIO').AsCurrency *
+            IfThen(FieldByName('PERCENTUAL_MARCKUP').AsCurrency = 0.0
+              , FieldByName('PERCENTUAL_MARGEM').AsCurrency
+              , FieldByName('PERCENTUAL_MARCKUP').AsCurrency) / 100);
+
+      if ( Field = FieldByName('MOVIMENTA_ESTOQUE') ) then
+        dbProdutoPorLote.Enabled := (FieldByName('MOVIMENTA_ESTOQUE').AsInteger = 1);
+
+      if ( Field = FieldByName('CODTIPO') ) then
+      begin
+        ControleCampos;
+        ConfigurarLabels;
+      end;
+
+      if ( (Field = FieldByName('ALTURA')) or (Field = FieldByName('LARGURA')) or (Field = FieldByName('ESPESSURA')) ) then
+        FieldByName('CUBAGEM').AsCurrency := FieldByName('ALTURA').AsCurrency * FieldByName('LARGURA').AsCurrency * FieldByName('ESPESSURA').AsCurrency;
     end;
-
-    if ( (Field = IbDtstTabelaPERCENTUAL_MARCKUP) or (Field = IbDtstTabelaPERCENTUAL_MARGEM) ) then
-      IbDtstTabelaPRECO_SUGERIDO.AsCurrency := IbDtstTabelaCUSTOMEDIO.AsCurrency +
-        (IbDtstTabelaCUSTOMEDIO.AsCurrency *
-          IfThen(IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency = 0.0
-            , IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency
-            , IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency) / 100);
-
-    if ( Field = IbDtstTabelaMOVIMENTA_ESTOQUE ) then
-      dbProdutoPorLote.Enabled := (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = 1);
-
-    if ( Field = IbDtstTabelaCODTIPO ) then
-    begin
-      ControleCampos;
-      ConfigurarLabels;
-    end;
-
-    if ( (Field = IbDtstTabelaALTURA) or (Field = IbDtstTabelaLARGURA) or (Field = IbDtstTabelaESPESSURA) ) then
-      IbDtstTabelaCUBAGEM.AsCurrency := IbDtstTabelaALTURA.AsCurrency * IbDtstTabelaLARGURA.AsCurrency * IbDtstTabelaESPESSURA.AsCurrency;
-  end;
 end;
 
 procedure TfrmGeProduto.FiltarDados(const iTipoPesquisa : Integer);
@@ -1965,7 +2001,7 @@ begin
       end;
 
       if ( WhereAdditional <> EmptyStr ) then
-        if ( Pos('where', SelectSQL.Text) > 0 ) then
+        if ( Pos('where', SQL.Text) > 0 ) then
           Add( '  and (' + WhereAdditional + ')' )
         else
           Add( 'where (' + WhereAdditional + ')' );
@@ -1993,7 +2029,7 @@ begin
     end;
   except
     On E : Exception do
-      ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + IbDtstTabela.SelectSQL.Text);
+      ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + fdQryTabela.SQL.Text);
   end;
 end;
 
@@ -2003,76 +2039,80 @@ var
   sDescricao,
   sSigla    : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
-    begin
-      IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger := iCodigo;
-      IbDtstTabelaDESCRICAO_UNIDADE_FRAC.AsString := sDescricao;
-      IbDtstTabelaUNP_SIGLA_FRAC.AsString         := sSigla;
-    end;
+  with DtSrcTabela.DataSet do
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
+      begin
+        FieldByName('CODUNIDADE_FRACIONADA').AsInteger := iCodigo;
+        FieldByName('DESCRICAO_UNIDADE_FRAC').AsString := sDescricao;
+        FieldByName('UNP_SIGLA_FRAC').AsString         := sSigla;
+      end;
 end;
 
 procedure TfrmGeProduto.btbtnSalvarClick(Sender: TObject);
 begin
   // Validações de Dados
 
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  with DtSrcTabela.DataSet do
   begin
-    if (IbDtstTabelaTABELA_IBPT.AsInteger = 0) then
-      IbDtstTabelaTABELA_IBPT.Clear;
+    if ( State in [dsEdit, dsInsert] ) then
+    begin
+      if (FieldByName('TABELA_IBPT').AsInteger = 0) then
+        FieldByName('TABELA_IBPT').Clear;
 
-    if ( ((IbDtstTabelaALIQUOTA.AsCurrency < 0) and (IbDtstTabelaALIQUOTA.AsCurrency > 100)) or ((IbDtstTabelaALIQUOTA_CSOSN.AsCurrency < 0) and (IbDtstTabelaALIQUOTA_CSOSN.AsCurrency > 100)) ) then
-    begin
-      ShowWarning('Percentual de alíquota fora da faixa permitida');
-      Exit;
-    end
-    else
-    if ( ((IbDtstTabelaALIQUOTA_PIS.AsCurrency < 0) and (IbDtstTabelaALIQUOTA_PIS.AsCurrency > 100)) or ((IbDtstTabelaALIQUOTA_COFINS.AsCurrency < 0) and (IbDtstTabelaALIQUOTA_COFINS.AsCurrency > 100)) ) then
-    begin
-      ShowWarning('Percentual de alíquota Pis/Confis fora da faixa permitida');
-      Exit;
-    end
-    else
-    if ( IbDtstTabelaFRACIONADOR.AsInteger = 1 ) then
-    begin
-      if ( IbDtstTabelaCODUNIDADE.AsInteger <> IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger ) then
+      if ( ((FieldByName('ALIQUOTA').AsCurrency < 0) and (FieldByName('ALIQUOTA').AsCurrency > 100)) or ((FieldByName('ALIQUOTA_CSOSN').AsCurrency < 0) and (FieldByName('ALIQUOTA_CSOSN').AsCurrency > 100)) ) then
       begin
-        ShowWarning('A "Unidade da Fração" selecionada deve ser igual a informada no campo "Unidade"!');
+        ShowWarning('Percentual de alíquota fora da faixa permitida');
         Exit;
-      end;
-    end
-    else
-    if ( IbDtstTabelaFRACIONADOR.AsInteger > 1 ) then
-    begin
-      if ( IbDtstTabelaCODUNIDADE.AsInteger = IbDtstTabelaCODUNIDADE_FRACIONADA.AsInteger ) then
+      end
+      else
+      if ( ((FieldByName('ALIQUOTA_PIS').AsCurrency < 0) and (FieldByName('ALIQUOTA_PIS').AsCurrency > 100)) or ((FieldByName('ALIQUOTA_COFINS').AsCurrency < 0) and (FieldByName('ALIQUOTA_COFINS').AsCurrency > 100)) ) then
       begin
-        ShowWarning('A "Unidade da Fração" selecionada deve ser diferente na informada no campo "Unidade"!');
+        ShowWarning('Percentual de alíquota Pis/Confis fora da faixa permitida');
         Exit;
+      end
+      else
+      if ( FieldByName('FRACIONADOR').AsInteger = 1 ) then
+      begin
+        if ( FieldByName('CODUNIDADE').AsInteger <> FieldByName('CODUNIDADE_FRACIONADA').AsInteger ) then
+        begin
+          ShowWarning('A "Unidade da Fração" selecionada deve ser igual a informada no campo "Unidade"!');
+          Exit;
+        end;
+      end
+      else
+      if ( FieldByName('FRACIONADOR').AsInteger > 1 ) then
+      begin
+        if ( FieldByName('CODUNIDADE').AsInteger = FieldByName('CODUNIDADE_FRACIONADA').AsInteger ) then
+        begin
+          ShowWarning('A "Unidade da Fração" selecionada deve ser diferente na informada no campo "Unidade"!');
+          Exit;
+        end;
       end;
+
+      if (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taISS) then
+      begin
+        FieldByName('PRODUTO_NOVO').AsInteger        := 0;
+        FieldByName('MOVIMENTA_ESTOQUE').AsInteger   := 0;
+        FieldByName('PRODUTO_IMOBILIZADO').AsInteger := 0;
+        FieldByName('ESTOQUE_APROP_LOTE').AsInteger  := 0;
+      end
+      else
+      if (FieldByName('MOVIMENTA_ESTOQUE').AsInteger = 0) then
+        FieldByName('ESTOQUE_APROP_LOTE').AsInteger  := 0;
+
+      if ( FieldByName('COMPOR_FATURAMENTO').AsInteger = 1 ) then
+        FieldByName('PRECO_SUGERIDO').AsCurrency := FieldByName('CUSTOMEDIO').AsCurrency +
+          (FieldByName('CUSTOMEDIO').AsCurrency *
+            IfThen(FieldByName('PERCENTUAL_MARCKUP').AsCurrency = 0.0
+              , FieldByName('PERCENTUAL_MARGEM').AsCurrency
+              , FieldByName('PERCENTUAL_MARCKUP').AsCurrency) / 100);
     end;
 
-    if (TAliquota(IbDtstTabelaALIQUOTA_TIPO.AsInteger) = taISS) then
-    begin
-      IbDtstTabelaPRODUTO_NOVO.AsInteger        := 0;
-      IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger   := 0;
-      IbDtstTabelaPRODUTO_IMOBILIZADO.AsInteger := 0;
-      IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger  := 0;
-    end
-    else
-    if (IbDtstTabelaMOVIMENTA_ESTOQUE.AsInteger = 0) then
-      IbDtstTabelaESTOQUE_APROP_LOTE.AsInteger  := 0;
-
-    if ( IbDtstTabelaCOMPOR_FATURAMENTO.AsInteger = 1 ) then
-      IbDtstTabelaPRECO_SUGERIDO.AsCurrency := IbDtstTabelaCUSTOMEDIO.AsCurrency +
-        (IbDtstTabelaCUSTOMEDIO.AsCurrency *
-          IfThen(IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency = 0.0
-            , IbDtstTabelaPERCENTUAL_MARGEM.AsCurrency
-            , IbDtstTabelaPERCENTUAL_MARCKUP.AsCurrency) / 100);
+    FieldByName('FRACIONADOR').Required           := (FieldByName('VENDA_FRACIONADA').AsInteger = 1);
+    FieldByName('CODUNIDADE_FRACIONADA').Required := (FieldByName('VENDA_FRACIONADA').AsInteger = 1);
+    FieldByName('ANVISA').Required := dbCodigoAnvisa.Visible;
   end;
-
-  IbDtstTabelaFRACIONADOR.Required           := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
-  IbDtstTabelaCODUNIDADE_FRACIONADA.Required := (IbDtstTabelaVENDA_FRACIONADA.AsInteger = 1);
-  IbDtstTabelaANVISA.Required := dbCodigoAnvisa.Visible;
 
   inherited;
 end;
@@ -2088,29 +2128,33 @@ procedure TfrmGeProduto.ppMnAtualizarMetafonemaClick(Sender: TObject);
 var
   sUpdate : String;
 begin
-  if IbDtstTabela.IsEmpty then
-    Exit;
+  with DtSrcTabela.DataSet do
+  begin
+    if IsEmpty then
+      Exit;
 
-  IbDtstTabela.First;
-  IbDtstTabela.DisableControls;
-  Screen.Cursor := crSQLWait;
-  try
-    while not IbDtstTabela.Eof do
-    begin
-      sUpdate := 'Update TBPRODUTO Set metafonema = %s where cod = %s';
-      sUpdate := Format(sUpdate, [
-        QuotedStr(Metafonema(IbDtstTabelaDESCRI_APRESENTACAO.AsString)),
-        QuotedStr(IbDtstTabelaCOD.AsString)]);
-      ExecuteScriptSQL( sUpdate );
+    First;
+    DisableControls;
+    Screen.Cursor := crSQLWait;
+    try
+      while not Eof do
+      begin
+        sUpdate := 'Update TBPRODUTO Set metafonema = %s where cod = %s';
+        sUpdate := Format(sUpdate, [
+          QuotedStr(Metafonema(FieldByName('DESCRI_APRESENTACAO').AsString)),
+          QuotedStr(FieldByName('COD').AsString)]);
+        ExecuteScriptSQL( sUpdate );
 
-      IbDtstTabela.Next;
+        Next;
+      end;
+    finally
+      First;
+
+      EnableControls;
+      Screen.Cursor := crDefault;
+
+      ShowInformation('Atualização', 'Código metafônico dos registros atualizados com sucesso!');
     end;
-  finally
-    IbDtstTabela.First;
-    IbDtstTabela.EnableControls;
-    Screen.Cursor := crDefault;
-
-    ShowInformation('Atualização', 'Código metafônico dos registros atualizados com sucesso!');
   end;
 end;
 
@@ -2119,38 +2163,40 @@ var
   sUpdate    ,
   sNomeAmigo : String;
 begin
-  if IbDtstTabela.IsEmpty then
-    Exit;
+  with DtSrcTabela.DataSet do
+  begin
+    if IsEmpty then
+      Exit;
 
-  IbDtstTabela.First;
-  IbDtstTabela.DisableControls;
-  Screen.Cursor := crSQLWait;
-  try
-    while not IbDtstTabela.Eof do
-    begin
-      if ( Trim(IbDtstTabelaNOME_AMIGO.AsString) = EmptyStr ) then
+    First;
+    DisableControls;
+    Screen.Cursor := crSQLWait;
+    try
+      while not Eof do
       begin
-        sNomeAmigo := Copy(Trim(Trim(IbDtstTabelaDESCRI.AsString) + ' ' + Trim(IbDtstTabelaAPRESENTACAO.AsString)), 1, IbDtstTabelaNOME_AMIGO.Size);
+        if ( Trim(FieldByName('NOME_AMIGO').AsString) = EmptyStr ) then
+        begin
+          sNomeAmigo := Copy(Trim(Trim(FieldByName('DESCRI').AsString) + ' ' + Trim(FieldByName('APRESENTACAO').AsString)), 1, FieldByName('NOME_AMIGO').Size);
 
-        sUpdate := 'Update TBPRODUTO Set nome_amigo = %s where cod = %s';
-        sUpdate := Format(sUpdate, [
-          QuotedStr(sNomeAmigo),
-          QuotedStr(IbDtstTabelaCOD.AsString)]);
-        ExecuteScriptSQL( sUpdate );
+          sUpdate := 'Update TBPRODUTO Set nome_amigo = %s where cod = %s';
+          sUpdate := Format(sUpdate, [
+            QuotedStr(sNomeAmigo),
+            QuotedStr(FieldByName('COD').AsString)]);
+          ExecuteScriptSQL( sUpdate );
+        end;
+
+        Next;
       end;
+    finally
+      First;
 
-      IbDtstTabela.Next;
+      fdQryTabela.Refresh;
+
+      EnableControls;
+      Screen.Cursor := crDefault;
+
+      ShowInformation('Atualização', 'Nome Amigo dos registros atualizados com sucesso!');
     end;
-  finally
-    IbDtstTabela.First;
-
-    IbDtstTabela.Close;
-    IbDtstTabela.Open;
-
-    IbDtstTabela.EnableControls;
-    Screen.Cursor := crDefault;
-
-    ShowInformation('Atualização', 'Nome Amigo dos registros atualizados com sucesso!');
   end;
 end;
 
@@ -2160,35 +2206,39 @@ var
   sCodigoNCM ,
   sUpdate    : String;
 begin
-  if IbDtstTabela.IsEmpty then
-    Exit;
+  with DtSrcTabela.DataSet do
+  begin
+    if IsEmpty then
+      Exit;
 
-  IbDtstTabela.First;
-  IbDtstTabela.DisableControls;
-  Screen.Cursor := crSQLWait;
-  try
-    while not IbDtstTabela.Eof do
-    begin
-      sUpdate    := 'Update TBPRODUTO Set tabela_ibpt = %s, ncm_sh = %s where cod = %s';
-      sCodigoNCM := IfThen(StrToInt64Def(Trim(IbDtstTabelaNCM_SH.AsString), 0) = 0, TRIBUTO_NCM_SH_PADRAO, IbDtstTabelaNCM_SH.AsString);
-      sCodigoNCM := IfThen(sCodigoNCM = '10203000', TRIBUTO_NCM_SH_PADRAO, sCodigoNCM); // Código descontinuado a partir de 10203000
-      iCodigoNCM := GetTabelaIBPT_Codigo(sCodigoNCM);
+    First;
+    DisableControls;
+    Screen.Cursor := crSQLWait;
+    try
+      while not Eof do
+      begin
+        sUpdate    := 'Update TBPRODUTO Set tabela_ibpt = %s, ncm_sh = %s where cod = %s';
+        sCodigoNCM := IfThen(StrToInt64Def(Trim(FieldByName('NCM_SH').AsString), 0) = 0, TRIBUTO_NCM_SH_PADRAO, FieldByName('NCM_SH').AsString);
+        sCodigoNCM := IfThen(sCodigoNCM = '10203000', TRIBUTO_NCM_SH_PADRAO, sCodigoNCM); // Código descontinuado a partir de 10203000
+        iCodigoNCM := GetTabelaIBPT_Codigo(sCodigoNCM);
 
-      sUpdate := Format(sUpdate, [
-        IfThen(iCodigoNCM = 0, 'null', IntToStr(iCodigoNCM)),
-        IfThen((sCodigoNCM = EmptyStr) or (sCodigoNCM = TRIBUTO_NCM_SH_PADRAO) or (sCodigoNCM = '10203000'), 'null', QuotedStr(sCodigoNCM)),
-        QuotedStr(IbDtstTabelaCOD.AsString)]);
+        sUpdate := Format(sUpdate, [
+          IfThen(iCodigoNCM = 0, 'null', IntToStr(iCodigoNCM)),
+          IfThen((sCodigoNCM = EmptyStr) or (sCodigoNCM = TRIBUTO_NCM_SH_PADRAO) or (sCodigoNCM = '10203000'), 'null', QuotedStr(sCodigoNCM)),
+          QuotedStr(FieldByName('COD').AsString)]);
 
-      ExecuteScriptSQL( sUpdate );
+        ExecuteScriptSQL( sUpdate );
 
-      IbDtstTabela.Next;
+        Next;
+      end;
+    finally
+      First;
+
+      EnableControls;
+      Screen.Cursor := crDefault;
+
+      ShowInformation('Atualização', 'Código da Tabela IBPT dos registros atualizados com sucesso!');
     end;
-  finally
-    IbDtstTabela.First;
-    IbDtstTabela.EnableControls;
-    Screen.Cursor := crDefault;
-
-    ShowInformation('Atualização', 'Código da Tabela IBPT dos registros atualizados com sucesso!');
   end;
 end;
 

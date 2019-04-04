@@ -6,28 +6,21 @@ uses
   UGrPadrao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons,
-  ExtCtrls, Mask, DBCtrls, IBUpdateSQL, ClipBrd, cxGraphics,
+  Dialogs, DB, StdCtrls, Buttons, ExtCtrls, Mask, DBCtrls, ClipBrd, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
 
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.Intf,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TTipoMovimento = (tmNFeEntrada, tmNFeSaida, tmNull);
   TfrmGeConsultarLoteNFe_v2 = class(TfrmGrPadrao)
     dtsEmpresa: TDataSource;
-    cdsLOG: TIBDataSet;
-    cdsLOGUSUARIO: TIBStringField;
-    cdsLOGDATA_HORA: TDateTimeField;
-    cdsLOGTIPO: TSmallintField;
-    cdsLOGDESCRICAO: TIBStringField;
-    cdsLOGESPECIFICACAO: TMemoField;
-    updLOG: TIBUpdateSQL;
     GrpBxControle: TGroupBox;
     lblCNPJ: TLabel;
     lblRazaoSocial: TLabel;
@@ -57,24 +50,6 @@ type
     edNumeroRecibo: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    qryNFE: TIBDataSet;
-    qryNFEANOVENDA: TSmallintField;
-    qryNFENUMVENDA: TIntegerField;
-    qryNFEDATAEMISSAO: TDateField;
-    qryNFEHORAEMISSAO: TTimeField;
-    qryNFESERIE: TIBStringField;
-    qryNFENUMERO: TIntegerField;
-    qryNFECHAVE: TIBStringField;
-    qryNFEPROTOCOLO: TIBStringField;
-    qryNFERECIBO: TIBStringField;
-    qryNFEXML_FILENAME: TIBStringField;
-    qryNFEXML_FILE: TMemoField;
-    qryNFELOTE_ANO: TSmallintField;
-    qryNFELOTE_NUM: TIntegerField;
-    updNFE: TIBUpdateSQL;
-    qryNFEEMPRESA: TIBStringField;
-    qryNFEANOCOMPRA: TSmallintField;
-    qryNFENUMCOMPRA: TIntegerField;
     lblChaveNFe: TLabel;
     edChaveNFe: TEdit;
     lblProtocoloTMP: TLabel;
@@ -83,6 +58,32 @@ type
     btFechar: TcxButton;
     fdQryLotesPendentesNFe: TFDQuery;
     fdQryEmpresa: TFDQuery;
+    cdsLOG: TFDQuery;
+    cdsLOGUSUARIO: TStringField;
+    cdsLOGDATA_HORA: TSQLTimeStampField;
+    cdsLOGEMPRESA: TStringField;
+    cdsLOGTIPO: TSmallintField;
+    cdsLOGDESCRICAO: TStringField;
+    cdsLOGESPECIFICACAO: TMemoField;
+    updLOG: TFDUpdateSQL;
+    qryNFE: TFDQuery;
+    updNFE: TFDUpdateSQL;
+    qryNFEEMPRESA: TStringField;
+    qryNFEANOVENDA: TSmallintField;
+    qryNFENUMVENDA: TIntegerField;
+    qryNFEANOCOMPRA: TSmallintField;
+    qryNFENUMCOMPRA: TIntegerField;
+    qryNFEDATAEMISSAO: TDateField;
+    qryNFEHORAEMISSAO: TTimeField;
+    qryNFESERIE: TStringField;
+    qryNFENUMERO: TIntegerField;
+    qryNFECHAVE: TStringField;
+    qryNFEPROTOCOLO: TStringField;
+    qryNFERECIBO: TStringField;
+    qryNFEXML_FILENAME: TStringField;
+    qryNFEXML_FILE: TMemoField;
+    qryNFELOTE_ANO: TSmallintField;
+    qryNFELOTE_NUM: TIntegerField;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure btFecharClick(Sender: TObject);
@@ -117,6 +118,7 @@ type
 (*
   Tabelas:
   - TBEMPRESA
+  - TBCONFIGURACAO
   - TBVENDAS
   - TBCOMRAS
   - TBNFE_ENVIADA
@@ -661,6 +663,7 @@ begin
     begin
 
       PesquisarLote(0, 0, Trim(edNumeroRecibo.Text), iAnoMov, iCodMov, sDestinatarioCNPJ);
+      sChaveNFE := Trim(edChaveNFe.Text);
 
       if not DMNFe.GetValidadeCertificado(dbCNPJ.Field.AsString) then
         Exit;
@@ -705,11 +708,39 @@ begin
             ShowInformation( sMensagem );
           end;
 
+          edJustificativa.Lines.Add('--');
+          edJustificativa.Lines.Add('Chave Nota Fiscal : ' + edChaveNFe.Text);
+          edJustificativa.Lines.Add('Número Protocolo  : ' + edProtocoloTMP.Text);
+
+          sRetorno := edJustificativa.Text;
+
           bRetorno := (Trim(sProtocoloNFE) <> EmptyStr) and (Trim(sFileNameXML) <> EmptyStr);
         end;
       end
       else
         ShowWarning('Consulta de recibo/lote NF-e sem o retorno esperado!' + #13 + sRetorno);
+
+      // Gravar LOG
+
+      with cdsLOG do
+      begin
+        Auditar;
+
+        Open;
+        Append;
+
+        cdsLOGEMPRESA.AsString       := gUsuarioLogado.Empresa;
+        cdsLOGUSUARIO.AsString       := dbUsuario.Text;
+        cdsLOGDATA_HORA.AsDateTime   := Now;
+        cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+        cdsLOGDESCRICAO.AsString     := DESC_LOG_CONSULTAR_NRO_LOTE_NFE;
+        cdsLOGESPECIFICACAO.AsString := sRetorno;
+
+        Post;
+        ApplyUpdates;
+        CommitUpdates;
+        CommitTransaction;
+      end;
     end;
   finally
     btnConfirmar.Enabled := True;

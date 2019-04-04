@@ -5355,7 +5355,7 @@ begin
         '---'     + #13 +
         'Data Recibo: ' + FormatDateTime('dd/mm/yyyy', WebServices.Inutilizacao.dhRecbto) + #13 +
         'Protocolo:   ' + WebServices.Inutilizacao.Protocolo;
-   end;
+    end;
 
   except
     On E : Exception do

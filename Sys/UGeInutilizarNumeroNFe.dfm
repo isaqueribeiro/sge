@@ -482,174 +482,90 @@ inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
     TabOrder = 3
     OnClick = btFecharClick
   end
-  object cdsLOG: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    t.usuario'
-      '  , t.data_hora'
-      '  , t.tipo'
-      '  , t.descricao'
-      '  , t.especificacao'
-      'from TBLOG_TRANSACAO t'
-      'where 1=0')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updLOG
-    Left = 424
-    Top = 280
-    object cdsLOGUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBLOG_TRANSACAO"."USUARIO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 50
-    end
-    object cdsLOGDATA_HORA: TDateTimeField
-      FieldName = 'DATA_HORA'
-      Origin = '"TBLOG_TRANSACAO"."DATA_HORA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsLOGTIPO: TSmallintField
-      FieldName = 'TIPO'
-      Origin = '"TBLOG_TRANSACAO"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsLOGDESCRICAO: TIBStringField
-      FieldName = 'DESCRICAO'
-      Origin = '"TBLOG_TRANSACAO"."DESCRICAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object cdsLOGESPECIFICACAO: TMemoField
-      FieldName = 'ESPECIFICACAO'
-      Origin = '"TBLOG_TRANSACAO"."ESPECIFICACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-  end
-  object updLOG: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  USUARIO,'
-      '  DATA_HORA,'
-      '  TIPO,'
-      '  DESCRICAO,'
-      '  ESPECIFICACAO'
-      'from TBLOG_TRANSACAO '
-      'where'
-      '  DATA_HORA = :DATA_HORA and'
-      '  USUARIO = :USUARIO')
-    ModifySQL.Strings = (
-      'update TBLOG_TRANSACAO'
-      'set'
-      '  DATA_HORA = :DATA_HORA,'
-      '  DESCRICAO = :DESCRICAO,'
-      '  ESPECIFICACAO = :ESPECIFICACAO,'
-      '  TIPO = :TIPO,'
-      '  USUARIO = :USUARIO'
-      'where'
-      '  DATA_HORA = :OLD_DATA_HORA and'
-      '  USUARIO = :OLD_USUARIO')
-    InsertSQL.Strings = (
-      'insert into TBLOG_TRANSACAO'
-      '  (DATA_HORA, DESCRICAO, ESPECIFICACAO, TIPO, USUARIO)'
-      'values'
-      '  (:DATA_HORA, :DESCRICAO, :ESPECIFICACAO, :TIPO, :USUARIO)')
-    DeleteSQL.Strings = (
-      'delete from TBLOG_TRANSACAO'
-      'where'
-      '  DATA_HORA = :OLD_DATA_HORA and'
-      '  USUARIO = :OLD_USUARIO')
-    Left = 456
-    Top = 280
-  end
-  object qryEmpresa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.cnpj'
-      '  , e.rzsoc'
-      '  , e.serie_nfe'
-      '  , e.numero_nfe'
-      '  , e.lote_ano_nfe'
-      '  , e.lote_num_nfe'
-      '  , 55 as modelo_nfe'
-      'from TBEMPRESA e'
-      'where e.cnpj = :cnpj')
-    Left = 520
-    Top = 16
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'cnpj'
-        ParamType = ptInput
-        Value = ''
-      end>
-    object qryEmpresaCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBEMPRESA"."CNPJ"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      OnGetText = qryEmpresaCNPJGetText
-      Size = 18
-    end
-    object qryEmpresaRZSOC: TIBStringField
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      Size = 60
-    end
-    object qryEmpresaSERIE_NFE: TSmallintField
-      FieldName = 'SERIE_NFE'
-      Origin = '"TBEMPRESA"."SERIE_NFE"'
-      DisplayFormat = '00'
-    end
-    object qryEmpresaNUMERO_NFE: TIntegerField
-      FieldName = 'NUMERO_NFE'
-      Origin = '"TBEMPRESA"."NUMERO_NFE"'
-      DisplayFormat = '0000000'
-    end
-    object qryEmpresaLOTE_ANO_NFE: TSmallintField
-      FieldName = 'LOTE_ANO_NFE'
-      Origin = '"TBEMPRESA"."LOTE_ANO_NFE"'
-    end
-    object qryEmpresaLOTE_NUM_NFE: TIntegerField
-      FieldName = 'LOTE_NUM_NFE'
-      Origin = '"TBEMPRESA"."LOTE_NUM_NFE"'
-      DisplayFormat = '0000000'
-    end
-    object qryEmpresaMODELO_NFE: TIntegerField
-      FieldName = 'MODELO_NFE'
-      ProviderFlags = []
-      OnGetText = qryEmpresaMODELO_NFEGetText
-    end
-  end
   object dtsEmpresa: TDataSource
     DataSet = qryEmpresa
     Left = 552
     Top = 16
   end
-  object qryNFeEmitida: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object qryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.rzsoc'
+      '  , c.nfe_serie  as serie_nfe'
+      '  , c.nfe_numero as numero_nfe'
+      '  , extract(year from current_date) as lote_ano_nfe'
+      '  , c.nfe_lote   as lote_num_nfe'
+      '  , 55 as modelo_nfe'
+      'from TBEMPRESA e'
+      '  left join TBCONFIGURACAO c on (c.empresa = e.cnpj)'
+      'where e.cnpj = :cnpj')
+    Left = 520
+    Top = 16
+    ParamData = <
+      item
+        Name = 'CNPJ'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
+      end>
+    object qryEmpresaCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      OnGetText = qryEmpresaCNPJGetText
+      Size = 18
+    end
+    object qryEmpresaRZSOC: TStringField
+      FieldName = 'RZSOC'
+      Origin = 'RZSOC'
+      Size = 60
+    end
+    object qryEmpresaSERIE_NFE: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'SERIE_NFE'
+      Origin = 'NFE_SERIE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmpresaNUMERO_NFE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NUMERO_NFE'
+      Origin = 'NFE_NUMERO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmpresaLOTE_ANO_NFE: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE_ANO_NFE'
+      Origin = 'LOTE_ANO_NFE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmpresaLOTE_NUM_NFE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE_NUM_NFE'
+      Origin = 'NFE_LOTE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmpresaMODELO_NFE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'MODELO_NFE'
+      Origin = 'MODELO_NFE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object qryNFeEmitida: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    v.serie'
@@ -676,55 +592,132 @@ inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
       ''
       'order by 1, 2')
     Left = 424
-    Top = 248
+    Top = 256
     ParamData = <
       item
+        Name = 'EMPRESA1'
         DataType = ftString
-        Name = 'empresa1'
         ParamType = ptInput
-        Value = ''
+        Size = 18
+        Value = Null
       end
       item
-        DataType = ftInteger
-        Name = 'serie1'
+        Name = 'SERIE1'
+        DataType = ftSmallint
         ParamType = ptInput
-        Value = 0
       end
       item
-        DataType = ftInteger
-        Name = 'inicio1'
+        Name = 'INICIO1'
+        DataType = ftLargeint
         ParamType = ptInput
-        Value = 0
       end
       item
-        DataType = ftInteger
-        Name = 'final1'
+        Name = 'FINAL1'
+        DataType = ftLargeint
         ParamType = ptInput
-        Value = 0
       end
       item
+        Name = 'EMPRESA2'
         DataType = ftString
-        Name = 'empresa2'
         ParamType = ptInput
-        Value = ''
+        Size = 18
       end
       item
-        DataType = ftInteger
-        Name = 'serie2'
+        Name = 'SERIE2'
+        DataType = ftSmallint
         ParamType = ptInput
-        Value = 0
       end
       item
+        Name = 'INICIO2'
         DataType = ftInteger
-        Name = 'inicio2'
         ParamType = ptInput
-        Value = 0
       end
       item
+        Name = 'FINAL2'
         DataType = ftInteger
-        Name = 'final2'
         ParamType = ptInput
-        Value = 0
       end>
+  end
+  object cdsLOG: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updLOG
+    SQL.Strings = (
+      'Select'
+      '    t.usuario'
+      '  , t.data_hora'
+      '  , t.empresa'
+      '  , t.tipo'
+      '  , t.descricao'
+      '  , t.especificacao'
+      'from TBLOG_TRANSACAO t'
+      'where 1=0')
+    Left = 424
+    Top = 304
+    object cdsLOGUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 50
+    end
+    object cdsLOGDATA_HORA: TSQLTimeStampField
+      FieldName = 'DATA_HORA'
+      Origin = 'DATA_HORA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsLOGEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Size = 18
+    end
+    object cdsLOGTIPO: TSmallintField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+    end
+    object cdsLOGDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Size = 100
+    end
+    object cdsLOGESPECIFICACAO: TMemoField
+      FieldName = 'ESPECIFICACAO'
+      Origin = 'ESPECIFICACAO'
+      BlobType = ftMemo
+    end
+  end
+  object updLOG: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBLOG_TRANSACAO'
+      '(USUARIO, DATA_HORA, EMPRESA, TIPO, DESCRICAO, '
+      '  ESPECIFICACAO)'
+      
+        'VALUES (:NEW_USUARIO, :NEW_DATA_HORA, :NEW_EMPRESA, :NEW_TIPO, :' +
+        'NEW_DESCRICAO, '
+      '  :NEW_ESPECIFICACAO)')
+    ModifySQL.Strings = (
+      'UPDATE TBLOG_TRANSACAO'
+      
+        'SET USUARIO = :NEW_USUARIO, DATA_HORA = :NEW_DATA_HORA, EMPRESA ' +
+        '= :NEW_EMPRESA, '
+      
+        '  TIPO = :NEW_TIPO, DESCRICAO = :NEW_DESCRICAO, ESPECIFICACAO = ' +
+        ':NEW_ESPECIFICACAO'
+      'WHERE USUARIO = :OLD_USUARIO AND DATA_HORA = :OLD_DATA_HORA')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBLOG_TRANSACAO'
+      'WHERE USUARIO = :OLD_USUARIO AND DATA_HORA = :OLD_DATA_HORA')
+    FetchRowSQL.Strings = (
+      
+        'SELECT USUARIO, DATA_HORA, EMPRESA, TIPO, DESCRICAO, ESPECIFICAC' +
+        'AO'
+      'FROM TBLOG_TRANSACAO'
+      'WHERE USUARIO = :USUARIO AND DATA_HORA = :DATA_HORA')
+    Left = 456
+    Top = 304
   end
 end

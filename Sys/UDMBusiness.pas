@@ -1081,6 +1081,7 @@ begin
     SQL.Clear;
     SQL.Add( Trim(sScriptSQL) );
     ExecSQL;
+    CommitUpdates;
 
     CommitTransaction;
   end;

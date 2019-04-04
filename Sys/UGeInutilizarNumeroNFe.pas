@@ -5,15 +5,15 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, Mask, DBCtrls, DB,
-  IBCustomDataSet, IBUpdateSQL, IBQuery, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeInutilizarNumeroNFe = class(TfrmGrPadrao)
@@ -38,49 +38,65 @@ type
     dbDataHora: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    cdsLOG: TIBDataSet;
-    updLOG: TIBUpdateSQL;
-    qryEmpresa: TIBQuery;
     dtsEmpresa: TDataSource;
-    qryEmpresaCNPJ: TIBStringField;
-    qryEmpresaRZSOC: TIBStringField;
-    qryEmpresaSERIE_NFE: TSmallintField;
-    qryEmpresaNUMERO_NFE: TIntegerField;
-    qryEmpresaLOTE_ANO_NFE: TSmallintField;
-    qryEmpresaLOTE_NUM_NFE: TIntegerField;
     lblAno: TLabel;
     edAno: TEdit;
-    qryEmpresaMODELO_NFE: TIntegerField;
     lblModelo: TLabel;
     dbModelo: TDBEdit;
     lblNumeroInicial: TLabel;
     edNumeroInicial: TEdit;
     lblNumeroFinal: TLabel;
     edNumeroFinal: TEdit;
-    qryNFeEmitida: TIBQuery;
-    cdsLOGUSUARIO: TIBStringField;
-    cdsLOGDATA_HORA: TDateTimeField;
-    cdsLOGTIPO: TSmallintField;
-    cdsLOGDESCRICAO: TIBStringField;
-    cdsLOGESPECIFICACAO: TMemoField;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
+    qryEmpresa: TFDQuery;
+    qryEmpresaCNPJ: TStringField;
+    qryEmpresaRZSOC: TStringField;
+    qryEmpresaSERIE_NFE: TSmallintField;
+    qryEmpresaNUMERO_NFE: TIntegerField;
+    qryEmpresaLOTE_ANO_NFE: TSmallintField;
+    qryEmpresaLOTE_NUM_NFE: TIntegerField;
+    qryEmpresaMODELO_NFE: TIntegerField;
+    qryNFeEmitida: TFDQuery;
+    cdsLOG: TFDQuery;
+    cdsLOGUSUARIO: TStringField;
+    cdsLOGDATA_HORA: TSQLTimeStampField;
+    cdsLOGEMPRESA: TStringField;
+    cdsLOGTIPO: TSmallintField;
+    cdsLOGDESCRICAO: TStringField;
+    cdsLOGESPECIFICACAO: TMemoField;
+    updLOG: TFDUpdateSQL;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure btnConfirmarClick(Sender: TObject);
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
-    procedure qryEmpresaMODELO_NFEGetText(Sender: TField; var Text: String;
+    procedure qryEmpresaXXXXMODELO_NFEGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
+    procedure qryEmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     procedure Auditar;
+    procedure AtualizarContadorNota;
+
     function IntervaloValido(iSerie, iInicio, iFinal : Integer; var sRetorno : String) : Boolean;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBCONFIGURACAO
+  - TBVENDAS
+  - TBCOMPRAS
+  - TBLOG_TRANSACAO
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe;
@@ -90,6 +106,34 @@ implementation
 uses UDMBusiness, UDMNFe, UConstantesDGE, UDMRecursos;
 
 {$R *.dfm}
+
+procedure TfrmGeInutilizarNumeroNFe.AtualizarContadorNota;
+var
+  aScriptSQL       : TStringList;
+  aNUmeroNFEEmitida,
+  aNovoNUmeroNFE   : Currency;
+begin
+  aScriptSQL        := TStringList.Create;
+  aNUmeroNFEEmitida := qryEmpresa.FieldByName('NUMERO_NFE').AsCurrency;
+  aNovoNUmeroNFE    := StrToCurrDef(Trim(edNumeroFinal.Text), 0) + 1;
+
+  try
+    if (aNUmeroNFEEmitida < aNovoNUmeroNFE) then
+    begin
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Update TBCONFIGURACAO Set ');
+      aScriptSQL.Add('    nfe_numero = ' + CurrToStr(aNovoNUmeroNFE));
+      aScriptSQL.Add('  , nfe_lote   = ' + CurrToStr(aNovoNUmeroNFE));
+      aScriptSQL.Add('where empresa  = ' + QuotedStr(qryEmpresa.FieldByName('CNPJ').AsString));
+      aScriptSQL.EndUpdate;
+
+      ExecuteScriptSQL(aScriptSQL.Text);
+    end;
+  finally
+    aScriptSQL.Free;
+  end;
+end;
 
 procedure TfrmGeInutilizarNumeroNFe.Auditar;
 begin
@@ -115,19 +159,6 @@ begin
 
   Auditar;
   edAno.Text := FormatDateTime('yyyy', Date);
-end;
-
-procedure TfrmGeInutilizarNumeroNFe.qryEmpresaCNPJGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  if StrIsCNPJ(Sender.AsString) then
-    Text := StrFormatarCnpj(Sender.AsString)
-  else
-  if StrIsCPF(Sender.AsString) then
-    Text := StrFormatarCpf(Sender.AsString);
 end;
 
 procedure TfrmGeInutilizarNumeroNFe.btnConfirmarClick(Sender: TObject);
@@ -182,6 +213,7 @@ begin
         Open;
         Append;
 
+        cdsLOGEMPRESA.AsString       := gUsuarioLogado.Empresa;
         cdsLOGUSUARIO.AsString       := dbUsuario.Text;
         cdsLOGDATA_HORA.AsDateTime   := Now;
         cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
@@ -190,7 +222,13 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
+
+        AtualizarContadorNota;
+
+        ShowInformation('Informação', 'Inutilização do(s) número(s) informado(s) realizada com sucesso!');
 
         ModalResult := mrOk;
       end;
@@ -210,7 +248,20 @@ begin
   end;
 end;
 
-procedure TfrmGeInutilizarNumeroNFe.qryEmpresaMODELO_NFEGetText(
+procedure TfrmGeInutilizarNumeroNFe.qryEmpresaCNPJGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  if StrIsCNPJ(Sender.AsString) then
+    Text := StrFormatarCnpj(Sender.AsString)
+  else
+  if StrIsCPF(Sender.AsString) then
+    Text := StrFormatarCpf(Sender.AsString);
+end;
+
+procedure TfrmGeInutilizarNumeroNFe.qryEmpresaXXXXMODELO_NFEGetText(
   Sender: TField; var Text: String; DisplayText: Boolean);
 begin
   if ( Sender.IsNull ) then

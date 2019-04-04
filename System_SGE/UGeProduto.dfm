@@ -283,6 +283,8 @@ inherited frmGeProduto: TfrmGeProduto
             TabStop = False
             Caption = '&0 - Apenas produtos com estoque'
             Checked = True
+            Ctl3D = True
+            ParentCtl3D = False
             State = cbChecked
             TabOrder = 0
             OnClick = chkProdutoComEstoqueClick
@@ -810,7 +812,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = tbsValores
+        ActivePage = TbsEspecificacao
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -3406,7 +3408,7 @@ inherited frmGeProduto: TfrmGeProduto
     Left = 840
     Top = 296
     Bitmap = {
-      494C01012B002C001C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5004,7 +5006,6 @@ inherited frmGeProduto: TfrmGeProduto
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere]
-      Required = True
       IdentityInsert = True
     end
     object fdQryTabelaCOD: TStringField
@@ -5026,7 +5027,6 @@ inherited frmGeProduto: TfrmGeProduto
       DisplayLabel = 'Apresenta'#231#227'o'
       FieldName = 'APRESENTACAO'
       Origin = 'APRESENTACAO'
-      Required = True
       Size = 50
     end
     object fdQryTabelaDESCRI_APRESENTACAO: TStringField
@@ -5640,7 +5640,7 @@ inherited frmGeProduto: TfrmGeProduto
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
       'INSERT INTO TBPRODUTO'
-      '(CODIGO, COD, APRESENTACAO, DESCRI_APRESENTACAO, '
+      '(CODIGO, COD, DESCRI, APRESENTACAO, DESCRI_APRESENTACAO, '
       '  METAFONEMA, MODELO, ANVISA, REFERENCIA, '
       '  NOME_AMIGO, ESPECIFICACAO, SECAO, QTDE, '
       '  FRACIONADOR, PESO_BRUTO, PESO_LIQUIDO, LARGURA, '
@@ -5663,8 +5663,8 @@ inherited frmGeProduto: TfrmGeProduto
       '  CUSTOMEDIO, ULTIMA_COMPRA_DATA, ULTIMA_COMPRA_VALOR, '
       '  ULTIMA_COMPRA_FORNEC, GERAR_SUBPRODUTO, PRODUTO_PAI)'
       
-        'VALUES (:NEW_CODIGO, :NEW_COD, :NEW_APRESENTACAO, :NEW_DESCRI_AP' +
-        'RESENTACAO, '
+        'VALUES (:NEW_CODIGO, :NEW_COD, :NEW_DESCRI, :NEW_APRESENTACAO, :' +
+        'NEW_DESCRI_APRESENTACAO, '
       '  :NEW_METAFONEMA, :NEW_MODELO, :NEW_ANVISA, :NEW_REFERENCIA, '
       '  :NEW_NOME_AMIGO, :NEW_ESPECIFICACAO, :NEW_SECAO, :NEW_QTDE, '
       
@@ -5713,47 +5713,47 @@ inherited frmGeProduto: TfrmGeProduto
         '  :NEW_ULTIMA_COMPRA_FORNEC, :NEW_GERAR_SUBPRODUTO, :NEW_PRODUTO' +
         '_PAI)'
       
-        'RETURNING CODIGO, DESCRI, SITUACAO_ATUAL_VEICULO, SITUACAO_HISTO' +
-        'RICO_VEICULO, USUARIO, CADASTRO_ATIVO')
+        'RETURNING CODIGO, DESCRI, QTDE, USUARIO, ULTIMA_COMPRA_DATA, ULT' +
+        'IMA_COMPRA_VALOR, ULTIMA_COMPRA_FORNEC')
     ModifySQL.Strings = (
       'UPDATE TBPRODUTO'
+      'SET CODIGO = :NEW_CODIGO, COD = :NEW_COD, DESCRI = :NEW_DESCRI, '
       
-        'SET CODIGO = :NEW_CODIGO, COD = :NEW_COD, APRESENTACAO = :NEW_AP' +
-        'RESENTACAO, '
+        '  APRESENTACAO = :NEW_APRESENTACAO, DESCRI_APRESENTACAO = :NEW_D' +
+        'ESCRI_APRESENTACAO, '
       
-        '  DESCRI_APRESENTACAO = :NEW_DESCRI_APRESENTACAO, METAFONEMA = :' +
-        'NEW_METAFONEMA, '
+        '  METAFONEMA = :NEW_METAFONEMA, MODELO = :NEW_MODELO, ANVISA = :' +
+        'NEW_ANVISA, '
+      '  REFERENCIA = :NEW_REFERENCIA, NOME_AMIGO = :NEW_NOME_AMIGO, '
+      '  ESPECIFICACAO = :NEW_ESPECIFICACAO, SECAO = :NEW_SECAO, '
       
-        '  MODELO = :NEW_MODELO, ANVISA = :NEW_ANVISA, REFERENCIA = :NEW_' +
-        'REFERENCIA, '
+        '  QTDE = :NEW_QTDE, FRACIONADOR = :NEW_FRACIONADOR, PESO_BRUTO =' +
+        ' :NEW_PESO_BRUTO, '
+      '  PESO_LIQUIDO = :NEW_PESO_LIQUIDO, LARGURA = :NEW_LARGURA, '
       
-        '  NOME_AMIGO = :NEW_NOME_AMIGO, ESPECIFICACAO = :NEW_ESPECIFICAC' +
-        'AO, '
+        '  ALTURA = :NEW_ALTURA, ESPESSURA = :NEW_ESPESSURA, CUBAGEM = :N' +
+        'EW_CUBAGEM, '
       
-        '  SECAO = :NEW_SECAO, QTDE = :NEW_QTDE, FRACIONADOR = :NEW_FRACI' +
-        'ONADOR, '
+        '  VENDA_FRACIONADA = :NEW_VENDA_FRACIONADA, UNIDADE = :NEW_UNIDA' +
+        'DE, '
       
-        '  PESO_BRUTO = :NEW_PESO_BRUTO, PESO_LIQUIDO = :NEW_PESO_LIQUIDO' +
-        ', '
+        '  ESTOQMIN = :NEW_ESTOQMIN, CODTIPO = :NEW_CODTIPO, CODGRUPO = :' +
+        'NEW_CODGRUPO, '
       
-        '  LARGURA = :NEW_LARGURA, ALTURA = :NEW_ALTURA, ESPESSURA = :NEW' +
-        '_ESPESSURA, '
+        '  CODFABRICANTE = :NEW_CODFABRICANTE, PERCENTUAL_MARCKUP = :NEW_' +
+        'PERCENTUAL_MARCKUP, '
       
-        '  CUBAGEM = :NEW_CUBAGEM, VENDA_FRACIONADA = :NEW_VENDA_FRACIONA' +
-        'DA, '
+        '  PERCENTUAL_MARGEM = :NEW_PERCENTUAL_MARGEM, PRECO_SUGERIDO = :' +
+        'NEW_PRECO_SUGERIDO, '
       
-        '  UNIDADE = :NEW_UNIDADE, ESTOQMIN = :NEW_ESTOQMIN, CODTIPO = :N' +
-        'EW_CODTIPO, '
-      '  CODGRUPO = :NEW_CODGRUPO, CODFABRICANTE = :NEW_CODFABRICANTE, '
+        '  CODEMP = :NEW_CODEMP, CODSECAO = :NEW_CODSECAO, CODORIGEM = :N' +
+        'EW_CODORIGEM, '
       
-        '  PERCENTUAL_MARCKUP = :NEW_PERCENTUAL_MARCKUP, PERCENTUAL_MARGE' +
-        'M = :NEW_PERCENTUAL_MARGEM, '
-      '  PRECO_SUGERIDO = :NEW_PRECO_SUGERIDO, CODEMP = :NEW_CODEMP, '
+        '  CODTRIBUTACAO = :NEW_CODTRIBUTACAO, CST = :NEW_CST, CSOSN = :N' +
+        'EW_CSOSN, '
       
-        '  CODSECAO = :NEW_CODSECAO, CODORIGEM = :NEW_CODORIGEM, CODTRIBU' +
-        'TACAO = :NEW_CODTRIBUTACAO, '
-      '  CST = :NEW_CST, CSOSN = :NEW_CSOSN, CST_PIS = :NEW_CST_PIS, '
-      '  CST_COFINS = :NEW_CST_COFINS, TABELA_IBPT = :NEW_TABELA_IBPT, '
+        '  CST_PIS = :NEW_CST_PIS, CST_COFINS = :NEW_CST_COFINS, TABELA_I' +
+        'BPT = :NEW_TABELA_IBPT, '
       
         '  NCM_SH = :NEW_NCM_SH, CODIGO_NVE = :NEW_CODIGO_NVE, CODCFOP = ' +
         ':NEW_CODCFOP, '
@@ -5807,8 +5807,8 @@ inherited frmGeProduto: TfrmGeProduto
         'RODUTO_PAI'
       'WHERE COD = :OLD_COD'
       
-        'RETURNING CODIGO, DESCRI, SITUACAO_ATUAL_VEICULO, SITUACAO_HISTO' +
-        'RICO_VEICULO, USUARIO, CADASTRO_ATIVO')
+        'RETURNING CODIGO, DESCRI, QTDE, USUARIO, ULTIMA_COMPRA_DATA, ULT' +
+        'IMA_COMPRA_VALOR, ULTIMA_COMPRA_FORNEC')
     DeleteSQL.Strings = (
       'DELETE FROM TBPRODUTO'
       'WHERE COD = :OLD_COD')
