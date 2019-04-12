@@ -1386,6 +1386,7 @@ begin
   tbsCustoVeiculo.TabVisible     := (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID);
 
   ConfigurarLabels;
+  CentralizarCodigo;
 
   with DtSrcTabela.DataSet do
   begin

@@ -3,22 +3,22 @@ unit UGeEntradaEstoqueCancelar;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, ExtCtrls, StdCtrls,
-  Mask, DBCtrls, Buttons, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Dialogs, DB, ExtCtrls, StdCtrls, Mask, DBCtrls, Buttons, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeEntradaEstoqueCancelar = class(TfrmGrPadrao)
-    cdsEntrada: TIBDataSet;
-    updEntrada: TIBUpdateSQL;
     dtsEntrada: TDataSource;
     GrpBxControle: TGroupBox;
     lblCodigo: TLabel;
@@ -40,30 +40,38 @@ type
     dbMotivo: TMemo;
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
+    lblTotalNota: TLabel;
+    dbTotalNota: TDBEdit;
+    lblInforme: TLabel;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
+    cdsEntrada: TFDQuery;
+    updEntrada: TFDUpdateSQL;
     cdsEntradaANO: TSmallintField;
     cdsEntradaCODCONTROL: TIntegerField;
-    cdsEntradaCODEMP: TIBStringField;
+    cdsEntradaCODEMP: TStringField;
     cdsEntradaCODFORN: TIntegerField;
     cdsEntradaNF: TIntegerField;
-    cdsEntradaDTLANCAMENTO: TDateTimeField;
+    cdsEntradaNFSERIE: TStringField;
+    cdsEntradaDTLANCAMENTO: TSQLTimeStampField;
     cdsEntradaDTEMISS: TDateField;
     cdsEntradaDTENT: TDateField;
-    cdsEntradaDTFINALIZACAO_COMPRA: TDateTimeField;
+    cdsEntradaDTFINALIZACAO_COMPRA: TSQLTimeStampField;
     cdsEntradaNFCFOP: TIntegerField;
-    cdsEntradaNATUREZA: TIBStringField;
+    cdsEntradaNATUREZA: TStringField;
     cdsEntradaSTATUS: TSmallintField;
-    cdsEntradaIPI: TIBBCDField;
-    cdsEntradaICMSBASE: TIBBCDField;
-    cdsEntradaICMSVALOR: TIBBCDField;
-    cdsEntradaICMSSUBSTBASE: TIBBCDField;
-    cdsEntradaICMSSUBSTVALOR: TIBBCDField;
-    cdsEntradaFRETE: TIBBCDField;
-    cdsEntradaOUTROSCUSTOS: TIBBCDField;
-    cdsEntradaDESCONTO: TIBBCDField;
-    cdsEntradaTOTALNF: TIBBCDField;
-    cdsEntradaTOTALPROD: TIBBCDField;
+    cdsEntradaIPI: TBCDField;
+    cdsEntradaICMSBASE: TBCDField;
+    cdsEntradaICMSVALOR: TBCDField;
+    cdsEntradaICMSSUBSTBASE: TBCDField;
+    cdsEntradaICMSSUBSTVALOR: TBCDField;
+    cdsEntradaFRETE: TBCDField;
+    cdsEntradaOUTROSCUSTOS: TBCDField;
+    cdsEntradaDESCONTO: TBCDField;
+    cdsEntradaTOTALNF: TBCDField;
+    cdsEntradaTOTALPROD: TBCDField;
     cdsEntradaOBS: TMemoField;
-    cdsEntradaUSUARIO: TIBStringField;
+    cdsEntradaUSUARIO: TStringField;
     cdsEntradaFORMAPAGTO_COD: TSmallintField;
     cdsEntradaCONDICAOPAGTO_COD: TSmallintField;
     cdsEntradaCOMPRA_PRAZO: TSmallintField;
@@ -79,17 +87,11 @@ type
     cdsEntradaPRAZO_10: TSmallintField;
     cdsEntradaPRAZO_11: TSmallintField;
     cdsEntradaPRAZO_12: TSmallintField;
-    cdsEntradaCANCEL_USUARIO: TIBStringField;
-    cdsEntradaCANCEL_DATAHORA: TDateTimeField;
+    cdsEntradaCANCEL_USUARIO: TStringField;
+    cdsEntradaCANCEL_DATAHORA: TSQLTimeStampField;
     cdsEntradaCANCEL_MOTIVO: TMemoField;
-    cdsEntradaNOMEFORN: TIBStringField;
-    cdsEntradaCNPJ: TIBStringField;
-    lblTotalNota: TLabel;
-    dbTotalNota: TDBEdit;
-    lblInforme: TLabel;
-    cdsEntradaNFSERIE: TIBStringField;
-    btnCancelar: TcxButton;
-    btFechar: TcxButton;
+    cdsEntradaNOMEFORN: TStringField;
+    cdsEntradaCNPJ: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -99,9 +101,20 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
-var
-  frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar;
+(*
+  Tabelas:
+  - TBCOMPRAS
+  - TBFORNECEDOR
 
+  Views:
+
+  Procedures:
+
+*)
+
+//var
+//  frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar;
+//
   function CancelarENT(const AOwer : TComponent; Ano : Smallint; Numero : Integer) : Boolean;
 
 implementation
@@ -119,7 +132,7 @@ begin
     with frm do
     begin
       cdsEntrada.Close;
-      cdsEntrada.ParamByName('anocompra').AsShort   := Ano;
+      cdsEntrada.ParamByName('anocompra').AsInteger := Ano;
       cdsEntrada.ParamByName('numcompra').AsInteger := Numero;
       cdsEntrada.Open;
 
@@ -196,13 +209,15 @@ begin
       begin
         Edit;
 
-        cdsEntradaSTATUS.Value          := STATUS_CMP_CAN;
-        cdsEntradaCANCEL_DATAHORA.Value := StrToDateTime( Trim(dbCancelDataHora.Text) );
-        cdsEntradaCANCEL_USUARIO.Value  := UpperCase( Trim(dbCancelUsuario.Text) );
-        cdsEntradaCANCEL_MOTIVO.Value   := UpperCase( Trim(dbMotivo.Lines.Text) );
+        cdsEntradaSTATUS.AsInteger           := STATUS_CMP_CAN;
+        cdsEntradaCANCEL_DATAHORA.AsDateTime := StrToDateTime( Trim(dbCancelDataHora.Text) );
+        cdsEntradaCANCEL_USUARIO.AsString    := UpperCase( Trim(dbCancelUsuario.Text) );
+        cdsEntradaCANCEL_MOTIVO.AsString     := UpperCase( Trim(dbMotivo.Lines.Text) );
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;

@@ -6046,6 +6046,7 @@ function TDMNFe.EmissaoNFE_Pendente(const pEmpresa : String; const pAlertar : Bo
 var
   aRetorno : Boolean;
 begin
+  // Impedir que outra NF-e seja gerada enquanto houver um pedido de emissão anterior pendente
   aRetorno := False;
   try
     with fdQryEmissaoNFePendente do

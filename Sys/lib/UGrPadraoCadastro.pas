@@ -249,7 +249,10 @@ begin
     with fdQryTabela.UpdateOptions do
     begin
       if (GeneratorName <> EmptyStr) and (KeyFields <> EmptyStr) then
-        fdQryTabela.FieldByName(KeyFields).Required := False;
+        if (Pos(';', KeyFields) = 0) then
+          fdQryTabela.FieldByName(KeyFields).Required := False
+        else
+          ;
     end;
   end;
 end;
@@ -1065,8 +1068,8 @@ begin
   end
   else
   begin
-    if ( (CampoCodigo = EmptyStr) and (Trim(fdQryTabela.UpdateOptions.KeyFields) <> EmptyStr) ) then
-      CampoCodigo := fdQryTabela.UpdateOptions.KeyFields;
+    if ( (CampoCodigo = EmptyStr) and (Trim(fdQryTabela.UpdateOptions.AutoIncFields) <> EmptyStr) ) then
+      CampoCodigo := fdQryTabela.UpdateOptions.AutoIncFields;
 
     sGenerator := Trim(fdQryTabela.UpdateOptions.GeneratorName);
 

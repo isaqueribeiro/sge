@@ -15,7 +15,8 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeEstoqueAjusteManual = class(TfrmGrPadrao)
@@ -27,9 +28,6 @@ type
     Bevel1: TBevel;
     GrpBxDadosAjuste: TGroupBox;
     Bevel2: TBevel;
-    qryAjuste: TIBDataSet;
-    updAjuste: TIBUpdateSQL;
-    qryProduto: TIBDataSet;
     lblProduto: TLabel;
     lblProdutoDesc: TLabel;
     dbProdutoDesc: TDBEdit;
@@ -46,38 +44,15 @@ type
     dbDataAjuste: TDBEdit;
     lblUsuario: TLabel;
     dbUsuario: TDBEdit;
-    qryAjusteCONTROLE: TIntegerField;
-    qryAjusteCODPROD: TIBStringField;
-    qryAjusteCODEMPRESA: TIBStringField;
-    qryAjusteCODFORN: TIntegerField;
-    qryAjusteDOC: TIBStringField;
-    qryAjusteMOTIVO: TIBStringField;
-    qryAjusteDTAJUST: TDateTimeField;
-    qryAjusteUSUARIO: TIBStringField;
     dtsAjuste: TDataSource;
     dtsEmpresa: TDataSource;
     dtsProduto: TDataSource;
-    qryProdutoCOD: TIBStringField;
-    qryProdutoDESCRI: TIBStringField;
-    qryProdutoAPRESENTACAO: TIBStringField;
-    qryProdutoDESCRI_APRESENTACAO: TIBStringField;
-    qryProdutoUNP_SIGLA: TIBStringField;
-    qryAjusteNOMEFORN: TIBStringField;
-    qryAjusteQTDEATUAL: TIBBCDField;
-    qryAjusteQTDENOVA: TIBBCDField;
-    qryAjusteQTDEFINAL: TIBBCDField;
-    qryProdutoQTDE: TIBBCDField;
     btnNovoAjuste: TcxButton;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
-    qryProdutoMOVIMENTA_ESTOQUE: TSmallintField;
     dbProduto: TJvDBComboEdit;
     dbFornecedor: TJvDBComboEdit;
     fdQryEmpresa: TFDQuery;
-    qryAjusteLOTE_ID: TIBStringField;
-    qryAjusteLOTE_DESCRICAO: TIBStringField;
-    qryAjusteLOTE_DATA_FAB: TDateField;
-    qryAjusteLOTE_DATA_VAL: TDateField;
     fdQryLotes: TFDQuery;
     dtsLotes: TDataSource;
     Bevel3: TBevel;
@@ -91,11 +66,28 @@ type
     lblDataFabricacao: TLabel;
     dbDataValidade: TJvDBDateEdit;
     lblDataValidade: TLabel;
-    qryProdutoESTOQUE_APROP_LOTE: TSmallintField;
     fdSetLoteProduto: TFDStoredProc;
-    qryAjusteFRACIONADOR: TIBBCDField;
-    qryProdutoFRACIONADOR: TIBBCDField;
+    qryProduto: TFDQuery;
+    qryAjuste: TFDQuery;
+    updAjuste: TFDUpdateSQL;
+    qryAjusteCONTROLE: TIntegerField;
+    qryAjusteCODPROD: TStringField;
+    qryAjusteCODEMPRESA: TStringField;
+    qryAjusteCODFORN: TIntegerField;
     qryAjusteSISTEMA: TSmallintField;
+    qryAjusteDOC: TStringField;
+    qryAjusteQTDEATUAL: TBCDField;
+    qryAjusteQTDENOVA: TBCDField;
+    qryAjusteQTDEFINAL: TBCDField;
+    qryAjusteFRACIONADOR: TBCDField;
+    qryAjusteMOTIVO: TStringField;
+    qryAjusteDTAJUST: TSQLTimeStampField;
+    qryAjusteUSUARIO: TStringField;
+    qryAjusteLOTE_ID: TStringField;
+    qryAjusteLOTE_DESCRICAO: TStringField;
+    qryAjusteLOTE_DATA_FAB: TDateField;
+    qryAjusteLOTE_DATA_VAL: TDateField;
+    qryAjusteNOMEFORN: TStringField;
     procedure ControlEditExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
@@ -103,7 +95,6 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dtsAjusteStateChange(Sender: TObject);
-    procedure qryAjusteNewRecord(DataSet: TDataSet);
     procedure btnNovoAjusteClick(Sender: TObject);
     procedure qryProdutoQTDEGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -111,6 +102,7 @@ type
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbProdutoButtonClick(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
+    procedure qryAjusteNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     FSQLProduto : TStringList;
@@ -162,7 +154,30 @@ begin
   qryAjuste.Open;
 
   FSQLProduto := TStringList.Create;
-  FSQLProduto.AddStrings( qryProduto.SelectSQL );
+  FSQLProduto.AddStrings( qryProduto.SQL );
+end;
+
+procedure TfrmGeEstoqueAjusteManual.qryAjusteNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  qryAjusteCODEMPRESA.Assign( fdQryEmpresa.FieldByName('CNPJ') );
+  qryAjusteSISTEMA.AsInteger      := gSistema.Codigo;
+  qryAjusteDTAJUST.AsDateTime     := GetDateTimeDB;
+  qryAjusteUSUARIO.AsString       := gUsuarioLogado.Login;
+  qryAjusteFRACIONADOR.AsCurrency := 1;
+
+  qryAjusteLOTE_ID.Clear;
+  qryAjusteLOTE_DESCRICAO.Clear;
+  qryAjusteLOTE_DATA_FAB.Clear;
+  qryAjusteLOTE_DATA_VAL.Clear;
+  qryAjusteCODPROD.Clear;
+  qryAjusteCODFORN.Clear;
+  qryAjusteQTDEATUAL.Clear;
+  qryAjusteQTDENOVA.Clear;
+  qryAjusteQTDEFINAL.Clear;
+  qryAjusteMOTIVO.Clear;
+
+  dbProduto.SetFocus;
 end;
 
 procedure TfrmGeEstoqueAjusteManual.qryEmpresaCNPJGetText(Sender: TField;
@@ -191,28 +206,6 @@ begin
   btnCancelar.Enabled   := ( qryAjuste.State in [dsEdit, dsInsert] );
 end;
 
-procedure TfrmGeEstoqueAjusteManual.qryAjusteNewRecord(DataSet: TDataSet);
-begin
-  qryAjusteCODEMPRESA.Assign( fdQryEmpresa.FieldByName('CNPJ') );
-  qryAjusteSISTEMA.AsInteger      := gSistema.Codigo;
-  qryAjusteDTAJUST.AsDateTime     := GetDateTimeDB;
-  qryAjusteUSUARIO.AsString       := gUsuarioLogado.Login;
-  qryAjusteFRACIONADOR.AsCurrency := 1;
-
-  qryAjusteLOTE_ID.Clear;
-  qryAjusteLOTE_DESCRICAO.Clear;
-  qryAjusteLOTE_DATA_FAB.Clear;
-  qryAjusteLOTE_DATA_VAL.Clear;
-  qryAjusteCODPROD.Clear;
-  qryAjusteCODFORN.Clear;
-  qryAjusteQTDEATUAL.Clear;
-  qryAjusteQTDENOVA.Clear;
-  qryAjusteQTDEFINAL.Clear;
-  qryAjusteMOTIVO.Clear;
-
-  dbProduto.SetFocus;
-end;
-
 procedure TfrmGeEstoqueAjusteManual.btnNovoAjusteClick(Sender: TObject);
 begin
   qryAjuste.Append;
@@ -230,7 +223,7 @@ begin
   sCodigo := FormatFloat('0000000', StrToInt(Codigo));
   sUnico  := IfThen(GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa), '1', '0');
 
-  with qryProduto, SelectSQL do
+  with qryProduto, SQL do
   begin
     Close;
 
@@ -243,12 +236,12 @@ begin
 
     if (not IsEmpty) and (qryAjuste.State in [dsEdit, dsInsert]) then
     begin
-      qryAjusteCODPROD.AsString       := qryProdutoCOD.AsString;
-      qryAjusteQTDEATUAL.AsCurrency   := qryProdutoQTDE.AsCurrency;
-      qryAjusteFRACIONADOR.AsCurrency := qryProdutoFRACIONADOR.AsCurrency;
+      qryAjusteCODPROD.AsString       := qryProduto.FieldByName('COD').AsString;
+      qryAjusteQTDEATUAL.AsCurrency   := qryProduto.FieldByName('QTDE').AsCurrency;
+      qryAjusteFRACIONADOR.AsCurrency := qryProduto.FieldByName('FRACIONADOR').AsCurrency;
     end;
 
-    pnlLote.Visible := (qryProdutoESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
+    pnlLote.Visible := (qryProduto.FieldByName('ESTOQUE_APROP_LOTE').AsInteger = FLAG_SIM);
   end;
 end;
 
@@ -333,7 +326,7 @@ begin
   if Sender.IsNull then
     Exit;
 
-  Text := FormatFloat(',0.###', Sender.AsCurrency) + ' ' + AnsiUpperCase(qryProdutoUNP_SIGLA.AsString);
+  Text := FormatFloat(',0.###', Sender.AsCurrency) + ' ' + AnsiUpperCase(qryProduto.FieldByName('UNP_SIGLA').AsString);
 end;
 
 procedure TfrmGeEstoqueAjusteManual.btnCancelarClick(Sender: TObject);
@@ -361,7 +354,7 @@ begin
     if ( pnlLote.Visible and (Trim(dbDescricao.Text) = EmptyStr) ) then
       ShowWarning('Favor informar o Lote, Data de Fabricação e/ou Data de Validade.')
     else
-    if ( qryProdutoMOVIMENTA_ESTOQUE.AsInteger = 0 ) then
+    if ( qryProduto.FieldByName('MOVIMENTA_ESTOQUE').AsInteger = 0 ) then
       ShowWarning('Ajuste manual de estoque não permitido!' + #13 + 'Produto selecionado está marcado para NÃO MOVIMENTAR ESTOQUE.')
     else
     if ShowConfirmation('Confirma o lançamento do novo estoque para o produto?') then
@@ -377,6 +370,8 @@ begin
       begin
         // Disparar trigger TG_AJUST_ESTOQUE_HISTORICO para atualizar estoque e gerar histórico
         qryAjuste.ApplyUpdates;
+        qryAjuste.CommitUpdates;
+
         CommitTransaction;
       end;
     end;
@@ -455,6 +450,8 @@ begin
     end;
   finally
     qryAjuste.ApplyUpdates();
+    qryAjuste.CommitUpdates;
+
     CommitTransaction;
   end;
 end;

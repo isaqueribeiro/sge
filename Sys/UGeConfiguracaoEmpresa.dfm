@@ -43,14 +43,14 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           item
             Expanded = False
             FieldName = 'EMPRESA'
-            Title.Caption = 'CNPJ'
+            Title.Caption = 'CNPJ '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'RZSOC'
-            Title.Caption = 'Raz'#227'o Social'
+            Title.Caption = 'Raz'#227'o Social '
             Width = 400
             Visible = True
           end
@@ -58,7 +58,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Expanded = False
             FieldName = 'NFE_EMITIR'
             Title.Alignment = taCenter
-            Title.Caption = 'NFe'
+            Title.Caption = 'NFe '
             Width = 35
             Visible = True
           end
@@ -66,7 +66,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Expanded = False
             FieldName = 'NFCE_EMITIR'
             Title.Alignment = taCenter
-            Title.Caption = 'NFCe'
+            Title.Caption = 'NFCe '
             Width = 35
             Visible = True
           end
@@ -74,7 +74,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Expanded = False
             FieldName = 'NFSE_EMITIR'
             Title.Alignment = taCenter
-            Title.Caption = 'NFSe'
+            Title.Caption = 'NFSe '
             Width = 35
             Visible = True
           end>
@@ -110,8 +110,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 743
       ExplicitHeight = 434
       inherited Bevel8: TBevel
@@ -170,7 +168,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 349
-        ActivePage = tbsContaEmail
+        ActivePage = TbsNFe
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -1194,7 +1192,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    c.empresa'
@@ -1247,295 +1244,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
       '')
     Left = 376
-    Top = 0
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBCONFIGURACAO"."EMPRESA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      OnGetText = IbDtstTabelaEMPRESAGetText
-      Size = 18
-    end
-    object IbDtstTabelaEMAIL_CONTA: TIBStringField
-      DisplayLabel = 'Conta de E-mail'
-      FieldName = 'EMAIL_CONTA'
-      Origin = '"TBCONFIGURACAO"."EMAIL_CONTA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaEMAIL_SENHA: TIBStringField
-      DisplayLabel = 'Senha da Conta de e-mail'
-      FieldName = 'EMAIL_SENHA'
-      Origin = '"TBCONFIGURACAO"."EMAIL_SENHA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaEMAIL_POP: TIBStringField
-      DisplayLabel = 'Servidor POP'
-      FieldName = 'EMAIL_POP'
-      Origin = '"TBCONFIGURACAO"."EMAIL_POP"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaEMAIL_SMTP: TIBStringField
-      DisplayLabel = 'Servidor SMTP'
-      FieldName = 'EMAIL_SMTP'
-      Origin = '"TBCONFIGURACAO"."EMAIL_SMTP"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaEMAIL_SMTP_PORTA: TIntegerField
-      DisplayLabel = 'Porta'
-      FieldName = 'EMAIL_SMTP_PORTA'
-      Origin = '"TBCONFIGURACAO"."EMAIL_SMTP_PORTA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaEMAIL_REQUER_AUTENTICACAO: TSmallintField
-      FieldName = 'EMAIL_REQUER_AUTENTICACAO'
-      Origin = '"TBCONFIGURACAO"."EMAIL_REQUER_AUTENTICACAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaEMAIL_CONEXAO_SSL: TSmallintField
-      FieldName = 'EMAIL_CONEXAO_SSL'
-      Origin = '"TBCONFIGURACAO"."EMAIL_CONEXAO_SSL"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaEMAIL_ASSUNTO_PADRAO: TIBStringField
-      FieldName = 'EMAIL_ASSUNTO_PADRAO'
-      Origin = '"TBCONFIGURACAO"."EMAIL_ASSUNTO_PADRAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaEMAIL_MENSAGEM_PADRAO: TIBStringField
-      FieldName = 'EMAIL_MENSAGEM_PADRAO'
-      Origin = '"TBCONFIGURACAO"."EMAIL_MENSAGEM_PADRAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaNFE_EMITIR: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'NFE_EMITIR'
-      Origin = '"TBCONFIGURACAO"."NFE_EMITIR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNFE_EMITIR_ENTRADA: TSmallintField
-      FieldName = 'NFE_EMITIR_ENTRADA'
-      Origin = '"TBCONFIGURACAO"."NFE_EMITIR_ENTRADA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNFE_SERIE: TSmallintField
-      DisplayLabel = 'NF-e: S'#233'rie'
-      FieldName = 'NFE_SERIE'
-      Origin = '"TBCONFIGURACAO"."NFE_SERIE"'
-    end
-    object IbDtstTabelaNFE_NUMERO: TIntegerField
-      DisplayLabel = 'NF-e: N'#250'mero'
-      FieldName = 'NFE_NUMERO'
-      Origin = '"TBCONFIGURACAO"."NFE_NUMERO"'
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaNFE_CARTA_CORRECAO: TIntegerField
-      DisplayLabel = 'NF-e: Carta de Corre'#231#227'o'
-      FieldName = 'NFE_CARTA_CORRECAO'
-      Origin = '"TBCONFIGURACAO"."NFE_CARTA_CORRECAO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###000'
-    end
-    object IbDtstTabelaNFE_LOTE: TIntegerField
-      DisplayLabel = 'NF-e: Lote'
-      FieldName = 'NFE_LOTE'
-      Origin = '"TBCONFIGURACAO"."NFE_LOTE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'NFE_ACEITAR_NOTA_DENEGADA'
-      Origin = '"TBCONFIGURACAO"."NFE_ACEITAR_NOTA_DENEGADA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNFE_SOLICITA_DH_SAIDA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'NFE_SOLICITA_DH_SAIDA'
-      Origin = '"TBCONFIGURACAO"."NFE_SOLICITA_DH_SAIDA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNFE_IMPRIMIR_COD_CLIENTE: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'NFE_IMPRIMIR_COD_CLIENTE'
-      Origin = '"TBCONFIGURACAO"."NFE_IMPRIMIR_COD_CLIENTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNFE_IMPRIMIR_COD_REFERENCIA: TSmallintField
-      FieldName = 'NFE_IMPRIMIR_COD_REFERENCIA'
-      Origin = '"TBCONFIGURACAO"."NFE_IMPRIMIR_COD_REFERENCIA"'
-    end
-    object IbDtstTabelaNFCE_EMITIR: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'NFCE_EMITIR'
-      Origin = '"TBCONFIGURACAO"."NFCE_EMITIR"'
-    end
-    object IbDtstTabelaNFCE_SERIE: TSmallintField
-      DisplayLabel = 'NFC-e: S'#233'rie'
-      FieldName = 'NFCE_SERIE'
-      Origin = '"TBCONFIGURACAO"."NFCE_SERIE"'
-    end
-    object IbDtstTabelaNFCE_NUMERO: TIntegerField
-      DisplayLabel = 'NFC-e: N'#250'mero'
-      FieldName = 'NFCE_NUMERO'
-      Origin = '"TBCONFIGURACAO"."NFCE_NUMERO"'
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaNFCE_TOKEN_ID: TIBStringField
-      DisplayLabel = 'Id Token / Id CSC'
-      FieldName = 'NFCE_TOKEN_ID'
-      Origin = '"TBCONFIGURACAO"."NFCE_TOKEN_ID"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaNFCE_TOKEN: TIBStringField
-      DisplayLabel = 'Token / CSC'
-      FieldName = 'NFCE_TOKEN'
-      Origin = '"TBCONFIGURACAO"."NFCE_TOKEN"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaRPS_SERIE: TIBStringField
-      DisplayLabel = 'RPS: S'#233'rie'
-      FieldName = 'RPS_SERIE'
-      Origin = '"TBCONFIGURACAO"."RPS_SERIE"'
-      Size = 5
-    end
-    object IbDtstTabelaRPS_NUMERO: TIntegerField
-      DisplayLabel = 'RPS: N'#250'mero'
-      FieldName = 'RPS_NUMERO'
-      Origin = '"TBCONFIGURACAO"."RPS_NUMERO"'
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaNFSE_EMITIR: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'NFSE_EMITIR'
-      Origin = '"TBCONFIGURACAO"."NFSE_EMITIR"'
-    end
-    object IbDtstTabelaNFSE_SERIE: TIBStringField
-      DisplayLabel = 'NFS-e: S'#233'rie'
-      FieldName = 'NFSE_SERIE'
-      Origin = '"TBCONFIGURACAO"."NFSE_SERIE"'
-      Size = 5
-    end
-    object IbDtstTabelaNFSE_NUMERO: TIntegerField
-      DisplayLabel = 'NFS-e: N'#250'mero'
-      FieldName = 'NFSE_NUMERO'
-      Origin = '"TBCONFIGURACAO"."NFSE_NUMERO"'
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaNFSE_PERCENTUAL_PIS: TIBBCDField
-      DisplayLabel = 'NFS-e: Percentual PIS'
-      FieldName = 'NFSE_PERCENTUAL_PIS'
-      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_PIS"'
-      DisplayFormat = '##,0.00'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaNFSE_PERCENTUAL_COFINS: TIBBCDField
-      DisplayLabel = 'NFS-e: Percentual COFINS'
-      FieldName = 'NFSE_PERCENTUAL_COFINS'
-      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_COFINS"'
-      DisplayFormat = '##,0.00'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaNFSE_PERCENTUAL_CSLL: TIBBCDField
-      DisplayLabel = 'NFS-e: Percentual CSLL'
-      FieldName = 'NFSE_PERCENTUAL_CSLL'
-      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_CSLL"'
-      DisplayFormat = '##,0.00'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaNFSE_PERCENTUAL_ISSQN: TIBBCDField
-      DisplayLabel = 'NFS-e: Percentual ISSQN'
-      FieldName = 'NFSE_PERCENTUAL_ISSQN'
-      Origin = '"TBCONFIGURACAO"."NFSE_PERCENTUAL_ISSQN"'
-      DisplayFormat = '##,0.00'
-      Precision = 18
-      Size = 3
-    end
-    object IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CLIENTE_PERMITIR_DUPLICAR_CNPJ'
-      Origin = '"TBCONFIGURACAO"."CLIENTE_PERMITIR_DUPLICAR_CNPJ"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCLIENTE_PERMITIR_VF_CNPJ: TSmallintField
-      FieldName = 'CLIENTE_PERMITIR_VF_CNPJ'
-      Origin = '"TBCONFIGURACAO"."CLIENTE_PERMITIR_VF_CNPJ"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCUSTO_OPER_CALCULAR: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CUSTO_OPER_CALCULAR'
-      Origin = '"TBCONFIGURACAO"."CUSTO_OPER_CALCULAR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'PERMITIR_VENDA_ESTOQUE_INS'
-      Origin = '"TBCONFIGURACAO"."PERMITIR_VENDA_ESTOQUE_INS"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaVENDA_CARREGA_PRODUTO_EAN: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'VENDA_CARREGA_PRODUTO_EAN'
-      Origin = '"TBCONFIGURACAO"."VENDA_CARREGA_PRODUTO_EAN"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaVENDA_FORMA_PAGTO_CARTACREDITO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'VENDA_FORMA_PAGTO_CARTACREDITO'
-      Origin = '"TBCONFIGURACAO"."VENDA_FORMA_PAGTO_CARTACREDITO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaESTOQUE_UNICO_EMPRESAS: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ESTOQUE_UNICO_EMPRESAS'
-      Origin = '"TBCONFIGURACAO"."ESTOQUE_UNICO_EMPRESAS"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaESTOQUE_SATELITE_CLIENTE: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ESTOQUE_SATELITE_CLIENTE'
-      Origin = '"TBCONFIGURACAO"."ESTOQUE_SATELITE_CLIENTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'AUTORIZA_INFORMA_CLIENTE'
-      Origin = '"TBCONFIGURACAO"."AUTORIZA_INFORMA_CLIENTE"'
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBCONFIGURACAO"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object IbDtstTabelaRZSOC: TIBStringField
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      ProviderFlags = []
-      Size = 60
-    end
-    object IbDtstTabelaNMFANT: TIBStringField
-      FieldName = 'NMFANT'
-      Origin = '"TBEMPRESA"."NMFANT"'
-      ProviderFlags = []
-      Size = 25
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     Left = 440
-    Top = 0
+    Top = 32
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1711,13 +1424,12 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       'where'
       '  EMPRESA = :OLD_EMPRESA')
     Left = 408
-    Top = 0
   end
   inherited ImgList: TImageList
     Left = 336
     Top = 0
     Bitmap = {
-      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3176,6 +2888,483 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    Active = True
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    c.empresa'
+      '  , c.email_conta'
+      '  , c.email_senha'
+      '  , c.email_pop'
+      '  , c.email_smtp'
+      '  , c.email_smtp_porta'
+      '  , c.email_requer_autenticacao'
+      '  , c.email_conexao_ssl'
+      '  , c.email_assunto_padrao'
+      '  , c.email_mensagem_padrao'
+      '  , c.cliente_permitir_duplicar_cnpj'
+      '  , c.cliente_permitir_vf_cnpj'
+      '  , c.custo_oper_calcular'
+      '  , c.permitir_venda_estoque_ins'
+      '  , c.venda_carrega_produto_ean'
+      '  , c.venda_forma_pagto_cartacredito'
+      '  , c.estoque_unico_empresas'
+      '  , c.estoque_satelite_cliente'
+      '  , c.autoriza_informa_cliente'
+      '  , c.usuario'
+      '  , c.nfe_emitir'
+      '  , c.nfe_serie'
+      '  , c.nfe_numero'
+      '  , c.nfe_lote'
+      '  , c.nfe_carta_correcao'
+      '  , c.nfe_emitir_entrada'
+      '  , c.nfe_aceitar_nota_denegada'
+      '  , c.nfe_solicita_dh_saida'
+      '  , c.nfe_imprimir_cod_cliente'
+      '  , c.nfe_imprimir_cod_referencia'
+      '  , c.nfce_emitir'
+      '  , c.nfce_serie'
+      '  , c.nfce_numero'
+      '  , c.nfce_token_id'
+      '  , c.nfce_token'
+      '  , c.rps_serie'
+      '  , c.rps_numero'
+      '  , c.nfse_emitir'
+      '  , c.nfse_serie'
+      '  , c.nfse_numero'
+      '  , c.nfse_percentual_pis'
+      '  , c.nfse_percentual_cofins'
+      '  , c.nfse_percentual_csll'
+      '  , c.nfse_percentual_issqn'
+      '  , e.rzsoc'
+      '  , e.nmfant'
+      'from TBCONFIGURACAO c'
+      '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
+      '')
+    Left = 376
+    object fdQryTabelaEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      OnGetText = fdQryTabelaEMPRESAGetText
+      Size = 18
+    end
+    object fdQryTabelaEMAIL_CONTA: TStringField
+      DisplayLabel = 'Conta de E-mail'
+      FieldName = 'EMAIL_CONTA'
+      Origin = 'EMAIL_CONTA'
+      Size = 100
+    end
+    object fdQryTabelaEMAIL_SENHA: TStringField
+      DisplayLabel = 'Senha da Conta de e-mail'
+      FieldName = 'EMAIL_SENHA'
+      Origin = 'EMAIL_SENHA'
+      Size = 100
+    end
+    object fdQryTabelaEMAIL_POP: TStringField
+      DisplayLabel = 'Servidor POP'
+      FieldName = 'EMAIL_POP'
+      Origin = 'EMAIL_POP'
+      Size = 100
+    end
+    object fdQryTabelaEMAIL_SMTP: TStringField
+      DisplayLabel = 'Servidor SMTP'
+      FieldName = 'EMAIL_SMTP'
+      Origin = 'EMAIL_SMTP'
+      Size = 100
+    end
+    object fdQryTabelaEMAIL_SMTP_PORTA: TIntegerField
+      DisplayLabel = 'Porta'
+      FieldName = 'EMAIL_SMTP_PORTA'
+      Origin = 'EMAIL_SMTP_PORTA'
+    end
+    object fdQryTabelaEMAIL_REQUER_AUTENTICACAO: TSmallintField
+      FieldName = 'EMAIL_REQUER_AUTENTICACAO'
+      Origin = 'EMAIL_REQUER_AUTENTICACAO'
+      Required = True
+    end
+    object fdQryTabelaEMAIL_CONEXAO_SSL: TSmallintField
+      FieldName = 'EMAIL_CONEXAO_SSL'
+      Origin = 'EMAIL_CONEXAO_SSL'
+      Required = True
+    end
+    object fdQryTabelaEMAIL_ASSUNTO_PADRAO: TStringField
+      FieldName = 'EMAIL_ASSUNTO_PADRAO'
+      Origin = 'EMAIL_ASSUNTO_PADRAO'
+      Size = 100
+    end
+    object fdQryTabelaEMAIL_MENSAGEM_PADRAO: TStringField
+      FieldName = 'EMAIL_MENSAGEM_PADRAO'
+      Origin = 'EMAIL_MENSAGEM_PADRAO'
+      Size = 250
+    end
+    object fdQryTabelaNFE_EMITIR: TSmallintField
+      FieldName = 'NFE_EMITIR'
+      Origin = 'NFE_EMITIR'
+      Required = True
+    end
+    object fdQryTabelaNFE_EMITIR_ENTRADA: TSmallintField
+      FieldName = 'NFE_EMITIR_ENTRADA'
+      Origin = 'NFE_EMITIR_ENTRADA'
+      Required = True
+    end
+    object fdQryTabelaNFE_SERIE: TSmallintField
+      DisplayLabel = 'NF-e: S'#233'rie'
+      FieldName = 'NFE_SERIE'
+      Origin = 'NFE_SERIE'
+    end
+    object fdQryTabelaNFE_NUMERO: TIntegerField
+      DisplayLabel = 'NF-e: N'#250'mero'
+      FieldName = 'NFE_NUMERO'
+      Origin = 'NFE_NUMERO'
+      DisplayFormat = '###0000000'
+    end
+    object fdQryTabelaNFE_CARTA_CORRECAO: TIntegerField
+      DisplayLabel = 'NF-e: Carta de Corre'#231#227'o'
+      FieldName = 'NFE_CARTA_CORRECAO'
+      Origin = 'NFE_CARTA_CORRECAO'
+      DisplayFormat = '###000'
+    end
+    object fdQryTabelaNFE_LOTE: TIntegerField
+      DisplayLabel = 'NF-e: Lote'
+      FieldName = 'NFE_LOTE'
+      Origin = 'NFE_LOTE'
+      DisplayFormat = '###0000000'
+    end
+    object fdQryTabelaNFE_ACEITAR_NOTA_DENEGADA: TSmallintField
+      FieldName = 'NFE_ACEITAR_NOTA_DENEGADA'
+      Origin = 'NFE_ACEITAR_NOTA_DENEGADA'
+      Required = True
+    end
+    object fdQryTabelaNFE_SOLICITA_DH_SAIDA: TSmallintField
+      FieldName = 'NFE_SOLICITA_DH_SAIDA'
+      Origin = 'NFE_SOLICITA_DH_SAIDA'
+      Required = True
+    end
+    object fdQryTabelaNFE_IMPRIMIR_COD_CLIENTE: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'NFE_IMPRIMIR_COD_CLIENTE'
+      Origin = 'NFE_IMPRIMIR_COD_CLIENTE'
+      Required = True
+    end
+    object fdQryTabelaNFE_IMPRIMIR_COD_REFERENCIA: TSmallintField
+      FieldName = 'NFE_IMPRIMIR_COD_REFERENCIA'
+      Origin = 'NFE_IMPRIMIR_COD_REFERENCIA'
+      Required = True
+    end
+    object fdQryTabelaNFCE_EMITIR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'NFCE_EMITIR'
+      Origin = 'NFCE_EMITIR'
+      Required = True
+    end
+    object fdQryTabelaNFCE_SERIE: TSmallintField
+      DisplayLabel = 'NFC-e: S'#233'rie'
+      FieldName = 'NFCE_SERIE'
+      Origin = 'NFCE_SERIE'
+    end
+    object fdQryTabelaNFCE_NUMERO: TIntegerField
+      DisplayLabel = 'NFC-e: N'#250'mero'
+      FieldName = 'NFCE_NUMERO'
+      Origin = 'NFCE_NUMERO'
+      DisplayFormat = '###0000000'
+    end
+    object fdQryTabelaNFCE_TOKEN_ID: TStringField
+      DisplayLabel = 'Id Token / Id CSC'
+      FieldName = 'NFCE_TOKEN_ID'
+      Origin = 'NFCE_TOKEN_ID'
+      Size = 250
+    end
+    object fdQryTabelaNFCE_TOKEN: TStringField
+      DisplayLabel = 'Token / CSC'
+      FieldName = 'NFCE_TOKEN'
+      Origin = 'NFCE_TOKEN'
+      Size = 250
+    end
+    object fdQryTabelaRPS_SERIE: TStringField
+      DisplayLabel = 'RPS: S'#233'rie'
+      FieldName = 'RPS_SERIE'
+      Origin = 'RPS_SERIE'
+      Size = 5
+    end
+    object fdQryTabelaRPS_NUMERO: TIntegerField
+      DisplayLabel = 'RPS: N'#250'mero'
+      FieldName = 'RPS_NUMERO'
+      Origin = 'RPS_NUMERO'
+      DisplayFormat = '###0000000'
+    end
+    object fdQryTabelaNFSE_EMITIR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'NFSE_EMITIR'
+      Origin = 'NFSE_EMITIR'
+      Required = True
+    end
+    object fdQryTabelaNFSE_SERIE: TStringField
+      DisplayLabel = 'NFS-e: S'#233'rie'
+      FieldName = 'NFSE_SERIE'
+      Origin = 'NFSE_SERIE'
+      Size = 5
+    end
+    object fdQryTabelaNFSE_NUMERO: TIntegerField
+      DisplayLabel = 'NFS-e: N'#250'mero'
+      FieldName = 'NFSE_NUMERO'
+      Origin = 'NFSE_NUMERO'
+      DisplayFormat = '###0000000'
+    end
+    object fdQryTabelaNFSE_PERCENTUAL_PIS: TBCDField
+      DisplayLabel = 'NFS-e: Percentual PIS'
+      FieldName = 'NFSE_PERCENTUAL_PIS'
+      Origin = 'NFSE_PERCENTUAL_PIS'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaNFSE_PERCENTUAL_COFINS: TBCDField
+      DisplayLabel = 'NFS-e: Percentual COFINS'
+      FieldName = 'NFSE_PERCENTUAL_COFINS'
+      Origin = 'NFSE_PERCENTUAL_COFINS'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaNFSE_PERCENTUAL_CSLL: TBCDField
+      DisplayLabel = 'NFS-e: Percentual CSLL'
+      FieldName = 'NFSE_PERCENTUAL_CSLL'
+      Origin = 'NFSE_PERCENTUAL_CSLL'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaNFSE_PERCENTUAL_ISSQN: TBCDField
+      DisplayLabel = 'NFS-e: Percentual ISSQN'
+      FieldName = 'NFSE_PERCENTUAL_ISSQN'
+      Origin = 'NFSE_PERCENTUAL_ISSQN'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'CLIENTE_PERMITIR_DUPLICAR_CNPJ'
+      Origin = 'CLIENTE_PERMITIR_DUPLICAR_CNPJ'
+      Required = True
+    end
+    object fdQryTabelaCLIENTE_PERMITIR_VF_CNPJ: TSmallintField
+      FieldName = 'CLIENTE_PERMITIR_VF_CNPJ'
+      Origin = 'CLIENTE_PERMITIR_VF_CNPJ'
+      Required = True
+    end
+    object fdQryTabelaCUSTO_OPER_CALCULAR: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'CUSTO_OPER_CALCULAR'
+      Origin = 'CUSTO_OPER_CALCULAR'
+      Required = True
+    end
+    object fdQryTabelaRZSOC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'RZSOC'
+      Origin = 'RZSOC'
+      ProviderFlags = []
+      Size = 60
+    end
+    object fdQryTabelaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'AUTORIZA_INFORMA_CLIENTE'
+      Origin = 'AUTORIZA_INFORMA_CLIENTE'
+      Required = True
+    end
+    object fdQryTabelaESTOQUE_SATELITE_CLIENTE: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ESTOQUE_SATELITE_CLIENTE'
+      Origin = 'ESTOQUE_SATELITE_CLIENTE'
+      Required = True
+    end
+    object fdQryTabelaESTOQUE_UNICO_EMPRESAS: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ESTOQUE_UNICO_EMPRESAS'
+      Origin = 'ESTOQUE_UNICO_EMPRESAS'
+      Required = True
+    end
+    object fdQryTabelaVENDA_FORMA_PAGTO_CARTACREDITO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'VENDA_FORMA_PAGTO_CARTACREDITO'
+      Origin = 'VENDA_FORMA_PAGTO_CARTACREDITO'
+    end
+    object fdQryTabelaVENDA_CARREGA_PRODUTO_EAN: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'VENDA_CARREGA_PRODUTO_EAN'
+      Origin = 'VENDA_CARREGA_PRODUTO_EAN'
+      Required = True
+    end
+    object fdQryTabelaPERMITIR_VENDA_ESTOQUE_INS: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'PERMITIR_VENDA_ESTOQUE_INS'
+      Origin = 'PERMITIR_VENDA_ESTOQUE_INS'
+      Required = True
+    end
+    object fdQryTabelaNMFANT: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NMFANT'
+      Origin = 'NMFANT'
+      ProviderFlags = []
+      Size = 25
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONFIGURACAO'
+      '(EMPRESA, EMAIL_CONTA, EMAIL_SENHA, EMAIL_POP, '
+      '  EMAIL_SMTP, EMAIL_SMTP_PORTA, EMAIL_REQUER_AUTENTICACAO, '
+      
+        '  EMAIL_CONEXAO_SSL, EMAIL_ASSUNTO_PADRAO, EMAIL_MENSAGEM_PADRAO' +
+        ', '
+      '  CLIENTE_PERMITIR_DUPLICAR_CNPJ, CLIENTE_PERMITIR_VF_CNPJ, '
+      '  CUSTO_OPER_CALCULAR, PERMITIR_VENDA_ESTOQUE_INS, '
+      '  VENDA_CARREGA_PRODUTO_EAN, VENDA_FORMA_PAGTO_CARTACREDITO, '
+      '  ESTOQUE_UNICO_EMPRESAS, ESTOQUE_SATELITE_CLIENTE, '
+      '  AUTORIZA_INFORMA_CLIENTE, USUARIO, NFE_EMITIR, '
+      '  NFE_SERIE, NFE_NUMERO, NFE_LOTE, NFE_CARTA_CORRECAO, '
+      '  NFE_EMITIR_ENTRADA, NFE_ACEITAR_NOTA_DENEGADA, '
+      '  NFE_SOLICITA_DH_SAIDA, NFE_IMPRIMIR_COD_CLIENTE, '
+      '  NFCE_EMITIR, NFCE_SERIE, NFCE_NUMERO, NFCE_TOKEN_ID, '
+      '  NFCE_TOKEN, NFSE_EMITIR, RPS_SERIE, RPS_NUMERO, '
+      '  NFSE_SERIE, NFSE_NUMERO, NFSE_PERCENTUAL_PIS, '
+      '  NFSE_PERCENTUAL_COFINS, NFSE_PERCENTUAL_CSLL, '
+      '  NFSE_PERCENTUAL_ISSQN, NFE_IMPRIMIR_COD_REFERENCIA)'
+      
+        'VALUES (:NEW_EMPRESA, :NEW_EMAIL_CONTA, :NEW_EMAIL_SENHA, :NEW_E' +
+        'MAIL_POP, '
+      
+        '  :NEW_EMAIL_SMTP, :NEW_EMAIL_SMTP_PORTA, :NEW_EMAIL_REQUER_AUTE' +
+        'NTICACAO, '
+      
+        '  :NEW_EMAIL_CONEXAO_SSL, :NEW_EMAIL_ASSUNTO_PADRAO, :NEW_EMAIL_' +
+        'MENSAGEM_PADRAO, '
+      
+        '  :NEW_CLIENTE_PERMITIR_DUPLICAR_CNPJ, :NEW_CLIENTE_PERMITIR_VF_' +
+        'CNPJ, '
+      '  :NEW_CUSTO_OPER_CALCULAR, :NEW_PERMITIR_VENDA_ESTOQUE_INS, '
+      
+        '  :NEW_VENDA_CARREGA_PRODUTO_EAN, :NEW_VENDA_FORMA_PAGTO_CARTACR' +
+        'EDITO, '
+      '  :NEW_ESTOQUE_UNICO_EMPRESAS, :NEW_ESTOQUE_SATELITE_CLIENTE, '
+      '  :NEW_AUTORIZA_INFORMA_CLIENTE, :NEW_USUARIO, :NEW_NFE_EMITIR, '
+      
+        '  :NEW_NFE_SERIE, :NEW_NFE_NUMERO, :NEW_NFE_LOTE, :NEW_NFE_CARTA' +
+        '_CORRECAO, '
+      '  :NEW_NFE_EMITIR_ENTRADA, :NEW_NFE_ACEITAR_NOTA_DENEGADA, '
+      '  :NEW_NFE_SOLICITA_DH_SAIDA, :NEW_NFE_IMPRIMIR_COD_CLIENTE, '
+      
+        '  :NEW_NFCE_EMITIR, :NEW_NFCE_SERIE, :NEW_NFCE_NUMERO, :NEW_NFCE' +
+        '_TOKEN_ID, '
+      
+        '  :NEW_NFCE_TOKEN, :NEW_NFSE_EMITIR, :NEW_RPS_SERIE, :NEW_RPS_NU' +
+        'MERO, '
+      '  :NEW_NFSE_SERIE, :NEW_NFSE_NUMERO, :NEW_NFSE_PERCENTUAL_PIS, '
+      '  :NEW_NFSE_PERCENTUAL_COFINS, :NEW_NFSE_PERCENTUAL_CSLL, '
+      '  :NEW_NFSE_PERCENTUAL_ISSQN, :NEW_NFE_IMPRIMIR_COD_REFERENCIA)')
+    ModifySQL.Strings = (
+      'UPDATE TBCONFIGURACAO'
+      
+        'SET EMPRESA = :NEW_EMPRESA, EMAIL_CONTA = :NEW_EMAIL_CONTA, EMAI' +
+        'L_SENHA = :NEW_EMAIL_SENHA, '
+      '  EMAIL_POP = :NEW_EMAIL_POP, EMAIL_SMTP = :NEW_EMAIL_SMTP, '
+      
+        '  EMAIL_SMTP_PORTA = :NEW_EMAIL_SMTP_PORTA, EMAIL_REQUER_AUTENTI' +
+        'CACAO = :NEW_EMAIL_REQUER_AUTENTICACAO, '
+      
+        '  EMAIL_CONEXAO_SSL = :NEW_EMAIL_CONEXAO_SSL, EMAIL_ASSUNTO_PADR' +
+        'AO = :NEW_EMAIL_ASSUNTO_PADRAO, '
+      
+        '  EMAIL_MENSAGEM_PADRAO = :NEW_EMAIL_MENSAGEM_PADRAO, CLIENTE_PE' +
+        'RMITIR_DUPLICAR_CNPJ = :NEW_CLIENTE_PERMITIR_DUPLICAR_CNPJ, '
+      '  CLIENTE_PERMITIR_VF_CNPJ = :NEW_CLIENTE_PERMITIR_VF_CNPJ, '
+      
+        '  CUSTO_OPER_CALCULAR = :NEW_CUSTO_OPER_CALCULAR, PERMITIR_VENDA' +
+        '_ESTOQUE_INS = :NEW_PERMITIR_VENDA_ESTOQUE_INS, '
+      '  VENDA_CARREGA_PRODUTO_EAN = :NEW_VENDA_CARREGA_PRODUTO_EAN, '
+      
+        '  VENDA_FORMA_PAGTO_CARTACREDITO = :NEW_VENDA_FORMA_PAGTO_CARTAC' +
+        'REDITO, '
+      
+        '  ESTOQUE_UNICO_EMPRESAS = :NEW_ESTOQUE_UNICO_EMPRESAS, ESTOQUE_' +
+        'SATELITE_CLIENTE = :NEW_ESTOQUE_SATELITE_CLIENTE, '
+      '  AUTORIZA_INFORMA_CLIENTE = :NEW_AUTORIZA_INFORMA_CLIENTE, '
+      
+        '  USUARIO = :NEW_USUARIO, NFE_EMITIR = :NEW_NFE_EMITIR, NFE_SERI' +
+        'E = :NEW_NFE_SERIE, '
+      '  NFE_NUMERO = :NEW_NFE_NUMERO, NFE_LOTE = :NEW_NFE_LOTE, '
+      
+        '  NFE_CARTA_CORRECAO = :NEW_NFE_CARTA_CORRECAO, NFE_EMITIR_ENTRA' +
+        'DA = :NEW_NFE_EMITIR_ENTRADA, '
+      '  NFE_ACEITAR_NOTA_DENEGADA = :NEW_NFE_ACEITAR_NOTA_DENEGADA, '
+      
+        '  NFE_SOLICITA_DH_SAIDA = :NEW_NFE_SOLICITA_DH_SAIDA, NFE_IMPRIM' +
+        'IR_COD_CLIENTE = :NEW_NFE_IMPRIMIR_COD_CLIENTE, '
+      '  NFCE_EMITIR = :NEW_NFCE_EMITIR, NFCE_SERIE = :NEW_NFCE_SERIE, '
+      
+        '  NFCE_NUMERO = :NEW_NFCE_NUMERO, NFCE_TOKEN_ID = :NEW_NFCE_TOKE' +
+        'N_ID, '
+      '  NFCE_TOKEN = :NEW_NFCE_TOKEN, NFSE_EMITIR = :NEW_NFSE_EMITIR, '
+      '  RPS_SERIE = :NEW_RPS_SERIE, RPS_NUMERO = :NEW_RPS_NUMERO, '
+      '  NFSE_SERIE = :NEW_NFSE_SERIE, NFSE_NUMERO = :NEW_NFSE_NUMERO, '
+      
+        '  NFSE_PERCENTUAL_PIS = :NEW_NFSE_PERCENTUAL_PIS, NFSE_PERCENTUA' +
+        'L_COFINS = :NEW_NFSE_PERCENTUAL_COFINS, '
+      
+        '  NFSE_PERCENTUAL_CSLL = :NEW_NFSE_PERCENTUAL_CSLL, NFSE_PERCENT' +
+        'UAL_ISSQN = :NEW_NFSE_PERCENTUAL_ISSQN, '
+      '  NFE_IMPRIMIR_COD_REFERENCIA = :NEW_NFE_IMPRIMIR_COD_REFERENCIA'
+      'WHERE EMPRESA = :OLD_EMPRESA')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONFIGURACAO'
+      'WHERE EMPRESA = :OLD_EMPRESA')
+    FetchRowSQL.Strings = (
+      
+        'SELECT EMPRESA, EMAIL_CONTA, EMAIL_SENHA, EMAIL_POP, EMAIL_SMTP,' +
+        ' EMAIL_SMTP_PORTA, '
+      
+        '  EMAIL_REQUER_AUTENTICACAO, EMAIL_CONEXAO_SSL, EMAIL_ASSUNTO_PA' +
+        'DRAO, '
+      
+        '  EMAIL_MENSAGEM_PADRAO, CLIENTE_PERMITIR_DUPLICAR_CNPJ, CLIENTE' +
+        '_PERMITIR_VF_CNPJ, '
+      
+        '  CUSTO_OPER_CALCULAR, PERMITIR_VENDA_ESTOQUE_INS, VENDA_CARREGA' +
+        '_PRODUTO_EAN, '
+      '  VENDA_FORMA_PAGTO_CARTACREDITO, ESTOQUE_UNICO_EMPRESAS, '
+      '  ESTOQUE_SATELITE_CLIENTE, AUTORIZA_INFORMA_CLIENTE, USUARIO, '
+      
+        '  NFE_EMITIR, NFE_SERIE, NFE_NUMERO, NFE_LOTE, NFE_CARTA_CORRECA' +
+        'O, '
+      
+        '  NFE_EMITIR_ENTRADA, NFE_ACEITAR_NOTA_DENEGADA, NFE_SOLICITA_DH' +
+        '_SAIDA, '
+      
+        '  NFE_IMPRIMIR_COD_CLIENTE, NFE_IMPRIMIR_COD_REFERENTE, NFCE_EMI' +
+        'TIR, '
+      
+        '  NFCE_SERIE, NFCE_NUMERO, NFCE_TOKEN_ID, NFCE_TOKEN, NFSE_EMITI' +
+        'R, '
+      
+        '  RPS_SERIE, RPS_NUMERO, NFSE_SERIE, NFSE_NUMERO, NFSE_PERCENTUA' +
+        'L_PIS, '
+      
+        '  NFSE_PERCENTUAL_COFINS, NFSE_PERCENTUAL_CSLL, NFSE_PERCENTUAL_' +
+        'ISSQN, '
+      '  NFE_IMPRIMIR_COD_REFERENCIA'
+      'FROM TBCONFIGURACAO'
+      'WHERE EMPRESA = :EMPRESA')
+    Left = 408
+  end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
     Left = 680
@@ -3238,7 +3427,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Left = 712
     Top = 8
     Bitmap = {
-      494C010102000800140010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102000800180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

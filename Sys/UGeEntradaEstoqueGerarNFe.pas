@@ -3,21 +3,23 @@ unit UGeEntradaEstoqueGerarNFe;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, StdCtrls, Mask,
+  Dialogs, DB, IBCustomDataSet, IBUpdateSQL, StdCtrls, Mask,
   DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeEntradaEstoqueGerarNFe = class(TfrmGrPadrao)
-    cdsCompra: TIBDataSet;
-    updCompra: TIBUpdateSQL;
     dtsCompra: TDataSource;
     GrpBxControle: TGroupBox;
     lblCodigo: TLabel;
@@ -66,36 +68,39 @@ type
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
     btnCalcular: TcxButton;
+    chkNaoInformarVencimento: TCheckBox;
+    cdsCompra: TFDQuery;
+    updCompra: TFDUpdateSQL;
     cdsCompraANO: TSmallintField;
     cdsCompraCODCONTROL: TIntegerField;
-    cdsCompraCODEMP: TIBStringField;
+    cdsCompraCODEMP: TStringField;
     cdsCompraCODFORN: TIntegerField;
     cdsCompraDTENT: TDateField;
-    cdsCompraDTFINALIZACAO_COMPRA: TDateTimeField;
+    cdsCompraDTFINALIZACAO_COMPRA: TSQLTimeStampField;
     cdsCompraDTEMISS: TDateField;
     cdsCompraHREMISS: TTimeField;
-    cdsCompraNFSERIE: TIBStringField;
+    cdsCompraNFSERIE: TStringField;
     cdsCompraNF: TIntegerField;
     cdsCompraNFCFOP: TIntegerField;
     cdsCompraSTATUS: TSmallintField;
-    cdsCompraICMSBASE: TIBBCDField;
-    cdsCompraICMSVALOR: TIBBCDField;
-    cdsCompraICMSSUBSTBASE: TIBBCDField;
-    cdsCompraICMSSUBSTVALOR: TIBBCDField;
-    cdsCompraTOTALPROD: TIBBCDField;
-    cdsCompraFRETE: TIBBCDField;
-    cdsCompraIPI: TIBBCDField;
-    cdsCompraVALORSEGURO: TIBBCDField;
-    cdsCompraDESCONTO: TIBBCDField;
-    cdsCompraVALORTOTAL_II: TIBBCDField;
-    cdsCompraVALORTOTAL_IPI: TIBBCDField;
-    cdsCompraVALORPIS: TIBBCDField;
-    cdsCompraVALORCOFINS: TIBBCDField;
-    cdsCompraOUTROSCUSTOS: TIBBCDField;
-    cdsCompraTOTALNF: TIBBCDField;
-    cdsCompraVALOR_TOTAL_IPI: TIBBCDField;
+    cdsCompraICMSBASE: TBCDField;
+    cdsCompraICMSVALOR: TBCDField;
+    cdsCompraICMSSUBSTBASE: TBCDField;
+    cdsCompraICMSSUBSTVALOR: TBCDField;
+    cdsCompraTOTALPROD: TBCDField;
+    cdsCompraFRETE: TBCDField;
+    cdsCompraIPI: TBCDField;
+    cdsCompraVALORSEGURO: TBCDField;
+    cdsCompraDESCONTO: TBCDField;
+    cdsCompraVALORTOTAL_II: TBCDField;
+    cdsCompraVALORTOTAL_IPI: TBCDField;
+    cdsCompraVALORPIS: TBCDField;
+    cdsCompraVALORCOFINS: TBCDField;
+    cdsCompraOUTROSCUSTOS: TBCDField;
+    cdsCompraTOTALNF: TBCDField;
+    cdsCompraVALOR_TOTAL_IPI: TBCDField;
     cdsCompraVALOR_TOTAL_BRUTO: TFMTBCDField;
-    cdsCompraVALOR_TOTAL_DESCONTO: TIBBCDField;
+    cdsCompraVALOR_TOTAL_DESCONTO: TBCDField;
     cdsCompraVALOR_TOTAL_LIQUIDO: TFMTBCDField;
     cdsCompraVALOR_BASE_ICMS_NORMAL_ENTRADA: TFMTBCDField;
     cdsCompraVALOR_TOTAL_ICMS_NORMAL_ENTRADA: TFMTBCDField;
@@ -104,7 +109,6 @@ type
     cdsCompraVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsCompraVALOR_TOTAL_PIS: TFMTBCDField;
     cdsCompraVALOR_TOTAL_COFINS: TFMTBCDField;
-    chkNaoInformarVencimento: TCheckBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -137,9 +141,9 @@ type
 
 *)
 
-var
-  frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe;
-
+//var
+//  frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe;
+//
   function GerarNFeEntrada(const AOwer : TComponent; Ano : Smallint; Numero : Integer;
     var SerieNFe, NumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE   : String; var NumeroLote  : Int64) : Boolean;
 
@@ -159,7 +163,7 @@ begin
     with frm do
     begin
       cdsCompra.Close;
-      cdsCompra.ParamByName('anoCompra').AsShort   := Ano;
+      cdsCompra.ParamByName('anoCompra').AsInteger := Ano;
       cdsCompra.ParamByName('numCompra').AsInteger := Numero;
       cdsCompra.Open;
 
@@ -281,6 +285,8 @@ begin
     begin
       cdsCompra.Post;
       cdsCompra.ApplyUpdates;
+      cdsCompra.CommitUpdates;
+
       CommitTransaction;
     end;
 
@@ -317,8 +323,8 @@ begin
       // 1. Verificar se a mensagem de rejeição é sobre a duplicação da NF-e.
       // 2. Pegar o número de recibo retornado e buscar na SEFA a NF-e correspondente
       // 3. Identificar a venda nesta NF-e encontrada
-      // 4. Comparar a venda encontrada com a venda corrente
-      // 5. Se as vendas forem iguais, colocar [nRec:999999999999999] na venda corrente
+      // 4. Comparar a compra encontrada com a compra corrente
+      // 5. Se as compras forem iguais, colocar [nRec:999999999999999] na compra corrente
 
       if ((DMNFe.MensagemErro) <> EmptyStr) then
       begin
@@ -353,7 +359,7 @@ begin
                 if FileExists(sFileNameXML) then                         // Passo 3
                 begin
                   aFileXML.LoadFromFile(sFileNameXML);
-                  sCompraID := 'Venda: ' + cdsCompra.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', cdsCompra.FieldByName('CODCONTROL').AsInteger);
+                  sCompraID := 'Compra: ' + cdsCompra.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', cdsCompra.FieldByName('CODCONTROL').AsInteger);
                   if (Pos(sCompraID, aFileXML.Text) > 0) then            // Passo 3, 4
                   begin
                     sReciboNFE  := Trim(sRecibo);

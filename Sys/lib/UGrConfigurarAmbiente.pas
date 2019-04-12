@@ -14,7 +14,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, ACBrDFeReport, ACBrDFeDANFeReport;
 
 type
   TfrmGrConfigurarAmbiente = class(TfrmGrPadrao)

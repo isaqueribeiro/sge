@@ -6,15 +6,15 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.Mask, Vcl.DBCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Vcl.Menus, cxButtons, Data.DB, IBX.IBCustomDataSet, IBX.IBUpdateSQL,
-  JvExMask, JvToolEdit, JvDBControls, IBX.IBTable,
+  Vcl.Menus, cxButtons, Data.DB,  JvExMask, JvToolEdit, JvDBControls, DBClient,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeEntradaEstoqueDevolucaoNF = class(TfrmGrPadrao)
@@ -24,8 +24,6 @@ type
     Bevel1: TBevel;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
-    cdsCompra: TIBDataSet;
-    updCompra: TIBUpdateSQL;
     dtsCompra: TDataSource;
     lblEntrada: TLabel;
     dbEntrada: TJvDBComboEdit;
@@ -61,29 +59,31 @@ type
     lblNFIE: TLabel;
     dbNFIE: TDBEdit;
     dtsModeloCupom: TDataSource;
+    fdQryFormaDevolucao: TFDQuery;
+    fdQryUF: TFDQuery;
+    fdQryCompetencia: TFDQuery;
+    fdQryModeloCupom: TFDQuery;
+    cdsCompra: TFDQuery;
+    updCompra: TFDUpdateSQL;
     cdsCompraANO: TSmallintField;
     cdsCompraCODCONTROL: TIntegerField;
-    cdsCompraCODEMP: TIBStringField;
+    cdsCompraCODEMP: TStringField;
     cdsCompraDNFE_ENTRADA_ANO: TSmallintField;
     cdsCompraDNFE_ENTRADA_COD: TIntegerField;
+    cdsCompraDNFE_SAIDA_ANO: TSmallintField;
+    cdsCompraDNFE_SAIDA_COD: TIntegerField;
     cdsCompraDNFE_FORMA: TSmallintField;
-    cdsCompraDNFE_CHAVE: TIBStringField;
-    cdsCompraDNFE_UF: TIBStringField;
-    cdsCompraDNFE_CNPJ_CPF: TIBStringField;
-    cdsCompraDNFE_IE: TIBStringField;
-    cdsCompraDNFE_COMPETENCIA: TIBStringField;
-    cdsCompraDNFE_SERIE: TIBStringField;
+    cdsCompraDNFE_CHAVE: TStringField;
+    cdsCompraDNFE_UF: TStringField;
+    cdsCompraDNFE_CNPJ_CPF: TStringField;
+    cdsCompraDNFE_IE: TStringField;
+    cdsCompraDNFE_COMPETENCIA: TStringField;
+    cdsCompraDNFE_SERIE: TStringField;
     cdsCompraDNFE_NUMERO: TIntegerField;
     cdsCompraDNFE_MODELO: TSmallintField;
     cdsCompraDECF_MODELO: TSmallintField;
     cdsCompraDECF_NUMERO: TIntegerField;
     cdsCompraDECF_COO: TIntegerField;
-    cdsCompraDNFE_SAIDA_ANO: TSmallintField;
-    cdsCompraDNFE_SAIDA_COD: TIntegerField;
-    fdQryFormaDevolucao: TFDQuery;
-    fdQryUF: TFDQuery;
-    fdQryCompetencia: TFDQuery;
-    fdQryModeloCupom: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure cdsCompraCODCONTROLGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
@@ -91,10 +91,8 @@ type
     procedure btFecharClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbEntradaButtonClick(Sender: TObject);
-    procedure cdsCompraDNFE_ENTRADA_CODGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
-    procedure cdsCompraDNFE_SAIDA_CODGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
+    procedure cdsCompraDNFE_ENTRADA_CODGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure cdsCompraDNFE_SAIDA_CODGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -134,7 +132,7 @@ begin
     with AForm do
     begin
       cdsCompra.Close;
-      cdsCompra.ParamByName('anocompra').AsShort   := Ano;
+      cdsCompra.ParamByName('anocompra').AsInteger := Ano;
       cdsCompra.ParamByName('numcompra').AsInteger := Numero;
       cdsCompra.Open;
 
@@ -179,12 +177,14 @@ begin
   cdsCompraDECF_NUMERO.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
   cdsCompraDECF_COO.Required    := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
 
-  if not CamposRequiridos(Self, cdsCompra, GrpBxDados.Caption) then
+  if not CamposRequiridos(Self, TClientDataSet(dtsCompra.DataSet), GrpBxDados.Caption) then
     if ShowConfirmation('Confirmar', 'Confirma os dados do documento referenciado para devolução?') then
       with cdsCompra do
       begin
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;
@@ -198,16 +198,16 @@ begin
     Text := cdsCompraANO.AsString + '/' + FormatFloat('0000000', Sender.AsInteger);
 end;
 
-procedure TfrmGeEntradaEstoqueDevolucaoNF.cdsCompraDNFE_ENTRADA_CODGetText(
-  Sender: TField; var Text: string; DisplayText: Boolean);
+procedure TfrmGeEntradaEstoqueDevolucaoNF.cdsCompraDNFE_ENTRADA_CODGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if not Sender.IsNull then
     Text := Sender.DataSet.FieldByName('DNFE_ENTRADA_ANO').AsString + '/' +
       FormatFloat('0000000', Sender.AsInteger);
 end;
 
-procedure TfrmGeEntradaEstoqueDevolucaoNF.cdsCompraDNFE_SAIDA_CODGetText(
-  Sender: TField; var Text: string; DisplayText: Boolean);
+procedure TfrmGeEntradaEstoqueDevolucaoNF.cdsCompraDNFE_SAIDA_CODGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if not Sender.IsNull then
     Text := Sender.DataSet.FieldByName('DNFE_SAIDA_ANO').AsString + '/' +

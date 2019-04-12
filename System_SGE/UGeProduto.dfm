@@ -3408,7 +3408,7 @@ inherited frmGeProduto: TfrmGeProduto
     Left = 840
     Top = 296
     Bitmap = {
-      494C01012B002C00200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5002,13 +5002,16 @@ inherited frmGeProduto: TfrmGeProduto
     Left = 872
     Top = 328
     object fdQryTabelaCODIGO: TFDAutoIncField
+      Alignment = taCenter
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere]
+      DisplayFormat = '###0000000'
       IdentityInsert = True
     end
     object fdQryTabelaCOD: TStringField
+      Alignment = taCenter
       DisplayLabel = 'C'#243'digo'
       FieldName = 'COD'
       Origin = 'COD'

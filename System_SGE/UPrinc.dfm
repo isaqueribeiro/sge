@@ -35,6 +35,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 122
+    ExplicitHeight = 519
     DesignSize = (
       1044
       486)
@@ -4687,6 +4689,7 @@ object frmPrinc: TfrmPrinc
       Index = 1
     end
     object RbnTabEntrada: TdxRibbonTab
+      Active = True
       Caption = 'Entradas'
       Groups = <
         item
@@ -4706,7 +4709,6 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
-      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item

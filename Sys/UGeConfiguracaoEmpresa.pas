@@ -3,38 +3,26 @@ unit UGeConfiguracaoEmpresa;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, IBQuery, cxGraphics, cxLookAndFeels,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls, StdCtrls, Buttons,
+  ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, IBTable, IBQuery, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TfrmGeConfiguracaoEmpresa = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaEMPRESA: TIBStringField;
-    IbDtstTabelaEMAIL_CONTA: TIBStringField;
-    IbDtstTabelaEMAIL_SENHA: TIBStringField;
-    IbDtstTabelaEMAIL_POP: TIBStringField;
-    IbDtstTabelaEMAIL_SMTP: TIBStringField;
-    IbDtstTabelaEMAIL_ASSUNTO_PADRAO: TIBStringField;
-    IbDtstTabelaEMAIL_MENSAGEM_PADRAO: TIBStringField;
-    IbDtstTabelaRZSOC: TIBStringField;
-    IbDtstTabelaNMFANT: TIBStringField;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
-    IbDtstTabelaEMAIL_SMTP_PORTA: TIntegerField;
-    IbDtstTabelaEMAIL_REQUER_AUTENTICACAO: TSmallintField;
-    IbDtstTabelaEMAIL_CONEXAO_SSL: TSmallintField;
     pgcConfigurar: TPageControl;
     tbsContaEmail: TTabSheet;
     lblEmailConta: TLabel;
@@ -49,50 +37,24 @@ type
     dbEmailPorta: TDBEdit;
     dbEmailAutentica: TDBCheckBox;
     dbEmailConexaoSSL: TDBCheckBox;
-    IbDtstTabelaNFE_SOLICITA_DH_SAIDA: TSmallintField;
     TbsNFe: TTabSheet;
     chkNFE_SolicitaDHSaida: TDBCheckBox;
-    IbDtstTabelaNFE_IMPRIMIR_COD_CLIENTE: TSmallintField;
     chkImprimirCodCliente: TDBCheckBox;
-    IbDtstTabelaCUSTO_OPER_CALCULAR: TSmallintField;
     TbsOutrasConfig: TTabSheet;
     dbCustoOperacional: TDBCheckBox;
-    IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS: TSmallintField;
-    IbDtstTabelaUSUARIO: TIBStringField;
     dbEstoqueUnico: TDBCheckBox;
-    IbDtstTabelaESTOQUE_UNICO_EMPRESAS: TSmallintField;
-    IbDtstTabelaESTOQUE_SATELITE_CLIENTE: TSmallintField;
     dbDuplicarCnpj: TDBCheckBox;
-    IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField;
     dbEstoqueSatelite: TDBCheckBox;
-    IbDtstTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField;
     dbAutorizacaoInformaCliente: TDBCheckBox;
     chkNFE_Emitir: TDBCheckBox;
-    IbDtstTabelaNFE_EMITIR: TSmallintField;
     chkNFE_SalvarNotaDenegada: TDBCheckBox;
-    IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA: TSmallintField;
-    IbDtstTabelaNFCE_TOKEN_ID: TIBStringField;
-    IbDtstTabelaNFCE_TOKEN: TIBStringField;
     grpBxToken: TGroupBox;
     lblTokenId: TLabel;
     edTokenId: TDBEdit;
     lblToken: TLabel;
     edToken: TDBEdit;
-    IbDtstTabelaNFE_EMITIR_ENTRADA: TSmallintField;
     chkNFE_EmitirEntrada: TDBCheckBox;
     TbsNFSe: TTabSheet;
-    IbDtstTabelaNFE_SERIE: TSmallintField;
-    IbDtstTabelaNFE_NUMERO: TIntegerField;
-    IbDtstTabelaNFCE_EMITIR: TSmallintField;
-    IbDtstTabelaNFCE_SERIE: TSmallintField;
-    IbDtstTabelaNFCE_NUMERO: TIntegerField;
-    IbDtstTabelaNFSE_EMITIR: TSmallintField;
-    IbDtstTabelaNFSE_SERIE: TIBStringField;
-    IbDtstTabelaNFSE_NUMERO: TIntegerField;
-    IbDtstTabelaNFSE_PERCENTUAL_PIS: TIBBCDField;
-    IbDtstTabelaNFSE_PERCENTUAL_COFINS: TIBBCDField;
-    IbDtstTabelaNFSE_PERCENTUAL_CSLL: TIBBCDField;
-    IbDtstTabelaNFSE_PERCENTUAL_ISSQN: TIBBCDField;
     grpBxNFe: TGroupBox;
     lblNFeSerie: TLabel;
     lblNFeNumero: TLabel;
@@ -124,39 +86,76 @@ type
     lblFormaPagtoCartaCredito: TLabel;
     dbFormaPagtoCartaCredito: TDBLookupComboBox;
     DtsFormaPagto: TDataSource;
-    IbDtstTabelaVENDA_CARREGA_PRODUTO_EAN: TSmallintField;
-    IbDtstTabelaVENDA_FORMA_PAGTO_CARTACREDITO: TSmallintField;
     dbPermitirVendaSemEstoque: TDBCheckBox;
     dbCarregarProdutoPeloEAN: TDBCheckBox;
     fdQryEmpresa: TFDQuery;
     fdQryConfiguracoes: TFDQuery;
-    IbDtstTabelaCLIENTE_PERMITIR_VF_CNPJ: TSmallintField;
     dbVerdadeiroFalsoCnpj: TDBCheckBox;
-    IbDtstTabelaRPS_SERIE: TIBStringField;
-    IbDtstTabelaRPS_NUMERO: TIntegerField;
     grpBxRPS: TGroupBox;
     lblRPSSerie: TLabel;
     lblRPSNumero: TLabel;
     dbRPSSerie: TDBEdit;
     dbRPSNumero: TDBEdit;
-    IbDtstTabelaNFE_LOTE: TIntegerField;
-    IbDtstTabelaNFE_CARTA_CORRECAO: TIntegerField;
     lblNFeCartaCorrecao: TLabel;
     dbNFeCartaCorrecao: TDBEdit;
     lblNFeLote: TLabel;
     dbNFeLote: TDBEdit;
     chkImprimirCodReferencia: TDBCheckBox;
-    IbDtstTabelaNFE_IMPRIMIR_COD_REFERENCIA: TSmallintField;
     imgGrid: TImageList;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaEMAIL_CONTA: TStringField;
+    fdQryTabelaEMAIL_SENHA: TStringField;
+    fdQryTabelaEMAIL_POP: TStringField;
+    fdQryTabelaEMAIL_SMTP: TStringField;
+    fdQryTabelaEMAIL_SMTP_PORTA: TIntegerField;
+    fdQryTabelaEMAIL_REQUER_AUTENTICACAO: TSmallintField;
+    fdQryTabelaEMAIL_CONEXAO_SSL: TSmallintField;
+    fdQryTabelaEMAIL_ASSUNTO_PADRAO: TStringField;
+    fdQryTabelaEMAIL_MENSAGEM_PADRAO: TStringField;
+    fdQryTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ: TSmallintField;
+    fdQryTabelaCLIENTE_PERMITIR_VF_CNPJ: TSmallintField;
+    fdQryTabelaCUSTO_OPER_CALCULAR: TSmallintField;
+    fdQryTabelaPERMITIR_VENDA_ESTOQUE_INS: TSmallintField;
+    fdQryTabelaVENDA_CARREGA_PRODUTO_EAN: TSmallintField;
+    fdQryTabelaVENDA_FORMA_PAGTO_CARTACREDITO: TSmallintField;
+    fdQryTabelaESTOQUE_UNICO_EMPRESAS: TSmallintField;
+    fdQryTabelaESTOQUE_SATELITE_CLIENTE: TSmallintField;
+    fdQryTabelaAUTORIZA_INFORMA_CLIENTE: TSmallintField;
+    fdQryTabelaUSUARIO: TStringField;
+    fdQryTabelaNFE_EMITIR: TSmallintField;
+    fdQryTabelaNFE_SERIE: TSmallintField;
+    fdQryTabelaNFE_NUMERO: TIntegerField;
+    fdQryTabelaNFE_LOTE: TIntegerField;
+    fdQryTabelaNFE_CARTA_CORRECAO: TIntegerField;
+    fdQryTabelaNFE_EMITIR_ENTRADA: TSmallintField;
+    fdQryTabelaNFE_ACEITAR_NOTA_DENEGADA: TSmallintField;
+    fdQryTabelaNFE_SOLICITA_DH_SAIDA: TSmallintField;
+    fdQryTabelaNFE_IMPRIMIR_COD_CLIENTE: TSmallintField;
+    fdQryTabelaNFE_IMPRIMIR_COD_REFERENCIA: TSmallintField;
+    fdQryTabelaNFCE_EMITIR: TSmallintField;
+    fdQryTabelaNFCE_SERIE: TSmallintField;
+    fdQryTabelaNFCE_NUMERO: TIntegerField;
+    fdQryTabelaNFCE_TOKEN_ID: TStringField;
+    fdQryTabelaNFCE_TOKEN: TStringField;
+    fdQryTabelaRPS_SERIE: TStringField;
+    fdQryTabelaRPS_NUMERO: TIntegerField;
+    fdQryTabelaNFSE_EMITIR: TSmallintField;
+    fdQryTabelaNFSE_SERIE: TStringField;
+    fdQryTabelaNFSE_NUMERO: TIntegerField;
+    fdQryTabelaNFSE_PERCENTUAL_PIS: TBCDField;
+    fdQryTabelaNFSE_PERCENTUAL_COFINS: TBCDField;
+    fdQryTabelaNFSE_PERCENTUAL_CSLL: TBCDField;
+    fdQryTabelaNFSE_PERCENTUAL_ISSQN: TBCDField;
+    fdQryTabelaRZSOC: TStringField;
+    fdQryTabelaNMFANT: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
-    procedure IbDtstTabelaEMPRESAGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure btbtnSalvarClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaEMPRESAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     procedure Aplicar_ModeloEstoque;
@@ -218,11 +217,11 @@ procedure TfrmGeConfiguracaoEmpresa.DtSrcTabelaStateChange(
   Sender: TObject);
 begin
   inherited;
-  dbEmpresa.ReadOnly := (IbDtstTabela.State = dsEdit);
+  dbEmpresa.ReadOnly := (DtSrcTabela.DataSet.State = dsEdit);
 end;
 
-procedure TfrmGeConfiguracaoEmpresa.IbDtstTabelaEMPRESAGetText(
-  Sender: TField; var Text: String; DisplayText: Boolean);
+procedure TfrmGeConfiguracaoEmpresa.fdQryTabelaEMPRESAGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if ( Sender.IsNull ) then
     Exit;
@@ -234,52 +233,104 @@ begin
     Text := StrFormatarCpf(Sender.AsString);
 end;
 
+procedure TfrmGeConfiguracaoEmpresa.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('EMPRESA').AsString            := gUsuarioLogado.Empresa;
+    FieldByName('EMAIL_SMTP_PORTA').AsInteger  := PORTA_SMTP_PADRAO;
+    FieldByName('EMAIL_REQUER_AUTENTICACAO').AsInteger := 0;
+    FieldByName('EMAIL_CONEXAO_SSL').AsInteger         := 0;
+
+    FieldByName('VENDA_CARREGA_PRODUTO_EAN').AsInteger := 0;
+
+    FieldByName('NFE_EMITIR').AsInteger                := 0;
+    FieldByName('NFE_EMITIR_ENTRADA').AsInteger        := 0;
+    FieldByName('NFCE_EMITIR').AsInteger               := 0;
+    FieldByName('NFSE_EMITIR').AsInteger               := 0;
+    FieldByName('NFE_ACEITAR_NOTA_DENEGADA').AsInteger := 1;
+    FieldByName('NFE_SOLICITA_DH_SAIDA').AsInteger     := 0;
+    FieldByName('NFE_IMPRIMIR_COD_CLIENTE').AsInteger  := 0;
+    FieldByName('CLIENTE_PERMITIR_DUPLICAR_CNPJ').AsInteger := 0;
+    FieldByName('CUSTO_OPER_CALCULAR').AsInteger            := 0;
+    FieldByName('PERMITIR_VENDA_ESTOQUE_INS').AsInteger := 0;
+    FieldByName('ESTOQUE_UNICO_EMPRESAS').AsInteger     := 0;
+    FieldByName('ESTOQUE_SATELITE_CLIENTE').AsInteger   := 0;
+    FieldByName('AUTORIZA_INFORMA_CLIENTE').AsInteger   := 0;
+
+    FieldByName('RPS_SERIE').AsString                := '99';
+    FieldByName('RPS_NUMERO').AsCurrency             := 0;
+    FieldByName('NFSE_SERIE').AsString               := '99';
+    FieldByName('NFSE_NUMERO').AsCurrency            := 0;
+    FieldByName('NFSE_PERCENTUAL_PIS').AsCurrency    := 0.0;
+    FieldByName('NFSE_PERCENTUAL_COFINS').AsCurrency := 0.0;
+    FieldByName('NFSE_PERCENTUAL_CSLL').AsCurrency   := 0.0;
+    FieldByName('NFSE_PERCENTUAL_ISSQN').AsCurrency  := 0.0;
+
+    FieldByName('VENDA_FORMA_PAGTO_CARTACREDITO').Clear;
+
+    FieldByName('NFE_SERIE').Clear;
+    FieldByName('NFE_NUMERO').Clear;
+    FieldByName('NFE_LOTE').Clear;
+    FieldByName('NFE_CARTA_CORRECAO').Clear;
+
+    FieldByName('NFCE_SERIE').Clear;
+    FieldByName('NFCE_NUMERO').Clear;
+    FieldByName('NFCE_TOKEN_ID').Clear;
+    FieldByName('NFCE_TOKEN').Clear;
+  end;
+end;
+
 procedure TfrmGeConfiguracaoEmpresa.btbtnSalvarClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.State = dsInsert ) then
-    if ( GetConfiguracaoCadastrada(IbDtstTabelaEMPRESA.AsString) ) then
-    begin
-      ShowStop('Empresa selecionada já possui registtro de configuração');
-      Exit;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State = dsInsert ) then
+      if ( GetConfiguracaoCadastrada(FieldByName('EMPRESA').AsString) ) then
+      begin
+        ShowStop('Empresa selecionada já possui registtro de configuração');
+        Exit;
+      end;
 
-  if IbDtstTabelaCUSTO_OPER_CALCULAR.IsNull then
-    IbDtstTabelaCUSTO_OPER_CALCULAR.AsInteger := 0; //Ord(False);
+    if FieldByName('CUSTO_OPER_CALCULAR').IsNull then
+      FieldByName('CUSTO_OPER_CALCULAR').AsInteger := 0; //Ord(False);
 
-  if IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS.IsNull then
-    IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS.AsInteger := 0; //Ord(False);
+    if FieldByName('PERMITIR_VENDA_ESTOQUE_INS').IsNull then
+      FieldByName('PERMITIR_VENDA_ESTOQUE_INS').AsInteger := 0; //Ord(False);
 
-  if IbDtstTabelaESTOQUE_UNICO_EMPRESAS.IsNull then
-    IbDtstTabelaESTOQUE_UNICO_EMPRESAS.AsInteger := 0; //Ord(False);
+    if FieldByName('ESTOQUE_UNICO_EMPRESAS').IsNull then
+      FieldByName('ESTOQUE_UNICO_EMPRESAS').AsInteger := 0; //Ord(False);
 
-  if IbDtstTabelaESTOQUE_SATELITE_CLIENTE.IsNull then
-    IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger := 0; //Ord(False);
+    if FieldByName('ESTOQUE_SATELITE_CLIENTE').IsNull then
+      FieldByName('ESTOQUE_SATELITE_CLIENTE').AsInteger := 0; //Ord(False);
 
-  IbDtstTabelaNFE_SERIE.Required  := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFE_NUMERO.Required := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFE_LOTE.Required           := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFE_CARTA_CORRECAO.Required := (IbDtstTabelaNFE_EMITIR.AsInteger = 1);
+    FieldByName('NFE_SERIE').Required  := (FieldByName('NFE_EMITIR').AsInteger = 1);
+    FieldByName('NFE_NUMERO').Required := (FieldByName('NFE_EMITIR').AsInteger = 1);
+    FieldByName('NFE_LOTE').Required           := (FieldByName('NFE_EMITIR').AsInteger = 1);
+    FieldByName('NFE_CARTA_CORRECAO').Required := (FieldByName('NFE_EMITIR').AsInteger = 1);
 
-  IbDtstTabelaNFCE_SERIE.Required    := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFCE_NUMERO.Required   := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFCE_TOKEN_ID.Required := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFCE_TOKEN.Required    := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+    FieldByName('NFCE_SERIE').Required    := (FieldByName('NFCE_EMITIR').AsInteger = 1);
+    FieldByName('NFCE_NUMERO').Required   := (FieldByName('NFCE_EMITIR').AsInteger = 1);
+    FieldByName('NFCE_TOKEN_ID').Required := (FieldByName('NFCE_EMITIR').AsInteger = 1);
+    FieldByName('NFCE_TOKEN').Required    := (FieldByName('NFCE_EMITIR').AsInteger = 1);
 
-  IbDtstTabelaNFCE_SERIE.Required  := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFCE_NUMERO.Required := (IbDtstTabelaNFCE_EMITIR.AsInteger = 1);
+    FieldByName('NFCE_SERIE').Required  := (FieldByName('NFCE_EMITIR').AsInteger = 1);
+    FieldByName('NFCE_NUMERO').Required := (FieldByName('NFCE_EMITIR').AsInteger = 1);
 
-  IbDtstTabelaRPS_SERIE.Required   := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
-  IbDtstTabelaRPS_NUMERO.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFSE_SERIE.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFSE_NUMERO.Required := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFSE_PERCENTUAL_PIS.Required    := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFSE_PERCENTUAL_COFINS.Required := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFSE_PERCENTUAL_CSLL.Required   := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
-  IbDtstTabelaNFSE_PERCENTUAL_ISSQN.Required  := (IbDtstTabelaNFSE_EMITIR.AsInteger = 1);
+    FieldByName('RPS_SERIE').Required   := (FieldByName('NFSE_EMITIR').AsInteger = 1);
+    FieldByName('RPS_NUMERO').Required  := (FieldByName('NFSE_EMITIR').AsInteger = 1);
+    FieldByName('NFSE_SERIE').Required  := (FieldByName('NFSE_EMITIR').AsInteger = 1);
+    FieldByName('NFSE_NUMERO').Required := (FieldByName('NFSE_EMITIR').AsInteger = 1);
+    FieldByName('NFSE_PERCENTUAL_PIS').Required    := (FieldByName('NFSE_EMITIR').AsInteger = 1);
+    FieldByName('NFSE_PERCENTUAL_COFINS').Required := (FieldByName('NFSE_EMITIR').AsInteger = 1);
+    FieldByName('NFSE_PERCENTUAL_CSLL').Required   := (FieldByName('NFSE_EMITIR').AsInteger = 1);
+    FieldByName('NFSE_PERCENTUAL_ISSQN').Required  := (FieldByName('NFSE_EMITIR').AsInteger = 1);
 
-  inherited;
-  if not btbtnSalvar.Enabled then
-    Aplicar_ModeloEstoque;
+    inherited;
+    if not btbtnSalvar.Enabled then
+      Aplicar_ModeloEstoque;
+  end;
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.dbgDadosDrawColumnCell(Sender: TObject;
@@ -328,69 +379,24 @@ begin
   end;
 end;
 
-procedure TfrmGeConfiguracaoEmpresa.IbDtstTabelaNewRecord(
-  DataSet: TDataSet);
-begin
-  IbDtstTabelaEMPRESA.AsString            := gUsuarioLogado.Empresa;
-  IbDtstTabelaEMAIL_SMTP_PORTA.AsInteger  := PORTA_SMTP_PADRAO;
-  IbDtstTabelaEMAIL_REQUER_AUTENTICACAO.AsInteger := 0;
-  IbDtstTabelaEMAIL_CONEXAO_SSL.AsInteger         := 0;
-
-  IbDtstTabelaVENDA_CARREGA_PRODUTO_EAN.AsInteger := 0;
-
-  IbDtstTabelaNFE_EMITIR.AsInteger                := 0;
-  IbDtstTabelaNFE_EMITIR_ENTRADA.AsInteger        := 0;
-  IbDtstTabelaNFCE_EMITIR.AsInteger               := 0;
-  IbDtstTabelaNFSE_EMITIR.AsInteger               := 0;
-  IbDtstTabelaNFE_ACEITAR_NOTA_DENEGADA.AsInteger := 1;
-  IbDtstTabelaNFE_SOLICITA_DH_SAIDA.AsInteger     := 0;
-  IbDtstTabelaNFE_IMPRIMIR_COD_CLIENTE.AsInteger  := 0;
-  IbDtstTabelaCLIENTE_PERMITIR_DUPLICAR_CNPJ.AsInteger := 0;
-  IbDtstTabelaCUSTO_OPER_CALCULAR.AsInteger            := 0;
-  IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS.AsInteger := 0;
-  IbDtstTabelaESTOQUE_UNICO_EMPRESAS.AsInteger     := 0;
-  IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger   := 0;
-  IbDtstTabelaAUTORIZA_INFORMA_CLIENTE.AsInteger   := 0;
-
-  IbDtstTabelaRPS_SERIE.AsString                := '99';
-  IbDtstTabelaRPS_NUMERO.AsCurrency             := 0;
-  IbDtstTabelaNFSE_SERIE.AsString               := '99';
-  IbDtstTabelaNFSE_NUMERO.AsCurrency            := 0;
-  IbDtstTabelaNFSE_PERCENTUAL_PIS.AsCurrency    := 0.0;
-  IbDtstTabelaNFSE_PERCENTUAL_COFINS.AsCurrency := 0.0;
-  IbDtstTabelaNFSE_PERCENTUAL_CSLL.AsCurrency   := 0.0;
-  IbDtstTabelaNFSE_PERCENTUAL_ISSQN.AsCurrency  := 0.0;
-
-  IbDtstTabelaVENDA_FORMA_PAGTO_CARTACREDITO.Clear;
-
-  IbDtstTabelaNFE_SERIE.Clear;
-  IbDtstTabelaNFE_NUMERO.Clear;
-  IbDtstTabelaNFE_LOTE.Clear;
-  IbDtstTabelaNFE_CARTA_CORRECAO.Clear;
-
-  IbDtstTabelaNFCE_SERIE.Clear;
-  IbDtstTabelaNFCE_NUMERO.Clear;
-  IbDtstTabelaNFCE_TOKEN_ID.Clear;
-  IbDtstTabelaNFCE_TOKEN.Clear;
-end;
-
 procedure TfrmGeConfiguracaoEmpresa.btbtnAlterarClick(Sender: TObject);
 begin
   inherited;
-  if (not btbtnAlterar.Enabled) then
-  begin
-    if IbDtstTabelaCUSTO_OPER_CALCULAR.IsNull then
-      IbDtstTabelaCUSTO_OPER_CALCULAR.AsInteger := 0; //Ord(False);
+  with DtSrcTabela.DataSet do
+    if (not btbtnAlterar.Enabled) then
+    begin
+      if FieldByName('CUSTO_OPER_CALCULAR').IsNull then
+        FieldByName('CUSTO_OPER_CALCULAR').AsInteger := 0; //Ord(False);
 
-    if IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS.IsNull then
-      IbDtstTabelaPERMITIR_VENDA_ESTOQUE_INS.AsInteger := 0; //Ord(False);
+      if FieldByName('PERMITIR_VENDA_ESTOQUE_INS').IsNull then
+        FieldByName('PERMITIR_VENDA_ESTOQUE_INS').AsInteger := 0; //Ord(False);
 
-    if IbDtstTabelaESTOQUE_UNICO_EMPRESAS.IsNull then
-      IbDtstTabelaESTOQUE_UNICO_EMPRESAS.AsInteger := 0; //Ord(False);
+      if FieldByName('ESTOQUE_UNICO_EMPRESAS').IsNull then
+        FieldByName('ESTOQUE_UNICO_EMPRESAS').AsInteger := 0; //Ord(False);
 
-    if IbDtstTabelaESTOQUE_SATELITE_CLIENTE.IsNull then
-      IbDtstTabelaESTOQUE_SATELITE_CLIENTE.AsInteger := 0; //Ord(False);
-  end;
+      if FieldByName('ESTOQUE_SATELITE_CLIENTE').IsNull then
+        FieldByName('ESTOQUE_SATELITE_CLIENTE').AsInteger := 0; //Ord(False);
+    end;
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.Aplicar_ModeloEstoque;
@@ -399,17 +405,6 @@ begin
   IMR - 23/07/2014 :
     Rotina descontinuada por entender que outras empresas podem são ser habilitadas para ver o estoque desta empresa,
     mas esta empresa está habilitada para visualizar o estoque de todas.
-
-  with DMBusiness, qryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Update TBCONFIGURACAO Set estoque_unico_empresas = ' + IbDtstTabelaESTOQUE_UNICO_EMPRESAS.AsString);
-    SQL.Add('where empresa <> ' + QuotedStr(IbDtstTabelaEMPRESA.AsString));
-    ExecSQL;
-
-    CommitTransaction;
-  end;
 *)
 end;
 

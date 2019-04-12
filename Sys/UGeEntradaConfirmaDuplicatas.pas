@@ -6,25 +6,28 @@ uses
   UGrPadrao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
-  ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  Dialogs, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL, ExtCtrls, Grids,
+  DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons, JvExMask, JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeEntradaConfirmaDuplicatas = class(TfrmGrPadrao)
     GrpBxControle: TGroupBox;
     Bevel1: TBevel;
-    qryDuplicatas: TIBDataSet;
     dtsDuplicatas: TDataSource;
     dbgTitulos: TDBGrid;
     Bevel2: TBevel;
     lblCodigo: TLabel;
     dbCodigo: TDBEdit;
     lblDataVencimento: TLabel;
-    dbDataVencimento: TDBEdit;
     dbParcela: TDBEdit;
     lblParcela: TLabel;
     lblValor: TLabel;
@@ -33,18 +36,10 @@ type
     dbEmissao: TDBEdit;
     dspDuplicatas: TDataSetProvider;
     cdsDuplicatas: TClientDataSet;
-    cdsDuplicatasANOLANC: TSmallintField;
-    cdsDuplicatasNUMLANC: TIntegerField;
-    cdsDuplicatasPARCELA: TSmallintField;
-    cdsDuplicatasCODFORN: TSmallintField;
-    cdsDuplicatasDTEMISS: TDateField;
-    cdsDuplicatasDTVENC: TDateField;
-    cdsDuplicatasVALORPAG: TBCDField;
     cdsDuplicatasTotalParcelas: TAggregateField;
     cdsDuplicatasTotalEntrada: TCurrencyField;
     dbTotalEntrada: TDBEdit;
     dbTotalParcelas: TDBEdit;
-    updParcela: TIBDataSet;
     pnlTotais: TPanel;
     Label1: TLabel;
     lblTotalEntrada: TLabel;
@@ -55,9 +50,22 @@ type
     cdsDuplicatasDiaSemana: TSmallintField;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
-    cdsDuplicatasNOTFISC: TWideStringField;
-    cdsDuplicatasTIPPAG: TWideStringField;
     cdsDuplicatasLancamento: TStringField;
+    dbDataVencimento: TJvDBDateEdit;
+    qryDuplicatas: TFDQuery;
+    qryParcela: TFDQuery;
+    cdsDuplicatasANOLANC: TSmallintField;
+    cdsDuplicatasNUMLANC: TIntegerField;
+    cdsDuplicatasPARCELA: TSmallintField;
+    cdsDuplicatasCODFORN: TSmallintField;
+    cdsDuplicatasNOTFISC: TStringField;
+    cdsDuplicatasTIPPAG: TStringField;
+    cdsDuplicatasDTEMISS: TDateField;
+    cdsDuplicatasDTVENC: TDateField;
+    cdsDuplicatasVALORPAG: TBCDField;
+    updParcela: TFDUpdateSQL;
+    qryParcelaDTVENC: TDateField;
+    qryParcelaVALORPAG: TBCDField;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -78,6 +86,7 @@ type
     fControleCompra : Integer;
     fDataEmissaoDOC : TDateTime;
     fTotalEntrada   : Currency;
+    procedure CarregarDuplicatas;
     procedure UpdateParcelas;
     procedure DisplayTotais;
   public
@@ -100,9 +109,9 @@ type
 
 *)
 
-var
-  frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas;
-
+//var
+//  frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas;
+//
   function DuplicatasConfirmadas(const AOwer : TComponent; Ano, Controle : Integer;
     DataEmissaoNF : TDateTime; ValorEntrada : Currency) : Boolean;
 
@@ -124,7 +133,12 @@ begin
     frm.DataEmissaoDOC := DataEmissaoNF;
     frm.TotalEntrada   := ValorEntrada;
 
-    Result := (frm.ShowModal = mrOk);
+    frm.CarregarDuplicatas;
+
+    if frm.cdsDuplicatas.IsEmpty then
+      Result := False
+    else
+      Result := (frm.ShowModal = mrOk);
   finally
     frm.Free;
   end;
@@ -147,16 +161,11 @@ end;
 procedure TfrmGeEntradaConfirmaDuplicatas.FormShow(Sender: TObject);
 begin
   inherited;
-  with qryDuplicatas, SelectSQL do
-  begin
-    Add('where AnoCompra = ' + IntToStr(AnoCompra));
-    Add('  and NumCompra = ' + IntToStr(ControleCompra));
-    Add('order by numlanc, parcela');
-  end;
-  
-  cdsDuplicatas.Open;
+  if not cdsDuplicatas.Active then
+    CarregarDuplicatas;
+
   if ( not cdsDuplicatas.IsEmpty ) then
-      cdsDuplicatas.Edit;
+    cdsDuplicatas.Edit;
 end;
 
 procedure TfrmGeEntradaConfirmaDuplicatas.ControlEditEnter(
@@ -242,6 +251,21 @@ begin
   end;
 end;
 
+procedure TfrmGeEntradaConfirmaDuplicatas.CarregarDuplicatas;
+begin
+  if cdsDuplicatas.Active then
+    cdsDuplicatas.Close;
+
+  with qryDuplicatas, SQL do
+  begin
+    Add('where AnoCompra = ' + IntToStr(AnoCompra));
+    Add('  and NumCompra = ' + IntToStr(ControleCompra));
+    Add('order by numlanc, parcela');
+  end;
+
+  cdsDuplicatas.Open;
+end;
+
 procedure TfrmGeEntradaConfirmaDuplicatas.cdsDuplicatasBeforePost(
   DataSet: TDataSet);
 begin
@@ -268,14 +292,21 @@ begin
   cdsDuplicatas.First;
   while not cdsDuplicatas.Eof do
   begin
-    updParcela.Close;
-    updParcela.ParamByName('vencimento').AsDateTime := cdsDuplicatasDTVENC.AsDateTime;
-    updParcela.ParamByName('valor').AsCurrency      := cdsDuplicatasVALORPAG.AsCurrency;
-    updParcela.ParamByName('anocompra').AsInteger := AnoCompra;
-    updParcela.ParamByName('numcompra').AsInteger := ControleCompra;
-    updParcela.ParamByName('anolanc').AsInteger   := cdsDuplicatasANOLANC.AsInteger;
-    updParcela.ParamByName('numlanc').AsInteger   := cdsDuplicatasNUMLANC.AsInteger;
-    updParcela.ExecSQL;
+    qryParcela.Close;
+    qryParcela.ParamByName('anocompra').AsInteger := AnoCompra;
+    qryParcela.ParamByName('numcompra').AsInteger := ControleCompra;
+    qryParcela.ParamByName('anolanc').AsInteger   := cdsDuplicatasANOLANC.AsInteger;
+    qryParcela.ParamByName('numlanc').AsInteger   := cdsDuplicatasNUMLANC.AsInteger;
+    qryParcela.Open;
+
+    qryParcela.Edit;
+
+    qryParcelaDTVENC.AsDateTime   := cdsDuplicatasDTVENC.AsDateTime;
+    qryParcelaVALORPAG.AsCurrency := cdsDuplicatasVALORPAG.AsCurrency;
+
+    qryParcela.Post;
+    qryParcela.ApplyUpdates;
+    qryParcela.CommitUpdates;
 
     cdsDuplicatas.Next;
   end;

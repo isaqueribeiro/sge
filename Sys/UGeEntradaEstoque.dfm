@@ -44,44 +44,49 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           item
             Expanded = False
             FieldName = 'CODCONTROL'
-            Width = 70
+            Title.Caption = 'No. Compra '
+            Width = 75
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DTENT'
+            Title.Caption = 'Data Entrada '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NF'
-            Title.Caption = 'No. Documento'
-            Width = 100
+            Title.Caption = 'Documento '
+            Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NFSERIE'
             Title.Alignment = taCenter
-            Title.Caption = 'S'#233'rie'
+            Title.Caption = 'S'#233'rie '
             Width = 35
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DTEMISS'
+            Title.Caption = 'Data Emiss'#227'o '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
+            Title.Caption = 'Status '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOMEFORN'
+            Title.Caption = 'Fornecedor '
             Width = 350
             Visible = True
           end
@@ -89,13 +94,14 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             Expanded = False
             FieldName = 'QT_ITENS'
             Title.Alignment = taCenter
-            Title.Caption = 'Itens'
+            Title.Caption = 'Itens '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTALPROD'
+            Title.Caption = 'Total Produto '
             Width = 100
             Visible = True
           end
@@ -107,6 +113,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Total Nota Fiscal '
             Width = 110
             Visible = True
           end>
@@ -309,8 +316,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -1042,9 +1047,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object lblBaseICMSSubs: TLabel
           Left = 224
           Top = 24
-          Width = 95
+          Width = 89
           Height = 13
-          Caption = 'Base ICMS Substit.:'
+          Caption = 'Base ICMS Subst.:'
           FocusControl = dbBaseICMSSubs
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1126,9 +1131,9 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object lblValorICMSSubs: TLabel
           Left = 344
           Top = 24
-          Width = 96
+          Width = 90
           Height = 13
-          Caption = 'Valor ICMS Substit.:'
+          Caption = 'Valor ICMS Subst.:'
           FocusControl = dbValorICMSSubs
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1320,7 +1325,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = tbsPagamento
+        ActivePage = tbsDuplicatas
         Align = alBottom
         HotTrack = True
         TabOrder = 4
@@ -3474,64 +3479,69 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             Expanded = False
             FieldName = 'SEQ'
             Title.Alignment = taCenter
+            Title.Caption = '# '
             Width = 30
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CODPROD'
+            Title.Caption = 'Produto '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI'
-            Title.Caption = 'Produto/Servi'#231'o'
+            Title.Caption = 'Produto/Servi'#231'o '
             Width = 350
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTDE'
-            Title.Caption = 'Qtde.'
+            Title.Caption = 'Qtde. '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UNP_SIGLA'
+            Title.Caption = 'Und. '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PRECOUNIT'
-            Title.Caption = 'Valor Un. (R$)'
+            Title.Caption = 'Valor Un. (R$) '
             Width = 110
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PERC_PARTICIPACAO'
-            Title.Caption = '% Part.'
+            Title.Caption = '% Part. '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CUSTOMEDIO'
-            Title.Caption = 'Custo (R$)'
+            Title.Caption = 'Custo (R$) '
             Width = 110
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL_BRUTO'
+            Title.Caption = 'Total Bruto (R$) '
             Width = 110
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL_LIQUIDO'
+            Title.Caption = 'Total Liquido (R$) '
             Width = 110
             Visible = True
           end>
@@ -3773,10 +3783,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterCancel = IbDtstTabelaAfterCancel
-    AfterScroll = IbDtstTabelaAfterScroll
-    BeforeCancel = IbDtstTabelaBeforeCancel
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    c.ANO'
@@ -3851,390 +3857,14 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     GeneratorField.Field = 'CODCONTROL'
     GeneratorField.Generator = 'GEN_COMPRAS_CONTROLE_2011'
     GeneratorField.ApplyEvent = gamOnNewRecord
-    Left = 920
-    Top = 0
-    object IbDtstTabelaANO: TSmallintField
-      DisplayLabel = 'Ano'
-      FieldName = 'ANO'
-      Origin = 'TBCOMPRAS.ANO'
-      Required = True
-    end
-    object IbDtstTabelaCODCONTROL: TIntegerField
-      DisplayLabel = 'No. Compra'
-      FieldName = 'CODCONTROL'
-      Origin = 'TBCOMPRAS.CODCONTROL'
-      Required = True
-    end
-    object IbDtstTabelaCODEMP: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'CODEMP'
-      Origin = 'TBCOMPRAS.CODEMP'
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaCODFORN: TIntegerField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'CODFORN'
-      Origin = 'TBCOMPRAS.CODFORN'
-      Required = True
-    end
-    object IbDtstTabelaTIPO_ENTRADA: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo Entrada'
-      FieldName = 'TIPO_ENTRADA'
-      Origin = '"TBCOMPRAS"."TIPO_ENTRADA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaTIPO_DOCUMENTO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo Documento'
-      FieldName = 'TIPO_DOCUMENTO'
-      Origin = '"TBCOMPRAS"."TIPO_DOCUMENTO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaTIPO_MOVIMENTO: TSmallintField
-      FieldName = 'TIPO_MOVIMENTO'
-      Origin = '"TBCOMPRAS"."TIPO_MOVIMENTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNF: TIntegerField
-      DisplayLabel = 'N'#250'mero do Documento'
-      FieldName = 'NF'
-      Origin = 'TBCOMPRAS.NF'
-      Required = True
-    end
-    object IbDtstTabelaNFSERIE: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'S'#233'rie do Documento'
-      FieldName = 'NFSERIE'
-      Origin = 'TBCOMPRAS.NFSERIE'
-      Size = 4
-    end
-    object IbDtstTabelaVERIFICADOR_NFE: TIBStringField
-      FieldName = 'VERIFICADOR_NFE'
-      Origin = '"TBCOMPRAS"."VERIFICADOR_NFE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaXML_NFE_FILENAME: TIBStringField
-      FieldName = 'XML_NFE_FILENAME'
-      Origin = '"TBCOMPRAS"."XML_NFE_FILENAME"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaLOTE_NFE_ANO: TSmallintField
-      FieldName = 'LOTE_NFE_ANO'
-      Origin = '"TBCOMPRAS"."LOTE_NFE_ANO"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaLOTE_NFE_NUMERO: TIntegerField
-      FieldName = 'LOTE_NFE_NUMERO'
-      Origin = '"TBCOMPRAS"."LOTE_NFE_NUMERO"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaLOTE_NFE_RECIBO: TIBStringField
-      FieldName = 'LOTE_NFE_RECIBO'
-      Origin = '"TBCOMPRAS"."LOTE_NFE_RECIBO"'
-      ProviderFlags = []
-      Size = 250
-    end
-    object IbDtstTabelaDTLANCAMENTO: TDateTimeField
-      Alignment = taCenter
-      DisplayLabel = 'Data Lan'#231'amento'
-      FieldName = 'DTLANCAMENTO'
-      Origin = 'TBCOMPRAS.DTLANCAMENTO'
-      Required = True
-      DisplayFormat = 'dd/mm/yyyy hh:mm'
-    end
-    object IbDtstTabelaDTEMISS: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data Emiss'#227'o'
-      FieldName = 'DTEMISS'
-      Origin = 'TBCOMPRAS.DTEMISS'
-      Required = True
-      DisplayFormat = 'dd/mm/yyyy'
-      EditMask = '!99/99/0000;1; '
-    end
-    object IbDtstTabelaDTENT: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data Entrada'
-      FieldName = 'DTENT'
-      Origin = 'TBCOMPRAS.DTENT'
-      Required = True
-      DisplayFormat = 'dd/mm/yyyy'
-      EditMask = '!99/99/0000;1; '
-    end
-    object IbDtstTabelaDTFINALIZACAO_COMPRA: TDateTimeField
-      FieldName = 'DTFINALIZACAO_COMPRA'
-      Origin = 'TBCOMPRAS.DTFINALIZACAO_COMPRA'
-    end
-    object IbDtstTabelaNFCFOP: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'CFOP'
-      FieldName = 'NFCFOP'
-      Origin = 'TBCOMPRAS.NFCFOP'
-    end
-    object IbDtstTabelaNATUREZA: TIBStringField
-      DisplayLabel = 'Natureza'
-      FieldName = 'NATUREZA'
-      Origin = 'TBCOMPRAS.NATUREZA'
-      Size = 4
-    end
-    object IbDtstTabelaSTATUS: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Status'
-      FieldName = 'STATUS'
-      Origin = 'TBCOMPRAS.STATUS'
-      Required = True
-      OnGetText = IbDtstTabelaSTATUSGetText
-    end
-    object IbDtstTabelaCALCULAR_TOTAIS: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CALCULAR_TOTAIS'
-      Origin = '"TBCOMPRAS"."CALCULAR_TOTAIS"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaIPI: TIBBCDField
-      FieldName = 'IPI'
-      Origin = 'TBCOMPRAS.IPI'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaICMSBASE: TIBBCDField
-      DisplayLabel = 'Base ICMS'
-      FieldName = 'ICMSBASE'
-      Origin = 'TBCOMPRAS.ICMSBASE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaICMSVALOR: TIBBCDField
-      DisplayLabel = 'Valor ICMS'
-      FieldName = 'ICMSVALOR'
-      Origin = 'TBCOMPRAS.ICMSVALOR'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaICMSSUBSTBASE: TIBBCDField
-      DisplayLabel = 'Base ICMS Substit.'
-      FieldName = 'ICMSSUBSTBASE'
-      Origin = 'TBCOMPRAS.ICMSSUBSTBASE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaICMSSUBSTVALOR: TIBBCDField
-      DisplayLabel = 'Valor ICMS Substit.'
-      FieldName = 'ICMSSUBSTVALOR'
-      Origin = 'TBCOMPRAS.ICMSSUBSTVALOR'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaFRETE: TIBBCDField
-      DisplayLabel = 'Frete'
-      FieldName = 'FRETE'
-      Origin = 'TBCOMPRAS.FRETE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaOUTROSCUSTOS: TIBBCDField
-      DisplayLabel = 'Outros'
-      FieldName = 'OUTROSCUSTOS'
-      Origin = 'TBCOMPRAS.OUTROSCUSTOS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaDESCONTO: TIBBCDField
-      DisplayLabel = 'Desconto'
-      FieldName = 'DESCONTO'
-      Origin = 'TBCOMPRAS.DESCONTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaTOTALPROD: TIBBCDField
-      DisplayLabel = 'Total Produto'
-      FieldName = 'TOTALPROD'
-      Origin = 'TBCOMPRAS.TOTALPROD'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaTOTALNF: TIBBCDField
-      DisplayLabel = 'Total Nota Fiscal'
-      FieldName = 'TOTALNF'
-      Origin = 'TBCOMPRAS.TOTALNF'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaOBS: TMemoField
-      FieldName = 'OBS'
-      Origin = 'TBCOMPRAS.OBS'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = 'TBCOMPRAS.USUARIO'
-      Size = 50
-    end
-    object IbDtstTabelaFORMAPAGTO_COD: TSmallintField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMAPAGTO_COD'
-      Origin = 'TBCOMPRAS.FORMAPAGTO_COD'
-      Required = True
-    end
-    object IbDtstTabelaCONDICAOPAGTO_COD: TSmallintField
-      DisplayLabel = 'Condi'#231#227'o de Pagamento'
-      FieldName = 'CONDICAOPAGTO_COD'
-      Origin = 'TBCOMPRAS.CONDICAOPAGTO_COD'
-      Required = True
-    end
-    object IbDtstTabelaTIPO_DESPESA: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo Despesa'
-      FieldName = 'TIPO_DESPESA'
-      Origin = '"TBCOMPRAS"."TIPO_DESPESA"'
-      Required = True
-    end
-    object IbDtstTabelaCOMPRA_PRAZO: TSmallintField
-      FieldName = 'COMPRA_PRAZO'
-      Origin = 'TBCOMPRAS.COMPRA_PRAZO'
-      Required = True
-    end
-    object IbDtstTabelaPRAZO_01: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_01'
-      Origin = 'TBCOMPRAS.PRAZO_01'
-    end
-    object IbDtstTabelaPRAZO_02: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_02'
-      Origin = 'TBCOMPRAS.PRAZO_02'
-    end
-    object IbDtstTabelaPRAZO_03: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_03'
-      Origin = 'TBCOMPRAS.PRAZO_03'
-    end
-    object IbDtstTabelaPRAZO_04: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_04'
-      Origin = 'TBCOMPRAS.PRAZO_04'
-    end
-    object IbDtstTabelaPRAZO_05: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_05'
-      Origin = 'TBCOMPRAS.PRAZO_05'
-    end
-    object IbDtstTabelaPRAZO_06: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_06'
-      Origin = 'TBCOMPRAS.PRAZO_06'
-    end
-    object IbDtstTabelaPRAZO_07: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_07'
-      Origin = 'TBCOMPRAS.PRAZO_07'
-    end
-    object IbDtstTabelaPRAZO_08: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_08'
-      Origin = 'TBCOMPRAS.PRAZO_08'
-    end
-    object IbDtstTabelaPRAZO_09: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_09'
-      Origin = 'TBCOMPRAS.PRAZO_09'
-    end
-    object IbDtstTabelaPRAZO_10: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_10'
-      Origin = 'TBCOMPRAS.PRAZO_10'
-    end
-    object IbDtstTabelaPRAZO_11: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_11'
-      Origin = 'TBCOMPRAS.PRAZO_11'
-    end
-    object IbDtstTabelaPRAZO_12: TSmallintField
-      Alignment = taCenter
-      FieldName = 'PRAZO_12'
-      Origin = 'TBCOMPRAS.PRAZO_12'
-    end
-    object IbDtstTabelaAUTORIZACAO_ANO: TSmallintField
-      FieldName = 'AUTORIZACAO_ANO'
-      Origin = '"TBCOMPRAS"."AUTORIZACAO_ANO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaAUTORIZACAO_CODIGO: TIntegerField
-      FieldName = 'AUTORIZACAO_CODIGO'
-      Origin = '"TBCOMPRAS"."AUTORIZACAO_CODIGO"'
-      ProviderFlags = [pfInUpdate]
-      OnGetText = IbDtstTabelaAUTORIZACAO_CODIGOGetText
-    end
-    object IbDtstTabelaAUTORIZACAO_EMPRESA: TIBStringField
-      FieldName = 'AUTORIZACAO_EMPRESA'
-      Origin = '"TBCOMPRAS"."AUTORIZACAO_EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object IbDtstTabelaCANCEL_USUARIO: TIBStringField
-      FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBCOMPRAS"."CANCEL_USUARIO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaCANCEL_DATAHORA: TDateTimeField
-      FieldName = 'CANCEL_DATAHORA'
-      Origin = '"TBCOMPRAS"."CANCEL_DATAHORA"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaCANCEL_MOTIVO: TMemoField
-      FieldName = 'CANCEL_MOTIVO'
-      Origin = '"TBCOMPRAS"."CANCEL_MOTIVO"'
-      ProviderFlags = []
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaNOMEFORN: TIBStringField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'NOMEFORN'
-      Origin = 'TBFORNECEDOR.NOMEFORN'
-      Size = 60
-    end
-    object IbDtstTabelaCNPJ: TIBStringField
-      DisplayLabel = 'CPF/CNPJ'
-      FieldName = 'CNPJ'
-      Origin = 'TBFORNECEDOR.CNPJ'
-      Size = 18
-    end
-    object IbDtstTabelaCFOP_DESCRICAO: TIBStringField
-      FieldName = 'CFOP_DESCRICAO'
-      Origin = 'TBCFOP.CFOP_DESCRICAO'
-      ProviderFlags = []
-      Size = 250
-    end
-    object IbDtstTabelaQT_ITENS: TIntegerField
-      FieldName = 'QT_ITENS'
-      ProviderFlags = []
-      DisplayFormat = ',0'
-    end
+    Left = 960
+    Top = 40
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 984
-    Top = 0
+    Left = 1024
+    Top = 72
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -4438,13 +4068,14 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'where'
       '  ANO = :OLD_ANO and'
       '  CODCONTROL = :OLD_CODCONTROL')
-    Left = 952
-    Top = 0
+    Left = 992
+    Top = 40
   end
   inherited ImgList: TImageList
-    Left = 712
+    Left = 928
+    Top = 40
     Bitmap = {
-      494C01012B002C00F40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5903,835 +5534,689 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    BeforeCancel = fdQryTabelaBeforeCancel
+    AfterCancel = fdQryTabelaAfterCancel
+    AfterScroll = fdQryTabelaAfterScroll
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_COMPRAS_CONTROLE_2019'
+    UpdateOptions.KeyFields = 'ANO;CODCONTROL;CODEMP'
+    UpdateOptions.AutoIncFields = 'CODCONTROL'
+    SQL.Strings = (
+      'Select'
+      '    c.ANO'
+      '  , c.CODCONTROL'
+      '  , c.CODEMP'
+      '  , c.CODFORN'
+      '  , c.TIPO_ENTRADA'
+      '  , c.TIPO_DOCUMENTO'
+      '  , c.TIPO_MOVIMENTO'
+      '  , c.NF'
+      '  , c.NFSERIE'
+      '  , c.VERIFICADOR_NFE'
+      '  , c.XML_NFE_FILENAME'
+      '  , c.LOTE_NFE_ANO'
+      '  , c.LOTE_NFE_NUMERO'
+      '  , c.LOTE_NFE_RECIBO'
+      '  , c.DTLANCAMENTO'
+      '  , c.DTEMISS'
+      '  , c.DTENT'
+      '  , c.DTFINALIZACAO_COMPRA'
+      '  , c.NFCFOP'
+      '  , c.NATUREZA'
+      '  , c.STATUS'
+      '  , c.CALCULAR_TOTAIS'
+      '  , c.IPI'
+      '  , c.ICMSBASE'
+      '  , c.ICMSVALOR'
+      '  , c.ICMSSUBSTBASE'
+      '  , c.ICMSSUBSTVALOR'
+      '  , c.FRETE'
+      '  , c.OUTROSCUSTOS'
+      '  , c.DESCONTO'
+      '  , c.TOTALNF'
+      '  , c.TOTALPROD'
+      '  , c.OBS'
+      '  , c.USUARIO'
+      '  , c.FORMAPAGTO_COD'
+      '  , c.CONDICAOPAGTO_COD'
+      '  , c.COMPRA_PRAZO'
+      '  , c.PRAZO_01'
+      '  , c.PRAZO_02'
+      '  , c.PRAZO_03'
+      '  , c.PRAZO_04'
+      '  , c.PRAZO_05'
+      '  , c.PRAZO_06'
+      '  , c.PRAZO_07'
+      '  , c.PRAZO_08'
+      '  , c.PRAZO_09'
+      '  , c.PRAZO_10'
+      '  , c.PRAZO_11'
+      '  , c.PRAZO_12'
+      '  , c.TIPO_DESPESA'
+      '  , c.AUTORIZACAO_ANO'
+      '  , c.AUTORIZACAO_CODIGO'
+      '  , c.AUTORIZACAO_EMPRESA'
+      '  , c.Cancel_usuario'
+      '  , c.Cancel_datahora'
+      '  , c.Cancel_motivo'
+      '  , f.Nomeforn'
+      '  , f.Cnpj'
+      '  , n.Cfop_descricao'
+      '  , coalesce(('
+      '      Select'
+      '        count(i.seq)'
+      '      from TBCOMPRASITENS i'
+      '      where i.ano        = c.ano'
+      '        and i.codcontrol = c.codcontrol'
+      '    ), 0) as qt_itens'
+      'from TBCOMPRAS c'
+      '  left join TBFORNECEDOR f on (f.Codforn = c.Codforn)'
+      '  left join TBCFOP n on (n.Cfop_cod = c.Nfcfop)')
+    Left = 960
+    Top = 72
+    object fdQryTabelaANO: TSmallintField
+      DisplayLabel = 'Ano'
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaCODCONTROL: TIntegerField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'No. Compra'
+      FieldName = 'CODCONTROL'
+      Origin = 'CODCONTROL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdQryTabelaCODEMP: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'CODEMP'
+      Origin = 'CODEMP'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaCODFORN: TIntegerField
+      DisplayLabel = 'Fornecedor'
+      FieldName = 'CODFORN'
+      Origin = 'CODFORN'
+    end
+    object fdQryTabelaTIPO_ENTRADA: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo Entrada'
+      FieldName = 'TIPO_ENTRADA'
+      Origin = 'TIPO_ENTRADA'
+      Required = True
+    end
+    object fdQryTabelaTIPO_DOCUMENTO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo Documento'
+      FieldName = 'TIPO_DOCUMENTO'
+      Origin = 'TIPO_DOCUMENTO'
+      Required = True
+    end
+    object fdQryTabelaTIPO_MOVIMENTO: TSmallintField
+      FieldName = 'TIPO_MOVIMENTO'
+      Origin = 'TIPO_MOVIMENTO'
+    end
+    object fdQryTabelaNF: TIntegerField
+      DisplayLabel = 'N'#250'mero do Documento'
+      FieldName = 'NF'
+      Origin = 'NF'
+      Required = True
+    end
+    object fdQryTabelaNFSERIE: TStringField
+      DisplayLabel = 'S'#233'rie do Documento'
+      FieldName = 'NFSERIE'
+      Origin = 'NFSERIE'
+      Size = 4
+    end
+    object fdQryTabelaVERIFICADOR_NFE: TStringField
+      FieldName = 'VERIFICADOR_NFE'
+      Origin = 'VERIFICADOR_NFE'
+      Size = 250
+    end
+    object fdQryTabelaXML_NFE_FILENAME: TStringField
+      FieldName = 'XML_NFE_FILENAME'
+      Origin = 'XML_NFE_FILENAME'
+      Size = 250
+    end
+    object fdQryTabelaLOTE_NFE_ANO: TSmallintField
+      FieldName = 'LOTE_NFE_ANO'
+      Origin = 'LOTE_NFE_ANO'
+    end
+    object fdQryTabelaLOTE_NFE_NUMERO: TIntegerField
+      FieldName = 'LOTE_NFE_NUMERO'
+      Origin = 'LOTE_NFE_NUMERO'
+    end
+    object fdQryTabelaLOTE_NFE_RECIBO: TStringField
+      FieldName = 'LOTE_NFE_RECIBO'
+      Origin = 'LOTE_NFE_RECIBO'
+      Size = 250
+    end
+    object fdQryTabelaDTLANCAMENTO: TSQLTimeStampField
+      DisplayLabel = 'Data Lan'#231'amento'
+      FieldName = 'DTLANCAMENTO'
+      Origin = 'DTLANCAMENTO'
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy hh:mm'
+    end
+    object fdQryTabelaDTEMISS: TDateField
+      DisplayLabel = 'Data Emiss'#227'o'
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTabelaDTENT: TDateField
+      DisplayLabel = 'Data Entrada'
+      FieldName = 'DTENT'
+      Origin = 'DTENT'
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTabelaDTFINALIZACAO_COMPRA: TSQLTimeStampField
+      FieldName = 'DTFINALIZACAO_COMPRA'
+      Origin = 'DTFINALIZACAO_COMPRA'
+    end
+    object fdQryTabelaNFCFOP: TIntegerField
+      Alignment = taCenter
+      DisplayLabel = 'CFOP'
+      FieldName = 'NFCFOP'
+      Origin = 'NFCFOP'
+    end
+    object fdQryTabelaNATUREZA: TStringField
+      DisplayLabel = 'Natureza'
+      FieldName = 'NATUREZA'
+      Origin = 'NATUREZA'
+      Size = 4
+    end
+    object fdQryTabelaSTATUS: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Status'
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Required = True
+      OnGetText = fdQryTabelaSTATUSGetText
+    end
+    object fdQryTabelaCALCULAR_TOTAIS: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'CALCULAR_TOTAIS'
+      Origin = 'CALCULAR_TOTAIS'
+    end
+    object fdQryTabelaIPI: TBCDField
+      FieldName = 'IPI'
+      Origin = 'IPI'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaICMSBASE: TBCDField
+      DisplayLabel = 'Base ICMS'
+      FieldName = 'ICMSBASE'
+      Origin = 'ICMSBASE'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaICMSVALOR: TBCDField
+      DisplayLabel = 'Valor ICMS'
+      FieldName = 'ICMSVALOR'
+      Origin = 'ICMSVALOR'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaICMSSUBSTBASE: TBCDField
+      DisplayLabel = 'Base ICMS Subst.'
+      FieldName = 'ICMSSUBSTBASE'
+      Origin = 'ICMSSUBSTBASE'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaICMSSUBSTVALOR: TBCDField
+      DisplayLabel = 'Valor ICMS Subst.'
+      FieldName = 'ICMSSUBSTVALOR'
+      Origin = 'ICMSSUBSTVALOR'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaFRETE: TBCDField
+      DisplayLabel = 'Frete'
+      FieldName = 'FRETE'
+      Origin = 'FRETE'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaOUTROSCUSTOS: TBCDField
+      DisplayLabel = 'Outros'
+      FieldName = 'OUTROSCUSTOS'
+      Origin = 'OUTROSCUSTOS'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaDESCONTO: TBCDField
+      DisplayLabel = 'Desconto'
+      FieldName = 'DESCONTO'
+      Origin = 'DESCONTO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaTOTALPROD: TBCDField
+      DisplayLabel = 'Total Produto'
+      FieldName = 'TOTALPROD'
+      Origin = 'TOTALPROD'
+      Required = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaTOTALNF: TBCDField
+      DisplayLabel = 'Total Nota Fiscal'
+      FieldName = 'TOTALNF'
+      Origin = 'TOTALNF'
+      Required = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaFORMAPAGTO_COD: TSmallintField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'FORMAPAGTO_COD'
+      Origin = 'FORMAPAGTO_COD'
+      Required = True
+    end
+    object fdQryTabelaCONDICAOPAGTO_COD: TSmallintField
+      DisplayLabel = 'Condi'#231#227'o de Pagamento'
+      FieldName = 'CONDICAOPAGTO_COD'
+      Origin = 'CONDICAOPAGTO_COD'
+      Required = True
+    end
+    object fdQryTabelaTIPO_DESPESA: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo Despesa'
+      FieldName = 'TIPO_DESPESA'
+      Origin = 'TIPO_DESPESA'
+      Required = True
+    end
+    object fdQryTabelaCOMPRA_PRAZO: TSmallintField
+      FieldName = 'COMPRA_PRAZO'
+      Origin = 'COMPRA_PRAZO'
+      Required = True
+    end
+    object fdQryTabelaPRAZO_01: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_01'
+      Origin = 'PRAZO_01'
+    end
+    object fdQryTabelaPRAZO_02: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_02'
+      Origin = 'PRAZO_02'
+    end
+    object fdQryTabelaPRAZO_03: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_03'
+      Origin = 'PRAZO_03'
+    end
+    object fdQryTabelaPRAZO_04: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_04'
+      Origin = 'PRAZO_04'
+    end
+    object fdQryTabelaPRAZO_05: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_05'
+      Origin = 'PRAZO_05'
+    end
+    object fdQryTabelaPRAZO_06: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_06'
+      Origin = 'PRAZO_06'
+    end
+    object fdQryTabelaPRAZO_07: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_07'
+      Origin = 'PRAZO_07'
+    end
+    object fdQryTabelaPRAZO_08: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_08'
+      Origin = 'PRAZO_08'
+    end
+    object fdQryTabelaPRAZO_09: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_09'
+      Origin = 'PRAZO_09'
+    end
+    object fdQryTabelaPRAZO_10: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_10'
+      Origin = 'PRAZO_10'
+    end
+    object fdQryTabelaPRAZO_11: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_11'
+      Origin = 'PRAZO_11'
+    end
+    object fdQryTabelaPRAZO_12: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PRAZO_12'
+      Origin = 'PRAZO_12'
+    end
+    object fdQryTabelaAUTORIZACAO_ANO: TSmallintField
+      FieldName = 'AUTORIZACAO_ANO'
+      Origin = 'AUTORIZACAO_ANO'
+    end
+    object fdQryTabelaAUTORIZACAO_CODIGO: TIntegerField
+      FieldName = 'AUTORIZACAO_CODIGO'
+      Origin = 'AUTORIZACAO_CODIGO'
+      OnGetText = fdQryTabelaAUTORIZACAO_CODIGOGetText
+    end
+    object fdQryTabelaAUTORIZACAO_EMPRESA: TStringField
+      FieldName = 'AUTORIZACAO_EMPRESA'
+      Origin = 'AUTORIZACAO_EMPRESA'
+      Size = 18
+    end
+    object fdQryTabelaCANCEL_USUARIO: TStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = 'CANCEL_USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaCANCEL_DATAHORA: TSQLTimeStampField
+      FieldName = 'CANCEL_DATAHORA'
+      Origin = 'CANCEL_DATAHORA'
+    end
+    object fdQryTabelaCANCEL_MOTIVO: TMemoField
+      FieldName = 'CANCEL_MOTIVO'
+      Origin = 'CANCEL_MOTIVO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaNOMEFORN: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Fornecedor'
+      FieldName = 'NOMEFORN'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaCNPJ: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'CPF/CNPJ'
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryTabelaCFOP_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CFOP_DESCRICAO'
+      Origin = 'CFOP_DESCRICAO'
+      ProviderFlags = []
+      Size = 250
+    end
+    object fdQryTabelaQT_ITENS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'QT_ITENS'
+      Origin = 'QT_ITENS'
+      ProviderFlags = []
+      DisplayFormat = ',0'
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCOMPRAS'
+      '(ANO, CODCONTROL, CODEMP, CODFORN, TIPO_ENTRADA, '
+      '  TIPO_DOCUMENTO, TIPO_MOVIMENTO, NF, NFSERIE, '
+      '  LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_RECIBO, '
+      '  VERIFICADOR_NFE, XML_NFE_FILENAME, DTLANCAMENTO, '
+      '  DTEMISS, DTENT, NFCFOP, NATUREZA, STATUS, '
+      '  CALCULAR_TOTAIS, IPI, ICMSBASE, ICMSVALOR, '
+      '  ICMSSUBSTBASE, ICMSSUBSTVALOR, FRETE, OUTROSCUSTOS, '
+      '  DESCONTO, TOTALPROD, TOTALNF, OBS, USUARIO, '
+      '  FORMAPAGTO_COD, CONDICAOPAGTO_COD, COMPRA_PRAZO, '
+      '  PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04, '
+      '  PRAZO_05, PRAZO_06, PRAZO_07, PRAZO_08, '
+      '  PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, '
+      '  DTFINALIZACAO_COMPRA, TIPO_DESPESA, CANCEL_USUARIO, '
+      '  CANCEL_DATAHORA, CANCEL_MOTIVO, AUTORIZACAO_ANO, '
+      '  AUTORIZACAO_CODIGO, AUTORIZACAO_EMPRESA)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_CODFORN, :N' +
+        'EW_TIPO_ENTRADA, '
+      
+        '  :NEW_TIPO_DOCUMENTO, :NEW_TIPO_MOVIMENTO, :NEW_NF, :NEW_NFSERI' +
+        'E, '
+      
+        '  :NEW_LOTE_NFE_ANO, :NEW_LOTE_NFE_NUMERO, :NEW_LOTE_NFE_RECIBO,' +
+        ' '
+      
+        '  :NEW_VERIFICADOR_NFE, :NEW_XML_NFE_FILENAME, :NEW_DTLANCAMENTO' +
+        ', '
+      
+        '  :NEW_DTEMISS, :NEW_DTENT, :NEW_NFCFOP, :NEW_NATUREZA, :NEW_STA' +
+        'TUS, '
+      
+        '  :NEW_CALCULAR_TOTAIS, :NEW_IPI, :NEW_ICMSBASE, :NEW_ICMSVALOR,' +
+        ' '
+      
+        '  :NEW_ICMSSUBSTBASE, :NEW_ICMSSUBSTVALOR, :NEW_FRETE, :NEW_OUTR' +
+        'OSCUSTOS, '
+      
+        '  :NEW_DESCONTO, :NEW_TOTALPROD, :NEW_TOTALNF, :NEW_OBS, :NEW_US' +
+        'UARIO, '
+      
+        '  :NEW_FORMAPAGTO_COD, :NEW_CONDICAOPAGTO_COD, :NEW_COMPRA_PRAZO' +
+        ', '
+      '  :NEW_PRAZO_01, :NEW_PRAZO_02, :NEW_PRAZO_03, :NEW_PRAZO_04, '
+      '  :NEW_PRAZO_05, :NEW_PRAZO_06, :NEW_PRAZO_07, :NEW_PRAZO_08, '
+      '  :NEW_PRAZO_09, :NEW_PRAZO_10, :NEW_PRAZO_11, :NEW_PRAZO_12, '
+      
+        '  :NEW_DTFINALIZACAO_COMPRA, :NEW_TIPO_DESPESA, :NEW_CANCEL_USUA' +
+        'RIO, '
+      
+        '  :NEW_CANCEL_DATAHORA, :NEW_CANCEL_MOTIVO, :NEW_AUTORIZACAO_ANO' +
+        ', '
+      '  :NEW_AUTORIZACAO_CODIGO, :NEW_AUTORIZACAO_EMPRESA)'
+      'RETURNING CODCONTROL, USUARIO')
+    ModifySQL.Strings = (
+      'UPDATE TBCOMPRAS'
+      
+        'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
+        'CODEMP, '
+      '  CODFORN = :NEW_CODFORN, TIPO_ENTRADA = :NEW_TIPO_ENTRADA, '
+      
+        '  TIPO_DOCUMENTO = :NEW_TIPO_DOCUMENTO, TIPO_MOVIMENTO = :NEW_TI' +
+        'PO_MOVIMENTO, '
+      
+        '  NF = :NEW_NF, NFSERIE = :NEW_NFSERIE, LOTE_NFE_ANO = :NEW_LOTE' +
+        '_NFE_ANO, '
+      
+        '  LOTE_NFE_NUMERO = :NEW_LOTE_NFE_NUMERO, LOTE_NFE_RECIBO = :NEW' +
+        '_LOTE_NFE_RECIBO, '
+      
+        '  VERIFICADOR_NFE = :NEW_VERIFICADOR_NFE, XML_NFE_FILENAME = :NE' +
+        'W_XML_NFE_FILENAME, '
+      '  DTLANCAMENTO = :NEW_DTLANCAMENTO, DTEMISS = :NEW_DTEMISS, '
+      
+        '  DTENT = :NEW_DTENT, NFCFOP = :NEW_NFCFOP, NATUREZA = :NEW_NATU' +
+        'REZA, '
+      '  STATUS = :NEW_STATUS, CALCULAR_TOTAIS = :NEW_CALCULAR_TOTAIS, '
+      
+        '  IPI = :NEW_IPI, ICMSBASE = :NEW_ICMSBASE, ICMSVALOR = :NEW_ICM' +
+        'SVALOR, '
+      
+        '  ICMSSUBSTBASE = :NEW_ICMSSUBSTBASE, ICMSSUBSTVALOR = :NEW_ICMS' +
+        'SUBSTVALOR, '
+      
+        '  FRETE = :NEW_FRETE, OUTROSCUSTOS = :NEW_OUTROSCUSTOS, DESCONTO' +
+        ' = :NEW_DESCONTO, '
+      
+        '  TOTALPROD = :NEW_TOTALPROD, TOTALNF = :NEW_TOTALNF, OBS = :NEW' +
+        '_OBS, '
+      '  USUARIO = :NEW_USUARIO, FORMAPAGTO_COD = :NEW_FORMAPAGTO_COD, '
+      
+        '  CONDICAOPAGTO_COD = :NEW_CONDICAOPAGTO_COD, COMPRA_PRAZO = :NE' +
+        'W_COMPRA_PRAZO, '
+      
+        '  PRAZO_01 = :NEW_PRAZO_01, PRAZO_02 = :NEW_PRAZO_02, PRAZO_03 =' +
+        ' :NEW_PRAZO_03, '
+      
+        '  PRAZO_04 = :NEW_PRAZO_04, PRAZO_05 = :NEW_PRAZO_05, PRAZO_06 =' +
+        ' :NEW_PRAZO_06, '
+      
+        '  PRAZO_07 = :NEW_PRAZO_07, PRAZO_08 = :NEW_PRAZO_08, PRAZO_09 =' +
+        ' :NEW_PRAZO_09, '
+      
+        '  PRAZO_10 = :NEW_PRAZO_10, PRAZO_11 = :NEW_PRAZO_11, PRAZO_12 =' +
+        ' :NEW_PRAZO_12, '
+      
+        '  DTFINALIZACAO_COMPRA = :NEW_DTFINALIZACAO_COMPRA, TIPO_DESPESA' +
+        ' = :NEW_TIPO_DESPESA, '
+      
+        '  CANCEL_USUARIO = :NEW_CANCEL_USUARIO, CANCEL_DATAHORA = :NEW_C' +
+        'ANCEL_DATAHORA, '
+      
+        '  CANCEL_MOTIVO = :NEW_CANCEL_MOTIVO, AUTORIZACAO_ANO = :NEW_AUT' +
+        'ORIZACAO_ANO, '
+      
+        '  AUTORIZACAO_CODIGO = :NEW_AUTORIZACAO_CODIGO, AUTORIZACAO_EMPR' +
+        'ESA = :NEW_AUTORIZACAO_EMPRESA'
+      
+        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
+        ' = :OLD_CODEMP'
+      'RETURNING CODCONTROL, USUARIO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCOMPRAS'
+      
+        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
+        ' = :OLD_CODEMP')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    c.ANO'
+      '  , c.CODCONTROL'
+      '  , c.CODEMP'
+      '  , c.CODFORN'
+      '  , c.TIPO_ENTRADA'
+      '  , c.TIPO_DOCUMENTO'
+      '  , c.TIPO_MOVIMENTO'
+      '  , c.NF'
+      '  , c.NFSERIE'
+      '  , c.VERIFICADOR_NFE'
+      '  , c.XML_NFE_FILENAME'
+      '  , c.LOTE_NFE_ANO'
+      '  , c.LOTE_NFE_NUMERO'
+      '  , c.LOTE_NFE_RECIBO'
+      '  , c.DTLANCAMENTO'
+      '  , c.DTEMISS'
+      '  , c.DTENT'
+      '  , c.DTFINALIZACAO_COMPRA'
+      '  , c.NFCFOP'
+      '  , c.NATUREZA'
+      '  , c.STATUS'
+      '  , c.CALCULAR_TOTAIS'
+      '  , c.IPI'
+      '  , c.ICMSBASE'
+      '  , c.ICMSVALOR'
+      '  , c.ICMSSUBSTBASE'
+      '  , c.ICMSSUBSTVALOR'
+      '  , c.FRETE'
+      '  , c.OUTROSCUSTOS'
+      '  , c.DESCONTO'
+      '  , c.TOTALNF'
+      '  , c.TOTALPROD'
+      '  , c.OBS'
+      '  , c.USUARIO'
+      '  , c.FORMAPAGTO_COD'
+      '  , c.CONDICAOPAGTO_COD'
+      '  , c.COMPRA_PRAZO'
+      '  , c.PRAZO_01'
+      '  , c.PRAZO_02'
+      '  , c.PRAZO_03'
+      '  , c.PRAZO_04'
+      '  , c.PRAZO_05'
+      '  , c.PRAZO_06'
+      '  , c.PRAZO_07'
+      '  , c.PRAZO_08'
+      '  , c.PRAZO_09'
+      '  , c.PRAZO_10'
+      '  , c.PRAZO_11'
+      '  , c.PRAZO_12'
+      '  , c.TIPO_DESPESA'
+      '  , c.AUTORIZACAO_ANO'
+      '  , c.AUTORIZACAO_CODIGO'
+      '  , c.AUTORIZACAO_EMPRESA'
+      '  , c.Cancel_usuario'
+      '  , c.Cancel_datahora'
+      '  , c.Cancel_motivo'
+      '  , f.Nomeforn'
+      '  , f.Cnpj'
+      '  , n.Cfop_descricao'
+      '  , coalesce(('
+      '      Select'
+      '        count(i.seq)'
+      '      from TBCOMPRASITENS i'
+      '      where i.ano        = c.ano'
+      '        and i.codcontrol = c.codcontrol'
+      '    ), 0) as qt_itens'
+      'from TBCOMPRAS c'
+      '  left join TBFORNECEDOR f on (f.Codforn = c.Codforn)'
+      '  left join TBCFOP n on (n.Cfop_cod = c.Nfcfop)'
+      
+        'WHERE c.ANO = :ANO AND c.CODCONTROL = :CODCONTROL AND c.CODEMP =' +
+        ' :CODEMP')
+    Left = 992
+    Top = 72
+  end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
     Left = 312
     Top = 376
   end
-  object qryProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.Codigo'
-      '  , p.Cod'
-      '  , p.Descri'
-      '  , p.Modelo'
-      '  , p.Preco'
-      '  , p.Referencia'
-      '  , p.Secao'
-      '  , p.Qtde'
-      '  , p.Unidade'
-      '  , p.Estoqmin'
-      '  , p.Codgrupo'
-      '  , p.Customedio'
-      '  , p.Codemp'
-      '  , p.Codsecao'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Codcfop'
-      '  , p.Codbarra_ean'
-      '  , p.Codunidade'
-      '  , p.Ncm_sh'
-      '  , p.Aliquota_tipo'
-      '  , p.Aliquota'
-      '  , p.Aliquota_csosn'
-      '  , p.Aliquota_pis'
-      '  , p.Aliquota_cofins'
-      '  , p.Percentual_reducao_BC'
-      '  , p.Valor_ipi'
-      '  , p.Reserva'
-      '  , case when coalesce(p.Reserva, 0) > 0'
-      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
-      '      else coalesce(p.Qtde, 0)'
-      '    end as Disponivel'
-      '  , g.Descri as Descricao_Grupo'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
-      'where p.Codigo = :Codigo')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 896
-    Top = 392
-  end
-  object qryCFOP: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    c.Cfop_cod'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_cst_padrao_entrada'
-      '  , c.Cfop_cst_padrao_saida'
-      'from TBCFOP c'
-      'where c.Cfop_cod = :Cfop_cod')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 928
-    Top = 392
-  end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 280
-    Top = 408
-  end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = qryFormaPagto
     Left = 312
     Top = 408
-  end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 280
-    Top = 440
   end
   object dtsCondicaoPagto: TDataSource
-    DataSet = tblCondicaoPagto
+    DataSet = qryCondicaoPagto
     Left = 312
     Top = 440
-  end
-  object cdsTabelaItens: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    OnNewRecord = cdsTabelaItensNewRecord
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Codemp'
-      '  , i.Seq'
-      '  , i.Codprod'
-      '  , i.Codforn'
-      '  , i.Dtent'
-      '  , i.Qtde'
-      '  , i.Qtdeantes'
-      '  , i.Qtdefinal'
-      '  , i.Precounit'
-      '  , i.Customedio'
-      '  , i.Nf'
-      '  , i.Perc_participacao'
-      '  , i.Valor_frete'
-      '  , i.Valor_desconto'
-      '  , i.Valor_outros'
-      '  , i.Valor_IPI'
-      '  , i.Unid_cod'
-      '  , i.Ncm_sh'
-      '  , i.Cst'
-      '  , i.Csosn'
-      '  , i.Cfop'
-      '  , i.aliquota'
-      '  , i.aliquota_csosn'
-      '  , i.aliquota_pis'
-      '  , i.aliquota_cofins'
-      '  , i.percentual_reducao_bc'
-      '  , i.total_bruto'
-      '  , i.total_liquido'
-      ''
-      '  , coalesce(p.descri_apresentacao, p.Descri) as Descri'
-      '  , p.Qtde as Estoque'
-      '  , p.estoque_aprop_lote'
-      '  , u.Unp_sigla'
-      'from TBCOMPRASITENS i'
-      '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = IbUpdTabelaItens
-    Left = 448
-    Top = 392
-    object cdsTabelaItensANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = 'TBCOMPRASITENS.ANO'
-      Required = True
-    end
-    object cdsTabelaItensCODCONTROL: TIntegerField
-      FieldName = 'CODCONTROL'
-      Origin = 'TBCOMPRASITENS.CODCONTROL'
-      Required = True
-    end
-    object cdsTabelaItensCODEMP: TIBStringField
-      FieldName = 'CODEMP'
-      Origin = 'TBCOMPRASITENS.CODEMP'
-      Required = True
-      Size = 18
-    end
-    object cdsTabelaItensSEQ: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = '#'
-      FieldName = 'SEQ'
-      Origin = 'TBCOMPRASITENS.SEQ'
-      Required = True
-      DisplayFormat = '00'
-    end
-    object cdsTabelaItensCODPROD: TIBStringField
-      DisplayLabel = 'Produto'
-      FieldName = 'CODPROD'
-      Origin = 'TBCOMPRASITENS.CODPROD'
-      Size = 10
-    end
-    object cdsTabelaItensCODFORN: TIntegerField
-      FieldName = 'CODFORN'
-      Origin = 'TBCOMPRASITENS.CODFORN'
-    end
-    object cdsTabelaItensDTENT: TDateField
-      FieldName = 'DTENT'
-      Origin = 'TBCOMPRASITENS.DTENT'
-    end
-    object cdsTabelaItensQTDE: TIBBCDField
-      DisplayLabel = 'Quantidade'
-      FieldName = 'QTDE'
-      Origin = '"TBCOMPRASITENS"."QTDE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensQTDEANTES: TIBBCDField
-      FieldName = 'QTDEANTES'
-      Origin = '"TBCOMPRASITENS"."QTDEANTES"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensQTDEFINAL: TIBBCDField
-      FieldName = 'QTDEFINAL'
-      Origin = '"TBCOMPRASITENS"."QTDEFINAL"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensPRECOUNIT: TIBBCDField
-      DisplayLabel = 'Valor Unit'#225'rio'
-      FieldName = 'PRECOUNIT'
-      Origin = 'TBCOMPRASITENS.PRECOUNIT'
-      DisplayFormat = ',0.00##'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensCUSTOMEDIO: TIBBCDField
-      DisplayLabel = 'Custo'
-      FieldName = 'CUSTOMEDIO'
-      Origin = 'TBCOMPRASITENS.CUSTOMEDIO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensNF: TIntegerField
-      FieldName = 'NF'
-      Origin = 'TBCOMPRASITENS.NF'
-    end
-    object cdsTabelaItensPERC_PARTICIPACAO: TIBBCDField
-      FieldName = 'PERC_PARTICIPACAO'
-      Origin = 'TBCOMPRASITENS.PERC_PARTICIPACAO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_FRETE: TIBBCDField
-      DisplayLabel = 'Frete'
-      FieldName = 'VALOR_FRETE'
-      Origin = 'TBCOMPRASITENS.VALOR_FRETE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_DESCONTO: TIBBCDField
-      DisplayLabel = 'Desconto'
-      FieldName = 'VALOR_DESCONTO'
-      Origin = 'TBCOMPRASITENS.VALOR_DESCONTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_OUTROS: TIBBCDField
-      DisplayLabel = 'Outros'
-      FieldName = 'VALOR_OUTROS'
-      Origin = 'TBCOMPRASITENS.VALOR_OUTROS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_IPI: TIBBCDField
-      DisplayLabel = 'Valor IPI'
-      FieldName = 'VALOR_IPI'
-      Origin = 'TBCOMPRASITENS.VALOR_IPI'
-      DisplayFormat = ',0.00##'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensUNID_COD: TSmallintField
-      DisplayLabel = 'Und.'
-      FieldName = 'UNID_COD'
-      Origin = 'TBCOMPRASITENS.UNID_COD'
-    end
-    object cdsTabelaItensNCM_SH: TIBStringField
-      FieldName = 'NCM_SH'
-      Origin = 'TBCOMPRASITENS.NCM_SH'
-      Size = 10
-    end
-    object cdsTabelaItensCST: TIBStringField
-      FieldName = 'CST'
-      Origin = 'TBCOMPRASITENS.CST'
-      Size = 3
-    end
-    object cdsTabelaItensCSOSN: TIBStringField
-      FieldName = 'CSOSN'
-      Origin = '"TBCOMPRASITENS"."CSOSN"'
-      ProviderFlags = [pfInUpdate]
-      Size = 3
-    end
-    object cdsTabelaItensCFOP: TIntegerField
-      FieldName = 'CFOP'
-      Origin = 'TBCOMPRASITENS.CFOP'
-    end
-    object cdsTabelaItensALIQUOTA: TIBBCDField
-      FieldName = 'ALIQUOTA'
-      Origin = '"TBCOMPRASITENS"."ALIQUOTA"'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensALIQUOTA_CSOSN: TIBBCDField
-      FieldName = 'ALIQUOTA_CSOSN'
-      Origin = '"TBCOMPRASITENS"."ALIQUOTA_CSOSN"'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensALIQUOTA_PIS: TIBBCDField
-      FieldName = 'ALIQUOTA_PIS'
-      Origin = '"TBCOMPRASITENS"."ALIQUOTA_PIS"'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensALIQUOTA_COFINS: TIBBCDField
-      FieldName = 'ALIQUOTA_COFINS'
-      Origin = '"TBCOMPRASITENS"."ALIQUOTA_COFINS"'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensPERCENTUAL_REDUCAO_BC: TIBBCDField
-      FieldName = 'PERCENTUAL_REDUCAO_BC'
-      Origin = '"TBCOMPRASITENS"."PERCENTUAL_REDUCAO_BC"'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensTOTAL_BRUTO: TIBBCDField
-      DisplayLabel = 'Total Bruto (R$)'
-      FieldName = 'TOTAL_BRUTO'
-      Origin = '"TBCOMPRASITENS"."TOTAL_BRUTO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensTOTAL_LIQUIDO: TIBBCDField
-      DisplayLabel = 'Total Liquido (R$)'
-      FieldName = 'TOTAL_LIQUIDO'
-      Origin = '"TBCOMPRASITENS"."TOTAL_LIQUIDO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensDESCRI: TIBStringField
-      FieldName = 'DESCRI'
-      ProviderFlags = []
-      Size = 100
-    end
-    object cdsTabelaItensUNP_SIGLA: TIBStringField
-      DisplayLabel = 'Und.'
-      FieldName = 'UNP_SIGLA'
-      Origin = 'TBUNIDADEPROD.UNP_SIGLA'
-      Size = 5
-    end
-    object cdsTabelaItensESTOQUE: TIBBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'ESTOQUE'
-      Origin = '"TBPRODUTO"."QTDE"'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField
-      FieldName = 'ESTOQUE_APROP_LOTE'
-      Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
-      ProviderFlags = []
-    end
-  end
-  object IbUpdTabelaItens: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODCONTROL,'
-      '  CODEMP,'
-      '  SEQ,'
-      '  CODFORN,'
-      '  CODPROD,'
-      '  QTDE,'
-      '  PRECOUNIT,'
-      '  CUSTOMEDIO,'
-      '  DTENT,'
-      '  NF,'
-      '  QTDEANTES,'
-      '  QTDEFINAL,'
-      '  PERC_PARTICIPACAO,'
-      '  VALOR_FRETE,'
-      '  VALOR_DESCONTO,'
-      '  VALOR_OUTROS,'
-      '  VALOR_IPI,'
-      '  UNID_COD,'
-      '  NCM_SH,'
-      '  CST,'
-      '  CSOSN,'
-      '  CFOP,'
-      '  ALIQUOTA,'
-      '  ALIQUOTA_CSOSN,'
-      '  ALIQUOTA_PIS,'
-      '  ALIQUOTA_COFINS,'
-      '  PERCENTUAL_REDUCAO_BC,'
-      '  TOTAL_BRUTO,'
-      '  TOTAL_LIQUIDO'
-      'from TBCOMPRASITENS '
-      'where'
-      '  ANO = :ANO and'
-      '  CODCONTROL = :CODCONTROL and'
-      '  CODEMP = :CODEMP and'
-      '  SEQ = :SEQ')
-    ModifySQL.Strings = (
-      'update TBCOMPRASITENS'
-      'set'
-      '  ALIQUOTA = :ALIQUOTA,'
-      '  ALIQUOTA_COFINS = :ALIQUOTA_COFINS,'
-      '  ALIQUOTA_CSOSN = :ALIQUOTA_CSOSN,'
-      '  ALIQUOTA_PIS = :ALIQUOTA_PIS,'
-      '  ANO = :ANO,'
-      '  CFOP = :CFOP,'
-      '  CODCONTROL = :CODCONTROL,'
-      '  CODEMP = :CODEMP,'
-      '  CODFORN = :CODFORN,'
-      '  CODPROD = :CODPROD,'
-      '  CSOSN = :CSOSN,'
-      '  CST = :CST,'
-      '  CUSTOMEDIO = :CUSTOMEDIO,'
-      '  DTENT = :DTENT,'
-      '  NCM_SH = :NCM_SH,'
-      '  NF = :NF,'
-      '  PERC_PARTICIPACAO = :PERC_PARTICIPACAO,'
-      '  PERCENTUAL_REDUCAO_BC = :PERCENTUAL_REDUCAO_BC,'
-      '  PRECOUNIT = :PRECOUNIT,'
-      '  QTDE = :QTDE,'
-      '  QTDEANTES = :QTDEANTES,'
-      '  QTDEFINAL = :QTDEFINAL,'
-      '  SEQ = :SEQ,'
-      '  TOTAL_BRUTO = :TOTAL_BRUTO,'
-      '  TOTAL_LIQUIDO = :TOTAL_LIQUIDO,'
-      '  UNID_COD = :UNID_COD,'
-      '  VALOR_DESCONTO = :VALOR_DESCONTO,'
-      '  VALOR_FRETE = :VALOR_FRETE,'
-      '  VALOR_IPI = :VALOR_IPI,'
-      '  VALOR_OUTROS = :VALOR_OUTROS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL and'
-      '  CODEMP = :OLD_CODEMP and'
-      '  SEQ = :OLD_SEQ')
-    InsertSQL.Strings = (
-      'insert into TBCOMPRASITENS'
-      
-        '  (ALIQUOTA, ALIQUOTA_COFINS, ALIQUOTA_CSOSN, ALIQUOTA_PIS, ANO,' +
-        ' CFOP, '
-      
-        '   CODCONTROL, CODEMP, CODFORN, CODPROD, CSOSN, CST, CUSTOMEDIO,' +
-        ' DTENT, '
-      
-        '   NCM_SH, NF, PERC_PARTICIPACAO, PERCENTUAL_REDUCAO_BC, PRECOUN' +
-        'IT, QTDE, '
-      
-        '   QTDEANTES, QTDEFINAL, SEQ, TOTAL_BRUTO, TOTAL_LIQUIDO, UNID_C' +
-        'OD, VALOR_DESCONTO, '
-      '   VALOR_FRETE, VALOR_IPI, VALOR_OUTROS)'
-      'values'
-      
-        '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
-        ':ANO, :CFOP, '
-      
-        '   :CODCONTROL, :CODEMP, :CODFORN, :CODPROD, :CSOSN, :CST, :CUST' +
-        'OMEDIO, '
-      
-        '   :DTENT, :NCM_SH, :NF, :PERC_PARTICIPACAO, :PERCENTUAL_REDUCAO' +
-        '_BC, :PRECOUNIT, '
-      
-        '   :QTDE, :QTDEANTES, :QTDEFINAL, :SEQ, :TOTAL_BRUTO, :TOTAL_LIQ' +
-        'UIDO, :UNID_COD, '
-      '   :VALOR_DESCONTO, :VALOR_FRETE, :VALOR_IPI, :VALOR_OUTROS)')
-    DeleteSQL.Strings = (
-      'delete from TBCOMPRASITENS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL and'
-      '  CODEMP = :OLD_CODEMP and'
-      '  SEQ = :OLD_SEQ')
-    Left = 480
-    Top = 392
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 512
+    Left = 672
     Top = 392
-  end
-  object qryDuplicatas: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    OnCalcFields = qryDuplicatasCalcFields
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.parcela'
-      '  , p.Codforn'
-      '  , f.Nomeforn'
-      '  , f.Cnpj'
-      '  , p.Notfisc'
-      '  , p.Tippag'
-      '  , p.Dtemiss'
-      '  , p.Dtvenc'
-      '  , p.Valorpag'
-      '  , p.Banco'
-      '  , b.Bco_nome'
-      '  , p.Numchq'
-      '  , Case when p.Dtpag is not null then '#39'X'#39' else '#39'.'#39' end as Pago_'
-      '  , p.Docbaix'
-      '  , p.situacao'
-      
-        '  , Case when p.situacao = 1 then '#39'Ativa'#39' else '#39'Cancelada'#39' end a' +
-        's situacao_desc'
-      'from TBCONTPAG p'
-      '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = IbUpdDuplicatas
-    Left = 448
-    Top = 424
-    object qryDuplicatasANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = 'TBCONTPAG.ANOLANC'
-      Required = True
-    end
-    object qryDuplicatasNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = 'TBCONTPAG.NUMLANC'
-      Required = True
-    end
-    object qryDuplicatasPARCELA: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = 'Parc.'
-      FieldName = 'PARCELA'
-      Origin = 'TBCONTPAG.PARCELA'
-      DisplayFormat = '00'
-    end
-    object qryDuplicatasCODFORN: TSmallintField
-      FieldName = 'CODFORN'
-      Origin = 'TBCONTPAG.CODFORN'
-    end
-    object qryDuplicatasNOMEFORN: TIBStringField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'NOMEFORN'
-      Origin = 'TBFORNECEDOR.NOMEFORN'
-      Size = 60
-    end
-    object qryDuplicatasCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = 'TBFORNECEDOR.CNPJ'
-      Size = 18
-    end
-    object qryDuplicatasNOTFISC: TIBStringField
-      DisplayLabel = 'Nota Fiscal'
-      FieldName = 'NOTFISC'
-      Origin = 'TBCONTPAG.NOTFISC'
-      Size = 15
-    end
-    object qryDuplicatasTIPPAG: TIBStringField
-      DisplayLabel = 'Tipo de Pagamento'
-      FieldName = 'TIPPAG'
-      Origin = 'TBCONTPAG.TIPPAG'
-      Size = 35
-    end
-    object qryDuplicatasDTEMISS: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Emiss'#227'o'
-      FieldName = 'DTEMISS'
-      Origin = 'TBCONTPAG.DTEMISS'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryDuplicatasDTVENC: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Vencimento'
-      FieldName = 'DTVENC'
-      Origin = 'TBCONTPAG.DTVENC'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryDuplicatasVALORPAG: TIBBCDField
-      DisplayLabel = 'Valor A Pagar'
-      FieldName = 'VALORPAG'
-      Origin = 'TBCONTPAG.VALORPAG'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryDuplicatasBANCO: TSmallintField
-      FieldName = 'BANCO'
-      Origin = 'TBCONTPAG.BANCO'
-    end
-    object qryDuplicatasBCO_NOME: TIBStringField
-      DisplayLabel = 'Banco'
-      FieldName = 'BCO_NOME'
-      Origin = 'TBBANCO_BOLETO.BCO_NOME'
-      Size = 50
-    end
-    object qryDuplicatasNUMCHQ: TIBStringField
-      DisplayLabel = 'No. Cheque'
-      FieldName = 'NUMCHQ'
-      Origin = 'TBCONTPAG.NUMCHQ'
-      Size = 10
-    end
-    object qryDuplicatasPAGO_: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'Pago?'
-      FieldName = 'PAGO_'
-      Required = True
-      FixedChar = True
-      Size = 1
-    end
-    object qryDuplicatasDOCBAIX: TIBStringField
-      DisplayLabel = 'Doc. Baixa'
-      FieldName = 'DOCBAIX'
-      Origin = 'TBCONTPAG.DOCBAIX'
-      Size = 15
-    end
-    object qryDuplicatasSITUACAO: TSmallintField
-      FieldName = 'SITUACAO'
-      Origin = '"TBCONTPAG"."SITUACAO"'
-      ProviderFlags = []
-    end
-    object qryDuplicatasSITUACAO_DESC: TIBStringField
-      FieldName = 'SITUACAO_DESC'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 9
-    end
-    object qryDuplicatasLancamento: TStringField
-      Alignment = taCenter
-      DisplayLabel = 'Lan'#231'amento'
-      FieldKind = fkCalculated
-      FieldName = 'Lancamento'
-      Size = 10
-      Calculated = True
-    end
   end
   object dtsDuplicatas: TDataSource
     AutoEdit = False
     DataSet = qryDuplicatas
-    Left = 512
-    Top = 424
-  end
-  object IbStrPrcGerarDuplicatas: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_GERAR_DUPLICATAS'
-    Left = 960
-    Top = 392
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'FORNECEDOR'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NOTAFISCAL'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'PARCELAS'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_TOTAL'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'PARCELA'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'EMISSAO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'VENCIMENTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_DOCUMENTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'FORMA_PAGTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'CONDICAO_PAGTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'DATA_ENTRADA'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANO_LANC'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUM_LANC'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANOCOMPRA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUMCOMPRA'
-        ParamType = ptInput
-      end>
-  end
-  object IbUpdDuplicatas: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANOLANC,'
-      '  NUMLANC,'
-      '  PARCELA,'
-      '  CODFORN,'
-      '  TIPPAG,'
-      '  HISTORIC,'
-      '  NOTFISC,'
-      '  DTEMISS,'
-      '  DTVENC,'
-      '  DTPAG,'
-      '  DOCBAIX,'
-      '  VALORPAG,'
-      '  NOMEEMP,'
-      '  TIPOCATEG,'
-      '  BANCO,'
-      '  NUMCHQ,'
-      '  ANOCOMPRA,'
-      '  NUMCOMPRA,'
-      '  FORMA_PAGTO,'
-      '  CONDICAO_PAGTO'
-      'from TBCONTPAG '
-      'where'
-      '  ANOLANC = :ANOLANC and'
-      '  NUMLANC = :NUMLANC')
-    ModifySQL.Strings = (
-      'update TBCONTPAG'
-      'set'
-      '  ANOLANC = :ANOLANC,'
-      '  NUMLANC = :NUMLANC,'
-      '  PARCELA = :PARCELA,'
-      '  CODFORN = :CODFORN,'
-      '  TIPPAG = :TIPPAG,'
-      '  NOTFISC = :NOTFISC,'
-      '  DTEMISS = :DTEMISS,'
-      '  DTVENC = :DTVENC,'
-      '  DOCBAIX = :DOCBAIX,'
-      '  VALORPAG = :VALORPAG,'
-      '  BANCO = :BANCO,'
-      '  NUMCHQ = :NUMCHQ'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC')
-    InsertSQL.Strings = (
-      'insert into TBCONTPAG'
-      
-        '  (ANOLANC, NUMLANC, PARCELA, CODFORN, TIPPAG, NOTFISC, DTEMISS,' +
-        ' DTVENC, '
-      '   DOCBAIX, VALORPAG, BANCO, NUMCHQ)'
-      'values'
-      
-        '  (:ANOLANC, :NUMLANC, :PARCELA, :CODFORN, :TIPPAG, :NOTFISC, :D' +
-        'TEMISS, '
-      '   :DTVENC, :DOCBAIX, :VALORPAG, :BANCO, :NUMCHQ)')
-    DeleteSQL.Strings = (
-      'delete from TBCONTPAG'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC')
-    Left = 480
+    Left = 672
     Top = 424
   end
   object ppImprimir: TPopupMenu
     Left = 56
-    Top = 368
+    Top = 384
     object nmImprimirVenda: TMenuItem
       Caption = 'Or'#231'amento / Venda'
       Visible = False
@@ -6751,278 +6236,29 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       OnClick = nmGerarDANFEXMLClick
     end
   end
-  object qryTipoDespesa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select *'
-      'from TBTPDESPESA t'
-      'where (t.ativo = :ativo) or (:todos = 1)'
-      'order by t.tipodesp')
-    Left = 280
-    Top = 472
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ativo'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'todos'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object dtsTpDespesa: TDataSource
     DataSet = qryTipoDespesa
     Left = 312
     Top = 472
   end
-  object tblTipoDocumento: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_DOCUMENTO_ENTRADA'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 280
-    Top = 504
-  end
   object dtsTipoDocumento: TDataSource
-    DataSet = tblTipoDocumento
+    DataSet = qryTipoDocumento
     Left = 312
     Top = 504
-  end
-  object tblTipoEntrada: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_ENTRADA'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 280
-    Top = 544
   end
   object dtsTipoEntrada: TDataSource
-    DataSet = tblTipoEntrada
+    DataSet = qryTipoEntrada
     Left = 312
     Top = 544
-  end
-  object qryNFE: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    SelectSQL.Strings = (
-      'Select'
-      '    n.EMPRESA'
-      '  , n.SERIE'
-      '  , n.NUMERO'
-      '  , n.MODELO'
-      '  , n.VERSAO'
-      '  , n.DATAEMISSAO'
-      '  , n.HORAEMISSAO'
-      '  , n.CHAVE'
-      '  , n.PROTOCOLO'
-      '  , n.RECIBO'
-      '  , n.XML_FILENAME'
-      '  , n.XML_FILE'
-      '  , n.LOTE_ANO'
-      '  , n.LOTE_NUM'
-      '  , n.ANOVENDA'
-      '  , n.NUMVENDA'
-      '  , n.ANOCOMPRA'
-      '  , n.NUMCOMPRA'
-      'from TBNFE_ENVIADA n'
-      'where n.EMPRESA = :empresa'
-      '  and n.ANOCOMPRA = :anocompra'
-      '  and n.NUMCOMPRA = :numcompra')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updNFE
-    Left = 896
-    Top = 424
-    object qryNFEEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBNFE_ENVIADA"."EMPRESA"'
-      Size = 18
-    end
-    object qryNFEANOVENDA: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = 'TBNFE_ENVIADA.ANOVENDA'
-    end
-    object qryNFENUMVENDA: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = 'TBNFE_ENVIADA.NUMVENDA'
-    end
-    object qryNFEANOCOMPRA: TSmallintField
-      FieldName = 'ANOCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."ANOCOMPRA"'
-    end
-    object qryNFENUMCOMPRA: TIntegerField
-      FieldName = 'NUMCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."NUMCOMPRA"'
-    end
-    object qryNFEDATAEMISSAO: TDateField
-      FieldName = 'DATAEMISSAO'
-      Origin = 'TBNFE_ENVIADA.DATAEMISSAO'
-    end
-    object qryNFEHORAEMISSAO: TTimeField
-      FieldName = 'HORAEMISSAO'
-      Origin = 'TBNFE_ENVIADA.HORAEMISSAO'
-    end
-    object qryNFESERIE: TIBStringField
-      FieldName = 'SERIE'
-      Origin = 'TBNFE_ENVIADA.SERIE'
-      Required = True
-      Size = 4
-    end
-    object qryNFENUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = 'TBNFE_ENVIADA.NUMERO'
-      Required = True
-    end
-    object qryNFEMODELO: TSmallintField
-      FieldName = 'MODELO'
-      Origin = '"TBNFE_ENVIADA"."MODELO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryNFEVERSAO: TSmallintField
-      FieldName = 'VERSAO'
-      Origin = '"TBNFE_ENVIADA"."VERSAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryNFECHAVE: TIBStringField
-      FieldName = 'CHAVE'
-      Origin = 'TBNFE_ENVIADA.CHAVE'
-      Size = 250
-    end
-    object qryNFEPROTOCOLO: TIBStringField
-      FieldName = 'PROTOCOLO'
-      Origin = 'TBNFE_ENVIADA.PROTOCOLO'
-      Size = 250
-    end
-    object qryNFERECIBO: TIBStringField
-      FieldName = 'RECIBO'
-      Origin = 'TBNFE_ENVIADA.RECIBO'
-      Size = 250
-    end
-    object qryNFEXML_FILENAME: TIBStringField
-      FieldName = 'XML_FILENAME'
-      Origin = 'TBNFE_ENVIADA.XML_FILENAME'
-      Size = 250
-    end
-    object qryNFEXML_FILE: TMemoField
-      FieldName = 'XML_FILE'
-      Origin = 'TBNFE_ENVIADA.XML_FILE'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryNFELOTE_ANO: TSmallintField
-      FieldName = 'LOTE_ANO'
-      Origin = 'TBNFE_ENVIADA.LOTE_ANO'
-    end
-    object qryNFELOTE_NUM: TIntegerField
-      FieldName = 'LOTE_NUM'
-      Origin = 'TBNFE_ENVIADA.LOTE_NUM'
-      Required = True
-    end
-  end
-  object updNFE: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  EMPRESA,'
-      '  SERIE,'
-      '  NUMERO,'
-      '  MODELO,'
-      '  VERSAO,'
-      '  ANOVENDA,'
-      '  NUMVENDA,'
-      '  ANOCOMPRA,'
-      '  NUMCOMPRA,'
-      '  DATAEMISSAO,'
-      '  HORAEMISSAO,'
-      '  CHAVE,'
-      '  PROTOCOLO,'
-      '  RECIBO,'
-      '  XML_FILENAME,'
-      '  XML_FILE,'
-      '  LOTE_ANO,'
-      '  LOTE_NUM'
-      'from TBNFE_ENVIADA '
-      'where'
-      '  EMPRESA = :EMPRESA and'
-      '  MODELO = :MODELO and'
-      '  NUMERO = :NUMERO and'
-      '  SERIE = :SERIE')
-    ModifySQL.Strings = (
-      'update TBNFE_ENVIADA'
-      'set'
-      '  ANOCOMPRA = :ANOCOMPRA,'
-      '  ANOVENDA = :ANOVENDA,'
-      '  CHAVE = :CHAVE,'
-      '  DATAEMISSAO = :DATAEMISSAO,'
-      '  EMPRESA = :EMPRESA,'
-      '  HORAEMISSAO = :HORAEMISSAO,'
-      '  LOTE_ANO = :LOTE_ANO,'
-      '  LOTE_NUM = :LOTE_NUM,'
-      '  MODELO = :MODELO,'
-      '  NUMCOMPRA = :NUMCOMPRA,'
-      '  NUMERO = :NUMERO,'
-      '  NUMVENDA = :NUMVENDA,'
-      '  PROTOCOLO = :PROTOCOLO,'
-      '  RECIBO = :RECIBO,'
-      '  SERIE = :SERIE,'
-      '  VERSAO = :VERSAO,'
-      '  XML_FILE = :XML_FILE,'
-      '  XML_FILENAME = :XML_FILENAME'
-      'where'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  MODELO = :OLD_MODELO and'
-      '  NUMERO = :OLD_NUMERO and'
-      '  SERIE = :OLD_SERIE')
-    InsertSQL.Strings = (
-      'insert into TBNFE_ENVIADA'
-      
-        '  (ANOCOMPRA, ANOVENDA, CHAVE, DATAEMISSAO, EMPRESA, HORAEMISSAO' +
-        ', LOTE_ANO, '
-      
-        '   LOTE_NUM, MODELO, NUMCOMPRA, NUMERO, NUMVENDA, PROTOCOLO, REC' +
-        'IBO, SERIE, '
-      '   VERSAO, XML_FILE, XML_FILENAME)'
-      'values'
-      
-        '  (:ANOCOMPRA, :ANOVENDA, :CHAVE, :DATAEMISSAO, :EMPRESA, :HORAE' +
-        'MISSAO, '
-      
-        '   :LOTE_ANO, :LOTE_NUM, :MODELO, :NUMCOMPRA, :NUMERO, :NUMVENDA' +
-        ', :PROTOCOLO, '
-      '   :RECIBO, :SERIE, :VERSAO, :XML_FILE, :XML_FILENAME)')
-    DeleteSQL.Strings = (
-      'delete from TBNFE_ENVIADA'
-      'where'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  MODELO = :OLD_MODELO and'
-      '  NUMERO = :OLD_NUMERO and'
-      '  SERIE = :OLD_SERIE')
-    Left = 928
-    Top = 424
   end
   object dtsNFE: TDataSource
     DataSet = qryNFE
     Left = 960
-    Top = 424
+    Top = 384
   end
   object ppCorrigirDadosNFe: TPopupMenu
     Left = 124
-    Top = 369
+    Top = 385
     object nmPpCorrigirDadosNFeCFOP: TMenuItem
       Bitmap.Data = {
         16050000424D160500000000000036040000280000000E0000000E0000000100
@@ -7072,7 +6308,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   end
   object popupAuditoria: TPopupMenu
     Left = 92
-    Top = 369
+    Top = 385
     object nmPpLimparDadosNFe: TMenuItem
       Caption = 'Limpar LOG de Envio de NF-e'
       OnClick = nmPpLimparDadosNFeClick
@@ -7093,14 +6329,27 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       OnClick = nmPpArquivoNFeClick
     end
   end
-  object qryAutorizacaoProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 344
+    Top = 376
+  end
+  object qryAutorizacaoProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       '    i.produto'
       '  , p.descri'
@@ -7137,27 +6386,1077 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  and c.codigo  = :cod'
       '  and c.empresa = :emp'
       '')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
     Left = 960
     Top = 104
+    ParamData = <
+      item
+        Name = 'TIPO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
   end
-  object fdQryEmpresa: TFDQuery
+  object qryProduto: TFDQuery
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
-      '    e.cnpj'
-      '  , e.codigo'
-      '  , e.razao'
-      '  , e.fantasia'
-      'from VW_EMPRESA e'
-      'order by'
-      '    e.razao')
+      '    p.Codigo'
+      '  , p.Cod'
+      '  , p.Descri'
+      '  , p.Modelo'
+      '  , p.Preco'
+      '  , p.Referencia'
+      '  , p.Secao'
+      '  , p.Qtde'
+      '  , p.Unidade'
+      '  , p.Estoqmin'
+      '  , p.Codgrupo'
+      '  , p.Customedio'
+      '  , p.Codemp'
+      '  , p.Codsecao'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , p.Cst'
+      '  , p.Csosn'
+      '  , p.Codcfop'
+      '  , p.Codbarra_ean'
+      '  , p.Codunidade'
+      '  , p.Ncm_sh'
+      '  , p.Aliquota_tipo'
+      '  , p.Aliquota'
+      '  , p.Aliquota_csosn'
+      '  , p.Aliquota_pis'
+      '  , p.Aliquota_cofins'
+      '  , p.Percentual_reducao_BC'
+      '  , p.Valor_ipi'
+      '  , p.Reserva'
+      '  , case when coalesce(p.Reserva, 0) > 0'
+      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
+      '      else coalesce(p.Qtde, 0)'
+      '    end as Disponivel'
+      '  , g.Descri as Descricao_Grupo'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_especificacao'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
+      'where p.Codigo = :Codigo')
+    Left = 896
+    Top = 336
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object qryCFOP: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Cfop_cod'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_cst_padrao_entrada'
+      '  , c.Cfop_cst_padrao_saida'
+      'from TBCFOP c'
+      'where c.Cfop_cod = :Cfop_cod')
+    Left = 928
+    Top = 336
+    ParamData = <
+      item
+        Name = 'CFOP_COD'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object spGerarDuplicatas: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_GERAR_DUPLICATAS'
+    Left = 960
+    Top = 336
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'FORNECEDOR'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end
+      item
+        Position = 4
+        Name = 'NOTAFISCAL'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end
+      item
+        Position = 5
+        Name = 'PARCELAS'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 6
+        Name = 'VALOR_TOTAL'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 2
+        ParamType = ptOutput
+      end
+      item
+        Position = 7
+        Name = 'PARCELA'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 8
+        Name = 'EMISSAO'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 9
+        Name = 'VENCIMENTO'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 10
+        Name = 'VALOR_DOCUMENTO'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 2
+        ParamType = ptOutput
+      end
+      item
+        Position = 11
+        Name = 'FORMA_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 12
+        Name = 'CONDICAO_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 13
+        Name = 'DATA_ENTRADA'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 14
+        Name = 'ANO_LANC'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 15
+        Name = 'NUM_LANC'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end>
+  end
+  object qryNFE: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updNFE
+    SQL.Strings = (
+      'Select'
+      '    n.EMPRESA'
+      '  , n.SERIE'
+      '  , n.NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
+      '  , n.DATAEMISSAO'
+      '  , n.HORAEMISSAO'
+      '  , n.CHAVE'
+      '  , n.PROTOCOLO'
+      '  , n.RECIBO'
+      '  , n.XML_FILENAME'
+      '  , n.XML_FILE'
+      '  , n.LOTE_ANO'
+      '  , n.LOTE_NUM'
+      '  , n.ANOVENDA'
+      '  , n.NUMVENDA'
+      '  , n.ANOCOMPRA'
+      '  , n.NUMCOMPRA'
+      'from TBNFE_ENVIADA n'
+      'where n.EMPRESA = :empresa'
+      '  and n.ANOCOMPRA = :anocompra'
+      '  and n.NUMCOMPRA = :numcompra')
+    Left = 896
+    Top = 384
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object qryNFEEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object qryNFESERIE: TStringField
+      FieldName = 'SERIE'
+      Origin = 'SERIE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 4
+    end
+    object qryNFENUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryNFEMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryNFEVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = 'VERSAO'
+    end
+    object qryNFEDATAEMISSAO: TDateField
+      FieldName = 'DATAEMISSAO'
+      Origin = 'DATAEMISSAO'
+    end
+    object qryNFEHORAEMISSAO: TTimeField
+      FieldName = 'HORAEMISSAO'
+      Origin = 'HORAEMISSAO'
+    end
+    object qryNFECHAVE: TStringField
+      FieldName = 'CHAVE'
+      Origin = 'CHAVE'
+      Size = 250
+    end
+    object qryNFEPROTOCOLO: TStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'PROTOCOLO'
+      Size = 250
+    end
+    object qryNFERECIBO: TStringField
+      FieldName = 'RECIBO'
+      Origin = 'RECIBO'
+      Size = 250
+    end
+    object qryNFEXML_FILENAME: TStringField
+      FieldName = 'XML_FILENAME'
+      Origin = 'XML_FILENAME'
+      Size = 250
+    end
+    object qryNFEXML_FILE: TMemoField
+      FieldName = 'XML_FILE'
+      Origin = 'XML_FILE'
+      BlobType = ftMemo
+    end
+    object qryNFELOTE_ANO: TSmallintField
+      FieldName = 'LOTE_ANO'
+      Origin = 'LOTE_ANO'
+    end
+    object qryNFELOTE_NUM: TIntegerField
+      FieldName = 'LOTE_NUM'
+      Origin = 'LOTE_NUM'
+      Required = True
+    end
+    object qryNFEANOVENDA: TSmallintField
+      FieldName = 'ANOVENDA'
+      Origin = 'ANOVENDA'
+    end
+    object qryNFENUMVENDA: TIntegerField
+      FieldName = 'NUMVENDA'
+      Origin = 'NUMVENDA'
+    end
+    object qryNFEANOCOMPRA: TSmallintField
+      FieldName = 'ANOCOMPRA'
+      Origin = 'ANOCOMPRA'
+    end
+    object qryNFENUMCOMPRA: TIntegerField
+      FieldName = 'NUMCOMPRA'
+      Origin = 'NUMCOMPRA'
+    end
+  end
+  object updNFE: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBNFE_ENVIADA'
+      '(EMPRESA, SERIE, NUMERO, MODELO, VERSAO, '
+      '  ANOVENDA, NUMVENDA, ANOCOMPRA, NUMCOMPRA, '
+      '  DATAEMISSAO, HORAEMISSAO, CHAVE, PROTOCOLO, '
+      '  RECIBO, XML_FILENAME, XML_FILE, LOTE_ANO, '
+      '  LOTE_NUM)'
+      
+        'VALUES (:NEW_EMPRESA, :NEW_SERIE, :NEW_NUMERO, :NEW_MODELO, :NEW' +
+        '_VERSAO, '
+      '  :NEW_ANOVENDA, :NEW_NUMVENDA, :NEW_ANOCOMPRA, :NEW_NUMCOMPRA, '
+      
+        '  :NEW_DATAEMISSAO, :NEW_HORAEMISSAO, :NEW_CHAVE, :NEW_PROTOCOLO' +
+        ', '
+      '  :NEW_RECIBO, :NEW_XML_FILENAME, :NEW_XML_FILE, :NEW_LOTE_ANO, '
+      '  :NEW_LOTE_NUM)'
+      'RETURNING DATAEMISSAO, HORAEMISSAO, CANCELADA')
+    ModifySQL.Strings = (
+      'UPDATE TBNFE_ENVIADA'
+      
+        'SET EMPRESA = :NEW_EMPRESA, SERIE = :NEW_SERIE, NUMERO = :NEW_NU' +
+        'MERO, '
+      
+        '  MODELO = :NEW_MODELO, VERSAO = :NEW_VERSAO, ANOVENDA = :NEW_AN' +
+        'OVENDA, '
+      
+        '  NUMVENDA = :NEW_NUMVENDA, ANOCOMPRA = :NEW_ANOCOMPRA, NUMCOMPR' +
+        'A = :NEW_NUMCOMPRA, '
+      
+        '  DATAEMISSAO = :NEW_DATAEMISSAO, HORAEMISSAO = :NEW_HORAEMISSAO' +
+        ', '
+      
+        '  CHAVE = :NEW_CHAVE, PROTOCOLO = :NEW_PROTOCOLO, RECIBO = :NEW_' +
+        'RECIBO, '
+      '  XML_FILENAME = :NEW_XML_FILENAME, XML_FILE = :NEW_XML_FILE, '
+      '  LOTE_ANO = :NEW_LOTE_ANO, LOTE_NUM = :NEW_LOTE_NUM'
+      
+        'WHERE EMPRESA = :OLD_EMPRESA AND SERIE = :OLD_SERIE AND NUMERO =' +
+        ' :OLD_NUMERO AND '
+      '  MODELO = :OLD_MODELO'
+      'RETURNING DATAEMISSAO, HORAEMISSAO, CANCELADA')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBNFE_ENVIADA'
+      
+        'WHERE EMPRESA = :OLD_EMPRESA AND SERIE = :OLD_SERIE AND NUMERO =' +
+        ' :OLD_NUMERO AND '
+      '  MODELO = :OLD_MODELO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT EMPRESA, SERIE, NUMERO, MODELO, VERSAO, ANOVENDA, NUMVEND' +
+        'A, '
+      '  ANOCOMPRA, NUMCOMPRA, NFC_NUMERO, DATAEMISSAO, HORAEMISSAO, '
+      '  CHAVE, PROTOCOLO, RECIBO, XML_FILENAME, XML_FILE, LOTE_ANO, '
+      '  LOTE_NUM, CANCELADA'
+      'FROM TBNFE_ENVIADA'
+      
+        'WHERE EMPRESA = :EMPRESA AND SERIE = :SERIE AND NUMERO = :NUMERO' +
+        ' AND '
+      '  MODELO = :MODELO')
+    Left = 928
+    Top = 384
+  end
+  object cdsTabelaItens: TFDQuery
+    OnNewRecord = cdsTabelaItensNewRecord
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updTabelaItens
+    SQL.Strings = (
+      'Select'
+      '    i.Ano'
+      '  , i.Codcontrol'
+      '  , i.Codemp'
+      '  , i.Seq'
+      '  , i.Codprod'
+      '  , i.Codforn'
+      '  , i.Dtent'
+      '  , i.Qtde'
+      '  , i.Qtdeantes'
+      '  , i.Qtdefinal'
+      '  , i.Precounit'
+      '  , i.Customedio'
+      '  , i.Nf'
+      '  , i.Perc_participacao'
+      '  , i.Valor_frete'
+      '  , i.Valor_desconto'
+      '  , i.Valor_outros'
+      '  , i.Valor_IPI'
+      '  , i.Unid_cod'
+      '  , i.Ncm_sh'
+      '  , i.Cst'
+      '  , i.Csosn'
+      '  , i.Cfop'
+      '  , i.aliquota'
+      '  , i.aliquota_csosn'
+      '  , i.aliquota_pis'
+      '  , i.aliquota_cofins'
+      '  , i.percentual_reducao_bc'
+      '  , i.total_bruto'
+      '  , i.total_liquido'
+      ''
+      '  , coalesce(p.descri_apresentacao, p.Descri) as Descri'
+      '  , p.Qtde as Estoque'
+      '  , p.estoque_aprop_lote'
+      '  , u.Unp_sigla'
+      'from TBCOMPRASITENS i'
+      '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
+    Left = 608
+    Top = 392
+    object cdsTabelaItensANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensCODCONTROL: TIntegerField
+      FieldName = 'CODCONTROL'
+      Origin = 'CODCONTROL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensCODEMP: TStringField
+      FieldName = 'CODEMP'
+      Origin = 'CODEMP'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object cdsTabelaItensSEQ: TSmallintField
+      Alignment = taCenter
+      DisplayLabel = '#'
+      FieldName = 'SEQ'
+      Origin = 'SEQ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      DisplayFormat = '00'
+    end
+    object cdsTabelaItensCODPROD: TStringField
+      DisplayLabel = 'Produto'
+      FieldName = 'CODPROD'
+      Origin = 'CODPROD'
+      Size = 10
+    end
+    object cdsTabelaItensCODFORN: TIntegerField
+      FieldName = 'CODFORN'
+      Origin = 'CODFORN'
+    end
+    object cdsTabelaItensDTENT: TDateField
+      FieldName = 'DTENT'
+      Origin = 'DTENT'
+    end
+    object cdsTabelaItensQTDE: TBCDField
+      DisplayLabel = 'Quantidade'
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensQTDEANTES: TBCDField
+      FieldName = 'QTDEANTES'
+      Origin = 'QTDEANTES'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensQTDEFINAL: TBCDField
+      FieldName = 'QTDEFINAL'
+      Origin = 'QTDEFINAL'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensPRECOUNIT: TBCDField
+      DisplayLabel = 'Valor Unit'#225'rio'
+      FieldName = 'PRECOUNIT'
+      Origin = 'PRECOUNIT'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensCUSTOMEDIO: TBCDField
+      DisplayLabel = 'Custo'
+      FieldName = 'CUSTOMEDIO'
+      Origin = 'CUSTOMEDIO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensNF: TIntegerField
+      FieldName = 'NF'
+      Origin = 'NF'
+    end
+    object cdsTabelaItensPERC_PARTICIPACAO: TBCDField
+      FieldName = 'PERC_PARTICIPACAO'
+      Origin = 'PERC_PARTICIPACAO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_FRETE: TBCDField
+      DisplayLabel = 'Frete'
+      FieldName = 'VALOR_FRETE'
+      Origin = 'VALOR_FRETE'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_DESCONTO: TBCDField
+      DisplayLabel = 'Desconto'
+      FieldName = 'VALOR_DESCONTO'
+      Origin = 'VALOR_DESCONTO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_OUTROS: TBCDField
+      DisplayLabel = 'Outros'
+      FieldName = 'VALOR_OUTROS'
+      Origin = 'VALOR_OUTROS'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_IPI: TBCDField
+      DisplayLabel = 'Valor IPI'
+      FieldName = 'VALOR_IPI'
+      Origin = 'VALOR_IPI'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensUNID_COD: TSmallintField
+      DisplayLabel = 'Und.'
+      FieldName = 'UNID_COD'
+      Origin = 'UNID_COD'
+    end
+    object cdsTabelaItensNCM_SH: TStringField
+      FieldName = 'NCM_SH'
+      Origin = 'NCM_SH'
+      Size = 10
+    end
+    object cdsTabelaItensCST: TStringField
+      FieldName = 'CST'
+      Origin = 'CST'
+      Size = 3
+    end
+    object cdsTabelaItensCSOSN: TStringField
+      FieldName = 'CSOSN'
+      Origin = 'CSOSN'
+      Size = 3
+    end
+    object cdsTabelaItensCFOP: TIntegerField
+      FieldName = 'CFOP'
+      Origin = 'CFOP'
+    end
+    object cdsTabelaItensALIQUOTA: TBCDField
+      FieldName = 'ALIQUOTA'
+      Origin = 'ALIQUOTA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensALIQUOTA_CSOSN: TBCDField
+      FieldName = 'ALIQUOTA_CSOSN'
+      Origin = 'ALIQUOTA_CSOSN'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensALIQUOTA_PIS: TBCDField
+      FieldName = 'ALIQUOTA_PIS'
+      Origin = 'ALIQUOTA_PIS'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensALIQUOTA_COFINS: TBCDField
+      FieldName = 'ALIQUOTA_COFINS'
+      Origin = 'ALIQUOTA_COFINS'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensPERCENTUAL_REDUCAO_BC: TBCDField
+      FieldName = 'PERCENTUAL_REDUCAO_BC'
+      Origin = 'PERCENTUAL_REDUCAO_BC'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensTOTAL_BRUTO: TBCDField
+      DisplayLabel = 'Total Bruto (R$)'
+      FieldName = 'TOTAL_BRUTO'
+      Origin = 'TOTAL_BRUTO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensTOTAL_LIQUIDO: TBCDField
+      DisplayLabel = 'Total Liquido (R$)'
+      FieldName = 'TOTAL_LIQUIDO'
+      Origin = 'TOTAL_LIQUIDO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensDESCRI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 100
+    end
+    object cdsTabelaItensUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Und.'
+      FieldName = 'UNP_SIGLA'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      Size = 5
+    end
+    object cdsTabelaItensESTOQUE: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE'
+      Origin = 'QTDE'
+      ProviderFlags = []
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_APROP_LOTE'
+      Origin = 'ESTOQUE_APROP_LOTE'
+      ProviderFlags = []
+    end
+  end
+  object updTabelaItens: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCOMPRASITENS'
+      '(ANO, CODCONTROL, CODEMP, SEQ, CODFORN, '
+      '  CODPROD, QTDE, PRECOUNIT, CUSTOMEDIO, '
+      '  DTENT, NF, QTDEANTES, QTDEFINAL, PERC_PARTICIPACAO, '
+      '  VALOR_FRETE, VALOR_DESCONTO, VALOR_OUTROS, '
+      '  VALOR_IPI, UNID_COD, NCM_SH, CST, CSOSN, '
+      '  CFOP, ALIQUOTA, ALIQUOTA_CSOSN, ALIQUOTA_PIS, '
+      '  ALIQUOTA_COFINS, PERCENTUAL_REDUCAO_BC, TOTAL_BRUTO, '
+      '  TOTAL_LIQUIDO)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_SEQ, :NEW_C' +
+        'ODFORN, '
+      '  :NEW_CODPROD, :NEW_QTDE, :NEW_PRECOUNIT, :NEW_CUSTOMEDIO, '
+      
+        '  :NEW_DTENT, :NEW_NF, :NEW_QTDEANTES, :NEW_QTDEFINAL, :NEW_PERC' +
+        '_PARTICIPACAO, '
+      '  :NEW_VALOR_FRETE, :NEW_VALOR_DESCONTO, :NEW_VALOR_OUTROS, '
+      
+        '  :NEW_VALOR_IPI, :NEW_UNID_COD, :NEW_NCM_SH, :NEW_CST, :NEW_CSO' +
+        'SN, '
+      
+        '  :NEW_CFOP, :NEW_ALIQUOTA, :NEW_ALIQUOTA_CSOSN, :NEW_ALIQUOTA_P' +
+        'IS, '
+      
+        '  :NEW_ALIQUOTA_COFINS, :NEW_PERCENTUAL_REDUCAO_BC, :NEW_TOTAL_B' +
+        'RUTO, '
+      '  :NEW_TOTAL_LIQUIDO)'
+      'RETURNING QTDE')
+    ModifySQL.Strings = (
+      'UPDATE TBCOMPRASITENS'
+      
+        'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
+        'CODEMP, '
+      
+        '  SEQ = :NEW_SEQ, CODFORN = :NEW_CODFORN, CODPROD = :NEW_CODPROD' +
+        ', '
+      
+        '  QTDE = :NEW_QTDE, PRECOUNIT = :NEW_PRECOUNIT, CUSTOMEDIO = :NE' +
+        'W_CUSTOMEDIO, '
+      '  DTENT = :NEW_DTENT, NF = :NEW_NF, QTDEANTES = :NEW_QTDEANTES, '
+      
+        '  QTDEFINAL = :NEW_QTDEFINAL, PERC_PARTICIPACAO = :NEW_PERC_PART' +
+        'ICIPACAO, '
+      
+        '  VALOR_FRETE = :NEW_VALOR_FRETE, VALOR_DESCONTO = :NEW_VALOR_DE' +
+        'SCONTO, '
+      '  VALOR_OUTROS = :NEW_VALOR_OUTROS, VALOR_IPI = :NEW_VALOR_IPI, '
+      
+        '  UNID_COD = :NEW_UNID_COD, NCM_SH = :NEW_NCM_SH, CST = :NEW_CST' +
+        ', '
+      
+        '  CSOSN = :NEW_CSOSN, CFOP = :NEW_CFOP, ALIQUOTA = :NEW_ALIQUOTA' +
+        ', '
+      
+        '  ALIQUOTA_CSOSN = :NEW_ALIQUOTA_CSOSN, ALIQUOTA_PIS = :NEW_ALIQ' +
+        'UOTA_PIS, '
+      
+        '  ALIQUOTA_COFINS = :NEW_ALIQUOTA_COFINS, PERCENTUAL_REDUCAO_BC ' +
+        '= :NEW_PERCENTUAL_REDUCAO_BC, '
+      
+        '  TOTAL_BRUTO = :NEW_TOTAL_BRUTO, TOTAL_LIQUIDO = :NEW_TOTAL_LIQ' +
+        'UIDO'
+      
+        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
+        ' = :OLD_CODEMP AND '
+      '  SEQ = :OLD_SEQ'
+      'RETURNING QTDE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCOMPRASITENS'
+      
+        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
+        ' = :OLD_CODEMP AND '
+      '  SEQ = :OLD_SEQ')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO, CODCONTROL, CODEMP, SEQ, CODFORN, CODPROD, QTDE, PES' +
+        'O_BRUTO, '
+      '  PESO_LIQUIDO, LARGURA, ALTURA, ESPESSURA, CUBAGEM, PRECOUNIT, '
+      
+        '  CUSTOMEDIO, DTENT, NF, QTDEANTES, QTDEFINAL, PERC_PARTICIPACAO' +
+        ', '
+      
+        '  VALOR_FRETE, VALOR_DESCONTO, VALOR_OUTROS, VALOR_IPI, UNID_COD' +
+        ', '
+      
+        '  NCM_SH, CST, CSOSN, CFOP, ALIQUOTA, ALIQUOTA_CSOSN, ALIQUOTA_P' +
+        'IS, '
+      
+        '  ALIQUOTA_COFINS, PERCENTUAL_REDUCAO_BC, TOTAL_BRUTO, TOTAL_LIQ' +
+        'UIDO, '
+      '  LOTE_ID, LOTE_DESCRICAO, LOTE_DATA_FAB, LOTE_DATA_VAL'
+      'FROM TBCOMPRASITENS'
+      
+        'WHERE ANO = :ANO AND CODCONTROL = :CODCONTROL AND CODEMP = :CODE' +
+        'MP AND '
+      '  SEQ = :SEQ')
+    Left = 640
+    Top = 392
+  end
+  object qryDuplicatas: TFDQuery
+    OnCalcFields = qryDuplicatasCalcFields
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updDuplicatas
+    SQL.Strings = (
+      'Select'
+      '    p.Anolanc'
+      '  , p.Numlanc'
+      '  , p.parcela'
+      '  , p.Codforn'
+      '  , f.Nomeforn'
+      '  , f.Cnpj'
+      '  , p.Notfisc'
+      '  , p.Tippag'
+      '  , p.Dtemiss'
+      '  , p.Dtvenc'
+      '  , p.Valorpag'
+      '  , p.Banco'
+      '  , b.Bco_nome'
+      '  , p.Numchq'
+      '  , Case when p.Dtpag is not null then '#39'X'#39' else '#39'.'#39' end as Pago_'
+      '  , p.Docbaix'
+      '  , p.situacao'
+      
+        '  , Case when p.situacao = 1 then '#39'Ativa'#39' else '#39'Cancelada'#39' end a' +
+        's situacao_desc'
+      'from TBCONTPAG p'
+      '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
+      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
+    Left = 608
+    Top = 424
+    object qryDuplicatasANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryDuplicatasNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryDuplicatasPARCELA: TSmallintField
+      Alignment = taCenter
+      DisplayLabel = 'Parc.'
+      FieldName = 'PARCELA'
+      Origin = 'PARCELA'
+      DisplayFormat = '00'
+    end
+    object qryDuplicatasCODFORN: TSmallintField
+      FieldName = 'CODFORN'
+      Origin = 'CODFORN'
+    end
+    object qryDuplicatasNOMEFORN: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Fornecedor'
+      FieldName = 'NOMEFORN'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+    object qryDuplicatasCNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object qryDuplicatasNOTFISC: TStringField
+      DisplayLabel = 'Nota Fiscal'
+      FieldName = 'NOTFISC'
+      Origin = 'NOTFISC'
+      Size = 15
+    end
+    object qryDuplicatasTIPPAG: TStringField
+      DisplayLabel = 'Tipo de Pagamento'
+      FieldName = 'TIPPAG'
+      Origin = 'TIPPAG'
+      Size = 35
+    end
+    object qryDuplicatasDTEMISS: TDateField
+      DisplayLabel = 'Emiss'#227'o'
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryDuplicatasDTVENC: TDateField
+      DisplayLabel = 'Vencimento'
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryDuplicatasVALORPAG: TBCDField
+      DisplayLabel = 'Valor A Pagar'
+      FieldName = 'VALORPAG'
+      Origin = 'VALORPAG'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object qryDuplicatasBANCO: TSmallintField
+      FieldName = 'BANCO'
+      Origin = 'BANCO'
+    end
+    object qryDuplicatasBCO_NOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Banco'
+      FieldName = 'BCO_NOME'
+      Origin = 'BCO_NOME'
+      ProviderFlags = []
+      Size = 50
+    end
+    object qryDuplicatasNUMCHQ: TStringField
+      DisplayLabel = 'No. Cheque'
+      FieldName = 'NUMCHQ'
+      Origin = 'NUMCHQ'
+      Size = 10
+    end
+    object qryDuplicatasPAGO_: TStringField
+      Alignment = taCenter
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Pago?'
+      FieldName = 'PAGO_'
+      Origin = 'PAGO_'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 1
+    end
+    object qryDuplicatasDOCBAIX: TStringField
+      DisplayLabel = 'Doc. Baixa'
+      FieldName = 'DOCBAIX'
+      Origin = 'DOCBAIX'
+      Size = 15
+    end
+    object qryDuplicatasSITUACAO: TSmallintField
+      FieldName = 'SITUACAO'
+      Origin = 'SITUACAO'
+    end
+    object qryDuplicatasSITUACAO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SITUACAO_DESC'
+      Origin = 'SITUACAO_DESC'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 9
+    end
+    object qryDuplicatasLancamento: TStringField
+      Alignment = taCenter
+      DisplayLabel = 'Lan'#231'amento'
+      FieldKind = fkInternalCalc
+      FieldName = 'Lancamento'
+      Size = 10
+    end
+  end
+  object updDuplicatas: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTPAG'
+      '(ANOLANC, NUMLANC, CODFORN, PARCELA, TIPPAG, '
+      '  NOTFISC, DTEMISS, DTVENC, DOCBAIX, VALORPAG, '
+      '  BANCO, NUMCHQ, SITUACAO)'
+      
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_CODFORN, :NEW_PARCELA, ' +
+        ':NEW_TIPPAG, '
+      
+        '  :NEW_NOTFISC, :NEW_DTEMISS, :NEW_DTVENC, :NEW_DOCBAIX, :NEW_VA' +
+        'LORPAG, '
+      '  :NEW_BANCO, :NEW_NUMCHQ, :NEW_SITUACAO)')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTPAG'
+      
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, CODFORN = :N' +
+        'EW_CODFORN, '
+      
+        '  PARCELA = :NEW_PARCELA, TIPPAG = :NEW_TIPPAG, NOTFISC = :NEW_N' +
+        'OTFISC, '
+      
+        '  DTEMISS = :NEW_DTEMISS, DTVENC = :NEW_DTVENC, DOCBAIX = :NEW_D' +
+        'OCBAIX, '
+      
+        '  VALORPAG = :NEW_VALORPAG, BANCO = :NEW_BANCO, NUMCHQ = :NEW_NU' +
+        'MCHQ, '
+      '  SITUACAO = :NEW_SITUACAO'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTPAG'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    p.Anolanc'
+      '  , p.Numlanc'
+      '  , p.parcela'
+      '  , p.Codforn'
+      '  , f.Nomeforn'
+      '  , f.Cnpj'
+      '  , p.Notfisc'
+      '  , p.Tippag'
+      '  , p.Dtemiss'
+      '  , p.Dtvenc'
+      '  , p.Valorpag'
+      '  , p.Banco'
+      '  , b.Bco_nome'
+      '  , p.Numchq'
+      '  , Case when p.Dtpag is not null then '#39'X'#39' else '#39'.'#39' end as Pago_'
+      '  , p.Docbaix'
+      '  , p.situacao'
+      
+        '  , Case when p.situacao = 1 then '#39'Ativa'#39' else '#39'Cancelada'#39' end a' +
+        's situacao_desc'
+      'from TBCONTPAG p'
+      '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
+      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)'
+      'WHERE p.ANOLANC = :ANOLANC AND p.NUMLANC = :NUMLANC')
+    Left = 640
+    Top = 424
+  end
+  object qryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from TBFORMPAGTO')
     Left = 344
-    Top = 376
+    Top = 408
+  end
+  object qryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_CONDICAOPAGTO')
+    Left = 344
+    Top = 440
+  end
+  object qryTipoDespesa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBTPDESPESA t'
+      'where (t.ativo = :ativo) or (:todos = 1)'
+      'order by t.tipodesp')
+    Left = 344
+    Top = 472
+    ParamData = <
+      item
+        Name = 'ATIVO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryTipoDocumento: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_TIPO_DOCUMENTO_ENTRADA')
+    Left = 344
+    Top = 504
+  end
+  object qryTipoEntrada: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_TIPO_ENTRADA')
+    Left = 344
+    Top = 544
   end
 end

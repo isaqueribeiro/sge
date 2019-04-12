@@ -43,7 +43,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 683
     DesignSize = (
       712
       113)
@@ -204,7 +203,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       ParentFont = False
       ReadOnly = True
       TabOrder = 2
-      ExplicitWidth = 401
     end
     object dbDataFabricacao: TJvDBDateEdit
       Left = 485
@@ -273,7 +271,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       TabOrder = 5
       OnEnter = ControlEditEnter
       OnExit = ControlEditExit
-      ExplicitLeft = 456
     end
     object dbDataValidade: TJvDBDateEdit
       Left = 596
@@ -342,7 +339,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       TabOrder = 6
       OnEnter = ControlEditEnter
       OnExit = ControlEditExit
-      ExplicitLeft = 567
     end
     object dbDescricao: TDBComboBox
       Left = 17
@@ -362,7 +358,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       TabOrder = 4
       OnEnter = ControlEditEnter
       OnExit = ControlEditExit
-      ExplicitWidth = 433
     end
     object dbQTDE: TDBEdit
       Left = 596
@@ -382,7 +377,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       ParentFont = False
       ReadOnly = True
       TabOrder = 3
-      ExplicitLeft = 567
     end
   end
   object dbgTitulos: TDBGrid
@@ -514,8 +508,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
     OnClick = btnConfirmarClick
-    ExplicitLeft = 493
-    ExplicitTop = 354
   end
   object btnFechar: TcxButton
     Left = 620
@@ -578,8 +570,6 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     OptionsImage.NumGlyphs = 2
     TabOrder = 3
     OnClick = btnFecharClick
-    ExplicitLeft = 591
-    ExplicitTop = 354
   end
   object fdQryCompraItens: TFDQuery
     BeforePost = fdQryCompraItensBeforePost

@@ -88,7 +88,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       ParentFont = False
     end
     object lblValor: TLabel
-      Left = 368
+      Left = 375
       Top = 24
       Width = 90
       Height = 13
@@ -133,23 +133,6 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       ReadOnly = True
       TabOrder = 0
     end
-    object dbDataVencimento: TDBEdit
-      Left = 264
-      Top = 40
-      Width = 97
-      Height = 21
-      Color = clWhite
-      DataField = 'DTVENC'
-      DataSource = dtsDuplicatas
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 3
-      OnEnter = ControlEditEnter
-    end
     object dbParcela: TDBEdit
       Left = 112
       Top = 40
@@ -169,7 +152,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       TabOrder = 1
     end
     object dbValor: TDBEdit
-      Left = 368
+      Left = 375
       Top = 40
       Width = 105
       Height = 21
@@ -203,6 +186,72 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       ReadOnly = True
       TabOrder = 2
     end
+    object dbDataVencimento: TJvDBDateEdit
+      Left = 264
+      Top = 40
+      Width = 105
+      Height = 21
+      DataField = 'DTVENC'
+      DataSource = dtsDuplicatas
+      Color = clWhite
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Glyph.Data = {
+        76050000424D760500000000000036000000280000001C0000000C0000000100
+        2000000000004005000000000000000000000000000000000000FF00FF00FF00
+        FF00FF00FF008080800080808000808080008080800080808000808080008080
+        800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+        0000800000008000000000000000800000000000000000000000800000008080
+        8000FF00FF008080800080808000808080008080800080808000808080008080
+        80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+        FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+        FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+        0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+        8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+        80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+        FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+        C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+        FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+        FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+        8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+        FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+        FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+        0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+        FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+        FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+        FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+        8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+        8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+        FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+        000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+        FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+        FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+        8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+        FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000FF00FF00FF00
+        FF00FF00FF008080800080808000808080008080800080808000808080008080
+        80008080800080808000808080008080800080808000FF00FF00}
+      ImageKind = ikCustom
+      NumGlyphs = 2
+      ParentFont = False
+      PopupColor = clBtnFace
+      ShowNullDate = False
+      TabOrder = 3
+      OnEnter = ControlEditEnter
+    end
   end
   object dbgTitulos: TDBGrid
     Left = 0
@@ -231,7 +280,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       item
         Expanded = False
         FieldName = 'Lancamento'
-        Title.Caption = 'Lan'#231'amento'
+        Title.Caption = 'Lan'#231'amento '
         Width = 80
         Visible = True
       end
@@ -239,6 +288,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
         Expanded = False
         FieldName = 'PARCELA'
         Title.Alignment = taCenter
+        Title.Caption = 'Parc. '
         Width = 40
         Visible = True
       end
@@ -246,6 +296,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
         Expanded = False
         FieldName = 'DTEMISS'
         Title.Alignment = taCenter
+        Title.Caption = 'Emiss'#227'o '
         Width = 80
         Visible = True
       end
@@ -253,6 +304,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
         Expanded = False
         FieldName = 'DTVENC'
         Title.Alignment = taCenter
+        Title.Caption = 'Vencimento '
         Width = 80
         Visible = True
       end
@@ -260,14 +312,14 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
         Expanded = False
         FieldName = 'DiaSemana'
         Title.Alignment = taCenter
-        Title.Caption = 'DS'
+        Title.Caption = 'DS '
         Width = 35
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'VALORPAG'
-        Title.Caption = 'Valor A Pagar (R$)'
+        Title.Caption = 'Valor A Pagar (R$) '
         Width = 110
         Visible = True
       end>
@@ -542,45 +594,19 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
     TabOrder = 5
     OnClick = btFecharClick
   end
-  object qryDuplicatas: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    Anolanc'
-      '  , Numlanc'
-      '  , parcela'
-      '  , Codforn'
-      '  , Notfisc'
-      '  , Tippag'
-      '  , Dtemiss'
-      '  , Dtvenc'
-      '  , Valorpag'
-      'from TBCONTPAG')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = True
-    Left = 16
-    Top = 120
-  end
   object dtsDuplicatas: TDataSource
     AutoEdit = False
     DataSet = cdsDuplicatas
     OnDataChange = dtsDuplicatasDataChange
     OnUpdateData = dtsDuplicatasUpdateData
-    Left = 16
-    Top = 216
+    Left = 96
+    Top = 248
   end
   object dspDuplicatas: TDataSetProvider
     DataSet = qryDuplicatas
     UpdateMode = upWhereChanged
-    Left = 16
-    Top = 152
+    Left = 96
+    Top = 184
   end
   object cdsDuplicatas: TClientDataSet
     Aggregates = <>
@@ -589,54 +615,44 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
     ProviderName = 'dspDuplicatas'
     BeforePost = cdsDuplicatasBeforePost
     OnCalcFields = cdsDuplicatasCalcFields
-    Left = 16
-    Top = 184
+    Left = 96
+    Top = 216
     object cdsDuplicatasANOLANC: TSmallintField
       FieldName = 'ANOLANC'
-      ProviderFlags = [pfInUpdate, pfInKey]
       Required = True
     end
     object cdsDuplicatasNUMLANC: TIntegerField
       FieldName = 'NUMLANC'
-      ProviderFlags = [pfInUpdate, pfInKey]
       Required = True
     end
     object cdsDuplicatasPARCELA: TSmallintField
       Alignment = taCenter
-      DisplayLabel = 'Parc.'
       FieldName = 'PARCELA'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = '00'
     end
     object cdsDuplicatasCODFORN: TSmallintField
       FieldName = 'CODFORN'
-      ProviderFlags = [pfInUpdate]
     end
-    object cdsDuplicatasNOTFISC: TWideStringField
+    object cdsDuplicatasNOTFISC: TStringField
       FieldName = 'NOTFISC'
       Size = 15
     end
-    object cdsDuplicatasTIPPAG: TWideStringField
+    object cdsDuplicatasTIPPAG: TStringField
       FieldName = 'TIPPAG'
       Size = 35
     end
     object cdsDuplicatasDTEMISS: TDateField
-      Alignment = taCenter
       DisplayLabel = 'Emiss'#227'o'
       FieldName = 'DTEMISS'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
     object cdsDuplicatasDTVENC: TDateField
-      Alignment = taCenter
       DisplayLabel = 'Vencimento'
       FieldName = 'DTVENC'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
     object cdsDuplicatasVALORPAG: TBCDField
       FieldName = 'VALORPAG'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -669,26 +685,87 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       Expression = 'SUM(VALORPAG)'
     end
   end
-  object updParcela: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Update TBCONTPAG Set'
-      '  Dtvenc = :Vencimento, Valorpag = :Valor'
+  object qryDuplicatas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    Anolanc'
+      '  , Numlanc'
+      '  , parcela'
+      '  , Codforn'
+      '  , Notfisc'
+      '  , Tippag'
+      '  , Dtemiss'
+      '  , Dtvenc'
+      '  , Valorpag'
+      'from TBCONTPAG')
+    Left = 98
+    Top = 151
+  end
+  object qryParcela: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updParcela
+    SQL.Strings = (
+      'Select'
+      '    Anolanc   '
+      '  , Numlanc   '
+      '  , AnoCompra '
+      '  , NumCompra '
+      '  , Dtvenc'
+      '  , Valorpag'
+      'from TBCONTPAG '
       'where AnoCompra = :AnoCompra'
       '  and NumCompra = :NumCompra'
-      '  and Anolanc = :Anolanc'
-      '  and Numlanc = :Numlanc'
-      '')
+      '  and Anolanc   = :Anolanc'
+      '  and Numlanc   = :Numlanc')
+    Left = 98
+    Top = 295
+    ParamData = <
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'ANOLANC'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'NUMLANC'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object qryParcelaDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+    end
+    object qryParcelaVALORPAG: TBCDField
+      FieldName = 'VALORPAG'
+      Origin = 'VALORPAG'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object updParcela: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 16
-    Top = 248
+      'UPDATE TBCONTPAG'
+      'SET DTVENC = :NEW_DTVENC, VALORPAG = :NEW_VALORPAG'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    Left = 130
+    Top = 295
   end
 end

@@ -2177,7 +2177,7 @@ begin
       with qryNFE do
       begin
         // Analisar o nome do arquivo XML retornado
-        if (Trim(sFileNameXML) = EmptyStr) and (not FileExists(sFileNameXML)) then
+        if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
           sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
 
         AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );

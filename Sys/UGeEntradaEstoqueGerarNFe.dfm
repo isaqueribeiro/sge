@@ -874,15 +874,26 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
     TabOrder = 3
     OnClick = btnCancelarClick
   end
-  object cdsCompra: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
+  object dtsCompra: TDataSource
+    AutoEdit = False
+    DataSet = cdsCompra
+    Left = 384
+  end
+  object TmrAlerta: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = TmrAlertaTimer
+    Left = 16
+    Top = 333
+  end
+  object cdsCompra: TFDQuery
+    Active = True
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updCompra
+    SQL.Strings = (
       'Select'
       '    c.Ano'
       '  , c.Codcontrol'
@@ -995,391 +1006,396 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       '  , c.valorcofins'
       '  , c.outroscustos'
       '  , c.totalnf')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updCompra
-    Left = 16
-    Top = 304
+    Left = 320
+    ParamData = <
+      item
+        Name = 'ANOCOMPRA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMCOMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object cdsCompraANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBCOMPRAS"."ANO"'
+      Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsCompraCODCONTROL: TIntegerField
+      DisplayLabel = '###0000000'
       FieldName = 'CODCONTROL'
-      Origin = '"TBCOMPRAS"."CODCONTROL"'
+      Origin = 'CODCONTROL'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
-      DisplayFormat = '###0000000'
     end
-    object cdsCompraCODEMP: TIBStringField
+    object cdsCompraCODEMP: TStringField
       FieldName = 'CODEMP'
-      Origin = '"TBCOMPRAS"."CODEMP"'
+      Origin = 'CODEMP'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 18
     end
     object cdsCompraCODFORN: TIntegerField
       FieldName = 'CODFORN'
-      Origin = '"TBCOMPRAS"."CODFORN"'
+      Origin = 'CODFORN'
     end
     object cdsCompraDTENT: TDateField
       FieldName = 'DTENT'
-      Origin = '"TBCOMPRAS"."DTENT"'
+      Origin = 'DTENT'
     end
-    object cdsCompraDTFINALIZACAO_COMPRA: TDateTimeField
+    object cdsCompraDTFINALIZACAO_COMPRA: TSQLTimeStampField
       FieldName = 'DTFINALIZACAO_COMPRA'
-      Origin = '"TBCOMPRAS"."DTFINALIZACAO_COMPRA"'
+      Origin = 'DTFINALIZACAO_COMPRA'
       DisplayFormat = 'dd/mm/yyyy hh:mm:ss'
     end
     object cdsCompraDTEMISS: TDateField
       FieldName = 'DTEMISS'
-      Origin = '"TBCOMPRAS"."DTEMISS"'
+      Origin = 'DTEMISS'
       DisplayFormat = 'dd/mm/yyyy'
     end
     object cdsCompraHREMISS: TTimeField
       FieldName = 'HREMISS'
-      Origin = '"TBCOMPRAS"."HREMISS"'
+      Origin = 'HREMISS'
       DisplayFormat = 'hh:mm:ss'
     end
-    object cdsCompraNFSERIE: TIBStringField
+    object cdsCompraNFSERIE: TStringField
       FieldName = 'NFSERIE'
-      Origin = '"TBCOMPRAS"."NFSERIE"'
+      Origin = 'NFSERIE'
       Size = 4
     end
     object cdsCompraNF: TIntegerField
       FieldName = 'NF'
-      Origin = '"TBCOMPRAS"."NF"'
+      Origin = 'NF'
       Required = True
     end
     object cdsCompraNFCFOP: TIntegerField
       FieldName = 'NFCFOP'
-      Origin = '"TBCOMPRAS"."NFCFOP"'
+      Origin = 'NFCFOP'
     end
     object cdsCompraSTATUS: TSmallintField
       FieldName = 'STATUS'
-      Origin = '"TBCOMPRAS"."STATUS"'
+      Origin = 'STATUS'
+      Required = True
     end
-    object cdsCompraICMSBASE: TIBBCDField
+    object cdsCompraICMSBASE: TBCDField
       FieldName = 'ICMSBASE'
-      Origin = '"TBCOMPRAS"."ICMSBASE"'
+      Origin = 'ICMSBASE'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraICMSVALOR: TIBBCDField
+    object cdsCompraICMSVALOR: TBCDField
       FieldName = 'ICMSVALOR'
-      Origin = '"TBCOMPRAS"."ICMSVALOR"'
+      Origin = 'ICMSVALOR'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraICMSSUBSTBASE: TIBBCDField
+    object cdsCompraICMSSUBSTBASE: TBCDField
       FieldName = 'ICMSSUBSTBASE'
-      Origin = '"TBCOMPRAS"."ICMSSUBSTBASE"'
+      Origin = 'ICMSSUBSTBASE'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraICMSSUBSTVALOR: TIBBCDField
+    object cdsCompraICMSSUBSTVALOR: TBCDField
       FieldName = 'ICMSSUBSTVALOR'
-      Origin = '"TBCOMPRAS"."ICMSSUBSTVALOR"'
+      Origin = 'ICMSSUBSTVALOR'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraTOTALPROD: TIBBCDField
+    object cdsCompraTOTALPROD: TBCDField
       FieldName = 'TOTALPROD'
-      Origin = '"TBCOMPRAS"."TOTALPROD"'
+      Origin = 'TOTALPROD'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraFRETE: TIBBCDField
+    object cdsCompraFRETE: TBCDField
       FieldName = 'FRETE'
-      Origin = '"TBCOMPRAS"."FRETE"'
+      Origin = 'FRETE'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraIPI: TIBBCDField
+    object cdsCompraIPI: TBCDField
       FieldName = 'IPI'
-      Origin = '"TBCOMPRAS"."IPI"'
+      Origin = 'IPI'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraVALORSEGURO: TIBBCDField
+    object cdsCompraVALORSEGURO: TBCDField
       FieldName = 'VALORSEGURO'
-      Origin = '"TBCOMPRAS"."VALORSEGURO"'
+      Origin = 'VALORSEGURO'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraDESCONTO: TIBBCDField
+    object cdsCompraDESCONTO: TBCDField
       FieldName = 'DESCONTO'
-      Origin = '"TBCOMPRAS"."DESCONTO"'
+      Origin = 'DESCONTO'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraVALORTOTAL_II: TIBBCDField
+    object cdsCompraVALORTOTAL_II: TBCDField
       FieldName = 'VALORTOTAL_II'
-      Origin = '"TBCOMPRAS"."VALORTOTAL_II"'
+      Origin = 'VALORTOTAL_II'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraVALORTOTAL_IPI: TIBBCDField
+    object cdsCompraVALORTOTAL_IPI: TBCDField
       FieldName = 'VALORTOTAL_IPI'
-      Origin = '"TBCOMPRAS"."VALORTOTAL_IPI"'
+      Origin = 'VALORTOTAL_IPI'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraVALORPIS: TIBBCDField
+    object cdsCompraVALORPIS: TBCDField
       FieldName = 'VALORPIS'
-      Origin = '"TBCOMPRAS"."VALORPIS"'
+      Origin = 'VALORPIS'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraVALORCOFINS: TIBBCDField
+    object cdsCompraVALORCOFINS: TBCDField
       FieldName = 'VALORCOFINS'
-      Origin = '"TBCOMPRAS"."VALORCOFINS"'
+      Origin = 'VALORCOFINS'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraOUTROSCUSTOS: TIBBCDField
+    object cdsCompraOUTROSCUSTOS: TBCDField
       FieldName = 'OUTROSCUSTOS'
-      Origin = '"TBCOMPRAS"."OUTROSCUSTOS"'
+      Origin = 'OUTROSCUSTOS'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraTOTALNF: TIBBCDField
+    object cdsCompraTOTALNF: TBCDField
       FieldName = 'TOTALNF'
-      Origin = '"TBCOMPRAS"."TOTALNF"'
+      Origin = 'TOTALNF'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCompraVALOR_TOTAL_IPI: TIBBCDField
+    object cdsCompraVALOR_TOTAL_IPI: TBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_IPI'
+      Origin = 'VALOR_TOTAL_IPI'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object cdsCompraVALOR_TOTAL_BRUTO: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_BRUTO'
+      Origin = 'VALOR_TOTAL_BRUTO'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 5
     end
-    object cdsCompraVALOR_TOTAL_DESCONTO: TIBBCDField
+    object cdsCompraVALOR_TOTAL_DESCONTO: TBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_DESCONTO'
+      Origin = 'VALOR_TOTAL_DESCONTO'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object cdsCompraVALOR_TOTAL_LIQUIDO: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_LIQUIDO'
+      Origin = 'VALOR_TOTAL_LIQUIDO'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 5
     end
     object cdsCompraVALOR_BASE_ICMS_NORMAL_ENTRADA: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_BASE_ICMS_NORMAL_ENTRADA'
+      Origin = 'VALOR_BASE_ICMS_NORMAL_ENTRADA'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 5
     end
     object cdsCompraVALOR_TOTAL_ICMS_NORMAL_ENTRADA: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_ICMS_NORMAL_ENTRADA'
+      Origin = 'VALOR_TOTAL_ICMS_NORMAL_ENTRADA'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 7
     end
     object cdsCompraVALOR_BASE_ICMS_NORMAL_SAIDA: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_BASE_ICMS_NORMAL_SAIDA'
+      Origin = 'VALOR_BASE_ICMS_NORMAL_SAIDA'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 7
     end
     object cdsCompraVALOR_TOTAL_ICMS_NORMAL_SAIDA: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_ICMS_NORMAL_SAIDA'
+      Origin = 'VALOR_TOTAL_ICMS_NORMAL_SAIDA'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 9
     end
     object cdsCompraVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_ICMS_NORMAL_DEVIDO'
+      Origin = 'VALOR_TOTAL_ICMS_NORMAL_DEVIDO'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 9
     end
     object cdsCompraVALOR_TOTAL_PIS: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_PIS'
+      Origin = 'VALOR_TOTAL_PIS'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 7
     end
     object cdsCompraVALOR_TOTAL_COFINS: TFMTBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_COFINS'
+      Origin = 'VALOR_TOTAL_COFINS'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 7
     end
   end
-  object updCompra: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODCONTROL,'
-      '  CODEMP,'
-      '  CODFORN,'
-      '  NF,'
-      '  NFSERIE,'
-      '  LOTE_NFE_ANO,'
-      '  LOTE_NFE_NUMERO,'
-      '  NFE_ENVIADA,'
-      '  VERIFICADOR_NFE,'
-      '  XML_NFE,'
-      '  XML_NFE_FILENAME,'
-      '  DTLANCAMENTO,'
-      '  DTEMISS,'
-      '  DTENT,'
-      '  NFCFOP,'
-      '  NATUREZA,'
-      '  STATUS,'
-      '  IPI,'
-      '  ICMSBASE,'
-      '  ICMSVALOR,'
-      '  ICMSSUBSTBASE,'
-      '  ICMSSUBSTVALOR,'
-      '  FRETE,'
-      '  OUTROSCUSTOS,'
-      '  DESCONTO,'
-      '  VALORSEGURO,'
-      '  VALORTOTAL_II,'
-      '  VALORTOTAL_IPI,'
-      '  VALORPIS,'
-      '  VALORCOFINS,'
-      '  TOTALPROD,'
-      '  TOTALNF,'
-      '  OBS,'
-      '  USUARIO,'
-      '  FORMAPAGTO_COD,'
-      '  CONDICAOPAGTO_COD,'
-      '  COMPRA_PRAZO,'
-      '  PRAZO_01,'
-      '  PRAZO_02,'
-      '  PRAZO_03,'
-      '  PRAZO_04,'
-      '  PRAZO_05,'
-      '  PRAZO_06,'
-      '  PRAZO_07,'
-      '  PRAZO_08,'
-      '  PRAZO_09,'
-      '  PRAZO_10,'
-      '  PRAZO_11,'
-      '  PRAZO_12,'
-      '  DTFINALIZACAO_COMPRA,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO'
-      'from TBCOMPRAS '
-      'where'
-      '  ANO = :ANO and'
-      '  CODCONTROL = :CODCONTROL')
-    ModifySQL.Strings = (
-      'update TBCOMPRAS'
-      'set'
-      '  ANO = :ANO,'
-      '  CODCONTROL = :CODCONTROL,'
-      '  CODEMP = :CODEMP,'
-      '  CODFORN = :CODFORN,'
-      '  DESCONTO = :DESCONTO,'
-      '  DTEMISS = :DTEMISS,'
-      '  DTENT = :DTENT,'
-      '  DTFINALIZACAO_COMPRA = :DTFINALIZACAO_COMPRA,'
-      '  FRETE = :FRETE,'
-      '  ICMSBASE = :ICMSBASE,'
-      '  ICMSSUBSTBASE = :ICMSSUBSTBASE,'
-      '  ICMSSUBSTVALOR = :ICMSSUBSTVALOR,'
-      '  ICMSVALOR = :ICMSVALOR,'
-      '  NF = :NF,'
-      '  NFSERIE = :NFSERIE,'
-      '  OUTROSCUSTOS = :OUTROSCUSTOS,'
-      '  STATUS = :STATUS,'
-      '  TOTALNF = :TOTALNF,'
-      '  TOTALPROD = :TOTALPROD,'
-      '  VALORCOFINS = :VALORCOFINS,'
-      '  VALORPIS = :VALORPIS,'
-      '  VALORSEGURO = :VALORSEGURO,'
-      '  VALORTOTAL_II = :VALORTOTAL_II,'
-      '  VALORTOTAL_IPI = :VALORTOTAL_IPI'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL')
+  object updCompra: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'insert into TBCOMPRAS'
+      'INSERT INTO TBCOMPRAS'
+      '(ANO, CODCONTROL, CODEMP, CODFORN, NF, '
+      '  NFSERIE, DTEMISS, HREMISS, DTENT, NFCFOP, '
+      '  STATUS, IPI, ICMSBASE, ICMSVALOR, ICMSSUBSTBASE, '
+      '  ICMSSUBSTVALOR, FRETE, OUTROSCUSTOS, DESCONTO, '
+      '  VALORSEGURO, VALORTOTAL_II, VALORTOTAL_IPI, '
+      '  VALORPIS, VALORCOFINS, TOTALPROD, TOTALNF, '
+      '  DTFINALIZACAO_COMPRA)'
       
-        '  (ANO, CODCONTROL, CODEMP, CODFORN, DESCONTO, DTEMISS, DTENT, D' +
-        'TFINALIZACAO_COMPRA, '
+        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_CODFORN, :N' +
+        'EW_NF, '
       
-        '   FRETE, ICMSBASE, ICMSSUBSTBASE, ICMSSUBSTVALOR, ICMSVALOR, NF' +
-        ', NFSERIE, '
+        '  :NEW_NFSERIE, :NEW_DTEMISS, :NEW_HREMISS, :NEW_DTENT, :NEW_NFC' +
+        'FOP, '
       
-        '   OUTROSCUSTOS, STATUS, TOTALNF, TOTALPROD, VALORCOFINS, VALORP' +
-        'IS, VALORSEGURO, '
-      '   VALORTOTAL_II, VALORTOTAL_IPI)'
-      'values'
+        '  :NEW_STATUS, :NEW_IPI, :NEW_ICMSBASE, :NEW_ICMSVALOR, :NEW_ICM' +
+        'SSUBSTBASE, '
       
-        '  (:ANO, :CODCONTROL, :CODEMP, :CODFORN, :DESCONTO, :DTEMISS, :D' +
-        'TENT, :DTFINALIZACAO_COMPRA, '
+        '  :NEW_ICMSSUBSTVALOR, :NEW_FRETE, :NEW_OUTROSCUSTOS, :NEW_DESCO' +
+        'NTO, '
+      '  :NEW_VALORSEGURO, :NEW_VALORTOTAL_II, :NEW_VALORTOTAL_IPI, '
       
-        '   :FRETE, :ICMSBASE, :ICMSSUBSTBASE, :ICMSSUBSTVALOR, :ICMSVALO' +
-        'R, :NF, '
+        '  :NEW_VALORPIS, :NEW_VALORCOFINS, :NEW_TOTALPROD, :NEW_TOTALNF,' +
+        ' '
+      '  :NEW_DTFINALIZACAO_COMPRA)')
+    ModifySQL.Strings = (
+      'UPDATE TBCOMPRAS'
       
-        '   :NFSERIE, :OUTROSCUSTOS, :STATUS, :TOTALNF, :TOTALPROD, :VALO' +
-        'RCOFINS, '
-      '   :VALORPIS, :VALORSEGURO, :VALORTOTAL_II, :VALORTOTAL_IPI)')
+        'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
+        'CODEMP, '
+      '  CODFORN = :NEW_CODFORN, NF = :NEW_NF, NFSERIE = :NEW_NFSERIE, '
+      
+        '  DTEMISS = :NEW_DTEMISS, HREMISS = :NEW_HREMISS, DTENT = :NEW_D' +
+        'TENT, '
+      '  NFCFOP = :NEW_NFCFOP, STATUS = :NEW_STATUS, IPI = :NEW_IPI, '
+      
+        '  ICMSBASE = :NEW_ICMSBASE, ICMSVALOR = :NEW_ICMSVALOR, ICMSSUBS' +
+        'TBASE = :NEW_ICMSSUBSTBASE, '
+      '  ICMSSUBSTVALOR = :NEW_ICMSSUBSTVALOR, FRETE = :NEW_FRETE, '
+      '  OUTROSCUSTOS = :NEW_OUTROSCUSTOS, DESCONTO = :NEW_DESCONTO, '
+      
+        '  VALORSEGURO = :NEW_VALORSEGURO, VALORTOTAL_II = :NEW_VALORTOTA' +
+        'L_II, '
+      
+        '  VALORTOTAL_IPI = :NEW_VALORTOTAL_IPI, VALORPIS = :NEW_VALORPIS' +
+        ', '
+      '  VALORCOFINS = :NEW_VALORCOFINS, TOTALPROD = :NEW_TOTALPROD, '
+      
+        '  TOTALNF = :NEW_TOTALNF, DTFINALIZACAO_COMPRA = :NEW_DTFINALIZA' +
+        'CAO_COMPRA'
+      
+        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
+        ' = :OLD_CODEMP')
     DeleteSQL.Strings = (
-      'delete from TBCOMPRAS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL')
-    Left = 48
-    Top = 304
-  end
-  object dtsCompra: TDataSource
-    AutoEdit = False
-    DataSet = cdsCompra
-    Left = 80
-    Top = 304
-  end
-  object TmrAlerta: TTimer
-    Enabled = False
-    Interval = 500
-    OnTimer = TmrAlertaTimer
-    Left = 16
-    Top = 333
+      'DELETE FROM TBCOMPRAS'
+      
+        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
+        ' = :OLD_CODEMP')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO, CODCONTROL, CODEMP, CODFORN, TIPO_ENTRADA, TIPO_DOCU' +
+        'MENTO, '
+      
+        '  TIPO_MOVIMENTO, NF, NFSERIE, MODELO_NF, LOTE_NFE_ANO, LOTE_NFE' +
+        '_NUMERO, '
+      
+        '  LOTE_NFE_RECIBO, NFE_ENVIADA, NFE_DENEGADA, NFE_DENEGADA_MOTIV' +
+        'O, '
+      '  VERIFICADOR_NFE, XML_NFE, XML_NFE_FILENAME, DTLANCAMENTO, '
+      
+        '  DTEMISS, HREMISS, DTENT, NFCFOP, NATUREZA, STATUS, CALCULAR_TO' +
+        'TAIS, '
+      '  IPI, ICMSBASE, ICMSVALOR, ICMSSUBSTBASE, ICMSSUBSTVALOR, '
+      '  FRETE, OUTROSCUSTOS, DESCONTO, VALORSEGURO, VALORTOTAL_II, '
+      '  VALORTOTAL_IPI, VALORPIS, VALORCOFINS, TOTALPROD, TOTALNF, '
+      '  INDEX_VALOR, OBS, USUARIO, FORMAPAGTO_COD, CONDICAOPAGTO_COD, '
+      
+        '  COMPRA_PRAZO, PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04, PRAZO_05' +
+        ', '
+      '  PRAZO_06, PRAZO_07, PRAZO_08, PRAZO_09, PRAZO_10, PRAZO_11, '
+      '  PRAZO_12, DTFINALIZACAO_COMPRA, TIPO_DESPESA, CANCEL_USUARIO, '
+      
+        '  CANCEL_DATAHORA, CANCEL_MOTIVO, AUTORIZACAO_ANO, AUTORIZACAO_C' +
+        'ODIGO, '
+      '  AUTORIZACAO_EMPRESA, DNFE_ENTRADA_ANO, DNFE_ENTRADA_COD, '
+      
+        '  DNFE_SAIDA_ANO, DNFE_SAIDA_COD, DNFE_FORMA, DNFE_UF, DNFE_CNPJ' +
+        '_CPF, '
+      
+        '  DNFE_IE, DNFE_COMPETENCIA, DNFE_SERIE, DNFE_NUMERO, DNFE_MODEL' +
+        'O, '
+      '  DNFE_CHAVE, DECF_MODELO, DECF_NUMERO, DECF_COO'
+      'FROM TBCOMPRAS'
+      
+        'WHERE ANO = :ANO AND CODCONTROL = :CODCONTROL AND CODEMP = :CODE' +
+        'MP')
+    Left = 352
   end
 end

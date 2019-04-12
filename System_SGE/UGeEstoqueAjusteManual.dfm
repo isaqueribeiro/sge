@@ -951,303 +951,6 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
     TabOrder = 4
     OnClick = btnCancelarClick
   end
-  object qryAjuste: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    OnNewRecord = qryAjusteNewRecord
-    BufferChunks = 1000
-    CachedUpdates = True
-    SelectSQL.Strings = (
-      'Select'
-      '    a.controle'
-      '  , a.codprod'
-      '  , a.codempresa'
-      '  , a.codforn'
-      '  , a.sistema'
-      '  , a.doc'
-      '  , a.qtdeatual'
-      '  , a.qtdenova'
-      '  , a.qtdefinal'
-      '  , a.fracionador'
-      '  , a.motivo'
-      '  , a.dtajust'
-      '  , a.usuario'
-      '  , a.lote_id'
-      '  , a.lote_descricao'
-      '  , a.lote_data_fab'
-      '  , a.lote_data_val'
-      '  , f.nomeforn'
-      'from TBAJUSTESTOQ a'
-      '  left join TBFORNECEDOR f on (f.codforn = a.codforn)'
-      'where 1 = 0')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updAjuste
-    Left = 344
-    object qryAjusteCONTROLE: TIntegerField
-      FieldName = 'CONTROLE'
-      Origin = '"TBAJUSTESTOQ"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryAjusteCODPROD: TIBStringField
-      FieldName = 'CODPROD'
-      Origin = '"TBAJUSTESTOQ"."CODPROD"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object qryAjusteCODEMPRESA: TIBStringField
-      FieldName = 'CODEMPRESA'
-      Origin = '"TBAJUSTESTOQ"."CODEMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object qryAjusteCODFORN: TIntegerField
-      FieldName = 'CODFORN'
-      Origin = '"TBAJUSTESTOQ"."CODFORN"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryAjusteSISTEMA: TSmallintField
-      FieldName = 'SISTEMA'
-      Origin = '"TBAJUSTESTOQ"."SISTEMA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryAjusteDOC: TIBStringField
-      FieldName = 'DOC'
-      Origin = '"TBAJUSTESTOQ"."DOC"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object qryAjusteQTDEATUAL: TIBBCDField
-      FieldName = 'QTDEATUAL'
-      Origin = '"TBAJUSTESTOQ"."QTDEATUAL"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object qryAjusteQTDENOVA: TIBBCDField
-      FieldName = 'QTDENOVA'
-      Origin = '"TBAJUSTESTOQ"."QTDENOVA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object qryAjusteQTDEFINAL: TIBBCDField
-      FieldName = 'QTDEFINAL'
-      Origin = '"TBAJUSTESTOQ"."QTDEFINAL"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object qryAjusteFRACIONADOR: TIBBCDField
-      FieldName = 'FRACIONADOR'
-      Origin = '"TBAJUSTESTOQ"."FRACIONADOR"'
-      Precision = 18
-      Size = 3
-    end
-    object qryAjusteMOTIVO: TIBStringField
-      FieldName = 'MOTIVO'
-      Origin = '"TBAJUSTESTOQ"."MOTIVO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object qryAjusteDTAJUST: TDateTimeField
-      FieldName = 'DTAJUST'
-      Origin = '"TBAJUSTESTOQ"."DTAJUST"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryAjusteUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBAJUSTESTOQ"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object qryAjusteLOTE_ID: TIBStringField
-      FieldName = 'LOTE_ID'
-      Origin = '"TBAJUSTESTOQ"."LOTE_ID"'
-      ProviderFlags = [pfInUpdate]
-      Size = 38
-    end
-    object qryAjusteLOTE_DESCRICAO: TIBStringField
-      FieldName = 'LOTE_DESCRICAO'
-      Origin = '"TBAJUSTESTOQ"."LOTE_DESCRICAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 30
-    end
-    object qryAjusteLOTE_DATA_FAB: TDateField
-      FieldName = 'LOTE_DATA_FAB'
-      Origin = '"TBAJUSTESTOQ"."LOTE_DATA_FAB"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryAjusteLOTE_DATA_VAL: TDateField
-      FieldName = 'LOTE_DATA_VAL'
-      Origin = '"TBAJUSTESTOQ"."LOTE_DATA_VAL"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryAjusteNOMEFORN: TIBStringField
-      FieldName = 'NOMEFORN'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      ProviderFlags = []
-      Size = 60
-    end
-  end
-  object updAjuste: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  CONTROLE,'
-      '  CODPROD,'
-      '  CODEMPRESA,'
-      '  CODFORN,'
-      '  SISTEMA,'
-      '  QTDEATUAL,'
-      '  QTDENOVA,'
-      '  QTDEFINAL,'
-      '  FRACIONADOR,'
-      '  MOTIVO,'
-      '  DOC,'
-      '  DTAJUST,'
-      '  USUARIO,'
-      '  LOTE_ID,'
-      '  LOTE_DESCRICAO,'
-      '  LOTE_DATA_FAB,'
-      '  LOTE_DATA_VAL'
-      'from TBAJUSTESTOQ '
-      'where'
-      '  CONTROLE = :CONTROLE')
-    ModifySQL.Strings = (
-      'update TBAJUSTESTOQ'
-      'set'
-      '  CODEMPRESA = :CODEMPRESA,'
-      '  CODFORN = :CODFORN,'
-      '  CODPROD = :CODPROD,'
-      '  CONTROLE = :CONTROLE,'
-      '  DOC = :DOC,'
-      '  DTAJUST = :DTAJUST,'
-      '  FRACIONADOR = :FRACIONADOR,'
-      '  LOTE_DATA_FAB = :LOTE_DATA_FAB,'
-      '  LOTE_DATA_VAL = :LOTE_DATA_VAL,'
-      '  LOTE_DESCRICAO = :LOTE_DESCRICAO,'
-      '  LOTE_ID = :LOTE_ID,'
-      '  MOTIVO = :MOTIVO,'
-      '  QTDEATUAL = :QTDEATUAL,'
-      '  QTDEFINAL = :QTDEFINAL,'
-      '  QTDENOVA = :QTDENOVA,'
-      '  SISTEMA = :SISTEMA,'
-      '  USUARIO = :USUARIO'
-      'where'
-      '  CONTROLE = :OLD_CONTROLE')
-    InsertSQL.Strings = (
-      'insert into TBAJUSTESTOQ'
-      
-        '  (CODEMPRESA, CODFORN, CODPROD, CONTROLE, DOC, DTAJUST, FRACION' +
-        'ADOR, LOTE_DATA_FAB, '
-      
-        '   LOTE_DATA_VAL, LOTE_DESCRICAO, LOTE_ID, MOTIVO, QTDEATUAL, QT' +
-        'DEFINAL, '
-      '   QTDENOVA, SISTEMA, USUARIO)'
-      'values'
-      
-        '  (:CODEMPRESA, :CODFORN, :CODPROD, :CONTROLE, :DOC, :DTAJUST, :' +
-        'FRACIONADOR, '
-      
-        '   :LOTE_DATA_FAB, :LOTE_DATA_VAL, :LOTE_DESCRICAO, :LOTE_ID, :M' +
-        'OTIVO, '
-      '   :QTDEATUAL, :QTDEFINAL, :QTDENOVA, :SISTEMA, :USUARIO)')
-    DeleteSQL.Strings = (
-      'delete from TBAJUSTESTOQ'
-      'where'
-      '  CONTROLE = :OLD_CONTROLE')
-    Left = 376
-  end
-  object qryProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.cod'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.qtde'
-      '  , p.fracionador'
-      '  , p.movimenta_estoque'
-      '  , p.estoque_aprop_lote'
-      '  , u.unp_sigla'
-      'from TBPRODUTO p'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    Left = 344
-    Top = 32
-    object qryProdutoCOD: TIBStringField
-      FieldName = 'COD'
-      Origin = '"TBPRODUTO"."COD"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object qryProdutoDESCRI: TIBStringField
-      FieldName = 'DESCRI'
-      Origin = '"TBPRODUTO"."DESCRI"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object qryProdutoAPRESENTACAO: TIBStringField
-      FieldName = 'APRESENTACAO'
-      Origin = '"TBPRODUTO"."APRESENTACAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object qryProdutoDESCRI_APRESENTACAO: TIBStringField
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object qryProdutoQTDE: TIBBCDField
-      FieldName = 'QTDE'
-      Origin = '"TBPRODUTO"."QTDE"'
-      ProviderFlags = [pfInUpdate]
-      EditFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object qryProdutoFRACIONADOR: TIBBCDField
-      FieldName = 'FRACIONADOR'
-      Origin = '"TBPRODUTO"."FRACIONADOR"'
-      Precision = 18
-      Size = 3
-    end
-    object qryProdutoMOVIMENTA_ESTOQUE: TSmallintField
-      FieldName = 'MOVIMENTA_ESTOQUE'
-      Origin = '"TBPRODUTO"."MOVIMENTA_ESTOQUE"'
-    end
-    object qryProdutoESTOQUE_APROP_LOTE: TSmallintField
-      FieldName = 'ESTOQUE_APROP_LOTE'
-      Origin = '"TBPRODUTO"."ESTOQUE_APROP_LOTE"'
-    end
-    object qryProdutoUNP_SIGLA: TIBStringField
-      FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
-      ProviderFlags = []
-      Size = 5
-    end
-  end
   object dtsAjuste: TDataSource
     AutoEdit = False
     DataSet = qryAjuste
@@ -1278,6 +981,7 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
   end
   object fdQryLotes: TFDQuery
     Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
@@ -1387,5 +1091,206 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
         ParamType = ptOutput
         Size = 38
       end>
+  end
+  object qryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.cod'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.qtde'
+      '  , p.fracionador'
+      '  , p.movimenta_estoque'
+      '  , p.estoque_aprop_lote'
+      '  , u.unp_sigla'
+      'from TBPRODUTO p'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
+    Left = 344
+    Top = 32
+  end
+  object qryAjuste: TFDQuery
+    OnNewRecord = qryAjusteNewRecord
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updAjuste
+    SQL.Strings = (
+      'Select'
+      '    a.controle'
+      '  , a.codprod'
+      '  , a.codempresa'
+      '  , a.codforn'
+      '  , a.sistema'
+      '  , a.doc'
+      '  , a.qtdeatual'
+      '  , a.qtdenova'
+      '  , a.qtdefinal'
+      '  , a.fracionador'
+      '  , a.motivo'
+      '  , a.dtajust'
+      '  , a.usuario'
+      '  , a.lote_id'
+      '  , a.lote_descricao'
+      '  , a.lote_data_fab'
+      '  , a.lote_data_val'
+      '  , f.nomeforn'
+      'from TBAJUSTESTOQ a'
+      '  left join TBFORNECEDOR f on (f.codforn = a.codforn)'
+      'where 1 = 0')
+    Left = 344
+    object qryAjusteCONTROLE: TIntegerField
+      FieldName = 'CONTROLE'
+      Origin = 'CONTROLE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryAjusteCODPROD: TStringField
+      FieldName = 'CODPROD'
+      Origin = 'CODPROD'
+      Required = True
+      Size = 10
+    end
+    object qryAjusteCODEMPRESA: TStringField
+      FieldName = 'CODEMPRESA'
+      Origin = 'CODEMPRESA'
+      Size = 18
+    end
+    object qryAjusteCODFORN: TIntegerField
+      FieldName = 'CODFORN'
+      Origin = 'CODFORN'
+    end
+    object qryAjusteSISTEMA: TSmallintField
+      FieldName = 'SISTEMA'
+      Origin = 'SISTEMA'
+    end
+    object qryAjusteDOC: TStringField
+      FieldName = 'DOC'
+      Origin = 'DOC'
+      Size = 10
+    end
+    object qryAjusteQTDEATUAL: TBCDField
+      FieldName = 'QTDEATUAL'
+      Origin = 'QTDEATUAL'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object qryAjusteQTDENOVA: TBCDField
+      FieldName = 'QTDENOVA'
+      Origin = 'QTDENOVA'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object qryAjusteQTDEFINAL: TBCDField
+      FieldName = 'QTDEFINAL'
+      Origin = 'QTDEFINAL'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object qryAjusteFRACIONADOR: TBCDField
+      FieldName = 'FRACIONADOR'
+      Origin = 'FRACIONADOR'
+      Precision = 18
+      Size = 3
+    end
+    object qryAjusteMOTIVO: TStringField
+      FieldName = 'MOTIVO'
+      Origin = 'MOTIVO'
+      Size = 250
+    end
+    object qryAjusteDTAJUST: TSQLTimeStampField
+      FieldName = 'DTAJUST'
+      Origin = 'DTAJUST'
+    end
+    object qryAjusteUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object qryAjusteLOTE_ID: TStringField
+      FieldName = 'LOTE_ID'
+      Origin = 'LOTE_ID'
+      Size = 38
+    end
+    object qryAjusteLOTE_DESCRICAO: TStringField
+      FieldName = 'LOTE_DESCRICAO'
+      Origin = 'LOTE_DESCRICAO'
+      Size = 30
+    end
+    object qryAjusteLOTE_DATA_FAB: TDateField
+      FieldName = 'LOTE_DATA_FAB'
+      Origin = 'LOTE_DATA_FAB'
+    end
+    object qryAjusteLOTE_DATA_VAL: TDateField
+      FieldName = 'LOTE_DATA_VAL'
+      Origin = 'LOTE_DATA_VAL'
+    end
+    object qryAjusteNOMEFORN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOMEFORN'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+  end
+  object updAjuste: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBAJUSTESTOQ'
+      '(CONTROLE, CODPROD, CODEMPRESA, CODFORN, '
+      '  SISTEMA, QTDEATUAL, QTDENOVA, QTDEFINAL, '
+      '  FRACIONADOR, MOTIVO, DOC, DTAJUST, USUARIO, '
+      '  LOTE_ID, LOTE_DESCRICAO, LOTE_DATA_FAB, LOTE_DATA_VAL)'
+      
+        'VALUES (:NEW_CONTROLE, :NEW_CODPROD, :NEW_CODEMPRESA, :NEW_CODFO' +
+        'RN, '
+      '  :NEW_SISTEMA, :NEW_QTDEATUAL, :NEW_QTDENOVA, :NEW_QTDEFINAL, '
+      
+        '  :NEW_FRACIONADOR, :NEW_MOTIVO, :NEW_DOC, :NEW_DTAJUST, :NEW_US' +
+        'UARIO, '
+      
+        '  :NEW_LOTE_ID, :NEW_LOTE_DESCRICAO, :NEW_LOTE_DATA_FAB, :NEW_LO' +
+        'TE_DATA_VAL)')
+    ModifySQL.Strings = (
+      'UPDATE TBAJUSTESTOQ'
+      
+        'SET CONTROLE = :NEW_CONTROLE, CODPROD = :NEW_CODPROD, CODEMPRESA' +
+        ' = :NEW_CODEMPRESA, '
+      
+        '  CODFORN = :NEW_CODFORN, SISTEMA = :NEW_SISTEMA, QTDEATUAL = :N' +
+        'EW_QTDEATUAL, '
+      
+        '  QTDENOVA = :NEW_QTDENOVA, QTDEFINAL = :NEW_QTDEFINAL, FRACIONA' +
+        'DOR = :NEW_FRACIONADOR, '
+      '  MOTIVO = :NEW_MOTIVO, DOC = :NEW_DOC, DTAJUST = :NEW_DTAJUST, '
+      
+        '  USUARIO = :NEW_USUARIO, LOTE_ID = :NEW_LOTE_ID, LOTE_DESCRICAO' +
+        ' = :NEW_LOTE_DESCRICAO, '
+      
+        '  LOTE_DATA_FAB = :NEW_LOTE_DATA_FAB, LOTE_DATA_VAL = :NEW_LOTE_' +
+        'DATA_VAL'
+      'WHERE CONTROLE = :OLD_CONTROLE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBAJUSTESTOQ'
+      'WHERE CONTROLE = :OLD_CONTROLE')
+    FetchRowSQL.Strings = (
+      
+        'SELECT CONTROLE, CODPROD, CODEMPRESA, CODFORN, SISTEMA, QTDEATUA' +
+        'L, '
+      '  QTDENOVA, QTDEFINAL, FRACIONADOR, MOTIVO, DOC, DTAJUST, '
+      '  USUARIO, LOTE_ID, LOTE_DESCRICAO, LOTE_DATA_FAB, LOTE_DATA_VAL'
+      'FROM TBAJUSTESTOQ'
+      'WHERE CONTROLE = :CONTROLE')
+    Left = 376
   end
 end
