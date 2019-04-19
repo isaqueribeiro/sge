@@ -6,6 +6,8 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
   Caption = 'Controle de Vendas - Dados Transportadora'
   ClientHeight = 396
   ClientWidth = 603
+  ExplicitWidth = 617
+  ExplicitHeight = 433
   DesignSize = (
     603
     396)
@@ -249,7 +251,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     object lblModalidadeFrete: TLabel
       Left = 16
       Top = 25
-      Width = 100
+      Width = 102
       Height = 13
       Caption = 'Modalidade do &Frete:'
       FocusControl = dbModalidadeFrete
@@ -257,7 +259,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     object lblTransportadora: TLabel
       Left = 288
       Top = 24
-      Width = 75
+      Width = 79
       Height = 13
       Caption = '&Transportadora:'
       FocusControl = dbTransportadora
@@ -488,10 +490,6 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
           Hint = 'Inserir Volume'
           Caption = 'Inserir   '
           Enabled = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 0
-          OnClick = btnVolumeInserirClick
           Glyph.Data = {
             36060000424D3606000000000000360000002800000020000000100000000100
             18000000000000060000000000000000000000000000000000000000FF0000FF
@@ -544,6 +542,10 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
             FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
             00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
           NumGlyphs = 2
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 0
+          OnClick = btnVolumeInserirClick
         end
         object btnVolumeEditar: TBitBtn
           Left = 0
@@ -553,10 +555,6 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
           Hint = 'Editar Volume'
           Caption = 'Editar   '
           Enabled = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 1
-          OnClick = btnVolumeEditarClick
           Glyph.Data = {
             36060000424D3606000000000000360000002800000020000000100000000100
             180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -609,6 +607,10 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
             CE6070B06070B0DFD2D100FF0000FF0000FF0000FF0000FF0000FF0000FF0000
             FF0000FF0000FF0000FF0000FF00C9C9C9818181818181D3D3D3}
           NumGlyphs = 2
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 1
+          OnClick = btnVolumeEditarClick
         end
         object btnVolumeExcluir: TBitBtn
           Left = 0
@@ -618,10 +620,6 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
           Hint = 'Excluir Volume'
           Caption = 'Excluir   '
           Enabled = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 2
-          OnClick = btnVolumeExcluirClick
           Glyph.Data = {
             36060000424D3606000000000000360000002800000020000000100000000100
             1800000000000006000000000000000000000000000000000000FF00FFFF00FF
@@ -674,6 +672,10 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
             FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
             00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
           NumGlyphs = 2
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 2
+          OnClick = btnVolumeExcluirClick
         end
         object btnVolumeCancelar: TBitBtn
           Left = 0
@@ -683,10 +685,6 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
           Hint = 'Cancelar Edi'#231#227'o'
           Caption = 'Cancelar'
           Enabled = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 3
-          OnClick = btnVolumeCancelarClick
           Glyph.Data = {
             36060000424D3606000000000000360000002800000020000000100000000100
             180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -739,6 +737,10 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
             0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
             BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
           NumGlyphs = 2
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          OnClick = btnVolumeCancelarClick
         end
         object btnVolumeSalvar: TBitBtn
           Left = 0
@@ -748,10 +750,6 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
           Hint = 'Salvar Edi'#231#227'o'
           Caption = 'Salvar    '
           Enabled = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 4
-          OnClick = btnVolumeSalvarClick
           Glyph.Data = {
             36060000424D3606000000000000360000002800000020000000100000000100
             18000000000000060000000000000000000000000000000000000000FF0000FF
@@ -804,6 +802,10 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
             FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
             00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
           NumGlyphs = 2
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 4
+          OnClick = btnVolumeSalvarClick
         end
       end
       object dbVolumeQtde: TDBEdit
@@ -921,19 +923,21 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         item
           Expanded = False
           FieldName = 'NUMERO'
-          Title.Caption = 'Nro. Volume'
+          Title.Caption = 'Nro. Volume '
           Width = 100
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'PESO_BRUTO'
+          Title.Caption = 'Peso Bruto '
           Width = 80
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'PESO_LIQUIDO'
+          Title.Caption = 'Peso L'#237'quido '
           Width = 80
           Visible = True
         end>
@@ -1095,9 +1099,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Confirmar'
-    TabOrder = 2
-    OnClick = btnConfirmarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       18000000000000060000000000000000000000000000000000000000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
@@ -1148,7 +1150,9 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
+    OnClick = btnConfirmarClick
   end
   object btnCancelar: TcxButton
     Left = 511
@@ -1158,9 +1162,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancelar'
-    TabOrder = 3
-    OnClick = btnCancelarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -1211,17 +1213,19 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
       00FF00E0C0B0E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0BEAA00FF
       0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 3
+    OnClick = btnCancelarClick
   end
   object dtsVendaVolume: TDataSource
     DataSet = frmGeVenda.cdsVendaVolume
     OnStateChange = dtsVendaVolumeStateChange
-    Left = 104
-    Top = 317
+    Left = 400
+    Top = 213
   end
-  object qryVolume: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
+  object qryVolume: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    sum( v.qtde ) as quantidade'
@@ -1232,20 +1236,19 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
       '  inner join TBPRODUTO p on (p.cod = v.codprod)'
       'where v.ano = :ano_venda'
       '  and v.codcontrol = :num_venda')
-    Left = 384
-    Top = 257
+    Left = 399
+    Top = 264
     ParamData = <
       item
-        DataType = ftInteger
-        Name = 'ano_venda'
+        Name = 'ANO_VENDA'
+        DataType = ftSmallint
         ParamType = ptInput
-        Value = 0
+        Value = Null
       end
       item
+        Name = 'NUM_VENDA'
         DataType = ftInteger
-        Name = 'num_venda'
         ParamType = ptInput
-        Value = 0
       end>
   end
 end

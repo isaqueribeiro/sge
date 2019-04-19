@@ -3,11 +3,21 @@ unit UGeVendaTransporte;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Buttons, DBCtrls, ExtCtrls, Mask,
+  Dialogs, StdCtrls, Buttons, DBCtrls, ExtCtrls, Mask,
   DB, IBCustomDataSet, IBUpdateSQL, Grids, DBGrids, IBQuery, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls;
+  JvExMask, JvToolEdit, JvDBControls,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaTransporte = class(TfrmGrPadrao)
@@ -57,11 +67,11 @@ type
     dbgVolumes: TDBGrid;
     dtsVendaVolume: TDataSource;
     btnVolumeCancelar: TBitBtn;
-    qryVolume: TIBQuery;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
     dbTransportadora: TJvDBComboEdit;
     dbPlacaUF: TJvDBComboEdit;
+    qryVolume: TFDQuery;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbTransportadoraButtonClick(Sender: TObject);
@@ -82,6 +92,19 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBVENDAS_VOLUME
+  - TBFORNECEDOR
+  - TVENDASITENS
+  - TBPRODUTO
+
+  Views:
+
+  Procedures:
+
+*)
 
   function EditarDadosTransportadora(const AOnwer : TComponent) : Boolean;
 

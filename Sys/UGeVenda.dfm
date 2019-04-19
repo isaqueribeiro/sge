@@ -29,8 +29,6 @@ inherited frmGeVenda: TfrmGeVenda
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -46,37 +44,42 @@ inherited frmGeVenda: TfrmGeVenda
           item
             Expanded = False
             FieldName = 'CODCONTROL'
+            Title.Caption = 'No. Venda '
             Width = 75
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DTVENDA'
+            Title.Caption = 'D. Venda '
             Width = 110
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
+            Title.Caption = 'Status '
             Width = 112
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
+            Title.Caption = 'Cliente '
             Width = 279
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTALVENDA_BRUTA'
-            Title.Caption = 'Total Venda (R$)'
+            Title.Caption = 'Total Venda (R$) '
             Width = 107
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCONTO'
+            Title.Caption = 'Desconto (R$) '
             Width = 88
             Visible = True
           end
@@ -88,7 +91,7 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
-            Title.Caption = 'Total L'#237'quido (R$)'
+            Title.Caption = 'Total L'#237'quido (R$) '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
@@ -100,7 +103,7 @@ inherited frmGeVenda: TfrmGeVenda
           item
             Expanded = False
             FieldName = 'LUCRO_CALCULADO'
-            Title.Caption = 'Margem (%)'
+            Title.Caption = 'Margem (%) '
             Width = 78
             Visible = True
           end
@@ -113,6 +116,7 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             Title.Alignment = taCenter
+            Title.Caption = 'NF-e '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clMaroon
             Title.Font.Height = -11
@@ -124,6 +128,7 @@ inherited frmGeVenda: TfrmGeVenda
           item
             Expanded = False
             FieldName = 'SERIE'
+            Title.Caption = 'S'#233'rie '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clMaroon
             Title.Font.Height = -11
@@ -2298,19 +2303,21 @@ inherited frmGeVenda: TfrmGeVenda
                 item
                   Expanded = False
                   FieldName = 'FormaPagto'
+                  Title.Caption = 'Forma de Pagamento '
                   Width = 170
                   Visible = True
                 end
                 item
                   Expanded = False
                   FieldName = 'CondicaoPagto'
+                  Title.Caption = 'Condi'#231#227'o de Pagamento '
                   Width = 285
                   Visible = True
                 end
                 item
                   Expanded = False
                   FieldName = 'VALOR_FPAGTO'
-                  Title.Caption = 'A Pagar (R$)'
+                  Title.Caption = 'A Pagar (R$) '
                   Width = 80
                   Visible = True
                 end>
@@ -2320,10 +2327,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsDadosEntrega: TTabSheet
           Caption = 'Dados para Entrega'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlDadosEntrega: TPanel
             Left = 0
             Top = 0
@@ -2341,7 +2344,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDadosEntrega: TLabel
               Left = 0
               Top = 0
-              Width = 214
+              Width = 1100
               Height = 13
               Align = alTop
               Caption = '&Dados gerais para entrega do(s) produto(s):'
@@ -2352,6 +2355,7 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
+              ExplicitWidth = 214
             end
             object Bevel11: TBevel
               Left = 1096
@@ -2389,10 +2393,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsITitulos: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel9: TBevel
             Left = 74
             Top = 0
@@ -2539,6 +2539,7 @@ inherited frmGeVenda: TfrmGeVenda
               item
                 Expanded = False
                 FieldName = 'Lancamento'
+                Title.Caption = 'Lancamento '
                 Width = 80
                 Visible = True
               end
@@ -2546,6 +2547,7 @@ inherited frmGeVenda: TfrmGeVenda
                 Expanded = False
                 FieldName = 'PARCELA'
                 Title.Alignment = taCenter
+                Title.Caption = 'Parc. '
                 Width = 40
                 Visible = True
               end
@@ -2553,6 +2555,7 @@ inherited frmGeVenda: TfrmGeVenda
                 Expanded = False
                 FieldName = 'DTEMISS'
                 Title.Alignment = taCenter
+                Title.Caption = 'Emiss'#227'o '
                 Width = 80
                 Visible = True
               end
@@ -2560,37 +2563,42 @@ inherited frmGeVenda: TfrmGeVenda
                 Expanded = False
                 FieldName = 'DTVENC'
                 Title.Alignment = taCenter
+                Title.Caption = 'Vencimento '
                 Width = 80
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VALORREC'
+                Title.Caption = 'Valor Doc. (R$) '
                 Width = 100
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'STATUS'
-                Title.Caption = 'Status'
+                Title.Caption = 'Status '
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CODBANCO'
                 Title.Alignment = taCenter
+                Title.Caption = 'Banco '
                 Width = 60
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'NOSSONUMERO'
+                Title.Caption = 'Nosso N'#250'mero '
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BAIXADO_'
                 Title.Alignment = taCenter
+                Title.Caption = 'Baixado '
                 Width = 50
                 Visible = True
               end
@@ -2598,6 +2606,7 @@ inherited frmGeVenda: TfrmGeVenda
                 Expanded = False
                 FieldName = 'DTREC'
                 Title.Alignment = taCenter
+                Title.Caption = 'Data Baixa '
                 Width = 80
                 Visible = True
               end>
@@ -2606,10 +2615,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsTransporte: TTabSheet
           Caption = 'Dados Transporte'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             1100
             158)
@@ -2825,28 +2830,28 @@ inherited frmGeVenda: TfrmGeVenda
               item
                 Expanded = False
                 FieldName = 'NUMERO'
-                Title.Caption = 'Nro. Volume'
+                Title.Caption = 'Nro. Volume '
                 Width = 100
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'QUANTIDADE'
-                Title.Caption = 'Quantidade'
+                Title.Caption = 'Quantidade '
                 Width = 100
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PESO_BRUTO'
-                Title.Caption = 'P. Bruto (Kg)'
+                Title.Caption = 'P. Bruto (Kg) '
                 Width = 100
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PESO_LIQUIDO'
-                Title.Caption = 'P. L'#237'quido (Kg)'
+                Title.Caption = 'P. L'#237'quido (Kg) '
                 Width = 100
                 Visible = True
               end>
@@ -2855,10 +2860,6 @@ inherited frmGeVenda: TfrmGeVenda
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -3384,19 +3385,21 @@ inherited frmGeVenda: TfrmGeVenda
             Expanded = False
             FieldName = 'SEQ'
             Title.Alignment = taCenter
+            Title.Caption = '# '
             Width = 23
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CODPROD'
+            Title.Caption = 'Produto '
             Width = 55
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
-            Title.Caption = 'Nome do Produto'
+            Title.Caption = 'Nome do Produto '
             Width = 250
             Visible = True
           end
@@ -3404,76 +3407,82 @@ inherited frmGeVenda: TfrmGeVenda
             Expanded = False
             FieldName = 'CST'
             Title.Alignment = taCenter
+            Title.Caption = 'CST '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CSOSN'
+            Title.Caption = 'CSOSN '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CFOP_COD'
             Title.Alignment = taCenter
+            Title.Caption = 'CFOP '
             Width = 35
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NCM_SH'
-            Title.Caption = 'NCM/SH'
+            Title.Caption = 'NCM/SH '
             Width = 70
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ALIQUOTA'
-            Title.Caption = '% Al'#237'q.'
+            Title.Caption = '% Al'#237'q. '
             Width = 45
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTDE'
-            Title.Caption = 'Qtde.'
+            Title.Caption = 'Qtde. '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UNP_SIGLA'
+            Title.Caption = 'Und. '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PUNIT'
-            Title.Caption = 'Valor Un.'
+            Title.Caption = 'Valor Un. '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCONTO'
-            Title.Caption = '% Desc.'
+            Title.Caption = '% Desc. '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PFINAL'
-            Title.Caption = 'Valor L'#237'q.'
+            Title.Caption = 'Valor L'#237'q. '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL_BRUTO'
+            Title.Caption = 'Total Bruto '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL_DESCONTO'
+            Title.Caption = 'Total Desc. '
             Width = 80
             Visible = True
           end
@@ -3485,6 +3494,7 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Total L'#237'quido '
             Width = 80
             Visible = True
           end>
@@ -3827,8 +3837,6 @@ inherited frmGeVenda: TfrmGeVenda
       '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
       '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)')
     GeneratorField.ApplyEvent = gamOnNewRecord
-    Left = 320
-    Top = 296
     object IbDtstTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'TBVENDAS.ANO'
@@ -4206,8 +4214,8 @@ inherited frmGeVenda: TfrmGeVenda
     end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 384
-    Top = 296
+    Left = 704
+    Top = 32
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -4413,14 +4421,12 @@ inherited frmGeVenda: TfrmGeVenda
       'where'
       '  ANO = :OLD_ANO and'
       '  CODCONTROL = :OLD_CODCONTROL')
-    Left = 352
-    Top = 296
   end
   inherited ImgList: TImageList
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00A80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00AC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5879,6 +5885,295 @@ inherited frmGeVenda: TfrmGeVenda
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    SQL.Strings = (
+      'Select'
+      '    v.Ano'
+      '  , v.Codcontrol'
+      '  , v.Codemp'
+      '  , v.Codcliente'
+      '  , v.Codcli'
+      '  , v.Dtvenda'
+      '  , v.Status'
+      '  , v.Totalvenda_bruta'
+      '  , v.Desconto'
+      '  , v.Totalvenda'
+      '  , v.Dtfinalizacao_venda'
+      '  , v.Obs'
+      '  , v.Dados_entrega'
+      '  , v.Formapag'
+      '  , v.Fatdias'
+      '  , v.Serie'
+      '  , v.Nfe'
+      '  , coalesce(v.modelo_Nf, 0) as modelo_Nf'
+      '  , v.Lote_nfe_ano'
+      '  , v.Lote_nfe_numero'
+      '  , v.Lote_nfe_Recibo'
+      '  , v.Nfe_enviada'
+      '  , v.Nfe_denegada'
+      '  , v.Nfe_denegada_motivo'
+      '  , v.caixa_ano'
+      '  , v.caixa_num'
+      '  , v.caixa_pdv'
+      '  , v.Dataemissao'
+      '  , v.Horaemissao'
+      '  , v.Cancel_usuario'
+      '  , v.Cancel_datahora'
+      '  , v.Cancel_motivo'
+      '  , v.Cfop'
+      '  , v.Verificador_nfe'
+      '  , v.Xml_nfe_filename'
+      '  , v.Xml_nfe'
+      '  , v.Vendedor_cod'
+      '  , v.Usuario'
+      '  , v.Formapagto_cod'
+      '  , v.Condicaopagto_cod'
+      '  , v.Venda_prazo'
+      '  , v.Prazo_01'
+      '  , v.Prazo_02'
+      '  , v.Prazo_03'
+      '  , v.Prazo_04'
+      '  , v.Prazo_05'
+      '  , v.Prazo_06'
+      '  , v.Prazo_07'
+      '  , v.Prazo_08'
+      '  , v.Prazo_09'
+      '  , v.Prazo_10'
+      '  , v.Prazo_11'
+      '  , v.Prazo_12'
+      '  , v.nfe_modalidade_frete'
+      '  , v.nfe_transportadora'
+      '  , v.nfe_placa_veiculo'
+      '  , v.nfe_placa_uf'
+      '  , v.nfe_placa_rntc'
+      '  , v.gerar_estoque_cliente'
+      '  , t.nomeforn as transp_nome'
+      '  , t.cnpj     as transp_cnpj'
+      '  , t.inscest  as transp_iest'
+      
+        '  , t.ender || coalesce('#39' - '#39' || t.cidade, '#39#39') as transp_enderec' +
+        'o'
+      '  , c.Nome'
+      '  , c.Bloqueado'
+      '  , c.Bloqueado_motivo'
+      '  , Case when coalesce(v.totalcusto, 0) > 0'
+      
+        '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
+        '0'
+      '      else 0.0'
+      '    end Lucro_Calculado'
+      'from TBVENDAS v'
+      '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
+      '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)')
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBVENDAS'
+      '(ANO, CODCONTROL, CODEMP, CODCLIENTE, CODCLI, '
+      '  DTVENDA, STATUS, TOTALVENDA_BRUTA, DESCONTO, '
+      '  TOTALVENDA, DTFINALIZACAO_VENDA, OBS, DADOS_ENTREGA, '
+      '  FORMAPAG, FATDIAS, SERIE, NFE, DATAEMISSAO, '
+      '  HORAEMISSAO, CFOP, VERIFICADOR_NFE, XML_NFE, '
+      '  XML_NFE_FILENAME, VENDEDOR_COD, USUARIO, '
+      '  FORMAPAGTO_COD, CONDICAOPAGTO_COD, VENDA_PRAZO, '
+      '  PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04, '
+      '  PRAZO_05, PRAZO_06, PRAZO_07, PRAZO_08, '
+      '  PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, '
+      '  LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_RECIBO, '
+      '  NFE_ENVIADA, NFE_DENEGADA, NFE_DENEGADA_MOTIVO, '
+      '  CANCEL_USUARIO, CANCEL_DATAHORA, CANCEL_MOTIVO, '
+      '  NFE_MODALIDADE_FRETE, NFE_TRANSPORTADORA, NFE_PLACA_VEICULO, '
+      '  NFE_PLACA_UF, NFE_PLACA_RNTC, GERAR_ESTOQUE_CLIENTE, '
+      '  CAIXA_ANO, CAIXA_NUM, CAIXA_PDV)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_CODCLIENTE,' +
+        ' :NEW_CODCLI, '
+      
+        '  :NEW_DTVENDA, :NEW_STATUS, :NEW_TOTALVENDA_BRUTA, :NEW_DESCONT' +
+        'O, '
+      
+        '  :NEW_TOTALVENDA, :NEW_DTFINALIZACAO_VENDA, :NEW_OBS, :NEW_DADO' +
+        'S_ENTREGA, '
+      
+        '  :NEW_FORMAPAG, :NEW_FATDIAS, :NEW_SERIE, :NEW_NFE, :NEW_DATAEM' +
+        'ISSAO, '
+      
+        '  :NEW_HORAEMISSAO, :NEW_CFOP, :NEW_VERIFICADOR_NFE, :NEW_XML_NF' +
+        'E, '
+      '  :NEW_XML_NFE_FILENAME, :NEW_VENDEDOR_COD, :NEW_USUARIO, '
+      
+        '  :NEW_FORMAPAGTO_COD, :NEW_CONDICAOPAGTO_COD, :NEW_VENDA_PRAZO,' +
+        ' '
+      '  :NEW_PRAZO_01, :NEW_PRAZO_02, :NEW_PRAZO_03, :NEW_PRAZO_04, '
+      '  :NEW_PRAZO_05, :NEW_PRAZO_06, :NEW_PRAZO_07, :NEW_PRAZO_08, '
+      '  :NEW_PRAZO_09, :NEW_PRAZO_10, :NEW_PRAZO_11, :NEW_PRAZO_12, '
+      
+        '  :NEW_LOTE_NFE_ANO, :NEW_LOTE_NFE_NUMERO, :NEW_LOTE_NFE_RECIBO,' +
+        ' '
+      
+        '  :NEW_NFE_ENVIADA, :NEW_NFE_DENEGADA, :NEW_NFE_DENEGADA_MOTIVO,' +
+        ' '
+      
+        '  :NEW_CANCEL_USUARIO, :NEW_CANCEL_DATAHORA, :NEW_CANCEL_MOTIVO,' +
+        ' '
+      
+        '  :NEW_NFE_MODALIDADE_FRETE, :NEW_NFE_TRANSPORTADORA, :NEW_NFE_P' +
+        'LACA_VEICULO, '
+      
+        '  :NEW_NFE_PLACA_UF, :NEW_NFE_PLACA_RNTC, :NEW_GERAR_ESTOQUE_CLI' +
+        'ENTE, '
+      '  :NEW_CAIXA_ANO, :NEW_CAIXA_NUM, :NEW_CAIXA_PDV)'
+      'RETURNING ANO, CODCONTROL, MODELO_NF')
+    ModifySQL.Strings = (
+      'UPDATE TBVENDAS'
+      
+        'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
+        'CODEMP, '
+      
+        '  CODCLIENTE = :NEW_CODCLIENTE, CODCLI = :NEW_CODCLI, DTVENDA = ' +
+        ':NEW_DTVENDA, '
+      
+        '  STATUS = :NEW_STATUS, TOTALVENDA_BRUTA = :NEW_TOTALVENDA_BRUTA' +
+        ', '
+      '  DESCONTO = :NEW_DESCONTO, TOTALVENDA = :NEW_TOTALVENDA, '
+      
+        '  DTFINALIZACAO_VENDA = :NEW_DTFINALIZACAO_VENDA, OBS = :NEW_OBS' +
+        ', '
+      '  DADOS_ENTREGA = :NEW_DADOS_ENTREGA, FORMAPAG = :NEW_FORMAPAG, '
+      '  FATDIAS = :NEW_FATDIAS, SERIE = :NEW_SERIE, NFE = :NEW_NFE, '
+      
+        '  DATAEMISSAO = :NEW_DATAEMISSAO, HORAEMISSAO = :NEW_HORAEMISSAO' +
+        ', '
+      '  CFOP = :NEW_CFOP, VERIFICADOR_NFE = :NEW_VERIFICADOR_NFE, '
+      
+        '  XML_NFE = :NEW_XML_NFE, XML_NFE_FILENAME = :NEW_XML_NFE_FILENA' +
+        'ME, '
+      '  VENDEDOR_COD = :NEW_VENDEDOR_COD, USUARIO = :NEW_USUARIO, '
+      
+        '  FORMAPAGTO_COD = :NEW_FORMAPAGTO_COD, CONDICAOPAGTO_COD = :NEW' +
+        '_CONDICAOPAGTO_COD, '
+      '  VENDA_PRAZO = :NEW_VENDA_PRAZO, PRAZO_01 = :NEW_PRAZO_01, '
+      
+        '  PRAZO_02 = :NEW_PRAZO_02, PRAZO_03 = :NEW_PRAZO_03, PRAZO_04 =' +
+        ' :NEW_PRAZO_04, '
+      
+        '  PRAZO_05 = :NEW_PRAZO_05, PRAZO_06 = :NEW_PRAZO_06, PRAZO_07 =' +
+        ' :NEW_PRAZO_07, '
+      
+        '  PRAZO_08 = :NEW_PRAZO_08, PRAZO_09 = :NEW_PRAZO_09, PRAZO_10 =' +
+        ' :NEW_PRAZO_10, '
+      
+        '  PRAZO_11 = :NEW_PRAZO_11, PRAZO_12 = :NEW_PRAZO_12, LOTE_NFE_A' +
+        'NO = :NEW_LOTE_NFE_ANO, '
+      
+        '  LOTE_NFE_NUMERO = :NEW_LOTE_NFE_NUMERO, LOTE_NFE_RECIBO = :NEW' +
+        '_LOTE_NFE_RECIBO, '
+      
+        '  NFE_ENVIADA = :NEW_NFE_ENVIADA, NFE_DENEGADA = :NEW_NFE_DENEGA' +
+        'DA, '
+      
+        '  NFE_DENEGADA_MOTIVO = :NEW_NFE_DENEGADA_MOTIVO, CANCEL_USUARIO' +
+        ' = :NEW_CANCEL_USUARIO, '
+      
+        '  CANCEL_DATAHORA = :NEW_CANCEL_DATAHORA, CANCEL_MOTIVO = :NEW_C' +
+        'ANCEL_MOTIVO, '
+      
+        '  NFE_MODALIDADE_FRETE = :NEW_NFE_MODALIDADE_FRETE, NFE_TRANSPOR' +
+        'TADORA = :NEW_NFE_TRANSPORTADORA, '
+      
+        '  NFE_PLACA_VEICULO = :NEW_NFE_PLACA_VEICULO, NFE_PLACA_UF = :NE' +
+        'W_NFE_PLACA_UF, '
+      
+        '  NFE_PLACA_RNTC = :NEW_NFE_PLACA_RNTC, GERAR_ESTOQUE_CLIENTE = ' +
+        ':NEW_GERAR_ESTOQUE_CLIENTE, '
+      '  CAIXA_ANO = :NEW_CAIXA_ANO, CAIXA_NUM = :NEW_CAIXA_NUM, '
+      '  CAIXA_PDV = :NEW_CAIXA_PDV'
+      'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL'
+      'RETURNING ANO, CODCONTROL, MODELO_NF')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBVENDAS'
+      'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    v.Ano'
+      '  , v.Codcontrol'
+      '  , v.Codemp'
+      '  , v.Codcliente'
+      '  , v.Codcli'
+      '  , v.Dtvenda'
+      '  , v.Status'
+      '  , v.Totalvenda_bruta'
+      '  , v.Desconto'
+      '  , v.Totalvenda'
+      '  , v.Dtfinalizacao_venda'
+      '  , v.Obs'
+      '  , v.Dados_entrega'
+      '  , v.Formapag'
+      '  , v.Fatdias'
+      '  , v.Serie'
+      '  , v.Nfe'
+      '  , coalesce(v.modelo_Nf, 0) as modelo_Nf'
+      '  , v.Lote_nfe_ano'
+      '  , v.Lote_nfe_numero'
+      '  , v.Lote_nfe_Recibo'
+      '  , v.Nfe_enviada'
+      '  , v.Nfe_denegada'
+      '  , v.Nfe_denegada_motivo'
+      '  , v.caixa_ano'
+      '  , v.caixa_num'
+      '  , v.caixa_pdv'
+      '  , v.Dataemissao'
+      '  , v.Horaemissao'
+      '  , v.Cancel_usuario'
+      '  , v.Cancel_datahora'
+      '  , v.Cancel_motivo'
+      '  , v.Cfop'
+      '  , v.Verificador_nfe'
+      '  , v.Xml_nfe_filename'
+      '  , v.Xml_nfe'
+      '  , v.Vendedor_cod'
+      '  , v.Usuario'
+      '  , v.Formapagto_cod'
+      '  , v.Condicaopagto_cod'
+      '  , v.Venda_prazo'
+      '  , v.Prazo_01'
+      '  , v.Prazo_02'
+      '  , v.Prazo_03'
+      '  , v.Prazo_04'
+      '  , v.Prazo_05'
+      '  , v.Prazo_06'
+      '  , v.Prazo_07'
+      '  , v.Prazo_08'
+      '  , v.Prazo_09'
+      '  , v.Prazo_10'
+      '  , v.Prazo_11'
+      '  , v.Prazo_12'
+      '  , v.nfe_modalidade_frete'
+      '  , v.nfe_transportadora'
+      '  , v.nfe_placa_veiculo'
+      '  , v.nfe_placa_uf'
+      '  , v.nfe_placa_rntc'
+      '  , v.gerar_estoque_cliente'
+      '  , t.nomeforn as transp_nome'
+      '  , t.cnpj     as transp_cnpj'
+      '  , t.inscest  as transp_iest'
+      
+        '  , t.ender || coalesce('#39' - '#39' || t.cidade, '#39#39') as transp_enderec' +
+        'o'
+      '  , c.Nome'
+      '  , c.Bloqueado'
+      '  , c.Bloqueado_motivo'
+      '  , Case when coalesce(v.totalcusto, 0) > 0'
+      
+        '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
+        '0'
+      '      else 0.0'
+      '    end Lucro_Calculado'
+      'from TBVENDAS v'
+      '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
+      '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)'
+      'WHERE v.ANO = :ANO AND v.CODCONTROL = :CODCONTROL')
+  end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
     Left = 960
@@ -5960,8 +6255,8 @@ inherited frmGeVenda: TfrmGeVenda
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 320
-    Top = 328
+    Left = 200
+    Top = 312
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'TVENDASITENS.ANO'
@@ -6342,15 +6637,15 @@ inherited frmGeVenda: TfrmGeVenda
       '  CODCONTROL = :OLD_CODCONTROL and'
       '  CODPROD = :OLD_CODPROD and'
       '  SEQ = :OLD_SEQ')
-    Left = 352
-    Top = 328
+    Left = 232
+    Top = 312
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 384
-    Top = 328
+    Left = 264
+    Top = 312
   end
   object qryTitulos: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -6401,8 +6696,8 @@ inherited frmGeVenda: TfrmGeVenda
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 320
-    Top = 360
+    Left = 200
+    Top = 344
     object qryTitulosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'TBCONTREC.ANOLANC'
@@ -6579,15 +6874,15 @@ inherited frmGeVenda: TfrmGeVenda
     AutoEdit = False
     DataSet = qryTitulos
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 384
-    Top = 360
+    Left = 264
+    Top = 344
   end
   object IbStrPrcGerarTitulos: TIBStoredProc
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     StoredProcName = 'SET_GERAR_TITULOS'
-    Left = 352
-    Top = 360
+    Left = 232
+    Top = 344
     ParamData = <
       item
         DataType = ftString
@@ -7046,8 +7341,8 @@ inherited frmGeVenda: TfrmGeVenda
     ParamCheck = True
     UniDirectional = False
     UpdateObject = updNFE
-    Left = 320
-    Top = 392
+    Left = 200
+    Top = 376
     object qryNFEEMPRESA: TIBStringField
       FieldName = 'EMPRESA'
       Origin = '"TBNFE_ENVIADA"."EMPRESA"'
@@ -7212,284 +7507,13 @@ inherited frmGeVenda: TfrmGeVenda
       '  MODELO = :OLD_MODELO and'
       '  NUMERO = :OLD_NUMERO and'
       '  SERIE = :OLD_SERIE')
-    Left = 352
-    Top = 392
-  end
-  object qryTotalComprasAbertas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    g.Valor_limite'
-      '  , g.Valor_compras_abertas'
-      '  , g.Valor_limite_disponivel'
-      'from GET_LIMITE_DISPONIVEL_CLIENTE(:CODIGO) g')
-    Left = 456
-    Top = 297
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'CODIGO'
-        ParamType = ptInput
-        Value = 0
-      end>
-    object qryTotalComprasAbertasVALOR_LIMITE: TIBBCDField
-      FieldName = 'VALOR_LIMITE'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_LIMITE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TIBBCDField
-      FieldName = 'VALOR_COMPRAS_ABERTAS'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_COMPRAS_ABERTAS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TIBBCDField
-      FieldName = 'VALOR_LIMITE_DISPONIVEL'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_LIMITE_DISPONIVEL'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
+    Left = 232
+    Top = 376
   end
   object cdsTotalComprasAbertas: TDataSource
     DataSet = qryTotalComprasAbertas
     Left = 488
     Top = 297
-  end
-  object cdsVendaFormaPagto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BeforePost = cdsVendaFormaPagtoBeforePost
-    OnNewRecord = cdsVendaFormaPagtoNewRecord
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    f.ano_venda'
-      '  , f.controle_venda'
-      '  , f.formapagto_cod'
-      '  , f.condicaopagto_cod'
-      '  , f.venda_prazo'
-      '  , f.valor_fpagto'
-      '  , f.prazo_01'
-      '  , f.prazo_02'
-      '  , f.prazo_03'
-      '  , f.prazo_04'
-      '  , f.prazo_05'
-      '  , f.prazo_06'
-      '  , f.prazo_07'
-      '  , f.prazo_08'
-      '  , f.prazo_09'
-      '  , f.prazo_10'
-      '  , f.prazo_11'
-      '  , f.prazo_12'
-      'from TBVENDAS_FORMAPAGTO f')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updVendaFormaPagto
-    Left = 424
-    Top = 328
-    object cdsVendaFormaPagtoANO_VENDA: TSmallintField
-      FieldName = 'ANO_VENDA'
-      Origin = '"TBVENDAS_FORMAPAGTO"."ANO_VENDA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsVendaFormaPagtoCONTROLE_VENDA: TIntegerField
-      FieldName = 'CONTROLE_VENDA'
-      Origin = '"TBVENDAS_FORMAPAGTO"."CONTROLE_VENDA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsVendaFormaPagtoFORMAPAGTO_COD: TSmallintField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMAPAGTO_COD'
-      Origin = '"TBVENDAS_FORMAPAGTO"."FORMAPAGTO_COD"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsVendaFormaPagtoCONDICAOPAGTO_COD: TSmallintField
-      DisplayLabel = 'Condi'#231#227'o de Pagamento'
-      FieldName = 'CONDICAOPAGTO_COD'
-      Origin = '"TBVENDAS_FORMAPAGTO"."CONDICAOPAGTO_COD"'
-      Required = True
-    end
-    object cdsVendaFormaPagtoVENDA_PRAZO: TSmallintField
-      FieldName = 'VENDA_PRAZO'
-      Origin = '"TBVENDAS_FORMAPAGTO"."VENDA_PRAZO"'
-    end
-    object cdsVendaFormaPagtoVALOR_FPAGTO: TIBBCDField
-      DisplayLabel = 'Valor (R$)'
-      FieldName = 'VALOR_FPAGTO'
-      Origin = '"TBVENDAS_FORMAPAGTO"."VALOR_FPAGTO"'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaFormaPagtoPRAZO_01: TSmallintField
-      FieldName = 'PRAZO_01'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_01"'
-    end
-    object cdsVendaFormaPagtoPRAZO_02: TSmallintField
-      FieldName = 'PRAZO_02'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_02"'
-    end
-    object cdsVendaFormaPagtoPRAZO_03: TSmallintField
-      FieldName = 'PRAZO_03'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_03"'
-    end
-    object cdsVendaFormaPagtoPRAZO_04: TSmallintField
-      FieldName = 'PRAZO_04'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_04"'
-    end
-    object cdsVendaFormaPagtoPRAZO_05: TSmallintField
-      FieldName = 'PRAZO_05'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_05"'
-    end
-    object cdsVendaFormaPagtoPRAZO_06: TSmallintField
-      FieldName = 'PRAZO_06'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_06"'
-    end
-    object cdsVendaFormaPagtoPRAZO_07: TSmallintField
-      FieldName = 'PRAZO_07'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_07"'
-    end
-    object cdsVendaFormaPagtoPRAZO_08: TSmallintField
-      FieldName = 'PRAZO_08'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_08"'
-    end
-    object cdsVendaFormaPagtoPRAZO_09: TSmallintField
-      FieldName = 'PRAZO_09'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_09"'
-    end
-    object cdsVendaFormaPagtoPRAZO_10: TSmallintField
-      FieldName = 'PRAZO_10'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_10"'
-    end
-    object cdsVendaFormaPagtoPRAZO_11: TSmallintField
-      FieldName = 'PRAZO_11'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_11"'
-    end
-    object cdsVendaFormaPagtoPRAZO_12: TSmallintField
-      FieldName = 'PRAZO_12'
-      Origin = '"TBVENDAS_FORMAPAGTO"."PRAZO_12"'
-    end
-    object cdsVendaFormaPagtoFormaPagto: TStringField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldKind = fkLookup
-      FieldName = 'FormaPagto'
-      LookupDataSet = cdsFormaPagto
-      LookupKeyFields = 'COD'
-      LookupResultField = 'DESCRI'
-      KeyFields = 'FORMAPAGTO_COD'
-      ProviderFlags = []
-      Size = 50
-      Lookup = True
-    end
-    object cdsVendaFormaPagtoCondicaoPagto: TStringField
-      DisplayLabel = 'Condi'#231#227'o de Pagamento'
-      FieldKind = fkLookup
-      FieldName = 'CondicaoPagto'
-      LookupDataSet = cdsCondicaoPagto
-      LookupKeyFields = 'COND_COD'
-      LookupResultField = 'COND_DESCRICAO_FULL'
-      KeyFields = 'CONDICAOPAGTO_COD'
-      ProviderFlags = []
-      Size = 250
-      Lookup = True
-    end
-  end
-  object updVendaFormaPagto: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO_VENDA,'
-      '  CONTROLE_VENDA,'
-      '  FORMAPAGTO_COD,'
-      '  CONDICAOPAGTO_COD,'
-      '  VENDA_PRAZO,'
-      '  VALOR_FPAGTO,'
-      '  PRAZO_01,'
-      '  PRAZO_02,'
-      '  PRAZO_03,'
-      '  PRAZO_04,'
-      '  PRAZO_05,'
-      '  PRAZO_06,'
-      '  PRAZO_07,'
-      '  PRAZO_08,'
-      '  PRAZO_09,'
-      '  PRAZO_10,'
-      '  PRAZO_11,'
-      '  PRAZO_12'
-      'from TBVENDAS_FORMAPAGTO '
-      'where'
-      '  ANO_VENDA = :ANO_VENDA and'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA and'
-      '  FORMAPAGTO_COD = :FORMAPAGTO_COD')
-    ModifySQL.Strings = (
-      'update TBVENDAS_FORMAPAGTO'
-      'set'
-      '  ANO_VENDA = :ANO_VENDA,'
-      '  CONDICAOPAGTO_COD = :CONDICAOPAGTO_COD,'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA,'
-      '  FORMAPAGTO_COD = :FORMAPAGTO_COD,'
-      '  PRAZO_01 = :PRAZO_01,'
-      '  PRAZO_02 = :PRAZO_02,'
-      '  PRAZO_03 = :PRAZO_03,'
-      '  PRAZO_04 = :PRAZO_04,'
-      '  PRAZO_05 = :PRAZO_05,'
-      '  PRAZO_06 = :PRAZO_06,'
-      '  PRAZO_07 = :PRAZO_07,'
-      '  PRAZO_08 = :PRAZO_08,'
-      '  PRAZO_09 = :PRAZO_09,'
-      '  PRAZO_10 = :PRAZO_10,'
-      '  PRAZO_11 = :PRAZO_11,'
-      '  PRAZO_12 = :PRAZO_12,'
-      '  VALOR_FPAGTO = :VALOR_FPAGTO,'
-      '  VENDA_PRAZO = :VENDA_PRAZO'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  FORMAPAGTO_COD = :OLD_FORMAPAGTO_COD')
-    InsertSQL.Strings = (
-      'insert into TBVENDAS_FORMAPAGTO'
-      
-        '  (ANO_VENDA, CONDICAOPAGTO_COD, CONTROLE_VENDA, FORMAPAGTO_COD,' +
-        ' PRAZO_01, '
-      
-        '   PRAZO_02, PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_06, PRAZO_07, P' +
-        'RAZO_08, '
-      
-        '   PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, VALOR_FPAGTO, VENDA_P' +
-        'RAZO)'
-      'values'
-      
-        '  (:ANO_VENDA, :CONDICAOPAGTO_COD, :CONTROLE_VENDA, :FORMAPAGTO_' +
-        'COD, :PRAZO_01, '
-      
-        '   :PRAZO_02, :PRAZO_03, :PRAZO_04, :PRAZO_05, :PRAZO_06, :PRAZO' +
-        '_07, :PRAZO_08, '
-      
-        '   :PRAZO_09, :PRAZO_10, :PRAZO_11, :PRAZO_12, :VALOR_FPAGTO, :V' +
-        'ENDA_PRAZO)')
-    DeleteSQL.Strings = (
-      'delete from TBVENDAS_FORMAPAGTO'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  FORMAPAGTO_COD = :OLD_FORMAPAGTO_COD')
-    Left = 456
-    Top = 328
   end
   object dtsVendaFormaPagto: TDataSource
     AutoEdit = False
@@ -7497,157 +7521,10 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 488
     Top = 328
   end
-  object tblModalidadeFrete: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_MODALIDADE_FRETE'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 928
-    Top = 480
-  end
   object dtsModalidadeFrete: TDataSource
-    DataSet = tblModalidadeFrete
+    DataSet = fdQryModalidadeFrete
     Left = 960
     Top = 480
-  end
-  object cdsVendaVolume: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    OnNewRecord = cdsVendaVolumeNewRecord
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    v.ano_venda'
-      '  , v.controle_venda'
-      '  , v.sequencial'
-      '  , v.numero'
-      '  , v.quantidade'
-      '  , v.especie'
-      '  , v.marca'
-      '  , v.peso_bruto'
-      '  , v.peso_liquido'
-      'from TBVENDAS_VOLUME v')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updVendaVolume
-    Left = 424
-    Top = 360
-    object cdsVendaVolumeANO_VENDA: TSmallintField
-      FieldName = 'ANO_VENDA'
-      Origin = '"TBVENDAS_VOLUME"."ANO_VENDA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsVendaVolumeCONTROLE_VENDA: TIntegerField
-      FieldName = 'CONTROLE_VENDA'
-      Origin = '"TBVENDAS_VOLUME"."CONTROLE_VENDA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsVendaVolumeSEQUENCIAL: TSmallintField
-      FieldName = 'SEQUENCIAL'
-      Origin = '"TBVENDAS_VOLUME"."SEQUENCIAL"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsVendaVolumeNUMERO: TIBStringField
-      DisplayLabel = 'N'#250'mero do Volume'
-      FieldName = 'NUMERO'
-      Origin = '"TBVENDAS_VOLUME"."NUMERO"'
-      Size = 50
-    end
-    object cdsVendaVolumeQUANTIDADE: TSmallintField
-      DisplayLabel = 'Quantidade de Volumes'
-      FieldName = 'QUANTIDADE'
-      Origin = '"TBVENDAS_VOLUME"."QUANTIDADE"'
-    end
-    object cdsVendaVolumeESPECIE: TIBStringField
-      DisplayLabel = 'Esp'#233'cie'
-      FieldName = 'ESPECIE'
-      Origin = '"TBVENDAS_VOLUME"."ESPECIE"'
-      Size = 50
-    end
-    object cdsVendaVolumeMARCA: TIBStringField
-      DisplayLabel = 'Marca'
-      FieldName = 'MARCA'
-      Origin = '"TBVENDAS_VOLUME"."MARCA"'
-      Size = 50
-    end
-    object cdsVendaVolumePESO_BRUTO: TIBBCDField
-      DisplayLabel = 'Peso Bruto'
-      FieldName = 'PESO_BRUTO'
-      Origin = '"TBVENDAS_VOLUME"."PESO_BRUTO"'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 3
-    end
-    object cdsVendaVolumePESO_LIQUIDO: TIBBCDField
-      DisplayLabel = 'Peso L'#237'quido'
-      FieldName = 'PESO_LIQUIDO'
-      Origin = '"TBVENDAS_VOLUME"."PESO_LIQUIDO"'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 3
-    end
-  end
-  object updVendaVolume: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO_VENDA,'
-      '  CONTROLE_VENDA,'
-      '  SEQUENCIAL,'
-      '  NUMERO,'
-      '  QUANTIDADE,'
-      '  ESPECIE,'
-      '  MARCA,'
-      '  PESO_BRUTO,'
-      '  PESO_LIQUIDO'
-      'from TBVENDAS_VOLUME '
-      'where'
-      '  ANO_VENDA = :ANO_VENDA and'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA and'
-      '  SEQUENCIAL = :SEQUENCIAL')
-    ModifySQL.Strings = (
-      'update TBVENDAS_VOLUME'
-      'set'
-      '  ANO_VENDA = :ANO_VENDA,'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA,'
-      '  ESPECIE = :ESPECIE,'
-      '  MARCA = :MARCA,'
-      '  NUMERO = :NUMERO,'
-      '  PESO_BRUTO = :PESO_BRUTO,'
-      '  PESO_LIQUIDO = :PESO_LIQUIDO,'
-      '  QUANTIDADE = :QUANTIDADE,'
-      '  SEQUENCIAL = :SEQUENCIAL'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  SEQUENCIAL = :OLD_SEQUENCIAL')
-    InsertSQL.Strings = (
-      'insert into TBVENDAS_VOLUME'
-      
-        '  (ANO_VENDA, CONTROLE_VENDA, ESPECIE, MARCA, NUMERO, PESO_BRUTO' +
-        ', PESO_LIQUIDO, '
-      '   QUANTIDADE, SEQUENCIAL)'
-      'values'
-      
-        '  (:ANO_VENDA, :CONTROLE_VENDA, :ESPECIE, :MARCA, :NUMERO, :PESO' +
-        '_BRUTO, '
-      '   :PESO_LIQUIDO, :QUANTIDADE, :SEQUENCIAL)')
-    DeleteSQL.Strings = (
-      'delete from TBVENDAS_VOLUME'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  SEQUENCIAL = :OLD_SEQUENCIAL')
-    Left = 456
-    Top = 360
   end
   object dtsVendaVolume: TDataSource
     AutoEdit = False
@@ -7685,101 +7562,10 @@ inherited frmGeVenda: TfrmGeVenda
       OnClick = nmPpCarregarArquivoNFeClick
     end
   end
-  object qryProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.Codigo'
-      '  , p.Cod'
-      '  , p.Descri'
-      '  , p.Descri_apresentacao'
-      '  , p.Modelo'
-      '  , p.Preco'
-      '  , p.Preco_Promocao'
-      '  , p.Referencia'
-      '  , r.referencia as referencia_cliente'
-      '  , p.Secao'
-      '  , p.Qtde'
-      '  , p.Unidade'
-      '  , p.Estoqmin'
-      '  , p.Codgrupo'
-      '  , p.Customedio'
-      '  , p.Codemp'
-      '  , p.Codsecao'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Codcfop'
-      '  , p.Codbarra_ean'
-      '  , p.Codunidade'
-      '  , p.Aliquota_tipo'
-      '  , p.Aliquota'
-      '  , p.Aliquota_csosn'
-      '  , p.Aliquota_pis'
-      '  , p.Aliquota_cofins'
-      '  , p.Percentual_reducao_BC'
-      '  , p.Valor_ipi'
-      '  , p.Reserva'
-      '  , p.Movimenta_Estoque'
-      '  , p. estoque_aprop_lote'
-      '  , case when coalesce(p.Reserva, 0) > 0'
-      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
-      '      else coalesce(p.Qtde, 0)'
-      '    end as Disponivel'
-      '  , g.Descri as Descricao_Grupo'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
-      
-        '  left join TBPRODUTO_CLIENTE r on (r.produto = p.cod and r.clie' +
-        'nte = :cliente)'
-      'where p.Codigo = :Codigo')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 928
-    Top = 512
-  end
-  object qryCFOP: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    c.Cfop_cod'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_cst_padrao_entrada'
-      '  , c.Cfop_cst_padrao_saida'
-      'from TBCFOP c'
-      'where c.Cfop_cod = :Cfop_cod')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 960
-    Top = 512
-  end
   object dtsNFE: TDataSource
     DataSet = qryNFE
-    Left = 384
-    Top = 392
+    Left = 264
+    Top = 376
   end
   object ppCorrigirDadosNFe: TPopupMenu
     Left = 92
@@ -7952,6 +7738,7 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 416
   end
   object cdsFormaPagto: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dtpFormaPagto'
@@ -7964,6 +7751,7 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 448
   end
   object cdsCondicaoPagto: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dtpCondicaoPagto'
@@ -8024,5 +7812,485 @@ inherited frmGeVenda: TfrmGeVenda
     DataSet = fdQryLotes
     Left = 960
     Top = 320
+  end
+  object fdQryModalidadeFrete: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_MODALIDADE_FRETE')
+    Left = 992
+    Top = 480
+  end
+  object qryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.Codigo'
+      '  , p.Cod'
+      '  , p.Descri'
+      '  , p.Descri_apresentacao'
+      '  , p.Modelo'
+      '  , p.Preco'
+      '  , p.Preco_Promocao'
+      '  , p.Referencia'
+      '  , r.referencia as referencia_cliente'
+      '  , p.Secao'
+      '  , p.Qtde'
+      '  , p.Unidade'
+      '  , p.Estoqmin'
+      '  , p.Codgrupo'
+      '  , p.Customedio'
+      '  , p.Codemp'
+      '  , p.Codsecao'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , p.Cst'
+      '  , p.Csosn'
+      '  , p.Codcfop'
+      '  , p.Codbarra_ean'
+      '  , p.Codunidade'
+      '  , p.Aliquota_tipo'
+      '  , p.Aliquota'
+      '  , p.Aliquota_csosn'
+      '  , p.Aliquota_pis'
+      '  , p.Aliquota_cofins'
+      '  , p.Percentual_reducao_BC'
+      '  , p.Valor_ipi'
+      '  , p.Reserva'
+      '  , p.Movimenta_Estoque'
+      '  , p. estoque_aprop_lote'
+      '  , case when coalesce(p.Reserva, 0) > 0'
+      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
+      '      else coalesce(p.Qtde, 0)'
+      '    end as Disponivel'
+      '  , g.Descri as Descricao_Grupo'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_especificacao'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
+      
+        '  left join TBPRODUTO_CLIENTE r on (r.produto = p.cod and r.clie' +
+        'nte = :cliente)'
+      'where p.Codigo = :Codigo')
+    Left = 992
+    Top = 512
+    ParamData = <
+      item
+        Name = 'CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryCFOP: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Cfop_cod'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_cst_padrao_entrada'
+      '  , c.Cfop_cst_padrao_saida'
+      'from TBCFOP c'
+      'where c.Cfop_cod = :Cfop_cod')
+    Left = 992
+    Top = 544
+    ParamData = <
+      item
+        Name = 'CFOP_COD'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object qryTotalComprasAbertas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    g.Valor_limite'
+      '  , g.Valor_compras_abertas'
+      '  , g.Valor_limite_disponivel'
+      'from GET_LIMITE_DISPONIVEL_CLIENTE(:CODIGO) g')
+    Left = 520
+    Top = 296
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object qryTotalComprasAbertasVALOR_LIMITE: TBCDField
+      FieldName = 'VALOR_LIMITE'
+      Origin = 'VALOR_LIMITE'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TBCDField
+      FieldName = 'VALOR_COMPRAS_ABERTAS'
+      Origin = 'VALOR_COMPRAS_ABERTAS'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TBCDField
+      FieldName = 'VALOR_LIMITE_DISPONIVEL'
+      Origin = 'VALOR_LIMITE_DISPONIVEL'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object cdsVendaFormaPagto: TFDQuery
+    BeforePost = cdsVendaFormaPagtoBeforePost
+    OnNewRecord = cdsVendaFormaPagtoNewRecord
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updVendaFormaPagto
+    SQL.Strings = (
+      'Select'
+      '    f.ano_venda'
+      '  , f.controle_venda'
+      '  , f.formapagto_cod'
+      '  , f.condicaopagto_cod'
+      '  , f.venda_prazo'
+      '  , f.valor_fpagto'
+      '  , f.prazo_01'
+      '  , f.prazo_02'
+      '  , f.prazo_03'
+      '  , f.prazo_04'
+      '  , f.prazo_05'
+      '  , f.prazo_06'
+      '  , f.prazo_07'
+      '  , f.prazo_08'
+      '  , f.prazo_09'
+      '  , f.prazo_10'
+      '  , f.prazo_11'
+      '  , f.prazo_12'
+      'from TBVENDAS_FORMAPAGTO f')
+    Left = 520
+    Top = 328
+    object cdsVendaFormaPagtoANO_VENDA: TSmallintField
+      FieldName = 'ANO_VENDA'
+      Origin = 'ANO_VENDA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsVendaFormaPagtoCONTROLE_VENDA: TIntegerField
+      FieldName = 'CONTROLE_VENDA'
+      Origin = 'CONTROLE_VENDA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsVendaFormaPagtoFORMAPAGTO_COD: TSmallintField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'FORMAPAGTO_COD'
+      Origin = 'FORMAPAGTO_COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsVendaFormaPagtoCONDICAOPAGTO_COD: TSmallintField
+      DisplayLabel = 'Condi'#231#227'o de Pagamento'
+      FieldName = 'CONDICAOPAGTO_COD'
+      Origin = 'CONDICAOPAGTO_COD'
+    end
+    object cdsVendaFormaPagtoVENDA_PRAZO: TSmallintField
+      FieldName = 'VENDA_PRAZO'
+      Origin = 'VENDA_PRAZO'
+      Required = True
+    end
+    object cdsVendaFormaPagtoVALOR_FPAGTO: TBCDField
+      DisplayLabel = 'Valor (R$)'
+      FieldName = 'VALOR_FPAGTO'
+      Origin = 'VALOR_FPAGTO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaFormaPagtoPRAZO_01: TSmallintField
+      FieldName = 'PRAZO_01'
+      Origin = 'PRAZO_01'
+    end
+    object cdsVendaFormaPagtoPRAZO_02: TSmallintField
+      FieldName = 'PRAZO_02'
+      Origin = 'PRAZO_02'
+    end
+    object cdsVendaFormaPagtoPRAZO_03: TSmallintField
+      FieldName = 'PRAZO_03'
+      Origin = 'PRAZO_03'
+    end
+    object cdsVendaFormaPagtoPRAZO_04: TSmallintField
+      FieldName = 'PRAZO_04'
+      Origin = 'PRAZO_04'
+    end
+    object cdsVendaFormaPagtoPRAZO_05: TSmallintField
+      FieldName = 'PRAZO_05'
+      Origin = 'PRAZO_05'
+    end
+    object cdsVendaFormaPagtoPRAZO_06: TSmallintField
+      FieldName = 'PRAZO_06'
+      Origin = 'PRAZO_06'
+    end
+    object cdsVendaFormaPagtoPRAZO_07: TSmallintField
+      FieldName = 'PRAZO_07'
+      Origin = 'PRAZO_07'
+    end
+    object cdsVendaFormaPagtoPRAZO_08: TSmallintField
+      FieldName = 'PRAZO_08'
+      Origin = 'PRAZO_08'
+    end
+    object cdsVendaFormaPagtoPRAZO_09: TSmallintField
+      FieldName = 'PRAZO_09'
+      Origin = 'PRAZO_09'
+    end
+    object cdsVendaFormaPagtoPRAZO_10: TSmallintField
+      FieldName = 'PRAZO_10'
+      Origin = 'PRAZO_10'
+    end
+    object cdsVendaFormaPagtoPRAZO_11: TSmallintField
+      FieldName = 'PRAZO_11'
+      Origin = 'PRAZO_11'
+    end
+    object cdsVendaFormaPagtoPRAZO_12: TSmallintField
+      FieldName = 'PRAZO_12'
+      Origin = 'PRAZO_12'
+    end
+    object cdsVendaFormaPagtoFormaPagto: TStringField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldKind = fkLookup
+      FieldName = 'FormaPagto'
+      LookupDataSet = cdsFormaPagto
+      LookupKeyFields = 'COD'
+      LookupResultField = 'DESCRI'
+      KeyFields = 'FORMAPAGTO_COD'
+      ProviderFlags = []
+      Size = 50
+      Lookup = True
+    end
+    object cdsVendaFormaPagtoCondicaoPagto: TStringField
+      DisplayLabel = 'Condi'#231#227'o de Pagamento'
+      FieldKind = fkLookup
+      FieldName = 'CondicaoPagto'
+      LookupDataSet = cdsCondicaoPagto
+      LookupKeyFields = 'COND_COD'
+      LookupResultField = 'COND_DESCRICAO_FULL'
+      KeyFields = 'CONDICAOPAGTO_COD'
+      ProviderFlags = []
+      Size = 250
+      Lookup = True
+    end
+  end
+  object updVendaFormaPagto: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBVENDAS_FORMAPAGTO'
+      '(ANO_VENDA, CONTROLE_VENDA, FORMAPAGTO_COD, CONDICAOPAGTO_COD, '
+      '  VENDA_PRAZO, VALOR_FPAGTO, PRAZO_01, PRAZO_02, '
+      '  PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_06, '
+      '  PRAZO_07, PRAZO_08, PRAZO_09, PRAZO_10, '
+      '  PRAZO_11, PRAZO_12)'
+      
+        'VALUES (:NEW_ANO_VENDA, :NEW_CONTROLE_VENDA, :NEW_FORMAPAGTO_COD' +
+        ', :NEW_CONDICAOPAGTO_COD, '
+      
+        '  :NEW_VENDA_PRAZO, :NEW_VALOR_FPAGTO, :NEW_PRAZO_01, :NEW_PRAZO' +
+        '_02, '
+      '  :NEW_PRAZO_03, :NEW_PRAZO_04, :NEW_PRAZO_05, :NEW_PRAZO_06, '
+      '  :NEW_PRAZO_07, :NEW_PRAZO_08, :NEW_PRAZO_09, :NEW_PRAZO_10, '
+      '  :NEW_PRAZO_11, :NEW_PRAZO_12)'
+      'RETURNING ANO_VENDA, CONTROLE_VENDA')
+    ModifySQL.Strings = (
+      'UPDATE TBVENDAS_FORMAPAGTO'
+      
+        'SET ANO_VENDA = :NEW_ANO_VENDA, CONTROLE_VENDA = :NEW_CONTROLE_V' +
+        'ENDA, '
+      
+        '  FORMAPAGTO_COD = :NEW_FORMAPAGTO_COD, CONDICAOPAGTO_COD = :NEW' +
+        '_CONDICAOPAGTO_COD, '
+      
+        '  VENDA_PRAZO = :NEW_VENDA_PRAZO, VALOR_FPAGTO = :NEW_VALOR_FPAG' +
+        'TO, '
+      
+        '  PRAZO_01 = :NEW_PRAZO_01, PRAZO_02 = :NEW_PRAZO_02, PRAZO_03 =' +
+        ' :NEW_PRAZO_03, '
+      
+        '  PRAZO_04 = :NEW_PRAZO_04, PRAZO_05 = :NEW_PRAZO_05, PRAZO_06 =' +
+        ' :NEW_PRAZO_06, '
+      
+        '  PRAZO_07 = :NEW_PRAZO_07, PRAZO_08 = :NEW_PRAZO_08, PRAZO_09 =' +
+        ' :NEW_PRAZO_09, '
+      
+        '  PRAZO_10 = :NEW_PRAZO_10, PRAZO_11 = :NEW_PRAZO_11, PRAZO_12 =' +
+        ' :NEW_PRAZO_12'
+      
+        'WHERE ANO_VENDA = :OLD_ANO_VENDA AND CONTROLE_VENDA = :OLD_CONTR' +
+        'OLE_VENDA AND '
+      '  FORMAPAGTO_COD = :OLD_FORMAPAGTO_COD'
+      'RETURNING ANO_VENDA, CONTROLE_VENDA')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBVENDAS_FORMAPAGTO'
+      
+        'WHERE ANO_VENDA = :OLD_ANO_VENDA AND CONTROLE_VENDA = :OLD_CONTR' +
+        'OLE_VENDA AND '
+      '  FORMAPAGTO_COD = :OLD_FORMAPAGTO_COD')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO_VENDA, CONTROLE_VENDA, FORMAPAGTO_COD, CONDICAOPAGTO_' +
+        'COD, '
+      
+        '  VENDA_PRAZO, VALOR_FPAGTO, VALOR_RECEBIDO, PRAZO_01, PRAZO_02,' +
+        ' '
+      '  PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_06, PRAZO_07, PRAZO_08, '
+      '  PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12'
+      'FROM TBVENDAS_FORMAPAGTO'
+      
+        'WHERE ANO_VENDA = :ANO_VENDA AND CONTROLE_VENDA = :CONTROLE_VEND' +
+        'A AND '
+      '  FORMAPAGTO_COD = :FORMAPAGTO_COD')
+    Left = 552
+    Top = 328
+  end
+  object cdsVendaVolume: TFDQuery
+    OnNewRecord = cdsVendaVolumeNewRecord
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updVendaVolume
+    SQL.Strings = (
+      'Select'
+      '    v.ano_venda'
+      '  , v.controle_venda'
+      '  , v.sequencial'
+      '  , v.numero'
+      '  , v.quantidade'
+      '  , v.especie'
+      '  , v.marca'
+      '  , v.peso_bruto'
+      '  , v.peso_liquido'
+      'from TBVENDAS_VOLUME v')
+    Left = 520
+    Top = 360
+    object cdsVendaVolumeANO_VENDA: TSmallintField
+      FieldName = 'ANO_VENDA'
+      Origin = 'ANO_VENDA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsVendaVolumeCONTROLE_VENDA: TIntegerField
+      FieldName = 'CONTROLE_VENDA'
+      Origin = 'CONTROLE_VENDA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsVendaVolumeSEQUENCIAL: TSmallintField
+      FieldName = 'SEQUENCIAL'
+      Origin = 'SEQUENCIAL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsVendaVolumeNUMERO: TStringField
+      DisplayLabel = 'N'#250'mero do Volume'
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 50
+    end
+    object cdsVendaVolumeQUANTIDADE: TSmallintField
+      DisplayLabel = 'Quantidade de Volumes'
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+    end
+    object cdsVendaVolumeESPECIE: TStringField
+      DisplayLabel = 'Esp'#233'cie'
+      FieldName = 'ESPECIE'
+      Origin = 'ESPECIE'
+      Size = 50
+    end
+    object cdsVendaVolumeMARCA: TStringField
+      DisplayLabel = 'Marca'
+      FieldName = 'MARCA'
+      Origin = 'MARCA'
+      Size = 50
+    end
+    object cdsVendaVolumePESO_BRUTO: TBCDField
+      DisplayLabel = 'Peso Bruto'
+      FieldName = 'PESO_BRUTO'
+      Origin = 'PESO_BRUTO'
+      DisplayFormat = ',0.##'
+      Precision = 18
+      Size = 3
+    end
+    object cdsVendaVolumePESO_LIQUIDO: TBCDField
+      DisplayLabel = 'Peso L'#237'quido'
+      FieldName = 'PESO_LIQUIDO'
+      Origin = 'PESO_LIQUIDO'
+      DisplayFormat = ',0.##'
+      Precision = 18
+      Size = 3
+    end
+  end
+  object updVendaVolume: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBVENDAS_VOLUME'
+      '(ANO_VENDA, CONTROLE_VENDA, SEQUENCIAL, NUMERO, '
+      '  QUANTIDADE, ESPECIE, MARCA, PESO_BRUTO, '
+      '  PESO_LIQUIDO)'
+      
+        'VALUES (:NEW_ANO_VENDA, :NEW_CONTROLE_VENDA, :NEW_SEQUENCIAL, :N' +
+        'EW_NUMERO, '
+      '  :NEW_QUANTIDADE, :NEW_ESPECIE, :NEW_MARCA, :NEW_PESO_BRUTO, '
+      '  :NEW_PESO_LIQUIDO)')
+    ModifySQL.Strings = (
+      'UPDATE TBVENDAS_VOLUME'
+      
+        'SET ANO_VENDA = :NEW_ANO_VENDA, CONTROLE_VENDA = :NEW_CONTROLE_V' +
+        'ENDA, '
+      
+        '  SEQUENCIAL = :NEW_SEQUENCIAL, NUMERO = :NEW_NUMERO, QUANTIDADE' +
+        ' = :NEW_QUANTIDADE, '
+      
+        '  ESPECIE = :NEW_ESPECIE, MARCA = :NEW_MARCA, PESO_BRUTO = :NEW_' +
+        'PESO_BRUTO, '
+      '  PESO_LIQUIDO = :NEW_PESO_LIQUIDO'
+      
+        'WHERE ANO_VENDA = :OLD_ANO_VENDA AND CONTROLE_VENDA = :OLD_CONTR' +
+        'OLE_VENDA AND '
+      '  SEQUENCIAL = :OLD_SEQUENCIAL')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBVENDAS_VOLUME'
+      
+        'WHERE ANO_VENDA = :OLD_ANO_VENDA AND CONTROLE_VENDA = :OLD_CONTR' +
+        'OLE_VENDA AND '
+      '  SEQUENCIAL = :OLD_SEQUENCIAL')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO_VENDA, CONTROLE_VENDA, SEQUENCIAL, NUMERO, QUANTIDADE' +
+        ', ESPECIE, '
+      '  MARCA, PESO_BRUTO, PESO_LIQUIDO'
+      'FROM TBVENDAS_VOLUME'
+      
+        'WHERE ANO_VENDA = :ANO_VENDA AND CONTROLE_VENDA = :CONTROLE_VEND' +
+        'A AND '
+      '  SEQUENCIAL = :SEQUENCIAL')
+    Left = 552
+    Top = 360
   end
 end

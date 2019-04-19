@@ -6,7 +6,7 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, DBClient, Provider, IBStoredProc,
   frxClass, frxDBSet, Menus, IBQuery, ClipBrd, cxGraphics, cxLookAndFeels,
@@ -16,11 +16,9 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -200,10 +198,6 @@ type
     lblTotalDesconto: TLabel;
     cdsTabelaItensPUNIT_PROMOCAO: TIBBCDField;
     lblProdutoPromocao: TLabel;
-    qryTotalComprasAbertas: TIBQuery;
-    qryTotalComprasAbertasVALOR_LIMITE: TIBBCDField;
-    qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TIBBCDField;
-    qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TIBBCDField;
     cdsTotalComprasAbertas: TDataSource;
     lblVendaCancelada: TLabel;
     lblVendaAberta: TLabel;
@@ -231,29 +225,7 @@ type
     btnFormaPagtoExcluir: TBitBtn;
     btnFormaPagtoInserir: TBitBtn;
     btnFormaPagtoEditar: TBitBtn;
-    cdsVendaFormaPagto: TIBDataSet;
-    updVendaFormaPagto: TIBUpdateSQL;
     dtsVendaFormaPagto: TDataSource;
-    cdsVendaFormaPagtoANO_VENDA: TSmallintField;
-    cdsVendaFormaPagtoCONTROLE_VENDA: TIntegerField;
-    cdsVendaFormaPagtoFORMAPAGTO_COD: TSmallintField;
-    cdsVendaFormaPagtoCONDICAOPAGTO_COD: TSmallintField;
-    cdsVendaFormaPagtoVENDA_PRAZO: TSmallintField;
-    cdsVendaFormaPagtoVALOR_FPAGTO: TIBBCDField;
-    cdsVendaFormaPagtoPRAZO_01: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_02: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_03: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_04: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_05: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_06: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_07: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_08: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_09: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_10: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_11: TSmallintField;
-    cdsVendaFormaPagtoPRAZO_12: TSmallintField;
-    cdsVendaFormaPagtoFormaPagto: TStringField;
-    cdsVendaFormaPagtoCondicaoPagto: TStringField;
     qryTitulosFORMA_PAGTO: TSmallintField;
     qryTitulosSTATUS: TIBStringField;
     cdsTabelaItensDESCONTO: TIBBCDField;
@@ -272,7 +244,6 @@ type
     pnlBotoesTransp: TPanel;
     BtnTransporteInforme: TBitBtn;
     Bevel17: TBevel;
-    tblModalidadeFrete: TIBTable;
     dtsModalidadeFrete: TDataSource;
     IbDtstTabelaNFE_MODALIDADE_FRETE: TSmallintField;
     IbDtstTabelaNFE_TRANSPORTADORA: TIntegerField;
@@ -292,18 +263,7 @@ type
     IbDtstTabelaTRANSP_ENDERECO: TIBStringField;
     lblModalidadeFrete: TLabel;
     dbModalidadeFrete: TDBLookupComboBox;
-    cdsVendaVolume: TIBDataSet;
-    updVendaVolume: TIBUpdateSQL;
     dtsVendaVolume: TDataSource;
-    cdsVendaVolumeANO_VENDA: TSmallintField;
-    cdsVendaVolumeCONTROLE_VENDA: TIntegerField;
-    cdsVendaVolumeSEQUENCIAL: TSmallintField;
-    cdsVendaVolumeNUMERO: TIBStringField;
-    cdsVendaVolumeQUANTIDADE: TSmallintField;
-    cdsVendaVolumeESPECIE: TIBStringField;
-    cdsVendaVolumeMARCA: TIBStringField;
-    cdsVendaVolumePESO_BRUTO: TIBBCDField;
-    cdsVendaVolumePESO_LIQUIDO: TIBBCDField;
     dbgVolumes: TDBGrid;
     RdgStatusVenda: TRadioGroup;
     IbDtstTabelaLUCRO_CALCULADO: TIBBCDField;
@@ -329,8 +289,6 @@ type
     cdsTabelaItensRESERVA: TIBBCDField;
     cdsTabelaItensQTDEFINAL: TIBBCDField;
     cdsTabelaItensCODCLIENTE: TIntegerField;
-    qryProduto: TIBDataSet;
-    qryCFOP: TIBDataSet;
     cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
     nmImprimirNotaEntrega: TMenuItem;
     nmImprimirCartaCredito: TMenuItem;
@@ -422,6 +380,46 @@ type
     qryTitulosPGTO_OK: TIntegerField;
     qryTitulosPGTO_USUARIO: TIBStringField;
     qryTitulosPGTO_FORMA: TSmallintField;
+    fdQryModalidadeFrete: TFDQuery;
+    qryProduto: TFDQuery;
+    qryCFOP: TFDQuery;
+    qryTotalComprasAbertas: TFDQuery;
+    qryTotalComprasAbertasVALOR_LIMITE: TBCDField;
+    qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TBCDField;
+    qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TBCDField;
+    cdsVendaFormaPagto: TFDQuery;
+    updVendaFormaPagto: TFDUpdateSQL;
+    cdsVendaFormaPagtoANO_VENDA: TSmallintField;
+    cdsVendaFormaPagtoCONTROLE_VENDA: TIntegerField;
+    cdsVendaFormaPagtoFORMAPAGTO_COD: TSmallintField;
+    cdsVendaFormaPagtoCONDICAOPAGTO_COD: TSmallintField;
+    cdsVendaFormaPagtoVENDA_PRAZO: TSmallintField;
+    cdsVendaFormaPagtoVALOR_FPAGTO: TBCDField;
+    cdsVendaFormaPagtoPRAZO_01: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_02: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_03: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_04: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_05: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_06: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_07: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_08: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_09: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_10: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_11: TSmallintField;
+    cdsVendaFormaPagtoPRAZO_12: TSmallintField;
+    cdsVendaFormaPagtoFormaPagto: TStringField;
+    cdsVendaFormaPagtoCondicaoPagto: TStringField;
+    cdsVendaVolume: TFDQuery;
+    updVendaVolume: TFDUpdateSQL;
+    cdsVendaVolumeANO_VENDA: TSmallintField;
+    cdsVendaVolumeCONTROLE_VENDA: TIntegerField;
+    cdsVendaVolumeSEQUENCIAL: TSmallintField;
+    cdsVendaVolumeNUMERO: TStringField;
+    cdsVendaVolumeQUANTIDADE: TSmallintField;
+    cdsVendaVolumeESPECIE: TStringField;
+    cdsVendaVolumeMARCA: TStringField;
+    cdsVendaVolumePESO_BRUTO: TBCDField;
+    cdsVendaVolumePESO_LIQUIDO: TBCDField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -465,15 +463,12 @@ type
       Shift: TShiftState);
     procedure dbgFormaPagtoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
-    procedure cdsVendaFormaPagtoBeforePost(DataSet: TDataSet);
     procedure dbgFormaPagtoEnter(Sender: TObject);
     procedure cdsTabelaItensSEQGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BtnTransporteInformeClick(Sender: TObject);
-    procedure cdsVendaVolumeNewRecord(DataSet: TDataSet);
     procedure nmGerarImprimirBoletosClick(Sender: TObject);
     procedure nmPpReciboNFeClick(Sender: TObject);
     procedure nmPpChaveNFeClick(Sender: TObject);
@@ -494,6 +489,9 @@ type
     procedure IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
     procedure cdsTabelaItensAfterScroll(DataSet: TDataSet);
+    procedure cdsVendaFormaPagtoBeforePost(DataSet: TDataSet);
+    procedure cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
+    procedure cdsVendaVolumeNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -549,14 +547,24 @@ type
 (*
   Tabelas:
   - TBVENDAS
+  - TBVENDAS_FORMAPAGTO
+  - TBVENDAS_VOLUME
+  - TVENDASITENS
   - TBCLIENTE
   - TBFORNECEDOR
   - TBFORMPAGTO
   - TBVENDEDOR
+  - TBCFOP
+  - TBPRODUTO
+  - TBGRUPOPROD
+  - TBSECAOPROD
+  - TBUNIDADEPROD
+  - TBPRODUTO_CLIENTE
 
   Views:
   - VW_CONDICAOPAGTO
   - VW_EMPRESA
+  - VW_MODALIDADE_FRETE
 
   Procedures:
   - GET_LIMITE_DISPONIVEL_CLIENTE
@@ -645,11 +653,11 @@ begin
 
   SQL_FormaPagto := TStringList.Create;
   SQL_FormaPagto.Clear;
-  SQL_FormaPagto.AddStrings( cdsVendaFormaPagto.SelectSQL );
+  SQL_FormaPagto.AddStrings( cdsVendaFormaPagto.SQL );
 
   SQL_Volume := TStringList.Create;
   SQL_Volume.Clear;
-  SQL_Volume.AddStrings( cdsVendaVolume.SelectSQL );
+  SQL_Volume.AddStrings( cdsVendaVolume.SQL );
 
   SQL_Titulos := TStringList.Create;
   SQL_Titulos.Clear;
@@ -666,7 +674,7 @@ begin
   CarregarLista(cdsFormaPagto);
   //CarregarLista(fdQryCondicaoPagto);
   CarregarLista(cdsCondicaoPagto);
-  CarregarLista(tblModalidadeFrete);
+  CarregarLista(fdQryModalidadeFrete);
 
   Case gSistema.Codigo of
     SISTEMA_PDV :
@@ -926,7 +934,7 @@ procedure TfrmGeVenda.AbrirTabelaFormasPagto(const AnoVenda : Smallint; const Co
 begin
   cdsVendaFormaPagto.Close;
 
-  with cdsVendaFormaPagto, SelectSQL do
+  with cdsVendaFormaPagto, SQL do
   begin
     Clear;
     AddStrings( SQL_FormaPagto );
@@ -942,7 +950,7 @@ procedure TfrmGeVenda.AbrirTabelaVolume(const AnoVenda: Smallint;
 begin
   cdsVendaVolume.Close;
 
-  with cdsVendaVolume, SelectSQL do
+  with cdsVendaVolume, SQL do
   begin
     Clear;
     AddStrings( SQL_Volume );
@@ -1516,6 +1524,7 @@ begin
         cdsVendaFormaPagto.Post;
 
       cdsVendaFormaPagto.ApplyUpdates;
+      cdsVendaFormaPagto.CommitUpdates;
 
       CommitTransaction;
 
@@ -1533,13 +1542,14 @@ begin
       AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
 
       // Corrigir Total Forma Pagto
-      
+
       if ( (cdsVendaFormaPagto.RecordCount = 1) and (cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency <> IbDtstTabelaTOTALVENDA.AsCurrency) ) then
       begin
         cdsVendaFormaPagto.Edit;
         cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency := IbDtstTabelaTOTALVENDA.AsCurrency;
         cdsVendaFormaPagto.Post;
         cdsVendaFormaPagto.ApplyUpdates;
+        cdsVendaFormaPagto.CommitUpdates;
 
         CommitTransaction;
       end;
@@ -2793,12 +2803,6 @@ begin
     IbDtstTabelaVENDA_PRAZO.AsInteger := 1;
 end;
 
-procedure TfrmGeVenda.cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
-begin
-  cdsVendaFormaPagtoANO_VENDA.Assign( IbDtstTabelaANO );
-  cdsVendaFormaPagtoCONTROLE_VENDA.Assign( IbDtstTabelaCODCONTROL );
-end;
-
 procedure TfrmGeVenda.cdsVendaFormaPagtoBeforePost(DataSet: TDataSet);
 begin
   if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 1 ) then
@@ -2807,6 +2811,12 @@ begin
       IbDtstTabela.Edit;
     IbDtstTabelaVENDA_PRAZO.AsInteger := 1;
   end;
+end;
+
+procedure TfrmGeVenda.cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
+begin
+  cdsVendaFormaPagtoANO_VENDA.Assign( IbDtstTabelaANO );
+  cdsVendaFormaPagtoCONTROLE_VENDA.Assign( IbDtstTabelaCODCONTROL );
 end;
 
 function TfrmGeVenda.GetTotalValorFormaPagto_APrazo: Currency;
@@ -2916,6 +2926,7 @@ begin
     end;
 
     cdsVendaVolume.ApplyUpdates;
+    cdsVendaVolume.CommitUpdates;
     
     CommitTransaction;
 
@@ -3045,9 +3056,6 @@ begin
 
       if bProsseguir then
         bProsseguir := cdsVendaFormaPagto.Locate('VENDA_PRAZO', 1, []);
-
-      //if bProsseguir then
-      //  bProsseguir := (cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger = GetCondicaoPagtoIDBoleto); // Descontinuada
 
       if bProsseguir then
         bProsseguir := ShowConfirm('Deseja gerar boletos para os títulos da venda.');

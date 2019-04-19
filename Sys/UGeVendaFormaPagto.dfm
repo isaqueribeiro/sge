@@ -7,6 +7,8 @@ inherited frmGeVendaFormaPagto: TfrmGeVendaFormaPagto
   Caption = 'Controle de Vendas - Formas/Condi'#231#245'es de Pagamentos'
   ClientHeight = 255
   ClientWidth = 603
+  ExplicitWidth = 617
+  ExplicitHeight = 292
   DesignSize = (
     603
     255)

@@ -3,12 +3,15 @@ unit UGeVendaFormaPagto;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls,
-  IBUpdateSQL, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White;
+  Dialogs, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaFormaPagto = class(TfrmGrPadrao)
@@ -77,6 +80,19 @@ type
 
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBVENDAS_FORMAPAGTO
+  - TBCLIENTE
+  - TBFORMPAGTO
+
+  Views:
+  - VW_CONDICAOPAGTO
+
+  Procedures:
+
+*)
 
   function InserirFormaPagto(const AOnwer : TComponent; APagar : Currency) : Boolean;
 
