@@ -4,22 +4,21 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DB, IBCustomDataSet, IBUpdateSQL, StdCtrls, Mask,
-  DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons,
+  Dialogs, UGrPadrao, DB, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  cxMaskEdit, cxDropDownEdit, cxCalendar, cxLookAndFeelPainters, Menus, cxButtons, cxSpinEdit,
+  cxTimeEdit, cxTextEdit,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, cxControls, cxContainer,
-  cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils, cxSpinEdit, cxTimeEdit, cxTextEdit,
-  cxMaskEdit, cxDropDownEdit, cxCalendar, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, cxControls, cxContainer, cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils, dxSkinMcSkin,
+  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
   dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaGerarNFe = class(TfrmGrPadrao)
-    cdsVenda: TIBDataSet;
-    updVenda: TIBUpdateSQL;
     dtsVenda: TDataSource;
     GrpBxControle: TGroupBox;
     lblCodigo: TLabel;
@@ -63,58 +62,60 @@ type
     dbValorCOFINS: TDBEdit;
     lblTotalNota: TLabel;
     dbTotalNota: TDBEdit;
-    cdsVendaANO: TSmallintField;
-    cdsVendaCODCONTROL: TIntegerField;
-    cdsVendaDTVENDA: TDateTimeField;
-    cdsVendaDTFINALIZACAO_VENDA: TDateField;
-    cdsVendaDATAEMISSAO: TDateField;
-    cdsVendaHORAEMISSAO: TTimeField;
-    cdsVendaTOTALVENDA: TIBBCDField;
-    cdsVendaSERIE: TIBStringField;
-    cdsVendaNFE: TLargeintField;
-    cdsVendaSTATUS: TSmallintField;
-    cdsVendaCODEMP: TIBStringField;
-    cdsVendaCODCLI: TIBStringField;
     lblInforme: TLabel;
-    cdsVendaDESCONTO: TIBBCDField;
-    cdsVendaTOTALVENDA_BRUTA: TIBBCDField;
     TmrAlerta: TTimer;
     lblDataHoraSaida: TLabel;
-    cdsVendaCODCLIENTE: TIntegerField;
-    cdsVendaNFE_VALOR_BASE_ICMS: TIBBCDField;
-    cdsVendaNFE_VALOR_ICMS: TIBBCDField;
-    cdsVendaNFE_VALOR_BASE_ICMS_SUBST: TIBBCDField;
-    cdsVendaNFE_VALOR_ICMS_SUBST: TIBBCDField;
-    cdsVendaNFE_VALOR_TOTAL_PRODUTO: TIBBCDField;
-    cdsVendaNFE_VALOR_FRETE: TIBBCDField;
-    cdsVendaNFE_VALOR_SEGURO: TIBBCDField;
-    cdsVendaNFE_VALOR_DESCONTO: TIBBCDField;
-    cdsVendaNFE_VALOR_TOTAL_II: TIBBCDField;
-    cdsVendaNFE_VALOR_TOTAL_IPI: TIBBCDField;
-    cdsVendaNFE_VALOR_PIS: TIBBCDField;
-    cdsVendaNFE_VALOR_COFINS: TIBBCDField;
-    cdsVendaNFE_VALOR_OUTROS: TIBBCDField;
-    cdsVendaNFE_VALOR_TOTAL_NOTA: TIBBCDField;
-    cdsVendaVALOR_TOTAL_IPI: TIBBCDField;
-    cdsVendaVALOR_TOTAL_BRUTO: TIBBCDField;
-    cdsVendaVALOR_TOTAL_DESCONTO: TIBBCDField;
-    cdsVendaVALOR_TOTAL_LIQUIDO: TIBBCDField;
-    cdsVendaVALOR_BASE_ICMS_NORMAL_ENTRADA: TFMTBCDField;
-    cdsVendaVALOR_TOTAL_ICMS_NORMAL_ENTRADA: TFMTBCDField;
-    cdsVendaVALOR_BASE_ICMS_NORMAL_SAIDA: TIBBCDField;
-    cdsVendaVALOR_TOTAL_ICMS_NORMAL_SAIDA: TFMTBCDField;
-    cdsVendaVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
-    cdsVendaVALOR_TOTAL_PIS: TIBBCDField;
-    cdsVendaVALOR_TOTAL_COFINS: TIBBCDField;
-    cdsVendaNFE_DENEGADA: TSmallintField;
-    cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField;
     btnCalcular: TcxButton;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
     chkNaoInformarVencimento: TCheckBox;
-    cdsVendaCFOP: TIntegerField;
     edDataSaida: TcxDateEdit;
     edHoraSaida: TcxTimeEdit;
+    cdsVenda: TFDQuery;
+    updVenda: TFDUpdateSQL;
+    cdsVendaANO: TSmallintField;
+    cdsVendaCODCONTROL: TIntegerField;
+    cdsVendaCODEMP: TStringField;
+    cdsVendaCODCLIENTE: TIntegerField;
+    cdsVendaCODCLI: TStringField;
+    cdsVendaDTVENDA: TSQLTimeStampField;
+    cdsVendaDTFINALIZACAO_VENDA: TDateField;
+    cdsVendaDATAEMISSAO: TDateField;
+    cdsVendaHORAEMISSAO: TTimeField;
+    cdsVendaTOTALVENDA_BRUTA: TBCDField;
+    cdsVendaDESCONTO: TBCDField;
+    cdsVendaTOTALVENDA: TBCDField;
+    cdsVendaSERIE: TStringField;
+    cdsVendaNFE: TLargeintField;
+    cdsVendaCFOP: TIntegerField;
+    cdsVendaNFE_DENEGADA: TSmallintField;
+    cdsVendaNFE_DENEGADA_MOTIVO: TStringField;
+    cdsVendaSTATUS: TSmallintField;
+    cdsVendaNFE_VALOR_BASE_ICMS: TBCDField;
+    cdsVendaNFE_VALOR_ICMS: TBCDField;
+    cdsVendaNFE_VALOR_BASE_ICMS_SUBST: TBCDField;
+    cdsVendaNFE_VALOR_ICMS_SUBST: TBCDField;
+    cdsVendaNFE_VALOR_TOTAL_PRODUTO: TBCDField;
+    cdsVendaNFE_VALOR_FRETE: TBCDField;
+    cdsVendaNFE_VALOR_SEGURO: TBCDField;
+    cdsVendaNFE_VALOR_DESCONTO: TBCDField;
+    cdsVendaNFE_VALOR_TOTAL_II: TBCDField;
+    cdsVendaNFE_VALOR_TOTAL_IPI: TBCDField;
+    cdsVendaNFE_VALOR_PIS: TBCDField;
+    cdsVendaNFE_VALOR_COFINS: TBCDField;
+    cdsVendaNFE_VALOR_OUTROS: TBCDField;
+    cdsVendaNFE_VALOR_TOTAL_NOTA: TBCDField;
+    cdsVendaVALOR_TOTAL_IPI: TBCDField;
+    cdsVendaVALOR_TOTAL_BRUTO: TBCDField;
+    cdsVendaVALOR_TOTAL_DESCONTO: TBCDField;
+    cdsVendaVALOR_TOTAL_LIQUIDO: TBCDField;
+    cdsVendaVALOR_BASE_ICMS_NORMAL_ENTRADA: TFMTBCDField;
+    cdsVendaVALOR_TOTAL_ICMS_NORMAL_ENTRADA: TFMTBCDField;
+    cdsVendaVALOR_BASE_ICMS_NORMAL_SAIDA: TBCDField;
+    cdsVendaVALOR_TOTAL_ICMS_NORMAL_SAIDA: TFMTBCDField;
+    cdsVendaVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
+    cdsVendaVALOR_TOTAL_PIS: TBCDField;
+    cdsVendaVALOR_TOTAL_COFINS: TBCDField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -174,7 +175,7 @@ begin
     with frm do
     begin
       cdsVenda.Close;
-      cdsVenda.ParamByName('anovenda').AsShort   := Ano;
+      cdsVenda.ParamByName('anovenda').AsInteger := Ano;
       cdsVenda.ParamByName('numvenda').AsInteger := Numero;
       cdsVenda.Open;
 
@@ -374,6 +375,8 @@ begin
 
       cdsVenda.Post;
       cdsVenda.ApplyUpdates;
+      cdsVenda.CommitUpdates;
+
       CommitTransaction;
     end;
 

@@ -118,51 +118,11 @@ type
     dtsVendedor: TDataSource;
     dtsFormaPagto: TDataSource;
     dtsCondicaoPagto: TDataSource;
-    cdsTabelaItens: TIBDataSet;
-    IbUpdTabelaItens: TIBUpdateSQL;
     DtSrcTabelaItens: TDataSource;
     Bevel12: TBevel;
     IbDtstTabelaANO: TSmallintField;
     IbDtstTabelaCODCONTROL: TIntegerField;
-    cdsTabelaItensANO: TSmallintField;
-    cdsTabelaItensCODCONTROL: TIntegerField;
-    cdsTabelaItensSEQ: TSmallintField;
-    cdsTabelaItensCODPROD: TIBStringField;
-    cdsTabelaItensCODEMP: TIBStringField;
-    cdsTabelaItensCODCLI: TIBStringField;
-    cdsTabelaItensDTVENDA: TDateTimeField;
-    cdsTabelaItensPUNIT: TIBBCDField;
-    cdsTabelaItensUNID_COD: TSmallintField;
-    cdsTabelaItensCFOP_COD: TIntegerField;
-    cdsTabelaItensALIQUOTA: TIBBCDField;
-    cdsTabelaItensVALOR_IPI: TIBBCDField;
-    cdsTabelaItensDESCRI: TIBStringField;
-    cdsTabelaItensUNP_SIGLA: TIBStringField;
-    cdsTabelaItensCFOP_DESCRICAO: TIBStringField;
-    cdsTabelaItensCST: TIBStringField;
-    qryTitulos: TIBDataSet;
     dtsTitulos: TDataSource;
-    qryTitulosANOLANC: TSmallintField;
-    qryTitulosNUMLANC: TIntegerField;
-    qryTitulosPARCELA: TSmallintField;
-    qryTitulosCODBANCO: TIntegerField;
-    qryTitulosNOSSONUMERO: TIBStringField;
-    qryTitulosCNPJ: TIBStringField;
-    qryTitulosTIPPAG: TIBStringField;
-    qryTitulosDTEMISS: TDateField;
-    qryTitulosDTVENC: TDateField;
-    qryTitulosVALORREC: TIBBCDField;
-    qryTitulosPERCENTJUROS: TIBBCDField;
-    qryTitulosPERCENTMULTA: TIBBCDField;
-    qryTitulosPERCENTDESCONTO: TIBBCDField;
-    qryTitulosVALORRECTOT: TIBBCDField;
-    qryTitulosVALORSALDO: TIBBCDField;
-    qryTitulosDATAPROCESSOBOLETO: TDateField;
-    qryTitulosLancamento: TStringField;
-    qryTitulosBAIXADO: TSmallintField;
-    qryTitulosBAIXADO_: TIBStringField;
-    qryTitulosDTREC: TDateField;
-    IbStrPrcGerarTitulos: TIBStoredProc;
     IbDtstTabelaDTFINALIZACAO_VENDA: TDateField;
     btnTituloQuitar: TBitBtn;
     lblCFOPVenda: TLabel;
@@ -177,37 +137,16 @@ type
     nmImprimirDANFE: TMenuItem;
     nmGerarDANFEXML: TMenuItem;
     N1: TMenuItem;
-    cdsTabelaItensALIQUOTA_CSOSN: TIBBCDField;
-    cdsTabelaItensCSOSN: TIBStringField;
     IbDtstTabelaXML_NFE_FILENAME: TIBStringField;
-    qryNFE: TIBDataSet;
-    updNFE: TIBUpdateSQL;
-    qryNFEANOVENDA: TSmallintField;
-    qryNFENUMVENDA: TIntegerField;
-    qryNFEDATAEMISSAO: TDateField;
-    qryNFEHORAEMISSAO: TTimeField;
-    qryNFESERIE: TIBStringField;
-    qryNFENUMERO: TIntegerField;
-    qryNFECHAVE: TIBStringField;
-    qryNFEPROTOCOLO: TIBStringField;
-    qryNFERECIBO: TIBStringField;
-    qryNFEXML_FILENAME: TIBStringField;
-    qryNFEXML_FILE: TMemoField;
-    qryNFELOTE_ANO: TSmallintField;
-    qryNFELOTE_NUM: TIntegerField;
     lblTotalDesconto: TLabel;
-    cdsTabelaItensPUNIT_PROMOCAO: TIBBCDField;
     lblProdutoPromocao: TLabel;
     cdsTotalComprasAbertas: TDataSource;
     lblVendaCancelada: TLabel;
     lblVendaAberta: TLabel;
     IbDtstTabelaBLOQUEADO: TSmallintField;
     IbDtstTabelaBLOQUEADO_MOTIVO: TMemoField;
-    cdsTabelaItensPERCENTUAL_REDUCAO_BC: TIBBCDField;
     lblPercRedBC: TLabel;
     dbPercRedBC: TDBEdit;
-    cdsTabelaItensALIQUOTA_PIS: TIBBCDField;
-    cdsTabelaItensALIQUOTA_COFINS: TIBBCDField;
     pnlObservacao: TPanel;
     lblObservacao: TLabel;
     dbObservacao: TDBMemo;
@@ -226,18 +165,10 @@ type
     btnFormaPagtoInserir: TBitBtn;
     btnFormaPagtoEditar: TBitBtn;
     dtsVendaFormaPagto: TDataSource;
-    qryTitulosFORMA_PAGTO: TSmallintField;
-    qryTitulosSTATUS: TIBStringField;
-    cdsTabelaItensDESCONTO: TIBBCDField;
-    cdsTabelaItensDESCONTO_VALOR: TIBBCDField;
     IbDtstTabelaDESCONTO: TIBBCDField;
     lblData: TLabel;
-    cdsTabelaItensPFINAL: TIBBCDField;
     dbValorTotalBruto: TDBEdit;
     lblValorTotalBruto: TLabel;
-    cdsTabelaItensTOTAL_BRUTO: TIBBCDField;
-    cdsTabelaItensTOTAL_DESCONTO: TIBBCDField;
-    cdsTabelaItensTOTAL_LIQUIDO: TIBBCDField;
     IbDtstTabelaTOTALVENDA_BRUTA: TIBBCDField;
     tbsTransporte: TTabSheet;
     Bevel16: TBevel;
@@ -272,7 +203,6 @@ type
     ShpLucroNegativo: TShape;
     lblLucroNegativo: TLabel;
     IbDtstTabelaLOTE_NFE_RECIBO: TIBStringField;
-    qryNFEEMPRESA: TIBStringField;
     nmGerarImprimirBoletos: TMenuItem;
     IbDtstTabelaGERAR_ESTOQUE_CLIENTE: TSmallintField;
     IbDtstTabelaCODCLIENTE: TIntegerField;
@@ -284,12 +214,6 @@ type
     nmPpLimparDadosNFe: TMenuItem;
     N3: TMenuItem;
     nmEnviarEmailCliente: TMenuItem;
-    cdsTabelaItensQTDE: TIBBCDField;
-    cdsTabelaItensESTOQUE: TIBBCDField;
-    cdsTabelaItensRESERVA: TIBBCDField;
-    cdsTabelaItensQTDEFINAL: TIBBCDField;
-    cdsTabelaItensCODCLIENTE: TIntegerField;
-    cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
     nmImprimirNotaEntrega: TMenuItem;
     nmImprimirCartaCredito: TMenuItem;
     TbsInformeNFe: TTabSheet;
@@ -321,8 +245,6 @@ type
     IbDtstTabelaNFE_DENEGADA_MOTIVO: TIBStringField;
     lblLogNFeDenegada: TLabel;
     dbLogNFeDenegada: TDBEdit;
-    qryNFEMODELO: TSmallintField;
-    qryNFEVERSAO: TSmallintField;
     BtnCorrigirDadosNFe: TSpeedButton;
     ppCorrigirDadosNFe: TPopupMenu;
     nmPpCorrigirDadosNFeCFOP: TMenuItem;
@@ -330,7 +252,6 @@ type
     btbtnFinalizar: TcxButton;
     btbtnGerarNFe: TcxButton;
     btbtnCancelarVND: TcxButton;
-    cdsTabelaItensDESCRI_APRESENTACAO: TIBStringField;
     dbCliente: TJvDBComboEdit;
     dbCFOPVenda: TJvDBComboEdit;
     dbProduto: TJvDBComboEdit;
@@ -338,8 +259,6 @@ type
     dbTotalDesconto: TJvDBComboEdit;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    qryNFEANOCOMPRA: TSmallintField;
-    qryNFENUMCOMPRA: TIntegerField;
     nmImprimirNotaEntregaX: TMenuItem;
     N4: TMenuItem;
     nmPpCarregarArquivoNFe: TMenuItem;
@@ -352,9 +271,7 @@ type
     Bevel13: TBevel;
     dbDadosEntrega: TDBMemo;
     nmPpCorrigirDadosEntrega: TMenuItem;
-    cdsTabelaItensNCM_SH: TIBStringField;
     IbDtstTabelaMODELO_NF: TIntegerField;
-    cdsTabelaItensCODVENDEDOR: TIntegerField;
     IbDtstTabelaCAIXA_ANO: TSmallintField;
     IbDtstTabelaCAIXA_NUM: TIntegerField;
     IbDtstTabelaCAIXA_PDV: TSmallintField;
@@ -367,19 +284,10 @@ type
     cdsCondicaoPagto: TClientDataSet;
     lblLoteProduto: TLabel;
     dbLoteProduto: TDBLookupComboBox;
-    cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
-    cdsTabelaItensLOTE_ID: TIBStringField;
     fdQryVendedor: TFDQuery;
     fdQryLotes: TFDQuery;
     dtsLotes: TDataSource;
-    cdsTabelaItensREFERENCIA: TIBStringField;
     Bevel18: TBevel;
-    qryTitulosPGTO_SEQ: TSmallintField;
-    qryTitulosPGTO_DATA: TDateField;
-    qryTitulosPGTO_VALOR: TIBBCDField;
-    qryTitulosPGTO_OK: TIntegerField;
-    qryTitulosPGTO_USUARIO: TIBStringField;
-    qryTitulosPGTO_FORMA: TSmallintField;
     fdQryModalidadeFrete: TFDQuery;
     qryProduto: TFDQuery;
     qryCFOP: TFDQuery;
@@ -420,11 +328,102 @@ type
     cdsVendaVolumeMARCA: TStringField;
     cdsVendaVolumePESO_BRUTO: TBCDField;
     cdsVendaVolumePESO_LIQUIDO: TBCDField;
+    cdsTabelaItens: TFDQuery;
+    updTabelaItens: TFDUpdateSQL;
+    qryNFE: TFDQuery;
+    updNFE: TFDUpdateSQL;
+    cdsTabelaItensANO: TSmallintField;
+    cdsTabelaItensCODCONTROL: TIntegerField;
+    cdsTabelaItensSEQ: TSmallintField;
+    cdsTabelaItensCODPROD: TStringField;
+    cdsTabelaItensCODEMP: TStringField;
+    cdsTabelaItensCODCLI: TStringField;
+    cdsTabelaItensCODCLIENTE: TIntegerField;
+    cdsTabelaItensCODVENDEDOR: TIntegerField;
+    cdsTabelaItensDTVENDA: TSQLTimeStampField;
+    cdsTabelaItensQTDE: TBCDField;
+    cdsTabelaItensLOTE_ID: TStringField;
+    cdsTabelaItensREFERENCIA: TStringField;
+    cdsTabelaItensPUNIT: TBCDField;
+    cdsTabelaItensPUNIT_PROMOCAO: TBCDField;
+    cdsTabelaItensDESCONTO: TBCDField;
+    cdsTabelaItensDESCONTO_VALOR: TBCDField;
+    cdsTabelaItensPFINAL: TBCDField;
+    cdsTabelaItensQTDEFINAL: TBCDField;
+    cdsTabelaItensUNID_COD: TSmallintField;
+    cdsTabelaItensCFOP_COD: TIntegerField;
+    cdsTabelaItensCST: TStringField;
+    cdsTabelaItensCSOSN: TStringField;
+    cdsTabelaItensALIQUOTA: TBCDField;
+    cdsTabelaItensALIQUOTA_CSOSN: TBCDField;
+    cdsTabelaItensALIQUOTA_PIS: TBCDField;
+    cdsTabelaItensALIQUOTA_COFINS: TBCDField;
+    cdsTabelaItensVALOR_IPI: TBCDField;
+    cdsTabelaItensPERCENTUAL_REDUCAO_BC: TBCDField;
+    cdsTabelaItensTOTAL_BRUTO: TBCDField;
+    cdsTabelaItensTOTAL_DESCONTO: TBCDField;
+    cdsTabelaItensTOTAL_LIQUIDO: TBCDField;
+    cdsTabelaItensDESCRI: TStringField;
+    cdsTabelaItensDESCRI_APRESENTACAO: TStringField;
+    cdsTabelaItensESTOQUE: TBCDField;
+    cdsTabelaItensRESERVA: TBCDField;
+    cdsTabelaItensUNP_SIGLA: TStringField;
+    cdsTabelaItensCFOP_DESCRICAO: TStringField;
+    cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
+    cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
+    cdsTabelaItensNCM_SH: TStringField;
+    qryTitulos: TFDQuery;
+    qryTitulosANOLANC: TSmallintField;
+    qryTitulosNUMLANC: TIntegerField;
+    qryTitulosPARCELA: TSmallintField;
+    qryTitulosCODBANCO: TIntegerField;
+    qryTitulosNOSSONUMERO: TStringField;
+    qryTitulosCNPJ: TStringField;
+    qryTitulosTIPPAG: TStringField;
+    qryTitulosDTEMISS: TDateField;
+    qryTitulosDTVENC: TDateField;
+    qryTitulosVALORREC: TBCDField;
+    qryTitulosPERCENTJUROS: TCurrencyField;
+    qryTitulosPERCENTMULTA: TCurrencyField;
+    qryTitulosPERCENTDESCONTO: TCurrencyField;
+    qryTitulosVALORRECTOT: TBCDField;
+    qryTitulosVALORSALDO: TBCDField;
+    qryTitulosDATAPROCESSOBOLETO: TDateField;
+    qryTitulosBAIXADO: TSmallintField;
+    qryTitulosBAIXADO_: TStringField;
+    qryTitulosDTREC: TDateField;
+    qryTitulosFORMA_PAGTO: TSmallintField;
+    qryTitulosSTATUS: TStringField;
+    qryTitulosPGTO_SEQ: TSmallintField;
+    qryTitulosPGTO_USUARIO: TStringField;
+    qryTitulosPGTO_DATA: TDateField;
+    qryTitulosPGTO_FORMA: TSmallintField;
+    qryTitulosPGTO_VALOR: TBCDField;
+    qryTitulosPGTO_OK: TIntegerField;
+    qryTitulosLancamento: TStringField;
+    spSetGerarTitulos: TFDStoredProc;
+    qryNFEEMPRESA: TStringField;
+    qryNFESERIE: TStringField;
+    qryNFENUMERO: TIntegerField;
+    qryNFEMODELO: TSmallintField;
+    qryNFEVERSAO: TSmallintField;
+    qryNFEDATAEMISSAO: TDateField;
+    qryNFEHORAEMISSAO: TTimeField;
+    qryNFECHAVE: TStringField;
+    qryNFEPROTOCOLO: TStringField;
+    qryNFERECIBO: TStringField;
+    qryNFEXML_FILENAME: TStringField;
+    qryNFEXML_FILE: TMemoField;
+    qryNFELOTE_ANO: TSmallintField;
+    qryNFELOTE_NUM: TIntegerField;
+    qryNFEANOVENDA: TSmallintField;
+    qryNFENUMVENDA: TIntegerField;
+    qryNFEANOCOMPRA: TSmallintField;
+    qryNFENUMCOMPRA: TIntegerField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure IbDtstTabelaSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -445,10 +444,8 @@ type
     procedure btbtnAlterarClick(Sender: TObject);
     procedure dbProdutoButtonClick(Sender: TObject);
     procedure dbCFOPButtonClick(Sender: TObject);
-    procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
     procedure btbtnFinalizarClick(Sender: TObject);
     procedure btbtnGerarNFeClick(Sender: TObject);
-    procedure qryTitulosCalcFields(DataSet: TDataSet);
     procedure btnRegerarTituloClick(Sender: TObject);
     procedure dbCFOPVendaButtonClick(Sender: TObject);
     procedure btbtnCancelarVNDClick(Sender: TObject);
@@ -464,8 +461,6 @@ type
     procedure dbgFormaPagtoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgFormaPagtoEnter(Sender: TObject);
-    procedure cdsTabelaItensSEQGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BtnTransporteInformeClick(Sender: TObject);
@@ -477,7 +472,6 @@ type
     procedure nmEnviarEmailClienteClick(Sender: TObject);
     procedure nmImprimirNotaEntregaClick(Sender: TObject);
     procedure nmImprimirCartaCreditoClick(Sender: TObject);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure nmPpLimparDadosNFeClick(Sender: TObject);
     procedure BtnCorrigirDadosNFeClick(Sender: TObject);
     procedure nmPpCorrigirDadosNFeCFOPClick(Sender: TObject);
@@ -488,10 +482,15 @@ type
     procedure btnTituloEditarClick(Sender: TObject);
     procedure IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
-    procedure cdsTabelaItensAfterScroll(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoBeforePost(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
     procedure cdsVendaVolumeNewRecord(DataSet: TDataSet);
+    procedure cdsTabelaItensAfterScroll(DataSet: TDataSet);
+    procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
+    procedure cdsTabelaItensSEQGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure qryTitulosCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -560,6 +559,8 @@ type
   - TBSECAOPROD
   - TBUNIDADEPROD
   - TBPRODUTO_CLIENTE
+  - SYS_IBPT
+  - TBNFE_ENVIADA
 
   Views:
   - VW_CONDICAOPAGTO
@@ -644,12 +645,13 @@ begin
   SetTipoReceitaPadrao;
 
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
-  
+//  fdQryTabela.UpdateOptions.GeneratorName := sGeneratorName;
+
   inherited;
   
   SQL_Itens := TStringList.Create;
   SQL_Itens.Clear;
-  SQL_Itens.AddStrings( cdsTabelaItens.SelectSQL );
+  SQL_Itens.AddStrings( cdsTabelaItens.SQL );
 
   SQL_FormaPagto := TStringList.Create;
   SQL_FormaPagto.Clear;
@@ -661,7 +663,7 @@ begin
 
   SQL_Titulos := TStringList.Create;
   SQL_Titulos.Clear;
-  SQL_Titulos.AddStrings( qryTitulos.SelectSQL );
+  SQL_Titulos.AddStrings( qryTitulos.SQL );
 
   e1Data.Date      := GetDateDB;
   e2Data.Date      := GetDateDB;
@@ -767,60 +769,6 @@ begin
   inherited;
 end;
 
-procedure TfrmGeVenda.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaDTVENDA.Value := GetDateTimeDB;
-  IbDtstTabelaCODEMP.Value  := gUsuarioLogado.Empresa;
-  IbDtstTabelaFORMAPAG.Value          := GetFormaPagtoNomeDefault;
-  IbDtstTabelaCFOP.Value              := GetCfopIDDefault;
-  IbDtstTabelaVENDA_PRAZO.Value := 0;
-  IbDtstTabelaSTATUS.Value      := STATUS_VND_AND;
-  IbDtstTabelaTOTALVENDA_BRUTA.Value  := 0;
-  IbDtstTabelaDESCONTO.Value          := 0;
-  IbDtstTabelaTOTALVENDA.Value        := 0;
-  IbDtstTabelaGERAR_ESTOQUE_CLIENTE.Value := 0;
-  IbDtstTabelaNFE_ENVIADA.Value           := 0;
-  IbDtstTabelaNFE_DENEGADA.Value          := 0;
-  IbDtstTabelaNFE_MODALIDADE_FRETE.Value  := MODALIDADE_FRETE_SEMFRETE;
-  IbDtstTabelaUSUARIO.Value     := gUsuarioLogado.Login;
-  IbDtstTabelaOBS.AsString      := DMNFe.GetInformacaoComplementar(gUsuarioLogado.Empresa);
-
-  IbDtstTabelaCODCLIENTE.Value := CONSUMIDOR_FINAL_CODIGO;
-  IbDtstTabelaCODCLI.Value     := CONSUMIDOR_FINAL_CNPJ;
-  IbDtstTabelaNOME.Value       := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
-
-  if ( gUsuarioLogado.Vendedor = 0 ) then
-    IbDtstTabelaVENDEDOR_COD.Value := GetVendedorIDDefault
-  else
-    IbDtstTabelaVENDEDOR_COD.Value := gUsuarioLogado.Vendedor;
-
-  if (AnsiUpperCase(Trim(IbDtstTabelaNOME.AsString)) <> CONSUMIDOR_FINAL_NOME) then
-  begin
-    IbDtstTabelaCODCLIENTE.Clear;
-    IbDtstTabelaCODCLI.Clear;
-    IbDtstTabelaNOME.Clear;
-  end;
-
-  IbDtstTabelaDADOS_ENTREGA.Clear;
-
-  IbDtstTabelaFORMAPAGTO_COD.Clear;
-  IbDtstTabelaCONDICAOPAGTO_COD.Clear;
-
-  IbDtstTabelaSERIE.Clear;
-  IbDtstTabelaNFE.Clear;
-  IbDtstTabelaLOTE_NFE_ANO.Clear;
-  IbDtstTabelaLOTE_NFE_NUMERO.Clear;
-  IbDtstTabelaNFE_TRANSPORTADORA.Clear;
-  IbDtstTabelaNFE_DENEGADA_MOTIVO.Clear;
-
-  IbDtstTabelaNFE_TRANSPORTADORA.Required := False;
-  IbDtstTabelaNFE_PLACA_VEICULO.Required  := False;
-  IbDtstTabelaNFE_PLACA_UF.Required       := False;
-
-  CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
-end;
-
 procedure TfrmGeVenda.dbClienteButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
@@ -898,6 +846,66 @@ begin
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
 end;
 
+procedure TfrmGeVenda.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeVenda.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  IbDtstTabelaDTVENDA.Value := GetDateTimeDB;
+  IbDtstTabelaCODEMP.Value  := gUsuarioLogado.Empresa;
+  IbDtstTabelaFORMAPAG.Value          := GetFormaPagtoNomeDefault;
+  IbDtstTabelaCFOP.Value              := GetCfopIDDefault;
+  IbDtstTabelaVENDA_PRAZO.Value := 0;
+  IbDtstTabelaSTATUS.Value      := STATUS_VND_AND;
+  IbDtstTabelaTOTALVENDA_BRUTA.Value  := 0;
+  IbDtstTabelaDESCONTO.Value          := 0;
+  IbDtstTabelaTOTALVENDA.Value        := 0;
+  IbDtstTabelaGERAR_ESTOQUE_CLIENTE.Value := 0;
+  IbDtstTabelaNFE_ENVIADA.Value           := 0;
+  IbDtstTabelaNFE_DENEGADA.Value          := 0;
+  IbDtstTabelaNFE_MODALIDADE_FRETE.Value  := MODALIDADE_FRETE_SEMFRETE;
+  IbDtstTabelaUSUARIO.Value     := gUsuarioLogado.Login;
+  IbDtstTabelaOBS.AsString      := DMNFe.GetInformacaoComplementar(gUsuarioLogado.Empresa);
+
+  IbDtstTabelaCODCLIENTE.Value := CONSUMIDOR_FINAL_CODIGO;
+  IbDtstTabelaCODCLI.Value     := CONSUMIDOR_FINAL_CNPJ;
+  IbDtstTabelaNOME.Value       := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
+
+  if ( gUsuarioLogado.Vendedor = 0 ) then
+    IbDtstTabelaVENDEDOR_COD.Value := GetVendedorIDDefault
+  else
+    IbDtstTabelaVENDEDOR_COD.Value := gUsuarioLogado.Vendedor;
+
+  if (AnsiUpperCase(Trim(IbDtstTabelaNOME.AsString)) <> CONSUMIDOR_FINAL_NOME) then
+  begin
+    IbDtstTabelaCODCLIENTE.Clear;
+    IbDtstTabelaCODCLI.Clear;
+    IbDtstTabelaNOME.Clear;
+  end;
+
+  IbDtstTabelaDADOS_ENTREGA.Clear;
+
+  IbDtstTabelaFORMAPAGTO_COD.Clear;
+  IbDtstTabelaCONDICAOPAGTO_COD.Clear;
+
+  IbDtstTabelaSERIE.Clear;
+  IbDtstTabelaNFE.Clear;
+  IbDtstTabelaLOTE_NFE_ANO.Clear;
+  IbDtstTabelaLOTE_NFE_NUMERO.Clear;
+  IbDtstTabelaNFE_TRANSPORTADORA.Clear;
+  IbDtstTabelaNFE_DENEGADA_MOTIVO.Clear;
+
+  IbDtstTabelaNFE_TRANSPORTADORA.Required := False;
+  IbDtstTabelaNFE_PLACA_VEICULO.Required  := False;
+  IbDtstTabelaNFE_PLACA_UF.Required       := False;
+
+  CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
+end;
+
 procedure TfrmGeVenda.DtSrcTabelaItensStateChange(Sender: TObject);
 begin
   btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
@@ -914,7 +922,7 @@ procedure TfrmGeVenda.AbrirTabelaItens(const AnoVenda : Smallint; const Controle
 begin
   cdsTabelaItens.Close;
 
-  with cdsTabelaItens, SelectSQL do
+  with cdsTabelaItens, SQL do
   begin
     Clear;
     AddStrings( SQL_Itens );
@@ -965,7 +973,7 @@ procedure TfrmGeVenda.AbrirTabelaTitulos(const AnoVenda : Smallint; const Contro
 begin
   qryTitulos.Close;
 
-  with qryTitulos, SelectSQL do
+  with qryTitulos, SQL do
   begin
     Clear;
     AddStrings( SQL_Titulos );
@@ -1425,7 +1433,7 @@ begin
 
       if ( Trim(cdsTabelaItensCST.AsString) = EmptyStr ) then
         cdsTabelaItensCST.Clear;
-        
+
       if ( Trim(cdsTabelaItensLOTE_ID.AsString) = EmptyStr ) then
         cdsTabelaItensLOTE_ID.Clear;
 
@@ -1517,6 +1525,7 @@ begin
         cdsTabelaItens.Post;
 
       cdsTabelaItens.ApplyUpdates;
+      cdsTabelaItens.CommitUpdates;
 
       // Salvar Formas de Pagamentos
 
@@ -1805,6 +1814,14 @@ begin
 
   cdsTabelaItensLOTE_ID.Clear;
   cdsTabelaItensREFERENCIA.Clear;
+end;
+
+procedure TfrmGeVenda.cdsTabelaItensSEQGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if Sender.IsNull then
+    Exit;
+
+  Text := IntToStr(cdsTabelaItens.RecNo);
 end;
 
 procedure TfrmGeVenda.btbtnFinalizarClick(Sender: TObject);
@@ -2222,6 +2239,7 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
 
         CommitTransaction;
       end;
@@ -2252,11 +2270,14 @@ begin
 
       UpdateSequence('GEN_CONTAREC_NUM_' + IntToStr(AnoVenda), 'TBCONTREC', 'NUMLANC', 'where ANOLANC = ' + IntToStr(AnoVenda));
 
-      with IbStrPrcGerarTitulos do
+      with spSetGerarTitulos do
       begin
         ParamByName('anovenda').AsInteger := AnoVenda;
         ParamByName('numvenda').AsInteger := ControleVenda;
+
         ExecProc;
+        CommitUpdates;
+
         CommitTransaction;
       end;
 
@@ -2269,11 +2290,6 @@ begin
     end;
   finally
   end;
-end;
-
-procedure TfrmGeVenda.qryTitulosCalcFields(DataSet: TDataSet);
-begin
-  qryTitulosLancamento.AsString := FormatFloat('0000', qryTitulosANOLANC.AsInteger) + FormatFloat('000000', qryTitulosNUMLANC.AsInteger);
 end;
 
 procedure TfrmGeVenda.btnRegerarTituloClick(Sender: TObject);
@@ -2547,6 +2563,11 @@ begin
   end;
 
   Result := bReturn;
+end;
+
+procedure TfrmGeVenda.qryTitulosCalcFields(DataSet: TDataSet);
+begin
+  qryTitulosLancamento.AsString := FormatFloat('0000', qryTitulosANOLANC.AsInteger) + FormatFloat('000000', qryTitulosNUMLANC.AsInteger);
 end;
 
 procedure TfrmGeVenda.dbgTitulosKeyDown(Sender: TObject; var Key: Word;
@@ -2852,15 +2873,6 @@ begin
     cdsVendaFormaPagto.Post;
 end;
 
-procedure TfrmGeVenda.cdsTabelaItensSEQGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if Sender.IsNull then
-    Exit;
-
-  Text := IntToStr(cdsTabelaItens.RecNo);
-end;
-
 procedure TfrmGeVenda.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -2894,7 +2906,6 @@ begin
     btnConsultarProduto.Click
   else
   // Desistir na inserção de um novo produto/serviço
-//  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) and (Trim(dbProduto.Text) = EmptyStr) ) then
   if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
     cdsTabelaItens.Cancel
   else
@@ -3302,6 +3313,7 @@ begin
 
           Post;
           ApplyUpdates;
+          CommitUpdates;
 
           CommitTransaction;
         end;
@@ -3566,11 +3578,6 @@ begin
     frrVendaCartaCredito.ShowReport;
 
   end;
-end;
-
-procedure TfrmGeVenda.IbDtstTabelaAfterScroll(DataSet: TDataSet);
-begin
-  HabilitarDesabilitar_Btns;
 end;
 
 procedure TfrmGeVenda.IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;

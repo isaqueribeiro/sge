@@ -5,24 +5,22 @@ interface
 uses
   UGrPadrao,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, DB, IBCustomDataSet, IBUpdateSQL,
-  ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, cxControls,
-  cxContainer, cxEdit, IBX.IBTable,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls,
+  Buttons, DB, ExtCtrls, Grids, DBGrids, Mask, DBCtrls, DBClient, Provider, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, cxControls, cxContainer, cxEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaConfirmaTitulos = class(TfrmGrPadrao)
     GrpBxControle: TGroupBox;
     Bevel1: TBevel;
-    qryTitulos: TIBDataSet;
     dtsTitulos: TDataSource;
     dbgTitulos: TDBGrid;
     Bevel2: TBevel;
@@ -38,16 +36,10 @@ type
     dbEmissao: TDBEdit;
     dspTitulos: TDataSetProvider;
     cdsTitulos: TClientDataSet;
-    cdsTitulosANOLANC: TSmallintField;
-    cdsTitulosNUMLANC: TIntegerField;
-    cdsTitulosPARCELA: TSmallintField;
-    cdsTitulosDTEMISS: TDateField;
-    cdsTitulosDTVENC: TDateField;
     cdsTitulosTotalParcelas: TAggregateField;
     cdsTitulosTotalEntrada: TCurrencyField;
     dbTotalEntrada: TDBEdit;
     dbTotalParcelas: TDBEdit;
-    updParcela: TIBDataSet;
     pnlTotais: TPanel;
     Label1: TLabel;
     lblTotalVenda: TLabel;
@@ -56,20 +48,40 @@ type
     Label3: TLabel;
     lblTotalDiferenca: TLabel;
     cdsTitulosDiaSemana: TSmallintField;
-    cdsTitulosVALORREC: TBCDField;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
-    cdsTitulosCNPJ: TWideStringField;
-    cdsTitulosTIPPAG: TWideStringField;
     cdsTitulosLancamento: TStringField;
-    cdsTitulosVALORRECTOT: TBCDField;
-    cdsTitulosVALORSALDO: TBCDField;
-    cdsTitulosBAIXADO: TSmallintField;
     dtsFormaPagto: TDataSource;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
-    cdsTitulosFORMA_PAGTO: TSmallintField;
     fdQryFormaPagto: TFDQuery;
+    qryTitulos: TFDQuery;
+    qryTitulosANOLANC: TSmallintField;
+    qryTitulosNUMLANC: TIntegerField;
+    qryTitulosPARCELA: TSmallintField;
+    qryTitulosCNPJ: TStringField;
+    qryTitulosTIPPAG: TStringField;
+    qryTitulosFORMA_PAGTO: TSmallintField;
+    qryTitulosDTEMISS: TDateField;
+    qryTitulosDTVENC: TDateField;
+    qryTitulosVALORREC: TBCDField;
+    qryTitulosVALORRECTOT: TBCDField;
+    qryTitulosVALORSALDO: TBCDField;
+    qryTitulosBAIXADO: TSmallintField;
+    cdsTitulosANOLANC: TSmallintField;
+    cdsTitulosNUMLANC: TIntegerField;
+    cdsTitulosPARCELA: TSmallintField;
+    cdsTitulosCNPJ: TStringField;
+    cdsTitulosTIPPAG: TStringField;
+    cdsTitulosFORMA_PAGTO: TSmallintField;
+    cdsTitulosDTEMISS: TDateField;
+    cdsTitulosDTVENC: TDateField;
+    cdsTitulosVALORREC: TBCDField;
+    cdsTitulosVALORRECTOT: TBCDField;
+    cdsTitulosVALORSALDO: TBCDField;
+    cdsTitulosBAIXADO: TSmallintField;
+    qryContaAReceber: TFDQuery;
+    updContaAReceber: TFDUpdateSQL;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -164,7 +176,7 @@ end;
 procedure TfrmGeVendaConfirmaTitulos.FormShow(Sender: TObject);
 begin
   inherited;
-  with qryTitulos, SelectSQL do
+  with qryTitulos, SQL do
   begin
     Add('where Parcela > 0');
     Add('  and AnoVenda = ' + IntToStr(AnoVenda));
@@ -295,16 +307,23 @@ begin
   begin
     fdQryFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
 
-    updParcela.Close;
-    updParcela.ParamByName('Tippag').AsString       := fdQryFormaPagto.FieldByName('DESCRI').AsString;
-    updParcela.ParamByName('Forma_Pagto').AsInteger := cdsTitulosFORMA_PAGTO.AsInteger;
-    updParcela.ParamByName('vencimento').AsDateTime := cdsTitulosDTVENC.AsDateTime;
-    updParcela.ParamByName('valor').AsCurrency      := cdsTitulosVALORREC.AsCurrency;
-    updParcela.ParamByName('anovenda').AsInteger := AnoVenda;
-    updParcela.ParamByName('numvenda').AsInteger := ControleVenda;
-    updParcela.ParamByName('anolanc').AsInteger  := cdsTitulosANOLANC.AsInteger;
-    updParcela.ParamByName('numlanc').AsInteger  := cdsTitulosNUMLANC.AsInteger;
-    updParcela.ExecSQL;
+    qryContaAReceber.Close;
+    qryContaAReceber.ParamByName('anolanc').AsInteger  := cdsTitulosANOLANC.AsInteger;
+    qryContaAReceber.ParamByName('numlanc').AsInteger  := cdsTitulosNUMLANC.AsInteger;
+    qryContaAReceber.Open;
+
+    qryContaAReceber.Edit;
+
+    qryContaAReceber.FieldByName('Tippag').AsString       := fdQryFormaPagto.FieldByName('DESCRI').AsString;
+    qryContaAReceber.FieldByName('Forma_Pagto').AsInteger := cdsTitulosFORMA_PAGTO.AsInteger;
+    qryContaAReceber.FieldByName('Dtvenc').AsDateTime     := cdsTitulosDTVENC.AsDateTime;
+    qryContaAReceber.FieldByName('Valorrec').AsCurrency   := cdsTitulosVALORREC.AsCurrency;
+    qryContaAReceber.FieldByName('anovenda').AsInteger    := AnoVenda;
+    qryContaAReceber.FieldByName('numvenda').AsInteger    := ControleVenda;
+
+    qryContaAReceber.Post;
+    qryContaAReceber.ApplyUpdates;
+    qryContaAReceber.CommitUpdates;
 
     cdsTitulos.Next;
   end;

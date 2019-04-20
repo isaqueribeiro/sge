@@ -261,7 +261,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       item
         Expanded = False
         FieldName = 'Lancamento'
-        Title.Caption = 'Lan'#231'amento'
+        Title.Caption = 'Lan'#231'amento '
         Width = 80
         Visible = True
       end
@@ -269,6 +269,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
         Expanded = False
         FieldName = 'PARCELA'
         Title.Alignment = taCenter
+        Title.Caption = 'Parc. '
         Width = 40
         Visible = True
       end
@@ -276,6 +277,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
         Expanded = False
         FieldName = 'DTEMISS'
         Title.Alignment = taCenter
+        Title.Caption = 'Emiss'#227'o '
         Width = 80
         Visible = True
       end
@@ -283,6 +285,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
         Expanded = False
         FieldName = 'DTVENC'
         Title.Alignment = taCenter
+        Title.Caption = 'Vencimento '
         Width = 80
         Visible = True
       end
@@ -290,14 +293,14 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
         Expanded = False
         FieldName = 'DiaSemana'
         Title.Alignment = taCenter
-        Title.Caption = 'DS'
+        Title.Caption = 'DS '
         Width = 35
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'VALORREC'
-        Title.Caption = 'Valor A Rec. (R$)'
+        Title.Caption = 'Valor A Rec. (R$) '
         Width = 110
         Visible = True
       end>
@@ -572,35 +575,6 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     TabOrder = 5
     OnClick = btFecharClick
   end
-  object qryTitulos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    Anolanc'
-      '  , Numlanc'
-      '  , parcela'
-      '  , Cnpj'
-      '  , Tippag'
-      '  , Forma_Pagto'
-      '  , Dtemiss'
-      '  , Dtvenc'
-      '  , Valorrec'
-      '  , ValorrecTot'
-      '  , ValorSaldo'
-      '  , Baixado'
-      'from TBCONTREC')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = True
-    Left = 40
-    Top = 168
-  end
   object dtsTitulos: TDataSource
     AutoEdit = False
     DataSet = cdsTitulos
@@ -627,73 +601,75 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     Top = 232
     object cdsTitulosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
-      ProviderFlags = [pfInUpdate, pfInKey]
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsTitulosNUMLANC: TIntegerField
       FieldName = 'NUMLANC'
-      ProviderFlags = [pfInUpdate, pfInKey]
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsTitulosPARCELA: TSmallintField
       Alignment = taCenter
-      DisplayLabel = 'Parc.'
       FieldName = 'PARCELA'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'PARCELA'
       DisplayFormat = '00'
     end
-    object cdsTitulosCNPJ: TWideStringField
+    object cdsTitulosCNPJ: TStringField
       FieldName = 'CNPJ'
+      Origin = 'CNPJ'
       Size = 18
     end
-    object cdsTitulosTIPPAG: TWideStringField
+    object cdsTitulosTIPPAG: TStringField
       FieldName = 'TIPPAG'
+      Origin = 'TIPPAG'
       Size = 35
     end
     object cdsTitulosFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object cdsTitulosDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsTitulosDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object cdsTitulosVALORREC: TBCDField
       FieldName = 'VALORREC'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'VALORREC'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object cdsTitulosVALORRECTOT: TBCDField
       FieldName = 'VALORRECTOT'
+      Origin = 'VALORRECTOT'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object cdsTitulosVALORSALDO: TBCDField
       FieldName = 'VALORSALDO'
+      Origin = 'VALORSALDO'
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object cdsTitulosBAIXADO: TSmallintField
       FieldName = 'BAIXADO'
+      Origin = 'BAIXADO'
+      Required = True
     end
-    object cdsTitulosDTEMISS: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Emiss'#227'o'
-      FieldName = 'DTEMISS'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object cdsTitulosDTVENC: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Vencimento'
-      FieldName = 'DTVENC'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object cdsTitulosTotalEntrada: TCurrencyField
+    object cdsTitulosLancamento: TStringField
       FieldKind = fkInternalCalc
-      FieldName = 'TotalEntrada'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
+      FieldName = 'Lancamento'
     end
     object cdsTitulosDiaSemana: TSmallintField
       Alignment = taCenter
@@ -702,9 +678,11 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ProviderFlags = []
       OnGetText = cdsTitulosDiaSemanaGetText
     end
-    object cdsTitulosLancamento: TStringField
+    object cdsTitulosTotalEntrada: TCurrencyField
       FieldKind = fkInternalCalc
-      FieldName = 'Lancamento'
+      FieldName = 'TotalEntrada'
+      ProviderFlags = []
+      DisplayFormat = ',0.00'
     end
     object cdsTitulosTotalParcelas: TAggregateField
       Alignment = taRightJustify
@@ -716,30 +694,6 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       DisplayFormat = ',0.00'
       Expression = 'SUM(VALORREC)'
     end
-  end
-  object updParcela: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Update TBCONTREC Set'
-      
-        '    Tippag = :Tippag, Forma_Pagto = :Forma_Pagto, Dtvenc = :Venc' +
-        'imento, Valorrec = :Valor'
-      'where AnoVenda = :AnoVenda'
-      '  and NumVenda = :NumVenda'
-      '  and Anolanc = :Anolanc'
-      '  and Numlanc = :Numlanc'
-      '')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 40
-    Top = 296
   end
   object dtsFormaPagto: TDataSource
     DataSet = fdQryFormaPagto
@@ -755,5 +709,175 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       'from TBFORMPAGTO')
     Left = 288
     Top = 216
+  end
+  object qryTitulos: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    Anolanc'
+      '  , Numlanc'
+      '  , parcela'
+      '  , Cnpj'
+      '  , Tippag'
+      '  , Forma_Pagto'
+      '  , Dtemiss'
+      '  , Dtvenc'
+      '  , Valorrec'
+      '  , ValorrecTot'
+      '  , ValorSaldo'
+      '  , Baixado'
+      'from TBCONTREC')
+    Left = 40
+    Top = 168
+    object qryTitulosANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryTitulosNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryTitulosPARCELA: TSmallintField
+      FieldName = 'PARCELA'
+      Origin = 'PARCELA'
+    end
+    object qryTitulosCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      Size = 18
+    end
+    object qryTitulosTIPPAG: TStringField
+      FieldName = 'TIPPAG'
+      Origin = 'TIPPAG'
+      Size = 35
+    end
+    object qryTitulosFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object qryTitulosDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+    end
+    object qryTitulosDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+    end
+    object qryTitulosVALORREC: TBCDField
+      FieldName = 'VALORREC'
+      Origin = 'VALORREC'
+      Precision = 18
+      Size = 2
+    end
+    object qryTitulosVALORRECTOT: TBCDField
+      FieldName = 'VALORRECTOT'
+      Origin = 'VALORRECTOT'
+      Precision = 18
+      Size = 2
+    end
+    object qryTitulosVALORSALDO: TBCDField
+      FieldName = 'VALORSALDO'
+      Origin = 'VALORSALDO'
+      Precision = 18
+      Size = 2
+    end
+    object qryTitulosBAIXADO: TSmallintField
+      FieldName = 'BAIXADO'
+      Origin = 'BAIXADO'
+      Required = True
+    end
+  end
+  object qryContaAReceber: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updContaAReceber
+    SQL.Strings = (
+      'Select'
+      '    Anolanc'
+      '  , Numlanc'
+      '  , parcela'
+      '  , Cnpj'
+      '  , Tippag'
+      '  , Forma_Pagto'
+      '  , Dtemiss'
+      '  , Dtvenc'
+      '  , Valorrec'
+      '  , ValorrecTot'
+      '  , ValorSaldo'
+      '  , Baixado'
+      'from TBCONTREC'
+      'where Anolanc = :Anolanc'
+      '  and Numlanc = :Numlanc')
+    Left = 128
+    Top = 167
+    ParamData = <
+      item
+        Name = 'ANOLANC'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMLANC'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object updContaAReceber: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTREC'
+      '(ANOLANC, NUMLANC, CNPJ, FORMA_PAGTO, TIPPAG, '
+      '  DTEMISS, DTVENC, VALORREC, VALORRECTOT, '
+      '  VALORSALDO, PARCELA, BAIXADO)'
+      
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_CNPJ, :NEW_FORMA_PAGTO,' +
+        ' :NEW_TIPPAG, '
+      '  :NEW_DTEMISS, :NEW_DTVENC, :NEW_VALORREC, :NEW_VALORRECTOT, '
+      '  :NEW_VALORSALDO, :NEW_PARCELA, :NEW_BAIXADO)')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTREC'
+      
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, CNPJ = :NEW_' +
+        'CNPJ, '
+      
+        '  FORMA_PAGTO = :NEW_FORMA_PAGTO, TIPPAG = :NEW_TIPPAG, DTEMISS ' +
+        '= :NEW_DTEMISS, '
+      
+        '  DTVENC = :NEW_DTVENC, VALORREC = :NEW_VALORREC, VALORRECTOT = ' +
+        ':NEW_VALORRECTOT, '
+      
+        '  VALORSALDO = :NEW_VALORSALDO, PARCELA = :NEW_PARCELA, BAIXADO ' +
+        '= :NEW_BAIXADO'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTREC'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANOLANC, NUMLANC, EMPRESA, CLIENTE, CNPJ, FORMA_PAGTO, TI' +
+        'PPAG, '
+      '  HISTORIC, NUMREC, DTEMISS, DTVENC, DTREC, DOCBAIX, VALORREC, '
+      '  VALORMULTA, VALORRECTOT, VALORSALDO, NUMCONTRATO, PARCELA, '
+      
+        '  STATUS, CODBANCO, BANCO_FEBRABAN, NOSSONUMERO, ESPECIE_BOLETO,' +
+        ' '
+      
+        '  REMESSA, PERCENTJUROS, PERCENTMULTA, PERCENTDESCONTO, DATAPROC' +
+        'ESSOBOLETO, '
+      '  BAIXADO, ENVIADO, ANOVENDA, NUMVENDA, ANOOS, NUMOS, CODTPREC, '
+      '  SITUACAO, LOTE, COMPETENCIA_APURACAO'
+      'FROM TBCONTREC'
+      'WHERE ANOLANC = :ANOLANC AND NUMLANC = :NUMLANC')
+    Left = 160
+    Top = 167
   end
 end
