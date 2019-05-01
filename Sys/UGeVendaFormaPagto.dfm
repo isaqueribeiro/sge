@@ -839,4 +839,9 @@ inherited frmGeVendaFormaPagto: TfrmGeVendaFormaPagto
     TabOrder = 3
     OnClick = btnCancelarClick
   end
+  object dtsVenda: TDataSource
+    DataSet = frmGeVenda.fdQryTabela
+    Left = 336
+    Top = 13
+  end
 end

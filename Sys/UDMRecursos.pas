@@ -54,7 +54,7 @@ var
   gPersonalizaEmpresa : TPersonalizaEmpresa;
 
   procedure WaitAMomentFree;
-  procedure WaitAMoment(const aTag : Integer = -1);
+  procedure WaitAMoment(const aTag : Integer = -1; const aMensabem : String = '');
   procedure InstalarFonteWindows(aFontName, aFontDescription : String);
 
   {$IFNDEF PRINTER_CUPOM}
@@ -71,16 +71,25 @@ implementation
 procedure WaitAMomentFree;
 begin
   if ( FrmAguarde <> nil ) then
+  begin
     FrmAguarde.Close;
+    FrmAguarde.Free;
+  end;
+
+  Application.BringToFront; // Trazer aplicação para frente
 end;
 
-procedure WaitAMoment(const aTag : Integer = -1);
+procedure WaitAMoment(const aTag : Integer = -1; const aMensabem : String = '');
 begin
   WaitAMomentFree;
 
   try
     FrmAguarde := TFrmAguarde.Create(Application);
     FrmAguarde.Tag := aTag;
+
+    if (Trim(aMensabem) <> EmptyStr) then
+      FrmAguarde.lbDesc.Caption := Trim(aMensabem);
+
     FrmAguarde.Show;
   finally
   end

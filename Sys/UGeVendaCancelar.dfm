@@ -490,15 +490,19 @@ inherited frmGeVendaCancelar: TfrmGeVendaCancelar
     TabOrder = 3
     OnClick = btFecharClick
   end
-  object cdsVenda: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
+  object dtsVenda: TDataSource
+    AutoEdit = False
+    DataSet = cdsVenda
+    Left = 256
+    Top = 248
+  end
+  object cdsVenda: TFDQuery
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updVenda
+    SQL.Strings = (
       'Select'
       '    v.Ano'
       '  , v.Codcontrol'
@@ -529,220 +533,224 @@ inherited frmGeVendaCancelar: TfrmGeVendaCancelar
       'where v.Ano = :anovenda'
       '  and v.Codcontrol = :numvenda'
       '')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updVenda
-    Left = 480
-    Top = 96
+    Left = 288
+    Top = 247
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object cdsVendaANO: TSmallintField
       FieldName = 'ANO'
-      Origin = 'TBVENDAS.ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsVendaCODCONTROL: TIntegerField
-      Alignment = taCenter
       FieldName = 'CODCONTROL'
-      Origin = 'TBVENDAS.CODCONTROL'
+      Origin = 'CODCONTROL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       DisplayFormat = '###0000000'
     end
-    object cdsVendaCODEMP: TIBStringField
+    object cdsVendaCODEMP: TStringField
       FieldName = 'CODEMP'
-      Origin = 'TBVENDAS.CODEMP'
+      Origin = 'CODEMP'
       Size = 18
     end
     object cdsVendaCODCLIENTE: TIntegerField
       FieldName = 'CODCLIENTE'
-      Origin = '"TBVENDAS"."CODCLIENTE"'
+      Origin = 'CODCLIENTE'
     end
-    object cdsVendaCODCLI: TIBStringField
+    object cdsVendaCODCLI: TStringField
       FieldName = 'CODCLI'
-      Origin = 'TBVENDAS.CODCLI'
+      Origin = 'CODCLI'
       Size = 18
     end
-    object cdsVendaDTVENDA: TDateTimeField
+    object cdsVendaDTVENDA: TSQLTimeStampField
       FieldName = 'DTVENDA'
-      Origin = 'TBVENDAS.DTVENDA'
+      Origin = 'DTVENDA'
     end
     object cdsVendaSTATUS: TSmallintField
       FieldName = 'STATUS'
-      Origin = 'TBVENDAS.STATUS'
+      Origin = 'STATUS'
       Required = True
     end
-    object cdsVendaDESCONTO: TIBBCDField
+    object cdsVendaDESCONTO: TBCDField
       FieldName = 'DESCONTO'
-      Origin = '"TBVENDAS"."DESCONTO"'
+      Origin = 'DESCONTO'
       Precision = 18
-      Size = 4
     end
-    object cdsVendaTOTALVENDA: TIBBCDField
+    object cdsVendaTOTALVENDA: TBCDField
       FieldName = 'TOTALVENDA'
-      Origin = 'TBVENDAS.TOTALVENDA'
+      Origin = 'TOTALVENDA'
       Precision = 18
       Size = 2
     end
-    object cdsVendaSERIE: TIBStringField
+    object cdsVendaSERIE: TStringField
       Alignment = taCenter
       FieldName = 'SERIE'
-      Origin = 'TBVENDAS.SERIE'
+      Origin = 'SERIE'
       Size = 4
     end
     object cdsVendaNFE: TLargeintField
       Alignment = taCenter
       FieldName = 'NFE'
-      Origin = 'TBVENDAS.NFE'
+      Origin = 'NFE'
       DisplayFormat = '###0000000'
     end
     object cdsVendaLOTE_NFE_ANO: TSmallintField
       FieldName = 'LOTE_NFE_ANO'
-      Origin = 'TBVENDAS.LOTE_NFE_ANO'
+      Origin = 'LOTE_NFE_ANO'
     end
     object cdsVendaLOTE_NFE_NUMERO: TIntegerField
       FieldName = 'LOTE_NFE_NUMERO'
-      Origin = 'TBVENDAS.LOTE_NFE_NUMERO'
+      Origin = 'LOTE_NFE_NUMERO'
     end
     object cdsVendaNFE_ENVIADA: TSmallintField
       FieldName = 'NFE_ENVIADA'
-      Origin = 'TBVENDAS.NFE_ENVIADA'
+      Origin = 'NFE_ENVIADA'
       Required = True
     end
     object cdsVendaNFE_DENEGADA: TSmallintField
       FieldName = 'NFE_DENEGADA'
-      Origin = '"TBVENDAS"."NFE_DENEGADA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'NFE_DENEGADA'
     end
     object cdsVendaDATAEMISSAO: TDateField
       FieldName = 'DATAEMISSAO'
-      Origin = 'TBVENDAS.DATAEMISSAO'
+      Origin = 'DATAEMISSAO'
       DisplayFormat = 'dd/mm/yyyy'
     end
     object cdsVendaHORAEMISSAO: TTimeField
       FieldName = 'HORAEMISSAO'
-      Origin = 'TBVENDAS.HORAEMISSAO'
+      Origin = 'HORAEMISSAO'
       DisplayFormat = 'hh:mm:ss'
     end
-    object cdsVendaCANCEL_USUARIO: TIBStringField
+    object cdsVendaCANCEL_USUARIO: TStringField
       FieldName = 'CANCEL_USUARIO'
-      Origin = 'TBVENDAS.CANCEL_USUARIO'
+      Origin = 'CANCEL_USUARIO'
       Size = 50
     end
-    object cdsVendaCANCEL_DATAHORA: TDateTimeField
+    object cdsVendaCANCEL_DATAHORA: TSQLTimeStampField
       FieldName = 'CANCEL_DATAHORA'
-      Origin = 'TBVENDAS.CANCEL_DATAHORA'
+      Origin = 'CANCEL_DATAHORA'
     end
     object cdsVendaCANCEL_MOTIVO: TMemoField
       FieldName = 'CANCEL_MOTIVO'
-      Origin = 'TBVENDAS.CANCEL_MOTIVO'
+      Origin = 'CANCEL_MOTIVO'
       BlobType = ftMemo
-      Size = 8
     end
     object cdsVendaCFOP: TIntegerField
       FieldName = 'CFOP'
-      Origin = 'TBVENDAS.CFOP'
+      Origin = 'CFOP'
     end
-    object cdsVendaVERIFICADOR_NFE: TIBStringField
+    object cdsVendaVERIFICADOR_NFE: TStringField
       FieldName = 'VERIFICADOR_NFE'
-      Origin = 'TBVENDAS.VERIFICADOR_NFE'
+      Origin = 'VERIFICADOR_NFE'
       Size = 250
     end
     object cdsVendaXML_NFE: TMemoField
       FieldName = 'XML_NFE'
-      Origin = 'TBVENDAS.XML_NFE'
+      Origin = 'XML_NFE'
       BlobType = ftMemo
-      Size = 8
     end
-    object cdsVendaNOME: TIBStringField
+    object cdsVendaNOME: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'NOME'
-      Origin = 'TBCLIENTE.NOME'
-      Size = 60
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 100
     end
   end
-  object updVenda: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODCONTROL,'
-      '  CODEMP,'
-      '  CODCLI,'
-      '  DTVENDA,'
-      '  STATUS,'
-      '  DESCONTO,'
-      '  TOTALVENDA,'
-      '  DTFINALIZACAO_VENDA,'
-      '  OBS,'
-      '  FORMAPAG,'
-      '  FATDIAS,'
-      '  SERIE,'
-      '  NFE,'
-      '  DATAEMISSAO,'
-      '  HORAEMISSAO,'
-      '  CFOP,'
-      '  VERIFICADOR_NFE,'
-      '  XML_NFE,'
-      '  VENDEDOR_COD,'
-      '  USUARIO,'
-      '  FORMAPAGTO_COD,'
-      '  CONDICAOPAGTO_COD,'
-      '  VENDA_PRAZO,'
-      '  PRAZO_01,'
-      '  PRAZO_02,'
-      '  PRAZO_03,'
-      '  PRAZO_04,'
-      '  PRAZO_05,'
-      '  PRAZO_06,'
-      '  PRAZO_07,'
-      '  PRAZO_08,'
-      '  PRAZO_09,'
-      '  PRAZO_10,'
-      '  PRAZO_11,'
-      '  PRAZO_12,'
-      '  LOTE_NFE_ANO,'
-      '  LOTE_NFE_NUMERO,'
-      '  NFE_ENVIADA,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO,'
-      '  XML_NFE_FILENAME,'
-      '  NFE_VALOR_BASE_ICMS,'
-      '  NFE_VALOR_ICMS,'
-      '  NFE_VALOR_BASE_ICMS_SUBST,'
-      '  NFE_VALOR_ICMS_SUBST,'
-      '  NFE_VALOR_TOTAL_PRODUTO,'
-      '  NFE_VALOR_FRETE,'
-      '  NFE_VALOR_SEGURO,'
-      '  NFE_VALOR_DESCONTO,'
-      '  NFE_VALOR_TOTAL_II,'
-      '  NFE_VALOR_TOTAL_IPI,'
-      '  NFE_VALOR_PIS,'
-      '  NFE_VALOR_COFINS,'
-      '  NFE_VALOR_OUTROS,'
-      '  NFE_VALOR_TOTAL_NOTA'
-      'from TBVENDAS '
-      'where'
-      '  ANO = :ANO and'
-      '  CODCONTROL = :CODCONTROL')
-    ModifySQL.Strings = (
-      'update TBVENDAS'
-      'set'
-      '  STATUS = :STATUS,'
-      '  CANCEL_USUARIO = :CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO = :CANCEL_MOTIVO'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL')
+  object updVenda: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      '')
-    Left = 512
-    Top = 96
-  end
-  object dtsVenda: TDataSource
-    AutoEdit = False
-    DataSet = cdsVenda
-    Left = 544
-    Top = 96
+      'INSERT INTO TBVENDAS'
+      '(ANO, CODCONTROL, CODEMP, CODCLIENTE, CODCLI, '
+      '  DTVENDA, STATUS, DESCONTO, TOTALVENDA, '
+      '  SERIE, NFE, DATAEMISSAO, HORAEMISSAO, '
+      '  CFOP, VERIFICADOR_NFE, XML_NFE, LOTE_NFE_ANO, '
+      '  LOTE_NFE_NUMERO, NFE_ENVIADA, NFE_DENEGADA, '
+      '  CANCEL_USUARIO, CANCEL_DATAHORA, CANCEL_MOTIVO)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_CODCLIENTE,' +
+        ' :NEW_CODCLI, '
+      '  :NEW_DTVENDA, :NEW_STATUS, :NEW_DESCONTO, :NEW_TOTALVENDA, '
+      '  :NEW_SERIE, :NEW_NFE, :NEW_DATAEMISSAO, :NEW_HORAEMISSAO, '
+      
+        '  :NEW_CFOP, :NEW_VERIFICADOR_NFE, :NEW_XML_NFE, :NEW_LOTE_NFE_A' +
+        'NO, '
+      '  :NEW_LOTE_NFE_NUMERO, :NEW_NFE_ENVIADA, :NEW_NFE_DENEGADA, '
+      '  :NEW_CANCEL_USUARIO, :NEW_CANCEL_DATAHORA, :NEW_CANCEL_MOTIVO)')
+    ModifySQL.Strings = (
+      'UPDATE TBVENDAS'
+      
+        'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
+        'CODEMP, '
+      
+        '  CODCLIENTE = :NEW_CODCLIENTE, CODCLI = :NEW_CODCLI, DTVENDA = ' +
+        ':NEW_DTVENDA, '
+      
+        '  STATUS = :NEW_STATUS, DESCONTO = :NEW_DESCONTO, TOTALVENDA = :' +
+        'NEW_TOTALVENDA, '
+      
+        '  SERIE = :NEW_SERIE, NFE = :NEW_NFE, DATAEMISSAO = :NEW_DATAEMI' +
+        'SSAO, '
+      
+        '  HORAEMISSAO = :NEW_HORAEMISSAO, CFOP = :NEW_CFOP, VERIFICADOR_' +
+        'NFE = :NEW_VERIFICADOR_NFE, '
+      '  XML_NFE = :NEW_XML_NFE, LOTE_NFE_ANO = :NEW_LOTE_NFE_ANO, '
+      
+        '  LOTE_NFE_NUMERO = :NEW_LOTE_NFE_NUMERO, NFE_ENVIADA = :NEW_NFE' +
+        '_ENVIADA, '
+      
+        '  NFE_DENEGADA = :NEW_NFE_DENEGADA, CANCEL_USUARIO = :NEW_CANCEL' +
+        '_USUARIO, '
+      
+        '  CANCEL_DATAHORA = :NEW_CANCEL_DATAHORA, CANCEL_MOTIVO = :NEW_C' +
+        'ANCEL_MOTIVO'
+      'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBVENDAS'
+      'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    v.Ano'
+      '  , v.Codcontrol'
+      '  , v.Codemp'
+      '  , v.Codcliente'
+      '  , v.Codcli'
+      '  , v.Dtvenda'
+      '  , v.Status'
+      '  , v.Desconto'
+      '  , v.Totalvenda'
+      '  , v.Serie'
+      '  , v.Nfe'
+      '  , v.Lote_nfe_ano'
+      '  , v.Lote_nfe_numero'
+      '  , v.Nfe_enviada'
+      '  , v.Nfe_denegada'
+      '  , v.Dataemissao'
+      '  , v.Horaemissao'
+      '  , v.Cancel_usuario'
+      '  , v.Cancel_datahora'
+      '  , v.Cancel_motivo'
+      '  , v.Cfop'
+      '  , v.Verificador_nfe'
+      '  , v.Xml_nfe'
+      '  , c.Nome'
+      'from TBVENDAS v'
+      '  inner join TBCLIENTE c on (c.Cnpj = v.Codcli)'
+      ''
+      'WHERE v.ANO = :ANO AND v.CODCONTROL = :CODCONTROL')
+    Left = 320
+    Top = 247
   end
 end

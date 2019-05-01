@@ -717,272 +717,6 @@ inherited frmGeVendaDevolucaoNF: TfrmGeVendaDevolucaoNF
       TabOrder = 7
     end
   end
-  object cdsVenda: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    v.ano'
-      '  , v.codcontrol'
-      '  , v.codemp'
-      '  , v.dnfe_compra_ano'
-      '  , v.dnfe_compra_cod'
-      '  , v.dnfe_forma'
-      '  , v.dnfe_chave'
-      '  , v.dnfe_uf'
-      '  , v.dnfe_cnpj_cpf'
-      '  , v.dnfe_ie'
-      '  , v.dnfe_competencia'
-      '  , v.dnfe_serie'
-      '  , v.dnfe_numero'
-      '  , v.dnfe_modelo'
-      '  , v.decf_modelo'
-      '  , v.decf_numero'
-      '  , v.decf_coo'
-      'from TBVENDAS v'
-      'where v.ano        = :anovenda'
-      '  and v.codcontrol = :numvenda')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updVenda
-    Left = 288
-    object cdsVendaANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = '"TBVENDAS"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsVendaCODCONTROL: TIntegerField
-      FieldName = 'CODCONTROL'
-      Origin = '"TBVENDAS"."CODCONTROL"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      OnGetText = cdsVendaCODCONTROLGetText
-    end
-    object cdsVendaCODEMP: TIBStringField
-      FieldName = 'CODEMP'
-      Origin = '"TBVENDAS"."CODEMP"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object cdsVendaDNFE_COMPRA_ANO: TSmallintField
-      FieldName = 'DNFE_COMPRA_ANO'
-      Origin = '"TBVENDAS"."DNFE_COMPRA_ANO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaDNFE_COMPRA_COD: TIntegerField
-      FieldName = 'DNFE_COMPRA_COD'
-      Origin = '"TBVENDAS"."DNFE_COMPRA_COD"'
-      ProviderFlags = [pfInUpdate]
-      OnGetText = cdsVendaDNFE_COMPRA_CODGetText
-    end
-    object cdsVendaDNFE_FORMA: TSmallintField
-      FieldName = 'DNFE_FORMA'
-      Origin = '"TBVENDAS"."DNFE_FORMA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaDNFE_CHAVE: TIBStringField
-      DisplayLabel = 'Chave de Acesso'
-      FieldName = 'DNFE_CHAVE'
-      Origin = '"TBVENDAS"."DNFE_CHAVE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object cdsVendaDNFE_SERIE: TIBStringField
-      DisplayLabel = 'S'#233'rie'
-      FieldName = 'DNFE_SERIE'
-      Origin = '"TBVENDAS"."DNFE_SERIE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 4
-    end
-    object cdsVendaDNFE_NUMERO: TIntegerField
-      DisplayLabel = 'N'#250'mero'
-      FieldName = 'DNFE_NUMERO'
-      Origin = '"TBVENDAS"."DNFE_NUMERO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaDNFE_MODELO: TSmallintField
-      DisplayLabel = 'Modelo'
-      FieldName = 'DNFE_MODELO'
-      Origin = '"TBVENDAS"."DNFE_MODELO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '00'
-    end
-    object cdsVendaDNFE_UF: TIBStringField
-      DisplayLabel = 'UF'
-      FieldName = 'DNFE_UF'
-      Origin = '"TBVENDAS"."DNFE_UF"'
-      ProviderFlags = [pfInUpdate]
-      FixedChar = True
-      Size = 2
-    end
-    object cdsVendaDNFE_COMPETENCIA: TIBStringField
-      DisplayLabel = 'Compet'#234'ncia de emiss'#227'o'
-      FieldName = 'DNFE_COMPETENCIA'
-      Origin = '"TBVENDAS"."DNFE_COMPETENCIA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 4
-    end
-    object cdsVendaDNFE_CNPJ_CPF: TIBStringField
-      DisplayLabel = 'CPF / CNPJ'
-      FieldName = 'DNFE_CNPJ_CPF'
-      Origin = '"TBVENDAS"."DNFE_CNPJ_CPF"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object cdsVendaDNFE_IE: TIBStringField
-      DisplayLabel = 'Inscri'#231#227'o Estadual'
-      FieldName = 'DNFE_IE'
-      Origin = '"TBVENDAS"."DNFE_IE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaDECF_MODELO: TSmallintField
-      DisplayLabel = 'Modelo do Cupom'
-      FieldName = 'DECF_MODELO'
-      Origin = '"TBVENDAS"."DECF_MODELO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaDECF_NUMERO: TIntegerField
-      DisplayLabel = 'N'#250'mero ECF'
-      FieldName = 'DECF_NUMERO'
-      Origin = '"TBVENDAS"."DECF_NUMERO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaDECF_COO: TIntegerField
-      DisplayLabel = 'N'#250'mero COO'
-      FieldName = 'DECF_COO'
-      Origin = '"TBVENDAS"."DECF_COO"'
-      ProviderFlags = [pfInUpdate]
-    end
-  end
-  object updVenda: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODCONTROL,'
-      '  CODEMP,'
-      '  CODCLIENTE,'
-      '  CODCLI,'
-      '  DTVENDA,'
-      '  COMPETENCIA,'
-      '  STATUS,'
-      '  TOTALVENDA_BRUTA,'
-      '  DESCONTO,'
-      '  DESCONTO_CUPOM,'
-      '  TOTALVENDA,'
-      '  TOTALCUSTO,'
-      '  DTFINALIZACAO_VENDA,'
-      '  OBS,'
-      '  FORMAPAG,'
-      '  FATDIAS,'
-      '  SERIE,'
-      '  NFE,'
-      '  DATAEMISSAO,'
-      '  HORAEMISSAO,'
-      '  CFOP,'
-      '  VERIFICADOR_NFE,'
-      '  XML_NFE,'
-      '  VENDEDOR_COD,'
-      '  USUARIO,'
-      '  FORMAPAGTO_COD,'
-      '  CONDICAOPAGTO_COD,'
-      '  VENDA_PRAZO,'
-      '  PRAZO_01,'
-      '  PRAZO_02,'
-      '  PRAZO_03,'
-      '  PRAZO_04,'
-      '  PRAZO_05,'
-      '  PRAZO_06,'
-      '  PRAZO_07,'
-      '  PRAZO_08,'
-      '  PRAZO_09,'
-      '  PRAZO_10,'
-      '  PRAZO_11,'
-      '  PRAZO_12,'
-      '  LOTE_NFE_ANO,'
-      '  LOTE_NFE_NUMERO,'
-      '  LOTE_NFE_RECIBO,'
-      '  NFE_ENVIADA,'
-      '  NFE_DENEGADA,'
-      '  NFE_DENEGADA_MOTIVO,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO,'
-      '  XML_NFE_FILENAME,'
-      '  NFE_MODALIDADE_FRETE,'
-      '  NFE_TRANSPORTADORA,'
-      '  NFE_PLACA_VEICULO,'
-      '  NFE_PLACA_UF,'
-      '  NFE_PLACA_RNTC,'
-      '  NFE_VALOR_BASE_ICMS,'
-      '  NFE_VALOR_ICMS,'
-      '  NFE_VALOR_BASE_ICMS_SUBST,'
-      '  NFE_VALOR_ICMS_SUBST,'
-      '  NFE_VALOR_TOTAL_PRODUTO,'
-      '  NFE_VALOR_FRETE,'
-      '  NFE_VALOR_SEGURO,'
-      '  NFE_VALOR_DESCONTO,'
-      '  NFE_VALOR_TOTAL_II,'
-      '  NFE_VALOR_TOTAL_IPI,'
-      '  NFE_VALOR_PIS,'
-      '  NFE_VALOR_COFINS,'
-      '  NFE_VALOR_OUTROS,'
-      '  NFE_VALOR_TOTAL_NOTA,'
-      '  CUSTO_OPER_PERCENTUAL,'
-      '  CUSTO_OPER_FRETE,'
-      '  CUSTO_OPER_OUTROS,'
-      '  GERAR_ESTOQUE_CLIENTE,'
-      '  CAIXA_ANO,'
-      '  CAIXA_NUM,'
-      '  CAIXA_PDV,'
-      '  DNFE_COMPRA_ANO,'
-      '  DNFE_COMPRA_COD,'
-      '  DNFE_FORMA,'
-      '  DNFE_UF,'
-      '  DNFE_CNPJ_CPF,'
-      '  DNFE_IE,'
-      '  DNFE_COMPETENCIA,'
-      '  DNFE_SERIE,'
-      '  DNFE_NUMERO,'
-      '  DNFE_MODELO,'
-      '  DNFE_CHAVE,'
-      '  DECF_MODELO,'
-      '  DECF_NUMERO,'
-      '  DECF_COO'
-      'from TBVENDAS '
-      'where'
-      '  ANO = :ANO and'
-      '  CODCONTROL = :CODCONTROL')
-    ModifySQL.Strings = (
-      'update TBVENDAS'
-      'set'
-      '  DECF_COO = :DECF_COO,'
-      '  DECF_MODELO = :DECF_MODELO,'
-      '  DECF_NUMERO = :DECF_NUMERO,'
-      '  DNFE_CHAVE = :DNFE_CHAVE,'
-      '  DNFE_CNPJ_CPF = :DNFE_CNPJ_CPF,'
-      '  DNFE_COMPETENCIA = :DNFE_COMPETENCIA,'
-      '  DNFE_COMPRA_ANO = :DNFE_COMPRA_ANO,'
-      '  DNFE_COMPRA_COD = :DNFE_COMPRA_COD,'
-      '  DNFE_FORMA = :DNFE_FORMA,'
-      '  DNFE_IE = :DNFE_IE,'
-      '  DNFE_MODELO = :DNFE_MODELO,'
-      '  DNFE_NUMERO = :DNFE_NUMERO,'
-      '  DNFE_SERIE = :DNFE_SERIE,'
-      '  DNFE_UF = :DNFE_UF'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL')
-    Left = 320
-  end
   object dtsVenda: TDataSource
     AutoEdit = False
     DataSet = cdsVenda
@@ -1058,5 +792,236 @@ inherited frmGeVendaDevolucaoNF: TfrmGeVendaDevolucaoNF
       'from VW_MODELO_CUPOM_FISCAL')
     Left = 320
     Top = 128
+  end
+  object cdsVenda: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updVenda
+    SQL.Strings = (
+      'Select'
+      '    v.ano'
+      '  , v.codcontrol'
+      '  , v.codemp'
+      '  , v.dnfe_compra_ano'
+      '  , v.dnfe_compra_cod'
+      '  , v.dnfe_forma'
+      '  , v.dnfe_chave'
+      '  , v.dnfe_uf'
+      '  , v.dnfe_cnpj_cpf'
+      '  , v.dnfe_ie'
+      '  , v.dnfe_competencia'
+      '  , v.dnfe_serie'
+      '  , v.dnfe_numero'
+      '  , v.dnfe_modelo'
+      '  , v.decf_modelo'
+      '  , v.decf_numero'
+      '  , v.decf_coo'
+      'from TBVENDAS v'
+      'where v.ano        = :anovenda'
+      '  and v.codcontrol = :numvenda')
+    Left = 288
+    Top = 65535
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object cdsVendaANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsVendaCODCONTROL: TIntegerField
+      FieldName = 'CODCONTROL'
+      Origin = 'CODCONTROL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      OnGetText = cdsVendaCODCONTROLGetText
+    end
+    object cdsVendaCODEMP: TStringField
+      FieldName = 'CODEMP'
+      Origin = 'CODEMP'
+      Size = 18
+    end
+    object cdsVendaDNFE_COMPRA_ANO: TSmallintField
+      FieldName = 'DNFE_COMPRA_ANO'
+      Origin = 'DNFE_COMPRA_ANO'
+    end
+    object cdsVendaDNFE_COMPRA_COD: TIntegerField
+      FieldName = 'DNFE_COMPRA_COD'
+      Origin = 'DNFE_COMPRA_COD'
+      OnGetText = cdsVendaDNFE_COMPRA_CODGetText
+    end
+    object cdsVendaDNFE_FORMA: TSmallintField
+      FieldName = 'DNFE_FORMA'
+      Origin = 'DNFE_FORMA'
+    end
+    object cdsVendaDNFE_CHAVE: TStringField
+      DisplayLabel = 'Chave de Acesso'
+      FieldName = 'DNFE_CHAVE'
+      Origin = 'DNFE_CHAVE'
+      Size = 250
+    end
+    object cdsVendaDNFE_UF: TStringField
+      DisplayLabel = 'UF'
+      FieldName = 'DNFE_UF'
+      Origin = 'DNFE_UF'
+      FixedChar = True
+      Size = 2
+    end
+    object cdsVendaDNFE_CNPJ_CPF: TStringField
+      DisplayLabel = 'CPF / CNPJ'
+      FieldName = 'DNFE_CNPJ_CPF'
+      Origin = 'DNFE_CNPJ_CPF'
+      Size = 18
+    end
+    object cdsVendaDNFE_IE: TStringField
+      DisplayLabel = 'Inscri'#231#227'o Estadual'
+      FieldName = 'DNFE_IE'
+      Origin = 'DNFE_IE'
+    end
+    object cdsVendaDNFE_COMPETENCIA: TStringField
+      DisplayLabel = 'Compet'#234'ncia de emiss'#227'o'
+      FieldName = 'DNFE_COMPETENCIA'
+      Origin = 'DNFE_COMPETENCIA'
+      Size = 4
+    end
+    object cdsVendaDNFE_SERIE: TStringField
+      DisplayLabel = 'S'#233'rie'
+      FieldName = 'DNFE_SERIE'
+      Origin = 'DNFE_SERIE'
+      Size = 4
+    end
+    object cdsVendaDNFE_NUMERO: TIntegerField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'DNFE_NUMERO'
+      Origin = 'DNFE_NUMERO'
+    end
+    object cdsVendaDNFE_MODELO: TSmallintField
+      DisplayLabel = 'Modelo'
+      FieldName = 'DNFE_MODELO'
+      Origin = 'DNFE_MODELO'
+      DisplayFormat = '00'
+    end
+    object cdsVendaDECF_MODELO: TSmallintField
+      DisplayLabel = 'Modelo do Cupom'
+      FieldName = 'DECF_MODELO'
+      Origin = 'DECF_MODELO'
+    end
+    object cdsVendaDECF_NUMERO: TIntegerField
+      DisplayLabel = 'N'#250'mero ECF'
+      FieldName = 'DECF_NUMERO'
+      Origin = 'DECF_NUMERO'
+    end
+    object cdsVendaDECF_COO: TIntegerField
+      DisplayLabel = 'N'#250'mero COO'
+      FieldName = 'DECF_COO'
+      Origin = 'DECF_COO'
+    end
+  end
+  object updVenda: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBVENDAS'
+      '(ANO, CODCONTROL, CODEMP, DNFE_COMPRA_ANO, '
+      '  DNFE_COMPRA_COD, DNFE_FORMA, DNFE_UF, DNFE_CNPJ_CPF, '
+      '  DNFE_IE, DNFE_COMPETENCIA, DNFE_SERIE, DNFE_NUMERO, '
+      '  DNFE_MODELO, DNFE_CHAVE, DECF_MODELO, DECF_NUMERO, '
+      '  DECF_COO)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_DNFE_COMPRA' +
+        '_ANO, '
+      
+        '  :NEW_DNFE_COMPRA_COD, :NEW_DNFE_FORMA, :NEW_DNFE_UF, :NEW_DNFE' +
+        '_CNPJ_CPF, '
+      
+        '  :NEW_DNFE_IE, :NEW_DNFE_COMPETENCIA, :NEW_DNFE_SERIE, :NEW_DNF' +
+        'E_NUMERO, '
+      
+        '  :NEW_DNFE_MODELO, :NEW_DNFE_CHAVE, :NEW_DECF_MODELO, :NEW_DECF' +
+        '_NUMERO, '
+      '  :NEW_DECF_COO)')
+    ModifySQL.Strings = (
+      'UPDATE TBVENDAS'
+      
+        'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
+        'CODEMP, '
+      
+        '  DNFE_COMPRA_ANO = :NEW_DNFE_COMPRA_ANO, DNFE_COMPRA_COD = :NEW' +
+        '_DNFE_COMPRA_COD, '
+      
+        '  DNFE_FORMA = :NEW_DNFE_FORMA, DNFE_UF = :NEW_DNFE_UF, DNFE_CNP' +
+        'J_CPF = :NEW_DNFE_CNPJ_CPF, '
+      
+        '  DNFE_IE = :NEW_DNFE_IE, DNFE_COMPETENCIA = :NEW_DNFE_COMPETENC' +
+        'IA, '
+      '  DNFE_SERIE = :NEW_DNFE_SERIE, DNFE_NUMERO = :NEW_DNFE_NUMERO, '
+      '  DNFE_MODELO = :NEW_DNFE_MODELO, DNFE_CHAVE = :NEW_DNFE_CHAVE, '
+      
+        '  DECF_MODELO = :NEW_DECF_MODELO, DECF_NUMERO = :NEW_DECF_NUMERO' +
+        ', '
+      '  DECF_COO = :NEW_DECF_COO'
+      'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBVENDAS'
+      'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO, CODCONTROL, CODEMP, CODCLIENTE, CODCLI, DTVENDA, COM' +
+        'PETENCIA, '
+      
+        '  STATUS, TOTALVENDA_BRUTA, DESCONTO, DESCONTO_CUPOM, TOTALVENDA' +
+        ', '
+      
+        '  TOTALCUSTO, INDEX_VALOR, DTFINALIZACAO_VENDA, OBS, DADOS_ENTRE' +
+        'GA, '
+      
+        '  FORMAPAG, FATDIAS, SERIE, NFE, MODELO_NF, DATAEMISSAO, HORAEMI' +
+        'SSAO, '
+      
+        '  CFOP, VERIFICADOR_NFE, XML_NFE, XML_NFE_FILENAME, VENDEDOR_COD' +
+        ', '
+      '  USUARIO, FORMAPAGTO_COD, CONDICAOPAGTO_COD, VENDA_PRAZO, '
+      '  PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_06, '
+      '  PRAZO_07, PRAZO_08, PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, '
+      '  LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_RECIBO, NFE_ENVIADA, '
+      
+        '  NFE_DENEGADA, NFE_DENEGADA_MOTIVO, CANCEL_USUARIO, CANCEL_DATA' +
+        'HORA, '
+      '  CANCEL_MOTIVO, NFE_MODALIDADE_FRETE, NFE_TRANSPORTADORA, '
+      
+        '  NFE_PLACA_VEICULO, NFE_PLACA_UF, NFE_PLACA_RNTC, NFE_VALOR_BAS' +
+        'E_ICMS, '
+      
+        '  NFE_VALOR_ICMS, NFE_VALOR_BASE_ICMS_SUBST, NFE_VALOR_ICMS_SUBS' +
+        'T, '
+      '  NFE_VALOR_TOTAL_PRODUTO, NFE_VALOR_FRETE, NFE_VALOR_SEGURO, '
+      '  NFE_VALOR_DESCONTO, NFE_VALOR_TOTAL_II, NFE_VALOR_TOTAL_IPI, '
+      
+        '  NFE_VALOR_PIS, NFE_VALOR_COFINS, NFE_VALOR_OUTROS, NFE_VALOR_T' +
+        'OTAL_NOTA, '
+      '  CUSTO_OPER_PERCENTUAL, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS, '
+      '  GERAR_ESTOQUE_CLIENTE, CAIXA_ANO, CAIXA_NUM, CAIXA_PDV, '
+      
+        '  DNFE_COMPRA_ANO, DNFE_COMPRA_COD, DNFE_FORMA, DNFE_UF, DNFE_CN' +
+        'PJ_CPF, '
+      
+        '  DNFE_IE, DNFE_COMPETENCIA, DNFE_SERIE, DNFE_NUMERO, DNFE_MODEL' +
+        'O, '
+      '  DNFE_CHAVE, DECF_MODELO, DECF_NUMERO, DECF_COO'
+      'FROM TBVENDAS'
+      'WHERE ANO = :ANO AND CODCONTROL = :CODCONTROL')
+    Left = 320
+    Top = 65535
   end
 end

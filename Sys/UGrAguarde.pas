@@ -14,7 +14,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TfrmAguarde = class(TForm)
@@ -65,6 +66,7 @@ begin
     WAIT_AMOMENT_MakerConsulta : lbDesc.Caption := strMakerConsulta;
     WAIT_AMOMENT_Process       : lbDesc.Caption := strProcess;
     WAIT_AMOMENT_Autorizacao   : lbDesc.Caption := strAutorizacao;
+    WAIT_AMOMENT_TextoLivre    : ; // Texto definido na chamada "Wait()"
     else
       lbDesc.Caption := 'Preparando visualização...';
   end;

@@ -9,7 +9,7 @@ uses
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, Menus, IBStoredProc, frxClass, frxDBSet, IBQuery, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
+  cxLookAndFeels, cxLookAndFeelPainters, cxButtons, System.ImageList,
   JvToolEdit, JvExMask, JvDBControls,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
@@ -18,23 +18,10 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeCaixa = class(TfrmGrPadraoCadastro)
-    IbDtstTabelaANO: TSmallintField;
-    IbDtstTabelaNUMERO: TIntegerField;
-    IbDtstTabelaDATA_ABERTURA: TDateField;
-    IbDtstTabelaDATA_FECH: TDateField;
-    IbDtstTabelaDATA_CANCEL: TDateField;
-    IbDtstTabelaUSUARIO: TIBStringField;
-    IbDtstTabelaUSUARIO_CANCEL: TIBStringField;
-    IbDtstTabelaSITUACAO: TSmallintField;
-    IbDtstTabelaCONTA_CORRENTE: TIntegerField;
-    IbDtstTabelaVALOR_TOTAL_CREDITO: TIBBCDField;
-    IbDtstTabelaVALOR_TOTAL_DEBITO: TIBBCDField;
-    IbDtstTabelaDESCRICAO: TIBStringField;
-    IbDtstTabelaTIPO: TIBStringField;
     dtsOperador: TDataSource;
     dtsContaCorrente: TDataSource;
     lblOperador: TLabel;
@@ -44,7 +31,6 @@ type
     lblDataAbertura: TLabel;
     lblSituacao: TLabel;
     dbSituacao: TDBEdit;
-    IbDtstTabelaMOTIVO_CANCEL: TIBStringField;
     GrpBxDadosEncerramento: TGroupBox;
     lblDataFech: TLabel;
     lblEntrada: TLabel;
@@ -80,7 +66,6 @@ type
     frrCaixaAnalitico: TfrxReport;
     frdCaixaAnalitico: TfrxDBDataset;
     Label2: TLabel;
-    IbDtstTabelaEMPRESA: TIBStringField;
     btbtnEncerrar: TcxButton;
     btbtnCancelarCaixa: TcxButton;
     dbDataFech: TJvDBDateEdit;
@@ -88,8 +73,6 @@ type
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     dbDataAbertura: TJvDBDateEdit;
-    IbDtstTabelaEMPRESA_RAZAO: TIBStringField;
-    IbDtstTabelaEMPRESA_FANTASIA: TIBStringField;
     dbEmpresaRazao: TDBEdit;
     fdQryOperador: TFDQuery;
     fdQryContaCorrente: TFDQuery;
@@ -142,11 +125,7 @@ type
     fdQryTabelaEMPRESA_RAZAO: TStringField;
     fdQryTabelaEMPRESA_FANTASIA: TStringField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
-    procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -156,7 +135,6 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnEncerrarClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
     procedure nmImprimirCaixaSinteticoClick(Sender: TObject);
@@ -165,6 +143,10 @@ type
     procedure btbtnCancelarCaixaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure qryMovimentoCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaSITUACAOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -243,7 +225,7 @@ begin
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
             QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
         frm.WhereAdditional := '(cc.tipo = 1)'
@@ -251,8 +233,8 @@ begin
         frm.WhereAdditional := '(1 = 1)';
 
       Close;
-      SelectSQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
-      SelectSQL.Add('order by ' + CampoOrdenacao);
+      SQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
+      SQL.Add('order by ' + CampoOrdenacao);
       Open;
     end;
 
@@ -300,7 +282,7 @@ begin
     whr := 'c.Situacao = 0 and ' +
            'c.Usuario = ' + QuotedStr(Usuario);
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
         frm.WhereAdditional := '(cc.tipo = 1)'
@@ -308,7 +290,7 @@ begin
         frm.WhereAdditional := '(1 = 1)';
 
       Close;
-      SelectSQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
+      SQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
       Open;
     end;
 
@@ -333,7 +315,7 @@ begin
     whr := 'c.Situacao = 0 and ' +
            'c.Usuario = ' + QuotedStr(Usuario);
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
         frm.WhereAdditional := '(cc.tipo = 1)'
@@ -341,12 +323,12 @@ begin
         frm.WhereAdditional := '(1 = 1)';
 
       Close;
-      SelectSQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
+      SQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
       Open;
 
-      ConsolidarCaixa(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
-      AbrirTabelaConsolidado(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
-      AbrirTabelaMovimento(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+      ConsolidarCaixa(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
+      AbrirTabelaConsolidado(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
+      AbrirTabelaMovimento(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
     end;
 
     Result := (frm.ShowModal = mrOk);
@@ -401,56 +383,17 @@ begin
     fdQryContaCorrente.Filtered := True;
   end;
 
-  with IbDtstTabela, GeneratorField do
-  begin
-    Field       := CampoCodigo;
-    Generator   := sGeneratorName;
-    IncrementBy := 1;
-  end;
-
   with fdQryTabela, UpdateOptions do
   begin
-    AutoIncFields  := CampoCodigo;
-    KeyFields      := CampoCodigo;
     GeneratorName  := sGeneratorName;
     FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
-    FieldByName(CampoCodigo).AutoGenerateValue := TAutoRefreshFlag.arAutoInc;
+    FieldByName('NUMERO').AutoGenerateValue := TAutoRefreshFlag.arAutoInc;
   end;
 
   UpdateGenerator( 'where Ano = ' + FormatFloat('0000', YearOf(Date)) );
 
   FAbrirCaixa  := False;
   FFecharCaixa := False;
-end;
-
-procedure TfrmGeCaixa.IbDtstTabelaSITUACAOGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  Case Sender.AsInteger of
-    STATUS_CAIXA_ABERTO    : Text := 'Aberto';
-    STATUS_CAIXA_FECHADO   : Text := 'Fechado';
-    STATUS_CAIXA_CANCELADO : Text := 'Cancelado';
-  end;
-end;
-
-procedure TfrmGeCaixa.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  if ( FAbrirCaixa ) then
-    IbDtstTabelaUSUARIO.Value := GetUserApp;
-
-  IbDtstTabelaAno.Value           := YearOf(GetDateTimeDB);
-  IbDtstTabelaDATA_ABERTURA.Value := GetDateTimeDB;
-  IbDtstTabelaSITUACAO.Value      := STATUS_CAIXA_ABERTO;
-  IbDtstTabelaVALOR_TOTAL_CREDITO.Value := 0;
-  IbDtstTabelaVALOR_TOTAL_DEBITO.Value  := 0;
-  IbDtstTabelaDATA_FECH.Clear;
-  IbDtstTabelaDATA_CANCEL.Clear;
-  IbDtstTabelaUSUARIO_CANCEL.Clear;
-  IbDtstTabelaMOTIVO_CANCEL.Clear;
 end;
 
 procedure TfrmGeCaixa.DtSrcTabelaStateChange(Sender: TObject);
@@ -463,15 +406,71 @@ begin
     btbtnExcluir.Enabled := False;
   end;
 
-  dbDataAbertura.ReadOnly  := not (IbDtstTabela.State = dsInsert);
-  dbOperador.ReadOnly      := not (IbDtstTabela.State = dsInsert);
-  dbContaCorrente.ReadOnly := not (IbDtstTabela.State = dsInsert);
+  dbDataAbertura.ReadOnly  := not (DtSrcTabela.DataSet.State = dsInsert);
+  dbOperador.ReadOnly      := not (DtSrcTabela.DataSet.State = dsInsert);
+  dbContaCorrente.ReadOnly := not (DtSrcTabela.DataSet.State = dsInsert);
+end;
+
+procedure TfrmGeCaixa.fdQryTabelaAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  AbrirTabelaConsolidado( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
+  AbrirTabelaMovimento( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
+end;
+
+procedure TfrmGeCaixa.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    if Trim(FieldByName('USUARIO_CANCEL').AsString) = EmptyStr then
+      FieldByName('USUARIO_CANCEL').Clear;
+
+    if ( fdQryContaCorrente.Locate('CODIGO', FieldByName('CONTA_CORRENTE').AsInteger, []) ) then
+      if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
+        FieldByName('TIPO').AsString := 'Caixa'
+      else
+      if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
+        FieldByName('TIPO').AsString := 'Banco';
+  end;
+end;
+
+procedure TfrmGeCaixa.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( FAbrirCaixa ) then
+      FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
+
+    FieldByName('Ano').AsInteger            := YearOf(GetDateTimeDB);
+    FieldByName('DATA_ABERTURA').AsDateTime := GetDateTimeDB;
+    FieldByName('SITUACAO').AsInteger      := STATUS_CAIXA_ABERTO;
+    FieldByName('VALOR_TOTAL_CREDITO').AsCurrency := 0;
+    FieldByName('VALOR_TOTAL_DEBITO').AsCurrency  := 0;
+    FieldByName('DATA_FECH').Clear;
+    FieldByName('DATA_CANCEL').Clear;
+    FieldByName('USUARIO_CANCEL').Clear;
+    FieldByName('MOTIVO_CANCEL').Clear;
+  end;
+end;
+
+procedure TfrmGeCaixa.fdQryTabelaSITUACAOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  Case Sender.AsInteger of
+    STATUS_CAIXA_ABERTO    : Text := 'Aberto';
+    STATUS_CAIXA_FECHADO   : Text := 'Fechado';
+    STATUS_CAIXA_CANCELADO : Text := 'Cancelado';
+  end;
 end;
 
 procedure TfrmGeCaixa.AbrirTabelaConsolidado(const AnoCaixa: Smallint;
   const NumeroCaixa: Integer);
 begin
-  if ( FFecharCaixa and (IbDtstTabelaSITUACAO.AsInteger = STATUS_CAIXA_ABERTO) ) then
+  if ( FFecharCaixa and (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO) ) then
     ConsolidarCaixa(AnoCaixa, NumeroCaixa);
 
   cdsCosolidado.Close;
@@ -494,31 +493,24 @@ begin
 
   with qryMovimento do
   begin
-    ParamByName('Caixa_ano').AsInteger := AnoCaixa;
-    ParamByName('Caixa_num').AsInteger := NumeroCaixa;
+    ParamByName('Caixa_ano').AsSmallInt := AnoCaixa;
+    ParamByName('Caixa_num').AsInteger  := NumeroCaixa;
   end;
 
   qryMovimento.Open;
   HabilitarDesabilitar_Btns;
 
-  if ( IbDtstTabelaCONTA_CORRENTE.AsInteger > 0 ) then
-    GerarSaldoContaCorrente(IbDtstTabelaCONTA_CORRENTE.AsInteger, IbDtstTabelaDATA_ABERTURA.AsDateTime);
-end;
-
-procedure TfrmGeCaixa.IbDtstTabelaAfterCancel(DataSet: TDataSet);
-begin
-  inherited;
-  AbrirTabelaConsolidado( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
-  AbrirTabelaMovimento( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
+  if ( DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger > 0 ) then
+    GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime);
 end;
 
 procedure TfrmGeCaixa.btbtnExcluirClick(Sender: TObject);
 var
   sMsg : String;
 begin
-  if ( IbDtstTabelaSITUACAO.AsInteger > STATUS_CAIXA_ABERTO ) then
+  if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger > STATUS_CAIXA_ABERTO ) then
   begin
-    Case IbDtstTabelaSITUACAO.AsInteger of
+    Case DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger of
       STATUS_CAIXA_FECHADO   : sMsg := 'Este Caixa não pode ser excluído porque já está fechado.';
       STATUS_CAIXA_CANCELADO : sMsg := 'Este Caixa não pode ser excluído porque já está cancelado.';
     end;
@@ -528,7 +520,7 @@ begin
   end
   else
   begin
-    AbrirTabelaMovimento(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+    AbrirTabelaMovimento(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
 
     if ( not qryMovimento.IsEmpty ) then
     begin
@@ -539,8 +531,8 @@ begin
     inherited;
     if ( not OcorreuErro ) then
     begin
-      AbrirTabelaConsolidado( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
-      AbrirTabelaMovimento( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
+      AbrirTabelaConsolidado( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
+      AbrirTabelaMovimento( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
     end;
   end;
 end;
@@ -548,10 +540,17 @@ end;
 procedure TfrmGeCaixa.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  AbrirTabelaConsolidado( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
-  AbrirTabelaMovimento( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
+  if (pgcGuias.ActivePage = tbsCadastro) then
+    try
+      WaitAMoment(WAIT_AMOMENT_LoadData);
 
-  pgcMaisDados.ActivePage := tbsConsolidado;
+      AbrirTabelaConsolidado( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
+      AbrirTabelaMovimento( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
+
+      pgcMaisDados.ActivePage := tbsConsolidado;
+    finally
+      WaitAMomentFree;
+    end;
 end;
 
 procedure TfrmGeCaixa.btbtnIncluirClick(Sender: TObject);
@@ -565,11 +564,8 @@ begin
   inherited;
   if ( not OcorreuErro ) then
   begin
-//    IbDtstTabelaANO.AsInteger        := iAno;
-//    IbDtstTabelaCODCONTROL.AsInteger := iNum;
-//
-    AbrirTabelaConsolidado( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
-    AbrirTabelaMovimento( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
+    AbrirTabelaConsolidado( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
+    AbrirTabelaMovimento( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
   end;
 end;
 
@@ -577,9 +573,9 @@ procedure TfrmGeCaixa.btbtnAlterarClick(Sender: TObject);
 var
   sMsg : String;
 begin
-  if ( IbDtstTabelaSITUACAO.AsInteger > STATUS_CAIXA_ABERTO ) then
+  if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger > STATUS_CAIXA_ABERTO ) then
   begin
-    Case IbDtstTabelaSITUACAO.AsInteger of
+    Case DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger of
       STATUS_CAIXA_FECHADO   : sMsg := 'Este Caixa não pode ser alterado porque já está fechado.';
       STATUS_CAIXA_CANCELADO : sMsg := 'Este Caixa não pode ser alterado porque já está cancelado.';
     end;
@@ -592,8 +588,8 @@ begin
     inherited;
     if ( not OcorreuErro ) then
     begin
-      AbrirTabelaConsolidado( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
-      AbrirTabelaMovimento( IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger );
+      AbrirTabelaConsolidado( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
+      AbrirTabelaMovimento( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
     end;
   end;
 end;
@@ -606,11 +602,11 @@ begin
   if ( Sender = dbgDados ) then
   begin
     // Destacar Caixas Abertos
-    if ( IbDtstTabelaSITUACAO.AsInteger = STATUS_CAIXA_ABERTO ) then
+    if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO ) then
       dbgDados.Canvas.Font.Color := lblCaixaAberto.Font.Color
     else
     // Destacar Caixas Cancelados
-    if ( IbDtstTabelaSITUACAO.AsInteger = STATUS_CAIXA_CANCELADO ) then
+    if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_CANCELADO ) then
       dbgDados.Canvas.Font.Color := lblCaixaCancelado.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -630,8 +626,8 @@ procedure TfrmGeCaixa.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btbtnEncerrar.Enabled      := (IbDtstTabelaSITUACAO.AsInteger < STATUS_CAIXA_FECHADO) and (not qryMovimento.IsEmpty);
-    btbtnCancelarCaixa.Enabled := (IbDtstTabelaSITUACAO.AsInteger < STATUS_CAIXA_FECHADO) and qryMovimento.IsEmpty;
+    btbtnEncerrar.Enabled      := (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger < STATUS_CAIXA_FECHADO) and (not qryMovimento.IsEmpty);
+    btbtnCancelarCaixa.Enabled := (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger < STATUS_CAIXA_FECHADO) and qryMovimento.IsEmpty;
   end
   else
   begin
@@ -645,7 +641,7 @@ begin
   inherited;
   if ( not OcorreuErro ) then
   begin
-    if ( FAbrirCaixa and (not (IbDtstTabela.State in [dsEdit, dsInsert])) ) then
+    if ( FAbrirCaixa and (not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert])) ) then
       ModalResult := mrOk;
 
     HabilitarDesabilitar_Btns;
@@ -659,22 +655,22 @@ var
   Data  : TDateTime;
 begin
   inherited;
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  if ( IbDtstTabelaSITUACAO.AsInteger = STATUS_CAIXA_ABERTO ) then
+  if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO ) then
   begin
-    AbrirTabelaMovimento(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+    AbrirTabelaMovimento(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
 
     // Consolidar Movimentacao
 
     if ( not qryMovimento.IsEmpty ) then
     begin
-      ConsolidarCaixa(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
-      AbrirTabelaConsolidado(IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+      ConsolidarCaixa(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
+      AbrirTabelaConsolidado(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
     end;
 
     if ( qryMovimento.IsEmpty ) then
@@ -687,25 +683,25 @@ begin
       // Recalcular Saldo da Conta Corrente
       WaitAMoment(WAIT_AMOMENT_Process);
       try
-        Data   := IbDtstTabelaDATA_ABERTURA.AsDateTime;
+        Data   := DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime;
         DataDB := GetDateDB;
         while Data <= DataDB do
         begin
-          GerarSaldoContaCorrente(IbDtstTabelaCONTA_CORRENTE.AsInteger, Data);
+          GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
           Data := Data + 1;
         end;
 
         // Encerrar Caixa
-        IbDtstTabela.Edit;
-        IbDtstTabelaSITUACAO.Value  := STATUS_CAIXA_FECHADO;
-        IbDtstTabelaDATA_FECH.Value := GetDateDB;
-        IbDtstTabela.Post;
-        IbDtstTabela.ApplyUpdates;
+        fdQryTabela.Edit;
+        DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger   := STATUS_CAIXA_FECHADO;
+        DtSrcTabela.DataSet.FieldByName('DATA_FECH').AsDateTime := GetDateDB;
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates;
+        fdQryTabela.CommitUpdates;
 
         CommitTransaction;
 
         HabilitarDesabilitar_Btns;
-        WaitAMomentFree;
 
         ShowInformation('Caixa selecionado encerrado com sucesso.');
 
@@ -727,12 +723,12 @@ begin
   begin
 
     pnlFiltros.Visible      := False;
-    tbsTabela.TabVisible    := not IbDtstTabela.IsEmpty;
+    tbsTabela.TabVisible    := not DtSrcTabela.DataSet.IsEmpty;
 
     lblOperador.Enabled := False;
     dbOperador.Enabled  := False;
 
-    if ( IbDtstTabela.RecordCount = 0 ) then
+    if ( DtSrcTabela.DataSet.RecordCount = 0 ) then
     begin
       ShowWarning('Não existe caixa a ser encerrado para o usuário ativo no sistema');
 
@@ -740,7 +736,7 @@ begin
       btbtnLista.Enabled := False;
     end
     else
-    if ( IbDtstTabela.RecordCount = 1 ) then
+    if ( DtSrcTabela.DataSet.RecordCount = 1 ) then
     begin
       pgcGuias.ActivePage := tbsCadastro;
       HabilitarDesabilitar_Btns;
@@ -767,14 +763,14 @@ begin
   begin
 
     pnlFiltros.Visible      := False;
-    tbsTabela.TabVisible    := not IbDtstTabela.IsEmpty;
+    tbsTabela.TabVisible    := not DtSrcTabela.DataSet.IsEmpty;
     btbtnEncerrar.Visible   := False;
     pgcMaisDados.Visible    := False;
 
     lblOperador.Enabled := False;
     dbOperador.Enabled  := False;
 
-    if ( IbDtstTabela.IsEmpty ) then
+    if ( DtSrcTabela.DataSet.IsEmpty ) then
       btbtnIncluir.Click
     else
     begin
@@ -805,17 +801,6 @@ begin
     qryMovimentoControleCompra.AsString := EmptyStr;
 end;
 
-procedure TfrmGeCaixa.IbDtstTabelaBeforePost(DataSet: TDataSet);
-begin
-  inherited;
-  if ( fdQryContaCorrente.Locate('CODIGO', IbDtstTabelaCONTA_CORRENTE.AsInteger, []) ) then
-    if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
-      IbDtstTabelaTIPO.Value := 'Caixa'
-    else
-    if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
-      IbDtstTabelaTIPO.Value := 'Banco';
-end;
-
 procedure TfrmGeCaixa.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
@@ -843,8 +828,8 @@ begin
 
       with fdStrPrcCaixaConsolidar do
       begin
-        ParamByName('Ano_Caixa').AsInteger := AnoCaixa;
-        ParamByName('Num_Caixa').AsInteger := NumeroCaixa;
+        ParamByName('Ano_Caixa').AsSmallInt := AnoCaixa;
+        ParamByName('Num_Caixa').AsInteger  := NumeroCaixa;
         ExecProc;
 
         CommitTransaction;
@@ -866,7 +851,7 @@ end;
 
 procedure TfrmGeCaixa.nmImprimirCaixaSinteticoClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with DMNFe do
@@ -884,8 +869,8 @@ begin
       Close;
       Clear;
       AddStrings( SQL_CaixaSintetico );
-      Add('where c.Ano    = ' + IbDtstTabelaANO.AsString);
-      Add('  and c.Numero = ' + IbDtstTabelaNUMERO.AsString);
+      Add('where c.Ano    = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      Add('  and c.Numero = ' + DtSrcTabela.DataSet.FieldByName('NUMERO').AsString);
       Open;
     end;
 
@@ -897,7 +882,7 @@ end;
 
 procedure TfrmGeCaixa.nmImprimirCaixaAnaliticoClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with DMNFe do
@@ -906,7 +891,7 @@ begin
     with qryEmitente do
     begin
       Close;
-      ParamByName('Cnpj').AsString := IfThen(Trim(IbDtstTabelaEMPRESA.AsString) = EmptyStr, gUsuarioLogado.Empresa, Trim(IbDtstTabelaEMPRESA.AsString));
+      ParamByName('Cnpj').AsString := IfThen(Trim(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString) = EmptyStr, gUsuarioLogado.Empresa, Trim(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString));
       Open;
     end;
 
@@ -915,8 +900,8 @@ begin
       Close;
       Clear;
       AddStrings( SQL_CaixaSintetico );
-      Add('where c.Ano    = ' + IbDtstTabelaANO.AsString);
-      Add('  and c.Numero = ' + IbDtstTabelaNUMERO.AsString);
+      Add('where c.Ano    = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      Add('  and c.Numero = ' + DtSrcTabela.DataSet.FieldByName('NUMERO').AsString);
       Open;
     end;
 
@@ -928,7 +913,7 @@ begin
           'Esta estação não está configurada para a impressão de Cupom no Fechamento do Caixa.' + #13 +
           'Favor realizar a impressão do Caixa no sistema de retaguarda!')
       else
-        ImprimirCupomFechamentoCaixa(gUsuarioLogado.Empresa, IbDtstTabelaANO.AsInteger, IbDtstTabelaNUMERO.AsInteger);
+        ImprimirCupomFechamentoCaixa(gUsuarioLogado.Empresa, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
 
     end
     else
@@ -939,8 +924,8 @@ begin
         Close;
         Clear;
         AddStrings( SQL_CaixaAnalitico );
-        Add('where c.Ano    = ' + IbDtstTabelaANO.AsString);
-        Add('  and c.Numero = ' + IbDtstTabelaNUMERO.AsString);
+        Add('where c.Ano    = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+        Add('  and c.Numero = ' + DtSrcTabela.DataSet.FieldByName('NUMERO').AsString);
         Add('order by cm.Forma_pagto, cm.Ano, cm.Numero');
         Open;
       end;

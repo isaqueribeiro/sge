@@ -8,15 +8,15 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.Mask, Vcl.DBCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Vcl.Menus, cxButtons, Data.DB, IBX.IBCustomDataSet, IBX.IBUpdateSQL,
-  JvExMask, JvToolEdit, JvDBControls, IBX.IBTable,
+  Vcl.Menus, cxButtons, Data.DB, JvExMask, JvToolEdit, JvDBControls, Datasnap.DBClient,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaDevolucaoNF = class(TfrmGrPadrao)
@@ -26,8 +26,6 @@ type
     Bevel1: TBevel;
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
-    cdsVenda: TIBDataSet;
-    updVenda: TIBUpdateSQL;
     dtsVenda: TDataSource;
     lblCompra: TLabel;
     dbCompra: TJvDBComboEdit;
@@ -63,36 +61,36 @@ type
     lblNFIE: TLabel;
     dbNFIE: TDBEdit;
     dtsModeloCupom: TDataSource;
+    fdQryFormaDevolucao: TFDQuery;
+    fdQryUF: TFDQuery;
+    fdQryCompetencia: TFDQuery;
+    fdQryModeloCupom: TFDQuery;
+    cdsVenda: TFDQuery;
+    updVenda: TFDUpdateSQL;
     cdsVendaANO: TSmallintField;
     cdsVendaCODCONTROL: TIntegerField;
-    cdsVendaCODEMP: TIBStringField;
+    cdsVendaCODEMP: TStringField;
     cdsVendaDNFE_COMPRA_ANO: TSmallintField;
     cdsVendaDNFE_COMPRA_COD: TIntegerField;
     cdsVendaDNFE_FORMA: TSmallintField;
-    cdsVendaDNFE_CHAVE: TIBStringField;
-    cdsVendaDNFE_UF: TIBStringField;
-    cdsVendaDNFE_CNPJ_CPF: TIBStringField;
-    cdsVendaDNFE_IE: TIBStringField;
-    cdsVendaDNFE_COMPETENCIA: TIBStringField;
-    cdsVendaDNFE_SERIE: TIBStringField;
+    cdsVendaDNFE_CHAVE: TStringField;
+    cdsVendaDNFE_UF: TStringField;
+    cdsVendaDNFE_CNPJ_CPF: TStringField;
+    cdsVendaDNFE_IE: TStringField;
+    cdsVendaDNFE_COMPETENCIA: TStringField;
+    cdsVendaDNFE_SERIE: TStringField;
     cdsVendaDNFE_NUMERO: TIntegerField;
     cdsVendaDNFE_MODELO: TSmallintField;
     cdsVendaDECF_MODELO: TSmallintField;
     cdsVendaDECF_NUMERO: TIntegerField;
     cdsVendaDECF_COO: TIntegerField;
-    fdQryFormaDevolucao: TFDQuery;
-    fdQryUF: TFDQuery;
-    fdQryCompetencia: TFDQuery;
-    fdQryModeloCupom: TFDQuery;
     procedure FormCreate(Sender: TObject);
-    procedure cdsVendaCODCONTROLGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
-    procedure cdsVendaDNFE_COMPRA_CODGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
     procedure dtsVendaDataChange(Sender: TObject; Field: TField);
     procedure btFecharClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbCompraButtonClick(Sender: TObject);
+    procedure cdsVendaCODCONTROLGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure cdsVendaDNFE_COMPRA_CODGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -132,7 +130,7 @@ begin
     with AForm do
     begin
       cdsVenda.Close;
-      cdsVenda.ParamByName('anovenda').AsShort   := Ano;
+      cdsVenda.ParamByName('anovenda').AsInteger := Ano;
       cdsVenda.ParamByName('numvenda').AsInteger := Numero;
       cdsVenda.Open;
 
@@ -171,27 +169,28 @@ begin
   cdsVendaDECF_NUMERO.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
   cdsVendaDECF_COO.Required    := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
 
-  if not CamposRequiridos(Self, cdsVenda, GrpBxDados.Caption) then
+  if not CamposRequiridos(Self, TClientDataSet(dtsVenda.DataSet), GrpBxDados.Caption) then
     if ShowConfirmation('Confirmar', 'Confirma os dados do documento referenciado para devolução?') then
       with cdsVenda do
       begin
         Post;
         ApplyUpdates;
+        CommitUpdates;
         CommitTransaction;
 
         ModalResult := mrOk;
       end;
 end;
 
-procedure TfrmGeVendaDevolucaoNF.cdsVendaCODCONTROLGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
+procedure TfrmGeVendaDevolucaoNF.cdsVendaCODCONTROLGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if not Sender.IsNull then
     Text := cdsVendaANO.AsString + '/' + FormatFloat('0000000', Sender.AsInteger);
 end;
 
-procedure TfrmGeVendaDevolucaoNF.cdsVendaDNFE_COMPRA_CODGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
+procedure TfrmGeVendaDevolucaoNF.cdsVendaDNFE_COMPRA_CODGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if not Sender.IsNull then
     Text := cdsVendaDNFE_COMPRA_ANO.AsString + '/' + FormatFloat('0000000', Sender.AsInteger);

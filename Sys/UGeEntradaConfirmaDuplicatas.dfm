@@ -705,7 +705,6 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
     Top = 151
   end
   object qryParcela: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -724,8 +723,8 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       '  and NumCompra = :NumCompra'
       '  and Anolanc   = :Anolanc'
       '  and Numlanc   = :Numlanc')
-    Left = 98
-    Top = 295
+    Left = 314
+    Top = 167
     ParamData = <
       item
         Name = 'ANOCOMPRA'
@@ -765,7 +764,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       'UPDATE TBCONTPAG'
       'SET DTVENC = :NEW_DTVENC, VALORPAG = :NEW_VALORPAG'
       'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
-    Left = 130
-    Top = 295
+    Left = 346
+    Top = 167
   end
 end

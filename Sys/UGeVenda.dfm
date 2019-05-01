@@ -26,7 +26,6 @@ inherited frmGeVenda: TfrmGeVenda
     Width = 1116
     Height = 642
     OnChange = pgcGuiasChange
-    ExplicitTop = -2
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
@@ -444,7 +443,7 @@ inherited frmGeVenda: TfrmGeVenda
           ExplicitWidth = 58
         end
         object lblEmpresa: TLabel [1]
-          Left = 240
+          Left = 248
           Top = 24
           Width = 45
           Height = 13
@@ -595,9 +594,9 @@ inherited frmGeVenda: TfrmGeVenda
           ExplicitWidth = 89
         end
         object dbEmpresa: TDBLookupComboBox
-          Left = 240
+          Left = 248
           Top = 40
-          Width = 425
+          Width = 417
           Height = 21
           DataField = 'CODEMP'
           DataSource = DtSrcTabela
@@ -616,7 +615,7 @@ inherited frmGeVenda: TfrmGeVenda
         object dbDataHora: TDBEdit
           Left = 112
           Top = 40
-          Width = 121
+          Width = 130
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -936,8 +935,6 @@ inherited frmGeVenda: TfrmGeVenda
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
-        ExplicitLeft = 24
-        ExplicitTop = 115
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -1916,6 +1913,9 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 1
+            DesignSize = (
+              572
+              150)
             object lblFormaPagto: TLabel
               Left = 0
               Top = 1
@@ -2325,6 +2325,37 @@ inherited frmGeVenda: TfrmGeVenda
                   Visible = True
                 end>
             end
+            object pnlDicaFormaPagto: TPanel
+              Left = 10
+              Top = 112
+              Width = 551
+              Height = 33
+              Anchors = [akLeft, akRight, akBottom]
+              AutoSize = True
+              BevelOuter = bvNone
+              TabOrder = 8
+              object lblDicaFormaPagto: TLabel
+                AlignWithMargins = True
+                Left = 3
+                Top = 3
+                Width = 545
+                Height = 27
+                Align = alBottom
+                Alignment = taCenter
+                Caption = 
+                  'Nova forma de pagto. (CTRL + INSERT) | Alterar forma de pagto. (' +
+                  'CTRL + ENTER) | Limpar forma de pagto. (CTRL + DELETE)'
+                FocusControl = dbDadosEntrega
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clRed
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+                WordWrap = True
+                ExplicitLeft = 4
+              end
+            end
           end
         end
         object tbsDadosEntrega: TTabSheet
@@ -2364,7 +2395,7 @@ inherited frmGeVenda: TfrmGeVenda
               Left = 1096
               Top = 17
               Width = 4
-              Height = 141
+              Height = 128
               Align = alRight
               Shape = bsSpacer
               ExplicitLeft = 516
@@ -2379,17 +2410,37 @@ inherited frmGeVenda: TfrmGeVenda
               Shape = bsSpacer
               ExplicitWidth = 520
             end
+            object lblDicaDadosEntrega: TLabel
+              Left = 0
+              Top = 145
+              Width = 1100
+              Height = 13
+              Align = alBottom
+              Caption = 
+                'Caso voc'#234' deseje corrigir o endere'#231'o de entrega antes da emiss'#227'o' +
+                ' da NF-e, basta clicar o bot'#227'o direito do mouse sobre a caixa de' +
+                ' texto acima'
+              FocusControl = dbDadosEntrega
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              ExplicitWidth = 801
+            end
             object dbDadosEntrega: TDBMemo
               Left = 0
               Top = 17
               Width = 1096
-              Height = 141
+              Height = 128
               Align = alClient
               DataField = 'DADOS_ENTREGA'
               DataSource = DtSrcTabela
               PopupMenu = ppCorrigirDadosNFe
               ScrollBars = ssBoth
               TabOrder = 0
+              ExplicitHeight = 141
             end
           end
         end
@@ -3757,7 +3808,6 @@ inherited frmGeVenda: TfrmGeVenda
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterCancel = IbDtstTabelaAfterCancel
     SelectSQL.Strings = (
       'Select'
       '    v.Ano'
@@ -3838,383 +3888,9 @@ inherited frmGeVenda: TfrmGeVenda
       '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
       '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)')
     GeneratorField.ApplyEvent = gamOnNewRecord
-    object IbDtstTabelaANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = 'TBVENDAS.ANO'
-      Required = True
-    end
-    object IbDtstTabelaCODCONTROL: TIntegerField
-      DisplayLabel = 'No. Venda'
-      FieldName = 'CODCONTROL'
-      Origin = 'TBVENDAS.CODCONTROL'
-      Required = True
-    end
-    object IbDtstTabelaCODEMP: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'CODEMP'
-      Origin = 'TBVENDAS.CODEMP'
-      Size = 18
-    end
-    object IbDtstTabelaCODCLIENTE: TIntegerField
-      DisplayLabel = 'Cliente'
-      FieldName = 'CODCLIENTE'
-      Origin = '"TBVENDAS"."CODCLIENTE"'
-      Required = True
-    end
-    object IbDtstTabelaCODCLI: TIBStringField
-      DisplayLabel = 'Cliente'
-      FieldName = 'CODCLI'
-      Origin = 'TBVENDAS.CODCLI'
-      Size = 18
-    end
-    object IbDtstTabelaDTVENDA: TDateTimeField
-      DisplayLabel = 'D. Venda'
-      FieldName = 'DTVENDA'
-      Origin = 'TBVENDAS.DTVENDA'
-      DisplayFormat = 'dd/mm/yyyy hh:mm'
-    end
-    object IbDtstTabelaSTATUS: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Status'
-      FieldName = 'STATUS'
-      Origin = 'TBVENDAS.STATUS'
-      Required = True
-      OnGetText = IbDtstTabelaSTATUSGetText
-    end
-    object IbDtstTabelaTOTALVENDA_BRUTA: TIBBCDField
-      DisplayLabel = 'Total Bruto (R$)'
-      FieldName = 'TOTALVENDA_BRUTA'
-      Origin = '"TBVENDAS"."TOTALVENDA_BRUTA"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaDESCONTO: TIBBCDField
-      DisplayLabel = 'Desconto (R$)'
-      FieldName = 'DESCONTO'
-      Origin = '"TBVENDAS"."DESCONTO"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 4
-    end
-    object IbDtstTabelaTOTALVENDA: TIBBCDField
-      DisplayLabel = 'Valor Total (R$)'
-      FieldName = 'TOTALVENDA'
-      Origin = 'TBVENDAS.TOTALVENDA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaDTFINALIZACAO_VENDA: TDateField
-      FieldName = 'DTFINALIZACAO_VENDA'
-      Origin = 'TBVENDAS.DTFINALIZACAO_VENDA'
-    end
-    object IbDtstTabelaOBS: TMemoField
-      DisplayLabel = 'Observa'#231#227'o'
-      FieldName = 'OBS'
-      Origin = 'TBVENDAS.OBS'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaDADOS_ENTREGA: TWideMemoField
-      DisplayLabel = 'Dados de entrega'
-      FieldName = 'DADOS_ENTREGA'
-      Origin = '"TBVENDAS"."DADOS_ENTREGA"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
-    end
-    object IbDtstTabelaFORMAPAG: TIBStringField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMAPAG'
-      Origin = 'TBVENDAS.FORMAPAG'
-      Size = 35
-    end
-    object IbDtstTabelaFATDIAS: TSmallintField
-      DisplayLabel = 'Fatura Dias'
-      FieldName = 'FATDIAS'
-      Origin = 'TBVENDAS.FATDIAS'
-    end
-    object IbDtstTabelaSERIE: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'S'#233'rie'
-      FieldName = 'SERIE'
-      Origin = 'TBVENDAS.SERIE'
-      Size = 4
-    end
-    object IbDtstTabelaNFE: TLargeintField
-      DisplayLabel = 'NF-e'
-      FieldName = 'NFE'
-      Origin = 'TBVENDAS.NFE'
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaMODELO_NF: TIntegerField
-      FieldName = 'MODELO_NF'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaLOTE_NFE_ANO: TSmallintField
-      FieldName = 'LOTE_NFE_ANO'
-      Origin = 'TBVENDAS.LOTE_NFE_ANO'
-    end
-    object IbDtstTabelaLOTE_NFE_NUMERO: TIntegerField
-      FieldName = 'LOTE_NFE_NUMERO'
-      Origin = 'TBVENDAS.LOTE_NFE_NUMERO'
-    end
-    object IbDtstTabelaLOTE_NFE_RECIBO: TIBStringField
-      FieldName = 'LOTE_NFE_RECIBO'
-      Origin = '"TBVENDAS"."LOTE_NFE_RECIBO"'
-      ProviderFlags = []
-      Size = 250
-    end
-    object IbDtstTabelaNFE_ENVIADA: TSmallintField
-      FieldName = 'NFE_ENVIADA'
-      Origin = 'TBVENDAS.NFE_ENVIADA'
-      Required = True
-    end
-    object IbDtstTabelaNFE_DENEGADA: TSmallintField
-      FieldName = 'NFE_DENEGADA'
-      Origin = '"TBVENDAS"."NFE_DENEGADA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNFE_DENEGADA_MOTIVO: TIBStringField
-      FieldName = 'NFE_DENEGADA_MOTIVO'
-      Origin = '"TBVENDAS"."NFE_DENEGADA_MOTIVO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbDtstTabelaCAIXA_ANO: TSmallintField
-      FieldName = 'CAIXA_ANO'
-      Origin = '"TBVENDAS"."CAIXA_ANO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCAIXA_NUM: TIntegerField
-      FieldName = 'CAIXA_NUM'
-      Origin = '"TBVENDAS"."CAIXA_NUM"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCAIXA_PDV: TSmallintField
-      FieldName = 'CAIXA_PDV'
-      Origin = '"TBVENDAS"."CAIXA_PDV"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaDATAEMISSAO: TDateField
-      DisplayLabel = 'D. Emiss'#227'o'
-      FieldName = 'DATAEMISSAO'
-      Origin = 'TBVENDAS.DATAEMISSAO'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaHORAEMISSAO: TTimeField
-      DisplayLabel = 'Hora Emiss'#227'o'
-      FieldName = 'HORAEMISSAO'
-      Origin = 'TBVENDAS.HORAEMISSAO'
-      DisplayFormat = 'hh:mm'
-    end
-    object IbDtstTabelaCFOP: TIntegerField
-      FieldName = 'CFOP'
-      Origin = 'TBVENDAS.CFOP'
-    end
-    object IbDtstTabelaCANCEL_USUARIO: TIBStringField
-      FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBVENDAS"."CANCEL_USUARIO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaCANCEL_DATAHORA: TDateTimeField
-      FieldName = 'CANCEL_DATAHORA'
-      Origin = 'TBVENDAS.CANCEL_DATAHORA'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaCANCEL_MOTIVO: TMemoField
-      FieldName = 'CANCEL_MOTIVO'
-      Origin = 'TBVENDAS.CANCEL_MOTIVO'
-      ProviderFlags = []
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaVERIFICADOR_NFE: TIBStringField
-      DisplayLabel = 'Verificador'
-      FieldName = 'VERIFICADOR_NFE'
-      Origin = 'TBVENDAS.VERIFICADOR_NFE'
-      Size = 250
-    end
-    object IbDtstTabelaXML_NFE_FILENAME: TIBStringField
-      FieldName = 'XML_NFE_FILENAME'
-      Origin = 'TBVENDAS.XML_NFE_FILENAME'
-      Size = 250
-    end
-    object IbDtstTabelaXML_NFE: TMemoField
-      DisplayLabel = 'XML NF-e'
-      FieldName = 'XML_NFE'
-      Origin = 'TBVENDAS.XML_NFE'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaVENDEDOR_COD: TIntegerField
-      DisplayLabel = 'Vendedor'
-      FieldName = 'VENDEDOR_COD'
-      Origin = 'TBVENDAS.VENDEDOR_COD'
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      DisplayLabel = 'Usu'#225'rio'
-      FieldName = 'USUARIO'
-      Origin = 'TBVENDAS.USUARIO'
-      Size = 50
-    end
-    object IbDtstTabelaFORMAPAGTO_COD: TSmallintField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMAPAGTO_COD'
-      Origin = 'TBVENDAS.FORMAPAGTO_COD'
-    end
-    object IbDtstTabelaCONDICAOPAGTO_COD: TSmallintField
-      DisplayLabel = 'Condi'#231#227'o de Pagamento'
-      FieldName = 'CONDICAOPAGTO_COD'
-      Origin = 'TBVENDAS.CONDICAOPAGTO_COD'
-    end
-    object IbDtstTabelaVENDA_PRAZO: TSmallintField
-      DisplayLabel = 'A Prazo?'
-      FieldName = 'VENDA_PRAZO'
-      Origin = 'TBVENDAS.VENDA_PRAZO'
-      Required = True
-    end
-    object IbDtstTabelaPRAZO_01: TSmallintField
-      DisplayLabel = 'Prazo 01'
-      FieldName = 'PRAZO_01'
-      Origin = 'TBVENDAS.PRAZO_01'
-    end
-    object IbDtstTabelaPRAZO_02: TSmallintField
-      DisplayLabel = 'Prazo 02'
-      FieldName = 'PRAZO_02'
-      Origin = 'TBVENDAS.PRAZO_02'
-    end
-    object IbDtstTabelaPRAZO_03: TSmallintField
-      DisplayLabel = 'Prazo 03'
-      FieldName = 'PRAZO_03'
-      Origin = 'TBVENDAS.PRAZO_03'
-    end
-    object IbDtstTabelaPRAZO_04: TSmallintField
-      DisplayLabel = 'Prazo 04'
-      FieldName = 'PRAZO_04'
-      Origin = 'TBVENDAS.PRAZO_04'
-    end
-    object IbDtstTabelaPRAZO_05: TSmallintField
-      DisplayLabel = 'Prazo 05'
-      FieldName = 'PRAZO_05'
-      Origin = 'TBVENDAS.PRAZO_05'
-    end
-    object IbDtstTabelaPRAZO_06: TSmallintField
-      DisplayLabel = 'Prazo 06'
-      FieldName = 'PRAZO_06'
-      Origin = 'TBVENDAS.PRAZO_06'
-    end
-    object IbDtstTabelaPRAZO_07: TSmallintField
-      DisplayLabel = 'Prazo 07'
-      FieldName = 'PRAZO_07'
-      Origin = 'TBVENDAS.PRAZO_07'
-    end
-    object IbDtstTabelaPRAZO_08: TSmallintField
-      DisplayLabel = 'Prazo 08'
-      FieldName = 'PRAZO_08'
-      Origin = 'TBVENDAS.PRAZO_08'
-    end
-    object IbDtstTabelaPRAZO_09: TSmallintField
-      DisplayLabel = 'Prazo 09'
-      FieldName = 'PRAZO_09'
-      Origin = 'TBVENDAS.PRAZO_09'
-    end
-    object IbDtstTabelaPRAZO_10: TSmallintField
-      DisplayLabel = 'Prazo 10'
-      FieldName = 'PRAZO_10'
-      Origin = 'TBVENDAS.PRAZO_10'
-    end
-    object IbDtstTabelaPRAZO_11: TSmallintField
-      DisplayLabel = 'Prazo 11'
-      FieldName = 'PRAZO_11'
-      Origin = 'TBVENDAS.PRAZO_11'
-    end
-    object IbDtstTabelaPRAZO_12: TSmallintField
-      DisplayLabel = 'Prazo 12'
-      FieldName = 'PRAZO_12'
-      Origin = 'TBVENDAS.PRAZO_12'
-    end
-    object IbDtstTabelaNFE_MODALIDADE_FRETE: TSmallintField
-      DisplayLabel = 'Modalidade do Frete'
-      FieldName = 'NFE_MODALIDADE_FRETE'
-      Origin = '"TBVENDAS"."NFE_MODALIDADE_FRETE"'
-    end
-    object IbDtstTabelaNFE_TRANSPORTADORA: TIntegerField
-      DisplayLabel = 'Transportadora'
-      FieldName = 'NFE_TRANSPORTADORA'
-      Origin = '"TBVENDAS"."NFE_TRANSPORTADORA"'
-    end
-    object IbDtstTabelaNFE_PLACA_VEICULO: TIBStringField
-      DisplayLabel = 'Placa do Ve'#237'culo'
-      FieldName = 'NFE_PLACA_VEICULO'
-      Origin = '"TBVENDAS"."NFE_PLACA_VEICULO"'
-      Size = 10
-    end
-    object IbDtstTabelaNFE_PLACA_UF: TIBStringField
-      DisplayLabel = 'UF da Placa'
-      FieldName = 'NFE_PLACA_UF'
-      Origin = '"TBVENDAS"."NFE_PLACA_UF"'
-      Size = 2
-    end
-    object IbDtstTabelaNFE_PLACA_RNTC: TIBStringField
-      DisplayLabel = 'RNTC (Registro Nacional de Transporte de Carga)'
-      FieldName = 'NFE_PLACA_RNTC'
-      Origin = '"TBVENDAS"."NFE_PLACA_RNTC"'
-      Size = 10
-    end
-    object IbDtstTabelaGERAR_ESTOQUE_CLIENTE: TSmallintField
-      FieldName = 'GERAR_ESTOQUE_CLIENTE'
-      Origin = '"TBVENDAS"."GERAR_ESTOQUE_CLIENTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaTRANSP_NOME: TIBStringField
-      FieldName = 'TRANSP_NOME'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      Size = 60
-    end
-    object IbDtstTabelaTRANSP_CNPJ: TIBStringField
-      FieldName = 'TRANSP_CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      Size = 18
-    end
-    object IbDtstTabelaTRANSP_IEST: TIBStringField
-      FieldName = 'TRANSP_IEST'
-      Origin = '"TBFORNECEDOR"."INSCEST"'
-    end
-    object IbDtstTabelaTRANSP_ENDERECO: TIBStringField
-      FieldName = 'TRANSP_ENDERECO'
-      ProviderFlags = []
-      Size = 283
-    end
-    object IbDtstTabelaNOME: TIBStringField
-      DisplayLabel = 'Cliente'
-      FieldName = 'NOME'
-      Origin = 'TBCLIENTE.NOME'
-      Size = 60
-    end
-    object IbDtstTabelaBLOQUEADO: TSmallintField
-      FieldName = 'BLOQUEADO'
-      Origin = 'TBCLIENTE.BLOQUEADO'
-    end
-    object IbDtstTabelaBLOQUEADO_MOTIVO: TMemoField
-      FieldName = 'BLOQUEADO_MOTIVO'
-      Origin = 'TBCLIENTE.BLOQUEADO_MOTIVO'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaLUCRO_CALCULADO: TIBBCDField
-      DisplayLabel = '% Lucro'
-      FieldName = 'LUCRO_CALCULADO'
-      ProviderFlags = []
-      OnGetText = IbDtstTabelaLUCRO_CALCULADOGetText
-      DisplayFormat = ',0.00##'
-      Precision = 18
-      Size = 4
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     Left = 704
     Top = 32
   end
@@ -4427,7 +4103,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00AC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00B00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5887,6 +5563,7 @@ inherited frmGeVenda: TfrmGeVenda
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    AfterCancel = fdQryTabelaAfterCancel
     AfterScroll = fdQryTabelaAfterScroll
     OnNewRecord = fdQryTabelaNewRecord
     SQL.Strings = (
@@ -5968,6 +5645,383 @@ inherited frmGeVenda: TfrmGeVenda
       'from TBVENDAS v'
       '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
       '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)')
+    object fdQryTabelaANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaCODCONTROL: TIntegerField
+      DisplayLabel = 'No. Venda'
+      FieldName = 'CODCONTROL'
+      Origin = 'CODCONTROL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaCODEMP: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'CODEMP'
+      Origin = 'CODEMP'
+      Size = 18
+    end
+    object fdQryTabelaCODCLIENTE: TIntegerField
+      DisplayLabel = 'Cliente'
+      FieldName = 'CODCLIENTE'
+      Origin = 'CODCLIENTE'
+    end
+    object fdQryTabelaCODCLI: TStringField
+      DisplayLabel = 'Cliente'
+      FieldName = 'CODCLI'
+      Origin = 'CODCLI'
+      Size = 18
+    end
+    object fdQryTabelaDTVENDA: TSQLTimeStampField
+      DisplayLabel = 'D. Venda'
+      FieldName = 'DTVENDA'
+      Origin = 'DTVENDA'
+      DisplayFormat = 'dd/mm/yyyy hh:mm'
+    end
+    object fdQryTabelaSTATUS: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Status'
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Required = True
+      OnGetText = fdQryTabelaSTATUSGetText
+    end
+    object fdQryTabelaTOTALVENDA_BRUTA: TBCDField
+      DisplayLabel = 'Total Bruto (R$)'
+      FieldName = 'TOTALVENDA_BRUTA'
+      Origin = 'TOTALVENDA_BRUTA'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaDESCONTO: TBCDField
+      DisplayLabel = 'Desconto (R$)'
+      FieldName = 'DESCONTO'
+      Origin = 'DESCONTO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+    end
+    object fdQryTabelaTOTALVENDA: TBCDField
+      DisplayLabel = 'Valor Total (R$)'
+      FieldName = 'TOTALVENDA'
+      Origin = 'TOTALVENDA'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaDTFINALIZACAO_VENDA: TDateField
+      FieldName = 'DTFINALIZACAO_VENDA'
+      Origin = 'DTFINALIZACAO_VENDA'
+    end
+    object fdQryTabelaOBS: TMemoField
+      DisplayLabel = 'Observa'#231#227'o'
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaDADOS_ENTREGA: TMemoField
+      DisplayLabel = 'Dados de entrega'
+      FieldName = 'DADOS_ENTREGA'
+      Origin = 'DADOS_ENTREGA'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaFORMAPAG: TStringField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'FORMAPAG'
+      Origin = 'FORMAPAG'
+      Size = 35
+    end
+    object fdQryTabelaFATDIAS: TSmallintField
+      DisplayLabel = 'Fatura Dias'
+      FieldName = 'FATDIAS'
+      Origin = 'FATDIAS'
+    end
+    object fdQryTabelaSERIE: TStringField
+      Alignment = taCenter
+      DisplayLabel = 'S'#233'rie'
+      FieldName = 'SERIE'
+      Origin = 'SERIE'
+      Size = 4
+    end
+    object fdQryTabelaNFE: TLargeintField
+      DisplayLabel = 'NF-e'
+      FieldName = 'NFE'
+      Origin = 'NFE'
+      DisplayFormat = '###0000000'
+    end
+    object fdQryTabelaMODELO_NF: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'MODELO_NF'
+      Origin = 'MODELO_NF'
+      ProviderFlags = []
+    end
+    object fdQryTabelaLOTE_NFE_ANO: TSmallintField
+      FieldName = 'LOTE_NFE_ANO'
+      Origin = 'LOTE_NFE_ANO'
+    end
+    object fdQryTabelaLOTE_NFE_NUMERO: TIntegerField
+      FieldName = 'LOTE_NFE_NUMERO'
+      Origin = 'LOTE_NFE_NUMERO'
+    end
+    object fdQryTabelaLOTE_NFE_RECIBO: TStringField
+      FieldName = 'LOTE_NFE_RECIBO'
+      Origin = 'LOTE_NFE_RECIBO'
+      Size = 250
+    end
+    object fdQryTabelaNFE_ENVIADA: TSmallintField
+      FieldName = 'NFE_ENVIADA'
+      Origin = 'NFE_ENVIADA'
+      Required = True
+    end
+    object fdQryTabelaNFE_DENEGADA: TSmallintField
+      FieldName = 'NFE_DENEGADA'
+      Origin = 'NFE_DENEGADA'
+    end
+    object fdQryTabelaNFE_DENEGADA_MOTIVO: TStringField
+      FieldName = 'NFE_DENEGADA_MOTIVO'
+      Origin = 'NFE_DENEGADA_MOTIVO'
+      Size = 100
+    end
+    object fdQryTabelaCAIXA_ANO: TSmallintField
+      FieldName = 'CAIXA_ANO'
+      Origin = 'CAIXA_ANO'
+    end
+    object fdQryTabelaCAIXA_NUM: TIntegerField
+      FieldName = 'CAIXA_NUM'
+      Origin = 'CAIXA_NUM'
+    end
+    object fdQryTabelaCAIXA_PDV: TSmallintField
+      FieldName = 'CAIXA_PDV'
+      Origin = 'CAIXA_PDV'
+      Required = True
+    end
+    object fdQryTabelaDATAEMISSAO: TDateField
+      DisplayLabel = 'D. Emiss'#227'o'
+      FieldName = 'DATAEMISSAO'
+      Origin = 'DATAEMISSAO'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTabelaHORAEMISSAO: TTimeField
+      DisplayLabel = 'H. Emiss'#227'o'
+      FieldName = 'HORAEMISSAO'
+      Origin = 'HORAEMISSAO'
+      DisplayFormat = 'hh:mm'
+    end
+    object fdQryTabelaCANCEL_USUARIO: TStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = 'CANCEL_USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaCANCEL_DATAHORA: TSQLTimeStampField
+      FieldName = 'CANCEL_DATAHORA'
+      Origin = 'CANCEL_DATAHORA'
+    end
+    object fdQryTabelaCANCEL_MOTIVO: TMemoField
+      FieldName = 'CANCEL_MOTIVO'
+      Origin = 'CANCEL_MOTIVO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaCFOP: TIntegerField
+      FieldName = 'CFOP'
+      Origin = 'CFOP'
+    end
+    object fdQryTabelaVERIFICADOR_NFE: TStringField
+      DisplayLabel = 'Verificador'
+      FieldName = 'VERIFICADOR_NFE'
+      Origin = 'VERIFICADOR_NFE'
+      Size = 250
+    end
+    object fdQryTabelaXML_NFE_FILENAME: TStringField
+      FieldName = 'XML_NFE_FILENAME'
+      Origin = 'XML_NFE_FILENAME'
+      Size = 250
+    end
+    object fdQryTabelaXML_NFE: TMemoField
+      DisplayLabel = 'XML NF-e'
+      FieldName = 'XML_NFE'
+      Origin = 'XML_NFE'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaVENDEDOR_COD: TIntegerField
+      DisplayLabel = 'Vendedor'
+      FieldName = 'VENDEDOR_COD'
+      Origin = 'VENDEDOR_COD'
+    end
+    object fdQryTabelaUSUARIO: TStringField
+      DisplayLabel = 'Usu'#225'rio'
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object fdQryTabelaFORMAPAGTO_COD: TSmallintField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'FORMAPAGTO_COD'
+      Origin = 'FORMAPAGTO_COD'
+    end
+    object fdQryTabelaCONDICAOPAGTO_COD: TSmallintField
+      DisplayLabel = 'Condi'#231#227'o de Pagamento'
+      FieldName = 'CONDICAOPAGTO_COD'
+      Origin = 'CONDICAOPAGTO_COD'
+    end
+    object fdQryTabelaVENDA_PRAZO: TSmallintField
+      DisplayLabel = 'A Prazo?'
+      FieldName = 'VENDA_PRAZO'
+      Origin = 'VENDA_PRAZO'
+      Required = True
+    end
+    object fdQryTabelaPRAZO_01: TSmallintField
+      DisplayLabel = 'Prazo 01'
+      FieldName = 'PRAZO_01'
+      Origin = 'PRAZO_01'
+    end
+    object fdQryTabelaPRAZO_02: TSmallintField
+      DisplayLabel = 'Prazo 02'
+      FieldName = 'PRAZO_02'
+      Origin = 'PRAZO_02'
+    end
+    object fdQryTabelaPRAZO_03: TSmallintField
+      DisplayLabel = 'Prazo 03'
+      FieldName = 'PRAZO_03'
+      Origin = 'PRAZO_03'
+    end
+    object fdQryTabelaPRAZO_04: TSmallintField
+      DisplayLabel = 'Prazo 04'
+      FieldName = 'PRAZO_04'
+      Origin = 'PRAZO_04'
+    end
+    object fdQryTabelaPRAZO_05: TSmallintField
+      DisplayLabel = 'Prazo 05'
+      FieldName = 'PRAZO_05'
+      Origin = 'PRAZO_05'
+    end
+    object fdQryTabelaPRAZO_06: TSmallintField
+      DisplayLabel = 'Prazo 06'
+      FieldName = 'PRAZO_06'
+      Origin = 'PRAZO_06'
+    end
+    object fdQryTabelaPRAZO_07: TSmallintField
+      DisplayLabel = 'Prazo 07'
+      FieldName = 'PRAZO_07'
+      Origin = 'PRAZO_07'
+    end
+    object fdQryTabelaPRAZO_08: TSmallintField
+      DisplayLabel = 'Prazo 08'
+      FieldName = 'PRAZO_08'
+      Origin = 'PRAZO_08'
+    end
+    object fdQryTabelaPRAZO_09: TSmallintField
+      DisplayLabel = 'Prazo 09'
+      FieldName = 'PRAZO_09'
+      Origin = 'PRAZO_09'
+    end
+    object fdQryTabelaPRAZO_10: TSmallintField
+      DisplayLabel = 'Prazo 10'
+      FieldName = 'PRAZO_10'
+      Origin = 'PRAZO_10'
+    end
+    object fdQryTabelaPRAZO_11: TSmallintField
+      DisplayLabel = 'Prazo 11'
+      FieldName = 'PRAZO_11'
+      Origin = 'PRAZO_11'
+    end
+    object fdQryTabelaPRAZO_12: TSmallintField
+      DisplayLabel = 'Prazo 12'
+      FieldName = 'PRAZO_12'
+      Origin = 'PRAZO_12'
+    end
+    object fdQryTabelaNFE_MODALIDADE_FRETE: TSmallintField
+      DisplayLabel = 'Modalidade do Frete'
+      FieldName = 'NFE_MODALIDADE_FRETE'
+      Origin = 'NFE_MODALIDADE_FRETE'
+    end
+    object fdQryTabelaNFE_TRANSPORTADORA: TIntegerField
+      DisplayLabel = 'Transportadora'
+      FieldName = 'NFE_TRANSPORTADORA'
+      Origin = 'NFE_TRANSPORTADORA'
+    end
+    object fdQryTabelaNFE_PLACA_VEICULO: TStringField
+      DisplayLabel = 'Placa do Ve'#237'culo'
+      FieldName = 'NFE_PLACA_VEICULO'
+      Origin = 'NFE_PLACA_VEICULO'
+      Size = 10
+    end
+    object fdQryTabelaNFE_PLACA_UF: TStringField
+      DisplayLabel = 'UF da Placa'
+      FieldName = 'NFE_PLACA_UF'
+      Origin = 'NFE_PLACA_UF'
+      Size = 2
+    end
+    object fdQryTabelaNFE_PLACA_RNTC: TStringField
+      DisplayLabel = 'RNTC (Registro Nacional de Transporte de Carga)'
+      FieldName = 'NFE_PLACA_RNTC'
+      Origin = 'NFE_PLACA_RNTC'
+      Size = 10
+    end
+    object fdQryTabelaGERAR_ESTOQUE_CLIENTE: TSmallintField
+      FieldName = 'GERAR_ESTOQUE_CLIENTE'
+      Origin = 'GERAR_ESTOQUE_CLIENTE'
+      Required = True
+    end
+    object fdQryTabelaTRANSP_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TRANSP_NOME'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaTRANSP_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TRANSP_CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryTabelaTRANSP_IEST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TRANSP_IEST'
+      Origin = 'INSCEST'
+      ProviderFlags = []
+    end
+    object fdQryTabelaTRANSP_ENDERECO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TRANSP_ENDERECO'
+      Origin = 'TRANSP_ENDERECO'
+      ProviderFlags = []
+      Size = 283
+    end
+    object fdQryTabelaNOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cliente'
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaBLOQUEADO: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'BLOQUEADO'
+      Origin = 'BLOQUEADO'
+      ProviderFlags = []
+    end
+    object fdQryTabelaBLOQUEADO_MOTIVO: TMemoField
+      AutoGenerateValue = arDefault
+      FieldName = 'BLOQUEADO_MOTIVO'
+      Origin = 'BLOQUEADO_MOTIVO'
+      ProviderFlags = []
+      BlobType = ftMemo
+    end
+    object fdQryTabelaLUCRO_CALCULADO: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = '% Lucro'
+      FieldName = 'LUCRO_CALCULADO'
+      Origin = 'LUCRO_CALCULADO'
+      ProviderFlags = []
+      OnGetText = fdQryTabelaLUCRO_CALCULADOGetText
+      Precision = 18
+    end
   end
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
@@ -6890,7 +6944,9 @@ inherited frmGeVenda: TfrmGeVenda
       '  , p.Preco'
       '  , p.Preco_Promocao'
       '  , p.Referencia'
-      '  , r.referencia as referencia_cliente'
+      '  , r.referencia   as referencia_cliente'
+      '  , p.anvisa       as referencia_anvisa'
+      '  , p.codbarra_ean as referencia_fornecedor'
       '  , p.Secao'
       '  , p.Qtde'
       '  , p.Unidade'

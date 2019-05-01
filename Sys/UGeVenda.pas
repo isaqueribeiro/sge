@@ -83,68 +83,24 @@ type
     dbValorTotal: TDBEdit;
     lblValorDesconto: TLabel;
     dbValorDesconto: TDBEdit;
-    IbDtstTabelaCODEMP: TIBStringField;
-    IbDtstTabelaCODCLI: TIBStringField;
-    IbDtstTabelaDTVENDA: TDateTimeField;
-    IbDtstTabelaSTATUS: TSmallintField;
-    IbDtstTabelaTOTALVENDA: TIBBCDField;
-    IbDtstTabelaOBS: TMemoField;
-    IbDtstTabelaFORMAPAG: TIBStringField;
-    IbDtstTabelaFATDIAS: TSmallintField;
-    IbDtstTabelaSERIE: TIBStringField;
-    IbDtstTabelaNFE: TLargeintField;
-    IbDtstTabelaDATAEMISSAO: TDateField;
-    IbDtstTabelaHORAEMISSAO: TTimeField;
-    IbDtstTabelaVERIFICADOR_NFE: TIBStringField;
-    IbDtstTabelaXML_NFE: TMemoField;
-    IbDtstTabelaVENDEDOR_COD: TIntegerField;
-    IbDtstTabelaUSUARIO: TIBStringField;
-    IbDtstTabelaFORMAPAGTO_COD: TSmallintField;
-    IbDtstTabelaCONDICAOPAGTO_COD: TSmallintField;
-    IbDtstTabelaVENDA_PRAZO: TSmallintField;
-    IbDtstTabelaPRAZO_01: TSmallintField;
-    IbDtstTabelaPRAZO_02: TSmallintField;
-    IbDtstTabelaPRAZO_03: TSmallintField;
-    IbDtstTabelaPRAZO_04: TSmallintField;
-    IbDtstTabelaPRAZO_05: TSmallintField;
-    IbDtstTabelaPRAZO_06: TSmallintField;
-    IbDtstTabelaPRAZO_07: TSmallintField;
-    IbDtstTabelaPRAZO_08: TSmallintField;
-    IbDtstTabelaPRAZO_09: TSmallintField;
-    IbDtstTabelaPRAZO_10: TSmallintField;
-    IbDtstTabelaPRAZO_11: TSmallintField;
-    IbDtstTabelaPRAZO_12: TSmallintField;
-    IbDtstTabelaNOME: TIBStringField;
     dtsVendedor: TDataSource;
     dtsFormaPagto: TDataSource;
     dtsCondicaoPagto: TDataSource;
     DtSrcTabelaItens: TDataSource;
     Bevel12: TBevel;
-    IbDtstTabelaANO: TSmallintField;
-    IbDtstTabelaCODCONTROL: TIntegerField;
     dtsTitulos: TDataSource;
-    IbDtstTabelaDTFINALIZACAO_VENDA: TDateField;
     btnTituloQuitar: TBitBtn;
     lblCFOPVenda: TLabel;
-    IbDtstTabelaCFOP: TIntegerField;
-    IbDtstTabelaLOTE_NFE_ANO: TSmallintField;
-    IbDtstTabelaLOTE_NFE_NUMERO: TIntegerField;
-    IbDtstTabelaNFE_ENVIADA: TSmallintField;
-    IbDtstTabelaCANCEL_DATAHORA: TDateTimeField;
-    IbDtstTabelaCANCEL_MOTIVO: TMemoField;
     ppImprimir: TPopupMenu;
     nmImprimirVenda: TMenuItem;
     nmImprimirDANFE: TMenuItem;
     nmGerarDANFEXML: TMenuItem;
     N1: TMenuItem;
-    IbDtstTabelaXML_NFE_FILENAME: TIBStringField;
     lblTotalDesconto: TLabel;
     lblProdutoPromocao: TLabel;
     cdsTotalComprasAbertas: TDataSource;
     lblVendaCancelada: TLabel;
     lblVendaAberta: TLabel;
-    IbDtstTabelaBLOQUEADO: TSmallintField;
-    IbDtstTabelaBLOQUEADO_MOTIVO: TMemoField;
     lblPercRedBC: TLabel;
     dbPercRedBC: TDBEdit;
     pnlObservacao: TPanel;
@@ -165,25 +121,15 @@ type
     btnFormaPagtoInserir: TBitBtn;
     btnFormaPagtoEditar: TBitBtn;
     dtsVendaFormaPagto: TDataSource;
-    IbDtstTabelaDESCONTO: TIBBCDField;
     lblData: TLabel;
     dbValorTotalBruto: TDBEdit;
     lblValorTotalBruto: TLabel;
-    IbDtstTabelaTOTALVENDA_BRUTA: TIBBCDField;
     tbsTransporte: TTabSheet;
     Bevel16: TBevel;
     pnlBotoesTransp: TPanel;
     BtnTransporteInforme: TBitBtn;
     Bevel17: TBevel;
     dtsModalidadeFrete: TDataSource;
-    IbDtstTabelaNFE_MODALIDADE_FRETE: TSmallintField;
-    IbDtstTabelaNFE_TRANSPORTADORA: TIntegerField;
-    IbDtstTabelaNFE_PLACA_VEICULO: TIBStringField;
-    IbDtstTabelaNFE_PLACA_UF: TIBStringField;
-    IbDtstTabelaNFE_PLACA_RNTC: TIBStringField;
-    IbDtstTabelaTRANSP_NOME: TIBStringField;
-    IbDtstTabelaTRANSP_CNPJ: TIBStringField;
-    IbDtstTabelaTRANSP_IEST: TIBStringField;
     GrpBxTransportadora: TGroupBox;
     lblTranspNome: TLabel;
     dbTranspNome: TDBEdit;
@@ -191,21 +137,16 @@ type
     dbTranspCnpj: TDBEdit;
     lblTranspEndereco: TLabel;
     dbTranspEndereco: TDBEdit;
-    IbDtstTabelaTRANSP_ENDERECO: TIBStringField;
     lblModalidadeFrete: TLabel;
     dbModalidadeFrete: TDBLookupComboBox;
     dtsVendaVolume: TDataSource;
     dbgVolumes: TDBGrid;
     RdgStatusVenda: TRadioGroup;
-    IbDtstTabelaLUCRO_CALCULADO: TIBBCDField;
     ShpLucroZerado: TShape;
     lblLucroZerado: TLabel;
     ShpLucroNegativo: TShape;
     lblLucroNegativo: TLabel;
-    IbDtstTabelaLOTE_NFE_RECIBO: TIBStringField;
     nmGerarImprimirBoletos: TMenuItem;
-    IbDtstTabelaGERAR_ESTOQUE_CLIENTE: TSmallintField;
-    IbDtstTabelaCODCLIENTE: TIntegerField;
     popupAuditoria: TPopupMenu;
     nmPpReciboNFe: TMenuItem;
     nmPpChaveNFe: TMenuItem;
@@ -239,10 +180,7 @@ type
     dbLogNFeCancelData: TDBEdit;
     lblLogNFeUsuario: TLabel;
     dbLogNFeUsuario: TDBEdit;
-    IbDtstTabelaCANCEL_USUARIO: TIBStringField;
     BtnLimparDadosNFe: TSpeedButton;
-    IbDtstTabelaNFE_DENEGADA: TSmallintField;
-    IbDtstTabelaNFE_DENEGADA_MOTIVO: TIBStringField;
     lblLogNFeDenegada: TLabel;
     dbLogNFeDenegada: TDBEdit;
     BtnCorrigirDadosNFe: TSpeedButton;
@@ -263,7 +201,6 @@ type
     N4: TMenuItem;
     nmPpCarregarArquivoNFe: TMenuItem;
     opdNotas: TOpenDialog;
-    IbDtstTabelaDADOS_ENTREGA: TWideMemoField;
     tbsDadosEntrega: TTabSheet;
     pnlDadosEntrega: TPanel;
     lblDadosEntrega: TLabel;
@@ -271,10 +208,6 @@ type
     Bevel13: TBevel;
     dbDadosEntrega: TDBMemo;
     nmPpCorrigirDadosEntrega: TMenuItem;
-    IbDtstTabelaMODELO_NF: TIntegerField;
-    IbDtstTabelaCAIXA_ANO: TSmallintField;
-    IbDtstTabelaCAIXA_NUM: TIntegerField;
-    IbDtstTabelaCAIXA_PDV: TSmallintField;
     fdQryFormaPagto: TFDQuery;
     fdQryCondicaoPagto: TFDQuery;
     fdQryEmpresa: TFDQuery;
@@ -420,18 +353,85 @@ type
     qryNFENUMVENDA: TIntegerField;
     qryNFEANOCOMPRA: TSmallintField;
     qryNFENUMCOMPRA: TIntegerField;
+    fdQryTabelaANO: TSmallintField;
+    fdQryTabelaCODCONTROL: TIntegerField;
+    fdQryTabelaCODEMP: TStringField;
+    fdQryTabelaCODCLIENTE: TIntegerField;
+    fdQryTabelaCODCLI: TStringField;
+    fdQryTabelaDTVENDA: TSQLTimeStampField;
+    fdQryTabelaSTATUS: TSmallintField;
+    fdQryTabelaTOTALVENDA_BRUTA: TBCDField;
+    fdQryTabelaDESCONTO: TBCDField;
+    fdQryTabelaTOTALVENDA: TBCDField;
+    fdQryTabelaDTFINALIZACAO_VENDA: TDateField;
+    fdQryTabelaOBS: TMemoField;
+    fdQryTabelaDADOS_ENTREGA: TMemoField;
+    fdQryTabelaFORMAPAG: TStringField;
+    fdQryTabelaFATDIAS: TSmallintField;
+    fdQryTabelaSERIE: TStringField;
+    fdQryTabelaNFE: TLargeintField;
+    fdQryTabelaMODELO_NF: TIntegerField;
+    fdQryTabelaLOTE_NFE_ANO: TSmallintField;
+    fdQryTabelaLOTE_NFE_NUMERO: TIntegerField;
+    fdQryTabelaLOTE_NFE_RECIBO: TStringField;
+    fdQryTabelaNFE_ENVIADA: TSmallintField;
+    fdQryTabelaNFE_DENEGADA: TSmallintField;
+    fdQryTabelaNFE_DENEGADA_MOTIVO: TStringField;
+    fdQryTabelaCAIXA_ANO: TSmallintField;
+    fdQryTabelaCAIXA_NUM: TIntegerField;
+    fdQryTabelaCAIXA_PDV: TSmallintField;
+    fdQryTabelaDATAEMISSAO: TDateField;
+    fdQryTabelaHORAEMISSAO: TTimeField;
+    fdQryTabelaCANCEL_USUARIO: TStringField;
+    fdQryTabelaCANCEL_DATAHORA: TSQLTimeStampField;
+    fdQryTabelaCANCEL_MOTIVO: TMemoField;
+    fdQryTabelaCFOP: TIntegerField;
+    fdQryTabelaVERIFICADOR_NFE: TStringField;
+    fdQryTabelaXML_NFE_FILENAME: TStringField;
+    fdQryTabelaXML_NFE: TMemoField;
+    fdQryTabelaVENDEDOR_COD: TIntegerField;
+    fdQryTabelaUSUARIO: TStringField;
+    fdQryTabelaFORMAPAGTO_COD: TSmallintField;
+    fdQryTabelaCONDICAOPAGTO_COD: TSmallintField;
+    fdQryTabelaVENDA_PRAZO: TSmallintField;
+    fdQryTabelaPRAZO_01: TSmallintField;
+    fdQryTabelaPRAZO_02: TSmallintField;
+    fdQryTabelaPRAZO_03: TSmallintField;
+    fdQryTabelaPRAZO_04: TSmallintField;
+    fdQryTabelaPRAZO_05: TSmallintField;
+    fdQryTabelaPRAZO_06: TSmallintField;
+    fdQryTabelaPRAZO_07: TSmallintField;
+    fdQryTabelaPRAZO_08: TSmallintField;
+    fdQryTabelaPRAZO_09: TSmallintField;
+    fdQryTabelaPRAZO_10: TSmallintField;
+    fdQryTabelaPRAZO_11: TSmallintField;
+    fdQryTabelaPRAZO_12: TSmallintField;
+    fdQryTabelaNFE_MODALIDADE_FRETE: TSmallintField;
+    fdQryTabelaNFE_TRANSPORTADORA: TIntegerField;
+    fdQryTabelaNFE_PLACA_VEICULO: TStringField;
+    fdQryTabelaNFE_PLACA_UF: TStringField;
+    fdQryTabelaNFE_PLACA_RNTC: TStringField;
+    fdQryTabelaGERAR_ESTOQUE_CLIENTE: TSmallintField;
+    fdQryTabelaTRANSP_NOME: TStringField;
+    fdQryTabelaTRANSP_CNPJ: TStringField;
+    fdQryTabelaTRANSP_IEST: TStringField;
+    fdQryTabelaTRANSP_ENDERECO: TStringField;
+    fdQryTabelaNOME: TStringField;
+    fdQryTabelaBLOQUEADO: TSmallintField;
+    fdQryTabelaBLOQUEADO_MOTIVO: TMemoField;
+    fdQryTabelaLUCRO_CALCULADO: TBCDField;
+    lblDicaDadosEntrega: TLabel;
+    pnlDicaFormaPagto: TPanel;
+    lblDicaFormaPagto: TLabel;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
-    procedure IbDtstTabelaSTATUSGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure dbCondicaoPagtoClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaItensStateChange(Sender: TObject);
     procedure dbFormaPagtoClick(Sender: TObject);
-    procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure btnProdutoInserirClick(Sender: TObject);
     procedure btnProdutoEditarClick(Sender: TObject);
@@ -480,8 +480,6 @@ type
     procedure nmPpCarregarArquivoNFeClick(Sender: TObject);
     procedure nmPpCorrigirDadosEntregaClick(Sender: TObject);
     procedure btnTituloEditarClick(Sender: TObject);
-    procedure IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;
-      var Text: string; DisplayText: Boolean);
     procedure cdsVendaFormaPagtoBeforePost(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
     procedure cdsVendaVolumeNewRecord(DataSet: TDataSet);
@@ -491,6 +489,9 @@ type
     procedure qryTitulosCalcFields(DataSet: TDataSet);
     procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
+    procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryTabelaLUCRO_CALCULADOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -616,11 +617,11 @@ begin
       '    from VW_EMPRESA vw' +
       ' ))';
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + whr);
-      SelectSQL.Add('order by ' + CampoOrdenacao);
+      SQL.Add('where ' + whr);
+      SQL.Add('order by ' + CampoOrdenacao);
       Open;
     end;
 
@@ -672,9 +673,7 @@ begin
 
   CarregarLista(fdQryEmpresa);
   CarregarLista(fdQryVendedor);
-  //CarregarLista(fdQryFormaPagto);
   CarregarLista(cdsFormaPagto);
-  //CarregarLista(fdQryCondicaoPagto);
   CarregarLista(cdsCondicaoPagto);
   CarregarLista(fdQryModalidadeFrete);
 
@@ -722,7 +721,6 @@ begin
   nmEnviarEmailCliente.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
   btbtnFinalizar.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
-  //btbtnCancelarVND.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
   ShpLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   lblLucroZerado.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
@@ -777,45 +775,31 @@ var
   bBloqueado : Boolean;
   sBloqueado : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, bBloqueado, sBloqueado) ) then
     begin
       if bBloqueado then
       begin
         ShowWarning('Cliente selecionado se encontra bloqueado!' + #13#13 + 'Motivo:' + #13 + sBloqueado);
 
-        IbDtstTabelaBLOQUEADO.AsInteger       := 1;
-        IbDtstTabelaBLOQUEADO_MOTIVO.AsString := sBloqueado;
+        DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger       := 1;
+        DtSrcTabela.DataSet.FieldByName('BLOQUEADO_MOTIVO').AsString := sBloqueado;
       end
       else
       begin
-        IbDtstTabelaBLOQUEADO.AsInteger       := 0;
-        IbDtstTabelaBLOQUEADO_MOTIVO.AsString := EmptyStr;
+        DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger       := 0;
+        DtSrcTabela.DataSet.FieldByName('BLOQUEADO_MOTIVO').AsString := EmptyStr;
       end;
 
-      IbDtstTabelaCODCLIENTE.AsInteger := iCodigo;
-      IbDtstTabelaCODCLI.AsString := sCNPJ;
-      IbDtstTabelaNOME.AsString   := sNome;
+      DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('CODCLI').AsString := sCNPJ;
+      DtSrcTabela.DataSet.FieldByName('NOME').AsString   := sNome;
 
-      IbDtstTabelaDADOS_ENTREGA.AsString :=
+      DtSrcTabela.DataSet.FieldByName('DADOS_ENTREGA').AsString :=
         '* Responsável pela entrega..............: ' + #13 +
         '* Entregar a(o) Sr(a)...................: ' + #13#13 +
         '* Endereço para entrega do(s) produto(s): ' + #13 + GetClienteEndereco(iCodigo, True);
     end;
-end;
-
-procedure TfrmGeVenda.IbDtstTabelaSTATUSGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  Case Sender.AsInteger of
-    STATUS_VND_AND : Text := 'Em atendimento';
-    STATUS_VND_ABR : Text := 'Aberta';
-    STATUS_VND_FIN : Text := 'Finalizada';
-    STATUS_VND_NFE : Text := IfThen(Sender.DataSet.FieldByName('modelo_nf').AsInteger = 0,  'NF-e', 'NFC-e');
-    STATUS_VND_CAN : Text := 'Cancelada';
-    else
-      Text := Sender.AsString;
-  end;
 end;
 
 procedure TfrmGeVenda.dbCondicaoPagtoClick(Sender: TObject);
@@ -840,10 +824,20 @@ begin
   inherited;
   pgcMaisDados.ActivePageIndex := 0;
 
-  fdQryVendedor.Filtered      := (IbDtstTabela.State in [dsEdit, dsInsert]);
-  DtSrcTabelaItens.AutoEdit   := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN );
-  dtsVendaFormaPagto.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN );
+  fdQryVendedor.Filtered      := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+  DtSrcTabelaItens.AutoEdit   := DtSrcTabela.AutoEdit and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_FIN );
+  dtsVendaFormaPagto.AutoEdit := DtSrcTabela.AutoEdit and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_FIN );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+end;
+
+procedure TfrmGeVenda.fdQryTabelaAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 end;
 
 procedure TfrmGeVenda.fdQryTabelaAfterScroll(DataSet: TDataSet);
@@ -852,58 +846,87 @@ begin
   HabilitarDesabilitar_Btns;
 end;
 
+procedure TfrmGeVenda.fdQryTabelaLUCRO_CALCULADOGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+  begin
+    if (Sender.AsCurrency > 100.0) then
+      Text := '+100'
+    else
+      Text := FormatFloat(',0.0###', Sender.AsCurrency);
+  end;
+end;
+
 procedure TfrmGeVenda.fdQryTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaDTVENDA.Value := GetDateTimeDB;
-  IbDtstTabelaCODEMP.Value  := gUsuarioLogado.Empresa;
-  IbDtstTabelaFORMAPAG.Value          := GetFormaPagtoNomeDefault;
-  IbDtstTabelaCFOP.Value              := GetCfopIDDefault;
-  IbDtstTabelaVENDA_PRAZO.Value := 0;
-  IbDtstTabelaSTATUS.Value      := STATUS_VND_AND;
-  IbDtstTabelaTOTALVENDA_BRUTA.Value  := 0;
-  IbDtstTabelaDESCONTO.Value          := 0;
-  IbDtstTabelaTOTALVENDA.Value        := 0;
-  IbDtstTabelaGERAR_ESTOQUE_CLIENTE.Value := 0;
-  IbDtstTabelaNFE_ENVIADA.Value           := 0;
-  IbDtstTabelaNFE_DENEGADA.Value          := 0;
-  IbDtstTabelaNFE_MODALIDADE_FRETE.Value  := MODALIDADE_FRETE_SEMFRETE;
-  IbDtstTabelaUSUARIO.Value     := gUsuarioLogado.Login;
-  IbDtstTabelaOBS.AsString      := DMNFe.GetInformacaoComplementar(gUsuarioLogado.Empresa);
+  DtSrcTabela.DataSet.FieldByName('DTVENDA').AsDateTime := GetDateTimeDB;
+  DtSrcTabela.DataSet.FieldByName('CODEMP').AsString    := gUsuarioLogado.Empresa;
+  DtSrcTabela.DataSet.FieldByName('FORMAPAG').AsString  := GetFormaPagtoNomeDefault;
+  DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger     := GetCfopIDDefault;
+  DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger := 0;
+  DtSrcTabela.DataSet.FieldByName('CAIXA_PDV').AsInteger   := 0;
+  DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger      := STATUS_VND_AND;
+  DtSrcTabela.DataSet.FieldByName('TOTALVENDA_BRUTA').AsCurrency  := 0;
+  DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency          := 0;
+  DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency        := 0;
+  DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger := 0;
+  DtSrcTabela.DataSet.FieldByName('NFE_ENVIADA').AsInteger           := 0;
+  DtSrcTabela.DataSet.FieldByName('NFE_DENEGADA').AsInteger          := 0;
+  DtSrcTabela.DataSet.FieldByName('NFE_MODALIDADE_FRETE').AsInteger  := MODALIDADE_FRETE_SEMFRETE;
+  DtSrcTabela.DataSet.FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
+  DtSrcTabela.DataSet.FieldByName('OBS').AsString     := DMNFe.GetInformacaoComplementar(gUsuarioLogado.Empresa);
 
-  IbDtstTabelaCODCLIENTE.Value := CONSUMIDOR_FINAL_CODIGO;
-  IbDtstTabelaCODCLI.Value     := CONSUMIDOR_FINAL_CNPJ;
-  IbDtstTabelaNOME.Value       := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
+  DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger := CONSUMIDOR_FINAL_CODIGO;
+  DtSrcTabela.DataSet.FieldByName('CODCLI').AsString      := CONSUMIDOR_FINAL_CNPJ;
+  DtSrcTabela.DataSet.FieldByName('NOME').AsString        := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
 
   if ( gUsuarioLogado.Vendedor = 0 ) then
-    IbDtstTabelaVENDEDOR_COD.Value := GetVendedorIDDefault
+    DtSrcTabela.DataSet.FieldByName('VENDEDOR_COD').AsInteger := GetVendedorIDDefault
   else
-    IbDtstTabelaVENDEDOR_COD.Value := gUsuarioLogado.Vendedor;
+    DtSrcTabela.DataSet.FieldByName('VENDEDOR_COD').AsInteger := gUsuarioLogado.Vendedor;
 
-  if (AnsiUpperCase(Trim(IbDtstTabelaNOME.AsString)) <> CONSUMIDOR_FINAL_NOME) then
+  if (AnsiUpperCase(Trim(DtSrcTabela.DataSet.FieldByName('NOME').AsString)) <> CONSUMIDOR_FINAL_NOME) then
   begin
-    IbDtstTabelaCODCLIENTE.Clear;
-    IbDtstTabelaCODCLI.Clear;
-    IbDtstTabelaNOME.Clear;
+    DtSrcTabela.DataSet.FieldByName('CODCLIENTE').Clear;
+    DtSrcTabela.DataSet.FieldByName('CODCLI').Clear;
+    DtSrcTabela.DataSet.FieldByName('NOME').Clear;
   end;
 
-  IbDtstTabelaDADOS_ENTREGA.Clear;
+  DtSrcTabela.DataSet.FieldByName('DADOS_ENTREGA').Clear;
 
-  IbDtstTabelaFORMAPAGTO_COD.Clear;
-  IbDtstTabelaCONDICAOPAGTO_COD.Clear;
+  DtSrcTabela.DataSet.FieldByName('FORMAPAGTO_COD').Clear;
+  DtSrcTabela.DataSet.FieldByName('CONDICAOPAGTO_COD').Clear;
 
-  IbDtstTabelaSERIE.Clear;
-  IbDtstTabelaNFE.Clear;
-  IbDtstTabelaLOTE_NFE_ANO.Clear;
-  IbDtstTabelaLOTE_NFE_NUMERO.Clear;
-  IbDtstTabelaNFE_TRANSPORTADORA.Clear;
-  IbDtstTabelaNFE_DENEGADA_MOTIVO.Clear;
+  DtSrcTabela.DataSet.FieldByName('CAIXA_NUM').Clear;
+  DtSrcTabela.DataSet.FieldByName('CAIXA_ANO').Clear;
 
-  IbDtstTabelaNFE_TRANSPORTADORA.Required := False;
-  IbDtstTabelaNFE_PLACA_VEICULO.Required  := False;
-  IbDtstTabelaNFE_PLACA_UF.Required       := False;
+  DtSrcTabela.DataSet.FieldByName('SERIE').Clear;
+  DtSrcTabela.DataSet.FieldByName('NFE').Clear;
+  DtSrcTabela.DataSet.FieldByName('LOTE_NFE_ANO').Clear;
+  DtSrcTabela.DataSet.FieldByName('LOTE_NFE_NUMERO').Clear;
+  DtSrcTabela.DataSet.FieldByName('NFE_TRANSPORTADORA').Clear;
+  DtSrcTabela.DataSet.FieldByName('NFE_DENEGADA_MOTIVO').Clear;
+
+  DtSrcTabela.DataSet.FieldByName('NFE_TRANSPORTADORA').Required := False;
+  DtSrcTabela.DataSet.FieldByName('NFE_PLACA_VEICULO').Required  := False;
+  DtSrcTabela.DataSet.FieldByName('NFE_PLACA_UF').Required       := False;
 
   CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
+end;
+
+procedure TfrmGeVenda.fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  Case Sender.AsInteger of
+    STATUS_VND_AND : Text := 'Em atendimento';
+    STATUS_VND_ABR : Text := 'Aberta';
+    STATUS_VND_FIN : Text := 'Finalizada';
+    STATUS_VND_NFE : Text := IfThen(Sender.DataSet.FieldByName('modelo_nf').AsInteger = 0,  'NF-e', 'NFC-e');
+    STATUS_VND_CAN : Text := 'Cancelada';
+    else
+      Text := Sender.AsString;
+  end;
 end;
 
 procedure TfrmGeVenda.DtSrcTabelaItensStateChange(Sender: TObject);
@@ -1018,7 +1041,7 @@ begin
           cdsTabelaItensUNID_COD.AsInteger   := FieldByName('Codunidade').AsInteger;
 
         if ( FieldByName('Codcfop').AsInteger > 0 ) then
-          cdsTabelaItensCFOP_COD.AsInteger := IfThen(IbDtstTabelaCFOP.AsInteger = 0, FieldByName('Codcfop').AsInteger, IbDtstTabelaCFOP.AsInteger);
+          cdsTabelaItensCFOP_COD.AsInteger := IfThen(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger = 0, FieldByName('Codcfop').AsInteger, DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger);
 
         cdsTabelaItensALIQUOTA.AsCurrency              := FieldByName('Aliquota').AsCurrency;
         cdsTabelaItensALIQUOTA_CSOSN.AsCurrency        := FieldByName('Aliquota_csosn').AsCurrency;
@@ -1045,7 +1068,7 @@ begin
         cdsTabelaItensRESERVA.AsCurrency           := FieldByName('Reserva').AsCurrency;
         cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger  := FieldByName('Movimenta_Estoque').AsInteger;
         cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger := FieldByName('estoque_aprop_lote').AsInteger;
-        cdsTabelaItensREFERENCIA.AsString          := FieldByName('referencia_cliente').AsString;
+        cdsTabelaItensREFERENCIA.AsString          := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, FieldByName('referencia_fornecedor').AsString, FieldByName('referencia_cliente').AsString);
 
         if ( cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0 ) then
         begin
@@ -1120,33 +1143,33 @@ procedure TfrmGeVenda.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btbtnFinalizar.Enabled   := (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty) and (not cdsVendaFormaPagto.IsEmpty);
-    btbtnGerarNFe.Enabled    := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty);
-    btbtnCancelarVND.Enabled := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
+    btbtnFinalizar.Enabled   := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty) and (not cdsVendaFormaPagto.IsEmpty);
+    btbtnGerarNFe.Enabled    := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) and (not cdsTabelaItens.IsEmpty);
+    btbtnCancelarVND.Enabled := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
 
-    btnRegerarTitulo.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) and (qryTitulos.RecordCount = 0);
-    btnTituloEditar.Enabled  := (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) and (not qryTitulos.IsEmpty);
+    btnRegerarTitulo.Enabled := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) and (qryTitulos.RecordCount = 0);
+    btnTituloEditar.Enabled  := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) and (not qryTitulos.IsEmpty);
 
     BtnTransporteInforme.Enabled := btbtnFinalizar.Enabled or btbtnGerarNFe.Enabled;
 
-    btnGerarBoleto.Enabled   := GetEstacaoEmitiBoleto and (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN); // and (IbDtstTabelaFORMAPAGTO_COD.AsInteger = GetCondicaoPagtoIDBoleto);
+    btnGerarBoleto.Enabled   := GetEstacaoEmitiBoleto and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN); // and (DtSrcTabela.DataSet.FieldByName('FORMAPAGTO_COD').AsInteger = GetCondicaoPagtoIDBoleto);
 
-    nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
+    nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmImprimirNotaEntrega.Enabled   := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmImprimirNotaEntregaX.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmImprimirCartaCredito.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
-    nmGerarDANFEXML.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmEnviarEmailCliente.Enabled    := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirDANFE.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled   := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
+    nmImprimirNotaEntregaX.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
+    nmImprimirCartaCredito.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) ) and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1);
+    nmGerarDANFEXML.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
+    nmEnviarEmailCliente.Enabled    := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
 
-    TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
-    nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
+    TbsInformeNFe.TabVisible    := (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0);
+    BtnCorrigirDadosNFe.Enabled := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) and (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0);
 
-    nmPpCorrigirDadosNFeCFOP.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
-    nmPpCorrigirDadosEntrega.Enabled := (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]);
+    nmPpCorrigirDadosNFeCFOP.Enabled := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) and (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0);
+    nmPpCorrigirDadosEntrega.Enabled := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]);
   end
   else
   begin
@@ -1159,19 +1182,19 @@ begin
 
     BtnTransporteInforme.Enabled := False;
 
-    nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (IbDtstTabelaSTATUS.AsInteger < STATUS_VND_CAN);
+    nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
-    nmImprimirNotaEntrega.Enabled   := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmImprimirNotaEntregaX.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) );
-    nmImprimirCartaCredito.Enabled  := ( (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) or (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) ) and (IbDtstTabelaGERAR_ESTOQUE_CLIENTE.AsInteger = 1);
-    nmGerarDANFEXML.Enabled         := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+    nmImprimirDANFE.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
+    nmImprimirNotaEntrega.Enabled   := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
+    nmImprimirNotaEntregaX.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
+    nmImprimirCartaCredito.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) ) and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1);
+    nmGerarDANFEXML.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled    := False;
 
-    TbsInformeNFe.TabVisible    := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr);
-    nmPpLimparDadosNFe.Enabled  := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnLimparDadosNFe.Enabled   := (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsCurrency = 0);
-    BtnCorrigirDadosNFe.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) and (IbDtstTabelaNFE.AsCurrency = 0);
+    TbsInformeNFe.TabVisible    := (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0);
+    BtnLimparDadosNFe.Enabled   := (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0);
+    BtnCorrigirDadosNFe.Enabled := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) and (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0);
 
     nmPpCorrigirDadosNFeCFOP.Enabled := False;
     nmPpCorrigirDadosEntrega.Enabled := False;
@@ -1200,19 +1223,9 @@ end;
 
 procedure TfrmGeVenda.dbFormaPagtoClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( dtsFormaPagto.DataSet.Locate('cod', dbFormaPagto.Field.AsInteger, []) ) then
-      IbDtstTabelaFORMAPAG.AsString := dtsFormaPagto.DataSet.FieldByName('descri').AsString;
-end;
-
-procedure TfrmGeVenda.IbDtstTabelaAfterCancel(DataSet: TDataSet);
-begin
-  inherited;
-  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      DtSrcTabela.DataSet.FieldByName('FORMAPAG').AsString := dtsFormaPagto.DataSet.FieldByName('descri').AsString;
 end;
 
 procedure TfrmGeVenda.btbtnExcluirClick(Sender: TObject);
@@ -1221,9 +1234,9 @@ var
 begin
   RecarregarRegistro;
 
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_VND_ABR ) then
+  if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger > STATUS_VND_ABR ) then
   begin
-    Case IbDtstTabelaSTATUS.AsInteger of
+    Case DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger of
       STATUS_VND_FIN : sMsg := 'Esta venda não pode ser excluída porque está finalizada.';
       STATUS_VND_NFE : sMsg := 'Esta venda não pode ser excluída porque tem NF-e/NFC-e emitida';
       STATUS_VND_CAN : sMsg := 'Esta venda não pode ser excluída porque está cancelada';
@@ -1237,11 +1250,11 @@ begin
     inherited;
     if ( not OcorreuErro ) then
     begin
-      AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
     end;
   end;
 end;
@@ -1261,7 +1274,7 @@ begin
   if ( cdsTabelaItens.Active ) then
   begin
 
-    if ( GetSegmentoID(IbDtstTabelaCODEMP.AsString) = SEGMENTO_MERCADO_CARRO_ID ) then
+    if ( GetSegmentoID(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString) = SEGMENTO_MERCADO_CARRO_ID ) then
     begin
       dbCST.ReadOnly := False;
       dbCST.TabStop  := True;
@@ -1278,7 +1291,7 @@ begin
 
     cdsTabelaItens.Append;
     cdsTabelaItensSEQ.Value         := Sequencial;
-    cdsTabelaItensCODVENDEDOR.Value := IbDtstTabelaVENDEDOR_COD.Value;
+    cdsTabelaItensCODVENDEDOR.AsInteger := DtSrcTabela.DataSet.FieldByName('VENDEDOR_COD').AsInteger;
     dbProduto.SetFocus;
   end;
 end;
@@ -1326,14 +1339,14 @@ begin
 
       GetToTais(cDescontos, cTotalLiquido);
 
-      IbDtstTabelaDESCONTO.AsCurrency   := cDescontos;
-      IbDtstTabelaTOTALVENDA.AsCurrency := cTotalLiquido;
+      DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency   := cDescontos;
+      DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency := cTotalLiquido;
 
-      if ( IbDtstTabelaDESCONTO.AsCurrency < 0 ) then
-        IbDtstTabelaDESCONTO.AsCurrency := 0;
+      if ( DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency < 0 ) then
+        DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency := 0;
 
-      if ( IbDtstTabelaTOTALVENDA.AsCurrency < 0 ) then
-        IbDtstTabelaTOTALVENDA.AsCurrency := 0;
+      if ( DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency < 0 ) then
+        DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency := 0;
     end;
 end;
 
@@ -1447,9 +1460,9 @@ begin
 
       GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido, cValorBaseIcms, cValorIcms);
 
-      IbDtstTabelaTOTALVENDA_BRUTA.AsCurrency := cTotalBruto;
-      IbDtstTabelaDESCONTO.AsCurrency         := cTotalDesconto;
-      IbDtstTabelaTOTALVENDA.AsCurrency       := cTotalLiquido;
+      DtSrcTabela.DataSet.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
+      DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
+      DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency       := cTotalLiquido;
 
       if ( cdsVendaFormaPagto.RecordCount <= 1 ) then
       begin
@@ -1499,14 +1512,14 @@ begin
     dbgFormaPagto.SetFocus;
   end
   else
-  if ( GetTotalValorFormaPagto > IbDtstTabelaTOTALVENDA.AsCurrency ) then
+  if ( GetTotalValorFormaPagto > DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency ) then
   begin
     ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
     pgcMaisDados.ActivePage := tbsRecebimento;
     dbgFormaPagto.SetFocus;
   end
   else
-  if ( GetTotalValorFormaPagto < IbDtstTabelaTOTALVENDA.AsCurrency ) then
+  if ( GetTotalValorFormaPagto < DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency ) then
   begin
     ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
     pgcMaisDados.ActivePage := tbsRecebimento;
@@ -1518,7 +1531,7 @@ begin
 
     if ( not OcorreuErro ) then
     begin
-    
+
       // Salvar Itens
 
       if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
@@ -1537,25 +1550,25 @@ begin
 
       CommitTransaction;
 
-      iNumero := IbDtstTabelaCODCONTROL.AsInteger;
+      iNumero := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
 
-      IbDtstTabela.Close;
-      IbDtstTabela.Open;
+      DtSrcTabela.DataSet.Close;
+      DtSrcTabela.DataSet.Open;
 
-      IbDtstTabela.Locate(CampoCodigo, iNumero, []);
+      DtSrcTabela.DataSet.Locate(CampoCodigo, iNumero, []);
 
-      AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
       // Corrigir Total Forma Pagto
 
-      if ( (cdsVendaFormaPagto.RecordCount = 1) and (cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency <> IbDtstTabelaTOTALVENDA.AsCurrency) ) then
+      if ( (cdsVendaFormaPagto.RecordCount = 1) and (cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency <> DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency) ) then
       begin
         cdsVendaFormaPagto.Edit;
-        cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency := IbDtstTabelaTOTALVENDA.AsCurrency;
+        cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency := DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency;
         cdsVendaFormaPagto.Post;
         cdsVendaFormaPagto.ApplyUpdates;
         cdsVendaFormaPagto.CommitUpdates;
@@ -1588,8 +1601,8 @@ begin
       CarregarDadosProduto( StrToIntDef(cdsTabelaItensCODPROD.AsString, 0) );
 
   if ( Sender = dbCFOPVenda ) then
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-      CarregarDadosCFOP( IbDtstTabelaCFOP.AsInteger );
+    if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
+      CarregarDadosCFOP( DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger );
 
   if ( Sender = dbCFOP ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
@@ -1632,11 +1645,11 @@ end;
 procedure TfrmGeVenda.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-  AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
   pgcMaisDados.ActivePage := tbsRecebimento;
   HabilitarDesabilitar_Btns;
@@ -1653,14 +1666,14 @@ begin
   inherited;
   if ( not OcorreuErro ) then
   begin
-    IbDtstTabelaANO.AsInteger        := iAno;
-    IbDtstTabelaCODCONTROL.AsInteger := iNum;
+    DtSrcTabela.DataSet.FieldByName('ANO').AsInteger        := iAno;
+    DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger := iNum;
 
-    AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
     ZerarFormaPagto;
 
@@ -1674,9 +1687,9 @@ var
 begin
   RecarregarRegistro;
 
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_VND_ABR ) then
+  if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger > STATUS_VND_ABR ) then
   begin
-    Case IbDtstTabelaSTATUS.AsInteger of
+    Case DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger of
       STATUS_VND_FIN : sMsg := 'Esta venda não pode ser alterada porque está finalizada.';
       STATUS_VND_NFE : sMsg := 'Esta venda não pode ser alterada porque tem NF-e/NFC-e emitida';
       STATUS_VND_CAN : sMsg := 'Esta venda não pode ser alterada porque está cancelada';
@@ -1690,11 +1703,11 @@ begin
     inherited;
     if ( not OcorreuErro ) then
     begin
-      AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-      AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+      AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+      AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
     end;
   end;
 end;
@@ -1735,7 +1748,7 @@ begin
       cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger := IfThen(aProduto.aEstoquePorLote, FLAG_SIM, FLAG_NAO);
 
       if not qryCFOP.Active then
-        CarregarDadosCFOP( IbDtstTabelaCFOP.AsInteger );
+        CarregarDadosCFOP( DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger );
 
       if ( Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString) <> EmptyStr ) then
         cdsTabelaItensCST.AsString := Trim(qryCFOP.FieldByName('Cfop_cst_padrao_saida').AsString);
@@ -1775,14 +1788,14 @@ end;
 
 procedure TfrmGeVenda.cdsTabelaItensNewRecord(DataSet: TDataSet);
 begin
-  cdsTabelaItensANO.Value         := IbDtstTabelaANO.Value;
-  cdsTabelaItensCODCONTROL.Value  := IbDtstTabelaCODCONTROL.Value;
-  cdsTabelaItensDTVENDA.Value     := IbDtstTabelaDTVENDA.Value;
-  cdsTabelaItensCODEMP.Value      := IbDtstTabelaCODEMP.Value;
-  cdsTabelaItensCODCLI.Value      := IbDtstTabelaCODCLI.Value;
-  cdsTabelaItensCODCLIENTE.Value  := IbDtstTabelaCODCLIENTE.Value;
+  cdsTabelaItensANO.AsInteger        := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+  cdsTabelaItensCODCONTROL.AsInteger := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
+  cdsTabelaItensDTVENDA.AsDateTime   := DtSrcTabela.DataSet.FieldByName('DTVENDA').AsDateTime;
+  cdsTabelaItensCODEMP.AsString      := DtSrcTabela.DataSet.FieldByName('CODEMP').AsString;
+  cdsTabelaItensCODCLI.AsString      := DtSrcTabela.DataSet.FieldByName('CODCLI').AsString;
+  cdsTabelaItensCODCLIENTE.AsInteger := DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger;
 
-  if ( IbDtstTabelaCFOP.IsNull ) then
+  if ( DtSrcTabela.DataSet.FieldByName('CFOP').IsNull ) then
   begin
     cdsTabelaItensCFOP_COD.Value        := GetCfopIDDefault;
     cdsTabelaItensCFOP_DESCRICAO.Value  := GetCfopNomeDefault;
@@ -1792,11 +1805,11 @@ begin
     if not qryCFOP.Active then
     begin
       qryCFOP.Close;
-      qryCFOP.ParamByName('Cfop_cod').AsInteger := IbDtstTabelaCFOP.AsInteger;
+      qryCFOP.ParamByName('Cfop_cod').AsInteger := DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger;
       qryCFOP.Open;
     end;
 
-    cdsTabelaItensCFOP_COD.Assign( IbDtstTabelaCFOP );
+    cdsTabelaItensCFOP_COD.Assign( DtSrcTabela.DataSet.FieldByName('CFOP') );
     cdsTabelaItensCFOP_DESCRICAO.Assign( qryCFOP.FieldByName('cfop_descricao') );
   end;
 
@@ -1831,7 +1844,7 @@ procedure TfrmGeVenda.btbtnFinalizarClick(Sender: TObject);
     Return : Boolean;
   begin
     try
-      Return := not GetPermitirVendaEstoqueInsEmpresa(IbDtstTabelaCODEMP.AsString); // Permitir vendas de produtos com estoque insuficiente
+      Return := not GetPermitirVendaEstoqueInsEmpresa(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString); // Permitir vendas de produtos com estoque insuficiente
 
       if Return then
       begin
@@ -1864,7 +1877,7 @@ var
   CxContaCorrente : Integer;
   aGerarTitulos   : Boolean;
 begin
-  if ( IbDtstTabela.IsEmpty or cdsTabelaItens.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty or cdsTabelaItens.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
@@ -1875,14 +1888,14 @@ begin
   CxContaCorrente := 0;
 
   RecarregarRegistro;
-  aGerarTitulos := GetCfopGerarTitulo(IbDtstTabelaCFOP.AsInteger);
+  aGerarTitulos := GetCfopGerarTitulo(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger);
 
-  AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
-  AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirTabelaItens(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
+  AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
   pgcGuias.ActivePage := tbsCadastro;
 
-  if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN) then
+  if (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) then
   begin
     ShowWarning('Movimento de Venda já finalizada!');
     Abort;
@@ -1896,10 +1909,10 @@ begin
 
   // Verificar se cliente está bloqueado, caso a venda seja a prazo
 
-  if ( aGerarTitulos and (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) ) then
-    if ( IbDtstTabelaBLOQUEADO.AsInteger = 1 ) then
+  if ( aGerarTitulos and (DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger = 1) ) then
+    if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1 ) then
     begin
-      ShowWarning('Cliente bloqueado!' + #13#13 + 'Motivo:' + #13 + IbDtstTabelaBLOQUEADO_MOTIVO.AsString);
+      ShowWarning('Cliente bloqueado!' + #13#13 + 'Motivo:' + #13 + DtSrcTabela.DataSet.FieldByName('BLOQUEADO_MOTIVO').AsString);
       Exit;
     end;
 
@@ -1908,7 +1921,7 @@ begin
 
   if aGerarTitulos then
     if cdsVendaFormaPagto.Locate('VENDA_PRAZO', 0, []) then
-      if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login
+      if ( not CaixaAberto(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, gUsuarioLogado.Login
         , GetDateDB
         , cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger
         , CxAno
@@ -1919,142 +1932,152 @@ begin
         Exit;
       end;
 
-  IbDtstTabela.Edit;
-
-  if ( IbDtstTabelaVENDEDOR_COD.AsInteger = 0 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('VENDEDOR_COD').AsInteger = 0 ) then
   begin
+    DtSrcTabela.DataSet.Edit;
     ShowWarning('Favor informar o vendedor');
     dbVendedor.SetFocus;
   end
   else
   if ( QuantidadeInvalida ) then
   begin
+    DtSrcTabela.DataSet.Edit;
     ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', cdsTabelaItensSEQ.AsInteger) + ' está acima da quantidade disponível no estoque.');
     if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
       btnProdutoEditar.SetFocus;
   end
   else
+  begin
+    // Verificar dados da(s) Forma(s) de Pagamento(s)
 
-  // Verificar dados da(s) Forma(s) de Pagamento(s)
-
-  if ( cdsVendaFormaPagto.RecordCount = 0 ) then
-  begin
-    ShowWarning('Favor informar a forma e/ou condição de pagamento');
-    pgcMaisDados.ActivePage := tbsRecebimento;
-    dbgFormaPagto.SetFocus;
-  end
-  else
-  if ( GetTotalValorFormaPagto <= 0 ) then
-  begin
-    ShowWarning('Favor informar corretamente o valor de cada forma/condição de pagamento');
-    pgcMaisDados.ActivePage := tbsRecebimento;
-    dbgFormaPagto.SetFocus;
-  end
-  else
-  if ( GetTotalValorFormaPagto > IbDtstTabelaTOTALVENDA.AsCurrency ) then
-  begin
-    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
-    pgcMaisDados.ActivePage := tbsRecebimento;
-    dbgFormaPagto.SetFocus;
-  end
-  else
-  if ( GetTotalValorFormaPagto < IbDtstTabelaTOTALVENDA.AsCurrency ) then
-  begin
-    ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
-    pgcMaisDados.ActivePage := tbsRecebimento;
-    dbgFormaPagto.SetFocus;
-  end
-  else
-  if ( ShowConfirm('Confirma a finalização da venda selecionada?') ) then
-  begin
-    if ( aGerarTitulos and (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) ) then
+    if ( cdsVendaFormaPagto.RecordCount = 0 ) then
     begin
-      GetComprasAbertas( IbDtstTabelaCODCLIENTE.AsInteger );
-      if ( (qryTotalComprasAbertasVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
-      begin
-        ShowWarning(
-            'O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.'
-          + #13#13 + 'Favor comunicar ao setor financeiro para que este verifique no Cadastro do Cliente '
-          + 'o Valor Limite de Compras e seu Saldo Disponível.');
-        Exit;
-      end;
-    end;
-
-    if GetGerarEstoqueCliente then
-      iGerarEstoqueCliente := 1
+      ShowWarning('Favor informar a forma e/ou condição de pagamento');
+      DtSrcTabela.DataSet.Edit;
+      pgcMaisDados.ActivePage := tbsRecebimento;
+      dbgFormaPagto.SetFocus;
+    end
     else
-      iGerarEstoqueCliente := 0;
-
-    IbDtstTabela.Edit;
-
-    IbDtstTabelaSTATUS.Value                := STATUS_VND_FIN;
-    IbDtstTabelaDTVENDA.Value               := GetDateTimeDB;
-    IbDtstTabelaDTFINALIZACAO_VENDA.Value   := GetDateTimeDB;
-    IbDtstTabelaGERAR_ESTOQUE_CLIENTE.Value := iGerarEstoqueCliente;
-
-    IbDtstTabela.Post;
-    IbDtstTabela.ApplyUpdates;
-
-    CommitTransaction;
-
-    if aGerarTitulos then
-      GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-
-    AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-
-    ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODCONTROL.AsInteger));
-
-    // Confirmar vencimentos de cada parcela
-
-    if ( aGerarTitulos and (IbDtstTabelaVENDA_PRAZO.AsInteger = 1) ) then
-      if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTVENDA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
-        AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-
-    HabilitarDesabilitar_Btns;
-
-    // Formas de Pagamento que nao seja a prazo
-
-    if aGerarTitulos then
+    if ( GetTotalValorFormaPagto <= 0 ) then
     begin
-      cdsVendaFormaPagto.First;
-      while not cdsVendaFormaPagto.Eof do
+      ShowWarning('Favor informar corretamente o valor de cada forma/condição de pagamento');
+      DtSrcTabela.DataSet.Edit;
+      pgcMaisDados.ActivePage := tbsRecebimento;
+      dbgFormaPagto.SetFocus;
+    end
+    else
+    if ( GetTotalValorFormaPagto > DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency ) then
+    begin
+      ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MAIOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
+      DtSrcTabela.DataSet.Edit;
+      pgcMaisDados.ActivePage := tbsRecebimento;
+      dbgFormaPagto.SetFocus;
+    end
+    else
+    if ( GetTotalValorFormaPagto < DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency ) then
+    begin
+      ShowWarning('O Total A Pagar informado na forma/condição de pagamento é MENOR que o Valor Total da Venda.' + #13#13 + 'Favor corrigir os valores.');
+      DtSrcTabela.DataSet.Edit;
+      pgcMaisDados.ActivePage := tbsRecebimento;
+      dbgFormaPagto.SetFocus;
+    end
+    else
+    begin
+      if ( ShowConfirm('Confirma a finalização da venda selecionada?') ) then
       begin
-        if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
-          if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
-            RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
-              cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, toRecebimentoVenda, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger);
 
-        cdsVendaFormaPagto.Next;
+        if ( aGerarTitulos and (DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger = 1) ) then
+        begin
+          GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger );
+          if ( (qryTotalComprasAbertasVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
+          begin
+            ShowWarning(
+                'O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.'
+              + #13#13 + 'Favor comunicar ao setor financeiro para que este verifique no Cadastro do Cliente '
+              + 'o Valor Limite de Compras e seu Saldo Disponível.');
+            Exit;
+          end;
+        end;
+
+        if GetGerarEstoqueCliente then
+          iGerarEstoqueCliente := 1
+        else
+          iGerarEstoqueCliente := 0;
+
+        DtSrcTabela.DataSet.Edit;
+
+        DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger                := STATUS_VND_FIN;
+        DtSrcTabela.DataSet.FieldByName('DTVENDA').AsDateTime              := GetDateTimeDB;
+        DtSrcTabela.DataSet.FieldByName('DTFINALIZACAO_VENDA').AsDateTime  := GetDateTimeDB;
+        DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger := iGerarEstoqueCliente;
+
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates;
+        fdQryTabela.CommitUpdates;
+
+        CommitTransaction;
+
+        if aGerarTitulos then
+          GerarTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+
+        AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+
+        ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
+
+        // Confirmar vencimentos de cada parcela
+
+        if ( aGerarTitulos and (DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger = 1) ) then
+          if ( TitulosConfirmados(Self, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, DtSrcTabela.DataSet.FieldByName('DTVENDA').AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
+            AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+
+        HabilitarDesabilitar_Btns;
+
+        // Formas de Pagamento que nao seja a prazo
+
+        if aGerarTitulos then
+        begin
+          cdsVendaFormaPagto.First;
+          while not cdsVendaFormaPagto.Eof do
+          begin
+            if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
+              if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
+                RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
+                  cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, toRecebimentoVenda, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
+
+            cdsVendaFormaPagto.Next;
+          end;
+        end;
+
+        // Registrar o Número do Caixa na Venda Finalizada
+
+        RegistrarCaixaNaVenda(
+            DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+          , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
+          , CxAno
+          , CxNumero
+          , (gSistema.Codigo = SISTEMA_PDV));
+
+        if ( CxContaCorrente > 0 ) then
+          GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
+
+        RdgStatusVenda.ItemIndex := 0;
+
+        // Imprimir Cupom
+
+        if (gSistema.Codigo <> SISTEMA_GESTAO_IND) then
+        begin
+          if GetEmitirCupom then
+            if GetEmitirCupomAutomatico then
+              if GetCupomNaoFiscalEmitir then
+                DMNFe.ImprimirCupomNaoFiscal(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+                  , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
+                  , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
+                  , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger)
+              else
+                ; // Emitir Cupom Fiscal
+        end;
+
       end;
-    end;
-
-    // Registrar o Número do Caixa na Venda Finalizada
-
-    RegistrarCaixaNaVenda(
-        IbDtstTabelaANO.AsInteger
-      , IbDtstTabelaCODCONTROL.AsInteger
-      , CxAno
-      , CxNumero
-      , (gSistema.Codigo = SISTEMA_PDV));
-
-    if ( CxContaCorrente > 0 ) then
-      GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
-
-    RdgStatusVenda.ItemIndex := 0;
-
-    // Imprimir Cupom
-
-    if (gSistema.Codigo <> SISTEMA_GESTAO_IND) then
-    begin
-      if GetEmitirCupom then
-        if GetEmitirCupomAutomatico then
-          if GetCupomNaoFiscalEmitir then
-            DMNFe.ImprimirCupomNaoFiscal(IbDtstTabelaCODEMP.AsString
-              , IbDtstTabelaCODCLIENTE.AsInteger
-              , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-              , IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value)
-          else
-            ; // Emitir Cupom Fiscal
     end;
   end;
 end;
@@ -2074,6 +2097,7 @@ var
   {$IFNDEF PDV}
   TipoMovimento : TTipoMovimento;
   {$ENDIF}
+  bRetornoErro  ,
   bNFeGerada    : Boolean;
 begin
 (*
@@ -2097,7 +2121,7 @@ begin
     a uma operação de devolução. Caso esta situação seja confirmada, a NF-e de
     origem será solicitada.
 *)
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
@@ -2107,55 +2131,56 @@ begin
 
   pgcGuias.ActivePage := tbsCadastro;
 
-  bNFeGerada := (IbDtstTabelaNFE.AsCurrency > 0) and (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE);
+  bNFeGerada   := (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency > 0) and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
+  bRetornoErro := False;
 
-  if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) then
+  if (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) then
   begin
     ShowWarning('Movimento de Venda já com NF-e/NFC-e gerada!');
     Abort;
   end;
 
-  if DMNFe.ConfigurarParamentoNFE(IbDtstTabelaCODEMP.AsString) then
+  if DMNFe.ConfigurarParamentoNFE(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString) then
   begin
     ShowInformation('A emissão da NF-e exige a configuração dos parâmetros da empresa.' + #13 + 'Favor entrar em contrato com suporte.');
     Exit;
   end;
 
-  if not GetPermititEmissaoNFe( IbDtstTabelaCODEMP.AsString ) then
+  if not GetPermititEmissaoNFe( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString ) then
   begin
     ShowInformation('Empresa selecionada não habilitada para emissão de NF-e.' + #13 + 'Favor entrar em contato com suporte.');
     Exit;
   end;
 
-  if (GetCfopTipo(IbDtstTabelaCFOP.AsInteger) <> tcfopSaida) then
+  if (GetCfopTipo(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger) <> tcfopSaida) then
   begin
-    ShowInformation('CFOP ' + QuotedStr(IbDtstTabelaCFOP.AsString) + ' não permitida para a Emissão de Notas Fiscais de Saída.' + #13 + 'Favor corrigir número de CFOP.');
+    ShowInformation('CFOP ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CFOP').AsString) + ' não permitida para a Emissão de Notas Fiscais de Saída.' + #13 + 'Favor corrigir número de CFOP.');
     Exit;
   end;
 
-  if not DMNFe.ValidarCFOP(IbDtstTabelaCODEMP.AsString, IbDtstTabelaCODCLIENTE.AsInteger, 0, IbDtstTabelaCFOP.AsInteger) then
+  if not DMNFe.ValidarCFOP(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, 0, DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger) then
     Exit;
 
-  if not DMNFe.ValidarEnderecoCliente(IbDtstTabelaCODCLIENTE.AsInteger) then
+  if not DMNFe.ValidarEnderecoCliente(DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger) then
     Exit;
 
   if ( not DelphiIsRunning ) then
-    if not DMNFe.GetValidadeCertificado(IbDtstTabelaCODEMP.AsString) then
+    if not DMNFe.GetValidadeCertificado(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString) then
       Exit;
 
   {$IFNDEF PDV}
-  if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
-    if GetCfopDevolucao( IbDtstTabelaCFOP.AsInteger ) then
-      if not InformarDocumentoReferenciado(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) then
+  if ( Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) = EmptyStr ) then
+    if GetCfopDevolucao( DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger ) then
+      if not InformarDocumentoReferenciado(Self, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger) then
         Exit;
 
   // Buscar retorno do envio pendente, caso ele tenha ocorrido
   if not bNFeGerada then
-    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr ) then
+    if ( Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr ) then
     begin
       bNFeGerada := BuscarRetornoReciboNFe(Self
-        , IbDtstTabelaCODEMP.AsString
-        , Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString)
+        , DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+        , Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString)
         , iSerieNFe
         , iNumeroNFe
         , sFileNameXML
@@ -2172,19 +2197,19 @@ begin
         Exit;
       end;
 
-      sReciboNFE  := Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString);
+      sReciboNFE  := Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString);
       iNumeroLote := iNumeroNFe;
     end;
   {$ENDIF}
 
   if not bNFeGerada then
   begin
-    if DMNFe.EmissaoNFE_Pendente(IbDtstTabelaCODEMP.AsString, True) then
+    if DMNFe.EmissaoNFE_Pendente(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, True) then
       Abort;
 
     bNFeGerada := GerarNFe(Self
-      , IbDtstTabelaANO.Value
-      , IbDtstTabelaCODCONTROL.Value
+      , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+      , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
       , iSerieNFe
       , iNumeroNFe
       , sFileNameXML
@@ -2192,14 +2217,15 @@ begin
       , sProtocoloNFE
       , sReciboNFE
       , iNumeroLote
-      , sMensagem);
+      , sMensagem
+      , bRetornoErro);
   end;
 
   if bNFeGerada then
   begin
-    with IbDtstTabela do
+    with DtSrcTabela.DataSet do
     begin
-      iNumero := IbDtstTabelaCODCONTROL.AsInteger;
+      iNumero := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
 
       with qryNFE do
       begin
@@ -2207,13 +2233,13 @@ begin
         if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
           sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
 
-        AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+        AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
         Append;
 
-        qryNFEEMPRESA.Value     := IbDtstTabelaCODEMP.AsString;
-        qryNFEANOVENDA.Value    := IbDtstTabelaANO.Value;
-        qryNFENUMVENDA.Value    := IbDtstTabelaCODCONTROL.Value;
+        qryNFEEMPRESA.Value     := DtSrcTabela.DataSet.FieldByName('CODEMP').AsString;
+        qryNFEANOVENDA.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+        qryNFENUMVENDA.Value    := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
         qryNFESERIE.Value       := FormatFloat('#00', iSerieNFe);
         qryNFENUMERO.Value      := iNumeroNFe;
         qryNFEMODELO.Value      := DMNFe.GetModeloDF;
@@ -2223,7 +2249,7 @@ begin
         qryNFECHAVE.Value       := sChaveNFE;
         qryNFEPROTOCOLO.Value   := sProtocoloNFE;
         qryNFERECIBO.Value      := sReciboNFE;
-        qryNFELOTE_ANO.Value    := IbDtstTabelaANO.Value;
+        qryNFELOTE_ANO.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
         qryNFELOTE_NUM.Value    := iNumeroLote;
 
         if ( FileExists(sFileNameXML) ) then
@@ -2244,13 +2270,10 @@ begin
         CommitTransaction;
       end;
 
-      IbDtstTabela.Close;
-      IbDtstTabela.Open;
-
-      IbDtstTabela.Locate(CampoCodigo, iNumero, []);
+      RecarregarRegistro;
 
       ShowInformation('Nota Fiscal de Saída gerada com sucesso.' + #13#13 +
-        'Série/Número: ' + IbDtstTabelaSERIE.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaNFE.Value) +
+        'Série/Número: ' + DtSrcTabela.DataSet.FieldByName('SERIE').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency) +
         IfThen(Trim(sMensagem) = EmptyStr, EmptyStr, #13#13 + 'Alerta:' + #13 + sMensagem));
 
       HabilitarDesabilitar_Btns;
@@ -2260,6 +2283,10 @@ begin
   end
   else
     RecarregarRegistro;
+
+//  ANALISAR MELHOR EM QUE SITUAÇÃO APRESENTAR ESSA MENSAGEM
+//  if bRetornoErro then
+//    ShowWarning('WebService para emissão da NF-e não está respondendo.' + #13 + 'Faça uma nova tentativa daqui a alguns minutos.');
 end;
 
 procedure TfrmGeVenda.GerarTitulos(const AnoVenda: Smallint;
@@ -2276,7 +2303,6 @@ begin
         ParamByName('numvenda').AsInteger := ControleVenda;
 
         ExecProc;
-        CommitUpdates;
 
         CommitTransaction;
       end;
@@ -2298,9 +2324,9 @@ var
 const
   UPDATE_VENDA = 'Update TBVENDAS v SET v.venda_prazo = 1 WHERE v.ano = %s AND v.codcontrol = %s';
 begin
-  pPermitir := (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_FIN);
+  pPermitir := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN);
   if not pPermitir then
-    pPermitir := ((IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE) and (qryTitulos.RecordCount = 0));
+    pPermitir := ((DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) and (qryTitulos.RecordCount = 0));
 
   if (not pPermitir) then
     ShowWarning('É permitida a geração de títulos apenas para vendas finalizadas')
@@ -2310,13 +2336,13 @@ begin
   else
   if ( ShowConfirm('Confirma geração do(s) título(s) a receber da venda?') ) then
   begin
-    GerarTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    GerarTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
     // A existência da parcela de número 1 (um) é evidência da venda à prazo.
     if  qryTitulos.Locate('PARCELA', 1, []) then
     begin
-      ExecuteScriptSQL(Format(UPDATE_VENDA, [IbDtstTabelaANO.AsString, IbDtstTabelaCODCONTROL.AsString]));
+      ExecuteScriptSQL(Format(UPDATE_VENDA, [DtSrcTabela.DataSet.FieldByName('ANO').AsString, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString]));
       RecarregarRegistro;
     end;
   end;
@@ -2324,16 +2350,16 @@ end;
 
 procedure TfrmGeVenda.btnTituloEditarClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_FIN ) then
+  if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger <> STATUS_VND_FIN ) then
     ShowWarning('É permitida a edição de títulos apenas para vendas finalizadas')
   else
   if ( qryTitulos.IsEmpty ) then
     ShowWarning('Não existe(m) título(s) gerado(s) para esta venda')
   else
-  if ( IbDtstTabelaVENDA_PRAZO.AsInteger = 1 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
   begin
-    if ( TitulosConfirmados(Self, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, IbDtstTabelaDTVENDA.AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
-      AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    if ( TitulosConfirmados(Self, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, DtSrcTabela.DataSet.FieldByName('DTVENDA').AsDateTime, GetTotalValorFormaPagto_APrazo) ) then
+      AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
   end;
 end;
 
@@ -2342,21 +2368,19 @@ var
   iCodigo : Integer;
   sDescricao : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
-      IbDtstTabelaCFOP.AsInteger := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger := iCodigo;
 end;
 
 procedure TfrmGeVenda.btbtnCancelarVNDClick(Sender: TObject);
-var
- iNumero : Integer;
 begin
 {*
   IMR - 22/04/2016 :
     Ativação do botão "Cancelar Vendas" para o módulo PDV para que estes possa
     cancelar suas próprias vendas finalizadas.
 *}
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
@@ -2366,45 +2390,38 @@ begin
 
   pgcGuias.ActivePage := tbsCadastro;
 
-  if (IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN) then
+  if (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_CAN) then
   begin
     ShowWarning('Movimento de Venda já cancelada!');
     Abort;
   end;
 
   if (gSistema.Codigo = SISTEMA_PDV)  then
-    if (IbDtstTabelaCAIXA_PDV.AsInteger = 0) then
+    if (DtSrcTabela.DataSet.FieldByName('CAIXA_PDV').AsInteger = 0) then
     begin
       ShowWarning('Apenas registros de vendas finalizadas pelo PDV podem ser canceladas!');
       Exit;
     end;
 
-  if ( (Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) <> EmptyStr) and (IbDtstTabelaNFE.AsLargeInt = 0) ) then
+  if ( (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (DtSrcTabela.DataSet.FieldByName('NFE').AsLargeInt = 0) ) then
   begin
     ShowWarning('O processo de geração de NF-e para esta venda já foi solicitado, mas não fora concluído.' + #13 +
       'Desta forma não seré perdida o cancelamento da venda.' + #13#13 + 'Favor consultar junto a SEFA e processar o Recibo de número ' +
-        IbDtstTabelaLOTE_NFE_RECIBO.AsString + ' e comunicar ao suporte.');
+        DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString + ' e comunicar ao suporte.');
     Exit;
   end;
 
-  if ( PossuiTitulosPagos(IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) ) then
+  if ( PossuiTitulosPagos(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger) ) then
   begin
     ShowWarning('A venda possui título(s) já baixado(s).' + #13 + 'Favor providenciar a exclusão da(s) baixa(s) para que a venda possa ser cancelada!');
     Exit;
   end;
 
-  if ( CancelarVND(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODCONTROL.Value) ) then
-    with IbDtstTabela do
+  if ( CancelarVND(Self, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger) ) then
+    with DtSrcTabela.DataSet do
     begin
-      iNumero := IbDtstTabelaCODCONTROL.AsInteger;
-
-      IbDtstTabela.Close;
-      IbDtstTabela.Open;
-
-      IbDtstTabela.Locate(CampoCodigo, iNumero, []);
-
-      ShowInformation('Venda cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODCONTROL.AsInteger));
-
+      RecarregarRegistro;
+      ShowInformation('Venda cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
       HabilitarDesabilitar_Btns;
     end;
 end;
@@ -2422,12 +2439,12 @@ procedure TfrmGeVenda.nmImprimirDANFEClick(Sender: TObject);
 var
   isPDF : Boolean;
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   isPDF := (Sender = nmGerarDANFEXML); // Pare gerar PDF e XML de envio ao cliente
 
-  DMNFe.ImprimirDANFEACBr( IbDtstTabelaCODEMP.AsString, IbDtstTabelaCODCLIENTE.AsInteger, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, isPDF);
+  DMNFe.ImprimirDANFEACBr( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, isPDF);
 end;
 
 procedure TfrmGeVenda.btnConsultarProdutoClick(Sender: TObject);
@@ -2471,9 +2488,9 @@ begin
 
   if ( not qryTitulos.IsEmpty ) then
   begin
-    GerarBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, toBoletoVenda);
-    AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    GerarBoleto(Self, dbCliente.Text, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger,
+      DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, toBoletoVenda);
+    AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
   end;
 end;
 
@@ -2484,23 +2501,23 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    if (not IbDtstTabelaSTATUS.IsNull) then
+    if (not DtSrcTabela.DataSet.FieldByName('STATUS').IsNull) then
     begin
       // Destacar produtos em Promocao
-      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_AND ) then
+      if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_AND ) then
         dbgDados.Canvas.Font.Color := lblVendaAberta.Font.Color
       else
       // Destacar produtos em Promocao
-      if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN ) then
+      if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_CAN ) then
         dbgDados.Canvas.Font.Color := lblVendaCancelada.Font.Color;
 
       // Destacar alerta de lucros
-      if ((not IbDtstTabelaLUCRO_CALCULADO.IsNull) and (IbDtstTabelaSTATUS.AsInteger <> STATUS_VND_CAN)) then
+      if ((not DtSrcTabela.DataSet.FieldByName('LUCRO_CALCULADO').IsNull) and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger <> STATUS_VND_CAN)) then
       begin
-        if ( IbDtstTabelaLUCRO_CALCULADO.AsCurrency = 0 ) then
+        if ( DtSrcTabela.DataSet.FieldByName('LUCRO_CALCULADO').AsCurrency = 0 ) then
           dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color
         else
-        if ( IbDtstTabelaLUCRO_CALCULADO.AsCurrency < 0 ) then
+        if ( DtSrcTabela.DataSet.FieldByName('LUCRO_CALCULADO').AsCurrency < 0 ) then
           dbgDados.Canvas.Brush.Color := ShpLucroNegativo.Brush.Color;
       end;
     end;
@@ -2604,7 +2621,7 @@ begin
 
       if ( dtsFormaPagto.DataSet.Locate('cod', qryTitulosFORMA_PAGTO.AsInteger, []) ) then
         if ( dtsFormaPagto.DataSet.FieldByName('Conta_corrente').AsInteger > 0 ) then
-          if ( not CaixaAberto(IbDtstTabelaCODEMP.AsString, gUsuarioLogado.Login, GetDateDB, qryTitulosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+          if ( not CaixaAberto(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, gUsuarioLogado.Login, GetDateDB, qryTitulosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
           begin
             ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
             Exit;
@@ -2622,7 +2639,7 @@ begin
         if (CxContaCorrente = 0) and (not qryTitulosPGTO_DATA.IsNull) then
         begin
           DataPagto := qryTitulosDTREC.AsDateTime;
-          CaixaAberto(IbDtstTabelaCODEMP.AsString
+          CaixaAberto(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
             , qryTitulosPGTO_USUARIO.AsString
             , qryTitulosPGTO_DATA.AsDateTime
             , qryTitulosPGTO_FORMA.AsInteger
@@ -2666,7 +2683,7 @@ begin
           CommitTransaction;
         end;
 
-        AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+        AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
         if ( CxContaCorrente > 0 ) then
           GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
@@ -2817,27 +2834,27 @@ begin
   cdsVendaFormaPagtoVALOR_FPAGTO.Value      := dbValorTotal.Field.AsCurrency;
   cdsVendaFormaPagtoVENDA_PRAZO.Value       := 0;
 
-  if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
-    IbDtstTabela.Edit;
+  if not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+    DtSrcTabela.DataSet.Edit;
 
   if GetCondicaoPagtoAPrazo(GetCondicaoPagtoIDDefault) then
-    IbDtstTabelaVENDA_PRAZO.AsInteger := 1;
+    DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger := 1;
 end;
 
 procedure TfrmGeVenda.cdsVendaFormaPagtoBeforePost(DataSet: TDataSet);
 begin
   if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 1 ) then
   begin
-    if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
-      IbDtstTabela.Edit;
-    IbDtstTabelaVENDA_PRAZO.AsInteger := 1;
+    if not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+      DtSrcTabela.DataSet.Edit;
+    DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger := 1;
   end;
 end;
 
 procedure TfrmGeVenda.cdsVendaFormaPagtoNewRecord(DataSet: TDataSet);
 begin
-  cdsVendaFormaPagtoANO_VENDA.Assign( IbDtstTabelaANO );
-  cdsVendaFormaPagtoCONTROLE_VENDA.Assign( IbDtstTabelaCODCONTROL );
+  cdsVendaFormaPagtoANO_VENDA.Assign( DtSrcTabela.DataSet.FieldByName('ANO') );
+  cdsVendaFormaPagtoCONTROLE_VENDA.Assign( DtSrcTabela.DataSet.FieldByName('CODCONTROL') );
 end;
 
 function TfrmGeVenda.GetTotalValorFormaPagto_APrazo: Currency;
@@ -2917,46 +2934,39 @@ begin
       pgcMaisDados.ActivePage := tbsRecebimento;
       dbgFormaPagto.SetFocus;
     end;
-*)    
+*)
 end;
 
 procedure TfrmGeVenda.BtnTransporteInformeClick(Sender: TObject);
-var
-  iNumero : Integer;
 begin
   RecarregarRegistro;
 
   if EditarDadosTransportadora(Self) then
   begin
-    iNumero := IbDtstTabelaCODCONTROL.AsInteger;
-
-    if ( IbDtstTabela.State = dsEdit ) then
+    if ( DtSrcTabela.DataSet.State = dsEdit ) then
     begin
-      IbDtstTabela.Post;
-      IbDtstTabela.ApplyUpdates;
+      fdQryTabela.Post;
+      fdQryTabela.ApplyUpdates;
+      fdQryTabela.CommitUpdates;
     end;
 
     cdsVendaVolume.ApplyUpdates;
     cdsVendaVolume.CommitUpdates;
-    
+
     CommitTransaction;
-
-    IbDtstTabela.Close;
-    IbDtstTabela.Open;
-
-    IbDtstTabela.Locate(CampoCodigo, iNumero, []);
+    RecarregarRegistro;
   end
   else
-  if ( IbDtstTabela.State = dsEdit ) then
-    IbDtstTabela.Cancel;
+  if ( DtSrcTabela.DataSet.State = dsEdit ) then
+    DtSrcTabela.DataSet.Cancel;
 
   pgcMaisDados.ActivePage := tbsTransporte;
 end;
 
 procedure TfrmGeVenda.cdsVendaVolumeNewRecord(DataSet: TDataSet);
 begin
-  cdsVendaVolumeANO_VENDA.Assign( IbDtstTabelaANO );
-  cdsVendaVolumeCONTROLE_VENDA.Assign( IbDtstTabelaCODCONTROL );
+  cdsVendaVolumeANO_VENDA.Assign( DtSrcTabela.DataSet.FieldByName('ANO') );
+  cdsVendaVolumeCONTROLE_VENDA.Assign( DtSrcTabela.DataSet.FieldByName('CODCONTROL') );
 end;
 
 procedure TfrmGeVenda.RdgStatusVendaClick(Sender: TObject);
@@ -2966,28 +2976,30 @@ begin
 end;
 
 procedure TfrmGeVenda.RecarregarRegistro;
-var
-  iAno ,
-  iCod : Integer;
-  sID : String;
+//var
+//  iAno ,
+//  iCod : Integer;
+//  sID : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    Exit;
-
-  if IbDtstTabela.IsEmpty then
-    sID := EmptyStr
-  else
-    sID := IbDtstTabelaCODCONTROL.AsString;
-
-  if ( sID <> EmptyStr ) then
-  begin
-    iAno := IbDtstTabelaANO.AsInteger;
-    iCod := IbDtstTabelaCODCONTROL.AsInteger;
-
-    IbDtstTabela.Close;
-    IbDtstTabela.Open;
-    IbDtstTabela.Locate('CODCONTROL', sID, []);
-  end;
+//  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) or (DtSrcTabela.DataSet.IsEmpty) then
+//    Exit;
+//
+//  if DtSrcTabela.DataSet.IsEmpty then
+//    sID := EmptyStr
+//  else
+//    sID := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString;
+//
+//  if ( sID <> EmptyStr ) then
+//  begin
+//    iAno := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+//    iCod := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
+//
+//    DtSrcTabela.DataSet.FieldByName('.Close;
+//    DtSrcTabela.DataSet.FieldByName('.Open;
+//    DtSrcTabela.DataSet.FieldByName('.Locate('CODCONTROL', sID, []);
+//  end;
+  if not ((DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) or (DtSrcTabela.DataSet.IsEmpty)) then
+    fdQryTabela.RefreshRecord;
 end;
 
 procedure TfrmGeVenda.nmGerarImprimirBoletosClick(Sender: TObject);
@@ -2999,9 +3011,9 @@ procedure TfrmGeVenda.nmGerarImprimirBoletosClick(Sender: TObject);
       Close;
       SQL.Clear;
       SQL.Add('Select b.nossonumero from TBCONTREC b');
-      SQL.Add('where b.cliente  = ' + IbDtstTabelaCODCLIENTE.AsString);
-      SQL.Add('  and b.anovenda = ' + IbDtstTabelaANO.AsString);
-      SQL.Add('  and b.numvenda = ' + IbDtstTabelaCODCONTROL.AsString);
+      SQL.Add('where b.cliente  = ' + DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsString);
+      SQL.Add('  and b.anovenda = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      SQL.Add('  and b.numvenda = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
       SQL.Add('  and b.codbanco > 0');
       Open;
 
@@ -3022,39 +3034,39 @@ const
   MSG_REF_NFE = 'Referente a NF-e %s';
   MSG_REF_DOC = 'Referente a venda No. %s';
 begin
-  if IbDtstTabela.IsEmpty then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  if (IbDtstTabela.State in [dsEdit, dsInsert]) then
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     Exit;
 
   // Montar identificação do documento para título de e-mail
 
-  if ( IbDtstTabelaNFE.AsLargeInt > 0 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('NFE').AsLargeInt > 0 ) then
   begin
-    sMensagem  := Format(MSG_REF_NFE, [FormatFloat('###0000000', IbDtstTabelaNFE.AsLargeInt)]);
-    sDocumento := 'NFe ' + FormatFloat('###0000000', IbDtstTabelaNFE.AsLargeInt) + '-' + IbDtstTabelaSERIE.AsString;
+    sMensagem  := Format(MSG_REF_NFE, [FormatFloat('###0000000', DtSrcTabela.DataSet.FieldByName('NFE').AsLargeInt)]);
+    sDocumento := 'NFe ' + FormatFloat('###0000000', DtSrcTabela.DataSet.FieldByName('NFE').AsLargeInt) + '-' + DtSrcTabela.DataSet.FieldByName('SERIE').AsString;
   end
   else
   begin
-    sMensagem  := Format(MSG_REF_DOC, [IbDtstTabelaANO.AsString + '/' + FormatFloat('##00000', IbDtstTabelaCODCONTROL.AsInteger)]);
-    sDocumento := 'Venda ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##00000', IbDtstTabelaCODCONTROL.AsInteger);
+    sMensagem  := Format(MSG_REF_DOC, [DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##00000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger)]);
+    sDocumento := 'Venda ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##00000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
   end;
 
-  sDestinatario := GetClienteEmail(IbDtstTabelaCODCLIENTE.AsInteger);
+  sDestinatario := GetClienteEmail(DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger);
 
-  DMNFe.ConfigurarEmail(IbDtstTabelaCODEMP.AsString, sDestinatario, 'Boleta Bancária - ' + sDocumento, sMensagem);
+  DMNFe.ConfigurarEmail(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, sDestinatario, 'Boleta Bancária - ' + sDocumento, sMensagem);
 
-  AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+  AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
   bExisteTitulo := not qryTitulos.IsEmpty;
 
   if BoletosGerados then
   begin
-    ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF);
+    ReImprimirBoleto(Self, dbCliente.Text, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger,
+      DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF);
     Exit;
   end;
 
@@ -3083,8 +3095,8 @@ begin
     if (not BoletosGerados) then
       ShowWarning('Não existem títulos com boletos gerados para o movimento de venda.')
     else
-      ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-        IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF);
+      ReImprimirBoleto(Self, dbCliente.Text, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger,
+        DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF);
   finally
     qryTitulos.Filter   := EmptyStr;
     qryTitulos.Filtered := False;
@@ -3105,7 +3117,7 @@ begin
         SQL.Add('Select');
         SQL.Add('  coalesce(entrega_fracionada_venda, 0) as gerar_estoque');
         SQL.Add('from TBCLIENTE');
-        SQL.Add('where Codigo = ' + IbDtstTabelaCODCLIENTE.AsString);
+        SQL.Add('where Codigo = ' + DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsString);
         Open;
 
         iReturn := (FieldByName('gerar_estoque').AsInteger = 1);
@@ -3129,60 +3141,60 @@ end;
 
 procedure TfrmGeVenda.ImprimirOrcamentoClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with DMNFe do
   begin
 
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_CAN ) then
+    if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_CAN ) then
     begin
       ShowWarning('Venda cancelada não pode ser impressa!');
       Exit;
     end;
 
-    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Orçamento / Venda');
-    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
-    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
-    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    CarregarDadosEmpresa(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, 'Orçamento / Venda');
+    AbrirEmitente( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString );
+    AbrirDestinatario( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger );
+    AbrirVenda( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
 //    if GetEmitirCupom and (gSistema.Codigo = SISTEMA_PDV) then
     if GetEmitirCupom then
       if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin
-        if DMNFe.IsEstacaoEmiteNFCe and ((IbDtstTabelaNFE.AsCurrency > 0) and (IbDtstTabelaMODELO_NF.AsInteger = 1)) then // Modelo 1 (NFC-e [65])
+        if DMNFe.IsEstacaoEmiteNFCe and ((DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency > 0) and (DtSrcTabela.DataSet.FieldByName('MODELO_NF').AsInteger = 1)) then // Modelo 1 (NFC-e [65])
         begin
-          if DMNFe.TipoEmissaoCupomTexto(IbDtstTabela.FieldByName('CODEMP').AsString) then
+          if DMNFe.TipoEmissaoCupomTexto(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString) then
             DMNFe.ImprimirCupomNaoFiscal(
-                IbDtstTabela.FieldByName('CODEMP').AsString
-              , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
+                DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+              , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
               , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-              , IbDtstTabela.FieldByName('ANO').AsInteger
-              , IbDtstTabela.FieldByName('CODCONTROL').AsInteger)
+              , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+              , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger)
           else
             DMNFe.ImprimirDANFE_ESCPOSACBr(
-                IbDtstTabela.FieldByName('CODEMP').AsString
-              , IbDtstTabela.FieldByName('CODCLIENTE').AsInteger
-              , IbDtstTabela.FieldByName('ANO').AsInteger
-              , IbDtstTabela.FieldByName('CODCONTROL').AsInteger);
+                DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+              , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
+              , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+              , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
         end
         else
-        if GetCupomNaoFiscalEmitir and (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) then
+        if GetCupomNaoFiscalEmitir and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) then
           ImprimirCupomNaoFiscal(
-              IbDtstTabelaCODEMP.AsString
-            , IbDtstTabelaCODCLIENTE.AsInteger
+              DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+            , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-            , IbDtstTabelaANO.Value
-            , IbDtstTabelaCODCONTROL.Value)
+            , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger)
         else
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_ORCAMENTO ) then
         begin
           ImprimirCupomOrcamento(
-              IbDtstTabelaCODEMP.AsString
-            , IbDtstTabelaCODCLIENTE.AsInteger
+              DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+            , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
             , FormatDateTime('dd/mm/yy hh:mm', GetDateTimeDB)
-            , IbDtstTabelaANO.Value
-            , IbDtstTabelaCODCONTROL.Value)
+            , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger)
         end
         else
         if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
@@ -3212,13 +3224,13 @@ end;
 
 procedure TfrmGeVenda.nmPpReciboNFeClick(Sender: TObject);
 begin
-  if not IbDtstTabela.IsEmpty then
+  if not DtSrcTabela.DataSet.IsEmpty then
   begin
-    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
+    if ( Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) = EmptyStr ) then
       Exit;
 
-    Clipboard.AsText := Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString);
-    ShowInformation('Dados NF-e', 'Número de Recibo de Envio da NF-e:' + #13 + Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString));
+    Clipboard.AsText := Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString);
+    ShowInformation('Dados NF-e', 'Número de Recibo de Envio da NF-e:' + #13 + Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString));
   end;
 end;
 
@@ -3239,15 +3251,15 @@ var
   tTipoNota  : TTipoNF;
   cValorNF   : Currency;
 begin
-  if IbDtstTabela.IsEmpty then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
-  if ( IbDtstTabelaSTATUS.AsInteger = STATUS_VND_NFE ) then
+  if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE ) then
     ShowWarning('Venda já possui NF-e/NFC-e.')
   else
   if opdNotas.Execute then
   begin
-    DMNFe.CarregarArquivoNFe(IbDtstTabelaCODEMP.AsString, opdNotas.FileName
+    DMNFe.CarregarArquivoNFe(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, opdNotas.FileName
       , sNomeArquivoXML
       , sEmitente
       , sDestinatario
@@ -3268,26 +3280,26 @@ begin
       if ( tTipoNota <> tnfSaida ) then
         ShowWarning('NF-e selecionada não é uma nota de saída.')
       else
-      if ( IbDtstTabelaCODEMP.AsString <> sEmitente ) then
-        ShowWarning('NF-e selecionada não pertence ao emitente ' + GetEmpresaNome(IbDtstTabelaCODEMP.AsString) + '.')
+      if ( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString <> sEmitente ) then
+        ShowWarning('NF-e selecionada não pertence ao emitente ' + GetEmpresaNome(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString) + '.')
       else
-      if ( IbDtstTabelaCODCLI.AsString <> sDestinatario ) then
-        ShowWarning('NF-e selecionada não pertence ao cliente ' + GetClienteNome(IbDtstTabelaCODCLIENTE.AsInteger) + '.')
+      if ( DtSrcTabela.DataSet.FieldByName('CODCLI').AsString <> sDestinatario ) then
+        ShowWarning('NF-e selecionada não pertence ao cliente ' + GetClienteNome(DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger) + '.')
       else
-      if ( IbDtstTabelaTOTALVENDA.AsCurrency <> cValorNF ) then
+      if ( DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency <> cValorNF ) then
         ShowWarning('NF-e com Valor Total da Nota Fiscal diferente ao registrado na venda.')
       else
       if ShowConfirm('Confirma a importação do XML da NF-e para o registro de venda selecionado?') then
       begin
         with qryNFE do
         begin
-          AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+          AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
           Append;
 
-          qryNFEEMPRESA.Value     := IbDtstTabelaCODEMP.AsString;
-          qryNFEANOVENDA.Value    := IbDtstTabelaANO.Value;
-          qryNFENUMVENDA.Value    := IbDtstTabelaCODCONTROL.Value;
+          qryNFEEMPRESA.Value     := DtSrcTabela.DataSet.FieldByName('CODEMP').AsString;
+          qryNFEANOVENDA.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+          qryNFENUMVENDA.Value    := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
           qryNFESERIE.Value       := sSerieNFe;
           qryNFENUMERO.Value      := iNumeroNFe;
           qryNFEMODELO.Value      := iModeloNFe;
@@ -3297,7 +3309,7 @@ begin
           qryNFECHAVE.Value       := sChave;
           qryNFEPROTOCOLO.Value   := sProtocolo;
           qryNFERECIBO.Value      := sRecibo;
-          qryNFELOTE_ANO.Value    := IbDtstTabelaANO.Value;
+          qryNFELOTE_ANO.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
           qryNFELOTE_NUM.Value    := iNumeroNFe;
 
           if ( FileExists(opdNotas.FileName) ) then
@@ -3328,25 +3340,25 @@ end;
 
 procedure TfrmGeVenda.nmPpChaveNFeClick(Sender: TObject);
 begin
-  if not IbDtstTabela.IsEmpty then
+  if not DtSrcTabela.DataSet.IsEmpty then
   begin
-    if ( Trim(IbDtstTabelaVERIFICADOR_NFE.AsString) = EmptyStr ) then
+    if ( Trim(DtSrcTabela.DataSet.FieldByName('VERIFICADOR_NFE').AsString) = EmptyStr ) then
       Exit;
 
-    Clipboard.AsText := Trim(IbDtstTabelaVERIFICADOR_NFE.AsString);
-    ShowInformation('Dados NF-e', 'Chave da NF-e:' + #13 + Trim(IbDtstTabelaVERIFICADOR_NFE.AsString));
+    Clipboard.AsText := Trim(DtSrcTabela.DataSet.FieldByName('VERIFICADOR_NFE').AsString);
+    ShowInformation('Dados NF-e', 'Chave da NF-e:' + #13 + Trim(DtSrcTabela.DataSet.FieldByName('VERIFICADOR_NFE').AsString));
   end;
 end;
 
 procedure TfrmGeVenda.nmPpArquivoNFeClick(Sender: TObject);
 begin
-  if not IbDtstTabela.IsEmpty then
+  if not DtSrcTabela.DataSet.IsEmpty then
   begin
-    if ( Trim(IbDtstTabelaXML_NFE_FILENAME.AsString) = EmptyStr ) then
+    if ( Trim(DtSrcTabela.DataSet.FieldByName('XML_NFE_FILENAME').AsString) = EmptyStr ) then
       Exit;
 
-    Clipboard.AsText := Trim(IbDtstTabelaXML_NFE_FILENAME.AsString);
-    ShowInformation('Dados NF-e', 'Nome do Arquivo XML NF-e:' + #13 + Trim(IbDtstTabelaXML_NFE_FILENAME.AsString));
+    Clipboard.AsText := Trim(DtSrcTabela.DataSet.FieldByName('XML_NFE_FILENAME').AsString);
+    ShowInformation('Dados NF-e', 'Nome do Arquivo XML NF-e:' + #13 + Trim(DtSrcTabela.DataSet.FieldByName('XML_NFE_FILENAME').AsString));
   end;
 end;
 
@@ -3362,10 +3374,10 @@ const
   MSG_REF_NFE = 'Referente a NF-e %s';
   MSG_REF_DOC = 'Referente a venda No. %s';
 begin
-  if IbDtstTabela.IsEmpty then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
-  if (IbDtstTabela.State in [dsEdit, dsInsert]) then
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     Exit;
 
   if not GetPermissaoRotinaInterna(Sender, True) then
@@ -3373,37 +3385,45 @@ begin
 
   // Montar identificação do documento para título de e-mail
 
-  if ( IbDtstTabelaNFE.AsLargeInt > 0 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('NFE').AsLargeInt > 0 ) then
   begin
-    sMensagem  := Format(MSG_REF_NFE, [FormatFloat('###0000000', IbDtstTabelaNFE.AsLargeInt)]);
-    sDocumento := 'NFe ' + FormatFloat('###0000000', IbDtstTabelaNFE.AsLargeInt) + '-' + IbDtstTabelaSERIE.AsString;
+    sMensagem  := Format(MSG_REF_NFE, [FormatFloat('###0000000', DtSrcTabela.DataSet.FieldByName('NFE').AsLargeInt)]);
+    sDocumento := 'NFe ' + FormatFloat('###0000000', DtSrcTabela.DataSet.FieldByName('NFE').AsLargeInt) + '-' + DtSrcTabela.DataSet.FieldByName('SERIE').AsString;
   end
   else
   begin
-    sMensagem  := Format(MSG_REF_DOC, [IbDtstTabelaANO.AsString + '/' + FormatFloat('##00000', IbDtstTabelaCODCONTROL.AsInteger)]);
-    sDocumento := 'Venda ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##00000', IbDtstTabelaCODCONTROL.AsInteger);
+    sMensagem  := Format(MSG_REF_DOC, [DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##00000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger)]);
+    sDocumento := 'Venda ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##00000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
   end;
 
-  sDestinatario := GetClienteEmail(IbDtstTabelaCODCLIENTE.AsInteger);
+  sDestinatario := GetClienteEmail(DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger);
 
   if not InputQuery('E-mail do Cliente:', 'Favor informar/confirmar e-mail do cliente para onde os arquivos (Boleto(s) e NF-e) serão enviados:', sDestinatario) then
     Exit
   else
-    GravarEmailCliente( IbDtstTabelaCODCLIENTE.AsInteger, sDestinatario );
+    GravarEmailCliente( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, sDestinatario );
 
-  DMNFe.ConfigurarEmail(IbDtstTabelaCODEMP.AsString, sDestinatario, 'Boleta Bancária - ' + sDocumento, sMensagem);
+  DMNFe.ConfigurarEmail(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, sDestinatario, 'Boleta Bancária - ' + sDocumento, sMensagem);
 
-  // 1. Gerar PDF dos Boletos existentes da venda
+  try
+    WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Enviando e-mail...');
 
-  if BoletosGerados then
-    ReImprimirBoleto(Self, dbCliente.Text, IbDtstTabelaCODCLIENTE.AsInteger,
-      IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF, True);
+    // 1. Gerar PDF dos Boletos existentes da venda
+
+    if BoletosGerados then
+      ReImprimirBoleto(Self, dbCliente.Text, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger,
+        DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, qryTitulosCODBANCO.AsInteger, toBoletoVenda, sFileNamePDF, True);
 
 
-  // 2. Gerar XML/PDF da NF-e e enviar por e-mail
+    // 2. Gerar XML/PDF da NF-e e enviar por e-mail
 
-  if DMNFe.EnviarEmailDANFEACBr( IbDtstTabelaCODEMP.AsString, IbDtstTabelaCODCLIENTE.AsInteger, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger, True, sFileNamePDF) then
-    ShowInformation('Envio', 'Arquivos referentes a NF-e da venda enviados com sucesso.');
+    if DMNFe.EnviarEmailDANFEACBr( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger, True, sFileNamePDF) then
+      ShowInformation('Envio', 'Arquivos referentes a NF-e da venda enviados com sucesso.')
+    else
+      ShowWarning('Envio', 'Não foi possível enviar o e-mail.' + #13 + 'Verifique se a conta de e-mail foi informada corretamente.');
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TfrmGeVenda.GravarEmailCliente(iCliente: Integer;
@@ -3438,9 +3458,9 @@ begin
     SQL.Add('from TBCONTREC r');
     SQL.Add('  inner join TBFORMPAGTO_CONTACOR f on (f.forma_pagto = r.forma_pagto)');
     SQL.Add('  inner join TBBANCO_BOLETO c on (c.bco_codigo = f.conta_corrente and c.empresa = r.empresa and c.bco_gerar_boleto = 1)');
-    SQL.Add('where r.cliente  = ' + IbDtstTabelaCODCLIENTE.AsString);
-    SQL.Add('  and r.anovenda = ' + IbDtstTabelaANO.AsString);
-    SQL.Add('  and r.numvenda = ' + IbDtstTabelaCODCONTROL.AsString);
+    SQL.Add('where r.cliente  = ' + DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsString);
+    SQL.Add('  and r.anovenda = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+    SQL.Add('  and r.numvenda = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
 
     if (aFormaPagto > 0) then
       SQL.Add('  and r.forma_pagto = ' + IntToStr(aFormaPagto));
@@ -3460,9 +3480,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('Select b.nossonumero from TBCONTREC b');
-    SQL.Add('where b.cliente  = ' + IbDtstTabelaCODCLIENTE.AsString);
-    SQL.Add('  and b.anovenda = ' + IbDtstTabelaANO.AsString);
-    SQL.Add('  and b.numvenda = ' + IbDtstTabelaCODCONTROL.AsString);
+    SQL.Add('where b.cliente  = ' + DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsString);
+    SQL.Add('  and b.anovenda = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+    SQL.Add('  and b.numvenda = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
     SQL.Add('  and b.codbanco > 0');
     Open;
 
@@ -3528,15 +3548,15 @@ end;
 
 procedure TfrmGeVenda.nmImprimirNotaEntregaClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with DMNFe do
   begin
-    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Nota de Entrega (Termo de Recedimento)');
-    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
-    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
-    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    CarregarDadosEmpresa(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, 'Nota de Entrega (Termo de Recedimento)');
+    AbrirEmitente( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString );
+    AbrirDestinatario( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger );
+    AbrirVenda( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
     frrNotaEntrega.ShowReport;
   end;
@@ -3544,15 +3564,15 @@ end;
 
 procedure TfrmGeVenda.nmImprimirNotaEntregaXClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with DMNFe do
   begin
-    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Nota de Entrega à Domicílio');
-    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
-    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
-    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    CarregarDadosEmpresa(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, 'Nota de Entrega à Domicílio');
+    AbrirEmitente( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString );
+    AbrirDestinatario( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger );
+    AbrirVenda( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
     ImprimirCabecalho := ShowConfirmation('Nota de Entrega', 'Deseja imprimir na Nota de Entraga o Cabeçalho com informações da empresa?');
 
@@ -3562,33 +3582,21 @@ end;
 
 procedure TfrmGeVenda.nmImprimirCartaCreditoClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with DMNFe do
   begin
 
-    CarregarDadosEmpresa(IbDtstTabelaCODEMP.AsString, 'Carta de Crédito');
+    CarregarDadosEmpresa(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, 'Carta de Crédito');
 
-    AbrirEmitente( IbDtstTabelaCODEMP.AsString );
-    AbrirDestinatario( IbDtstTabelaCODCLIENTE.AsInteger );
-    AbrirVenda( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirVendaCartaCredito( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirEmitente( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString );
+    AbrirDestinatario( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger );
+    AbrirVenda( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirVendaCartaCredito( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
     frrVendaCartaCredito.ShowReport;
 
-  end;
-end;
-
-procedure TfrmGeVenda.IbDtstTabelaLUCRO_CALCULADOGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-  begin
-    if (Sender.AsCurrency > 100.0) then
-      Text := '+100'
-    else
-      Text := FormatFloat(',0.0###', Sender.AsCurrency);
   end;
 end;
 
@@ -3601,7 +3609,7 @@ var
   sArquivoNFe2, // NFe
   sDirXMLNFe  : String;
 begin
-  if not IbDtstTabela.IsEmpty then
+  if not DtSrcTabela.DataSet.IsEmpty then
   begin
     if (gUsuarioLogado.Funcao <> FUNCTION_USER_ID_SYSTEM_ADM) then
     begin
@@ -3609,35 +3617,35 @@ begin
       Exit;
     end;
 
-    if ( Trim(IbDtstTabelaLOTE_NFE_RECIBO.AsString) = EmptyStr ) then
+    if ( Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) = EmptyStr ) then
       Exit;
 
-    if ( IbDtstTabelaNFE.AsCurrency > 0 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency > 0 ) then
       Exit;
 
     if not ShowConfirmation('Limpar LOG', 'Confirma a limpeza do LOG de envio de NF-e para que esta seja enviada novamente?') then
       Exit;
 
     // Realocar arquivos XML de envio
-    sDirXMLNFe := DMNFe.GetPathNFeXML(IbDtstTabelaCODEMP.AsString);
+    sDirXMLNFe := DMNFe.GetPathNFeXML(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString);
     if DirectoryExists(sDirXMLNFe) then
     begin
-      sArquivoENV  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_NUMERO.AsString + '-env-lot.xml', '\\', '\', [rfReplaceAll]);
-      sArquivoRET  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_RECIBO.AsString + '-pro-rec.xml', '\\', '\', [rfReplaceAll]);
-      sArquivoREC  := StringReplace(sDirXMLNFe + '\' + IbDtstTabelaLOTE_NFE_NUMERO.AsString + '-rec.xml',     '\\', '\', [rfReplaceAll]);
+      sArquivoENV  := StringReplace(sDirXMLNFe + '\' + DtSrcTabela.DataSet.FieldByName('LOTE_NFE_NUMERO').AsString + '-env-lot.xml', '\\', '\', [rfReplaceAll]);
+      sArquivoRET  := StringReplace(sDirXMLNFe + '\' + DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString + '-pro-rec.xml', '\\', '\', [rfReplaceAll]);
+      sArquivoREC  := StringReplace(sDirXMLNFe + '\' + DtSrcTabela.DataSet.FieldByName('LOTE_NFE_NUMERO').AsString + '-rec.xml',     '\\', '\', [rfReplaceAll]);
 
       sArquivoNFe1 := StringReplace(sDirXMLNFe + '\' +
         DMNFe.GetGerarChaveNFeXML(
-          IbDtstTabelaCODEMP.AsString,
-          IbDtstTabelaANO.AsInteger,
-          IbDtstTabelaCODCONTROL.AsInteger,
+          DtSrcTabela.DataSet.FieldByName('CODEMP').AsString,
+          DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+          DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger,
           tnfSaida) + '-nfe.xml', '\\', '\', [rfReplaceAll]);
 
       sArquivoNFe2 := StringReplace(sDirXMLNFe + '\' +
         DMNFe.GetGerarChaveNFeXML(
-          IbDtstTabelaCODEMP.AsString,
-          IbDtstTabelaANO.AsInteger,
-          IbDtstTabelaCODCONTROL.AsInteger,
+          DtSrcTabela.DataSet.FieldByName('CODEMP').AsString,
+          DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+          DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger,
           tnfSaida) + '-nfe_view.xml', '\\', '\', [rfReplaceAll]);
 
       ForceDirectories(ExtractFilePath(sArquivoENV) + 'log\');
@@ -3663,16 +3671,16 @@ begin
       SQL.Add('    LOTE_NFE_ANO    = null');
       SQL.Add('  , LOTE_NFE_NUMERO = null');
       SQL.Add('  , LOTE_NFE_RECIBO = null');
-      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
-      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
-      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
       ExecSQL;
 
       CommitTransaction;
     end;
 
     RecarregarRegistro;
-    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
     ShowInformation('Dados NF-e', 'LOG de envio de recibo NF-e limpo com sucesso!');
   end;
@@ -3701,18 +3709,18 @@ procedure TfrmGeVenda.nmPpCorrigirDadosEntregaClick(Sender: TObject);
 var
   sDadosEntrega : TStringList;
 begin
-  if not (IbDtstTabelaSTATUS.AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) then
+  if not (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) then
     Exit;
 
   sDadosEntrega := TStringList.Create;
   try
-    if Trim(IbDtstTabelaDADOS_ENTREGA.AsString) <> EmptyStr then
-      sDadosEntrega.Text := IbDtstTabelaDADOS_ENTREGA.AsString
+    if Trim(DtSrcTabela.DataSet.FieldByName('DADOS_ENTREGA').AsString) <> EmptyStr then
+      sDadosEntrega.Text := DtSrcTabela.DataSet.FieldByName('DADOS_ENTREGA').AsString
     else
       sDadosEntrega.Text :=
         '* Responsável pela entrega..............: ' + #13 +
         '* Entregar a(o) Sr(a)...................: ' + #13#13 +
-        '* Endereço para entrega do(s) produto(s): ' + #13 + GetClienteEndereco(IbDtstTabelaCODCLIENTE.AsInteger, True);
+        '* Endereço para entrega do(s) produto(s): ' + #13 + GetClienteEndereco(DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, True);
 
     if SetDadosEntrega(Self, sDadosEntrega) then
       with DMBusiness, fdQryBusca do
@@ -3720,10 +3728,10 @@ begin
         Close;
         SQL.Clear;
         SQL.Add('Update TBVENDAS Set ');
-        SQL.Add('  DADOS_ENTREGA = ' + QuotedStr(sDadosEntrega.Text));
-        SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
-        SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
-        SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+        SQL.Add('  DADOS_ENTREGA  = ' + QuotedStr(sDadosEntrega.Text));
+        SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+        SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
+        SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
         ExecSQL;
 
         CommitTransaction;
@@ -3755,9 +3763,9 @@ begin
       SQL.Clear;
       SQL.Add('Update TBVENDAS Set ');
       SQL.Add('  CFOP = ' + sCFOP);
-      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
-      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
-      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
       ExecSQL;
 
       CommitTransaction;
@@ -3765,9 +3773,9 @@ begin
       SQL.Clear;
       SQL.Add('Update TVENDASITENS Set ');
       SQL.Add('  CFOP_COD = ' + sCFOP);
-      SQL.Add('where ANO        = ' + IbDtstTabelaANO.AsString);
-      SQL.Add('  and CODCONTROL = ' + IbDtstTabelaCODCONTROL.AsString);
-      SQL.Add('  and CODEMP     = ' + QuotedStr(IbDtstTabelaCODEMP.AsString));
+      SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
+      SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
       ExecSQL;
 
       CommitTransaction;
@@ -3775,11 +3783,11 @@ begin
 
     RecarregarRegistro;
 
-    AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaFormasPagto( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaVolume( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirTabelaTitulos( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
-    AbrirNotaFiscal( IbDtstTabelaCODEMP.AsString, IbDtstTabelaANO.AsInteger, IbDtstTabelaCODCONTROL.AsInteger );
+    AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
     ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar venda novamente.');
   end;

@@ -1921,7 +1921,7 @@ begin
 
 //                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                           sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                            'Favor fazer as devidas coreções e gerar NF-e novamente!';
+                            'Favor fazer as devidas correções e gerar NF-e novamente!';
                         end;
                     end;
 
@@ -2636,9 +2636,16 @@ begin
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
           if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
-            Prod.cEAN   := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
+          begin
+            Prod.cEAN     := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
+            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
+          end
           else
-            Prod.cEAN   := EmptyStr;
+          begin
+            //Prod.cEAN   := EmptyStr;
+            Prod.cEAN     := 'SEM GTIN';
+            Prod.cEANTrib := 'SEM GTIN';
+          end;
 
           Prod.uCom     := qryDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qCom     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
@@ -2650,11 +2657,11 @@ begin
 
           Prod.vProd    := qryDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Serviços
 
-          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
-            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
-          else
-            Prod.cEANTrib := EmptyStr;
-
+//          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+//            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
+//          else
+//            Prod.cEANTrib := EmptyStr;
+//
           Prod.uTrib     := qryDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qTrib     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
 
@@ -4234,9 +4241,16 @@ begin
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
           if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then  // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
-            Prod.cEAN   := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString
+          begin
+            Prod.cEAN     := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString;
+            Prod.cEANTrib := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString;
+          end
           else
-            Prod.cEAN   := EmptyStr;
+          begin
+            //Prod.cEAN   := EmptyStr;
+            Prod.cEAN     := 'SEM GTIN';
+            Prod.cEANTrib := 'SEM GTIN';
+          end;
 
           Prod.uCom     := qryEntradaDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qCom     := qryEntradaDadosProduto.FieldByName('QTDE').AsCurrency;
@@ -4245,11 +4259,11 @@ begin
 
           Prod.vProd    := qryEntradaDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Serviços
 
-          if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramente implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
-            Prod.cEANTrib := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString
-          else
-            Prod.cEANTrib := EmptyStr;
-
+//          if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramente implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+//            Prod.cEANTrib := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString
+//          else
+//            Prod.cEANTrib := EmptyStr;
+//
           Prod.uTrib     := qryEntradaDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qTrib     := qryEntradaDadosProduto.FieldByName('QTDE').AsCurrency;
 
@@ -6876,9 +6890,16 @@ begin
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
           if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
-            Prod.cEAN   := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
+          begin
+            Prod.cEAN   := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
+            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
+          end
           else
-            Prod.cEAN   := EmptyStr;
+          begin
+            //Prod.cEAN   := EmptyStr;
+            Prod.cEAN     := 'SEM GTIN';
+            Prod.cEANTrib := 'SEM GTIN';
+          end;
 
           Prod.uCom     := qryDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qCom     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
@@ -6890,11 +6911,11 @@ begin
 
           Prod.vProd    := qryDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Serviços
 
-          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
-            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
-          else
-            Prod.cEANTrib := EmptyStr;
-
+//          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+//            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
+//          else
+//            Prod.cEANTrib := EmptyStr;
+//
           Prod.uTrib     := qryDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qTrib     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
 

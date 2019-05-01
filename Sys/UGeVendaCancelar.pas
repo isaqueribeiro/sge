@@ -6,17 +6,19 @@ uses
   UGrPadrao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DB, IBCustomDataSet, IBUpdateSQL, ExtCtrls, StdCtrls,
-  Mask, DBCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  Dialogs, DB, ExtCtrls, StdCtrls, Mask, DBCtrls, Buttons, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaCancelar = class(TfrmGrPadrao)
-    cdsVenda: TIBDataSet;
-    updVenda: TIBUpdateSQL;
     dtsVenda: TDataSource;
     GrpBxControle: TGroupBox;
     lblCodigo: TLabel;
@@ -40,33 +42,35 @@ type
     dbMotivo: TMemo;
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
+    lblInforme: TLabel;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
+    cdsVenda: TFDQuery;
+    updVenda: TFDUpdateSQL;
     cdsVendaANO: TSmallintField;
     cdsVendaCODCONTROL: TIntegerField;
-    cdsVendaCODEMP: TIBStringField;
-    cdsVendaCODCLI: TIBStringField;
-    cdsVendaDTVENDA: TDateTimeField;
+    cdsVendaCODEMP: TStringField;
+    cdsVendaCODCLIENTE: TIntegerField;
+    cdsVendaCODCLI: TStringField;
+    cdsVendaDTVENDA: TSQLTimeStampField;
     cdsVendaSTATUS: TSmallintField;
-    cdsVendaTOTALVENDA: TIBBCDField;
-    cdsVendaSERIE: TIBStringField;
+    cdsVendaDESCONTO: TBCDField;
+    cdsVendaTOTALVENDA: TBCDField;
+    cdsVendaSERIE: TStringField;
     cdsVendaNFE: TLargeintField;
     cdsVendaLOTE_NFE_ANO: TSmallintField;
     cdsVendaLOTE_NFE_NUMERO: TIntegerField;
     cdsVendaNFE_ENVIADA: TSmallintField;
+    cdsVendaNFE_DENEGADA: TSmallintField;
     cdsVendaDATAEMISSAO: TDateField;
     cdsVendaHORAEMISSAO: TTimeField;
-    cdsVendaCANCEL_DATAHORA: TDateTimeField;
+    cdsVendaCANCEL_USUARIO: TStringField;
+    cdsVendaCANCEL_DATAHORA: TSQLTimeStampField;
     cdsVendaCANCEL_MOTIVO: TMemoField;
     cdsVendaCFOP: TIntegerField;
-    cdsVendaVERIFICADOR_NFE: TIBStringField;
+    cdsVendaVERIFICADOR_NFE: TStringField;
     cdsVendaXML_NFE: TMemoField;
-    cdsVendaNOME: TIBStringField;
-    cdsVendaCANCEL_USUARIO: TIBStringField;
-    lblInforme: TLabel;
-    cdsVendaDESCONTO: TIBBCDField;
-    cdsVendaCODCLIENTE: TIntegerField;
-    cdsVendaNFE_DENEGADA: TSmallintField;
-    btnCancelar: TcxButton;
-    btFechar: TcxButton;
+    cdsVendaNOME: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -80,6 +84,8 @@ type
 
 (*
   Tabelas:
+  - TBVENDAS
+  - TBCLIENTE
 
   Views:
 
@@ -107,7 +113,7 @@ begin
     with frm do
     begin
       cdsVenda.Close;
-      cdsVenda.ParamByName('anovenda').AsShort   := Ano;
+      cdsVenda.ParamByName('anovenda').AsInteger := Ano;
       cdsVenda.ParamByName('numvenda').AsInteger := Numero;
       cdsVenda.Open;
 
@@ -194,12 +200,13 @@ begin
         Edit;
 
         cdsVendaSTATUS.Value          := STATUS_VND_CAN;
-        cdsVendaCANCEL_DATAHORA.Value := StrToDateTime( Trim(dbCancelDataHora.Text) );
         cdsVendaCANCEL_USUARIO.Value  := UpperCase( Trim(dbCancelUsuario.Text) );
         cdsVendaCANCEL_MOTIVO.Value   := UpperCase( Trim(dbMotivo.Lines.Text) );
+        cdsVendaCANCEL_DATAHORA.AsDateTime := StrToDateTimeDef( Trim(dbCancelDataHora.Text), Now );
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
         CommitTransaction;
 
         ModalResult := mrOk;

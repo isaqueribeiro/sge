@@ -15,7 +15,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, JvExMask, JvToolEdit,
+  JvDBControls;
 
 type
   TfrmGeVendaConfirmaTitulos = class(TfrmGrPadrao)
@@ -27,7 +28,6 @@ type
     lblCodigo: TLabel;
     dbCodigo: TDBEdit;
     lblDataVencimento: TLabel;
-    dbDataVencimento: TDBEdit;
     dbParcela: TDBEdit;
     lblParcela: TLabel;
     lblValor: TLabel;
@@ -82,6 +82,7 @@ type
     cdsTitulosBAIXADO: TSmallintField;
     qryContaAReceber: TFDQuery;
     updContaAReceber: TFDUpdateSQL;
+    dbDataVencimento: TJvDBDateEdit;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -275,9 +276,9 @@ end;
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosAfterScroll(DataSet: TDataSet);
 begin
   // Bloquear edição dos campos quando já houver pagamentos realizados ou o título já estiver baixado
-  dbFormaPagto.ReadOnly     := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0);
-  dbDataVencimento.ReadOnly := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0);
-  dbValor.ReadOnly          := (DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0);
+  dbFormaPagto.ReadOnly     := not ((DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0));
+  dbDataVencimento.ReadOnly := not ((DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0));
+  dbValor.ReadOnly          := not ((DataSet.FieldByName('ValorrecTot').AsCurrency > 0) or (DataSet.FieldByName('BAIXADO').AsInteger = 0));
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosBeforePost(DataSet: TDataSet);

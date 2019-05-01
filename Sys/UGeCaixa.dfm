@@ -28,8 +28,6 @@ inherited frmGeCaixa: TfrmGeCaixa
     ExplicitWidth = 950
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel4: TBevel
@@ -304,8 +302,6 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel8: TBevel
@@ -834,10 +830,6 @@ inherited frmGeCaixa: TfrmGeCaixa
         TabStop = False
         object tbsConsolidado: TTabSheet
           Caption = 'Consolidado'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgConsolidado: TDBGrid
             Left = 0
             Top = 0
@@ -895,10 +887,6 @@ inherited frmGeCaixa: TfrmGeCaixa
         object tbsMovimento: TTabSheet
           Caption = 'Movimento'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgMovimento: TDBGrid
             Left = 0
             Top = 0
@@ -1153,9 +1141,6 @@ inherited frmGeCaixa: TfrmGeCaixa
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterCancel = IbDtstTabelaAfterCancel
-    BeforePost = IbDtstTabelaBeforePost
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    c.Ano'
@@ -1191,120 +1176,9 @@ inherited frmGeCaixa: TfrmGeCaixa
         'presa))')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_CAIXA_2012'
-    object IbDtstTabelaANO: TSmallintField
-      DisplayLabel = 'Ano'
-      FieldName = 'ANO'
-      Origin = 'TBCAIXA.ANO'
-      Required = True
-    end
-    object IbDtstTabelaNUMERO: TIntegerField
-      DisplayLabel = 'N'#250'mero'
-      FieldName = 'NUMERO'
-      Origin = 'TBCAIXA.NUMERO'
-    end
-    object IbDtstTabelaDATA_ABERTURA: TDateField
-      DisplayLabel = 'Data Abertura'
-      FieldName = 'DATA_ABERTURA'
-      Origin = 'TBCAIXA.DATA_ABERTURA'
-      Required = True
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaDATA_FECH: TDateField
-      DisplayLabel = 'Data Fech.'
-      FieldName = 'DATA_FECH'
-      Origin = 'TBCAIXA.DATA_FECH'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaDATA_CANCEL: TDateField
-      DisplayLabel = 'Data Cancel.'
-      FieldName = 'DATA_CANCEL'
-      Origin = 'TBCAIXA.DATA_CANCEL'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      DisplayLabel = 'Operador'
-      FieldName = 'USUARIO'
-      Origin = 'TBCAIXA.USUARIO'
-      Required = True
-      Size = 12
-    end
-    object IbDtstTabelaUSUARIO_CANCEL: TIBStringField
-      DisplayLabel = 'Usu'#225'rio Cancel.'
-      FieldName = 'USUARIO_CANCEL'
-      Origin = 'TBCAIXA.USUARIO_CANCEL'
-      Size = 12
-    end
-    object IbDtstTabelaSITUACAO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Situa'#231#227'o'
-      FieldName = 'SITUACAO'
-      Origin = 'TBCAIXA.SITUACAO'
-      Required = True
-      OnGetText = IbDtstTabelaSITUACAOGetText
-    end
-    object IbDtstTabelaCONTA_CORRENTE: TIntegerField
-      DisplayLabel = 'Conta Corrente'
-      FieldName = 'CONTA_CORRENTE'
-      Origin = 'TBCAIXA.CONTA_CORRENTE'
-      Required = True
-    end
-    object IbDtstTabelaVALOR_TOTAL_CREDITO: TIBBCDField
-      DisplayLabel = 'Entrada (R$)'
-      FieldName = 'VALOR_TOTAL_CREDITO'
-      Origin = 'TBCAIXA.VALOR_TOTAL_CREDITO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaVALOR_TOTAL_DEBITO: TIBBCDField
-      DisplayLabel = 'Sa'#237'da (R$)'
-      FieldName = 'VALOR_TOTAL_DEBITO'
-      Origin = 'TBCAIXA.VALOR_TOTAL_DEBITO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaMOTIVO_CANCEL: TIBStringField
-      DisplayLabel = 'Motivo do cancelamento'
-      FieldName = 'MOTIVO_CANCEL'
-      Origin = 'TBCAIXA.MOTIVO_CANCEL'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaDESCRICAO: TIBStringField
-      DisplayLabel = 'Conta Corrente'
-      FieldName = 'DESCRICAO'
-      Origin = 'TBCONTA_CORRENTE.DESCRICAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbDtstTabelaTIPO: TIBStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 12
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBCONTA_CORRENTE"."EMPRESA"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object IbDtstTabelaEMPRESA_RAZAO: TIBStringField
-      FieldName = 'EMPRESA_RAZAO'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      ProviderFlags = []
-      Size = 60
-    end
-    object IbDtstTabelaEMPRESA_FANTASIA: TIBStringField
-      FieldName = 'EMPRESA_FANTASIA'
-      Origin = '"TBEMPRESA"."NMFANT"'
-      ProviderFlags = []
-      Size = 25
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     Left = 704
     Top = 0
   end
@@ -1369,7 +1243,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2829,10 +2703,14 @@ inherited frmGeCaixa: TfrmGeCaixa
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    AfterCancel = fdQryTabelaAfterCancel
+    OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_CAIXA_2012'
-    UpdateOptions.KeyFields = 'NUMERO'
+    UpdateOptions.KeyFields = 'ANO;NUMERO'
+    UpdateOptions.AutoIncFields = 'NUMERO'
     SQL.Strings = (
       'Select'
       '    c.Ano'
@@ -2867,47 +2745,62 @@ inherited frmGeCaixa: TfrmGeCaixa
         '  left join VW_EMPRESA e on (e.cnpj = coalesce(cc.empresa, bb.em' +
         'presa))')
     object fdQryTabelaANO: TSmallintField
+      DisplayLabel = 'Ano'
       FieldName = 'ANO'
       Origin = 'ANO'
       Required = True
     end
     object fdQryTabelaNUMERO: TIntegerField
+      DisplayLabel = 'N'#250'mero'
       FieldName = 'NUMERO'
       Origin = 'NUMERO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object fdQryTabelaDATA_ABERTURA: TDateField
+      DisplayLabel = 'Data Abertura'
       FieldName = 'DATA_ABERTURA'
       Origin = 'DATA_ABERTURA'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object fdQryTabelaDATA_FECH: TDateField
+      DisplayLabel = 'Data Fech.'
       FieldName = 'DATA_FECH'
       Origin = 'DATA_FECH'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object fdQryTabelaDATA_CANCEL: TDateField
+      DisplayLabel = 'Data Cancel.'
       FieldName = 'DATA_CANCEL'
       Origin = 'DATA_CANCEL'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object fdQryTabelaUSUARIO: TStringField
+      DisplayLabel = 'Operador'
       FieldName = 'USUARIO'
       Origin = 'USUARIO'
       Size = 12
     end
     object fdQryTabelaUSUARIO_CANCEL: TStringField
+      DisplayLabel = 'Usu'#225'rio Cancel.'
       FieldName = 'USUARIO_CANCEL'
       Origin = 'USUARIO_CANCEL'
       Size = 12
     end
     object fdQryTabelaSITUACAO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Situa'#231#227'o'
       FieldName = 'SITUACAO'
       Origin = 'SITUACAO'
+      OnGetText = fdQryTabelaSITUACAOGetText
     end
     object fdQryTabelaCONTA_CORRENTE: TIntegerField
+      DisplayLabel = 'Conta Corrente'
       FieldName = 'CONTA_CORRENTE'
       Origin = 'CONTA_CORRENTE'
     end
     object fdQryTabelaVALOR_TOTAL_CREDITO: TBCDField
+      DisplayLabel = 'Entrada (R$)'
       FieldName = 'VALOR_TOTAL_CREDITO'
       Origin = 'VALOR_TOTAL_CREDITO'
       DisplayFormat = ',0.00'
@@ -2915,6 +2808,7 @@ inherited frmGeCaixa: TfrmGeCaixa
       Size = 2
     end
     object fdQryTabelaVALOR_TOTAL_DEBITO: TBCDField
+      DisplayLabel = 'Sa'#237'da (R$)'
       FieldName = 'VALOR_TOTAL_DEBITO'
       Origin = 'VALOR_TOTAL_DEBITO'
       DisplayFormat = ',0.00'
@@ -2922,24 +2816,25 @@ inherited frmGeCaixa: TfrmGeCaixa
       Size = 2
     end
     object fdQryTabelaMOTIVO_CANCEL: TStringField
+      DisplayLabel = 'Motivo do cancelamento'
       FieldName = 'MOTIVO_CANCEL'
       Origin = 'MOTIVO_CANCEL'
       Size = 250
     end
     object fdQryTabelaDESCRICAO: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'Conta Corrente'
       FieldName = 'DESCRICAO'
       Origin = 'DESCRICAO'
       ProviderFlags = []
-      ReadOnly = True
       Size = 50
     end
     object fdQryTabelaTIPO: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'Tipo'
       FieldName = 'TIPO'
       Origin = 'TIPO'
       ProviderFlags = []
-      ReadOnly = True
       FixedChar = True
       Size = 12
     end
@@ -2948,7 +2843,6 @@ inherited frmGeCaixa: TfrmGeCaixa
       FieldName = 'EMPRESA'
       Origin = 'EMPRESA'
       ProviderFlags = []
-      ReadOnly = True
       Size = 18
     end
     object fdQryTabelaEMPRESA_RAZAO: TStringField
@@ -2956,7 +2850,6 @@ inherited frmGeCaixa: TfrmGeCaixa
       FieldName = 'EMPRESA_RAZAO'
       Origin = 'RAZAO'
       ProviderFlags = []
-      ReadOnly = True
       Size = 60
     end
     object fdQryTabelaEMPRESA_FANTASIA: TStringField
@@ -2964,7 +2857,6 @@ inherited frmGeCaixa: TfrmGeCaixa
       FieldName = 'EMPRESA_FANTASIA'
       Origin = 'FANTASIA'
       ProviderFlags = []
-      ReadOnly = True
       Size = 60
     end
   end
@@ -3002,15 +2894,40 @@ inherited frmGeCaixa: TfrmGeCaixa
       'DELETE FROM TBCAIXA'
       'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO')
     FetchRowSQL.Strings = (
+      'Select'
+      '    c.Ano'
+      '  , c.Numero'
+      '  , c.Data_abertura'
+      '  , c.Data_fech'
+      '  , c.Data_cancel'
+      '  , c.Usuario'
+      '  , c.Usuario_cancel'
+      '  , c.Situacao'
+      '  , c.Conta_corrente'
+      '  , c.Valor_total_credito'
+      '  , c.Valor_total_debito'
+      '  , c.Motivo_cancel'
+      '  , cc.Descricao'
+      '  , Case'
+      '      when cc.Tipo = 1 then '#39'Caixa'#39
+      '      when cc.Tipo = 2 then '#39'Banco'#39
+      '      else '#39'* Indefinido'#39
+      '    end as Tipo'
+      '  , cc.empresa'
+      '  , e.razao    as empresa_razao'
+      '  , e.fantasia as empresa_fantasia'
+      'from TBCAIXA c'
       
-        'SELECT ANO, NUMERO, DATA_ABERTURA, DATA_FECH, DATA_CANCEL, USUAR' +
-        'IO, '
+        '  left join TBCONTA_CORRENTE cc on (cc.Codigo = c.Conta_corrente' +
+        ')'
       
-        '  USUARIO_CANCEL, SITUACAO, CONTA_CORRENTE, VALOR_TOTAL_CREDITO,' +
-        ' '
-      '  VALOR_TOTAL_DEBITO, MOTIVO_CANCEL'
-      'FROM TBCAIXA'
-      'WHERE ANO = :ANO AND NUMERO = :NUMERO')
+        '  left join TBBANCO_BOLETO bb on (bb.bco_codigo = cc.bco_codigo_' +
+        'cc)'
+      
+        '  left join VW_EMPRESA e on (e.cnpj = coalesce(cc.empresa, bb.em' +
+        'presa))'
+      ''
+      'WHERE c.ANO = :ANO AND c.NUMERO = :NUMERO')
   end
   object dtsOperador: TDataSource
     DataSet = fdQryOperador

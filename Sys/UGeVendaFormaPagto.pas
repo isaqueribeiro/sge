@@ -63,6 +63,7 @@ type
     Bevel2: TBevel;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
+    dtsVenda: TDataSource;
     procedure btnCancelarClick(Sender: TObject);
     procedure dbFormaPagtoClick(Sender: TObject);
     procedure dbCondicaoPagtoClick(Sender: TObject);

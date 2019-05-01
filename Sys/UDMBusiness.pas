@@ -1231,8 +1231,8 @@ begin
 
       with DMBusiness, stpContaCorrenteSaldo do
       begin
-        ParamByName('CONTA_CORRENTE').AsInteger  := pContaCorrente;
-        ParamByName('DATA_MOVIMENTO').AsDateTime := pData;
+        ParamByName('CONTA_CORRENTE').AsInteger := pContaCorrente;
+        ParamByName('DATA_MOVIMENTO').AsDate    := pData;
 
         ExecProc;
         CommitTransaction;
@@ -4779,6 +4779,8 @@ C:\Program Files (x86)\Firebird\Firebird_2_5\bin>isql -extract -o d:\agil.sql AG
 -- EXECUTAR SCRIPT NA BASE:
 isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA -p masterkey
 *)
+  fdConexao.Connected := False;
+
   {$IFNDEF PRINTER_CUPOM}
   SplashMessage('Conectando-se à base de dados...');
   {$ENDIF}

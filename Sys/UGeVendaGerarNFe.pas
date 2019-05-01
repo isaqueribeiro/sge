@@ -3,8 +3,10 @@ unit UGeVendaGerarNFe;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DB, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
+  Dialogs, DB, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, cxGraphics, cxLookAndFeels,
   cxMaskEdit, cxDropDownEdit, cxCalendar, cxLookAndFeelPainters, Menus, cxButtons, cxSpinEdit,
   cxTimeEdit, cxTextEdit,
 
@@ -131,6 +133,7 @@ type
     sProtocoloNFE,
     sReciboNFE   : String;
     iNumeroLote  : Int64;
+    bRetornoErro ,
     bDenegada    : Boolean;
     sDenegadaMotivo : String;
     procedure RecalcularTotalNota;
@@ -156,7 +159,8 @@ var
 
   function GerarNFe(const AOwer : TComponent; Ano : Smallint; Numero : Integer;
     var SerieNFe, NumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE   : String; var NumeroLote  : Int64;
-    var Mensagem : String) : Boolean;
+    var Mensagem   : String;
+    var ReturnErro : Boolean) : Boolean;
 
 implementation
 
@@ -166,7 +170,8 @@ uses UDMBusiness, UDMNFe, UFuncoes, UGeConsultarLoteNFe_v2;
 
 function GerarNFe(const AOwer : TComponent; Ano : Smallint; Numero : Integer;
   var SerieNFe, NumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE   : String; var NumeroLote  : Int64;
-  var Mensagem : String) : Boolean;
+  var Mensagem   : String;
+  var ReturnErro : Boolean) : Boolean;
 var
   frm : TfrmGeVendaGerarNFe;
 begin
@@ -230,6 +235,8 @@ begin
         NumeroLote   := iNumeroLote;
         Mensagem     := Trim(sDenegadaMotivo);
       end;
+
+      ReturnErro := bRetornoErro;
     end;
   finally
     frm.Free;
@@ -391,11 +398,12 @@ begin
 
       if ((DMNFe.MensagemErro) <> EmptyStr) then
       begin
+        bRetornoErro := True;
         aFileXML := TStringList.Create;
         try
-          if (Pos('Duplicidade de NF-e', DMNFe.MensagemErro) > 0) then   // Passo 1
+          if (Pos('Duplicidade', DMNFe.MensagemErro) > 0) then   // Passo 1
           begin
-            sRecibo := StrOnlyNumbers( Copy(DMNFe.MensagemErro,          // Passo 2.1
+            sRecibo := StrOnlyNumbers( Copy(DMNFe.MensagemErro,  // Passo 2.1
               Pos('[nRec:', DMNFe.MensagemErro),
               Pos(']', DMNFe.MensagemErro)) );
             if ((Trim(sRecibo) <> EmptyStr) and (Trim(sRecibo) <> '000000000000000')) then // Passo 2.2
@@ -430,6 +438,8 @@ begin
                       , cdsVenda.FieldByName('CODCONTROL').AsInteger
                       , iNumeroLote
                       , sReciboNFE);                                     // Passo 5
+
+                    bRetornoErro := False;
                   end;
                 end;
               end;
@@ -462,6 +472,7 @@ begin
   sProtocoloNFE := EmptyStr;
   sReciboNFE    := EmptyStr;
   iNumeroLote   := 0;
+  bRetornoErro  := False;
   lblInforme.Caption := EmptyStr;
 end;
 

@@ -101,6 +101,7 @@ const
   WAIT_AMOMENT_MakerConsulta = 6;
   WAIT_AMOMENT_Process       = 7;
   WAIT_AMOMENT_Autorizacao   = 8;
+  WAIT_AMOMENT_TextoLivre    = 35;
 
   // Flags para Operação Lógica
 
