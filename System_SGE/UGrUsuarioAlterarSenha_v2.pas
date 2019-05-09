@@ -3,16 +3,19 @@ unit UGrUsuarioAlterarSenha_v2;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  UGrPadrao, Dialogs, ExtCtrls, StdCtrls, Mask, DBCtrls, DB, IBCustomDataSet, Buttons,
-  IBUpdateSQL, DBClient, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinOffice2007Green;
+  Dialogs, ExtCtrls, StdCtrls, Mask, DBCtrls, DB, Buttons, DBClient, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGrUsuarioAlterarSenha = class(TfrmGrPadrao)
@@ -24,20 +27,20 @@ type
     lblSenhaConfirmar: TLabel;
     lblSenhaAtual: TLabel;
     dbSenhaNova: TDBEdit;
-    tblUsers: TIBDataSet;
     dtsUsers: TDataSource;
     pnlBotoes: TPanel;
     BvlBotoes: TBevel;
     dbSenhaConfirmar: TDBEdit;
-    updUsers: TIBUpdateSQL;
-    tblUsersNOME: TIBStringField;
-    tblUsersSENHA: TIBStringField;
-    tblUsersALTERAR_SENHA: TSmallintField;
-    tblUsersSENHA_ATUAL: TIBStringField;
-    tblUsersSENHA_NOVA: TIBStringField;
-    tblUsersSENHA_CONFIRMAR: TIBStringField;
     btbtnSalvar: TcxButton;
     btbtnFechar: TcxButton;
+    fdQryUser: TFDQuery;
+    fdUpdUser: TFDUpdateSQL;
+    fdQryUserNOME: TStringField;
+    fdQryUserSENHA: TStringField;
+    fdQryUserALTERAR_SENHA: TSmallintField;
+    fdQryUserSENHA_ATUAL: TStringField;
+    fdQryUserSENHA_NOVA: TStringField;
+    fdQryUserSENHA_CONFIRMAR: TStringField;
     procedure btbtnFecharClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -51,6 +54,16 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBUSERS
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha;
@@ -71,45 +84,45 @@ procedure TfrmGrUsuarioAlterarSenha.btbtnSalvarClick(Sender: TObject);
 
   function SenhaValida(const Senha : String) : Boolean;
   begin
-    Result := (AnsiCompareStr(tblUsersSENHA.AsString, Senha) = 0)
-      or (AnsiCompareStr(tblUsersSENHA.AsString, GetSenhaFormatada(Senha, False)) = 0);
+    Result := (AnsiCompareStr(fdQryUserSENHA.AsString, Senha) = 0)
+      or (AnsiCompareStr(fdQryUserSENHA.AsString, GetSenhaFormatada(Senha, False)) = 0);
   end;
 
 var
   sSenha : String;
 begin
-  if tblUsers.State <> dsEdit then
-    tblUsers.Edit;
+  if fdQryUser.State <> dsEdit then
+    fdQryUser.Edit;
 
-  if Trim(tblUsersSENHA_ATUAL.AsString) = EmptyStr then
-    tblUsersSENHA_ATUAL.Clear;
+  if Trim(fdQryUserSENHA_ATUAL.AsString) = EmptyStr then
+    fdQryUserSENHA_ATUAL.Clear;
 
-  if Trim(tblUsersSENHA_NOVA.AsString) = EmptyStr then
-    tblUsersSENHA_NOVA.Clear;
+  if Trim(fdQryUserSENHA_NOVA.AsString) = EmptyStr then
+    fdQryUserSENHA_NOVA.Clear;
 
-  if Trim(tblUsersSENHA_CONFIRMAR.AsString) = EmptyStr then
-    tblUsersSENHA_CONFIRMAR.Clear;
+  if Trim(fdQryUserSENHA_CONFIRMAR.AsString) = EmptyStr then
+    fdQryUserSENHA_CONFIRMAR.Clear;
 
-  if not CamposRequiridos(Self, tblUsers, 'Alterar Senha') then
+  if not CamposRequiridos(Self, TClientDataSet(dtsUsers.DataSet), 'Alterar Senha') then
   begin
-    if ( not SenhaValida(tblUsersSENHA_ATUAL.AsString)  ) then
+    if ( not SenhaValida(fdQryUserSENHA_ATUAL.AsString)  ) then
       ShowWarning('Senha atual inválida!')
     else
-    if ( SenhaValida(tblUsersSENHA_NOVA.AsString)  ) then
+    if ( SenhaValida(fdQryUserSENHA_NOVA.AsString)  ) then
       ShowWarning('Nova Senha não pode ser igual a senha atual!')
     else
-    if ( AnsiCompareStr(tblUsersSENHA_NOVA.AsString, tblUsersSENHA_CONFIRMAR.AsString) <> 0  ) then
+    if ( AnsiCompareStr(fdQryUserSENHA_NOVA.AsString, fdQryUserSENHA_CONFIRMAR.AsString) <> 0  ) then
       ShowWarning('Nova Senha não confirmada!')
     else
     begin
-      tblUsersALTERAR_SENHA.AsInteger := 0; // Não
-      tblUsersSENHA.AsString          := GetSenhaFormatada(tblUsersSENHA_NOVA.AsString, False);
+      fdQryUserALTERAR_SENHA.AsInteger := 0; // Não
+      fdQryUserSENHA.AsString          := GetSenhaFormatada(fdQryUserSENHA_NOVA.AsString, False);
 
-      tblUsers.Post;
-      tblUsers.ApplyUpdates;
+      fdQryUser.Post;
+      fdQryUser.ApplyUpdates;
       CommitTransaction;
 
-      ShowInformation('Senha do usuário ' + QuotedStr(tblUsersNOME.AsString) + ' alterada com sucesso!');
+      ShowInformation('Senha do usuário ' + QuotedStr(fdQryUserNOME.AsString) + ' alterada com sucesso!');
 
       ModalResult := mrOk;
     end;
@@ -118,18 +131,18 @@ end;
 
 procedure TfrmGrUsuarioAlterarSenha.FormShow(Sender: TObject);
 begin
-  if ( tblUsersNOME.AsString <> gUsuarioLogado.Login ) then
-    tblUsers.Close
+  if ( fdQryUserNOME.AsString <> gUsuarioLogado.Login ) then
+    fdQryUser.Close
   else
-    tblUsers.Edit;
+    fdQryUser.Edit;
 end;
 
 procedure TfrmGrUsuarioAlterarSenha.FormCreate(Sender: TObject);
 begin
   inherited;
-  tblUsers.Close;
-  tblUsers.ParamByName('nome').AsString := gUsuarioLogado.Login;
-  tblUsers.Open;
+  fdQryUser.Close;
+  fdQryUser.ParamByName('nome').AsString := gUsuarioLogado.Login;
+  fdQryUser.Open;
 end;
 
 procedure TfrmGrUsuarioAlterarSenha.FormKeyDown(Sender: TObject;

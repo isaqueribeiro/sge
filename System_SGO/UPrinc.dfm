@@ -4496,6 +4496,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = RbnBackstageGalleryConfigItemClick
           object dxRibbonBackstageViewGalleryGroup1: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Configura'#231#245'es Gerais'
@@ -4560,6 +4561,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = RbnBackstageGalleryAcessoItemClick
           object dxRibbonBackstageViewGalleryGroup2: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Controle de Acesso'
@@ -4624,6 +4626,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = RbnBackstageGalleryBackupItemClick
           object dxRibbonBackstageViewGalleryGroup3: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Backup / Restore Database'

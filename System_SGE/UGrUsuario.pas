@@ -3,8 +3,10 @@ unit UGrUsuario;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, cxButtons, IdCoder, IdCoder3to4, IdCoderMIME, IdBaseComponent,
@@ -14,25 +16,14 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinMcSkin;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TfrmGrUsuario = class(TfrmGrPadraoCadastro)
     lblLogin: TLabel;
     dbLogin: TDBEdit;
-    IbDtstTabelaNOME: TIBStringField;
-    IbDtstTabelaSENHA: TIBStringField;
-    IbDtstTabelaNOMECOMPLETO: TIBStringField;
-    IbDtstTabelaCODFUNCAO: TSmallintField;
-    IbDtstTabelaLIMIDESC: TIBBCDField;
-    IbDtstTabelaATIVO: TSmallintField;
-    IbDtstTabelaPERM_ALTERAR_VALOR_VENDA: TSmallintField;
-    IbDtstTabelaPERFIL: TIBStringField;
-    IbDtstTabelaALTERAR_SENHA: TSmallintField;
     lblSenha: TLabel;
     dbSenha: TDBEdit;
     dbAlterarSenha: TDBCheckBox;
@@ -44,12 +35,8 @@ type
     dbFuncao: TDBLookupComboBox;
     DtsFuncao: TDataSource;
     Bevel5: TBevel;
-    IbDtstTabelaVENDEDOR: TIntegerField;
     DtsVendedor: TDataSource;
-    IbDtstTabelaATV: TStringField;
     dtsTipoAlteraValor: TDataSource;
-    IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA: TSmallintField;
-    IbDtstTabelaALMOX_MANIFESTO_AUTOMATICO: TSmallintField;
     fdQryTipoAlteraValor: TFDQuery;
     fdQryVendedor: TFDQuery;
     fdQryFuncao: TFDQuery;
@@ -64,17 +51,30 @@ type
     dbPercentualDesc: TDBEdit;
     dbAlterarValorVendaItem: TDBCheckBox;
     dbVendedor: TDBLookupComboBox;
-    dbTipoAlteraValorVendaItem: TDBLookupComboBox;    procedure FormCreate(Sender: TObject);
+    dbTipoAlteraValorVendaItem: TDBLookupComboBox;
+    fdQryTabelaNOME: TStringField;
+    fdQryTabelaSENHA: TStringField;
+    fdQryTabelaNOMECOMPLETO: TStringField;
+    fdQryTabelaCODFUNCAO: TSmallintField;
+    fdQryTabelaLIMIDESC: TCurrencyField;
+    fdQryTabelaATIVO: TSmallintField;
+    fdQryTabelaALTERAR_SENHA: TSmallintField;
+    fdQryTabelaPERM_ALTERAR_VALOR_VENDA: TSmallintField;
+    fdQryTabelaTIPO_ALTERAR_VALOR_VENDA: TSmallintField;
+    fdQryTabelaVENDEDOR: TIntegerField;
+    fdQryTabelaALMOX_MANIFESTO_AUTOMATICO: TSmallintField;
+    fdQryTabelaPERFIL: TStringField;
+    fdQryTabelaATV: TStringField;    procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
     procedure dbTipoAlteraValorVendaItemClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     function GetLoginExiste(const Login : String) : Boolean;
@@ -139,8 +139,8 @@ begin
       Result := (AForm.ShowModal = mrOk);
       if Result then
       begin
-        Login := IbDtstTabelaNOME.AsString;
-        Nome  := IbDtstTabelaNOMECOMPLETO.AsString;
+        Login := DtSrcTabela.DataSet.FieldByName('NOME').AsString;
+        Nome  := DtSrcTabela.DataSet.FieldByName('NOMECOMPLETO').AsString;
       end;
     end;
   finally
@@ -246,23 +246,69 @@ end;
 
 procedure TfrmGrUsuario.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
 begin
-  if ( Field = IbDtstTabelaPERM_ALTERAR_VALOR_VENDA ) then
-    dbTipoAlteraValorVendaItem.Enabled := (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
+  if ( Field = DtSrcTabela.DataSet.FieldByName('PERM_ALTERAR_VALOR_VENDA') ) then
+    dbTipoAlteraValorVendaItem.Enabled := (DtSrcTabela.DataSet.FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1);
 end;
 
 procedure TfrmGrUsuario.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  if ( IbDtstTabela.State = dsInsert ) then
+  if ( DtSrcTabela.DataSet.State = dsInsert ) then
   begin
     dbLogin.ReadOnly := False;
     dbLogin.Color    := dbSenha.Color;
   end
   else
-  if ( IbDtstTabela.State = dsEdit ) then
+  if ( DtSrcTabela.DataSet.State = dsEdit ) then
   begin
     dbLogin.ReadOnly := True;
     dbLogin.Color    := dbCodigo.Color;
+  end;
+end;
+
+procedure TfrmGrUsuario.fdQryTabelaBeforePost(DataSet: TDataSet);
+var
+  sSenha : String;
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if ( Trim(FieldByName('SENHA').AsString) <> EmptyStr ) then
+      if ( Copy(FieldByName('SENHA').AsString, 1, 2) <> USER_PASSWD_ENCRIPT ) then
+      begin
+        sSenha := Trim(FieldByName('SENHA').AsString);
+        FieldByName('SENHA').AsString := GetSenhaFormatada(sSenha, False);
+      end;
+
+    if (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 0) then
+      FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger := 0;
+
+    if (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1) and (FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger = 0) then
+      FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger := 1;
+
+    inherited;
+  end;
+end;
+
+procedure TfrmGrUsuario.fdQryTabelaCalcFields(DataSet: TDataSet);
+begin
+  with DtSrcTabela.DataSet do
+    FieldByName('ATV').AsString := IfThen(FieldByName('ATIVO').AsInteger = 1, 'X', '');
+end;
+
+procedure TfrmGrUsuario.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('ALTERAR_SENHA').AsInteger              := 1; // Sim
+    FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger   := 0; // Não
+    FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger   := 0; // Nenhum
+    FieldByName('ATIVO').AsInteger                      := 1; // Sim
+    FieldByName('LIMIDESC').AsCurrency                  := 0.0;
+    FieldByName('SENHA').AsString                       := USER_PASSWD_DEFAULT;
+    FieldByName('ALMOX_MANIFESTO_AUTOMATICO').AsInteger := 0; // Não
+    FieldByName('NOME').Clear;
+    FieldByName('NOMECOMPLETO').Clear;
   end;
 end;
 
@@ -286,69 +332,34 @@ end;
 
 procedure TfrmGrUsuario.btbtnSalvarClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.State = dsInsert ) then
-    if GetLoginExiste(IbDtstTabelaNOME.AsString) then
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State = dsInsert ) then
+      if GetLoginExiste(FieldByName('NOME').AsString) then
+      begin
+        ShowWarning('Login informado já existe!');
+        Exit;
+      end;
+
+    if ( (FieldByName('LIMIDESC').AsCurrency < 0) or (FieldByName('LIMIDESC').AsCurrency > 100) ) then
     begin
-      ShowWarning('Login informado já existe!');
-      Exit;
+      ShowWarning('O Percentual de desconto informado é inválido!');
+    end
+    else
+    begin
+
+      FieldByName('PERFIL').AsString := dbFuncao.Text;
+      inherited;
+
     end;
-
-  if ( (IbDtstTabelaLIMIDESC.AsCurrency < 0) or (IbDtstTabelaLIMIDESC.AsCurrency > 100) ) then
-  begin
-    ShowWarning('O Percentual de desconto informado é inválido!');
-  end
-  else
-  begin
-
-    IbDtstTabelaPERFIL.AsString := dbFuncao.Text;
-    inherited;
-
   end;
-end;
-
-procedure TfrmGrUsuario.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaALTERAR_SENHA.AsInteger              := 1; // Sim
-  IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger   := 0; // Não
-  IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger   := 0; // Nenhum
-  IbDtstTabelaATIVO.AsInteger                      := 1; // Sim
-  IbDtstTabelaLIMIDESC.AsCurrency                  := 0.0;
-  IbDtstTabelaSENHA.AsString                       := USER_PASSWD_DEFAULT;
-  IbDtstTabelaALMOX_MANIFESTO_AUTOMATICO.AsInteger := 0; // Não
-  IbDtstTabelaNOME.Clear;
-  IbDtstTabelaNOMECOMPLETO.Clear;
 end;
 
 procedure TfrmGrUsuario.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  dbTipoAlteraValorVendaItem.Enabled := (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
-end;
-
-procedure TfrmGrUsuario.IbDtstTabelaBeforePost(DataSet: TDataSet);
-var
-  sSenha : String;
-begin
-  if ( Trim(IbDtstTabelaSENHA.AsString) <> EmptyStr ) then
-    if ( Copy(IbDtstTabelaSENHA.AsString, 1, 2) <> USER_PASSWD_ENCRIPT ) then
-    begin
-      sSenha := Trim(IbDtstTabelaSENHA.AsString);
-      IbDtstTabelaSENHA.AsString := GetSenhaFormatada(sSenha, False);
-    end;
-
-  if (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 0) then
-    IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger := 0;
-
-  if (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1) and (IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger = 0) then
-    IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA.AsInteger := 1;
-
-  inherited;
-end;
-
-procedure TfrmGrUsuario.IbDtstTabelaCalcFields(DataSet: TDataSet);
-begin
-  IbDtstTabelaATV.AsString := IfThen(IbDtstTabelaATIVO.AsInteger = 1, 'X', '');
+  with DtSrcTabela.DataSet do
+    dbTipoAlteraValorVendaItem.Enabled := (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1);
 end;
 
 procedure TfrmGrUsuario.dbgDadosDrawColumnCell(Sender: TObject;
@@ -358,7 +369,7 @@ begin
   inherited;
   if ( Sender = dbgDados ) then
   begin
-    if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
       dbgDados.Canvas.Font.Color := clRed;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -367,7 +378,8 @@ end;
 
 procedure TfrmGrUsuario.dbTipoAlteraValorVendaItemClick(Sender: TObject);
 begin
-  dbTipoAlteraValorVendaItem.Enabled := (IbDtstTabelaPERM_ALTERAR_VALOR_VENDA.AsInteger = 1);
+  with DtSrcTabela.DataSet do
+    dbTipoAlteraValorVendaItem.Enabled := (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1);
 end;
 
 initialization

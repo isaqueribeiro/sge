@@ -44,19 +44,21 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
           item
             Expanded = False
             FieldName = 'COD'
+            Title.Caption = 'C'#243'digo '
             Width = 55
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'FUNCAO'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 350
             Visible = True
           end
           item
             Expanded = False
             Title.Alignment = taCenter
-            Title.Caption = 'Particular'
+            Title.Caption = 'Particular '
             Visible = False
           end>
       end
@@ -195,28 +197,10 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterCancel = IbDtstTabelaAfterCancel
-    OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    f.cod'
-      '  , f.funcao'
-      'from TBFUNCAO f')
-    object IbDtstTabelaCOD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = '"TBFUNCAO"."COD"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object IbDtstTabelaFUNCAO: TIBStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'FUNCAO'
-      Origin = '"TBFUNCAO"."FUNCAO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 25
-    end
+    SelectSQL.Strings = ()
+  end
+  inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -245,7 +229,7 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1704,6 +1688,45 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    AfterCancel = fdQryTabelaAfterCancel
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    f.cod'
+      '  , f.funcao'
+      'from TBFUNCAO f')
+    object fdQryTabelaCOD: TSmallintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'COD'
+      Origin = 'COD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaFUNCAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'FUNCAO'
+      Origin = 'FUNCAO'
+      Size = 25
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBFUNCAO'
+      '(COD, FUNCAO)'
+      'VALUES (:NEW_COD, :NEW_FUNCAO)')
+    ModifySQL.Strings = (
+      'UPDATE TBFUNCAO'
+      'SET COD = :NEW_COD, FUNCAO = :NEW_FUNCAO'
+      'WHERE COD = :OLD_COD')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBFUNCAO'
+      'WHERE COD = :OLD_COD')
+    FetchRowSQL.Strings = (
+      'SELECT COD, FUNCAO'
+      'FROM TBFUNCAO'
+      'WHERE COD = :COD')
+  end
   object PopMenuTree: TPopupMenu
     Images = ImgList
     Left = 312
@@ -1750,12 +1773,106 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
       OnClick = miCopiarPerfilClick
     end
   end
-  object qryMenu: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object dspMenu: TDataSetProvider
+    DataSet = qryMenu
+    Left = 120
+    Top = 176
+  end
+  object cdsMenu: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'SISTEMA'
+        ParamType = ptInput
+      end>
+    ProviderName = 'dspMenu'
+    Left = 152
+    Top = 176
+  end
+  object dspSubMenu: TDataSetProvider
+    DataSet = qrySubMenu
+    Left = 120
+    Top = 224
+  end
+  object cdsSubMenu: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'SISTEMA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'ROTINA'
+        ParamType = ptInput
+        Size = 10
+      end>
+    ProviderName = 'dspSubMenu'
+    Left = 152
+    Top = 224
+  end
+  object dspPermissao: TDataSetProvider
+    DataSet = qryPermissao
+    Left = 120
+    Top = 272
+  end
+  object cdsPermissao: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftSmallint
+        Name = 'SISTEMA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftSmallint
+        Name = 'PERFIL'
+        ParamType = ptInput
+      end>
+    ProviderName = 'dspPermissao'
+    Left = 152
+    Top = 272
+  end
+  object stpFuncaoPermissao: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_FUNCAO_PERMISSAO'
+    Left = 640
+    Top = 136
+    ParamData = <
+      item
+        Position = 1
+        Name = 'SIS_CODIGO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'FUN_CODIGO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'ROT_CODIGO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        Position = 4
+        Name = 'ACESSO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+  end
+  object qryMenu: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    r.rot_cod'
@@ -1775,36 +1892,16 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
     Top = 176
     ParamData = <
       item
+        Name = 'SISTEMA'
         DataType = ftSmallint
-        Name = 'sistema'
         ParamType = ptInput
-        Value = 0
+        Value = Null
       end>
   end
-  object dspMenu: TDataSetProvider
-    DataSet = qryMenu
-    Left = 120
-    Top = 176
-  end
-  object cdsMenu: TClientDataSet
-    Aggregates = <>
-    Params = <
-      item
-        DataType = ftSmallint
-        Name = 'sistema'
-        ParamType = ptInput
-        Value = 0
-      end>
-    ProviderName = 'dspMenu'
-    Left = 152
-    Top = 176
-  end
-  object qrySubMenu: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object qrySubMenu: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    r.rot_cod'
@@ -1823,48 +1920,22 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
     Top = 224
     ParamData = <
       item
+        Name = 'SISTEMA'
         DataType = ftSmallint
-        Name = 'sistema'
         ParamType = ptInput
-        Value = 0
+        Value = Null
       end
       item
+        Name = 'ROTINA'
         DataType = ftString
-        Name = 'rotina'
         ParamType = ptInput
-        Value = ''
+        Size = 10
       end>
   end
-  object dspSubMenu: TDataSetProvider
-    DataSet = qrySubMenu
-    Left = 120
-    Top = 224
-  end
-  object cdsSubMenu: TClientDataSet
-    Aggregates = <>
-    Params = <
-      item
-        DataType = ftSmallint
-        Name = 'sistema'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftString
-        Name = 'rotina'
-        ParamType = ptInput
-        Value = ''
-      end>
-    ProviderName = 'dspSubMenu'
-    Left = 152
-    Top = 224
-  end
-  object qryPermissao: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object qryPermissao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    p.sistema'
@@ -1881,67 +1952,14 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
     Top = 272
     ParamData = <
       item
+        Name = 'SISTEMA'
         DataType = ftSmallint
-        Name = 'sistema'
         ParamType = ptInput
-        Value = 0
+        Value = Null
       end
       item
+        Name = 'PERFIL'
         DataType = ftSmallint
-        Name = 'perfil'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object dspPermissao: TDataSetProvider
-    DataSet = qryPermissao
-    Left = 120
-    Top = 272
-  end
-  object cdsPermissao: TClientDataSet
-    Aggregates = <>
-    Params = <
-      item
-        DataType = ftSmallint
-        Name = 'sistema'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftSmallint
-        Name = 'perfil'
-        ParamType = ptInput
-        Value = 0
-      end>
-    ProviderName = 'dspPermissao'
-    Left = 152
-    Top = 272
-  end
-  object stpFuncaoPermissao: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_FUNCAO_PERMISSAO'
-    Left = 624
-    Top = 56
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'SIS_CODIGO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'FUN_CODIGO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'ROT_CODIGO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ACESSO'
         ParamType = ptInput
       end>
   end

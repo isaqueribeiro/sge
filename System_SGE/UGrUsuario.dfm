@@ -29,8 +29,6 @@ inherited frmGrUsuario: TfrmGrUsuario
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel4: TBevel
@@ -54,19 +52,21 @@ inherited frmGrUsuario: TfrmGrUsuario
           item
             Expanded = False
             FieldName = 'NOME'
+            Title.Caption = 'Login '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOMECOMPLETO'
+            Title.Caption = 'Nome Completo '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PERFIL'
-            Title.Caption = 'Perfil de acesso'
+            Title.Caption = 'Perfil de acesso '
             Width = 250
             Visible = True
           end>
@@ -289,10 +289,6 @@ inherited frmGrUsuario: TfrmGrUsuario
         TabOrder = 2
         object tbsVendas: TTabSheet
           Caption = 'Vendas / OS'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxParametrosVenda: TGroupBox
             Left = 0
             Top = 0
@@ -393,10 +389,6 @@ inherited frmGrUsuario: TfrmGrUsuario
         object tbsControleInterno: TTabSheet
           Caption = 'Controle Interno'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxParametrosAlmox: TGroupBox
             Left = 0
             Top = 0
@@ -454,113 +446,10 @@ inherited frmGrUsuario: TfrmGrUsuario
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    BeforePost = IbDtstTabelaBeforePost
-    OnCalcFields = IbDtstTabelaCalcFields
-    OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    u.nome'
-      '  , u.senha'
-      '  , u.nomecompleto'
-      '  , u.codfuncao'
-      '  , u.limidesc'
-      '  , u.ativo'
-      '  , u.alterar_senha'
-      '  , u.perm_alterar_valor_venda'
-      '  , u.tipo_alterar_valor_venda'
-      '  , u.vendedor'
-      '  , u.almox_manifesto_automatico'
-      '  , f.funcao as perfil'
-      'from TBUSERS u'
-      '  left join TBFUNCAO f on (f.cod = u.codfuncao)')
-    object IbDtstTabelaNOME: TIBStringField
-      DisplayLabel = 'Login'
-      FieldName = 'NOME'
-      Origin = '"TBUSERS"."NOME"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 12
-    end
-    object IbDtstTabelaSENHA: TIBStringField
-      DisplayLabel = 'Senha'
-      FieldName = 'SENHA'
-      Origin = '"TBUSERS"."SENHA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 16
-    end
-    object IbDtstTabelaNOMECOMPLETO: TIBStringField
-      DisplayLabel = 'Nome Completo'
-      FieldName = 'NOMECOMPLETO'
-      Origin = '"TBUSERS"."NOMECOMPLETO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 60
-    end
-    object IbDtstTabelaCODFUNCAO: TSmallintField
-      DisplayLabel = 'Perfil de acesso'
-      FieldName = 'CODFUNCAO'
-      Origin = '"TBUSERS"."CODFUNCAO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaLIMIDESC: TIBBCDField
-      FieldName = 'LIMIDESC'
-      Origin = '"TBUSERS"."LIMIDESC"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 9
-      Size = 2
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      FieldName = 'ATIVO'
-      Origin = '"TBUSERS"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaALTERAR_SENHA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ALTERAR_SENHA'
-      Origin = '"TBUSERS"."ALTERAR_SENHA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaPERM_ALTERAR_VALOR_VENDA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'PERM_ALTERAR_VALOR_VENDA'
-      Origin = '"TBUSERS"."PERM_ALTERAR_VALOR_VENDA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaTIPO_ALTERAR_VALOR_VENDA: TSmallintField
-      FieldName = 'TIPO_ALTERAR_VALOR_VENDA'
-      Origin = '"TBUSERS"."TIPO_ALTERAR_VALOR_VENDA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaVENDEDOR: TIntegerField
-      DisplayLabel = 'Vendedor'
-      FieldName = 'VENDEDOR'
-      Origin = '"TBUSERS"."VENDEDOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaALMOX_MANIFESTO_AUTOMATICO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ALMOX_MANIFESTO_AUTOMATICO'
-      Origin = '"TBUSERS"."ALMOX_MANIFESTO_AUTOMATICO"'
-    end
-    object IbDtstTabelaPERFIL: TIBStringField
-      FieldName = 'PERFIL'
-      Origin = '"TBFUNCAO"."FUNCAO"'
-      ProviderFlags = []
-      Size = 25
-    end
-    object IbDtstTabelaATV: TStringField
-      Alignment = taCenter
-      FieldKind = fkCalculated
-      FieldName = 'ATV'
-      Size = 1
-      Calculated = True
-    end
+    SelectSQL.Strings = ()
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
   end
   inherited IbUpdTabela: TIBUpdateSQL
@@ -620,7 +509,7 @@ inherited frmGrUsuario: TfrmGrUsuario
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2078,6 +1967,160 @@ inherited frmGrUsuario: TfrmGrUsuario
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    OnCalcFields = fdQryTabelaCalcFields
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    u.nome'
+      '  , u.senha'
+      '  , u.nomecompleto'
+      '  , u.codfuncao'
+      '  , u.limidesc'
+      '  , u.ativo'
+      '  , u.alterar_senha'
+      '  , u.perm_alterar_valor_venda'
+      '  , u.tipo_alterar_valor_venda'
+      '  , u.vendedor'
+      '  , u.almox_manifesto_automatico'
+      '  , f.funcao as perfil'
+      'from TBUSERS u'
+      '  left join TBFUNCAO f on (f.cod = u.codfuncao)')
+    object fdQryTabelaNOME: TStringField
+      DisplayLabel = 'Login'
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 12
+    end
+    object fdQryTabelaSENHA: TStringField
+      DisplayLabel = 'Senha'
+      FieldName = 'SENHA'
+      Origin = 'SENHA'
+      Required = True
+      Size = 16
+    end
+    object fdQryTabelaNOMECOMPLETO: TStringField
+      DisplayLabel = 'Nome Completo'
+      FieldName = 'NOMECOMPLETO'
+      Origin = 'NOMECOMPLETO'
+      Required = True
+      Size = 60
+    end
+    object fdQryTabelaCODFUNCAO: TSmallintField
+      DisplayLabel = 'Perfil de acesso'
+      FieldName = 'CODFUNCAO'
+      Origin = 'CODFUNCAO'
+      Required = True
+    end
+    object fdQryTabelaLIMIDESC: TCurrencyField
+      FieldName = 'LIMIDESC'
+      Origin = 'LIMIDESC'
+      DisplayFormat = ',0.00'
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object fdQryTabelaALTERAR_SENHA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ALTERAR_SENHA'
+      Origin = 'ALTERAR_SENHA'
+      Required = True
+    end
+    object fdQryTabelaPERM_ALTERAR_VALOR_VENDA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'PERM_ALTERAR_VALOR_VENDA'
+      Origin = 'PERM_ALTERAR_VALOR_VENDA'
+      Required = True
+    end
+    object fdQryTabelaTIPO_ALTERAR_VALOR_VENDA: TSmallintField
+      FieldName = 'TIPO_ALTERAR_VALOR_VENDA'
+      Origin = 'TIPO_ALTERAR_VALOR_VENDA'
+      Required = True
+    end
+    object fdQryTabelaVENDEDOR: TIntegerField
+      DisplayLabel = 'Vendedor'
+      FieldName = 'VENDEDOR'
+      Origin = 'VENDEDOR'
+    end
+    object fdQryTabelaALMOX_MANIFESTO_AUTOMATICO: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'ALMOX_MANIFESTO_AUTOMATICO'
+      Origin = 'ALMOX_MANIFESTO_AUTOMATICO'
+      Required = True
+    end
+    object fdQryTabelaPERFIL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERFIL'
+      Origin = 'FUNCAO'
+      ProviderFlags = []
+      Size = 25
+    end
+    object fdQryTabelaATV: TStringField
+      Alignment = taCenter
+      FieldKind = fkInternalCalc
+      FieldName = 'ATV'
+      Size = 1
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBUSERS'
+      '(NOME, SENHA, NOMECOMPLETO, CODFUNCAO, LIMIDESC, '
+      '  ATIVO, ALTERAR_SENHA, PERM_ALTERAR_VALOR_VENDA, '
+      
+        '  TIPO_ALTERAR_VALOR_VENDA, VENDEDOR, ALMOX_MANIFESTO_AUTOMATICO' +
+        ')'
+      
+        'VALUES (:NEW_NOME, :NEW_SENHA, :NEW_NOMECOMPLETO, :NEW_CODFUNCAO' +
+        ', :NEW_LIMIDESC, '
+      
+        '  :NEW_ATIVO, :NEW_ALTERAR_SENHA, :NEW_PERM_ALTERAR_VALOR_VENDA,' +
+        ' '
+      
+        '  :NEW_TIPO_ALTERAR_VALOR_VENDA, :NEW_VENDEDOR, :NEW_ALMOX_MANIF' +
+        'ESTO_AUTOMATICO)')
+    ModifySQL.Strings = (
+      'UPDATE TBUSERS'
+      
+        'SET NOME = :NEW_NOME, SENHA = :NEW_SENHA, NOMECOMPLETO = :NEW_NO' +
+        'MECOMPLETO, '
+      
+        '  CODFUNCAO = :NEW_CODFUNCAO, LIMIDESC = :NEW_LIMIDESC, ATIVO = ' +
+        ':NEW_ATIVO, '
+      
+        '  ALTERAR_SENHA = :NEW_ALTERAR_SENHA, PERM_ALTERAR_VALOR_VENDA =' +
+        ' :NEW_PERM_ALTERAR_VALOR_VENDA, '
+      '  TIPO_ALTERAR_VALOR_VENDA = :NEW_TIPO_ALTERAR_VALOR_VENDA, '
+      
+        '  VENDEDOR = :NEW_VENDEDOR, ALMOX_MANIFESTO_AUTOMATICO = :NEW_AL' +
+        'MOX_MANIFESTO_AUTOMATICO'
+      'WHERE NOME = :OLD_NOME')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBUSERS'
+      'WHERE NOME = :OLD_NOME')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    u.nome'
+      '  , u.senha'
+      '  , u.nomecompleto'
+      '  , u.codfuncao'
+      '  , u.limidesc'
+      '  , u.ativo'
+      '  , u.alterar_senha'
+      '  , u.perm_alterar_valor_venda'
+      '  , u.tipo_alterar_valor_venda'
+      '  , u.vendedor'
+      '  , u.almox_manifesto_automatico'
+      '  , f.funcao as perfil'
+      'from TBUSERS u'
+      '  left join TBFUNCAO f on (f.cod = u.codfuncao)'
+      'WHERE u.NOME = :NOME')
   end
   object DtsFuncao: TDataSource
     DataSet = fdQryFuncao

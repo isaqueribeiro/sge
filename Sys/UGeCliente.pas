@@ -147,39 +147,17 @@ type
     pnlControleRequisicao: TPanel;
     Bevel12: TBevel;
     chkProdutoComEstoque: TCheckBox;
-    QryEstoqueSatelite: TIBDataSet;
-    UpdEstoqueSatelite: TIBUpdateSQL;
     DtsEstoqueSatelite: TDataSource;
-    QryEstoqueSateliteCOD_PRODUTO: TIBStringField;
-    QryEstoqueSateliteUSUARIO: TIBStringField;
-    QryEstoqueSateliteANO_VENDA_ULT: TSmallintField;
-    QryEstoqueSateliteCOD_VENDA_ULT: TIntegerField;
-    QryEstoqueSateliteDESCRI: TIBStringField;
-    QryEstoqueSateliteAPRESENTACAO: TIBStringField;
-    QryEstoqueSateliteDESCRI_APRESENTACAO: TIBStringField;
-    QryEstoqueSateliteMODELO: TIBStringField;
-    QryEstoqueSateliteREFERENCIA: TIBStringField;
-    QryEstoqueSateliteSECAO: TIBStringField;
-    QryEstoqueSatelitePRECO: TIBBCDField;
-    QryEstoqueSateliteUNIDADE: TIBStringField;
-    QryEstoqueSateliteDESCRICAO_GRUPO: TIBStringField;
-    QryEstoqueSateliteNOME_FABRICANTE: TIBStringField;
-    QryEstoqueSateliteDESCRICAO_SECAO: TIBStringField;
-    QryEstoqueSateliteDESCRICAO_UNIDADE: TIBStringField;
-    QryEstoqueSateliteUNP_SIGLA: TIBStringField;
     CmbBxFiltrarTipo: TComboBox;
-    QryEstoqueSateliteVALOR_MEDIO: TIBBCDField;
     dtsTipoCnpj: TDataSource;
     lblTipoCNPJ: TLabel;
     dbTipoCNPJ: TDBLookupComboBox;
-    QryEstoqueSateliteCOD_CLIENTE: TIntegerField;
     dtsBancoFebraban: TDataSource;
     tbsDadoFinanceiro: TTabSheet;
     tbsObservacao: TTabSheet;
     dbObservacao: TDBMemo;
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
-    QryEstoqueSateliteQUANTIDADE: TIBBCDField;
     BtBtnProcesso: TcxButton;
     btnConsultarCNPJ: TcxButton;
     btnVoltar: TcxButton;
@@ -307,6 +285,29 @@ type
     fdQryTabelaEST_NOME: TStringField;
     fdQryTabelaPAIS_NOME: TStringField;
     dbCEP: TJvDBMaskEdit;
+    QryEstoqueSatelite: TFDQuery;
+    UpdEstoqueSatelite: TFDUpdateSQL;
+    QryEstoqueSateliteCOD_CLIENTE: TIntegerField;
+    QryEstoqueSateliteCOD_PRODUTO: TStringField;
+    QryEstoqueSateliteQUANTIDADE: TBCDField;
+    QryEstoqueSateliteVALOR_MEDIO: TBCDField;
+    QryEstoqueSateliteUSUARIO: TStringField;
+    QryEstoqueSateliteANO_VENDA_ULT: TSmallintField;
+    QryEstoqueSateliteCOD_VENDA_ULT: TIntegerField;
+    QryEstoqueSateliteDESCRI: TStringField;
+    QryEstoqueSateliteAPRESENTACAO: TStringField;
+    QryEstoqueSateliteDESCRI_APRESENTACAO: TStringField;
+    QryEstoqueSateliteMODELO: TStringField;
+    QryEstoqueSateliteREFERENCIA: TStringField;
+    QryEstoqueSateliteSECAO: TStringField;
+    QryEstoqueSatelitePRECO: TBCDField;
+    QryEstoqueSateliteUNIDADE: TStringField;
+    QryEstoqueSateliteDESCRICAO_GRUPO: TStringField;
+    QryEstoqueSateliteNOME_FABRICANTE: TStringField;
+    QryEstoqueSateliteDESCRICAO_SECAO: TStringField;
+    QryEstoqueSateliteDESCRICAO_UNIDADE: TStringField;
+    QryEstoqueSateliteUNP_SIGLA: TStringField;
+    QryEstoqueSateliteCODIGO: TIntegerField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -332,8 +333,6 @@ type
     procedure edCNPJKeyPress(Sender: TObject; var Key: Char);
     procedure btnConsultarCPFClick(Sender: TObject);
     procedure edCaptchaKeyPress(Sender: TObject; var Key: Char);
-    procedure QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
     procedure btnPesquisarEstoqueSateliteClick(Sender: TObject);
     procedure edFiltrarEstoqueSateliteKeyDown(Sender: TObject;
       var Key: Word; Shift: TShiftState);
@@ -353,6 +352,8 @@ type
     procedure imgAjudaClick(Sender: TObject);
     procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     bApenasPossuiEstoque : Boolean;
@@ -557,7 +558,7 @@ end;
 procedure TfrmGeCliente.FormCreate(Sender: TObject);
 begin
   FSQLEstoqueSatelite := TStringList.Create;
-  FSQLEstoqueSatelite.AddStrings( QryEstoqueSatelite.SelectSQL );
+  FSQLEstoqueSatelite.AddStrings( QryEstoqueSatelite.SQL );
 
   inherited;
 
@@ -573,12 +574,10 @@ begin
   DisplayFormatCodigo := '##0000';
 
   NomeTabela         := 'TBCLIENTE';
-  CampoCodigo        := 'codigo';
-  CampoDescricao     := 'nome';
-  CampoCadastroAtivo := 'ativo';
+  CampoCodigo        := 'cl.codigo';
+  CampoDescricao     := 'cl.nome';
+  CampoCadastroAtivo := 'cl.ativo';
   CampoOrdenacao     := CampoDescricao;
-//
-//  UpdateGenerator;
 
   pgcMaisDados.ActivePageIndex := 0;
   tbsConsultarCNPJ.TabVisible  := False;
@@ -796,7 +795,7 @@ var
 begin
   pTrueFalse := GetPermitirVerdadeiroFalsoCNPJCliente(gUsuarioLogado.Empresa);
 
-  if (Length(Trim(dbCEP.Field.AsString)) < 10) then
+  if (Length(Trim(dbCEP.Field.AsString)) < 8) then
   begin
     ShowWarning('Favor informar um número de CEP válido.');
     Abort;
@@ -1359,8 +1358,8 @@ begin
     and GetUserVisualizaEstoque;
 end;
 
-procedure TfrmGeCliente.QryEstoqueSateliteCOD_VENDA_ULTGetText(
-  Sender: TField; var Text: String; DisplayText: Boolean);
+procedure TfrmGeCliente.QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if Sender.IsNull then
     Exit;
@@ -1373,7 +1372,7 @@ procedure TfrmGeCliente.EstoqueSateliteFiltarDados(
 begin
   try
 
-    with QryEstoqueSatelite, SelectSQL do
+    with QryEstoqueSatelite, SQL do
     begin
       Close;
       Clear;
@@ -1412,10 +1411,10 @@ begin
 
       end;
 
-      if ( Pos('where', SelectSQL.Text) > 0 ) then
-        Add( '  and (e.cod_cliente = ' + FieldByName('CODIGO').AsString + ')' )
+      if ( Pos('where', SQL.Text) > 0 ) then
+        Add( '  and (e.cod_cliente = ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString + ')' )
       else
-        Add( 'where (e.cod_cliente = ' + FieldByName('CODIGO').AsString + ')' );
+        Add( 'where (e.cod_cliente = ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString + ')' );
 
       if chkProdutoComEstoque.Checked then
         Add('  and (e.quantidade > 0)');
@@ -1436,7 +1435,7 @@ begin
     end;
   except
     On E : Exception do
-      ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + QryEstoqueSatelite.SelectSQL.Text);
+      ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + QryEstoqueSatelite.SQL.Text);
   end;
 end;
 
@@ -1445,6 +1444,21 @@ begin
   inherited;
   HabilitarAbaEstoque;
   QryEstoqueSatelite.Close;
+end;
+
+procedure TfrmGeCliente.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if (Trim(FieldByName('BANCO').AsString) = EmptyStr) then
+      FieldByName('BANCO').Clear;
+
+    if (Trim(FieldByName('BANCO_2').AsString) = EmptyStr) then
+      FieldByName('BANCO_2').Clear;
+
+    if (Trim(FieldByName('BANCO_3').AsString) = EmptyStr) then
+      FieldByName('BANCO_3').Clear;
+  end;
 end;
 
 procedure TfrmGeCliente.fdQryTabelaNewRecord(DataSet: TDataSet);

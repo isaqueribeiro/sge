@@ -218,31 +218,18 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       OnClick = btbtnFecharClick
     end
   end
-  object tblUsers: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
+  object dtsUsers: TDataSource
+    DataSet = fdQryUser
+    Left = 312
+    Top = 16
+  end
+  object fdQryUser: TFDQuery
     CachedUpdates = True
-    DeleteSQL.Strings = (
-      'delete from TBUSERS'
-      'where'
-      '  NOME = :OLD_NOME')
-    InsertSQL.Strings = (
-      'insert into TBUSERS'
-      '  (NOME, SENHA, NOMECOMPLETO, CODFUNCAO, LIMIDESC)'
-      'values'
-      '  (:NOME, :SENHA, :NOMECOMPLETO, :CODFUNCAO, :LIMIDESC)')
-    RefreshSQL.Strings = (
-      'Select '
-      '  NOME,'
-      '  SENHA,'
-      '  NOMECOMPLETO,'
-      '  CODFUNCAO,'
-      '  LIMIDESC'
-      'from TBUSERS '
-      'where'
-      '  NOME = :NOME')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = fdUpdUser
+    SQL.Strings = (
       'Select'
       '    u.Nome'
       '  , u.Senha'
@@ -252,93 +239,80 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       '  , cast(null as varchar(16)) as Senha_Confirmar'
       'from TBUSERS u'
       'where u.Nome = :Nome')
-    ModifySQL.Strings = (
-      'update TBUSERS'
-      'set'
-      '  NOME = :NOME,'
-      '  SENHA = :SENHA,'
-      '  NOMECOMPLETO = :NOMECOMPLETO,'
-      '  CODFUNCAO = :CODFUNCAO,'
-      '  LIMIDESC = :LIMIDESC'
-      'where'
-      '  NOME = :OLD_NOME')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updUsers
-    Left = 16
-    Top = 152
-    object tblUsersNOME: TIBStringField
+    Left = 243
+    Top = 16
+    ParamData = <
+      item
+        Name = 'NOME'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 12
+        Value = Null
+      end>
+    object fdQryUserNOME: TStringField
       FieldName = 'NOME'
-      Origin = '"TBUSERS"."NOME"'
+      Origin = 'NOME'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 12
     end
-    object tblUsersSENHA: TIBStringField
+    object fdQryUserSENHA: TStringField
       FieldName = 'SENHA'
-      Origin = '"TBUSERS"."SENHA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'SENHA'
       Required = True
       Size = 16
     end
-    object tblUsersALTERAR_SENHA: TSmallintField
+    object fdQryUserALTERAR_SENHA: TSmallintField
       FieldName = 'ALTERAR_SENHA'
-      Origin = '"TBUSERS"."ALTERAR_SENHA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'ALTERAR_SENHA'
+      Required = True
     end
-    object tblUsersSENHA_ATUAL: TIBStringField
+    object fdQryUserSENHA_ATUAL: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'SENHA_ATUAL'
+      Origin = 'SENHA_ATUAL'
       ProviderFlags = []
       Size = 16
     end
-    object tblUsersSENHA_NOVA: TIBStringField
+    object fdQryUserSENHA_NOVA: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'SENHA_NOVA'
+      Origin = 'SENHA_NOVA'
       ProviderFlags = []
       Size = 16
     end
-    object tblUsersSENHA_CONFIRMAR: TIBStringField
+    object fdQryUserSENHA_CONFIRMAR: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'SENHA_CONFIRMAR'
+      Origin = 'SENHA_CONFIRMAR'
       ProviderFlags = []
       Size = 16
     end
   end
-  object dtsUsers: TDataSource
-    DataSet = tblUsers
-    Left = 80
-    Top = 152
-  end
-  object updUsers: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  NOME,'
-      '  SENHA,'
-      '  NOMECOMPLETO,'
-      '  CODFUNCAO,'
-      '  LIMIDESC,'
-      '  ATIVO,'
-      '  ALTERAR_SENHA,'
-      '  PERM_ALTERAR_VALOR_VENDA'
-      'from TBUSERS '
-      'where'
-      '  NOME = :NOME')
-    ModifySQL.Strings = (
-      'update TBUSERS'
-      'set'
-      '  ALTERAR_SENHA = :ALTERAR_SENHA,'
-      '  NOME = :NOME,'
-      '  SENHA = :SENHA'
-      'where'
-      '  NOME = :OLD_NOME')
+  object fdUpdUser: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'insert into TBUSERS'
-      '  (ALTERAR_SENHA, NOME, SENHA)'
-      'values'
-      '  (:ALTERAR_SENHA, :NOME, :SENHA)')
+      'INSERT INTO TBUSERS'
+      '(NOME, SENHA, ALTERAR_SENHA)'
+      'VALUES (:NEW_NOME, :NEW_SENHA, :NEW_ALTERAR_SENHA)')
+    ModifySQL.Strings = (
+      'UPDATE TBUSERS'
+      
+        'SET NOME = :NEW_NOME, SENHA = :NEW_SENHA, ALTERAR_SENHA = :NEW_A' +
+        'LTERAR_SENHA'
+      'WHERE NOME = :OLD_NOME')
     DeleteSQL.Strings = (
-      'delete from TBUSERS'
-      'where'
-      '  NOME = :OLD_NOME')
-    Left = 48
-    Top = 154
+      'DELETE FROM TBUSERS'
+      'WHERE NOME = :OLD_NOME')
+    FetchRowSQL.Strings = (
+      
+        'SELECT NOME, SENHA, NOMECOMPLETO, CODFUNCAO, LIMIDESC, ATIVO, AL' +
+        'TERAR_SENHA, '
+      '  PERM_ALTERAR_VALOR_VENDA, TIPO_ALTERAR_VALOR_VENDA, VENDEDOR, '
+      '  ALMOX_MANIFESTO_AUTOMATICO'
+      'FROM TBUSERS'
+      'WHERE NOME = :NOME')
+    Left = 275
+    Top = 16
   end
 end

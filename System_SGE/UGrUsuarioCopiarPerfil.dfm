@@ -41,37 +41,6 @@ inherited frmGrUsuarioCopiarPerfil: TfrmGrUsuarioCopiarPerfil
     TabOrder = 1
     OnClick = btnSelecionarClick
   end
-  object qryPerfil: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.cod'
-      '  , f.funcao'
-      'from TBFUNCAO f'
-      'where f.cod not in (:perfil1, :perfil2)'
-      ''
-      'order by'
-      '    f.cod')
-    Left = 232
-    Top = 8
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'perfil1'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftSmallint
-        Name = 'perfil2'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object dspPerfil: TDataSetProvider
     DataSet = qryPerfil
     Left = 264
@@ -82,18 +51,44 @@ inherited frmGrUsuarioCopiarPerfil: TfrmGrUsuarioCopiarPerfil
     Params = <
       item
         DataType = ftSmallint
-        Name = 'perfil1'
+        Name = 'PERFIL1'
         ParamType = ptInput
-        Value = 0
       end
       item
         DataType = ftSmallint
-        Name = 'perfil2'
+        Name = 'PERFIL2'
         ParamType = ptInput
-        Value = 0
       end>
     ProviderName = 'dspPerfil'
     Left = 296
     Top = 8
+  end
+  object qryPerfil: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.cod'
+      '  , f.funcao'
+      'from TBFUNCAO f'
+      'where f.cod not in (:perfil1, :perfil2)'
+      ''
+      'order by'
+      '    f.cod')
+    Left = 232
+    Top = 9
+    ParamData = <
+      item
+        Name = 'PERFIL1'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PERFIL2'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
   end
 end

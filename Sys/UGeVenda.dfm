@@ -2329,7 +2329,7 @@ inherited frmGeVenda: TfrmGeVenda
               Left = 10
               Top = 112
               Width = 551
-              Height = 33
+              Height = 32
               Anchors = [akLeft, akRight, akBottom]
               AutoSize = True
               BevelOuter = bvNone
@@ -2339,7 +2339,7 @@ inherited frmGeVenda: TfrmGeVenda
                 Left = 3
                 Top = 3
                 Width = 545
-                Height = 27
+                Height = 26
                 Align = alBottom
                 Alignment = taCenter
                 Caption = 
@@ -2353,7 +2353,6 @@ inherited frmGeVenda: TfrmGeVenda
                 Font.Style = [fsBold]
                 ParentFont = False
                 WordWrap = True
-                ExplicitLeft = 4
               end
             end
           end
@@ -2440,7 +2439,6 @@ inherited frmGeVenda: TfrmGeVenda
               PopupMenu = ppCorrigirDadosNFe
               ScrollBars = ssBoth
               TabOrder = 0
-              ExplicitHeight = 141
             end
           end
         end
@@ -4103,7 +4101,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00B00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00B40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

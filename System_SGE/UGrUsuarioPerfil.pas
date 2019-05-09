@@ -3,19 +3,20 @@ unit UGrUsuarioPerfil;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, Menus, DBClient, Provider, IBQuery, IBStoredProc, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint;
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls, StdCtrls,
+  Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, Menus, DBClient, Provider,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   PNodeDataPermissao = ^TNodeDataPermissao;
@@ -34,42 +35,42 @@ type
     lblDescricao: TLabel;
     dbDescricao: TDBEdit;
     GrpBxDadosClassificacao: TGroupBox;
-    IbDtstTabelaCOD: TSmallintField;
-    IbDtstTabelaFUNCAO: TIBStringField;
     TreeMenu: TTreeView;
     PopMenuTree: TPopupMenu;
     miRestrito: TMenuItem;
     miDisponivel: TMenuItem;
     miInvisivel: TMenuItem;
-    qryMenu: TIBQuery;
     dspMenu: TDataSetProvider;
     cdsMenu: TClientDataSet;
-    qrySubMenu: TIBQuery;
     dspSubMenu: TDataSetProvider;
     cdsSubMenu: TClientDataSet;
-    qryPermissao: TIBQuery;
     dspPermissao: TDataSetProvider;
     cdsPermissao: TClientDataSet;
-    stpFuncaoPermissao: TIBStoredProc;
     N1: TMenuItem;
     miRestritoTodas: TMenuItem;
     miDisponivelTodas: TMenuItem;
     miInverterMarcacao: TMenuItem;
     N2: TMenuItem;
     miCopiarPerfil: TMenuItem;
+    fdQryTabelaCOD: TSmallintField;
+    fdQryTabelaFUNCAO: TStringField;
+    stpFuncaoPermissao: TFDStoredProc;
+    qryMenu: TFDQuery;
+    qrySubMenu: TFDQuery;
+    qryPermissao: TFDQuery;
     procedure SetPermissaoPopup(Sender: TObject);
     procedure SetPermissaoPopupTodas(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
-    procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure miCopiarPerfilClick(Sender: TObject);
+    procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure MontarListaPermissao(const TreeViewPermissao: TTreeView; const iSistema : Integer; const iPerfil : Integer);
@@ -78,6 +79,19 @@ type
   public
     { Public declarations }
   end;
+
+(*
+  Tabelas:
+  - TBFUNCAO
+  - SYS_ROTINA
+  - SYS_SISTEMA_ROTINA
+  - SYS_FUNCAO_PERMISSAO
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGrUsuarioPerfil: TfrmGrUsuarioPerfil;
@@ -112,12 +126,6 @@ begin
   miRestrito.Tag   := AUTHORIZED_RESTRITO;
   miDisponivel.Tag := AUTHORIZED_HABILITADO;
   miInvisivel.Tag  := AUTHORIZED_INVISIVEL;
-end;
-
-procedure TfrmGrUsuarioPerfil.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaCOD.Value := GetNextID(NomeTabela, CampoCodigo);
 end;
 
 procedure TfrmGrUsuarioPerfil.MontarListaPermissao(const TreeViewPermissao: TTreeView; const iSistema,
@@ -281,34 +289,28 @@ procedure TfrmGrUsuarioPerfil.btbtnIncluirClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
-    MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
+    MontarListaPermissao(TreeMenu, gSistema.Codigo, DtSrcTabela.DataSet.FieldByName('COD').AsInteger);
 end;
 
 procedure TfrmGrUsuarioPerfil.btbtnAlterarClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
-    MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
+    MontarListaPermissao(TreeMenu, gSistema.Codigo, DtSrcTabela.DataSet.FieldByName('COD').AsInteger);
 end;
 
 procedure TfrmGrUsuarioPerfil.btbtnExcluirClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
-    MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
+    MontarListaPermissao(TreeMenu, gSistema.Codigo, DtSrcTabela.DataSet.FieldByName('COD').AsInteger);
 end;
 
 procedure TfrmGrUsuarioPerfil.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
   if ( pgcGuias.ActivePage = tbsCadastro ) then
-    MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
-end;
-
-procedure TfrmGrUsuarioPerfil.IbDtstTabelaAfterCancel(DataSet: TDataSet);
-begin
-  inherited;
-  MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
+    MontarListaPermissao(TreeMenu, gSistema.Codigo, DtSrcTabela.DataSet.FieldByName('COD').AsInteger);
 end;
 
 procedure TfrmGrUsuarioPerfil.btbtnSalvarClick(Sender: TObject);
@@ -316,8 +318,8 @@ begin
   inherited;
   if ( not OcorreuErro ) then
   begin
-    GravarPermissao(gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
-    MontarListaPermissao(TreeMenu, gSistema.Codigo, IbDtstTabelaCOD.AsInteger);
+    GravarPermissao(gSistema.Codigo, DtSrcTabela.DataSet.FieldByName('COD').AsInteger);
+    MontarListaPermissao(TreeMenu, gSistema.Codigo, DtSrcTabela.DataSet.FieldByName('COD').AsInteger);
   end;
 end;
 
@@ -328,7 +330,7 @@ var
 begin
 
   if (Key = VK_SPACE) then
-    if TreeMenu.Focused and (IbDtstTabela.State in [dsEdit, dsInsert]) then
+    if TreeMenu.Focused and (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     begin
 
       NoSelecionado  := TreeMenu.Selected.Data;
@@ -423,6 +425,18 @@ begin
   end;
 end;
 
+procedure TfrmGrUsuarioPerfil.fdQryTabelaAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  MontarListaPermissao(TreeMenu, gSistema.Codigo, DtSrcTabela.DataSet.FieldByName('COD').AsInteger);
+end;
+
+procedure TfrmGrUsuarioPerfil.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  DtSrcTabela.DataSet.FieldByName('COD').Value := GetNextID(NomeTabela, CampoCodigo);
+end;
+
 procedure TfrmGrUsuarioPerfil.GravarPermissao(const iSistema,
   iPerfil: Integer);
 var
@@ -441,17 +455,18 @@ begin
 
         Close;
 
-        ParamByName('sis_codigo').AsInteger := iSistema;
-        ParamByName('fun_codigo').AsInteger := iPerfil;
-        ParamByName('rot_codigo').AsString  := D^.sRotinaID;
+        ParamByName('sis_codigo').AsSmallInt := iSistema;
+        ParamByName('fun_codigo').AsSmallInt := iPerfil;
+        ParamByName('rot_codigo').AsString   := D^.sRotinaID;
 
         if D^.bAcesso then
-          ParamByName('acesso').AsInteger := 1
+          ParamByName('acesso').AsSmallInt := 1
         else
-          ParamByName('acesso').AsInteger := 0;
+          ParamByName('acesso').AsSmallInt := 0;
 
         ExecProc;
       end;
+      CommitTransaction;
 
     end;
   finally
@@ -466,7 +481,7 @@ begin
 
   NoSelecionado := TreeMenu.Selected.Data;
 
-  if (Trim(NoSelecionado^.sRotinaID) = EmptyStr) or (not (IbDtstTabela.State in [dsEdit, dsInsert])) then
+  if (Trim(NoSelecionado^.sRotinaID) = EmptyStr) or (not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert])) then
     Exit;
 
   NoSelecionado^.iAutorizado := TMenuItem(Sender).Tag;
@@ -483,7 +498,7 @@ var
   I : Integer;
   D : PNodeDataPermissao;
 begin
-  if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+  if not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     Exit;
 
   for I := 0 to TreeMenu.Items.Count - 1 do
@@ -535,10 +550,10 @@ var
   iPerfilIn  ,
   iPerfilOut : Integer;
 begin
-  if not (IbDtstTabela.State in [dsEdit, dsInsert]) then
+  if not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     Exit;
 
-  iPerfilIn  := IbDtstTabelaCOD.AsInteger;
+  iPerfilIn  := DtSrcTabela.DataSet.FieldByName('COD').AsInteger;
   iPerfilOut := 0;
 
   if SelecionarPerfil(Self, iPerfilIn, iPerfilOut) then

@@ -3,26 +3,28 @@ unit UGrUsuarioCopiarPerfil;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, DBClient, Provider, DB, IBCustomDataSet, IBQuery,
+  Dialogs, DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxButtons,
   StdCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGrUsuarioCopiarPerfil = class(TfrmGrPadrao)
-    qryPerfil: TIBQuery;
     dspPerfil: TDataSetProvider;
     cdsPerfil: TClientDataSet;
     lblPerfil: TLabel;
     edPerfil: TComboBox;
     btnSelecionar: TcxButton;
+    qryPerfil: TFDQuery;
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnSelecionarClick(Sender: TObject);
@@ -34,6 +36,16 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBFUNCAO
+
+  Views:
+
+  Procedures:
+
+*)
 
   function SelecionarPerfil(AOnwer : TComponent; PerfilIn : Integer; var PerfilOut : Integer) : Boolean;
 

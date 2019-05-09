@@ -542,6 +542,12 @@ end;
 
 procedure TfrmGeFornecedor.btbtnSalvarClick(Sender: TObject);
 begin
+  if (Length(Trim(dbCEP.Field.AsString)) < 8) then
+  begin
+    ShowWarning('Favor informar um número de CEP válido.');
+    Abort;
+  end;
+
   with DtSrcTabela.DataSet do
   begin
     if ( FieldByName('PESSOA_FISICA').AsInteger = 1 ) then

@@ -1,6 +1,7 @@
 inherited frmGeCliente: TfrmGeCliente
   Left = 400
   Top = 237
+  ActiveControl = edFiltrarTipoEstoqueSatelite
   Caption = 'Cadastro de Clientes'
   ClientHeight = 535
   ClientWidth = 844
@@ -25,6 +26,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 492
+    ActivePage = tbsEstoqueSatelite
     OnChange = pgcGuiasChange
     ExplicitWidth = 844
     ExplicitHeight = 492
@@ -200,6 +202,8 @@ inherited frmGeCliente: TfrmGeCliente
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel8: TBevel
@@ -1069,7 +1073,6 @@ inherited frmGeCliente: TfrmGeCliente
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
-            MaxLength = 13
             ParentFont = False
             TabOrder = 0
           end
@@ -1119,7 +1122,6 @@ inherited frmGeCliente: TfrmGeCliente
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
-            MaxLength = 14
             ParentFont = False
             TabOrder = 1
           end
@@ -1136,7 +1138,6 @@ inherited frmGeCliente: TfrmGeCliente
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
-            MaxLength = 13
             ParentFont = False
             TabOrder = 2
           end
@@ -3314,28 +3315,28 @@ inherited frmGeCliente: TfrmGeCliente
           item
             Expanded = False
             FieldName = 'COD_PRODUTO'
-            Title.Caption = 'C'#243'digo'
+            Title.Caption = 'C'#243'digo '
             Width = 60
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI'
-            Title.Caption = 'Descri'#231#227'o'
+            Title.Caption = 'Descri'#231#227'o '
             Width = 280
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'REFERENCIA'
-            Title.Caption = 'Refer'#234'ncia'
+            Title.Caption = 'Refer'#234'ncia '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QUANTIDADE'
-            Title.Caption = 'Estoque'
+            Title.Caption = 'Estoque '
             Width = 75
             Visible = True
           end
@@ -3343,42 +3344,42 @@ inherited frmGeCliente: TfrmGeCliente
             Expanded = False
             FieldName = 'UNP_SIGLA'
             Title.Alignment = taCenter
-            Title.Caption = 'Und.'
+            Title.Caption = 'Und. '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_MEDIO'
-            Title.Caption = 'Valor M'#233'dio (R$)'
+            Title.Caption = 'Valor M'#233'dio (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME_FABRICANTE'
-            Title.Caption = 'Fabricante'
+            Title.Caption = 'Fabricante '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_GRUPO'
-            Title.Caption = 'Grupo'
+            Title.Caption = 'Grupo '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'USUARIO'
-            Title.Caption = 'Usu'#225'rio'
+            Title.Caption = 'Usu'#225'rio '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'COD_VENDA_ULT'
-            Title.Caption = 'Venda ('#218'lt.)'
+            Title.Caption = 'Venda ('#218'lt.) '
             Width = 80
             Visible = True
           end>
@@ -3817,7 +3818,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5277,7 +5278,7 @@ inherited frmGeCliente: TfrmGeCliente
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
-    Active = True
+    BeforePost = fdQryTabelaBeforePost
     AfterScroll = fdQryTabelaAfterScroll
     OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
@@ -5884,7 +5885,7 @@ inherited frmGeCliente: TfrmGeCliente
       '  left join TBCIDADE c on (c.Cid_cod = cl.Cid_cod)'
       '  left join TBESTADO u on (u.Est_cod = cl.Est_cod)'
       '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)'
-      'WHERE d.CODIGO = :CODIGO')
+      'WHERE cl.CODIGO = :CODIGO')
   end
   object cdsTotalComprasAbertas: TDataSource
     DataSet = fdQryTotalComprasAbertas
@@ -5927,229 +5928,11 @@ inherited frmGeCliente: TfrmGeCliente
     Left = 776
     Top = 304
   end
-  object QryEstoqueSatelite: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    OnUpdateError = IbDtstTabelaUpdateError
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    e.cod_cliente'
-      '  , e.cod_produto'
-      '  , e.quantidade'
-      '  , e.valor_medio'
-      '  , e.usuario'
-      '  , e.ano_venda_ult'
-      '  , e.cod_venda_ult'
-      ''
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao'
-      '  , p.Modelo'
-      '  , p.Referencia'
-      '  , p.Secao'
-      '  , p.Preco'
-      '  , p.Unidade'
-      '  , g.Descri as Descricao_Grupo'
-      '  , f.Nome   as Nome_Fabricante'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      'from TBCLIENTE_ESTOQUE e'
-      '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODIGO'
-    GeneratorField.Generator = 'GEN_CLIENTE_ID'
-    GeneratorField.ApplyEvent = gamOnPost
-    UpdateObject = UpdEstoqueSatelite
-    Left = 584
-    Top = 152
-    object QryEstoqueSateliteCOD_CLIENTE: TIntegerField
-      DisplayLabel = 'Cliente'
-      FieldName = 'COD_CLIENTE'
-      Origin = '"TBCLIENTE_ESTOQUE"."COD_CLIENTE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object QryEstoqueSateliteCOD_PRODUTO: TIBStringField
-      FieldName = 'COD_PRODUTO'
-      Origin = '"TBCLIENTE_ESTOQUE"."COD_PRODUTO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object QryEstoqueSateliteQUANTIDADE: TIBBCDField
-      FieldName = 'QUANTIDADE'
-      Origin = '"TBCLIENTE_ESTOQUE"."QUANTIDADE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object QryEstoqueSateliteVALOR_MEDIO: TIBBCDField
-      FieldName = 'VALOR_MEDIO'
-      Origin = '"TBCLIENTE_ESTOQUE"."VALOR_MEDIO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 4
-    end
-    object QryEstoqueSateliteUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBCLIENTE_ESTOQUE"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object QryEstoqueSateliteANO_VENDA_ULT: TSmallintField
-      FieldName = 'ANO_VENDA_ULT'
-      Origin = '"TBCLIENTE_ESTOQUE"."ANO_VENDA_ULT"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object QryEstoqueSateliteCOD_VENDA_ULT: TIntegerField
-      FieldName = 'COD_VENDA_ULT'
-      Origin = '"TBCLIENTE_ESTOQUE"."COD_VENDA_ULT"'
-      ProviderFlags = [pfInUpdate]
-      OnGetText = QryEstoqueSateliteCOD_VENDA_ULTGetText
-    end
-    object QryEstoqueSateliteDESCRI: TIBStringField
-      FieldName = 'DESCRI'
-      Origin = '"TBPRODUTO"."DESCRI"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteAPRESENTACAO: TIBStringField
-      FieldName = 'APRESENTACAO'
-      Origin = '"TBPRODUTO"."APRESENTACAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteDESCRI_APRESENTACAO: TIBStringField
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object QryEstoqueSateliteMODELO: TIBStringField
-      FieldName = 'MODELO'
-      Origin = '"TBPRODUTO"."MODELO"'
-      ProviderFlags = []
-      Size = 40
-    end
-    object QryEstoqueSateliteREFERENCIA: TIBStringField
-      FieldName = 'REFERENCIA'
-      Origin = '"TBPRODUTO"."REFERENCIA"'
-      ProviderFlags = []
-      Size = 15
-    end
-    object QryEstoqueSateliteSECAO: TIBStringField
-      FieldName = 'SECAO'
-      Origin = '"TBPRODUTO"."SECAO"'
-      ProviderFlags = []
-    end
-    object QryEstoqueSatelitePRECO: TIBBCDField
-      FieldName = 'PRECO'
-      Origin = '"TBPRODUTO"."PRECO"'
-      ProviderFlags = []
-      Precision = 18
-      Size = 2
-    end
-    object QryEstoqueSateliteUNIDADE: TIBStringField
-      FieldName = 'UNIDADE'
-      Origin = '"TBPRODUTO"."UNIDADE"'
-      ProviderFlags = []
-      Size = 5
-    end
-    object QryEstoqueSateliteDESCRICAO_GRUPO: TIBStringField
-      FieldName = 'DESCRICAO_GRUPO'
-      Origin = '"TBGRUPOPROD"."DESCRI"'
-      ProviderFlags = []
-      Size = 30
-    end
-    object QryEstoqueSateliteNOME_FABRICANTE: TIBStringField
-      FieldName = 'NOME_FABRICANTE'
-      Origin = '"TBFABRICANTE"."NOME"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteDESCRICAO_SECAO: TIBStringField
-      FieldName = 'DESCRICAO_SECAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteDESCRICAO_UNIDADE: TIBStringField
-      FieldName = 'DESCRICAO_UNIDADE'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteUNP_SIGLA: TIBStringField
-      FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
-      ProviderFlags = []
-      Size = 5
-    end
-  end
-  object UpdEstoqueSatelite: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  COD_CLIENTE,'
-      '  COD_PRODUTO,'
-      '  QUANTIDADE,'
-      '  VALOR_MEDIO,'
-      '  USUARIO,'
-      '  ANO_VENDA_ULT,'
-      '  COD_VENDA_ULT'
-      'from TBCLIENTE_ESTOQUE '
-      'where'
-      '  COD_CLIENTE = :COD_CLIENTE and'
-      '  COD_PRODUTO = :COD_PRODUTO')
-    ModifySQL.Strings = (
-      'update TBCLIENTE_ESTOQUE'
-      'set'
-      '  ANO_VENDA_ULT = :ANO_VENDA_ULT,'
-      '  COD_CLIENTE = :COD_CLIENTE,'
-      '  COD_PRODUTO = :COD_PRODUTO,'
-      '  COD_VENDA_ULT = :COD_VENDA_ULT,'
-      '  QUANTIDADE = :QUANTIDADE,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_MEDIO = :VALOR_MEDIO'
-      'where'
-      '  COD_CLIENTE = :OLD_COD_CLIENTE and'
-      '  COD_PRODUTO = :OLD_COD_PRODUTO')
-    InsertSQL.Strings = (
-      'insert into TBCLIENTE_ESTOQUE'
-      
-        '  (ANO_VENDA_ULT, COD_CLIENTE, COD_PRODUTO, COD_VENDA_ULT, QUANT' +
-        'IDADE, '
-      '   USUARIO, VALOR_MEDIO)'
-      'values'
-      
-        '  (:ANO_VENDA_ULT, :COD_CLIENTE, :COD_PRODUTO, :COD_VENDA_ULT, :' +
-        'QUANTIDADE, '
-      '   :USUARIO, :VALOR_MEDIO)')
-    DeleteSQL.Strings = (
-      'delete from TBCLIENTE_ESTOQUE'
-      'where'
-      '  COD_CLIENTE = :OLD_COD_CLIENTE and'
-      '  COD_PRODUTO = :OLD_COD_PRODUTO')
-    Left = 616
-    Top = 152
-  end
   object DtsEstoqueSatelite: TDataSource
     AutoEdit = False
     DataSet = QryEstoqueSatelite
     Left = 648
-    Top = 152
+    Top = 216
   end
   object dtsTipoCnpj: TDataSource
     DataSet = fdQryTipoCnpj
@@ -6478,5 +6261,247 @@ inherited frmGeCliente: TfrmGeCliente
       ReadOnly = True
       Size = 33
     end
+  end
+  object QryEstoqueSatelite: TFDQuery
+    CachedUpdates = True
+    OnUpdateError = fdQryTabelaUpdateError
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = UpdEstoqueSatelite
+    SQL.Strings = (
+      'Select'
+      '    e.cod_cliente'
+      '  , e.cod_produto'
+      '  , e.quantidade'
+      '  , e.valor_medio'
+      '  , e.usuario'
+      '  , e.ano_venda_ult'
+      '  , e.cod_venda_ult'
+      ''
+      '  , p.Codigo'
+      '  , p.Descri'
+      '  , p.Apresentacao'
+      '  , p.Descri_apresentacao'
+      '  , p.Modelo'
+      '  , p.Referencia'
+      '  , p.Secao'
+      '  , p.Preco'
+      '  , p.Unidade'
+      '  , g.Descri as Descricao_Grupo'
+      '  , f.Nome   as Nome_Fabricante'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      'from TBCLIENTE_ESTOQUE e'
+      '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)')
+    Left = 584
+    Top = 216
+    object QryEstoqueSateliteCOD_CLIENTE: TIntegerField
+      DisplayLabel = 'Cliente'
+      FieldName = 'COD_CLIENTE'
+      Origin = 'COD_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object QryEstoqueSateliteCOD_PRODUTO: TStringField
+      FieldName = 'COD_PRODUTO'
+      Origin = 'COD_PRODUTO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object QryEstoqueSateliteQUANTIDADE: TBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object QryEstoqueSateliteVALOR_MEDIO: TBCDField
+      FieldName = 'VALOR_MEDIO'
+      Origin = 'VALOR_MEDIO'
+      DisplayFormat = ',0.00'
+      Precision = 18
+    end
+    object QryEstoqueSateliteUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 50
+    end
+    object QryEstoqueSateliteANO_VENDA_ULT: TSmallintField
+      FieldName = 'ANO_VENDA_ULT'
+      Origin = 'ANO_VENDA_ULT'
+    end
+    object QryEstoqueSateliteCOD_VENDA_ULT: TIntegerField
+      FieldName = 'COD_VENDA_ULT'
+      Origin = 'COD_VENDA_ULT'
+      OnGetText = QryEstoqueSateliteCOD_VENDA_ULTGetText
+    end
+    object QryEstoqueSateliteCODIGO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryEstoqueSateliteDESCRI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryEstoqueSateliteAPRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'APRESENTACAO'
+      Origin = 'APRESENTACAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryEstoqueSateliteDESCRI_APRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = 'DESCRI_APRESENTACAO'
+      ProviderFlags = []
+      Size = 100
+    end
+    object QryEstoqueSateliteMODELO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      ProviderFlags = []
+      Size = 40
+    end
+    object QryEstoqueSateliteREFERENCIA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'REFERENCIA'
+      Origin = 'REFERENCIA'
+      ProviderFlags = []
+      Size = 15
+    end
+    object QryEstoqueSateliteSECAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SECAO'
+      Origin = 'SECAO'
+      ProviderFlags = []
+    end
+    object QryEstoqueSatelitePRECO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PRECO'
+      Origin = 'PRECO'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object QryEstoqueSateliteUNIDADE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+      ProviderFlags = []
+    end
+    object QryEstoqueSateliteDESCRICAO_GRUPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO_GRUPO'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 30
+    end
+    object QryEstoqueSateliteNOME_FABRICANTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_FABRICANTE'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryEstoqueSateliteDESCRICAO_SECAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO_SECAO'
+      Origin = 'DESCRICAO_SECAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryEstoqueSateliteDESCRICAO_UNIDADE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO_UNIDADE'
+      Origin = 'DESCRICAO_UNIDADE'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryEstoqueSateliteUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_SIGLA'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      Size = 5
+    end
+  end
+  object UpdEstoqueSatelite: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCLIENTE_ESTOQUE'
+      '(COD_CLIENTE, COD_PRODUTO, QUANTIDADE, VALOR_MEDIO, '
+      '  USUARIO, ANO_VENDA_ULT, COD_VENDA_ULT)'
+      
+        'VALUES (:NEW_COD_CLIENTE, :NEW_COD_PRODUTO, :NEW_QUANTIDADE, :NE' +
+        'W_VALOR_MEDIO, '
+      '  :NEW_USUARIO, :NEW_ANO_VENDA_ULT, :NEW_COD_VENDA_ULT)')
+    ModifySQL.Strings = (
+      'UPDATE TBCLIENTE_ESTOQUE'
+      
+        'SET COD_CLIENTE = :NEW_COD_CLIENTE, COD_PRODUTO = :NEW_COD_PRODU' +
+        'TO, '
+      '  QUANTIDADE = :NEW_QUANTIDADE, VALOR_MEDIO = :NEW_VALOR_MEDIO, '
+      '  USUARIO = :NEW_USUARIO, ANO_VENDA_ULT = :NEW_ANO_VENDA_ULT, '
+      '  COD_VENDA_ULT = :NEW_COD_VENDA_ULT'
+      
+        'WHERE COD_CLIENTE = :OLD_COD_CLIENTE AND COD_PRODUTO = :OLD_COD_' +
+        'PRODUTO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCLIENTE_ESTOQUE'
+      
+        'WHERE COD_CLIENTE = :OLD_COD_CLIENTE AND COD_PRODUTO = :OLD_COD_' +
+        'PRODUTO')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    e.cod_cliente'
+      '  , e.cod_produto'
+      '  , e.quantidade'
+      '  , e.valor_medio'
+      '  , e.usuario'
+      '  , e.ano_venda_ult'
+      '  , e.cod_venda_ult'
+      ''
+      '  , p.Codigo'
+      '  , p.Descri'
+      '  , p.Apresentacao'
+      '  , p.Descri_apresentacao'
+      '  , p.Modelo'
+      '  , p.Referencia'
+      '  , p.Secao'
+      '  , p.Preco'
+      '  , p.Unidade'
+      '  , g.Descri as Descricao_Grupo'
+      '  , f.Nome   as Nome_Fabricante'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      'from TBCLIENTE_ESTOQUE e'
+      '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
+      ''
+      
+        'WHERE e.COD_CLIENTE = :COD_CLIENTE AND e.COD_PRODUTO = :COD_PROD' +
+        'UTO')
+    Left = 616
+    Top = 216
   end
 end

@@ -44,56 +44,56 @@ uses
 
 function TFrmEfetuarLogin.EfetuarLogin: Boolean;
 var
-  vSenha : TStringField;
-  sSenha : String;
+  vSenha  : TStringField;
+  aConexao,
+  sSenha  : String;
   bReturn : Boolean;
 begin
   bReturn := False;
 
   try
-
-//    DMBusiness.ibdtstUsers.Close;
-//    DMBusiness.ibdtstUsers.Open;
-    DMBusiness.fdQryUsers.Close;
-    DMBusiness.fdQryUsers.Open;
-
-//    if not DMBusiness.ibdtstUsers.Locate('NOME', Usuario, []) then
-    if not DMBusiness.fdQryUsers.Locate('NOME', Usuario, []) then
+    with DMBusiness do
     begin
-      pnlMensagem.Caption := 'Entrada recusada ... USUÁRIO DESCONHECIDO!';
+      fdQryUsers.Close;
+      fdQryUsers.Open;
 
-      if ( Contador >= 3 ) then
-        frmPrinc.Close;
+      if not fdQryUsers.Locate('NOME', Usuario, []) then
+      begin
+        pnlMensagem.Caption := 'Entrada recusada ... USUÁRIO DESCONHECIDO!';
 
-      edNome.SetFocus;
-      Exit;
+        if ( Contador >= 3 ) then
+          frmPrinc.Close;
+
+        edNome.SetFocus;
+        Exit;
+      end;
+
+      vSenha := fdQryUsers.FieldByName('SENHA') as TStringfield;
+      sSenha := GetSenhaFormatada(Senha, False);
+
+      if (vSenha.Value = Senha) or (vSenha.Value = sSenha) then
+      begin
+        aConexao := fdConexao.Params.Values['Server'] + '/' + fdConexao.Params.Values['Port'] + ':' + fdConexao.Params.Values['Database'];
+
+        frmPrinc.Enabled := True;
+        frmPrinc.stbMain.Panels[1].Text := AnsiLowerCase(edNome.Text + '@' + aConexao);
+        frmPrinc.FormActivate( Application );
+
+        bReturn := True;
+      end
+      else
+      begin
+
+        pnlMensagem.Caption := 'Entrada recusada ... SENHA INVÁLIDA!';
+
+        if Contador = 3 then
+          frmPrinc.close;
+
+        edSenha.setfocus;
+        Exit;
+
+      end;
     end;
-
-//    vSenha := DMBusiness.ibdtstUsersSENHA as tStringfield;
-    vSenha := DMBusiness.fdQryUsers.FieldByName('SENHA') as TStringfield;
-    sSenha := GetSenhaFormatada(Senha, False);
-
-    if (vSenha.Value = Senha) or (vSenha.Value = sSenha) then
-    begin
-      frmPrinc.Enabled := True;
-      frmPrinc.stbMain.Panels[1].Text := AnsiLowerCase(edNome.Text + '@' + DMBusiness.ibdtbsBusiness.DatabaseName);
-      frmPrinc.FormActivate( Application );
-
-      bReturn := True;
-    end
-    else
-    begin
-
-      pnlMensagem.Caption := 'Entrada recusada ... SENHA INVÁLIDA!';
-
-      if Contador = 3 then
-        frmPrinc.close;
-
-      edSenha.setfocus;
-      Exit;
-
-    end;
-
   finally
     Result := bReturn;
   end;

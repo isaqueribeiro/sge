@@ -18,7 +18,6 @@ uses
   USobre in '..\Sys\USobre.pas' {frmSobre},
   USplash in '..\Sys\USplash.pas' {frmSplash},
   UPesqProd in '..\Sys\UPesqProd.pas' {frmPesqProd},
-  UfrmRelVendas in '..\Sys\UfrmRelVendas.pas' {frmRelVendas},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
