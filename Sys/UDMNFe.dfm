@@ -11690,6 +11690,7 @@ object DMNFe: TDMNFe
             ' [frdItens."CODPROD"]')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object frdItensSEQ: TfrxMemoView
           Width = 22.677180000000000000
@@ -11718,6 +11719,7 @@ object DMNFe: TDMNFe
             '[Line]')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object frdItensDESCRI: TfrxMemoView
           Left = 75.590600000000000000
@@ -11789,6 +11791,7 @@ object DMNFe: TDMNFe
             '[FormatFloat('#39'###,###,##0'#39',<frdItens."QTDE">)] ')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
           Left = 642.520100000000000000
@@ -11818,6 +11821,7 @@ object DMNFe: TDMNFe
             '[FormatFloat('#39',0.00'#39',<frdItens."TOTAL_LIQUIDO">)] ')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
           Left = 411.968770000000000000
@@ -11846,6 +11850,7 @@ object DMNFe: TDMNFe
             ' [frdItens."UNP_SIGLA"]')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
           Left = 449.764070000000000000
@@ -11875,6 +11880,7 @@ object DMNFe: TDMNFe
             '[FormatFloat('#39',0.00'#39',<frdItens."PUNIT">)] ')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
           Left = 514.016080000000000000
@@ -11904,6 +11910,7 @@ object DMNFe: TDMNFe
             '[FormatFloat('#39',0.00'#39',<frdItens."DESCONTO_VALOR">)] ')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object Memo18: TfrxMemoView
           Left = 578.268090000000000000
@@ -11933,6 +11940,7 @@ object DMNFe: TDMNFe
             '[FormatFloat('#39',0.00'#39',<frdItens."PFINAL">)] ')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
       end
       object bndPageFooter: TfrxPageFooter
@@ -31665,6 +31673,7 @@ object DMNFe: TDMNFe
             ' [frdItens."CODPROD"]')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object frdItensSEQ: TfrxMemoView
           Width = 22.677180000000000000
@@ -31693,6 +31702,7 @@ object DMNFe: TDMNFe
             '[Line]')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object frdItensDESCRI: TfrxMemoView
           Left = 94.488250000000000000
@@ -31764,6 +31774,7 @@ object DMNFe: TDMNFe
             '[FormatFloat('#39'###,###,##0'#39',<frdItens."QTDE">)] ')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
           Left = 604.724800000000000000
@@ -31792,6 +31803,7 @@ object DMNFe: TDMNFe
             ' [frdItens."UNP_DESCRICAO"]')
           ParentFont = False
           WordWrap = False
+          VAlign = vaCenter
         end
       end
       object bndPageFooter: TfrxPageFooter
