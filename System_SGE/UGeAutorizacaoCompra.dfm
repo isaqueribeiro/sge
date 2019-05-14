@@ -327,6 +327,8 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -532,7 +534,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 2
@@ -1470,6 +1472,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
+        ExplicitTop = 232
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -2509,7 +2512,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4437,18 +4440,8 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         'WHERE a.ANO = :ANO AND a.CODIGO = :CODIGO AND a.EMPRESA = :EMPRE' +
         'SA')
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 944
-    Top = 272
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 976
     Top = 272
   end
@@ -4470,139 +4463,20 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       OnClick = nmImprimirAutorizacaoClick
     end
   end
-  object qryProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.cod'
-      '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.codunidade'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      'from TBPRODUTO p'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
-      'where p.codigo = :produto')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 1008
-    Top = 272
-  end
-  object tblTipoAutorizacao: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_AUTORIZACAO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 944
-    Top = 304
-  end
   object dtsTipoAutorizacao: TDataSource
-    DataSet = tblTipoAutorizacao
+    DataSet = fdQryTipoAutorizacao
     Left = 976
     Top = 304
-  end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COD'
-        Attributes = [faRequired]
-        DataType = ftSmallint
-      end
-      item
-        Name = 'DESCRI'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'ACRESCIMO'
-        DataType = ftFloat
-      end
-      item
-        Name = 'CONTA_CORRENTE'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DEBITAR_LIMITE_CLIENTE'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'FORMAPAGTO_NFCE'
-        DataType = ftString
-        Size = 2
-      end>
-    IndexDefs = <
-      item
-        Name = 'PK_TBFORMPAGTO'
-        Fields = 'COD'
-        Options = [ixUnique]
-      end
-      item
-        Name = 'FK_TBFORMPAGTO_CCORRENTE'
-        Fields = 'CONTA_CORRENTE'
-      end>
-    StoreDefs = True
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 944
-    Top = 336
   end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = fdQryFormaPagto
     Left = 976
     Top = 336
   end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 944
-    Top = 368
-  end
   object dtsCondicaoPagto: TDataSource
-    DataSet = tblCondicaoPagto
+    DataSet = fdQryCondicaoPagto
     Left = 976
     Top = 368
-  end
-  object cdsTransportador: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    f.codforn'
-      '  , f.nomeforn'
-      '  , f.cnpj'
-      'from TBFORNECEDOR f'
-      'where f.transportadora = 1'
-      'order by'
-      '    f.nomeforn')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 944
-    Top = 400
   end
   object dtsTransportador: TDataSource
     DataSet = cdsTransportador
@@ -4610,8 +4484,8 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Top = 400
   end
   object ppAutorizacao: TPopupMenu
-    Left = 712
-    Top = 601
+    Left = 352
+    Top = 425
     object ppmAutorizarCompra: TMenuItem
       Tag = 12
       Bitmap.Data = {
@@ -4903,5 +4777,88 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       ProviderFlags = []
       Size = 5
     end
+  end
+  object qryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.cod'
+      '  , p.descri'
+      '  , p.descri_apresentacao'
+      '  , p.codunidade'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from TBPRODUTO p'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      'where p.codigo = :produto')
+    Left = 1016
+    Top = 272
+    ParamData = <
+      item
+        Name = 'PRODUTO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 944
+    Top = 272
+  end
+  object fdQryTipoAutorizacao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_TIPO_AUTORIZACAO')
+    Left = 944
+    Top = 304
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from TBFORMPAGTO')
+    Left = 944
+    Top = 336
+  end
+  object fdQryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_CONDICAOPAGTO')
+    Left = 944
+    Top = 368
+  end
+  object cdsTransportador: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.codforn'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      'from TBFORNECEDOR f'
+      'where f.transportadora = 1'
+      'order by'
+      '    f.nomeforn')
+    Left = 944
+    Top = 400
   end
 end

@@ -25,7 +25,6 @@ type
     RdgStatusAutorizacao: TRadioGroup;
     lblAutorizacaoAberta: TLabel;
     lblAutorizacaoCancelada: TLabel;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
@@ -59,7 +58,6 @@ type
     dbgProdutos: TDBGrid;
     ppImprimir: TPopupMenu;
     nmImprimirAutorizacao: TMenuItem;
-    qryProduto: TIBDataSet;
     lblValorTotal: TLabel;
     dbValorTotal: TDBEdit;
     lblNumero: TLabel;
@@ -67,7 +65,6 @@ type
     tbsFormaPagto: TTabSheet;
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
-    tblTipoAutorizacao: TIBTable;
     dtsTipoAutorizacao: TDataSource;
     lblDataValidade: TLabel;
     GrpBxPagamento: TGroupBox;
@@ -75,9 +72,7 @@ type
     dbFormaPagto: TDBLookupComboBox;
     dbCondicaoPagto: TDBLookupComboBox;
     lblCondicaoPagto: TLabel;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
-    tblCondicaoPagto: TIBTable;
     dtsCondicaoPagto: TDataSource;
     lblValorUn: TLabel;
     dbValorUn: TDBEdit;
@@ -110,7 +105,6 @@ type
     Bevel5: TBevel;
     dbEnderecoEntrega: TDBMemo;
     Bevel9: TBevel;
-    cdsTransportador: TIBDataSet;
     dtsTransportador: TDataSource;
     lblNomeContato: TLabel;
     dbNomeContato: TDBEdit;
@@ -201,6 +195,12 @@ type
     cdsTabelaItensDESCRI_APRESENTACAO: TStringField;
     cdsTabelaItensUNP_DESCRICAO: TStringField;
     cdsTabelaItensUNP_SIGLA: TStringField;
+    qryProduto: TFDQuery;
+    fdQryEmpresa: TFDQuery;
+    fdQryTipoAutorizacao: TFDQuery;
+    fdQryFormaPagto: TFDQuery;
+    fdQryCondicaoPagto: TFDQuery;
+    cdsTransportador: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -276,8 +276,12 @@ type
   - TBCENTRO_CUSTO
   - TBPRODUTO
   - TBUNIDADEPROD
+  - TBFORMPAGTO
 
   Views:
+  - VW_EMPRESA
+  - VW_TIPO_AUTORIZACAO
+  - VW_CONDICAOPAGTO
 
   Procedures:
 *)
@@ -314,11 +318,11 @@ begin
     if (frm.RdgStatusAutorizacao.ItemIndex > 0) then
       whr := whr + ' and (a.status = ' + IntToStr(frm.RdgStatusAutorizacao.ItemIndex - 1) + ')';
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + whr);
-      SelectSQL.Add('order by ' + CampoOrdenacao);
+      SQL.Add('where ' + whr);
+      SQL.Add('order by ' + CampoOrdenacao);
       Open;
     end;
 
@@ -358,11 +362,11 @@ begin
     if (frm.RdgStatusAutorizacao.ItemIndex > 0) then
       frm.WhereAdditional := frm.WhereAdditional + ' and (a.status = ' + IntToStr(frm.RdgStatusAutorizacao.ItemIndex - 1) + ')';
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + WhereAdditional);
-      SelectSQL.Add('order by ' + CampoDescricao);
+      SQL.Add('where ' + WhereAdditional);
+      SQL.Add('order by ' + CampoDescricao);
       Open;
     end;
 
@@ -457,11 +461,11 @@ begin
   iTipoAutorizacao := -1;
   iFornecedor      := 0;
 
-  tblEmpresa.Open;
-  tblTipoAutorizacao.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  cdsTransportador.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryTipoAutorizacao);
+  CarregarLista(fdQryFormaPagto);
+  CarregarLista(fdQryCondicaoPagto);
+  CarregarLista(cdsTransportador);
 
   pgcMaisDados.Height := 190;
   RotinaID            := ROTINA_MOV_AUTORIZACAO_ID;
@@ -1412,7 +1416,7 @@ begin
       ShowInformation('Apenas registros autorizados podem ser cancelados!')
     else
     if ( CancelarAUT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger) ) then
-      with IbDtstTabela do
+      with DtSrcTabela.DataSet do
       begin
         RecarregarRegistro;
 
