@@ -245,6 +245,7 @@ var
   function GetCfopIDDefault : Integer;
   function GetCfopEntradaIDDefault : Integer;
   function GetCfopDevolucao(const iCfop : Integer) : Boolean;
+  function GetCfopRemessa(const iCfop : Integer) : Boolean;
   function GetCfopGerarTitulo(const iCfop : Integer) : Boolean;
   function GetCfopGerarDuplicata(const iCfop : Integer) : Boolean;
   function GetCfopTipo(const aCfop : Integer) : TTipoCFOP;
@@ -2196,6 +2197,21 @@ begin
     Open;
 
     Result := (FieldByName('cfop_devolucao').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetCfopRemessa(const iCfop : Integer) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cfop_remessa from TBCFOP where cfop_cod = ' + IntToStr(iCfop));
+    Open;
+
+    Result := (FieldByName('cfop_remessa').AsInteger = 1);
 
     Close;
   end;

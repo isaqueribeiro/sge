@@ -4101,7 +4101,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00B40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00B80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6887,15 +6887,24 @@ inherited frmGeVenda: TfrmGeVenda
       '  , e.data_fabricacao'
       '  , e.data_validade'
       'from TBESTOQUE_ALMOX e'
+      
+        '  left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = :cliente and' +
+        ' c.cod_produto = e.produto)'
       'where e.empresa = :empresa'
       '  and e.centro_custo = :centro_custo'
       '  and e.produto = :produto'
-      '  and (e.qtde > 0.0)'
+      '  and ((e.qtde > 0.0) or (coalesce(c.quantidade, 0) > 0.0))'
       'order by'
       '  e.descricao')
     Left = 992
     Top = 320
     ParamData = <
+      item
+        Name = 'CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
       item
         Name = 'EMPRESA'
         DataType = ftString

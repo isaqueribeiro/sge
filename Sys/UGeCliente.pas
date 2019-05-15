@@ -142,7 +142,7 @@ type
     edFiltrarEstoqueSatelite: TEdit;
     edFiltrarTipoEstoqueSatelite: TComboBox;
     Bevel11: TBevel;
-    Label1: TLabel;
+    lblInformeSatelite: TLabel;
     dbgEstoqueSatelite: TDBGrid;
     pnlControleRequisicao: TPanel;
     Bevel12: TBevel;
@@ -605,6 +605,15 @@ begin
   else
   if ( gSistema.Codigo = SISTEMA_PDV ) then
     CmbBxFiltrarTipo.ItemIndex := 1; // Pesquisar por CPF/CNPJ
+
+  if (gSistema.Codigo = SISTEMA_GESTAO_OPME) then
+  begin
+    dbEntregaFracionada.Enabled := False;
+    lblInformeSatelite.Caption  :=
+      '* Este estoque de produtos do cliente é alimentado de forma automática a partir de vendas ' +
+      'finalizadas com CFOP do tipo Remessa.';
+    lblInformeSatelite.Font.Style := [TFontStyle.fsBold];
+  end;
 end;
 
 procedure TfrmGeCliente.ProximoCampoKeyPress(Sender: TObject;
@@ -1353,9 +1362,11 @@ end;
 
 procedure TfrmGeCliente.HabilitarAbaEstoque;
 begin
-  tbsEstoqueSatelite.TabVisible := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa)
-    and (DtSrcTabela.DataSet.FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger = 1)
-    and GetUserVisualizaEstoque;
+  tbsEstoqueSatelite.TabVisible :=
+       ((GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa)
+    and (DtSrcTabela.DataSet.FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger = 1))
+     or (gSistema.Codigo = SISTEMA_GESTAO_OPME)
+    ) and GetUserVisualizaEstoque;
 end;
 
 procedure TfrmGeCliente.QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField; var Text: string;
