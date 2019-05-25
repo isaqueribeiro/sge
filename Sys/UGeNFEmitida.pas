@@ -3,18 +3,21 @@ unit UGeNFEmitida;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  JvExMask, JvToolEdit, System.ImageList,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TDestinatarioTipo = (dtNull = -1, dtFornecedor = 0, dtCliente = 1);
@@ -30,39 +33,38 @@ type
 
   TfrmGeNFEmitida = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
-    IbDtstTabelaNFE_DESTINATARIO: TIBStringField;
-    IbDtstTabelaNFE_DESTINATARIO_RAZAO: TIBStringField;
-    IbDtstTabelaNFE_DESTINATARIO_CNPJ: TIBStringField;
-    IbDtstTabelaEMPRESA: TIBStringField;
-    IbDtstTabelaSERIE: TIBStringField;
-    IbDtstTabelaNUMERO: TIntegerField;
-    IbDtstTabelaMODELO: TSmallintField;
-    IbDtstTabelaDATAEMISSAO: TDateField;
-    IbDtstTabelaHORAEMISSAO: TTimeField;
-    IbDtstTabelaVERSAO: TSmallintField;
-    IbDtstTabelaRECIBO: TIBStringField;
-    IbDtstTabelaPROTOCOLO: TIBStringField;
-    IbDtstTabelaCHAVE: TIBStringField;
-    IbDtstTabelaANOVENDA: TSmallintField;
-    IbDtstTabelaNUMVENDA: TIntegerField;
-    IbDtstTabelaANOCOMPRA: TSmallintField;
-    IbDtstTabelaNUMCOMPRA: TIntegerField;
-    IbDtstTabelaXML_FILENAME: TIBStringField;
-    IbDtstTabelaXML_FILE: TMemoField;
-    IbDtstTabelaNFE_VALOR_TOTAL: TIBBCDField;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    IbDtstTabelaNFE_DESTINATARIO_CODIGO: TIntegerField;
-    IbDtstTabelaCANCELADA: TSmallintField;
     lblNotaCancelada: TLabel;
-    IbDtstTabelaNFE_DESTINATARIO_INSCEST: TIBStringField;
-    IbDtstTabelaNFE_DESTINATARIO_UF: TIBStringField;
+    fdQryTabelaNFE_DESTINATARIO: TStringField;
+    fdQryTabelaNFE_DESTINATARIO_CODIGO: TIntegerField;
+    fdQryTabelaNFE_DESTINATARIO_RAZAO: TStringField;
+    fdQryTabelaNFE_DESTINATARIO_CNPJ: TStringField;
+    fdQryTabelaNFE_DESTINATARIO_INSCEST: TStringField;
+    fdQryTabelaNFE_DESTINATARIO_UF: TStringField;
+    fdQryTabelaNFE_VALOR_TOTAL: TBCDField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaSERIE: TStringField;
+    fdQryTabelaNUMERO: TIntegerField;
+    fdQryTabelaMODELO: TSmallintField;
+    fdQryTabelaDATAEMISSAO: TDateField;
+    fdQryTabelaHORAEMISSAO: TTimeField;
+    fdQryTabelaVERSAO: TSmallintField;
+    fdQryTabelaRECIBO: TStringField;
+    fdQryTabelaPROTOCOLO: TStringField;
+    fdQryTabelaCHAVE: TStringField;
+    fdQryTabelaANOVENDA: TSmallintField;
+    fdQryTabelaNUMVENDA: TIntegerField;
+    fdQryTabelaANOCOMPRA: TSmallintField;
+    fdQryTabelaNUMCOMPRA: TIntegerField;
+    fdQryTabelaXML_FILENAME: TStringField;
+    fdQryTabelaXML_FILE: TMemoField;
+    fdQryTabelaCANCELADA: TSmallintField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNFE_DESTINATARIO_CNPJGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure fdQryTabelaNFE_DESTINATARIO_CNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     fSemNFComplementar : Boolean;
@@ -71,8 +73,19 @@ type
     { Public declarations }
   end;
 
-var
-  frmGeNFEmitida: TfrmGeNFEmitida;
+(*
+  Tabelas:
+  - TBNFE_ENVIADA
+  - TBVENDAS
+  - TBCLIENTE
+  - TBCOMPRAS
+  - TBFORNECEDOR
+
+  Views:
+
+  Procedures:
+
+*)
 
   function SelecionarNFe(const AOnwer : TComponent; var pEmpresa, pSerie, pChave : String;
     var pNumero, pModelo : Integer;
@@ -117,35 +130,36 @@ begin
     Result := AForm.SelecionarRegistro(iCodigo, sDescricao, pEmpresa);
 
     if Result then
-    begin
-      pSerie  := AForm.IbDtstTabelaSERIE.Value;
-      pChave  := AForm.IbDtstTabelaCHAVE.AsString;
-      pNumero := AForm.IbDtstTabelaNUMERO.Value;
-      pModelo := AForm.IbDtstTabelaMODELO.Value;
-      pDataEmissao := AForm.IbDtstTabelaDATAEMISSAO.AsDateTime;
-
-      pDestinatario.Codigo      := AForm.IbDtstTabelaNFE_DESTINATARIO_CODIGO.Value;
-      pDestinatario.RazaoSocial := AForm.IbDtstTabelaNFE_DESTINATARIO_RAZAO.Value;
-      pDestinatario.CpfCnpj     := AForm.IbDtstTabelaNFE_DESTINATARIO_CNPJ.Value;
-      pDestinatario.InsEstadual := AForm.IbDtstTabelaNFE_DESTINATARIO_INSCEST.Value;
-      pDestinatario.UF          := AForm.IbDtstTabelaNFE_DESTINATARIO_UF.Value;
-
-      if (AForm.IbDtstTabelaANOVENDA.AsInteger > 0) then
+      with AForm, DtSrcTabela.DataSet do
       begin
-        pDestinatario.Tipo := dtCliente;
-        MovimentoAno       := AForm.IbDtstTabelaANOVENDA.Value;
-        MovimentoCodigo    := AForm.IbDtstTabelaNUMVENDA.Value;
-      end
-      else
-      if (AForm.IbDtstTabelaANOCOMPRA.AsInteger > 0) then
-      begin
-        pDestinatario.Tipo := dtFornecedor;
-        MovimentoAno       := AForm.IbDtstTabelaANOCOMPRA.Value;
-        MovimentoCodigo    := AForm.IbDtstTabelaNUMCOMPRA.Value;
-      end
-      else
-        pDestinatario.Tipo := dtNull;
-    end;
+        pSerie  := FieldByName('SERIE').AsString;
+        pChave  := FieldByName('CHAVE').AsString;
+        pNumero := FieldByName('NUMERO').AsInteger;
+        pModelo := FieldByName('MODELO').AsInteger;
+        pDataEmissao := FieldByName('DATAEMISSAO').AsDateTime;
+
+        pDestinatario.Codigo      := FieldByName('NFE_DESTINATARIO_CODIGO').AsInteger;
+        pDestinatario.RazaoSocial := FieldByName('NFE_DESTINATARIO_RAZAO').AsString;
+        pDestinatario.CpfCnpj     := FieldByName('NFE_DESTINATARIO_CNPJ').AsString;
+        pDestinatario.InsEstadual := FieldByName('NFE_DESTINATARIO_INSCEST').AsString;
+        pDestinatario.UF          := FieldByName('NFE_DESTINATARIO_UF').AsString;
+
+        if (FieldByName('ANOVENDA').AsInteger > 0) then
+        begin
+          pDestinatario.Tipo := dtCliente;
+          MovimentoAno       := FieldByName('ANOVENDA').AsInteger;
+          MovimentoCodigo    := FieldByName('NUMVENDA').AsInteger;
+        end
+        else
+        if (FieldByName('ANOCOMPRA').AsInteger > 0) then
+        begin
+          pDestinatario.Tipo := dtFornecedor;
+          MovimentoAno       := FieldByName('ANOCOMPRA').AsInteger;
+          MovimentoCodigo    := FieldByName('NUMCOMPRA').AsInteger;
+        end
+        else
+          pDestinatario.Tipo := dtNull;
+      end;
   finally
     AForm.Free;
   end;
@@ -158,11 +172,22 @@ begin
   if ( Sender = dbgDados ) then
   begin
     // Destacar Notas Fiscais Canceladas
-    if ( IbDtstTabelaCANCELADA.AsInteger = 1 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('CANCELADA').AsInteger = 1 ) then
       dbgDados.Canvas.Font.Color := lblNotaCancelada.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
+end;
+
+procedure TfrmGeNFEmitida.fdQryTabelaNFE_DESTINATARIO_CNPJGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    if StrIsCNPJ(Sender.AsString) then
+      Text := StrFormatarCnpj(Sender.AsString)
+    else
+    if StrIsCPF(Sender.AsString) then
+      Text := StrFormatarCpf(Sender.AsString);
 end;
 
 procedure TfrmGeNFEmitida.FormCreate(Sender: TObject);
@@ -177,7 +202,7 @@ begin
   NomeTabela      := 'TBNFE_ENVIADA';
   CampoCodigo     := 'nf.numero';
   CampoDescricao  := 'nf.chave';
-  CampoOrdenacao  := 'nf.empresa, nf.serie, nf.numero';
+  CampoOrdenacao  := 'nf.empresa, nf.numero, nf.serie';
   WhereAdditional := 'nf.empresa = ' + QuotedStr(fEmpresa) + ' and ' +
     'nf.dataemissao between ' +
       QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
@@ -187,17 +212,6 @@ begin
 
   e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
   e2Data.Date := GetDateDB;
-end;
-
-procedure TfrmGeNFEmitida.IbDtstTabelaNFE_DESTINATARIO_CNPJGetText(
-  Sender: TField; var Text: String; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-    if StrIsCNPJ(Sender.AsString) then
-      Text := StrFormatarCnpj(Sender.AsString)
-    else
-    if StrIsCPF(Sender.AsString) then
-      Text := StrFormatarCpf(Sender.AsString);
 end;
 
 procedure TfrmGeNFEmitida.btnFiltrarClick(Sender: TObject);

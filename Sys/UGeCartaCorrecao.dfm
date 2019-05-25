@@ -28,8 +28,6 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
     ExplicitWidth = 863
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 855
       ExplicitHeight = 431
       inherited Bevel4: TBevel
@@ -45,25 +43,28 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
           item
             Expanded = False
             FieldName = 'CCE_NUMERO'
+            Title.Caption = 'C'#243'digo '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CCE_DATA'
+            Title.Caption = 'Data '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NotaFiscalEletronica'
-            Title.Caption = 'NF-e / Destinat'#225'rio'
+            Title.Caption = 'NF-e / Destinat'#225'rio '
             Width = 500
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PROTOCOLO'
+            Title.Caption = 'Protocolo CC-e '
             Width = 180
             Visible = True
           end>
@@ -420,6 +421,20 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
         ReadOnly = True
         TabOrder = 1
       end
+      object reInformacao: TcxRichEdit
+        Left = 0
+        Top = 269
+        TabStop = False
+        Align = alClient
+        Properties.ReadOnly = True
+        Lines.Strings = (
+          'reInformacao')
+        TabOrder = 2
+        Visible = False
+        ExplicitTop = 267
+        Height = 162
+        Width = 855
+      end
     end
   end
   inherited tlbBotoes: TPanel
@@ -476,174 +491,13 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterScroll = IbDtstTabelaAfterScroll
-    BeforeDelete = IbDtstTabelaBeforeDelete
-    BeforeEdit = IbDtstTabelaBeforeEdit
-    OnCalcFields = IbDtstTabelaCalcFields
-    OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    c.cce_numero'
-      '  , c.cce_empresa'
-      '  , c.cce_data'
-      '  , c.cce_hora'
-      '  , c.cce_enviada'
-      '  , c.cce_texto'
-      '  , c.nfe_serie'
-      '  , c.nfe_numero'
-      '  , c.nfe_modelo'
-      '  , c.numero'
-      '  , c.protocolo'
-      '  , c.xml'
-      
-        '  , coalesce(lpad(c.nfe_numero, 7, '#39'0'#39') || '#39'-'#39' || c.nfe_serie, '#39 +
-        #39') as nfe_destinatario'
-      '  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao'
-      '  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj'
-      'from TBNFE_CARTA_CORRECAO c'
-      
-        '  left join TBNFE_ENVIADA nf on (nf.empresa = c.cce_empresa and ' +
-        'nf.serie = c.nfe_serie and nf.numero = c.nfe_numero and nf.model' +
-        'o = c.nfe_modelo)'
-      ''
-      
-        '  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontr' +
-        'ol = nf.numvenda)'
-      '  left join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
-      ''
-      
-        '  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcon' +
-        'trol = nf.numcompra)'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
-      ''
-      '')
+    SelectSQL.Strings = ()
     GeneratorField.Field = 'CCE_NUMERO'
     GeneratorField.Generator = 'GEN_CARTA_CORRECAO'
     GeneratorField.ApplyEvent = gamOnNewRecord
-    Left = 600
-    object IbDtstTabelaCCE_NUMERO: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CCE_NUMERO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_NUMERO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '00000'
-    end
-    object IbDtstTabelaCCE_EMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'CCE_EMPRESA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaCCE_DATA: TDateField
-      DisplayLabel = 'Data'
-      FieldName = 'CCE_DATA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_DATA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaCCE_HORA: TTimeField
-      DisplayLabel = 'Hora'
-      FieldName = 'CCE_HORA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_HORA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = 'hh:mm'
-    end
-    object IbDtstTabelaCCE_ENVIADA: TSmallintField
-      DisplayLabel = 'Enviada?'
-      FieldName = 'CCE_ENVIADA'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_ENVIADA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCCE_TEXTO: TMemoField
-      DisplayLabel = 'Texto de corre'#231#227'o'
-      FieldName = 'CCE_TEXTO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."CCE_TEXTO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaNFE_SERIE: TIBStringField
-      DisplayLabel = 'NF-e: S'#233'rie'
-      FieldName = 'NFE_SERIE'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_SERIE"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 3
-    end
-    object IbDtstTabelaNFE_NUMERO: TIntegerField
-      DisplayLabel = 'NF-e: N'#250'mero'
-      FieldName = 'NFE_NUMERO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_NUMERO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaNFE_MODELO: TSmallintField
-      DisplayLabel = 'NF-e: Modelo'
-      FieldName = 'NFE_MODELO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NFE_MODELO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaNUMERO: TIntegerField
-      DisplayLabel = 'N'#250'mero CC-e'
-      FieldName = 'NUMERO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."NUMERO"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaPROTOCOLO: TIBStringField
-      DisplayLabel = 'Protocolo CC-e'
-      FieldName = 'PROTOCOLO'
-      Origin = '"TBNFE_CARTA_CORRECAO"."PROTOCOLO"'
-      ProviderFlags = []
-      Size = 250
-    end
-    object IbDtstTabelaXML: TMemoField
-      DisplayLabel = 'XML CC-e'
-      FieldName = 'XML'
-      Origin = '"TBNFE_CARTA_CORRECAO"."XML"'
-      ProviderFlags = []
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaNFE_DESTINATARIO: TIBStringField
-      FieldName = 'NFE_DESTINATARIO'
-      ProviderFlags = []
-      Size = 11
-    end
-    object IbDtstTabelaNFE_DESTINATARIO_RAZAO: TIBStringField
-      FieldName = 'NFE_DESTINATARIO_RAZAO'
-      ProviderFlags = []
-      Size = 114
-    end
-    object IbDtstTabelaNFE_DESTINATARIO_CNPJ: TIBStringField
-      FieldName = 'NFE_DESTINATARIO_CNPJ'
-      ProviderFlags = []
-      Size = 18
-    end
-    object IbDtstTabelaDataHora: TDateTimeField
-      FieldKind = fkCalculated
-      FieldName = 'DataHora'
-      ProviderFlags = []
-      DisplayFormat = 'dd/mm/yyyy hh:mm'
-      Calculated = True
-    end
-    object IbDtstTabelaNotaFiscalEletronica: TStringField
-      FieldKind = fkCalculated
-      FieldName = 'NotaFiscalEletronica'
-      ProviderFlags = []
-      Size = 250
-      Calculated = True
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 664
+    DataSet = fdQryTabela
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -701,7 +555,7 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
   inherited ImgList: TImageList
     Left = 568
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2160,10 +2014,216 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    BeforeEdit = fdQryTabelaBeforeEdit
+    BeforeDelete = fdQryTabelaBeforeDelete
+    AfterScroll = fdQryTabelaAfterScroll
+    OnCalcFields = fdQryTabelaCalcFields
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CARTA_CORRECAO'
+    UpdateOptions.KeyFields = 'CCE_NUMERO'
+    UpdateOptions.AutoIncFields = 'CCE_NUMERO'
+    SQL.Strings = (
+      'Select'
+      '    c.cce_numero'
+      '  , c.cce_empresa'
+      '  , c.cce_data'
+      '  , c.cce_hora'
+      '  , c.cce_enviada'
+      '  , c.cce_texto'
+      '  , c.nfe_serie'
+      '  , c.nfe_numero'
+      '  , c.nfe_modelo'
+      '  , c.numero'
+      '  , c.protocolo'
+      '  , c.xml'
+      
+        '  , coalesce(lpad(c.nfe_numero, 7, '#39'0'#39') || '#39'-'#39' || c.nfe_serie, '#39 +
+        #39') as nfe_destinatario'
+      '  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao'
+      '  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj'
+      'from TBNFE_CARTA_CORRECAO c'
+      
+        '  left join TBNFE_ENVIADA nf on (nf.empresa = c.cce_empresa and ' +
+        'nf.serie = c.nfe_serie and nf.numero = c.nfe_numero and nf.model' +
+        'o = c.nfe_modelo)'
+      ''
+      
+        '  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontr' +
+        'ol = nf.numvenda)'
+      '  left join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
+      ''
+      
+        '  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcon' +
+        'trol = nf.numcompra)'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      ''
+      '')
+    object fdQryTabelaCCE_NUMERO: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'CCE_NUMERO'
+      Origin = 'CCE_NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdQryTabelaCCE_EMPRESA: TStringField
+      FieldName = 'CCE_EMPRESA'
+      Origin = 'CCE_EMPRESA'
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaCCE_DATA: TDateField
+      FieldName = 'CCE_DATA'
+      Origin = 'CCE_DATA'
+    end
+    object fdQryTabelaCCE_HORA: TTimeField
+      FieldName = 'CCE_HORA'
+      Origin = 'CCE_HORA'
+    end
+    object fdQryTabelaCCE_ENVIADA: TSmallintField
+      FieldName = 'CCE_ENVIADA'
+      Origin = 'CCE_ENVIADA'
+      Required = True
+    end
+    object fdQryTabelaCCE_TEXTO: TMemoField
+      DisplayLabel = 'Descri'#231#227'o da Corre'#231#227'o'
+      FieldName = 'CCE_TEXTO'
+      Origin = 'CCE_TEXTO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaNFE_SERIE: TStringField
+      FieldName = 'NFE_SERIE'
+      Origin = 'NFE_SERIE'
+      Required = True
+      Size = 3
+    end
+    object fdQryTabelaNFE_NUMERO: TIntegerField
+      FieldName = 'NFE_NUMERO'
+      Origin = 'NFE_NUMERO'
+      Required = True
+      DisplayFormat = '###000'
+    end
+    object fdQryTabelaNFE_MODELO: TSmallintField
+      FieldName = 'NFE_MODELO'
+      Origin = 'NFE_MODELO'
+      Required = True
+    end
+    object fdQryTabelaNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+    end
+    object fdQryTabelaPROTOCOLO: TStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'PROTOCOLO'
+      Size = 250
+    end
+    object fdQryTabelaXML: TMemoField
+      FieldName = 'XML'
+      Origin = 'XML'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaNFE_DESTINATARIO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO'
+      Origin = 'NFE_DESTINATARIO'
+      ProviderFlags = []
+      Size = 11
+    end
+    object fdQryTabelaNFE_DESTINATARIO_RAZAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO_RAZAO'
+      Origin = 'NFE_DESTINATARIO_RAZAO'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaNFE_DESTINATARIO_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO_CNPJ'
+      Origin = 'NFE_DESTINATARIO_CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryTabelaDataHora: TDateTimeField
+      FieldKind = fkInternalCalc
+      FieldName = 'DataHora'
+    end
+    object fdQryTabelaNotaFiscalEletronica: TStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'NotaFiscalEletronica'
+      Size = 250
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBNFE_CARTA_CORRECAO'
+      '(CCE_NUMERO, CCE_EMPRESA, CCE_DATA, CCE_HORA, '
+      '  CCE_ENVIADA, CCE_TEXTO, NFE_SERIE, NFE_NUMERO, '
+      '  NFE_MODELO, NUMERO, PROTOCOLO, XML)'
+      
+        'VALUES (:NEW_CCE_NUMERO, :NEW_CCE_EMPRESA, :NEW_CCE_DATA, :NEW_C' +
+        'CE_HORA, '
+      
+        '  :NEW_CCE_ENVIADA, :NEW_CCE_TEXTO, :NEW_NFE_SERIE, :NEW_NFE_NUM' +
+        'ERO, '
+      '  :NEW_NFE_MODELO, :NEW_NUMERO, :NEW_PROTOCOLO, :NEW_XML)')
+    ModifySQL.Strings = (
+      'UPDATE TBNFE_CARTA_CORRECAO'
+      
+        'SET CCE_NUMERO = :NEW_CCE_NUMERO, CCE_EMPRESA = :NEW_CCE_EMPRESA' +
+        ', '
+      
+        '  CCE_DATA = :NEW_CCE_DATA, CCE_HORA = :NEW_CCE_HORA, CCE_ENVIAD' +
+        'A = :NEW_CCE_ENVIADA, '
+      '  CCE_TEXTO = :NEW_CCE_TEXTO, NFE_SERIE = :NEW_NFE_SERIE, '
+      '  NFE_NUMERO = :NEW_NFE_NUMERO, NFE_MODELO = :NEW_NFE_MODELO, '
+      
+        '  NUMERO = :NEW_NUMERO, PROTOCOLO = :NEW_PROTOCOLO, XML = :NEW_X' +
+        'ML'
+      'WHERE CCE_NUMERO = :OLD_CCE_NUMERO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBNFE_CARTA_CORRECAO'
+      'WHERE CCE_NUMERO = :OLD_CCE_NUMERO')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    c.cce_numero'
+      '  , c.cce_empresa'
+      '  , c.cce_data'
+      '  , c.cce_hora'
+      '  , c.cce_enviada'
+      '  , c.cce_texto'
+      '  , c.nfe_serie'
+      '  , c.nfe_numero'
+      '  , c.nfe_modelo'
+      '  , c.numero'
+      '  , c.protocolo'
+      '  , c.xml'
+      
+        '  , coalesce(lpad(c.nfe_numero, 7, '#39'0'#39') || '#39'-'#39' || c.nfe_serie, '#39 +
+        #39') as nfe_destinatario'
+      '  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao'
+      '  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj'
+      'from TBNFE_CARTA_CORRECAO c'
+      
+        '  left join TBNFE_ENVIADA nf on (nf.empresa = c.cce_empresa and ' +
+        'nf.serie = c.nfe_serie and nf.numero = c.nfe_numero and nf.model' +
+        'o = c.nfe_modelo)'
+      ''
+      
+        '  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontr' +
+        'ol = nf.numvenda)'
+      '  left join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
+      ''
+      
+        '  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcon' +
+        'trol = nf.numcompra)'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      'WHERE c.CCE_NUMERO = :CCE_NUMERO')
+  end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
-    Left = 664
-    Top = 64
+    Left = 672
+    Top = 112
   end
   object fdQryEmpresa: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -2178,7 +2238,7 @@ inherited frmGeCartaCorrecao: TfrmGeCartaCorrecao
       'from TBEMPRESA e'
       'order by'
       '    e.rzsoc')
-    Left = 632
-    Top = 64
+    Left = 640
+    Top = 112
   end
 end

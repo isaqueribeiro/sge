@@ -5,7 +5,6 @@ inherited frmGeNFEmitida: TfrmGeNFEmitida
   Caption = 'Notas Fiscais Emitidas'
   ClientHeight = 471
   OldCreateOrder = True
-  ExplicitWidth = 751
   ExplicitHeight = 510
   PixelsPerInch = 96
   TextHeight = 13
@@ -33,34 +32,34 @@ inherited frmGeNFEmitida: TfrmGeNFEmitida
           item
             Expanded = False
             FieldName = 'NFE_DESTINATARIO'
-            Title.Caption = 'NF-e'
+            Title.Caption = 'NF-e '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATAEMISSAO'
-            Title.Caption = 'Emiss'#227'o'
+            Title.Caption = 'Emiss'#227'o '
             Width = 75
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NFE_DESTINATARIO_RAZAO'
-            Title.Caption = 'Destinat'#225'rio'
+            Title.Caption = 'Destinat'#225'rio '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NFE_DESTINATARIO_CNPJ'
-            Title.Caption = 'CPF / CNPJ'
+            Title.Caption = 'CPF / CNPJ '
             Width = 130
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NFE_VALOR_TOTAL'
-            Title.Caption = 'Valor NF (R$)'
+            Title.Caption = 'Valor NF (R$) '
             Width = 100
             Visible = True
           end>
@@ -282,174 +281,14 @@ inherited frmGeNFEmitida: TfrmGeNFEmitida
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    SelectSQL.Strings = (
-      'Select'
-      
-        '    coalesce(lpad(nf.numero, 7, '#39'0'#39') || '#39'-'#39' || nf.serie, '#39#39') as ' +
-        'nfe_destinatario'
-      '  , coalesce(cl.codigo, fn.codforn) as nfe_destinatario_codigo'
-      '  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao'
-      '  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj'
-      '  , coalesce(cl.inscest, fn.inscest) as nfe_destinatario_inscest'
-      '  , coalesce(cl.uf, fn.uf) as nfe_destinatario_uf'
-      
-        '  , coalesce(vn.nfe_valor_total_nota, cp.totalnf) as nfe_valor_t' +
-        'otal'
-      '  , nf.empresa'
-      '  , nf.serie'
-      '  , nf.numero'
-      '  , nf.modelo'
-      '  , nf.dataemissao'
-      '  , nf.horaemissao'
-      '  , nf.versao'
-      '  , nf.recibo'
-      '  , nf.protocolo'
-      '  , nf.chave'
-      '  , nf.anovenda'
-      '  , nf.numvenda'
-      '  , nf.anocompra'
-      '  , nf.numcompra'
-      '  , nf.xml_filename'
-      '  , nf.xml_file'
-      '  , nf.cancelada'
-      'from TBNFE_ENVIADA nf'
-      ''
-      
-        '  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontr' +
-        'ol = nf.numvenda)'
-      '  left join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
-      ''
-      
-        '  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcon' +
-        'trol = nf.numcompra)'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)')
+    SelectSQL.Strings = ()
     Left = 320
     Top = 208
-    object IbDtstTabelaNFE_DESTINATARIO: TIBStringField
-      FieldName = 'NFE_DESTINATARIO'
-      ProviderFlags = []
-      Size = 12
-    end
-    object IbDtstTabelaNFE_DESTINATARIO_CODIGO: TIntegerField
-      FieldName = 'NFE_DESTINATARIO_CODIGO'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaNFE_DESTINATARIO_RAZAO: TIBStringField
-      FieldName = 'NFE_DESTINATARIO_RAZAO'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaNFE_DESTINATARIO_CNPJ: TIBStringField
-      FieldName = 'NFE_DESTINATARIO_CNPJ'
-      ProviderFlags = []
-      OnGetText = IbDtstTabelaNFE_DESTINATARIO_CNPJGetText
-      Size = 18
-    end
-    object IbDtstTabelaNFE_DESTINATARIO_INSCEST: TIBStringField
-      FieldName = 'NFE_DESTINATARIO_INSCEST'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaNFE_DESTINATARIO_UF: TIBStringField
-      FieldName = 'NFE_DESTINATARIO_UF'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 2
-    end
-    object IbDtstTabelaNFE_VALOR_TOTAL: TIBBCDField
-      FieldName = 'NFE_VALOR_TOTAL'
-      ProviderFlags = []
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBNFE_ENVIADA"."EMPRESA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaSERIE: TIBStringField
-      FieldName = 'SERIE'
-      Origin = '"TBNFE_ENVIADA"."SERIE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 4
-    end
-    object IbDtstTabelaNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"TBNFE_ENVIADA"."NUMERO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object IbDtstTabelaMODELO: TSmallintField
-      FieldName = 'MODELO'
-      Origin = '"TBNFE_ENVIADA"."MODELO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object IbDtstTabelaDATAEMISSAO: TDateField
-      FieldName = 'DATAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."DATAEMISSAO"'
-    end
-    object IbDtstTabelaHORAEMISSAO: TTimeField
-      FieldName = 'HORAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."HORAEMISSAO"'
-    end
-    object IbDtstTabelaVERSAO: TSmallintField
-      FieldName = 'VERSAO'
-      Origin = '"TBNFE_ENVIADA"."VERSAO"'
-    end
-    object IbDtstTabelaRECIBO: TIBStringField
-      FieldName = 'RECIBO'
-      Origin = '"TBNFE_ENVIADA"."RECIBO"'
-      Size = 250
-    end
-    object IbDtstTabelaPROTOCOLO: TIBStringField
-      FieldName = 'PROTOCOLO'
-      Origin = '"TBNFE_ENVIADA"."PROTOCOLO"'
-      Size = 250
-    end
-    object IbDtstTabelaCHAVE: TIBStringField
-      FieldName = 'CHAVE'
-      Origin = '"TBNFE_ENVIADA"."CHAVE"'
-      Size = 250
-    end
-    object IbDtstTabelaANOVENDA: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = '"TBNFE_ENVIADA"."ANOVENDA"'
-    end
-    object IbDtstTabelaNUMVENDA: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = '"TBNFE_ENVIADA"."NUMVENDA"'
-    end
-    object IbDtstTabelaANOCOMPRA: TSmallintField
-      FieldName = 'ANOCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."ANOCOMPRA"'
-    end
-    object IbDtstTabelaNUMCOMPRA: TIntegerField
-      FieldName = 'NUMCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."NUMCOMPRA"'
-    end
-    object IbDtstTabelaXML_FILENAME: TIBStringField
-      FieldName = 'XML_FILENAME'
-      Origin = '"TBNFE_ENVIADA"."XML_FILENAME"'
-      Size = 250
-    end
-    object IbDtstTabelaXML_FILE: TMemoField
-      FieldName = 'XML_FILE'
-      Origin = '"TBNFE_ENVIADA"."XML_FILE"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaCANCELADA: TSmallintField
-      FieldName = 'CANCELADA'
-      Origin = '"TBNFE_ENVIADA"."CANCELADA"'
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 384
-    Top = 208
+    DataSet = fdQryTabela
+    Left = 320
+    Top = 272
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -464,7 +303,7 @@ inherited frmGeNFEmitida: TfrmGeNFEmitida
     Left = 288
     Top = 208
     Bitmap = {
-      494C01012B002C00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1922,5 +1761,241 @@ inherited frmGeNFEmitida: TfrmGeNFEmitida
       C007C00780018001C007C00780018001C007C00780018001C00FC00F80018001
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  inherited fdQryTabela: TFDQuery
+    SQL.Strings = (
+      'Select'
+      
+        '    coalesce(lpad(nf.numero, 7, '#39'0'#39') || '#39'-'#39' || nf.serie, '#39#39') as ' +
+        'nfe_destinatario'
+      '  , coalesce(cl.codigo, fn.codforn) as nfe_destinatario_codigo'
+      '  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao'
+      '  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj'
+      '  , coalesce(cl.inscest, fn.inscest) as nfe_destinatario_inscest'
+      '  , coalesce(cl.uf, fn.uf) as nfe_destinatario_uf'
+      
+        '  , coalesce(vn.nfe_valor_total_nota, cp.totalnf) as nfe_valor_t' +
+        'otal'
+      '  , nf.empresa'
+      '  , nf.serie'
+      '  , nf.numero'
+      '  , nf.modelo'
+      '  , nf.dataemissao'
+      '  , nf.horaemissao'
+      '  , nf.versao'
+      '  , nf.recibo'
+      '  , nf.protocolo'
+      '  , nf.chave'
+      '  , nf.anovenda'
+      '  , nf.numvenda'
+      '  , nf.anocompra'
+      '  , nf.numcompra'
+      '  , nf.xml_filename'
+      '  , nf.xml_file'
+      '  , nf.cancelada'
+      'from TBNFE_ENVIADA nf'
+      ''
+      
+        '  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontr' +
+        'ol = nf.numvenda)'
+      '  left join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
+      ''
+      
+        '  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcon' +
+        'trol = nf.numcompra)'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)')
+    Left = 320
+    Top = 240
+    object fdQryTabelaNFE_DESTINATARIO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO'
+      Origin = 'NFE_DESTINATARIO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 12
+    end
+    object fdQryTabelaNFE_DESTINATARIO_CODIGO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO_CODIGO'
+      Origin = 'NFE_DESTINATARIO_CODIGO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdQryTabelaNFE_DESTINATARIO_RAZAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO_RAZAO'
+      Origin = 'NFE_DESTINATARIO_RAZAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object fdQryTabelaNFE_DESTINATARIO_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO_CNPJ'
+      Origin = 'NFE_DESTINATARIO_CNPJ'
+      ProviderFlags = []
+      ReadOnly = True
+      OnGetText = fdQryTabelaNFE_DESTINATARIO_CNPJGetText
+      Size = 18
+    end
+    object fdQryTabelaNFE_DESTINATARIO_INSCEST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO_INSCEST'
+      Origin = 'NFE_DESTINATARIO_INSCEST'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdQryTabelaNFE_DESTINATARIO_UF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_DESTINATARIO_UF'
+      Origin = 'NFE_DESTINATARIO_UF'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 2
+    end
+    object fdQryTabelaNFE_VALOR_TOTAL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFE_VALOR_TOTAL'
+      Origin = 'NFE_VALOR_TOTAL'
+      ProviderFlags = []
+      ReadOnly = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaSERIE: TStringField
+      FieldName = 'SERIE'
+      Origin = 'SERIE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 4
+    end
+    object fdQryTabelaNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaDATAEMISSAO: TDateField
+      FieldName = 'DATAEMISSAO'
+      Origin = 'DATAEMISSAO'
+    end
+    object fdQryTabelaHORAEMISSAO: TTimeField
+      FieldName = 'HORAEMISSAO'
+      Origin = 'HORAEMISSAO'
+    end
+    object fdQryTabelaVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = 'VERSAO'
+    end
+    object fdQryTabelaRECIBO: TStringField
+      FieldName = 'RECIBO'
+      Origin = 'RECIBO'
+      Size = 250
+    end
+    object fdQryTabelaPROTOCOLO: TStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'PROTOCOLO'
+      Size = 250
+    end
+    object fdQryTabelaCHAVE: TStringField
+      FieldName = 'CHAVE'
+      Origin = 'CHAVE'
+      Size = 250
+    end
+    object fdQryTabelaANOVENDA: TSmallintField
+      FieldName = 'ANOVENDA'
+      Origin = 'ANOVENDA'
+    end
+    object fdQryTabelaNUMVENDA: TIntegerField
+      FieldName = 'NUMVENDA'
+      Origin = 'NUMVENDA'
+    end
+    object fdQryTabelaANOCOMPRA: TSmallintField
+      FieldName = 'ANOCOMPRA'
+      Origin = 'ANOCOMPRA'
+    end
+    object fdQryTabelaNUMCOMPRA: TIntegerField
+      FieldName = 'NUMCOMPRA'
+      Origin = 'NUMCOMPRA'
+    end
+    object fdQryTabelaXML_FILENAME: TStringField
+      FieldName = 'XML_FILENAME'
+      Origin = 'XML_FILENAME'
+      Size = 250
+    end
+    object fdQryTabelaXML_FILE: TMemoField
+      FieldName = 'XML_FILE'
+      Origin = 'XML_FILE'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaCANCELADA: TSmallintField
+      FieldName = 'CANCELADA'
+      Origin = 'CANCELADA'
+      Required = True
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    FetchRowSQL.Strings = (
+      'Select'
+      
+        '    coalesce(lpad(nf.numero, 7, '#39'0'#39') || '#39'-'#39' || nf.serie, '#39#39') as ' +
+        'nfe_destinatario'
+      '  , coalesce(cl.codigo, fn.codforn) as nfe_destinatario_codigo'
+      '  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao'
+      '  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj'
+      '  , coalesce(cl.inscest, fn.inscest) as nfe_destinatario_inscest'
+      '  , coalesce(cl.uf, fn.uf) as nfe_destinatario_uf'
+      
+        '  , coalesce(vn.nfe_valor_total_nota, cp.totalnf) as nfe_valor_t' +
+        'otal'
+      '  , nf.empresa'
+      '  , nf.serie'
+      '  , nf.numero'
+      '  , nf.modelo'
+      '  , nf.dataemissao'
+      '  , nf.horaemissao'
+      '  , nf.versao'
+      '  , nf.recibo'
+      '  , nf.protocolo'
+      '  , nf.chave'
+      '  , nf.anovenda'
+      '  , nf.numvenda'
+      '  , nf.anocompra'
+      '  , nf.numcompra'
+      '  , nf.xml_filename'
+      '  , nf.xml_file'
+      '  , nf.cancelada'
+      'from TBNFE_ENVIADA nf'
+      ''
+      
+        '  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontr' +
+        'ol = nf.numvenda)'
+      '  left join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
+      ''
+      
+        '  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcon' +
+        'trol = nf.numcompra)'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      
+        'WHERE nf.EMPRESA = :EMPRESA AND nf.SERIE = :SERIE AND nf.NUMERO ' +
+        '= :NUMERO AND '
+      '  nf.MODELO = :MODELO')
+    Left = 352
+    Top = 240
   end
 end

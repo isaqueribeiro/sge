@@ -1472,7 +1472,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
-        ExplicitTop = 232
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -2512,7 +2511,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C00340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3972,6 +3971,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
     AfterCancel = fdQryTabelaAfterCancel
     AfterScroll = fdQryTabelaAfterScroll
     OnNewRecord = fdQryTabelaNewRecord

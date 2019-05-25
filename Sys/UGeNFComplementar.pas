@@ -3,15 +3,22 @@ unit UGeNFComplementar;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoCadastro, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.ImgList, IBX.IBCustomDataSet,
-  IBX.IBUpdateSQL, Data.DB, Vcl.Mask, Vcl.DBCtrls, Vcl.StdCtrls, cxButtons,
-  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
+  UGrPadraoCadastro,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, JvExMask, JvToolEdit,
-  IBX.IBTable, JvDBControls, Vcl.Buttons;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.ImgList,
+  IBX.IBUpdateSQL, Data.DB, Vcl.Mask, Vcl.DBCtrls, Vcl.StdCtrls, cxButtons,
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.Buttons, JvDBControls, JvExMask,
+  JvToolEdit, System.ImageList, IBX.IBCustomDataSet, IBX.IBTable,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeNFComplementar = class(TfrmGrPadraoCadastro)
@@ -295,6 +302,16 @@ type
     property RotinaGerarNFeID    : String read GetRotinaGerarNFeID;
     property RotinaCancelarNFCID : String read GetRotinaCancelarNFCID;
   end;
+
+(*
+  Tabelas:
+  - TBNFE_COMPLEMENTAR
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeNFComplementar: TfrmGeNFComplementar;

@@ -14,7 +14,11 @@ uses
   dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet, System.ImageList;
 
 type
   TfrmGeRequisicaoCompra = class(TfrmGrPadraoCadastro)
@@ -512,8 +516,8 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btnFinalizarRequisicao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_EDC) and (not cdsTabelaItens.IsEmpty);
-    btnRequisitarReabrir.Enabled   := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_ABR, STATUS_REQUISICAO_REQ]);
-    ppmRequisitarCompra.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_ABR) and (not cdsTabelaItens.IsEmpty);
+    btnRequisitarReabrir.Enabled   := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_EDC, STATUS_REQUISICAO_ABR, STATUS_REQUISICAO_REQ]);
+    ppmRequisitarCompra.Enabled    := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_REQUISICAO_EDC, STATUS_REQUISICAO_ABR]) and (not cdsTabelaItens.IsEmpty);
     ppmReabrirRequisicao.Enabled   := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_REQ);
     btnCancelarRequisicao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_REQUISICAO_REQ);
 

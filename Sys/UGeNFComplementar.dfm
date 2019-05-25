@@ -1911,10 +1911,6 @@ inherited frmGeNFComplementar: TfrmGeNFComplementar
         object tbsObservacoes: TTabSheet
           Caption = 'Informa'#231#245'es adicionais'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -1926,10 +1922,11 @@ inherited frmGeNFComplementar: TfrmGeNFComplementar
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 67
+              Width = 1020
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
+              ExplicitWidth = 67
             end
             object Bevel14: TBevel
               Left = 1016
@@ -3058,7 +3055,6 @@ inherited frmGeNFComplementar: TfrmGeNFComplementar
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
     Left = 520
-    Top = 64
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -3221,7 +3217,7 @@ inherited frmGeNFComplementar: TfrmGeNFComplementar
     Left = 424
     Top = 64
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

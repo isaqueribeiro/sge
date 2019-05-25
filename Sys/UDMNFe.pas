@@ -3260,8 +3260,9 @@ begin
 
           Cobr.Fat.nFat  := FormatFloat('0000', qryCalculoImposto.FieldByName('ANO').AsInteger) + '/' + FormatFloat('0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger);
           Cobr.Fat.vOrig := qryCalculoImposto.FieldByName('TOTALVENDABRUTA').AsCurrency;
-          Cobr.Fat.vDesc := qryCalculoImposto.FieldByName('DESCONTO').AsCurrency ;
           Cobr.Fat.vLiq  := qryCalculoImposto.FieldByName('TOTALVENDA').AsCurrency ;
+          //Cobr.Fat.vDesc := qryCalculoImposto.FieldByName('DESCONTO').AsCurrency ;
+          Cobr.Fat.vDesc := (Cobr.Fat.vOrig - Cobr.Fat.vLiq);
 
           // Dados da(s) Duplicata(s)
 

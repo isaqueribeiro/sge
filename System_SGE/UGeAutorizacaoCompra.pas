@@ -240,6 +240,7 @@ type
     procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -532,8 +533,8 @@ begin
     if ( pgcGuias.ActivePage = tbsCadastro ) then
     begin
       btnFinalizarAutorizacao.Enabled := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_EDC) and (not cdsTabelaItens.IsEmpty);
-      btnAutorizarReabrir.Enabled     := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_AUTORIZACAO_ABR, STATUS_AUTORIZACAO_AUT]);
-      ppmAutorizarCompra.Enabled      := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_ABR) and (not cdsTabelaItens.IsEmpty);
+      btnAutorizarReabrir.Enabled     := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_AUTORIZACAO_EDC, STATUS_AUTORIZACAO_ABR, STATUS_AUTORIZACAO_AUT]);
+      ppmAutorizarCompra.Enabled      := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_AUTORIZACAO_EDC, STATUS_AUTORIZACAO_ABR]) and (not cdsTabelaItens.IsEmpty);
       ppmReabrirAutorizacao.Enabled   := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_AUT);
       btnCancelarAutorizacao.Enabled  := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_AUT);
 
@@ -859,6 +860,19 @@ procedure TfrmGeAutorizacaoCompra.fdQryTabelaAfterScroll(DataSet: TDataSet);
 begin
   inherited;
   TbsAutorizacaoCancelado.TabVisible := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_CAN);
+end;
+
+procedure TfrmGeAutorizacaoCompra.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    if Trim(FieldByName('AUTORIZADO_USUARIO').AsString) = EmptyStr then
+      FieldByName('AUTORIZADO_USUARIO').Clear;
+
+    if Trim(FieldByName('CANCELADO_USUARIO').AsString) = EmptyStr then
+      FieldByName('CANCELADO_USUARIO').Clear;
+  end;
 end;
 
 procedure TfrmGeAutorizacaoCompra.fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string;

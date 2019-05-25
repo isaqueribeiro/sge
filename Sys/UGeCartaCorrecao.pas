@@ -3,20 +3,21 @@ unit UGeCartaCorrecao;
 interface
 
 uses
+  UGrPadraoCadastro,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls,
-  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, IBQuery,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls, cxTextEdit, cxEdit,
+  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, IBQuery, cxMemo, cxRichEdit,
   IBTable, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls,
+  JvExMask, JvToolEdit, JvDBControls, System.ImageList, cxControls, cxContainer,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeCartaCorrecao = class(TfrmGrPadraoCadastro)
@@ -24,54 +25,55 @@ type
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
-    IbDtstTabelaCCE_NUMERO: TIntegerField;
-    IbDtstTabelaCCE_EMPRESA: TIBStringField;
-    IbDtstTabelaCCE_DATA: TDateField;
-    IbDtstTabelaCCE_HORA: TTimeField;
-    IbDtstTabelaCCE_ENVIADA: TSmallintField;
-    IbDtstTabelaCCE_TEXTO: TMemoField;
-    IbDtstTabelaNFE_SERIE: TIBStringField;
-    IbDtstTabelaNFE_NUMERO: TIntegerField;
-    IbDtstTabelaNFE_MODELO: TSmallintField;
-    IbDtstTabelaNUMERO: TIntegerField;
-    IbDtstTabelaPROTOCOLO: TIBStringField;
-    IbDtstTabelaXML: TMemoField;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
     lblNumero: TLabel;
     dbNumero: TDBEdit;
-    IbDtstTabelaNFE_DESTINATARIO_RAZAO: TIBStringField;
-    IbDtstTabelaNFE_DESTINATARIO_CNPJ: TIBStringField;
     lblCorrecao: TLabel;
     dbCorrecao: TDBMemo;
     lblProtocolo: TLabel;
     dbProtocolo: TDBEdit;
     dbEnviada: TDBCheckBox;
     mmCondicaoUso: TMemo;
-    IbDtstTabelaDataHora: TDateTimeField;
-    IbDtstTabelaNotaFiscalEletronica: TStringField;
-    IbDtstTabelaNFE_DESTINATARIO: TIBStringField;
     lblCartaPendente: TLabel;
     Bevel5: TBevel;
     BtnEnviarCCe: TcxButton;
     dbNFe: TJvDBComboEdit;
     fdQryEmpresa: TFDQuery;
+    fdQryTabelaCCE_NUMERO: TIntegerField;
+    fdQryTabelaCCE_EMPRESA: TStringField;
+    fdQryTabelaCCE_DATA: TDateField;
+    fdQryTabelaCCE_HORA: TTimeField;
+    fdQryTabelaCCE_ENVIADA: TSmallintField;
+    fdQryTabelaCCE_TEXTO: TMemoField;
+    fdQryTabelaNFE_SERIE: TStringField;
+    fdQryTabelaNFE_NUMERO: TIntegerField;
+    fdQryTabelaNFE_MODELO: TSmallintField;
+    fdQryTabelaNUMERO: TIntegerField;
+    fdQryTabelaPROTOCOLO: TStringField;
+    fdQryTabelaXML: TMemoField;
+    fdQryTabelaNFE_DESTINATARIO: TStringField;
+    fdQryTabelaNFE_DESTINATARIO_RAZAO: TStringField;
+    fdQryTabelaNFE_DESTINATARIO_CNPJ: TStringField;
+    fdQryTabelaNotaFiscalEletronica: TStringField;
+    fdQryTabelaDataHora: TDateTimeField;
+    reInformacao: TcxRichEdit;
     procedure FormCreate(Sender: TObject);
     procedure dbNFeButtonClick(Sender: TObject);
-    procedure IbDtstTabelaCalcFields(DataSet: TDataSet);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaBeforeEdit(DataSet: TDataSet);
-    procedure IbDtstTabelaBeforeDelete(DataSet: TDataSet);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure BtnEnviarCCeClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaBeforeDelete(DataSet: TDataSet);
+    procedure fdQryTabelaBeforeEdit(DataSet: TDataSet);
+    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure HabilitarDesabilitar_Btns;
@@ -111,6 +113,8 @@ uses
 {$R *.dfm}
 
 procedure TfrmGeCartaCorrecao.FormCreate(Sender: TObject);
+var
+  aFileInforme : String;
 begin
   inherited;
   WhereAdditional  := 'c.cce_empresa = ' + QuotedStr(gUsuarioLogado.Empresa);
@@ -122,6 +126,7 @@ begin
   NomeTabela      := 'TBNFE_CARTA_CORRECAO';
   CampoCodigo     := 'CCE_NUMERO';
   CampoDescricao  := 'PROTOCOLO';
+  CampoOrdenacao  := 'c.nfe_numero, c.nfe_serie';
   AbrirTabelaAuto := True;
 
   UpdateGenerator('GEN_CARTA_CORRECAO');
@@ -129,6 +134,13 @@ begin
   CarregarLista(fdQryEmpresa);
 
   BtnEnviarCCe.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  aFileInforme := ExtractFilePath(ParamStr(0)) + 'cce_informe.rtf';
+  if FileExists(aFileInforme) then
+  begin
+    mmCondicaoUso.Visible := False;
+    reInformacao.Visible  := True;
+    reInformacao.Lines.LoadFromFile(aFileInforme);
+  end;
 end;
 
 procedure TfrmGeCartaCorrecao.FormShow(Sender: TObject);
@@ -149,62 +161,22 @@ var
   dEmissao : TDateTime;
   aDestinatario : TDestinatarioNF;
 begin
-  iAno      := 0;
-  iControle := 0;
-  sEmpresa  := IbDtstTabelaCCE_EMPRESA.AsString;
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarNFe(Self, sEmpresa, sSerie, sChave, iNumero, iModelo, dEmissao, aDestinatario, iAno, iControle) ) then
-    begin
-      IbDtstTabelaNFE_SERIE.Value  := sSerie;
-      IbDtstTabelaNFE_NUMERO.Value := iNumero;
-      IbDtstTabelaNFE_MODELO.Value := iModelo;
-      IbDtstTabelaNFE_DESTINATARIO.Value       := FormatFloat('0000000', iNumero) + '-' + sSerie;
-      IbDtstTabelaNFE_DESTINATARIO_RAZAO.Value := aDestinatario.RazaoSocial;
-      IbDtstTabelaNFE_DESTINATARIO_CNPJ.Value  := aDestinatario.CpfCnpj;
-    end;
-end;
-
-procedure TfrmGeCartaCorrecao.IbDtstTabelaCalcFields(DataSet: TDataSet);
-begin
-  IbDtstTabelaDataHora.AsDateTime := StrToDateTime(FormatDateTime('dd/mm/yyyy', IbDtstTabelaCCE_DATA.Value) + ' ' +
-    FormatDateTime('hh:mm:ss', IbDtstTabelaCCE_HORA.Value));
-
-  if Trim(IbDtstTabelaNFE_DESTINATARIO.AsString) <> EmptyStr then
-    IbDtstTabelaNotaFiscalEletronica.AsString := IbDtstTabelaNFE_DESTINATARIO.AsString + ' - ' + IbDtstTabelaNFE_DESTINATARIO_RAZAO.AsString +
-      IfThen(StrIsCNPJ(IbDtstTabelaNFE_DESTINATARIO_CNPJ.AsString),
-        ' - CNPJ ' + StrFormatarCnpj(IbDtstTabelaNFE_DESTINATARIO_CNPJ.AsString),
-        ' - CPF '  + StrFormatarCpf (IbDtstTabelaNFE_DESTINATARIO_CNPJ.AsString));
-end;
-
-procedure TfrmGeCartaCorrecao.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaCCE_EMPRESA.Value := gUsuarioLogado.Empresa;
-  IbDtstTabelaCCE_DATA.Value    := GetDateDB;
-  IbDtstTabelaCCE_HORA.Value    := GetTimeDB;
-  IbDtstTabelaCCE_ENVIADA.Value := 0;
-  IbDtstTabelaCCE_TEXTO.Clear;
-  IbDtstTabelaXML.Clear;
-end;
-
-procedure TfrmGeCartaCorrecao.IbDtstTabelaBeforeEdit(DataSet: TDataSet);
-begin
-  if ( IbDtstTabelaCCE_ENVIADA.AsInteger = 1 ) then
+  with DtSrcTabela.DataSet do
   begin
-    ShowWarning('Esta Carta de Correção já foi enviada para a SEFA e por isso não poderá ser alterada!');
-    Abort;
+    iAno      := 0;
+    iControle := 0;
+    sEmpresa  := FieldByName('CCE_EMPRESA').AsString;
+    if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
+      if ( SelecionarNFe(Self, sEmpresa, sSerie, sChave, iNumero, iModelo, dEmissao, aDestinatario, iAno, iControle) ) then
+      begin
+        FieldByName('NFE_SERIE').AsString   := sSerie;
+        FieldByName('NFE_NUMERO').AsInteger := iNumero;
+        FieldByName('NFE_MODELO').AsInteger := iModelo;
+        FieldByName('NFE_DESTINATARIO').AsString       := FormatFloat('0000000', iNumero) + '-' + sSerie;
+        FieldByName('NFE_DESTINATARIO_RAZAO').AsString := aDestinatario.RazaoSocial;
+        FieldByName('NFE_DESTINATARIO_CNPJ').AsString  := aDestinatario.CpfCnpj;
+      end;
   end;
-end;
-
-procedure TfrmGeCartaCorrecao.IbDtstTabelaBeforeDelete(DataSet: TDataSet);
-begin
-  if ( IbDtstTabelaCCE_ENVIADA.AsInteger = 1 ) then
-  begin
-    ShowWarning('Esta Carta de Correção já foi enviada para a SEFA e por isso não poderá ser excluída!');
-    Abort;
-  end
-  else
-    inherited;
 end;
 
 procedure TfrmGeCartaCorrecao.dbgDadosDrawColumnCell(Sender: TObject;
@@ -215,7 +187,7 @@ begin
   if ( Sender = dbgDados ) then
   begin
     // Destacar CC-e não enviada
-    if ( IbDtstTabelaCCE_ENVIADA.AsInteger = 0 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('CCE_ENVIADA').AsInteger = 0 ) then
       dbgDados.Canvas.Font.Color := lblCartaPendente.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -224,22 +196,26 @@ end;
 
 procedure TfrmGeCartaCorrecao.HabilitarDesabilitar_Btns;
 begin
-  if ( pgcGuias.ActivePage = tbsCadastro ) then
+  with DtSrcTabela.DataSet do
   begin
-    BtnEnviarCCe.Enabled := (IbDtstTabelaCCE_ENVIADA.AsInteger = 0) and (not IbDtstTabela.IsEmpty) and (not (IbDtstTabela.State in [dsEdit, dsInsert]));
-    btbtnLista.Enabled   := (IbDtstTabelaCCE_ENVIADA.AsInteger = 1) and (not IbDtstTabela.IsEmpty) and (Trim(IbDtstTabelaPROTOCOLO.AsString) <> EmptyStr);
-  end
-  else
-  begin
-    BtnEnviarCCe.Enabled := False;
-    btbtnLista.Enabled   := False;
+    if ( pgcGuias.ActivePage = tbsCadastro ) then
+    begin
+      BtnEnviarCCe.Enabled := (FieldByName('CCE_ENVIADA').AsInteger = 0) and (not IsEmpty) and (not (State in [dsEdit, dsInsert]));
+      btbtnLista.Enabled   := (FieldByName('CCE_ENVIADA').AsInteger = 1) and (not IsEmpty) and (Trim(FieldByName('PROTOCOLO').AsString) <> EmptyStr);
+    end
+    else
+    begin
+      BtnEnviarCCe.Enabled := False;
+      btbtnLista.Enabled   := False;
+    end;
   end;
 end;
 
 procedure TfrmGeCartaCorrecao.btbtnListaClick(Sender: TObject);
 begin
   inherited;
-  DMNFe.ImprimirCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger);
+  with DtSrcTabela.DataSet do
+    DMNFe.ImprimirCCeACBr(FieldByName('CCE_EMPRESA').AsString, FieldByName('CCE_NUMERO').AsInteger);
 end;
 
 procedure TfrmGeCartaCorrecao.btbtnSalvarClick(Sender: TObject);
@@ -256,44 +232,41 @@ end;
 
 procedure TfrmGeCartaCorrecao.BtnEnviarCCeClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
-    Exit;
-
-  if not GetPermissaoRotinaInterna(Sender, True) then
-    Abort;
-
-  RecarregarRegistro;
-
-  if not DMNFe.GetValidadeCertificado(IbDtstTabelaCCE_EMPRESA.AsString) then
-    Exit;
-
-  if DMNFe.ConfigurarParamentoNFE(IbDtstTabelaCCE_EMPRESA.AsString) then
+  with DtSrcTabela.DataSet do
   begin
-    ShowInformation('A emissão da CC-e exige a configuração dos parâmetros da empresa.' + #13 + 'Favor entrar em contrato com suporte.');
-    Exit;
-  end;
+    if ( IsEmpty ) then
+      Exit;
 
-  if DMNFe.GerarEnviarCCeACBr(IbDtstTabelaCCE_EMPRESA.AsString, IbDtstTabelaCCE_NUMERO.AsInteger, Trim(mmCondicaoUso.Lines.Text)) then
-  begin
-    ExecuteScriptSQL(
-      'Update TBNFE_CARTA_CORRECAO Set ' +
-      '  CCE_ENVIADA     = 1 ' +
-      'where CCE_EMPRESA = ' + QuotedStr(IbDtstTabelaCCE_EMPRESA.AsString) +
-      '  and CCE_NUMERO  = ' + IbDtstTabelaCCE_NUMERO.AsString
-    );
+    if not GetPermissaoRotinaInterna(Sender, True) then
+      Abort;
+
     RecarregarRegistro;
-  end;
 
-  HabilitarDesabilitar_Btns;
+    if not DMNFe.GetValidadeCertificado(FieldByName('CCE_EMPRESA').AsString) then
+      Exit;
+
+    if DMNFe.ConfigurarParamentoNFE(FieldByName('CCE_EMPRESA').AsString) then
+    begin
+      ShowInformation('A emissão da CC-e exige a configuração dos parâmetros da empresa.' + #13 + 'Favor entrar em contrato com suporte.');
+      Exit;
+    end;
+
+    if DMNFe.GerarEnviarCCeACBr(FieldByName('CCE_EMPRESA').AsString, FieldByName('CCE_NUMERO').AsInteger, Trim(mmCondicaoUso.Lines.Text)) then
+    begin
+      ExecuteScriptSQL(
+        'Update TBNFE_CARTA_CORRECAO Set ' +
+        '  CCE_ENVIADA     = 1 ' +
+        'where CCE_EMPRESA = ' + QuotedStr(FieldByName('CCE_EMPRESA').AsString) +
+        '  and CCE_NUMERO  = ' + FieldByName('CCE_NUMERO').AsString
+      );
+      RecarregarRegistro;
+    end;
+
+    HabilitarDesabilitar_Btns;
+  end;
 end;
 
 procedure TfrmGeCartaCorrecao.FormActivate(Sender: TObject);
-begin
-  inherited;
-  HabilitarDesabilitar_Btns;
-end;
-
-procedure TfrmGeCartaCorrecao.IbDtstTabelaAfterScroll(DataSet: TDataSet);
 begin
   inherited;
   HabilitarDesabilitar_Btns;
@@ -306,24 +279,74 @@ begin
   HabilitarDesabilitar_Btns;
 end;
 
+procedure TfrmGeCartaCorrecao.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeCartaCorrecao.fdQryTabelaBeforeDelete(DataSet: TDataSet);
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if ( FieldByName('CCE_ENVIADA').AsInteger = 1 ) then
+    begin
+      ShowWarning('Esta Carta de Correção já foi enviada para a SEFA e por isso não poderá ser excluída!');
+      Abort;
+    end
+    else
+      inherited;
+  end;
+end;
+
+procedure TfrmGeCartaCorrecao.fdQryTabelaBeforeEdit(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+    if ( FieldByName('CCE_ENVIADA').AsInteger = 1 ) then
+    begin
+      ShowWarning('Esta Carta de Correção já foi enviada para a SEFA e por isso não poderá ser alterada!');
+      Abort;
+    end;
+end;
+
+procedure TfrmGeCartaCorrecao.fdQryTabelaCalcFields(DataSet: TDataSet);
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('DataHora').AsDateTime := StrToDateTime(FormatDateTime('dd/mm/yyyy', FieldByName('CCE_DATA').AsDateTime) + ' ' +
+      FormatDateTime('hh:mm:ss', FieldByName('CCE_HORA').AsDateTime));
+
+    if Trim(FieldByName('NFE_DESTINATARIO').AsString) <> EmptyStr then
+      FieldByName('NotaFiscalEletronica').AsString := FieldByName('NFE_DESTINATARIO').AsString + ' - ' + FieldByName('NFE_DESTINATARIO_RAZAO').AsString +
+        IfThen(StrIsCNPJ(FieldByName('NFE_DESTINATARIO_CNPJ').AsString),
+          ' - CNPJ ' + StrFormatarCnpj(FieldByName('NFE_DESTINATARIO_CNPJ').AsString),
+          ' - CPF '  + StrFormatarCpf (FieldByName('NFE_DESTINATARIO_CNPJ').AsString));
+  end;
+end;
+
+procedure TfrmGeCartaCorrecao.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('CCE_EMPRESA').AsString  := gUsuarioLogado.Empresa;
+    FieldByName('CCE_DATA').AsDateTime   := GetDateDB;
+    FieldByName('CCE_HORA').AsDateTime   := GetTimeDB;
+    FieldByName('CCE_ENVIADA').AsInteger := 0;
+    FieldByName('CCE_TEXTO').Clear;
+    FieldByName('XML').Clear;
+  end;
+end;
+
 procedure TfrmGeCartaCorrecao.RecarregarRegistro;
 var
   sID : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     Exit;
 
-  if IbDtstTabela.IsEmpty then
-    sID := EmptyStr
-  else
-    sID := IbDtstTabelaCCE_NUMERO.AsString;
-
-  if ( sID <> EmptyStr ) then
-  begin
-    IbDtstTabela.Close;
-    IbDtstTabela.Open;
-    IbDtstTabela.Locate('CCE_NUMERO', sID, []);
-  end;
+  fdQryTabela.RefreshRecord;
 end;
 
 procedure TfrmGeCartaCorrecao.RegistrarNovaRotinaSistema;
