@@ -29,6 +29,26 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     Align = alTop
     Shape = bsSpacer
   end
+  object lblDicaFormaPagto: TLabel
+    AlignWithMargins = True
+    Left = 8
+    Top = 365
+    Width = 401
+    Height = 29
+    Alignment = taCenter
+    Anchors = [akLeft, akRight, akBottom]
+    AutoSize = False
+    Caption = 
+      'O peso e a cubagem s'#227'o calculados automaticamente no momento da ' +
+      'inser'#231#227'o dos volumes quando informados no cadastro do produto.'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clRed
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    WordWrap = True
+  end
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0

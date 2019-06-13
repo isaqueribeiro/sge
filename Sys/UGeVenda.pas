@@ -2339,6 +2339,9 @@ begin
   if ( not qryTitulos.IsEmpty ) then
     ShowWarning('Já existe(m) título(s) gerado(s) para esta venda')
   else
+  if (not GetCfopGerarTitulo(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)) then
+    ShowWarning('A CFOP utilizada nesta venda não permite a geração de títulos')
+  else
   if ( ShowConfirm('Confirma geração do(s) título(s) a receber da venda?') ) then
   begin
     GerarTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
@@ -2355,7 +2358,7 @@ end;
 
 procedure TfrmGeVenda.btnTituloEditarClick(Sender: TObject);
 begin
-  if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger <> STATUS_VND_FIN ) then
+  if ( not (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_VND_FIN, STATUS_VND_NFE]) ) then
     ShowWarning('É permitida a edição de títulos apenas para vendas finalizadas')
   else
   if ( qryTitulos.IsEmpty ) then

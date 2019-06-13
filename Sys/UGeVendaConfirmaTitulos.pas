@@ -98,6 +98,7 @@ type
       var Text: String; DisplayText: Boolean);
     procedure cdsTitulosAfterScroll(DataSet: TDataSet);
     procedure cdsTitulosBeforePost(DataSet: TDataSet);
+    procedure cdsTitulosVALORRECSetText(Sender: TField; const Text: string);
   private
     { Private declarations }
     fAnoVenda ,
@@ -371,6 +372,11 @@ begin
     6 : Text := 'SEX';
     7 : Text := 'SAB';
   end;
+end;
+
+procedure TfrmGeVendaConfirmaTitulos.cdsTitulosVALORRECSetText(Sender: TField; const Text: string);
+begin
+  Sender.AsCurrency := StrToCurrDef(StringReplace(Text, '.', '', [rfReplaceAll]), 0.0);
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.RegistrarRotinaSistema;

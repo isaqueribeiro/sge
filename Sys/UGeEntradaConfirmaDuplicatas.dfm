@@ -614,6 +614,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
     Params = <>
     ProviderName = 'dspDuplicatas'
     BeforePost = cdsDuplicatasBeforePost
+    AfterScroll = cdsDuplicatasAfterScroll
     OnCalcFields = cdsDuplicatasCalcFields
     Left = 96
     Top = 216
@@ -651,8 +652,12 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       FieldName = 'DTVENC'
       DisplayFormat = 'dd/mm/yyyy'
     end
+    object cdsDuplicatasDTPAG: TDateField
+      FieldName = 'DTPAG'
+    end
     object cdsDuplicatasVALORPAG: TBCDField
       FieldName = 'VALORPAG'
+      OnSetText = cdsDuplicatasVALORPAGSetText
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
@@ -699,6 +704,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
       '  , Tippag'
       '  , Dtemiss'
       '  , Dtvenc'
+      '  , Dtpag'
       '  , Valorpag'
       'from TBCONTPAG')
     Left = 98

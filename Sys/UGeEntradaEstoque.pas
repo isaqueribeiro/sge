@@ -422,6 +422,7 @@ type
     procedure fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
     procedure qryDuplicatasCalcFields(DataSet: TDataSet);
+    procedure btnTituloEditarClick(Sender: TObject);
   private
     { Private declarations }
     FEmpresa : String;
@@ -1749,10 +1750,31 @@ begin
   if ( not qryDuplicatas.IsEmpty ) then
     ShowWarning('Já existe(m) duplicata(s) gerado(s) para esta entrada')
   else
+  if (not GetCfopGerarDuplicata(DtSrcTabela.DataSet.FieldByName('NFCFOP').AsInteger)) then
+    ShowWarning('A CFOP utilizada nesta compra não permite a geração de duplicatas')
+  else
   if ( ShowConfirm('Confirma geração do(s) duplicata(s) a receber da entrada?') ) then
   begin
     GerarDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
     AbrirTabelaDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+  end;
+end;
+
+procedure TfrmGeEntradaEstoque.btnTituloEditarClick(Sender: TObject);
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if ( not (FieldByName('STATUS').AsInteger in [STATUS_CMP_FIN, STATUS_CMP_NFE]) ) then
+      ShowWarning('É permitida a edição de duplicatas apenas para compras finalizadas')
+    else
+    if ( qryDuplicatas.IsEmpty ) then
+      ShowWarning('Não existe(m) duplicata(s) gerado(s) para esta compra')
+    else
+    if ( FieldByName('COMPRA_PRAZO').AsInteger = 1 ) then
+    begin
+      if ( DuplicatasConfirmadas(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('DTEMISS').AsDateTime, FieldByName('TOTALNF').AsCurrency) ) then
+        AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    end;
   end;
 end;
 

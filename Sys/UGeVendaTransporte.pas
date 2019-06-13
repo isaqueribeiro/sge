@@ -72,6 +72,7 @@ type
     dbTransportadora: TJvDBComboEdit;
     dbPlacaUF: TJvDBComboEdit;
     qryVolume: TFDQuery;
+    lblDicaFormaPagto: TLabel;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbTransportadoraButtonClick(Sender: TObject);

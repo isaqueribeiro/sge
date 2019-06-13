@@ -66,6 +66,7 @@ type
     updParcela: TFDUpdateSQL;
     qryParcelaDTVENC: TDateField;
     qryParcelaVALORPAG: TBCDField;
+    cdsDuplicatasDTPAG: TDateField;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -80,6 +81,8 @@ type
     procedure cdsDuplicatasDiaSemanaGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
     procedure cdsDuplicatasBeforePost(DataSet: TDataSet);
+    procedure cdsDuplicatasAfterScroll(DataSet: TDataSet);
+    procedure cdsDuplicatasVALORPAGSetText(Sender: TField; const Text: string);
   private
     { Private declarations }
     fAnoCompra ,
@@ -191,7 +194,10 @@ begin
       end
       else
       begin
-        cdsDuplicatas.Post;
+        if not cdsDuplicatasDTPAG.IsNull then
+          cdsDuplicatas.Cancel
+        else
+          cdsDuplicatas.Post;
 
         cdsDuplicatas.Next;
 
@@ -264,6 +270,12 @@ begin
   end;
 
   cdsDuplicatas.Open;
+end;
+
+procedure TfrmGeEntradaConfirmaDuplicatas.cdsDuplicatasAfterScroll(DataSet: TDataSet);
+begin
+  dbDataVencimento.ReadOnly := not cdsDuplicatasDTPAG.IsNull;
+  dbValor.ReadOnly          := not cdsDuplicatasDTPAG.IsNull;
 end;
 
 procedure TfrmGeEntradaConfirmaDuplicatas.cdsDuplicatasBeforePost(
@@ -353,6 +365,11 @@ begin
     6 : Text := 'SEX';
     7 : Text := 'SAB';
   end;
+end;
+
+procedure TfrmGeEntradaConfirmaDuplicatas.cdsDuplicatasVALORPAGSetText(Sender: TField; const Text: string);
+begin
+  Sender.AsCurrency := StrToCurrDef(StringReplace(Text, '.', '', [rfReplaceAll]), 0.0);
 end;
 
 procedure TfrmGeEntradaConfirmaDuplicatas.RegistrarRotinaSistema;

@@ -316,6 +316,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -727,7 +729,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           OnButtonClick = dbFornecedorButtonClick
         end
         object dbCFOPNF: TJvDBComboEdit
-          Left = 528
+          Left = 529
           Top = 80
           Width = 89
           Height = 21
@@ -1886,7 +1888,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             Height = 157
             Align = alLeft
             Shape = bsSpacer
-            Visible = False
             ExplicitHeight = 162
           end
           object Bevel7: TBevel
@@ -1896,7 +1897,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             Height = 157
             Align = alLeft
             Shape = bsSpacer
-            Visible = False
             ExplicitHeight = 162
           end
           object pnlBotoesTitulo: TPanel
@@ -1914,7 +1914,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 0
-            Visible = False
             object btnRegerarDuplicata: TBitBtn
               Left = 0
               Top = 0
@@ -1942,6 +1941,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
               ShowHint = True
               TabOrder = 1
               TabStop = False
+              OnClick = btnTituloEditarClick
             end
             object btnTituloExcluir: TBitBtn
               Left = 0
@@ -1951,6 +1951,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
               Hint = 'Excluir T'#237'tulo'
               Align = alTop
               Caption = 'Excluir'
+              Enabled = False
               NumGlyphs = 2
               ParentShowHint = False
               ShowHint = True
@@ -4075,7 +4076,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     Left = 928
     Top = 40
     Bitmap = {
-      494C01012B002C00FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

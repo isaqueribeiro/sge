@@ -694,6 +694,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     object cdsTitulosVALORREC: TBCDField
       FieldName = 'VALORREC'
       Origin = 'VALORREC'
+      OnSetText = cdsTitulosVALORRECSetText
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
