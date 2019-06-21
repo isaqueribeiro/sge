@@ -302,6 +302,8 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel8: TBevel
@@ -1243,7 +1245,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3172,13 +3174,14 @@ inherited frmGeCaixa: TfrmGeCaixa
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -4062,13 +4065,14 @@ inherited frmGeCaixa: TfrmGeCaixa
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView

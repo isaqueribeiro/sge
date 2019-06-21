@@ -1038,12 +1038,14 @@ end;
 
 procedure TfrmPrinc.nmRequisicaoClienteClick(Sender: TObject);
 begin
-  if not GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) then
-    ShowInformation('Empresa não habilitada para trabalhar com estoque satélide de clientes.' + #13 +
-      'Favor entrar em contato com suporte.')
-  else
+  if GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) or (gSistema.Codigo = SISTEMA_GESTAO_OPME) then
+  begin
     if GetPermissaoRotinaSistema(ROTINA_MOV_REQUISICAO_ID, True) then
       MostrarControleRequisicaoCliente(Self);
+  end
+  else
+    ShowInformation('Empresa não habilitada para trabalhar com estoque satélide de clientes.' + #13 +
+      'Favor entrar em contato com suporte.');
 end;
 
 procedure TfrmPrinc.nmExportarChaveNFeGeradaClick(Sender: TObject);

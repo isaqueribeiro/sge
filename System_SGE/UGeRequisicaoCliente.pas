@@ -735,13 +735,15 @@ end;
 procedure TfrmGeRequisicaoCliente.dbClienteButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
-  sCNPJ ,
-  sNome : String;
+  sCNPJ   ,
+  sNome   : String;
+  aEstoque : Boolean;
 begin
   with DtSrcTabela.DataSet do
   begin
+    aEstoque := not (gSistema.Codigo = SISTEMA_GESTAO_OPME);
     if ( State in [dsEdit, dsInsert] ) then
-      if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, True) ) then
+      if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, aEstoque) ) then
       begin
         FieldByName('CODCLIENTE').AsInteger := iCodigo;
         FieldByName('NOME').AsString        := sNome;

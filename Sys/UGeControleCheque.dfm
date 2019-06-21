@@ -42,6 +42,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           item
             Expanded = False
             FieldName = 'CONTROLE'
+            Title.Caption = 'Controle '
             Width = 65
             Visible = True
           end
@@ -49,26 +50,27 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Expanded = False
             FieldName = 'TIPO'
             Title.Alignment = taCenter
-            Title.Caption = 'TO'
+            Title.Caption = 'TO '
             Width = 25
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMISSOR_NOME'
+            Title.Caption = 'Emissor '
             Width = 220
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMISSOR_CNPJ'
-            Title.Caption = 'CPF / CNPJ'
+            Title.Caption = 'CPF / CNPJ '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NUMERO'
-            Title.Caption = 'N'#250'mero '
+            Title.Caption = 'N'#250'mero  '
             Width = 100
             Visible = True
           end
@@ -76,6 +78,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Expanded = False
             FieldName = 'BANCO'
             Title.Alignment = taCenter
+            Title.Caption = 'Banco '
             Width = 45
             Visible = True
           end
@@ -87,6 +90,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Valor (R$) '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
@@ -99,7 +103,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Expanded = False
             FieldName = 'DATA_EMISSAO'
             Title.Alignment = taCenter
-            Title.Caption = 'Emiss'#227'o'
+            Title.Caption = 'Emiss'#227'o '
             Width = 80
             Visible = True
           end
@@ -107,14 +111,14 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Expanded = False
             FieldName = 'DATA_APRESENTACAO'
             Title.Alignment = taCenter
-            Title.Caption = 'Apresent.'
+            Title.Caption = 'Apresent. '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
-            Title.Caption = 'Situa'#231#227'o'
+            Title.Caption = 'Situa'#231#227'o '
             Width = 100
             Visible = True
           end>
@@ -1068,14 +1072,14 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Expanded = False
             FieldName = 'TIPO'
             Title.Alignment = taCenter
-            Title.Caption = 'Tipo'
+            Title.Caption = 'Tipo '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'LANCAMENTO'
-            Title.Caption = 'Lan'#231'amento'
+            Title.Caption = 'Lan'#231'amento '
             Width = 100
             Visible = True
           end
@@ -1084,35 +1088,35 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             Expanded = False
             FieldName = 'SEQ'
             Title.Alignment = taCenter
-            Title.Caption = '#'
+            Title.Caption = '# '
             Width = 25
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA_PAGTO'
-            Title.Caption = 'Pagamento'
+            Title.Caption = 'Pagamento '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_BAIXA'
-            Title.Caption = 'Valor (R$)'
+            Title.Caption = 'Valor (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
-            Title.Caption = 'Fornecedor / Cliente'
+            Title.Caption = 'Fornecedor / Cliente '
             Width = 270
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME_CNPJ'
-            Title.Caption = 'Cpf / Cnpj'
+            Title.Caption = 'Cpf / Cnpj '
             Width = 150
             Visible = True
           end>
@@ -1227,7 +1231,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    c.controle'
@@ -1272,8 +1275,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     GeneratorField.Field = 'CONTROLE'
     GeneratorField.Generator = 'GEN_CONTROLE_CHEQUE'
     GeneratorField.ApplyEvent = gamOnNewRecord
-    Left = 752
-    Top = 304
     object IbDtstTabelaCONTROLE: TIntegerField
       Alignment = taCenter
       DisplayLabel = 'Controle'
@@ -1482,8 +1483,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 816
-    Top = 304
+    Left = 704
+    Top = 0
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1559,14 +1560,12 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       'delete from TBCHEQUE'
       'where'
       '  CONTROLE = :OLD_CONTROLE')
-    Left = 784
-    Top = 304
   end
   inherited ImgList: TImageList
-    Left = 720
-    Top = 304
+    Left = 608
+    Top = 0
     Bitmap = {
-      494C01012B002C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3025,6 +3024,313 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    Active = True
+    OnNewRecord = fdQryTabelaNewRecord
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CONTROLE_CHEQUE'
+    UpdateOptions.KeyFields = 'CONTROLE'
+    UpdateOptions.AutoIncFields = 'CONTROLE'
+    SQL.Strings = (
+      'Select'
+      '    c.controle'
+      '  , c.empresa'
+      '  , c.tipo'
+      '  , c.banco'
+      '  , c.agencia'
+      '  , c.conta'
+      '  , c.numero'
+      '  , c.fornecedor'
+      '  , c.cliente'
+      '  , c.data_emissao'
+      '  , c.data_apresentacao'
+      '  , c.data_devolucao'
+      '  , c.data_compensacao'
+      '  , c.valor'
+      '  , c.nominal_a'
+      '  , c.data_cadastro'
+      '  , c.usuario_cadastro'
+      '  , c.status'
+      '  , c.obs'
+      ''
+      '  , sc.descricao     as status_descricao'
+      '  , bc.nome          as banco_nome'
+      ''
+      '  , coalesce(cc.nome, fc.nomeforn)               as emissor_nome'
+      '  , coalesce(cc.cnpj, fc.cnpj)                   as emissor_cnpj'
+      '  , coalesce(cc.pessoa_fisica, fc.pessoa_fisica) as emissor_pf'
+      ''
+      '  , cc.nome          as cliente_nome'
+      '  , cc.cnpj          as cliente_cnpj'
+      '  , cc.pessoa_fisica as cliente_pf'
+      ''
+      '  , fc.nomeforn      as fornecedor_nome'
+      '  , fc.cnpj          as fornecedor_cnpj'
+      '  , fc.pessoa_fisica as fornecedor_pf'
+      'from TBCHEQUE c'
+      '  left join VW_STATUS_CHEQUE sc on (sc.codigo = c.status)'
+      '  left join TBCLIENTE cc on (cc.codigo = c.cliente)'
+      '  left join TBFORNECEDOR fc on (fc.codforn = c.fornecedor)'
+      '  left join TBBANCO bc on (bc.cod = c.banco)')
+    object fdQryTabelaCONTROLE: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'CONTROLE'
+      Origin = 'CONTROLE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdQryTabelaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Size = 18
+    end
+    object fdQryTabelaTIPO: TSmallintField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+    end
+    object fdQryTabelaBANCO: TStringField
+      FieldName = 'BANCO'
+      Origin = 'BANCO'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaAGENCIA: TStringField
+      FieldName = 'AGENCIA'
+      Origin = 'AGENCIA'
+      Required = True
+    end
+    object fdQryTabelaCONTA: TStringField
+      FieldName = 'CONTA'
+      Origin = 'CONTA'
+      Required = True
+    end
+    object fdQryTabelaNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Required = True
+      Size = 30
+    end
+    object fdQryTabelaFORNECEDOR: TIntegerField
+      FieldName = 'FORNECEDOR'
+      Origin = 'FORNECEDOR'
+    end
+    object fdQryTabelaCLIENTE: TIntegerField
+      FieldName = 'CLIENTE'
+      Origin = 'CLIENTE'
+    end
+    object fdQryTabelaDATA_EMISSAO: TDateField
+      FieldName = 'DATA_EMISSAO'
+      Origin = 'DATA_EMISSAO'
+    end
+    object fdQryTabelaDATA_APRESENTACAO: TDateField
+      FieldName = 'DATA_APRESENTACAO'
+      Origin = 'DATA_APRESENTACAO'
+    end
+    object fdQryTabelaDATA_DEVOLUCAO: TDateField
+      FieldName = 'DATA_DEVOLUCAO'
+      Origin = 'DATA_DEVOLUCAO'
+    end
+    object fdQryTabelaDATA_COMPENSACAO: TDateField
+      FieldName = 'DATA_COMPENSACAO'
+      Origin = 'DATA_COMPENSACAO'
+    end
+    object fdQryTabelaVALOR: TBCDField
+      FieldName = 'VALOR'
+      Origin = 'VALOR'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaNOMINAL_A: TStringField
+      FieldName = 'NOMINAL_A'
+      Origin = 'NOMINAL_A'
+      Size = 50
+    end
+    object fdQryTabelaDATA_CADASTRO: TDateField
+      FieldName = 'DATA_CADASTRO'
+      Origin = 'DATA_CADASTRO'
+      Required = True
+    end
+    object fdQryTabelaUSUARIO_CADASTRO: TStringField
+      FieldName = 'USUARIO_CADASTRO'
+      Origin = 'USUARIO_CADASTRO'
+      Size = 12
+    end
+    object fdQryTabelaSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Required = True
+    end
+    object fdQryTabelaOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaSTATUS_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'STATUS_DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 11
+    end
+    object fdQryTabelaBANCO_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BANCO_NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaEMISSOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_NOME'
+      Origin = 'EMISSOR_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaEMISSOR_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_CNPJ'
+      Origin = 'EMISSOR_CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryTabelaEMISSOR_PF: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_PF'
+      Origin = 'EMISSOR_PF'
+      ProviderFlags = []
+    end
+    object fdQryTabelaCLIENTE_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CLIENTE_NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaCLIENTE_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CLIENTE_CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryTabelaCLIENTE_PF: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'CLIENTE_PF'
+      Origin = 'PESSOA_FISICA'
+      ProviderFlags = []
+    end
+    object fdQryTabelaFORNECEDOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FORNECEDOR_NOME'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaFORNECEDOR_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FORNECEDOR_CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryTabelaFORNECEDOR_PF: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'FORNECEDOR_PF'
+      Origin = 'PESSOA_FISICA'
+      ProviderFlags = []
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCHEQUE'
+      '(CONTROLE, EMPRESA, TIPO, BANCO, AGENCIA, '
+      '  CONTA, NUMERO, FORNECEDOR, CLIENTE, '
+      '  DATA_EMISSAO, DATA_APRESENTACAO, DATA_DEVOLUCAO, '
+      '  DATA_COMPENSACAO, VALOR, NOMINAL_A, DATA_CADASTRO, '
+      '  USUARIO_CADASTRO, STATUS, OBS)'
+      
+        'VALUES (:NEW_CONTROLE, :NEW_EMPRESA, :NEW_TIPO, :NEW_BANCO, :NEW' +
+        '_AGENCIA, '
+      '  :NEW_CONTA, :NEW_NUMERO, :NEW_FORNECEDOR, :NEW_CLIENTE, '
+      
+        '  :NEW_DATA_EMISSAO, :NEW_DATA_APRESENTACAO, :NEW_DATA_DEVOLUCAO' +
+        ', '
+      
+        '  :NEW_DATA_COMPENSACAO, :NEW_VALOR, :NEW_NOMINAL_A, :NEW_DATA_C' +
+        'ADASTRO, '
+      '  :NEW_USUARIO_CADASTRO, :NEW_STATUS, :NEW_OBS)')
+    ModifySQL.Strings = (
+      'UPDATE TBCHEQUE'
+      
+        'SET CONTROLE = :NEW_CONTROLE, EMPRESA = :NEW_EMPRESA, TIPO = :NE' +
+        'W_TIPO, '
+      
+        '  BANCO = :NEW_BANCO, AGENCIA = :NEW_AGENCIA, CONTA = :NEW_CONTA' +
+        ', '
+      
+        '  NUMERO = :NEW_NUMERO, FORNECEDOR = :NEW_FORNECEDOR, CLIENTE = ' +
+        ':NEW_CLIENTE, '
+      
+        '  DATA_EMISSAO = :NEW_DATA_EMISSAO, DATA_APRESENTACAO = :NEW_DAT' +
+        'A_APRESENTACAO, '
+      
+        '  DATA_DEVOLUCAO = :NEW_DATA_DEVOLUCAO, DATA_COMPENSACAO = :NEW_' +
+        'DATA_COMPENSACAO, '
+      
+        '  VALOR = :NEW_VALOR, NOMINAL_A = :NEW_NOMINAL_A, DATA_CADASTRO ' +
+        '= :NEW_DATA_CADASTRO, '
+      
+        '  USUARIO_CADASTRO = :NEW_USUARIO_CADASTRO, STATUS = :NEW_STATUS' +
+        ', '
+      '  OBS = :NEW_OBS'
+      'WHERE CONTROLE = :OLD_CONTROLE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCHEQUE'
+      'WHERE CONTROLE = :OLD_CONTROLE')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    c.controle'
+      '  , c.empresa'
+      '  , c.tipo'
+      '  , c.banco'
+      '  , c.agencia'
+      '  , c.conta'
+      '  , c.numero'
+      '  , c.fornecedor'
+      '  , c.cliente'
+      '  , c.data_emissao'
+      '  , c.data_apresentacao'
+      '  , c.data_devolucao'
+      '  , c.data_compensacao'
+      '  , c.valor'
+      '  , c.nominal_a'
+      '  , c.data_cadastro'
+      '  , c.usuario_cadastro'
+      '  , c.status'
+      '  , c.obs'
+      ''
+      '  , sc.descricao     as status_descricao'
+      '  , bc.nome          as banco_nome'
+      ''
+      '  , coalesce(cc.nome, fc.nomeforn)               as emissor_nome'
+      '  , coalesce(cc.cnpj, fc.cnpj)                   as emissor_cnpj'
+      '  , coalesce(cc.pessoa_fisica, fc.pessoa_fisica) as emissor_pf'
+      ''
+      '  , cc.nome          as cliente_nome'
+      '  , cc.cnpj          as cliente_cnpj'
+      '  , cc.pessoa_fisica as cliente_pf'
+      ''
+      '  , fc.nomeforn      as fornecedor_nome'
+      '  , fc.cnpj          as fornecedor_cnpj'
+      '  , fc.pessoa_fisica as fornecedor_pf'
+      'from TBCHEQUE c'
+      '  left join VW_STATUS_CHEQUE sc on (sc.codigo = c.status)'
+      '  left join TBCLIENTE cc on (cc.codigo = c.cliente)'
+      '  left join TBFORNECEDOR fc on (fc.codforn = c.fornecedor)'
+      '  left join TBBANCO bc on (bc.cod = c.banco)'
+      'WHERE c.CONTROLE = :CONTROLE')
+  end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
     Left = 360
@@ -3091,8 +3397,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 752
-    Top = 336
+    Left = 792
+    Top = 312
     object qryBaixasTIPO: TIBStringField
       FieldName = 'TIPO'
       ProviderFlags = []
@@ -3163,15 +3469,15 @@ inherited frmGeControleCheque: TfrmGeControleCheque
   object dtsBaixas: TDataSource
     AutoEdit = False
     DataSet = qryBaixas
-    Left = 816
-    Top = 336
+    Left = 824
+    Top = 312
   end
   object dtsBanco: TDataSource
     Left = 360
     Top = 360
   end
   object FrChequeA5: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3282,8 +3588,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 98.267780000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -3296,6 +3604,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3312,6 +3621,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -3329,6 +3639,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3349,6 +3660,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -3367,6 +3679,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3395,6 +3708,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -3455,6 +3769,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 529.134199999999900000
         Width = 718.110700000000000000
@@ -3483,6 +3798,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -3510,6 +3826,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 162.519790000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
@@ -3523,51 +3840,56 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Width = 718.110700000000000000
           Height = 60.472480000000000000
           StretchMode = smMaxHeight
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            716A5C66305C66733230205265636562656D6F732064652F6461205C62205B46
-            726452656369626F2E224E4F4D455F434C49454E5445225D5C62302020612069
-            6D706F72745C2765326E636961206465205C62205B46726452656369626F2E22
-            56414C4F525F42414958415F455854454E534F225D5C62302020726566657265
-            6E7465205C276530205C62205B46726452656369626F2E22484953544F524943
-            4F225D202D20284C616E5C276537616D656E746F205B46726452656369626F2E
-            22414E4F4C414E43225D2F5B466F726D6174466C6F617428273030303030272C
-            3C46726452656369626F2E224E554D4C414E43223E295D2E505B466F726D6174
-            466C6F617428273030272C3C46726452656369626F2E2250415243454C41223E
-            295D295C6230202E5C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C716A5C66305C66733230205265636562656D6F732064652F6461205C6220
+            5B46726452656369626F2E224E4F4D455F434C49454E5445225D5C6230202061
+            20696D706F72745C2765326E636961206465205C62205B46726452656369626F
+            2E2256414C4F525F42414958415F455854454E534F225D5C6230202072656665
+            72656E7465205C276530205C62205B46726452656369626F2E22484953544F52
+            49434F225D202D20284C616E5C276537616D656E746F205B4672645265636962
+            6F2E22414E4F4C414E43225D2F5B466F726D6174466C6F617428273030303030
+            272C3C46726452656369626F2E224E554D4C414E43223E295D2E505B466F726D
+            6174466C6F617428273030272C3C46726452656369626F2E2250415243454C41
+            223E295D295C6230202E5C7061720D0A7D0D0A00}
         end
         object Rich2: TfrxRichView
           Width = 718.110700000000000000
           Height = 102.047310000000000000
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C7061
-            72645C6669313030305C6C693134305C72693138305C73623132305C73613132
-            305C736C3336305C736C6D756C74315C71725C62305C667332342056616C6F72
-            3A205C756C5C62205224205B466F726D6174466C6F617428272C302E3030272C
-            3C46726452656369626F2E2256414C4F525F4241495841223E295D5C756C6E6F
-            6E655C62305C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C
+            706172645C6669313030305C6C693134305C72693138305C73623132305C7361
+            3132305C736C3336305C736C6D756C74315C71725C62305C667332342056616C
+            6F723A205C756C5C62205224205B466F726D6174466C6F617428272C302E3030
+            272C3C46726452656369626F2E2256414C4F525F4241495841223E295D5C756C
+            6E6F6E655C62305C7061720D0A7D0D0A00}
         end
       end
       object BndChildAssinatura: TfrxChild
         FillType = ftBrush
+        Frame.Typ = []
         Height = 105.826840000000000000
         Top = 362.834880000000000000
         Width = 718.110700000000000000
+        ToNRows = 0
+        ToNRowsMode = rmCount
         object Memo9: TfrxMemoView
           Left = 79.370130000000000000
           Top = 86.929190000000000000
@@ -3580,6 +3902,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -13
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -3613,19 +3936,20 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           StretchMode = smMaxHeight
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F726D61
-            744461746554696D652827646420222064652022206D6D6D6D20222064652022
-            2079797979272C203C46726452656369626F2E22444154415F504147544F223E
-            295D2E5C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F72
+            6D61744461746554696D652827646420222064652022206D6D6D6D2022206465
+            20222079797979272C203C46726452656369626F2E22444154415F504147544F
+            223E295D2E5C7061720D0A7D0D0A00}
         end
       end
     end
@@ -4020,7 +4344,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Top = 328
   end
   object FrChequeA4: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4138,8 +4462,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 98.267780000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -4152,6 +4478,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -4168,6 +4495,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -4185,6 +4513,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -4205,6 +4534,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -4223,6 +4553,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -4251,6 +4582,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -4309,6 +4641,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 510.236550000000000000
         Width = 718.110700000000000000
@@ -4337,6 +4670,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -4364,6 +4698,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 272.126160000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
@@ -4384,6 +4719,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -21
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[FrdCheque."STATUS_DESCRICAO"]')
           ParentFont = False
@@ -4726,6 +5062,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -13
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -4762,26 +5099,27 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Top = 71.811070000000000000
           Width = 702.992580000000000000
           Height = 136.063080000000000000
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313338305C716A5C756C5C
-            66305C66733230205B4672644368657175652E2256414C4F525F455854454E53
-            4F225D205B436F7079283C73436F6D706C656D656E746F56616C6F723E2C2031
-            2C2028313530202D204C656E677468283C4672644368657175652E2256414C4F
-            525F455854454E534F223E2929295D5C756C6E6F6E655C667331362020652063
-            656E7461766F73206163696D615C7061720D0A0D0A5C706172645C716A5C7061
-            720D0A61205C756C5C66733230205B4672644368657175652E224E4F4D494E41
-            4C5F41225D5C756C6E6F6E655C6673313620206F75205C27653020737561206F
-            7264656D2E5C7061720D0A5C7061720D0A0D0A5C706172645C71725C66733230
-            205B4369646164655D2F5B55465D2C205B466F726D61744461746554696D6528
-            27646420222064652022206D6D6D6D202220646520222079797979272C203C46
-            72644368657175652E22444154415F454D495353414F223E295D2E5C7061720D
-            0A0D0A5C706172645C716A5C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313338305C716A5C75
+            6C5C66305C66733230205B4672644368657175652E2256414C4F525F45585445
+            4E534F225D205B436F7079283C73436F6D706C656D656E746F56616C6F723E2C
+            20312C2028313530202D204C656E677468283C4672644368657175652E225641
+            4C4F525F455854454E534F223E2929295D5C756C6E6F6E655C66733136202065
+            2063656E7461766F73206163696D615C7061720D0A0D0A5C706172645C716A5C
+            7061720D0A61205C756C5C66733230205B4672644368657175652E224E4F4D49
+            4E414C5F41225D5C756C6E6F6E655C6673313620206F75205C27653020737561
+            206F7264656D2E5C7061720D0A5C7061720D0A0D0A5C706172645C71725C6673
+            3230205B4369646164655D2F5B55465D2C205B466F726D61744461746554696D
+            652827646420222064652022206D6D6D6D202220646520222079797979272C20
+            3C4672644368657175652E22444154415F454D495353414F223E295D2E5C7061
+            720D0A0D0A5C706172645C716A5C7061720D0A7D0D0A00}
         end
         object Memo15: TfrxMemoView
           Left = 7.559060000000000000
@@ -4793,6 +5131,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             'Pague por este'
@@ -4808,6 +5147,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           DataField = 'BANCO_LOGO'
           DataSet = FrdCheque
           DataSetName = 'FrdCheque'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -4974,7 +5314,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Top = 449
   end
   object frRelacaoCheque: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5069,8 +5409,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 139.842610000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -5085,6 +5427,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -5098,6 +5441,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -5114,6 +5458,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -5131,6 +5476,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -5151,6 +5497,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -5169,6 +5516,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -5195,6 +5543,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo]')
           ParentFont = False
@@ -5212,6 +5561,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -5224,6 +5574,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 555.590910000000000000
         Width = 1046.929810000000000000
@@ -5252,6 +5603,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -5279,6 +5631,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndGrpHeaderStatus: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000010000
         Top = 219.212740000000000000
         Width = 1046.929810000000000000
@@ -5579,6 +5932,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 298.582870000000000000
         Width = 1046.929810000000000000
@@ -5607,6 +5961,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -5633,6 +5988,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdsRelacaoCheque."VALOR">)] ')
           ParentFont = False
@@ -5661,6 +6017,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<frdsRelacaoCheque."DATA_APRESENTACAO">=0, '#39#39', FormatDateT' +
@@ -5690,6 +6047,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[frdsRelacaoCheque."EMISSOR_NOME"]')
           ParentFont = False
@@ -5716,6 +6074,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoCheque."BANCO"] - [frdsRelacaoCheque."BANCO_NOME"]')
           ParentFont = False
@@ -5743,6 +6102,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoCheque."AGENCIA"]')
           ParentFont = False
@@ -5770,6 +6130,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoCheque."CONTA"]')
           ParentFont = False
@@ -5797,6 +6158,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoCheque."NUMERO"]')
           ParentFont = False
@@ -5824,6 +6186,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <frdsRelacaoCheque."DATA_EMISSAO"' +
@@ -5853,6 +6216,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<frdsRelacaoCheque."DATA_DEVOLUCAO">=0,'#39#39',FormatDateTime('#39 +
@@ -5882,6 +6246,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<frdsRelacaoCheque."DATA_COMPENSACAO">=0,'#39#39',FormatDateTime' +
@@ -5911,6 +6276,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39'###00000'#39',<frdsRelacaoCheque."CONTROLE">)]')
           ParentFont = False
@@ -5920,6 +6286,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object BndGrpFooterStatus: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 340.157700000000000000
         Width = 1046.929810000000000000
@@ -5946,6 +6313,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 105.826840000000000000
         Top = 427.086890000000000000
         Width = 1046.929810000000000000
@@ -6039,6 +6407,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Cheques Devolvidos')

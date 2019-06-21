@@ -35,8 +35,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 122
-    ExplicitHeight = 485
     DesignSize = (
       1044
       452)
@@ -4668,6 +4666,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4742,7 +4741,6 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
-      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item
@@ -4917,7 +4915,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 468
+      DockedLeft = 234
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -5211,7 +5209,7 @@ object frmPrinc: TfrmPrinc
     object BrMngFinanceiroBoleto: TdxBar
       Caption = 'Boletos Banc'#225'rios / Quita'#231#245'es'
       CaptionButtons = <>
-      DockedLeft = 513
+      DockedLeft = 512
       DockedTop = 0
       FloatLeft = 379
       FloatTop = 206

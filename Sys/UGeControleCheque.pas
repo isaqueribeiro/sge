@@ -8,7 +8,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, cxGraphics, cxLookAndFeels,
+  ToolWin, IBTable, cxGraphics, cxLookAndFeels, System.ImageList,
   cxLookAndFeelPainters, Menus, cxButtons, JvToolEdit, JvExMask,
   JvDBControls, Datasnap.DBClient, Datasnap.Provider, IBX.IBQuery, ACBrBase,
   ACBrExtenso, frxClass, frxDBSet, cxControls, cxContainer, cxEdit, cxImage, cxDBEdit,
@@ -17,8 +17,9 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TChequeBaixa = record
@@ -174,10 +175,39 @@ type
     fdQryEmpresa: TFDQuery;
     fdQryTipoCheque: TFDQuery;
     fdQryBanco: TFDQuery;
+    fdQryTabelaCONTROLE: TIntegerField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaTIPO: TSmallintField;
+    fdQryTabelaBANCO: TStringField;
+    fdQryTabelaAGENCIA: TStringField;
+    fdQryTabelaCONTA: TStringField;
+    fdQryTabelaNUMERO: TStringField;
+    fdQryTabelaFORNECEDOR: TIntegerField;
+    fdQryTabelaCLIENTE: TIntegerField;
+    fdQryTabelaDATA_EMISSAO: TDateField;
+    fdQryTabelaDATA_APRESENTACAO: TDateField;
+    fdQryTabelaDATA_DEVOLUCAO: TDateField;
+    fdQryTabelaDATA_COMPENSACAO: TDateField;
+    fdQryTabelaVALOR: TBCDField;
+    fdQryTabelaNOMINAL_A: TStringField;
+    fdQryTabelaDATA_CADASTRO: TDateField;
+    fdQryTabelaUSUARIO_CADASTRO: TStringField;
+    fdQryTabelaSTATUS: TSmallintField;
+    fdQryTabelaOBS: TMemoField;
+    fdQryTabelaSTATUS_DESCRICAO: TStringField;
+    fdQryTabelaBANCO_NOME: TStringField;
+    fdQryTabelaEMISSOR_NOME: TStringField;
+    fdQryTabelaEMISSOR_CNPJ: TStringField;
+    fdQryTabelaEMISSOR_PF: TSmallintField;
+    fdQryTabelaCLIENTE_NOME: TStringField;
+    fdQryTabelaCLIENTE_CNPJ: TStringField;
+    fdQryTabelaCLIENTE_PF: TSmallintField;
+    fdQryTabelaFORNECEDOR_NOME: TStringField;
+    fdQryTabelaFORNECEDOR_CNPJ: TStringField;
+    fdQryTabelaFORNECEDOR_PF: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -203,6 +233,7 @@ type
     procedure qryBaixasNOME_CNPJGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
     procedure popRelacaoChequesClick(Sender: TObject);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     FDataAtual    : TDateTime;
@@ -397,27 +428,6 @@ begin
     else
       Text := StrFormatarCnpj(Trim(Sender.AsString));
   end;
-end;
-
-procedure TfrmGeControleCheque.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaEMPRESA.AsString := gUsuarioLogado.Empresa;
-  IbDtstTabelaSTATUS.AsInteger := STATUS_CHEQUE_PENDENTE;
-  IbDtstTabelaOBS.AsString     := '...';
-  IbDtstTabelaDATA_CADASTRO.AsDateTime  := GetDateDB;
-  IbDtstTabelaUSUARIO_CADASTRO.AsString := gUsuarioLogado.Login;
-  IbDtstTabelaTIPO.Clear;
-  IbDtstTabelaBANCO.Clear;
-  IbDtstTabelaAGENCIA.Clear;
-  IbDtstTabelaCONTA.Clear;
-  IbDtstTabelaNUMERO.Clear;
-  IbDtstTabelaVALOR.Clear;
-  IbDtstTabelaDATA_EMISSAO.Clear;
-  IbDtstTabelaDATA_APRESENTACAO.Clear;
-  IbDtstTabelaDATA_DEVOLUCAO.Clear;
-  IbDtstTabelaDATA_COMPENSACAO.Clear;
-  IbDtstTabelaNOMINAL_A.Clear;
 end;
 
 procedure TfrmGeControleCheque.IbDtstTabelaSTATUSGetText(Sender: TField;
@@ -807,6 +817,27 @@ begin
   dbValor.ReadOnly      := (not qryBaixas.IsEmpty);
   dbObservacao.ReadOnly := (IbDtstTabelaSTATUS.Value > STATUS_CHEQUE_PENDENTE); //(IbDtstTabela.State = dsEdit);
   HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeControleCheque.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  IbDtstTabelaEMPRESA.AsString := gUsuarioLogado.Empresa;
+  IbDtstTabelaSTATUS.AsInteger := STATUS_CHEQUE_PENDENTE;
+  IbDtstTabelaOBS.AsString     := '...';
+  IbDtstTabelaDATA_CADASTRO.AsDateTime  := GetDateDB;
+  IbDtstTabelaUSUARIO_CADASTRO.AsString := gUsuarioLogado.Login;
+  IbDtstTabelaTIPO.Clear;
+  IbDtstTabelaBANCO.Clear;
+  IbDtstTabelaAGENCIA.Clear;
+  IbDtstTabelaCONTA.Clear;
+  IbDtstTabelaNUMERO.Clear;
+  IbDtstTabelaVALOR.Clear;
+  IbDtstTabelaDATA_EMISSAO.Clear;
+  IbDtstTabelaDATA_APRESENTACAO.Clear;
+  IbDtstTabelaDATA_DEVOLUCAO.Clear;
+  IbDtstTabelaDATA_COMPENSACAO.Clear;
+  IbDtstTabelaNOMINAL_A.Clear;
 end;
 
 procedure TfrmGeControleCheque.btbtnCancelarClick(Sender: TObject);
