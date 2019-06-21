@@ -160,6 +160,7 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
     Top = 152
   end
   inherited fdQryPesquisa: TFDQuery
+    AfterScroll = fdQryPesquisaAfterScroll
     SQL.Strings = (
       'Select'
       '    1 as Tipo -- Fornecedor'
@@ -184,13 +185,14 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
       '  , c.pessoa_fisica as PF'
       '  , c.ativo'
       'from TBCLIENTE c'
-      'where 2=2'
+      'where (c.codigo > 1) and (2=2)'
       ''
       'order by'
       '    4, 5')
     Left = 80
     Top = 152
     object fdQryPesquisaTIPO: TIntegerField
+      Alignment = taLeftJustify
       AutoGenerateValue = arDefault
       FieldName = 'TIPO'
       Origin = 'TIPO'
@@ -230,14 +232,14 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
       Required = True
     end
     object fdQryPesquisaATIVO: TSmallintField
+      Alignment = taCenter
       FieldName = 'ATIVO'
       Origin = 'ATIVO'
       Required = True
       OnGetText = fdQryPesquisaATIVOGetText
     end
   end
-  inherited QryPesquisa: TIBQuery
-    AfterScroll = QryPesquisaAfterScroll
+  inherited QryPesquisaXXX: TIBQuery
     SQL.Strings = (
       'Select'
       '    1 as Tipo -- Fornecedor'

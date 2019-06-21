@@ -1245,7 +1245,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3877,7 +3877,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haCenter
           Memo.UTF8W = (
@@ -3929,7 +3930,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           Memo.UTF8W = (
             ' D e s c r i '#231' '#227' o ')
@@ -3947,7 +3949,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haRight
           Memo.UTF8W = (
@@ -3955,12 +3958,6 @@ inherited frmGeCaixa: TfrmGeCaixa
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
-        end
-        object Line2: TfrxLineView
-          Top = 45.354360000000000000
-          Width = 718.110700000000000000
-          Color = clBlack
-          Frame.Typ = [ftTop]
         end
         object Memo17: TfrxMemoView
           Left = 529.134200000000000000
@@ -3972,7 +3969,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haRight
           Memo.UTF8W = (
@@ -3991,7 +3989,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haRight
           Memo.UTF8W = (
@@ -4783,7 +4782,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haCenter
           Memo.UTF8W = (
@@ -4835,7 +4835,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           Memo.UTF8W = (
             ' D e s c r i '#231' '#227' o ')
@@ -4853,7 +4854,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haRight
           Memo.UTF8W = (
@@ -4861,12 +4863,6 @@ inherited frmGeCaixa: TfrmGeCaixa
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
-        end
-        object Line2: TfrxLineView
-          Top = 45.354360000000000000
-          Width = 718.110700000000000000
-          Color = clBlack
-          Frame.Typ = [ftTop]
         end
         object Memo17: TfrxMemoView
           Left = 529.134200000000000000
@@ -4878,7 +4874,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haRight
           Memo.UTF8W = (
@@ -4897,7 +4894,8 @@ inherited frmGeCaixa: TfrmGeCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
-          Frame.Typ = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           HAlign = haRight
           Memo.UTF8W = (

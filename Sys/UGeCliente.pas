@@ -308,6 +308,9 @@ type
     QryEstoqueSateliteDESCRICAO_UNIDADE: TStringField;
     QryEstoqueSateliteUNP_SIGLA: TStringField;
     QryEstoqueSateliteCODIGO: TIntegerField;
+    fdQryTabelaPRODUTOS: TIntegerField;
+    fdQryTabelaVALORES: TFMTBCDField;
+    fdQryTitulosVALOR_PAGO: TBCDField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -954,7 +957,7 @@ begin
   if ( Sender = dbgTitulos ) then
   begin
     // Destacar Títulos em Pagamento
-    if ( (fdQryTitulosVALORRECTOT.AsCurrency > 0) and (fdQryTitulosTIPO.AsInteger = 1) ) then
+    if ( (fdQryTitulosVALOR_PAGO.AsCurrency > 0) and (fdQryTitulosTIPO.AsInteger = 1) ) then
       dbgTitulos.Canvas.Font.Color := lblTituloPagando.Font.Color
     else
     // Destacar Títulos Cancelados
@@ -1362,11 +1365,13 @@ end;
 
 procedure TfrmGeCliente.HabilitarAbaEstoque;
 begin
-  tbsEstoqueSatelite.TabVisible :=
-       ((GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa)
-    and (DtSrcTabela.DataSet.FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger = 1))
-     or (gSistema.Codigo = SISTEMA_GESTAO_OPME)
+  with DtSrcTabela.DataSet do
+  begin
+    tbsEstoqueSatelite.TabVisible :=
+        ((GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) and (FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger = 1))
+      or ((gSistema.Codigo = SISTEMA_GESTAO_OPME) and (not FieldByName('VALORES').IsNull))
     ) and GetUserVisualizaEstoque;
+  end;
 end;
 
 procedure TfrmGeCliente.QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField; var Text: string;
@@ -1587,6 +1592,12 @@ procedure TfrmGeCliente.btnFiltrarClick(Sender: TObject);
 begin
   if bApenasPossuiEstoque then
     WhereAdditional := '(cl.entrega_fracionada_venda = 1)';
+
+  // Não apresentar na pesquisa o cliente CONSUMIDOR FINAL
+  if ( WhereAdditional <> EmptyStr ) then
+    WhereAdditional := WhereAdditional + ' and (cl.Codigo > 1)'
+  else
+    WhereAdditional := '(cl.Codigo > 1)';
 
   // inherited;
   FiltarDados(CmbBxFiltrarTipo.ItemIndex);

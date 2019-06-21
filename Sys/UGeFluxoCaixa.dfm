@@ -51,12 +51,14 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           item
             Expanded = False
             FieldName = 'NUMERO'
+            Title.Caption = 'C'#243'digo '
             Width = 70
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA'
+            Title.Caption = 'Data '
             Width = 80
             Visible = True
           end
@@ -64,47 +66,55 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
             Expanded = False
             FieldName = 'HORA'
             Title.Alignment = taCenter
+            Title.Caption = 'Hora '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'HISTORICO'
+            Title.Caption = 'Hist'#243'rico '
             Width = 350
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO'
+            Title.Caption = 'Tipo '
             Visible = False
           end
           item
             Expanded = False
             FieldName = 'FORMA_PAGTO_DESC'
+            Title.Caption = 'Forma de Pagamento '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_CREDITO'
+            Title.Caption = 'Cr'#233'dito (R$) '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_DEBITO'
+            Title.Caption = 'D'#233'bito (R$) '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TITULO'
+            Title.Caption = 'T'#237'tulo '
             Width = 90
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DUPLICATA'
+            Title.Caption = 'Duplicata '
             Width = 90
             Visible = True
           end>
@@ -699,31 +709,35 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
               item
                 Expanded = False
                 FieldName = 'DATA'
+                Title.Caption = 'Data '
                 Width = 80
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FORMA_PAGTO_DESC'
+                Title.Caption = 'Descricao '
                 Width = 170
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SaldoDisplay'
-                Title.Caption = 'Saldo'
+                Title.Caption = 'Saldo '
                 Width = 90
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ENTRADA'
+                Title.Caption = 'Entradas '
                 Width = 90
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SAIDA'
+                Title.Caption = 'Sa'#237'das '
                 Width = 90
                 Visible = True
               end
@@ -1581,12 +1595,9 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       ShowHint = True
       TabOrder = 8
       OnClick = btnRecalcularSaldoClick
-      ExplicitLeft = 803
-      ExplicitTop = -2
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnNewRecord = IbDtstTabelaNewRecord
     SelectSQL.Strings = (
       'Select'
       '    m.Ano'
@@ -1646,212 +1657,12 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         'm.Caixa_num)')
     ModifySQL.Strings = ()
     Left = 864
-    object IbDtstTabelaANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = 'TBCAIXA_MOVIMENTO.ANO'
-    end
-    object IbDtstTabelaNUMERO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'NUMERO'
-      Origin = 'TBCAIXA_MOVIMENTO.NUMERO'
-    end
-    object IbDtstTabelaCAIXA_ANO: TSmallintField
-      Alignment = taCenter
-      FieldName = 'CAIXA_ANO'
-      Origin = 'TBCAIXA_MOVIMENTO.CAIXA_ANO'
-    end
-    object IbDtstTabelaCAIXA_NUM: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'Caixa'
-      FieldName = 'CAIXA_NUM'
-      Origin = 'TBCAIXA_MOVIMENTO.CAIXA_NUM'
-      DisplayFormat = '00000'
-    end
-    object IbDtstTabelaCONTA_CORRENTE: TIntegerField
-      DisplayLabel = 'Conta Corrente'
-      FieldName = 'CONTA_CORRENTE'
-      Origin = 'TBCAIXA_MOVIMENTO.CONTA_CORRENTE'
-      Required = True
-    end
-    object IbDtstTabelaFORMA_PAGTO: TSmallintField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMA_PAGTO'
-      Origin = 'TBCAIXA_MOVIMENTO.FORMA_PAGTO'
-      Required = True
-    end
-    object IbDtstTabelaDATAHORA: TDateTimeField
-      DisplayLabel = 'Data'
-      FieldName = 'DATAHORA'
-      Origin = 'TBCAIXA_MOVIMENTO.DATAHORA'
-      Required = True
-    end
-    object IbDtstTabelaTIPO: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = 'TBCAIXA_MOVIMENTO.TIPO'
-      Required = True
-      Size = 1
-    end
-    object IbDtstTabelaTIPO_RECEITA: TSmallintField
-      DisplayLabel = 'Tipo Receita'
-      FieldName = 'TIPO_RECEITA'
-      Origin = '"TBCAIXA_MOVIMENTO"."TIPO_RECEITA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaTIPO_DESPESA: TSmallintField
-      DisplayLabel = 'Tipo Despesa'
-      FieldName = 'TIPO_DESPESA'
-      Origin = '"TBCAIXA_MOVIMENTO"."TIPO_DESPESA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = 'TBCAIXA_MOVIMENTO.EMPRESA'
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaCLIENTE: TIBStringField
-      DisplayLabel = 'Cliente'
-      FieldName = 'CLIENTE'
-      Origin = 'TBCAIXA_MOVIMENTO.CLIENTE'
-      Size = 18
-    end
-    object IbDtstTabelaCLIENTE_COD: TIntegerField
-      FieldName = 'CLIENTE_COD'
-      Origin = '"TBCAIXA_MOVIMENTO"."CLIENTE_COD"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaFORNECEDOR: TIntegerField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'FORNECEDOR'
-      Origin = 'TBCAIXA_MOVIMENTO.FORNECEDOR'
-    end
-    object IbDtstTabelaHISTORICO: TIBStringField
-      DisplayLabel = 'Hist'#243'rico'
-      FieldName = 'HISTORICO'
-      Origin = 'TBCAIXA_MOVIMENTO.HISTORICO'
-      Required = True
-      Size = 250
-    end
-    object IbDtstTabelaVALOR: TIBBCDField
-      DisplayLabel = 'Valor (R$)'
-      FieldName = 'VALOR'
-      Origin = 'TBCAIXA_MOVIMENTO.VALOR'
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaSITUACAO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Situa'#231#227'o'
-      FieldName = 'SITUACAO'
-      Origin = 'TBCAIXA_MOVIMENTO.SITUACAO'
-      OnGetText = IbDtstTabelaSITUACAOGetText
-    end
-    object IbDtstTabelaVENDA_ANO: TSmallintField
-      FieldName = 'VENDA_ANO'
-      Origin = 'TBCAIXA_MOVIMENTO.VENDA_ANO'
-    end
-    object IbDtstTabelaVENDA_NUM: TIntegerField
-      FieldName = 'VENDA_NUM'
-      Origin = 'TBCAIXA_MOVIMENTO.VENDA_NUM'
-    end
-    object IbDtstTabelaCOMPRA_ANO: TSmallintField
-      FieldName = 'COMPRA_ANO'
-      Origin = 'TBCAIXA_MOVIMENTO.COMPRA_ANO'
-    end
-    object IbDtstTabelaCOMPRA_NUM: TIntegerField
-      FieldName = 'COMPRA_NUM'
-      Origin = 'TBCAIXA_MOVIMENTO.COMPRA_NUM'
-    end
-    object IbDtstTabelaUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = 'TBCAIXA_MOVIMENTO.USUARIO'
-      Required = True
-      Size = 12
-    end
-    object IbDtstTabelaFORMA_PAGTO_DESC: TIBStringField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'TBFORMPAGTO.DESCRI'
-      Size = 30
-    end
-    object IbDtstTabelaNOME_CLENTE: TIBStringField
-      DisplayLabel = 'Cliente'
-      FieldName = 'NOME_CLENTE'
-      Origin = 'TBCLIENTE.NOME'
-      Size = 60
-    end
-    object IbDtstTabelaNOME_FORNECEDOR: TIBStringField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'NOME_FORNECEDOR'
-      Origin = 'TBFORNECEDOR.NOMEFORN'
-      Size = 60
-    end
-    object IbDtstTabelaVALOR_CREDITO: TIBBCDField
-      DisplayLabel = 'Cr'#233'dito (R$)'
-      FieldName = 'VALOR_CREDITO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaVALOR_DEBITO: TIBBCDField
-      DisplayLabel = 'D'#233'bito (R$)'
-      FieldName = 'VALOR_DEBITO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaDATA: TDateField
-      DisplayLabel = 'Data'
-      FieldName = 'DATA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaHORA: TTimeField
-      Alignment = taCenter
-      DisplayLabel = 'Hora'
-      FieldName = 'HORA'
-      DisplayFormat = 'hh:mm'
-    end
-    object IbDtstTabelaVENDA: TIBStringField
-      DisplayLabel = 'Venda'
-      FieldName = 'VENDA'
-      Size = 23
-    end
-    object IbDtstTabelaTITULO: TIBStringField
-      DisplayLabel = 'T'#237'tulo'
-      FieldName = 'TITULO'
-      Size = 23
-    end
-    object IbDtstTabelaCOMPRA: TIBStringField
-      DisplayLabel = 'Compra'
-      FieldName = 'COMPRA'
-      Size = 23
-    end
-    object IbDtstTabelaDUPLICATA: TIBStringField
-      DisplayLabel = 'Duplicata'
-      FieldName = 'DUPLICATA'
-      Size = 23
-    end
-    object IbDtstTabelaSITUACAO_CAIXA: TSmallintField
-      FieldName = 'SITUACAO_CAIXA'
-      Origin = 'TBCAIXA.SITUACAO'
-    end
-    object IbDtstTabelaDATA_FECH: TDateField
-      FieldName = 'DATA_FECH'
-      Origin = 'TBCAIXA.DATA_FECH'
-    end
-    object IbDtstTabelaDATA_CANCEL: TDateField
-      FieldName = 'DATA_CANCEL'
-      Origin = 'TBCAIXA.DATA_CANCEL'
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
     Left = 928
+    Top = 32
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1946,9 +1757,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Left = 896
   end
   inherited ImgList: TImageList
-    Left = 832
+    Left = 824
+    Top = 0
     Bitmap = {
-      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3407,6 +3219,413 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    OnNewRecord = fdQryTabelaNewRecord
+    SQL.Strings = (
+      'Select'
+      '    m.Ano'
+      '  , m.Numero'
+      '  , m.Caixa_ano'
+      '  , m.Caixa_num'
+      '  , m.Conta_corrente'
+      '  , m.Forma_pagto'
+      '  , m.Datahora'
+      '  , m.Tipo'
+      '  , m.Tipo_receita'
+      '  , m.Tipo_despesa'
+      '  , m.Historico'
+      '  , m.Valor'
+      '  , m.Situacao'
+      '  , m.Venda_ano'
+      '  , m.Venda_num'
+      '  , m.Cliente'
+      '  , m.Cliente_cod'
+      '  , m.Compra_ano'
+      '  , m.Compra_num'
+      '  , m.Empresa'
+      '  , m.Fornecedor'
+      '  , m.Usuario'
+      '  , fp.Descri as Forma_pagto_Desc'
+      '  , c.Nome as nome_clente'
+      '  , f.Nomeforn as nome_fornecedor'
+      
+        '  , Case when upper(m.Tipo) = '#39'C'#39' then m.Valor else 0 end as Val' +
+        'or_Credito'
+      
+        '  , Case when upper(m.Tipo) = '#39'D'#39' then m.Valor else 0 end as Val' +
+        'or_Debito'
+      '  , cast(m.Datahora as Date) as Data'
+      '  , cast(m.Datahora as Time) as Hora'
+      
+        '  , m.Venda_ano    || '#39'/'#39' || right('#39'00000'#39' || m.Venda_num,    7)' +
+        ' as Venda'
+      
+        '  , m.Areceber_ano || '#39'/'#39' || right('#39'00000'#39' || m.Areceber_num, 7)' +
+        ' as Titulo'
+      
+        '  , m.Compra_ano   || '#39'/'#39' || right('#39'00000'#39' || m.Compra_num,   7)' +
+        ' as Compra'
+      
+        '  , m.Apagar_ano   || '#39'/'#39' || right('#39'00000'#39' || m.Apagar_num,   7)' +
+        ' as Duplicata'
+      '  , cm.Situacao as situacao_CAIXA'
+      '  , cm.Data_fech'
+      '  , cm.Data_cancel'
+      'from TBCAIXA_MOVIMENTO m'
+      '  left join TBCLIENTE c on (c.Codigo = m.Cliente_cod)'
+      '  left join TBFORNECEDOR f on (f.Codforn = m.Fornecedor)'
+      '  left join TBFORMPAGTO fp on (fp.Cod = m.Forma_pagto)'
+      
+        '  left join TBCAIXA cm on (cm.Ano = m.Caixa_ano and cm.Numero = ' +
+        'm.Caixa_num)')
+    Left = 864
+    object fdQryTabelaANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaNUMERO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaCAIXA_ANO: TSmallintField
+      Alignment = taCenter
+      FieldName = 'CAIXA_ANO'
+      Origin = 'CAIXA_ANO'
+    end
+    object fdQryTabelaCAIXA_NUM: TIntegerField
+      Alignment = taCenter
+      FieldName = 'CAIXA_NUM'
+      Origin = 'CAIXA_NUM'
+    end
+    object fdQryTabelaCONTA_CORRENTE: TIntegerField
+      DisplayLabel = 'Conta Corrente'
+      FieldName = 'CONTA_CORRENTE'
+      Origin = 'CONTA_CORRENTE'
+      Required = True
+    end
+    object fdQryTabelaFORMA_PAGTO: TSmallintField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+      Required = True
+      Visible = False
+    end
+    object fdQryTabelaDATAHORA: TSQLTimeStampField
+      DisplayLabel = 'Data'
+      FieldName = 'DATAHORA'
+      Origin = 'DATAHORA'
+      Required = True
+    end
+    object fdQryTabelaTIPO: TStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+      Size = 1
+    end
+    object fdQryTabelaTIPO_RECEITA: TSmallintField
+      DisplayLabel = 'Tipo Receita'
+      FieldName = 'TIPO_RECEITA'
+      Origin = 'TIPO_RECEITA'
+    end
+    object fdQryTabelaTIPO_DESPESA: TSmallintField
+      DisplayLabel = 'Tipo Despesa'
+      FieldName = 'TIPO_DESPESA'
+      Origin = 'TIPO_DESPESA'
+    end
+    object fdQryTabelaEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaCLIENTE: TStringField
+      DisplayLabel = 'Cliente'
+      FieldName = 'CLIENTE'
+      Origin = 'CLIENTE'
+      Size = 18
+    end
+    object fdQryTabelaCLIENTE_COD: TIntegerField
+      FieldName = 'CLIENTE_COD'
+      Origin = 'CLIENTE_COD'
+    end
+    object fdQryTabelaFORNECEDOR: TIntegerField
+      DisplayLabel = 'Fornecedor'
+      FieldName = 'FORNECEDOR'
+      Origin = 'FORNECEDOR'
+    end
+    object fdQryTabelaHISTORICO: TStringField
+      DisplayLabel = 'Hist'#243'rico'
+      FieldName = 'HISTORICO'
+      Origin = 'HISTORICO'
+      Required = True
+      Size = 250
+    end
+    object fdQryTabelaVALOR: TBCDField
+      DisplayLabel = 'Valor (R$)'
+      FieldName = 'VALOR'
+      Origin = 'VALOR'
+      Required = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaSITUACAO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Situa'#231#227'o'
+      FieldName = 'SITUACAO'
+      Origin = 'SITUACAO'
+      OnGetText = fdQryTabelaSITUACAOGetText
+    end
+    object fdQryTabelaVENDA_ANO: TSmallintField
+      FieldName = 'VENDA_ANO'
+      Origin = 'VENDA_ANO'
+    end
+    object fdQryTabelaVENDA_NUM: TIntegerField
+      FieldName = 'VENDA_NUM'
+      Origin = 'VENDA_NUM'
+    end
+    object fdQryTabelaCOMPRA_ANO: TSmallintField
+      FieldName = 'COMPRA_ANO'
+      Origin = 'COMPRA_ANO'
+    end
+    object fdQryTabelaCOMPRA_NUM: TIntegerField
+      FieldName = 'COMPRA_NUM'
+      Origin = 'COMPRA_NUM'
+    end
+    object fdQryTabelaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Required = True
+      Size = 12
+    end
+    object fdQryTabelaFORMA_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'FORMA_PAGTO_DESC'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryTabelaNOME_CLENTE: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cliente'
+      FieldName = 'NOME_CLENTE'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaNOME_FORNECEDOR: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Fornecedor'
+      FieldName = 'NOME_FORNECEDOR'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaVALOR_CREDITO: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cr'#233'dito (R$)'
+      FieldName = 'VALOR_CREDITO'
+      Origin = 'VALOR_CREDITO'
+      ProviderFlags = []
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_DEBITO: TBCDField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'D'#233'bito (R$)'
+      FieldName = 'VALOR_DEBITO'
+      Origin = 'VALOR_DEBITO'
+      ProviderFlags = []
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaDATA: TDateField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Data'
+      FieldName = 'DATA'
+      Origin = '"DATA"'
+      ProviderFlags = []
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTabelaHORA: TTimeField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Hora'
+      FieldName = 'HORA'
+      Origin = 'HORA'
+      ProviderFlags = []
+      DisplayFormat = 'hh:mm'
+    end
+    object fdQryTabelaVENDA: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Venda'
+      FieldName = 'VENDA'
+      Origin = 'VENDA'
+      ProviderFlags = []
+      Size = 23
+    end
+    object fdQryTabelaTITULO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'T'#237'tulo'
+      FieldName = 'TITULO'
+      Origin = 'TITULO'
+      ProviderFlags = []
+      Size = 23
+    end
+    object fdQryTabelaCOMPRA: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Compra'
+      FieldName = 'COMPRA'
+      Origin = 'COMPRA'
+      ProviderFlags = []
+      Size = 23
+    end
+    object fdQryTabelaDUPLICATA: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Duplicata'
+      FieldName = 'DUPLICATA'
+      Origin = 'DUPLICATA'
+      ProviderFlags = []
+      Size = 23
+    end
+    object fdQryTabelaSITUACAO_CAIXA: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'SITUACAO_CAIXA'
+      Origin = 'SITUACAO'
+      ProviderFlags = []
+    end
+    object fdQryTabelaDATA_FECH: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_FECH'
+      Origin = 'DATA_FECH'
+      ProviderFlags = []
+    end
+    object fdQryTabelaDATA_CANCEL: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_CANCEL'
+      Origin = 'DATA_CANCEL'
+      ProviderFlags = []
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBCAIXA_MOVIMENTO'
+      '(ANO, NUMERO, CAIXA_ANO, CAIXA_NUM, CONTA_CORRENTE, '
+      '  FORMA_PAGTO, DATAHORA, TIPO, TIPO_RECEITA, '
+      '  TIPO_DESPESA, HISTORICO, VALOR, SITUACAO, '
+      '  VENDA_ANO, VENDA_NUM, CLIENTE_COD, CLIENTE, '
+      '  COMPRA_ANO, COMPRA_NUM, EMPRESA, FORNECEDOR, '
+      '  USUARIO)'
+      
+        'VALUES (:NEW_ANO, :NEW_NUMERO, :NEW_CAIXA_ANO, :NEW_CAIXA_NUM, :' +
+        'NEW_CONTA_CORRENTE, '
+      
+        '  :NEW_FORMA_PAGTO, :NEW_DATAHORA, :NEW_TIPO, :NEW_TIPO_RECEITA,' +
+        ' '
+      '  :NEW_TIPO_DESPESA, :NEW_HISTORICO, :NEW_VALOR, :NEW_SITUACAO, '
+      
+        '  :NEW_VENDA_ANO, :NEW_VENDA_NUM, :NEW_CLIENTE_COD, :NEW_CLIENTE' +
+        ', '
+      
+        '  :NEW_COMPRA_ANO, :NEW_COMPRA_NUM, :NEW_EMPRESA, :NEW_FORNECEDO' +
+        'R, '
+      '  :NEW_USUARIO)'
+      'RETURNING SITUACAO')
+    ModifySQL.Strings = (
+      'UPDATE TBCAIXA_MOVIMENTO'
+      
+        'SET ANO = :NEW_ANO, NUMERO = :NEW_NUMERO, CAIXA_ANO = :NEW_CAIXA' +
+        '_ANO, '
+      
+        '  CAIXA_NUM = :NEW_CAIXA_NUM, CONTA_CORRENTE = :NEW_CONTA_CORREN' +
+        'TE, '
+      '  FORMA_PAGTO = :NEW_FORMA_PAGTO, DATAHORA = :NEW_DATAHORA, '
+      
+        '  TIPO = :NEW_TIPO, TIPO_RECEITA = :NEW_TIPO_RECEITA, TIPO_DESPE' +
+        'SA = :NEW_TIPO_DESPESA, '
+      
+        '  HISTORICO = :NEW_HISTORICO, VALOR = :NEW_VALOR, SITUACAO = :NE' +
+        'W_SITUACAO, '
+      '  VENDA_ANO = :NEW_VENDA_ANO, VENDA_NUM = :NEW_VENDA_NUM, '
+      '  CLIENTE_COD = :NEW_CLIENTE_COD, CLIENTE = :NEW_CLIENTE, '
+      '  COMPRA_ANO = :NEW_COMPRA_ANO, COMPRA_NUM = :NEW_COMPRA_NUM, '
+      
+        '  EMPRESA = :NEW_EMPRESA, FORNECEDOR = :NEW_FORNECEDOR, USUARIO ' +
+        '= :NEW_USUARIO'
+      'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO'
+      'RETURNING SITUACAO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCAIXA_MOVIMENTO'
+      'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    m.Ano'
+      '  , m.Numero'
+      '  , m.Caixa_ano'
+      '  , m.Caixa_num'
+      '  , m.Conta_corrente'
+      '  , m.Forma_pagto'
+      '  , m.Datahora'
+      '  , m.Tipo'
+      '  , m.Tipo_receita'
+      '  , m.Tipo_despesa'
+      '  , m.Historico'
+      '  , m.Valor'
+      '  , m.Situacao'
+      '  , m.Venda_ano'
+      '  , m.Venda_num'
+      '  , m.Cliente'
+      '  , m.Cliente_cod'
+      '  , m.Compra_ano'
+      '  , m.Compra_num'
+      '  , m.Empresa'
+      '  , m.Fornecedor'
+      '  , m.Usuario'
+      '  , fp.Descri as Forma_pagto_Desc'
+      '  , c.Nome as nome_clente'
+      '  , f.Nomeforn as nome_fornecedor'
+      
+        '  , Case when upper(m.Tipo) = '#39'C'#39' then m.Valor else 0 end as Val' +
+        'or_Credito'
+      
+        '  , Case when upper(m.Tipo) = '#39'D'#39' then m.Valor else 0 end as Val' +
+        'or_Debito'
+      '  , cast(m.Datahora as Date) as Data'
+      '  , cast(m.Datahora as Time) as Hora'
+      
+        '  , m.Venda_ano    || '#39'/'#39' || right('#39'00000'#39' || m.Venda_num,    7)' +
+        ' as Venda'
+      
+        '  , m.Areceber_ano || '#39'/'#39' || right('#39'00000'#39' || m.Areceber_num, 7)' +
+        ' as Titulo'
+      
+        '  , m.Compra_ano   || '#39'/'#39' || right('#39'00000'#39' || m.Compra_num,   7)' +
+        ' as Compra'
+      
+        '  , m.Apagar_ano   || '#39'/'#39' || right('#39'00000'#39' || m.Apagar_num,   7)' +
+        ' as Duplicata'
+      '  , cm.Situacao as situacao_CAIXA'
+      '  , cm.Data_fech'
+      '  , cm.Data_cancel'
+      'from TBCAIXA_MOVIMENTO m'
+      '  left join TBCLIENTE c on (c.Codigo = m.Cliente_cod)'
+      '  left join TBFORNECEDOR f on (f.Codforn = m.Fornecedor)'
+      '  left join TBFORMPAGTO fp on (fp.Cod = m.Forma_pagto)'
+      
+        '  left join TBCAIXA cm on (cm.Ano = m.Caixa_ano and cm.Numero = ' +
+        'm.Caixa_num)'
+      'WHERE m.ANO = :ANO AND m.NUMERO = :NUMERO')
+    Left = 896
+  end
   object dtsContaCorrente: TDataSource
     DataSet = fdQryContaCorrente
     Left = 1096
@@ -3431,48 +3650,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     DataSet = fdQryConsolidadoFormaPagto
     Left = 1032
     Top = 313
-  end
-  object qryFluxoSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.Data'
-      '  , f.Conta_corrente'
-      '  , f.Conta_corrente_desc'
-      '  , f.Forma_pagto'
-      '  , f.Forma_pagto_desc'
-      '  , Case when f.Forma_pagto = 0 then f.Saldo else 0 end as Saldo'
-      '  , sum(f.Entrada) as Entrada'
-      '  , sum(f.Saida) as Saida'
-      
-        'from GET_FLUXO_CAIXA(:Conta_Corrente, :Data_Inicial, :Data_Final' +
-        ') f'
-      'group by 1, 2, 3, 4, 5, 6')
-    Left = 1064
-    Top = 408
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'Conta_Corrente'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftDateTime
-        Name = 'Data_Inicial'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftDateTime
-        Name = 'Data_Final'
-        ParamType = ptInput
-        Value = 0d
-      end>
   end
   object frdFluxoSintetico: TfrxDBDataset
     UserName = 'frdFluxoSintetico'
@@ -3513,53 +3690,8 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Left = 1096
     Top = 440
   end
-  object qryFluxoAnalitico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.Data'
-      '  , f.Conta_corrente'
-      '  , f.Conta_corrente_desc'
-      '  , f.Forma_pagto'
-      '  , f.Forma_pagto_desc'
-      '  , f.Historico'
-      '  , f.Tipo'
-      '  , f.Entrada'
-      '  , f.Saida'
-      '  , f.Saldo'
-      '  , f.Caixa_ano'
-      '  , f.Caixa_num'
-      
-        '  , f.Caixa_ano || '#39'/'#39' || right('#39'00000'#39' || f.Caixa_num, 5) as Ca' +
-        'ixa'
-      
-        'from GET_FLUXO_CAIXA(:Conta_Corrente, :Data_Inicial, :Data_Final' +
-        ') f')
-    Left = 1064
-    Top = 440
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'Conta_Corrente'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'Data_Inicial'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'Data_Final'
-        ParamType = ptUnknown
-      end>
-  end
   object frrFluxoAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3625,8 +3757,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        Frame.Typ = []
         Height = 86.929190000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -3635,12 +3769,14 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -3652,6 +3788,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3722,6 +3859,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -8
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3753,6 +3891,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 245.669450000000000000
         Width = 718.110700000000000000
@@ -3872,6 +4011,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Highlight.Font.Style = []
           Highlight.Condition = '<frdFluxoSintetico."SALDO"><0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[IIF(<frdFluxoSintetico."FORMA_PAGTO">=0,IIF(<frdFluxoSintetico.' +
@@ -3884,6 +4024,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 778.583180000000000000
         Width = 718.110700000000000000
@@ -3896,6 +4037,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'P '#225' g i n a :  [Page#]')
@@ -3906,6 +4048,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 287.244280000000000000
         Top = 468.661720000000000000
         Width = 718.110700000000000000
@@ -3987,6 +4130,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             ' (+) Total Cr'#233'dito:')
           ParentFont = False
@@ -4002,6 +4146,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             ' (-) Total D'#233'bito:')
           ParentFont = False
@@ -4034,6 +4179,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -4053,6 +4199,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -4072,6 +4219,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             ' (.) Saldo Anterior:')
           ParentFont = False
@@ -4087,6 +4235,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
@@ -4096,6 +4245,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Highlight.Font.Style = [fsBold]
           Highlight.Condition = '<frdFluxoAnalitico."SALDO"><0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdFluxoSaldos."SALDO_ANTERIOR_VALOR">)] ')
           ParentFont = False
@@ -4122,6 +4272,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Highlight.Font.Style = [fsBold]
           Highlight.Condition = '<frdFluxoAnalitico."SALDO"><0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdFluxoSaldos."SALDO_FINAL_VALOR">)] ')
           ParentFont = False
@@ -4131,6 +4282,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndGrpHeaderCaixa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 166.299320000000000000
         Width = 718.110700000000000000
@@ -4291,6 +4443,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndHeaderMov: TfrxHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 328.819110000000000000
         Width = 718.110700000000000000
@@ -4416,6 +4569,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndMasterDataMov: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 389.291590000000000000
         Width = 718.110700000000000000
@@ -4533,6 +4687,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Highlight.Font.Style = [fsBold]
           Highlight.Condition = '<frdFluxoAnalitico."SALDO"><0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdFluxoAnalitico."SALDO">)] ')
           ParentFont = False
@@ -4542,6 +4697,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndGrpFooterCaixaSaldo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 287.244280000000000000
         Width = 718.110700000000000000
@@ -4565,6 +4721,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Highlight.Font.Style = [fsBold]
           Highlight.Condition = '<frdFluxoSaldos."SALDO_FINAL_VALOR"><0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdFluxoSaldos."SALDO_FINAL_VALOR">)] ')
           ParentFont = False
@@ -4594,42 +4751,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         end
       end
     end
-  end
-  object qryFluxoSaldos: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    s.Saldo_anterior_data'
-      '  , s.Saldo_anterior_valor'
-      '  , s.Saldo_inicial_data'
-      '  , s.Saldo_inicial_valor'
-      '  , s.Saldo_final_data'
-      '  , s.Saldo_final_valor'
-      
-        'from GET_CONTA_CORRENTE_SALDO(:Conta, :DataInicial, :DataFinal) ' +
-        's')
-    Left = 1064
-    Top = 376
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'Conta'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'DataInicial'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'DataFinal'
-        ParamType = ptUnknown
-      end>
   end
   object frdFluxoSaldos: TfrxDBDataset
     UserName = 'frdFluxoSaldos'
@@ -4769,7 +4890,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     end
   end
   object FrReciboA5: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4880,8 +5001,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 98.267780000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -4935,13 +5058,14 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 457.323130000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
@@ -4951,9 +5075,11 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaCNPJ: TfrxMemoView
@@ -4968,6 +5094,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -4988,6 +5115,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -5006,6 +5134,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -5034,6 +5163,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -5051,8 +5181,9 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
-        Top = 529.134199999999900000
+        Top = 529.134200000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -5079,6 +5210,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -5106,6 +5238,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 162.519790000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
@@ -5119,54 +5252,59 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Width = 718.110700000000000000
           Height = 60.472480000000000000
           StretchMode = smMaxHeight
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            716A5C66305C66733230205265636562656D6F73205B494946283C4672645265
-            6369626F2E225449504F223E3D2744272C276461272C2764652F646127295D20
-            5C62205B494946283C46726452656369626F2E225449504F223E3D2744272C3C
-            667264456D70726573612E22525A534F43223E2C3C46726452656369626F2E22
-            4E4F4D45464F524E223E295D5C623020206120696D706F72745C2765326E6369
-            61206465205C62205B46726452656369626F2E2256414C4F525F42414958415F
-            455854454E534F225D5C623020207265666572656E7465205C276530205C6220
-            5B46726452656369626F2E22484953544F5249434F225D202D20284D6F76696D
-            656E746F204361697861205B46726452656369626F2E22414E4F225D2F5B466F
-            726D6174466C6F617428273030303030272C3C46726452656369626F2E224E55
-            4D45524F223E295D202D205B494946283C46726452656369626F2E225449504F
-            223E3D2744272C2027445C2765396269746F272C202743725C2765396469746F
-            27295D295C6230202E5C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C716A5C66305C66733230205265636562656D6F73205B494946283C467264
+            52656369626F2E225449504F223E3D2744272C276461272C2764652F64612729
+            5D205C62205B494946283C46726452656369626F2E225449504F223E3D274427
+            2C3C667264456D70726573612E22525A534F43223E2C3C46726452656369626F
+            2E224E4F4D45464F524E223E295D5C623020206120696D706F72745C2765326E
+            636961206465205C62205B46726452656369626F2E2256414C4F525F42414958
+            415F455854454E534F225D5C623020207265666572656E7465205C276530205C
+            62205B46726452656369626F2E22484953544F5249434F225D202D20284D6F76
+            696D656E746F204361697861205B46726452656369626F2E22414E4F225D2F5B
+            466F726D6174466C6F617428273030303030272C3C46726452656369626F2E22
+            4E554D45524F223E295D202D205B494946283C46726452656369626F2E225449
+            504F223E3D2744272C2027445C2765396269746F272C202743725C2765396469
+            746F27295D295C6230202E5C7061720D0A7D0D0A00}
         end
         object Rich2: TfrxRichView
           Width = 718.110700000000000000
           Height = 102.047310000000000000
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C7061
-            72645C6669313030305C6C693134305C72693138305C73623132305C73613132
-            305C736C3336305C736C6D756C74315C71725C62305C667332342056616C6F72
-            3A205C756C5C62205224205B466F726D6174466C6F617428272C302E3030272C
-            3C46726452656369626F2E2256414C4F525F4241495841223E295D5C756C6E6F
-            6E655C62305C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C
+            706172645C6669313030305C6C693134305C72693138305C73623132305C7361
+            3132305C736C3336305C736C6D756C74315C71725C62305C667332342056616C
+            6F723A205C756C5C62205224205B466F726D6174466C6F617428272C302E3030
+            272C3C46726452656369626F2E2256414C4F525F4241495841223E295D5C756C
+            6E6F6E655C62305C7061720D0A7D0D0A00}
         end
       end
       object BndChildAssinatura: TfrxChild
         FillType = ftBrush
+        Frame.Typ = []
         Height = 105.826840000000000000
         Top = 362.834880000000000000
         Width = 718.110700000000000000
+        ToNRows = 0
+        ToNRowsMode = rmCount
         object Memo9: TfrxMemoView
           Left = 79.370130000000000000
           Top = 86.929190000000000000
@@ -5176,9 +5314,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -5193,14 +5332,14 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         end
         object Memo5: TfrxMemoView
           Left = 79.370130000000000000
-          Top = 64.252009999999990000
+          Top = 64.252010000000000000
           Width = 377.953000000000000000
           Height = 22.677180000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftTop]
@@ -5217,19 +5356,20 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           StretchMode = smMaxHeight
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F726D61
-            744461746554696D652827646420222064652022206D6D6D6D20222064652022
-            2079797979272C203C46726452656369626F2E22444154415F504147544F223E
-            295D2E5C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F72
+            6D61744461746554696D652827646420222064652022206D6D6D6D2022206465
+            20222079797979272C203C46726452656369626F2E22444154415F504147544F
+            223E295D2E5C7061720D0A7D0D0A00}
         end
       end
     end
@@ -5283,234 +5423,164 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Left = 348
     Top = 417
   end
-  object QryRecibo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    cxm.ano'
-      '  , cxm.numero'
-      '  , cxm.tipo'
-      '  , coalesce(p.Anolanc, r.Anolanc, cxm.ano) || '#39'/'#39' ||'
-      
-        '    right('#39'00000'#39' || coalesce(p.Numlanc, r.Numlanc, cxm.numero),' +
-        ' 5) ||'
-      
-        '    '#39'.'#39' || cxm.tipo || right('#39'00000'#39' || cxm.numero, 5) as numero' +
-        '_recibo'
-      '  , coalesce(p.Anolanc, r.Anolanc) as Anolanc'
-      '  , coalesce(p.Numlanc, r.Numlanc) as Numlanc'
-      '  , coalesce(p.Parcela, r.Parcela) as Parcela'
-      '  , coalesce(p.nomeemp, e.rzsoc) as Nomeemp'
-      
-        '  , coalesce(p.codforn, r.cliente, cxm.fornecedor, cxm.cliente_c' +
-        'od) as Codforn'
-      '  , coalesce(f.Nomeforn, c.nome) as Nomeforn'
-      '  , coalesce(f.pessoa_fisica, c.pessoa_fisica) as pessoa_fisica'
-      '  , coalesce(f.Cnpj, c.cnpj) as cnpj'
-      '  , coalesce(p.notfisc, r.numcontrato) as Notfisc'
-      '  , coalesce(p.tippag, r.tippag, fp.descri) as Tippag'
-      
-        '  , coalesce(p.Dtemiss, r.dtemiss, cast(cxm.datahora as date)) a' +
-        's Dtemiss'
-      
-        '  , coalesce(p.Dtvenc, r.dtvenc, cast(cxm.datahora as date)) as ' +
-        'Dtvenc'
-      
-        '  , coalesce(p.Dtpag, r.dtrec, cast(cxm.datahora as date)) as Dt' +
-        'pag'
-      '  , cxm.valor as Valorpag'
-      '  , coalesce(p.Banco, r.codbanco) as Banco'
-      '  , b.Bco_nome'
-      '  , p.Numchq'
-      
-        '  , Case when coalesce(p.Quitado, r.baixado, 1) = 1 then '#39'X'#39' els' +
-        'e '#39'.'#39' end as Pago_'
-      '  , coalesce(p.Docbaix, r.docbaix) as Docbaix'
-      '  , coalesce(p.Quitado, r.baixado, 1) as Quitado'
-      '  , coalesce(p.Codtpdesp, cxm.tipo_despesa) as Codtpdesp'
-      ''
-      '  , 0 as seq'
-      '  , cast(cxm.datahora as date) data_pagto'
-      '  , cxm.forma_pagto'
-      '  , fp.descri as forma_pagto_desc'
-      '  , cxm.historico'
-      '  , cxm.valor as valor_baixa'
-      'from TBCAIXA_MOVIMENTO cxm'
-      '  left join TBEMPRESA e on (e.cnpj = cxm.empresa)'
-      '  left join TBFORMPAGTO fp on (fp.cod = cxm.forma_pagto)'
-      
-        '  left join TBCONTPAG p on (p.anolanc = cxm.apagar_ano and p.num' +
-        'lanc = cxm.apagar_num)'
-      
-        '  left join TBCONTREC r on (r.anolanc = cxm.areceber_ano and r.n' +
-        'umlanc = cxm.areceber_num)'
-      ''
-      
-        '  left join TBFORNECEDOR f on (f.Codforn = coalesce(cxm.forneced' +
-        'or, p.codforn))'
-      
-        '  left join TBCLIENTE c on (c.codigo = coalesce(cxm.cliente_cod,' +
-        ' r.cliente))'
-      ''
-      
-        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
-        'sa = cxm.empresa)'
-      ''
-      'where cxm.ano    = :ano'
-      '  and cxm.numero = :numero')
-    Left = 260
-    Top = 497
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'numero'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object DspRecibo: TDataSetProvider
     DataSet = QryRecibo
-    Left = 292
-    Top = 497
+    Left = 296
+    Top = 496
   end
   object CdsRecibo: TClientDataSet
     Aggregates = <>
     Params = <
       item
-        DataType = ftInteger
-        Name = 'ano'
+        DataType = ftSmallint
+        Name = 'ANO'
         ParamType = ptInput
-        Value = 0
       end
       item
         DataType = ftInteger
-        Name = 'numero'
+        Name = 'NUMERO'
         ParamType = ptInput
-        Value = 0
       end>
     ProviderName = 'DspRecibo'
     OnCalcFields = CdsReciboCalcFields
-    Left = 324
-    Top = 497
+    Left = 328
+    Top = 496
     object CdsReciboANO: TSmallintField
       FieldName = 'ANO'
+      Required = True
     end
     object CdsReciboNUMERO: TIntegerField
       FieldName = 'NUMERO'
       Required = True
     end
-    object CdsReciboTIPO: TWideStringField
+    object CdsReciboTIPO: TStringField
       FieldName = 'TIPO'
       Size = 1
     end
-    object CdsReciboNUMERO_RECIBO: TWideStringField
+    object CdsReciboNUMERO_RECIBO: TStringField
       FieldName = 'NUMERO_RECIBO'
+      ReadOnly = True
       Size = 41
     end
     object CdsReciboANOLANC: TSmallintField
       FieldName = 'ANOLANC'
+      ReadOnly = True
     end
     object CdsReciboNUMLANC: TIntegerField
       FieldName = 'NUMLANC'
+      ReadOnly = True
     end
     object CdsReciboPARCELA: TSmallintField
       FieldName = 'PARCELA'
+      ReadOnly = True
     end
-    object CdsReciboNOMEEMP: TWideStringField
+    object CdsReciboNOMEEMP: TStringField
       FieldName = 'NOMEEMP'
+      ReadOnly = True
       Size = 60
     end
     object CdsReciboCODFORN: TIntegerField
       FieldName = 'CODFORN'
+      ReadOnly = True
     end
-    object CdsReciboNOMEFORN: TWideStringField
+    object CdsReciboNOMEFORN: TStringField
       FieldName = 'NOMEFORN'
+      ReadOnly = True
       Size = 100
     end
     object CdsReciboPESSOA_FISICA: TSmallintField
       FieldName = 'PESSOA_FISICA'
+      ReadOnly = True
     end
-    object CdsReciboCNPJ: TWideStringField
+    object CdsReciboCNPJ: TStringField
       FieldName = 'CNPJ'
+      ReadOnly = True
       Size = 18
     end
-    object CdsReciboNOTFISC: TWideStringField
+    object CdsReciboNOTFISC: TStringField
       FieldName = 'NOTFISC'
+      ReadOnly = True
       Size = 15
     end
-    object CdsReciboTIPPAG: TWideStringField
+    object CdsReciboTIPPAG: TStringField
       FieldName = 'TIPPAG'
+      ReadOnly = True
       Size = 35
     end
     object CdsReciboDTEMISS: TDateField
       FieldName = 'DTEMISS'
+      ReadOnly = True
     end
     object CdsReciboDTVENC: TDateField
       FieldName = 'DTVENC'
+      ReadOnly = True
     end
     object CdsReciboDTPAG: TDateField
       FieldName = 'DTPAG'
+      ReadOnly = True
     end
     object CdsReciboVALORPAG: TBCDField
       FieldName = 'VALORPAG'
+      Required = True
       Precision = 18
       Size = 2
     end
     object CdsReciboBANCO: TIntegerField
       FieldName = 'BANCO'
+      ReadOnly = True
     end
-    object CdsReciboBCO_NOME: TWideStringField
+    object CdsReciboBCO_NOME: TStringField
       FieldName = 'BCO_NOME'
+      ReadOnly = True
       Size = 50
     end
-    object CdsReciboNUMCHQ: TWideStringField
+    object CdsReciboNUMCHQ: TStringField
       FieldName = 'NUMCHQ'
+      ReadOnly = True
       Size = 10
     end
-    object CdsReciboPAGO_: TWideStringField
+    object CdsReciboPAGO_: TStringField
       FieldName = 'PAGO_'
+      ReadOnly = True
       FixedChar = True
       Size = 1
     end
-    object CdsReciboDOCBAIX: TWideStringField
+    object CdsReciboDOCBAIX: TStringField
       FieldName = 'DOCBAIX'
+      ReadOnly = True
       Size = 15
     end
     object CdsReciboQUITADO: TIntegerField
       FieldName = 'QUITADO'
+      ReadOnly = True
     end
     object CdsReciboCODTPDESP: TSmallintField
       FieldName = 'CODTPDESP'
+      ReadOnly = True
     end
     object CdsReciboSEQ: TIntegerField
       FieldName = 'SEQ'
+      ReadOnly = True
     end
     object CdsReciboDATA_PAGTO: TDateField
       FieldName = 'DATA_PAGTO'
+      ReadOnly = True
     end
     object CdsReciboFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
     end
-    object CdsReciboFORMA_PAGTO_DESC: TWideStringField
+    object CdsReciboFORMA_PAGTO_DESC: TStringField
       FieldName = 'FORMA_PAGTO_DESC'
+      ReadOnly = True
       Size = 30
     end
-    object CdsReciboHISTORICO: TWideStringField
+    object CdsReciboHISTORICO: TStringField
       FieldName = 'HISTORICO'
       Size = 250
     end
     object CdsReciboVALOR_BAIXA: TBCDField
       FieldName = 'VALOR_BAIXA'
+      Required = True
       Precision = 18
       Size = 2
     end
@@ -5526,7 +5596,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Top = 184
   end
   object FrReciboA4: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5636,8 +5706,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 98.267780000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -5691,13 +5763,14 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 457.323130000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
@@ -5707,9 +5780,11 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaCNPJ: TfrxMemoView
@@ -5724,6 +5799,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -5744,6 +5820,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -5762,6 +5839,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -5790,6 +5868,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -5807,6 +5886,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 529.134200000000000000
         Width = 718.110700000000000000
@@ -5835,6 +5915,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -5862,6 +5943,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 162.519790000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
@@ -5875,54 +5957,59 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Width = 718.110700000000000000
           Height = 60.472480000000000000
           StretchMode = smMaxHeight
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            716A5C66305C66733230205265636562656D6F73205B494946283C4672645265
-            6369626F2E225449504F223E3D2744272C276461272C2764652F646127295D20
-            5C62205B494946283C46726452656369626F2E225449504F223E3D2744272C3C
-            667264456D70726573612E22525A534F43223E2C3C46726452656369626F2E22
-            4E4F4D45464F524E223E295D5C623020206120696D706F72745C2765326E6369
-            61206465205C62205B46726452656369626F2E2256414C4F525F42414958415F
-            455854454E534F225D5C623020207265666572656E7465205C276530205C6220
-            5B46726452656369626F2E22484953544F5249434F225D202D20284D6F76696D
-            656E746F204361697861205B46726452656369626F2E22414E4F225D2F5B466F
-            726D6174466C6F617428273030303030272C3C46726452656369626F2E224E55
-            4D45524F223E295D202D205B494946283C46726452656369626F2E225449504F
-            223E3D2744272C2027445C2765396269746F272C202743725C2765396469746F
-            27295D295C6230202E5C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C716A5C66305C66733230205265636562656D6F73205B494946283C467264
+            52656369626F2E225449504F223E3D2744272C276461272C2764652F64612729
+            5D205C62205B494946283C46726452656369626F2E225449504F223E3D274427
+            2C3C667264456D70726573612E22525A534F43223E2C3C46726452656369626F
+            2E224E4F4D45464F524E223E295D5C623020206120696D706F72745C2765326E
+            636961206465205C62205B46726452656369626F2E2256414C4F525F42414958
+            415F455854454E534F225D5C623020207265666572656E7465205C276530205C
+            62205B46726452656369626F2E22484953544F5249434F225D202D20284D6F76
+            696D656E746F204361697861205B46726452656369626F2E22414E4F225D2F5B
+            466F726D6174466C6F617428273030303030272C3C46726452656369626F2E22
+            4E554D45524F223E295D202D205B494946283C46726452656369626F2E225449
+            504F223E3D2744272C2027445C2765396269746F272C202743725C2765396469
+            746F27295D295C6230202E5C7061720D0A7D0D0A00}
         end
         object Rich2: TfrxRichView
           Width = 718.110700000000000000
           Height = 102.047310000000000000
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C7061
-            72645C6669313030305C6C693134305C72693138305C73623132305C73613132
-            305C736C3336305C736C6D756C74315C71725C62305C667332342056616C6F72
-            3A205C756C5C62205224205B466F726D6174466C6F617428272C302E3030272C
-            3C46726452656369626F2E2256414C4F525F4241495841223E295D5C756C6E6F
-            6E655C62305C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C
+            706172645C6669313030305C6C693134305C72693138305C73623132305C7361
+            3132305C736C3336305C736C6D756C74315C71725C62305C667332342056616C
+            6F723A205C756C5C62205224205B466F726D6174466C6F617428272C302E3030
+            272C3C46726452656369626F2E2256414C4F525F4241495841223E295D5C756C
+            6E6F6E655C62305C7061720D0A7D0D0A00}
         end
       end
       object BndChildAssinatura: TfrxChild
         FillType = ftBrush
+        Frame.Typ = []
         Height = 105.826840000000000000
         Top = 362.834880000000000000
         Width = 718.110700000000000000
+        ToNRows = 0
+        ToNRowsMode = rmCount
         object Memo9: TfrxMemoView
           Left = 79.370130000000000000
           Top = 86.929190000000000000
@@ -5932,9 +6019,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -5949,14 +6037,14 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
         end
         object Memo5: TfrxMemoView
           Left = 79.370130000000000000
-          Top = 64.252009999999990000
+          Top = 64.252010000000000000
           Width = 377.953000000000000000
           Height = 22.677180000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftTop]
@@ -5973,19 +6061,20 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           StretchMode = smMaxHeight
+          Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F7220526963686564323020362E332E393630307D5C766965
-            776B696E64345C756331200D0A5C706172645C6669313030305C6C693134305C
-            72693138305C73623132305C73613132305C736C3336305C736C6D756C74315C
-            716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F726D61
-            744461746554696D652827646420222064652022206D6D6D6D20222064652022
-            2079797979272C203C46726452656369626F2E22444154415F504147544F223E
-            295D2E5C7061720D0A7D0D0A00}
+            67656E657261746F722052696368656432302031302E302E31343339337D5C76
+            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
+            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
+            315C716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F72
+            6D61744461746554696D652827646420222064652022206D6D6D6D2022206465
+            20222079797979272C203C46726452656369626F2E22444154415F504147544F
+            223E295D2E5C7061720D0A7D0D0A00}
         end
       end
     end
@@ -6261,5 +6350,215 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       FieldKind = fkInternalCalc
       FieldName = 'SaldoDisplay'
     end
+  end
+  object qryFluxoSaldos: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    s.Saldo_anterior_data'
+      '  , s.Saldo_anterior_valor'
+      '  , s.Saldo_inicial_data'
+      '  , s.Saldo_inicial_valor'
+      '  , s.Saldo_final_data'
+      '  , s.Saldo_final_valor'
+      
+        'from GET_CONTA_CORRENTE_SALDO(:Conta, :DataInicial, :DataFinal) ' +
+        's')
+    Left = 1064
+    Top = 376
+    ParamData = <
+      item
+        Name = 'CONTA'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATAINICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'DATAFINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+  end
+  object qryFluxoSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.Data'
+      '  , f.Conta_corrente'
+      '  , f.Conta_corrente_desc'
+      '  , f.Forma_pagto'
+      '  , f.Forma_pagto_desc'
+      '  , Case when f.Forma_pagto = 0 then f.Saldo else 0 end as Saldo'
+      '  , sum(f.Entrada) as Entrada'
+      '  , sum(f.Saida) as Saida'
+      
+        'from GET_FLUXO_CAIXA(:Conta_Corrente, :Data_Inicial, :Data_Final' +
+        ') f'
+      'group by 1, 2, 3, 4, 5, 6')
+    Left = 1064
+    Top = 408
+    ParamData = <
+      item
+        Name = 'CONTA_CORRENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATA_INICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'DATA_FINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+  end
+  object qryFluxoAnalitico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.Data'
+      '  , f.Conta_corrente'
+      '  , f.Conta_corrente_desc'
+      '  , f.Forma_pagto'
+      '  , f.Forma_pagto_desc'
+      '  , f.Historico'
+      '  , f.Tipo'
+      '  , f.Entrada'
+      '  , f.Saida'
+      '  , f.Saldo'
+      '  , f.Caixa_ano'
+      '  , f.Caixa_num'
+      
+        '  , f.Caixa_ano || '#39'/'#39' || right('#39'00000'#39' || f.Caixa_num, 5) as Ca' +
+        'ixa'
+      
+        'from GET_FLUXO_CAIXA(:Conta_Corrente, :Data_Inicial, :Data_Final' +
+        ') f')
+    Left = 1064
+    Top = 440
+    ParamData = <
+      item
+        Name = 'CONTA_CORRENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATA_INICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'DATA_FINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+  end
+  object QryRecibo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    cxm.ano'
+      '  , cxm.numero'
+      '  , cxm.tipo'
+      '  , coalesce(p.Anolanc, r.Anolanc, cxm.ano) || '#39'/'#39' ||'
+      
+        '    right('#39'00000'#39' || coalesce(p.Numlanc, r.Numlanc, cxm.numero),' +
+        ' 5) ||'
+      
+        '    '#39'.'#39' || cxm.tipo || right('#39'00000'#39' || cxm.numero, 5) as numero' +
+        '_recibo'
+      '  , coalesce(p.Anolanc, r.Anolanc) as Anolanc'
+      '  , coalesce(p.Numlanc, r.Numlanc) as Numlanc'
+      '  , coalesce(p.Parcela, r.Parcela) as Parcela'
+      '  , coalesce(p.nomeemp, e.rzsoc) as Nomeemp'
+      
+        '  , coalesce(p.codforn, r.cliente, cxm.fornecedor, cxm.cliente_c' +
+        'od) as Codforn'
+      '  , coalesce(f.Nomeforn, c.nome) as Nomeforn'
+      '  , coalesce(f.pessoa_fisica, c.pessoa_fisica) as pessoa_fisica'
+      '  , coalesce(f.Cnpj, c.cnpj) as cnpj'
+      '  , coalesce(p.notfisc, r.numcontrato) as Notfisc'
+      '  , coalesce(p.tippag, r.tippag, fp.descri) as Tippag'
+      
+        '  , coalesce(p.Dtemiss, r.dtemiss, cast(cxm.datahora as date)) a' +
+        's Dtemiss'
+      
+        '  , coalesce(p.Dtvenc, r.dtvenc, cast(cxm.datahora as date)) as ' +
+        'Dtvenc'
+      
+        '  , coalesce(p.Dtpag, r.dtrec, cast(cxm.datahora as date)) as Dt' +
+        'pag'
+      '  , cxm.valor as Valorpag'
+      '  , coalesce(p.Banco, r.codbanco) as Banco'
+      '  , b.Bco_nome'
+      '  , p.Numchq'
+      
+        '  , Case when coalesce(p.Quitado, r.baixado, 1) = 1 then '#39'X'#39' els' +
+        'e '#39'.'#39' end as Pago_'
+      '  , coalesce(p.Docbaix, r.docbaix) as Docbaix'
+      '  , coalesce(p.Quitado, r.baixado, 1) as Quitado'
+      '  , coalesce(p.Codtpdesp, cxm.tipo_despesa) as Codtpdesp'
+      ''
+      '  , 0 as seq'
+      '  , cast(cxm.datahora as date) data_pagto'
+      '  , cxm.forma_pagto'
+      '  , fp.descri as forma_pagto_desc'
+      '  , cxm.historico'
+      '  , cxm.valor as valor_baixa'
+      'from TBCAIXA_MOVIMENTO cxm'
+      '  left join TBEMPRESA e on (e.cnpj = cxm.empresa)'
+      '  left join TBFORMPAGTO fp on (fp.cod = cxm.forma_pagto)'
+      
+        '  left join TBCONTPAG p on (p.anolanc = cxm.apagar_ano and p.num' +
+        'lanc = cxm.apagar_num)'
+      
+        '  left join TBCONTREC r on (r.anolanc = cxm.areceber_ano and r.n' +
+        'umlanc = cxm.areceber_num)'
+      ''
+      
+        '  left join TBFORNECEDOR f on (f.Codforn = coalesce(cxm.forneced' +
+        'or, p.codforn))'
+      
+        '  left join TBCLIENTE c on (c.codigo = coalesce(cxm.cliente_cod,' +
+        ' r.cliente))'
+      ''
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
+        'sa = cxm.empresa)'
+      ''
+      'where cxm.ano    = :ano'
+      '  and cxm.numero = :numero')
+    Left = 256
+    Top = 496
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'NUMERO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
   end
 end

@@ -6,10 +6,10 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
+  Dialogs, ImgList, IBX.IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, StdCtrls,
-  DBClient, Provider, ACBrBase, ACBrExtenso, frxClass, frxDBSet, IBQuery,
-  IBTable, JvDBControls, DBCtrls, JvExMask, JvToolEdit, Mask, Buttons,
+  DBClient, Provider, ACBrBase, ACBrExtenso, frxClass, frxDBSet,
+  JvDBControls, DBCtrls, JvExMask, JvToolEdit, Mask, Buttons,
   ExtCtrls, Grids, DBGrids, ComCtrls, cxButtons, ToolWin,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
@@ -18,7 +18,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeFluxoCaixa = class(TfrmGrPadraoCadastro)
@@ -26,38 +27,8 @@ type
     lblContaCorrentePesq: TLabel;
     dtsContaCorrente: TDataSource;
     dtsFormaPagto: TDataSource;
-    IbDtstTabelaANO: TSmallintField;
-    IbDtstTabelaNUMERO: TIntegerField;
-    IbDtstTabelaCAIXA_ANO: TSmallintField;
-    IbDtstTabelaCAIXA_NUM: TIntegerField;
-    IbDtstTabelaCONTA_CORRENTE: TIntegerField;
-    IbDtstTabelaFORMA_PAGTO: TSmallintField;
-    IbDtstTabelaDATAHORA: TDateTimeField;
-    IbDtstTabelaTIPO: TIBStringField;
-    IbDtstTabelaHISTORICO: TIBStringField;
-    IbDtstTabelaVALOR: TIBBCDField;
-    IbDtstTabelaSITUACAO: TSmallintField;
-    IbDtstTabelaVENDA_ANO: TSmallintField;
-    IbDtstTabelaVENDA_NUM: TIntegerField;
-    IbDtstTabelaCLIENTE: TIBStringField;
-    IbDtstTabelaCOMPRA_ANO: TSmallintField;
-    IbDtstTabelaCOMPRA_NUM: TIntegerField;
-    IbDtstTabelaEMPRESA: TIBStringField;
-    IbDtstTabelaFORNECEDOR: TIntegerField;
-    IbDtstTabelaUSUARIO: TIBStringField;
     pnlConsolidacao: TPanel;
     Bevel5: TBevel;
-    IbDtstTabelaFORMA_PAGTO_DESC: TIBStringField;
-    IbDtstTabelaNOME_CLENTE: TIBStringField;
-    IbDtstTabelaNOME_FORNECEDOR: TIBStringField;
-    IbDtstTabelaVALOR_CREDITO: TIBBCDField;
-    IbDtstTabelaVALOR_DEBITO: TIBBCDField;
-    IbDtstTabelaDATA: TDateField;
-    IbDtstTabelaHORA: TTimeField;
-    IbDtstTabelaVENDA: TIBStringField;
-    IbDtstTabelaTITULO: TIBStringField;
-    IbDtstTabelaCOMPRA: TIBStringField;
-    IbDtstTabelaDUPLICATA: TIBStringField;
     dtsSaldosDias: TDataSource;
     pnlSaldosDias: TPanel;
     Panel1: TPanel;
@@ -119,9 +90,6 @@ type
     Bevel18: TBevel;
     lblUsuario: TLabel;
     dbUsuario: TDBEdit;
-    IbDtstTabelaSITUACAO_CAIXA: TSmallintField;
-    IbDtstTabelaDATA_FECH: TDateField;
-    IbDtstTabelaDATA_CANCEL: TDateField;
     dtsConsolidadoFormaPagto: TDataSource;
     Panel6: TPanel;
     dbtDESCRICAO_FULL: TDBText;
@@ -129,12 +97,9 @@ type
     Bevel20: TBevel;
     Panel7: TPanel;
     dbgConsolidadoFormaPagto: TDBGrid;
-    qryFluxoSintetico: TIBQuery;
     frdFluxoSintetico: TfrxDBDataset;
     frdFluxoAnalitico: TfrxDBDataset;
-    qryFluxoAnalitico: TIBQuery;
     frrFluxoAnalitico: TfrxReport;
-    qryFluxoSaldos: TIBQuery;
     frdFluxoSaldos: TfrxDBDataset;
     dtsEmpresa: TDataSource;
     lblEmpresa: TLabel;
@@ -142,15 +107,12 @@ type
     dtsTpDespesa: TDataSource;
     lblTipoDespesa: TLabel;
     dbTipoDespesa: TDBLookupComboBox;
-    IbDtstTabelaTIPO_DESPESA: TSmallintField;
-    IbDtstTabelaCLIENTE_COD: TIntegerField;
     ppImprimir: TPopupMenu;
     nmImprimirExtrato: TMenuItem;
     nmImprimirReciboA5: TMenuItem;
     FrReciboA5: TfrxReport;
     FrdRecibo: TfrxDBDataset;
     ACBrExtenso: TACBrExtenso;
-    QryRecibo: TIBQuery;
     DspRecibo: TDataSetProvider;
     CdsRecibo: TClientDataSet;
     CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
@@ -160,40 +122,8 @@ type
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     edContaCorrentePesq: TComboBox;
-    CdsReciboANO: TSmallintField;
-    CdsReciboNUMERO: TIntegerField;
-    CdsReciboTIPO: TWideStringField;
-    CdsReciboNUMERO_RECIBO: TWideStringField;
-    CdsReciboANOLANC: TSmallintField;
-    CdsReciboNUMLANC: TIntegerField;
-    CdsReciboPARCELA: TSmallintField;
-    CdsReciboNOMEEMP: TWideStringField;
-    CdsReciboCODFORN: TIntegerField;
-    CdsReciboNOMEFORN: TWideStringField;
-    CdsReciboPESSOA_FISICA: TSmallintField;
-    CdsReciboCNPJ: TWideStringField;
-    CdsReciboNOTFISC: TWideStringField;
-    CdsReciboTIPPAG: TWideStringField;
-    CdsReciboDTEMISS: TDateField;
-    CdsReciboDTVENC: TDateField;
-    CdsReciboDTPAG: TDateField;
-    CdsReciboVALORPAG: TBCDField;
-    CdsReciboBANCO: TIntegerField;
-    CdsReciboBCO_NOME: TWideStringField;
-    CdsReciboNUMCHQ: TWideStringField;
-    CdsReciboPAGO_: TWideStringField;
-    CdsReciboDOCBAIX: TWideStringField;
-    CdsReciboQUITADO: TIntegerField;
-    CdsReciboCODTPDESP: TSmallintField;
-    CdsReciboSEQ: TIntegerField;
-    CdsReciboDATA_PAGTO: TDateField;
-    CdsReciboFORMA_PAGTO: TSmallintField;
-    CdsReciboFORMA_PAGTO_DESC: TWideStringField;
-    CdsReciboHISTORICO: TWideStringField;
-    CdsReciboVALOR_BAIXA: TBCDField;
     lblTipoReceita: TLabel;
     dbTipoReceita: TDBLookupComboBox;
-    IbDtstTabelaTIPO_RECEITA: TSmallintField;
     dtsTpReceita: TDataSource;
     nmImprimirReciboA4: TMenuItem;
     FrReciboA4: TfrxReport;
@@ -220,12 +150,80 @@ type
     fdQryConsolidadoFormaPagtoENTRADA: TBCDField;
     fdQryConsolidadoFormaPagtoSAIDA: TBCDField;
     fdQryConsolidadoFormaPagtoSaldoDIsplay: TStringField;
+    fdQryTabelaANO: TSmallintField;
+    fdQryTabelaNUMERO: TIntegerField;
+    fdQryTabelaCAIXA_ANO: TSmallintField;
+    fdQryTabelaCAIXA_NUM: TIntegerField;
+    fdQryTabelaCONTA_CORRENTE: TIntegerField;
+    fdQryTabelaFORMA_PAGTO: TSmallintField;
+    fdQryTabelaDATAHORA: TSQLTimeStampField;
+    fdQryTabelaTIPO: TStringField;
+    fdQryTabelaTIPO_RECEITA: TSmallintField;
+    fdQryTabelaTIPO_DESPESA: TSmallintField;
+    fdQryTabelaHISTORICO: TStringField;
+    fdQryTabelaVALOR: TBCDField;
+    fdQryTabelaSITUACAO: TSmallintField;
+    fdQryTabelaVENDA_ANO: TSmallintField;
+    fdQryTabelaVENDA_NUM: TIntegerField;
+    fdQryTabelaCLIENTE: TStringField;
+    fdQryTabelaCLIENTE_COD: TIntegerField;
+    fdQryTabelaCOMPRA_ANO: TSmallintField;
+    fdQryTabelaCOMPRA_NUM: TIntegerField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaFORNECEDOR: TIntegerField;
+    fdQryTabelaUSUARIO: TStringField;
+    fdQryTabelaFORMA_PAGTO_DESC: TStringField;
+    fdQryTabelaNOME_CLENTE: TStringField;
+    fdQryTabelaNOME_FORNECEDOR: TStringField;
+    fdQryTabelaVALOR_CREDITO: TBCDField;
+    fdQryTabelaVALOR_DEBITO: TBCDField;
+    fdQryTabelaDATA: TDateField;
+    fdQryTabelaHORA: TTimeField;
+    fdQryTabelaVENDA: TStringField;
+    fdQryTabelaTITULO: TStringField;
+    fdQryTabelaCOMPRA: TStringField;
+    fdQryTabelaDUPLICATA: TStringField;
+    fdQryTabelaSITUACAO_CAIXA: TSmallintField;
+    fdQryTabelaDATA_FECH: TDateField;
+    fdQryTabelaDATA_CANCEL: TDateField;
+    qryFluxoSaldos: TFDQuery;
+    qryFluxoSintetico: TFDQuery;
+    qryFluxoAnalitico: TFDQuery;
+    QryRecibo: TFDQuery;
+    CdsReciboANO: TSmallintField;
+    CdsReciboNUMERO: TIntegerField;
+    CdsReciboTIPO: TStringField;
+    CdsReciboNUMERO_RECIBO: TStringField;
+    CdsReciboANOLANC: TSmallintField;
+    CdsReciboNUMLANC: TIntegerField;
+    CdsReciboPARCELA: TSmallintField;
+    CdsReciboNOMEEMP: TStringField;
+    CdsReciboCODFORN: TIntegerField;
+    CdsReciboNOMEFORN: TStringField;
+    CdsReciboPESSOA_FISICA: TSmallintField;
+    CdsReciboCNPJ: TStringField;
+    CdsReciboNOTFISC: TStringField;
+    CdsReciboTIPPAG: TStringField;
+    CdsReciboDTEMISS: TDateField;
+    CdsReciboDTVENC: TDateField;
+    CdsReciboDTPAG: TDateField;
+    CdsReciboVALORPAG: TBCDField;
+    CdsReciboBANCO: TIntegerField;
+    CdsReciboBCO_NOME: TStringField;
+    CdsReciboNUMCHQ: TStringField;
+    CdsReciboPAGO_: TStringField;
+    CdsReciboDOCBAIX: TStringField;
+    CdsReciboQUITADO: TIntegerField;
+    CdsReciboCODTPDESP: TSmallintField;
+    CdsReciboSEQ: TIntegerField;
+    CdsReciboDATA_PAGTO: TDateField;
+    CdsReciboFORMA_PAGTO: TSmallintField;
+    CdsReciboFORMA_PAGTO_DESC: TStringField;
+    CdsReciboHISTORICO: TStringField;
+    CdsReciboVALOR_BAIXA: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
-    procedure IbDtstTabelaSITUACAOGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure DtSrcTabelaStateChange(Sender: TObject);
@@ -248,6 +246,8 @@ type
     procedure btnRecalcularSaldoClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure fdQryConsolidadoFormaPagtoCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaSITUACAOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -321,11 +321,11 @@ begin
       QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) ) + ') and ' +
       'm.Conta_corrente = ' + IntToStr( frm.fdQryContaCorrente.FieldByName('codigo').AsInteger );
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + whr);
-      SelectSQL.Add('order by ' + CampoOrdenacao);
+      SQL.Add('where ' + whr);
+      SQL.Add('order by ' + CampoOrdenacao);
       Open;
     end;
 
@@ -384,17 +384,6 @@ begin
   CampoCodigo    := 'm.Numero';
   CampoDescricao := 'm.Historico';
   CampoOrdenacao := 'm.Ano, m.Numero';
-(*
-  with IbDtstTabela, GeneratorField do
-  begin
-    Field       := CampoCodigo;
-    Generator   := sGeneratorName;
-    IncrementBy := 1;
-  end;
-*)
-//
-//  FAbrirCaixa  := False;
-//  FFecharCaixa := False;
 end;
 
 procedure TfrmGeFluxoCaixa.FormShow(Sender: TObject);
@@ -422,6 +411,50 @@ begin
       fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat(',0.00', fdQryConsolidadoFormaPagtoSALDO.AsCurrency)
     else
       fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat('"- ",0.00', fdQryConsolidadoFormaPagtoSALDO.AsCurrency);
+end;
+
+procedure TfrmGeFluxoCaixa.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('EMPRESA').AsString    := gUsuarioLogado.Empresa;
+    FieldByName('ANO').AsInteger       := YearOf(GetDateTimeDB);
+    FieldByName('DATAHORA').AsDateTime := GetDateTimeDB;
+    FieldByName('SITUACAO').AsInteger  := 1;
+    FieldByName('TIPO').AsString       := TIPO_MOVIMENTO_CREDITO;
+    FieldByName('USUARIO').AsString    := gUsuarioLogado.Login;
+    FieldByName('DATA').AsDateTime     := GetDateDB;
+    FieldByName('HORA').AsDateTime     := GetTimeDB;
+
+    FieldByName('TIPO_RECEITA').Clear;
+    FieldByName('TIPO_DESPESA').Clear;
+    FieldByName('CLIENTE').Clear;
+    FieldByName('CLIENTE_COD').Clear;
+    FieldByName('FORNECEDOR').Clear;
+    FieldByName('FORMA_PAGTO').Clear;
+
+    FieldByName('FORMA_PAGTO_DESC').Clear;
+    FieldByName('NOME_CLENTE').Clear;
+    FieldByName('NOME_FORNECEDOR').Clear;
+    FieldByName('VALOR_CREDITO').Clear;
+    FieldByName('VALOR_DEBITO').Clear;
+    FieldByName('VENDA').Clear;
+    FieldByName('TITULO').Clear;
+    FieldByName('COMPRA').Clear;
+    FieldByName('DUPLICATA').Clear;
+  end;
+end;
+
+procedure TfrmGeFluxoCaixa.fdQryTabelaSITUACAOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  Case Sender.AsInteger of
+    0 : Text := 'Cancelado';
+    1 : Text := 'Confirmado';
+  end;
 end;
 
 procedure TfrmGeFluxoCaixa.btnFiltrarClick(Sender: TObject);
@@ -482,6 +515,7 @@ begin
 
   if not ShowConfirmation('Ao executar o recálculo dos saldos diários da Conta Corrente ' +
     'selecionada, possivelmente os valores sejam alterados no período informado.' + #13#13 +
+    'Este processo levará alguns minutos.' + #13#13 +
     'Deseja continuar com o recálculo dos saldos?') then
     Exit;
 
@@ -570,48 +604,6 @@ begin
   end;
 end;
 
-procedure TfrmGeFluxoCaixa.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaEMPRESA.Value  := gUsuarioLogado.Empresa;
-  IbDtstTabelaANO.Value      := YearOf(GetDateTimeDB);
-  IbDtstTabelaDATAHORA.Value := GetDateTimeDB;
-  IbDtstTabelaSITUACAO.Value := 1;
-  IbDtstTabelaTIPO.Value     := TIPO_MOVIMENTO_CREDITO;
-  IbDtstTabelaUSUARIO.Value  := GetUserApp;
-  IbDtstTabelaDATA.Value     := GetDateDB;
-  IbDtstTabelaHORA.Value     := GetTimeDB;
-
-  IbDtstTabelaTIPO_RECEITA.Clear;
-  IbDtstTabelaTIPO_DESPESA.Clear;
-  IbDtstTabelaCLIENTE.Clear;
-  IbDtstTabelaCLIENTE_COD.Clear;
-  IbDtstTabelaFORNECEDOR.Clear;
-  IbDtstTabelaFORMA_PAGTO.Clear;
-
-  IbDtstTabelaFORMA_PAGTO_DESC.Clear;
-  IbDtstTabelaNOME_CLENTE.Clear;
-  IbDtstTabelaNOME_FORNECEDOR.Clear;
-  IbDtstTabelaVALOR_CREDITO.Clear;
-  IbDtstTabelaVALOR_DEBITO.Clear;
-  IbDtstTabelaVENDA.Clear;
-  IbDtstTabelaTITULO.Clear;
-  IbDtstTabelaCOMPRA.Clear;
-  IbDtstTabelaDUPLICATA.Clear;
-end;
-
-procedure TfrmGeFluxoCaixa.IbDtstTabelaSITUACAOGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  Case Sender.AsInteger of
-    0 : Text := 'Cancelado';
-    1 : Text := 'Confirmado';
-  end;
-end;
-
 procedure TfrmGeFluxoCaixa.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
@@ -620,7 +612,7 @@ begin
   if ( Sender = dbgDados ) then
   begin
     // Destacar Movimentos de Caixas Cancelados
-    if ( IbDtstTabelaSITUACAO.AsInteger = 0 ) then
+    if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = 0 ) then
       dbgDados.Canvas.Font.Color := lblMovCaixaCancelado.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -639,83 +631,92 @@ begin
 
   btnRecalcularSaldo.Enabled := (pgcGuias.ActivePage = tbsTabela);
 
-  if ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_CREDITO ) then
+  with DtSrcTabela.DataSet do
   begin
-    lblCliente.Enabled := True;
-    dbCliente.Enabled  := True;
-    lblFornecedor.Enabled  := False;
-    dbFornecedor.Enabled   := False;
-    lblTipoDespesa.Enabled := False;
-    dbTipoDespesa.Enabled  := False;
-  end
-  else
-  if ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_DEBITO ) then
-  begin
-    lblCliente.Enabled := False;
-    dbCliente.Enabled  := False;
-    lblFornecedor.Enabled  := True;
-    dbFornecedor.Enabled   := True;
-    lblTipoDespesa.Enabled := True;
-    dbTipoDespesa.Enabled  := True;
-  end;
+    if ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_CREDITO ) then
+    begin
+      lblCliente.Enabled     := True;
+      dbCliente.Enabled      := True;
+      lblTipoReceita.Enabled := True;
+      dbTipoReceita.Enabled  := True;
 
-  if ( IbDtstTabelaVENDA_ANO.AsInteger > 0 ) then
-  begin
-    memObservacoes.Lines.Add(
-      'Movimento de fluxo de caixa relacionada a VENDA CONFIRMADA de No. ' + IbDtstTabelaVENDA.AsString +
-      '. Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu ' +
-      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A VENDA '  +
-      'responsável por este movimento.');
-  end
-  else
-  if ( IbDtstTabelaCOMPRA_ANO.AsInteger > 0 ) then
-  begin
-    memObservacoes.Lines.Add(
-      'Movimento de fluxo de caixa relacionada a COMPRA CONFIRMADA de No. ' + IbDtstTabelaCOMPRA.AsString +
-      '. Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu ' +
-      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A COMPRA '  +
-      'responsável por este movimento.');
-  end
-  else
-  if ( Trim(IbDtstTabelaTITULO.AsString) <> EmptyStr ) then
-  begin
-    memObservacoes.Lines.Add(
-      'Movimento de fluxo de caixa relacionado ao TÍTULO de No. ' + IbDtstTabelaTITULO.AsString);
-    memObservacoes.Lines.Add('(Contas A Receber).');
-    memObservacoes.Lines.Add('');
-    memObservacoes.Lines.Add(
-      'Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu '  +
-      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A BAIXA ' +
-      'responsável por este movimento.');
-  end
-  else
-  if ( Trim(IbDtstTabelaDUPLICATA.AsString) <> EmptyStr ) then
-  begin
-    memObservacoes.Lines.Add(
-      'Movimento de fluxo de caixa relacionado a DUPLICATA de No. ' + IbDtstTabelaDUPLICATA.AsString);
-    memObservacoes.Lines.Add('(Contas A Pagar).');
-    memObservacoes.Lines.Add('');
-    memObservacoes.Lines.Add(
-      'Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu '  +
-      'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A BAIXA ' +
-      'responsável por este movimento.');
+      lblFornecedor.Enabled  := False;
+      dbFornecedor.Enabled   := False;
+      lblTipoDespesa.Enabled := False;
+      dbTipoDespesa.Enabled  := False;
+    end
+    else
+    if ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_DEBITO ) then
+    begin
+      lblCliente.Enabled     := False;
+      dbCliente.Enabled      := False;
+      lblTipoReceita.Enabled := False;
+      dbTipoReceita.Enabled  := False;
+
+      lblFornecedor.Enabled  := True;
+      dbFornecedor.Enabled   := True;
+      lblTipoDespesa.Enabled := True;
+      dbTipoDespesa.Enabled  := True;
+    end;
+
+    if ( FieldByName('VENDA_ANO').AsInteger > 0 ) then
+    begin
+      memObservacoes.Lines.Add(
+        'Movimento de fluxo de caixa relacionada a VENDA CONFIRMADA de No. ' + FieldByName('VENDA').AsString +
+        '. Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu ' +
+        'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A VENDA '  +
+        'responsável por este movimento.');
+    end
+    else
+    if ( FieldByName('COMPRA_ANO').AsInteger > 0 ) then
+    begin
+      memObservacoes.Lines.Add(
+        'Movimento de fluxo de caixa relacionada a COMPRA CONFIRMADA de No. ' + FieldByName('COMPRA').AsString +
+        '. Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu ' +
+        'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A COMPRA '  +
+        'responsável por este movimento.');
+    end
+    else
+    if ( Trim(FieldByName('TITULO').AsString) <> EmptyStr ) then
+    begin
+      memObservacoes.Lines.Add(
+        'Movimento de fluxo de caixa relacionado ao TÍTULO de No. ' + FieldByName('TITULO').AsString);
+      memObservacoes.Lines.Add('(Contas A Receber).');
+      memObservacoes.Lines.Add('');
+      memObservacoes.Lines.Add(
+        'Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu '  +
+        'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A BAIXA ' +
+        'responsável por este movimento.');
+    end
+    else
+    if ( Trim(FieldByName('DUPLICATA').AsString) <> EmptyStr ) then
+    begin
+      memObservacoes.Lines.Add(
+        'Movimento de fluxo de caixa relacionado a DUPLICATA de No. ' + FieldByName('DUPLICATA').AsString);
+      memObservacoes.Lines.Add('(Contas A Pagar).');
+      memObservacoes.Lines.Add('');
+      memObservacoes.Lines.Add(
+        'Este tipo de movimento não poderá ser alterado e nem excluído, com isso a única forma de seu '  +
+        'valor não ser considerado para o cálculo do saldo diário da conta corrente é CANCELAR A BAIXA ' +
+        'responsável por este movimento.');
+    end;
   end;
 end;
 
 procedure TfrmGeFluxoCaixa.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     DefinirControle;
 
-  CarregarTipoReceita( (IbDtstTabela.State in [dsEdit, dsInsert]) );
-  CarregarTipoDespesa( (IbDtstTabela.State in [dsEdit, dsInsert]) );
+  CarregarTipoReceita( (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) );
+  CarregarTipoDespesa( (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) );
 end;
 
 procedure TfrmGeFluxoCaixa.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
-  if ( Field = IbDtstTabela.FieldByName('TIPO') ) then
+  if ( Field = DtSrcTabela.DataSet.FieldByName('TIPO') ) then
     DefinirControle;
 end;
 
@@ -735,13 +736,16 @@ var
   sCNPJ ,
   sNome : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome) ) then
-    begin
-      IbDtstTabelaCLIENTE_COD.AsInteger := iCodigo;
-      IbDtstTabelaCLIENTE.AsString      := sCNPJ;
-      IbDtstTabelaNOME_CLENTE.AsString  := sNome;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome) ) then
+      begin
+        FieldByName('CLIENTE_COD').AsInteger := iCodigo;
+        FieldByName('CLIENTE').AsString      := sCNPJ;
+        FieldByName('NOME_CLENTE').AsString  := sNome;
+      end;
+  end;
 end;
 
 procedure TfrmGeFluxoCaixa.dbFornecedorButtonClick(Sender: TObject);
@@ -749,12 +753,15 @@ var
   iCodigo : Integer;
   sNome   : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarFornecedor(Self, iCodigo, sNome) ) then
-    begin
-      IbDtstTabelaFORNECEDOR.AsInteger     := iCodigo;
-      IbDtstTabelaNOME_FORNECEDOR.AsString := sNome;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarFornecedor(Self, iCodigo, sNome) ) then
+      begin
+        FieldByName('FORNECEDOR').AsInteger     := iCodigo;
+        FieldByName('NOME_FORNECEDOR').AsString := sNome;
+      end;
+  end;
 end;
 
 procedure TfrmGeFluxoCaixa.btbtnSalvarClick(Sender: TObject);
@@ -763,42 +770,48 @@ var
   CxNumero,
   CxContaCorrente : Integer;
 begin
-  IbDtstTabelaCLIENTE.Required      := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_CREDITO );
-  IbDtstTabelaFORNECEDOR.Required   := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_DEBITO );
-  IbDtstTabelaTIPO_RECEITA.Required := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_CREDITO );
-  IbDtstTabelaTIPO_DESPESA.Required := ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_DEBITO );
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('CLIENTE').Required      := ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_CREDITO );
+    FieldByName('TIPO_RECEITA').Required := ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_CREDITO );
 
-  if ( CaixaAberto(IbDtstTabelaEMPRESA.AsString, IbDtstTabelaUSUARIO.AsString, IbDtstTabelaDATAHORA.AsDateTime, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
-    if ( CxContaCorrente <> IbDtstTabelaCONTA_CORRENTE.AsInteger ) then
+    FieldByName('FORNECEDOR').Required   := ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_DEBITO );
+    FieldByName('TIPO_DESPESA').Required := ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_DEBITO );
+
+    if ( CaixaAberto(FieldByName('EMPRESA').AsString, FieldByName('USUARIO').AsString, FieldByName('DATAHORA').AsDateTime, FieldByName('FORMA_PAGTO').AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+      if ( CxContaCorrente <> FieldByName('CONTA_CORRENTE').AsInteger ) then
+      begin
+        FieldByName('CAIXA_ANO').Clear;
+        FieldByName('CAIXA_NUM').Clear;
+      end;
+
+    FieldByName('DATA').AsDateTime := FieldByName('DATAHORA').AsDateTime;
+    FieldByName('HORA').AsDateTime := FieldByName('DATAHORA').AsDateTime;
+
+    if ( FieldByName('VALOR').AsCurrency <= 0 ) then
+      FieldByName('VALOR').Clear;
+
+    if ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_CREDITO ) then
     begin
-      IbDtstTabelaCAIXA_ANO.Clear;
-      IbDtstTabelaCAIXA_NUM.Clear;
+      FieldByName('VALOR_CREDITO').AsCurrency := FieldByName('VALOR').AsCurrency;
+      FieldByName('VALOR_DEBITO').AsCurrency  := 0.0;
+      FieldByName('TIPO_DESPESA').Clear;
+    end
+    else
+    if ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_DEBITO ) then
+    begin
+      FieldByName('VALOR_CREDITO').AsCurrency := 0.0;
+      FieldByName('VALOR_DEBITO').AsCurrency  := FieldByName('VALOR').AsCurrency;
+      FieldByName('TIPO_RECEITA').Clear;
     end;
 
-  IbDtstTabelaDATA.Value := IbDtstTabelaDATAHORA.AsDateTime;
-  IbDtstTabelaHORA.Value := IbDtstTabelaDATAHORA.AsDateTime;
+    inherited;
 
-  if ( IbDtstTabelaVALOR.AsCurrency <= 0 ) then
-    IbDtstTabelaVALOR.Clear;
-    
-  if ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_CREDITO ) then
-  begin
-    IbDtstTabelaVALOR_CREDITO.Value := IbDtstTabelaVALOR.Value;
-    IbDtstTabelaVALOR_DEBITO.Value  := 0.0;
-  end
-  else
-  if ( IbDtstTabelaTIPO.AsString = TIPO_MOVIMENTO_DEBITO ) then
-  begin
-    IbDtstTabelaVALOR_CREDITO.Value := 0.0;
-    IbDtstTabelaVALOR_DEBITO.Value  := IbDtstTabelaVALOR.Value;
-  end;
-
-  inherited;
-
-  if ( not OcorreuErro ) then
-  begin
-    GerarSaldoContaCorrente(IbDtstTabelaCONTA_CORRENTE.AsInteger, IbDtstTabelaDATAHORA.AsDateTime);
-    CarregarSaldos;
+    if ( not OcorreuErro ) then
+    begin
+      GerarSaldoContaCorrente(FieldByName('CONTA_CORRENTE').AsInteger, FieldByName('DATAHORA').AsDateTime);
+      CarregarSaldos;
+    end;
   end;
 end;
 
@@ -809,21 +822,23 @@ var
   CxContaCorrente : Integer;
 begin
   inherited;
-
-  if ( Sender = dbFormaPagto ) then
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-      if ( CaixaAberto(IbDtstTabelaEMPRESA.AsString, IbDtstTabelaUSUARIO.AsString, IbDtstTabelaDATAHORA.AsDateTime, IbDtstTabelaFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
-      begin
-        IbDtstTabelaCONTA_CORRENTE.AsInteger := CxContaCorrente;
-        IbDtstTabelaCAIXA_ANO.AsInteger := CxAno;
-        IbDtstTabelaCAIXA_NUM.AsInteger := CxNumero;
-      end
-      else
-      begin
-        IbDtstTabelaCONTA_CORRENTE.Value := fdQryContaCorrente.FieldByName('codigo').AsInteger;
-        IbDtstTabelaCAIXA_ANO.Clear;
-        IbDtstTabelaCAIXA_NUM.Clear;
-      end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( Sender = dbFormaPagto ) then
+      if ( State in [dsEdit, dsInsert] ) then
+        if ( CaixaAberto(FieldByName('EMPRESA').AsString, FieldByName('USUARIO').AsString, FieldByName('DATAHORA').AsDateTime, FieldByName('FORMA_PAGTO').AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
+        begin
+          FieldByName('CONTA_CORRENTE').AsInteger := CxContaCorrente;
+          FieldByName('CAIXA_ANO').AsInteger := CxAno;
+          FieldByName('CAIXA_NUM').AsInteger := CxNumero;
+        end
+        else
+        begin
+          FieldByName('CONTA_CORRENTE').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
+          FieldByName('CAIXA_ANO').Clear;
+          FieldByName('CAIXA_NUM').Clear;
+        end;
+  end;
 end;
 
 function TfrmGeFluxoCaixa.BloquearAlteracaoExclusao : Boolean;
@@ -831,43 +846,45 @@ var
   Return : Boolean;
 begin
   Return := False;
-
-  if ( (IbDtstTabelaVENDA_NUM.AsInteger > 0) or (IbDtstTabelaCOMPRA_NUM.AsInteger > 0) ) then
+  with DtSrcTabela.DataSet do
   begin
-    DefinirControle;
+    if ( (FieldByName('VENDA_NUM').AsInteger > 0) or (FieldByName('COMPRA_NUM').AsInteger > 0) ) then
+    begin
+      DefinirControle;
 
-    ShowWarning('Movimento de Fluxo de Caixa bloqueado para edição ou exclusão!');
-    pgcGuias.ActivePage := tbsCadastro;
+      ShowWarning('Movimento de Fluxo de Caixa bloqueado para edição ou exclusão!');
+      pgcGuias.ActivePage := tbsCadastro;
 
-    Return := True;
-  end
-  else
-  if ( Trim(IbDtstTabelaTITULO.AsString) <> EmptyStr ) then
-  begin
-    DefinirControle;
+      Return := True;
+    end
+    else
+    if ( Trim(FieldByName('TITULO').AsString) <> EmptyStr ) then
+    begin
+      DefinirControle;
 
-    ShowWarning('Movimentos de Fluxo de Caixa associados a Títulos não podem ser editados ou excluídos!' + #13#13 +
-      'Favor promover essas alterações direto no registro de baixa do Título (Contas A Receber).');
-    pgcGuias.ActivePage := tbsCadastro;
+      ShowWarning('Movimentos de Fluxo de Caixa associados a Títulos não podem ser editados ou excluídos!' + #13#13 +
+        'Favor promover essas alterações direto no registro de baixa do Título (Contas A Receber).');
+      pgcGuias.ActivePage := tbsCadastro;
 
-    Return := True;
-  end
-  else
-  if ( Trim(IbDtstTabelaDUPLICATA.AsString) <> EmptyStr ) then
-  begin
-    DefinirControle;
+      Return := True;
+    end
+    else
+    if ( Trim(FieldByName('DUPLICATA').AsString) <> EmptyStr ) then
+    begin
+      DefinirControle;
 
-    ShowWarning('Movimentos de Fluxo de Caixa associados a Duplicatas não podem ser editados ou excluídos!' + #13#13 +
-      'Favor promover essas alterações direto no registro de baixa da Duplicata (Contas A Pagar).');
-    pgcGuias.ActivePage := tbsCadastro;
+      ShowWarning('Movimentos de Fluxo de Caixa associados a Duplicatas não podem ser editados ou excluídos!' + #13#13 +
+        'Favor promover essas alterações direto no registro de baixa da Duplicata (Contas A Pagar).');
+      pgcGuias.ActivePage := tbsCadastro;
 
-    Return := True;
-  end
-  else
-  if ( IbDtstTabelaSITUACAO_CAIXA.AsInteger <> STATUS_CAIXA_ABERTO ) then
-  begin
-    ShowWarning('O Controle de Caixa referente a referente a este movimento não está aberto!');
-    Return := True;
+      Return := True;
+    end
+    else
+    if ( FieldByName('SITUACAO_CAIXA').AsInteger <> STATUS_CAIXA_ABERTO ) then
+    begin
+      ShowWarning('O Controle de Caixa referente a referente a este movimento não está aberto!');
+      Return := True;
+    end;
   end;
 
   Result := Return;
@@ -901,7 +918,7 @@ end;
 procedure TfrmGeFluxoCaixa.btbtnListaClick(Sender: TObject);
 begin
   inherited;
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   ppImprimir.Popup(btbtnLista.ClientOrigin.X, btbtnLista.ClientOrigin.Y + btbtnLista.Height);
@@ -945,11 +962,12 @@ begin
   inherited;
 
   if ( not OcorreuErro ) then
-  begin
-    IbDtstTabelaANO.AsInteger        := iAno;
-    IbDtstTabelaNUMERO.AsInteger     := iNum;
-    IbDtstTabelaCONTA_CORRENTE.Value := fdQryContaCorrente.FieldByName('codigo').AsInteger;
-  end;
+    with DtSrcTabela.DataSet do
+    begin
+      FieldByName('ANO').AsInteger        := iAno;
+      FieldByName('NUMERO').AsInteger     := iNum;
+      FieldByName('CONTA_CORRENTE').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
+    end;
 end;
 
 
@@ -957,7 +975,7 @@ procedure TfrmGeFluxoCaixa.nmImprimirExtratoClick(Sender: TObject);
 var
   Data : TDateTime;
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   try
@@ -970,7 +988,7 @@ begin
 
     while Data <= e2Data.Date do
     begin
-      GerarSaldoContaCorrente(IbDtstTabela.FieldByName('CONTA_CORRENTE').AsInteger, Data);
+      GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
       Data := Data + 1;
     end;
 
@@ -1023,14 +1041,14 @@ end;
 
 procedure TfrmGeFluxoCaixa.nmImprimirReciboClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with CdsRecibo, Params do
   begin
     Close;
-    ParamByName('ano').AsInteger    := IbDtstTabelaANO.AsInteger;
-    ParamByName('numero').AsInteger := IbDtstTabelaNUMERO.AsInteger;
+    ParamByName('ano').AsInteger    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+    ParamByName('numero').AsInteger := DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger;
     Open;
 
     if IsEmpty then

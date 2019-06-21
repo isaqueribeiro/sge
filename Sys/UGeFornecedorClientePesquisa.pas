@@ -3,9 +3,11 @@ unit UGeFornecedorClientePesquisa;
 interface
 
 uses
+  UGrPadraoPesquisa,
+
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoPesquisa, cxGraphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Comp.Client,
@@ -35,12 +37,12 @@ type
     fdQryPesquisaATIVO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
-    procedure QryPesquisaAfterScroll(DataSet: TDataSet);
     procedure btnSelecionarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure fdQryPesquisaTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryPesquisaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryPesquisaATIVOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryPesquisaAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -48,6 +50,17 @@ type
     procedure PermitirSelecao;
     function ExecutarPesquisa : Boolean; override;
   end;
+
+(*
+  Tabelas:
+  - TBCLIENTE
+  - TBFORNECEDOR
+
+  Views:
+
+  Procedures:
+
+*)
 
   function SelecionarFornecedorCliente(const AOnwer : TComponent;
     var pTipoEmissor : TTipoEmissorCheque;
@@ -140,6 +153,11 @@ begin
   end;
 end;
 
+procedure TfrmGeFornecedorClientePesquisa.fdQryPesquisaAfterScroll(DataSet: TDataSet);
+begin
+  PermitirSelecao;
+end;
+
 procedure TfrmGeFornecedorClientePesquisa.fdQryPesquisaATIVOGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);
 begin
@@ -189,12 +207,6 @@ end;
 procedure TfrmGeFornecedorClientePesquisa.PermitirSelecao;
 begin
   btnSelecionar.Enabled := (fdQryPesquisaATIVO.AsInteger = 1);
-end;
-
-procedure TfrmGeFornecedorClientePesquisa.QryPesquisaAfterScroll(
-  DataSet: TDataSet);
-begin
-  PermitirSelecao;
 end;
 
 end.

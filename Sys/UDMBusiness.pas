@@ -832,7 +832,7 @@ begin
       fMsg.Free;
     end
   else
-    Result := (MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0) = ID_YES);
+    Result := (MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES);
 //    Result := (Application.MessageBox(PChar(sMsg), PChar(sTitle), MB_ICONQUESTION + MB_YESNO + MB_DEFBUTTON2) = ID_YES);
 end;
 
@@ -2158,7 +2158,7 @@ end;
 
 function ShowConfirm(sMsg : String; const sTitle : String = ''; const DefaultButton : Integer = MB_DEFBUTTON2) : Boolean;
 begin
-  Result := ( MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0) = ID_YES );
+  Result := ( MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES );
 //  Result := ( Application.MessageBox(PChar(sMsg), 'Confirmar', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES );
 end;
 

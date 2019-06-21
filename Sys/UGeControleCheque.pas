@@ -50,7 +50,6 @@ type
     bvlBaixas: TBevel;
     dbgBaixas: TDBGrid;
     Bevel7: TBevel;
-    qryBaixas: TIBDataSet;
     dtsBaixas: TDataSource;
     lblAgencia: TLabel;
     dbAgencia: TDBEdit;
@@ -66,10 +65,8 @@ type
     FrChequeA5: TfrxReport;
     FrdCheque: TfrxDBDataset;
     ACBrExtenso: TACBrExtenso;
-    QryCheque: TIBQuery;
     DspCheque: TDataSetProvider;
     CdsCheque: TClientDataSet;
-    CdsChequeVALOR_EXTENSO: TStringField;
     popImprimir: TPopupMenu;
     popGerarEspelhoChequeA4: TMenuItem;
     lblEmissao: TLabel;
@@ -79,33 +76,8 @@ type
     dtsTipoCheque: TDataSource;
     FrChequeA4: TfrxReport;
     popGerarEspelhoChequeA5: TMenuItem;
-    IbDtstTabelaCONTROLE: TIntegerField;
-    IbDtstTabelaEMPRESA: TIBStringField;
-    IbDtstTabelaTIPO: TSmallintField;
-    IbDtstTabelaBANCO: TIBStringField;
-    IbDtstTabelaAGENCIA: TIBStringField;
-    IbDtstTabelaCONTA: TIBStringField;
-    IbDtstTabelaNUMERO: TIBStringField;
-    IbDtstTabelaFORNECEDOR: TIntegerField;
-    IbDtstTabelaCLIENTE: TIntegerField;
-    IbDtstTabelaDATA_EMISSAO: TDateField;
-    IbDtstTabelaDATA_APRESENTACAO: TDateField;
-    IbDtstTabelaDATA_COMPENSACAO: TDateField;
-    IbDtstTabelaVALOR: TIBBCDField;
-    IbDtstTabelaNOMINAL_A: TIBStringField;
-    IbDtstTabelaDATA_CADASTRO: TDateField;
-    IbDtstTabelaUSUARIO_CADASTRO: TIBStringField;
-    IbDtstTabelaSTATUS: TSmallintField;
-    IbDtstTabelaSTATUS_DESCRICAO: TIBStringField;
-    IbDtstTabelaCLIENTE_NOME: TIBStringField;
-    IbDtstTabelaCLIENTE_CNPJ: TIBStringField;
-    IbDtstTabelaFORNECEDOR_NOME: TIBStringField;
-    IbDtstTabelaFORNECEDOR_CNPJ: TIBStringField;
-    IbDtstTabelaBANCO_NOME: TIBStringField;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
-    IbDtstTabelaEMISSOR_NOME: TIBStringField;
-    IbDtstTabelaEMISSOR_CNPJ: TIBStringField;
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
     lblEmissorNome: TLabel;
@@ -118,56 +90,14 @@ type
     lblConta: TLabel;
     lblNominalA: TLabel;
     dbNominalA: TDBEdit;
-    IbDtstTabelaOBS: TWideMemoField;
-    qryBaixasTIPO: TIBStringField;
-    qryBaixasLANCAMENTO: TIBStringField;
-    qryBaixasANOLANC: TSmallintField;
-    qryBaixasNUMLANC: TIntegerField;
-    qryBaixasSEQ: TSmallintField;
-    qryBaixasDATA_PAGTO: TDateField;
-    qryBaixasVALOR_BAIXA: TIBBCDField;
-    qryBaixasDOCUMENTO_BAIXA: TIBStringField;
-    qryBaixasUSUARIO: TIBStringField;
     popMudarSituacao: TPopupMenu;
     ppmApresentar: TMenuItem;
     ppmCompensado: TMenuItem;
     ppmDevolvido: TMenuItem;
     ppmCancelar: TMenuItem;
     N1: TMenuItem;
-    qryBaixasNOME: TIBStringField;
-    qryBaixasNOME_CNPJ: TIBStringField;
-    qryBaixasNOME_PF: TSmallintField;
-    IbDtstTabelaEMISSOR_PF: TSmallintField;
-    IbDtstTabelaCLIENTE_PF: TSmallintField;
-    IbDtstTabelaFORNECEDOR_PF: TSmallintField;
-    CdsChequeCONTROLE: TIntegerField;
-    CdsChequeEMPRESA: TWideStringField;
-    CdsChequeTIPO: TSmallintField;
-    CdsChequeBANCO: TWideStringField;
-    CdsChequeAGENCIA: TWideStringField;
-    CdsChequeCONTA: TWideStringField;
-    CdsChequeNUMERO: TWideStringField;
-    CdsChequeFORNECEDOR: TIntegerField;
-    CdsChequeCLIENTE: TIntegerField;
-    CdsChequeDATA_EMISSAO: TDateField;
-    CdsChequeDATA_APRESENTACAO: TDateField;
-    CdsChequeDATA_COMPENSACAO: TDateField;
-    CdsChequeVALOR: TBCDField;
-    CdsChequeDATA_CADASTRO: TDateField;
-    CdsChequeUSUARIO_CADASTRO: TWideStringField;
-    CdsChequeSTATUS: TSmallintField;
-    CdsChequeOBS: TWideMemoField;
-    CdsChequeSTATUS_DESCRICAO: TWideStringField;
-    CdsChequeBANCO_NOME: TWideStringField;
-    CdsChequeEMISSOR_NOME: TWideStringField;
-    CdsChequeEMISSOR_CNPJ: TWideStringField;
-    CdsChequeEMISSOR_PF: TSmallintField;
-    CdsChequeNOMINAL_A: TWideStringField;
-    CdsChequeBANCO_LOGO: TBlobField;
-    IbDtstTabelaDATA_DEVOLUCAO: TDateField;
     popRelacaoCheques: TMenuItem;
     N2: TMenuItem;
-    QryRelacaoCheque: TIBQuery;
     DspRelacaoCheque: TDataSetProvider;
     CdsRelacaoCheque: TClientDataSet;
     frdsRelacaoCheque: TfrxDBDataset;
@@ -205,6 +135,46 @@ type
     fdQryTabelaFORNECEDOR_NOME: TStringField;
     fdQryTabelaFORNECEDOR_CNPJ: TStringField;
     fdQryTabelaFORNECEDOR_PF: TSmallintField;
+    qryBaixas: TFDQuery;
+    qryBaixasTIPO: TStringField;
+    qryBaixasLANCAMENTO: TStringField;
+    qryBaixasANOLANC: TSmallintField;
+    qryBaixasNUMLANC: TIntegerField;
+    qryBaixasSEQ: TSmallintField;
+    qryBaixasDATA_PAGTO: TDateField;
+    qryBaixasVALOR_BAIXA: TBCDField;
+    qryBaixasDOCUMENTO_BAIXA: TStringField;
+    qryBaixasUSUARIO: TStringField;
+    qryBaixasNOME: TStringField;
+    qryBaixasNOME_CNPJ: TStringField;
+    qryBaixasNOME_PF: TSmallintField;
+    QryCheque: TFDQuery;
+    CdsChequeCONTROLE: TIntegerField;
+    CdsChequeEMPRESA: TStringField;
+    CdsChequeTIPO: TSmallintField;
+    CdsChequeBANCO: TStringField;
+    CdsChequeBANCO_LOGO: TBlobField;
+    CdsChequeAGENCIA: TStringField;
+    CdsChequeCONTA: TStringField;
+    CdsChequeNUMERO: TStringField;
+    CdsChequeFORNECEDOR: TIntegerField;
+    CdsChequeCLIENTE: TIntegerField;
+    CdsChequeDATA_EMISSAO: TDateField;
+    CdsChequeDATA_APRESENTACAO: TDateField;
+    CdsChequeDATA_COMPENSACAO: TDateField;
+    CdsChequeVALOR: TBCDField;
+    CdsChequeNOMINAL_A: TStringField;
+    CdsChequeDATA_CADASTRO: TDateField;
+    CdsChequeUSUARIO_CADASTRO: TStringField;
+    CdsChequeSTATUS: TSmallintField;
+    CdsChequeOBS: TMemoField;
+    CdsChequeSTATUS_DESCRICAO: TStringField;
+    CdsChequeBANCO_NOME: TStringField;
+    CdsChequeEMISSOR_NOME: TStringField;
+    CdsChequeEMISSOR_CNPJ: TStringField;
+    CdsChequeEMISSOR_PF: TSmallintField;
+    CdsChequeVALOR_EXTENSO: TStringField;
+    QryRelacaoCheque: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -222,23 +192,19 @@ type
     procedure popGerarReciboClick(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
     procedure CdsChequeCalcFields(DataSet: TDataSet);
-    procedure IbDtstTabelaSTATUSGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
     procedure ppmApresentarClick(Sender: TObject);
     procedure ppmDevolvidoClick(Sender: TObject);
     procedure ppmCompensadoClick(Sender: TObject);
     procedure ppmCancelarClick(Sender: TObject);
-    procedure IbDtstTabelaEMISSOR_CNPJGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
-    procedure qryBaixasNOME_CNPJGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
     procedure popRelacaoChequesClick(Sender: TObject);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaEMISSOR_CNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure qryBaixasNOME_CNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     FDataAtual    : TDateTime;
     FLoteParcelas : String;
-    SQL_Baixas  ,
     SQL_Relacao : TStringList;
     FImprimirCabecalho,
     FChequeParaBaixa  : Boolean;
@@ -314,15 +280,15 @@ begin
     Result := (AForm.ShowModal = mrOk);
 
     if Result then
-      with AForm do
+      with AForm, DtSrcTabela.DataSet do
       begin
-        pCheque.Codigo  := IbDtstTabelaCONTROLE.AsInteger;
-        pCheque.Numero  := IbDtstTabelaNUMERO.AsString;
-        pCheque.Banco   := IbDtstTabelaBANCO.AsString;
-        pCheque.Agencia := IbDtstTabelaAGENCIA.AsString;
-        pCheque.Conta   := IbDtstTabelaCONTA.AsString;
-        pCheque.Valor   := IbDtstTabelaVALOR.AsCurrency;
-        pCheque.Data    := IbDtstTabelaDATA_COMPENSACAO.AsDateTime;
+        pCheque.Codigo  := FieldByName('CONTROLE').AsInteger;
+        pCheque.Numero  := FieldByName('NUMERO').AsString;
+        pCheque.Banco   := FieldByName('BANCO').AsString;
+        pCheque.Agencia := FieldByName('AGENCIA').AsString;
+        pCheque.Conta   := FieldByName('CONTA').AsString;
+        pCheque.Valor   := FieldByName('VALOR').AsCurrency;
+        pCheque.Data    := FieldByName('DATA_COMPENSACAO').AsDateTime;
       end;
   finally
     AForm.Free;
@@ -338,9 +304,6 @@ begin
   CarregarLista(fdQryEmpresa);
   CarregarLista(fdQryTipoCheque);
   CarregarLista(fdQryBanco);
-
-  SQL_Baixas := TStringList.Create;
-  SQL_Baixas.AddStrings( qryBaixas.SelectSQL );
 
   SQL_Relacao := TStringList.Create;
   SQL_Relacao.AddStrings( QryRelacaoCheque.SQL );
@@ -374,39 +337,42 @@ var
   aNome ,
   aCnpj : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  with DtSrcTabela.DataSet do
   begin
-    if IbDtstTabelaTIPO.IsNull then
-      ShowWarning('Favor selecionar o Tipo de Origem do Cheque')
-    else
-    if ( SelecionarFornecedorCliente(Self, aTipoEmissor, aCodigo, aNome, aCnpj) ) then
+    if ( State in [dsEdit, dsInsert] ) then
     begin
-      IbDtstTabelaEMISSOR_NOME.AsString  := aNome;
-      IbDtstTabelaEMISSOR_CNPJ.AsString  := aCnpj;
-      IbDtstTabelaEMISSOR_PF.AsInteger   := IfThen(StrIsCPF(aCnpj), 1, 0);
-
-      if ( aTipoEmissor = tecFornecedor ) then
-      begin
-        IbDtstTabelaFORNECEDOR.AsInteger     := aCodigo;
-        IbDtstTabelaFORNECEDOR_NOME.AsString := aNome;
-        IbDtstTabelaFORNECEDOR_CNPJ.AsString := aCnpj;
-        IbDtstTabelaFORNECEDOR_PF.AsInteger  := IfThen(StrIsCPF(aCnpj), 1, 0);
-        IbDtstTabelaCLIENTE.Clear;
-        IbDtstTabelaCLIENTE_NOME.Clear;
-        IbDtstTabelaCLIENTE_CNPJ.Clear;
-        IbDtstTabelaCLIENTE_PF.Clear;
-      end
+      if FieldByName('TIPO').IsNull then
+        ShowWarning('Favor selecionar o Tipo de Origem do Cheque')
       else
-      if ( aTipoEmissor = tecCliente ) then
+      if ( SelecionarFornecedorCliente(Self, aTipoEmissor, aCodigo, aNome, aCnpj) ) then
       begin
-        IbDtstTabelaFORNECEDOR.Clear;
-        IbDtstTabelaFORNECEDOR_NOME.Clear;
-        IbDtstTabelaFORNECEDOR_CNPJ.Clear;
-        IbDtstTabelaFORNECEDOR_PF.Clear;
-        IbDtstTabelaCLIENTE.AsInteger     := aCodigo;
-        IbDtstTabelaCLIENTE_NOME.AsString := aNome;
-        IbDtstTabelaCLIENTE_CNPJ.AsString := aCnpj;
-        IbDtstTabelaCLIENTE_PF.AsInteger  := IfThen(StrIsCPF(aCnpj), 1, 0);
+        FieldByName('EMISSOR_NOME').AsString  := aNome;
+        FieldByName('EMISSOR_CNPJ').AsString  := aCnpj;
+        FieldByName('EMISSOR_PF').AsInteger   := IfThen(StrIsCPF(aCnpj), 1, 0);
+
+        if ( aTipoEmissor = tecFornecedor ) then
+        begin
+          FieldByName('FORNECEDOR').AsInteger     := aCodigo;
+          FieldByName('FORNECEDOR_NOME').AsString := aNome;
+          FieldByName('FORNECEDOR_CNPJ').AsString := aCnpj;
+          FieldByName('FORNECEDOR_PF').AsInteger  := IfThen(StrIsCPF(aCnpj), 1, 0);
+          FieldByName('CLIENTE').Clear;
+          FieldByName('CLIENTE_NOME').Clear;
+          FieldByName('CLIENTE_CNPJ').Clear;
+          FieldByName('CLIENTE_PF').Clear;
+        end
+        else
+        if ( aTipoEmissor = tecCliente ) then
+        begin
+          FieldByName('FORNECEDOR').Clear;
+          FieldByName('FORNECEDOR_NOME').Clear;
+          FieldByName('FORNECEDOR_CNPJ').Clear;
+          FieldByName('FORNECEDOR_PF').Clear;
+          FieldByName('CLIENTE').AsInteger     := aCodigo;
+          FieldByName('CLIENTE_NOME').AsString := aNome;
+          FieldByName('CLIENTE_CNPJ').AsString := aCnpj;
+          FieldByName('CLIENTE_PF').AsInteger  := IfThen(StrIsCPF(aCnpj), 1, 0);
+        end;
       end;
     end;
   end;
@@ -418,46 +384,22 @@ begin
   inherited;
 end;
 
-procedure TfrmGeControleCheque.IbDtstTabelaEMISSOR_CNPJGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-  begin
-    if ( Sender.DataSet.FieldByName('emissor_pf').AsInteger = 1 ) then
-      Text := StrFormatarCpf(Trim(Sender.AsString))
-    else
-      Text := StrFormatarCnpj(Trim(Sender.AsString));
-  end;
-end;
-
-procedure TfrmGeControleCheque.IbDtstTabelaSTATUSGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-    Case Sender.AsInteger of
-      STATUS_CHEQUE_PENDENTE    : Text := 'Pendente';
-      STATUS_CHEQUE_APRESENTADO : Text := 'Apresentado';
-      STATUS_CHEQUE_DEVOLVIDO   : Text := 'Devolvido';
-      STATUS_CHEQUE_COMPENSADO  : Text := 'Compensado';
-      STATUS_CHEQUE_CANCELADO   : Text := 'Cancelado';
-      else
-        Text := Sender.AsString;
-    end;
-end;
-
 procedure TfrmGeControleCheque.HabilitarDesabilitar_Btns;
 begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btbtnAlterarSituacao.Enabled := (IbDtstTabelaCONTROLE.Value > 0) and (not (IbDtstTabela.State in [dsEdit, dsInsert]));
+    with DtSrcTabela.DataSet do
+    begin
+      btbtnAlterarSituacao.Enabled := (FieldByName('CONTROLE').AsCurrency > 0) and (not (State in [dsEdit, dsInsert]));
 
-    ppmApresentar.Enabled := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_PENDENTE, STATUS_CHEQUE_DEVOLVIDO]);
-    ppmDevolvido.Enabled  := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_APRESENTADO]);
-    ppmCompensado.Enabled := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_APRESENTADO]);
-    ppmCancelar.Enabled   := (IbDtstTabelaCONTROLE.Value > 0) and (IbDtstTabelaSTATUS.AsInteger in [STATUS_CHEQUE_PENDENTE, STATUS_CHEQUE_APRESENTADO, STATUS_CHEQUE_DEVOLVIDO]);
+      ppmApresentar.Enabled := (FieldByName('CONTROLE').AsCurrency > 0) and (FieldByName('STATUS').AsInteger in [STATUS_CHEQUE_PENDENTE, STATUS_CHEQUE_DEVOLVIDO]);
+      ppmDevolvido.Enabled  := (FieldByName('CONTROLE').AsCurrency > 0) and (FieldByName('STATUS').AsInteger in [STATUS_CHEQUE_APRESENTADO]);
+      ppmCompensado.Enabled := (FieldByName('CONTROLE').AsCurrency > 0) and (FieldByName('STATUS').AsInteger in [STATUS_CHEQUE_APRESENTADO]);
+      ppmCancelar.Enabled   := (FieldByName('CONTROLE').AsCurrency > 0) and (FieldByName('STATUS').AsInteger in [STATUS_CHEQUE_PENDENTE, STATUS_CHEQUE_APRESENTADO, STATUS_CHEQUE_DEVOLVIDO]);
 
-    popGerarEspelhoChequeA4.Enabled := True;
-    popGerarEspelhoChequeA5.Enabled := True;
+      popGerarEspelhoChequeA4.Enabled := True;
+      popGerarEspelhoChequeA5.Enabled := True;
+    end;
   end
   else
   begin
@@ -472,7 +414,7 @@ begin
     popGerarEspelhoChequeA5.Enabled := False;
   end;
 
-  popRelacaoCheques.Enabled := (IbDtstTabela.RecordCount > 0);
+  popRelacaoCheques.Enabled := (DtSrcTabela.DataSet.RecordCount > 0);
 end;
 
 procedure TfrmGeControleCheque.btbtnSalvarClick(Sender: TObject);
@@ -486,14 +428,14 @@ end;
 procedure TfrmGeControleCheque.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  AbrirBaixas( IbDtstTabelaCONTROLE.AsInteger );
+  AbrirBaixas( DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger );
 end;
 
 procedure TfrmGeControleCheque.popGerarReciboClick(Sender: TObject);
 var
   sLogo : String;
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   SetVariablesDefault(FrChequeA4);
@@ -502,7 +444,7 @@ begin
   with CdsCheque, Params do
   begin
     Close;
-    ParamByName('cheque').AsInteger := IbDtstTabelaCONTROLE.AsInteger;
+    ParamByName('cheque').AsCurrency := DtSrcTabela.DataSet.FieldByName('CONTROLE').AsCurrency;
     Open;
 
     if IsEmpty then
@@ -570,7 +512,7 @@ var
   aDataApresn : TDateTime;
   aObservacao : TStringList;
 begin
-  if IbDtstTabela.IsEmpty then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
   if not GetPermissaoRotinaSistema(RotinaApresentarChequeID, True) then
@@ -582,19 +524,23 @@ begin
   if ppmApresentar.Enabled then
     if SetMemoTextoData(Self, aDataApresn, aObservacao, 'Apresentação do Cheque', 'Informe observação sobre a apresenta do cheque:') then
       try
-        IbDtstTabela.DisableControls;
-        IbDtstTabela.Edit;
-        IbDtstTabelaSTATUS.Value            := STATUS_CHEQUE_APRESENTADO;
-        IbDtstTabelaDATA_APRESENTACAO.Value := aDataApresn;
-        IbDtstTabelaOBS.AsString :=
-          IbDtstTabelaOBS.AsString + #13 +
+        DtSrcTabela.DataSet.DisableControls;
+        DtSrcTabela.DataSet.Edit;
+
+        DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger             := STATUS_CHEQUE_APRESENTADO;
+        DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').AsDateTime := aDataApresn;
+        DtSrcTabela.DataSet.FieldByName('OBS').AsString :=
+          DtSrcTabela.DataSet.FieldByName('OBS').AsString + #13 +
           '* Cheque marcado como "Apresentado" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
           aObservacao.Text;
-        IbDtstTabela.Post;
-        IbDtstTabela.ApplyUpdates;
+
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates;
+        fdQryTabela.CommitUpdates;
+
         CommitTransaction;
       finally
-        IbDtstTabela.EnableControls;
+        DtSrcTabela.DataSet.EnableControls;
         RecarregarRegistro;
         HabilitarDesabilitar_Btns;
       end;
@@ -605,7 +551,7 @@ var
   aDataCancel : TDateTime;
   aObservacao : TStringList;
 begin
-  if IbDtstTabela.IsEmpty then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
   if not GetPermissaoRotinaSistema(RotinaCancelarChequeID, True) then
@@ -617,19 +563,24 @@ begin
   if ppmCancelar.Enabled then
     if SetMemoTextoData(Self, aDataCancel, aObservacao, 'Cancelamento do Cheque', 'Informe o motivo do cancelamento do cheque:') then
       try
-        IbDtstTabela.DisableControls;
-        IbDtstTabela.Edit;
-        IbDtstTabelaSTATUS.Value := STATUS_CHEQUE_CANCELADO;
-        IbDtstTabelaOBS.AsString :=
-          IbDtstTabelaOBS.AsString + #13 +
+        DtSrcTabela.DataSet.DisableControls;
+        DtSrcTabela.DataSet.Edit;
+
+        DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger := STATUS_CHEQUE_CANCELADO;
+        DtSrcTabela.DataSet.FieldByName('OBS').AsString :=
+          DtSrcTabela.DataSet.FieldByName('OBS').AsString + #13 +
           '* Cheque marcado como "Cancelado" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
           'Data  : ' + FormatDateTime('dd/mm/yyyy', aDataCancel) + #13 +
           'Motivo: ' + aObservacao.Text;
-        IbDtstTabela.Post;
-        IbDtstTabela.ApplyUpdates;
+
+
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates;
+        fdQryTabela.CommitUpdates;
+
         CommitTransaction;
       finally
-        IbDtstTabela.EnableControls;
+        DtSrcTabela.DataSet.EnableControls;
         RecarregarRegistro;
         HabilitarDesabilitar_Btns;
       end;
@@ -640,7 +591,7 @@ var
   aDataCompen : TDateTime;
   aObservacao : TStringList;
 begin
-  if IbDtstTabela.IsEmpty then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
   if not GetPermissaoRotinaSistema(RotinaCompensarChequeID, True) then
@@ -652,19 +603,24 @@ begin
   if ppmCompensado.Enabled then
     if SetMemoTextoData(Self, aDataCompen, aObservacao, 'Compensação do Cheque', 'Informe observação sobre a compensação do cheque:') then
       try
-        IbDtstTabela.DisableControls;
-        IbDtstTabela.Edit;
-        IbDtstTabelaSTATUS.Value           := STATUS_CHEQUE_COMPENSADO;
-        IbDtstTabelaDATA_COMPENSACAO.Value := aDataCompen;
-        IbDtstTabelaOBS.AsString :=
-          IbDtstTabelaOBS.AsString + #13 +
+        DtSrcTabela.DataSet.DisableControls;
+        DtSrcTabela.DataSet.Edit;
+
+        DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger            := STATUS_CHEQUE_COMPENSADO;
+        DtSrcTabela.DataSet.FieldByName('DATA_COMPENSACAO').AsDateTime := aDataCompen;
+        DtSrcTabela.DataSet.FieldByName('OBS').AsString :=
+          DtSrcTabela.DataSet.FieldByName('OBS').AsString + #13 +
           '* Cheque marcado como "Compensado" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
           aObservacao.Text;
-        IbDtstTabela.Post;
-        IbDtstTabela.ApplyUpdates;
+
+
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates;
+        fdQryTabela.CommitUpdates;
+
         CommitTransaction;
       finally
-        IbDtstTabela.EnableControls;
+        DtSrcTabela.DataSet.EnableControls;
         RecarregarRegistro;
         HabilitarDesabilitar_Btns;
       end;
@@ -675,7 +631,7 @@ var
   aDataDevolv : TDateTime;
   aObservacao : TStringList;
 begin
-  if IbDtstTabela.IsEmpty then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
   if not GetPermissaoRotinaSistema(RotinaDevolverChequeID, True) then
@@ -687,27 +643,32 @@ begin
   if ppmDevolvido.Enabled then
     if SetMemoTextoData(Self, aDataDevolv, aObservacao, 'Devolução do Cheque', 'Informe o motivo da devolução do cheque:') then
       try
-        IbDtstTabela.DisableControls;
-        IbDtstTabela.Edit;
-        IbDtstTabelaSTATUS.Value         := STATUS_CHEQUE_DEVOLVIDO;
-        IbDtstTabelaDATA_DEVOLUCAO.Value := aDataDevolv;
-        IbDtstTabelaOBS.AsString :=
-          IbDtstTabelaOBS.AsString + #13 +
+        DtSrcTabela.DataSet.DisableControls;
+        DtSrcTabela.DataSet.Edit;
+
+        DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger          := STATUS_CHEQUE_DEVOLVIDO;
+        DtSrcTabela.DataSet.FieldByName('DATA_DEVOLUCAO').AsDateTime := aDataDevolv;
+        DtSrcTabela.DataSet.FieldByName('OBS').AsString :=
+          DtSrcTabela.DataSet.FieldByName('OBS').AsString + #13 +
           '* Cheque marcado como "Devolvimento" por ' + gUsuarioLogado.Login + ' em ' + FormatDateTime('dd/mm/yyyy', GetDateDB) + #13 +
           'Data  : ' + FormatDateTime('dd/mm/yyyy', aDataDevolv) + #13 +
           'Motivo: ' + aObservacao.Text;
-        IbDtstTabela.Post;
-        IbDtstTabela.ApplyUpdates;
+
+
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates;
+        fdQryTabela.CommitUpdates;
+
         CommitTransaction;
       finally
-        IbDtstTabela.EnableControls;
+        DtSrcTabela.DataSet.EnableControls;
         RecarregarRegistro;
         HabilitarDesabilitar_Btns;
       end;
 end;
 
-procedure TfrmGeControleCheque.qryBaixasNOME_CNPJGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
+procedure TfrmGeControleCheque.qryBaixasNOME_CNPJGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if not Sender.IsNull then
   begin
@@ -721,15 +682,17 @@ end;
 procedure TfrmGeControleCheque.AbrirBaixas(const Controle: Integer);
 begin
   qryBaixas.Close;
-
-  with qryBaixas, SelectSQL do
-  begin
-    Clear;
-    AddStrings( SQL_Baixas );
-    SelectSQL.Text := StringReplace(SelectSQL.Text, ':cheque', IntToStr(Controle), [rfReplaceAll]);
-  end;
-
+  qryBaixas.ParamByName('cheque').AsInteger := Controle;
   qryBaixas.Open;
+//
+//  with qryBaixas, SQL do
+//  begin
+//    Clear;
+//    AddStrings( SQL_Baixas );
+//    SQL.Text := StringReplace(SQL.Text, ':cheque', IntToStr(Controle), [rfReplaceAll]);
+//  end;
+//
+//  qryBaixas.Open;
 
   HabilitarDesabilitar_Btns;
 
@@ -757,7 +720,7 @@ end;
 
 procedure TfrmGeControleCheque.btbtnAlterarClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaSTATUS.AsInteger >= STATUS_CHEQUE_COMPENSADO ) then
+  if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger >= STATUS_CHEQUE_COMPENSADO ) then
   begin
     ShowWarning('O cheque selecionado está em situação de "' + dbStatus.Text + '" e não poderá ser alterado!');
     Abort;
@@ -766,13 +729,13 @@ begin
   begin
     inherited;
     if ( not OcorreuErro ) then
-      AbrirBaixas( IbDtstTabelaCONTROLE.Value );
+      AbrirBaixas( DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger );
   end;
 end;
 
 procedure TfrmGeControleCheque.btbtnExcluirClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaSTATUS.AsInteger >= STATUS_CHEQUE_COMPENSADO ) then
+  if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger >= STATUS_CHEQUE_COMPENSADO ) then
   begin
     ShowWarning('O cheque selecionado está em situação de "' + dbStatus.Text + '" e não poderá ser excluído!');
     Abort;
@@ -781,7 +744,7 @@ begin
   begin
     inherited;
     if ( not OcorreuErro ) then
-      AbrirBaixas( IbDtstTabelaCONTROLE.Value );
+      AbrirBaixas( DtSrcTabela.DataSet.FieldByName('CONTROLE').Value );
   end;
 end;
 
@@ -797,11 +760,11 @@ begin
   if ( Sender = dbgDados ) then
   begin
     // Destacar Cheques Pendentes
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_CHEQUE_PENDENTE ) then
+    if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_CHEQUE_PENDENTE ) then
       dbgDados.Canvas.Font.Color := lblChequePendente.Font.Color
     else
     // Destacar Cheques A Compensar
-    if ( (IbDtstTabelaSTATUS.AsInteger = STATUS_CHEQUE_APRESENTADO) and (IbDtstTabelaDATA_APRESENTACAO.AsDateTime <= DataAtual) ) then
+    if ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_CHEQUE_APRESENTADO) and (DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').AsDateTime <= DataAtual) ) then
     begin
       dbgDados.Canvas.Font.Color  := lblChequeCompensar.Font.Color;
       dbgDados.Canvas.Brush.Color := lblChequeCompensar.Color;
@@ -815,36 +778,66 @@ procedure TfrmGeControleCheque.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   dbValor.ReadOnly      := (not qryBaixas.IsEmpty);
-  dbObservacao.ReadOnly := (IbDtstTabelaSTATUS.Value > STATUS_CHEQUE_PENDENTE); //(IbDtstTabela.State = dsEdit);
+  dbObservacao.ReadOnly := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger > STATUS_CHEQUE_PENDENTE); //(DtSrcTabela.DataSet.State = dsEdit);
   HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeControleCheque.fdQryTabelaEMISSOR_CNPJGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+  begin
+    if ( Sender.DataSet.FieldByName('emissor_pf').AsInteger = 1 ) then
+      Text := StrFormatarCpf(Trim(Sender.AsString))
+    else
+      Text := StrFormatarCnpj(Trim(Sender.AsString));
+  end;
 end;
 
 procedure TfrmGeControleCheque.fdQryTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
-  IbDtstTabelaEMPRESA.AsString := gUsuarioLogado.Empresa;
-  IbDtstTabelaSTATUS.AsInteger := STATUS_CHEQUE_PENDENTE;
-  IbDtstTabelaOBS.AsString     := '...';
-  IbDtstTabelaDATA_CADASTRO.AsDateTime  := GetDateDB;
-  IbDtstTabelaUSUARIO_CADASTRO.AsString := gUsuarioLogado.Login;
-  IbDtstTabelaTIPO.Clear;
-  IbDtstTabelaBANCO.Clear;
-  IbDtstTabelaAGENCIA.Clear;
-  IbDtstTabelaCONTA.Clear;
-  IbDtstTabelaNUMERO.Clear;
-  IbDtstTabelaVALOR.Clear;
-  IbDtstTabelaDATA_EMISSAO.Clear;
-  IbDtstTabelaDATA_APRESENTACAO.Clear;
-  IbDtstTabelaDATA_DEVOLUCAO.Clear;
-  IbDtstTabelaDATA_COMPENSACAO.Clear;
-  IbDtstTabelaNOMINAL_A.Clear;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('EMPRESA').AsString := gUsuarioLogado.Empresa;
+    FieldByName('STATUS').AsInteger := STATUS_CHEQUE_PENDENTE;
+    FieldByName('OBS').AsString     := '...';
+    FieldByName('DATA_CADASTRO').AsDateTime  := GetDateDB;
+    FieldByName('USUARIO_CADASTRO').AsString := gUsuarioLogado.Login;
+    FieldByName('TIPO').Clear;
+    FieldByName('BANCO').Clear;
+    FieldByName('AGENCIA').Clear;
+    FieldByName('CONTA').Clear;
+    FieldByName('NUMERO').Clear;
+    FieldByName('VALOR').Clear;
+    FieldByName('DATA_EMISSAO').Clear;
+    FieldByName('DATA_APRESENTACAO').Clear;
+    FieldByName('DATA_DEVOLUCAO').Clear;
+    FieldByName('DATA_COMPENSACAO').Clear;
+    FieldByName('NOMINAL_A').Clear;
+  end;
+end;
+
+procedure TfrmGeControleCheque.fdQryTabelaSTATUSGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Case Sender.AsInteger of
+      STATUS_CHEQUE_PENDENTE    : Text := 'Pendente';
+      STATUS_CHEQUE_APRESENTADO : Text := 'Apresentado';
+      STATUS_CHEQUE_DEVOLVIDO   : Text := 'Devolvido';
+      STATUS_CHEQUE_COMPENSADO  : Text := 'Compensado';
+      STATUS_CHEQUE_CANCELADO   : Text := 'Cancelado';
+      else
+        Text := Sender.AsString;
+    end;
 end;
 
 procedure TfrmGeControleCheque.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
-    AbrirBaixas( IbDtstTabelaCONTROLE.AsInteger );
+    AbrirBaixas( DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger );
 end;
 
 procedure TfrmGeControleCheque.btbtnIncluirClick(Sender: TObject);
@@ -852,7 +845,7 @@ begin
   inherited;
   if ( not OcorreuErro ) then
   begin
-    AbrirBaixas( IbDtstTabelaCONTROLE.AsInteger );
+    AbrirBaixas( DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger );
     DtSrcTabelaStateChange( DtSrcTabela );
   end;
 end;
@@ -891,29 +884,30 @@ procedure TfrmGeControleCheque.RecarregarRegistro;
 var
   iControle : Integer;
 begin
-  iControle := IbDtstTabelaCONTROLE.AsInteger;
+  iControle := DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger;
 
-  if ( not IbDtstTabelaDATA_APRESENTACAO.IsNull ) then
+  if ( not DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').IsNull ) then
   begin
-    if ( IbDtstTabelaDATA_APRESENTACAO.AsDateTime < e1Data.Date ) then
-      e1Data.Date := IbDtstTabelaDATA_APRESENTACAO.AsDateTime;
+    if ( DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').AsDateTime < e1Data.Date ) then
+      e1Data.Date := DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').AsDateTime;
 
-    if ( IbDtstTabelaDATA_APRESENTACAO.AsDateTime > e2Data.Date ) then
-      e2Data.Date := IbDtstTabelaDATA_APRESENTACAO.AsDateTime;
+    if ( DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').AsDateTime > e2Data.Date ) then
+      e2Data.Date := DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').AsDateTime;
   end;
-
-  edtFiltrar.Text := EmptyStr;
-  AddWhereAdditional;
-  FiltarDados;
-
-  if not IbDtstTabela.Locate('CONTROLE;EMPRESA', VarArrayOf([iControle, gUsuarioLogado.Empresa]), []) then
-  begin
-    IbDtstTabela.Close;
-
-    ShowInformation('Favor pesquisar novamente o registro de despesa!');
-    pgcGuias.ActivePage := tbsTabela;
-    edtFiltrar.SetFocus;
-  end;
+//
+//  edtFiltrar.Text := EmptyStr;
+//  AddWhereAdditional;
+//  FiltarDados;
+//
+//  if not DtSrcTabela.DataSet.Locate('CONTROLE;EMPRESA', VarArrayOf([iControle, gUsuarioLogado.Empresa]), []) then
+//  begin
+//    DtSrcTabela.DataSet.Close;
+//
+//    ShowInformation('Favor pesquisar novamente o registro de despesa!');
+//    pgcGuias.ActivePage := tbsTabela;
+//    edtFiltrar.SetFocus;
+//  end;
+  fdQryTabela.RefreshRecord;
 end;
 
 procedure TfrmGeControleCheque.RegistrarNovaRotinaSistema;

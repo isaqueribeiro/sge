@@ -1275,214 +1275,9 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     GeneratorField.Field = 'CONTROLE'
     GeneratorField.Generator = 'GEN_CONTROLE_CHEQUE'
     GeneratorField.ApplyEvent = gamOnNewRecord
-    object IbDtstTabelaCONTROLE: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'Controle'
-      FieldName = 'CONTROLE'
-      Origin = '"TBCHEQUE"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '0000000'
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBCHEQUE"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 18
-    end
-    object IbDtstTabelaTIPO: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = 'Tipo de Origem'
-      FieldName = 'TIPO'
-      Origin = '"TBCHEQUE"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaEMISSOR_NOME: TIBStringField
-      DisplayLabel = 'Emissor'
-      FieldName = 'EMISSOR_NOME'
-      ProviderFlags = []
-      Required = True
-      Size = 100
-    end
-    object IbDtstTabelaEMISSOR_CNPJ: TIBStringField
-      FieldName = 'EMISSOR_CNPJ'
-      ProviderFlags = []
-      OnGetText = IbDtstTabelaEMISSOR_CNPJGetText
-      Size = 18
-    end
-    object IbDtstTabelaEMISSOR_PF: TSmallintField
-      FieldName = 'EMISSOR_PF'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaDATA_EMISSAO: TDateField
-      DisplayLabel = 'Data de Emiss'#227'o'
-      FieldName = 'DATA_EMISSAO'
-      Origin = '"TBCHEQUE"."DATA_EMISSAO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaDATA_APRESENTACAO: TDateField
-      DisplayLabel = 'Data de Apresenta'#231#227'o'
-      FieldName = 'DATA_APRESENTACAO'
-      Origin = '"TBCHEQUE"."DATA_APRESENTACAO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaDATA_DEVOLUCAO: TDateField
-      FieldName = 'DATA_DEVOLUCAO'
-      Origin = '"TBCHEQUE"."DATA_DEVOLUCAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaDATA_COMPENSACAO: TDateField
-      DisplayLabel = 'Data de Compensa'#231#227'o'
-      FieldName = 'DATA_COMPENSACAO'
-      Origin = '"TBCHEQUE"."DATA_COMPENSACAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNUMERO: TIBStringField
-      DisplayLabel = 'N'#250'mero do Cheque'
-      FieldName = 'NUMERO'
-      Origin = '"TBCHEQUE"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 30
-    end
-    object IbDtstTabelaBANCO: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'Banco'
-      FieldName = 'BANCO'
-      Origin = '"TBCHEQUE"."BANCO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object IbDtstTabelaAGENCIA: TIBStringField
-      DisplayLabel = 'Ag'#234'ncia'
-      FieldName = 'AGENCIA'
-      Origin = '"TBCHEQUE"."AGENCIA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaCONTA: TIBStringField
-      DisplayLabel = 'Conta'
-      FieldName = 'CONTA'
-      Origin = '"TBCHEQUE"."CONTA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaVALOR: TIBBCDField
-      DisplayLabel = 'Valor (R$)'
-      FieldName = 'VALOR'
-      Origin = '"TBCHEQUE"."VALOR"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaFORNECEDOR: TIntegerField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'FORNECEDOR'
-      Origin = '"TBCHEQUE"."FORNECEDOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCLIENTE: TIntegerField
-      DisplayLabel = 'Cliente'
-      FieldName = 'CLIENTE'
-      Origin = '"TBCHEQUE"."CLIENTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaNOMINAL_A: TIBStringField
-      DisplayLabel = 'Nominal a'
-      FieldName = 'NOMINAL_A'
-      Origin = '"TBCHEQUE"."NOMINAL_A"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object IbDtstTabelaDATA_CADASTRO: TDateField
-      FieldName = 'DATA_CADASTRO'
-      Origin = '"TBCHEQUE"."DATA_CADASTRO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaUSUARIO_CADASTRO: TIBStringField
-      FieldName = 'USUARIO_CADASTRO'
-      Origin = '"TBCHEQUE"."USUARIO_CADASTRO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object IbDtstTabelaSTATUS: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Status'
-      FieldName = 'STATUS'
-      Origin = '"TBCHEQUE"."STATUS"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      OnGetText = IbDtstTabelaSTATUSGetText
-    end
-    object IbDtstTabelaOBS: TWideMemoField
-      DisplayLabel = 'Observa'#231#245'es'
-      FieldName = 'OBS'
-      Origin = '"TBCHEQUE"."OBS"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
-    end
-    object IbDtstTabelaSTATUS_DESCRICAO: TIBStringField
-      FieldKind = fkInternalCalc
-      FieldName = 'STATUS_DESCRICAO'
-      Origin = '"VW_STATUS_CHEQUE"."DESCRICAO"'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 11
-    end
-    object IbDtstTabelaBANCO_NOME: TIBStringField
-      DisplayLabel = 'Banco'
-      FieldName = 'BANCO_NOME'
-      Origin = '"TBBANCO"."NOME"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaCLIENTE_NOME: TIBStringField
-      DisplayLabel = 'Emissor'
-      FieldName = 'CLIENTE_NOME'
-      Origin = '"TBCLIENTE"."NOME"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaCLIENTE_CNPJ: TIBStringField
-      DisplayLabel = 'CPF/CNPJ'
-      FieldName = 'CLIENTE_CNPJ'
-      Origin = '"TBCLIENTE"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object IbDtstTabelaCLIENTE_PF: TSmallintField
-      FieldName = 'CLIENTE_PF'
-      Origin = '"TBCLIENTE"."PESSOA_FISICA"'
-    end
-    object IbDtstTabelaFORNECEDOR_NOME: TIBStringField
-      DisplayLabel = 'Emissor'
-      FieldName = 'FORNECEDOR_NOME'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaFORNECEDOR_CNPJ: TIBStringField
-      DisplayLabel = 'CPF/CNPJ'
-      FieldName = 'FORNECEDOR_CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object IbDtstTabelaFORNECEDOR_PF: TSmallintField
-      FieldName = 'FORNECEDOR_PF'
-      Origin = '"TBFORNECEDOR"."PESSOA_FISICA"'
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     Left = 704
     Top = 0
   end
@@ -1565,7 +1360,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 608
     Top = 0
     Bitmap = {
-      494C01012B002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3025,7 +2820,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
-    Active = True
     OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
@@ -3074,73 +2868,121 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       '  left join TBFORNECEDOR fc on (fc.codforn = c.fornecedor)'
       '  left join TBBANCO bc on (bc.cod = c.banco)')
     object fdQryTabelaCONTROLE: TIntegerField
+      Alignment = taCenter
       AutoGenerateValue = arAutoInc
+      DisplayLabel = 'Controle'
       FieldName = 'CONTROLE'
       Origin = 'CONTROLE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      DisplayFormat = '0000000'
     end
     object fdQryTabelaEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
       FieldName = 'EMPRESA'
       Origin = 'EMPRESA'
+      Required = True
       Size = 18
     end
     object fdQryTabelaTIPO: TSmallintField
+      Alignment = taCenter
+      DisplayLabel = 'Tipo de Origem'
       FieldName = 'TIPO'
       Origin = 'TIPO'
-    end
-    object fdQryTabelaBANCO: TStringField
-      FieldName = 'BANCO'
-      Origin = 'BANCO'
-      Required = True
-      Size = 10
-    end
-    object fdQryTabelaAGENCIA: TStringField
-      FieldName = 'AGENCIA'
-      Origin = 'AGENCIA'
       Required = True
     end
-    object fdQryTabelaCONTA: TStringField
-      FieldName = 'CONTA'
-      Origin = 'CONTA'
+    object fdQryTabelaEMISSOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Emissor'
+      FieldName = 'EMISSOR_NOME'
+      Origin = 'EMISSOR_NOME'
+      ProviderFlags = []
       Required = True
+      Size = 100
     end
-    object fdQryTabelaNUMERO: TStringField
-      FieldName = 'NUMERO'
-      Origin = 'NUMERO'
+    object fdQryTabelaEMISSOR_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_CNPJ'
+      Origin = 'EMISSOR_CNPJ'
+      ProviderFlags = []
       Required = True
-      Size = 30
+      OnGetText = fdQryTabelaEMISSOR_CNPJGetText
+      Size = 18
     end
-    object fdQryTabelaFORNECEDOR: TIntegerField
-      FieldName = 'FORNECEDOR'
-      Origin = 'FORNECEDOR'
-    end
-    object fdQryTabelaCLIENTE: TIntegerField
-      FieldName = 'CLIENTE'
-      Origin = 'CLIENTE'
+    object fdQryTabelaEMISSOR_PF: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_PF'
+      Origin = 'EMISSOR_PF'
+      ProviderFlags = []
     end
     object fdQryTabelaDATA_EMISSAO: TDateField
+      DisplayLabel = 'Data de Emiss'#227'o'
       FieldName = 'DATA_EMISSAO'
       Origin = 'DATA_EMISSAO'
+      Required = True
     end
     object fdQryTabelaDATA_APRESENTACAO: TDateField
+      DisplayLabel = 'Data de Apresenta'#231#227'o'
       FieldName = 'DATA_APRESENTACAO'
       Origin = 'DATA_APRESENTACAO'
+      Required = True
     end
     object fdQryTabelaDATA_DEVOLUCAO: TDateField
       FieldName = 'DATA_DEVOLUCAO'
       Origin = 'DATA_DEVOLUCAO'
     end
     object fdQryTabelaDATA_COMPENSACAO: TDateField
+      DisplayLabel = 'Data de Compensa'#231#227'o'
       FieldName = 'DATA_COMPENSACAO'
       Origin = 'DATA_COMPENSACAO'
     end
+    object fdQryTabelaNUMERO: TStringField
+      DisplayLabel = 'N'#250'mero do Cheque'
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Required = True
+      Size = 30
+    end
+    object fdQryTabelaBANCO: TStringField
+      DisplayLabel = 'Banco'
+      FieldName = 'BANCO'
+      Origin = 'BANCO'
+      Required = True
+      Size = 10
+    end
+    object fdQryTabelaAGENCIA: TStringField
+      DisplayLabel = 'Ag'#234'ncia'
+      FieldName = 'AGENCIA'
+      Origin = 'AGENCIA'
+      Required = True
+    end
+    object fdQryTabelaCONTA: TStringField
+      DisplayLabel = 'Conta'
+      FieldName = 'CONTA'
+      Origin = 'CONTA'
+      Required = True
+    end
     object fdQryTabelaVALOR: TBCDField
+      DisplayLabel = 'Valor (R$)'
       FieldName = 'VALOR'
       Origin = 'VALOR'
+      Required = True
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
+    object fdQryTabelaFORNECEDOR: TIntegerField
+      DisplayLabel = 'Fornecedor'
+      FieldName = 'FORNECEDOR'
+      Origin = 'FORNECEDOR'
+    end
+    object fdQryTabelaCLIENTE: TIntegerField
+      DisplayLabel = 'Cliente'
+      FieldName = 'CLIENTE'
+      Origin = 'CLIENTE'
+    end
     object fdQryTabelaNOMINAL_A: TStringField
+      DisplayLabel = 'Nominal a'
       FieldName = 'NOMINAL_A'
       Origin = 'NOMINAL_A'
       Size = 50
@@ -3156,11 +2998,15 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       Size = 12
     end
     object fdQryTabelaSTATUS: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Status'
       FieldName = 'STATUS'
       Origin = 'STATUS'
       Required = True
+      OnGetText = fdQryTabelaSTATUSGetText
     end
     object fdQryTabelaOBS: TMemoField
+      DisplayLabel = 'Observa'#231#245'es'
       FieldName = 'OBS'
       Origin = 'OBS'
       BlobType = ftMemo
@@ -3175,33 +3021,15 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
     object fdQryTabelaBANCO_NOME: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'Banco'
       FieldName = 'BANCO_NOME'
       Origin = 'NOME'
       ProviderFlags = []
       Size = 100
     end
-    object fdQryTabelaEMISSOR_NOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'EMISSOR_NOME'
-      Origin = 'EMISSOR_NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object fdQryTabelaEMISSOR_CNPJ: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'EMISSOR_CNPJ'
-      Origin = 'EMISSOR_CNPJ'
-      ProviderFlags = []
-      Size = 18
-    end
-    object fdQryTabelaEMISSOR_PF: TSmallintField
-      AutoGenerateValue = arDefault
-      FieldName = 'EMISSOR_PF'
-      Origin = 'EMISSOR_PF'
-      ProviderFlags = []
-    end
     object fdQryTabelaCLIENTE_NOME: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'Emissor'
       FieldName = 'CLIENTE_NOME'
       Origin = 'NOME'
       ProviderFlags = []
@@ -3209,6 +3037,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
     object fdQryTabelaCLIENTE_CNPJ: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'CPF/CNPJ'
       FieldName = 'CLIENTE_CNPJ'
       Origin = 'CNPJ'
       ProviderFlags = []
@@ -3222,6 +3051,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
     object fdQryTabelaFORNECEDOR_NOME: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'Emissor'
       FieldName = 'FORNECEDOR_NOME'
       Origin = 'NOMEFORN'
       ProviderFlags = []
@@ -3229,6 +3059,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
     object fdQryTabelaFORNECEDOR_CNPJ: TStringField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'CPF/CNPJ'
       FieldName = 'FORNECEDOR_CNPJ'
       Origin = 'CNPJ'
       ProviderFlags = []
@@ -3336,136 +3167,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 360
     Top = 296
   end
-  object qryBaixas: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    '#39'CP - Contas A Pagar'#39' as tipo'
-      
-        '  , pb.anolanc || '#39'/'#39' || right('#39'0000000'#39' || pb.numlanc, 7) as la' +
-        'ncamento'
-      '  , pb.anolanc'
-      '  , pb.numlanc'
-      '  , pb.seq'
-      '  , pb.data_pagto'
-      '  , pb.valor_baixa'
-      '  , pb.documento_baixa'
-      '  , pb.usuario'
-      '  , fc.nomeforn      as nome'
-      '  , fc.cnpj          as nome_cnpj'
-      '  , fc.pessoa_fisica as nome_pf'
-      'from TBCONTPAG_BAIXA pb'
-      
-        '  inner join TBCONTPAG cp on (cp.anolanc = pb.anolanc and cp.num' +
-        'lanc = pb.numlanc)'
-      '  inner join TBFORNECEDOR fc on (fc.codforn = cp.codforn)'
-      'where pb.controle_cheque = :cheque'
-      ''
-      'union'
-      ''
-      'Select'
-      '    '#39'CR - Contas A Receber'#39' as tipo'
-      
-        '  , pr.anolanc || '#39'/'#39' || right('#39'0000000'#39' || pr.numlanc, 7) as la' +
-        'ncamento'
-      '  , pr.anolanc'
-      '  , pr.numlanc'
-      '  , pr.seq'
-      '  , pr.data_pagto'
-      '  , pr.valor_baixa'
-      '  , pr.documento_baixa'
-      '  , pr.usuario'
-      '  , cc.nome          as nome'
-      '  , cc.cnpj          as nome_cnpj'
-      '  , cc.pessoa_fisica as nome_pf'
-      'from TBCONTREC_BAIXA pr'
-      
-        '  inner join TBCONTREC cr on (cr.anolanc = pr.anolanc and cr.num' +
-        'lanc = pr.numlanc)'
-      '  inner join TBCLIENTE cc on (cc.codigo = cr.cliente)'
-      'where pr.controle_cheque = :cheque'
-      ''
-      'order by'
-      '    6'
-      '')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 792
-    Top = 312
-    object qryBaixasTIPO: TIBStringField
-      FieldName = 'TIPO'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 21
-    end
-    object qryBaixasLANCAMENTO: TIBStringField
-      FieldName = 'LANCAMENTO'
-      ProviderFlags = []
-      Size = 25
-    end
-    object qryBaixasANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = '"TBCONTPAG_BAIXA"."ANOLANC"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryBaixasNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = '"TBCONTPAG_BAIXA"."NUMLANC"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryBaixasSEQ: TSmallintField
-      FieldName = 'SEQ'
-      Origin = '"TBCONTPAG_BAIXA"."SEQ"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryBaixasDATA_PAGTO: TDateField
-      FieldName = 'DATA_PAGTO'
-      Origin = '"TBCONTPAG_BAIXA"."DATA_PAGTO"'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryBaixasVALOR_BAIXA: TIBBCDField
-      FieldName = 'VALOR_BAIXA'
-      Origin = '"TBCONTPAG_BAIXA"."VALOR_BAIXA"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryBaixasDOCUMENTO_BAIXA: TIBStringField
-      FieldName = 'DOCUMENTO_BAIXA'
-      Origin = '"TBCONTPAG_BAIXA"."DOCUMENTO_BAIXA"'
-      Size = 10
-    end
-    object qryBaixasUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBCONTPAG_BAIXA"."USUARIO"'
-      Size = 12
-    end
-    object qryBaixasNOME: TIBStringField
-      FieldName = 'NOME'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      Size = 100
-    end
-    object qryBaixasNOME_CNPJ: TIBStringField
-      FieldName = 'NOME_CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      OnGetText = qryBaixasNOME_CNPJGetText
-      Size = 18
-    end
-    object qryBaixasNOME_PF: TSmallintField
-      FieldName = 'NOME_PF'
-      Origin = '"TBFORNECEDOR"."PESSOA_FISICA"'
-    end
-  end
   object dtsBaixas: TDataSource
     AutoEdit = False
     DataSet = qryBaixas
@@ -3473,6 +3174,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Top = 312
   end
   object dtsBanco: TDataSource
+    DataSet = fdQryBanco
     Left = 360
     Top = 360
   end
@@ -3611,7 +3313,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
@@ -3625,6 +3327,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaCNPJ: TfrxMemoView
@@ -3771,7 +3474,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         FillType = ftBrush
         Frame.Typ = []
         Height = 30.236240000000000000
-        Top = 529.134199999999900000
+        Top = 529.134200000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -3899,7 +3602,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
@@ -3914,14 +3617,14 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo5: TfrxMemoView
           Left = 79.370130000000000000
-          Top = 64.252009999999990000
+          Top = 64.252010000000000000
           Width = 377.953000000000000000
           Height = 22.677180000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftTop]
@@ -3996,140 +3699,73 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 124
     Top = 353
   end
-  object QryCheque: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.controle'
-      '  , c.empresa'
-      '  , c.tipo'
-      '  , c.banco'
-      '  , e.logo as banco_logo'
-      '  , c.agencia'
-      '  , c.conta'
-      '  , c.numero'
-      '  , c.fornecedor'
-      '  , c.cliente'
-      '  , c.data_emissao'
-      '  , c.data_apresentacao'
-      '  , c.data_compensacao'
-      '  , c.valor'
-      '  , rpad(coalesce(c.nominal_a, '#39#39'), 140, '#39' '#39') as nominal_a'
-      '  , c.data_cadastro'
-      '  , c.usuario_cadastro'
-      '  , c.status'
-      '  , c.obs'
-      ''
-      '  , sc.descricao as status_descricao'
-      '  , bc.nome      as banco_nome'
-      ''
-      '  , coalesce(cc.nome, fc.nomeforn)               as emissor_nome'
-      '  , coalesce(cc.cnpj, fc.cnpj)                   as emissor_cnpj'
-      '  , coalesce(cc.pessoa_fisica, fc.pessoa_fisica) as emissor_pf'
-      'from TBCHEQUE c'
-      '  left join TBEMPRESA e on (e.cnpj = c.empresa)'
-      '  left join VW_STATUS_CHEQUE sc on (sc.codigo = c.status)'
-      '  left join TBCLIENTE cc on (cc.codigo = c.cliente)'
-      '  left join TBFORNECEDOR fc on (fc.codforn = c.fornecedor)'
-      '  left join TBBANCO bc on (bc.cod = c.banco)'
-      ''
-      'where c.controle = :cheque')
-    Left = 60
-    Top = 401
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'cheque'
-        ParamType = ptUnknown
-        Value = 11
-      end>
-  end
   object DspCheque: TDataSetProvider
     DataSet = QryCheque
-    Left = 92
-    Top = 401
+    Left = 96
+    Top = 400
   end
   object CdsCheque: TClientDataSet
     Aggregates = <>
     Params = <
       item
         DataType = ftInteger
-        Name = 'cheque'
-        ParamType = ptUnknown
-        Value = 11
+        Name = 'CHEQUE'
+        ParamType = ptInput
       end>
     ProviderName = 'DspCheque'
     OnCalcFields = CdsChequeCalcFields
-    Left = 124
-    Top = 401
+    Left = 128
+    Top = 400
     object CdsChequeCONTROLE: TIntegerField
       FieldName = 'CONTROLE'
-      Origin = '"TBCHEQUE"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object CdsChequeEMPRESA: TWideStringField
+    object CdsChequeEMPRESA: TStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBCHEQUE"."EMPRESA"'
       Size = 18
     end
     object CdsChequeTIPO: TSmallintField
       FieldName = 'TIPO'
-      Origin = '"TBCHEQUE"."TIPO"'
     end
-    object CdsChequeBANCO: TWideStringField
+    object CdsChequeBANCO: TStringField
       FieldName = 'BANCO'
-      Origin = '"TBCHEQUE"."BANCO"'
       Required = True
       Size = 10
     end
     object CdsChequeBANCO_LOGO: TBlobField
       FieldName = 'BANCO_LOGO'
-      Size = 8
+      ReadOnly = True
     end
-    object CdsChequeAGENCIA: TWideStringField
+    object CdsChequeAGENCIA: TStringField
       FieldName = 'AGENCIA'
-      Origin = '"TBCHEQUE"."AGENCIA"'
       Required = True
     end
-    object CdsChequeCONTA: TWideStringField
+    object CdsChequeCONTA: TStringField
       FieldName = 'CONTA'
-      Origin = '"TBCHEQUE"."CONTA"'
       Required = True
     end
-    object CdsChequeNUMERO: TWideStringField
+    object CdsChequeNUMERO: TStringField
       FieldName = 'NUMERO'
-      Origin = '"TBCHEQUE"."NUMERO"'
       Required = True
       Size = 30
     end
     object CdsChequeFORNECEDOR: TIntegerField
       FieldName = 'FORNECEDOR'
-      Origin = '"TBCHEQUE"."FORNECEDOR"'
     end
     object CdsChequeCLIENTE: TIntegerField
       FieldName = 'CLIENTE'
-      Origin = '"TBCHEQUE"."CLIENTE"'
     end
     object CdsChequeDATA_EMISSAO: TDateField
       FieldName = 'DATA_EMISSAO'
-      Origin = '"TBCHEQUE"."DATA_EMISSAO"'
     end
     object CdsChequeDATA_APRESENTACAO: TDateField
       FieldName = 'DATA_APRESENTACAO'
-      Origin = '"TBCHEQUE"."DATA_APRESENTACAO"'
     end
     object CdsChequeDATA_COMPENSACAO: TDateField
       FieldName = 'DATA_COMPENSACAO'
-      Origin = '"TBCHEQUE"."DATA_COMPENSACAO"'
     end
     object CdsChequeVALOR: TBCDField
       FieldName = 'VALOR'
-      Origin = '"TBCHEQUE"."VALOR"'
       Precision = 18
       Size = 2
     end
@@ -4138,58 +3774,51 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       FieldName = 'VALOR_EXTENSO'
       Size = 250
     end
-    object CdsChequeNOMINAL_A: TWideStringField
+    object CdsChequeNOMINAL_A: TStringField
       FieldName = 'NOMINAL_A'
-      ProviderFlags = []
-      Size = 100
+      ReadOnly = True
+      Size = 140
     end
     object CdsChequeDATA_CADASTRO: TDateField
       FieldName = 'DATA_CADASTRO'
-      Origin = '"TBCHEQUE"."DATA_CADASTRO"'
       Required = True
     end
-    object CdsChequeUSUARIO_CADASTRO: TWideStringField
+    object CdsChequeUSUARIO_CADASTRO: TStringField
       FieldName = 'USUARIO_CADASTRO'
-      Origin = '"TBCHEQUE"."USUARIO_CADASTRO"'
       Size = 12
     end
     object CdsChequeSTATUS: TSmallintField
       FieldName = 'STATUS'
-      Origin = '"TBCHEQUE"."STATUS"'
+      Required = True
     end
-    object CdsChequeOBS: TWideMemoField
+    object CdsChequeOBS: TMemoField
       FieldName = 'OBS'
-      Origin = '"TBCHEQUE"."OBS"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
+      BlobType = ftMemo
     end
-    object CdsChequeSTATUS_DESCRICAO: TWideStringField
+    object CdsChequeSTATUS_DESCRICAO: TStringField
       FieldName = 'STATUS_DESCRICAO'
-      Origin = '"VW_STATUS_CHEQUE"."DESCRICAO"'
-      ProviderFlags = []
       ReadOnly = True
       FixedChar = True
       Size = 11
     end
-    object CdsChequeBANCO_NOME: TWideStringField
+    object CdsChequeBANCO_NOME: TStringField
       FieldName = 'BANCO_NOME'
-      Origin = '"TBBANCO"."NOME"'
+      ReadOnly = True
       Size = 100
     end
-    object CdsChequeEMISSOR_NOME: TWideStringField
+    object CdsChequeEMISSOR_NOME: TStringField
       FieldName = 'EMISSOR_NOME'
-      ProviderFlags = []
+      ReadOnly = True
       Size = 100
     end
-    object CdsChequeEMISSOR_CNPJ: TWideStringField
+    object CdsChequeEMISSOR_CNPJ: TStringField
       FieldName = 'EMISSOR_CNPJ'
-      ProviderFlags = []
+      ReadOnly = True
       Size = 18
     end
     object CdsChequeEMISSOR_PF: TSmallintField
       FieldName = 'EMISSOR_PF'
-      ProviderFlags = []
+      ReadOnly = True
     end
   end
   object popImprimir: TPopupMenu
@@ -4340,6 +3969,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
   end
   object dtsTipoCheque: TDataSource
+    DataSet = fdQryTipoCheque
     Left = 360
     Top = 328
   end
@@ -4485,7 +4115,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
@@ -4499,6 +4129,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaCNPJ: TfrxMemoView
@@ -5052,14 +4683,14 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object Memo9: TfrxMemoView
           Left = 332.598640000000000000
-          Top = 253.228510000000100000
+          Top = 253.228510000000000000
           Width = 377.953000000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = []
@@ -5083,7 +4714,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftTop]
@@ -5111,15 +4742,15 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             6C5C66305C66733230205B4672644368657175652E2256414C4F525F45585445
             4E534F225D205B436F7079283C73436F6D706C656D656E746F56616C6F723E2C
             20312C2028313530202D204C656E677468283C4672644368657175652E225641
-            4C4F525F455854454E534F223E2929295D5C756C6E6F6E655C66733136202065
-            2063656E7461766F73206163696D615C7061720D0A0D0A5C706172645C716A5C
-            7061720D0A61205C756C5C66733230205B4672644368657175652E224E4F4D49
-            4E414C5F41225D5C756C6E6F6E655C6673313620206F75205C27653020737561
-            206F7264656D2E5C7061720D0A5C7061720D0A0D0A5C706172645C71725C6673
-            3230205B4369646164655D2F5B55465D2C205B466F726D61744461746554696D
-            652827646420222064652022206D6D6D6D202220646520222079797979272C20
-            3C4672644368657175652E22444154415F454D495353414F223E295D2E5C7061
-            720D0A0D0A5C706172645C716A5C7061720D0A7D0D0A00}
+            4C4F525F455854454E534F223E2929295D5C756C6E6F6E655C66733136202061
+            63696D615C7061720D0A0D0A5C706172645C716A5C7061720D0A61205C756C5C
+            66733230205B4672644368657175652E224E4F4D494E414C5F41225D5C756C6E
+            6F6E655C6673313620206F75205C27653020737561206F7264656D2E5C706172
+            0D0A5C7061720D0A0D0A5C706172645C71725C66733230205B4369646164655D
+            2F5B55465D2C205B466F726D61744461746554696D6528276464202220646520
+            22206D6D6D6D202220646520222079797979272C203C4672644368657175652E
+            22444154415F454D495353414F223E295D2E5C7061720D0A0D0A5C706172645C
+            716A5C7061720D0A7D0D0A00}
         end
         object Memo15: TfrxMemoView
           Left = 7.559060000000000000
@@ -5187,103 +4818,34 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       OnClick = ppmCancelarClick
     end
   end
-  object QryRelacaoCheque: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    ch.empresa'
-      '  , ch.controle'
-      '  , ch.tipo'
-      '  , Case ch.tipo'
-      '      when 1 then '#39'Emitido'#39
-      '      when 2 then '#39'Recebido'#39
-      '      else '#39'Outros'#39
-      '    end as tipo_descricao'
-      '  , ch.status'
-      '  , st.descricao as status_descricao'
-      '  , ch.banco'
-      '  , bc.nome as banco_nome'
-      '  , ch.agencia'
-      '  , ch.conta'
-      '  , ch.numero'
-      '  , ch.data_emissao'
-      '  , ch.data_apresentacao'
-      '  , ch.data_devolucao'
-      '  , ch.data_compensacao'
-      '  , ch.valor'
-      '  , coalesce(ci.nome, fr.nomeforn) as emissor_nome'
-      '  , coalesce(ci.cnpj, fr.cnpj)     as emissor_cpf_cnpj'
-      '  , coalesce(ci.pessoa_fisica, fr.pessoa_fisica) as emissor_pf'
-      'from TBCHEQUE ch'
-      '  left join VW_STATUS_CHEQUE st on (st.codigo = ch.status)'
-      '  left join TBCLIENTE ci on (ci.codigo = ch.cliente)'
-      '  left join TBFORNECEDOR fr on (fr.codforn = ch.fornecedor)'
-      '  left join TBBANCO bc on (bc.cod = ch.banco)'
-      ''
-      'where ch.empresa = :empresa'
-      '  and ch.data_apresentacao between :data_inicial and :data_final'
-      ''
-      'order by'
-      '    ch.status'
-      '  , ch.data_apresentacao'
-      '  , coalesce(ci.nome, fr.nomeforn)'
-      '  , ch.data_emissao')
-    Left = 60
-    Top = 449
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_inicial'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_final'
-        ParamType = ptInput
-        Value = 0d
-      end>
-  end
   object DspRelacaoCheque: TDataSetProvider
     DataSet = QryRelacaoCheque
-    Left = 92
-    Top = 449
+    Left = 96
+    Top = 448
   end
   object CdsRelacaoCheque: TClientDataSet
     Aggregates = <>
     Params = <
       item
         DataType = ftString
-        Name = 'empresa'
+        Name = 'EMPRESA'
         ParamType = ptInput
-        Value = ''
+        Size = 18
       end
       item
-        DataType = ftDateTime
-        Name = 'data_inicial'
+        DataType = ftDate
+        Name = 'DATA_INICIAL'
         ParamType = ptInput
-        Value = 0d
       end
       item
-        DataType = ftDateTime
-        Name = 'data_final'
+        DataType = ftDate
+        Name = 'DATA_FINAL'
         ParamType = ptInput
-        Value = 0d
       end>
     ProviderName = 'DspRelacaoCheque'
     OnCalcFields = CdsChequeCalcFields
-    Left = 124
-    Top = 449
+    Left = 128
+    Top = 448
   end
   object frdsRelacaoCheque: TfrxDBDataset
     UserName = 'frdsRelacaoCheque'
@@ -5310,8 +4872,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       'EMISSOR_PF=EMISSOR_PF')
     DataSet = CdsRelacaoCheque
     BCDToCurrency = True
-    Left = 156
-    Top = 449
+    Left = 160
+    Top = 448
   end
   object frRelacaoCheque: TfrxReport
     Version = '6.0.7'
@@ -5448,8 +5010,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
-          Width = 464.882190000000000000
+          Top = 7.559060000000000000
+          Width = 665.197280000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -5462,12 +5024,13 @@ inherited frmGeControleCheque: TfrmGeControleCheque
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
           Left = 113.385900000000000000
           Top = 26.456710000000000000
-          Width = 464.882190000000000000
+          Width = 665.196850393700800000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -5488,7 +5051,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         object frdFone: TfrxMemoView
           Left = 113.385900000000000000
           Top = 41.574830000000000000
-          Width = 464.882190000000000000
+          Width = 665.196850393700800000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -5552,7 +5115,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         object Memo44: TfrxMemoView
           Left = 113.385900000000000000
           Top = 71.811070000000000000
-          Width = 464.882190000000000000
+          Width = 665.196850393700800000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -6583,5 +6146,265 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       'from VW_BANCO_FEBRABAN b')
     Left = 329
     Top = 360
+  end
+  object qryBaixas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    '#39'CP - Contas A Pagar'#39' as tipo'
+      
+        '  , pb.anolanc || '#39'/'#39' || right('#39'0000000'#39' || pb.numlanc, 7) as la' +
+        'ncamento'
+      '  , pb.anolanc'
+      '  , pb.numlanc'
+      '  , pb.seq'
+      '  , pb.data_pagto'
+      '  , pb.valor_baixa'
+      '  , pb.documento_baixa'
+      '  , pb.usuario'
+      '  , fc.nomeforn      as nome'
+      '  , fc.cnpj          as nome_cnpj'
+      '  , fc.pessoa_fisica as nome_pf'
+      'from TBCONTPAG_BAIXA pb'
+      
+        '  inner join TBCONTPAG cp on (cp.anolanc = pb.anolanc and cp.num' +
+        'lanc = pb.numlanc)'
+      '  inner join TBFORNECEDOR fc on (fc.codforn = cp.codforn)'
+      'where pb.controle_cheque = :cheque'
+      ''
+      'union'
+      ''
+      'Select'
+      '    '#39'CR - Contas A Receber'#39' as tipo'
+      
+        '  , pr.anolanc || '#39'/'#39' || right('#39'0000000'#39' || pr.numlanc, 7) as la' +
+        'ncamento'
+      '  , pr.anolanc'
+      '  , pr.numlanc'
+      '  , pr.seq'
+      '  , pr.data_pagto'
+      '  , pr.valor_baixa'
+      '  , pr.documento_baixa'
+      '  , pr.usuario'
+      '  , cc.nome          as nome'
+      '  , cc.cnpj          as nome_cnpj'
+      '  , cc.pessoa_fisica as nome_pf'
+      'from TBCONTREC_BAIXA pr'
+      
+        '  inner join TBCONTREC cr on (cr.anolanc = pr.anolanc and cr.num' +
+        'lanc = pr.numlanc)'
+      '  inner join TBCLIENTE cc on (cc.codigo = cr.cliente)'
+      'where pr.controle_cheque = :cheque'
+      ''
+      'order by'
+      '    6'
+      '')
+    Left = 793
+    Top = 312
+    ParamData = <
+      item
+        Name = 'CHEQUE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object qryBaixasTIPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 21
+    end
+    object qryBaixasLANCAMENTO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LANCAMENTO'
+      Origin = 'LANCAMENTO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 25
+    end
+    object qryBaixasANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryBaixasNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryBaixasSEQ: TSmallintField
+      FieldName = 'SEQ'
+      Origin = 'SEQ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryBaixasDATA_PAGTO: TDateField
+      FieldName = 'DATA_PAGTO'
+      Origin = 'DATA_PAGTO'
+    end
+    object qryBaixasVALOR_BAIXA: TBCDField
+      FieldName = 'VALOR_BAIXA'
+      Origin = 'VALOR_BAIXA'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object qryBaixasDOCUMENTO_BAIXA: TStringField
+      FieldName = 'DOCUMENTO_BAIXA'
+      Origin = 'DOCUMENTO_BAIXA'
+      Size = 10
+    end
+    object qryBaixasUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 12
+    end
+    object qryBaixasNOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object qryBaixasNOME_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      ReadOnly = True
+      OnGetText = qryBaixasNOME_CNPJGetText
+      Size = 18
+    end
+    object qryBaixasNOME_PF: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_PF'
+      Origin = 'PESSOA_FISICA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object QryCheque: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.controle'
+      '  , c.empresa'
+      '  , c.tipo'
+      '  , c.banco'
+      '  , e.logo as banco_logo'
+      '  , c.agencia'
+      '  , c.conta'
+      '  , c.numero'
+      '  , c.fornecedor'
+      '  , c.cliente'
+      '  , c.data_emissao'
+      '  , c.data_apresentacao'
+      '  , c.data_compensacao'
+      '  , c.valor'
+      '  , rpad(coalesce(c.nominal_a, '#39#39'), 140, '#39' '#39') as nominal_a'
+      '  , c.data_cadastro'
+      '  , c.usuario_cadastro'
+      '  , c.status'
+      '  , c.obs'
+      ''
+      '  , sc.descricao as status_descricao'
+      '  , bc.nome      as banco_nome'
+      ''
+      '  , coalesce(cc.nome, fc.nomeforn)               as emissor_nome'
+      '  , coalesce(cc.cnpj, fc.cnpj)                   as emissor_cnpj'
+      '  , coalesce(cc.pessoa_fisica, fc.pessoa_fisica) as emissor_pf'
+      'from TBCHEQUE c'
+      '  left join TBEMPRESA e on (e.cnpj = c.empresa)'
+      '  left join VW_STATUS_CHEQUE sc on (sc.codigo = c.status)'
+      '  left join TBCLIENTE cc on (cc.codigo = c.cliente)'
+      '  left join TBFORNECEDOR fc on (fc.codforn = c.fornecedor)'
+      '  left join TBBANCO bc on (bc.cod = c.banco)'
+      ''
+      'where c.controle = :cheque')
+    Left = 64
+    Top = 400
+    ParamData = <
+      item
+        Position = 1
+        Name = 'CHEQUE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object QryRelacaoCheque: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    ch.empresa'
+      '  , ch.controle'
+      '  , ch.tipo'
+      '  , Case ch.tipo'
+      '      when 1 then '#39'Emitido'#39
+      '      when 2 then '#39'Recebido'#39
+      '      else '#39'Outros'#39
+      '    end as tipo_descricao'
+      '  , ch.status'
+      '  , st.descricao as status_descricao'
+      '  , ch.banco'
+      '  , bc.nome as banco_nome'
+      '  , ch.agencia'
+      '  , ch.conta'
+      '  , ch.numero'
+      '  , ch.data_emissao'
+      '  , ch.data_apresentacao'
+      '  , ch.data_devolucao'
+      '  , ch.data_compensacao'
+      '  , ch.valor'
+      '  , coalesce(ci.nome, fr.nomeforn) as emissor_nome'
+      '  , coalesce(ci.cnpj, fr.cnpj)     as emissor_cpf_cnpj'
+      '  , coalesce(ci.pessoa_fisica, fr.pessoa_fisica) as emissor_pf'
+      'from TBCHEQUE ch'
+      '  left join VW_STATUS_CHEQUE st on (st.codigo = ch.status)'
+      '  left join TBCLIENTE ci on (ci.codigo = ch.cliente)'
+      '  left join TBFORNECEDOR fr on (fr.codforn = ch.fornecedor)'
+      '  left join TBBANCO bc on (bc.cod = ch.banco)'
+      ''
+      'where ch.empresa = :empresa'
+      '  and ch.data_apresentacao between :data_inicial and :data_final'
+      ''
+      'order by'
+      '    ch.status'
+      '  , ch.data_apresentacao'
+      '  , coalesce(ci.nome, fr.nomeforn)'
+      '  , ch.data_emissao')
+    Left = 64
+    Top = 448
+    ParamData = <
+      item
+        Position = 1
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Position = 2
+        Name = 'DATA_INICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'DATA_FINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
   end
 end
