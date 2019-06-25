@@ -4595,12 +4595,12 @@ begin
         with DMBusiness, stpCaixaMovimentoREC do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := pData;
-          ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
-          ParamByName('ANOLANC').AsInteger      := AnoLancamento;
+          ParamByName('DATA_PAGTO').Value       := pData;
+          ParamByName('FORMA_PAGTO').AsSmallInt := FormaPagto;
+          ParamByName('ANOLANC').AsSmallInt     := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
-          ParamByName('SEQ').AsInteger          := SeqPagto;
-          ParamByName('VALOR_BAIXA').AsCurrency := Valor;
+          ParamByName('SEQ').AsSmallInt         := SeqPagto;
+          ParamByName('VALOR_BAIXA').Value      := Valor;
 
           ExecProc;
           CommitTransaction;
@@ -4610,12 +4610,12 @@ begin
         with DMBusiness, stpCaixaMovimentoPAG do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := pData;
-          ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
-          ParamByName('ANOLANC').AsInteger      := AnoLancamento;
+          ParamByName('DATA_PAGTO').Value       := pData;
+          ParamByName('FORMA_PAGTO').AsSmallInt := FormaPagto;
+          ParamByName('ANOLANC').AsSmallInt     := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
-          ParamByName('SEQ').AsInteger          := SeqPagto;
-          ParamByName('VALOR_BAIXA').AsCurrency := Valor;
+          ParamByName('SEQ').AsSmallInt         := SeqPagto;
+          ParamByName('VALOR_BAIXA').Value      := Valor;
 
           ExecProc;
           CommitTransaction;
@@ -4655,12 +4655,12 @@ begin
         with DMBusiness, stpCaixaMovimentoREC_ESTORNO do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := pData;
-          ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
-          ParamByName('ANOLANC').AsInteger      := AnoLancamento;
+          ParamByName('DATA_PAGTO').Value       := pData;
+          ParamByName('FORMA_PAGTO').AsSmallInt := FormaPagto;
+          ParamByName('ANOLANC').AsSmallInt     := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
-          ParamByName('SEQ').AsInteger          := SeqPagto;
-          ParamByName('VALOR_BAIXA').AsCurrency := Valor;
+          ParamByName('SEQ').AsSmallInt         := SeqPagto;
+          ParamByName('VALOR_BAIXA').Value      := Valor;
 
           ExecProc;
           CommitTransaction;
@@ -4670,12 +4670,12 @@ begin
         with DMBusiness, stpCaixaMovimentoPAG_ESTORNO do
         begin
           ParamByName('USUARIO').AsString       := Usuario;
-          ParamByName('DATA_PAGTO').AsDateTime  := pData;
-          ParamByName('FORMA_PAGTO').AsInteger  := FormaPagto;
-          ParamByName('ANOLANC').AsInteger      := AnoLancamento;
+          ParamByName('DATA_PAGTO').Value       := pData;
+          ParamByName('FORMA_PAGTO').AsSmallInt := FormaPagto;
+          ParamByName('ANOLANC').AsSmallInt     := AnoLancamento;
           ParamByName('NUMLANC').AsInteger      := NumLancamento;
-          ParamByName('SEQ').AsInteger          := SeqPagto;
-          ParamByName('VALOR_BAIXA').AsCurrency := Valor;
+          ParamByName('SEQ').AsSmallInt         := SeqPagto;
+          ParamByName('VALOR_BAIXA').Value      := Valor;
 
           ExecProc;
           CommitTransaction;

@@ -698,10 +698,11 @@ var
 begin
   for I := 0 to Self.ComponentCount - 1 do
     if (Components[I] is TLabel) then
-    begin
-      TLabel(Components[I]).Transparent := False;
-      TLabel(Components[I]).Transparent := True;
-    end;
+      if (TLabel(Components[I]).Tag > -1) then
+      begin
+        TLabel(Components[I]).Transparent := False;
+        TLabel(Components[I]).Transparent := True;
+      end;
 end;
 
 function TfrmGrPadrao.GetPermissaoRotinaInterna(const Sender: TObject;

@@ -1094,270 +1094,6 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
     Left = 469
     Top = 223
   end
-  object cdsContaAPagar: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.anolanc'
-      '  , p.numlanc'
-      '  , p.empresa'
-      '  , p.codforn'
-      '  , p.parcela'
-      '  , p.tippag'
-      '  , p.historic'
-      '  , p.notfisc'
-      '  , p.dtemiss'
-      '  , p.dtvenc'
-      '  , p.competencia_apuracao'
-      '  , p.valorpag'
-      '  , p.valorpagtot'
-      '  , p.valorsaldo'
-      '  , p.nomeemp'
-      '  , p.tipocateg'
-      '  , p.forma_pagto'
-      '  , p.condicao_pagto'
-      '  , p.quitado'
-      '  , p.codtpdesp'
-      '  , p.situacao'
-      '  , p.lote'
-      'from TBCONTPAG p'
-      'where 1 = 0')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'NUMLANC'
-    GeneratorField.Generator = 'GEN_CONTAPAG_NUM_2013'
-    UpdateObject = IbUpdTabela
-    Left = 600
-    Top = 288
-    object cdsContaAPagarANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = '"TBCONTPAG"."ANOLANC"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsContaAPagarNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = '"TBCONTPAG"."NUMLANC"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsContaAPagarEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBCONTPAG"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object cdsContaAPagarCODFORN: TSmallintField
-      FieldName = 'CODFORN'
-      Origin = '"TBCONTPAG"."CODFORN"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarPARCELA: TSmallintField
-      FieldName = 'PARCELA'
-      Origin = '"TBCONTPAG"."PARCELA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarTIPPAG: TIBStringField
-      FieldName = 'TIPPAG'
-      Origin = '"TBCONTPAG"."TIPPAG"'
-      ProviderFlags = [pfInUpdate]
-      Size = 35
-    end
-    object cdsContaAPagarHISTORIC: TWideMemoField
-      FieldName = 'HISTORIC'
-      Origin = '"TBCONTPAG"."HISTORIC"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
-    end
-    object cdsContaAPagarNOTFISC: TIBStringField
-      FieldName = 'NOTFISC'
-      Origin = '"TBCONTPAG"."NOTFISC"'
-      ProviderFlags = [pfInUpdate]
-      Size = 15
-    end
-    object cdsContaAPagarDTEMISS: TDateField
-      FieldName = 'DTEMISS'
-      Origin = '"TBCONTPAG"."DTEMISS"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarDTVENC: TDateField
-      FieldName = 'DTVENC'
-      Origin = '"TBCONTPAG"."DTVENC"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField
-      FieldName = 'COMPETENCIA_APURACAO'
-      Origin = '"TBCONTPAG"."COMPETENCIA_APURACAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarVALORPAG: TIBBCDField
-      FieldName = 'VALORPAG'
-      Origin = '"TBCONTPAG"."VALORPAG"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsContaAPagarVALORPAGTOT: TIBBCDField
-      FieldName = 'VALORPAGTOT'
-      Origin = '"TBCONTPAG"."VALORPAGTOT"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsContaAPagarVALORSALDO: TIBBCDField
-      FieldName = 'VALORSALDO'
-      Origin = '"TBCONTPAG"."VALORSALDO"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsContaAPagarNOMEEMP: TIBStringField
-      FieldName = 'NOMEEMP'
-      Origin = '"TBCONTPAG"."NOMEEMP"'
-      ProviderFlags = [pfInUpdate]
-      Size = 60
-    end
-    object cdsContaAPagarTIPOCATEG: TSmallintField
-      FieldName = 'TIPOCATEG'
-      Origin = '"TBCONTPAG"."TIPOCATEG"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = '"TBCONTPAG"."FORMA_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarCONDICAO_PAGTO: TSmallintField
-      FieldName = 'CONDICAO_PAGTO'
-      Origin = '"TBCONTPAG"."CONDICAO_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarQUITADO: TSmallintField
-      FieldName = 'QUITADO'
-      Origin = '"TBCONTPAG"."QUITADO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarCODTPDESP: TSmallintField
-      FieldName = 'CODTPDESP'
-      Origin = '"TBCONTPAG"."CODTPDESP"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarSITUACAO: TSmallintField
-      FieldName = 'SITUACAO'
-      Origin = '"TBCONTPAG"."SITUACAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAPagarLOTE: TIBStringField
-      FieldName = 'LOTE'
-      Origin = '"TBCONTPAG"."LOTE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 14
-    end
-  end
-  object IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANOLANC,'
-      '  NUMLANC,'
-      '  EMPRESA,'
-      '  CODFORN,'
-      '  PARCELA,'
-      '  TIPPAG,'
-      '  HISTORIC,'
-      '  NOTFISC,'
-      '  DTEMISS,'
-      '  DTVENC,'
-      '  DTPAG,'
-      '  DOCBAIX,'
-      '  VALORPAG,'
-      '  VALORMULTA,'
-      '  VALORPAGTOT,'
-      '  VALORSALDO,'
-      '  NOMEEMP,'
-      '  TIPOCATEG,'
-      '  BANCO,'
-      '  NUMCHQ,'
-      '  ANOCOMPRA,'
-      '  NUMCOMPRA,'
-      '  FORMA_PAGTO,'
-      '  CONDICAO_PAGTO,'
-      '  QUITADO,'
-      '  CODTPDESP,'
-      '  SITUACAO,'
-      '  LOTE,'
-      '  COMPETENCIA_APURACAO'
-      'from TBCONTPAG '
-      'where'
-      '  ANOLANC = :ANOLANC and'
-      '  NUMLANC = :NUMLANC')
-    ModifySQL.Strings = (
-      'update TBCONTPAG'
-      'set'
-      '  ANOLANC = :ANOLANC,'
-      '  CODFORN = :CODFORN,'
-      '  CODTPDESP = :CODTPDESP,'
-      '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
-      '  CONDICAO_PAGTO = :CONDICAO_PAGTO,'
-      '  DTEMISS = :DTEMISS,'
-      '  DTVENC = :DTVENC,'
-      '  EMPRESA = :EMPRESA,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  HISTORIC = :HISTORIC,'
-      '  LOTE = :LOTE,'
-      '  NOMEEMP = :NOMEEMP,'
-      '  NOTFISC = :NOTFISC,'
-      '  NUMLANC = :NUMLANC,'
-      '  PARCELA = :PARCELA,'
-      '  QUITADO = :QUITADO,'
-      '  SITUACAO = :SITUACAO,'
-      '  TIPOCATEG = :TIPOCATEG,'
-      '  TIPPAG = :TIPPAG,'
-      '  VALORPAG = :VALORPAG,'
-      '  VALORPAGTOT = :VALORPAGTOT,'
-      '  VALORSALDO = :VALORSALDO'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC')
-    InsertSQL.Strings = (
-      'insert into TBCONTPAG'
-      
-        '  (ANOLANC, CODFORN, CODTPDESP, COMPETENCIA_APURACAO, CONDICAO_P' +
-        'AGTO, DTEMISS, '
-      
-        '   DTVENC, EMPRESA, FORMA_PAGTO, HISTORIC, LOTE, NOMEEMP, NOTFIS' +
-        'C, NUMLANC, '
-      
-        '   PARCELA, QUITADO, SITUACAO, TIPOCATEG, TIPPAG, VALORPAG, VALO' +
-        'RPAGTOT, '
-      '   VALORSALDO)'
-      'values'
-      
-        '  (:ANOLANC, :CODFORN, :CODTPDESP, :COMPETENCIA_APURACAO, :CONDI' +
-        'CAO_PAGTO, '
-      
-        '   :DTEMISS, :DTVENC, :EMPRESA, :FORMA_PAGTO, :HISTORIC, :LOTE, ' +
-        ':NOMEEMP, '
-      
-        '   :NOTFISC, :NUMLANC, :PARCELA, :QUITADO, :SITUACAO, :TIPOCATEG' +
-        ', :TIPPAG, '
-      '   :VALORPAG, :VALORPAGTOT, :VALORSALDO)')
-    DeleteSQL.Strings = (
-      'delete from TBCONTPAG'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC')
-    Left = 632
-    Top = 288
-  end
   object fdQryEmpresa: TFDQuery
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -1491,5 +1227,222 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
     DataSet = fdQryTipoDespesa
     Left = 368
     Top = 344
+  end
+  object cdsContaAPagar: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CONTAPAG_NUM_2019'
+    UpdateOptions.KeyFields = 'ANOLANC;NUMLANC'
+    UpdateOptions.AutoIncFields = 'NUMLANC'
+    UpdateObject = updContaAPagar
+    SQL.Strings = (
+      'Select'
+      '    p.anolanc'
+      '  , p.numlanc'
+      '  , p.empresa'
+      '  , p.codforn'
+      '  , p.parcela'
+      '  , p.tippag'
+      '  , p.historic'
+      '  , p.notfisc'
+      '  , p.dtemiss'
+      '  , p.dtvenc'
+      '  , p.competencia_apuracao'
+      '  , p.valorpag'
+      '  , p.valorpagtot'
+      '  , p.valorsaldo'
+      '  , p.nomeemp'
+      '  , p.tipocateg'
+      '  , p.forma_pagto'
+      '  , p.condicao_pagto'
+      '  , p.quitado'
+      '  , p.codtpdesp'
+      '  , p.situacao'
+      '  , p.lote'
+      'from TBCONTPAG p'
+      'where 1 = 0')
+    Left = 595
+    Top = 200
+    object cdsContaAPagarANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsContaAPagarNUMLANC: TFDAutoIncField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      IdentityInsert = True
+    end
+    object cdsContaAPagarEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Size = 18
+    end
+    object cdsContaAPagarCODFORN: TSmallintField
+      FieldName = 'CODFORN'
+      Origin = 'CODFORN'
+    end
+    object cdsContaAPagarPARCELA: TSmallintField
+      FieldName = 'PARCELA'
+      Origin = 'PARCELA'
+    end
+    object cdsContaAPagarTIPPAG: TStringField
+      FieldName = 'TIPPAG'
+      Origin = 'TIPPAG'
+      Size = 35
+    end
+    object cdsContaAPagarHISTORIC: TMemoField
+      FieldName = 'HISTORIC'
+      Origin = 'HISTORIC'
+      BlobType = ftMemo
+    end
+    object cdsContaAPagarNOTFISC: TStringField
+      FieldName = 'NOTFISC'
+      Origin = 'NOTFISC'
+      Size = 15
+    end
+    object cdsContaAPagarDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+    end
+    object cdsContaAPagarDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+    end
+    object cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField
+      FieldName = 'COMPETENCIA_APURACAO'
+      Origin = 'COMPETENCIA_APURACAO'
+    end
+    object cdsContaAPagarVALORPAG: TBCDField
+      FieldName = 'VALORPAG'
+      Origin = 'VALORPAG'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContaAPagarVALORPAGTOT: TBCDField
+      FieldName = 'VALORPAGTOT'
+      Origin = 'VALORPAGTOT'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContaAPagarVALORSALDO: TBCDField
+      FieldName = 'VALORSALDO'
+      Origin = 'VALORSALDO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContaAPagarNOMEEMP: TStringField
+      FieldName = 'NOMEEMP'
+      Origin = 'NOMEEMP'
+      Size = 60
+    end
+    object cdsContaAPagarTIPOCATEG: TSmallintField
+      FieldName = 'TIPOCATEG'
+      Origin = 'TIPOCATEG'
+    end
+    object cdsContaAPagarFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object cdsContaAPagarCONDICAO_PAGTO: TSmallintField
+      FieldName = 'CONDICAO_PAGTO'
+      Origin = 'CONDICAO_PAGTO'
+    end
+    object cdsContaAPagarQUITADO: TSmallintField
+      FieldName = 'QUITADO'
+      Origin = 'QUITADO'
+      Required = True
+    end
+    object cdsContaAPagarCODTPDESP: TSmallintField
+      FieldName = 'CODTPDESP'
+      Origin = 'CODTPDESP'
+    end
+    object cdsContaAPagarSITUACAO: TSmallintField
+      FieldName = 'SITUACAO'
+      Origin = 'SITUACAO'
+    end
+    object cdsContaAPagarLOTE: TStringField
+      FieldName = 'LOTE'
+      Origin = 'LOTE'
+      Size = 14
+    end
+  end
+  object updContaAPagar: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTPAG'
+      '(ANOLANC, NUMLANC, EMPRESA, CODFORN, PARCELA, '
+      '  TIPPAG, HISTORIC, NOTFISC, DTEMISS, '
+      '  DTVENC, VALORPAG, VALORPAGTOT, VALORSALDO, '
+      '  NOMEEMP, TIPOCATEG, FORMA_PAGTO, CONDICAO_PAGTO, '
+      '  QUITADO, CODTPDESP, SITUACAO, LOTE, '
+      '  COMPETENCIA_APURACAO)'
+      
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_EMPRESA, :NEW_CODFORN, ' +
+        ':NEW_PARCELA, '
+      '  :NEW_TIPPAG, :NEW_HISTORIC, :NEW_NOTFISC, :NEW_DTEMISS, '
+      
+        '  :NEW_DTVENC, :NEW_VALORPAG, :NEW_VALORPAGTOT, :NEW_VALORSALDO,' +
+        ' '
+      
+        '  :NEW_NOMEEMP, :NEW_TIPOCATEG, :NEW_FORMA_PAGTO, :NEW_CONDICAO_' +
+        'PAGTO, '
+      '  :NEW_QUITADO, :NEW_CODTPDESP, :NEW_SITUACAO, :NEW_LOTE, '
+      '  :NEW_COMPETENCIA_APURACAO)'
+      'RETURNING NUMLANC')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTPAG'
+      
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, EMPRESA = :N' +
+        'EW_EMPRESA, '
+      
+        '  CODFORN = :NEW_CODFORN, PARCELA = :NEW_PARCELA, TIPPAG = :NEW_' +
+        'TIPPAG, '
+      
+        '  HISTORIC = :NEW_HISTORIC, NOTFISC = :NEW_NOTFISC, DTEMISS = :N' +
+        'EW_DTEMISS, '
+      
+        '  DTVENC = :NEW_DTVENC, VALORPAG = :NEW_VALORPAG, VALORPAGTOT = ' +
+        ':NEW_VALORPAGTOT, '
+      
+        '  VALORSALDO = :NEW_VALORSALDO, NOMEEMP = :NEW_NOMEEMP, TIPOCATE' +
+        'G = :NEW_TIPOCATEG, '
+      
+        '  FORMA_PAGTO = :NEW_FORMA_PAGTO, CONDICAO_PAGTO = :NEW_CONDICAO' +
+        '_PAGTO, '
+      
+        '  QUITADO = :NEW_QUITADO, CODTPDESP = :NEW_CODTPDESP, SITUACAO =' +
+        ' :NEW_SITUACAO, '
+      
+        '  LOTE = :NEW_LOTE, COMPETENCIA_APURACAO = :NEW_COMPETENCIA_APUR' +
+        'ACAO'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC'
+      'RETURNING NUMLANC')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTPAG'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANOLANC, NUMLANC, EMPRESA, CODFORN, PARCELA, TIPPAG, HIST' +
+        'ORIC, '
+      
+        '  NOTFISC, DTEMISS, DTVENC, DTPAG, DOCBAIX, VALORPAG, VALORMULTA' +
+        ', '
+      
+        '  VALORPAGTOT, VALORSALDO, NOMEEMP, TIPOCATEG, BANCO, BANCO_FEBR' +
+        'ABAN, '
+      '  NUMCHQ, ANOCOMPRA, NUMCOMPRA, FORMA_PAGTO, CONDICAO_PAGTO, '
+      '  QUITADO, CODTPDESP, SITUACAO, LOTE, COMPETENCIA_APURACAO'
+      'FROM TBCONTPAG'
+      'WHERE ANOLANC = :ANOLANC AND NUMLANC = :NUMLANC')
+    Left = 627
+    Top = 200
   end
 end

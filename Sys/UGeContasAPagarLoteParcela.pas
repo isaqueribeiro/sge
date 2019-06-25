@@ -20,7 +20,8 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeContasAPagarLoteParcela = class(TfrmGrPadrao)
@@ -88,34 +89,10 @@ type
     dbgParcelasTblDiaSemana: TcxGridDBColumn;
     dbgParcelasTblValorParcela: TcxGridDBColumn;
     dbgParcelasTblObservacao: TcxGridDBColumn;
-    cdsContaAPagar: TIBDataSet;
-    IbUpdTabela: TIBUpdateSQL;
     cdsDadosNominaisPrimeiroVencimento: TDateTimeField;
     RdGrpVencimentoFimSemana: TRadioGroup;
     dbPrimeiroVencimento: TJvDBDateEdit;
     lblPrimeiroVencimentoX: TLabel;
-    cdsContaAPagarANOLANC: TSmallintField;
-    cdsContaAPagarNUMLANC: TIntegerField;
-    cdsContaAPagarEMPRESA: TIBStringField;
-    cdsContaAPagarCODFORN: TSmallintField;
-    cdsContaAPagarPARCELA: TSmallintField;
-    cdsContaAPagarTIPPAG: TIBStringField;
-    cdsContaAPagarHISTORIC: TWideMemoField;
-    cdsContaAPagarNOTFISC: TIBStringField;
-    cdsContaAPagarDTEMISS: TDateField;
-    cdsContaAPagarDTVENC: TDateField;
-    cdsContaAPagarVALORPAG: TIBBCDField;
-    cdsContaAPagarVALORPAGTOT: TIBBCDField;
-    cdsContaAPagarVALORSALDO: TIBBCDField;
-    cdsContaAPagarNOMEEMP: TIBStringField;
-    cdsContaAPagarTIPOCATEG: TSmallintField;
-    cdsContaAPagarFORMA_PAGTO: TSmallintField;
-    cdsContaAPagarCONDICAO_PAGTO: TSmallintField;
-    cdsContaAPagarQUITADO: TSmallintField;
-    cdsContaAPagarCODTPDESP: TSmallintField;
-    cdsContaAPagarSITUACAO: TSmallintField;
-    cdsContaAPagarLOTE: TIBStringField;
-    cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField;
     cdsParcelasCompetencia: TIntegerField;
     dbgParcelasTblCompetencia: TcxGridDBColumn;
     fdQryEmpresa: TFDQuery;
@@ -128,6 +105,30 @@ type
     dtsCompetencia: TDataSource;
     fdQryTipoDespesa: TFDQuery;
     dtsTpDespesa: TDataSource;
+    cdsContaAPagar: TFDQuery;
+    updContaAPagar: TFDUpdateSQL;
+    cdsContaAPagarANOLANC: TSmallintField;
+    cdsContaAPagarNUMLANC: TFDAutoIncField;
+    cdsContaAPagarEMPRESA: TStringField;
+    cdsContaAPagarCODFORN: TSmallintField;
+    cdsContaAPagarPARCELA: TSmallintField;
+    cdsContaAPagarTIPPAG: TStringField;
+    cdsContaAPagarHISTORIC: TMemoField;
+    cdsContaAPagarNOTFISC: TStringField;
+    cdsContaAPagarDTEMISS: TDateField;
+    cdsContaAPagarDTVENC: TDateField;
+    cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField;
+    cdsContaAPagarVALORPAG: TBCDField;
+    cdsContaAPagarVALORPAGTOT: TBCDField;
+    cdsContaAPagarVALORSALDO: TBCDField;
+    cdsContaAPagarNOMEEMP: TStringField;
+    cdsContaAPagarTIPOCATEG: TSmallintField;
+    cdsContaAPagarFORMA_PAGTO: TSmallintField;
+    cdsContaAPagarCONDICAO_PAGTO: TSmallintField;
+    cdsContaAPagarQUITADO: TSmallintField;
+    cdsContaAPagarCODTPDESP: TSmallintField;
+    cdsContaAPagarSITUACAO: TSmallintField;
+    cdsContaAPagarLOTE: TStringField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -475,7 +476,11 @@ end;
 procedure TfrmGeContasAPagarLoteParcela.FormCreate(Sender: TObject);
 begin
   inherited;
-  cdsContaAPagar.GeneratorField.Generator := 'GEN_CONTAPAG_NUM_' + FormatFloat('0000', YearOf(Date));
+  with cdsContaAPagar.UpdateOptions do
+  begin
+    AutoIncFields := 'NUMLANC';
+    GeneratorName := 'GEN_CONTAPAG_NUM_' + FormatFloat('0000', YearOf(Date));
+  end;
 
   CarregarLista(fdQryEmpresa);
   CarregarLista(fdQryCompetencia);
@@ -503,6 +508,7 @@ begin
       while not cdsParcelas.Eof do
       begin
         Append;
+
         cdsContaAPagarANOLANC.Value  := YearOf(cdsDadosNominaisEmissao.AsDateTime);
         cdsContaAPagarEMPRESA.Value  := cdsDadosNominaisEmpresa.AsString;
         cdsContaAPagarCODFORN.Value  := cdsDadosNominaisFornecedor.AsInteger;
@@ -524,8 +530,10 @@ begin
         cdsContaAPagarCODTPDESP.Value      := cdsDadosNominaisTipoDespesa.AsInteger;
         cdsContaAPagarSITUACAO.Value       := 1;
         cdsContaAPagarLOTE.Value           := Lote;
+
         Post;
         ApplyUpdates;
+        CommitUpdates;
 
         cdsParcelas.Next;
       end;
