@@ -3,8 +3,10 @@ unit UGeContasAPagarQuitar;
 interface
 
 uses
+  UGrPadraoPesquisa,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
+  Dialogs, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
   StdCtrls, Buttons, ExtCtrls, Mask, DBClient, Provider, IBTable, DBCtrls,
   IBUpdateSQL, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvDBControls, JvExMask, JvToolEdit,
@@ -64,9 +66,33 @@ type
     CdsPesquisaENTRADA_DOC_SERIE: TStringField;
     CdsPesquisaENTRADA_FORNECEDOR: TStringField;
     CdsPesquisaENTRADA_FORNECEDOR_CNPJ: TStringField;
-    CdsPesquisaSELECIONAR: TIntegerField;
     cdsPagamentos: TFDQuery;
     updPagamentos: TFDUpdateSQL;
+    fdQryPesquisaANOLANC: TSmallintField;
+    fdQryPesquisaNUMLANC: TIntegerField;
+    fdQryPesquisaLANCAMENTO: TStringField;
+    fdQryPesquisaEMPRESA: TStringField;
+    fdQryPesquisaPARCELA: TSmallintField;
+    fdQryPesquisaTIPPAG: TStringField;
+    fdQryPesquisaDTEMISS: TDateField;
+    fdQryPesquisaDTVENC: TDateField;
+    fdQryPesquisaDTPAG: TDateField;
+    fdQryPesquisaVALORPAG: TBCDField;
+    fdQryPesquisaVALORMULTA: TBCDField;
+    fdQryPesquisaVALORPAGTOT: TBCDField;
+    fdQryPesquisaVALORSALDO: TBCDField;
+    fdQryPesquisaVALOR_APAGAR: TBCDField;
+    fdQryPesquisaENTRADA: TStringField;
+    fdQryPesquisaENTRADA_ANO: TSmallintField;
+    fdQryPesquisaENTRADA_NUMERO: TIntegerField;
+    fdQryPesquisaENTRADA_DOC_TIPO: TStringField;
+    fdQryPesquisaENTRADA_DOC: TStringField;
+    fdQryPesquisaENTRADA_DOC_NUMERO: TIntegerField;
+    fdQryPesquisaENTRADA_DOC_SERIE: TStringField;
+    fdQryPesquisaENTRADA_FORNECEDOR: TStringField;
+    fdQryPesquisaENTRADA_FORNECEDOR_CNPJ: TStringField;
+    fdQryPesquisaSELECIONAR: TSmallintField;
+    CdsPesquisaSELECIONAR: TSmallintField;
     cdsPagamentosANOLANC: TSmallintField;
     cdsPagamentosNUMLANC: TIntegerField;
     cdsPagamentosSEQ: TSmallintField;
@@ -205,7 +231,7 @@ begin
     if Sender.AsInteger = 0 then
       Text := '.'
     else
-      Text := 'X';  
+      Text := 'X';
 end;
 
 procedure TfrmGeContasAPagarQuitar.dbgDadosKeyPress(Sender: TObject;
@@ -316,6 +342,7 @@ begin
 
         cdsPagamentos.Post;
         cdsPagamentos.ApplyUpdates;
+        cdsPagamentos.CommitUpdates;
 
         CommitTransaction;
 

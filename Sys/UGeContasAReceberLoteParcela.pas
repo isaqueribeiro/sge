@@ -7,21 +7,19 @@ uses
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
-  Vcl.StdCtrls, cxButtons, Data.DB, Datasnap.DBClient,
-  IBX.IBCustomDataSet, IBX.IBTable, Vcl.DBCtrls, JvToolEdit, JvDBControls,
-  Vcl.Mask, JvExMask, IBX.IBQuery, cxControls, cxStyles, dxSkinscxPCPainter,
-  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, cxDBData,
-  cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid, cxCalendar, cxCurrencyEdit,
-  IBX.IBUpdateSQL, cxTextEdit, cxDBLookupComboBox,
+  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls, cxButtons, Data.DB, Datasnap.DBClient,
+  Vcl.DBCtrls, JvToolEdit, JvDBControls, Vcl.Mask, JvExMask, IBX.IBQuery, cxControls, cxStyles,
+  dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, cxDBData,
+  cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView, cxDBLookupComboBox,
+  cxGridTableView, cxGridDBTableView, cxGrid, cxCalendar, cxCurrencyEdit, cxTextEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 
 type
@@ -84,34 +82,14 @@ type
     dbgParcelasTblDiaSemana: TcxGridDBColumn;
     dbgParcelasTblValorParcela: TcxGridDBColumn;
     dbgParcelasTblObservacao: TcxGridDBColumn;
-    cdsContaAReceber: TIBDataSet;
-    IbUpdTabela: TIBUpdateSQL;
     cdsDadosNominaisPrimeiroVencimento: TDateTimeField;
     RdGrpVencimentoFimSemana: TRadioGroup;
     dbPrimeiroVencimento: TJvDBDateEdit;
     lblPrimeiroVencimentoX: TLabel;
-    cdsContaAReceberANOLANC: TSmallintField;
-    cdsContaAReceberNUMLANC: TIntegerField;
-    cdsContaAReceberEMPRESA: TIBStringField;
-    cdsContaAReceberCLIENTE: TIntegerField;
-    cdsContaAReceberCNPJ: TIBStringField;
-    cdsContaAReceberFORMA_PAGTO: TSmallintField;
-    cdsContaAReceberHISTORIC: TWideMemoField;
-    cdsContaAReceberDTEMISS: TDateField;
-    cdsContaAReceberDTVENC: TDateField;
-    cdsContaAReceberVALORREC: TIBBCDField;
-    cdsContaAReceberVALORRECTOT: TIBBCDField;
-    cdsContaAReceberVALORSALDO: TIBBCDField;
-    cdsContaAReceberPARCELA: TSmallintField;
-    cdsContaAReceberBAIXADO: TSmallintField;
-    cdsContaAReceberENVIADO: TSmallintField;
-    cdsContaAReceberSITUACAO: TSmallintField;
-    cdsContaAReceberLOTE: TIBStringField;
     cdsDadosNominaisCliente: TIntegerField;
     cdsDadosNominaisClienteNome: TStringField;
     cdsDadosNominaisClienteCNPJ: TStringField;
     cdsDadosNominaisBanco: TIntegerField;
-    cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField;
     cdsParcelasCompetencia: TIntegerField;
     dbgParcelasTblCompetencia: TcxGridDBColumn;
     dtsCompetencia: TDataSource;
@@ -127,7 +105,27 @@ type
     fdQryBanco: TFDQuery;
     dtsBanco: TDataSource;
     fdQryCompetencia: TFDQuery;
+    cdsContaAReceber: TFDQuery;
+    updContaAReceber: TFDUpdateSQL;
+    cdsContaAReceberANOLANC: TSmallintField;
+    cdsContaAReceberNUMLANC: TFDAutoIncField;
+    cdsContaAReceberEMPRESA: TStringField;
+    cdsContaAReceberCLIENTE: TIntegerField;
+    cdsContaAReceberCNPJ: TStringField;
     cdsContaAReceberCODTPREC: TSmallintField;
+    cdsContaAReceberFORMA_PAGTO: TSmallintField;
+    cdsContaAReceberHISTORIC: TMemoField;
+    cdsContaAReceberDTEMISS: TDateField;
+    cdsContaAReceberDTVENC: TDateField;
+    cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField;
+    cdsContaAReceberVALORREC: TBCDField;
+    cdsContaAReceberVALORRECTOT: TBCDField;
+    cdsContaAReceberVALORSALDO: TBCDField;
+    cdsContaAReceberPARCELA: TSmallintField;
+    cdsContaAReceberBAIXADO: TSmallintField;
+    cdsContaAReceberENVIADO: TSmallintField;
+    cdsContaAReceberSITUACAO: TSmallintField;
+    cdsContaAReceberLOTE: TStringField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -477,7 +475,11 @@ end;
 procedure TfrmGeContasAReceberLoteParcela.FormCreate(Sender: TObject);
 begin
   inherited;
-  cdsContaAReceber.GeneratorField.Generator := 'GEN_CONTAREC_NUM_' + FormatFloat('0000', YearOf(Date));
+  with cdsContaAReceber.UpdateOptions do
+  begin
+    AutoIncFields := 'NUMLANC';
+    GeneratorName := 'GEN_CONTAREC_NUM_' + FormatFloat('0000', YearOf(Date));
+  end;
 
   CarregarLista(fdQryEmpresa);
   CarregarLista(fdQryBanco);
@@ -505,6 +507,7 @@ begin
       while not cdsParcelas.Eof do
       begin
         Append;
+
         cdsContaAReceberANOLANC.Value  := YearOf(cdsDadosNominaisEmissao.AsDateTime);
         cdsContaAReceberEMPRESA.Value  := cdsDadosNominaisEmpresa.AsString;
         cdsContaAReceberCLIENTE.Value  := cdsDadosNominaisCliente.AsInteger;
@@ -523,8 +526,10 @@ begin
         cdsContaAReceberENVIADO.Value  := 0;
         cdsContaAReceberSITUACAO.Value := 1;
         cdsContaAReceberLOTE.Value     := Lote;
+
         Post;
         ApplyUpdates;
+        CommitUpdates;
 
         cdsParcelas.Next;
       end;

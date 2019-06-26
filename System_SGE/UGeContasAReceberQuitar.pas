@@ -4,9 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
-  StdCtrls, Buttons, ExtCtrls, Mask, DBClient, Provider, IBTable, DBCtrls,
-  IBUpdateSQL, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  Dialogs, UGrPadraoPesquisa, DB, Grids, DBGrids, StdCtrls, Buttons, ExtCtrls, Mask, DBClient,
+  Provider, DBCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvDBControls, JvExMask, JvToolEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
@@ -15,7 +14,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, IBX.IBCustomDataSet,
+  IBX.IBQuery;
 
 type
   TfrmGeContasAReceberQuitar = class(TfrmGrPadraoPesquisa)
@@ -36,31 +36,13 @@ type
     dbFormaPagto: TDBLookupComboBox;
     lblHistorico: TLabel;
     dbHistorico: TDBMemo;
-    cdsRecebimentos: TIBDataSet;
-    cdsRecebimentosANOLANC: TSmallintField;
-    cdsRecebimentosNUMLANC: TIntegerField;
-    cdsRecebimentosSEQ: TSmallintField;
-    cdsRecebimentosHISTORICO: TMemoField;
-    cdsRecebimentosDATA_PAGTO: TDateField;
-    cdsRecebimentosFORMA_PAGTO: TSmallintField;
-    cdsRecebimentosFORMA_PAGTO_DESC: TIBStringField;
-    cdsRecebimentosVALOR_BAIXA: TIBBCDField;
-    cdsRecebimentosNUMERO_CHEQUE: TIBStringField;
-    cdsRecebimentosBANCO: TSmallintField;
-    cdsRecebimentosBCO_NOME: TIBStringField;
-    cdsRecebimentosDOCUMENTO_BAIXA: TIBStringField;
-    cdsRecebimentosUSUARIO: TIBStringField;
-    updRecebimentos: TIBUpdateSQL;
     BtnQuitar: TcxButton;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     dbDataPagto: TJvDBDateEdit;
     CdsPesquisaANOLANC: TSmallintField;
     CdsPesquisaNUMLANC: TIntegerField;
-    CdsPesquisaLANCAMENTO: TWideStringField;
-    CdsPesquisaEMPRESA: TWideStringField;
     CdsPesquisaPARCELA: TSmallintField;
-    CdsPesquisaTIPPAG: TWideStringField;
     CdsPesquisaDTEMISS: TDateField;
     CdsPesquisaDTVENC: TDateField;
     CdsPesquisaDTREC: TDateField;
@@ -69,18 +51,60 @@ type
     CdsPesquisaVALORRECTOT: TBCDField;
     CdsPesquisaVALORSALDO: TBCDField;
     CdsPesquisaVALOR_ARECEBER: TBCDField;
-    CdsPesquisaSAIDA: TWideStringField;
+    fdQryFormaPagto: TFDQuery;
+    cdsRecebimentos: TFDQuery;
+    updRecebimentos: TFDUpdateSQL;
+    cdsRecebimentosANOLANC: TSmallintField;
+    cdsRecebimentosNUMLANC: TIntegerField;
+    cdsRecebimentosSEQ: TSmallintField;
+    cdsRecebimentosHISTORICO: TMemoField;
+    cdsRecebimentosDATA_PAGTO: TDateField;
+    cdsRecebimentosFORMA_PAGTO: TSmallintField;
+    cdsRecebimentosFORMA_PAGTO_DESC: TStringField;
+    cdsRecebimentosVALOR_BAIXA: TBCDField;
+    cdsRecebimentosNUMERO_CHEQUE: TStringField;
+    cdsRecebimentosEMPRESA: TStringField;
+    cdsRecebimentosBANCO: TSmallintField;
+    cdsRecebimentosBCO_NOME: TStringField;
+    cdsRecebimentosDOCUMENTO_BAIXA: TStringField;
+    cdsRecebimentosUSUARIO: TStringField;
+    fdQryPesquisaANOLANC: TSmallintField;
+    fdQryPesquisaNUMLANC: TIntegerField;
+    fdQryPesquisaLANCAMENTO: TStringField;
+    fdQryPesquisaEMPRESA: TStringField;
+    fdQryPesquisaPARCELA: TSmallintField;
+    fdQryPesquisaTIPPAG: TStringField;
+    fdQryPesquisaDTEMISS: TDateField;
+    fdQryPesquisaDTVENC: TDateField;
+    fdQryPesquisaDTREC: TDateField;
+    fdQryPesquisaVALORREC: TBCDField;
+    fdQryPesquisaVALORMULTA: TBCDField;
+    fdQryPesquisaVALORRECTOT: TBCDField;
+    fdQryPesquisaVALORSALDO: TBCDField;
+    fdQryPesquisaVALOR_ARECEBER: TBCDField;
+    fdQryPesquisaSAIDA: TStringField;
+    fdQryPesquisaSAIDA_ANO: TSmallintField;
+    fdQryPesquisaSAIDA_NUMERO: TIntegerField;
+    fdQryPesquisaSAIDA_DOC_TIPO: TStringField;
+    fdQryPesquisaSAIDA_DOC: TStringField;
+    fdQryPesquisaSAIDA_DOC_NUMERO: TLargeintField;
+    fdQryPesquisaSAIDA_DOC_SERIE: TStringField;
+    fdQryPesquisaSAIDA_FORNECEDOR: TStringField;
+    fdQryPesquisaSAIDA_FORNECEDOR_CNPJ: TStringField;
+    fdQryPesquisaSELECIONAR: TSmallintField;
+    CdsPesquisaSELECIONAR: TSmallintField;
+    CdsPesquisaLANCAMENTO: TStringField;
+    CdsPesquisaEMPRESA: TStringField;
+    CdsPesquisaSAIDA: TStringField;
     CdsPesquisaSAIDA_ANO: TSmallintField;
     CdsPesquisaSAIDA_NUMERO: TIntegerField;
-    CdsPesquisaSAIDA_DOC: TWideStringField;
+    CdsPesquisaSAIDA_DOC_TIPO: TStringField;
+    CdsPesquisaSAIDA_DOC: TStringField;
     CdsPesquisaSAIDA_DOC_NUMERO: TLargeintField;
-    CdsPesquisaSAIDA_DOC_SERIE: TWideStringField;
-    CdsPesquisaSAIDA_FORNECEDOR: TWideStringField;
-    CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TWideStringField;
-    CdsPesquisaSELECIONAR: TIntegerField;
-    CdsPesquisaSAIDA_DOC_TIPO: TWideStringField;
-    cdsRecebimentosEMPRESA: TIBStringField;
-    fdQryFormaPagto: TFDQuery;
+    CdsPesquisaSAIDA_DOC_SERIE: TStringField;
+    CdsPesquisaSAIDA_FORNECEDOR: TStringField;
+    CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TStringField;
+    CdsPesquisaTIPPAG: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -315,6 +339,7 @@ begin
 
         cdsRecebimentos.Post;
         cdsRecebimentos.ApplyUpdates;
+        cdsRecebimentos.CommitUpdates;
 
         CommitTransaction;
 

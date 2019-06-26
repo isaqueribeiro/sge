@@ -1,4 +1,5 @@
 inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
+  ActiveControl = dbCliente
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Contas A Receber - Incluir Lote (Parcelas)'
@@ -1100,252 +1101,6 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
     Left = 469
     Top = 223
   end
-  object cdsContaAReceber: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    r.anolanc'
-      '  , r.numlanc'
-      '  , r.empresa'
-      '  , r.cliente'
-      '  , r.cnpj'
-      '  , r.codtprec'
-      '  , r.forma_pagto'
-      '  , r.historic'
-      '  , r.dtemiss'
-      '  , r.dtvenc'
-      '  , r.competencia_apuracao'
-      '  , r.valorrec'
-      '  , r.valorrectot'
-      '  , r.valorsaldo'
-      '  , r.parcela'
-      '  , r.baixado'
-      '  , r.enviado'
-      '  , r.situacao'
-      '  , r.lote'
-      'from TBCONTREC r'
-      'where 1 = 0')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'NUMLANC'
-    GeneratorField.Generator = 'GEN_CONTAPAG_NUM_2013'
-    UpdateObject = IbUpdTabela
-    Left = 600
-    Top = 288
-    object cdsContaAReceberANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = '"TBCONTREC"."ANOLANC"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsContaAReceberNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = '"TBCONTREC"."NUMLANC"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsContaAReceberEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBCONTREC"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object cdsContaAReceberCLIENTE: TIntegerField
-      FieldName = 'CLIENTE'
-      Origin = '"TBCONTREC"."CLIENTE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBCONTREC"."CNPJ"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object cdsContaAReceberCODTPREC: TSmallintField
-      FieldName = 'CODTPREC'
-      Origin = '"TBCONTREC"."CODTPREC"'
-    end
-    object cdsContaAReceberFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = '"TBCONTREC"."FORMA_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberHISTORIC: TWideMemoField
-      FieldName = 'HISTORIC'
-      Origin = '"TBCONTREC"."HISTORIC"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
-    end
-    object cdsContaAReceberDTEMISS: TDateField
-      FieldName = 'DTEMISS'
-      Origin = '"TBCONTREC"."DTEMISS"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberDTVENC: TDateField
-      FieldName = 'DTVENC'
-      Origin = '"TBCONTREC"."DTVENC"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField
-      FieldName = 'COMPETENCIA_APURACAO'
-      Origin = '"TBCONTREC"."COMPETENCIA_APURACAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberVALORREC: TIBBCDField
-      FieldName = 'VALORREC'
-      Origin = '"TBCONTREC"."VALORREC"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsContaAReceberVALORRECTOT: TIBBCDField
-      FieldName = 'VALORRECTOT'
-      Origin = '"TBCONTREC"."VALORRECTOT"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsContaAReceberVALORSALDO: TIBBCDField
-      FieldName = 'VALORSALDO'
-      Origin = '"TBCONTREC"."VALORSALDO"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 2
-    end
-    object cdsContaAReceberPARCELA: TSmallintField
-      FieldName = 'PARCELA'
-      Origin = '"TBCONTREC"."PARCELA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberBAIXADO: TSmallintField
-      FieldName = 'BAIXADO'
-      Origin = '"TBCONTREC"."BAIXADO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberENVIADO: TSmallintField
-      FieldName = 'ENVIADO'
-      Origin = '"TBCONTREC"."ENVIADO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberSITUACAO: TSmallintField
-      FieldName = 'SITUACAO'
-      Origin = '"TBCONTREC"."SITUACAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsContaAReceberLOTE: TIBStringField
-      FieldName = 'LOTE'
-      Origin = '"TBCONTREC"."LOTE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 14
-    end
-  end
-  object IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANOLANC,'
-      '  NUMLANC,'
-      '  EMPRESA,'
-      '  CLIENTE,'
-      '  CNPJ,'
-      '  FORMA_PAGTO,'
-      '  TIPPAG,'
-      '  HISTORIC,'
-      '  NUMREC,'
-      '  DTEMISS,'
-      '  DTVENC,'
-      '  DTREC,'
-      '  DOCBAIX,'
-      '  VALORREC,'
-      '  VALORMULTA,'
-      '  VALORRECTOT,'
-      '  VALORSALDO,'
-      '  NUMCONTRATO,'
-      '  PARCELA,'
-      '  STATUS,'
-      '  CODBANCO,'
-      '  BANCO_FEBRABAN,'
-      '  NOSSONUMERO,'
-      '  ESPECIE_BOLETO,'
-      '  REMESSA,'
-      '  PERCENTJUROS,'
-      '  PERCENTMULTA,'
-      '  PERCENTDESCONTO,'
-      '  DATAPROCESSOBOLETO,'
-      '  BAIXADO,'
-      '  ENVIADO,'
-      '  ANOVENDA,'
-      '  NUMVENDA,'
-      '  ANOOS,'
-      '  NUMOS,'
-      '  CODTPREC,'
-      '  SITUACAO,'
-      '  LOTE,'
-      '  COMPETENCIA_APURACAO'
-      'from TBCONTREC '
-      'where'
-      '  ANOLANC = :ANOLANC and'
-      '  NUMLANC = :NUMLANC')
-    ModifySQL.Strings = (
-      'update TBCONTREC'
-      'set'
-      '  ANOLANC = :ANOLANC,'
-      '  BAIXADO = :BAIXADO,'
-      '  CLIENTE = :CLIENTE,'
-      '  CNPJ = :CNPJ,'
-      '  CODTPREC = :CODTPREC,'
-      '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
-      '  DTEMISS = :DTEMISS,'
-      '  DTVENC = :DTVENC,'
-      '  EMPRESA = :EMPRESA,'
-      '  ENVIADO = :ENVIADO,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  HISTORIC = :HISTORIC,'
-      '  LOTE = :LOTE,'
-      '  NUMLANC = :NUMLANC,'
-      '  PARCELA = :PARCELA,'
-      '  SITUACAO = :SITUACAO,'
-      '  VALORREC = :VALORREC,'
-      '  VALORRECTOT = :VALORRECTOT,'
-      '  VALORSALDO = :VALORSALDO'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC')
-    InsertSQL.Strings = (
-      'insert into TBCONTREC'
-      
-        '  (ANOLANC, BAIXADO, CLIENTE, CNPJ, CODTPREC, COMPETENCIA_APURAC' +
-        'AO, DTEMISS, '
-      
-        '   DTVENC, EMPRESA, ENVIADO, FORMA_PAGTO, HISTORIC, LOTE, NUMLAN' +
-        'C, PARCELA, '
-      '   SITUACAO, VALORREC, VALORRECTOT, VALORSALDO)'
-      'values'
-      
-        '  (:ANOLANC, :BAIXADO, :CLIENTE, :CNPJ, :CODTPREC, :COMPETENCIA_' +
-        'APURACAO, '
-      
-        '   :DTEMISS, :DTVENC, :EMPRESA, :ENVIADO, :FORMA_PAGTO, :HISTORI' +
-        'C, :LOTE, '
-      
-        '   :NUMLANC, :PARCELA, :SITUACAO, :VALORREC, :VALORRECTOT, :VALO' +
-        'RSALDO)')
-    DeleteSQL.Strings = (
-      'delete from TBCONTREC'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC')
-    Left = 632
-    Top = 288
-  end
   object dtsCompetencia: TDataSource
     DataSet = fdQryCompetencia
     Left = 368
@@ -1486,5 +1241,199 @@ inherited frmGeContasAReceberLoteParcela: TfrmGeContasAReceberLoteParcela
       'order by c.cmp_desc')
     Left = 336
     Top = 312
+  end
+  object cdsContaAReceber: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CONTAREC_NUM_2019'
+    UpdateOptions.KeyFields = 'ANOLANC;NUMLANC'
+    UpdateOptions.AutoIncFields = 'NUMLANC'
+    UpdateObject = updContaAReceber
+    SQL.Strings = (
+      'Select'
+      '    r.anolanc'
+      '  , r.numlanc'
+      '  , r.empresa'
+      '  , r.cliente'
+      '  , r.cnpj'
+      '  , r.codtprec'
+      '  , r.forma_pagto'
+      '  , r.historic'
+      '  , r.dtemiss'
+      '  , r.dtvenc'
+      '  , r.competencia_apuracao'
+      '  , r.valorrec'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.parcela'
+      '  , r.baixado'
+      '  , r.enviado'
+      '  , r.situacao'
+      '  , r.lote'
+      'from TBCONTREC r'
+      'where 1 = 0')
+    Left = 603
+    Top = 336
+    object cdsContaAReceberANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsContaAReceberNUMLANC: TFDAutoIncField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      IdentityInsert = True
+    end
+    object cdsContaAReceberEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Size = 18
+    end
+    object cdsContaAReceberCLIENTE: TIntegerField
+      FieldName = 'CLIENTE'
+      Origin = 'CLIENTE'
+    end
+    object cdsContaAReceberCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      Size = 18
+    end
+    object cdsContaAReceberCODTPREC: TSmallintField
+      FieldName = 'CODTPREC'
+      Origin = 'CODTPREC'
+    end
+    object cdsContaAReceberFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object cdsContaAReceberHISTORIC: TMemoField
+      FieldName = 'HISTORIC'
+      Origin = 'HISTORIC'
+      BlobType = ftMemo
+    end
+    object cdsContaAReceberDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+    end
+    object cdsContaAReceberDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+    end
+    object cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField
+      FieldName = 'COMPETENCIA_APURACAO'
+      Origin = 'COMPETENCIA_APURACAO'
+    end
+    object cdsContaAReceberVALORREC: TBCDField
+      FieldName = 'VALORREC'
+      Origin = 'VALORREC'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContaAReceberVALORRECTOT: TBCDField
+      FieldName = 'VALORRECTOT'
+      Origin = 'VALORRECTOT'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContaAReceberVALORSALDO: TBCDField
+      FieldName = 'VALORSALDO'
+      Origin = 'VALORSALDO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContaAReceberPARCELA: TSmallintField
+      FieldName = 'PARCELA'
+      Origin = 'PARCELA'
+    end
+    object cdsContaAReceberBAIXADO: TSmallintField
+      FieldName = 'BAIXADO'
+      Origin = 'BAIXADO'
+      Required = True
+    end
+    object cdsContaAReceberENVIADO: TSmallintField
+      FieldName = 'ENVIADO'
+      Origin = 'ENVIADO'
+      Required = True
+    end
+    object cdsContaAReceberSITUACAO: TSmallintField
+      FieldName = 'SITUACAO'
+      Origin = 'SITUACAO'
+    end
+    object cdsContaAReceberLOTE: TStringField
+      FieldName = 'LOTE'
+      Origin = 'LOTE'
+      Size = 14
+    end
+  end
+  object updContaAReceber: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTREC'
+      '(ANOLANC, NUMLANC, EMPRESA, CLIENTE, CNPJ, '
+      '  FORMA_PAGTO, HISTORIC, DTEMISS, DTVENC, '
+      '  VALORREC, VALORRECTOT, VALORSALDO, PARCELA, '
+      '  BAIXADO, ENVIADO, CODTPREC, SITUACAO, '
+      '  LOTE, COMPETENCIA_APURACAO)'
+      
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_EMPRESA, :NEW_CLIENTE, ' +
+        ':NEW_CNPJ, '
+      '  :NEW_FORMA_PAGTO, :NEW_HISTORIC, :NEW_DTEMISS, :NEW_DTVENC, '
+      
+        '  :NEW_VALORREC, :NEW_VALORRECTOT, :NEW_VALORSALDO, :NEW_PARCELA' +
+        ', '
+      '  :NEW_BAIXADO, :NEW_ENVIADO, :NEW_CODTPREC, :NEW_SITUACAO, '
+      '  :NEW_LOTE, :NEW_COMPETENCIA_APURACAO)'
+      'RETURNING NUMLANC')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTREC'
+      
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, EMPRESA = :N' +
+        'EW_EMPRESA, '
+      
+        '  CLIENTE = :NEW_CLIENTE, CNPJ = :NEW_CNPJ, FORMA_PAGTO = :NEW_F' +
+        'ORMA_PAGTO, '
+      
+        '  HISTORIC = :NEW_HISTORIC, DTEMISS = :NEW_DTEMISS, DTVENC = :NE' +
+        'W_DTVENC, '
+      '  VALORREC = :NEW_VALORREC, VALORRECTOT = :NEW_VALORRECTOT, '
+      
+        '  VALORSALDO = :NEW_VALORSALDO, PARCELA = :NEW_PARCELA, BAIXADO ' +
+        '= :NEW_BAIXADO, '
+      
+        '  ENVIADO = :NEW_ENVIADO, CODTPREC = :NEW_CODTPREC, SITUACAO = :' +
+        'NEW_SITUACAO, '
+      
+        '  LOTE = :NEW_LOTE, COMPETENCIA_APURACAO = :NEW_COMPETENCIA_APUR' +
+        'ACAO'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC'
+      'RETURNING NUMLANC')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTREC'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANOLANC, NUMLANC, EMPRESA, CLIENTE, CNPJ, FORMA_PAGTO, TI' +
+        'PPAG, '
+      '  HISTORIC, NUMREC, DTEMISS, DTVENC, DTREC, DOCBAIX, VALORREC, '
+      '  VALORMULTA, VALORRECTOT, VALORSALDO, NUMCONTRATO, PARCELA, '
+      
+        '  STATUS, CODBANCO, BANCO_FEBRABAN, NOSSONUMERO, ESPECIE_BOLETO,' +
+        ' '
+      
+        '  REMESSA, PERCENTJUROS, PERCENTMULTA, PERCENTDESCONTO, DATAPROC' +
+        'ESSOBOLETO, '
+      '  BAIXADO, ENVIADO, ANOVENDA, NUMVENDA, ANOOS, NUMOS, CODTPREC, '
+      '  SITUACAO, LOTE, COMPETENCIA_APURACAO'
+      'FROM TBCONTREC'
+      'WHERE ANOLANC = :ANOLANC AND NUMLANC = :NUMLANC')
+    Left = 635
+    Top = 336
   end
 end

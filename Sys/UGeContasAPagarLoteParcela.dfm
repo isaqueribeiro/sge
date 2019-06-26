@@ -1,5 +1,5 @@
 inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
-  ActiveControl = dbEmpresa
+  ActiveControl = dbFornecedor
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Contas A Pagar - Incluir Lote (Parcelas)'
@@ -188,6 +188,7 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       Width = 45
       Height = 13
       Caption = 'Empresa:'
+      Enabled = False
       FocusControl = dbEmpresa
     end
     object lblFornecedor: TLabel
@@ -265,6 +266,7 @@ inherited frmGeContasAPagarLoteParcela: TfrmGeContasAPagarLoteParcela
       DataField = 'Empresa'
       DataSource = dtsDadosNominais
       DropDownRows = 10
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11

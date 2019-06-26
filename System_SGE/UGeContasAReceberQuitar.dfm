@@ -475,6 +475,7 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
     Top = 257
   end
   inherited fdQryPesquisa: TFDQuery
+    CachedUpdates = True
     SQL.Strings = (
       'Select'
       '    r.anolanc'
@@ -512,13 +513,163 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       '  , f.nome  as saida_fornecedor'
       '  , f.cnpj  as saida_fornecedor_cnpj'
       ''
-      '  , 0 as selecionar'
+      '  , r.baixado as selecionar'
       'from TBCONTREC r'
       '  left join TBCLIENTE f on (f.codigo = r.cliente)'
       
         '  left join TBVENDAS e on (e.ano = r.anovenda and e.codcontrol =' +
         ' r.numvenda)'
       '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)')
+    object fdQryPesquisaANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaLANCAMENTO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LANCAMENTO'
+      Origin = 'LANCAMENTO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryPesquisaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryPesquisaPARCELA: TSmallintField
+      FieldName = 'PARCELA'
+      Origin = 'PARCELA'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaTIPPAG: TStringField
+      FieldName = 'TIPPAG'
+      Origin = 'TIPPAG'
+      ProviderFlags = []
+      Size = 35
+    end
+    object fdQryPesquisaDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaDTREC: TDateField
+      FieldName = 'DTREC'
+      Origin = 'DTREC'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaVALORREC: TBCDField
+      FieldName = 'VALORREC'
+      Origin = 'VALORREC'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALORMULTA: TBCDField
+      FieldName = 'VALORMULTA'
+      Origin = 'VALORMULTA'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALORRECTOT: TBCDField
+      FieldName = 'VALORRECTOT'
+      Origin = 'VALORRECTOT'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALORSALDO: TBCDField
+      FieldName = 'VALORSALDO'
+      Origin = 'VALORSALDO'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALOR_ARECEBER: TBCDField
+      FieldName = 'VALOR_ARECEBER'
+      Origin = 'VALORSALDO'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaSAIDA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA'
+      Origin = 'SAIDA'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryPesquisaSAIDA_ANO: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_ANO'
+      Origin = 'SAIDA_ANO'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaSAIDA_NUMERO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_NUMERO'
+      Origin = 'SAIDA_NUMERO'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaSAIDA_DOC_TIPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_DOC_TIPO'
+      Origin = 'SAIDA_DOC_TIPO'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 21
+    end
+    object fdQryPesquisaSAIDA_DOC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_DOC'
+      Origin = 'SAIDA_DOC'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryPesquisaSAIDA_DOC_NUMERO: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_DOC_NUMERO'
+      Origin = 'NFE'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaSAIDA_DOC_SERIE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_DOC_SERIE'
+      Origin = 'SERIE'
+      ProviderFlags = []
+      Size = 4
+    end
+    object fdQryPesquisaSAIDA_FORNECEDOR: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_FORNECEDOR'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryPesquisaSAIDA_FORNECEDOR_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SAIDA_FORNECEDOR_CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryPesquisaSELECIONAR: TSmallintField
+      FieldName = 'SELECIONAR'
+      Origin = 'BAIXADO'
+      ProviderFlags = []
+    end
   end
   inherited QryPesquisaXXX: TIBQuery
     SQL.Strings = (
@@ -588,18 +739,18 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       FieldName = 'NUMLANC'
       Required = True
     end
-    object CdsPesquisaLANCAMENTO: TWideStringField
+    object CdsPesquisaLANCAMENTO: TStringField
       FieldName = 'LANCAMENTO'
       Size = 30
     end
-    object CdsPesquisaEMPRESA: TWideStringField
+    object CdsPesquisaEMPRESA: TStringField
       FieldName = 'EMPRESA'
       Size = 18
     end
     object CdsPesquisaPARCELA: TSmallintField
       FieldName = 'PARCELA'
     end
-    object CdsPesquisaTIPPAG: TWideStringField
+    object CdsPesquisaTIPPAG: TStringField
       FieldName = 'TIPPAG'
       Size = 35
     end
@@ -645,7 +796,7 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       Precision = 18
       Size = 2
     end
-    object CdsPesquisaSAIDA: TWideStringField
+    object CdsPesquisaSAIDA: TStringField
       FieldName = 'SAIDA'
       Size = 30
     end
@@ -655,31 +806,31 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
     object CdsPesquisaSAIDA_NUMERO: TIntegerField
       FieldName = 'SAIDA_NUMERO'
     end
-    object CdsPesquisaSAIDA_DOC_TIPO: TWideStringField
+    object CdsPesquisaSAIDA_DOC_TIPO: TStringField
       FieldName = 'SAIDA_DOC_TIPO'
       FixedChar = True
       Size = 21
     end
-    object CdsPesquisaSAIDA_DOC: TWideStringField
+    object CdsPesquisaSAIDA_DOC: TStringField
       FieldName = 'SAIDA_DOC'
       Size = 30
     end
     object CdsPesquisaSAIDA_DOC_NUMERO: TLargeintField
       FieldName = 'SAIDA_DOC_NUMERO'
     end
-    object CdsPesquisaSAIDA_DOC_SERIE: TWideStringField
+    object CdsPesquisaSAIDA_DOC_SERIE: TStringField
       FieldName = 'SAIDA_DOC_SERIE'
       Size = 4
     end
-    object CdsPesquisaSAIDA_FORNECEDOR: TWideStringField
+    object CdsPesquisaSAIDA_FORNECEDOR: TStringField
       FieldName = 'SAIDA_FORNECEDOR'
       Size = 100
     end
-    object CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TWideStringField
+    object CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TStringField
       FieldName = 'SAIDA_FORNECEDOR_CNPJ'
       Size = 18
     end
-    object CdsPesquisaSELECIONAR: TIntegerField
+    object CdsPesquisaSELECIONAR: TSmallintField
       Alignment = taCenter
       FieldName = 'SELECIONAR'
       OnGetText = CdsPesquisaSELECIONARGetText
@@ -733,14 +884,28 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
     Left = 104
     Top = 249
   end
-  object cdsRecebimentos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '      f.cod'
+      '    , f.descri'
+      'from TBFORMPAGTO f'
+      'order by'
+      '      f.descri')
+    Left = 555
+    Top = 264
+  end
+  object cdsRecebimentos: TFDQuery
+    Active = True
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updRecebimentos
+    SQL.Strings = (
       'Select'
       '    r.Anolanc'
       '  , r.Numlanc'
@@ -759,170 +924,127 @@ inherited frmGeContasAReceberQuitar: TfrmGeContasAReceberQuitar
       'from TBCONTREC_BAIXA r'
       '  left join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
       '  left join TBBANCO_BOLETO b on (b.Bco_cod = r.Banco)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updRecebimentos
     Left = 72
     Top = 296
     object cdsRecebimentosANOLANC: TSmallintField
       FieldName = 'ANOLANC'
-      Origin = 'TBCONTPAG_BAIXA.ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsRecebimentosNUMLANC: TIntegerField
       FieldName = 'NUMLANC'
-      Origin = 'TBCONTPAG_BAIXA.NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsRecebimentosSEQ: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = '#'
       FieldName = 'SEQ'
-      Origin = 'TBCONTPAG_BAIXA.SEQ'
+      Origin = 'SEQ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
-      DisplayFormat = '00'
     end
     object cdsRecebimentosHISTORICO: TMemoField
       FieldName = 'HISTORICO'
-      Origin = 'TBCONTPAG_BAIXA.HISTORICO'
+      Origin = 'HISTORICO'
       BlobType = ftMemo
-      Size = 8
     end
     object cdsRecebimentosDATA_PAGTO: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data Pagto.'
       FieldName = 'DATA_PAGTO'
-      Origin = 'TBCONTPAG_BAIXA.DATA_PAGTO'
-      DisplayFormat = 'dd/mm/yyyy'
-      EditMask = '!99/99/0000;1; '
+      Origin = 'DATA_PAGTO'
     end
     object cdsRecebimentosFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
-      Origin = 'TBCONTPAG_BAIXA.FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
     end
-    object cdsRecebimentosFORMA_PAGTO_DESC: TIBStringField
-      DisplayLabel = 'Forma de Pagamento'
+    object cdsRecebimentosFORMA_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'TBFORMPAGTO.DESCRI'
+      Origin = 'DESCRI'
+      ProviderFlags = []
       Size = 30
     end
-    object cdsRecebimentosVALOR_BAIXA: TIBBCDField
-      DisplayLabel = 'Valor Pago (R$)'
+    object cdsRecebimentosVALOR_BAIXA: TBCDField
       FieldName = 'VALOR_BAIXA'
-      Origin = 'TBCONTPAG_BAIXA.VALOR_BAIXA'
-      DisplayFormat = ',0.00'
+      Origin = 'VALOR_BAIXA'
       Precision = 18
       Size = 2
     end
-    object cdsRecebimentosNUMERO_CHEQUE: TIBStringField
-      DisplayLabel = 'No. Cheque'
+    object cdsRecebimentosNUMERO_CHEQUE: TStringField
       FieldName = 'NUMERO_CHEQUE'
-      Origin = 'TBCONTPAG_BAIXA.NUMERO_CHEQUE'
-      Size = 10
+      Origin = 'NUMERO_CHEQUE'
+      Size = 30
     end
-    object cdsRecebimentosEMPRESA: TIBStringField
+    object cdsRecebimentosEMPRESA: TStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBCONTREC_BAIXA"."EMPRESA"'
+      Origin = 'EMPRESA'
       Size = 18
     end
     object cdsRecebimentosBANCO: TSmallintField
       FieldName = 'BANCO'
-      Origin = 'TBCONTPAG_BAIXA.BANCO'
+      Origin = 'BANCO'
     end
-    object cdsRecebimentosBCO_NOME: TIBStringField
-      DisplayLabel = 'Banco'
+    object cdsRecebimentosBCO_NOME: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'BCO_NOME'
-      Origin = 'TBBANCO_BOLETO.BCO_NOME'
+      Origin = 'BCO_NOME'
+      ProviderFlags = []
       Size = 50
     end
-    object cdsRecebimentosDOCUMENTO_BAIXA: TIBStringField
-      DisplayLabel = 'Doc. Baixa'
+    object cdsRecebimentosDOCUMENTO_BAIXA: TStringField
       FieldName = 'DOCUMENTO_BAIXA'
-      Origin = 'TBCONTPAG_BAIXA.DOCUMENTO_BAIXA'
+      Origin = 'DOCUMENTO_BAIXA'
       Size = 10
     end
-    object cdsRecebimentosUSUARIO: TIBStringField
+    object cdsRecebimentosUSUARIO: TStringField
       FieldName = 'USUARIO'
-      Origin = 'TBCONTPAG_BAIXA.USUARIO'
+      Origin = 'USUARIO'
       Size = 12
     end
   end
-  object updRecebimentos: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANOLANC,'
-      '  NUMLANC,'
-      '  SEQ,'
-      '  HISTORICO,'
-      '  DATA_PAGTO,'
-      '  FORMA_PAGTO,'
-      '  VALOR_BAIXA,'
-      '  NUMERO_CHEQUE,'
-      '  EMPRESA,'
-      '  BANCO,'
-      '  BANCO_FEBRABAN,'
-      '  DOCUMENTO_BAIXA,'
-      '  USUARIO'
-      'from TBCONTREC_BAIXA '
-      'where'
-      '  ANOLANC = :ANOLANC and'
-      '  NUMLANC = :NUMLANC and'
-      '  SEQ = :SEQ')
-    ModifySQL.Strings = (
-      'update TBCONTREC_BAIXA'
-      'set'
-      '  ANOLANC = :ANOLANC,'
-      '  BANCO = :BANCO,'
-      '  DATA_PAGTO = :DATA_PAGTO,'
-      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
-      '  EMPRESA = :EMPRESA,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  HISTORICO = :HISTORICO,'
-      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
-      '  NUMLANC = :NUMLANC,'
-      '  SEQ = :SEQ,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_BAIXA = :VALOR_BAIXA'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC and'
-      '  SEQ = :OLD_SEQ')
+  object updRecebimentos: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'insert into TBCONTREC_BAIXA'
+      'INSERT INTO TBCONTREC_BAIXA'
+      '(ANOLANC, NUMLANC, SEQ, HISTORICO, DATA_PAGTO, '
+      '  FORMA_PAGTO, VALOR_BAIXA, NUMERO_CHEQUE, '
+      '  EMPRESA, BANCO, DOCUMENTO_BAIXA, USUARIO)'
       
-        '  (ANOLANC, BANCO, DATA_PAGTO, DOCUMENTO_BAIXA, EMPRESA, FORMA_P' +
-        'AGTO, HISTORICO, '
-      '   NUMERO_CHEQUE, NUMLANC, SEQ, USUARIO, VALOR_BAIXA)'
-      'values'
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_SEQ, :NEW_HISTORICO, :N' +
+        'EW_DATA_PAGTO, '
+      '  :NEW_FORMA_PAGTO, :NEW_VALOR_BAIXA, :NEW_NUMERO_CHEQUE, '
+      '  :NEW_EMPRESA, :NEW_BANCO, :NEW_DOCUMENTO_BAIXA, :NEW_USUARIO)')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTREC_BAIXA'
       
-        '  (:ANOLANC, :BANCO, :DATA_PAGTO, :DOCUMENTO_BAIXA, :EMPRESA, :F' +
-        'ORMA_PAGTO, '
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, SEQ = :NEW_S' +
+        'EQ, '
+      '  HISTORICO = :NEW_HISTORICO, DATA_PAGTO = :NEW_DATA_PAGTO, '
       
-        '   :HISTORICO, :NUMERO_CHEQUE, :NUMLANC, :SEQ, :USUARIO, :VALOR_' +
-        'BAIXA)')
+        '  FORMA_PAGTO = :NEW_FORMA_PAGTO, VALOR_BAIXA = :NEW_VALOR_BAIXA' +
+        ', '
+      '  NUMERO_CHEQUE = :NEW_NUMERO_CHEQUE, EMPRESA = :NEW_EMPRESA, '
+      '  BANCO = :NEW_BANCO, DOCUMENTO_BAIXA = :NEW_DOCUMENTO_BAIXA, '
+      '  USUARIO = :NEW_USUARIO'
+      
+        'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC AND SEQ ' +
+        '= :OLD_SEQ')
     DeleteSQL.Strings = (
-      'delete from TBCONTREC_BAIXA'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC and'
-      '  SEQ = :OLD_SEQ')
+      'DELETE FROM TBCONTREC_BAIXA'
+      
+        'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC AND SEQ ' +
+        '= :OLD_SEQ')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANOLANC, NUMLANC, SEQ, HISTORICO, DATA_PAGTO, FORMA_PAGTO' +
+        ', VALOR_BAIXA, '
+      
+        '  CONTROLE_CHEQUE, NUMERO_CHEQUE, EMPRESA, BANCO, BANCO_FEBRABAN' +
+        ', '
+      '  DOCUMENTO_BAIXA, USUARIO'
+      'FROM TBCONTREC_BAIXA'
+      'WHERE ANOLANC = :ANOLANC AND NUMLANC = :NUMLANC AND SEQ = :SEQ')
     Left = 104
     Top = 296
-  end
-  object fdQryFormaPagto: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '      f.cod'
-      '    , f.descri'
-      'from TBFORMPAGTO f'
-      'order by'
-      '      f.descri')
-    Left = 555
-    Top = 264
   end
 end

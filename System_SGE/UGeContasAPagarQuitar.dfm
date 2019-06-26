@@ -476,6 +476,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     Top = 281
   end
   inherited fdQryPesquisa: TFDQuery
+    CachedUpdates = True
     SQL.Strings = (
       'Select'
       '    c.anolanc'
@@ -509,7 +510,7 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       '  , f.nomeforn      as entrada_fornecedor'
       '  , f.cnpj          as entrada_fornecedor_cnpj'
       ''
-      '  , 0 as selecionar'
+      '  , c.quitado as selecionar'
       'from TBCONTPAG c'
       '  left join TBFORNECEDOR f on (f.codforn = c.codforn)'
       
@@ -518,6 +519,154 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       
         '  left join VW_TIPO_DOCUMENTO_ENTRADA d on (d.tpd_codigo = e.tip' +
         'o_documento)')
+    object fdQryPesquisaANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaLANCAMENTO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LANCAMENTO'
+      Origin = 'LANCAMENTO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryPesquisaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryPesquisaPARCELA: TSmallintField
+      FieldName = 'PARCELA'
+      Origin = 'PARCELA'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaTIPPAG: TStringField
+      FieldName = 'TIPPAG'
+      Origin = 'TIPPAG'
+      ProviderFlags = []
+      Size = 35
+    end
+    object fdQryPesquisaDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+      Origin = 'DTEMISS'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaDTVENC: TDateField
+      FieldName = 'DTVENC'
+      Origin = 'DTVENC'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaDTPAG: TDateField
+      FieldName = 'DTPAG'
+      Origin = 'DTPAG'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaVALORPAG: TBCDField
+      FieldName = 'VALORPAG'
+      Origin = 'VALORPAG'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALORMULTA: TBCDField
+      FieldName = 'VALORMULTA'
+      Origin = 'VALORMULTA'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALORPAGTOT: TBCDField
+      FieldName = 'VALORPAGTOT'
+      Origin = 'VALORPAGTOT'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALORSALDO: TBCDField
+      FieldName = 'VALORSALDO'
+      Origin = 'VALORSALDO'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALOR_APAGAR: TBCDField
+      FieldName = 'VALOR_APAGAR'
+      Origin = 'VALORSALDO'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaENTRADA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENTRADA'
+      Origin = 'ENTRADA'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryPesquisaENTRADA_ANO: TSmallintField
+      FieldName = 'ENTRADA_ANO'
+      Origin = 'ANOCOMPRA'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaENTRADA_NUMERO: TIntegerField
+      FieldName = 'ENTRADA_NUMERO'
+      Origin = 'NUMCOMPRA'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaENTRADA_DOC_TIPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENTRADA_DOC_TIPO'
+      Origin = 'TPD_DESCRICAO'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 13
+    end
+    object fdQryPesquisaENTRADA_DOC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENTRADA_DOC'
+      Origin = 'ENTRADA_DOC'
+      ProviderFlags = []
+      Size = 30
+    end
+    object fdQryPesquisaENTRADA_DOC_NUMERO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENTRADA_DOC_NUMERO'
+      Origin = 'NF'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaENTRADA_DOC_SERIE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENTRADA_DOC_SERIE'
+      Origin = 'NFSERIE'
+      ProviderFlags = []
+      Size = 4
+    end
+    object fdQryPesquisaENTRADA_FORNECEDOR: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENTRADA_FORNECEDOR'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryPesquisaENTRADA_FORNECEDOR_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENTRADA_FORNECEDOR_CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object fdQryPesquisaSELECIONAR: TSmallintField
+      FieldName = 'SELECIONAR'
+      Origin = 'QUITADO'
+      ProviderFlags = []
+    end
   end
   inherited QryPesquisaXXX: TIBQuery
     SQL.Strings = (
@@ -684,10 +833,10 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       ReadOnly = True
       Size = 18
     end
-    object CdsPesquisaSELECIONAR: TIntegerField
+    object CdsPesquisaSELECIONAR: TSmallintField
       Alignment = taCenter
       FieldName = 'SELECIONAR'
-      ReadOnly = True
+      ProviderFlags = []
       OnGetText = CdsPesquisaSELECIONARGetText
     end
     object CdsPesquisaSelecionados: TAggregateField
@@ -805,11 +954,8 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
       BlobType = ftMemo
     end
     object cdsPagamentosDATA_PAGTO: TDateField
-      DisplayLabel = 'Data Pagto.'
       FieldName = 'DATA_PAGTO'
       Origin = 'DATA_PAGTO'
-      DisplayFormat = 'dd/mm/yyyy'
-      EditMask = '!99/99/0000;1; '
     end
     object cdsPagamentosFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
@@ -817,23 +963,18 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     end
     object cdsPagamentosFORMA_PAGTO_DESC: TStringField
       AutoGenerateValue = arDefault
-      DisplayLabel = 'Forma de Pagamento'
       FieldName = 'FORMA_PAGTO_DESC'
       Origin = 'DESCRI'
       ProviderFlags = []
-      ReadOnly = True
       Size = 30
     end
     object cdsPagamentosVALOR_BAIXA: TBCDField
-      DisplayLabel = 'Valor Pago (R$)'
       FieldName = 'VALOR_BAIXA'
       Origin = 'VALOR_BAIXA'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object cdsPagamentosNUMERO_CHEQUE: TStringField
-      DisplayLabel = 'No. Cheque'
       FieldName = 'NUMERO_CHEQUE'
       Origin = 'NUMERO_CHEQUE'
       Size = 30
@@ -849,15 +990,12 @@ inherited frmGeContasAPagarQuitar: TfrmGeContasAPagarQuitar
     end
     object cdsPagamentosBCO_NOME: TStringField
       AutoGenerateValue = arDefault
-      DisplayLabel = 'Banco'
       FieldName = 'BCO_NOME'
       Origin = 'BCO_NOME'
       ProviderFlags = []
-      ReadOnly = True
       Size = 50
     end
     object cdsPagamentosDOCUMENTO_BAIXA: TStringField
-      DisplayLabel = 'Doc. Baixa'
       FieldName = 'DOCUMENTO_BAIXA'
       Origin = 'DOCUMENTO_BAIXA'
       Size = 10

@@ -606,214 +606,13 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
     TabOrder = 3
     OnClick = btnCancelarClick
   end
-  object cdsPagamentos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    OnNewRecord = cdsPagamentosNewRecord
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.Seq'
-      '  , p.Historico'
-      '  , p.Data_pagto'
-      '  , p.Forma_pagto'
-      '  , f.Descri as Forma_pagto_desc'
-      '  , p.Valor_baixa'
-      '  , p.Controle_cheque'
-      '  , p.Numero_cheque'
-      '  , p.Banco'
-      '  , p.Banco_febraban'
-      '  , b.Bco_nome'
-      '  , p.Documento_baixa'
-      '  , p.Usuario'
-      '  , c.empresa'
-      'from TBCONTREC_BAIXA p'
-      
-        '  left join TBCONTREC c on (c.anolanc = p.anolanc and c.numlanc ' +
-        '= p.numlanc)'
-      '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
-      
-        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
-        'sa = p.empresa)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updPagamentos
-    Left = 304
-    Top = 16
-    object cdsPagamentosANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = 'TBCONTPAG_BAIXA.ANOLANC'
-      Required = True
-    end
-    object cdsPagamentosNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = 'TBCONTPAG_BAIXA.NUMLANC'
-      Required = True
-    end
-    object cdsPagamentosSEQ: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = '#'
-      FieldName = 'SEQ'
-      Origin = 'TBCONTPAG_BAIXA.SEQ'
-      Required = True
-      DisplayFormat = '00'
-    end
-    object cdsPagamentosHISTORICO: TMemoField
-      FieldName = 'HISTORICO'
-      Origin = 'TBCONTPAG_BAIXA.HISTORICO'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object cdsPagamentosDATA_PAGTO: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data Pagto.'
-      FieldName = 'DATA_PAGTO'
-      Origin = 'TBCONTPAG_BAIXA.DATA_PAGTO'
-      DisplayFormat = 'dd/mm/yyyy'
-      EditMask = '!99/99/0000;1; '
-    end
-    object cdsPagamentosFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = 'TBCONTPAG_BAIXA.FORMA_PAGTO'
-    end
-    object cdsPagamentosFORMA_PAGTO_DESC: TIBStringField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'TBFORMPAGTO.DESCRI'
-      Size = 30
-    end
-    object cdsPagamentosVALOR_BAIXA: TIBBCDField
-      DisplayLabel = 'Valor Pago (R$)'
-      FieldName = 'VALOR_BAIXA'
-      Origin = 'TBCONTPAG_BAIXA.VALOR_BAIXA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsPagamentosCONTROLE_CHEQUE: TIntegerField
-      FieldName = 'CONTROLE_CHEQUE'
-      Origin = '"TBCONTREC_BAIXA"."CONTROLE_CHEQUE"'
-    end
-    object cdsPagamentosNUMERO_CHEQUE: TIBStringField
-      DisplayLabel = 'No. Cheque'
-      FieldName = 'NUMERO_CHEQUE'
-      Origin = 'TBCONTPAG_BAIXA.NUMERO_CHEQUE'
-      Size = 10
-    end
-    object cdsPagamentosBANCO: TSmallintField
-      FieldName = 'BANCO'
-      Origin = 'TBCONTPAG_BAIXA.BANCO'
-    end
-    object cdsPagamentosBANCO_FEBRABAN: TIBStringField
-      FieldName = 'BANCO_FEBRABAN'
-      Origin = '"TBCONTREC_BAIXA"."BANCO_FEBRABAN"'
-      Size = 10
-    end
-    object cdsPagamentosBCO_NOME: TIBStringField
-      DisplayLabel = 'Banco'
-      FieldName = 'BCO_NOME'
-      Origin = 'TBBANCO_BOLETO.BCO_NOME'
-      Size = 50
-    end
-    object cdsPagamentosDOCUMENTO_BAIXA: TIBStringField
-      DisplayLabel = 'Doc. Baixa'
-      FieldName = 'DOCUMENTO_BAIXA'
-      Origin = 'TBCONTPAG_BAIXA.DOCUMENTO_BAIXA'
-      Size = 10
-    end
-    object cdsPagamentosUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = 'TBCONTREC_BAIXA.USUARIO'
-      Size = 12
-    end
-    object cdsPagamentosEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBCONTREC"."EMPRESA"'
-      ProviderFlags = []
-      Size = 18
-    end
-  end
-  object updPagamentos: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANOLANC,'
-      '  NUMLANC,'
-      '  SEQ,'
-      '  HISTORICO,'
-      '  DATA_PAGTO,'
-      '  FORMA_PAGTO,'
-      '  VALOR_BAIXA,'
-      '  CONTROLE_CHEQUE,'
-      '  NUMERO_CHEQUE,'
-      '  EMPRESA,'
-      '  BANCO,'
-      '  BANCO_FEBRABAN,'
-      '  DOCUMENTO_BAIXA,'
-      '  USUARIO'
-      'from TBCONTREC_BAIXA '
-      'where'
-      '  ANOLANC = :ANOLANC and'
-      '  NUMLANC = :NUMLANC and'
-      '  SEQ = :SEQ')
-    ModifySQL.Strings = (
-      'update TBCONTREC_BAIXA'
-      'set'
-      '  ANOLANC = :ANOLANC,'
-      '  BANCO = :BANCO,'
-      '  BANCO_FEBRABAN = :BANCO_FEBRABAN,'
-      '  CONTROLE_CHEQUE = :CONTROLE_CHEQUE,'
-      '  DATA_PAGTO = :DATA_PAGTO,'
-      '  DOCUMENTO_BAIXA = :DOCUMENTO_BAIXA,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  HISTORICO = :HISTORICO,'
-      '  NUMERO_CHEQUE = :NUMERO_CHEQUE,'
-      '  NUMLANC = :NUMLANC,'
-      '  SEQ = :SEQ,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_BAIXA = :VALOR_BAIXA'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC and'
-      '  SEQ = :OLD_SEQ')
-    InsertSQL.Strings = (
-      'insert into TBCONTREC_BAIXA'
-      
-        '  (ANOLANC, BANCO, BANCO_FEBRABAN, CONTROLE_CHEQUE, DATA_PAGTO, ' +
-        'DOCUMENTO_BAIXA, '
-      
-        '   FORMA_PAGTO, HISTORICO, NUMERO_CHEQUE, NUMLANC, SEQ, USUARIO,' +
-        ' VALOR_BAIXA)'
-      'values'
-      
-        '  (:ANOLANC, :BANCO, :BANCO_FEBRABAN, :CONTROLE_CHEQUE, :DATA_PA' +
-        'GTO, :DOCUMENTO_BAIXA, '
-      
-        '   :FORMA_PAGTO, :HISTORICO, :NUMERO_CHEQUE, :NUMLANC, :SEQ, :US' +
-        'UARIO, '
-      '   :VALOR_BAIXA)')
-    DeleteSQL.Strings = (
-      'delete from TBCONTREC_BAIXA'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC and'
-      '  SEQ = :OLD_SEQ')
-    Left = 336
-    Top = 16
-  end
   object dtsPagamentos: TDataSource
     AutoEdit = False
     DataSet = cdsPagamentos
     OnStateChange = dtsPagamentosStateChange
     OnDataChange = dtsPagamentosDataChange
-    Left = 368
-    Top = 16
+    Left = 400
+    Top = 216
   end
   object dtsBanco: TDataSource
     DataSet = fdQryBanco
@@ -892,5 +691,192 @@ inherited frmGeEfetuarPagtoREC: TfrmGeEfetuarPagtoREC
       '      f.descri')
     Left = 403
     Top = 48
+  end
+  object cdsPagamentos: TFDQuery
+    OnNewRecord = cdsPagamentosNewRecord
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updPagamentos
+    SQL.Strings = (
+      'Select'
+      '    p.Anolanc'
+      '  , p.Numlanc'
+      '  , p.Seq'
+      '  , p.Historico'
+      '  , p.Data_pagto'
+      '  , p.Forma_pagto'
+      '  , f.Descri as Forma_pagto_desc'
+      '  , p.Valor_baixa'
+      '  , p.Controle_cheque'
+      '  , p.Numero_cheque'
+      '  , p.Banco'
+      '  , p.Banco_febraban'
+      '  , b.Bco_nome'
+      '  , p.Documento_baixa'
+      '  , p.Usuario'
+      '  , c.empresa'
+      'from TBCONTREC_BAIXA p'
+      
+        '  left join TBCONTREC c on (c.anolanc = p.anolanc and c.numlanc ' +
+        '= p.numlanc)'
+      '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
+      
+        '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco and b.empre' +
+        'sa = p.empresa)')
+    Left = 339
+    Top = 216
+    object cdsPagamentosANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Origin = 'ANOLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPagamentosNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Origin = 'NUMLANC'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPagamentosSEQ: TSmallintField
+      Alignment = taCenter
+      DisplayLabel = '#'
+      FieldName = 'SEQ'
+      Origin = 'SEQ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      DisplayFormat = '00'
+    end
+    object cdsPagamentosHISTORICO: TMemoField
+      FieldName = 'HISTORICO'
+      Origin = 'HISTORICO'
+      BlobType = ftMemo
+    end
+    object cdsPagamentosDATA_PAGTO: TDateField
+      Alignment = taCenter
+      DisplayLabel = 'Data Pagto.'
+      FieldName = 'DATA_PAGTO'
+      Origin = 'DATA_PAGTO'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsPagamentosFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object cdsPagamentosFORMA_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'FORMA_PAGTO_DESC'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsPagamentosVALOR_BAIXA: TBCDField
+      DisplayLabel = 'Valor Pago (R$)'
+      FieldName = 'VALOR_BAIXA'
+      Origin = 'VALOR_BAIXA'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsPagamentosCONTROLE_CHEQUE: TIntegerField
+      FieldName = 'CONTROLE_CHEQUE'
+      Origin = 'CONTROLE_CHEQUE'
+    end
+    object cdsPagamentosNUMERO_CHEQUE: TStringField
+      DisplayLabel = 'No. Cheque'
+      FieldName = 'NUMERO_CHEQUE'
+      Origin = 'NUMERO_CHEQUE'
+      Size = 30
+    end
+    object cdsPagamentosBANCO: TSmallintField
+      FieldName = 'BANCO'
+      Origin = 'BANCO'
+    end
+    object cdsPagamentosBANCO_FEBRABAN: TStringField
+      FieldName = 'BANCO_FEBRABAN'
+      Origin = 'BANCO_FEBRABAN'
+      Size = 10
+    end
+    object cdsPagamentosBCO_NOME: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Banco'
+      FieldName = 'BCO_NOME'
+      Origin = 'BCO_NOME'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsPagamentosDOCUMENTO_BAIXA: TStringField
+      DisplayLabel = 'Doc. Baixa'
+      FieldName = 'DOCUMENTO_BAIXA'
+      Origin = 'DOCUMENTO_BAIXA'
+      Size = 10
+    end
+    object cdsPagamentosUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 12
+    end
+    object cdsPagamentosEMPRESA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = []
+      Size = 18
+    end
+  end
+  object updPagamentos: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTREC_BAIXA'
+      '(ANOLANC, NUMLANC, SEQ, HISTORICO, DATA_PAGTO, '
+      '  FORMA_PAGTO, VALOR_BAIXA, CONTROLE_CHEQUE, '
+      '  NUMERO_CHEQUE, BANCO, BANCO_FEBRABAN, DOCUMENTO_BAIXA, '
+      '  USUARIO)'
+      
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_SEQ, :NEW_HISTORICO, :N' +
+        'EW_DATA_PAGTO, '
+      '  :NEW_FORMA_PAGTO, :NEW_VALOR_BAIXA, :NEW_CONTROLE_CHEQUE, '
+      
+        '  :NEW_NUMERO_CHEQUE, :NEW_BANCO, :NEW_BANCO_FEBRABAN, :NEW_DOCU' +
+        'MENTO_BAIXA, '
+      '  :NEW_USUARIO)'
+      'RETURNING EMPRESA')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTREC_BAIXA'
+      
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, SEQ = :NEW_S' +
+        'EQ, '
+      '  HISTORICO = :NEW_HISTORICO, DATA_PAGTO = :NEW_DATA_PAGTO, '
+      
+        '  FORMA_PAGTO = :NEW_FORMA_PAGTO, VALOR_BAIXA = :NEW_VALOR_BAIXA' +
+        ', '
+      
+        '  CONTROLE_CHEQUE = :NEW_CONTROLE_CHEQUE, NUMERO_CHEQUE = :NEW_N' +
+        'UMERO_CHEQUE, '
+      '  BANCO = :NEW_BANCO, BANCO_FEBRABAN = :NEW_BANCO_FEBRABAN, '
+      '  DOCUMENTO_BAIXA = :NEW_DOCUMENTO_BAIXA, USUARIO = :NEW_USUARIO'
+      
+        'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC AND SEQ ' +
+        '= :OLD_SEQ'
+      'RETURNING EMPRESA')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTREC_BAIXA'
+      
+        'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC AND SEQ ' +
+        '= :OLD_SEQ')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANOLANC, NUMLANC, SEQ, HISTORICO, DATA_PAGTO, FORMA_PAGTO' +
+        ', VALOR_BAIXA, '
+      
+        '  CONTROLE_CHEQUE, NUMERO_CHEQUE, EMPRESA, BANCO, BANCO_FEBRABAN' +
+        ', '
+      '  DOCUMENTO_BAIXA, USUARIO'
+      'FROM TBCONTREC_BAIXA'
+      'WHERE ANOLANC = :ANOLANC AND NUMLANC = :NUMLANC AND SEQ = :SEQ')
+    Left = 371
+    Top = 216
   end
 end

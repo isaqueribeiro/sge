@@ -6,17 +6,16 @@ uses
   UGrPadrao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, DB,
-  IBCustomDataSet, IBUpdateSQL, IBTable, Buttons, IBStoredProc, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit, JvDBControls, IBX.IBQuery,
+  Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, DB, Buttons, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit, JvDBControls,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TTipoOrigemRecebimento = (toRecebimentoOutros, toRecebimentoVenda, toRecebimentoOS);
@@ -31,20 +30,6 @@ type
     edNumLanc: TEdit;
     edCliente: TEdit;
     Bevel2: TBevel;
-    cdsPagamentos: TIBDataSet;
-    cdsPagamentosANOLANC: TSmallintField;
-    cdsPagamentosNUMLANC: TIntegerField;
-    cdsPagamentosSEQ: TSmallintField;
-    cdsPagamentosHISTORICO: TMemoField;
-    cdsPagamentosDATA_PAGTO: TDateField;
-    cdsPagamentosFORMA_PAGTO: TSmallintField;
-    cdsPagamentosFORMA_PAGTO_DESC: TIBStringField;
-    cdsPagamentosVALOR_BAIXA: TIBBCDField;
-    cdsPagamentosNUMERO_CHEQUE: TIBStringField;
-    cdsPagamentosBANCO: TSmallintField;
-    cdsPagamentosBCO_NOME: TIBStringField;
-    cdsPagamentosDOCUMENTO_BAIXA: TIBStringField;
-    updPagamentos: TIBUpdateSQL;
     dtsPagamentos: TDataSource;
     dtsBanco: TDataSource;
     dtsFormaPagto: TDataSource;
@@ -59,30 +44,44 @@ type
     dbBanco: TDBLookupComboBox;
     lblHistorico: TLabel;
     dbHistorico: TDBMemo;
-    cdsPagamentosUSUARIO: TIBStringField;
     lblInforme: TLabel;
     tmrAlerta: TTimer;
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
     dbDataPagto: TJvDBDateEdit;
-    cdsPagamentosEMPRESA: TIBStringField;
     dtsBancoFebraban: TDataSource;
-    cdsPagamentosBANCO_FEBRABAN: TIBStringField;
     lblNumeroCheque: TLabel;
     dbNumeroCheque: TJvDBComboEdit;
-    cdsPagamentosCONTROLE_CHEQUE: TIntegerField;
     fdQryBanco: TFDQuery;
     fdQryBancoFebraban: TFDQuery;
     fdQryFormaPagto: TFDQuery;
+    cdsPagamentos: TFDQuery;
+    updPagamentos: TFDUpdateSQL;
+    cdsPagamentosANOLANC: TSmallintField;
+    cdsPagamentosNUMLANC: TIntegerField;
+    cdsPagamentosSEQ: TSmallintField;
+    cdsPagamentosHISTORICO: TMemoField;
+    cdsPagamentosDATA_PAGTO: TDateField;
+    cdsPagamentosFORMA_PAGTO: TSmallintField;
+    cdsPagamentosFORMA_PAGTO_DESC: TStringField;
+    cdsPagamentosVALOR_BAIXA: TBCDField;
+    cdsPagamentosCONTROLE_CHEQUE: TIntegerField;
+    cdsPagamentosNUMERO_CHEQUE: TStringField;
+    cdsPagamentosBANCO: TSmallintField;
+    cdsPagamentosBANCO_FEBRABAN: TStringField;
+    cdsPagamentosBCO_NOME: TStringField;
+    cdsPagamentosDOCUMENTO_BAIXA: TStringField;
+    cdsPagamentosUSUARIO: TStringField;
+    cdsPagamentosEMPRESA: TStringField;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
-    procedure cdsPagamentosNewRecord(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
     procedure tmrAlertaTimer(Sender: TObject);
     procedure dbNumeroChequeButtonClick(Sender: TObject);
     procedure dtsPagamentosDataChange(Sender: TObject; Field: TField);
+    procedure cdsPagamentosNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     CxContaCorrente : Integer;
@@ -141,7 +140,7 @@ begin
 
       cdsPagamentos.Close;
 
-      with cdsPagamentos, SelectSQL do
+      with cdsPagamentos, SQL do
       begin
         Add('where p.Anolanc = ' + IntToStr(Ano));
         Add('  and p.Numlanc = ' + IntToStr(Lancamento));
@@ -191,7 +190,7 @@ begin
 
       cdsPagamentos.Close;
 
-      with cdsPagamentos, SelectSQL do
+      with cdsPagamentos, SQL do
       begin
         Add('where p.Anolanc = ' + IntToStr(LancAno));
         Add('  and p.Numlanc = ' + IntToStr(LanNumero));
@@ -211,6 +210,7 @@ begin
 
       cdsPagamentos.Post;
       cdsPagamentos.ApplyUpdates;
+      cdsPagamentos.CommitUpdates;
 
       CommitTransaction;
 
@@ -355,7 +355,6 @@ end;
 
 procedure TfrmGeEfetuarPagtoREC.cdsPagamentosNewRecord(DataSet: TDataSet);
 begin
-  inherited;
   cdsPagamentosANOLANC.Value    := StrToInt(edAnoLanc.Text);
   cdsPagamentosNUMLANC.Value    := StrToInt(edNumLanc.Text);
   cdsPagamentosSEQ.Value        := GetNextID('TBCONTREC_BAIXA', 'SEQ', 'where anolanc = ' + edAnoLanc.Text + ' and numlanc = ' + edNumLanc.Text);
