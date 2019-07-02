@@ -500,8 +500,13 @@ const
   BOLETO_IMAGENS          = 'Imagens\';
   BOLETO_LICENCAS         = 'Licencas\';
 
-  LAYOUT_BOLETO_ENTREGA = 'Boleto\Boleto.fr3';
+  //LAYOUT_BOLETO_ENTREGA = 'Boleto\BoletoEntrega.fr3';
+  //LAYOUT_BOLETO_CARNE   = 'Boleto\BoletoCarne.fr3';
+  LAYOUT_BOLETO         = 'Boleto\Boleto.fr3';
+  LAYOUT_BOLETO_ENTREGA = 'Boleto\BoletoEntrega.fr3';
+  LAYOUT_BOLETO_FATURA  = 'Boleto\BoletoFatura.fr3';
   LAYOUT_BOLETO_CARNE   = 'Boleto\BoletoCarne.fr3';
+
 
   //FILE_WALLPAPER   = 'PapelDeParede.jpg';
   FILE_COMPANY_LOGO  = 'LogotipoEmpresa.png';

@@ -9,11 +9,15 @@ uses
   Dialogs, StdCtrls, ExtCtrls, DB, IBCustomDataSet, IBTable, CheckLst,
   Buttons, ToolWin, ComCtrls, Grids, DBGrids, ComObj, IBSQL, DBClient,
   IBQuery, IBUpdateSQL, ACBrBoleto, ACBrBoletoFCFR, ACBrBase,
-  FileCtrl, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons,
+  FileCtrl, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeRetornoBoleto = class(TfrmGrPadrao)
@@ -32,7 +36,6 @@ type
     Bevel6: TBevel;
     Label3: TLabel;
     dbgTitulos: TDBGrid;
-    UpdateLanc: TIBSQL;
     CdsTitulos: TClientDataSet;
     DtsTitulos: TDataSource;
     CdsTitulosDataPagamento: TDateField;
@@ -41,48 +44,46 @@ type
     CdsTitulosParcela: TIntegerField;
     CdsTitulosBanco: TIntegerField;
     CdsTitulosAPagar: TCurrencyField;
-    gFind: TIBQuery;
     CdsTitulosAno: TSmallintField;
-    IbQryBancos: TIBQuery;
-    IbQryBancosBCO_COD: TSmallintField;
-    IbQryBancosEMPRESA: TIBStringField;
-    IbQryBancosBCO_CARTEIRA: TIBStringField;
-    IbQryBancosBCO_NOME: TIBStringField;
-    IbQryBancosBCO_AGENCIA: TIBStringField;
-    IbQryBancosBCO_CC: TIBStringField;
-    IbQryBancosBCO_CODIGO_CEDENTE: TIBStringField;
-    IbQryBancosBCO_CHAVE: TIBStringField;
-    IbQryBancosBCO_GERAR_BOLETO: TSmallintField;
-    IbQryBancosBCO_NOSSO_NUM_INICIO: TIBStringField;
-    IbQryBancosBCO_NOSSO_NUM_FINAL: TIBStringField;
-    IbQryBancosBCO_NOSSO_NUM_PROXIMO: TIBStringField;
-    IbQryBancosBCO_CONFG_1: TIBStringField;
-    IbQryBancosBCO_CONFG_2: TIBStringField;
-    IbQryBancosBCO_SEQUENCIAL_REM: TIntegerField;
-    IbQryBancosBCO_DIRETORIO_REMESSA: TIBStringField;
-    IbQryBancosBCO_DIRETORIO_RETORNO: TIBStringField;
-    IbQryBancosBCO_PERCENTUAL_JUROS: TIBBCDField;
-    IbQryBancosBCO_PERCENTUAL_MORA: TIBBCDField;
-    IbQryBancosBCO_DIA_PROTESTO: TSmallintField;
-    IbQryBancosBCO_MSG_INSTRUCAO: TIBStringField;
-    IbQryBancosBCO_LAYOUT_REMESSA: TSmallintField;
-    IbQryBancosBCO_LAYOUT_RETORNO: TSmallintField;
-    IbQryBancosRZSOC: TIBStringField;
-    IbQryBancosNMFANT: TIBStringField;
-    IbQryBancosIE: TIBStringField;
-    IbQryBancosIM: TIBStringField;
-    IbQryBancosENDER: TIBStringField;
-    IbQryBancosCOMPLEMENTO: TIBStringField;
-    IbQryBancosNUMERO_END: TIBStringField;
-    IbQryBancosBAIRRO: TIBStringField;
-    IbQryBancosCEP: TIBStringField;
-    IbQryBancosCIDADE: TIBStringField;
-    IbQryBancosUF: TIBStringField;
-    IbQryBancosEMAIL: TIBStringField;
-    IbUpdBancos: TIBUpdateSQL;
+    IbQryBancosXXX: TIBQuery;
+    IbQryBancosXXXBCO_COD: TSmallintField;
+    IbQryBancosXXXEMPRESA: TIBStringField;
+    IbQryBancosXXXBCO_CARTEIRA: TIBStringField;
+    IbQryBancosXXXBCO_NOME: TIBStringField;
+    IbQryBancosXXXBCO_AGENCIA: TIBStringField;
+    IbQryBancosXXXBCO_CC: TIBStringField;
+    IbQryBancosXXXBCO_CODIGO_CEDENTE: TIBStringField;
+    IbQryBancosXXXBCO_CHAVE: TIBStringField;
+    IbQryBancosXXXBCO_GERAR_BOLETO: TSmallintField;
+    IbQryBancosXXXBCO_NOSSO_NUM_INICIO: TIBStringField;
+    IbQryBancosXXXBCO_NOSSO_NUM_FINAL: TIBStringField;
+    IbQryBancosXXXBCO_NOSSO_NUM_PROXIMO: TIBStringField;
+    IbQryBancosXXXBCO_CONFG_1: TIBStringField;
+    IbQryBancosXXXBCO_CONFG_2: TIBStringField;
+    IbQryBancosXXXBCO_SEQUENCIAL_REM: TIntegerField;
+    IbQryBancosXXXBCO_DIRETORIO_REMESSA: TIBStringField;
+    IbQryBancosXXXBCO_DIRETORIO_RETORNO: TIBStringField;
+    IbQryBancosXXXBCO_PERCENTUAL_JUROS: TIBBCDField;
+    IbQryBancosXXXBCO_PERCENTUAL_MORA: TIBBCDField;
+    IbQryBancosXXXBCO_DIA_PROTESTO: TSmallintField;
+    IbQryBancosXXXBCO_MSG_INSTRUCAO: TIBStringField;
+    IbQryBancosXXXBCO_LAYOUT_REMESSA: TSmallintField;
+    IbQryBancosXXXBCO_LAYOUT_RETORNO: TSmallintField;
+    IbQryBancosXXXRZSOC: TIBStringField;
+    IbQryBancosXXXNMFANT: TIBStringField;
+    IbQryBancosXXXIE: TIBStringField;
+    IbQryBancosXXXIM: TIBStringField;
+    IbQryBancosXXXENDER: TIBStringField;
+    IbQryBancosXXXCOMPLEMENTO: TIBStringField;
+    IbQryBancosXXXNUMERO_END: TIBStringField;
+    IbQryBancosXXXBAIRRO: TIBStringField;
+    IbQryBancosXXXCEP: TIBStringField;
+    IbQryBancosXXXCIDADE: TIBStringField;
+    IbQryBancosXXXUF: TIBStringField;
+    IbQryBancosXXXEMAIL: TIBStringField;
+    IbUpdBancosXXX: TIBUpdateSQL;
     lblFormaPagto: TLabel;
     edFormaPagto: TComboBox;
-    QryFormaPagto: TIBQuery;
     ACBrBoleto: TACBrBoleto;
     ACBrBoletoFCFR: TACBrBoletoFCFR;
     CdsTitulosTotalAPagar: TAggregateField;
@@ -102,24 +103,24 @@ type
     CdsTitulosSacado: TStringField;
     CdsTitulosCnpj: TStringField;
     CdsTitulosArquivo: TStringField;
+    UpdateLanc: TFDQuery;
+    QryFormaPagto: TFDQuery;
+    fdQryBancos: TFDQuery;
+    fdUpdBancos: TFDUpdateSQL;
+    gFind: TFDQuery;
     procedure edBancoChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure FormCreate(Sender: TObject);
     procedure dbgTitulosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure btnCarregarRetornoClick(Sender: TObject);
     procedure btnConfirmarBaixaClick(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edFormaPagtoChange(Sender: TObject);
   private
     { Private declarations }
-    {$IFNDEF ACBR}
-    CobreBemX : Variant;
-    {$ENDIF}
     procedure CarregarBancos;
     procedure CarregarFormaPagto(const iBanco : Integer);
     procedure DefinirDiretorioArquivo( iBanco : Integer );
@@ -130,13 +131,8 @@ type
     function GetContaNumero : String;
     function GetContaDigito : String;
 
-    {$IFDEF ACBR}
     function DefinirCedenteACBr(iBanco : Integer; sCarteira : String) : Boolean;
     function CarregarRetornoACBr( sArquivo : String ) : Boolean;
-    {$ELSE}
-    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
-    function CarregarRetorno( sArquivo : String; var Objeto : Variant ) : Boolean;
-    {$ENDIF}
     function ArquivoSelecionado : Boolean;
     function LancamentoIdentificado( Banco : Integer; sNossoNumero, sDocumento : String;
       var Ano, Lancamento : Integer; var Parcela : Integer; var APagar : Currency; var Sacado, Cnpj : String; var Quidado : Boolean;
@@ -147,28 +143,27 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
+(*
+  Tabelas:
+  - TBEMPRESA
+  - TBBANCO_BOLETO
+  - TBCONTREC
+  - TBCONTREC_BAIXA
+  - TBVENDAS
+  - TBCLIENTE
+  - TBCONTA_CORRENTE
+  - TBFORMPAGTO_CONTACOR
+  - TBFORMPAGTO
+
+  Views:
+  - VW_EMPRESA
+
+  Procedures:
+
+*)
+
 var
   frmGeRetornoBoleto: TfrmGeRetornoBoleto;
-
-{$IFNDEF ACBR}
-const
-  feeSMTPBoletoHTML              = $00000000;
-  feeSMTPMensagemBoletoHTMLAnexo = $00000001;
-  feeSMTPMensagemBoletoPDFAnexo  = $00000002;
-  feeSMTPMensagemLinhaDigitavelURLCobreBemECommerce = $00000003;
-  feeSMTPMensagemURLCobreBemECommerce = $00000004;
-  feeSMTPMensagemLinhaDigitavel       = $00000005;
-  feeOutlookBoletoHTML                = $00000006;
-  feeOutlookMensagemBoletoHTMLAnexo   = $00000007;
-  feeOutlookMensagemBoletoPDFAnexo    = $00000008;
-  feeOutlookMensagemLinhaDigitavelURLCobreBemECommerce = $00000009;
-  feeOutlookMensagemURLCobreBemECommerce = $0000000A;
-  feeOutlookMensagemLinhaDigitavel       = $0000000B;
-  scpExecutar = $00000000;
-  scpOK       = $00000001;
-  scpInvalido = $00000002;
-  scpErro     = $00000003;
-{$ENDIF}
 
   procedure ProcessarRetorno(const AOwer : TComponent);
 
@@ -198,7 +193,9 @@ end;
 
 procedure TfrmGeRetornoBoleto.CarregarBancos;
 begin
-  with IbQryBancos, edBanco do
+  edBanco.Items.Clear;
+
+  with fdQryBancos, edBanco do
   begin
     Close;
     ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
@@ -272,10 +269,10 @@ end;
 
 procedure TfrmGeRetornoBoleto.edBancoChange(Sender: TObject);
 begin
-  if ( not IbQryBancos.Active ) then
-    IbQryBancos.Open;
+  if ( not fdQryBancos.Active ) then
+    fdQryBancos.Open;
 
-  if ( IbQryBancos.Locate('BCO_COD', StrToIntDef(Copy(edBanco.Text, 1, 3), 0), []) ) then
+  if ( fdQryBancos.Locate('BCO_COD', StrToIntDef(Copy(edBanco.Text, 1, 3), 0), []) ) then
     edBanco.Tag := IbQryBancosBCO_COD.AsInteger;
 
   CarregarFormaPagto(IbQryBancosBCO_COD.AsInteger);
@@ -305,148 +302,27 @@ begin
 //  CanClose := ( Application.MessageBox('Deseja abandonar processo de leitura dos arquivos de retorno?','Fechar', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES );
 end;
 
-procedure TfrmGeRetornoBoleto.FormCreate(Sender: TObject);
-begin
-  {$IFNDEF ACBR}
-  CobreBemX := CreateOleObject('CobreBemX.ContaCorrente');
-  {$ENDIF}
-end;
-
 procedure TfrmGeRetornoBoleto.dbgTitulosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 begin
- TDbGrid(Sender).Canvas.font.Color := clBlack;
+  TDbGrid(Sender).Canvas.font.Color := clBlack;
 
- if gdSelected in State then
- with (Sender as TDBGrid).Canvas do
- begin
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
    Brush.Color :=  clMoneyGreen;
    FillRect(Rect);
    Font.Style  := [fsbold]
- end;
+  end;
 
- TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
 
   if (CdsTitulosValorPago.AsCurrency = 0) then
     TDbGrid(Sender).Canvas.Font.Color := clRed;
 
   TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).Columns[DataCol].Field, State);
 end;
-
-{$IFNDEF ACBR}
-function TfrmGeRetornoBoleto.DefinirCedente(Banco, Carteira: Integer; var Objeto: Variant): Boolean;
-var
-  sAppPath     ,
-  sFileLisence : String;
-begin
-  try
-    sAppPath     := ExtractFilePath(ParamStr(0));
-    sFileLisence := sAppPath + BOLETO_LICENCAS + FormatFloat('000', Banco)  + '-' + FormatFloat('00', Carteira) + '.conf';
-
-    if ( not FileExists(sFileLisence) ) then
-      raise Exception.Create('Arquivo de licença ' + QuotedStr(sFileLisence) + ' não encontrado');
-
-    // Parâmetros obrigatórios da conta corrente do Cedente
-
-    Objeto.ArquivoLicenca         := sFileLisence;
-    Objeto.CodigoAgencia          := IbQryBancosBCO_AGENCIA.AsString;
-    Objeto.NumeroContaCorrente    := IbQryBancosBCO_CC.AsString;
-    Objeto.CodigoCedente          := IbQryBancosBCO_CHAVE.AsString;
-    Objeto.InicioNossoNumero      := IbQryBancosBCO_NOSSO_NUM_INICIO.AsString;
-    Objeto.FimNossoNumero         := IbQryBancosBCO_NOSSO_NUM_FINAL.AsString;
-    Objeto.OutroDadoConfiguracao1 := Trim(IbQryBancosBCO_CONFG_1.AsString);
-    Objeto.OutroDadoConfiguracao2 := Trim(IbQryBancosBCO_CONFG_2.AsString);
-
-    if ( Trim(IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString) = EmptyStr ) then
-      Objeto.ProximoNossoNumero  := '1'
-    else
-      Objeto.ProximoNossoNumero  := IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString;
-
-    Objeto.PadroesBoleto.PadroesBoletoImpresso.ArquivoLogotipo            := sAppPath + BOLETO_ARQUIVO_LOGOTIPO;
-    Objeto.PadroesBoleto.PadroesBoletoImpresso.CaminhoImagensCodigoBarras := sAppPath + BOLETO_IMAGENS;
-
-    Result := True;
-  except
-    On E : Exception do
-    begin
-      Application.MessageBox(PChar('Erro ao tentar iniciar carga de arquivo(s) de retorno.' + #13 + E.Message), 'Erro', MB_ICONERROR);
-      Result := False;
-    end;
-  end;
-end;
-
-function TfrmGeRetornoBoleto.CarregarRetorno(sArquivo: String;
-  var Objeto: Variant): Boolean;
-var
-  I          ,
-  Ano        ,
-  Lancamento : Integer;
-  AnoVenda   ,
-  NumVenda   ,
-  Parcela    : Integer;
-  APagar     : Currency;
-  Sacado     ,
-  Cnpj       : String;
-  Quitado    : Boolean;
-begin
-  try
-    // Parâmetros obrigatórios para recuperação dos arquivos de retorno
-
-    Objeto.ArquivoRetorno.Arquivo      := sArquivo;
-    Objeto.ArquivoRetorno.Diretorio    := edDiretorioRetorno.Text;
-
-    Objeto.OcorrenciasCobranca.Clear;
-    Objeto.CarregaArquivosRetorno;
-
-    if ( not CdsTitulos.Active ) then
-      CdsTitulos.CreateDataSet;
-
-    CdsTitulos.IndexFieldNames := 'NossoNumero';
-    for I := 0 to Objeto.OcorrenciasCobranca.Count - 1 do
-      if ( Objeto.OcorrenciasCobranca[I].Pagamento ) then
-        if not CdsTitulos.FindKey( [Objeto.OcorrenciasCobranca[I].NossoNumero] ) then
-        begin
-          CdsTitulos.Append;
-
-          CdsTitulosQuitar.AsString          := '.';
-          CdsTitulosNossoNumero.AsString     := Objeto.OcorrenciasCobranca[I].NossoNumero;
-          CdsTitulosNumeroDocumento.AsString := Objeto.OcorrenciasCobranca[I].NumeroDocumento;
-          CdsTitulosDataPagamento.AsDateTime := StrToDate( Objeto.OcorrenciasCobranca[I].DataOcorrencia );
-          CdsTitulosValorPago.AsCurrency     := Objeto.OcorrenciasCobranca[I].ValorPago;
-
-          CdsTitulosBanco.AsInteger          := edBanco.Tag;
-          CdsTitulosArquivo.AsString         := sArquivo;
-
-          if ( LancamentoIdentificado( CdsTitulosBanco.AsInteger, CdsTitulosNossoNumero.AsString, CdsTitulosNumeroDocumento.AsString,
-            Ano, Lancamento, Parcela, APagar, Sacado, Cnpj, Quitado, AnoVenda, NumVenda) ) then
-          begin
-            if ( (CdsTitulosValorPago.AsCurrency >= APagar) and (not Quitado) ) then
-              CdsTitulosQuitar.Value   := CHECK_QUITAR;
-
-            CdsTitulosAno.Value        := Ano;
-            CdsTitulosLancamento.Value := Lancamento;
-            CdsTitulosParcela.Value    := Parcela;
-            CdsTitulosAPagar.Value     := APagar;
-            CdsTitulosSacado.Value     := Sacado;
-            CdsTitulosCnpj.Value       := Cnpj;
-            CdsTitulosAnoVenda.AsInteger := AnoVenda;
-            CdsTitulosNumVenda.AsInteger := NumVenda;
-          end;
-
-          CdsTitulos.Post;
-        end;
-
-    Result := True;
-  except
-    On E : Exception do
-    begin
-      Application.MessageBox(PChar('Erro ao tentar iniciar carga do arquivo ' + sArquivo + '.' + #13 + E.Message), 'Erro', MB_ICONERROR);
-      Result := False;
-    end;
-  end;
-end;
-{$ENDIF}
 
 function TfrmGeRetornoBoleto.CarregarRetornoACBr(
   sArquivo: String): Boolean;
@@ -581,20 +457,12 @@ begin
     sCarteira := IbQryBancosBCO_CARTEIRA.AsString;
     sMensagem := EmptyStr;
 
-    {$IFDEF ACBR}
     if DefinirCedenteACBr(IBanco, sCarteira) then
-    {$ELSE}
-    if DefinirCedente( IBanco, ICarteira, CobreBemX ) then
-    {$ENDIF}
     begin
 
       for IArquivos := 0 to lstBxRetorno.Items.Count - 1 do
         if ( lstBxRetorno.Checked[IArquivos] ) then
-          {$IFDEF ACBR}
           if ( CarregarRetornoACBr( edDiretorioRetorno.Text + lstBxRetorno.Items.Strings[IArquivos] ) ) then
-          {$ELSE}
-          if ( CarregarRetorno(lstBxRetorno.Items.Strings[IArquivos], CobreBemX) ) then
-          {$ENDIF}
           begin
 
             lstBxRetorno.Checked[IArquivos] := False;
@@ -969,7 +837,8 @@ begin
         ParamByName('pago').AsCurrency := ValorPago;
         ParamByName('banco').AsInteger := edBanco.Tag;
         ParamByName('doc').AsString    := RightStr(Trim(NossoNumero), 10);
-        ExecQuery;
+        ExecSQL;
+        CommitUpdates;
 
         CommitTransaction;
       end;
@@ -978,17 +847,10 @@ begin
     end;
 
     Result := True;
-    
+
   except
     Result := False;
   end;
-end;
-
-procedure TfrmGeRetornoBoleto.FormDestroy(Sender: TObject);
-begin
-  {$IFNDEF ACBR}
-  CobreBemX := Unassigned;
-  {$ENDIF}
 end;
 
 procedure TfrmGeRetornoBoleto.FormKeyDown(Sender: TObject; var Key: Word;

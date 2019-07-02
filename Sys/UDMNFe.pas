@@ -449,11 +449,6 @@ const
   FILENAME_NFE_FAST   = 'Report\NotaFiscalEletronica.fr3';
   FILENAME_NFE_EVENTO = 'Report\Eventos.fr3';
 
-  FILENAME_BOLETO         = 'Boleto\Boleto.fr3';
-  FILENAME_BOLETO_ENTREGA = 'Boleto\BoletoEntrega.fr3';
-  FILENAME_BOLETO_FATURA  = 'Boleto\BoletoFatura.fr3';
-  FILENAME_BOLETO_CARNE   = 'Boleto\BoletoCarne.fr3';
-
   DIRECTORY_CANCEL = 'NFe\Canceladas\';
   DIRECTORY_PRINT  = 'NFe\Imprimir\';
   DIRECTORY_CLIENT = 'NFe\Clientes\';
@@ -793,11 +788,12 @@ begin
   frrNFeRetrato.SaveToFile ( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll]) );
   frrNFePaisagem.SaveToFile( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Paisagem.fr3', [rfReplaceAll]) );
 
-  frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_BOLETO_ENTREGA );
-  frrBoletoFatura.SaveToFile ( ExtractFilePath(ParamStr(0)) + FILENAME_BOLETO_FATURA );
-  frrBoletoCarne.SaveToFile  ( ExtractFilePath(ParamStr(0)) + FILENAME_BOLETO_CARNE );
-  if not FileExists(ExtractFilePath(ParamStr(0)) + FILENAME_BOLETO) then
-    frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_BOLETO );
+  frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_ENTREGA );
+  frrBoletoFatura.SaveToFile ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_FATURA );
+  frrBoletoCarne.SaveToFile  ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_CARNE );
+
+  if not FileExists(ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO) then
+    frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO );
 end;
 
 procedure TDMNFe.GravarConfiguracao(const sCNPJEmitente : String);

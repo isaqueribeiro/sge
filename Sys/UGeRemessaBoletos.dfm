@@ -16,7 +16,6 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
   Position = poScreenCenter
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
@@ -552,138 +551,6 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       TabStop = False
     end
   end
-  object IbQryTitulos: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.anolanc'
-      '  , r.numlanc'
-      '  , r.parcela'
-      '  , coalesce(('
-      '     Select'
-      '       max(x.parcela)'
-      '     from TBCONTREC x'
-      '     where x.anovenda = r.anovenda'
-      '       and x.numvenda = r.numvenda'
-      '    ), r.parcela) as parcela_maxima'
-      '  , r.codbanco'
-      '  , r.nossonumero'
-      '  , r.cnpj'
-      '  , r.tippag'
-      '  , r.dtemiss'
-      '  , r.dtvenc'
-      '  , r.valorrec'
-      '  , r.percentjuros'
-      '  , r.percentmulta'
-      '  , r.percentdesconto'
-      '  , r.valorrectot'
-      '  , r.valorsaldo'
-      '  , r.dataprocessoboleto'
-      '  , r.anovenda'
-      '  , r.numvenda'
-      '  , r.situacao'
-      '  , v.serie'
-      '  , v.nfe'
-      '  , c.inscest'
-      '  , c.nome'
-      '  , c.fone'
-      '  , c.ender || '#39', '#39' || c.Numero_end as ender'
-      '  , c.ender as ender_desc'
-      '  , c.numero_end as ender_num'
-      '  , c.bairro'
-      '  , c.cidade'
-      '  , c.uf'
-      '  , c.cep'
-      '  , c.email'
-      'from TBCONTREC r'
-      '  inner join TBCLIENTE c on ( r.cliente = c.codigo )'
-      
-        '  left join TBVENDAS v on (v.ano = r.anovenda and v.codcontrol =' +
-        ' r.numvenda)'
-      'where r.empresa = :empresa'
-      '  and r.baixado = 0'
-      '  and r.enviado = 0'
-      '  and r.codbanco = :banco'
-      '  and r.dataprocessoboleto between :dataInicial and :dataFinal'
-      'order by'
-      '    r.nossonumero'
-      '  , r.numlanc'
-      '  , r.parcela')
-    UniDirectional = True
-    Left = 40
-    Top = 264
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftInteger
-        Name = 'banco'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftDateTime
-        Name = 'dataInicial'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftDateTime
-        Name = 'dataFinal'
-        ParamType = ptInput
-        Value = 0d
-      end>
-  end
-  object IbUpdTitulos: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  NUMLANC,'
-      '  CNPJ,'
-      '  TIPPAG,'
-      '  HISTORIC,'
-      '  NUMREC,'
-      '  DTEMISS,'
-      '  DTVENC,'
-      '  DTREC,'
-      '  DOCBAIX,'
-      '  VALORREC,'
-      '  VALORMULTA,'
-      '  VALORRECTOT,'
-      '  NUMCONTRATO,'
-      '  PARCELA,'
-      '  STATUS,'
-      '  CODBANCO,'
-      '  NOSSONUMERO,'
-      '  VALORSALDO,'
-      '  PERCENTJUROS,'
-      '  PERCENTMULTA,'
-      '  PERCENTDESCONTO,'
-      '  DATAPROCESSOBOLETO,'
-      '  BAIXADO'
-      'from TBCONTREC '
-      'where'
-      '  NUMLANC = :NUMLANC')
-    ModifySQL.Strings = (
-      'update TBCONTREC'
-      'set'
-      '  CODBANCO = :CODBANCO,'
-      '  NOSSONUMERO = :NOSSONUMERO,'
-      '  DATAPROCESSOBOLETO = :DATAPROCESSOBOLETO'
-      'where ANOLANC = :OLD_ANOLANC'
-      '  AND NUMLANC = :OLD_NUMLANC')
-    InsertSQL.Strings = (
-      '')
-    Left = 72
-    Top = 264
-  end
   object DspTitulos: TDataSetProvider
     DataSet = IbQryTitulos
     UpdateMode = upWhereChanged
@@ -695,27 +562,24 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
     Params = <
       item
         DataType = ftString
-        Name = 'empresa'
+        Name = 'EMPRESA'
         ParamType = ptInput
-        Value = ''
+        Size = 18
       end
       item
         DataType = ftInteger
-        Name = 'banco'
+        Name = 'BANCO'
         ParamType = ptInput
-        Value = 0
       end
       item
-        DataType = ftDateTime
-        Name = 'dataInicial'
+        DataType = ftDate
+        Name = 'DATAINICIAL'
         ParamType = ptInput
-        Value = 0d
       end
       item
-        DataType = ftDateTime
-        Name = 'dataFinal'
+        DataType = ftDate
+        Name = 'DATAFINAL'
         ParamType = ptInput
-        Value = 0d
       end>
     ProviderName = 'DspTitulos'
     OnCalcFields = CdsTitulosCalcFields
@@ -726,170 +590,152 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       Required = True
     end
     object CdsTitulosNUMLANC: TIntegerField
-      Alignment = taCenter
       FieldName = 'NUMLANC'
       Required = True
-      DisplayFormat = '0000000'
+      DisplayFormat = '###00000'
     end
     object CdsTitulosPARCELA: TSmallintField
-      Alignment = taCenter
       FieldName = 'PARCELA'
-      Origin = 'TBCONTREC.PARCELA'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '000'
     end
     object CdsTitulosPARCELA_MAXIMA: TSmallintField
       FieldName = 'PARCELA_MAXIMA'
+      ReadOnly = True
     end
     object CdsTitulosCODBANCO: TIntegerField
       FieldName = 'CODBANCO'
-      Origin = 'TBCONTREC.CODBANCO'
-      ProviderFlags = [pfInUpdate]
     end
-    object CdsTitulosNOSSONUMERO: TWideStringField
+    object CdsTitulosNOSSONUMERO: TStringField
       FieldName = 'NOSSONUMERO'
     end
-    object CdsTitulosCNPJ: TWideStringField
+    object CdsTitulosCNPJ: TStringField
       FieldName = 'CNPJ'
       Size = 18
     end
-    object CdsTitulosTIPPAG: TWideStringField
+    object CdsTitulosTIPPAG: TStringField
       FieldName = 'TIPPAG'
       Size = 35
     end
     object CdsTitulosDTEMISS: TDateField
       Alignment = taCenter
       FieldName = 'DTEMISS'
-      Origin = 'TBCONTREC.DTEMISS'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
     object CdsTitulosDTVENC: TDateField
       Alignment = taCenter
       FieldName = 'DTVENC'
-      Origin = 'TBCONTREC.DTVENC'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
     object CdsTitulosVALORREC: TBCDField
       FieldName = 'VALORREC'
-      Origin = 'TBCONTREC.VALORREC'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object CdsTitulosPERCENTJUROS: TBCDField
+    object CdsTitulosPERCENTJUROS: TCurrencyField
       FieldName = 'PERCENTJUROS'
-      Origin = 'TBCONTREC.PERCENTJUROS'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '0.00'
-      Precision = 9
-      Size = 2
+      DisplayFormat = ',0.00#'
     end
-    object CdsTitulosPERCENTMULTA: TBCDField
+    object CdsTitulosPERCENTMULTA: TCurrencyField
       FieldName = 'PERCENTMULTA'
-      Origin = 'TBCONTREC.PERCENTMULTA'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '0.00'
-      Precision = 9
-      Size = 2
+      DisplayFormat = ',0.00#'
     end
-    object CdsTitulosPERCENTDESCONTO: TBCDField
+    object CdsTitulosPERCENTDESCONTO: TCurrencyField
       FieldName = 'PERCENTDESCONTO'
-      Origin = 'TBCONTREC.PERCENTDESCONTO'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '0.00'
-      Precision = 9
-      Size = 2
+      DisplayFormat = ',0.00#'
     end
     object CdsTitulosVALORRECTOT: TBCDField
       FieldName = 'VALORRECTOT'
-      Origin = 'TBCONTREC.VALORRECTOT'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object CdsTitulosVALORSALDO: TBCDField
       FieldName = 'VALORSALDO'
-      Origin = 'TBCONTREC.VALORSALDO'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object CdsTitulosDATAPROCESSOBOLETO: TDateField
+      Alignment = taCenter
       FieldName = 'DATAPROCESSOBOLETO'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
-    end
-    object CdsTitulosINSCEST: TWideStringField
-      FieldName = 'INSCEST'
-    end
-    object CdsTitulosNOME: TWideStringField
-      FieldName = 'NOME'
-      Size = 100
-    end
-    object CdsTitulosFONE: TWideStringField
-      FieldName = 'FONE'
-      Size = 11
     end
     object CdsTitulosANOVENDA: TSmallintField
       FieldName = 'ANOVENDA'
-      ProviderFlags = []
     end
     object CdsTitulosNUMVENDA: TIntegerField
       FieldName = 'NUMVENDA'
-      ProviderFlags = []
-    end
-    object CdsTitulosSERIE: TWideStringField
-      FieldName = 'SERIE'
-      Size = 4
-    end
-    object CdsTitulosNFE: TLargeintField
-      FieldName = 'NFE'
-      ProviderFlags = []
     end
     object CdsTitulosSITUACAO: TSmallintField
       FieldName = 'SITUACAO'
     end
-    object CdsTitulosNumeroDocumento: TStringField
-      FieldKind = fkInternalCalc
-      FieldName = 'NumeroDocumento'
+    object CdsTitulosSERIE: TStringField
+      FieldName = 'SERIE'
+      ReadOnly = True
+      Size = 4
     end
-    object CdsTitulosENDER: TWideStringField
+    object CdsTitulosNFE: TLargeintField
+      FieldName = 'NFE'
+      ReadOnly = True
+    end
+    object CdsTitulosINSCEST: TStringField
+      FieldName = 'INSCEST'
+      ReadOnly = True
+    end
+    object CdsTitulosNOME: TStringField
+      FieldName = 'NOME'
+      ReadOnly = True
+      Size = 100
+    end
+    object CdsTitulosFONE: TStringField
+      FieldName = 'FONE'
+      ReadOnly = True
+      Size = 11
+    end
+    object CdsTitulosENDER: TStringField
       FieldName = 'ENDER'
+      ReadOnly = True
       Size = 262
     end
-    object CdsTitulosENDER_DESC: TWideStringField
+    object CdsTitulosENDER_DESC: TStringField
       FieldName = 'ENDER_DESC'
+      ReadOnly = True
       Size = 250
     end
-    object CdsTitulosENDER_NUM: TWideStringField
+    object CdsTitulosENDER_NUM: TStringField
       FieldName = 'ENDER_NUM'
+      ReadOnly = True
       Size = 10
     end
-    object CdsTitulosBAIRRO: TWideStringField
+    object CdsTitulosBAIRRO: TStringField
       FieldName = 'BAIRRO'
-      Size = 25
+      ReadOnly = True
+      Size = 100
     end
-    object CdsTitulosCIDADE: TWideStringField
+    object CdsTitulosCIDADE: TStringField
       FieldName = 'CIDADE'
+      ReadOnly = True
       Size = 30
     end
-    object CdsTitulosUF: TWideStringField
+    object CdsTitulosUF: TStringField
       FieldName = 'UF'
+      ReadOnly = True
       FixedChar = True
       Size = 2
     end
-    object CdsTitulosCEP: TWideStringField
+    object CdsTitulosCEP: TStringField
       FieldName = 'CEP'
+      ReadOnly = True
       Size = 8
     end
-    object CdsTitulosEMAIL: TWideStringField
+    object CdsTitulosEMAIL: TStringField
       FieldName = 'EMAIL'
+      ReadOnly = True
       Size = 60
+    end
+    object CdsTitulosNumeroDocumento: TStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'NumeroDocumento'
     end
   end
   object DtsTitulos: TDataSource
@@ -897,20 +743,8 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
     Left = 168
     Top = 264
   end
-  object UpdateLanc: TIBSQL
-    Database = DMBusiness.ibdtbsBusiness
-    SQL.Strings = (
-      'Update TBCONTREC set'
-      '    nossonumero = :nossonumero'
-      '  , codbanco    = :banco'
-      '  , dataprocessoboleto = :data'
-      'where numlanc = :lancamento')
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    Left = 200
-    Top = 264
-  end
   object frrRemessa: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -964,8 +798,10 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        Frame.Typ = []
         Height = 90.708720000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -979,6 +815,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'P'#225'gina [Page#] / [TotalPages#]')
@@ -994,6 +831,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Rela'#231#227'o de T'#237'tulos do Arquivos de Remessa')
@@ -1006,13 +844,15 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Height = 22.677180000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Banco: [Banco]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Memo4: TfrxMemoView
@@ -1021,7 +861,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -13
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftBottom]
@@ -1029,11 +869,13 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Memo.UTF8W = (
             'Arquivo: [Arquivo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 215.433210000000000000
         Width = 718.110700000000000000
@@ -1051,6 +893,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1058,6 +901,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Highlight.Font.Style = []
           Highlight.Condition = '<Remessa."Situacao">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[Remessa."CNPJ"]')
           ParentFont = False
@@ -1075,6 +919,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1082,6 +927,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Highlight.Font.Style = []
           Highlight.Condition = '<Remessa."Situacao">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[Remessa."Sacado"]')
           ParentFont = False
@@ -1099,6 +945,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -1107,6 +954,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Highlight.Font.Style = []
           Highlight.Condition = '<Remessa."Situacao">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[Remessa."Documento"]')
           ParentFont = False
@@ -1124,6 +972,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -1132,6 +981,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Highlight.Font.Style = []
           Highlight.Condition = '<Remessa."Situacao">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[Remessa."Data Vencimento"]')
           ParentFont = False
@@ -1149,6 +999,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -1157,6 +1008,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Highlight.Font.Style = []
           Highlight.Condition = '<Remessa."Situacao">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39'###,###,##0.00'#39',<Remessa."Valor Documento">)] ')
           ParentFont = False
@@ -1174,6 +1026,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -1182,6 +1035,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Highlight.Font.Style = []
           Highlight.Condition = '<Remessa."Situacao">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[Remessa."Nosso Numero"]')
           ParentFont = False
@@ -1191,12 +1045,14 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 7.559060000000000000
         Top = 362.834880000000000000
         Width = 718.110700000000000000
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 170.078850000000000000
         Width = 718.110700000000000000
@@ -1332,6 +1188,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 45.354360000000000000
         Top = 294.803340000000000000
         Width = 718.110700000000000000
@@ -1383,6 +1240,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1390,6 +1248,7 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
           Highlight.Font.Style = []
           Highlight.Condition = '<Remessa."Situacao">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' * Boleto(s) cancelado(s).')
           ParentFont = False
@@ -1445,6 +1304,8 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
   object ACBrBoleto: TACBrBoleto
     Banco.TamanhoMaximoNossoNum = 10
     Banco.TipoCobranca = cobNenhum
+    Banco.LayoutVersaoArquivo = 0
+    Banco.LayoutVersaoLote = 0
     Cedente.TipoInscricao = pJuridica
     NumeroArquivo = 0
     ACBrBoletoFC = ACBrBoletoFCFR
@@ -1452,7 +1313,6 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
     Top = 245
   end
   object ACBrBoletoFCFR: TACBrBoletoFCFR
-    ACBrBoleto = ACBrBoleto
     LayOut = lPadraoEntrega
     ModoThread = False
     IncorporarBackgroundPdf = False
@@ -1460,15 +1320,118 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
     Left = 376
     Top = 245
   end
-  object IbQryBancos: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object fdUpdBancos: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBBANCO_BOLETO'
+      '(BCO_CODIGO, BCO_COD, EMPRESA, BCO_CARTEIRA, '
+      '  BCO_NOME, BCO_AGENCIA, BCO_CC, BCO_CODIGO_CEDENTE, '
+      '  BCO_CHAVE, BCO_GERAR_BOLETO, BCO_NOSSO_NUM_INICIO, '
+      '  BCO_NOSSO_NUM_FINAL, BCO_NOSSO_NUM_PROXIMO, BCO_CONFG_1, '
+      '  BCO_CONFG_2, BCO_SEQUENCIAL_REM, BCO_DIRETORIO_REMESSA, '
+      
+        '  BCO_DIRETORIO_RETORNO, BCO_PERCENTUAL_JUROS, BCO_PERCENTUAL_MO' +
+        'RA, '
+      '  BCO_DIA_PROTESTO, BCO_MSG_INSTRUCAO, BCO_LAYOUT_REMESSA, '
+      '  BCO_LAYOUT_RETORNO)'
+      
+        'VALUES (:NEW_BCO_CODIGO, :NEW_BCO_COD, :NEW_EMPRESA, :NEW_BCO_CA' +
+        'RTEIRA, '
+      
+        '  :NEW_BCO_NOME, :NEW_BCO_AGENCIA, :NEW_BCO_CC, :NEW_BCO_CODIGO_' +
+        'CEDENTE, '
+      
+        '  :NEW_BCO_CHAVE, :NEW_BCO_GERAR_BOLETO, :NEW_BCO_NOSSO_NUM_INIC' +
+        'IO, '
+      
+        '  :NEW_BCO_NOSSO_NUM_FINAL, :NEW_BCO_NOSSO_NUM_PROXIMO, :NEW_BCO' +
+        '_CONFG_1, '
+      
+        '  :NEW_BCO_CONFG_2, :NEW_BCO_SEQUENCIAL_REM, :NEW_BCO_DIRETORIO_' +
+        'REMESSA, '
+      
+        '  :NEW_BCO_DIRETORIO_RETORNO, :NEW_BCO_PERCENTUAL_JUROS, :NEW_BC' +
+        'O_PERCENTUAL_MORA, '
+      
+        '  :NEW_BCO_DIA_PROTESTO, :NEW_BCO_MSG_INSTRUCAO, :NEW_BCO_LAYOUT' +
+        '_REMESSA, '
+      '  :NEW_BCO_LAYOUT_RETORNO)')
+    ModifySQL.Strings = (
+      'UPDATE TBBANCO_BOLETO'
+      
+        'SET BCO_CODIGO = :NEW_BCO_CODIGO, BCO_COD = :NEW_BCO_COD, EMPRES' +
+        'A = :NEW_EMPRESA, '
+      '  BCO_CARTEIRA = :NEW_BCO_CARTEIRA, BCO_NOME = :NEW_BCO_NOME, '
+      
+        '  BCO_AGENCIA = :NEW_BCO_AGENCIA, BCO_CC = :NEW_BCO_CC, BCO_CODI' +
+        'GO_CEDENTE = :NEW_BCO_CODIGO_CEDENTE, '
+      
+        '  BCO_CHAVE = :NEW_BCO_CHAVE, BCO_GERAR_BOLETO = :NEW_BCO_GERAR_' +
+        'BOLETO, '
+      
+        '  BCO_NOSSO_NUM_INICIO = :NEW_BCO_NOSSO_NUM_INICIO, BCO_NOSSO_NU' +
+        'M_FINAL = :NEW_BCO_NOSSO_NUM_FINAL, '
+      
+        '  BCO_NOSSO_NUM_PROXIMO = :NEW_BCO_NOSSO_NUM_PROXIMO, BCO_CONFG_' +
+        '1 = :NEW_BCO_CONFG_1, '
+      
+        '  BCO_CONFG_2 = :NEW_BCO_CONFG_2, BCO_SEQUENCIAL_REM = :NEW_BCO_' +
+        'SEQUENCIAL_REM, '
+      
+        '  BCO_DIRETORIO_REMESSA = :NEW_BCO_DIRETORIO_REMESSA, BCO_DIRETO' +
+        'RIO_RETORNO = :NEW_BCO_DIRETORIO_RETORNO, '
+      
+        '  BCO_PERCENTUAL_JUROS = :NEW_BCO_PERCENTUAL_JUROS, BCO_PERCENTU' +
+        'AL_MORA = :NEW_BCO_PERCENTUAL_MORA, '
+      
+        '  BCO_DIA_PROTESTO = :NEW_BCO_DIA_PROTESTO, BCO_MSG_INSTRUCAO = ' +
+        ':NEW_BCO_MSG_INSTRUCAO, '
+      
+        '  BCO_LAYOUT_REMESSA = :NEW_BCO_LAYOUT_REMESSA, BCO_LAYOUT_RETOR' +
+        'NO = :NEW_BCO_LAYOUT_RETORNO'
+      'WHERE BCO_CODIGO = :OLD_BCO_CODIGO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBBANCO_BOLETO'
+      'WHERE BCO_CODIGO = :OLD_BCO_CODIGO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT BCO_CODIGO, BCO_COD, EMPRESA, BCO_CARTEIRA, BCO_NOME, BCO' +
+        '_AGENCIA, '
+      '  BCO_CC, BCO_CODIGO_CEDENTE, BCO_CHAVE, BCO_GERAR_BOLETO, '
+      
+        '  BCO_NOSSO_NUM_INICIO, BCO_NOSSO_NUM_FINAL, BCO_NOSSO_NUM_PROXI' +
+        'MO, '
+      
+        '  BCO_CONFG_1, BCO_CONFG_2, BCO_SEQUENCIAL_REM, BCO_DIRETORIO_RE' +
+        'MESSA, '
+      
+        '  BCO_DIRETORIO_RETORNO, BCO_PERCENTUAL_JUROS, BCO_PERCENTUAL_MO' +
+        'RA, '
+      '  BCO_DIA_PROTESTO, BCO_MSG_INSTRUCAO, BCO_LAYOUT_REMESSA, '
+      '  BCO_LAYOUT_RETORNO'
+      'FROM TBBANCO_BOLETO'
+      'WHERE BCO_CODIGO = :BCO_CODIGO')
+    Left = 88
+    Top = 168
+  end
+  object fdQryBancos: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = fdUpdBancos
     SQL.Strings = (
       'Select'
-      '    b.bco_cod'
+      '    b.bco_codigo'
+      '  , lpad(b.bco_cod, 3, '#39'0'#39') || '#39' - '#39' ||'
+      '    b.bco_nome ||'
+      
+        '    coalesce('#39' - AG. '#39'  || nullif(trim(b.bco_agencia), '#39#39'), '#39#39') ' +
+        '||'
+      
+        '    coalesce('#39' - C/C. '#39' || nullif(trim(b.bco_cc), '#39#39'), '#39#39')  as b' +
+        'co_nome_agencia_conta'
+      '  , b.bco_cod'
       '  , b.bco_carteira'
       '  , b.bco_nome'
       '  , b.bco_agencia'
@@ -1507,251 +1470,175 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       '  inner join TBEMPRESA e on (b.empresa = e.cnpj)'
       ''
       'where b.bco_gerar_boleto = 1'
-      '  and b.empresa = :empresa')
-    UpdateObject = IbUpdBancos
-    Left = 40
-    Top = 216
+      '  and b.empresa = :empresa'
+      ''
+      'order by'
+      '    1')
+    Left = 56
+    Top = 168
     ParamData = <
       item
+        Name = 'EMPRESA'
         DataType = ftString
-        Name = 'empresa'
         ParamType = ptInput
-        Value = ''
+        Value = Null
       end>
-    object IbQryBancosBCO_COD: TSmallintField
-      FieldName = 'BCO_COD'
-      Origin = '"TBBANCO_BOLETO"."BCO_COD"'
-      ProviderFlags = [pfInUpdate, pfInKey]
-      Required = True
-    end
-    object IbQryBancosEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBBANCO_BOLETO"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object IbQryBancosBCO_CARTEIRA: TIBStringField
-      FieldName = 'BCO_CARTEIRA'
-      Origin = '"TBBANCO_BOLETO"."BCO_CARTEIRA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object IbQryBancosBCO_NOME: TIBStringField
-      FieldName = 'BCO_NOME'
-      Origin = '"TBBANCO_BOLETO"."BCO_NOME"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object IbQryBancosBCO_AGENCIA: TIBStringField
-      FieldName = 'BCO_AGENCIA'
-      Origin = '"TBBANCO_BOLETO"."BCO_AGENCIA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbQryBancosBCO_CC: TIBStringField
-      FieldName = 'BCO_CC'
-      Origin = '"TBBANCO_BOLETO"."BCO_CC"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbQryBancosBCO_CODIGO_CEDENTE: TIBStringField
-      FieldName = 'BCO_CODIGO_CEDENTE'
-      Origin = '"TBBANCO_BOLETO"."BCO_CODIGO_CEDENTE"'
-      Size = 10
-    end
-    object IbQryBancosBCO_CHAVE: TIBStringField
-      FieldName = 'BCO_CHAVE'
-      Origin = '"TBBANCO_BOLETO"."BCO_CHAVE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbQryBancosBCO_GERAR_BOLETO: TSmallintField
-      FieldName = 'BCO_GERAR_BOLETO'
-      Origin = '"TBBANCO_BOLETO"."BCO_GERAR_BOLETO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbQryBancosBCO_NOSSO_NUM_INICIO: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_INICIO'
-      Origin = '"TBBANCO_BOLETO"."BCO_NOSSO_NUM_INICIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbQryBancosBCO_NOSSO_NUM_FINAL: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_FINAL'
-      Origin = '"TBBANCO_BOLETO"."BCO_NOSSO_NUM_FINAL"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbQryBancosBCO_NOSSO_NUM_PROXIMO: TIBStringField
-      FieldName = 'BCO_NOSSO_NUM_PROXIMO'
-      Origin = '"TBBANCO_BOLETO"."BCO_NOSSO_NUM_PROXIMO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbQryBancosBCO_CONFG_1: TIBStringField
-      FieldName = 'BCO_CONFG_1'
-      Origin = '"TBBANCO_BOLETO"."BCO_CONFG_1"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbQryBancosBCO_CONFG_2: TIBStringField
-      FieldName = 'BCO_CONFG_2'
-      Origin = '"TBBANCO_BOLETO"."BCO_CONFG_2"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbQryBancosBCO_SEQUENCIAL_REM: TIntegerField
-      FieldName = 'BCO_SEQUENCIAL_REM'
-      Origin = '"TBBANCO_BOLETO"."BCO_SEQUENCIAL_REM"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbQryBancosBCO_DIRETORIO_REMESSA: TIBStringField
-      FieldName = 'BCO_DIRETORIO_REMESSA'
-      Origin = '"TBBANCO_BOLETO"."BCO_DIRETORIO_REMESSA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbQryBancosBCO_DIRETORIO_RETORNO: TIBStringField
-      FieldName = 'BCO_DIRETORIO_RETORNO'
-      Origin = '"TBBANCO_BOLETO"."BCO_DIRETORIO_RETORNO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object IbQryBancosBCO_PERCENTUAL_JUROS: TIBBCDField
-      FieldName = 'BCO_PERCENTUAL_JUROS'
-      Origin = '"TBBANCO_BOLETO"."BCO_PERCENTUAL_JUROS"'
-      Precision = 18
-      Size = 2
-    end
-    object IbQryBancosBCO_PERCENTUAL_MORA: TIBBCDField
-      FieldName = 'BCO_PERCENTUAL_MORA'
-      Origin = '"TBBANCO_BOLETO"."BCO_PERCENTUAL_MORA"'
-      Precision = 18
-      Size = 2
-    end
-    object IbQryBancosBCO_DIA_PROTESTO: TSmallintField
-      FieldName = 'BCO_DIA_PROTESTO'
-      Origin = '"TBBANCO_BOLETO"."BCO_DIA_PROTESTO"'
-    end
-    object IbQryBancosBCO_MSG_INSTRUCAO: TIBStringField
-      FieldName = 'BCO_MSG_INSTRUCAO'
-      Origin = '"TBBANCO_BOLETO"."BCO_MSG_INSTRUCAO"'
-      Size = 250
-    end
-    object IbQryBancosBCO_LAYOUT_REMESSA: TSmallintField
-      FieldName = 'BCO_LAYOUT_REMESSA'
-      Origin = '"TBBANCO_BOLETO"."BCO_LAYOUT_REMESSA"'
-      ProviderFlags = []
-    end
-    object IbQryBancosBCO_LAYOUT_RETORNO: TSmallintField
-      FieldName = 'BCO_LAYOUT_RETORNO'
-      Origin = '"TBBANCO_BOLETO"."BCO_LAYOUT_RETORNO"'
-      ProviderFlags = []
-    end
-    object IbQryBancosRZSOC: TIBStringField
-      FieldName = 'RZSOC'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      ProviderFlags = []
-      Size = 60
-    end
-    object IbQryBancosNMFANT: TIBStringField
-      FieldName = 'NMFANT'
-      Origin = '"TBEMPRESA"."NMFANT"'
-      ProviderFlags = []
-      Size = 25
-    end
-    object IbQryBancosIE: TIBStringField
-      FieldName = 'IE'
-      Origin = '"TBEMPRESA"."IE"'
-      ProviderFlags = []
-      Size = 11
-    end
-    object IbQryBancosIM: TIBStringField
-      FieldName = 'IM'
-      Origin = '"TBEMPRESA"."IM"'
-      ProviderFlags = []
-      Size = 12
-    end
-    object IbQryBancosENDER: TIBStringField
-      FieldName = 'ENDER'
-      Origin = '"TBEMPRESA"."ENDER"'
-      ProviderFlags = []
-      Size = 250
-    end
-    object IbQryBancosCOMPLEMENTO: TIBStringField
-      FieldName = 'COMPLEMENTO'
-      Origin = '"TBEMPRESA"."COMPLEMENTO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object IbQryBancosNUMERO_END: TIBStringField
-      FieldName = 'NUMERO_END'
-      Origin = '"TBEMPRESA"."NUMERO_END"'
-      ProviderFlags = []
-      Size = 10
-    end
-    object IbQryBancosBAIRRO: TIBStringField
-      FieldName = 'BAIRRO'
-      Origin = '"TBEMPRESA"."BAIRRO"'
-      ProviderFlags = []
-      Size = 25
-    end
-    object IbQryBancosCEP: TIBStringField
-      FieldName = 'CEP'
-      Origin = '"TBEMPRESA"."CEP"'
-      ProviderFlags = []
-      Size = 8
-    end
-    object IbQryBancosCIDADE: TIBStringField
-      FieldName = 'CIDADE'
-      Origin = '"TBEMPRESA"."CIDADE"'
-      ProviderFlags = []
-      Size = 30
-    end
-    object IbQryBancosUF: TIBStringField
-      FieldName = 'UF'
-      Origin = '"TBEMPRESA"."UF"'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 2
-    end
-    object IbQryBancosEMAIL: TIBStringField
-      FieldName = 'EMAIL'
-      Origin = '"TBEMPRESA"."EMAIL"'
-      ProviderFlags = []
-      Size = 100
-    end
   end
-  object IbUpdBancos: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  RDB$DB_KEY as IBX_INTERNAL_DBKEY, '
-      '  BCO_COD,'
-      '  BCO_CARTEIRA,'
-      '  BCO_NOME,'
-      '  BCO_CHAVE,'
-      '  BCO_AGENCIA,'
-      '  BCO_CC,'
-      '  BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_CONFG_1,'
-      '  BCO_CONFG_2,'
-      '  BCO_SEQUENCIAL_REM'
-      'from TBBANCO_BOLETO '
-      'where'
-      '  BCO_COD = :BCO_COD')
+  object IbQryTitulos: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = UpdTitulos
+    SQL.Strings = (
+      'Select'
+      '    r.anolanc'
+      '  , r.numlanc'
+      '  , r.parcela'
+      '  , coalesce(('
+      '     Select'
+      '       max(x.parcela)'
+      '     from TBCONTREC x'
+      '     where x.anovenda = r.anovenda'
+      '       and x.numvenda = r.numvenda'
+      '    ), r.parcela) as parcela_maxima'
+      '  , r.codbanco'
+      '  , r.nossonumero'
+      '  , r.cnpj'
+      '  , r.tippag'
+      '  , r.dtemiss'
+      '  , r.dtvenc'
+      '  , r.valorrec'
+      '  , r.percentjuros'
+      '  , r.percentmulta'
+      '  , r.percentdesconto'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.dataprocessoboleto'
+      '  , r.anovenda'
+      '  , r.numvenda'
+      '  , r.situacao'
+      '  , v.serie'
+      '  , v.nfe'
+      '  , c.inscest'
+      '  , c.nome'
+      '  , c.fone'
+      '  , c.ender || '#39', '#39' || c.Numero_end as ender'
+      '  , c.ender as ender_desc'
+      '  , c.numero_end as ender_num'
+      '  , c.bairro'
+      '  , c.cidade'
+      '  , c.uf'
+      '  , c.cep'
+      '  , c.email'
+      'from TBCONTREC r'
+      '  inner join TBCLIENTE c on ( r.cliente = c.codigo )'
+      
+        '  left join TBVENDAS v on (v.ano = r.anovenda and v.codcontrol =' +
+        ' r.numvenda)'
+      'where (r.empresa = :empresa)'
+      '  and (r.baixado = 0)'
+      '  and (r.enviado = 0)'
+      '  and (r.codbanco = :banco)'
+      '  and (r.dataprocessoboleto between :dataInicial and :dataFinal)'
+      'order by'
+      '    r.nossonumero'
+      '  , r.numlanc'
+      '  , r.parcela')
+    Left = 40
+    Top = 264
+    ParamData = <
+      item
+        Position = 1
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Position = 2
+        Name = 'BANCO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'DATAINICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'DATAFINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+  end
+  object UpdTitulos: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTREC'
+      '(ANOLANC, NUMLANC, CNPJ, TIPPAG, DTEMISS, '
+      '  DTVENC, VALORREC, VALORRECTOT, VALORSALDO, '
+      '  PARCELA, CODBANCO, NOSSONUMERO, PERCENTJUROS, '
+      '  PERCENTMULTA, PERCENTDESCONTO, DATAPROCESSOBOLETO, '
+      '  ANOVENDA, NUMVENDA, SITUACAO)'
+      
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_CNPJ, :NEW_TIPPAG, :NEW' +
+        '_DTEMISS, '
+      
+        '  :NEW_DTVENC, :NEW_VALORREC, :NEW_VALORRECTOT, :NEW_VALORSALDO,' +
+        ' '
+      
+        '  :NEW_PARCELA, :NEW_CODBANCO, :NEW_NOSSONUMERO, :NEW_PERCENTJUR' +
+        'OS, '
+      
+        '  :NEW_PERCENTMULTA, :NEW_PERCENTDESCONTO, :NEW_DATAPROCESSOBOLE' +
+        'TO, '
+      '  :NEW_ANOVENDA, :NEW_NUMVENDA, :NEW_SITUACAO)')
     ModifySQL.Strings = (
-      'update TBBANCO_BOLETO'
-      'set'
-      '  BCO_AGENCIA = :BCO_AGENCIA,'
-      '  BCO_CC = :BCO_CC,'
-      '  BCO_NOSSO_NUM_INICIO = :BCO_NOSSO_NUM_INICIO,'
-      '  BCO_NOSSO_NUM_FINAL = :BCO_NOSSO_NUM_FINAL,'
-      '  BCO_NOSSO_NUM_PROXIMO = :BCO_NOSSO_NUM_PROXIMO,'
-      '  BCO_SEQUENCIAL_REM = :BCO_SEQUENCIAL_REM'
-      'where'
-      '  BCO_COD = :OLD_BCO_COD')
+      'UPDATE TBCONTREC'
+      
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, CNPJ = :NEW_' +
+        'CNPJ, '
+      
+        '  TIPPAG = :NEW_TIPPAG, DTEMISS = :NEW_DTEMISS, DTVENC = :NEW_DT' +
+        'VENC, '
+      '  VALORREC = :NEW_VALORREC, VALORRECTOT = :NEW_VALORRECTOT, '
+      
+        '  VALORSALDO = :NEW_VALORSALDO, PARCELA = :NEW_PARCELA, CODBANCO' +
+        ' = :NEW_CODBANCO, '
+      
+        '  NOSSONUMERO = :NEW_NOSSONUMERO, PERCENTJUROS = :NEW_PERCENTJUR' +
+        'OS, '
+      
+        '  PERCENTMULTA = :NEW_PERCENTMULTA, PERCENTDESCONTO = :NEW_PERCE' +
+        'NTDESCONTO, '
+      
+        '  DATAPROCESSOBOLETO = :NEW_DATAPROCESSOBOLETO, ANOVENDA = :NEW_' +
+        'ANOVENDA, '
+      '  NUMVENDA = :NEW_NUMVENDA, SITUACAO = :NEW_SITUACAO'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTREC'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANOLANC, NUMLANC, EMPRESA, CLIENTE, CNPJ, FORMA_PAGTO, TI' +
+        'PPAG, '
+      '  HISTORIC, NUMREC, DTEMISS, DTVENC, DTREC, DOCBAIX, VALORREC, '
+      '  VALORMULTA, VALORRECTOT, VALORSALDO, NUMCONTRATO, PARCELA, '
+      
+        '  STATUS, CODBANCO, BANCO_FEBRABAN, NOSSONUMERO, ESPECIE_BOLETO,' +
+        ' '
+      
+        '  REMESSA, PERCENTJUROS, PERCENTMULTA, PERCENTDESCONTO, DATAPROC' +
+        'ESSOBOLETO, '
+      '  BAIXADO, ENVIADO, ANOVENDA, NUMVENDA, ANOOS, NUMOS, CODTPREC, '
+      '  SITUACAO, LOTE, COMPETENCIA_APURACAO'
+      'FROM TBCONTREC'
+      'WHERE ANOLANC = :ANOLANC AND NUMLANC = :NUMLANC')
     Left = 72
-    Top = 216
+    Top = 264
   end
 end

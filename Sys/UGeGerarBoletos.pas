@@ -7,20 +7,17 @@ uses
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ToolWin, ComCtrls, ExtCtrls, StdCtrls, Buttons, ImgList, Grids,
-  DBGrids, DB, IBCustomDataSet, IBQuery, Mask, DBCtrls, DBClient, Provider,
-  ComObj, IBUpdateSQL, IBTable, IBSQL, ACBrBoleto,
-  ACBrBoletoFCFR, ACBrBase, ACBrUtil, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons,
+  DBGrids, DB, IBCustomDataSet, IBQuery, Mask, DBCtrls, DBClient, Provider, ComObj,
+  ACBrBoletoFCFR, ACBrBase, ACBrUtil, cxGraphics, cxLookAndFeels, ACBrBoleto,
+  cxLookAndFeelPainters, Menus, cxButtons, System.ImageList,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TipoORigemTitulo = (toBoletoOutros, toBoletoVenda, toBoletoOS);
@@ -38,7 +35,6 @@ type
     pnlFiltros: TPanel;
     grpBxFiltro: TGroupBox;
     Label1: TLabel;
-    btnFiltrar: TSpeedButton;
     edtFiltrar: TEdit;
     GroupBox1: TGroupBox;
     Label2: TLabel;
@@ -65,49 +61,24 @@ type
     Bevel6: TBevel;
     dbgTitulos: TDBGrid;
     Bevel8: TBevel;
-    IbQryTitulos: TIBQuery;
     DtsTitulos: TDataSource;
     pnlBoleto: TPanel;
     Bevel9: TBevel;
     DspTitulos: TDataSetProvider;
     CdsTitulos: TClientDataSet;
-    CdsTitulosPARCELA: TSmallintField;
-    CdsTitulosCODBANCO: TIntegerField;
-    CdsTitulosDTEMISS: TDateField;
-    CdsTitulosDTVENC: TDateField;
-    CdsTitulosVALORREC: TBCDField;
-    CdsTitulosPERCENTJUROS: TBCDField;
-    CdsTitulosPERCENTMULTA: TBCDField;
-    CdsTitulosPERCENTDESCONTO: TBCDField;
-    CdsTitulosVALORRECTOT: TBCDField;
-    CdsTitulosVALORSALDO: TBCDField;
     lbltDemonstrativo: TLabel;
     lbltMsgInstrucoes: TLabel;
     lblbBanco: TLabel;
     cmbBanco: TComboBox;
-    CdsTitulosDATAPROCESSOBOLETO: TDateField;
     edtMsgInstrucoes: TEdit;
     edtDemonstrativo: TEdit;
-    UpdateLanc: TIBSQL;
-    IbUpdTitulos: TIBUpdateSQL;
-    CdsTitulosANOLANC: TSmallintField;
-    CdsTitulosNUMLANC: TIntegerField;
-    CdsTitulosANOVENDA: TSmallintField;
-    CdsTitulosNUMVENDA: TIntegerField;
     ACBrBoleto: TACBrBoleto;
     ACBrBoletoFCFR: TACBrBoletoFCFR;
-    CdsTitulosPARCELA_MAXIMA: TSmallintField;
     tlbBotoes: TPanel;
     Bevel5: TBevel;
     btnFechar: TcxButton;
     Bevel7: TBevel;
     btnGerarBoleto: TcxButton;
-    CdsTitulosNOSSONUMERO: TWideStringField;
-    CdsTitulosCNPJ: TWideStringField;
-    CdsTitulosTIPPAG: TWideStringField;
-    CdsTitulosSERIE: TWideStringField;
-    CdsTitulosNFE: TLargeintField;
-    CdsTitulosGERAR: TWideStringField;
     fdQryClientes: TFDQuery;
     fdQryClientesCNPJ: TStringField;
     fdQryClientesCODIGO: TIntegerField;
@@ -124,9 +95,34 @@ type
     fdQryClientesEMAIL: TStringField;
     fdQryBancos: TFDQuery;
     fdUpdBancos: TFDUpdateSQL;
+    IbQryTitulos: TFDQuery;
+    UpdTitulos: TFDUpdateSQL;
+    CdsTitulosANOLANC: TSmallintField;
+    CdsTitulosNUMLANC: TIntegerField;
+    CdsTitulosPARCELA: TSmallintField;
+    CdsTitulosPARCELA_MAXIMA: TSmallintField;
+    CdsTitulosCODBANCO: TIntegerField;
+    CdsTitulosNOSSONUMERO: TStringField;
+    CdsTitulosCNPJ: TStringField;
+    CdsTitulosTIPPAG: TStringField;
+    CdsTitulosDTEMISS: TDateField;
+    CdsTitulosDTVENC: TDateField;
+    CdsTitulosVALORREC: TBCDField;
+    CdsTitulosPERCENTJUROS: TCurrencyField;
+    CdsTitulosPERCENTMULTA: TCurrencyField;
+    CdsTitulosPERCENTDESCONTO: TCurrencyField;
+    CdsTitulosVALORRECTOT: TBCDField;
+    CdsTitulosVALORSALDO: TBCDField;
+    CdsTitulosDATAPROCESSOBOLETO: TDateField;
+    CdsTitulosANOVENDA: TSmallintField;
+    CdsTitulosNUMVENDA: TIntegerField;
     CdsTitulosANOOS: TSmallintField;
     CdsTitulosNUMOS: TIntegerField;
-    CdsTitulosESPECIE_BOLETO: TWideStringField;
+    CdsTitulosESPECIE_BOLETO: TStringField;
+    CdsTitulosSERIE: TStringField;
+    CdsTitulosNFE: TLargeintField;
+    CdsTitulosGERAR: TStringField;
+    btnFiltrar: TcxButton;
     procedure edtFiltrarKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -138,7 +134,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
-    procedure DtsClientesDataChange(Sender: TObject; Field: TField);
     procedure pgcGuiasChange(Sender: TObject);
     procedure dbgTitulosKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -149,20 +144,14 @@ type
     procedure dbgDadosDblClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure dbgTitulosDblClick(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
+    procedure CdsTitulosGERARGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryClientesCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     IBancoConta  : Array of Integer;
-    {$IFNDEF ACBR}
-    CobreBemX : Variant;
-    {$ENDIF}
     FFecharAoGerar : Boolean;
     procedure CarregarBancos;
-    {$IFDEF ACBR}
     procedure GravarBoletosGeradosACBr(const iProximoNossoNumero : Integer);
-    {$ELSE}
-    procedure GravarBoletosGerados;
-    {$ENDIF}
     procedure UpdateTitulo( iAno : Smallint; iLancamento : Int64; iBanco : Integer;
       sNossoNumero, sEspecieDOC : String; Data : TDateTime;
       const cJuros : Currency = 0.0; const cMulta : Currency = 0.0);
@@ -172,14 +161,9 @@ type
     function GetContaNumero : String;
     function GetContaDigito : String;
 
-    function CarregarTitulos(iCodigoCliente: Integer; iBanco : Integer) : Boolean;
-    {$IFDEF ACBR}
+    function CarregarTitulos(pEmpresa : String; iCodigoCliente: Integer; iBanco : Integer) : Boolean;
     function DefinirCedenteACBr(iBanco : Integer; sCarteira : String) : Boolean;
     function InserirBoletoACBr(var iProximoNossoNumero : Integer; const NovosBoletos : Boolean = TRUE) : Boolean;
-    {$ELSE}
-    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
-    function InserirBoleto( var Objeto : Variant) : Boolean;
-    {$ENDIF}
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -203,26 +187,6 @@ type
 
 var
   frmGeGerarBoleto : TfrmGeGerarBoleto;
-
-{$IFNDEF ACBR}
-const
-  feeSMTPBoletoHTML              = $00000000;
-  feeSMTPMensagemBoletoHTMLAnexo = $00000001;
-  feeSMTPMensagemBoletoPDFAnexo  = $00000002;
-  feeSMTPMensagemLinhaDigitavelURLCobreBemECommerce = $00000003;
-  feeSMTPMensagemURLCobreBemECommerce = $00000004;
-  feeSMTPMensagemLinhaDigitavel       = $00000005;
-  feeOutlookBoletoHTML                = $00000006;
-  feeOutlookMensagemBoletoHTMLAnexo   = $00000007;
-  feeOutlookMensagemBoletoPDFAnexo    = $00000008;
-  feeOutlookMensagemLinhaDigitavelURLCobreBemECommerce = $00000009;
-  feeOutlookMensagemURLCobreBemECommerce = $0000000A;
-  feeOutlookMensagemLinhaDigitavel       = $0000000B;
-  scpExecutar = $00000000;
-  scpOK       = $00000001;
-  scpInvalido = $00000002;
-  scpErro     = $00000003;
-{$ENDIF}
 
   procedure GerarBoleto(const AOwer : TComponent); overload;
   procedure GerarBoleto(const AOwer : TComponent; const NomeCliente : String; const iCodigoCliente : Integer; aAno, aControle : Integer;
@@ -268,7 +232,7 @@ begin
       f.dbgDadosDblClick( f.dbgDados );
       f.FFecharAoGerar := True;
 
-      f.CarregarTitulos(iCodigoCliente, 0);
+      f.CarregarTitulos(gUsuarioLogado.Empresa, iCodigoCliente, 0);
 
       if ( TipoOrigem = toBoletoVenda ) then
         f.CdsTitulos.Filter   := 'ANOVENDA = ' + IntToStr(aAno) + ' and NUMVENDA = ' + IntToStr(aControle)
@@ -323,7 +287,7 @@ begin
         if ( fdQryBancos.Locate('BCO_COD', iBanco, []) ) then
         begin
           cmbBancoChange( cmbBanco );
-          CarregarTitulos(iCodigoCliente, iBanco);
+          CarregarTitulos(gUsuarioLogado.Empresa, iCodigoCliente, iBanco);
 
           if ( TipoOrigem = toBoletoVenda ) then
             CdsTitulos.Filter   := 'ANOVENDA = ' + IntToStr(aAno) + ' and NUMVENDA = ' + IntToStr(aControle)
@@ -344,15 +308,11 @@ begin
           sBanco    := Copy(cmbBanco.Text, 1, 3);
           sCarteira := fdQryBancos.FieldByName('BCO_CARTEIRA').AsString;
 
-          {$IFDEF ACBR}
           if DefinirCedenteACBr( IBanco, sCarteira ) then
-          {$ELSE}
-          if DefinirCedente( IBanco, ICarteira, CobreBemX ) then
-          {$ENDIF}
           begin
 
-            {$IFDEF ACBR}
             if ( InserirBoletoACBr(INossoNum, False) ) then
+            begin
               if SomenteGerarPDF then
               begin
                 ACBrBoleto.ACBrBoletoFC.NomeArquivo := sFileNamePDF;
@@ -360,10 +320,7 @@ begin
               end
               else
                 ACBrBoleto.Imprimir;
-            {$ELSE}
-            if ( InserirBoleto( CobreBemX ) ) then
-              CobreBemX.ImprimeBoletos;
-            {$ENDIF}
+            end;
 
           end;
 
@@ -377,33 +334,20 @@ begin
   end;
 end;
 
-//function ReImprimirBoleto(Cnjp : String; Lancamento : Int64; Banco : Integer) : Boolean;
-//var
-//  f : TfrmGrGerarBoleto;
-//begin
-//  try
-//
-//    f := TfrmGrGerarBoleto.Create(Application);
-//
-//    with f do
-//    begin
-//      IbQryBancos.Open;
-//      if ( IbQryBancos.Locate('BCO_COD', Banco, []) ) then
-//      begin
-//
-//      end;
-//    end;
-//
-//  finally
-//    f.Free;
-//  end;
-//end;
-
 procedure TfrmGeGerarBoleto.edtFiltrarKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if ( Key = 13 ) then
     btnFiltrar.Click;
+end;
+
+procedure TfrmGeGerarBoleto.fdQryClientesCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if StrIsCPF(Sender.AsString) then
+    Text := StrFormatarCpf(Sender.AsString)
+  else
+  if StrIsCNPJ(Sender.AsString) then
+    Text := StrFormatarCnpj(Sender.AsString);
 end;
 
 procedure TfrmGeGerarBoleto.dbgDadosDrawColumnCell(Sender: TObject;
@@ -479,9 +423,6 @@ procedure TfrmGeGerarBoleto.FormCreate(Sender: TObject);
 begin
   inherited;
   pgcGuias.ActivePageIndex := 0;
-  {$IFNDEF ACBR}
-  CobreBemX      := CreateOleObject('CobreBemX.ContaCorrente');
-  {$ENDIF}
   FFecharAoGerar := False;
 end;
 
@@ -489,12 +430,10 @@ procedure TfrmGeGerarBoleto.FormShow(Sender: TObject);
 begin
   Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
 
-  {$IFDEF ACBR}
   lbltMsgInstrucoes.Enabled := False;
   edtMsgInstrucoes.Enabled  := False;
   lbltDemonstrativo.Enabled := False;
   edtDemonstrativo.Enabled  := False;
-  {$ENDIF}
 
   CarregarBancos;
   if ( pgcGuias.ActivePageIndex = 0 ) then
@@ -511,7 +450,7 @@ begin
   Close;
 end;
 
-function TfrmGeGerarBoleto.CarregarTitulos(iCodigoCliente: Integer; iBanco : Integer) : Boolean;
+function TfrmGeGerarBoleto.CarregarTitulos(pEmpresa : String; iCodigoCliente: Integer; iBanco : Integer) : Boolean;
 begin
   with CdsTitulos, Params do
   begin
@@ -519,6 +458,7 @@ begin
 
     Close;
     ParamByName('cliente').AsInteger := iCodigoCliente;
+    ParamByName('empresa').AsString  := pEmpresa;
     ParamByName('banco').AsInteger   := iBanco;
     Open;
 
@@ -526,16 +466,23 @@ begin
   end;
 end;
 
-procedure TfrmGeGerarBoleto.DtsClientesDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmGeGerarBoleto.CdsTitulosGERARGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
-  CarregarTitulos(fdQryClientesCODIGO.AsInteger, 0);
+  if AnsiUpperCase(Trim(Sender.AsString)) = 'X' then
+    Text := 'X'
+  else
+    Text := '.';
 end;
 
 procedure TfrmGeGerarBoleto.pgcGuiasChange(Sender: TObject);
 begin
   try
-    btnGerarBoleto.Enabled := ( pgcGuias.ActivePage = tbsTitulos ) and ( CdsTitulos.RecordCount > 0 );
+    CarregarTitulos(gUsuarioLogado.Empresa, fdQryClientesCODIGO.AsInteger, 0);
+
+    if CdsTitulos.Active then
+      btnGerarBoleto.Enabled := ( pgcGuias.ActivePage = tbsTitulos ) and ( CdsTitulos.RecordCount > 0 )
+    else
+      btnGerarBoleto.Enabled := False;
   except
   end;
 end;
@@ -546,50 +493,6 @@ begin
   if ( Key = VK_SPACE ) then
     dbgTitulosDblClick(Sender);
 end;
-
-{$IFNDEF ACBR}
-function TfrmGeGerarBoleto.DefinirCedente(Banco, Carteira : Integer; var Objeto: Variant): Boolean;
-var
-  sAppPath     ,
-  sFileLisence : String;
-begin
-  try
-    sAppPath     := ExtractFilePath(ParamStr(0));
-    sFileLisence := sAppPath + BOLETO_LICENCAS + FormatFloat('000', Banco)  + '-' + FormatFloat('00', Carteira) + '.conf';
-
-    if ( not FileExists(sFileLisence) ) then
-      raise Exception.Create('Arquivo de licença ' + QuotedStr(sFileLisence) + ' não encontrado');
-
-    // Parâmetros obrigatórios da conta corrente do Cedente
-
-    Objeto.ArquivoLicenca         := sFileLisence;
-    Objeto.CodigoAgencia          := IbQryBancosBCO_AGENCIA.AsString;
-    Objeto.NumeroContaCorrente    := IbQryBancosBCO_CC.AsString;
-    Objeto.CodigoCedente          := IbQryBancosBCO_CHAVE.AsString;
-    Objeto.InicioNossoNumero      := IbQryBancosBCO_NOSSO_NUM_INICIO.AsString;
-    Objeto.FimNossoNumero         := IbQryBancosBCO_NOSSO_NUM_FINAL.AsString;
-    Objeto.OutroDadoConfiguracao1 := Trim(IbQryBancosBCO_CONFG_1.AsString);
-    Objeto.OutroDadoConfiguracao2 := Trim(IbQryBancosBCO_CONFG_2.AsString);
-
-    if ( Trim(IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString) = EmptyStr ) then
-      Objeto.ProximoNossoNumero  := '1'
-    else
-      Objeto.ProximoNossoNumero  := IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString;
-
-
-    Objeto.PadroesBoleto.PadroesBoletoImpresso.ArquivoLogotipo            := sAppPath + BOLETO_ARQUIVO_LOGOTIPO;
-    Objeto.PadroesBoleto.PadroesBoletoImpresso.CaminhoImagensCodigoBarras := sAppPath + BOLETO_IMAGENS;
-
-    Result := True;
-  except
-    On E : Exception do
-    begin
-      Application.MessageBox(PChar('Erro ao tentar iniciar processo de geração de boletos.' + #13 + E.Message), 'Erro', MB_ICONERROR);
-      Result := False;
-    end;
-  end;
-end;
-{$ENDIF}
 
 procedure TfrmGeGerarBoleto.btnGerarBoletoClick(Sender: TObject);
 var
@@ -613,9 +516,7 @@ begin
     Exit;
   end;
 
-//  if (not ShowConfirm('Confirma a geração de boletos?', 'Gerar Boleto', )) then
-//    Exit;
-  if ( Application.MessageBox('Confirma a geração de boletos?','Gerar Boleto', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) <> ID_YES ) then
+  if (not ShowConfirmation('Gerar Boleto', 'Confirma a geração de boletos?')) then
     Exit;
 
   IBanco    := StrToIntDef( Copy(cmbBanco.Text, 1, 3), 0 );
@@ -624,11 +525,7 @@ begin
   sBanco    := Copy(cmbBanco.Text, 1, 3);
   sCarteira := fdQryBancos.FieldByName('BCO_CARTEIRA').AsString;
 
-  {$IFDEF ACBR}
   if DefinirCedenteACBr( IBanco, sCarteira ) then
-  {$ELSE}
-  if DefinirCedente( IBanco, ICarteira, CobreBemX ) then
-  {$ENDIF}
   begin
 
     CdsTitulos.Filter   := 'GERAR = ' + QuotedStr('X');
@@ -643,18 +540,11 @@ begin
     else
     begin
 
-      {$IFDEF ACBR}
       INossoNumero := 1;
       if ( InserirBoletoACBr(INossoNumero) ) then
       begin
         ACBrBoleto.Imprimir;
         GravarBoletosGeradosACBr(INossoNumero);
-      {$ELSE}
-      if ( InserirBoleto( CobreBemX ) ) then
-      begin
-        CobreBemX.ImprimeBoletos;
-        GravarBoletosGerados;
-      {$ENDIF}
       end;
 
       if FFecharAoGerar then
@@ -673,6 +563,8 @@ procedure TfrmGeGerarBoleto.CarregarBancos;
 var
   I : Integer;
 begin
+  cmbBanco.Items.Clear;
+
   with fdQryBancos, cmbBanco do
   begin
     Close;
@@ -713,146 +605,13 @@ begin
   if ( not fdQryBancos.Active ) then
     fdQryBancos.Open;
 
-  if ( fdQryBancos.Locate('bco_codigo', IBancoConta[cmbBanco.ItemIndex], []) ) then
-  begin
-    cmbBanco.Tag := fdQryBancos.FieldByName('BCO_COD').AsInteger;
-    edtMsgInstrucoes.Text := '<br>' + Trim(fdQryBancos.FieldByName('BCO_MSG_INSTRUCAO').AsString);
-  end;
-end;
-
-{$IFNDEF ACBR}
-function TfrmGeGerarBoleto.InserirBoleto(var Objeto: Variant): Boolean;
-var
-  sAppPath   ,
-  sDocumento : String;
-  Boleto   ,
-  EmailSacado : Variant;
-begin
-  try
-    sAppPath := ExtractFilePath(ParamStr(0));
-
-    Objeto.DocumentosCobranca.Clear;
-
-    CdsTitulos.First;
-
-    while not CdsTitulos.Eof do
+  if (cmbBanco.ItemIndex > -1) then
+    if ( fdQryBancos.Locate('bco_codigo', IBancoConta[cmbBanco.ItemIndex], []) ) then
     begin
-      Boleto     := Objeto.DocumentosCobranca.Add;
-      sDocumento := Copy(CdsTitulosANOLANC.AsString, 3, 2) + FormatFloat('00000000', CdsTitulosNUMLANC.AsInteger) + FormatFloat('000', CdsTitulosPARCELA.AsInteger);
-
-      Boleto.NumeroDocumento := sDocumento;
-      Boleto.NomeSacado      := dbNome.Field.AsString;
-
-      if Length(dbCPF.Field.AsString) > 11 then
-        Boleto.CNPJSacado := dbCPF.Field.AsString
-      else
-        Boleto.CPFSacado  := dbCPF.Field.AsString;
-
-      Boleto.EnderecoSacado := dbEndereco.Field.AsString;
-      Boleto.BairroSacado   := dbBairro.Field.AsString;
-      Boleto.CidadeSacado   := dbCidade.Field.AsString;
-      Boleto.EstadoSacado   := dbUF.Field.AsString;
-      Boleto.CepSacado      := dbCEP.Field.AsString;
-      Boleto.DataDocumento  := FormatDateTime('dd/mm/yyyy', Date);
-
-      if not CdsTitulosDTVENC.IsNull then
-        Boleto.DataVencimento  := FormatDateTime('dd/mm/yyyy', CdsTitulosDTVENC.AsDateTime);
-
-      Boleto.DataProcessamento := FormatDateTime('dd/mm/yyyy', Date);
-
-      Boleto.ValorDocumento                := CdsTitulosVALORREC.AsFloat;
-      Boleto.PercentualJurosDiaAtraso      := IbQryBancosBCO_PERCENTUAL_JUROS.AsFloat; // Juros - Multa diária
-      Boleto.PercentualMultaAtraso         := IbQryBancosBCO_PERCENTUAL_MORA.AsFloat;  // Mora  - Multa de atraso
-      Boleto.PercentualDesconto            := CdsTitulosPERCENTDESCONTO.AsFloat;
-      Boleto.ValorOutrosAcrescimos         := 0;
-      Boleto.PadroesBoleto.Demonstrativo   := Trim(edtDemonstrativo.Text) + '<br><br>Venda No. ' +
-                                              FormatFloat('0000', CdsTitulosANOLANC.AsInteger) + '/' +
-                                              FormatFloat('##00000000', CdsTitulosNUMVENDA.AsInteger);
-      Boleto.PadroesBoleto.InstrucoesCaixa := Trim(edtMsgInstrucoes.Text);
-
-      EmailSacado          := Boleto.EnderecosEmailSacado.Add;
-      EmailSacado.Nome     := Boleto.NomeSacado;
-      EmailSacado.Endereco := dbEmail.Field.AsString;
-
-      Boleto.ControleProcessamentoDocumento.Imprime      := scpExecutar;
-      Boleto.ControleProcessamentoDocumento.EnviaEmail   := scpExecutar;
-      Boleto.ControleProcessamentoDocumento.GravaRemessa := scpExecutar;
-
-      if (Trim(CdsTitulosNOSSONUMERO.AsString) <> EmptyStr) then
-      begin
-        Boleto.NossoNumero := CdsTitulosNOSSONUMERO.AsString;
-
-        if Length(CdsTitulosNOSSONUMERO.AsString) < (Objeto.MascaraNossoNumero + 1) then
-          Boleto.CalculaDacNossoNumero := True;
-      end;
-
-      if Length(CdsTitulosNOSSONUMERO.AsString) < (Objeto.MascaraNossoNumero + 1) then
-        Boleto.CalculaDacNossoNumero := True;
-
-      CdsTitulos.Next;
+      cmbBanco.Tag := fdQryBancos.FieldByName('BCO_COD').AsInteger;
+      edtMsgInstrucoes.Text := '<br>' + Trim(fdQryBancos.FieldByName('BCO_MSG_INSTRUCAO').AsString);
     end;
-
-    Result := True;
-  except
-    On E : Exception do
-    begin
-      Application.MessageBox(PChar('Erro ao tentar gerar boletos.' + #13 + E.Message), 'Erro', MB_ICONERROR);
-      Result := False;
-    end;
-  end;
 end;
-{$ENDIF}
-
-{$IFNDEF ACBR}
-procedure TfrmGeGerarBoleto.GravarBoletosGerados;
-var
-  Ano  ,
-  Lanc ,
-  I    : Integer;
-  N : String;
-begin
-  CdsTitulos.IndexFieldNames := 'ANOLANC;NUMLANC';
-
-  for I := 0 to CobreBemX.DocumentosCobranca.Count - 1 do
-  begin
-    Ano  := 2000 + StrToInt( Copy(CobreBemX.DocumentosCobranca[I].NumeroDocumento, 1, 2));
-    Lanc := StrToInt(Copy(CobreBemX.DocumentosCobranca[I].NumeroDocumento, 3, 8));
-
-    if CdsTitulos.FindKey( [Ano, Lanc] ) then
-      if ( CdsTitulosNOSSONUMERO.AsString <> CobreBemX.DocumentosCobranca[i].NossoNumero ) then
-      begin
-        CdsTitulos.Edit;
-        CdsTitulosCODBANCO.Value    := IbQryBancosBCO_COD.Value;
-        CdsTitulosNOSSONUMERO.Value := CobreBemX.DocumentosCobranca[i].NossoNumero;
-        CdsTitulosESPECIE_BOLETO.Value     := CobreBemX.DocumentosCobranca[i].EspecieDocumento;
-        CdsTitulosDATAPROCESSOBOLETO.Value := GetDateTimeDB;
-        CdsTitulosPERCENTJUROS.AsCurrency  := IbQryBancosBCO_PERCENTUAL_JUROS.AsCurrency;
-        CdsTitulosPERCENTMULTA.AsCurrency  := IbQryBancosBCO_PERCENTUAL_MORA.AsCurrency;
-        CdsTitulos.Post;
-
-        CommitTransaction;
-
-        UpdateTitulo(CdsTitulosANOLANC.Value
-          , CdsTitulosNUMLANC.Value
-          , CdsTitulosCODBANCO.Value
-          , CdsTitulosNOSSONUMERO.Value
-          , CdsTitulosESPECIE_BOLETO.Value
-          , GetDateTimeDB);
-      end;
-  end;
-
-  cmbBancoChange(cmbBanco);
-
-  if ( IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString <> CobreBemX.ProximoNossoNumero ) then
-  begin
-    IbQryBancos.Edit;
-    IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString := RightStr( '0000000' + CobreBemX.ProximoNossoNumero, 6 );
-    IbQryBancos.Post;
-
-    CommitTransaction;
-  end;
-end;
-{$ENDIF}
 
 procedure TfrmGeGerarBoleto.GravarBoletosGeradosACBr(const iProximoNossoNumero : Integer);
 var
@@ -952,14 +711,7 @@ begin
     sSQL.Add( '   and numlanc = '   + IntToStr(iLancamento) );
     sSQL.EndUpdate;
 
-    with UpdateLanc, SQL  do
-    begin
-      Clear;
-      AddStrings( sSQL );
-      ExecQuery;
-
-      CommitTransaction;
-    end;
+    ExecuteScriptSQL(sSQL.Text);
   finally
     sSQL.Free;
   end;
@@ -981,19 +733,12 @@ begin
   if ( not CdsTitulos.IsEmpty ) then
   begin
     CdsTitulos.Edit;
-    if ( CdsTitulosGERAR.AsString = '.' ) then
-      CdsTitulosGERAR.Value := 'X'
+    if ( AnsiUpperCase(Trim(CdsTitulosGERAR.AsString)) = 'X' ) then
+      CdsTitulosGERAR.AsString := '.'
     else
-      CdsTitulosGERAR.Value := '.';
+      CdsTitulosGERAR.AsString := 'X';
     CdsTitulos.Post;
   end;
-end;
-
-procedure TfrmGeGerarBoleto.FormDestroy(Sender: TObject);
-begin
-  {$IFNDEF ACBR}
-  CobreBemX := Unassigned;
-  {$ENDIF}
 end;
 
 function TfrmGeGerarBoleto.DefinirCedenteACBr(iBanco : Integer; sCarteira : String): Boolean;
@@ -1032,42 +777,42 @@ begin
 
         CODIGO_BANCO_AMAZONIA:
           begin
-            TipoCobranca          := cobBancoDaAmazonia;
+            TipoCobranca          := TACBrTipoCobranca.cobBancoDaAmazonia;
             TamanhoMaximoNossoNum := 15;
             Cedente.Modalidade    := EmptyStr;
           end;
 
         CODIGO_BANCO_BRADESCO:
           begin
-            TipoCobranca          := cobBradesco;
+            TipoCobranca          := TACBrTipoCobranca.cobBradesco;
             TamanhoMaximoNossoNum := 11;
             Cedente.Modalidade    := EmptyStr;
           end;
 
         CODIGO_BANCO_CAIXA:
           begin
-            TipoCobranca          := cobCaixaEconomica;
+            TipoCobranca          := TACBrTipoCobranca.cobCaixaEconomica;
             TamanhoMaximoNossoNum := 15;
             Cedente.Modalidade    := EmptyStr;
           end;
 
         CODIGO_BANCO_HSBC:
           begin
-            TipoCobranca          := cobHSBC;
+            TipoCobranca          := TACBrTipoCobranca.cobHSBC;
             TamanhoMaximoNossoNum := 16;
             Cedente.Modalidade    := EmptyStr;
           end;
 
         CODIGO_BANCO_ITAU:
           begin
-            TipoCobranca          := cobItau;
+            TipoCobranca          := TACBrTipoCobranca.cobItau;
             TamanhoMaximoNossoNum := 8;
             Cedente.Modalidade    := EmptyStr;
           end;
 
         CODIGO_BANCO_SANTANDER:
           begin
-            TipoCobranca          := cobSantander;
+            TipoCobranca          := TACBrTipoCobranca.cobSantander;
             TamanhoMaximoNossoNum := 12;
             Cedente.Modalidade    := '101';
           end;
@@ -1119,7 +864,8 @@ begin
   except
     On E : Exception do
     begin
-      Application.MessageBox(PChar('Erro ao tentar iniciar processo de geração de boletos (ACBr).' + #13 + E.Message), 'Erro', MB_ICONERROR);
+      //Application.MessageBox(PChar('Erro ao tentar iniciar processo de geração de boletos (ACBr).' + #13 + E.Message), 'Erro', MB_ICONERROR);
+      ShowErrorNotify(Self, E);
       Result := False;
     end;
   end;

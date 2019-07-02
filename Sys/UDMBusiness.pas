@@ -1076,14 +1076,14 @@ end;
 
 procedure ExecuteScriptSQL(sScriptSQL : String);
 begin
-  with DMBusiness, fdQryBusca do
+  with DMBusiness do //, fdQryBusca do
   begin
-    Close;
-    SQL.Clear;
-    SQL.Add( Trim(sScriptSQL) );
-    ExecSQL;
-    CommitUpdates;
-
+//    Close;
+//    SQL.Clear;
+//    SQL.Add( Trim(sScriptSQL) );
+//    ExecSQL;
+//    CommitUpdates;
+    fdConexao.ExecSQL(sScriptSQL);
     CommitTransaction;
   end;
 end;

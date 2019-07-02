@@ -17,7 +17,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
   Position = poScreenCenter
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
@@ -52,7 +51,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       Top = 4
       Width = 904
       Height = 391
-      ActivePage = tbsTitulos
+      ActivePage = tbsClientes
       Align = alClient
       Images = ImgList
       TabOrder = 0
@@ -60,10 +59,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       object tbsClientes: TTabSheet
         Caption = '&Clientes'
         ImageIndex = 12
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Bevel3: TBevel
           Left = 0
           Top = 296
@@ -107,13 +102,13 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
               Expanded = False
               FieldName = 'CNPJ'
               Title.Caption = 'CNPJ/CPF'
-              Width = 100
+              Width = 150
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'INSCEST'
-              Title.Caption = 'Insc. Estadual'
+              Title.Caption = 'IE / RG'
               Width = 100
               Visible = True
             end
@@ -197,37 +192,15 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 0
+            DesignSize = (
+              252
+              54)
             object Label1: TLabel
               Left = 6
               Top = 25
               Width = 44
               Height = 13
               Caption = 'Cliente:'
-            end
-            object btnFiltrar: TSpeedButton
-              Left = 207
-              Top = 16
-              Width = 29
-              Height = 27
-              Hint = 'Clique aqui para executar a pesquisa ...'
-              Flat = True
-              Glyph.Data = {
-                76010000424D7601000000000000760000002800000020000000100000000100
-                0400000000000001000000000000000000001000000000000000000000000000
-                8000008000000080800080000000800080008080000080808000C0C0C0000000
-                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
-                333333333333333333FF33333333333330003FF3FFFFF3333777003000003333
-                300077F777773F333777E00BFBFB033333337773333F7F33333FE0BFBF000333
-                330077F3337773F33377E0FBFBFBF033330077F3333FF7FFF377E0BFBF000000
-                333377F3337777773F3FE0FBFBFBFBFB039977F33FFFFFFF7377E0BF00000000
-                339977FF777777773377000BFB03333333337773FF733333333F333000333333
-                3300333777333333337733333333333333003333333333333377333333333333
-                333333333333333333FF33333333333330003333333333333777333333333333
-                3000333333333333377733333333333333333333333333333333}
-              NumGlyphs = 2
-              ParentShowHint = False
-              ShowHint = True
-              OnClick = btnFiltrarClick
             end
             object edtFiltrar: TEdit
               Left = 55
@@ -240,6 +213,58 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
               ShowHint = True
               TabOrder = 0
               OnKeyDown = edtFiltrarKeyDown
+            end
+            object btnFiltrar: TcxButton
+              Tag = 5
+              Left = 209
+              Top = 12
+              Width = 29
+              Height = 35
+              Hint = 'Clique aqui para executar a pesquisa ...'
+              Anchors = [akTop, akRight, akBottom]
+              OptionsImage.Glyph.Data = {
+                36040000424D3604000000000000360000002800000010000000100000000100
+                20000000000000040000C30E0000C30E00000000000000000000000000000000
+                00000000000000000000000000000000000000000000AC6B2CBAAC6B2CCC0000
+                0000000000000000000000000000000000000000000000000000000000000000
+                00000000000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B
+                2CD1B5712F29B87330BDB87330CAB974306B0000000000000000000000000000
+                000000000000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B
+                2CFFAC6B2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF00000000000000000000
+                000000000000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B
+                2CFFAC6B2C830000000000000000AC6B2C22AC6B2CFFB16F2EA3000000000000
+                000000000000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B
+                2CFF00000000000000000000000000000000AC6B2CA9AF6D2DFF000000000000
+                000000000000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B
+                2CFF00000000000000000000000000000000AD6C2C93AF6D2DFF000000000000
+                000000000000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B
+                2CFFAD6C2C31000000000000000000000000AC6B2CFFB06D2DCB000000000000
+                000000000000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B
+                2CFCAC6B2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF00000000000000000000
+                0000000000006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C666000000000000
+                0000AE6C2C9BAC6B2CFFAC6B2CFFAD6C2CCA0000000000000000000000000000
+                0000000000006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A
+                7A1E000000000000000000000000000000000000000000000000000000000000
+                00006E6E6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDF
+                DFFF727272FE6E6E6E5C00000000000000000000000000000000000000006E6E
+                6E3B6E6E6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFC
+                FCFFCECECEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E
+                6EE86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3
+                C3FFFFFFFFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E
+                6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C
+                7CFFFAFAFAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E
+                6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E
+                6EFF707070FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D00000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000}
+              ParentShowHint = False
+              ShowHint = True
+              SpeedButtonOptions.CanBeFocused = False
+              SpeedButtonOptions.Flat = True
+              SpeedButtonOptions.Transparent = True
+              TabOrder = 1
+              TabStop = False
+              OnClick = btnFiltrarClick
             end
           end
         end
@@ -801,7 +826,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     Left = 16
     Top = 197
     Bitmap = {
-      494C010121002200280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010121002200300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000009000000001002000000000000090
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1998,83 +2023,8 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
   end
   object DtsClientes: TDataSource
     DataSet = fdQryClientes
-    OnDataChange = DtsClientesDataChange
     Left = 48
     Top = 232
-  end
-  object IbQryTitulos: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.anolanc'
-      '  , r.numlanc'
-      '  , r.parcela'
-      '  , coalesce(('
-      '     Select'
-      '       max(x.parcela)'
-      '     from TBCONTREC x'
-      '     where (x.anovenda = r.anovenda and x.numvenda = r.numvenda)'
-      '        or (x.anoos = r.anoos and x.numos = r.numos)'
-      '    ), r.parcela) as parcela_maxima'
-      '  , r.codbanco'
-      '  , r.nossonumero'
-      '  , r.cnpj'
-      '  , r.tippag'
-      '  , r.dtemiss'
-      '  , r.dtvenc'
-      '  , r.valorrec'
-      '  , r.percentjuros'
-      '  , r.percentmulta'
-      '  , r.percentdesconto'
-      '  , r.valorrectot'
-      '  , r.valorsaldo'
-      '  , r.dataprocessoboleto'
-      '  , r.ANOVENDA'
-      '  , r.NUMVENDA'
-      '  , r.ANOOS'
-      '  , r.NUMOS'
-      '  , r.especie_boleto'
-      '  , coalesce(o.nfs_serie, v.serie) as serie'
-      '  , coalesce(o.nfs_numero, v.nfe)  as nfe'
-      '  , '#39'.'#39' as Gerar'
-      'from TBCONTREC r'
-      
-        '  left join TBVENDAS v on (v.ano = r.anovenda and v.codcontrol =' +
-        ' r.numvenda)'
-      '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)'
-      'where r.baixado = 0'
-      '  and r.cliente = :cliente'
-      '  and coalesce(r.codbanco, 0) = :banco'
-      '  and r.valorrec > 0'
-      '  and r.empresa in ('
-      '    Select'
-      '      e.cnpj'
-      '    from VW_EMPRESA e'
-      '  )'
-      'order by'
-      '    r.numlanc'
-      '  , r.parcela')
-    UniDirectional = True
-    UpdateObject = IbUpdTitulos
-    Left = 16
-    Top = 264
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'cliente'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftSmallint
-        Name = 'banco'
-        ParamType = ptInput
-        Value = 0
-      end>
   end
   object DtsTitulos: TDataSource
     DataSet = CdsTitulos
@@ -2093,15 +2043,19 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     Params = <
       item
         DataType = ftInteger
-        Name = 'cliente'
+        Name = 'CLIENTE'
         ParamType = ptInput
-        Value = 0
       end
       item
-        DataType = ftSmallint
-        Name = 'banco'
+        DataType = ftString
+        Name = 'EMPRESA'
         ParamType = ptInput
-        Value = 0
+        Size = 18
+      end
+      item
+        DataType = ftInteger
+        Name = 'BANCO'
+        ParamType = ptInput
       end>
     ProviderName = 'DspTitulos'
     Left = 112
@@ -2113,100 +2067,74 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     object CdsTitulosNUMLANC: TIntegerField
       FieldName = 'NUMLANC'
       Required = True
-      DisplayFormat = '0000000'
+      DisplayFormat = '###00000'
     end
     object CdsTitulosPARCELA: TSmallintField
       Alignment = taCenter
       FieldName = 'PARCELA'
-      Origin = 'TBCONTREC.PARCELA'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '000'
+      DisplayFormat = '00'
     end
     object CdsTitulosPARCELA_MAXIMA: TSmallintField
       FieldName = 'PARCELA_MAXIMA'
-      ProviderFlags = []
+      ReadOnly = True
     end
     object CdsTitulosCODBANCO: TIntegerField
       FieldName = 'CODBANCO'
-      Origin = 'TBCONTREC.CODBANCO'
-      ProviderFlags = [pfInUpdate]
+    end
+    object CdsTitulosNOSSONUMERO: TStringField
+      FieldName = 'NOSSONUMERO'
+    end
+    object CdsTitulosCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Size = 18
+    end
+    object CdsTitulosTIPPAG: TStringField
+      FieldName = 'TIPPAG'
+      Size = 35
     end
     object CdsTitulosDTEMISS: TDateField
       Alignment = taCenter
       FieldName = 'DTEMISS'
-      Origin = 'TBCONTREC.DTEMISS'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
-    end
-    object CdsTitulosNOSSONUMERO: TWideStringField
-      FieldName = 'NOSSONUMERO'
-    end
-    object CdsTitulosCNPJ: TWideStringField
-      FieldName = 'CNPJ'
-      Size = 18
-    end
-    object CdsTitulosTIPPAG: TWideStringField
-      FieldName = 'TIPPAG'
-      Size = 35
     end
     object CdsTitulosDTVENC: TDateField
       Alignment = taCenter
       FieldName = 'DTVENC'
-      Origin = 'TBCONTREC.DTVENC'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
     object CdsTitulosVALORREC: TBCDField
       FieldName = 'VALORREC'
-      Origin = 'TBCONTREC.VALORREC'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object CdsTitulosPERCENTJUROS: TBCDField
+    object CdsTitulosPERCENTJUROS: TCurrencyField
       FieldName = 'PERCENTJUROS'
-      Origin = 'TBCONTREC.PERCENTJUROS'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '0.00'
-      Precision = 9
-      Size = 2
+      DisplayFormat = ',0.00#'
     end
-    object CdsTitulosPERCENTMULTA: TBCDField
+    object CdsTitulosPERCENTMULTA: TCurrencyField
       FieldName = 'PERCENTMULTA'
-      Origin = 'TBCONTREC.PERCENTMULTA'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '0.00'
-      Precision = 9
-      Size = 2
+      DisplayFormat = ',0.00#'
     end
-    object CdsTitulosPERCENTDESCONTO: TBCDField
+    object CdsTitulosPERCENTDESCONTO: TCurrencyField
       FieldName = 'PERCENTDESCONTO'
-      Origin = 'TBCONTREC.PERCENTDESCONTO'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '0.00'
-      Precision = 9
-      Size = 2
+      DisplayFormat = ',0.00#'
     end
     object CdsTitulosVALORRECTOT: TBCDField
       FieldName = 'VALORRECTOT'
-      Origin = 'TBCONTREC.VALORRECTOT'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object CdsTitulosVALORSALDO: TBCDField
       FieldName = 'VALORSALDO'
-      Origin = 'TBCONTREC.VALORSALDO'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
     object CdsTitulosDATAPROCESSOBOLETO: TDateField
+      Alignment = taCenter
       FieldName = 'DATAPROCESSOBOLETO'
-      ProviderFlags = [pfInUpdate]
       DisplayFormat = 'dd/mm/yyyy'
     end
     object CdsTitulosANOVENDA: TSmallintField
@@ -2221,83 +2149,32 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     object CdsTitulosNUMOS: TIntegerField
       FieldName = 'NUMOS'
     end
-    object CdsTitulosESPECIE_BOLETO: TWideStringField
+    object CdsTitulosESPECIE_BOLETO: TStringField
       FieldName = 'ESPECIE_BOLETO'
+      Required = True
       Size = 3
     end
-    object CdsTitulosSERIE: TWideStringField
+    object CdsTitulosSERIE: TStringField
       FieldName = 'SERIE'
+      ReadOnly = True
       Size = 4
     end
     object CdsTitulosNFE: TLargeintField
       FieldName = 'NFE'
+      ReadOnly = True
     end
-    object CdsTitulosGERAR: TWideStringField
+    object CdsTitulosGERAR: TStringField
       Alignment = taCenter
       FieldName = 'GERAR'
-      FixedChar = True
-      Size = 1
+      OnGetText = CdsTitulosGERARGetText
+      Size = 15
     end
-  end
-  object UpdateLanc: TIBSQL
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    Left = 176
-    Top = 264
-  end
-  object IbUpdTitulos: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANOLANC,'
-      '  NUMLANC,'
-      '  CNPJ,'
-      '  FORMA_PAGTO,'
-      '  TIPPAG,'
-      '  HISTORIC,'
-      '  NUMREC,'
-      '  DTEMISS,'
-      '  DTVENC,'
-      '  DTREC,'
-      '  DOCBAIX,'
-      '  VALORREC,'
-      '  VALORMULTA,'
-      '  VALORRECTOT,'
-      '  NUMCONTRATO,'
-      '  PARCELA,'
-      '  STATUS,'
-      '  CODBANCO,'
-      '  NOSSONUMERO,'
-      '  REMESSA,'
-      '  VALORSALDO,'
-      '  PERCENTJUROS,'
-      '  PERCENTMULTA,'
-      '  PERCENTDESCONTO,'
-      '  DATAPROCESSOBOLETO,'
-      '  BAIXADO,'
-      '  ENVIADO,'
-      '  ANOVENDA,'
-      '  NUMVENDA'
-      'from TBCONTREC '
-      'where'
-      '  ANOLANC = :ANOLANC and'
-      '  NUMLANC = :NUMLANC')
-    ModifySQL.Strings = (
-      'update TBCONTREC'
-      'set'
-      '  PERCENTJUROS = :PERCENTJUROS,'
-      '  PERCENTMULTA= :PERCENTMULTA,'
-      '  CODBANCO = :CODBANCO,'
-      '  NOSSONUMERO = :NOSSONUMERO,'
-      '  DATAPROCESSOBOLETO = :DATAPROCESSOBOLETO'
-      'where'
-      '  ANOLANC = :OLD_ANOLANC and'
-      '  NUMLANC = :OLD_NUMLANC')
-    Left = 48
-    Top = 264
   end
   object ACBrBoleto: TACBrBoleto
     Banco.TamanhoMaximoNossoNum = 10
     Banco.TipoCobranca = cobNenhum
+    Banco.LayoutVersaoArquivo = 0
+    Banco.LayoutVersaoLote = 0
     Cedente.TipoInscricao = pJuridica
     NumeroArquivo = 0
     ACBrBoletoFC = ACBrBoletoFCFR
@@ -2305,7 +2182,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     Top = 245
   end
   object ACBrBoletoFCFR: TACBrBoletoFCFR
-    ACBrBoleto = ACBrBoleto
     LayOut = lPadraoEntrega
     ModoThread = False
     IncorporarBackgroundPdf = False
@@ -2333,7 +2209,8 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       '  , c.cep'
       '  , c.email'
       'from TBCLIENTE c'
-      'where c.nome like :nome || '#39'%'#39
+      'where (c.codigo > 1)'
+      '  and (c.nome like :nome || '#39'%'#39')'
       'order by'
       '    c.nome')
     Left = 19
@@ -2349,6 +2226,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       FieldName = 'CNPJ'
       Origin = 'CNPJ'
       Required = True
+      OnGetText = fdQryClientesCNPJGetText
       Size = 18
     end
     object fdQryClientesCODIGO: TIntegerField
@@ -2421,7 +2299,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     end
   end
   object fdQryBancos: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -2584,5 +2461,156 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       'WHERE BCO_CODIGO = :BCO_CODIGO')
     Left = 48
     Top = 312
+  end
+  object IbQryTitulos: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = UpdTitulos
+    SQL.Strings = (
+      'Select'
+      '    r.anolanc'
+      '  , r.numlanc'
+      '  , r.parcela'
+      '  , coalesce(('
+      '     Select'
+      '       max(x.parcela)'
+      '     from TBCONTREC x'
+      '     where (x.anovenda = r.anovenda and x.numvenda = r.numvenda)'
+      '        or (x.anoos = r.anoos and x.numos = r.numos)'
+      '    ), r.parcela) as parcela_maxima'
+      '  , r.codbanco'
+      '  , r.nossonumero'
+      '  , r.cnpj'
+      '  , r.tippag'
+      '  , r.dtemiss'
+      '  , r.dtvenc'
+      '  , r.valorrec'
+      '  , r.percentjuros'
+      '  , r.percentmulta'
+      '  , r.percentdesconto'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.dataprocessoboleto'
+      '  , r.ANOVENDA'
+      '  , r.NUMVENDA'
+      '  , r.ANOOS'
+      '  , r.NUMOS'
+      '  , r.especie_boleto'
+      '  , coalesce(o.nfs_serie, v.serie) as serie'
+      '  , coalesce(o.nfs_numero, v.nfe)  as nfe'
+      '  , r.docbaix as Gerar'
+      'from TBCONTREC r'
+      
+        '  left join TBVENDAS v on (v.ano = r.anovenda and v.codcontrol =' +
+        ' r.numvenda)'
+      '  left join TBOS o on (o.ano = r.anoos and o.controle = r.numos)'
+      'where (r.baixado = 0)'
+      '  and (r.cliente = :cliente)'
+      '  and (r.empresa = :empresa)'
+      '  and (coalesce(r.codbanco, 0) = :banco)'
+      '  and (r.valorrec > 0)'
+      '  and (r.empresa in ('
+      '    Select'
+      '      e.cnpj'
+      '    from VW_EMPRESA e'
+      '  ))'
+      'order by'
+      '    r.numlanc'
+      '  , r.parcela')
+    Left = 16
+    Top = 264
+    ParamData = <
+      item
+        Position = 1
+        Name = 'CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Position = 2
+        Name = 'BANCO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object UpdTitulos: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCONTREC'
+      '(ANOLANC, NUMLANC, CNPJ, TIPPAG, DTEMISS, '
+      '  DTVENC, VALORREC, VALORRECTOT, VALORSALDO, '
+      '  PARCELA, CODBANCO, NOSSONUMERO, ESPECIE_BOLETO, '
+      '  PERCENTJUROS, PERCENTMULTA, PERCENTDESCONTO, '
+      '  DATAPROCESSOBOLETO, ANOVENDA, NUMVENDA, ANOOS, '
+      '  NUMOS)'
+      
+        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_CNPJ, :NEW_TIPPAG, :NEW' +
+        '_DTEMISS, '
+      
+        '  :NEW_DTVENC, :NEW_VALORREC, :NEW_VALORRECTOT, :NEW_VALORSALDO,' +
+        ' '
+      
+        '  :NEW_PARCELA, :NEW_CODBANCO, :NEW_NOSSONUMERO, :NEW_ESPECIE_BO' +
+        'LETO, '
+      '  :NEW_PERCENTJUROS, :NEW_PERCENTMULTA, :NEW_PERCENTDESCONTO, '
+      
+        '  :NEW_DATAPROCESSOBOLETO, :NEW_ANOVENDA, :NEW_NUMVENDA, :NEW_AN' +
+        'OOS, '
+      '  :NEW_NUMOS)')
+    ModifySQL.Strings = (
+      'UPDATE TBCONTREC'
+      
+        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, CNPJ = :NEW_' +
+        'CNPJ, '
+      
+        '  TIPPAG = :NEW_TIPPAG, DTEMISS = :NEW_DTEMISS, DTVENC = :NEW_DT' +
+        'VENC, '
+      '  VALORREC = :NEW_VALORREC, VALORRECTOT = :NEW_VALORRECTOT, '
+      
+        '  VALORSALDO = :NEW_VALORSALDO, PARCELA = :NEW_PARCELA, CODBANCO' +
+        ' = :NEW_CODBANCO, '
+      
+        '  NOSSONUMERO = :NEW_NOSSONUMERO, ESPECIE_BOLETO = :NEW_ESPECIE_' +
+        'BOLETO, '
+      
+        '  PERCENTJUROS = :NEW_PERCENTJUROS, PERCENTMULTA = :NEW_PERCENTM' +
+        'ULTA, '
+      
+        '  PERCENTDESCONTO = :NEW_PERCENTDESCONTO, DATAPROCESSOBOLETO = :' +
+        'NEW_DATAPROCESSOBOLETO, '
+      
+        '  ANOVENDA = :NEW_ANOVENDA, NUMVENDA = :NEW_NUMVENDA, ANOOS = :N' +
+        'EW_ANOOS, '
+      '  NUMOS = :NEW_NUMOS'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCONTREC'
+      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANOLANC, NUMLANC, EMPRESA, CLIENTE, CNPJ, FORMA_PAGTO, TI' +
+        'PPAG, '
+      '  HISTORIC, NUMREC, DTEMISS, DTVENC, DTREC, DOCBAIX, VALORREC, '
+      '  VALORMULTA, VALORRECTOT, VALORSALDO, NUMCONTRATO, PARCELA, '
+      
+        '  STATUS, CODBANCO, BANCO_FEBRABAN, NOSSONUMERO, ESPECIE_BOLETO,' +
+        ' '
+      
+        '  REMESSA, PERCENTJUROS, PERCENTMULTA, PERCENTDESCONTO, DATAPROC' +
+        'ESSOBOLETO, '
+      '  BAIXADO, ENVIADO, ANOVENDA, NUMVENDA, ANOOS, NUMOS, CODTPREC, '
+      '  SITUACAO, LOTE, COMPETENCIA_APURACAO'
+      'FROM TBCONTREC'
+      'WHERE ANOLANC = :ANOLANC AND NUMLANC = :NUMLANC')
+    Left = 48
+    Top = 264
   end
 end

@@ -6,14 +6,17 @@ uses
   UGrPadrao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, DB, IBCustomDataSet, IBTable, ComCtrls,
-  IBSQL, DBClient, Provider, IBUpdateSQL, IBQuery, Buttons, ToolWin, Grids,
-  DBGrids, ComObj, frxClass, frxDBSet, ACBrBoleto, ACBrBoletoFCFR,
-  ACBrBase, Mask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvExMask, JvToolEdit,
+  Dialogs, ExtCtrls, StdCtrls, DB, IBCustomDataSet, IBTable, ComCtrls, ACBrBoleto, ACBrBoletoFCFR,
+  DBClient, Provider, Buttons, ToolWin, Grids, DBGrids, ComObj, frxClass, frxDBSet, cxButtons,
+  ACBrBase, Mask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, JvExMask, JvToolEdit,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeRemessaBoleto = class(TfrmGrPadrao)
@@ -25,23 +28,9 @@ type
     lblFinal: TLabel;
     edArquivoRemessa: TEdit;
     lblArquivoRemessa: TLabel;
-    IbQryTitulos: TIBQuery;
-    IbUpdTitulos: TIBUpdateSQL;
     DspTitulos: TDataSetProvider;
     CdsTitulos: TClientDataSet;
-    CdsTitulosPARCELA: TSmallintField;
-    CdsTitulosCODBANCO: TIntegerField;
-    CdsTitulosDTEMISS: TDateField;
-    CdsTitulosDTVENC: TDateField;
-    CdsTitulosVALORREC: TBCDField;
-    CdsTitulosPERCENTJUROS: TBCDField;
-    CdsTitulosPERCENTMULTA: TBCDField;
-    CdsTitulosPERCENTDESCONTO: TBCDField;
-    CdsTitulosVALORRECTOT: TBCDField;
-    CdsTitulosVALORSALDO: TBCDField;
-    CdsTitulosDATAPROCESSOBOLETO: TDateField;
     DtsTitulos: TDataSource;
-    UpdateLanc: TIBSQL;
     pnlTitulos: TPanel;
     Shape1: TShape;
     Bevel2: TBevel;
@@ -51,52 +40,8 @@ type
     Label5: TLabel;
     frrRemessa: TfrxReport;
     frdRemessa: TfrxDBDataset;
-    CdsTitulosANOLANC: TSmallintField;
-    CdsTitulosANOVENDA: TSmallintField;
-    CdsTitulosNUMVENDA: TIntegerField;
-    CdsTitulosNUMLANC: TIntegerField;
     ACBrBoleto: TACBrBoleto;
     ACBrBoletoFCFR: TACBrBoletoFCFR;
-    CdsTitulosNFE: TLargeintField;
-    IbQryBancos: TIBQuery;
-    IbQryBancosBCO_COD: TSmallintField;
-    IbQryBancosEMPRESA: TIBStringField;
-    IbQryBancosBCO_CARTEIRA: TIBStringField;
-    IbQryBancosBCO_NOME: TIBStringField;
-    IbQryBancosBCO_AGENCIA: TIBStringField;
-    IbQryBancosBCO_CC: TIBStringField;
-    IbQryBancosBCO_CODIGO_CEDENTE: TIBStringField;
-    IbQryBancosBCO_CHAVE: TIBStringField;
-    IbQryBancosBCO_GERAR_BOLETO: TSmallintField;
-    IbQryBancosBCO_NOSSO_NUM_INICIO: TIBStringField;
-    IbQryBancosBCO_NOSSO_NUM_FINAL: TIBStringField;
-    IbQryBancosBCO_NOSSO_NUM_PROXIMO: TIBStringField;
-    IbQryBancosBCO_CONFG_1: TIBStringField;
-    IbQryBancosBCO_CONFG_2: TIBStringField;
-    IbQryBancosBCO_SEQUENCIAL_REM: TIntegerField;
-    IbQryBancosBCO_DIRETORIO_REMESSA: TIBStringField;
-    IbQryBancosBCO_DIRETORIO_RETORNO: TIBStringField;
-    IbQryBancosBCO_PERCENTUAL_JUROS: TIBBCDField;
-    IbQryBancosBCO_PERCENTUAL_MORA: TIBBCDField;
-    IbQryBancosBCO_DIA_PROTESTO: TSmallintField;
-    IbQryBancosBCO_MSG_INSTRUCAO: TIBStringField;
-    IbQryBancosBCO_LAYOUT_REMESSA: TSmallintField;
-    IbQryBancosBCO_LAYOUT_RETORNO: TSmallintField;
-    IbQryBancosRZSOC: TIBStringField;
-    IbQryBancosNMFANT: TIBStringField;
-    IbQryBancosIE: TIBStringField;
-    IbQryBancosIM: TIBStringField;
-    IbQryBancosENDER: TIBStringField;
-    IbQryBancosCOMPLEMENTO: TIBStringField;
-    IbQryBancosNUMERO_END: TIBStringField;
-    IbQryBancosBAIRRO: TIBStringField;
-    IbQryBancosCEP: TIBStringField;
-    IbQryBancosCIDADE: TIBStringField;
-    IbQryBancosUF: TIBStringField;
-    IbQryBancosEMAIL: TIBStringField;
-    IbUpdBancos: TIBUpdateSQL;
-    CdsTitulosPARCELA_MAXIMA: TSmallintField;
-    CdsTitulosSITUACAO: TSmallintField;
     edInicio: TJvDateEdit;
     edFinal: TJvDateEdit;
     tlbBotoes: TPanel;
@@ -108,22 +53,44 @@ type
     chkEnviarCancelados: TCheckBox;
     Bevel7: TBevel;
     btnHistorico: TcxButton;
-    CdsTitulosNOSSONUMERO: TWideStringField;
-    CdsTitulosCNPJ: TWideStringField;
-    CdsTitulosTIPPAG: TWideStringField;
-    CdsTitulosINSCEST: TWideStringField;
-    CdsTitulosNOME: TWideStringField;
-    CdsTitulosFONE: TWideStringField;
-    CdsTitulosSERIE: TWideStringField;
     CdsTitulosNumeroDocumento: TStringField;
-    CdsTitulosENDER: TWideStringField;
-    CdsTitulosENDER_DESC: TWideStringField;
-    CdsTitulosENDER_NUM: TWideStringField;
-    CdsTitulosBAIRRO: TWideStringField;
-    CdsTitulosCIDADE: TWideStringField;
-    CdsTitulosUF: TWideStringField;
-    CdsTitulosCEP: TWideStringField;
-    CdsTitulosEMAIL: TWideStringField;
+    fdUpdBancos: TFDUpdateSQL;
+    fdQryBancos: TFDQuery;
+    IbQryTitulos: TFDQuery;
+    UpdTitulos: TFDUpdateSQL;
+    CdsTitulosANOLANC: TSmallintField;
+    CdsTitulosNUMLANC: TIntegerField;
+    CdsTitulosPARCELA: TSmallintField;
+    CdsTitulosPARCELA_MAXIMA: TSmallintField;
+    CdsTitulosCODBANCO: TIntegerField;
+    CdsTitulosNOSSONUMERO: TStringField;
+    CdsTitulosCNPJ: TStringField;
+    CdsTitulosTIPPAG: TStringField;
+    CdsTitulosDTEMISS: TDateField;
+    CdsTitulosDTVENC: TDateField;
+    CdsTitulosVALORREC: TBCDField;
+    CdsTitulosPERCENTJUROS: TCurrencyField;
+    CdsTitulosPERCENTMULTA: TCurrencyField;
+    CdsTitulosPERCENTDESCONTO: TCurrencyField;
+    CdsTitulosVALORRECTOT: TBCDField;
+    CdsTitulosVALORSALDO: TBCDField;
+    CdsTitulosDATAPROCESSOBOLETO: TDateField;
+    CdsTitulosANOVENDA: TSmallintField;
+    CdsTitulosNUMVENDA: TIntegerField;
+    CdsTitulosSITUACAO: TSmallintField;
+    CdsTitulosSERIE: TStringField;
+    CdsTitulosNFE: TLargeintField;
+    CdsTitulosINSCEST: TStringField;
+    CdsTitulosNOME: TStringField;
+    CdsTitulosFONE: TStringField;
+    CdsTitulosENDER: TStringField;
+    CdsTitulosENDER_DESC: TStringField;
+    CdsTitulosENDER_NUM: TStringField;
+    CdsTitulosBAIRRO: TStringField;
+    CdsTitulosCIDADE: TStringField;
+    CdsTitulosUF: TStringField;
+    CdsTitulosCEP: TStringField;
+    CdsTitulosEMAIL: TStringField;
     procedure FormShow(Sender: TObject);
     procedure edBancoChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -135,15 +102,11 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure frrRemessaGetValue(const VarName: String;
       var Value: Variant);
-    procedure FormDestroy(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure CdsTitulosCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
-    {$IFNDEF ACBR}
-    CobreBemX : Variant;
-    {$ENDIF}
     procedure CarregarBancos;
     procedure DefinirNomeArquivo( iBanco : Integer );
     procedure CarregarTitulos( iBanco : Integer; DataInicial, DataFinal : TDate);
@@ -155,13 +118,8 @@ type
     function GetContaDigito : String;
     function GetNossoNumeroRepetido : Boolean;
 
-    {$IFDEF ACBR}
     function DefinirCedenteACBr(iBanco : Integer; sCarteira : String) : Boolean;
     function InserirBoletoACBr : Boolean;
-    {$ELSE}
-    function DefinirCedente( Banco, Carteira : Integer; var Objeto : Variant ) : Boolean;
-    function InserirBoleto( var Objeto : Variant ) : Boolean;
-    {$ENDIF}
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -184,26 +142,6 @@ type
 
 var
   frmGeRemessaBoleto: TfrmGeRemessaBoleto;
-
-{$IFNDEF ACBR}
-const
-  feeSMTPBoletoHTML              = $00000000;
-  feeSMTPMensagemBoletoHTMLAnexo = $00000001;
-  feeSMTPMensagemBoletoPDFAnexo  = $00000002;
-  feeSMTPMensagemLinhaDigitavelURLCobreBemECommerce = $00000003;
-  feeSMTPMensagemURLCobreBemECommerce = $00000004;
-  feeSMTPMensagemLinhaDigitavel       = $00000005;
-  feeOutlookBoletoHTML                = $00000006;
-  feeOutlookMensagemBoletoHTMLAnexo   = $00000007;
-  feeOutlookMensagemBoletoPDFAnexo    = $00000008;
-  feeOutlookMensagemLinhaDigitavelURLCobreBemECommerce = $00000009;
-  feeOutlookMensagemURLCobreBemECommerce = $0000000A;
-  feeOutlookMensagemLinhaDigitavel       = $0000000B;
-  scpExecutar = $00000000;
-  scpOK       = $00000001;
-  scpInvalido = $00000002;
-  scpErro     = $00000003;
-{$ENDIF}
 
   procedure GerarArquivoRemessa(const AOwer : TComponent);
 
@@ -229,25 +167,27 @@ end;
 
 procedure TfrmGeRemessaBoleto.CarregarBancos;
 begin
-  with IbQryBancos, edBanco do
+  edBanco.Items.Clear;
+
+  with fdQryBancos, edBanco do
   begin
     Close;
     ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
     Open;
-    
+
     if ( not IsEmpty ) then
       Clear;
 
     while not Eof do
     begin
-      Items.Add( FormatFloat('000', IbQryBancosBCO_COD.AsInteger) + ' - ' + IbQryBancosBCO_NOME.AsString );
+      Items.Add( FormatFloat('000', fdQryBancos.FieldByName('BCO_COD').AsInteger) + ' - ' + fdQryBancos.FieldByName('BCO_NOME').AsString );
 
       Next;
     end;
 
     First;
 
-    edBanco.Tag       := IbQryBancosBCO_COD.AsInteger;
+    edBanco.Tag       := fdQryBancos.FieldByName('BCO_COD').AsInteger;
     edBanco.ItemIndex := 0;
   end;
 end;
@@ -262,11 +202,11 @@ end;
 
 procedure TfrmGeRemessaBoleto.edBancoChange(Sender: TObject);
 begin
-  if ( not IbQryBancos.Active ) then
-    IbQryBancos.Open;
+  if ( not fdQryBancos.Active ) then
+    fdQryBancos.Open;
 
-  if ( IbQryBancos.Locate('BCO_COD', StrToIntDef(Copy(edBanco.Text, 1, 3), 0), []) ) then
-    edBanco.Tag := IbQryBancosBCO_COD.AsInteger;
+  if ( fdQryBancos.Locate('BCO_COD', StrToIntDef(Copy(edBanco.Text, 1, 3), 0), []) ) then
+    edBanco.Tag := fdQryBancos.FieldByName('BCO_COD').AsInteger;
 
   DefinirNomeArquivo( edBanco.Tag );
 
@@ -278,20 +218,17 @@ begin
   inherited;
   edInicio.Date := Date;
   edFinal.Date  := Date;
-  {$IFNDEF ACBR}
-  CobreBemX := CreateOleObject('CobreBemX.ContaCorrente');
-  {$ENDIF}
 end;
 
 procedure TfrmGeRemessaBoleto.DefinirNomeArquivo(iBanco: Integer);
 begin
   try
-    ForceDirectories(Trim(IbQryBancosBCO_DIRETORIO_REMESSA.AsString));
+    ForceDirectories(Trim(fdQryBancos.FieldByName('BCO_DIRETORIO_REMESSA').AsString));
   except
   end;
 
-  if ( DirectoryExists(Trim(IbQryBancosBCO_DIRETORIO_REMESSA.AsString)) ) then
-    edArquivoRemessa.Text := Trim(IbQryBancosBCO_DIRETORIO_REMESSA.AsString) + FormatFloat('000', iBanco) + '\' + FormatFloat('000', iBanco) + '_' + FormatDateTime('yyyymmdd-hhmmss', Now) + '.rem'
+  if ( DirectoryExists(Trim(fdQryBancos.FieldByName('BCO_DIRETORIO_REMESSA').AsString)) ) then
+    edArquivoRemessa.Text := Trim(fdQryBancos.FieldByName('BCO_DIRETORIO_REMESSA').AsString) + FormatFloat('000', iBanco) + '\' + FormatFloat('000', iBanco) + '_' + FormatDateTime('yyyymmdd-hhmmss', Now) + '.rem'
   else
     edArquivoRemessa.Text := ExtractFilePath(ParamStr(0)) + 'Remessa\' + FormatFloat('000', iBanco) + '\' + FormatFloat('000', iBanco) + '_' + FormatDateTime('yyyymmdd-hhmmss', Now) + '.rem';
 
@@ -336,31 +273,21 @@ begin
     end;
 
     IBanco    := StrToIntDef( Copy(edBanco.Text, 1, 3), 0 );
-    ICarteira := IbQryBancosBCO_CARTEIRA.AsInteger;
+    ICarteira := fdQryBancos.FieldByName('BCO_CARTEIRA').AsInteger;
 
     sBanco    := Copy(edBanco.Text, 1, 3);
-    sCarteira := IbQryBancosBCO_CARTEIRA.AsString;
+    sCarteira := fdQryBancos.FieldByName('BCO_CARTEIRA').AsString;
 
     if GetNossoNumeroRepetido then
       Exit;
 
-    {$IFDEF ACBR}
     if DefinirCedenteACBr( IBanco, sCarteira ) then
-    {$ELSE}
-    if DefinirCedente( IBanco, ICarteira, CobreBemX ) then
-    {$ENDIF}
     begin
       CdsTitulos.First;
 
-      {$IFDEF ACBR}
       if ( InserirBoletoACbr ) then
       begin
-        edArquivoRemessa.Text := StringReplace(ACBrBoleto.GerarRemessa(IbQryBancosBCO_SEQUENCIAL_REM.AsInteger), '\\', '\', [rfReplaceAll]);
-      {$ELSE}
-      if ( InserirBoleto( CobreBemX ) ) then
-      begin
-        CobreBemX.GravaArquivoRemessa;
-      {$ENDIF}
+        edArquivoRemessa.Text := StringReplace(ACBrBoleto.GerarRemessa(fdQryBancos.FieldByName('BCO_SEQUENCIAL_REM').AsInteger), '\\', '\', [rfReplaceAll]);
         GravarHistoricoRemessa;
         ShowInformation('Remessa', 'Arquivo de remessa gerado com sucesso.'{$IFDEF ACBR} + #13#13 + QuotedStr(edArquivoRemessa.Text){$ENDIF});
 
@@ -418,156 +345,33 @@ begin
   TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
 end;
 
-{$IFNDEF ACBR}
-function TfrmGeRemessaBoleto.DefinirCedente(Banco, Carteira: Integer;
-  var Objeto: Variant): Boolean;
-var
-  sAppPath     ,
-  sFileLisence : String;
-begin
-  try
-    sAppPath     := ExtractFilePath(ParamStr(0));
-    sFileLisence := sAppPath + BOLETO_LICENCAS + FormatFloat('000', Banco)  + '-' + FormatFloat('00', Carteira) + '.conf';
-
-    if ( not FileExists(sFileLisence) ) then
-      raise Exception.Create('Arquivo de licença ' + QuotedStr(sFileLisence) + ' não encontrado');
-
-    // Parâmetros obrigatórios da conta corrente do Cedente
-
-    Objeto.ArquivoLicenca         := sFileLisence;
-    Objeto.CodigoAgencia          := IbQryBancosBCO_AGENCIA.AsString;
-    Objeto.NumeroContaCorrente    := IbQryBancosBCO_CC.AsString;
-    Objeto.CodigoCedente          := IbQryBancosBCO_CHAVE.AsString;
-    Objeto.InicioNossoNumero      := IbQryBancosBCO_NOSSO_NUM_INICIO.AsString;
-    Objeto.FimNossoNumero         := IbQryBancosBCO_NOSSO_NUM_FINAL.AsString;
-    Objeto.OutroDadoConfiguracao1 := Trim(IbQryBancosBCO_CONFG_1.AsString);
-    Objeto.OutroDadoConfiguracao2 := Trim(IbQryBancosBCO_CONFG_2.AsString);
-
-    if ( Trim(IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString) = EmptyStr ) then
-      Objeto.ProximoNossoNumero  := '1'
-    else
-      Objeto.ProximoNossoNumero  := IbQryBancosBCO_NOSSO_NUM_PROXIMO.AsString;
-
-    // Parâmetros obrigatórios para a geração de arquivos de remessa
-
-    Objeto.ArquivoRemessa.Arquivo      := ExtractFileName(edArquivoRemessa.Text);
-    Objeto.ArquivoRemessa.Diretorio    := ExtractFilePath(edArquivoRemessa.Text);
-    Objeto.ArquivoRemessa.Sequencia    := IbQryBancosBCO_SEQUENCIAL_REM.AsInteger;
-    Objeto.ArquivoRemessa.DataGravacao := FormatDateTime('dd/mm/yyyy', Date);
-
-    Objeto.PadroesBoleto.PadroesBoletoImpresso.ArquivoLogotipo            := sAppPath + BOLETO_ARQUIVO_LOGOTIPO;
-    Objeto.PadroesBoleto.PadroesBoletoImpresso.CaminhoImagensCodigoBarras := sAppPath + BOLETO_IMAGENS;
-
-    Result := True;
-  except
-    On E : Exception do
-    begin
-      Application.MessageBox(PChar('Erro ao tentar iniciar processo de geração de arquivo de remessa.' + #13 + E.Message), 'Erro', MB_ICONERROR);
-      Result := False;
-    end;
-  end;
-end;
-
-function TfrmGeRemessaBoleto.InserirBoleto(var Objeto: Variant): Boolean;
-var
-  sDocumento  : String;
-  Boleto      ,
-  EmailSacado : Variant;
-begin
-  try
-    Objeto.DocumentosCobranca.Clear;
-
-    CdsTitulos.First;
-
-    while not CdsTitulos.Eof do
-    begin
-      Boleto := Objeto.DocumentosCobranca.Add;
-      sDocumento := Copy(CdsTitulosANOLANC.AsString, 3, 2) + FormatFloat('00000000', CdsTitulosNUMLANC.AsInteger) + FormatFloat('000', CdsTitulosPARCELA.AsInteger);
-
-      Boleto.NumeroDocumento := sDocumento;
-      Boleto.NomeSacado      := Trim(CdsTitulosNOME.AsString);
-
-      if Length(Trim(CdsTitulosCNPJ.AsString)) > 11 then
-        Boleto.CNPJSacado := Trim(CdsTitulosCNPJ.AsString)
-      else
-        Boleto.CPFSacado  := Trim(CdsTitulosCNPJ.AsString);
-
-      Boleto.EnderecoSacado := Trim(CdsTitulosENDER.AsString);
-      Boleto.BairroSacado   := Trim(CdsTitulosBAIRRO.AsString);
-      Boleto.CidadeSacado   := Trim(CdsTitulosCIDADE.AsString);
-      Boleto.EstadoSacado   := Trim(CdsTitulosUF.AsString);
-      Boleto.CepSacado      := Trim(CdsTitulosCEP.AsString);
-      Boleto.DataDocumento  := FormatDateTime('dd/mm/yyyy', CdsTitulosDATAPROCESSOBOLETO.AsDateTime);
-
-      if not CdsTitulosDTVENC.IsNull then
-        Boleto.DataVencimento  := FormatDateTime('dd/mm/yyyy', CdsTitulosDTVENC.AsDateTime);
-
-      Boleto.DataProcessamento := FormatDateTime('dd/mm/yyyy', CdsTitulosDATAPROCESSOBOLETO.AsDateTime);
-
-      Boleto.ValorDocumento                := CdsTitulosVALORREC.AsFloat;
-      Boleto.PercentualJurosDiaAtraso      := CdsTitulosPERCENTJUROS.AsFloat;
-      Boleto.PercentualMultaAtraso         := CdsTitulosPERCENTMULTA.AsFloat;
-      Boleto.PercentualDesconto            := CdsTitulosPERCENTDESCONTO.AsFloat;
-      Boleto.ValorOutrosAcrescimos         := 0;
-      Boleto.PadroesBoleto.Demonstrativo   := 'Referente a compra de produtos <br>e/ou a contratação de serviços' + '<br><br>Venda No. ' +
-                                              FormatFloat('0000', CdsTitulosANOLANC.AsInteger) + '/' +
-                                              FormatFloat('##00000000', CdsTitulosNUMVENDA.AsInteger);;
-      Boleto.PadroesBoleto.InstrucoesCaixa := '<br>' + IbQryBancosBCO_MSG_INSTRUCAO.AsString;
-
-      EmailSacado          := Boleto.EnderecosEmailSacado.Add;
-      EmailSacado.Nome     := Boleto.NomeSacado;
-      EmailSacado.Endereco := Trim(CdsTitulosEMAIL.AsString);
-
-      Boleto.ControleProcessamentoDocumento.Imprime      := scpExecutar;
-      Boleto.ControleProcessamentoDocumento.EnviaEmail   := scpExecutar;
-      Boleto.ControleProcessamentoDocumento.GravaRemessa := scpExecutar;
-
-      Boleto.NossoNumero := CdsTitulosNOSSONUMERO.AsString;
-
-      CdsTitulos.Next;
-    end;
-
-    Result := True;
-  except
-    On E : Exception do
-    begin
-      Application.MessageBox(PChar('Erro ao tentar inserir boleto no arquivo de remessa.' + #13 + E.Message), 'Erro', MB_ICONERROR);
-      Result := False;
-    end;
-  end;
-end;
-{$ENDIF}
-
 procedure TfrmGeRemessaBoleto.GravarHistoricoRemessa;
 var
   sSQL : TStringList;
 begin
   try
     sSQL := TStringList.Create;
-    
+
     if ( FileExists(edArquivoRemessa.Text) ) then
     begin
 
       sSQL.BeginUpdate;
       sSQL.Clear;
       sSQL.Add( ' Update TBCONTREC Set ' );
-      sSQL.Add( '     enviado = 1, remessa = ' + IbQryBancosBCO_SEQUENCIAL_REM.AsString );
+      sSQL.Add( '     enviado = 1, remessa = ' + fdQryBancos.FieldByName('BCO_SEQUENCIAL_REM').AsString );
       sSQL.Add( ' where codbanco = '   + IntToStr(edBanco.Tag) );
       sSQL.Add( '   and baixado  = 0' );
       sSQL.Add( '   and enviado  = 0' );
       sSQL.Add( '   and dataprocessoboleto between ' + QuotedStr(FormatDateTime('yyyy-mm-dd', edInicio.Date)) + ' and ' + QuotedStr(FormatDateTime('yyyy-mm-dd', edFinal.Date))) ;
       sSQL.EndUpdate;
 
-      with UpdateLanc, SQL  do
-      begin
-        Clear;
-        AddStrings( sSQL );
-        ExecQuery;
-      end;
+      ExecuteScriptSQL(sSQL.Text);
 
-      IbQryBancos.Edit;
-      IbQryBancosBCO_SEQUENCIAL_REM.Value := IbQryBancosBCO_SEQUENCIAL_REM.AsInteger + 1;
-      IbQryBancos.Post;
+      fdQryBancos.Edit;
+      fdQryBancos.FieldByName('BCO_SEQUENCIAL_REM').Value := fdQryBancos.FieldByName('BCO_SEQUENCIAL_REM').AsInteger + 1;
+      fdQryBancos.Post;
+      fdQryBancos.ApplyUpdates;
+      fdQryBancos.CommitUpdates;
 
       CommitTransaction;
     end;
@@ -583,13 +387,6 @@ begin
     Value := edBanco.Text;
   if ( VarName = 'Arquivo' ) then
     Value := ExtractFileName(edArquivoRemessa.Text);
-end;
-
-procedure TfrmGeRemessaBoleto.FormDestroy(Sender: TObject);
-begin
-  {$IFNDEF ACBR}
-  CobreBemX := Unassigned;
-  {$ENDIF}
 end;
 
 procedure TfrmGeRemessaBoleto.FormKeyDown(Sender: TObject; var Key: Word;
@@ -680,10 +477,10 @@ begin
           end;
 
         else
-          raise Exception.Create('Sistema não adapitado para gerar boletos para o banco ' + IbQryBancosBCO_NOME.AsString);
+          raise Exception.Create('Sistema não adapitado para gerar boletos para o banco ' + fdQryBancos.FieldByName('BCO_NOME').AsString);
       end;
 
-      Case IbQryBancosBCO_LAYOUT_REMESSA.AsInteger of
+      Case fdQryBancos.FieldByName('BCO_LAYOUT_REMESSA').AsInteger of
         240: LayoutRemessa := c240;
         400: LayoutRemessa := c400;
       end;
@@ -700,28 +497,28 @@ begin
       Cedente.AgenciaDigito := GetAgenciaDigito;
       Cedente.Conta         := GetContaNumero;
       Cedente.ContaDigito   := GetContaDigito;
-      Cedente.Convenio      := IbQryBancosBCO_CHAVE.AsString;
+      Cedente.Convenio      := fdQryBancos.FieldByName('BCO_CHAVE').AsString;
 
       // Dados Cedente
-      if StrIsCPF(IbQryBancosEMPRESA.AsString) then
+      if StrIsCPF(fdQryBancos.FieldByName('EMPRESA').AsString) then
         Cedente.TipoInscricao := pFisica
       else
-      if StrIsCNPJ(IbQryBancosEMPRESA.AsString) then
+      if StrIsCNPJ(fdQryBancos.FieldByName('EMPRESA').AsString) then
         Cedente.TipoInscricao := pJuridica;
 
-      Cedente.CNPJCPF     := IbQryBancosEMPRESA.AsString;
-      Cedente.Nome        := IbQryBancosRZSOC.AsString;
-      Cedente.Logradouro  := IbQryBancosENDER.AsString;
-      Cedente.NumeroRes   := IbQryBancosNUMERO_END.AsString;
-      Cedente.Complemento := IbQryBancosCOMPLEMENTO.AsString;
-      Cedente.Bairro := IbQryBancosBAIRRO.AsString;
-      Cedente.CEP    := IbQryBancosCEP.AsString;
-      Cedente.Cidade := IbQryBancosCIDADE.AsString;
-      Cedente.UF     := IbQryBancosUF.AsString;
+      Cedente.CNPJCPF     := fdQryBancos.FieldByName('EMPRESA').AsString;
+      Cedente.Nome        := fdQryBancos.FieldByName('RZSOC').AsString;
+      Cedente.Logradouro  := fdQryBancos.FieldByName('ENDER').AsString;
+      Cedente.NumeroRes   := fdQryBancos.FieldByName('NUMERO_END').AsString;
+      Cedente.Complemento := fdQryBancos.FieldByName('COMPLEMENTO').AsString;
+      Cedente.Bairro := fdQryBancos.FieldByName('BAIRRO').AsString;
+      Cedente.CEP    := fdQryBancos.FieldByName('CEP').AsString;
+      Cedente.Cidade := fdQryBancos.FieldByName('CIDADE').AsString;
+      Cedente.UF     := fdQryBancos.FieldByName('UF').AsString;
 
       // Dados Convênio
-      Cedente.CodigoCedente     := Trim(IbQryBancosBCO_CODIGO_CEDENTE.AsString);
-      Cedente.Convenio          := IbQryBancosBCO_CHAVE.AsString;
+      Cedente.CodigoCedente     := Trim(fdQryBancos.FieldByName('BCO_CODIGO_CEDENTE').AsString);
+      Cedente.Convenio          := fdQryBancos.FieldByName('BCO_CHAVE').AsString;
       Cedente.CodigoTransmissao := EmptyStr;
     end;
 
@@ -739,7 +536,7 @@ function TfrmGeRemessaBoleto.GetAgenciaDigito: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_AGENCIA.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_AGENCIA').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, Pos('-', S) + 1, Length(S))
@@ -753,7 +550,7 @@ function TfrmGeRemessaBoleto.GetAgenciaNumero: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_AGENCIA.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_AGENCIA').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, 1, Pos('-', S) - 1);
@@ -765,7 +562,7 @@ function TfrmGeRemessaBoleto.GetContaDigito: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_CC.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_CC').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, Pos('-', S) + 1, Length(S))
@@ -779,7 +576,7 @@ function TfrmGeRemessaBoleto.GetContaNumero: String;
 var
   S : String;
 begin
-  S := Trim(IbQryBancosBCO_CC.AsString);
+  S := Trim(fdQryBancos.FieldByName('BCO_CC').AsString);
 
   if Pos('-', S) > 0 then
     S := Copy(S, 1, Pos('-', S) - 1);
@@ -915,14 +712,14 @@ begin
 
         DataProcessamento := CdsTitulosDATAPROCESSOBOLETO.AsDateTime;
 
-        Carteira          := IbQryBancosBCO_CARTEIRA.AsString;
+        Carteira          := fdQryBancos.FieldByName('BCO_CARTEIRA').AsString;
 
         NossoNumero     := CdsTitulosNOSSONUMERO.AsString;
 
         // Dados de Cobrança
         ValorDocumento    := CdsTitulosVALORREC.AsCurrency;
         ValorAbatimento   := 0.0;
-        ValorMoraJuros    := (CdsTitulosVALORREC.AsCurrency * IbQryBancosBCO_PERCENTUAL_MORA.AsCurrency / 100) / 30;
+        ValorMoraJuros    := (CdsTitulosVALORREC.AsCurrency * fdQryBancos.FieldByName('BCO_PERCENTUAL_MORA').AsCurrency / 100) / 30;
         ValorDesconto     := CdsTitulosVALORREC.AsCurrency * CdsTitulosPERCENTDESCONTO.AsCurrency / 100;
         DataMoraJuros     := GetProximoDiaUtil(Vencimento);
         DataAbatimento    := StrToCurrDef(EmptyStr, 0);
@@ -932,12 +729,12 @@ begin
         else
           DataDesconto    := CdsTitulosDTVENC.AsDateTime;
 
-        if ( IbQryBancosBCO_DIA_PROTESTO.AsInteger = 0 ) then
+        if ( fdQryBancos.FieldByName('BCO_DIA_PROTESTO').AsInteger = 0 ) then
           DataProtesto    := StrToCurrDef(EmptyStr, 0)
         else
-          DataProtesto    := (Vencimento + IbQryBancosBCO_DIA_PROTESTO.AsInteger);
+          DataProtesto    := (Vencimento + fdQryBancos.FieldByName('BCO_DIA_PROTESTO').AsInteger);
 
-        PercentualMulta   := IbQryBancosBCO_PERCENTUAL_JUROS.AsCurrency;  // Percentual de multa por dia de atraso.
+        PercentualMulta   := fdQryBancos.FieldByName('BCO_PERCENTUAL_JUROS').AsCurrency;  // Percentual de multa por dia de atraso.
 
         if ( CdsTitulosSITUACAO.AsInteger = 0 ) then     // Cancelado
           OcorrenciaOriginal.Tipo := toRemessaBaixar
@@ -948,7 +745,7 @@ begin
         Instrucao1        := '00';
         Instrucao2        := '00';
 
-        Mensagem.Text := sMensagem + #13 + StringReplace(IbQryBancosBCO_MSG_INSTRUCAO.AsString, '<br>', '', [rfReplaceAll]);
+        Mensagem.Text := sMensagem + #13 + StringReplace(fdQryBancos.FieldByName('BCO_MSG_INSTRUCAO').AsString, '<br>', '', [rfReplaceAll]);
       end;
 
       CdsTitulos.Next;
